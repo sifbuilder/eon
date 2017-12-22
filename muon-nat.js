@@ -67,7 +67,6 @@
     let radorm = function radorm(form, extent=[-1,1]) { //  radorm: [-1,1) => [-1,1]
 
       let radorpts = f.norma(rador(form))       //  rador:  [-1,1] => [0,seg5+1)
-
       let s1extent = extent                   // [-1, 1]
       let s1range = [0,radorpts.length-1]     // [0, seg5]
 
@@ -205,8 +204,10 @@
     }
    
 
-  let natform = function(form) {
-      let radioform = Object.values(form).map(d =>radorm(d,[-Math.PI, Math.PI]))
+    let natform = function(form) {
+      let radioform = Object.values(form).map( (d,i) => {
+          return radorm(d,[-Math.PI, Math.PI])
+      })
 
       let scale = [1,1,1], rotation = [0,0,0],  location = [0,0,0]
       if (form) scale =   Object.values(form).map(dim => dim.ra2)

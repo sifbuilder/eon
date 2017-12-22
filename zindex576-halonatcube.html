@@ -49,19 +49,50 @@ let muonAlima = function muonAlima(__mapper) {
   let wen = __mapper("xs").c("wen")({rotInit})
 
   /*******************************************
- *      @animas
+ *      @pics
  *
  */
   let tim = {"td":19800,"t0":0,"t1":1000,"t2":1,"t3":1,}
 
-  
+  let form =  {
+
+    "x": {
+      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
+      "ra2": 250,
+      "v0": 0, "v1":1,
+      "w4": 0,
+      "seg5": 360,"pa6":0,"pb7":-1,
+      "fas8": 0,
+    },
+    "y": {
+      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
+      "ra2": 250,
+      "v0":0,"v1":1,
+      "w4": 0,
+      "seg5": 360,"pa6":0,"pb7":-1,
+      "fas8": 0,
+    },
+    "z": {
+      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
+      "ra2": 250 / Math.sqrt(2),
+      "v0": 0, "v1":1,
+      "w4":  0,
+      "seg5": 360,"pa6":0,"pb7":-1,
+      "fas8": 0,
+    }
+
+  }
+  /*******************************************
+ *      @animas
+ *
+ */
   let aniCube = {
 
     "tim": tim,
     "ric": {"gid":"aniCube","cid":"aniCube","fid":"aniCube",},
     "halo": "geojson",
     "boform":{ "csx":0,"cf":111,"cs":111,"cw":0.1,"co":0.9,"cp":0.9,},
-    
+
     "geoform": (p) => {
       let payload = p.payload
       let ric = p.ric
@@ -72,7 +103,11 @@ let muonAlima = function muonAlima(__mapper) {
       for (let i = 0, l = faces.length; i < l; i++) {
         let face = faces[i]                // face corners position
         let geometry = {type:"Polygon",coordinates:[]}
-            geometry.coordinates = Array.of(face.corners.map(k=>vertices[k])) // eg [-1, 1, 1]
+          geometry.coordinates = face.corners.map(k=>vertices[k]) // eg [-1, 1, 1]
+            .map(g.normalize)    // eg. [0.5773, -0.577, 0.5773]
+            .map(g.spherical)   // eg. [-0.7853, 0.6154]
+            .map(g.to_degrees)
+          geometry.coordinates = Array.of(geometry.coordinates)
         let feature = {type:"Feature",geometry:{},properties:{}}
             feature.properties.ric = ric
             feature.properties.ric.cid = "face"
@@ -85,18 +120,25 @@ let muonAlima = function muonAlima(__mapper) {
       return json
     },
 
+    "conform": {
+
+      "projection": "natform",
+      "form": form,
+
+    },
+
     "proform": {
-    
+
       "projection": "uniwen",
       "translate":  [ 320 , 200],
-      "scale": 60,
+      "scale": 1,
       "rotate": [-5,50,0],
-      "focale": 4,
+      "focale": 400,
       "zafin": [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  // [0,1], // [1,0]
       "dims": 3,
       "control": "wen",
     },
-    
+
     "payload": {
 
       vertices: [
@@ -110,27 +152,27 @@ let muonAlima = function muonAlima(__mapper) {
         [ 1, 1, -1],    // 7
       ],
       faces: [
-        { 
+        {
           corners: [0,1,2,3,0],
           name: "front",
           boform: { cf: 222, cs: 355, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
-        { 
+        {
           corners: [4,5,6,7,4],
           name: "back",
           boform: { cf: 888, cs: 455, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
-        { 
+        {
           corners: [1,4,7,2,1],
           name: "right",
           boform: { cf: 444, cs: 555, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
-        { 
+        {
           corners: [5,0,3,6,5],
           name: "left",
           boform: { cf: 555, cs: 655, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
-        { 
+        {
           corners: [3,2,7,6,3],
           name: "bottom",
           boform: { cf: 666, cs: 755, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
-        { 
+        {
           corners: [5,4,1,0,5],
           name: "top",
           boform: { cf: 777, cs: 855, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }}
@@ -185,7 +227,7 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let animas = [
     aniCube,  // h.geojson g.uniwen
-    img,      // h.img
+    // img,      // h.img
   ]
   let animaApi = function animaApi() {
     __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})

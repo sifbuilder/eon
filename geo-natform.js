@@ -32,7 +32,7 @@
 
     let pointStream = function(props) {
       let form = (props.form !== undefined) ? props.form : props  // anitem or form
-      let natform =  __mapper("xs").m("nat").natform(form)
+      let natform =  __mapper("xs").m("nat").natform(form)        // m.nat.natform
       let natstream = function (lambda, phi, radio=1) {
           this.stream.point(...natform(lambda, phi, radio))
       }

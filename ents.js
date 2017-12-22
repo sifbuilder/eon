@@ -2,7 +2,6 @@
 /*  bosons */  
 document.write("<script src='boson-clone.js'><\/script>")    
 document.write("<script src='boson-gist.js'><\/script>")    
-document.write("<script src='boson-gramify.js'><\/script>")    
 document.write("<script src='boson-image.js'><\/script>")    
 document.write("<script src='boson-init.js'><\/script>")    
 document.write("<script src='boson-mapper.js'><\/script>")    
