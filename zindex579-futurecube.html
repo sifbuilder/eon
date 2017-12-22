@@ -7,14 +7,14 @@
     body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
     div#fps,svg { position: fixed; top:0; left:0; color: white; }
   </style>
-	
+
 </head>
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
 
-<script src='https://d3js.org/d3.v4.min.js'></script>  
-<script src='https://d3js.org/d3-geo.v1.min.js'></script> 
-<script src='https://d3js.org/d3-geo-projection.v2.min.js'></script> 
+<script src='https://d3js.org/d3.v4.min.js'></script>
+<script src='https://d3js.org/d3-geo.v1.min.js'></script>
+<script src='https://d3js.org/d3-geo-projection.v2.min.js'></script>
 <script src='https:////unpkg.com/d3-force-3d@1.0.7/build/d3-force-3d.bundle.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.0/topojson.min.js'></script>
 <script src='https:////cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js'></script>
@@ -23,164 +23,172 @@
 <script src="ents.js"></script>
 
 <script>
-/*******************************************
- * 			@alima
- *
- */	
-	var muonAlima = function muonAlima(__mapper) {
 
-		__mapper({"xs": xs.xs(__mapper)})								// PROXIES
-		__mapper("xs").b("init")({svg:1,versor:1,wen:1,webgl:1,pos:0})  // INIT
-		
-		let f = __mapper({'props': bosonProps.bosonProps()}).props()
+  let muonAlima = function muonAlima(__mapper) {
+
+    __mapper({"xs": xs.xs(__mapper)})               // PROXIES
+    __mapper("xs").b("init")({svg:1,versor:1,wen:1,webgl:1,pos:0})  // INIT
+
+    let f = __mapper({'props': bosonProps.bosonProps()}).props()
 
   /**********************
    *    @
    */
   let width = __mapper("renderRenderer").width()
   let height = __mapper("renderRenderer").height()
-  
+
   let g = __mapper("xs").m("geom")
   let w = __mapper("xs").m("wen")
 
-  let rotInit = [0,45,0],
-      rotation = [0,0,0],
-      rotMatrix,
-      stars = []
-
-  let versor = __mapper("xs").b("versor")()
-  let wen = __mapper("xs").c("wen")({rotInit})
-  
 /*******************************************
- * 			@animas
+ *      @pics
  */
 let tim = {"td":19800,"t0":0,"t1":1000,"t2":1,"t3":1,}
-// ------------------------- cube
-let proformCube = {
-			"projections": ["uniwen","unidentity","identity","universor","unimercator"],
-			"projectidx": 0,
-			"translate":  [ [[[320,320]]] , 200],
-			"scale": 60,
-			"rotate": [-5,50,0],
-			"focale": 4,
-			"zafin": [ [[[0,0,1,1,1,0]]] ,[[[0,0,1,1,1,0]]] ],	// [0,1],	// [1,0]
-			"dims": 3,
-			"control": "wen",
-	}
 
-// ------------------------- future
+let proformCube = {
+      "projections": ["uniwen","unidentity","identity","universor","unimercator"],
+      "projectidx": 0,
+      "translate":  [ [[[320,320]]] , 200],
+      "scale": 60,
+      "rotate": [-5,50,0],
+      "focale": 4,
+      "zafin": [ [[[0,0,1,1,1,0]]] ,[[[0,0,1,1,1,0]]] ],  // [0,1], // [1,0]
+      "dims": 3,
+      "control": "wen",
+  }
+
 let graticule = {
-						
-			"extent": [ [-180, 180, [[[30,45,30,45,30]]], [[[30,45,30,45,30]]]],  [-90, 90, [[[12,6,12,6,12]]], [[[12,6,12,6,12]]]] ],
-						
-				}				
+
+      "extent": [ [-180, 180, [[[30,45,30,45,30]]], [[[30,45,30,45,30]]]],  [-90, 90, [[[12,6,12,6,12]]], [[[12,6,12,6,12]]]] ],
+
+    }
 
 let proformFuture = {
-	
-			"projection": "futuri",
-				"scale": 30,
-				"translate": [ 250, 250,0 ],
-				"rotate": [28,-4,0],
-				"trees":  [
-								[-1, 0, 1, 5, 0, 2], 
-							],
-				"treeidx":  [[[0,0,0]]],
-				"faciaRotation": Math.PI / 4,
-									"control":  "versor",	
-		}			
+
+      "projection": "futuri",
+        "scale": 30,
+        "translate": [ 250, 200, 0 ],
+        "rotate": [28,-4,0],
+        "trees":  [
+                [-1, 0, 1, 5, 0, 2],
+              ],
+        "treeidx":  [[[0,0,0]]],
+        "faciaRotation": Math.PI / 1,
+        "control":  "versor",
+
+    }
 
 let geograt = {
-			// "pic": {
-				"tim": tim,
-				"ric": {"gid":"geograt","cid":"geograt","fid":"geograt",},
-        
+
+        "tim": tim,
+        "ric": {"gid":"geograt","cid":"geograt","fid":"geograt",},
+
          "geoform": (p) => {
 
             return {
-                type: "MultiLineString", 
+                type: "MultiLineString",
                 coordinates: __mapper("xs").m("graticule").grarrx(p.graticule)
             }
-            
-          },	         
-        
-				"halo":"geojson",
 
-				"boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.3,"co":[[[0.05,0.05]]],"cp":[[[0.9,0.9]]],},
-				"graticule": graticule,					
-				"proform": proformFuture,
-				
-			// },
-		}
+          },
+
+        "halo":"geojson",
+
+        "boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.3,"co":[[[0.05,0.05]]],"cp":[[[0.9,0.9]]],},
+        "graticule": graticule,
+        "proform": proformFuture,
+
+    }
 
 let geoearth = {
-			// "pic": {
-				"tim": tim,
-				"ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
-				"halo":"geojson",
 
-				"boform":{ "csx":0,
-					"cf":[[[555,333,555,333,555,333,555]]],
-					"cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
-				
-				"proform": proformFuture,			
+        "tim": tim,
+        "ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
+        "halo":"geojson",
 
-				"geoform": [[[ () => {
-						let geo = Object.assign({},
-							topojson.feature(
-								__mapper("xs").d("worldTopo110m").data(), 
-								__mapper("xs").d("worldTopo110m").data().objects.land
-							)
-						)
-						geo = __mapper("xs").m("geoj").trim(geo)
-				
-						return geo
-					} ]]],		
-				
-			// },
-		}
+        "boform":{ "csx":0,
+          "cf":[[[555,333,555,333,555,333,555]]],
+          "cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
+
+        "proform": proformFuture,
+
+        "geoform": [[[ () => {
+            let geo = Object.assign({},
+              topojson.feature(
+                __mapper("xs").d("worldTopo110m").data(),
+                __mapper("xs").d("worldTopo110m").data().objects.land
+              )
+            )
+            geo = __mapper("xs").m("geoj").trim(geo)
+
+            return geo
+          } ]]],
+
+    }
 
 let geosphere = {
-			// "pic": {
-				"tim": tim,
-				"ric": {"gid":"geosphere","cid":"geosphere","fid":"geosphere",},
-				"halo":"geojson",
 
-				"boform":{ "csx":0,"cf":444,"cs":333,"cw":0.9,"co":0.04,"cp":0.9,},
-				
-				"proform": proformFuture,				
-				
-				"geoform": [[[ () => {
-						let geo = {"type": "Sphere"}
-						return geo
-					} ]]],
+        "tim": tim,
+        "ric": {"gid":"geosphere","cid":"geosphere","fid":"geosphere",},
+        "halo":"geojson",
 
-			// },
-		}	
-// ------------------------- img		
- let img = {
- 
-				"tim": tim,
-				"ric": {"gid":"img","cid":"img","fid":"img",},
-				"halo":"img",
-				"boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-				"img": { 
-					"url":"zimg-501.jpg",
-					"x": [[[5, 5]]],		// [[[() => {return 0}]]]
-					"y": [[[10, 10]]],
-					"width": [[[60, 60]]],
-					"height": [[[40 , 40]]],
-				},
-			
-	}
-/*******************************************
- * 			@animaApi
- *
- */
+        "boform":{ "csx":0,"cf":444,"cs":333,"cw":0.9,"co":0.04,"cp":0.9,},
+
+        "proform": proformFuture,
+
+        "geoform": [[[ () => {
+            let geo = {"type": "Sphere"}
+            return geo
+          } ]]],
+
+    }
+// ------------------------- img
+  let img = {
+
+    "tim": tim,
+    "ric": {"gid":"img","cid":"img","fid":"img",},
+    "halo":"img",
+
+    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+
+    "geoform": p => ({
+      type:  "Feature",
+      geometry: {
+
+        "type": "Point",
+        "coordinates": [0, 0]
+
+      },
+      properties: {
+        attr: {
+          "width": p.payload.img.width,
+          "height": p.payload.img.height,
+          ["xlink:href"]: p.payload.img.url,
+        }
+      }
+    }),
+
+    "stace": {
+      "x": [[[15, 15]]],
+      "y": [[[20, 20]]],
+    },
+
+    "payload": {
+
+      "img": {
+        "url":"zimg-501.jpg",
+        "width": [[[60, 60]]],
+        "height": [[[40 , 40]]],
+      },
+
+    }
+  }
+
   let animas = [
-			img,			    // h.img
-			geograt,			// h.geojson
-			geoearth,			// h.geojson
-			geosphere,		// h.geojson			
+      img,          // h.img
+      geograt,      // h.geojson g.futuri
+      geoearth,     // h.geojson g.futuri
+      geosphere,    // h.geojson  g.futuri
   ]
 
   return () => __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})

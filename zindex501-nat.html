@@ -23,9 +23,7 @@
 <script src="ents.js"></script>
 
 <script>
-/*******************************************
- *      @alima
- */
+
 let muonAlima = function muonAlima(__mapper) {
 
   __mapper({"xs": xs.xs(__mapper)})               // PROXIES
@@ -99,19 +97,18 @@ let muonAlima = function muonAlima(__mapper) {
   }
 
   let stace = {
-      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
-      "ra2": 30,
-      "v0": 0,"v1": 1,
-      "w4": 0,
-      "seg5": 360,
-      "pa6": 0,
-      "pb7": -1,
-      "fas8": 0,
-    }
+    "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
+    "ra2": 30,
+    "v0": 0,"v1": 1,
+    "w4": 0,
+    "seg5": 360,
+    "pa6": 0,
+    "pb7": -1,
+    "fas8": 0,
+  }
 
   let proform = {
-    "projections": ["uniwen","unidentity","identity"],
-    "projectidx": 0,
+    "projection": "uniwen",
     "translate": [ [[[300,350]]], 200 ],
     "scale": 1,
     "rotate": [ 0, 0, [[[0,0]]] ],
@@ -134,15 +131,15 @@ let muonAlima = function muonAlima(__mapper) {
     "halo": "geojson",
 
     "geoform":  (p) => ({
-        "type": "Feature",
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": Array.of(__mapper("xs").m("nat")
-                .multiconform(__mapper("xs").m("nat")
-                .nform(p.payload.form)))
-          },
-        "id": 0,
-        "properties": {}
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": Array.of(__mapper("xs").m("nat")
+          .multiconform(__mapper("xs").m("nat")
+            .nform(p.payload.form)))
+      },
+      "id": 0,
+      "properties": {}
     })  ,
 
     "stace": [[[ stace ]]],
@@ -158,15 +155,15 @@ let muonAlima = function muonAlima(__mapper) {
     "halo": "geojson",
 
     "geoform":  (p) => ({
-        "type": "Feature",
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": Array.of(__mapper("xs").m("nat")
-                .multiconform(__mapper("xs").m("nat")
-                .nform(p.payload.form)))
-          },
-        "id": 0,
-        "properties": {}
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": Array.of(__mapper("xs").m("nat")
+          .multiconform(__mapper("xs").m("nat")
+            .nform(p.payload.form)))
+      },
+      "id": 0,
+      "properties": {}
     }),
 
     "stace": [[[ stace ]]],
@@ -176,95 +173,95 @@ let muonAlima = function muonAlima(__mapper) {
   }
 
   // -------------------------------  img
- let img = {
+  let img = {
 
-        "tim": tim,
-        "ric": {"gid":"img","cid":"img","fid":"img",},
-        "halo":"img",
-        "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    "tim": tim,
+    "ric": {"gid":"img","cid":"img","fid":"img",},
+    "halo":"img",
+    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
-        "geoform": p => ({
-          type:  "Feature",
-          geometry: {
+    "geoform": p => ({
+      type:  "Feature",
+      geometry: {
 
-            "type": "Point",
-             "coordinates": [0, 0]
+        "type": "Point",
+        "coordinates": [0, 0]
 
-          },
-          properties: {
-            attr: {
-              "width": p.payload.img.width,
-              "height": p.payload.img.height,
-              ["xlink:href"]: p.payload.img.url,
-            }
+      },
+      properties: {
+        attr: {
+          "width": p.payload.img.width,
+          "height": p.payload.img.height,
+          ["xlink:href"]: p.payload.img.url,
         }
-        }),
+      }
+    }),
 
-        "stace": {
-            "x": [[[15, 15]]],
-            "y": [[[20, 20]]],
-        },
+    "stace": {
+      "x": [[[15, 15]]],
+      "y": [[[20, 20]]],
+    },
 
-        "payload": {
+    "payload": {
 
-          "img": {
-            "url":"zimg-501.jpg",
-            "width": [[[60, 60]]],
-            "height": [[[40 , 40]]],
-          },
+      "img": {
+        "url":"zimg-501.jpg",
+        "width": [[[60, 60]]],
+        "height": [[[40 , 40]]],
+      },
 
 
-        }
+    }
   }
   // -------------------------------  text
- let text = {
+  let text = {
 
-        "tim": tim,
-        "ric": {"gid":"text","cid":"text","fid":"text",},
-        "halo":"text",
-        "boform": { "csx":0,"cf":[[[111,111]]],"cs":111,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    "tim": tim,
+    "ric": {"gid":"text","cid":"text","fid":"text",},
+    "halo":"text",
+    "boform": { "csx":0,"cf":[[[111,111]]],"cs":111,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
-        "geoform": p => ({
-          type:  "Feature",
-          geometry: {
+    "geoform": p => ({
+      type:  "Feature",
+      geometry: {
 
-            "type": "Point",
-            "coordinates": [0, 0]
+        "type": "Point",
+        "coordinates": [0, 0]
 
-          },
-          properties: {
-            text: p.payload.text.text,
-            style: {
-              ["font-size"]: p.payload.text.style["font-size"],
-            }
+      },
+      properties: {
+        text: p.payload.text.text,
+        style: {
+          ["font-size"]: p.payload.text.style["font-size"],
         }
-        }),
+      }
+    }),
 
-        "stace": {
-            "x": [[[150, 150]]],
-            "y": [[[200, 200]]],
-        },
+    "stace": {
+      "x": [[[150, 150]]],
+      "y": [[[200, 200]]],
+    },
 
-        "payload": {
+    "payload": {
 
-          "text": {
-            "text":"hi e",
-            "style": {
-              ["font-size"]: 12,
-              ["font-family"]: "BankFuturistic",
-              ["text-anchor"]: "center",
-
-            }
-          },
+      "text": {
+        "text":"hi e",
+        "style": {
+          ["font-size"]: 12,
+          ["font-family"]: "BankFuturistic",
+          ["text-anchor"]: "center",
 
         }
+      },
+
+    }
   }
 
   let animas = [
-      nat,      // h.geojson
-      circ,     // h.geojson
-      img,      // h.img
-      text,     // h.text
+    nat,      // h.geojson g.uniwen
+    circ,     // h.geojson g.uniwen
+    img,      // h.img
+    text,     // h.text
   ]
 
   return () => __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})

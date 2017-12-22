@@ -11,8 +11,13 @@
 
     let f = __mapper("props")()
 
-    const tau = 2 * Math.PI
 
+    const cos = Math.cos, sin = Math.sin
+    const neg = x =>  x < 0 || (x === 0 && (1/x < 0))
+    const pos = x =>  x > 0 || (x === 0 && (1/x > 0))
+    const radians = Math.PI / 180
+    const tau = 2 * Math.PI  
+    
     /* **************************
      *        @rador : seg5 unit circle rador
      *          m.snap.snap (dim form => rador)
@@ -54,7 +59,6 @@
 
       return pts          // dots in path: [0,...,seg5] => [0,1]
     }
-
 
     /* **************************
      *        @radorm
@@ -199,6 +203,31 @@
       return nform
 
     }
+   
+
+  let natform = function(form) {
+      let radioform = Object.values(form).map(d =>radorm(d,[-Math.PI, Math.PI]))
+
+      let scale = [1,1,1], rotation = [0,0,0],  location = [0,0,0]
+      if (form) scale =   Object.values(form).map(dim => dim.ra2)
+      if (form) rotation =  Object.values(form).map(dim => dim.w4 * radians)
+      let coForm = {location, scale, rotation}
+
+      return function (lambda, phi, radio=1) {    // spherical degrees
+
+        let radians = Math.PI / 180
+        lambda *= radians
+        phi *= radians
+
+        let c = coForm
+        let x = c.scale[0] * radioform[0](lambda) * cos(lambda + c.rotation[0]) * radioform[2](phi) * cos(phi)
+        let y = c.scale[1] * radioform[1](lambda) * sin(lambda + c.rotation[1]) * radioform[2](phi) * cos(phi)
+        let z = c.scale[2]                             * radioform[2](phi) * sin(phi + c.rotation[2])
+
+        return [x,y,z]
+      }
+    }   
+    
     /***************************
      *        @enty
      */
@@ -209,6 +238,7 @@
     enty.polarCoords = polarCoords  //
     enty.multiconform = multiconform  //
     enty.nform = nform  //
+    enty.natform = natform 
 
     return enty
 

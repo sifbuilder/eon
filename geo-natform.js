@@ -31,30 +31,12 @@
       dims = 3
 
     let pointStream = function(props) {
-
       let form = (props.form !== undefined) ? props.form : props  // anitem or form
-
-      let radorm = [d => 1, d => 1, d => 1]
-      if (form) radorm = Object.values(form).map(d => __mapper("xs").m("nat").radorm(d,[-Math.PI, Math.PI]))
-
-      let scale = [1,1,1], rotation = [0,0,0],  location = [0,0,0]
-      if (form) scale =   Object.values(form).map(dim => dim.ra2)
-      if (form) rotation =  Object.values(form).map(dim => dim.w4 * radians)
-      let coForm = {location, scale, rotation}
-
-      return function (lambda, phi, radio=1) {    // spherical degrees
-
-        let radians = Math.PI / 180
-        lambda *= radians
-        phi *= radians
-
-        let c = coForm
-        let x = c.scale[0] * radorm[0](lambda) * cos(lambda + c.rotation[0]) * radorm[2](phi) * cos(phi)
-        let y = c.scale[1] * radorm[1](lambda) * sin(lambda + c.rotation[1]) * radorm[2](phi) * cos(phi)
-        let z = c.scale[2]                             * radorm[2](phi) * sin(phi + c.rotation[2])
-
-        this.stream.point(x,y,z)
+      let natform =  __mapper("xs").m("nat").natform(form)
+      let natstream = function (lambda, phi, radio=1) {
+          this.stream.point(...natform(lambda, phi, radio))
       }
+      return natstream
     }
 
     let proform = function(props) {

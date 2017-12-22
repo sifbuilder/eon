@@ -23,9 +23,7 @@
 <script src="ents.js"></script>
 
 <script>
-/*******************************************
- *      @alima
- */
+
 let muonAlima = function muonAlima(__mapper) {
 
   __mapper({"xs": xs.xs(__mapper)})               // PROXIES
@@ -111,9 +109,9 @@ let muonAlima = function muonAlima(__mapper) {
     },
 
     "conform": conform,
-    
+
     "stace": stace,
-    
+
     "payload": { "graticule": graticule, },
 
     x: 25,
@@ -149,8 +147,8 @@ let muonAlima = function muonAlima(__mapper) {
 
   }
 
- // -------------------------------  img
- let img = {
+  // -------------------------------  img
+  let img = {
 
     "tim": tim,
     "ric": {"gid":"img","cid":"img","fid":"img",},
@@ -163,7 +161,7 @@ let muonAlima = function muonAlima(__mapper) {
       geometry: {
 
         "type": "Point",
-         "coordinates": [0, 0]
+        "coordinates": [0, 0]
 
       },
       properties: {
@@ -176,8 +174,8 @@ let muonAlima = function muonAlima(__mapper) {
     }),
 
     "stace": {
-        "x": [[[15, 15]]],
-        "y": [[[20, 20]]],
+      "x": [[[15, 15]]],
+      "y": [[[20, 20]]],
     },
 
     "payload": {
@@ -197,10 +195,9 @@ let muonAlima = function muonAlima(__mapper) {
  */
 
   let animas = [
-    img,          // h.img
-    threegrat,   // threegrat
-    earth,        // threejson
-    earth,        // threejson
+    img,         // h.img
+    threegrat,   // h.geojson g.natform
+    earth,       // h.geojson g.natform
   ]
 
   let animaApi = function animaApi() {
