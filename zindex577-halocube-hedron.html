@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src='https://d3js.org/d3.v4.min.js'></script>
+<script src='https://d3js.org/d3-geo.v1.min.js'></script>
+<script src='https://d3js.org/d3-geo-projection.v2.min.js'></script>
+<script src='https:////unpkg.com/d3-force-3d@1.0.7/build/d3-force-3d.bundle.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.0/topojson.min.js'></script>
+<script src='https:////cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js'></script>
+<script src='https:////unpkg.com/three-trackballcontrols-web@0.0.2/dist/three-trackballcontrols.min.js'></script>
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+
+<script>
+/*******************************************
+ *      @alima
+ *
+ */
+  let muonAlima = function muonAlima(__mapper) {
+
+    __mapper({"xs": xs.xs(__mapper)})               // PROXIES
+    __mapper("xs").b("init")({svg:1,versor:0,wen:1,webgl:1})
+
+    let f = __mapper({'props': bosonProps.bosonProps()}).props()
+    let g = __mapper("xs").m("geom")
+    let w = __mapper("xs").m("wen")
+
+  /**********************
+   *    @
+   */
+  let r = __mapper("xs").r("renderer"),
+      width = r.width(),
+      height = r.height()
+
+  let rotInit = [0,45,0],
+      rotation = [0,0,0],
+      rotMatrix,
+      stars = []
+
+  let versor = __mapper("xs").b("versor")()
+  let wen = __mapper("xs").c("wen")({rotInit})
+
+/*******************************************
+ *      @animas
+ *
+ */
+let tim = {"td":19800,"t0":0,"t1":1000,"t2":1,"t3":1,}
+let proform = {
+      "projection": "uniwen",
+      "translate":  [ [[[320,320]]] , 200],
+      "scale": 60,
+      "rotate": [-5,50,0],
+      "focale": 4,
+      "zafin": [ [[[0,0,1,1,1,0]]] ,[[[0,0,1,1,1,0]]] ],  // [0,1], // [1,0]
+      "dims": 3,
+      "control": "wen",
+    }
+let aniCube = {
+
+      "geoform": (p) => {
+        let payload = p.payload
+        let ric = p.ric
+
+        let json = {
+          type: "FeatureCollection",
+          features: []
+        }
+
+        let faces = []
+        let vertices = payload.vertices       // payload.vertices
+        faces = payload.faces                 // payload.faces
+        for (let i = 0, l = faces.length; i < l; i++) {
+          let feature = {type:"Feature",geometry:{},properties:{}}
+
+          let geometry = {type:"Polygon",coordinates:[]}
+          let face = faces[i]                // face corners position
+          let faceCorners = face.corners.map( k =>  vertices[k] )
+          let coordinates = Array.of(...faceCorners, faceCorners[0])
+          geometry.coordinates = Array.of(coordinates)
+
+            feature.properties.ric = ric
+            feature.properties.ric.cid = "face"
+            feature.properties.ric.fid = i // face.name
+            feature.properties.sort = "feature"
+
+          feature.geometry = geometry
+          feature.properties.boform = face.boform
+
+          json.features.push(feature)
+        }
+
+        return json
+      },
+
+      "tim": tim,
+      "ric": {"gid":"aniCube","cid":"aniCube","fid":"aniCube",},
+      "halo": "geojson",
+      "boform":{ "csx":0,"cf":111,"cs":111,"cw":0.1,"co":0.9,"cp":0.9,},
+      "proform": proform,
+      "payload": {
+
+        vertices: [
+          [-1, -1,  1], [ 1, -1,  1], [ 1, 1,  1], [-1, 1,  1],  // 0,3
+          [ 1, -1, -1], [-1, -1, -1], [-1, 1, -1], [ 1, 1, -1],  // 4,7
+        ],
+        faces: [
+          { corners: [0,1,2,3],
+            name: 'front',
+            boform: { cf: 222, cs: 355, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
+          { corners: [4,5,6,7],
+            name: 'back',
+            boform: { cf: 888, cs: 455, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
+          { corners: [1,4,7,2],
+            name: 'right',
+            boform: { cf: 444, cs: 555, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
+          { corners: [5,0,3,6],
+            name: 'left',
+            boform: { cf: 555, cs: 655, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
+          { corners: [3,2,7,6],
+            name: 'bottom',
+            boform: { cf: 666, cs: 755, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
+          { corners: [5,4,1,0],
+            name: 'top',
+            boform: { cf: 777, cs: 855, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }}
+
+        ],
+
+      }
+  }
+  // -------------------------------  img
+ let img = {
+
+        "tim": tim,
+        "ric": {"gid":"img","cid":"img","fid":"img",},
+        "halo":"img",
+        "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+
+        "geoform": p => ({
+          type:  "Feature",
+          geometry: {
+
+            "type": "Point",
+             "coordinates": [0, 0]
+
+          },
+          properties: {
+            attr: {
+              "width": p.payload.img.width,
+              "height": p.payload.img.height,
+              ["xlink:href"]: p.payload.img.url,
+            }
+          }
+        }),
+
+        "stace": {
+            "x": [[[15, 15]]],
+            "y": [[[20, 20]]],
+        },
+
+        "payload": {
+
+          "img": {
+            "url":"zimg-501.jpg",
+            "width": [[[60, 60]]],
+            "height": [[[40 , 40]]],
+          },
+
+        }
+  }
+/*******************************************
+ *      @animaApi
+ *
+ */
+  let animas = [
+      aniCube,   // h.geojson
+      img,      // h.img
+  ]
+  let animaApi = function animaApi() {
+    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
+  }
+
+  return animaApi
+
+}
+
+let __mapper = bosonMapper.bosonMapper()
+    __mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>
