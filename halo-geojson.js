@@ -60,6 +60,7 @@
     let enty = function enty() {}
     enty.ween = anima => (anima.inited !== true) ? (anima.inited = true, [anima]) : []
     enty.gramn = anima => gramify(anima)
+    enty.gramify = gramify
 
     return enty
 

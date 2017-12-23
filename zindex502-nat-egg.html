@@ -7,7 +7,7 @@
     body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
     div#fps,svg { position: fixed; top:0; left:0; color: white; }
   </style>
-	
+
 </head>
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
@@ -16,147 +16,144 @@
 
 <script>
 /*******************************************
- * 			@alima
- */	
-	var muonAlima = function muonAlima(__mapper) {
-
-		let f = __mapper({"props": muonProps.muonProps()}).props()
-		
-		__mapper({"xs": xs.xs(__mapper)})								// PROXIES
-		__mapper("xs").m("init")({canvas:0,svg:1,versor:0,wen:1,webgl:0,img:1,gui:0,fps:0,stats:0}) // INIT
-
-/*******************************************
- * 			@pics
+ *      @alima
  */
-let tim = {"td":36800,"t0":0,"t1":1000,"t2":1,"t3":1,}
-let formCirc = 	{
+let muonAlima = function muonAlima(__mapper) {
 
-				"x": {
-					"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circ
-					"ra2": 100,
-					"v0": 0, "v1": 1,
-					"seg5": [[[360,360]]],
-					"w4": [[[90 , 90 - 0 * 360]]],
-					"pa6":0, 
-					"pb7":360,
-					"fas8": 0,
-				},
+  let f = __mapper({"props": bosonProps.bosonProps()}).props()
 
-				"y": {
-					"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circ
-					"ra2": 100,
-					"v0": 0, "v1": 1,
-					"seg5": [[[360,360]]],
-					"w4": [[[90 , 90 - 0 * 360]]],
-					"pa6":0, 
-					"pb7":360,
-					"fas8": -90,
-				},
+  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
+  __mapper("xs").b("init")({canvas:0,svg:1,versor:0,wen:1,webgl:0,img:1,gui:0,fps:0,stats:0}) // INIT
 
-			}
+  /*******************************************
+ *      @pics
+ */
+  let tim = {"td":36800,"t0":0,"t1":1000,"t2":1,"t3":1,}
+  let formCirc =  {
 
-let form = 	{
+    "x": {
+      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circ
+      "ra2": 60,
+      "v0": 0, "v1": 1,
+      "seg5": [[[360,360]]],
+      "w4": [[[90 , 90 - 0 * 360]]],
+      "pa6":0,
+      "pb7":360,
+      "fas8": 0,
+    },
 
-				"x": {
-					"m1":2,"m2":2,"n1":0.3,"n2":-3,"n3":8,"a":8,"b":8,	// egg
-					"ra2": 100,
-					"v0": 0, "v1": 1,
-					"seg5": [[[360,360]]],
-					"w4": [[[90 , 90 - 0 * 360]]],
-					"pa6":0, 
-					"pb7":360,
-					"fas8": 0,
-				},
+    "y": {
+      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circ
+      "ra2": 60,
+      "v0": 0, "v1": 1,
+      "seg5": [[[360,360]]],
+      "w4": [[[90 , 90 - 0 * 360]]],
+      "pa6":0,
+      "pb7":360,
+      "fas8": -90,
+    },
 
-				"y": {
-					"m1":2,"m2":2,"n1":0.3,"n2":-3,"n3":8,"a":8,"b":8,	// egg
-					"ra2": 100,
-					"v0": 0, "v1": 1,
-					"seg5": [[[360,360]]],
-					"w4": [[[90 , 90 - 0 * 360]]],
-					"pa6":0, 
-					"pb7":360,
-					"fas8": -90,
-				},
+  }
 
-			}
-let stace = 
-				{
-					"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2,	// circle
-					"ra2": 30,
-					"v0": 0,"v1": 1,
-					"w4": 0,
-					"seg5": 360,
-					"pa6": 0,
-					"pb7": -1,
-					"fas8": 0,
-				}
-let proform = {
-					"projections": ["uniwen","unidentity","identity","universor","unimercator"],
-					"projectidx": 0,
-					"translate": [ [[[300,350]]], 200 ],
-					"scale": 1.2,
-					"rotate": [ 0, 0, [[[0,0]]] ],
-					"focale": 12,
-					"zafin": [1,0],
-					"dims": 2,
-					"control": "wen",
-			}		
-let ture = { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.9,0.9]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],}			
-let tureCirc = { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.19,0.19]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],}			
+  let form =  {
 
-/*******************************************
- * 		@animas
+    "x": {
+      "m1":2,"m2":2,"n1":0.3,"n2":-3,"n3":8,"a":8,"b":8,  // egg
+      "ra2": 60,
+      "v0": 0, "v1": 1,
+      "seg5": [[[360,360]]],
+      "w4": [[[90 , 90 - 0 * 360]]],
+      "pa6":0,
+      "pb7":360,
+      "fas8": 0,
+    },
+
+    "y": {
+      "m1":2,"m2":2,"n1":0.3,"n2":-3,"n3":8,"a":8,"b":8,  // egg
+      "ra2": 60,
+      "v0": 0, "v1": 1,
+      "seg5": [[[360,360]]],
+      "w4": [[[90 , 90 - 0 * 360]]],
+      "pa6":0,
+      "pb7":360,
+      "fas8": -90,
+    },
+
+  }
+  let stace =
+        {
+          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
+          "ra2": 30,
+          "v0": 0,"v1": 1,
+          "w4": 0,
+          "seg5": 360,
+          "pa6": 0,
+          "pb7": -1,
+          "fas8": 0,
+        }
+
+  let proform = {
+    "projections": ["uniwen","unidentity","identity","universor","unimercator"],
+    "projectidx": 0,
+    "translate": [ [[[200,250]]], 150 ],
+    "scale": 1.2,
+    "rotate": [ 0, 0, [[[0,0]]] ],
+    "focale": 12,
+    "zafin": [1,0],
+    "dims": 2,
+    "control": "wen",
+  }
+  let boform = { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.9,0.9]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],}
+  let boformCirc = { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.19,0.19]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],}
+
+  /*******************************************
+ *    @animas
  *
  */
-let nat = {
-			// "pic": {
+  let nat = {
 
-				"tim": tim,
-				"ric": {"gid":"nat","cid":"nat","fid":"nat",},
-				"halo": "nat",
-				"form": form,
-				"stace": [[[ stace ]]],
-				"ture": ture,
-				"proform": proform,
+    "tim": tim,
+    "ric": {"gid":"nat","cid":"nat","fid":"nat",},
+    "halo": "nat",
+    "stace": [[[ stace ]]],
+    "boform": boform,
+    "proform": proform,
+    "payload":{"form": form},
 
-			// },
-	}
-let circ = {
-			// "pic": {
+  }
+  let circ = {
 
-				"tim": tim,
-				"ric": {"gid":"nat","cid":"nat","fid":"formCirc",},
-				"halo": "nat",
-				"form": formCirc,
-				"stace": [[[ stace ]]],
-				"ture": tureCirc,
-				"proform": proform,
+    "tim": tim,
+    "ric": {"gid":"nat","cid":"nat","fid":"formCirc",},
+    "halo": "nat",
+    "stace": [[[ stace ]]],
+    "boform": boformCirc,
+    "proform": proform,
+    "payload":{"form": formCirc},
 
-			// },
-	}
+  }
 
-/*******************************************
+  /*******************************************
  * @animaApi
  *
  */
 
-		let animas = [
-			nat,			// nat
-			circ,			// nat
-		]
+  let animas = [
+    nat,      // h.nat
+    circ,     // h.nat
+  ]
 
-		var animaApi = function animaApi() {
+  let animaApi = function animaApi() {
 
-				__mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
+    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
 
-		}
+  }
 
-	return animaApi
+  return animaApi
 
 }
 
-var __mapper = muonMapper.muonMapper()
-    __mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+let __mapper = bosonMapper.bosonMapper()
+__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

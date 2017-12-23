@@ -46,6 +46,7 @@ document.write("<script src='muon-wen.js'><\/script>")
 document.write("<script src='halo-core.js'><\/script>")    
 document.write("<script src='halo-geojson.js'><\/script>")    
 document.write("<script src='halo-img.js'><\/script>")    
+document.write("<script src='halo-nat.js'><\/script>")    
 document.write("<script src='halo-text.js'><\/script>")    
 /*  x  proxy */  
 document.write("<script src='x-s.js'><\/script>")    
