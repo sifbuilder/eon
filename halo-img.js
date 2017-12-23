@@ -11,13 +11,30 @@
 
     let f = __mapper("props")()
 
+    let geoform = p => ({     // geoform
+      type:  "Feature",
+      geometry: {
+
+        "type": "Point",
+        "coordinates": [0, 0]
+
+      },
+      properties: {
+        attr: {
+          "width": p.payload.img.width,
+          "height": p.payload.img.height,
+          ["xlink:href"]: p.payload.img.url,
+        }
+      }
+    })
+
     let gramn = function gramn(anima, newAnigrams = []) {
 
       let ani = __mapper("xs").m("anitem")(anima)
-      let stace =   ani.stace(),                // stace
-        geoform = ani.geoform()                 // geoform
 
-      let newAnigram = ani.anigram()
+      let stace =   ani.stace()                 // stace
+
+      geoform = ani.geoform() || geoform
 
       let json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform
 
@@ -26,11 +43,11 @@
         json =  __mapper("xs").b("proj3ct")(json, lociformer)  // lociform
       }
 
-      let feature = json
-          feature.id = newAnigram.uid
+      let newAnigram = ani.anigram()
 
       newAnigram.sort = "img"
-      newAnigram.feature = feature
+      newAnigram.feature = json
+      newAnigram.feature.id = newAnigram.uid
 
       newAnigrams.push(newAnigram)
       return newAnigrams
@@ -49,4 +66,4 @@
 
   exports.haloImg = haloImg
 
-}));
+}))

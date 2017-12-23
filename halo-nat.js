@@ -14,28 +14,32 @@
       width = r.width(),
       height = r.height()
 
+    let  geoform = p => ({
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": Array.of(__mapper("xs").m("nat")
+          .multiconform(__mapper("xs").m("nat")
+            .nform(p.payload.form || p.form)))
+      },
+      "id": 0,
+      "properties": {}
+    })
+      
     /****************************
    *    @gramn
    */
     let gramn = function gramn(anima, newAnigrams = []) {
-
-      anima.geoform = p => ({
-        "type": "Feature",
-        "geometry": {
-          "type": "Polygon",
-          "coordinates": Array.of(__mapper("xs").m("nat")
-            .multiconform(__mapper("xs").m("nat")
-              .nform(p.payload.form || p.form)))
-        },
-        "id": 0,
-        "properties": {}
-      })
+      
+      let ani = __mapper("xs").m("anitem")(anima)
+      
+      anima.geoform = ani.geoform() || geoform
 
       newAnigrams = __mapper("xs").h("geojson").gramify(anima)
 
       return newAnigrams
     }
-
+    
     /****************************
    *    @enty
    */
@@ -49,4 +53,4 @@
 
   exports.haloNat = haloNat
 
-}));
+}))
