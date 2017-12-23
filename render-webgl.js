@@ -149,6 +149,7 @@
 
             for (let k in items) {      // DOTS (seg5===0) each group gid
               let item = items[k]       // feature
+
               let feature = item // .feature
               let style = item.properties.style
 
@@ -157,7 +158,6 @@
               if (geometry.type === "Point") {
 
                 let node = item
-
                 state.material_color = style.fill
                 state.geometry = new THREE.SphereGeometry( 5, 32, 32 )
                 state.wireframe = new THREE.WireframeGeometry( state.geometry )
@@ -172,9 +172,9 @@
                   state.material
                 )
 
-                sphere.position.x = node.x
-                sphere.position.y = node.y || 0
-                sphere.position.z = node.z || 0
+                sphere.position.x = node.x || node.geometry.coordinates[0]
+                sphere.position.y = node.y || node.geometry.coordinates[1] || 0
+                sphere.position.z = node.z || node.geometry.coordinates[2] || 0
 
                 state.scene.add(node._sphere = sphere)
 
@@ -205,6 +205,28 @@
                   })
 
                 }
+              } else if (geometry.type === "LineString") {
+
+                let threeMaterial = new THREE.LineBasicMaterial({
+                  color: style.stroke,
+                  opacity: style["stroke-opacity"],
+                })
+
+                let coordinates = Array.of(geometry.coordinates)
+
+                let threeGeometry = new THREE.Geometry
+
+                coordinates.forEach(function(line) {
+
+                  d3.pairs(line.map(denser), function(a, b) {
+
+                    threeGeometry.vertices.push(a, b)
+
+                  })
+                  let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+                  if (object) state.scene.add(object)
+
+                })
 
               } else {
 
@@ -241,20 +263,20 @@
 
             for (let k in imgs) {
 
-                let img = imgs[k]
+              let img = imgs[k]
 
-                let href = img.properties.attr["xlink:href"]
+              let href = img.properties.attr["xlink:href"]
 
-                let map = new THREE.TextureLoader().load( href )
-                let material = new THREE.SpriteMaterial( {
-                    map: map,
-                    color: 0xffffff,
-                    fog: true
-                 })
-                let threeMaterial = new THREE.Sprite( material )
-                threeMaterial.scale.set(200, 200, 1)
-                
-                state.scene.add( threeMaterial )
+              let map = new THREE.TextureLoader().load( href )
+              let material = new THREE.SpriteMaterial( {
+                map: map,
+                color: 0xffffff,
+                fog: true
+              })
+              let threeMaterial = new THREE.Sprite( material )
+              threeMaterial.scale.set(200, 200, 1)
+
+              state.scene.add( threeMaterial )
 
 
             }
