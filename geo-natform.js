@@ -30,8 +30,8 @@
       zafin = [0,1],
       dims = 3
 
-    let pointStream = function(props) {
-      let form = (props.form !== undefined) ? props.form : props  // anitem or form
+    let pointStream = function(props) {  // anitem or form
+      let form = (props.form !== undefined) ? props.form : props 
       let natform =  __mapper("xs").m("nat").natform(form)        // m.nat.natform
       let natstream = function (lambda, phi, radio=1) {
           this.stream.point(...natform(lambda, phi, radio))

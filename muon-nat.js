@@ -64,14 +64,13 @@
      *        @radorm
      *            g.natform
      */
-    let radorm = function radorm(form, extent=[-1,1]) { //  radorm: [-1,1) => [-1,1]
+    let radorm = function radorm(form, s1extent=[-1,1]) { //  radorm: [-1,1) => [-1,1]
 
-      let radorpts = f.norma(rador(form))       //  rador:  [-1,1] => [0,seg5+1)
-      let s1extent = extent                   // [-1, 1]
-      let s1range = [0,radorpts.length-1]     // [0, seg5]
+      let radorPts = f.norma(rador(form))       //  rador:  [-1,1] => [0,seg5)
+      let s1range = [0,radorPts.length-1]     // [0, seg5]
 
-      let s2extent = d3.range(0,radorpts.length-1)  // [0,...,seg5]
-      let s2range = radorpts                        // mormed form
+      let s2extent = d3.range(0,radorPts.length-1)  // [0,...,seg5]
+      let s2range = radorPts                        // mormed form
 
       let s1 = d3.scaleLinear().domain(s1extent).range(s1range) // [-1,1] => [0,seg5]
       let s2 = d3.scaleLinear().domain(s2extent).range(s2range) // [0,..,seg5] => rador
@@ -206,7 +205,13 @@
 
     let natform = function(form) {
       let radioform = Object.values(form).map( (d,i) => {
-          return radorm(d,[-Math.PI, Math.PI])
+          let ret
+          if (i < 2 ) {
+              ret = p =>  radorm(d,[-Math.PI, Math.PI])(p)
+          } else if (i === 2 ) {
+              ret = radorm(d,[-Math.PI, Math.PI])
+          }
+          return ret
       })
 
       let scale = [1,1,1], rotation = [0,0,0],  location = [0,0,0]
@@ -214,17 +219,17 @@
       if (form) rotation =  Object.values(form).map(dim => dim.w4 * radians)
       let coForm = {location, scale, rotation}
 
-      return function (lambda, phi, radio=1) {    // spherical degrees
+      return function (l, p, radio=1) {    // spherical degrees
 
-        let radians = Math.PI / 180
-        lambda *= radians
-        phi *= radians
+        let lambda = l * radians
+        let phi = p * radians
 
         let c = coForm
-        let x = c.scale[0] * radioform[0](lambda) * cos(lambda + c.rotation[0]) * radioform[2](phi) * cos(phi)
-        let y = c.scale[1] * radioform[1](lambda) * sin(lambda + c.rotation[1]) * radioform[2](phi) * cos(phi)
-        let z = c.scale[2]                             * radioform[2](phi) * sin(phi + c.rotation[2])
-
+        
+        let x = c.scale[0] * radioform[0](lambda) * cos(lambda + c.rotation[0]) * cos(phi) * radioform[2](phi)
+        let y = c.scale[1] * radioform[1](lambda) * sin(lambda + c.rotation[1]) * cos(phi) * radioform[2](phi)
+        let z = c.scale[2]       * radioform[2](phi) * sin(phi + c.rotation[2]) 
+        
         return [x,y,z]
       }
     }   

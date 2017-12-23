@@ -44,7 +44,7 @@
           let lociformer =  __mapper("xs").m("stace").getLociform(ani.anigram())
         json =  __mapper("xs").b("proj3ct")(json, lociformer)  // lociform
       }
-
+      
       newAnigrams = __mapper("xs")
         .m("geoj").zorder(__mapper("xs")
           .m("geoj").featurize(json, ani.anigram()))
