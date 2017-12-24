@@ -414,9 +414,7 @@
     /***************************
    *        @enty
    */
-    let enty = function enty() {
-      return props
-    }
+    let enty = () => props
 
     return enty
   }
