@@ -127,6 +127,7 @@ let muonAlima = function muonAlima(__mapper) {
     "boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.39,"co":[[[0.5,0.5]]],"cp":[[[0.9,0.9]]],},
 
     "proform": proform,
+    
     "payload": {
 
       "graticule": {
@@ -148,11 +149,6 @@ let muonAlima = function muonAlima(__mapper) {
     "ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
     "halo": "geojson",
 
-    "boform":{ "csx":0,
-      "cf":[[[555,333,555,333,555,333,555]]],
-      "cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
-
-    "proform": proform,
     "geoform": () => {
       let geo = Object.assign({},
         topojson.feature(
@@ -162,9 +158,11 @@ let muonAlima = function muonAlima(__mapper) {
       )
       geo = __mapper("xs").m("geoj").trim(geo)
       return geo
-    } ,
+    },
 
-
+    "boform":{ "csx":0, "cf":[[[555,333,555,333,555,333,555]]], "cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
+    
+    "proform": proform,
 
   }
 
@@ -272,9 +270,9 @@ let muonAlima = function muonAlima(__mapper) {
   let animas = [
     geograt,      // h.geojson
     geoearth,     // h.geojson
-    geoshpere,      // h.geojson
-    img,      // h.img
-    text,     // h.text
+    geoshpere,    // h.geojson
+    img,          // h.img
+    text,         // h.text
   ]
 
   let animaApi = function animaApi() {
