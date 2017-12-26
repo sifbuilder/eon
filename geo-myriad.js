@@ -59,7 +59,7 @@ let geoMyriad = function geoMyriad(__mapper = {}) {
       state.tree = [-1, 4, 5, 2, 0, 1] // [-1, 0, 0, 0, 0, 4] //
       state.rotate = [28,-4,0] // See that California touches the corner, and Australia
 
-  let entx = function( ent , ents, entidx = 0) {
+  let enxs = function( ent , ents, entidx = 0) {
       if (ent !== undefined) {        // if projection singular
         return  ent.map(d => Math.round(d))
       } else if (ents !== undefined) {  // if plural select one
@@ -156,7 +156,7 @@ let enty = function( proform={} ) {
   let futuryCef1 = (proform.futuryCef1 !== undefined) ? proform.futuryCef1 : state.futuryCef1
   let facerotation = (72 * 1.5) * radians
   let {trees, treeidx, tree} = proform  //
-        tree = entx(tree, trees, treeidx )  || tree0
+        tree = enxs(tree, trees, treeidx )  || tree0
 
   let faceProjection = function(face) {
     let prj = d3Geo.geoProjection(prjRaw)

@@ -394,7 +394,7 @@
    /***************************
    *        @ent
    */
-    props.entx = function( ent, ents, entidx = 0) {
+    props.enxs = function( ent, ents, entidx = 0) {
 
       let ret
       if (ent !== undefined) {        // if ent singular
@@ -416,7 +416,7 @@
       let _ent = arr[ent]
       let _ents = arr[ents]
       let _entidx = arr[entidx]
-      return props.entx(_ent, _ents, _entidx )
+      return props.enxs(_ent, _ents, _entidx )
 
     }
 

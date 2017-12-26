@@ -11,7 +11,7 @@ if  EXIST %outEnls%  DEL %outEnls%
 setlocal enabledelayedexpansion
 
 
-REM enls
+REM  ------------------------ enls
 echo /*  d3  */ >> %outEnls% 
 for /f "delims=" %%f in ('dir /b /a-d /on d3*') do  echo document.write("<script src='%%f'><\/script>")   >> %outEnls% 
 
@@ -23,7 +23,7 @@ for /f "delims=" %%f in ('dir /b /a-d /on three*') do  echo document.write("<scr
 
 
 
-REM ents
+REM ------------------------ ents
 echo /* https://www.irt.org/script/974.htm */ >> %outEnts% 
 
 echo /*  bosons */ >> %outEnts% 

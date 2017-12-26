@@ -27,7 +27,7 @@
 let muonAlima = function muonAlima(__mapper) {
 
   __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({svg:1,versor:0,wen:1,webgl:0})
+  __mapper("xs").b("init")({svg:1,versor:0,wen:1,webgl:1})
 
   let f = __mapper({"props": bosonProps.bosonProps()}).props()
   let g = __mapper("xs").m("geom")
@@ -102,19 +102,19 @@ let muonAlima = function muonAlima(__mapper) {
 
   }
 
-  let proform = {
+  let proformIco = {
 
     "projection": "uniwen",
     "translate":  [ 280 , 200],
     "scale": 90,
-    "rotate": [0,0,0], // [-5,50,0],
+    "rotate": [-5,50,0], // [0,0,0], //
     "focale": 4,
-    "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  // 
+    "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
     "dims": 3,
     "control": "wen",
   }
 
-  let payload = {
+  let payloadIco = {
 
     points: [
       [0, 90],
@@ -156,7 +156,7 @@ let muonAlima = function muonAlima(__mapper) {
   }
 
 
-  let geoform = (p) => {
+  let geoformIco = (p) => {
     let payload = p.payload
     let ric = p.ric
 
@@ -180,7 +180,7 @@ let muonAlima = function muonAlima(__mapper) {
 
     return json
   }
-  
+
   let proformFaces = {
 
     "projection": "uniwen",
@@ -188,13 +188,13 @@ let muonAlima = function muonAlima(__mapper) {
     "scale": 90,
     "rotate": [0,0,0], // [-5,50,0],
     "focale": 4,
-    "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  // 
+    "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
     "dims": 3,
     "control": "wen",
   }
 
   let payloadFaces = {
-     
+
     faceIndex: [[[0,20.1]]],
 
     faces: function () {   // icosahedronFaces
@@ -211,27 +211,18 @@ let muonAlima = function muonAlima(__mapper) {
       }
       return faces.map(face => face.map(f.cartesian))
 
-            
+
     },
 
   }
-    
-  let payloadTwoFaces = {
-     
-    faces: [
-      [ [-1, -1,  1], [ 1, -1,  1], [ 1, 1,  1], [ -1, 1, 1],  [-1, -1,  1] ],
-      [ [-1, -1,  -1], [ 1, -1, -1], [ 1, 1, -1], [ -1, 1, -1],  [-1, -1, -1] ]
-    ]
 
-  }   
-    
   let geoformFaces = (p) => {
     let payload = p.payload
     let ric = p.ric
     let faceIndex = Math.round(payload.faceIndex)
 
     let json = {type: "FeatureCollection", features: []}
-    let faces = f.v(payload.faces)                 // payload.faces
+    let faces = f.v(payload.faces)        // payload.faces
 
     for (let i = 0, l = faces.length; i < l; i++) {
 
@@ -247,7 +238,7 @@ let muonAlima = function muonAlima(__mapper) {
       feature.properties.sort = "feature"
       feature.geometry = geometry
       feature.properties.boform = face.boform || p.boform
-      feature.properties.name = (i === 0) ? "front" : "back" 
+      feature.properties.name = (i === 0) ? "front" : "back"
       json.features.push(feature)
 
     }
@@ -258,20 +249,6 @@ let muonAlima = function muonAlima(__mapper) {
  *      @animas
  *
  */
-  let aniTwoFaces = {
-
-    "tim": tim,
-    "ric": {"gid":"aniIco","cid":"aniIco","fid":"aniFaces",},
-    "halo": "geojson",
-    "boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
-
-    "geoform": geoformFaces, // geoform,
-
-    "proform": proformFaces,
-
-    "payload": payloadTwoFaces,
-  }
-
   let aniFaces = {
 
     "tim": tim,
@@ -279,11 +256,11 @@ let muonAlima = function muonAlima(__mapper) {
     "halo": "geojson",
     "boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
 
-    "geoform": geoformFaces, // geoform,
+    "geoform": geoformFaces,
 
     "proform": proformFaces,
 
-    "payload": payloadFaces, // payload,
+    "payload": payloadFaces,
   }
 
   let aniIco = {
@@ -293,11 +270,11 @@ let muonAlima = function muonAlima(__mapper) {
     "halo": "geojson",
     "boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.2,"co":0.9,"cp":0.9,},
 
-    "geoform": geoform, // geoform,
+    "geoform": geoformIco,
 
-    "proform": proform,
+    "proform": proformIco,
 
-    "payload": payload, // payload,
+    "payload": payloadIco,
   }
 
   let img = {
@@ -344,10 +321,9 @@ let muonAlima = function muonAlima(__mapper) {
  *
  */
   let animas = [
-    // aniIco,  // h.geojson g.uniwen
-    // aniFaces,  // h.geojson g.uniwen
-    aniTwoFaces,  // h.geojson g.uniwen
-    img,      // h.img
+    aniIco,     // h.geojson g.uniwen
+    aniFaces,   // h.geojson g.uniwen
+    img,        // h.img
   ]
   let animaApi = function animaApi() {
     __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})

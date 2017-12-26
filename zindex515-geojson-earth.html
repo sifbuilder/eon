@@ -15,6 +15,8 @@
 <script src="enls.js"></script>
 <script src="ents.js"></script>
 
+
+
 <script>
 
 let muonAlima = function muonAlima(__mapper) {
@@ -63,22 +65,22 @@ let muonAlima = function muonAlima(__mapper) {
     "projection": "orthographic", "scale": [[[100,0.5]]],
     "translate": [ 300, 200 ],
     "rotate": [ [[[0, - 0 * 360]]], 0, 0 ],
-                    "control": "versor",
+    "control": "versor",
 
   }
   /*******************************************
  *    @animas
  *
  */
-  let geoform = {
+  let geoearth = {
 
     "tim": tim,
-    "ric": {"gid":"geoform","cid":"geoform","fid":"geoform",},
-    "halo":"geojson",
+    "ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
+    "halo": "geojson",
+    
+    "boform":{ "csx":0,"cf":[[[555,333,555,333,555,333,555]]],"cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
 
-    "boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-
-    "geoform": [[[ () => {
+    "geoform": () => {
       let geo = Object.assign({},
         topojson.feature(
           __mapper("xs").d("worldTopo110m").data(),
@@ -87,14 +89,15 @@ let muonAlima = function muonAlima(__mapper) {
       )
       geo = __mapper("xs").m("geoj").trim(geo)
       return geo
-    } ]]],
-
+    },
+    
     "proform": proform,
+    
   }
 
 
   let animas = [
-    geoform,  // h.geojson g.uniwen
+    geoearth,  // h.geojson g.orthographic
   ]
 
   return () => __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
