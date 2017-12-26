@@ -177,9 +177,9 @@
 
 
     /**********************
-   *    @geojize
+   *    @featurize
    */
-    let geojize = function (anigrams) {
+    let featurize = function (anigrams) {
       let features = []
       for (let i=0; i<anigrams.length; i++) {
         let anigram = anigrams[i]
@@ -216,9 +216,9 @@
       return features
     }
     /**********************
-   *    @featurize
+   *    @geojize
    */
-    let featurize = function (json, anigram) {
+    let geojize = function (json, anigram) {
 
       let newAnigrams= []
 
@@ -233,6 +233,7 @@
         let features = json.features
 
         for (let i=0; i<features.length; i++) {
+     
           let feature = features[i]
           let properties = feature.properties || {}
 
@@ -242,7 +243,7 @@
 
           if (!ric.fid) ric.fid = i
           else if (i > 0) ric.fid = ric.fid + "_" + i
-
+   
           newAnigram.ric = ric
           let uid =  __mapper("xs").m("ric").buildUID(newAnigram)
           newAnigram.uid = uid
@@ -319,27 +320,37 @@
 
     }
 
-    /**********************
+ /**********************
    *    @zorder
    */
-    let zorder = function (anigrams) {
+    let zorder = function (features) {
 
-      let zodered = anigrams
+      let zordered = features
         .map( d => {
-          let outring = d.feature.geometry.coordinates[0]
+          let outring = d.geometry.coordinates[0]   // out ring
+          let z = centroid(outring)
+          d.properties.zorder = z
+          return d
+        })
+        .sort( (a, b) => a.properties.zorder - b.properties.zorder )
+        .map( (d,i) => {d.id = i; d.uid = i; return d} )
+      return zordered
+    }
+
+ /**********************
+   *    @centroid
+   */
+    let centroid = function (outring) {
+
           let z = 0
           let dotsinring = outring.length
           for (let k=0; k<dotsinring; k++) {
             let ck = outring[k][2]    // z camera view
             z += ck
           }
-          z = z / dotsinring
-          d.feature.properties.sort = z
-          return d
-        })
-        .sort( (a, b) => a.feature.properties.sort - b.feature.properties.sort )
+          return z / dotsinring
 
-      return zodered
+
     }
 
     /**********************
@@ -354,9 +365,10 @@
     enty.lineStringFromStream = lineStringFromStream
     enty.polygonFromStream = polygonFromStream
     enty.multLineStringFromStreamArray = multLineStringFromStreamArray
-    enty.featurize = featurize
     enty.geojize = geojize
+    enty.featurize = featurize
     enty.zorder = zorder
+    enty.centroid = centroid
 
     return enty
 

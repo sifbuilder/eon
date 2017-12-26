@@ -145,8 +145,11 @@
  *
  */
     let render = function render (elapsed, anigrams, maxlimit) {
+// console.log("anigrams", anigrams[0].feature.properties.name, anigrams[0].feature.id, anigrams[0].feature.properties.sort)
+// console.log("anigrams", anigrams[1].feature.properties.name, anigrams[1].feature.id, anigrams[1].feature.properties.sort)
 
-      let features = __mapper("xs").m("geoj").geojize(anigrams)   //
+      // let features = __mapper("xs").m("geoj").featurize(anigrams)   //
+      let features = anigrams   //
 
 
       let svg = __mapper("renderSVG").svg()
@@ -224,7 +227,6 @@
             __mapper("renderSVG").elems("svg:g."+gid+"/path."+cid, features, d=>d.id)
 
               .attr("d", d =>  {
-
                 let object = d // .feature        // geojson feature
                 let properties = object.properties || {}  // geojson feature
                 let pointRadius = properties.pointRadius

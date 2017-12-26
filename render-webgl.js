@@ -118,7 +118,8 @@
  */
     let render = function (elapsed, anigrams, maxlimit) {
 
-      let features = __mapper("xs").m("geoj").geojize(anigrams)
+      // let features = __mapper("xs").m("geoj").featurize(anigrams)
+      let features = anigrams
 
       /* clean canvas */
       while(state.scene.children.length > 0){

@@ -98,12 +98,12 @@ let muonAlima = function muonAlima(__mapper) {
       let ric = p.ric
 
       let json = {type: "FeatureCollection", features: []}
-      let vertices = payload.vertices       // payload.vertices
+      let points = payload.points       // payload.points
       let faces = payload.faces                 // payload.faces
       for (let i = 0, l = faces.length; i < l; i++) {
-        let face = faces[i]                // face corners position
+        let face = faces[i]                // face pointsx position
         let geometry = {type:"Polygon",coordinates:[]}
-          geometry.coordinates = face.corners.map(k=>vertices[k]) // eg [-1, 1, 1]
+          geometry.coordinates = face.pointsx.map(k=>points[k]) // eg [-1, 1, 1]
             .map(g.normalize)    // eg. [0.5773, -0.577, 0.5773]
             .map(g.spherical)   // eg. [-0.7853, 0.6154]
             .map(g.to_degrees)
@@ -141,7 +141,7 @@ let muonAlima = function muonAlima(__mapper) {
 
     "payload": {
 
-      vertices: [
+      points: [
         [-1, -1,  1],   // 0
         [ 1, -1,  1],   // 1
         [ 1, 1,  1],    // 2
@@ -153,27 +153,27 @@ let muonAlima = function muonAlima(__mapper) {
       ],
       faces: [
         {
-          corners: [0,1,2,3,0],
+          pointsx: [0,1,2,3,0],
           name: "front",
           boform: { cf: 222, cs: 355, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
         {
-          corners: [4,5,6,7,4],
+          pointsx: [4,5,6,7,4],
           name: "back",
           boform: { cf: 888, cs: 455, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
         {
-          corners: [1,4,7,2,1],
+          pointsx: [1,4,7,2,1],
           name: "right",
           boform: { cf: 444, cs: 555, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
         {
-          corners: [5,0,3,6,5],
+          pointsx: [5,0,3,6,5],
           name: "left",
           boform: { cf: 555, cs: 655, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
         {
-          corners: [3,2,7,6,3],
+          pointsx: [3,2,7,6,3],
           name: "bottom",
           boform: { cf: 666, cs: 755, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
         {
-          corners: [5,4,1,0,5],
+          pointsx: [5,4,1,0,5],
           name: "top",
           boform: { cf: 777, cs: 855, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }}
 

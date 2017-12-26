@@ -22,7 +22,7 @@
     let aniListener =  function aniListener(elapsed) {
 
       state.animas = f.a(__mapper("muonStore").animasLive() )
-
+console.log(" ------------------------------------ ",elapsed)
     /*******************************************
      *    @TIME
      */
@@ -81,9 +81,13 @@
     /*******************************************
     *     @RENDER
     */
-      if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, anigrams)
-      if (__mapper("renderWebgl") !== undefined) __mapper("renderWebgl").render(elapsed, anigrams )
-      if (__mapper("renderCanvas") !== undefined) __mapper("renderCanvas").render(elapsed, anigrams )
+
+    let features = __mapper("xs").m("geoj").featurize(anigrams)
+        features = __mapper("xs").m("geoj").zorder(features)
+
+      if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, features)
+      if (__mapper("renderWebgl") !== undefined) __mapper("renderWebgl").render(elapsed, features )
+      if (__mapper("renderCanvas") !== undefined) __mapper("renderCanvas").render(elapsed, features )
 
     }
 
