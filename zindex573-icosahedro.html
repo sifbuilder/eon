@@ -105,7 +105,7 @@ let muonAlima = function muonAlima(__mapper) {
   let proformIco = {
 
     "projection": "uniwen",
-    "translate":  [ 280 , 200],
+    "translate":  [ 290 , 200],
     "scale": 90,
     "rotate": [-5,50,0], // [0,0,0], //
     "focale": 4,
@@ -170,7 +170,7 @@ let muonAlima = function muonAlima(__mapper) {
 
       let feature = {type:"Feature",geometry:{},properties:{}}
       feature.properties.ric = ric
-      feature.properties.ric.cid = "face"
+      feature.properties.ric.cid = ric.cid
       feature.properties.ric.fid = i // vs face.name
       feature.properties.sort = "feature"
       feature.geometry = geometry
@@ -184,7 +184,7 @@ let muonAlima = function muonAlima(__mapper) {
   let proformFaces = {
 
     "projection": "uniwen",
-    "translate":  [ 180, 200],
+    "translate":  [ 130, 200],
     "scale": 90,
     "rotate": [0,0,0], // [-5,50,0],
     "focale": 4,
