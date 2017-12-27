@@ -29,6 +29,7 @@ document.write("<script src='geo-hedrals.js'><\/script>")
 document.write("<script src='geo-myriad.js'><\/script>")    
 document.write("<script src='geo-natform.js'><\/script>")    
 document.write("<script src='geo-tetra.js'><\/script>")    
+document.write("<script src='geo-unimercator.js'><\/script>")    
 document.write("<script src='geo-uniwen.js'><\/script>")    
 /*  lib */  
 document.write("<script src='lib-complex.js'><\/script>")    
