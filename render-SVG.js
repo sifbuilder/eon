@@ -234,7 +234,8 @@
                 let path = (pointRadius !== undefined)  // geoPath
                   ? d3.geoPath().pointRadius(pointRadius)
                   : d3.geoPath()
-                return path(object)                                   // path
+                let pathObject = path(object) 
+                return pathObject
 
               })
 

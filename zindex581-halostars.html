@@ -48,141 +48,84 @@ let muonAlima = function muonAlima(__mapper) {
   let versor = __mapper("xs").b("versor")()
   let wen = __mapper("xs").c("wen")({rotInit})
 
-/*******************************************
+  /*******************************************
  *      @pics
  *
  */
   let tim = {"td":19800,"t0":0,"t1":1000,"t2":1,"t3":1,}
-  let geoform = (p) => {
-      let payload = p.payload
-      let ric = p.ric
-
-      let json = {type: "FeatureCollection", features: []}
-      let points = payload.points       // payload.points
-      let faces = payload.faces         // payload.faces
-
-      for (let i = 0, l = faces.length; i < l; i++) {
-        let face = faces[i]                // face pointsx position
-        
-        let geometry = {type:"Polygon",coordinates:[]}
-        
-            geometry.coordinates = Array.of(face.pointsx.map(k=>points[k])) // eg [-1, 1, 1]
-
-        
-        let feature = {type:"Feature",geometry:{},properties:{}}
-            feature.properties.ric = ric
-            feature.properties.ric.cid = "face"
-            feature.properties.ric.fid = i // face.name
-            feature.properties.sort = "feature"
-            feature.geometry = geometry
-            feature.properties.boform = face.boform
-        json.features.push(feature)
-      }
-
-
-      return json       // FeatureCollection.features[i].geometry.coordinates[i]::[-1, -1, 1]
-    }
-
+  
   let proform = {
 
-      "projection": "uniwen",
-      "translate":  [ 280 , 200],
-      "scale": 60,
-      "rotate": [-5,50,0],
-      "focale": 4,
-      "zafin": [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  // [0,1], // [1,0]
-      "dims": 3,
-      "control": "wen",
-    }
+    "projection": "uniwen",
+    "translate":  [ 280 , 200],
+    "scale": 60,
+    "rotate": [-5,50,0],
+    "focale": 4,
+    "zafin": [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  // [0,1], // [1,0]
+    "dims": 3,
+    "control": "wen",
+  }
 
   let payload = {
+  
+    rotBase: [1,0,0,  0,1,0,  0,0,1],
+    rotInit: [0,0,0],
+    velDecay:     0.95,
+    velRot:			[1,0,0], //  [-6e-3, 7.6e-3, 2.13e-3],
 
-      points: [
-        [-1, -1,  1],   // 0
-        [ 1, -1,  1],   // 1
-        [ 1, 1,  1],    // 2
-        [-1, 1,  1],    // 3
-        [ 1, -1, -1],   // 4
-        [-1, -1, -1],   // 5
-        [-1, 1, -1],    // 6
-        [ 1, 1, -1],    // 7
-      ],
-      faces: [
-        {
-          pointsx: [0,1,2,3,0],
-          name: "front",
-          boform: { cf: 222, cs: 355, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
-        {
-          pointsx: [4,5,6,7,4],
-          name: "back",
-          boform: { cf: 888, cs: 455, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
-        {
-          pointsx: [1,4,7,2,1],
-          name: "right",
-          boform: { cf: 444, cs: 555, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
-        {
-          pointsx: [5,0,3,6,5],
-          name: "left",
-          boform: { cf: 555, cs: 655, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
-        {
-          pointsx: [3,2,7,6,3],
-          name: "bottom",
-          boform: { cf: 666, cs: 755, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }},
-        {
-          pointsx: [5,4,1,0,5],
-          name: "top",
-          boform: { cf: 777, cs: 855, co: [[[0.2,0.09,0.9,0.2]]], cp: 1, }}
+    doxStar:			0 , // 1000, //  1,
+    diStar:				1,		
+    maxZStar:			[[[1.5,1.5]]],			// star passed
+    hiStar:				10, // // [[[16,998]]], //   [[[4,4]]],
+    fStar:				12 , // 100, //   0.1,
+    velStar:			[[[0.05,0.2]]]  , // [100,100], // [0.400, 0.400],
 
-      ],
+    starRecord: 	{ cf: 444, cs: 11, co: 0.99, cp: 1, },
+    starRadious: 	2,
 
-    }
-     /**********************
-   *    @gramify
-   */
-   let gramify = function (anima, newAnigrams=[]) {
+    nbstars:      [[[6,24]]], // [[[24,24]]],  // 200 
+  
 
-      let ani = __mapper("xs").m("anitem")(anima)
+    points: [
+      [-1, -1,  1],   // 0
+      [ 1, -1,  1],   // 1
+      [ 1, 1,  1],    // 2
+      [-1, 1,  1],    // 3
+      [ 1, -1, -1],   // 4
+      [-1, -1, -1],   // 5
+      [-1, 1, -1],    // 6
+      [ 1, 1, -1],    // 7
+    ],
+    faces: [
+      {
+        pointsx: [0,1,2,3,0],
+        name: "front",
+        boform: { cf: 222, cs: 355, co: [[[0.2,0.09,0.9,0.9]]], cp: 1, }},
+      {
+        pointsx: [4,5,6,7,4],
+        name: "back",
+        boform: { cf: 888, cs: 455, co: [[[0.2,0.09,0.9,0.9]]], cp: 1, }},
+      {
+        pointsx: [1,4,7,2,1],
+        name: "right",
+        boform: { cf: 444, cs: 555, co: [[[0.2,0.09,0.9,0.9]]], cp: 1, }},
+      {
+        pointsx: [5,0,3,6,5],
+        name: "left",
+        boform: { cf: 555, cs: 655, co: [[[0.2,0.09,0.9,0.9]]], cp: 1, }},
+      {
+        pointsx: [3,2,7,6,3],
+        name: "bottom",
+        boform: { cf: 666, cs: 755, co: [[[0.2,0.09,0.9,0.9]]], cp: 1, }},
+      {
+        pointsx: [5,4,1,0,5],
+        name: "top",
+        boform: { cf: 777, cs: 855, co: [[[0.2,0.09,0.9,0.9]]], cp: 1, }}
 
-      let stace =   ani.stace(),                // stace
-        proform = ani.proform(),                // proform
-        conform = ani.conform(),                // conform
-        geoform = ani.geoform()                 // geoform
+    ],
 
-      let json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform
-
-      if (conform) {
-          let conformer = __mapper("xs").b("gist")(conform)
-          json =  __mapper("xs").b("proj3ct")(json, conformer)  // conform
-      }
-
-      if (stace) {
-          let reformer = __mapper("xs").m("stace").getReform(stace)
-          json =  __mapper("xs").b("proj3ct")(json, reformer)      // reform
-      }
-
-      if (proform) {
-          let proformer = __mapper("xs").b("gist")(proform)
-          json =  __mapper("xs").b("proj3ct")(json, proformer)  // proform
-      }
-
-      if (stace) {
-          let lociformer =  __mapper("xs").m("stace").getLociform(ani.anigram())
-        json =  __mapper("xs").b("proj3ct")(json, lociformer)  // lociform
-      }
- 
-      newAnigrams =  __mapper("xs").m("geoj").geojize(json, ani.anigram())
-
-      return newAnigrams
-    }
-    
-/*******************************************
- *      @halo
- *
- */   
-  let haloWin = {}
-      haloWin.ween = __mapper("xs").h("geojson").ween
-      haloWin.gramn = anima => gramify(anima)
-/*******************************************
+  }
+  /*******************************************
  *      @animas
  *
  */
@@ -190,24 +133,17 @@ let muonAlima = function muonAlima(__mapper) {
 
     "tim": tim,
     "ric": {"gid":"aniCube","cid":"aniCube","fid":"aniCube",},
-    "halo": haloWin,
-    "boform":{ "csx":0,"cf":111,"cs":111,"cw":0.1,"co":0.9,"cp":0.9,},
-
-    "geoform": geoform,
-
+    "halo": "stars",
+    "boform":{ "csx":0,"cf":666,"cs":666,"cw":0.9,"co":0.9,"cp":0.9,},
     "proform": proform,
-
     "payload": payload,
-  }
- 
-  /*******************************************
- *      @animas
- *
- */
-  let animas = [
-    aniCube,  // h.geojson g.uniwen
+    
+  }    
 
+  let animas = [
+    aniCube,  // h.stars g.uniwen
   ]
+  
   let animaApi = function animaApi() {
     __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
   }
