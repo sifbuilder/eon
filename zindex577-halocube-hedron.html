@@ -70,9 +70,11 @@ let muonAlima = function muonAlima(__mapper) {
 
         
         let feature = {type:"Feature",geometry:{},properties:{}}
-            feature.properties.ric = ric
-            feature.properties.ric.cid = "face"
-            feature.properties.ric.fid = i // face.name
+            let _ric = {}
+            _ric.gid = ric.gid
+            _ric.cid = "face"
+            _ric.fid = i
+            feature.properties.ric = _ric
             feature.properties.sort = "feature"
             feature.geometry = geometry
             feature.properties.boform = face.boform

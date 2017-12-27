@@ -148,7 +148,6 @@
 // console.log("anigrams", anigrams[0].feature.properties.name, anigrams[0].feature.id, anigrams[0].feature.properties.sort)
 // console.log("anigrams", anigrams[1].feature.properties.name, anigrams[1].feature.id, anigrams[1].feature.properties.sort)
 
-      // let features = __mapper("xs").m("geoj").featurize(anigrams)   //
       let features = anigrams   //
 
 
@@ -220,22 +219,23 @@
 
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
-            .filter(d => d.properties.sort === "feature")               // __ geojson __
+            .filter(d => d.properties.sort === "feature")       // __ geojson __
             .filter((d,i) => (d.properties.delled !== 1))             // not delled
           if (features.length > 0)  {
 
             __mapper("renderSVG").elems("svg:g."+gid+"/path."+cid, features, d=>d.id)
 
               .attr("d", d =>  {
-                let object = d // .feature        // geojson feature
-                let properties = object.properties || {}  // geojson feature
+          
+                let object = d        // geojson feature
+                let properties = object.properties || {}  // properties
                 let pointRadius = properties.pointRadius
 
                 let path = (pointRadius !== undefined)  // geoPath
                   ? d3.geoPath().pointRadius(pointRadius)
                   : d3.geoPath()
-                let pathObject = path(object) 
-                return pathObject
+                let pathFromObject = path(object) 
+                return pathFromObject
 
               })
 

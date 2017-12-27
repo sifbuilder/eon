@@ -179,8 +179,8 @@
     /**********************
    *    @featurize
    */
-    let featurize = function (anigrams) {
-      let features = []
+    let featurize = function (anigrams, features = []) {
+
       for (let i=0; i<anigrams.length; i++) {
         let anigram = anigrams[i]
         let boform = anigram.boform
@@ -215,15 +215,18 @@
       }
       return features
     }
-    /**********************
-   *    @geojize
+   /* *********************
+   *    @geojize - call from halo after gjform cycle
+   *      build anigram from geojson geometry
    */
     let geojize = function (json, anigram) {
 
       let newAnigrams= []
 
       if (json.type === "Feature") {
-        let newAnigram = __mapper("xs").b("clone")(anigram)
+
+        let ani = __mapper("xs").m("anitem")(anigram)
+        let newAnigram = ani.anigram()
         newAnigram.feature = json
         newAnigram.sort = "feature"
         newAnigrams.push(newAnigram)
@@ -233,19 +236,25 @@
         let features = json.features
 
         for (let i=0; i<features.length; i++) {
-     
+          let ani = __mapper("xs").m("anitem")(anigram)
+          let newAnigram = ani.anigram()
+          
           let feature = features[i]
           let properties = feature.properties || {}
 
-          let newAnigram = __mapper("xs").b("clone")(anigram)
-
           let ric = Object.assign({},newAnigram.ric,properties.ric)
 
-          if (!ric.fid) ric.fid = i
-          else if (i > 0) ric.fid = ric.fid + "_" + i
-   
+          // if (!ric.fid) ric.fid = i
+          // else if (i > 0) ric.fid = ric.fid + "_" + i
+           // ric.fid = (i,d,a) => (i === 0) ? a.ric.fid : a.ric.fid + "_" + i
+           
+          if (!ric.fid) ric.fid = i   // the fide privilege
+          else if (typeof ric.fid === "function") ric.fid = ric.fid(i, ric, ani)
+          else ric.fid = ric.fid
+
+        
           newAnigram.ric = ric
-          let uid =  __mapper("xs").m("ric").buildUID(newAnigram)
+          let uid =  __mapper("xs").m("ric").buildUIDFromRic(ric)
           newAnigram.uid = uid
 
           let boform = Object.assign({},newAnigram.boform,properties.boform)
@@ -277,18 +286,18 @@
 
           let ric = Object.assign({}, newAnigram.ric)
 
-          if (!ric.fid) ric.fid = i
-          else if (i > 0) ric.fid = ric.fid + "_" + i
-
-          newAnigram.ric = ric
-          let uid =  __mapper("xs").m("ric").buildUID(newAnigram)
+          if (!ric.fid) ric.fid = i   // the fide privilege
+          // ric.fid = (i,d,a) => (i === 0) ? a.ric.fid : a.ric.fid + "_" + i
+          else if (typeof ric.fid === "function") ric.fid = ric.fid(i, ric, ani)
+          else ric.fid = ric.fid
+          
+          let uid =  __mapper("xs").m("ric").buildUIDFromRic(ric)
           newAnigram.uid = uid
 
           let boform = Object.assign({},newAnigram.boform)
           newAnigram.boform = boform
 
           newAnigram.sort = "feature"
-
 
           newAnigram.feature = feature
           newAnigram.sort = "feature"
@@ -297,9 +306,9 @@
 
       } else {          // geometry
 
-        let newAnigram = __mapper("xs").b("clone")(anigram)
         let ani = __mapper("xs").m("anitem")(anigram)
-
+        let newAnigram = ani.anigram()
+ 
         let feature = {
           "type": "Feature",
           "geometry": {
@@ -327,14 +336,19 @@
 
       let zordered = features
         .map( d => {
-          let outring = d.geometry.coordinates[0]   // out ring
-          let z = centroid(outring)
-          d.properties.zorder = z
+
+          
+          if (d.properties.zorder === undefined) {    // if zorder undefined
+            let outring = d.geometry.coordinates[0]   // for out ring
+            let zorder = centroid(outring)
+            d.properties.zorder = zorder              // try centroid.z
+          }
           return d
         })
         .sort( (a, b) => a.properties.zorder - b.properties.zorder )
         .map( (d,i) => {d.id = i; d.uid = i; return d} )
       return zordered
+      
     }
 
  /**********************

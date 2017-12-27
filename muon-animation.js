@@ -66,23 +66,18 @@
      */
       for (let i=0; i<state.animas.length; i++) {
 
-        let newAnigrams = __mapper("xs").m("store").gramn(state.animas[i]) /* GRAMN  */
+        let newAnigrams = __mapper("xs").m("store").gramn(state.animas[i]) /* GRAMN */
         __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"store","anigrams":f.a(newAnigrams)})
 
       }
       let anigrams = __mapper("xs").m("store").anigrams()
 
     /*******************************************
-     *    @FPS
-     */
-      if (__mapper("muonfps") && __mapper("muonfps").inited())  __mapper("muonfps").addloop()
-
-    /*******************************************
     *     @RENDER
     */
 
-    let features = __mapper("xs").m("geoj").featurize(anigrams)
-        features = __mapper("xs").m("geoj").zorder(features)
+      let features = __mapper("xs").m("geoj").featurize(anigrams) // anigrams to gj features
+          features = __mapper("xs").m("geoj").zorder(features)    // order features on zorder
 
       if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, features)
       if (__mapper("renderWebgl") !== undefined) __mapper("renderWebgl").render(elapsed, features )
