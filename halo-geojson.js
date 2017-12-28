@@ -40,11 +40,11 @@
           json =  __mapper("xs").b("proj3ct")(json, proformer)  // proform
       }
 
-      // if (stace) {
-          // let lociformer =  __mapper("xs").m("stace").getLociform(ani.anigram())
-        // json =  __mapper("xs").b("proj3ct")(json, lociformer)  // lociform
-      // }
- console.log("json",json)
+      if (stace) {
+          let lociformer =  __mapper("xs").m("stace").getLociform(ani.anigram())
+        json =  __mapper("xs").b("proj3ct")(json, lociformer)  // lociform
+      }
+
       newAnigrams =  __mapper("xs").m("geoj").geojize(json, ani.anigram())
 
       return newAnigrams

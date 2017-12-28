@@ -63,7 +63,7 @@ let muonAlima = function (__mapper) {
  *
  */
 
-  let tim = {"td":52800,"t0":0,"t1":1000,"t2":1,"t3":1,}
+  let tim = {"td":22800,"t0":0,"t1":1000,"t2":1,"t3":1,}
 
 
   // -------------------------------  haloLinerHalo_ween
@@ -91,7 +91,7 @@ let muonAlima = function (__mapper) {
       geoform = ani.geoform()                 // geoform
 
 
-    let pixspan = 15 / 1400
+    let pixspan = 15 / 200
 
     let count = {}          // items to be generated on cycle
 
@@ -171,15 +171,15 @@ let muonAlima = function (__mapper) {
           newItem.y = y
           newItem.z = 0
 
-          let trace = {}
+          let feature = {}
           
-          if (newItem.trace !== undefined) {
+          if (newItem.feature !== undefined) {
 
-            trace = newItem.trace
-            let coords = trace.geometry.coordinates
+            feature = newItem.feature
+            let coords = feature.geometry.coordinates
             let coord = [x,y,z]
 
-            let loc = trace.geometry.coordinates[trace.geometry.coordinates.length - 1]
+            let loc = feature.geometry.coordinates[feature.geometry.coordinates.length - 1]
             let dx = coord[0] - loc[0]
             let dy = coord[1] - loc[1]
             let dz = coord[2] - loc[2]
@@ -187,35 +187,33 @@ let muonAlima = function (__mapper) {
 
             if (d > pixspan) coords.push(coord)    // add segment if above pixspan distance
 
-            trace.geometry.coordinates = coords
-            trace.properties.boform = boform
-            
+            feature.geometry.coordinates = coords
+
           } else {
 
-            trace = {
+            feature = {
                     type: "Feature",
                     id: "lineform" + i,
                     geometry: {},
                     properties: {}}        
           
-            trace.geometry = {
+            feature.geometry = {
                     type: "LineString",
                     coordinates: [],
             }
-            trace.properties.boform = boform
+            feature.properties.boform = boform
             
             
             let coord = [x,y,0]
-            trace.geometry.coordinates = Array.of(coord)
+            feature.geometry.coordinates = Array.of(coord)
 
           }
 
         
-          let geoform = () => trace 
+          let geoform = () => feature 
           
          
           newItem.geoform = geoform
-          newItem.trace = trace       // keep reference system
           let newAnigrams = __mapper("xs").h("geojson").gramify(newItem)
           
           
@@ -229,6 +227,9 @@ let muonAlima = function (__mapper) {
       }
 
     }
+
+
+
 
 
     return newItems
@@ -277,13 +278,16 @@ let muonAlima = function (__mapper) {
 
     },
 
-    "stace": {
-          "x": 300,
-          "y": 200,
+    "stace": // [[[ ( x = [[[100,500]]], y=[[[100, 50]]], z=0 ) => [x, y, z] ]]],
+        {
+          "x": 0,
+          "y": 0,
           "z": 0,
         },
 
-    "boform": { "csx":0,"cf":[[[444,999]]], "co":[[[0.09,0.09]]], "cs":[[[555,999]]],"cw":[[[2.7,2.7]]],"cp":[[[0.9,0.9]]],},
+    "boform": { "csx":0,"cf":[[[444,444]]],
+      "co":[[[0.009,0.009]]],     // route line no fill
+      "cs":[[[999,999]]],"cw":[[[0.7,0.7]]],"cp":[[[0.7,0.9]]],},
 
     "proform": {
         "projection": "uniwen",
@@ -349,6 +353,67 @@ let muonAlima = function (__mapper) {
     }
   }
 
+   let geoform = {
+
+
+    "tim": tim,
+    "ric": {"gid":"aniFace","cid":"aniFace","fid":"aniFace",},
+    "halo": "geojson",
+    "boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
+
+    "geoform": (p) => {
+      let payload = p.payload
+      let coordinaes = [
+            [-1, -1,  1],
+            [ 1, -1,  1],
+            [ 1, 1,   1],
+            [ -1, 1,  1],
+            [-1, -1,  1]
+           ]
+
+      let ric = p.ric
+      let boform = p.boform
+
+      let json = {type: "FeatureCollection", features: []}
+
+        let geometry = {type:"Polygon",coordinates:[]}
+
+        geometry.coordinates = Array.of(coordinaes) // eg [-1, 1, 1]
+
+        let feature = {type:"Feature",geometry:{},properties:{}}
+          let _ric = {}
+            _ric.gid = ric.gid
+            _ric.cid = "face"
+            _ric.fid = "face"
+        feature.properties.ric = _ric
+
+        feature.properties.sort = "feature"
+        feature.geometry = geometry
+        feature.properties.boform = boform
+        feature.properties.name = "orange"
+
+        json.features.push(feature)
+
+
+
+      return json
+    },
+
+    "proform": {
+
+        "projection": "uniwen",
+        "translate":  [ 180, 200],
+        "scale": 90,
+        "rotate": [0,0,0], // [-5,50,0],
+        "focale": 4,
+        "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+        "dims": 3,
+        "control": "wen",
+      },
+
+  }
+
+
 
 
   /*******************************************
@@ -360,8 +425,9 @@ let muonAlima = function (__mapper) {
   // }
 
   let animas = [
-    img,          // h.img
+    // img,          // h.img
     lineform,     // h.liner
+    // geoform,     // haloLineform.geojson
 
   ]
 
