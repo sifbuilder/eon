@@ -49,7 +49,7 @@
               local.animas[index] = updAnima                    // replace
             }
 
-          } else {
+          } else {                                             // new anima
 
             updAnima.tim =  __mapper("xs").b("tim")(updAnima.tim, elapsed) // set tim elapsed
             updAnima.uid = uid                                // set uid if new anima

@@ -46,8 +46,10 @@
     // let control = elem => elem.call(drag.on("start", dragstarted).on("drag", dragged))
     let control = function (elem) {
         console.log(" control versor ")
-        elem.call(drag.on("start", dragstarted).on("drag", dragged))
+        elem.call(drag.on("start", dragstarted).on("drag", dragged) )
     }
+
+    let reset = elem => elem.call(drag.on("start", null).on("drag", null))
     
     // dragstarted
     let dragstarted = function() {
@@ -96,6 +98,7 @@
     enty.dragstarted = dragstarted
     enty.dragged = dragged
     enty.control = control
+    enty.reset = reset
 
     enty.projection = _ => _ !== undefined ? (state.projection = _ , enty) : state.projection
     enty.rotation = _ => _ !== undefined ? (state.rotation = _ , enty) : state.rotation

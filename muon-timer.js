@@ -52,8 +52,8 @@
 
     let Timer = function Timer() {
       this._call =
-  this._time =
-  this._next = null
+        this._time =
+        this._next = null
     }
 
     Timer.prototype = timer.prototype = {
@@ -79,6 +79,7 @@
       }
       ,
       resume: function(callback, delay, time) {   // _e_
+        // _e_ move delay :: restartTime back on rist resume 
         if (typeof callback !== "function") throw new TypeError("callback is not a function")
         time = (time == null ? now() : time) + (delay == null ? 0 : +delay)
         if (!this._next && taskTail !== this) {

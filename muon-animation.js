@@ -14,14 +14,15 @@
     let state = {}
         state.animas = []              // global animas
 
-  /*******************************************
-   *
-   *      @ANIMATION
-   *
-   **/
+    /*******************************************
+     *
+     *      @aniListener
+     *
+     **/
     let aniListener =  function aniListener(elapsed) {
 
       state.animas = f.a(__mapper("muonStore").animasLive() )
+      console.log(" ................... animation", elapsed)
       
     /*******************************************
      *    @TIME
@@ -50,7 +51,7 @@
       for (let i=0; i<state.animas.length; i++) {
 
         let anima  = state.animas[i]                     // each anima in animas live
-        let newAnimas = __mapper("xs").m("store").ween(anima)
+        let newAnimas = __mapper("xs").m("store").ween(anima)   // has generated animas
         __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":newAnimas})
 
       }
@@ -59,7 +60,7 @@
     /*******************************************
      *    @SIM defaults position of nodes
      */
-      let sim = __mapper("xs").m("simulation").sim()
+      let sim = __mapper("xs").m("simulation").sim()     // simulation on animas
       state.animas =  __mapper("xs").m("simulation").simulate(sim, state.animas, elapsed)
 
     /*******************************************

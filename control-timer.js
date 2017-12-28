@@ -12,6 +12,7 @@
     let state = {}
     state.now = performance.now()
     state.restartTime = performance.now()
+    state.resumeTime = performance.now()
     state.stopTime = performance.now()
 
     let currentListeners = []
@@ -27,11 +28,11 @@
     }
 
     // ......................... start
-    let start = function start() {
+    let start = function () {
       started = false
 
-      let main = function(timestamp) {
-        window.requestAnimationFrame(main)
+      let main = function (timestamp) {
+        window.requestAnimationFrame (main)
 
         let listeners = currentListeners = nextListeners
         for (let i = 0; i < listeners.length; i++) {
@@ -41,24 +42,24 @@
 
       if (!started) {
         started = true
+              console.log(" ************ c.timer set restartTime:", state.restartTime)
+        state.restartTime = performance.now() - (state.stopTime - state.restartTime)
         main()
       }
 
-      state.restartTime = performance.now() - (state.stopTime - state.restartTime)
 
       return enty
     }
 
     // ......................... restart
-    let restart = function restart() {
+    let restart = function () {
       started = true
       let listeners = currentListeners = nextListeners
-
 
       for (let i = 0; i < listeners.length; i++) {
 
         state.restartTime = performance.now() - (state.stopTime - state.restartTime)
-        console.log("restart **", state.restartTime )
+        console.log("c.timer restart", state.restartTime )
 
         d3timers[i].restart(listeners[i],0,0)
       }
@@ -66,24 +67,22 @@
     }
 
     // ......................... resume
-    let resume = function resume() {
+    let resume = function () {
       started = true
       let listeners = currentListeners = nextListeners
 
-
       for (let i = 0; i < listeners.length; i++) {
 
-        state.restartTime = performance.now() - (state.stopTime - state.restartTime)
-        console.log("resume **", state.restartTime )
+        state.resumeTime = performance.now() - (state.stopTime - state.resumeTime)
 
         d3timers[i].stop(listeners[i])
-        d3timers[i].resume(listeners[i],0,state.restartTime)
+        d3timers[i].resume(listeners[i],-state.restartTime,state.resumeTime) // _e_ restartTime in advance
       }
       return enty
     }
 
     // ......................... stop
-    let stop = function stop() {
+    let stop = function () {
       started = false
       let listeners = currentListeners = nextListeners
 
@@ -96,8 +95,9 @@
     }
 
     // ......................... subscribe
-    let subscribe = function subscribe (listener, wait =0) {
+    let subscribe = function (listener, wait =0) {
       started = true
+
       if (typeof listener !== "function") {
         throw new Error("Expected listener to be a function.")
       }

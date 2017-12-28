@@ -76,9 +76,10 @@ let muonAlima = function (__mapper) {
       mouse.mouseDownShared = mmouse.mouseDownShared()
       mouse.event = mmouse.event()
 
-      if (mouse.event.type === "mouseup") {
+      if (mouse.event && mouse.event.type === "mouseup") {
           console.log("mouse.event", mouse.event.type)  
           __mapper("xs").c("wen").reset(__mapper("renderSVG").svg()) 
+          __mapper("xs").c("versor").reset(__mapper("renderSVG").svg()) 
       }
       
       if (mouse.event !== undefined && mouse.mouseDown === 1 ) {

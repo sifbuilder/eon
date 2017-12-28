@@ -158,8 +158,6 @@
 		}
 		// ____________________ rightArrowAlt
 		var rightArrowAlt = function rightArrowAlt(e) {
-			console.log("rightArrowAltFn")
-			
 			
 				// var listeners = currentListeners = nextListeners
 				// for (var i = 0; i < listeners.length; i++) {

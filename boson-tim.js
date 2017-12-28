@@ -9,16 +9,12 @@
 
 let bosonTim = function bosonTim(__mapper = {}) {
 
-    let props = __mapper("props")()
     let epsilon = 1e-5
-
-
 
   /**********************
    *    @timing
    */
 let timing = function timing (pTim, pElapsed) {
-
     let tim = Object.assign({},pTim)
     let _tim = Object.assign({},pTim)
 

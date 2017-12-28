@@ -38,33 +38,31 @@
       if (p.key) {
         __mapper("xs").c("key").start()                 // KEYBRD CONTROLS
 
-        let controltimerRightArrowAlt = () => {                     // ARROW
+        let controltimerRightArrowAlt = () => {         // ARROW
 
           if (__mapper("muonAnimation").animationStop !== undefined)
           {
-            console.log("started",__mapper("controlTimer").started())
             if (__mapper("controlTimer").started()) {
               __mapper("controlTimer").stop()
             } else {
-              console.log("controlTimer resume")
               __mapper("controlTimer").resume()
             }
           }
         }
         __mapper("xs").c("key").subscribe(controltimerRightArrowAlt, "rightArrowAlt")
-        __mapper("xs").c("key").start()                 // MOUSE
+
       }
-	
-	
+
+
       let mouseMoveListener = function (event) {
-   
+
         let mmouse = __mapper("xs").m("mouse")
             mmouse.mouseMove(1)
             mmouse.mouseDownShared(1)
             mmouse.event(event)
 
-      }		
-	
+      }
+
       let mouseDownListener = function (event) {
 
         let mmouse = __mapper("xs").m("mouse")
