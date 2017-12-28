@@ -56,7 +56,14 @@
 
     let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x,e.y]) : [e.x,e.y]
 
-    let control = elem => elem.call(drag.on("start", dragstarted).on("drag", dragged).on("end", dragended))
+    // let control = elem => elem.call(drag.on("start", dragstarted).on("drag", dragged).on("end", dragended))
+    let control = function(elem) {
+        console.log(" control wen ")
+        elem.call(drag.on("start", dragstarted).on("drag", dragged).on("end", dragended))
+    }
+    
+    // __mapper("xs").c("wen").reset(__mapper("renderSVG").svg())
+    let reset = elem => elem.call(drag.on("start", null).on("drag", null).on("end", null))
 
     function stopMomentum() { cancelAnimationFrame(timer); timer = null }
 
@@ -128,6 +135,7 @@
     enty.dragged = dragged
     enty.dragended = dragended
     enty.control = control
+    enty.reset = reset
 
     enty.mult = _ => _ !== undefined ? (mult = _ , enty) : mult // effect multiplier
     enty.rotInDrag = _ => _ !== undefined ? (rotInDrag = g.to_radians(_) , enty) : rotInDrag.map(g.to_degrees)

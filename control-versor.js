@@ -43,8 +43,12 @@
 
     let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x,e.y]) : [e.x,e.y]
 
-    let control = elem => elem.call(drag.on("start", dragstarted).on("drag", dragged))
-
+    // let control = elem => elem.call(drag.on("start", dragstarted).on("drag", dragged))
+    let control = function (elem) {
+        console.log(" control versor ")
+        elem.call(drag.on("start", dragstarted).on("drag", dragged))
+    }
+    
     // dragstarted
     let dragstarted = function() {
       let e = d3.event

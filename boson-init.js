@@ -79,6 +79,7 @@
         let mmouse = __mapper("xs").m("mouse")
             mmouse.mouseDown(0)
             mmouse.mouseDownShared(0)
+            mmouse.event(event)
 
       }
 
