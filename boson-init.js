@@ -51,26 +51,41 @@
             }
           }
         }
-        __mapper("controlKey").subscribe(controltimerRightArrowAlt, "rightArrowAlt")
+        __mapper("xs").c("key").subscribe(controltimerRightArrowAlt, "rightArrowAlt")
+        __mapper("xs").c("key").start()                 // MOUSE
+      }
+	
+	
+      let mouseMoveListener = function (event) {
+   
+        let mmouse = __mapper("xs").m("mouse")
+            mmouse.mouseMove(1)
+            mmouse.mouseDownShared(1)
+            mmouse.event(event)
+
+      }		
+	
+      let mouseDownListener = function (event) {
+
+        let mmouse = __mapper("xs").m("mouse")
+            mmouse.mouseDown(1)
+            mmouse.mouseDownShared(1)
+            mmouse.event(event)
+
       }
 
-      let mouseDownListener = function mouseDownListener(event) {
+      let mouseUpListener = function (event) {
 
-        __mapper("xs").m("mouse").mouseDown(1)
-        __mapper("xs").m("mouse").mouseDownShared(1)
-        __mapper("xs").m("mouse").event(event)
-
-      }
-
-      let mouseUpListener = function mouseUpListener(event) {
-
-        __mapper("xs").m("mouse").mouseDown(0)
-        __mapper("xs").m("mouse").mouseDownShared(0)
+        let mmouse = __mapper("xs").m("mouse")
+            mmouse.mouseDown(0)
+            mmouse.mouseDownShared(0)
 
       }
 
       if (__mapper("renderSVG")) __mapper("xs").c("mouseDown").control(__mapper("renderSVG").svg()).subscribe(mouseDownListener, __mapper("renderSVG").svg())
       if (__mapper("renderSVG")) __mapper("xs").c("mouseUp").control(__mapper("renderSVG").svg()).subscribe(mouseUpListener, __mapper("renderSVG").svg())
+      if (__mapper("renderSVG")) __mapper("xs").c("mouseMove").control(__mapper("renderSVG").svg()).subscribe(mouseMoveListener, __mapper("renderSVG").svg())
+
 
       if (p.fps) {                                      // FPS
         const fpsdiv = d3.select("body").append("div").attr("id","fps")

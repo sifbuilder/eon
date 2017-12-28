@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function (__mapper) {
+
+  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
+  __mapper("xs").b("init")({svg:1,versor:0,wen:0,webgl:1})  // INIT
+
+  let f = __mapper({"props": bosonProps.bosonProps()}).props()
+  let g = __mapper("xs").m("geom")
+  let w = __mapper("xs").m("wen")
+
+  let r = __mapper("xs").r("renderer"),
+    width = r.width(),
+    height = r.height()
+
+  /*******************************************
+ *    @controls
+ *
+ */
+
+  let tim = {"td":22800,"t0":0,"t1":1000,"t2":1,"t3":1,}
+
+
+  // -------------------------------  lineform
+  let lineform = {
+
+    "tim": tim,
+    "ric": {"gid":"nat","cid":"nat","fid":"lineform",},
+    "halo": "liner", // haloLineform,
+
+    "form":   {
+
+      "x": {
+        "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circle
+        "ra2": 4,
+        "v0": 0,"v1":1,
+        "w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], //
+        "seg5": 360,"pa6":0,"pb7":-1,
+        "fas8": 0,
+      },
+      "y": {
+        "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circle
+        "ra2": 4,
+        "v0":0,"v1":1,
+        "w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], //
+        "seg5": 360,"pa6":0,"pb7":-1,
+        "fas8": -90,    // fas8, antifase
+      },
+      "z": {
+        "m1":6,"m2":6,"n1":[[[100,200]]],"n2":[[[100,2]]],"n3":[[[100,200]]],"a":1,"b":1, // square
+        "ra2": [[[4/  Math.sqrt(2),4/  Math.sqrt(2)]]],
+        "v0": 0,"v1":1,
+        "w4":  0, // [[[180,360,180]]], // [[[0,-360,0]]],
+        "seg5": 12,"pa6":0,"pb7":-1,
+        "fas8": 0,
+      }
+
+    },
+
+    "stace": // [[[ ( x = [[[100,500]]], y=[[[100, 50]]], z=0 ) => [x, y, z] ]]],
+        {
+          "x": [[[ 50,200,400,450,50,50 ]]],
+          "y": [[[ 200,100,200,50,50,50 ]]],
+          "z": [[[ 200,100,300,100,100,50 ]]],
+        },
+
+    "boform": { "csx":0,"cf":[[[444,444]]],
+      "co":[[[0.009,0.009]]],     // route line no fill
+      "cs":[[[999,999]]],"cw":[[[0.7,0.7]]],"cp":[[[0.7,0.9]]],},
+
+    "proform": {
+      "projection": "identity",
+      "scale": 1,
+      "translate": [ 0, 0 ],
+      "rotate": [ 0, 0, 0 ],
+    },
+
+    "payload": {
+      "initN": 0,
+      "eventN": 1,
+      "autoN": 0,
+      "autoP": 0.1,
+      "outed": 0,
+      "maxN": 60,
+    }
+
+  }
+
+  /* ******************************************
+ *    @halo natform
+ *
+ */
+
+  // -------------------------------  nat haloLineform_ween
+  let haloNatform_ween = function (anima, newItems = []) {
+    console.log("haloNatform_ween")
+    if (anima.inited !== 1) {
+      anima.inited = 1
+      newItems = Array.of(anima)
+    }
+    return newItems
+
+  }
+  // -------------------------------  haloNatform_gramn
+  let haloNatform_gramn = function (anima, newItems = []) {
+    let anigram  = __mapper("xs").m("snap")(anima, anima.pic.tim.unitTime)
+    let a = __mapper("xs").m("anitem").anitem(anigram)
+
+    // let anigrams = __mapper("xs").m("store").anigrams()
+    // let idx = __mapper("xs").m("store").findIndexFromRic(a.ric, anigrams)
+    // let gram = anigrams[idx]
+
+    // console.log(" **** gram", idx,  gram)
+
+    if (1) {                                    // if not gelded
+
+      let mouse = {}                          // mouse control
+      mouse.mouseDown = __mapper("xs").m("mouse").mouseDown()
+      mouse.mouseUp = __mapper("xs").m("mouse").mouseUp()
+      mouse.mouseDownShared = __mapper("xs").m("mouse").mouseDownShared()
+      mouse.event = __mapper("xs").m("mouse").event()
+      mouse.x = (mouse.event) ? mouse.event.x : undefined
+      mouse.y = (mouse.event) ? mouse.event.y : undefined
+
+      let payload = a.payload                 // behavior in anima
+
+      let count = {}                                  // count
+      if (mouse.event !== undefined && mouse.mouseDown === 1 ) {
+
+        count.event = Math.floor(payload.eventN)      // count EVENT
+
+      }
+      if (payload.inited === undefined || payload.inited !== 1) {
+
+        count.init = Math.floor(payload.initN)        // count INIT
+
+      }
+
+      let cyletime = anigram.pic.tim.unitPassed - (payload.outed||0)
+      if (cyletime > payload.autoP) {
+        count.auto = Math.floor(payload.autoN)        // count AUTO
+        payload.outed = anigram.pic.tim.unitPassed    // updated with anima
+        anima.pic.payload.outed = anigram.pic.tim.unitPassed    // ==> upd anima
+      }
+
+      let n = 0
+      for (let i=0; i<Object.keys(count).length; i++) {
+
+        let key = Object.keys(count)[i]
+
+        if (count[key] > 0) {
+
+          let x, y
+          if (key === "init") {
+            x = 400
+            y = 200
+
+          } else if (key === "auto") {
+            x = 300 * Math.random()
+            y = 200 * Math.random()
+
+          } else if (key === "event") {
+            x = mouse.x
+            y = mouse.y
+
+          }
+
+          let parentGeometry
+          let parent = a.parent
+          if (parent !== undefined && parent.geometry)  {   // parent.geometry
+          } else {
+            parent = __mapper("xs").m("store").findAnigramFromUid(a.parentuid)  // parent uid
+          }
+
+          if (parent && parent.geometry && parent.geometry.coordinates !== undefined) {
+            let streams = []
+            let coords = f.unslide(parent.geometry.coordinates)
+            for (let j=0; j<coords.length; j++) {
+
+              let dimcoords = coords[j]
+              streams[j] = f.a(__mapper("xs").m("snap")( [[[ dimcoords ]]], anima.pic.tim.unitTime))
+
+            }
+            // let coordinates = f.slide(streams)
+
+
+            // console.log(" ------- gram", gram)
+            // let _x = gram.x
+            // let _y = gram.y
+            let x = streams[0][0]
+            let y = streams[1][0]
+            // console.log(" ------- loc", _x, _y, x , y)
+
+
+            let anigrams = __mapper("xs").m("store").anigrams()
+            let preitem = __mapper("xs").m("store").findAnigramFromUid(a.uid) // anigram
+
+            let ang = dang = 0
+            let cos1 = cos2 = cos3 = 0
+            if (preitem) {
+              let _x = preitem.x
+              let _y = preitem.y
+
+
+              ang = Math.round(Math.atan2(y - _y, x - _x ) * 180 / Math.PI)
+              let _ang = preitem.ang
+              dang = ang - _ang
+
+              cos1 = Math.cos(_ang * Math.PI / 180)
+              cos2 = Math.cos(ang * Math.PI / 180)
+              cos3 = Math.cos((ang - _ang) * Math.PI / 180)
+
+              // console.log(" ........... ang", cos3)
+
+            }
+
+
+            anigram.x = streams[0][0]
+            anigram.y = streams[1][0]
+
+
+
+            // if (Math.abs(dang) % 180 > 160) {
+            if (cos3 < -0.66) {
+              // console.log(" ___________  ang", (Math.abs(dang) % 180), ang, ang - 180)
+              ang = ang - 180
+            }
+
+
+            anigram.pic.form.x.w4 += ang
+            anigram.pic.form.y.w4 += ang
+
+            // console.log(" ............  w4", anigram.pic.form.x.w4)
+            anigram.ang = ang
+
+
+          }
+
+          // console.log(" ------------ anigram", anigram)
+
+          let ani = __mapper("xs").h("nat").gramn(anigram)
+
+          newItems = f.a(ani)
+
+
+          return newItems
+        }
+
+      }
+
+    }
+
+    // newItems.push(anima)
+
+    return newItems
+
+  }
+
+  // -------------------------------  haloNatform
+  let haloNatform = {
+    ween: anima => haloNatform_ween(anima),
+    gramn: anima => haloNatform_gramn(anima)
+  }
+
+  // -------------------------------  natform
+  let natform = {
+
+    "tim": tim,
+    "ric": {"gid":"nat","cid":"nat","fid":"natform",},
+    "halo": haloNatform,
+
+    "form":   {
+
+      "x": {
+        "m1":-7.66,"m2":-3.73,"n1":16.24,"n2":5.98,"n3":17,"a":8.98,"b":0.19,
+        "ra2": [[[48,122]]],
+        "v0": 0,"v1":1,
+        "w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], //
+        "seg5": 360,"pa6":0,"pb7":-1,
+        "fas8": -90,
+      },
+      "y": {
+        "m1":-7.66,"m2":-3.73,"n1":16.24,"n2":5.98,"n3":17,"a":8.98,"b":0.19,
+        "ra2": [[[48,122]]],
+        "v0":0,"v1":1,
+        "w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], //
+        "seg5": 360,"pa6":0,"pb7":-1,
+        "fas8": 0,    // fas8, antifase
+      },
+
+
+    },
+
+    "stace": // [[[ ( x = [[[100,500]]], y=[[[100, 50]]], z=0 ) => [x, y, z] ]]],
+        {
+          // "x": [[[ 50,200,400,450,50,50 ]]],
+          // "y": [[[ 200,100,200,50,50,50 ]]],
+          // "z": [[[ 200,100,300,100,100,50 ]]],
+        },
+
+    "boform": { "csx":0,"cf":[[[888,666]]],"co":[[[0.9,0.9]]],"cs":[[[111,111]]],"cw":[[[0.03,0.03]]],"cp":[[[0.7,0.9]]],},
+
+    "proform": {
+      "projection": "identity",
+      "scale": 1,
+      "translate": [ 0, 0 ],
+      "rotate": [ 0, 0, 0 ],
+    },
+
+    "payload": {
+      "initN": 1,
+      "eventN": 1,
+      "autoN": 0,
+      "autoP": 0.1,
+      "outed": 0,
+      "maxN": 60,
+    }
+
+  }
+  // ------------------------- img
+  let img = {
+
+    "tim": tim,
+    "ric": {"gid":"img","cid":"img","fid":"img",},
+    "halo":"img",
+
+    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+
+    "geoform": p => ({
+      type:  "Feature",
+      geometry: {
+
+        "type": "Point",
+        "coordinates": [0, 0]
+
+      },
+      properties: {
+        attr: {
+          "width": p.payload.img.width,
+          "height": p.payload.img.height,
+          ["xlink:href"]: p.payload.img.url,
+        }
+      }
+    }),
+
+    "stace": {
+      "x": [[[35, 35]]],
+      "y": [[[40, 40]]],
+    },
+
+    "payload": {
+
+      "img": {
+        "url":"zimg-501.jpg",
+        "width": [[[60, 60]]],
+        "height": [[[40 , 40]]],
+      },
+
+    }
+  }
+
+   let geoform = {
+
+    "tim": tim,
+    "ric": {"gid":"geoform","cid":"geoform","fid":"geoform",},
+    "halo":"geojson",
+
+    "boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+
+    "geoform": [[[ (p) => ({
+      "type": "LineString",
+      "coordinates": [
+        [90 + 0, 90 + 0],
+        [90 + 0, 90 + 60],
+        [90 + 60, 90 + 60],
+        [90 + 60, 90 + 0],
+        [90 + 0, [[[90 + 0, 360]]] ]
+      ]
+    }) ]]],
+
+    "proform": {
+
+      "projection": "uniwen",
+      "scale": 1.0,
+      "translate": [ [[[300,300]]], 100 ],
+      "rotate": [ 0, 0, [[[0, 0 * 360]]] ],
+      "dims": 2,
+
+    },
+  }
+ 
+  
+  
+  
+  /*******************************************
+ * @animaApi
+ *
+ */
+  // lineform.avatars = {
+  // natform,      // haloNatform.haloNatform.geojson
+  // }
+
+  let animas = [
+    // img,          // h.img
+    lineform,     // h.liner
+    geoform,     // haloLineform.geojson
+
+  ]
+
+  let animaApi = function animaApi() {
+
+    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
+
+  }
+
+  return animaApi
+
+}
+
+let __mapper = bosonMapper.bosonMapper()
+__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

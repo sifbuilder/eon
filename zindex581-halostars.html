@@ -56,13 +56,8 @@ let muonAlima = function muonAlima(__mapper) {
   let proform = {
 
     "projection": "uniwen",
-<<<<<<< HEAD
-    "translate":  [ 280 , 200],
-    "scale": 60,
-=======
     "translate":  [ 180 , 200],
     "scale": 90,
->>>>>>> master
     "rotate": [-5,50,0], // [0,0,0], //
     "focale": 4,
     "zafin": [0,1], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
@@ -83,11 +78,7 @@ let muonAlima = function muonAlima(__mapper) {
     focaleStar:       12 , // 100, //   0.1,
     velStar:     [[[0.05, 0.2]]]  , // [100,100], // [0.400, 0.400],
     boformStar:  { cf: 444, cs: 11, co: 0.99, cp: 1, },
-<<<<<<< HEAD
-    radioStar:   2,
-=======
     radioStar:   3,
->>>>>>> master
     nbStars:     [[[6,24]]], // [[[24,24]]],  // 200
 
 
@@ -268,8 +259,8 @@ let muonAlima = function muonAlima(__mapper) {
       return json
     }
 
-    // ............ gramn
-    let gramn = function (anima, newAnigrams=[]) {
+    // ............ gramnStars
+    let gramnStars = function (anima, newAnigrams=[]) {
 
       let ani = __mapper("xs").m("anitem")(anima)
 
@@ -308,7 +299,7 @@ let muonAlima = function muonAlima(__mapper) {
     // ............ haloStars
     let haloStars = {}
         haloStars.ween = __mapper("xs").h("geojson").ween
-        haloStars.gramn = anima => gramn(anima)
+        haloStars.gramn = anima => gramnStars(anima)
 
   /*******************************************
  *      @animas

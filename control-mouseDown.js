@@ -7,7 +7,7 @@
       (factory((global.controlMouseDown = global.controlMouseDown || {})))
 }(this, function (exports) { "use strict"
 
-  function controlMouseDown(payload) {
+  function controlMouseDown() {
 
     let state = {}
         state.domNode = null

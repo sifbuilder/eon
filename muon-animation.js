@@ -22,6 +22,7 @@
     let aniListener =  function aniListener(elapsed) {
 
       state.animas = f.a(__mapper("muonStore").animasLive() )
+      
     /*******************************************
      *    @TIME
      */
