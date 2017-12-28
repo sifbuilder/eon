@@ -19,7 +19,7 @@
 
 let muonAlima = function (__mapper) {
   __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({svg:1,versor:0,wen:0,webgl:1})  // INIT
+  __mapper("xs").b("init")({svg:1,versor:0,wen:0,webgl:1, key:1,})  // INIT
 
   let f = __mapper({"props": bosonProps.bosonProps()}).props()
   let g = __mapper("xs").m("geom")
@@ -29,6 +29,34 @@ let muonAlima = function (__mapper) {
   let r = __mapper("xs").r("renderer"),
     width = r.width(),
     height = r.height()
+
+
+    if (__mapper("controlKey") !== undefined) {
+         let controltimerLeftArrowAlt = () => {       // LEFT ARROW
+
+          if (__mapper("muonAnimation").animationStop !== undefined) {
+               console.log("controltimerLeftArrowAlt")
+            if (__mapper("controlTimer").started()) {
+              __mapper("controlTimer").stop()
+            } else {
+              __mapper("controlTimer").resume()
+            }
+          }
+        }
+        __mapper("controlKey").subscribe(controltimerLeftArrowAlt, "leftArrowAlt")
+     }
+
+
+    if (__mapper("controlKey") !== undefined) {
+         let controltimerUpArrowAlt = () => {         // UP ARROW
+
+            console.log("controltimerUpArrowAlt")
+            __mapper("controlWen").control(__mapper("renderSVG").svg())    // SVG WEN
+
+        }
+        __mapper("controlKey").subscribe(controltimerUpArrowAlt, "upArrowAlt")
+     }
+
 
   /*******************************************
  *    @controls
@@ -56,32 +84,36 @@ let muonAlima = function (__mapper) {
       payload = ani.payload(),
       boform = ani.boform(),
       tim = ani.tim(),
-      uid = ani.anigram().uid
+      uid = ani.anigram().uid,
+      stace =   ani.stace(),                // stace
+      proform = ani.proform(),                // proform
+      conform = ani.conform(),                // conform
+      geoform = ani.geoform()                 // geoform
 
 
-    let pixspan = 15
+    let pixspan = 15 / 200
 
     let count = {}          // items to be generated on cycle
 
     let mmouse = __mapper("xs").m("mouse")
 
-    if (1) {                                  // 
+    if (1) {                                  //
 
       let mouse = {}                          // mouse control
       mouse.mouseDown = mmouse.mouseDown()
       mouse.mouseUp = mmouse.mouseUp()
-      
-      
+
+
       mouse.mouseMove = mmouse.mouseMove()
       mouse.mouseDownShared = mmouse.mouseDownShared()
       mouse.event = mmouse.event()
 
       if (mouse.event && mouse.event.type === "mouseup") {
-          console.log("mouse.event", mouse.event.type)  
-          __mapper("xs").c("wen").reset(__mapper("renderSVG").svg()) 
-          __mapper("xs").c("versor").reset(__mapper("renderSVG").svg()) 
+          console.log("mouse.event", mouse.event.type)
+          __mapper("xs").c("wen").reset(__mapper("renderSVG").svg())
+          __mapper("xs").c("versor").reset(__mapper("renderSVG").svg())
       }
-      
+
       if (mouse.event !== undefined && mouse.mouseDown === 1 ) {
 
         count.event = Math.floor(payload.eventN)      // count EVENT
@@ -106,26 +138,27 @@ let muonAlima = function (__mapper) {
 
 
       let n = 0
-      for (let i=0; i<Object.keys(count).length; i++) {
+      for (let i=0; i<Object.keys(count).length; i++) {   // count
 
-        let key = Object.keys(count)[i]
+        let key = Object.keys(count)[i]                   // key
 
-        if (count[key] > 0) {
-
+        if (count[key] > 0) {                           // count on key
           let x, y
-          if (key === "init") {
+          if (key === "init") {                         // init
             x = width / 2
             y = height / 2
+            z = 0
 
-          } else if (key === "auto") {
+          } else if (key === "auto") {                  // auto
             x = width * Math.random() / 2
             y = height * Math.random() / 2
+            z = 0
 
-          } else if (key === "event") {
+          } else if (key === "event") {                   // event
 
-            x = mouse.event.x
-            y = mouse.event.y
-
+            x = (mouse.event.x - 300)/ 300 // mouse.event.x 
+            y = (mouse.event.y - 200)/ 200 // mouse.event.y
+            z = 0
 
           }
 
@@ -136,51 +169,58 @@ let muonAlima = function (__mapper) {
 
           newItem.x = x
           newItem.y = y
+          newItem.z = 0
 
+          let feature = {}
+          
+          if (newItem.feature !== undefined) {
 
-          if (newItem.geometry !== undefined) {
+            feature = newItem.feature
+            let coords = feature.geometry.coordinates
+            let coord = [x,y,z]
 
-            let coords = newItem.geometry.coordinates
-            let coord = [x,y]
-
-            let loc = newItem.geometry.coordinates[newItem.geometry.coordinates.length - 1]
+            let loc = feature.geometry.coordinates[feature.geometry.coordinates.length - 1]
             let dx = coord[0] - loc[0]
             let dy = coord[1] - loc[1]
-            let d = dx * dx + dy * dy
+            let dz = coord[2] - loc[2]
+            let d = dx * dx + dy * dy + dz * dz
 
             if (d > pixspan) coords.push(coord)    // add segment if above pixspan distance
 
-            newItem.geometry.coordinates = coords
+            feature.geometry.coordinates = coords
 
           } else {
 
-            newItem.geometry = { type: "LineString", coordinates: [], }
-
-            let coord = [x,y]
-
-            newItem.geometry.coordinates = Array.of(coord)
+            feature = {
+                    type: "Feature",
+                    id: "lineform" + i,
+                    geometry: {},
+                    properties: {}}        
+          
+            feature.geometry = {
+                    type: "LineString",
+                    coordinates: [],
+            }
+            feature.properties.boform = boform
+            
+            
+            let coord = [x,y,0]
+            feature.geometry.coordinates = Array.of(coord)
 
           }
 
-          newItem.sort = "geojson"  // json is Polygon geojson
-          newItem.gelded = 1        // gelded will not repro
-          newItem.inited = 1        // next will be inited and not recycle
-
-          let type = newItem.geometry.type
-          let coordinates = newItem.geometry.coordinates
-
-          let feature = {"type": "Feature", "geometry": {}, "properties": {}}
-
-              feature.geometry.type = type
-              feature.geometry.coordinates = coordinates
-              feature.properties.boform = boform
-
-          newItem.feature = feature
-          newItem.sort = "feature"
-
-
-
-          newItems.push(newItem)
+        
+          let geoform = () => feature 
+          
+         
+          newItem.geoform = geoform
+          let newAnigrams = __mapper("xs").h("geojson").gramify(newItem)
+          
+          
+          newItems = [...newItems, ...newAnigrams]
+          
+          
+          
 
         }
 
@@ -188,21 +228,26 @@ let muonAlima = function (__mapper) {
 
     }
 
+
+
+
+
     return newItems
+
 
   }
 
   let haloLinerHalo = {}
       haloLinerHalo.ween = anima => haloLinerHalo_ween(anima)
       haloLinerHalo.gramn = anima => haloLinerHalo_gramn(anima)
-      
-      
+
+
   // -------------------------------  lineform
   let lineform = {
 
     "tim": tim,
     "ric": {"gid":"nat","cid":"nat","fid":"lineform",},
-    "halo": haloLinerHalo, // "liner", // 
+    "halo": haloLinerHalo, // "liner", //
 
     "form":   {
 
@@ -235,9 +280,9 @@ let muonAlima = function (__mapper) {
 
     "stace": // [[[ ( x = [[[100,500]]], y=[[[100, 50]]], z=0 ) => [x, y, z] ]]],
         {
-          "x": [[[ 50,200,400,450,50,50 ]]],
-          "y": [[[ 200,100,200,50,50,50 ]]],
-          "z": [[[ 200,100,300,100,100,50 ]]],
+          "x": 0,
+          "y": 0,
+          "z": 0,
         },
 
     "boform": { "csx":0,"cf":[[[444,444]]],
@@ -245,10 +290,14 @@ let muonAlima = function (__mapper) {
       "cs":[[[999,999]]],"cw":[[[0.7,0.7]]],"cp":[[[0.7,0.9]]],},
 
     "proform": {
-      "projection": "identity",
-      "scale": 1,
-      "translate": [ 0, 0 ],
-      "rotate": [ 0, 0, 0 ],
+        "projection": "uniwen",
+        "translate":  [ 0, 0],
+        "scale": 10,
+        "rotate": [0,0,0], // [-5,50,0],
+        "focale": 44,
+        "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+        "dims": 3,
+        "control": "wen",
     },
 
     "payload": {
@@ -308,7 +357,7 @@ let muonAlima = function (__mapper) {
 
 
     "tim": tim,
-    "ric": {"gid":"aniIco","cid":"aniIco","fid":"aniFaces",},
+    "ric": {"gid":"aniFace","cid":"aniFace","fid":"aniFace",},
     "halo": "geojson",
     "boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
 
@@ -363,10 +412,10 @@ let muonAlima = function (__mapper) {
       },
 
   }
- 
-  
-  
-  
+
+
+
+
   /*******************************************
  * @animaApi
  *
@@ -378,7 +427,7 @@ let muonAlima = function (__mapper) {
   let animas = [
     // img,          // h.img
     lineform,     // h.liner
-    geoform,     // haloLineform.geojson
+    // geoform,     // haloLineform.geojson
 
   ]
 

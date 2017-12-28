@@ -158,12 +158,6 @@
 		}
 		// ____________________ rightArrowAlt
 		var rightArrowAlt = function rightArrowAlt(e) {
-			
-				// var listeners = currentListeners = nextListeners
-				// for (var i = 0; i < listeners.length; i++) {
-					// listeners[i](e)
-				// }				
-
 
 			var listeners = __currentListeners["rightArrowAlt"] = __nextListeners["rightArrowAlt"]
 				for (var i = 0; i < listeners.length; i++) {
@@ -171,12 +165,22 @@
 				}				
 		}
 		// ____________________ upArrowAlt
-		var upArrowAlt = function upArrowAlt() {
+		var upArrowAlt = function upArrowAlt(e) {
 			console.log("upArrowAltFn")
-		}
+      
+			var listeners = __currentListeners["rightArrowAlt"] = __nextListeners["upArrowAlt"]
+				for (var i = 0; i < listeners.length; i++) {
+					listeners[i](e)
+				}	
+    }
 			// ____________________ downArrowAlt
-		var downArrowAlt = function downArrowAlt() {
-			console.log("downArrowAltFn")
+		var downArrowAlt = function downArrowAlt(e) {
+      
+			var listeners = __currentListeners["downArrowAlt"] = __nextListeners["downArrowAlt"]
+				for (var i = 0; i < listeners.length; i++) {
+					listeners[i](e)
+				}	
+        console.log("downArrowAltFn")
 		}
 
 		// ____________________ leftArrowCtrl
@@ -192,13 +196,6 @@
 		var rightArrowCtrl = function rightArrowCtrl(e) {
 			console.log("rightArrowCtrlFn")
 			
-			
-				// var listeners = currentListeners = nextListeners
-				// for (var i = 0; i < listeners.length; i++) {
-					// listeners[i](e)
-				// }				
-
-
 			var listeners = __currentListeners["rightArrowCtrl"] = __nextListeners["rightArrowCtrl"]
 				for (var i = 0; i < listeners.length; i++) {
 					listeners[i](e)

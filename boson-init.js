@@ -15,8 +15,9 @@
     /*******************************************
  *    @enty
  */
-    let enty = function ( p={} ) {
+    let enty = function ( p ) {
 
+    
       if (p.canvas) __mapper({"renderCanvas": renderCanvas.renderCanvas(__mapper)})
 
       if (p.svg) __mapper({"renderSVG": renderSVG.renderSVG(__mapper)})           // SVG
@@ -37,15 +38,19 @@
 
       if (p.key) {
         __mapper("xs").c("key").start()                 // KEYBRD CONTROLS
-
+        
         let controltimerRightArrowAlt = () => {         // ARROW
 
-          if (__mapper("muonAnimation").animationStop !== undefined)
-          {
+          if (__mapper("muonAnimation").animationStop !== undefined) {
+            
             if (__mapper("controlTimer").started()) {
+              
               __mapper("controlTimer").stop()
+              
             } else {
+              
               __mapper("controlTimer").resume()
+              
             }
           }
         }

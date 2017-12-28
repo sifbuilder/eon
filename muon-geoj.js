@@ -188,7 +188,7 @@
         let feature = anigram.feature
             feature.id = anigram.uid
 
-        let properties = feature.properties
+        let properties = feature.properties || {}
             properties.ric = anigram.ric
             properties.sort = anigram.sort
             properties.delled = anigram.delled
@@ -337,11 +337,15 @@
       let zordered = features
         .map( d => {
 
-          
+          d.properties  = d.properties || {}
           if (d.properties.zorder === undefined) {    // if zorder undefined
-            let outring = d.geometry.coordinates[0]   // for out ring
-            let zorder = centroid(outring)
-            d.properties.zorder = zorder              // try centroid.z
+            if (d.geometry && d.geometry.coordinates && d.geometry.coordinates[0] ) {
+              let outring = d.geometry.coordinates[0]   // for out ring
+              let zorder = centroid(outring)
+              d.properties.zorder = zorder              // try centroid.z
+            } else {
+              d.properties.zorder = -Infinity         // feature unformed
+            }
           }
           return d
         })

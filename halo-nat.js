@@ -14,7 +14,7 @@
       width = r.width(),
       height = r.height()
 
-    let  geoform = p => ({
+    let geoform = p => ({
       "type": "Feature",
       "geometry": {
         "type": "Polygon",
