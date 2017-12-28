@@ -56,8 +56,6 @@ function mercatorProjection(project) {
       x0 = null, y0, x1, y1; // clip extent
 
   m.scale = function(_) {
-
-console.log("scale ------------ ", _)	
 		
     return arguments.length ? (scale(_), reclip()) : scale();
   };

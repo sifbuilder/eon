@@ -156,8 +156,10 @@ let muonAlima = function (__mapper) {
 
           } else if (key === "event") {                   // event
 
-            x = (mouse.event.x - 300)/ 300 // mouse.event.x 
-            y = (mouse.event.y - 200)/ 200 // mouse.event.y
+            x = (mouse.event.x - 300)/ 300
+            y = (mouse.event.y - 200)/ 200
+            // x = mouse.event.x 
+            // y = mouse.event.y
             z = 0
 
           }
@@ -248,34 +250,6 @@ let muonAlima = function (__mapper) {
     "ric": {"gid":"nat","cid":"nat","fid":"lineform",},
     "halo": haloLinerHalo, // "liner", //
 
-    "form":   {
-
-      "x": {
-        "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circle
-        "ra2": 4,
-        "v0": 0,"v1":1,
-        "w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], //
-        "seg5": 360,"pa6":0,"pb7":-1,
-        "fas8": 0,
-      },
-      "y": {
-        "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circle
-        "ra2": 4,
-        "v0":0,"v1":1,
-        "w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], //
-        "seg5": 360,"pa6":0,"pb7":-1,
-        "fas8": -90,    // fas8, antifase
-      },
-      "z": {
-        "m1":6,"m2":6,"n1":[[[100,200]]],"n2":[[[100,2]]],"n3":[[[100,200]]],"a":1,"b":1, // square
-        "ra2": [[[4/  Math.sqrt(2),4/  Math.sqrt(2)]]],
-        "v0": 0,"v1":1,
-        "w4":  0, // [[[180,360,180]]], // [[[0,-360,0]]],
-        "seg5": 12,"pa6":0,"pb7":-1,
-        "fas8": 0,
-      }
-
-    },
 
     "stace": {
           "x": 300,
@@ -285,12 +259,19 @@ let muonAlima = function (__mapper) {
 
     "boform": { "csx":0,"cf":[[[444,999]]], "co":[[[0.09,0.09]]], "cs":[[[555,999]]],"cw":[[[2.7,2.7]]],"cp":[[[0.9,0.9]]],},
 
+    // "ereform": {
+        // "projection": "uniwen",
+        // "translate":  [ -300, -200],
+        // "scale": 0.01,
+ 
+    // },
+    
     "proform": {
         "projection": "uniwen",
         "translate":  [ 0, 0],
         "scale": 10,
         "rotate": [0,0,0], // [-5,50,0],
-        "focale": 44,
+        "focale": 4,
         "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
         "dims": 3,
         "control": "wen",

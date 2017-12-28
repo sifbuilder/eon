@@ -42,11 +42,13 @@
 
     let proform = function() {
       let geoTrans = d3.geoTransform({
-        point: pointStream})
+        point: pointStream
+      })
       let geoProj = p => geoTrans(p)
       geoProj.stream = s =>  geoTrans.stream(s)
       return geoProj
     }
+
 
     /****************************
    *    @enty

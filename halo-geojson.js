@@ -19,11 +19,18 @@
       let ani = __mapper("xs").m("anitem")(anima)
 
       let stace =   ani.stace(),                // stace
+        ereform = ani.ereform(),                // ereform
         proform = ani.proform(),                // proform
         conform = ani.conform(),                // conform
         geoform = ani.geoform()                 // geoform
 
       let json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform
+
+
+      if (ereform) {
+          let ereformer = __mapper("xs").b("gist")(ereform)
+          json =  __mapper("xs").b("proj3ct")(json, ereformer)  // ereform
+      }
 
       if (conform) {
           let conformer = __mapper("xs").b("gist")(conform)
@@ -45,6 +52,7 @@
         json =  __mapper("xs").b("proj3ct")(json, lociformer)  // lociform
       }
 
+  
       newAnigrams =  __mapper("xs").m("geoj").geojize(json, ani.anigram())
 
       return newAnigrams
