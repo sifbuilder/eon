@@ -29,6 +29,7 @@ document.write("<script src='control-wen.js'><\/script>")
 document.write("<script src='data-worldTopo110m.js'><\/script>")    
 /*  forces */  
 /*  geos projections */  
+document.write("<script src='geo-aniwen.js'><\/script>")    
 document.write("<script src='geo-cox.js'><\/script>")    
 document.write("<script src='geo-futuri.js'><\/script>")    
 document.write("<script src='geo-hedrals.js'><\/script>")    

@@ -120,7 +120,7 @@
         dims = __mapper("xs").m("anitem").dims()
 
       let parent = __mapper("xs").m("store").findAnigramFromUid(anigram.parentuid) || anigram.parent
-      if (parent && parent.feature.geometry) {
+      if (parent !== undefined && parent.feature && parent.feature.geometry) {
         let parentGeometryType = parent.feature.geometry.type
         if (parentGeometryType === "Polygon") {
           let parentGeometry = parent.feature.geometry

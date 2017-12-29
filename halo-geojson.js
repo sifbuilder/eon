@@ -16,14 +16,14 @@
    */
    let gramify = function (anima, newAnigrams=[]) {
 
-      let ani = __mapper("xs").m("anitem")(anima)
-
-      let stace =   ani.stace(),                // stace
+      let ani = __mapper("xs").m("anitem")(anima),
+        anigram = ani.anigram(),
+        stace =   ani.stace(),                // stace
         ereform = ani.ereform(),                // ereform
         proform = ani.proform(),                // proform
         conform = ani.conform(),                // conform
-        geoform = ani.geoform(),                // geoform
-        anigram = ani.anigram()
+        geoform = ani.geoform()
+        
 
       let json = (typeof geoform === "function") ? geoform(anigram) : geoform
 

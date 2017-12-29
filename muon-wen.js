@@ -30,7 +30,6 @@
     }
     function projection(p, d, s) {
       // let f = (s || 1) / (1 - p[2] / d);
-      // let f = (s || 1) / (1 - p[2] / d);
       // return [p[0]*f, p[1]*f, p[2]];
       let h = Array.isArray(s) ? s : Array.of(s)
       let f0 = (h[0] || 1) / (1 - p[2] / d)
@@ -59,7 +58,7 @@
         p[0] * m[2] + p[1] * m[5] + p[2] * m[8]
       ]
     }
-    function transpose33(m) {
+    function transpose33(m) { // invert rotation
       return [
         m[0], m[3], m[6],
         m[1], m[4], m[7],

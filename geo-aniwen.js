@@ -1,14 +1,14 @@
 /*******************************************
- *    @geoUniwen
+ *    @geoAniwen
  *
  */
 (function (global, factory) {
   typeof exports === "object" && typeof module !== "undefined" ? factory(exports) :
     typeof define === "function" && define.amd ? define(["exports"], factory) :
-      (factory((global.geoUniwen = global.geoUniwen || {})))
+      (factory((global.geoAniwen = global.geoAniwen || {})))
 }(this, function (exports) { "use strict"
 
-  let geoUniwen = function geoUniwen(__mapper = {}) {
+  let geoAniwen = function geoAniwen(__mapper = {}) {
 
     let g = __mapper("xs").m("geom")
     let mwen = __mapper("xs").m("wen")
@@ -73,7 +73,7 @@
 
     let proform = function() {
       let geoTrans = d3.geoTransform({
-        point: pointStream
+        point: pointStreamInverse // pointStream // inverse stream
       })
       let geoProj = p => geoTrans(p)
       geoProj.stream = s =>  geoTrans.stream(s)
@@ -100,6 +100,6 @@
     return enty
   }
 
-  exports.geoUniwen = geoUniwen
+  exports.geoAniwen = geoAniwen
 
 }));
