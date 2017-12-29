@@ -99,7 +99,7 @@
   */
     let snip = function(form) {
 
-      let dims = __mapper("xs").m("stace").dims()
+      let dims = __mapper("xs").m("anitem").dims()
       let braids = []
       return function(json) {
         let c = json.coordinates

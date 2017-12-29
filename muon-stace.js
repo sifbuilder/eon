@@ -11,15 +11,13 @@
 
     let f = __mapper("props")()
 
-    /* ***************************************
- *      getSiti   situs: a:{x,y,z}
- *
- */
+
+  // ........................ getSiti   situs: a:{x,y,z}
     let getSiti = function (anima, siti=[]) {
 
       if (anima !== undefined) {          // empty list of siti
 
-        let situs =  __mapper("xs").m("stace").getSitus(anima)
+        let situs = getSitus(anima)
 
         if (situs !== undefined) { siti.push(situs) } // add situs
 
@@ -113,40 +111,44 @@
       return locations
     }
 
-    let getParentCoords = function(a) {       // get parent coords from a
-      let parentLocation,
-        parentGeometry,
-        parent = {},
-        parentCoords = []
+    // ............................... getLocs  get locations from parent stace positions
+    let getLocs = function(anigram) {
+      let locations = []
+      let parentCoords = []   // get parent coords from anigram
 
-      parent = __mapper("xs").m("store").findAnigramFromUid(a.parentuid) || a.parent
-      if (parent && parent.geometry) {
-        parentGeometry = parent.geometry         // geometry
-        parentCoords = parentGeometry[0]        // outer ring tbf _e_
-      }
-      return parentCoords
-    }
-
-    let getLocs = function(a) {                   // get locations from stace positions
-      let parentCoords = getParentCoords(a)   // get parent coords from a
       let braid = [],
-        dims = __mapper("xs").m("stace").dims()
+        dims = __mapper("xs").m("anitem").dims()
 
-      for (let i=0; i< dims.length; i++) {
+      let parent = __mapper("xs").m("store").findAnigramFromUid(anigram.parentuid) || anigram.parent
+      if (parent && parent.feature.geometry) {
+        let parentGeometryType = parent.feature.geometry.type
+        if (parentGeometryType === "Polygon") {
+          let parentGeometry = parent.feature.geometry
+          parentCoords = parentGeometry.coordinates[0]    // Polygon outer ring
 
-        let dimState = a.stace[dims[i]],              // dim i stace
-          dimStream = f.unslide(parentCoords)[i]  // dim i parent coords
 
-        braid[i] = getLocsInDim(dimState, dimStream)
+          for (let i=0; i< dims.length; i++) {
+
+            let dimState = anigram.stace[dims[i]],    // dim i stace
+              dimStream = f.unslide(parentCoords)[i]  // dim i parent coords
+
+            braid[i] = getLocsInDim(dimState, dimStream)
+
+          }
+
+          locations = f.slide(braid, "max")
+
+        } else {
+          console.log("_e_")
+        }
 
       }
 
-      let locations = f.slide(braid, "max")
       return locations
     }
 
-
-    let getPositions = function getPositions(anima, locations=[]) {
+ // ............................... getPositions
+    let getPositions = function (anima, locations=[]) {
       let a = __mapper("xs").m("anitem").anigram(anima)
 
       if (a.stace !== undefined &&
@@ -171,8 +173,7 @@
               a.parentuid !== undefined) {          // parent.{x,y,z}
 
         let locations = []
-        let parentCoords = []
-        let parentGeometry
+
         let parent = a.parent || __mapper("xs").m("store").findAnigramFromUid(a.parentuid)
 
         if (parent !== undefined) {
@@ -192,39 +193,17 @@
  *          or  position  stace.(pos,pos,pos}
  *
  */
-    let getLocations = function getLocations(anima, locations=[]) {
-
-      let situs = getSiti(anima)
-      if (situs !== undefined) {
-        locations = situs
-
-      } else {
-
-        let positions = getPositions(anima)
-        if (positions !== undefined) {
-          locations = positions
-
-        }
-      }
-
-      return locations
-
-    }
-    /***************************************
- *        @getLocation abc on x, y, stateC
- *
- */
-    let getLocation = function getLocation(anigram = {}) {
-      let siti = __mapper("xs").m("stace").getSiti(anigram)         // {x,y,z}
-      let positions = __mapper("xs").m("stace").getPositions(anigram) //
+    let getLocation = function (anigram = {}) {
+      
+      let siti = getSiti(anigram)         // {x,y,z}
+      let positions = getPositions(anigram) //
 
       let locations = []
-      if (siti && siti.length >0 && positions && positions.length >0) {
-        // siti:      [ [0,0,0] ]
-        // locations: [ [300,200,0] ]
+      if (siti && siti.length >0 && positions && positions.length > 0) {
         locations = f.slide([siti, positions], "max")   // slide dim sites    ****
       }
       let location = [0,0,0]
+      
       if (siti && siti.length > 0 && positions && positions.length >0) {
         location = f.fa(siti[0]).map((d, i)  => d + positions[0][i])  // force array
       } else if (siti && siti.length >0 ) {
@@ -241,18 +220,15 @@
  */
     let getLociformer = function (anigram = {}) {
 
-      let location = __mapper("xs").m("stace").getLocation(anigram)
-      let projection =  {
-        "projection": "uniwen",
-        "translate": [ location[0], location[1], location[2] ]
-      }
-      let lociform =  __mapper("xs").b("gist")(projection)
+      let lociform = getLociform (anigram)
       return g => d3.geoProject(g, lociform)
 
     }
+
     let getLociform = function (anigram = {}) {
 
-      let location = __mapper("xs").m("stace").getLocation(anigram)
+      let location = getLocation(anigram)
+      console.log("location", location)
       let projection =  {
         "projection": "uniwen",
         "translate": [ location[0], location[1], location[2] ]
@@ -316,47 +292,30 @@
       }
 
     }
-    /***********
-  *   @enty
-  */
-    function enty() { return enty }
-
-    enty.getFixedLocation = anitem => anitem.stace.f  // f: 1/0
-
-    enty.x = anitem => anitem.x               // x
-    enty.y = anitem => anitem.y               // y
-    enty.z = anitem => anitem.z               // z
-
-    enty.dims = () => ["x","y","z"]
-
-    enty.getSitus = anitem => {
+    
+    // ............................. getSitus
+    let getSitus = anima => {
       let ret = {}
-      if ( typeof enty.x(anitem) === "number" ) ret.x = enty.x(anitem)
-      if ( typeof enty.y(anitem) === "number" ) ret.y = enty.y(anitem)
-      if ( typeof enty.z(anitem) === "number" ) ret.z = enty.z(anitem)
+      if ( typeof anima.x === "number" ) ret.x = anima.x
+      if ( typeof anima.y === "number" ) ret.y = anima.y
+      if ( typeof anima.z === "number" ) ret.z = anima.z
 
       if (Object.keys(ret).length === 0) ret = undefined
       else ret = Object.values(ret)
 
       return ret
     }
+    
+  /***********
+  *         @enty
+  */
+    function enty() { return enty }
 
-    enty.location = anitem => {
-      let x = enty.x(anitem)
-      let y = enty.y(anitem)
-      let z = enty.z(anitem)
-      let location = (x || y || z) ? [x,y,z] : undefined
-      return location
-    }
-
-    enty.getSiti = getSiti                //
-    enty.getPositions = getPositions        //
-    enty.getLocations = getLocations        // anima => locations
-    enty.getLocation = getLocation          // amima => [x,y,z]
     enty.getLocifier = getLocifier        //
+
     enty.getLociformer = getLociformer        //  d3 projection
     enty.getLociform = getLociform        //  projection
-    enty.getParentCoords = getParentCoords  //  getParentCoords
+
     enty.getReformer = getReformer  //  getReformer
     enty.getReform = getReform  //  getReform
 
@@ -366,4 +325,4 @@
 
   exports.muonStace = muonStace
 
-}));
+}))

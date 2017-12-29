@@ -32,10 +32,10 @@
           // json =  __mapper("xs").b("proj3ct")(json, ereformer)  // ereform
       // }
 
-      // if (conform) {
-          // let conformer = __mapper("xs").b("gist")(conform)
-          // json =  __mapper("xs").b("proj3ct")(json, conformer)  // conform
-      // }
+      if (conform) {
+          let conformer = __mapper("xs").b("gist")(conform)
+          json =  __mapper("xs").b("proj3ct")(json, conformer)  // conform
+      }
 
       // if (stace) {
           // let reformer = __mapper("xs").m("stace").getReform(stace)
@@ -47,10 +47,10 @@
           json =  __mapper("xs").b("proj3ct")(json, proformer)  // proform
       }
 
-      // if (stace) {
-          // let lociformer =  __mapper("xs").m("stace").getLociform(ani.anigram())
-        // json =  __mapper("xs").b("proj3ct")(json, lociformer)  // lociform
-      // }
+      if (stace) {
+          let lociformer =  __mapper("xs").m("stace").getLociform(ani.anigram())
+          json =  __mapper("xs").b("proj3ct")(json, lociformer)  // lociform
+      }
 
       console.log("json",json)
       newAnigrams =  __mapper("xs").m("geoj").geojize(json, ani.anigram())
