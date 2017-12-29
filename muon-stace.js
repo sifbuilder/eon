@@ -215,53 +215,10 @@
 
     }
 
-    /* **************************************
- *        @getReformer
- */
-    let getReformer = function (stace = {}) {
-      if ( stace && stace.x && stace.x.ref && stace.y &&  stace.y.ref) {
-        return function(json) {
-          let outring = json.geometry.coordinates[0]
-          let refs = f.unslide(outring)
-          let r0 = refs[0][stace.x.ref]
-          let r1 = refs[1][stace.y.ref]
-          let refpos = { "translate": [ r0, r1 ] }
-          let reform =  __mapper("xs").g("unidentity")(refpos)
-          let reformer = d => d3.geoProject(d, reform)
-          return  reformer(json)     // reform
-        }
-      }  else {
-        return d => d               // identity
-      }
-    }
-    /* **************************************
- *        @getReform
- */
-    let getReform = function (stace = {}) {
-      if ( stace && stace.x && stace.x.ref && stace.y &&  stace.y.ref) {
-        return function(json) {
-          let outring = json.geometry.coordinates[0]
-          let refs = f.unslide(outring)
-          let r0 = refs[0][stace.x.ref]
-          let r1 = refs[1][stace.y.ref]
-          let projection =  {
-            "projection": "identity",
-            "translate": [ r0, r1  ]
-          }
-          return  __mapper("xs").m("identity").getproj(projection)
-
-        }
-      }  else {
-        let projection =  {
-          "projection": "identity",
-        }
-        return  __mapper("xs").b("gist")(projection)
-      }
-
-    }
 
     // ............................. getSitus
     let getSitus = anima => {
+      
       let ret = {}
       if ( typeof anima.x === "number" ) ret.x = anima.x
       if ( typeof anima.y === "number" ) ret.y = anima.y
@@ -271,13 +228,30 @@
       else ret = Object.values(ret)
 
       return ret
+      
     }
 
-/* **************************************
- *        @getLocifier
- *
- */
-    let getLocifier = function (anigram = {}) {
+/***********
+  *         @api
+  */
+
+    // ............................... getReffion
+    let getReffion = function (stace = {}) {
+
+      let outring = json.geometry.coordinates[0]
+      let refs = f.unslide(outring)
+      let r0 = refs[0][stace.x.ref]
+      let r1 = refs[1][stace.y.ref]
+      let projection =  {
+        "projection": "identity",
+        "translate": [ r0, r1  ]
+      }
+      return  __mapper("xs").m("profier").getProjion(projection)
+
+    }
+
+    // ............................... getLocifion
+    let getLocifion = function (anigram = {}) {
 
       let location = getLocation(anigram)
 
@@ -285,26 +259,38 @@
         "projection": "uniwen",
         "translate": [ location[0], location[1], location[2] ]
       }
-      return  __mapper("xs").b("gist")(projection)
+      return  __mapper("xs").m("profier").getProjion(projection)
 
     }
-
-/***********
-  *         @api
-  */
 
 /* **************************************
- *        @getLociformer
+ *        @getLocifier
  *        locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
  */
-    let getLociformer = function (anigram = {}) {
+    let getLocifier = function (anigram = {}) {
 
-      let lociform = getLocifier (anigram)
-      return g =>  __mapper("xs").b("proj3ct")(g, lociform)
+      let locifion = getLocifion (anigram)
+      
+      console.log("locifion", locifion)
+      return g =>  __mapper("xs").b("proj3ct")(g, locifion)
 
     }
 
+    /* **************************************
+ *        @getReffier
+ */
+    let getReffier = function (anigram = {}) {
+      let stace = anigram.stace
+      if ( stace && stace.x && stace.x.ref && stace.y &&  stace.y.ref) {
+        
+          let reffion = getReffion (stace)
+          return g =>  __mapper("xs").b("proj3ct")(g, reffion)
 
+      }  else {
+        
+        return d => d               // identity
+      }
+    }
 
 
 
@@ -314,11 +300,11 @@
   */
     function enty() { return enty }
 
-    enty.getLociformer = getLociformer        //  d3 projection
-    // enty.getLocifier = getLocifier        //  projection
+    enty.getLocifion = getLocifion   //  d3 projection
+    enty.getLocifier = getLocifier   //  d3 projecter
 
-    enty.getReformer = getReformer  //  getReformer
-    enty.getReform = getReform  //  getReform
+    enty.getReffion = getReffion      //  projection
+    enty.getReffier = getReffier      //  projecter
 
     return enty
 

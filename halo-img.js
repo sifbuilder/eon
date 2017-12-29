@@ -38,7 +38,7 @@
       let json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform
 
       if (stace) {
-          json =  __mapper("xs").m("stace").getLociformer(anigram)(json)  // lociform
+          json =  __mapper("xs").m("stace").getLocifier(anigram)(json)  // lociform
       }
 
       let newAnigram = ani.anigram()

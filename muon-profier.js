@@ -1,13 +1,13 @@
 /****************************
- *      @bosonGist
+ *      @muonProfier
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.bosonGist = global.bosonGist || {})));
+  (factory((global.muonProfier = global.muonProfier || {})));
 }(this, function (exports) { 'use strict';
 
-let bosonGist = function bosonGist(__mapper = {}) {
+let muonProfier = function muonProfier(__mapper = {}) {
 
   let f = __mapper("props")()
 
@@ -17,14 +17,14 @@ let bosonGist = function bosonGist(__mapper = {}) {
   let cversor = __mapper("xs").c("versor")
 
 /****************************
- *      @getproj
+ *      @getProjier
  *        get projection from proform
  *        apply projection properties
  *        if control:wen  wen rotation
  *        if control:wen  and 2d: wen z rotation
  *        if control:versor   versor rotation
  */
-let getproj = function  (p = {}, prj) {
+let getProjion = function  (p = {}, prj) {
 
     if (f.isString(p.projection)) {       // if _projection singular name
 
@@ -87,18 +87,24 @@ let getproj = function  (p = {}, prj) {
 
     }
 
+
     return prj
+
+
 }
+let getProjier =  form => json => __mapper("xs").b("proj3ct")(json, getProjion(form))
 
 /****************************
  *      @enty
  */
-  let enty = p => getproj(p)
-    
+  let enty = function () {}
+  enty.getProjion = getProjion
+  enty.getProjier = getProjier
+
   return enty
 
 }
 
-exports.bosonGist = bosonGist
+exports.muonProfier = muonProfier
 
 }));

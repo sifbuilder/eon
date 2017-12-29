@@ -1,7 +1,6 @@
 /* https://www.irt.org/script/974.htm */  
 /*  bosons */  
 document.write("<script src='boson-clone.js'><\/script>")    
-document.write("<script src='boson-gist.js'><\/script>")    
 document.write("<script src='boson-image.js'><\/script>")    
 document.write("<script src='boson-init.js'><\/script>")    
 document.write("<script src='boson-kruskal.js'><\/script>")    
@@ -50,6 +49,7 @@ document.write("<script src='muon-graticule.js'><\/script>")
 document.write("<script src='muon-mouse.js'><\/script>")    
 document.write("<script src='muon-nat.js'><\/script>")    
 document.write("<script src='muon-newton.js'><\/script>")    
+document.write("<script src='muon-profier.js'><\/script>")    
 document.write("<script src='muon-ric.js'><\/script>")    
 document.write("<script src='muon-simulation.js'><\/script>")    
 document.write("<script src='muon-stace.js'><\/script>")    

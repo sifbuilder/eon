@@ -27,33 +27,21 @@
 
       let json = (typeof geoform === "function") ? geoform(anigram) : geoform
 
+      if (ereform) json =   __mapper("xs").m("profier")(ereform)(json)  // ereform
 
-      // if (ereform) {
-          // let ereformer = __mapper("xs").b("gist")(ereform)
-          // json =  __mapper("xs").b("proj3ct")(json, ereformer)  // ereform
-      // }
 
-      if (conform) {
-          let conformer = __mapper("xs").b("gist")(conform)
-          json =  __mapper("xs").b("proj3ct")(json, conformer)  // conform
-      }
+      if (conform) json =   __mapper("xs").m("profier")(conform)(json)  // conform
+      
+      
+      if (stace) json =  __mapper("xs").m("stace").getReffier(anigram)(json)  // refform
+      
 
-      // if (stace) {
-          // let reformer = __mapper("xs").m("stace").getReform(stace)
-          // json =  __mapper("xs").b("proj3ct")(json, reformer)      // reform
-      // }
+      if (proform) json =   __mapper("xs").m("profier").getProjier(proform)(json)  // proform
+   
+      
+      if (stace) json =  __mapper("xs").m("stace").getLocifier(anigram)(json)  // lociform
 
-      if (proform) {
-          let proformer = __mapper("xs").b("gist")(proform)
-          json =  __mapper("xs").b("proj3ct")(json, proformer)  // proform
-      }
-
-      if (stace) {
-          json =  __mapper("xs").m("stace").getLociformer(anigram)(json)  // lociform
-          
-      }
-
-      if (0) console.log("json",json)
+      if (1) console.log("json",json)
       newAnigrams =  __mapper("xs").m("geoj").geojize(json, anigram)
 
       return newAnigrams
@@ -63,7 +51,7 @@
     /**********************
    *    @enty
    */
-    let enty = function enty() {}
+    let enty = function () {}
     enty.ween = anima => (anima.inited !== true) ? (anima.inited = true, [anima]) : []
     enty.gramn = anima => gramify(anima)
     enty.gramify = gramify

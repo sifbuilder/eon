@@ -272,22 +272,22 @@ let muonAlima = function muonAlima(__mapper) {
       let json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform
 
       if (conform) {
-        let conformer = __mapper("xs").b("gist")(conform)
+        let conformer = __mapper("xs").m("profier")(conform)
         json =  __mapper("xs").b("proj3ct")(json, conformer)  // conform
       }
 
       if (stace) {
         let reformer = __mapper("xs").m("stace").getReform(stace)
-        json =  __mapper("xs").b("proj3ct")(json, reformer)      // reform
+        json =  __mapper("xs").b("proj3ct")(json, reformer)      // refform
       }
 
       if (proform) {
-        let proformer = __mapper("xs").b("gist")(proform)
+        let proformer = __mapper("xs").m("profier")(proform)
         json =  __mapper("xs").b("proj3ct")(json, proformer)  // proform
       }
 
       if (stace) {
-        let lociformer =  __mapper("xs").m("stace").getLocifier(ani.anigram())
+        let lociformer =  __mapper("xs").m("stace").getLocifion(ani.anigram())
         json =  __mapper("xs").b("proj3ct")(json, lociformer)  // lociform
       }
 
