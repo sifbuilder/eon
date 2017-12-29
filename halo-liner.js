@@ -36,23 +36,35 @@
       payload = ani.payload(),
       boform = ani.boform(),
       tim = ani.tim(),
-      uid = ani.anigram().uid
+      uid = ani.anigram().uid,
+      stace =   ani.stace(),                // stace
+      proform = ani.proform(),                // proform
+      conform = ani.conform(),                // conform
+      geoform = ani.geoform()                 // geoform
 
 
-    let pixspan = 15
+    let pixspan = 15 / 1400
 
     let count = {}          // items to be generated on cycle
 
     let mmouse = __mapper("xs").m("mouse")
 
-    if (1) {                                  // 
+    if (1) {                                  //
 
       let mouse = {}                          // mouse control
       mouse.mouseDown = mmouse.mouseDown()
       mouse.mouseUp = mmouse.mouseUp()
+
+
       mouse.mouseMove = mmouse.mouseMove()
       mouse.mouseDownShared = mmouse.mouseDownShared()
       mouse.event = mmouse.event()
+
+      if (mouse.event && mouse.event.type === "mouseup") {
+          console.log("mouse.event", mouse.event.type)
+          __mapper("xs").c("wen").reset(__mapper("renderSVG").svg())
+          __mapper("xs").c("versor").reset(__mapper("renderSVG").svg())
+      }
 
       if (mouse.event !== undefined && mouse.mouseDown === 1 ) {
 
@@ -78,26 +90,29 @@
 
 
       let n = 0
-      for (let i=0; i<Object.keys(count).length; i++) {
+      for (let i=0; i<Object.keys(count).length; i++) {   // count
 
-        let key = Object.keys(count)[i]
+        let key = Object.keys(count)[i]                   // key
 
-        if (count[key] > 0) {
-
-          let x, y
-          if (key === "init") {
+        if (count[key] > 0) {                           // count on key
+          let x, y, z
+          if (key === "init") {                         // init
             x = width / 2
             y = height / 2
+            z = 0
 
-          } else if (key === "auto") {
+          } else if (key === "auto") {                  // auto
             x = width * Math.random() / 2
             y = height * Math.random() / 2
+            z = 0
 
-          } else if (key === "event") {
+          } else if (key === "event") {                   // event
 
-            x = mouse.event.x
-            y = mouse.event.y
-
+            x = (mouse.event.x - 300)/ 300
+            y = (mouse.event.y - 200)/ 200
+            // x = mouse.event.x 
+            // y = mouse.event.y
+            z = 0
 
           }
 
@@ -108,57 +123,67 @@
 
           newItem.x = x
           newItem.y = y
+          newItem.z = 0
 
+          let trace = {}
+          
+          if (newItem.trace !== undefined) {
 
-          if (newItem.geometry !== undefined) {
+            trace = newItem.trace
+            let coords = trace.geometry.coordinates
+            let coord = [x,y,z]
 
-            let coords = newItem.geometry.coordinates
-            let coord = [x,y]
-
-            let loc = newItem.geometry.coordinates[newItem.geometry.coordinates.length - 1]
+            let loc = trace.geometry.coordinates[trace.geometry.coordinates.length - 1]
             let dx = coord[0] - loc[0]
             let dy = coord[1] - loc[1]
-            let d = dx * dx + dy * dy
+            let dz = coord[2] - loc[2]
+            let d = dx * dx + dy * dy + dz * dz
 
             if (d > pixspan) coords.push(coord)    // add segment if above pixspan distance
 
-            newItem.geometry.coordinates = coords
-
+            trace.geometry.coordinates = coords
+            trace.properties.boform = boform
+            
           } else {
 
-            newItem.geometry = { type: "LineString", coordinates: [], }
-
-            let coord = [x,y]
-
-            newItem.geometry.coordinates = Array.of(coord)
+            trace = {
+                    type: "Feature",
+                    id: "lineform" + i,
+                    geometry: {},
+                    properties: {}}        
+          
+            trace.geometry = {
+                    type: "LineString",
+                    coordinates: [],
+            }
+            trace.properties.boform = boform
+            
+            
+            let coord = [x,y,0]
+            trace.geometry.coordinates = Array.of(coord)
 
           }
 
-          newItem.sort = "geojson"  // json is Polygon geojson
-          newItem.gelded = 1        // gelded will not repro
-          newItem.inited = 1        // next will be inited and not recycle
-
-          let type = newItem.geometry.type
-          let coordinates = newItem.geometry.coordinates
-
-          let feature = {"type": "Feature", "geometry": {}, "properties": {}}
-
-              feature.geometry.type = type
-              feature.geometry.coordinates = coordinates
-              feature.properties.boform = boform
-
-          newItem.feature = feature
-          newItem.sort = "feature"
-
-
-
-          newItems.push(newItem)
+        
+          let geoform = () => trace 
+          
+         
+          newItem.geoform = geoform
+          newItem.trace = trace       // keep reference system
+          let newAnigrams = __mapper("xs").h("geojson").gramify(newItem)
+          
+          
+          newItems = [...newItems, ...newAnigrams]
+          
+          
+          
 
         }
 
       }
 
     }
+
 
     return newItems
 

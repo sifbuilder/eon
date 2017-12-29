@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function (__mapper) {
+  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
+  __mapper("xs").b("init")({svg:1,versor:0,wen:0,webgl:1, key:1,})  // INIT
+
+  let f = __mapper({"props": bosonProps.bosonProps()}).props()
+  let g = __mapper("xs").m("geom")
+  let w = __mapper("xs").m("wen")
+
+
+  let r = __mapper("xs").r("renderer"),
+    width = r.width(),
+    height = r.height()
+
+
+    if (__mapper("controlKey") !== undefined) {
+         let controltimerLeftArrowAlt = () => {       // LEFT ARROW
+
+          if (__mapper("muonAnimation").animationStop !== undefined) {
+               console.log("controltimerLeftArrowAlt")
+            if (__mapper("controlTimer").started()) {
+              __mapper("controlTimer").stop()
+            } else {
+              __mapper("controlTimer").resume()
+            }
+          }
+        }
+        __mapper("controlKey").subscribe(controltimerLeftArrowAlt, "leftArrowAlt")
+     }
+
+
+    if (__mapper("controlKey") !== undefined) {
+         let controltimerUpArrowAlt = () => {         // UP ARROW
+
+            console.log("controltimerUpArrowAlt")
+            __mapper("controlWen").control(__mapper("renderSVG").svg())    // SVG WEN
+
+        }
+        __mapper("controlKey").subscribe(controltimerUpArrowAlt, "upArrowAlt")
+     }
+
+
+  /*******************************************
+ *    @controls
+ *
+ */
+
+  let tim = {"td":52800,"t0":0,"t1":1000,"t2":1,"t3":1,}
+
+  
+  // -------------------------------  lineform
+  let lineform = {
+
+    "tim": tim,
+    "ric": {"gid":"nat","cid":"nat","fid":"lineform",},
+    "halo": "liner",
+
+
+    "stace": {
+          "x": 300,
+          "y": 200,
+          "z": 0,
+        },
+
+    "boform": { "csx":0,"cf":[[[444,999]]], "co":[[[0.09,0.09]]], "cs":[[[555,999]]],"cw":[[[2.7,2.7]]],"cp":[[[0.9,0.9]]],},
+
+    // "ereform": {
+        // "projection": "uniwen",
+        // "translate":  [ -300, -200],
+        // "scale": 0.01,
+ 
+    // },
+    
+    "proform": {
+        "projection": "uniwen",
+        "translate":  [ 0, 0],
+        "scale": 10,
+        "rotate": [0,0,0], // [-5,50,0],
+        "focale": 4,
+        "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+        "dims": 3,
+        "control": "wen",
+    },
+
+    "payload": {
+      "initN": 0,
+      "eventN": 1,
+      "autoN": 0,
+      "autoP": 0.1,
+      "outed": 0,
+      "maxN": 60,
+    }
+
+  }
+
+
+/* ******************************************
+ *      @h.natform
+ *
+ */
+	// ------------------------------- 	nat haloLineform_ween		
+	let haloNatform_ween = function haloNatform_gramn(anima, newItems = []) {
+			console.log("haloNatform_ween")
+			if (anima.inited !== 1) {
+					anima.inited = 1
+					newItems = Array.of(anima)
+			} 
+			return newItems
+			
+	}
+	// ------------------------------- 	haloNatform_gramn		
+	let haloNatform_gramn = function haloNatform_gramn(anima, newItems = []) {
+
+    let ani = __mapper("xs").m("anitem")(anima),
+      anigram = ani.anigram(),
+      payload = ani.payload(),
+      boform = ani.boform(),
+      tim = ani.tim(),
+      uid = ani.anigram().uid,
+      stace =   ani.stace(),                // stace
+      proform = ani.proform(),                // proform
+      conform = ani.conform(),                // conform
+      geoform = ani.geoform()                 // geoform
+	
+			let parentGeometry	
+      let parent = ani.parent 
+    
+console.log("parent", parent)    
+    
+						let newItem = __mapper("xs").h("nat").gramn(anima)
+						
+						newItems = f.a(newItem)
+
+
+		
+		return newItems			
+		
+	}
+
+// ------------------------------- 	haloNatform
+let haloNatform = {
+					ween: anima => haloNatform_ween(anima),
+					gramn: anima => haloNatform_gramn(anima)
+			}
+			
+// ------------------------------- 	natform
+let natform = {
+
+				"tim": tim,
+				"ric": {"gid":"nat","cid":"nat","fid":"natform",},
+				"halo": "nat", // haloNatform,
+
+        "payload":{
+            "form": 	{
+            
+              "x": {
+                "m1":-7.66,"m2":-3.73,"n1":16.24,"n2":5.98,"n3":17,"a":8.98,"b":0.19,
+                "ra2": [[[48,122]]],
+                "v0": 0,"v1":1,
+                "w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], // 
+                "seg5": 360,"pa6":0,"pb7":-1,
+                "fas8": -90,
+              },
+              "y": {
+                "m1":-7.66,"m2":-3.73,"n1":16.24,"n2":5.98,"n3":17,"a":8.98,"b":0.19,
+                "ra2": [[[48,122]]],
+                "v0":0,"v1":1,
+                "w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], // 
+                "seg5": 360,"pa6":0,"pb7":-1,
+                "fas8": 0, 		// fas8, antifase
+              },
+
+              
+            },
+        },
+				"boform": { "csx":0,"cf":[[[888,666]]],"co":[[[0.9,0.9]]],"cs":[[[111,111]]],"cw":[[[0.03,0.03]]],"cp":[[[0.7,0.9]]],},
+				
+				"proform": {
+					"projection": "identity",
+					"scale": 1,
+					"translate": [ 300, 200 ],
+
+				},
+		
+
+	}
+ 
+ 
+ 
+  /*******************************************
+ *      @animaApi
+ *
+ // */
+  lineform.avatars = {
+    natform,      // haloNatform.haloNatform.geojson
+  }
+
+  let animas = [
+    // natform, 
+    lineform,     // h.liner
+
+  ]
+
+  let animaApi = function animaApi() {
+
+    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
+
+  }
+
+  return animaApi
+
+}
+
+let __mapper = bosonMapper.bosonMapper()
+__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>
