@@ -23,7 +23,7 @@
 
       state.animas = f.a(__mapper("muonStore").animasLive() )
 
-      console.log(" animas",  state.animas.length)
+      console.log(" .............. animas", state.animas.length, state.animas)
       
     /*******************************************
      *    @TIME

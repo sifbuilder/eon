@@ -16,8 +16,8 @@
     const neg = x =>  x < 0 || (x === 0 && (1/x < 0))
     const pos = x =>  x > 0 || (x === 0 && (1/x > 0))
     const radians = Math.PI / 180
-    const tau = 2 * Math.PI  
-    
+    const tau = 2 * Math.PI
+
     /* **************************
      *        @rador : seg5 unit circle rador
      *          m.snap.snap (dim form => rador)
@@ -158,8 +158,10 @@
           let pb7 = form[dim].pb7
           return f.streamRange(d, pa6, pb7)
         })
+        .map(d => [...d, d[0]])               // close polygon
 
       streams = f.slide(streams, "min")
+
       return streams
     }
     /**********************
@@ -201,7 +203,7 @@
       return nform
 
     }
-   
+
 
     let natform = function(form) {
       let radioform = Object.values(form).map( (d,i) => {
@@ -225,15 +227,15 @@
         let phi = p * radians
 
         let c = coForm
-        
+
         let x = c.scale[0] * radioform[0](lambda) * cos(lambda + c.rotation[0]) * cos(phi) * radioform[2](phi)
         let y = c.scale[1] * radioform[1](lambda) * sin(lambda + c.rotation[1]) * cos(phi) * radioform[2](phi)
-        let z = c.scale[2]       * radioform[2](phi) * sin(phi + c.rotation[2]) 
-        
+        let z = c.scale[2]       * radioform[2](phi) * sin(phi + c.rotation[2])
+
         return [x,y,z]
       }
-    }   
-    
+    }
+
     /***************************
      *        @enty
      */
@@ -244,7 +246,7 @@
     enty.polarCoords = polarCoords  //
     enty.multiconform = multiconform  //
     enty.nform = nform  //
-    enty.natform = natform 
+    enty.natform = natform
 
     return enty
 
