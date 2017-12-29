@@ -22,9 +22,10 @@
         ereform = ani.ereform(),                // ereform
         proform = ani.proform(),                // proform
         conform = ani.conform(),                // conform
-        geoform = ani.geoform()                 // geoform
+        geoform = ani.geoform(),                // geoform
+        anigram = ani.anigram()
 
-      let json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform
+      let json = (typeof geoform === "function") ? geoform(anigram) : geoform
 
 
       // if (ereform) {
@@ -48,12 +49,12 @@
       }
 
       if (stace) {
-          let lociformer =  __mapper("xs").m("stace").getLociform(ani.anigram())
-          json =  __mapper("xs").b("proj3ct")(json, lociformer)  // lociform
+          json =  __mapper("xs").m("stace").getLociformer(anigram)(json)  // lociform
+          
       }
 
-      console.log("json",json)
-      newAnigrams =  __mapper("xs").m("geoj").geojize(json, ani.anigram())
+      if (0) console.log("json",json)
+      newAnigrams =  __mapper("xs").m("geoj").geojize(json, anigram)
 
       return newAnigrams
     }

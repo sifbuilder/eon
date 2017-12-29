@@ -12,7 +12,7 @@
     let f = __mapper("props")()
 
 
-  // ........................ getSiti   situs: a:{x,y,z}
+    // ........................ getSiti   situs: a:{x,y,z}
     let getSiti = function (anima, siti=[]) {
 
       if (anima !== undefined) {          // empty list of siti
@@ -147,7 +147,7 @@
       return locations
     }
 
- // ............................... getPositions
+    // ............................... getPositions
     let getPositions = function (anima, locations=[]) {
       let a = __mapper("xs").m("anitem").anigram(anima)
 
@@ -194,7 +194,7 @@
  *
  */
     let getLocation = function (anigram = {}) {
-      
+
       let siti = getSiti(anigram)         // {x,y,z}
       let positions = getPositions(anigram) //
 
@@ -203,7 +203,7 @@
         locations = f.slide([siti, positions], "max")   // slide dim sites    ****
       }
       let location = [0,0,0]
-      
+
       if (siti && siti.length > 0 && positions && positions.length >0) {
         location = f.fa(siti[0]).map((d, i)  => d + positions[0][i])  // force array
       } else if (siti && siti.length >0 ) {
@@ -214,40 +214,7 @@
       return location                 // 3dim cartesian location
 
     }
-    /* **************************************
- *        @getLociformer
- *        locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
- */
-    let getLociformer = function (anigram = {}) {
 
-      let lociform = getLociform (anigram)
-      return g => d3.geoProject(g, lociform)
-
-    }
-
-    let getLociform = function (anigram = {}) {
-
-      let location = getLocation(anigram)
-      console.log("location", location)
-      let projection =  {
-        "projection": "uniwen",
-        "translate": [ location[0], location[1], location[2] ]
-      }
-      return  __mapper("xs").b("gist")(projection)
-
-    }
-
-    /* **************************************
- *        @getLocifier
- *        locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
- */
-    let getLocifier = function (anigram = {}) {
-
-      let location = __mapper("xs").m("stace").getLocation(anigram)
-      let locifier = p => p.map( (d,i) => d + location[i] )
-      return locifier
-
-    }
     /* **************************************
  *        @getReformer
  */
@@ -292,7 +259,7 @@
       }
 
     }
-    
+
     // ............................. getSitus
     let getSitus = anima => {
       let ret = {}
@@ -305,16 +272,50 @@
 
       return ret
     }
-    
-  /***********
+
+/* **************************************
+ *        @getLocifier
+ *
+ */
+    let getLocifier = function (anigram = {}) {
+
+      let location = getLocation(anigram)
+
+      let projection =  {
+        "projection": "uniwen",
+        "translate": [ location[0], location[1], location[2] ]
+      }
+      return  __mapper("xs").b("gist")(projection)
+
+    }
+
+/***********
+  *         @api
+  */
+
+/* **************************************
+ *        @getLociformer
+ *        locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
+ */
+    let getLociformer = function (anigram = {}) {
+
+      let lociform = getLocifier (anigram)
+      return g =>  __mapper("xs").b("proj3ct")(g, lociform)
+
+    }
+
+
+
+
+
+
+    /***********
   *         @enty
   */
     function enty() { return enty }
 
-    enty.getLocifier = getLocifier        //
-
     enty.getLociformer = getLociformer        //  d3 projection
-    enty.getLociform = getLociform        //  projection
+    // enty.getLocifier = getLocifier        //  projection
 
     enty.getReformer = getReformer  //  getReformer
     enty.getReform = getReform  //  getReform
