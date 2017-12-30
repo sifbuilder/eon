@@ -17,33 +17,34 @@
    let gramify = function (anima, newAnigrams=[]) {
 
       let ani = __mapper("xs").m("anitem")(anima),
-        anigram = ani.anigram(),
-        stace =   ani.stace(),                // stace
-        ereform = ani.ereform(),                // ereform
-        proform = ani.proform(),                // proform
-        conform = ani.conform(),                // conform
-        geoform = ani.geoform()
-        
+        anigram = ani.anigram(),             // anigram
+        stace =   ani.stace(),               // stace
+        ereform = ani.ereform(),             // ereform
+        proform = ani.proform(),             // proform
+        conform = ani.conform(),             // conform
+        geoform = ani.geoform() || geoform  // geoform
 
-      let json = (typeof geoform === "function") ? geoform(anigram) : geoform
 
-      if (ereform) json =   __mapper("xs").m("profier")(ereform)(json)  // ereform
+      let json = (typeof geoform === "function") ? geoform(anigram) : geoform // geoform
 
-      if (conform) json =   __mapper("xs").m("profier")(conform)(json)  // conform
-      
-      if (stace) json =  __mapper("xs").m("stace").getReffier(anigram)(json)  // refform
+      if (ereform) json = __mapper("xs").m("profier").getProjier(ereform)(json)  // ereform
 
-      if (proform) json =   __mapper("xs").m("profier").getProjier(proform)(json)  // proform
-      
-      if (stace) json =  __mapper("xs").m("stace").getLocifier(anigram)(json)  // lociform
+      if (conform) json = __mapper("xs").m("profier").getProjier(conform)(json)  // conform
+
+      if (stace) json = __mapper("xs").m("stace").getReffier(anigram)(json)  // refform
+
+      if (proform) json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
+
+      if (stace) json = __mapper("xs").m("stace").getLocifier(anigram)(json)  // lociform
 
       if (0) console.log("json",json)
-      newAnigrams =  __mapper("xs").m("geoj").geojize(json, anigram)
+
+      newAnigrams =  __mapper("xs").m("geoj").geojize(json, anigram)      // geojize
 
       return newAnigrams
     }
-    
-    
+
+
     /**********************
    *    @enty
    */

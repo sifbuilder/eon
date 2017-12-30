@@ -30,8 +30,8 @@
       zafin = [0,1],
       dims = 3
 
-    let pointStream = function(props) {  // anitem or form
-      let form = (props.form !== undefined) ? props.form : props 
+    let pointStream = function(p) {  // anitem or form
+      let form = (p.form !== undefined) ? p.form : p 
       let natform =  __mapper("xs").m("nat").natform(form)        // m.nat.natform
       let natstream = function (lambda, phi, radio=1) {
           this.stream.point(...natform(lambda, phi, radio))
@@ -39,9 +39,9 @@
       return natstream
     }
 
-    let proform = function(props) {
+    let proform = function(p) {
       let geoTrans = d3.geoTransform({
-        point: pointStream(props)})
+        point: pointStream(p)})
       let geoProj = p => geoTrans(p)
       geoProj.stream = s =>  geoTrans.stream(s)
       return geoProj
@@ -50,8 +50,8 @@
     /****************************
    *    @enty
    */
-    let enty = function (props={}) {
-      let m =  proform(props)
+    let enty = function (p={}) {
+      let m =  proform(p)
 
       m.translate = _ => _ !== undefined ? (translate = _, m) : m
       m.rotate = _ => _ !== undefined ? (rotate = _, m) : m

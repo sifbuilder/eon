@@ -218,7 +218,7 @@
 
     // ............................. getSitus
     let getSitus = anima => {
-      
+
       let ret = {}
       if ( typeof anima.x === "number" ) ret.x = anima.x
       if ( typeof anima.y === "number" ) ret.y = anima.y
@@ -228,7 +228,7 @@
       else ret = Object.values(ret)
 
       return ret
-      
+
     }
 
 /***********
@@ -270,8 +270,7 @@
     let getLocifier = function (anigram = {}) {
 
       let locifion = getLocifion (anigram)
-      
-      console.log("locifion", locifion)
+
       return g =>  __mapper("xs").b("proj3ct")(g, locifion)
 
     }
@@ -282,20 +281,18 @@
     let getReffier = function (anigram = {}) {
       let stace = anigram.stace
       if ( stace && stace.x && stace.x.ref && stace.y &&  stace.y.ref) {
-        
+
           let reffion = getReffion (stace)
           return g =>  __mapper("xs").b("proj3ct")(g, reffion)
 
       }  else {
-        
+
         return d => d               // identity
       }
     }
 
 
-
-
-    /***********
+  /***********
   *         @enty
   */
     function enty() { return enty }

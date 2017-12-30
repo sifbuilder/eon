@@ -31,15 +31,17 @@
     let gramn = function gramn(anima, newAnigrams = []) {
 
       let ani = __mapper("xs").m("anitem")(anima),
-        anigram = ani.anigram(),
-        stace =   ani.stace(),
+        anigram = ani.anigram(),             // anigram
+        stace =   ani.stace(),               // stace
+        ereform = ani.ereform(),             // ereform
+        proform = ani.proform(),             // proform
+        conform = ani.conform(),             // conform
         geoform = ani.geoform() || geoform
 
       let json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform
 
-      if (stace) {
-          json =  __mapper("xs").m("stace").getLocifier(anigram)(json)  // lociform
-      }
+      if (stace) json =  __mapper("xs").m("stace").getLocifier(anigram)(json)  // lociform
+      // if (proform) json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
 
       let newAnigram = ani.anigram()
 
