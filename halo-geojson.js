@@ -29,19 +29,15 @@
 
       if (ereform) json =   __mapper("xs").m("profier")(ereform)(json)  // ereform
 
-
       if (conform) json =   __mapper("xs").m("profier")(conform)(json)  // conform
       
-      
       if (stace) json =  __mapper("xs").m("stace").getReffier(anigram)(json)  // refform
-      
 
       if (proform) json =   __mapper("xs").m("profier").getProjier(proform)(json)  // proform
-   
       
       if (stace) json =  __mapper("xs").m("stace").getLocifier(anigram)(json)  // lociform
 
-      if (1) console.log("json",json)
+      if (0) console.log("json",json)
       newAnigrams =  __mapper("xs").m("geoj").geojize(json, anigram)
 
       return newAnigrams
