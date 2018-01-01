@@ -29,7 +29,7 @@
     /****************************
    *    @gramn
    */
-    let gramn = function gramn(anima, newAnigrams = []) {
+    let gramn = function (anima, newAnigrams = []) {
       
       let ani = __mapper("xs").m("anitem")(anima)
       
@@ -44,8 +44,8 @@
    *    @enty
    */
     let haloNat = {}
-        haloGeojson.ween = (anima.inited !== true) ? (anima.inited = true, [anima]) : []
-        haloNat.gramn = gramn(anima)
+        haloNat.ween = anima => (anima.inited !== true) ? (anima.inited = true, [anima]) : []
+        haloNat.gramn = anima => gramn(anima)
      
     let enty = haloNat
 
