@@ -43,9 +43,11 @@
     /****************************
    *    @enty
    */
-    let enty = function enty() {}
-    enty.ween = anima => (anima.inited !== true) ? (anima.inited = true, [anima]) : []
-    enty.gramn = anima => gramn(anima)
+    let haloNat = {}
+        haloGeojson.ween = (anima.inited !== true) ? (anima.inited = true, [anima]) : []
+        haloNat.gramn = gramn(anima)
+     
+    let enty = haloNat
 
     return enty
 

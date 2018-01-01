@@ -116,6 +116,7 @@
  *        gramn when rendering
  */
     let gramn = function (anima, newItems = []) {
+
       let anigram = __mapper("xs").m("anitem").anigram(anima)
 
       let tim = anigram.tim,
@@ -148,7 +149,7 @@
               let avatar = avatars[j]
               avatar.uid = __mapper("xs").m("ric").buildUID(avatar) // uid for children
               avatar.tim = anigram.tim                                // time from anima
-              avatar.parent = __mapper("xs").b("clone")(newItem)  // parent is newItem
+              avatar.parent = __mapper("xs").m("anitem").getCore(newItem)  // parent is newItem
               avatar.parentuid = newItem.uid                        // parentuid from newItem
 
               newSubItems = enty.gramn(avatar)                          // AVATAR GRAMN halogram
@@ -207,6 +208,7 @@
 
     enty.findIndexAnigramFromUid = uid => enty.anigrams().findIndex(d => d.uid === uid)
     enty.findAnigramFromUid = uid => local.anigrams.find(d => d.uid === uid)
+    enty.findAnimaFromUid = uid => local.animas.find(d => d.uid === uid)
 
     enty.born = d =>d.tim !== undefined && d.tim.unitElapsed !== undefined && d.tim.unitElapsed > f.epsilon
     enty.unborn = d => d.tim === undefined && d.tim.elapsed === undefined && d.tim.unitElapsed === undefined && d.tim.unitElapsed < f.epsilon

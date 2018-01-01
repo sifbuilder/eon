@@ -11,28 +11,44 @@
 
     let f = __mapper("props")()
 
+    let geoform = p => ({     // geoform
+      type:  "Feature",
+      geometry: {
+
+        "type": "Point",
+        "coordinates": [0, 0]
+
+      },
+      properties: {
+        attr: {
+          "width": p.payload.img.width,
+          "height": p.payload.img.height,
+        }
+      }
+    })
+
     let gramn = function gramn(anima, newAnigrams = []) {
 
-      let ani = __mapper("xs").m("anitem")(anima)
-      let stace = ani.stace(),                // stace
-        geoform = ani.geoform()                 // geoform
+      let ani = __mapper("xs").m("anitem")(anima),
+        anigram = ani.anigram(),             // anigram
+        stace =   ani.stace(),               // stace
+        ereform = ani.ereform(),             // ereform
+        proform = ani.proform(),             // proform
+        conform = ani.conform(),             // conform
+        geoform = ani.geoform() || geoform  // geoform
+
+
+      let json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform  // geoform
+
+      if (stace) json = __mapper("xs").m("stace").getLocifier(anigram)(json)  // lociform
 
       let newAnigram = ani.anigram()
-
-      let json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform
-
-      if (stace) {
-        let lociformer =  __mapper("xs").m("stace").getLocifion(ani.anigram())
-        json =  __mapper("xs").b("proj3ct")(json, lociformer)  // lociform
-      }
-
-      let feature = json
-      feature.id = newAnigram.uid
-
       newAnigram.sort = "text"
-      newAnigram.feature = feature
+      newAnigram.feature = json
+      newAnigram.feature.id = newAnigram.uid
 
       newAnigrams.push(newAnigram)
+
       return newAnigrams
     }
 
@@ -49,4 +65,4 @@
 
   exports.haloText = haloText
 
-}))
+}));

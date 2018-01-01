@@ -185,11 +185,11 @@
         let anigram = anigrams[i]
         let boform = anigram.boform
 
-        let feature = anigram.feature
+        let feature = anigram.feature || {}
             feature.id = anigram.uid
 
         let properties = feature.properties || {}
-            properties.ric = anigram.ric
+            properties.ric = anigram.ric     || {}
             properties.sort = anigram.sort
             properties.delled = anigram.delled
             properties.pointRadius = properties.pointRadius
@@ -225,8 +225,9 @@
 
       if (json.type === "Feature") {
 
-        let ani = __mapper("xs").m("anitem")(anigram)
-        let newAnigram = ani.anigram()
+        // let ani = __mapper("xs").m("anitem")(anigram)
+        // let newAnigram = ani.anigram()
+        let newAnigram = anigram
         newAnigram.feature = json
         newAnigram.sort = "feature"
         newAnigrams.push(newAnigram)
@@ -325,6 +326,8 @@
         newAnigrams.push(newAnigram)
 
       }
+      
+ 
       return  newAnigrams
 
     }
@@ -370,7 +373,86 @@
 
 
     }
+ /**********************
+   * 		@getCoords
 
+   */
+		let getCoords = function (json,  coords = []) {
+			
+			if (json === undefined )		{
+
+					console.log("_e_ m.geoj.getCoords json is undefined")
+
+			} else {
+
+				if (json.type == 'Feature') {
+
+								let geometry = json.geometry
+								if (geometry !== null) coords.push(geometry)
+
+				} else if (json.type == 'FeatureCollection') {
+						for (var feature_num = 0; feature_num < json.features.length; feature_num++) {
+
+								let feature = json.features[feature_num]
+								getCoords(feature, coords)
+
+						}
+				} else if (json.type == 'GeometryCollection') {
+						for (var geom_num = 0; geom_num < json.coords.length; geom_num++) {
+
+								let geometry = json.coords[geom_num]
+								coords.push(geometry)
+						}
+
+				} else if (json.type === 'Point') {
+
+							let  geometry = json
+							coords.push(geometry)
+
+				} else if (json.type === 'LineString') {
+
+              let line = json.coordinates
+              let _coords = line
+							coords = [...coords, ..._coords]
+
+				} else if (json.type === 'MultiPoint') {
+
+							let  geometry = json
+							coords.push(geometry)
+
+				} else if (json.type === 'Polygon') {
+
+
+              let rings = json.coordinates
+              let _coords = rings.reduce( (p,q) => [...p, ...q], [])
+							coords = [...coords, ..._coords]
+
+				} else if (json.type === 'MultiLineString') {
+
+              let lines = json.coordinates
+              let _coords = lines.reduce( (p,q) => [...p, ...q], [])
+							coords = [...coords, ..._coords]
+
+
+				} else if (json.type === 'MultiPolygon') {
+
+							let  geometry = json
+							coords.push(geometry)
+
+				} else if (json.type === 'Sphere') {
+
+							let  geometry = json
+							coords.push(geometry)
+
+				} else {
+						throw new Error('json type not identified.');
+				}
+			}
+
+      if (0 && 1) console.log("m.geoj.getCoords", coords)            
+
+			return coords
+		}
     /**********************
    *    @enty
    */
@@ -387,6 +469,7 @@
     enty.featurize = featurize
     enty.zorder = zorder
     enty.centroid = centroid
+    enty.getCoords = getCoords      // get coordinates, eg from parent
 
     return enty
 

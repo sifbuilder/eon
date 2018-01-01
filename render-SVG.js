@@ -145,10 +145,12 @@
  *
  */
     let render = function render (elapsed, anigrams, maxlimit) {
-// console.log("anigrams", anigrams[0].feature.properties.name, anigrams[0].feature.id, anigrams[0].feature.properties.sort)
-// console.log("anigrams", anigrams[1].feature.properties.name, anigrams[1].feature.id, anigrams[1].feature.properties.sort)
 
-      let features = anigrams   //
+      let features = anigrams
+        .filter(
+          d => d.properties !== undefined         // req properties
+            && d.properties.ric !== undefined     // req ric    
+        )
 
 
       let svg = __mapper("renderSVG").svg()
@@ -199,7 +201,8 @@
 
           /*  ................. IMG ................. */
           let imgs = fitems
-            .filter(d => d.properties.sort === "img")
+            .filter(d => d.properties.sort === "img")         // __ imgs __
+            .filter((d,i) => (d.properties.delled !== 1))     // not delled
 
           if (imgs.length > 0)  {
 
@@ -207,35 +210,42 @@
 
               .data(() => imgs)
               .append("svg:image")
-              .attr("d", d => d.properties.attr.img)
 
-              .attr("x", d => d.geometry.coordinates[0])  // geo coord x
-              .attr("y", d => d.geometry.coordinates[1])  // geo coord y
+              .attr("d", d => {
+
+                  return d.properties.attr.img
+
+              })
+
+              .attr("x", d => d.geometry.coordinates[0])
+              .attr("y",  d => d.geometry.coordinates[1])
 
               .attr("xlink:href", d => d.properties.attr["xlink:href"])
               .attr("width", d => d.properties.attr.width)
               .attr("height", d => d.properties.attr.height)
+              
           }
 
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
             .filter(d => d.properties.sort === "feature")       // __ geojson __
-            .filter((d,i) => (d.properties.delled !== 1))             // not delled
+            .filter((d,i) => (d.properties.delled !== 1))       // not delled
+            
           if (features.length > 0)  {
-
+          
             __mapper("renderSVG").elems("svg:g."+gid+"/path."+cid, features, d=>d.id)
 
+              .data(() => features)
               .attr("d", d =>  {
-          
+
                 let object = d        // geojson feature
                 let properties = object.properties || {}  // properties
-                let pointRadius = properties.pointRadius
+                let pointRadius = properties.pointRadius || 0
 
                 let path = (pointRadius !== undefined)  // geoPath
                   ? d3.geoPath().pointRadius(pointRadius)
                   : d3.geoPath()
-                let pathFromObject = path(object) 
-                return pathFromObject
+                return path(object)
 
               })
 

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function muonAlima(__mapper) {
+
+  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
+  __mapper("xs").b("init")({svg:1,versor:0,wen:1,webgl:1})  // INIT
+
+  let f = __mapper({"props": bosonProps.bosonProps()}).props()
+  let g = __mapper("xs").m("geom")
+  let w = __mapper("xs").m("wen")
+
+  /**********************
+   *    @
+   */
+  let r = __mapper("xs").r("renderer"),
+    width = r.width(),
+    height = r.height()
+
+  let rotInit = [0,45,0],
+    rotation = [0,0,0],
+    rotMatrix,
+    stars = []
+
+  let versor = __mapper("xs").b("versor")()
+  let wen = __mapper("xs").c("wen")({rotInit})
+
+
+  /*******************************************
+ *    @pics
+ */
+  let tim = {"td":9200,"t0":0,"t1":1000,"t2":1,"t3":1,}
+
+
+  /*******************************************
+ *      @animas
+ *
+ */
+  let idPolygone = {
+
+    "tim": tim,
+    "ric": {"gid":"idPolygone","cid":"idPolygone","fid":"idPolygone",},
+    "halo": "geojson",
+    "boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
+
+    "geoform": (p) => {
+      let payload = p.payload
+      let coordinaes = [
+            [-1, -1,  1],
+            [ 1, -1,  1],
+            [ 1, 1,   1],
+            [ -1, 1,  1],
+            [-1, -1,  1]
+           ]
+
+      let ric = p.ric
+      let boform = p.boform
+
+      let json = {type: "FeatureCollection", features: []}
+
+        let geometry = {type:"Polygon",coordinates:[]}
+
+        geometry.coordinates = Array.of(coordinaes) // eg [-1, 1, 1]
+
+        let feature = {type:"Feature",geometry:{},properties:{}}
+          let _ric = {}
+            _ric.gid = ric.gid
+            _ric.cid = ric.cid
+            _ric.fid = "face"
+        feature.properties.ric = _ric
+
+        feature.properties.sort = "feature"
+        feature.geometry = geometry
+        feature.properties.boform = boform
+        feature.properties.name = "orange"
+
+        json.features.push(feature)
+
+
+
+      return json
+    },
+
+    "proform": {
+
+        "projection": "uniwen",
+        "translate":  [ 200, 200],
+        "scale": 100,
+        "rotate": [0,0,0], // [-5,50,0],
+        "focale": Infinity,
+        "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+        "dims": 3,
+        "control": "wen",
+      },
+
+
+  }
+  let wenPolygone = {
+
+    "tim": tim,
+    "ric": {"gid":"wenPolygone","cid":"wenPolygone","fid":"wenPolygone",},
+    "halo": "geojson",
+    "boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
+
+    "geoform": (p) => {
+      let payload = p.payload
+      let coordinaes = [
+            [-1, -1,  1],
+            [ 1, -1,  1],
+            [ 1, 1,   1],
+            [ -1, 1,  1],
+            [-1, -1,  1]
+           ]
+
+      let ric = p.ric
+      let boform = p.boform
+
+      let json = {type: "FeatureCollection", features: []}
+
+        let geometry = {type:"Polygon",coordinates:[]}
+
+        geometry.coordinates = Array.of(coordinaes) // eg [-1, 1, 1]
+
+        let feature = {type:"Feature",geometry:{},properties:{}}
+          let _ric = {}
+            _ric.gid = ric.gid
+            _ric.cid = ric.cid
+            _ric.fid = "face"
+        feature.properties.ric = _ric
+
+        feature.properties.sort = "feature"
+        feature.geometry = geometry
+        feature.properties.boform = boform
+        feature.properties.name = "orange"
+
+        json.features.push(feature)
+
+
+
+      return json
+    },
+
+    "proform": {
+
+        "projection": "identity",
+        "translate":  [ 400, 200],
+        "scale": 100,
+        "rotate": [0,0,0], // [-5,50,0],
+        "focale": Infinity,
+        "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+        "dims": 3,
+        "control": "wen",
+      },
+
+
+  }
+
+  let img = {
+
+    "tim": tim,
+    "ric": {"gid":"img","cid":"img","fid":"img",},
+    "halo": "img",
+    "boform": {"csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+
+    "geoform": p => ({
+      type:  "Feature",
+      geometry: {
+
+        "type": "Point",
+        "coordinates": [0, 0]
+
+      },
+      properties: {
+        attr: {
+          "width": p.payload.img.width,
+          "height": p.payload.img.height,
+          ["xlink:href"]: p.payload.img.url,
+        }
+      }
+    }),
+
+    "stace": {
+      "x": [[[15, 15]]],
+      "y": [[[20, 20]]],
+    },
+
+    "payload": {
+
+      "img": {
+        "url":"zimg-501.jpg",
+        "width": [[[60, 60]]],
+        "height": [[[40 , 40]]],
+      },
+
+    }
+  }
+  /*******************************************
+ *      @animas
+ *
+ */
+  let animas = [
+    idPolygone,  // h.geojson g.uniwen
+    wenPolygone,  // h.geojson g.uniwen
+    img,          // h.img
+  ]
+  let animaApi = function animaApi() {
+    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
+  }
+
+  return animaApi
+
+}
+
+let __mapper = bosonMapper.bosonMapper()
+__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

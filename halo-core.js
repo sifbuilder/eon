@@ -14,8 +14,8 @@
    */
     let enty = function enty() {}
     
-    enty.ween = anima => (anima.inited !== true) ? (anima.inited = true, [anima]) : []
-    enty.gramn = anima => Array.of(__mapper("xs").b("snap")(anima, anima.tim.unitTime))
+    enty.ween = anima => (anima.inited !== true) ? (anima.inited = anima.gelded = true, [anima]) : []
+    enty.gramn = anima => Array.of(__mapper("xs").m("anitem")(anima).anigram())
 
     return enty
 

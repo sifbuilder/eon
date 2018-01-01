@@ -119,23 +119,50 @@
  *        getNode
  *
  */
-    let getNode = function getNode(aniState = {}) {
+    let getNode = function getNode(anitem = {}) {
 
       let node = {
-       x: aniState.x,
-       y: aniState.y,
-       z: aniState.z,
-        _x: aniState._x,     // past location
-        _y: aniState._y,     // past location
-        _z: aniState._z,     // past location
-        vx: aniState.vx,
-        vy: aniState.vy,
-        vz: aniState.vz,
+       x: anitem.x,
+       y: node.y,
+       z: anitem.z,
+        _x: anitem._x,     // past location
+        _y: anitem._y,     // past location
+        _z: anitem._z,     // past location
+        vx: anitem.vx,
+        vy: anitem.vy,
+        vz: anitem.vz,
       }
       return node
 
     }
+    
+/***************************************
+ *        getCore
+ *
+ */
+  let getCore = function (anitem = {}) {
 
+    let core = {}
+
+    core.x =  anitem.x
+    core.y =  anitem.y
+    core.z =  anitem.z
+    core._x = anitem._x     // past location
+    core._y = anitem._y     // past location
+    core._z = anitem._z     // past location
+    core.vx = anitem.vx
+    core.vy = anitem.vy
+    core.vz = anitem.vz
+
+    core.gelded = anitem.gelded
+    core.inited = anitem.inited
+    core.feature = anitem.feature
+    core.uid = anitem.uid
+    core.parentuid = anitem.parentuid
+
+    return core
+
+  }
    /***********
   *   @enty
   */
@@ -164,6 +191,7 @@
       return anitem                             // give anitem back
     }
 
+    enty.getCore = getCore                        // anitem => core
     enty.getNode = getNode                        // anitem => node
 
     enty.conform = (_) => { return _ !== undefined ? (anitem.conform = _, anitem) : anitem.conform }

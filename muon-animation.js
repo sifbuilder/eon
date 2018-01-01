@@ -23,8 +23,8 @@
 
       state.animas = f.a(__mapper("muonStore").animasLive() )
 
-      console.log(" .............. animas", state.animas.length, state.animas)
-      
+      if (1 && 1) console.log(" .............. animas", elapsed, state.animas.length)
+
     /*******************************************
      *    @TIME
      */
@@ -67,13 +67,17 @@
     /*******************************************
      *    @GRAMN animas to anigrams
      */
+      let anigrams = __mapper("xs").m("store").anigrams()
+
       for (let i=0; i<state.animas.length; i++) {
 
         let newAnigrams = __mapper("xs").m("store").gramn(state.animas[i]) /* GRAMN */
-        __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"store","anigrams":f.a(newAnigrams)})
+
+        __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.animation","anigrams":f.a(newAnigrams)})
 
       }
-      let anigrams = __mapper("xs").m("store").anigrams()
+      
+      anigrams = __mapper("xs").m("store").anigrams()
 
     /*******************************************
     *     @RENDER

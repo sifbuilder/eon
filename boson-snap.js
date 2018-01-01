@@ -79,6 +79,8 @@ let interlace = function interlace (streams, t)  {
 	 */	
 	let snap = function snap (v, t=0, g=0) {
 
+    if (0 && 1) console.log("b.snap", v)
+      
 		// ____________________________________________________ un-tagged
 		if (v === null) return null													//00 _____ o
 		else if (typeof(v) === "number") return v						//02 _____ num

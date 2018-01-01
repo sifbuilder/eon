@@ -61,46 +61,53 @@
  *
  */
 
-    let getLocsInDim = function (stateDim, parentCoords = []) { // get loc in stateDim if object
-
+    let getLocsInDim = function (staceDim, parentCoordsDim = []) { // get loc in staceDim if object
+    
       let locations = []
-      if (typeof stateDim === "number") {
+      if (typeof staceDim === "number") {
 
-        locations.push(stateDim)
+        locations.push(staceDim)
 
-      } else if (typeof stateDim === "object" && stateDim.pos !== undefined)  {// stateDim pos
+      } else if (typeof staceDim === "object" && staceDim.pos !== undefined)  {// staceDim pos
 
-        if (parentCoords.length > 0) {
+        if (parentCoordsDim.length > 0) {
 
-          if (typeof stateDim.pos === "number") {           // one position
-            let pos = stateDim.pos % parentCoords.length    // pos spec
-            if (pos < 0) pos = (pos + parentCoords.length) % parentCoords.length
+          if (typeof staceDim.pos === "number") {           // one position
+          
+            // let pos = staceDim.pos % parentCoordsDim.length    // pos spec relative to stream length
+            // if (pos < 0) pos = (pos + parentCoordsDim.length) % parentCoordsDim.length
+            let pos = Math.round(staceDim.pos * parentCoordsDim.length  / 100)
+            
             let idx = Math.floor(pos)
 
-            let v = parentCoords[idx]
+            let v = parentCoordsDim[idx]
             locations = Array.of(v)
 
-          } else if (Array.isArray(stateDim.pos)) {
+          } else if (Array.isArray(staceDim.pos)) {
 
-            let dist = stateDim.dist || 0               // distance to position
-            let fas = stateDim.fas || 0               // phase in positions
-            let pos0 = Math.floor(stateDim.pos[0])      // first of positions array
-            let pos1 = Math.floor(stateDim.pos[1])    // last of positions array
-            let step = Math.round(stateDim.step) || 1    // step between positions
+            let dist = staceDim.dist || 0               // distance to position
+            let fas = staceDim.fas || 0               // phase in positions
+            let c0 = staceDim.pos[0] // * staceDim.length / 100    // _e_
+            let c1 = staceDim.pos[1] // * staceDim.length / 100    // _e_
+            
+            let pos0 = Math.floor(c0)      // first of positions array
+            let pos1 = Math.floor(c1)    // last of positions array
+            
+            let step = Math.round(staceDim.step) || 1    // step between positions
 
             if (pos0 <= pos1) {
-              locations = d3.range(pos0,pos1, step)   // d3 create positional array
+              locations = d3.range(pos0, pos1, step)   // d3 create positional array
                 .map(d => d + fas)                        // displace positions by phase
-                .map(d => d % parentCoords.length)          // mod (-1)
+                .map(d => d % parentCoordsDim.length)          // mod (-1)
                 .map(d => Math.floor(d))              // integer position
-                .map(d => parentCoords[d])            // location from parent coords
+                .map(d => parentCoordsDim[d])            // location from parent coords
                 .map(d => d + dist)                   // sum dist to dim location
             } else {
               locations = d3.range(pos1, pos0, step)    // d3 create positional array
                 .map(d => d + fas)                  // displace positions by phase
-                .map(d => d % parentCoords.length)          // mod
+                .map(d => d % parentCoordsDim.length)          // mod
                 .map(d => Math.floor(d))
-                .map(d => parentCoords[d])
+                .map(d => parentCoordsDim[d])
                 .map(d => d + dist)
             }
 
@@ -108,11 +115,13 @@
         }
       }
 
+
       return locations
     }
 
     // ............................... getLocs  get locations from parent stace positions
     let getLocs = function(anigram) {
+      
       let locations = []
       let parentCoords = []   // get parent coords from anigram
 
@@ -122,24 +131,27 @@
       let parent = __mapper("xs").m("store").findAnigramFromUid(anigram.parentuid) || anigram.parent
       if (parent !== undefined && parent.feature && parent.feature.geometry) {
         let parentGeometryType = parent.feature.geometry.type
-        if (parentGeometryType === "Polygon") {
-          let parentGeometry = parent.feature.geometry
-          parentCoords = parentGeometry.coordinates[0]    // Polygon outer ring
+        
+        let parentGeometry = parent.feature.geometry
+        parentCoords = __mapper("xs").m("geoj").getCoords(parentGeometry)
 
-
+        if (parentCoords !== undefined) {
+        
           for (let i=0; i< dims.length; i++) {
 
-            let dimState = anigram.stace[dims[i]],    // dim i stace
+            let dimStace = anigram.stace[dims[i]],    // dim i stace
               dimStream = f.unslide(parentCoords)[i]  // dim i parent coords
 
-            braid[i] = getLocsInDim(dimState, dimStream)
+            braid[i] = getLocsInDim(dimStace, dimStream)
 
           }
 
           locations = f.slide(braid, "max")
-
+          
+          if (0 && 1) console.log("locations", ...locations)
+            
         } else {
-          console.log("_e_")
+          if (0 && 1) console.log("_e_ parent coordinates undefined ")
         }
 
       }
@@ -149,32 +161,36 @@
 
     // ............................... getPositions
     let getPositions = function (anima, locations=[]) {
-      let a = __mapper("xs").m("anitem").anigram(anima)
+      
+      if (0 && 1) console.log (" ****** m.anima.boform.cf", anima.boform.cf )
+      if (0 && 1) console.log (" ****** m.stace.getPositions", anima.stace.x, anima.stace.y )
+      
+      let ani = __mapper("xs").m("anitem").anigram(anima),
+        stace = ani.stace,
+        parentuid = ani.parentuid,
+        parent = ani.parent
 
-      if (a.stace !== undefined &&
-              Array.isArray(a.stace)) {             // anima.stace.[x,y,z]
+      if (stace !== undefined && Array.isArray(stace)) {  // anima.stace.[x,y,z]
 
-        let location = a.stace                  // single location from stace array
+        let location = stace                  // single location from stace array
         locations.push(location)
         return locations
 
       }
 
-      if (a.stace !== undefined &&
-              typeof a.stace === "object") {        // anima.stace.{x,y,z}
+      if (stace !== undefined && typeof stace === "object") { // anima.stace.{x,y,z}
 
-        let locations = getLocs(a)              // get locations from stace positions
+        let locations = getLocs(ani)              // get locations from stace positions
 
         return locations
 
       }
 
-      if (a.stace === undefined &&
-              a.parentuid !== undefined) {          // parent.{x,y,z}
+      if (stace === undefined && parentuid !== undefined) {  // parent.{x,y,z}
 
         let locations = []
 
-        let parent = a.parent || __mapper("xs").m("store").findAnigramFromUid(a.parentuid)
+        parent = parent || __mapper("xs").m("store").findAnigramFromUid(parentuid)
 
         if (parent !== undefined) {
           locations = getPositions(parent)
@@ -231,21 +247,27 @@
 
     }
 
-/***********
+    /***********
   *         @api
   */
 
     // ............................... getReffion
-    let getReffion = function (stace = {}) {
-
-      let outring = json.geometry.coordinates[0]
-      let refs = f.unslide(outring)
+    let getReffion = function (anigram = {}) {
+      
+   
+      
+       let stace = anigram.stace
+       let geometry = anigram.feature.geometry
+       let coords = __mapper("xs").m("geoj").getCoords(geometry)
+    
+      let refs = f.unslide(coords)
       let r0 = refs[0][stace.x.ref]
       let r1 = refs[1][stace.y.ref]
       let projection =  {
         "projection": "identity",
         "translate": [ r0, r1  ]
       }
+       
       return  __mapper("xs").m("profier").getProjion(projection)
 
     }
@@ -263,7 +285,7 @@
 
     }
 
-/* **************************************
+    /* **************************************
  *        @getLocifier
  *        locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
  */
@@ -282,8 +304,8 @@
       let stace = anigram.stace
       if ( stace && stace.x && stace.x.ref && stace.y &&  stace.y.ref) {
 
-          let reffion = getReffion (stace)
-          return g =>  __mapper("xs").b("proj3ct")(g, reffion)
+        let reffion = getReffion (stace)
+        return g =>  __mapper("xs").b("proj3ct")(g, reffion)
 
       }  else {
 
@@ -292,7 +314,7 @@
     }
 
 
-  /***********
+    /***********
   *         @enty
   */
     function enty() { return enty }

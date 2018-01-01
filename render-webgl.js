@@ -118,8 +118,11 @@
  */
     let render = function (elapsed, anigrams, maxlimit) {
 
-      // let features = __mapper("xs").m("geoj").featurize(anigrams)
       let features = anigrams
+        .filter(
+          d => d.properties !== undefined         // req properties
+            && d.properties.ric !== undefined     // req ric    
+        )
 
       /* clean canvas */
       while(state.scene.children.length > 0){
