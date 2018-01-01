@@ -25,7 +25,7 @@
       height = renderer.height(),
       scaleProj = Math.min(width/2, height)/Math.PI
 
-    let f = __mapper({"props": bosonProps.bosonProps()}).props()
+    let f = __mapper({"props": muonProps.muonProps()}).props()
     let g = __mapper("xs").m("geom")
 
     let atan = Math.atan

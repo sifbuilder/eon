@@ -10,7 +10,7 @@
 
 var bosonPolyhedral = function bosonPolyhedral(__mapper = {}) {
 
-		let f = __mapper({'props': bosonProps.bosonProps()}).props()	// props
+		let f = __mapper({'props': muonProps.muonProps()}).props()	// props
 
 	let renderer = __mapper("renderRenderer"),
 			width = renderer.width(),

@@ -31,7 +31,7 @@ let muonAlima = function muonAlima(__mapper) {
     height = renderer.height(),
     scaleView = Math.min(width/2, height)/Math.PI
 
-  let f = __mapper({"props": bosonProps.bosonProps()}).props()
+  let f = __mapper({"props": muonProps.muonProps()}).props()
 
   /*******************************************
  *      @pics
@@ -132,15 +132,22 @@ let muonAlima = function muonAlima(__mapper) {
     "payload": { form:form },
 
   }
-  let circ = {
+  let fuelnat = {
 
     "tim": tim,
     "ric": {"gid":"nat","cid":"nat","fid":"formCirc",},
-    "halo": "nat",
+    "halo": "fuel",
     "stace": [[[ stace ]]],
     "boform": boformCirc,
     "proform": proform,
-    "payload": { form:formCirc },
+    "payload": { 
+      form:formCirc,
+      fuel:{
+          ra2: 3,
+          candidates: 5,
+          sample: 10,
+      },
+    },
 
   }
   let img = {
@@ -188,9 +195,15 @@ let muonAlima = function muonAlima(__mapper) {
  * @animaApi
  *
  */
+ 
+   nat.avatars = {
+     // fuelnat,     // h.fuel
+  }
+
+ 
   let animas = [
     nat,      // h.nat
-    // circ,     // h.nat
+        fuelnat,     // h.fuel
     img,      // h.img
   ]
 

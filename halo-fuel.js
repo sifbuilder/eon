@@ -11,7 +11,11 @@ let haloFuel = function haloFuel(__mapper = {}) {
 
     let f = __mapper("props")()
 
-    let gramn = function gramn(anima, newAnigrams = []) {
+    let r = __mapper("xs").r("renderer"),
+      width = r.width(),
+      height = r.height()
+
+    let gramn = function (anima, newAnigrams = []) {
 
         let ani = __mapper("xs").m("anitem")(anima),
           anigram = ani.anigram(),             // anigram
@@ -19,20 +23,22 @@ let haloFuel = function haloFuel(__mapper = {}) {
           ereform = ani.ereform(),             // ereform
           proform = ani.proform(),             // proform
           conform = ani.conform(),             // conform
-          geoform = ani.geoform() || geoform,  // geoform
+          geoform = ani.geoform(),            // geoform
           payload = ani.payload(),
           tim = anigram.tim,                       // tim
           ric = anigram.ric,                       // ric
           uid = anigram.uid,                       // uid
-          parentuid = anigram.parentuid
+          parentuid = anigram.parentuid,
+          fuel = payload.fuel
 
 
         let parentAnigram = __mapper("xs").m("store").findAnigramFromUid(parentuid)
         let preAnigram = __mapper("xs").m("store").findAnigramFromUid(uid)  // pre anigram
 
-        
-
         // let polygon = anima.stream
+
+        let x0 = anima.x || width/2
+        let y0 = anima.y || height/2
 
         // let r
         // if (anima.r !== undefined) {
@@ -41,29 +47,59 @@ let haloFuel = function haloFuel(__mapper = {}) {
           // r = Math.max(anima.form.formA.ra2, anima.form.formB.ra2)
         // }
 
+        let rx = (fuel && fuel.rx) ? fuel.rx : width/2
+        let ry = (fuel && fuel.ry) ? fuel.ry : height/2
+
         // let extent = [
                 // [anima.x - r, anima.y - r]
               // , [anima.x + r, anima.y + r]
               // ]
 
+        let extent = [
+                [x0 - rx, y0 - ry]
+              , [x0 + rx, y0 + ry]
+              ]
 
-        // let quadtree = d3.quadtree()              // quad
-            // .extent(extent)
-            // .x(function(d) {return d[0]})
-            // .y(function(d) {return d[1]})
+
+
+        let quadtree = d3.quadtree()              // quad
+            .extent(extent)
+            .x(function(d) {return d[0]})
+            .y(function(d) {return d[1]})
 
         // let quadPlugin = __mapper("pluginQuad").quad(quadtree)
+        let mquad = __mapper("xs").m("quad")
 
         // let ra2 = avatar.form.formA.ra2         // exclusion between sample items
-
-
         // let candidates = avatar.pic.kan || 5  // tries to find a free slot
         // let sample = avatar.pic.hsam      // how many hits searched for
 
+        let ra2 = fuel.ra2
+        let candidates = fuel.candidates
+        let sample = fuel.sample
+        let polygon = []
+        
 
 
-        // let foundcandies =  quadPlugin.candysearch(ra2, polygon, candidates, sample)
+        // let foundcandies =  mquad.candysearch(ra2, polygon, candidates, sample)
+        
+        let foundcandies = []
+console.log("parentAnigram", parentAnigram  )
+if (parentAnigram
+  && parentAnigram.feature 
+  && parentAnigram.feature.geometry
+  && parentAnigram.feature.geometry.type === "Polygon"
+    )  {
+      
+      
+      polygon = parentAnigram.feature.geometry.coordinates[0] // outer ring
+      
+      foundcandies =  mquad.candysearch(ra2, polygon, candidates, sample)
+      
+    }
 
+
+        
 
         // let newItems = []
         // let remaincandies = []
@@ -111,18 +147,20 @@ let haloFuel = function haloFuel(__mapper = {}) {
 
 
 
-    return newAnimas
+    return newAnigrams
 
   }
 
     /***************************
  *        @enty
  */
-    let entApi = function entApi() {}
-    enty.ween = anima => (anima.inited !== true) ? (anima.inited = true, [anima]) : []
-    enty.gramn = anima  => gramn(anima)
+    let haloFuel = {}
+        haloFuel.ween = anima => (anima.inited !== true) ? (anima.inited = true, [anima]) : []
+        haloFuel.gramn = anima => gramn(anima)
 
-    return entApi
+    let enty = haloFuel
+
+    return enty
 
 }
 

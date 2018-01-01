@@ -9,7 +9,7 @@
 
   let xs = function (__mapper = {}) {
 
-    let f = __mapper({"props": bosonProps.bosonProps()}).props()
+    let f = __mapper({"props": muonProps.muonProps()}).props()
 
     let item = function (params, pres = ["control", "force", "muon", "render", "shade"], ret=null) {
 

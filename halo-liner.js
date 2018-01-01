@@ -9,7 +9,7 @@
 
   let haloLiner = function haloLiner(__mapper = {}) {
 
-  let f = __mapper({"props": bosonProps.bosonProps()}).props()
+  let f = __mapper({"props": muonProps.muonProps()}).props()
   let g = __mapper("xs").m("geom")
   let w = __mapper("xs").m("wen")
   let mmouse = __mapper("xs").m("mouse")

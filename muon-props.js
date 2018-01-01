@@ -1,13 +1,13 @@
 /***************************
- *        @bosonProps
+ *        @muonProps
  */
 (function (global, factory) {
   typeof exports === "object" && typeof module !== "undefined" ? factory(exports) :
     typeof define === "function" && define.amd ? define(["exports"], factory) :
-      (factory((global.bosonProps = global.bosonProps || {})))
+      (factory((global.muonProps = global.muonProps || {})))
 }(this, function (exports) { "use strict"
 
-  let bosonProps = function bosonProps() {
+  let muonProps = function muonProps() {
 
     let props = {}
 
@@ -428,6 +428,6 @@
     return enty
   }
 
-  exports.bosonProps = bosonProps
+  exports.muonProps = muonProps
 
 }));
