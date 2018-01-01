@@ -60,7 +60,13 @@
  *    } ]]]
  *
  */
-
+    let posInStream = function(rpos, stream) {
+            let pos = Math.round(rpos * stream.length  / 100)
+            pos = pos % stream.length    // pos spec relative to stream length
+            if (pos < 0) pos = (pos + stream.length) % stream.length
+            return pos
+    }
+ 
     let getLocsInDim = function (staceDim, parentCoordsDim = []) { // get loc in staceDim if object
     
       let locations = []
@@ -74,9 +80,7 @@
 
           if (typeof staceDim.pos === "number") {           // one position
           
-            // let pos = staceDim.pos % parentCoordsDim.length    // pos spec relative to stream length
-            // if (pos < 0) pos = (pos + parentCoordsDim.length) % parentCoordsDim.length
-            let pos = Math.round(staceDim.pos * parentCoordsDim.length  / 100)
+            let pos = posInStream(staceDim.pos, parentCoordsDim)
             
             let idx = Math.floor(pos)
 
@@ -324,6 +328,8 @@
 
     enty.getReffion = getReffion      //  projection
     enty.getReffier = getReffier      //  projecter
+    
+    enty.posInStream = posInStream      //  posInStream
 
     return enty
 

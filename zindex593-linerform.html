@@ -30,6 +30,8 @@ let muonAlima = function (__mapper) {
     width = r.width(),
     height = r.height()
 
+  let radians = Math.PI / 180,
+      degrees = 180 / Math.PI
 
   if (__mapper("controlKey") !== undefined) {
     let controltimerLeftArrowAlt = () => {       // LEFT ARROW
@@ -141,7 +143,7 @@ let muonAlima = function (__mapper) {
     "ric": {"gid":"nat","cid":"nat","fid":"lineform",},
     "halo": "liner",
 
-    "boform": { "csx":0,"cf":[[[111,999]]], "co":[[[0.09,0.09]]], "cs":[[[555,999]]],"cw":[[[2.7,2.7]]],"cp":[[[0.9,0.9]]],},
+    "boform": { "csx":0,"cf":[[[111,999]]], "co":[[[0.09,0.09]]], "cs":[[[888,999]]],"cw":[[[0.7,0.7]]],"cp":[[[0.9,0.9]]],},
 
 
     "proform": {
@@ -181,6 +183,7 @@ let muonAlima = function (__mapper) {
       proform = ani.proform(),             // proform
       conform = ani.conform(),             // conform
       geoform = ani.geoform() || geoform,  // geoform
+      payload = ani.payload(),
       tim = anigram.tim,                       // tim
       ric = anigram.ric,                       // ric
       uid = anigram.uid,                       // uid
@@ -190,38 +193,69 @@ let muonAlima = function (__mapper) {
     let parentAnigram = __mapper("xs").m("store").findAnigramFromUid(parentuid)
     let preAnigram = __mapper("xs").m("store").findAnigramFromUid(uid)  // pre anigram
 
+    let  rotations = 0
+    if (preAnigram) {
+
+      rotations = preAnigram.payload.rotations || 0
+
+    }
+
+
     if (parentAnigram) {
 
       if ( parentAnigram.feature && parentAnigram.feature.geometry && parentAnigram.feature.geometry.coordinates) {
-        
+
         let parentCoordinates = parentAnigram.feature.geometry.coordinates
-          
-          let parentCoordsDim = f.unslide(parentCoordinates)
-          
-          let x, y    // avaform position 
-          let _x, _y  // previous avaform position 
 
-          
-          let posx = Math.round(stace.x.pos * parentCoordsDim[0].length  / 100)  // pos spec
-          let posy = Math.round(stace.y.pos * parentCoordsDim[1].length  / 100)  // pos spec
+          let parentCoordsDims = f.unslide(parentCoordinates)
 
-          _x = parentCoordsDim[0][posx - 1]
-           x = parentCoordsDim[0][posx]
-          
-          _y = parentCoordsDim[1][posy - 1]
-           y = parentCoordsDim[1][posy]
+          let posx = __mapper("xs").m("stace").posInStream(stace.x.pos, parentCoordsDims[0])
+          let posy = __mapper("xs").m("stace").posInStream(stace.y.pos, parentCoordsDims[1])
 
-              console.log(" *** preAnigram", _x, x, _y, y)	
-              
-          let ang = 0
+          let x, y    // avaform position
+          let _x, _y  // previous avaform position
+
+          _x = parentCoordsDims[0][posx - 1]
+           x = parentCoordsDims[0][posx]
+
+          _y = parentCoordsDims[1][posy - 1]
+           y = parentCoordsDims[1][posy]
+
+
+          let _ang = 0, dang = 0
           if (_x && x && _y && y) {
 
-            ang = Math.atan2(y - _y, x - _x ) * 180 / Math.PI
-            anigram.payload.form.x.w4 += ang
-            anigram.payload.form.y.w4 += ang
+            _ang = Math.atan2( y - _y, x - _x ) * degrees   // -1 ang
+
+
+              let __x, __y, __ang  // two steps ahead
+
+                  __x = parentCoordsDims[0][posx - 2]        // -2 x
+                  __y = parentCoordsDims[1][posy - 2]        // -2 y
+
+
+              if (__x && __y) {
+                
+                  __ang = Math.atan2( _y - __y, _x - __x ) * degrees  // -2 ang
+
+                  dang = _ang - __ang                   // delta ang
+
+                  dcos = Math.cos(dang * radians)     // cos of delta ang
+
+                  if (dcos < -0.66) {
+
+                    rotations += 1                     // rotations
+
+                  }
+
+
+              }
+
+              anigram.payload.rotations = rotations
+              anigram.payload.form.x.w4 += _ang - 180  * rotations
+              anigram.payload.form.y.w4 += _ang - 180  * rotations
+
           }
-
-
 
       }
     }
@@ -233,7 +267,7 @@ let muonAlima = function (__mapper) {
 
   }
 
-  let haloAvajson_ween = anima => (anima.inited !== true) ? (anima.inited = anima.gelded = true, [anima]) : []
+  let haloAvajson_ween = anima => (anima.inited !== 1) ? (anima.inited = anima.gelded = 1, [anima]) : []
   let haloAvajson_gramn = anima => __mapper("xs").h("geojson").gramify(prehalo(anima))
 
   let haloAvajson = {}
@@ -300,30 +334,32 @@ let muonAlima = function (__mapper) {
     "payload": {
         "form":  {
 
-					"x": {
-						"m1":-7.66,"m2":-3.73,"n1":16.24,"n2":5.98,"n3":17,"a":8.98,"b":0.19,
-						"ra2": 36,
-						"v0": 0,"v1":1,
-						"w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], // 
-						"seg5": 360,"pa6":0,"pb7":-1,
-						"fas8": -90,
-					},
-					"y": {
-						"m1":-7.66,"m2":-3.73,"n1":16.24,"n2":5.98,"n3":17,"a":8.98,"b":0.19,
-						"ra2": 36,
-						"v0":0,"v1":1,
-						"w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], // 
-						"seg5": 360,"pa6":0,"pb7":-1,
-						"fas8": 0, 		// fas8, antifase
-					},
+          "x": {
+            "m1":-7.66,"m2":-3.73,"n1":16.24,"n2":5.98,"n3":17,"a":8.98,"b":0.19,
+            "ra2": 36,
+            "v0": 0,"v1":1,
+            "w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], //
+            "seg5": 360,"pa6":0,"pb7":-1,
+            "fas8": -90,
+          },
+          "y": {
+            "m1":-7.66,"m2":-3.73,"n1":16.24,"n2":5.98,"n3":17,"a":8.98,"b":0.19,
+            "ra2": 36,
+            "v0":0,"v1":1,
+            "w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], //
+            "seg5": 360,"pa6":0,"pb7":-1,
+            "fas8": 0,    // fas8, antifase
+          },
 
 
 
-        }
+        },
+
 
 
 
     }
+
 
   }
 
