@@ -177,7 +177,7 @@
           if (0 && 1) console.log("_feature", _feature)
 
 
-          let newAnigrams = __mapper("xs").h("geojson").gramify(newItem)
+          let newAnigrams = __mapper("xs").h("geojson").gramn(newItem)
           __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.liner","anigrams":newItem}) // _e_
 
           newItems = [...newItems, ...newAnigrams]

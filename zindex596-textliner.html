@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function (__mapper) {
+  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
+  __mapper("xs").b("init")({svg:1,versor:0,wen:0,webgl:0,img:1,key:1,})  // INIT
+
+  let f = __mapper({"props": muonProps.muonProps()}).props()
+  let g = __mapper("xs").m("geom")
+  let w = __mapper("xs").m("wen")
+  let liner =  __mapper("xs").m("liner")
+          
+
+  let r = __mapper("xs").r("renderer"),
+    width = r.width(),
+    height = r.height()
+
+  let radians = Math.PI / 180,
+      degrees = 180 / Math.PI
+
+  if (__mapper("controlKey") !== undefined) {
+    let controltimerLeftArrowAlt = () => {       // LEFT ARROW
+
+      if (__mapper("muonAnimation").animationStop !== undefined) {
+        console.log("controltimerLeftArrowAlt")
+        if (__mapper("controlTimer").started()) {
+          __mapper("controlTimer").stop()
+        } else {
+          __mapper("controlTimer").resume()
+        }
+      }
+    }
+    __mapper("controlKey").subscribe(controltimerLeftArrowAlt, "leftArrowAlt")
+  }
+
+
+  if (__mapper("controlKey") !== undefined) {
+    let controltimerUpArrowAlt = () => {         // UP ARROW
+
+      console.log("controltimerUpArrowAlt")
+      __mapper("controlWen").control(__mapper("renderSVG").svg())    // SVG WEN
+
+    }
+    __mapper("controlKey").subscribe(controltimerUpArrowAlt, "upArrowAlt")
+  }
+
+
+  /*******************************************
+ *    @pics
+ *
+ */
+
+  let tim = {"td":22800,"t0":0,"t1":1000,"t2":1,"t3":1,}
+
+
+  // -------------------------------  lineform
+  let lineform = {
+
+    "tim": tim,
+    "ric": {"gid":"lineform","cid":"lineform","fid":"lineform",},
+    "halo": "liner",
+
+    "boform": { "csx":0,"cf":[[[555,999]]], "co":[[[0.09,0.09]]], "cs":[[[888,999]]],"cw":[[[0.7,0.7]]],"cp":[[[0.9,0.9]]],},
+
+
+    "proform": {
+      "projection": "uniwen",
+      "translate":  [ 0, 0],
+      "scale": 1,
+      "rotate": [0,0,0],
+      "focale": Infinity,
+      "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+      "dims": 3,
+      "control": "wen",
+    },
+
+    "payload": {
+      "initN": 0,
+      "eventN": 1,
+      "autoN": 0,
+      "autoP": 0.1,
+      "outed": 0,
+      "maxN": 60,
+      "span": 15 / 1400,
+    }
+
+  }
+// ------------------------- img
+  let img = {
+
+    "tim": tim,
+    "ric": {"gid":"img","cid":"img","fid":"img",},
+    "halo":"img",
+
+    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+
+    "geoform": p => ({
+      type:  "Feature",
+      geometry: {
+
+        "type": "Point",
+        "coordinates": [35, 40]
+
+      },
+      properties: {
+        attr: {
+          "width": p.payload.img.width,
+          "height": p.payload.img.height,
+          ["xlink:href"]: p.payload.img.url,
+        }
+      }
+    }),
+
+    "payload": {
+
+      "img": {
+        "url":"zimg-501.jpg",
+        "width": [[[60, 60]]],
+        "height": [[[40 , 40]]],
+      },
+
+    }
+  }
+
+  /* ******************************************
+ *      @avaform
+ *
+ */
+  let prehalo = function (anima) {
+
+    let ani = __mapper("xs").m("anitem")(anima),
+      anigram = ani.anigram()
+
+      liner.orientate(anima)
+
+      let rotate = liner.rotate()
+      let rotations = liner.rotations()
+   
+console.log("rotate", rotations, rotate)   
+   
+              anigram.payload.rotations = rotations
+              anigram.payload.text.style.rotate += rotate - 180  * rotations
+              anigram.payload.text.style.rotate += rotate - 180  * rotations
+
+
+      return anigram
+
+
+  }
+
+  let haloAvajson_ween = anima => (anima.inited !== 1) ? (anima.inited = anima.gelded = 1, [anima]) : []
+  let haloAvajson_gramn = anima => __mapper("xs").h("text").gramn(prehalo(anima))
+
+  let haloAvajson = {}
+      haloAvajson.ween = anima => haloAvajson_ween(anima)
+      haloAvajson.gramn = anima => haloAvajson_gramn(anima)
+
+
+
+  // -------------------------------  avaform
+  let avaform = {
+
+    "tim": tim,
+    "ric": {"gid":"avaform","cid":"avaform","fid":"avaform",},
+    "halo": haloAvajson,
+    "boform": { "csx":0,"cf":[[[444,999]]],"cs":777,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+
+    "stace": {
+          "x":
+          {
+              "pos": [[[ 0 ,  1 * 100]]],
+          },
+          "y":
+          {
+              "pos": [[[ 0 ,  1 * 100]]],
+          },
+          "z": 0,
+    },
+
+
+    "payload": {
+
+      "text": {
+        "text":"Happy New Year 2018 !!!",
+        "style": {
+          ["rotate"]: 0,
+          ["font-size"]: [[[36,24,36]]],
+          ["font-family"]: "BankFuturistic",
+          ["text-anchor"]: "middle",
+
+
+        }
+      },
+
+    }
+
+  }
+
+  /*******************************************
+ *      @animaApi
+ *
+ // */
+  lineform.avatars = {
+
+    avaform,      // haloAvajson h.text
+
+  }
+
+  let animas = [
+
+    img,          // h.img
+    lineform,     // h.liner
+
+  ]
+
+  let animaApi = function animaApi() {
+
+    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
+
+  }
+
+  return animaApi
+
+}
+
+let __mapper = bosonMapper.bosonMapper()
+__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

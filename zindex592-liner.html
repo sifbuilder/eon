@@ -218,7 +218,7 @@ let muonAlima = function (__mapper) {
          
           newItem.geoform = geoform
           newItem.trace = trace       // keep reference system
-          let newAnigrams = __mapper("xs").h("geojson").gramify(newItem)
+          let newAnigrams = __mapper("xs").h("geojson").gramn(newItem)
           
           
           newItems = [...newItems, ...newAnigrams]

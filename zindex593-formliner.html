@@ -61,7 +61,7 @@ let muonAlima = function (__mapper) {
 
 
   /*******************************************
- *    @controls
+ *    @pics
  *
  */
 
@@ -71,70 +71,6 @@ let muonAlima = function (__mapper) {
  *      @natform
  *
  */
-  let natform = {
-
-    "tim": tim,
-    "ric": {"gid":"nat","cid":"nat","fid":"natform",},
-    "halo": "geojson",
-
-    "geoform": p => ({
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": Array.of(__mapper("xs").m("nat")
-          .multiconform(__mapper("xs").m("nat")
-            .nform(p.payload.form)
-            )
-          )
-      },
-      "id": 0,
-      "properties": {}
-    }),
-
-    "boform": { "csx":0,"cf":[[[444,777]]], "co":[[[0.09,0.09]]], "cs":[[[555,777]]],"cw":[[[0.7,0.7]]],"cp":[[[0.9,0.9]]],},
-
-    "proform": {
-        "projection": "uniwen",
-        "translate":  [300, 200, 0],
-        "scale": 1,
-        "rotate": [0,0,0], // [-5,50,0],
-        "focale": Infinity,
-        "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-        "dims": 3,
-        "control": "wen",
-    },
-
-    "payload": {
-        "form":  {
-
-          "x": {
-            "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":2, // ellipse
-            "ra2": 120,
-            "v0": 0, "v1": 1,
-            "seg5": [[[360,360]]],
-            "w4": [[[90 , 90 - 0 * 360]]],
-            "pa6":0,
-            "pb7":360,
-            "fas8": 0,
-          },
-
-          "y": {
-            "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":2, // ellipse
-            "ra2": 120,
-            "v0": 0, "v1": 1,
-            "seg5": [[[360,360]]],
-            "w4": [[[90 , 90 - 0 * 360]]],
-            "pa6":0,
-            "pb7":360,
-            "fas8": -90,
-          },
-
-
-        }
-    }
-
-  }
-
 
   // -------------------------------  lineform
   let lineform = {
@@ -177,98 +113,26 @@ let muonAlima = function (__mapper) {
   let prehalo = function (anima, newAnigrams=[]) {
 
     let ani = __mapper("xs").m("anitem")(anima),
-      anigram = ani.anigram(),             // anigram
-      stace =   ani.stace(),               // stace
-      ereform = ani.ereform(),             // ereform
-      proform = ani.proform(),             // proform
-      conform = ani.conform(),             // conform
-      geoform = ani.geoform() || geoform,  // geoform
-      payload = ani.payload(),
-      tim = anigram.tim,                       // tim
-      ric = anigram.ric,                       // ric
-      uid = anigram.uid,                       // uid
-      parentuid = anigram.parentuid
+      anigram = ani.anigram()
 
-
-    let parentAnigram = __mapper("xs").m("store").findAnigramFromUid(parentuid)
-    let preAnigram = __mapper("xs").m("store").findAnigramFromUid(uid)  // pre anigram
-
-    let  rotations = 0
-    if (preAnigram) {
-
-      rotations = preAnigram.payload.rotations || 0
-
-    }
-
-
-    if (parentAnigram) {
-
-      if ( parentAnigram.feature && parentAnigram.feature.geometry && parentAnigram.feature.geometry.coordinates) {
-
-        let parentCoordinates = parentAnigram.feature.geometry.coordinates
-
-          let parentCoordsDims = f.unslide(parentCoordinates)
-
-          let posx = __mapper("xs").m("stace").posInStream(stace.x.pos, parentCoordsDims[0])
-          let posy = __mapper("xs").m("stace").posInStream(stace.y.pos, parentCoordsDims[1])
-
-          let x, y    // avaform position
-          let _x, _y  // previous avaform position
-
-          _x = parentCoordsDims[0][posx - 1]
-           x = parentCoordsDims[0][posx]
-
-          _y = parentCoordsDims[1][posy - 1]
-           y = parentCoordsDims[1][posy]
-
-
-          let _ang = 0, dang = 0
-          if (_x && x && _y && y) {
-
-            _ang = Math.atan2( y - _y, x - _x ) * degrees   // -1 ang
-
-
-              let __x, __y, __ang  // two steps ahead
-
-                  __x = parentCoordsDims[0][posx - 2]        // -2 x
-                  __y = parentCoordsDims[1][posy - 2]        // -2 y
-
-
-              if (__x && __y) {
-                
-                  __ang = Math.atan2( _y - __y, _x - __x ) * degrees  // -2 ang
-
-                  dang = _ang - __ang                   // delta ang
-
-                  dcos = Math.cos(dang * radians)     // cos of delta ang
-
-                  if (dcos < -0.66) {
-
-                    rotations += 1                     // rotations
-
-                  }
-
-
-              }
-
+      let liner =  __mapper("xs").m("liner")
+          liner.orientate(anima)
+          
+      let rotate = liner.rotate()
+      let rotations = liner.rotations()
+    
               anigram.payload.rotations = rotations
-              anigram.payload.form.x.w4 += _ang - 180  * rotations
-              anigram.payload.form.y.w4 += _ang - 180  * rotations
-
-          }
-
-      }
-    }
-
-
-
+              anigram.payload.form.x.w4 += rotate - 180  * rotations
+              anigram.payload.form.y.w4 += rotate - 180  * rotations    
+    
+    
       return anigram
 
 
   }
 
   let haloAvajson_ween = anima => (anima.inited !== 1) ? (anima.inited = anima.gelded = 1, [anima]) : []
-  let haloAvajson_gramn = anima => __mapper("xs").h("geojson").gramify(prehalo(anima))
+  let haloAvajson_gramn = anima => __mapper("xs").h("geojson").gramn(prehalo(anima))
 
   let haloAvajson = {}
       haloAvajson.ween = anima => haloAvajson_ween(anima)
@@ -281,7 +145,7 @@ let muonAlima = function (__mapper) {
 
     "tim": tim,
     "ric": {"gid":"nat","cid":"nat","fid":"avaform",},
-    "halo": haloAvajson, // "geojson",
+    "halo": haloAvajson,
 
     "geoform": p => ({
       "type": "Feature",
@@ -299,20 +163,12 @@ let muonAlima = function (__mapper) {
 
     "stace": {
           "x":
-          // 300,
           {
               "pos": [[[ 0 ,  1 * 100]]],
-              // "ang":[[[ [1,1] ]] ,  [[ [-360,-360] ]]],
-              // "step":[[[20,20]]], // "delta":[[[6,18,48]]], "dist":0,
-              // "ref":[[[ [180 + 0,180 + 0] ]] ,  [[ [180 + 359,180 + 359] ]]],
           },
           "y":
-          // 200,
           {
               "pos": [[[ 0 ,  1 * 100]]],
-              // "ang":[[[ [1,1] ]] ,  [[ [-360,-360] ]]],
-              // "step":[[[20,20]]], // "delta":[[[6,18,48]]], "dist":0,
-              // "ref":[[[ [180 + 0,180 + 0] ]] ,  [[ [180 + 359,180 + 359] ]]],
           },
           "z": 0,
     },
@@ -375,20 +231,18 @@ let muonAlima = function (__mapper) {
 
   }
 
-
-
   /*******************************************
  *      @animaApi
  *
  // */
-  // natform.avatars = {
   lineform.avatars = {
-    avaform,      // haloAvaform.haloAvaform.geojson
+  
+    avaform,    // haloAvajson h.nat
+    
   }
 
   let animas = [
 
-    // natform,     // h.geojson
     lineform,     // h.liner
 
   ]

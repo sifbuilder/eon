@@ -11,7 +11,7 @@
 
     let f = __mapper("props")()
 
-    let geoform = p => ({     // geoform
+    let _geoform = p => ({     // geoform
       type:  "Feature",
       geometry: {
 
@@ -36,7 +36,7 @@
         ereform = ani.ereform(),             // ereform
         proform = ani.proform(),             // proform
         conform = ani.conform(),             // conform
-        geoform = ani.geoform() || geoform  // geoform
+        geoform = ani.geoform() || _geoform  // geoform
 
       let json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform // geoform
 

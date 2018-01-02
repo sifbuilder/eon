@@ -12,7 +12,11 @@
     let f = __mapper("props")()
 
     let _geoform = function (p) {     // geoform
-    
+
+      let payload = p.payload,
+        text = payload.text,         // needs text
+        boform = p.boform || {}
+
       let json = {
           type:  "Feature",
           geometry: {
@@ -22,34 +26,34 @@
 
           },
           properties: {
-            text: p.payload.text.text,
+            text: text.text,
             style: {
 
-              ["rotate"]: p.payload.text.style["rotate"],
-              ["font-size"]: p.payload.text.style["font-size"],
-              ["font-family"]: p.payload.text.style["font-family"],
-              ["text-anchor"]: p.payload.text.style["text-anchor"],
+              ["rotate"]: text.style["rotate"],
+              ["font-size"]: text.style["font-size"],
+              ["font-family"]: text.style["font-family"],
+              ["text-anchor"]: text.style["text-anchor"],
 
-              "width": p.payload.text.width,
-              "height": p.payload.text.height,
+              "width": text.style.width,
+              "height": text.style.height,
 
-              "dx": p.payload.text.dx,
-              "dy": p.payload.text.dy,
+              "dx": text.style.dx,
+              "dy": text.style.dy,
 
-              "textLength": p.payload.text.textLength,
-              "lengthAdjust": p.payload.text.lengthAdjust,
+              "textLength": text.style.textLength,
+              "lengthAdjust": text.style.lengthAdjust,
 
-              "fill": p.payload.text.style.fill || f.kolor(p.boform.cf,p.boform.csx),
-              "stroke": p.payload.text.style.stroke  || f.kolor(p.boform.cs,p.boform.csx),
-              "fill-opacity": p.payload.text.style["fill-opacity"] || p.boform.co,
-              "stroke-opacity": p.payload.text.style["stroke-opacity"] || p.boform.cp,
-              "stroke-width": p.payload.text.style["stroke-width"] || p.boform.cw,
+              "fill": text.style.fill || f.kolor(boform.cf,boform.csx),
+              "stroke": text.style.stroke  || f.kolor(boform.cs,boform.csx),
+              "fill-opacity": text.style["fill-opacity"] || boform.co,
+              "stroke-opacity": text.style["stroke-opacity"] || boform.cp,
+              "stroke-width": text.style["stroke-width"] || boform.cw,
 
             }
           }
       }
       return json
-      
+
     }
 
     let gramn = function gramn(anima, newAnigrams = []) {
@@ -76,12 +80,19 @@
       return newAnigrams
     }
 
+
 /***************************
  *        @enty
  */
-    let enty = function () {}
-    enty.ween = anima => (anima.inited !== true) ? (anima.inited = true, [anima]) : []
-    enty.gramn = anima  => gramn(anima)
+
+    let haloText_ween = anima => (anima.inited !== 1) ? (anima.inited = anima.gelded = 1, [anima]) : []
+    let haloText_gramn = anima => gramn(anima)
+
+    let haloText = {}
+        haloText.ween = anima => haloText_ween(anima)
+        haloText.gramn = anima => haloText_gramn(anima)
+
+    let enty = haloText
 
     return enty
 

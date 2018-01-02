@@ -181,12 +181,14 @@
           if (texts.length > 0) {
 
             __mapper("renderSVG").elems("svg:g."+gid+"/text."+cid, texts, d=>d.id)
-              .text(d => d.properties.text)
+              .text(d => {
+                  return d.properties.text
+              })
 
-              .attr("x", 0) // d => d.geometry.coordinates[0])  // geo coord x
-              .attr("y", 0) // d => d.geometry.coordinates[1])  // geo coord y
+              .attr("x", 0) // translate instead
+              .attr("y", 0) // 
 
-              .attr("transform", d =>   // "translate(260,200) rotate(25)")
+              .attr("transform", d =>   // eg. "translate(21,20) rotate(15)")
                     
 
                     "translate("

@@ -35,17 +35,20 @@
       
       anima.geoform = ani.geoform() || geoform
 
-      newAnigrams = __mapper("xs").h("geojson").gramify(anima)
+      newAnigrams = __mapper("xs").h("geojson").gramn(anima)
 
       return newAnigrams
     }
     
-    /****************************
+   /****************************
    *    @enty
    */
+    let haloNat_ween = anima => (anima.inited !== 1) ? (anima.inited = anima.gelded = 1, [anima]) : []
+    let haloNat_gramn = anima => gramn(anima)
+
     let haloNat = {}
-        haloNat.ween = anima => (anima.inited !== true) ? (anima.inited = true, [anima]) : []
-        haloNat.gramn = anima => gramn(anima)
+        haloNat.ween = anima => haloNat_ween(anima)
+        haloNat.gramn = anima => haloNat_gramn(anima)   
      
     let enty = haloNat
 

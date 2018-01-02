@@ -514,26 +514,42 @@ let aniWin = {
         }
       },
     }
-// ------------------------------- 	img			
- let img = {
-			"pic": {
-				"tim": tim,
-				"ric": {"gid":"img","cid":"img","fid":"img",},
-				"halo":"img",
-			
-				"ture": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.3,0.3]]],"co":[[[0.7,0.7,]]],"cp":[[[0.3,0.3]]],},
-				"img": { 
-					"iid":"zIMG_574.jpg",
-					"a": 0,
-					"b": 0,
-					"width": 600,
-					"height": 400,
-					"rotate": [[[0,0]]],
-					"scale": [ [[[1.6,1,1]]], [[[1.4,1,1]]] ],
-					"translate": [0, 0],
-				},
-			}
-	}
+// ------------------------- img
+  let img = {
+
+    "tim": tim,
+    "ric": {"gid":"img","cid":"img","fid":"img",},
+    "halo":"img",
+
+    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+
+    "geoform": p => ({
+      type:  "Feature",
+      geometry: {
+
+        "type": "Point",
+        "coordinates": [35, 40]
+
+      },
+      properties: {
+        attr: {
+          "width": p.payload.img.width,
+          "height": p.payload.img.height,
+          ["xlink:href"]: p.payload.img.url,
+        }
+      }
+    }),
+
+    "payload": {
+
+      "img": {
+        "url":"zimg-501.jpg",
+        "width": [[[60, 60]]],
+        "height": [[[40 , 40]]],
+      },
+
+    }
+  }
 /*******************************************
  * @animaApi
  *

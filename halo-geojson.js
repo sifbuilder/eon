@@ -14,7 +14,7 @@
   /**********************
    *    @gramify
    */
-  let gramify = function (anima, newAnigrams=[]) {
+  let gramn = function (anima, newAnigrams=[]) {
 
       let ani = __mapper("xs").m("anitem")(anima),
         anigram = ani.anigram(),             // anigram
@@ -36,18 +36,17 @@
       return newAnigrams
 
   }
-
-  let haloGeojson_ween = anima => (anima.inited !== true) ? (anima.inited = anima.gelded = true, [anima]) : []
-  let haloGeojson_gramn = anima => gramify(anima)
-
-  let haloGeojson = {}
-      haloGeojson.ween = anima => haloGeojson_ween(anima)
-      haloGeojson.gramn = anima => haloGeojson_gramn(anima)
-      haloGeojson.gramify = gramify
-
-    /**********************
+  
+  /**********************
    *    @enty
    */
+    let haloGeojson_ween = anima => (anima.inited !== true) ? (anima.inited = anima.gelded = true, [anima]) : []
+    let haloGeojson_gramn = anima => gramn(anima)
+
+    let haloGeojson = {}
+        haloGeojson.ween = anima => haloGeojson_ween(anima)
+        haloGeojson.gramn = anima => haloGeojson_gramn(anima)
+        
     let enty = haloGeojson
 
     return enty
