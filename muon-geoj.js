@@ -219,114 +219,66 @@
    *    @geojize - call from halo after gjform cycle
    *      build anigram from geojson geometry
    */
+   let geojizeFeature = function (feature, anigram) {
+      let properties = feature.properties || {}
+
+          let boform = Object.assign({},  // style
+              anigram.boform,             // style shared by all features
+              properties.boform)          // style passed as feature's property
+
+
+          let ric = anigram.ric           // identity items in colllection
+          let _ric = {}
+            _ric.gid = ric.gid
+            _ric.cid = ric.cdid
+          if (!ric.fid) _ric.fid = i          // the fide privilege
+          else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, ani)
+          else _ric.fid = ric.fid             // identify each feature in the collection
+
+
+          let uid =  __mapper("xs").m("ric").buildUIDFromRic(_ric)
+
+          let newAnigram = anigram                        // base
+          newAnigram.ric = _ric                           // identity
+          newAnigram.uid = uid                            // uid
+          newAnigram.boform = boform                      // style
+          newAnigram.sort = properties.sort || "feature"  // sort
+          newAnigram.feature = feature                    // feature
+
+          return newAnigram
+   }
+
+
     let geojize = function (json, anigram) {
 
-      let newAnigrams= []
+      let features = []
+      
+      if (json.type === "Feature") {                    // json Feature
 
-      if (json.type === "Feature") {              // json Feature
-
-        let newAnigram = anigram
-        newAnigram.feature = json                 // json to anigram feature
-        newAnigram.sort = "feature"               // anigram sort is feature
-        newAnigrams.push(newAnigram)
+        features = Array.of(json)
 
       } else  if (json.type === "FeatureCollection") {  // FeatureCollection
 
-        let features = json.features
+        features = json.features
 
-        for (let i=0; i<features.length; i++) {
-          let newAnigram = anigram
-
-          let feature = features[i]
-          let properties = feature.properties || {}
-
-          let ric = Object.assign({},newAnigram.ric,properties.ric)
-
-
-          if (!ric.fid) ric.fid = i   // the fide privilege
-          else if (typeof ric.fid === "function") ric.fid = ric.fid(i, ric, ani)
-          else ric.fid = ric.fid
-
-
-          newAnigram.ric = ric
-          let uid =  __mapper("xs").m("ric").buildUIDFromRic(ric)
-          newAnigram.uid = uid
-
-          let boform = Object.assign({},newAnigram.boform,properties.boform)
-          newAnigram.boform = boform
-
-          newAnigram.sort = properties.sort || "feature"
-
-          newAnigram.feature = feature
-          newAnigrams.push(newAnigram)
-        }
       } else  if (json.type === "GeometryCollection") { // GeometryCollection
 
-        let geometries = json.geometries
+        features = json.map(d => ({
+            "type": "Feature", 
+            "geometry": {type: d.type, coordinates: d.coordinates},
+          }) )
 
-        for (let i=0; i<geometries.length; i++) {
-          let geometry = geometries[i]
+      } else {                                   // json is geometry
 
-          let ani = __mapper("xs").m("anitem")(anigram)
-
-          let feature = {
-            "type": "Feature",
-            "geometry": geometry,
-            "properties": {
-              "boform": ani.boform(),
-            }
-          }
-
-          let newAnigram = anigram
-
-          let ric = Object.assign({}, newAnigram.ric)
-
-          if (!ric.fid) ric.fid = i   // the fide privilege
-          // ric.fid = (i,d,a) => (i === 0) ? a.ric.fid : a.ric.fid + "_" + i
-          else if (typeof ric.fid === "function") ric.fid = ric.fid(i, ric, ani)
-          else ric.fid = ric.fid
-
-          let uid =  __mapper("xs").m("ric").buildUIDFromRic(ric)
-          newAnigram.uid = uid
-
-          let boform = Object.assign({},newAnigram.boform)
-          newAnigram.boform = boform
-
-          newAnigram.feature = feature
-          newAnigram.sort = "feature"
-          newAnigrams.push(newAnigram)
-        }
-
-      } else {                           // json is geometry
-        if (1 && 1) console.log("m.geoj geojize", anigram)
-          
-        let newAnigram = anigram
-        let boform = anigram.boform
-        let id = anigram.uid
-        let properties = json.properties || {}
-          properties.boform = boform
-        let type = json.type
-        let coordinates = json.coordinates
-
-        let feature = {
-          "type": "Feature",
-          "id": id,
-          "geometry": {
-            "type": type,
-            "coordinates": coordinates,
-            "properties": properties, 
-          },
-          "properties": properties,
-        }
-
-        newAnigram.feature = feature
-        newAnigram.sort = "feature"
-        newAnigrams.push(newAnigram)
-
+        features = Array.of(
+          {
+            "type": "Feature", 
+            "geometry": {type: json.type, coordinates: json.coordinates},
+          })
+       
       }
-
-
-      return  newAnigrams
+      
+      return features.map(d => geojizeFeature(d, anigram))
 
     }
 
