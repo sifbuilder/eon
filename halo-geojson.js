@@ -15,7 +15,7 @@
    *    @gramify
    */
   let gramn = function (anima, newAnigrams=[]) {
-
+      if (1 && 1) console.log("anima",anima)
       let ani = __mapper("xs").m("anitem")(anima),
         anigram = ani.anigram(),             // anigram
         stace =   ani.stace(),               // stace
@@ -24,19 +24,19 @@
         conform = ani.conform(),             // conform
         geoform = ani.geoform() || geoform  // geoform
 
-      let json = (typeof geoform === "function") ? geoform(anigram) : geoform // geoform
-      if (ereform) json = __mapper("xs").m("profier").getProjier(ereform)(json)  // ereform
-      if (conform) json = __mapper("xs").m("profier").getProjier(conform)(json)  // conform
-      if (stace) json = __mapper("xs").m("stace").getReffier(anigram)(json)  // refform
-      if (proform) json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
-      if (stace) json = __mapper("xs").m("stace").getLocifier(anigram)(json)  // lociform
+      let json = (typeof geoform === "function") ? geoform(anigram) : geoform     // geoform
+      if (ereform)  json = __mapper("xs").m("profier").getProjier(ereform)(json)  // ereform
+      if (conform)  json = __mapper("xs").m("profier").getProjier(conform)(json)  // conform
+      if (stace)    json = __mapper("xs").m("stace").getReffier(anigram)(json)    // refform
+      if (proform)  json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
+      if (stace)    json = __mapper("xs").m("stace").getLocifier(anigram)(json)   // lociform
 
-      if (0 && 1) console.log("json",json)
-      newAnigrams =  __mapper("xs").m("geoj").geojize(json, anigram)      // geojize
+      if (1 && 1) console.log("json",json)
+      newAnigrams =  __mapper("xs").m("geoj").geojize(json, anigram)              // geojize
       return newAnigrams
 
   }
-  
+
   /**********************
    *    @enty
    */
@@ -46,7 +46,7 @@
     let haloGeojson = {}
         haloGeojson.ween = anima => haloGeojson_ween(anima)
         haloGeojson.gramn = anima => haloGeojson_gramn(anima)
-        
+
     let enty = haloGeojson
 
     return enty

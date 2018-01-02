@@ -25,19 +25,18 @@
 
     let x0 = 0, y0 = 0, x1 = width, y1 = height
     let extent = [[x0-1,y0-1],[x1+1,y1+1]]
-    let candidates = 10
-
-    // ........................ quadtree
-    let quad = d3.quadtree()              // quad
+    let d0 = d => d[0]
+    let d1 = d => d[1]
+    let quad = d3.quadtree()
+      .x(d0)
+      .y(d1)
       .extent(extent)
-      .x(function(d) {return d[0]})
-      .y(function(d) {return d[1]})
-
 
     /****
        *    @findmanyothers = function(x, y, r=Infinity, thesemany = 1, polygon = null) {
+       *      http://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
        */
-    let findmanyothers = function(x, y, r=Infinity, thesemany = 1, polygon = null) {
+    let findmanyothers = function (x, y, r=Infinity, thesemany = 1, polygon = null) {
       let ret = []
       let quadCopy = quad.copy()
       let limit = Math.min(thesemany, quadCopy.data().length)
@@ -53,7 +52,6 @@
           if (dist > 1.e-6) {
             let isin = true
             if (polygon) isin = d3.polygonContains(polygon, [px, py])
-            // http://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
             if (isin) {
               ret.push(p)
               ++found
@@ -85,19 +83,24 @@
        *    @candysearch = function(ra2=10, polygon = null, candidates = 10, sample = 10)
        *    ra2: non overlap area
        */
-    let candysearch = function (ra2=10, polygon = null, candidates = 10, sample = 10) {
+    let candysearch = function (ra2=10, ring = null, candidates = 10, sample = 10) {
+
+      console.log("candisearch")
 
       let mols = []
+      let extent = quad.extent()
+      let frame = (ring) ? __mapper("xs").m("geom").polygonExtent(ring) : extent 
+
+      let x0 = frame[0][0], y0 = frame[0][1], x1 = frame[1][0], y1 = frame[1][1]
+      let tx = x1 - x0
+      let ty = y1 - y0
+      
+      let rdn = () => Math.random()
+
+
+      
       for (let i=0; i < sample; i++) {
-        let extent = quad.extent()
-        let x0 = extent[0][0], y0 = extent[0][1], x1 = extent[1][0], y1 = extent[1][1]
-        let range = Math.max(x1-x0, y1-y0)
-        let angle = Math.random()*Math.PI*2
-        let radius = Math.random()*range
-        let x = Math.cos(angle)*radius
-        let y = Math.sin(angle)*radius
-        let c0 = [(x0 + x1) / 2, (y0 + y1) / 2]   // center of extent
-        let c = [c0[0] + x, c0[1] + y]  // random point in circle with range around extent center
+        let c = [x0 + rdn() * tx, y0 + rdn() * ty]
 
         let z2 = 0          // current best Distance
         let k = null        // current better kandidate
@@ -105,25 +108,25 @@
         let dx, dy = 0
         let p = null
 
-        for (let j = 0; j < candidates; ++j) {
-          let isin = (polygon !== null) ? d3.polygonContains(polygon, c) : true
+          let isin = (ring !== null) ? d3.polygonContains(ring, c) : true
           if (isin) {
-            p = c
-            k = quad.find(p[0], p[1], ra2)    // find within ra2
-            if (k) {        // there is someting within ra2
-              dx = p[0] - k[0]
-              dy = p[1] - k[1]
-              let d2 = dx * dx + dy * dy          // distance from candidate to closest
-              if (d2 > z2) {
-                p = [k[0], k[1]], z2 = d2 // k offers z2
+            for (let j = 0; j < candidates; ++j) {
+              p = c
+              k = quad.find(p[0], p[1], ra2)    // find within ra2
+              if (k) {        // there is someting within ra2
+                dx = p[0] - k[0]
+                dy = p[1] - k[1]
+                let d2 = dx * dx + dy * dy          // distance from candidate to closest
+                if (d2 > z2) {
+                  p = [k[0], k[1]], z2 = d2 // k offers z2
+                }
+              } else {
+                quad.add(p)       // add selected point
+                mols.push(p)      // return selected point
+                break
               }
-            } else {
-              quad.add(p)       // add selected point
-              mols.push(p)      // return selected point
-              break
             }
           }
-        }
       }
       return mols
     }
@@ -160,23 +163,20 @@
 
     }
 
-    /***************************
- *        @enty
- */
-    function entApi() {}
+  /***************************
+   *        @enty
+   */
+    let enty = function () {}
 
-    entApi.quad = quad
+    enty.findmanyothers = findmanyothers
+    enty.findmany = findmany
+    enty.candysearch = candysearch
+    enty.seeds = seeds
 
-    entApi.findmanyothers = findmanyothers
-    entApi.findmany = findmany
-
-    entApi.candysearch = candysearch
-    entApi.seeds = seeds
-
-    entApi.candidates = _ =>  (arguments.length) ? (candidates = _ ,quad) : candidates
+    enty.extent = _ =>  (arguments.length) ? (extent = _ ,enty) : extent
 
 
-    return entApi
+    return enty
   }
 
   exports.muonQuad = muonQuad

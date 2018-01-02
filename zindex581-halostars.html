@@ -238,6 +238,7 @@ let muonAlima = function muonAlima(__mapper) {
         feature.geometry = geometry
         feature.properties.boform = face.boform || boform // boform per face
         jsonFaces.features.push(feature)
+        
       }
 
 
@@ -248,10 +249,10 @@ let muonAlima = function muonAlima(__mapper) {
       for (let i=0; i<json.features.length; i++) { // to same class to order from m.animate
 
         let feature = json.features[i]
-          let _ric = {}
-            _ric.gid = ric.gid
-            _ric.cid = "ani"
-            _ric.fid = (i,d,a) => _ric.cid + "_" + i  // svg count id
+        let _ric = {}
+          _ric.gid = ric.gid
+          _ric.cid = "ani"
+          _ric.fid = (i,d,a) => _ric.cid + "_" + i  // svg count id
         feature.properties.ric = _ric
 
       }

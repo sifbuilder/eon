@@ -14,7 +14,7 @@
       width = r.width(),
       height = r.height()
 
-    let geoform = p => ({
+    let _geoform = p => ({
       "type": "Feature",
       "geometry": {
         "type": "Polygon",
@@ -30,10 +30,11 @@
    *    @gramn
    */
     let gramn = function (anima, newAnigrams = []) {
+     
       
       let ani = __mapper("xs").m("anitem")(anima)
       
-      anima.geoform = ani.geoform() || geoform
+      anima.geoform = ani.geoform() || _geoform
 
       newAnigrams = __mapper("xs").h("geojson").gramn(anima)
 

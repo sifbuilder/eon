@@ -223,22 +223,19 @@
 
       let newAnigrams= []
 
-      if (json.type === "Feature") {
+      if (json.type === "Feature") {                    // Feature
 
-        // let ani = __mapper("xs").m("anitem")(anigram)
-        // let newAnigram = ani.anigram()
         let newAnigram = anigram
         newAnigram.feature = json
         newAnigram.sort = "feature"
         newAnigrams.push(newAnigram)
 
-      } else  if (json.type === "FeatureCollection") {
+      } else  if (json.type === "FeatureCollection") {  // FeatureCollection
 
         let features = json.features
 
         for (let i=0; i<features.length; i++) {
-          let ani = __mapper("xs").m("anitem")(anigram)
-          let newAnigram = ani.anigram()
+          let newAnigram = anigram
           
           let feature = features[i]
           let properties = feature.properties || {}
@@ -266,7 +263,7 @@
           newAnigram.feature = feature
           newAnigrams.push(newAnigram)
         }
-      } else  if (json.type === "GeometryCollection") {
+      } else  if (json.type === "GeometryCollection") { // GeometryCollection
 
         let geometries = json.geometries
 
@@ -283,7 +280,7 @@
             }
           }
 
-          let newAnigram = __mapper("xs").b("clone")(anigram)
+          let newAnigram = anigram
 
           let ric = Object.assign({}, newAnigram.ric)
 
@@ -305,10 +302,9 @@
           newAnigrams.push(newAnigram)
         }
 
-      } else {          // geometry
+      } else {                                       // geometry
 
-        let ani = __mapper("xs").m("anitem")(anigram)
-        let newAnigram = ani.anigram()
+        let newAnigram = anigram
  
         let feature = {
           "type": "Feature",

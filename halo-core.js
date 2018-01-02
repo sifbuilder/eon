@@ -9,13 +9,17 @@
 
   let haloCore = function haloCore(__mapper = {}) {
 
-   /**********************
-   *    @enty
-   */
-    let enty = function enty() {}
-    
-    enty.ween = anima => (anima.inited !== true) ? (anima.inited = anima.gelded = true, [anima]) : []
-    enty.gramn = anima => Array.of(__mapper("xs").m("anitem")(anima).anigram())
+    let haloCore_ween = anima => (anima.inited !== true) ? (anima.inited = anima.gelded = true, [anima]) : []
+    let haloCore_gramn = anima => Array.of(__mapper("xs").m("anitem")(anima).anigram())
+  
+    /**********************
+    *    @enty
+    */
+    let haloCore = {}
+        haloCore.ween = anima => haloCore_ween(anima)
+        haloCore.gramn = anima => haloCore_gramn(anima)
+        
+    let enty = haloCore
 
     return enty
 

@@ -10,149 +10,80 @@
 let haloFuel = function haloFuel(__mapper = {}) {
 
     let f = __mapper("props")()
+    let state = {}
+        state.items = []    // fuel particles
 
     let r = __mapper("xs").r("renderer"),
       width = r.width(),
       height = r.height()
 
+
+
     let gramn = function (anima, newAnigrams = []) {
 
-        let ani = __mapper("xs").m("anitem")(anima),
-          anigram = ani.anigram(),             // anigram
-          stace =   ani.stace(),               // stace
-          ereform = ani.ereform(),             // ereform
-          proform = ani.proform(),             // proform
-          conform = ani.conform(),             // conform
-          geoform = ani.geoform(),            // geoform
-          payload = ani.payload(),
-          tim = anigram.tim,                       // tim
-          ric = anigram.ric,                       // ric
-          uid = anigram.uid,                       // uid
-          parentuid = anigram.parentuid,
-          fuel = payload.fuel
+      let ani = __mapper("xs").m("anitem")(anima),
+        anigram = ani.anigram(),             // anigram
+        stace =   ani.stace(),               // stace
+        ereform = ani.ereform(),             // ereform
+        proform = ani.proform(),             // proform
+        conform = ani.conform(),             // conform
+        geoform = ani.geoform(),            // geoform
+        payload = ani.payload(),
+        tim = anigram.tim,                       // tim
+        ric = anigram.ric,                       // ric
+        uid = anigram.uid,                       // uid
+        parentuid = anigram.parentuid,
+        fuel = payload.fuel
 
 
-        let parentAnigram = __mapper("xs").m("store").findAnigramFromUid(parentuid)
-        let preAnigram = __mapper("xs").m("store").findAnigramFromUid(uid)  // pre anigram
+      let parentAnigram = __mapper("xs").m("store").findAnigramFromUid(parentuid)
+      let preAnigram = __mapper("xs").m("store").findAnigramFromUid(uid)  // pre anigram
 
-        // let polygon = anima.stream
+      let mquad = __mapper("xs").m("quad")
 
-        let x0 = anima.x || width/2
-        let y0 = anima.y || height/2
+      let ra2 = fuel.ra2
+      let candidates = fuel.candidates
+      let sample = fuel.sample
+      let polygon
+      let foundcandies = []
 
-        // let r
-        // if (anima.r !== undefined) {
-          // r = anima.r
-        // } else {
-          // r = Math.max(anima.form.formA.ra2, anima.form.formB.ra2)
-        // }
-
-        let rx = (fuel && fuel.rx) ? fuel.rx : width/2
-        let ry = (fuel && fuel.ry) ? fuel.ry : height/2
-
-        // let extent = [
-                // [anima.x - r, anima.y - r]
-              // , [anima.x + r, anima.y + r]
-              // ]
-
-        let extent = [
-                [x0 - rx, y0 - ry]
-              , [x0 + rx, y0 + ry]
-              ]
-
-
-
-        let quadtree = d3.quadtree()              // quad
-            .extent(extent)
-            .x(function(d) {return d[0]})
-            .y(function(d) {return d[1]})
-
-        // let quadPlugin = __mapper("pluginQuad").quad(quadtree)
-        let mquad = __mapper("xs").m("quad")
-
-        // let ra2 = avatar.form.formA.ra2         // exclusion between sample items
-        // let candidates = avatar.pic.kan || 5  // tries to find a free slot
-        // let sample = avatar.pic.hsam      // how many hits searched for
-
-        let ra2 = fuel.ra2
-        let candidates = fuel.candidates
-        let sample = fuel.sample
-        let polygon
-        
-
-
-        // let foundcandies =  mquad.candysearch(ra2, polygon, candidates, sample)
-        
-        let foundcandies = []
-console.log("parentAnigram", parentAnigram  )
-if (parentAnigram
-  && parentAnigram.feature 
-  && parentAnigram.feature.geometry
-  && parentAnigram.feature.geometry.type === "Polygon"
-    )  {
-      
-      
-      polygon = parentAnigram.feature.geometry.coordinates[0] // outer ring
-      
-      
-    }
-    
-if (polygon === undefined)  polygon = __mapper("xs").m("geom").extentPolygon([[0,0],[width,height]])
+      if (polygon === undefined)  polygon = __mapper("xs").m("geom").extentPolygon([[0,0],[width,height]])
 
       foundcandies =  mquad.candysearch(ra2, polygon, candidates, sample)
-console.log("foundcandies", foundcandies)  
-
-        
-
-        // let newItems = []
-        // let remaincandies = []
-        // if (avatar.pic.f === 3) {           // 3 - old and new all time
-            // remaincandies = state.items
-            // newItems =  [...remaincandies, ...foundcandies]
-        // } else if (avatar.pic.f === 2)  { // 2 - just new
-            // newItems =  foundcandies
-        // } else  {                         //  1 - old and new in polygon
-            // remaincandies = state.items.filter(c => d3.polygonContains(polygon, c))
-            // newItems =  [...remaincandies, ...foundcandies]
-        // }
+      console.log("foundcandies", foundcandies.length)
 
 
-        // let gid = anima.ric.gid
-        // let cid = anima.ric.cid
-        // let fid = anima.ric.fid
-        // for (let i = 0; i < newItems.length; i++) {
+      let remainCandies = []
+      if (fuel.f === 3) {           // 3 - old and new all time
+          remainCandies = state.items
+          remainCandies =  [...remaincandies, ...foundcandies]
+      } else if (fuel.f === 2)  { // 2 - just new
+          remainCandies =  foundcandies
+      } else  {                         //  1 - old and new in polygon
+          remainCandies = state.items.filter(c => d3.polygonContains(polygon, c))
+          remainCandies =  [...remainCandies, ...foundcandies]
+      }
 
-            // let newAnima = Object.assign({}, avatar)
+      for (let i=0; i<remainCandies.length; i++) {
 
-                // let ric = avatar.ric        // build on parent id
-                // ric.typ = "form"
-                // ric.gid = gid + "_fuel"
-                // ric.cid = cid + "_fuel"
-                // if (avatar.ric.fid === undefined) {                     // __ RIC
-                    // ric.fid = ric.cid + "_" +  i    // fid on items per class
-                // } else {
-                    // ric.fid = avatar.ric.fid
-                // }
-                // newAnima.ric = ric
+          let remainCandy = remainCandies[i]
+          let newAnigram = ani.anigram()
+          
+          let _ric = {}
+            _ric.gid = ric.gid + "_fuel"
+            _ric.cid = ric.cid + "_fuel"
+            _ric.fid = (_ric.fid === undefined) ? _ric.cid + "_" +  i : _ric.fid
 
-            // newAnima.state.stateA = newItems[i][0]
-            // newAnima.state.stateB = newItems[i][1]
+          newAnigram.ric = _ric
+          newAnigram.stace = remainCandy
 
+          newAnigrams.push(newAnigram)
+          
+      }
+      
+      newAnigrams.forEach(d => __mapper("xs").h("nat").gramn(d))   // h.nat
 
-
-            // let newAnigrams = __mapper("proxyForms").anima(anima, newAnima)
-
-            // newAnimas = newAnimas.concat(newAnigrams)
-
-
-        // }
-
-
-
-
-    return newAnigrams
-
-  }
+    }
 
     /***************************
  *        @enty
