@@ -149,7 +149,7 @@
       let features = anigrams
         .filter(
           d => d.properties !== undefined         // req properties
-            && d.properties.ric !== undefined     // req ric    
+            && d.properties.ric !== undefined     // req ric
         )
 
 
@@ -183,8 +183,30 @@
             __mapper("renderSVG").elems("svg:g."+gid+"/text."+cid, texts, d=>d.id)
               .text(d => d.properties.text)
 
-              .attr("x", d => d.geometry.coordinates[0])  // geo coord x
-              .attr("y", d => d.geometry.coordinates[1])  // geo coord y
+              .attr("x", 0) // d => d.geometry.coordinates[0])  // geo coord x
+              .attr("y", 0) // d => d.geometry.coordinates[1])  // geo coord y
+
+              .attr("transform", d =>   // "translate(260,200) rotate(25)")
+                    
+
+                    "translate("
+                    + d.geometry.coordinates[0]
+                    + ","
+                    + d.geometry.coordinates[1]
+                    + ")"
+                    + " rotate("
+                    + (d.properties.style["rotate"] || 0)
+                    + " )"
+                  )
+
+
+
+
+              .style("dx", d => d.properties.style["dx"])
+              .style("dy", d => d.properties.style["dx"])
+              .style("textLength", d => d.properties.style["textLength"])
+              .style("lengthAdjust", d => d.properties.style["lengthAdjust"])
+
 
               .style("font-size", d => d.properties.style["font-size"])
               .style("font-family", d => d.properties.style["font-family"])
@@ -223,16 +245,16 @@
               .attr("xlink:href", d => d.properties.attr["xlink:href"])
               .attr("width", d => d.properties.attr.width)
               .attr("height", d => d.properties.attr.height)
-              
+
           }
 
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
             .filter(d => d.properties.sort === "feature")       // __ geojson __
             .filter((d,i) => (d.properties.delled !== 1))       // not delled
-            
+
           if (features.length > 0)  {
-          
+
             __mapper("renderSVG").elems("svg:g."+gid+"/path."+cid, features, d=>d.id)
 
               .data(() => features)

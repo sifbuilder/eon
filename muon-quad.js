@@ -34,30 +34,6 @@
       .y(function(d) {return d[1]})
 
 
-    let diagonal = function(d, v) {     // error: d is undefined
-      // v < 0: linear link
-      // 0 < v < 1: curved link
-      // > 1: curvy link
-
-      let s = d.source
-      let t = d.target
-
-      if ((s.x === undefined) ||
-              (s.y === undefined) ||
-              (t.x === undefined) ||
-              (t.y === undefined)) return null
-
-      if (v < 0) {
-        let r =  "M" + s.x + "," + s.y + " " + "L" + t.x + "," + t.y
-      } else {
-        let rd = 1 + d3.randomNormal(0, v)()    // v
-        let r =  "M" + s.x + "," + s.y
-                + "C" + (s.x + rd * ((t.x - s.x))) + "," + s.y
-                + " " + (s.x + rd * ((t.x - s.x))) + "," + t.y
-                + " " + t.x + "," + t.y
-      }
-      return r
-    }
     /****
        *    @findmanyothers = function(x, y, r=Infinity, thesemany = 1, polygon = null) {
        */
@@ -190,7 +166,7 @@
     function entApi() {}
 
     entApi.quad = quad
-    entApi.diagonal = diagonal
+
     entApi.findmanyothers = findmanyothers
     entApi.findmany = findmany
 

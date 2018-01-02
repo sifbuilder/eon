@@ -16,10 +16,7 @@
     let polar = function (cartesian) {
       let lambda = Math.atan2(cartesian[0], cartesian[1])
       let radio = Math.sqrt(cartesian[0] * cartesian[0] + cartesian[1] * cartesian[1])
-      return [
-        radio,
-        lambda
-      ]
+      return [ radio, lambda ]
     }
 
     let cartesian = function (spherical) {
@@ -27,8 +24,8 @@
         phi = spherical[1] * radians,
         cosphi = Math.cos(phi)
       return [
-        Math.cos(lambda)      * cosphi ,
-        Math.sin(lambda)      * cosphi ,
+        Math.cos(lambda) * cosphi ,
+        Math.sin(lambda) * cosphi ,
         Math.sin(phi)
       ]
     }
@@ -170,6 +167,14 @@
     enty.polygonExtent = points => [enty.minExtent(points), enty.maxExtent(points)]
     enty.extentCentroid = extent => [(extent[0][0] + extent[1][0]) / 2, (extent[0][1] + extent[1][1]) / 2]
     enty.extentEdges = extent => [extent[1][0] - extent[0][0], extent[1][1] - extent[0][1]]
+    
+    enty.extentPolygon = e => [
+      [e[0][0], e[0][1]],
+      [e[0][0], e[1][1]],
+      [e[1][0], e[1][1]],
+      [e[1][0], e[0][1]],
+      [e[0][0], e[0][1]],
+    ]
 
     enty.pointsInPolygon = (points, pol) => points.filter(p => enty.pointInPolygon(p[0],p[1], pol))
 

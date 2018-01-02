@@ -77,7 +77,7 @@ let haloFuel = function haloFuel(__mapper = {}) {
         let ra2 = fuel.ra2
         let candidates = fuel.candidates
         let sample = fuel.sample
-        let polygon = []
+        let polygon
         
 
 
@@ -94,10 +94,13 @@ if (parentAnigram
       
       polygon = parentAnigram.feature.geometry.coordinates[0] // outer ring
       
-      foundcandies =  mquad.candysearch(ra2, polygon, candidates, sample)
       
     }
+    
+if (polygon === undefined)  polygon = __mapper("xs").m("geom").extentPolygon([[0,0],[width,height]])
 
+      foundcandies =  mquad.candysearch(ra2, polygon, candidates, sample)
+console.log("foundcandies", foundcandies)  
 
         
 

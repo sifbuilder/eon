@@ -393,6 +393,7 @@
     }
    /***************************
    *        @ent
+   *        entry from list and index
    */
     props.enxs = function( ent, ents, entidx = 0) {
 
