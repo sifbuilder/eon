@@ -30,15 +30,6 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let tim = {"td":3800,"t0":0,"t1":1000,"t2":1,"t3":1,}
 
-  let proform = {
-
-    "projection": "uniwen",
-    "scale": 0.1,
-    "translate": [ [[[300,300]]], 200 ],
-    "rotate": [ 0, 0, [[[0, 3 * 360]]] ],
-    "dims": 2,
-
-  }
   /*******************************************
  *    @animas
  *
@@ -49,15 +40,28 @@ let muonAlima = function muonAlima(__mapper) {
     "ric": {"gid":"geoform","cid":"geoform","fid":"geoform",},
     "halo":"geojson",
 
-    "boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    "boform": { "csx":0,"cf":[[[555,777]]],"cs":222,"cw":[[[1.7,1.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
-    "geoform": {
-      "type": "Point",
-      "coordinates":
-             [180 + 0, [[[180 + 0, 360]]] ]
+    "geoform":  {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates":[ 0, 0, 0 ]
+      },
+      "id": 0,
+      "properties": {pointRadius: 6, }
+    },    
+
+
+    "proform": {
+
+        "projection": "uniwen",
+        "scale": 1,
+        "translate": [ 300, 200 ],
+        "rotate": [ 0, 0, 0 ],
+        "dims": 2,
+
     },
-
-    "proform": proform,
   }
 
 

@@ -261,10 +261,10 @@
 
               .data(() => features)
               .attr("d", d =>  {
-
+console.log("d", d)
                 let object = d        // geojson feature
                 let properties = object.properties || {}  // properties
-                let pointRadius = properties.pointRadius || 0
+                let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
                 let path = (pointRadius !== undefined)  // geoPath
                   ? d3.geoPath().pointRadius(pointRadius)
