@@ -21,7 +21,8 @@
     let r = __mapper("xs").r("renderer"),
       width = r.width(),
       height = r.height()
-
+      
+    let rdn = () => Math.random()
 
     let x0 = 0, y0 = 0, x1 = width, y1 = height
     let extent = [[x0-1,y0-1],[x1+1,y1+1]]
@@ -78,14 +79,12 @@
       return ret
     }
 
-    /****
+    /* ***
        *    best free non-overlaping spot in polygon with population
        *    @candysearch = function(ra2=10, polygon = null, candidates = 10, sample = 10)
-       *    ra2: non overlap area
+       *    rad: non overlap area
        */
-    let candysearch = function (ra2=10, ring = null, candidates = 10, sample = 10) {
-
-      console.log("candisearch")
+    let candysearch = function (rad=10, ring = null, candidates = 10, sample = 10, goal = 10) {
 
       let mols = []
       let extent = quad.extent()
@@ -94,9 +93,6 @@
       let x0 = frame[0][0], y0 = frame[0][1], x1 = frame[1][0], y1 = frame[1][1]
       let tx = x1 - x0
       let ty = y1 - y0
-      
-      let rdn = () => Math.random()
-
 
       
       for (let i=0; i < sample; i++) {
@@ -105,29 +101,29 @@
         let z2 = 0          // current best Distance
         let k = null        // current better kandidate
 
-        let dx, dy = 0
-        let p = null
+        let dx =0, dy = 0, p = null
 
-          let isin = (ring !== null) ? d3.polygonContains(ring, c) : true
-          if (isin) {
-            for (let j = 0; j < candidates; ++j) {
-              p = c
-              k = quad.find(p[0], p[1], ra2)    // find within ra2
-              if (k) {        // there is someting within ra2
-                dx = p[0] - k[0]
-                dy = p[1] - k[1]
-                let d2 = dx * dx + dy * dy          // distance from candidate to closest
-                if (d2 > z2) {
-                  p = [k[0], k[1]], z2 = d2 // k offers z2
-                }
-              } else {
-                quad.add(p)       // add selected point
-                mols.push(p)      // return selected point
-                break
+        if (ring === null || d3.polygonContains(ring, c)) {                     
+          for (let j = 0; j < candidates; ++j) {    
+            p = c
+            k = quad.find(p[0], p[1], rad)    // find within rad
+            if (k) {               // if there is someting within rad
+              dx = p[0] - k[0], dy = p[1] - k[1]  // vector from candy to seed 
+              let d2 = dx * dx + dy * dy          // distance from candidate to closest
+              if (d2 > z2) {
+                p = [k[0], k[1]], z2 = d2         // k offers z2
               }
+            } else {
+              quad.add(p)       // add selected point
+              mols.push(p)      // return selected point
+              break
             }
           }
+        }
+        
+        if (mols.length >= goal) break
       }
+      
       return mols
     }
 

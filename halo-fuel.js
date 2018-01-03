@@ -55,7 +55,6 @@ let haloFuel = function haloFuel(__mapper = {}) {
 
 
       let foundcandies =  mquad.candysearch(ra2, polygon, candidates, sample)
-      console.log("foundcandies", foundcandies.length)
 
       let remainCandies = []
       if (fuel.f === 3) {           // 3 - old and new all time
