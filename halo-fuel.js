@@ -77,11 +77,13 @@ let haloFuel = function haloFuel(__mapper = {}) {
           newAnigram.ric = _ric
           newAnigram.stace = remainCandy
 
-          newAnigrams.push(newAnigram)
+          newAnigrams = [...newAnigrams, ...__mapper("xs").h("nat").gramn(newAnigram)]
+          
+
           
       }
       
-      newAnigrams.forEach(d => __mapper("xs").h("nat").gramn(d))   // h.nat
+      return newAnigrams
 
     }
 

@@ -220,21 +220,18 @@
    *      build anigram from geojson geometry
    */
    let geojizeFeature = function (feature, anigram) {
-      let properties = feature.properties || {}
+     
+          let properties = feature.properties || {}
 
-          let boform = Object.assign({},  // style
-              anigram.boform,             // style shared by all features
-              properties.boform)          // style passed as feature's property
+          let boform = properties.boform || anigram.boform  // style
 
-
-          let ric = anigram.ric           // identity items in colllection
+          let ric = properties.boform || anigram.ric     // identity
           let _ric = {}
             _ric.gid = ric.gid
             _ric.cid = ric.cdid
           if (!ric.fid) _ric.fid = i          // the fide privilege
           else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, ani)
           else _ric.fid = ric.fid             // identify each feature in the collection
-
 
           let uid =  __mapper("xs").m("ric").buildUIDFromRic(_ric)
 
