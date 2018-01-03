@@ -24,49 +24,46 @@ let muonAlima = function muonAlima(__mapper) {
 
   let f = __mapper({"props": muonProps.muonProps()}).props()
 
-  /*******************************************
+ /*******************************************
  *      @pics
- *
  */
   let tim = {"td":3800,"t0":0,"t1":1000,"t2":1,"t3":1,}
 
-  /*******************************************
+ /*******************************************
  *    @animas
- *
  */
-  let geoform = {
+  let geopoint = {
 
     "tim": tim,
-    "ric": {"gid":"geoform","cid":"geoform","fid":"geoform",},
+    "ric": {"gid":"geopoint","cid":"geopoint","fid":"geopoint",},
     "halo":"geojson",
 
     "boform": { "csx":0,"cf":[[[555,777]]],"cs":222,"cw":[[[1.7,1.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
+    
     "geoform":  {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates":[ 0, 0, 0 ]
+        "coordinates":[ 150, 150, 0 ]
       },
-      "id": 0,
+      "id": "geopoint",
       "properties": {pointRadius: 6, }
     },    
 
-
     "proform": {
 
-        "projection": "uniwen",
+        "projection": "aniwen",
         "scale": 1,
-        "translate": [ 300, 200 ],
+        "translate": [ 100, 100 ],
         "rotate": [ 0, 0, 0 ],
         "dims": 2,
 
     },
   }
 
-
   let animas = [
-    geoform,  // h.geojson g.uniwen
+    geopoint,  // h.geojson g.uniwen
   ]
 
   return () => __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})

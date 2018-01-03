@@ -21,13 +21,6 @@
       focale = Infinity,
       zafin = [0,1]
 
-    let wenRotation = function(rot) {
-      let rox = mwen.matrix(rot !== undefined ? g.to_radians(rot) : cwen.rotInDrag())
-      return function(x, y, z=0) {
-        return mwen.rotateMatrix([x, y, z], rox)
-      }
-    }
-
 
 
           let projectionInverse = function (p, d, s) {
@@ -40,35 +33,21 @@
           let rotationInverse = function(rot) {
             let rox = mwen.matrix(rot !== undefined ? g.to_radians(rot) : cwen.rotInDrag())
             return function(x, y, z=0) {
-              return mwen.transpose33([x, y, z], rox)
+              return mwen.rotateMatrix([x, y, z], mwen.transpose33(rox))
             }
           }
 
           let pointStreamInverse = function(x, y, z=0) {
               let c = [x, y, z]
               c = c.map( (d,i) => d - (translate[i] || 0))    //   inverse translation
-                        z = (c[2] - zafin[0]) / zafin[1]        // inverse perspective
-              c = mwen.projectionInverse([ c[0], c[1], z ] , focale, scale ) //   inverse projection
-              c = wenRotationInverse(rotate)(...c)              //   inverse rotation
+                        z = (c[2] * zafin[1]) + zafin[0]        //  perspective
+              c = projectionInverse([ c[0], c[1], z ] , focale, scale ) //   inverse projection
+              c = rotationInverse(rotate)(...c)              //   inverse rotation
 
               this.stream.point(...c)
           }
 
 
-
-
-
-
-    let pointStream = function(x, y, z=0) {
-
-      let c = [x, y, z]
-      c = wenRotation(rotate)(...c)
-      z = (c[2] * zafin[1]) + zafin[0]
-      c = mwen.projection([ c[0], c[1], z ] , focale, scale )
-      c = c.map( (d,i) => d + (translate[i] || 0))
-
-      this.stream.point(...c)
-    }
 
 
     let proform = function() {
