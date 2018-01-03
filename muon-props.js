@@ -105,8 +105,10 @@
     props.closerange = (a,b) => [...d3.range(a,b), a]
     props.geoscale = extent => d3.scaleLinear().domain(extent[0]).range(extent[1])
 
-    // force array
-    props.fa = d => {
+    props.addarray = (a1,a2) => a1.map( (d, i) => d + a2[i] )
+    
+    
+    props.fa = d => {     // force array
       let ret
       if (Array.isArray(d)) ret = d
       else if (typeof d === "object") ret = Object.values(d)
@@ -123,7 +125,7 @@
       return r
     }
 
-    props.ta = d => (Array.isArray(d)) ? d.map( di => [[ di ]]) : [[ d ]]
+    props.ta = d => (Array.isArray(d)) ? d.map( di => [[ di ]]) : [[ d ]] // to tripleArray
     props.unslide = function unslide (stream = [])  {
 
       let lengths = stream.map(d => d.length)
@@ -266,6 +268,7 @@
       }
       return  streamXYZ
     }
+    
    /***************************
    *        @streamRange
    */
@@ -385,7 +388,7 @@
   /***************************
    *        @format
    */
-    props.d = function ( precision) {
+    props.d = function ( precision ) {
       return function(value) {
         var multiplier = Math.pow(10, precision || 0);
         return Math.round(value * multiplier) / multiplier;

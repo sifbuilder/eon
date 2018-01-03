@@ -228,7 +228,7 @@
           let ric = properties.boform || anigram.ric     // identity
           let _ric = {}
             _ric.gid = ric.gid
-            _ric.cid = ric.cdid
+            _ric.cid = ric.cid
           if (!ric.fid) _ric.fid = i          // the fide privilege
           else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, ani)
           else _ric.fid = ric.fid             // identify each feature in the collection
