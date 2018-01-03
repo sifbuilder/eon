@@ -36,8 +36,6 @@ let haloFuel = function haloFuel(__mapper = {}) {
         fuel = payload.fuel
 
 
-      let parentAnigram = __mapper("xs").m("store").findAnigramFromUid(parentuid)
-      let preAnigram = __mapper("xs").m("store").findAnigramFromUid(uid)  // pre anigram
 
       let mquad = __mapper("xs").m("quad")
 
@@ -45,13 +43,19 @@ let haloFuel = function haloFuel(__mapper = {}) {
       let candidates = fuel.candidates
       let sample = fuel.sample
       let polygon
-      let foundcandies = []
 
-      if (polygon === undefined)  polygon = __mapper("xs").m("geom").extentPolygon([[0,0],[width,height]])
+      let preAnigram = __mapper("xs").m("store").findAnigramFromUid(uid)  // pre anigram
+      let parentAnigram = __mapper("xs").m("store").findAnigramFromUid(parentuid)
 
-      foundcandies =  mquad.candysearch(ra2, polygon, candidates, sample)
+      if (parentAnigram) {
+          polygon = parentAnigram.feature.geometry.coordinates[0] // outer ring
+      } else {
+          polygon = __mapper("xs").m("geom").extentPolygon([[0,0],[width,height]])
+      }
+
+
+      let foundcandies =  mquad.candysearch(ra2, polygon, candidates, sample)
       console.log("foundcandies", foundcandies.length)
-
 
       let remainCandies = []
       if (fuel.f === 3) {           // 3 - old and new all time
@@ -68,7 +72,7 @@ let haloFuel = function haloFuel(__mapper = {}) {
 
           let remainCandy = remainCandies[i]
           let newAnigram = ani.anigram()
-          
+
           let _ric = {}
             _ric.gid = ric.gid + "_fuel"
             _ric.cid = ric.cid + "_fuel"
@@ -78,11 +82,11 @@ let haloFuel = function haloFuel(__mapper = {}) {
           newAnigram.stace = remainCandy
 
           newAnigrams = [...newAnigrams, ...__mapper("xs").h("nat").gramn(newAnigram)]
-          
 
-          
+
+
       }
-      
+
       return newAnigrams
 
     }
