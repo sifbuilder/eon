@@ -32,8 +32,10 @@ let muonAlima = function muonAlima(__mapper) {
   let boform = { csx:0, cf:777, cs:222, cw:1.7, co:0.7, cp:0.5,}
   let geoform = {type:"Feature", geometry:{ type: "Point", coordinates:[0,0]}, properties:{pointRadius:6,}}
   
-  let proform = {projection: "uniwen",scale: 1,translate: [ 0, 100 ],rotate: [ 0, 0, 0 ],dims: 2,}
-
+  let translate = {"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
+         "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,}
+  let proform = {projection: "uniwen", scale: 1, translate: [ 0, 100 ], rotate: [ 0, 0, 0 ], dims: 2,}
+         
  /*******************************************
  *    @animas
  */
@@ -102,7 +104,7 @@ let muonAlima = function muonAlima(__mapper) {
        } ]]],
      },
   }
-  let p10 = {
+  let p10 = {           // NOK
     tim: tim, halo: "geojson", boform: boform, geoform: geoform, ric: {"gid":"p","cid":"p","fid":"p10",},
     proform: proform,
     stace: [
@@ -149,6 +151,38 @@ let muonAlima = function muonAlima(__mapper) {
         }
     } ]]]
   }
+   let p13 = {
+    tim: tim, halo: "geojson", boform: boform, geoform: geoform, ric: {"gid":"p","cid":"p","fid":"p13",},
+    proform: {projection: "uniwen", scale: 1, rotate: [ 0, 0, 0 ], dims: 2, 
+      translate: [
+      
+       [[[ t => {
+          let snap = __mapper("xs").b("snap")
+          let fn = (a,b) => a + b.x
+          let args = [
+            378, 
+            [[[ {
+             "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
+             "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
+            } ]]]
+          ]
+          args = args.map(d => snap(d,t,0))
+          return fn(...args)
+       } ]]],
+       
+       [[[ (t, a = 100, b = {
+         "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
+         "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
+       }  ) => {
+          let snap = __mapper("xs").b("snap")
+          let as = a
+          let bs = snap( b, t, 1 ).y
+          return as + bs
+       } ]]] ,
+       
+     ],
+    },
+  }
   
   let animas = [
     // p1,  // h.geojson g.uniwen
@@ -159,9 +193,10 @@ let muonAlima = function muonAlima(__mapper) {
     // p7,  // h.geojson g.uniwen
     // p8,  // h.geojson g.uniwen
     // p9,  // h.geojson g.uniwen
-    p10,  // h.geojson g.uniwen
+    // p10,  // h.geojson g.uniwen
     // p11,  // h.geojson g.uniwen
     // p12,  // h.geojson g.uniwen nok
+    p13,  // h.geojson g.uniwen nok
   ]
 
   return () => __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})

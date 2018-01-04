@@ -171,16 +171,13 @@
 
       else if (f.isObject(v)            //10 ___ v :: {b, c, d ...}*
                                       && g === 1) {
-        let tau = 2 * Math.PI
-        let radians = Math.PI / 180
-
 
         if ( v.x === undefined && v.y === undefined && v.z === undefined ) {
           let w = {}                                              // nat on dims
-          w.x = Object.assign({}, v)
-          w.y = Object.assign({}, w.x, {fas8: v.fas8 - 90}) // set transversal fas8
-          w.z = Object.assign({}, v)
-          v = w
+            w.x = Object.assign({}, v)
+            w.y = Object.assign({}, w.x, {fas8: v.fas8 - 90}) // set transversal fas8
+            w.z = Object.assign({}, v)
+            v = w
         }
 
         let ws = {}                           // dim nat

@@ -83,6 +83,7 @@ let getProjion = function  (p = {}, prj) {
 
     for (let [key, value] of Object.entries(p)) {
 
+console.log("key, value", key, value)
       if (key !== "rotate" && prj[key] !== undefined  && f.isFunction(prj[key]))  prj[key](value)
 
     }
