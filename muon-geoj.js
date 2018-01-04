@@ -219,17 +219,19 @@
    *    @geojize - call from halo after gjform cycle
    *      build anigram from geojson geometry
    */
-   let geojizeFeature = function (feature, anigram) {
-     
+   let geojizeFeature = function (feature, i = 0, anigram) {
+          
+          if (0 && 1) console.log("geojizeFeature",feature,i,anigram)
+          
           let properties = feature.properties || {}
 
           let boform = properties.boform || anigram.boform  // style
 
-          let ric = properties.boform || anigram.ric     // identity
+          let ric = properties.ric || anigram.ric     // identity
           let _ric = {}
             _ric.gid = ric.gid
             _ric.cid = ric.cid
-          if (!ric.fid) _ric.fid = i          // the fide privilege
+          if (!ric.fid) _ric.fid = i || 0          // the fide privilege
           else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, ani)
           else _ric.fid = ric.fid             // identify each feature in the collection
 
@@ -275,7 +277,7 @@
        
       }
       
-      return features.map(d => geojizeFeature(d, anigram))
+      return features.map( (d,i) => geojizeFeature(d, i, anigram))
 
     }
 
@@ -335,7 +337,7 @@
         if (json.type == 'Feature') {
 
                 let geometry = json.geometry
-                if (geometry !== null) coords.push(geometry)
+                if (geometry !== null) coords = [...coords, ...getCoords(geometry)]
 
         } else if (json.type == 'FeatureCollection') {
             for (let feature_num = 0; feature_num < json.features.length; feature_num++) {

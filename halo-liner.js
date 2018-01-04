@@ -29,6 +29,7 @@
   // -------------------------------  haloLinerHalo_gramn
   let haloLinerHalo_gramn = function (anima, newItems = []) {
 
+  
     let ani = __mapper("xs").m("anitem")(anima),
       anigram = ani.anigram(),
       payload = ani.payload(),
@@ -40,13 +41,15 @@
       conform = ani.conform(),      // conform
       geoform = ani.geoform()       // geoform
 
-    if (0 && 1) console.log("liner anigram", anigram.boform.cf)
-
+    let liner = payload.liner       // liner specific payload
     let pixspan = payload.span || 15 / 1400
 
-    let count = {}          // items to be generated on cycle
 
+    if (0 && 1) console.log("liner payload", payload)
+     
+    
     if (1) {
+      let count = {}          // items to be generated on cycle
 
       let mouse = {}                              // mouse control
       mouse.mouseDown = mmouse.mouseDown()        // down
@@ -62,30 +65,31 @@
 
       if (mouse.event !== undefined && mouse.mouseDown === 1 ) {  // on down event ...
 
-        count.event = Math.floor(payload.eventN)                //  take count
+        count.event = Math.floor(liner.eventN)                //  take count
 
       }
 
-      if (payload.inited === undefined || payload.inited !== 1) {
+      if (liner.inited === undefined || liner.inited !== 1) {
 
-        count.init = Math.floor(payload.initN)           // count INIT
+        count.init = Math.floor(liner.initN)           // count INIT
 
       }
 
-      let cyletime = tim.unitPassed - (payload.outed||0)
-      if (cyletime > payload.autoP) {                 // if cycle time above autopath
-        count.auto = Math.floor(payload.autoN)        // count AUTO
-        payload.outed = tim.unitPassed                // updated with anima
+      let cyletime = tim.unitPassed - (liner.outed||0)
+      if (cyletime >= liner.autoP) {                 // if cycle time above autopath
+        count.auto = Math.floor(liner.autoN)        // count AUTO
+        liner.outed = tim.unitPassed                // updated with anima
 
         anima.inited = 1                               // .......... inited
-        anima.payload.outed = payload.outed            // .......... outed at time units
+        anima.payload.liner.outed = liner.outed            // .......... outed at time units
         let animas = Array.of(anima)
         __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"h.liner",animas}) // upd
       }
 
-
+      if (0 && 1) console.log("liner count", count)
+      
       let n = 0
-      for (let i=0; i<Object.keys(count).length; i++) {   // for each count
+      for (let i=0; i<Object.keys(count).length; i++) {   // for each COUNT
 
         let key = Object.keys(count)[i]                   // key
 

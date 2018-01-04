@@ -91,13 +91,15 @@ let muonAlima = function (__mapper) {
     },
 
     "payload": {
-      "initN": 0,
-      "eventN": 1,
-      "autoN": 0,
-      "autoP": 0.1,
-      "outed": 0,
-      "maxN": 60,
-      "span": 15 / 1400,
+      liner: {
+        "initN": 0,
+        "eventN": 1,
+        "autoN": 0,
+        "autoP": 0.1,
+        "outed": 0,
+        "maxN": 60,
+        "span": 15 / 1400,
+      }
     }
 
   }
@@ -151,8 +153,7 @@ let muonAlima = function (__mapper) {
 
       let rotate = liner.rotate()
       let rotations = liner.rotations()
-   
-console.log("rotate", rotations, rotate)   
+
    
               anigram.payload.rotations = rotations
               anigram.payload.text.style.rotate += rotate - 180  * rotations
@@ -213,9 +214,9 @@ console.log("rotate", rotations, rotate)
   }
 
   /*******************************************
- *      @animaApi
+ *      @animas
  *
- // */
+  */
   lineform.avatars = {
 
     avaform,      // haloAvajson h.text

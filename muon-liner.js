@@ -91,8 +91,6 @@
                 
                   __ang = Math.atan2( _y - __y, _x - __x ) * degrees  // -2 ang
             
-console.log("_ang",__ang, _ang)
-
                   dang = _ang - __ang                   // delta ang
 
                   dcos = Math.cos(dang * radians)     // cos of delta ang

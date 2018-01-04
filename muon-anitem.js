@@ -122,9 +122,9 @@
     let getNode = function getNode(anitem = {}) {
 
       let node = {
-       x: anitem.x,
-       y: node.y,
-       z: anitem.z,
+        x: anitem.x,
+        y: node.y,
+        z: anitem.z,
         _x: anitem._x,     // past location
         _y: anitem._y,     // past location
         _z: anitem._z,     // past location
@@ -135,35 +135,51 @@
       return node
 
     }
-    
-/***************************************
+
+    /***************************************
  *        getCore
  *
  */
-  let getCore = function (anitem = {}) {
+    let getCore = function (anitem = {}) {
 
-    let core = {}
+      let core = {}
 
-    core.x =  anitem.x
-    core.y =  anitem.y
-    core.z =  anitem.z
-    core._x = anitem._x     // past location
-    core._y = anitem._y     // past location
-    core._z = anitem._z     // past location
-    core.vx = anitem.vx
-    core.vy = anitem.vy
-    core.vz = anitem.vz
+      core.x =  anitem.x
+      core.y =  anitem.y
+      core.z =  anitem.z
+      core._x = anitem._x     // past location
+      core._y = anitem._y     // past location
+      core._z = anitem._z     // past location
+      core.vx = anitem.vx
+      core.vy = anitem.vy
+      core.vz = anitem.vz
 
-    core.gelded = anitem.gelded
-    core.inited = anitem.inited
-    core.feature = anitem.feature
-    core.uid = anitem.uid
-    core.parentuid = anitem.parentuid
+      core.gelded = anitem.gelded
+      core.inited = anitem.inited
+      core.feature = anitem.feature
+      core.uid = anitem.uid
+      core.parentuid = anitem.parentuid
 
-    return core
+      return core
 
-  }
-   /***********
+    }
+
+    /***********
+  *   @parentCoords
+  */
+    let parentCoords = function( ani, coords = [] ) {
+      let parentGeometry
+      let parent = ani.parent || __mapper("xs").m("store").findAnigramFromUid(ani.parentuid)
+
+      if (parent !== undefined) {
+        let geoj = parent.feature
+        coords = __mapper("xs").m("geoj").getCoords(geoj)
+      }
+      
+      return coords
+    }
+
+    /***********
   *   @enty
   */
 
@@ -181,10 +197,12 @@
       return enty
     }
 
+    enty.parentCoords = parentCoords
+
     enty.anigram = (ani,t) => {
       if (ani !== undefined) {                    // if give anima
         if (t !== undefined) {                  // if given time
-             ani  = __mapper("xs").b("snap")(ani, t)  // anima snap  to anigram
+          ani  = __mapper("xs").b("snap")(ani, t)  // anima snap  to anigram
         }
         setAnitem(ani)                            // build anitem
       }

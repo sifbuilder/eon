@@ -90,6 +90,7 @@ let muonAlima = function (__mapper) {
       conform = ani.conform(),                // conform
       geoform = ani.geoform()                 // geoform
 
+    let liner = payload.liner           // payload specific
 
     let pixspan = 15 / 1400
 
@@ -116,23 +117,23 @@ let muonAlima = function (__mapper) {
 
       if (mouse.event !== undefined && mouse.mouseDown === 1 ) {
 
-        count.event = Math.floor(payload.eventN)      // count EVENT
+        count.event = Math.floor(liner.eventN)      // count EVENT
 
       }
 
-      if (payload.inited === undefined || payload.inited !== 1) {
+      if (liner.inited === undefined || liner.inited !== 1) {
 
-        count.init = Math.floor(payload.initN)        // count INIT
+        count.init = Math.floor(liner.initN)        // count INIT
 
       }
 
-      let cyletime = tim.unitPassed - (payload.outed||0)
-      if (cyletime > payload.autoP) {               // if cycle time above autopath
-        count.auto = Math.floor(payload.autoN)    // count AUTO
-        payload.outed = tim.unitPassed            // updated with anima
+      let cyletime = tim.unitPassed - (liner.outed||0)
+      if (cyletime > liner.autoP) {               // if cycle time above autopath
+        count.auto = Math.floor(liner.autoN)    // count AUTO
+        liner.outed = tim.unitPassed            // updated with anima
 
         anima.inited = 1                          // init form
-        anima.payload.outed = payload.outed
+        anima.payload.liner.outed = liner.outed
         __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":f.a(anima)})
       }
 
@@ -257,7 +258,7 @@ let muonAlima = function (__mapper) {
           "z": 0,
         },
 
-    "boform": { "csx":0,"cf":[[[444,999]]], "co":[[[0.09,0.09]]], "cs":[[[555,999]]],"cw":[[[2.7,2.7]]],"cp":[[[0.9,0.9]]],},
+    "boform": { "csx":0,"cf":[[[444,999]]], "co":[[[0.9,0.9]]], "cs":[[[555,999]]],"cw":[[[2.7,2.7]]],"cp":[[[0.9,0.9]]],},
 
     // "ereform": {
         // "projection": "uniwen",
@@ -278,12 +279,14 @@ let muonAlima = function (__mapper) {
     },
 
     "payload": {
-      "initN": 0,
-      "eventN": 1,
-      "autoN": 0,
-      "autoP": 0.1,
-      "outed": 0,
-      "maxN": 60,
+      liner: {
+        "initN": 0,
+        "eventN": 1,
+        "autoN": 0,
+        "autoP": 0.1,
+        "outed": 0,
+        "maxN": 60,
+      }
     }
 
   }
@@ -341,7 +344,7 @@ let muonAlima = function (__mapper) {
   // }
 
   let animas = [
-    img,          // h.img
+    // img,          // h.img
     lineform,     // h.liner
 
   ]
