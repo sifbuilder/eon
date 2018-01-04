@@ -82,7 +82,7 @@
    */
     let snap = function snap (v, t=0, g=0) {
 
-      if (1 && 1) console.log("b.snap", v)
+      if (0 && 1) console.log("b.snap", v)
 
       // ____________________________________________________ un-tagged
       if (v === null) return null                         //00 _____ o

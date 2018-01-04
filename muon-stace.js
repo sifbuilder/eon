@@ -168,7 +168,7 @@
 
       let stace = anigram.stace
 
-      if (1 && 1) console.log ("  m.stace.getPositions stace", stace )
+      if (0 && 1) console.log ("  m.stace.getPositions stace", stace )
 
       if (stace !== undefined && Array.isArray(stace)) {  // anigram.stace.[x,y,z]
 
