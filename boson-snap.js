@@ -79,7 +79,7 @@
    */
     let snap = function snap (v, t=0, g=0) {
 
-      if (0 && 1) console.log("b.snap", v)
+      if (1 && 1) console.log("b.snap", v)
 
       // ____________________________________________________ un-tagged
       if (v === null) return null                         //00 _____ o
@@ -87,7 +87,9 @@
       else if (typeof(v) === "string") return v           //03 _____ str
       else if (f.isArray(v) && v.length === 0) return v   //04 _____ []
       else if (typeof(v) === "function"
-        && g !== 1) return v                            //01 _____ fn v(t)
+        && g !== 1) {
+          return v                            //01 _____ fn v(t)
+       }
       else if (f.isArray(v)             //05 ____ [[ [ pure ] ]]  intra array interpolation
         && f.isDoubleSingleArray(v)             // double array with single elem
         && f.isPureArray(v[0][0])               // single elem in double array is pure
@@ -130,8 +132,8 @@
         && typeof v[0][0][0]  === "function"
         && g !== 1
       ) {
-
-        let ws = snap(  f.v(v[0][0][0])  ,t,0)    // snap function value
+        let fn = v[0][0][0]
+        let ws = snap(  fn, t, 1)    // snap function value
         return ws
       }
 
@@ -156,14 +158,14 @@
       // ____________________________________________________ tagged
 
       else if (typeof(v) === "function"
-        && g === 1) {
-        let ret = v(t)
+                                      && g === 1) {
 
+        let ret = snap(v(t), t, 0)
         return ret                    //01 _____ fn
       }
 
       else if (f.isObject(v)            //10 ___ v :: {b, c, d ...}*
-        && g === 1) {
+                                      && g === 1) {
         let tau = 2 * Math.PI
         let radians = Math.PI / 180
 

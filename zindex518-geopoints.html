@@ -28,7 +28,7 @@ let muonAlima = function muonAlima(__mapper) {
  *      @pics
  */
   let tim = {"td":3800,"t0":0,"t1":1000,"t2":1,"t3":1,}
-  let boform = { csx:0,cf:777,cs:222,cw:1.7,co:0.7,cp:0.5,}
+  let boform = { csx:0, cf:777, cs:222, cw:1.7, co:0.7, cp:0.5,}
 
   let proform= {
 
@@ -50,14 +50,14 @@ let muonAlima = function muonAlima(__mapper) {
     stace: [ [[[ 100, 125 ]]], 100, 0 ],
   }
   let p2 = {
-    tim: tim,halo: "geojson", boform: boform,
+    tim: tim, halo: "geojson", boform: boform,
     ric: {"gid":"p","cid":"p","fid":"p2",},
     geoform: {type:"Feature", geometry:{ type: "Point", coordinates:[0,0]}, properties:{pointRadius:6,}},
     stace: [[[ () => [ [[[150,175]]] , 100, 0] ]]],
   }
 
   let p4 = {
-    tim: tim,halo: "geojson", boform: boform,
+    tim: tim, halo: "geojson", boform: boform,
     ric: {"gid":"p","cid":"p","fid":"p4",},
     geoform: {type:"Feature", geometry:{ type: "Point", coordinates:[0,0]}, properties:{pointRadius:6,}},
     stace: [ [[[ 200, 225 ]]], 100, 0 ],
@@ -78,7 +78,7 @@ let muonAlima = function muonAlima(__mapper) {
     } ]]],
   }
   let p7 = {
-    tim: tim,halo: "geojson", boform: boform,
+    tim: tim, halo: "geojson", boform: boform,
     ric: {"gid":"p","cid":"p","fid":"p7",},
     geoform: {type:"Feature", geometry:{ type: "Point", coordinates:[0,0]}, properties:{pointRadius:6,}},
     stace: [[[ {
@@ -93,7 +93,7 @@ let muonAlima = function muonAlima(__mapper) {
      } ]]],
   }
   let p8 = {
-    tim: tim,halo: "geojson", boform: boform,
+    tim: tim, halo: "geojson", boform: boform,
     ric: {"gid":"p","cid":"p","fid":"p8",},
     geoform: {type:"Feature", geometry:{ type: "Point", coordinates:[0,0]}, properties:{pointRadius:6,}},
     stace: [ [[[ {
@@ -106,15 +106,53 @@ let muonAlima = function muonAlima(__mapper) {
            } ]]] 
          ],
   }
+  let p9 = {
+    tim: tim, halo: "geojson", boform: boform,
+    ric: {"gid":"p","cid":"p","fid":"p9",},
+    geoform: {type:"Feature", geometry:{ type: "Point", coordinates:[0,0]}, properties:{pointRadius:6,}},
+    stace: {
+       "x": [[[ {
+         "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
+         "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
+       } ]]],
+       "y": [[[ {
+         "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1,  // square
+         "ra2": 100,"v0":0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
+       } ]]],
+     },
+  }
+  let p10 = {
+    tim: tim, halo: "geojson", boform: boform, ric: {"gid":"p","cid":"p","fid":"p10",},
+    geoform: {type:"Feature", geometry:{ type: "Point", coordinates:[0,0]}, properties:{pointRadius:6,}},
+    stace: [
+      
+       [[[ (t, a = 378, b = {
+         "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
+         "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
+       }  ) => {
+          return a + __mapper("xs").b("snap")( b, t, 1 ).x
+       } ]]] ,
+       
+       [[[ (t, a = 100, b = {
+         "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
+         "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
+       }  ) => {
+          return a + __mapper("xs").b("snap")( b, t, 1 ).y
+       } ]]] ,
+       
+     ],
+  }
   
   let animas = [
-    p1,  // h.geojson g.uniwen
-    p2,  // h.geojson g.uniwen
+    // p1,  // h.geojson g.uniwen
+    // p2,  // h.geojson g.uniwen
     p4,  // h.geojson g.uniwen
-    p5,  // h.geojson g.uniwen
-    p6,  // h.geojson g.uniwen
-    p7,  // h.geojson g.uniwen
-    p8,  // h.geojson g.uniwen
+    // p5,  // h.geojson g.uniwen
+    // p6,  // h.geojson g.uniwen
+    // p7,  // h.geojson g.uniwen
+    // p8,  // h.geojson g.uniwen
+    // p9,  // h.geojson g.uniwen
+    // p10,  // h.geojson g.uniwen
   ]
 
   return () => __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
