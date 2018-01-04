@@ -12,6 +12,9 @@
 
     let f = __mapper("props")()
 
+    let pi = Math.PI
+    let tau = 2 * pi
+    let radians = pi / 180
 
     /***********
    *    @interlace
@@ -160,8 +163,10 @@
       else if (typeof(v) === "function"
                                       && g === 1) {
 
-        let ret = snap(v(t), t, 0)
-        return ret                    //01 _____ fn
+        let vt = snap(v(t), t, 0)         // snappable time function
+        // let vt = snap(v( snap(v(),t)), t, 0)   // reentering time function
+        return vt                    //01 _____ fn
+
       }
 
       else if (f.isObject(v)            //10 ___ v :: {b, c, d ...}*
@@ -177,8 +182,6 @@
           w.z = Object.assign({}, v)
           v = w
         }
-
-        // console.log(" --------------- v", v)
 
         let ws = {}                           // dim nat
         for (let y of Reflect.ownKeys(v)) {
@@ -203,10 +206,7 @@
           }
         }
 
-        // console.log(" --------------- ws", ws)
-
         return ws
-
 
       }
 
@@ -356,6 +356,7 @@
 
             let r = (typeof(d) === "function") ? d(t) : d // d cte: stateA:[[[300, {}]]]
             return r
+            
           }))                                 // summa snaps
 
         } else if (doSnap === 1) {

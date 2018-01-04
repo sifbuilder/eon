@@ -106,7 +106,11 @@
     props.geoscale = extent => d3.scaleLinear().domain(extent[0]).range(extent[1])
 
     props.addarray = (a1,a2) => a1.map( (d, i) => d + a2[i] )
-    
+    props.sum = (a, t) => a.reduce((p, c) => c[t] + p, 0)
+    props.add = (a, t) => a.reduce((p, c) => c + p, 0)
+    props.summa = (fns) => fns.reduce((fncurr, fnprev) => {
+				return t => props.lib.functor(fncurr)(t) + props.lib.functor(fnprev)(t)
+				}, t => 0)   
     
     props.fa = d => {     // force array
       let ret
@@ -238,7 +242,7 @@
    *        [ {a1,a2,a3}, [b1,b2] ]     [ [a1v,b1], [a2v,b2x], [a3v,b2] ]
    *        [ {a1,a2,a3}, {b1,b2} ]     [ [a1v,b1], [a2v,b2x], [a3v,b2] ]
    */
-    props.slide = function slide (streams=[], compl="max")  {
+    props.slide = function (streams=[], compl="max")  {
 
       let nbr = streams.length
 
@@ -269,10 +273,65 @@
       return  streamXYZ
     }
     
+
+    props.interadd = function (streams)  {
+
+						let ww = []				
+						let ses = []				// scale per position
+						let res = []				// scale per position
+
+						let nStreams = streams.length						// number of streams	
+						let nDots = streams.reduce((p,q) => Math.max(q.length,p),0) // max dots
+
+						
+						for (let i=0; i<nStreams; i++) {			// scales 
+						
+							let sid = [0,nDots-1]
+							let sir = [0,streams[i].length -1]
+							let si = d3.scaleLinear()		// argument scale 
+								.domain( sid )		// from result position
+								.range ( sir )		// to strem i position
+								
+							ses[i] = si					// ses scale for i stream 
+
+							
+							let rid = d3.range(streams[i].length).map((d,i) => i)
+							let rir = streams[i]
+							let ri = d3.scaleLinear()					// argument scale 
+								.domain( rid )					// from result position
+								.range ( rir )		// to strem i position
+								
+							res[i] = ri					// ses scale for i stream 
+	
+						}
+						
+						for (let j=0;j<nDots;j++) {				// each position j
+						
+							let rr = []
+							let ss = []
+							
+							for (let k=0;k<streams.length;k++) {			// each stream
+								let vk = ses[k](j)								// postion on stream
+								let sk = res[k](vk)								// time stream
+
+								rr.push(vk)		//[0, 0, 0], [0.5, 0.25, 1], [1, 0.5, 2]	positions per stream
+								ss.push(sk)		// [2, 33, 5], [2.5, 33.25, 6], [3, 33.5, 7]	values	j						
+							}
+
+						ww[j] = ss.reduce((p,q) => q+p,0)
+					
+					}
+
+					return ww
+
+
+
+}    
+    
    /***************************
    *        @streamRange
    */
-    props.streamRange = function streamRange(pts, pa=0, pb=-1, step=1, fas=0) {
+    props.streamRange = function (pts, pa=0, pb=-1, step=1, fas=0) {
       // for (let k in params) params[k] = value(params[k])
       //  + clockwise, - counter-clockwise
       //  [-0,-1] :=   [359,0]        // [0,360] _e_
