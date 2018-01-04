@@ -26,6 +26,9 @@ let muonProfier = function muonProfier(__mapper = {}) {
  */
 let getProjion = function  (p = {}, prj) {
 
+
+    let rot = [0,0,0]
+
     if (f.isString(p.projection)) {       // if _projection singular name
 
         prj = __mapper("xs").g(p.projection)(p) // props passed to projection
@@ -54,7 +57,7 @@ let getProjion = function  (p = {}, prj) {
     }
 
     if (prj.rotate !== undefined) {
-        let rot = p.rotate || [0,0,0]
+        rot = (p.rotate) ? p.rotate : rot
 
         if (p.control === "wen") {                    // wen control
 
@@ -77,14 +80,15 @@ let getProjion = function  (p = {}, prj) {
 
         }
 
-        prj.rotate(rot) // rotate
+        // prj.rotate(rot) // rotate
+        p.rotate = rot
     }
 
 
     for (let [key, value] of Object.entries(p)) {
 
-console.log("key, value", key, value)
-      if (key !== "rotate" && prj[key] !== undefined  && f.isFunction(prj[key]))  prj[key](value)
+      // if (key !== "rotate" && prj[key] !== undefined  && f.isFunction(prj[key]))  prj[key](value)
+      if (f.isFunction(prj[key]))  prj[key](value)
 
     }
 
