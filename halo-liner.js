@@ -15,6 +15,7 @@
   let mmouse = __mapper("xs").m("mouse")
 	let cwen = __mapper("xs").c("wen")
 	let cversor = __mapper("xs").c("versor")
+	let mstace =	__mapper("xs").m("stace")
 
   let r = __mapper("xs").r("renderer"),
     width = r.width(),
@@ -32,6 +33,7 @@
   // -------------------------------  haloLinerHalo_gramn
   let haloLinerHalo_gramn = function (anima, newItems = []) {
 
+		if (0 && 1) console.log("  haloLinerHalo_gramn anima",anima)
 
     let ani = __mapper("xs").m("anitem")(anima),
       anigram = ani.anigram(),
@@ -49,23 +51,18 @@
     let pixspan = payload.span || 0
 
 
-		let parentAnima = __mapper("xs").m("store").findAnimaFromUid(parentuid)
-		let parentAnigram = __mapper("xs").m("store").findAnigramFromUid(parentuid)
-
-
 		let initSitus = d => ({x: width / 2, y: height / 2, z: 0 })
 		let autoSitus = d => ({x: Math.random() * width / 2, y: Math.random() * height / 2, z: 0 })
 		let eventSitus = d => ({x: mouse.event.x, y: mouse.event.y, z: 0 })
 
-    if (1 && 1) console.log("  ******** parentAnigram",parentAnigram)
-		
-		let location = __mapper("xs").m("stace").getLocation(anigram)
-    if (1 && 1) console.log("  ******** avatar location", location)
+    if (0 && 1) console.log("  ******** parentAnigram",parentAnigram)
 
-	// let parentLocation = __mapper("xs").m("stace").getLocation(parentAnigram)
-    // if (1 && 1) console.log("  ******** parent location", parentLocation)
 			
-		
+			
+		let locus = mstace.getLocus(anigram)
+    if (1 && 1) console.log("  ******** avatar location", locus)
+
+
 
 
     let count = {}          						// items to be generated on cycle
@@ -123,11 +120,11 @@
         if (count[key] > 0) {                           	// if count on this sort
           let x, y, z
           if (key === "init") {                         	// init defaults center
-					
+
 						situs = initSitus()
 
           } else if (key === "auto") {                  // auto defauts random
-					
+
 						situs = autoSitus()
 
           } else if (key === "event") {                   // event defaults event
@@ -166,7 +163,7 @@
 
             _feature = newItem._feature
             let coords = __mapper("xs").m("geoj").getCoords(_feature)
-						
+
             let coord = Object.values(situs) // [x,y,z]
 
             let loc = coords[coords.length - 1]							// _e_
@@ -195,7 +192,7 @@
           if (0 && 1) console.log("_feature", _feature)
           newItem.geoform = newItem._feature = _feature	// set geoform feature and keep history
 
-				
+
           let newAnigrams = __mapper("xs").h("geojson").gramn(newItem)
           __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.liner","anigrams":newItem}) // _e_
 

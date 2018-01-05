@@ -330,7 +330,7 @@
 
       if (json === undefined )    {
 
-        console.log("m.geoj.getCoords json is undefined")
+        if (0 && 1) console.log("m.geoj.getCoords json is undefined")
 
       } else {
 

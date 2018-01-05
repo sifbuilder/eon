@@ -145,7 +145,7 @@
 
     }
 		
-    props.posInStream = function(rpos, stream) {	// position from rel rpos in stream
+    props.posInStream = function(rpos, stream) {	// pos from rel-pos in stream
 
       let pos
       let unidimLength = stream.length
