@@ -31,7 +31,7 @@
       if (proform)  json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
       if (stace)    json = __mapper("xs").m("stace").getLocifier(anigram)(json)   // lociform
 
-      if (0 && 1) console.log("json",json)
+      if (1 && 1) console.log("json",json)
       newAnigrams =  __mapper("xs").m("geoj").geojize(json, anigram)              // geojize
       return newAnigrams
 

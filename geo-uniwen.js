@@ -17,6 +17,7 @@
     let state = {},
       scale  = [1, 1, 1],
       rotate = [0, 0, 0],
+      center = [0, 0, 0],
       translate = [0, 0, 0],
       focale = Infinity,
       zafin = [0,1]
@@ -31,10 +32,11 @@
     let pointStream = function(x, y, z=0) {
 
       let c = [x, y, z]
-      c = wenRotation(rotate)(...c)
+      c = wenRotation(rotate)(...c)														// rotate
       z = (c[2] * zafin[1]) + zafin[0]
-      c = mwen.projection([ c[0], c[1], z ] , focale, scale )
-      c = c.map( (d,i) => d + (translate[i] || 0))
+      c = mwen.projection([ c[0], c[1], z ] , focale, scale )	// scale
+      c = c.map( (d,i) => d + (translate[i] || 0))						// translate
+      c = c.map( (d,i) => d + (center[i] || 0))						// center
 
       this.stream.point(...c)
     }
@@ -56,6 +58,7 @@
     let enty = function (p={}) {
       let m =  proform(p)
       m.translate = _ => _ !== undefined ? (translate = _, m) : m
+      m.center = _ => _ !== undefined ? (center = _, m) : m
       m.rotate = _ => _ !== undefined ? (rotate = _, m) : m
 
       m.scale = _ => _ !== undefined ? (scale = _, m) : m

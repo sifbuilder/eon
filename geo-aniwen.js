@@ -18,6 +18,7 @@
       scale  = [1, 1, 1],
       rotate = [0, 0, 0],
       translate = [0, 0, 0],
+      center = [0, 0, 0],
       focale = Infinity,
       zafin = [0,1]
 
@@ -39,6 +40,7 @@
 
           let pointStreamInverse = function(x, y, z=0) {
               let c = [x, y, z]
+              c = c.map( (d,i) => d - (center[i] || 0))    //   inverse center
               c = c.map( (d,i) => d - (translate[i] || 0))    //   inverse translation
                         z = (c[2] * zafin[1]) + zafin[0]        //  perspective
               c = projectionInverse([ c[0], c[1], z ] , focale, scale ) //   inverse projection
