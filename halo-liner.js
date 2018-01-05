@@ -29,7 +29,7 @@
   // -------------------------------  haloLinerHalo_gramn
   let haloLinerHalo_gramn = function (anima, newItems = []) {
 
-  
+
     let ani = __mapper("xs").m("anitem")(anima),
       anigram = ani.anigram(),
       payload = ani.payload(),
@@ -46,8 +46,8 @@
 
 
     if (0 && 1) console.log("liner payload", payload)
-     
-    
+
+
     if (1) {
       let count = {}          // items to be generated on cycle
 
@@ -86,8 +86,8 @@
         __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"h.liner",animas}) // upd
       }
 
-      if (0 && 1) console.log("liner count", count)
-      
+      if (1 && 1) console.log("liner count", count)
+
       let n = 0
       for (let i=0; i<Object.keys(count).length; i++) {   // for each COUNT
 

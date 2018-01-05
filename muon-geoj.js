@@ -186,16 +186,16 @@
         let boform = anigram.boform
 
         let feature = anigram.feature || {}
-            feature.id = anigram.uid
+        feature.id = anigram.uid
 
         let properties = feature.properties || {}
-            properties.ric = anigram.ric     || {}
-            properties.sort = anigram.sort
-            properties.delled = anigram.delled
-            properties.pointRadius = properties.pointRadius
+        properties.ric = anigram.ric     || {}
+        properties.sort = anigram.sort
+        properties.delled = anigram.delled
+        properties.pointRadius = properties.pointRadius
 
-            properties.hquan = undefined        // geom items
-            properties.hmod = undefined         //
+        properties.hquan = undefined        // geom items
+        properties.hmod = undefined         //
 
         let attr = properties.attr || {}        // alima position
         if (anigram.x) attr.x = anigram.x
@@ -204,48 +204,48 @@
         properties.attr = attr
 
         let style = properties.style || {}
-            style["fill"] = f.kolor(boform.cf,boform.csx)
-            style["stroke"] = f.kolor(boform.cs,boform.csx)
-            style["fill-opacity"] = boform.co
-            style["stroke-width"] = boform.cw
-            style["stroke-opacity"] = boform.cp
+        style["fill"] = f.kolor(boform.cf,boform.csx)
+        style["stroke"] = f.kolor(boform.cs,boform.csx)
+        style["fill-opacity"] = boform.co
+        style["stroke-width"] = boform.cw
+        style["stroke-opacity"] = boform.cp
         properties.style = style
 
         features.push(feature)
       }
       return features
     }
-   /* *********************
+    /* *********************
    *    @geojize - call from halo after gjform cycle
    *      build anigram from geojson geometry
    */
-   let geojizeFeature = function (feature, i = 0, anigram) {
+    let geojizeFeature = function (feature, i = 0, anigram) {
           
-          if (0 && 1) console.log("geojizeFeature",feature,i,anigram)
+      if (0 && 1) console.log("geojizeFeature",feature,i,anigram)
           
-          let properties = feature.properties || {}
+      let properties = feature.properties || {}
 
-          let boform = properties.boform || anigram.boform  // style
+      let boform = properties.boform || anigram.boform  // style
 
-          let ric = properties.ric || anigram.ric     // identity
-          let _ric = {}
-            _ric.gid = ric.gid
-            _ric.cid = ric.cid
-          if (!ric.fid) _ric.fid = i || 0          // the fide privilege
-          else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, ani)
-          else _ric.fid = ric.fid             // identify each feature in the collection
+      let ric = properties.ric || anigram.ric     // identity
+      let _ric = {}
+      _ric.gid = ric.gid
+      _ric.cid = ric.cid
+      if (!ric.fid) _ric.fid = i || 0          // the fide privilege
+      else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, anigram)
+      else _ric.fid = ric.fid             // identify each feature in the collection
 
-          let uid =  __mapper("xs").m("ric").buildUIDFromRic(_ric)
+      let uid =  __mapper("xs").m("ric").buildUIDFromRic(_ric)
 
-          let newAnigram = anigram                        // base
-          newAnigram.ric = _ric                           // identity
-          newAnigram.uid = uid                            // uid
-          newAnigram.boform = boform                      // style
-          newAnigram.sort = properties.sort || "feature"  // sort
-          newAnigram.feature = feature                    // feature
+      let newAnigram = anigram                        // base
+      newAnigram.ric = _ric                           // identity
+      newAnigram.uid = uid                            // uid
+      newAnigram.boform = boform                      // style
+      newAnigram.sort = properties.sort || "feature"  // sort
+      newAnigram.feature = feature                    // feature
 
-          return newAnigram
-   }
+      return newAnigram
+    }
 
 
     let geojize = function (json, anigram) {
@@ -263,9 +263,9 @@
       } else  if (json.type === "GeometryCollection") { // GeometryCollection
 
         features = json.map(d => ({
-            "type": "Feature", 
-            "geometry": {type: d.type, coordinates: d.coordinates},
-          }) )
+          "type": "Feature", 
+          "geometry": {type: d.type, coordinates: d.coordinates},
+        }) )
 
       } else {                                   // json is geometry
 
@@ -281,7 +281,7 @@
 
     }
 
- /**********************
+    /**********************
    *    @zorder
    */
     let zorder = function (features) {
@@ -307,22 +307,22 @@
 
     }
 
- /**********************
+    /**********************
    *    @centroid
    */
     let centroid = function (outring) {
 
-          let z = 0
-          let dotsinring = outring.length
-          for (let k=0; k<dotsinring; k++) {
-            let ck = outring[k][2]    // z camera view
-            z += ck
-          }
-          return z / dotsinring
+      let z = 0
+      let dotsinring = outring.length
+      for (let k=0; k<dotsinring; k++) {
+        let ck = outring[k][2]    // z camera view
+        z += ck
+      }
+      return z / dotsinring
 
 
     }
- /**********************
+    /**********************
    *    @getCoords
 
    */
@@ -330,71 +330,71 @@
 
       if (json === undefined )    {
 
-          console.log("_e_ m.geoj.getCoords json is undefined")
+        console.log("_e_ m.geoj.getCoords json is undefined")
 
       } else {
 
-        if (json.type == 'Feature') {
+        if (json.type == "Feature") {
 
-                let geometry = json.geometry
-                if (geometry !== null) coords = [...coords, ...getCoords(geometry)]
+          let geometry = json.geometry
+          if (geometry !== null) coords = [...coords, ...getCoords(geometry)]
 
-        } else if (json.type == 'FeatureCollection') {
-            for (let feature_num = 0; feature_num < json.features.length; feature_num++) {
+        } else if (json.type == "FeatureCollection") {
+          for (let feature_num = 0; feature_num < json.features.length; feature_num++) {
 
-                let feature = json.features[feature_num]
-                getCoords(feature, coords)
+            let feature = json.features[feature_num]
+            getCoords(feature, coords)
 
-            }
-        } else if (json.type == 'GeometryCollection') {
-            for (let geom_num = 0; geom_num < json.coords.length; geom_num++) {
+          }
+        } else if (json.type == "GeometryCollection") {
+          for (let geom_num = 0; geom_num < json.coords.length; geom_num++) {
 
-                let geometry = json.coords[geom_num]
-                coords.push(geometry)
-            }
+            let geometry = json.coords[geom_num]
+            coords.push(geometry)
+          }
 
-        } else if (json.type === 'Point') {
+        } else if (json.type === "Point") {
 
-              let  geometry = json
-              coords.push(geometry)
+          let  geometry = json
+          coords.push(geometry)
 
-        } else if (json.type === 'LineString') {
+        } else if (json.type === "LineString") {
 
-              let line = json.coordinates
-              let _coords = line
-              coords = [...coords, ..._coords]
+          let line = json.coordinates
+          let _coords = line
+          coords = [...coords, ..._coords]
 
-        } else if (json.type === 'MultiPoint') {
+        } else if (json.type === "MultiPoint") {
 
-              let  geometry = json
-              coords.push(geometry)
+          let  geometry = json
+          coords.push(geometry)
 
-        } else if (json.type === 'Polygon') {
-
-
-              let rings = json.coordinates
-              let _coords = rings.reduce( (p,q) => [...p, ...q], [])
-              coords = [...coords, ..._coords]
-
-        } else if (json.type === 'MultiLineString') {
-
-              let lines = json.coordinates
-              let _coords = lines.reduce( (p,q) => [...p, ...q], [])
-              coords = [...coords, ..._coords]
+        } else if (json.type === "Polygon") {
 
 
-        } else if (json.type === 'MultiPolygon') {
+          let rings = json.coordinates
+          let _coords = rings.reduce( (p,q) => [...p, ...q], [])
+          coords = [...coords, ..._coords]
 
-              let  geometry = json
-              coords.push(geometry)
+        } else if (json.type === "MultiLineString") {
 
-        } else if (json.type === 'Sphere') {
+          let lines = json.coordinates
+          let _coords = lines.reduce( (p,q) => [...p, ...q], [])
+          coords = [...coords, ..._coords]
 
-              let  geometry = json
-              coords.push(geometry)
+
+        } else if (json.type === "MultiPolygon") {
+
+          let  geometry = json
+          coords.push(geometry)
+
+        } else if (json.type === "Sphere") {
+
+          let  geometry = json
+          coords.push(geometry)
 
         } else {
-            throw new Error('json type not identified.');
+          throw new Error("json type not identified.")
         }
       }
 
@@ -426,4 +426,4 @@
 
   exports.muongeoj = muongeoj
 
-}));
+}))
