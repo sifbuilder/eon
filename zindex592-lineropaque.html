@@ -19,7 +19,7 @@
 
 let muonAlima = function (__mapper) {
   __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({svg:1,versor:0,wen:0,webgl:0, key:1,})  // INIT
+  __mapper("xs").b("init")({svg:1,versor:0,wen:0,webgl:1, key:1,})  // INIT
 
   let f = __mapper({"props": muonProps.muonProps()}).props()
   let g = __mapper("xs").m("geom")
@@ -90,7 +90,7 @@ let muonAlima = function (__mapper) {
       conform = ani.conform(),                // conform
       geoform = ani.geoform()                 // geoform
 
-    let liner = payload.liner           // payload specific
+    let pacer = payload.pacer           // payload specific
 
     let pixspan = 15 / 1400
 
@@ -103,8 +103,6 @@ let muonAlima = function (__mapper) {
       let mouse = {}                          // mouse control
       mouse.mouseDown = mmouse.mouseDown()
       mouse.mouseUp = mmouse.mouseUp()
-
-
       mouse.mouseMove = mmouse.mouseMove()
       mouse.mouseDownShared = mmouse.mouseDownShared()
       mouse.event = mmouse.event()
@@ -117,29 +115,31 @@ let muonAlima = function (__mapper) {
 
       if (mouse.event !== undefined && mouse.mouseDown === 1 ) {
 
-        count.event = Math.floor(liner.eventN)      // count EVENT
+        count.event = Math.floor(pacer.eventN)      // count EVENT
 
       }
 
-      if (liner.inited === undefined || liner.inited !== 1) {
+      if (pacer.inited === undefined || pacer.inited !== 1) {
 
-        count.init = Math.floor(liner.initN)        // count INIT
+        count.init = Math.floor(pacer.initN)        // count INIT
 
       }
 
-      let cyletime = tim.unitPassed - (liner.outed||0)
-      if (cyletime > liner.autoP) {               // if cycle time above autopath
-        count.auto = Math.floor(liner.autoN)    // count AUTO
-        liner.outed = tim.unitPassed            // updated with anima
+      let cyletime = tim.unitPassed - (pacer.outed||0)
+      if (cyletime > pacer.autoP) {               // if cycle time above autopath
+        pacer.outed = tim.unitPassed            // updated with anima
 
         anima.inited = 1                          // init form
-        anima.payload.liner.outed = liner.outed
+        anima.payload.pacer.outed = pacer.outed
         __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":f.a(anima)})
-      }
+				
+        count.auto = Math.floor(pacer.autoN)    // count AUTO
+
+			}
 
 
       let n = 0
-      for (let i=0; i<Object.keys(count).length; i++) {   // count
+      for (let i=0; i<Object.keys(count).length; i++) {   // GET COUNT and apply dim locators
 
         let key = Object.keys(count)[i]                   // key
 
@@ -279,7 +279,7 @@ let muonAlima = function (__mapper) {
     },
 
     "payload": {
-      liner: {
+      pacer: {
         "initN": 0,
         "eventN": 1,
         "autoN": 0,

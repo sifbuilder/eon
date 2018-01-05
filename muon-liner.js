@@ -62,8 +62,8 @@
 
           let parentCoordsDims = f.unslide(parentCoordinates)
 
-          let posx = __mapper("xs").m("stace").posInStream(stace.x.pos, parentCoordsDims[0])
-          let posy = __mapper("xs").m("stace").posInStream(stace.y.pos, parentCoordsDims[1])
+          let posx = f.posInStream(stace.x.pos, parentCoordsDims[0])
+          let posy = f.posInStream(stace.y.pos, parentCoordsDims[1])
 
           let x, y    // avaform position
           let _x, _y  // previous avaform position

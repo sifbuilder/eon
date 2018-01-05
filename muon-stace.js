@@ -17,7 +17,7 @@
       getSiti (anigram)                     -- root x,y,z
       getLocations (anigram)                -- stace root, pos ref
         getLocsInDim (dimStace, dimStream)  -- location of dimStream by dimStace
-        getLocsFromParent (anigram)           
+        getLocsFromParent (anigram)
         getParentLocations (anigram)          -- inherit natural parent location
   */
     // ........................ getSiti         situs: Arary.of(ani.x, .y, .z)
@@ -25,9 +25,13 @@
 
       let situs = {}
 
-      if ( typeof anima.x === "number" ) situs.x = anima.x
-      if ( typeof anima.y === "number" ) situs.y = anima.y
-      if ( typeof anima.z === "number" ) situs.z = anima.z
+			if (typeof anima === "object") {
+
+				if ( typeof anima.x === "number" ) situs.x = anima.x
+				if ( typeof anima.y === "number" ) situs.y = anima.y
+				if ( typeof anima.z === "number" ) situs.z = anima.z
+
+			}
 
       if (Object.keys(situs).length === 0) situs = undefined
       else {
@@ -35,23 +39,12 @@
           siti.push(situs)
       }
 
+
       return siti
 
     }
 
- /* **********
- *             @posInStream
- *             rpos: relative percent position in unistream
- */
-    let posInStream = function(rpos, stream) {
 
-      let pos
-      let unidimLength = stream.length
-      pos = Math.round(rpos * unidimLength  / 100)
-      pos = (pos >= 0) ? pos % unidimLength : (pos + unidimLength) % unidimLength
-      return pos
-
-    }
  /* **********
  *             @getLocsInDim
  *             array of locations in stace dim
@@ -70,7 +63,7 @@
 
           if (typeof staceDim.pos === "number") {           // one position
 
-            let pos = posInStream(staceDim.pos, parentCoordsDim)
+            let pos = f.posInStream(staceDim.pos, parentCoordsDim)
 
             let idx = Math.floor(pos)
 
@@ -113,7 +106,7 @@
       return locations
     }
 
- 
+
  /* ***************************************
  *        @dimval
  *         get val of d in dim dim
@@ -138,61 +131,64 @@
  */
  let getLocations = function (anigram, locations=[]) {
 
-      let stace = anigram.stace
+					let stace
+					if (anigram !== undefined) stace = anigram.stace
 
 
-      if (stace !== undefined && Array.isArray(stace)) {  // stace :: [x,y,z]
+					if (stace !== undefined && Array.isArray(stace)) {  // stace :: [x,y,z]
 
-        let val = stace                  // single location from stace array
-        let location = []
+						let val = stace                  // single location from stace array
+						let location = []
 
-        location[0] = dimval(0 ,val)
-        location[1] = dimval(1, val)
-        location[2] = dimval(2, val)
+						location[0] = dimval(0 ,val)
+						location[1] = dimval(1, val)
+						location[2] = dimval(2, val)
 
-        locations.push(location)
+						locations.push(location)
 
-      }
+					}
 
-      else if (stace !== undefined && typeof stace === "object") { // anigram.stace.{x,y,z}
-
-
-        let location = []
-        let entries = Object.entries(stace)
-        let dims = __mapper("xs").m("anitem").dims()  // x, y, z
-        
-        let parentLocationsDimd = f.unslide(__mapper("xs").m("anitem").parentCoords(anigram))
-
-        let parentLocations = []
-
-        for (let i=0; i<entries.length; i++) {
-          let entry = entries[i]
-          let key = entry[0]
-          let val = entry[1]
-
-          if (dims.find(d => d === key)) parentLocations[i] = getLocsInDim(val, parentLocationsDimd[i])
-          
-          
-        }
-
-        let slidedParentLocs = f.slide(parentLocations, "max")
-
-        
-        if (slidedParentLocs.length > 0) locations.push(slidedParentLocs[0])
+					else if (stace !== undefined && typeof stace === "object") { // anigram.stace.{x,y,z}
 
 
+						let location = []
+						let entries = Object.entries(stace)
+						let dims = __mapper("xs").m("anitem").dims()  // x, y, z
 
-      }
+						let parentLocationsDimd = f.unslide(__mapper("xs").m("anitem").parentCoords(anigram))
 
-      if (locations.length === 0) {           // if still nothing, try to inherit from parent
+						let parentLocations = []
 
-        locations = getParentLocations (anigram)
+						for (let i=0; i<entries.length; i++) {
+							let entry = entries[i]
+							let key = entry[0]
+							let val = entry[1]
 
-      }
+							if (dims.find(d => d === key)) parentLocations[i] = getLocsInDim(val, parentLocationsDimd[i])
+
+
+						}
+
+						let slidedParentLocs = f.slide(parentLocations, "max")
+
+
+						if (slidedParentLocs.length > 0) locations.push(slidedParentLocs[0])
 
 
 
-      if (locations.length === 0) locations = [[0,0,0]]
+					}
+
+					if (locations.length === 0) {           // if still nothing, try to inherit from parent
+
+						locations = getParentLocations (anigram)
+console.log("  ******** parent locations", anigram, locations)
+					}
+
+
+
+					if (locations.length === 0) locations = [[0,0,0]]
+
+
       return locations
 
     }
@@ -244,34 +240,49 @@
     }
 
  /* **************************************
+ *        @getLocation
+ */
+    let getLocation = function (anigram ) {
+
+if (1 && 1) console.log("  ********getLocation", anigram)
+
+      let siti = getSiti(anigram)           // anima    .x,.y,.z - root and sim
+      let locations = getLocations(anigram) // anigram  stace x || x.pos || x.ref
+
+      let locus = [0,0,0]            // default locus _e_
+      if (1 && 1) console.log("getLocifion locations", locations)
+      if (siti && siti.length > 0 && locations && locations.length > 0) {
+
+				let situs = siti[0]
+				let location = locations[0]
+			
+        locus = f.fa(situs).map((d, i) => d + location[i])  // force array
+
+      } else if (siti && siti.length > 0 ) {
+
+				let situs = siti[0]
+        locus = f.fa(situs)
+
+      } else if (locations && locations.length >0 ) {
+
+				let location = locations[0]
+        locus = location
+
+      }
+
+			return locus
+
+
+    }
+
+ /* **************************************
  *        @getLocifion
  *        get the uniwen projection with translate to anigram location
  *        getLocation
  */
     let getLocifion = function (anigram ) {
 
-
-
-      let siti = getSiti(anigram)           // anima    .x,.y,.z - root and sim
-      let locations = getLocations(anigram) // anigram  stace x || x.pos || x.ref
-
-      let locus = [0,0,0]            // default locus _e_
-      if (0 && 1) console.log("getLocifion locations", locations)
-      if (siti && siti.length > 0 && locations && locations.length > 0) {
-
-        locus = f.fa(siti[0]).map((d, i) => d + locations[0][i])  // force array
-
-      } else if (siti && siti.length > 0 ) {
-
-        locus = f.fa(siti[0])
-
-      } else if (locations && locations.length >0 ) {
-        
-        locus = locations[0]
-
-      }
-
-
+			let locus = getLocation( anigram )
 
       let projection =  {
         "projection": "uniwen",
@@ -318,13 +329,12 @@
   */
     function enty() { return enty }
 
-    enty.getLocifion = getLocifion   //  d3 projection
-    enty.getLocifier = getLocifier   //  d3 projecter
+    enty.getLocation = getLocation   //  location
+    enty.getLocifion = getLocifion   //  projection
+    enty.getLocifier = getLocifier   //  projector
 
     enty.getReffion = getReffion      //  projection
-    enty.getReffier = getReffier      //  projecter
-
-    enty.posInStream = posInStream      //  posInStream
+    enty.getReffier = getReffier      //  projector
 
     return enty
 

@@ -175,9 +175,23 @@
         let geoj = parent.feature
         coords = __mapper("xs").m("geoj").getCoords(geoj)
       }
-      
+
       return coords
     }
+
+    /***********
+  *   @parentLocation
+  */
+    let parentLocation = function( ani, location ) {
+      let parent = ani.parent || __mapper("xs").m("store").findAnigramFromUid(ani.parentuid)
+
+      if (parent !== undefined) {
+        location = [ parent.x, parent.y, parent.z || o ]
+      }
+
+      return location
+    }
+
 
     /***********
   *   @enty
@@ -198,6 +212,7 @@
     }
 
     enty.parentCoords = parentCoords
+    enty.parentLocation = parentLocation
 
     enty.anigram = (ani,t) => {
       if (ani !== undefined) {                    // if give anima

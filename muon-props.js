@@ -144,6 +144,17 @@
       return unslide
 
     }
+		
+    props.posInStream = function(rpos, stream) {	// position from rel rpos in stream
+
+      let pos
+      let unidimLength = stream.length
+      pos = Math.round(rpos * unidimLength  / 100)
+      pos = (pos >= 0) ? pos % unidimLength : (pos + unidimLength) % unidimLength
+      return pos
+
+    }		
+		
 
     props.parray = d => (Array.isArray(d)) ? d.slice() : [d]
 
