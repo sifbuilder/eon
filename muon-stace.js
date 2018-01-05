@@ -183,17 +183,16 @@
 								}
 
 								if (locations.length === 0) {           // if still nothing, try to inherit from parent
-										locations = []
 										
 										let parentuid = anigram.parentuid
 
-										parent = mstore.findAnigramFromUid(parentuid)
-
-
-										if (parent !== undefined) {
-											location = getLocus(parent)
-if (1 && 1) console.log("  location", tmp)											
-											// locations.push(location)
+										if (parentuid !== undefined) {
+											parent = mstore.findAnigramFromUid(parentuid)
+		
+											if (parent !== undefined) {
+													let location = getLocus(parent)
+													locations.push(location)
+											}
 										}
 
 

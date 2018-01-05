@@ -55,14 +55,11 @@
 		let autoSitus = d => ({x: Math.random() * width / 2, y: Math.random() * height / 2, z: 0 })
 		let eventSitus = d => ({x: mouse.event.x, y: mouse.event.y, z: 0 })
 
-    if (0 && 1) console.log("  ******** parentAnigram",parentAnigram)
 
-			
-			
 		let locus = mstace.getLocus(anigram)
-    if (1 && 1) console.log("  ******** avatar location", locus)
+    if (1 && 1) console.log("  *** avatar locus", locus, anigram)
 
-
+		autoSitus = d => locus
 
 
     let count = {}          						// items to be generated on cycle
