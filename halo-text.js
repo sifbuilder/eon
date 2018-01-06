@@ -10,6 +10,7 @@
   let haloText = function (__mapper = {}) {
 
     let f = __mapper("props")()
+		let mgeoj = __mapper("xs").m("geoj")
 
     let _geoform = function (p) {     // geoform
 
@@ -38,12 +39,6 @@
               "textLength": text.style.textLength,
               "lengthAdjust": text.style.lengthAdjust,
 
-              "fill": text.style.fill || f.kolor(boform.cf,boform.csx),
-              "stroke": text.style.stroke  || f.kolor(boform.cs,boform.csx),
-              "fill-opacity": text.style["fill-opacity"] || boform.co,
-              "stroke-opacity": text.style["stroke-opacity"] || boform.cp,
-              "stroke-width": text.style["stroke-width"] || boform.cw,
-
             }
           }
       }
@@ -62,15 +57,16 @@
         geoform = ani.geoform() || _geoform  // geoform
 
       let json = (typeof geoform === "function") ? geoform(anigram) : geoform  // geoform
-
       if (stace) json = __mapper("xs").m("stace").getLocifier(anigram)(json)  // lociform
 
-      let newAnigram = anigram
-      newAnigram.sort = "text"
-      newAnigram.feature = json
-      newAnigram.feature.id = newAnigram.uid
-
-      newAnigrams.push(newAnigram)
+			json = __mapper("xs").m("boform").boformer(anigram)(json)   // boform
+			json = __mapper("xs").m("ric").ricker(anigram)(json)   // boform
+			json.properties.sort = "text"
+			
+			
+      let featurecollection = mgeoj.geonormalize(json)
+			anigram.featurecollection = featurecollection
+			newAnigrams.push(anigram)
 
       return newAnigrams
     }

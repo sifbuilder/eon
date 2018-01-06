@@ -14,6 +14,7 @@
     let state = {}
         state.animas = []              // global animas
 
+		let mstore = 	__mapper("xs").m("store")
     /*******************************************
      *
      *      @aniListener
@@ -70,26 +71,29 @@
       let anigrams = __mapper("xs").m("store").anigrams()
 
       for (let i=0; i<state.animas.length; i++) {
-
-        let newAnigrams = __mapper("xs").m("store").gramn(state.animas[i]) /* GRAMN */
-
-        __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.animation","anigrams":f.a(newAnigrams)})
+				let anima = state.animas[i]
+if (0 && 1) console.log("animation anima ",i, anima)
+        let newAnigrams = f.a(mstore.gramn(anima)) /* GRAMN */
+if (0 && 1) console.log("animation newAnigrams ",i, newAnigrams)
+        __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.animation","anigrams":newAnigrams})
 
       }
 
       anigrams = __mapper("xs").m("store").anigrams()
-if (1 && 1) console.log("animation anigrams ",anigrams)
+
+if (0 && 1) console.log("animation anigrams ",anigrams)
     /*******************************************
     *     @RENDER
     */
 
 			// let features = __mapper("xs").m("geoj").zorder(anigrams.map(d => d.gjson))
 			// let featurecollection = { type: 'FeatureCollection',features: features }
-// if (1 && 1) console.log("animation features ", featurecollection.features)			
+			let featurecollection = anigrams.map(d => d.featurecollection)
+if (0 && 1) console.log("animation features ", featurecollection.features)			
 	
-      if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, anigrams)
-      if (__mapper("renderWebgl") !== undefined) __mapper("renderWebgl").render(elapsed, anigrams )
-      if (__mapper("renderCanvas") !== undefined) __mapper("renderCanvas").render(elapsed, anigrams )
+      if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, featurecollection)
+      if (__mapper("renderWebgl") !== undefined) __mapper("renderWebgl").render(elapsed, featurecollection )
+      if (__mapper("renderCanvas") !== undefined) __mapper("renderCanvas").render(elapsed, featurecollection )
 
     }
 

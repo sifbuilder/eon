@@ -68,13 +68,14 @@
  *        @UPDANIGRAM
  */
       if (action.type === "UPDANIGRAM") {
-
-        let newAnigrams = action.anigrams
-
+				let newAnigrams = action.anigrams
+        
         for (let i=0; i<newAnigrams.length; i++) {
 
           if (newAnigrams[i] !== undefined) {
             let newItem = newAnigrams[i]                        // new anigram
+if (0 && 1) console.log("UPDANIGRAM newItem",newItem)
+						
             let index = enty.findIndex(newItem, local.anigrams)     // find index
             if (index === -1) index = local.anigrams.length           // add holder if new
             local.anigrams[index] = newItem                           // replace anigram

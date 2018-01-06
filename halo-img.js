@@ -35,28 +35,24 @@
       let ani = __mapper("xs").m("anitem")(anima),
         anigram = ani.anigram(),             // anigram
         stace =   ani.stace(),               // stace
-        ereform = ani.ereform(),             // ereform
         proform = ani.proform(),             // proform
-        conform = ani.conform(),             // conform
-        geoform = ani.geoform() || _geoform  // geoform
-
+        geoform = ani.geoform()              // geoform				
 				
-      let json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform // geoform
-      if (proform) json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
-      if (stace) json =  __mapper("xs").m("stace").getLocifier(anigram)(json)  // lociform
+      let json
+			if (geoform) json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform 
+      if (proform) json = __mapper("xs").m("profier").getProjier(proform)(json)
+      if (stace) json =  __mapper("xs").m("stace").getLocifier(anigram)(json)
 
-if (1 && 1) console.log("h.img.gramn json ",json)					
 			
-			let properties = json.properties
-					properties.boform = anigram.boform
-					properties.ric = anigram.ric
-					properties.sort = "img"
+			json = __mapper("xs").m("boform").boformer(anigram)(json)   // boform
+			json = __mapper("xs").m("ric").ricker(anigram)(json)   // boform
+			json.properties.sort = "img"
 			
 			
-      let newAnigram = anigram
-					newAnigram.featurecollection = mgeoj.geonormalize(json)
-					
-      newAnigrams.push(newAnigram)
+      let featurecollection = mgeoj.geonormalize(json)
+			anigram.featurecollection = featurecollection
+			newAnigrams.push(anigram)
+			
       return newAnigrams
     }
 

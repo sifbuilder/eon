@@ -213,7 +213,7 @@ let muonAlima = function muonAlima(__mapper) {
     "tim": tim,
     "ric": {"gid":"text","cid":"text","fid":"text",},
     "halo":"text",
-    "boform": { "csx":0,"cf":[[[111,111]]],"cs":111,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    "boform": { "csx":0,"cf":[[[888,777]]],"cs":111,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
     "geoform": p => ({
       type:  "Feature",
@@ -241,7 +241,7 @@ let muonAlima = function muonAlima(__mapper) {
       "text": {
         "text":"hi e",
         "style": {
-          ["font-size"]: 12,
+          ["font-size"]: 24,
           ["font-family"]: "BankFuturistic",
           ["text-anchor"]: "center",
 
@@ -252,10 +252,10 @@ let muonAlima = function muonAlima(__mapper) {
   }
 
   let animas = [
-    // nat,      // h.geojson g.uniwen
-    // circ,     // h.geojson g.uniwen
+    nat,      // h.geojson g.uniwen
+    circ,     // h.geojson g.uniwen
     img,      // h.img
-    // text,     // h.text
+    text,     // h.text
   ]
 
   return () => __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})

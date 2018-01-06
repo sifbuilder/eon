@@ -32,21 +32,11 @@
       if (proform)  json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
       if (stace)    json = __mapper("xs").m("stace").getLocifier(anigram)(json)   // lociform
 
-			
-			
 			json = __mapper("xs").m("boform").boformer(anigram)(json)   // boform
 			json = __mapper("xs").m("ric").ricker(anigram)(json)   // boform
 			
-			
-			newAnigrams = mgeoj.geonormalize(json)
-			
-			// let features = mgeoj.featurize(json)		// array of features
-			
-			// newAnigrams = features.map( (d,i) => mgeoj.renderize(d, i, anigram))
-			
-			
-			
-if (1 && 1) console.log("newAnigrams", newAnigrams)
+			anigram.featurecollection = mgeoj.geonormalize(json)
+			newAnigrams.push(anigram)
 	
       return newAnigrams
 

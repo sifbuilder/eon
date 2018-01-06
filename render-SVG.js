@@ -142,7 +142,7 @@
 
     let render = function render (elapsed, featurecollections, maxlimit) {
 
-	if (1 && 1) console.log("render featurecollections", featurecollections)
+	if (0 && 1) console.log("render featurecollections", featurecollections)
 			// receive list of anigrams
 			// extract features from anigrams.featurecollection
 
@@ -156,17 +156,6 @@
 
 			}
 
-      // let features = anigrams.reduce( (p,q) =>
-					// [...p,
-					// ...__mapper("xs").m("geoj").featurize(q.gjson)
-					// ] ,[])
-
-if (1 && 1) console.log("render features", features)
-			// .gjson.features
-        // .filter(
-          // d => d.properties !== undefined         // req properties
-            // && d.properties.ric !== undefined     // req ric
-        // )
 
 if (0 && 1) console.log("render features", features)
 

@@ -63,8 +63,6 @@ let haloFuel = function haloFuel(__mapper = {}) {
           remainCandies =  [...remainCandies, ...foundcandies]
       }
 
-			
-			
       for (let i=0; i<remainCandies.length; i++) {				// for each candy ...
 
           let _ric = {}
