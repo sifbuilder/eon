@@ -111,12 +111,12 @@
  *         get val of d in dim dim
  */
 
- let getLocations = function (anigram, locations=[]) {
+ let getLocations = function (stace, anigram, locations=[]) {
 
-					let stace
+
 					if (anigram !== undefined) {
 						
-								stace = anigram.stace
+								stace = stace || anigram.stace
 
 
 								if (stace !== undefined && Array.isArray(stace)) {  // stace :: [x,y,z]
@@ -195,9 +195,9 @@
   *          get the uniwen projection with translate to ref location
   */
 
-    let getReffion = function (anigram = {}) {
+    let getReffion = function (stace, anigram = {}) {
 
-      let stace = anigram.stace
+      stace = stace || anigram.stace
 
       let geometry = anigram.feature.geometry
       let coords = __mapper("xs").m("geoj").getCoords(geometry)
@@ -216,14 +216,16 @@
  /* **************************************
  *        @getLocus
  */
-    let getLocus = function (anigram ) {
+    let getLocus = function (stace, anigram ) {
+			
+			stace = stace || anigram.stace
 
 			if (0 && 1) console.log("  ********getLocus", anigram)
 	
       let locus = [0,0,0]            // default locus _e_
 
       let siti = getSiti(anigram)           // anima    .x,.y,.z - root and sim
-      let locations = getLocations(anigram) // anigram  stace x || x.pos || x.ref
+      let locations = getLocations(stace, anigram) // anigram  stace x || x.pos || x.ref
 
       if (siti && siti.length > 0 && locations && locations.length > 0) {	// siti, locations
 
@@ -252,9 +254,9 @@
  *        get the uniwen projection with translate to anigram location
  *        getLocus
  */
-    let getLocifion = function (anigram ) {
+    let getLocifion = function (stace, anigram ) {
 
-			let locus = getLocus( anigram )
+			let locus = getLocus(stace,  anigram )
 
       let projection =  {
         "projection": "uniwen",
@@ -269,9 +271,9 @@
  *        @getLocifier
  *        locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
  */
-    let getLocifier = function (anigram = {}) {
+    let getLocifier = function (stace, anigram = {}) {
 
-      let locifion = getLocifion (anigram)
+      let locifion = getLocifion (stace, anigram)
 
       return g =>  __mapper("xs").b("proj3ct")(g, locifion)
 
@@ -280,12 +282,12 @@
     /* **************************************
  *        @getReffier
  */
-    let getReffier = function (anigram = {}) {
-      let stace = anigram.stace
+    let getReffier = function (stace, anigram = {}) {
+      stace = stace || anigram.stace
       if ( stace && stace.x && stace.x.ref &&       // stace.x.ref
                     stace.y &&  stace.y.ref) {      // stace.y.ref
 
-        let reffion = getReffion (anigram)
+        let reffion = getReffion (stace, anigram)
 
         return g =>  __mapper("xs").b("proj3ct")(g, reffion)
 

@@ -86,9 +86,9 @@
     /* *********************
    *    @m.ric.ricer(anigram)(json)
    */
-    let ricker = function (anigram) {
+    let ricker = function (ric, anigram) {
 
-      let ric = anigram.ric
+			ric = ric || anigram.ric
 			if (ric === undefined) console.log("ric undefined")
 
 			return function (json) {

@@ -23,9 +23,9 @@
  *        if control:wen  wen rotation and if 2d: wen z rotation
  *        if control:versor   versor rotation
  */
-    let getProjion = function  (p = {}, prj) {
+    let getProjion = function  (p = {}, anigram) {
 
-      let rot = [0,0,0]
+      let prj, rot = [0,0,0]
 
       if (f.isString(p.projection)) prj = __mapper("xs").g(p.projection)(p) // props passed to projection
 			else if (f.isFunction(p.projection)) prj = p.projection  // if is projection
@@ -90,15 +90,20 @@
 
     }
 		
-		
-    let getProjier =  form => json => __mapper("xs").b("proj3ct")(json, getProjion(form))
+    /****************************
+ *     	 @getProjier
+ */			
+    let getProjier =  (proform, anigram) => json => __mapper("xs").b("proj3ct")(json, getProjion(proform, anigram))
 
-		
-    let getProformer = (anigram) => {
+    /****************************
+ *     	 @getProformer
+ */		
+    let getProformer = (proform, anigram) => {
 			
-			let proform = anigram.proform
-			let locus = mstace.getLocus(anigram)
-					proform.center = locus
+			proform = proform || anigram.proform
+			let translate = proform.translate
+			let locus = mstace.getLocus(translate, anigram)
+					proform.translate = locus
 			let profier = getProjier(proform)
 			
 			return profier

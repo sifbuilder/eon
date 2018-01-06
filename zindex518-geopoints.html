@@ -214,13 +214,23 @@ let muonAlima = function muonAlima(__mapper) {
          "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
        } ]]],
     },       
-			// stace: [[[ {
-         // "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
-         // "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
-       // } ]]],
+  }
+  let p16 = {
+    tim: tim, halo: "geojson", boform: boform, geoform: geoform, ric: {"gid":"p","cid":"p","fid":"p16",},
+    proform: {projection: "uniwen", scale: 1, rotate: [ 0, 0, 0 ], dims: 2, 
+			center: [ [[[ 300, 225 ]]], 300, 0 ],
+      translate: [[[ {
+         "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
+         "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
+       } ]]],
+    },       
+			stace: [[[ {
+         "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
+         "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
+       } ]]],
 
   }
-	
+		
 	
 
 	
@@ -238,7 +248,8 @@ let muonAlima = function muonAlima(__mapper) {
     // p12,  // h.geojson g.uniwen nok
     // p13,  // h.geojson g.uniwen nok
     // p14,  // h.geojson g.uniwen nok
-    p15,  // h.geojson g.uniwen nok
+    // p15,  // h.geojson g.uniwen nok
+    p16,  // h.geojson g.uniwen nok
 
   ]
 

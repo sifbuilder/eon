@@ -16,9 +16,9 @@
     /* *********************
    *    @m.boform.boformer(anigram)(json)
    */
-    let boformer = function (anigram) {
+    let boformer = function (boform, anigram) {
 
-      let boform = anigram.boform || {}
+      boform = boform || anigram.boform || {}
 			if (boform.csx === undefined) boform.csx = 0
 
       let style = {}
