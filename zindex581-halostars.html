@@ -292,7 +292,7 @@ let muonAlima = function muonAlima(__mapper) {
         json =  __mapper("xs").b("proj3ct")(json, lociformer)  // lociform
       }
 
-      newAnigrams =  __mapper("xs").m("geoj").geojize(json, ani.anigram())  // id
+      newAnigrams =  __mapper("xs").m("geoj").featurize(json, ani.anigram())  // id
 
       return newAnigrams
     }

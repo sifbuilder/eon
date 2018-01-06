@@ -176,26 +176,50 @@
     }
 
 
-    /**********************
-   *    @featurize
+
+    /* *********************
+   *    @featurizeFeature - call from halo after gjform cycle
+   *      build anigram from geojson geometry
+	 *			quals that may get through the feature:
+	 *			- boform style
+	 *			- ric identity
+	 *			- id identity
+	 *			- sort type
    */
-    let featurize = function (anigrams, features = []) {
+    let featurizeFeature = function (feature, i = 0, anigram) {
 
-      for (let i=0; i<anigrams.length; i++) {
-        let anigram = anigrams[i]
-        let boform = anigram.boform
+      if (1 && 1) console.log("featurizeFeature",feature,i,anigram)
 
-        let feature = anigram.feature || {}
-        feature.id = anigram.uid
 
-        let properties = feature.properties || {}
-        properties.ric = anigram.ric     || {}
-        properties.sort = anigram.sort
-        properties.delled = anigram.delled
-        properties.pointRadius = properties.pointRadius
 
-        properties.hquan = undefined        // geom items
-        properties.hmod = undefined         //
+      let properties = feature.properties || {}
+
+			// style may arrive via feature properties, ej twofaces
+      let boform = properties.boform || anigram.boform  // style
+
+      // identity may arrive via feature properties, ej twofaces
+			let ric = Object.assign({}, anigram.ric, properties.ric)
+
+      let _ric = {}
+      _ric.gid = ric.gid
+      _ric.cid = ric.cid
+
+      if (ric.fid === undefined) _ric.fid = i || ""        // the fide privilege
+      else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, anigram)
+      else _ric.fid = ric.fid             // identify each feature in the collection
+
+      let uid =  __mapper("xs").m("ric").buildUIDFromRic(_ric)
+
+
+			properties.ric = _ric
+			// properties.uid = uid
+			properties.id = uid
+			properties.boform = boform
+			properties.sort = properties.sort	|| anigram.sort
+
+			properties.delled = anigram.delled
+			properties.inited = anigram.inited
+
 
         let attr = properties.attr || {}        // alima position
         if (anigram.x) attr.x = anigram.x
@@ -211,73 +235,57 @@
         style["stroke-opacity"] = boform.cp
         properties.style = style
 
-        features.push(feature)
-      }
-      return features
-    }
-    /* *********************
-   *    @geojize - call from halo after gjform cycle
-   *      build anigram from geojson geometry
-   */
-    let geojizeFeature = function (feature, i = 0, anigram) {
-          
-      if (0 && 1) console.log("geojizeFeature",feature,i,anigram)
-          
-      let properties = feature.properties || {}
 
-      let boform = properties.boform || anigram.boform  // style
 
-      let ric = properties.ric || anigram.ric     // identity
-      let _ric = {}
-      _ric.gid = ric.gid
-      _ric.cid = ric.cid
-      if (!ric.fid) _ric.fid = i || 0          // the fide privilege
-      else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, anigram)
-      else _ric.fid = ric.fid             // identify each feature in the collection
+      let newAnigram = anigram                       			// base
+					newAnigram.ric = _ric                           // identity
+					// newAnigram.uid = uid                            // uid
+					newAnigram.id = uid                            	// id
+					newAnigram.boform = boform                      // style
+					newAnigram.sort = properties.sort							  // sort
+					newAnigram.feature = feature                    // feature
 
-      let uid =  __mapper("xs").m("ric").buildUIDFromRic(_ric)
 
-      let newAnigram = anigram                        // base
-      newAnigram.ric = _ric                           // identity
-      newAnigram.uid = uid                            // uid
-      newAnigram.boform = boform                      // style
-      newAnigram.sort = properties.sort || "feature"  // sort
-      newAnigram.feature = feature                    // feature
 
       return newAnigram
     }
 
+    /**********************
+   *   		 @featurize
+   */
+    let featurize = function (json, anigram) {
 
-    let geojize = function (json, anigram) {
-
+			// a halo generate anigrams, each anigram with its own gjson 
+			// gjson is of a geojson type supporting properties
+			// anigram gjson will be featurize and each feature then rendered
+			// gjson.properties carries:
+			//	ric
+			//	sort
+			
+		
       let features = []
-      
-      if (json.type === "Feature") {                    // json Feature
+			switch(json.type) { 
+				 case "Feature": { 
+						features = Array.of(json)
+						break; 
+				 } 
+				 case "FeatureCollection": { 
+						features = json.features
+						break; 
+				 }
+				 case "GeometryCollection": { 
+						features = json.map(d => ({type: "Feature",geometry: {type: d.type, coordinates: d.coordinates},}) )
+						break;    
+				 } 
+				 default: { 
+						features = Array.of({type: "Feature",geometry: {type: json.type, coordinates: json.coordinates},})
+						break;              
+				 } 
+			} 
+			
 
-        features = Array.of(json)
-
-      } else  if (json.type === "FeatureCollection") {  // FeatureCollection
-
-        features = json.features
-
-      } else  if (json.type === "GeometryCollection") { // GeometryCollection
-
-        features = json.map(d => ({
-          "type": "Feature", 
-          "geometry": {type: d.type, coordinates: d.coordinates},
-        }) )
-
-      } else {                                   // json is geometry
-
-        features = Array.of(
-          {
-            "type": "Feature", 
-            "geometry": {type: json.type, coordinates: json.coordinates},
-          })
-       
-      }
-      
-      return features.map( (d,i) => geojizeFeature(d, i, anigram))
+      if (1 && 1) console.log("m.geoj.featurize features",features)			
+      return features.map( (d,i) => featurizeFeature(d, i, anigram))
 
     }
 
@@ -301,8 +309,11 @@
           }
           return d
         })
-        .sort( (a, b) => a.properties.zorder - b.properties.zorder )
-        .map( (d,i) => {d.id = i; d.uid = i; return d} )
+        .sort( (a, b) => a.properties.zorder - b.properties.zorder ) // z order
+        .map( (d,i) => {
+						d.properties.nid = i; 									// sequential ordinal
+						return d
+				})
       return zordered
 
     }
@@ -414,7 +425,6 @@
     enty.lineStringFromStream = lineStringFromStream
     enty.polygonFromStream = polygonFromStream
     enty.multLineStringFromStreamArray = multLineStringFromStreamArray
-    enty.geojize = geojize
     enty.featurize = featurize
     enty.zorder = zorder
     enty.centroid = centroid

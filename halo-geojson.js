@@ -27,12 +27,12 @@
       let json = (typeof geoform === "function") ? geoform(anigram) : geoform     // geoform
       if (ereform)  json = __mapper("xs").m("profier").getProjier(ereform)(json)  // ereform
       if (conform)  json = __mapper("xs").m("profier").getProjier(conform)(json)  // conform
-
+      if (stace)    json = __mapper("xs").m("stace").getReffier(anigram)(json)    // refform
       if (proform)  json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
       if (stace)    json = __mapper("xs").m("stace").getLocifier(anigram)(json)   // lociform
 
-      if (0 && 1) console.log("json",json)
-      newAnigrams =  __mapper("xs").m("geoj").geojize(json, anigram)              // geojize
+      newAnigrams =  __mapper("xs").m("geoj").featurize(json, anigram)              // featurize
+      if (1 && 1) console.log("newAnigrams",newAnigrams)
       return newAnigrams
 
   }

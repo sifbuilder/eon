@@ -101,17 +101,16 @@ let muonAlima = function muonAlima(__mapper) {
 
   }
 
-  let geoformFaces = (p) => {
-    let payload = p.payload
+  let geoformFaces = (ani) => {
+    let payload = ani.payload
     let faceIndex = Math.round(payload.faceIndex)
-    let ric = p.ric
-    let boform = p.boform
+    let ric = ani.ric
+    let boform = ani.boform
 
     let json = {type: "FeatureCollection", features: []}
     let faces = f.v(payload.faces)                 // payload.faces
 
     for (let i = 0, l = faces.length; i < l; i++) {
-
       let face = faces[i]                // face cornersx position
       let geometry = {type:"Polygon",coordinates:[]}
 
@@ -121,7 +120,7 @@ let muonAlima = function muonAlima(__mapper) {
         let _ric = {}
           _ric.gid = ric.gid
           _ric.cid = "face"
-          _ric.fid = i
+          _ric.fid = "face" + i
       feature.properties.ric = _ric
 
       feature.properties.sort = "feature"
@@ -129,11 +128,12 @@ let muonAlima = function muonAlima(__mapper) {
       feature.properties.boform = face.boform || boform
       feature.properties.name = (i === 0) ? "red" : "orange"
 
-      console.log("feature", feature)
+if (1 && 1) console.log("faces", i , feature)
+
       json.features.push(feature)
 
     }
-
+		// if (1 && 1) console.log("json",json)
     return json
   }
   /*******************************************

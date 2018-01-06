@@ -20,6 +20,7 @@
 
       },
       properties: {
+				sort: "img",
         attr: {
           "width": p.payload.img.width,
           "height": p.payload.img.height,
@@ -38,17 +39,28 @@
         conform = ani.conform(),             // conform
         geoform = ani.geoform() || _geoform  // geoform
 
+				
       let json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform // geoform
+
+			
+			
+if (1 && 1) console.log("h.img.gramn json ",json)					
 
       if (stace) json =  __mapper("xs").m("stace").getLocifier(anigram)(json)  // lociform
 
       if (proform) json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
 
+			
+			let properties = json.properties
+					properties.ric = anigram.ric
+					properties.sort = "img"
+			
+			
+			
       let newAnigram = ani.anigram()
-      newAnigram.sort = "img"
-      newAnigram.feature = json
-      newAnigram.feature.id = newAnigram.uid
-
+			
+					newAnigram.gjson = json						// feature is transformed geojson
+			
       newAnigrams.push(newAnigram)
 
       return newAnigrams

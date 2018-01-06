@@ -10,31 +10,21 @@
   let renderSVG = function renderSVG(__mapper = {}) {
 
     let f = __mapper("props")()
-    let state = {}
-
-    let updture = function (d) {        // update boform to now
-      let dr = Object.assign({},d)
-      d.boform = d.boform || {}
-      dr.csx = (d.boform.now) ? now.boform.csx : d.boform.csx
-      dr.cf = (d.boform.now) ? now.boform.cf : d.boform.cf
-      dr.cs = (d.boform.now) ? now.boform.cs : d.boform.cs
-      dr.cw = (d.boform.now) ? now.boform.cw : d.boform.cw
-      dr.co = (d.boform.now) ? now.boform.co : d.boform.co
-      dr.cp = (d.boform.now) ? now.boform.cp : d.boform.cp
-      return dr
-    }
-
-    state.width = __mapper("xs").r("renderer").width()
-    state.height = __mapper("xs").r("renderer").height()
-
+		
+    let r = __mapper("xs").r("renderer"),
+      width = r.width(),
+      height = r.height()
+		
     // https://bl.ocks.org/mbostock/3019563   // Margin Convention
     let margin = {top: 20, right: 10, bottom: 20, left: 10}
-    let width = state.width - margin.left - margin.right,
-      height = state.height - margin.top - margin.bottom
+    width = width - margin.left - margin.right,
+    height = height - margin.top - margin.bottom
 
+    let state = {}
+    state.width = width
+    state.height = height
 
-    let svglayer =
-    d3.select(".viewframe")
+    let svglayer = d3.select(".viewframe")
       .append("svg")
       .attr("id", "svglayer")
       .attr("class", "svglayer")
@@ -54,8 +44,8 @@
       .attr("overflow", "visible")
 
 
- /* **************************
- * @svg
+    /* **************************
+ * 				@svg
  *
  */
     let svg = function svg () {
@@ -66,8 +56,9 @@
         return d3.select("#svg")
       }
     }
- /* **************************
- * @elems
+		
+    /* **************************
+ * 				@elems
  *
  */
     let elems = function elems(payload, data = ["data"], idfn = null) {
@@ -140,27 +131,29 @@
         }
       }
     }
- /* **************************
+		
+    /* **************************
  * @render
  *
  */
+ 
     let render = function render (elapsed, anigrams, maxlimit) {
-
       let features = anigrams
         .filter(
           d => d.properties !== undefined         // req properties
             && d.properties.ric !== undefined     // req ric
         )
 
-
+if (1 && 1) console.log("render features", features)
+	
       let svg = __mapper("renderSVG").svg()
 
-      let traceline = []
       let gitems = d3.nest()        // let framesByGid = f.groupBy(frames, "gid")
         .key(function(d) { return d.properties.ric.gid })
         .key(function(d) { return d.properties.ric.cid })
         .entries(features)                      // features
 
+if (1 && 1) console.log("render gitems", gitems)
 
       for (let i in gitems) {           // DOTS (seg5===0) each group gid
         let gid = gitems[i].key, citems = gitems[i].values
@@ -168,12 +161,10 @@
         for (let j in citems) {           // each class cid
           let cid = citems[j].key         // cid
           let fitems = citems[j].values   // fitems
-          let now = fitems.slice(-1)[0]
-
-          let hmod = ((now||{}).hmod !== undefined) ? now.hmod : 1
-          let hquan = ((now||{}).hquan !== undefined) ? now.hquan : Infinity
-
-
+          let current = fitems.slice(-1)[0]
+					
+if (1 && 1) console.log("render fitems", fitems)
+							
           /*  ................. TEXTS ................. */
           let texts = fitems
             .filter(d => d.properties.sort === "text")
@@ -182,7 +173,7 @@
 
             __mapper("renderSVG").elems("svg:g."+gid+"/text."+cid, texts, d=>d.id)
               .text(d => {
-                  return d.properties.text
+                return d.properties.text
               })
 
               .attr("x", 0) // translate instead
@@ -191,7 +182,7 @@
               .attr("transform", d =>   // eg. "translate(21,20) rotate(15)")
                     
 
-                    "translate("
+                "translate("
                     + d.geometry.coordinates[0]
                     + ","
                     + d.geometry.coordinates[1]
@@ -199,7 +190,7 @@
                     + " rotate("
                     + (d.properties.style["rotate"] || 0)
                     + " )"
-                  )
+              )
 
 
 
@@ -237,7 +228,7 @@
 
               .attr("d", d => {
 
-                  return d.properties.attr.img
+                return d.properties.attr.img
 
               })
 
@@ -257,6 +248,8 @@
 
           if (features.length > 0)  {
 
+
+					
             __mapper("renderSVG").elems("svg:g."+gid+"/path."+cid, features, d=>d.id)
 
               .data(() => features)
@@ -286,7 +279,7 @@
       }
     }
 
- /* **************************
+    /* **************************
  *      @enty
  *
  */

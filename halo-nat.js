@@ -15,15 +15,18 @@
       height = r.height()
 
     let _geoform = p => ({
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": Array.of(__mapper("xs").m("nat")
+      type: "Feature",
+			
+      geometry: {
+        type: "Polygon",
+        coordinates: Array.of(__mapper("xs").m("nat")
           .multiconform(__mapper("xs").m("nat")
             .nform(p.payload.form || p.form)))
       },
-      "id": 0,
-      "properties": {}
+			
+      properties: {
+					sort: "feature",
+			}
     })
       
     /****************************

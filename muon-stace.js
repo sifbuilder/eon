@@ -225,6 +225,34 @@
     }
 
 
+
+
+    /* **********
+  *         @api
+  *          get the uniwen projection with translate to ref location
+  */
+
+    let getReffion = function (anigram = {}) {
+
+      let stace = anigram.stace
+
+      let geometry = anigram.feature.geometry
+      let coords = __mapper("xs").m("geoj").getCoords(geometry)
+
+      let refs = f.unslide(coords)      // unidim coords
+      let r0 = refs[0][stace.x.ref]     // stace.x.ref
+      let r1 = refs[1][stace.y.ref]     // stace.y.ref
+      let r2 = refs[2][stace.z.ref]     // stace.z.ref
+
+      let projection =  {
+        "projection": "uniwen",
+        "translate": [ r0, r1 , r2 ]
+      }
+
+      return  __mapper("xs").m("profier").getProjion(projection)
+
+    }
+
  /* **************************************
  *        @getLocus
  */
@@ -276,7 +304,7 @@
 
     }
 
-  /* **************************************
+    /* **************************************
  *        @getLocifier
  *        locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
  */
@@ -288,7 +316,27 @@
 
     }
 
-  /***********
+    /* **************************************
+ *        @getReffier
+ */
+    let getReffier = function (anigram = {}) {
+      let stace = anigram.stace
+      if ( stace && stace.x && stace.x.ref &&       // stace.x.ref
+                    stace.y &&  stace.y.ref) {      // stace.y.ref
+
+        let reffion = getReffion (anigram)
+
+        return g =>  __mapper("xs").b("proj3ct")(g, reffion)
+
+      }  else {
+
+        return d => d               // identity
+
+      }
+    }
+
+
+    /***********
   *         @enty
   */
     function enty() { return enty }
@@ -297,10 +345,13 @@
     enty.getLocifion = getLocifion   //  projection
     enty.getLocifier = getLocifier   //  projector
 
+    enty.getReffion = getReffion      //  projection
+    enty.getReffier = getReffier      //  projector
+
     return enty
 
   }
 
   exports.muonStace = muonStace
 
-}));
+}))

@@ -76,16 +76,15 @@
         __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.animation","anigrams":f.a(newAnigrams)})
 
       }
-      
-      anigrams = __mapper("xs").m("store").anigrams()
 
+      anigrams = __mapper("xs").m("store").anigrams()
+if (1 && 1) console.log("animation anigrams ",anigrams)
     /*******************************************
     *     @RENDER
     */
 
-      let features = __mapper("xs").m("geoj").featurize(anigrams) // anigrams to gj features
-          features = __mapper("xs").m("geoj").zorder(features)    // order features on zorder
-
+			let features = __mapper("xs").m("geoj").zorder(anigrams.map(d => d.gjson))
+if (1 && 1) console.log("animation featurs ",features)			
       if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, features)
       if (__mapper("renderWebgl") !== undefined) __mapper("renderWebgl").render(elapsed, features )
       if (__mapper("renderCanvas") !== undefined) __mapper("renderCanvas").render(elapsed, features )

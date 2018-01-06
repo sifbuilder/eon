@@ -60,12 +60,12 @@
         stace: f.v((d||{}).stace),  // stace: {a,b,c}
 
         avatars: d.avatars,         // avatars: {}
-        fields: d.fields,           // fields: {pic, field}
+        // fields: d.fields,           // fields: {pic, field}
 
         form: d.form,
 
-        from: d.from,           // from form in tern
-        fuel: d.fuel,           // fuel
+        // from: d.from,           // from form in tern
+        // fuel: d.fuel,           // fuel
 
         ereform: (d||{}).ereform,   // ereform()
 
@@ -75,29 +75,29 @@
 
         geoform: (d||{}).geoform,   // geoform()
 
-        graticule: d.graticule, // extent: {}
+        // graticule: d.graticule, // extent: {}
         payload: d.payload,   // {initN,eventN,autoN,autoP,outed,maxN}
-        nums: d.nums,   // {ra2, pos, fas, step, dist, div, mod, z}
-        parent: d.parent || {}, // parent - default to empty object
+        // nums: d.nums,   // {ra2, pos, fas, step, dist, div, mod, z}
+        // parent: d.parent || {}, // parent - default to empty object
         parentuid: d.parentuid,     // parentuid
         pic: d,                 // pic:{}
 
-        coform: d.coform,   // projection, scale, translate, rotate
+        // coform: d.coform,   // projection, scale, translate, rotate
         conform: d.conform,
 
         proform: d.proform, // projection, scale, translate, rotate
 
-        reticule: d.reticule, //
-        msg: d.msg,           //
+        // reticule: d.reticule, //
+        // msg: d.msg,           //
 
         ric: d.ric,           // {type, gid, cid, fid}
         tim: d.tim,           // tim: {t0,t1,t2,t3}
 
-        to: d.to,             // to form in tern
-        trace: d.trace,       // trace: {hquan, hmod}
+        // to: d.to,             // to form in tern
+        // trace: d.trace,       // trace: {hquan, hmod}
         boform: d.boform,         // {csx,cf,cs,cw
-        voro: d.voro,         // {hsamp, f, t}
-        vorts: d.vorts,       // {pos,fas,step,dist,div,mod,z}
+        // voro: d.voro,         // {hsamp, f, t}
+        // vorts: d.vorts,       // {pos,fas,step,dist,div,mod,z}
 
         halo: d.halo,        // d.halo, //
 
@@ -225,8 +225,8 @@
     enty.form$2 = (_) => { return _ !== undefined ? (anitem.form = _, anitem) : (delete anitem.form.z, anitem.form)}
 
 
-    enty.from = (_) => { return _ !== undefined ? (anitem.from = _, anitem) : anitem.from }
-    enty.fuel = (_) => { return _ !== undefined ? (anitem.fuel = _, anitem) : anitem.fuel }
+    // enty.from = (_) => { return _ !== undefined ? (anitem.from = _, anitem) : anitem.from }
+    // enty.fuel = (_) => { return _ !== undefined ? (anitem.fuel = _, anitem) : anitem.fuel }
 
     enty.ereform = (_) => {  return _ !== undefined ? (anitem.ereform = _, anitem) : anitem.ereform }
 
@@ -238,18 +238,18 @@
     enty.geoform = (_) => {  return _ !== undefined ? (anitem.geoform = _, anitem) : anitem.geoform }
 
     enty.graticule = (_) => { return _ !== undefined ? (anitem.graticule = _, anitem) : anitem.graticule }
-    enty.nums = (_) => { return _ !== undefined ? (anitem.nums = _, anitem) : anitem.nums }
+    // enty.nums = (_) => { return _ !== undefined ? (anitem.nums = _, anitem) : anitem.nums }
     enty.payload = (_) => { return _ !== undefined ? (anitem.payload = _, anitem) : anitem.payload }
 
     enty.proform = (_) => { return _ !== undefined ? (anitem.proform = _, anitem) : anitem.proform }
 
-    enty.reticule = (_) => { return _ !== undefined ? (anitem.reticule = _, anitem) : anitem.reticule }
+    // enty.reticule = (_) => { return _ !== undefined ? (anitem.reticule = _, anitem) : anitem.reticule }
     enty.ric = (_) => { return _ !== undefined ? (anitem.ric = _, anitem) : anitem.ric }
     enty.stace = (_) => { return _ !== undefined ? (anitem.stace = _, anitem) : anitem.stace }
     enty.tim = (_) => { return _ !== undefined ? (anitem.tim = _, anitem) : anitem.tim }
     enty.boform = (_) => { return _ !== undefined ? (anitem.boform = _, anitem) : anitem.boform }
     enty.trace = (_) => { return _ !== undefined ? (anitem.trace = _, anitem) : anitem.trace }
-    enty.to = (_) => { return _ !== undefined ? (anitem.to = _, anitem) : anitem.to }
+    // enty.to = (_) => { return _ !== undefined ? (anitem.to = _, anitem) : anitem.to }
 
     enty.avatars = (_) => { return _ !== undefined ? (anitem.avatars = _, anitem) : anitem.avatars }
     enty.parent = (_) => { return _ !== undefined ? (anitem.parent = _, anitem) : anitem.parent }
