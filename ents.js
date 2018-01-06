@@ -55,6 +55,7 @@ document.write("<script src='lib-dat.gui.js'><\/script>")
 /*  muons */  
 document.write("<script src='muon-animation.js'><\/script>")    
 document.write("<script src='muon-anitem.js'><\/script>")    
+document.write("<script src='muon-boform.js'><\/script>")    
 document.write("<script src='muon-geoj.js'><\/script>")    
 document.write("<script src='muon-geom.js'><\/script>")    
 document.write("<script src='muon-graticule.js'><\/script>")    

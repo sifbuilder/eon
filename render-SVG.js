@@ -10,11 +10,11 @@
   let renderSVG = function renderSVG(__mapper = {}) {
 
     let f = __mapper("props")()
-		
+
     let r = __mapper("xs").r("renderer"),
       width = r.width(),
       height = r.height()
-		
+
     // https://bl.ocks.org/mbostock/3019563   // Margin Convention
     let margin = {top: 20, right: 10, bottom: 20, left: 10}
     width = width - margin.left - margin.right,
@@ -56,7 +56,7 @@
         return d3.select("#svg")
       }
     }
-		
+
     /* **************************
  * 				@elems
  *
@@ -131,21 +131,45 @@
         }
       }
     }
-		
+
     /* **************************
- * @render
+ *
+ *
+ * 			@render
+ *
  *
  */
- 
-    let render = function render (elapsed, anigrams, maxlimit) {
-      let features = anigrams
-        .filter(
-          d => d.properties !== undefined         // req properties
-            && d.properties.ric !== undefined     // req ric
-        )
+
+    let render = function render (elapsed, featurecollections, maxlimit) {
+
+	if (1 && 1) console.log("render featurecollections", featurecollections)
+			// receive list of anigrams
+			// extract features from anigrams.featurecollection
+
+			let features = [] // get features from anigram.gjson
+			for (let i=0; i<featurecollections.length; i++) {
+
+				let featurecollection = featurecollections[i]
+
+
+				features = [...features, 	...featurecollection.features]
+
+			}
+
+      // let features = anigrams.reduce( (p,q) =>
+					// [...p,
+					// ...__mapper("xs").m("geoj").featurize(q.gjson)
+					// ] ,[])
 
 if (1 && 1) console.log("render features", features)
-	
+			// .gjson.features
+        // .filter(
+          // d => d.properties !== undefined         // req properties
+            // && d.properties.ric !== undefined     // req ric
+        // )
+
+if (0 && 1) console.log("render features", features)
+
       let svg = __mapper("renderSVG").svg()
 
       let gitems = d3.nest()        // let framesByGid = f.groupBy(frames, "gid")
@@ -153,7 +177,7 @@ if (1 && 1) console.log("render features", features)
         .key(function(d) { return d.properties.ric.cid })
         .entries(features)                      // features
 
-if (1 && 1) console.log("render gitems", gitems)
+if (0 && 1) console.log("render gitems", gitems)
 
       for (let i in gitems) {           // DOTS (seg5===0) each group gid
         let gid = gitems[i].key, citems = gitems[i].values
@@ -162,9 +186,9 @@ if (1 && 1) console.log("render gitems", gitems)
           let cid = citems[j].key         // cid
           let fitems = citems[j].values   // fitems
           let current = fitems.slice(-1)[0]
-					
-if (1 && 1) console.log("render fitems", fitems)
-							
+
+if (0 && 1) console.log("render fitems", fitems)
+
           /*  ................. TEXTS ................. */
           let texts = fitems
             .filter(d => d.properties.sort === "text")
@@ -177,10 +201,10 @@ if (1 && 1) console.log("render fitems", fitems)
               })
 
               .attr("x", 0) // translate instead
-              .attr("y", 0) // 
+              .attr("y", 0) //
 
               .attr("transform", d =>   // eg. "translate(21,20) rotate(15)")
-                    
+
 
                 "translate("
                     + d.geometry.coordinates[0]
@@ -191,9 +215,6 @@ if (1 && 1) console.log("render fitems", fitems)
                     + (d.properties.style["rotate"] || 0)
                     + " )"
               )
-
-
-
 
               .style("dx", d => d.properties.style["dx"])
               .style("dy", d => d.properties.style["dx"])
@@ -243,13 +264,13 @@ if (1 && 1) console.log("render fitems", fitems)
 
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
-            .filter(d => d.properties.sort === "feature")       // __ geojson __
+            .filter(d => d.properties.sort === "feature" || d.properties.sort === undefined)  // default
             .filter((d,i) => (d.properties.delled !== 1))       // not delled
 
           if (features.length > 0)  {
 
 
-					
+
             __mapper("renderSVG").elems("svg:g."+gid+"/path."+cid, features, d=>d.id)
 
               .data(() => features)

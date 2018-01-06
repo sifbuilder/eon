@@ -62,7 +62,7 @@
         avatars: d.avatars,         // avatars: {}
         // fields: d.fields,           // fields: {pic, field}
 
-        form: d.form,
+        // form: d.form,
 
         // from: d.from,           // from form in tern
         // fuel: d.fuel,           // fuel
@@ -80,7 +80,7 @@
         // nums: d.nums,   // {ra2, pos, fas, step, dist, div, mod, z}
         // parent: d.parent || {}, // parent - default to empty object
         parentuid: d.parentuid,     // parentuid
-        pic: d,                 // pic:{}
+        // pic: d,                 // pic:{}
 
         // coform: d.coform,   // projection, scale, translate, rotate
         conform: d.conform,

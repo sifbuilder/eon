@@ -60,7 +60,7 @@
       }
 
       let itemsInClass = __mapper("muonStore").anigrams().filter(d=> d.ric.gid === ric.gid && d.ric.cid === ric.cid).length
-      
+
       if (anigram.ric.fid === undefined) {          // no fid in anigram
 
         ric.fid = ric.cid + "_"  + idx  + itemsInClass
@@ -82,6 +82,78 @@
       return ric
 
     }
+
+    /* *********************
+   *    @m.ric.ricer(anigram)(json)
+   */
+    let ricker = function (anigram) {
+
+      let ric = anigram.ric
+			if (ric === undefined) console.log("ric undefined")
+
+			return function (json) {
+
+					let _ric = {}
+						_ric.gid = ric.gid
+						_ric.cid = ric.cid
+
+					if (json.type === "Feature") {
+
+							let feature = json
+							let properties = feature.properties || {}
+
+							if (ric.fid === undefined) _ric.fid = i || ""
+							else if (typeof ric.fid === "function") _ric.fid = ric.fid(0, ric, anigram)
+							else _ric.fid = ric.fid             // identify each feature in the collection
+
+							let uid =  __mapper("xs").m("ric").buildUIDFromRic(_ric)
+
+							properties.ric = _ric
+							properties.id = uid
+
+							feature.properties = properties
+
+
+					} else if (json.type === "FeatureCollection") {
+
+							let features = json.features
+							for (let i=0; i<features.length; i++) {
+
+									let feature = features [i]
+
+									let properties = feature.properties || {}
+
+									if (ric.fid === undefined) _ric.fid = i || ""
+									else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, anigram)
+									else _ric.fid = ric.fid             // identify each feature in the collection
+
+									let uid =  __mapper("xs").m("ric").buildUIDFromRic(_ric)
+
+									properties.ric = _ric
+									properties.id = uid
+
+									feature.properties = properties
+
+
+							}
+
+
+					} else {
+
+						console.log("geometry json")
+
+					}
+
+
+
+
+
+					return json
+			}
+
+		}
+
+
     /**********************
    *    @enty
    */
@@ -89,6 +161,7 @@
     enty.getAnigramRic = getAnigramRic        // build ric from anigram, i
     enty.buildUIDFromRic = ric => ric.gid +  "_" + ric.cid +  "_" + ric.fid
     enty.buildUID = anitem => enty.buildUIDFromRic(anitem.ric)
+    enty.ricker = ricker
 
     return enty
 

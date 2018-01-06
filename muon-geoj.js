@@ -14,6 +14,19 @@
 
     let f = __mapper("props")()
 
+		// https://github.com/mapbox/geojson-normalize/blob/master/index.js
+		let types = {
+			Point: 'geometry',
+			MultiPoint: 'geometry',
+			LineString: 'geometry',
+			MultiLineString: 'geometry',
+			Polygon: 'geometry',
+			MultiPolygon: 'geometry',
+			GeometryCollection: 'geometry',
+			Feature: 'feature',
+			FeatureCollection: 'featurecollection'
+		}
+
 
     /**********************
    *    @resample
@@ -178,7 +191,7 @@
 
 
     /* *********************
-   *    @featurizeFeature - call from halo after gjform cycle
+   *    @renderize - call from halo after gjform cycle
    *      build anigram from geojson geometry
 	 *			quals that may get through the feature:
 	 *			- boform style
@@ -186,64 +199,44 @@
 	 *			- id identity
 	 *			- sort type
    */
-    let featurizeFeature = function (feature, i = 0, anigram) {
+    let renderize = function (feature, i = 0, anigram) {
 
-      if (1 && 1) console.log("featurizeFeature",feature,i,anigram)
-
-
+if (1 && 1) console.log("renderize",feature,i,anigram)
 
       let properties = feature.properties || {}
 
-			// style may arrive via feature properties, ej twofaces
-      let boform = properties.boform || anigram.boform  // style
-
-      // identity may arrive via feature properties, ej twofaces
 			let ric = Object.assign({}, anigram.ric, properties.ric)
 
       let _ric = {}
       _ric.gid = ric.gid
       _ric.cid = ric.cid
 
-      if (ric.fid === undefined) _ric.fid = i || ""        // the fide privilege
-      else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, anigram)
-      else _ric.fid = ric.fid             // identify each feature in the collection
+      // if (ric.fid === undefined) _ric.fid = i || ""        // the fide privilege
+      // else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, anigram)
+      // else _ric.fid = ric.fid             // identify each feature in the collection
 
-      let uid =  __mapper("xs").m("ric").buildUIDFromRic(_ric)
+      // let uid =  __mapper("xs").m("ric").buildUIDFromRic(_ric)
 
-
-			properties.ric = _ric
-			// properties.uid = uid
-			properties.id = uid
-			properties.boform = boform
-			properties.sort = properties.sort	|| anigram.sort
+			// properties.ric = _ric
+			// properties.id = uid
+			// properties.sort = properties.sort	|| anigram.sort
 
 			properties.delled = anigram.delled
 			properties.inited = anigram.inited
 
 
-        let attr = properties.attr || {}        // alima position
-        if (anigram.x) attr.x = anigram.x
-        if (anigram.y) attr.y = anigram.y
-        if (anigram.z) attr.z = anigram.z
-        properties.attr = attr
-
-        let style = properties.style || {}
-        style["fill"] = f.kolor(boform.cf,boform.csx)
-        style["stroke"] = f.kolor(boform.cs,boform.csx)
-        style["fill-opacity"] = boform.co
-        style["stroke-width"] = boform.cw
-        style["stroke-opacity"] = boform.cp
-        properties.style = style
-
-
+      // let attr = properties.attr || {}        // alima position
+        // if (anigram.x) attr.x = anigram.x
+        // if (anigram.y) attr.y = anigram.y
+        // if (anigram.z) attr.z = anigram.z
+        // properties.attr = attr
 
       let newAnigram = anigram                       			// base
 					newAnigram.ric = _ric                           // identity
-					// newAnigram.uid = uid                            // uid
 					newAnigram.id = uid                            	// id
-					newAnigram.boform = boform                      // style
 					newAnigram.sort = properties.sort							  // sort
 					newAnigram.feature = feature                    // feature
+					newAnigram.featurecollection = geonormalize(feature)          // geoj
 
 
 
@@ -253,41 +246,65 @@
     /**********************
    *   		 @featurize
    */
-    let featurize = function (json, anigram) {
+    let featurize = function (json) {
 
-			// a halo generate anigrams, each anigram with its own gjson 
+			// a halo generate anigrams, each anigram with its own gjson
 			// gjson is of a geojson type supporting properties
 			// anigram gjson will be featurize and each feature then rendered
 			// gjson.properties carries:
 			//	ric
 			//	sort
-			
-		
-      let features = []
-			switch(json.type) { 
-				 case "Feature": { 
-						features = Array.of(json)
-						break; 
-				 } 
-				 case "FeatureCollection": { 
-						features = json.features
-						break; 
-				 }
-				 case "GeometryCollection": { 
-						features = json.map(d => ({type: "Feature",geometry: {type: d.type, coordinates: d.coordinates},}) )
-						break;    
-				 } 
-				 default: { 
-						features = Array.of({type: "Feature",geometry: {type: json.type, coordinates: json.coordinates},})
-						break;              
-				 } 
-			} 
-			
+if (1 && 1) console.log("m.geoj featurize",json)
 
-      if (1 && 1) console.log("m.geoj.featurize features",features)			
-      return features.map( (d,i) => featurizeFeature(d, i, anigram))
+      let features = []
+			switch(json.type) {
+				 case "Feature": {
+						features = Array.of(json)
+						break;
+				 }
+				 case "FeatureCollection": {
+						features = json.features
+						break;
+				 }
+				 case "GeometryCollection": {
+						features = json.map(d => ({type: "Feature",geometry: {type: d.type, coordinates: d.coordinates},properties:{}}) )
+						break;
+				 }
+				 default: {
+						features = Array.of({type: "Feature",geometry: {type: json.type, coordinates: json.coordinates},properties:{}})
+						break;
+				 }
+			}
+
+			return features
 
     }
+
+		// https://github.com/mapbox/geojson-normalize/blob/master/index.js
+
+		let geonormalize = function (gj) {
+			if (!gj || !gj.type) return null;
+			var type = types[gj.type];
+			if (!type) return null;
+
+			if (type === 'geometry') {
+					return {
+							type: 'FeatureCollection',
+							features: [{
+									type: 'Feature',
+									properties: {},
+									geometry: gj
+							}]
+					};
+			} else if (type === 'feature') {
+					return {
+							type: 'FeatureCollection',
+							features: [gj]
+					};
+			} else if (type === 'featurecollection') {
+					return gj;
+			}
+		}
 
     /**********************
    *    @zorder
@@ -426,6 +443,8 @@
     enty.polygonFromStream = polygonFromStream
     enty.multLineStringFromStreamArray = multLineStringFromStreamArray
     enty.featurize = featurize
+    enty.geonormalize = geonormalize
+    // enty.renderize = renderize
     enty.zorder = zorder
     enty.centroid = centroid
     enty.getCoords = getCoords      // get coordinates, eg from parent

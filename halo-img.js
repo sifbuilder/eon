@@ -10,6 +10,7 @@
   let haloImg = function haloImg(__mapper = {}) {
 
     let f = __mapper("props")()
+		let mgeoj = __mapper("xs").m("geoj")
 
     let _geoform = p => ({     // geoform
       type:  "Feature",
@@ -41,28 +42,21 @@
 
 				
       let json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform // geoform
-
-			
-			
-if (1 && 1) console.log("h.img.gramn json ",json)					
-
+      if (proform) json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
       if (stace) json =  __mapper("xs").m("stace").getLocifier(anigram)(json)  // lociform
 
-      if (proform) json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
-
+if (1 && 1) console.log("h.img.gramn json ",json)					
 			
 			let properties = json.properties
+					properties.boform = anigram.boform
 					properties.ric = anigram.ric
 					properties.sort = "img"
 			
 			
-			
-      let newAnigram = ani.anigram()
-			
-					newAnigram.gjson = json						// feature is transformed geojson
-			
+      let newAnigram = anigram
+					newAnigram.featurecollection = mgeoj.geonormalize(json)
+					
       newAnigrams.push(newAnigram)
-
       return newAnigrams
     }
 

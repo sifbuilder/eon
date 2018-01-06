@@ -83,11 +83,13 @@ if (1 && 1) console.log("animation anigrams ",anigrams)
     *     @RENDER
     */
 
-			let features = __mapper("xs").m("geoj").zorder(anigrams.map(d => d.gjson))
-if (1 && 1) console.log("animation featurs ",features)			
-      if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, features)
-      if (__mapper("renderWebgl") !== undefined) __mapper("renderWebgl").render(elapsed, features )
-      if (__mapper("renderCanvas") !== undefined) __mapper("renderCanvas").render(elapsed, features )
+			// let features = __mapper("xs").m("geoj").zorder(anigrams.map(d => d.gjson))
+			// let featurecollection = { type: 'FeatureCollection',features: features }
+// if (1 && 1) console.log("animation features ", featurecollection.features)			
+	
+      if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, anigrams)
+      if (__mapper("renderWebgl") !== undefined) __mapper("renderWebgl").render(elapsed, anigrams )
+      if (__mapper("renderCanvas") !== undefined) __mapper("renderCanvas").render(elapsed, anigrams )
 
     }
 

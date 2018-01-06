@@ -10,6 +10,7 @@
   let haloGeojson = function haloGeojson(__mapper = {}) {
 
     let f = __mapper("props")()
+		let mgeoj = __mapper("xs").m("geoj")
 
   /**********************
    *    @gramify
@@ -31,8 +32,22 @@
       if (proform)  json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
       if (stace)    json = __mapper("xs").m("stace").getLocifier(anigram)(json)   // lociform
 
-      newAnigrams =  __mapper("xs").m("geoj").featurize(json, anigram)              // featurize
-      if (1 && 1) console.log("newAnigrams",newAnigrams)
+			
+			
+			json = __mapper("xs").m("boform").boformer(anigram)(json)   // boform
+			json = __mapper("xs").m("ric").ricker(anigram)(json)   // boform
+			
+			
+			newAnigrams = mgeoj.geonormalize(json)
+			
+			// let features = mgeoj.featurize(json)		// array of features
+			
+			// newAnigrams = features.map( (d,i) => mgeoj.renderize(d, i, anigram))
+			
+			
+			
+if (1 && 1) console.log("newAnigrams", newAnigrams)
+	
       return newAnigrams
 
   }
