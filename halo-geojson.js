@@ -29,9 +29,15 @@
 		if (geoform) json = (typeof geoform === "function") ? geoform(anigram) : geoform // geoform
 		if (conform) json = __mapper("xs").m("profier").getProjier(conform)(json)  // conform
 		if (stace)   json = __mapper("xs").m("stace").getReffier(anigram)(json)    // refform
-		if (proform) json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
-		if (stace)   json = __mapper("xs").m("stace").getLocifier(anigram)(json)   // lociform
+		// if (proform) json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
+		// if (stace)   json = __mapper("xs").m("stace").getLocifier(anigram)(json)   // lociform
 
+		
+		json =  __mapper("xs").m("profier").getProformer(anigram)(json)
+		console.log("-------------------------- json", json)
+		
+		
+		
 		json = __mapper("xs").m("boform").boformer(anigram)(json)   // boform
 		json = __mapper("xs").m("ric").ricker(anigram)(json)   // boform
 		

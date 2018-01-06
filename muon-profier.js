@@ -15,6 +15,7 @@
     let cwen = __mapper("xs").c("wen")() //let wen = __mapper("controlWen")   //
     let bversor = __mapper("xs").b("versor")()
     let cversor = __mapper("xs").c("versor")
+		let mstace = __mapper("xs").m("stace")
 
     /****************************
  *      @projier
@@ -88,14 +89,30 @@
       return prj
 
     }
+		
+		
     let getProjier =  form => json => __mapper("xs").b("proj3ct")(json, getProjion(form))
 
+		
+    let getProformer = (anigram) => {
+			
+			let proform = anigram.proform
+			let locus = mstace.getLocus(anigram)
+					proform.center = locus
+			let profier = getProjier(proform)
+			
+			return profier
+			
+		}
+		
+		
     /****************************
  *      @enty
  */
     let enty = function () {}
     enty.getProjion = getProjion
     enty.getProjier = getProjier
+    enty.getProformer = getProformer
 
     return enty
 

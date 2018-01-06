@@ -20,7 +20,6 @@
 				getLocations (anigram)                -- stace root, pos ref
 					getLocsInDim (dimStace, dimStream)  -- location of dimStream by dimStace
 					getLocsFromParent (anigram)
-					getParentLocations (anigram)          -- inherit natural parent location
   */
     // ........................ getSiti         situs: Arary.of(ani.x, .y, .z)
     let getSiti = function (anima, siti=[]) {
@@ -41,11 +40,9 @@
           siti.push(situs)
       }
 
-
       return siti
 
     }
-
 
  /* **********
  *             @getLocsInDim
@@ -113,24 +110,7 @@
  *        @dimval
  *         get val of d in dim dim
  */
-    let dimval = (dim, d) => {                               // val in dim
-      let ret
-      if (typeof d === "number")          ret = d            // dim val is number
-        else if (Array.isArray(d))  {                        // dim val is array
-            if ( typeof d[dim] === "number" ) ret = d[dim]
-            else if (Array.isArray(d[dim])) ret = d[dim][dim]
-            else if (typeof d[dim] === "object") ret = Object.values(d[dim])[dim]
-        }
-        else if (typeof d === "object") {
-            ret = Object.values(d)[dim]                     // dim val is object
 
-        }
-      return ret
-    }
- /* ***************************************
- *        @getLocations
- *
- */
  let getLocations = function (anigram, locations=[]) {
 
 					let stace
@@ -144,9 +124,9 @@
 									let val = stace                  // single location from stace array
 									let location = []
 
-									location[0] = dimval(0 ,val)
-									location[1] = dimval(1, val)
-									location[2] = dimval(2, val)
+									location[0] = f.dimval(0 ,val)
+									location[1] = f.dimval(1, val)
+									location[2] = f.dimval(2, val)
 
 									locations.push(location)
 
@@ -208,23 +188,6 @@
 
     }
 
- /* ***************************************
- *        @getParentLocation
- */
-    let getParentLocations = function (anigram = {}, locations=[]) {
-
-      let stace = anigram.stace,
-        parentuid = anigram.parentuid
-
-      parent = mstore.findAnigramFromUid(parentuid)
-
-      if (parent !== undefined) locations = getLocations(parent)
-
-      return locations
-
-    }
-
-
 
 
     /* **********
@@ -244,10 +207,7 @@
       let r1 = refs[1][stace.y.ref]     // stace.y.ref
       let r2 = refs[2][stace.z.ref]     // stace.z.ref
 
-      let projection =  {
-        "projection": "uniwen",
-        "translate": [ r0, r1 , r2 ]
-      }
+      let projection =  { "projection": "uniwen","translate": [ r0, r1 , r2 ] }
 
       return  __mapper("xs").m("profier").getProjion(projection)
 
@@ -300,6 +260,7 @@
         "projection": "uniwen",
         "translate": [ locus[0], locus[1], locus[2] ]
       }
+			
       return  __mapper("xs").m("profier").getProjion(projection)
 
     }
