@@ -16,29 +16,29 @@
    *    @gramify
    */
   let gramn = function (anima, newAnigrams=[]) {
-      if (0 && 1) console.log("anima",anima)
-      let ani = __mapper("xs").m("anitem")(anima),
-        anigram = ani.anigram(),             // anigram
-        stace =   ani.stace(),               // stace
-        ereform = ani.ereform(),             // ereform
-        proform = ani.proform(),             // proform
-        conform = ani.conform(),             // conform
-        geoform = ani.geoform()              // geoform
+		if (0 && 1) console.log("anima",anima)
+		let ani = __mapper("xs").m("anitem")(anima),
+			anigram = ani.anigram(),             // anigram
+			stace =   ani.stace(),               // stace
+			ereform = ani.ereform(),             // ereform
+			proform = ani.proform(),             // proform
+			conform = ani.conform(),             // conform
+			geoform = ani.geoform()              // geoform
 
-      let json = (typeof geoform === "function") ? geoform(anigram) : geoform     // geoform
-      if (ereform)  json = __mapper("xs").m("profier").getProjier(ereform)(json)  // ereform
-      if (conform)  json = __mapper("xs").m("profier").getProjier(conform)(json)  // conform
-      if (stace)    json = __mapper("xs").m("stace").getReffier(anigram)(json)    // refform
-      if (proform)  json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
-      if (stace)    json = __mapper("xs").m("stace").getLocifier(anigram)(json)   // lociform
+		let json 
+		if (geoform) json = (typeof geoform === "function") ? geoform(anigram) : geoform // geoform
+		if (conform) json = __mapper("xs").m("profier").getProjier(conform)(json)  // conform
+		if (stace)   json = __mapper("xs").m("stace").getReffier(anigram)(json)    // refform
+		if (proform) json = __mapper("xs").m("profier").getProjier(proform)(json)  // proform
+		if (stace)   json = __mapper("xs").m("stace").getLocifier(anigram)(json)   // lociform
 
-			json = __mapper("xs").m("boform").boformer(anigram)(json)   // boform
-			json = __mapper("xs").m("ric").ricker(anigram)(json)   // boform
-			
-			anigram.featurecollection = mgeoj.geonormalize(json)
-			newAnigrams.push(anigram)
-	
-      return newAnigrams
+		json = __mapper("xs").m("boform").boformer(anigram)(json)   // boform
+		json = __mapper("xs").m("ric").ricker(anigram)(json)   // boform
+		
+		anigram.featurecollection = mgeoj.geonormalize(json)
+		newAnigrams.push(anigram)
+
+		return newAnigrams
 
   }
 

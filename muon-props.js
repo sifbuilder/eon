@@ -110,8 +110,8 @@
     props.add = (a, t) => a.reduce((p, c) => c + p, 0)
     props.summa = (fns) => fns.reduce((fncurr, fnprev) => {
 				return t => props.lib.functor(fncurr)(t) + props.lib.functor(fnprev)(t)
-				}, t => 0)   
-    
+				}, t => 0)
+
     props.fa = d => {     // force array
       let ret
       if (Array.isArray(d)) ret = d
@@ -144,7 +144,7 @@
       return unslide
 
     }
-		
+
     props.posInStream = function(rpos, stream) {	// pos from rel-pos in stream
 
       let pos
@@ -153,8 +153,8 @@
       pos = (pos >= 0) ? pos % unidimLength : (pos + unidimLength) % unidimLength
       return pos
 
-    }		
-		
+    }
+
 
     props.parray = d => (Array.isArray(d)) ? d.slice() : [d]
 
@@ -175,6 +175,7 @@
         typeof(curr) === "string" ||
         typeof(curr) === "number"
       , true)
+
     props.isDoubleSingleArray =  d => (Array.isArray(d)   // [[_]]
         && Array.isArray(d[0])
         && d.length === 1
@@ -283,62 +284,62 @@
       }
       return  streamXYZ
     }
-    
+
 
     props.interadd = function (streams)  {
 
-						let ww = []				
+						let ww = []
 						let ses = []				// scale per position
 						let res = []				// scale per position
 
-						let nStreams = streams.length						// number of streams	
+						let nStreams = streams.length						// number of streams
 						let nDots = streams.reduce((p,q) => Math.max(q.length,p),0) // max dots
 
-						
-						for (let i=0; i<nStreams; i++) {			// scales 
-						
+
+						for (let i=0; i<nStreams; i++) {			// scales
+
 							let sid = [0,nDots-1]
 							let sir = [0,streams[i].length -1]
-							let si = d3.scaleLinear()		// argument scale 
+							let si = d3.scaleLinear()		// argument scale
 								.domain( sid )		// from result position
 								.range ( sir )		// to strem i position
-								
-							ses[i] = si					// ses scale for i stream 
 
-							
+							ses[i] = si					// ses scale for i stream
+
+
 							let rid = d3.range(streams[i].length).map((d,i) => i)
 							let rir = streams[i]
-							let ri = d3.scaleLinear()					// argument scale 
+							let ri = d3.scaleLinear()					// argument scale
 								.domain( rid )					// from result position
 								.range ( rir )		// to strem i position
-								
-							res[i] = ri					// ses scale for i stream 
-	
+
+							res[i] = ri					// ses scale for i stream
+
 						}
-						
+
 						for (let j=0;j<nDots;j++) {				// each position j
-						
+
 							let rr = []
 							let ss = []
-							
+
 							for (let k=0;k<streams.length;k++) {			// each stream
 								let vk = ses[k](j)								// postion on stream
 								let sk = res[k](vk)								// time stream
 
 								rr.push(vk)		//[0, 0, 0], [0.5, 0.25, 1], [1, 0.5, 2]	positions per stream
-								ss.push(sk)		// [2, 33, 5], [2.5, 33.25, 6], [3, 33.5, 7]	values	j						
+								ss.push(sk)		// [2, 33, 5], [2.5, 33.25, 6], [3, 33.5, 7]	values	j
 							}
 
 						ww[j] = ss.reduce((p,q) => q+p,0)
-					
+
 					}
 
 					return ww
 
 
 
-}    
-    
+}
+
    /***************************
    *        @streamRange
    */
@@ -494,6 +495,12 @@
 
     }
 
+		props.isPosition = obj => Object.getOwnPropertyNames(obj).reduce( (p, q) => 
+				p && 
+				(q === "x" || q === "y"  || q === "z") &&
+				typeof obj[q]  === "number"
+		, true )
+		
     /***************************
    *        @enty
    */

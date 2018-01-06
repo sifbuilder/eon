@@ -26,32 +26,17 @@
 
       let rot = [0,0,0]
 
-      if (f.isString(p.projection)) {       // if _projection singular name
-
-        prj = __mapper("xs").g(p.projection)(p) // props passed to projection
-
-      } else if (f.isFunction(p.projection)) {    // if is projection
-
-        prj = p.projection            // props passed to projection
-
-      } else if (f.isArray(p.projections)) {  // if plural select one
+      if (f.isString(p.projection)) prj = __mapper("xs").g(p.projection)(p) // props passed to projection
+			else if (f.isFunction(p.projection)) prj = p.projection  // if is projection
+			else if (f.isArray(p.projections)) 					{  // if plural select one
 
         prj = p.projections[ Math.round(p.projectidx || 0) ]
-
-
-        if (f.isString(prj)) {        // if name in array
-
-          prj = __mapper("xs").g(prj)(p)    // get projection from name
-
-        }
+        if (f.isString(prj)) prj = __mapper("xs").g(prj)(p)   // if name in array projection from name
 
       }
 
-      if (prj === undefined || prj === null) {
-
-        prj =  d3.geoIdentity() // console.error("prj not defined") //
-
-      }
+      if (prj === undefined || prj === null) prj =  d3.geoIdentity() // console.error("prj not defined")
+			
 
       if (prj.rotate !== undefined) {
         rot = (p.rotate) ? p.rotate : rot
@@ -77,9 +62,23 @@
 
         }
 
-        p.rotate = rot
+				p.rotate = rot
+				
       }
 
+			let translate = p.translate
+			if (f.isObject(translate) && f.isPosition(translate)) {
+					translate = Object.values(translate)		// translate is {x,y,z}
+					p.translate = translate
+			}
+			
+			let center = p.center
+			if (f.isObject(center) && f.isPosition(center) ) {
+					center = Object.values(center)					// center is {x,y,z}
+					p.center = center
+			}
+			
+			
       for (let [key, value] of Object.entries(p)) {
 
         if (f.isFunction(prj[key]))  prj[key](value)
