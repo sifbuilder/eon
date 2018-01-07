@@ -137,7 +137,7 @@ let muonAlima = function muonAlima(__mapper) {
       "properties": {}
     }),
 
-    // "stace": [[[ stace ]]],
+
     "proform": proform,
     "boform": boform,
     "payload": { 
@@ -195,14 +195,25 @@ let muonAlima = function muonAlima(__mapper) {
       }
     }),
 
-    "stace": {
-      "x": [[[15, 15]]],
-      "y": [[[20, 20]]],
-    },
 
+    "proform": {
+			"projection": "uniwen",
+			"center": [ 0, 0 ],
+			"translate": [ 30, 40 ],
+			"scale": 1,
+			"rotate": [ 0, 0, [[[0,0]]] ],
+			"focale": 12,
+			"zafin": [1,0],
+			"dims": 2,
+			"control": "wen",
+		},
+		
+		
+		
+		
     "payload": {
 
-      "img": {
+			"img": {
         "url":"zimg-501.jpg",
         "width": [[[60, 60]]],
         "height": [[[40 , 40]]],
@@ -235,10 +246,17 @@ let muonAlima = function muonAlima(__mapper) {
       }
     }),
 
-    "stace": {
-      "x": [[[150, 150]]],
-      "y": [[[200, 200]]],
-    },
+    "proform": {
+			"projection": "uniwen",
+			"center": [ 0, 0 ],
+			"translate": [ 150, 200 ],
+			"scale": 1,
+			"rotate": [ 0, 0, [[[0,0]]] ],
+			"focale": 12,
+			"zafin": [1,0],
+			"dims": 2,
+			"control": "wen",
+		},
 
     "payload": {
 
@@ -258,8 +276,8 @@ let muonAlima = function muonAlima(__mapper) {
   let animas = [
     nat,      // h.geojson g.uniwen
     circ,     // h.geojson g.uniwen
-    // img,      // h.img
-    // text,     // h.text
+    img,      // h.img
+    text,     // h.text
   ]
 
   return () => __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})

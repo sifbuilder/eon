@@ -9,8 +9,12 @@
 
   let haloImg = function haloImg(__mapper = {}) {
 
-    let f = __mapper("props")()
-		let mgeoj = __mapper("xs").m("geoj")
+    let f = __mapper("props")(),
+				mgeoj = __mapper("xs").m("geoj"),
+				mprofier = __mapper("xs").m("profier"),
+				mboform = __mapper("xs").m("boform"),
+				mric = __mapper("xs").m("ric"),
+				mstace = __mapper("xs").m("stace")
 
     let _geoform = p => ({     // geoform
       type:  "Feature",
@@ -32,27 +36,30 @@
 
     let gramn = function gramn(anima, newAnigrams = []) {
 
-      let ani = __mapper("xs").m("anitem")(anima),
-        anigram = ani.anigram(),             // anigram
-        stace =   ani.stace(),               // stace
-        proform = ani.proform(),             // proform
-        geoform = ani.geoform()              // geoform				
-				
-      let json
-			if (geoform) json = (typeof geoform === "function") ? geoform(ani.anigram()) : geoform 
-      if (proform) json = __mapper("xs").m("profier").getProjier(proform)(json)
-      if (stace) json =  __mapper("xs").m("stace").getLocifier(anigram)(json)
+		let ani = __mapper("xs").m("anitem")(anima),
+			anigram = ani.anigram(),            // anigram
+			boform =  ani.boform(),             // boform
+			ric =   	ani.ric(),               	// ric
+			payload = ani.payload(),            // payload
+			proform = ani.proform(),            // proform
+			conform = ani.conform(),            // conform
+			geoform = ani.geoform() || _geoform,   // geoform
+			json
 
+
+			if (geoform) json = (typeof geoform === "function") ? geoform(anigram) : geoform // geoform
+			if (conform) json = mprofier.getProjier(conform, anigram)(json)  		// conform
+			if (proform) json =  mprofier.getProformer(proform, anigram)(json)	// proform
+			if (boform) json = mboform.boformer(boform, anigram)(json)   				// boform
+			if (ric) json = mric.ricker(ric, anigram)(json)  							 			// ric
 			
-			json = __mapper("xs").m("boform").boformer(anigram)(json)   // boform
-			json = __mapper("xs").m("ric").ricker(anigram)(json)   // boform
+			
 			json.properties.sort = "img"
-			
-			
-      let featurecollection = mgeoj.geonormalize(json)
-			anigram.featurecollection = featurecollection
+
+
+			anigram.featurecollection = mgeoj.geonormalize(json)
 			newAnigrams.push(anigram)
-			
+
       return newAnigrams
     }
 
