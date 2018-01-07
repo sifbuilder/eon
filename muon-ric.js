@@ -82,7 +82,11 @@
       return ric
 
     }
-
+    /* **************************
+ *        @qualier
+ *				ani.ric => ani.feature.pros.ric => feature.id => ani.uid
+ */
+ 
    let qualier = function (ric = {}, anigram, json) {
 
       if (json.type === undefined) {

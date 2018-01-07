@@ -90,6 +90,7 @@ let muonAlima = function muonAlima(__mapper) {
   let proform = {
 
     "projection": "uniwen",
+    "translate": stace,
 
   }
 
@@ -105,15 +106,22 @@ let muonAlima = function muonAlima(__mapper) {
     "geoform": (p) => {
 
       let grarrx = __mapper("xs").m("graticule").grarrx(p.payload.graticule)
-      return {type: "MultiLineString", coordinates: grarrx}
+      return {
+						type:"Feature",
+						geometry: {
+							type: "MultiLineString", 
+							coordinates: grarrx
+						},
+						properties:{}
+			}
       
     },
 
     "conform": conform,
 
-    "stace": stace,
-
-    "payload": { "graticule": graticule, },
+    "payload": { 
+			"graticule": graticule, 
+		},
 
     x: 25,
     y: 25,
@@ -130,17 +138,16 @@ let muonAlima = function muonAlima(__mapper) {
     "boform":{ "csx":0,"cf":777,"cs":777,"cw":0.3,"co":[[[0.7,0.7,0.7]]],"cp":[[[0.7,0.7,0.7]]],},
 
     "geoform": ()=> {
-      let json = Object.assign({},
+      let gjls = Object.assign({},
         topojson.mesh(
           __mapper("xs").d("worldTopo110m").data(),
           __mapper("xs").d("worldTopo110m").data().objects.land
         )
       )
-      json = __mapper("xs").m("geoj").trim(json)
-      return json
+      gjls = __mapper("xs").m("geoj").trim(gjls)
+			gj = {type: "Feature", geometry: gjls, properties:{}}
+      return gj
     },
-
-    "stace": stace,
 
     "conform": conform,
 

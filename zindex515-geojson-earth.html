@@ -59,12 +59,20 @@ let muonAlima = function muonAlima(__mapper) {
     },
 
   }
+	
+  let stace = {
 
+    "x": [[[100, 500]]],
+    "y": 200,
+    "z": 0,
+
+  }
   let proform = {
 
-    "projection": "orthographic", "scale": [[[100,0.5]]],
-    "translate": [ 300, 200 ],
-    "rotate": [ [[[0, - 0 * 360]]], 0, 0 ],
+    "projection": "orthographic", 
+		"scale": [[[100,0.5]]],
+    "translate": stace,
+    "rotate": [ [[[0, - 1 * 360]]], 0, 0 ],
     "control": "versor",
 
   }
@@ -81,14 +89,14 @@ let muonAlima = function muonAlima(__mapper) {
     "boform":{ "csx":0,"cf":[[[555,333,555,333,555,333,555]]],"cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
 
     "geoform": () => {
-      let geo = Object.assign({},
+      let gj = Object.assign({},
         topojson.feature(
           __mapper("xs").d("worldTopo110m").data(),
           __mapper("xs").d("worldTopo110m").data().objects.land
         )
       )
-      geo = __mapper("xs").m("geoj").trim(geo)
-      return geo
+      gj = __mapper("xs").m("geoj").trim(gj)
+      return gj
     },
     
     "proform": proform,

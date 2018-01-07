@@ -41,14 +41,15 @@
 
 		let uid =  __mapper("xs").m("ric").buildUIDFromRic(ric)
 
-		if (geoform) json = f.v(geoform, anigram)
-		if (conform) json = mprofier.getProjier(f.v(conform, anigram), anigram)(json)
-		if (proform) json = mprofier.getProformer(f.v(proform, anigram), anigram)(json)
+		json = f.v(geoform, anigram)
+		
+		json = mprofier.projier(f.v(conform, anigram), anigram)(json)
+		json = mprofier.proformer(f.v(proform, anigram), anigram)(json)
 
-		json = mboform.boformer(boform, anigram, json)	// boform geojson features
-		json = mgeoj.featurize(json) 			// normalize features in FeatureCollection
-		json = mgeoj.zorder(json) 				// order features on zorder
-		json = mric.qualier(ric, anigram, json)	// ani.ric=>ani.feature.pros.ric=>feature.id=>ani.uid
+		json = mboform.boformer(boform, anigram, json)	// boform
+		json = mgeoj.featurize(json) 										// featurize
+		json = mgeoj.zorder(json) 											// order
+		json = mric.qualier(ric, anigram, json)					// qualify
 
 		newAnigrams = json.features.map( (d, i) => {
 			let newAnigram = Object.assign({}, anigram)

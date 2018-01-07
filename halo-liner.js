@@ -33,7 +33,7 @@
   // -------------------------------  haloLinerHalo_gramn
   let haloLinerHalo_gramn = function (anima, newItems = []) {
 
-		if (0 && 1) console.log("  haloLinerHalo_gramn anima",anima)
+		if (1 && 1) console.log("h.liner haloLinerHalo_gramn anima",anima)
 
 		let ani = __mapper("xs").m("anitem")(anima),
 			anigram = ani.anigram(),            	// anigram

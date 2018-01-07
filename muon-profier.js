@@ -90,9 +90,9 @@
     }
 		
     /****************************
- *     	 @getProjier
+ *     	 @projier
  */			
-    let getProjier =  (proform, anigram) => json => __mapper("xs").b("proj3ct")(json, getProjion(proform, anigram))
+    let projier =  (proform, anigram) => json => __mapper("xs").b("proj3ct")(json, getProjion(proform, anigram))
 
     /****************************
  *     	 @getEreformer
@@ -103,23 +103,25 @@
 			let translate = ereform.translate
 			let locus = mstace.getLocus(translate, anigram)
 					ereform.translate = locus
-			let profier = getProjier(ereform)
+			let profier = projier(ereform, anigram)
 			
 			return profier
 			
 		}
 		
     /****************************
- *     	 @getProformer
+ *     	 @proformer
  */		
-    let getProformer = (proform, anigram) => {
+    let proformer = (proform, anigram) => {
 			proform = proform || anigram.proform
-			let center = proform.center
-			let translate = proform.translate
-					proform.translate = mstace.getLocus(translate, anigram)
-					proform.center = mstace.getLocus(center, anigram)
-			let profier = getProjier(proform)
-			
+			let profier = d => d 
+			if (proform !== undefined) {
+				let center = proform.center
+				let translate = proform.translate
+						proform.translate = mstace.getLocus(translate, anigram)
+						proform.center = mstace.getLocus(center, anigram)
+				profier = projier(proform, anigram)
+			}
 			return profier
 			
 		}
@@ -130,8 +132,8 @@
  */
     let enty = function () {}
     enty.getProjion = getProjion
-    enty.getProjier = getProjier
-    enty.getProformer = getProformer
+    enty.projier = projier
+    enty.proformer = proformer
     enty.getEreformer = getEreformer
 
     return enty

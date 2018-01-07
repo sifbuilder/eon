@@ -31,7 +31,6 @@
 
       let ani = __mapper("xs").m("anitem")(anima),
         anigram = ani.anigram(),             // anigram
-        stace =   ani.stace(),               // stace
         uid = anigram.uid,                       // uid
         parentuid = anigram.parentuid
 
