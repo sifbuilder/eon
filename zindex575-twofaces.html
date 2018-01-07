@@ -177,15 +177,11 @@ if (0 && 1) console.log("575 geoformFaces json",json)
       }
     }),
 
-
     "proform": {
 			"projection": "uniwen",
 			"translate": [ 30, 40 ],
 		},
-
-
-
-
+		
     "payload": {
 
 			"img": {
@@ -197,13 +193,14 @@ if (0 && 1) console.log("575 geoformFaces json",json)
 
     }
   }
+	
   /*******************************************
  *      @animas
  *
  */
   let animas = [
     aniTwoFaces,  // h.geojson g.uniwen
-    // img,          // h.img
+    img,          // h.img
   ]
   let animaApi = function animaApi() {
     __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})

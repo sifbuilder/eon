@@ -289,7 +289,7 @@ if (0 && 1) console.log("m.geoj featurize",json)
 
           d.properties  = d.properties || {}
 
-if (1 && 1) console.log(" m.geoj.zorder feature properties", d.properties)
+if (0 && 1) console.log(" m.geoj.zorder feature properties", d.properties)
 
           if (d.properties.zorder === undefined) {    // if zorder undefined
             if (d.geometry && d.geometry.coordinates && d.geometry.coordinates[0] ) {

@@ -195,7 +195,6 @@ let muonAlima = function (__mapper) {
     "tim": tim,
     "ric": {"gid":"img","cid":"img","fid":"img",},
     "halo":"img",
-
     "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
     "geoform": p => ({
@@ -203,10 +202,11 @@ let muonAlima = function (__mapper) {
       geometry: {
 
         "type": "Point",
-        "coordinates": [60, 40]
+        "coordinates": [0, 0]
 
       },
       properties: {
+				sort: "img",
         attr: {
           "width": p.payload.img.width,
           "height": p.payload.img.height,
@@ -215,17 +215,23 @@ let muonAlima = function (__mapper) {
       }
     }),
 
+    "proform": {
+			"projection": "uniwen",
+			"translate": [ 30, 40 ],
+		},
+		
     "payload": {
 
-      "img": {
+			"img": {
         "url":"zimg-501.jpg",
         "width": [[[60, 60]]],
         "height": [[[40 , 40]]],
       },
 
+
     }
   }
-
+	
 
   /*******************************************
  *      @animaApi

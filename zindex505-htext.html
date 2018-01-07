@@ -67,6 +67,7 @@ let muonAlima = function muonAlima(__mapper) {
 
       },
       properties: {
+				sort: "img",
         attr: {
           "width": p.payload.img.width,
           "height": p.payload.img.height,
@@ -75,14 +76,14 @@ let muonAlima = function muonAlima(__mapper) {
       }
     }),
 
-    "stace": {
-      "x": [[[15, 15]]],
-      "y": [[[20, 20]]],
-    },
-
+    "proform": {
+			"projection": "uniwen",
+			"translate": [ 30, 40 ],
+		},
+		
     "payload": {
 
-      "img": {
+			"img": {
         "url":"zimg-501.jpg",
         "width": [[[60, 60]]],
         "height": [[[40 , 40]]],

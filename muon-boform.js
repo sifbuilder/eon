@@ -30,7 +30,7 @@
     }
 		
     /* *********************
-   *    @m.boform.boformer(boform, json)
+   *    @m.boform.boformer(boform, anigram, json)
    */
     let boformer = function (boform = {}, anigram, json) {
 
