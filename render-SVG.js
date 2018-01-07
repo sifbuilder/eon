@@ -157,7 +157,7 @@
 			}
 
 
-if (0 && 1) console.log("render features", features)
+if (1 && 1) console.log("render features", features)
 
       let svg = __mapper("renderSVG").svg()
 

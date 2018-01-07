@@ -96,6 +96,21 @@
     let getProjier =  (proform, anigram) => json => __mapper("xs").b("proj3ct")(json, getProjion(proform, anigram))
 
     /****************************
+ *     	 @getEreformer
+ */		
+    let getEreformer = (ereform, anigram) => {
+			
+			ereform = ereform || anigram.ereform
+			let translate = ereform.translate
+			let locus = mstace.getLocus(translate, anigram)
+					ereform.translate = locus
+			let profier = getProjier(ereform)
+			
+			return profier
+			
+		}
+		
+    /****************************
  *     	 @getProformer
  */		
     let getProformer = (proform, anigram) => {
@@ -118,6 +133,7 @@
     enty.getProjion = getProjion
     enty.getProjier = getProjier
     enty.getProformer = getProformer
+    enty.getEreformer = getEreformer
 
     return enty
 

@@ -228,7 +228,7 @@
     // enty.from = (_) => { return _ !== undefined ? (anitem.from = _, anitem) : anitem.from }
     // enty.fuel = (_) => { return _ !== undefined ? (anitem.fuel = _, anitem) : anitem.fuel }
 
-    // enty.ereform = (_) => {  return _ !== undefined ? (anitem.ereform = _, anitem) : anitem.ereform }
+    enty.ereform = (_) => {  return _ !== undefined ? (anitem.ereform = _, anitem) : anitem.ereform }
 
     // enty._geometry = (_) => {  return _ !== undefined ? (anitem._feature.geometry = _, anitem) : anitem._feature.geometry }
     // enty.geometry = (_) => {  return _ !== undefined ? (anitem.feature.geometry = _, anitem) : anitem.feature.geometry }
@@ -252,7 +252,8 @@
     // enty.to = (_) => { return _ !== undefined ? (anitem.to = _, anitem) : anitem.to }
 
     enty.avatars = (_) => { return _ !== undefined ? (anitem.avatars = _, anitem) : anitem.avatars }
-    enty.parent = (_) => { return _ !== undefined ? (anitem.parent = _, anitem) : anitem.parent }
+    // enty.parent = (_) => { return _ !== undefined ? (anitem.parent = _, anitem) : anitem.parent }
+    enty.parentuid = (_) => { return _ !== undefined ? (anitem.parentuid = _, anitem) : anitem.parentuid }
 
     // enty.segs = () => {
       // let segs = 0

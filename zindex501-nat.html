@@ -137,7 +137,10 @@ let muonAlima = function muonAlima(__mapper) {
       "properties": {}
     }),
 
-
+		ereform: {
+			"projection": "uniwen",
+		},
+		
     "proform": proform,
     "boform": boform,
     "payload": { 
@@ -187,6 +190,7 @@ let muonAlima = function muonAlima(__mapper) {
 
       },
       properties: {
+				sort: "img",
         attr: {
           "width": p.payload.img.width,
           "height": p.payload.img.height,
@@ -239,6 +243,7 @@ let muonAlima = function muonAlima(__mapper) {
 
       },
       properties: {
+				sort: "text",
         text: p.payload.text.text,
         style: {
           ["font-size"]: p.payload.text.style["font-size"],

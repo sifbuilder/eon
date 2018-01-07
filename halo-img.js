@@ -46,21 +46,11 @@
 			geoform = ani.geoform() || _geoform,   // geoform
 			json
 
-
-			if (geoform) json = (typeof geoform === "function") ? geoform(anigram) : geoform // geoform
-			if (conform) json = mprofier.getProjier(conform, anigram)(json)  		// conform
-			if (proform) json =  mprofier.getProformer(proform, anigram)(json)	// proform
-			if (boform) json = mboform.boformer(boform, anigram)(json)   				// boform
-			if (ric) json = mric.ricker(ric, anigram)(json)  							 			// ric
-			
-			
-			json.properties.sort = "img"
-
-
-			anigram.featurecollection = mgeoj.geonormalize(json)
-			newAnigrams.push(anigram)
+			anima.geoform = geoform
+			newAnigrams = __mapper("xs").h("geojson").gramn(anima)
 
       return newAnigrams
+			
     }
 
     /***************************

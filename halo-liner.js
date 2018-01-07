@@ -35,18 +35,20 @@
 
 		if (0 && 1) console.log("  haloLinerHalo_gramn anima",anima)
 
-    let ani = __mapper("xs").m("anitem")(anima),
-      anigram = ani.anigram(),
-      boform = ani.boform(),
-      tim = ani.tim(),
-      uid = anigram.uid,
-      stace =   ani.stace(),        // stace
-      proform = ani.proform(),      // proform
-      conform = ani.conform(),      // conform
-      geoform = ani.geoform(),       // geoform
-      payload = ani.payload(),
-      parentuid = anigram.parentuid
+		let ani = __mapper("xs").m("anitem")(anima),
+			anigram = ani.anigram(),            	// anigram
+			boform =  ani.boform(),             	// boform
+			ric =   	ani.ric(),               		// ric
+			tim =   	ani.tim(),               		// tim			
+			payload = ani.payload(),            	// payload
+			proform = ani.proform(),            	// proform
+			conform = ani.conform(),            	// conform
+			parentuid = ani.parentuid(),          // parentuid
+			geoform = ani.geoform(),  						// geoform
+			json
 
+		let uid =  __mapper("xs").m("ric").buildUIDFromRic(ric)	
+			
     let pacer = payload.pacer  || {}
     let pixspan = payload.span || 0
 

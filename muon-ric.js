@@ -86,7 +86,7 @@
     /* *********************
    *    @m.ric.ricer(anigram)(json)
    */
-    let ricker = function (ric, anigram) {
+    let qualier = function (ric, anigram) {
 
 			ric = ric || anigram.ric
 			if (ric === undefined) console.log("ric undefined")
@@ -161,7 +161,7 @@
     enty.getAnigramRic = getAnigramRic        // build ric from anigram, i
     enty.buildUIDFromRic = ric => ric.gid +  "_" + ric.cid +  "_" + ric.fid
     enty.buildUID = anitem => enty.buildUIDFromRic(anitem.ric)
-    enty.ricker = ricker
+    enty.qualier = qualier
 
     return enty
 

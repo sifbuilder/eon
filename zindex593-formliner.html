@@ -163,24 +163,16 @@ let muonAlima = function (__mapper) {
       "properties": {}
     }),
 
-    "stace": {
-          "x":
-          {
-              "pos": [[[ 0 ,  1 * 100]]],
-          },
-          "y":
-          {
-              "pos": [[[ 0 ,  1 * 100]]],
-          },
-          "z": 0,
-    },
-
     "boform": { "csx":0,"cf":[[[333,999]]], "co":[[[0.999,0.999]]], "cs":[[[666,555]]],"cw":[[[0.7,0.7]]],"cp":[[[0.999,0.999]]],},
-
 
     "proform": {
         "projection": "uniwen",
-        "translate":  [ 0, 0, 0],
+        "center":  [ 0, 0, 0],
+        "translate": {
+          "x": { "pos": [[[ 0 ,  1 * 100]]], },
+          "y": { "pos": [[[ 0 ,  1 * 100]]], },
+          "z": 0,
+				},
         "scale": 1,
         "rotate": [0,0,0],
         "focale": Infinity,

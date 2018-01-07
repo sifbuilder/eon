@@ -30,18 +30,22 @@
 			anigram = ani.anigram(),            	// anigram
 			boform =  ani.boform(),             	// boform
 			ric =   	ani.ric(),               		// ric
+			tim =   	ani.tim(),               		// tim
 			payload = ani.payload(),            	// payload
 			proform = ani.proform(),            	// proform
 			conform = ani.conform(),            	// conform
+			parentuid = ani.parentuid(),          // parentuid
 			geoform = ani.geoform() || _geoform,  // geoform
 			json
 
-		if (geoform) json = (typeof geoform === "function") ? geoform(anigram) : geoform // geoform
-		if (conform) json = mprofier.getProjier(conform, anigram)(json)  		// conform
-		if (proform) json =  mprofier.getProformer(proform, anigram)(json)	// proform
-		if (boform) json = mboform.boformer(boform, anigram)(json)   				// boform
-		if (ric) json = mric.ricker(ric, anigram)(json)  							 			// ric
-
+		let uid =  __mapper("xs").m("ric").buildUIDFromRic(ric)	
+			
+		if (geoform) json = f.v(geoform, anigram) // geoform
+		if (conform) json = mprofier.getProjier(f.v(conform, anigram), anigram)(json)  		// conform
+		if (proform) json = mprofier.getProformer(f.v(proform, anigram), anigram)(json)		// proform
+		if (boform)  json = mboform.boformer(f.v(boform, anigram), anigram)(json)   				// boform
+		if (ric) 		 json = mric.qualier(f.v(ric, anigram), anigram)(json)  							 			// ric
+		// uid
 
 		if (1 && 1) console.log("json",json)
 
