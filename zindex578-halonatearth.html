@@ -348,7 +348,14 @@ let muonAlima = function muonAlima(__mapper) {
       let parsCoords = grarr.pps.coordinates
       let coords = [].concat(mersCoords).concat(parsCoords)
 
-      let json = { type: "MultiLineString", coordinates: coords }
+      let json = {
+						type:"Feature",
+						geometry: {
+							type: "MultiLineString", 
+							coordinates: coords
+						},
+						properties:{}
+			}
 
       return json
 

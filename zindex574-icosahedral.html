@@ -148,7 +148,14 @@ let muonAlima = function muonAlima(__mapper) {
       let mersCoords = grarr.mms.coordinates
       let parsCoords = grarr.pps.coordinates
       let coords = [].concat(mersCoords).concat(parsCoords)
-      let json = { type: "MultiLineString", coordinates: coords }
+      let json = {
+						type:"Feature",
+						geometry: {
+							type: "MultiLineString", 
+							coordinates: coords
+						},
+						properties:{}
+			}
 
       return json
 
@@ -206,7 +213,13 @@ let muonAlima = function muonAlima(__mapper) {
     "boform":{ "csx":0,"cf":444,"cs":333,"cw":0.9,"co":0.04,"cp":0.9,},
 
     "proform": proformIcosahedral,
-    "geoform": {"type": "Sphere"}
+		"geoform": {
+					type:"Feature",
+					geometry: {
+						type: "Sphere", 
+					},
+					properties:{}
+		},
 
   }
   // -------------------------------  img

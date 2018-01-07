@@ -87,11 +87,6 @@
       }
     }
 
-  let stace = {
-      "x": 0,
-      "y": 0,
-      "z": 0,
-    }
 
   let graticule = {
 
@@ -103,6 +98,7 @@
 
       "projection": "cox",
       "scale": [[[100,100,100,100,100,100]]],
+      "center": [ 0, 0, 0 ],
       "translate": [ 300, 200 ],
       "rotate": [ [[[0,-60]]], [[[0,-60]]], [[[0,-60]]] ],
       "step": [[[0,0,1.1,1.1,0,0]]],
@@ -124,18 +120,21 @@
       "ric": {"gid":"geograt","cid":"geograt","fid":"geograt",},
       "halo":"geojson",
 
-      "geoform": p => {
+    "geoform": (p) => {
 
-        let grarrx = __mapper("xs").m("graticule").grarrx(p.payload.graticule)
-        return {type: "MultiLineString", coordinates: grarrx}
-
-      },
-
+      let grarrx = __mapper("xs").m("graticule").grarrx(p.payload.graticule)
+      return {
+						type:"Feature", geometry: {
+							type: "MultiLineString",  coordinates: grarrx
+						},
+						properties:{}
+			}
+      
+    },
+		
       "boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.3,"co":[[[0.05,0.05]]],"cp":[[[0.9,0.9]]],},
 
       "proform": proform,
-
-      "stace": stace,
 
       "payload": { "graticule": graticule, },
 
@@ -232,10 +231,10 @@
  *
  */
   let animas = [
-      // geograt,      // h.geojson g.cox
-      // geoearth,     // h.geojson g.cox
+      geograt,      // h.geojson g.cox
+      geoearth,     // h.geojson g.cox
       geosphere,    // h.geojson g.cox
-      // img,          // h.img
+      img,          // h.img
     ]
 
   let animaApi = function animaApi() {

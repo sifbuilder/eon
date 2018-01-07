@@ -124,7 +124,14 @@
       "geoform": p => {
 
         let grarrx = __mapper("xs").m("graticule").grarrx(p.payload.graticule)
-        return {type: "MultiLineString", coordinates: grarrx}
+        return {
+							type:"Feature",
+							geometry: {
+								type: "MultiLineString", 
+								coordinates: grarrx
+							},
+							properties:{}
+			}
 
       },
 
@@ -172,7 +179,13 @@
 
       "proform": proform,
 
-      "geoform": {"type": "Sphere"},
+      "geoform": {
+						type:"Feature",
+						geometry: {
+							type: "Sphere", 
+						},
+						properties:{}
+			},
 
     }
   // -------------------------------  img

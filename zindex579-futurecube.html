@@ -84,12 +84,15 @@ let geograt = {
         "ric": {"gid":"geograt","cid":"geograt","fid":"geograt",},
 
          "geoform": (p) => {
-
-            return {
-                type: "MultiLineString",
-                coordinates: __mapper("xs").m("graticule").grarrx(p.graticule)
-            }
-
+						let grarrx = __mapper("xs").m("graticule").grarrx(p.graticule)
+						return {
+									type:"Feature",
+									geometry: {
+										type: "MultiLineString", 
+										coordinates: grarrx
+									},
+									properties:{}
+						}
           },
 
         "halo":"geojson",
@@ -128,18 +131,21 @@ let geoearth = {
 
 let geosphere = {
 
-        "tim": tim,
-        "ric": {"gid":"geosphere","cid":"geosphere","fid":"geosphere",},
-        "halo":"geojson",
+			"tim": tim,
+			"ric": {"gid":"geosphere","cid":"geosphere","fid":"geosphere",},
+			"halo":"geojson",
 
-        "boform":{ "csx":0,"cf":444,"cs":333,"cw":0.9,"co":0.04,"cp":0.9,},
+			"boform":{ "csx":0,"cf":444,"cs":333,"cw":0.9,"co":0.04,"cp":0.9,},
 
-        "proform": proformFuture,
+			"proform": proformFuture,
 
-        "geoform": [[[ () => {
-            let geo = {"type": "Sphere"}
-            return geo
-          } ]]],
+      "geoform": {
+						type:"Feature",
+						geometry: {
+							type: "Sphere", 
+						},
+						properties:{}
+			},
 
     }
 // ------------------------- img
