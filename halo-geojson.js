@@ -16,7 +16,7 @@
 		let mboform = __mapper("xs").m("boform")
 		let mric = __mapper("xs").m("ric")
 		let mstace = __mapper("xs").m("stace")
-		
+
   /**********************
    *    @gramify
    */
@@ -26,28 +26,26 @@
 			anigram = ani.anigram(),            // anigram
 			boform =  ani.boform(),             // boform
 			ric =   	ani.ric(),               	// ric
-			stace =   ani.stace(),              // stace
-			ereform = ani.ereform(),            // ereform
+			// stace =   ani.stace(),              // stace
+			// ereform = ani.ereform(),            // ereform
+			payload = ani.payload(),            // payload
 			proform = ani.proform(),            // proform
 			conform = ani.conform(),            // conform
-			geoform = ani.geoform()             // geoform
+			geoform = ani.geoform(),            // geoform
+			json
 
-		let json 
 		if (geoform) json = (typeof geoform === "function") ? geoform(anigram) : geoform // geoform
-		if (conform) json = mprofier.getProjier(conform, anigram)(json)  // conform
-		
-		// if (proform) json = mprofier.getProjier(proform)(json)  // proform
-		// if (stace)   json = mstace.getLocifier(stace, anigram)(json)   // lociform
 
-		
-		json =  mprofier.getProformer(proform, anigram)(json)
-		// console.log("-------------------------- json", json)
-		
-		
-		
-		json = mboform.boformer(boform, anigram)(json)   // boform
-		json = mric.ricker(ric, anigram)(json)   // boform
-		
+		if (conform) json = mprofier.getProjier(conform, anigram)(json)  		// conform
+
+		if (proform) json =  mprofier.getProformer(proform, anigram)(json)	// proform
+
+		if (boform) json = mboform.boformer(boform, anigram)(json)   				// boform
+		if (ric) json = mric.ricker(ric, anigram)(json)  							 			// ric
+
+
+		if (1 && 1) console.log("json",json)
+
 		anigram.featurecollection = mgeoj.geonormalize(json)
 		newAnigrams.push(anigram)
 

@@ -57,7 +57,7 @@
 
       let c = {
 
-        stace: f.v((d||{}).stace),  // stace: {a,b,c}
+        // stace: f.v((d||{}).stace),  // stace: {a,b,c}
 
         avatars: d.avatars,         // avatars: {}
         // fields: d.fields,           // fields: {pic, field}
@@ -228,16 +228,16 @@
     // enty.from = (_) => { return _ !== undefined ? (anitem.from = _, anitem) : anitem.from }
     // enty.fuel = (_) => { return _ !== undefined ? (anitem.fuel = _, anitem) : anitem.fuel }
 
-    enty.ereform = (_) => {  return _ !== undefined ? (anitem.ereform = _, anitem) : anitem.ereform }
+    // enty.ereform = (_) => {  return _ !== undefined ? (anitem.ereform = _, anitem) : anitem.ereform }
 
-    enty._geometry = (_) => {  return _ !== undefined ? (anitem._feature.geometry = _, anitem) : anitem._feature.geometry }
-    enty.geometry = (_) => {  return _ !== undefined ? (anitem.feature.geometry = _, anitem) : anitem.feature.geometry }
-    enty._feature = (_) => {  return _ !== undefined ? (anitem._feature = _, anitem) : anitem._feature }
-    enty.feature = (_) => {  return _ !== undefined ? (anitem.feature = _, anitem) : anitem.feature }
+    // enty._geometry = (_) => {  return _ !== undefined ? (anitem._feature.geometry = _, anitem) : anitem._feature.geometry }
+    // enty.geometry = (_) => {  return _ !== undefined ? (anitem.feature.geometry = _, anitem) : anitem.feature.geometry }
+    // enty._feature = (_) => {  return _ !== undefined ? (anitem._feature = _, anitem) : anitem._feature }
+    // enty.feature = (_) => {  return _ !== undefined ? (anitem.feature = _, anitem) : anitem.feature }
 
     enty.geoform = (_) => {  return _ !== undefined ? (anitem.geoform = _, anitem) : anitem.geoform }
 
-    enty.graticule = (_) => { return _ !== undefined ? (anitem.graticule = _, anitem) : anitem.graticule }
+    // enty.graticule = (_) => { return _ !== undefined ? (anitem.graticule = _, anitem) : anitem.graticule }
     // enty.nums = (_) => { return _ !== undefined ? (anitem.nums = _, anitem) : anitem.nums }
     enty.payload = (_) => { return _ !== undefined ? (anitem.payload = _, anitem) : anitem.payload }
 
@@ -245,22 +245,22 @@
 
     // enty.reticule = (_) => { return _ !== undefined ? (anitem.reticule = _, anitem) : anitem.reticule }
     enty.ric = (_) => { return _ !== undefined ? (anitem.ric = _, anitem) : anitem.ric }
-    enty.stace = (_) => { return _ !== undefined ? (anitem.stace = _, anitem) : anitem.stace }
+    // enty.stace = (_) => { return _ !== undefined ? (anitem.stace = _, anitem) : anitem.stace }
     enty.tim = (_) => { return _ !== undefined ? (anitem.tim = _, anitem) : anitem.tim }
     enty.boform = (_) => { return _ !== undefined ? (anitem.boform = _, anitem) : anitem.boform }
-    enty.trace = (_) => { return _ !== undefined ? (anitem.trace = _, anitem) : anitem.trace }
+    // enty.trace = (_) => { return _ !== undefined ? (anitem.trace = _, anitem) : anitem.trace }
     // enty.to = (_) => { return _ !== undefined ? (anitem.to = _, anitem) : anitem.to }
 
     enty.avatars = (_) => { return _ !== undefined ? (anitem.avatars = _, anitem) : anitem.avatars }
     enty.parent = (_) => { return _ !== undefined ? (anitem.parent = _, anitem) : anitem.parent }
 
-    enty.segs = () => {
-      let segs = 0
-      segs = Math.max((anitem.form.x.seg5 || 0), segs)
-      segs = Math.max((anitem.form.y.seg5 || 0), segs)
-      segs = Math.max(((anitem.form.z||{}).seg5 || 0), segs)
-      return segs
-    }
+    // enty.segs = () => {
+      // let segs = 0
+      // segs = Math.max((anitem.form.x.seg5 || 0), segs)
+      // segs = Math.max((anitem.form.y.seg5 || 0), segs)
+      // segs = Math.max(((anitem.form.z||{}).seg5 || 0), segs)
+      // return segs
+    // }
 
     enty.anilocation = a => [ a.x, a.y, a.z ]
     enty.x = a => a.x
