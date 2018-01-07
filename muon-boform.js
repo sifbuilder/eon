@@ -10,49 +10,76 @@
   let muonBoform = function (__mapper = {}) {
 
     let f = __mapper("props")()
-		let mstore = __mapper("xs").m("store")
+    let mstore = __mapper("xs").m("store")
 
 
-    /* *********************
-   *    @m.boform.boformer(anigram)(json)
-   */
-    let boformer = function (boform, anigram) {
-
-      boform = boform || anigram.boform || {}
-			if (boform.csx === undefined) boform.csx = 0
-
+    let getStyle = function(boform) {
       let style = {}
+      if (boform !== undefined) {
+        if (boform.csx === undefined) boform.csx = 0
 
-					if (boform.cf !== undefined && boform.csx !== undefined) style["fill"] = f.kolor(boform.cf,boform.csx)
-					if (boform.cf !== undefined && boform.csx !== undefined) style["stroke"] = f.kolor(boform.cs,boform.csx)
-					if (boform.co !== undefined) style["fill-opacity"] = boform.co
-					if (boform.cw !== undefined) style["stroke-width"] = boform.cw
-					if (boform.cp !== undefined) style["stroke-opacity"] = boform.cp
+        if (boform.cf !== undefined && boform.csx !== undefined) style["fill"] = f.kolor(boform.cf,boform.csx)
+        if (boform.cf !== undefined && boform.csx !== undefined) style["stroke"] = f.kolor(boform.cs,boform.csx)
+        if (boform.co !== undefined) style["fill-opacity"] = boform.co
+        if (boform.cw !== undefined) style["stroke-width"] = boform.cw
+        if (boform.cp !== undefined) style["stroke-opacity"] = boform.cp
 
-			return function (json) {
+      }
 
-					if (json.type === undefined) {
-							console.log("type undfined")
-					} else {
-						json.properties = json.properties || {}
-						let jsonstyle = json.properties.style || {}
-						json.properties.style = Object.assign(jsonstyle, style)
-					}
+      return style
+    }
+		
+    /* *********************
+   *    @m.boform.boformer(boform, json)
+   */
+    let boformer = function (boform = {}, anigram, json) {
 
-					return json
-			}
+      if (json.type === undefined) {
 
-		}
+        console.log("type undefined")
 
+      } else if (typeof boform !== "object") {
 
+        console.log("boform is not an object")
+
+      } else if (json.type === "Feature") {
+
+        let feature = json
+        let anigramBoform = boform
+        let featureBoform = {}, featureStyle = {}
+        if (feature.properties !== undefined && feature.properties.boform !== undefined) {
+          featureBoform = feature.properties.boform
+        }
+        boform = Object.assign(anigramBoform, featureBoform)
+        let jsonStyle = getStyle(boform)
+
+        if (feature.properties !== undefined && feature.properties.style !== undefined) {
+          featureStyle = feature.properties.style
+        }
+
+        feature.properties.style = Object.assign(jsonStyle, featureStyle)
+
+      } else if (json.type === "FeatureCollection") {
+
+        for (let i=0; i<json.features.length; i++) {
+          let feature = json.features[i]
+          feature = boformer(boform, anigram, feature)
+
+        }
+      } else {
+
+        console.log("m.boform.boformer nothing done")
+
+      }
+
+      return json
+    }
 
     /***********
   *         @enty
   */
     function enty() { return enty }
-				enty.boformer = boformer
-
-
+    enty.boformer = boformer
 
     return enty
 
@@ -60,4 +87,4 @@
 
   exports.muonBoform = muonBoform
 
-}))
+}));

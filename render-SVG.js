@@ -140,24 +140,11 @@
  *
  */
 
-    let render = function render (elapsed, featurecollection, maxlimit) {
+    let render = function (elapsed, featurecollection, maxlimit) {
 
-	if (0 && 1) console.log("render featurecollection", featurecollection)
-			// receive list of anigrams
-			// extract features from anigrams.featurecollection
+			let features = featurecollection.features
 
-			let features = [] // get features from anigram.gjson
-			// for (let i=0; i<featurecollections.length; i++) {
-
-				// let featurecollection = featurecollections[i]
-
-
-				// features = [...features, 	...featurecollection.features]
-
-			// }
-		features = featurecollection.features
-
-if (1 && 1) console.log("render features", features)
+if (0 && 1) console.log("render features", features)
 
       let svg = __mapper("renderSVG").svg()
 
@@ -176,7 +163,7 @@ if (0 && 1) console.log("render gitems", gitems)
           let fitems = citems[j].values   // fitems
           let current = fitems.slice(-1)[0]
 
-if (0 && 1) console.log("render fitems", fitems)
+if (0 && 1) console.log("r.svg.render fitems", fitems)
 
           /*  ................. TEXTS ................. */
           let texts = fitems
@@ -264,6 +251,8 @@ if (0 && 1) console.log("render fitems", fitems)
 
               .data(() => features)
               .attr("d", d =>  {
+								
+								if (d.properties.style === undefined) console.log("style undefined")
 
                 let object = d        // geojson feature
                 let properties = object.properties || {}  // properties

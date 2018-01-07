@@ -74,9 +74,9 @@
 
           if (newAnigrams[i] !== undefined) {
             let newItem = newAnigrams[i]                        // new anigram
-if (0 && 1) console.log("UPDANIGRAM newItem",newItem)
-						
-            let index = enty.findIndex(newItem, local.anigrams)     // find index
+						let uid = newItem.uid
+            let index = enty.findFromUid(uid, local.anigrams)     // find index from d.uid
+if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
             if (index === -1) index = local.anigrams.length           // add holder if new
             local.anigrams[index] = newItem                           // replace anigram
           }

@@ -16,6 +16,7 @@
 				mric = __mapper("xs").m("ric"),
 				mstace = __mapper("xs").m("stace")
 
+
     let _geoform = p => ({     // geoform
       type:  "Feature",
       geometry: {"type": "Point","coordinates": [0, 0]},
@@ -25,7 +26,7 @@
    *    @gramify
    */
   let gramn = function (anima, newAnigrams=[]) {
-		if (0 && 1) console.log("anima",anima)
+		if (0 && 1) console.log("h.geojson anima",anima)
 		let ani = __mapper("xs").m("anitem")(anima),
 			anigram = ani.anigram(),            	// anigram
 			boform =  ani.boform(),             	// boform
@@ -38,24 +39,23 @@
 			geoform = ani.geoform() || _geoform,  // geoform
 			json
 
-		let uid =  __mapper("xs").m("ric").buildUIDFromRic(ric)	
-			
-		if (geoform) json = f.v(geoform, anigram) // geoform
-		if (conform) json = mprofier.getProjier(f.v(conform, anigram), anigram)(json)  		// conform
-		if (proform) json = mprofier.getProformer(f.v(proform, anigram), anigram)(json)		// proform
-		if (boform)  json = mboform.boformer(f.v(boform, anigram), anigram)(json)   				// boform
-		if (ric) 		 json = mric.qualier(f.v(ric, anigram), anigram)(json)  							 			// ric
-		// uid
+		let uid =  __mapper("xs").m("ric").buildUIDFromRic(ric)
 
-		if (1 && 1) console.log("json",json)
+		if (geoform) json = f.v(geoform, anigram)
+		if (conform) json = mprofier.getProjier(f.v(conform, anigram), anigram)(json)
+		if (proform) json = mprofier.getProformer(f.v(proform, anigram), anigram)(json)
 
-		// anigram.featurecollection = mgeoj.geonormalize(json)
-		// newAnigrams.push(anigram)
-		let features = mgeoj.featurize(json)
-		features.forEach(feature => {
-					anigram.uid = feature.id		// hoist anigram uid
-					anigram.feature = feature		// anigram and feature
-					newAnigrams.push(anigram)
+		json = mboform.boformer(boform, anigram, json)	// boform geojson features
+		json = mgeoj.featurize(json) 			// normalize features in FeatureCollection
+		json = mgeoj.zorder(json) 				// order features on zorder
+		json = mric.qualier(ric, anigram, json)	// ani.ric=>ani.feature.pros.ric=>feature.id=>ani.uid
+
+		newAnigrams = json.features.map( (d, i) => {
+			let newAnigram = Object.assign({}, anigram)
+					newAnigram.feature = d
+					newAnigram.ric = d.properties.ric
+					newAnigram.uid = d.id
+			return newAnigram
 		})
 
 		return newAnigrams

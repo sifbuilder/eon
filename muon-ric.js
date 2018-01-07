@@ -83,22 +83,22 @@
 
     }
 
-    /* *********************
-   *    @m.ric.ricer(anigram)(json)
-   */
-    let qualier = function (ric, anigram) {
+   let qualier = function (ric = {}, anigram, json) {
 
-			ric = ric || anigram.ric
-			if (ric === undefined) console.log("ric undefined")
+      if (json.type === undefined) {
 
-			return function (json) {
+        console.log("type undefined")
 
-					let _ric = {}
-						_ric.gid = ric.gid
-						_ric.cid = ric.cid
+      } else if (typeof ric !== "object") {
 
-					if (json.type === "Feature") {
+        console.log("ric is not an object")
 
+      } else if (json.type === "Feature") {
+
+						let _ric = {}
+							_ric.gid = ric.gid
+							_ric.cid = ric.cid
+			
 							let feature = json
 							let properties = feature.properties || {}
 
@@ -109,13 +109,14 @@
 							let uid =  __mapper("xs").m("ric").buildUIDFromRic(_ric)
 
 							properties.ric = _ric
-							properties.id = uid
+							feature.id = uid
 
-							feature.properties = properties
+      } else if (json.type === "FeatureCollection") {
 
-
-					} else if (json.type === "FeatureCollection") {
-
+						let _ric = {}
+							_ric.gid = ric.gid
+							_ric.cid = ric.cid			
+			
 							let features = json.features
 							for (let i=0; i<features.length; i++) {
 
@@ -125,35 +126,28 @@
 
 									if (ric.fid === undefined) _ric.fid = i || ""
 									else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, anigram)
-									else _ric.fid = ric.fid             // identify each feature in the collection
+									else _ric.fid = ric.fid + (i || "")    // identify each feature in the anigram
 
-									let uid =  __mapper("xs").m("ric").buildUIDFromRic(_ric)
 
 									properties.ric = _ric
-									properties.id = uid
+									feature.id = __mapper("xs").m("ric").buildUIDFromRic(_ric)
 
 									feature.properties = properties
 
 
 							}
+				
+				
+				
+      } else {
 
+        console.log("m.boform.boformer nothing done")
 
-					} else {
-
-						console.log("geometry json")
-
-					}
-
-
-
-
-
-					return json
-			}
-
-		}
-
-
+      }
+if (0 && 1) console.log("m.ric.qualier", ric, json)
+      return json
+    }		
+	
     /**********************
    *    @enty
    */

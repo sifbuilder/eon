@@ -116,14 +116,11 @@
     /***************************
  *        @render
  */
-    let render = function (elapsed, anigrams, maxlimit) {
+    let render = function (elapsed, featurecollection, maxlimit) {
 
-      let features = anigrams
-        .filter(
-          d => d.properties !== undefined         // req properties
-            && d.properties.ric !== undefined     // req ric    
-        )
+			let features = featurecollection.features
 
+if (0 && 1) console.log("render features", features)
       /* clean canvas */
       while(state.scene.children.length > 0){
         state.scene.remove(state.scene.children[0])    // clear the scene
@@ -144,9 +141,11 @@
           let now = fitems.slice(-1)[0]
 
           let items = []
-
+if (0 && 1) console.log("r.webgl.render fitems", fitems)
           /*  ................. GEOJSON FEATURE ................. */
-          items = fitems.filter(d => d.properties.sort === "feature")
+          items = fitems
+            .filter(d => d.properties.sort === "feature" || d.properties.sort === undefined)  // default
+						
           if (items.length > 0) {
 
             let denser = point => new THREE.Vector3(...point)

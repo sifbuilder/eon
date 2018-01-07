@@ -79,7 +79,6 @@
 					p.center = center
 			}
 			
-			
       for (let [key, value] of Object.entries(p)) {
 
         if (f.isFunction(prj[key]))  prj[key](value)
@@ -114,11 +113,11 @@
  *     	 @getProformer
  */		
     let getProformer = (proform, anigram) => {
-			
 			proform = proform || anigram.proform
+			let center = proform.center
 			let translate = proform.translate
-			let locus = mstace.getLocus(translate, anigram)
-					proform.translate = locus
+					proform.translate = mstace.getLocus(translate, anigram)
+					proform.center = mstace.getLocus(center, anigram)
 			let profier = getProjier(proform)
 			
 			return profier

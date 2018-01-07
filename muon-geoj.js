@@ -254,11 +254,11 @@ if (1 && 1) console.log("renderize",feature,i,anigram)
 			// gjson.properties carries:
 			//	ric
 			//	sort
-			if (1 && 1) console.log("m.geoj featurize",json)
+if (0 && 1) console.log("m.geoj featurize",json)
       let features = []
 			if (json && json.type) {
 				let type = json.type
-		
+
 				if (type === "Feature") {
 							features = Array.of(json)
 				} else if (type === "FeatureCollection") {
@@ -271,20 +271,26 @@ if (1 && 1) console.log("renderize",feature,i,anigram)
 			} else {
 				console.log ("m.geoj.featurize not supported geojson ")
 			}
+			
+			
 
-			return features
+			return {type: "FeatureCollection", features}
 
     }
 
-    /**********************
-   *    @zorder
+    /* *********************
+   *    @zorder FeatureCollection
    */
-    let zorder = function (features) {
-
+    let zorder = function (json) {
+	
+			let  features = json.features
       let zordered = features
         .map( d => {
 
           d.properties  = d.properties || {}
+
+if (1 && 1) console.log(" m.geoj.zorder feature properties", d.properties)
+
           if (d.properties.zorder === undefined) {    // if zorder undefined
             if (d.geometry && d.geometry.coordinates && d.geometry.coordinates[0] ) {
               let outring = d.geometry.coordinates[0]   // for out ring
@@ -297,11 +303,11 @@ if (1 && 1) console.log("renderize",feature,i,anigram)
           return d
         })
         .sort( (a, b) => a.properties.zorder - b.properties.zorder ) // z order
-        .map( (d,i) => {
-						d.properties.nid = i; 									// sequential ordinal
-						return d
-				})
-      return zordered
+        .map( (d,i) => { d.properties.nid = i; return d })  			// sequential ordinal
+
+			json.features = zordered
+				
+      return json
 
     }
 

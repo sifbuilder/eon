@@ -27,7 +27,7 @@
 let muonAlima = function muonAlima(__mapper) {
 
   __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({svg:1,versor:0,wen:1,webgl:1})
+  __mapper("xs").b("init")({svg:1,versor:0,wen:1,webgl:1})		// INIT
 
   let f = __mapper({"props": muonProps.muonProps()}).props()
   let g = __mapper("xs").m("geom")
@@ -54,16 +54,11 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let tim = {"td":9200,"t0":0,"t1":1000,"t2":1,"t3":1,}
 
-  let stace = {
-    "x": 0,
-    "y": 0,
-    "z": 0,
-  }
-
   let proformFaces = {
 
     "projection": "uniwen",
-    "translate":  [ 180, 200],
+    "center":  [ 0, 0 ],
+    "translate":  [ 180, 200 ],
     "scale": 90,
     "rotate": [0,0,0], // [-5,50,0],
     "focale": 4,
@@ -84,7 +79,7 @@ let muonAlima = function muonAlima(__mapper) {
           [ -1, 1,  1],
           [-1, -1,  1]
          ],
-        boform: {"csx":0,"cf":222,"cs":688,"cw":0.7,"co":[[[0.8,0.999]]],"cp":0.999,}
+        boform: {"csx":0,"cf":333,"cs":688,"cw":0.7,"co":[[[0.999,0.999]]],"cp":0.999,}
       },
 
       {
@@ -95,45 +90,47 @@ let muonAlima = function muonAlima(__mapper) {
           [-1,  1, -1],
           [-1, -1, -1]
          ],
-        boform: {"csx":0,"cf":444,"cs":833,"cw":0.7,"co":[[[0.8,0.999]]],"cp":0.999,}
+        boform: {"csx":0,"cf":777,"cs":833,"cw":0.7,"co":[[[0.999,0.999]]],"cp":0.999,}
       },
     ]
 
   }
 
-  let geoformFaces = (ani) => {
-    let payload = ani.payload
-    let faceIndex = Math.round(payload.faceIndex)
-    let ric = ani.ric
-    let boform = ani.boform
+  let geoformFaces = (anima) => {					// geoform creates geojson featurecollection
+		let ani = __mapper("xs").m("anitem")(anima),
+			anigram = ani.anigram(),            	// anigram
+			boform =  ani.boform(),             	// boform
+			ric =   	ani.ric(),               		// ric
+			tim =   	ani.tim(),               		// tim
+			payload = ani.payload(),            	// payload
+			proform = ani.proform(),            	// proform
+			conform = ani.conform(),            	// conform
+			parentuid = ani.parentuid(),          // parentuid
+			geoform = ani.geoform() 							 // geoform
+
+    let faces = f.v(payload.faces)                 // payload.faces
+
 
     let json = {type: "FeatureCollection", features: []}
-    let faces = f.v(payload.faces)                 // payload.faces
 
     for (let i = 0, l = faces.length; i < l; i++) {
       let face = faces[i]                // face cornersx position
-      let geometry = {type:"Polygon",coordinates:[]}
 
-      geometry.coordinates = Array.of(face.vertices) // eg [-1, 1, 1]
+      let geometry = {type:"Polygon", coordinates:[]}
+					geometry.coordinates = Array.of(face.vertices) // eg [-1, 1, 1]
 
-      let feature = {type:"Feature",geometry:{},properties:{}}
-        let _ric = {}
-          _ric.gid = ric.gid
-          _ric.cid = "face"
-          _ric.fid = "face" + i
-      feature.properties.ric = _ric
+      let properties = {}
+					properties.boform = face.boform || boform
+					properties.name = (i === 0) ? "red" : "orange"
 
-      feature.properties.sort = "feature"
-      feature.geometry = geometry
-      feature.properties.boform = face.boform || boform
-      feature.properties.name = (i === 0) ? "red" : "orange"
-
-if (1 && 1) console.log("faces", i , feature)
+      let feature = {type:"Feature", geometry:{}, properties:{}}
+					feature.geometry = geometry
+					feature.properties = properties
 
       json.features.push(feature)
 
     }
-		// if (1 && 1) console.log("json",json)
+if (0 && 1) console.log("575 geoformFaces json",json)
     return json
   }
   /*******************************************
@@ -143,7 +140,7 @@ if (1 && 1) console.log("faces", i , feature)
   let aniTwoFaces = {
 
     "tim": tim,
-    "ric": {"gid":"aniIco","cid":"aniIco","fid":"aniFaces",},
+    "ric": {"gid":"faces", "cid":"face", "fid":"face",},
     "halo": "geojson",
     "boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
 
@@ -154,12 +151,13 @@ if (1 && 1) console.log("faces", i , feature)
     "payload": payloadTwoFaces,
   }
 
+  // -------------------------------  img
   let img = {
 
     "tim": tim,
     "ric": {"gid":"img","cid":"img","fid":"img",},
-    "halo": "img",
-    "boform": {"csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    "halo":"img",
+    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
     "geoform": p => ({
       type:  "Feature",
@@ -170,6 +168,7 @@ if (1 && 1) console.log("faces", i , feature)
 
       },
       properties: {
+				sort: "img",
         attr: {
           "width": p.payload.img.width,
           "height": p.payload.img.height,
@@ -178,18 +177,23 @@ if (1 && 1) console.log("faces", i , feature)
       }
     }),
 
-    "stace": {
-      "x": [[[15, 15]]],
-      "y": [[[20, 20]]],
-    },
+
+    "proform": {
+			"projection": "uniwen",
+			"translate": [ 30, 40 ],
+		},
+
+
+
 
     "payload": {
 
-      "img": {
+			"img": {
         "url":"zimg-501.jpg",
         "width": [[[60, 60]]],
         "height": [[[40 , 40]]],
       },
+
 
     }
   }
@@ -199,7 +203,7 @@ if (1 && 1) console.log("faces", i , feature)
  */
   let animas = [
     aniTwoFaces,  // h.geojson g.uniwen
-    img,          // h.img
+    // img,          // h.img
   ]
   let animaApi = function animaApi() {
     __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})

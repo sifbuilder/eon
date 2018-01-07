@@ -71,29 +71,30 @@
       let anigrams = __mapper("xs").m("store").anigrams()
 
       for (let i=0; i<state.animas.length; i++) {
+				
 				let anima = state.animas[i]
-if (0 && 1) console.log("animation anima ",i, anima)
+				
         let newAnigrams = f.a(mstore.gramn(anima)) /* GRAMN */
-if (0 && 1) console.log("animation newAnigrams ",i, newAnigrams)
+				
+if (0 && 1) console.log("m.animation newAnigrams ",newAnigrams)				
+	
         __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.animation","anigrams":newAnigrams})
 
       }
 
       anigrams = __mapper("xs").m("store").anigrams()
 
-if (0 && 1) console.log("animation anigrams ",anigrams)
+if (0 && 1) console.log("m.animation gramned anigrams ",anigrams)
     /*******************************************
     *     @RENDER
     */
 
-			// let features = __mapper("xs").m("geoj").zorder(anigrams.map(d => d.gjson))
-			// let featurecollection = { type: 'FeatureCollection',features: features }
-			let featurecollection = {
+		let featurecollection = {
 				"type": "FeatureCollection",
 				"features": anigrams.map(d => d.feature)
-			}
+		}
 			
-if (0 && 1) console.log("animation features ", featurecollection.features)			
+if (0 && 1) console.log("m.animation featurecollection ", featurecollection)			
 	
       if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, featurecollection)
       if (__mapper("renderWebgl") !== undefined) __mapper("renderWebgl").render(elapsed, featurecollection )

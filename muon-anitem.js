@@ -61,7 +61,7 @@
 
         avatars: d.avatars,         // avatars: {}
         // fields: d.fields,           // fields: {pic, field}
-        fields: d.forces,           // forces: {pic, field}
+        forces: d.forces,           // forces: {pic, field}
 
         // form: d.form,
 
