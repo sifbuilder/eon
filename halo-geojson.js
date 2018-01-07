@@ -36,7 +36,7 @@
 			proform = ani.proform(),            	// proform
 			conform = ani.conform(),            	// conform
 			parentuid = ani.parentuid(),          // parentuid
-			geoform = ani.geoform() || _geoform,  // geoform
+			geoform = ani.geoform() || _geoform,  // geoform	
 			json
 
 		let uid =  __mapper("xs").m("ric").buildUIDFromRic(ric)
@@ -51,6 +51,8 @@
 		json = mgeoj.zorder(json) 											// order
 		json = mric.qualier(ric, anigram, json)					// qualify
 
+		if (1 && 1) console.log("h.geojson.gramn json", json)
+		
 		newAnigrams = json.features.map( (d, i) => {
 			let newAnigram = Object.assign({}, anigram)
 					newAnigram.feature = d

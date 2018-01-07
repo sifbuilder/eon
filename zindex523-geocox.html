@@ -175,7 +175,13 @@
 
       "proform": proform,
 
-      "geoform": {"type": "Sphere"},
+      "geoform": {
+						type:"Feature",
+						geometry: {
+							type: "Sphere", 
+						},
+						properties:{}
+			},
 
     }
   // -------------------------------  img
@@ -226,10 +232,10 @@
  *
  */
   let animas = [
-      geograt,      // h.geojson g.cox
-      geoearth,     // h.geojson g.cox
+      // geograt,      // h.geojson g.cox
+      // geoearth,     // h.geojson g.cox
       geosphere,    // h.geojson g.cox
-      img,          // h.img
+      // img,          // h.img
     ]
 
   let animaApi = function animaApi() {

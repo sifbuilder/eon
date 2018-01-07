@@ -119,6 +119,10 @@
     let render = function (elapsed, featurecollection, maxlimit) {
 
 			let features = featurecollection.features
+        .filter(
+          d => d.properties !== undefined         // req properties
+            && d.properties.ric !== undefined     // req ric
+        )
 
 if (0 && 1) console.log("render features", features)
       /* clean canvas */
@@ -158,102 +162,107 @@ if (0 && 1) console.log("r.webgl.render fitems", fitems)
 
               let geometry = feature.geometry   // rings in MultiPolygon, MultiLineString
 
-              if (geometry.type === "Point") {
+							if (geometry !== undefined && geometry !== null)  {			// geometry may be null
+									if (geometry.type === "Point") {
 
-                let node = item
-                state.material_color = style.fill
-                state.geometry = new THREE.SphereGeometry( 5, 32, 32 )
-                state.wireframe = new THREE.WireframeGeometry( state.geometry )
-                state.material = new THREE.MeshBasicMaterial( {
-                  color: state.material_color,
-                  transparent: true,
-                  opacity: 0.75
-                })
+										let node = item
+										state.material_color = style.fill
+										state.geometry = new THREE.SphereGeometry( 5, 32, 32 )
+										state.wireframe = new THREE.WireframeGeometry( state.geometry )
+										state.material = new THREE.MeshBasicMaterial( {
+											color: state.material_color,
+											transparent: true,
+											opacity: 0.75
+										})
 
-                let sphere = new THREE.Mesh(
-                  state.wireframe,
-                  state.material
-                )
+										let sphere = new THREE.Mesh(
+											state.wireframe,
+											state.material
+										)
 
-                sphere.position.x = node.x || node.geometry.coordinates[0]
-                sphere.position.y = node.y || node.geometry.coordinates[1] || 0
-                sphere.position.z = node.z || node.geometry.coordinates[2] || 0
+										sphere.position.x = node.x || node.geometry.coordinates[0]
+										sphere.position.y = node.y || node.geometry.coordinates[1] || 0
+										sphere.position.z = node.z || node.geometry.coordinates[2] || 0
 
-                state.scene.add(node._sphere = sphere)
+										state.scene.add(node._sphere = sphere)
 
-              } else if (geometry.type === "MultiPolygon") {
+									} else if (geometry.type === "MultiPolygon") {
 
-                let threeMaterial = new THREE.LineBasicMaterial({
-                  color: style.stroke,
-                  opacity: style["stroke-opacity"],
-                })
+										let threeMaterial = new THREE.LineBasicMaterial({
+											color: style.stroke,
+											opacity: style["stroke-opacity"],
+										})
 
-                for (let i=0; i<geometry.coordinates.length; i++) {
+										for (let i=0; i<geometry.coordinates.length; i++) {
 
-                  let coordinates = geometry.coordinates[i]
+											let coordinates = geometry.coordinates[i]
 
 
-                  let threeGeometry = new THREE.Geometry
+											let threeGeometry = new THREE.Geometry
 
-                  coordinates.forEach(function(line) {
+											coordinates.forEach(function(line) {
 
-                    d3.pairs(line.map(denser), function(a, b) {
+												d3.pairs(line.map(denser), function(a, b) {
 
-                      threeGeometry.vertices.push(a, b)
+													threeGeometry.vertices.push(a, b)
 
-                    })
-                    let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-                    if (object) state.scene.add(object)
+												})
+												let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+												if (object) state.scene.add(object)
 
-                  })
+											})
 
-                }
-              } else if (geometry.type === "LineString") {
+										}
+									} else if (geometry.type === "LineString") {
 
-                let threeMaterial = new THREE.LineBasicMaterial({
-                  color: style.stroke,
-                  opacity: style["stroke-opacity"],
-                })
+										let threeMaterial = new THREE.LineBasicMaterial({
+											color: style.stroke,
+											opacity: style["stroke-opacity"],
+										})
 
-                let coordinates = Array.of(geometry.coordinates)
+										let coordinates = Array.of(geometry.coordinates)
 
-                let threeGeometry = new THREE.Geometry
+										let threeGeometry = new THREE.Geometry
 
-                coordinates.forEach(function(line) {
+										coordinates.forEach(function(line) {
 
-                  d3.pairs(line.map(denser), function(a, b) {
+											d3.pairs(line.map(denser), function(a, b) {
 
-                    threeGeometry.vertices.push(a, b)
+												threeGeometry.vertices.push(a, b)
 
-                  })
-                  let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-                  if (object) state.scene.add(object)
+											})
+											let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+											if (object) state.scene.add(object)
 
-                })
+										})
 
-              } else {
+									} else {
 
-                let threeMaterial = new THREE.LineBasicMaterial({
-                  color: style.stroke,
-                  opacity: style["stroke-opacity"],
-                })
+										let threeMaterial = new THREE.LineBasicMaterial({
+											color: style.stroke,
+											opacity: style["stroke-opacity"],
+										})
 
-                let coordinates = geometry.coordinates
+										let coordinates = geometry.coordinates
 
-                let threeGeometry = new THREE.Geometry
+										let threeGeometry = new THREE.Geometry
 
-                coordinates.forEach(function(line) {
+										coordinates.forEach(function(line) {
 
-                  d3.pairs(line.map(denser), function(a, b) {
+											d3.pairs(line.map(denser), function(a, b) {
 
-                    threeGeometry.vertices.push(a, b)
+												threeGeometry.vertices.push(a, b)
 
-                  })
-                  let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-                  if (object) state.scene.add(object)
+											})
+											let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+											if (object) state.scene.add(object)
 
-                })
-              }
+										})
+									}
+							}
+							
+							
+							
 
             }
 

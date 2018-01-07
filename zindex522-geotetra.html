@@ -102,8 +102,9 @@
 
       "projection": "tetra",
       "scale": 50,
-      "translate": [ 275, 175,0 ],
-      "rotate": [0,0,0] , // See that California touches the corner, and Australia
+      "center": [ 0, 0, 0 ],
+      "translate": stace,
+      "rotate": [ 0, 0, 0 ], // See that California touches the corner, and Australia
       "tetraCef1": [[[Math.PI / 6, Math.PI / 2]]],
 
       "control":  "versor",
@@ -119,18 +120,23 @@
       "ric": {"gid":"geograt","cid":"geograt","fid":"geograt",},
       "halo":"geojson",
 
-      "geoform": p => {
+			"geoform": (p) => {
 
-        let grarrx = __mapper("xs").m("graticule").grarrx(p.payload.graticule)
-        return {type: "MultiLineString", coordinates: grarrx}
-
-      },
+				let grarrx = __mapper("xs").m("graticule").grarrx(p.payload.graticule)
+				return {
+							type:"Feature",
+							geometry: {
+								type: "MultiLineString", 
+								coordinates: grarrx
+							},
+							properties:{}
+				}
+				
+			},
 
       "boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.3,"co":[[[0.05,0.05]]],"cp":[[[0.9,0.9]]],},
 
       "proform": proform,
-
-      "stace": stace,
 
       "payload": { "graticule": graticule, },
   }
@@ -169,7 +175,13 @@
 
       "proform": proform,
 
-      "geoform": {"type": "Sphere"},
+      "geoform": {
+						type:"Feature",
+						geometry: {
+							type: "Sphere", 
+						},
+						properties:{}
+			},
 
     }
   // -------------------------------  img
@@ -216,14 +228,14 @@
   }
 	
   /*******************************************
- * @animaApi
+ * 			@animaApi
  *
  */
   let animas = [
-      geograt,     // h.geojson
-      geoearth,     // h.geojson
+      // geograt,     // h.geojson
+      // geoearth,     // h.geojson
       geosphere,   // h.geojson
-      img,          // h.img
+      // img,          // h.img
     ]
 
   let animaApi = function animaApi() {

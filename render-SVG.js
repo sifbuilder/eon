@@ -143,7 +143,12 @@
     let render = function (elapsed, featurecollection, maxlimit) {
 
 			let features = featurecollection.features
+        .filter(
+          d => d.properties !== undefined         // req properties
+            && d.properties.ric !== undefined     // req ric
+        )
 
+				
 if (0 && 1) console.log("render features", features)
 
       let svg = __mapper("renderSVG").svg()

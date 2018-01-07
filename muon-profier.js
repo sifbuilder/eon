@@ -16,6 +16,7 @@
     let bversor = __mapper("xs").b("versor")()
     let cversor = __mapper("xs").c("versor")
 		let mstace = __mapper("xs").m("stace")
+		let guniwen = __mapper("xs").g("uniwen")
 
     /****************************
  *      @projier
@@ -23,76 +24,87 @@
  *        if control:wen  wen rotation and if 2d: wen z rotation
  *        if control:versor   versor rotation
  */
-    let getProjion = function  (p = {}, anigram) {
-
-      let prj, rot = [0,0,0]
-
-      if (f.isString(p.projection)) prj = __mapper("xs").g(p.projection)(p) // props passed to projection
-			else if (f.isFunction(p.projection)) prj = p.projection  // if is projection
-			else if (f.isArray(p.projections)) 					{  // if plural select one
-
-        prj = p.projections[ Math.round(p.projectidx || 0) ]
-        if (f.isString(prj)) prj = __mapper("xs").g(prj)(p)   // if name in array projection from name
-
-      }
-
-      if (prj === undefined || prj === null) prj =  d3.geoIdentity() // console.error("prj not defined")
+    let getProjion = function  (p, anigram) {
+				let prj = guniwen() // d3.geoIdentity()
+				if (p !== undefined) { 
 			
+							if (f.isString(p.projection)) {       // if _projection singular name
 
-      if (prj.rotate !== undefined) {
-        rot = (p.rotate) ? p.rotate : rot
+									prj = __mapper("xs").g(p.projection)(p) // props passed to projection
 
-        if (p.control === "wen") {                    // wen control
+							} else if (f.isFunction(p.projection)) {    // if is projection
 
-          let wenRotation = cwen.rotation()
+									prj = p.projection            // props passed to projection
 
-          if (p.dims === 2) {
-            if (wenRotation[0] * wenRotation[1] !== 0)  {
-              wenRotation = mwen.cross( [wenRotation[0], 0, 0], [0, wenRotation[1], 0])
-            }
-          }
+							} else if (f.isArray(p.projections)) {  // if plural select one
 
-          rot = bversor.add(rot, wenRotation)
+									prj = p.projections[ Math.round(p.projectidx || 0) ]
 
-        } else if (p.control === "versor") {                // versor control
 
-          let verser = cversor.projection(prj)
-          let verRotation = verser.rotation()      // rotation from versor
+									if (f.isString(prj)) {        // if name in array
 
-          rot = bversor.add(rot, verRotation)  // add ani rotation
+											prj = __mapper("xs").g(prj)(p)    // get projection from name
 
-        }
+									}
 
-				p.rotate = rot
-				
-      }
+							}
 
-			let translate = p.translate
-			if (f.isObject(translate) && f.isPosition(translate)) {
-					translate = Object.values(translate)		// translate is {x,y,z}
-					p.translate = translate
-			}
-			
-			let center = p.center
-			if (f.isObject(center) && f.isPosition(center) ) {
-					center = Object.values(center)					// center is {x,y,z}
-					p.center = center
-			}
-			
-      for (let [key, value] of Object.entries(p)) {
 
-        if (f.isFunction(prj[key]))  prj[key](value)
+							if (prj.rotate !== undefined) {
+								let rot = (p.rotate) ? p.rotate : [0,0,0]
 
-      }
+								if (p.control === "wen") {                    // wen control
 
-      return prj
+									let wenRotation = cwen.rotation()
+
+									if (p.dims === 2) {
+										if (wenRotation[0] * wenRotation[1] !== 0)  {
+											wenRotation = mwen.cross( [wenRotation[0], 0, 0], [0, wenRotation[1], 0])
+										}
+									}
+
+									rot = bversor.add(rot, wenRotation)
+
+								} else if (p.control === "versor") {                // versor control
+
+									let verser = cversor.projection(prj)
+									let verRotation = verser.rotation()      // rotation from versor
+
+									rot = bversor.add(rot, verRotation)  // add ani rotation
+
+								}
+
+								p.rotate = rot
+								
+							}
+
+							let translate = p.translate
+							if (f.isObject(translate) && f.isPosition(translate)) {
+									translate = Object.values(translate)		// translate is {x,y,z}
+									p.translate = translate
+							}
+							
+							let center = p.center
+							if (f.isObject(center) && f.isPosition(center) ) {
+									center = Object.values(center)					// center is {x,y,z}
+									p.center = center
+							}
+							
+							for (let [key, value] of Object.entries(p)) {
+				console.log(" *************  m.profier", key, value)
+								if (f.isFunction(prj[key]))  prj[key](value)
+
+							}
+				}
+
+				return prj
 
     }
 		
     /****************************
  *     	 @projier
  */			
-    let projier =  (proform, anigram) => json => __mapper("xs").b("proj3ct")(json, getProjion(proform, anigram))
+    let projier =  (proform, anigram) => json => (proform) ? __mapper("xs").b("proj3ct")(json, getProjion(proform, anigram)) : json
 
     /****************************
  *     	 @getEreformer
@@ -113,6 +125,7 @@
  *     	 @proformer
  */		
     let proformer = (proform, anigram) => {
+console.log(" -------------------- m.profier proformer", proform)	
 			proform = proform || anigram.proform
 			let profier = d => d 
 			if (proform !== undefined) {
@@ -120,6 +133,7 @@
 				let translate = proform.translate
 						proform.translate = mstace.getLocus(translate, anigram)
 						proform.center = mstace.getLocus(center, anigram)
+				
 				profier = projier(proform, anigram)
 			}
 			return profier
@@ -134,7 +148,7 @@
     enty.getProjion = getProjion
     enty.projier = projier
     enty.proformer = proformer
-    enty.getEreformer = getEreformer
+    // enty.getEreformer = getEreformer
 
     return enty
 

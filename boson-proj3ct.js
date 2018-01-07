@@ -38,9 +38,9 @@ var contains = function(ring, point) {
 };	
 
 var project = function(object, projection) {		// index
-	
   var stream = projection.stream, project;
   if (!stream) throw new Error("invalid projection");
+					console.log(" *************  b.proj3ct", object, object, stream.Point)
   switch (object && object.type) {
     case "Feature": project = projectFeature; break;
     case "FeatureCollection": project = projectFeatureCollection; break;
