@@ -61,6 +61,7 @@
 
         avatars: d.avatars,         // avatars: {}
         // fields: d.fields,           // fields: {pic, field}
+        fields: d.forces,           // forces: {pic, field}
 
         // form: d.form,
 
@@ -101,7 +102,7 @@
 
         halo: d.halo,        // d.halo, //
 
-        nid: d.nid,               // nid
+        // nid: d.nid,               // nid
         uid: d.uid,               // uid
         x: d.x,                   //
         y: d.y,                   //
@@ -254,6 +255,7 @@
     enty.avatars = (_) => { return _ !== undefined ? (anitem.avatars = _, anitem) : anitem.avatars }
     // enty.parent = (_) => { return _ !== undefined ? (anitem.parent = _, anitem) : anitem.parent }
     enty.parentuid = (_) => { return _ !== undefined ? (anitem.parentuid = _, anitem) : anitem.parentuid }
+    enty.uid = (_) => { return _ !== undefined ? (anitem.uid = _, anitem) : anitem.uid }
 
     // enty.segs = () => {
       // let segs = 0

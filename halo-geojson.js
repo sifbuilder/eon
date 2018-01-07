@@ -49,8 +49,14 @@
 
 		if (1 && 1) console.log("json",json)
 
-		anigram.featurecollection = mgeoj.geonormalize(json)
-		newAnigrams.push(anigram)
+		// anigram.featurecollection = mgeoj.geonormalize(json)
+		// newAnigrams.push(anigram)
+		let features = mgeoj.featurize(json)
+		features.forEach(feature => {
+					anigram.uid = feature.id		// hoist anigram uid
+					anigram.feature = feature		// anigram and feature
+					newAnigrams.push(anigram)
+		})
 
 		return newAnigrams
 

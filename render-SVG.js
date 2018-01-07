@@ -140,22 +140,22 @@
  *
  */
 
-    let render = function render (elapsed, featurecollections, maxlimit) {
+    let render = function render (elapsed, featurecollection, maxlimit) {
 
-	if (0 && 1) console.log("render featurecollections", featurecollections)
+	if (0 && 1) console.log("render featurecollection", featurecollection)
 			// receive list of anigrams
 			// extract features from anigrams.featurecollection
 
 			let features = [] // get features from anigram.gjson
-			for (let i=0; i<featurecollections.length; i++) {
+			// for (let i=0; i<featurecollections.length; i++) {
 
-				let featurecollection = featurecollections[i]
+				// let featurecollection = featurecollections[i]
 
 
-				features = [...features, 	...featurecollection.features]
+				// features = [...features, 	...featurecollection.features]
 
-			}
-
+			// }
+		features = featurecollection.features
 
 if (1 && 1) console.log("render features", features)
 

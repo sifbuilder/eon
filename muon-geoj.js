@@ -254,57 +254,27 @@ if (1 && 1) console.log("renderize",feature,i,anigram)
 			// gjson.properties carries:
 			//	ric
 			//	sort
-if (1 && 1) console.log("m.geoj featurize",json)
-
+			if (1 && 1) console.log("m.geoj featurize",json)
       let features = []
-			switch(json.type) {
-				 case "Feature": {
-						features = Array.of(json)
-						break;
-				 }
-				 case "FeatureCollection": {
-						features = json.features
-						break;
-				 }
-				 case "GeometryCollection": {
-						features = json.map(d => ({type: "Feature",geometry: {type: d.type, coordinates: d.coordinates},properties:{}}) )
-						break;
-				 }
-				 default: {
-						features = Array.of({type: "Feature",geometry: {type: json.type, coordinates: json.coordinates},properties:{}})
-						break;
-				 }
+			if (json && json.type) {
+				let type = json.type
+		
+				if (type === "Feature") {
+							features = Array.of(json)
+				} else if (type === "FeatureCollection") {
+							features = json.features
+				} else if (type === "GeometryCollection") {
+							features = json.map(d => ({type: "Feature",geometry: {type: d.type, coordinates: d.coordinates},properties:{}}) )
+				} else {
+							features = Array.of({type: "Feature",geometry: {type: json.type, coordinates: json.coordinates},properties:{}})
+				}
+			} else {
+				console.log ("m.geoj.featurize not supported geojson ")
 			}
 
 			return features
 
     }
-
-		// https://github.com/mapbox/geojson-normalize/blob/master/index.js
-
-		let geonormalize = function (gj) {
-			if (!gj || !gj.type) return null;
-			var type = types[gj.type];
-			if (!type) return null;
-
-			if (type === 'geometry') {
-					return {
-							type: 'FeatureCollection',
-							features: [{
-									type: 'Feature',
-									properties: {},
-									geometry: gj
-							}]
-					};
-			} else if (type === 'feature') {
-					return {
-							type: 'FeatureCollection',
-							features: [gj]
-					};
-			} else if (type === 'featurecollection') {
-					return gj;
-			}
-		}
 
     /**********************
    *    @zorder
@@ -443,8 +413,6 @@ if (1 && 1) console.log("m.geoj featurize",json)
     enty.polygonFromStream = polygonFromStream
     enty.multLineStringFromStreamArray = multLineStringFromStreamArray
     enty.featurize = featurize
-    enty.geonormalize = geonormalize
-    // enty.renderize = renderize
     enty.zorder = zorder
     enty.centroid = centroid
     enty.getCoords = getCoords      // get coordinates, eg from parent

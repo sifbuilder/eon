@@ -88,7 +88,11 @@ if (0 && 1) console.log("animation anigrams ",anigrams)
 
 			// let features = __mapper("xs").m("geoj").zorder(anigrams.map(d => d.gjson))
 			// let featurecollection = { type: 'FeatureCollection',features: features }
-			let featurecollection = anigrams.map(d => d.featurecollection)
+			let featurecollection = {
+				"type": "FeatureCollection",
+				"features": anigrams.map(d => d.feature)
+			}
+			
 if (0 && 1) console.log("animation features ", featurecollection.features)			
 	
       if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, featurecollection)
