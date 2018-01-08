@@ -91,7 +91,6 @@
 							}
 							
 							for (let [key, value] of Object.entries(p)) {
-				console.log(" *************  m.profier", key, value)
 								if (f.isFunction(prj[key]))  prj[key](value)
 
 							}
@@ -125,14 +124,13 @@
  *     	 @proformer
  */		
     let proformer = (proform, anigram) => {
-console.log(" -------------------- m.profier proformer", proform)	
 			proform = proform || anigram.proform
 			let profier = d => d 
 			if (proform !== undefined) {
 				let center = proform.center
 				let translate = proform.translate
-						proform.translate = mstace.getLocus(translate, anigram)
-						proform.center = mstace.getLocus(center, anigram)
+						// proform.translate = mstace.getLocus(translate, anigram)
+						// proform.center = mstace.getLocus(center, anigram)
 				
 				profier = projier(proform, anigram)
 			}

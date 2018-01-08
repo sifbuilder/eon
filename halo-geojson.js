@@ -39,8 +39,6 @@
 			geoform = ani.geoform() || _geoform,  // geoform	
 			json
 
-		let uid =  __mapper("xs").m("ric").buildUIDFromRic(ric)
-
 		json = f.v(geoform, anigram)
 		
 		json = mprofier.projier(f.v(conform, anigram), anigram)(json)
@@ -51,7 +49,12 @@
 		json = mgeoj.zorder(json) 											// order
 		json = mric.qualier(ric, anigram, json)					// qualify
 
+		if (1 && 1) console.log("h.geojson.gramn proform", f.v(proform, anigram))
 		if (1 && 1) console.log("h.geojson.gramn json", json)
+		if (1 && 1) {
+			let coordinates = json.features[0].geometry.coordinates
+			console.log("h.geojson.gramn json", coordinates[coordinates.length -1])
+		}
 		
 		newAnigrams = json.features.map( (d, i) => {
 			let newAnigram = Object.assign({}, anigram)

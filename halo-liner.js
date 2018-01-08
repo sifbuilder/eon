@@ -33,7 +33,7 @@
   // -------------------------------  haloLinerHalo_gramn
   let haloLinerHalo_gramn = function (anima, newItems = []) {
 
-		if (1 && 1) console.log("h.liner haloLinerHalo_gramn anima",anima)
+		if (0 && 1) console.log("h.liner haloLinerHalo_gramn anima",anima)
 
 		let ani = __mapper("xs").m("anitem")(anima),
 			anigram = ani.anigram(),            	// anigram
@@ -59,7 +59,7 @@
 
 
 		let locus = mstace.getLocus(anigram)
-    if (1 && 1) console.log("  *** avatar locus", locus, anigram)
+    if (0 && 1) console.log("  *** avatar locus", locus, anigram)
 
 		autoSitus = d => locus
 
@@ -129,7 +129,6 @@
           } else if (key === "event") {                   // event defaults event
 
 						situs = eventSitus()
-
           }
 
           let newItem = __mapper("xs").m("store").findAnigramFromUid(uid) 	// anigram
@@ -144,7 +143,8 @@
               newItem.forces = anigram.forces
           }
 
-          if (0 && 1) console.log("newItem",newItem)
+          if (1 && 1) console.log(" ************* situs", situs)
+
 
 
 
