@@ -23,17 +23,17 @@
 
     let svg = __mapper("renderSVG").svg()
 
-    // -------------------------------  haloLinerHalo_ween
-    let haloLinerHalo_ween = function haloLinerHalo_gramn(anima, newItems = []) {
+    // -------------------------------  haloPointerHalo_ween
+    let haloPointerHalo_ween = function haloPointerHalo_gramn(anima, newItems = []) {
 
       if (anima.inited !== 1) { anima.inited = anima.gelded = 1; newItems = Array.of(anima) }
       return newItems
 
     }
-    // -------------------------------  haloLinerHalo_gramn
-    let haloLinerHalo_gramn = function (anima, newItems = []) {
+    // -------------------------------  haloPointerHalo_gramn
+    let haloPointerHalo_gramn = function (anima, newItems = []) {
 
-      if (0 && 1) console.log("h.liner haloLinerHalo_gramn anima",anima)
+      if (0 && 1) console.log("h.liner haloPointerHalo_gramn anima",anima)
 
       let ani = __mapper("xs").m("anitem")(anima),
         anigram = ani.anigram(),            	// anigram
@@ -45,15 +45,16 @@
         conform = ani.conform(),            	// conform
         parentuid = ani.parentuid(),          // parentuid
         geoform = ani.geoform(),  						// geoform
-        json
+        pacer = payload.pacer  || {}
 
-      let pacer = payload.pacer  || {}
-
-      let initSitus = () => ({x: width / 2, y: height / 2, z: 0 })
-      let eventSitus = () => ({x: mouse.event.x, y: mouse.event.y, z: 0 })
-      let autoSitus = () => ({x: Math.random() * width / 2, y: Math.random() * height / 2, z: 0 })
-
-      autoSitus = () => mstace.getLocus(anigram)
+      let initSitus = ani => ({x: width / 2, y: height / 2, z: 0 })
+      let eventSitus = ani => ({x: mouse.event.x, y: mouse.event.y, z: 0 })
+      let autoSitus = ani => ({x: Math.random() * width / 2, y: Math.random() * height / 2, z: 0 })
+					autoSitus = ani => mstace.getLocus(ani)
+			let fider = ani => "item" + __mapper("xs").m("store").anigrams()
+              .filter(d => d.ric.gid === ani.ric.gid &&  d.ric.cid === ani.ric.cid)
+              .length
+			let geometrier = point => ({type: "Point", coordinates: Object.values(point),})
 
 
       let count = {}          						// items to be generated on cycle
@@ -109,40 +110,35 @@
           if (count[key] > 0) {                           	// if count on this sort
             if (key === "init") {                         	// init defaults center
 
-              situs = initSitus()
+              situs = initSitus(anigram)
 
             } else if (key === "auto") {                  // auto defauts random
 
-              situs = autoSitus()
+              situs = autoSitus(anigram)
 
             } else if (key === "event") {                   // event defaults event
 
-              situs = eventSitus()
+              situs = eventSitus(anigram)
             }
 
-            let newItem = __mapper("xs").b("clone")(anigram)     	// if first cycle clone anigram
-
-
-            let anigramsInClass = __mapper("xs").m("store").anigrams()
-              .filter(d => d.ric.gid === newItem.ric.gid &&  d.ric.cid === newItem.ric.cid)
-              .length
-
-
             let _ric = ric
-            _ric.fid = "item" + anigramsInClass
-            newItem.ric = _ric
+							_ric.fid = fider(anigram)
 
             let _feature = {}
-            _feature = {type: "Feature", geometry: {}, properties: {}}
-            _feature.geometry = {type: "Point", coordinates: [],}
-            _feature.properties.boform = boform
-            _feature.geometry.coordinates = Object.values(situs)
+							_feature = {type: "Feature", geometry: {}, properties: {}}
+							_feature.properties.boform = boform
+							_feature.geometry = geometrier(situs)
 
-            if (0 && 1) console.log("_feature", _feature)
-            newItem.geoform = newItem._feature = _feature	// set geoform feature and keep history
-
+							
+							
+            let newItem = __mapper("xs").b("clone")(anigram)     	// if first cycle clone anigram
+								newItem.ric = _ric
+								newItem.geoform = newItem._feature = _feature	// set geoform feature and keep history
+						
+						
+						
             let newAnigrams = __mapper("xs").h("geojson").gramn(newItem)
-            __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.liner","anigrams":newItem}) // _e_
+            __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.liner","anigrams":newItem})
 
             newItems = [...newItems, ...newAnigrams]
 
@@ -158,14 +154,14 @@
 
     }
 
-    let haloLinerHalo = {}
-    haloLinerHalo.ween = anima => haloLinerHalo_ween(anima)
-    haloLinerHalo.gramn = anima => haloLinerHalo_gramn(anima)
+    let haloPointerHalo = {}
+    haloPointerHalo.ween = anima => haloPointerHalo_ween(anima)
+    haloPointerHalo.gramn = anima => haloPointerHalo_gramn(anima)
 
     /**********************
    *    @enty
    */
-    let enty = haloLinerHalo
+    let enty = haloPointerHalo
 
     return enty
 
@@ -173,4 +169,4 @@
 
   exports.haloPointer = haloPointer
 
-}))
+}));

@@ -17,513 +17,171 @@
 
 <script>
 
-let muonAlima = function muonAlima(__mapper) {
-
+let muonAlima = function (__mapper) {
   __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({canvas:0,svg:1,versor:0,wen:1,webgl:1,img:1,key:1,gui:0,fps:0,stats:0}) // INIT
-
-  let renderer = __mapper("renderRenderer"),
-    width = renderer.width(),
-    height = renderer.height(),
-    scaleView = Math.min(width/2, height)/Math.PI
+  __mapper("xs").b("init")({svg:1,versor:0,wen:0,webgl:1, key:1,})  // INIT
 
   let f = __mapper({"props": muonProps.muonProps()}).props()
   let g = __mapper("xs").m("geom")
-  let mwen = __mapper("xs").m("wen")
-  let cwen = __mapper("xs").c("wen")()
-  let bversor = __mapper("xs").b("versor")()
+  let w = __mapper("xs").m("wen")
+
+
+  let r = __mapper("xs").r("renderer"),
+    width = r.width(),
+    height = r.height()
+
+
+    if (__mapper("controlKey") !== undefined) {
+         let controltimerLeftArrowAlt = () => {       // LEFT ARROW
+
+          if (__mapper("muonAnimation").animationStop !== undefined) {
+               console.log("controltimerLeftArrowAlt")
+            if (__mapper("controlTimer").started()) {
+              __mapper("controlTimer").stop()
+            } else {
+              __mapper("controlTimer").resume()
+            }
+          }
+        }
+        __mapper("controlKey").subscribe(controltimerLeftArrowAlt, "leftArrowAlt")
+     }
+
+
+    if (__mapper("controlKey") !== undefined) {
+         let controltimerUpArrowAlt = () => {         // UP ARROW
+
+            console.log("controltimerUpArrowAlt")
+            __mapper("controlWen").control(__mapper("renderSVG").svg())    // SVG WEN
+
+        }
+        __mapper("controlKey").subscribe(controltimerUpArrowAlt, "upArrowAlt")
+     }
 
 
   /*******************************************
- *      @pics
- */			
-let tim = {"td":9800,"t0":0,"t1":1000,"t2":1,"t3":1,}
-let form = 	{
-			
-				"x": {
-					"m1":[[[4,3.93]]],"m2":[[[4,3.93]]],"n1":2,"n2":2,"n3":[[[2,1]]],"a":[[[2,3]]],"b":1,		// 
-					"m1":[[[4, 3.93]]],"m2":[[[4, 3.93]]],"n1":2,"n2":2,"n3":[[[2,1]]],"a":[[[1,2.5]]],"b":1, // ellipse eye
-					"m1":6,"m2":6,"n1":1000,"n2":400,"n3":400,"a":1,"b":1, // hexagon
-					"m1":5,"m2":5,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
-					"m1":5,"m2":5,"n1":1000,"n2":600,"n3":600,"a":1,"b":1, // pentagon
-					
-					
-					"m1":5,"m2":5,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
-					// "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
-					"m1":[[[4,4,5,5,4]]],"m2":[[[4,4,5,5,4]]],"n1":2,"n2":[[[2,2,7,7,2]]],"n3":[[[2,2,7,7,2]]],"a":1,"b":1,
-					"m1":4,"m2":4,"n1":[[[2,2,100,100,2]]],"n2":[[[2,2,100,100,2]]],"n3":[[[2,2,100,100,2]]],"a":1,"b":1,	// circle-square
-					"m1":4,"m2":4,"n1":[[[100,100]]],"n2":[[[100,100]]],"n3":[[[100,100]]],"a":1,"b":1,	// square
-					
-					"m1":[[[4,5]]],"m2":[[[4,5]]],
-					"n1":[[[100,100,100,100]]],
-					"n2":[[[200,200,100,100]]],"n3":[[[200,200,100,100]]],
-					"a":[[[1,1,1,1]]],"b":[[[1,1,1,1]]],	
-					
-					"ra2": 24,
-					"v0": 0,"v1":1,
-					"w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], // 
-					"seg5": 360,"pa6":0,"pb7":-1,
-					"fas8": 0,
-				},
-				"y": {
-					"m1":[[[4,3.93]]],"m2":[[[4,3.93]]],"n1":2,"n2":2,"n3":[[[2,1]]],"a":[[[2,3]]],"b":1,		// 
-					"m1":[[[4, 3.93]]],"m2":[[[4, 3.93]]],"n1":2,"n2":2,"n3":[[[2,1]]],"a":[[[1,2.5]]],"b":1,
-					
-					"m1":[[[6,5,5,5]]],"m2":[[[6,5,5,5]]],"n1":[[[1000,2,2,1000]]],"n2":[[[4,7,7,600]]],"n3":[[[4,7,7,600]]],"a":1,"b":1,
-					"m1":5,"m2":5,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
-					// "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
-					"m1":[[[4,4,5,5,4]]],"m2":[[[4,4,5,5,4]]],"n1":2,"n2":[[[2,2,7,7,2]]],"n3":[[[2,2,7,7,2]]],"a":1,"b":1,
-					"m1":4,"m2":4,"n1":[[[2,2,100,100,2]]],"n2":[[[2,2,100,100,2]]],"n3":[[[2,2,100,100,2]]],"a":1,"b":1,	// circle-square
-						"m1":4,"m2":4,"n1":[[[100,100]]],"n2":[[[100,100]]],"n3":[[[100,100]]],"a":1,"b":1,	// square
-
-					"m1":[[[4,5]]],"m2":[[[4,5]]],
-					"n1":[[[100,100,100,100]]],
-					"n2":[[[200,200,100,100]]],
-					"n3":[[[200,200,100,100]]],
-					"a":[[[1,1,1,1]]],"b":[[[1,1,1,1]]],	
-
-					
-					
-					"ra2": 24,
-					"v0":0,"v1":1,
-					"w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], // 
-					"seg5": 360,"pa6":0,"pb7":-1,
-					"fas8": 0, 		// fas8, antifase
-				},
-				"z": {
-					"m1":6,"m2":6,"n1":[[[100,200]]],"n2":[[[100,2]]],"n3":[[[100,200]]],"a":1,"b":1, // square
-					"ra2": [[[260/  Math.sqrt(2),260/  Math.sqrt(2)]]],
-					"v0": 0,"v1":1,
-					"w4":  0, // [[[180,360,180]]], // [[[0,-360,0]]],
-					"seg5": 12,"pa6":0,"pb7":-1,
-					"fas8": 0,
-				}
-				
-			} 
-let state = 
-			 {
-					"x": [[[ 50,200,400,450,50,50 ]]],
-					"y": [[[ 200,100,200,50,50,50 ]]],
-					"z": [[[ 200,100,300,100,100,50 ]]],
-			 }
-		// [[[ {			
-				// "x": {
-					// "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
-					// "ra2": 320,
-					// "v0": 0,"v1":1,
-					// "w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], // 
-					// "seg5": 360,"pa6":0,"pb7":-1,
-					// "fas8": 0,
-				// },
-				// "y": {
-					// "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
-					
-					// "ra2": 220,
-					// "v0":0,"v1":1,
-					// "w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], // 
-					// "seg5": 360,"pa6":0,"pb7":-1,
-					// "fas8": -90, 		// fas8, antifase
-				// },					
-				// "z": {
-					// "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
-					
-					// "ra2": 120,
-					// "v0":0,"v1":1,
-					// "w4": [[[90 , 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], // 
-					// "seg5": 360,"pa6":0,"pb7":-1,
-					// "fas8": 0, 		// fas8, antifase
-				// },			
-
-			// } ]]]
-let projection = {
-					"projection": "identity",
-					"scale": 1,
-					"translate": [ 0, 0 ],
-					"rotate": [ 0, 0, 0 ],
-			}		
-/*******************************************
- * 		@animas
- * 
- */					
-// ------------------------------- 	natral		
-let natral = {
-			"pic": {
-				"tim": tim,
-				"ric": {"gid":"nat","cid":"nat","fid":"nat",},
-				"typ":"natral",
-				
-				"form": form,
-				"state": state,
-				"ture": { "csx":0,"cf":[[[500,666]]],"co":[[[0.9,0.9]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],},
-				
-				// "projection": projection,
-				
-			},
-	}				
-	
-	
-	
-	// ------------------------------- 	msg ween		
-	let ween = function (anima, newItems = []) {
-		let anigram	 = __mapper("pluginAnitem").snap(anima, anima.pic.tim.unitTime)
-		let a = __mapper("xs").p("anitem").anitem(anigram)
-				anima.inited = 1
-		
-
-		
-		
-		if (anima.gelded === 1 ) {
-		} else {
-		
-		
-				let mouse = {}
-						mouse.mouseDown = __mapper("xs").p("mouse").mouseDown()
-						mouse.mouseUp = __mapper("xs").p("mouse").mouseUp()
-						mouse.mouseDownShared = __mapper("xs").p("mouse").mouseDownShared()
-						mouse.event = __mapper("xs").p("mouse").event()
-						mouse.x = (mouse.event) ? mouse.event.x : undefined
-						mouse.y = (mouse.event) ? mouse.event.y : undefined
-
-				let imprint = anigram.pic.imprint						// behavior in anima
-
-				let count = {}																	// count
-				if (imprint.gelded !== 1) {														// un gelded
-						if (mouse.event !== undefined && mouse.mouseDown === 1 ) {
-					
-							count.event = Math.floor(imprint.eventN)					// count EVENT
-
-						}	
-						if (imprint.inited === undefined || imprint.inited !== 1)	{
-					
-							count.init = Math.floor(imprint.initN)				// count INIT
-
-					} 
-				
-					let cyletime = anigram.pic.tim.unitPassed - (imprint.outed||0)
-					if (cyletime > imprint.autoP) {
-							count.auto = Math.floor(imprint.autoN)				// count AUTO
-							imprint.outed = anigram.pic.tim.unitPassed		// updated with anima
-							anima.pic.imprint.outed = anigram.pic.tim.unitPassed
-							
-					}
-				} 		
-				
-						console.log("count", count.auto)		
-				
-
-		
-				if (count.auto > 0) {
-		
-		
-		
-				
-						let position = __mapper("xs").p("state").getLocation(anigram)
-						let positions = [ position  ]
-						
-						let animasInClassHowMany = __mapper("pluginStore").animasInClassHowMany(anima)
-						for (let i=0; i<positions.length; i++) {
-
-							let position = positions[i]
-							let size = a.msg.size
-							
-							let txt =  a.msg.txt[animasInClassHowMany + i - 1]
-							
-							let x = position[0]
-							let y = position[1]
-
-							let newItem = __mapper("xs").p("anitem").clone(anima)
-									delete newItem.pic.state						// subject to forces after ween
-									
-									let ric = __mapper("xs").p("anitem").clone(anima.pic.ric)
-											ric.fid = ric.cid + animasInClassHowMany + i
-									newItem.pic.ric	= ric	
-									
-									newItem.uid = __mapper("xs").p("ric").buildUID(newItem)
-
-									newItem.sort = "text"						// sort a text
-									newItem.x = x
-									newItem.y = y
-									newItem.txt = txt 
-									newItem.size = size
-									newItem.textAnchor = "middle"
-									newItem.fontFamily = "sans-serif"
-									
-									newItem.gelded = 1
-									newItem.inited = 1
-							
-							newItems.push(newItem)
-							
-						}
-						
-				}
-						
-				
-		}
-
-console.log("anima", anima)		
-		
-		newItems.push(anima)
-		
-		return newItems			
-	}
-	// ------------------------------- 	msg gramn		
-	let gramn = function gramn(anima, newItems = []) {
-
-		let anigram	 = __mapper("pluginAnitem").snap(anima, anima.pic.tim.unitTime)
-		let newItem = __mapper("xs").p("anitem").clone(anigram)
-		
-		// console.log("newItem", newItem)		
-		
-		
-		newItems.push(newItem)
-		return newItems
-	}	
-
-// ------------------------------- 	typTracemsgs
-let typTracemsgs = {
-					ween: anima => ween(anima),
-					gramn: anima => gramn(anima)
-			}
-			
-// ------------------------------- 	tracemsg
-let tracemsg = {
-			"pic": {
-				"tim": tim,
-				"ric": {"gid":"msg","cid":"msg","fid":"msg",},
-				"typ": typTracemsgs,
-
-				"state": state,
-				
-				"ture": { "csx":0,"cf":[[[500,666]]],"co":[[[0.9,0.9]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],},
-				
-				"projection": projection,
-				
-				"msg": {
-					"txt": ["should", "words", "be", "subject", "to", "gravity", "?", " ", " "],
-					"size":18,
-					"pos":[[[ [0,0] ]] , 	[[ [360,360] ]]],
-					"fas":  [[[180,180 + 360]]],
-					"step":12,
-					"div":1,
-					"mod":13,
-					"z":0, 
-					"dist":[[[12,12,12]]],						
-				},
-				
-				"imprint": {
-					"initN": 0,
-					"eventN": 0,
-					"autoN": 1,
-					"autoP": 0.05,
-					"outed": 0,
-					"maxN": 60,
-				}				
-				
-				
-			},
-	}
-/*******************************************
- * 			@forces
- * 
+ *    	@pics
+ *
  */
-	 // force_energy 	
-	let  force_energy = {
-			"pic": {
-				alpha: 1 ,
-				alphaMin: 0.001, 
-				alphaDecay: 0, 
-				alphaTarget: 0, 
-			},
+
+  let tim = {"td":52800,"t0":0,"t1":1000,"t2":1,"t3":1,}
 
 
-			"field":  function field (params = {}) {
+  /*******************************************
+ *    	@animas
+ *
+ */
 
-			
-				let nodes = params.nodes
-				let forces = []
-			
-				let forceParams =  {
-						"type": "energy",
-						"filter": d => true,
-						"src": d3_force,
-						"nodes": nodes,
-					}
 
-				let  field = 	{
-						"key": "energy",
-						"force": __mapper("xs").p("forces").force(forceParams)		
-						
-					}
-						
-				forces.push(field)		
-				
-				return forces
-			
-			}
-		}	
-		// force_viscosity
-	let  force_viscosity = {
-			"pic": {
-				velocityDecay: 0.0002,
-			},
+  // -------------------------------  pointform
+  let pointform = {
 
-			"field":  function field (params = {}) {
-			
-				let nodes = params.nodes
-	
-				let forces = []
-			
-				let forceParams =  {
-						"type": "noforce",
-						"filter": d => true,
-						"src": d3_force,
-						"nodes": nodes,
-				}
+    "tim": tim,
+    "ric": {"gid":"nat","cid":"nat","fid":"pointform",},
+    "halo": "pointer",
 
-				let  field = 	{
-						"key": "viscosity",
-						"force": __mapper("xs").p("forces").force(forceParams)		
-				}
-				
-				forces.push(field)		
-				
-				return forces
-			
-			}
-		}
-		// force_manybody
-		let  force_manybody = {
-		"pic": {
-			"charge": -1.9,
-		},
 
-		"field":   params => {
-		
-			let nodes = params.nodes
-			let forces = []
-			
-			let charge = params.pic.charge
-			
-			let forceParams =  {
-					type: "manybody",
-					strength: charge,
-					filter: d => d.pic.ric.gid === "msg",
-					dim: 2,
-					src: d3_force,		// d3
-					nodes: nodes,
-				}
+    "boform": { "csx":0,"cf":[[[444,999]]], "co":[[[0.9,0.9]]], "cs":[[[555,999]]],"cw":[[[2.7,2.7]]],"cp":[[[0.9,0.9]]],},
 
-			let  field = 	{
-			
-				"key": "charge",
-				"force": __mapper("xs").p("forces").force(forceParams)							
-				
-			}
-			forces.push(field)		
-			return forces
-			
-		}
-	}	
-		// force_manybody
-let forceGravity = function forceGravity(params) {
+    "proform": {
+        "projection": "uniwen",
+        "center":  [ 0, 0, 0],
+        "translate":  {"x": 0, "y": 0, "z": 0, },
+        "scale": 1,
+        "rotate": [0,0,0],
+        "focale": Infinity,
+        "zafin": [0,1],
+        "dims": 3,
+        "control": "wen",
+    },
 
-  let nodes = params.nodes
-	let newNodes = []
+    "payload": {
+      pacer: {
+        "initN": 0,
+        "eventN": 1,
+        "autoN": 0,
+        "autoP": 0.1,
+        "outed": 0,
+        "maxN": 60,
+        "span": 15 / 1400,
+      }
+    }
 
-	
-	let gravity = (params.gravity !== undefined) ? params.gravity : 0.6
-
-	function force() {
-
-		for (let i = 0; i < nodes.length; ++i) {
-
-				let node = nodes[i]
-				node.vx += 0.001 * Math.random()
-				node.vy += gravity 
-				node.vz += gravity
-
-		}
   }
 
-	function initialize() {
-    if (!nodes) return
-  }
+  // -------------------------------  text
+  let text = {
 
-	return force
-}		
+    "tim": tim,
+    "ric": {"gid":"text","cid":"text","fid":"text",},
+    "halo":"text",
+    "boform": { "csx":0,"cf":[[[888,777]]],"cs":111,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
-	let  force_gravity = {
-		"pic": {
+    "geoform": p => ({
+      type:  "Feature",
+      geometry: {
 
-			"gravity": 0.001 ,
+        "type": "Point",
+        "coordinates": [0, 0]
+
+      },
+      properties: {
+				sort: "text",
+        text: p.payload.text.text,
+        style: {
+          ["font-size"]: p.payload.text.style["font-size"],
+        }
+      }
+    }),
+
+    "proform": {
+			"projection": "uniwen",
+			"center": [ 0, 0 ],
+			"translate": [ 150, 200 ],
+			"scale": 1,
+			"rotate": [ 0, 0, [[[0,0]]] ],
+			"focale": 12,
+			"zafin": [1,0],
+			"dims": 2,
+			"control": "wen",
 		},
 
+    "payload": {
 
-		"field":   params => {
-		
-			let nodes = params.nodes
-			let forces = []
-			
-			let gravity = params.pic.gravity
-			
-			let forceParams =  {
-					type: "gravity",
-					gravity: gravity,
-					filter: d => d.pic.ric.gid === "msg" || d.pic.ric.gid === "nat",
-										dim: 2,
-					src: d3_force,
-					nodes: nodes.filter(d => d.pic.ric.gid === "msg" || d.pic.ric.gid === "nat"),
-				}
+      "text": {
+        "text":"hi e",
+        "style": {
+          ["font-size"]: 24,
+          ["font-family"]: "BankFuturistic",
+          ["text-anchor"]: "center",
 
-			let  field = 	{
-				
-					"key": "gravity",
-					"force": forceGravity(forceParams)
-						
-			}
-			forces.push(field)		
-			return forces
-			
-		}
-	}	 	
+        }
+      },
 
-/*******************************************
+    }
+  }	
+
+  /*******************************************
  * @animaApi
- * 
+ *
  */
-		tracemsg.forces = {
-			force_energy,
-			force_viscosity,
-			// force_manybody,		
-			force_gravity,		
-		}
-		
-		// natral.avatars = {
-			// tracemsg			// tracemsg
-		// }
-		
-		let animas = [
-			tracemsg,			// msg
-			natral,			// natral
-		] 
 
+  let animas = [
+    pointform,     // h.pointer
+    text,     // h.text
 
-		var animaApi = function animaApi() {
-			
-				for (let i=0; i < animas.length; i++) {
-					let anima = animas[i]
-					let newAnimas = __mapper("xs").p("store").ween(anima)
-						__mapper("xs").p("store").apply({"type":"UPDANIMA","caller":"alima","animas":newAnimas})
-					
-				}
-			
-		}
-	
-	return animaApi
+  ]
+
+  let animaApi = function animaApi() {
+
+    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
+
+  }
+
+  return animaApi
 
 }
 
-var __mapper = pluginMapper.pluginMapper()
-var pluginAlima = __mapper({'pluginAlima': pluginAlima(__mapper)}).pluginAlima(__mapper)
+let __mapper = bosonMapper.bosonMapper()
+__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>
