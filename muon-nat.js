@@ -235,7 +235,12 @@
         return [x,y,z]
       }
     }
+		
 
+    let natcoords = function(form) {
+			return Array.of(multiconform(nform(form)))
+
+		}
     /***************************
      *        @enty
      */
@@ -247,6 +252,7 @@
     enty.multiconform = multiconform  //
     enty.nform = nform  //
     enty.natform = natform
+    enty.natcoords = natcoords
 
     return enty
 

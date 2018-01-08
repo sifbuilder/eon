@@ -22,10 +22,9 @@
   // })
 
 // ------------------------- muonSimulation
-  let muonSimulation = function muonSimulation(__mapper = {}) {
+  let muonSimulation = function (__mapper = {}) {
 
-    let props = __mapper("props")()
-    let f = props.lib
+    let f = __mapper("props")()
     let sim = d3_force.forceSimulation()    //
     let dim = 3
 

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function (__mapper) {
+  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
+  __mapper("xs").b("init")({svg:1,versor:0,wen:1,webgl:1,key:1,})  // INIT
+
+  let f = __mapper({"props": muonProps.muonProps()}).props()
+  let mgeom = __mapper("xs").m("geom")
+  let mwen = __mapper("xs").m("wen")
+	let mnat = __mapper("xs").m("nat")
+
+  let r = __mapper("xs").r("renderer"),
+    width = r.width(),
+    height = r.height()
+
+
+    if (__mapper("controlKey") !== undefined) {
+         let controltimerLeftArrowAlt = () => {       // LEFT ARROW
+
+          if (__mapper("muonAnimation").animationStop !== undefined) {
+               console.log("controltimerLeftArrowAlt")
+            if (__mapper("controlTimer").started()) {
+              __mapper("controlTimer").stop()
+            } else {
+              __mapper("controlTimer").resume()
+            }
+          }
+        }
+        __mapper("controlKey").subscribe(controltimerLeftArrowAlt, "leftArrowAlt")
+     }
+
+
+    if (__mapper("controlKey") !== undefined) {
+         let controltimerUpArrowAlt = () => {         // UP ARROW
+
+            console.log("controltimerUpArrowAlt")
+            __mapper("controlWen").control(__mapper("renderSVG").svg())    // SVG WEN
+
+        }
+        __mapper("controlKey").subscribe(controltimerUpArrowAlt, "upArrowAlt")
+     }
+
+
+  /*******************************************
+ *    	@pics
+ *
+ */
+
+  let tim = {"td":52800,"t0":0,"t1":1000,"t2":1,"t3":1,}
+
+  let formCirc =  {
+
+    "x": {
+      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circle
+      "ra2": 100,
+      "v0": 0, "v1": 1,
+      "seg5": 360,
+      "w4": [[[90 , 90 - 0 * 360]]],
+      "pa6": 0,
+      "pb7": 360,
+      "fas8": 0,
+    },
+
+    "y": {
+      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circle
+      "ra2": 100,
+      "v0": 0, "v1": 1,
+      "seg5": 360,
+      "w4": [[[90 , 90 - 0 * 360]]],
+      "pa6": 0,
+      "pb7": 360,
+      "fas8": -90,
+    },
+
+  }	
+
+  /*******************************************
+ *    	@animas
+ *
+ */
+
+
+  // -------------------------------  nat1
+  let nat1 = {
+
+    "tim": tim,
+    "ric": {"gid":"nat","cid":"nat","fid":"circ",},
+    "halo": "geojson",
+
+    "geoform":  (p) => ({
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": mnat.natcoords(p.payload.form)
+      },
+      "properties": {}
+    }),
+
+    "proform": {
+			"projection": "uniwen",
+			"center": [ [[[300,350]]], 200 ],
+			"translate": [[[ {
+					"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
+					"ra2": 30,
+					"v0": 0,"v1": 1,
+					"w4": 0,
+					"seg5": 360,
+					"pa6": 0,
+					"pb7": -1,
+					"fas8": 0,
+				} ]]],
+			"scale": 1,
+			"rotate": [ 0, 0, [[[0,0]]] ],
+			"focale": 12,
+			"zafin": [1,0],
+			"dims": 2,
+			"control": "wen",
+		},
+		
+    "boform": { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.19,0.19]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],},
+		
+    "payload": { 
+				form: {
+
+					"x": {
+						"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circle
+						"ra2": 20,
+						"v0": 0, "v1": 1,
+						"seg5": [[[360,360]]],
+						"w4": [[[90 , 90 - 0 * 360]]],
+						"pa6":0,
+						"pb7":360,
+						"fas8": 0,
+					},
+
+					"y": {
+						"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circle
+						"ra2": 20,
+						"v0": 0, "v1": 1,
+						"seg5": [[[360,360]]],
+						"w4": [[[90 , 90 - 0 * 360]]],
+						"pa6":0,
+						"pb7":360,
+						"fas8": -90,
+					} 
+			},
+		}
+  }
+/*******************************************
+ * 			@forces
+ * 
+ */
+	 // force_energy 	
+	let  force_energy = {
+			"pic": {
+				alpha: 1 ,
+				alphaMin: 0.001, 
+				alphaDecay: 0, 
+				alphaTarget: 0, 
+			},
+
+
+			"field":  function field (params = {}) {
+
+			
+				let nodes = params.nodes
+				let forces = []
+			
+				let forceParams =  {
+						"type": "energy",
+						"filter": d => true,
+						"src": d3_force,
+						"nodes": nodes,
+					}
+
+				let  field = 	{
+						"key": "energy",
+						"force": __mapper("xs").m("forces").force(forceParams)		
+						
+					}
+						
+				forces.push(field)		
+				
+				return forces
+			
+			}
+		}	
+		// force_viscosity
+	let  force_viscosity = {
+			"pic": {
+				velocityDecay: 0.0002,
+			},
+
+			"field":  function field (params = {}) {
+			
+				let nodes = params.nodes
+	
+				let forces = []
+			
+				let forceParams =  {
+						"type": "noforce",
+						"filter": d => true,
+						"src": d3_force,
+						"nodes": nodes,
+				}
+
+				let  field = 	{
+						"key": "viscosity",
+						"force": __mapper("xs").m("forces").force(forceParams)		
+				}
+				
+				forces.push(field)		
+				
+				return forces
+			
+			}
+		}
+		// force_manybody
+		let  force_manybody = {
+		"pic": {
+			"charge": -1.9,
+		},
+
+		"field":   params => {
+		
+			let nodes = params.nodes
+			let forces = []
+			
+			let charge = params.pic.charge
+			
+			let forceParams =  {
+					type: "manybody",
+					strength: charge,
+					filter: d => d.ric.gid === "nat",
+					dim: 2,
+					src: d3_force,		// d3
+					nodes: nodes,
+				}
+
+			let  field = 	{
+			
+				"key": "charge",
+				"force": __mapper("xs").m("forces").force(forceParams)							
+				
+			}
+			forces.push(field)		
+			return forces
+			
+		}
+	}	
+		// force_manybody
+let forceGravity = function forceGravity(params) {
+
+  let nodes = params.nodes
+	let newNodes = []
+
+	
+	let gravity = (params.gravity !== undefined) ? params.gravity : 0.6
+
+	function force() {
+
+		for (let i = 0; i < nodes.length; ++i) {
+
+				let node = nodes[i]
+				// node.vx += 0.001 * Math.random()
+				node.vy += gravity 
+				node.vz += gravity
+
+		}
+  }
+
+	function initialize() {
+    if (!nodes) return
+  }
+
+	return force
+}		
+
+	let  force_gravity = {
+		"pic": {
+
+			"gravity": 0.001 ,
+		},
+
+
+		"field":   params => {
+		
+			let nodes = params.nodes
+			let forces = []
+			
+			let gravity = params.pic.gravity
+			
+			let forceParams =  {
+					type: "gravity",
+					gravity: gravity,
+					filter: d => d.ric.gid === "nat" || d.ic.gid === "nat",
+										dim: 2,
+					src: d3_force,
+					nodes: nodes.filter(d => d.ric.gid === "nat" || d.ric.gid === "nat"),
+				}
+
+			let  field = 	{
+				
+					"key": "gravity",
+					"force": forceGravity(forceParams)
+						
+			}
+			forces.push(field)		
+			return forces
+			
+		}
+	}	 	
+
+  /*******************************************
+ * 				@animaApi
+ *
+ */
+		nat1.forces = {
+			force_energy,
+			force_viscosity,
+			force_manybody,		
+			force_gravity,		
+		}
+ 
+
+  let animas = [
+    nat1,     // h.geojson
+
+  ]
+
+  let animaApi = function animaApi() {
+
+    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
+
+  }
+
+  return animaApi
+
+}
+
+let __mapper = bosonMapper.bosonMapper()
+__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>
