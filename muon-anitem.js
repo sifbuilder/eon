@@ -56,53 +56,31 @@
       // }
 
       let c = {
-
-        // stace: f.v((d||{}).stace),  // stace: {a,b,c}
-
+			
+        payload: d.payload,   // {initN,eventN,autoN,autoP,outed,maxN}
+			
+			
         avatars: d.avatars,         // avatars: {}
-        // fields: d.fields,           // fields: {pic, field}
         forces: d.forces,           // forces: {pic, field}
-
-        // form: d.form,
-
-        // from: d.from,           // from form in tern
-        // fuel: d.fuel,           // fuel
-
         ereform: (d||{}).ereform,   // ereform()
 
         _feature: d._feature,       // _feature   -- from f.gramn
         feature: d.feature,       // feature    -- from f.gramn
-        // geometry: d.geometry,        // geometry   -- from f.gramn
 
         geoform: (d||{}).geoform,   // geoform()
 
-        // graticule: d.graticule, // extent: {}
-        payload: d.payload,   // {initN,eventN,autoN,autoP,outed,maxN}
-        // nums: d.nums,   // {ra2, pos, fas, step, dist, div, mod, z}
-        // parent: d.parent || {}, // parent - default to empty object
         parentuid: d.parentuid,     // parentuid
-        // pic: d,                 // pic:{}
-
-        // coform: d.coform,   // projection, scale, translate, rotate
         conform: d.conform,
 
         proform: d.proform, // projection, scale, translate, rotate
 
-        // reticule: d.reticule, //
-        // msg: d.msg,           //
-
         ric: d.ric,           // {type, gid, cid, fid}
         tim: d.tim,           // tim: {t0,t1,t2,t3}
 
-        // to: d.to,             // to form in tern
-        // trace: d.trace,       // trace: {hquan, hmod}
         boform: d.boform,         // {csx,cf,cs,cw
-        // voro: d.voro,         // {hsamp, f, t}
-        // vorts: d.vorts,       // {pos,fas,step,dist,div,mod,z}
 
         halo: d.halo,        // d.halo, //
 
-        // nid: d.nid,               // nid
         uid: d.uid,               // uid
         x: d.x,                   //
         y: d.y,                   //
@@ -225,45 +203,21 @@
     enty.form = (_) => { return _ !== undefined ? (anitem.form = _, anitem) : anitem.form }
     enty.form$2 = (_) => { return _ !== undefined ? (anitem.form = _, anitem) : (delete anitem.form.z, anitem.form)}
 
-
-    // enty.from = (_) => { return _ !== undefined ? (anitem.from = _, anitem) : anitem.from }
-    // enty.fuel = (_) => { return _ !== undefined ? (anitem.fuel = _, anitem) : anitem.fuel }
-
     enty.ereform = (_) => {  return _ !== undefined ? (anitem.ereform = _, anitem) : anitem.ereform }
-
-    // enty._geometry = (_) => {  return _ !== undefined ? (anitem._feature.geometry = _, anitem) : anitem._feature.geometry }
-    // enty.geometry = (_) => {  return _ !== undefined ? (anitem.feature.geometry = _, anitem) : anitem.feature.geometry }
-    // enty._feature = (_) => {  return _ !== undefined ? (anitem._feature = _, anitem) : anitem._feature }
-    // enty.feature = (_) => {  return _ !== undefined ? (anitem.feature = _, anitem) : anitem.feature }
 
     enty.geoform = (_) => {  return _ !== undefined ? (anitem.geoform = _, anitem) : anitem.geoform }
 
-    // enty.graticule = (_) => { return _ !== undefined ? (anitem.graticule = _, anitem) : anitem.graticule }
-    // enty.nums = (_) => { return _ !== undefined ? (anitem.nums = _, anitem) : anitem.nums }
     enty.payload = (_) => { return _ !== undefined ? (anitem.payload = _, anitem) : anitem.payload }
 
     enty.proform = (_) => { return _ !== undefined ? (anitem.proform = _, anitem) : anitem.proform }
 
-    // enty.reticule = (_) => { return _ !== undefined ? (anitem.reticule = _, anitem) : anitem.reticule }
     enty.ric = (_) => { return _ !== undefined ? (anitem.ric = _, anitem) : anitem.ric }
-    // enty.stace = (_) => { return _ !== undefined ? (anitem.stace = _, anitem) : anitem.stace }
     enty.tim = (_) => { return _ !== undefined ? (anitem.tim = _, anitem) : anitem.tim }
     enty.boform = (_) => { return _ !== undefined ? (anitem.boform = _, anitem) : anitem.boform }
-    // enty.trace = (_) => { return _ !== undefined ? (anitem.trace = _, anitem) : anitem.trace }
-    // enty.to = (_) => { return _ !== undefined ? (anitem.to = _, anitem) : anitem.to }
 
     enty.avatars = (_) => { return _ !== undefined ? (anitem.avatars = _, anitem) : anitem.avatars }
-    // enty.parent = (_) => { return _ !== undefined ? (anitem.parent = _, anitem) : anitem.parent }
     enty.parentuid = (_) => { return _ !== undefined ? (anitem.parentuid = _, anitem) : anitem.parentuid }
     enty.uid = (_) => { return _ !== undefined ? (anitem.uid = _, anitem) : anitem.uid }
-
-    // enty.segs = () => {
-      // let segs = 0
-      // segs = Math.max((anitem.form.x.seg5 || 0), segs)
-      // segs = Math.max((anitem.form.y.seg5 || 0), segs)
-      // segs = Math.max(((anitem.form.z||{}).seg5 || 0), segs)
-      // return segs
-    // }
 
     enty.anilocation = a => [ a.x, a.y, a.z ]
     enty.x = a => a.x
