@@ -49,9 +49,9 @@
 		json = mgeoj.zorder(json) 											// order
 		json = mric.qualier(ric, anigram, json)					// qualify
 
-		if (1 && 1) console.log("h.geojson.gramn proform", f.v(proform, anigram))
-		if (1 && 1) console.log("h.geojson.gramn json", json)
-		if (1 && 1) {
+		if (0 && 1) console.log("h.geojson.gramn proform", f.v(proform, anigram))
+		if (0 && 1) console.log("h.geojson.gramn json", json)
+		if (0 && 1) {
 			let coordinates = json.features[0].geometry.coordinates
 			console.log("h.geojson.gramn json", coordinates[coordinates.length -1])
 		}

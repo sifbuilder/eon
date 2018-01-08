@@ -7,123 +7,36 @@
     body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
     div#fps,svg { position: fixed; top:0; left:0; color: white; }
   </style>
-	
+
 </head>
 <body style="cursor:crosshair"></body>
-
-<!--  d3   -->
-<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
-<!-- <script src="https://d3js.org/d3-geo.v1.min.js"></script> -->
-<!-- <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> -->
-<!-- <script src="https:////unpkg.com/d3-force-3d@1.0/build/d3-force-3d.bundle.min.js"></script> -->
-<!--  topojson   -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.0/topojson.min.js"></script> -->
-<!--  three   -->
-<!-- <script src="https:////cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script> -->
-<!-- <script src="https:////unpkg.com/three-trackballcontrols-web@0.0.2/dist/three-trackballcontrols.min.js"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script> -->
-<!-- <script src="https://unpkg.com/d3-force-magnetic@0.6.1/dist/d3-force-magnetic.min.js"></script> -->
-
-
 <div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
 <script src="ents.js"></script>
 
 <script>
-/*******************************************
- * 			@PLUGIN
- *
- */	
-	var pluginAlima = function pluginAlima(__mapper) {
 
-		let props = __mapper({'props': pluginProps.pluginProps()}).props()	// props
-		let f = props.lib																// function
-		let local = {}																	// local
-		
-		__mapper({"xs": xs.xs(__mapper)})								// PROXIES
-		
-		// __mapper({"renderCanvas": renderCanvas.renderCanvas(__mapper)})	// CANVAS
-		
-		__mapper({"renderSVG": renderSVG.renderSVG(__mapper)})						// SVG
-		__mapper("xs").c("versor").control(__mapper("renderSVG").svg()) // SVG VERSOR	
-		// __mapper("xs").c("pos")(__mapper("renderSVG").svg())		// SVG POSITION
-		__mapper("xs").p("image")("zimg-black.jpg")				// BCK IMAGE
-		
-		__mapper({"renderWebgl": renderWebgl.renderWebgl(__mapper)})				// WEBGL
-		
-		__mapper({'pluginAnimation': pluginAnimation.pluginAnimation(__mapper)})	// ANIMATION
-		__mapper({'pluginStore': pluginStore.pluginStore(__mapper)})				// STORE
-		
-		__mapper("xs").c("key").start()									// KEYBRD CONTROLS	
-		
-/*******************************************
- * 		@controls
- * 
- */					
-	// .............................................. gui
-		// gui = new dat.GUI()
-		// gui.add(window, "restart")
-		
-	// .............................................. RightArrowAlt
-	let controltimerRightArrowAlt = () => {
+let muonAlima = function muonAlima(__mapper) {
 
-		if (__mapper("pluginAnimation").animationStop !== undefined)
-			{
-			console.log("started",__mapper("controlTimer").started())
-			if (__mapper("controlTimer").started()) {
-					__mapper("controlTimer").stop()
-			} else {
-					console.log("controlTimer resume")
-					__mapper("controlTimer").resume()
-			}	
-		}
-	}
-	__mapper("controlKey").subscribe(controltimerRightArrowAlt, "rightArrowAlt")
-	
-	
-	let mouseDownListener = function mouseDownListener(event) {
-		
-		__mapper("xs").p("mouse").mouseDown(1)
-		__mapper("xs").p("mouse").mouseDownShared(1)
-		__mapper("xs").p("mouse").event(event)
+  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
+  __mapper("xs").b("init")({canvas:0,svg:1,versor:0,wen:1,webgl:1,img:1,key:1,gui:0,fps:0,stats:0}) // INIT
 
-	}		
+  let renderer = __mapper("renderRenderer"),
+    width = renderer.width(),
+    height = renderer.height(),
+    scaleView = Math.min(width/2, height)/Math.PI
 
-	let mouseUpListener = function mouseUpListener(event) {
-
-		__mapper("xs").p("mouse").mouseDown(0)
-		__mapper("xs").p("mouse").mouseDownShared(0)
-		
-	}
-	__mapper("xs").c("key").start()									// MOUSE
-	
-	if (__mapper("renderSVG")) __mapper("xs").c("mouseDown").control(__mapper("renderSVG").svg()).subscribe(mouseDownListener, __mapper("renderSVG").svg())
-	if (__mapper("renderSVG")) __mapper("xs").c("mouseUp").control(__mapper("renderSVG").svg()).subscribe(mouseUpListener, __mapper("renderSVG").svg())	
-	
-/*******************************************
- * 		@FPS
- * 
- */				
-// const fpsdiv = d3.select('body').append('div').attr('id','fps') 
-// __mapper("xs").p("fps").init()	
-
-/*******************************************
- * 		@STATS
- * 
- */				
-var stats = __mapper("xs").p("stats")() // new Stats();
-stats.showPanel( -1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
-document.body.appendChild( stats.dom );
-function animate() {
-	stats.begin();	/* monitored code goes here */; stats.end()
-	requestAnimationFrame( animate )
-}
-requestAnimationFrame( animate )
+  let f = __mapper({"props": muonProps.muonProps()}).props()
+  let g = __mapper("xs").m("geom")
+  let mwen = __mapper("xs").m("wen")
+  let cwen = __mapper("xs").c("wen")()
+  let bversor = __mapper("xs").b("versor")()
 
 
-/*******************************************
- * 		@vars
- * 
- */				
+  /*******************************************
+ *      @pics
+ */			
 let tim = {"td":9800,"t0":0,"t1":1000,"t2":1,"t3":1,}
 let form = 	{
 			
@@ -251,7 +164,7 @@ let natral = {
 	
 	
 	// ------------------------------- 	msg ween		
-	let ween = function gramn(anima, newItems = []) {
+	let ween = function (anima, newItems = []) {
 		let anigram	 = __mapper("pluginAnitem").snap(anima, anima.pic.tim.unitTime)
 		let a = __mapper("xs").p("anitem").anitem(anigram)
 				anima.inited = 1
@@ -259,13 +172,8 @@ let natral = {
 
 		
 		
-		
-		
-		
 		if (anima.gelded === 1 ) {
 		} else {
-		
-		
 		
 		
 				let mouse = {}
