@@ -1,15 +1,13 @@
-/* -------------------------- */		
-/*     controlPos		          */		
-/* -------------------------- */	
+  /**********************
+   *    @controlPos
+   */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
   (factory((global.controlPos = global.controlPos || {})));
 }(this, function (exports) { 'use strict';
 
-/*  -------------          */
-/*    controlPos        */
-/*  -------------          */
+
 	function controlPos(__mapper) {
 	
 		function prevent(e) {}		
@@ -121,7 +119,6 @@
 				selection.on("mouseout.pos", ended)	
 		}
 		
-		// selection.call(controlPos)
 		return controlPos
 }		
 

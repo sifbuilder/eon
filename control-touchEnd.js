@@ -1,11 +1,6 @@
-
-/* 																	*/
-/* 				touchEndControl.js   		*/
-/* 																	*/
-
-if (typeof require === "function") {
-	var d3 = require('./d3.v4.js')
-}	
+  /**********************
+   *    @touchEndControl
+   */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -18,7 +13,7 @@ if (typeof require === "function") {
 		var currentListeners = []
 		var nextListeners = currentListeners
 
-	// ____________________ ensureCanMutateNextListeners
+	// ....................... ensureCanMutateNextListeners
 		function ensureCanMutateNextListeners() {
 				if (nextListeners === currentListeners) {
 					nextListeners = currentListeners.slice()
@@ -43,16 +38,16 @@ if (typeof require === "function") {
 				}									
 		}
 
-		// ____________________ controlApi
-		function controlApi() {}
+		// ....................... enty
+		function enty() {}
 		
-		// ____________________ start
-		controlApi.start = function start(svg) {
+		// ....................... start
+		enty.start = function (svg) {
 					svg.on('touchend', 	function() {controlAction(this)})
-					return controlApi
+					return enty
 		}
-		// ____________________ subscribe
-		controlApi.subscribe = function subscribe (listener) {
+		// ....................... subscribe
+		enty.subscribe = function (listener) {
 			if (typeof listener !== 'function') {
 				throw new Error('Expected listener to be a function.')
 			}
@@ -72,7 +67,7 @@ if (typeof require === "function") {
 			}
 		}
 		
-		return controlApi
+		return enty
 	}
 
 

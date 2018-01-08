@@ -1,9 +1,10 @@
-// https://github.com/d3/d3-geo-polygon Version 1.0.1. Copyright 2017 Mike Bostock.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-array')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-array'], factory) :
 	(factory((global.d3 = global.d3 || {}),global.d3));
 }(this, (function (exports,d3Array) { 'use strict';
+
+// https://github.com/d3/d3-geo-polygon Version 1.0.1. Copyright 2017 Mike Bostock.
 
 function noop() {}
 

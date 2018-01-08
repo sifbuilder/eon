@@ -116,7 +116,7 @@
 
 					if (anigram !== undefined) {
 						
-								stace = stace || anigram.stace
+								stace = stace || anigram.payload.boform
 
 
 								if (stace !== undefined && Array.isArray(stace)) {  // stace :: [x,y,z]
@@ -132,7 +132,7 @@
 
 								}
 
-								else if (stace !== undefined && typeof stace === "object") { // anigram.stace.{x,y,z}
+								else if (stace !== undefined && typeof stace === "object") { // anigram.payload.boform.{x,y,z}
 
 
 									let location = []
@@ -164,7 +164,7 @@
 
 								if (locations.length === 0) {           // if still nothing, try to inherit from parent
 										
-										let parentuid = anigram.parentuid
+										let parentuid = anigram.payload.parentuid
 
 										if (parentuid !== undefined) {
 											parent = mstore.findAnigramFromUid(parentuid)
@@ -197,9 +197,9 @@
 
     let getReffion = function (stace, anigram = {}) {
 
-      stace = stace || anigram.stace
+      stace = stace || anigram.payload.boform
 
-      let geometry = anigram.feature.geometry
+      let geometry = anigram.payload.feature.geometry
       let coords = __mapper("xs").m("geoj").getCoords(geometry)
 
       let refs = f.unslide(coords)      // unidim coords
@@ -218,7 +218,7 @@
  */
     let getLocus = function (stace, anigram ) {
 			
-			stace = stace || anigram.stace
+			stace = stace || anigram.payload.boform
 
 			if (0 && 1) console.log("  ********getLocus", anigram)
 	
@@ -283,7 +283,7 @@
  *        @getReffier
  */
     let getReffier = function (stace, anigram = {}) {
-      stace = stace || anigram.stace
+      stace = stace || anigram.payload.boform
       if ( stace && stace.x && stace.x.ref &&       // stace.x.ref
                     stace.y &&  stace.y.ref) {      // stace.y.ref
 

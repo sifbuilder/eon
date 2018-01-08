@@ -30,10 +30,10 @@ let haloFuel = function haloFuel(__mapper = {}) {
         conform = ani.conform(),             // conform
         geoform = ani.geoform(),            // geoform
         payload = ani.payload(),
-					tim = anigram.tim,                 // tim
-					ric = anigram.ric,                 // ric
-					uid = anigram.uid,                 // uid
-					parentuid = anigram.parentuid,
+					tim = anigram.payload.tim,                 // tim
+					ric = anigram.payload.ric,                 // ric
+					uid = anigram.payload.uid,                 // uid
+					parentuid = anigram.payload.parentuid,
         fuel = payload.fuel,
 					ra2 = fuel.ra2,
 					candidates = fuel.candidates,
@@ -87,7 +87,7 @@ let haloFuel = function haloFuel(__mapper = {}) {
  *        @enty
  */
     let haloFuel = {}
-        haloFuel.ween = anima => (anima.inited !== true) ? (anima.inited = true, [anima]) : []
+        haloFuel.ween = anima => (anima.payload.inited !== true) ? (anima.payload.inited = true, [anima]) : []
         haloFuel.gramn = anima => gramn(anima)
 
     let enty = haloFuel

@@ -1,6 +1,6 @@
-/* -------------------------- */		
-/*     controlKey	        		*/
-/* -------------------------- */	
+  /**********************
+   *    @controlKey
+   */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -17,7 +17,7 @@
 		var __currentListeners = {}
 		var __nextListeners = __currentListeners
 
-	// ____________________ ensureCanMutateNextListeners
+	// ....................... ensureCanMutateNextListeners
 		function ensureCanMutateNextListeners(target) {
 			if (nextListeners === currentListeners) {
 				nextListeners = currentListeners.slice()
@@ -30,7 +30,7 @@
 			}
 		}
 		
-	// ____________________ pauseEvent
+	// ....................... pauseEvent
 	function pauseEvent(e){
 						if(e.stopPropagation) e.stopPropagation()
 						if(e.preventDefault) e.preventDefault()
@@ -38,7 +38,7 @@
 						e.returnValue=false
 						return false
 				}			
-	// ____________________ controlAction
+	// ....................... controlAction
 	var controlAction = function controlAction(e) {
 			pauseEvent(e)
 			var listeners = currentListeners = nextListeners
@@ -47,9 +47,8 @@
 			}									
 		}
 
-		// ____________________ subscribe
+		// ....................... subscribe
 		let subscribe = function subscribe (listener, target) {
-			// console.log(" -------  control key subscribe", listener.name)
 			
 			if (typeof listener !== 'function') {
 				throw new Error('Expected listener to be a function.')
@@ -82,7 +81,7 @@
 			}
 		}
 		
-	// ____________________ handleKeyDown
+	// ....................... handleKeyDown
 		// https://www.kirupa.com/html5/keyboard_events_in_javascript.htm
 		// https://github.com/gaearon/redux-devtools-dock-monitor
 		var handleKeyDown = function handleKeyDown(event) {
@@ -129,25 +128,26 @@
 				// else if (event.keyCode == '38' &&  keys[17]) upArrowCtrl()		// CTRL-UP
 				// else if (event.keyCode == '40' &&  keys[17]) downArrowCtrl()	// CTRL-DOWN
 		}	
-		// ____________________ fKeyCtrl
+		// ....................... fKeyCtrl
 		var fKeyCtrl = function fKeyCtrl() {		// change view
 				// // Ctrl 17 + Shift 16  + f 70
 		}
-			// ____________________ dKeyCtrl
+			// ....................... dKeyCtrl
 		var dKeyCtrl = function dKeyCtrl() {		// change debug mode
 				// // Ctrl 17 + Shift 16  + d 68
 		}
-		// ____________________ handleKeyPressed
+		// ....................... handleKeyPressed
 		var handleKeyPressed = function handleKeyPressed(e) {
 		}			
-		// ____________________ handleKeyReleased
+		// ....................... handleKeyReleased
 		var handleKeyReleased = function handleKeyReleased(e) {
 						keys[e.keyCode] = false
 		}	
-/* -------------------------- 	*/		
-/*        event actions 				*/		
-/* -------------------------- 	*/
-		// ____________________ leftArrowAlt
+
+  /**********************
+   *    @event actions
+   */
+		// ....................... leftArrowAlt
 		var leftArrowAlt = function leftArrowAlt(e) {
 			console.log("leftArrowAltFn")
 			
@@ -156,7 +156,7 @@
 					listeners[i](e)
 				}			
 		}
-		// ____________________ rightArrowAlt
+		// ....................... rightArrowAlt
 		var rightArrowAlt = function rightArrowAlt(e) {
 
 			var listeners = __currentListeners["rightArrowAlt"] = __nextListeners["rightArrowAlt"]
@@ -164,7 +164,7 @@
 					listeners[i](e)
 				}				
 		}
-		// ____________________ upArrowAlt
+		// ....................... upArrowAlt
 		var upArrowAlt = function upArrowAlt(e) {
 			console.log("upArrowAltFn")
       
@@ -173,7 +173,7 @@
 					listeners[i](e)
 				}	
     }
-			// ____________________ downArrowAlt
+			// ....................... downArrowAlt
 		var downArrowAlt = function downArrowAlt(e) {
       
 			var listeners = __currentListeners["downArrowAlt"] = __nextListeners["downArrowAlt"]
@@ -183,7 +183,7 @@
         console.log("downArrowAltFn")
 		}
 
-		// ____________________ leftArrowCtrl
+		// ....................... leftArrowCtrl
 		var leftArrowCtrl = function leftArrowCtrl(e) {
 			console.log("leftArrowCtrlFn")
 			
@@ -192,7 +192,7 @@
 						listeners[i](e)
 					}			
 		}
-		// ____________________ rightArrowCtrl
+		// ....................... rightArrowCtrl
 		var rightArrowCtrl = function rightArrowCtrl(e) {
 			console.log("rightArrowCtrlFn")
 			
@@ -201,21 +201,21 @@
 					listeners[i](e)
 				}				
 		}
-		// ____________________ upArrowCtrl
+		// ....................... upArrowCtrl
 		var upArrowCtrl = function upArrowCtrl() {
 			console.log("upArrowCtrlFn")
 		}
-			// ____________________ downArrowCtrl
+			// ....................... downArrowCtrl
 		var downArrowCtrl = function downArrowCtrl() {
 			console.log("downArrowCtrlFn")
 		}
-		// ____________________ controlfn
+		// ....................... controlfn
 	  function controlfn() {
  		}		
 		
-/* -------------------------- */		
-/*     enty	       			 		*/
-/* -------------------------- */
+  /**********************
+   *    @enty
+   */
 		function enty() {}
 		enty.subscribe = subscribe
 		enty.start = function start(svg) {

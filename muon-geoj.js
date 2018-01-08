@@ -190,59 +190,6 @@
 
 
 
-    /* *********************
-   *    @renderize - call from halo after gjform cycle
-   *      build anigram from geojson geometry
-	 *			quals that may get through the feature:
-	 *			- boform style
-	 *			- ric identity
-	 *			- id identity
-	 *			- sort type
-   */
-    let renderize = function (feature, i = 0, anigram) {
-
-if (1 && 1) console.log("renderize",feature,i,anigram)
-
-      let properties = feature.properties || {}
-
-			let ric = Object.assign({}, anigram.ric, properties.ric)
-
-      let _ric = {}
-      _ric.gid = ric.gid
-      _ric.cid = ric.cid
-
-      // if (ric.fid === undefined) _ric.fid = i || ""        // the fide privilege
-      // else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, anigram)
-      // else _ric.fid = ric.fid             // identify each feature in the collection
-
-      // let uid =  __mapper("xs").m("ric").buildUIDFromRic(_ric)
-
-			// properties.ric = _ric
-			// properties.id = uid
-			// properties.sort = properties.sort	|| anigram.sort
-
-			properties.delled = anigram.delled
-			properties.inited = anigram.inited
-
-
-      // let attr = properties.attr || {}        // alima position
-        // if (anigram.x) attr.x = anigram.x
-        // if (anigram.y) attr.y = anigram.y
-        // if (anigram.z) attr.z = anigram.z
-        // properties.attr = attr
-
-      let newAnigram = anigram                       			// base
-					newAnigram.ric = _ric                           // identity
-					newAnigram.id = uid                            	// id
-					newAnigram.sort = properties.sort							  // sort
-					newAnigram.feature = feature                    // feature
-					newAnigram.featurecollection = geonormalize(feature)          // geoj
-
-
-
-      return newAnigram
-    }
-
     /**********************
    *   		 @featurize
    */
@@ -288,8 +235,6 @@ if (0 && 1) console.log("m.geoj featurize",json)
         .map( d => {
 
           d.properties  = d.properties || {}
-
-if (0 && 1) console.log(" m.geoj.zorder feature properties", d.properties)
 
           if (d.properties.zorder === undefined) {    // if zorder undefined
             if (d.geometry && d.geometry.coordinates && d.geometry.coordinates[0] ) {

@@ -31,8 +31,8 @@
 
       let ani = __mapper("xs").m("anitem")(anima),
         anigram = ani.anigram(),             // anigram
-        uid = anigram.uid,                       // uid
-        parentuid = anigram.parentuid
+        uid = anigram.payload.uid,                       // uid
+        parentuid = anigram.payload.parentuid
 
 
       let parentAnigram = __mapper("xs").m("store").findAnigramFromUid(parentuid)

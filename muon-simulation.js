@@ -77,7 +77,7 @@
           let forces = f.fa(anima.forces)
 
           for (let j=0; j<forces.length; j++) {
-            let field  = __mapper("xs").b("snap")(forces[j] , anima.tim.unitTime) /* snap field*/
+            let field  = __mapper("xs").b("snap")(forces[j] , anima.payload.tim.unitTime) /* snap field*/
 
             let fieldProps = field      // field properties
             let cttes = simConstants(sim, fieldProps)

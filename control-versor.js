@@ -109,4 +109,4 @@
 
   exports.controlVersor = controlVersor
 
-}))
+}));

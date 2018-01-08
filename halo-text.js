@@ -62,7 +62,7 @@
 			geoform = ani.geoform() || _geoform,   // geoform
 			json
 			
-			anima.geoform = geoform
+			anima.payload.geoform = geoform
 			newAnigrams = __mapper("xs").h("geojson").gramn(anima)
 			
       return newAnigrams
@@ -74,7 +74,7 @@
  *        @enty
  */
 
-    let haloText_ween = anima => (anima.inited !== 1) ? (anima.inited = anima.gelded = 1, [anima]) : []
+    let haloText_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
     let haloText_gramn = anima => gramn(anima)
 
     let haloText = {}

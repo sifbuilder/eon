@@ -124,7 +124,7 @@
  *     	 @proformer
  */		
     let proformer = (proform, anigram) => {
-			proform = proform || anigram.proform
+			proform = proform || anigram.payload.proform
 			let profier = d => d 
 			if (proform !== undefined) {
 				let center = proform.center

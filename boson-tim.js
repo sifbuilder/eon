@@ -15,6 +15,7 @@ let bosonTim = function bosonTim(__mapper = {}) {
    *    @timing
    */
 let timing = function timing (pTim, pElapsed) {
+	
     let tim = Object.assign({},pTim)
     let _tim = Object.assign({},pTim)
 

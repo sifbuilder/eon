@@ -26,7 +26,7 @@
   // -------------------------------  haloLinerHalo_ween
   let haloLinerHalo_ween = function haloLinerHalo_gramn(anima, newItems = []) {
 
-    if (anima.inited !== 1) { anima.inited = anima.gelded = 1; newItems = Array.of(anima) }
+    if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
     return newItems
 
   }
@@ -97,7 +97,7 @@
         count.auto = Math.floor(pacer.autoN)        		// count AUTO
         pacer.outed = tim.unitPassed                		// updated with anima
 
-        anima.inited = 1                               	//  inited
+        anima.payload.inited = 1                               	//  inited
         anima.payload.pacer.outed = pacer.outed         //  outed at time units
         let animas = Array.of(anima)
         __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"h.liner",animas}) // upd ANIMA
@@ -135,12 +135,12 @@
           if (newItem === undefined)  {
               newItem = __mapper("xs").b("clone")(anigram)     	// if first cycle clone anigram
           } else {
-              newItem.boform = anigram.boform                   // if exists update traits
-              newItem.stace = anigram.stace
+              newItem.payload.boform = anigram.payload.boform                   // if exists update traits
+              newItem.payload.stace = anigram.payload.stace
               newItem.payload = anigram.payload
-              newItem.proform = anigram.proform
-              newItem.avatars = anigram.avatars
-              newItem.forces = anigram.forces
+              newItem.payload.proform = anigram.payload.proform
+              newItem.payload.avatars = anigram.payload.avatars
+              newItem.payload.forces = anigram.payload.forces
           }
 
           if (1 && 1) console.log(" ************* situs", situs)
@@ -158,9 +158,9 @@
 
           let _feature = {}
 
-          if (newItem._feature !== undefined) {							// if previous feature
+          if (newItem.payload._feature !== undefined) {							// if previous feature
 
-            _feature = newItem._feature
+            _feature = newItem.payload._feature
             let coords = __mapper("xs").m("geoj").getCoords(_feature)
 
             let coord = Object.values(situs) // [x,y,z]
@@ -189,7 +189,7 @@
           }
 
           if (0 && 1) console.log("_feature", _feature)
-          newItem.geoform = newItem._feature = _feature	// set geoform feature and keep history
+          newItem.geoform = newItem.payload._feature = _feature	// set geoform feature and keep history
 
 
           let newAnigrams = __mapper("xs").h("geojson").gramn(newItem)

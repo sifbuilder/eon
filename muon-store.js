@@ -33,14 +33,14 @@
           let updAnima = f.o(updAnimas[i])                      // each new anima
 
 
-          let uid = (updAnima.uid !== undefined)                // uid
-            ? updAnima.uid
+          let uid = (updAnima.payload.uid !== undefined)                // uid
+            ? updAnima.payload.uid
             : __mapper("xs").m("ric").buildUID(updAnima)
 
           let index = enty.findFromUid(uid, local.animas)
           if (index !== -1) {                                 // anima exists
 
-            if (updAnima.delled === 1 ) {
+            if (updAnima.payload.delled === 1 ) {
 
               local.animas.splice(index, 1)                   // delete anima
 
@@ -51,11 +51,11 @@
 
           } else {                                             // new anima
 
-            updAnima.tim =  __mapper("xs").b("tim")(updAnima.tim, elapsed) // set tim elapsed
-            updAnima.uid = uid                                // set uid if new anima
-            updAnima.nid = __mapper("xs").m("store").getNid() // node id in animas collection
+            updAnima.payload.tim =  __mapper("xs").b("tim")(updAnima.payload.tim, elapsed) // set tim elapsed
+            updAnima.payload.uid = uid                                // set uid if new anima
+            updAnima.payload.nid = __mapper("xs").m("store").getNid() // node id in animas collection
 
-            local.aniset[updAnima.uid] = updAnima             // set new anima by uid
+            local.aniset[updAnima.payload.uid] = updAnima             // set new anima by uid
             local.animas[local.animas.length] = updAnima      // register new anima
 
           }
@@ -74,9 +74,9 @@
 
           if (newAnigrams[i] !== undefined) {
             let newItem = newAnigrams[i]                        // new anigram
-						let uid = newItem.uid
-            let index = enty.findFromUid(uid, local.anigrams)     // find index from d.uid
-if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
+						let uid = newItem.payload.uid
+            let index = enty.findFromUid(uid, local.anigrams)     // find index from d.payload.uid
+if (1 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
             if (index === -1) index = local.anigrams.length           // add holder if new
             local.anigrams[index] = newItem                           // replace anigram
           }
@@ -104,7 +104,7 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
       let weened = halo.ween(anima)         // ANIMA HALO.WEEN
       weened.forEach(d =>  {              // qualify each ween
 
-        d.uid = __mapper("xs").m("ric").buildUID(d) // uid for children
+        d.payload.uid = __mapper("xs").m("ric").buildUID(d) // uid for children
         newItems.push(d)
 
       })
@@ -120,7 +120,7 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
 
       let anigram = __mapper("xs").m("anitem").anigram(anima)
 
-      let tim = anigram.tim,
+      let tim = anigram.payload.tim,
         elapsed = tim.elapsed,
         wait = tim.wait
 
@@ -143,15 +143,15 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
       if (newAnigrams !== undefined && newAnigrams.length > 0) {  // check if avatars in new animas
         for (let i=0; i<newAnigrams.length; i++) {
           let newItem = newAnigrams[i]                            // each new item
-          if (newItem.avatars !== undefined) {                // AVATARS
-            let avatars = (typeof newItem.avatars === "object") ? Object.values(newItem.avatars) : newItem.avatars
+          if (newItem.payload.avatars !== undefined) {                // AVATARS
+            let avatars = (typeof newItem.payload.avatars === "object") ? Object.values(newItem.payload.avatars) : newItem.payload.avatars
             for (let j=0; j<avatars.length; j++) {
               let newSubItems = []
               let avatar = avatars[j]
-              avatar.uid = __mapper("xs").m("ric").buildUID(avatar) // uid for children
-              avatar.tim = anigram.tim                                // time from anima
-              avatar.parent = __mapper("xs").m("anitem").getCore(newItem)  // parent is newItem
-              avatar.parentuid = newItem.uid                        // parentuid from newItem
+              avatar.payload.uid = __mapper("xs").m("ric").buildUID(avatar) // uid for children
+              avatar.tim = anigram.payload.tim                                // time from anima
+              avatar.payload.parent = __mapper("xs").m("anitem").getCore(newItem)  // parent is newItem
+              avatar.payload.parentuid = newItem.payload.uid                        // parentuid from newItem
 
               newSubItems = enty.gramn(avatar)                          // AVATAR GRAMN halogram
               newItems = newItems.concat(f.a(newSubItems))
@@ -177,27 +177,27 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
       (anima === undefined)
         ? 0
         : enty.animasLive()
-          .filter(d => d.ric.gid === anima.ric.gid).length
+          .filter(d => d.payload.ric.gid === anima.payload.ric.gid).length
 
     enty.animasInClassHowMany = anima =>
       (anima === undefined)
         ? 0
         : enty.animasLive()
-          .filter(d => (d.ric.gid === anima.ric.gid
-                    && d.ric.cid === anima.ric.cid)).length
+          .filter(d => (d.payload.ric.gid === anima.payload.ric.gid
+                    && d.payload.ric.cid === anima.payload.ric.cid)).length
 
     enty.findIndex = (item, list) =>
       list.findIndex(d =>
-        d.ric.gid === item.ric.gid &&
-                d.ric.cid === item.ric.cid &&
-                d.ric.fid === item.ric.fid
+        d.payload.ric.gid === item.ric.gid &&
+                d.payload.ric.cid === item.ric.cid &&
+                d.payload.ric.fid === item.ric.fid
       )
 
     enty.findIndexFromRic = (ric, list) =>
       list.findIndex(d =>
-        d.ric.gid === ric.gid &&
-                d.ric.cid === ric.cid &&
-                d.ric.fid === ric.fid
+        d.payload.ric.gid === ric.gid &&
+                d.payload.ric.cid === ric.cid &&
+                d.payload.ric.fid === ric.fid
       )
 
     enty.findByUid = (item, list) => {
@@ -205,15 +205,15 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
       return  enty.findFromUid(uid, list)
     }
 
-    enty.findFromUid = (uid, list) => list.findIndex(d => d.uid === uid )
+    enty.findFromUid = (uid, list) => list.findIndex(d => d.payload.uid === uid )
 
-    enty.findIndexAnigramFromUid = uid => enty.anigrams().findIndex(d => d.uid === uid)
-    enty.findAnigramFromUid = uid => local.anigrams.find(d => d.uid === uid)
-    enty.findAnimaFromUid = uid => local.animas.find(d => d.uid === uid)
+    enty.findIndexAnigramFromUid = uid => enty.anigrams().findIndex(d => d.payload.uid === uid)
+    enty.findAnigramFromUid = uid => local.anigrams.find(d => d.payload.uid === uid)
+    enty.findAnimaFromUid = uid => local.animas.find(d => d.payload.uid === uid)
 
-    enty.born = d =>d.tim !== undefined && d.tim.unitElapsed !== undefined && d.tim.unitElapsed > f.epsilon
-    enty.unborn = d => d.tim === undefined && d.tim.elapsed === undefined && d.tim.unitElapsed === undefined && d.tim.unitElapsed < f.epsilon
-    enty.getAnimaByUID = uid => local.animas.find(d => d.uid === uid)
+    enty.born = d =>d.payload.tim !== undefined && d.payload.tim.unitElapsed !== undefined && d.payload.tim.unitElapsed > f.epsilon
+    enty.unborn = d => d.payload.tim === undefined && d.payload.tim.elapsed === undefined && d.payload.tim.unitElapsed === undefined && d.payload.tim.unitElapsed < f.epsilon
+    enty.getAnimaByUID = uid => local.animas.find(d => d.payload.uid === uid)
 
     enty.animas = () => local.animas
     enty.anigrams = () => local.anigrams

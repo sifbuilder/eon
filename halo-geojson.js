@@ -50,7 +50,7 @@
 		json = mric.qualier(ric, anigram, json)					// qualify
 
 		if (0 && 1) console.log("h.geojson.gramn proform", f.v(proform, anigram))
-		if (0 && 1) console.log("h.geojson.gramn json", json)
+		if (1 && 1) console.log("h.geojson.gramn json", json)
 		if (0 && 1) {
 			let coordinates = json.features[0].geometry.coordinates
 			console.log("h.geojson.gramn json", coordinates[coordinates.length -1])
@@ -58,9 +58,9 @@
 		
 		newAnigrams = json.features.map( (d, i) => {
 			let newAnigram = Object.assign({}, anigram)
-					newAnigram.feature = d
-					newAnigram.ric = d.properties.ric
-					newAnigram.uid = d.id
+					newAnigram.payload.feature = d
+					newAnigram.payload.ric = d.properties.ric
+					newAnigram.payload.uid = d.id
 			return newAnigram
 		})
 
@@ -71,7 +71,7 @@
   /**********************
    *    @enty
    */
-    let haloGeojson_ween = anima => (anima.inited !== true) ? (anima.inited = anima.gelded = true, [anima]) : []
+    let haloGeojson_ween = anima => (anima.payload.inited !== true) ? (anima.payload.inited = anima.payload.gelded = true, [anima]) : []
     let haloGeojson_gramn = anima => gramn(anima)
 
     let haloGeojson = {}

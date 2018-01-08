@@ -1,11 +1,6 @@
-
-/* 																	*/
-/* 				touchMoveControl.js   		*/
-/* 																	*/
-
-if (typeof require === "function") {
-	var d3 = require('./d3.v4.js')
-}	
+  /**********************
+   *    @touchMoveControl
+   */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -18,7 +13,7 @@ if (typeof require === "function") {
 		var currentListeners = []
 		var nextListeners = currentListeners
 
-	// ____________________ ensureCanMutateNextListeners
+	// ....................... ensureCanMutateNextListeners
 		function ensureCanMutateNextListeners() {
 				if (nextListeners === currentListeners) {
 					nextListeners = currentListeners.slice()
@@ -43,15 +38,15 @@ if (typeof require === "function") {
 				}									
 		}
 
-		// ____________________ controlApi
+		// ....................... controlApi
 		function controlApi() {}
 		
-		// ____________________ start
+		// ....................... start
 		controlApi.start = function start(svg) {
 					svg.on('touchmove', 	function() {controlAction(this)})
 					return controlApi
 		}
-		// ____________________ subscribe
+		// ....................... subscribe
 		controlApi.subscribe = function subscribe (listener) {
 			if (typeof listener !== 'function') {
 				throw new Error('Expected listener to be a function.')

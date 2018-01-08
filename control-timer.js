@@ -134,4 +134,4 @@
   }
   exports.controlTimer = controlTimer
 
-}))
+}));

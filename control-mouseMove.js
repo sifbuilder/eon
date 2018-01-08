@@ -1,18 +1,12 @@
-/* -------------------------- */		
-/*     controlMouseMove    		*/		
-/* -------------------------- */	
-
-if (typeof require === "function") {
-	var d3 = require('./d3.v4.js')
-}	
-
+ /*******************************************
+   * @controlMouseMove
+	 *
+   **/
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
   (factory((global.controlMouseMove = global.controlMouseMove || {})));
 }(this, function (exports) { 'use strict';
-
-
 
 		function controlMouseMove(payload) {
 			

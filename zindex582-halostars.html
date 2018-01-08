@@ -82,13 +82,14 @@
    */
   let gramn = function gramn(anima, newAnigrams = []) {
 
-    let anigram  = __mapper("xs").m("snap")(anima, anima.pic.tim.unitTime)
-    let a = __mapper("xs").m("anitem").anitem(anigram)
-    let payload = a.payload
+		let ani = __mapper("xs").m("anitem")(anima),
+			anigram = ani.anigram(),            // anigram
+			payload = ani.payload(),
+			tim = ani.tim(),
 
     const dtMax = 1000 * 1 / 60
-    let msPassed = a.tim.msPassed                     // ms passed from first cycle
-    let msDelta = a.tim.msDelta                     // ms passed from previous cycle
+    let msPassed = tim.msPassed                     // ms passed from first cycle
+    let msDelta = tim.msDelta                     // ms passed from previous cycle
     let dt = Math.max(msDelta , dtMax)  * 0.001       // 12
 
     let starsGeometry = {type: "FeatureCollection",features: []}
@@ -385,7 +386,7 @@
 						starAnigram.z = star.z
 						
 						let uid = __mapper("xs").m("ric").buildUID(starAnigram)
-						starAnigram.uid = uid						
+						starAnigram.payload.uid = uid						
 						
 						
 				newAnigrams.push(starAnigram)				
@@ -397,11 +398,11 @@ newAnigrams.sort( (a, b) => a.z - b.z )    // sort faces
 
 for (let i=0; i<newAnigrams.length; i++) {
 	
-				let ani = newAnigrams[i]
-					ani.pic.ric.cid = "ani"
-					ani.pic.ric.fid = "_" +  i
-					let uid = __mapper("xs").m("ric").buildUID(ani)
-					ani.uid = uid							
+				let newAnigram = newAnigrams[i]
+					newAnigram.payload.ric.cid = "ani"
+					newAnigram.payload.ric.fid = "_" +  i
+					let uid = __mapper("xs").m("ric").buildUID(newAnigram)
+					newAnigram.payload.uid = uid							
 	
 
 }
@@ -412,7 +413,7 @@ for (let i=0; i<newAnigrams.length; i++) {
   }
 
   let haloWin = {}
-      haloWin.ween = anima => (anima.inited !== true) ? (anima.inited = true, [anima]) : []
+      haloWin.ween = anima => (anima.payload.inited !== true) ? (anima.payload.inited = true, [anima]) : []
       haloWin.gramn = anima => gramn(anima)
 
 /*******************************************

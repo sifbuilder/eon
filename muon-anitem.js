@@ -56,39 +56,18 @@
       // }
 
       let c = {
-			
-        payload: d.payload,   // {initN,eventN,autoN,autoP,outed,maxN}
-			
-			
-        avatars: d.avatars,         // avatars: {}
-        forces: d.forces,           // forces: {pic, field}
-        ereform: (d||{}).ereform,   // ereform()
-
-        _feature: d._feature,       // _feature   -- from f.gramn
-        feature: d.feature,       // feature    -- from f.gramn
-
-        geoform: (d||{}).geoform,   // geoform()
-
-        parentuid: d.parentuid,     // parentuid
-        conform: d.conform,
-
-        proform: d.proform, // projection, scale, translate, rotate
-
-        ric: d.ric,           // {type, gid, cid, fid}
-        tim: d.tim,           // tim: {t0,t1,t2,t3}
-
-        boform: d.boform,         // {csx,cf,cs,cw
-
+				
         halo: d.halo,        // d.halo, //
-
-        uid: d.uid,               // uid
-        x: d.x,                   //
+				
+        geoform: (d||{}).geoform,   // geoform()
+				
+        payload: d.payload,   // {initN,eventN,autoN,autoP,outed,maxN}
+				
+				x: d.x,                   //
         y: d.y,                   //
         z: d.z,                   //
-
-        sort: d.sort,             // sort
-
-      }
+				
+			}
 
       a = Object.assign(a, c)
       return a
@@ -133,11 +112,11 @@
       core.vy = anitem.vy
       core.vz = anitem.vz
 
-      core.gelded = anitem.gelded
-      core.inited = anitem.inited
-      core.feature = anitem.feature
-      core.uid = anitem.uid
-      core.parentuid = anitem.parentuid
+      core.gelded = 		anitem.payload.gelded
+      core.inited = 		anitem.payload.inited
+      core.feature = 		anitem.payload.feature
+      core.uid = 				anitem.payload.uid
+      core.parentuid = 	anitem.payload.parentuid
 
       return core
 
@@ -146,9 +125,9 @@
     /***********
   *   @parentCoords
   */
-    let parentCoords = function( ani, coords = [] ) {
+    let parentCoords = function( anitem, coords = [] ) {
       let parentGeometry
-      let parent = ani.parent || __mapper("xs").m("store").findAnigramFromUid(ani.parentuid)
+      let parent = anitem.payload.parent || __mapper("xs").m("store").findAnigramFromUid(ani.payload.parentuid)
 
       if (parent !== undefined) {
         let geoj = parent.feature
@@ -169,16 +148,19 @@
       if (anima !== undefined) {
         if (t !== undefined) {
           anigram = __mapper("xs").b("snap")(anima, t)
-        } else if (anima.tim.unitTime !== undefined) {
-          let t = anima.tim.unitTime
+        } else if (anima.payload.tim.unitTime !== undefined) {
+          let t = anima.payload.tim.unitTime
           anigram = __mapper("xs").b("snap")(anima, t)
         }
+				if (anigram.payload === undefined) anigram.payload = {}
         setAnitem(anigram)
       }
       return enty
     }
 
-    enty.parentCoords = parentCoords
+    enty.halo = (_) => {  return _ !== undefined ? (anitem.halo = _, anitem) : anitem.halo }
+    enty.geoform = (_) => {  return _ !== undefined ? (anitem.geoform = _, anitem) : anitem.geoform }
+    enty.payload = (_) => { return _ !== undefined ? (anitem.payload = _, anitem) : anitem.payload }
 
 
     enty.anigram = (ani,t) => {
@@ -191,39 +173,35 @@
       return anitem                             // give anitem back
     }
 
+    enty.parentCoords = parentCoords
     enty.getCore = getCore                        // anitem => core
     enty.getNode = getNode                        // anitem => node
 
-    enty.conform = (_) => { return _ !== undefined ? (anitem.conform = _, anitem) : anitem.conform }
-    enty.conform$2 = (_) => { return _ !== undefined ? (anitem.conform = _, anitem) : (delete anitem.conform.z, anitem.conform)}
+    enty.conform = _ => { return _ !== undefined ? (anitem.payload.conform = _, anitem) : anitem.payload.conform }
+    enty.conform$2 = _ => { return _ !== undefined ? (anitem.payload.conform = _, anitem) : (delete anitem.payload.conform.z, anitem.payload.conform)}
 
+    enty.form = (_) => { return _ !== undefined ? (anitem.payload.form = _, anitem) : anitem.payload.form }
+    enty.form$2 = (_) => { return _ !== undefined ? (anitem.payload.form = _, anitem) : (delete anitem.payload.form.z, anitem.payload.form)}
+
+    enty.ereform = (_) => {  return _ !== undefined ? (anitem.payload.ereform = _, anitem) : anitem.payload.ereform }
+
+
+    enty.proform = (_) => { return _ !== undefined ? (anitem.payload.proform = _, anitem) : anitem.payload.proform }
+
+    enty.ric = (_) => { return _ !== undefined ? (anitem.payload.ric = _, anitem) : anitem.payload.ric }
+    enty.tim = (_) => { return _ !== undefined ? (anitem.payload.tim = _, anitem) : anitem.payload.tim }
+    enty.boform = (_) => { return _ !== undefined ? (anitem.payload.boform = _, anitem) : anitem.payload.boform }
+
+    enty.avatars = (_) => { return _ !== undefined ? (anitem.payload.avatars = _, anitem) : anitem.payload.avatars }
+    enty.parentuid = (_) => { return _ !== undefined ? (anitem.payload.parentuid = _, anitem) : anitem.payload.parentuid }
+    enty.uid = (_) => { return _ !== undefined ? (anitem.payload.uid = _, anitem) : anitem.payload.uid }
 
     enty.dims = () => ["x","y","z"]
-
-    enty.form = (_) => { return _ !== undefined ? (anitem.form = _, anitem) : anitem.form }
-    enty.form$2 = (_) => { return _ !== undefined ? (anitem.form = _, anitem) : (delete anitem.form.z, anitem.form)}
-
-    enty.ereform = (_) => {  return _ !== undefined ? (anitem.ereform = _, anitem) : anitem.ereform }
-
-    enty.geoform = (_) => {  return _ !== undefined ? (anitem.geoform = _, anitem) : anitem.geoform }
-
-    enty.payload = (_) => { return _ !== undefined ? (anitem.payload = _, anitem) : anitem.payload }
-
-    enty.proform = (_) => { return _ !== undefined ? (anitem.proform = _, anitem) : anitem.proform }
-
-    enty.ric = (_) => { return _ !== undefined ? (anitem.ric = _, anitem) : anitem.ric }
-    enty.tim = (_) => { return _ !== undefined ? (anitem.tim = _, anitem) : anitem.tim }
-    enty.boform = (_) => { return _ !== undefined ? (anitem.boform = _, anitem) : anitem.boform }
-
-    enty.avatars = (_) => { return _ !== undefined ? (anitem.avatars = _, anitem) : anitem.avatars }
-    enty.parentuid = (_) => { return _ !== undefined ? (anitem.parentuid = _, anitem) : anitem.parentuid }
-    enty.uid = (_) => { return _ !== undefined ? (anitem.uid = _, anitem) : anitem.uid }
-
     enty.anilocation = a => [ a.x, a.y, a.z ]
     enty.x = a => a.x
     enty.y = a => a.y
     enty.z = a => a.z
-    enty.fixedLocation = a => a.stace.f  // f: 1/0 _e_
+
 
     return enty
 

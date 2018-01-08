@@ -26,7 +26,7 @@
     // -------------------------------  haloPointerHalo_ween
     let haloPointerHalo_ween = function haloPointerHalo_gramn(anima, newItems = []) {
 
-      if (anima.inited !== 1) { anima.inited = anima.gelded = 1; newItems = Array.of(anima) }
+      if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
       return newItems
 
     }
@@ -90,7 +90,7 @@
           count.auto = Math.floor(pacer.autoN)        		// count AUTO
           pacer.outed = tim.unitPassed                		// updated with anima
 
-          anima.inited = 1                               	//  inited
+          anima.payload.inited = 1                               	//  inited
           anima.payload.pacer.outed = pacer.outed         //  outed at time units
           let animas = Array.of(anima)
           __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"h.liner",animas}) // upd ANIMA
@@ -132,8 +132,8 @@
 							
 							
             let newItem = __mapper("xs").b("clone")(anigram)     	// if first cycle clone anigram
-								newItem.ric = _ric
-								newItem.geoform = newItem._feature = _feature	// set geoform feature and keep history
+								newItem.payload.ric = _ric
+								newItem.geoform = newItem.payload._feature = _feature	// set geoform feature and keep history
 						
 						
 						

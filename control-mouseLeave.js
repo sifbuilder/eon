@@ -1,12 +1,6 @@
-
-/* 																	*/
-/* 				mouseLeaveControl.js   		*/
-/* 																	*/
-
-if (typeof require === "function") {
-	var d3 = require('./d3.v4.js')
-}	
-
+  /**********************
+   *    @mouseLeaveControl
+   */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -18,7 +12,7 @@ if (typeof require === "function") {
 		var currentListeners = []
 		var nextListeners = currentListeners
 
-	// ____________________ ensureCanMutateNextListeners
+	// ....................... ensureCanMutateNextListeners
 		function ensureCanMutateNextListeners() {
 				if (nextListeners === currentListeners) {
 					nextListeners = currentListeners.slice()
@@ -43,16 +37,16 @@ if (typeof require === "function") {
 				}									
 		}
 
-		// ____________________ controlApi
-		function controlApi() {}
+		// ....................... enty
+		function enty() {}
 		
-		// ____________________ start
-		controlApi.start = function start(svg) {
+		// ....................... start
+		enty.start = function start(svg) {
 					svg.on('mouseleave', 	function() {controlAction(this)})
-					return controlApi
+					return enty
 		}
-		// ____________________ subscribe
-		controlApi.subscribe = function subscribe (listener) {
+		// ....................... subscribe
+		enty.subscribe = function subscribe (listener) {
 			if (typeof listener !== 'function') {
 				throw new Error('Expected listener to be a function.')
 			}
@@ -72,7 +66,7 @@ if (typeof require === "function") {
 			}
 		}
 		
-		return controlApi
+		return enty
 	}
 
 

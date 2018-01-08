@@ -33,49 +33,48 @@
       // 1 gid,       fid
       // 2 cid,       fid
 
-      let ani = __mapper("xs").m("anitem").anigram(anigram)
-      let parent = ani.parent
+      let parent = anigram.payload.parent
 
-      let ric = anigram.ric
-      ric.halo = anigram.ric.halo
+      let ric = anigram.payload.ric
+      ric.halo = anigram.payload.ric.halo
 
-      if (anigram.ric.gid === undefined) {        // no  gid  in anigram
+      if (anigram.payload.ric.gid === undefined) {        // no  gid  in anigram
 
         ric.gid = (parent.ric.gid||"gid") + "_" + idx // set gid by position
 
       } else {
 
-        ric.gid = anigram.ric.gid               // gid defined in anigram
+        ric.gid = anigram.payload.ric.gid               // gid defined in anigram
 
       }
 
-      if (anigram.ric.cid === undefined) {        // no  cid  in anigram
+      if (anigram.payload.ric.cid === undefined) {        // no  cid  in anigram
 
         ric.cid = parent.ric.cid + "_" + "_" +  idx //cid from parent and index - larms
 
       } else {
 
-        ric.cid = anigram.ric.cid                 // cid set in anigram
+        ric.cid = anigram.payload.ric.cid                 // cid set in anigram
 
       }
 
       let itemsInClass = __mapper("muonStore").anigrams().filter(d=> d.ric.gid === ric.gid && d.ric.cid === ric.cid).length
 
-      if (anigram.ric.fid === undefined) {          // no fid in anigram
+      if (anigram.payload.ric.fid === undefined) {          // no fid in anigram
 
         ric.fid = ric.cid + "_"  + idx  + itemsInClass
 
-      } else if ( typeof anigram.ric.fid === "function" ) {
+      } else if ( typeof anigram.payload.ric.fid === "function" ) {
 
-        ric.fid = anigram.ric.fid()             // fid - allow for random
+        ric.fid = anigram.payload.ric.fid()             // fid - allow for random
 
       } else if (idx > 0) {     // fid defined but multiple subanigrams in form
 
-        ric.fid = anigram.ric.fid + "_" + "_" +  idx  // fid for multi position
+        ric.fid = anigram.payload.ric.fid + "_" + "_" +  idx  // fid for multi position
 
       } else {
 
-        ric.fid = anigram.ric.fid                 // fid - diff by pos
+        ric.fid = anigram.payload.ric.fid                 // fid - diff by pos
 
       }
 
@@ -141,14 +140,11 @@
 
 							}
 				
-				
-				
       } else {
 
         console.log("m.boform.boformer nothing done")
 
       }
-if (0 && 1) console.log("m.ric.qualier", ric, json)
       return json
     }		
 	
@@ -158,7 +154,7 @@ if (0 && 1) console.log("m.ric.qualier", ric, json)
     let enty = function enty() {}
     enty.getAnigramRic = getAnigramRic        // build ric from anigram, i
     enty.buildUIDFromRic = ric => ric.gid +  "_" + ric.cid +  "_" + ric.fid
-    enty.buildUID = anitem => enty.buildUIDFromRic(anitem.ric)
+    enty.buildUID = anitem => enty.buildUIDFromRic(anitem.payload.ric)
     enty.qualier = qualier
 
     return enty
@@ -167,4 +163,4 @@ if (0 && 1) console.log("m.ric.qualier", ric, json)
 
   exports.muonRic = muonRic
 
-}))
+}));

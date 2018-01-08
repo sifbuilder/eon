@@ -9,6 +9,7 @@
 
 
 // dataWorldTopo110m ref. https://github.com/topojson/world-atlas
+
 var dataWorldTopo110m = function dataWorldTopo110m(__mapper = {}) {
 
 		let props = __mapper("props")()

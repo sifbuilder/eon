@@ -1,9 +1,10 @@
-// https://d3js.org/d3-geo-projection/ Version 2.3.1. Copyright 2017 Mike Bostock.
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-geo'), require('d3-array'), require('d3-geo-polygon')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'd3-geo', 'd3-array', 'd3-geo-polygon'], factory) :
 	(factory((global.d3 = global.d3 || {}),global.d3,global.d3,global.d3));
 }(this, (function (exports,d3Geo,d3Array,d3GeoPolygon) { 'use strict';
+
+// https://d3js.org/d3-geo-projection/ Version 2.3.1. Copyright 2017 Mike Bostock.
 
 var abs = Math.abs;
 var atan = Math.atan;

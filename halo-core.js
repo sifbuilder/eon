@@ -9,7 +9,7 @@
 
   let haloCore = function haloCore(__mapper = {}) {
 
-    let haloCore_ween = anima => (anima.inited !== true) ? (anima.inited = anima.gelded = true, [anima]) : []
+    let haloCore_ween = anima => (anima.payload.inited !== true) ? (anima.payload.inited = anima.payload.gelded = true, [anima]) : []
     let haloCore_gramn = anima => Array.of(__mapper("xs").m("anitem")(anima).anigram())
   
     /**********************

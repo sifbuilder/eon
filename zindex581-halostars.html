@@ -150,8 +150,8 @@ let muonAlima = function muonAlima(__mapper) {
       let {nbStars, velStar, focaleStar, doxStar, maxZStar} = payload    // stars
 
       const dtMax = 1000 * 1 / 60
-      let msPassed = p.tim.msPassed        // ms passed from first cycle
-      let msDelta = p.tim.msDelta          // ms passed from previous cycle
+      let msPassed = p.payload.tim.msPassed        // ms passed from first cycle
+      let msDelta = p.payload.tim.msDelta          // ms passed from previous cycle
       let dt = Math.max(msDelta , dtMax)  * 0.001
 
 
@@ -309,10 +309,7 @@ let muonAlima = function muonAlima(__mapper) {
 // ------------------------- img
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
     "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
     "geoform": p => ({
       type:  "Feature",
@@ -332,12 +329,16 @@ let muonAlima = function muonAlima(__mapper) {
       }
     }),
 
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
 		
     "payload": {
+		
+			"tim": tim,
+			"ric": {"gid":"img","cid":"img","fid":"img",},
+			"boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			"proform": {
+				"projection": "uniwen",
+				"translate": [ 30, 40 ],
+			},
 
 			"img": {
         "url":"zimg-501.jpg",

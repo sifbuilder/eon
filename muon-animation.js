@@ -24,7 +24,7 @@
 
       state.animas = f.a(__mapper("muonStore").animasLive() )
 
-      if (0 && 1) console.log(" .............. animas", elapsed, state.animas.length)
+      if (1 && 1) console.log(" .............. animas", elapsed, state.animas)
 
     /*******************************************
      *    @TIME
@@ -33,16 +33,17 @@
       for (let i=0; i<state.animas.length; i++) {
 
         let anima = state.animas[i]
-        anima.tim  = __mapper("bosonTim")(anima.tim, elapsed) // set time
-        if (elapsed > anima.tim.limit) {
-          anima.delled = 1        // crop by time
+        anima.payload.tim  = __mapper("bosonTim")(anima.payload.tim, elapsed) // set time
+        if (elapsed > anima.payload.tim.limit) {
+          anima.payload.delled = 1        // crop by time
         }
       }
-
+				
+if (1 && 1) console.log("m.animation state.animas ",state.animas)			
     /*******************************************
      *    @STOP
      */
-      let maxlimit = state.animas.reduce((pre,item) => Math.max(pre,item.tim.limit),0)
+      let maxlimit = state.animas.reduce((pre,item) => Math.max(pre,item.payload.tim.limit),0)
       if (isNaN(maxlimit)) state.animationStop()
       if (maxlimit > 0 && elapsed > maxlimit)   state.animationStop()    // stop if spired
       if (elapsed > maxlimit)   state.animationStop()    // stop if anigrams spired
@@ -58,12 +59,14 @@
 
       }
       state.animas = f.a(__mapper("muonStore").animasLive() )
+if (1 && 1) console.log("m.animation state.animas ",state.animas)			
 
     /*******************************************
      *    @SIM defaults position of nodes
      */
       let sim = __mapper("xs").m("simulation").sim()     // simulation on animas
       state.animas =  __mapper("xs").m("simulation").simulate(sim, state.animas, elapsed)
+if (1 && 1) console.log("m.animation state.animas ",state.animas)			
 
     /*******************************************
      *    @GRAMN animas to anigrams
@@ -75,26 +78,28 @@
 				let anima = state.animas[i]
 				
         let newAnigrams = f.a(mstore.gramn(anima)) /* GRAMN */
+if (1 && 1) console.log("m.animation anima ", anima)			
 				
-if (0 && 1) console.log("m.animation newAnigrams ",newAnigrams)				
+if (1 && 1) console.log("m.animation newAnigrams ", newAnigrams)				
 	
         __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.animation","anigrams":newAnigrams})
 
       }
-
+if (1 && 1) console.log("m.animation gramned anigrams ",anigrams)
+	
       anigrams = __mapper("xs").m("store").anigrams()
 
-if (0 && 1) console.log("m.animation gramned anigrams ",anigrams)
+if (1 && 1) console.log("m.animation gramned anigrams ",anigrams)
     /*******************************************
     *     @RENDER
     */
 
 		let featurecollection = {
 				"type": "FeatureCollection",
-				"features": anigrams.map(d => d.feature)
+				"features": anigrams.map(d => d.payload.feature)
 		}
 			
-if (0 && 1) console.log("m.animation featurecollection ", featurecollection)			
+if (1 && 1) console.log("m.animation featurecollection ", featurecollection)			
 	
       if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, featurecollection)
       if (__mapper("renderWebgl") !== undefined) __mapper("renderWebgl").render(elapsed, featurecollection )
