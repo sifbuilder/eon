@@ -76,7 +76,7 @@
             let newItem = newAnigrams[i]                        // new anigram
 						let uid = newItem.payload.uid
             let index = enty.findFromUid(uid, local.anigrams)     // find index from d.payload.uid
-if (1 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
+if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
             if (index === -1) index = local.anigrams.length           // add holder if new
             local.anigrams[index] = newItem                           // replace anigram
           }

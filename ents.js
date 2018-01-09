@@ -80,7 +80,7 @@ document.write("<script src='halo-geojson.js'><\/script>")
 document.write("<script src='halo-img.js'><\/script>")    
 document.write("<script src='halo-liner.js'><\/script>")    
 document.write("<script src='halo-nat.js'><\/script>")    
-document.write("<script src='halo-pointer.js'><\/script>")    
+document.write("<script src='halo-pacer.js'><\/script>")    
 document.write("<script src='halo-text.js'><\/script>")    
 /*  x  proxy */  
 document.write("<script src='x-s.js'><\/script>")    

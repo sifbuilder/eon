@@ -143,7 +143,7 @@
               newItem.payload.forces = anigram.payload.forces
           }
 
-          if (1 && 1) console.log(" ************* situs", situs)
+          if (0 && 1) console.log(" ************* situs", situs)
 
 
 

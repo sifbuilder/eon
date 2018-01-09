@@ -1,13 +1,13 @@
 /**********************
- *    @haloPointer
+ *    @haloPacer
  */
 (function (global, factory) {
   typeof exports === "object" && typeof module !== "undefined" ? factory(exports) :
     typeof define === "function" && define.amd ? define(["exports"], factory) :
-      (factory((global.haloPointer = global.haloPointer || {})))
+      (factory((global.haloPacer = global.haloPacer || {})))
 }(this, function (exports) { "use strict"
 
-  let haloPointer = function haloPointer(__mapper = {}) {
+  let haloPacer = function haloPacer(__mapper = {}) {
 
     let f = __mapper({"props": muonProps.muonProps()}).props()
     let g = __mapper("xs").m("geom")
@@ -23,17 +23,17 @@
 
     let svg = __mapper("renderSVG").svg()
 
-    // -------------------------------  haloPointerHalo_ween
-    let haloPointerHalo_ween = function haloPointerHalo_gramn(anima, newItems = []) {
+    // -------------------------------  haloPacerHalo_ween
+    let haloPacerHalo_ween = function haloPacerHalo_gramn(anima, newItems = []) {
 
       if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
       return newItems
 
     }
-    // -------------------------------  haloPointerHalo_gramn
-    let haloPointerHalo_gramn = function (anima, newItems = []) {
+    // -------------------------------  haloPacerHalo_gramn
+    let haloPacerHalo_gramn = function (anima, newItems = []) {
 
-      if (0 && 1) console.log("h.liner haloPointerHalo_gramn anima",anima)
+      if (0 && 1) console.log("h.liner haloPacerHalo_gramn anima",anima)
 
       let ani = __mapper("xs").m("anitem")(anima),
         anigram = ani.anigram(),            	// anigram
@@ -47,14 +47,18 @@
         geoform = ani.geoform(),  						// geoform
         pacer = payload.pacer  || {}
 
-      let initSitus = ani => ({x: width / 2, y: height / 2, z: 0 })
-      let eventSitus = ani => ({x: mouse.event.x, y: mouse.event.y, z: 0 })
-      let autoSitus = ani => ({x: Math.random() * width / 2, y: Math.random() * height / 2, z: 0 })
-					autoSitus = ani => mstace.getLocus(ani)
-			let fider = ani => "item" + __mapper("xs").m("store").anigrams()
-              .filter(d => d.ric.gid === ani.ric.gid &&  d.ric.cid === ani.ric.cid)
+      let initSitus = (payload.pacer.initSitus === undefined) ? d => ({x: width / 2, y: height / 2, z: 0 }) : payload.pacer.initSitus
+      let eventSitus = (payload.pacer.eventSitus === undefined) ? d => ({x: mouse.event.x, y: mouse.event.y, z: 0 }) : payload.pacer.eventSitus
+      let autoSitus = (payload.pacer.autoSitus === undefined) ?  d => ({x: Math.random() * width / 2, y: Math.random() * height / 2, z: 0 }) : payload.pacer.autoSitus
+					autoSitus = d => mstace.getLocus(d)
+					
+			let fider = (payload.pacer.fider !== undefined) ? payload.pacer.fider :
+						anitem => "item" + __mapper("xs").m("store").anigrams()
+              .filter(d => d.payload.ric.gid === anitem.payload.ric.gid &&  d.payload.ric.cid === anitem.payload.ric.cid)
               .length
-			let geometrier = point => ({type: "Point", coordinates: Object.values(point),})
+							
+			let geometrier = (payload.pacer.geometrier !== undefined) ? payload.pacer.geometrier :
+						point => ({type: "Point", coordinates: Object.values(point),})
 
 
       let count = {}          						// items to be generated on cycle
@@ -154,19 +158,19 @@
 
     }
 
-    let haloPointerHalo = {}
-    haloPointerHalo.ween = anima => haloPointerHalo_ween(anima)
-    haloPointerHalo.gramn = anima => haloPointerHalo_gramn(anima)
+    let haloPacerHalo = {}
+    haloPacerHalo.ween = anima => haloPacerHalo_ween(anima)
+    haloPacerHalo.gramn = anima => haloPacerHalo_gramn(anima)
 
     /**********************
    *    @enty
    */
-    let enty = haloPointerHalo
+    let enty = haloPacerHalo
 
     return enty
 
   }
 
-  exports.haloPointer = haloPointer
+  exports.haloPacer = haloPacer
 
 }));

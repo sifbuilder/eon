@@ -24,7 +24,7 @@
 
       state.animas = f.a(__mapper("muonStore").animasLive() )
 
-      if (1 && 1) console.log(" .............. animas", elapsed, state.animas)
+      if (0 && 1) console.log(" .............. animas", elapsed, state.animas)
 
     /*******************************************
      *    @TIME
@@ -39,7 +39,7 @@
         }
       }
 				
-if (1 && 1) console.log("m.animation state.animas ",state.animas)			
+if (0 && 1) console.log("m.animation state.animas ",state.animas)			
     /*******************************************
      *    @STOP
      */
@@ -59,14 +59,14 @@ if (1 && 1) console.log("m.animation state.animas ",state.animas)
 
       }
       state.animas = f.a(__mapper("muonStore").animasLive() )
-if (1 && 1) console.log("m.animation state.animas ",state.animas)			
+if (0 && 1) console.log("m.animation state.animas ",state.animas)			
 
     /*******************************************
      *    @SIM defaults position of nodes
      */
       let sim = __mapper("xs").m("simulation").sim()     // simulation on animas
       state.animas =  __mapper("xs").m("simulation").simulate(sim, state.animas, elapsed)
-if (1 && 1) console.log("m.animation state.animas ",state.animas)			
+if (0 && 1) console.log("m.animation state.animas ",state.animas)			
 
     /*******************************************
      *    @GRAMN animas to anigrams
@@ -78,18 +78,18 @@ if (1 && 1) console.log("m.animation state.animas ",state.animas)
 				let anima = state.animas[i]
 				
         let newAnigrams = f.a(mstore.gramn(anima)) /* GRAMN */
-if (1 && 1) console.log("m.animation anima ", anima)			
+if (0 && 1) console.log("m.animation anima ", anima)			
 				
-if (1 && 1) console.log("m.animation newAnigrams ", newAnigrams)				
+if (0 && 1) console.log("m.animation newAnigrams ", newAnigrams)				
 	
         __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.animation","anigrams":newAnigrams})
 
       }
-if (1 && 1) console.log("m.animation gramned anigrams ",anigrams)
+if (0 && 1) console.log("m.animation gramned anigrams ",anigrams)
 	
       anigrams = __mapper("xs").m("store").anigrams()
 
-if (1 && 1) console.log("m.animation gramned anigrams ",anigrams)
+if (0 && 1) console.log("m.animation gramned anigrams ",anigrams)
     /*******************************************
     *     @RENDER
     */
@@ -99,7 +99,7 @@ if (1 && 1) console.log("m.animation gramned anigrams ",anigrams)
 				"features": anigrams.map(d => d.payload.feature)
 		}
 			
-if (1 && 1) console.log("m.animation featurecollection ", featurecollection)			
+if (0 && 1) console.log("m.animation featurecollection ", featurecollection)			
 	
       if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, featurecollection)
       if (__mapper("renderWebgl") !== undefined) __mapper("renderWebgl").render(elapsed, featurecollection )

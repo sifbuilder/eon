@@ -84,23 +84,24 @@ let muonAlima = function (__mapper) {
       "properties": {}
     }),
 
-    "payload": { 
+    "payload": {
 			"tim": tim,
 			"ric": {"gid":"nat","cid":"nat","fid":"circ",},
-		
+
 			"proform": {
 				"projection": "uniwen",
-				"center": [ [[[300,350]]], 200 ],
-				"translate": [[[ {
-						"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
-						"ra2": 30,
-						"v0": 0,"v1": 1,
-						"w4": 0,
-						"seg5": 360,
-						"pa6": 0,
-						"pb7": -1,
-						"fas8": 0,
-					} ]]],
+				"center": [ [[[300,300]]], 200 ],
+				"translate": [ 0, 0 ],
+					// [[[ {
+						// "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
+						// "ra2": 30,
+						// "v0": 0,"v1": 1,
+						// "w4": 0,
+						// "seg5": 360,
+						// "pa6": 0,
+						// "pb7": -1,
+						// "fas8": 0,
+					// } ]]],
 				"scale": 1,
 				"rotate": [ 0, 0, [[[0,0]]] ],
 				"focale": 12,
@@ -108,11 +109,11 @@ let muonAlima = function (__mapper) {
 				"dims": 2,
 				"control": "wen",
 			},
-			
-			"boform": { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.19,0.19]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],},
-			
-		
-		
+
+			"boform": { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.49,0.49]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],},
+
+
+
 			form: {
 
 				"x": {
@@ -135,30 +136,30 @@ let muonAlima = function (__mapper) {
 					"pa6":0,
 					"pb7":360,
 					"fas8": -90,
-				} 
+				}
 			},
 		}
   }
 /*******************************************
  * 			@forces
- * 
+ *
  */
-	 // force_energy 	
+	 // force_energy
 	let  force_energy = {
 			"pic": {
 				alpha: 1 ,
-				alphaMin: 0.001, 
-				alphaDecay: 0, 
-				alphaTarget: 0, 
+				alphaMin: 0.001,
+				alphaDecay: 0,
+				alphaTarget: 0,
 			},
 
 
 			"field":  function field (params = {}) {
 
-			
+
 				let nodes = params.nodes
 				let forces = []
-			
+
 				let forceParams =  {
 						"type": "energy",
 						"filter": d => true,
@@ -168,16 +169,16 @@ let muonAlima = function (__mapper) {
 
 				let  field = 	{
 						"key": "energy",
-						"force": __mapper("xs").m("forces").force(forceParams)		
-						
+						"force": __mapper("xs").m("forces").force(forceParams)
+
 					}
-						
-				forces.push(field)		
-				
+
+				forces.push(field)
+
 				return forces
-			
+
 			}
-		}	
+		}
 		// force_viscosity
 	let  force_viscosity = {
 			"pic": {
@@ -185,11 +186,11 @@ let muonAlima = function (__mapper) {
 			},
 
 			"field":  function field (params = {}) {
-			
+
 				let nodes = params.nodes
-	
+
 				let forces = []
-			
+
 				let forceParams =  {
 						"type": "noforce",
 						"filter": d => true,
@@ -199,13 +200,13 @@ let muonAlima = function (__mapper) {
 
 				let  field = 	{
 						"key": "viscosity",
-						"force": __mapper("xs").m("forces").force(forceParams)		
+						"force": __mapper("xs").m("forces").force(forceParams)
 				}
-				
-				forces.push(field)		
-				
+
+				forces.push(field)
+
 				return forces
-			
+
 			}
 		}
 		// force_manybody
@@ -215,48 +216,48 @@ let muonAlima = function (__mapper) {
 		},
 
 		"field":   params => {
-		
+
 			let nodes = params.nodes
 			let forces = []
-			
+
 			let charge = params.pic.charge
-			
+
 			let forceParams =  {
 					type: "manybody",
 					strength: charge,
-					filter: d => d.ric.gid === "nat",
+					filter: d => d.payload.ric.gid === "nat",
 					dim: 2,
 					src: d3_force,		// d3
 					nodes: nodes,
 				}
 
 			let  field = 	{
-			
+
 				"key": "charge",
-				"force": __mapper("xs").m("forces").force(forceParams)							
-				
+				"force": __mapper("xs").m("forces").force(forceParams)
+
 			}
-			forces.push(field)		
+			forces.push(field)
 			return forces
-			
+
 		}
-	}	
+	}
 		// force_manybody
 let forceGravity = function forceGravity(params) {
 
   let nodes = params.nodes
 	let newNodes = []
 
-	
+
 	let gravity = (params.gravity !== undefined) ? params.gravity : 0.6
 
 	function force() {
-
+if (1 & 1) console.log("force gravity")
 		for (let i = 0; i < nodes.length; ++i) {
 
 				let node = nodes[i]
 				// node.vx += 0.001 * Math.random()
-				node.vy += gravity 
+				node.vy += gravity
 				node.vz += gravity
 
 		}
@@ -267,54 +268,55 @@ let forceGravity = function forceGravity(params) {
   }
 
 	return force
-}		
+}
 
 	let  force_gravity = {
 		"pic": {
 
 			"gravity": 0.001 ,
+
 		},
 
 
 		"field":   params => {
-		
+
 			let nodes = params.nodes
 			let forces = []
-			
+
 			let gravity = params.pic.gravity
-			
+
 			let forceParams =  {
 					type: "gravity",
 					gravity: gravity,
-					filter: d => d.ric.gid === "nat" || d.ic.gid === "nat",
+					filter: d => d.payload.ric.gid === "nat" || d.payload.ric.gid === "nat",
 										dim: 2,
 					src: d3_force,
-					nodes: nodes.filter(d => d.ric.gid === "nat" || d.ric.gid === "nat"),
+					nodes: nodes.filter(d => d.payload.ric.gid === "nat" || d.payload.ric.gid === "nat"),
 				}
 
 			let  field = 	{
-				
+
 					"key": "gravity",
 					"force": forceGravity(forceParams)
-						
+
 			}
-			forces.push(field)		
+			forces.push(field)
 			return forces
-			
+
 		}
-	}	 	
+	}
 
   /*******************************************
  * 				@animaApi
  *
  */
-		// nat1.forces = {
-			// force_energy,
-			// force_viscosity,
-			// force_manybody,		
-			// force_gravity,		
-		// }
- 
+		nat1.forces = {
+			force_energy,
+			force_viscosity,
+			force_manybody,
+			force_gravity,
+		}
+
 
   let animas = [
     nat1,     // h.geojson

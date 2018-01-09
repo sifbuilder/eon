@@ -34,7 +34,7 @@
 
     // ------------------------- initNodes
     function initNodes(nodes, nDim) {
-    // console.log("p.simulation nodes", nodes)
+
       for (let i = 0, n = nodes.length, node; i < n; ++i) {
         node = nodes[i]
         if ( node.x === undefined || isNaN(node.x))               node.x = 0
@@ -46,18 +46,21 @@
         if (nDim > 2 && isNaN(node.vz))   node.vz = 0
 
       }
+
       return nodes
     }
 
     // ------------------------- simConstants
     function simConstants(sim, fieldProps = {}) {
+
       let cttes = {}
-      cttes.alpha = (fieldProps.alpha !== undefined) ? fieldProps.alpha : sim.alpha()
-      cttes.alphaMin = (fieldProps.alphaMin !== undefined) ? fieldProps.alphaMin : sim.alphaMin()
-      cttes.alphaDecay = (fieldProps.alphaDecay !== undefined) ? fieldProps.alphaDecay : sim.alphaDecay()
-      cttes.alphaTarget = (fieldProps.alphaTarget !== undefined) ? fieldProps.alphaTarget : sim.alphaTarget()
-      cttes.velocityDecay = (fieldProps.velocityDecay !== undefined) ? fieldProps.velocityDecay : sim.velocityDecay()
+				cttes.alpha = (fieldProps.alpha !== undefined) ? fieldProps.alpha : sim.alpha()
+				cttes.alphaMin = (fieldProps.alphaMin !== undefined) ? fieldProps.alphaMin : sim.alphaMin()
+				cttes.alphaDecay = (fieldProps.alphaDecay !== undefined) ? fieldProps.alphaDecay : sim.alphaDecay()
+				cttes.alphaTarget = (fieldProps.alphaTarget !== undefined) ? fieldProps.alphaTarget : sim.alphaTarget()
+				cttes.velocityDecay = (fieldProps.velocityDecay !== undefined) ? fieldProps.velocityDecay : sim.velocityDecay()
       return cttes
+
     }
     /***************************
  *        @simulate
@@ -115,6 +118,32 @@
       }
 
       sim.restart()
+
+			for (let i=0; i<nodes.length; i++) {
+
+				let node = nodes[i]
+
+
+				let payload = (node.payload !== undefined) ? node.payload : {}
+
+					if (payload.position !== undefined) payload.preposition = payload.position 	// save previous position: _situs {x,y,z}
+					payload.position = {x: node.x, y: node.y, z: node.z}					// save current position: situs {x,y,z}
+					payload.velocity = {x: node.vx, y: node.vy, z: node.vz}				// save current velocity: velocity: {vx, vy, vz}
+					if (payload.preposition !== undefined) payload.deltaforce =	{ // save delta position: situs - _situs  {dx,dy,dz}
+							dx: payload.position.x - payload.preposition.x,
+							dy: payload.position.y - payload.preposition.y,
+							dz: payload.position.z - payload.preposition.z,
+					}
+
+				node.payload = payload
+		if (1 && 1) console.log("m.simulation node", i, node, payload)
+
+
+
+
+			}
+
+
       return nodes
     }
 
