@@ -31,7 +31,7 @@
 
     }
     // -------------------------------  haloPacerHalo_gramn
-    let haloPacerHalo_gramn = function (anima, newItems = []) {
+    let haloPacerHalo_gramn = function (anima, newAnigrams = []) {
 
       if (0 && 1) console.log("h.liner haloPacerHalo_gramn anima",anima)
 
@@ -70,14 +70,15 @@
         mouse.mouseMove = mmouse.mouseMove()        // move
         mouse.mouseDownShared = mmouse.mouseDownShared()       // shareddown
         mouse.event = mmouse.event()                // event
+ if (mouse.event === "mousedown")  if (1 && 1) console.log("h.pacer ",mouse.event.type)
 
         if (mouse.event && mouse.event.type === "mouseup") {    // if up then reset
           cwen.reset(svg)
           cversor.reset(svg)
         }
 
-        if (mouse.event !== undefined && mouse.mouseDown === 1 ) {  // on down event ...
-
+        if (mouse.event !== undefined && mouse.mouseDown === 1  && mouse.event.type === "mousedown" ) {  // on down event ...
+  if (1 && 1) console.log("pacer count", count.event)				
           count.event = Math.floor(pacer.eventN)                //  take count
 
         }
@@ -104,7 +105,7 @@
 
 
       if (Object.keys(count).length > 0) {									// on pace count
-        if (0 && 1) console.log("pacer count", count)
+
 
         let situs
         for (let i=0; i<Object.keys(count).length; i++) {   // for each COUNT
@@ -133,18 +134,23 @@
 							_feature.geometry = geometrier(situs)
 							_feature.properties.boform = boform
 							
+						let node = {}	
+							node = {type: "Feature", geometry: {}, properties: {}}
+							node.geometry = geometrier(situs)
+							node.properties.origin = geometrier(situs)
+							node.properties.velocity = [0,0,0]
+							
 							
             let newItem = __mapper("xs").b("clone")(anigram)  // first cycle clone anigram
 								newItem.payload.ric = _ric
 								newItem.geoform = _feature	// set geoform feature
 								newItem.payload._feature = _feature	// keep history
+								newItem.payload.node = node
 						
-            let newAnigrams = __mapper("xs").h("geojson").gramn(newItem)	// h.geojson
+            let newItems = __mapper("xs").h("geojson").gramn(newItem)	// h.geojson
 						
-						
-            __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.liner","anigrams":newItem})
 
-            newItems = [...newItems, ...newAnigrams]
+            newAnigrams = [...newAnigrams, ...newItems]
 
 
           }
@@ -153,8 +159,9 @@
 
       }
 
+      __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.liner","anigrams":newAnigrams})
 
-      return newItems
+      return newAnigrams
 
     }
 

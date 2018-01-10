@@ -34,43 +34,46 @@
    */
     let boformer = function (anigram, json) {
 
-      if (json.type === undefined) {
+			if (json !== undefined && json !== null) { 
+			
+				if (json.type === undefined) {
 
-        console.log("type undefined")
+					console.log("type undefined")
 
-      } else if (typeof anigram.payload.boform !== "object") {
+				} else if (typeof anigram.payload.boform !== "object") {
 
-        console.log("boform is not an object")
+					console.log("boform is not an object")
 
-      } else if (json.type === "Feature") {
+				} else if (json.type === "Feature") {
 
-        let feature = json
-        let anigramBoform = anigram.payload.boform
-        let featureBoform = {}, featureStyle = {}
-        if (feature.properties !== undefined && feature.properties.boform !== undefined) {
-          featureBoform = feature.properties.boform
-        }
-        let boform = Object.assign(anigramBoform, featureBoform)
-        let jsonStyle = getStyle(boform)
+					let feature = json
+					let anigramBoform = anigram.payload.boform
+					let featureBoform = {}, featureStyle = {}
+					if (feature.properties !== undefined && feature.properties.boform !== undefined) {
+						featureBoform = feature.properties.boform
+					}
+					let boform = Object.assign(anigramBoform, featureBoform)
+					let jsonStyle = getStyle(boform)
 
-        if (feature.properties !== undefined && feature.properties.style !== undefined) {
-          featureStyle = feature.properties.style
-        }
+					if (feature.properties !== undefined && feature.properties.style !== undefined) {
+						featureStyle = feature.properties.style
+					}
 
-        feature.properties.style = Object.assign(jsonStyle, featureStyle)
+					feature.properties.style = Object.assign(jsonStyle, featureStyle)
 
-      } else if (json.type === "FeatureCollection") {
+				} else if (json.type === "FeatureCollection") {
 
-        for (let i=0; i<json.features.length; i++) {
-          let feature = json.features[i]
-          feature = boformer(anigram, feature)
+					for (let i=0; i<json.features.length; i++) {
+						let feature = json.features[i]
+						feature = boformer(anigram, feature)
 
-        }
-      } else {
+					}
+				} else {
 
-        console.log("m.boform.boformer nothing done")
+					console.log("m.boform.boformer nothing done")
 
-      }
+				}
+			}
 
       return json
     }

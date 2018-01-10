@@ -19,25 +19,26 @@
 
     let _geoform = p => ({     // geoform
       type:  "Feature",
-      geometry: {"type": "Point","coordinates": [0, 0]},
+      geometry: {"type": "Point","coordinates": [0, 0, 0]},
       properties: {sort: "feature", }})
 
   /**********************
    *    @gramify
    */
   let gramn = function (anima, newAnigrams=[]) {
-		if (1 && 1) console.log(" ---------- h.geojson anima",anima)
+		if (0 && 1) console.log(" ---------- h.geojson anima",anima)
 		let ani = __mapper("xs").m("anitem")(anima),
 			anigram = ani.anigram(),            	// anigram
+			payload = ani.payload(),            	// payload
 			boform =  ani.boform(),             	// boform
 			ric =   	ani.ric(),               		// ric
 			tim =   	ani.tim(),               		// tim
-			payload = ani.payload(),            	// payload
 			proform = ani.proform(),            	// proform
 			conform = ani.conform(),            	// conform
 			parentuid = ani.parentuid(),          // parentuid
 			geoform = ani.geoform() || _geoform,  // geoform	
-			getNode = ani.node(), 							// node
+			geonode = ani.node(), 							// node
+			node = anigram.payload.node,
 			json
 
 		json = f.v(geoform, anigram)
@@ -45,33 +46,16 @@
 		json = mprofier.projier(f.v(conform, anigram), anigram)(json)
 		json = mprofier.proformer(f.v(proform, anigram), anigram)(json)
 
-		let feat = {
-			type: "Feature",
-			geometry: {
-				type: "Point",
-				coordinates: [0,0,0],
-			},
-		}
-		
-if (1 && 1) console.log("h.geojson feat ___1___",feat.geometry.coordinates)		
-		feat = mprofier.proformer(f.v(proform, anigram), anigram)(feat)
-if (1 && 1) console.log("h.geojson feat ___2___",feat.geometry.coordinates)		
 
-		
-		// json = mstace.fieldeffect(anigram, json)					// force fields
 
-		
-			// let ani = __mapper("xs").m("anitem")(anigram)
-			// let node = ani.node()			// get anigram node
-			// if (1 && 1) console.log(" ******** effect", node.dx, node.dy, node.dz )
+			node = mprofier.proformer(proform)(node)
+		  let fieldeffect =  {
+        "projection": "uniwen",
+        "translate": [  node.dx, node.dy, node.dz ]
+      }
+			json = __mapper("xs").m("profier").proformer(fieldeffect, anigram)(json)
+
 			
-		  // let filder =  {
-        // "projection": "uniwen",
-        // "translate": [  node.dx, node.dy, node.dz ]
-      // }
-			// json = __mapper("xs").m("profier").proformer(f.v(filder, anigram), anigram)(json)
-		
-		
 		
 		json = mboform.boformer(anigram, json)	// boform
 		json = mgeoj.featurize(json) 										// featurize

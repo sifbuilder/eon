@@ -32,6 +32,20 @@
     // https://bl.ocks.org/frogcat/a06132f64b7164c1b1993c49dcd9178f
     // https://www.nist.gov/sites/default/files/documents/2017/05/09/d3rave_poster.pdf
 
+
+    // ------------------------- simConstants
+    function simConstants(sim, fieldProps = {}) {
+
+      let cttes = {}
+				cttes.alpha = (fieldProps.alpha !== undefined) ? fieldProps.alpha : sim.alpha()
+				cttes.alphaMin = (fieldProps.alphaMin !== undefined) ? fieldProps.alphaMin : sim.alphaMin()
+				cttes.alphaDecay = (fieldProps.alphaDecay !== undefined) ? fieldProps.alphaDecay : sim.alphaDecay()
+				cttes.alphaTarget = (fieldProps.alphaTarget !== undefined) ? fieldProps.alphaTarget : sim.alphaTarget()
+				cttes.velocityDecay = (fieldProps.velocityDecay !== undefined) ? fieldProps.velocityDecay : sim.velocityDecay()
+      return cttes
+
+    }
+
     // ------------------------- initNodes
     function initNodes(aniNodes, nDim) {
 
@@ -50,24 +64,13 @@
       return aniNodes
     }
 
-    // ------------------------- simConstants
-    function simConstants(sim, fieldProps = {}) {
-
-      let cttes = {}
-				cttes.alpha = (fieldProps.alpha !== undefined) ? fieldProps.alpha : sim.alpha()
-				cttes.alphaMin = (fieldProps.alphaMin !== undefined) ? fieldProps.alphaMin : sim.alphaMin()
-				cttes.alphaDecay = (fieldProps.alphaDecay !== undefined) ? fieldProps.alphaDecay : sim.alphaDecay()
-				cttes.alphaTarget = (fieldProps.alphaTarget !== undefined) ? fieldProps.alphaTarget : sim.alphaTarget()
-				cttes.velocityDecay = (fieldProps.velocityDecay !== undefined) ? fieldProps.velocityDecay : sim.velocityDecay()
-      return cttes
-
-    }
     /***************************
  *        @simulate
  */
     let simulate = function simulate (sim, animas = [], elapsed = 0, dim = 3) {
-
+			if (1 && 1) console.log("m.animation simulate")	
       let aniNodes = initNodes(animas, dim)
+			
       sim
         .stop()
         .numDimensions(3)
@@ -119,34 +122,34 @@
 
       sim.restart()
 
-			for (let i=0; i<aniNodes.length; i++) {
+			// for (let i=0; i<aniNodes.length; i++) {
 
-				let aniNode = aniNodes[i]
+				// let aniNode = aniNodes[i]
 
-				let payload = (aniNode.payload !== undefined) ? aniNode.payload : {}
+				// let payload = (aniNode.payload !== undefined) ? aniNode.payload : {}
 
-					payload._x = payload.x 
-					payload._y = payload.y 
-					payload._z = payload.z						// save previous position
+					// payload._x = payload.x 
+					// payload._y = payload.y 
+					// payload._z = payload.z						// save previous position
 						
-					payload.x = aniNode.x 
-					payload.y = aniNode.y 
-					payload.z = aniNode.z							// save current position
+					// payload.x = aniNode.x 
+					// payload.y = aniNode.y 
+					// payload.z = aniNode.z							// save current position
 						
-					payload.vx = aniNode.vx 
-					payload.vy = aniNode.vy 
-					payload.vz = aniNode.vz						// save current velocity
+					// payload.vx = aniNode.vx 
+					// payload.vy = aniNode.vy 
+					// payload.vz = aniNode.vz						// save current velocity
 						
-					payload.dx = payload.x - payload._x	// save delta position
-					payload.dy = payload.y - payload._y	
-					payload.dz = payload.z - payload._z
+					// payload.dx = payload.x - payload._x	// save delta position
+					// payload.dy = payload.y - payload._y	
+					// payload.dz = payload.z - payload._z
 
-				aniNode.payload = payload
-		if (1 && 1) console.log("m.simulation aniNode", i, aniNode, payload)
+				// aniNode.payload = payload
+		// if (0 && 1) console.log("m.simulation aniNode", i, aniNode, payload)
 
 
 
-			}
+			// }
 
 
       return aniNodes

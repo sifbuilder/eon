@@ -31,7 +31,7 @@
     }
 
     let pointStream = function(x, y, z=0) {
-
+if (0 && 1) console.log(" ---------- g.uniwen pointStream", x,y,z)
       let c = [x, y, z]
       c = wenRotation(rotate)(...c)														// rotate
       z = (c[2] * zafin[1]) + zafin[0]

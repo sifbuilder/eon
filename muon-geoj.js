@@ -273,7 +273,6 @@ if (0 && 1) console.log("m.geoj featurize",json)
     }
     /**********************
    *    @getCoords
-
    */
     let getCoords = function (json,  coords = []) {
 
