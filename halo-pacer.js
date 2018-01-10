@@ -45,7 +45,8 @@
         conform = ani.conform(),            	// conform
         parentuid = ani.parentuid(),          // parentuid
         geoform = ani.geoform(),  						// geoform
-        pacer = payload.pacer  || {}
+        pacer = payload.pacer  || {},					// pacer
+        geonode = payload.geonode							// geonode
 
       let initSitus = (payload.pacer.initSitus === undefined) ? d => ({x: width / 2, y: height / 2, z: 0 }) : payload.pacer.initSitus
       let eventSitus = (payload.pacer.eventSitus === undefined) ? d => ({x: mouse.event.x, y: mouse.event.y, z: 0 }) : payload.pacer.eventSitus
@@ -78,8 +79,8 @@
         }
 
         if (mouse.event !== undefined && mouse.mouseDown === 1  && mouse.event.type === "mousedown" ) {  // on down event ...
-  if (1 && 1) console.log("pacer count", count.event)				
           count.event = Math.floor(pacer.eventN)                //  take count
+  if (1 && 1) console.log("pacer count", count.event)				
 
         }
 
@@ -134,12 +135,11 @@
 							_feature.geometry = geometrier(situs)
 							_feature.properties.boform = boform
 							
-						let node = {}	
-							node = {type: "Feature", geometry: {}, properties: {}}
-							node.geometry = geometrier(situs)
-							node.properties.origin = geometrier(situs)
-							node.properties.velocity = [0,0,0]
-							
+						let node = {type: "Feature", geometry: {}, properties: {}}
+								node = Object.assign(node, geonode)
+								node.geometry = geometrier(situs)
+								node.properties.origin = geometrier(situs)
+								node.properties.velocity = [0,0,0]
 							
             let newItem = __mapper("xs").b("clone")(anigram)  // first cycle clone anigram
 								newItem.payload.ric = _ric

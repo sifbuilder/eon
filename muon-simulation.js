@@ -47,10 +47,10 @@
     }
 
     // ------------------------- initNodes
-    function initNodes(aniNodes, nDim) {
+    function initNodes(aniItems, nDim) {
 
-      for (let i = 0, n = aniNodes.length, aniNode; i < n; ++i) {
-        aniNode = aniNodes[i]
+      for (let i = 0, n = aniItems.length, aniNode; i < n; ++i) {
+        aniNode = aniItems[i]
         if ( aniNode.x === undefined || isNaN(aniNode.x))               aniNode.x = 0
         if ((aniNode.y === undefined || isNaN(aniNode.y)) && nDim > 1 ) aniNode.y = 0
         if ((aniNode.z === undefined || isNaN(aniNode.z)) && nDim > 2 ) aniNode.z = 0
@@ -61,15 +61,15 @@
 
       }
 
-      return aniNodes
+      return aniItems
     }
 
     /***************************
  *        @simulate
  */
-    let simulate = function simulate (sim, animas = [], elapsed = 0, dim = 3) {
+    let simulate = function simulate (sim, anitems = [], elapsed = 0, dim = 3) {
 			if (1 && 1) console.log("m.animation simulate")	
-      let aniNodes = initNodes(animas, dim)
+      let aniNodes = initNodes(anitems, dim)
 			
       sim
         .stop()
@@ -79,7 +79,7 @@
       for (let i=0; i<aniNodes.length; i++) {
         let anima = aniNodes[i]
 
-        if (anima.payload.forces !== undefined ) {      // force forces in animas
+        if (anima.payload.forces !== undefined ) {      // force forces in anitems
           let forces = f.fa(anima.payload.forces)
 
           for (let j=0; j<forces.length; j++) {

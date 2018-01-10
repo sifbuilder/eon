@@ -37,8 +37,7 @@
 			conform = ani.conform(),            	// conform
 			parentuid = ani.parentuid(),          // parentuid
 			geoform = ani.geoform() || _geoform,  // geoform	
-			geonode = ani.node(), 							// node
-			node = anigram.payload.node,
+			geonode = anigram.payload.node,				// geonode
 			json
 
 		json = f.v(geoform, anigram)
@@ -48,10 +47,10 @@
 
 
 
-			node = mprofier.proformer(proform)(node)
+			geonode = mprofier.proformer(proform)(geonode)
 		  let fieldeffect =  {
         "projection": "uniwen",
-        "translate": [  node.dx, node.dy, node.dz ]
+        "translate": [  geonode.dx, geonode.dy, geonode.dz ]
       }
 			json = __mapper("xs").m("profier").proformer(fieldeffect, anigram)(json)
 

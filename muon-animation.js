@@ -94,10 +94,10 @@ if (anigrams.length > 0) if (1 && 1) console.log("m.animation gramned anigrams "
     /*******************************************
      *    @SIM defaults position of nodes
      */
-      let sim = __mapper("xs").m("simulation").sim()     // simulation on animas
-if (1 && 1) console.log("m.animation anigrams ",anigrams.length)			
-      anigrams =  __mapper("xs").m("simulation").simulate(sim, anigrams, elapsed)
-		__mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.animation","anigrams":anigrams})
+      // let sim = __mapper("xs").m("simulation").sim()     // simulation on animas
+// if (1 && 1) console.log("m.animation anigrams ",anigrams.length)			
+      // anigrams =  __mapper("xs").m("simulation").simulate(sim, anigrams, elapsed)
+		// __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.animation","anigrams":anigrams})
 
     /*******************************************
     *     @RENDER
