@@ -130,18 +130,18 @@
 
             let _feature = {}
 							_feature = {type: "Feature", geometry: {}, properties: {}}
-							_feature.properties.boform = boform
 							_feature.geometry = geometrier(situs)
-
+							_feature.properties.boform = boform
 							
 							
-            let newItem = __mapper("xs").b("clone")(anigram)     	// if first cycle clone anigram
+            let newItem = __mapper("xs").b("clone")(anigram)  // first cycle clone anigram
 								newItem.payload.ric = _ric
-								newItem.geoform = newItem.payload._feature = _feature	// set geoform feature and keep history
+								newItem.geoform = _feature	// set geoform feature
+								newItem.payload._feature = _feature	// keep history
+						
+            let newAnigrams = __mapper("xs").h("geojson").gramn(newItem)	// h.geojson
 						
 						
-						
-            let newAnigrams = __mapper("xs").h("geojson").gramn(newItem)
             __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.liner","anigrams":newItem})
 
             newItems = [...newItems, ...newAnigrams]

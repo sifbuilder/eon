@@ -127,8 +127,9 @@
 			proform = proform || anigram.payload.proform
 			let profier = d => d 
 			if (proform !== undefined) {
-				let center = proform.center
-				let translate = proform.translate
+				// let center = proform.center
+				// let transpose = proform.transpose
+				// let translate = proform.translate
 						// proform.translate = mstace.getLocus(translate, anigram)
 						// proform.center = mstace.getLocus(center, anigram)
 				

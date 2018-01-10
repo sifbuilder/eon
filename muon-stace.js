@@ -12,6 +12,7 @@
     let f = __mapper("props")()
 		let mstore = __mapper("xs").m("store")
 
+				
   /* ******************************************
     getLocifier (anigram)
     getLocifion (anigram)                     -- translate projection
@@ -297,7 +298,6 @@
 
       }
     }
-
 
     /***********
   *         @enty

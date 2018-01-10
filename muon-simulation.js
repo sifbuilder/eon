@@ -11,14 +11,14 @@
 // stace.sim
   // .stop()
   // .numDimensions(3) // graph.numDimensions
-  // .nodes(stace.animas.filter(d => (d.ric.gid === "anima3d")))
+  // .aniNodes(stace.animas.filter(d => (d.ric.gid === "anima3d")))
   // .force('link', d3_force.forceLink().id(d => d._id).links(stace.animas.filter(d => (d.ric.gid === "vortlink"))).strength(0.01))
   // .force('charge', d3_force.forceManyBody().strength(-10.9))
   // .force('center', d3_force.forceCenter(0))
   // .restart()
   // .on("tick", ()=> {
   // console.log("------------ tick")
-  // __mapper("muonStore").apply({"type":"UPDANIMA","caller":"simulation  ","animas":stace.sim.nodes()})
+  // __mapper("muonStore").apply({"type":"UPDANIMA","caller":"simulation  ","animas":stace.sim.aniNodes()})
   // })
 
 // ------------------------- muonSimulation
@@ -33,21 +33,21 @@
     // https://www.nist.gov/sites/default/files/documents/2017/05/09/d3rave_poster.pdf
 
     // ------------------------- initNodes
-    function initNodes(nodes, nDim) {
+    function initNodes(aniNodes, nDim) {
 
-      for (let i = 0, n = nodes.length, node; i < n; ++i) {
-        node = nodes[i]
-        if ( node.x === undefined || isNaN(node.x))               node.x = 0
-        if ((node.y === undefined || isNaN(node.y)) && nDim > 1 ) node.y = 0
-        if ((node.z === undefined || isNaN(node.z)) && nDim > 2 ) node.z = 0
+      for (let i = 0, n = aniNodes.length, aniNode; i < n; ++i) {
+        aniNode = aniNodes[i]
+        if ( aniNode.x === undefined || isNaN(aniNode.x))               aniNode.x = 0
+        if ((aniNode.y === undefined || isNaN(aniNode.y)) && nDim > 1 ) aniNode.y = 0
+        if ((aniNode.z === undefined || isNaN(aniNode.z)) && nDim > 2 ) aniNode.z = 0
 
-        if (isNaN(node.vx))               node.vx = 0
-        if (nDim > 1 && isNaN(node.vy))   node.vy = 0
-        if (nDim > 2 && isNaN(node.vz))   node.vz = 0
+        if (isNaN(aniNode.vx))               aniNode.vx = 0
+        if (nDim > 1 && isNaN(aniNode.vy))   aniNode.vy = 0
+        if (nDim > 2 && isNaN(aniNode.vz))   aniNode.vz = 0
 
       }
 
-      return nodes
+      return aniNodes
     }
 
     // ------------------------- simConstants
@@ -67,17 +67,17 @@
  */
     let simulate = function simulate (sim, animas = [], elapsed = 0, dim = 3) {
 
-      let nodes = initNodes(animas, dim)
+      let aniNodes = initNodes(animas, dim)
       sim
         .stop()
         .numDimensions(3)
-        .nodes(nodes)
+        .nodes(aniNodes)
 
-      for (let i=0; i<nodes.length; i++) {
-        let anima = nodes[i]
+      for (let i=0; i<aniNodes.length; i++) {
+        let anima = aniNodes[i]
 
-        if (anima.forces !== undefined ) {      // force forces in animas
-          let forces = f.fa(anima.forces)
+        if (anima.payload.forces !== undefined ) {      // force forces in animas
+          let forces = f.fa(anima.payload.forces)
 
           for (let j=0; j<forces.length; j++) {
             let field  = __mapper("xs").b("snap")(forces[j] , anima.payload.tim.unitTime) /* snap field*/
@@ -95,7 +95,7 @@
                 if (field.ticked !== undefined) field.ticked
 
 
-                __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"simulation  ","animas":nodes})
+                __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"simulation  ","animas":aniNodes})
 
 
               })
@@ -104,7 +104,7 @@
 
               let itemsNew = field.field({
                 "elapsed":elapsed,
-                "nodes":nodes,
+                "nodes":aniNodes,
                 "pic":fieldProps                          // properties snapped
               })
 
@@ -119,38 +119,43 @@
 
       sim.restart()
 
-			for (let i=0; i<nodes.length; i++) {
+			for (let i=0; i<aniNodes.length; i++) {
 
-				let node = nodes[i]
+				let aniNode = aniNodes[i]
 
+				let payload = (aniNode.payload !== undefined) ? aniNode.payload : {}
 
-				let payload = (node.payload !== undefined) ? node.payload : {}
+					payload._x = payload.x 
+					payload._y = payload.y 
+					payload._z = payload.z						// save previous position
+						
+					payload.x = aniNode.x 
+					payload.y = aniNode.y 
+					payload.z = aniNode.z							// save current position
+						
+					payload.vx = aniNode.vx 
+					payload.vy = aniNode.vy 
+					payload.vz = aniNode.vz						// save current velocity
+						
+					payload.dx = payload.x - payload._x	// save delta position
+					payload.dy = payload.y - payload._y	
+					payload.dz = payload.z - payload._z
 
-					if (payload.position !== undefined) payload.preposition = payload.position 	// save previous position: _situs {x,y,z}
-					payload.position = {x: node.x, y: node.y, z: node.z}					// save current position: situs {x,y,z}
-					payload.velocity = {x: node.vx, y: node.vy, z: node.vz}				// save current velocity: velocity: {vx, vy, vz}
-					if (payload.preposition !== undefined) payload.deltaforce =	{ // save delta position: situs - _situs  {dx,dy,dz}
-							dx: payload.position.x - payload.preposition.x,
-							dy: payload.position.y - payload.preposition.y,
-							dz: payload.position.z - payload.preposition.z,
-					}
-
-				node.payload = payload
-		if (1 && 1) console.log("m.simulation node", i, node, payload)
-
+				aniNode.payload = payload
+		if (1 && 1) console.log("m.simulation aniNode", i, aniNode, payload)
 
 
 
 			}
 
 
-      return nodes
+      return aniNodes
     }
 
     /***************************
  *        @enty
  */
-    let enty = function enty() {}
+    let enty = function () {}
     enty.sim = (_) => {if ( _ === undefined ) return sim; else { sim = _ ; return enty }}
     enty.dim = (_) => {if ( _ === undefined ) return dim; else { dim = _ ; return enty }}
     enty.simulate = simulate

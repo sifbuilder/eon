@@ -176,7 +176,7 @@
           let w = {}                                              // nat on dims
             w.x = Object.assign({}, v)
             w.y = Object.assign({}, w.x, {fas8: v.fas8 - 90}) // set transversal fas8
-            w.z = Object.assign({}, v)
+            w.z = 0 // Object.assign({}, v)
             v = w
         }
 

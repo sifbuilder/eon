@@ -32,25 +32,25 @@
     /* *********************
    *    @m.boform.boformer(boform, anigram, json)
    */
-    let boformer = function (boform = {}, anigram, json) {
+    let boformer = function (anigram, json) {
 
       if (json.type === undefined) {
 
         console.log("type undefined")
 
-      } else if (typeof boform !== "object") {
+      } else if (typeof anigram.payload.boform !== "object") {
 
         console.log("boform is not an object")
 
       } else if (json.type === "Feature") {
 
         let feature = json
-        let anigramBoform = boform
+        let anigramBoform = anigram.payload.boform
         let featureBoform = {}, featureStyle = {}
         if (feature.properties !== undefined && feature.properties.boform !== undefined) {
           featureBoform = feature.properties.boform
         }
-        boform = Object.assign(anigramBoform, featureBoform)
+        let boform = Object.assign(anigramBoform, featureBoform)
         let jsonStyle = getStyle(boform)
 
         if (feature.properties !== undefined && feature.properties.style !== undefined) {
@@ -63,7 +63,7 @@
 
         for (let i=0; i<json.features.length; i++) {
           let feature = json.features[i]
-          feature = boformer(boform, anigram, feature)
+          feature = boformer(anigram, feature)
 
         }
       } else {

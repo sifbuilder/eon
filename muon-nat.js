@@ -180,20 +180,20 @@
         nform = {}
         nform.x = Object.assign( {}, form,  {fas8: (form.fas8 || 0)} )  // set fas8 0
         nform.y = Object.assign( {}, (form.y || form) , {fas8: form.fas8 - 90})
-        nform.z = Object.assign( {}, (form.z || form) )
+        nform.z = Object.assign( {}, (form.z || 0)) // form) )
       } else if (form
             && typeof form === "object"
             && ( form.x !== undefined || form.y !== undefined || form.z !== undefined )) {
         nform = {}
         nform.x = Object.assign({}, form.x )    // defined
         nform.y = Object.assign({}, (form.y || form.x) , {fas8: form.x.fas8 - 90})
-        nform.z = Object.assign({}, (form.z || form.x) )
+        nform.z = 0 // Object.assign({}, (form.z || form.x) )
       } else if (form
             && Array.isArray(form)) {
         nform = {}
         nform.x = form[0]
         nform.y = form[1] ||  Object.assign({}, form[0], {fas8: form.fas8 - 90})
-        nform.z = form[2] ||  Object.assign({}, form[0])
+        nform.z = 0 // form[2] || Object.assign({}, form[0])
       } else {
         nform = {}
         nform.x = {}

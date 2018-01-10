@@ -21,51 +21,13 @@
     let setAnitem = function (d = {}) {
       let a = anitem = {}
 
-      // if (d && d.form                // form:{x,y,z}
-      // && typeof d.form === "object"
-      // && ( d.form.x !== undefined && d.form.y !== undefined && d.form.z !== undefined )) {
-      // a.form = d.form
-      // } else if (d                       // form:{}
-      // && d.form
-      // && typeof d.form === "object"
-      // && ( d.form.x === undefined && d.form.y === undefined && d.form.z === undefined )) {
-      // a.form = {}
-      // a.form.x = Object.assign( {}, d.form,  {fas8: (d.form.fas8 || 0)} )  // set fas8 0
-      // a.form.y = Object.assign( {}, (d.form.y || d.form) , {fas8: d.form.fas8 - 90})
-      // a.form.z = Object.assign( {}, (d.form.z || d.form) )
-      // } else if (d                       // form:{x:}
-      // && d.form
-      // && typeof d.form === "object"
-      // && ( d.form.x !== undefined || d.form.y !== undefined || d.form.z !== undefined )) {
-      // a.form = {}
-      // a.form.x = Object.assign({}, d.form.x )    // defined
-      // a.form.y = Object.assign({}, (d.form.y || d.form.x) , {fas8: d.form.x.fas8 - 90})
-      // a.form.z = Object.assign({}, (d.form.z || d.form.x) )
-      // } else if (d                       // form:[{},{},{}]
-      // && d.form
-      // && Array.isArray(d.form)) {
-      // a.form = {}
-      // a.form.x = d.form[0]
-      // a.form.y = d.form[1] ||  Object.assign({}, d.form[0], {fas8: d.form.fas8 - 90})
-      // a.form.z = d.form[2] ||  Object.assign({}, d.form[0])
-      // } else {
-      // a.form = {}
-      // a.form.x = {}
-      // a.form.y = {}
-      // a.form.z = {}
-      // }
-
       let c = {
 				
-        halo: d.halo,        // d.halo, //
+        halo: d.halo,        // type
 				
-        geoform: (d||{}).geoform,   // geoform()
+        geoform: d.geoform,   // geometry
 				
-        payload: d.payload,   // {initN,eventN,autoN,autoP,outed,maxN}
-				
-				x: d.x,                   //
-        y: d.y,                   //
-        z: d.z,                   //
+        payload: d.payload,   // properties
 				
 			}
 
@@ -74,51 +36,32 @@
 
     }
     /***************************************
- *        getNode
+ *        node
  *
  */
-    let getNode = function getNode(anitem = {}) {
-
+    let node = function () {
+			if (0 && 1) console.log("anitem", anitem)
+			if (anitem.payload === undefined) anitem.payload = {}
+			
       let node = {
-        x: anitem.x,
-        y: node.y,
-        z: anitem.z,
-        _x: anitem._x,     // past location
-        _y: anitem._y,     // past location
-        _z: anitem._z,     // past location
-        vx: anitem.vx,
-        vy: anitem.vy,
-        vz: anitem.vz,
-      }
+         x: anitem.payload.x,
+         y: anitem.payload.y,
+         z: anitem.payload.z,
+        _x: anitem.payload._x,     // past
+        _y: anitem.payload._y,     // past
+        _z: anitem.payload._z,     // past
+        vx: anitem.payload.vx,
+        vy: anitem.payload.vy,
+        vz: anitem.payload.vz,
+        fx: anitem.payload.fx,
+        fy: anitem.payload.fy,
+        fz: anitem.payload.fz,
+        dx: anitem.payload.dx,
+        dy: anitem.payload.dy,
+        dz: anitem.payload.dz,
+       }
+			 
       return node
-
-    }
-
-    /***************************************
- *        getCore
- *
- */
-    let getCore = function (anitem = {}) {
-
-      let core = {}
-
-      core.x =  anitem.x
-      core.y =  anitem.y
-      core.z =  anitem.z
-      core._x = anitem._x     // past location
-      core._y = anitem._y     // past location
-      core._z = anitem._z     // past location
-      core.vx = anitem.vx
-      core.vy = anitem.vy
-      core.vz = anitem.vz
-
-      core.gelded = 		anitem.payload.gelded
-      core.inited = 		anitem.payload.inited
-      core.feature = 		anitem.payload.feature
-      core.uid = 				anitem.payload.uid
-      core.parentuid = 	anitem.payload.parentuid
-
-      return core
 
     }
 
@@ -173,9 +116,11 @@
       return anitem                             // give anitem back
     }
 
+		
+		
+		
     enty.parentCoords = parentCoords
-    enty.getCore = getCore                        // anitem => core
-    enty.getNode = getNode                        // anitem => node
+    enty.node = node                        // anitem => node
 
     enty.conform = _ => { return _ !== undefined ? (anitem.payload.conform = _, anitem) : anitem.payload.conform }
     enty.conform$2 = _ => { return _ !== undefined ? (anitem.payload.conform = _, anitem) : (delete anitem.payload.conform.z, anitem.payload.conform)}
@@ -209,4 +154,4 @@
 
   exports.muonAnitem = muonAnitem
 
-}))
+}));
