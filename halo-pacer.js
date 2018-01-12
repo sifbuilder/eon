@@ -71,7 +71,7 @@
         mouse.mouseMove = mmouse.mouseMove()        // move
         mouse.mouseDownShared = mmouse.mouseDownShared()       // shareddown
         mouse.event = mmouse.event()                // event
- if (mouse.event === "mousedown")  if (1 && 1) console.log("h.pacer ",mouse.event.type)
+ if (mouse.event === "mousedown")  if (0 && 1) console.log("h.pacer ",mouse.event.type)
 
         if (mouse.event && mouse.event.type === "mouseup") {    // if up then reset
           cwen.reset(svg)
@@ -80,7 +80,7 @@
 
         if (mouse.event !== undefined && mouse.mouseDown === 1  && mouse.event.type === "mousedown" ) {  // on down event ...
           count.event = Math.floor(pacer.eventN)                //  take count
-  if (1 && 1) console.log("pacer count", count.event)				
+					if (0 && 1) console.log("pacer count", count.event)				
 
         }
 
@@ -104,9 +104,7 @@
 
       }																										// PACE COUNT
 
-
       if (Object.keys(count).length > 0) {									// on pace count
-
 
         let situs
         for (let i=0; i<Object.keys(count).length; i++) {   // for each COUNT
@@ -128,6 +126,8 @@
             }
 
             let _ric = ric
+							_ric.gid = "nat"
+							_ric.cid = "nat"
 							_ric.fid = fider(anigram)
 
             let _feature = {}
@@ -138,10 +138,12 @@
 						let node = {type: "Feature", geometry: {}, properties: {}}
 								node = Object.assign(node, geonode)
 								node.geometry = geometrier(situs)
-								node.properties.origin = geometrier(situs)
-								node.properties.velocity = [0,0,0]
+								node.properties.origin = node.properties.origin || node.geometry.coordinates 
+								node.properties.velocity = node.properties.velocity || [0,0,0]
+								node.properties.stape = node.properties.stape || [0,0,0]
 							
             let newItem = __mapper("xs").b("clone")(anigram)  // first cycle clone anigram
+								newItem.halo = "geojson"
 								newItem.payload.ric = _ric
 								newItem.geoform = _feature	// set geoform feature
 								newItem.payload._feature = _feature	// keep history

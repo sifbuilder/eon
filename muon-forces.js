@@ -37,12 +37,12 @@ var muonForces = function muonForces(__mapper = {}) {
 
 		let props = __mapper("props")()
 		let f = props.lib
-		let local = {}
 
 	/***********
 	 *		@force
 	 */		
 let force = function (params) {
+	if (0 && 1) console.log(" *********** m.forces	 params", params)	
 	let p = {
 		"nodes": params.nodes,
 		"filter": params.filter,

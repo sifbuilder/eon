@@ -37,7 +37,7 @@
 			conform = ani.conform(),            	// conform
 			parentuid = ani.parentuid(),          // parentuid
 			geoform = ani.geoform() || _geoform,  // geoform	
-			geonode = anigram.payload.node,				// geonode
+			geonode = anigram.payload.geonode,				// geonode
 			json
 
 		json = f.v(geoform, anigram)
@@ -45,17 +45,13 @@
 		json = mprofier.projier(f.v(conform, anigram), anigram)(json)
 		json = mprofier.proformer(f.v(proform, anigram), anigram)(json)
 
-
-
-			geonode = mprofier.proformer(proform)(geonode)
-		  let fieldeffect =  {
-        "projection": "uniwen",
-        "translate": [  geonode.dx, geonode.dy, geonode.dz ]
-      }
-			json = __mapper("xs").m("profier").proformer(fieldeffect, anigram)(json)
+		
+		if (1 && 1) console.log(" ---------- h.geojson payload dx", payload.dx, payload.dy, payload.dz)
+  let fieldeffect =  {"projection": "uniwen","translate": [  payload.dx, payload.dy, payload.dz ]}
+			if (payload.dx && payload.dy && payload.dz) json = __mapper("xs").m("profier").proformer(fieldeffect, anigram)(json)
 
 			
-		
+			
 		json = mboform.boformer(anigram, json)	// boform
 		json = mgeoj.featurize(json) 										// featurize
 		json = mgeoj.zorder(json) 											// order
@@ -69,6 +65,10 @@
 			let coordinates = json.features[0].geometry.coordinates
 			console.log("h.geojson.gramn json", coordinates[coordinates.length -1])
 		}
+		
+		
+		
+		if (0 && 1) console.log(" ---------- h.geojson json",json)
 		
 		newAnigrams = json.features.map( (d, i) => {
 			let newAnigram = Object.assign({}, anigram)

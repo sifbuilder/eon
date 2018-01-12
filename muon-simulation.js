@@ -25,6 +25,11 @@
   let muonSimulation = function (__mapper = {}) {
 
     let f = __mapper("props")()
+		let msnap = __mapper("xs").b("snap")
+		let mstore = __mapper("xs").m("store")
+
+
+
     let sim = d3_force.forceSimulation()    //
     let dim = 3
 
@@ -48,45 +53,120 @@
 
     // ------------------------- initNodes
     function initNodes(aniItems, nDim) {
+			let aniNodes = []
 
-      for (let i = 0, n = aniItems.length, aniNode; i < n; ++i) {
-        aniNode = aniItems[i]
+      for (let i = 0, n = aniItems.length; i < n; ++i) {
+
+        let aniItem = aniItems[i]
+				let payload = aniItem.payload
+				let aniNode = {}
+
+				aniNode.x = payload.x
+				aniNode.y = payload.y
+				aniNode.z = payload.z
+				aniNode.vx = payload.vx
+				aniNode.vy = payload.vy
+				aniNode.vz = payload.vz
+				aniNode.payload = payload
+				aniNode.id = payload.uid
+
+
         if ( aniNode.x === undefined || isNaN(aniNode.x))               aniNode.x = 0
         if ((aniNode.y === undefined || isNaN(aniNode.y)) && nDim > 1 ) aniNode.y = 0
         if ((aniNode.z === undefined || isNaN(aniNode.z)) && nDim > 2 ) aniNode.z = 0
 
-        if (isNaN(aniNode.vx))               aniNode.vx = 0
-        if (nDim > 1 && isNaN(aniNode.vy))   aniNode.vy = 0
-        if (nDim > 2 && isNaN(aniNode.vz))   aniNode.vz = 0
+        if (isNaN(payload.vx))               														aniNode.vx = 0
+        if (nDim > 1 && isNaN(payload.vy))   														aniNode.vy = 0
+        if (nDim > 2 && isNaN(payload.vz))   														aniNode.vz = 0
+
+				if ( aniNode.x === undefined || isNaN(aniNode.x))               aniNode.x = 0
+        if ((aniNode.y === undefined || isNaN(aniNode.y)) && nDim > 1 ) aniNode.y = 0
+        if ((aniNode.z === undefined || isNaN(aniNode.z)) && nDim > 2 ) aniNode.z = 0
+
+        if (isNaN(aniNode.vx))               														aniNode.vx = 0
+        if (nDim > 1 && isNaN(payload.vy))   														aniNode.vy = 0
+        if (nDim > 2 && isNaN(payload.vz))   														aniNode.vz = 0
+
+
+
+				aniNodes.push(aniNode)
 
       }
 
-      return aniItems
+      return aniNodes
     }
+
+    // ------------------------- restoreNodes
+    function restoreNodes(aniNodes, aniItems) {
+
+				let aniSims = []
+		
+				if (aniNodes.length > 0) {
+						for (let i = 0; i < aniNodes.length; ++i) {
+							
+							let aniNode = aniNodes[i]
+		 
+							let aniSim = Object.assign({}, aniItems[i])
+								aniSim.payload = aniNode.payload			// 
+
+							aniSim.payload.dx = aniNode.x - aniSim.payload._x
+							aniSim.payload.dy = aniNode.y - aniSim.payload._y
+							aniSim.payload.dz = aniNode.z - aniSim.payload._z	// delta
+
+							aniSim.payload._x = aniSim.payload.x
+							aniSim.payload._y = aniSim.payload.y
+							aniSim.payload._z = aniSim.payload.z		// previous position
+
+							aniSim.payload.x = aniNode.x
+							aniSim.payload.y = aniNode.y
+							aniSim.payload.z = aniNode.z							// current position
+
+							aniSim.payload.vx = aniNode.vx
+							aniSim.payload.vy = aniNode.vy
+							aniSim.payload.vz = aniNode.vz						// current velocity
+
+		if (0 && 1) console.log("m.simulation aniSim", i, aniSim.payload)
+
+							aniSims[i] = aniSim
+						
+					}
+if (aniNodes.length > 2) if (0 && 1) console.log("m.simulation aniSims --- ", aniSims[2].payload)
+					
+				}
+			
+			return aniSims
+		}
 
     /***************************
  *        @simulate
  */
-    let simulate = function simulate (sim, anitems = [], elapsed = 0, dim = 3) {
-			if (1 && 1) console.log("m.animation simulate")	
-      let aniNodes = initNodes(anitems, dim)
+    let simulate = function (sim, aniItems = [], elapsed = 0, dim = 3) {
+
+			let aniSims = []
 			
+			if (0 && 1) console.log("m.animation simulate", aniItems.length)
+      let aniNodes = initNodes(aniItems, dim)		// < aniNodes
+
       sim
         .stop()
         .numDimensions(3)
         .nodes(aniNodes)
 
-      for (let i=0; i<aniNodes.length; i++) {
-        let anima = aniNodes[i]
+      for (let i=0; i<aniItems.length; i++) {
+        
+        let aniItem = aniItems[i]												// each anima or anigram
 
-        if (anima.payload.forces !== undefined ) {      // force forces in anitems
-          let forces = f.fa(anima.payload.forces)
+        if (aniItem.payload.forces !== undefined ) {     // forces in aniItem
+          let forces = f.fa(aniItem.payload.forces)
 
-          for (let j=0; j<forces.length; j++) {
-            let field  = __mapper("xs").b("snap")(forces[j] , anima.payload.tim.unitTime) /* snap field*/
-
-            let fieldProps = field      // field properties
-            let cttes = simConstants(sim, fieldProps)
+          for (let j=0; j<forces.length; j++) {			// for each force in aniItem
+						
+            // let field  = msnap(forces[j] , aniItem.payload.tim.unitTime) /* snap field*/
+            let aniForce  = forces[j]				// aniForce in anima.payload.forces eg. force_gravity
+						
+            // let fieldProps = field      // field properties
+						
+            let cttes = simConstants(sim, aniForce)
             sim
               .alpha(cttes.alpha)
               .alphaMin(cttes.alphaMin)
@@ -95,24 +175,25 @@
               .velocityDecay(cttes.velocityDecay)
               .on("tick", ()=> {
 
-                if (field.ticked !== undefined) field.ticked
-
-
-                __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"simulation  ","animas":aniNodes})
-
+                if (aniForce.ticked !== undefined) aniForce.ticked
+								
+								aniSims = restoreNodes(aniNodes, aniItems)	// > aniNodes								
+								mstore.apply({type:"UPDATEANIGRAMS",caller:"simulation",anigrams:aniSims})
 
               })
 
-            if (field.field !== undefined) {      // field forces
+            if (aniForce.field !== undefined) {   // field forces
 
-              let itemsNew = field.field({
-                "elapsed":elapsed,
-                "nodes":aniNodes,
-                "pic":fieldProps                          // properties snapped
+              let aniCompForces = aniForce.field({			// mamy to share properties
+                "elapsed": elapsed,											// elapsed
+                "nodes": aniNodes,											// aniNodes
+                "properties": aniForce.properties      	// snapped properties
               })
-
-              for (let k=0; k < itemsNew.length; k++) {
-                sim.force(itemsNew[k].key, itemsNew[k].force) // muon forces
+							
+              for (let k=0; k < aniCompForces.length; k++) {
+									let forceName = aniCompForces[k].key
+									let forceFunction = aniCompForces[k].force
+                sim.force(forceName, forceFunction) 		// muon or builtin force
               }
 
             }
@@ -122,37 +203,7 @@
 
       sim.restart()
 
-			// for (let i=0; i<aniNodes.length; i++) {
-
-				// let aniNode = aniNodes[i]
-
-				// let payload = (aniNode.payload !== undefined) ? aniNode.payload : {}
-
-					// payload._x = payload.x 
-					// payload._y = payload.y 
-					// payload._z = payload.z						// save previous position
-						
-					// payload.x = aniNode.x 
-					// payload.y = aniNode.y 
-					// payload.z = aniNode.z							// save current position
-						
-					// payload.vx = aniNode.vx 
-					// payload.vy = aniNode.vy 
-					// payload.vz = aniNode.vz						// save current velocity
-						
-					// payload.dx = payload.x - payload._x	// save delta position
-					// payload.dy = payload.y - payload._y	
-					// payload.dz = payload.z - payload._z
-
-				// aniNode.payload = payload
-		// if (0 && 1) console.log("m.simulation aniNode", i, aniNode, payload)
-
-
-
-			// }
-
-
-      return aniNodes
+      return aniSims
     }
 
     /***************************

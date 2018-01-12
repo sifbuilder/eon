@@ -80,7 +80,7 @@ let muonAlima = function (__mapper) {
     "payload": {
 
 			"tim": tim,
-			"ric": {"gid":"nat","cid":"nat","fid":"nat",},
+			"ric": {"gid":"pacer","cid":"pacer","fid":"pacer",},
 			"boform": { "csx":0,"cf":[[[444,999]]], "co":[[[0.9,0.9]]], "cs":[[[555,999]]],"cw":[[[2.7,2.7]]],"cp":[[[0.9,0.9]]],},
 
 			"proform": {
@@ -132,8 +132,8 @@ let muonAlima = function (__mapper) {
  *
  */
 	 // force_energy
-	let  force_energy = {
-			"pic": {
+	let  force_energy = {							// aniForce
+			"properties": {
 				alpha: 1 ,
 				alphaMin: 0.001,
 				alphaDecay: 0,
@@ -143,9 +143,8 @@ let muonAlima = function (__mapper) {
 
 			"field":  function field (params = {}) {
 
-
 				let nodes = params.nodes
-				let forces = []
+				let aniCompForces = []
 
 				let forceParams =  {
 						"type": "energy",
@@ -160,23 +159,22 @@ let muonAlima = function (__mapper) {
 
 					}
 
-				forces.push(field)
-
-				return forces
+				aniCompForces.push(field)
+				return aniCompForces
 
 			}
 		}
 		// force_viscosity
 	let  force_viscosity = {
-			"pic": {
+			"properties": {
 				velocityDecay: 0.0002,
 			},
 
-			"field":  function field (params = {}) {
+			"field":  function (params = {}) {	// field.field
 
-				let nodes = params.nodes
+				let nodes = params.nodes					// nodes
 
-				let forces = []
+				let aniCompForces = []
 
 				let forceParams =  {
 						"type": "noforce",
@@ -190,103 +188,94 @@ let muonAlima = function (__mapper) {
 						"force": __mapper("xs").m("forces").force(forceParams)
 				}
 
-				forces.push(field)
+				aniCompForces.push(field)
 
-				return forces
+				return aniCompForces
 
 			}
 		}
 		// force_manybody
-		let  force_manybody = {
-		"pic": {
+		let  force_manybody = {											// aniForce
+		"properties": {
 			"charge": -1.9,
 		},
 
 		"field":   params => {
-
 			let nodes = params.nodes
-			let forces = []
+			let aniCompForces = []
 
-			let charge = params.pic.charge
+			let charge = params.properties.charge
 
 			let forceParams =  {
 					type: "manybody",
 					strength: charge,
-					filter: d => d.payload.ric.gid === "nat",
+					filter: d =>  d.payload.ric.gid === "nat",
 					dim: 2,
 					src: d3_force,		// d3
 					nodes: nodes,
 				}
 
 			let  field = 	{
-
 				"key": "charge",
 				"force": __mapper("xs").m("forces").force(forceParams)
-
 			}
-			forces.push(field)
-			return forces
+			aniCompForces.push(field)
+			return aniCompForces
 
 		}
 	}
-		// force_manybody
-let forceGravity = function forceGravity(params) {
+  /*******************************************
+ * 			@forceGravity
+ */
+	let forceGravity = function forceGravity(params) {
 
-  let nodes = params.nodes
-	let newNodes = []
+		
+		let nodes = params.nodes
+		let newNodes = []
 
+		let gravity = params.gravity
 
-	let gravity = (params.gravity !== undefined) ? params.gravity : 0.6
-
-	function force() {
-		if (0 & 1) console.log("force gravity")
-		for (let i = 0; i < nodes.length; ++i) {
-
-				let node = nodes[i]
-				node.vy += gravity		// node.vx += 0.001 * Math.random()
-
+		function force() {													// builtin d3force (vs muon d3force)
+			for (let i = 0; i < nodes.length; ++i) {
+					let node = nodes[i]
+					node.vy += gravity		// node.vx += 0.001 * Math.random()
+			}
 		}
-  }
 
-	function initialize() {
-    if (!nodes) return
-  }
+		function initialize() {
+			if (!nodes) return
+		}
 
-	return force
-}
+		return force
+	}
 
-	let  force_gravity = {
-		"pic": {
-
-			"gravity": 0.001 ,
-
+	let  force_gravity = {													// aniForce
+		"properties": {
+			gravity: 3.1,
 		},
 
 
-		"field":   params => {
-
+		"field":  function field (params = {}) {			// force.field
 			let nodes = params.nodes
-			let forces = []
+			let aniCompForces = []
 
-			let gravity = params.pic.gravity
+			let gravity = params.properties.gravity		// params.properties
 
 			let forceParams =  {
 					type: "gravity",
 					gravity: gravity,
-					filter: d => d.payload.ric.gid === "nat" || d.payload.ric.gid === "nat",
-										dim: 2,
+					filter: d =>  d.payload.ric.gid === "nat",
+					dim: 2,
 					src: d3_force,
-					nodes: nodes.filter(d => d.payload.ric.gid === "nat" || d.payload.ric.gid === "nat"),
+					nodes: nodes,
 				}
 
 			let  field = 	{
-
 					"key": "gravity",
 					"force": forceGravity(forceParams)
-
 			}
-			forces.push(field)
-			return forces
+			aniCompForces.push(field)
+			return aniCompForces
 
 		}
 	}
@@ -297,10 +286,10 @@ let forceGravity = function forceGravity(params) {
  *
  */
 		pointform.payload.forces = {
+			force_gravity,
 			force_energy,
 			force_viscosity,
 			force_manybody,
-			force_gravity,
 		}
 
   let animas = [
