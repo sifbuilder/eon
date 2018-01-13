@@ -16,33 +16,38 @@
 				mric = __mapper("xs").m("ric"),
 				mstace = __mapper("xs").m("stace")
 
-
     let _geoform = p => ({     // geoform
       type:  "Feature",
       geometry: {"type": "Point","coordinates": [0, 0, 0]},
       properties: {sort: "feature", }})
 
+		let _geonode = {
+			type: "Point",
+			geometry: [0,0,0],
+			properties: {
+				origin: [0,0,0],
+				velocity: [0,0,0],
+				previous: [0,0,0],
+				geodelta: [0,0,0],
+			}
+		}
+		
   /**********************
    *    @gramify
    */
   let gramm = function (anima, newAnigrams=[]) {
-		if (0 && 1) console.log(" ---------- h.geojson anima",anima)
 		let ani = __mapper("xs").m("anitem")(anima),
-			anigram = ani.anigram(),            	// anigram
-			payload = ani.payload(),            	// payload
-			boform =  ani.boform(),             	// boform
-			ric =   	ani.ric(),               		// ric
-			tim =   	ani.tim(),               		// tim
-			proform = ani.proform(),            	// proform
-			conform = ani.conform(),            	// conform
-			parentuid = ani.parentuid(),          // parentuid
-			geoform = ani.geoform() || _geoform,  // geoform
-			geonode = anigram.payload.geonode,				// geonode
+			anigram = ani.anigram(),            						// anigram
+			payload = ani.payload(),            						// payload
+			boform =  ani.boform(),             						// boform
+			ric =   	ani.ric(),               							// ric
+			tim =   	ani.tim(),               							// tim
+			proform = ani.proform(),            						// proform
+			conform = ani.conform(),            						// conform
+			parentuid = ani.parentuid(),          					// parentuid
+			geoform = ani.geoform() || _geoform,  					// geoform
+			geonode = anigram.payload.geonode || _geonode,	// geonode
 			json
-
-		if (0 && 1) console.log(" ---------- h.geojson anigram", anigram)
-		if (0 && 1) console.log(" ---------- h.geojson anima", anima)
-
 
 		json = f.v(geoform, anigram)
 
@@ -51,27 +56,17 @@
 
 
 
-
-
-
 		let fileffect =  {
 					"projection": "uniwen",
 					"translate": [  geonode.geometry[0], geonode.geometry[1], geonode.geometry[2] ]}
 		json =  mprofier.projier(fileffect, anigram)(json)
 
-	
-
-
-
+		
+		
 		json = mboform.boformer(anigram, json)	// boform
 		json = mgeoj.featurize(json) 										// featurize
 		json = mgeoj.zorder(json) 											// order
 		json = mric.qualier(ric, anigram, json)					// qualify
-
-
-
-
-		if (0 && 1) console.log(" ---------- h.geojson json",json)
 
 		newAnigrams = json.features.map( (d, i) => {
 			let newAnigram = Object.assign({}, anigram)

@@ -22,13 +22,13 @@
       let a = anitem = {}
 
       let c = {
-				
+
         halo: d.halo,        // type
-				
+
         geoform: d.geoform,   // geometry
-				
+
         payload: d.payload,   // properties
-				
+
 			}
 
       a = Object.assign(a, c)
@@ -42,7 +42,7 @@
     let node = function () {
 			if (0 && 1) console.log("anitem", anitem)
 			if (anitem.payload === undefined) anitem.payload = {}
-			
+
       let node = {
          x: anitem.payload.x,
          y: anitem.payload.y,
@@ -60,7 +60,7 @@
         dy: anitem.payload.dy,
         dz: anitem.payload.dz,
        }
-			 
+
       return node
 
     }
@@ -80,12 +80,9 @@
       return coords
     }
 
-
-
     /***********
   *   @enty
   */
-
     let enty = function( anima, t ) {
       let anigram = {}
       if (anima !== undefined) {
@@ -116,9 +113,6 @@
       return anitem                             // give anitem back
     }
 
-		
-		
-		
     enty.parentCoords = parentCoords
     enty.node = node                        // anitem => node
 

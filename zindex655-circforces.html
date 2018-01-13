@@ -157,7 +157,7 @@ let muonAlima = function (__mapper) {
 			},
 		}
   }
-	
+
  // -------------------------------  nat2
   let nat2 = {
 
@@ -241,22 +241,22 @@ let muonAlima = function (__mapper) {
 					"pa6":0,
 					"pb7":360,
 					"fas8": 0,
-				},				
+				},
 			},
 		}
-  }	
+  }
 /*******************************************
  * 			@forces
  *
  */
 	 // force_energy
 	let  force_energy = {							// aniForce
-			"properties": {
-				alpha: 1 ,
-				alphaMin: 0.001,
-				alphaDecay: 0,
-				alphaTarget: 0,
-			},
+				properties: {
+					alpha: 1 ,
+					alphaMin: 0.001,
+					alphaDecay: 0,
+					alphaTarget: 0,
+				},
 
 
 			"field":  function field (params = {}) {
@@ -345,15 +345,14 @@ let muonAlima = function (__mapper) {
   /*******************************************
  * 			@forceGravity
  */
-	let forceGravity = function forceGravity(params) {
+	let forceGravity = function forceGravity(params) {	// force
 
-		
 		let nodes = params.nodes
 		let newNodes = []
 
 		let gravity = params.gravity
 
-		function force() {													// builtin d3force (vs muon d3force)
+		function force() {													// d3force builtin (vs muon d3force)
 			for (let i = 0; i < nodes.length; ++i) {
 					let node = nodes[i]
 					node.vy += gravity		// node.vx += 0.001 * Math.random()
@@ -367,17 +366,17 @@ let muonAlima = function (__mapper) {
 		return force
 	}
 
-	let  force_gravity = {													// aniForce
+	let  force_gravity = {													// aniForce:{properties, field}
 		"properties": {
 			gravity: 1.1,
 		},
 
 
 		"field":  function field (params = {}) {			// force.field
-			let nodes = params.nodes
-			let aniCompForces = []
-
+			let nodes = params.nodes		// params: elapsed, nodes, properties.gravity
 			let gravity = params.properties.gravity		// params.properties
+
+			let aniCompForces = []
 
 			let forceParams =  {
 					type: "gravity",
@@ -397,7 +396,7 @@ let muonAlima = function (__mapper) {
 
 		}
 	}
-	
+
 
   /*******************************************
  * 				@animaApi

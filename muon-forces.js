@@ -11,20 +11,18 @@
 	/***********
 	 *		@isolate
 	 */	
-let isolate = function isolate(params) {
+let isolate = function (params) {	// filter, force, nodes, params, type
 		let nodes = params.nodes
-		
 		let force = params.force
 		let filter = params.filter
 
 		if (force !== null) { 
 
-			let simNodes  =  nodes.filter(filter)
-			let dim = params.params.dim || 3							// params for dim
+			let simNodes  =  nodes.filter(filter)			// filter nodes
+			let dim = params.params.dim || 3					// params for dim
 
 			var initialize = force.initialize
-			force.initialize = function() { initialize.call(force, simNodes, dim) }
-			
+			force.initialize = () => initialize.call(force, simNodes, dim)
 			
 			return force
 		}
@@ -33,49 +31,41 @@ let isolate = function isolate(params) {
 	/***********
 	 *		@muonForces
 	 */	
-var muonForces = function muonForces(__mapper = {}) {
+var muonForces = function (__mapper = {}) {
 
-		let props = __mapper("props")()
-		let f = props.lib
+		let f = __mapper("props")()
 
+		
 	/***********
 	 *		@force
 	 */		
-let force = function (params) {
-	if (0 && 1) console.log(" *********** m.forces	 params", params)	
-	let p = {
-		"nodes": params.nodes,
-		"filter": params.filter,
-		"force": params.force || undefined
-	}
-	
-	let force = null
-	let d3force = null
-	if (params.type !== undefined) {
-		p.type = params.type
-		if (__mapper("xs").f(p.type)) {
-			
-				d3force = __mapper("xs").f(p.type).force(params)
+	let force = function (params) {
+		
+		let aniforce, d3force
 
-		}  	
+		let p = {
+			"nodes": params.nodes,
+			"filter": params.filter,
+			"force": params.force || undefined
+		}
 		
-		p.force = d3force
-		p.params = params
+		if (params.type !== undefined) {
+			p.type = params.type
+			p.force = (__mapper("xs").f(p.type)) ? __mapper("xs").f(p.type).force(params) : null // muon d3force
+			p.params = params
+		}
+		
+		aniforce = isolate(p)			// force, params:{nodes, filter, force}
+		return aniforce
 		
 	}
-	
-	force = isolate(p)
-  return force
-	
-}
 
 	/***********
 	 *		@enty
 	 */	
-	var enty = function enty() {}
-	enty.force = force
+	var enty = () => {}
+		enty.force = force
 	return enty
-	
 	
 }
 

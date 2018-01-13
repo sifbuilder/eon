@@ -28,7 +28,16 @@
 		let msnap = __mapper("xs").b("snap")
 		let mstore = __mapper("xs").m("store")
 
-
+		let _geonode = {
+			type: "Point",
+			geometry: [0,0,0],
+			properties: {
+				origin: [0,0,0],
+				velocity: [0,0,0],
+				previous: [0,0,0],
+				geodelta: [0,0,0],
+			}
+		}
 
     let sim = d3_force.forceSimulation()    //
     let dim = 3
@@ -54,14 +63,14 @@
     // ------------------------- initNodes
     function initNodes(aniItems, nDim) {
 			let simNodes = []
-
+			
 if (0 && 1) console.log("aniItems" , aniItems)			
 			
       for (let i = 0, n = aniItems.length; i < n; ++i) {
 
         let aniItem = aniItems[i]
 				let payload = aniItem.payload
-				let geonode = payload.geonode
+				let geonode = payload.geonode || _geonode
 				
 				let simNode = {}
 
@@ -113,14 +122,14 @@ if (0 && 1) console.log("aniItems" , aniItems)
 							let updAniItem = Object.assign({}, aniItems[i])
 							
 							let updAniPayload = simNode.payload
+									updAniPayload.geonode = updAniPayload.geonode || _geonode 
 							
-							let updAniGeometry = updAniPayload.geonode.geometry
-							let updaAniProperties = updAniPayload.geonode.properties
-							
-							let updaAniOrigin = updaAniProperties.origin
-							let updaAniVelocity = updaAniProperties.velocity
-							let updaAniPrevious = updaAniProperties.previous
-							let updaAniGeodelta = updaAniProperties.geodelta
+							let updAniGeometry = updAniPayload.geonode.geometry,
+								updaAniProperties = updAniPayload.geonode.properties,
+								updaAniOrigin = updaAniProperties.origin,
+								updaAniVelocity = updaAniProperties.velocity,
+								updaAniPrevious = updaAniProperties.previous,
+								updaAniGeodelta = updaAniProperties.geodelta
 							
 							updaAniGeodelta[0] = simNode.x - updAniGeometry[0]
 							updaAniGeodelta[1] = simNode.y - updAniGeometry[1]
@@ -153,34 +162,35 @@ if (0 && 1) console.log("aniItems" , aniItems)
     let simulate = function (sim, aniItems = [], elapsed = 0, dim = 3) {
 
 			let aniSims = []
+			let numDims = 3
 			
 			if (0 && 1) console.log("m.animation simulate", aniItems.length)
       let aniNodes = initNodes(aniItems, dim)		// < aniNodes
 
       sim
         .stop()
-        .numDimensions(3)
+        .numDimensions(numDims)
         .nodes(aniNodes)
 
       for (let i=0; i<aniItems.length; i++) {
         
-        let aniItem = aniItems[i]												// each anima or anigram
+        let aniItem = aniItems[i]						// each anima or anigram
 
         if (aniItem.payload.forces !== undefined ) {     // forces in aniItem
           let forces = f.fa(aniItem.payload.forces)
 
           for (let j=0; j<forces.length; j++) {			// for each force in aniItem
 						
-            let aniForce  = forces[j]				// aniForce in anima.payload.forces eg. force_gravity
+            let aniForce  = forces[j]		// aniForce in anima.payload.forces eg. force_gravity
+            let cttes = simConstants(sim, aniForce.properties)
 						
-            let cttes = simConstants(sim, aniForce)
             sim
               .alpha(cttes.alpha)
               .alphaMin(cttes.alphaMin)
               .alphaDecay(cttes.alphaDecay)
               .alphaTarget(cttes.alphaTarget)
               .velocityDecay(cttes.velocityDecay)
-              .on("tick", ()=> {
+              .on("tick", () => {
 
                 if (aniForce.ticked !== undefined) aniForce.ticked
 								
@@ -208,6 +218,8 @@ if (0 && 1) console.log("aniItems" , aniItems)
         }
       }
 
+			
+			
       sim.restart()
 
       return aniSims
