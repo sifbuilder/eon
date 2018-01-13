@@ -31,7 +31,7 @@
 
     }
     // -------------------------------  haloPacerHalo_gramn
-    let haloPacerHalo_gramn = function (anima, newAnigrams = []) {
+    let haloPacerHalo_gramn = function (anima, newItems = []) {
 
       if (0 && 1) console.log("h.liner haloPacerHalo_gramn anima",anima)
 
@@ -71,7 +71,7 @@
         mouse.mouseMove = mmouse.mouseMove()        // move
         mouse.mouseDownShared = mmouse.mouseDownShared()       // shareddown
         mouse.event = mmouse.event()                // event
- if (mouse.event === "mousedown")  if (0 && 1) console.log("h.pacer ",mouse.event.type)
+				if (mouse.event === "mousedown")  if (0 && 1) console.log("h.pacer ",mouse.event.type)
 
         if (mouse.event && mouse.event.type === "mouseup") {    // if up then reset
           cwen.reset(svg)
@@ -142,17 +142,17 @@
 								node.properties.velocity = node.properties.velocity || [0,0,0]
 								node.properties.stape = node.properties.stape || [0,0,0]
 							
-            let newItem = __mapper("xs").b("clone")(anigram)  // first cycle clone anigram
+            let newItem = __mapper("xs").b("clone")(anigram)  // 
 								newItem.halo = "geojson"
 								newItem.payload.ric = _ric
 								newItem.geoform = _feature	// set geoform feature
 								newItem.payload._feature = _feature	// keep history
 								newItem.payload.node = node
 						
-            let newItems = __mapper("xs").h("geojson").gramn(newItem)	// h.geojson
+            newItems = [...newItems,
+								...__mapper("xs").h("geojson").gramn(newItem) ]
 						
-
-            newAnigrams = [...newAnigrams, ...newItems]
+            // newAnigrams = [...newAnigrams, ...newItems]
 
 
           }
@@ -161,9 +161,10 @@
 
       }
 
-      __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.liner","anigrams":newAnigrams})
+      // __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.pacer","anigrams":newAnigrams})
+      __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"h.pacer","animas":newItems})
 
-      return newAnigrams
+      return newItems
 
     }
 

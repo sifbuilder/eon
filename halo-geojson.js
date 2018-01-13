@@ -36,40 +36,43 @@
 			proform = ani.proform(),            	// proform
 			conform = ani.conform(),            	// conform
 			parentuid = ani.parentuid(),          // parentuid
-			geoform = ani.geoform() || _geoform,  // geoform	
+			geoform = ani.geoform() || _geoform,  // geoform
 			geonode = anigram.payload.geonode,				// geonode
 			json
 
+		if (0 && 1) console.log(" ---------- h.geojson anigram", anigram)
+		if (0 && 1) console.log(" ---------- h.geojson anima", anima)
+
+
 		json = f.v(geoform, anigram)
-		
+
 		json = mprofier.projier(f.v(conform, anigram), anigram)(json)
 		json = mprofier.proformer(f.v(proform, anigram), anigram)(json)
 
-		
-		if (1 && 1) console.log(" ---------- h.geojson payload dx", payload.dx, payload.dy, payload.dz)
-  let fieldeffect =  {"projection": "uniwen","translate": [  payload.dx, payload.dy, payload.dz ]}
-			if (payload.dx && payload.dy && payload.dz) json = __mapper("xs").m("profier").proformer(fieldeffect, anigram)(json)
 
-			
-			
+
+
+
+
+		let fileffect =  {
+					"projection": "uniwen",
+					"translate": [  geonode.geometry[0], geonode.geometry[1], geonode.geometry[2] ]}
+		json =  mprofier.projier(fileffect, anigram)(json)
+
+	
+
+
+
 		json = mboform.boformer(anigram, json)	// boform
 		json = mgeoj.featurize(json) 										// featurize
 		json = mgeoj.zorder(json) 											// order
 		json = mric.qualier(ric, anigram, json)					// qualify
 
-		
-		
-		if (0 && 1) console.log("h.geojson.gramn proform", f.v(proform, anigram))
-		if (0 && 1) console.log("h.geojson.gramn json", json)
-		if (0 && 1) {
-			let coordinates = json.features[0].geometry.coordinates
-			console.log("h.geojson.gramn json", coordinates[coordinates.length -1])
-		}
-		
-		
-		
+
+
+
 		if (0 && 1) console.log(" ---------- h.geojson json",json)
-		
+
 		newAnigrams = json.features.map( (d, i) => {
 			let newAnigram = Object.assign({}, anigram)
 					newAnigram.payload.feature = d

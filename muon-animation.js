@@ -24,7 +24,7 @@
 
       state.animas = f.a(__mapper("muonStore").animasLive() )
 
-      if (0 && 1) console.log(" .............. animas", elapsed, state.animas.length, state.animas)
+      if (1 && 1) console.log(" .............. animas", elapsed, state.animas.length, state.animas)
 
     /*******************************************
      *    @TIME
@@ -39,7 +39,7 @@
         }
       }
 
-if (state.animas.length > 0) if (0 && 1) console.log(" .................... m.animation animas ",state.animas.length )
+if (state.animas.length > 0) if (1 && 1) console.log(" .................... m.animation animas ",state.animas.length )
     /*******************************************
      *    @STOP
      */
@@ -59,44 +59,47 @@ if (state.animas.length > 0) if (0 && 1) console.log(" .................... m.an
 
       }
       state.animas = f.a(__mapper("muonStore").animasLive() )
-if (0 && 1) console.log("m.animation state.animas ",state.animas)
+if (1 && 1) console.log("m.animation state.animas ",state.animas)
 
     // /*******************************************
      // *    @SIM defaults position of nodes
      // */
-      // let sim = __mapper("xs").m("simulation").sim()     // simulation on animas
-      // state.animas =  __mapper("xs").m("simulation").simulate(sim, state.animas, elapsed)
+      let sim = __mapper("xs").m("simulation").sim()     // simulation on animas
+
+      __mapper("xs").m("simulation").simulate(sim, state.animas, elapsed)	// stored
+			
+      state.animas = f.a(__mapper("muonStore").animasLive() )
+			
+if (1 && 1) console.log("m.animation state.animas ",state.animas)			
 
     /*******************************************
      *    @GRAMN animas to anigrams
      */
-      let anigrams = __mapper("xs").m("store").anigrams()
-			if (0 && 1) console.log("m.animation anigrams ", anigrams.length)
 
       for (let i=0; i<state.animas.length; i++) {
 
 					let anima = state.animas[i]
-						if (0 && 1) console.log("m.animation anima ", anima)
-
+					
+					if (1 && 1) console.log("m.animation anima ", anima)
 					let newAnigrams = f.a(mstore.gramn(anima)) /* GRAMN */
 
-							if (newAnigrams.length > 0)	 if (0 && 1) console.log("m.animation newAnigrams ", newAnigrams.length, newAnigrams)
+					if (newAnigrams.length > 0)	 if (1 && 1) console.log("m.animation newAnigrams ", newAnigrams.length, newAnigrams)
 
 					__mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.animation","anigrams":newAnigrams})
 
       }
 
-	    anigrams = __mapper("xs").m("store").anigrams()
+	   let anigrams = __mapper("xs").m("store").anigrams()
 
     /*******************************************
      *    @SIM defaults position of nodes
      */
-      let sim = __mapper("xs").m("simulation").sim()     // simulation on animas
+      // let sim = __mapper("xs").m("simulation").sim()     // simulation on animas
 
-      __mapper("xs").m("simulation").simulate(sim, anigrams, elapsed)	// stored
+      // __mapper("xs").m("simulation").simulate(sim, anigrams, elapsed)	// stored
 
-			anigrams = __mapper("xs").m("store").anigrams()
-			if (1 && 1) console.log("m.animation anigrams ", anigrams)
+			// anigrams = __mapper("xs").m("store").anigrams()
+			// if (1 && 1) console.log("m.animation anigrams ", anigrams)
 
     /*******************************************
     *     @RENDER
@@ -107,7 +110,7 @@ if (0 && 1) console.log("m.animation state.animas ",state.animas)
 				"features": anigrams.map(d => d.payload.feature)			// anigram.payload.feature collection
 		}
 
-			if (1 && 1) console.log("m.animation featurecollection ", featurecollection)
+			if (0 && 1) console.log("m.animation featurecollection ", featurecollection)
 
       if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, featurecollection)
       if (__mapper("renderWebgl") !== undefined) __mapper("renderWebgl").render(elapsed, featurecollection )

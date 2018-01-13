@@ -159,24 +159,27 @@ let muonAlima = function muonAlima(__mapper) {
 
     "halo": "geojson",
 
-    "geoform":  (p) => ({
+    "geoform": p => {
+			let ret = {
       "type": "Feature",
       "geometry": {
         "type": "Polygon",
         "coordinates": mnat.natcoords(p.payload.form)
       },
       "properties": {}
-    }),
+    }
+		return ret } ,
 
 		
     "payload": { 
 			"tim": tim,
 
 			"ric": {"gid":"nat","cid":"nat","fid":"circ",},
+			
 			"proform": {
 				"projection": "uniwen",
-				"center": [ [[[300,350]]], 200 ],
-				"translate": [[[ {
+
+				"translate": [ [300,200,0], [[[ {					// sequential translates
 						"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
 						"ra2": 30,
 						"v0": 0,"v1": 1,
@@ -185,7 +188,7 @@ let muonAlima = function muonAlima(__mapper) {
 						"pa6": 0,
 						"pb7": -1,
 						"fas8": 0,
-					} ]]],
+					} ] ]]],
 				"scale": 1,
 				"rotate": [ 0, 0, [[[0,0]]] ],
 				"focale": 12,
@@ -218,7 +221,18 @@ let muonAlima = function muonAlima(__mapper) {
 						"pa6":0,
 						"pb7":360,
 						"fas8": -90,
-					} 
+					},
+
+					"z": {
+						"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circle
+						"ra2": 0,
+						"v0": 0, "v1": 1,
+						"seg5": [[[360,360]]],
+						"w4": [[[90 , 90 - 0 * 360]]],
+						"pa6":0,
+						"pb7":360,
+						"fas8": -90,
+					},					
 			},
 		}
   }
@@ -321,10 +335,10 @@ let muonAlima = function muonAlima(__mapper) {
   }
 
   let animas = [
-    nat,      // h.geojson g.uniwen
+    // nat,      // h.geojson g.uniwen
     circ,     // h.geojson g.uniwen
-    img,      // h.img
-    text,     // h.text
+    // img,      // h.img
+    // text,     // h.text
   ]
 
   return () => __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})

@@ -12,7 +12,7 @@
     let props = {}
 
     props.a = d => (Array.isArray(d)) ? [...d] : [d]
-    props.v = (d,...p) => (typeof(d) === "function") ? d(...p) : d
+    props.v = (d,...p) => (typeof d === "function") ? d(...p) : d
     props.f = d => (typeof(d) === "function") ? d : () => d
 
     // https://stackoverflow.com/questions/728360/how-do-i-correctly-clone-a-javascript-object

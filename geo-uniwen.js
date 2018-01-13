@@ -10,9 +10,10 @@
 
   let geoUniwen = function geoUniwen(__mapper = {}) {
 
-    let g = __mapper("xs").m("geom")
-    let mwen = __mapper("xs").m("wen")
-    let cwen = __mapper("xs").c("wen")
+    let f = __mapper("props")(),
+			g = __mapper("xs").m("geom"),
+			mwen = __mapper("xs").m("wen"),
+			cwen = __mapper("xs").c("wen")
 
     let state = {},
       scale  = [1, 1, 1],
@@ -31,14 +32,26 @@
     }
 
     let pointStream = function(x, y, z=0) {
-if (0 && 1) console.log(" ---------- g.uniwen pointStream", x,y,z)
       let c = [x, y, z]
       c = wenRotation(rotate)(...c)														// rotate
       z = (c[2] * zafin[1]) + zafin[0]
       c = mwen.projection([ c[0], c[1], z ] , focale, scale )	// scale
-      c = c.map( (d,i) => d + (translate[i] || 0))						// translate
-      // c = c.map( (d,i) => d + (center[i] || 0))						// center
-      c = c.map( (d,i) => d + (transpose[i] || 0))						// transpose
+			
+			if (f.isPureArray(translate)) {
+				
+					c = c.map( (d,i) => d + (translate[i] || 0))						// translate
+				
+			}	else {																		// assume multiple translates
+				
+					for (let k=0; k<translate.length; k++) {
+							let trans = translate[k]									// if {} assume {x,y,z} => [,,]
+							if (typeof trans === "object") trans = Object.values(trans).map(d => d || 0)
+							c = c.map( (d,i) => d + (trans[i] || 0))						// translate
+					}
+				
+			}
+
+
 
       this.stream.point(...c)
     }

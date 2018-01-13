@@ -145,7 +145,7 @@ if (0 && 1) console.log("render features", features)
           let now = fitems.slice(-1)[0]
 
           let items = []
-if (0 && 1) console.log("r.webgl.render fitems", fitems)
+
           /*  ................. GEOJSON FEATURE ................. */
           items = fitems
             .filter(d => d.properties.sort === "feature" || d.properties.sort === undefined)  // default
@@ -166,6 +166,7 @@ if (0 && 1) console.log("r.webgl.render fitems", fitems)
 									if (geometry.type === "Point") {
 
 										let node = item
+										
 										state.material_color = style.fill
 										state.geometry = new THREE.SphereGeometry( 5, 32, 32 )
 										state.wireframe = new THREE.WireframeGeometry( state.geometry )
@@ -184,7 +185,7 @@ if (0 && 1) console.log("r.webgl.render fitems", fitems)
 										sphere.position.y = node.y || node.geometry.coordinates[1] || 0
 										sphere.position.z = node.z || node.geometry.coordinates[2] || 0
 
-										state.scene.add(node._sphere = sphere)
+										state.scene.add(sphere)
 
 									} else if (geometry.type === "MultiPolygon") {
 

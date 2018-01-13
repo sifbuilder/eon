@@ -53,88 +53,98 @@
 
     // ------------------------- initNodes
     function initNodes(aniItems, nDim) {
-			let aniNodes = []
+			let simNodes = []
 
+if (1 && 1) console.log("aniItems" , aniItems)			
+			
       for (let i = 0, n = aniItems.length; i < n; ++i) {
 
         let aniItem = aniItems[i]
 				let payload = aniItem.payload
-				let aniNode = {}
+				let geonode = payload.geonode
+				
+				let simNode = {}
 
-				aniNode.x = payload.x
-				aniNode.y = payload.y
-				aniNode.z = payload.z
-				aniNode.vx = payload.vx
-				aniNode.vy = payload.vy
-				aniNode.vz = payload.vz
-				aniNode.payload = payload
-				aniNode.id = payload.uid
-
-
-        if ( aniNode.x === undefined || isNaN(aniNode.x))               aniNode.x = 0
-        if ((aniNode.y === undefined || isNaN(aniNode.y)) && nDim > 1 ) aniNode.y = 0
-        if ((aniNode.z === undefined || isNaN(aniNode.z)) && nDim > 2 ) aniNode.z = 0
-
-        if (isNaN(payload.vx))               														aniNode.vx = 0
-        if (nDim > 1 && isNaN(payload.vy))   														aniNode.vy = 0
-        if (nDim > 2 && isNaN(payload.vz))   														aniNode.vz = 0
-
-				if ( aniNode.x === undefined || isNaN(aniNode.x))               aniNode.x = 0
-        if ((aniNode.y === undefined || isNaN(aniNode.y)) && nDim > 1 ) aniNode.y = 0
-        if ((aniNode.z === undefined || isNaN(aniNode.z)) && nDim > 2 ) aniNode.z = 0
-
-        if (isNaN(aniNode.vx))               														aniNode.vx = 0
-        if (nDim > 1 && isNaN(payload.vy))   														aniNode.vy = 0
-        if (nDim > 2 && isNaN(payload.vz))   														aniNode.vz = 0
+				simNode.x = geonode.geometry[0]
+				simNode.y = geonode.geometry[1]
+				simNode.z = geonode.geometry[2]
+				
+				simNode.vx = geonode.properties.velocity[0]
+				simNode.vy = geonode.properties.velocity[1]
+				simNode.vz = geonode.properties.velocity[2]
+				
+				simNode.payload = payload
+				simNode.id = payload.uid
 
 
+        if ( simNode.x === undefined || isNaN(simNode.x))               simNode.x = 0
+        if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1 ) simNode.y = 0
+        if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2 ) simNode.z = 0
 
-				aniNodes.push(aniNode)
+        if (isNaN(simNode.vx))               														simNode.vx = 0
+        if (nDim > 1 && isNaN(simNode.vy))   														simNode.vy = 0
+        if (nDim > 2 && isNaN(simNode.vz))   														simNode.vz = 0
+
+				if ( simNode.x === undefined || isNaN(simNode.x))               simNode.x = 0
+        if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1 ) simNode.y = 0
+        if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2 ) simNode.z = 0
+
+        if (isNaN(simNode.vx))               														simNode.vx = 0
+        if (nDim > 1 && isNaN(payload.vy))   														simNode.vy = 0
+        if (nDim > 2 && isNaN(payload.vz))   														simNode.vz = 0
+
+				simNodes.push(simNode)
 
       }
 
-      return aniNodes
+      return simNodes
     }
 
     // ------------------------- restoreNodes
-    function restoreNodes(aniNodes, aniItems) {
+    function restoreNodes(simNodes, aniItems) {
 
-				let aniSims = []
+				let updAniItems = []
 		
-				if (aniNodes.length > 0) {
-						for (let i = 0; i < aniNodes.length; ++i) {
+				if (simNodes.length > 0) {
+						for (let i = 0; i < simNodes.length; ++i) {
+							let simNode = simNodes[i]
+
 							
-							let aniNode = aniNodes[i]
-		 
-							let aniSim = Object.assign({}, aniItems[i])
-								aniSim.payload = aniNode.payload			// 
+							let updAniItem = Object.assign({}, aniItems[i])
+							
+							let updAniPayload = simNode.payload
+							
+							let updAniGeometry = updAniPayload.geonode.geometry
+							let updaAniProperties = updAniPayload.geonode.properties
+							
+							let updaAniOrigin = updaAniProperties.origin
+							let updaAniVelocity = updaAniProperties.velocity
+							let updaAniPrevious = updaAniProperties.previous
+							let updaAniGeodelta = updaAniProperties.geodelta
+							
+							updaAniGeodelta[0] = simNode.x - updAniGeometry[0]
+							updaAniGeodelta[1] = simNode.y - updAniGeometry[1]
+							updaAniGeodelta[2] = simNode.z - updAniGeometry[2]
+							
+							updAniGeometry[0] = simNode.x
+							updAniGeometry[1] = simNode.y
+							updAniGeometry[2] = simNode.z
+						
+							updaAniVelocity[0] = simNode.vx
+							updaAniVelocity[1] = simNode.vy
+							updaAniVelocity[2] = simNode.vz
+							
 
-							aniSim.payload.dx = aniNode.x - aniSim.payload._x
-							aniSim.payload.dy = aniNode.y - aniSim.payload._y
-							aniSim.payload.dz = aniNode.z - aniSim.payload._z	// delta
-
-							aniSim.payload._x = aniSim.payload.x
-							aniSim.payload._y = aniSim.payload.y
-							aniSim.payload._z = aniSim.payload.z		// previous position
-
-							aniSim.payload.x = aniNode.x
-							aniSim.payload.y = aniNode.y
-							aniSim.payload.z = aniNode.z							// current position
-
-							aniSim.payload.vx = aniNode.vx
-							aniSim.payload.vy = aniNode.vy
-							aniSim.payload.vz = aniNode.vz						// current velocity
-
-		if (0 && 1) console.log("m.simulation aniSim", i, aniSim.payload)
-
-							aniSims[i] = aniSim
+						if (0 && 1) console.log("m.simulation updAniItem", i, updAniItem)
+						
+						updAniItems.push(updAniItem)	
 						
 					}
-if (aniNodes.length > 2) if (0 && 1) console.log("m.simulation aniSims --- ", aniSims[2].payload)
+					if (simNodes.length > 2) if (0 && 1) console.log("m.simulation updAniItems --- ", updAniItems[2].payload)
 					
 				}
 			
-			return aniSims
+			return updAniItems
 		}
 
     /***************************
@@ -161,10 +171,7 @@ if (aniNodes.length > 2) if (0 && 1) console.log("m.simulation aniSims --- ", an
 
           for (let j=0; j<forces.length; j++) {			// for each force in aniItem
 						
-            // let field  = msnap(forces[j] , aniItem.payload.tim.unitTime) /* snap field*/
             let aniForce  = forces[j]				// aniForce in anima.payload.forces eg. force_gravity
-						
-            // let fieldProps = field      // field properties
 						
             let cttes = simConstants(sim, aniForce)
             sim
@@ -178,7 +185,7 @@ if (aniNodes.length > 2) if (0 && 1) console.log("m.simulation aniSims --- ", an
                 if (aniForce.ticked !== undefined) aniForce.ticked
 								
 								aniSims = restoreNodes(aniNodes, aniItems)	// > aniNodes								
-								mstore.apply({type:"UPDATEANIGRAMS",caller:"simulation",anigrams:aniSims})
+								mstore.apply({type:"UPDATEANIMAS",caller:"simulation",animas:aniSims})
 
               })
 
