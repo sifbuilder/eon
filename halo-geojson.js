@@ -25,7 +25,7 @@
   /**********************
    *    @gramify
    */
-  let gramn = function (anima, newAnigrams=[]) {
+  let gramm = function (anima, newAnigrams=[]) {
 		if (0 && 1) console.log(" ---------- h.geojson anima",anima)
 		let ani = __mapper("xs").m("anitem")(anima),
 			anigram = ani.anigram(),            	// anigram
@@ -89,11 +89,11 @@
    *    @enty
    */
     let haloGeojson_ween = anima => (anima.payload.inited !== true) ? (anima.payload.inited = anima.payload.gelded = true, [anima]) : []
-    let haloGeojson_gramn = anima => gramn(anima)
+    let haloGeojson_gramm = anima => gramm(anima)
 
     let haloGeojson = {}
         haloGeojson.ween = anima => haloGeojson_ween(anima)
-        haloGeojson.gramn = anima => haloGeojson_gramn(anima)
+        haloGeojson.gramm = anima => haloGeojson_gramm(anima)
 
     let enty = haloGeojson
 

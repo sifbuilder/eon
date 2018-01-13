@@ -73,7 +73,7 @@ if (1 && 1) console.log("m.animation state.animas ",state.animas)
 if (1 && 1) console.log("m.animation state.animas ",state.animas)			
 
     /*******************************************
-     *    @GRAMN animas to anigrams
+     *    @GRAMM animas to anigrams
      */
 
       for (let i=0; i<state.animas.length; i++) {
@@ -81,7 +81,7 @@ if (1 && 1) console.log("m.animation state.animas ",state.animas)
 					let anima = state.animas[i]
 					
 					if (1 && 1) console.log("m.animation anima ", anima)
-					let newAnigrams = f.a(mstore.gramn(anima)) /* GRAMN */
+					let newAnigrams = f.a(mstore.gramm(anima)) /* GRAMM */
 
 					if (newAnigrams.length > 0)	 if (1 && 1) console.log("m.animation newAnigrams ", newAnigrams.length, newAnigrams)
 

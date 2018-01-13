@@ -34,7 +34,7 @@
       }
     })
 
-    let gramn = function gramn(anima, newAnigrams = []) {
+    let gramm = function gramm(anima, newAnigrams = []) {
 
 		let ani = __mapper("xs").m("anitem")(anima),
 			anigram = ani.anigram(),            // anigram
@@ -47,7 +47,7 @@
 			json
 
 			anima.payload.geoform = geoform
-			newAnigrams = __mapper("xs").h("geojson").gramn(anima)
+			newAnigrams = __mapper("xs").h("geojson").gramm(anima)
 
       return newAnigrams
 			
@@ -58,7 +58,7 @@
  */
     let enty = function enty() {}
     enty.ween = anima => (anima.payload.inited !== true) ? (anima.payload.inited = true, [anima]) : []
-    enty.gramn = anima  => gramn(anima)
+    enty.gramm = anima  => gramm(anima)
 
     return enty
 

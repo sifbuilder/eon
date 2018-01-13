@@ -30,16 +30,16 @@
     })
       
     /****************************
-   *    @gramn
+   *    @gramm
    */
-    let gramn = function (anima, newAnigrams = []) {
+    let gramm = function (anima, newAnigrams = []) {
      
       
       let ani = __mapper("xs").m("anitem")(anima)
       
       anima.geoform = ani.geoform() || _geoform
 
-      newAnigrams = __mapper("xs").h("geojson").gramn(anima)
+      newAnigrams = __mapper("xs").h("geojson").gramm(anima)
 
       return newAnigrams
     }
@@ -48,11 +48,11 @@
    *    @enty
    */
     let haloNat_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-    let haloNat_gramn = anima => gramn(anima)
+    let haloNat_gramm = anima => gramm(anima)
 
     let haloNat = {}
         haloNat.ween = anima => haloNat_ween(anima)
-        haloNat.gramn = anima => haloNat_gramn(anima)   
+        haloNat.gramm = anima => haloNat_gramm(anima)   
      
     let enty = haloNat
 

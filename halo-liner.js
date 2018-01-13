@@ -24,16 +24,16 @@
 	let svg = __mapper("renderSVG").svg()
 
   // -------------------------------  haloLinerHalo_ween
-  let haloLinerHalo_ween = function haloLinerHalo_gramn(anima, newItems = []) {
+  let haloLinerHalo_ween = function haloLinerHalo_gramm(anima, newItems = []) {
 
     if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
     return newItems
 
   }
-  // -------------------------------  haloLinerHalo_gramn
-  let haloLinerHalo_gramn = function (anima, newItems = []) {
+  // -------------------------------  haloLinerHalo_gramm
+  let haloLinerHalo_gramm = function (anima, newItems = []) {
 
-		if (0 && 1) console.log("h.liner haloLinerHalo_gramn anima",anima)
+		if (0 && 1) console.log("h.liner haloLinerHalo_gramm anima",anima)
 
 		let ani = __mapper("xs").m("anitem")(anima),
 			anigram = ani.anigram(),            	// anigram
@@ -192,7 +192,7 @@
           newItem.geoform = newItem.payload._feature = _feature	// set geoform feature and keep history
 
 
-          let newAnigrams = __mapper("xs").h("geojson").gramn(newItem)
+          let newAnigrams = __mapper("xs").h("geojson").gramm(newItem)
           __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.liner","anigrams":newItem}) // _e_
 
           newItems = [...newItems, ...newAnigrams]
@@ -213,7 +213,7 @@
 
   let haloLinerHalo = {}
       haloLinerHalo.ween = anima => haloLinerHalo_ween(anima)
-      haloLinerHalo.gramn = anima => haloLinerHalo_gramn(anima)
+      haloLinerHalo.gramm = anima => haloLinerHalo_gramm(anima)
 
    /**********************
    *    @enty

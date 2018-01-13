@@ -20,7 +20,7 @@ let haloFuel = function haloFuel(__mapper = {}) {
     let mquad = __mapper("xs").m("quad")
 		let hnat = __mapper("xs").h("nat")
 
-    let gramn = function (anima, newAnigrams = []) {
+    let gramm = function (anima, newAnigrams = []) {
 
       let ani = __mapper("xs").m("anitem")(anima),
         anigram = ani.anigram(),             // anigram
@@ -75,7 +75,7 @@ let haloFuel = function haloFuel(__mapper = {}) {
           newAnigram.ric = _ric														// identify
           newAnigram.stace = remainCandies[i]							// place: stace is candy situs
 
-          newAnigrams = [...newAnigrams, ...hnat.gramn(newAnigram)]
+          newAnigrams = [...newAnigrams, ...hnat.gramm(newAnigram)]
 
       }
 
@@ -88,7 +88,7 @@ let haloFuel = function haloFuel(__mapper = {}) {
  */
     let haloFuel = {}
         haloFuel.ween = anima => (anima.payload.inited !== true) ? (anima.payload.inited = true, [anima]) : []
-        haloFuel.gramn = anima => gramn(anima)
+        haloFuel.gramm = anima => gramm(anima)
 
     let enty = haloFuel
 

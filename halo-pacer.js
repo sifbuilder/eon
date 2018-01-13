@@ -24,16 +24,16 @@
     let svg = __mapper("renderSVG").svg()
 
     // -------------------------------  haloPacerHalo_ween
-    let haloPacerHalo_ween = function haloPacerHalo_gramn(anima, newItems = []) {
+    let haloPacerHalo_ween = function haloPacerHalo_gramm(anima, newItems = []) {
 
       if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
       return newItems
 
     }
-    // -------------------------------  haloPacerHalo_gramn
-    let haloPacerHalo_gramn = function (anima, newItems = []) {
+    // -------------------------------  haloPacerHalo_gramm
+    let haloPacerHalo_gramm = function (anima, newItems = []) {
 
-      if (0 && 1) console.log("h.liner haloPacerHalo_gramn anima",anima)
+      if (0 && 1) console.log("h.liner haloPacerHalo_gramm anima",anima)
 
       let ani = __mapper("xs").m("anitem")(anima),
         anigram = ani.anigram(),            	// anigram
@@ -150,7 +150,7 @@
 								newItem.payload.node = node
 						
             newItems = [...newItems,
-								...__mapper("xs").h("geojson").gramn(newItem) ]
+								...__mapper("xs").h("geojson").gramm(newItem) ]
 						
             // newAnigrams = [...newAnigrams, ...newItems]
 
@@ -170,7 +170,7 @@
 
     let haloPacerHalo = {}
     haloPacerHalo.ween = anima => haloPacerHalo_ween(anima)
-    haloPacerHalo.gramn = anima => haloPacerHalo_gramn(anima)
+    haloPacerHalo.gramm = anima => haloPacerHalo_gramm(anima)
 
     /**********************
    *    @enty
