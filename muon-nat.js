@@ -9,7 +9,8 @@
 
   let muonNat = function muonNat(__mapper = {}) {
 
-    let f = __mapper("props")()
+    let f = __mapper("props")(),
+					mlacer = __mapper("xs").m("lacer")
 
 
     const cos = Math.cos, sin = Math.sin
@@ -130,6 +131,9 @@
      *       coordinates = Array.of(__mapper("xs").m("nat").multiconform(p.form))
      */
     let multiconform = function(form) {
+			
+if (0 && 1) console.log("m.nat multiconform form", form)			
+			
       let radians = Math.PI / 180
       let tau = 2 * Math.PI
       let dimstreams  = Object.keys(form)
@@ -160,7 +164,7 @@
         })
         .map(d => [...d, d[0]])               // close polygon
 
-      streams = f.slide(streams, "min")
+      streams = mlacer.slide(streams, "max")				//  
 
       return streams
     }
@@ -187,13 +191,13 @@
         nform = {}
         nform.x = Object.assign({}, form.x )    // defined
         nform.y = Object.assign({}, (form.y || form.x) , {fas8: form.x.fas8 - 90})
-        nform.z = 0 // Object.assign({}, (form.z || form.x) )
+        nform.z = [0] 				// needs slide max in m.nat.multiconform
       } else if (form
             && Array.isArray(form)) {
         nform = {}
         nform.x = form[0]
         nform.y = form[1] ||  Object.assign({}, form[0], {fas8: form.fas8 - 90})
-        nform.z = 0 // form[2] || Object.assign({}, form[0])
+        nform.z = [0] 				// needs slide max in m.nat.multiconform
       } else {
         nform = {}
         nform.x = {}

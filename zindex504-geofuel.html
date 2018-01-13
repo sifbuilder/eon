@@ -118,7 +118,7 @@ let muonAlima = function muonAlima(__mapper) {
   let proform = {
     "projections": ["uniwen","unidentity","identity","universor","unimercator"],
     "projectidx": 0,
-    "translate": [ 300, 200 ],
+    "translate": [ [ 300, 200 ], [[[ stace ]]] ],
     "scale": 1,
     "rotate": [ 0, 0, [[[0,0]]] ],
     "focale": 12,
@@ -136,25 +136,26 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let nat = {
 
-    "tim": tim,
-    "ric": {"gid":"nat","cid":"nat","fid":"nat",},
     "halo": "nat",
-    "stace": [[[ stace ]]],
-    "boform": boform,
-    "proform": proform,
-    "payload": { form:form },
+    "payload": { 
+			"ric": {"gid":"nat","cid":"nat","fid":"nat",},
+			tim,
+			boform,
+			proform,
+			form:form 
+		},
 
   }
   
   let fuelnat = {
 
-    "tim": tim,
-    "ric": {"gid":"fuel","cid":"fuel","fid":"fuelnat",},
     "halo": "fuel",
-    "stace": [0,0,0],
-    "boform": boformFuel,
-    // "proform": proform,
     "payload": { 
+			"ric": {"gid":"fuel","cid":"fuel","fid":"fuelnat",},
+			tim,
+			// "stace": [0,0,0],
+			"boform": boformFuel,
+			// "proform": proform,
       form: formFuel,
       fuel:{
           ra2: 3,
@@ -169,10 +170,7 @@ let muonAlima = function muonAlima(__mapper) {
   
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
     "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
     "geoform": p => ({
       type:  "Feature",
@@ -183,6 +181,7 @@ let muonAlima = function muonAlima(__mapper) {
 
       },
       properties: {
+	
 				sort: "img",
         attr: {
           "width": p.payload.img.width,
@@ -192,13 +191,17 @@ let muonAlima = function muonAlima(__mapper) {
       }
     }),
 
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
 		
     "payload": {
 
+			"tim": tim,
+			"ric": {"gid":"img","cid":"img","fid":"img",},
+			"boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			"proform": {
+				"projection": "uniwen",
+				"transpose": [ 0, 0 ],
+				"translate": [ 30, 40 ],
+			},
 			"img": {
         "url":"zimg-501.jpg",
         "width": [[[60, 60]]],

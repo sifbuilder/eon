@@ -31,44 +31,50 @@ let muonAlima = function muonAlima(__mapper) {
   let tim = {"td":3800,"t0":0,"t1":1000,"t2":1,"t3":1,}
   let boform = { csx:0, cf:777, cs:222, cw:1.7, co:0.7, cp:0.5,}
   let geoform = {type:"Feature", geometry:{ type: "Point", coordinates:[0,0]}, properties:{pointRadius:6,}}
-  
+
   let translate = {"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
          "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,}
   let proform = {projection: "uniwen", scale: 1, translate: [ 0, 100 ], rotate: [ 0, 0, 0 ], dims: 2,}
-         
+
  /*******************************************
  *    @animas
  */
   let p1 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p1",}},
-    stace: [ [[[ 100, 125 ]]], 100, 0 ],
+    halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p1",},
+		proform: {projection:"uniwen", scale:1, rotate:[ 0, 0, 0 ], translate: [ [[[ 100, 125 ]]], 100, 0 ] }}
   }
+	
   let p2 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p2",}},
-    stace: [[[ () => [ [[[150,175]]] , 100, 0] ]]],
+    halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p2",},
+		proform: {projection:"uniwen", scale:1, rotate:[ 0, 0, 0 ], translate: [[[ () => [ [[[150,175]]] , 100, 0] ]]] }}
   }
+	
   let p3 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p3",}},
-    stace: [ [[[ t => (() => 175 )()  ]]] , 100, ],
+    halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p3",},
+		proform: {projection:"uniwen", scale:1, rotate:[ 0, 0, 0 ], translate: [ [[[ t => (() => 175 )()  ]]] , 100, ] }}
   }
+	
   let p4 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p4",}},
-    stace: [ [[[ 200, 225 ]]], 100, 0 ],
+    halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p4",},
+		proform: {projection:"uniwen", scale:1, rotate:[ 0, 0, 0 ], translate: [ [[[ 200, 225 ]]], 100, 0 ] }}
   }
+	
   let p5 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p5",}},
-    stace: {x: [[[250,275]]], y: 100 },
+    halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p5",},
+		proform: {projection:"uniwen", scale:1, rotate:[ 0, 0, 0 ], translate: {x: [[[250,275]]], y: 100 } }}
   }
+	
   let p6 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p6",}},
-    stace: [[[ () => {
+    halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p6",},
+		proform: [[[ () => {
       let geo = {"type": "LineString","coordinates": [ [300,100,0], [325,100,0], [300,100,0], ]}
-      return f.ta(f.unslide(geo.coordinates))   // dimensional triple array 
-    } ]]],
-  }
+      return f.ta(f.unslide(geo.coordinates))   // dimensional triple array
+    } ]]] 
+  }}
+	
   let p7 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p7",}},
-    stace: [[[ {
+		halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p7",},
+		proform: {projection:"uniwen", scale:1, rotate:[ 0, 0, 0 ], translate: [[[ {
        "x": {
          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
          "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
@@ -77,23 +83,27 @@ let muonAlima = function muonAlima(__mapper) {
          "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1,  // square
          "ra2": 100,"v0":0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": -90,
        },
-     } ]]],
-  }
+     } ]]]
+		}
+	}}
+	
   let p8 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p8",}},
-    stace: [ [[[ {
+		halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p8",},
+		proform: {projection:"uniwen", scale:1, rotate:[ 0, 0, 0 ], translate: [ [[[ {
              "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
              "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
            } ]]],
            [[[ {
              "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
              "ra2": 100,"v0":0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
-           } ]]] 
-         ],
-  }
+           } ]]]
+         ]
+		}				 
+  }}
+	
   let p9 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p9",}},
-    stace: {
+		halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p9",},
+		proform: {projection:"uniwen", scale:1, rotate:[ 0, 0, 0 ], translate:  {
        "x": [[[ {
          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
          "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
@@ -102,13 +112,13 @@ let muonAlima = function muonAlima(__mapper) {
          "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1,  // square
          "ra2": 100,"v0":0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
        } ]]],
-     },
-  }
+     } 
+		}
+  }}
   let p10 = {           // NOK
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p10",}},
-    proform: proform,
-    stace: [
-      
+		halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p10",},
+		proform: {projection:"uniwen", scale:1, rotate:[ 0, 0, 0 ], translate: [
+
        [[[ (t, a = 378, b = {
          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
          "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
@@ -117,7 +127,7 @@ let muonAlima = function muonAlima(__mapper) {
           let bs = __mapper("xs").b("snap")( b, t, 1 ).x
           return as + bs
        } ]]] ,
-       
+
        [[[ (t, a = 100, b = {
          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
          "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
@@ -126,41 +136,47 @@ let muonAlima = function muonAlima(__mapper) {
           let bs = __mapper("xs").b("snap")( b, t, 1 ).y
           return as + bs
        } ]]] ,
-       
-     ],
-  }
+
+     ] 
+		}
+	}}
+	
   let p11 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p11",}},
-    stace: [[[ {
+		halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p11",},
+		proform: {projection:"uniwen", scale:1, rotate:[ 0, 0, 0 ], translate: [[[ {
          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
          "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
-       } ]]],
-  }
+       } ]]] 
+		}
+	}}
+	
   let p12 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p12",}},
-    stace: [[[ (...args) => {
+		halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p12",},
+		proform: {projection:"uniwen", scale:1, rotate:[ 0, 0, 0 ], translate: [[[ (...args) => {
         let a = [[[ {
            "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
            "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
         } ]]]
         if (args.length === 0) {
-            return a 
+            return a
         } else {
             let as = args[0]
             return  [ 100 + as.x, 100 + as.y ]
         }
     } ]]]
-  }
-   let p13 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p13",}},
-    proform: {projection: "uniwen", scale: 1, rotate: [ 0, 0, 0 ], dims: 2, 
+			}
+	 }}
+	 
+  let p13 = {
+		halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p13",},
+    proform: {projection: "uniwen", scale: 1, rotate: [ 0, 0, 0 ], dims: 2,
       translate: [
-      
+
        [[[ t => {
           let snap = __mapper("xs").b("snap")
           let fn = (a,b) => a + b.x
           let args = [
-            378, 
+            378,
             [[[ {
              "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
              "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
@@ -169,7 +185,7 @@ let muonAlima = function muonAlima(__mapper) {
           args = args.map(d => snap(d,t,0))
           return fn(...args)
        } ]]],
-       
+
        [[[ (t, a = 100, b = {
          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
          "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
@@ -179,20 +195,21 @@ let muonAlima = function muonAlima(__mapper) {
           let bs = snap( b, t, 1 ).y
           return as + bs
        } ]]] ,
-       
-     ],
+
+			],
     },
-  }
-   let p14 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p14",}},
-    proform: {projection: "uniwen", scale: 1, rotate: [ 0, 0, 0 ], dims: 2, 
-      translate: 
-      
+  }}
+	
+  let p14 = {
+		halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p14",},
+    proform: {projection: "uniwen", scale: 1, rotate: [ 0, 0, 0 ], dims: 2,
+      translate:
+
        [[[ t => {
           let snap = __mapper("xs").b("snap")
           let fn = (a,b) => [ a[0] + b.x, a[1] + b.y , a[2] + b.z ]
           let args = [
-            [378, 124, 0], 
+            [378, 124, 0],
             [[[ {
              "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
              "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
@@ -201,55 +218,57 @@ let muonAlima = function muonAlima(__mapper) {
           args = args.map(d => snap(d,t,0))
           return fn(...args)
        } ]]],
-       
+
 
     },
-  } 
+  }}
+	
   let p15 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p15",}},
-    proform: {projection: "uniwen", scale: 1, rotate: [ 0, 0, 0 ], dims: 2, 
+		halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p15",},
+    proform: {projection: "uniwen", scale: 1, rotate: [ 0, 0, 0 ], dims: 2,
 			center: [ [[[ 100, 325 ]]], 100, 0 ],
       translate: [[[ {
          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
          "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
        } ]]],
-    },       
-  }
+    },
+  }}
+	
   let p16 = {
-    halo: "geojson", geoform: geoform, payload: {tim: tim, boform: boform, ric: {"gid":"p","cid":"p","fid":"p16",}},
-    proform: {projection: "uniwen", scale: 1, rotate: [ 0, 0, 0 ], dims: 2, 
+		halo: "geojson", geoform, payload: {tim, boform, ric: {"gid":"p","cid":"p","fid":"p16",},
+    proform: {projection: "uniwen", scale: 1, rotate: [ 0, 0, 0 ], dims: 2,
 			center: [ [[[ 300, 225 ]]], 300, 0 ],
       translate: [[[ {
          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
          "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
        } ]]],
-    },       
+    },
 			stace: [[[ {
          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,        // circle
          "ra2": 100,"v0": 0,"v1":1,"w4": 90,"seg5": 360,"pa6":0,"pb7":-1,"fas8": 0,
        } ]]],
 
-  }
-		
-	
+  }}
 
-	
+
+
+
   let animas = [
     p1,  // h.geojson g.uniwen
-    // p2,  // h.geojson g.uniwen
-    // p4,  // h.geojson g.uniwen
-    // p5,  // h.geojson g.uniwen
-    // p6,  // h.geojson g.uniwen
-    // p7,  // h.geojson g.uniwen
-    // p8,  // h.geojson g.uniwen
-    // p9,  // h.geojson g.uniwen
-    // p10,  // h.geojson g.uniwen
-    // p11,  // h.geojson g.uniwen
-    // p12,  // h.geojson g.uniwen nok
-    // p13,  // h.geojson g.uniwen nok
-    // p14,  // h.geojson g.uniwen nok
-    // p15,  // h.geojson g.uniwen nok
-    // p16,  // h.geojson g.uniwen nok
+    p2,  // h.geojson g.uniwen
+    p4,  // h.geojson g.uniwen
+    p5,  // h.geojson g.uniwen
+    p6,  // h.geojson g.uniwen
+    p7,  // h.geojson g.uniwen
+    p8,  // h.geojson g.uniwen
+    p9,  // h.geojson g.uniwen
+    p10,  // h.geojson g.uniwen
+    p11,  // h.geojson g.uniwen
+    p12,  // h.geojson g.uniwen
+    p13,  // h.geojson g.uniwen
+    p14,  // h.geojson g.uniwen
+    p15,  // h.geojson g.uniwen
+    p16,  // h.geojson g.uniwen
 
   ]
 

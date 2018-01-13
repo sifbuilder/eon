@@ -10,72 +10,9 @@
 
   let bosonSnap = function bosonSnap(__mapper = {}) {
 
-    let f = __mapper("props")()
-
-    let pi = Math.PI
-    let tau = 2 * pi
-    let radians = pi / 180
-
-    /***********
-   *    @interlace
-   */
-    let interlace = function interlace (streams, t)  {
-      let ww = []
-      let ses = []        // scale per position
-      let res = []        // scale per position
-
-      let nStreams = streams.length           // number of streams
-      let nDots = streams.reduce((p,q) => Math.max(q.length,p),0) // max dots
-
-
-      for (let i=0; i<nStreams; i++) {      // scales
-
-        let sid = [0,nDots-1]
-        let sir = [0,streams[i].length -1]
-        let si = d3.scaleLinear()   // argument scale
-          .domain( sid )    // from result position
-          .range ( sir )    // to strem i position
-
-        ses[i] = si         // ses scale for i stream
-
-
-        let rid = d3.range(streams[i].length).map((d,i) => i)
-        let rir = streams[i]
-        let ri = d3.scaleLinear()         // argument scale
-          .domain( rid )          // from result position
-          .range ( rir )    // to strem i position
-
-        res[i] = ri         // ses scale for i stream
-
-      }
-
-      for (let j=0;j<nDots;j++) {       // each position j
-
-        let rr = []
-        let ss = []
-
-        for (let k=0;k<streams.length;k++) {      // each stream
-          let vk = ses[k](j)                // postion on stram
-          let sk = res[k](vk)               // time stream
-
-          rr.push(vk)   //[0, 0, 0], [0.5, 0.25, 1], [1, 0.5, 2]  positions per stream
-          ss.push(sk)   // [2, 33, 5], [2.5, 33.25, 6], [3, 33.5, 7]  values  j
-        }
-
-        let d = ss.map( (item, idx) => idx / (ss.length - 1))
-        let r = ss
-
-        let ws = d3.scaleLinear()
-          .domain(d)
-          .range(r)
-
-        ww[j] = ws(t)
-
-      }
-
-      return ww
-
-    }
+    let f = __mapper("props")(),
+      mnat = __mapper("xs").m("nat"),
+      mlacer = __mapper("xs").m("lacer")
 
     /***********
    *    @snap : anigram, t, flag
@@ -91,8 +28,8 @@
       else if (f.isArray(v) && v.length === 0) return v   //04 _____ []
       else if (typeof(v) === "function"
         && g !== 1) {
-          return v                            //01 _____ fn v(t)
-       }
+        return v                            //01 _____ fn v(t)
+      }
       else if (f.isArray(v)             //05 ____ [[ [ pure ] ]]  intra array interpolation
         && f.isDoubleSingleArray(v)             // double array with single elem
         && f.isPureArray(v[0][0])               // single elem in double array is pure
@@ -160,49 +97,20 @@
 
       // ____________________________________________________ tagged
 
-      else if (typeof(v) === "function"
+      else if (typeof(v) === "function"								// 01 _____ fn snappable time function
                                       && g === 1) {
 
-        let vt = snap(v(t), t, 0)         // snappable time function
-        // let vt = snap(v( snap(v(),t)), t, 0)   // reentering time function
-        return vt                    //01 _____ fn
+        return snap(v(t), t, 0)
 
       }
 
-      else if (f.isObject(v)            //10 ___ v :: {b, c, d ...}*
-                                      && g === 1) {
+      else if (f.isObject(v)           								 //10 ___ v :: {b, c, d ...}*
+                                      && g === 1) {					// assume nat on object
 
-        if ( v.x === undefined && v.y === undefined && v.z === undefined ) {
-          let w = {}                                              // nat on dims
-            w.x = Object.assign({}, v)
-            w.y = Object.assign({}, w.x, {fas8: v.fas8 - 90}) // set transversal fas8
-            w.z = 0 // Object.assign({}, v)
-            v = w
-        }
-
-        let ws = {}                           // dim nat
-        for (let y of Reflect.ownKeys(v)) {
-          let d = v[y]
-          d = snap(d, t)            // reenter
-          let s = __mapper("xs").m("nat").rador(d)
-          s = f.streamRange(s,d.pa6,d.pb7)
-          s = s.map( (p,i) => {
-            let refAng = (d.w4 + d.fas8) * radians
-            let angUnit = tau / s.length
-            let ang = ((i * angUnit * d.v1) - refAng  + tau) % tau
-            return p * Math.cos(ang) * d.ra2
-          })
-          if (s.length === 1)  {
-            let r = [s[0], s[0]],
-              d = [0, 1]
-            ws[y] = d3.scaleLinear().domain(d).range(r)(t)
-          } else {
-            let r = s,
-              d = d3.range(r.length).map((item, idx) => idx / (r.length - 1))
-            ws[y] = d3.scaleLinear().domain(d).range(r)(t)
-          }
-        }
-
+        let ws
+        let multidimcoords = mnat.natcoords(v)	// nat object => gj polygon geometry
+        let natOuterRing = multidimcoords[0]		// outer ring
+        ws = snap(natOuterRing, t, 1)				// (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
         return ws
 
       }
@@ -231,158 +139,25 @@
 
       else if (f.isArray(v)                   //13 _____ [[a1,a2,a3],[b1,b2]]*
       && f.isQuasiPureArray(v)              // => [[a1,b1],[a2,b1'],[a3,b2]]
-      && g === 1) {
+      && g === 1) {													// [][] dosnap qualifier
 
-        let streams = v.filter(d => d.length > 0)
-
-        let ww = interlace(streams, t)
-        return ww
-      }
-
-      else if (f.isArray(v)                   //14 _____ v :: [a, {b}]*
-          && !f.isPureArray(v)              // has objects or array elements
-          && !f.isDoubleSingleArray(v)      // not double array with single value
-          && g === 1) {
-
-        let doSnap = v.filter(d => Array.isArray(d) && d.length === 0).length
-        let wss = []
-        let was = []
-
-        if (doSnap === 0) {                           // 0[] - time snap and summa
-          for (let i = 0; i < v.length; i++) {
-            let wsi = snap(v[i], t, 0)
-
-            if (f.isObject(wsi)) {          // {}
-
-              let d = wsi
-              d = snap(d, t)            // reenter
-              let s = __mapper("xs").m("nat").rador(d)
-              s = f.streamRange(s,d.pa6,d.pb7)
-              s = s.map( (p,i) => {
-                let refAng = (d.w4 + d.fas8) * radians
-                let angUnit = tau / s.length
-                let ang = ((i * angUnit * d.v1) - refAng  + tau) % tau
-                return p * Math.cos(ang) * d.ra2
-              })
-              if (s.length === 1)  {
-                let r = [s[0], s[0]],
-                  d = [0, 1]
-                wsi = d3.scaleLinear().domain(d).range(r)(t)
-              } else {
-                let r = s,
-                  d = d3.range(r.length).map((item, idx) => idx / (r.length - 1))
-                wsi = d3.scaleLinear().domain(d).range(r)(t)
-              }
-
-            }
-            wss.push(wsi)
-          }
-
-
-        } else if (doSnap === 1) {                    // 1[] - leave expanded array
-
-          let w = v.map(d => snap(d, t))
-          for (let i = 0; i < w.length; i++) {
-
-            if (f.isObject(w[i])) {               // {}
-
-              let d = snap(d, t)            // reenter
-              was = __mapper("xs").m("nat").rador(d)
-              was = f.streamRange(s,d.pa6,d.pb7)
-              was = s.map( (p,i) => {
-                let refAng = (d.w4 + d.fas8) * radians
-                let angUnit = tau / s.length
-                let ang = ((i * angUnit * d.v1) - refAng  + tau) % tau
-                return p * Math.cos(ang) * d.ra2
-              })
-
-
-
-            } else if (Array.isArray(w[i]) && w[i].length > 0) {
-
-              let wsi = w[i] // snap(w[i], t)         // was.push(wsi) //
-              was = wsi         // was.push(wsi) //
-
-            }
-          }
-
-        } else if (doSnap === 2) {                      // 2[] - do not snap --- summa
-
-          for (let i = 0; i < v.length; i++) {
-
-
-            let wsi = snap(v[i], t)
-
-            if (f.isObject(wsi)) {          // {}
-
-
-              let d = wsi
-              d = snap(d, t)            // reenter
-              let s = __mapper("xs").m("nat").rador(d)
-              s = f.streamRange(s,d.pa6,d.pb7)
-              s = s.map( (p,i) => {
-                let refAng = (d.w4 + d.fas8) * radians
-                let angUnit = tau / s.length
-                let ang = ((i * angUnit * d.v1) - refAng  + tau) % tau
-                return p * Math.cos(ang) * d.ra2
-              })
-              if (s.length === 1)  {
-                let r = [s[0], s[0]],
-                  d = [0, 1]
-                ws[y] = d3.scaleLinear().domain(d).range(r)(t)
-              } else {
-                let r = s,
-                  d = d3.range(r.length).map((item, idx) => idx / (r.length - 1))
-                wsi = d3.scaleLinear().domain(d).range(r)(t)
-              }
-
-
-
-            } else if (Array.isArray(wsi) && wsi.length > 0) {
-              was.push(wsi) //
-            } else if (typeof wsi === "number") {
-              was.push([wsi,wsi])                   // constant path
-            }
-          }
-        }
-
-        let vr = null
-        if (doSnap === 0) {
-
-          vr = f.add(wss.map(d => {
-
-            let r = (typeof(d) === "function") ? d(t) : d // d cte: stateA:[[[300, {}]]]
-            return r
-            
-          }))                                 // summa snaps
-
-        } else if (doSnap === 1) {
-
-          vr = was        // if out of time return array of values
-
-        }else if (doSnap === 2) {
-          vr = f.interadd(was)  // summa arrays
-
-        }
-        return vr
+        let ws = mlacer.unslide(v).filter(d => d.length > 0).map(d => snap(d,t,1))
+        return ws
 
       }
+
 
       else {
         return v
       }
     }
 
-
-
-    /***********
+  /***********
   *   @enty
   */
     let enty = function (v, t=0, g=0) {
       return snap (v, t, g)
     }
-
-
 
     return enty
 
@@ -390,4 +165,4 @@
 
   exports.bosonSnap = bosonSnap
 
-}))
+}));

@@ -92,27 +92,28 @@ let muonAlima = function muonAlima(__mapper) {
     },
 
   }
-  let stace =
-        {
-          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
-          "ra2": 30,
-          "v0": 0,"v1": 1,
-          "w4": 0,
-          "seg5": 360,
-          "pa6": 0,
-          "pb7": -1,
-          "fas8": 0,
-        }
+	
+  let stace = {
+				"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
+				"ra2": 30,
+				"v0": 0,"v1": 1,
+				"w4": 0,
+				"seg5": 360,
+				"pa6": 0,
+				"pb7": -1,
+				"fas8": 0,
+	}
+	
   let proform = {
-    "projections": ["uniwen","unidentity","identity","universor","unimercator"],
-    "projectidx": 0,
-    "translate": [ [[[300,350]]], 200 ],
-    "scale": 1,
-    "rotate": [ 0, 0, [[[0,0]]] ],
-    "focale": 12,
-    "zafin": [1,0],
-    "dims": 2,
-    "control": "wen",
+				"projections": ["uniwen","unidentity","identity","universor","unimercator"],
+				"projectidx": 0,
+				"translate": [ [ [[[200,350]]], 200 ], [[[ stace ]]] ],
+				"scale": 1,
+				"rotate": [ 0, 0, [[[0,0]]] ],
+				"focale": 12,
+				"zafin": [1,0],
+				"dims": 2,
+				"control": "wen",
   }
   let boform = { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.9,0.9]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],}
   let boformCirc = { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.19,0.19]]],"cs":[[[444,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.9,0.9]]],}
@@ -123,32 +124,32 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let nat = {
 
-    "tim": tim,
-    "ric": {"gid":"nat","cid":"nat","fid":"nat",},
     "halo": "nat",
-    "stace": [[[ stace ]]],
-    "boform": boform,
-    "proform": proform,
-    "payload": { form:form },
+    "payload": { 
+			"tim": tim,
+			"ric": {"gid":"nat","cid":"nat","fid":"nat",},
+			"boform": boform,
+			"proform": proform,
+			form:form 
+		},
 
   }
   let circ = {
 
-    "tim": tim,
-    "ric": {"gid":"nat","cid":"nat","fid":"formCirc",},
     "halo": "nat",
-    "stace": [[[ stace ]]],
-    "boform": boformCirc,
-    "proform": proform,
-    "payload": { form:formCirc },
+    "payload": { 
+			"tim": tim,
+			"ric": {"gid":"nat","cid":"nat","fid":"formCirc",},
+			"boform": boformCirc,
+			"proform": proform,
+			form:formCirc 
+		},
 
   }
+  // -------------------------------  img
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
-    "halo": "img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    "halo":"img",
 
     "geoform": p => ({
       type:  "Feature",
@@ -159,6 +160,8 @@ let muonAlima = function muonAlima(__mapper) {
 
       },
       properties: {
+	
+				sort: "img",
         attr: {
           "width": p.payload.img.width,
           "height": p.payload.img.height,
@@ -167,14 +170,18 @@ let muonAlima = function muonAlima(__mapper) {
       }
     }),
 
-    "stace": {
-      "x": [[[15, 15]]],
-      "y": [[[20, 20]]],
-    },
-
+		
     "payload": {
 
-      "img": {
+			"tim": tim,
+			"ric": {"gid":"img","cid":"img","fid":"img",},
+			"boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			"proform": {
+				"projection": "uniwen",
+				"transpose": [ 0, 0 ],
+				"translate": [ 30, 40 ],
+			},
+			"img": {
         "url":"zimg-501.jpg",
         "width": [[[60, 60]]],
         "height": [[[40 , 40]]],

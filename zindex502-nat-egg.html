@@ -80,61 +80,59 @@ let muonAlima = function muonAlima(__mapper) {
     },
 
   }
-  let stace =
-        {
-          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
-          "ra2": 30,
-          "v0": 0,"v1": 1,
-          "w4": 0,
-          "seg5": 360,
-          "pa6": 0,
-          "pb7": -1,
-          "fas8": 0,
-        }
+  let stace = {
+				"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
+				"ra2": 30,
+				"v0": 0,"v1": 1,
+				"w4": 0,
+				"seg5": 360,
+				"pa6": 0,
+				"pb7": -1,
+				"fas8": 0,
+			}
 
   let proform = {
-    "projections": ["uniwen","unidentity","identity","universor","unimercator"],
-    "projectidx": 0,
-    "translate": [ [[[200,250]]], 150 ],
-    "scale": 1.2,
-    "rotate": [ 0, 0, [[[0,0]]] ],
-    "focale": 12,
-    "zafin": [1,0],
-    "dims": 2,
-    "control": "wen",
+				"projections": ["uniwen","unidentity","identity","universor","unimercator"],
+				"projectidx": 0,
+				"translate": [ [200,200,0],  [[[ stace ]]] ],
+				"scale": 1.2,
+				"rotate": [ 0, 0, [[[0,0]]] ],
+				"focale": 12,
+				"zafin": [1,0],
+				"dims": 2,
+				"control": "wen",
   }
   let boform = { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.9,0.9]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],}
   let boformCirc = { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.19,0.19]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],}
 
   /*******************************************
- *    @animas
+ *    	@animas
  *
  */
   let nat = {
-
-    "tim": tim,
-    "ric": {"gid":"nat","cid":"nat","fid":"nat",},
     "halo": "nat",
-    "stace": [[[ stace ]]],
-    "boform": boform,
-    "proform": proform,
-    "payload":{"form": form},
-
+    "payload":{
+			tim,
+			"ric": {"gid":"nat","cid":"nat","fid":"nat",},
+			boform,
+			proform,
+			form,
+		}
   }
   let circ = {
-
-    "tim": tim,
-    "ric": {"gid":"nat","cid":"nat","fid":"formCirc",},
     "halo": "nat",
-    "stace": [[[ stace ]]],
-    "boform": boformCirc,
-    "proform": proform,
-    "payload":{"form": formCirc},
+    "payload":{
+			tim,
+			"ric": {"gid":"nat","cid":"nat","fid":"formCirc",},
+			"boform": boformCirc,
+			proform,
+			"form": formCirc
+		},
 
   }
 
   /*******************************************
- * @animaApi
+ * 			@animaApi
  *
  */
 
