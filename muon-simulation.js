@@ -55,7 +55,7 @@
     function initNodes(aniItems, nDim) {
 			let simNodes = []
 
-if (1 && 1) console.log("aniItems" , aniItems)			
+if (0 && 1) console.log("aniItems" , aniItems)			
 			
       for (let i = 0, n = aniItems.length; i < n; ++i) {
 

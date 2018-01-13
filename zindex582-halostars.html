@@ -413,7 +413,7 @@ for (let i=0; i<newAnigrams.length; i++) {
   }
 
   let haloWin = {}
-      haloWin.ween = anima => (anima.payload.inited !== true) ? (anima.payload.inited = true, [anima]) : []
+      haloWin.ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = 1, [anima]) : []
       haloWin.gramm = anima => gramm(anima)
 
 /*******************************************

@@ -87,7 +87,7 @@ let haloFuel = function haloFuel(__mapper = {}) {
  *        @enty
  */
     let haloFuel = {}
-        haloFuel.ween = anima => (anima.payload.inited !== true) ? (anima.payload.inited = true, [anima]) : []
+        haloFuel.ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = 1, [anima]) : []
         haloFuel.gramm = anima => gramm(anima)
 
     let enty = haloFuel

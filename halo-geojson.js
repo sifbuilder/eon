@@ -88,7 +88,7 @@
   /**********************
    *    @enty
    */
-    let haloGeojson_ween = anima => (anima.payload.inited !== true) ? (anima.payload.inited = anima.payload.gelded = true, [anima]) : []
+    let haloGeojson_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
     let haloGeojson_gramm = anima => gramm(anima)
 
     let haloGeojson = {}
