@@ -12,7 +12,7 @@
     let f = __mapper("props")()
 
     let mwen = __mapper("xs").m("wen")
-    let cwen = __mapper("xs").c("wen")() //let wen = __mapper("controlWen")   //
+    let cwen = __mapper("xs").c("wen")()
     let bversor = __mapper("xs").b("versor")()
     let cversor = __mapper("xs").c("versor")
 		let mstace = __mapper("xs").m("stace")
@@ -24,8 +24,11 @@
  *        if control:wen  wen rotation and if 2d: wen z rotation
  *        if control:versor   versor rotation
  */
-    let getProjion = function  (p, anigram) {
-				let prj = guniwen() // d3.geoIdentity()
+    let getProjion = function (prjdef, anigram) {
+			
+				let p = prjdef
+				let prj = guniwen(p) // d3.geoIdentity()
+			
 				if (p !== undefined) { 
 			
 							if (f.isString(p.projection)) {       // if _projection singular name
@@ -111,13 +114,10 @@
  */		
     let ereformer = anigram => {
 			
-			let ereform = anigram.payload.ereform
-			let translate = ereform.translate
-			let locus = mstace.getLocus(translate, anigram)
-					ereform.translate = locus
-			let profier = projier(ereform, anigram)
-			
-			return profier
+			let projdef = anigram.payload.ereform
+			let projer = getProjion(projdef, anigram)
+
+			return json => __mapper("xs").b("proj3ct")(json, projer)
 			
 		}
     /****************************
@@ -137,14 +137,12 @@
     let proformer = anigram => {
 			
 			let projdef = anigram.payload.proform
-			// proform.translate = mstace.getLocus(translate, anigram)
+			// projdef.translate = mstace.getLocus(projdef.translate, anigram)			
 			let projer = getProjion(projdef, anigram)
 
 			return json => __mapper("xs").b("proj3ct")(json, projer)
 			
 		}				
-
-		
 		
     /****************************
  *      @enty

@@ -22,7 +22,6 @@
 
       for (let i = 0; i < itemNames.length; i++) {
         let itemName = itemNames[i]
-
         if (__mapper(itemName) !== undefined) {   // item in mapper
 
           ret = __mapper(itemName)
@@ -42,9 +41,9 @@
           }
 
           if (typeof item === "object") {
-            ret = __mapper({                // register in mapper
+            ret = __mapper({                				// register in mapper
               [itemName]: item[itemName](__mapper)
-            })[itemName]                      // item
+            })[itemName]                      			// item
 
             break
 

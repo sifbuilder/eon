@@ -40,7 +40,6 @@ document.write("<script src='force-manybody.js'><\/script>")
 document.write("<script src='force-x.js'><\/script>")    
 document.write("<script src='force-y.js'><\/script>")    
 /*  geos projections */  
-document.write("<script src='geo-aniwen.js'><\/script>")    
 document.write("<script src='geo-cox.js'><\/script>")    
 document.write("<script src='geo-futuri.js'><\/script>")    
 document.write("<script src='geo-hedrals.js'><\/script>")    

@@ -22,136 +22,68 @@ let muonAlima = function muonAlima(__mapper) {
   __mapper({"xs": xs.xs(__mapper)})               // PROXIES
   __mapper("xs").b("init")({svg:1,versor:0,wen:1,webgl:1})  // INIT
 
-  let f = __mapper({"props": muonProps.muonProps()}).props()
-  let g = __mapper("xs").m("geom")
-  let w = __mapper("xs").m("wen")
-
   /**********************
-   *    @
+   *    @const
    */
-  let r = __mapper("xs").r("renderer"),
-    width = r.width(),
-    height = r.height()
 
-  let rotInit = [0,45,0],
-    rotation = [0,0,0],
-    rotMatrix,
-    stars = []
-
-  let versor = __mapper("xs").b("versor")()
-  let wen = __mapper("xs").c("wen")({rotInit})
-
+  const rotInit = [0,45,0]
 
   /*******************************************
  *    @pics
  */
   let tim = {"td":9200,"t0":0,"t1":1000,"t2":1,"t3":1,}
 
-
-  /*******************************************
+ /*******************************************
  *      @animas
- *
  */
   let aniPolygone = {
 
     "halo": "geojson",
 
-    "geoform": (p) => {
-      let payload = p.payload
+    "geoform": anitem => {
+      let payload = anitem.payload,
+					ric = payload.ric,
+					boform = payload.boform
+
       let coordinaes = [
-            [-1, -1,  1],
-            [ 1, -1,  1],
-            [ 1, 1,   1],
-            [ -1, 1,  1],
-            [-1, -1,  1]
-           ]
+        [-1, -1,  1],
+        [ 1, -1,  1],
+        [ 1, 1,   1],
+        [ -1, 1,  1],
+        [-1, -1,  1]
+      ]
 
-      let ric = p.ric
-      let boform = p.boform
+      let geometry = {type:"Polygon", coordinates:[]}
+			geometry.coordinates = Array.of(coordinaes)
 
-      let json = {type: "FeatureCollection", features: []}
+      let feature = {type:"Feature",geometry:{},properties:{}}
+			
+      feature.geometry = geometry
+			
+      feature.properties.sort = "feature"
+      feature.properties.ric = ric
+      feature.properties.boform = boform
 
-        let geometry = {type:"Polygon",coordinates:[]}
-
-        geometry.coordinates = Array.of(coordinaes) // eg [-1, 1, 1]
-
-        let feature = {type:"Feature",geometry:{},properties:{}}
-          let _ric = {}
-            _ric.gid = ric.gid
-            _ric.cid = "face"
-            _ric.fid = "face"
-        feature.properties.ric = _ric
-
-        feature.properties.sort = "feature"
-        feature.geometry = geometry
-        feature.properties.boform = boform
-        feature.properties.name = "orange"
-
-        json.features.push(feature)
-
-
-
-      return json
+      return feature
+			
     },
 
-		payload: {
-			"tim": tim,
-			"ric": {"gid":"aniIco","cid":"aniIco","fid":"aniFaces",},
-			"boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
-			"proform": {
-
-					"projection": "uniwen",
-					"translate":  [ 180, 200],
-					"scale": 90,
-					"rotate": [0,0,0], // [-5,50,0],
-					"focale": 4,
-					"zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-					"dims": 3,
-					"control": "wen",
-				},
-		}
-
-  }
-
-  let img = {
-
-    halo: "img",
-
-    geoform: p => ({
-      type:  "Feature",
-      geometry: {
-
-        "type": "Point",
-        "coordinates": [ 0, 0 ]
-
-      },
-      properties: {
-				sort: "img",
-        ["xlink:href"]: p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
     payload: {
-
-			tim,
-			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
-			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-			proform: {
-				projection: "uniwen",
-				translate: [ 30, 40 ],
-			},
-			img: {
-        url: "zimg-501.jpg",
-        "style": {
-					"width": [[[60, 60]]],
-					"height": [[[40 , 40]]],
-					"rotate": [[[ 0, 0 ]]],
-        }	
+      "tim": tim,
+      "ric": {"gid":"pol","cid":"pol","fid":"pol",},
+      "boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
+      "proform": {
+        "projection": "uniwen",
+        "translate":  [ 180, 200 ],
+        "scale": 90,
+        "rotate": [0,0,0],
+        "focale": 4,
+        "zafin": [0,1],
+        "dims": 3,
+        "control": "wen"
       },
-
-
     }
+
   }
 	
   /*******************************************
@@ -159,8 +91,9 @@ let muonAlima = function muonAlima(__mapper) {
  *
  */
   let animas = [
+	
     aniPolygone,  // h.geojson g.uniwen
-    img,          // h.img
+
   ]
   let animaApi = function animaApi() {
     __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})

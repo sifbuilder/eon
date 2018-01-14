@@ -42,11 +42,13 @@
         json
 
 			
-      if (1 && 1)	console.log("h.geojson gramm", anigram)
+      if (0 && 1)	console.log("h.geojson gramm", anigram)
       json = f.v(geoform, anigram)
+		
       json = m.profier.conformer(anigram)(json)
       json = m.profier.proformer(anigram)(json)
 
+			
 			
       let fileffect =  {
         "projection": "uniwen",
@@ -92,4 +94,4 @@
 
   exports.haloGeojson = haloGeojson
 
-}))
+}));
