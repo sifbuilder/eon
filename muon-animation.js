@@ -90,16 +90,7 @@ if (0 && 1) console.log("m.animation state.animas ",state.animas)
       }
 
 	   let anigrams = __mapper("xs").m("store").anigrams()
-
-    /*******************************************
-     *    @SIM defaults position of nodes
-     */
-      // let sim = __mapper("xs").m("simulation").sim()     // simulation on animas
-
-      // __mapper("xs").m("simulation").simulate(sim, anigrams, elapsed)	// stored
-
-			// anigrams = __mapper("xs").m("store").anigrams()
-			// if (0 && 1) console.log("m.animation anigrams ", anigrams)
+			if (0 && 1) console.log("m.animation anigrams", anigrams.length)	
 
     /*******************************************
     *     @RENDER

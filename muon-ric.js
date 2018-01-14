@@ -88,6 +88,8 @@
  
    let qualier = function (ric = {}, anigram, json) {
 
+			if (0 && 1) console.log("m.ric.qualier ric", ric)
+				
       if (json.type === undefined) {
 
         console.log("type undefined")
@@ -113,13 +115,11 @@
 
 							properties.ric = _ric
 							feature.id = uid
+							
+							json = features
 
       } else if (json.type === "FeatureCollection") {
 
-						let _ric = {}
-							_ric.gid = ric.gid
-							_ric.cid = ric.cid			
-			
 							let features = json.features
 							for (let i=0; i<features.length; i++) {
 
@@ -127,24 +127,35 @@
 
 									let properties = feature.properties || {}
 
-									if (ric.fid === undefined) _ric.fid = i || ""
-									else if (typeof ric.fid === "function") _ric.fid = ric.fid(i, ric, anigram)
-									else _ric.fid = ric.fid + (i || "")    // identify each feature in the anigram
-
-
-									properties.ric = _ric
-									feature.id = __mapper("xs").m("ric").buildUIDFromRic(_ric)
-
-									feature.properties = properties
+									
+									// identify each feature in the anigram
+									let gid = ric.gid
+									let cid = ric.cid			
+									let fid 
+									
+									if (ric.fid === undefined) 							fid = cid + (i || "")
+									else if (typeof ric.fid === "function") fid = ric.fid(i, ric, anigram)
+									else 																		fid = ric.fid + (i || "")    
+									
+									feature.properties.ric = ric || anigram.payload.ric || {}
+									feature.properties.ric.gid = gid
+									feature.properties.ric.cid = cid
+									feature.properties.ric.fid = fid
+									feature.properties.uid = __mapper("xs").m("ric").buildUIDFromRic(feature.properties.ric)
+									feature.id = feature.properties.uid
+									feature.properties.nid = i
 
 
 							}
+							json.features = features
 				
       } else {
 
         console.log("m.boform.boformer nothing done")
 
       }
+		
+
       return json
     }		
 	

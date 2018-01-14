@@ -144,7 +144,7 @@
  */
 
     let render = function (elapsed, featurecollection, maxlimit) {
-if (0 && 1) console.log("featurecollection", featurecollection)
+			if (0 && 1) console.log("featurecollection", featurecollection)
 			let features = featurecollection.features
         .filter(
           d => d.properties !== undefined         // req properties
@@ -152,7 +152,7 @@ if (0 && 1) console.log("featurecollection", featurecollection)
         )
 
 				
-if (0 && 1) console.log("render features", features)
+			if (0 && 1) console.log("render features", features)
 
       let svg = __mapper("renderSvg").svg()
 
@@ -161,7 +161,7 @@ if (0 && 1) console.log("render features", features)
         .key(function(d) { return d.properties.ric.cid })
         .entries(features)                      // features
 
-if (0 && 1) console.log("render gitems", gitems)
+			if (0 && 1) console.log("render gitems", gitems)
 
       for (let i in gitems) {           // DOTS (seg5===0) each group gid
         let gid = gitems[i].key, citems = gitems[i].values
@@ -255,6 +255,7 @@ if (0 && 1) console.log("r.svg.render fitems", fitems)
             .filter((d,i) => (d.properties.delled !== 1))       // not delled
 
           if (features.length > 0)  {
+						if (0 && 1) console.log("r.svg.render features", features)
 
             __mapper("renderSvg").elems("svg:g."+gid+"/path."+cid, features, d=>d.id)
 

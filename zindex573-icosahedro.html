@@ -96,55 +96,48 @@ let muonAlima = function muonAlima(__mapper) {
     }
   }
 
-  let stace = {
-    "x": 0,
-    "y": 0,
-    "z": 0,
-  }
-
-
   let proformIco = {
 
     "projection": "uniwen",
     "translate":  [ 290 , 200 ],
     "scale": 90,
-    "rotate": [0,0,0], // [-5,50,0], // 
+    "rotate": [0,0,0],
     "focale": 3,
-    "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+    "zafin": [0,1],
     "dims": 3,
     "control": "wen",
   }
 
-
-
-
-  let geoformIco = (p) => {
+  let geoformIco = p => {
+		
     let payload = p.payload
-    let ric = p.ric
-
-    let json = {type: "FeatureCollection", features: []}
+    let ric = payload.ric
     let points = payload.points       // payload.points
     let faces = payload.faces                 // payload.faces
-    for (let i = 0, l = faces.length; i < l; i++) {
-      let face = faces[i]                // face cornersx position
-      let geometry = {type:"Polygon",coordinates:[]}
-      geometry.coordinates = Array.of(face.cornersx.map(k=>points[k])) // eg [-1, 1, 1]
+		
+		let json = {type: "FeatureCollection", features: []}
 
-       let _ric = {}
-        _ric.gid = ric.gid
-        _ric.cid = ric.cid
-        _ric.fid = i
+		for (let i = 0, l = faces.length; i < l; i++) {
+			
+			let face = faces[i]                // face cornersx position
+			
+			let geometry = {type:"Polygon",coordinates:[]}
+			geometry.coordinates = Array.of(face.cornersx.map(k=>points[k])) // eg [-1, 1, 1]
 
+			 let _ric = {}
+				_ric.gid = ric.gid
+				_ric.cid = ric.cid
 
-      let feature = {type:"Feature",geometry:{},properties:{}}
-      feature.properties.ric = _ric
-      feature.properties.sort = "feature"
-      feature.properties.boform = face.boform
-      feature.geometry = geometry
+			let feature = {type:"Feature",geometry:{},properties:{}}
+			
+			feature.geometry = geometry
+			
+			feature.properties.ric = _ric
+			feature.properties.sort = "feature"
+			feature.properties.boform = face.boform
 
-
-      json.features.push(feature)
-    }
+			json.features.push(feature)
+		}
 
     return json
   }
@@ -154,19 +147,19 @@ let muonAlima = function muonAlima(__mapper) {
     "projection": "uniwen",
     "translate":  [ 130, 200],
     "scale": 90,
-    "rotate": [0,0,0], // [-5,50,0],
+    "rotate": [0,0,0],
     "focale": Infinity,
-    "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+    "zafin": [0,1],
     "dims": 3,
     "control": "wen",
   }
 
   let geoformFaces = p => {
 
-    let ric = p.ric
-      payload = p.payload,
-      faceIndex = Math.round(payload.faceIndex),
+    let payload = p.payload,
+			ric = payload.ric,
       faces = f.v(payload.faces)        // payload.faces
+			
 
     let json = {type: "FeatureCollection", features: []}
 
@@ -175,18 +168,20 @@ let muonAlima = function muonAlima(__mapper) {
       let face = faces[i]                // face cornersx position
 
       let geometry = {type:"Polygon",coordinates:[]}
-      geometry.coordinates = Array.of(faces[i]) // eg [-1, 1, 1]
+      geometry.coordinates = Array.of(face) // eg [-1, 1, 1]
 
        let _ric = {}
         _ric.gid = ric.gid
         _ric.cid = ric.cid
-        _ric.fid = i
 
-      let feature = {type:"Feature",geometry:{},properties:{}}
-      feature.properties.ric = _ric
-      feature.properties.sort = "feature"
-      feature.properties.boform = face.boform || p.boform
-      feature.geometry = geometry
+
+				let feature = {type:"Feature",geometry:{},properties:{}}
+				
+				feature.geometry = geometry
+				
+				feature.properties.ric = _ric
+				feature.properties.sort = "feature"
+				feature.properties.boform = face.boform
 
       json.features.push(feature)
 
@@ -206,11 +201,9 @@ let muonAlima = function muonAlima(__mapper) {
 
     "payload": {
 			"tim": tim,
-			"ric": {"gid":"aniFaces","cid":"aniFaces","fid":"aniFaces",},
+			"ric": {"gid":"aniFaces","cid":"aniFaces",},
 			"boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
 			"proform": proformFaces,
-
-			faceIndex: [[[0,20.1]]],
 
 			faces: function () {   // icosahedronFaces
 				let faces = [],
@@ -233,15 +226,13 @@ let muonAlima = function muonAlima(__mapper) {
 
   let aniIco = {
 
-    "halo": "geojson",
-
-    "geoform": geoformIco,
-
+    halo: "geojson",
+    geoform: geoformIco,
 
 		payload: {
 
 			"tim": tim,
-			"ric": {"gid":"aniIco","cid":"aniIco","fid":"aniIco",},
+			"ric": {"gid":"aniIco","cid":"aniIco",},
 			"boform": {"csx":0,"cf":[[[111,222,111,222,111,222,111]]],"cs":777,"cw":0.2,"co":0.9,"cp":0.9,},
 			"proform": proformIco,
 		
@@ -315,6 +306,7 @@ let muonAlima = function muonAlima(__mapper) {
 				projection: "uniwen",
 				translate: [ 30, 40 ],
 			},
+			
 			img: {
         url: "zimg-501.jpg",
         "style": {
@@ -333,7 +325,6 @@ let muonAlima = function muonAlima(__mapper) {
  *
  */
   let animas = [
-  
     aniIco,     // h.geojson g.uniwen
     aniFaces,   // h.geojson g.uniwen
     img,        // h.img
