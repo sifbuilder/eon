@@ -87,9 +87,10 @@ let muonAlima = function muonAlima(__mapper) {
 
     // ............ halogeoform
     let halogeoform = p => {
-      let payload = p.payload,
-          ric = p.ric,
-          boform = p.boform
+
+				let payload = p.payload,
+					ric = payload.ric,
+          boform = payload.boform
 
       let {nbStars, velStar, focaleStar, doxStar, maxZStar} = payload    // stars
 

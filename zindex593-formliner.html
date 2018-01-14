@@ -74,25 +74,23 @@ let muonAlima = function (__mapper) {
   // -------------------------------  lineform
   let lineform = {
 
-    "tim": tim,
-    "ric": {"gid":"nat","cid":"nat","fid":"lineform",},
     "halo": "liner",
 
-    "boform": { "csx":0,"cf":[[[555,999]]], "co":[[[0.09,0.09]]], "cs":[[[888,999]]],"cw":[[[0.7,0.7]]],"cp":[[[0.9,0.9]]],},
-
-
-    "proform": {
-      "projection": "uniwen",
-      "translate":  [ 0, 0 ],
-      "scale": 1,
-      "rotate": [0,0,0],
-      "focale": Infinity,
-      "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-      "dims": 3,
-      "control": "wen",
-    },
-
     "payload": {
+			"tim": tim,
+			"ric": {"gid":"nat","cid":"nat","fid":"lineform",},
+			"boform": { "csx":0,"cf":[[[555,999]]], "co":[[[0.09,0.09]]], "cs":[[[888,999]]],"cw":[[[0.7,0.7]]],"cp":[[[0.9,0.9]]],},
+			"proform": {
+				"projection": "uniwen",
+				"translate":  [ 0, 0 ],
+				"scale": 1,
+				"rotate": [0,0,0],
+				"focale": Infinity,
+				"zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+				"dims": 3,
+				"control": "wen",
+			},
+			
       pacer: {
         "initN": 0,
         "eventN": 1,
@@ -144,8 +142,6 @@ let muonAlima = function (__mapper) {
   // -------------------------------  avaform
   let avaform = {
 
-    "tim": tim,
-    "ric": {"gid":"nat","cid":"nat","fid":"avaform",},
     "halo": haloAvajson,
 
     "geoform": p => ({
@@ -161,25 +157,29 @@ let muonAlima = function (__mapper) {
       "properties": {}
     }),
 
-    "boform": { "csx":0,"cf":[[[333,999]]], "co":[[[0.999,0.999]]], "cs":[[[666,555]]],"cw":[[[0.7,0.7]]],"cp":[[[0.999,0.999]]],},
-
-    "proform": {
-        "projection": "uniwen",
-        "center":  [ 0, 0, 0],
-        "translate": {
-          "x": { "pos": [[[ 0 ,  1 * 100]]], },
-          "y": { "pos": [[[ 0 ,  1 * 100]]], },
-          "z": 0,
-				},
-        "scale": 1,
-        "rotate": [0,0,0],
-        "focale": Infinity,
-        "zafin": [0,1],
-        "dims": 3,
-        "control": "wen",
-    },
 
     "payload": {
+			"tim": tim,
+			"ric": {"gid":"nat","cid":"nat","fid":"avaform",},
+			"boform": { "csx":0,"cf":[[[333,999]]], "co":[[[0.999,0.999]]], "cs":[[[666,555]]],"cw":[[[0.7,0.7]]],"cp":[[[0.999,0.999]]],},
+
+			"proform": {
+					"projection": "uniwen",
+					"center":  [ 0, 0, 0],
+					"translate": {
+						"x": { "pos": [[[ 0 ,  1 * 100]]], },
+						"y": { "pos": [[[ 0 ,  1 * 100]]], },
+						"z": 0,
+					},
+					"scale": 1,
+					"rotate": [0,0,0],
+					"focale": Infinity,
+					"zafin": [0,1],
+					"dims": 3,
+					"control": "wen",
+			},
+			
+			
         "form":  {      // rocket
 
           "x": {
