@@ -19,7 +19,7 @@
 		let guniwen = __mapper("xs").g("uniwen")
 
     /****************************
- *      @projier
+ *      @getProjion
  *        get projection from proform and apply projection properties
  *        if control:wen  wen rotation and if 2d: wen z rotation
  *        if control:versor   versor rotation
@@ -100,17 +100,18 @@
 
     }
 		
-    /****************************
+ /* ***************************
  *     	 @projier
+ *			 json = mprofier.projier(f.v(proform, anigram), anigram)(json)
  */			
     let projier =  (proform, anigram) => json => (proform) ? __mapper("xs").b("proj3ct")(json, getProjion(proform, anigram)) : json
 
     /****************************
- *     	 @getEreformer
+ *     	 @ereformer
  */		
-    let getEreformer = (ereform, anigram) => {
+    let ereformer = anigram => {
 			
-			ereform = ereform || anigram.ereform
+			let ereform = anigram.payload.ereform
 			let translate = ereform.translate
 			let locus = mstace.getLocus(translate, anigram)
 					ereform.translate = locus
@@ -119,25 +120,30 @@
 			return profier
 			
 		}
-		
+    /****************************
+ *     	 @conformer
+ */		
+    let conformer = anigram => {
+			
+			let projdef = anigram.payload.conform
+			let projer = getProjion(projdef, anigram)
+
+			return json => __mapper("xs").b("proj3ct")(json, projer)
+			
+		}		
     /****************************
  *     	 @proformer
  */		
-    let proformer = (proform, anigram) => {
-			proform = proform || anigram.payload.proform
-			let profier = d => d 
-			if (proform !== undefined) {
-				// let center = proform.center
-				// let transpose = proform.transpose
-				// let translate = proform.translate
-						// proform.translate = mstace.getLocus(translate, anigram)
-						// proform.center = mstace.getLocus(center, anigram)
-				
-				profier = projier(proform, anigram)
-			}
-			return profier
+    let proformer = anigram => {
 			
-		}
+			let projdef = anigram.payload.proform
+			// proform.translate = mstace.getLocus(translate, anigram)
+			let projer = getProjion(projdef, anigram)
+
+			return json => __mapper("xs").b("proj3ct")(json, projer)
+			
+		}				
+
 		
 		
     /****************************
@@ -147,7 +153,8 @@
     enty.getProjion = getProjion
     enty.projier = projier
     enty.proformer = proformer
-    // enty.getEreformer = getEreformer
+    enty.ereformer = ereformer
+    enty.conformer = conformer
 
     return enty
 
