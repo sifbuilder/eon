@@ -41,7 +41,7 @@
         json
 
 			
-      if (0 && 1)	console.log("h.geojson gramm", anigram)
+      if (1 && 1)	console.log("h.geojson gramm", anigram)
       json = f.v(geoform, anigram)
 
       json = mprofier.projier(f.v(conform, anigram), anigram)(json)
@@ -56,11 +56,13 @@
 
 		
 		
-      json = mboform.boformer(anigram, json)	// boform
       json = mgeoj.featurize(json) 										// featurize
+      json = mboform.boformer(anigram, json)	// boform
       json = mgeoj.zorder(json) 											// order
       json = mric.qualier(ric, anigram, json)					// qualify
 
+      if (1 && 1)	console.log("h.geojson json", json)
+				
       newAnigrams = json.features.map( (d, i) => {
         let newAnigram = Object.assign({}, anigram)
 					newAnigram.payload.feature = d

@@ -260,7 +260,7 @@ if (0 && 1) console.log("r.svg.render fitems", fitems)
 
               .data(() => features)
               .attr("d", d =>  {
-								
+								if (1 && 1) console.log("r.svg.render d", d)
 								if (d.properties.style === undefined) console.log("style undefined")
 
                 let object = d        // geojson feature
