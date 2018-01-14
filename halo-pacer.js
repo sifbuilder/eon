@@ -9,19 +9,21 @@
 
   let haloPacer = function haloPacer(__mapper = {}) {
 
-    let f = __mapper({"props": muonProps.muonProps()}).props()
-    let g = __mapper("xs").m("geom")
-    let mwen = __mapper("xs").m("wen")
-    let mmouse = __mapper("xs").m("mouse")
-    let cwen = __mapper("xs").c("wen")
-    let cversor = __mapper("xs").c("versor")
-    let mstace =	__mapper("xs").m("stace")
-
+    let f = __mapper({"props": muonProps.muonProps()}).props(),
+			g = __mapper("xs").m("geom"),
+			mwen = __mapper("xs").m("wen"),
+			mmouse = __mapper("xs").m("mouse"),
+			cwen = __mapper("xs").c("wen"),
+			cversor = __mapper("xs").c("versor"),
+			mstace =	__mapper("xs").m("stace"),
+      manitem = __mapper("xs").m("anitem"),
+			svg = __mapper("renderSvg").svg()
+		
     let r = __mapper("xs").r("renderer"),
       width = r.width(),
       height = r.height()
 
-    let svg = __mapper("renderSvg").svg()
+
 
     // -------------------------------  haloPacerHalo_ween
     let haloPacerHalo_ween = function haloPacerHalo_gramm(anima, newItems = []) {
@@ -35,18 +37,19 @@
 
       if (0 && 1) console.log("h.liner haloPacerHalo_gramm anima",anima)
 
-      let ani = __mapper("xs").m("anitem")(anima),
-        anigram = ani.anigram(),            	// anigram
-        boform =  ani.boform(),             	// boform
-        ric =   	ani.ric(),               		// ric
-        tim =   	ani.tim(),               		// tim
-        payload = ani.payload(),            	// payload
-        proform = ani.proform(),            	// proform
-        conform = ani.conform(),            	// conform
-        parentuid = ani.parentuid(),          // parentuid
-        geoform = ani.geoform(),  						// geoform
-        pacer = payload.pacer  || {},					// pacer
-        geonode = payload.geonode							// geonode
+      let anigram = __mapper("xs").m("anitem")(anima).anigram(),
+        halo = 				anigram.halo,  															// halo
+        geoform = 		anigram.geoform || manitem.coreGeoform(),  	// geoform
+        payload = 		anigram.payload,            								// payload
+        boform = 			payload.boform,             							// boform
+        ric =   			payload.ric,               								// ric
+        tim =   			payload.tim,               								// tim
+        proform =			payload.proform,            							// proform
+        conform = 		payload.conform,            							// conform
+        uid = 				payload.uid,          										// uid
+        parentuid = 	payload.parentuid,          							// parentuid
+        geonode = 		payload.geonode, 	// geonode
+				pacer = payload.pacer  || {}					// pacer
 
       let initSitus = (payload.pacer.initSitus === undefined) ? d => ({x: width / 2, y: height / 2, z: 0 }) : payload.pacer.initSitus
       let eventSitus = (payload.pacer.eventSitus === undefined) ? d => ({x: mouse.event.x, y: mouse.event.y, z: 0 }) : payload.pacer.eventSitus
@@ -161,8 +164,8 @@
 
       }
 
-      // __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.pacer","anigrams":newAnigrams})
-      __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"h.pacer","animas":newItems})
+      __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.pacer","anigrams":newItems})
+      // __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"h.pacer","animas":newItems})
 
       return newItems
 

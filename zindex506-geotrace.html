@@ -29,7 +29,8 @@ let muonAlima = function muonAlima(__mapper) {
     height = renderer.height(),
     scaleView = Math.min(width/2, height)/Math.PI
 
-  let f = __mapper({"props": muonProps.muonProps()}).props()
+  let f = __mapper({"props": muonProps.muonProps()}).props(),
+			mnat = __mapper("xs").m("nat")
 
   /*******************************************
  *      @pics
@@ -71,7 +72,7 @@ let muonAlima = function muonAlima(__mapper) {
       "m1":6,"m2":6,"n1":2,"n2":2,"n3":0,"a":2,"b":1,   // tri
       "m1":4,"m2":4,"n1":2,"n2":2.2,"n3":2.2,"a":9,"b":4, // round square
       "m1":3,"m2":3,"n1":1,"n2":1.2,"n3":1.2,"a":1,"b":1, // reaulau
-      "ra2": 10,
+      "ra2": 60,
       "v0": 0, "v1": 1,
       "seg5": [[[360,360]]],
       "w4": [[[90 , 90 - 0 * 360]]],
@@ -84,7 +85,7 @@ let muonAlima = function muonAlima(__mapper) {
       "m1":6,"m2":6,"n1":2,"n2":2,"n3":0,"a":2,"b":1,   // tri
       "m1":4,"m2":4,"n1":2,"n2":2.2,"n3":2.2,"a":4,"b":9, // round square
       "m1":3,"m2":3,"n1":1,"n2":1.2,"n3":1.2,"a":1,"b":1, // reaulau
-      "ra2": 10,
+      "ra2": 60,
       "v0": 0, "v1": 1,
       "seg5": [[[360,360]]],
       "w4": [[[90 , 90 - 0 * 360]]],
@@ -95,23 +96,15 @@ let muonAlima = function muonAlima(__mapper) {
 
   }
 
-  let natStace =
-		{
+  let natStace = {
 			"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
-			"ra2": 30,
-			"v0": 0,"v1": 1,
-			"w4": 0,
-			"seg5": 360,
-			"pa6": 0,
-			"pb7": -1,
-			"fas8": 0,
-		}
+			"ra2": 90,"v0": 0,"v1": 1,"w4": 0,"seg5": 360,"pa6": 0,"pb7": -1,"fas8": 0,
+  }
 
   let natProform = {
 			"projections": ["uniwen","unidentity","identity","universor","unimercator"],
 			"projectidx": 0,
-			"translate": [[[ natStace ]]], // [ 300, 200 ],
-			"center": [ 300, 200 ], // [[[ natStace ]]],
+			"translate": [ [ 300, 200 ], [[[ natStace ]]] ],
 			"scale": 1,
 			"rotate": [ 0, 0, [[[0,0]]] ],
 			"focale": Infinity,
@@ -130,25 +123,37 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let nat = {
 
-    "tim": tim,
-    "ric": {"gid":"nat","cid":"nat","fid":"nat",},
     "halo": "nat",
-    // "stace": [[[ natStace ]]],
-    "boform": natBoform,
-    "proform": natProform,
-    "payload": { form:natForm },
+    "geoform":  p => ({
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": mnat.natcoords(p.payload.form)
+      },
+      "properties": {}
+    }),
+		
+    "payload": { 
+
+			tim,
+			"ric": {"gid":"nat","cid":"nat","fid":"nat",},
+			"boform": natBoform,
+			"proform": natProform,
+			form: natForm 
+			
+		},
 
   }
 
   let traceline = {
 
-    "tim": tim,
-    "ric": {"gid":"trace","cid":"trace","fid":"traceline",},
     "halo": "liner",
-    // "stace": [0,0,0],
-    "boform": traceBoform,
 
     "payload": {
+			
+			tim,
+			"ric": {"gid":"trace","cid":"trace","fid":"traceline",},
+			"boform": traceBoform,
 
       pacer:{
         "initN": 0,
@@ -162,42 +167,40 @@ let muonAlima = function muonAlima(__mapper) {
 
   }
 
+  // -------------------------------  img
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
-    "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    halo: "img",
 
-    "geoform": p => ({
+    geoform: p => ({
       type:  "Feature",
       geometry: {
 
         "type": "Point",
-        "coordinates": [0, 0]
+        "coordinates": [ 40, 40 ]
 
       },
       properties: {
 				sort: "img",
-        attr: {
-          "width": p.payload.img.width,
-          "height": p.payload.img.height,
-          ["xlink:href"]: p.payload.img.url,
-        }
+        ["xlink:href"]: p.payload.img.url,
+        style: p.payload.img.style
       }
     }),
 
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
-		
-    "payload": {
+    payload: {
 
-			"img": {
-        "url":"zimg-501.jpg",
-        "width": [[[60, 60]]],
-        "height": [[[40 , 40]]],
+			tim,
+			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
+			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			proform: {
+				projection: "uniwen",
+				translate: [ 30, 40 ],
+			},
+			img: {
+        url: "zimg-501.jpg",
+        width: 60,
+        height: 40,
+				rotate: 0,
       },
 
 
@@ -209,14 +212,15 @@ let muonAlima = function muonAlima(__mapper) {
  *
  */
 
-  nat.avatars = {
+  nat.payload.avatars = {
       traceline,     // h.liner
   }
 
 
   let animas = [
+      img,      // h.img
       nat,      // h.nat
-      // img,      // h.img
+
   ]
 
   let animaApi = function animaApi() {

@@ -231,7 +231,6 @@ if (0 && 1) console.log("r.svg.render fitems", fitems)
 						
 						.data(() => imgs)
 
-
              .attr("transform", d => {  // eg. "translate(21,20) rotate(15)")
 
                return  "translate("
