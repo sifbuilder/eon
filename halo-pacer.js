@@ -37,19 +37,19 @@
 
       if (0 && 1) console.log("h.liner haloPacerHalo_gramm anima",anima)
 
-      let anigram = __mapper("xs").m("anitem")(anima).anigram(),
+      let anigram = __mapper("xs").m("anitem")(anima).anigram(),	// anigram
         halo = 				anigram.halo,  															// halo
-        geoform = 		anigram.geoform || manitem.coreGeoform(),  	// geoform
+        geoform = 		anigram.geoform || manitem.coreGeoform(), 	// geoform
         payload = 		anigram.payload,            								// payload
-        boform = 			payload.boform,             							// boform
-        ric =   			payload.ric,               								// ric
-        tim =   			payload.tim,               								// tim
-        proform =			payload.proform,            							// proform
-        conform = 		payload.conform,            							// conform
-        uid = 				payload.uid,          										// uid
-        parentuid = 	payload.parentuid,          							// parentuid
-        geonode = 		payload.geonode, 	// geonode
-				pacer = payload.pacer  || {}					// pacer
+        boform = 			payload.boform,             								// boform
+        ric =   			payload.ric,               									// ric
+        tim =   			payload.tim,               									// tim
+        proform =			payload.proform,            								// proform
+        conform = 		payload.conform,            								// conform
+        uid = 				payload.uid,          											// uid
+        parentuid = 	payload.parentuid,          								// parentuid
+        geonode = 		payload.geonode, 														// geonode
+				pacer = 			payload.pacer  || {}												// pacer
 
       let initSitus = (payload.pacer.initSitus === undefined) ? d => ({x: width / 2, y: height / 2, z: 0 }) : payload.pacer.initSitus
       let eventSitus = (payload.pacer.eventSitus === undefined) ? d => ({x: mouse.event.x, y: mouse.event.y, z: 0 }) : payload.pacer.eventSitus
@@ -141,8 +141,9 @@
 						let node = {type: "Feature", geometry: {}, properties: {}}
 								node = Object.assign(node, geonode)
 								node.geometry = geometrier(situs)
-								node.properties.origin = node.properties.origin || node.geometry.coordinates 
-								node.properties.velocity = node.properties.velocity || [0,0,0]
+								node.properties.orgin = node.properties.orgin || node.geometry.coordinates 
+								node.properties.velin = node.properties.velin || [0,0,0]
+								node.properties.velang = node.properties.velang || [0,0,0]
 								node.properties.stape = node.properties.stape || [0,0,0]
 							
             let newItem = __mapper("xs").b("clone")(anigram)  // 
@@ -155,8 +156,6 @@
             newItems = [...newItems,
 								...__mapper("xs").h("geojson").gramm(newItem) ]
 						
-            // newAnigrams = [...newAnigrams, ...newItems]
-
 
           }
 
@@ -165,7 +164,6 @@
       }
 
       __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.pacer","anigrams":newItems})
-      // __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"h.pacer","animas":newItems})
 
       return newItems
 

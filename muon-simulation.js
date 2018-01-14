@@ -32,9 +32,9 @@
 			type: "Point",
 			geometry: [0,0,0],
 			properties: {
-				origin: [0,0,0],
-				velocity: [0,0,0],
-				previous: [0,0,0],
+				orgin: [0,0,0],
+				velin: [0,0,0],
+				prevous: [0,0,0],
 				geodelta: [0,0,0],
 			}
 		}
@@ -74,29 +74,29 @@ if (0 && 1) console.log("aniItems" , aniItems)
 				
 				let simNode = {}
 
-				simNode.x = geonode.geometry[0]
-				simNode.y = geonode.geometry[1]
-				simNode.z = geonode.geometry[2]
+				simNode.x = 	geonode.geometry.coordinates[0]
+				simNode.y = 	geonode.geometry.coordinates[1]
+				simNode.z = 	geonode.geometry.coordinates[2]
 				
-				simNode.vx = geonode.properties.velocity[0]
-				simNode.vy = geonode.properties.velocity[1]
-				simNode.vz = geonode.properties.velocity[2]
+				simNode.vx = 	geonode.properties.velin[0]
+				simNode.vy = 	geonode.properties.velin[1]
+				simNode.vz = 	geonode.properties.velin[2]
 				
 				simNode.payload = payload
 				simNode.id = payload.uid
 
 
         if ( simNode.x === undefined || isNaN(simNode.x))               simNode.x = 0
-        if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1 ) simNode.y = 0
-        if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2 ) simNode.z = 0
+        if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1) 	simNode.y = 0
+        if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2) 	simNode.z = 0
 
         if (isNaN(simNode.vx))               														simNode.vx = 0
         if (nDim > 1 && isNaN(simNode.vy))   														simNode.vy = 0
         if (nDim > 2 && isNaN(simNode.vz))   														simNode.vz = 0
 
 				if ( simNode.x === undefined || isNaN(simNode.x))               simNode.x = 0
-        if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1 ) simNode.y = 0
-        if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2 ) simNode.z = 0
+        if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1) 	simNode.y = 0
+        if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2) 	simNode.z = 0
 
         if (isNaN(simNode.vx))               														simNode.vx = 0
         if (nDim > 1 && isNaN(payload.vy))   														simNode.vy = 0
@@ -118,26 +118,28 @@ if (0 && 1) console.log("aniItems" , aniItems)
 						for (let i = 0; i < simNodes.length; ++i) {
 							let simNode = simNodes[i]
 
-							
 							let updAniItem = Object.assign({}, aniItems[i])
 							
 							let updAniPayload = simNode.payload
 									updAniPayload.geonode = updAniPayload.geonode || _geonode 
 							
 							let updAniGeometry = updAniPayload.geonode.geometry,
+								updaAniCoordinates = updAniGeometry.coordinates,
+								
 								updaAniProperties = updAniPayload.geonode.properties,
-								updaAniOrigin = updaAniProperties.origin,
-								updaAniVelocity = updaAniProperties.velocity,
-								updaAniPrevious = updaAniProperties.previous,
+								updaAniOrigin = 	updaAniProperties.orgin,
+								updaAniVelocity = updaAniProperties.velin,
+								updaAniVelangular = updaAniProperties.velang,
+								updaAniPrevious = updaAniProperties.prevous,
 								updaAniGeodelta = updaAniProperties.geodelta
 							
-							updaAniGeodelta[0] = simNode.x - updAniGeometry[0]
-							updaAniGeodelta[1] = simNode.y - updAniGeometry[1]
-							updaAniGeodelta[2] = simNode.z - updAniGeometry[2]
+							updaAniGeodelta[0] = simNode.x - updaAniCoordinates[0]
+							updaAniGeodelta[1] = simNode.y - updaAniCoordinates[1]
+							updaAniGeodelta[2] = simNode.z - updaAniCoordinates[2]
 							
-							updAniGeometry[0] = simNode.x
-							updAniGeometry[1] = simNode.y
-							updAniGeometry[2] = simNode.z
+							updaAniCoordinates[0] = simNode.x
+							updaAniCoordinates[1] = simNode.y
+							updaAniCoordinates[2] = simNode.z
 						
 							updaAniVelocity[0] = simNode.vx
 							updaAniVelocity[1] = simNode.vy

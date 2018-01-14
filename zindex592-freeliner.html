@@ -70,13 +70,10 @@ let muonAlima = function (__mapper) {
  *    	@animas
  *
  */
-
-
   // -------------------------------  lineform
   let lineform = {
 
     "halo": "liner",
-
     "payload": {
 			
 			"tim": tim,
@@ -85,8 +82,7 @@ let muonAlima = function (__mapper) {
 
 			"proform": {
 					"projection": "uniwen",
-					"center":  [ 0, 0, 0],
-					"translate":  {"x": 0, "y": 0, "z": 0, },
+					"translate":  [0,0,0],
 					"scale": 1,
 					"rotate": [0,0,0],
 					"focale": Infinity,
@@ -108,15 +104,14 @@ let muonAlima = function (__mapper) {
 
   }
 
-	
-
   /*******************************************
  * @animaApi
  *
  */
 
   let animas = [
-    lineform,     // h.liner
+	
+			lineform,     // h.liner
 
   ]
 

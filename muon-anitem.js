@@ -97,9 +97,10 @@
 			type: "Point",
 			geometry: [0,0,0],
 			properties: {
-				origin: [0,0,0],
-				velocity: [0,0,0],
-				previous: [0,0,0],
+				orgin: [0,0,0],
+				velin: [0,0,0],
+				velang: [0,0,0],
+				prevous: [0,0,0],
 				geodelta: [0,0,0],
 			}
 		})		

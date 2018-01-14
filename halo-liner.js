@@ -9,20 +9,22 @@
 
   let haloLiner = function haloLiner(__mapper = {}) {
 
-  let f = __mapper({"props": muonProps.muonProps()}).props()
-  let g = __mapper("xs").m("geom")
-  let mwen = __mapper("xs").m("wen")
-  let mmouse = __mapper("xs").m("mouse")
-	let cwen = __mapper("xs").c("wen")
-	let cversor = __mapper("xs").c("versor")
-	let mstace =	__mapper("xs").m("stace")
+  let f = __mapper({"props": muonProps.muonProps()}).props(),
+		g = __mapper("xs").m("geom"),
+		mwen = __mapper("xs").m("wen"),
+		mmouse = __mapper("xs").m("mouse"),
+		cwen = __mapper("xs").c("wen"),
+		cversor = __mapper("xs").c("versor"),
+		mstace =	__mapper("xs").m("stace"),
+		manitem = __mapper("xs").m("anitem"),
+		rsvg = __mapper("renderSvg")
 
   let r = __mapper("xs").r("renderer"),
     width = r.width(),
     height = r.height()
 
-	let svg = __mapper("renderSvg").svg()
-
+	let svg = rsvg.svg()
+	
   // -------------------------------  haloLinerHalo_ween
   let haloLinerHalo_ween = function haloLinerHalo_gramm(anima, newItems = []) {
 
@@ -35,22 +37,17 @@
 
 		if (0 && 1) console.log("h.liner haloLinerHalo_gramm anima",anima)
 
-		let ani = __mapper("xs").m("anitem")(anima),
-			anigram = ani.anigram(),            	// anigram
-			boform =  ani.boform(),             	// boform
-			ric =   	ani.ric(),               		// ric
-			tim =   	ani.tim(),               		// tim			
-			payload = ani.payload(),            	// payload
-			proform = ani.proform(),            	// proform
-			conform = ani.conform(),            	// conform
-			parentuid = ani.parentuid(),          // parentuid
-			geoform = ani.geoform(),  						// geoform
-			json
-
-		let uid =  __mapper("xs").m("ric").buildUIDFromRic(ric)	
-			
-    let pacer = payload.pacer  || {}
-    let pixspan = payload.span || 0
+      let anigram = manitem(anima).anigram(),			// anigram
+        halo = 				anigram.halo,  							// halo
+        geoform = 		anigram.geoform,						// geoform
+        payload = 		anigram.payload,            // payload
+        tim =   			payload.tim,               	// tim		
+        boform = 			payload.boform,             // boform
+				uid = 				payload.uid,     						// uid
+        geonode = 		payload.geonode || manitem.coreGeonode(),		// geonode				
+				pacer = 			payload.pacer  || {},  		// pacer
+				pixspan = 		payload.pixspan || 0,		// pixspan
+				json
 
 
 		let initSitus = d => ({x: width / 2, y: height / 2, z: 0 })
@@ -106,7 +103,6 @@
 		}																										// PACE COUNT
 
 
-
 		if (Object.keys(count).length > 0) {									// on pace count
       if (0 && 1) console.log("pacer count", count)
 
@@ -135,65 +131,69 @@
           if (newItem === undefined)  {
               newItem = __mapper("xs").b("clone")(anigram)     	// if first cycle clone anigram
           } else {
-              newItem.payload.boform = anigram.payload.boform                   // if exists update traits
-              newItem.payload.stace = anigram.payload.stace
               newItem.payload = anigram.payload
-              newItem.payload.proform = anigram.payload.proform
-              newItem.payload.avatars = anigram.payload.avatars
-              newItem.payload.forces = anigram.payload.forces
           }
 
-          if (0 && 1) console.log(" ************* situs", situs)
+          if (1 && 1) console.log(" ************* situs", situs, newItem)
+
+					let _geonode = newItem.payload.geonode
+						
+					let	geonode = {
+							type: "Point",
+							geometry: Object.values(situs),
+							properties: {
+								prevous: Object.values()
+							}
+						}
+
+						
+						
+          // newItem._x = newItem.x														// pre situs
+          // newItem._y = newItem.y
+          // newItem._z = newItem.z
+
+          // newItem.x = situs.x																			// situs
+          // newItem.y = situs.y
+          // newItem.z = situs.z
+
+          // let _feature = {}
+
+          // if (newItem.payload._feature !== undefined) {							// if previous feature
+
+            // _feature = newItem.payload._feature
+            // let coords = __mapper("xs").m("geoj").getCoords(_feature)
+
+            // let coord = Object.values(situs) // [x,y,z]
+
+            // let loc = coords[coords.length - 1]							// _e_
+
+            // let dx = coord[0] - loc[0]
+            // let dy = coord[1] - loc[1]
+            // let dz = coord[2] - loc[2]
+            // let d = dx * dx + dy * dy + dz * dz
+
+            // if (d > pixspan) coords.push(coord)    // add segment if above pixspan distance
+
+            // _feature.geometry.coordinates = coords
+            // _feature.properties.boform = boform
+
+          // } else {
+
+            // _feature = {type: "Feature", geometry: {}, properties: {}}
+            // _feature.id = "lineform" + i									// each element in count
+            // _feature.geometry = {type: "LineString",coordinates: [],}
+            // _feature.properties.boform = boform
+
+            // _feature.geometry.coordinates = Array.of(Object.values(situs))	// [x,y,0]
+
+          // }
+
+          // if (0 && 1) console.log("_feature", _feature)
+          // newItem.geoform = newItem.payload._feature = _feature	// set geoform feature and keep history
 
 
-
-
-          newItem._x = newItem.x														// pre situs
-          newItem._y = newItem.y
-          newItem._z = newItem.z
-
-          newItem.x = situs.x																			// situs
-          newItem.y = situs.y
-          newItem.z = situs.z
-
-          let _feature = {}
-
-          if (newItem.payload._feature !== undefined) {							// if previous feature
-
-            _feature = newItem.payload._feature
-            let coords = __mapper("xs").m("geoj").getCoords(_feature)
-
-            let coord = Object.values(situs) // [x,y,z]
-
-            let loc = coords[coords.length - 1]							// _e_
-
-            let dx = coord[0] - loc[0]
-            let dy = coord[1] - loc[1]
-            let dz = coord[2] - loc[2]
-            let d = dx * dx + dy * dy + dz * dz
-
-            if (d > pixspan) coords.push(coord)    // add segment if above pixspan distance
-
-            _feature.geometry.coordinates = coords
-            _feature.properties.boform = boform
-
-          } else {
-
-            _feature = {type: "Feature", geometry: {}, properties: {}}
-            _feature.id = "lineform" + i									// each element in count
-            _feature.geometry = {type: "LineString",coordinates: [],}
-            _feature.properties.boform = boform
-
-            _feature.geometry.coordinates = Array.of(Object.values(situs))	// [x,y,0]
-
-          }
-
-          if (0 && 1) console.log("_feature", _feature)
-          newItem.geoform = newItem.payload._feature = _feature	// set geoform feature and keep history
-
-
-          let newAnigrams = __mapper("xs").h("geojson").gramm(newItem)
-          __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.liner","anigrams":newItem}) // _e_
+          // let newAnigrams = __mapper("xs").h("geojson").gramm(newItem)
+          // __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.liner","anigrams":newItem}) // _e_
 
           newItems = [...newItems, ...newAnigrams]
 
