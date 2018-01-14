@@ -175,8 +175,10 @@ let muonAlima = function muonAlima(__mapper) {
 
     "halo": "geojson",
 
-    "geoform": (p) => {
-      let ric = p.ric
+    "geoform": p => {
+			
+			let payload = p.payload
+			let ric = payload.ric
 
       let json = Object.assign({},
         topojson.mesh(
@@ -188,6 +190,7 @@ let muonAlima = function muonAlima(__mapper) {
     },
 
     payload: {		
+		
 			"tim": tim,
 			"ric": {"gid":"aniEarth","cid":"aniEarth","fid":"aniEarth",},
 			"boform":{ "csx":0,"cf":444,"cs":444,"cw":0.1,"co":0.9,"cp":0.9,},
@@ -200,7 +203,6 @@ let muonAlima = function muonAlima(__mapper) {
 
 			"proform": proformEarth,
 		}
-
 
   }
   // -------------------------------  img
