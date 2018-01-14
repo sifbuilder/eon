@@ -10,71 +10,42 @@
 
 </head>
 <body style="cursor:crosshair"></body>
-
-<!--  d3, topojson, three   -->
-<!--
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="https://d3js.org/d3-geo.v1.min.js"></script>
-<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-<script src="https:////unpkg.com/d3-force-3d@1.0/build/d3-force-3d.bundle.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.0/topojson.min.js"></script>
-
-<script src="https:////cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
-<script src="https:////unpkg.com/three-trackballcontrols-web@0.0.2/dist/three-trackballcontrols.min.js"></script>
- -->
-
 <div id="viewframe" class="viewframe"></div>
+
+<script src='https://d3js.org/d3.v4.min.js'></script>
+<script src='https://d3js.org/d3-geo.v1.min.js'></script>
+<script src='https://d3js.org/d3-geo-projection.v2.min.js'></script>
+<script src='https:////unpkg.com/d3-force-3d@1.0.7/build/d3-force-3d.bundle.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.0/topojson.min.js'></script>
+<script src='https:////cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js'></script>
+<script src='https:////unpkg.com/three-trackballcontrols-web@0.0.2/dist/three-trackballcontrols.min.js'></script>
+<script src="enls.js"></script>
 <script src="ents.js"></script>
 
 <script>
-/*******************************************
- *      @PLUGIN
- *
- */
-  var muonAlima = function muonAlima(__mapper) {
 
-    let props = __mapper({'props': muonProps.muonProps()}).props()  // props
-    let f = props.lib                               // function
+let muonAlima = function muonAlima(__mapper) {
 
-    __mapper({"xs": xs.xs(__mapper)})               // PROXIES
+  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
+  __mapper("xs").b("init")({svg:1,versor:0,wen:1,webgl:1})
 
-    // __mapper({"renderCanvas": renderCanvas.renderCanvas(__mapper)})  // CANVAS
-
-    __mapper({"renderSvg": renderSvg.renderSvg(__mapper)})            // SVG
-    // __mapper("xs").c("versor").control(__mapper("renderSvg").svg()) // SVG VERSOR
-    // __mapper("xs").c("pos")(__mapper("renderSvg").svg())   // SVG POSITION
-    // __mapper("xs").m("image")("zimg-black.jpg")        // BCK IMAGE
-
-    __mapper({"renderWebgl": renderWebgl.renderWebgl(__mapper)})        // WEBGL
-
-    __mapper({'muonAnimation': muonAnimation.muonAnimation(__mapper)})  // ANIMATION
-    __mapper({'muonStore': muonStore.muonStore(__mapper)})        // STORE
-
-    __mapper("xs").c("key").start()                 // KEYBRD CONTROLS
-
-    __mapper("xs").c("wen").control(__mapper("renderSvg").svg()) // SVG WEN
+  let f = __mapper({"props": muonProps.muonProps()}).props()
+  let g = __mapper("xs").m("geom")
+  let w = __mapper("xs").m("wen")
 
   /**********************
    *    @
    */
-  let width = __mapper("renderRenderer").width()
-  let height = __mapper("renderRenderer").height()
+  let r = __mapper("xs").r("renderer"),
+    width = r.width(),
+    height = r.height()
 
-  let g = __mapper("xs").m("geom")
-  let w = __mapper("xs").m("wen")
+  let rotInit = [0,45,0],
+    rotation = [0,0,0],
+    rotMatrix
 
-  let versor = __mapper("xs").m("versor").versor
-	
-	let rotinit = [0,0,0]
-  let wen = __mapper("xs").c("wen")(rotinit)
-
-  let getSqrCoords = (p0,p1) => [ [ p0[0],p0[1] ], [ p1[0],p0[1] ], [ p1[0],p1[1] ], [ p0[0],p1[1] ], [ p0[0],p0[1] ] ]
-
-  let rot = [0,0,0],
-      rotMatrix
-
-  let stars = []
+  let versor = __mapper("xs").b("versor")()
+  let wen = __mapper("xs").c("wen")({rotInit})
 
 	let sqrt2 = Math.sqrt(2)
   /**********************
@@ -85,7 +56,7 @@
 		let ani = __mapper("xs").m("anitem")(anima),
 			anigram = ani.anigram(),            // anigram
 			payload = ani.payload(),
-			tim = ani.tim(),
+			tim = ani.tim()
 
     const dtMax = 1000 * 1 / 60
     let msPassed = tim.msPassed                     // ms passed from first cycle
@@ -153,7 +124,7 @@
         },
         "properties": {
           "name": "Polygon",
-          "ture": {
+          "boform": {
               cf: face.cf, // fill: "blue", //fill: faceBg,
               cp: face.cp,  // strokeOpacity: 1
               cs: face.cs,  // stroke: border, // stroke: "red", //
@@ -247,7 +218,7 @@
         },
         "properties": {
           "pointRadius": payload.starRadious,									// 
-          "ture": {
+          "boform": {
               cs: payload.starRecord.cs,  // stroke: border, //
               cp: payload.starRecord.cp, // strokeOpacity: 1,
               cf: payload.starRecord.cf + colorSpan, // fill: "blue", //fill: faceBg,
@@ -577,7 +548,7 @@ let aniWin = {
 
 }
 
-var __mapper = muonMapper.muonMapper()
-var muonAlima = __mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+let __mapper = bosonMapper.bosonMapper()
+__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>
