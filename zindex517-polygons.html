@@ -172,47 +172,6 @@ let muonAlima = function muonAlima(__mapper) {
 
   }
 
-  let img = {
-
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
-    "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-
-    "geoform": p => ({
-      type:  "Feature",
-      geometry: {
-
-        "type": "Point",
-        "coordinates": [0, 0]
-
-      },
-      properties: {
-				sort: "img",
-        attr: {
-          "width": p.payload.img.width,
-          "height": p.payload.img.height,
-          ["xlink:href"]: p.payload.img.url,
-        }
-      }
-    }),
-
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
-		
-    "payload": {
-
-			"img": {
-        "url":"zimg-501.jpg",
-        "width": [[[60, 60]]],
-        "height": [[[40 , 40]]],
-      },
-
-
-    }
-  }
 	
   /*******************************************
  *      @animas
@@ -221,7 +180,7 @@ let muonAlima = function muonAlima(__mapper) {
   let animas = [
     idPolygone,  // h.geojson g.uniwen
     wenPolygone,  // h.geojson g.uniwen
-    img,          // h.img
+
   ]
   let animaApi = function animaApi() {
     __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
