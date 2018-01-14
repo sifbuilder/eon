@@ -68,33 +68,7 @@ let muonAlima = function muonAlima(__mapper) {
   }
 
 
-  let payloadTwoFaces = {
 
-    faces: [
-      {
-        vertices: [
-          [-1, -1,  1],
-          [ 1, -1,  1],
-          [ 1, 1,   1],
-          [ -1, 1,  1],
-          [-1, -1,  1]
-         ],
-        boform: {"csx":0,"cf":333,"cs":688,"cw":0.7,"co":[[[0.999,0.999]]],"cp":0.999,}
-      },
-
-      {
-        vertices: [
-          [-1, -1, -1],
-          [ 1, -1, -1],
-          [ 1,  1, -1],
-          [-1,  1, -1],
-          [-1, -1, -1]
-         ],
-        boform: {"csx":0,"cf":777,"cs":833,"cw":0.7,"co":[[[0.999,0.999]]],"cp":0.999,}
-      },
-    ]
-
-  }
 
   let geoformFaces = (anima) => {					// geoform creates geojson featurecollection
 		let ani = __mapper("xs").m("anitem")(anima),
@@ -139,61 +113,84 @@ if (0 && 1) console.log("575 geoformFaces json",json)
  */
   let aniTwoFaces = {
 
-    "tim": tim,
-    "ric": {"gid":"faces", "cid":"face", "fid":"face",},
     "halo": "geojson",
-    "boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
 
     "geoform": geoformFaces, // geoform,
 
-    "proform": proformFaces,
+		payload: {
+			"tim": tim,
+			"ric": {"gid":"faces", "cid":"face", "fid":"face",},
+			"boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
+			"proform": proformFaces,
 
-    "payload": payloadTwoFaces,
+			faces: [
+				{
+					vertices: [
+						[-1, -1,  1],
+						[ 1, -1,  1],
+						[ 1, 1,   1],
+						[ -1, 1,  1],
+						[-1, -1,  1]
+					 ],
+					boform: {"csx":0,"cf":333,"cs":688,"cw":0.7,"co":[[[0.999,0.999]]],"cp":0.999,}
+				},
+
+				{
+					vertices: [
+						[-1, -1, -1],
+						[ 1, -1, -1],
+						[ 1,  1, -1],
+						[-1,  1, -1],
+						[-1, -1, -1]
+					 ],
+					boform: {"csx":0,"cf":777,"cs":833,"cw":0.7,"co":[[[0.999,0.999]]],"cp":0.999,}
+				},
+			]
+
+		}
   }
 
   // -------------------------------  img
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
-    "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    halo: "img",
 
-    "geoform": p => ({
+    geoform: p => ({
       type:  "Feature",
       geometry: {
 
         "type": "Point",
-        "coordinates": [0, 0]
+        "coordinates": [ 0, 0 ]
 
       },
       properties: {
 				sort: "img",
-        attr: {
-          "width": p.payload.img.width,
-          "height": p.payload.img.height,
-          ["xlink:href"]: p.payload.img.url,
-        }
+        ["xlink:href"]: p.payload.img.url,
+        style: p.payload.img.style
       }
     }),
 
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
-		
-    "payload": {
+    payload: {
 
-			"img": {
-        "url":"zimg-501.jpg",
-        "width": [[[60, 60]]],
-        "height": [[[40 , 40]]],
+			tim,
+			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
+			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			proform: {
+				projection: "uniwen",
+				translate: [ 30, 40 ],
+			},
+			img: {
+        url: "zimg-501.jpg",
+        "style": {
+					"width": [[[60, 60]]],
+					"height": [[[40 , 40]]],
+					"rotate": [[[ 0, 0 ]]],
+        }	
       },
 
 
     }
   }
-	
   /*******************************************
  *      @animas
  *

@@ -54,10 +54,7 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let idPolygone = {
 
-    "tim": tim,
-    "ric": {"gid":"idPolygone","cid":"idPolygone","fid":"idPolygone",},
     "halo": "geojson",
-    "boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
 
     "geoform": (p) => {
       let payload = p.payload
@@ -97,18 +94,22 @@ let muonAlima = function muonAlima(__mapper) {
       return json
     },
 
-    "proform": {
+		payload: {
+			"tim": tim,
+			"ric": {"gid":"idPolygone","cid":"idPolygone","fid":"idPolygone",},
+			"boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
+			"proform": {
 
-        "projection": "uniwen",
-        "translate":  [ 200, 200],
-        "scale": 100,
-        "rotate": [0,0,0], // [-5,50,0],
-        "focale": Infinity,
-        "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-        "dims": 3,
-        "control": "wen",
-      },
-
+					"projection": "uniwen",
+					"translate":  [ 200, 200],
+					"scale": 100,
+					"rotate": [0,0,0], // [-5,50,0],
+					"focale": Infinity,
+					"zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+					"dims": 3,
+					"control": "wen",
+				},
+		}
 
   }
   let wenPolygone = {

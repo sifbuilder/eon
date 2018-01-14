@@ -173,10 +173,7 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let aniEarth = {
 
-    "tim": tim,
-    "ric": {"gid":"aniEarth","cid":"aniEarth","fid":"aniEarth",},
     "halo": "geojson",
-    "boform":{ "csx":0,"cf":444,"cs":444,"cw":0.1,"co":0.9,"cp":0.9,},
 
     "geoform": (p) => {
       let ric = p.ric
@@ -190,69 +187,68 @@ let muonAlima = function muonAlima(__mapper) {
       return json
     },
 
-    "conform": {
+    payload: {		
+			"tim": tim,
+			"ric": {"gid":"aniEarth","cid":"aniEarth","fid":"aniEarth",},
+			"boform":{ "csx":0,"cf":444,"cs":444,"cw":0.1,"co":0.9,"cp":0.9,},
+			"conform": {
 
-      "projection": "natform",
-      "form": formCube,
+				"projection": "natform",
+				"form": formCube,
 
-    },
+			},
 
-    "proform": proformEarth,
+			"proform": proformEarth,
+		}
 
 
   }
   // -------------------------------  img
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
-    "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    halo: "img",
 
-    "geoform": p => ({
+    geoform: p => ({
       type:  "Feature",
       geometry: {
 
         "type": "Point",
-        "coordinates": [0, 0]
+        "coordinates": [ 0, 0 ]
 
       },
       properties: {
 				sort: "img",
-        attr: {
-          "width": p.payload.img.width,
-          "height": p.payload.img.height,
-          ["xlink:href"]: p.payload.img.url,
-        }
+        ["xlink:href"]: p.payload.img.url,
+        style: p.payload.img.style
       }
     }),
 
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
-		
-    "payload": {
+    payload: {
 
-			"img": {
-        "url":"zimg-501.jpg",
-        "width": [[[60, 60]]],
-        "height": [[[40 , 40]]],
+			tim,
+			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
+			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			proform: {
+				projection: "uniwen",
+				translate: [ 30, 40 ],
+			},
+			img: {
+        url: "zimg-501.jpg",
+        "style": {
+					"width": [[[60, 60]]],
+					"height": [[[40 , 40]]],
+					"rotate": [[[ 0, 0 ]]],
+        }	
       },
 
 
     }
   }
-	
 
   // -------------------------------  aniCube
   let aniCube = {
 
-    "tim": tim,
-    "ric": {"gid":"aniCube","cid":"aniCube","fid":"aniCube",},
     "halo": "geojson",
-    "boform":{ "csx":0,"cf":333,"cs":111,"cw":0.1,"co":0.9,"cp":0.9,},
-
     "geoform": (p) => {
       let payload = p.payload
       let ric = p.ric
@@ -281,16 +277,20 @@ let muonAlima = function muonAlima(__mapper) {
       return json
     },
 
-    "conform": {
-
-      "projection": "natform",
-      "form": formSphere,
-
-    },
-
-    "proform": proformCube,
-
     "payload": {
+			"tim": tim,
+			"ric": {"gid":"aniCube","cid":"aniCube","fid":"aniCube",},
+			"boform":{ "csx":0,"cf":333,"cs":111,"cw":0.1,"co":0.9,"cp":0.9,},
+
+			"conform": {
+
+				"projection": "natform",
+				"form": formSphere,
+
+			},
+
+			"proform": proformCube,
+
 
       points: [
         [-1, -1,  1],   // 0
@@ -335,8 +335,6 @@ let muonAlima = function muonAlima(__mapper) {
   // -------------------------------  gratiCube
   let gratiCube = {
 
-    "tim": tim,
-    "ric": {"gid":"gratiCube","cid":"gratiCube","fid":"gratiCube",},
     "halo":"geojson",
     "geoform": (anitem) => {
 
@@ -361,17 +359,19 @@ let muonAlima = function muonAlima(__mapper) {
 
     },
 
-    "boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":3.39,"co":[[[0.5,0.5]]],"cp":[[[0.9,0.9]]],},
-
-    "conform": {
-
-      "projection": "natform",
-      "form": formGratiCube,
-
-    },
-
-    "proform": proformEarth,
     "payload": {
+			"tim": tim,
+			"ric": {"gid":"gratiCube","cid":"gratiCube","fid":"gratiCube",},
+			"boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":3.39,"co":[[[0.5,0.5]]],"cp":[[[0.9,0.9]]],},
+
+			"conform": {
+
+				"projection": "natform",
+				"form": formGratiCube,
+
+			},
+
+			"proform": proformEarth,
 
       "graticule": {
 
@@ -385,8 +385,6 @@ let muonAlima = function muonAlima(__mapper) {
   // -------------------------------  gratiCirc
   let gratiCirc = {
 
-    "tim": tim,
-    "ric": {"gid":"gratiCube","cid":"gratiCube","fid":"gratiCirc",},
     "halo":"geojson",
     "geoform": (anitem) => {
 
@@ -404,17 +402,19 @@ let muonAlima = function muonAlima(__mapper) {
 
     },
 
-    "boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.39,"co":[[[0.5,0.5]]],"cp":[[[0.9,0.9]]],},
-
-    "conform": {
-
-      "projection": "natform",
-      "form": formSphere,
-
-    },
-
-    "proform": proformEarth,
     "payload": {
+			"tim": tim,
+			"ric": {"gid":"gratiCube","cid":"gratiCube","fid":"gratiCirc",},
+			"boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.39,"co":[[[0.5,0.5]]],"cp":[[[0.9,0.9]]],},
+
+			"conform": {
+
+				"projection": "natform",
+				"form": formSphere,
+
+			},
+
+			"proform": proformEarth,
 
       "graticule": {
 

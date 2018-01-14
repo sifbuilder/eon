@@ -65,63 +65,7 @@ let muonAlima = function muonAlima(__mapper) {
     "control": "wen",
   }
 
-  let payload = {
 
-    rotBase:     [1,0,0,  0,1,0,  0,0,1],
-    rotInit:     [0,0,0],
-    velDecay:    0.95,
-    velRot:      [1,0,0], //  [-6e-3, 7.6e-3, 2.13e-3],
-    doxStar:     0 , // 1000, //  1,
-    diStar:      1,
-    maxZStar:    [[[2.5, 2.5]]],      // star passed
-    hiStar:      10, // // [[[16,998]]], //   [[[4,4]]],
-    focaleStar:       12 , // 100, //   0.1,
-    velStar:     [[[0.05, 0.2]]]  , // [100,100], // [0.400, 0.400],
-    boformStar:  { cf: 444, cs: 11, co: 0.99, cp: 1, },
-    radioStar:   3,
-    nbStars:     [[[6,24]]], // [[[24,24]]],  // 200
-
-
-    points: [
-      [-1, -1,  1],   // 0
-      [ 1, -1,  1],   // 1
-      [ 1, 1,   1],    // 2
-      [-1, 1,   1],    // 3
-
-      [-1, -1, -0],   // 5
-      [ 1, -1, -0],   // 4
-      [ 1, 1,  -0],    // 7
-      [-1, 1,  -0],    // 6
-     ],
-    faces: [
-      {
-        pointsx: [0,1,2,3,0],
-        name: "front",
-        boform: {"csx":0,"cf":222,"cs":688,"cw":0.7,"co":[[[0.799,0.799]]],"cp":0.799,}},
-      {
-        pointsx: [4,5,6,7,4],
-        name: "back",
-        boform: {"csx":0,"cf":444,"cs":833,"cw":0.7,"co":[[[0.799,0.799]]],"cp":0.799,}},
-      {
-        pointsx: [1,5,6,2,1],
-        name: "right",
-        boform: { cf: 444, cs: 555, co: [[[0.2,0.2,0.2,0.2]]], cp: 1, }},
-      {
-        pointsx: [4,0,3,7,4],
-        name: "left",
-        boform: { cf: 555, cs: 655, co: [[[0.2,0.2,0.2,0.2]]], cp: 1, }},
-      {
-        pointsx: [3,2,6,7,3],
-        name: "bottom",
-        boform: { cf: 666, cs: 755, co: [[[0.9,0.9,0.9,0.9]]], cp: 1, }},
-      {
-        pointsx: [4,5,1,0,4],
-        name: "top",
-        boform: { cf: 777, cs: 855, co: [[[0.9,0.9,0.9,0.9]]], cp: 1, }}
-
-    ],
-
-  }
   /*******************************************
  *      @halo
  *
@@ -309,41 +253,39 @@ let muonAlima = function muonAlima(__mapper) {
 // ------------------------- img
   let img = {
 
-    "halo":"img",
+    halo: "img",
 
-    "geoform": p => ({
+    geoform: p => ({
       type:  "Feature",
       geometry: {
 
         "type": "Point",
-        "coordinates": [0, 0]
+        "coordinates": [ 0, 0 ]
 
       },
       properties: {
 				sort: "img",
-        attr: {
-          "width": p.payload.img.width,
-          "height": p.payload.img.height,
-          ["xlink:href"]: p.payload.img.url,
-        }
+        ["xlink:href"]: p.payload.img.url,
+        style: p.payload.img.style
       }
     }),
 
-		
-    "payload": {
-		
-			"tim": tim,
-			"ric": {"gid":"img","cid":"img","fid":"img",},
-			"boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-			"proform": {
-				"projection": "uniwen",
-				"translate": [ 30, 40 ],
-			},
+    payload: {
 
-			"img": {
-        "url":"zimg-501.jpg",
-        "width": [[[60, 60]]],
-        "height": [[[40 , 40]]],
+			tim,
+			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
+			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			proform: {
+				projection: "uniwen",
+				translate: [ 30, 40 ],
+			},
+			img: {
+        url: "zimg-501.jpg",
+        "style": {
+					"width": [[[60, 60]]],
+					"height": [[[40 , 40]]],
+					"rotate": [[[ 0, 0 ]]],
+        }	
       },
 
 
@@ -353,12 +295,68 @@ let muonAlima = function muonAlima(__mapper) {
 
   let aniCube = {
 
-    "tim": tim,
-    "ric": {"gid":"aniCube","cid":"aniCube","fid":"aniCube",},
     "halo":   haloStars,
-    "boform":{ "csx":0,"cf":666,"cs":111,"cw":0.9,"co":0.9,"cp":0.9,},
-    "proform": proform,
-    "payload": payload,
+    "payload":  {
+			"tim": tim,
+			"ric": {"gid":"aniCube","cid":"aniCube","fid":"aniCube",},
+			"boform":{ "csx":0,"cf":666,"cs":111,"cw":0.9,"co":0.9,"cp":0.9,},
+			"proform": proform,
+
+				rotBase:     [1,0,0,  0,1,0,  0,0,1],
+				rotInit:     [0,0,0],
+				velDecay:    0.95,
+				velRot:      [1,0,0], //  [-6e-3, 7.6e-3, 2.13e-3],
+				doxStar:     0 , // 1000, //  1,
+				diStar:      1,
+				maxZStar:    [[[2.5, 2.5]]],      // star passed
+				hiStar:      10, // // [[[16,998]]], //   [[[4,4]]],
+				focaleStar:       12 , // 100, //   0.1,
+				velStar:     [[[0.05, 0.2]]]  , // [100,100], // [0.400, 0.400],
+				boformStar:  { cf: 444, cs: 11, co: 0.99, cp: 1, },
+				radioStar:   3,
+				nbStars:     [[[6,24]]], // [[[24,24]]],  // 200
+
+
+				points: [
+					[-1, -1,  1],   // 0
+					[ 1, -1,  1],   // 1
+					[ 1, 1,   1],    // 2
+					[-1, 1,   1],    // 3
+
+					[-1, -1, -0],   // 5
+					[ 1, -1, -0],   // 4
+					[ 1, 1,  -0],    // 7
+					[-1, 1,  -0],    // 6
+				 ],
+				faces: [
+					{
+						pointsx: [0,1,2,3,0],
+						name: "front",
+						boform: {"csx":0,"cf":222,"cs":688,"cw":0.7,"co":[[[0.799,0.799]]],"cp":0.799,}},
+					{
+						pointsx: [4,5,6,7,4],
+						name: "back",
+						boform: {"csx":0,"cf":444,"cs":833,"cw":0.7,"co":[[[0.799,0.799]]],"cp":0.799,}},
+					{
+						pointsx: [1,5,6,2,1],
+						name: "right",
+						boform: { cf: 444, cs: 555, co: [[[0.2,0.2,0.2,0.2]]], cp: 1, }},
+					{
+						pointsx: [4,0,3,7,4],
+						name: "left",
+						boform: { cf: 555, cs: 655, co: [[[0.2,0.2,0.2,0.2]]], cp: 1, }},
+					{
+						pointsx: [3,2,6,7,3],
+						name: "bottom",
+						boform: { cf: 666, cs: 755, co: [[[0.9,0.9,0.9,0.9]]], cp: 1, }},
+					{
+						pointsx: [4,5,1,0,4],
+						name: "top",
+						boform: { cf: 777, cs: 855, co: [[[0.9,0.9,0.9,0.9]]], cp: 1, }}
+
+				],
+
+			}
 
   }
 

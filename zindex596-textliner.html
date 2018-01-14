@@ -72,25 +72,26 @@ let muonAlima = function (__mapper) {
   // -------------------------------  lineform
   let lineform = {
 
-    "tim": tim,
-    "ric": {"gid":"lineform","cid":"lineform","fid":"lineform",},
     "halo": "liner",
 
-    "boform": { "csx":0,"cf":[[[555,999]]], "co":[[[0.09,0.09]]], "cs":[[[888,999]]],"cw":[[[0.7,0.7]]],"cp":[[[0.9,0.9]]],},
-
-
-    "proform": {
-      "projection": "uniwen",
-      "translate":  [ 0, 0],
-      "scale": 1,
-      "rotate": [0,0,0],
-      "focale": Infinity,
-      "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-      "dims": 3,
-      "control": "wen",
-    },
 
     "payload": {
+			"tim": tim,
+			"ric": {"gid":"lineform","cid":"lineform","fid":"lineform",},
+			"boform": { "csx":0,"cf":[[[555,999]]], "co":[[[0.09,0.09]]], "cs":[[[888,999]]],"cw":[[[0.7,0.7]]],"cp":[[[0.9,0.9]]],},
+
+
+			"proform": {
+				"projection": "uniwen",
+				"translate":  [ 0, 0],
+				"scale": 1,
+				"rotate": [0,0,0],
+				"focale": Infinity,
+				"zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+				"dims": 3,
+				"control": "wen",
+			},
+			
       pacer: {
         "initN": 0,
         "eventN": 1,
@@ -106,46 +107,42 @@ let muonAlima = function (__mapper) {
 // ------------------------- img
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
-    "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    halo: "img",
 
-    "geoform": p => ({
+    geoform: p => ({
       type:  "Feature",
       geometry: {
 
         "type": "Point",
-        "coordinates": [0, 0]
+        "coordinates": [ 40, 40 ]
 
       },
       properties: {
 				sort: "img",
-        attr: {
-          "width": p.payload.img.width,
-          "height": p.payload.img.height,
-          ["xlink:href"]: p.payload.img.url,
-        }
+        ["xlink:href"]: p.payload.img.url,
+        style: p.payload.img.style
       }
     }),
 
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
-		
-    "payload": {
+    payload: {
 
-			"img": {
-        "url":"zimg-501.jpg",
-        "width": [[[60, 60]]],
-        "height": [[[40 , 40]]],
+			tim,
+			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
+			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			proform: {
+				projection: "uniwen",
+				translate: [ 30, 40 ],
+			},
+			img: {
+        url: "zimg-501.jpg",
+        width: 60,
+        height: 40,
+				rotate: 0,
       },
 
 
     }
   }
-	
 
   /* ******************************************
  *      @avaform
@@ -184,29 +181,30 @@ let muonAlima = function (__mapper) {
   // -------------------------------  avaform
   let avaform = {
 
-    "tim": tim,
-    "ric": {"gid":"avaform","cid":"avaform","fid":"avaform",},
     "halo": haloAvajson,
-    "boform": { "csx":0,"cf":[[[444,999]]],"cs":777,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-
-    "proform": {
-			"projection": "uniwen",
-			"center": [ 150, 200, 0 ],
-			"translate": {
-          "x": { "pos": [[[ 0 ,  1 * 100]]], },
-          "y":{ "pos": [[[ 0 ,  1 * 100]]], },
-          "z": 0,
-			},
-			"scale": 1,
-			"rotate": [ 0, 0, [[[0,0]]] ],
-			"focale": 12,
-			"zafin": [1,0],
-			"dims": 2,
-			"control": "wen",
-		},		
-		
     "payload": {
 
+			"tim": tim,
+			"ric": {"gid":"avaform","cid":"avaform","fid":"avaform",},
+			"boform": { "csx":0,"cf":[[[444,999]]],"cs":777,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+
+			"proform": {
+				"projection": "uniwen",
+				"center": [ 150, 200, 0 ],
+				"translate": {
+						"x": { "pos": [[[ 0 ,  1 * 100]]], },
+						"y":{ "pos": [[[ 0 ,  1 * 100]]], },
+						"z": 0,
+				},
+				"scale": 1,
+				"rotate": [ 0, 0, [[[0,0]]] ],
+				"focale": 12,
+				"zafin": [1,0],
+				"dims": 2,
+				"control": "wen",
+			},		
+			
+		
       "text": {
         "text":"Happy New Year 2018 !!!",
         "style": {
@@ -227,7 +225,7 @@ let muonAlima = function (__mapper) {
  *      @animas
  *
   */
-  lineform.avatars = {
+  lineform.payload.avatars = {
 
     avaform,      // haloAvajson h.text
 

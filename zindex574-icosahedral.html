@@ -136,8 +136,6 @@ let muonAlima = function muonAlima(__mapper) {
   // -------------------------------  geograt
   let geograt = {
 
-    "tim": tim,
-    "ric": {"gid":"geograt","cid":"geograt","fid":"geograt",},
     "halo":"geojson",
     "geoform": (anitem) => {
 
@@ -161,11 +159,13 @@ let muonAlima = function muonAlima(__mapper) {
 
     },
 
-    "boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.39,"co":[[[0.5,0.5]]],"cp":[[[0.9,0.9]]],},
-
-    "proform": proformIcosahedral,
-
     "payload": {
+			"tim": tim,
+			"ric": {"gid":"geograt","cid":"geograt","fid":"geograt",},
+			"boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.39,"co":[[[0.5,0.5]]],"cp":[[[0.9,0.9]]],},
+
+			"proform": proformIcosahedral,
+
 
       "graticule": {
 
@@ -173,17 +173,15 @@ let muonAlima = function muonAlima(__mapper) {
 
       }
 
+			"stace": {},
     },
 
-    "stace": {},
 
   }
 
   // -------------------------------  geoearth
   let geoearth = {
 
-    "tim": tim,
-    "ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
     "halo": "geojson",
 
     "geoform": () => {
@@ -197,22 +195,20 @@ let muonAlima = function muonAlima(__mapper) {
       return geo
     },
 
-    "boform":{ "csx":0, "cf":[[[555,333,555,333,555,333,555]]], "cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
+		payload: {
+			"tim": tim,
+			"ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
+			"boform":{ "csx":0, "cf":[[[555,333,555,333,555,333,555]]], "cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
 
-    "proform": proformIcosahedral,
-
+			"proform": proformIcosahedral,
+		}
   }
 
   // -------------------------------  geoearth
   let geoshpere = {
 
-    "tim": tim,
-    "ric": {"gid":"geoshpere","cid":"geoshpere","fid":"geoshpere",},
     "halo": "geojson",
 
-    "boform":{ "csx":0,"cf":444,"cs":333,"cw":0.9,"co":0.04,"cp":0.9,},
-
-    "proform": proformIcosahedral,
 		"geoform": {
 					type:"Feature",
 					geometry: {
@@ -221,14 +217,18 @@ let muonAlima = function muonAlima(__mapper) {
 					properties:{}
 		},
 
+		payload: {
+	    "tim": tim,
+			"ric": {"gid":"geoshpere","cid":"geoshpere","fid":"geoshpere",},
+			"boform":{ "csx":0,"cf":444,"cs":333,"cw":0.9,"co":0.04,"cp":0.9,},
+
+			"proform": proformIcosahedral,
+		}
   }
   // -------------------------------  img
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
     "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
     "geoform": p => ({
       type:  "Feature",
@@ -248,12 +248,15 @@ let muonAlima = function muonAlima(__mapper) {
       }
     }),
 
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
 		
     "payload": {
+			"tim": tim,
+			"ric": {"gid":"img","cid":"img","fid":"img",},
+			"boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			"proform": {
+				"projection": "uniwen",
+				"translate": [ 30, 40 ],
+			},
 
 			"img": {
         "url":"zimg-501.jpg",

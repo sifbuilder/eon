@@ -97,11 +97,7 @@ let muonAlima = function muonAlima(__mapper) {
   // -------------------------------  threegrat
   let threegrat = {
 
-    "tim": tim,
-    "ric": {"gid":"threegrat","cid":"threegrat","fid":"threegrat",},
     "halo":"geojson",
-
-    "boform":{ "csx":0,"cf":[[[666,666]]],"cs":333,"cw":0.3,"co":[[[0.3,0.3,0.3]]],"cp":[[[0.3,0.3,0.3]]],},
 
     "geoform": (p) => {
 
@@ -117,25 +113,28 @@ let muonAlima = function muonAlima(__mapper) {
       
     },
 
-    "conform": conform,
 
     "payload": { 
+			"tim": tim,
+			"ric": {"gid":"threegrat","cid":"threegrat","fid":"threegrat",},
+			"boform":{ "csx":0,"cf":[[[666,666]]],"cs":333,"cw":0.3,"co":[[[0.3,0.3,0.3]]],"cp":[[[0.3,0.3,0.3]]],},
+
+			"conform": conform,
+		
 			"graticule": graticule, 
+			
+				x: 25,
+				y: 25,
+				z: 25,
+			
 		},
 
-    x: 25,
-    y: 25,
-    z: 25,
   }
 
   // -------------------------------  earth
   let earth = {
 
-    "tim": tim,
-    "ric": {"gid":"earth","cid":"earth","fid":"earth",},
     "halo":"geojson",
-
-    "boform":{ "csx":0,"cf":777,"cs":777,"cw":0.3,"co":[[[0.7,0.7,0.7]]],"cp":[[[0.7,0.7,0.7]]],},
 
     "geoform": ()=> {
       let gjls = Object.assign({},
@@ -148,50 +147,53 @@ let muonAlima = function muonAlima(__mapper) {
 			gj = {type: "Feature", geometry: gjls, properties:{}}
       return gj
     },
+		payload: {
+				"tim": tim,
+				"ric": {"gid":"earth","cid":"earth","fid":"earth",},
+				"boform":{ "csx":0,"cf":777,"cs":777,"cw":0.3,"co":[[[0.7,0.7,0.7]]],"cp":[[[0.7,0.7,0.7]]],},
 
-    "conform": conform,
+				"conform": conform,
 
-    "proform": proform,
-
+				"proform": proform,
+		}
   }
 
   // -------------------------------  img
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
-    "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    halo: "img",
 
-    "geoform": p => ({
+    geoform: p => ({
       type:  "Feature",
       geometry: {
 
         "type": "Point",
-        "coordinates": [0, 0]
+        "coordinates": [ 0, 0 ]
 
       },
       properties: {
 				sort: "img",
-        attr: {
-          "width": p.payload.img.width,
-          "height": p.payload.img.height,
-          ["xlink:href"]: p.payload.img.url,
-        }
+        ["xlink:href"]: p.payload.img.url,
+        style: p.payload.img.style
       }
     }),
 
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
-		
-    "payload": {
+    payload: {
 
-			"img": {
-        "url":"zimg-501.jpg",
-        "width": [[[60, 60]]],
-        "height": [[[40 , 40]]],
+			tim,
+			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
+			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			proform: {
+				projection: "uniwen",
+				translate: [ 30, 40 ],
+			},
+			img: {
+        url: "zimg-501.jpg",
+        "style": {
+					"width": [[[60, 60]]],
+					"height": [[[40 , 40]]],
+					"rotate": [[[ 0, 0 ]]],
+        }	
       },
 
 

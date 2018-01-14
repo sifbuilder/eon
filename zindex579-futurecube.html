@@ -105,15 +105,7 @@ let geograt = {
 
 let geoearth = {
 
-        "tim": tim,
-        "ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
         "halo":"geojson",
-
-        "boform":{ "csx":0,
-          "cf":[[[555,333,555,333,555,333,555]]],
-          "cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
-
-        "proform": proformFuture,
 
         "geoform": [[[ () => {
             let geo = Object.assign({},
@@ -127,17 +119,22 @@ let geoearth = {
             return geo
           } ]]],
 
+			payload: {
+        "tim": tim,
+        "ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
+        "boform":{ "csx":0,
+          "cf":[[[555,333,555,333,555,333,555]]],
+          "cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
+
+        "proform": proformFuture,
+
+						
+			}
     }
 
 let geosphere = {
 
-			"tim": tim,
-			"ric": {"gid":"geosphere","cid":"geosphere","fid":"geosphere",},
 			"halo":"geojson",
-
-			"boform":{ "csx":0,"cf":444,"cs":333,"cw":0.9,"co":0.04,"cp":0.9,},
-
-			"proform": proformFuture,
 
       "geoform": {
 						type:"Feature",
@@ -147,44 +144,51 @@ let geosphere = {
 						properties:{}
 			},
 
+			payloaf: {
+			"tim": tim,
+			"ric": {"gid":"geosphere","cid":"geosphere","fid":"geosphere",},
+			"boform":{ "csx":0,"cf":444,"cs":333,"cw":0.9,"co":0.04,"cp":0.9,},
+
+			"proform": proformFuture,
+
+			}				
     }
 // ------------------------- img
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
-    "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    halo: "img",
 
-    "geoform": p => ({
+    geoform: p => ({
       type:  "Feature",
       geometry: {
 
         "type": "Point",
-        "coordinates": [0, 0]
+        "coordinates": [ 0, 0 ]
 
       },
       properties: {
 				sort: "img",
-        attr: {
-          "width": p.payload.img.width,
-          "height": p.payload.img.height,
-          ["xlink:href"]: p.payload.img.url,
-        }
+        ["xlink:href"]: p.payload.img.url,
+        style: p.payload.img.style
       }
     }),
 
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
-		
-    "payload": {
+    payload: {
 
-			"img": {
-        "url":"zimg-501.jpg",
-        "width": [[[60, 60]]],
-        "height": [[[40 , 40]]],
+			tim,
+			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
+			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			proform: {
+				projection: "uniwen",
+				translate: [ 30, 40 ],
+			},
+			img: {
+        url: "zimg-501.jpg",
+        "style": {
+					"width": [[[60, 60]]],
+					"height": [[[40 , 40]]],
+					"rotate": [[[ 0, 0 ]]],
+        }	
       },
 
 

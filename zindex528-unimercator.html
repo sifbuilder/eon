@@ -68,25 +68,27 @@ let proform = {
 // -------------------------------  geoearth
 let geoearth = {
 
-        "tim": tim,
-        "ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
-        "halo":"geojson",
+			"halo":"geojson",
 
-        "boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.9,"co":[[[0.05,0.05]]],"cp":[[[0.9,0.9]]],},
 
-        "proform": proform,
+			"geoform": () => {
+				let geo = Object.assign({},
+					topojson.feature(
+						__mapper("xs").d("worldTopo110m").data(),
+						__mapper("xs").d("worldTopo110m").data().objects.land
+					)
+				)
+				geo = __mapper("xs").m("geoj").trim(geo)
+				return geo
+			},
+			payload: {
+					"tim": tim,
+					"ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
+					"boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.9,"co":[[[0.05,0.05]]],"cp":[[[0.9,0.9]]],},
 
-        "geoform": () => {
-          let geo = Object.assign({},
-            topojson.feature(
-              __mapper("xs").d("worldTopo110m").data(),
-              __mapper("xs").d("worldTopo110m").data().objects.land
-            )
-          )
-          geo = __mapper("xs").m("geoj").trim(geo)
-          return geo
-        },
-
+					"proform": proform,
+			}
+				
     }
 
 

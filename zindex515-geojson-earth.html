@@ -82,11 +82,8 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let geoearth = {
 
-    "tim": tim,
-    "ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
     "halo": "geojson",
     
-    "boform":{ "csx":0,"cf":[[[555,333,555,333,555,333,555]]],"cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
 
     "geoform": () => {
       let gj = Object.assign({},
@@ -98,8 +95,13 @@ let muonAlima = function muonAlima(__mapper) {
       gj = __mapper("xs").m("geoj").trim(gj)
       return gj
     },
-    
-    "proform": proform,
+
+		payload: {
+			"tim": tim,
+			"ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
+			"boform":{ "csx":0,"cf":[[[555,333,555,333,555,333,555]]],"cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
+			"proform": proform,
+		}
     
   }
 

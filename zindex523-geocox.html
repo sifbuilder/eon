@@ -116,8 +116,6 @@
   // -------------------------------  geograt
   let geograt = {
 
-      "tim": tim,
-      "ric": {"gid":"geograt","cid":"geograt","fid":"geograt",},
       "halo":"geojson",
 
     "geoform": (p) => {
@@ -132,19 +130,21 @@
       
     },
 		
-      "boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.3,"co":[[[0.05,0.05]]],"cp":[[[0.9,0.9]]],},
 
-      "proform": proform,
+      "payload": { 
+				"tim": tim,
+				"ric": {"gid":"geograt","cid":"geograt","fid":"geograt",},
+				"boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.3,"co":[[[0.05,0.05]]],"cp":[[[0.9,0.9]]],},
 
-      "payload": { "graticule": graticule, },
+				"proform": proform,
+				"graticule": graticule, 
+			},
 
     }
 
   // -------------------------------  geoearth
   let geoearth = {
 
-      "tim": tim,
-      "ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
       "halo":"geojson",
 
       "geoform": () => {
@@ -157,22 +157,20 @@
         geo = __mapper("xs").m("geoj").trim(geo)
         return geo
       },
+			payload: {
+				"tim": tim,
+				"ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
+				"boform":{ "csx":0, "cf":[[[555,333,555,333,555,333,555]]], "cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
 
-      "boform":{ "csx":0, "cf":[[[555,333,555,333,555,333,555]]], "cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
-
-      "proform": proform,
+				"proform": proform,
+			}
 
     }
   // -------------------------------  geosphere
   let geosphere = {
 
-      "tim": tim,
-      "ric": {"gid":"geosphere","cid":"geosphere","fid":"geosphere",},
       "halo":"geojson",
 
-      "boform":{ "csx":0,"cf":444,"cs":333,"cw":0.9,"co":0.04,"cp":0.9,},
-
-      "proform": proform,
 
       "geoform": {
 						type:"Feature",
@@ -181,45 +179,53 @@
 						},
 						properties:{}
 			},
+			
+			payload: {
+				"tim": tim,
+				"ric": {"gid":"geosphere","cid":"geosphere","fid":"geosphere",},
+				"boform":{ "csx":0,"cf":444,"cs":333,"cw":0.9,"co":0.04,"cp":0.9,},
 
+				"proform": proform,
+			}
+
+			
     }
   // -------------------------------  img
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
-    "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    halo: "img",
 
-    "geoform": p => ({
+    geoform: p => ({
       type:  "Feature",
       geometry: {
 
         "type": "Point",
-        "coordinates": [0, 0]
+        "coordinates": [ 0, 0 ]
 
       },
       properties: {
 				sort: "img",
-        attr: {
-          "width": p.payload.img.width,
-          "height": p.payload.img.height,
-          ["xlink:href"]: p.payload.img.url,
-        }
+        ["xlink:href"]: p.payload.img.url,
+        style: p.payload.img.style
       }
     }),
 
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
-		
-    "payload": {
+    payload: {
 
-			"img": {
-        "url":"zimg-501.jpg",
-        "width": [[[60, 60]]],
-        "height": [[[40 , 40]]],
+			tim,
+			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
+			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			proform: {
+				projection: "uniwen",
+				translate: [ 30, 40 ],
+			},
+			img: {
+        url: "zimg-501.jpg",
+        "style": {
+					"width": [[[60, 60]]],
+					"height": [[[40 , 40]]],
+					"rotate": [[[ 0, 0 ]]],
+        }	
       },
 
 

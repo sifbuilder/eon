@@ -34,13 +34,8 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let geopoint = {
 
-    "tim": tim,
-    "ric": {"gid":"geopoint","cid":"geopoint","fid":"geopoint",},
     "halo":"geojson",
 
-    "boform": { "csx":0,"cf":[[[555,777]]],"cs":222,"cw":[[[1.7,1.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-
-    
     "geoform":  {
       "type": "Feature",
       "geometry": {
@@ -51,15 +46,20 @@ let muonAlima = function muonAlima(__mapper) {
       "properties": {pointRadius: 6, }
     },    
 
-    "proform": {
+		payload: {
+			"tim": tim,
+			"ric": {"gid":"geopoint","cid":"geopoint","fid":"geopoint",},
+			"boform": { "csx":0,"cf":[[[555,777]]],"cs":222,"cw":[[[1.7,1.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			"proform": {
 
-        "projection": "aniwen",
-        "scale": 1,
-        "translate": [ 100, 100 ],
-        "rotate": [ 0, 0, 0 ],
-        "dims": 2,
+					"projection": "aniwen",
+					"scale": 1,
+					"translate": [ 100, 100 ],
+					"rotate": [ 0, 0, 0 ],
+					"dims": 2,
 
-    },
+			},
+		}
   }
 
   let animas = [

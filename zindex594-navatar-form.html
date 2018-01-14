@@ -42,8 +42,6 @@ let muonAlima = function (__mapper) {
   // -------------------------------  natform
   let natform = {
 
-    "tim": tim,
-    "ric": {"gid":"nat","cid":"nat","fid":"natform",},
     "halo": "geojson",
 
     "geoform": p => ({
@@ -60,20 +58,23 @@ let muonAlima = function (__mapper) {
       "properties": {}
     }),
 
-    "boform": { "csx":0,"cf":[[[444,777]]], "co":[[[0.09,0.09]]], "cs":[[[555,777]]],"cw":[[[0.7,0.7]]],"cp":[[[0.9,0.9]]],},
-
-    "proform": {
-        "projection": "uniwen",
-        "translate":  [300, 200, 0],
-        "scale": 1,
-        "rotate": [0,0,0], // [-5,50,0],
-        "focale": Infinity,
-        "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-        "dims": 3,
-        "control": "wen",
-    },
 
     "payload": {
+				"tim": tim,
+				"ric": {"gid":"nat","cid":"nat","fid":"natform",},
+				"boform": { "csx":0,"cf":[[[444,777]]], "co":[[[0.09,0.09]]], "cs":[[[555,777]]],"cw":[[[0.7,0.7]]],"cp":[[[0.9,0.9]]],},
+
+				"proform": {
+						"projection": "uniwen",
+						"translate":  [300, 200, 0],
+						"scale": 1,
+						"rotate": [0,0,0], // [-5,50,0],
+						"focale": Infinity,
+						"zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+						"dims": 3,
+						"control": "wen",
+				},
+			
         "form":  {
 
           "x": {
@@ -108,8 +109,6 @@ let muonAlima = function (__mapper) {
   // -------------------------------  avaform
   let avaform = {
 
-    "tim": tim,
-    "ric": {"gid":"nat","cid":"nat","fid":"avaform",},
     "halo": "geojson",
 
     "geoform": p => ({
@@ -126,41 +125,44 @@ let muonAlima = function (__mapper) {
       "properties": {}
     }),
 
-    "stace": {
-          "x":
-          // 300,
-          {
-              "pos": [[[ 0 , 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]],
-              // "ang":[[[ [1,1] ]] ,  [[ [-360,-360] ]]],
-              // "step":[[[20,20]]], // "delta":[[[6,18,48]]], "dist":0,
-              // "ref":[[[ [180 + 0,180 + 0] ]] ,  [[ [180 + 359,180 + 359] ]]],
-          },
-          "y":
-          // 200,
-          {
-              "pos": [[[ 0 , 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]],
-              // "ang":[[[ [1,1] ]] ,  [[ [-360,-360] ]]],
-              // "step":[[[20,20]]], // "delta":[[[6,18,48]]], "dist":0,
-              // "ref":[[[ [180 + 0,180 + 0] ]] ,  [[ [180 + 359,180 + 359] ]]],
-          },
-          "z": 0,
-    },
-
-    "boform": { "csx":0,"cf":[[[666,555]]], "co":[[[0.999,0.999]]], "cs":[[[666,555]]],"cw":[[[2.7,2.7]]],"cp":[[[0.999,0.999]]],},
-
-
-    "proform": {
-        "projection": "uniwen",
-        "translate":  [ 0, 0],
-        "scale": 1,
-        "rotate": [0,0,0], // [-5,50,0],
-        "focale": Infinity,
-        "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-        "dims": 3,
-        "control": "wen",
-    },
 
     "payload": {
+				"tim": tim,
+				"ric": {"gid":"nat","cid":"nat","fid":"avaform",},
+				"stace": {
+							"x":
+							// 300,
+							{
+									"pos": [[[ 0 , 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]],
+									// "ang":[[[ [1,1] ]] ,  [[ [-360,-360] ]]],
+									// "step":[[[20,20]]], // "delta":[[[6,18,48]]], "dist":0,
+									// "ref":[[[ [180 + 0,180 + 0] ]] ,  [[ [180 + 359,180 + 359] ]]],
+							},
+							"y":
+							// 200,
+							{
+									"pos": [[[ 0 , 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]],
+									// "ang":[[[ [1,1] ]] ,  [[ [-360,-360] ]]],
+									// "step":[[[20,20]]], // "delta":[[[6,18,48]]], "dist":0,
+									// "ref":[[[ [180 + 0,180 + 0] ]] ,  [[ [180 + 359,180 + 359] ]]],
+							},
+							"z": 0,
+				},
+
+				"boform": { "csx":0,"cf":[[[666,555]]], "co":[[[0.999,0.999]]], "cs":[[[666,555]]],"cw":[[[2.7,2.7]]],"cp":[[[0.999,0.999]]],},
+
+
+				"proform": {
+						"projection": "uniwen",
+						"translate":  [ 0, 0],
+						"scale": 1,
+						"rotate": [0,0,0], // [-5,50,0],
+						"focale": Infinity,
+						"zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+						"dims": 3,
+						"control": "wen",
+				},
+			
         "form":  {
 
           "x": {
@@ -192,46 +194,44 @@ let muonAlima = function (__mapper) {
 // ------------------------- img
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
-    "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    halo: "img",
 
-    "geoform": p => ({
+    geoform: p => ({
       type:  "Feature",
       geometry: {
 
         "type": "Point",
-        "coordinates": [0, 0]
+        "coordinates": [ 0, 0 ]
 
       },
       properties: {
 				sort: "img",
-        attr: {
-          "width": p.payload.img.width,
-          "height": p.payload.img.height,
-          ["xlink:href"]: p.payload.img.url,
-        }
+        ["xlink:href"]: p.payload.img.url,
+        style: p.payload.img.style
       }
     }),
 
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
-		
-    "payload": {
+    payload: {
 
-			"img": {
-        "url":"zimg-501.jpg",
-        "width": [[[60, 60]]],
-        "height": [[[40 , 40]]],
+			tim,
+			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
+			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			proform: {
+				projection: "uniwen",
+				translate: [ 30, 40 ],
+			},
+			img: {
+        url: "zimg-501.jpg",
+        "style": {
+					"width": [[[60, 60]]],
+					"height": [[[40 , 40]]],
+					"rotate": [[[ 0, 0 ]]],
+        }	
       },
 
 
     }
   }
-	
 
   /*******************************************
  *      @animaApi

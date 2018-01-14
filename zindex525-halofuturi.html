@@ -147,11 +147,7 @@ let muonAlima = function muonAlima(__mapper) {
   // -------------------------------  geoline
   let geoline = {
 
-    "tim": tim,
-    "ric": {"gid":"geoform","cid":"geoform","fid":"geoline",},
     "halo":"geojson",
-
-    "boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
     "geoform":  [[[ () => ({
       "type": "LineString",
@@ -161,31 +157,37 @@ let muonAlima = function muonAlima(__mapper) {
       ]
     }) ]]],
 
-    "proform": proform,
+    payload: {		
+			"tim": tim,
+			"ric": {"gid":"geoform","cid":"geoform","fid":"geoline",},
+			"boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+
+			"proform": proform,
+		}
 
   }
   // -------------------------------  geopoint
   let geopoint = {
 
-    "tim": tim,
-    "ric": {"gid":"geoform","cid":"geoform","fid":"geopoint",},
     "halo":"geojson",
 
-    "boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
     "geoform":  [[[ () => ({
       "type": "Point",
       "coordinates": [0,90]
     }) ]]],
 
-    "proform": proform,
+    payload: {				
+			"tim": tim,
+			"ric": {"gid":"geoform","cid":"geoform","fid":"geopoint",},
+			"boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			"proform": proform,
+		}
 
   }
   // -------------------------------  geograt
   let geograt = {
 
-    "tim": tim,
-    "ric": {"gid":"geograt","cid":"geograt","fid":"geograt",},
     "halo":"geojson",
     "geoform": (anitem) => {
 
@@ -209,11 +211,13 @@ let muonAlima = function muonAlima(__mapper) {
 
     },
 
-    "boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.49,"co":[[[0.5,0.5]]],"cp":[[[0.9,0.9]]],},
-
-    "proform": proform,
-    
     "payload": {
+			"tim": tim,
+			"ric": {"gid":"geograt","cid":"geograt","fid":"geograt",},
+			"boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.49,"co":[[[0.5,0.5]]],"cp":[[[0.9,0.9]]],},
+
+			"proform": proform,
+    
 
       "graticule": {
 
@@ -223,23 +227,14 @@ let muonAlima = function muonAlima(__mapper) {
 
     },
 
-    "stace": {
-      "x": 0,
-      "y": 0,
-      "z": 0,
-    },
 
   }
 
   // -------------------------------  geoearth
   let geoearth = {
 
-    "tim": tim,
-    "ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
     "halo": "geojson",
     
-    "boform":{ "csx":0,"cf":[[[555,333,555,333,555,333,555]]],"cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
-
     "geoform": () => {
       let geo = Object.assign({},
         topojson.feature(
@@ -250,18 +245,19 @@ let muonAlima = function muonAlima(__mapper) {
       geo = __mapper("xs").m("geoj").trim(geo)
       return geo
     },
-    
-    "proform": proform,
 
+		payload: {
+				"tim": tim,
+				"ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
+				"boform":{ "csx":0,"cf":[[[555,333,555,333,555,333,555]]],"cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
+
+				"proform": proform,
+		}
   }
   // -------------------------------  geoform
   let geoform = {
 
-    "tim": tim,
-    "ric": {"gid":"geoform","cid":"geoform","fid":"geoform",},
     "halo":"geojson",
-
-    "boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
     "geoform":  (ani) => ({
       "type": "Polygon",
@@ -273,21 +269,20 @@ let muonAlima = function muonAlima(__mapper) {
         [0 + 0,  0 + 0 ]
       ] ]
     }),
+		payload: {
+			"tim": tim,
+			"ric": {"gid":"geoform","cid":"geoform","fid":"geoform",},
+			"boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
 
-    "proform": proform,
+			"proform": proform,
+		}
 
   }
 
   // -------------------------------  geosphere
   let geosphere = {
 
-    "tim": tim,
-    "ric": {"gid":"geosphere","cid":"geosphere","fid":"geosphere",},
     "halo":"geojson",
-
-    "boform":{ "csx":0,"cf":444,"cs":333,"cw":0.9,"co":0.04,"cp":0.9,},
-
-    "proform":proform,
 
       "geoform": {
 						type:"Feature",
@@ -297,6 +292,16 @@ let muonAlima = function muonAlima(__mapper) {
 						properties:{}
 			},
 
+			payload: {
+				"tim": tim,
+				"ric": {"gid":"geosphere","cid":"geosphere","fid":"geosphere",},
+				"boform":{ "csx":0,"cf":444,"cs":333,"cw":0.9,"co":0.04,"cp":0.9,},
+
+				"proform":proform,
+			}
+			
+			
+			
   }
 
   /*******************************************

@@ -54,10 +54,7 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let aniPolygone = {
 
-    "tim": tim,
-    "ric": {"gid":"aniIco","cid":"aniIco","fid":"aniFaces",},
     "halo": "geojson",
-    "boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
 
     "geoform": (p) => {
       let payload = p.payload
@@ -97,57 +94,60 @@ let muonAlima = function muonAlima(__mapper) {
       return json
     },
 
-    "proform": {
+		payload: {
+			"tim": tim,
+			"ric": {"gid":"aniIco","cid":"aniIco","fid":"aniFaces",},
+			"boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
+			"proform": {
 
-        "projection": "uniwen",
-        "translate":  [ 180, 200],
-        "scale": 90,
-        "rotate": [0,0,0], // [-5,50,0],
-        "focale": 4,
-        "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-        "dims": 3,
-        "control": "wen",
-      },
-
+					"projection": "uniwen",
+					"translate":  [ 180, 200],
+					"scale": 90,
+					"rotate": [0,0,0], // [-5,50,0],
+					"focale": 4,
+					"zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+					"dims": 3,
+					"control": "wen",
+				},
+		}
 
   }
 
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
-    "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    halo: "img",
 
-    "geoform": p => ({
+    geoform: p => ({
       type:  "Feature",
       geometry: {
 
         "type": "Point",
-        "coordinates": [0, 0]
+        "coordinates": [ 0, 0 ]
 
       },
       properties: {
 				sort: "img",
-        attr: {
-          "width": p.payload.img.width,
-          "height": p.payload.img.height,
-          ["xlink:href"]: p.payload.img.url,
-        }
+        ["xlink:href"]: p.payload.img.url,
+        style: p.payload.img.style
       }
     }),
 
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
-		
-    "payload": {
+    payload: {
 
-			"img": {
-        "url":"zimg-501.jpg",
-        "width": [[[60, 60]]],
-        "height": [[[40 , 40]]],
+			tim,
+			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
+			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			proform: {
+				projection: "uniwen",
+				translate: [ 30, 40 ],
+			},
+			img: {
+        url: "zimg-501.jpg",
+        "style": {
+					"width": [[[60, 60]]],
+					"height": [[[40 , 40]]],
+					"rotate": [[[ 0, 0 ]]],
+        }	
       },
 
 

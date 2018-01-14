@@ -115,46 +115,7 @@ let muonAlima = function muonAlima(__mapper) {
     "control": "wen",
   }
 
-  let payloadIco = {
 
-    points: [
-      [0, 90],
-      [0, -90]
-    ]
-      .concat(d3.range(10).map(function(i) {
-        let theta = Math.atan(0.5) * 180 / Math.PI
-        let phi = ((i * 36) + 180) % 360 - 180
-        return [phi, i & 1 ? theta : -theta]
-      }))
-      .map(g.cartesian),
-
-
-    faces: [
-
-      {cornersx: [ 0,  3, 11,  0]},
-      {cornersx: [ 0,  5,  3,  0]},
-      {cornersx: [ 0,  7,  5,  0]},
-      {cornersx: [ 0,  9,  7,  0]},
-      {cornersx: [ 0, 11,  9,  0]}, // North
-      {cornersx: [ 2, 11,  3,  2]},
-      {cornersx: [ 3,  4,  2,  3]},
-      {cornersx: [ 4,  3,  5,  4]},
-      {cornersx: [ 5,  6,  4,  5]},
-      {cornersx: [ 6,  5,  7,  6]},
-      {cornersx: [ 7,  8,  6,  7]},
-      {cornersx: [ 8,  7,  9,  8]},
-      {cornersx: [ 9, 10,  8,  9]},
-      {cornersx: [10,  9, 11, 10]},
-      {cornersx: [11,  2, 10, 11]}, // Equator
-      {cornersx: [ 1,  2,  4,  1]},
-      {cornersx: [ 1,  4,  6,  1]},
-      {cornersx: [ 1,  6,  8,  1]},
-      {cornersx: [ 1,  8, 10,  1]},
-      {cornersx: [ 1, 10,  2,  1]} // South
-
-    ],
-
-  }
 
 
   let geoformIco = (p) => {
@@ -200,29 +161,6 @@ let muonAlima = function muonAlima(__mapper) {
     "control": "wen",
   }
 
-  let payloadFaces = {
-
-    faceIndex: [[[0,20.1]]],
-
-    faces: function () {   // icosahedronFaces
-      let faces = [],
-        s = 36,
-        y = Math.atan2(1, 2) * 180 / Math.PI
-      for (let x = 0; x < 360; x += 2 * s) {
-        faces.push(
-          [[x + 0 * s, -90], [x + 0 * s,  -y], [x + 2 * s,  -y], [x + 0 * s, -90]],
-          [[x + 1 * s,   y], [x + 2 * s,  -y], [x + 0 * s,  -y], [x + 1 * s,   y]],
-          [[x + 1 * s,   y], [x + 0 * s,  -y], [x - 1 * s,   y], [x + 1 * s,   y]],
-          [[x + 1 * s,   y], [x - 1 * s,   y], [x - 1 * s,  90], [x + 1 * s,   y]]
-        )
-      }
-      return faces.map(face => face.map(f.cartesian))
-
-
-    },
-
-  }
-
   let geoformFaces = p => {
 
     let ric = p.ric
@@ -262,76 +200,133 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let aniFaces = {
 
-    "tim": tim,
-    "ric": {"gid":"aniFaces","cid":"aniFaces","fid":"aniFaces",},
     "halo": "geojson",
-    "boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
 
     "geoform": geoformFaces,
 
-    "proform": proformFaces,
+    "payload": {
+			"tim": tim,
+			"ric": {"gid":"aniFaces","cid":"aniFaces","fid":"aniFaces",},
+			"boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
+			"proform": proformFaces,
 
-    "payload": payloadFaces,
+			faceIndex: [[[0,20.1]]],
+
+			faces: function () {   // icosahedronFaces
+				let faces = [],
+					s = 36,
+					y = Math.atan2(1, 2) * 180 / Math.PI
+				for (let x = 0; x < 360; x += 2 * s) {
+					faces.push(
+						[[x + 0 * s, -90], [x + 0 * s,  -y], [x + 2 * s,  -y], [x + 0 * s, -90]],
+						[[x + 1 * s,   y], [x + 2 * s,  -y], [x + 0 * s,  -y], [x + 1 * s,   y]],
+						[[x + 1 * s,   y], [x + 0 * s,  -y], [x - 1 * s,   y], [x + 1 * s,   y]],
+						[[x + 1 * s,   y], [x - 1 * s,   y], [x - 1 * s,  90], [x + 1 * s,   y]]
+					)
+				}
+				return faces.map(face => face.map(f.cartesian))
+
+
+			},
+		}
   }
 
   let aniIco = {
 
-    "tim": tim,
-    "ric": {"gid":"aniIco","cid":"aniIco","fid":"aniIco",},
     "halo": "geojson",
-    "boform": {"csx":0,"cf":[[[111,222,111,222,111,222,111]]],"cs":777,"cw":0.2,"co":0.9,"cp":0.9,},
 
     "geoform": geoformIco,
 
-    "proform": proformIco,
 
-    "payload": payloadIco,
+		payload: {
+
+			"tim": tim,
+			"ric": {"gid":"aniIco","cid":"aniIco","fid":"aniIco",},
+			"boform": {"csx":0,"cf":[[[111,222,111,222,111,222,111]]],"cs":777,"cw":0.2,"co":0.9,"cp":0.9,},
+			"proform": proformIco,
+		
+			points: [
+				[0, 90],
+				[0, -90]
+			]
+				.concat(d3.range(10).map(function(i) {
+					let theta = Math.atan(0.5) * 180 / Math.PI
+					let phi = ((i * 36) + 180) % 360 - 180
+					return [phi, i & 1 ? theta : -theta]
+				}))
+				.map(g.cartesian),
+
+
+			faces: [
+
+				{cornersx: [ 0,  3, 11,  0]},
+				{cornersx: [ 0,  5,  3,  0]},
+				{cornersx: [ 0,  7,  5,  0]},
+				{cornersx: [ 0,  9,  7,  0]},
+				{cornersx: [ 0, 11,  9,  0]}, // North
+				{cornersx: [ 2, 11,  3,  2]},
+				{cornersx: [ 3,  4,  2,  3]},
+				{cornersx: [ 4,  3,  5,  4]},
+				{cornersx: [ 5,  6,  4,  5]},
+				{cornersx: [ 6,  5,  7,  6]},
+				{cornersx: [ 7,  8,  6,  7]},
+				{cornersx: [ 8,  7,  9,  8]},
+				{cornersx: [ 9, 10,  8,  9]},
+				{cornersx: [10,  9, 11, 10]},
+				{cornersx: [11,  2, 10, 11]}, // Equator
+				{cornersx: [ 1,  2,  4,  1]},
+				{cornersx: [ 1,  4,  6,  1]},
+				{cornersx: [ 1,  6,  8,  1]},
+				{cornersx: [ 1,  8, 10,  1]},
+				{cornersx: [ 1, 10,  2,  1]} // South
+
+			],
+
+		}
   }
   /*******************************************
  *      @img
  */
   let img = {
 
-    "tim": tim,
-    "ric": {"gid":"img","cid":"img","fid":"img",},
-    "halo":"img",
-    "boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    halo: "img",
 
-    "geoform": p => ({
+    geoform: p => ({
       type:  "Feature",
       geometry: {
 
         "type": "Point",
-        "coordinates": [0, 0]
+        "coordinates": [ 0, 0 ]
 
       },
       properties: {
 				sort: "img",
-        attr: {
-          "width": p.payload.img.width,
-          "height": p.payload.img.height,
-          ["xlink:href"]: p.payload.img.url,
-        }
+        ["xlink:href"]: p.payload.img.url,
+        style: p.payload.img.style
       }
     }),
 
-    "proform": {
-			"projection": "uniwen",
-			"translate": [ 30, 40 ],
-		},
-		
-    "payload": {
+    payload: {
 
-			"img": {
-        "url":"zimg-501.jpg",
-        "width": [[[60, 60]]],
-        "height": [[[40 , 40]]],
+			tim,
+			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
+			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+			proform: {
+				projection: "uniwen",
+				translate: [ 30, 40 ],
+			},
+			img: {
+        url: "zimg-501.jpg",
+        "style": {
+					"width": [[[60, 60]]],
+					"height": [[[40 , 40]]],
+					"rotate": [[[ 0, 0 ]]],
+        }	
       },
 
 
     }
   }
-	
   
   /*******************************************
  *      @animas
