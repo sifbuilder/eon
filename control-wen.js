@@ -62,7 +62,7 @@
         elem.call(drag.on("start", dragstarted).on("drag", dragged).on("end", dragended))
     }
     
-    // __mapper("xs").c("wen").reset(__mapper("renderSVG").svg())
+    // __mapper("xs").c("wen").reset(__mapper("renderSvg").svg())
     let reset = elem => elem.call(drag.on("start", null).on("drag", null).on("end", null))
 
     function stopMomentum() { cancelAnimationFrame(timer); timer = null }

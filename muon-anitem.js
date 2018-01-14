@@ -80,6 +80,30 @@
       return coords
     }
 
+
+    /***********
+  *   @coreGeoform
+  */
+    let coreGeoform = () => p => ({     // geoform
+      type:  "Feature",
+      geometry: {"type": "Point","coordinates": [0, 0, 0]},
+      properties: {sort: "feature", }})
+
+
+    /***********
+  *   @coreGeonode
+  */
+    let coreGeonode = () => ({
+			type: "Point",
+			geometry: [0,0,0],
+			properties: {
+				origin: [0,0,0],
+				velocity: [0,0,0],
+				previous: [0,0,0],
+				geodelta: [0,0,0],
+			}
+		})		
+		
     /***********
   *   @enty
   */
@@ -102,7 +126,9 @@
     enty.geoform = (_) => {  return _ !== undefined ? (anitem.geoform = _, anitem) : anitem.geoform }
     enty.payload = (_) => { return _ !== undefined ? (anitem.payload = _, anitem) : anitem.payload }
 
-
+		enty.coreGeoform = coreGeoform			// default halo geoform
+		enty.coreGeonode = coreGeonode			// default halo geonode
+		
     enty.anigram = (ani,t) => {
       if (ani !== undefined) {                    // if give anima
         if (t !== undefined) {                  // if given time

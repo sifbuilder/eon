@@ -2,80 +2,86 @@
  *    @haloFuel
  */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.haloFuel = global.haloFuel || {})));
-}(this, function (exports) { 'use strict';
+  typeof exports === "object" && typeof module !== "undefined" ? factory(exports) :
+    typeof define === "function" && define.amd ? define(["exports"], factory) :
+      (factory((global.haloFuel = global.haloFuel || {})))
+}(this, function (exports) { "use strict"
 
-let haloFuel = function haloFuel(__mapper = {}) {
+  let haloFuel = function haloFuel(__mapper = {}) {
 
-    let f = __mapper("props")()
-    let state = {}
-        state.items = []    // fuel particles
+    let f = __mapper("props")(),
+      manitem = __mapper("xs").m("anitem"),
+      mstore = __mapper("xs").m("store"),
+      mquad = __mapper("xs").m("quad"),
+      hnat = __mapper("xs").h("nat"),
+      mgeom = __mapper("xs").m("geom")
 
     let r = __mapper("xs").r("renderer"),
       width = r.width(),
       height = r.height()
 
-    let mquad = __mapper("xs").m("quad")
-		let hnat = __mapper("xs").h("nat")
+    let state = {}
+    state.items = []    // fuel particles
 
     let gramm = function (anima, newAnigrams = []) {
 
-      let ani = __mapper("xs").m("anitem")(anima),
-        anigram = ani.anigram(),             // anigram
-        stace =   ani.stace(),               // stace
-        ereform = ani.ereform(),             // ereform
-        proform = ani.proform(),             // proform
-        conform = ani.conform(),             // conform
-        geoform = ani.geoform(),            // geoform
-        payload = ani.payload(),
-					tim = anigram.payload.tim,                 // tim
-					ric = anigram.payload.ric,                 // ric
-					uid = anigram.payload.uid,                 // uid
-					parentuid = anigram.payload.parentuid,
-        fuel = payload.fuel,
-					ra2 = fuel.ra2,
-					candidates = fuel.candidates,
-					sample = fuel.sample
-					
-      let polygon
+      let anigram = manitem(anima).anigram(),													// anigram
+        payload = 		anigram.payload,            										// payload
+        boform = 			payload.boform,             									// boform
+        ric =   			payload.ric,               										// ric
+        tim =   			payload.tim,               										// tim
+        proform =			payload.proform,            									// proform
+        conform = 		payload.conform,            									// conform
+        uid = 				payload.uid,          												// uid
+        parentuid = 	payload.parentuid,          									// parentuid
+        geonode = 		payload.geonode ||  manitem.coreGeonode(),		// geonode
+        json
 
-      let preAnigram = __mapper("xs").m("store").findAnigramFromUid(uid)  // pre anigram
-      let parentAnigram = __mapper("xs").m("store").findAnigramFromUid(parentuid)
+      let fuel = payload.fuel,
+        ra2 = fuel.ra2,
+        candidates = fuel.candidates,
+        sample = fuel.sample
+
+      let polygon
+      let parentAnigram = mstore.findAnigramFromUid(parentuid)
 
       if (parentAnigram) {
-          polygon = parentAnigram.feature.geometry.coordinates[0] 					// outer ring
+        polygon = parentAnigram.payload.feature.geometry.coordinates[0] 					// outer ring
       } else {
-          polygon = __mapper("xs").m("geom").extentPolygon([[0,0],[width,height]]) // viewport
+        polygon = mgeom.extentPolygon([[0,0],[width,height]]) // viewport
       }
 
       let foundcandies =  mquad.candysearch(ra2, polygon, candidates, sample) // candies
 
       let remainCandies = []
       if (fuel.f === 3) {           		// 3 - old and new all time _e_
-          remainCandies = state.items
-          remainCandies =  [...remaincandies, ...foundcandies]
+        remainCandies = state.items
+        remainCandies =  [...remaincandies, ...foundcandies]
       } else if (fuel.f === 2)  { 			// 2 - just new			_e_
-          remainCandies =  foundcandies
+        remainCandies =  foundcandies
       } else  {                         //  1 - old and new in polygon
-          remainCandies = state.items.filter(c => d3.polygonContains(polygon, c))
-          remainCandies =  [...remainCandies, ...foundcandies]
+        remainCandies = state.items.filter(c => d3.polygonContains(polygon, c))
+        remainCandies =  [...remainCandies, ...foundcandies]
       }
 
       for (let i=0; i<remainCandies.length; i++) {				// for each candy ...
+        let _ric = {}
+        _ric.gid = ric.gid
+        _ric.cid = ric.cid
+        _ric.fid = (_ric.fid === undefined) ? _ric.cid + "_" +  i : _ric.fid
 
-          let _ric = {}
-            _ric.gid = ric.gid + "_fuel"
-            _ric.cid = ric.cid + "_fuel"
-            _ric.fid = (_ric.fid === undefined) ? _ric.cid + "_" +  i : _ric.fid
+        let proform = {
+          "projection": "uniwen",
+          "translate": remainCandies[i],
+        }
 
+        let newAnigram = anigram									// get a new anigram
+        let payload = newAnigram.payload
+        payload.ric = _ric														// identify
+        payload.proform = proform
 
-          let newAnigram = ani.anigram()									// get a new anigram
-          newAnigram.ric = _ric														// identify
-          newAnigram.stace = remainCandies[i]							// place: stace is candy situs
-
-          newAnigrams = [...newAnigrams, ...hnat.gramm(newAnigram)]
+        let avaAnigrams = hnat.gramm(newAnigram)
+        newAnigrams = [...newAnigrams, ...avaAnigrams]
 
       }
 
@@ -87,15 +93,15 @@ let haloFuel = function haloFuel(__mapper = {}) {
  *        @enty
  */
     let haloFuel = {}
-        haloFuel.ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = 1, [anima]) : []
-        haloFuel.gramm = anima => gramm(anima)
+    haloFuel.ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = 1, [anima]) : []
+    haloFuel.gramm = anima => gramm(anima)
 
     let enty = haloFuel
 
     return enty
 
-}
+  }
 
-exports.haloFuel = haloFuel
+  exports.haloFuel = haloFuel
 
-}));
+}))

@@ -149,8 +149,7 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
               let newSubItems = []
               let avatar = avatars[j]
               avatar.payload.uid = __mapper("xs").m("ric").buildUID(avatar) // uid for children
-              avatar.tim = anigram.payload.tim                                // time from anima
-              avatar.payload.parent = __mapper("xs").m("anitem").getCore(newItem)  // parent is newItem
+              avatar.payload.tim = anigram.payload.tim                                // time from anima
               avatar.payload.parentuid = newItem.payload.uid                        // parentuid from newItem
 
               newSubItems = enty.gramm(avatar)                          // AVATAR GRAMM halogram

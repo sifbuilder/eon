@@ -20,13 +20,13 @@
     
       if (p.canvas) __mapper({"renderCanvas": renderCanvas.renderCanvas(__mapper)})
 
-      if (p.svg) __mapper({"renderSVG": renderSVG.renderSVG(__mapper)})           // SVG
-      if (p.pos) __mapper("xs").c("pos")(__mapper("renderSVG").svg())   // SVG POSITION
+      if (p.svg) __mapper({"renderSvg": renderSvg.renderSvg(__mapper)})           // SVG
+      if (p.pos) __mapper("xs").c("pos")(__mapper("renderSvg").svg())   // SVG POSITION
       if (p.img)  __mapper("xs").b("image")("zimg-black.jpg")                     // BCK IMAGE
 
 
-      if (p.svg && p.wen) __mapper("xs").c("wen").control(__mapper("renderSVG").svg())        // SVG WEN
-      if (p.svg && p.versor) __mapper("xs").c("versor").control(__mapper("renderSVG").svg()) // SVG VERSOR
+      if (p.svg && p.wen) __mapper("xs").c("wen").control(__mapper("renderSvg").svg())        // SVG WEN
+      if (p.svg && p.versor) __mapper("xs").c("versor").control(__mapper("renderSvg").svg()) // SVG VERSOR
 
 
       if (p.webgl) __mapper({"renderWebgl": renderWebgl.renderWebgl(__mapper)})       // WEBGL
@@ -86,9 +86,9 @@
 
       }
 
-      if (__mapper("renderSVG")) __mapper("xs").c("mouseDown").control(__mapper("renderSVG").svg()).subscribe(mouseDownListener, __mapper("renderSVG").svg())
-      if (__mapper("renderSVG")) __mapper("xs").c("mouseUp").control(__mapper("renderSVG").svg()).subscribe(mouseUpListener, __mapper("renderSVG").svg())
-      if (__mapper("renderSVG")) __mapper("xs").c("mouseMove").control(__mapper("renderSVG").svg()).subscribe(mouseMoveListener, __mapper("renderSVG").svg())
+      if (__mapper("renderSvg")) __mapper("xs").c("mouseDown").control(__mapper("renderSvg").svg()).subscribe(mouseDownListener, __mapper("renderSvg").svg())
+      if (__mapper("renderSvg")) __mapper("xs").c("mouseUp").control(__mapper("renderSvg").svg()).subscribe(mouseUpListener, __mapper("renderSvg").svg())
+      if (__mapper("renderSvg")) __mapper("xs").c("mouseMove").control(__mapper("renderSvg").svg()).subscribe(mouseMoveListener, __mapper("renderSvg").svg())
 
 
       if (p.fps) {                                      // FPS

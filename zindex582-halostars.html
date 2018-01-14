@@ -41,9 +41,9 @@
 
     // __mapper({"renderCanvas": renderCanvas.renderCanvas(__mapper)})  // CANVAS
 
-    __mapper({"renderSVG": renderSVG.renderSVG(__mapper)})            // SVG
-    // __mapper("xs").c("versor").control(__mapper("renderSVG").svg()) // SVG VERSOR
-    // __mapper("xs").c("pos")(__mapper("renderSVG").svg())   // SVG POSITION
+    __mapper({"renderSvg": renderSvg.renderSvg(__mapper)})            // SVG
+    // __mapper("xs").c("versor").control(__mapper("renderSvg").svg()) // SVG VERSOR
+    // __mapper("xs").c("pos")(__mapper("renderSvg").svg())   // SVG POSITION
     // __mapper("xs").m("image")("zimg-black.jpg")        // BCK IMAGE
 
     __mapper({"renderWebgl": renderWebgl.renderWebgl(__mapper)})        // WEBGL
@@ -53,7 +53,7 @@
 
     __mapper("xs").c("key").start()                 // KEYBRD CONTROLS
 
-    __mapper("xs").c("wen").control(__mapper("renderSVG").svg()) // SVG WEN
+    __mapper("xs").c("wen").control(__mapper("renderSvg").svg()) // SVG WEN
 
   /**********************
    *    @

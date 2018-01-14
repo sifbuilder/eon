@@ -1,13 +1,13 @@
 /***********
- *    @renderSVG
+ *    @renderSvg
  */
 (function (global, factory) {
   typeof exports === "object" && typeof module !== "undefined" ? factory(exports) :
     typeof define === "function" && define.amd ? define(["exports"], factory) :
-      (factory((global.renderSVG = global.renderSVG || {})))
+      (factory((global.renderSvg = global.renderSvg || {})))
 }(this, function (exports) { "use strict"
 
-  let renderSVG = function renderSVG(__mapper = {}) {
+  let renderSvg = function renderSvg(__mapper = {}) {
 
     let f = __mapper("props")()
 
@@ -61,39 +61,42 @@
  * 				@elems
  *
  */
-    let elems = function elems(payload, data = ["data"], idfn = null) {
+    let elems = function (payload, data = ["data"], idfn = null) {
 
       if ( d3.select(".muon-style-block").empty() ) {
         d3.select("head").append("style").attr("class", "muon-style-block")
           .html("")
       }
-
       if (payload == null ) {             // if null return the layer
+				if (1 && 1) console.log(" payload", payload)
         let svgLayer = d3.select("body").selectAll("svg").data(["svg"])
-          .enter().append("svg")
-          .attr("class", "svg")
-          .attr("id", "svg")
-          .attr("width", function() {return (typeof width !== "undefined") ? width : 600})
-          .attr("height", function() {return (typeof height !== "undefined") ? height : 400})
-          .style("border", "1px solid lightgray")
+          .enter()
+						.append("svg")
+						.attr("class", "svg")
+						.attr("id", "svg")
+						.attr("width", function() {return (typeof width !== "undefined") ? width : 600})
+						.attr("height", function() {return (typeof height !== "undefined") ? height : 400})
+						.style("border", "1px solid lightgray")
         return svgLayer
 
       }
       else if (payload == "image") {          // if image insert image
+				if (1 && 1) console.log(" payload", payload)
         if ( d3.select(".image").empty() ) {
           let img = svg.selectAll("image").data([0])
             .enter()
-            .insert("svg:image")
-            .attr("xlink:href", "./image.jpg")
-            .attr("x", "0")
-            .attr("y", "0")
-            .attr("width", function() {return (typeof width !== "undefined") ? width : 600})
-            .attr("height", function() {return (typeof height !== "undefined") ? height : 400})
+							.insert("svg:image")
+							.attr("xlink:href", "./image.jpg")
+							.attr("x", "0")
+							.attr("y", "0")
+							.attr("width", function() {return (typeof width !== "undefined") ? width : 600})
+							.attr("height", function() {return (typeof height !== "undefined") ? height : 400})
           return img
         }
       }
       // manage the dom elements
       else if (typeof(payload) == "string") {   // 'svg:g.links/path.link', data, idfn}
+				if (0 && 1) console.log(" payload", payload)			
         let parts = payload.split("/")
         let layerpart = (parts[0]) ? parts[0] : "svg"
         let elemspart = (parts[1]) ? parts[1] : null
@@ -151,7 +154,7 @@ if (0 && 1) console.log("featurecollection", featurecollection)
 				
 if (0 && 1) console.log("render features", features)
 
-      let svg = __mapper("renderSVG").svg()
+      let svg = __mapper("renderSvg").svg()
 
       let gitems = d3.nest()        // let framesByGid = f.groupBy(frames, "gid")
         .key(function(d) { return d.properties.ric.gid })
@@ -176,16 +179,17 @@ if (0 && 1) console.log("r.svg.render fitems", fitems)
 
           if (texts.length > 0) {
 
-            __mapper("renderSVG").elems("svg:g."+gid+"/text."+cid, texts, d=>d.id)
+            __mapper("renderSvg").elems("svg:g."+gid+"/text."+cid, texts, d=>d.id)
               .text(d => {
+
                 return d.properties.text
+								
               })
 
               .attr("x", 0) // translate instead
               .attr("y", 0) //
 
               .attr("transform", d =>   // eg. "translate(21,20) rotate(15)")
-
 
                 "translate("
                     + d.geometry.coordinates[0]
@@ -222,24 +226,27 @@ if (0 && 1) console.log("r.svg.render fitems", fitems)
             .filter((d,i) => (d.properties.delled !== 1))     // not delled
 
           if (imgs.length > 0)  {
+					
+            __mapper("renderSvg").elems("svg:g."+gid+"/image."+cid, imgs, d=>d.id)
+						
+						.data(() => imgs)
 
-            __mapper("renderSVG").elems("svg:g."+gid+"g."+cid, imgs, d=>d.id)
 
-              .data(() => imgs)
-              .append("svg:image")
+             .attr("transform", d => {  // eg. "translate(21,20) rotate(15)")
 
-              .attr("d", d => {
-
-                return d.properties.attr.img
-
-              })
-
-              .attr("x", d => d.geometry.coordinates[0])
-              .attr("y",  d => d.geometry.coordinates[1])
-
-              .attr("xlink:href", d => d.properties.attr["xlink:href"])
-              .attr("width", d => d.properties.attr.width)
-              .attr("height", d => d.properties.attr.height)
+               return  "translate("
+                    + d.geometry.coordinates[0]		// .attr("x", d => d.geometry.coordinates[0])
+                    + ","
+                    + d.geometry.coordinates[1]		// .attr("y",  d => d.geometry.coordinates[1])
+                    + ")"
+                    + " rotate("
+                    + (d.properties.style.rotate || 0)
+                    + " )"
+						 })							
+							
+              .attr("xlink:href", d => d.properties["xlink:href"])
+              .attr("width", d => d.properties.style.width)
+              .attr("height", d => d.properties.style.height)
 
           }
 
@@ -250,9 +257,7 @@ if (0 && 1) console.log("r.svg.render fitems", fitems)
 
           if (features.length > 0)  {
 
-
-
-            __mapper("renderSVG").elems("svg:g."+gid+"/path."+cid, features, d=>d.id)
+            __mapper("renderSvg").elems("svg:g."+gid+"/path."+cid, features, d=>d.id)
 
               .data(() => features)
               .attr("d", d =>  {
@@ -276,7 +281,6 @@ if (0 && 1) console.log("r.svg.render fitems", fitems)
               .style("stroke-opacity", d => d.properties.style["stroke-opacity"])
               .style("stroke-width", d => d.properties.style["stroke-width"])
 
-
           }
           /*  ................. END SVG FORMS ................. */
         }
@@ -297,6 +301,6 @@ if (0 && 1) console.log("r.svg.render fitems", fitems)
 
   }
 
-  exports.renderSVG = renderSVG
+  exports.renderSvg = renderSvg
 
 }))

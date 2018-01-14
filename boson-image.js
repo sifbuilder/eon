@@ -13,8 +13,8 @@
     let enty = function (src) {
       let name = src || "space.jpg"
 
-      if (__mapper("renderSVG")) {
-        let imgs = __mapper("renderSVG").svg()
+      if (__mapper("renderSvg")) {
+        let imgs = __mapper("renderSvg").svg()
           .select("svg").selectAll("image").data([0])
         imgs.enter()
           .insert("svg:image")
@@ -26,7 +26,7 @@
           .style("position", "absolute; top:0px; left:0px; z-index:1")
           .attr("overflow", "visible")              // _e_
       } else {
-        // "no renderSVG"
+        // "no renderSvg"
       }
     }
 

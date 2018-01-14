@@ -10,6 +10,7 @@
   let haloImg = function haloImg(__mapper = {}) {
 
     let f = __mapper("props")(),
+		    manitem = __mapper("xs").m("anitem"),
 				mgeoj = __mapper("xs").m("geoj"),
 				mprofier = __mapper("xs").m("profier"),
 				mboform = __mapper("xs").m("boform"),
@@ -36,15 +37,19 @@
 
     let gramm = function gramm(anima, newAnigrams = []) {
 
-		let ani = __mapper("xs").m("anitem")(anima),
-			anigram = ani.anigram(),            // anigram
-			boform =  ani.boform(),             // boform
-			ric =   	ani.ric(),               	// ric
-			payload = ani.payload(),            // payload
-			proform = ani.proform(),            // proform
-			conform = ani.conform(),            // conform
-			geoform = ani.geoform() || _geoform,   // geoform
-			json
+      let anigram = manitem(anima).anigram(),													// anigram
+			  halo = 				anigram.halo,  															// halo
+        geoform = 		anigram.geoform ||_geoform,  	// geoform			
+        payload = 		anigram.payload,            										// payload
+        boform = 			payload.boform,             									// boform
+        ric =   			payload.ric,               										// ric
+        tim =   			payload.tim,               										// tim
+        proform =			payload.proform,            									// proform
+        conform = 		payload.conform,            									// conform
+        uid = 				payload.uid,          												// uid
+        parentuid = 	payload.parentuid,          									// parentuid
+        geonode = 		payload.geonode ||  manitem.coreGeonode(),		// geonode
+        json
 
 			anima.payload.geoform = geoform
 			newAnigrams = __mapper("xs").h("geojson").gramm(anima)

@@ -278,7 +278,7 @@ if (0 && 1) console.log("render features", features)
 
               let img = imgs[k]
 
-              let href = img.properties.attr["xlink:href"]
+              let href = img.properties["xlink:href"]
 
               let map = new THREE.TextureLoader().load( href )
               let material = new THREE.SpriteMaterial( {

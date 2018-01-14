@@ -112,7 +112,7 @@ if (0 && 1) console.log("m.animation state.animas ",state.animas)
 
 			if (0 && 1) console.log("m.animation featurecollection ", featurecollection)
 
-      if (__mapper("renderSVG") !== undefined) __mapper("renderSVG").render(elapsed, featurecollection)
+      if (__mapper("renderSvg") !== undefined) __mapper("renderSvg").render(elapsed, featurecollection)
       if (__mapper("renderWebgl") !== undefined) __mapper("renderWebgl").render(elapsed, featurecollection )
       if (__mapper("renderCanvas") !== undefined) __mapper("renderCanvas").render(elapsed, featurecollection )
 

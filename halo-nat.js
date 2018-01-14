@@ -9,7 +9,9 @@
 
   let haloNat = function haloNat(__mapper = {}) {
 
-    let f = __mapper("props")()
+    let f = __mapper("props")(),
+      manitem = __mapper("xs").m("anitem")
+		
     let r = __mapper("xs").r("renderer"),
       width = r.width(),
       height = r.height()
@@ -25,8 +27,8 @@
       },
 			
       properties: {
-					sort: "feature",
-			}
+        sort: "feature",
+      }
     })
       
     /****************************
@@ -34,25 +36,26 @@
    */
     let gramm = function (anima, newAnigrams = []) {
      
-      
-      let ani = __mapper("xs").m("anitem")(anima)
-      
-      anima.geoform = ani.geoform() || _geoform
+      let anigram = manitem(anima).anigram(),						// anigram
+        halo = 				anigram.halo,  										// halo
+        geoform = 		anigram.geoform || _geoform				// geoform
+			
+      anima.geoform = geoform
 
       newAnigrams = __mapper("xs").h("geojson").gramm(anima)
 
       return newAnigrams
     }
     
-   /****************************
+    /****************************
    *    @enty
    */
     let haloNat_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
     let haloNat_gramm = anima => gramm(anima)
 
     let haloNat = {}
-        haloNat.ween = anima => haloNat_ween(anima)
-        haloNat.gramm = anima => haloNat_gramm(anima)   
+    haloNat.ween = anima => haloNat_ween(anima)
+    haloNat.gramm = anima => haloNat_gramm(anima)   
      
     let enty = haloNat
 
@@ -62,4 +65,4 @@
 
   exports.haloNat = haloNat
 
-}));
+}))

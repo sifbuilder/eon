@@ -10,85 +10,78 @@
   let haloGeojson = function haloGeojson(__mapper = {}) {
 
     let f = __mapper("props")(),
-				mgeoj = __mapper("xs").m("geoj"),
-				mprofier = __mapper("xs").m("profier"),
-				mboform = __mapper("xs").m("boform"),
-				mric = __mapper("xs").m("ric"),
-				mstace = __mapper("xs").m("stace")
+      mgeoj = __mapper("xs").m("geoj"),
+      mprofier = __mapper("xs").m("profier"),
+      mboform = __mapper("xs").m("boform"),
+      mric = __mapper("xs").m("ric"),
+      mstace = __mapper("xs").m("stace"),
+      manitem = __mapper("xs").m("anitem"),
+      mstore = __mapper("xs").m("store"),
+      mquad = __mapper("xs").m("quad"),
+      hnat = __mapper("xs").h("nat"),
+      mgeom = __mapper("xs").m("geom")				
 
-    let _geoform = p => ({     // geoform
-      type:  "Feature",
-      geometry: {"type": "Point","coordinates": [0, 0, 0]},
-      properties: {sort: "feature", }})
-
-		let _geonode = {
-			type: "Point",
-			geometry: [0,0,0],
-			properties: {
-				origin: [0,0,0],
-				velocity: [0,0,0],
-				previous: [0,0,0],
-				geodelta: [0,0,0],
-			}
-		}
 		
-  /**********************
+    /**********************
    *    @gramify
    */
-  let gramm = function (anima, newAnigrams=[]) {
-		let ani = __mapper("xs").m("anitem")(anima),
-			anigram = ani.anigram(),            						// anigram
-			payload = ani.payload(),            						// payload
-			boform =  ani.boform(),             						// boform
-			ric =   	ani.ric(),               							// ric
-			tim =   	ani.tim(),               							// tim
-			proform = ani.proform(),            						// proform
-			conform = ani.conform(),            						// conform
-			parentuid = ani.parentuid(),          					// parentuid
-			geoform = ani.geoform() || _geoform,  					// geoform
-			geonode = anigram.payload.geonode || _geonode,	// geonode
-			json
+    let gramm = function (anima, newAnigrams=[]) {
+      let anigram = manitem(anima).anigram(),											// anigram
+        halo = 				anigram.halo,  															// halo
+        geoform = 		anigram.geoform || manitem.coreGeoform(),  	// geoform
+        payload = 		anigram.payload,            								// payload
+        boform = 			payload.boform,             							// boform
+        ric =   			payload.ric,               								// ric
+        tim =   			payload.tim,               								// tim
+        proform =			payload.proform,            							// proform
+        conform = 		payload.conform,            							// conform
+        uid = 				payload.uid,          										// uid
+        parentuid = 	payload.parentuid,          							// parentuid
+        geonode = 		payload.geonode || manitem.coreGeonode(),	// geonode
+        json
 
-		json = f.v(geoform, anigram)
+			
+      if (0 && 1)	console.log("h.geojson gramm", anigram)
+      json = f.v(geoform, anigram)
 
-		json = mprofier.projier(f.v(conform, anigram), anigram)(json)
-		json = mprofier.proformer(f.v(proform, anigram), anigram)(json)
+      json = mprofier.projier(f.v(conform, anigram), anigram)(json)
+      json = mprofier.proformer(f.v(proform, anigram), anigram)(json)
 
 
 
-		let fileffect =  {
-					"projection": "uniwen",
-					"translate": [  geonode.geometry[0], geonode.geometry[1], geonode.geometry[2] ]}
-		json =  mprofier.projier(fileffect, anigram)(json)
+      let fileffect =  {
+        "projection": "uniwen",
+        "translate": [  geonode.geometry[0], geonode.geometry[1], geonode.geometry[2] ]}
+      json =  mprofier.projier(fileffect, anigram)(json)
 
 		
 		
-		json = mboform.boformer(anigram, json)	// boform
-		json = mgeoj.featurize(json) 										// featurize
-		json = mgeoj.zorder(json) 											// order
-		json = mric.qualier(ric, anigram, json)					// qualify
+      json = mboform.boformer(anigram, json)	// boform
+      json = mgeoj.featurize(json) 										// featurize
+      json = mgeoj.zorder(json) 											// order
+      json = mric.qualier(ric, anigram, json)					// qualify
 
-		newAnigrams = json.features.map( (d, i) => {
-			let newAnigram = Object.assign({}, anigram)
+      newAnigrams = json.features.map( (d, i) => {
+        let newAnigram = Object.assign({}, anigram)
 					newAnigram.payload.feature = d
 					newAnigram.payload.ric = d.properties.ric
 					newAnigram.payload.uid = d.id
-			return newAnigram
-		})
+        return newAnigram
+      })
 
-		return newAnigrams
+      return newAnigrams
 
-  }
+    }
 
-  /**********************
+    /**********************
    *    @enty
    */
     let haloGeojson_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
     let haloGeojson_gramm = anima => gramm(anima)
 
     let haloGeojson = {}
-        haloGeojson.ween = anima => haloGeojson_ween(anima)
-        haloGeojson.gramm = anima => haloGeojson_gramm(anima)
+    haloGeojson.ween = anima => haloGeojson_ween(anima)
+    haloGeojson.gramm = anima => haloGeojson_gramm(anima)
 
     let enty = haloGeojson
 
@@ -98,4 +91,4 @@
 
   exports.haloGeojson = haloGeojson
 
-}));
+}))

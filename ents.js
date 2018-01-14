@@ -87,5 +87,5 @@ document.write("<script src='halo-text.js'><\/script>")
 document.write("<script src='x-s.js'><\/script>")    
 /*  renderers */  
 document.write("<script src='render-renderer.js'><\/script>")    
-document.write("<script src='render-SVG.js'><\/script>")    
+document.write("<script src='render-svg.js'><\/script>")    
 document.write("<script src='render-webgl.js'><\/script>")    

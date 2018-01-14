@@ -21,7 +21,7 @@
       width = r.width(),
       height = r.height()
 
-    let svg = __mapper("renderSVG").svg()
+    let svg = __mapper("renderSvg").svg()
 
     // -------------------------------  haloPacerHalo_ween
     let haloPacerHalo_ween = function haloPacerHalo_gramm(anima, newItems = []) {
