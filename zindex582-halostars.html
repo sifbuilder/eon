@@ -29,9 +29,9 @@ let muonAlima = function muonAlima(__mapper) {
   __mapper({"xs": xs.xs(__mapper)})               // PROXIES
   __mapper("xs").b("init")({svg:1,versor:0,wen:1,webgl:1})
 
-  let f = __mapper({"props": muonProps.muonProps()}).props()
-  let g = __mapper("xs").m("geom")
-  let w = __mapper("xs").m("wen")
+
+  let f = __mapper("props")(),
+    manitem = __mapper("xs").m("anitem")
 
   /**********************
    *    @
@@ -46,407 +46,259 @@ let muonAlima = function muonAlima(__mapper) {
 
   let versor = __mapper("xs").b("versor")()
   let wen = __mapper("xs").c("wen")({rotInit})
+	
+	const sqrt2 = Math.sqrt(2)
 
-	let sqrt2 = Math.sqrt(2)
-  /**********************
-   *    @haloWin
-   */
-  let gramm = function gramm(anima, newAnigrams = []) {
+  /*******************************************
+ *      @pics
+ *
+ */
+  let tim = {"td":19800,"t0":0,"t1":1000,"t2":1,"t3":1,}
 
-		let ani = __mapper("xs").m("anitem")(anima),
-			anigram = ani.anigram(),            // anigram
-			payload = ani.payload(),
-			tim = ani.tim()
+  let proform = {
+
+    "projection": "uniwen",
+    "translate":  [ 180 , 200],
+    "scale": 90,
+    "rotate": [-5,50,0], // [0,0,0], //
+    "focale": 4,
+    "zafin": [0,1], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+    "dims": 3,
+    "control": "wen",
+  }
+
+
+  /*******************************************
+ *      @halo
+ *
+ */
+
+  let stars = []
+
+  // ............ newStar
+  let newStar = function( p ) {
+    let {dist, speed, focaleStar, bop, name} = p
+    let star = Object.assign({}, p)
+    star.x = (Math.random() - 0.5) * 1
+    star.y = (Math.random() - 0.5) * 1
+    star.z = dist
+    star.speed = speed
+    star.bop= bop
+    return star
+  }
+
+  // ............ halogeoform
+  let halogeoform = p => {
+
+    let payload = p.payload,
+      ric = payload.ric,
+      boform = payload.boform
+
+    let {nbStars, velStar, focaleStar, doxStar, maxZStar} = payload    // stars
 
     const dtMax = 1000 * 1 / 60
-    let msPassed = tim.msPassed                     // ms passed from first cycle
-    let msDelta = tim.msDelta                     // ms passed from previous cycle
-    let dt = Math.max(msDelta , dtMax)  * 0.001       // 12
+    let msPassed = p.payload.tim.msPassed        // ms passed from first cycle
+    let msDelta = p.payload.tim.msDelta          // ms passed from previous cycle
+    let dt = Math.max(msDelta , dtMax)  * 0.001
 
-    let starsGeometry = {type: "FeatureCollection",features: []}
-    let cubeGeometry = {type: "FeatureCollection",features: []} // geometry
 
-    let rot =  wen.rotation()
-		
-	/**********************
-   *    @CORNERS
-   */
-		let cornersGeometry = {type: "MultiPoint",coordinates: []} // geometry
-				cornersGeometry.coordinates = payload.baseCorners
+    if (stars.length < nbStars) {                     // CREATE
 
-		let faceProj =  __mapper("xs").c("wen").proform(
-					rot, // rotMatrix
-					payload.hiCube,
-					payload.translate,
-					payload.fCube,
-					[0,1]	// zafin
-		)
-
-		// cornersGeometry =  faceProj(cornersGeometry)		// project corners
-		// let corners = cornersGeometry.coordinates
-
- /**********************
-   *    @PRECORNERS
-   */
-	 
-	 		let precorners = payload.baseCorners
-			
- /**********************
-   *    @FACES
-   */
-	 let faces = payload.faces
-
-		
-	 for(let i = 0, l = faces.length; i < l; i++) {
-      let face = faces[i]               // face corners position
-      // let z = 0
-      face.currentCorners = face.corners.map(function(k) {
-        let c = precorners[k]
-        // z += c[2];                    // corner c[2]: z
-        return c;
-      })  // z position
-       // face.z = z / face.currentCorners.length      // corners z position
-    }
-
- /**********************
-   *    @FEATURES
-   */		
-    for(let i = 0, l = faces.length; i < l; i++) {
-      let face = faces[i]
-      let faceCorners = Array.of(...face.currentCorners, face.currentCorners[0])
-
-      let feature = {
-        "id": face.name,
-        "type": "Feature",
-        "geometry": {
-           "type": "Polygon",
-           "coordinates": Array.of(faceCorners)
-        },
-        "properties": {
-          "name": "Polygon",
-          "boform": {
-              cf: face.cf, // fill: "blue", //fill: faceBg,
-              cp: face.cp,  // strokeOpacity: 1
-              cs: face.cs,  // stroke: border, // stroke: "red", //
-              co: face.co,  // fillOpacity: 1,
-          }
-        }
-      }
-
-			face.prefeature = feature					// face feature
-			face.feature = faceProj(face.prefeature)
-
-			let z = 0
-			// console.log("face.feature z", i, face.feature.geometry.coordinates)					
-			let ringcoords = face.feature.geometry.coordinates[0]
-			let dotsinring = ringcoords.length
-			for (let k=0; k<dotsinring; k++) {
-				let ck = ringcoords[k][2]
-				// console.log("face.feature z", i, k, face.name, ck)						
-				z += ck
-			}
-			face.z = z / dotsinring
-	
-
-      // cubeGeometry.features.push(face.feature)               // each face
-
-    }
-
-  /**********************
-   *    @STARS
-   */
-    var newStar = function( p ) {
-			var	{dist, vel, fStar, bop, name} = p
-       let star = Object.assign({}, p)
-              star.x = (Math.random() - 0.5) * 1
-              star.y = (Math.random() - 0.5) * 1
-              star.z = dist
-              star.speed= payload.velStar
-              star.bop= bop
-        return star
-    }
-
-    if (stars.length < payload.nbstars) {                     // CREATE 
-
-      for(let i = stars.length; i < payload.nbstars; i++) {
+      for(let i = stars.length; i < nbStars; i++) {
 
         let dist = Math.random() * 0.2 // doxStar * Math.random() + 1
-		
-        let speed = payload.velStar[0] + Math.random() * payload.velStar[0] /2
+
+        let speed = velStar + Math.random() * velStar /2
         let bop = 1
-        let fStar = payload.fStar
-        let name = "star_" + i												
-				
-				let s = {dist, speed, fStar, bop, name }
-        let star = newStar(s)	
-		
-        stars.push(star)    // [x:2.2, y:-2.4, dist:408, speed:593, bop:0.50]
+        let name = "star_" + i
+
+        let s = {dist, speed, focaleStar, bop, name }
+        let star = newStar(s)
+
+        stars.push(star)
       }
     }
 
-		
     for (let i = 0, l = stars.length; i < l; i++) {   // UPD
 
       let star = stars[i]
-					star.z = star.z + dt * star.speed      // z
+      star.z = star.z + dt * star.speed      // z
 
-      let starRange = payload.maxZStar
+      let starRange = maxZStar
       let bop = 0
 
-			let {doxStar, velStar, fStar} = payload		// NEW STAR
-			let s = {dist:  doxStar,speed: velStar,fStar: fStar,bop,name: star.name}
+      let s = {dist: doxStar, speed: velStar, focaleStar: focaleStar, bop, name: star.name}
       if (star.z > starRange || star.delled === 1) { // NEW STAR if out range or DELLED
-						star = stars[i] = newStar(s)
-			}
-		
+        star = stars[i] = newStar(s)
+      }
+
     }
 
+    let jsonStars = {type: "FeatureCollection",features: []}
     for (let i = 0, l = stars.length; i < l; i++) {          // EACH STAR GEO
 
       let colorSpan = i * 10
       let star = stars[i]
 
+      let geometry = {type:"Point",coordinates:[]}
 
-      let coordinates = Array.of( star.x, star.y, star.z )
+      geometry.coordinates = Array.of( star.x, star.y, star.z )
 
-      let feature = {                             // star
-        "id": "star_" + i,
-        "type": "Feature",
-        "geometry": {
-           "type": "Point",
-           "coordinates": coordinates
-        },
-        "properties": {
-          "pointRadius": payload.starRadious,									// 
-          "boform": {
-              cs: payload.starRecord.cs,  // stroke: border, //
-              cp: payload.starRecord.cp, // strokeOpacity: 1,
-              cf: payload.starRecord.cf + colorSpan, // fill: "blue", //fill: faceBg,
-              co: payload.starRecord.co, // fillOpacity: 1
-          }
-        }
-      }
+      let feature = {type:"Feature",geometry:{},properties:{}}
+      let _ric = {}
+      _ric.gid = ric.gid
+      _ric.cid = ric.cid + "star"
+      _ric.fid = i
+
+      feature.properties.zorder = star.z      // feature zorder from star z
+
+      feature.properties.ric = _ric
+
+      feature.properties.sort = "feature"
+      feature.properties.pointRadius = payload.radioStar
+      feature.geometry = geometry
+      feature.properties.boform = boform    // same boform for all stars
+
+
+      jsonStars.features.push(feature)
+
+    }
+
+    let jsonFaces = {type: "FeatureCollection", features: []}
+    let {points, faces} = payload   // points faces
+
+    for (let i = 0, l = faces.length; i < l; i++) {
+
+      let face = faces[i]                // face pointsx position
+      let geometry = {type:"Polygon",coordinates:[]}
+
+      geometry.coordinates = Array.of(face.pointsx.map(k=>points[k])) // eg [-1, 1, 1]
+
+      let feature = {type:"Feature",geometry:{},properties:{}}
+      let _ric = {}
+      _ric.gid = ric.gid
+      _ric.cid = ric.cid + "face"
+      _ric.fid = i
+      feature.properties.ric = _ric
+
+      feature.properties.sort = "feature"
+      feature.geometry = geometry
+      feature.properties.boform = face.boform || boform // boform per face
+      jsonFaces.features.push(feature)
+        
+    }
+
+
+    let json = {type: "FeatureCollection", features: []}
+    json.features = [...jsonStars.features, ...jsonFaces.features] // merge features
+
+
+    for (let i=0; i<json.features.length; i++) { // to same class to order from m.animate
+
+      let feature = json.features[i]
+      let _ric = {}
+      _ric.gid = ric.gid
+      _ric.cid = "ani"
+      _ric.fid = (i,d,a) => _ric.cid + "_" + i  // svg count id
+      feature.properties.ric = _ric
+
+    }
+
+    return json
+  }
+
+  // ............ grammStars
+  let grammStars = function (anima, newAnigrams=[]) {
 			
-			star.feature = feature					// face feature
-
-      starsGeometry.features.push(feature)
-
-    }
-
-      let starsProj = __mapper("xs").c("wen").proform(
-					rot,
-          payload.hiCube,  // payload.hiStar,
-          payload.translate,
-          payload.fStar,
-           [0,6] // dObject
-        )
-
-			// starsGeometry = starsProj(starsGeometry)
-
-    for (let i= stars.length - 1; i>=0; i--) { // STARS features
-				let star = stars[i]
-        star.prefeature = star.feature
-				star.feature = starsProj(star.prefeature)
-				
-				// let starAnigram = __mapper("xs").m("clone")(anigram)
-						// starAnigram.pic.ric.fid = "star_" +  i
-						// starAnigram.sort = "feature"
-						// starAnigram.feature = star.feature
-				// newAnigrams.unshift(starAnigram)
-
-				// let newenty = __mapper("xs").m("anitem")(anigram)		// anigram anitem
-					// let newric = newenty.ric()														// anitem form 
-						// newric.fid = "star_" +  i
-					// let newitem = newenty.anitem()
-						// newitem = newenty.ric(newric)
-						// newitem.sort = "feature"
-						// newitem.feature = star.feature
-				// newAnigrams.unshift(newitem)				
-				
-    }
-
-		// for (let i=0; i<starsGeometry.features.length; i++) {
-				// let star = starsGeometry.features[i]
-    for (let i= stars.length - 1; i>=0; i--) { // STARS features
-				let star = stars[i]
-        let starFeature = star.prefeature
-				
-				if (star.vols === undefined) star.vols = {}
-				
-				for (let j=0; j<faces.length; j++) {
-						let face = faces[j]
-						let faceFeature = face.prefeature
-						
-						let spoint = starFeature.geometry.coordinates
-
-							// console.log("spoint star", spoint)						
-						
-						let plane = faceFeature.geometry.coordinates[0].slice(0,3)	// main ring
-						// console.log("spoint plane", spoint, ...plane)						
-						let vects = plane.map(p => p.map( (d,i) => spoint[i]  - d))
-						let vol = w.dot(vects[0], w.cross(vects[1], vects[2]))
-						
-							if (face.name === "front") console.log(" --------- vol", i, j, star.name, face.name, vol)
-						if (star.vols[face.name] !== undefined) {
-								let _vol = star.vols[face.name]
-
-								
-								// if vol positive , above face
-								// star vol positive on front fact			<=======
-								// assumed iside, dell when traverse
-								if ( vol * _vol < 0) {
-											console.log(" --------- star", star.name, j, face.name, star.vols[face.name])
-											star.delled = 1; 
-											// console.log(" --------- dell star", star.name)
-
-								}
-						}
-						
-						
-						star.vols[face.name] = vol
-
-				}
-				
-		}
-		/**********************
-		 *    @FACES
-		 */
-		 // faces.sort( (a, b) => a.z - b.z )    // sort faces
-    for (let i = 0; i< faces.length; i++) {     // CUBE
-				let face = faces[i]
-        let feature = face.feature
-				
-				let faceAnigram = __mapper("xs").m("clone")(anigram)
-						faceAnigram.pic.ric.cid = "face"
-						faceAnigram.pic.ric.fid = i // face.name
-						faceAnigram.sort = "feature"
-						faceAnigram.feature = feature
-						faceAnigram.z = face.z
-						
-						let uid = __mapper("xs").m("ric").buildUID(faceAnigram)
-						faceAnigram.uid = uid
-// console.log("faceAnigram", i,uid)						
-						
-				newAnigrams.push(faceAnigram)
-
-    }
-		
-   for (let i = 0; i < stars.length; i++) { // STARS
-				let star = stars[i]
-				let feature = star.feature
-				
-				for (let f=faces.length-1; f>=0; f--) {
-						// start 
-						// vol inversely proportional to distance from viewer
-						let face = faces[f]
-						let spoint = star.feature.geometry.coordinates
-						let plane = face.feature.geometry.coordinates[0].slice(0,3)
-						let vects = plane.map(p => p.map( (d,i) => spoint[i]  - d))
-						let vol = w.dot(vects[0], w.cross(vects[1], vects[2]))
-						// if vol is positive, star is above this face
-						// if vol is negative, star is behind this face
-						// console.log("star face VOL", face.name, i, f, vol)
-
-				}
-
-				let starAnigram = __mapper("xs").m("clone")(anigram)
-						starAnigram.pic.ric.cid = "star"
-						starAnigram.pic.ric.fid = "_" +  i
-						starAnigram.sort = "feature"
-						starAnigram.feature = feature
-						starAnigram.z = star.z
-						
-						let uid = __mapper("xs").m("ric").buildUID(starAnigram)
-						starAnigram.payload.uid = uid						
-						
-						
-				newAnigrams.push(starAnigram)				
+    let anigram = manitem(anima).anigram(),						// anigram
+      halo = 				anigram.halo,  										// halo
+      geoform = 		anigram.geoform			// geoform
 			
-    }
-		
-		
-newAnigrams.sort( (a, b) => a.z - b.z )    // sort faces	
+    anima.geoform = halogeoform
 
-for (let i=0; i<newAnigrams.length; i++) {
-	
-				let newAnigram = newAnigrams[i]
-					newAnigram.payload.ric.cid = "ani"
-					newAnigram.payload.ric.fid = "_" +  i
-					let uid = __mapper("xs").m("ric").buildUID(newAnigram)
-					newAnigram.payload.uid = uid							
-	
+    newAnigrams = __mapper("xs").h("geojson").gramm(anima)
 
-}
-		console.log("ani -------------------")
-	
-// console.log("anigrams", newAnigrams)
+
     return newAnigrams
   }
 
-  let haloWin = {}
-      haloWin.ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = 1, [anima]) : []
-      haloWin.gramm = anima => gramm(anima)
+  // ............ haloStars
+  let haloStars = {}
+  haloStars.ween = __mapper("xs").h("geojson").ween
+  haloStars.gramm = anima => grammStars(anima)
 
-/*******************************************
- * @animas
+  /*******************************************
+ *      @animas
  *
  */
-let tim = {"td":33800,"t0":0,"t1":1000,"t2":1,"t3":1,}
+  // ------------------------- img
+  let img = {
 
-let aniWin = {
+    halo: "img",
 
-      "pic": {
-        "halo": haloWin, // "aniWin",
+    geoform: p => ({
+      type:  "Feature",
+      geometry: {
 
-        "payload": {
-					"tim": tim,
-					"ric": {"gid":"aniWin","cid":"aniWin","fid":"aniWin",},
-					"boform":{ "csx":0,"cf":111,"cs":111,"cw":0.1,"co":0.9,"cp":0.9,},
+        "type": "Point",
+        "coordinates": [ 0, 0 ]
 
-          //  do: z: corner[2]
-          hoCube: 1,    // 2 x 1
-          hiCube: 60,   // 2 x 60   s
-          fCube:  12,     // perspective, hyperfocal distance
+      },
+      properties: {
+        sort: "img",
+        ["xlink:href"]: p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
 
-          rotBase: [1,0,0,  0,1,0,  0,0,1],
-          rotInit: [0,0,0],
-          velDecay:     0.95,
-          velRot:			[1,0,0], //  [-6e-3, 7.6e-3, 2.13e-3],
-					
-          // do = z
-          // do = -1, ho = 1, f = 15, di = 15 * 60  =>  di = 56.25
-          // do = 1, ho = 1, f = 15, di = 15 * 60   =>  di = 64.28
-          // hi = ho * M = M = s * f / (f - do) = 60 * 15 / 14  = 64.28
-          // M = s * f / (f - do) = s * 1 / (1 - (do/f))
+    payload: {
 
-          doxStar:			0 , // 1000, //  1,
-          diStar:				1,		
-          maxZStar:			[[[1.5,1.5]]],			// star passed
-          hiStar:				10, // // [[[16,998]]], //   [[[4,4]]],
-          fStar:				12 , // 100, //   0.1,
-          velStar:			[[[0.05,0.2]]]  , // [100,100], // [0.400, 0.400],
+      tim,
+      ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
+      boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+      proform: {
+        projection: "uniwen",
+        translate: [ 30, 40 ],
+      },
+      img: {
+        url: "zimg-501.jpg",
+        "style": {
+          "width": [[[60, 60]]],
+          "height": [[[40 , 40]]],
+          "rotate": [[[ 0, 0 ]]],
+        }	
+      },
 
-          starRecord: 	{ cf: 444, cs: 11, co: 0.99, cp: 1, },
-          starRadious: 	2,
 
-          nbstars:      [[[6,24]]], // [[[24,24]]],  // 200
-					
-          // proj(point, maxDistance, imSize)
-          // D: 15
-          // s: 60
-          // f = D * s / ( D - z'(t)) // z': distance from origin
-          // z' = maxDistance - z     // z: distance to focus (viewer)
-          // maxDistance: perspective
+    }
+  }
+	
 
-          faceBg:			'rgba(4,13,24,.65)',
-          border:			'rgb(40,130,240)',
-          fillStyle:	'rgba(0,0,0,.8)',
+  let aniCube = {
 
-          rotAuto: 		1,
-          rotWen:			1,
-          translate:	[ [[[420,420]]] , 250],
+    "halo":   haloStars,
+    "payload":  {
+      "tim": tim,
+      "ric": {"gid":"aniCube","cid":"aniCube","fid":"aniCube",},
+      "boform":{ "csx":0,"cf":666,"cs":111,"cw":0.9,"co":0.9,"cp":0.9,},
+      "proform": proform,
 
-          baseCorners: [
+      rotBase:     [1,0,0,  0,1,0,  0,0,1],
+      rotInit:     [0,0,0],
+      velDecay:    0.95,
+      velRot:      [1,0,0], //  [-6e-3, 7.6e-3, 2.13e-3],
+      doxStar:     0 , // 1000, //  1,
+      diStar:      1,
+      maxZStar:    [[[2.5, 2.5]]],      // star passed
+      hiStar:      10, // // [[[16,998]]], //   [[[4,4]]],
+      focaleStar:       12 , // 100, //   0.1,
+      velStar:     [[[0.05, 0.2]]]  , // [100,100], // [0.400, 0.400],
+      boformStar:  { cf: 444, cs: 11, co: 0.99, cp: 1, },
+      radioStar:   3,
+      nbStars:     [[[6,24]]], // [[[24,24]]],  // 200
+
+
+      points: [
             [-1, -1,  1], [ 1, -1,  1], [ 1, 1,  1], [-1, 1,  1],			// 0,3
             // [ 1, -1, -1], [-1, -1, -1], [-1, 1, -1], [ 1, 1, -1],
             [ 1, -1, 0], [-1, -1, 0], [-1, 1, 0], [ 1, 1, 0],					// 4,7
@@ -462,86 +314,42 @@ let aniWin = {
 							[ [[[0, 1,0]]], [[[0, 1,1+sqrt2]]], [[[1,1,0]]] ],									// 15
 							[ [[[0, 1,1+sqrt2]]], [[[0,-1,0]]], [[[1,1,0]]] ],									// 16
           ],
-          faces: [
-            // { corners: [0,1,2,3], name: 'front',  cf: 222, cs: 355, co: 0.9, cp: 1, },
-            // { corners: [4,5,6,7], name: 'back',   cf: 777, cs: 455, co: 0.99, cp: 1, },
-            // { corners: [1,4,7,2], name: 'right',  cf: 555, cs: 555, co: 0.99, cp: 1, },
-            // { corners: [5,0,3,6], name: 'left',   cf: 655, cs: 655, co: 0.9, cp: 1, },
-            // { corners: [3,2,7,6], name: 'bottom', cf: 755, cs: 755, co: 0.9, cp: 1, },
-            // { corners: [5,4,1,0], name: 'top',    cf: 855, cs: 855, co: 0.9, cp: 1, }
+      faces: [
+        {
+          pointsx: [4,9 ,13 ,5,4],
+          name: "front",
+          boform: {"csx":0,"cf":222,"cs":688,"cw":0.7,"co":[[[0.799,0.799]]],"cp":0.799,}},
+        {
+          pointsx: [5,10,14,6,5],
+          name: "back",
+          boform: {"csx":0,"cf":444,"cs":833,"cw":0.7,"co":[[[0.799,0.799]]],"cp":0.799,}},
+        {
+          pointsx: [6,11,15,7,6],
+          name: "right",
+          boform: { cf: 444, cs: 555, co: [[[0.2,0.2,0.2,0.2]]], cp: 1, }},
+        {
+          pointsx: [7,12,16,4,7],
+          name: "left",
+          boform: { cf: 555, cs: 655, co: [[[0.2,0.2,0.2,0.2]]], cp: 1, }},
+        {
+          pointsx: [4,5,6,7,4],
+          name: "bottom",
+          boform: { cf: 666, cs: 755, co: [[[0.9,0.9,0.9,0.9]]], cp: 1, }},
 
-            // { corners: [0,8,1], name: 'front',   cf: 355, cs: 355, co: 0.6, cp: 1, },
-            // { corners: [1,8,2], name: 'back',  cf: 455, cs: 455, co: 0.6, cp: 1, },
-            // { corners: [2,8,3], name: 'right',  cf: 555, cs: 555, co: 0.6, cp: 1, },
-            // { corners: [3,8,0], name: 'left',   cf: 655, cs: 655, co: 0.6, cp: 1, },
 
-            { corners: [4,5,6,7], name: 'bottom',   	cf: 12, cs: 355, co: 0.99, cp: 1, },
-            { corners: [4,9 ,13 ,5], name: 'front',   cf: 105, cs: 355, co: 0.9, cp: 1, },
-            { corners: [5,10,14,6], name: 'back',  		cf: 115, cs: 455, co: 0.9, cp: 1, },
-            { corners: [6,11,15,7], name: 'right',  	cf: 125, cs: 555, co: 0.9, cp: 1, },
-            { corners: [7,12,16,4], name: 'left',   	cf: 135, cs: 655, co: 0.9, cp: 1, },
-
-          ],
-
-        }
-      },
-    }
-// ------------------------- img
-  let img = {
-
-    halo: "img",
-
-    geoform: p => ({
-      type:  "Feature",
-      geometry: {
-
-        "type": "Point",
-        "coordinates": [ 0, 0 ]
-
-      },
-      properties: {
-				sort: "img",
-        ["xlink:href"]: p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-			tim,
-			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
-			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-			proform: {
-				projection: "uniwen",
-				translate: [ 30, 40 ],
-			},
-			img: {
-        url: "zimg-501.jpg",
-        "style": {
-					"width": [[[60, 60]]],
-					"height": [[[40 , 40]]],
-					"rotate": [[[ 0, 0 ]]],
-        }	
-      },
-
+      ],
 
     }
+
   }
-	
-/*******************************************
- * @animaApi
- *
- */
-  let animas = [
 
-      img,    	 // img
-      aniWin,    // aniWin
+  let animas = [
+    aniCube,  // haloStars g.uniwen
+    img,      // h.img
   ]
 
-  var animaApi = function animaApi() {
-
+  let animaApi = function animaApi() {
     __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
-
   }
 
   return animaApi
