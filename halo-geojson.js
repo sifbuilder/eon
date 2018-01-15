@@ -72,7 +72,7 @@
         return newAnigram
       })
 			
-      if (0 && 1)	console.log("h.geojson newAnigrams 7:", newAnigrams[7].payload.uid)
+      if (1 && 1)	console.log("h.geojson newAnigrams:", newAnigrams.length, newAnigrams)
       return newAnigrams
 
     }

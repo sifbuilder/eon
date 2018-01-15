@@ -17,25 +17,26 @@
 			cversor = __mapper("xs").c("versor"),
 			mstace =	__mapper("xs").m("stace"),
       manitem = __mapper("xs").m("anitem"),
+      mric = __mapper("xs").m("ric"),
 			svg = __mapper("renderSvg").svg()
-		
+
     let r = __mapper("xs").r("renderer"),
       width = r.width(),
       height = r.height()
 
 
 
-    // -------------------------------  haloPacerHalo_ween
-    let haloPacerHalo_ween = function haloPacerHalo_gramm(anima, newItems = []) {
+    // -------------------------------  haloLinerHalo_ween
+    let haloLinerHalo_ween = function haloLinerHalo_gramm(anima, newItems = []) {
 
       if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
       return newItems
 
     }
-    // -------------------------------  haloPacerHalo_gramm
-    let haloPacerHalo_gramm = function (anima, newItems = []) {
+    // -------------------------------  haloLinerHalo_gramm
+    let haloLinerHalo_gramm = function (anima, newItems = []) {
 
-      if (0 && 1) console.log("h.liner haloPacerHalo_gramm anima",anima)
+      if (0 && 1) console.log("h.liner haloLinerHalo_gramm anima",anima)
 
       let anigram = __mapper("xs").m("anitem")(anima).anigram(),	// anigram
         halo = 				anigram.halo,  															// halo
@@ -49,20 +50,19 @@
         uid = 				payload.uid,          											// uid
         parentuid = 	payload.parentuid,          								// parentuid
         geonode = 		payload.geonode, 														// geonode
-				pacer = 			payload.pacer  || {}												// pacer
+				pacer = 			payload.pacer  || {},												// pacer
+				span = 				pacer.span  || 0												// span
 
       let initSitus = (payload.pacer.initSitus === undefined) ? d => ({x: width / 2, y: height / 2, z: 0 }) : payload.pacer.initSitus
       let eventSitus = (payload.pacer.eventSitus === undefined) ? d => ({x: mouse.event.x, y: mouse.event.y, z: 0 }) : payload.pacer.eventSitus
       let autoSitus = (payload.pacer.autoSitus === undefined) ?  d => ({x: Math.random() * width / 2, y: Math.random() * height / 2, z: 0 }) : payload.pacer.autoSitus
 					autoSitus = d => mstace.getLocus(d)
-					
-			let fider = (payload.pacer.fider !== undefined) ? payload.pacer.fider :
-						anitem => "item" + __mapper("xs").m("store").anigrams()
-              .filter(d => d.payload.ric.gid === anitem.payload.ric.gid &&  d.payload.ric.cid === anitem.payload.ric.cid)
-              .length
-							
+
+			let fider = (payload.pacer.fider !== undefined) ? payload.pacer.fider :	// set idenitifier
+						anitem => anitem.payload.ric.fid
+
 			let geometrier = (payload.pacer.geometrier !== undefined) ? payload.pacer.geometrier :
-						point => ({type: "Point", coordinates: Object.values(point),})
+						point => ({type: "Point", coordinates: Object.values(point),})		//
 
 
       let count = {}          						// items to be generated on cycle
@@ -83,7 +83,7 @@
 
         if (mouse.event !== undefined && mouse.mouseDown === 1  && mouse.event.type === "mousedown" ) {  // on down event ...
           count.event = Math.floor(pacer.eventN)                //  take count
-					if (0 && 1) console.log("pacer count", count.event)				
+					if (0 && 1) console.log("pacer count", count.event)
 
         }
 
@@ -128,61 +128,98 @@
               situs = eventSitus(anigram)
             }
 
-						
-						
-						
-            let _ric = ric
-							_ric.gid = "nat"
-							_ric.cid = "nat"
-							_ric.fid = fider(anigram)
 
-            let _feature = {}
-							_feature = {type: "Feature", geometry: {}, properties: {}}
-							_feature.geometry = geometrier(situs)
-							_feature.properties.boform = boform
-							
-						let node = {type: "Feature", geometry: {}, properties: {}}
-								node = Object.assign(node, geonode)
-								node.geometry = geometrier(situs)
-								node.properties.orgin = node.properties.orgin || node.geometry.coordinates 
-								node.properties.velin = node.properties.velin || [0,0,0]
-								node.properties.velang = node.properties.velang || [0,0,0]
-								node.properties.stape = node.properties.stape || [0,0,0]
-							
-            let newItem = __mapper("xs").b("clone")(anigram)  // 
+						let _ric = ric
+												_ric.fid = fider(anigram)
+
+
+
+
+
+						let uid = mric.buildUIDFromRic(_ric)
+						let newItem = __mapper("xs").m("store").findAnigramFromUid(uid) 	// anigram exists ?
+						if (newItem === undefined)  {
+
+								newItem = {}
 								newItem.halo = "geojson"
-								newItem.payload.ric = _ric
-								newItem.geoform = _feature	// set geoform feature
-								newItem.payload._feature = _feature	// keep history
-								newItem.payload.node = node
-						
-            newItems = [...newItems,
-								...__mapper("xs").h("geojson").gramm(newItem) ]
-						
+								newItem.geoform = {type: "Feature", geometry: {}, properties: {}}
+								newItem.geoform.id = uid
+								newItem.geoform.geometry = geometrier()
 
-						
-						
-						
+								newItem.payload = {}
+
+						} else {
+
+								newItem.geoform = newItem.payload.feature
+
+						}
+
+						newItem.payload.ric = _ric
+						newItem.payload.tim = anigram.payload.tim
+						newItem.payload.boform = anigram.payload.boform
+
+						let coord = Object.values(situs)			// {x:280,y:229,z:0} => [x,y,0]
+						let coords =  newItem.geoform.geometry.coordinates
+
+						if (newItem.geoform.geometry.type === "LineString") {
+
+								if (coords.length > 0) {
+
+										let loc = coords[coords.length -1]
+											let dx = coord[0] - loc[0]
+											let dy = coord[1] - loc[1]
+											let dz = coord[2] - loc[2]
+											let d = dx * dx + dy * dy + dz * dz
+											if (d > span) coords.push(coord)    // add segment if above pixspan distance
+
+								} else {
+
+										coords = Array.of(coord)
+
+								}
+
+						} else if (newItem.geoform.geometry.type === "Point") {
+
+								if (coords !== null) {
+
+										let loc = coords
+											let dx = coord[0] - loc[0]
+											let dy = coord[1] - loc[1]
+											let dz = coord[2] - loc[2]
+											let d = dx * dx + dy * dy + dz * dz
+											
+											if (d >= span) coords = coord
+
+								} else {
+
+										coords = coord
+
+								}
+						}
+
+						newItem.geoform.geometry.coordinates = coords
+
+
+						let newItems = __mapper("xs").h("geojson").gramm(newItem)
+						__mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.liner","anigrams":newItems})
+
+
           }
-
         }
-
       }
-
-      __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.pacer","anigrams":newItems})
 
       return newItems
 
     }
 
-    let haloPacerHalo = {}
-    haloPacerHalo.ween = anima => haloPacerHalo_ween(anima)
-    haloPacerHalo.gramm = anima => haloPacerHalo_gramm(anima)
+    let haloLinerHalo = {}
+    haloLinerHalo.ween = anima => haloLinerHalo_ween(anima)
+    haloLinerHalo.gramm = anima => haloLinerHalo_gramm(anima)
 
     /**********************
    *    @enty
    */
-    let enty = haloPacerHalo
+    let enty = haloLinerHalo
 
     return enty
 

@@ -36,7 +36,6 @@
         && g !== 1
       ) {
 
-
         let ws = snap(v[0][0],t,1)
         return ws
       }

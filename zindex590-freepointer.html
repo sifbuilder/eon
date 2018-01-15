@@ -21,10 +21,10 @@ let muonAlima = function (__mapper) {
   __mapper({"xs": xs.xs(__mapper)})               // PROXIES
   __mapper("xs").b("init")({svg:1,versor:0,wen:0,webgl:1, key:1,})  // INIT
 
-  let f = __mapper({"props": muonProps.muonProps()}).props()
-  let mgeom = __mapper("xs").m("geom")
-  let mwen = __mapper("xs").m("wen")
-  let mmouse = __mapper("xs").m("mouse")
+  let f = __mapper({"props": muonProps.muonProps()}).props(),
+		mgeom = __mapper("xs").m("geom"),
+		mwen = __mapper("xs").m("wen"),
+		mmouse = __mapper("xs").m("mouse")
 
   let r = __mapper("xs").r("renderer"),
     width = r.width(),
@@ -96,19 +96,24 @@ let muonAlima = function (__mapper) {
 			},
 
 			pacer: {
-        "initN": 0,
-        "eventN": 1,
-        "autoN": 0,
-        "autoP": 0.1,
-        "outed": 0,
-        "maxN": 60,
-        "span": 15 / 1400,
+        initN: 0,
+        eventN: 1,
+        autoN: 0,
+        autoP: 0.1,
+        outed: 0,
+        maxN: 60,
+        span: 0,
 				
 				initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
 				eventSitus: d => ({x: mmouse.event().x, y: mmouse.event().y, z: 0 }),
 				autoSitus: d => mstace.getLocus(d),
 				
-				geometrier: point => ({type: "Point", coordinates: Object.values(point),}),
+				fider: anitem => "item" + __mapper("xs").m("store").anigrams()
+              .filter(d => d.payload.ric.gid === anitem.payload.ric.gid 
+												&&  d.payload.ric.cid === anitem.payload.ric.cid)
+              .length,
+				
+				geometrier: anitem => ({type: "Point", coordinates: null,}),
 				
       }
 			

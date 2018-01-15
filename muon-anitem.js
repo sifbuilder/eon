@@ -162,6 +162,18 @@
     enty.y = a => a.y
     enty.z = a => a.z
 
+		enty.iscoord = _ => _.x !== undefined || _.y !== undefined || _.z !== undefined
+		enty.isnat = _ => _.m1 !== undefined && _.n1 !== undefined && _.a !== undefined
+		enty.basicclone = anigram => {
+				let clone = {}
+					clone.payload = {}
+					clone.payload.tim = anigram.payload.tim
+					clone.payload.ric = {}
+					clone.payload.ric.gid = anigram.payload.ric.gid
+					clone.payload.ric.cid = anigram.payload.ric.cid
+					clone.payload.ric.fid = anigram.payload.ric.fid
+				return clone
+		}
 
     return enty
 
