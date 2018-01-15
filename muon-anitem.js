@@ -86,23 +86,17 @@
   */
     let coreGeoform = () => p => ({     // geoform
       type:  "Feature",
-      geometry: {"type": "Point","coordinates": [0, 0, 0]},
+      geometry: { type: "Point", coordinates: null},
       properties: {sort: "feature", }})
-
+			
 
     /***********
   *   @coreGeonode
   */
     let coreGeonode = () => ({
-			type: "Point",
-			geometry: [0,0,0],
-			properties: {
-				orgin: [0,0,0],
-				velin: [0,0,0],
-				velang: [0,0,0],
-				prevous: [0,0,0],
-				geodelta: [0,0,0],
-			}
+			type: "Feature",
+			geometry: { type: "Point", coordinates: null },
+			properties: {orgin: null, velin: null, velang: null, prevous: null, geodelta: null,}
 		})		
 		
     /***********

@@ -128,6 +128,9 @@
               situs = eventSitus(anigram)
             }
 
+						
+						
+						
             let _ric = ric
 							_ric.gid = "nat"
 							_ric.cid = "nat"
@@ -157,6 +160,9 @@
 								...__mapper("xs").h("geojson").gramm(newItem) ]
 						
 
+						
+						
+						
           }
 
         }

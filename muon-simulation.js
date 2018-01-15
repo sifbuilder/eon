@@ -29,14 +29,17 @@
 		let mstore = __mapper("xs").m("store")
 
 		let _geonode = {
-			type: "Point",
-			geometry: [0,0,0],
-			properties: {
-				orgin: [0,0,0],
-				velin: [0,0,0],
-				prevous: [0,0,0],
-				geodelta: [0,0,0],
-			}
+				type: "Feature",
+				geometry: {
+					type: "Point",
+					coordinates: [0,0,0],
+				},
+				properties: {
+					orgin: [0,0,0],
+					velin: [0,0,0],
+					prevous: [0,0,0],
+					geodelta: [0,0,0],
+				}
 		}
 
     let sim = d3_force.forceSimulation()    //
