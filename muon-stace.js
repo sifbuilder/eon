@@ -142,22 +142,11 @@
 									let entries = Object.entries(stace)
 									let dims = __mapper("xs").m("anitem").dims()  // x, y, z
 
-									// let parentCoords = __mapper("xs").m("anitem").parentCoords(anigram)
-										let parentCoords = []
-										let parentGeometry
-										let parentuid = anigram.payload.parentuid
-										let parent = __mapper("xs").m("store").findAnigramFromUid(parentuid)
-										if (parent !== undefined) {
-											let geoj = parent.payload.feature
-											parentCoords = __mapper("xs").m("geoj").getCoords(geoj)
-										}
+									let parentCoords = __mapper("xs").m("anitem").parentCoords(anigram) // parentCoords
 									
-									
-									
-									let parentLocationsDimd = mlacer.unslide(parentCoords)
+									let parentLocationsDimd = mlacer.unslide(parentCoords)		// unslide
 
 									let parentLocations = []
-
 									for (let i=0; i<entries.length; i++) {
 										let entry = entries[i]
 										let key = entry[0]
@@ -172,10 +161,7 @@
 
 									let slidedParentLocs = mlacer.slide(parentLocations, "max")
 
-
 									if (slidedParentLocs.length > 0) locations.push(slidedParentLocs[0])
-
-
 
 								}
 
@@ -191,7 +177,6 @@
 													locations.push(location)
 											}
 										}
-
 
 
 								}
