@@ -48,9 +48,9 @@
 
       if (parentAnigram) {
 
-        if ( parentAnigram.feature && parentAnigram.feature.geometry && parentAnigram.feature.geometry.coordinates) {
+        if ( parentAnigram.payload.geofold && parentAnigram.payload.geofold.geometry && parentAnigram.payload.geofold.geometry.coordinates) {
 
-          let parentCoordinates = parentAnigram.feature.geometry.coordinates
+          let parentCoordinates = parentAnigram.payload.geofold.geometry.coordinates
 
           let parentCoordsDims = f.unslide(parentCoordinates)
 

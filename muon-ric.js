@@ -123,7 +123,7 @@
 							let features = json.features
 							for (let i=0; i<features.length; i++) {
 
-									let feature = features [i]
+									let feature = features[i]
 
 									let properties = feature.properties || {}
 

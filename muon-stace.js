@@ -201,7 +201,7 @@
 
       stace = stace || anigram.payload.boform
 
-      let geometry = anigram.payload.feature.geometry
+      let geometry = anigram.payload.geofold.geometry
       let coords = __mapper("xs").m("geoj").getCoords(geometry)
 
       let refs = f.unslide(coords)      // unidim coords

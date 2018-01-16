@@ -46,7 +46,7 @@
       let parentAnigram = mstore.findAnigramFromUid(parentuid)
 
       if (parentAnigram) {
-        polygon = parentAnigram.payload.feature.geometry.coordinates[0] 					// outer ring
+        polygon = parentAnigram.payload.geofold.geometry.coordinates[0] 					// outer ring
       } else {
         polygon = mgeom.extentPolygon([[0,0],[width,height]]) // viewport
       }

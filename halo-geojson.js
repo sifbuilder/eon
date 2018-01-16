@@ -70,7 +70,7 @@
 				
         newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
 				
-        newAnigram.payload.feature = d
+        newAnigram.payload.geofold = d
         newAnigram.payload.ric = d.properties.ric		// hoist properties
         newAnigram.payload.uid = d.properties.uid
 				if (1 && 1) console.log("h.geojson.gramm newAnigram", newAnigram)

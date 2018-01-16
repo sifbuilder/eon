@@ -151,7 +151,7 @@
 
 						} else {
 
-								newItem.geoform = newItem.payload.feature
+								newItem.geoform = newItem.payload.geofold
 
 						}
 

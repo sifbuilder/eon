@@ -74,7 +74,7 @@
       let parent = __mapper("xs").m("store").findAnigramFromUid(parentuid)
 
       if (parent !== undefined) {
-        let geoj = parent.payload.feature
+        let geoj = parent.payload.geofold
         coords = __mapper("xs").m("geoj").getCoords(geoj)
       }
 
