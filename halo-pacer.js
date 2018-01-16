@@ -164,7 +164,7 @@
 
 						if (newItem.geoform.geometry.type === "LineString") {
 
-								if (coords.length > 0) {
+								if (coords && coords.length > 0) {
 
 										let loc = coords[coords.length -1]
 											let dx = coord[0] - loc[0]

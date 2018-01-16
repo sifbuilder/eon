@@ -9,14 +9,13 @@
 
   let muonProfier = function muonProfier(__mapper = {}) {
 
-    let f = __mapper("props")()
-
-    let mwen = __mapper("xs").m("wen")
-    let cwen = __mapper("xs").c("wen")()
-    let bversor = __mapper("xs").b("versor")()
-    let cversor = __mapper("xs").c("versor")
-		let mstace = __mapper("xs").m("stace")
-		let guniwen = __mapper("xs").g("uniwen")
+    let f = __mapper("props")(),
+			mwen = __mapper("xs").m("wen"),
+			cwen = __mapper("xs").c("wen")(),
+			bversor = __mapper("xs").b("versor")(),
+			cversor = __mapper("xs").c("versor"),
+			mstace = __mapper("xs").m("stace"),
+			guniwen = __mapper("xs").g("uniwen")
 
     /****************************
  *      @projion
@@ -137,15 +136,17 @@
     let proformer = anigram => {
 			let uid = anigram.payload.uid
 			let projdef = anigram.payload.proform
-			if (uid === "avanat_avanat_avaform") if (1 && 1) console.log("m.profier.proformer anigram", uid, projdef.translate.x)
+			if (projdef !== undefined && projdef.translate) {
 				
-			// let translate = mstace.getLocus(projdef.translate, anigram)			
-			let translate = mstace.getLocations(projdef.translate, anigram)			
-			
-			if (uid === "avanat_avanat_avaform") if (1 && 1) console.log("..... m.profier.proformer translate", translate)
-				projdef.translate = translate
+					if (uid === "avanat_avanat_avaform") if (1 && 1) console.log("m.profier.proformer anigram", uid, projdef.translate.x)
+				
+					let translate = mstace.getLocations(projdef.translate, anigram)			
+					
+					if (uid === "avanat_avanat_avaform") if (1 && 1) console.log("..... m.profier.proformer translate", translate)
+						projdef.translate = translate
+					
+			}
 			let projer = projion(projdef, anigram)
-
 			return json => __mapper("xs").b("proj3ct")(json, projer)
 			
 		}				
