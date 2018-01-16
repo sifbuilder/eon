@@ -144,18 +144,16 @@ if (0 && 1) console.log("render features", features)
           let fitems = citems[j].values   // fitems
           let now = fitems.slice(-1)[0]
 
-          let items = []
-
           /*  ................. GEOJSON FEATURE ................. */
-          items = fitems
+          let features = fitems
             .filter(d => d.properties.sort === "feature" || d.properties.sort === undefined)  // default
 						
-          if (items.length > 0) {
+          if (features.length > 0) {
 
             let denser = point => new THREE.Vector3(...point)
 
-            for (let k in items) {      // DOTS (seg5===0) each group gid
-              let item = items[k]       // feature
+            for (let k in features) {      // DOTS (seg5===0) each group gid
+              let item = features[k]       // feature
 
               let feature = item // .feature
               let style = item.properties.style
