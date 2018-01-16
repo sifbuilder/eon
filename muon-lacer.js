@@ -19,7 +19,7 @@
     let radians = Math.PI / 180,
       degrees = 180 / Math.PI
 
-    
+
 
     /***********
    *    @interlace
@@ -59,11 +59,11 @@
         let rr = []
         let ss = []
 
-        for (let k=0;k<streams.length;k++) {      // each stream
-          let vk = ses[k](j)                // postion on stram
-          let sk = res[k](vk)               // time stream
+        for (let k=0;k<streams.length;k++) { 	// each stream
+          let vk = ses[k](j)                	// postion on stram
+          let sk = res[k](vk)               	// time stream
 
-          rr.push(vk)   //[0, 0, 0], [0.5, 0.25, 1], [1, 0.5, 2]  positions per stream
+          rr.push(vk)   // [0, 0, 0], [0.5, 0.25, 1], [1, 0.5, 2]  positions per stream
           ss.push(sk)   // [2, 33, 5], [2.5, 33.25, 6], [3, 33.5, 7]  values  j
         }
 
@@ -94,7 +94,7 @@
       let nbr = streams.length
 
       let inpattern = streams.reduce( (p,q) => p &&  f.isNumericArray(q), true)
-      if (0 && 1) if ( !inpattern ) console.log (" streams not in pattern", streams) 
+      if (0 && 1) if ( !inpattern ) console.log (" streams not in pattern", streams)
 
       let lengths = streams.map(d => d.length),
         mx = Math.max(...lengths),
@@ -119,14 +119,14 @@
       }
       return  streamXYZ
     }
-		
+
     /* **************************
    *        @unslide
    */
     let unslide = function (stream = [])  {
 
       let lengths = stream.map(d => d.length)		// lengths of array elems
-      let mx = Math.max(...lengths)							// 3 if array of 3d coords 
+      let mx = Math.max(...lengths)							// 3 if array of 3d coords
       let unslide = d3.range(mx).map(mx => [])
 
       for (let i=0; i<stream.length; i++) {
@@ -136,8 +136,8 @@
       }
       return unslide
 
-    }		
-		
+    }
+
     /* **************************
    *        @interadd
    */
@@ -191,7 +191,7 @@
 
       return ww
 
-    }	
+    }
     /**********************
    *    @enty
    */

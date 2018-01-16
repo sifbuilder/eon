@@ -392,22 +392,6 @@
    /***************************
    *        @positions
    */
-	 // 			@dimval get val of d in dim dim
-    props.dimval = (dim, d) => {                               // val in dim
-      let ret
-      if (typeof d === "number")          ret = d            // dim val is number
-        else if (Array.isArray(d))  {                        // dim val is array
-            if ( typeof d[dim] === "number" ) ret = d[dim]
-            else if (Array.isArray(d[dim])) ret = d[dim][dim]
-            else if (typeof d[dim] === "object") ret = Object.values(d[dim])[dim]
-        }
-        else if (typeof d === "object") {
-            ret = Object.values(d)[dim]                     // dim val is object
-
-        }
-      return ret
-    }	 
-	 
 		props.isPosition = obj => Object.getOwnPropertyNames(obj).reduce( (p, q) => 
 				p && 
 				(q === "x" || q === "y"  || q === "z") &&

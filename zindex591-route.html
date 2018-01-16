@@ -88,7 +88,7 @@ let muonAlima = function (__mapper) {
 				"scale": 1,
 				"rotate": [0,0,0],
 				"focale": Infinity,
-				"zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+				"zafin": [0,1],
 				"dims": 3,
 				"control": "wen",
 			},
@@ -126,6 +126,8 @@ let muonAlima = function (__mapper) {
               anigram.payload.form.x.w4 += rotate - 180  * rotations
               anigram.payload.form.y.w4 += rotate - 180  * rotations
 
+		if (1 && 1) console.log("prehalo anigram", anigram)
+		
 
       return anigram
 
@@ -221,15 +223,9 @@ let muonAlima = function (__mapper) {
             "fas8": 0,    // fas8, antifase
           },
 
-
-
         },
 
-
-
-
     }
-
 
   }
 

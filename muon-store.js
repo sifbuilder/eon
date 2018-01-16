@@ -154,8 +154,6 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
               avatar.payload.tim = anigram.payload.tim                  // time from anima
               avatar.payload.parentuid = newItem.payload.uid            // parentuid from newItem
 							
-	if (1 && 1) console.log(" ----- m.store.gramm avatar", avatar.payload.proform.translate.x)
-
               newSubItems = enty.gramm(avatar)                          // AVATAR GRAMM halogram
               newItems = newItems.concat(f.a(newSubItems))
 

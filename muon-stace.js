@@ -109,14 +109,31 @@
 
 
  /* ***************************************
- *        @dimval
+ *        @getLocations
  *         get val of d in dim dim
+ *					called by m.profier.proform to get translate
  */
+									// 			@dimval get val of d in dim dim
+									let dimval = (dim, d) => {                               // val in dim
+										let ret
+										if (typeof d === "number")          ret = d            // dim val is number
+											else if (Array.isArray(d))  {                        // dim val is array
+													if ( typeof d[dim] === "number" ) ret = d[dim]
+													else if (Array.isArray(d[dim])) ret = d[dim][dim]
+													else if (typeof d[dim] === "object") ret = Object.values(d[dim])[dim]
+											}
+											else if (typeof d === "object") {
+													ret = Object.values(d)[dim]                     // dim val is object
+
+											}
+										return ret
+									}
+
 
  let getLocations = function (stace, anigram, locations=[]) {
 
-					if (1 && 1) console.log("m.stace.getLocations stace", stace)
-						
+					if (0 && 1) console.log("m.stace.getLocations stace", stace)
+
 					if (anigram !== undefined) {
 
 								stace = stace || anigram.payload.boform
@@ -124,12 +141,34 @@
 
 								if (stace !== undefined && Array.isArray(stace)) {  // stace :: [x,y,z]
 
-									let val = stace                  // single location from stace array
 									let location = []
+									let val = stace                  // single location from stace array
 
-									location[0] = f.dimval(0 ,val)
-									location[1] = f.dimval(1, val)
-									location[2] = f.dimval(2, val)
+									// [x,y,z], {x,y,z}, [ [x1,y1,z1], [x2,y3,z3] ]
+								if (f.isArray(val)                   //13 _____ [[a1,a2,a3],[b1,b2]]*
+											&& f.isQuasiPureArray(val)) {		// sum positions
+
+												let poses = val.length										// positions eg.2
+												let mx = Math.max(...val.map(d => d.length))	// num of dims eg. 3
+
+												for (let i=0; i<mx; i++) {				// for each dimension
+														let loc = 0
+														for (let j=0; j<poses; j++) {
+															loc = loc + (val[j][i] || 0)
+														}
+														location[i] = loc
+												}
+
+									} else {
+
+										location[0] = f.isObject(val) ? (val.x || 0) : (val[0] || 0)
+										location[1] = f.isObject(val) ? (val.y || 0) : (val[1] || 0)
+										location[2] = f.isObject(val) ? (val.z || 0) : (val[2] || 0)
+										
+									}
+
+
+
 
 									locations.push(location)
 
@@ -143,7 +182,7 @@
 									let dims = __mapper("xs").m("anitem").dims()  // x, y, z
 
 									let parentCoords = __mapper("xs").m("anitem").parentCoords(anigram) // parentCoords
-									
+
 									let parentLocationsDimd = mlacer.unslide(parentCoords)		// unslide
 
 									let parentLocations = []
@@ -308,7 +347,7 @@
     enty.getLocus = getLocus   //  location
     enty.getLocifion = getLocifion   //  projection
     enty.getLocifier = getLocifier   //  projector
-		
+
     enty.getLocations = getLocations   //  getLocations
 
     enty.getReffion = getReffion      //  projection

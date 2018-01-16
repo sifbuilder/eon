@@ -89,7 +89,7 @@ let muonAlima = function muonAlima(__mapper) {
       // "m1":[[[2,6]]],"m2":[[[2,6]]],"n1":[[[0.3,2]]],"n2":[[[-3,2]]],"n3":[[[8,0]]],"a":[[[8,2]]],"b":[[[8,1]]],    // tri
       // "m1":[[[2,6,6]]],"m2":[[[2,6,6]]],"n1":[[[0.3,2,2]]],"n2":[[[-3,2,2]]],"n3":[[[8,0,0]]],"a":[[[8,2,3]]],"b":[[[8,1,1]]],    // tri
        "m1":4,"m2":4,"n1":2,"n2":2.2,"n3":2.2,"a":4,"b":9, // round square
-       
+
        "m1":3,"m2":3,"n1":1,"n2":1.2,"n3":1.2,"a":1,"b":1, // reaulaux
 
       "ra2": 100,
@@ -102,19 +102,18 @@ let muonAlima = function muonAlima(__mapper) {
     },
 
   }
-  
-  let stace =
-        {
-          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
-          "ra2": 30,
-          "v0": 0,"v1": 1,
-          "w4": 0,
-          "seg5": 360,
-          "pa6": 0,
-          "pb7": -1,
-          "fas8": 0,
-        }
-        
+
+  let stace = {
+		"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
+		"ra2": 30,
+		"v0": 0,"v1": 1,
+		"w4": 0,
+		"seg5": 360,
+		"pa6": 0,
+		"pb7": -1,
+		"fas8": 0,
+	}
+
   let proform = {
     "projections": ["uniwen","unidentity","identity","universor","unimercator"],
     "projectidx": 0,
@@ -126,7 +125,7 @@ let muonAlima = function muonAlima(__mapper) {
     "dims": 2,
     "control": "wen",
   }
-  
+
   let boform = { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.29,0.29]]],"cs":[[[555,666]]],"cw":[[[0.9,0.9]]],"cp":[[[0.7,0.9]]],}
   let boformFuel = { "csx":0,"cf":[[[777,777]]],"co":[[[0.9,0.9]]],"cs":[[[777,777]]],"cw":[[[0.1,0.1]]],"cp":[[[0.99,0.99]]],}
 
@@ -137,20 +136,20 @@ let muonAlima = function muonAlima(__mapper) {
   let nat = {
 
     "halo": "nat",
-    "payload": { 
+    "payload": {
 			"ric": {"gid":"nat","cid":"nat","fid":"nat",},
 			tim,
 			boform,
 			proform,
-			form:form 
+			form:form
 		},
 
   }
-  
+
   let fuelnat = {
 
     "halo": "fuel",
-    "payload": { 
+    "payload": {
 			"ric": {"gid":"fuel","cid":"fuel",},
 			tim,
 			// "stace": [0,0,0],
@@ -167,7 +166,7 @@ let muonAlima = function muonAlima(__mapper) {
     },
 
   }
-  
+
   let img = {
 
     halo: "img",
@@ -202,7 +201,7 @@ let muonAlima = function muonAlima(__mapper) {
 					"width": [[[60, 60]]],
 					"height": [[[40 , 40]]],
 					"rotate": [[[ 0, 0 ]]],
-        }	
+        }
       },
 
 
@@ -213,12 +212,12 @@ let muonAlima = function muonAlima(__mapper) {
  * @animaApi
  *
  */
- 
+
   nat.payload.avatars = {
-      fuelnat,  	// h.fuel
+    fuelnat,  	// h.fuel
   }
 
- 
+
   let animas = [
     nat,      	// h.nat
     img,      	// h.img

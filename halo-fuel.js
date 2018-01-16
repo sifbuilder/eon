@@ -75,10 +75,9 @@
           "translate": remainCandies[i],
         }
 
-        let newAnigram = anigram									// get a new anigram
-        let payload = newAnigram.payload
-        payload.ric = _ric														// identify
-        payload.proform = proform
+        let newAnigram = anigram									// new anigram per fuel nat
+					newAnigram.payload.ric = _ric							// identify each fuel nat
+					newAnigram.payload.proform = proform			// proform of each fuel nat
 
         let avaAnigrams = hnat.gramm(newAnigram)
         newAnigrams = [...newAnigrams, ...avaAnigrams]
@@ -104,4 +103,5 @@
 
   exports.haloFuel = haloFuel
 
-}))
+}));
+}));
