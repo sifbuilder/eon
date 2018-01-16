@@ -70,10 +70,11 @@
   */
     let parentCoords = function( anitem, coords = [] ) {
       let parentGeometry
-      let parent = anitem.payload.parent || __mapper("xs").m("store").findAnigramFromUid(ani.payload.parentuid)
+			let parentuid = anitem.payload.parentuid
+      let parent = __mapper("xs").m("store").findAnigramFromUid(parentuid)
 
       if (parent !== undefined) {
-        let geoj = parent.feature
+        let geoj = parent.payload.feature
         coords = __mapper("xs").m("geoj").getCoords(geoj)
       }
 

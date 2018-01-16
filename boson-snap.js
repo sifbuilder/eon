@@ -41,11 +41,12 @@
       }
       else if (f.isObject(v)                        //06 ___ v :: {}
           && g !== 1) {
-
+				if (0 && 1) console.log("b.snap.snap object in", v)
         let r = {}
         for (let y of Reflect.ownKeys(v)) {
           r[y] = snap(v[y], t)          // reenter
         }
+				if (0 && 1) console.log("b.snap.snap object out", r)
         return r
       }
       else if (f.isDoubleArray(v)     //07 [[ [ [], [] ] ]]   inter arrays interpolation

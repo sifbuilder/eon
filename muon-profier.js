@@ -19,12 +19,12 @@
 		let guniwen = __mapper("xs").g("uniwen")
 
     /****************************
- *      @getProjion
+ *      @projion
  *        get projection from proform and apply projection properties
  *        if control:wen  wen rotation and if 2d: wen z rotation
  *        if control:versor   versor rotation
  */
-    let getProjion = function (prjdef, anigram) {
+    let projion = function (prjdef, anigram) {
 			
 				let p = prjdef
 				let prj = guniwen(p) // d3.geoIdentity()
@@ -107,7 +107,7 @@
  *     	 @projier
  *			 json = mprofier.projier(f.v(proform, anigram), anigram)(json)
  */			
-    let projier =  (proform, anigram) => json => (proform) ? __mapper("xs").b("proj3ct")(json, getProjion(proform, anigram)) : json
+    let projier =  (proform, anigram) => json => (proform) ? __mapper("xs").b("proj3ct")(json, projion(proform, anigram)) : json
 
     /****************************
  *     	 @ereformer
@@ -115,7 +115,7 @@
     let ereformer = anigram => {
 			
 			let projdef = anigram.payload.ereform
-			let projer = getProjion(projdef, anigram)
+			let projer = projion(projdef, anigram)
 
 			return json => __mapper("xs").b("proj3ct")(json, projer)
 			
@@ -126,7 +126,7 @@
     let conformer = anigram => {
 			
 			let projdef = anigram.payload.conform
-			let projer = getProjion(projdef, anigram)
+			let projer = projion(projdef, anigram)
 
 			return json => __mapper("xs").b("proj3ct")(json, projer)
 			
@@ -135,10 +135,16 @@
  *     	 @proformer
  */		
     let proformer = anigram => {
-			
+			let uid = anigram.payload.uid
 			let projdef = anigram.payload.proform
-			// projdef.translate = mstace.getLocus(projdef.translate, anigram)			
-			let projer = getProjion(projdef, anigram)
+			if (uid === "avanat_avanat_avaform") if (1 && 1) console.log("m.profier.proformer anigram", uid, projdef.translate.x)
+				
+			// let translate = mstace.getLocus(projdef.translate, anigram)			
+			let translate = mstace.getLocations(projdef.translate, anigram)			
+			
+			if (uid === "avanat_avanat_avaform") if (1 && 1) console.log("..... m.profier.proformer translate", translate)
+				projdef.translate = translate
+			let projer = projion(projdef, anigram)
 
 			return json => __mapper("xs").b("proj3ct")(json, projer)
 			
@@ -148,7 +154,7 @@
  *      @enty
  */
     let enty = function () {}
-    enty.getProjion = getProjion
+    enty.projion = projion
     enty.projier = projier
     enty.proformer = proformer
     enty.ereformer = ereformer

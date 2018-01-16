@@ -119,6 +119,7 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
     let gramm = function (anima, newItems = []) {
 
       let anigram = __mapper("xs").m("anitem").anigram(anima)
+			if (0 && 1) console.log("m.store.gramm anigram", anigram)
 
       let tim = anigram.payload.tim,
         elapsed = tim.elapsed,
@@ -147,10 +148,13 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
             let avatars = (typeof newItem.payload.avatars === "object") ? Object.values(newItem.payload.avatars) : newItem.payload.avatars
             for (let j=0; j<avatars.length; j++) {
               let newSubItems = []
+							
               let avatar = avatars[j]
               avatar.payload.uid = __mapper("xs").m("ric").buildUID(avatar) // uid for children
-              avatar.payload.tim = anigram.payload.tim                                // time from anima
-              avatar.payload.parentuid = newItem.payload.uid                        // parentuid from newItem
+              avatar.payload.tim = anigram.payload.tim                  // time from anima
+              avatar.payload.parentuid = newItem.payload.uid            // parentuid from newItem
+							
+	if (1 && 1) console.log(" ----- m.store.gramm avatar", avatar.payload.proform.translate.x)
 
               newSubItems = enty.gramm(avatar)                          // AVATAR GRAMM halogram
               newItems = newItems.concat(f.a(newSubItems))

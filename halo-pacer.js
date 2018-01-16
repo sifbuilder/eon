@@ -61,8 +61,9 @@
 			let fider = (payload.pacer.fider !== undefined) ? payload.pacer.fider :	// set idenitifier
 						anitem => anitem.payload.ric.fid
 
-			let geometrier = (payload.pacer.geometrier !== undefined) ? payload.pacer.geometrier :
-						point => ({type: "Point", coordinates: Object.values(point),})		//
+			let geometrier = point => ({type: "Point", coordinates: null,})
+					if (payload.pacer.geometry === "Point") geometrier = point => ({type: "Point", coordinates: null,})
+					if (payload.pacer.geometry === "LineString") geometrier = point => ({type: "LineString", coordinates: null,})
 
 
       let count = {}          						// items to be generated on cycle
