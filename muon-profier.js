@@ -145,7 +145,8 @@
 				
 					if (uid === "avanat_avanat_avaform") if (0 && 1) console.log("m.profier.proformer anigram", uid, projdef.translate.x)
 				
-					let translate = mstace.getLocations(projdef.translate, anigram)			
+					let translates = mstace.getLocations(projdef.translate, anigram)	
+					let translate = translates[0]				// translate is first translate
 					
 					if (uid === "avanat_avanat_avaform") if (0 && 1) console.log("..... m.profier.proformer translate", translate)
 						projdef.translate = translate

@@ -132,7 +132,7 @@
 
  let getLocations = function (stace, anigram, locations=[]) {
 
-					if (0 && 1) console.log("m.stace.getLocations stace", stace)
+					if (1 && 1) console.log("m.stace.getLocations stace", stace)
 
 					if (anigram !== undefined) {
 
@@ -164,13 +164,7 @@
 														location[i] = loc
 												}
 
-								} else if (f.isobject(val))  {
-
-									location[0] = val.x || 0
-									location[1] = val.y || 0
-									location[2] = val.z || 0
-									
-								} else {
+								}  else {
 										console.log(" location format not supported")
 								}
 
@@ -182,32 +176,46 @@
 								}
 
 								else if (stace !== undefined && typeof stace === "object") { // anigram.payload.boform.{x,y,z}
+									
+									let val = stace   
+									
+									if (val.x !== undefined || val.y !== undefined || val.z !== undefined ) {	// is a position
+
+										let location = []
+										location[0] = val.x || 0
+										location[1] = val.y || 0
+										location[2] = val.z || 0
+										
+										locations.push(location)
+										
+									} else {															// rely on parent
+								
+								
+												let location = []
+												let entries = Object.entries(stace)
+												let dims = __mapper("xs").m("anitem").dims()  // x, y, z
+
+												let parentCoords = __mapper("xs").m("anitem").parentCoords(anigram) // parentCoords
+
+												let parentLocationsDimd = mlacer.unslide(parentCoords)		// unslide
+
+												let parentLocations = []
+												for (let i=0; i<entries.length; i++) {
+													let entry = entries[i]
+													let key = entry[0]
+													let val = entry[1]
+
+													if (dims.find(d => d === key)) {
+															parentLocations[i] = getLocsInDim(val, parentLocationsDimd[i])
+													}
 
 
-									let location = []
-									let entries = Object.entries(stace)
-									let dims = __mapper("xs").m("anitem").dims()  // x, y, z
+												}
 
-									let parentCoords = __mapper("xs").m("anitem").parentCoords(anigram) // parentCoords
+												let slidedParentLocs = mlacer.slide(parentLocations, "max")
 
-									let parentLocationsDimd = mlacer.unslide(parentCoords)		// unslide
-
-									let parentLocations = []
-									for (let i=0; i<entries.length; i++) {
-										let entry = entries[i]
-										let key = entry[0]
-										let val = entry[1]
-
-										if (dims.find(d => d === key)) {
-												parentLocations[i] = getLocsInDim(val, parentLocationsDimd[i])
-										}
-
-
+												if (slidedParentLocs.length > 0) locations.push(slidedParentLocs[0])
 									}
-
-									let slidedParentLocs = mlacer.slide(parentLocations, "max")
-
-									if (slidedParentLocs.length > 0) locations.push(slidedParentLocs[0])
 
 								}
 
