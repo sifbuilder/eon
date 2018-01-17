@@ -97,7 +97,7 @@
         let cyletime = tim.unitPassed - (pacer.outed||0)
 
         if (cyletime >= pacer.autoP) {                 		// if cycle time above autopath
-					if (1 && 1) console.log("h.pacer haloLinerHalo_gramm anima",anima)
+					if (0 && 1) console.log("h.pacer haloLinerHalo_gramm anima",anima)
 
           count.auto = Math.floor(pacer.autoN)        		// count AUTO
           pacer.outed = tim.unitPassed                		// updated with anima

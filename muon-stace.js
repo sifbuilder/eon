@@ -53,7 +53,7 @@
  */
     let getLocsInDim = function (staceDim, parentCoordsDim = []) {
 
-      if (1 && 1) console.log("m.stace.getLocsInDim staceDim", staceDim)
+      if (0 && 1) console.log("m.stace.getLocsInDim staceDim", staceDim)
 
       let locations
 
@@ -121,7 +121,7 @@
 
     let getLocations = function (stace, anigram, locations=[]) {
 
-      if (1 && 1) console.log("m.stace.getLocations stace", stace)
+      if (0 && 1) console.log("m.stace.getLocations stace", stace)
 
       if (anigram !== undefined) stace = stace || anigram.payload.stace
 
@@ -172,8 +172,6 @@
 
             else if (typeof v1 === "object") {
 
-              console.log(" value", v1)		// {pos: 0}
-
               if (v1.hasOwnProperty("pos")) {
 
                 let parentCoords = manitem.parentCoords(anigram) // parentCoords
@@ -193,7 +191,7 @@
 
           }
           locations = mlacer.slide(locationsPerDim)
-          if (1 && 1) console.log("m.stace.getLocsInDim locations", locations)
+          if (0 && 1) console.log("m.stace.getLocsInDim locations", locations)
 
 
 
@@ -208,30 +206,6 @@
       }
     }
 
-
-    /* **********
-  *         @api
-  *          get the uniwen projection with translate to ref location
-  */
-
-    let getReffion = function (stace, anigram = {}) {
-
-      stace = stace || anigram.payload.boform
-
-      let geometry = anigram.payload.geofold.geometry
-      let coords = __mapper("xs").m("geoj").getCoords(geometry)
-
-      let refs = f.unslide(coords)      // unidim coords
-      let r0 = refs[0][stace.x.ref]     // stace.x.ref
-      let r1 = refs[1][stace.y.ref]     // stace.y.ref
-      let r2 = refs[2][stace.z.ref]     // stace.z.ref
-
-      let projection =  { "projection": "uniwen","translate": [ r0, r1 , r2 ] }
-
-      return  __mapper("xs").m("profier").projion(projection)
-
-    }
-
     /* **************************************
  *        @getLocus
  */
@@ -239,7 +213,7 @@
 
       stace = stace || anigram.payload.boform
 
-      if (0 && 1) console.log("********getLocus stace", stace)
+      if (0 && 1) console.log("m.stace.getLocus stace", stace)
 
       let locus = [0,0,0]            // default locus _e_
 
@@ -298,24 +272,6 @@
 
     }
 
-    /* **************************************
- *        @getReffier
- */
-    let getReffier = function (stace, anigram = {}) {
-      stace = stace || anigram.payload.boform
-      if ( stace && stace.x && stace.x.ref &&       // stace.x.ref
-                    stace.y &&  stace.y.ref) {      // stace.y.ref
-
-        let reffion = getReffion (stace, anigram)
-
-        return g =>  __mapper("xs").b("proj3ct")(g, reffion)
-
-      }  else {
-
-        return d => d               // identity
-
-      }
-    }
 
     /***********
   *         @enty
@@ -327,9 +283,6 @@
     enty.getLocifier = getLocifier   //  projector
 
     enty.getLocations = getLocations   //  getLocations
-
-    enty.getReffion = getReffion      //  projection
-    enty.getReffier = getReffier      //  projector
 
     return enty
 

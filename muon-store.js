@@ -119,7 +119,7 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
     let gramm = function (anima, newItems = []) {
 
       let anigram = __mapper("xs").m("anitem").anigram(anima)
-			if (1 && 1) console.log("m.store.gramm anigram", anigram)
+			if (0 && 1) console.log("m.store.gramm anigram", anigram)
 
       let tim = anigram.payload.tim,
         elapsed = tim.elapsed,
