@@ -9,60 +9,65 @@
 
   let muonStace = function (__mapper = {}) {
 
-    let f = __mapper("props")()
-		let mstore = __mapper("xs").m("store")
-		let mlacer = __mapper("xs").m("lacer")
+    let f = __mapper("props")(),
+      mstore = __mapper("xs").m("store"),
+      mlacer = __mapper("xs").m("lacer"),
+      manitem = __mapper("xs").m("anitem")
 
 
-  /* ******************************************
+    /* ******************************************
     getLocifier (anigram)
     getLocifion (anigram)                     -- translate projection
-			getLocus (anigram)                     	-- locus or first location
-				getSiti (anigram)                     -- root x,y,z
-				getLocations (anigram)                -- stace root, pos ref
-					getLocsInDim (dimStace, dimStream)  -- location of dimStream by dimStace
-					getLocsFromParent (anigram)
+      getLocus (anigram)                      -- locus or first location
+        getSiti (anigram)                     -- root x,y,z
+        getLocations (anigram)                -- stace root, pos ref
+          getLocsInDim (dimStace, dimStream)  -- location of dimStream by dimStace
+          getLocsFromParent (anigram)
   */
     // ........................ getSiti         situs: Arary.of(ani.x, .y, .z)
     let getSiti = function (anima, siti=[]) {
 
       let situs = {}
 
-			if (typeof anima === "object") {
+      if (typeof anima === "object") {
 
-				if ( typeof anima.x === "number" ) situs.x = anima.x
-				if ( typeof anima.y === "number" ) situs.y = anima.y
-				if ( typeof anima.z === "number" ) situs.z = anima.z
+        if ( typeof anima.x === "number" ) situs.x = anima.x
+        if ( typeof anima.y === "number" ) situs.y = anima.y
+        if ( typeof anima.z === "number" ) situs.z = anima.z
 
-			}
+      }
 
       if (Object.keys(situs).length === 0) situs = undefined
       else {
-          situs = Object.values(situs)
-          siti.push(situs)
+        situs = Object.values(situs)
+        siti.push(situs)
       }
 
       return siti
 
     }
 
- /* **********
+    /* **********
  *             @getLocsInDim
  *             array of locations in stace dim
  */
     let getLocsInDim = function (staceDim, parentCoordsDim = []) {
 
+      if (1 && 1) console.log("m.stace.getLocsInDim staceDim", staceDim)
 
-      let locations = []
+      let locations
+
       if (typeof staceDim === "number") {
 
-          locations.push(staceDim)
+        locations = []
+        locations.push(staceDim)
 
       } else if (typeof staceDim === "object" && staceDim.pos !== undefined)  {// staceDim pos
 
         if (parentCoordsDim.length > 0) {
 
-          if (typeof staceDim.pos === "number") {           // one position
+          locations = []
+          if (typeof staceDim.pos === "number") {           // number
 
             let pos = f.posInStream(staceDim.pos, parentCoordsDim)
 
@@ -108,124 +113,100 @@
     }
 
 
- /* ***************************************
+    /* ***************************************
  *        @getLocations
  *         get val of d in dim dim
- *					called by m.profier.proform to get translate
+ *          called by m.profier.proform to get translate
  */
 
- let getLocations = function (stace, anigram, locations=[]) {
+    let getLocations = function (stace, anigram, locations=[]) {
 
-					if (1 && 1) console.log("m.stace.getLocations stace", stace)
+      if (1 && 1) console.log("m.stace.getLocations stace", stace)
 
-					if (anigram !== undefined) stace = stace || anigram.payload.stace
-								
+      if (anigram !== undefined) stace = stace || anigram.payload.stace
 
+      if (stace !== undefined) {
 
-								if (stace !== undefined && Array.isArray(stace)) {  // stace :: [x,y,z]
+        if (Array.isArray(stace)) {         // stace :: [x,y,z]
 
-									let location = []
-									let val = stace                  // single location from stace array
+          let location = []
+          let val = stace                       // single location from stace array
 
-									// [x,y,z], {x,y,z}, [ [x1,y1,z1], [x2,y3,z3] ]
-									
-								if (f.isArray(val) && f.isPureArray(val))	{
-										location[0] = val[0] || 0
-										location[1] = val[1] || 0
-										location[2] = val[2] || 0
-										
-								} if (f.isArray(val) && f.isQuasiPureArray(val)) {	 //sum _____ [[a1,a2,a3],[b1,b2]]*
+          if (f.isArray(val) && f.isPureArray(val)) {   // [x,y,z]
 
-												let poses = val.length										// positions eg.2
-												let mx = Math.max(...val.map(d => d.length))	// num of dims eg. 3
+            location = val.map( (d,i) => val[i] )	// one location
+            locations.push(location)
 
-												for (let i=0; i<mx; i++) {				// for each dimension
-														let loc = 0
-														for (let j=0; j<poses; j++) {
-															loc = loc + (val[j][i] || 0)
-														}
-														location[i] = loc
-												}
+          } if (f.isArray(val) && f.isQuasiPureArray(val)) {   //sum by dim [[a1,a2,a3],[b1,b2]]*
 
-								}  else {
-										console.log(" location format not supported")
-								}
+            let poses = val.length                    // additive positions eg.2
+            let mx = Math.max(...val.map(d => d.length))  // num of dims eg. 3
 
+            for (let i=0; i<mx; i++) {                // for each dimension
+              let loc = 0
+              for (let j=0; j<poses; j++) {
+                loc = loc + val[j][i]
+              }
+              location[i] = loc
+            }
+            locations.push(location)
+
+          }  else {
+            console.log(" location format not supported")
+          }
 
 
+        } else if (typeof stace === "object") {         // {}
 
-									locations.push(location)
+          let entries = Object.entries(stace)
 
-								}
+          let locationsPerDim = []
 
-								else if (stace !== undefined && typeof stace === "object") { // anigram.payload.boform.{x,y,z}
-									
-									let val = stace   
-									
-									if (val.x !== undefined || val.y !== undefined || val.z !== undefined ) {	// is a position
+          for (let i=0; i<entries.length; i++) {
 
-										let location = []
-										location[0] = val.x || 0
-										location[1] = val.y || 0
-										location[2] = val.z || 0
-										
-										locations.push(location)
-										
-									} else {															// rely on parent
-								
-								
-												let location = []
-												let entries = Object.entries(stace)
-												let dims = __mapper("xs").m("anitem").dims()  // x, y, z
+            let entry = entries[i]
+            let k1 = entry[0]
+            let v1 = entry[1]
 
-												let parentCoords = __mapper("xs").m("anitem").parentCoords(anigram) // parentCoords
+            if (typeof v1 === "number") location[i] = v1
 
-												let parentLocationsDimd = mlacer.unslide(parentCoords)		// unslide
+            else if (typeof v1 === "object") {
 
-												let parentLocations = []
-												for (let i=0; i<entries.length; i++) {
-													let entry = entries[i]
-													let key = entry[0]
-													let val = entry[1]
+              console.log(" value", v1)		// {pos: 0}
 
-													if (dims.find(d => d === key)) {
-															parentLocations[i] = getLocsInDim(val, parentLocationsDimd[i])
-													}
+              if (v1.hasOwnProperty("pos")) {
+
+                let parentCoords = manitem.parentCoords(anigram) // parentCoords
+                let parentLocationsDimd = mlacer.unslide(parentCoords)    // unslide
+                let parentLocationsDim = parentLocationsDimd[i]
 
 
-												}
-
-												let slidedParentLocs = mlacer.slide(parentLocations, "max")
-
-												if (slidedParentLocs.length > 0) locations.push(slidedParentLocs[0])
-									}
-
-								}
-
-								if (locations.length === 0) {           // if still nothing, try to inherit from parent
-
-										let parentuid = anigram.payload.parentuid
-
-										if (parentuid !== undefined) {
-											parent = mstore.findAnigramFromUid(parentuid)
-
-											if (parent !== undefined) {
-													let location = getLocus(parent)
-													locations.push(location)
-											}
-										}
+                locationsPerDim[i] = getLocsInDim(v1, parentLocationsDim )
 
 
-								}
+              }
 
 
-					if (locations.length === 0) locations = [[0,0,0]]
+            }
 
 
-      return locations
 
+          }
+          locations = mlacer.slide(locationsPerDim)
+          if (1 && 1) console.log("m.stace.getLocsInDim locations", locations)
+
+
+
+        }
+
+
+        if (locations.length === 0) locations = [[0,0,0]]
+
+
+        return locations
+
+      }
     }
-
 
 
     /* **********
@@ -251,50 +232,50 @@
 
     }
 
- /* **************************************
+    /* **************************************
  *        @getLocus
  */
     let getLocus = function (stace, anigram ) {
 
-			stace = stace || anigram.payload.boform
+      stace = stace || anigram.payload.boform
 
-			if (0 && 1) console.log("********getLocus stace", stace)
+      if (0 && 1) console.log("********getLocus stace", stace)
 
       let locus = [0,0,0]            // default locus _e_
 
       let siti = getSiti(anigram)           // anima    .x,.y,.z - root and sim
       let locations = getLocations(stace, anigram) // anigram  stace x || x.pos || x.ref
 
-      if (siti && siti.length > 0 && locations && locations.length > 0) {	// siti, locations
+      if (siti && siti.length > 0 && locations && locations.length > 0) { // siti, locations
 
-				let situs = siti[0]
-				let location = locations[0]
+        let situs = siti[0]
+        let location = locations[0]
 
         locus = f.fa(situs).map((d, i) => d + location[i])  // add situs, location
 
-      } else if (siti && siti.length > 0 ) {										// if siti
+      } else if (siti && siti.length > 0 ) {                    // if siti
 
-        locus =  siti[0]																	// first situs
+        locus =  siti[0]                                  // first situs
 
-      } else if (locations && locations.length >0 ) {						// if locations
+      } else if (locations && locations.length >0 ) {           // if locations
 
-        locus = locations[0]															// first location
+        locus = locations[0]                              // first location
 
       }
 
-			return locus
+      return locus
 
 
     }
 
- /* **************************************
+    /* **************************************
  *        @getLocifion
  *        get the uniwen projection with translate to anigram location
  *        getLocus
  */
     let getLocifion = function (stace, anigram ) {
 
-			let locus = getLocus(stace,  anigram )
+      let locus = getLocus(stace,  anigram )
 
       let projection =  {
         "projection": "uniwen",
@@ -356,4 +337,4 @@
 
   exports.muonStace = muonStace
 
-}));
+}))

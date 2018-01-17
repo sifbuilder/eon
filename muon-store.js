@@ -119,7 +119,7 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
     let gramm = function (anima, newItems = []) {
 
       let anigram = __mapper("xs").m("anitem").anigram(anima)
-			if (0 && 1) console.log("m.store.gramm anigram", anigram)
+			if (1 && 1) console.log("m.store.gramm anigram", anigram)
 
       let tim = anigram.payload.tim,
         elapsed = tim.elapsed,
@@ -137,8 +137,11 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
         if (halo) newAnigrams = halo.gramm(anima)       // ANIMA HALO.GRAMM
         else console.log("form ", halo, " not defined")
 
-        if (newAnigrams !== null) newItems = newItems.concat(f.a(newAnigrams))
-        else console.error("avatar gramm ", halo, " returns null")
+        if (newAnigrams !== null) {
+					newItems = newItems.concat(f.a(newAnigrams))
+					__mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.store","anigrams":newItems})
+					
+        } else console.error("avatar gramm ", halo, " returns null")
 
       }
       if (newAnigrams !== undefined && newAnigrams.length > 0) {  // check if avatars in new animas
@@ -155,6 +158,8 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
               avatar.payload.parentuid = newItem.payload.uid            // parentuid from newItem
 							
               newSubItems = enty.gramm(avatar)                          // AVATAR GRAMM halogram
+					__mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.store","anigrams":newSubItems})
+							
               newItems = newItems.concat(f.a(newSubItems))
 
             }

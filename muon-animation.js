@@ -80,12 +80,12 @@ if (0 && 1) console.log("m.animation state.animas ",state.animas)
 
 					let anima = state.animas[i]
 					
-					if (0 && 1) console.log("m.animation anima ", anima)
+					if (0	&& 1) console.log("m.animation anima ", anima)
 					let newAnigrams = f.a(mstore.gramm(anima)) /* GRAMM */
 
 					if (newAnigrams.length > 0)	 if (0 && 1) console.log("m.animation newAnigrams ", newAnigrams.length, newAnigrams)
 
-					__mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.animation","anigrams":newAnigrams})
+					// __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.animation","anigrams":newAnigrams})
 
       }
 
