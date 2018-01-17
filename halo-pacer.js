@@ -36,7 +36,7 @@
     // -------------------------------  haloLinerHalo_gramm
     let haloLinerHalo_gramm = function (anima, newItems = []) {
 
-      if (0 && 1) console.log("h.liner haloLinerHalo_gramm anima",anima)
+      if (0 && 1) console.log("h.pacer haloLinerHalo_gramm anima",anima)
 
       let anigram = __mapper("xs").m("anitem")(anima).anigram(),	// anigram
         halo = 				anigram.halo,  															// halo
@@ -97,19 +97,21 @@
         let cyletime = tim.unitPassed - (pacer.outed||0)
 
         if (cyletime >= pacer.autoP) {                 		// if cycle time above autopath
+					if (1 && 1) console.log("h.pacer haloLinerHalo_gramm anima",anima)
+
           count.auto = Math.floor(pacer.autoN)        		// count AUTO
           pacer.outed = tim.unitPassed                		// updated with anima
 
           anima.payload.inited = 1                               	//  inited
           anima.payload.pacer.outed = pacer.outed         //  outed at time units
           let animas = Array.of(anima)
-          __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"h.liner",animas}) // upd ANIMA
+          __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"h.pacer",animas}) // upd ANIMA
         }
 
       }																										// PACE COUNT
 
       if (Object.keys(count).length > 0) {									// on pace count
-
+				if (0 && 1) console.log("h.pacer haloLinerHalo_gramm anima",anima)
         let situs
         for (let i=0; i<Object.keys(count).length; i++) {   // for each COUNT
 
