@@ -68,7 +68,7 @@
           .html("")
       }
       if (payload == null ) {             // if null return the layer
-				if (1 && 1) console.log(" payload", payload)
+				if (0 && 1) console.log(" payload", payload)
         let svgLayer = d3.select("body").selectAll("svg").data(["svg"])
           .enter()
 						.append("svg")
@@ -81,7 +81,7 @@
 
       }
       else if (payload == "image") {          // if image insert image
-				if (1 && 1) console.log(" payload", payload)
+				if (0 && 1) console.log(" payload", payload)
         if ( d3.select(".image").empty() ) {
           let img = svg.selectAll("image").data([0])
             .enter()

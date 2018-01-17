@@ -145,8 +145,13 @@
 									let val = stace                  // single location from stace array
 
 									// [x,y,z], {x,y,z}, [ [x1,y1,z1], [x2,y3,z3] ]
-								if (f.isArray(val)                   //13 _____ [[a1,a2,a3],[b1,b2]]*
-											&& f.isQuasiPureArray(val)) {		// sum positions
+									
+								if (f.isArray(val) && f.isPureArray(val))	{
+										location[0] = val[0] || 0
+										location[1] = val[1] || 0
+										location[2] = val[2] || 0
+										
+								} if (f.isArray(val) && f.isQuasiPureArray(val)) {	 //sum _____ [[a1,a2,a3],[b1,b2]]*
 
 												let poses = val.length										// positions eg.2
 												let mx = Math.max(...val.map(d => d.length))	// num of dims eg. 3
@@ -159,13 +164,15 @@
 														location[i] = loc
 												}
 
-									} else {
+								} else if (f.isobject(val))  {
 
-										location[0] = f.isObject(val) ? (val.x || 0) : (val[0] || 0)
-										location[1] = f.isObject(val) ? (val.y || 0) : (val[1] || 0)
-										location[2] = f.isObject(val) ? (val.z || 0) : (val[2] || 0)
-										
-									}
+									location[0] = val.x || 0
+									location[1] = val.y || 0
+									location[2] = val.z || 0
+									
+								} else {
+										console.log(" location format not supported")
+								}
 
 
 

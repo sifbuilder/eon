@@ -25,7 +25,9 @@
 
     let gramm = function (anima, newAnigrams = []) {
 
-      let anigram = manitem(anima).anigram(),													// anigram
+      let anigram = manitem(anima).anigram(),												// anigram
+        hallo = 			anigram.halo,            										// halo
+        geoform = 		anigram.geoform,            										// geoform
         payload = 		anigram.payload,            										// payload
         boform = 			payload.boform,             									// boform
         ric =   			payload.ric,               										// ric
@@ -64,20 +66,25 @@
         remainCandies =  [...remainCandies, ...foundcandies]
       }
 
-      for (let i=0; i<remainCandies.length; i++) {				// for each candy ...
-        let _ric = {}
-        _ric.gid = ric.gid
-        _ric.cid = ric.cid
-        _ric.fid = (_ric.fid === undefined) ? _ric.cid + "_" +  i : _ric.fid
-
-        let proform = {
+      for (let i=0; i<remainCandies.length; i++) {			// for each candy ...
+			
+				let idx = i
+        let gid = ric.gid															// from ava ric
+        let cid = ric.cid
+        let fid = (ric.fid === undefined) ? ric.cid + "_" +  idx : ric.fid
+				let _ric = {gid, cid, fid}
+				
+        let _proform = {												// proform each candy
           "projection": "uniwen",
-          "translate": remainCandies[i],
+          "translate": remainCandies[i],			// translate each candy to candy location
         }
-
-        let newAnigram = anigram									// new anigram per fuel nat
-					newAnigram.payload.ric = _ric							// identify each fuel nat
-					newAnigram.payload.proform = proform			// proform of each fuel nat
+				if (0 && 1) console.log("h.fuel.gramm _proform", i ,_proform.translate)
+        let newAnigram = {}									// new anigram per fuel nat
+					newAnigram.halo = "fuel"
+					newAnigram.geoform = geoform
+					newAnigram.payload = payload
+					newAnigram.payload.ric = _ric						// identify each fuel nat
+					newAnigram.payload.proform = _proform			// proform of each fuel nat
 
         let avaAnigrams = hnat.gramm(newAnigram)
         newAnigrams = [...newAnigrams, ...avaAnigrams]
@@ -103,5 +110,4 @@
 
   exports.haloFuel = haloFuel
 
-}));
 }));

@@ -31,7 +31,12 @@ let muonAlima = function muonAlima(__mapper) {
     height = renderer.height(),
     scaleView = Math.min(width/2, height)/Math.PI
 
-  let f = __mapper({"props": muonProps.muonProps()}).props()
+  let f = __mapper({"props": muonProps.muonProps()}).props(),
+			g = __mapper("xs").m("geom"),
+			mwen = __mapper("xs").m("wen"),
+			cwen = __mapper("xs").c("wen")(),
+			bversor = __mapper("xs").b("versor")(),
+			mnat = __mapper("xs").m("nat")
 
   /*******************************************
  *      @pics
@@ -115,13 +120,12 @@ let muonAlima = function muonAlima(__mapper) {
 	}
 
   let proform = {
-    "projections": ["uniwen","unidentity","identity","universor","unimercator"],
-    "projectidx": 0,
+    "projection": "uniwen",
     "translate": [ [ 300, 200 ], [[[ stace ]]] ],
     "scale": 1,
     "rotate": [ 0, 0, [[[0,0]]] ],
     "focale": 12,
-    "zafin": [1,0],
+    "zafin": [0,1],
     "dims": 2,
     "control": "wen",
   }
@@ -149,17 +153,25 @@ let muonAlima = function muonAlima(__mapper) {
   let fuelnat = {
 
     "halo": "fuel",
+		
+    "geoform":  p => ({
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": mnat.natcoords(p.payload.form)
+      },
+      "properties": {}
+    }),		
+		
     "payload": {
-			"ric": {"gid":"fuel","cid":"fuel",},
 			tim,
-			// "stace": [0,0,0],
-			"boform": boformFuel,
-			// "proform": proform,
+			ric: {"gid":"fuel","cid":"fuel",},
+			boform: boformFuel,
       form: formFuel,
       fuel:{
           ra2: 3,
           candidates: 5,
-          sample: 200,
+          sample: 20,
           goal: 10,
           f: 1,   // 2, 3
       },
@@ -220,7 +232,7 @@ let muonAlima = function muonAlima(__mapper) {
 
   let animas = [
     nat,      	// h.nat
-    img,      	// h.img
+    // img,      	// h.img
   ]
 
   let animaApi = function animaApi() {

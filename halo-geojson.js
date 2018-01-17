@@ -42,13 +42,12 @@
         json
 
 
-      if (0 && 1)	console.log("h.geojson gramm", anigram)
+
       json = f.v(geoform, anigram)
+
 
       json = m.profier.conformer(anigram)(json)
       json = m.profier.proformer(anigram)(json)
-
-
 
       let fileffect =  {
         "projection": "uniwen",
@@ -62,7 +61,11 @@
       json = m.geoj.zorder(json) 											// order
       json = m.ric.qualier(ric, anigram, json)					// qualify
 
-      if (0 && 1)	console.log("h.geojson json", json)
+
+			
+      if (anigram.halo === "fuel") {
+				if (0 && 1)	console.log("h.geojson.gramm proform", proform.translate)
+			}
 
       newAnigrams = json.features.map( (d, i) => {	// d is feature
         let newAnigram = {}
@@ -73,7 +76,7 @@
         newAnigram.payload.geofold = d
         newAnigram.payload.ric = d.properties.ric		// hoist properties
         newAnigram.payload.uid = d.properties.uid
-				if (1 && 1) console.log("h.geojson.gramm newAnigram", newAnigram)
+				if (0 && 1) console.log("h.geojson.gramm newAnigram", newAnigram)
         return newAnigram
       })
 			

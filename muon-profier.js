@@ -134,15 +134,20 @@
  *     	 @proformer
  */		
     let proformer = anigram => {
+      if (anigram.halo === "fuel") {
+				if (0 && 1)	console.log("h.geojson.gramm proform", anigram.payload.proform.translate)
+			}
+		
 			let uid = anigram.payload.uid
+			if (0 && 1) console.log("m.profier.proformer uid", uid, anigram)
 			let projdef = anigram.payload.proform
 			if (projdef !== undefined && projdef.translate) {
 				
-					if (uid === "avanat_avanat_avaform") if (1 && 1) console.log("m.profier.proformer anigram", uid, projdef.translate.x)
+					if (uid === "avanat_avanat_avaform") if (0 && 1) console.log("m.profier.proformer anigram", uid, projdef.translate.x)
 				
 					let translate = mstace.getLocations(projdef.translate, anigram)			
 					
-					if (uid === "avanat_avanat_avaform") if (1 && 1) console.log("..... m.profier.proformer translate", translate)
+					if (uid === "avanat_avanat_avaform") if (0 && 1) console.log("..... m.profier.proformer translate", translate)
 						projdef.translate = translate
 					
 			}
