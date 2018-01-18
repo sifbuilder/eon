@@ -247,11 +247,20 @@ let muonAlima = function muonAlima(__mapper) {
     "payload": { 
 			tim,
 
-			"ric": {"gid":"nat","cid":"nat","fid":"circ",},
+			ric: {"gid":"nat","cid":"nat","fid":"circ",},
 			
 			proform,
 			
-			"boform": { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.19,0.19]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],},
+			boform: { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.19,0.19]]],"cs":[[[111,666]]],"cw":[[[0.3,0.9]]],"cp":[[[0.7,0.9]]],},
+			
+			uid: null,
+			parentuid: null,
+			geofold: null,
+			geonode: null,
+			avatars: null,
+			forces: null,
+			inited: 0,
+			gelded: 1,
 
 			form: formCirc,
 		}
@@ -259,10 +268,10 @@ let muonAlima = function muonAlima(__mapper) {
 
 
   let animas = [
-    nat,      // h.geojson g.uniwen
+    // nat,      // h.geojson g.uniwen
     circ,     // h.geojson g.uniwen
-    img,      // h.img
-    text,     // h.text
+    // img,      // h.img
+    // text,     // h.text
   ]
 
   return () => __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})

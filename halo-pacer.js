@@ -36,9 +36,8 @@
     // -------------------------------  haloLinerHalo_gramm
     let haloLinerHalo_gramm = function (anima, newItems = []) {
 
-      if (0 && 1) console.log("h.pacer haloLinerHalo_gramm anima",anima)
 
-      let anigram = __mapper("xs").m("anitem")(anima).anigram(),	// anigram
+      let anigram = manitem(anima).anigram(),	// anigram
         halo = 				anigram.halo,  															// halo
         geoform = 		anigram.geoform || manitem.coreGeoform(), 	// geoform
         payload = 		anigram.payload,            								// payload
@@ -53,6 +52,8 @@
 				pacer = 			payload.pacer  || {},												// pacer
 				span = 				pacer.span  || 0												// span
 
+      if (1 && 1) console.log("h.pacer haloLinerHalo_gramm anigram", anigram)
+				
       let initSitus = (payload.pacer.initSitus === undefined) ? d => ({x: width / 2, y: height / 2, z: 0 }) : payload.pacer.initSitus
       let eventSitus = (payload.pacer.eventSitus === undefined) ? d => ({x: mouse.event.x, y: mouse.event.y, z: 0 }) : payload.pacer.eventSitus
       let autoSitus = (payload.pacer.autoSitus === undefined) ?  d => ({x: Math.random() * width / 2, y: Math.random() * height / 2, z: 0 }) : payload.pacer.autoSitus

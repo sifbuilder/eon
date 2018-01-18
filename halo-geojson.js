@@ -49,10 +49,10 @@
       json = m.profier.conformer(anigram)(json)
       json = m.profier.proformer(anigram)(json)
 
-      let fileffect =  {
-        "projection": "uniwen",
-        "translate": [  geonode.geometry[0], geonode.geometry[1], geonode.geometry[2] ]}
-      json =  m.profier.projier(fileffect, anigram)(json)
+      // let fileffect =  {
+        // "projection": "uniwen",
+        // "translate": [  geonode.geometry[0], geonode.geometry[1], geonode.geometry[2] ]}
+      // json =  m.profier.projier(fileffect, anigram)(json)
 
 
 
@@ -63,9 +63,7 @@
 
 
 			
-      if (anigram.halo === "fuel") {
-				if (0 && 1)	console.log("h.geojson.gramm proform", proform.translate)
-			}
+				if (1 && 1)	console.log("h.geojson.gramm json", json)
 
       newAnigrams = json.features.map( (d, i) => {	// d is feature
         let newAnigram = {}
@@ -73,10 +71,11 @@
 				
         newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
 				
+        // newAnigram.geojson = d
         newAnigram.payload.geofold = d
         newAnigram.payload.ric = d.properties.ric		// hoist properties
         newAnigram.payload.uid = d.properties.uid
-				if (0 && 1) console.log("h.geojson.gramm newAnigram", newAnigram)
+				if (1 && 1) console.log("h.geojson.gramm newAnigram", newAnigram)
         return newAnigram
       })
 			

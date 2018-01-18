@@ -115,9 +115,9 @@
     props.fa = d => {     // force array
       let ret
       if (Array.isArray(d)) ret = d
-      else if (typeof d === "object") ret = Object.values(d)
       else if (d === null) ret = []
       else if (d === undefined) ret = []
+      else if (typeof d === "object") ret = Object.values(d)
       else ret = d
       return props.a(ret)
     }

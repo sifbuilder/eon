@@ -147,7 +147,7 @@ if (0 && 1) console.log("UPDANIGRAM newItem", uid, index, newItem)
       if (newAnigrams !== undefined && newAnigrams.length > 0) {  // check if avatars in new animas
         for (let i=0; i<newAnigrams.length; i++) {
           let newItem = newAnigrams[i]                            // each new item
-          if (newItem.payload.avatars !== undefined) {                // AVATARS
+          if (newItem.payload.avatars !== undefined && newItem.payload.avatars !== null) {         // AVATARS
             let avatars = (typeof newItem.payload.avatars === "object") ? Object.values(newItem.payload.avatars) : newItem.payload.avatars
             for (let j=0; j<avatars.length; j++) {
               let newSubItems = []
