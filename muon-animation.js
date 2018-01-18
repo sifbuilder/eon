@@ -10,11 +10,12 @@
   'use strict'
 
   let muonAnimation = function muonAnimation (__mapper) {
-    let f = __mapper('props')()
-    let state = {}
-    state.animas = [] // global animas
+    let f = __mapper('props')(),
+			mstore = 	__mapper('xs').m('store')
 
-    let mstore = 	__mapper('xs').m('store')
+    let state = {}
+			state.animas = [] // global animas
+		
     /*******************************************
      *
      *      @aniListener
@@ -38,6 +39,7 @@
       }
 
       if (state.animas.length > 0) if (0 && 1) console.log(' .................... m.animation animas ', state.animas.length)
+				
       /*******************************************
      *    @STOP
      */

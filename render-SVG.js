@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  let renderSvg = function renderSvg (__mapper = {}) {
+  let renderSvg = function (__mapper = {}) {
     let f = __mapper('props')()
 
     let r = __mapper('xs').r('renderer'),
@@ -271,7 +271,7 @@
       }
     }
 
-    /* **************************
+  /* **************************
  *      @enty
  *
  */

@@ -15,7 +15,7 @@
    *    @clone : anigram
    */
     let clone = function (v) {
-      if (0 && 1) console.log('b.clone', v)
+      if (0 && 1) console.log('b.clone:v', v)
 
       if (v === null) return null // 00 _____ o
       else if (typeof (v) === 'number') return v // 02 _____ num

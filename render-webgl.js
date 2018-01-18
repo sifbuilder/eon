@@ -12,8 +12,10 @@
     let state = {}
     let radians = Math.PI / 180
 
-    state.width = __mapper('xs').r('renderer').width()
-    state.height = __mapper('xs').r('renderer').height()
+    let r = __mapper('xs').r('renderer')
+		
+    state.width = r.width(),
+    state.height = r.height()
 
     state.renderer = new THREE.WebGLRenderer({antialias: true})
     state.domElem = state.renderer.domElement // canvas
@@ -33,7 +35,7 @@
     /* navInfo */
     state.navInfo = document.createElement('div') // Add nav info section
     state.navInfo.classList.add('graph-nav-info')
-    state.navInfo.innerHTML = 'MOVE mouse &amp; press LEFT/A: rotate, MIDDLE/S: zoom, RIGHT/D: pan'
+    state.navInfo.innerHTML = 'ALT/right to stop/restart animation'
     document.body.appendChild(state.navInfo) // state.domElem.appendChild(navInfo);
 
     /* tooltip */
@@ -106,11 +108,6 @@
     state.controls.staticMoving = true
     state.controls.dynamicDampingFactor = 0.3
     state.controls.keys = [ 65, 83, 68 ]
-    // state.controls.addEventListener( 'change', () => console.log("control change") );
-
-    /* simulation */
-    state.vaNodes = []
-    state.vaLinks = []
 
     /***************************
  *        @render
@@ -122,7 +119,6 @@
             d.properties.ric !== undefined // req ric
         )
 
-      if (0 && 1) console.log('render features', features)
       /* clean canvas */
       while (state.scene.children.length > 0) {
         state.scene.remove(state.scene.children[0]) // clear the scene
@@ -135,7 +131,8 @@
         .entries(features)
 
       for (let i in gitems) { // DOTS (seg5===0) each group gid
-        let gid = gitems[i].key, citems = gitems[i].values
+        let gid = gitems[i].key, 
+					citems = gitems[i].values
 
         for (let j in citems) { // each class cid
           let cid = citems[j].key // cid
