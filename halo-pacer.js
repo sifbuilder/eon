@@ -18,6 +18,7 @@
 			mstace =	__mapper("xs").m("stace"),
       manitem = __mapper("xs").m("anitem"),
       mric = __mapper("xs").m("ric"),
+      mstore = __mapper("xs").m("store"),
 			svg = __mapper("renderSvg").svg()
 
     let r = __mapper("xs").r("renderer"),
@@ -141,7 +142,7 @@
 
 
 						let uid = mric.buildUIDFromRic(_ric)
-						let newItem = __mapper("xs").m("store").findAnigramFromUid(uid) 	// anigram exists ?
+						let newItem = mstore.findAnigramFromUid(uid) 	// anigram exists ?
 						if (newItem === undefined)  {
 
 								newItem = {}
@@ -165,8 +166,11 @@
 
 						let coord = Object.values(situs)			// {x:280,y:229,z:0} => [x,y,0]
 						let coords =  newItem.geoform.geometry.coordinates
-
+						
+							if (1 && 1) console.log("h.pacer haloLinerHalo_gramm:geoform", newItem.geoform)
+								
 						if (newItem.geoform.geometry.type === "LineString") {
+							
 
 								if (coords && coords.length > 0) {
 
@@ -206,7 +210,7 @@
 
 
 						let newItems = __mapper("xs").h("geojson").gramm(newItem)
-						__mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"h.liner","anigrams":newItems})
+						mstore.apply({"type":"UPDANIGRAM","caller":"h.pacer","anigrams":newItems})
 
 
           }

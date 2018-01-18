@@ -158,7 +158,7 @@
 
 			return json => {
 				
-			if (1 && 1) console.log("m.profier.proformer:json", json)
+			if (0 && 1) console.log("m.profier.proformer:json", json)
 				
 				let proformed =	bproj3ct(json, projer)
 				
@@ -167,7 +167,7 @@
 					proformed.properties.geonode = _geonode
 				}
 				
-			if (1 && 1) console.log("m.profier.proformer:geonode", json.properties.geonode)
+			if (0 && 1) console.log("m.profier.proformer:geonode", json.properties.geonode)
 
 				return proformed
 				

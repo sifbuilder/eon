@@ -198,7 +198,7 @@
         }
 
 
-        if (locations.length === 0) locations = [[0,0,0]]
+        if (locations.length === 0) locations = []
 
 
         return locations
@@ -211,11 +211,9 @@
  */
     let getLocus = function (stace, anigram ) {
 
-      stace = stace || anigram.payload.boform
+      if (1 && 1) console.log("m.stace.getLocus stace", stace)
 
-      if (0 && 1) console.log("m.stace.getLocus stace", stace)
-
-      let locus = [0,0,0]            // default locus _e_
+      let locus = null            // default locus _e_
 
       let siti = getSiti(anigram)           // anima    .x,.y,.z - root and sim
       let locations = getLocations(stace, anigram) // anigram  stace x || x.pos || x.ref
