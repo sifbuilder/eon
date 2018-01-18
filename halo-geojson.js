@@ -39,43 +39,41 @@
         uid = 				payload.uid,          										// uid
         parentuid = 	payload.parentuid,          							// parentuid
         geonode = 		payload.geonode || m.anitem.coreGeonode(),	// geonode
-        json
+        gj
 
 
 
-      json = f.v(geoform, anigram)
+      gj = f.v(geoform, anigram)
 
 
-      json = m.profier.conformer(anigram)(json)
-      json = m.profier.proformer(anigram)(json)
+      gj = m.profier.conformer(anigram)(gj)
+      gj = m.profier.proformer(anigram)(gj)
 
       // let fileffect =  {
         // "projection": "uniwen",
         // "translate": [  geonode.geometry[0], geonode.geometry[1], geonode.geometry[2] ]}
-      // json =  m.profier.projier(fileffect, anigram)(json)
+      // gj =  m.profier.projier(fileffect, anigram)(gj)
 
 
 
-      json = m.geoj.featurize(json) 										// featurize
-      json = m.boform.boformer(anigram, json)	// boform
-      json = m.geoj.zorder(json) 											// order
-      json = m.ric.qualier(ric, anigram, json)					// qualify
+      gj = m.geoj.featurize(gj) 										// featurize
+      gj = m.boform.boformer(anigram, gj)	// boform
+      gj = m.geoj.zorder(gj) 											// order
+      gj = m.ric.qualier(ric, anigram, gj)					// qualify
 
 
 			
-				if (0 && 1)	console.log("h.geojson.gramm json", json)
+				if (0 && 1)	console.log("h.geojson.gramm json", gj)
 
-      newAnigrams = json.features.map( (d, i) => {	// d is feature
+      newAnigrams = gj.features.map( (d, i) => {	// d is feature
         let newAnigram = {}
         newAnigram.payload = {}
 				
         newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
 				
         newAnigram.geoform = d
-        // newAnigram.payload.geofold = d
         newAnigram.payload.ric = d.properties.ric		// hoist properties
         newAnigram.payload.uid = d.properties.uid
-				// if (1 && 1) console.log("h.geojson.gramm newAnigram", JSON.stringify(newAnigram))
         return newAnigram
       })
 			

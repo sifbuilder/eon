@@ -53,12 +53,11 @@
 				pacer = 			payload.pacer  || {},												// pacer
 				span = 				pacer.span  || 0												// span
 
-      if (1 && 1) console.log("h.pacer haloLinerHalo_gramm anigram", anigram)
+      if (0 && 1) console.log("h.pacer haloLinerHalo_gramm anigram", anigram)
 				
       let initSitus = (payload.pacer.initSitus === undefined) ? d => ({x: width / 2, y: height / 2, z: 0 }) : payload.pacer.initSitus
       let eventSitus = (payload.pacer.eventSitus === undefined) ? d => ({x: mouse.event.x, y: mouse.event.y, z: 0 }) : payload.pacer.eventSitus
       let autoSitus = (payload.pacer.autoSitus === undefined) ?  d => ({x: Math.random() * width / 2, y: Math.random() * height / 2, z: 0 }) : payload.pacer.autoSitus
-					autoSitus = d => mstace.getLocus(d)
 
 			let fider = (payload.pacer.fider !== undefined) ? payload.pacer.fider :	// set idenitifier
 						anitem => anitem.payload.ric.fid
@@ -123,10 +122,11 @@
             if (key === "init") {                         	// init defaults center
 
               situs = initSitus(anigram)
-
+	
             } else if (key === "auto") {                  // auto defauts random
 
-              situs = autoSitus(anigram)
+if (0 && 1) console.log("h.pacer haloLinerHalo_gramm situs", situs)
+              situs = autoSitus(anigram)		// eg.  d => mstace.getLocus(d)
 
             } else if (key === "event") {                   // event defaults event
 
@@ -135,11 +135,12 @@
 
 
 						let _ric = ric
-												_ric.fid = fider(anigram)
+								_ric.fid = fider(anigram)
 
 
-
-
+      // let parentAnigram = __mapper("xs").m("store").findAnigramFromUid(parentuid)
+      // if (0 && 1) console.log("h.pacer haloLinerHalo_gramm parentAnigram", parentAnigram)
+			
 
 						let uid = mric.buildUIDFromRic(_ric)
 						let newItem = mstore.findAnigramFromUid(uid) 	// anigram exists ?
@@ -167,7 +168,7 @@
 						let coord = Object.values(situs)			// {x:280,y:229,z:0} => [x,y,0]
 						let coords =  newItem.geoform.geometry.coordinates
 						
-							if (1 && 1) console.log("h.pacer haloLinerHalo_gramm:geoform", newItem.geoform)
+							if (0 && 1) console.log("h.pacer haloLinerHalo_gramm:geoform", newItem.geoform)
 								
 						if (newItem.geoform.geometry.type === "LineString") {
 							

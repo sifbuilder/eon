@@ -121,11 +121,11 @@
 
     let getLocations = function (stace, anigram, locations=[]) {
 
-      if (0 && 1) console.log("m.stace.getLocations stace", stace)
+      if (0 && 1) console.log("m.stace.getLocations:stace", stace)
 
       if (anigram !== undefined) stace = stace || anigram.payload.stace
 
-      if (stace !== undefined) {
+      if (stace !== undefined && stace !== null) {
 
         if (Array.isArray(stace)) {         // stace :: [x,y,z]
 
@@ -193,7 +193,7 @@
           locations = mlacer.slide(locationsPerDim)
           if (0 && 1) console.log("m.stace.getLocsInDim locations", locations)
 
-
+						      let parentAnigram = __mapper("xs").m("store").parentSitus(parentuid)
 
         }
 
@@ -201,9 +201,15 @@
         if (locations.length === 0) locations = []
 
 
+      }	else {	// stace not defined take situs from parent
+								
+						let parentSitus = __mapper("xs").m("anitem").parentSitus(anigram)
+						locations = Array.of(parentSitus)
+						
+			}
         return locations
-
-      }
+			
+			
     }
 
     /* **************************************
@@ -211,7 +217,7 @@
  */
     let getLocus = function (stace, anigram ) {
 
-      if (1 && 1) console.log("m.stace.getLocus stace", stace)
+      if (0 && 1) console.log("m.stace.getLocus stace", stace)
 
       let locus = null            // default locus _e_
 

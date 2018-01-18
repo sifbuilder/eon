@@ -84,6 +84,23 @@
 
 
     /***********
+  *   @parentSitus
+  */
+    let parentSitus = function( anitem, coords = [] ) {
+      let parentGeometry
+			let parentuid = anitem.payload.parentuid
+      let parent = __mapper("xs").m("store").findAnigramFromUid(parentuid)
+
+      if (parent !== undefined) {
+				
+        coords = parent.geoform.properties.geonode.geometry.coordinates
+	
+      }
+
+      return coords
+    }
+
+    /***********
   *   @coreGeoform
   */
     let coreGeoform = () => p => ({     // geoform
@@ -137,6 +154,7 @@
     }
 
     enty.parentCoords = parentCoords
+    enty.parentSitus = parentSitus
     enty.node = node                        // anitem => node
 
     enty.conform = _ => { return _ !== undefined ? (anitem.payload.conform = _, anitem) : anitem.payload.conform }
