@@ -27,28 +27,25 @@
  *      @alima
  *
  */
-let muonAlima = function muonAlima(__mapper) {
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').b('init')({svg: 1, wen: 1, versor: 1, img: 0, webgl: 1}) // INIT
 
-
-  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({svg:1,wen:1,versor:1,img:0,webgl:1})  // INIT
-
-  let f = __mapper({"props": muonProps.muonProps()}).props()  // props
-  let g = __mapper("xs").m("geom")
+  let f = __mapper({'props': muonProps.muonProps()}).props() // props
+  let g = __mapper('xs').m('geom')
 
   /*******************************************
  *    @port
  *
  */
-  let r = __mapper("xs").r("renderer"),
+  let r = __mapper('xs').r('renderer'),
     width = r.width(),
     height = r.height()
 
   /*******************************************
  *    @pics
  */
-  let tim = {"td":18200,"t0":0,"t1":1000,"t2":1,"t3":1,}
-
+  let tim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   /*******************************************
  *      @animas
@@ -57,216 +54,208 @@ let muonAlima = function muonAlima(__mapper) {
   // -------------------------------  geoearth
   let geoearthSE = {
 
-    "halo":"geojson",
+    'halo': 'geojson',
 
-    "geoform": () => {
+    'geoform': () => {
       let geo = Object.assign({},
         topojson.feature(
-          __mapper("xs").d("worldTopo110m").data(),
-          __mapper("xs").d("worldTopo110m").data().objects.land
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
         )
       )
-      geo = __mapper("xs").m("geoj").trim(geo)
+      geo = __mapper('xs').m('geoj').trim(geo)
       return geo
     },
 
     payload: {
-			"tim": tim,
-			"ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearthSE",},
-			"boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+      'tim': tim,
+      'ric': {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthSE'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
 
-			"proform": {
+      'proform': {
 
-				"projection": "futuri",
-				"scale": 20,
-				"rotate": [ [[[0,-120]]], [[[0,-120]]], [[[0,-120]]] ],
-				"translate": [ 255, 250 ],
+        'projection': 'futuri',
+        'scale': 20,
+        'rotate': [ [[[0, -120]]], [[[0, -120]]], [[[0, -120]]] ],
+        'translate': [ 255, 250 ],
 
+        'faciaRotation': [[[Math.PI / 1, Math.PI / 1]]],
 
-				"faciaRotation": [[[Math.PI / 1 ,Math.PI / 1]]],
+        'control': 'versor'
 
-				"control":  "versor",
-
-			},
-		}
+      }
+    }
 
   }
   // -------------------------------  geoearth
   let geoearthSW = {
 
-    "halo":"geojson",
+    'halo': 'geojson',
 
-    "geoform": () => {
+    'geoform': () => {
       let geo = Object.assign({},
         topojson.feature(
-          __mapper("xs").d("worldTopo110m").data(),
-          __mapper("xs").d("worldTopo110m").data().objects.land
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
         )
       )
-      geo = __mapper("xs").m("geoj").trim(geo)
+      geo = __mapper('xs').m('geoj').trim(geo)
       return geo
     },
 
-		payload: {
-			"tim": tim,
-			"ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearthSW",},
-			"boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthSW'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
 
-			"proform": {
+      'proform': {
 
-				"projection": "futuri",
-				"scale": 20,
-				"rotate": [ [[[0,-120]]], [[[0,-120]]], [[[0,-120]]] ],
-				"translate": [ 135, 250 ],
+        'projection': 'futuri',
+        'scale': 20,
+        'rotate': [ [[[0, -120]]], [[[0, -120]]], [[[0, -120]]] ],
+        'translate': [ 135, 250 ],
 
+        'faciaRotation': [[[Math.PI / 2, Math.PI / 2]]],
 
-				"faciaRotation": [[[Math.PI / 2 ,Math.PI / 2]]],
+        'control': 'versor'
 
-				"control":  "versor",
-
-			},
-		}
+      }
+    }
 
   }
   // -------------------------------  geoearthNW
   let geoearthNW = {
 
-    "halo":"geojson",
+    'halo': 'geojson',
 
-    "geoform": () => {
+    'geoform': () => {
       let geo = Object.assign({},
         topojson.feature(
-          __mapper("xs").d("worldTopo110m").data(),
-          __mapper("xs").d("worldTopo110m").data().objects.land
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
         )
       )
-      geo = __mapper("xs").m("geoj").trim(geo)
+      geo = __mapper('xs').m('geoj').trim(geo)
       return geo
     },
 
     payload: {
-			"tim": tim,
-			"ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearthNW",},
-			"boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+      'tim': tim,
+      'ric': {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthNW'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
 
-			"proform": {
+      'proform': {
 
-				"projection": "futuri",
-				"scale": 20,
-				"rotate": [ [[[0,-120]]], [[[0,-120]]], [[[0,-120]]] ],
-				"translate": [ 135, 130 ],
+        'projection': 'futuri',
+        'scale': 20,
+        'rotate': [ [[[0, -120]]], [[[0, -120]]], [[[0, -120]]] ],
+        'translate': [ 135, 130 ],
 
+        'faciaRotation': [[[Math.PI / 0.5, Math.PI / 0.5]]],
 
-				"faciaRotation": [[[Math.PI / 0.5 ,Math.PI / 0.5]]],
+        'control': 'versor'
 
-				"control":  "versor",
-
-			},
-		}
+      }
+    }
 
   }
   // -------------------------------  geoearthNE
   let geoearthNE = {
 
-    "halo":"geojson",
+    'halo': 'geojson',
 
-    "geoform": () => {
+    'geoform': () => {
       let geo = Object.assign({},
         topojson.feature(
-          __mapper("xs").d("worldTopo110m").data(),
-          __mapper("xs").d("worldTopo110m").data().objects.land
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
         )
       )
-      geo = __mapper("xs").m("geoj").trim(geo)
+      geo = __mapper('xs').m('geoj').trim(geo)
       return geo
     },
 
     payload: {
-			"tim": tim,
-			"ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearthNE",},
-			"boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+      'tim': tim,
+      'ric': {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthNE'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
 
-			"proform": {
+      'proform': {
 
-				"projection": "futuri",
-				"scale": 20,
-				"rotate": [ [[[0,-120]]], [[[0,-120]]], [[[0,-120]]] ],
-				"translate": [ 255, 130 ],
+        'projection': 'futuri',
+        'scale': 20,
+        'rotate': [ [[[0, -120]]], [[[0, -120]]], [[[0, -120]]] ],
+        'translate': [ 255, 130 ],
 
+        'faciaRotation': [[[Math.PI / 0.6666, Math.PI / 0.6666]]],
 
-				"faciaRotation": [[[Math.PI / 0.6666 ,Math.PI / 0.6666]]],
+        'control': 'versor'
 
-				"control":  "versor",
-
-			},
-		}
+      }
+    }
 
   }
   // -------------------------------  img
   let img = {
 
-    halo: "img",
+    halo: 'img',
 
     geoform: p => ({
-      type:  "Feature",
+      type: 'Feature',
       geometry: {
 
-        "type": "Point",
-        "coordinates": [ 0, 0 ]
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
 
       },
       properties: {
-				sort: "img",
-        ["xlink:href"]: p.payload.img.url,
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
         style: p.payload.img.style
       }
     }),
 
     payload: {
 
-			tim,
-			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
-			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-			proform: {
-				projection: "uniwen",
-				translate: [ 30, 40 ],
-			},
-			img: {
-        url: "zimg-501.jpg",
-        "style": {
-					"width": [[[60, 60]]],
-					"height": [[[40 , 40]]],
-					"rotate": [[[ 0, 0 ]]],
-        }	
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
       },
-
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
 
     }
   }
-	
+
   /*******************************************
  * @animaApi
  *
  */
   let animas = [
-    geoearthSE,   // h.geojson
-    geoearthSW,   // h.geojson
-    geoearthNW,   // h.geojson
-    geoearthNE,   // h.geojson
-    img,            // h.img
+    geoearthSE, // h.geojson
+    geoearthSW, // h.geojson
+    geoearthNW, // h.geojson
+    geoearthNE, // h.geojson
+    img // h.img
   ]
 
-  let animaApi = function animaApi() {
-
-    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
-
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
   }
 
   return animaApi
-
 }
 
 let __mapper = bosonMapper.bosonMapper()
-__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

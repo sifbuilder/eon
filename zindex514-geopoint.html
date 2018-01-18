@@ -17,60 +17,58 @@
 
 <script>
 
-let muonAlima = function muonAlima(__mapper) {
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').b('init')({svg: 1, versor: 1, webgl: 1, img: 0}) // INIT
 
-  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({svg:1,versor:1,webgl:1,img:0})  // INIT
+  let f = __mapper({'props': muonProps.muonProps()}).props()
 
-  let f = __mapper({"props": muonProps.muonProps()}).props()
-
- /*******************************************
+  /*******************************************
  *      @pics
  */
-  let tim = {"td":3800,"t0":0,"t1":1000,"t2":1,"t3":1,}
+  let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
- /*******************************************
+  /*******************************************
  *    @animas
  */
   let geopoint = {
 
-    "halo":"geojson",
+    'halo': 'geojson',
 
-    "geoform":  {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates":[ 150, 150, 0 ]
+    'geoform': {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [ 150, 150, 0 ]
       },
-      "id": "geopoint",
-      "properties": {pointRadius: 6, }
-    },    
+      'id': 'geopoint',
+      'properties': {pointRadius: 6 }
+    },
 
-		payload: {
-			"tim": tim,
-			"ric": {"gid":"geopoint","cid":"geopoint","fid":"geopoint",},
-			"boform": { "csx":0,"cf":[[[555,777]]],"cs":222,"cw":[[[1.7,1.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-			"proform": {
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'geopoint', 'cid': 'geopoint', 'fid': 'geopoint'},
+      'boform': { 'csx': 0, 'cf': [[[555, 777]]], 'cs': 222, 'cw': [[[1.7, 1.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      'proform': {
 
-					"projection": "uniwen",
-					"scale": 1,
-					"translate": [ 100, 100 ],
-					"rotate": [ 0, 0, 0 ],
-					"dims": 2,
+        'projection': 'uniwen',
+        'scale': 1,
+        'translate': [ 100, 100 ],
+        'rotate': [ 0, 0, 0 ],
+        'dims': 2
 
-			},
-		}
+      }
+    }
   }
 
   let animas = [
-    geopoint,  // h.geojson g.uniwen
+    geopoint // h.geojson g.uniwen
   ]
 
-  return () => __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
-
+  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
 }
 
 let __mapper = bosonMapper.bosonMapper()
-__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

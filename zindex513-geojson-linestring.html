@@ -17,19 +17,17 @@
 
 <script>
 
-let muonAlima = function muonAlima(__mapper) {
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').b('init')({svg: 1, versor: 1, webgl: 1, img: 0}) // INIT
 
-  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({svg:1,versor:1,webgl:1,img:0})  // INIT
-
-  let f = __mapper({"props": muonProps.muonProps()}).props()
+  let f = __mapper({'props': muonProps.muonProps()}).props()
 
   /*******************************************
  *      @pics
  *
  */
-  let tim = {"td":3800,"t0":0,"t1":1000,"t2":1,"t3":1,}
-
+  let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   /*******************************************
  *    @animas
@@ -37,13 +35,13 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let geoform = {
 
-    "halo":"geojson",
+    'halo': 'geojson',
 
-     "geoform": (p) => ({
-      "type": "Feature",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
+    'geoform': (p) => ({
+      'type': 'Feature',
+      'geometry': {
+        'type': 'LineString',
+        'coordinates': [
           [90 + 0, 90 + 0],
           [90 + 0, 90 + 60],
           [90 + 60, 90 + 60],
@@ -51,36 +49,34 @@ let muonAlima = function muonAlima(__mapper) {
           [90 + 0, 90 + 0 ]
         ]
       },
-      "id": 0,
-      "properties": {}
-    }),  
+      'id': 0,
+      'properties': {}
+    }),
 
-		payload: {
-			"tim": tim,
-			"ric": {"gid":"geoform","cid":"geoform","fid":"geoform",},
-			"boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-			"proform": {
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'geoform', 'cid': 'geoform', 'fid': 'geoform'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      'proform': {
 
-				"projection": "uniwen",
-				"scale": 1.0,
-				"translate": [ [[[300,0]]], 100 ],
-				"rotate": [ 0, 0, [[[0, 0 * 360]]] ],
-				"dims": 2,
+        'projection': 'uniwen',
+        'scale': 1.0,
+        'translate': [ [[[300, 0]]], 100 ],
+        'rotate': [ 0, 0, [[[0, 0 * 360]]] ],
+        'dims': 2
 
-			},
-		}
+      }
+    }
   }
 
-
   let animas = [
-    geoform,  // h.geojson g.uniwen
+    geoform // h.geojson g.uniwen
   ]
 
-  return () => __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
-
+  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
 }
 
 let __mapper = bosonMapper.bosonMapper()
-__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

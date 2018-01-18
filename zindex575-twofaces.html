@@ -24,87 +24,80 @@
 
 <script>
 
-let muonAlima = function muonAlima(__mapper) {
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').b('init')({svg: 1, versor: 0, wen: 1, webgl: 1})		// INIT
 
-  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({svg:1,versor:0,wen:1,webgl:1})		// INIT
-
-  let f = __mapper({"props": muonProps.muonProps()}).props()
-  let g = __mapper("xs").m("geom")
-  let w = __mapper("xs").m("wen")
+  let f = __mapper({'props': muonProps.muonProps()}).props()
+  let g = __mapper('xs').m('geom')
+  let w = __mapper('xs').m('wen')
 
   /**********************
    *    @
    */
-  let r = __mapper("xs").r("renderer"),
+  let r = __mapper('xs').r('renderer'),
     width = r.width(),
     height = r.height()
 
-  let rotInit = [0,45,0],
-    rotation = [0,0,0],
+  let rotInit = [0, 45, 0],
+    rotation = [0, 0, 0],
     rotMatrix,
     stars = []
 
-  let versor = __mapper("xs").b("versor")()
-  let wen = __mapper("xs").c("wen")({rotInit})
-
+  let versor = __mapper('xs').b('versor')()
+  let wen = __mapper('xs').c('wen')({rotInit})
 
   /*******************************************
  *    @pics
  */
-  let tim = {"td":9200,"t0":0,"t1":1000,"t2":1,"t3":1,}
+  let tim = {'td': 9200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   let proformFaces = {
 
-    "projection": "uniwen",
-    "center":  [ 0, 0 ],
-    "translate":  [ 180, 200 ],
-    "scale": 90,
-    "rotate": [0,0,0], // [-5,50,0],
-    "focale": 4,
-    "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-    "dims": 3,
-    "control": "wen",
+    'projection': 'uniwen',
+    'center': [ 0, 0 ],
+    'translate': [ 180, 200 ],
+    'scale': 90,
+    'rotate': [0, 0, 0], // [-5,50,0],
+    'focale': 4,
+    'zafin': [0, 1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+    'dims': 3,
+    'control': 'wen'
   }
 
-
-
-
   let geoformFaces = (anima) => {					// geoform creates geojson featurecollection
-		let ani = __mapper("xs").m("anitem")(anima),
-			anigram = ani.anigram(),            	// anigram
-			boform =  ani.boform(),             	// boform
-			ric =   	ani.ric(),               		// ric
-			tim =   	ani.tim(),               		// tim
-			payload = ani.payload(),            	// payload
-			proform = ani.proform(),            	// proform
-			conform = ani.conform(),            	// conform
-			parentuid = ani.parentuid(),          // parentuid
-			geoform = ani.geoform() 							 // geoform
+    let ani = __mapper('xs').m('anitem')(anima),
+      anigram = ani.anigram(), // anigram
+      boform = ani.boform(), // boform
+      ric = ani.ric(), // ric
+      tim = ani.tim(), // tim
+      payload = ani.payload(), // payload
+      proform = ani.proform(), // proform
+      conform = ani.conform(), // conform
+      parentuid = ani.parentuid(), // parentuid
+      geoform = ani.geoform() 							 // geoform
 
-    let faces = f.v(payload.faces)                 // payload.faces
+    let faces = f.v(payload.faces) // payload.faces
 
-
-    let json = {type: "FeatureCollection", features: []}
+    let json = {type: 'FeatureCollection', features: []}
 
     for (let i = 0, l = faces.length; i < l; i++) {
-      let face = faces[i]                // face cornersx position
+      let face = faces[i] // face cornersx position
 
-      let geometry = {type:"Polygon", coordinates:[]}
-					geometry.coordinates = Array.of(face.vertices) // eg [-1, 1, 1]
+      let geometry = {type: 'Polygon', coordinates: []}
+      geometry.coordinates = Array.of(face.vertices) // eg [-1, 1, 1]
 
       let properties = {}
-					properties.boform = face.boform || boform
-					properties.name = (i === 0) ? "red" : "orange"
+      properties.boform = face.boform || boform
+      properties.name = (i === 0) ? 'red' : 'orange'
 
-      let feature = {type:"Feature", geometry:{}, properties:{}}
-					feature.geometry = geometry
-					feature.properties = properties
+      let feature = {type: 'Feature', geometry: {}, properties: {}}
+      feature.geometry = geometry
+      feature.properties = properties
 
       json.features.push(feature)
-
     }
-if (0 && 1) console.log("575 geoformFaces json",json)
+    if (0 && 1) console.log('575 geoformFaces json', json)
     return json
   }
   /*******************************************
@@ -113,81 +106,80 @@ if (0 && 1) console.log("575 geoformFaces json",json)
  */
   let aniTwoFaces = {
 
-    "halo": "geojson",
+    'halo': 'geojson',
 
-    "geoform": geoformFaces, // geoform,
+    'geoform': geoformFaces, // geoform,
 
-		payload: {
-			"tim": tim,
-			"ric": {"gid":"faces", "cid":"face", "fid":"face",},
-			"boform": {"csx":0,"cf":[[[222,333,222,333,222,333,222]]],"cs":777,"cw":0.6,"co":0.999,"cp":0.999,},
-			"proform": proformFaces,
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'faces', 'cid': 'face', 'fid': 'face'},
+      'boform': {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      'proform': proformFaces,
 
-			faces: [
-				{
-					vertices: [
-						[-1, -1,  1],
-						[ 1, -1,  1],
-						[ 1, 1,   1],
-						[ -1, 1,  1],
-						[-1, -1,  1]
+      faces: [
+        {
+          vertices: [
+            [-1, -1, 1],
+            [ 1, -1, 1],
+            [ 1, 1, 1],
+            [ -1, 1, 1],
+            [-1, -1, 1]
 					 ],
-					boform: {"csx":0,"cf":333,"cs":688,"cw":0.7,"co":[[[0.999,0.999]]],"cp":0.999,}
-				},
+          boform: {'csx': 0, 'cf': 333, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
+        },
 
-				{
-					vertices: [
-						[-1, -1, -1],
-						[ 1, -1, -1],
-						[ 1,  1, -1],
-						[-1,  1, -1],
-						[-1, -1, -1]
+        {
+          vertices: [
+            [-1, -1, -1],
+            [ 1, -1, -1],
+            [ 1, 1, -1],
+            [-1, 1, -1],
+            [-1, -1, -1]
 					 ],
-					boform: {"csx":0,"cf":777,"cs":833,"cw":0.7,"co":[[[0.999,0.999]]],"cp":0.999,}
-				},
-			]
+          boform: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
+        }
+      ]
 
-		}
+    }
   }
 
   // -------------------------------  img
   let img = {
 
-    halo: "img",
+    halo: 'img',
 
     geoform: p => ({
-      type:  "Feature",
+      type: 'Feature',
       geometry: {
 
-        "type": "Point",
-        "coordinates": [ 0, 0 ]
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
 
       },
       properties: {
-				sort: "img",
-        ["xlink:href"]: p.payload.img.url,
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
         style: p.payload.img.style
       }
     }),
 
     payload: {
 
-			tim,
-			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
-			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-			proform: {
-				projection: "uniwen",
-				translate: [ 30, 40 ],
-			},
-			img: {
-        url: "zimg-501.jpg",
-        "style": {
-					"width": [[[60, 60]]],
-					"height": [[[40 , 40]]],
-					"rotate": [[[ 0, 0 ]]],
-        }	
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
       },
-
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
 
     }
   }
@@ -196,18 +188,17 @@ if (0 && 1) console.log("575 geoformFaces json",json)
  *
  */
   let animas = [
-    aniTwoFaces,  // h.geojson g.uniwen
-    img,          // h.img
+    aniTwoFaces, // h.geojson g.uniwen
+    img // h.img
   ]
-  let animaApi = function animaApi() {
-    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
   }
 
   return animaApi
-
 }
 
 let __mapper = bosonMapper.bosonMapper()
-__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

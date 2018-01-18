@@ -18,17 +18,17 @@
 <script>
 
 let muonAlima = function (__mapper) {
-  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({svg:1,versor:1,wen:1,webgl:1,key:1,})  // INIT
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').b('init')({svg: 1, versor: 1, wen: 1, webgl: 1, key: 1}) // INIT
 
-  let f = __mapper({"props": muonProps.muonProps()}).props()
+  let f = __mapper({'props': muonProps.muonProps()}).props()
 
   /*******************************************
  *    @pics
  *
  */
 
-  let tim = {"td":22800,"t0":0,"t1":1000,"t2":1,"t3":1,}
+  let tim = {'td': 22800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   /*******************************************
  *    @animas
@@ -37,150 +37,174 @@ let muonAlima = function (__mapper) {
   // -------------------------------  natform
   let natform = {
 
-    "halo": "geojson",
+    'halo': 'geojson',
 
-    "geoform": p => ({
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": Array.of(__mapper("xs").m("nat")
-          .multiconform(__mapper("xs").m("nat")
+    'geoform': p => ({
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Polygon',
+        'coordinates': Array.of(__mapper('xs').m('nat')
+          .multiconform(__mapper('xs').m('nat')
             .nform(p.payload.form)
           )
         )
       },
-      "id": 0,
-      "properties": {}
+      'id': 0,
+      'properties': {}
     }),
 
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
+      'boform': { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
 
-    "payload": {
-      "tim": tim,
-      "ric": {"gid":"nat","cid":"nat","fid":"natform",},
-      "boform": { "csx":0,"cf":[[[444,777]]], "co":[[[0.09,0.09]]], "cs":[[[555,777]]],"cw":[[[0.7,0.7]]],"cp":[[[0.9,0.9]]],},
-
-      "proform": {
-        "projection": "uniwen",
-        "translate":  [200, 100, 0],
-        "scale": 1,
-        "rotate": [0,0,0], // [-5,50,0],
-        "focale": Infinity,
-        "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-        "dims": 3,
-        "control": "wen",
+      'proform': {
+        'projection': 'uniwen',
+        'translate': [200, 100, 0],
+        'scale': 1,
+        'rotate': [0, 0, 0], // [-5,50,0],
+        'focale': Infinity,
+        'zafin': [0, 1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+        'dims': 3,
+        'control': 'wen'
       },
-      
-      "form":  {
 
-        "x": {
-          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":2, // ellipse
-          "ra2": 120,
-          "v0": 0, "v1": 1,
-          "seg5": [[[360,360]]],
-          "w4": [[[90 , 90 - 0 * 360]]],
-          "pa6":0,
-          "pb7":360,
-          "fas8": 0,
+      'form': {
+
+        'x': {
+          'm1': 4,
+          'm2': 4,
+          'n1': 2,
+          'n2': 2,
+          'n3': 2,
+          'a': 1,
+          'b': 2, // ellipse
+          'ra2': 120,
+          'v0': 0,
+          'v1': 1,
+          'seg5': [[[360, 360]]],
+          'w4': [[[90, 90 - 0 * 360]]],
+          'pa6': 0,
+          'pb7': 360,
+          'fas8': 0
         },
 
-        "y": {
-          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":2, // ellipse
-          "ra2": 120,
-          "v0": 0, "v1": 1,
-          "seg5": [[[360,360]]],
-          "w4": [[[90 , 90 - 0 * 360]]],
-          "pa6":0,
-          "pb7":360,
-          "fas8": -90,
-        },
-
+        'y': {
+          'm1': 4,
+          'm2': 4,
+          'n1': 2,
+          'n2': 2,
+          'n3': 2,
+          'a': 1,
+          'b': 2, // ellipse
+          'ra2': 120,
+          'v0': 0,
+          'v1': 1,
+          'seg5': [[[360, 360]]],
+          'w4': [[[90, 90 - 0 * 360]]],
+          'pa6': 0,
+          'pb7': 360,
+          'fas8': -90
+        }
 
       }
     }
 
   }
 
-
   // -------------------------------  avaform
   let avaform = {
 
-    "halo": "geojson",
+    'halo': 'geojson',
 
-    "geoform": p => ({
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": Array.of(
-          __mapper("xs").m("nat").multiconform(
-            __mapper("xs").m("nat").nform(p.payload.form)
+    'geoform': p => ({
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Polygon',
+        'coordinates': Array.of(
+          __mapper('xs').m('nat').multiconform(
+            __mapper('xs').m('nat').nform(p.payload.form)
           )
         )
       },
-      "id": null,
-      "properties": {
-				
-				geonode: {
-					type: "Feature",
-					geometry: { type: "Point", coordinates: [0,0,0] },
-					properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null,}
-				}
+      'id': null,
+      'properties': {
 
-			}
+        geonode: {
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+        }
+
+      }
     }),
 
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'avanat', 'cid': 'avanat', 'fid': 'avaform'},
 
-    "payload": {
-      "tim": tim,
-      "ric": {"gid":"avanat","cid":"avanat","fid":"avaform",},
+      'boform': { 'csx': 0, 'cf': [[[666, 555]]], 'co': [[[0.999, 0.999]]], 'cs': [[[666, 555]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.999, 0.999]]]},
 
-      "boform": { "csx":0,"cf":[[[666,555]]], "co":[[[0.999,0.999]]], "cs":[[[666,555]]],"cw":[[[2.7,2.7]]],"cp":[[[0.999,0.999]]],},
-
-      "proform": {
-        "projection": "uniwen",
-        "translate":  
+      'proform': {
+        'projection': 'uniwen',
+        'translate':
         // [200, 100, 0],
         {
-          "x":
+          'x':
                 {
-                  "pos": [[[ 0 , 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]],
+                  'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]]
                 },
-          "y":
+          'y':
                 {
-                  "pos": [[[ 0 , 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]],
+                  'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]]
                 },
-          "z": 0,
+          'z': 0
         },
-        "scale": 1,
-        "rotate": [0,0,0], // [-5,50,0],
-        "focale": Infinity,
-        "zafin": [0,1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-        "dims": 3,
-        "control": "wen",
+        'scale': 1,
+        'rotate': [0, 0, 0], // [-5,50,0],
+        'focale': Infinity,
+        'zafin': [0, 1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+        'dims': 3,
+        'control': 'wen'
       },
-      
-      "form":  {
 
-        "x": {
-          "m1":[[[4,4,6,6,6,6]]],"m2":[[[4,4,6,6,6,6]]],"n1":[[[100,100,1000,1000,30,30]]],"n2":[[[100,100,400,400,100,100]]],"n3":[[[100,100,400,400,100,100]]],"a":1,"b":1, // square
-          "ra2": 25,
-          "v0": 0, "v1": 1,
-          "seg5": [[[360,360]]],
-          "w4": [[[90 , 90 + 1 * 360, 90 + 11 * 360, 90 + 12 * 360, 90 + 22 * 360, 90 + 23 * 360]]],
-          "pa6":0,
-          "pb7":360,
-          "fas8": 0,
+      'form': {
+
+        'x': {
+          'm1': [[[4, 4, 6, 6, 6, 6]]],
+          'm2': [[[4, 4, 6, 6, 6, 6]]],
+          'n1': [[[100, 100, 1000, 1000, 30, 30]]],
+          'n2': [[[100, 100, 400, 400, 100, 100]]],
+          'n3': [[[100, 100, 400, 400, 100, 100]]],
+          'a': 1,
+          'b': 1, // square
+          'ra2': 25,
+          'v0': 0,
+          'v1': 1,
+          'seg5': [[[360, 360]]],
+          'w4': [[[90, 90 + 1 * 360, 90 + 11 * 360, 90 + 12 * 360, 90 + 22 * 360, 90 + 23 * 360]]],
+          'pa6': 0,
+          'pb7': 360,
+          'fas8': 0
         },
 
-        "y": {
-          "m1":[[[4,4,6,6,6,6]]],"m2":[[[4,4,6,6,6,6]]],"n1":[[[100,100,1000,1000,30,30]]],"n2":[[[100,100,400,400,100,100]]],"n3":[[[100,100,400,400,100,100]]],"a":1,"b":1, // square
-          "ra2": 25,
-          "v0": 0, "v1": 1,
-          "seg5": [[[360,360]]],
-          "w4": [[[90 , 90 + 1 * 360, 90 + 11 * 360, 90 + 12 * 360, 90 + 22 * 360, 90 + 23 * 360]]],
-          "pa6":0,
-          "pb7":360,
-          "fas8": -90,
-        },
+        'y': {
+          'm1': [[[4, 4, 6, 6, 6, 6]]],
+          'm2': [[[4, 4, 6, 6, 6, 6]]],
+          'n1': [[[100, 100, 1000, 1000, 30, 30]]],
+          'n2': [[[100, 100, 400, 400, 100, 100]]],
+          'n3': [[[100, 100, 400, 400, 100, 100]]],
+          'a': 1,
+          'b': 1, // square
+          'ra2': 25,
+          'v0': 0,
+          'v1': 1,
+          'seg5': [[[360, 360]]],
+          'w4': [[[90, 90 + 1 * 360, 90 + 11 * 360, 90 + 12 * 360, 90 + 22 * 360, 90 + 23 * 360]]],
+          'pa6': 0,
+          'pb7': 360,
+          'fas8': -90
+        }
 
       }
     }
@@ -192,29 +216,26 @@ let muonAlima = function (__mapper) {
  *
   */
   natform.payload.avatars = {
-    
-    avaform,   // h.geojson
-    
+
+    avaform // h.geojson
+
   }
 
   let animas = [
 
-    // avaform,   // h.geojson  
-    natform,   // h.nat
+    // avaform,   // h.geojson
+    natform // h.nat
 
   ]
 
-  let animaApi = function animaApi() {
-
-    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
-
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
   }
 
   return animaApi
-
 }
 
 let __mapper = bosonMapper.bosonMapper()
-__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

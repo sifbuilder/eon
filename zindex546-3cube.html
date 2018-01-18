@@ -24,204 +24,223 @@
 
 <script>
 
-let muonAlima = function muonAlima(__mapper) {
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').b('init')({canvas: 0, svg: 0, versor: 0, wen: 0, webgl: 1, img: 0, gui: 0, fps: 0, stats: 0}) // INIT
 
-  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({canvas:0,svg:0,versor:0,wen:0,webgl:1,img:0,gui:0,fps:0,stats:0}) // INIT
-
-  let renderer = __mapper("renderRenderer"),
+  let renderer = __mapper('renderRenderer'),
     width = renderer.width(),
     height = renderer.height(),
-    scaleProj = Math.min(width/2, height)/Math.PI
+    scaleProj = Math.min(width / 2, height) / Math.PI
 
   /*******************************************
  *     @pics
  *
  */
-  let tim = {"td":19800,"t0":0,"t1":1000,"t2":1,"t3":1,}
-  let form =  {
+  let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let form = {
 
-    "x": {
-      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
-      "ra2": 250,
-      "v0": 0, "v1":1,
-      "w4": 0,
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": 0,
+    'x': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 250,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': 0
     },
-    "y": {
-      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
-      "ra2": 250,
-      "v0":0,"v1":1,
-      "w4": 0,
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": 0,
+    'y': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 250,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': 0
     },
-    "z": {
-      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
-      "ra2": 250,
-      "v0": 0, "v1":1,
-      "w4":  0,
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": 0,
+    'z': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 250,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': 0
     }
 
   }
 
   let stace = {
 
-    "x": 0,
-    "y": 0,
-    "z": 0,
+    'x': 0,
+    'y': 0,
+    'z': 0
 
   }
 
   let graticule = {
 
-    "extent": [ [-180, 180, [[[45,45]]], 45],  [-180, 180, 22.5, 22.5] ],
+    'extent': [ [-180, 180, [[[45, 45]]], 45], [-180, 180, 22.5, 22.5] ]
 
   }
   let conform = {
 
-    "projection": "natform",
-    "form": form,
+    'projection': 'natform',
+    'form': form
 
   }
   let proform = {
 
-    "projection": "uniwen",
-    "translate": stace,
+    'projection': 'uniwen',
+    'translate': stace
 
   }
 
   // -------------------------------  threegrat
   let threegrat = {
 
-    "halo":"geojson",
+    'halo': 'geojson',
 
-    "geoform": (p) => {
-
-      let grarrx = __mapper("xs").m("graticule").grarrx(p.payload.graticule)
+    'geoform': (p) => {
+      let grarrx = __mapper('xs').m('graticule').grarrx(p.payload.graticule)
       return {
-						type:"Feature",
-						geometry: {
-							type: "MultiLineString", 
-							coordinates: grarrx
-						},
-						properties:{}
-			}
-      
+        type: 'Feature',
+        geometry: {
+          type: 'MultiLineString',
+          coordinates: grarrx
+        },
+        properties: {}
+      }
     },
 
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'threegrat', 'cid': 'threegrat', 'fid': 'threegrat'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.3, 'co': [[[0.3, 0.3, 0.3]]], 'cp': [[[0.3, 0.3, 0.3]]]},
 
-    "payload": { 
-			"tim": tim,
-			"ric": {"gid":"threegrat","cid":"threegrat","fid":"threegrat",},
-			"boform":{ "csx":0,"cf":[[[666,666]]],"cs":333,"cw":0.3,"co":[[[0.3,0.3,0.3]]],"cp":[[[0.3,0.3,0.3]]],},
+      'conform': conform,
 
-			"conform": conform,
-		
-			"graticule": graticule, 
-			
-				x: 25,
-				y: 25,
-				z: 25,
-			
-		},
+      'graticule': graticule,
+
+      x: 25,
+      y: 25,
+      z: 25
+
+    }
 
   }
 
   // -------------------------------  earth
   let earth = {
 
-    "halo":"geojson",
+    'halo': 'geojson',
 
-    "geoform": ()=> {
+    'geoform': () => {
       let gjls = Object.assign({},
         topojson.mesh(
-          __mapper("xs").d("worldTopo110m").data(),
-          __mapper("xs").d("worldTopo110m").data().objects.land
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
         )
       )
-      gjls = __mapper("xs").m("geoj").trim(gjls)
-			gj = {type: "Feature", geometry: gjls, properties:{}}
+      gjls = __mapper('xs').m('geoj').trim(gjls)
+      gj = {type: 'Feature', geometry: gjls, properties: {}}
       return gj
     },
-		payload: {
-				"tim": tim,
-				"ric": {"gid":"earth","cid":"earth","fid":"earth",},
-				"boform":{ "csx":0,"cf":777,"cs":777,"cw":0.3,"co":[[[0.7,0.7,0.7]]],"cp":[[[0.7,0.7,0.7]]],},
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'earth', 'cid': 'earth', 'fid': 'earth'},
+      'boform': { 'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.3, 'co': [[[0.7, 0.7, 0.7]]], 'cp': [[[0.7, 0.7, 0.7]]]},
 
-				"conform": conform,
+      'conform': conform,
 
-				"proform": proform,
-		}
+      'proform': proform
+    }
   }
 
   // -------------------------------  img
   let img = {
 
-    halo: "img",
+    halo: 'img',
 
     geoform: p => ({
-      type:  "Feature",
+      type: 'Feature',
       geometry: {
 
-        "type": "Point",
-        "coordinates": [ 0, 0 ]
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
 
       },
       properties: {
-				sort: "img",
-        ["xlink:href"]: p.payload.img.url,
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
         style: p.payload.img.style
       }
     }),
 
     payload: {
 
-			tim,
-			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
-			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-			proform: {
-				projection: "uniwen",
-				translate: [ 30, 40 ],
-			},
-			img: {
-        url: "zimg-501.jpg",
-        "style": {
-					"width": [[[60, 60]]],
-					"height": [[[40 , 40]]],
-					"rotate": [[[ 0, 0 ]]],
-        }	
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
       },
-
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
 
     }
   }
-	
+
   /*******************************************
  *      @animas
  *
  */
 
   let animas = [
-    img,         // h.img
-    threegrat,   // h.geojson g.natform
-    earth,       // h.geojson g.natform
+    img, // h.img
+    threegrat, // h.geojson g.natform
+    earth // h.geojson g.natform
   ]
 
-  let animaApi = function animaApi() {
-
-    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
-
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
   }
 
   return animaApi
-
 }
 
 let __mapper = bosonMapper.bosonMapper()
-__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

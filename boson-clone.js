@@ -2,59 +2,52 @@
  *    @bosonClone
  */
 (function (global, factory) {
-  typeof exports === "object" && typeof module !== "undefined" ? factory(exports) :
-    typeof define === "function" && define.amd ? define(["exports"], factory) :
-      (factory((global.bosonClone = global.bosonClone || {})))
-}(this, function (exports) { "use strict"
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.bosonClone = global.bosonClone || {})))
+}(this, function (exports) {
+  'use strict'
 
-  let bosonClone = function bosonClone(__mapper = {}) {
+  let bosonClone = function bosonClone (__mapper = {}) {
+    let f = __mapper('props')()
 
-    let f = __mapper("props")()
-
-   /***********
+    /***********
    *    @clone : anigram
    */
     let clone = function (v) {
-      
-      if (0 && 1) console.log("b.clone", v)
-      
-      if (v === null) return null                         //00 _____ o
-      else if (typeof(v) === "number") return v           //02 _____ num
-      else if (typeof(v) === "string") return v           //03 _____ str
-      else if (f.isArray(v) && v.length === 0) return v   //04 _____ []
-      else if (typeof(v) === "function"
-      ) return v                      //  v(t)    //01 _____ fn
+      if (0 && 1) console.log('b.clone', v)
 
-      else if (f.isObject(v)                        //06 ___ v :: {}
+      if (v === null) return null // 00 _____ o
+      else if (typeof (v) === 'number') return v // 02 _____ num
+      else if (typeof (v) === 'string') return v // 03 _____ str
+      else if (f.isArray(v) && v.length === 0) return v // 04 _____ []
+      else if (typeof (v) === 'function'
+      ) return v //  v(t)    //01 _____ fn
+
+      else if (f.isObject(v) // 06 ___ v :: {}
       ) {
         let r = {}
         for (let y of Reflect.ownKeys(v)) {
-          r[y] = clone(v[y])    // reenter
+          r[y] = clone(v[y]) // reenter
         }
         return r
-      }
-
-      else if (f.isArray(v)     //09 ____ [[[ ], {}]] // last chance for the array
+      } else if (f.isArray(v) // 09 ____ [[[ ], {}]] // last chance for the array
 
       ) {
         let ws = v.map(d => clone(d))
         return ws
-      }
-
-      else {
+      } else {
         return v
       }
     }
 
-  /***********
+    /***********
   *   @enty
   */
     let enty = v => clone(v)
 
     return enty
-
   }
 
   exports.bosonClone = bosonClone
-
-}));
+}))

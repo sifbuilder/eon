@@ -19,61 +19,114 @@
 
 <script>
 
-let muonAlima = function muonAlima(__mapper) {
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').b('init')({svg: 1, versor: 1, webgl: 1, img: 0}) // INIT
 
-  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({svg:1,versor:1,webgl:1,img:0})  // INIT
-
-  let f = __mapper({"props": muonProps.muonProps()}).props()
+  let f = __mapper({'props': muonProps.muonProps()}).props()
 
   /*******************************************
  *      @pics
  *
  */
-  let tim = {"td":3800,"t0":0,"t1":1000,"t2":1,"t3":1,}
-  let form =  {
+  let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let form = {
 
-    "x": {
-      "m1":[[[4,4]]],"m2":[[[4,4]]],"n1":2,"n2":2,"n3":2,"a":1,"b":1,// circle
-      "m1":3,"m2":3,"n1":1,"n2":1,"n3":1,"a":1,"b":1,//
-      "m1":[[[4,8]]],"m2":[[[4,8]]],"n1":2,"n2":2,"n3":2,"a":1,"b":1,// circle
-      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
+    'x': {
+      'm1': [[[4, 4]]],
+      'm2': [[[4, 4]]],
+      'n1': 2,
+      'n2': 2,
+      'n3': 2,
+      'a': 1,
+      'b': 1, // circle
+      'm1': 3,
+      'm2': 3,
+      'n1': 1,
+      'n2': 1,
+      'n3': 1,
+      'a': 1,
+      'b': 1, //
+      'm1': [[[4, 8]]],
+      'm2': [[[4, 8]]],
+      'n1': 2,
+      'n2': 2,
+      'n3': 2,
+      'a': 1,
+      'b': 1, // circle
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
 
-      "ra2":62,
-      "v0": 0,"v1":1,
-      "w4":  0, // [[[0,0,0,-9 * 90,-9 * 90 ,0 ,0]]], // [[[180,360,180]]], // [[[0,-360,0]]],
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": 0,
+      'ra2': 62,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0, // [[[0,0,0,-9 * 90,-9 * 90 ,0 ,0]]], // [[[180,360,180]]], // [[[0,-360,0]]],
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': 0
     },
-    "y": {
-      "m1":[[[4,4]]],"m2":[[[4,4]]],"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circle
-      "m1":3,"m2":3,"n1":1,"n2":1,"n3":1,"a":1,"b":1,//
-      "m1":[[[4,8]]],"m2":[[[4,8]]],"n1":27,"n2":2,"n3":2,"a":1,"b":1,// circle
-      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
+    'y': {
+      'm1': [[[4, 4]]],
+      'm2': [[[4, 4]]],
+      'n1': 2,
+      'n2': 2,
+      'n3': 2,
+      'a': 1,
+      'b': 1, // circle
+      'm1': 3,
+      'm2': 3,
+      'n1': 1,
+      'n2': 1,
+      'n3': 1,
+      'a': 1,
+      'b': 1, //
+      'm1': [[[4, 8]]],
+      'm2': [[[4, 8]]],
+      'n1': 27,
+      'n2': 2,
+      'n3': 2,
+      'a': 1,
+      'b': 1, // circle
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
 
-      "ra2": 62,
-      "v0":0,"v1":1,
-      "w4": 0, // [[[0,0,0,-9 * 90,-9 * 90, 0 ,0]]], //  [[[60, 60 + 1 * 360]]], // [[[0,-360,0]]],
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": -90,    // fas8, antifase
-    },
+      'ra2': 62,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0, // [[[0,0,0,-9 * 90,-9 * 90, 0 ,0]]], //  [[[60, 60 + 1 * 360]]], // [[[0,-360,0]]],
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': -90 // fas8, antifase
+    }
 
   }
-	
+
   let stace = {
 
-    "x": [[[100, 500]]],
-    "y": 200,
-    "z": 0,
+    'x': [[[100, 500]]],
+    'y': 200,
+    'z': 0
 
   }
   let proform = {
 
-    "projection": "orthographic", 
-		"scale": [[[100,0.5]]],
-    "translate": stace,
-    "rotate": [ [[[0, - 1 * 360]]], 0, 0 ],
-    "control": "versor",
+    'projection': 'orthographic',
+    'scale': [[[100, 0.5]]],
+    'translate': stace,
+    'rotate': [ [[[0, -1 * 360]]], 0, 0 ],
+    'control': 'versor'
 
   }
   /*******************************************
@@ -82,39 +135,36 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let geoearth = {
 
-    "halo": "geojson",
-    
+    'halo': 'geojson',
 
-    "geoform": () => {
+    'geoform': () => {
       let gj = Object.assign({},
         topojson.feature(
-          __mapper("xs").d("worldTopo110m").data(),
-          __mapper("xs").d("worldTopo110m").data().objects.land
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
         )
       )
-      gj = __mapper("xs").m("geoj").trim(gj)
+      gj = __mapper('xs').m('geoj').trim(gj)
       return gj
     },
 
-		payload: {
-			"tim": tim,
-			"ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
-			"boform":{ "csx":0,"cf":[[[555,333,555,333,555,333,555]]],"cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
-			"proform": proform,
-		}
-    
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
+      'boform': { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+      'proform': proform
+    }
+
   }
 
-
   let animas = [
-    geoearth,  // h.geojson g.orthographic
+    geoearth // h.geojson g.orthographic
   ]
 
-  return () => __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
-
+  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
 }
 
 let __mapper = bosonMapper.bosonMapper()
-__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

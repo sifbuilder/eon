@@ -24,142 +24,134 @@
 
 <script>
 
-let muonAlima = function muonAlima(__mapper) {
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').b('init')({svg: 1, wen: 1, versor: 1, img: 0, webgl: 1}) // INIT
 
-  __mapper({"xs": xs.xs(__mapper)})                         // PROXIES
-  __mapper("xs").b("init")({svg:1,wen:1,versor:1,img:0,webgl:1})  // INIT
-
-  let f = __mapper({"props": muonProps.muonProps()}).props()
-  let g = __mapper("xs").m("geom")
+  let f = __mapper({'props': muonProps.muonProps()}).props()
+  let g = __mapper('xs').m('geom')
 
   /*******************************************
  *    @port
  *
  */
-  let r = __mapper("xs").r("renderer"),
+  let r = __mapper('xs').r('renderer'),
     width = r.width(),
     height = r.height()
 
   /*******************************************
  *    @pics
  */
-  let tim = {"td":18200,"t0":0,"t1":1000,"t2":1,"t3":1,}
+  let tim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   /*******************************************
  *      @animas
  *
  */
- 
+
   // -------------------------------  img
   let img = {
 
-    "halo": "img",
+    'halo': 'img',
 
-    "geoform": p => ({
-      type:  "Feature",
+    'geoform': p => ({
+      type: 'Feature',
       geometry: {
 
-        "type": "Point",
-        "coordinates": [ 40, 40 ]
+        'type': 'Point',
+        'coordinates': [ 40, 40 ]
 
       },
       properties: {
-				sort: "img",
-        ["xlink:href"]: p.payload.img.url,
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
         style: p.payload.img.style
       }
     }),
 
-		
-    "payload": {
+    'payload': {
 
-			"tim": tim,
-			"ric": {"gid":"imgg","cid":"imgc","fid":"imgf",},
-			"boform": { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
+      'tim': tim,
+      'ric': {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      'boform': { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
 
-			
-			"proform": {
-				"projection": "uniwen",
-				"translate": [ [[[30,200]]], 40 ],
-			},
-			
-			"img": {
-        "url":"zimg-501.jpg",
-        "style": {
-					"width": [[[60, 120]]],
-					"height": [[[40 , 80]]],
-					"rotate": [[[ 0, 12 ]]],
-        }				
-				
+      'proform': {
+        'projection': 'uniwen',
+        'translate': [ [[[30, 200]]], 40 ]
       },
 
+      'img': {
+        'url': 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 120]]],
+          'height': [[[40, 80]]],
+          'rotate': [[[ 0, 12 ]]]
+        }
+
+      }
 
     }
   }
   // -------------------------------  text
   let text = {
 
-    "halo":"text",
+    'halo': 'text',
 
-    "geoform": p => ({
-      type:  "Feature",
+    'geoform': p => ({
+      type: 'Feature',
       geometry: {
 
-        "type": "Point",
-        "coordinates": [290, 180]
+        'type': 'Point',
+        'coordinates': [290, 180]
 
       },
       properties: {
-				sort: "text",
+        sort: 'text',
         text: p.payload.text.text,
         style: p.payload.text.style
       }
     }),
 
+    'payload': {
 
-    "payload": {
-		
-			"tim": tim,
-			"ric": {"gid":"text","cid":"text","fid":"text",},
-			"boform": { "csx":0,"cf":[[[888,777]]],"cs":111,"cw":[[[0.1,0.7]]],"co":[[[0.1,0.7,]]],"cp":[[[0.5,0.5]]],},
-			"proform": {
-				"projection": "uniwen",
-				"translate": [ 30, 40 ],
-			},
-      "text": {
-        "text":"e",
-        "style": {
-					["rotate"]: [[[0, 1 ]]],
-          ["font-size"]: [[[1, 24]]],
-          ["font-family"]: "BankFuturistic",
-          ["text-anchor"]: "center",
+      'tim': tim,
+      'ric': {'gid': 'text', 'cid': 'text', 'fid': 'text'},
+      'boform': { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.1, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      'proform': {
+        'projection': 'uniwen',
+        'translate': [ 30, 40 ]
+      },
+      'text': {
+        'text': 'e',
+        'style': {
+          'rotate': [[[0, 1 ]]],
+          'font-size': [[[1, 24]]],
+          'font-family': 'BankFuturistic',
+          'text-anchor': 'center'
 
         }
-      },
+      }
 
     }
-  } 
+  }
   /*******************************************
  * @animaApi
  *
  */
   let animas = [
 
-    img,          // h.img
-    text,         // h.text
+    img, // h.img
+    text // h.text
   ]
 
-  let animaApi = function animaApi() {
-
-    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
-
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
   }
 
   return animaApi
-
 }
 
 let __mapper = bosonMapper.bosonMapper()
-__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

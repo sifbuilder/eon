@@ -18,120 +18,194 @@
 /*******************************************
  *      @alima
  */
-let muonAlima = function muonAlima(__mapper) {
-
-  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({canvas:0,svg:1,versor:0,wen:1,webgl:1,img:0,gui:0,fps:0,stats:0}) // INIT
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').b('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, img: 0, gui: 0, fps: 0, stats: 0}) // INIT
 
   /**********************
    *    @libs
    */
-  let renderer = __mapper("renderRenderer"),
+  let renderer = __mapper('renderRenderer'),
     width = renderer.width(),
     height = renderer.height(),
-    scaleView = Math.min(width/2, height)/Math.PI
+    scaleView = Math.min(width / 2, height) / Math.PI
 
-  let f = __mapper({"props": muonProps.muonProps()}).props(),
-			g = __mapper("xs").m("geom"),
-			mwen = __mapper("xs").m("wen"),
-			cwen = __mapper("xs").c("wen")(),
-			bversor = __mapper("xs").b("versor")(),
-			mnat = __mapper("xs").m("nat")
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+    g = __mapper('xs').m('geom'),
+    mwen = __mapper('xs').m('wen'),
+    cwen = __mapper('xs').c('wen')(),
+    bversor = __mapper('xs').b('versor')(),
+    mnat = __mapper('xs').m('nat')
 
   /*******************************************
  *      @pics
  */
-  let tim = {"td":16800,"t0":0,"t1":1000,"t2":1,"t3":1,}
-  let formFuel =  {
+  let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let formFuel = {
 
-    "x": {
-      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circ
-      "m1":5,"m2":5,"n1":30,"n2":100,"n3":100,"a":1,"b":1,"w4":0,"ra2":160, // star
+    'x': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 2,
+      'n2': 2,
+      'n3': 2,
+      'a': 1,
+      'b': 1, // circ
+      'm1': 5,
+      'm2': 5,
+      'n1': 30,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1,
+      'w4': 0,
+      'ra2': 160, // star
 
-      "ra2": 6,
-      "v0": 0, "v1": 1,
-      "seg5": [[[48,48]]],
-      "w4": [[[90 , 90 - 0 * 360]]],
-      "pa6": 0,
-      "pb7": 360,
-      "fas8": 0,
+      'ra2': 6,
+      'v0': 0,
+      'v1': 1,
+      'seg5': [[[48, 48]]],
+      'w4': [[[90, 90 - 0 * 360]]],
+      'pa6': 0,
+      'pb7': 360,
+      'fas8': 0
     },
 
-    "y": {
-      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circ
-      "m1":5,"m2":5,"n1":30,"n2":100,"n3":100,"a":1,"b":1,"w4":0,"ra2":160, // star
+    'y': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 2,
+      'n2': 2,
+      'n3': 2,
+      'a': 1,
+      'b': 1, // circ
+      'm1': 5,
+      'm2': 5,
+      'n1': 30,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1,
+      'w4': 0,
+      'ra2': 160, // star
 
-      "ra2": 6,
-      "v0": 0, "v1": 1,
-      "seg5": [[[48,48]]],
-      "w4": [[[90 , 90 - 0 * 360]]],
-      "pa6": 0,
-      "pb7": 360,
-      "fas8": -90,
-    },
+      'ra2': 6,
+      'v0': 0,
+      'v1': 1,
+      'seg5': [[[48, 48]]],
+      'w4': [[[90, 90 - 0 * 360]]],
+      'pa6': 0,
+      'pb7': 360,
+      'fas8': -90
+    }
 
   }
 
-  let form =  {
+  let form = {
 
-    "x": {
-      "m1":6,"m2":6,"n1":2,"n2":2,"n3":0,"a":2,"b":1,   // tri
+    'x': {
+      'm1': 6,
+      'm2': 6,
+      'n1': 2,
+      'n2': 2,
+      'n3': 0,
+      'a': 2,
+      'b': 1, // tri
       // "m1":[[[2,6]]],"m2":[[[2,6]]],"n1":[[[0.3,2]]],"n2":[[[-3,2]]],"n3":[[[8,0]]],"a":[[[8,2]]],"b":[[[8,1]]],    // tri
       // "m1":[[[2,6,6]]],"m2":[[[2,6,6]]],"n1":[[[0.3,2,2]]],"n2":[[[-3,2,2]]],"n3":[[[8,0,0]]],"a":[[[8,2,3]]],"b":[[[8,1,1]]],    // tri
-      "m1":4,"m2":4,"n1":2,"n2":2.2,"n3":2.2,"a":9,"b":4, // round square
-      "m1":3,"m2":3,"n1":1,"n2":1.2,"n3":1.2,"a":1,"b":1, // reaulaux
-      "ra2": 100,
-      "v0": 0, "v1": 1,
-      "seg5": [[[360,360]]],
-      "w4": [[[90 , 90 - 0 * 360]]],
-      "pa6": 0,
-      "pb7": 360,
-      "fas8": 0,
+      'm1': 4,
+      'm2': 4,
+      'n1': 2,
+      'n2': 2.2,
+      'n3': 2.2,
+      'a': 9,
+      'b': 4, // round square
+      'm1': 3,
+      'm2': 3,
+      'n1': 1,
+      'n2': 1.2,
+      'n3': 1.2,
+      'a': 1,
+      'b': 1, // reaulaux
+      'ra2': 100,
+      'v0': 0,
+      'v1': 1,
+      'seg5': [[[360, 360]]],
+      'w4': [[[90, 90 - 0 * 360]]],
+      'pa6': 0,
+      'pb7': 360,
+      'fas8': 0
     },
 
-    "y": {
-      "m1":6,"m2":6,"n1":2,"n2":2,"n3":0,"a":2,"b":1,   // tri
+    'y': {
+      'm1': 6,
+      'm2': 6,
+      'n1': 2,
+      'n2': 2,
+      'n3': 0,
+      'a': 2,
+      'b': 1, // tri
       // "m1":[[[2,6]]],"m2":[[[2,6]]],"n1":[[[0.3,2]]],"n2":[[[-3,2]]],"n3":[[[8,0]]],"a":[[[8,2]]],"b":[[[8,1]]],    // tri
       // "m1":[[[2,6,6]]],"m2":[[[2,6,6]]],"n1":[[[0.3,2,2]]],"n2":[[[-3,2,2]]],"n3":[[[8,0,0]]],"a":[[[8,2,3]]],"b":[[[8,1,1]]],    // tri
-       "m1":4,"m2":4,"n1":2,"n2":2.2,"n3":2.2,"a":4,"b":9, // round square
+      'm1': 4,
+      'm2': 4,
+      'n1': 2,
+      'n2': 2.2,
+      'n3': 2.2,
+      'a': 4,
+      'b': 9, // round square
 
-       "m1":3,"m2":3,"n1":1,"n2":1.2,"n3":1.2,"a":1,"b":1, // reaulaux
+      'm1': 3,
+      'm2': 3,
+      'n1': 1,
+      'n2': 1.2,
+      'n3': 1.2,
+      'a': 1,
+      'b': 1, // reaulaux
 
-      "ra2": 100,
-      "v0": 0, "v1": 1,
-      "seg5": [[[360,360]]],
-      "w4": [[[90 , 90 - 0 * 360]]],
-      "pa6": 0,
-      "pb7": 360,
-      "fas8": -90,
-    },
+      'ra2': 100,
+      'v0': 0,
+      'v1': 1,
+      'seg5': [[[360, 360]]],
+      'w4': [[[90, 90 - 0 * 360]]],
+      'pa6': 0,
+      'pb7': 360,
+      'fas8': -90
+    }
 
   }
 
   let stace = {
-		"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":4,"b":2, // circle
-		"ra2": 30,
-		"v0": 0,"v1": 1,
-		"w4": 0,
-		"seg5": 360,
-		"pa6": 0,
-		"pb7": -1,
-		"fas8": 0,
-	}
-
-  let proform = {
-    "projection": "uniwen",
-    "translate": [ [ 300, 200 ], [[[ stace ]]] ],
-    "scale": 1,
-    "rotate": [ 0, 0, [[[0,0]]] ],
-    "focale": 12,
-    "zafin": [0,1],
-    "dims": 2,
-    "control": "wen",
+    'm1': 4,
+    'm2': 4,
+    'n1': 2,
+    'n2': 2,
+    'n3': 2,
+    'a': 4,
+    'b': 2, // circle
+    'ra2': 30,
+    'v0': 0,
+    'v1': 1,
+    'w4': 0,
+    'seg5': 360,
+    'pa6': 0,
+    'pb7': -1,
+    'fas8': 0
   }
 
-  let boform = { "csx":0,"cf":[[[500,888,650]]],"co":[[[0.29,0.29]]],"cs":[[[555,666]]],"cw":[[[0.9,0.9]]],"cp":[[[0.7,0.9]]],}
-  let boformFuel = { "csx":0,"cf":[[[777,777]]],"co":[[[0.9,0.9]]],"cs":[[[777,777]]],"cw":[[[0.1,0.1]]],"cp":[[[0.99,0.99]]],}
+  let proform = {
+    'projection': 'uniwen',
+    'translate': [ [ 300, 200 ], [[[ stace ]]] ],
+    'scale': 1,
+    'rotate': [ 0, 0, [[[0, 0]]] ],
+    'focale': 12,
+    'zafin': [0, 1],
+    'dims': 2,
+    'control': 'wen'
+  }
+
+  let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+  let boformFuel = { 'csx': 0, 'cf': [[[777, 777]]], 'co': [[[0.9, 0.9]]], 'cs': [[[777, 777]]], 'cw': [[[0.1, 0.1]]], 'cp': [[[0.99, 0.99]]]}
 
   /*******************************************
  *    @animas
@@ -139,83 +213,82 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let nat = {
 
-    "halo": "nat",
-    "payload": {
-			"ric": {"gid":"nat","cid":"nat","fid":"nat",},
-			tim,
-			boform,
-			proform,
-			form:form
-		},
+    'halo': 'nat',
+    'payload': {
+      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
+      tim,
+      boform,
+      proform,
+      form: form
+    }
 
   }
 
   let fuelnat = {
 
-    "halo": "fuel",
-		
-    "geoform":  p => ({
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": mnat.natcoords(p.payload.form)
+    'halo': 'fuel',
+
+    'geoform': p => ({
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Polygon',
+        'coordinates': mnat.natcoords(p.payload.form)
       },
-      "properties": {}
-    }),		
-		
-    "payload": {
-			tim,
-			ric: {"gid":"fuel","cid":"fuel",},
-			boform: boformFuel,
+      'properties': {}
+    }),
+
+    'payload': {
+      tim,
+      ric: {'gid': 'fuel', 'cid': 'fuel'},
+      boform: boformFuel,
       form: formFuel,
-      fuel:{
-          ra2: 3,
-          candidates: 5,
-          sample: 20,
-          goal: 10,
-          f: 1,   // 2, 3
-      },
-    },
+      fuel: {
+        ra2: 3,
+        candidates: 5,
+        sample: 20,
+        goal: 10,
+        f: 1 // 2, 3
+      }
+    }
 
   }
 
   let img = {
 
-    halo: "img",
+    halo: 'img',
 
     geoform: p => ({
-      type:  "Feature",
+      type: 'Feature',
       geometry: {
 
-        "type": "Point",
-        "coordinates": [ 0, 0 ]
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
 
       },
       properties: {
-				sort: "img",
-        ["xlink:href"]: p.payload.img.url,
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
         style: p.payload.img.style
       }
     }),
 
     payload: {
 
-			tim,
-			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
-			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-			proform: {
-				projection: "uniwen",
-				translate: [ 30, 40 ],
-			},
-			img: {
-        url: "zimg-501.jpg",
-        "style": {
-					"width": [[[60, 60]]],
-					"height": [[[40 , 40]]],
-					"rotate": [[[ 0, 0 ]]],
-        }
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
       },
-
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
 
     }
   }
@@ -226,26 +299,22 @@ let muonAlima = function muonAlima(__mapper) {
  */
 
   nat.payload.avatars = {
-    fuelnat,  	// h.fuel
+    fuelnat // h.fuel
   }
 
-
   let animas = [
-    nat,      	// h.nat
+    nat // h.nat
     // img,      	// h.img
   ]
 
-  let animaApi = function animaApi() {
-
-    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
-
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
   }
 
   return animaApi
-
 }
 
 let __mapper = bosonMapper.bosonMapper()
-__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

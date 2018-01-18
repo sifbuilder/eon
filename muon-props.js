@@ -2,22 +2,22 @@
  *        @muonProps
  */
 (function (global, factory) {
-  typeof exports === "object" && typeof module !== "undefined" ? factory(exports) :
-    typeof define === "function" && define.amd ? define(["exports"], factory) :
-      (factory((global.muonProps = global.muonProps || {})))
-}(this, function (exports) { "use strict"
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.muonProps = global.muonProps || {})))
+}(this, function (exports) {
+  'use strict'
 
-  let muonProps = function muonProps() {
-
+  let muonProps = function muonProps () {
     let props = {}
 
     props.a = d => (Array.isArray(d)) ? [...d] : [d]
-    props.v = (d,...p) => (typeof d === "function") ? d(...p) : d
-    props.f = d => (typeof(d) === "function") ? d : () => d
+    props.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
+    props.f = d => (typeof (d) === 'function') ? d : () => d
 
     // https://stackoverflow.com/questions/728360/how-do-i-correctly-clone-a-javascript-object
     props.o = obj => {
-      if (null == obj || "object" != typeof obj) return obj
+      if (obj == null || typeof obj !== 'object') return obj
       let copy = obj.constructor()
       for (let attr in obj) {
         if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr]
@@ -26,8 +26,8 @@
     }
 
     // http://heyjavascript.com/4-creative-ways-to-cloneObj-objects/
-    props.cloneObj = function cloneObj(obj) {
-      if (obj === null || typeof obj !== "object") {
+    props.cloneObj = function cloneObj (obj) {
+      if (obj === null || typeof obj !== 'object') {
         return obj
       }
 
@@ -38,9 +38,8 @@
 
       return temp
     }
-    props.cloneArray = function cloneArray(obj) {
-
-      if (Array.isArray(obj) ) {
+    props.cloneArray = function cloneArray (obj) {
+      if (Array.isArray(obj)) {
         let r = [ ...obj ]
       } else {
         r = obj
@@ -48,9 +47,9 @@
       return r
     }
 
-    props.debug = () => [].join.call(arguments, "\n")
+    props.debug = () => [].join.call(arguments, '\n')
 
-    props.diagonalp = function(d, v) {      // error: d is undefined
+    props.diagonalp = function (d, v) { // error: d is undefined
       // v < 0: linear link
       // 0 < v < 1: curved link
       // > 1: curvy link
@@ -66,82 +65,75 @@
           (y0 === undefined) ||
           (x1 === undefined) ||
           (y1 === undefined)) {
-        console.log("error in diagonal")
+        console.log('error in diagonal')
         return null
       }
 
       let polygon = []
 
-      if (v < 0) {                          // linar
-        polygon = [ [x0,y0],
-          [x1,y1]
+      if (v < 0) { // linar
+        polygon = [ [x0, y0],
+          [x1, y1]
         ]
-      } else if (v > 1) {           // (1, )  curvy
-
-        let rd = 1 + d3.randomNormal(0, v-1)()    // v
-        polygon = [ [x0,y0] ,
+      } else if (v > 1) { // (1, )  curvy
+        let rd = 1 + d3.randomNormal(0, v - 1)() // v
+        polygon = [ [x0, y0],
           [x0 + rd * (x1 - x0), y0],
           [x0 + rd * (x1 - x0), y1],
-          [x1,y1]
+          [x1, y1]
         ]
+      } else { // (0,1)    curve
+        let rd = 1 + d3.randomNormal(0, v)() // v
 
-      } else {                    // (0,1)    curve
-        let rd = 1 + d3.randomNormal(0, v)()    // v
-
-        let r = -1  // let r = Math.sign((0.5 - Math.random()))
+        let r = -1 // let r = Math.sign((0.5 - Math.random()))
 
         let x0a = x0 + r * rd * (x1 - x0)
         let y0a = y0 - r * rd * (y1 - y0)
         polygon = [
-          [x0,y0] ,
+          [x0, y0],
           [x0a, y0a],
-          [x1,y1]
+          [x1, y1]
         ]
-
       }
       return polygon
     }
 
-    props.closerange = (a,b) => [...d3.range(a,b), a]
+    props.closerange = (a, b) => [...d3.range(a, b), a]
     props.geoscale = extent => d3.scaleLinear().domain(extent[0]).range(extent[1])
 
-    props.addarray = (a1,a2) => a1.map( (d, i) => d + a2[i] )
+    props.addarray = (a1, a2) => a1.map((d, i) => d + a2[i])
     props.sum = (a, t) => a.reduce((p, c) => c[t] + p, 0)
     props.add = (a, t) => a.reduce((p, c) => c + p, 0)
     props.summa = (fns) => fns.reduce((fncurr, fnprev) => {
-				return t => props.lib.functor(fncurr)(t) + props.lib.functor(fnprev)(t)
-				}, t => 0)
+      return t => props.lib.functor(fncurr)(t) + props.lib.functor(fnprev)(t)
+    }, t => 0)
 
-    props.fa = d => {     // force array
+    props.fa = d => { // force array
       let ret
       if (Array.isArray(d)) ret = d
       else if (d === null) ret = []
       else if (d === undefined) ret = []
-      else if (typeof d === "object") ret = Object.values(d)
+      else if (typeof d === 'object') ret = Object.values(d)
       else ret = d
       return props.a(ret)
     }
 
-    props.norma = function norma(pts = []) {
+    props.norma = function norma (pts = []) {
       let m = Math.max(...pts)
       let c = 1 / m
       let r = pts.map(p => p * c)
       return r
     }
 
-    props.ta = d => (Array.isArray(d)) ? d.map( di => [[ di ]]) : [[ d ]] // to tripleArray
+    props.ta = d => (Array.isArray(d)) ? d.map(di => [[ di ]]) : [[ d ]] // to tripleArray
 
-
-    props.posInStream = function(rpos, stream) {	// pos from rel-pos in stream
-
+    props.posInStream = function (rpos, stream) {	// pos from rel-pos in stream
       let pos
       let unidimLength = stream.length
-      pos = Math.round(rpos * unidimLength  / 100)
+      pos = Math.round(rpos * unidimLength / 100)
       pos = (pos >= 0) ? pos % unidimLength : (pos + unidimLength) % unidimLength
       return pos
-
     }
-
 
     props.parray = d => (Array.isArray(d)) ? d.slice() : [d]
 
@@ -149,149 +141,137 @@
 
     props.rarray = d => (Array.isArray(d)) ? [ ...d ].reverse() : [d] // reverse array
 
-    props.closerange = (a,b) => [...d3.range(a,b), a]
+    props.closerange = (a, b) => [...d3.range(a, b), a]
 
-    props.isNumericArray =  d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === "number", true)
+    props.isNumericArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'number', true)
 
     // pure array: no object/funcion elements
-    props.isPureArray =  d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== "object" && typeof curr !== "function", true)
+    props.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true)
 
     // quasipure array: arrrays, string or number elements
-    props.isQuasiPureArray =  d => Array.isArray(d) && d.reduce((prev, curr) => prev &&
+    props.isQuasiPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev &&
         Array.isArray(curr) ||
-        typeof(curr) === "string" ||
-        typeof(curr) === "number"
+        typeof (curr) === 'string' ||
+        typeof (curr) === 'number'
       , true)
 
-    props.isDoubleSingleArray =  d => (Array.isArray(d)   // [[_]]
-        && Array.isArray(d[0])
-        && d.length === 1
-        && d[0].length === 1
+    props.isDoubleSingleArray = d => (Array.isArray(d) && // [[_]]
+        Array.isArray(d[0]) &&
+        d.length === 1 &&
+        d[0].length === 1
     )
-    props.isDoubleArray =  d => (Array.isArray(d)       // [[_]]
-        && Array.isArray(d[0])
-        && d.length === 1
+    props.isDoubleArray = d => (Array.isArray(d) && // [[_]]
+        Array.isArray(d[0]) &&
+        d.length === 1
     )
 
     // tripleArray" animas animation, single polygon geojson MultiPolygon
-    props.isTripleArray =  d => (Array.isArray(d) && Array.isArray(d[0]) && Array.isArray(d[0][0])
-        && d.length === 1 && d[0].length === 1 && d[0][0].length === 1 )    // [[[_]]]
+    props.isTripleArray = d => (Array.isArray(d) && Array.isArray(d[0]) && Array.isArray(d[0][0]) &&
+        d.length === 1 && d[0].length === 1 && d[0][0].length === 1) // [[[_]]]
     props.isPureObject = d => (!Array.isArray(d) &&
-                typeof d === "object" &&
-                Object.keys(d).reduce ((p,c) => p && (typeof d[c] !== "object"), true)
+                typeof d === 'object' &&
+                Object.keys(d).reduce((p, c) => p && (typeof d[c] !== 'object'), true)
     )
-    props.isObject = d => (typeof d === "object" && Array.isArray(d) === false)
+    props.isObject = d => (typeof d === 'object' && Array.isArray(d) === false)
     props.isArray = d => Array.isArray(d)
-    props.isString = d => typeof(d) === "string"
-    props.isNumber = d => typeof(d) === "number"
-    props.isFunction = d => typeof(d) === "function"
+    props.isString = d => typeof (d) === 'string'
+    props.isNumber = d => typeof (d) === 'number'
+    props.isFunction = d => typeof (d) === 'function'
 
-    props.functor = d => (typeof(d) === "function") ? d : d => d
-    props.constant = v => (typeof v === "function") ? v() : v
-    props.value = v => (typeof v === "function") ? v() : v
+    props.functor = d => (typeof (d) === 'function') ? d : d => d
+    props.constant = v => (typeof v === 'function') ? v() : v
+    props.value = v => (typeof v === 'function') ? v() : v
     props.noop = () => {}
 
-   /* **************************
+    /* **************************
    *        @colors
    */
-    props.colors = {}             // colors
+    props.colors = {} // colors
     props.colors.scales = {
-      bos: d3.scaleLinear().domain([0, 0.5, 1]).range(["black", "#FF2400", "Wheat"]), // 0
-      wheat: d3.scaleLinear().domain([0, 0.5, 1]).range(["black", "Wheat", "#FF2400"]), // 1
-      red: d3.scaleLinear().domain([0, 0.5, 1]).range(["#FF2400", "Yellow"]), // 2
-      ry: d3.scaleLinear().domain([0, 1]).range(["red", "yellow"]), // 3
-      bar: d3.scaleLinear().domain([0, 0.5, 1]).range(["black", "#FF2400", "Yellow"]),  // 4
-      lab: d3.interpolateLab("#FF2400", "yellow"),  // 5
-      hsl: d3.interpolateLab("brown", "steelblue"), // 6
-      rbl: d3.interpolateLab("red", "blue"),  // 7
-      plasma: d3.interpolatePlasma,   // 8
+      bos: d3.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Wheat']), // 0
+      wheat: d3.scaleLinear().domain([0, 0.5, 1]).range(['black', 'Wheat', '#FF2400']), // 1
+      red: d3.scaleLinear().domain([0, 0.5, 1]).range(['#FF2400', 'Yellow']), // 2
+      ry: d3.scaleLinear().domain([0, 1]).range(['red', 'yellow']), // 3
+      bar: d3.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Yellow']), // 4
+      lab: d3.interpolateLab('#FF2400', 'yellow'), // 5
+      hsl: d3.interpolateLab('brown', 'steelblue'), // 6
+      rbl: d3.interpolateLab('red', 'blue'), // 7
+      plasma: d3.interpolatePlasma, // 8
       cool: d3.interpolateCool, // 9
       warm: d3.interpolateWarm, // 10
-      magma: d3.interpolateMagma,   // 11
-      inferno: d3.interpolateInferno,   // 12
-      viridis: d3.interpolateViridis,   // 13
-      cubehelex: d3.interpolateCubehelexDefault,  // 14
+      magma: d3.interpolateMagma, // 11
+      inferno: d3.interpolateInferno, // 12
+      viridis: d3.interpolateViridis, // 13
+      cubehelex: d3.interpolateCubehelexDefault, // 14
       rainbow: d3.interpolateRainbow, // 15
-      bluered: d3.scaleLinear().domain([0, 0.5, 1]).range(["blue", "Wheat", "red",]),
-      blueblack: d3.scaleLinear().domain([0, 0.5, 1]).range(["blue", "Wheat", "black",]) // "red",])  // 0
+      bluered: d3.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'red' ]),
+      blueblack: d3.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'black' ]) // "red",])  // 0
     }
     props.colors.color = props.colors.scales.bos
-    props.colors.array =  Object.keys(props.colors.scales).map(key => props.colors.scales[key])
+    props.colors.array = Object.keys(props.colors.scales).map(key => props.colors.scales[key])
 
-    props.color = (d=0) => {
+    props.color = (d = 0) => {
       return props.colors.array[Math.round(d)]
     }
-    props.kolor = (v, d=0) => {
-      return props.color(d)(v/1000)
+    props.kolor = (v, d = 0) => {
+      return props.color(d)(v / 1000)
     }
 
-
-    props.polarize = function(point) {        // cart to 2d planar
+    props.polarize = function (point) { // cart to 2d planar
       let x = point[0]
       let y = point[1]
       let ang = Math.atan2(y, x)
       let rad = Math.sqrt(x * x + y * y)
-      return [ang,0,rad]
+      return [ang, 0, rad]
     }
 
-
-   /***************************
+    /***************************
    *        @streamRange
    */
-    props.streamRange = function (pts, pa=0, pb=-1, step=1, fas=0) {
+    props.streamRange = function (pts, pa = 0, pb = -1, step = 1, fas = 0) {
       // for (let k in params) params[k] = value(params[k])
       //  + clockwise, - counter-clockwise
       //  [-0,-1] :=   [359,0]        // [0,360] _e_
       //  [-300,120] := -[300, 0], -[0,120]
 
-      let neg = x =>  x < 0 || (x === 0 && (1/x < 0))
-      let pos = x =>  x > 0 || (x === 0 && (1/x > 0))
+      let neg = x => x < 0 || (x === 0 && (1 / x < 0))
+      let pos = x => x > 0 || (x === 0 && (1 / x > 0))
 
-      let ptsLength = pts.length    // group order    assume positive
+      let ptsLength = pts.length // group order    assume positive
       let intA = Math.round(pa)
       let intB = Math.round(pb)
       let posA = Math.abs(intA)
       let posB = Math.abs(intB)
 
-      let posmodA = Math.floor(posA  % ptsLength)
-      let posmodB = Math.floor(posB  % ptsLength)
+      let posmodA = Math.floor(posA % ptsLength)
+      let posmodB = Math.floor(posB % ptsLength)
       let modStep = Math.floor(step)
 
       let ret = []
       if (intA === intB) {
-
-        let p = intA  % ptsLength     // pt in group
+        let p = intA % ptsLength // pt in group
         ret.push(pts[p])
-
-      } else if (intB < 0) {          // neg B is nb. of cycles
-
-        for(let i = 1; i<= posB; i++) ret = ret.concat(pts.slice(posA, ptsLength))
-        ret = ret.concat(pts.slice(posA, Math.floor(ptsLength * (posB % 1) ))) // fraction
+      } else if (intB < 0) { // neg B is nb. of cycles
+        for (let i = 1; i <= posB; i++) ret = ret.concat(pts.slice(posA, ptsLength))
+        ret = ret.concat(pts.slice(posA, Math.floor(ptsLength * (posB % 1)))) // fraction
 
         if (neg(intA)) ret = props.immutableReverse(ret)
-
       } else if (posA < posB) {
         if (posmodA < posmodB) {
-
-          ret = ret.concat(pts.slice(posmodA, posmodB + 1))   // +1 position
-            .filter((d,i)=> (i % modStep  === 0))     // step
-
+          ret = ret.concat(pts.slice(posmodA, posmodB + 1)) // +1 position
+            .filter((d, i) => (i % modStep === 0)) // step
         } else {
-
           ret = ret.concat(
             pts.slice(posmodA, ptsLength),
             pts.slice(0, posmodB))
         }
 
         if (neg(intA)) ret = props.immutableReverse(ret)
-
-      } else if (posA > posB) {       // _e_
-
+      } else if (posA > posB) { // _e_
         if (neg(intA)) {
           ret = ret.concat(pts.slice(posA, ptsLength))
           ret = ret.concat(pts.slice(0, posB))
           ret = props.immutableReverse(ret)
-
         } else {
           let rpts = props.immutableReverse(pts)
           ret = props.streamRange(rpts, pts.length - posA, pts.length - posB)
@@ -299,23 +279,23 @@
       }
       return ret
     }
-   /***************************
+    /***************************
    *        @fibonacciSphere
    */
     props.cartesian = function (spherical) {
-      let radians =  Math.PI / 180
-      let lambda =  spherical[0] * radians,
-        phi =     spherical[1] * radians,
+      let radians = Math.PI / 180
+      let lambda = spherical[0] * radians,
+        phi = spherical[1] * radians,
         cosphi = Math.cos(phi)
       return [
-        Math.cos(lambda)      * cosphi ,
-        Math.sin(lambda)      * cosphi ,
+        Math.cos(lambda) * cosphi,
+        Math.sin(lambda) * cosphi,
         Math.sin(phi)
       ]
     }
 
     props.spherical = function (cartesian) {
-      let radians =  Math.PI / 180
+      let radians = Math.PI / 180
       let r = Math.sqrt(cartesian[0] * cartesian[0] + cartesian[1] * cartesian[1]),
         lat = Math.atan2(cartesian[2], r),
         lng = Math.atan2(cartesian[1], cartesian[0])
@@ -329,8 +309,7 @@
         })
     }
 
-    props.fibonacciSphere = function fibonacciSphere(samples = 1, randomize = true) {
-
+    props.fibonacciSphere = function fibonacciSphere (samples = 1, randomize = true) {
       let rnd = 1.0
       if (randomize) {
         rnd = Math.random() * samples
@@ -349,55 +328,46 @@
           return ([x, y, z])
         })
       return r
-
     }
-  /***************************
+    /***************************
    *        @format
    */
-    props.d = function ( precision ) {
-      return function(value) {
-        var multiplier = Math.pow(10, precision || 0);
-        return Math.round(value * multiplier) / multiplier;
+    props.d = function (precision) {
+      return function (value) {
+        var multiplier = Math.pow(10, precision || 0)
+        return Math.round(value * multiplier) / multiplier
       }
     }
-   /***************************
+    /***************************
    *        @ent
    *        entry from list and index
    */
-    props.enxs = function( ent, ents, entidx = 0) {
-
+    props.enxs = function (ent, ents, entidx = 0) {
       let ret
-      if (ent !== undefined) {        // if ent singular
-
+      if (ent !== undefined) { // if ent singular
         ret = ent // .map(d => Math.round(d))
-
-      } else if (ents !== undefined) {  // if plural
-
-        if (typeof entidx === "number") ret = ents[Math.round(entidx)] // get one
+      } else if (ents !== undefined) { // if plural
+        if (typeof entidx === 'number') ret = ents[Math.round(entidx)] // get one
         else if (Array.isArray(entidx)) ret = entidx.map(d => ents[Math.round(d)]) // get some
-
       }
       return ret
-
     }
 
-    props.entxx = function( ent, ents, entidx = 0, arr) {
-
+    props.entxx = function (ent, ents, entidx = 0, arr) {
       let _ent = arr[ent]
       let _ents = arr[ents]
       let _entidx = arr[entidx]
-      return props.enxs(_ent, _ents, _entidx )
-
+      return props.enxs(_ent, _ents, _entidx)
     }
-   /***************************
+    /***************************
    *        @positions
    */
-		props.isPosition = obj => Object.getOwnPropertyNames(obj).reduce( (p, q) => 
-				p && 
-				(q === "x" || q === "y"  || q === "z") &&
-				typeof obj[q]  === "number"
-		, true )
-		
+    props.isPosition = obj => Object.getOwnPropertyNames(obj).reduce((p, q) =>
+      p &&
+				(q === 'x' || q === 'y' || q === 'z') &&
+				typeof obj[q] === 'number'
+      , true)
+
     /***************************
    *        @enty
    */
@@ -407,5 +377,4 @@
   }
 
   exports.muonProps = muonProps
-
-}));
+}))

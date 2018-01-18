@@ -24,148 +24,226 @@
 
 <script>
 
-let muonAlima = function muonAlima(__mapper) {
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').b('init')({svg: 1, versor: 0, wen: 1, webgl: 1})
 
-  __mapper({"xs": xs.xs(__mapper)})               // PROXIES
-  __mapper("xs").b("init")({svg:1,versor:0,wen:1,webgl:1})
-
-  let f = __mapper({"props": muonProps.muonProps()}).props()
-  let g = __mapper("xs").m("geom")
-  let w = __mapper("xs").m("wen")
+  let f = __mapper({'props': muonProps.muonProps()}).props()
+  let g = __mapper('xs').m('geom')
+  let w = __mapper('xs').m('wen')
 
   /**********************
    *    @
    */
-  let r = __mapper("xs").r("renderer"),
+  let r = __mapper('xs').r('renderer'),
     width = r.width(),
     height = r.height()
 
-  let rotInit = [0,0,0],
-    rotation = [0,0,0],
+  let rotInit = [0, 0, 0],
+    rotation = [0, 0, 0],
     rotMatrix,
     stars = []
 
-  let versor = __mapper("xs").b("versor")()
-  let wen = __mapper("xs").c("wen")({rotInit})
+  let versor = __mapper('xs').b('versor')()
+  let wen = __mapper('xs').c('wen')({rotInit})
 
   /*******************************************
  *      @pics
  *
  */
-  let tim = {"td":19800,"t0":0,"t1":1000,"t2":1,"t3":1,}
+  let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
+  let formCube = {
 
-  let formCube =  {
-
-    "x": {
-      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
-      "ra2": 120 ,
-      "v0": 0, "v1":1,
-      "w4": 0,
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": 0,
+    'x': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 120,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': 0
     },
-    "y": {
-      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
-      "ra2": 120,
-      "v0":0,"v1":1,
-      "w4": 0,
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": -90,
+    'y': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 120,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': -90
     },
-    "z": {
-      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
-      "ra2": 120 / Math.sqrt(2),               // _e_
-      "v0": 0, "v1":1,
-      "w4":  0,
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": 0,
+    'z': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 120 / Math.sqrt(2), // _e_
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': 0
     }
 
   }
 
+  let formGratiCube = {
 
-  let formGratiCube =  {
-
-    "x": {
-      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
-      "ra2": 120 ,
-      "v0": 0, "v1":1,
-      "w4": 0,
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": 0,
+    'x': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 120,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': 0
     },
-    "y": {
-      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
-      "ra2": 120,
-      "v0":0,"v1":1,
-      "w4": 0,
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": -90,
+    'y': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 120,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': -90
     },
-    "z": {
-      "m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
-      "ra2": 120 / 2,               // _e_
-      "v0": 0, "v1":1,
-      "w4":  0,
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": 0,
+    'z': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 120 / 2, // _e_
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': 0
     }
 
   }
 
-  let formSphere =  {
+  let formSphere = {
 
-    "x": {
-      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circle
-      "ra2": 120,
-      "v0": 0, "v1":1,
-      "w4": 0,
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": 0,
+    'x': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 2,
+      'n2': 2,
+      'n3': 2,
+      'a': 1,
+      'b': 1, // circle
+      'ra2': 120,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': 0
     },
-    "y": {
-      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circle
-      "ra2": 120,
-      "v0":0,"v1":1,
-      "w4": 0,
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": -90,
+    'y': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 2,
+      'n2': 2,
+      'n3': 2,
+      'a': 1,
+      'b': 1, // circle
+      'ra2': 120,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': -90
     },
-    "z": {
-      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1, // circle
-      "ra2": 120,
-      "v0": 0, "v1":1,
-      "w4":  0,
-      "seg5": 360,"pa6":0,"pb7":-1,
-      "fas8": 0,
+    'z': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 2,
+      'n2': 2,
+      'n3': 2,
+      'a': 1,
+      'b': 1, // circle
+      'ra2': 120,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': 0
     }
 
   }
 
   let proformCube = {
 
-      "projection": "uniwen",
-      "translate":  [ 250 , 200],
-      "scale": 1,
-      "rotate": [-5,50, [[[45,45]]] ],  // [-5,50,0], //
-      "focale": 400,
-      "zafin": [0,1], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
-      "dims": 3,
-      "control": "wen",
-    }
+    'projection': 'uniwen',
+    'translate': [ 250, 200],
+    'scale': 1,
+    'rotate': [-5, 50, [[[45, 45]]] ], // [-5,50,0], //
+    'focale': 400,
+    'zafin': [0, 1], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
+    'dims': 3,
+    'control': 'wen'
+  }
 
   let proformEarth = {
 
-      "projection": "uniwen",
-      "translate":  [ 250 , 200],
-      "scale": 1,
-      "rotate": [-5,50, 0 ],  // [-5,50,0], //
-      "focale": 400,
-      "zafin": [0,1], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
-      "dims": 3,
-      "control": "wen",
-    }
+    'projection': 'uniwen',
+    'translate': [ 250, 200],
+    'scale': 1,
+    'rotate': [-5, 50, 0 ], // [-5,50,0], //
+    'focale': 400,
+    'zafin': [0, 1], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
+    'dims': 3,
+    'control': 'wen'
+  }
 
   /*******************************************
  *      @animas
@@ -173,83 +251,81 @@ let muonAlima = function muonAlima(__mapper) {
  */
   let aniEarth = {
 
-    halo: "geojson",
+    halo: 'geojson',
 
     geoform: p => {
-			
-			let payload = p.payload
-			let ric = payload.ric
+      let payload = p.payload
+      let ric = payload.ric
 
-			let geometry = Object.assign({},
-				topojson.mesh(
-					__mapper("xs").d("worldTopo110m").data(),
-					__mapper("xs").d("worldTopo110m").data().objects.land
-				)
-			)
-			
-			let feature = {
-				type:  "Feature",
-				geometry: geometry,
-				properties: {}
-			}
-			
+      let geometry = Object.assign({},
+        topojson.mesh(
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
+        )
+      )
+
+      let feature = {
+        type: 'Feature',
+        geometry: geometry,
+        properties: {}
+      }
+
       return feature
     },
 
-    payload: {		
-		
-			"tim": tim,
-			"ric": {"gid":"aniEarth","cid":"aniEarth","fid":"aniEarth",},
-			"boform":{ "csx":0,"cf":444,"cs":444,"cw":0.1,"co":0.9,"cp":0.9,},
-			"conform": {
+    payload: {
 
-				"projection": "natform",
-				"form": formCube,
+      'tim': tim,
+      'ric': {'gid': 'aniEarth', 'cid': 'aniEarth', 'fid': 'aniEarth'},
+      'boform': { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
+      'conform': {
 
-			},
+        'projection': 'natform',
+        'form': formCube
 
-			"proform": proformEarth,
-		}
+      },
+
+      'proform': proformEarth
+    }
 
   }
   // -------------------------------  img
   let img = {
 
-    halo: "img",
+    halo: 'img',
 
     geoform: p => ({
-      type:  "Feature",
+      type: 'Feature',
       geometry: {
 
-        "type": "Point",
-        "coordinates": [ 0, 0 ]
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
 
       },
       properties: {
-				sort: "img",
-        ["xlink:href"]: p.payload.img.url,
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
         style: p.payload.img.style
       }
     }),
 
     payload: {
 
-			tim,
-			ric: {"gid":"imgg","cid":"imgc","fid":"imgf",},
-			boform: { "csx":0,"cf":[[[22,22]]],"cs":22,"cw":[[[0.7,0.7]]],"co":[[[0.7,0.7,]]],"cp":[[[0.5,0.5]]],},
-			proform: {
-				projection: "uniwen",
-				translate: [ 30, 40 ],
-			},
-			img: {
-        url: "zimg-501.jpg",
-        "style": {
-					"width": [[[60, 60]]],
-					"height": [[[40 , 40]]],
-					"rotate": [[[ 0, 0 ]]],
-        }	
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
       },
-
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
 
     }
   }
@@ -257,182 +333,176 @@ let muonAlima = function muonAlima(__mapper) {
   // -------------------------------  aniCube
   let aniCube = {
 
-    "halo": "geojson",
-    "geoform": (p) => {
+    'halo': 'geojson',
+    'geoform': (p) => {
+      let payload = p.payload,
+        ric = payload.ric
 
-			let payload = p.payload,
-				ric = payload.ric
-
-      let json = {type: "FeatureCollection", features: []}
-      let points = payload.points       // payload.points
-      let faces = payload.faces                 // payload.faces
+      let json = {type: 'FeatureCollection', features: []}
+      let points = payload.points // payload.points
+      let faces = payload.faces // payload.faces
       for (let i = 0, l = faces.length; i < l; i++) {
-        let face = faces[i]                // face pointsx position
-        let geometry = {type:"Polygon",coordinates:[]}
-          geometry.coordinates = face.pointsx.map(k=>points[k]) // eg [-1, 1, 1]
-            .map(g.normalize)    // eg. [0.5773, -0.577, 0.5773]
-            .map(g.spherical)   // eg. [-0.7853, 0.6154]
-            .map(g.to_degrees)
-            geometry.coordinates = Array.of(geometry.coordinates)
-        let feature = {type:"Feature",geometry:{},properties:{}}
-            feature.properties.ric = ric
-            feature.properties.ric.cid = "face"
-            feature.properties.ric.fid = i // face.name
-            feature.properties.sort = "feature"
-            feature.geometry = geometry
-            feature.properties.boform = face.boform
+        let face = faces[i] // face pointsx position
+        let geometry = {type: 'Polygon', coordinates: []}
+        geometry.coordinates = face.pointsx.map(k => points[k]) // eg [-1, 1, 1]
+          .map(g.normalize) // eg. [0.5773, -0.577, 0.5773]
+          .map(g.spherical) // eg. [-0.7853, 0.6154]
+          .map(g.to_degrees)
+        geometry.coordinates = Array.of(geometry.coordinates)
+        let feature = {type: 'Feature', geometry: {}, properties: {}}
+        feature.properties.ric = ric
+        feature.properties.ric.cid = 'face'
+        feature.properties.ric.fid = i // face.name
+        feature.properties.sort = 'feature'
+        feature.geometry = geometry
+        feature.properties.boform = face.boform
         json.features.push(feature)
       }
 
       return json
     },
 
-    "payload": {
-			"tim": tim,
-			"ric": {"gid":"aniCube","cid":"aniCube","fid":"aniCube",},
-			"boform":{ "csx":0,"cf":333,"cs":111,"cw":0.1,"co":0.9,"cp":0.9,},
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'aniCube', 'cid': 'aniCube', 'fid': 'aniCube'},
+      'boform': { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
 
-			"conform": {
+      'conform': {
 
-				"projection": "natform",
-				"form": formSphere,
+        'projection': 'natform',
+        'form': formSphere
 
-			},
+      },
 
-			"proform": proformCube,
-
+      'proform': proformCube,
 
       points: [
-        [-1, -1,  1],   // 0
-        [ 1, -1,  1],   // 1
-        [ 1, 1,  1],    // 2
-        [-1, 1,  1],    // 3
-        [ 1, -1, -1],   // 4
-        [-1, -1, -1],   // 5
-        [-1, 1, -1],    // 6
-        [ 1, 1, -1],    // 7
+        [-1, -1, 1], // 0
+        [ 1, -1, 1], // 1
+        [ 1, 1, 1], // 2
+        [-1, 1, 1], // 3
+        [ 1, -1, -1], // 4
+        [-1, -1, -1], // 5
+        [-1, 1, -1], // 6
+        [ 1, 1, -1] // 7
       ],
       faces: [
         {
-          pointsx: [0,1,2,3,0],
-          name: "front",
-          boform: { cf: 222, cs: 355, co: [[[0.7,0.7]]], cp: 1, }},
+          pointsx: [0, 1, 2, 3, 0],
+          name: 'front',
+          boform: { cf: 222, cs: 355, co: [[[0.7, 0.7]]], cp: 1 }},
         {
-          pointsx: [4,5,6,7,4],
-          name: "back",
-          boform: { cf: 888, cs: 455, co: [[[0.7,0.7]]], cp: 1, }},
+          pointsx: [4, 5, 6, 7, 4],
+          name: 'back',
+          boform: { cf: 888, cs: 455, co: [[[0.7, 0.7]]], cp: 1 }},
         {
-          pointsx: [1,4,7,2,1],
-          name: "right",
-          boform: { cf: 444, cs: 555, co: [[[0.7,0.7]]], cp: 1, }},
+          pointsx: [1, 4, 7, 2, 1],
+          name: 'right',
+          boform: { cf: 444, cs: 555, co: [[[0.7, 0.7]]], cp: 1 }},
         {
-          pointsx: [5,0,3,6,5],
-          name: "left",
-          boform: { cf: 555, cs: 655, co: [[[0.7,0.7]]], cp: 1, }},
+          pointsx: [5, 0, 3, 6, 5],
+          name: 'left',
+          boform: { cf: 555, cs: 655, co: [[[0.7, 0.7]]], cp: 1 }},
         {
-          pointsx: [3,2,7,6,3],
-          name: "bottom",
-          boform: { cf: 666, cs: 755, co: [[[0.7,0.7]]], cp: 1, }},
+          pointsx: [3, 2, 7, 6, 3],
+          name: 'bottom',
+          boform: { cf: 666, cs: 755, co: [[[0.7, 0.7]]], cp: 1 }},
         {
-          pointsx: [5,4,1,0,5],
-          name: "top",
-          boform: { cf: 777, cs: 855, co: [[[0.7,0.7]]], cp: 1, }}
+          pointsx: [5, 4, 1, 0, 5],
+          name: 'top',
+          boform: { cf: 777, cs: 855, co: [[[0.7, 0.7]]], cp: 1 }}
 
-      ],
+      ]
 
     }
   }
   // -------------------------------  gratiCube
   let gratiCube = {
 
-    "halo":"geojson",
-    "geoform": (anitem) => {
-
+    'halo': 'geojson',
+    'geoform': (anitem) => {
       let payload = anitem.payload
       let graticule = payload.graticule
 
-      let grarr = __mapper("xs").m("graticule").grarr(graticule)
+      let grarr = __mapper('xs').m('graticule').grarr(graticule)
       let mersCoords = grarr.mms.coordinates
       let parsCoords = grarr.pps.coordinates
       let coords = [].concat(mersCoords).concat(parsCoords)
 
       let json = {
-						type:"Feature",
-						geometry: {
-							type: "MultiLineString", 
-							coordinates: coords
-						},
-						properties:{}
-			}
+        type: 'Feature',
+        geometry: {
+          type: 'MultiLineString',
+          coordinates: coords
+        },
+        properties: {}
+      }
 
       return json
-
     },
 
-    "payload": {
-			"tim": tim,
-			"ric": {"gid":"gratiCube","cid":"gratiCube","fid":"gratiCube",},
-			"boform": { "csx":0,"cf":[[[666,666]]],"cs":666,"cw":3.39,"co":[[[0.5,0.5]]],"cp":[[[0.9,0.9]]],},
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'gratiCube', 'cid': 'gratiCube', 'fid': 'gratiCube'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
-			"conform": {
+      'conform': {
 
-				"projection": "natform",
-				"form": formGratiCube,
+        'projection': 'natform',
+        'form': formGratiCube
 
-			},
+      },
 
-			"proform": proformEarth,
+      'proform': proformEarth,
 
-      "graticule": {
+      'graticule': {
 
-        "extent": [ [-180, 180, 90, 90 ],  [-90, 90, 45, 45] ],
+        'extent': [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ]
 
       }
 
-    },
+    }
 
   }
   // -------------------------------  gratiCirc
   let gratiCirc = {
 
-    "halo":"geojson",
-    "geoform": (anitem) => {
-
+    'halo': 'geojson',
+    'geoform': (anitem) => {
       let payload = anitem.payload
       let graticule = payload.graticule
 
-      let grarr = __mapper("xs").m("graticule").grarr(graticule)
+      let grarr = __mapper('xs').m('graticule').grarr(graticule)
       let mersCoords = grarr.mms.coordinates
       let parsCoords = grarr.pps.coordinates
       let coords = [].concat(mersCoords).concat(parsCoords)
 
-      let json = { type: "MultiLineString", coordinates: coords }
+      let json = { type: 'MultiLineString', coordinates: coords }
 
       return json
-
     },
 
-    "payload": {
-			"tim": tim,
-			"ric": {"gid":"gratiCube","cid":"gratiCube","fid":"gratiCirc",},
-			"boform": { "csx":0,"cf":[[[111,111]]],"cs":666,"cw":0.39,"co":[[[0.5,0.5]]],"cp":[[[0.9,0.9]]],},
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'gratiCube', 'cid': 'gratiCube', 'fid': 'gratiCirc'},
+      'boform': { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
-			"conform": {
+      'conform': {
 
-				"projection": "natform",
-				"form": formSphere,
+        'projection': 'natform',
+        'form': formSphere
 
-			},
+      },
 
-			"proform": proformEarth,
+      'proform': proformEarth,
 
-      "graticule": {
+      'graticule': {
 
-        "extent": [ [-180, 180, 90, 90 ],  [-90, 90, 45, 45] ],
+        'extent': [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ]
 
       }
 
-    },
+    }
 
   }
   /*******************************************
@@ -440,21 +510,20 @@ let muonAlima = function muonAlima(__mapper) {
  *
  */
   let animas = [
-    aniEarth,     // h.geojson g.natform g.uniwen
-    aniCube,      // h.geojson g.uniwen
-    gratiCube,    // h.geojson
-    gratiCirc,    // h.geojson
-    img,          // h.img
+    aniEarth, // h.geojson g.natform g.uniwen
+    aniCube, // h.geojson g.uniwen
+    gratiCube, // h.geojson
+    gratiCirc, // h.geojson
+    img // h.img
   ]
-  let animaApi = function animaApi() {
-    __mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":animas})
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
   }
 
   return animaApi
-
 }
 
 let __mapper = bosonMapper.bosonMapper()
-__mapper({"muonAlima": muonAlima(__mapper)}).muonAlima(__mapper)
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

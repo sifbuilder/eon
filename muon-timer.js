@@ -2,16 +2,16 @@
  *        @muonTimer
  */
 (function (global, factory) {
-  typeof exports === "object" && typeof module !== "undefined" ? factory(exports) :
-    typeof define === "function" && define.amd ? define(["exports"], factory) :
-      (factory((global.muonTimer = global.muonTimer || {})))
-}(this, function (exports) { "use strict"
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.muonTimer = global.muonTimer || {})))
+}(this, function (exports) {
+  'use strict'
 
-// copyright mbostock
-// https://github.com/d3/d3-timer/blob/master/src/timer.js
-  let muonTimer = function muonTimer(__mapper = {}) {
-
-    let props = __mapper("props")()
+  // copyright mbostock
+  // https://github.com/d3/d3-timer/blob/master/src/timer.js
+  let muonTimer = function muonTimer (__mapper = {}) {
+    let props = __mapper('props')()
 
     let frame = 0, // is an animation frame pending?
       timeout = 0, // is a timeout pending?
@@ -22,24 +22,24 @@
       clockLast = 0,
       clockNow = 0,
       clockSkew = 0,
-      clock = typeof performance === "object" && performance.now ? performance : Date,
-      setFrame = typeof window === "object" && window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function(f) { setTimeout(f, 17) }
+      clock = typeof performance === 'object' && performance.now ? performance : Date,
+      setFrame = typeof window === 'object' && window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function (f) { setTimeout(f, 17) }
 
-    let now = function now() {
+    let now = function now () {
       return clockNow || (setFrame(clearNow), clockNow = clock.now() + clockSkew)
     }
 
-    function clearNow() {
+    function clearNow () {
       clockNow = 0
     }
 
-    let timer = function timer(callback, delay, time) {
-      let t = new Timer
+    let timer = function timer (callback, delay, time) {
+      let t = new Timer()
       t.restart(callback, delay, time)
       return t
     }
 
-    let timerFlush = function timerFlush() {
+    let timerFlush = function timerFlush () {
       now() // Get the current time, if not already set.
       ++frame // Pretend we’ve set an alarm, if we haven’t already.
       let t = taskHead, e
@@ -50,7 +50,7 @@
       --frame
     }
 
-    let Timer = function Timer() {
+    let Timer = function Timer () {
       this._call =
         this._time =
         this._next = null
@@ -58,8 +58,8 @@
 
     Timer.prototype = timer.prototype = {
       constructor: Timer,
-      restart: function(callback, delay, time) {
-        if (typeof callback !== "function") throw new TypeError("callback is not a function")
+      restart: function (callback, delay, time) {
+        if (typeof callback !== 'function') throw new TypeError('callback is not a function')
         time = (time == null ? now() : +time) + (delay == null ? 0 : +delay)
         if (!this._next && taskTail !== this) {
           if (taskTail) taskTail._next = this
@@ -70,17 +70,16 @@
         this._time = time
         sleep()
       },
-      stop: function() {
+      stop: function () {
         if (this._call) {
           this._call = null
           this._time = Infinity
           sleep()
         }
-      }
-      ,
-      resume: function(callback, delay, time) {   // _e_
-        // _e_ move delay :: restartTime back on rist resume 
-        if (typeof callback !== "function") throw new TypeError("callback is not a function")
+      },
+      resume: function (callback, delay, time) { // _e_
+        // _e_ move delay :: restartTime back on rist resume
+        if (typeof callback !== 'function') throw new TypeError('callback is not a function')
         time = (time == null ? now() : time) + (delay == null ? 0 : +delay)
         if (!this._next && taskTail !== this) {
           if (taskTail) taskTail._next = this
@@ -94,7 +93,7 @@
 
     }
 
-    function wake() {
+    function wake () {
       clockNow = (clockLast = clock.now()) + clockSkew
       frame = timeout = 0
       try {
@@ -106,12 +105,12 @@
       }
     }
 
-    function poke() {
+    function poke () {
       let now = clock.now(), delay = now - clockLast
       if (delay > pokeDelay) clockSkew -= delay, clockLast = now
     }
 
-    function nap() {
+    function nap () {
       let t0, t1 = taskHead, t2, time = Infinity
       while (t1) {
         if (t1._call) {
@@ -126,7 +125,7 @@
       sleep(time)
     }
 
-    function sleep(time) {
+    function sleep (time) {
       if (frame) return // Soonest alarm already set, or will be.
       if (timeout) timeout = clearTimeout(timeout)
       let delay = time - clockNow
@@ -139,10 +138,10 @@
       }
     }
 
-  /***************************
+    /***************************
  *        @enty
  */
-    let enty = function enty() {}
+    let enty = function enty () {}
 
     enty.now = now
     enty.Timer = Timer
@@ -150,9 +149,7 @@
     enty.timerFlush = timerFlush
 
     return enty
-
   }
 
   exports.muonTimer = muonTimer
-
-}));
+}))

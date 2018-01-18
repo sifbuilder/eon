@@ -3,126 +3,101 @@
  *
  */
 (function (global, factory) {
-  typeof exports === "object" && typeof module !== "undefined" ? factory(exports) :
-    typeof define === "function" && define.amd ? define(["exports"], factory) :
-      (factory((global.geoUniwen = global.geoUniwen || {})))
-}(this, function (exports) { "use strict"
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.geoUniwen = global.geoUniwen || {})))
+}(this, function (exports) {
+  'use strict'
 
-  let geoUniwen = function geoUniwen(__mapper = {}) {
-
-    let f = __mapper("props")(),
-			g = __mapper("xs").m("geom"),
-			mwen = __mapper("xs").m("wen"),
-			cwen = __mapper("xs").c("wen")
-
+  let geoUniwen = function geoUniwen (__mapper = {}) {
+    let f = __mapper('props')(),
+      g = __mapper('xs').m('geom'),
+      mwen = __mapper('xs').m('wen'),
+      cwen = __mapper('xs').c('wen')
 
     const init = {}
-      init.scale  				= [1, 1, 1]
-      init.rotate 				= [0, 0, 0]
-      init.translate 			= [0, 0, 0]
-      init.focale 				= Infinity
-      init.zafin 					= [0,1]
-      init.center 				= [0, 0, 0]
-			
-    let state = {}
-      state.scale  				= init.scale  	
-      state.rotate 				= init.rotate 	
-      state.translate 		= init.translate
-      state.focale 				= init.focale 	
-      state.zafin 				= init.zafin 		
-      state.center 				= init.center 	
+    init.scale = [1, 1, 1]
+    init.rotate 				= [0, 0, 0]
+    init.translate 			= [0, 0, 0]
+    init.focale 				= Infinity
+    init.zafin 					= [0, 1]
+    init.center 				= [0, 0, 0]
 
-			
-			
-    let wenRotation = function(rot) {
+    let state = {}
+    state.scale = init.scale
+    state.rotate 				= init.rotate
+    state.translate 		= init.translate
+    state.focale 				= init.focale
+    state.zafin 				= init.zafin
+    state.center 				= init.center
+
+    let wenRotation = function (rot) {
       let rox = mwen.matrix(rot !== undefined ? g.to_radians(rot) : cwen.rotInDrag())
-      return function(x, y, z=0) {
+      return function (x, y, z = 0) {
         return mwen.rotateMatrix([x, y, z], rox)
       }
     }
 
-		
-		
-		
-		
+    let projectionInverse = function (p, d, s) {
+      let h = Array.isArray(s) ? s : Array.of(s)
+      let f0 = (h[0] || 1) / (1 - p[2] / d)
+      let f1 = (h[1] || h[0]) / (1 - p[2] / d)
+      return [p[0] / f0, p[1] / f1, p[2]]
+    }
 
-          let projectionInverse = function (p, d, s) {
-            let h = Array.isArray(s) ? s : Array.of(s)
-            let f0 = (h[0] || 1) / (1 - p[2] / d)
-            let f1 = (h[1] || h[0]) / (1 - p[2] / d)
-            return [p[0]/f0, p[1]/f1, p[2]]
-          }
+    let rotationInverse = function (rot) {
+      let rox = mwen.matrix(rot !== undefined ? g.to_radians(rot) : cwen.rotInDrag())
+      return function (x, y, z = 0) {
+        return mwen.transpose33([x, y, z], rox)
+      }
+    }
 
-          let rotationInverse = function(rot) {
-            let rox = mwen.matrix(rot !== undefined ? g.to_radians(rot) : cwen.rotInDrag())
-            return function(x, y, z=0) {
-              return mwen.transpose33([x, y, z], rox)
-            }
-          }
-
-          let pointStreamInverse = function(x, y, z=0) {
-              let c = [x, y, z]
-              c = c.map( (d,i) => d - (state.translate[i] || 0))    //   inverse translation
-                        z = (c[2] - state.zafin[0]) / state.zafin[1]        // inverse perspective
-              c = mwen.projectionInverse([ c[0], c[1], z ] , state.focale, state.scale ) //   inverse projection
-              c = wenRotationInverse(state.rotate)(...c)              //   inverse rotation
-
-              this.stream.point(...c)
-          }
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-    let pointStream = function(x, y, z=0) {
+    let pointStreamInverse = function (x, y, z = 0) {
       let c = [x, y, z]
-      c = wenRotation(state.rotate)(...c)														// rotate
-      z = (c[2] * state.zafin[1]) + state.zafin[0]
-      c = mwen.projection([ c[0], c[1], z ] , state.focale, state.scale )	// scale
-			
-			if (f.isPureArray(state.translate)) {
-				
-					c = c.map( (d,i) => d + (state.translate[i] || 0))						// translate
-				
-			}	else {																		// assume multiple translates
-				
-					for (let k=0; k<state.translate.length; k++) {
-							let trans = state.translate[k]									// if {} assume {x,y,z} => [,,]
-							if (typeof trans === "object") trans = Object.values(trans).map(d => d || 0)
-							c = c.map( (d,i) => d + (trans[i] || 0))						// translate
-					}
-				
-			}
+      c = c.map((d, i) => d - (state.translate[i] || 0)) //   inverse translation
+      z = (c[2] - state.zafin[0]) / state.zafin[1] // inverse perspective
+      c = mwen.projectionInverse([ c[0], c[1], z ], state.focale, state.scale) //   inverse projection
+      c = wenRotationInverse(state.rotate)(...c) //   inverse rotation
+
       this.stream.point(...c)
     }
 
+    let pointStream = function (x, y, z = 0) {
+      let c = [x, y, z]
+      c = wenRotation(state.rotate)(...c)														// rotate
+      z = (c[2] * state.zafin[1]) + state.zafin[0]
+      c = mwen.projection([ c[0], c[1], z ], state.focale, state.scale)	// scale
 
-    let uniform = function() {
-      let geoTrans = d3.geoTransform({
-        point: pointStream,
-				sphere: d => d 							// 
-      })
-      let geoProj = p => geoTrans(p)
-					geoProj.stream = s =>  geoTrans.stream(s)
-      return geoProj
+      if (f.isPureArray(state.translate)) {
+        c = c.map((d, i) => d + (state.translate[i] || 0))						// translate
+      }	else {																		// assume multiple translates
+        for (let k = 0; k < state.translate.length; k++) {
+          let trans = state.translate[k]									// if {} assume {x,y,z} => [,,]
+          if (typeof trans === 'object') trans = Object.values(trans).map(d => d || 0)
+          c = c.map((d, i) => d + (trans[i] || 0))						// translate
+        }
+      }
+      this.stream.point(...c)
     }
 
+    let uniform = function () {
+      let geoTrans = d3.geoTransform({
+        point: pointStream,
+        sphere: d => d 							//
+      })
+      let geoProj = p => geoTrans(p)
+      geoProj.stream = s => geoTrans.stream(s)
+      return geoProj
+    }
 
     /****************************
    *    @enty
    */
     let enty = function (prjdef = {}) {
-		
-      let m =  uniform(prjdef)
-			
-			Object.entries(state).forEach(d => state[d[0]] = prjdef[0] || init[d[0]]) // stateless
-			
+      let m = uniform(prjdef)
+
+      Object.entries(state).forEach(d => state[d[0]] = prjdef[0] || init[d[0]]) // stateless
+
       m.translate = _ => _ !== undefined ? (state.translate = _, m) : m
       m.center = _ => _ !== undefined ? (state.center = _, m) : m
       m.rotate = _ => _ !== undefined ? (state.rotate = _, m) : m
@@ -132,12 +107,10 @@
       m.zafin = _ => _ !== undefined ? (state.zafin = _, m) : m
 
       return m
-
     }
 
     return enty
   }
 
   exports.geoUniwen = geoUniwen
-
-}));
+}))
