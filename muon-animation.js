@@ -24,7 +24,7 @@
 
       state.animas = f.a(__mapper("muonStore").animasLive() )
 
-      if (0 && 1) console.log(" .............. animas", elapsed, state.animas.length, state.animas)
+      if (1 && 1) console.log(" .............. animas", elapsed, state.animas.length, state.animas)
 
     /*******************************************
      *    @TIME
@@ -34,7 +34,7 @@
 
         let anima = state.animas[i]
         anima.payload.tim  = __mapper("bosonTim")(anima.payload.tim, elapsed) // set time
-        if (elapsed > anima.payload.tim.limit) {
+        if (elapsed > anima.payload.tim.limit + anima.payload.tim.msStart ) {
           anima.payload.delled = 1        // crop by time
         }
       }
@@ -43,7 +43,7 @@ if (state.animas.length > 0) if (0 && 1) console.log(" .................... m.an
     /*******************************************
      *    @STOP
      */
-      let maxlimit = state.animas.reduce((pre,item) => Math.max(pre,item.payload.tim.limit),0)
+      let maxlimit = state.animas.reduce((pre,item) => Math.max(pre, item.payload.tim.limit  + item.payload.tim.msStart),0)
       if (isNaN(maxlimit)) state.animationStop()
       if (maxlimit > 0 && elapsed > maxlimit)   state.animationStop()    // stop if spired
       if (elapsed > maxlimit)   state.animationStop()    // stop if anigrams spired
@@ -85,8 +85,6 @@ if (0 && 1) console.log("m.animation state.animas ",state.animas)
 
 					if (newAnigrams.length > 0)	 if (0 && 1) console.log("m.animation newAnigrams ", newAnigrams.length, newAnigrams)
 
-					// __mapper("xs").m("store").apply({"type":"UPDANIGRAM","caller":"m.animation","anigrams":newAnigrams})
-
       }
 
 	   let anigrams = __mapper("xs").m("store").anigrams()
@@ -98,7 +96,6 @@ if (0 && 1) console.log("m.animation state.animas ",state.animas)
 
 		let featurecollection = {
 				"type": "FeatureCollection",
-				// "features": anigrams.map(d => d.payload.geofold)
 				"features": anigrams.map(d => d.geoform)
 		}
 
