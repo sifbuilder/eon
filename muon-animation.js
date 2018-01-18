@@ -98,8 +98,8 @@ if (0 && 1) console.log("m.animation state.animas ",state.animas)
 
 		let featurecollection = {
 				"type": "FeatureCollection",
-				"features": anigrams.map(d => d.payload.geofold)
-				// "features": anigrams.map(d => d.geoform)
+				// "features": anigrams.map(d => d.payload.geofold)
+				"features": anigrams.map(d => d.geoform)
 		}
 
 			if (0 && 1) console.log("m.animation featurecollection ", featurecollection)

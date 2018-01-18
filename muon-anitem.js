@@ -74,7 +74,8 @@
       let parent = __mapper("xs").m("store").findAnigramFromUid(parentuid)
 
       if (parent !== undefined) {
-        let geoj = parent.payload.geofold
+        // let geoj = parent.payload.geofold
+        let geoj = parent.geoform
         coords = __mapper("xs").m("geoj").getCoords(geoj)
       }
 
@@ -97,7 +98,7 @@
     let coreGeonode = () => ({
 			type: "Feature",
 			geometry: { type: "Point", coordinates: null },
-			properties: {orgin: null, velin: null, velang: null, prevous: null, geodelta: null,}
+			properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null,}
 		})		
 		
     /***********

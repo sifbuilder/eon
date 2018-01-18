@@ -239,7 +239,15 @@ let muonAlima = function muonAlima(__mapper) {
         "type": "Polygon",
         "coordinates": mnat.natcoords(p.payload.form)
       },
-      "properties": {}
+      "properties": {
+				
+				geonode: {
+					type: "Feature",
+					geometry: { type: "Point", coordinates: [0,0,0] },
+					properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null,}
+				}
+
+			}
     }
 		return ret } ,
 

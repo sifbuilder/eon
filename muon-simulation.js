@@ -35,7 +35,7 @@
 					coordinates: [0,0,0],
 				},
 				properties: {
-					orgin: [0,0,0],
+					orgen: [0,0,0],
 					velin: [0,0,0],
 					prevous: [0,0,0],
 					geodelta: [0,0,0],
@@ -130,7 +130,7 @@ if (0 && 1) console.log("aniItems" , aniItems)
 								updaAniCoordinates = updAniGeometry.coordinates,
 								
 								updaAniProperties = updAniPayload.geonode.properties,
-								updaAniOrigin = 	updaAniProperties.orgin,
+								updaAniOrigin = 	updaAniProperties.orgen,
 								updaAniVelocity = updaAniProperties.velin,
 								updaAniVelangular = updaAniProperties.velang,
 								updaAniPrevious = updaAniProperties.prevous,

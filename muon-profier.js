@@ -15,7 +15,8 @@
 			bversor = __mapper("xs").b("versor")(),
 			cversor = __mapper("xs").c("versor"),
 			mstace = __mapper("xs").m("stace"),
-			guniwen = __mapper("xs").g("uniwen")
+			guniwen = __mapper("xs").g("uniwen"),
+			bproj3ct = __mapper("xs").b("proj3ct")
 
     /****************************
  *      @projion
@@ -25,6 +26,7 @@
  */
     let projion = function (prjdef, anigram) {
 			
+			if (0 && 1)	console.log("m.profier.projion:prjdef", prjdef)
 				let p = prjdef
 				let prj = guniwen(p) // d3.geoIdentity()
 			
@@ -106,7 +108,7 @@
  *     	 @projier
  *			 json = mprofier.projier(f.v(proform, anigram), anigram)(json)
  */			
-    let projier =  (proform, anigram) => json => (proform) ? __mapper("xs").b("proj3ct")(json, projion(proform, anigram)) : json
+    let projier =  (proform, anigram) => json => (proform) ? bproj3ct(json, projion(proform, anigram)) : json
 
     /****************************
  *     	 @ereformer
@@ -116,7 +118,7 @@
 			let projdef = anigram.payload.ereform
 			let projer = projion(projdef, anigram)
 
-			return json => __mapper("xs").b("proj3ct")(json, projer)
+			return json => bproj3ct(json, projer)
 			
 		}
     /****************************
@@ -127,7 +129,7 @@
 			let projdef = anigram.payload.conform
 			let projer = projion(projdef, anigram)
 
-			return json => __mapper("xs").b("proj3ct")(json, projer)
+			return json => bproj3ct(json, projer)
 			
 		}		
     /****************************
@@ -135,11 +137,10 @@
  */		
     let proformer = anigram => {
       if (anigram.halo === "fuel") {
-				if (0 && 1)	console.log("h.geojson.gramm proform", anigram.payload.proform.translate)
+				if (0 && 1)	console.log("m.profier.proformer:translate", anigram.payload.proform.translate)
 			}
 		
 			let uid = anigram.payload.uid
-			if (0 && 1) console.log("m.profier.proformer uid", uid, anigram)
 			let projdef = anigram.payload.proform
 			if (projdef !== undefined && projdef.translate) {
 				
@@ -153,7 +154,24 @@
 					
 			}
 			let projer = projion(projdef, anigram)
-			return json => __mapper("xs").b("proj3ct")(json, projer)
+
+
+			return json => {
+				
+			if (1 && 1) console.log("m.profier.proformer:json", json)
+				
+				let proformed =	bproj3ct(json, projer)
+				
+				if (json.properties.geonode !== undefined) {
+					let _geonode = bproj3ct(json.properties.geonode, projer)
+					proformed.properties.geonode = _geonode
+				}
+				
+			if (1 && 1) console.log("m.profier.proformer:geonode", json.properties.geonode)
+
+				return proformed
+				
+			}
 			
 		}				
 		

@@ -63,7 +63,7 @@
 
 
 			
-				if (1 && 1)	console.log("h.geojson.gramm json", json)
+				if (0 && 1)	console.log("h.geojson.gramm json", json)
 
       newAnigrams = json.features.map( (d, i) => {	// d is feature
         let newAnigram = {}
@@ -71,11 +71,11 @@
 				
         newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
 				
-        // newAnigram.geojson = d
-        newAnigram.payload.geofold = d
+        newAnigram.geoform = d
+        // newAnigram.payload.geofold = d
         newAnigram.payload.ric = d.properties.ric		// hoist properties
         newAnigram.payload.uid = d.properties.uid
-				if (1 && 1) console.log("h.geojson.gramm newAnigram", newAnigram)
+				// if (1 && 1) console.log("h.geojson.gramm newAnigram", JSON.stringify(newAnigram))
         return newAnigram
       })
 			
