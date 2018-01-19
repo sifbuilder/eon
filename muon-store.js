@@ -85,7 +85,7 @@
       let halo = (anigram.halo !== undefined && typeof anigram.halo === 'object')
         ? anigram.halo // halo in anima
         : __mapper('xs').h(anigram.halo) // halo in store
-
+			if (halo === null) console.log("halo ", anigram.halo, " not found")
       let weened = halo.ween(anima) // ANIMA HALO.WEEN
       weened.forEach(d => { // qualify each ween
         d.payload.uid = __mapper('xs').m('ric').buildUID(d) // uid for children
@@ -101,7 +101,7 @@
  */
     let gramm = function (anima, newItems = []) {
       let anigram = __mapper('xs').m('anitem').anigram(anima)
-      if (0 && 1) console.log('m.store.gramm anigram', anigram)
+      if (1 && 1) console.log('m.store.gramm anigram', anigram)
 
       let tim = anigram.payload.tim,
         elapsed = tim.elapsed,
@@ -123,9 +123,12 @@
           __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newItems})
         } else console.error('avatar gramm ', halo, ' returns null')
       }
-      if (newAnigrams !== undefined && newAnigrams.length > 0) { // check if avatars in new animas
-        for (let i = 0; i < newAnigrams.length; i++) {
-          let newItem = newAnigrams[i] // each new item
+			
+			if (1 && 1) console.log("m.store.gramm:newItems ", newItems)					
+			
+      if (newItems !== undefined && newItems.length > 0) { // check if avatars in new animas
+        for (let i = 0; i < newItems.length; i++) {
+          let newItem = newItems[i] // each new item
           if (newItem.payload.avatars !== undefined && newItem.payload.avatars !== null) { // AVATARS
             let avatars = (typeof newItem.payload.avatars === 'object') ? Object.values(newItem.payload.avatars) : newItem.payload.avatars
             for (let j = 0; j < avatars.length; j++) {
@@ -135,6 +138,7 @@
               avatar.payload.uid = __mapper('xs').m('ric').buildUID(avatar) // uid for children
               avatar.payload.tim = anigram.payload.tim // time from anima
               avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
+
 
               newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
               __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newSubItems})

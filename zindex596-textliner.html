@@ -22,9 +22,9 @@ let muonAlima = function (__mapper) {
   __mapper('xs').b('init')({svg: 1, versor: 0, wen: 0, webgl: 0, img: 1, key: 1}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props()
-  let g = __mapper('xs').m('geom')
-  let w = __mapper('xs').m('wen')
-  let liner = __mapper('xs').m('liner')
+      mgeom = __mapper('xs').m('geom'),
+      mwen = __mapper('xs').m('wen'),
+			mliner = __mapper('xs').m('liner')
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
@@ -65,7 +65,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  lineform
   let lineform = {
 
-    'halo': 'liner',
+    'halo': 'pacer',
 
     'payload': {
       'tim': tim,
@@ -87,10 +87,11 @@ let muonAlima = function (__mapper) {
         'initN': 0,
         'eventN': 1,
         'autoN': 0,
-        'autoP': 0.1,
+        'autoP': 0.001,
         'outed': 0,
         'maxN': 60,
-        'span': 15 / 1400
+        'span': 0,
+        'geometry': "LineString"
       }
     }
 
@@ -105,7 +106,7 @@ let muonAlima = function (__mapper) {
       geometry: {
 
         'type': 'Point',
-        'coordinates': [ 40, 40 ]
+        'coordinates': [ 0, 0 ]
 
       },
       properties: {
@@ -126,9 +127,11 @@ let muonAlima = function (__mapper) {
       },
       img: {
         url: 'zimg-501.jpg',
-        width: 60,
-        height: 40,
-        rotate: 0
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
       }
 
     }
@@ -139,13 +142,14 @@ let muonAlima = function (__mapper) {
  *
  */
   let prehalo = function (anima) {
-    let ani = __mapper('xs').m('anitem')(anima),
-      anigram = ani.anigram()
+    let anigram = manitem(anima).anigram()	// anigram
+			
+		if (1 && 0) console.log("596 prehalo anigram", anigram)	
+			
+    mliner.orientate(anima)
 
-    liner.orientate(anima)
-
-    let rotate = liner.rotate()
-    let rotations = liner.rotations()
+    let rotate = mliner.rotate()
+    let rotations = mliner.rotations()
 
     anigram.payload.rotations = rotations
     anigram.payload.text.style.rotate += rotate - 180 * rotations
@@ -159,7 +163,12 @@ let muonAlima = function (__mapper) {
 
   let haloAvajson = {}
   haloAvajson.ween = anima => haloAvajson_ween(anima)
-  haloAvajson.gramm = anima => haloAvajson_gramm(anima)
+  haloAvajson.gramm = anima => {
+		
+			if (1 && 1) console.log("596 haloAvajson.gramm", anima)
+		
+			return haloAvajson_gramm(anima)
+	}
 
   // -------------------------------  avaform
   let avaform = {
@@ -208,14 +217,14 @@ let muonAlima = function (__mapper) {
   */
   lineform.payload.avatars = {
 
-    avaform // haloAvajson h.text
+    avaform 	// haloAvajson h.text
 
   }
 
   let animas = [
 
-    img, // h.img
-    lineform // h.liner
+    lineform, // h.liner
+    // img, 			// h.img
 
   ]
 

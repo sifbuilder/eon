@@ -10,7 +10,7 @@
 
   let haloPacer = function haloPacer (__mapper = {}) {
     let f = __mapper({'props': muonProps.muonProps()}).props(),
-      g = __mapper('xs').m('geom'),
+      mgeom = __mapper('xs').m('geom'),
       mwen = __mapper('xs').m('wen'),
       mmouse = __mapper('xs').m('mouse'),
       cwen = __mapper('xs').c('wen'),
@@ -25,13 +25,13 @@
       width = r.width(),
       height = r.height()
 
-    // -------------------------------  haloLinerHalo_ween
-    let haloLinerHalo_ween = function haloLinerHalo_gramm (anima, newItems = []) {
+    // -------------------------------  haloPacerHalo_ween
+    let haloPacerHalo_ween = function haloPacerHalo_gramm (anima, newItems = []) {
       if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
       return newItems
     }
-    // -------------------------------  haloLinerHalo_gramm
-    let haloLinerHalo_gramm = function (anima, newItems = []) {
+    // -------------------------------  haloPacerHalo_gramm
+    let haloPacerHalo_gramm = function (anima, newItems = []) {
       let anigram = manitem(anima).anigram(),	// anigram
         halo = 				anigram.halo, // halo
         geoform = 		anigram.geoform || manitem.coreGeoform(), 	// geoform
@@ -116,7 +116,7 @@
             if (key === 'init') { // init defaults center
               situs = initSitus(anigram)
             } else if (key === 'auto') { // auto defauts random
-              if (0 && 1) console.log('h.pacer haloLinerHalo_gramm situs', situs)
+              if (0 && 1) console.log('h.pacer haloPacerHalo_gramm situs', situs)
               situs = autoSitus(anigram)		// eg.  d => mstace.getLocus(d)
             } else if (key === 'event') { // event defaults event
               situs = eventSitus(anigram)
@@ -136,9 +136,10 @@
               newItem.geoform.geometry = geometrier()
               newItem.payload = {}
             }
-            newItem.payload.ric = _ric
-            newItem.payload.tim = anigram.payload.tim
-            newItem.payload.boform = anigram.payload.boform
+            newItem.payload.ric = _ric												// item id
+            newItem.payload.tim = anigram.payload.tim					// item time
+            newItem.payload.boform = anigram.payload.boform		// item style
+            newItem.payload.avatars = anigram.payload.avatars	// items may have avatars
 
             let coord = Object.values(situs)			// {x:280,y:229,z:0} => [x,y,0]
             let coords = newItem.geoform.geometry.coordinates
@@ -179,14 +180,14 @@
       return newItems
     }
 
-    let haloLinerHalo = {}
-    haloLinerHalo.ween = anima => haloLinerHalo_ween(anima)
-    haloLinerHalo.gramm = anima => haloLinerHalo_gramm(anima)
+    let haloPacerHalo = {}
+    haloPacerHalo.ween = anima => haloPacerHalo_ween(anima)
+    haloPacerHalo.gramm = anima => haloPacerHalo_gramm(anima)
 
     /**********************
    *    @enty
    */
-    let enty = haloLinerHalo
+    let enty = haloPacerHalo
 
     return enty
   }
