@@ -21,7 +21,8 @@ let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').b('init')({svg: 1, versor: 0, wen: 0, webgl: 0, img: 1, key: 1}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props()
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+			manitem = __mapper('xs').m('anitem'),
       mgeom = __mapper('xs').m('geom'),
       mwen = __mapper('xs').m('wen'),
 			mliner = __mapper('xs').m('liner')
@@ -165,7 +166,7 @@ let muonAlima = function (__mapper) {
   haloAvajson.ween = anima => haloAvajson_ween(anima)
   haloAvajson.gramm = anima => {
 		
-			if (1 && 1) console.log("596 haloAvajson.gramm", anima)
+			if (0 && 1) console.log("596 haloAvajson.gramm", anima)
 		
 			return haloAvajson_gramm(anima)
 	}

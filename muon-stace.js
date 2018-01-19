@@ -42,6 +42,51 @@
       return siti
     }
 
+  /* **********
+ *             @getPosInDim
+ */
+   let getPosInDim = function (staceDim) {
+		 let poses = getPosesInDim(staceDim)
+		 return poses[0]
+		 
+	 }
+	 
+  /* **********
+ *             @getPosInDim
+ */
+   let getPosesInDim = function (staceDim) {
+      if (0 && 1) console.log('m.stace.getLocsInDim staceDim', staceDim)
+
+      let poses = null
+
+      if (typeof staceDim === 'number') {
+				//
+      } else if (typeof staceDim === 'object' && staceDim.pos !== undefined) { // staceDim pos
+
+				if (typeof staceDim.pos === 'number') { // number
+            poses = Array.of(staceDim.pos)
+
+        } else if (Array.isArray(staceDim.pos)) {
+            let dist = staceDim.dist || 0 // distance to position
+            let fas = staceDim.fas || 0 // phase in positions
+            let c0 = staceDim.pos[0] // * staceDim.length / 100    // _e_
+            let c1 = staceDim.pos[1] // * staceDim.length / 100    // _e_
+
+            let pos0 = Math.floor(c0) // first of positions array
+            let pos1 = Math.floor(c1) // last of positions array
+
+            if (pos0 <= pos1) {
+              poses = d3.range(pos0, pos1, step) // d3 create positional array
+            } else {
+              poses = d3.range(pos1, pos0, step) // d3 create positional array
+            }
+				}
+			}
+			return poses
+
+	}
+
+
     /* **********
  *             @getLocsInDim
  *             array of locations in stace dim
@@ -220,7 +265,9 @@
   *         @enty
   */
     function enty () { return enty }
-
+		
+    enty.getPosInDim = getPosInDim //  getPosInDim
+		
     enty.getLocus = getLocus //  location
     enty.getLocifion = getLocifion //  projection
     enty.getLocifier = getLocifier //  projector

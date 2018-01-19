@@ -13,10 +13,11 @@
 
   let muonStore = function muonStore (__mapper) {
     let f = __mapper('props')()
-    let local = {}
-    local.animas = [] // animas array
-    local.aniset = {} // animas by uid
-    local.anigrams = [] // behavior - an anigram may have many avatars
+		
+    let state = {}
+    state.animas = [] // animas array
+    state.aniset = {} // animas by uid
+    state.anigrams = [] // behavior - an anigram may have many avatars
 
     let apply = function apply (action = {}) {
       /***************************
@@ -33,24 +34,24 @@
             ? updAnima.payload.uid
             : __mapper('xs').m('ric').buildUID(updAnima)
 
-          let index = enty.findFromUid(uid, local.animas)
+          let index = enty.findFromUid(uid, state.animas)
           if (index !== -1) { // anima exists
             if (updAnima.payload.delled === 1) {
-              local.animas.splice(index, 1) // delete anima
+              state.animas.splice(index, 1) // delete anima
             } else {
-              local.animas[index] = updAnima // replace
+              state.animas[index] = updAnima // replace
             }
           } else { // new anima
             updAnima.payload.tim = __mapper('xs').b('tim')(updAnima.payload.tim, elapsed) // set tim elapsed
             updAnima.payload.uid = uid // set uid if new anima
             updAnima.payload.nid = __mapper('xs').m('store').getNid() // node id in animas collection
 
-            local.aniset[updAnima.payload.uid] = updAnima // set new anima by uid
-            local.animas[local.animas.length] = updAnima // register new anima
+            state.aniset[updAnima.payload.uid] = updAnima // set new anima by uid
+            state.animas[state.animas.length] = updAnima // register new anima
           }
         }
 
-        return local.animas
+        return state.animas
       }
       /***************************
  *        @UPDANIGRAM
@@ -62,14 +63,14 @@
           if (newAnigrams[i] !== undefined) {
             let newItem = newAnigrams[i] // new anigram
             let uid = newItem.payload.uid
-            let index = enty.findFromUid(uid, local.anigrams) // find index from d.payload.uid
+            let index = enty.findFromUid(uid, state.anigrams) // find index from d.payload.uid
             if (0 && 1) console.log('UPDANIGRAM newItem', uid, index, newItem)
-            if (index === -1) index = local.anigrams.length // add holder if new
-            local.anigrams[index] = newItem // replace anigram
+            if (index === -1) index = state.anigrams.length // add holder if new
+            state.anigrams[index] = newItem // replace anigram
           }
         }
 
-        return local.anigrams
+        return state.anigrams
       }
     }
 
@@ -95,46 +96,52 @@
       return newItems
     }
 
-    /* **************************
+  /* **************************
  *        @gramm
- *        gramm when rendering
  */
     let gramm = function (anima, newItems = []) {
       let anigram = __mapper('xs').m('anitem').anigram(anima)
-      if (1 && 1) console.log('m.store.gramm anigram', anigram)
+      if (0 && 1) console.log('m.store.gramm:anigram uid', anigram.payload.uid)
 
       let tim = anigram.payload.tim,
         elapsed = tim.elapsed,
         wait = tim.wait
 
       let newAnigrams = []
-      let halo
+      let halo																		// anigram halo
 
-      if (anima && (elapsed || elapsed >= wait)) { // anima just born or beyond wait time
-        halo = (anigram.halo !== undefined && typeof anigram.halo === 'object')
-          ? anigram.halo // halo in anima
-          : __mapper('xs').h(anigram.halo) // or halo in store
+      if (anima && (elapsed && elapsed >= wait)) { // if anima in time
+        if (anigram.halo !== undefined && 
+					(typeof anigram.halo === 'function' || typeof anigram.halo === 'object')) {
+          halo = anigram.halo // halo in anima
+				} else {
+					halo = __mapper('xs').h(anigram.halo) // or halo in store
+				}
 
-        if (halo) newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
-        else console.log('form ', halo, ' not defined')
+        if (!halo) console.log('halo ', halo, ' not defined')
+					
+				else newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
 
-        if (newAnigrams !== null) {
+        if (newAnigrams !== null && newAnigrams.length>0) {
+          __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newAnigrams})
           newItems = newItems.concat(f.a(newAnigrams))
-          __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newItems})
-        } else console.error('avatar gramm ', halo, ' returns null')
+        } // else console.log('halo ', halo, ' returns no anigram')
+				
       }
-			
-			if (1 && 1) console.log("m.store.gramm:newItems ", newItems)					
-			
-      if (newItems !== undefined && newItems.length > 0) { // check if avatars in new animas
+
+
+      if (newItems !== undefined && newItems.length > 0) { // check if avatars in NEW animas
         for (let i = 0; i < newItems.length; i++) {
           let newItem = newItems[i] // each new item
+					
+					if (0 && 1) console.log("m.store.gramm:newItem", newItem)	
+
           if (newItem.payload.avatars !== undefined && newItem.payload.avatars !== null) { // AVATARS
             let avatars = (typeof newItem.payload.avatars === 'object') ? Object.values(newItem.payload.avatars) : newItem.payload.avatars
             for (let j = 0; j < avatars.length; j++) {
               let newSubItems = []
-
               let avatar = avatars[j]
+							
               avatar.payload.uid = __mapper('xs').m('ric').buildUID(avatar) // uid for children
               avatar.payload.tim = anigram.payload.tim // time from anima
               avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
@@ -195,22 +202,22 @@
     enty.findFromUid = (uid, list) => list.findIndex(d => d.payload.uid === uid)
 
     enty.findIndexAnigramFromUid = uid => enty.anigrams().findIndex(d => d.payload.uid === uid)
-    enty.findAnigramFromUid = uid => local.anigrams.find(d => d.payload.uid === uid)
-    enty.findAnimaFromUid = uid => local.animas.find(d => d.payload.uid === uid)
+    enty.findAnigramFromUid = uid => state.anigrams.find(d => d.payload.uid === uid)
+    enty.findAnimaFromUid = uid => state.animas.find(d => d.payload.uid === uid)
 
     enty.born = d => d.payload.tim !== undefined && d.payload.tim.unitElapsed !== undefined && d.payload.tim.unitElapsed > f.epsilon
     enty.unborn = d => d.payload.tim === undefined && d.payload.tim.elapsed === undefined && d.payload.tim.unitElapsed === undefined && d.payload.tim.unitElapsed < f.epsilon
-    enty.getAnimaByUID = uid => local.animas.find(d => d.payload.uid === uid)
+    enty.getAnimaByUID = uid => state.animas.find(d => d.payload.uid === uid)
 
-    enty.animas = () => local.animas
-    enty.anigrams = () => local.anigrams
-    enty.animasAll = () => local.animas // animas including delled
-    enty.animasLive = () => local.animas.filter(d => d.delled !== 1 && d.delled !== true)
-    enty.token = () => local.animas.length + 1
-    enty.getNid = () => local.animas.length + 1
+    enty.animas = () => state.animas
+    enty.anigrams = () => state.anigrams
+    enty.animasAll = () => state.animas // animas including delled
+    enty.animasLive = () => state.animas.filter(d => d.delled !== 1 && d.delled !== true)
+    enty.token = () => state.animas.length + 1
+    enty.getNid = () => state.animas.length + 1
 
-    enty.getAnigramIdx = ric => enty.getAnitemIndex(local.anigrams, ric.gid, ric.cid, ric.fid)
-    enty.getAnigram = ric => local.anigrams[enty.getAnigramIdx(ric)] || null
+    enty.getAnigramIdx = ric => enty.getAnitemIndex(state.anigrams, ric.gid, ric.cid, ric.fid)
+    enty.getAnigram = ric => state.anigrams[enty.getAnigramIdx(ric)] || null
 
     return enty
   }

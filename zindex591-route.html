@@ -96,7 +96,7 @@ let muonAlima = function (__mapper) {
         'autoP': 0.1,
         'outed': 0,
         'maxN': 60,
-        'span': 15 / 1400,
+        'span': 0,
         'geometry': 'LineString'
 
       }
@@ -108,33 +108,33 @@ let muonAlima = function (__mapper) {
  *      @avaform
  *
  */
-  let prehalo = function (anima, newAnigrams = []) {
+  let prehaloAvajson = function (anima, newAnigrams = []) {
     let anigram = manitem(anima).anigram()
 
-    mliner.orientate(anima)
+    anigram = mliner.orientate(anigram)
     let rotate = mliner.rotate()
-    let rotations = mliner.rotations()
+    if (0 && 1) console.log('prehaloAvajson rotate', rotate)
+			
+    // anigram.payload.rotations = rotations
+    anigram.payload.form.x.w4 += rotate
+    anigram.payload.form.y.w4 += rotate
 
-    anigram.payload.rotations = rotations
-    anigram.payload.form.x.w4 += rotate - 180 * rotations
-    anigram.payload.form.y.w4 += rotate - 180 * rotations
-
-    if (1 && 1) console.log('prehalo anigram', anigram)
+    if (0 && 1) console.log('prehaloAvajson rotate', rotate)
 
     return anigram
   }
 
   let haloAvajson_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-  let haloAvajson_gramm = anima => __mapper('xs').h('geojson').gramm(prehalo(anima))
+  let haloAvajson_gramm = anima => __mapper('xs').h('geojson').gramm(prehaloAvajson(anima))
 
-  let haloAvajson = {}
-  haloAvajson.ween = anima => haloAvajson_ween(anima)
-  haloAvajson.gramm = anima => haloAvajson_gramm(anima)
+  let haloAvajson = function haloAvajson() {}
+  haloAvajson.ween = haloAvajson_ween
+  haloAvajson.gramm = haloAvajson_gramm
 
   // -------------------------------  avaform
   let avaform = {
 
-    'halo': haloAvajson,
+    'halo': haloAvajson, // 'geojson', // 
 
     'geoform': p => ({
       'type': 'Feature',
@@ -146,7 +146,7 @@ let muonAlima = function (__mapper) {
           )
         )
       },
-      'id': 0,
+      'id': null,
       'properties': {}
     }),
 

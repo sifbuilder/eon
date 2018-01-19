@@ -9,28 +9,26 @@
   'use strict'
 
   let haloGeojson = function haloGeojson (__mapper = {}) {
-    let [b, g, h, m] = Array(4).fill({})
 
     let f = __mapper('props')(),
       mstace = __mapper('xs').m('stace'),
       mstore = __mapper('xs').m('store'),
       mquad = __mapper('xs').m('quad'),
       hnat = __mapper('xs').h('nat'),
-      mgeom = __mapper('xs').m('geom')
-
-    m.anitem = __mapper('xs').m('anitem')
-    m.ric = __mapper('xs').m('ric')
-    m.boform = __mapper('xs').m('boform')
-    m.geoj = __mapper('xs').m('geoj')
-    m.profier = __mapper('xs').m('profier')
+      mgeom = __mapper('xs').m('geom'),
+			manitem = __mapper('xs').m('anitem'),
+			mric = __mapper('xs').m('ric'),
+			mboform = __mapper('xs').m('boform'),
+			mgeoj = __mapper('xs').m('geoj'),
+			mprofier = __mapper('xs').m('profier')
 
     /**********************
    *    @gramify
    */
     let gramm = function (anima, newAnigrams = []) {
-      let anigram = m.anitem(anima).anigram(),										// anigram
+      let anigram = manitem(anima).anigram(),										// anigram
         halo = 				anigram.halo, // halo
-        geoform = 		anigram.geoform || m.anitem.coreGeoform(), // geoform
+        geoform = 		anigram.geoform || manitem.coreGeoform(), // geoform
         payload = 		anigram.payload, // payload
         boform = 			payload.boform, // boform
         ric = payload.ric, // ric
@@ -39,23 +37,18 @@
         conform = 		payload.conform, // conform
         uid = 				payload.uid, // uid
         parentuid = 	payload.parentuid, // parentuid
-        geonode = 		payload.geonode || m.anitem.coreGeonode(),	// geonode
+        geonode = 		payload.geonode || manitem.coreGeonode(),	// geonode
         gj
 
       gj = f.v(geoform, anigram)
 
-      gj = m.profier.conformer(anigram)(gj)
-      gj = m.profier.proformer(anigram)(gj)
+      gj = mprofier.conformer(anigram)(gj)
+      gj = mprofier.proformer(anigram)(gj)
 
-      // let fileffect =  {
-      // "projection": "uniwen",
-      // "translate": [  geonode.geometry[0], geonode.geometry[1], geonode.geometry[2] ]}
-      // gj =  m.profier.projier(fileffect, anigram)(gj)
-
-      gj = m.geoj.featurize(gj) 										// featurize
-      gj = m.boform.boformer(anigram, gj)	// boform
-      gj = m.geoj.zorder(gj) 											// order
-      gj = m.ric.qualier(ric, anigram, gj)					// qualify
+      gj = mgeoj.featurize(gj) 										// featurize
+      gj = mboform.boformer(anigram, gj)	// boform
+      gj = mgeoj.zorder(gj) 											// order
+      gj = mric.qualier(ric, anigram, gj)					// qualify
 
       if (0 && 1)	console.log('h.geojson.gramm json', gj)
 

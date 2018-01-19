@@ -171,16 +171,18 @@
 
             newItem.geoform.geometry.coordinates = coords
 
-            let newItems = __mapper('xs').h('geojson').gramm(newItem)	// pass to h.geojson
-            mstore.apply({'type': 'UPDANIGRAM', 'caller': 'h.pacer', 'anigrams': newItems})
+            newItems = [...newItems, 
+							...__mapper('xs').h('geojson').gramm(newItem)]
+							
           }
         }
       }
+				
 
       return newItems
     }
 
-    let haloPacerHalo = {}
+    let haloPacerHalo = function haloPacerHalo() {}
     haloPacerHalo.ween = anima => haloPacerHalo_ween(anima)
     haloPacerHalo.gramm = anima => haloPacerHalo_gramm(anima)
 
