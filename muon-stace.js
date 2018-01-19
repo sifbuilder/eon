@@ -155,8 +155,6 @@
           }
           locations = mlacer.slide(locationsPerDim)
           if (0 && 1) console.log('m.stace.getLocsInDim locations', locations)
-
-						      let parentAnigram = __mapper('xs').m('store').parentSitus(parentuid)
         }
 
         if (locations.length === 0) locations = []

@@ -45,10 +45,12 @@
         parentuid = 	payload.parentuid, // parentuid
         geonode = 		payload.geonode, 														// geonode
         pacer = 			payload.pacer || {},												// pacer
+        mousesignal = pacer.mousesignal || 0,												// mousesignal
         span = 				pacer.span || 0												// span
 
-      if (0 && 1) console.log('h.pacer haloLinerHalo_gramm anigram', anigram)
-
+			/* ****
+			 * 		defaults
+			 */
       let initSitus = (payload.pacer.initSitus === undefined) ? d => ({x: width / 2, y: height / 2, z: 0 }) : payload.pacer.initSitus
       let eventSitus = (payload.pacer.eventSitus === undefined) ? d => ({x: mouse.event.x, y: mouse.event.y, z: 0 }) : payload.pacer.eventSitus
       let autoSitus = (payload.pacer.autoSitus === undefined) ? d => ({x: Math.random() * width / 2, y: Math.random() * height / 2, z: 0 }) : payload.pacer.autoSitus
@@ -60,47 +62,52 @@
       if (payload.pacer.geometry === 'Point') geometrier = point => ({type: 'Point', coordinates: null})
       if (payload.pacer.geometry === 'LineString') geometrier = point => ({type: 'LineString', coordinates: null})
 
-      let count = {} // items to be generated on cycle
+			let count = {} // items in cycle
+
+			/* ****
+			 * 		controls
+			 */
       let mouse = {} // mouse control
       if (1) {
-        mouse.mouseDown = mmouse.mouseDown() // down
-        mouse.mouseUp = mmouse.mouseUp() // up
-        mouse.mouseMove = mmouse.mouseMove() // move
+        mouse.mouseDown = mmouse.mouseDown() 					// down
+        mouse.mouseUp = mmouse.mouseUp() 							// up
+        mouse.mouseMove = mmouse.mouseMove() 					// move
         mouse.mouseDownShared = mmouse.mouseDownShared() // shareddown
-        mouse.event = mmouse.event() // event
+        mouse.event = mmouse.event() 					// event
+				
         if (mouse.event === 'mousedown') if (0 && 1) console.log('h.pacer ', mouse.event.type)
 
-        if (mouse.event && mouse.event.type === 'mouseup') { // if up then reset
+        if (mouse.event && mouse.event.type === 'mouseup') { // if mouse up then reset
           cwen.reset(svg)
           cversor.reset(svg)
         }
 
-        if (mouse.event !== undefined && mouse.mouseDown === 1 && mouse.event.type === 'mousedown') { // on down event ...
-          count.event = Math.floor(pacer.eventN) //  take count
-          if (0 && 1) console.log('pacer count', count.event)
+        if (mouse.event !== undefined && mouse.mouseDown === 1) { // on mouse DOWN
+						// pacer.mousesignal: ['state', 'event']
+						if (mousesignal === 0 || mouse.event.type === 'mousedown') { // 
+							count.event = Math.floor(pacer.eventN) 		//  if in state or was event
+						}
         }
 
         if (pacer.inited === undefined || pacer.inited !== 1) {
-          count.init = Math.floor(pacer.initN) // count INIT
+          count.init = Math.floor(pacer.initN) 								// count INIT
         }
 
         let cyletime = tim.unitPassed - (pacer.outed || 0)
 
-        if (cyletime >= pacer.autoP) { // if cycle time above autopath
-          if (0 && 1) console.log('h.pacer haloLinerHalo_gramm anima', anima)
+        if (cyletime >= pacer.autoP) { 							// if cycle time above autopath
 
-          count.auto = Math.floor(pacer.autoN) // count AUTO
-          pacer.outed = tim.unitPassed // updated with anima
+          count.auto = Math.floor(pacer.autoN) 				// count AUTO
+          pacer.outed = tim.unitPassed 								// updated with anima
 
-          anima.payload.inited = 1 //  inited
+          anima.payload.inited = 1 								//  inited
           anima.payload.pacer.outed = pacer.outed //  outed at time units
-          let animas = Array.of(anima)
-          __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas}) // upd ANIMA
+          let animas = Array.of(anima)						// upd ANIMA
+          __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
         }
       }																										// PACE COUNT
 
       if (Object.keys(count).length > 0) {									// on pace count
-        if (0 && 1) console.log('h.pacer haloLinerHalo_gramm anima', anima)
         let situs
         for (let i = 0; i < Object.keys(count).length; i++) { // for each COUNT
           let key = Object.keys(count)[i] // count sort
@@ -116,34 +123,25 @@
             }
 
             let _ric = ric
-            _ric.fid = fider(anigram)
-
-            // let parentAnigram = __mapper("xs").m("store").findAnigramFromUid(parentuid)
-            // if (0 && 1) console.log("h.pacer haloLinerHalo_gramm parentAnigram", parentAnigram)
+            _ric.fid = fider(anigram)					// fider set in the payload or default
 
             let uid = mric.buildUIDFromRic(_ric)
             let newItem = mstore.findAnigramFromUid(uid) 	// anigram exists ?
-            if (newItem === undefined) {
+
+            if (newItem === undefined) {								// if not create new anigram
               newItem = {}
               newItem.halo = 'geojson'
               newItem.geoform = {type: 'Feature', geometry: {}, properties: {}}
               newItem.geoform.id = uid
               newItem.geoform.geometry = geometrier()
-
               newItem.payload = {}
-            } else {
-              // newItem.geoform = newItem.payload.geofold
-              newItem.geoform = newItem.geoform
             }
-
             newItem.payload.ric = _ric
             newItem.payload.tim = anigram.payload.tim
             newItem.payload.boform = anigram.payload.boform
 
             let coord = Object.values(situs)			// {x:280,y:229,z:0} => [x,y,0]
             let coords = newItem.geoform.geometry.coordinates
-
-            if (0 && 1) console.log('h.pacer haloLinerHalo_gramm:geoform', newItem.geoform)
 
             if (newItem.geoform.geometry.type === 'LineString') {
               if (coords && coords.length > 0) {
@@ -172,7 +170,7 @@
 
             newItem.geoform.geometry.coordinates = coords
 
-            let newItems = __mapper('xs').h('geojson').gramm(newItem)
+            let newItems = __mapper('xs').h('geojson').gramm(newItem)	// pass to h.geojson
             mstore.apply({'type': 'UPDANIGRAM', 'caller': 'h.pacer', 'anigrams': newItems})
           }
         }

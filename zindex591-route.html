@@ -21,10 +21,11 @@ let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').b('init')({svg: 1, versor: 0, wen: 0, webgl: 1, key: 1}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props()
-  let g = __mapper('xs').m('geom')
-  let w = __mapper('xs').m('wen')
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+		manitem = __mapper('xs').m('anitem'),
+		mliner = __mapper('xs').m('liner')
 
+	
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
     height = r.height()
@@ -33,7 +34,7 @@ let muonAlima = function (__mapper) {
     degrees = 180 / Math.PI
 
   if (__mapper('controlKey') !== undefined) {
-    let controltimerLeftArrowAlt = () => { // LEFT ARROW
+    let controltimerLeftArrowAlt = () => { 			// LEFT ARROW
       if (__mapper('muonAnimation').animationStop !== undefined) {
         console.log('controltimerLeftArrowAlt')
         if (__mapper('controlTimer').started()) {
@@ -47,7 +48,7 @@ let muonAlima = function (__mapper) {
   }
 
   if (__mapper('controlKey') !== undefined) {
-    let controltimerUpArrowAlt = () => { // UP ARROW
+    let controltimerUpArrowAlt = () => { 					// UP ARROW
       console.log('controltimerUpArrowAlt')
       __mapper('controlWen').control(__mapper('renderSvg').svg()) // SVG WEN
     }
@@ -55,7 +56,7 @@ let muonAlima = function (__mapper) {
   }
 
   /*******************************************
- *    @pics
+ *    	@pics
  *
  */
 
@@ -90,12 +91,14 @@ let muonAlima = function (__mapper) {
       pacer: {
         'initN': 0,
         'eventN': 1,
+				'mousesignal': 0, // ['state', 'event']
         'autoN': 0,
         'autoP': 0.1,
         'outed': 0,
         'maxN': 60,
         'span': 15 / 1400,
-        geometry: 'LineString'
+        'geometry': 'LineString'
+
       }
     }
 
@@ -106,19 +109,17 @@ let muonAlima = function (__mapper) {
  *
  */
   let prehalo = function (anima, newAnigrams = []) {
-    let anigram = __mapper('xs').m('anitem')(anima).anigram()
+    let anigram = manitem(anima).anigram()
 
-    let liner = __mapper('xs').m('liner')
-    liner.orientate(anima)
-
-    let rotate = liner.rotate()
-    let rotations = liner.rotations()
+    mliner.orientate(anima)
+    let rotate = mliner.rotate()
+    let rotations = mliner.rotations()
 
     anigram.payload.rotations = rotations
     anigram.payload.form.x.w4 += rotate - 180 * rotations
     anigram.payload.form.y.w4 += rotate - 180 * rotations
 
-    if (0 && 1) console.log('prehalo anigram', anigram)
+    if (1 && 1) console.log('prehalo anigram', anigram)
 
     return anigram
   }
@@ -177,7 +178,7 @@ let muonAlima = function (__mapper) {
         'control': 'wen'
       },
 
-      'form': { // rocket
+      'form': { 			// rocket
 
         'x': {
           'm1': [[[-8, -4, -2, -7.66]]],
@@ -226,13 +227,13 @@ let muonAlima = function (__mapper) {
 	*/
   lineform.payload.avatars = {
 
-    avaform // haloAvajson h.nat
+    avaform 	// haloAvajson h.nat
 
   }
 
   let animas = [
 
-    lineform // h.liner
+    lineform 	// h.pacer
 
   ]
 

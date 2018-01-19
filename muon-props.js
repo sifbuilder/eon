@@ -183,7 +183,7 @@
     props.value = v => (typeof v === 'function') ? v() : v
     props.noop = () => {}
 
-    /* **************************
+    /***************************
    *        @colors
    */
     props.colors = {} // colors
@@ -279,6 +279,7 @@
       }
       return ret
     }
+		
     /***************************
    *        @fibonacciSphere
    */
@@ -359,6 +360,7 @@
       let _entidx = arr[entidx]
       return props.enxs(_ent, _ents, _entidx)
     }
+		
     /***************************
    *        @positions
    */
