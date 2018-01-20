@@ -38,10 +38,7 @@
         uid = 				payload.uid, // uid
         parentuid = 	payload.parentuid, // parentuid
         geonode = 		payload.geonode || manitem.coreGeonode(),	// geonode
-        gj
-
-      gj = f.v(geoform, anigram)
-
+        gj = 					f.v(geoform, anigram)
 			
       gj = mprofier.conformer(anigram)(gj)
       gj = mprofier.proformer(anigram)(gj)
@@ -55,8 +52,8 @@
 
       newAnigrams = gj.features.map((d, i) => {	// d is feature
         let newAnigram = {}
+				
         newAnigram.payload = {}
-
         newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
 
         newAnigram.geoform = d

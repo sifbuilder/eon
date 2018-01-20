@@ -139,7 +139,7 @@
 
         let proformed =	bproj3ct(json, projer)
 
-        if (json.properties.geonode !== undefined) {
+        if (json.properties && json.properties.geonode !== undefined) {
           let _geonode = bproj3ct(json.properties.geonode, projer)
           proformed.properties.geonode = _geonode
         }

@@ -132,6 +132,7 @@ let muonAlima = function muonAlima (__mapper) {
           .map(g.spherical) // eg. [-0.7853, 0.6154]
           .map(g.to_degrees)
         geometry.coordinates = Array.of(geometry.coordinates)
+				
         let feature = {type: 'Feature', geometry: {}, properties: {}}
 
         let _ric = {}
