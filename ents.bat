@@ -1,12 +1,11 @@
 @ECHO OFF
 
 REM create file to load js components
+SET outEnls=enls.js
+if  EXIST %outEnls%  DEL %outEnls%
 
 SET outEnts=ents.js
 if  EXIST %outEnts%  DEL %outEnts%
-
-SET outEnls=enls.js
-if  EXIST %outEnls%  DEL %outEnls%
 
 setlocal enabledelayedexpansion
 
