@@ -31,8 +31,8 @@
         geoform = 		anigram.geoform || manitem.coreGeoform(), // geoform
         payload = 		anigram.payload, // payload
         boform = 			payload.boform, // boform
-        ric = payload.ric, // ric
-        tim = payload.tim, // tim
+        ric = 				payload.ric, // ric
+        tim = 				payload.tim, // tim
         proform =			payload.proform, // proform
         conform = 		payload.conform, // conform
         uid = 				payload.uid, // uid
@@ -42,6 +42,7 @@
 
       gj = f.v(geoform, anigram)
 
+			
       gj = mprofier.conformer(anigram)(gj)
       gj = mprofier.proformer(anigram)(gj)
 

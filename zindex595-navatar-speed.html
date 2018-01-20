@@ -25,7 +25,8 @@ let muonAlima = function (__mapper) {
 		mgeom = __mapper('xs').m('geom'),
 		mwen = __mapper('xs').m('wen'),
 		mnat = __mapper('xs').m('nat'),
-		rrenderer = __mapper('xs').r('renderer')
+		rrenderer = __mapper('xs').r('renderer'),
+		mliner = __mapper('xs').m('liner')
 
   let width = rrenderer.width(),
 		height = rrenderer.height()
@@ -134,19 +135,34 @@ let muonAlima = function (__mapper) {
 
     'halo': 'geojson',
 
-    'geoform': p => ({
+    'geoform': p => {
+			
+			let rotate = mliner.orientate(p).rotate()
+			    p.payload.form.x.w4 += rotate
+					p.payload.form.y.w4 += rotate
+			let nat = {
       'type': 'Feature',
       'geometry': {
         'type': 'Polygon',
         'coordinates': Array.of(
-          mnat.multiconform(
-            mnat.nform(p.payload.form)
+          __mapper('xs').m('nat').multiconform(
+            __mapper('xs').m('nat').nform(p.payload.form)
           )
         )
       },
-      'id': 0,
-      'properties': {}
-    }),
+      'id': null,
+      'properties': {
+				
+          geonode: {
+            type: 'Feature',
+            geometry: { type: 'Point', coordinates: [0, 0, 0] },
+            properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+          }				
+				
+			}
+    }
+		return nat
+		},
 
     'payload': {
       'tim': tim,

@@ -119,6 +119,7 @@
 
       let uid = anigram.payload.uid
       let projdef = anigram.payload.proform
+			
       if (projdef !== undefined && projdef.translate) {
         if (uid === 'avanat_avanat_avaform') if (0 && 1) console.log('m.profier.proformer anigram', uid, projdef.translate.x)
 
@@ -128,6 +129,9 @@
         if (uid === 'avanat_avanat_avaform') if (0 && 1) console.log('..... m.profier.proformer translate', translate)
         projdef.translate = translate
       }
+
+
+			
       let projer = projion(projdef, anigram)
 
       return json => {

@@ -105,7 +105,7 @@
 				}
       }
 
-      return anigram
+      return enty
     }
 
     /**********************
