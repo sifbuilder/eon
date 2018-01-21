@@ -93,8 +93,8 @@
 				if (0 && 1)	if (anigram.payload.uid === "nat_nat_ava2" ) console.log('h.geojson.gramm __ang', __ang)							
 							dang = _ang - __ang 						// delta ang
 							dcos = Math.cos(dang * radians) // cos of delta ang
-				if (1 && 1)	if (anigram.payload.uid === "nat_nat_ava1" ) console.log('h.geojson.gramm dang 1', dang, dcos)							
-				if (1 && 1)	if (anigram.payload.uid === "nat_nat_ava2" ) console.log('h.geojson.gramm dang 2', dang, dcos)							
+				if (0 && 1)	if (anigram.payload.uid === "nat_nat_ava1" ) console.log('h.geojson.gramm dang 1', dang, dcos)							
+				if (0 && 1)	if (anigram.payload.uid === "nat_nat_ava2" ) console.log('h.geojson.gramm dang 2', dang, dcos)							
 							if (dcos < -0.66) {
 								rotations += 1 // rotations
 								

@@ -12,7 +12,7 @@
   let geoNatform = function geoNatform (__mapper = {}) {
 
 		let mnat = __mapper('xs').m('nat')
-	
+
     let state = {},
       scale = [1, 1, 1],
       rotate = [0, 0, 0],
@@ -20,41 +20,42 @@
       focale = Infinity,
       zafin = [0, 1],
       dims = 3
-	
-			
+
+
 		// 		pointStream
-    let pointStream = function (prjdef) { 
+    let pointStream = function (prjdef) {
       let form = prjdef.form								// conform
-				
+
       let natform = mnat.natform(form) // m.nat.natform
       // natform = (a,b,c) => [a,b,c]
-		      if (1 && 1)	console.log('m.natform.geoNatform:natform', natform)
+		      if (0 && 1)	console.log('m.natform.geoNatform:natform', natform)
       let stream = function (lambda, phi, radio = 1) {
         this.stream.point(...natform(lambda, phi, radio))
       }
-			
+
       return stream
     }
 
-		
+
 		// 		profion
     let profion = prjdef => {		// projection:natform, form:{x,y,z}
-		
+
       let geoTrans = d3.geoTransform({
 					point: pointStream(prjdef)})
-				
+
       let geoProj = p => geoTrans(p)
-			
+
 					geoProj.stream = s => geoTrans.stream(s)
-			
+
       return geoProj
-		
+
     }
 
     /****************************
    *    @enty
    */
     let enty = function (prjdef = {}) {
+			
       let m = profion(prjdef)
 
       return m

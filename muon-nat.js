@@ -61,8 +61,6 @@
    */
     let natform = function (form) {		// getVertex
 			
-			console.log("m.nat.natform:form enter", form.x.ra2)
-			
 			let radioform = getRadioform(form)
 
       let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0]
@@ -70,10 +68,6 @@
       if (form) rotation = Object.values(form).map(dim => dim.w4 * radians)
       let coForm = {location, scale, rotation}
 
-					console.log("m.nat.natform:form exit")
-
-					
-					
 					
       let vertex = function (l, p, radio = 1) { // spherical degrees
 			

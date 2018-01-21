@@ -24,7 +24,7 @@
     let aniListener = function aniListener (elapsed) {
       state.animas = f.a(__mapper('muonStore').animasLive())
 
-      if (1 && 1) console.log(' .............. animas', elapsed, state.animas.length, state.animas)
+      if (0 && 1) console.log(' .............. animas', elapsed, state.animas.length, state.animas)
 
       /*******************************************
      *    @TIME
@@ -77,15 +77,15 @@
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
 
-        if (1	&& 1) console.log('m.animation anima ', anima)
+        if (0 && 1) console.log('m.animation anima ', anima)
         let newAnigrams = []
 				newAnigrams = f.a(mstore.gramm(anima)) /* GRAMM */
-        if (1	&& 1) console.log('m.animation newAnigrams ', newAnigrams)
+        if (0 && 1) console.log('m.animation newAnigrams ', newAnigrams)
 
         if (newAnigrams.length > 0)	 if (0 && 1) console.log('m.animation newAnigrams ', newAnigrams.length, newAnigrams)
       }
 
-	   let anigrams = __mapper('xs').m('store').anigrams()
+			let anigrams = __mapper('xs').m('store').anigrams()
       if (0 && 1) console.log('m.animation anigrams', anigrams.length)
 
       /*******************************************

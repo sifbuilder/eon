@@ -25,7 +25,7 @@
  *        if control:versor   versor rotation
  */
     let protion = function (prjdef, anigram) {
-      if (1 && 1)	console.log('m.profier.protion:prjdef', prjdef)
+      if (0 && 1)	console.log('m.profier.protion:prjdef', prjdef)
       let p = prjdef
       let prj = guniwen(p) // d3.geoIdentity()
 
@@ -81,7 +81,7 @@
           if (f.isFunction(prj[key])) prj[key](value)
         }
       }
-      if (1 && 1) console.log('m.profier exit')
+      if (0 && 1) console.log('m.profier exit')
       return prj
     }
 

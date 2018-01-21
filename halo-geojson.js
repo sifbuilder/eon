@@ -33,31 +33,19 @@
         parentuid = 	payload.parentuid, // parentuid
         gj = 					f.v(geoform, anigram)
 
-      if (conform) gj = mprofier.conformer(anigram)(gj)
-				
 			
 			
-			
-			// m.animation.aniListener 
-			// m.store.gramm 									idenitfies the halo to gramm
-			// h.geojson.gramm								calls h.geojson.gramm on anima
-			// 	m.profier.conformer		
-			// 		m.proj3ct.projectFeature		projects feature **
-			// 			g.natform
-			// 				h.geojson.gramm.natform
-			// 			g.natform.geoNatform.profion
-			//	m.proj3ct.projectGeometry..d3Geo.geoStream(o, stream(sink))
+      gj = mprofier.conformer(anigram)(gj)
 
 			
-			
-      if (proform) gj = mprofier.proformer(anigram)(gj)
+      gj = mprofier.proformer(anigram)(gj)
 
       gj = mgeoj.featurize(gj) 										// featurize
       gj = mboform.boformer(anigram, gj)	// boform
       gj = mgeoj.zorder(gj) 											// order
       gj = mric.qualier(ric, anigram, gj)					// qualify
 
-      if (0 && 1)	console.log('h.geojson.gramm json', gj)
+      if (1 && 1)	console.log('h.geojson.gramm json', gj)
 
       newAnigrams = gj.features.map((d, i) => {	// d is feature
         let newAnigram = {}
