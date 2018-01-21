@@ -10,28 +10,28 @@
 
   let muonProfier = function muonProfier (__mapper = {}) {
     let f = __mapper('props')(),
-      mwen = __mapper('xs').m('wen'),
       cwen = __mapper('xs').c('wen')(),
-      mversor = __mapper('xs').m('versor')(),
       cversor = __mapper('xs').c('versor'),
+      mwen = __mapper('xs').m('wen'),
+      mversor = __mapper('xs').m('versor')(),
       mstace = __mapper('xs').m('stace'),
-      guniwen = __mapper('xs').g('uniwen'),
-      mproj3ct = __mapper('xs').m('proj3ct')
+      mproj3ct = __mapper('xs').m('proj3ct'),
+      guniwen = __mapper('xs').g('uniwen')
 
     /****************************
- *      @projion
+ *      @protion
  *        get projection from proform and apply projection properties
  *        if control:wen  wen rotation and if 2d: wen z rotation
  *        if control:versor   versor rotation
  */
-    let projion = function (prjdef, anigram) {
-      if (1 && 1)	console.log('m.profier.projion:prjdef', prjdef)
+    let protion = function (prjdef, anigram) {
+      if (1 && 1)	console.log('m.profier.protion:prjdef', prjdef)
       let p = prjdef
       let prj = guniwen(p) // d3.geoIdentity()
 
       if (p !== undefined) {
         if (f.isString(p.projection)) { // if _projection singular name
-          prj = __mapper('xs').g(p.projection)(p) // props passed to projection
+          prj = __mapper('xs').g(p.projection)(p) // props
         } else if (f.isFunction(p.projection)) { // if is projection
           prj = p.projection // props passed to projection
         } else if (f.isArray(p.projections)) { // if plural select one
@@ -81,22 +81,23 @@
           if (f.isFunction(prj[key])) prj[key](value)
         }
       }
-
+      if (1 && 1) console.log('m.profier exit')
       return prj
     }
 
     /* ***************************
  *     	 @projier
- *			 json = mprofier.projier(f.v(proform, anigram), anigram)(json)
+ *			 json = mprofier.projier(f.v(prodef, anigram), anigram)(json)
  */
-    let projier = (proform, anigram) => json => (proform) ? mproj3ct(json, projion(proform, anigram)) : json
+    let projier = (prodef, anigram) => // projer is fenrir if no prodef
+				json => (prodef) ? mproj3ct(json, protion(prodef, anigram)) : json
 
     /****************************
  *     	 @ereformer
  */
     let ereformer = anigram => {
       let projdef = anigram.payload.ereform
-      let projer = projion(projdef, anigram)
+      let projer = protion(projdef, anigram)
 
       return json => mproj3ct(json, projer)
     }
@@ -105,10 +106,9 @@
  */
     let conformer = anigram => {
       let projdef = anigram.payload.conform
-      let projer = projion(projdef, anigram)
-			
-      return json => mproj3ct(json, projer)
+      let projer = protion(projdef, anigram)
 
+      return json => mproj3ct(json, projer)
     }
     /****************************
  *     	 @proformer
@@ -128,7 +128,7 @@
         projdef.translate = translate
       }
 
-      let projer = projion(projdef, anigram)
+      let projer = protion(projdef, anigram)
 
       return json => {
         if (0 && 1) console.log('m.profier.proformer:json', json)
@@ -150,7 +150,7 @@
  *      @enty
  */
     let enty = function () {}
-    enty.projion = projion
+    enty.protion = protion
     enty.projier = projier
     enty.proformer = proformer
     enty.ereformer = ereformer

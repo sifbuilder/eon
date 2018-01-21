@@ -11,6 +11,8 @@
 
   let geoNatform = function geoNatform (__mapper = {}) {
 
+		let mnat = __mapper('xs').m('nat')
+	
     let state = {},
       scale = [1, 1, 1],
       rotate = [0, 0, 0],
@@ -18,12 +20,15 @@
       focale = Infinity,
       zafin = [0, 1],
       dims = 3
-
-    let pointStream = function (p) { // anitem or form
-      let form = (p.form !== undefined) ? p.form : p
-if (1 && 1) console.log("form", form)			
-      let natform = __mapper('xs').m('nat').natform(form) // m.nat.natform
-		
+	
+			
+		// 		pointStream
+    let pointStream = function (prjdef) { 
+      let form = prjdef.form								// conform
+				
+      let natform = mnat.natform(form) // m.nat.natform
+      // natform = (a,b,c) => [a,b,c]
+		      if (1 && 1)	console.log('m.natform.geoNatform:natform', natform)
       let stream = function (lambda, phi, radio = 1) {
         this.stream.point(...natform(lambda, phi, radio))
       }
@@ -31,26 +36,26 @@ if (1 && 1) console.log("form", form)
       return stream
     }
 
-    let proform = function (p) {
+		
+		// 		profion
+    let profion = prjdef => {		// projection:natform, form:{x,y,z}
+		
       let geoTrans = d3.geoTransform({
-        point: pointStream(p)})
+					point: pointStream(prjdef)})
+				
       let geoProj = p => geoTrans(p)
-      geoProj.stream = s => geoTrans.stream(s)
+			
+					geoProj.stream = s => geoTrans.stream(s)
+			
       return geoProj
+		
     }
 
     /****************************
    *    @enty
    */
-    let enty = function (p = {}) {
-      let m = proform(p)
-
-      m.translate = _ => _ !== undefined ? (translate = _, m) : m
-      m.rotate = _ => _ !== undefined ? (rotate = _, m) : m
-
-      m.scale = _ => _ !== undefined ? (scale = _, m) : m
-      m.focale = _ => _ !== undefined ? (focale = _, m) : m
-      m.zafin = _ => _ !== undefined ? (zafin = _, m) : m
+    let enty = function (prjdef = {}) {
+      let m = profion(prjdef)
 
       return m
     }

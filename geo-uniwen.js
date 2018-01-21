@@ -80,11 +80,10 @@
       this.stream.point(...c)
     }
 
-    let uniform = function () {
+    let profion = () => {
       let geoTrans = d3.geoTransform({
         point: pointStream,
-        sphere: d => d 							//
-      })
+        sphere: d => d })
       let geoProj = p => geoTrans(p)
       geoProj.stream = s => geoTrans.stream(s)
       return geoProj
@@ -94,7 +93,7 @@
    *    @enty
    */
     let enty = function (prjdef = {}) {
-      let m = uniform(prjdef)
+      let m = profion(prjdef)
 
       Object.entries(state).forEach(d => state[d[0]] = prjdef[0] || init[d[0]]) // stateless
 

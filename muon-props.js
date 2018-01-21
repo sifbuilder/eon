@@ -58,7 +58,30 @@
       return temp
     }
 
-		
+    // http://adripofjavascript.com/blog/drips/object-equality-in-javascript.html
+    props.isSame = function (a, b) {
+      let ret = false
+      if (a !== undefined && b !== undefined) {
+        var aProps = Object.getOwnPropertyNames(a)
+        var bProps = Object.getOwnPropertyNames(b)
+
+        if (aProps.length != bProps.length) {
+          return false
+        }
+
+        for (var i = 0; i < aProps.length; i++) {
+          var propName = aProps[i]
+
+          if (a[propName] !== b[propName]) {
+            return false
+          }
+        }
+
+        ret = true
+      }
+
+      return ret
+    }		
     /***************************
    *        @paths
    */

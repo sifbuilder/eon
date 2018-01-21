@@ -24,7 +24,9 @@
      *        @radorm
      *            g.natform
      */
-    let radorm = function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
+    function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
+		
+		
       let radorPts = mrador(form) //  rador:  [-1,1] => [0,seg5)
       let s1range = [0, radorPts.length - 1] // [0, seg5]
 
@@ -37,50 +39,64 @@
       return p => s2(s1(p)) //  [0,1) =s1=> [0,seg5) =rador=> [0,1]
     }
 
+		
+		let getRadioform = function (form) {		// _e_
+			
+			let extents = [
+				[0,360], // [-Math.PI, Math.PI],
+				[0,360], // [-Math.PI, Math.PI],
+				[0,360] // [-Math.PI, Math.PI]
+			]
+			
+			let radions = Object.values(form).map((d, i) => radorm(d, extents[i]))
+			let radioform = Object.values(form).map((d, i) => p => radions[i](p))
+			
+
+				return radioform
+		}			
     /* *********************
    *    @natform
    *      called by g.natform.pointStream to build nat conform point stream
    *      callls m.nat.radorm
    */
-    let natform = function (form) {
+    let natform = function (form) {		// getVertex
 			
-			console.log(" *********** m.nat.natform:form enter", form)
+			console.log("m.nat.natform:form enter", form.x.ra2)
 			
-      let radioform = Object.values(form).map((d, i) => {
-        let ret
-        if (i === 0) {
-          // ret = p => radorm(d, [-Math.PI, Math.PI])(p)
-          ret = p => radorm(d, [0, 360])(p)
-        } else if (i === 1) {
-          // ret = p => radorm(d, [-Math.PI, Math.PI])(p)
-          ret = p => radorm(d, [0, 360])(p)
-        } else if (i === 2) {
-          // ret = p => radorm(d, [-Math.PI, Math.PI])(p)
-          ret = p => radorm(d, [0, 180])(p)
-        }
-        return ret
-      })
+			let radioform = getRadioform(form)
 
       let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0]
       if (form) scale = Object.values(form).map(dim => dim.ra2)
       if (form) rotation = Object.values(form).map(dim => dim.w4 * radians)
       let coForm = {location, scale, rotation}
 
-					console.log(" *********** m.nat.natform:form exit")
+					console.log("m.nat.natform:form exit")
 
-      return function (l, p, radio = 1) { // spherical degrees
+					
+					
+					
+      let vertex = function (l, p, radio = 1) { // spherical degrees
+			
         let lambda = l * radians
         let phi = p * radians
 
         let c = coForm
 
-        let x = c.scale[0] * radioform[0](lambda) * cos(lambda + c.rotation[0]) * cos(phi) * radioform[2](phi)
-        let y = c.scale[1] * radioform[1](lambda) * sin(lambda + c.rotation[1]) * cos(phi) * radioform[2](phi)
-        let z = c.scale[2] * radioform[2](phi) * sin(phi + c.rotation[2])
+
+				let rx = radioform[0]
+				let ry = radioform[1]
+				let rz = radioform[2]
+				
+				
+        let x = c.scale[0] * rx(lambda) * cos(lambda + c.rotation[0]) * cos(phi) * rz(phi)
+        let y = c.scale[1] * ry(lambda) * sin(lambda + c.rotation[1]) * cos(phi) * rz(phi)
+        let z = c.scale[2] * rz(phi) * sin(phi + c.rotation[2])
 
 				
         return [x, y, z]
       }
+			
+			return vertex
     }		
 		
 		
@@ -90,13 +106,14 @@
      */
     let polarCoords = function (params) { // stream of scalars
 		
-			console.log(" *********** m.nat.natform:polarCoords")
+			console.log(" *********** m.nat.polarCoords")
 			
       let m1 = params.m1
       let m2 = params.m2
       let n1 = params.n1
       let n2 = params.n2
       let n3 = params.n3
+			
       let a = params.a
       let b = params.b
 
@@ -225,8 +242,7 @@
      */
     let enty = function () {}
 
-    // enty.rador = rador // form => pts (domain form.seg5 to [0,1] range)
-    enty.radorm = radorm // [0,1) =s1=> [0,seg5) =rador=> [0,1]
+    // enty.radorm = radorm // [0,1) =s1=> [0,seg5) =rador=> [0,1]
     enty.polarCoords = polarCoords //
     enty.multiconform = multiconform //
     enty.nform = nform //
