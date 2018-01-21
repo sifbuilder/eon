@@ -1,14 +1,14 @@
 /***************************
- *        @bosonPolyhedral
+ *        @muonPolyhedral
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.bosonPolyhedral = global.bosonPolyhedral || {})))
+      : (factory((global.muonPolyhedral = global.muonPolyhedral || {})))
 }(this, function (exports) {
   'use strict'
 
-  var bosonPolyhedral = function bosonPolyhedral (__mapper = {}) {
+  var muonPolyhedral = function muonPolyhedral (__mapper = {}) {
     let f = __mapper({'props': muonProps.muonProps()}).props()	// props
 
     let renderer = __mapper('renderRenderer'),
@@ -70,5 +70,5 @@
     return enty
   }
 
-  exports.bosonPolyhedral = bosonPolyhedral
+  exports.muonPolyhedral = muonPolyhedral
 }))

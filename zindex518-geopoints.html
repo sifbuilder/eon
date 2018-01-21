@@ -19,10 +19,10 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').b('init')({svg: 1, versor: 1, webgl: 1, img: 0}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 1, img: 0}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
-    bsnap = __mapper('xs').b('snap'),
+    bsnap = __mapper('xs').m('snap'),
     mlacer = __mapper('xs').m('lacer')
 
   /*******************************************
@@ -282,7 +282,7 @@ let muonAlima = function muonAlima (__mapper) {
             'fas8': 0
           }) => {
             let as = a
-            let bs = __mapper('xs').b('snap')(b, t, 1).x
+            let bs = __mapper('xs').m('snap')(b, t, 1).x
             return as + bs
           } ]]],
 
@@ -304,7 +304,7 @@ let muonAlima = function muonAlima (__mapper) {
             'fas8': 0
           }) => {
             let as = a
-            let bs = __mapper('xs').b('snap')(b, t, 1).y
+            let bs = __mapper('xs').m('snap')(b, t, 1).y
             return as + bs
           } ]]]
 
@@ -391,7 +391,7 @@ let muonAlima = function muonAlima (__mapper) {
         translate: [
 
           [[[ t => {
-            let bsnap = __mapper('xs').b('snap')
+            let bsnap = __mapper('xs').m('snap')
             let fn = (a, b) => a + b.x
             let args = [
               378,
@@ -434,7 +434,7 @@ let muonAlima = function muonAlima (__mapper) {
             'pb7': -1,
             'fas8': 0
           }) => {
-            let bsnap = __mapper('xs').b('snap')
+            let bsnap = __mapper('xs').m('snap')
             let as = a
             let bs = bsnap(b, t, 1).y
             return as + bs
@@ -457,7 +457,7 @@ let muonAlima = function muonAlima (__mapper) {
         translate:
 
        [[[ t => {
-         let bsnap = __mapper('xs').b('snap')
+         let bsnap = __mapper('xs').m('snap')
          let fn = (a, b) => [ a[0] + b.x, a[1] + b.y, a[2] + b.z ]
          let args = [
            [378, 124, 0],
@@ -588,7 +588,7 @@ let muonAlima = function muonAlima (__mapper) {
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
 }
 
-let __mapper = bosonMapper.bosonMapper()
+let __mapper = muonMapper.muonMapper()
 __mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

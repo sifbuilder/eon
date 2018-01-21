@@ -26,7 +26,7 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').b('init')({svg: 1, versor: 0, wen: 1, webgl: 1})
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1})
 
   let f = __mapper('props')(),
     manitem = __mapper('xs').m('anitem')
@@ -42,7 +42,7 @@ let muonAlima = function muonAlima (__mapper) {
     rotation = [0, 0, 0],
     rotMatrix
 
-  let versor = __mapper('xs').b('versor')()
+  let versor = __mapper('xs').m('versor')()
   let wen = __mapper('xs').c('wen')({rotInit})
 
   /*******************************************
@@ -328,7 +328,7 @@ let muonAlima = function muonAlima (__mapper) {
   return animaApi
 }
 
-let __mapper = bosonMapper.bosonMapper()
+let __mapper = muonMapper.muonMapper()
 __mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

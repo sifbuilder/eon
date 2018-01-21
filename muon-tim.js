@@ -1,14 +1,14 @@
 /**********************
-   *    @bosonTim
+   *    @muonTim
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.bosonTim = global.bosonTim || {})))
+      : (factory((global.muonTim = global.muonTim || {})))
 }(this, function (exports) {
   'use strict'
 
-  let bosonTim = function bosonTim (__mapper = {}) {
+  let muonTim = function muonTim (__mapper = {}) {
     let epsilon = 1e-5
 
     /**********************
@@ -98,5 +98,5 @@
     return enty
   }
 
-  exports.bosonTim = bosonTim
+  exports.muonTim = muonTim
 }))

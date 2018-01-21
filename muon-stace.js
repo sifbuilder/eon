@@ -262,7 +262,7 @@
     let getLocifier = function (stace, anigram = {}) {
       let locifion = getLocifion(stace, anigram)
 
-      return g => __mapper('xs').b('proj3ct')(g, locifion)
+      return g => __mapper('xs').m('proj3ct')(g, locifion)
     }
 
     /***********

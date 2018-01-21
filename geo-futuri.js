@@ -96,7 +96,7 @@
 
       if (!p.prjRaw) p.prjRaw = d3.geoGnomonicRaw
 
-      return __mapper('xs').b('polyhedral')(p)
+      return __mapper('xs').m('polyhedral')(p)
     }
 
     return enty

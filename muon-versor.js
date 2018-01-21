@@ -1,18 +1,18 @@
 /*******************************************
- * 			@bosonVersor
+ * 			@muonVersor
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.bosonVersor = global.bosonVersor || {})))
+      : (factory((global.muonVersor = global.muonVersor || {})))
 }(this, function (exports) {
   'use strict'
 
   // Version 0.0.0. Copyright 2017 Mike Bostock.
   // ref: http://codepen.io/jorin/pen/YNajXZ
 
-  var bosonVersor = function bosonVersor (__mapper = {}) {
+  var muonVersor = function muonVersor (__mapper = {}) {
     let props = __mapper('props')()
     var stace = Object.assign({})
 
@@ -100,5 +100,5 @@
     return enty
   }
 
-  exports.bosonVersor = bosonVersor
+  exports.muonVersor = muonVersor
 }))

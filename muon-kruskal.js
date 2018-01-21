@@ -1,15 +1,15 @@
 /*************************
-*   	@bosonKruskal
+*   	@muonKruskal
 *
 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.bosonKruskal = global.bosonKruskal || {})))
+      : (factory((global.muonKruskal = global.muonKruskal || {})))
 }(this, function (exports) {
   'use strict'
 
-  let bosonKruskal = function bosonKruskal (__mapper = {}) {
+  let muonKruskal = function muonKruskal (__mapper = {}) {
 		
  /* *************************
 *   kruskal
@@ -130,5 +130,5 @@
     return enty
   }
 
-  exports.bosonKruskal = bosonKruskal
+  exports.muonKruskal = muonKruskal
 }))

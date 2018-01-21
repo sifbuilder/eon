@@ -1,17 +1,17 @@
 /*******************************************
- *    @bosonInit
+ *    @muonInit
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.bosonInit = global.bosonInit || {})))
+      : (factory((global.muonInit = global.muonInit || {})))
 }(this, function (exports) {
   'use strict'
 
   /*******************************************
- *    @bosonInit
+ *    @muonInit
  */
-  let bosonInit = function bosonInit (__mapper = {}) {
+  let muonInit = function muonInit (__mapper = {}) {
 		
   /*******************************************
  *    @enty
@@ -21,7 +21,7 @@
 
       if (p.svg) __mapper({'renderSvg': renderSvg.renderSvg(__mapper)}) // SVG
       if (p.pos) __mapper('xs').c('pos')(__mapper('renderSvg').svg()) 	// SVG POSITION
-      if (p.img) __mapper('xs').b('image')('zimg-black.jpg') 						// BCK IMAGE
+      if (p.img) __mapper('xs').m('image')('zimg-black.jpg') 						// BCK IMAGE
 
       if (p.svg && p.wen) __mapper('xs').c('wen').control(__mapper('renderSvg').svg()) // SVG WEN
       if (p.svg && p.versor) __mapper('xs').c('versor').control(__mapper('renderSvg').svg()) // SVG VERSOR
@@ -93,5 +93,5 @@
     return enty
   }
 
-  exports.bosonInit = bosonInit
+  exports.muonInit = muonInit
 }))

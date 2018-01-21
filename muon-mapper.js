@@ -1,14 +1,14 @@
 /*******************************************
-*      @bosonMapper
+*      @muonMapper
 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.bosonMapper = global.bosonMapper || {})))
+      : (factory((global.muonMapper = global.muonMapper || {})))
 }(this, function (exports) {
   'use strict'
 
-  let bosonMapper = function bosonMapper () {
+  let muonMapper = function muonMapper () {
     let state = {}
 
     let enty = function (_) {
@@ -21,5 +21,5 @@
     return enty
   }
 
-  exports.bosonMapper = bosonMapper
+  exports.muonMapper = muonMapper
 }))

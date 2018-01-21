@@ -12,11 +12,11 @@
     let f = __mapper('props')(),
       mwen = __mapper('xs').m('wen'),
       cwen = __mapper('xs').c('wen')(),
-      bversor = __mapper('xs').b('versor')(),
+      mversor = __mapper('xs').m('versor')(),
       cversor = __mapper('xs').c('versor'),
       mstace = __mapper('xs').m('stace'),
       guniwen = __mapper('xs').g('uniwen'),
-      bproj3ct = __mapper('xs').b('proj3ct')
+      mproj3ct = __mapper('xs').m('proj3ct')
 
     /****************************
  *      @projion
@@ -54,12 +54,12 @@
               }
             }
 
-            rot = bversor.add(rot, wenRotation)
+            rot = mversor.add(rot, wenRotation)
           } else if (p.control === 'versor') { // versor control
             let verser = cversor.projection(prj)
             let verRotation = verser.rotation() // rotation from versor
 
-            rot = bversor.add(rot, verRotation) // add ani rotation
+            rot = mversor.add(rot, verRotation) // add ani rotation
           }
 
           p.rotate = rot
@@ -89,7 +89,7 @@
  *     	 @projier
  *			 json = mprofier.projier(f.v(proform, anigram), anigram)(json)
  */
-    let projier = (proform, anigram) => json => (proform) ? bproj3ct(json, projion(proform, anigram)) : json
+    let projier = (proform, anigram) => json => (proform) ? mproj3ct(json, projion(proform, anigram)) : json
 
     /****************************
  *     	 @ereformer
@@ -98,7 +98,7 @@
       let projdef = anigram.payload.ereform
       let projer = projion(projdef, anigram)
 
-      return json => bproj3ct(json, projer)
+      return json => mproj3ct(json, projer)
     }
     /****************************
  *     	 @conformer
@@ -107,7 +107,7 @@
       let projdef = anigram.payload.conform
       let projer = projion(projdef, anigram)
 			
-      return json => bproj3ct(json, projer)
+      return json => mproj3ct(json, projer)
 
     }
     /****************************
@@ -133,10 +133,10 @@
       return json => {
         if (0 && 1) console.log('m.profier.proformer:json', json)
 
-        let proformed =	bproj3ct(json, projer)
+        let proformed =	mproj3ct(json, projer)
 
         if (json.properties && json.properties.geonode !== undefined) {
-          let _geonode = bproj3ct(json.properties.geonode, projer)
+          let _geonode = mproj3ct(json.properties.geonode, projer)
           proformed.properties.geonode = _geonode
         }
 

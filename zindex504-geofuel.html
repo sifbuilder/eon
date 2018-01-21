@@ -20,7 +20,7 @@
  */
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').b('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, img: 0, gui: 0, fps: 0, stats: 0}) // INIT
+  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, img: 0, gui: 0, fps: 0, stats: 0}) // INIT
 
   /**********************
    *    @libs
@@ -34,7 +34,7 @@ let muonAlima = function muonAlima (__mapper) {
     g = __mapper('xs').m('geom'),
     mwen = __mapper('xs').m('wen'),
     cwen = __mapper('xs').c('wen')(),
-    bversor = __mapper('xs').b('versor')(),
+    mversor = __mapper('xs').m('versor')(),
     mnat = __mapper('xs').m('nat')
 
   /*******************************************
@@ -314,7 +314,7 @@ let muonAlima = function muonAlima (__mapper) {
   return animaApi
 }
 
-let __mapper = bosonMapper.bosonMapper()
+let __mapper = muonMapper.muonMapper()
 __mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

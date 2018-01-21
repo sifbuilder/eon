@@ -25,7 +25,7 @@
   // ------------------------- muonSimulation
   let muonSimulation = function (__mapper = {}) {
     let f = __mapper('props')()
-    let msnap = __mapper('xs').b('snap')
+    let msnap = __mapper('xs').m('snap')
     let mstore = __mapper('xs').m('store')
 
     let _geonode = {

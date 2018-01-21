@@ -1,14 +1,14 @@
 /***********
- *    @bosonSnap
+ *    @muonSnap
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.bosonSnap = global.bosonSnap || {})))
+      : (factory((global.muonSnap = global.muonSnap || {})))
 }(this, function (exports) {
   'use strict'
 
-  let bosonSnap = function bosonSnap (__mapper = {}) {
+  let muonSnap = function muonSnap (__mapper = {}) {
     let f = __mapper('props')(),
       mnat = __mapper('xs').m('nat'),
       mlacer = __mapper('xs').m('lacer')
@@ -129,5 +129,5 @@
     return enty
   }
 
-  exports.bosonSnap = bosonSnap
+  exports.muonSnap = muonSnap
 }))

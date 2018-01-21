@@ -42,7 +42,7 @@
               state.animas[index] = updAnima // replace
             }
           } else { // new anima
-            updAnima.payload.tim = __mapper('xs').b('tim')(updAnima.payload.tim, elapsed) // set tim elapsed
+            updAnima.payload.tim = __mapper('xs').m('tim')(updAnima.payload.tim, elapsed) // set tim elapsed
             updAnima.payload.uid = uid // set uid if new anima
             updAnima.payload.nid = __mapper('xs').m('store').getNid() // node id in animas collection
 

@@ -1,17 +1,17 @@
 /***************************
- *        @bosonProj3ct
+ *        @muonProj3ct
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.bosonProj3ct = global.bosonProj3ct || {})))
+      : (factory((global.muonProj3ct = global.muonProj3ct || {})))
 }(this, function (exports) {
   'use strict'
 
   // https://d3js.org/d3-geo-projection/ V
   // Copyright 2017 Mike Bostock.
 
-  var bosonProj3ct = function (__mapper = {}) {
+  var muonProj3ct = function (__mapper = {}) {
     let f = __mapper('props')()
     let noop = function () {}
     let d3Geo = d3
@@ -177,5 +177,5 @@
     return enty
   }
 
-  exports.bosonProj3ct = bosonProj3ct
+  exports.muonProj3ct = muonProj3ct
 }))

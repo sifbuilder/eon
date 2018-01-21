@@ -32,7 +32,7 @@
       state.animas = f.a(__mapper('muonStore').animasLive())
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
-        anima.payload.tim = __mapper('bosonTim')(anima.payload.tim, elapsed) // set time
+        anima.payload.tim = __mapper('muonTim')(anima.payload.tim, elapsed) // set time
         if (elapsed > anima.payload.tim.limit + anima.payload.tim.msStart) {
           anima.payload.delled = 1 // crop by time
         }

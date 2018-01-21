@@ -139,7 +139,7 @@
 
       if (!p.prjRaw) p.prjRaw = prj(prjlat, prjlagr, prjrad)
 
-      return __mapper('xs').b('polyhedral')(p)
+      return __mapper('xs').m('polyhedral')(p)
     }
 
     return enty

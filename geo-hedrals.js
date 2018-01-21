@@ -17,7 +17,7 @@
     let g = __mapper('xs').m('geom')
     let mwen = __mapper('xs').m('wen')
 
-    let versor = __mapper('xs').b('versor')()
+    let versor = __mapper('xs').m('versor')()
     let cwen = __mapper('xs').c('wen')()
 
     let pi = Math.PI, degrees = 180 / pi, radians = pi / 180
@@ -48,7 +48,7 @@
 
       p.faces = faces
 
-      return __mapper('xs').b('polyhedral')(p) // get polyhedral projection
+      return __mapper('xs').m('polyhedral')(p) // get polyhedral projection
     }
 
     return enty

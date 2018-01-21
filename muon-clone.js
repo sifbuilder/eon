@@ -1,14 +1,14 @@
 /***********
- *    @bosonClone
+ *    @muonClone
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.bosonClone = global.bosonClone || {})))
+      : (factory((global.muonClone = global.muonClone || {})))
 }(this, function (exports) {
   'use strict'
 
-  let bosonClone = function bosonClone (__mapper = {}) {
+  let muonClone = function muonClone (__mapper = {}) {
     let f = __mapper('props')()
 
     /***********
@@ -48,5 +48,5 @@
     return enty
   }
 
-  exports.bosonClone = bosonClone
+  exports.muonClone = muonClone
 }))

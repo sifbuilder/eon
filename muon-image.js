@@ -1,14 +1,14 @@
 /***********
- *    @bosonImage
+ *    @muonImage
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.bosonImage = global.bosonImage || {})))
+      : (factory((global.muonImage = global.muonImage || {})))
 }(this, function (exports) {
   'use strict'
 
-  let bosonImage = function (__mapper) {
+  let muonImage = function (__mapper) {
     let enty = function (src) {
       let name = src || 'space.jpg'
 
@@ -32,5 +32,5 @@
     return enty
   }
 
-  exports.bosonImage = bosonImage
+  exports.muonImage = muonImage
 }))

@@ -118,10 +118,10 @@
       let anigram = {}
       if (anima !== undefined) {
         if (t !== undefined) {
-          anigram = __mapper('xs').b('snap')(anima, t)
+          anigram = __mapper('xs').m('snap')(anima, t)
         } else if (anima.payload.tim.unitTime !== undefined) {
           let t = anima.payload.tim.unitTime
-          anigram = __mapper('xs').b('snap')(anima, t)
+          anigram = __mapper('xs').m('snap')(anima, t)
         }
         if (anigram.payload === undefined) anigram.payload = {}
         setAnitem(anigram)
@@ -139,7 +139,7 @@
     enty.anigram = (ani, t) => {
       if (ani !== undefined) { // if give anima
         if (t !== undefined) { // if given time
-          ani = __mapper('xs').b('snap')(ani, t) // anima snap  to anigram
+          ani = __mapper('xs').m('snap')(ani, t) // anima snap  to anigram
         }
         setAnitem(ani) // build anitem
       }

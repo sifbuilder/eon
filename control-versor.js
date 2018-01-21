@@ -11,7 +11,7 @@
 
   let controlVersor = function controlVersor (__mapper = {}) {
     let f = __mapper('props')()
-    let bversor = __mapper('xs').b('versor')()
+    let mversor = __mapper('xs').m('versor')()
 
     let drag = d3.drag()
 
@@ -61,9 +61,9 @@
         state.p0 = getPos(e) // d3.mouse(this)
         let inve0 = projection.invert(state.p0)
         if (inve0 !== undefined) {
-          state.v0 = bversor.cartesian(inve0)
+          state.v0 = mversor.cartesian(inve0)
           state.r0 = projection.rotate()
-          state.q0 = bversor(state.r0)
+          state.q0 = mversor(state.r0)
         }
       }
     }
@@ -78,9 +78,9 @@
         if (state.v0 !== undefined && state.r0 !== undefined) {
           let inve0 = projection.rotate(state.r0).invert(getPos(e))
           if (inve0 !== undefined) {
-            let v1 = bversor.cartesian(inve0)
-            let q1 = bversor.multiply(state.q0, bversor.delta(state.v0, v1))
-            let r1 = bversor.rotation(q1)
+            let v1 = mversor.cartesian(inve0)
+            let q1 = mversor.multiply(state.q0, mversor.delta(state.v0, v1))
+            let r1 = mversor.rotation(q1)
 
             state.rotation = r1 // set global rotate
           }
