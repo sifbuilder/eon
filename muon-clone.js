@@ -20,8 +20,7 @@
       else if (typeof (v) === 'number') return v // 02 _____ num
       else if (typeof (v) === 'string') return v // 03 _____ str
       else if (f.isArray(v) && v.length === 0) return v // 04 _____ []
-      else if (typeof (v) === 'function'
-      ) return v //  v(t)    //01 _____ fn
+      else if (typeof (v) === 'function') return v //  v(t)    //01 _____ fn
 
       else if (f.isObject(v) // 06 ___ v :: {}
       ) {

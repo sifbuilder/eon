@@ -27,15 +27,11 @@
     }
   }
 
-  /***********
-	 *		@muonForces
-	 */
+
   var muonForces = function (__mapper = {}) {
     let f = __mapper('props')()
 
-    /***********
-	 *		@force
-	 */
+
     let force = function (params) {
       let aniforce, d3force
 
@@ -55,11 +51,8 @@
       return aniforce
     }
 
-    /***********
-	 *		@enty
-	 */
-    var enty = () => {}
-    enty.force = force
+		let enty = v => force(v)
+
     return enty
   }
 
