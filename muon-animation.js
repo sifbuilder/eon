@@ -44,9 +44,9 @@
      *    @STOP
      */
       let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.payload.tim.limit + item.payload.tim.msStart), 0)
-      if (isNaN(maxlimit)) state.animationStop()
-      if (maxlimit > 0 && elapsed > maxlimit) state.animationStop() // stop if spired
-      if (elapsed > maxlimit) state.animationStop() // stop if anigrams spired
+      // if (isNaN(maxlimit)) state.animationStop()
+      // if (maxlimit > 0 && elapsed > maxlimit) state.animationStop() // stop if spired
+      // if (elapsed > maxlimit) state.animationStop() // stop if anigrams spired
 
       /*******************************************
      *    @WEEN generate animas and offsprings
@@ -77,8 +77,10 @@
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
 
-        if (0	&& 1) console.log('m.animation anima ', anima)
-        let newAnigrams = f.a(mstore.gramm(anima)) /* GRAMM */
+        if (1	&& 1) console.log('m.animation anima ', anima)
+        let newAnigrams = []
+				newAnigrams = f.a(mstore.gramm(anima)) /* GRAMM */
+        if (1	&& 1) console.log('m.animation newAnigrams ', newAnigrams)
 
         if (newAnigrams.length > 0)	 if (0 && 1) console.log('m.animation newAnigrams ', newAnigrams.length, newAnigrams)
       }

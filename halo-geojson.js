@@ -9,18 +9,12 @@
   'use strict'
 
   let haloGeojson = function haloGeojson (__mapper = {}) {
-
     let f = __mapper('props')(),
-      mstace = __mapper('xs').m('stace'),
-      mstore = __mapper('xs').m('store'),
-      mquad = __mapper('xs').m('quad'),
-      hnat = __mapper('xs').h('nat'),
-      mgeom = __mapper('xs').m('geom'),
-			manitem = __mapper('xs').m('anitem'),
-			mric = __mapper('xs').m('ric'),
-			mboform = __mapper('xs').m('boform'),
-			mgeoj = __mapper('xs').m('geoj'),
-			mprofier = __mapper('xs').m('profier')
+      manitem = __mapper('xs').m('anitem'),
+      mric = __mapper('xs').m('ric'),
+      mboform = __mapper('xs').m('boform'),
+      mgeoj = __mapper('xs').m('geoj'),
+      mprofier = __mapper('xs').m('profier')
 
     /**********************
    *    @gramify
@@ -37,9 +31,8 @@
         conform = 		payload.conform, // conform
         uid = 				payload.uid, // uid
         parentuid = 	payload.parentuid, // parentuid
-        geonode = 		payload.geonode || manitem.coreGeonode(),	// geonode
         gj = 					f.v(geoform, anigram)
-			
+
       gj = mprofier.conformer(anigram)(gj)
       gj = mprofier.proformer(anigram)(gj)
 
@@ -52,7 +45,7 @@
 
       newAnigrams = gj.features.map((d, i) => {	// d is feature
         let newAnigram = {}
-				
+
         newAnigram.payload = {}
         newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
 

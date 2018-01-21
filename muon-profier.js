@@ -25,7 +25,7 @@
  *        if control:versor   versor rotation
  */
     let projion = function (prjdef, anigram) {
-      if (0 && 1)	console.log('m.profier.projion:prjdef', prjdef)
+      if (1 && 1)	console.log('m.profier.projion:prjdef', prjdef)
       let p = prjdef
       let prj = guniwen(p) // d3.geoIdentity()
 
@@ -106,19 +106,18 @@
     let conformer = anigram => {
       let projdef = anigram.payload.conform
       let projer = projion(projdef, anigram)
-
+			
       return json => bproj3ct(json, projer)
+
     }
     /****************************
  *     	 @proformer
  */
     let proformer = anigram => {
-
       let uid = anigram.payload.uid
       let projdef = anigram.payload.proform
-			
+
       if (projdef !== undefined && projdef.translate) {
-					
         if (uid === 'avanat_avanat_avaform') if (0 && 1) console.log('m.profier.proformer anigram', uid, projdef.translate.x)
 
         let translates = mstace.getLocations(projdef.translate, anigram)
@@ -129,8 +128,6 @@
         projdef.translate = translate
       }
 
-
-			
       let projer = projion(projdef, anigram)
 
       return json => {

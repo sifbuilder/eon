@@ -10,7 +10,9 @@
 
   let muonNat = function muonNat (__mapper = {}) {
     let f = __mapper('props')(),
-      mlacer = __mapper('xs').m('lacer')
+      mlacer = __mapper('xs').m('lacer'),
+			mrador = __mapper('xs').m('rador')
+			
 
     const cos = Math.cos, sin = Math.sin
     const neg = x => x < 0 || (x === 0 && (1 / x < 0))
@@ -19,52 +21,11 @@
     const tau = 2 * Math.PI
 
     /* **************************
-     *        @rador : seg5 unit circle rador
-     *          m.snap.snap (dim form => rador)
-     */
-    let rador = function rador (form) {
-      let pts = []
-
-      const {m1, m2, n1, n2, n3, a, b, v0, v1, seg5} = form
-      const angUnit = tau / seg5 // dots per period
-
-      let angi = (form.angi) ? form.angi : (i, ang) => (i * ang) - Math.PI
-      let radi = (form.radi) ? form.radi : (i, rad, mult) => rad * (1 + mult * i)
-      let abs = (form.abs) ? form.abs : Math.abs
-      let nat = function (m1, m2, n1, n2, n3, a, b) {
-        return function (ang) {
-          let t1 = m1 * ang / 4
-          let t2 = m2 * ang / 4
-
-          let t = Math.pow(
-
-            Math.pow(abs(Math.cos(t1) / a), n2) // n2
-                 +
-                 Math.pow(abs(Math.sin(t2) / b), n3), // n3
-
-            -1 / n1) // n1
-
-          return t
-        }
-      }
-
-      for (let i = 0; i < seg5; i++) {
-        let ang = angi(i, angUnit * v1) // [0,360] => [-180,180]
-        let t = nat(m1, m2, n1, n2, n3, a, b)(ang)
-        let r = radi(i, t, v0) // increment radius with ang
-
-        pts.push(r)
-      }
-
-      return pts // dots in path: [0,...,seg5] => [0,1]
-    }
-
-    /* **************************
      *        @radorm
      *            g.natform
      */
     let radorm = function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
-      let radorPts = f.norma(rador(form)) //  rador:  [-1,1] => [0,seg5)
+      let radorPts = mrador(form) //  rador:  [-1,1] => [0,seg5)
       let s1range = [0, radorPts.length - 1] // [0, seg5]
 
       let s2extent = d3.range(0, radorPts.length - 1) // [0,...,seg5]
@@ -76,13 +37,14 @@
       return p => s2(s1(p)) //  [0,1) =s1=> [0,seg5) =rador=> [0,1]
     }
 
-    /**********************
+    /* *********************
    *    @natform
-   *      
+   *      called by g.natform.pointStream to build nat conform point stream
+   *      callls m.nat.radorm
    */
     let natform = function (form) {
 			
-			console.log(" *********** m.nat.natform:form")
+			console.log(" *********** m.nat.natform:form enter", form)
 			
       let radioform = Object.values(form).map((d, i) => {
         let ret
@@ -104,6 +66,8 @@
       if (form) rotation = Object.values(form).map(dim => dim.w4 * radians)
       let coForm = {location, scale, rotation}
 
+					console.log(" *********** m.nat.natform:form exit")
+
       return function (l, p, radio = 1) { // spherical degrees
         let lambda = l * radians
         let phi = p * radians
@@ -114,6 +78,7 @@
         let y = c.scale[1] * radioform[1](lambda) * sin(lambda + c.rotation[1]) * cos(phi) * radioform[2](phi)
         let z = c.scale[2] * radioform[2](phi) * sin(phi + c.rotation[2])
 
+				
         return [x, y, z]
       }
     }		
@@ -124,6 +89,9 @@
      *           m.nat.multiconform: form => dimstream
      */
     let polarCoords = function (params) { // stream of scalars
+		
+			console.log(" *********** m.nat.natform:polarCoords")
+			
       let m1 = params.m1
       let m2 = params.m2
       let n1 = params.n1
@@ -257,7 +225,7 @@
      */
     let enty = function () {}
 
-    enty.rador = rador // form => pts (domain form.seg5 to [0,1] range)
+    // enty.rador = rador // form => pts (domain form.seg5 to [0,1] range)
     enty.radorm = radorm // [0,1) =s1=> [0,seg5) =rador=> [0,1]
     enty.polarCoords = polarCoords //
     enty.multiconform = multiconform //

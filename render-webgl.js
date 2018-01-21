@@ -13,7 +13,6 @@
     let radians = Math.PI / 180
 
     let r = __mapper('xs').r('renderer')
-		
     state.width = r.width(),
     state.height = r.height()
 
@@ -113,6 +112,9 @@
  *        @render
  */
     let render = function (elapsed, featurecollection, maxlimit) {
+			
+			if (0 && 1) console.log("r.webgl.render:elapsed", elapsed)
+			
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties

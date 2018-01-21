@@ -10,17 +10,6 @@
   'use strict'
 
   let geoNatform = function geoNatform (__mapper = {}) {
-    let f = __mapper('props')()
-    let g = __mapper('xs').m('geom')
-    let mwen = __mapper('xs').m('wen')
-    let cwen = __mapper('xs').c('wen')
-
-    const geoscale = extent => d3.scaleLinear().domain(extent[0]).range(extent[1])
-    const cos = Math.cos, sin = Math.sin
-    const neg = x => x < 0 || (x === 0 && (1 / x < 0))
-    const pos = x => x > 0 || (x === 0 && (1 / x > 0))
-    const radians = Math.PI / 180
-    const tau = 2 * Math.PI
 
     let state = {},
       scale = [1, 1, 1],
@@ -32,11 +21,14 @@
 
     let pointStream = function (p) { // anitem or form
       let form = (p.form !== undefined) ? p.form : p
+if (1 && 1) console.log("form", form)			
       let natform = __mapper('xs').m('nat').natform(form) // m.nat.natform
-      let natstream = function (lambda, phi, radio = 1) {
+		
+      let stream = function (lambda, phi, radio = 1) {
         this.stream.point(...natform(lambda, phi, radio))
       }
-      return natstream
+			
+      return stream
     }
 
     let proform = function (p) {
