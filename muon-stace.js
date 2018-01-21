@@ -154,6 +154,7 @@
       if (anigram !== undefined) stace = stace || anigram.payload.stace
 
       if (stace !== undefined && stace !== null) {
+				
         if (Array.isArray(stace)) { // stace :: [x,y,z]
           let location = []
           let val = stace // single location from stace array
@@ -176,17 +177,17 @@
           } else {
             console.log(' location format not supported')
           }
-        } else if (typeof stace === 'object') { // {}
+					
+        } else if (typeof stace === 'object') { 									// {'x':300, 'y':200}}
           let entries = Object.entries(stace)
-
           let locationsPerDim = []
 
-          for (let i = 0; i < entries.length; i++) {
-            let entry = entries[i]
+          for (let i = 0; i < entries.length; i++) {							
+            let entry = entries[i]																			// ['x', 200]
             let k1 = entry[0]
             let v1 = entry[1]
 
-            if (typeof v1 === 'number') location[i] = v1
+            if (typeof v1 === 'number') locationsPerDim[i] = Array.of(v1) // [200]
 
             else if (typeof v1 === 'object') {
               if (v1.hasOwnProperty('pos')) {
@@ -197,12 +198,15 @@
                 locationsPerDim[i] = getLocsInDim(v1, parentLocationsDim)
               }
             }
+						
+						
           }
-          locations = mlacer.slide(locationsPerDim)
+          locations = mlacer.slide(locationsPerDim)									// [300, 200]
           if (0 && 1) console.log('m.stace.getLocsInDim locations', locations)
         }
 
         if (locations.length === 0) locations = []
+				
       }	else {	// stace not defined take situs from parent
         let parentSitus = __mapper('xs').m('anitem').parentSitus(anigram)
         locations = Array.of(parentSitus)

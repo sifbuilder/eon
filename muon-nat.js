@@ -76,6 +76,49 @@
       return p => s2(s1(p)) //  [0,1) =s1=> [0,seg5) =rador=> [0,1]
     }
 
+    /**********************
+   *    @natform
+   *      
+   */
+    let natform = function (form) {
+			
+			console.log(" *********** m.nat.natform:form")
+			
+      let radioform = Object.values(form).map((d, i) => {
+        let ret
+        if (i === 0) {
+          // ret = p => radorm(d, [-Math.PI, Math.PI])(p)
+          ret = p => radorm(d, [0, 360])(p)
+        } else if (i === 1) {
+          // ret = p => radorm(d, [-Math.PI, Math.PI])(p)
+          ret = p => radorm(d, [0, 360])(p)
+        } else if (i === 2) {
+          // ret = p => radorm(d, [-Math.PI, Math.PI])(p)
+          ret = p => radorm(d, [0, 180])(p)
+        }
+        return ret
+      })
+
+      let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0]
+      if (form) scale = Object.values(form).map(dim => dim.ra2)
+      if (form) rotation = Object.values(form).map(dim => dim.w4 * radians)
+      let coForm = {location, scale, rotation}
+
+      return function (l, p, radio = 1) { // spherical degrees
+        let lambda = l * radians
+        let phi = p * radians
+
+        let c = coForm
+
+        let x = c.scale[0] * radioform[0](lambda) * cos(lambda + c.rotation[0]) * cos(phi) * radioform[2](phi)
+        let y = c.scale[1] * radioform[1](lambda) * sin(lambda + c.rotation[1]) * cos(phi) * radioform[2](phi)
+        let z = c.scale[2] * radioform[2](phi) * sin(phi + c.rotation[2])
+
+        return [x, y, z]
+      }
+    }		
+		
+		
     /* **************************
      *        @polarCoords
      *           m.nat.multiconform: form => dimstream
@@ -202,36 +245,10 @@
       return nform
     }
 
-    let natform = function (form) {
-      let radioform = Object.values(form).map((d, i) => {
-        let ret
-        if (i < 2) {
-          ret = p => radorm(d, [-Math.PI, Math.PI])(p)
-        } else if (i === 2) {
-          ret = radorm(d, [-Math.PI, Math.PI])
-        }
-        return ret
-      })
-
-      let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0]
-      if (form) scale = Object.values(form).map(dim => dim.ra2)
-      if (form) rotation = Object.values(form).map(dim => dim.w4 * radians)
-      let coForm = {location, scale, rotation}
-
-      return function (l, p, radio = 1) { // spherical degrees
-        let lambda = l * radians
-        let phi = p * radians
-
-        let c = coForm
-
-        let x = c.scale[0] * radioform[0](lambda) * cos(lambda + c.rotation[0]) * cos(phi) * radioform[2](phi)
-        let y = c.scale[1] * radioform[1](lambda) * sin(lambda + c.rotation[1]) * cos(phi) * radioform[2](phi)
-        let z = c.scale[2] * radioform[2](phi) * sin(phi + c.rotation[2])
-
-        return [x, y, z]
-      }
-    }
-
+    /**********************
+   *    @natcoords
+   *      
+   */
     let natcoords = function (form) {
       return Array.of(multiconform(nform(form)))
     }

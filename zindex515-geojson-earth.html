@@ -113,18 +113,17 @@ let muonAlima = function muonAlima (__mapper) {
 
   }
 
-  let stace = {
-
-    'x': [[[100, 500]]],
-    'y': 200,
-    'z': 0
-
-  }
   let proform = {
 
     'projection': 'orthographic',
     'scale': [[[100, 0.5]]],
-    'translate': stace,
+    'translate': {
+
+				'x': [[[100, 500]]],
+				'y': 200,
+				'z': 0
+
+			},
     'rotate': [ [[[0, -1 * 360]]], 0, 0 ],
     'control': 'versor'
 

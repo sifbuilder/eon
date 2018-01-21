@@ -11,10 +11,29 @@
   let muonProps = function muonProps () {
     let props = {}
 
-    props.a = d => (Array.isArray(d)) ? [...d] : [d]
+    /***************************
+   *        @arrays
+   */
+	 props.a = d => (Array.isArray(d)) ? [...d] : [d]
+		
+    props.cloneArray = function cloneArray (obj) {
+      if (Array.isArray(obj)) {
+        let r = [ ...obj ]
+      } else {
+        r = obj
+      }
+      return r
+    }
+
+    /***************************
+   *        @functions
+   */
     props.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
     props.f = d => (typeof (d) === 'function') ? d : () => d
-
+		
+    /***************************
+   *        @objects
+   */
     // https://stackoverflow.com/questions/728360/how-do-i-correctly-clone-a-javascript-object
     props.o = obj => {
       if (obj == null || typeof obj !== 'object') return obj
@@ -38,17 +57,11 @@
 
       return temp
     }
-    props.cloneArray = function cloneArray (obj) {
-      if (Array.isArray(obj)) {
-        let r = [ ...obj ]
-      } else {
-        r = obj
-      }
-      return r
-    }
 
-    props.debug = () => [].join.call(arguments, '\n')
-
+		
+    /***************************
+   *        @paths
+   */
     props.diagonalp = function (d, v) { // error: d is undefined
       // v < 0: linear link
       // 0 < v < 1: curved link
@@ -226,7 +239,7 @@
     }
 
     /***************************
-   *        @streamRange
+   *        @streams
    */
     props.streamRange = function (pts, pa = 0, pb = -1, step = 1, fas = 0) {
       // for (let k in params) params[k] = value(params[k])
@@ -370,6 +383,10 @@
 				typeof obj[q] === 'number'
       , true)
 
+			
+
+    props.debug = () => [].join.call(arguments, '\n')
+			
     /***************************
    *        @enty
    */

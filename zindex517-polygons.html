@@ -49,7 +49,7 @@ let muonAlima = function muonAlima (__mapper) {
  *      @animas
  *
  */
-  let idPolygone = {
+  let idPolygon = {
 
     'halo': 'geojson',
 
@@ -63,36 +63,32 @@ let muonAlima = function muonAlima (__mapper) {
         [-1, -1, 1]
       ]
 
-      let ric = p.ric
-      let boform = p.boform
-
-      let json = {type: 'FeatureCollection', features: []}
+      let ric = p.payload.ric
+      let boform = p.payload.boform
 
       let geometry = {type: 'Polygon', coordinates: []}
 
       geometry.coordinates = Array.of(coordinaes) // eg [-1, 1, 1]
 
       let feature = {type: 'Feature', geometry: {}, properties: {}}
-      let _ric = {}
-      _ric.gid = ric.gid
-      _ric.cid = ric.cid
-      _ric.fid = 'face'
-      feature.properties.ric = _ric
-
+      let _ric = {gid: ric.gid, cid: ric.cid, fid: 'orange'}
+			feature.properties.ric = _ric
+			
       feature.properties.sort = 'feature'
       feature.geometry = geometry
       feature.properties.boform = boform
-      feature.properties.name = 'orange'
 
-      json.features.push(feature)
 
-      return json
+      let gj = {type: 'FeatureCollection', features: []}
+      gj.features.push(feature)
+      return gj
+			
     },
 
     payload: {
       'tim': tim,
-      'ric': {'gid': 'idPolygone', 'cid': 'idPolygone', 'fid': 'idPolygone'},
-      'boform': {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      'ric': {'gid': 'idPolygon', 'cid': 'idPolygon', 'fid': 'idPolygon'},
+      'boform': {'csx': 0, 'cf': [[[666, 777, 666, 777, 666, 777, 666]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
       'proform': {
 
         'projection': 'uniwen',
@@ -107,12 +103,9 @@ let muonAlima = function muonAlima (__mapper) {
     }
 
   }
-  let wenPolygone = {
+  let wenPolygon = {
 
-    'tim': tim,
-    'ric': {'gid': 'wenPolygone', 'cid': 'wenPolygone', 'fid': 'wenPolygone'},
     'halo': 'geojson',
-    'boform': {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
     'geoform': (p) => {
       let payload = p.payload
@@ -124,43 +117,43 @@ let muonAlima = function muonAlima (__mapper) {
         [-1, -1, 1]
       ]
 
-      let ric = p.ric
-      let boform = p.boform
-
-      let json = {type: 'FeatureCollection', features: []}
+      let ric = p.payload.ric
+      let boform = p.payload.boform
 
       let geometry = {type: 'Polygon', coordinates: []}
 
       geometry.coordinates = Array.of(coordinaes) // eg [-1, 1, 1]
 
       let feature = {type: 'Feature', geometry: {}, properties: {}}
-      let _ric = {}
-      _ric.gid = ric.gid
-      _ric.cid = ric.cid
-      _ric.fid = 'face'
+      let _ric = {gid: ric.gid, cid: ric.cid, fid: 'red'}
       feature.properties.ric = _ric
 
       feature.properties.sort = 'feature'
       feature.geometry = geometry
       feature.properties.boform = boform
-      feature.properties.name = 'orange'
 
-      json.features.push(feature)
-
-      return json
+      let gj = {type: 'FeatureCollection', features: []}
+      gj.features.push(feature)
+      return gj
+			
     },
+		payload: {
+			'tim': tim,
+			'ric': {'gid': 'wenPolygon', 'cid': 'wenPolygon', 'fid': 'wenPolygon'},
+			'boform': {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
-    'proform': {
+			'proform': {
 
-      'projection': 'identity',
-      'translate': [ 400, 200],
-      'scale': 100,
-      'rotate': [0, 0, 0], // [-5,50,0],
-      'focale': Infinity,
-      'zafin': [0, 1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-      'dims': 3,
-      'control': 'wen'
-    }
+				'projection': 'uniwen',
+				'translate': [ 400, 200],
+				'scale': 100,
+				'rotate': [0, 0, 0],
+				'focale': Infinity,
+				'zafin': [0, 1],
+				'dims': 3,
+				'control': 'wen'
+			}
+		}
 
   }
 
@@ -169,8 +162,8 @@ let muonAlima = function muonAlima (__mapper) {
  *
  */
   let animas = [
-    idPolygone, // h.geojson g.uniwen
-    wenPolygone // h.geojson g.uniwen
+    idPolygon, // h.geojson g.uniwen
+    wenPolygon // h.geojson g.uniwen
 
   ]
   let animaApi = function animaApi () {

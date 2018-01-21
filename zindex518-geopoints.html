@@ -103,11 +103,13 @@ let muonAlima = function muonAlima (__mapper) {
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p6'},
-      proform: [[[ () => {
-        let geo = {'type': 'LineString', 'coordinates': [ [300, 100, 0], [325, 100, 0], [300, 100, 0] ]}
-        return f.ta(mlacer.unslide(geo.coordinates)) // dimensional triple array
-      } ]]]
-    }}
+      proform: {
+					projection: 'uniwen',
+					translate: [[[ () => {
+					let geo = {'type': 'LineString', 'coordinates': [ [300, 100, 0], [325, 100, 0], [300, 100, 0] ]}
+					return f.ta(mlacer.unslide(geo.coordinates)) // dimensional triple array
+				} ]]] }
+			}}
 
   let p7 = {
     halo: 'geojson',

@@ -113,17 +113,16 @@
  *     	 @proformer
  */
     let proformer = anigram => {
-      if (anigram.halo === 'fuel') {
-        if (0 && 1)	console.log('m.profier.proformer:translate', anigram.payload.proform.translate)
-      }
 
       let uid = anigram.payload.uid
       let projdef = anigram.payload.proform
 			
       if (projdef !== undefined && projdef.translate) {
+					
         if (uid === 'avanat_avanat_avaform') if (0 && 1) console.log('m.profier.proformer anigram', uid, projdef.translate.x)
 
         let translates = mstace.getLocations(projdef.translate, anigram)
+        if (0 && 1)	console.log('m.profier.proformer:translate', anigram.payload.proform.translate, translates)
         let translate = translates[0]				// translate is first translate
 
         if (uid === 'avanat_avanat_avaform') if (0 && 1) console.log('..... m.profier.proformer translate', translate)
