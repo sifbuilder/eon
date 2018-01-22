@@ -24,11 +24,12 @@
 
 		// 		pointStream
     let pointStream = function (prjdef) {
-      let form = prjdef.form								// conform
+			
+      let form = prjdef.form								// conform form
 
       let natform = mnat.natform(form) // m.nat.natform
       // natform = (a,b,c) => [a,b,c]
-		      if (0 && 1)	console.log('m.natform.geoNatform:natform', natform)
+		  if (0 && 1)	console.log('m.natform.geoNatform:natform', natform)
       let stream = function (lambda, phi, radio = 1) {
         this.stream.point(...natform(lambda, phi, radio))
       }
