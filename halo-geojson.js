@@ -45,7 +45,7 @@
       gj = mgeoj.zorder(gj) 											// order
       gj = mric.qualier(ric, anigram, gj)					// qualify
 
-      if (1 && 1)	console.log('h.geojson.gramm json', gj)
+      if (0 && 1)	console.log('h.geojson.gramm json', gj)
 
       newAnigrams = gj.features.map((d, i) => {	// d is feature
         let newAnigram = {}

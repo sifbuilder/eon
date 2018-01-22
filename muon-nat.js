@@ -42,45 +42,30 @@
     }
 
 		
-		let getRadioform = function (form, extent) {		// _e_
-			
-			// let extents = [
-				// [0,360], 
-				// [0,360], 
-				// [0,360]  
-				// [-Math.PI, Math.PI],
-				// [-Math.PI, Math.PI],
-				// [-Math.PI, Math.PI] 
-				// [0, 2 * Math.PI],
-				// [0, 2 * Math.PI],
-				// [0, 2 * Math.PI] 
-				
-			// ]   
-			
-			let radions = Object.values(form).map((d, i) => radorm(d, extent[i]))
-			let radioform = Object.values(form).map((d, i) => p => radions[i](p))
-			
-
-				return radioform
-		}			
+	
     /* *********************
    *    @natform
    *      called by g.natform.pointStream to build nat conform point stream
    *      callls m.nat.radorm
    */
     let natform = function (form) {		// getVertex
+			let formdims = Object.values(form)
 			
-			let extent = [
-				[-180,180], [-180,180], [-180,180]  
-				// [-180,180], [-180,180], [-180,180]  
-				// [-180,180], [-180,180], [-360,360]  
- 
-				// [0,360], [0,360], [0,360]  
+			// let extents = [
+				// [-180,180], [-180,180], [0,360]  // [-180,180], [-180,180], [-180,180]  				
+			// ]				
 
-			]				
 			
-			let radioform = getRadioform(form, extent)
+			let extents = formdims.map((d, i) => {
+					let a =  (d.g3 !== undefined) ? d.g3 : -180
+					let b = (a + 360) 
+					return [a,b]
+			})
+			
+			let radions = formdims.map((d, i) => radorm(d, extents[i]))
+			let radioform = formdims.map((d, i) => p => radions[i](p))
 
+			
       let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0]
       if (form) scale = Object.values(form).map(dim => dim.ra2)
       if (form) rotation = Object.values(form).map(dim => dim.w4 * radians)
@@ -90,30 +75,24 @@
 			let w = rotation
 					
       let vertex = function (l, p, radio = 1) { // spherical degrees [0,360]
-			
-// if (1 && 1) console.log("f.m.nat lp", l,p)		
+
 	
 				let r0 = radioform[0](l)		// l: [-180,180]
 				let r1 = radioform[1](l)		// l: [-180,180]
 				let r2 = radioform[2](p)		// p: [-90,90]
-
+			
+				// console.log("r", r0,r1,r2)	
 				
         let lambda = l * radians
         let phi = p * radians
+
+
+				// square, square,circle, r2,r2, extent [-180,180], [-180,180], [0,360]  		// once
+				// square, square,square, r2,r2, extent [-180,180], [-180,180], [-180,180]			// cube
 				
-
-		// if (1 && 1) console.log("f.m.nat lambda phi", lambda, phi)
-		// if (1 && 1) console.log("f.m.nat r", phi, r2)	
-		// if (1 && 1) console.log("f.m.nat w", w)	
-				
-
-        // let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[0]) * r0
-        // let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[1]) * r1
-        // let z = rad[2] * r2 * sin(phi + w[2])
-
         let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[2]) * r2
         let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[2]) * r2
-        let z = rad[2] * r2											 * sin(phi + w[2]) 
+        let z = rad[2] * r2	  					 * sin(phi + w[2]) 
 				
         return [x, y, z]
       }
@@ -122,6 +101,7 @@
     }		
 		
 		
+    /* **************************
     /* **************************
      *        @polarCoords
      *           m.nat.multiconform: form => dimstream
