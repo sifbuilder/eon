@@ -45,9 +45,16 @@
 		let getRadioform = function (form) {		// _e_
 			
 			let extents = [
-				[0,360], // [-Math.PI, Math.PI],
-				[0,360], // [-Math.PI, Math.PI],
-				[0,360] // [-Math.PI, Math.PI]
+				[0,360], 
+				[0,360], 
+				[0,360]  
+				// [-Math.PI, Math.PI],
+				// [-Math.PI, Math.PI],
+				// [-Math.PI, Math.PI] 
+				// [0, 2 * Math.PI],
+				// [0, 2 * Math.PI],
+				// [0, 2 * Math.PI] 
+				
 			]   
 			
 			let radions = Object.values(form).map((d, i) => radorm(d, extents[i]))
@@ -80,15 +87,16 @@
 
 
 
-				let r0 = radioform[0](lambda)
-				let r1 = radioform[1](lambda)
-				let r2 = radioform[2](phi)
+				let r0 = radioform[0](lambda) // l
+				let r1 = radioform[1](lambda) // l
+				let r2 = radioform[2](phi)    // p
 				
 		// if (1 && 1) console.log("f.m.nat lambda phi", lambda, phi)
-		if (1 && 1) console.log("f.m.nat r", phi, r2)	
+		if (0 && 1) console.log("f.m.nat r", phi, r2)	
 				
-        // let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[0]) 
-        // let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[1]) 
+
+        // let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[0]) * r0
+        // let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[1]) * r1
         // let z = rad[2] * r2 * sin(phi + w[2])
 
         let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi) * r2
