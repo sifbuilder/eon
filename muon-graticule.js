@@ -186,218 +186,72 @@
   /* *******************
  *        grarr
  */
+
     let grarr = function (params = {}) {
-			
-			let X0, X1, DX, dx, px
-			let Y0, Y1, DY, dy, py
-			
-			if (1) {				// extent
-				let extent = params.extent, // major, minor
-					x_extent = extent[0],
-					y_extent = extent[1]
-					
-					X0 = x_extent[0],
-					X1 = x_extent[1],
-					DX = x_extent[2],
-					px = x_extent[3],
 
-					Y0 = y_extent[0],
-					Y1 = y_extent[1],
-					DY = y_extent[2],
-					py = y_extent[3]
-			}
-			
-			if (0) { // graticule
-					x1 = x_extent[0], x0 = -x1, // x_extentMinor
-					X1 = x_extent[1], X0 = -X1, // x_extentMajor
-					DX = x_extent[2],						// x_stepMajor
-					dx = x_extent[3],						// x_stepMinor
-					px = x_extent[4],						// x_precision
 
-					y1 = y_extent[0], y0 = -y1, // y_extentMinor
-					Y1 = y_extent[1], Y0 = -Y1, // y_extentMajor
-					DY = y_extent[2],  					// y_stepMajor
-					dy = y_extent[3],						// y_stepMinor
-					py = y_extent[4]						// y_precision				
-			}
-				
-
-      let X = graticuleX(Y0, Y1, py),
-        Y = graticuleY(X0, X1, px)
-
-			if (0) { // graticule
-					let x = graticuleX(y0, y1, py), y = graticuleY(x0, x1, px)
-					let X = graticuleX(Y0, Y1, py), Y = graticuleY(X0, X1, px)				
-			}
-			
-      function graticuleX (y0, y1, dy) {
-        let y = d3.range(y0, y1 - epsilon, dy).concat(y1) // by intervals and close
-        return function (x) { return y.map(function (y) { return [x, y] }) }
-      }
-
-      function graticuleY (x0, x1, dx) {
-        let x = d3.range(x0, x1 - epsilon, dx).concat(x1)
-        return function (y) { return x.map(function (x) { return [x, y] }) }
-      }
-
-			if (0) {
-				let mm1 = function mm1(_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon) {
-					return d3.range(Math.ceil(_X0 / _DX) * _DX, _X1, _DX)
-				}
-				let mm2 = function mm2(_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon) {
-					return d3.range(Math.ceil(_x0 / _dx) * _dx, _x1,	_dx)
-				}
-				let mm3 = function mm3(_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon) {
-						let _mm1 = mm1(_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon)
-						let _mm2 = mm2(_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon)
-						
-						let mm3 = ((mer) ? [..._mm1, ..._mm2] : [..._mm2])	// meridian ?
-										.sort((a, b) => a - b)
-										.filter((elem, pos, arr) => arr.indexOf(elem) == pos)
-						
-						let ret = {type: "MultiLineString"}
-						ret.coordinates = mm3.map(d => {
-								
-								if (Math.abs(d % _DX) > _epsilon) {
-									return _x(d)
-								} else {
-									return _X(d)
-								}
-						})
-						
-						return ret
-				}
-				let mms = mm3(X, X0, X1, DX, x, x0, x1, dx, epsilon)		// _e_			
-			}
-			
-      let mm1 = function mm1 (_X, _X0, _X1, _DX) { // main meridinas
-        return d3.range(Math.ceil(_X0 / _DX) * _DX, _X1, _DX)
-      }
-      let mers = function mers (_X, _X0, _X1, _DX) {
-        let _mm1 = mm1(_X, _X0, _X1, _DX)
-          .sort((a, b) => a - b)
-          .filter((elem, pos, arr) => arr.indexOf(elem) == pos)
-
-        let ret = {type: 'MultiLineString'}
-        ret.coordinates = _mm1.map(d => _X(d))
-
-        return ret
-      }
-      let mms = mers(X, X0, X1, DX) // _e_
-
-			
-			if (0) {
-				let pp1 = function pp1(_Y, _Y0, _Y1, _DY, _y, _y0, _y1, _dy, _epsilon) {
-					return d3.range(Math.ceil(_Y0 / _DY) * _DY, _Y1, _DY)
-				}
-				let pp2 = function pp2(_Y, _Y0, _Y1, _DY, _y, _y0, _y1, _dy, _epsilon) {
-					return d3.range(Math.ceil(_y0 / _dy) * _dy, _y1  + _epsilon,	_dy)
-				}
-
-				let pp3 = function pps(_Y, _Y0, _Y1, _DY, _y, _y0, _y1, _dy, _epsilon) {
-						let _pp1 = mm1(_Y, _Y0, _Y1, _DY, _y, _y0, _y1, _dy, _epsilon)
-						let _pp2 = mm2(_Y, _Y0, _Y1, _DY, _y, _y0, _y1, _dy, _epsilon)
-						
-						let pp3 = [..._pp1, ..._pp2 ]
-									.sort((a, b) => a - b)
-									.filter((elem, pos, arr) => arr.indexOf(elem) === pos)
-					
-						let ret = {type: "MultiLineString"}
-						ret.coordinates = pp3.map(d => {
-								
-								if (Math.abs(d % _DY) > _epsilon) {
-									return _y(d)
-								} else {
-									return _Y(d)
-									
-								}
-						})
-						
-						return ret
-						
-				}
-					let pps = pp3(Y, Y0, Y1, DY, y, y0, y1, dy, epsilon)		// _e_				
-				
-			}
-			
-			if (0) {
-				
-					let bmm = {			// long meridians
-							type: "MultiLineString",
-							coordinates: mm1(X, X0, X1, DX, x, x0, x1, dx, epsilon)
-					}
-					let mm = {			// meridians
-							type: "MultiLineString",
-							coordinates: mm2(X, X0, X1, DX, x, x0, x1, dx, epsilon)
-					}
-					let bp = {			// long parallel
-							type: "MultiLineString",
-							coordinates: pp1(Y, Y0, Y1, DY, y, y0, y1, dy, epsilon)
-					}
-					let pp = {			// parallels
-							type: "MultiLineString",
-							coordinates: pp2(Y, Y0, Y1, DY, y, y0, y1, dy, epsilon)
-					}
-					let ret = {	
-										bp, bmm, pp , mm,
-										mms, pps,
-								}				
-				
-			}
-			
-			
-			
-      let pp1 = function pp1 (_Y, _Y0, _Y1, _DY) {
-        return d3.range(Math.ceil(_Y0 / _DY) * _DY, _Y1, _DY)
-      }
-      let pars = function pars (_Y, _Y0, _Y1, _DY) {
-        let _pp1 = pp1(_Y, _Y0, _Y1, _DY)
-          .sort((a, b) => a - b)
-          .filter((elem, pos, arr) => arr.indexOf(elem) === pos)
-
-        let ret = {type: 'MultiLineString'}
-        ret.coordinates = _pp1.map(d => _Y(d))
-
-        return ret
-      }
-      let pps = pars(Y, Y0, Y1, DY)
-
-      let ret = { mms, pps }
-      return ret
-    }
-		
-		// ------------------ 
-    let _grarr = function (params = {}) {
-			
 			let mer = 1
 			let par = 1
+
+			let X0, X1, DX, PX, x0, x1, dx, px
+			let Y0, Y1, DY, PY, y0, y1, dy, py
 			
+			if (params.extent !== undefined) {
 				let extent = params.extent, // major, minor
 					x_extent = extent[0],
 					y_extent = extent[1]
-					
-			let X0, X1, DX, dx, px, x0, x1
-			let Y0, Y1, DY, dy, py, y0, y1
-			
 
-			
-			if (1) { // graticule
-					x1 = x_extent[0], x0 = -x1, // x_extentMinor
+
 					X1 = x_extent[1], X0 = -X1, // x_extentMajor
+					x1 = x_extent[0], x0 = -x1, // x_extentMinor
 					DX = x_extent[2],						// x_stepMajor
 					dx = x_extent[3],						// x_stepMinor
 					px = x_extent[4],						// x_precision
 
-					y1 = y_extent[0], y0 = -y1, // y_extentMinor
 					Y1 = y_extent[1], Y0 = -Y1, // y_extentMajor
+					y1 = y_extent[0], y0 = -y1, // y_extentMinor
 					DY = y_extent[2],  					// y_stepMajor
 					dy = y_extent[3],						// y_stepMinor
 					py = y_extent[4]						// y_precision				
-			}
 				
-
-					let x = graticuleX(y0, y1, py), y = graticuleY(x0, x1, px)
-					let X = graticuleX(Y0, Y1, py), Y = graticuleY(X0, X1, px)				
+			} else 	if (params.graticule !== undefined) {		// graticule
+			
+			
+				let graticule = params.graticule, // major, minor
+					X_extent = graticule[0][0],
+					Y_extent = graticule[0][1],
+					x_extent = graticule[1][0],
+					y_extent = graticule[1][1]
+					
+					X0 = X_extent[0],
+					X1 = X_extent[1],
+					DX = X_extent[2],
+					PX = X_extent[3],
+					
+					x0 = x_extent[0],
+					x1 = x_extent[1],
+					dx = x_extent[2],
+					px = x_extent[3],
+					
+					Y0 = Y_extent[0],
+					Y1 = Y_extent[1],
+					DY = Y_extent[2],
+					PY = Y_extent[3],
+					
+					y0 = y_extent[0],
+					y1 = y_extent[1],
+					dy = y_extent[2],
+					py = y_extent[3]
+					
+			}
+			
+				let X = graticuleX(Y0, Y1, py), 
+					Y = graticuleY(X0, X1, px)				
+					
+				let x = graticuleX(y0, y1, py), 
+					y = graticuleY(x0, x1, px)
+			
+			
 			
       function graticuleX (y0, y1, dy) {
         let y = d3.range(y0, y1 - epsilon, dy).concat(y1) // by intervals and close
@@ -409,7 +263,9 @@
         return function (y) { return x.map(function (x) { return [x, y] }) }
       }
 
-			// if (1) {
+			
+			
+			
 				let mm1 = function mm1(_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon) {
 					return d3.range(Math.ceil(_X0 / _DX) * _DX, _X1, _DX)
 				}
@@ -420,12 +276,12 @@
 						let _mm1 = mm1(_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon)
 						let _mm2 = mm2(_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon)
 						
-						let mm3 = ((mer) ? [..._mm1, ..._mm2] : [..._mm2])	// meridian ?
+						let _mm3 = ((mer) ? [..._mm1, ..._mm2] : [..._mm2])	// meridian ?
 										.sort((a, b) => a - b)
 										.filter((elem, pos, arr) => arr.indexOf(elem) == pos)
 						
 						let ret = {type: "MultiLineString"}
-						ret.coordinates = mm3.map(d => {
+						ret.coordinates = _mm3.map(d => {
 								
 								if (Math.abs(d % _DX) > _epsilon) {
 									return _x(d)
@@ -437,9 +293,9 @@
 						return ret
 				}
 				let mms = mm3(X, X0, X1, DX, x, x0, x1, dx, epsilon)		// _e_			
-			// }
+
 			
-			// if (1) {
+
 				let pp1 = function pp1(_Y, _Y0, _Y1, _DY, _y, _y0, _y1, _dy, _epsilon) {
 					return d3.range(Math.ceil(_Y0 / _DY) * _DY, _Y1, _DY)
 				}
@@ -471,9 +327,7 @@
 				}
 					let pps = pp3(Y, Y0, Y1, DY, y, y0, y1, dy, epsilon)		// _e_				
 				
-			// }
-			
-			// if (1) {
+
 				
 					let bmm = {			// long meridians
 							type: "MultiLineString",
@@ -496,8 +350,7 @@
 										mms, pps,
 								}				
 				
-			// }
-			
+
 
       return ret
     }		
@@ -505,10 +358,9 @@
  *        grarrx
  */
     let grarrx = function (params = {}) {
-      let g = _grarr(params)
+      let g = grarr(params)
       let mersCoords = g.mms.coordinates
       let parsCoords = g.pps.coordinates
-      // let coords = [...mersCoords]
       let coords = [...mersCoords, ...parsCoords]
       return coords
     }
