@@ -216,7 +216,7 @@
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
         nform = {}
         nform.x = Object.assign({}, form, {fas8: (form.fas8 || 0)}) // set fas8 0
-        nform.y = Object.assign({}, (form.y || form), {fas8: form.fas8 - 90})
+        nform.y = Object.assign({}, (form.y || form), {fas8: nform.x.fas8 - 90})
         nform.z = Object.assign({}, (form.z || 0)) // form) )
       } else if (form &&
             typeof form === 'object' &&
@@ -244,8 +244,10 @@
    *    @natcoords
    *      
    */
-    let natcoords = function (form) {
-      return Array.of(multiconform(nform(form)))
+    let natcoords = function (form) {		
+			let nf = nform(form)
+			let mf = multiconform(nf)
+      return Array.of(mf)
     }
     /***************************
      *        @enty
