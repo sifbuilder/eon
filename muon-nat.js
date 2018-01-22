@@ -1,4 +1,6 @@
-/***************************
+
+				
+				/***************************
  *        @muonNat
  */
 (function (global, factory) {
@@ -46,7 +48,7 @@
 				[0,360], // [-Math.PI, Math.PI],
 				[0,360], // [-Math.PI, Math.PI],
 				[0,360] // [-Math.PI, Math.PI]
-			]
+			]   
 			
 			let radions = Object.values(form).map((d, i) => radorm(d, extents[i]))
 			let radioform = Object.values(form).map((d, i) => p => radions[i](p))
@@ -68,24 +70,30 @@
       if (form) rotation = Object.values(form).map(dim => dim.w4 * radians)
       let coForm = {location, scale, rotation}
 
+			let rad = scale
+			let w = rotation
 					
       let vertex = function (l, p, radio = 1) { // spherical degrees
-			
+	
         let lambda = l * radians
         let phi = p * radians
 
-        let c = coForm
 
 
-				let rx = radioform[0]
-				let ry = radioform[1]
-				let rz = radioform[2]
+				let r0 = radioform[0](lambda)
+				let r1 = radioform[1](lambda)
+				let r2 = radioform[2](phi)
 				
+		// if (1 && 1) console.log("f.m.nat lambda phi", lambda, phi)
+		if (1 && 1) console.log("f.m.nat r", phi, r2)	
 				
-        let x = c.scale[0] * rx(lambda) * cos(lambda + c.rotation[0]) * cos(phi) * rz(phi)
-        let y = c.scale[1] * ry(lambda) * sin(lambda + c.rotation[1]) * cos(phi) * rz(phi)
-        let z = c.scale[2] * rz(phi) * sin(phi + c.rotation[2])
+        // let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[0]) 
+        // let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[1]) 
+        // let z = rad[2] * r2 * sin(phi + w[2])
 
+        let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi) * r2
+        let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi) * r2
+        let z = rad[2] * r2 * sin(phi + w[2])
 				
         return [x, y, z]
       }

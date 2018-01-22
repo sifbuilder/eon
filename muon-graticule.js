@@ -508,6 +508,7 @@
       let g = _grarr(params)
       let mersCoords = g.mms.coordinates
       let parsCoords = g.pps.coordinates
+      // let coords = [...mersCoords]
       let coords = [...mersCoords, ...parsCoords]
       return coords
     }
