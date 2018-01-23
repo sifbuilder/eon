@@ -117,7 +117,7 @@
 
     let k = {
       type: 'FeatureCollection',
-      features: __mapper('xs').b('kruskal')(links).map(l => ({
+      features: __mapper('xs').m('kruskal')(links).map(l => ({
         type: 'LineString',
         coordinates: [l.source.coordinates, l.target.coordinates],
         properties: l

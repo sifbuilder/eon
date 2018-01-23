@@ -196,11 +196,11 @@
       'halo': 'geojson',
 
       'geoform': (p) => {
-        let grarrx = __mapper('xs').m('graticule').grarrx(p.payload.graticule)
+        let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
         return {
           type: 'Feature',
           geometry: {
-            type: 'MultiLineString', coordinates: grarrx
+            type: 'MultiLineString', coordinates: gedges
           },
           properties: {}
         }

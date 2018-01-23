@@ -106,11 +106,13 @@ let muonAlima = function muonAlima (__mapper) {
 
   let graticule = {
 
-    // 'extent': [ [-180, 180, [[[12, 12]]], 12], 
-								// [-90, 90, 22.5, 22.5] ]
-			
-					'extent': [ [180, 180, 180, 60, 6],
-											[90, 90, 360, 30, 6] ]								
+							// 'graticule': [ [ [-180, 180, 90, 2.5], 
+													// [-90, 90, 360, 2.5] ], // mayor
+												 // [	[-180, 180, 10, 2.5], 
+													// [-80, 80, 10, 2.5] ] ] ,	// minor
+
+									'extent': [ [180, 180, 180, 60, 18],
+															[90, 90, 360, 30, 9] ]						
 
   }
   let conform = {
@@ -200,12 +202,12 @@ let muonAlima = function muonAlima (__mapper) {
     'halo': 'geojson',
 
     'geoform': (p) => {
-      let grarrx = __mapper('xs').m('graticule').grarrx(p.payload.graticule)
+      let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
       return {
         type: 'Feature',
         geometry: {
           type: 'MultiLineString',
-          coordinates: grarrx
+          coordinates: gedges
         },
         properties: {}
       }
@@ -238,11 +240,13 @@ let muonAlima = function muonAlima (__mapper) {
 			
       'graticule': {
 
-					// 'extent': [ [-180, 180, [[[12, 12]]], 12], 
-											// [-90, 90, 22.5, 22.5] ]
-						
-								'extent': [ [180, 180, 180, 30, 6],
-														[90, 90, 360, 15, 6] ]								
+							// 'graticule': [ [ [-180, 180, 90, 2.5], 
+													// [-90, 90, 360, 2.5] ], // mayor
+												 // [	[-180, 180, 10, 2.5], 
+													// [-80, 80, 10, 2.5] ] ] ,	// minor
+
+									'extent': [ [180, 180, 180, 60, 18],
+															[90, 90, 360, 30, 9] ]								
 
 				},
 

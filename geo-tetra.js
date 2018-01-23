@@ -20,6 +20,9 @@
   // https://bl.ocks.org/fil/e5b449606ca1e3e120cda8d08a7f3351
 
   let geotetra = function geotetra (__mapper = {}) {
+		
+		let mpolyhedral = __mapper('xs').m('polyhedral')
+		
     let renderer = __mapper('renderRenderer'),
       width = renderer.width(),
       height = renderer.height(),
@@ -139,7 +142,7 @@
 
       if (!p.prjRaw) p.prjRaw = prj(prjlat, prjlagr, prjrad)
 
-      return __mapper('xs').m('polyhedral')(p)
+      return mpolyhedral(p)
     }
 
     return enty

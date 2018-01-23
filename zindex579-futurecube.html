@@ -86,12 +86,12 @@
       'geoform': p => {
         let payload = p.payload
 
-        let grarrx = __mapper('xs').m('graticule').grarrx(payload.graticule)
+        let gedges = __mapper('xs').m('graticule').gedges(payload.graticule)
         return {
           type: 'Feature',
           geometry: {
             type: 'MultiLineString',
-            coordinates: grarrx
+            coordinates: gedges
           },
           properties: {}
         }

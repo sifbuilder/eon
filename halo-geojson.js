@@ -35,31 +35,31 @@
 
 			
 			
-      // gj = mprofier.conformer(anigram)(gj)
+      gj = mprofier.conformer(anigram)(gj)
 
 			
-      // gj = mprofier.proformer(anigram)(gj)
+      gj = mprofier.proformer(anigram)(gj)
 
-      // gj = mgeoj.featurize(gj) 										// featurize
-      // gj = mboform.boformer(anigram, gj)	// boform
-      // gj = mgeoj.zorder(gj) 											// order
-      // gj = mric.qualier(ric, anigram, gj)					// qualify
+      gj = mgeoj.featurize(gj) 										// featurize
+      gj = mboform.boformer(anigram, gj)	// boform
+      gj = mgeoj.zorder(gj) 											// order
+      gj = mric.qualier(ric, anigram, gj)					// qualify
 
-      if (0 && 1)	console.log('h.geojson.gramm json', gj)
+      if (1 && 1)	console.log('h.geojson.gramm json', gj)
 
-      // newAnigrams = gj.features.map((d, i) => {	// d is feature
-        // let newAnigram = {}
+      newAnigrams = gj.features.map((d, i) => {	// d is feature
+        let newAnigram = {}
 
-        // newAnigram.payload = {}
-        // newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
+        newAnigram.payload = {}
+        newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
 
-        // newAnigram.geoform = d
-        // newAnigram.payload.ric = d.properties.ric		// hoist properties
-        // newAnigram.payload.uid = d.properties.uid
-        // return newAnigram
-      // })
+        newAnigram.geoform = d
+        newAnigram.payload.ric = d.properties.ric		// hoist properties
+        newAnigram.payload.uid = d.properties.uid
+        return newAnigram
+      })
 
-      // if (1 && 1)	console.log('h.geojson newAnigrams:', newAnigrams.length, newAnigrams)
+      if (0 && 1)	console.log('h.geojson newAnigrams:', newAnigrams.length, newAnigrams)
       return newAnigrams
     }
 

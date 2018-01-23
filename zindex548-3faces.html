@@ -83,7 +83,7 @@ let muonAlima = function muonAlima (__mapper) {
       'n3': 100,
       'a': 1,
       'b': 1, // square
-      'ra2': 250 / Math.sqrt(2) ,
+      'ra2': 250 /2,
       'v0': 0,
       'v1': 1,
       'w4': 0,
@@ -106,11 +106,13 @@ let muonAlima = function muonAlima (__mapper) {
 
   let graticule = {
 
-    // 'extent': [ [-180, 180, [[[12, 12]]], 12], 
-								// [-90, 90, 22.5, 22.5] ]
-			
-					'extent': [ [180, 180, 180, 60, 6],
-											[90, 90, 360, 30, 6] ]								
+							// 'graticule': [ [ [-180, 180, 90, 2.5], 
+													// [-90, 90, 360, 2.5] ], // mayor
+												 // [	[-180, 180, 10, 2.5], 
+													// [-80, 80, 10, 2.5] ] ] ,	// minor
+
+									'extent': [ [180, 180, 180, 60, 18],
+															[90, 90, 360, 30, 9] ]	
 
   }
   let conform = {
@@ -199,19 +201,55 @@ let muonAlima = function muonAlima (__mapper) {
 
     'halo': 'geojson',
 
-    'geoform': (p) => {
-      let grarrx = __mapper('xs').m('graticule').grarrx(p.payload.graticule)
-			// let faces = __mapper("pluginGraticule").getFaces(mersCoords, parsCoords, vertex3)
-			// let vertices =  __mapper("pluginGraticule").getVertices(mersCoords, parsCoords, vertex3)				
-	      if (1 && 1)	console.log('z.3faces grarrx:', grarrx)		
-      return {
-        type: 'Feature',
-        geometry: {
-          type: 'MultiLineString',
-          coordinates: grarrx
-        },
-        properties: {}
-      }
+    'geoform': p => {
+			let mgraticule = __mapper('xs').m('graticule')
+			
+      // let geoedges = mgraticule.gedges(p.payload.graticule)
+			// let geometry = {type: 'MultiLineString', coordinates: geoedges}
+			// let gj = {type: 'Feature',geometry: geometry, properties: {} }
+			// if (1 && 1)	console.log('z.3faces geoedges:', gj)
+
+				
+				
+			// let edges = 	mgraticule.gedges(p.payload.graticule)
+      // let features = edges.map( edge => ({
+						// type: "Feature",
+						// geometry: {
+							// type: 'LineString', 
+							// coordinates: edge
+						// },
+						// properties: {},
+        // }))	
+			// let gj = {type: "FeatureCollection",
+								// features: features
+			// }
+			// if (1 && 1)	console.log('z.3faces gj:', gj)				
+				
+			
+			
+			let vertices =  mgraticule.gvertices(p.payload.graticule)
+			let faces = mgraticule.gfaces(p.payload.graticule)
+			faces = faces.map(face => [...face, face[0]])
+			faces = faces.map(function (face) { // faces : points => vertices
+          return face.map(function (vi) { // eg. [1, 0, 3, 2, 1]
+            return vertices[vi]
+          })
+			})					//  (2) [-180, -45] [0, 0] [-180, 0]
+      let features = faces.map( face => ({
+						type: "Feature",
+						geometry: {
+							type: 'Polygon', 
+							coordinates: Array.of(face) 
+						},
+						properties: {},
+        }))
+			let gj = {type: "FeatureCollection",
+								features: features
+			}
+			if (1 && 1)	console.log('z.3faces gj:', gj)
+				
+				
+      return gj
     },
 
     'payload': {
@@ -220,32 +258,25 @@ let muonAlima = function muonAlima (__mapper) {
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.3, 'co': [[[0.3, 0.3, 0.3]]], 'cp': [[[0.3, 0.3, 0.3]]]},
 
       'conform': conform,
+
 			 proform: {
         projection: 'uniwen',
         translate: [ 230, 240 ],
         scale: 0.5,
 				'dims': 3,
-				'control': 'wen'				
+				'control': 'wen'
       },
-      // proform: {
-					// 'projection': 'uniwen',
 
-					// 'translate': [ 0,0,0 ],
-					// 'scale': 1,
-					// 'rotate': [ 0, 0, 0 ],
-					// 'focale': 12,
-					// 'zafin': [0, 1],
-					// 'dims': 2,
-					// 'control': 'versor'
-				// },
-			
+
       'graticule': {
 
-					// 'extent': [ [-180, 180, [[[12, 12]]], 12], 
-											// [-90, 90, 22.5, 22.5] ]
-						
-								'extent': [ [180, 180, 180, 180, 90],
-														[90, 90, 360, 90, 45] ]								
+							// 'graticule': [ [ [-180, 180, 90, 2.5], 
+													// [-90, 90, 360, 2.5] ], // mayor
+												 // [	[-180, 180, 10, 2.5], 
+													// [-80, 80, 10, 2.5] ] ] ,	// minor
+
+									'extent': [ [180, 180, 180, 90, 90],
+															[90, 90, 360, 45, 45] ]
 
 				},
 
