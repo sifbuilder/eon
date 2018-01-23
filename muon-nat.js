@@ -57,7 +57,9 @@
 
 			
 			let extents = formdims.map((d, i) => {
-					let a =  (d.g3 !== undefined) ? d.g3 : -180
+					let g3 = (d.g3 !== undefined) ? f.a(d.g3) : []
+					
+					let a =  (g3[g3.length-1] !== undefined) ? g3[g3.length-1] : -180
 					let b = (a + 360) 
 					return [a,b]
 			})
@@ -77,22 +79,37 @@
       let vertex = function (l, p, radio = 1) { // spherical degrees [0,360]
 
 	
-				let r0 = radioform[0](l)		// l: [-180,180]
-				let r1 = radioform[1](l)		// l: [-180,180]
-				let r2 = radioform[2](p)		// p: [-90,90]
+				let r0 = radioform[0](l)
+				let r1 = radioform[1](l)
+				let r2 = radioform[2](p)
 			
 				// console.log("r", r0,r1,r2)	
 				
         let lambda = l * radians
         let phi = p * radians
 
+				let exps = [ [1,0,1], [0,1,1], [0,0,1] ]
+				
+				exps = exps.map( (d,i) => d.map( (u,j) => {
+					let form = formdims[i]
+					let ex = (form.g3 !== undefined &&
+						Array.isArray(form.g3) &&
+						form.g3[j] !== undefined) ? form.g3[j] : exps[i][j]
+					return ex
+					}))
+				
 
+				
 				// square, square,circle, r2,r2, extent [-180,180], [-180,180], [0,360]  		// once
 				// square, square,square, r2,r2, extent [-180,180], [-180,180], [-180,180]			// cube
 				
-        let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[2]) * r2
-        let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[2]) * r2
-        let z = rad[2] * r2	  					 * sin(phi + w[2]) 
+ let x = rad[0] * cos(lambda + w[0]) * cos(phi + w[2]) * Math.pow(r0, exps[0][0]) * Math.pow(r0, exps[0][1]) * Math.pow(r2, exps[0][2])
+ let y = rad[1] * sin(lambda + w[1]) * cos(phi + w[2]) * Math.pow(r0, exps[1][0]) * Math.pow(r0, exps[1][1]) * Math.pow(r2, exps[1][2])
+ let z = rad[1] * cos(0) * sin(phi + w[2]) * Math.pow(r0, exps[2][0]) * Math.pow(r0, exps[2][1]) * Math.pow(r2, exps[2][2])
+       				
+        // let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[2]) * r2
+        // let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[2]) * r2
+        // let z = rad[2] * r2	* r2  					 * sin(phi + w[2]) 
 				
         return [x, y, z]
       }
