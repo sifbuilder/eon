@@ -24,8 +24,8 @@
 <script>
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({canvas: 0, svg: 0, versor: 0, wen: 0, webgl: 1, img: 0, gui: 0, fps: 0, stats: 0}) // INIT
-
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, img: 0})	// INIT
+	
   let renderer = __mapper('renderRenderer'),
     width = renderer.width(),
     height = renderer.height(),
@@ -108,8 +108,8 @@ let muonAlima = function muonAlima (__mapper) {
  *     @animas
  *
  */
-  // -------------------------------  threegrat
-  let threegrat = {
+  // -------------------------------  gratiform
+  let gratiform = {
 
     'halo': 'geojson',
 
@@ -127,7 +127,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     'payload': {
       'tim': tim,
-      'ric': {'gid': 'threegrat', 'cid': 'threegrat', 'fid': 'threegrat'},
+      'ric': {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.3, 'co': [[[0.3, 0.3, 0.3]]], 'cp': [[[0.3, 0.3, 0.3]]]},
 
 			'conform': {
@@ -136,7 +136,13 @@ let muonAlima = function muonAlima (__mapper) {
 				'form': form
 
 			},
-
+      proform: {
+        projection: 'uniwen',
+        translate: [ 230, 240 ],
+        scale: 0.5,
+				'dims': 3,
+				'control': 'wen'				
+      },
       'graticule': {
 
 
@@ -165,7 +171,7 @@ let muonAlima = function muonAlima (__mapper) {
 
   let animas = [
     // img, // h.img
-    threegrat, // h.geojson g.natform
+    gratiform, // h.geojson g.natform
     // earth // h.geojson g.natform
   ]
 

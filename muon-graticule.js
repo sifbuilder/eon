@@ -99,7 +99,7 @@
           let i1 = (i + 1) % mersq // mer 12 is mer 0
 
           let j0 = j
-          let j1 = (j + 1) //
+          let j1 = (j + 1) // % (parsq) // parabolic
 
           let fs = bifaces(i, j, mersq, parsq, vertices, bigPolygons, mersCoords)
           fs.forEach(f => faces.push(f))
@@ -109,36 +109,6 @@
       return faces
     }
 
-    /* *********************
-     *    @getFacesParabolic
-     */
-    let getFacesParabolic = function (mersCoords, parsCoords, vertex3, range, tile, vertices, bigPolygons) {
-      let mersq = mersCoords.length // 12 x 7
-      let parsq = parsCoords.length //  7 x 13
-      let index = tidx(mersq, parsq) // 12, 7
-
-      let m0 = 0 // 0
-      let mn = mersq // 12
-      let p0 = 0 // 0
-      let pn = parsq // 6
-
-      let faces = []
-
-      for (let i = m0; i < mn - 1; i++) { // meridians    0 - 11  parabolic:  mn - 1
-        for (let j = p0; j < pn; j++) { // parallels  0 -  5
-          let i0 = i
-          let i1 = (i + 1) % (mersq) // mer 12 is mer 0
-
-          let j0 = j
-          let j1 = (j + 1) % (parsq) //
-
-          let fs = bifaces(i, j, mersq, parsq, vertices, bigPolygons, mersCoords)
-          fs.forEach(f => faces.push(f))
-        }
-      }
-
-      return faces
-    }
 
     /* *********************
      *    @oneface
@@ -427,7 +397,7 @@
     enty.geodes = geodes
 
     enty.getFaces = getFaces
-    enty.getFacesParabolic = getFacesParabolic
+
     enty.getVerts = getVerts
 
     enty.reticule = reticule
