@@ -27,7 +27,7 @@
         boform = 			payload.boform, // boform
         ric = 				payload.ric, // ric
         tim = 				payload.tim, // tim
-        proform =			payload.proform, // proform
+        proform 	=			payload.proform, // proform
         conform = 		payload.conform, // conform
         uid = 				payload.uid, // uid
         parentuid = 	payload.parentuid, // parentuid
@@ -45,7 +45,7 @@
       gj = mgeoj.zorder(gj) 											// order
       gj = mric.qualier(ric, anigram, gj)					// qualify
 
-      if (0 && 1)	console.log('h.geojson.gramm json', gj)
+      if (0 && 1)	console.log('h.geojson.gramm json', ric, gj)
 
       newAnigrams = gj.features.map((d, i) => {	// d is feature
         let newAnigram = {}

@@ -106,9 +106,21 @@
  */
     let conformer = anigram => {
       let projdef = anigram.payload.conform
-      let projer = protion(projdef, anigram)
 
-      return json => mproj3ct(json, projer)
+			if (0 && 1) console.log("projdef", projdef)
+			let projer
+			
+			 if (projdef === undefined) {
+				 
+				 projer = d => d
+				
+			 } else  {
+				 
+					let projection = protion(projdef, anigram)
+					projer = json => mproj3ct(json, projection)
+			}
+
+      return projer
     }
     /****************************
  *     	 @proformer
@@ -117,33 +129,44 @@
       let uid = anigram.payload.uid
       let projdef = anigram.payload.proform
 
-      if (projdef !== undefined && projdef.translate) {
-        if (uid === 'avanat_avanat_avaform') if (0 && 1) console.log('m.profier.proformer anigram', uid, projdef.translate.x)
+			let projer
+			if (projdef === undefined) {
+				 
+				 projer = d => d
+			
+			} else {
+			
+						if (projdef.translate) {
+							if (uid === 'avanat_avanat_avaform') if (0 && 1) console.log('m.profier.proformer anigram', uid, projdef.translate.x)
 
-        let translates = mstace.getLocations(projdef.translate, anigram)
-        if (0 && 1)	console.log('m.profier.proformer:translate', anigram.payload.proform.translate, translates)
-        let translate = translates[0]				// translate is first translate
+							let translates = mstace.getLocations(projdef.translate, anigram)
+							if (0 && 1)	console.log('m.profier.proformer:translate', anigram.payload.proform.translate, translates)
+							let translate = translates[0]				// translate is first translate
 
-        if (uid === 'avanat_avanat_avaform') if (0 && 1) console.log('..... m.profier.proformer translate', translate)
-        projdef.translate = translate
-      }
+							if (uid === 'avanat_avanat_avaform') if (0 && 1) console.log('..... m.profier.proformer translate', translate)
+							projdef.translate = translate
+						}
 
-      let projer = protion(projdef, anigram)
+						let projection = protion(projdef, anigram)
 
-      return json => {
-        if (0 && 1) console.log('m.profier.proformer:json', json)
+							projer = json => {
+							if (0 && 1) console.log('m.profier.proformer:json', json)
 
-        let proformed =	mproj3ct(json, projer)
+							let proformed =	mproj3ct(json, projection)
 
-        if (json.properties && json.properties.geonode !== undefined) {
-          let _geonode = mproj3ct(json.properties.geonode, projer)
-          proformed.properties.geonode = _geonode
-        }
+							if (json.properties && json.properties.geonode !== undefined) {
+								let _geonode = mproj3ct(json.properties.geonode, projection)
+								proformed.properties.geonode = _geonode
+							}
 
-        if (0 && 1) console.log('m.profier.proformer:geonode', json.properties.geonode)
+							if (0 && 1) console.log('m.profier.proformer:geonode', json.properties.geonode)
 
-        return proformed
-      }
+							return proformed
+						}
+			}
+						
+			return projer
+			
     }
 
     /****************************

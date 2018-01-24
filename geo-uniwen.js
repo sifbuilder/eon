@@ -15,8 +15,8 @@
       mwen = __mapper('xs').m('wen'),
       cwen = __mapper('xs').c('wen')
 
-    const init = {}
-    init.scale = [1, 1, 1]
+    const init 					= {}
+    init.scale 					= [1, 1, 1]
     init.rotate 				= [0, 0, 0]
     init.translate 			= [0, 0, 0]
     init.focale 				= Infinity
@@ -24,7 +24,7 @@
     init.center 				= [0, 0, 0]
 
     let state = {}
-    state.scale = init.scale
+    state.scale 				= init.scale
     state.rotate 				= init.rotate
     state.translate 		= init.translate
     state.focale 				= init.focale
@@ -94,9 +94,14 @@
    */
     let enty = function (prjdef = {}) {
       let m = profion(prjdef)
+			let vars = Object.keys(prjdef)
 
-      Object.entries(state).forEach(d => state[d[0]] = prjdef[0] || init[d[0]]) // stateless
-
+			state = Object.assign({}, init)			// reste proj state
+			
+			for (let i=0; i<vars.length; i++) {
+				if (state[vars[i]] !== undefined) state[vars[i]] = prjdef[vars[i]]	// upd state
+			}
+			
       m.translate = _ => _ !== undefined ? (state.translate = _, m) : m
       m.center = _ => _ !== undefined ? (state.center = _, m) : m
       m.rotate = _ => _ !== undefined ? (state.rotate = _, m) : m

@@ -101,22 +101,25 @@
 
           let properties = feature.properties || {}
 
-          // identify each feature in the anigram
           let gid = ric.gid
           let cid = ric.cid
-          let fid
+          let fid = ric.cid
 
           if (ric.fid === undefined) 							fid = cid + (i || '')
-          else if (typeof ric.fid === 'function') fid = ric.fid(i, ric, anigram)
-          else 																		fid = ric.fid + (i || '')
-
-          feature.properties.ric = ric || anigram.payload.ric || {}
-          feature.properties.ric.gid = gid
-          feature.properties.ric.cid = cid
-          feature.properties.ric.fid = fid
-          feature.properties.uid = __mapper('xs').m('ric').buildUIDFromRic(feature.properties.ric)
-          feature.id = feature.properties.uid
-          feature.properties.nid = i
+          else if (typeof ric.fid === 'function') fid = fid(i, ric, anigram)
+          else 																		fid = fid + (i || '')
+if (1 && 1) console.log('m.ric.qualier ric', ric.fid)
+	
+						feature.properties.ric = ric || anigram.payload.ric || {}
+						
+						feature.properties.ric.gid = gid
+						feature.properties.ric.cid = cid
+						feature.properties.ric.fid = fid
+						
+						feature.properties.uid = __mapper('xs').m('ric').buildUIDFromRic(feature.properties.ric)
+						feature.id = feature.properties.uid
+						feature.properties.nid = i
+						
         }
         json.features = features
       } else {

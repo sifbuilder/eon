@@ -49,18 +49,18 @@
     let natform = function (form) {		// getVertex
 			let formdims = Object.values(form)
 			
-			// let extents = [
-				// [-180,180], [-180,180], [0,360]  // [-180,180], [-180,180], [-180,180]  				
-			// ]				
+			let extents = [
+				[-180,180], [-180,180], [0,360]  // [-180,180], [-180,180], [-180,180]  				
+			]				
 
 			
-			let extents = formdims.map((d, i) => {
-					let g3 = (d.g3 !== undefined) ? f.a(d.g3) : []
+			// let extents = formdims.map((d, i) => {
+					// let g3 = (d.g3 !== undefined) ? f.a(d.g3) : []
 					
-					let a =  (g3[g3.length-1] !== undefined) ? g3[g3.length-1] : -180
-					let b = (a + 360) 
-					return [a,b]
-			})
+					// let a =  (g3[g3.length-1] !== undefined) ? g3[g3.length-1] : -180
+					// let b = (a + 360) 
+					// return [a,b]
+			// })
 			
 			let radions = formdims.map((d, i) => radorm(d, extents[i]))
 			let radioform = formdims.map((d, i) => p => radions[i](p))
@@ -80,7 +80,6 @@
 				let r0 = radioform[0](l)
 				let r1 = radioform[1](l)
 				// let r1 = radioform[1](p)
-	
 				let r2 = radioform[2](p)
 			
 				// console.log("r", l, p, r0,r1,r2)	
@@ -103,9 +102,13 @@
 				// square, square,circle, r2,r2, extent [-180,180], [-180,180], [0,360]  		// once
 				// square, square,square, r2,r2, extent [-180,180], [-180,180], [-180,180]			// cube
 				
- let x = rad[0] * cos(lambda + w[0]) * cos(phi + w[2]) * Math.pow(r0, exps[0][0]) * Math.pow(r1, exps[0][1]) * Math.pow(r2, exps[0][2])
- let y = rad[1] * sin(lambda + w[1]) * cos(phi + w[2]) * Math.pow(r0, exps[1][0]) * Math.pow(r1, exps[1][1]) * Math.pow(r2, exps[1][2])
- let z = rad[2] * cos(0) * sin(phi + w[2]) 						 * Math.pow(r0, exps[2][0]) * Math.pow(r1, exps[2][1]) * Math.pow(r2, exps[2][2])
+ // let x = rad[0] * cos(lambda + w[0]) * cos(phi + w[2]) * Math.pow(r0, exps[0][0]) * Math.pow(r1, exps[0][1]) * Math.pow(r2, exps[0][2])
+ // let y = rad[1] * sin(lambda + w[1]) * cos(phi + w[2]) * Math.pow(r0, exps[1][0]) * Math.pow(r1, exps[1][1]) * Math.pow(r2, exps[1][2])
+ // let z = rad[2] * cos(0) * sin(phi + w[2]) 						 * Math.pow(r0, exps[2][0]) * Math.pow(r1, exps[2][1]) * Math.pow(r2, exps[2][2])
+				
+ let x = rad[0] * Math.pow(r0, exps[0][0]) * Math.pow(r1, exps[0][1]) * Math.pow(r2, exps[0][2])
+ let y = rad[1] * Math.pow(r0, exps[1][0]) * Math.pow(r1, exps[1][1]) * Math.pow(r2, exps[1][2])
+ let z = rad[2] * Math.pow(r0, exps[2][0]) * Math.pow(r1, exps[2][1]) * Math.pow(r2, exps[2][2])
        				
         // let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[2]) * r2
         // let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[2]) * r2
@@ -125,8 +128,6 @@
      */
     let polarCoords = function (params) { // stream of scalars
 		
-			console.log(" *********** m.nat.polarCoords")
-			
       let m1 = params.m1
       let m2 = params.m2
       let n1 = params.n1
@@ -248,7 +249,7 @@
    *      
    */
     let natcoords = function (form) {		
-			if (1 && 1) console.log("m.nat.natcoords:form", form)
+			if (0 && 1) console.log("m.nat.natcoords:form", form)
 			let nf = nform(form)
 			let mf = multiconform(nf)
       return Array.of(mf)
