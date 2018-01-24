@@ -55,7 +55,7 @@ let muonAlima = function muonAlima (__mapper) {
       'pa6': 0,
       'pb7': -1,
       'fas8': 0,
-								"g3": [1,0,1,-180],
+								// "g3": [1,0,1,-180],
     },
     'y': {
       'm1': 4,
@@ -73,7 +73,7 @@ let muonAlima = function muonAlima (__mapper) {
       'pa6': 0,
       'pb7': -1,
       'fas8': -90,
-								"g3": [0,1,1,-180],
+								// "g3": [0,1,1,-180],
     },
     'z': {
       'm1': 4,
@@ -83,7 +83,7 @@ let muonAlima = function muonAlima (__mapper) {
       'n3': 100,
       'a': 1,
       'b': 1, // square
-      'ra2': 250 /2,
+      'ra2': 250 ,
       'v0': 0,
       'v1': 1,
       'w4': 0,
@@ -91,16 +91,8 @@ let muonAlima = function muonAlima (__mapper) {
       'pa6': 0,
       'pb7': -1,
       'fas8': 0,
-								"g3": [0,0,1,-180],
+								// "g3": [0,0,1,-180],
     }
-
-  }
-
-  let stace = {
-
-    'x': 0,
-    'y': 0,
-    'z': 0
 
   }
 
@@ -111,8 +103,11 @@ let muonAlima = function muonAlima (__mapper) {
 												 // [	[-180, 180, 10, 2.5], 
 													// [-80, 80, 10, 2.5] ] ] ,	// minor
 
-									'extent': [ [180, 180, 180, 60, 18],
-															[90, 90, 360, 30, 9] ]	
+							// 'extent': [ [180, 180, 90, 10, 2.5],
+													// [90, 90, 360, 10, 2.5] ]										 
+										 
+							'extent': [ [180, 180, 180, 45, 12.5],
+													[90, 90, 360, [[[45,9]]], 45] ]
 
   }
   let conform = {
@@ -121,33 +116,55 @@ let muonAlima = function muonAlima (__mapper) {
     'form': form
 
   }
+
   let proform = {
-
-    'projection': 'uniwen',
-    'translate': stace
-
-  }
+        projection: 'uniwen',
+        translate: [ 230, 240 ],
+        rotate: [ 0, 0, 0 ],
+        scale: 0.5,
+				'dims': 3,
+				'control': 'wen'
+      }
 
   // -------------------------------  earth
   let earth = {
 
     'halo': 'geojson',
 
+    // 'geoform': () => {
+      // let gjls = Object.assign({},
+        // topojson.mesh
+          // __mapper('xs').d('worldTopo110m').data(),
+          // __mapper('xs').d('worldTopo110m').data().objects.land
+        // )
+      // )
+      // gjls = __mapper('xs').m('geoj').trim(gjls)
+      // gj = {type: 'Feature', geometry: gjls, properties: {}}
+      // return gj
+    // },
+		
     'geoform': () => {
       let gjls = Object.assign({},
-        topojson.mesh(
+        topojson.feature(	
           __mapper('xs').d('worldTopo110m').data(),
           __mapper('xs').d('worldTopo110m').data().objects.land
         )
       )
       gjls = __mapper('xs').m('geoj').trim(gjls)
-      gj = {type: 'Feature', geometry: gjls, properties: {}}
+      gj = gjls
+      if (0 && 1) console.log("gj ", gj)
       return gj
     },
+				
+		
+		
+		
+		
     payload: {
       'tim': tim,
       'ric': {'gid': 'earth', 'cid': 'earth', 'fid': 'earth'},
-      'boform': { 'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.3, 'co': [[[0.7, 0.7, 0.7]]], 'cp': [[[0.7, 0.7, 0.7]]]},
+			
+      'boform': { 'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.3, 'co': [[[0.99, 0.99, 0.99]]], 'cp': [[[0.7, 0.7, 0.7]]]},
 
       'conform': conform,
 
@@ -155,46 +172,7 @@ let muonAlima = function muonAlima (__mapper) {
     }
   }
 
-  // -------------------------------  img
-  let img = {
 
-    halo: 'img',
-
-    geoform: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }
 
   // -------------------------------  gratifaces
   let gratifaces = {
@@ -246,7 +224,7 @@ let muonAlima = function muonAlima (__mapper) {
 			let gj = {type: "FeatureCollection",
 								features: features
 			}
-			if (1 && 1)	console.log('z.3faces gj:', gj)
+			if (0 && 1)	console.log('z.3faces gj:', gj)
 				
 				
       return gj
@@ -255,30 +233,14 @@ let muonAlima = function muonAlima (__mapper) {
     'payload': {
       'tim': tim,
       'ric': {'gid': 'gratifaces', 'cid': 'gratifaces', 'fid': 'gratifaces'},
-      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.3, 'co': [[[0.3, 0.3, 0.3]]], 'cp': [[[0.3, 0.3, 0.3]]]},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 111, 'cw': 0.3, 'co': [[[0.3, 0.3, 0.3]]], 'cp': [[[0.9, 0.9, 0.9]]]},
 
       'conform': conform,
 
-			 proform: {
-        projection: 'uniwen',
-        translate: [ 230, 240 ],
-        scale: 0.5,
-				'dims': 3,
-				'control': 'wen'
-      },
+			 proform: proform,
 
 
-      'graticule': {
-
-							// 'graticule': [ [ [-180, 180, 90, 2.5], 
-													// [-90, 90, 360, 2.5] ], // mayor
-												 // [	[-180, 180, 10, 2.5], 
-													// [-80, 80, 10, 2.5] ] ] ,	// minor
-
-									'extent': [ [180, 180, 180, 90, 90],
-															[90, 90, 360, 45, 45] ]
-
-				},
+      'graticule': graticule,
 
     }
 
@@ -292,7 +254,7 @@ let muonAlima = function muonAlima (__mapper) {
   let animas = [
     gratifaces, // h.geojson g.natform
     // earth, // h.geojson g.natform
-    // img, // h.img
+
   ]
 
   let animaApi = function animaApi () {

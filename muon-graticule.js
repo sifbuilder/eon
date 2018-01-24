@@ -98,23 +98,23 @@
 			let X0, X1, DX, PX, x0, x1, dx, px
 			let Y0, Y1, DY, PY, y0, y1, dy, py
 
-			if (params.extent !== undefined) {
+			if (params.extent !== undefined) {							// extent
 				let extent = params.extent, // major, minor
 					x_extent = extent[0],
 					y_extent = extent[1]
 
 
-					X1 = x_extent[1], X0 = -X1, // x_extentMajor
-					x1 = x_extent[0], x0 = -x1, // x_extentMinor
-					DX = x_extent[2],						// x_stepMajor
-					dx = x_extent[3],						// x_stepMinor
-					px = x_extent[4],						// x_precision
+					X1 = x_extent[0], X0 = -X1, // x_extentMajor 	eg. 180
+					x1 = x_extent[1], x0 = -x1, // x_extentMinor 	eg. 180
+					DX = x_extent[2],						// x_stepMajor 		eg. 90
+					dx = x_extent[3],						// x_stepMinor 		eg. 10
+					px = x_extent[4],						// x_precision 		eg. 2.5
 
-					Y1 = y_extent[1], Y0 = -Y1, // y_extentMajor
-					y1 = y_extent[0], y0 = -y1, // y_extentMinor
-					DY = y_extent[2],  					// y_stepMajor
-					dy = y_extent[3],						// y_stepMinor
-					py = y_extent[4]						// y_precision
+					Y1 = y_extent[0], Y0 = -Y1, // y_extentMajor 	eg. 90
+					y1 = y_extent[1], y0 = -y1, // y_extentMinor 	eg. 80
+					DY = y_extent[2],  					// y_stepMajor		eg. 360	
+					dy = y_extent[3],						// y_stepMinor		eg. 10
+					py = y_extent[4]						// y_precision		eg. 2.5
 
 			} else 	if (params.graticule !== undefined) {		// graticule
 

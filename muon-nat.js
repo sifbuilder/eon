@@ -1,6 +1,4 @@
-
-				
-				/***************************
+/***************************
  *        @muonNat
  */
 (function (global, factory) {
@@ -256,6 +254,7 @@
    *      
    */
     let natcoords = function (form) {		
+			if (1 && 1) console.log("m.nat.natcoords:form", form)
 			let nf = nform(form)
 			let mf = multiconform(nf)
       return Array.of(mf)
