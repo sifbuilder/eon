@@ -220,31 +220,25 @@
             typeof form === 'object' &&
             (form.x !== undefined && form.y !== undefined && form.z !== undefined)) {
         nform = form
-      } else if (form &&
-            typeof form === 'object' &&
+      } else if (form &&	typeof form === 'object' &&					// form:{obj}
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
         nform = {}
-        nform.x = Object.assign({}, form, {fas8: (form.fas8 || 0)}) // set fas8 0
+        nform.x = Object.assign({}, form, {fas8: (form.fas8 || 0)}) // fas8 def 0
         nform.y = Object.assign({}, (form.y || form), {fas8: nform.x.fas8 - 90})
-        nform.z = Object.assign({}, (form.z || 0)) // form) )
-      } else if (form &&
-            typeof form === 'object' &&
+        nform.z = Object.assign({}, (form.z || [0])) 
+      } else if (form && typeof form === 'object' &&				// form:{x:obj}
             (form.x !== undefined || form.y !== undefined || form.z !== undefined)) {
         nform = {}
         nform.x = Object.assign({}, form.x) // defined
-        nform.y = Object.assign({}, (form.y || form.x), {fas8: form.x.fas8 - 90})
-        nform.z = [0] 				// needs slide max in m.nat.multiconform
-      } else if (form &&
-            Array.isArray(form)) {
+        nform.y = Object.assign({}, (form.y || form.x), {fas8: form.x.fas8 - 90}) // fas8
+        nform.z = (form.z !== undefined) ? form.z : [0] 	// needs slide max in m.nat.multiconform
+      } else if (form && Array.isArray(form)) {										// form: []
         nform = {}
         nform.x = form[0]
         nform.y = form[1] || Object.assign({}, form[0], {fas8: form.fas8 - 90})
-        nform.z = [0] 				// needs slide max in m.nat.multiconform
+        nform.z = (form.z !== undefined) ? form.z : [0] 		// needs slide max in m.nat.multiconform
       } else {
-        nform = {}
-        nform.x = {}
-        nform.y = {}
-        nform.z = {}
+        nform = []
       }
       return nform
     }

@@ -40,43 +40,100 @@ let muonAlima = function muonAlima (__mapper) {
 
 	let f1x = {
       'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 60,'pa6': 0,'pb7': 360, 'fas8': 0
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 64,'w4': 60,'pa6': 0,'pb7': -1, 'fas8': 0
     }
 	let f1y = {
       'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 60,'pa6': 0,'pb7': 360, 'fas8': -90
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 64,'w4': 60,'pa6': 0,'pb7': -1, 'fas8': -90
     }		
 	let f1z = {
       'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 60,'pa6': 0,'pb7': 360, 'fas8': 0
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 64,'w4': 60,'pa6': 0,'pb7': -1, 'fas8': 0
     }
-	let f2 = {
+		
+	let f2x = {
       'm1':6,'m2':6,'n1':1000,'n2':400,'n3':400,'a':1,'b':1, // hexagon
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': 360
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
     }
-	let f3 = {
+	let f2y = {
+      'm1':6,'m2':6,'n1':1000,'n2':400,'n3':400,'a':1,'b':1, // hexagon
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
+    }
+	let f2z = {
+      'm1':6,'m2':6,'n1':1000,'n2':400,'n3':400,'a':1,'b':1, // hexagon
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f3x = {
       "m1":6,"m2":6,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': 360
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
     }
-	let f4 = {
+	let f3y = {
+      "m1":6,"m2":6,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
+    }
+	let f3z = {
+      "m1":6,"m2":6,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f4x = {
       "m1":5,"m2":5,"n1":1000,"n2":600,"n3":600,"a":1,"b":1, // pentagon
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': 360
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
     }
-	let f5 = {
+	let f4y = {
+      "m1":5,"m2":5,"n1":1000,"n2":600,"n3":600,"a":1,"b":1, // pentagon
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
+    }
+	let f4z = {
+      "m1":5,"m2":5,"n1":1000,"n2":600,"n3":600,"a":1,"b":1, // pentagon
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f5x = {
       "m1":5,"m2":5,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': 360
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
     }
-	let f6 = {
+	let f5y = {
+      "m1":5,"m2":5,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
+    }
+	let f5z = {
+      "m1":5,"m2":5,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f6x = {
       "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': 360
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
     }
-	let f7 = {
+	let f6y = {
+      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
+    }
+	let f6z = {
+      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f7x = {
       "m1":3,"m2":3,"n1":1,"n2":1,"n3":1,"a":1,"b":1, // tri
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': 360
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
     }
-	let f8 = {
+	let f7y = {
+      "m1":3,"m2":3,"n1":1,"n2":1,"n3":1,"a":1,"b":1, // tri
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
+    }
+	let f7z = {
+      "m1":3,"m2":3,"n1":1,"n2":1,"n3":1,"a":1,"b":1, // tri
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f8x = {
       "m1":3.93,"m2":3.93,"n1":2,"n2":2,"n3":1,"a":2.5,"b":1, // ellipse eye
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': 360
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f8y = {
+      "m1":3.93,"m2":3.93,"n1":2,"n2":2,"n3":1,"a":2.5,"b":1, // ellipse eye
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
+    }
+	let f8z = {
+      "m1":3.93,"m2":3.93,"n1":2,"n2":2,"n3":1,"a":2.5,"b":1, // ellipse eye
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
     }
 		
   /*******************************************
@@ -84,86 +141,93 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let p1 = {
     halo: 'geojson',
-    'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords({x:f1x,y:f1y,z:f1z})},'properties': {}}),
+    'geoform': p => {
+				let coords = mnat.natcoords({x:f1x,y:f1y,z:f1z})
+				return {'type': 'Feature','geometry': {'type': 'MultiLineString',
+        'coordinates': mnat.natcoords({x:f1x,y:f1y,z:f1z})},'properties': {}}
+		},
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p1'},
-		proform: Object.assign(proform, {translate: [150, 100, 0] })}
+		proform: Object.assign({}, proform, {translate: [150, 100, 0] })}
   }
   let p2 = {
     halo: 'geojson',
-    'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords(f2)},'properties': {}}),
+    'geoform': p => {
+				let coords = mnat.natcoords({x:f1x,y:f1y,z:f1z})
+				console.log("p2 coords", coords)
+				return {'type': 'Feature','geometry': {'type': 'MultiLineString',
+        'coordinates': mnat.natcoords({x:f2x,y:f2y,z:f2z})},'properties': {}}
+		},
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p2'},
-      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate:  [250, 100, 0] }}
+      proform: Object.assign({}, proform, {translate: [250, 100, 0] })}
   }
   let p3 = {
     halo: 'geojson',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords(f3)},'properties': {}}),
+        'coordinates': mnat.natcoords({x:f3x,y:f3y,z:f3z})},'properties': {}}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p3'},
-      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [350, 100, 0] }}
+      proform: Object.assign({}, proform, {translate: [350, 100, 0] })}
   }
   let p4 = {
     halo: 'geojson',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords(f4)},'properties': {}}),
+        'coordinates': mnat.natcoords({x:f4x,y:f4y,z:f4z})},'properties': {}}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p4'},
-      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate:  [450, 100, 0] }}
+      proform: Object.assign({}, proform, {translate: [450, 100, 0] })}
   }
   let p5 = {
     halo: 'geojson',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords(f5)},'properties': {}}),
+        'coordinates': mnat.natcoords({x:f5x,y:f5y,z:f5z})},'properties': {}}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p5'},
-      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate:  [150, 300, 0] }}
+      proform: Object.assign({}, proform, {translate: [150, 200, 0] })}
   }
   let p6 = {
     halo: 'geojson',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords(f6)},'properties': {}}),
+        'coordinates': mnat.natcoords({x:f6x,y:f6y,z:f6z})},'properties': {}}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p6'},
-      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate:  [250, 300, 0] }}
+      proform: Object.assign({}, proform, {translate: [250, 200, 0] })}
   }
   let p7 = {
     halo: 'geojson',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords(f7)},'properties': {}}),
+        'coordinates': mnat.natcoords({x:f7x,y:f7y,z:f7z})},'properties': {}}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p7'},
-      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate:  [350, 300, 0] }}
+      proform: Object.assign({}, proform, {translate: [350, 200, 0] })}
   }
   let p8 = {
     halo: 'geojson',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords(f8)},'properties': {}}),
+        'coordinates': mnat.natcoords({x:f8x,y:f8y,z:f8z})},'properties': {}}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p8'},
-      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate:  [450, 300, 0] }}
+      proform: Object.assign({}, proform, {translate: [450, 200, 0] })}
   }
 		
   let animas = [
     p1, // h.geojson g.uniwen
-    // p2, // h.geojson g.uniwen
-    // p3, // h.geojson g.uniwen
-    // p4, // h.geojson g.uniwen
-    // p5, // h.geojson g.uniwen
-    // p6, // h.geojson g.uniwen
-    // p7, // h.geojson g.uniwen
-    // p8, // h.geojson g.uniwen
+    p2, // h.geojson g.uniwen
+    p3, // h.geojson g.uniwen
+    p4, // h.geojson g.uniwen
+    p5, // h.geojson g.uniwen
+    p6, // h.geojson g.uniwen
+    p7, // h.geojson g.uniwen
+    p8, // h.geojson g.uniwen
 
 
   ]

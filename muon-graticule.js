@@ -116,6 +116,9 @@
 					dy = y_extent[3],						// y_stepMinor		eg. 10
 					py = y_extent[4]						// y_precision		eg. 2.5
 
+					px = Math.min(px, dx)
+					py = Math.min(py, dy)
+					
 			} else 	if (params.graticule !== undefined) {		// graticule
 
 
@@ -144,6 +147,10 @@
 					y1 = y_extent[1],
 					dy = y_extent[2],
 					py = y_extent[3]
+					
+					px = Math.min(px, dx)
+					py = Math.min(py, dy)
+					
 
 			}
 
@@ -277,7 +284,6 @@
 
       let mersq = mersCoords.length // 12 x 7
       let parsq = parsCoords.length //  7 x 13
-
       let index = tidx(mersq, parsq) // 12, 7
 
       let m0 = 0 // 0
@@ -286,10 +292,8 @@
       let pn = parsq // 6
 
       let vertices = []
-      let faces = []
-
-      for (let j = p0; j < pn; j++) { // paralles   0 -  5
         for (let i = m0; i < mn; i++) { // meridians    0 - 11
+      for (let j = p0; j < pn; j++) { // paralles   0 -  5
           let i0 = i
           let i1 = (i + 1) % mersq // mer 12 is mer 0
 
@@ -324,7 +328,6 @@
       let pn = parsq // 6
 
       let faces = []
-
       for (let i = m0; i < mn; i++) { // meridians    0 - 11
         for (let j = p0; j < pn; j++) { // parallels  0 -  5
           let i0 = i
