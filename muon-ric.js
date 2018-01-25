@@ -70,31 +70,42 @@
  */
 
     let qualier = function (ric = {}, anigram, json) {
-      if (0 && 1) console.log('m.ric.qualier ric', ric)
+      if (1 && 1) console.log('m.ric.qualier ric', ric)
 
       if (json.type === undefined) {
+				
         console.log('type undefined')
+				
       } else if (typeof ric !== 'object') {
+				
         console.log('ric is not an object')
+				
       } else if (json.type === 'Feature') {
-        let _ric = {}
-        _ric.gid = ric.gid
-        _ric.cid = ric.cid
 
+				let gid = ric.gid
+        let cid = ric.cid
+        let fid = ric.cid
+
+				if (1 && 1) console.log(" ------------- ric", gid, cid, fid)				
+				
         let feature = json
         let properties = feature.properties || {}
 
-        if (ric.fid === undefined) _ric.fid = i || ''
-        else if (typeof ric.fid === 'function') _ric.fid = ric.fid(0, ric, anigram)
-        else _ric.fid = ric.fid // identify each feature in the collection
+        if (ric.fid === undefined) fid = i || ''
+        else if (typeof ric.fid === 'function') fid = ric.fid(0, ric, anigram)
+        else fid = ric.fid // identify each feature in the collection
 
-        let uid = __mapper('xs').m('ric').buildUIDFromRic(_ric)
+        properties.ric = {gid, cid, fid}
+        properties.uid = __mapper('xs').m('ric').buildUIDFromRic(properties.ric)
+				
+        feature.id = properties.uid
+				feature.properties = properties
+				
+				json = feature
 
-        properties.ric = _ric
-        feature.id = uid
-
-        json = features
+				
       } else if (json.type === 'FeatureCollection') {
+				
         let features = json.features
         for (let i = 0; i < features.length; i++) {
           let feature = features[i]
@@ -103,12 +114,13 @@
 
           let gid = ric.gid
           let cid = ric.cid
-          let fid = ric.cid
-
+          let fid = ric.fid
+					
+	if (1 && 1) console.log(" ------------- ric", gid, cid, fid)	
+		
           if (ric.fid === undefined) 							fid = cid + (i || '')
           else if (typeof ric.fid === 'function') fid = fid(i, ric, anigram)
           else 																		fid = fid + (i || '')
-if (1 && 1) console.log('m.ric.qualier ric', ric.fid)
 	
 						feature.properties.ric = ric || anigram.payload.ric || {}
 						
@@ -122,6 +134,7 @@ if (1 && 1) console.log('m.ric.qualier ric', ric.fid)
 						
         }
         json.features = features
+				
       } else {
         console.log('m.boform.boformer nothing done')
       }

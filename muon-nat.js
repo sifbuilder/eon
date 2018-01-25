@@ -9,10 +9,11 @@
   'use strict'
 
   let muonNat = function muonNat (__mapper = {}) {
+		
     let f = __mapper('props')(),
-      mlacer = __mapper('xs').m('lacer'),
-			mrador = __mapper('xs').m('rador')
-			
+      mlacer = __mapper('xs').m('lacer')
+
+		let cache = {} // points, form
 
     const cos = Math.cos, sin = Math.sin
     const neg = x => x < 0 || (x === 0 && (1 / x < 0))
@@ -20,14 +21,72 @@
     const radians = Math.PI / 180
     const tau = 2 * Math.PI
 
+
+    /* **************************
+     *        @rador : seg5 unit circle rador
+     *          m.snap.snap (dim form => rador)
+     */
+    let rador = function (form) {		// polarCoords
+      let pts = []
+      let t = 0
+      let maxRadio = 0
+
+      if (0 && 1) console.log('m.rador.rador form', form, cache.form)
+
+      if (f.isSame(form, cache.form)) {
+        pts = cache.points
+
+        if (0 && 1) console.log('m.rador.rador cashed')
+      } else {
+        const {m1, m2, n1, n2, n3, a, b, v0, v1, seg5} = form
+        const angUnit = tau / seg5 // dots per period
+
+        let angi = (form.angi) ? form.angi : (i, ang) => (i * ang) - Math.PI
+        let abs = (form.abs) ? form.abs : Math.abs
+
+        for (let i = 0; i < seg5; i++) {
+          let ang = angi(i, angUnit * v1) // [0,360] => [-180,180]
+
+          let t1 = m1 * ang / 4
+          let t2 = m2 * ang / 4
+
+          t = Math.pow(
+
+            Math.pow(abs(Math.cos(t1) / a), n2) // n2
+										 +
+										 Math.pow(abs(Math.sin(t2) / b), n3), // n3
+
+            -1 / n1) // n1
+
+          t = t * (1 + v0 * i)
+
+          if (t > maxRadio) maxRadio = t
+          pts.push(t)
+        }
+
+        let radUnit = 1 / maxRadio // * Math.SQRT1_2 / maxRadio 	normalize
+        pts = pts.map(d => d * radUnit)
+
+        cache.form = form
+        cache.points = pts
+      }
+
+      return pts // dots in path: [0,...,seg5] => [0,1]
+    }
+
+    function reset () {
+      cache = cacheStream = null
+      return projection
+    }
+
     /* **************************
      *        @radorm
      *            g.natform
      */
     function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
-		
-		
-      let radorPts = mrador(form) //  rador:  [-1,1] => [0,seg5)
+
+
+      let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)
       let s1range = [0, radorPts.length - 1] // [0, seg5]
 
       let s2extent = d3.range(0, radorPts.length - 1) // [0,...,seg5]
@@ -39,8 +98,6 @@
       return p => s2(s1(p)) //  [0,1) =s1=> [0,seg5) =rador=> [0,1]
     }
 
-		
-	
     /* *********************
    *    @natform
    *      called by g.natform.pointStream to build nat conform point stream
@@ -48,47 +105,47 @@
    */
     let natform = function (form) {		// getVertex
 			let formdims = Object.values(form)
-			
-			let extents = [
-				[-180,180], [-180,180], [0,360]  // [-180,180], [-180,180], [-180,180]  				
-			]				
 
-			
+			let extents = [
+				[-180,180], [-180,180], [-180,180]  // [-180,180], [-180,180], [-180,180]
+			]
+
+
 			// let extents = formdims.map((d, i) => {
 					// let g3 = (d.g3 !== undefined) ? f.a(d.g3) : []
-					
+
 					// let a =  (g3[g3.length-1] !== undefined) ? g3[g3.length-1] : -180
-					// let b = (a + 360) 
+					// let b = (a + 360)
 					// return [a,b]
 			// })
-			
+
 			let radions = formdims.map((d, i) => radorm(d, extents[i]))
 			let radioform = formdims.map((d, i) => p => radions[i](p))
 
-			
+
       let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0]
       if (form) scale = Object.values(form).map(dim => dim.ra2)
-      if (form) rotation = Object.values(form).map(dim => dim.w4 * radians)
+			if (form) rotation = Object.values(form).map(dim => (dim.w4 || 0 + dim.fas8 || 0) * radians)
       let coForm = {location, scale, rotation}
 
 			let rad = scale
 			let w = rotation
-					
+
       let vertex = function (l, p, radio = 1) { // spherical degrees [0,360]
 
-	
-				let r0 = radioform[0](l)
-				let r1 = radioform[1](l)
-				// let r1 = radioform[1](p)
-				let r2 = radioform[2](p)
-			
-				// console.log("r", l, p, r0,r1,r2)	
-				
+
         let lambda = l * radians
         let phi = p * radians
 
-				let exps = [ [1,0,1], [0,1,1], [0,0,1] ]
-				
+
+				let r0 = radioform[0](l) * cos(lambda + w[0])
+				let r1 = radioform[1](l) * sin(lambda + w[1])
+				let r2 = radioform[2](p) * cos(phi + w[2])
+				let r3 = radioform[2](p) * sin(phi + w[2])
+
+				if (0 && 1) console.log("r", l, p, r0,r1,r2)
+				let exps = [ [1,0,1,0 ], [0,1,1,0], [0,0,0,1] ]
+
 				exps = exps.map( (d,i) => d.map( (u,j) => {
 					let form = formdims[i]
 					let ex = (form.g3 !== undefined &&
@@ -96,44 +153,45 @@
 						form.g3[j] !== undefined) ? form.g3[j] : exps[i][j]
 					return ex
 					}))
-				
 
-				
+
 				// square, square,circle, r2,r2, extent [-180,180], [-180,180], [0,360]  		// once
 				// square, square,square, r2,r2, extent [-180,180], [-180,180], [-180,180]			// cube
-				
- // let x = rad[0] * cos(lambda + w[0]) * cos(phi + w[2]) * Math.pow(r0, exps[0][0]) * Math.pow(r1, exps[0][1]) * Math.pow(r2, exps[0][2])
- // let y = rad[1] * sin(lambda + w[1]) * cos(phi + w[2]) * Math.pow(r0, exps[1][0]) * Math.pow(r1, exps[1][1]) * Math.pow(r2, exps[1][2])
- // let z = rad[2] * cos(0) * sin(phi + w[2]) 						 * Math.pow(r0, exps[2][0]) * Math.pow(r1, exps[2][1]) * Math.pow(r2, exps[2][2])
-				
- let x = rad[0] * Math.pow(r0, exps[0][0]) * Math.pow(r1, exps[0][1]) * Math.pow(r2, exps[0][2])
- let y = rad[1] * Math.pow(r0, exps[1][0]) * Math.pow(r1, exps[1][1]) * Math.pow(r2, exps[1][2])
- let z = rad[2] * Math.pow(r0, exps[2][0]) * Math.pow(r1, exps[2][1]) * Math.pow(r2, exps[2][2])
-       				
-        // let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[2]) * r2
-        // let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[2]) * r2
-        // let z = rad[2] * r2	* r2  					 * sin(phi + w[2]) 
-				
+
+
+				// let x = rad[0] * cos(lambda + w[0]) * cos(phi + w[2]) * Math.pow(r0, exps[0][0]) * Math.pow(r1, exps[0][1]) * Math.pow(r2, exps[0][2])
+				// let y = rad[1] * sin(lambda + w[1]) * cos(phi + w[2]) * Math.pow(r0, exps[1][0]) * Math.pow(r1, exps[1][1]) * Math.pow(r2, exps[1][2])
+				// let z = rad[2] * cos(0) * sin(phi + w[2]) 						 * Math.pow(r0, exps[2][0]) * Math.pow(r1, exps[2][1]) * Math.pow(r2, exps[2][2])
+
+
+				let x = rad[0] * r0**exps[0][0] * r1**exps[0][1] * r2**exps[0][2] * r3**exps[0][3]
+				let y = rad[1] * r0**exps[1][0] * r1**exps[1][1] * r2**exps[1][2] * r3**exps[1][3]
+				let z = rad[2] * r0**exps[2][0] * r1**exps[2][1] * r2**exps[2][2] * r3**exps[2][3]
+
+
+				// let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[2]) * r2
+				// let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[2]) * r2
+				// let z = rad[2] * r2	* r2  					 * sin(phi + w[2])
+
         return [x, y, z]
       }
-			
+
 			return vertex
-    }		
-		
-		
-    /* **************************
+    }
+
+
     /* **************************
      *        @polarCoords
      *           m.nat.multiconform: form => dimstream
      */
     let polarCoords = function (params) { // stream of scalars
-		
+
       let m1 = params.m1
       let m2 = params.m2
       let n1 = params.n1
       let n2 = params.n2
       let n3 = params.n3
-			
+
       let a = params.a
       let b = params.b
 
@@ -226,7 +284,7 @@
         nform = {}
         nform.x = Object.assign({}, form, {fas8: (form.fas8 || 0)}) // fas8 def 0
         nform.y = Object.assign({}, (form.y || form), {fas8: nform.x.fas8 - 90})
-        nform.z = Object.assign({}, (form.z || [0])) 
+        nform.z = Object.assign({}, (form.z || [0]))
       } else if (form && typeof form === 'object' &&				// form:{x:obj}
             (form.x !== undefined || form.y !== undefined || form.z !== undefined)) {
         nform = {}
@@ -246,9 +304,9 @@
 
     /**********************
    *    @natcoords
-   *      
+   *
    */
-    let natcoords = function (form) {		
+    let natcoords = function (form) {
 			if (0 && 1) console.log("m.nat.natcoords:form", form)
 			let nf = nform(form)
 			let mf = multiconform(nf)
