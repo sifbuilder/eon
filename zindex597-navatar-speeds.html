@@ -51,7 +51,7 @@ let muonAlima = function (__mapper) {
       'geometry': {
         'type': 'Polygon',
         'coordinates': Array.of(__mapper('xs').m('nat')
-          .multiconform(__mapper('xs').m('nat')
+          .natPolygon(__mapper('xs').m('nat')
             .nform(p.payload.form)
           )
         )
@@ -145,11 +145,7 @@ let muonAlima = function (__mapper) {
       'type': 'Feature',
       'geometry': {
         'type': 'Polygon',
-        'coordinates': Array.of(
-          __mapper('xs').m('nat').multiconform(
-            __mapper('xs').m('nat').nform(p.payload.form)
-          )
-        )
+        'coordinates': __mapper('xs').m('nat').natPolygon(p.payload.form)
       },
       'id': null,
       'properties': {
@@ -238,11 +234,7 @@ let muonAlima = function (__mapper) {
       'type': 'Feature',
       'geometry': {
         'type': 'Polygon',
-        'coordinates': Array.of(
-          __mapper('xs').m('nat').multiconform(
-            __mapper('xs').m('nat').nform(p.payload.form)
-          )
-        )
+        'coordinates': __mapper('xs').m('nat').natPolygon(p.payload.form)
       },
       'id': null,
       'properties': {

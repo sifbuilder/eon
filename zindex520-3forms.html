@@ -142,9 +142,9 @@ let muonAlima = function muonAlima (__mapper) {
   let p1 = {
     halo: 'geojson',
     'geoform': p => {
-				let coords = mnat.natcoords({x:f1x,y:f1y,z:f1z})
+				let coords = mnat.natPolygon({x:f1x,y:f1y,z:f1z})
 				return {'type': 'Feature','geometry': {'type': 'MultiLineString',
-        'coordinates': mnat.natcoords({x:f1x,y:f1y,z:f1z})},'properties': {}}
+        'coordinates': mnat.natPolygon({x:f1x,y:f1y,z:f1z})},'properties': {}}
 		},
     payload: {tim,
       boform,
@@ -154,7 +154,7 @@ let muonAlima = function muonAlima (__mapper) {
   let p2 = {
     halo: 'geojson',
     'geoform': p => {
-				let coords = mnat.natcoords({x:f2x,y:f2y,z:f2z})
+				let coords = mnat.natPolygon({x:f2x,y:f2y,z:f2z})
 				return {
 					'type': 'Feature',
 					'geometry': {
@@ -546,7 +546,7 @@ let muonAlima = function muonAlima (__mapper) {
   let p3 = {
     halo: 'geojson',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords({x:f3x,y:f3y,z:f3z})},'properties': {}}),
+        'coordinates': mnat.natPolygon({x:f3x,y:f3y,z:f3z})},'properties': {}}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p3'},
@@ -555,7 +555,7 @@ let muonAlima = function muonAlima (__mapper) {
   let p4 = {
     halo: 'geojson',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords({x:f4x,y:f4y,z:f4z})},'properties': {}}),
+        'coordinates': mnat.natPolygon({x:f4x,y:f4y,z:f4z})},'properties': {}}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p4'},
@@ -564,7 +564,7 @@ let muonAlima = function muonAlima (__mapper) {
   let p5 = {
     halo: 'geojson',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords({x:f5x,y:f5y,z:f5z})},'properties': {}}),
+        'coordinates': mnat.natPolygon({x:f5x,y:f5y,z:f5z})},'properties': {}}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p5'},
@@ -573,7 +573,7 @@ let muonAlima = function muonAlima (__mapper) {
   let p6 = {
     halo: 'geojson',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords({x:f6x,y:f6y,z:f6z})},'properties': {}}),
+        'coordinates': mnat.natPolygon({x:f6x,y:f6y,z:f6z})},'properties': {}}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p6'},
@@ -582,7 +582,7 @@ let muonAlima = function muonAlima (__mapper) {
   let p7 = {
     halo: 'geojson',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords({x:f7x,y:f7y,z:f7z})},'properties': {}}),
+        'coordinates': mnat.natPolygon({x:f7x,y:f7y,z:f7z})},'properties': {}}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p7'},
@@ -591,7 +591,7 @@ let muonAlima = function muonAlima (__mapper) {
   let p8 = {
     halo: 'geojson',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natcoords({x:f8x,y:f8y,z:f8z})},'properties': {}}),
+        'coordinates': mnat.natPolygon({x:f8x,y:f8y,z:f8z})},'properties': {}}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p8'},

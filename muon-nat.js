@@ -105,10 +105,14 @@
    *      callls m.nat.radorm
    */
     let natform = function (form) {		// getVertex
+		
 			let formdims = Object.values(form)
+			
+			if (0 && 1) console.log("m.nat.natform:form", form) 
+	
 
 			let extents = [
-				[-180,180], [-180,180], [-180,180]  // [-180,180], [-180,180], [-180,180]
+				[-180,180], [-180,180], [-180,180], [-180,180]  // [-180,180], [-180,180], [-180,180]
 			]
 
 
@@ -120,6 +124,7 @@
 					// return [a,b]
 			// })
 
+			
 			let radions = formdims.map((d, i) => radorm(d, extents[i]))
 			let radioform = formdims.map((d, i) => p => radions[i](p))
 
@@ -138,20 +143,21 @@
         let lambda = l * radians
         let phi = p * radians
 
+				let fn = Math.cos
 
-				let r0 = radioform[0](l) * cos(lambda + w[0])
-				let r1 = radioform[1](l) * sin(lambda + w[1])
-				let r2 = radioform[2](p) * cos(phi + w[2])
-				let r3 = radioform[2](p) * sin(phi + w[2])
+				let r0 = radioform[0](l) * fn(lambda + w[0])
+				let r1 = radioform[1](l) * fn(lambda + w[1])
+				let r2 = radioform[2](p) * fn(phi + w[2])
+				let r3 = radioform[3](p) * fn(phi + w[3])
 
 				if (0 && 1) console.log("r", l, p, r0,r1,r2)
 				let exps = [ [1,0,1,0 ], [0,1,1,0], [0,0,0,1] ]
 
 				exps = exps.map( (d,i) => d.map( (u,j) => {
-					let form = formdims[i]
-					let ex = (form.g3 !== undefined &&
-						Array.isArray(form.g3) &&
-						form.g3[j] !== undefined) ? form.g3[j] : exps[i][j]
+					let formi = formdims[i]
+					let ex = (formi.g3 !== undefined &&
+						Array.isArray(formi.g3) &&
+						formi.g3[j] !== undefined) ? formi.g3[j] : exps[i][j]
 					return ex
 					}))
 
@@ -159,20 +165,14 @@
 				// square, square,circle, r2,r2, extent [-180,180], [-180,180], [0,360]  		// once
 				// square, square,square, r2,r2, extent [-180,180], [-180,180], [-180,180]			// cube
 
-
-				// let x = rad[0] * cos(lambda + w[0]) * cos(phi + w[2]) * Math.pow(r0, exps[0][0]) * Math.pow(r1, exps[0][1]) * Math.pow(r2, exps[0][2])
-				// let y = rad[1] * sin(lambda + w[1]) * cos(phi + w[2]) * Math.pow(r0, exps[1][0]) * Math.pow(r1, exps[1][1]) * Math.pow(r2, exps[1][2])
-				// let z = rad[2] * cos(0) * sin(phi + w[2]) 						 * Math.pow(r0, exps[2][0]) * Math.pow(r1, exps[2][1]) * Math.pow(r2, exps[2][2])
-
-
+				// let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[2]) * r2
+				// let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[2]) * r2
+				// let z = rad[2] * r2	* r2  					 * sin(phi + w[2])
 				let x = rad[0] * r0**exps[0][0] * r1**exps[0][1] * r2**exps[0][2] * r3**exps[0][3]
 				let y = rad[1] * r0**exps[1][0] * r1**exps[1][1] * r2**exps[1][2] * r3**exps[1][3]
 				let z = rad[2] * r0**exps[2][0] * r1**exps[2][1] * r2**exps[2][2] * r3**exps[2][3]
 
 
-				// let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[2]) * r2
-				// let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[2]) * r2
-				// let z = rad[2] * r2	* r2  					 * sin(phi + w[2])
 
         return [x, y, z]
       }
@@ -181,62 +181,110 @@
     }
 
 
-    /* **************************
-     *        @polarCoords
-     *           m.nat.multiconform: form => dimstream
-     */
-    // let polarCoords = function (params) { // stream of scalars
-
-      // let m1 = params.m1
-      // let m2 = params.m2
-      // let n1 = params.n1
-      // let n2 = params.n2
-      // let n3 = params.n3
-
-      // let a = params.a
-      // let b = params.b
-
-      // let v0 = (params.v0 !== undefined) ? params.v0 : 0
-      // let seg5 = Math.abs(params.seg5) // neg makes clockwise, 0 is ring, <0 text
-
-      // let angUnit = 2 * Math.PI / seg5 // sector in RADs per symmetry
-      // let t = 0
-      // let maxRadio = 0
-      // let pts = [] // points in path
-
-      // for (let i = 0; i < seg5; i++) {
-        // let ang = i * angUnit - Math.PI
-
-        // let t1 = m1 * ang / 4 // m1, ngx
-        // let t2 = m2 * ang / 4 // m2, ngy
-
-        // t = Math.pow(
-          // Math.pow(Math.abs(Math.cos(t1) / a), n2) // n2
-               // +
-               // Math.pow(Math.abs(Math.sin(t2) / b), n3), // n3
-
-          // -1 / n1) // n1
-
-        // t = t * (1 + v0 * i) // increment radius with ang
-
-        // if (t > maxRadio) maxRadio = t
-        // pts.push(t)
-      // }
-
-      // let radUnit = 1 / maxRadio // * Math.SQRT1_2 / maxRadio   normalize
-      // pts = pts.map(d => d * radUnit)
-
-      // return pts
-    // }
-
+ 
     /**********************
-     *    @multiconform
-     *       coordinates = Array.of(__mapper("xs").m("nat").multiconform(p.form))
-     */
-    let multiconform = function (form) {
-      if (0 && 1) console.log('m.nat multiconform formm', formm)
+   *    @nform
+   *      compleate form for natform
+   */
+    let nform = function (form, nform = {}) {
+			
+			
+      if (form &&	typeof form === 'object' &&					// {obj}
+            (form.x === undefined && form.y === undefined && form.z === undefined)) {
+							
+					let fas8x = (form.fas8 !== undefined) ? form.fas8 : 0
+					nform.x = Object.assign({}, form, {fas8: fas8x}) // fas8 def 0
+					
+					nform.y = Object.assign({}, (form.y || form), {fas8: fas8x - 90})
+				
+      } else if (form && typeof form === 'object' && // {x,y}
+            (form.x !== undefined && form.y !== undefined)) {
+							
+					let fas8x = (form.x.fas8 !== undefined) ? form.x.fas8 : 0
+					nform.x = Object.assign({}, form.x, {fas8: fas8x})
+					
+					let fas8y = (form.y.fas8 !== undefined) ? form.y.fas8 : fas8x-90
+					nform.y = Object.assign({}, form.y, {fas8: fas8y})
+					
+					if (form.z !== undefined && form.r !== undefined) {	// {x,y,z,r}
+						
+						let fas8z = (form.z.fas8 !== undefined) ? form.z.fas8 : 0
+						nform.z = Object.assign({}, form.z, {fas8: fas8z})
+						
+						nform.r = form.r					
+						
+					} else if (form.z !== undefined && form.r === undefined) {	// {x,y,z}
+						
+						let fas8z = (form.z.fas8z !== undefined) ? form.z.fas8 : 0
+						nform.z = Object.assign({}, form.z, {fas8: fas8z})
+						
+						nform.r = Object.assign({}, form.z, {fas8: fas8z - 90}) // fas8
+					}
+					
+      } else if (form && typeof form === 'object' &&				// form:{x:obj}
+            (form.x !== undefined && form.y === undefined)) {
+							
+						let fas8x = (form.x.fas8 !== undefined) ? form.x.fas8 : 0
+						nform.x = Object.assign({}, form.x, {fas8: fas8x})
+						
+						nform.y = Object.assign({}, (form.y || form.x), {fas8: fas8x - 90}) // fas8
+						
+						if (form.z !== undefined && form.r !== undefined) {	// {x,y,z,r}
+							
+							nform.z = form.z
+							nform.r = form.r					
+							
+						} else if (form.z !== undefined && form.r === undefined) {	// {x,y,z}
+							
+							let fas8z = (form.z.fas8 !== undefined) ? form.z.fas8 : 0
+							nform.z = Object.assign({}, form.z, {fas8: fas8z})
+							
+							nform.r = Object.assign({}, form.z, {fas8: fas8z - 90}) // fas8
+						}
+						
+      } else if (form && Array.isArray(form)) {										// [x,y]
+					
+						nform.x = form[0]
+						nform.y = form[1] || Object.assign({}, form[0], {fas8: form.fas8 - 90})
+						
+						if (form[3] !== undefined && form[4] !== undefined) {	// [x,y,z,r]
+							
+							nform.z = form[3]
+							nform.r = form[4] 					
+							
+						} else if (form[3] !== undefined && form[4] === undefined) {	// [x,y,z]
+							
+							let fas8 = (form[3].fas8 !== undefined) ? form[3].fas8 : 0
+							nform.z = Object.assign({}, form[3], {fas8: fas8})
+							nform.r = Object.assign({}, form[3], {fas8: form[3].fas8 - 90}) // fas8
+						}						
+				
+      }
+			
+			let formkeys = Object.keys(nform)
+			for (let i=0; i<formkeys.length; i++) {
+				let key = formkeys[i]
+				let form = nform[key]
+				if (form.f0 === undefined) form.f0 = Math.cos	// def to cos on fas8
+				
+			}
+			
+			
+			if (1 && 1) console.log("nform", nform)
+			
+      return nform
+    }
 
-			let formm = nform(form)
+
+   /**********************
+     *    @natPolygon
+     *       coordinates = Array.of(__mapper("xs").m("nat").natPolygon(p.form))
+     */
+    let natPolygon = function (form) {
+
+			let formm = nform(form)					// rador
+			
+      if (0 && 1) console.log('m.nat natPolygon formm', formm)
 				
       let dimstreams = Object.keys(formm)
 
@@ -257,7 +305,7 @@
           return r
         }))
 
-      let streams = dimstreams
+      let streams = dimstreams		// streams
         .map((d, i) => {
           let dim = Object.keys(formm)[i]
           let pa6 = formm[dim].pa6
@@ -266,81 +314,18 @@
         })
         .map(d => [...d, d[0]]) // close polygon
 
-      streams = mlacer.slide(streams, 'max')				//
+      let ring = mlacer.slide(streams, 'max')				//
 
-      return streams
-    }
-    /**********************
-   *    @nform
-   *      compleate form for natform
-   */
-    let nform = function (form) {
-			
-      let nform = {}
-      if (form && // form:{x,y,z}
-            typeof form === 'object' &&
-            (form.x !== undefined && form.y !== undefined && form.z !== undefined)) {
-							
-        nform = form
-				
-      } else if (form &&	typeof form === 'object' &&					// form:{obj}
-            (form.x === undefined && form.y === undefined && form.z === undefined)) {
-							
-        nform = {}
-        nform.x = Object.assign({}, form, {fas8: (form.fas8 || 0)}) // fas8 def 0
-        nform.y = Object.assign({}, (form.y || form), {fas8: nform.x.fas8 - 90})
-        nform.z = Object.assign({}, (form.z || [0]))
-				
-      } else if (form && typeof form === 'object' &&				// form:{x:obj}
-            (form.x !== undefined || form.y !== undefined || form.z !== undefined)) {
-							
-        nform = {}
-        nform.x = Object.assign({}, form.x) // defined
-        nform.y = Object.assign({}, (form.y || form.x), {fas8: form.x.fas8 - 90}) // fas8
-        nform.z = (form.z !== undefined) ? form.z : [0] 	// needs slide max in m.nat.multiconform
-				
-      } else if (form && Array.isArray(form)) {										// form: []
-			
-        nform = {}
-        nform.x = form[0]
-        nform.y = form[1] || Object.assign({}, form[0], {fas8: form.fas8 - 90})
-        nform.z = (form.z !== undefined) ? form.z : [0] 		// needs slide max in m.nat.multiconform
-				
-      } else {
-				
-        nform = []
-				
-      }
-      return nform
-    }
-
-    /**********************
-   *    @natcoords
-   *
-   */
-    let natcoords = function (form) {
-			
-			if (0 && 1) console.log("m.nat.natcoords:form", form)
-
-		
-			let mf = multiconform(form)		
-		
-		
-		
-
-      return Array.of(mf)
-    }
+      return Array.of(ring)
+    }		
     /***************************
      *        @enty
      */
     let enty = function () {}
 
-    // enty.radorm = radorm // [0,1) =s1=> [0,seg5) =rador=> [0,1]
-    // enty.polarCoords = polarCoords //
-    enty.multiconform = multiconform //
+    enty.natPolygon = natPolygon //
     enty.nform = nform //
     enty.natform	 = natform
-    enty.natcoords = natcoords
 
     return enty
   }

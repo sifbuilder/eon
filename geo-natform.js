@@ -26,7 +26,7 @@
 		// 		pointStream
     let pointStream = function (prjdef) {
 			
-      let form = prjdef.form								// conform form
+      let form = mnat.nform(prjdef.form)								// conform form
 
       let natform = mnat.natform(form) // m.nat.natform
       // natform = (a,b,c) => [a,b,c]

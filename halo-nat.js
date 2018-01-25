@@ -21,9 +21,7 @@
 
       geometry: {
         type: 'Polygon',
-        coordinates: Array.of(__mapper('xs').m('nat')
-          .multiconform(__mapper('xs').m('nat')
-            .nform(p.payload.form || p.form)))
+        coordinates: __mapper('xs').m('nat').natPolygon(p.payload.form)
       },
 
       properties: {

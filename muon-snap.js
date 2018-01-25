@@ -88,7 +88,7 @@
       } else if (f.isObject(v) && // 10 ___ v :: {b, c, d ...}*
                                       g === 1) {					// assume nat on object
         let ws
-        let multidimcoords = mnat.natcoords(v)	// nat object => gj polygon geometry
+        let multidimcoords = mnat.natPolygon(v)	// nat object => gj polygon geometry
         let natOuterRing = multidimcoords[0]		// outer ring
         ws = snap(natOuterRing, t, 1)				// (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
         return ws
