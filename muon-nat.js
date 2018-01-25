@@ -104,34 +104,20 @@
    *      called by g.natform.pointStream to build nat conform point stream
    *      callls m.nat.radorm
    */
-    let natform = function (form) {		// getVertex
+    let natform = function (formm) {		// getVertex
 		
-			let formdims = Object.values(form)
+			if (0 && 1) console.log("m.nat.natform:formm", formm) 
+
+			let formmvv = Object.values(formm)
+				
+			let radions = Object.values(formm).map((v, i) => radorm(v, v.dom3))
 			
-			if (0 && 1) console.log("m.nat.natform:form", form) 
-	
-
-			let extents = [
-				[-180,180], [-180,180], [-180,180], [-180,180]  // [-180,180], [-180,180], [-180,180]
-			]
-
-
-			// let extents = formdims.map((d, i) => {
-					// let g3 = (d.g3 !== undefined) ? f.a(d.g3) : []
-
-					// let a =  (g3[g3.length-1] !== undefined) ? g3[g3.length-1] : -180
-					// let b = (a + 360)
-					// return [a,b]
-			// })
-
-			
-			let radions = formdims.map((d, i) => radorm(d, extents[i]))
-			let radioform = formdims.map((d, i) => p => radions[i](p))
+			let radioform = Object.values(formm).map((d, i) => p => radions[i](p))
 
 
       let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0]
-      if (form) scale = Object.values(form).map(dim => dim.ra2)
-			if (form) rotation = Object.values(form).map(dim => (dim.w4 || 0 + dim.fas8 || 0) * radians)
+      if (formm) scale = formmvv.map(dim => dim.ra2)
+			if (formm) rotation = formmvv.map(dim => (dim.w4 || 0 + dim.fas8 || 0) * radians)
       let coForm = {location, scale, rotation}
 
 			let rad = scale
@@ -143,34 +129,27 @@
         let lambda = l * radians
         let phi = p * radians
 
-				let fn = Math.cos
-
-				let r0 = radioform[0](l) * fn(lambda + w[0])
-				let r1 = radioform[1](l) * fn(lambda + w[1])
-				let r2 = radioform[2](p) * fn(phi + w[2])
-				let r3 = radioform[3](p) * fn(phi + w[3])
 
 				if (0 && 1) console.log("r", l, p, r0,r1,r2)
-				let exps = [ [1,0,1,0 ], [0,1,1,0], [0,0,0,1] ]
-
-				exps = exps.map( (d,i) => d.map( (u,j) => {
-					let formi = formdims[i]
-					let ex = (formi.g3 !== undefined &&
-						Array.isArray(formi.g3) &&
-						formi.g3[j] !== undefined) ? formi.g3[j] : exps[i][j]
-					return ex
-					}))
+	
+				let exps = formmvv.map(d => d.exp9)
+				
+				let rs = []
+					rs[0] = radioform[0](l) * formmvv[0].fn0(lambda + w[0])
+					rs[1] = radioform[1](l) * formmvv[1].fn0(lambda + w[1])
+					rs[2] = radioform[2](p) * formmvv[2].fn0(phi + w[2])
+					rs[3] = radioform[3](p) * formmvv[3].fn0(phi + w[3])
 
 
 				// square, square,circle, r2,r2, extent [-180,180], [-180,180], [0,360]  		// once
-				// square, square,square, r2,r2, extent [-180,180], [-180,180], [-180,180]			// cube
+				// square, square,square, r2,r2, extent [-180,180], [-180,180], [-180,180]	// cube
 
 				// let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[2]) * r2
 				// let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[2]) * r2
 				// let z = rad[2] * r2	* r2  					 * sin(phi + w[2])
-				let x = rad[0] * r0**exps[0][0] * r1**exps[0][1] * r2**exps[0][2] * r3**exps[0][3]
-				let y = rad[1] * r0**exps[1][0] * r1**exps[1][1] * r2**exps[1][2] * r3**exps[1][3]
-				let z = rad[2] * r0**exps[2][0] * r1**exps[2][1] * r2**exps[2][2] * r3**exps[2][3]
+				let x = rad[0] * rs[0]**exps[0][0] * rs[1]**exps[0][1] * rs[2]**exps[0][2] * rs[3]**exps[0][3]
+				let y = rad[1] * rs[0]**exps[1][0] * rs[1]**exps[1][1] * rs[2]**exps[1][2] * rs[3]**exps[1][3]
+				let z = rad[2] * rs[0]**exps[2][0] * rs[1]**exps[2][1] * rs[2]**exps[2][2] * rs[3]**exps[2][3]
 
 
 
@@ -194,7 +173,6 @@
 							
 					let fas8x = (form.fas8 !== undefined) ? form.fas8 : 0
 					nform.x = Object.assign({}, form, {fas8: fas8x}) // fas8 def 0
-					
 					nform.y = Object.assign({}, (form.y || form), {fas8: fas8x - 90})
 				
       } else if (form && typeof form === 'object' && // {x,y}
@@ -265,12 +243,26 @@
 			for (let i=0; i<formkeys.length; i++) {
 				let key = formkeys[i]
 				let form = nform[key]
-				if (form.f0 === undefined) form.f0 = Math.cos	// def to cos on fas8
-				
+				if (form.fn0 === undefined) form.fn0 = Math.cos	// fn0 defs to cos on fas8
+			}
+			for (let i=0; i<formkeys.length; i++) {
+				let key = formkeys[i]
+				let form = nform[key]
+				if (form.dom3 === undefined) form.dom3 = [-180,180]	// dom3 defs to [-180,180] 
+			}
+			for (let i=0; i<formkeys.length; i++) {			// ext9 defs to spheric exps
+				let key = formkeys[i]
+				let form = nform[key]
+				if (i==0 && form.exp9 === undefined) form.exp9 = [1,0,1,0]
+				if (i==1 && form.exp9 === undefined) form.exp9 = [0,1,1,0]
+				if (i==2 && form.exp9 === undefined) form.exp9 = [0,0,0,1]
+				if (i==3 && form.exp9 === undefined) form.exp9 = [0,0,1,0]
 			}
 			
 			
-			if (1 && 1) console.log("nform", nform)
+			
+			
+			if (0 && 1) console.log("nform", nform)
 			
       return nform
     }
