@@ -22,14 +22,16 @@
     init.focale 				= Infinity
     init.zafin 					= [0, 1]
     init.center 				= [0, 0, 0]
+    init.lens 					= [0, 1, Infinity]
 
     let state = {}
     state.scale 				= init.scale
     state.rotate 				= init.rotate
     state.translate 		= init.translate
+    state.center 				= init.center
     state.focale 				= init.focale
     state.zafin 				= init.zafin
-    state.center 				= init.center
+    state.lens 					= init.lens
 
     let wenRotation = function (rot) {
       let rox = mwen.matrix(rot !== undefined ? g.to_radians(rot) : cwen.rotInDrag())
@@ -56,7 +58,8 @@
       let c = [x, y, z]
       c = c.map((d, i) => d - (state.translate[i] || 0)) //   inverse translation
       z = (c[2] - state.zafin[0]) / state.zafin[1] // inverse perspective
-      c = mwen.projectionInverse([ c[0], c[1], z ], state.focale, state.scale) //   inverse projection
+      // c = mwen.projectionInverse([ c[0], c[1], z ], state.focale, state.scale) //   inverse projection
+      c = mwen.projectionInverse([ c[0], c[1], z ], state.lens[2], state.scale) //   inverse projection
       c = wenRotationInverse(state.rotate)(...c) //   inverse rotation
 
       this.stream.point(...c)
@@ -65,8 +68,10 @@
     let pointStream = function (x, y, z = 0) {
       let c = [x, y, z]
       c = wenRotation(state.rotate)(...c)														// rotate
-      z = (c[2] * state.zafin[1]) + state.zafin[0]
-      c = mwen.projection([ c[0], c[1], z ], state.focale, state.scale)	// scale
+      // z = (c[2] * state.zafin[1]) + state.zafin[0]
+      z = (c[2] * state.lens[1]) + state.lens[0]
+      // c = mwen.projection([ c[0], c[1], z ], state.focale, state.scale)	// scale
+      c = mwen.projection([ c[0], c[1], z ], state.lens[2], state.scale)	// scale
 
       if (f.isPureArray(state.translate)) {
         c = c.map((d, i) => d + (state.translate[i] || 0))						// translate
@@ -109,6 +114,7 @@
       m.scale = _ => _ !== undefined ? (state.scale = _, m) : m
       m.focale = _ => _ !== undefined ? (state.focale = _, m) : m
       m.zafin = _ => _ !== undefined ? (state.zafin = _, m) : m
+      m.lens = _ => _ !== undefined ? (state.lens = _, m) : m
 
       return m
     }

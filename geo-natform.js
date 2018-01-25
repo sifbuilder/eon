@@ -19,6 +19,7 @@
       translate = [0, 0, 0],
       focale = Infinity,
       zafin = [0, 1],
+      lens = [0, 1, Infinity],
       dims = 3
 
 
