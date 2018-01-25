@@ -104,13 +104,17 @@
    *      called by g.natform.pointStream to build nat conform point stream
    *      callls m.nat.radorm
    */
-    let natform = function (formm) {		// getVertex
+    let natform = function (form) {		// getVertex
+		
+			let formm = nform(form)					// nform
 		
 			if (0 && 1) console.log("m.nat.natform:formm", formm) 
 
 			let formmvv = Object.values(formm)
 				
-			let radions = Object.values(formm).map((v, i) => radorm(v, v.dom3))
+			let doms = formmvv.map(d => d.dom3)
+			doms = [ [-180,180], [-180,180], [0,360], [0,360] ]				// _e_	
+			let radions = Object.values(formm).map((v, i) => radorm(v, doms[i]))
 			
 			let radioform = Object.values(formm).map((d, i) => p => radions[i](p))
 
@@ -132,7 +136,9 @@
 
 				if (0 && 1) console.log("r", l, p, r0,r1,r2)
 	
+
 				let exps = formmvv.map(d => d.exp9)
+				exps = [ [1,0,1,0 ], [0,1,1,0], [0,0,0,2] , [0,0,1,0] ]	//  _e_
 				
 				let rs = []
 					rs[0] = radioform[0](l) * formmvv[0].fn0(lambda + w[0])
@@ -165,94 +171,94 @@
    *    @nform
    *      compleate form for natform
    */
-    let nform = function (form, nform = {}) {
+    let nform = function (form, nformed = {}) {
 			
 			
       if (form &&	typeof form === 'object' &&					// {obj}
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
 							
 					let fas8x = (form.fas8 !== undefined) ? form.fas8 : 0
-					nform.x = Object.assign({}, form, {fas8: fas8x}) // fas8 def 0
-					nform.y = Object.assign({}, (form.y || form), {fas8: fas8x - 90})
+					nformed.x = Object.assign({}, form, {fas8: fas8x}) // fas8 def 0
+					nformed.y = Object.assign({}, (form.y || form), {fas8: fas8x - 90})
 				
       } else if (form && typeof form === 'object' && // {x,y}
             (form.x !== undefined && form.y !== undefined)) {
 							
 					let fas8x = (form.x.fas8 !== undefined) ? form.x.fas8 : 0
-					nform.x = Object.assign({}, form.x, {fas8: fas8x})
+					nformed.x = Object.assign({}, form.x, {fas8: fas8x})
 					
 					let fas8y = (form.y.fas8 !== undefined) ? form.y.fas8 : fas8x-90
-					nform.y = Object.assign({}, form.y, {fas8: fas8y})
+					nformed.y = Object.assign({}, form.y, {fas8: fas8y})
 					
 					if (form.z !== undefined && form.r !== undefined) {	// {x,y,z,r}
 						
 						let fas8z = (form.z.fas8 !== undefined) ? form.z.fas8 : 0
-						nform.z = Object.assign({}, form.z, {fas8: fas8z})
+						nformed.z = Object.assign({}, form.z, {fas8: fas8z})
 						
-						nform.r = form.r					
+						nformed.r = form.r					
 						
 					} else if (form.z !== undefined && form.r === undefined) {	// {x,y,z}
 						
 						let fas8z = (form.z.fas8z !== undefined) ? form.z.fas8 : 0
-						nform.z = Object.assign({}, form.z, {fas8: fas8z})
+						nformed.z = Object.assign({}, form.z, {fas8: fas8z})
 						
-						nform.r = Object.assign({}, form.z, {fas8: fas8z - 90}) // fas8
+						nformed.r = Object.assign({}, form.z, {fas8: fas8z - 90}) // fas8
 					}
 					
       } else if (form && typeof form === 'object' &&				// form:{x:obj}
             (form.x !== undefined && form.y === undefined)) {
 							
 						let fas8x = (form.x.fas8 !== undefined) ? form.x.fas8 : 0
-						nform.x = Object.assign({}, form.x, {fas8: fas8x})
+						nformed.x = Object.assign({}, form.x, {fas8: fas8x})
 						
-						nform.y = Object.assign({}, (form.y || form.x), {fas8: fas8x - 90}) // fas8
+						nformed.y = Object.assign({}, (form.y || form.x), {fas8: fas8x - 90}) // fas8
 						
 						if (form.z !== undefined && form.r !== undefined) {	// {x,y,z,r}
 							
-							nform.z = form.z
-							nform.r = form.r					
+							nformed.z = form.z
+							nformed.r = form.r					
 							
 						} else if (form.z !== undefined && form.r === undefined) {	// {x,y,z}
 							
 							let fas8z = (form.z.fas8 !== undefined) ? form.z.fas8 : 0
-							nform.z = Object.assign({}, form.z, {fas8: fas8z})
+							nformed.z = Object.assign({}, form.z, {fas8: fas8z})
 							
-							nform.r = Object.assign({}, form.z, {fas8: fas8z - 90}) // fas8
+							nformed.r = Object.assign({}, form.z, {fas8: fas8z - 90}) // fas8
 						}
 						
       } else if (form && Array.isArray(form)) {										// [x,y]
 					
-						nform.x = form[0]
-						nform.y = form[1] || Object.assign({}, form[0], {fas8: form.fas8 - 90})
+						nformed.x = form[0]
+						nformed.y = form[1] || Object.assign({}, form[0], {fas8: form.fas8 - 90})
 						
 						if (form[3] !== undefined && form[4] !== undefined) {	// [x,y,z,r]
 							
-							nform.z = form[3]
-							nform.r = form[4] 					
+							nformed.z = form[3]
+							nformed.r = form[4] 					
 							
 						} else if (form[3] !== undefined && form[4] === undefined) {	// [x,y,z]
 							
 							let fas8 = (form[3].fas8 !== undefined) ? form[3].fas8 : 0
-							nform.z = Object.assign({}, form[3], {fas8: fas8})
-							nform.r = Object.assign({}, form[3], {fas8: form[3].fas8 - 90}) // fas8
+							nformed.z = Object.assign({}, form[3], {fas8: fas8})
+							nformed.r = Object.assign({}, form[3], {fas8: form[3].fas8 - 90}) // fas8
 						}						
 				
       }
 			
-			let formkeys = Object.keys(nform)
+			let formkeys = Object.keys(nformed)
 			for (let i=0; i<formkeys.length; i++) {
 				let key = formkeys[i]
-				let form = nform[key]
+				let form = nformed[key]
 				if (form.fn0 === undefined) form.fn0 = Math.cos	// fn0 defs to cos on fas8
 			}
 			for (let i=0; i<formkeys.length; i++) {
 				let key = formkeys[i]
-				let form = nform[key]
+				let form = nformed[key]
 				if (form.dom3 === undefined) form.dom3 = [-180,180]	// dom3 defs to [-180,180] 
 			}
 			for (let i=0; i<formkeys.length; i++) {			// ext9 defs to spheric exps
 				let key = formkeys[i]
-				let form = nform[key]
+				let form = nformed[key]
 				if (i==0 && form.exp9 === undefined) form.exp9 = [1,0,1,0]
 				if (i==1 && form.exp9 === undefined) form.exp9 = [0,1,1,0]
 				if (i==2 && form.exp9 === undefined) form.exp9 = [0,0,0,1]
@@ -262,9 +268,9 @@
 			
 			
 			
-			if (0 && 1) console.log("nform", nform)
+			if (0 && 1) console.log("nformed", nformed)
 			
-      return nform
+      return nformed
     }
 
 
@@ -274,14 +280,14 @@
      */
     let natPolygon = function (form) {
 
-			let formm = nform(form)					// rador
+			let formm = nform(form)					// nform
 			
       if (0 && 1) console.log('m.nat natPolygon formm', formm)
 				
       let dimstreams = Object.keys(formm)
 
       dimstreams = dimstreams
-        .map(d => rador(formm[d])) // rador of dim d
+        .map(d => rador(formm[d])) 	// rador of dim d
 
       dimstreams = dimstreams
         .map((d, i) => d.map(p => p * formm[ Object.keys(formm)[i]].ra2)) // size
@@ -316,8 +322,8 @@
     let enty = function () {}
 
     enty.natPolygon = natPolygon //
-    enty.nform = nform //
     enty.natform	 = natform
+    enty.nform = nform //
 
     return enty
   }
