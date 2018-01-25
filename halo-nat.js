@@ -35,6 +35,7 @@
    *    @gramm
    */
     let gramm = function (anima, newAnigrams = []) {
+			
       let anigram = manitem(anima).anigram(),						// anigram
         halo = 				anigram.halo, // halo
         geoform = 		anigram.geoform || _geoform				// geoform

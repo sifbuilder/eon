@@ -108,6 +108,11 @@
     state.controls.dynamicDampingFactor = 0.3
     state.controls.keys = [ 65, 83, 68 ]
 
+    let denser = point => {
+			if (!Array.isArray(point)) console.log("point ",point," is not cartesian")
+			return new THREE.Vector3(...point)		
+		}
+		
     /***************************
  *        @render
  */
@@ -146,7 +151,7 @@
             .filter(d => d.properties.sort === 'feature' || d.properties.sort === undefined) // default
 
           if (features.length > 0) {
-            let denser = point => new THREE.Vector3(...point)
+
 
             for (let k in features) { // DOTS (seg5===0) each group gid
               let item = features[k] // feature

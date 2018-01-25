@@ -21,31 +21,36 @@
     const radians = Math.PI / 180
     const tau = 2 * Math.PI
 
+    function reset () {
+      cache = cacheStream = null
+      return projection
+    }
 
     /* **************************
      *        @rador : seg5 unit circle rador
      *          m.snap.snap (dim form => rador)
      */
-    let rador = function (form) {		// polarCoords
+    let rador = function (forml) {		// polarCoords
+		
       let pts = []
       let t = 0
       let maxRadio = 0
 
-      if (0 && 1) console.log('m.rador.rador form', form, cache.form)
+      if (0 && 1) console.log('m.rador.rador forml', forml, cache.forml)
 
-      if (f.isSame(form, cache.form)) {
+      if (f.isSame(forml, cache.forml)) {
         pts = cache.points
 
         if (0 && 1) console.log('m.rador.rador cashed')
       } else {
-        const {m1, m2, n1, n2, n3, a, b, v0, v1, seg5} = form
+        const {m1, m2, n1, n2, n3, a, b, v0, v1, seg5} = forml
         const angUnit = tau / seg5 // dots per period
 
-        let angi = (form.angi) ? form.angi : (i, ang) => (i * ang) - Math.PI
-        let abs = (form.abs) ? form.abs : Math.abs
+        let angi = (forml.angi) ? forml.angi : (i, ang) => (i * ang) - Math.PI
+        let abs = (forml.abs) ? forml.abs : Math.abs
 
         for (let i = 0; i < seg5; i++) {
-          let ang = angi(i, angUnit * v1) // [0,360] => [-180,180]
+          let ang = angi(i, angUnit * v1) // [0,360] => [-180,180] // v1
 
           let t1 = m1 * ang / 4
           let t2 = m2 * ang / 4
@@ -67,17 +72,13 @@
         let radUnit = 1 / maxRadio // * Math.SQRT1_2 / maxRadio 	normalize
         pts = pts.map(d => d * radUnit)
 
-        cache.form = form
+        cache.forml = forml
         cache.points = pts
       }
 
       return pts // dots in path: [0,...,seg5] => [0,1]
     }
 
-    function reset () {
-      cache = cacheStream = null
-      return projection
-    }
 
     /* **************************
      *        @radorm
@@ -184,70 +185,70 @@
      *        @polarCoords
      *           m.nat.multiconform: form => dimstream
      */
-    let polarCoords = function (params) { // stream of scalars
+    // let polarCoords = function (params) { // stream of scalars
 
-      let m1 = params.m1
-      let m2 = params.m2
-      let n1 = params.n1
-      let n2 = params.n2
-      let n3 = params.n3
+      // let m1 = params.m1
+      // let m2 = params.m2
+      // let n1 = params.n1
+      // let n2 = params.n2
+      // let n3 = params.n3
 
-      let a = params.a
-      let b = params.b
+      // let a = params.a
+      // let b = params.b
 
-      let v0 = (params.v0 !== undefined) ? params.v0 : 0
-      let seg5 = Math.abs(params.seg5) // neg makes clockwise, 0 is ring, <0 text
+      // let v0 = (params.v0 !== undefined) ? params.v0 : 0
+      // let seg5 = Math.abs(params.seg5) // neg makes clockwise, 0 is ring, <0 text
 
-      let angUnit = 2 * Math.PI / seg5 // sector in RADs per symmetry
-      let t = 0
-      let maxRadio = 0
-      let pts = [] // points in path
+      // let angUnit = 2 * Math.PI / seg5 // sector in RADs per symmetry
+      // let t = 0
+      // let maxRadio = 0
+      // let pts = [] // points in path
 
-      for (let i = 0; i < seg5; i++) {
-        let ang = i * angUnit - Math.PI
+      // for (let i = 0; i < seg5; i++) {
+        // let ang = i * angUnit - Math.PI
 
-        let t1 = m1 * ang / 4 // m1, ngx
-        let t2 = m2 * ang / 4 // m2, ngy
+        // let t1 = m1 * ang / 4 // m1, ngx
+        // let t2 = m2 * ang / 4 // m2, ngy
 
-        t = Math.pow(
-          Math.pow(Math.abs(Math.cos(t1) / a), n2) // n2
-               +
-               Math.pow(Math.abs(Math.sin(t2) / b), n3), // n3
+        // t = Math.pow(
+          // Math.pow(Math.abs(Math.cos(t1) / a), n2) // n2
+               // +
+               // Math.pow(Math.abs(Math.sin(t2) / b), n3), // n3
 
-          -1 / n1) // n1
+          // -1 / n1) // n1
 
-        t = t * (1 + v0 * i) // increment radius with ang
+        // t = t * (1 + v0 * i) // increment radius with ang
 
-        if (t > maxRadio) maxRadio = t
-        pts.push(t)
-      }
+        // if (t > maxRadio) maxRadio = t
+        // pts.push(t)
+      // }
 
-      let radUnit = 1 / maxRadio // * Math.SQRT1_2 / maxRadio   normalize
-      pts = pts.map(d => d * radUnit)
+      // let radUnit = 1 / maxRadio // * Math.SQRT1_2 / maxRadio   normalize
+      // pts = pts.map(d => d * radUnit)
 
-      return pts
-    }
+      // return pts
+    // }
 
     /**********************
      *    @multiconform
      *       coordinates = Array.of(__mapper("xs").m("nat").multiconform(p.form))
      */
     let multiconform = function (form) {
-      if (0 && 1) console.log('m.nat multiconform form', form)
+      if (0 && 1) console.log('m.nat multiconform formm', formm)
 
-      let radians = Math.PI / 180
-      let tau = 2 * Math.PI
-      let dimstreams = Object.keys(form)
-
-      dimstreams = dimstreams
-        .map(d => __mapper('xs').m('nat').polarCoords(form[d])) // conform
+			let formm = nform(form)
+				
+      let dimstreams = Object.keys(formm)
 
       dimstreams = dimstreams
-        .map((d, i) => d.map(p => p * form[ Object.keys(form)[i]].ra2)) // size
+        .map(d => rador(formm[d])) // rador of dim d
+
+      dimstreams = dimstreams
+        .map((d, i) => d.map(p => p * formm[ Object.keys(formm)[i]].ra2)) // size
 
       dimstreams = dimstreams
         .map((d, i) => d.map((p, j) => { // rotation
-          let formdim = form[Object.keys(form)[i]]
+          let formdim = formm[Object.keys(formm)[i]]
           let angUnit = tau / d.length
           let refAng = (formdim.w4 + formdim.fas8) * radians
           let v1 = formdim.v1
@@ -258,9 +259,9 @@
 
       let streams = dimstreams
         .map((d, i) => {
-          let dim = Object.keys(form)[i]
-          let pa6 = form[dim].pa6
-          let pb7 = form[dim].pb7
+          let dim = Object.keys(formm)[i]
+          let pa6 = formm[dim].pa6
+          let pb7 = formm[dim].pb7
           return f.streamRange(d, pa6, pb7)
         })
         .map(d => [...d, d[0]]) // close polygon
@@ -274,30 +275,41 @@
    *      compleate form for natform
    */
     let nform = function (form) {
+			
       let nform = {}
       if (form && // form:{x,y,z}
             typeof form === 'object' &&
             (form.x !== undefined && form.y !== undefined && form.z !== undefined)) {
+							
         nform = form
+				
       } else if (form &&	typeof form === 'object' &&					// form:{obj}
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
+							
         nform = {}
         nform.x = Object.assign({}, form, {fas8: (form.fas8 || 0)}) // fas8 def 0
         nform.y = Object.assign({}, (form.y || form), {fas8: nform.x.fas8 - 90})
         nform.z = Object.assign({}, (form.z || [0]))
+				
       } else if (form && typeof form === 'object' &&				// form:{x:obj}
             (form.x !== undefined || form.y !== undefined || form.z !== undefined)) {
+							
         nform = {}
         nform.x = Object.assign({}, form.x) // defined
         nform.y = Object.assign({}, (form.y || form.x), {fas8: form.x.fas8 - 90}) // fas8
         nform.z = (form.z !== undefined) ? form.z : [0] 	// needs slide max in m.nat.multiconform
+				
       } else if (form && Array.isArray(form)) {										// form: []
+			
         nform = {}
         nform.x = form[0]
         nform.y = form[1] || Object.assign({}, form[0], {fas8: form.fas8 - 90})
         nform.z = (form.z !== undefined) ? form.z : [0] 		// needs slide max in m.nat.multiconform
+				
       } else {
+				
         nform = []
+				
       }
       return nform
     }
@@ -307,9 +319,15 @@
    *
    */
     let natcoords = function (form) {
+			
 			if (0 && 1) console.log("m.nat.natcoords:form", form)
-			let nf = nform(form)
-			let mf = multiconform(nf)
+
+		
+			let mf = multiconform(form)		
+		
+		
+		
+
       return Array.of(mf)
     }
     /***************************
@@ -318,10 +336,10 @@
     let enty = function () {}
 
     // enty.radorm = radorm // [0,1) =s1=> [0,seg5) =rador=> [0,1]
-    enty.polarCoords = polarCoords //
+    // enty.polarCoords = polarCoords //
     enty.multiconform = multiconform //
     enty.nform = nform //
-    enty.natform = natform
+    enty.natform	 = natform
     enty.natcoords = natcoords
 
     return enty

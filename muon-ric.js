@@ -70,7 +70,7 @@
  */
 
     let qualier = function (ric = {}, anigram, json) {
-      if (1 && 1) console.log('m.ric.qualier ric', ric)
+      if (0 && 1) console.log('m.ric.qualier ric', ric)
 
       if (json.type === undefined) {
 				
@@ -82,18 +82,19 @@
 				
       } else if (json.type === 'Feature') {
 
-				let gid = ric.gid
-        let cid = ric.cid
-        let fid = ric.cid
+					let _ric = {}
+          _ric.gid = ric.gid		// ric from param ric
+          _ric.cid = ric.cid
+          _ric.fid = ric.fid
 
-				if (1 && 1) console.log(" ------------- ric", gid, cid, fid)				
+	if (0 && 1) console.log(" ------------- ric", _ric.gid, _ric.cid, _ric.fid)				
 				
         let feature = json
         let properties = feature.properties || {}
 
-        if (ric.fid === undefined) fid = i || ''
-        else if (typeof ric.fid === 'function') fid = ric.fid(0, ric, anigram)
-        else fid = ric.fid // identify each feature in the collection
+          if (ric.fid === undefined) 							_ric.fid = ric.cid		// inherit cid
+          else if (typeof ric.fid === 'function') _ric.fid = ric.fid(i, ric, anigram)
+          else 																		_ric.fid = ric.fid
 
         properties.ric = {gid, cid, fid}
         properties.uid = __mapper('xs').m('ric').buildUIDFromRic(properties.ric)
@@ -106,27 +107,27 @@
 				
       } else if (json.type === 'FeatureCollection') {
 				
-        let features = json.features
+        let features = json.features							// feature in FeatureCollection
         for (let i = 0; i < features.length; i++) {
-          let feature = features[i]
-
-          let properties = feature.properties || {}
-
-          let gid = ric.gid
-          let cid = ric.cid
-          let fid = ric.fid
 					
-	if (1 && 1) console.log(" ------------- ric", gid, cid, fid)	
+          let feature = features[i]								// this feature
+
+          let properties = feature.properties || {}	
+
+					
+					let _ric = {}
+          _ric.gid = ric.gid		// ric from param ric
+          _ric.cid = ric.cid
+          _ric.fid = ric.fid
+					
 		
-          if (ric.fid === undefined) 							fid = cid + (i || '')
-          else if (typeof ric.fid === 'function') fid = fid(i, ric, anigram)
-          else 																		fid = fid + (i || '')
+          if (ric.fid === undefined) 							_ric.fid = ric.cid + (i || '')
+          else if (typeof ric.fid === 'function') _ric.fid = ric.fid(i, ric, anigram)
+          else 																		_ric.fid = ric.fid + (i || '')
 	
-						feature.properties.ric = ric || anigram.payload.ric || {}
 						
-						feature.properties.ric.gid = gid
-						feature.properties.ric.cid = cid
-						feature.properties.ric.fid = fid
+						feature.properties.ric = _ric
+	if (0 && 1) console.log(" ------------- ric", feature.properties.ric.gid, feature.properties.ric.cid, feature.properties.ric.fid)	
 						
 						feature.properties.uid = __mapper('xs').m('ric').buildUIDFromRic(feature.properties.ric)
 						feature.id = feature.properties.uid
