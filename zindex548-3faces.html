@@ -27,6 +27,8 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, img: 0, gui: 0, fps: 0, stats: 0}) // INIT
 
+	let mgraticule = __mapper('xs').m('graticule')	
+	
   let renderer = __mapper('renderRenderer'),
     width = renderer.width(),
     height = renderer.height(),
@@ -177,7 +179,6 @@ let muonAlima = function muonAlima (__mapper) {
     'halo': 'geojson',
 
     'geoform': p => {
-			let mgraticule = __mapper('xs').m('graticule')
 
       // let geoedges = mgraticule.gedges(p.payload.graticule)
 			// let geometry = {type: 'MultiLineString', coordinates: geoedges}
