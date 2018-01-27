@@ -38,6 +38,43 @@ let muonAlima = function muonAlima (__mapper) {
  *
  */
   let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+ let formRocket = {
+
+				"x": {
+					"m1": 6, "m2": 6, "n1": 60, "n2": 100, "n3": 30, "a": 1, "b": 1,
+					"ra2": 130,
+					"v0": 0,"v1":1,
+					"w4":  0,
+					"seg5": 360,"pa6":0,"pb7":-1,
+					"fas8": 0,
+					"fn0": Math.cos,
+					"dom3": [0,360],
+					"exp9": [2,0,0,0],
+				},
+				"y": {
+					"m1":2,"m2":2,"n1":1,"n2":1,"n3":1,"a":1,"b":1,			// biform
+					"ra2": 90,
+					"v0":0,"v1":1,
+					"w4": 0,
+					"seg5": 360, "pa6":0, "pb7":-1,
+					"fas8": -90,
+					"fn0": Math.cos,
+					"dom3": [0,360],
+					"exp9": [0,0,0,0],
+				},
+				"z": {
+					"m1":2,"m2":2,"n1":1,"n2":1,"n3":1,"a":1,"b":1,			// biform
+					"ra2": 130,
+					"v0": 0,"v1":1,
+					"w4":  0,
+					"seg5": 360,"pa6":0,"pb7":-1,
+					"fn0": d => Math.cos(d),
+					"dom3": [0,360],
+					"exp9": [0,0,0,1],
+				}
+			}
+
   let form = {
 
 				"x": {
@@ -127,7 +164,7 @@ let muonAlima = function muonAlima (__mapper) {
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratifaces11'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
 			'conform': conform,
-      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 100, 100 ],scale: 1,'dims': 3,'control': 'wen'},
+      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 150, 100 ],scale: 1,'dims': 3,'control': 'wen'},
       'gratiframe': gratiframe,
     }
   }
@@ -152,7 +189,7 @@ let muonAlima = function muonAlima (__mapper) {
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratifaces12'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
 			'conform': conform,
-      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 100, 250 ],scale: 1,'dims': 3,'control': 'wen'},
+      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 150, 250 ],scale: 1,'dims': 3,'control': 'wen'},
       'gratiframe': gratigrate,
     }
 	}
@@ -197,6 +234,92 @@ let muonAlima = function muonAlima (__mapper) {
       'gratiframe': gratigrate,
     }
   }
+  // -------------------------------  img
+  let img = {
+
+    halo: 'img',
+
+    geoform: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }
+
+  // -------------------------------  gratiform
+  let gratiform = {
+
+    'halo': 'geojson',
+
+    'geoform': p => {
+
+			let vertices =  mgraticule.gvertices(p.payload.graticule)
+			let faces = mgraticule.gfaces(p.payload.graticule)
+			faces = faces.map(face => [...face, face[0]])
+			faces = faces.map(function (face) { // faces : points => vertices
+          return face.map(function (vi) { // eg. [1, 0, 3, 2, 1]
+            return vertices[vi]
+          })
+			})					//  (2) [-180, -45] [0, 0] [-180, 0]
+      let features = faces.map( face => ({
+						type: "Feature",geometry: {type: 'Polygon',coordinates: Array.of(face)},properties: {},}))
+			let gj = {type: "FeatureCollection",features: features}
+
+			return gj
+		},
+
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+
+			'conform': {
+
+				'projection': 'natform',
+				'form': formRocket
+
+			},
+      'proform': {
+        projection: 'uniwen',translate: [ 300, 200 ],scale: 1, dims: 3, control: 'wen'},
+      'graticule': {
+
+					'frame': [ [ [-180, 180, 90, 10],
+													[-90, 90, 360, 10] ], // mayor
+												 [	[-180, 180, 10, 10],
+													[-80, 80, 10, 10] ] ] ,	// minor
+
+				},
+    }
+  }
 
   /*******************************************
  *      @animas
@@ -206,6 +329,9 @@ let muonAlima = function muonAlima (__mapper) {
     gratifaces12, // h.geojson g.natform
     gratilines21, // h.geojson g.natform
     gratilines22, // h.geojson g.natform
+    gratiform, // h.geojson g.natform
+		img,      // h.img
+
 
   ]
 
