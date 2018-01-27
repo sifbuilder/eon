@@ -123,8 +123,8 @@
 					PY = DY						// y_precision		eg. 2.5
 					py = PY
 
-			if (1 && 1) console.log("lattice xs", X0, X1, DX, PX, x0, x1, dx, px)
-			if (1 && 1) console.log("lattice ys", Y0, Y1, DY, PY, y0, y1, dy, py)
+			if (0 && 1) console.log("lattice xs", X0, X1, DX, PX, x0, x1, dx, px)
+			if (0 && 1) console.log("lattice ys", Y0, Y1, DY, PY, y0, y1, dy, py)
 
 
 			} else 	if (params.frame !== undefined) {		// frame
@@ -155,8 +155,8 @@
 					dy = y_extent[2]
 					py = y_extent[3]
 
-				if (1 && 1) console.log("frame xs", X0, X1, DX, PX, x0, x1, dx, px)
-				if (1 && 1) console.log("frame ys", Y0, Y1, DY, PY, y0, y1, dy, py)
+				if (0 && 1) console.log("frame xs", X0, X1, DX, PX, x0, x1, dx, px)
+				if (0 && 1) console.log("frame ys", Y0, Y1, DY, PY, y0, y1, dy, py)
 
 			}
 
@@ -187,15 +187,14 @@
 			let x = graticuleX (y0, y1, py),		// get y for x with precision py
 					y = graticuleY (x0, x1, px)
 
-
 			function graticuleX (y0, y1, dy) {
 				let y = d3.range(y0, y1 - epsilon, dy).concat(y1) // by intervals and close
-				return function (x) { return y.map(function (y) { return [x, y] }) }
+				return x => y.map( y => [x, y] )
 			}
 
 			function graticuleY (x0, x1, dx) {
 				let x = d3.range(x0, x1 - epsilon, dx).concat(x1)
-				return function (y) { return x.map(function (x) { return [x, y] }) }
+				return y => x.map( x => [x, y] )
 			}
 
 			let mmBig = merfn(X0, X1, DX) // long mers
@@ -238,7 +237,7 @@
 
      */
     let gvertices = function (params = {}) {
-			if (1 && 1) console.log('m.graticule.gvertices:params', params)
+			if (0 && 1) console.log('m.graticule.gvertices:params', params)
 
       let g = grarr(params)
       let mersCoords = g.mms.coordinates	// with y delta, precision
@@ -259,7 +258,7 @@
 
       let index = tidx(mersq, parsq) // 12, 7
 
-			if (1 && 1) console.log('m.graticule.gvertiecs:q', mersq, parsq)
+			if (0 && 1) console.log('m.graticule.gvertiecs:q', mersq, parsq)
 
       let m0 = 0 // 0
       let mn = mersq // 12
@@ -275,11 +274,6 @@
 
           let j0 = j							// par index
           let j1 = (j + 1) 				//
-
-					if (mersCoords[i0][j0] === undefined) console.log("coord", i0, j0, "undefined")
-					if (mersCoords[i0][j1] === undefined) console.log("coord", i0, j1, "undefined")
-					if (mersCoords[i1][j0] === undefined) console.log("coord", i1, j0, "undefined")
-					if (mersCoords[i1][j1] === undefined) console.log("coord", i1, j1, "undefined")
 
           vertices[index(i0, j0)] = mersCoords[i0][j0 * ry] // [0,0]	revert precision to step
           vertices[index(i0, j1)] = mersCoords[i0][j1 * ry]	// [0,1]
@@ -327,24 +321,6 @@
     }
 
 
-    /* *******************
- *        geodes
- */
-    let geodes = function () {
-      let extent = [ [-180, 180, 90, 1], [-90, 90, 360, 1] ]
-      let ret = grarr({extent})
-      return ret
-    }
-
-    /* *******************
- *        equator
- */
-    let equator = function () {
-      let extent = [ [-180, 180, 90, 1], [-90, 90, 360, 1] ]
-      let ret = grarr({extent})
-      return ret.pps[0]
-    }
-
     /* *****************
  *        merge
  */
@@ -388,9 +364,8 @@
     enty.gfaces = gfaces
     enty.gvertices = gvertices
 
-    enty.geodes = geodes
 		enty.reticule = reticule
-    enty.ridx = ridx
+
 
     return enty
   }

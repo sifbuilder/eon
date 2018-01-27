@@ -106,7 +106,6 @@ let muonAlima = function muonAlima (__mapper) {
     'halo': 'geojson',
     'geoform': p => {
 			let vertices =  mgraticule.gvertices(p.payload.graticule)
-			if (1 && 1) console.log("gratifaces11 faces graticule vertices", vertices)
 			let faces = mgraticule.gfaces(p.payload.graticule)
 			faces = faces.map(face => [...face, face[0]])
 			faces = faces.map(face => // faces : points => vertices
@@ -115,7 +114,6 @@ let muonAlima = function muonAlima (__mapper) {
       let features = faces.map( face => ({
 						type: "Feature",geometry: {type: 'Polygon',coordinates: Array.of(face)},properties: {},}))
 			let gj = {type: "FeatureCollection",features: features}
-			if (1 && 1) console.log("--------------")			
 			return gj
 		},
     'payload': {
@@ -131,7 +129,6 @@ let muonAlima = function muonAlima (__mapper) {
   let gratifaces12 = {
     'halo': 'geojson',
     'geoform': p => {
-			if (1 && 1) console.log("gratifaces12 faces lattice")			
 			let vertices =  mgraticule.gvertices(p.payload.graticule)
 			let faces = mgraticule.gfaces(p.payload.graticule)
 			faces = faces.map(face => [...face, face[0]])
@@ -141,7 +138,6 @@ let muonAlima = function muonAlima (__mapper) {
       let features = faces.map( face => ({
 						type: "Feature",geometry: {type: 'Polygon',coordinates: Array.of(face)},properties: {},}))
 			let gj = {type: "FeatureCollection",features: features}
-			if (1 && 1) console.log("--------------")			
 			return gj
 		},
     'payload': {
@@ -158,12 +154,10 @@ let muonAlima = function muonAlima (__mapper) {
     'halo': 'geojson',
     'geoform': p => {
       let edges = mgraticule.gedges(p.payload.graticule)
-			if (1 && 1) console.log("gratifaces21 lines graticule edges", edges)						
 			let type = 'Feature'
 			let properties = {}
       let geometry = {type: 'MultiLineString',coordinates: edges}
       let gj = {type, geometry, properties}
-			if (1 && 1) console.log("--------------")						
 			return gj
 		},
     'payload': {
@@ -179,13 +173,11 @@ let muonAlima = function muonAlima (__mapper) {
   let gratilines22 = {
     'halo': 'geojson',
     'geoform': p => {
-			if (1 && 1) console.log("gratifaces21 lines lattice")						
       let edges = mgraticule.gedges(p.payload.graticule)
 			let type = 'Feature'
 			let properties = {}
       let geometry = {type: 'MultiLineString',coordinates: edges}
       let gj = {type, geometry, properties}
-			if (1 && 1) console.log("--------------")			
 			return gj
 		},
     'payload': {
