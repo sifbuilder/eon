@@ -58,8 +58,9 @@
      *      inPolygons to filter coords if in pols
      *      mersCoords to get vert coords
      */
-    let bifaces = function bifaces (i, j, xn, yn, mersCoords, inPolygons=[]) {
-      let ret = []
+    let bifaces = function bifaces (i, j, xn, yn) {
+			
+			if (0 && 1) console.log("m.graticule.bifaces:", i, j, xn, yn)
       let index = tidx(xn, yn)
 
       let i0 = i
@@ -67,197 +68,199 @@
       let j0 = j
       let j1 = (j + 1)
 
-      let inside = true
-      if (inPolygons.length > 0) {
-        inside = __mapper('xs').m('geom').polygonInMultiPolygon(
-          [ mersCoords[i0][j0], mersCoords[i1][j0], mersCoords[i1][j1], mersCoords[i0][j1] ],
-          inPolygons // _e_
-        )
-      }
-
       let f1 = oneface([i0, j0], [i1, j0], [i1, j1], xn, yn)
       let f2 = oneface([i0, j0], [i1, j1], [i0, j1], xn, yn)
 
-      if (inside) {
-        ret.push(f1)
-        ret.push(f2)
-      }
-
-      return ret
+      return [f1, f2]
     }
+		
+
+		
+  /* *******************
+ *        gratiparams
+ */
+
+    let gratiparams = function (params = {}) {
+			
+			let X0, X1, DX, PX, x0, x1, dx, px,
+				Y0, Y1, DY, PY, y0, y1, dy, py
+
+			if (params.lattice !== undefined) {							// lattice
+				let extent = params.lattice, // major, minor
+					x_extent = extent[0],
+					y_extent = extent[1]
+					
+
+					if (Array.isArray(x_extent[0])) {
+						X1 = x_extent[0][1] // x_extentMajor 	eg. 180
+						X0 = x_extent[0][0]
+					} else {
+						X1 = x_extent[0] // x_extentMajor 	eg. 180
+						X0 = -X1
+					}
+					
+					x1 = X1 					 // x_extentMinor 	eg. 180
+					x0 = -x1
+					DX = x_extent[1]						// x_stepMajor 		eg. 90
+					dx = DX										// x_stepMinor 		eg. 10
+					PX = DX						// x_precision 		eg. 2.5
+					px = PX
+
+					
+					
+					if (Array.isArray(y_extent[0])) {
+						Y1 = y_extent[0][1] // x_extentMajor 	eg. 180
+						Y0 = y_extent[0][0]
+					} else {
+						Y1 = y_extent[0] // x_extentMajor 	eg. 180
+						Y0 = -Y1
+					}					
+					
+					y1 = Y1 					 // y_extentMinor 	eg. 80
+					y0 = -y1
+					DY = y_extent[1]  					// y_stepMajor		eg. 360	
+					dy = DY														// y_stepMinor		eg. 10
+					PY = DY						// y_precision		eg. 2.5
+					py = PY
+					
+			if (1 && 1) console.log("lattice xs", X0, X1, DX, PX, x0, x1, dx, px)
+			if (1 && 1) console.log("lattice ys", Y0, Y1, DY, PY, y0, y1, dy, py)
+
+					
+			} else 	if (params.frame !== undefined) {		// frame
+
+				let graticule = params.frame, // major, minor
+					X_extent = graticule[0][0],
+					Y_extent = graticule[0][1],
+					x_extent = graticule[1][0],
+					y_extent = graticule[1][1]
+
+					X0 = X_extent[0]
+					X1 = X_extent[1]
+					DX = X_extent[2]
+					PX = X_extent[3]
+
+					x0 = x_extent[0]
+					x1 = x_extent[1]
+					dx = x_extent[2]
+					px = x_extent[3]
+
+					Y0 = Y_extent[0]
+					Y1 = Y_extent[1]
+					DY = Y_extent[2]
+					PY = Y_extent[3]
+
+					y0 = y_extent[0]
+					y1 = y_extent[1]
+					dy = y_extent[2]
+					py = y_extent[3]
+
+				if (1 && 1) console.log("frame xs", X0, X1, DX, PX, x0, x1, dx, px)
+				if (1 && 1) console.log("frame ys", Y0, Y1, DY, PY, y0, y1, dy, py)
+					
+			}
+
+			return {
+				X0, X1, DX, PX, x0, x1, dx, px,
+				Y0, Y1, DY, PY, y0, y1, dy, py
+			}
+		}
+		
   /* *******************
  *        grarr
  */
 
     let grarr = function (params = {}) {
 
-
-			let mer = 1
-			let par = 1
-
-			let X0, X1, DX, PX, x0, x1, dx, px
-			let Y0, Y1, DY, PY, y0, y1, dy, py
-
-			if (params.extent !== undefined) {							// extent
-				let extent = params.extent, // major, minor
-					x_extent = extent[0],
-					y_extent = extent[1]
-
-
-					X1 = x_extent[0], X0 = -X1, // x_extentMajor 	eg. 180
-					x1 = x_extent[1], x0 = -x1, // x_extentMinor 	eg. 180
-					DX = x_extent[2],						// x_stepMajor 		eg. 90
-					dx = x_extent[3],						// x_stepMinor 		eg. 10
-					px = x_extent[4],						// x_precision 		eg. 2.5
-
-					Y1 = y_extent[0], Y0 = -Y1, // y_extentMajor 	eg. 90
-					y1 = y_extent[1], y0 = -y1, // y_extentMinor 	eg. 80
-					DY = y_extent[2],  					// y_stepMajor		eg. 360	
-					dy = y_extent[3],						// y_stepMinor		eg. 10
-					py = y_extent[4]						// y_precision		eg. 2.5
-
-					px = Math.min(px, dx)
-					py = Math.min(py, dy)
+			let {X0, X1, DX, PX, x0, x1, dx, px,
+					Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
 					
-			} else 	if (params.graticule !== undefined) {		// graticule
+			let mer = 1, par = 1
+			let merfn = (a,b,d) => d3.range(Math.ceil(a / d) * d, b, d)
+			let parfn = (a,b,d) => d3.range(Math.ceil(a / d) * d, b, d)
+
+			let X = graticuleX (Y0, Y1, PY),		// get X for Y with precision PY
+					Y = graticuleY (X0, X1, PX)
+
+			let x = graticuleX (y0, y1, py),		// get y for x with precision py
+					y = graticuleY (x0, x1, px)
 
 
-				let graticule = params.graticule, // major, minor
-					X_extent = graticule[0][0],
-					Y_extent = graticule[0][1],
-					x_extent = graticule[1][0],
-					y_extent = graticule[1][1]
-
-					X0 = X_extent[0],
-					X1 = X_extent[1],
-					DX = X_extent[2],
-					PX = X_extent[3],
-
-					x0 = x_extent[0],
-					x1 = x_extent[1],
-					dx = x_extent[2],
-					px = x_extent[3],
-
-					Y0 = Y_extent[0],
-					Y1 = Y_extent[1],
-					DY = Y_extent[2],
-					PY = Y_extent[3],
-
-					y0 = y_extent[0],
-					y1 = y_extent[1],
-					dy = y_extent[2],
-					py = y_extent[3]
-					
-					px = Math.min(px, dx)
-					py = Math.min(py, dy)
-					
-
+			function graticuleX (y0, y1, dy) {
+				let y = d3.range(y0, y1 - epsilon, dy).concat(y1) // by intervals and close
+				return function (x) { return y.map(function (y) { return [x, y] }) }
 			}
 
-				let X = graticuleX(Y0, Y1, py),
-					Y = graticuleY(X0, X1, px)
+			function graticuleY (x0, x1, dx) {
+				let x = d3.range(x0, x1 - epsilon, dx).concat(x1)
+				return function (y) { return x.map(function (x) { return [x, y] }) }
+			}
 
-				let x = graticuleX(y0, y1, py),
-					y = graticuleY(x0, x1, px)
+			let mm3 = function (_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon) {
+				
+					let _mm1 = merfn(_X0, _X1, _DX) // long mers
+					
+					let _mm2 = merfn(_x0, _x1, _dx) // short mers
 
-
-
-      function graticuleX (y0, y1, dy) {
-        let y = d3.range(y0, y1 - epsilon, dy).concat(y1) // by intervals and close
-        return function (x) { return y.map(function (y) { return [x, y] }) }
-      }
-
-      function graticuleY (x0, x1, dx) {
-        let x = d3.range(x0, x1 - epsilon, dx).concat(x1)
-        return function (y) { return x.map(function (x) { return [x, y] }) }
-      }
-
-
-
-
-				let mm1 = function mm1(_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon) {
-					return d3.range(Math.ceil(_X0 / _DX) * _DX, _X1, _DX)
-				}
-				let mm2 = function mm2(_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon) {
-					return d3.range(Math.ceil(_x0 / _dx) * _dx, _x1,	_dx)
-				}
-				let mm3 = function mm3(_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon) {
-						let _mm1 = mm1(_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon)
-						let _mm2 = mm2(_X, _X0, _X1, _DX, _x, _x0, _x1, _dx, _epsilon)
-
-						let _mm3 = ((mer) ? [..._mm1, ..._mm2] : [..._mm2])	// meridian ?
-										.sort((a, b) => a - b)
-										.filter((elem, pos, arr) => arr.indexOf(elem) == pos)
-
-						let ret = {type: "MultiLineString"}
-						ret.coordinates = _mm3.map(d => {
-
-								if (Math.abs(d % _DX) > _epsilon) {
-									return _x(d)
-								} else {
-									return _X(d)
-								}
-						})
-
-						return ret
-				}
-				let mms = mm3(X, X0, X1, DX, x, x0, x1, dx, epsilon)		// _e_
-
-
-
-				let pp1 = function pp1(_Y, _Y0, _Y1, _DY, _y, _y0, _y1, _dy, _epsilon) {
-					return d3.range(Math.ceil(_Y0 / _DY) * _DY, _Y1, _DY)
-				}
-				let pp2 = function pp2(_Y, _Y0, _Y1, _DY, _y, _y0, _y1, _dy, _epsilon) {
-					return d3.range(Math.ceil(_y0 / _dy) * _dy, _y1  + _epsilon,	_dy)
-				}
-
-				let pp3 = function pps(_Y, _Y0, _Y1, _DY, _y, _y0, _y1, _dy, _epsilon) {
-						let _pp1 = mm1(_Y, _Y0, _Y1, _DY, _y, _y0, _y1, _dy, _epsilon)
-						let _pp2 = mm2(_Y, _Y0, _Y1, _DY, _y, _y0, _y1, _dy, _epsilon)
-
-						let pp3 = ((par) ? [..._pp1, ..._pp2] : [..._pp2])	// meridian ?
+					let _mm3 = ((mer) ? [..._mm1, ..._mm2] : [..._mm2])	// meridian ?
 									.sort((a, b) => a - b)
-									.filter((elem, pos, arr) => arr.indexOf(elem) === pos)
+									.filter((elem, pos, arr) => arr.indexOf(elem) == pos)
 
-						let ret = {type: "MultiLineString"}
-						ret.coordinates = pp3.map(d => {
+					let type = "MultiLineString",
+							coordinates = _mm3.map(d => (Math.abs(d % _DX) > _epsilon) ? _x(d) : _X(d)),
+							gj = {type, coordinates}
+					return gj
+					
+			}
+			let mms = mm3(X, X0, X1, DX, x, x0, x1, dx, epsilon)		// _e_
 
-								if (Math.abs(d % _DY) > _epsilon) {
-									return _y(d)
-								} else {
-									return _Y(d)
+			
+			// let pp1 = (_Y0, _Y1, _DY, _epsilon) => d3.range(Math.ceil(_Y0 / _DY) * _DY, _Y1, _DY)
+			
+			// let pp2 = (_y0, _y1, _dy, _epsilon) => d3.range(Math.ceil(_y0 / _dy) * _dy, _y1  + _epsilon,	_dy)
 
-								}
-						})
+			let pp3 = function (_Y, _Y0, _Y1, _DY, _y, _y0, _y1, _dy, _epsilon) {
+				
+					// let _pp1 = pp1(_Y0, _Y1, _DY, _epsilon)
+					let _pp1 = parfn(_Y0, _Y1, _DY)
+					
+					// let _pp2 = pp2(_y0, _y1, _dy, _epsilon)
+					let _pp2 = parfn(_y0, _y1 + _epsilon, _dy)
 
-						return ret
+					let _pp3 = ((par) ? [..._pp1, ..._pp2] : [..._pp2])	// meridian ?
+								.sort((a, b) => a - b)
+								.filter((elem, pos, arr) => arr.indexOf(elem) === pos)
 
-				}
-					let pps = pp3(Y, Y0, Y1, DY, y, y0, y1, dy, epsilon)		// _e_
+					let type = "MultiLineString"
+					let coordinates = _pp3.map(d => (Math.abs(d % _DY) > _epsilon) ? _y(d) : _Y(d))
+					return {type, coordinates}
+
+			}
+			let pps = pp3(Y, Y0, Y1, DY, y, y0, y1, dy, epsilon)		// _e_
 
 
 
-					let bmm = {			// long meridians
-							type: "MultiLineString",
-							coordinates: mm1(X, X0, X1, DX, x, x0, x1, dx, epsilon)
-					}
-					let mm = {			// meridians
-							type: "MultiLineString",
-							coordinates: mm2(X, X0, X1, DX, x, x0, x1, dx, epsilon)
-					}
-					let bp = {			// long parallel
-							type: "MultiLineString",
-							coordinates: pp1(Y, Y0, Y1, DY, y, y0, y1, dy, epsilon)
-					}
-					let pp = {			// parallels
-							type: "MultiLineString",
-							coordinates: pp2(Y, Y0, Y1, DY, y, y0, y1, dy, epsilon)
-					}
-					let ret = {
-										bp, bmm, pp , mm,
-										mms, pps,
-								}
+			let bmm = {			// long meridians
+					type: "MultiLineString",
+					coordinates: merfn(X0, X1, DX)
+			}
+			let mm = {			// meridians
+					type: "MultiLineString",
+					coordinates: merfn(x0, x1, dx)
+			}
+			let bp = {			// long parallel
+					type: "MultiLineString",
+					// coordinates: pp1(Y, Y0, Y1, DY, y, y0, y1, dy, epsilon)
+					coordinates: parfn(Y0, Y1, DY)
+			}
+			let pp = {			// parallels
+					type: "MultiLineString",
+					coordinates: parfn(y0, y1 + epsilon, dy)
+			}
+			let ret = {
+								bp, bmm, pp , mm,
+								mms, pps,
+			}
 
 
 
@@ -270,6 +273,7 @@
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
       let parsCoords = g.pps.coordinates
+			
       let coords = [...mersCoords, ...parsCoords]
       return coords
     }
@@ -278,32 +282,54 @@
 
      */
     let gvertices = function (params = {}) {
+			if (1 && 1) console.log('m.graticule.gvertices:params', params)
+			
       let g = grarr(params)
-      let mersCoords = g.mms.coordinates
-      let parsCoords = g.pps.coordinates
+      let mersCoords = g.mms.coordinates	// with y delta, precision
+      let parsCoords = g.pps.coordinates	// with x delta, precision
 
-      let mersq = mersCoords.length // 12 x 7
-      let parsq = parsCoords.length //  7 x 13
+
+			let {X0, X1, DX, PX, x0, x1, dx, px,
+					Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)			
+			
+			let ry = dy / py			// step to precision ratio in meridiam
+			
+			if (0 && 1) console.log('m.graticule.gvertiecs:mersCoords', mersCoords)
+			if (0 && 1) console.log('m.graticule.gvertiecs:parsCoords', parsCoords)
+			
+			
+      let mersq = mersCoords.length // 	[-90, 90]		[dy,py]
+      let parsq = parsCoords.length //  [-180, 180] [dx,px]
+			
       let index = tidx(mersq, parsq) // 12, 7
 
+			if (1 && 1) console.log('m.graticule.gvertiecs:q', mersq, parsq)
+			
       let m0 = 0 // 0
       let mn = mersq // 12
       let p0 = 0 // 0
       let pn = parsq // 6
 
       let vertices = []
-        for (let i = m0; i < mn; i++) { // meridians    0 - 11
-      for (let j = p0; j < pn; j++) { // paralles   0 -  5
-          let i0 = i
-          let i1 = (i + 1) % mersq // mer 12 is mer 0
+      for (let i = m0; i < mn; i++) { // meridians
+				for (let j = p0; j < pn ; j++) { // parallels   exclude upper lat
+				
+          let i0 = i							// mer index
+          let i1 = (i + 1) % mersq 	// return to origin
 
-          let j0 = j
-          let j1 = (j + 1) //
+          let j0 = j							// par index
+          let j1 = (j + 1) 				//
 
-          vertices[index(i0, j0)] = mersCoords[i0][j0] // VERTICES
-          vertices[index(i0, j1)] = mersCoords[i0][j1]
-          vertices[index(i1, j0)] = mersCoords[i1][j0]
-          vertices[index(i1, j1)] = mersCoords[i1][j1]
+					if (mersCoords[i0][j0] === undefined) console.log("coord", i0, j0, "undefined")
+					if (mersCoords[i0][j1] === undefined) console.log("coord", i0, j1, "undefined")
+					if (mersCoords[i1][j0] === undefined) console.log("coord", i1, j0, "undefined")
+					if (mersCoords[i1][j1] === undefined) console.log("coord", i1, j1, "undefined")
+					
+          vertices[index(i0, j0)] = mersCoords[i0][j0 * ry] // [0,0]	revert precision to step
+          vertices[index(i0, j1)] = mersCoords[i0][j1 * ry]	// [0,1]
+					
+          vertices[index(i1, j0)] = mersCoords[i1][j0 * ry]	// [1,0]
+          vertices[index(i1, j1)] = mersCoords[i1][j1 * ry]	// [1,1]
         }
       }
 
@@ -329,7 +355,7 @@
 
       let faces = []
       for (let i = m0; i < mn; i++) { // meridians    0 - 11
-        for (let j = p0; j < pn; j++) { // parallels  0 -  5
+        for (let j = p0; j < pn - 1; j++) { // exclude upper segement
           let i0 = i
           let i1 = (i + 1) % mersq // mer 12 is mer 0
 
