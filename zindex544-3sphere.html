@@ -119,27 +119,6 @@ let muonAlima = function muonAlima (__mapper) {
 
   let conform = {'projection': 'natform','form': form}
   let proform = {projection: 'uniwen',translate: [230,240,0],rotate: [ 90, 0, 0 ],scale: 1,'dims': 3,'control': 'wen'}
-  let gratiframe = {
-
-			'frame':
-
-								[		[ [-180, 180, 90, 90], [-90, 90, 45, 15] ],		// 0, 1
-										 [	[-180, 180, 90, 90],	[-90, 90, 45, 15] ] ],	// 36, 18
-
-			// [		[   [-180, 180, 90, [[[10,10]]]], // X mayor		11 12
-							// [ -90, 90, 360, [[[10,10]]]] ], // Y mayor
-					// [	[-180, 180, 90, [[[5,5]]]], // x minor
-						// [ -80, 80, 40, [[[5,5]]]] ]	] // y minor
-
-
-		}
-
-  let gratigrate = {
-
-			'lattice': [ [180, 90 ],				// X	major minor	21 22
-										[90, 90 ] ]				// Y	major minor
-
-		}
 
   /*******************************************
  *     @animas
@@ -148,8 +127,8 @@ let muonAlima = function muonAlima (__mapper) {
   let gratifaces11 = {
     'halo': 'geojson',
     'geoform': p => {
-			let vertices =  mgraticule.gvertices(p.payload.gratiframe)
-			let faces = mgraticule.gfaces(p.payload.gratiframe)
+			let vertices =  mgraticule.gvertices(p.payload.graticule)
+			let faces = mgraticule.gfaces(p.payload.graticule)
 			faces = faces.map(face => [...face, face[0]])
 			faces = faces.map(face => // faces : points => vertices
           face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
@@ -165,15 +144,19 @@ let muonAlima = function muonAlima (__mapper) {
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
 			'conform': conform,
       'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 150, 100 ],scale: 1,'dims': 3,'control': 'wen'},
-      'gratiframe': gratiframe,
+      'graticule': {
+					'frame':
+								[		[ [-180, 180, 90, 90], [-90, 90, 45, 15] ],		// 0, 1
+										 [	[-180, 180, 90, 90],	[-90, 90, 45, 15] ] ],	// 36, 18
+				},
     }
   }
  // -------------------------------  gratifaces12
   let gratifaces12 = {
     'halo': 'geojson',
     'geoform': p => {
-			let vertices =  mgraticule.gvertices(p.payload.gratiframe)
-			let faces = mgraticule.gfaces(p.payload.gratiframe)
+			let vertices =  mgraticule.gvertices(p.payload.graticule)
+			let faces = mgraticule.gfaces(p.payload.graticule)
 			faces = faces.map(face => [...face, face[0]])
 			faces = faces.map(face => // faces : points => vertices
           face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
@@ -189,15 +172,20 @@ let muonAlima = function muonAlima (__mapper) {
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratifaces12'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
 			'conform': conform,
-      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 150, 250 ],scale: 1,'dims': 3,'control': 'wen'},
-      'gratiframe': gratigrate,
+      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 450, 100 ],scale: 1,'dims': 3,'control': 'wen'},
+      'graticule': {
+
+				'lattice': [ [180, 90 ],				// X	major minor	21 22
+											[90, 90 ] ]				// Y	major minor
+
+			},
     }
 	}
   // -------------------------------  gratilines21
   let gratilines21 = {
     'halo': 'geojson',
     'geoform': p => {
-      let edges = mgraticule.gedges(p.payload.gratiframe)
+      let edges = mgraticule.gedges(p.payload.graticule)
 			let type = 'Feature'
 			let properties = {}
       let geometry = {type: 'MultiLineString',coordinates: edges}
@@ -207,17 +195,21 @@ let muonAlima = function muonAlima (__mapper) {
     'payload': {
       'tim': tim,
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},
-      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.1, 0.3]]], 'cp': [[[0.9, 0.9, 0.9]]]},
 			'conform': conform,
-      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 500, 100 ],scale: 1,'dims': 3,'control': 'wen'},
-      'gratiframe': gratiframe,
+      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 150, 250 ],scale: 1,'dims': 3,'control': 'wen'},
+      'graticule': {
+					'frame':
+										[		[ [-180, 180, 90, 90], [-90, 90, 45, 15] ],		// mayor
+												[	[-180, 180, [[[90,18]]], [[[90,18]]]], [-90, 90, [[[90,9]]], [[[90,9]]]] ] ],	// minor
+				},
     }
   }
  // -------------------------------  gratilines22
   let gratilines22 = {
     'halo': 'geojson',
     'geoform': p => {
-      let edges = mgraticule.gedges(p.payload.gratiframe)
+      let edges = mgraticule.gedges(p.payload.graticule)
 				let type = 'Feature'
 			let properties = {}
       let geometry = {type: 'MultiLineString',coordinates: edges}
@@ -230,8 +222,13 @@ let muonAlima = function muonAlima (__mapper) {
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines22'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
 			'conform': conform,
-      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 500, 250 ],scale: 1,'dims': 3,'control': 'wen'},
-      'gratiframe': gratigrate,
+      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 450, 250 ],scale: 1,'dims': 3,'control': 'wen'},
+      'graticule': {
+
+				'lattice': [ [180, [[[90,30]]] ],				// X	major minor	21 22
+											[90, [[[90,30]]] ] ]				// Y	major minor
+
+			},
     }
   }
   // -------------------------------  img
@@ -300,16 +297,10 @@ let muonAlima = function muonAlima (__mapper) {
     'payload': {
       'tim': tim,
       'ric': {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
-      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
-
-			'conform': {
-
-				'projection': 'natform',
-				'form': formRocket
-
-			},
+      'boform': { 'csx': 0, 'cf': [[[666, 333]]], 'cs': [[[333,33]]], 'cw': 0.9, 'co': [[[0.03, 0.3, 0.9]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+			'conform': {'projection': 'natform','form': formRocket},
       'proform': {
-        projection: 'uniwen',translate: [ 300, 200 ],scale: 1, dims: 3, control: 'wen'},
+        projection: 'uniwen', translate: [ 300, 200 ], scale: 1, dims: 3, control: 'wen'},
       'graticule': {
 
 					'frame': [ [ [-180, 180, 90, 10],
