@@ -175,9 +175,11 @@
 			let {X0, X1, DX, PX, x0, x1, dx, px,
 					Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
 					
-			let mer = 1, par = 1
-			let merfn = (a,b,d) => d3.range(Math.ceil(a / d) * d, b, d)
-			let parfn = (a,b,d) => d3.range(Math.ceil(a / d) * d, b, d)
+			let bigmer = (params.bigmer !== undefined) ? params.bigmer : 1
+			let bigpar = (params.bigpar !== undefined) ? params.bigpar : 1
+			
+			let merfn = (params.merfn !== undefined) ? params.merfn : (a,b,d) => d3.range(Math.ceil(a / d) * d, b, d)
+			let parfn = (params.parfn !== undefined) ? params.parfn : (a,b,d) => d3.range(Math.ceil(a / d) * d, b, d)
 
 			let X = graticuleX (Y0, Y1, PY),		// get X for Y with precision PY
 					Y = graticuleY (X0, X1, PX)
@@ -202,7 +204,7 @@
 					
 					let _mm2 = merfn(_x0, _x1, _dx) // short mers
 
-					let _mm3 = ((mer) ? [..._mm1, ..._mm2] : [..._mm2])	// meridian ?
+					let _mm3 = ((bigmer) ? [..._mm1, ..._mm2] : [..._mm2])	// meridian ?
 									.sort((a, b) => a - b)
 									.filter((elem, pos, arr) => arr.indexOf(elem) == pos)
 
@@ -213,33 +215,6 @@
 					
 			}
 			let mms = mm3(X, X0, X1, DX, x, x0, x1, dx, epsilon)		// _e_
-
-			
-			// let pp1 = (_Y0, _Y1, _DY, _epsilon) => d3.range(Math.ceil(_Y0 / _DY) * _DY, _Y1, _DY)
-			
-			// let pp2 = (_y0, _y1, _dy, _epsilon) => d3.range(Math.ceil(_y0 / _dy) * _dy, _y1  + _epsilon,	_dy)
-
-			let pp3 = function (_Y, _Y0, _Y1, _DY, _y, _y0, _y1, _dy, _epsilon) {
-				
-					// let _pp1 = pp1(_Y0, _Y1, _DY, _epsilon)
-					let _pp1 = parfn(_Y0, _Y1, _DY)
-					
-					// let _pp2 = pp2(_y0, _y1, _dy, _epsilon)
-					let _pp2 = parfn(_y0, _y1 + _epsilon, _dy)
-
-					let _pp3 = ((par) ? [..._pp1, ..._pp2] : [..._pp2])	// meridian ?
-								.sort((a, b) => a - b)
-								.filter((elem, pos, arr) => arr.indexOf(elem) === pos)
-
-					let type = "MultiLineString"
-					let coordinates = _pp3.map(d => (Math.abs(d % _DY) > _epsilon) ? _y(d) : _Y(d))
-					return {type, coordinates}
-
-			}
-			let pps = pp3(Y, Y0, Y1, DY, y, y0, y1, dy, epsilon)		// _e_
-
-
-
 			let bmm = {			// long meridians
 					type: "MultiLineString",
 					coordinates: merfn(X0, X1, DX)
@@ -248,21 +223,23 @@
 					type: "MultiLineString",
 					coordinates: merfn(x0, x1, dx)
 			}
-			let bp = {			// long parallel
-					type: "MultiLineString",
-					// coordinates: pp1(Y, Y0, Y1, DY, y, y0, y1, dy, epsilon)
-					coordinates: parfn(Y0, Y1, DY)
-			}
-			let pp = {			// parallels
-					type: "MultiLineString",
-					coordinates: parfn(y0, y1 + epsilon, dy)
-			}
+			
+			
+			let ppBig = parfn(Y0, Y1, DY)
+			let ppShort = parfn(y0, y1 + epsilon, dy)
+			let ppAll = [...ppBig, ...ppShort]
+								.sort((a, b) => a - b)
+								.filter((elem, pos, arr) => arr.indexOf(elem) === pos)
+			let pps = {type: "MultiLineString",
+					coordinates: ppAll.map(d => (Math.abs(d % DY) > epsilon) ? y(d) : Y(d))}
+			let bp = {type: "MultiLineString",coordinates: ppBig}// long parallel
+			let pp = {type: "MultiLineString",coordinates: ppShort}// parallels
+			
+			
 			let ret = {
 								bp, bmm, pp , mm,
 								mms, pps,
 			}
-
-
 
       return ret
     }
