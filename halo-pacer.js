@@ -51,18 +51,34 @@
 			/* ****
 			 * 		defaults
 			 */
-      let initSitus = (payload.pacer.initSitus === undefined) ? d => ({x: width / 2, y: height / 2, z: 0 }) : payload.pacer.initSitus
-      let eventSitus = (payload.pacer.eventSitus === undefined) ? d => ({x: mouse.event.x, y: mouse.event.y, z: 0 }) : payload.pacer.eventSitus
-      let autoSitus = (payload.pacer.autoSitus === undefined) ? d => ({x: Math.random() * width / 2, y: Math.random() * height / 2, z: 0 }) : payload.pacer.autoSitus
+      let initSitus = (payload.pacer.initSitus === undefined) 	// initSitus
+				? d => ({x: width / 2, y: height / 2, z: 0 }) 
+				: payload.pacer.initSitus(anigram)
+				
+      let eventSitus = (payload.pacer.eventSitus === undefined) // eventSitus
+				? d => ({x: mouse.event.x, y: mouse.event.y, z: 0 }) 
+				: payload.pacer.eventSitus(anigram)
+				
+      let autoSitus = (payload.pacer.autoSitus === undefined) 	// autoSitus
+				? d => ({x: Math.random() * width / 2, y: Math.random() * height / 2, z: 0 }) 
+				: payload.pacer.autoSitus(anigram)
 
-      let fider = (payload.pacer.fider !== undefined) ? payload.pacer.fider	// set idenitifier
-        : anitem => anitem.payload.ric.fid
+      let fider = (payload.pacer.fider === undefined) 					// identifier
+				? anitem => anitem.payload.ric.fid
+        : payload.pacer.fider
 
       let geometrier = point => ({type: 'Point', coordinates: null})
-      if (payload.pacer.geometry === 'Point') geometrier = point => ({type: 'Point', coordinates: null})
-      if (payload.pacer.geometry === 'LineString') geometrier = point => ({type: 'LineString', coordinates: null})
+			
+      if (payload.pacer.geometry === 'Point') {
+					geometrier = point => ({type: 'Point', coordinates: null})
+			} else if (payload.pacer.geometry === 'LineString') {
+					geometrier = point => ({type: 'LineString', coordinates: null})
+			}
 
-			let count = {} // items in cycle
+			/* ****
+			 * 		count
+			 */
+			 let count = {} // items in cycle
 
 			/* ****
 			 * 		controls
@@ -114,12 +130,12 @@
 
           if (count[key] > 0) { // if count on this sort
             if (key === 'init') { // init defaults center
-              situs = initSitus(anigram)
+              situs = initSitus
             } else if (key === 'auto') { // auto defauts random
               if (0 && 1) console.log('h.pacer haloPacerHalo_gramm situs', situs)
-              situs = autoSitus(anigram)		// eg.  d => mstace.getLocus(d)
+              situs = autoSitus		// eg.  d => mstace.getLocus(d)
             } else if (key === 'event') { // event defaults event
-              situs = eventSitus(anigram)
+              situs = eventSitus
             }
 
             let _ric = ric

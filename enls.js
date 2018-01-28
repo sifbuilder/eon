@@ -11,5 +11,5 @@ document.write("<script src='d3-geo-voronoi.js'><\/script>")
 /*  topojson */  
 document.write("<script src='topojson.v3.js'><\/script>")    
 /*  three */  
-document.write("<script src='three.min.js'><\/script>")    
+document.write("<script src='three.js'><\/script>")    
 document.write("<script src='three-trackballcontrols.js'><\/script>")    

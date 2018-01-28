@@ -28,8 +28,12 @@ let muonAlima = function muonAlima (__mapper) {
     scaleView = Math.min(width / 2, height) / Math.PI
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
-    mnat = __mapper('xs').m('nat'),
-    mstace = __mapper('xs').m('stace')
+    mgeom = __mapper('xs').m('geom'),
+    mwen = __mapper('xs').m('wen'),
+    mmouse = __mapper('xs').m('mouse'),
+    mstace = __mapper('xs').m('stace'),
+    mstore = __mapper('xs').m('store'),
+		mnat = __mapper('xs').m('nat')
 
   /*******************************************
  *      @pics
@@ -275,8 +279,7 @@ let muonAlima = function muonAlima (__mapper) {
         'maxN': 60,
         'span': 0,
 
-        initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
-        eventSitus: d => ({x: mmouse.event().x, y: mmouse.event().y, z: 0 }),
+
         autoSitus: d => mstace.getLocus(null, d),
 
         fider: anitem => anitem.payload.ric.fid,

@@ -26,7 +26,8 @@ let muonAlima = function (__mapper) {
     mwen = __mapper('xs').m('wen'),
     mmouse = __mapper('xs').m('mouse'),
     mstace = __mapper('xs').m('stace'),
-    mstore = __mapper('xs').m('store')
+    mstore = __mapper('xs').m('store'),
+		mnat = __mapper('xs').m('nat')
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
@@ -83,8 +84,6 @@ let muonAlima = function (__mapper) {
         'translate': {'x': 0, 'y': 0, 'z': 0 },
         'scale': 1,
         'rotate': [0, 0, 0],
-        'focale': Infinity,
-        'zafin': [0, 1],
         'lens': [0, 1 ,Infinity],
         'dims': 3,
         'control': 'wen'
@@ -93,33 +92,21 @@ let muonAlima = function (__mapper) {
       pacer: {
         initN: 0,
         eventN: 1,
-        autoN: 0,
+        autoN: 6,
         autoP: 0.1,
         outed: 0,
         maxN: 60,
         span: 0,
 
-        initSitus: ani => ({x: width / 2, y: height / 2, z: 0 }),
-				
-        eventSitus: ani => {
-						let situs
-						if (mmouse.event() !== undefined) {
-							let x = mmouse.event().x
-							let y = mmouse.event().y
-							let z = 0
-							situs = {x, y, z }
-						}
-						return situs
-				},
-
         autoSitus: ani => mstace.getLocus(ani),
 
-        fider: anitem => mstore.anigrams()
+        fider: anitem => 'item' + mstore.anigrams()
           .filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
 												ani.payload.ric.cid === anitem.payload.ric.cid)
           .length,
 
-        geometry: 'Point'
+        geometry: 'Point',
+				geometrier: ani => ({type: 'Point', coordinates: null})
 
       }
 
