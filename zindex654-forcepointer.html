@@ -162,7 +162,7 @@ let muonAlima = function (__mapper) {
 
       let field = 	{
         'key': 'energy',
-        'force': __mapper('xs').m('forces').force(forceParams)
+        'force': __mapper('xs').m('forces')(forceParams)
 
       }
 
@@ -190,7 +190,7 @@ let muonAlima = function (__mapper) {
 
       let field = 	{
         'key': 'viscosity',
-        'force': __mapper('xs').m('forces').force(forceParams)
+        'force': __mapper('xs').m('forces')(forceParams)
       }
 
       aniCompForces.push(field)
@@ -221,7 +221,7 @@ let muonAlima = function (__mapper) {
 
       let field = 	{
         'key': 'charge',
-        'force': __mapper('xs').m('forces').force(forceParams)
+        'force': __mapper('xs').m('forces')(forceParams)
       }
       aniCompForces.push(field)
       return aniCompForces
