@@ -124,7 +124,11 @@ let muonAlima = function (__mapper) {
         eventSitus: d => ({x: mmouse.event().x, y: mmouse.event().y, z: 0 }),
         autoSitus: d => mstace.getLocus(d),
 
-        geometrier: point => ({type: 'Point', coordinates: null})
+        geojsor: (d,i) => ({
+							type: 'Feature', 
+							geometry: {type: 'Point', coordinates: null},
+							properties: {}
+				})
 
       }
 

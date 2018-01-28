@@ -114,13 +114,31 @@ let muonAlima = function (__mapper) {
 
         autoSitus: ani => mstace.getLocus(ani),
 
-        fider: anitem => mstore.anigrams()
-          .filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
+        fider: anitem => 'item' + 
+					mstore.anigrams()
+						.filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
 												ani.payload.ric.cid === anitem.payload.ric.cid)
-          .length,
+						.length,
 
-        geometry: 'Point'
+        geojsor: (d,i) => ({
+							type: 'Feature', 
+							geometry: {type: 'Point', coordinates: null},
+							
+						 'properties': {
 
+								geonode: {
+									type: 'Feature',
+									geometry: { type: 'Point', coordinates: [0,0,0] },
+									properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+								}
+
+							}
+
+
+							
+							
+				})
+				
       }
 
     }

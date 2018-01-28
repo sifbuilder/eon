@@ -278,16 +278,22 @@ let muonAlima = function muonAlima (__mapper) {
         'outed': 0,
         'maxN': 60,
         'span': 0,
+				 aad: 1,
 
 
         autoSitus: d => mstace.getLocus(null, d),
 
         fider: anitem => anitem.payload.ric.fid,
-        geometry: 'LineString'
-      }
-    }
-
-  }
+				
+        geojsor: (d,i) => ({
+							type: 'Feature', 
+							geometry: {type: 'LineString', coordinates: null},
+							properties: {}
+				})
+				
+			}
+		}
+	}
 
   /*******************************************
  * @animaApi

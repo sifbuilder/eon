@@ -89,6 +89,45 @@ let muonAlima = function (__mapper) {
         'control': 'wen'
       },
 
+			form: {
+
+				'x': {
+					'm1': 4,
+					'm2': 4,
+					'n1': 100,
+					'n2': 100,
+					'n3': 100,
+					'a': 1,
+					'b': 1, // square
+					'ra2': 12,
+					'v0': 0,
+					'v1': 1,
+					'seg5': [[[360, 360]]],
+					'w4': [[[90, 90 - 0 * 360]]],
+					'pa6': 0,
+					'pb7': 360,
+					'fas8': 0
+				},
+
+				'y': {
+					'm1': 4,
+					'm2': 4,
+					'n1': 100,
+					'n2': 100,
+					'n3': 100,
+					'a': 1,
+					'b': 1, // square
+					'ra2': 12,
+					'v0': 0,
+					'v1': 1,
+					'seg5': [[[360, 360]]],
+					'w4': [[[90, 90 - 0 * 360]]],
+					'pa6': 0,
+					'pb7': 360,
+					'fas8': -90
+				}
+
+			},
       pacer: {
         initN: 0,
         eventN: 1,
@@ -96,17 +135,31 @@ let muonAlima = function (__mapper) {
         autoP: 0.1,
         outed: 0,
         maxN: 60,
+        aad: 1,
         span: 0,
 
         autoSitus: ani => mstace.getLocus(ani),
 
-        fider: anitem => 'item' + mstore.anigrams()
-          .filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
+        fider: anitem => 'item' +
+					mstore.anigrams()
+						.filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
 												ani.payload.ric.cid === anitem.payload.ric.cid)
-          .length,
+						.length,
 
-        geometry: 'Point',
-				geometrier: ani => ({type: 'Point', coordinates: null})
+
+				geojsor: ani => ({
+						'type': 'Feature',
+						'geometry': {'type': 'Polygon','coordinates': mnat.natPolygon(ani.payload.form)},
+						'properties': {
+
+								geonode: {
+									type: 'Feature',
+									geometry: { type: 'Point', coordinates: null },
+									properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+								}
+
+							}
+				})
 
       }
 

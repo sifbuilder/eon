@@ -128,14 +128,14 @@
     let proformer = anigram => {
       let uid = anigram.payload.uid
       let projdef = anigram.payload.proform
-
+						if (0 && 1) console.log('m.profier.proformer')
 			let projer
 			if (projdef === undefined) {
 				 
 				 projer = d => d
 			
 			} else {
-			
+
 						if (projdef.translate) {
 							if (uid === 'avanat_avanat_avaform') if (0 && 1) console.log('m.profier.proformer anigram', uid, projdef.translate.x)
 
@@ -149,13 +149,13 @@
 
 						let projection = protion(projdef, anigram)
 
-							projer = json => {
+						projer = json => {
 							if (0 && 1) console.log('m.profier.proformer:json', json)
 
 							let proformed =	mproj3ct(json, projection)
 
-							if (json.properties && json.properties.geonode !== undefined) {
-								let _geonode = mproj3ct(json.properties.geonode, projection)
+							if (json.properties && json.properties.geonode !== undefined) {	
+								let _geonode = mproj3ct(json.properties.geonode, projection)	// project geonode
 								proformed.properties.geonode = _geonode
 							}
 
