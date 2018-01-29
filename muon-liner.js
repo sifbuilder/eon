@@ -32,16 +32,11 @@
    * 		@orientate
 
    */
-    let orientate = function (anima) {
-      let anigram = manitem(anima).anigram(),										// anigram
-        halo = 				anigram.halo, // halo
-        geoform = 		anigram.geoform || manitem.coreGeoform(), // geoform
-        payload = 		anigram.payload, // payload
-        uid = 				payload.uid, // uid
-        parentuid = 	payload.parentuid // parentuid
+    let orientate = function (anigram) {
+      let payload = 		anigram.payload, // payload
+					uid = 				payload.uid
 
-			if (0 && 1)	console.log('h.geojson.gramm anigram', anigram.payload.uid, state.rotate)
-      let parentAnigram = mstore.findAnigramFromUid(parentuid) // parent
+			if (1 && 1)	console.log('h.geojson.gramm anigram', anigram.payload.uid, state.rotate)
       let preAnigram = mstore.findAnigramFromUid(uid) 		// pre-anigram
 			
 
@@ -52,7 +47,7 @@
 			let parentCoords = manitem.parentCoords(anigram)
 			if (0 && 1)	console.log('h.geojson.gramm parentCoords', parentCoords)
 
-      if (parentCoords) {
+      if (parentCoords && parentCoords.length > 0) {
 
 				let parentCoordsDims = mlacer.unslide(parentCoords)
 				if (0 && 1)	console.log('h.geojson.gramm:parentCoordsDims', parentCoordsDims)

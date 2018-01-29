@@ -22,17 +22,16 @@
     let gramm = function (anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram(),										// anigram
         halo = 				anigram.halo, // halo
-        geoform = 		anigram.geoform || manitem.coreGeoform(), // geoform
+        geoform = 		anigram.geoform, //  || manitem.coreGeoform(), // geoform
         payload = 		anigram.payload, // payload
         boform = 			payload.boform, // boform
         ric = 				payload.ric, // ric
         tim = 				payload.tim, // tim
-        proform 	=			payload.proform, // proform
+        proform 	=		payload.proform, // f.v(payload.proform, anigram), // proform
         conform = 		payload.conform, // conform
         uid = 				payload.uid, // uid
         parentuid = 	payload.parentuid, // parentuid
-        gj = 					f.v(geoform, anigram)
-
+        gj = 					geoform // f.v(geoform, anigram)
 			
 			
       gj = mprofier.conformer(anigram)(gj)
@@ -41,7 +40,7 @@
       gj = mprofier.proformer(anigram)(gj)
 
       gj = mgeoj.featurize(gj) 										// featurize
-      gj = mboform.boformer(anigram, gj)	// boform
+      gj = mboform.boformer(anigram, gj)			// boform
       gj = mgeoj.zorder(gj) 											// order
       gj = mric.qualier(ric, anigram, gj)					// qualify
 

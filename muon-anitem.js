@@ -115,6 +115,7 @@
   *   @enty
   */
     let enty = function (anima, t) {
+			
       let anigram = {}
       if (anima !== undefined) {
         if (t !== undefined) {
@@ -124,6 +125,12 @@
           anigram = __mapper('xs').m('snap')(anima, t)
         }
         if (anigram.payload === undefined) anigram.payload = {}
+				
+				anigram.geoform = f.v((anigram.geoform|| coreGeoform()), anigram)	// geoform
+				anigram.payload.conform = f.v(anigram.payload.conform, anigram)		// conform
+				anigram.payload.proform = f.v(anigram.payload.proform, anigram)		// proform
+				
+				
         setAnitem(anigram)
       }
       return enty

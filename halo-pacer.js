@@ -162,11 +162,11 @@
 
 
             if (aad && newItem.geoform.geometry.type === 'LineString') {  // CUM LINE
-						
+
               let coords = newItem.geoform.geometry.coordinates // geocoords of new item
               if (coords && coords.length > 0) {
                 let loc = coords[coords.length - 1]   // last point in cummul string
-                let dx = vsitus[0] - loc[0]           
+                let dx = vsitus[0] - loc[0]
                 let dy = vsitus[1] - loc[1]
                 let dz = vsitus[2] - loc[2]
                 let d = dx * dx + dy * dy + dz * dz // distance from vsitus to last point
@@ -176,18 +176,15 @@
                 coords = Array.of(vsitus)
               }
               newItem.geoform.geometry.coordinates = coords
-							
+
 							newItems = [...newItems,...__mapper('xs').h('geojson').gramm(newItem)] // add items
-							
+
             } else if (newItem.geoform.geometry.type === 'Point') {			// POINT
-							
+
               let itemcoords = newItem.geoform.geometry.coordinates
-              let geonode = newItem.geoform.properties.geonode
-              let geonodecoords = geonode.geometry.coordinates
-            
-						
+
               if (itemcoords !== null) {      // paced item DOES exist
-							
+
                 let loc = itemcoords
                 let dx = vsitus[0] - loc[0]
                 let dy = vsitus[1] - loc[1]
@@ -195,46 +192,40 @@
                 let d = dx * dx + dy * dy + dz * dz
 
                 if (d >= span) {
-									
+
 									newItem.geoform.geometry.coordinates = [0,0,0]
 									newItem.payload.proform = {'projection': 'uniwen','translate': vsitus}	// proform
 									newItems = [...newItems,...__mapper('xs').h('geojson').gramm(newItem)]	// add items
-									
+
 								}
-                
+
               } else {											// paced item NOT exists
-							
-                
+
+
 									newItem.geoform.geometry.coordinates = [0,0,0]
 									newItem.payload.proform = {'projection': 'uniwen','translate': vsitus}	// proform
 									newItems = [...newItems,...__mapper('xs').h('geojson').gramm(newItem)]	// add items
-                
+
               }
-							
+
 
             } else {
-							
-							if (1 && 1) console.log("h.pacer", )
-							
-						
+
 								let itemcoords = newItem.geoform.geometry.coordinates
 								let geonode = newItem.geoform.properties.geonode
 								let geonodecoords = geonode.geometry.coordinates
-								
-								
+
 								if (geonodecoords == undefined || geonodecoords == null) geonodecoords = [0,0]
                 newItem.geoform.geometry.coordinates = itemcoords
 								newItem.geoform.properties.geonode.geometry.coordinates = geonodecoords
 								newItem.payload.proform = {'projection': 'uniwen','translate': vsitus}	// proform
 								newItems = [...newItems,...__mapper('xs').h('geojson').gramm(newItem)]	// add items
-								
-								
-								
-							
-						}							
-						
-						
-						
+
+
+						}
+
+
+
 
           }
         }
