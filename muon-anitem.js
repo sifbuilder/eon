@@ -143,7 +143,7 @@
     enty.coreGeoform = coreGeoform			// default halo geoform
     enty.coreGeonode = coreGeonode			// default halo geonode
 
-    enty.anigram = (ani, t) => {
+    enty.anigram = (ani, t) => {		// anigam
       if (ani !== undefined) { // if give anima
         if (t !== undefined) { // if given time
           ani = __mapper('xs').m('snap')(ani, t) // anima snap  to anigram

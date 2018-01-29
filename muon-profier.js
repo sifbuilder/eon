@@ -149,17 +149,19 @@
 
 						let projection = protion(projdef, anigram)
 
-						projer = json => {
-							if (0 && 1) console.log('m.profier.proformer:json', json)
+						projer = json => {																							// anigram
 
-							let proformed =	mproj3ct(json, projection)
+	
+							let proformed =	mproj3ct(json, projection)												// proform geoform
+							
 
-							if (json.properties && json.properties.geonode !== undefined) {	
-								let _geonode = mproj3ct(json.properties.geonode, projection)	// project geonode
-								proformed.properties.geonode = _geonode
+							if (proformed.properties && proformed.properties.geonode !== undefined) {	
+							
+								let geonode = proformed.properties.geonode											// geonode
+									geonode = mproj3ct(geonode, projection)												// proform geonode
+								proformed.properties.geonode = geonode
+								
 							}
-
-							if (0 && 1) console.log('m.profier.proformer:geonode', json.properties.geonode)
 
 							return proformed
 						}

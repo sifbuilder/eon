@@ -14,7 +14,8 @@
       mric = __mapper('xs').m('ric'),
       mboform = __mapper('xs').m('boform'),
       mgeoj = __mapper('xs').m('geoj'),
-      mprofier = __mapper('xs').m('profier')
+      mprofier = __mapper('xs').m('profier'),
+      mstore = __mapper('xs').m('store')
 
     /**********************
    *    @gramify
@@ -22,7 +23,7 @@
     let gramm = function (anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram(),										// anigram
         halo = 				anigram.halo, // halo
-        geoform = 		anigram.geoform, //  || manitem.coreGeoform(), // geoform
+        geoform = 		anigram.geoform, // geoform
         payload = 		anigram.payload, // payload
         boform = 			payload.boform, // boform
         ric = 				payload.ric, // ric
@@ -31,34 +32,40 @@
         conform = 		payload.conform, // conform
         uid = 				payload.uid, // uid
         parentuid = 	payload.parentuid, // parentuid
-        gj = 					geoform // f.v(geoform, anigram)
-			
-			
+        gj = 					f.v(geoform, anigram)
+
+
       gj = mprofier.conformer(anigram)(gj)
 
-			
+
+
       gj = mprofier.proformer(anigram)(gj)
+      if (0 && 1)	console.log('h.geojson.gramm gj', gj)
 
       gj = mgeoj.featurize(gj) 										// featurize
       gj = mboform.boformer(anigram, gj)			// boform
       gj = mgeoj.zorder(gj) 											// order
       gj = mric.qualier(ric, anigram, gj)					// qualify
 
-      if (0 && 1)	console.log('h.geojson.gramm json', ric, gj)
 
       newAnigrams = gj.features.map((d, i) => {	// d is feature
         let newAnigram = {}
 
-        newAnigram.payload = {}
-        newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
+					newAnigram.payload = {}
+					newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
+					newAnigram.payload.ric = d.properties.ric		// hoist ric
+					newAnigram.payload.uid = d.properties.uid		// hoist uid
+					newAnigram.payload.preani = mstore.findAnigramFromUid(d.properties.uid)
 
-        newAnigram.geoform = d
-        newAnigram.payload.ric = d.properties.ric		// hoist properties
-        newAnigram.payload.uid = d.properties.uid
+
+					newAnigram.geoform = d				// inherit geoform
+
+
+
         return newAnigram
       })
 
-      if (0 && 1)	console.log('h.geojson newAnigrams:', newAnigrams.length, newAnigrams)
+      // if (1 && 1)	console.log('h.geojson newAnigrams:', newAnigrams.length, newAnigrams)
       return newAnigrams
     }
 
