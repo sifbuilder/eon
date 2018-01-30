@@ -47,7 +47,6 @@
         conform = 		payload.conform, // conform
         uid = 				payload.uid, // uid
         parentuid = 	payload.parentuid, // parentuid
-        geonode = 		payload.geonode || manitem.coreGeonode(),		// geonode
         json
 
       anima.payload.geoform = geoform

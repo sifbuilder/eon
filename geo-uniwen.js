@@ -11,7 +11,7 @@
 
   let geoUniwen = function geoUniwen (__mapper = {}) {
     let f = __mapper('props')(),
-      g = __mapper('xs').m('geom'),
+      mgeom = __mapper('xs').m('geom'),
       mwen = __mapper('xs').m('wen'),
       cwen = __mapper('xs').c('wen')
 
@@ -19,8 +19,6 @@
     init.scale 					= [1, 1, 1]
     init.rotate 				= [0, 0, 0]
     init.translate 			= [0, 0, 0]
-    init.focale 				= Infinity
-    init.zafin 					= [0, 1]
     init.center 				= [0, 0, 0]
     init.lens 					= [0, 1, Infinity]
 
@@ -29,12 +27,10 @@
     state.rotate 				= init.rotate
     state.translate 		= init.translate
     state.center 				= init.center
-    state.focale 				= init.focale
-    state.zafin 				= init.zafin
     state.lens 					= init.lens
 
     let wenRotation = function (rot) {
-      let rox = mwen.matrix(rot !== undefined ? g.to_radians(rot) : cwen.rotInDrag())
+      let rox = mwen.matrix(rot !== undefined ? mgeom.to_radians(rot) : cwen.rotInDrag())
       return function (x, y, z = 0) {
         return mwen.rotateMatrix([x, y, z], rox)
       }
@@ -48,7 +44,7 @@
     }
 
     let rotationInverse = function (rot) {
-      let rox = mwen.matrix(rot !== undefined ? g.to_radians(rot) : cwen.rotInDrag())
+      let rox = mwen.matrix(rot !== undefined ? mgeom.to_radians(rot) : cwen.rotInDrag())
       return function (x, y, z = 0) {
         return mwen.transpose33([x, y, z], rox)
       }
@@ -112,8 +108,6 @@
       m.rotate = _ => _ !== undefined ? (state.rotate = _, m) : m
 
       m.scale = _ => _ !== undefined ? (state.scale = _, m) : m
-      m.focale = _ => _ !== undefined ? (state.focale = _, m) : m
-      m.zafin = _ => _ !== undefined ? (state.zafin = _, m) : m
       m.lens = _ => _ !== undefined ? (state.lens = _, m) : m
 
       return m

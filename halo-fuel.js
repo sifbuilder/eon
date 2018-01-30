@@ -35,7 +35,6 @@
         conform = 		payload.conform, 					// conform
         uid = 				payload.uid, 							// uid
         parentuid = 	payload.parentuid, 				// parentuid
-        geonode = 		payload.geonode || manitem.coreGeonode(),		// geonode
         json
 
       let fuel = payload.fuel,

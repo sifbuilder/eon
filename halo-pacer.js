@@ -43,7 +43,6 @@
         conform =     payload.conform, // conform
         uid =         payload.uid, // uid
         parentuid =   payload.parentuid, // parentuid
-        geonode =     payload.geonode,                            // geonode
         pacer =       payload.pacer || {},                        // pacer
         mousesignal = pacer.mousesignal || 0,                       // mousesignal
         span =        pacer.span || 0,                        // span between items

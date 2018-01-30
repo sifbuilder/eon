@@ -61,7 +61,6 @@
         conform = 		payload.conform, // conform
         uid = 				payload.uid, // uid
         parentuid = 	payload.parentuid, // parentuid
-        geonode = 		payload.geonode || _geoform,		// geonode
         json
 
       anima.payload.geoform = geoform

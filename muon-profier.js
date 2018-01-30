@@ -128,7 +128,7 @@
     let proformer = anigram => {
       let uid = anigram.payload.uid
       let projdef = anigram.payload.proform
-						if (1 && 1) console.log('m.profier.proformer')
+			if (0 && 1) console.log('m.profier.proformer')
 			let projer
 			if (projdef === undefined) {
 				 
