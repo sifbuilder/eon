@@ -8,21 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // simulation @forces
-  // stace.sim
-  // .stop()
-  // .numDimensions(3) // graph.numDimensions
-  // .aniNodes(stace.animas.filter(d => (d.ric.gid === "anima3d")))
-  // .force('link', d3_force.forceLink().id(d => d._id).links(stace.animas.filter(d => (d.ric.gid === "vortlink"))).strength(0.01))
-  // .force('charge', d3_force.forceManyBody().strength(-10.9))
-  // .force('center', d3_force.forceCenter(0))
-  // .restart()
-  // .on("tick", ()=> {
-  // console.log("------------ tick")
-  // __mapper("muonStore").apply({"type":"UPDANIMA","caller":"simulation  ","animas":stace.sim.aniNodes()})
-  // })
-
-  // ------------------------- muonSimulation
   let muonSimulation = function (__mapper = {}) {
     let f = __mapper('props')()
     let msnap = __mapper('xs').m('snap')
