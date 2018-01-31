@@ -45,14 +45,14 @@
     }
 
     // http://heyjavascript.com/4-creative-ways-to-cloneObj-objects/
-    props.cloneObj = function cloneObj (obj) {
+    props.cloneObj = function (obj) {
       if (obj === null || typeof obj !== 'object') {
         return obj
       }
 
       let temp = obj.constructor() // give temp the original obj's constructor
       for (let key in obj) {
-        temp[key] = cloneObj(obj[key])
+        temp[key] = props.cloneObj(obj[key])
       }
 
       return temp

@@ -19,15 +19,12 @@
 
 let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 0, webgl: 1, key: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props(),
-    mgeom = __mapper('xs').m('geom'),
-    mwen = __mapper('xs').m('wen'),
-    mmouse = __mapper('xs').m('mouse'),
-    mstace = __mapper('xs').m('stace'),
-    mstore = __mapper('xs').m('store'),
-		mnat = __mapper('xs').m('nat')
+  let f = __mapper({'props': muonProps.muonProps()}).props()
+  let mgeom = __mapper('xs').m('geom')
+  let mwen = __mapper('xs').m('wen')
+  let mnat = __mapper('xs').m('nat')
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
@@ -66,114 +63,393 @@ let muonAlima = function (__mapper) {
  *    	@animas
  *
  */
+   let prehalo = function (anima, newAnigrams = []) {
+    let ani = __mapper('xs').m('anitem')(anima),
+      anigram = ani.anigram()
 
-  // -------------------------------  pointform
-  let pointform = {
 
-    'halo': 'pacer',
+    return anigram
+  }
+ 
+ 
+ 
+  let haloIsolation_ween = anima => {		// WEEN
+		
+			let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+			
+			animas = [] 
+			
+			
+			let createOne = i => {
+					let ani = f.cloneObj(nat1)
+					
+					ani.halo = "geojson"
+					ani.payload.ric.gid = "nat"
+					ani.payload.ric.cid = "nat"
+					ani.payload.ric.fid = "item" + i
+					
+// console.log("coords", ani.payload.geonode.geometry.coordinates)					
+					ani.payload.geonode.properties.orgen = 
+							[0 + i * 10 * Math.random(), 0 , 0 ]
+				
+					return ani
+				
+			}
+			
+			for (let i=0; i<9; i++) {
+				
+				animas.push(createOne(i))
+				
+			}
+			
+			console.log(" -------haloIsolation_ween  animas", animas)	
+			return animas
+			
+	}
+	
+  let haloIsolation_gramm = anima => [] // GRAMM))
+
+ 
+ 
+  let haloIsolationHalo = {}
+  haloIsolationHalo.ween = anima => haloIsolation_ween(anima)
+  haloIsolationHalo.gramm = anima => haloIsolation_gramm(anima)
+	
+ 
+  // -------------------------------  nat1
+  let nat1 = {
+
+    'halo': haloIsolationHalo,
+
+    'geoform': p => ({
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Polygon',
+        'coordinates': mnat.natPolygon(p.payload.form)
+      },
+      'properties': {
+				
+				
+					// geonode: {
+						// type: 'Feature',
+						// geometry: {
+							// type: 'Point',
+							// coordinates: [200, 0, 0]
+						// },
+						// properties: {
+							// orgen: [0, 0, 0],
+							// velin: [0, 0, 0],
+							// prevous: [0, 0, 0],
+							// geodelta: [0, 0, 0]
+						// }
+					// },
+				
+				
+				
+			}
+    }),
 
     'payload': {
-
       'tim': tim,
-      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'pointform'},
-      'boform': { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
-
+      'ric': {'gid': 'ani', 'cid': 'ani', 'fid': 'nat1'},
+			
+				geonode: {
+						type: 'Feature',
+						geometry: {
+							type: 'Point',
+							coordinates: [0, 0, 0]
+						},
+						properties: {
+							orgen: [0, 0, 0],
+							velin: [0, 0, 0],
+							prevous: [0, 0, 0],
+							geodelta: [0, 0, 0]
+						}
+					},
+					
       'proform': {
         'projection': 'uniwen',
-        'center': [ 0, 0, 0],
-        'translate': {'x': 0, 'y': 0, 'z': 0 },
+        'translate': [300,200,0],
+					// [ [ [[[100, 400]]], 200 ],
+          // [[[ {
+            // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
+            // 'ra2': 30,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+            // 'fas8': 0
+          // } ]]] ],
         'scale': 1,
-        'rotate': [0, 0, 0],
-        'lens': [0, 1 ,Infinity],
-        'dims': 3,
+        'rotate': [ 0, 0, [[[0, 0]]] ],
+        'focale': 12,
+        'zafin': [0, 1],
+        'lens': [0, 1, 12],
+        'dims': 2,
         'control': 'wen'
       },
 
-			form: {
+      'boform': { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
-				'x': {
-					'm1': 4,
-					'm2': 4,
-					'n1': 100,
-					'n2': 100,
-					'n3': 100,
-					'a': 1,
-					'b': 1, // square
-					'ra2': 12,
-					'v0': 0,
-					'v1': 1,
-					'seg5': [[[360, 360]]],
-					'w4': [[[90, 90 - 0 * 360]]],
-					'pa6': 0,
-					'pb7': 360,
-					'fas8': 0
-				},
-
-				'y': {
-					'm1': 4,
-					'm2': 4,
-					'n1': 100,
-					'n2': 100,
-					'n3': 100,
-					'a': 1,
-					'b': 1, // square
-					'ra2': 12,
-					'v0': 0,
-					'v1': 1,
-					'seg5': [[[360, 360]]],
-					'w4': [[[90, 90 - 0 * 360]]],
-					'pa6': 0,
-					'pb7': 360,
-					'fas8': -90
-				}
-
-			},
-      pacer: {
-        initN: 0,
-        eventN: 1,
-        autoN: 6,
-        autoP: 0.1,
-        outed: 0,
-        maxN: 60,
-        aad: 1,
-        span: 0,
-
-        autoSitus: ani => mstace.getLocus(ani),
-
-        fider: anitem => 'item' +
-					mstore.anigrams()
-						.filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
-												ani.payload.ric.cid === anitem.payload.ric.cid)
-						.length,
+      
+			
+			
+			
+			
+      form: {
 
 
-				geojsor: ani => ({
-						'type': 'Feature',
-						'geometry': {'type': 'Polygon','coordinates': mnat.natPolygon(ani.payload.form)},
-						'properties': {
+        'x': {
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
+          'fas8': 0
+        },
+        'y': {
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
+          'fas8': -90
+        },
+        'z': {
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 0,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
+          'fas8': 0
+        }
+      }
+    }
+  }
 
-								geonode: {
-									type: 'Feature',
-									geometry: { type: 'Point', coordinates: null },
-									properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-								}
+  // -------------------------------  nat2
+  let nat2 = {
 
-							}
-				})
+    'halo': 'geojson',
+
+    'geoform': (p) => ({
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Polygon',
+        'coordinates': mnat.natPolygon(p.payload.form)
+      },
+      'properties': {}
+    }),
+
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'nat2'},
+
+      'proform': {
+        'projection': 'uniwen',
+        'translate': [ 310, 200 ],
+					// [ [ 310, 200 ],
+          // [[[ {
+            // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
+            // 'ra2': 30,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+            // 'fas8': 0
+          // } ]]] ],
+        'scale': 1,
+        'rotate': [ 0, 0, [[[0, 0]]] ],
+        'lens': [0, 1, 12],
+        'dims': 2,
+        'control': 'wen'
+      },
+
+      'boform': { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+
+      geonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0]
+        },
+        properties: {
+          orgen: [0, 0, 0],
+          velin: [0, 0, 0],
+          prevous: [0, 0, 0],
+          geodelta: [0, 0, 0]
+        }
+      },
+      form: {
+
+        'x': {
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
+          'fas8': 0
+        },
+        'y': {
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
+          'fas8': -90
+        },
+        'z': {
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 0, // [[[0,20]]],		// _e_
+          'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
+          'fas8': 0
+        }
+      }
+    }
+  }
+  /*******************************************
+ * 			@forces
+ *
+ */
+  /*******************************************
+ * 			@force_energy
+ */
+  let force_energy = {							// aniForce
+    properties: {
+      alpha: 1,
+      alphaMin: 0.001,
+      alphaDecay: 0,
+      alphaTarget: 0
+    },
+
+    'field': function field (params = {}) {
+      let nodes = params.nodes
+      let aniCompForces = []
+
+      let forceParams = {
+        'type': 'energy',
+        'filter': d => true,
+				        dim: 3,
+        'src': d3_force,
+        'nodes': nodes
+      }
+
+      let field = 	{
+        'key': 'energy',
+        'force': __mapper('xs').m('forces')(forceParams)
 
       }
 
+      aniCompForces.push(field)
+      return aniCompForces
+    }
+  }
+  /*******************************************
+ * 			@force_viscosity
+ */
+  let force_viscosity = {
+    'properties': {
+      velocityDecay: 0.0002
+    },
+
+    'field': function (params = {}) {	// field.field
+      let nodes = params.nodes					// nodes
+
+      let aniCompForces = []
+
+      let forceParams = {
+        'type': 'noforce',
+        'filter': d => true,
+				        dim: 3,
+        'src': d3_force,
+        'nodes': nodes
+      }
+
+      let field = 	{
+        'key': 'viscosity',
+        'force': __mapper('xs').m('forces')(forceParams)
+      }
+
+      aniCompForces.push(field)
+
+      return aniCompForces
+    }
+  }
+  /*******************************************
+ * 			@force_manybody
+ */
+  let force_manybody = {											// aniForce
+    'properties': {
+      'charge': -1.9
+    },
+
+    'field': params => {
+      let nodes = params.nodes
+      let aniCompForces = []
+
+      let charge = params.properties.charge
+
+      let forceParams = {
+        type: 'manybody',
+        strength: charge,
+        filter: d => d.payload.ric.gid === 'nat',
+        dim: 3,
+        src: d3_force,		// d3
+        nodes: nodes
+      }
+
+      let field = 	{
+        'key': 'charge',
+        'force': __mapper('xs').m('forces')(forceParams)
+      }
+      aniCompForces.push(field)
+      return aniCompForces
+    }
+  }
+  /*******************************************
+ * 			@forceGravity
+ */
+  let forceGravity = function forceGravity (params) {	// force
+    let nodes = params.nodes
+    let newNodes = []
+
+    let gravity = params.gravity
+
+    function force () {													// d3force builtin (vs muon d3force)
+      for (let i = 0; i < nodes.length; ++i) {
+        let node = nodes[i]
+        node.vy += gravity		// node.vx += 0.001 * Math.random()
+      }
     }
 
+    function initialize () {
+      if (!nodes) return
+    }
+
+    return force
+  }
+
+  let force_gravity = {													// aniForce:{properties, field}
+    'properties': {
+      gravity: 3.1
+    },
+
+    'field': function field (params = {}) {			// force.field
+      let nodes = params.nodes		// params: elapsed, nodes, properties.gravity
+      let gravity = params.properties.gravity		// params.properties
+
+      let aniCompForces = []
+
+      let forceParams = {
+        type: 'gravity',
+        gravity: gravity,
+        filter: d => d.payload.ric.gid === 'nat',
+        dim: 3,
+        src: d3_force,
+        nodes: nodes
+      }
+
+      let field = 	{
+        'key': 'gravity',
+        'force': forceGravity(forceParams)
+      }
+      aniCompForces.push(field)
+      return aniCompForces
+    }
   }
 
   /*******************************************
- * @animaApi
+ * 				@animaApi
  *
  */
+  nat1.payload.forces = {
+    force_energy,
+    force_viscosity,
+    force_manybody,
+    force_gravity
+  }
 
   let animas = [
-    pointform // h.pacer
+    nat1, // h.geojson
+    // nat2 // h.geojson
 
   ]
 

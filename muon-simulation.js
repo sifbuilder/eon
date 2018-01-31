@@ -49,7 +49,7 @@
     function initNodes (aniItems, nDim) {
       let simNodes = []
 
-      if (1 && 1) console.log('aniItems', aniItems)
+      if (1 && 1) console.log('simulation initNodes', aniItems)
 
       for (let i = 0, n = aniItems.length; i < n; ++i) {
         let aniItem = aniItems[i]
@@ -126,11 +126,11 @@
           updaAniVelocity[1] = simNode.vy
           updaAniVelocity[2] = simNode.vz
 
-          if (0 && 1) console.log('m.simulation updAniItem', i, updAniItem)
+          if (1 && 1) console.log('m.simulation updAniItem', i, updAniItem.payload.geonode.geometry.coordinates)
 
           updAniItems.push(updAniItem)
         }
-        if (simNodes.length > 2) if (0 && 1) console.log('m.simulation updAniItems --- ', updAniItems[2].payload)
+        // if (simNodes.length > 2) if (1 && 1) console.log('m.simulation updAniItems --- ', updAniItems[2].payload)
       }
 
       return updAniItems
@@ -171,7 +171,10 @@
                 if (aniForce.ticked !== undefined) aniForce.ticked
 
                 aniSims = restoreNodes(aniNodes, aniItems)	// > aniNodes
+								
                 mstore.apply({type: 'UPDATEANIMAS', caller: 'simulation', animas: aniSims})
+aniSims.forEach(d=>console.log("m.simulation simulate UPDATEANIMAS", d.payload.geonode.geometry.coordinates))
+
               })
 
             if (aniForce.field !== undefined) { // field forces

@@ -40,13 +40,29 @@
 
 
       gj = mprofier.proformer(anigram)(gj)
-      if (0 && 1)	console.log('h.geojson.gramm gj', gj)
 
+			
+			
+			
+		let geonode = payload.geonode
+      if (1 && 1)	console.log('h.geojson.gramm geonode', geonode.geometry.coordinates)
+				
+		let fileffect =  {
+					"projection": "uniwen",
+					"translate": [  geonode.geometry.coordinates[0], geonode.geometry.coordinates[1], geonode.geometry.coordinates[2] ]}
+		gj =  mprofier.projier(fileffect, anigram)(gj)
+
+
+
+		
+			
       gj = mgeoj.featurize(gj) 										// featurize
       gj = mboform.boformer(anigram, gj)			// boform
       gj = mgeoj.zorder(gj) 											// order
       gj = mric.qualier(ric, anigram, gj)					// qualify
 
+
+		
 
       newAnigrams = gj.features.map((d, i) => {	// d is feature
         let newAnigram = {}

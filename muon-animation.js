@@ -24,7 +24,7 @@
     let aniListener = function aniListener (elapsed) {
       state.animas = f.a(__mapper('muonStore').animasLive())
 
-      if (0 && 1) console.log(' .............. animas', elapsed, state.animas.length, state.animas)
+      if (1 && 1) console.log(' .............. animas', elapsed, state.animas.length, state.animas)
 
       /*******************************************
      *    @TIME
@@ -68,7 +68,7 @@
 
       state.animas = f.a(__mapper('muonStore').animasLive())
 
-      if (0 && 1) console.log('m.animation state.animas ', state.animas)
+state.animas.forEach(d=>console.log("m.simulation animation animas", d.payload.geonode.geometry.coordinates))
 
       /*******************************************
      *    @GRAMM animas to anigrams
