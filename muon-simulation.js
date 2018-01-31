@@ -49,7 +49,7 @@
     function initNodes (aniItems, nDim) {
       let simNodes = []
 
-      if (1 && 1) console.log('simulation initNodes', aniItems)
+      if (0 && 1) console.log('simulation initNodes', aniItems)
 
       for (let i = 0, n = aniItems.length; i < n; ++i) {
         let aniItem = aniItems[i]
@@ -126,7 +126,7 @@
           updaAniVelocity[1] = simNode.vy
           updaAniVelocity[2] = simNode.vz
 
-          if (1 && 1) console.log('m.simulation updAniItem', i, updAniItem.payload.geonode.geometry.coordinates)
+          if (0 && 1) console.log('m.simulation updAniItem', i, updAniItem.payload.geonode.geometry.coordinates)
 
           updAniItems.push(updAniItem)
         }
@@ -173,7 +173,6 @@
                 aniSims = restoreNodes(aniNodes, aniItems)	// > aniNodes
 								
                 mstore.apply({type: 'UPDATEANIMAS', caller: 'simulation', animas: aniSims})
-aniSims.forEach(d=>console.log("m.simulation simulate UPDATEANIMAS", d.payload.geonode.geometry.coordinates))
 
               })
 

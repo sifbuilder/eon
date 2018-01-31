@@ -70,52 +70,50 @@ let muonAlima = function (__mapper) {
 
     return anigram
   }
- 
- 
- 
+
+
+
   let haloIsolation_ween = anima => {		// WEEN
-		
+
 			let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-			
-			animas = [] 
-			
-			
+
+			animas = []
+
+
 			let createOne = i => {
 					let ani = f.cloneObj(nat1)
-					
+
 					ani.halo = "geojson"
 					ani.payload.ric.gid = "nat"
 					ani.payload.ric.cid = "nat"
 					ani.payload.ric.fid = "item" + i
-					
-// console.log("coords", ani.payload.geonode.geometry.coordinates)					
-					ani.payload.geonode.properties.orgen = 
+
+					ani.payload.geonode.properties.orgen =
 							[0 + i * 10 * Math.random(), 0 , 0 ]
-				
+
 					return ani
-				
+
 			}
-			
+
 			for (let i=0; i<9; i++) {
-				
+
 				animas.push(createOne(i))
-				
+
 			}
-			
-			console.log(" -------haloIsolation_ween  animas", animas)	
+
 			return animas
-			
+
 	}
-	
+
   let haloIsolation_gramm = anima => [] // GRAMM))
 
- 
- 
+
+
   let haloIsolationHalo = {}
   haloIsolationHalo.ween = anima => haloIsolation_ween(anima)
   haloIsolationHalo.gramm = anima => haloIsolation_gramm(anima)
-	
- 
+
+
   // -------------------------------  nat1
   let nat1 = {
 
@@ -128,8 +126,8 @@ let muonAlima = function (__mapper) {
         'coordinates': mnat.natPolygon(p.payload.form)
       },
       'properties': {
-				
-				
+
+
 					// geonode: {
 						// type: 'Feature',
 						// geometry: {
@@ -143,16 +141,16 @@ let muonAlima = function (__mapper) {
 							// geodelta: [0, 0, 0]
 						// }
 					// },
-				
-				
-				
+
+
+
 			}
     }),
 
     'payload': {
       'tim': tim,
       'ric': {'gid': 'ani', 'cid': 'ani', 'fid': 'nat1'},
-			
+
 				geonode: {
 						type: 'Feature',
 						geometry: {
@@ -166,10 +164,10 @@ let muonAlima = function (__mapper) {
 							geodelta: [0, 0, 0]
 						}
 					},
-					
+
       'proform': {
         'projection': 'uniwen',
-        'translate': [300,200,0],
+        'translate': [200,50,0],
 					// [ [ [[[100, 400]]], 200 ],
           // [[[ {
             // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
@@ -187,27 +185,27 @@ let muonAlima = function (__mapper) {
 
       'boform': { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
-      
-			
-			
-			
-			
+
+
+
+
+
       form: {
 
 
         'x': {
           'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
-          'ra2': 20,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
           'fas8': 0
         },
         'y': {
           'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
-          'ra2': 20,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
           'fas8': -90
         },
         'z': {
           'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
-          'ra2': 0,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
+          'ra2': 0,'v0': 0,'v1': 1,'seg5': 12,'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
           'fas8': 0
         }
       }
@@ -288,6 +286,8 @@ let muonAlima = function (__mapper) {
   /*******************************************
  * 			@forces
  *
+ *
+ *
  */
   /*******************************************
  * 			@force_energy
@@ -353,41 +353,323 @@ let muonAlima = function (__mapper) {
       return aniCompForces
     }
   }
+/*******************************************
+ * 			@link
+ */
+	let  field_link = {
+			'properties': {},
+			"field":  function field (params = {}) {
+
+					let nodes = params.nodes
+					let forces = []
+
+					let forceParams =  {
+						"filter": d => true,
+						"type": "linkForce",
+						"strength": 1 , // d => params.strength,
+						"id": d => d.uid , // d => params.uid,
+						"distance": d => 100, // d => params.distance,
+						"distances": [d => 100], // d => params.distance,
+						"iterations": 1, // d => params.iterations,
+						"nodes": nodes,
+											dim: 3,
+						"src": d3_force,
+						"links": nodes.filter(d => (d.payload.ric.gid === "link" || d.payload.ric.gid === "tern"))
+					}
+
+					let field = 	{
+						"key": "forceLink",
+						"force": __mapper("xs").p("forces").force(forceParams)
+					}
+
+					forces.push(field)
+
+					return forces
+			}
+		}
+
+/*******************************************
+ * 			@forceSphere
+ *
+ */
+let forceSphere = function (params) {
+
+  let nodes = params.nodes
+
+	let rad = params.rad
+
+	function force() {
+
+		for (let i = 0; i < nodes.length; ++i) {
+
+				let node = nodes[i]
+
+				// https://www.cs.unc.edu/~rademach/xroads-RT/RTarticle.html
+				// The directions of the reflected and refracted rays are given by the following formulas.
+				// For a ray with direction V, and a surface with normal N (the normal is just the direction perpendicular to the surface - pointing directly away from it), the reflected ray direction Rl is given by
+				// c1 = -dot_product( N, V )
+				// Rl = V + (2 * N * c1 )
+				// Note that since V, N, and Rl are vectors with x, y, and z components, the arithmetic on them is performed per-component. The refracted ray direction Rr is given by
+				// n1 = index of refraction of original medium
+				// n2 = index of refraction of new medium
+				// n = n1 / n2
+				// c2 = sqrt( 1 - n2 * (1 - c12) )
+				// Rr = (n * V) + (n * c1 - c2) * N
+
+				let m = rad
+				let V = [node.vx, node.vy, node.vz]
+				let N = [node.x / rad, node.y / rad, node.z / rad]
+				let c1 = - (
+								node.vx * node.x / rad +
+								node.vy * node.y / rad +
+								node.vz * node.z / rad )
+				let R1 = [
+						node.vx + 2 * (node.x / rad) * c1,
+						node.vy + 2 * (node.y / rad) * c1,
+				    node.vz + 2 * (node.z / rad) * c1,
+				]
+
+				let r2 = (node.x + node.vx) * (node.x + node.vx) +
+								(node.y + node.vy) * (node.y + node.vy) +
+								(node.z + node.vz) * (node.z + node.vz)
+				let rad2 = rad * rad
+				if (r2 > rad2) {
+							node.vx = R1[0]		// *= -1;
+							node.vy = R1[1]		// *= -1	;
+							node.vz = R1[2]		// *= -1
+				}
+
+		}
+
+  }
+
+	function initialize() {
+    if (!nodes) return
+  }
+
+	return force
+}
+
+	let  force_sphere = {
+		"properties": {
+					rad: 290,
+		},
+
+		"field":   params => {
+
+			let nodes = params.nodes
+			let forces = []
+
+			let rad = params.properties.rad
+
+			let forceParams =  {
+					type: "sphere",
+					filter: d => d.payload.ric.gid === "animaRed",
+					rad: rad,
+					dim: 3,
+					src: d3_force,
+					nodes: nodes,
+				}
+
+			let  field = 	{
+					"key": "sphere",
+					"force": forceSphere(forceParams)
+
+			}
+			forces.push(field)
+			return forces
+
+		}
+	}
+/*******************************************
+ * 			@forceCube
+ *
+ */
+let forceCube = function forceCube(params) {
+
+  let nodes = params.nodes
+  let edge = params.edge
+
+	function force() {
+
+		for (let i = 0; i < nodes.length; ++i) {
+				let node = nodes[i]
+			if (0 && 1) console.log("forceCube", i, edge, node.y)
+
+				if ((node.x < -edge)) {
+						node.vx = Math.abs(node.vx)	 // node.vx *= -1
+				}
+				if ( node.x > edge) {
+						node.vx = -Math.abs(node.vx)	 // node.vx *= -1
+				}
+				if (node.y < -edge) {
+						node.vy = Math.abs(node.vy)	 // node.vy *= -1
+				}
+				if (node.y > edge) {
+						node.vy = -Math.abs(node.vy)	 // node.vy *= -1
+				}
+
+				if (node.z < -edge) {
+						node.vz = Math.abs(node.vz)	 // node.vy *= -1
+				}
+				if (node.z > edge) {
+						node.vz = -Math.abs(node.vz)	 // node.vy *= -1
+				}
+
+		}
+
+  }
+
+	function initialize() {
+    if (!nodes) return
+  }
+
+	return force
+}
+
+	let force_cube = {
+		"properties": {
+
+			edge: 200
+		},
+
+		"field":   params => {
+			let nodes = params.nodes
+			let forces = []
+
+			let edge = params.properties.edge
+
+			let forceParams =  {
+					type: "cube",
+					filter: d => d.payload.ric.gid === "animaRed",
+					edge: edge,
+					src: d3_force,
+					nodes: nodes,
+				}
+
+			let  field = 	{
+					"key": "cube",
+					"force": forceCube(forceParams)
+
+			}
+			forces.push(field)
+			return forces
+
+		}
+	}
+/*******************************************
+ * 			@center
+ */
+ 	let  field_center = {
+		'properties': {
+
+			attractionCtt: [[[1,1,2.5,2.5]]],
+
+
+		},
+
+		"field":  function (params = {}) {
+
+			let attractionCtt = params.properties.attractionCtt
+			let strength = 1.0001 * attractionCtt
+			let nodes = params.nodes
+			let forces = []
+			let forceParams =  {			// center
+				"type": "forceCenter",
+				"center":{x:100,y:200,z:200},
+				"filter": d => 	d.payload.ric.gid === "animaRed",
+									dim: 3,
+				"src": d3_force,
+				"nodes": nodes,
+			}
+			let  field = 	{
+				"key": "center",
+				"force": __mapper("xs").p("forces").force(forceParams)
+			}
+			forces.push( field)
+
+			return forces
+
+			}
+		}
+  /*******************************************
+ * 			@field_collide
+ */
+	let  field_collide = {
+		'properties': {
+			"strength": 0.03
+		},
+
+
+		"field":   params => {
+
+			let nodes = params.nodes
+			let forces = []
+
+			let strength = params.properties.strength
+
+			let forceParams =  {
+					type: "collide",
+					strength: strength,
+					radii: d => 9,
+					filter: d => d.payload.ric.gid === "nat",
+					src: d3_force,
+					nodes: nodes,
+				}
+
+			let  field = 	{
+					"key": "collide",
+					"force":  __mapper("xs").p("forces").force(forceParams)
+
+			}
+			forces.push(field)
+			return forces
+
+		}
+	}
   /*******************************************
  * 			@force_manybody
  */
   let force_manybody = {											// aniForce
-    'properties': {
-      'charge': -1.9
+	
+    properties: {
+      strength: -100.9,
+      theta: 0.9,
+      distanceMin: 0,
+      distanceMax: Infinity
     },
 
-    'field': params => {
+    field: params => {
       let nodes = params.nodes
-      let aniCompForces = []
+      let strength = params.properties.strength
 
-      let charge = params.properties.charge
+      let forces = []
 
       let forceParams = {
-        type: 'manybody',
-        strength: charge,
-        filter: d => d.payload.ric.gid === 'nat',
-        dim: 3,
+        type: 'manybody',		// f.manybody
+        strength: strength,
+        filter: d => true, // d => d.payload.ric.gid === 'nat',
         src: d3_force,		// d3
         nodes: nodes
       }
 
+			let force = __mapper('xs').m('forces')(forceParams)
+			
       let field = 	{
         'key': 'charge',
-        'force': __mapper('xs').m('forces')(forceParams)
+        'force': d => {
+					return force
+				}
       }
-      aniCompForces.push(field)
-      return aniCompForces
+      forces.push(field)
+      return forces
     }
   }
   /*******************************************
  * 			@forceGravity
  */
-  let forceGravity = function forceGravity (params) {	// force
+  let forceGravity = function  (params) {	// force
+
     let nodes = params.nodes
     let newNodes = []
 
@@ -408,43 +690,166 @@ let muonAlima = function (__mapper) {
   }
 
   let force_gravity = {													// aniForce:{properties, field}
-    'properties': {
+	
+    properties: {
+			
       gravity: 3.1
+			
     },
 
-    'field': function field (params = {}) {			// force.field
+    field: params => {			// force.field
+		
+      let forces = []
+			
       let nodes = params.nodes		// params: elapsed, nodes, properties.gravity
       let gravity = params.properties.gravity		// params.properties
-
-      let aniCompForces = []
 
       let forceParams = {
         type: 'gravity',
         gravity: gravity,
-        filter: d => d.payload.ric.gid === 'nat',
-        dim: 3,
+        filter: d => true, // d => d.payload.ric.gid === 'nat',
         src: d3_force,
         nodes: nodes
       }
 
+			let force = forceGravity(forceParams)			
+			
       let field = 	{
         'key': 'gravity',
-        'force': forceGravity(forceParams)
+        'force': force
       }
-      aniCompForces.push(field)
-      return aniCompForces
+			
+      forces.push(field)
+      return forces
     }
   }
+/*******************************************
+ * 			@charge
+ *
+ */
+	let  force_charge = {
+		'properties': {
+			"charge": -0.85 ,
+		},
+
+		"field":   params => {
+			let forces = []
+
+			let nodes = params.nodes
+			let charge = params.properties.charge
+
+			let forceParams =  {
+					type: "manyBody",
+					strength: charge,
+					filter: d => d.payload.ric.gid === "nat",
+					dim: 3,
+					src: d3_force,
+					nodes: nodes,
+				}
+
+			let  field = 	{
+					"key": "charge",
+        'force': d => {
+					return __mapper('xs').m('forces')(forceParams)
+				}
+
+			}
+			forces.push(field)
+			return forces
+
+		}
+	}
+/*******************************************
+ * 			@forceX
+ */
+ 
+	let  force_X = {
+		
+		properties: {
+
+			attractionCtt: 0.01,
+			
+		},
+
+		field:  params => {			// force.field
+			
+			let forces = []
+
+			let attractionCtt = params.properties.attractionCtt
+			
+			let nodes = params.nodes
+			
+			let forceParams =  {
+				"type": "x",						// f.x
+				"position": 300,
+				"strength": d => attractionCtt,
+				"filter": d => true,
+				src: d3_force,
+				"nodes": nodes,
+			}
+			
+			let force = __mapper('xs').m('forces')(forceParams)			
+			let  field = 	{"key": "x_center","force": force}
+
+			forces.push(field)
+			return forces
+
+		},
+	}
+
+/*******************************************
+ * 			@forceX
+ *
+ */
+	let  force_Y = {
+		
+		properties: {
+
+			attractionCtt: 0.2,
+
+		},
+
+		field:  function field (params = {}) {
+
+			let forces = []
+
+			let attractionCtt = params.properties.attractionCtt
+
+			let nodes = params.nodes
+
+			let forceParams =  {
+				"type": "y",
+				"position":	200,
+				"strength": d => attractionCtt,
+				"filter": d => true,
+				"nodes": nodes,
+			}
+
+			let force = __mapper('xs').m('forces')(forceParams)	
+			let  field = 	{"key": "y_center","force": force}
+			
+			forces.push(field)
+			return forces
+
+		},
+	}
+
 
   /*******************************************
  * 				@animaApi
  *
  */
   nat1.payload.forces = {
-    force_energy,
-    force_viscosity,
+    // force_energy,
+    // force_viscosity,
     force_manybody,
-    force_gravity
+    // force_gravity,
+				// force_charge,
+				// force_cube,
+				// force_sphere,
+				// force_collide,
+				// force_X,
+				// force_Y,
   }
 
   let animas = [

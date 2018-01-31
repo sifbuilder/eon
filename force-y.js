@@ -1,6 +1,6 @@
-/* -------------------------- */
-/*       forcey  							*/
-/* -------------------------- */
+/***********
+	 *		@forcey
+	 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
@@ -8,14 +8,14 @@
 }(this, function (exports) {
   'use strict'
 
-  var forcey = function forcey (__mapper = {}) {
+  let forcey = function (__mapper = {}) {
     let props = __mapper('props')()
 
-    // -------------------------------------//
-    //       force													//
-    // -------------------------------------//
+		/***********
+		*		@force
+		*/
     let force = function (params) {
-      // console.log(" ------------- force", params)
+			
       let position = params.position || 0
       let strength = params.strength || (() => 0.1)
 
@@ -27,13 +27,11 @@
       return d3force
     }
 
-    /* -------------------------- 	*/
-    /*        muonApi		  				*/
-    /* -------------------------- 	*/
-    var muonApi = function muonApi () {}
-    muonApi.force = force
 
-    return muonApi
+    var enty = function enty () {}
+    enty.force = force
+
+    return enty
   }
 
   exports.forcey = forcey

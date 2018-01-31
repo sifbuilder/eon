@@ -43,7 +43,9 @@
 
       if (params.type !== undefined) {
         p.type = params.type
-        p.force = (__mapper('xs').f(p.type)) ? __mapper('xs').f(p.type).force(params) : null // muon d3force
+        p.force = (__mapper('xs').f(p.type)) 
+						? __mapper('xs').f(p.type).force(params) 		// muon d3force
+						: null 
         p.params = params
       }
 
