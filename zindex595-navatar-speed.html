@@ -58,13 +58,7 @@ let muonAlima = function (__mapper) {
       },
       'id': 0,
       'properties': {
-				
-          geonode: {
-            type: 'Feature',
-            geometry: { type: 'Point', coordinates: [0, 0, 0] },
-            properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-          }				
-				
+
 			}
     }),
 
@@ -84,6 +78,12 @@ let muonAlima = function (__mapper) {
         'dims': 3,
         'control': 'wen'
       },
+          geonode: {
+            type: 'Feature',
+            geometry: { type: 'Point', coordinates: [0, 0, 0] },
+            properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+          },
+
 
       'form': {
 
@@ -137,7 +137,7 @@ let muonAlima = function (__mapper) {
     'halo': 'geojson',
 
     'geoform': p => {
-			
+
 			let rotate = mliner.orientate(p).rotate()
 			    p.payload.form.x.w4 += rotate
 					p.payload.form.y.w4 += rotate
@@ -149,13 +149,13 @@ let muonAlima = function (__mapper) {
       },
       'id': null,
       'properties': {
-				
+
           geonode: {
             type: 'Feature',
             geometry: { type: 'Point', coordinates: [0, 0, 0] },
             properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-          }				
-				
+          }
+
 			}
     }
 		return nat

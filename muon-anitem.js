@@ -88,7 +88,8 @@
       let parent = __mapper('xs').m('store').findAnigramFromUid(parentuid)
 
       if (parent !== undefined) {
-        coords = parent.geoform.properties.geonode.geometry.coordinates
+        // coords = parent.geoform.properties.geonode.geometry.coordinates
+        coords = parent.payload.geoform.properties.geonode.geometry.coordinates
       }
 
       return coords

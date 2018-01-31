@@ -132,20 +132,17 @@
 			let projer
 			if (projdef === undefined) {
 				 
-				 projer = d => d
+						projer = d => d
 			
 			} else {
 
-						if (projdef.translate) {
-							if (uid === 'avanat_avanat_avaform') if (0 && 1) console.log('m.profier.proformer anigram', uid, projdef.translate.x)
+						// if (projdef.translate) {
 
-							let translates = mstace.getLocations(projdef.translate, anigram)
-							if (0 && 1)	console.log('m.profier.proformer:translate', anigram.payload.proform.translate, translates)
-							let translate = translates[0]				// translate is first translate
+							// let translates = mstace.getLocations(projdef.translate, anigram)
+							// let translate = translates[0]				// translate is first translate
 
-							if (uid === 'avanat_avanat_avaform') if (0 && 1) console.log('..... m.profier.proformer translate', translate)
-							projdef.translate = translate
-						}
+							// projdef.translate = translate
+						// }
 
 						let projection = protion(projdef, anigram)
 
@@ -155,13 +152,13 @@
 							let proformed =	mproj3ct(json, projection)												// proform geoform
 							
 
-							if (proformed.properties && proformed.properties.geonode !== undefined) {	
+							// if (proformed.properties && proformed.properties.geonode !== undefined) {	
 							
-								let geonode = proformed.properties.geonode											// geonode
-									geonode = mproj3ct(geonode, projection)												// proform geonode
-								proformed.properties.geonode = geonode
+								// let geonode = proformed.properties.geonode											// geonode
+									// geonode = mproj3ct(geonode, projection)												// proform geonode
+								// proformed.properties.geonode = geonode
 								
-							}
+							// }
 
 							return proformed
 						}

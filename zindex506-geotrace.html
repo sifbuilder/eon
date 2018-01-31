@@ -215,11 +215,6 @@ let muonAlima = function muonAlima (__mapper) {
       },
       'properties': {
 
-        geonode: {
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-        }
 
       }
     }),
@@ -230,7 +225,13 @@ let muonAlima = function muonAlima (__mapper) {
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
       'boform': natBoform,
       'proform': natProform,
-      form: natForm
+      form: natForm,
+
+        geonode: {
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+        },			
 
     }
 

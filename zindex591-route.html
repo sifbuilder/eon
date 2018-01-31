@@ -30,8 +30,8 @@ let muonAlima = function (__mapper) {
     mstace = __mapper('xs').m('stace'),
     mstore = __mapper('xs').m('store'),
 		mnat = __mapper('xs').m('nat')
-		
-		
+
+
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
     height = r.height()
@@ -139,9 +139,9 @@ let muonAlima = function (__mapper) {
 
   let natBoform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.79, 0.79]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
-  let traceBoform = { 'csx': 0, 'cf': [[[444, 444]]], 'co': [[[0.09, 0.09]]], 'cs': [[[777, 777]]], 'cw': [[[1.7, 1.7]]], 'cp': [[[0.99, 0.99]]]}	
-	
-	
+  let traceBoform = { 'csx': 0, 'cf': [[[444, 444]]], 'co': [[[0.09, 0.09]]], 'cs': [[[777, 777]]], 'cw': [[[1.7, 1.7]]], 'cp': [[[0.99, 0.99]]]}
+
+
  /*******************************************
  *    @animas
  *
@@ -150,14 +150,14 @@ let muonAlima = function (__mapper) {
 
     'halo': 'geojson',
     'geoform': p => {
-			
+
 			let rotate = mliner.orientate(p).rotate()
 
 	if (0 && 1)	console.log('z.route rotate ', rotate)
           p.payload.form.x.w4 = rotate
           p.payload.form.y.w4 = rotate
 
-					
+
 			let form = p.payload.form
 			let natcoords = mnat.natPolygon(form)
 			let natgj = {
@@ -180,19 +180,19 @@ let muonAlima = function (__mapper) {
       tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'geonat'},
       'boform': natBoform,
-      
+
       'proform': p => {		// 'proform': natProform,
-					
+
 					let proform = p.payload.natProform
 					if (0 && 1) console.log("proform", proform, p)
-					return proform 
+					return proform
 			},
 
-			
+
       form: natForm,
-			
+
 			natProform: natProform
-			
+
 
     }
 
@@ -244,17 +244,17 @@ let muonAlima = function (__mapper) {
         autoSitus: d => mstace.getLocus(null, d),
 
         fider: anitem => anitem.payload.ric.fid,
-				
+
         geojsor: (d,i) => ({
-							type: 'Feature', 
+							type: 'Feature',
 							geometry: {type: 'LineString', coordinates: null},
 							properties: {}
 				})
-				
+
 			}
 		}
 	}
-	
+
   let pathline = {
 
     halo: 'pacer',
@@ -299,17 +299,17 @@ let muonAlima = function (__mapper) {
         autoSitus: d => mstace.getLocus(null, d),
 
         fider: anitem => anitem.payload.ric.fid,
-				
+
         geojsor: (d,i) => ({
-							type: 'Feature', 
+							type: 'Feature',
 							geometry: {type: 'LineString', coordinates: null},
 							properties: {}
 				})
-				
+
 			}
 		}
 	}
-	
+
 
   // -------------------------------  routeline
   let routeline = {
@@ -340,14 +340,14 @@ let muonAlima = function (__mapper) {
         'outed': 0,
         'maxN': 60,
         'span': 0,
-				 aad: 1,				
-				
+				 aad: 1,
+
         autoSitus: d => mstace.getLocus(null, d),
 
         fider: anitem => anitem.payload.ric.fid,
-				
+
         geojsor: (d,i) => ({
-							type: 'Feature', 
+							type: 'Feature',
 							geometry: {type: 'LineString', coordinates: null},
 							properties: {}
 				})
@@ -363,23 +363,19 @@ let muonAlima = function (__mapper) {
  */
   let avaform = {
 
-    'halo': 'geojson', // haloAvajson, 
+    'halo': 'geojson', // haloAvajson,
 
     'geoform': p => {
-      
+
       let rotate = mliner.orientate(p).rotate()
           p.payload.form.x.w4 += rotate
           p.payload.form.y.w4 += rotate
       let nat = {
 				'type': 'Feature','geometry': {'type': 'Polygon','coordinates': mnat.natPolygon(p.payload.form)},
 				'properties': {
-					
-						geonode: {
-							type: 'Feature',
-							geometry: { type: 'Point', coordinates: [0, 0, 0] },
-							properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-						}       
-					
+
+
+
 				}
 			}
 			return nat
@@ -391,7 +387,13 @@ let muonAlima = function (__mapper) {
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'avaform'},
 
       'boform': { 'csx': 0, 'cf': [[[333, 999]]], 'co': [[[0.999, 0.999]]], 'cs': [[[666, 555]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.999, 0.999]]]},
-
+			
+						geonode: {
+							type: 'Feature',
+							geometry: { type: 'Point', coordinates: [0, 0, 0] },
+							properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+						},
+						
       'proform': {
         'projection': 'uniwen',
         'translate': {
@@ -507,12 +509,12 @@ let muonAlima = function (__mapper) {
   }
   avaform.payload.avatars = {
 
-		pathline // h.pacer 
+		pathline // h.pacer
 
   }
   geonat.payload.avatars = {
 
-    traceline, // h.pacer 
+    traceline, // h.pacer
 
   }
   let animas = [

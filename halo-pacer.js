@@ -211,12 +211,14 @@
             } else {
 
 								let itemcoords = newItem.geoform.geometry.coordinates
-								let geonode = newItem.geoform.properties.geonode
+								// let geonode = newItem.geoform.properties.geonode
+								let geonode = newItem.payload.geonode.properties.geonode
 								let geonodecoords = geonode.geometry.coordinates
 
 								if (geonodecoords == undefined || geonodecoords == null) geonodecoords = [0,0]
                 newItem.geoform.geometry.coordinates = itemcoords
-								newItem.geoform.properties.geonode.geometry.coordinates = geonodecoords
+								// newItem.geoform.properties.geonode.geometry.coordinates = geonodecoords
+								newItem.payload.geonode.geometry.coordinates = geonodecoords
 								newItem.payload.proform = {'projection': 'uniwen','translate': vsitus}	// proform
 								newItems = [...newItems,...__mapper('xs').h('geojson').gramm(newItem)]	// add items
 

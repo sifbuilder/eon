@@ -15,7 +15,8 @@
       mboform = __mapper('xs').m('boform'),
       mgeoj = __mapper('xs').m('geoj'),
       mprofier = __mapper('xs').m('profier'),
-      mstore = __mapper('xs').m('store')
+      mstore = __mapper('xs').m('store'),
+      mproj3ct = __mapper('xs').m('proj3ct')
 
     /**********************
    *    @gramify
@@ -32,26 +33,29 @@
         conform = 		payload.conform, // conform
         uid = 				payload.uid, // uid
         parentuid = 	payload.parentuid, // parentuid
+        geonode = 	payload.geonode, // geonode
         gj = 					f.v(geoform, anigram)
 
 
       gj = mprofier.conformer(anigram)(gj)
 
-
+		
 
       gj = mprofier.proformer(anigram)(gj)
 
+			if (geonode) {								// if payload.geonode
+				if (1 && 1)	console.log('h.geojson.gramm geonode', geonode)
 			
-			
-			
-		let geonode = payload.geonode
-      if (1 && 1)	console.log('h.geojson.gramm geonode', geonode.geometry.coordinates)
+				geonode = mprofier.proformer(anigram)(geonode)	// project geonode
 				
-		let fileffect =  {
-					"projection": "uniwen",
-					"translate": [  geonode.geometry.coordinates[0], geonode.geometry.coordinates[1], geonode.geometry.coordinates[2] ]}
-		gj =  mprofier.projier(fileffect, anigram)(gj)
-
+				if (1 && 1)	console.log('h.geojson.gramm geonode', geonode)
+					
+				let fileffect =  {
+						"projection": "uniwen",
+						"translate": [  geonode.geometry.coordinates[0], geonode.geometry.coordinates[1], geonode.geometry.coordinates[2] ]}
+				gj =  mprofier.projier(fileffect, anigram)(gj)
+				
+			}
 
 
 		
@@ -72,6 +76,7 @@
 					newAnigram.payload.ric = d.properties.ric		// hoist ric
 					newAnigram.payload.uid = d.properties.uid		// hoist uid
 					newAnigram.payload.preani = mstore.findAnigramFromUid(d.properties.uid)
+					newAnigram.payload.geonode = geonode								// assign projected geonode
 
 
 					newAnigram.geoform = d				// inherit geoform

@@ -68,7 +68,7 @@
 
       state.animas = f.a(__mapper('muonStore').animasLive())
 
-state.animas.forEach(d=>console.log("m.simulation animation animas", d.payload.geonode.geometry.coordinates))
+// state.animas.forEach(d=>console.log("m.simulation animation animas", d.payload.geonode.geometry.coordinates))
 
       /*******************************************
      *    @GRAMM animas to anigrams
