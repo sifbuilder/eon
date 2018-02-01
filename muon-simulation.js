@@ -94,10 +94,11 @@
           let simNode = simNodes[i]
 
           let updItem = aniItems[i]		// each anitem
-					let geonode = f.cloneObj(updItem.payload.geonode)	// geonode to upd
+					
+					let geonode = mgeonode.set(updItem.payload.geonode)	// geonode to upd
 
 
-          geonode.properties.geodelta[0] = simNode.x - geonode.geometry.coordinates[0]	// delta location
+          geonode.properties.geodelta[0] = simNode.x - geonode.geometry.coordinates[0]
           geonode.properties.geodelta[1] = simNode.y - geonode.geometry.coordinates[1]
           geonode.properties.geodelta[2] = simNode.z - geonode.geometry.coordinates[2]
 
@@ -115,13 +116,13 @@
 
 					updItem.payload.geonode = geonode
 
-          if (1 && 1) console.log('m.simulation updItem', i, updItem.payload.geonode.geometry.coordinates)
+          if (0 && 1) console.log('m.simulation updItem', i, updItem.payload.geonode.geometry.coordinates)
 
           updItems.push(updItem)
         }
         // if (simNodes.length > 2) if (1 && 1) console.log('m.simulation updItems --- ', updItems[2].payload)
       }
-if (1 && 1) updItems.forEach(d => console.log(" ------ aniSims", d.payload.geonode.geometry.coordinates))
+if (0 && 1) updItems.forEach(d => console.log(" ------ aniSims", d.payload.geonode.geometry.coordinates))
       return updItems
     }
 
@@ -160,7 +161,7 @@ if (1 && 1) updItems.forEach(d => console.log(" ------ aniSims", d.payload.geono
                 if (aniForce.ticked !== undefined) aniForce.ticked
 
                 aniSims = restoreNodes(aniNodes, aniItems)	// > aniNodes
-if (1 && 1) aniSims.forEach((d,i) => console.log(" ....... aniSims", i,d.payload.geonode.geometry.coordinates))
+if (0 && 1) aniSims.forEach((d,i) => console.log(" ....... aniSims", i,d.payload.geonode.geometry.coordinates))
                 mstore.apply({type: 'UPDATEANIMAS', caller: 'simulation', animas: aniSims})
 
               })

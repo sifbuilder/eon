@@ -38,7 +38,7 @@
         }
       }
 
-      if (state.animas.length > 0) if (1 && 1) console.log(' .................... m.animation animas ', state.animas.length)
+      if (state.animas.length > 0) if (0 && 1) console.log(' .................... m.animation animas ', state.animas.length)
 				
       /*******************************************
      *    @STOP

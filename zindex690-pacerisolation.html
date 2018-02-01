@@ -25,7 +25,10 @@ let muonAlima = function (__mapper) {
 		mgeom = __mapper('xs').m('geom'),
 		mwen = __mapper('xs').m('wen'),
 		mnat = __mapper('xs').m('nat'),
-		mstore = __mapper('xs').m('store')
+		mstore = __mapper('xs').m('store'),
+		mpacer = __mapper('xs').m('pacer'),
+		mgraticule = __mapper('xs').m('graticule')
+
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
@@ -82,7 +85,7 @@ let muonAlima = function (__mapper) {
 
 
 			for (let i=0; i<3; i++) {
-				
+
 				let ani = f.cloneObj(nat1)		// clone of model anima
 				ani.payload.ric.gid = "nat"
 				ani.payload.ric.cid = "nat"
@@ -90,15 +93,15 @@ let muonAlima = function (__mapper) {
 
 				let preani = mstore.getAnima(ani.payload.ric)
 				if (preani) {
-						ani = preani		
+						ani = preani
 				} else {													// create anima
 						ani.halo = "geojson"					// create halo
-						
+
 						ani.geoform = {								// will create anigram
 									"type": "Feature",
 									"geometry": {"type": "Point","coordinates": [20 * i,0,0]}
 							}
-										
+
 						ani.payload.ric.gid = "nat"
 						ani.payload.ric.cid = "nat"
 						ani.payload.ric.fid = "item" + i	// identify
@@ -133,31 +136,37 @@ let muonAlima = function (__mapper) {
         'type': 'Polygon',
         'coordinates': mnat.natPolygon(p.payload.form)
       },
-      'properties': {
-
-
-					// geonode: {
-						// type: 'Feature',
-						// geometry: {
-							// type: 'Point',
-							// coordinates: [200, 0, 0]
-						// },
-						// properties: {
-							// orgen: [0, 0, 0],
-							// velin: [0, 0, 0],
-							// prevous: [0, 0, 0],
-							// geodelta: [0, 0, 0]
-						// }
-					// },
-
-
-
-			}
+      'properties': {}
     }),
 
     'payload': {
       'tim': tim,
       'ric': {'gid': 'ani', 'cid': 'ani', 'fid': 'nat1'},
+
+      pacer: {
+        'initN': 2,
+        'eventN': 1,
+        'autoN': 0,
+        'autoP': 0.1,
+        'outed': 0,
+        'maxN': 60,
+        'span': 15 / 1400,
+
+        fider: (payload, i) => 'item' + i,
+
+
+        initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
+        eventSitus: d => ({x: mmouse.event().x, y: mmouse.event().y, z: 0 }),
+        autoSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
+
+        geojsor: (d,i) => ({
+							type: 'Feature',
+							geometry: {type: 'Point', coordinates: null},
+							properties: {}
+				})
+
+      },
+
 
 				geonode: {
 						type: 'Feature',
@@ -330,6 +339,86 @@ let muonAlima = function (__mapper) {
       return aniCompForces
     }
   }
+  /*******************************************
+ * 			@gratilines21
+ */
+ let form = {
+
+				"x": {
+					"m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
+					"ra2": 90, // 180,
+					"v0": 0,"v1":1,
+					"w4":  0, //  [[[0,-360,0]]],
+					"seg5": 360,"pa6":0,"pb7":-1,
+
+					"fas8": 0,
+					"fn0": Math.cos,
+					"dom3": [-180,180],
+					"exp9": [1,0,1,0],
+
+				},
+				"y": {
+					"m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
+					"ra2": 90,
+					"v0":0,"v1":1,
+					"w4": 0, //  [[[0,-360,0]]], // [[[60, 60 + 1 * 360]]], //
+					"seg5": 360,"pa6":0,"pb7":-1,
+
+					"fas8": -90, 		// fas8, antifase
+					"fn0": Math.cos,
+					"dom3": [-180,180],
+					"exp9": [0,1,1,0],
+
+				},
+				"z": {
+					"m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
+					"ra2": 90, // 180,
+					"v0": 0,"v1":1,
+					"w4":  0, // [[[180,360,180]]], // [[[0,-360,0]]],
+					"seg5": 360,"pa6":0,"pb7":-1,
+
+					"fn0": d => Math.cos(d),
+					"dom3": [-180,180],
+					"exp9": [ 0,0,0,1 ],
+
+				}
+			}
+
+  let conform = {'projection': 'natform','form': form}
+  let graticule = {
+
+			'frame': [ [ [-180, 180, 45, 45],							// [ [ [-180, 180, 90, 2.5], // X mayor		11 12
+												[-90, 90, 22.5, 22.5] ],		// [-90, 90, 360, 2.5] ], // Y mayor
+										 [	[-180, 180, 45, 45],				// [	[-180, 180, 10, 2.5], // x minor
+												[-90, 90, 22.5, 22.5] ] ],	// [-80, 80, 10, 2.5] ] ] ,	// y minor
+
+		}
+
+  let gratiextent = {
+
+			'lattice': [ [180, 45],				// X	major minor	21 22
+										[90, 22.5] ]				// Y	major minor
+
+		}	
+  let gratilines21 = {
+    'halo': 'geojson',
+    'geoform': p => {
+      let edges = mgraticule.gedges(p.payload.graticule)
+			let type = 'Feature'
+			let properties = {}
+      let geometry = {type: 'MultiLineString',coordinates: edges}
+      let gj = {type, geometry, properties}
+			return gj
+		},
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+			'conform': conform,
+      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 400, 150 ],scale: 1,'dims': 3,'control': 'wen'},
+      'graticule': graticule,
+    }
+  }	
   /*******************************************
  * 			@force_viscosity
  */
@@ -604,11 +693,11 @@ let forceCube = function forceCube(params) {
  * 			@field_collide
  */
 	let force_collide = {
-		
+
 		'properties': {
-			
+
 			strength: 1.03
-			
+
 		},
 
 
@@ -630,9 +719,9 @@ let forceCube = function forceCube(params) {
 					nodes: nodes,
 				}
 
-			let force = __mapper('xs').m('forces')(forceParams)						
+			let force = __mapper('xs').m('forces')(forceParams)
 			let field = 	{"key": "collide", "force":  force}
-			
+
 			forces.push(field)
 			return forces
 
@@ -642,7 +731,7 @@ let forceCube = function forceCube(params) {
  * 			@force_manybody
  */
   let force_manybody = {											// aniForce
-	
+
     properties: {
       strength: -2.9,
       theta: 0.9,
@@ -666,7 +755,7 @@ let forceCube = function forceCube(params) {
 
 			let force = __mapper('xs').m('forces')(forceParams)
       let field = 	{'key': 'charge','force': force}
-			
+
       forces.push(field)
       return forces
     }
@@ -696,17 +785,17 @@ let forceCube = function forceCube(params) {
   }
 
   let force_gravity = {													// aniForce:{properties, field}
-	
+
     properties: {
-			
+
       gravity: 3.1
-			
+
     },
 
     field: params => {			// force.field
-		
+
       let forces = []
-			
+
       let nodes = params.nodes		// params: elapsed, nodes, properties.gravity
       let gravity = params.properties.gravity		// params.properties
 
@@ -718,13 +807,13 @@ let forceCube = function forceCube(params) {
         nodes: nodes
       }
 
-			let force = forceGravity(forceParams)			
-			
+			let force = forceGravity(forceParams)
+
       let field = 	{
         'key': 'gravity',
         'force': force
       }
-			
+
       forces.push(field)
       return forces
     }
@@ -768,23 +857,23 @@ let forceCube = function forceCube(params) {
 /*******************************************
  * 			@forceX
  */
- 
+
 	let  force_X = {
-		
+
 		properties: {
 
 			attractionCtt: 0.01,
-			
+
 		},
 
 		field:  params => {			// force.field
-			
+
 			let forces = []
 
 			let attractionCtt = params.properties.attractionCtt
-			
+
 			let nodes = params.nodes
-			
+
 			let forceParams =  {
 				"type": "x",						// f.x
 				"position": 300,
@@ -793,8 +882,8 @@ let forceCube = function forceCube(params) {
 				src: d3_force,
 				"nodes": nodes,
 			}
-			
-			let force = __mapper('xs').m('forces')(forceParams)			
+
+			let force = __mapper('xs').m('forces')(forceParams)
 			let field = 	{"key": "x_center","force": force}
 
 			forces.push(field)
@@ -808,7 +897,7 @@ let forceCube = function forceCube(params) {
  *
  */
 	let  force_Y = {
-		
+
 		properties: {
 
 			attractionCtt: 0.2,
@@ -831,9 +920,9 @@ let forceCube = function forceCube(params) {
 				"nodes": nodes,
 			}
 
-			let force = __mapper('xs').m('forces')(forceParams)	
+			let force = __mapper('xs').m('forces')(forceParams)
 			let  field = 	{"key": "y_center","force": force}
-			
+
 			forces.push(field)
 			return forces
 
@@ -846,14 +935,14 @@ let forceCube = function forceCube(params) {
  *
  */
   nat1.payload.forces = {
-    // force_energy,
-    // force_viscosity,
+    force_energy,
+    force_viscosity,
     force_manybody,
     // force_gravity,
 				// force_charge,
-				// force_cube,
-				// force_sphere,
-				force_collide,
+				force_cube,
+				force_sphere,
+				// force_collide,
 				// force_X,
 				// force_Y,
   }
@@ -861,6 +950,7 @@ let forceCube = function forceCube(params) {
   let animas = [
     nat1, // h.geojson
     // nat2 // h.geojson
+    gratilines21 // h.geojson
 
   ]
 

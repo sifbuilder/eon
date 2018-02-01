@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, img: 0, key: 1, gui: 0, fps: 0, stats: 0}) // INIT
+
+  let renderer = __mapper('renderRenderer'),
+    width = renderer.width(),
+    height = renderer.height(),
+    scaleView = Math.min(width / 2, height) / Math.PI
+
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+    g = __mapper('xs').m('geom'),
+    mwen = __mapper('xs').m('wen'),
+    cwen = __mapper('xs').c('wen')(),
+    mversor = __mapper('xs').m('versor')(),
+    mnat = __mapper('xs').m('nat')
+
+  /*******************************************
+ *      @pics
+ */
+  let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+  let proform = {
+    'projection': 'uniwen',
+
+    'translate': [ [300, 200, 0] ],
+    'scale': 1,
+    'rotate': [ 0, 0, [[[0, 0]]] ],
+    'lens': [0, 1, 12],
+    'control': 'wen'
+  }
+  let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+
+
+  /*******************************************
+ *    @animas
+ *
+ */
+
+  // -------------------------------  nat
+  let nat = {
+
+    'halo': 'nat',
+
+
+
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
+
+      'proform': proform,
+
+      'boform': { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+      form: {"m1":[[[4,3.93]]],"m2":[[[4,3.93]]],"n1":2,"n2":2,"n3":[[[2,1]]],"a":[[[2,3]]],"b":1,},
+
+    }
+
+  }
+
+
+  let animas = [
+    nat,      // h.geojson g.uniwen
+
+  ]
+
+  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

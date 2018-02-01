@@ -1,14 +1,14 @@
 /**********************
- *    @haloPacer
+ *    @muonPacer
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloPacer = global.haloPacer || {})))
+      : (factory((global.muonPacer = global.muonPacer || {})))
 }(this, function (exports) {
   'use strict'
 
-  let haloPacer = function haloPacer (__mapper = {}) {
+  let muonPacer = function muonPacer (__mapper = {}) {
     let f = __mapper({'props': muonProps.muonProps()}).props(),
       mgeom = __mapper('xs').m('geom'),
       mwen = __mapper('xs').m('wen'),
@@ -25,18 +25,11 @@
       width = r.width(),
       height = r.height()
 
-    // -------------------------------  haloPacerHalo_ween
-    let haloPacerHalo_ween = function haloPacerHalo_gramm (anima, newItems = []) {
-      if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
-      return newItems
-    }
-    // -------------------------------  haloPacerHalo_gramm
-    let haloPacerHalo_gramm = function (anima, newItems = []) {
-      let anigram = manitem(anima).anigram(), // anigram
-        halo =        anigram.halo, // halo
-        geoform =     anigram.geoform || manitem.coreGeoform(),   // geoform
-        payload =     anigram.payload, // payload
-        boform =      payload.boform, // boform
+
+    // -------------------------------  muonPacerHalo_gramm
+    let pacer = function (payload, newItems = []) {
+			
+       let  boform =      payload.boform, // boform
         ric = payload.ric, // ric
         tim = payload.tim, // tim
         proform =     payload.proform, // proform
@@ -67,7 +60,7 @@
         : payload.pacer.autoSitus
 
       fider = (payload.pacer.fider === undefined)           // identifier
-        ? anitem => anitem.payload.ric.fid
+        ? () => payload.ric.fid
         : payload.pacer.fider
 
       geojsor = (payload.pacer.geojsor === undefined)
@@ -116,12 +109,10 @@
 				count.auto = Math.floor(pacer.autoN)        // count AUTO
 				pacer.outed = tim.unitPassed                // updated with anima
 
-				anima.payload.inited = 1                //  inited
-				anima.payload.pacer.outed = pacer.outed //  outed at time units
-				let animas = Array.of(anima)            // upd ANIMA
-				__mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
 			}
 
+console.log("count", count)			
+			
       if (Object.keys(count).length > 0) {                  // on pace count
         let situs
         for (let i = 0; i < Object.keys(count).length; i++) { // for each COUNT
@@ -129,16 +120,16 @@
 
           if (count[key] > 0) { // if count on this sort
             if (key === 'init') { // init defaults center
-              situs = initSitus(anigram)
+              situs = initSitus(payload)
             } else if (key === 'auto') { // auto defauts random
-              if (0 && 1) console.log('h.pacer haloPacerHalo_gramm situs', situs)
-              situs = autoSitus(anigram)    // eg.  d => mstace.getLocus(d)
+              if (0 && 1) console.log('h.pacer muonPacerHalo_gramm situs', situs)
+              situs = autoSitus(payload)    // eg.  d => mstace.getLocus(d)
             } else if (key === 'event') { // event defaults event
-              situs = eventSitus(anigram)
+              situs = eventSitus(payload)
             }
 
             let _ric = ric
-            _ric.fid = fider(anigram)         // fider set in the payload or default
+            _ric.fid = fider(payload, i)   // fider set in the payload or default
 
             let uid = mric.buildUIDFromRic(_ric)          // uid
             let newItem = mstore.findAnigramFromUid(uid) // anigram DOES exist ??
@@ -148,16 +139,16 @@
               newItem.halo = 'geojson'
 
 
-              newItem.geoform = geojsor(anigram, i) 		// anigram, counter
+              newItem.geoform = geojsor(payload, i) 		// anigram, counter
               newItem.geoform.id = uid
 
 
               newItem.payload = {}
             }
             newItem.payload.ric = _ric                        // item id
-            newItem.payload.tim = anigram.payload.tim         // item time
-            newItem.payload.boform = anigram.payload.boform   // item style
-            newItem.payload.avatars = anigram.payload.avatars // items may have avatars
+            newItem.payload.tim = payload.tim         // item time
+            newItem.payload.boform = payload.boform   // item style
+            newItem.payload.avatars = payload.avatars // items may have avatars
 
 
             let vsitus = Object.values(situs)     // {x:280,y:229,z:0} => [x,y,0]
@@ -237,17 +228,15 @@
       return newItems
     }
 
-    let haloPacerHalo = function haloPacerHalo() {}
-    haloPacerHalo.ween = anima => haloPacerHalo_ween(anima)
-    haloPacerHalo.gramm = anima => haloPacerHalo_gramm(anima)
+
 
     /**********************
    *    @enty
    */
-    let enty = haloPacerHalo
+    let enty = pacer
 
     return enty
   }
 
-  exports.haloPacer = haloPacer
+  exports.muonPacer = muonPacer
 }))

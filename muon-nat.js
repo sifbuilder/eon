@@ -195,45 +195,48 @@
    */
     let nform = function (form, nformed = {}) {
 			
+			let defs = {"v0":0,"v1":1,"ra2": 120,"w4":0,"seg5":360,"pa6":0,"pb7":-1,}	// defs
 			
       if (form &&	typeof form === 'object' &&					// {obj}
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
 							
+							
 					let fas8x = (form.fas8 !== undefined) ? form.fas8 : 0
-					nformed.x = Object.assign({}, form, {fas8: fas8x}) // fas8 def 0
-					nformed.y = Object.assign({}, (form.y || form), {fas8: fas8x - 90})
+					
+					nformed.x = Object.assign({}, defs, form, {fas8: fas8x}) // fas8 def 0
+					nformed.y = Object.assign({}, defs, (form.y || form), {fas8: fas8x - 90})
 				
       } else if (form && typeof form === 'object' && // {x,y}
             (form.x !== undefined && form.y !== undefined)) {
 							
 					let fas8x = (form.x.fas8 !== undefined) ? form.x.fas8 : 0
-					nformed.x = Object.assign({}, form.x, {fas8: fas8x})
+					nformed.x = Object.assign({}, defs, form.x, {fas8: fas8x})
 					
 					let fas8y = (form.y.fas8 !== undefined) ? form.y.fas8 : fas8x-90
-					nformed.y = Object.assign({}, form.y, {fas8: fas8y})
+					nformed.y = Object.assign({}, defs, form.y, {fas8: fas8y})
 					
 					if (form.z !== undefined && form.r !== undefined) {	// {x,y,z,r}
 						
 						let fas8z = (form.z.fas8 !== undefined) ? form.z.fas8 : 0
-						nformed.z = Object.assign({}, form.z, {fas8: fas8z})
+						nformed.z = Object.assign({}, defs, form.z, {fas8: fas8z})
 						
 						nformed.r = form.r					
 						
 					} else if (form.z !== undefined && form.r === undefined) {	// {x,y,z}
 						
 						let fas8z = (form.z.fas8z !== undefined) ? form.z.fas8 : 0
-						nformed.z = Object.assign({}, form.z, {fas8: fas8z})
+						nformed.z = Object.assign({}, defs, form.z, {fas8: fas8z})
 						
-						nformed.r = Object.assign({}, form.z, {fas8: fas8z - 90}) // fas8
+						nformed.r = Object.assign({}, defs, form.z, {fas8: fas8z - 90}) // fas8
 					}
 					
       } else if (form && typeof form === 'object' &&				// form:{x:obj}
             (form.x !== undefined && form.y === undefined)) {
 							
 						let fas8x = (form.x.fas8 !== undefined) ? form.x.fas8 : 0
-						nformed.x = Object.assign({}, form.x, {fas8: fas8x})
+						nformed.x = Object.assign({}, defs, form.x, {fas8: fas8x})
 						
-						nformed.y = Object.assign({}, (form.y || form.x), {fas8: fas8x - 90}) // fas8
+						nformed.y = Object.assign({}, defs, (form.y || form.x), {fas8: fas8x - 90}) // fas8
 						
 						if (form.z !== undefined && form.r !== undefined) {	// {x,y,z,r}
 							
@@ -243,15 +246,15 @@
 						} else if (form.z !== undefined && form.r === undefined) {	// {x,y,z}
 							
 							let fas8z = (form.z.fas8 !== undefined) ? form.z.fas8 : 0
-							nformed.z = Object.assign({}, form.z, {fas8: fas8z})
+							nformed.z = Object.assign({}, defs, form.z, {fas8: fas8z})
 							
-							nformed.r = Object.assign({}, form.z, {fas8: fas8z - 90}) // fas8
+							nformed.r = Object.assign({}, defs, form.z, {fas8: fas8z - 90}) // fas8
 						}
 						
       } else if (form && Array.isArray(form)) {										// [x,y]
 					
 						nformed.x = form[0]
-						nformed.y = form[1] || Object.assign({}, form[0], {fas8: form.fas8 - 90})
+						nformed.y = form[1] || Object.assign({}, defs, form[0], {fas8: form.fas8 - 90})
 						
 						if (form[3] !== undefined && form[4] !== undefined) {	// [x,y,z,r]
 							
@@ -261,8 +264,8 @@
 						} else if (form[3] !== undefined && form[4] === undefined) {	// [x,y,z]
 							
 							let fas8 = (form[3].fas8 !== undefined) ? form[3].fas8 : 0
-							nformed.z = Object.assign({}, form[3], {fas8: fas8})
-							nformed.r = Object.assign({}, form[3], {fas8: form[3].fas8 - 90}) // fas8
+							nformed.z = Object.assign({}, defs, form[3], {fas8: fas8})
+							nformed.r = Object.assign({}, defs, form[3], {fas8: form[3].fas8 - 90}) // fas8
 						}						
 				
       }
