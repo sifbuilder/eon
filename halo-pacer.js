@@ -48,28 +48,31 @@
         span =        pacer.span || 0,                        // span between items
         aad =         pacer.aad || 0                        // aad to previtem
 
+				
+			let initSitus, eventSitus, autoSitus, fider, geojsor
+				
       /* ****
        *    defaults
        */
-      let initSitus = (payload.pacer.initSitus === undefined)   // initSitus
+      initSitus = (payload.pacer.initSitus === undefined)   // initSitus
         ? d => ({x: width / 2, y: height / 2, z: 0 })
         : payload.pacer.initSitus
 
-      let eventSitus = (payload.pacer.eventSitus === undefined) // eventSitus
+      eventSitus = (payload.pacer.eventSitus === undefined) // eventSitus
         ? d => ({x: mouse.event.x, y: mouse.event.y, z: 0 })
         : payload.pacer.eventSitus
 
-      let autoSitus = (payload.pacer.autoSitus === undefined)   // autoSitus
+      autoSitus = (payload.pacer.autoSitus === undefined)   // autoSitus
         ? d => ({x: Math.random() * width / 2, y: Math.random() * height / 2, z: 0 })
         : payload.pacer.autoSitus
 
-      let fider = (payload.pacer.fider === undefined)           // identifier
+      fider = (payload.pacer.fider === undefined)           // identifier
         ? anitem => anitem.payload.ric.fid
         : payload.pacer.fider
 
-      let geojsor = (payload.pacer.geojsor === undefined)
+      geojsor = (payload.pacer.geojsor === undefined)
         ? d => ({type: 'Point', coordinates: null}) //  default
-        : payload.pacer.geojsor       // (anigram, counter) => geometry
+        : payload.pacer.geojsor       // (ani, counter) => geometry
 
 
       /* ****
@@ -81,43 +84,42 @@
        *    controls
        */
       let mouse = {} // mouse control
-      if (1) {
-        mouse.mouseDown = mmouse.mouseDown()          // down
-        mouse.mouseUp = mmouse.mouseUp()              // up
-        mouse.mouseMove = mmouse.mouseMove()          // move
-        mouse.mouseDownShared = mmouse.mouseDownShared() // shareddown
-        mouse.event = mmouse.event()          // event
+			
+			mouse.mouseDown = mmouse.mouseDown()          // down
+			mouse.mouseUp = mmouse.mouseUp()              // up
+			mouse.mouseMove = mmouse.mouseMove()          // move
+			mouse.mouseDownShared = mmouse.mouseDownShared() // shareddown
+			mouse.event = mmouse.event()          // event
 
-        if (mouse.event === 'mousedown') if (0 && 1) console.log('h.pacer ', mouse.event.type)
+			if (mouse.event === 'mousedown') if (0 && 1) console.log('h.pacer ', mouse.event.type)
 
-        if (mouse.event && mouse.event.type === 'mouseup') { // if mouse up then reset
-          cwen.reset(svg)
-          cversor.reset(svg)
-        }
+			if (mouse.event && mouse.event.type === 'mouseup') { // if mouse up then reset
+				cwen.reset(svg)
+				cversor.reset(svg)
+			}
 
-        if (mouse.event !== undefined && mouse.mouseDown === 1) { // on mouse DOWN
-            if (mousesignal === 0 || mouse.event.type === 'mousedown') { //
-              count.event = Math.floor(pacer.eventN)    //  if in state or was event
-            }
-        }
+			if (mouse.event !== undefined && mouse.mouseDown === 1) { // on mouse DOWN
+					if (mousesignal === 0 || mouse.event.type === 'mousedown') { //
+						count.event = Math.floor(pacer.eventN)    //  if in state or was event
+					}
+			}
 
-        if (pacer.inited === undefined || pacer.inited !== 1) {
-          count.init = Math.floor(pacer.initN)                // count INIT
-        }
+			if (pacer.inited === undefined || pacer.inited !== 1) {
+				count.init = Math.floor(pacer.initN)                // count INIT
+			}
 
-        let cyletime = tim.unitPassed - (pacer.outed || 0)
+			let cyletime = tim.unitPassed - (pacer.outed || 0)
 
-        if (cyletime >= pacer.autoP) {              // if cycle time above autopath
+			if (cyletime >= pacer.autoP) {              // if cycle time above autopath
 
-          count.auto = Math.floor(pacer.autoN)        // count AUTO
-          pacer.outed = tim.unitPassed                // updated with anima
+				count.auto = Math.floor(pacer.autoN)        // count AUTO
+				pacer.outed = tim.unitPassed                // updated with anima
 
-          anima.payload.inited = 1                //  inited
-          anima.payload.pacer.outed = pacer.outed //  outed at time units
-          let animas = Array.of(anima)            // upd ANIMA
-          __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
-        }
-      }                                                   // PACE COUNT
+				anima.payload.inited = 1                //  inited
+				anima.payload.pacer.outed = pacer.outed //  outed at time units
+				let animas = Array.of(anima)            // upd ANIMA
+				__mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
+			}
 
       if (Object.keys(count).length > 0) {                  // on pace count
         let situs
@@ -211,13 +213,11 @@
             } else {
 
 								let itemcoords = newItem.geoform.geometry.coordinates
-								// let geonode = newItem.geoform.properties.geonode
 								let geonode = newItem.payload.geonode.properties.geonode
 								let geonodecoords = geonode.geometry.coordinates
 
 								if (geonodecoords == undefined || geonodecoords == null) geonodecoords = [0,0]
                 newItem.geoform.geometry.coordinates = itemcoords
-								// newItem.geoform.properties.geonode.geometry.coordinates = geonodecoords
 								newItem.payload.geonode.geometry.coordinates = geonodecoords
 								newItem.payload.proform = {'projection': 'uniwen','translate': vsitus}	// proform
 								newItems = [...newItems,...__mapper('xs').h('geojson').gramm(newItem)]	// add items

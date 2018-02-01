@@ -44,20 +44,18 @@
       gj = mprofier.proformer(anigram)(gj)
 
 			if (geonode) {								// if payload.geonode
-				if (0 && 1)	console.log('h.geojson.gramm geonode', geonode)
 			
-				geonode = mprofier.proformer(anigram)(geonode)	// project geonode
-				
-				if (0 && 1)	console.log('h.geojson.gramm geonode', geonode)
-					
-				let fileffect =  {
+				let fieldEffect =  {
 						"projection": "uniwen",
 						"translate": [  geonode.geometry.coordinates[0], geonode.geometry.coordinates[1], geonode.geometry.coordinates[2] ]}
-				gj =  mprofier.projier(fileffect, anigram)(gj)
+				gj =  mprofier.projier(fieldEffect, anigram)(gj)
+				
+				geonode = mprofier.proformer(anigram)(geonode)	// projected position
 				
 			}
 
 
+				if (0 && 1)	console.log('h.geojson.gramm geonode', geonode)
 		
 			
       gj = mgeoj.featurize(gj) 										// featurize

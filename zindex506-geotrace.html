@@ -42,13 +42,13 @@ let muonAlima = function muonAlima (__mapper) {
   let traceForm = {
 
     'x': {
-      'm1': 4,
-      'm2': 4,
-      'n1': 2,
-      'n2': 2,
-      'n3': 2,
-      'a': 1,
-      'b': 1, // circ
+      // 'm1': 4,
+      // 'm2': 4,
+      // 'n1': 2,
+      // 'n2': 2,
+      // 'n3': 2,
+      // 'a': 1,
+      // 'b': 1, // circ
       'm1': 5,
       'm2': 5,
       'n1': 30,
@@ -70,13 +70,13 @@ let muonAlima = function muonAlima (__mapper) {
     },
 
     'y': {
-      'm1': 4,
-      'm2': 4,
-      'n1': 2,
-      'n2': 2,
-      'n3': 2,
-      'a': 1,
-      'b': 1, 											// circ
+      // 'm1': 4,
+      // 'm2': 4,
+      // 'n1': 2,
+      // 'n2': 2,
+      // 'n3': 2,
+      // 'a': 1,
+      // 'b': 1, 											// circ
       'm1': 5,
       'm2': 5,
       'n1': 30,
@@ -102,20 +102,20 @@ let muonAlima = function muonAlima (__mapper) {
   let natForm = {
 
     'x': {
-      'm1': 6,
-      'm2': 6,
-      'n1': 2,
-      'n2': 2,
-      'n3': 0,
-      'a': 2,
-      'b': 1, // tri
-      'm1': 4,
-      'm2': 4,
-      'n1': 2,
-      'n2': 2.2,
-      'n3': 2.2,
-      'a': 9,
-      'b': 4, // round square
+      // 'm1': 6,
+      // 'm2': 6,
+      // 'n1': 2,
+      // 'n2': 2,
+      // 'n3': 0,
+      // 'a': 2,
+      // 'b': 1, // tri
+      // 'm1': 4,
+      // 'm2': 4,
+      // 'n1': 2,
+      // 'n2': 2.2,
+      // 'n3': 2.2,
+      // 'a': 9,
+      // 'b': 4, // round square
       'm1': 3,
       'm2': 3,
       'n1': 1,
@@ -134,20 +134,20 @@ let muonAlima = function muonAlima (__mapper) {
     },
 
     'y': {
-      'm1': 6,
-      'm2': 6,
-      'n1': 2,
-      'n2': 2,
-      'n3': 0,
-      'a': 2,
-      'b': 1, // tri
-      'm1': 4,
-      'm2': 4,
-      'n1': 2,
-      'n2': 2.2,
-      'n3': 2.2,
-      'a': 4,
-      'b': 9, // round square
+      // 'm1': 6,
+      // 'm2': 6,
+      // 'n1': 2,
+      // 'n2': 2,
+      // 'n3': 0,
+      // 'a': 2,
+      // 'b': 1, // tri
+      // 'm1': 4,
+      // 'm2': 4,
+      // 'n1': 2,
+      // 'n2': 2.2,
+      // 'n3': 2.2,
+      // 'a': 4,
+      // 'b': 9, // round square
       'm1': 3,
       'm2': 3,
       'n1': 1,
@@ -187,13 +187,12 @@ let muonAlima = function muonAlima (__mapper) {
 
   let natProform = {
     'projection': 'uniwen',
-    'translate': [ [ 300, 200 ], [[[ natStace ]]] ],
+    'translate': [ [ 130, 120 ] , [[[ natStace ]]] ], //
     'scale': 1,
-    'rotate': [ 0, 0, [[[0, 0]]] ],
-    'focale': Infinity,
-    'zafin': [0, 1],
-    'dims': 2,
+    'rotate': [ 0, 0, 0 ],
+    'lens': [0, 1, Infinity],
     'control': 'wen'
+		
   }
 
   let natBoform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
@@ -206,17 +205,14 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let nat = {
 
-    'halo': 'nat',
+    'halo': 'geojson',
     'geoform': p => ({
       'type': 'Feature',
       'geometry': {
         'type': 'Polygon',
         'coordinates': mnat.natPolygon(p.payload.form)
       },
-      'properties': {
-
-
-      }
+      'properties': {}
     }),
 
     'payload': {

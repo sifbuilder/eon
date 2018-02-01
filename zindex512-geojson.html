@@ -80,7 +80,6 @@ let muonAlima = function muonAlima (__mapper) {
     'scale': 1.2,
     'translate': [ [[[300, 300]]], 200 ],
     'rotate': [ 0, 0, [[[0, 360]]] ],
-    'dims': 2
 
   }
   /*******************************************
@@ -91,13 +90,12 @@ let muonAlima = function muonAlima (__mapper) {
 
     'halo': 'geojson',
 
-    'geoform': (p) => ({
+    'geoform': p => ({
       'type': 'Feature',
       'geometry': {
         'type': 'Polygon',
         'coordinates': __mapper('xs').m('nat').natPolygon(p.payload.form)
       },
-      'id': 0,
       'properties': {}
     }),
     'payload': {

@@ -9,9 +9,10 @@
   'use strict'
 
   let muonSimulation = function (__mapper = {}) {
-    let f = __mapper('props')()
-    let msnap = __mapper('xs').m('snap')
-    let mstore = __mapper('xs').m('store')
+    let f = __mapper('props')(),
+			msnap = __mapper('xs').m('snap'),
+			mstore = __mapper('xs').m('store'),
+			mgeonode = __mapper('xs').m('geonode')
 
     let _geonode = {
       type: 'Feature',
@@ -53,9 +54,8 @@
       for (let i = 0, n = aniItems.length; i < n; ++i) {
         let aniItem = aniItems[i]
         let payload = aniItem.payload
-        let geonode = payload.geonode		// geonode
+        let geonode = mgeonode.set(payload.geonode)
 
-      if (1 && 1) console.log('simulation initNodes', i, geonode.geometry.coordinates)
 
         let simNode = {}
 
@@ -63,7 +63,8 @@
         simNode.y = 	geonode.geometry.coordinates[1]
         simNode.z = 	geonode.geometry.coordinates[2]
 
-        simNode.vx = 	geonode.properties.velin[0]			// geonode velocity to simnode
+
+        simNode.vx = 	geonode.properties.velin[0]	// geonode velocity to simnode
         simNode.vy = 	geonode.properties.velin[1]
         simNode.vz = 	geonode.properties.velin[2]
 

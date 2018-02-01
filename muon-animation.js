@@ -39,8 +39,7 @@
       }
 
       if (state.animas.length > 0) if (1 && 1) console.log(' .................... m.animation animas ', state.animas.length)
-let geonodes = state.animas.map(d => d.payload.geonode.geometry.coordinates)
-      if (1 && 1) console.log('0 m.animation geonodes ', geonodes)				
+				
       /*******************************************
      *    @STOP
      */
@@ -48,8 +47,6 @@ let geonodes = state.animas.map(d => d.payload.geonode.geometry.coordinates)
       if (isNaN(maxlimit)) state.animationStop()
       if (maxlimit > 0 && elapsed > maxlimit) state.animationStop() // stop if spired
       if (elapsed > maxlimit) state.animationStop() // stop if anigrams spired
-geonodes = state.animas.map(d => d.payload.geonode.geometry.coordinates)
-      if (1 && 1) console.log('1 m.animation geonodes ', geonodes)			
       /*******************************************
      *    @WEEN generate animas and offsprings
      */
@@ -59,8 +56,6 @@ geonodes = state.animas.map(d => d.payload.geonode.geometry.coordinates)
         __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': newAnimas})
       }
       state.animas = f.a(__mapper('muonStore').animasLive())
-geonodes = state.animas.map(d => d.payload.geonode.geometry.coordinates)
-      if (1 && 1) console.log('2 m.animation geonodes ', geonodes)
       /*******************************************
       *    @SIM defaults position of nodes
       */
@@ -70,8 +65,6 @@ geonodes = state.animas.map(d => d.payload.geonode.geometry.coordinates)
 
       state.animas = f.a(__mapper('muonStore').animasLive())
 
-geonodes = state.animas.map(d => d.payload.geonode.geometry.coordinates)
-      if (1 && 1) console.log('3 m.animation geonodes ', geonodes)
 
       /*******************************************
      *    @GRAMM animas to anigrams

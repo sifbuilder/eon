@@ -1,4 +1,5 @@
 /*  d3  */  
+document.write("<script src='d3.v4.js'><\/script>")    
 document.write("<script src='d3.v5.js'><\/script>")    
 document.write("<script src='d3-force-3d.bundle.js'><\/script>")    
 document.write("<script src='d3-force-bounce.js'><\/script>")    
@@ -12,4 +13,5 @@ document.write("<script src='d3-geo-voronoi.js'><\/script>")
 document.write("<script src='topojson.v3.js'><\/script>")    
 /*  three */  
 document.write("<script src='three.js'><\/script>")    
+document.write("<script src='three.min.js'><\/script>")    
 document.write("<script src='three-trackballcontrols.js'><\/script>")    
