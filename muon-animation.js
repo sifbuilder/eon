@@ -38,8 +38,9 @@
         }
       }
 
-      if (state.animas.length > 0) if (0 && 1) console.log(' .................... m.animation animas ', state.animas.length)
-				
+      if (state.animas.length > 0) if (1 && 1) console.log(' .................... m.animation animas ', state.animas.length)
+let geonodes = state.animas.map(d => d.payload.geonode.geometry.coordinates)
+      if (1 && 1) console.log('0 m.animation geonodes ', geonodes)				
       /*******************************************
      *    @STOP
      */
@@ -47,7 +48,8 @@
       if (isNaN(maxlimit)) state.animationStop()
       if (maxlimit > 0 && elapsed > maxlimit) state.animationStop() // stop if spired
       if (elapsed > maxlimit) state.animationStop() // stop if anigrams spired
-
+geonodes = state.animas.map(d => d.payload.geonode.geometry.coordinates)
+      if (1 && 1) console.log('1 m.animation geonodes ', geonodes)			
       /*******************************************
      *    @WEEN generate animas and offsprings
      */
@@ -57,18 +59,19 @@
         __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': newAnimas})
       }
       state.animas = f.a(__mapper('muonStore').animasLive())
-      if (0 && 1) console.log('m.animation state.animas ', state.animas)
-
-      // /*******************************************
-      // *    @SIM defaults position of nodes
-      // */
+geonodes = state.animas.map(d => d.payload.geonode.geometry.coordinates)
+      if (1 && 1) console.log('2 m.animation geonodes ', geonodes)
+      /*******************************************
+      *    @SIM defaults position of nodes
+      */
       let sim = __mapper('xs').m('simulation').sim() // simulation on animas
 
       __mapper('xs').m('simulation').simulate(sim, state.animas, elapsed)	// stored
 
       state.animas = f.a(__mapper('muonStore').animasLive())
 
-// state.animas.forEach(d=>console.log("m.simulation animation animas", d.payload.geonode.geometry.coordinates))
+geonodes = state.animas.map(d => d.payload.geonode.geometry.coordinates)
+      if (1 && 1) console.log('3 m.animation geonodes ', geonodes)
 
       /*******************************************
      *    @GRAMM animas to anigrams
@@ -77,12 +80,9 @@
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
 
-        if (0 && 1) console.log('m.animation anima ', anima)
         let newAnigrams = []
 				newAnigrams = f.a(mstore.gramm(anima)) /* GRAMM */
-        if (0 && 1) console.log('m.animation newAnigrams ', newAnigrams)
 
-        if (newAnigrams.length > 0)	 if (0 && 1) console.log('m.animation newAnigrams ', newAnigrams.length, newAnigrams)
       }
 
 			let anigrams = __mapper('xs').m('store').anigrams()

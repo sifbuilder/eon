@@ -1,6 +1,6 @@
-/* -------------------------- */
-/*       forceCollide  			*/
-/* -------------------------- */
+/***********
+	 *		@forceCollide
+	 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
@@ -8,36 +8,32 @@
 }(this, function (exports) {
   'use strict'
 
-  var forceCollide = function forceCollide (__mapper = {}) {
+  var forceCollide = function (__mapper = {}) {
     let props = __mapper('props')()
 
-    // -------------------------- */
-    //       force								*/
-    // -------------------------- */
+		/***********
+		*		@force
+		*/		
     let force = function (params) {
+			
       let nodes = params.nodes || []
-      let dim = params.dim || 3
 
       let strength = params.strength || 1
-      let radii = params.radii || 1
+      let radius = params.radii || 1
       let iterations = params.iterations || 1
 
       let d3src = (params.src !== undefined) ? params.src : d3	// d3_force
 
-      let d3force = d3src.forceCollide(nodes, dim)
+      let d3force = d3src.forceCollide(radius)
         .strength(strength)
-        .radius(radii)
 
       return d3force
     }
 
-    /* -------------------------- */
-    /*        muonApi		  			*/
-    /* -------------------------- */
-    var muonApi = function muonApi () {}
-    muonApi.force = force
+    var enty = function enty () {}
+    enty.force = force
 
-    return muonApi
+    return enty
   }
 
   exports.forceCollide = forceCollide

@@ -49,41 +49,34 @@
     function initNodes (aniItems, nDim) {
       let simNodes = []
 
-      if (0 && 1) console.log('simulation initNodes', aniItems)
 
       for (let i = 0, n = aniItems.length; i < n; ++i) {
         let aniItem = aniItems[i]
         let payload = aniItem.payload
-        let geonode = payload.geonode || _geonode
+        let geonode = payload.geonode		// geonode
+
+      if (1 && 1) console.log('simulation initNodes', i, geonode.geometry.coordinates)
 
         let simNode = {}
 
-        simNode.x = 	geonode.geometry.coordinates[0]
+        simNode.x = 	geonode.geometry.coordinates[0]	// geonode location to simnode
         simNode.y = 	geonode.geometry.coordinates[1]
         simNode.z = 	geonode.geometry.coordinates[2]
 
-        simNode.vx = 	geonode.properties.velin[0]
+        simNode.vx = 	geonode.properties.velin[0]			// geonode velocity to simnode
         simNode.vy = 	geonode.properties.velin[1]
         simNode.vz = 	geonode.properties.velin[2]
 
-        simNode.payload = payload
-        simNode.id = payload.uid
+        simNode.payload = payload										// anitem payload to simnode
+        simNode.id = payload.uid										// anitem uid to simnode id
 
-        if (simNode.x === undefined || isNaN(simNode.x)) simNode.x = 0
+        if (simNode.x === undefined || isNaN(simNode.x)) simNode.x = 0	// location defs
         if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1) 	simNode.y = 0
         if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2) 	simNode.z = 0
 
-        if (isNaN(simNode.vx)) simNode.vx = 0
+        if (isNaN(simNode.vx)) simNode.vx = 0										// velocity defs
         if (nDim > 1 && isNaN(simNode.vy)) simNode.vy = 0
         if (nDim > 2 && isNaN(simNode.vz)) simNode.vz = 0
-
-        if (simNode.x === undefined || isNaN(simNode.x)) simNode.x = 0
-        if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1) 	simNode.y = 0
-        if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2) 	simNode.z = 0
-
-        if (isNaN(simNode.vx)) simNode.vx = 0
-        if (nDim > 1 && isNaN(payload.vy)) simNode.vy = 0
-        if (nDim > 2 && isNaN(payload.vz)) simNode.vz = 0
 
         simNodes.push(simNode)
       }
@@ -93,47 +86,42 @@
 
     // ------------------------- restoreNodes
     function restoreNodes (simNodes, aniItems) {
-      let updAniItems = []
+      let updItems = []
 
       if (simNodes.length > 0) {
         for (let i = 0; i < simNodes.length; ++i) {
           let simNode = simNodes[i]
 
-          let updAniItem = Object.assign({}, aniItems[i])
+          let updItem = aniItems[i]		// each anitem
+					let geonode = f.cloneObj(updItem.payload.geonode)	// geonode to upd
 
-          let updAniPayload = simNode.payload
-          updAniPayload.geonode = updAniPayload.geonode || _geonode
 
-          let updAniGeometry = updAniPayload.geonode.geometry,
-            updaAniCoordinates = updAniGeometry.coordinates,
+          geonode.properties.geodelta[0] = simNode.x - geonode.geometry.coordinates[0]	// delta location
+          geonode.properties.geodelta[1] = simNode.y - geonode.geometry.coordinates[1]
+          geonode.properties.geodelta[2] = simNode.z - geonode.geometry.coordinates[2]
 
-            updaAniProperties = updAniPayload.geonode.properties,
-            updaAniOrigin = 	updaAniProperties.orgen,
-            updaAniVelocity = updaAniProperties.velin,
-            updaAniVelangular = updaAniProperties.velang,
-            updaAniPrevious = updaAniProperties.prevous,
-            updaAniGeodelta = updaAniProperties.geodelta
+					geonode.properties.velin[0] = simNode.vx		// linear velocities
+          geonode.properties.velin[1] = simNode.vy
+          geonode.properties.velin[2] = simNode.vz
 
-          updaAniGeodelta[0] = simNode.x - updaAniCoordinates[0]
-          updaAniGeodelta[1] = simNode.y - updaAniCoordinates[1]
-          updaAniGeodelta[2] = simNode.z - updaAniCoordinates[2]
+					geonode.properties.prevous[0] = geonode.geometry.coordinates[0]	// previous location
+          geonode.properties.prevous[1] = geonode.geometry.coordinates[1]
+          geonode.properties.prevous[2] = geonode.geometry.coordinates[2]
 
-          updaAniCoordinates[0] = simNode.x
-          updaAniCoordinates[1] = simNode.y
-          updaAniCoordinates[2] = simNode.z
+					geonode.geometry.coordinates[0] = simNode.x			// after sim location
+          geonode.geometry.coordinates[1] = simNode.y
+          geonode.geometry.coordinates[2] = simNode.z
 
-          updaAniVelocity[0] = simNode.vx
-          updaAniVelocity[1] = simNode.vy
-          updaAniVelocity[2] = simNode.vz
+					updItem.payload.geonode = geonode
 
-          if (0 && 1) console.log('m.simulation updAniItem', i, updAniItem.payload.geonode.geometry.coordinates)
+          if (1 && 1) console.log('m.simulation updItem', i, updItem.payload.geonode.geometry.coordinates)
 
-          updAniItems.push(updAniItem)
+          updItems.push(updItem)
         }
-        // if (simNodes.length > 2) if (1 && 1) console.log('m.simulation updAniItems --- ', updAniItems[2].payload)
+        // if (simNodes.length > 2) if (1 && 1) console.log('m.simulation updItems --- ', updItems[2].payload)
       }
-
-      return updAniItems
+if (1 && 1) updItems.forEach(d => console.log(" ------ aniSims", d.payload.geonode.geometry.coordinates))
+      return updItems
     }
 
     /***************************
@@ -171,7 +159,7 @@
                 if (aniForce.ticked !== undefined) aniForce.ticked
 
                 aniSims = restoreNodes(aniNodes, aniItems)	// > aniNodes
-								
+if (1 && 1) aniSims.forEach((d,i) => console.log(" ....... aniSims", i,d.payload.geonode.geometry.coordinates))
                 mstore.apply({type: 'UPDATEANIMAS', caller: 'simulation', animas: aniSims})
 
               })

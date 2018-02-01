@@ -216,8 +216,11 @@
     enty.token = () => state.animas.length + 1
     enty.getNid = () => state.animas.length + 1
 
-    enty.getAnigramIdx = ric => enty.getAnitemIndex(state.anigrams, ric.gid, ric.cid, ric.fid)
+    enty.getAnigramIdx = ric => enty.findIndexFromRic(ric, state.anigrams)
     enty.getAnigram = ric => state.anigrams[enty.getAnigramIdx(ric)] || null
+
+    enty.getAnimaIdx = ric => enty.findIndexFromRic(ric, state.animas)
+    enty.getAnima = ric => state.animas[enty.getAnimaIdx(ric)] || null
 
     return enty
   }
