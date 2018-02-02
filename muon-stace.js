@@ -218,7 +218,7 @@
  *        @getLocus
  */
     let getLocus = function (stace, anigram) {
-      if (0 && 1) console.log('m.stace.getLocus stace', stace)
+      if (1 && 1) console.log('m.stace.getLocus stace', stace)
 
       let locus = null // default locus _e_
 

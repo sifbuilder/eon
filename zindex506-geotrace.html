@@ -223,11 +223,11 @@ let muonAlima = function muonAlima (__mapper) {
       'proform': natProform,
       form: natForm,
 
-        geonode: {
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-        },			
+			geonode: {
+				type: 'Feature',
+				geometry: { type: 'Point', coordinates: [0, 0, 0] },
+				properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+			},			
 
     }
 
@@ -260,8 +260,6 @@ let muonAlima = function muonAlima (__mapper) {
         },
         'scale': 1,
         'rotate': [0, 0, 0], // [-5,50,0],
-        'focale': Infinity,
-        'zafin': [0, 1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
         'lens': [0, 1, Infinity], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
         'dims': 3,
         'control': 'wen'
@@ -280,7 +278,7 @@ let muonAlima = function muonAlima (__mapper) {
 
         autoSitus: d => mstace.getLocus(null, d),
 
-        fider: anitem => anitem.payload.ric.fid,
+        fider: d => d.payload.ric.fid,
 				
         geojsor: (d,i) => ({
 							type: 'Feature', 

@@ -139,7 +139,7 @@ let muonAlima = function (__mapper) {
 
   let natBoform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.79, 0.79]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
-  let traceBoform = { 'csx': 0, 'cf': [[[444, 444]]], 'co': [[[0.09, 0.09]]], 'cs': [[[777, 777]]], 'cw': [[[1.7, 1.7]]], 'cp': [[[0.99, 0.99]]]}
+  let traceBoform = { 'csx': 0, 'cf': [[[444, 444]]], 'co': [[[0.9, 0.9]]], 'cs': [[[777, 777]]], 'cw': [[[1.7, 1.7]]], 'cp': [[[0.99, 0.99]]]}
 
 
  /*******************************************
@@ -190,6 +190,12 @@ let muonAlima = function (__mapper) {
 
 
       form: natForm,
+			
+			geonode: {
+				type: 'Feature',
+				geometry: { type: 'Point', coordinates: [0, 0, 0] },
+				properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+			},						
 
 			natProform: natProform
 
@@ -243,7 +249,7 @@ let muonAlima = function (__mapper) {
 
         autoSitus: d => mstace.getLocus(null, d),
 
-        fider: anitem => anitem.payload.ric.fid,
+        fider: d => d.payload.ric.fid,
 
         geojsor: (d,i) => ({
 							type: 'Feature',
@@ -331,6 +337,12 @@ let muonAlima = function (__mapper) {
         'control': 'wen'
       },
 
+			geonode: {
+				type: 'Feature',
+				geometry: { type: 'Point', coordinates: [0, 0, 0] },
+				properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+			},		
+			
       pacer: {
         'initN': 0,
         'eventN': 1,
@@ -409,8 +421,6 @@ let muonAlima = function (__mapper) {
         },
         'scale': 1,
         'rotate': [0, 0, 0],
-        'focale': Infinity,
-        'zafin': [0, 1],
         'lens': [0, 1, Infinity],
         'dims': 3,
         'control': 'wen'
@@ -520,8 +530,8 @@ let muonAlima = function (__mapper) {
   let animas = [
 
     routeline,  // h.pacer		free liner
-		geonat,			 // h.nat geoform:natForm proform:natProform.natstace
-    img,      // h.img
+		// geonat,			 // h.nat geoform:natForm proform:natProform.natstace
+    // img,      // h.img
   ]
 
   let animaApi = function animaApi () {

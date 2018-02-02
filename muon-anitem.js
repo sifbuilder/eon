@@ -9,7 +9,8 @@
   'use strict'
 
   let muonAnitem = function muonAnitem (__mapper = {}) {
-    let f = __mapper('props')()
+    let f = __mapper('props')(),
+			mgeonode = __mapper('xs').m('geonode')
 
     /***************************************
  *        @anitem
@@ -88,6 +89,7 @@
       let parent = __mapper('xs').m('store').findAnigramFromUid(parentuid)
 
       if (parent !== undefined) {
+				parent.payload.geonode = mgeonode.set(parent.payload.geonode) 
         coords = parent.payload.geonode.geometry.coordinates
       }
 
