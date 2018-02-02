@@ -44,11 +44,15 @@
             prj = __mapper('xs').g(prj)(p) // get projection from name
           }
         }
-
+				
+				if (1 && 1)	console.log('m.profier.protion:prj', prj)
         if (prj.rotate !== undefined) {
           let rot = (p.rotate) ? p.rotate : [0, 0, 0]
 
-          if (p.control === 'wen') { // wen control
+					
+					
+					
+          if (p.control === 'wen') { // WEN 
 					
             let wenRotation = cwen.rotation()
 
@@ -60,16 +64,25 @@
 
             rot = mversor.add(rot, wenRotation)
 						
-          } else if (p.control === 'versor') { // versor control
-					
+						
+						
+						
+						
+          } else if (p.control === 'versor') { // VERSOR 
             let verser = cversor.projection(prj)
 						
 						
             let verRotation = verser.rotation() // rotation from versor
 
             rot = mversor.add(rot, verRotation) // add ani rotation
+						
+						if (1 && 1)	console.log('m.profier.protion:control verRotation', verRotation)
+						
           }
 
+					
+					
+					
           p.rotate = rot
         }
 

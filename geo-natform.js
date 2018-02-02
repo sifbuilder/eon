@@ -17,8 +17,6 @@
       scale = [1, 1, 1],
       rotate = [0, 0, 0],
       translate = [0, 0, 0],
-      focale = Infinity,
-      zafin = [0, 1],
       lens = [0, 1, Infinity],
       dims = 3
 
