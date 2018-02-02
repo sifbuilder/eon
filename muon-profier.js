@@ -27,13 +27,16 @@
     let protion = function (prjdef, anigram) {
       if (0 && 1)	console.log('m.profier.protion:prjdef', prjdef)
       let p = prjdef
-      let prj = guniwen(p) // d3.geoIdentity()
+      let prj = guniwen(p)
 
       if (p !== undefined) {
+				
         if (f.isString(p.projection)) { // if _projection singular name
           prj = __mapper('xs').g(p.projection)(p) // props
+					
         } else if (f.isFunction(p.projection)) { // if is projection
           prj = p.projection // props passed to projection
+					
         } else if (f.isArray(p.projections)) { // if plural select one
           prj = p.projections[ Math.round(p.projectidx || 0) ]
 
@@ -46,6 +49,7 @@
           let rot = (p.rotate) ? p.rotate : [0, 0, 0]
 
           if (p.control === 'wen') { // wen control
+					
             let wenRotation = cwen.rotation()
 
             if (p.dims === 2) {
@@ -55,8 +59,12 @@
             }
 
             rot = mversor.add(rot, wenRotation)
+						
           } else if (p.control === 'versor') { // versor control
+					
             let verser = cversor.projection(prj)
+						
+						
             let verRotation = verser.rotation() // rotation from versor
 
             rot = mversor.add(rot, verRotation) // add ani rotation

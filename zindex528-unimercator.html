@@ -27,23 +27,6 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 1, wen: 0, webgl: 1}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props()
-  let g = __mapper('xs').m('geom')
-  let w = __mapper('xs').m('wen')
-
-  /**********************
-   *    @
-   */
-  let r = __mapper('xs').r('renderer'),
-    width = r.width(),
-    height = r.height()
-
-  let rotInit = [0, 45, 0],
-    rotation = [0, 0, 0],
-    rotMatrix
-
-  let versor = __mapper('xs').m('versor')()
-  let wen = __mapper('xs').c('wen')({rotInit})
 
   /*******************************************
  *      @pics

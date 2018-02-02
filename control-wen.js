@@ -16,8 +16,7 @@
 
   let controlWen = function controlWen (__mapper = {}) {
     let f = __mapper('props')()
-    let w = __mapper('xs').m('wen')
-    let g = __mapper('xs').m('geom')
+    let mgeom = __mapper('xs').m('geom')
 
     let drag = d3.drag()
 
@@ -45,23 +44,18 @@
       rotPreDrag = [0, 0, 0],
       rotAccum = [0, 0, 0],
       autoRot = false,
-      lastMoveTime,
       vel = [0, 0, 0],
-      timer,
-      autorotimer,
       moveSpan = 16,
       rotBase = [1, 0, 0, 0, 1, 0, 0, 0, 1], // identity matrix
+      lastMoveTime,
+      timer,
+      autorotimer,
       rotMatrix
 
     let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
 
-    // let control = elem => elem.call(drag.on("start", dragstarted).on("drag", dragged).on("end", dragended))
-    let control = function (elem) {
-      console.log(' control wen ')
-      elem.call(drag.on('start', dragstarted).on('drag', dragged).on('end', dragended))
-    }
+    let control = elem => elem.call(drag.on("start", dragstarted).on("drag", dragged).on("end", dragended))
 
-    // __mapper("xs").c("wen").reset(__mapper("renderSvg").svg())
     let reset = elem => elem.call(drag.on('start', null).on('drag', null).on('end', null))
 
     function stopMomentum () { cancelAnimationFrame(timer); timer = null }
@@ -74,7 +68,7 @@
       stopMomentum()
       cPos = pPos = grabbed = getPos(e) // position from event
       moved = false // not moved yet
-      rotAccum = g.add(rotAccum, rotInDrag)
+      rotAccum = mgeom.add(rotAccum, rotInDrag)
       rotInDrag = [0, 0, 0]
     }
 
@@ -103,7 +97,6 @@
     }
 
     let dragended = function () {
-      let e = d3.event
 
       if (!grabbed) return
       grabbed = false
@@ -125,7 +118,7 @@
    *    @ENTY
    */
     let enty = function (p = {}) {
-      rotInit = g.to_radians(p.rotInit) || [0, 0, 0]
+      rotInit = mgeom.to_radians(p.rotInit) || [0, 0, 0]
       autorotimer = requestAnimationFrame(tick)
       return enty
     }
@@ -137,11 +130,13 @@
     enty.reset = reset
 
     enty.mult = _ => _ !== undefined ? (mult = _, enty) : mult // effect multiplier
-    enty.rotInDrag = _ => _ !== undefined ? (rotInDrag = g.to_radians(_), enty) : rotInDrag.map(g.to_degrees)
-    enty.rotAccum = _ => _ !== undefined ? (rotAccum = g.to_radians(_), enty) : rotAccum.map(g.to_degrees)
-    enty.rotation = _ => _ !== undefined ? (rotation = g.to_radians(_), enty) : g.add(rotAccum, rotInDrag).map(g.to_degrees)
-    enty.rotVel = _ => _ !== undefined ? (rotVel = g.to_radians(_), enty) : rotVel.map(g.to_degrees)
-    enty.rotInit = _ => _ !== undefined ? (rotInit = g.to_radians(_), enty) : rotInit.map(g.to_degrees)
+    enty.rotInDrag = _ => _ !== undefined ? (rotInDrag = mgeom.to_radians(_), enty) : rotInDrag.map(mgeom.to_degrees)
+    enty.rotAccum = _ => _ !== undefined ? (rotAccum = mgeom.to_radians(_), enty) : rotAccum.map(mgeom.to_degrees)
+    enty.rotVel = _ => _ !== undefined ? (rotVel = mgeom.to_radians(_), enty) : rotVel.map(mgeom.to_degrees)
+    enty.rotInit = _ => _ !== undefined ? (rotInit = mgeom.to_radians(_), enty) : rotInit.map(mgeom.to_degrees)
+		
+    enty.rotation =  () => mgeom.add(rotAccum,rotInDrag).map(mgeom.to_degrees)
+		
 
     return enty
   }
