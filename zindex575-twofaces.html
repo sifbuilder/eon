@@ -12,13 +12,6 @@
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
 
-<script src='https://d3js.org/d3.v4.min.js'></script>
-<script src='https://d3js.org/d3-geo.v1.min.js'></script>
-<script src='https://d3js.org/d3-geo-projection.v2.min.js'></script>
-<script src='https:////unpkg.com/d3-force-3d@1.0.7/build/d3-force-3d.bundle.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.0/topojson.min.js'></script>
-<script src='https:////cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js'></script>
-<script src='https:////unpkg.com/three-trackballcontrols-web@0.0.2/dist/three-trackballcontrols.min.js'></script>
 <script src="enls.js"></script>
 <script src="ents.js"></script>
 
@@ -28,9 +21,9 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1})		// INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props()
-  let g = __mapper('xs').m('geom')
-  let w = __mapper('xs').m('wen')
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+		g = __mapper('xs').m('geom'),
+		w = __mapper('xs').m('wen')
 
   /**********************
    *    @
@@ -59,24 +52,16 @@ let muonAlima = function muonAlima (__mapper) {
     'translate': [ 180, 200 ],
     'scale': 90,
     'rotate': [0, 0, 0], // [-5,50,0],
-    'focale': 4,
-    'zafin': [0, 1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
     'lens': [0, 1, 4], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
     'dims': 3,
     'control': 'wen'
   }
 
-  let geoformFaces = (anima) => {					// geoform creates geojson featurecollection
-    let ani = __mapper('xs').m('anitem')(anima),
-      anigram = ani.anigram(), // anigram
-      boform = ani.boform(), // boform
-      ric = ani.ric(), // ric
-      tim = ani.tim(), // tim
-      payload = ani.payload(), // payload
-      proform = ani.proform(), // proform
-      conform = ani.conform(), // conform
-      parentuid = ani.parentuid(), // parentuid
-      geoform = ani.geoform() 							 // geoform
+  let geoformFaces = ani => {					// geoform creates geojson featurecollection
+      let payload = ani.payload, // payload
+				proform = payload.proform, // proform
+				conform = payload.conform, // conform
+				parentuid = payload.parentuid // parentuid
 
     let faces = f.v(payload.faces) // payload.faces
 
@@ -115,6 +100,7 @@ let muonAlima = function muonAlima (__mapper) {
       'tim': tim,
       'ric': {'gid': 'faces', 'cid': 'face', 'fid': 'face'},
       'boform': {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+			
       'proform': proformFaces,
 
       faces: [
