@@ -10,20 +10,17 @@
   'use strict'
 
   let controlVersor = function (__mapper = {}) {
-    let f = __mapper('props')(),
-			mversor = __mapper('xs').m('versor')()
+		
+    let mversor = __mapper('xs').m('versor')()
 
     let drag = d3.drag()
 
-    let state = Object.assign({})
-		
+    let state = {}
     state.projection = d3.geoOrthographic()
     state.rotation = [0, 0, 0]
-
-    state.v0 // Mouse position in Cartesian coordinates at start of drag gesture
+    state.v0 // Mouse cartesian position at start of drag gesture
     state.r0 // Projection rotation as Euler angles at start
     state.q0 // Projection rotation as versor at start
-
     state.p0 // Polar coordintes
     state.dtc // Distance initial dot to center untransformed
 
@@ -37,17 +34,16 @@
       let x = pt1[0]
       let y = pt1[1]
       let dtc = Math.sqrt(x * x + y * y) // abs < 1
-
       return Math.abs(dtc) < 1
     }
 
-		 // get event position
+    // get event position
     let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
 
-		 // start drag control
-    let control = elem => elem.call(drag.on("start", dragstarted).on("drag", dragged))
+    // start drag control
+    let control = elem => elem.call(drag.on('start', dragstarted).on('drag', dragged))
 
-		 // stop drag control
+    // stop drag control
     let reset = elem => elem.call(drag.on('start', null).on('drag', null))
 
     // dragstarted listener
@@ -88,8 +84,7 @@
     }
 
     /*******************************************
-   * @API
-   *
+   *    @enty
    */
     let enty = function enty () {}
 

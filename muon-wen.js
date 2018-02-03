@@ -14,7 +14,6 @@
   // https://github.com/wenliang-developer/web-developer-site
 
   let muonWen = function muonWen (__mapper = {}) {
-    let f = __mapper('props')()
 
     function clip (n, m, M) { return n < M ? n > m ? n : m : M }
     function comeCloser (n, goal, factor, limit) {
@@ -28,7 +27,7 @@
       let l = Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2])
       return [v[0] / l, v[1] / l, v[2] / l]
     }
-    function projection (p, d, s) {
+    function projection (p, d, s) { // distance, focale, scale
       // let f = (s || 1) / (1 - p[2] / d);
       // return [p[0]*f, p[1]*f, p[2]];
       let h = Array.isArray(s) ? s : Array.of(s)

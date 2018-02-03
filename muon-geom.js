@@ -224,9 +224,21 @@
     }
 
     enty.add = function (v0, v1) {
-      return [v0[0] + v1[0],
-        v0[1] + v1[1],
-        v0[2] + v1[2]]
+			let added = []
+			let dims = Math.max(v0.length, v1.length)
+			for (let i=0; i<dims; i++) {
+				added[i] = (v0[i] || 0) + (v1[i] || 0)
+			}
+      return added
+    }
+
+    enty.zerovector = function (v) {
+			let zerovector = []
+			let dims = v.length
+			for (let i=0; i<dims; i++) {
+				zerovector[i] = 0
+			}
+      return zerovector
     }
 
     enty.degrees = () => 180 / Math.PI

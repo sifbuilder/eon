@@ -26,7 +26,7 @@
  *        if control:versor   versor rotation
  */
     let protion = function (prjdef, anigram) {
-      if (0 && 1)	console.log('m.profier.protion:prjdef', prjdef)
+			
       let p = prjdef
       let prj = guniwen(p)
 
@@ -49,39 +49,34 @@
 
 				
         if (prj.rotate !== undefined) {
-          let rot = (p.rotate) ? p.rotate : [0, 0, 0]
-
 					
+          let rot = (p.rotate) ? p.rotate : [0, 0, 0]
+					let controlRotation =  mgeom.zerovector(rot)
 					
 					
           if (p.control === 'wen') { // WEN 
 					
-            let controlRotation = cwen.rotation()
+            controlRotation = cwen
+									.rotation() // rotation from control wen
 
-            if (p.dims === 2) {
-              if (controlRotation[0] * controlRotation[1] !== 0) {
-                controlRotation = mwen.cross([controlRotation[0], 0, 0], [0, controlRotation[1], 0])
-              }
-            }
-
-            rot = mgeom.add(rot, controlRotation)
-						
-						
-						
-						
 						
           } else if (p.control === 'versor') { // VERSOR 
-            let verser = cversor.projection(prj)
-						
-						
-            let controlRotation = verser.rotation() // rotation from versor
-
-            rot = mgeom.add(rot, controlRotation) // add ani rotation
+					
+            controlRotation = cversor
+									.projection(prj)
+									.rotation() // rotation from versor
 
 						
           }
 
 					
+					if (controlRotation.length == 2) {		// planar form
+						if (controlRotation[0] * controlRotation[1] !== 0) {
+							controlRotation = mwen.cross([controlRotation[0], 0, 0], [0, controlRotation[1], 0])
+						}
+					}
+
+					rot = mgeom.add(rot, controlRotation)
 					
 					
           p.rotate = rot
@@ -103,7 +98,6 @@
           if (f.isFunction(prj[key])) prj[key](value)
         }
       }
-      if (0 && 1) console.log('m.profier exit')
       return prj
     }
 
@@ -129,7 +123,6 @@
     let conformer = anigram => {
       let projdef = anigram.payload.conform
 
-			if (0 && 1) console.log("projdef", projdef)
 			let projer
 			
 			 if (projdef === undefined) {
@@ -168,7 +161,7 @@
 
 						let projection = protion(projdef, anigram)
 
-						projer = json => {																							// anigram
+						projer = json => {									// anigram
 
 	
 							let proformed =	mproj3ct(json, projection)												// proform geoform

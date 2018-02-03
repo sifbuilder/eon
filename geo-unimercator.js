@@ -1,5 +1,5 @@
 /*******************************************
- * 			@geoUnimercator
+ *      @geoUnimercator
  *
  */
 (function (global, factory) {
@@ -12,22 +12,15 @@
   // https://d3js.org/d3-geo/ Version 1.9.0. Copyright 2017 Mike Bostock.
 
   var geoUnimercator = function geoUnimercator (__mapper = {}) {
-    let width = __mapper('xs').r('renderer').width()
-    let height = __mapper('xs').r('renderer').height()
-
     /*******************************************
-	 * 			@mercatorRaw
-	 */
-    var atan = Math.atan
-    var exp = Math.exp
-    var log = Math.log
-    var tan = Math.tan
-    var pi = Math.PI
-    var degrees = 180 / pi
-    let sqrt1_2 = Math.sqrt(0.5)
-    var phi1 = atan(sqrt1_2) * degrees
-    var halfPi = pi / 2
-    var tau = pi * 2
+   *      @mercatorRaw
+   */
+    let atan = Math.atan,
+			exp = Math.exp,
+			log = Math.log,
+			tan = Math.tan,
+			pi = Math.PI,
+			halfPi = pi / 2
 
     function mercatorRaw (lambda, phi) {
       return [lambda, log(tan((halfPi + phi) / 2))]
@@ -36,11 +29,11 @@
       return [x, 2 * atan(exp(y)) - halfPi]
     }
 
-    let m, mercator
+		let mercator
     /*******************************************
-	 * 			@enty mercator
-	 */
-    var enty = mercator = function () {				// mercator
+   *      @enty mercator
+   */
+    var enty = mercator = function () { // mercator
       let m = mercatorProjection(mercatorRaw)
       return m
     }
