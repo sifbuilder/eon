@@ -14,15 +14,6 @@
       mlacer = __mapper('xs').m('lacer'),
       manitem = __mapper('xs').m('anitem')
 
-    /* ******************************************
-    getLocifier (anigram)
-    getLocifion (anigram)                     -- translate projection
-      getLocus (anigram)                      -- locus or first location
-        getSiti (anigram)                     -- root x,y,z
-        getLocations (anigram)                -- stace root, pos ref
-          getLocsInDim (dimStace, dimStream)  -- location of dimStream by dimStace
-          getLocsFromParent (anigram)
-  */
     // ........................ getSiti         situs: Arary.of(ani.x, .y, .z)
     let getSiti = function (anima, siti = []) {
       let situs = {}
@@ -218,7 +209,7 @@
  *        @getLocus
  */
     let getLocus = function (stace, anigram) {
-      if (1 && 1) console.log('m.stace.getLocus stace', stace)
+      if (0 && 1) console.log('m.stace.getLocus stace', stace)
 
       let locus = null // default locus _e_
 

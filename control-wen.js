@@ -37,7 +37,7 @@
     let inits = {
       decay: 0.95,
       mult: 2e-3, // rotInDrag factor
-      rotInit: [60,60,60], // [0, 0, 0] // 
+      rotInit: [0, 0, 0],
 			timeSpan: 200,
     }
 

@@ -382,13 +382,11 @@ let muonAlima = function (__mapper) {
       let rotate = mliner.orientate(p).rotate()
           p.payload.form.x.w4 += rotate
           p.payload.form.y.w4 += rotate
+					
       let nat = {
-				'type': 'Feature','geometry': {'type': 'Polygon','coordinates': mnat.natPolygon(p.payload.form)},
-				'properties': {
-
-
-
-				}
+				'type': 'Feature',
+				'geometry': {'type': 'Polygon','coordinates': mnat.natPolygon(p.payload.form)},
+				'properties': {}
 			}
 			return nat
     },
@@ -408,7 +406,8 @@ let muonAlima = function (__mapper) {
 						
       'proform': {
         'projection': 'uniwen',
-        'translate': {
+        'translate': 
+				{
           'x':
               {
                 'pos': [[[ 0, 1 * 100]]]
@@ -517,11 +516,11 @@ let muonAlima = function (__mapper) {
     avaform,  // haloAvajson h.nat
 
   }
-  avaform.payload.avatars = {
+  // avaform.payload.avatars = {
 
-		pathline // h.pacer
+		// pathline // h.pacer
 
-  }
+  // }
   geonat.payload.avatars = {
 
     traceline, // h.pacer

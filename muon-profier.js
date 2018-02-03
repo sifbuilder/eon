@@ -134,7 +134,11 @@
     let proformer = anigram => {
       let uid = anigram.payload.uid
       let projdef = anigram.payload.proform
-			if (0 && 1) console.log('m.profier.proformer')
+			
+			if (1 && 1 && anigram.payload.uid == "nat_nat_avaform") {
+				console.log('m.profier.proformer', anigram.payload.uid)
+			}
+				
 			let projer
 			if (projdef === undefined) {
 				 
@@ -142,29 +146,18 @@
 			
 			} else {
 
-						// if (projdef.translate) {
+						if (projdef.translate) {
+							let translates = mstace.getLocations(projdef.translate, anigram)
+							let translate = translates[0]				// translate is first translate
 
-							// let translates = mstace.getLocations(projdef.translate, anigram)
-							// let translate = translates[0]				// translate is first translate
-
-							// projdef.translate = translate
-						// }
+							projdef.translate = translate
+						}
 
 						let projection = protion(projdef, anigram)
 
 						projer = json => {									// anigram
 
-	
-							let proformed =	mproj3ct(json, projection)												// proform geoform
-							
-
-							// if (proformed.properties && proformed.properties.geonode !== undefined) {	
-							
-								// let geonode = proformed.properties.geonode											// geonode
-									// geonode = mproj3ct(geonode, projection)												// proform geonode
-								// proformed.properties.geonode = geonode
-								
-							// }
+							let proformed =	mproj3ct(json, projection)				// proform geoform
 
 							return proformed
 						}
