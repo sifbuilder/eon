@@ -134,10 +134,7 @@
     let proformer = anigram => {
       let uid = anigram.payload.uid
       let projdef = anigram.payload.proform
-			
-			if (1 && 1 && anigram.payload.uid == "nat_nat_avaform") {
-				console.log('m.profier.proformer', anigram.payload.uid)
-			}
+
 				
 			let projer
 			if (projdef === undefined) {

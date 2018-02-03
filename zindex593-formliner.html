@@ -21,9 +21,10 @@ let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 0, webgl: 1, key: 1}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props()
-  let g = __mapper('xs').m('geom')
-  let w = __mapper('xs').m('wen')
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+		mliner = __mapper('xs').m('liner'),
+		manitem = __mapper('xs').m('anitem'),
+		mnat = __mapper('xs').m('nat')
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
@@ -80,8 +81,6 @@ let muonAlima = function (__mapper) {
         'translate': [ 0, 0 ],
         'scale': 1,
         'rotate': [0, 0, 0],
-        'focale': Infinity,
-        'zafin': [0, 1], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
         'lens': [0, 1, Infinity], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
         'dims': 3,
         'control': 'wen'
@@ -96,6 +95,16 @@ let muonAlima = function (__mapper) {
         'maxN': 60,
         'span': 15 / 1400,
 				 aad: 1,
+
+        autoSitus: d => mstace.getLocus(null, d),
+
+        fider: anitem => anitem.payload.ric.fid,
+
+        geojsor: (d,i) => ({
+							type: 'Feature',
+							geometry: {type: 'LineString', coordinates: null},
+							properties: {}
+				})				 
       }
     }
 
@@ -105,25 +114,20 @@ let muonAlima = function (__mapper) {
  *      @avaform
  *
  */
-  let prehalo = function (anima, newAnigrams = []) {
-    let ani = __mapper('xs').m('anitem')(anima),
-      anigram = ani.anigram()
+  let prehalo = function (anima) {
+		
+    let anigram = manitem(anima).anigram()
 
-    let liner = __mapper('xs').m('liner')
-    liner.orientate(anima)
+    let rotate = mliner.orientate(anigram).rotate()
 
-    let rotate = liner.rotate()
-    let rotations = liner.rotations()
-
-    anigram.payload.rotations = rotations
-    anigram.payload.form.x.w4 += rotate - 180 * rotations
-    anigram.payload.form.y.w4 += rotate - 180 * rotations
-
+    anigram.payload.form.x.w4 += rotate
+    anigram.payload.form.y.w4 += rotate
     return anigram
   }
 
   let haloAvajson_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-  let haloAvajson_gramm = anima => __mapper('xs').h('geojson').gramm(prehalo(anima))
+	
+  let haloAvajson_gramm = anima => __mapper('xs').h('nat').gramm(prehalo(anima))
 
   let haloAvajson = {}
   haloAvajson.ween = anima => haloAvajson_ween(anima)
@@ -134,14 +138,7 @@ let muonAlima = function (__mapper) {
 
     'halo': haloAvajson,
 
-    'geoform': p => ({
-      'type': 'Feature',
-      'geometry': {
-        'type': 'Polygon',
-        'coordinates': __mapper('xs').m('nat').natPolygon(p.payload.form)
-      },
-      'properties': {}
-    }),
+    'geoform': null,
 
     'payload': {
       'tim': tim,
@@ -158,8 +155,6 @@ let muonAlima = function (__mapper) {
         },
         'scale': 1,
         'rotate': [0, 0, 0],
-        'focale': Infinity,
-        'zafin': [0, 1],
         'lens': [0, 1,Infinity],
         'dims': 3,
         'control': 'wen'

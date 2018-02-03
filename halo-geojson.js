@@ -25,8 +25,11 @@
       let anigram = manitem(anima).anigram(),										// anigram
         halo = 				anigram.halo, // halo
         geoform = 		anigram.geoform, // geoform
-        payload = 		anigram.payload, // payload
-        boform = 			payload.boform, // boform
+        payload = 		anigram.payload // payload
+
+
+
+      let boform = 		payload.boform, // boform
         ric = 				payload.ric, // ric
         tim = 				payload.tim, // tim
         proform 	=		payload.proform, // f.v(payload.proform, anigram), // proform
@@ -35,7 +38,6 @@
         parentuid = 	payload.parentuid, // parentuid
         geonode = 	payload.geonode, // geonode
         gj = 					f.v(geoform, anigram)
-
 
       gj = mprofier.conformer(anigram)(gj)
 

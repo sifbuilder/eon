@@ -153,24 +153,15 @@ let muonAlima = function (__mapper) {
 
 			let rotate = mliner.orientate(p).rotate()
 
-	if (0 && 1)	console.log('z.route rotate ', rotate)
           p.payload.form.x.w4 = rotate
           p.payload.form.y.w4 = rotate
-
 
 			let form = p.payload.form
 			let natcoords = mnat.natPolygon(form)
 			let natgj = {
-				'type': 'Feature','geometry': {'type': 'Polygon','coordinates': natcoords},
-				'properties': {
-
-					geonode: {
-						type: 'Feature',
-						geometry: { type: 'Point', coordinates: [0, 0, 0] },
-						properties: {}
-					}
-
-				}
+				'type': 'Feature',
+				'geometry': {'type': 'Polygon','coordinates': natcoords},
+				'properties': {}
 			}
 			return natgj
 		},
@@ -516,11 +507,11 @@ let muonAlima = function (__mapper) {
     avaform,  // haloAvajson h.nat
 
   }
-  // avaform.payload.avatars = {
+  avaform.payload.avatars = {
 
-		// pathline // h.pacer
+		pathline // h.pacer
 
-  // }
+  }
   geonat.payload.avatars = {
 
     traceline, // h.pacer
@@ -529,8 +520,8 @@ let muonAlima = function (__mapper) {
   let animas = [
 
     routeline,  // h.pacer		free liner
-		// geonat,			 // h.nat geoform:natForm proform:natProform.natstace
-    // img,      // h.img
+		geonat,			 // h.nat geoform:natForm proform:natProform.natstace
+    img,      // h.img
   ]
 
   let animaApi = function animaApi () {
