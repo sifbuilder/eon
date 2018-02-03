@@ -1,14 +1,14 @@
 /***********
-	 *		@forcey
+	 *		@forcez
 	 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.forcey = global.forcey || {})))
+      : (factory((global.forcez = global.forcez || {})))
 }(this, function (exports) {
   'use strict'
 
-  let forcey = function (__mapper = {}) {
+  let forcez = function (__mapper = {}) {
     let props = __mapper('props')()
 
 		/***********
@@ -19,9 +19,9 @@
       let position = params.position || 0
       let strength = params.strength || (() => 0.1)
 
-      let d3src = (params.src !== undefined) ? params.src : d3 // d3_force
+      let d3src = (params.src !== undefined) ? params.src : d3_force // d3 // 
 
-      let d3force = d3src.forceY(position)
+      let d3force = d3src.forceZ(position)
         .strength(strength)
 
       return d3force
@@ -34,5 +34,5 @@
     return enty
   }
 
-  exports.forcey = forcey
+  exports.forcez = forcez
 }))

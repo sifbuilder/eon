@@ -29,6 +29,7 @@ document.write("<script src='force-magnetic.js'><\/script>")
 document.write("<script src='force-manybody.js'><\/script>")    
 document.write("<script src='force-x.js'><\/script>")    
 document.write("<script src='force-y.js'><\/script>")    
+document.write("<script src='force-z.js'><\/script>")    
 /*  geos projections */  
 document.write("<script src='geo-cox.js'><\/script>")    
 document.write("<script src='geo-futuri.js'><\/script>")    

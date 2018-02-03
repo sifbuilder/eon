@@ -12,6 +12,8 @@
 	 *		@isolate
 	 */
   let isolate = function (params) {	// filter, force, nodes, params, type
+	
+	
     let nodes = params.nodes
     let force = params.force
     let filter = params.filter
