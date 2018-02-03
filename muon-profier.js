@@ -16,6 +16,7 @@
       mversor = __mapper('xs').m('versor')(),
       mstace = __mapper('xs').m('stace'),
       mproj3ct = __mapper('xs').m('proj3ct'),
+      mgeom = __mapper('xs').m('geom'),
       guniwen = __mapper('xs').g('uniwen')
 
     /****************************
@@ -44,8 +45,9 @@
             prj = __mapper('xs').g(prj)(p) // get projection from name
           }
         }
+
+
 				
-				if (1 && 1)	console.log('m.profier.protion:prj', prj)
         if (prj.rotate !== undefined) {
           let rot = (p.rotate) ? p.rotate : [0, 0, 0]
 
@@ -54,15 +56,15 @@
 					
           if (p.control === 'wen') { // WEN 
 					
-            let wenRotation = cwen.rotation()
+            let controlRotation = cwen.rotation()
 
             if (p.dims === 2) {
-              if (wenRotation[0] * wenRotation[1] !== 0) {
-                wenRotation = mwen.cross([wenRotation[0], 0, 0], [0, wenRotation[1], 0])
+              if (controlRotation[0] * controlRotation[1] !== 0) {
+                controlRotation = mwen.cross([controlRotation[0], 0, 0], [0, controlRotation[1], 0])
               }
             }
 
-            rot = mversor.add(rot, wenRotation)
+            rot = mgeom.add(rot, controlRotation)
 						
 						
 						
@@ -72,11 +74,10 @@
             let verser = cversor.projection(prj)
 						
 						
-            let verRotation = verser.rotation() // rotation from versor
+            let controlRotation = verser.rotation() // rotation from versor
 
-            rot = mversor.add(rot, verRotation) // add ani rotation
-						
-						if (1 && 1)	console.log('m.profier.protion:control verRotation', verRotation)
+            rot = mgeom.add(rot, controlRotation) // add ani rotation
+
 						
           }
 

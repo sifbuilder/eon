@@ -15,20 +15,26 @@
   // https://github.com/wenliang-developer/web-developer-site
 
   let controlWen = function controlWen (__mapper = {}) {
-    let f = __mapper('props')()
-    let mgeom = __mapper('xs').m('geom')
+    let f = __mapper('props')(),
+			mgeom = __mapper('xs').m('geom')
 
     let drag = d3.drag()
 
-    let grabbed = false,
-      moved = false,
-      cPos,
-      pPos
 
-    function setBase () {
-      rotBase = rotMatrix
-      rotInDrag = [0, 0, 0] // reset rotInDrag
+
+    function momentum () {
+      if (Math.abs(vel[0]) < 0.001 && Math.abs(vel[1]) < 0.001) return
+      vel[0] *= decay; vel[1] *= decay
+      rotInDrag[0] += vel[0]; rotInDrag[1] += vel[1]
+      if (timer) timer = requestAnimationFrame(momentum)
     }
+	
+		// reset to default rotation
+    function rebase () {
+      rotBase = rotMatrix
+      rotInDrag = [0, 0, 0]
+    }
+		
     function tick () {
       if (autorotimer) autorotimer = requestAnimationFrame(tick)
     }
@@ -38,6 +44,11 @@
       mult = 2e-3, // rotInDrag factor
       rotInit = [0, 0, 0] // [60,60,60],
 
+    let grabbed = false,
+      moved = false,
+      cPos,
+      pPos
+			
     let state = {},
       rotVel = [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
       rotInDrag = [0, 0, 0], // rotInDrag in radians
@@ -52,14 +63,18 @@
       autorotimer,
       rotMatrix
 
+		 // get event position			
     let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
 
+		 // start drag control		
     let control = elem => elem.call(drag.on("start", dragstarted).on("drag", dragged).on("end", dragended))
 
+		 // stop drag control		
     let reset = elem => elem.call(drag.on('start', null).on('drag', null).on('end', null))
 
     function stopMomentum () { cancelAnimationFrame(timer); timer = null }
 
+    // dragstarted listener		
     let dragstarted = function () {
       let e = d3.event
 
@@ -71,7 +86,8 @@
       rotAccum = mgeom.add(rotAccum, rotInDrag)
       rotInDrag = [0, 0, 0]
     }
-
+		
+    // dragged  listener
     let dragged = function () {
       let e = d3.event
 
@@ -84,7 +100,7 @@
         moved = true // moved
         autoRot = false
         rotInDrag = [0, 0, 0]
-        setBase()
+        rebase()
       }
       lastMoveTime = Date.now()
       pPos = cPos
@@ -96,6 +112,7 @@
       ]
     }
 
+    // dragended  listener		
     let dragended = function () {
 
       if (!grabbed) return
@@ -105,13 +122,6 @@
       vel = [(pPos[1] - cPos[1]) * mult * f, (cPos[0] - pPos[0]) * mult * f]
 
       timer = requestAnimationFrame(momentum)
-    }
-
-    function momentum () {
-      if (Math.abs(vel[0]) < 0.001 && Math.abs(vel[1]) < 0.001) return
-      vel[0] *= decay; vel[1] *= decay
-      rotInDrag[0] += vel[0]; rotInDrag[1] += vel[1]
-      if (timer) timer = requestAnimationFrame(momentum)
     }
 
     /*******************************************

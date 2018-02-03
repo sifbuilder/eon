@@ -12,7 +12,7 @@
   // Version 0.0.0. Copyright 2017 Mike Bostock.
   // ref: http://codepen.io/jorin/pen/YNajXZ
 
-  var muonVersor = function muonVersor (__mapper = {}) {
+  var muonVersor = function (__mapper = {}) {
     let props = __mapper('props')()
     var stace = Object.assign({})
 
@@ -29,7 +29,7 @@
       degrees = 180 / PI
 
     // Returns the unit quaternion for the given Euler rotation angles [λ, φ, γ].
-    var versor = function versor (e) {
+    var versor = function (e) {
       var l = e[0] / 2 * radians, sl = sin(l), cl = cos(l), // λ / 2
         p = e[1] / 2 * radians, sp = sin(p), cp = cos(p), // φ / 2
         g = e[2] / 2 * radians, sg = sin(g), cg = cos(g) // γ / 2

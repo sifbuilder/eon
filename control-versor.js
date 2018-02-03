@@ -9,13 +9,14 @@
 }(this, function (exports) {
   'use strict'
 
-  let controlVersor = function controlVersor (__mapper = {}) {
-    let f = __mapper('props')()
-    let mversor = __mapper('xs').m('versor')()
+  let controlVersor = function (__mapper = {}) {
+    let f = __mapper('props')(),
+			mversor = __mapper('xs').m('versor')()
 
     let drag = d3.drag()
 
     let state = Object.assign({})
+		
     state.projection = d3.geoOrthographic()
     state.rotation = [0, 0, 0]
 
@@ -32,7 +33,6 @@
       let k = state.projection.scale()
       let dx = state.projection.translate()[0]
       let dy = state.projection.translate()[1]
-      let radians = Math.PI / 180
       let pt1 = [(pt0[0] - dx) / k, (dy - pt0[1]) / k]
       let x = pt1[0]
       let y = pt1[1]
@@ -41,17 +41,16 @@
       return Math.abs(dtc) < 1
     }
 
+		 // get event position
     let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
 
-    // let control = elem => elem.call(drag.on("start", dragstarted).on("drag", dragged))
-    let control = function (elem) {
-      console.log(' control versor ')
-      elem.call(drag.on('start', dragstarted).on('drag', dragged))
-    }
+		 // start drag control
+    let control = elem => elem.call(drag.on("start", dragstarted).on("drag", dragged))
 
+		 // stop drag control
     let reset = elem => elem.call(drag.on('start', null).on('drag', null))
 
-    // dragstarted
+    // dragstarted listener
     let dragstarted = function () {
       let e = d3.event
 
@@ -68,7 +67,7 @@
       }
     }
 
-    // dragged
+    // dragged  listener
     let dragged = function () {
       let e = d3.event
 
