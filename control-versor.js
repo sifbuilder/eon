@@ -42,10 +42,10 @@
     let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
 
     // start drag control
-    let control = elem => elem.call(drag.on('start', dragstarted).on('drag', dragged))
+    let control = elem => elem.call(drag.on('start', dragstarted).on('drag', dragged).on('end', dragended))
 
     // stop drag control
-    let reset = elem => elem.call(drag.on('start', null).on('drag', null))
+    let reset = elem => elem.call(drag.on('start', null).on('drag', null).on('end', null))
 
     // dragstarted listener
     let dragstarted = function () {
@@ -83,6 +83,9 @@
         }
       }
     }
+		
+		// dragended  listener
+		let dragended = function () {}
 
     /*******************************************
    *    @enty
