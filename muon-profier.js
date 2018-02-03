@@ -47,27 +47,18 @@
         }
 
 
-				
         if (prj.rotate !== undefined) {
 					
           let rot = (p.rotate) ? p.rotate : [0, 0, 0]
 					let controlRotation =  mgeom.zerovector(rot)
 					
+					let control
+					if (p.control === 'versor') control = cversor // VERSOR 
+          else control = cwen // WEN 
 					
-          if (p.control === 'wen') { // WEN 
-					
-            controlRotation = cwen
-									.rotation() // rotation from control wen
-
-						
-          } else if (p.control === 'versor') { // VERSOR 
-					
-            controlRotation = cversor
-									.projection(prj)
-									.rotation() // rotation from versor
-
-						
-          }
+					controlRotation = control
+								.projection(prj)	// tbd
+								.rotation() // rotation from control wen
 
 					
 					if (controlRotation.length == 2) {		// planar form
@@ -78,8 +69,8 @@
 
 					rot = mgeom.add(rot, controlRotation)
 					
-					
           p.rotate = rot
+					
         }
 
         let translate = p.translate

@@ -16,15 +16,15 @@
 				
     let drag = d3.drag()
 
-    let state = {}
-    state.projection = d3.geoOrthographic()
-    state.rotation = [0, 0, 0]
-    state.v0 // Mouse cartesian position invprojected
-    state.r0 // Projection rotation as Euler angles at start
-    state.q0 // Quaternion. Projection rotation 
-    state.p0 // Mouse position (polar)
-    state.dtc // Distance initial dot to center untransformed
-
+    let state = {
+			projection: d3.geoOrthographic(),
+			rotation: [0, 0, 0],
+			v0: null, // Mouse cartesian position invprojected
+			r0: null, // Projection rotation as Euler angles at start
+			q0: null, // Quaternion. Projection rotation 
+			p0: null, // Mouse position (polar)
+			dtc: null, // Distance initial dot to center untransformed
+		}
     // inside
     function inside (p) {
       let pt0 = p
