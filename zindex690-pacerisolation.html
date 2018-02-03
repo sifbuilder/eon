@@ -229,77 +229,6 @@ let muonAlima = function (__mapper) {
     }
   }
 
-  // -------------------------------  nat2
-  let nat2 = {
-
-    'halo':'geofold',
-
-    'geoform': p => ({
-      'type': 'Feature',
-      'geometry': {
-        'type': 'Polygon',
-        'coordinates': mnat.natPolygon(p.payload.form)
-      },
-      'properties': {}
-    }),
-
-    'payload': {
-      'tim': tim,
-      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'nat2'},
-
-      'proform': {
-        'projection': 'uniwen',
-        'translate': [ 310, 200 ],
-					// [ [ 310, 200 ],
-          // [[[ {
-            // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
-            // 'ra2': 30,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-            // 'fas8': 0
-          // } ]]] ],
-        'scale': 1,
-        'rotate': [ 0, 0, [[[0, 0]]] ],
-        'lens': [0, 1, 12],
-        'dims': 2,
-        'control': 'wen'
-      },
-
-      'boform': { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
-
-
-      geonode: {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0]
-        },
-        properties: {
-          orgen: [0, 0, 0],
-          velin: [0, 0, 0],
-          prevous: [0, 0, 0],
-          geodelta: [0, 0, 0]
-        }
-      },
-      form: {
-
-        'x': {
-          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
-          'ra2': 20,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
-          'fas8': 0
-        },
-        'y': {
-          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
-          'ra2': 20,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
-          'fas8': -90
-        },
-        'z': {
-          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
-          'ra2': 0, // [[[0,20]]],		// _e_
-          'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
-          'fas8': 0
-        }
-      }
-    }
-  }
   /*******************************************
  * 			@forces
  *
@@ -949,7 +878,6 @@ let forceCube = function forceCube(params) {
 
   let animas = [
     nat1, // h.geofold
-    // nat2 // h.geofold
     gratilines21 // h.geofold
 
   ]
