@@ -22,14 +22,14 @@
     function momentum () {
       if (Math.abs(vel[0]) < 0.001 && Math.abs(vel[1]) < 0.001) return
       vel[0] *= inits.decay; vel[1] *= inits.decay
-      rotInDrag[0] += vel[0]; rotInDrag[1] += vel[1]
+      state.rotInDrag[0] += vel[0]; state.rotInDrag[1] += vel[1]
       if (timer) timer = requestAnimationFrame(momentum)
     }
 
     // reset to default rotation
     function rebase () {
 
-      rotInDrag = [0, 0, 0]
+      state.rotInDrag = [0, 0, 0]
     }
 
     function tick () {
@@ -46,13 +46,15 @@
 
     let state = {
 			
+			rotAccum: [0, 0, 0],
+			rotInDrag: [0, 0, 0], // rotInDrag in radians
 			
 		},
       grabbed = false,
       moved = false,
       rotVel = [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
-      rotInDrag = [0, 0, 0], // rotInDrag in radians
-      rotAccum = [0, 0, 0],
+      
+      
       vel = [0, 0, 0],
       moveSpan = 16,
 			autoRot = false,
@@ -82,8 +84,8 @@
       stopMomentum()
       cPos = pPos = grabbed = getPos(e) // position from event
       moved = false // not moved yet
-      rotAccum = mgeom.add(rotAccum, rotInDrag)
-      rotInDrag = [0, 0, 0]
+      state.rotAccum = mgeom.add(state.rotAccum, state.rotInDrag)
+      state.rotInDrag = [0, 0, 0]
     }
 
     // dragged  listener
@@ -98,13 +100,13 @@
         if (dx * dx + dy * dy < moveSpan) return
         moved = true // moved
         autoRot = false
-        rotInDrag = [0, 0, 0]
+        state.rotInDrag = [0, 0, 0]
         rebase()
       }
       lastMoveTime = Date.now()
       pPos = cPos
       cPos = pos
-      rotInDrag = [
+      state.rotInDrag = [
         rotVel[0] + dx * inits.mult,
         rotVel[1] + dy * inits.mult,
         rotVel[2] + 0
@@ -138,7 +140,7 @@
     enty.reset = reset
 
 
-    enty.rotation = () => mgeom.add(rotAccum, rotInDrag).map(mgeom.to_degrees)
+    enty.rotation = () => mgeom.add(state.rotAccum, state.rotInDrag).map(mgeom.to_degrees)
 
     return enty
   }
