@@ -12,13 +12,6 @@
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
 
-<script src='https://d3js.org/d3.v4.min.js'></script>
-<script src='https://d3js.org/d3-geo.v1.min.js'></script>
-<script src='https://d3js.org/d3-geo-projection.v2.min.js'></script>
-<script src='https:////unpkg.com/d3-force-3d@1.0.7/build/d3-force-3d.bundle.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.0/topojson.min.js'></script>
-<script src='https:////cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js'></script>
-<script src='https:////unpkg.com/three-trackballcontrols-web@0.0.2/dist/three-trackballcontrols.min.js'></script>
 <script src="enls.js"></script>
 <script src="ents.js"></script>
 
@@ -28,24 +21,8 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1})
 
-  let f = __mapper({'props': muonProps.muonProps()}).props()
-  let g = __mapper('xs').m('geom')
-  let w = __mapper('xs').m('wen')
-
-  /**********************
-   *    @
-   */
-  let r = __mapper('xs').r('renderer'),
-    width = r.width(),
-    height = r.height()
-
-  let rotInit = [0, 45, 0],
-    rotation = [0, 0, 0],
-    rotMatrix,
-    stars = []
-
-  let versor = __mapper('xs').m('versor')()
-  let wen = __mapper('xs').c('wen')({rotInit})
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+		mgeom = __mapper('xs').m('geom')
 
   /*******************************************
  *      @pics
@@ -87,7 +64,7 @@ let muonAlima = function muonAlima (__mapper) {
       'seg5': 360,
       'pa6': 0,
       'pb7': -1,
-      'fas8': 0
+      'fas8': -90
     },
     'z': {
       'm1': 4,
@@ -128,11 +105,11 @@ let muonAlima = function muonAlima (__mapper) {
         let face = faces[i] // face pointsx position
         let geometry = {type: 'Polygon', coordinates: []}
         geometry.coordinates = face.pointsx.map(k => points[k]) // eg [-1, 1, 1]
-          .map(g.normalize) // eg. [0.5773, -0.577, 0.5773]
-          .map(g.spherical) // eg. [-0.7853, 0.6154]
-          .map(g.to_degrees)
+          .map(mgeom.normalize) // eg. [0.5773, -0.577, 0.5773]
+          .map(mgeom.spherical) // eg. [-0.7853, 0.6154]
+          .map(mgeom.to_degrees)
         geometry.coordinates = Array.of(geometry.coordinates)
-				
+
         let feature = {type: 'Feature', geometry: {}, properties: {}}
 
         let _ric = {}

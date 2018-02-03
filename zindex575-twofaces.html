@@ -19,26 +19,9 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1})		// INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props(),
-		g = __mapper('xs').m('geom'),
-		w = __mapper('xs').m('wen')
-
-  /**********************
-   *    @
-   */
-  let r = __mapper('xs').r('renderer'),
-    width = r.width(),
-    height = r.height()
-
-  let rotInit = [0, 45, 0],
-    rotation = [0, 0, 0],
-    rotMatrix,
-    stars = []
-
-  let versor = __mapper('xs').m('versor')()
-  let wen = __mapper('xs').c('wen')({rotInit})
+  let f = __mapper({'props': muonProps.muonProps()}).props()
 
   /*******************************************
  *    @pics
@@ -57,11 +40,9 @@ let muonAlima = function muonAlima (__mapper) {
     'control': 'wen'
   }
 
-  let geoformFaces = ani => {					// geoform creates geojson featurecollection
-      let payload = ani.payload, // payload
-				proform = payload.proform, // proform
-				conform = payload.conform, // conform
-				parentuid = payload.parentuid // parentuid
+  let geoformFaces = ani => { // geoform creates geojson featurecollection
+    let payload = ani.payload, // payload
+      boform = payload.boform // boform
 
     let faces = f.v(payload.faces) // payload.faces
 
@@ -100,7 +81,7 @@ let muonAlima = function muonAlima (__mapper) {
       'tim': tim,
       'ric': {'gid': 'faces', 'cid': 'face', 'fid': 'face'},
       'boform': {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
-			
+
       'proform': proformFaces,
 
       faces: [
@@ -111,7 +92,7 @@ let muonAlima = function muonAlima (__mapper) {
             [ 1, 1, 1],
             [ -1, 1, 1],
             [-1, -1, 1]
-					 ],
+          ],
           boform: {'csx': 0, 'cf': 333, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
         },
 
@@ -122,7 +103,7 @@ let muonAlima = function muonAlima (__mapper) {
             [ 1, 1, -1],
             [-1, 1, -1],
             [-1, -1, -1]
-					 ],
+          ],
           boform: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
         }
       ]
