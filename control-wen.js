@@ -27,6 +27,7 @@
     }
 
     function tick () {
+			state.rotation = mgeom.add(state.rotAccum, state.rotInDrag).map(mgeom.to_degrees)
       if (state.autorotimer) state.autorotimer = requestAnimationFrame(tick)
     }
 
@@ -39,7 +40,9 @@
     const inits = {
       decay: 0.95,
       mult: 2e-3, // rotInDrag factor
-      rotInit: [0, 0, 0] // [60,60,60],
+      rotInit: [0, 0, 0], // [60,60,60],
+			moveSpan: 16,
+			timeSpan: 200
     }
 
     let state = {
@@ -48,9 +51,9 @@
       rotVel: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
       rotInDrag: [0, 0, 0], // rotInDrag in radians
       rotAccum: [0, 0, 0],
+      rotation: [0, 0, 0],
       autoRot: false,
       vel: [0, 0, 0],
-      moveSpan: 16,
       lastMoveTime: null,
       timer: null,
       autorotimer: null,
@@ -77,6 +80,7 @@
       state.moved = false // not moved yet
       state.rotAccum = mgeom.add(state.rotAccum, state.rotInDrag)
       state.rotInDrag = [0, 0, 0]
+			
     }
     
 		// dragged  listener
@@ -88,7 +92,7 @@
       let pos = getPos(e) //  d3.mouse(this)
       let dx = state.grabbed[1] - pos[1], dy = pos[0] - state.grabbed[0]
       if (!state.moved) {
-        if (dx * dx + dy * dy < state.moveSpan) return
+        if (dx * dx + dy * dy < inits.moveSpan) return
         state.moved = true // moved
         state.autoRot = false
         state.rotInDrag = [0, 0, 0]
@@ -102,6 +106,7 @@
         state.rotVel[1] + dy * inits.mult,
         state.rotVel[2] + 0
       ]
+			
     }
 
     // dragended  listener
@@ -109,8 +114,10 @@
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
-      let f = Math.max(0, 1 - (Date.now() - state.lastMoveTime) / 200)
-      state.vel = [(state.pPos[1] - state.cPos[1]) * inits.mult * f, (state.cPos[0] - state.pPos[0]) * inits.mult * f]
+      let f = Math.max(0, 1 - (Date.now() - state.lastMoveTime) / inits.timeSpan)
+      state.vel = [
+					(state.pPos[1] - state.cPos[1]) * inits.mult * f,
+					(state.cPos[0] - state.pPos[0]) * inits.mult * f ]
 
       state.timer = requestAnimationFrame(momentum)
     }
@@ -119,7 +126,7 @@
    *    @ENTY
    */
     let enty = function (p = {}) {
-      inits.rotInit = mgeom.to_radians(p.rotInit) || [0, 0, 0]
+      inits.rotInit = mgeom.to_radians(p.rotInit)
       state.autorotimer = requestAnimationFrame(tick)
       return enty
     }
@@ -130,7 +137,7 @@
     enty.control = control
     enty.reset = reset
 
-    enty.rotation = () => mgeom.add(state.rotAccum, state.rotInDrag).map(mgeom.to_degrees)
+    enty.rotation = () => state.rotation
 
     return enty
   }
