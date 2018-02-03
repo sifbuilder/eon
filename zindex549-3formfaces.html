@@ -103,7 +103,7 @@ let muonAlima = function muonAlima (__mapper) {
  */
   // -------------------------------  gratifaces11
   let gratifaces11 = {
-    'halo': 'geojson',
+    'halo':'geofold',
     'geoform': p => {
 			let vertices =  mgraticule.gvertices(p.payload.graticule)
 			let faces = mgraticule.gfaces(p.payload.graticule)
@@ -127,7 +127,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
  // -------------------------------  gratifaces12
   let gratifaces12 = {
-    'halo': 'geojson',
+    'halo':'geofold',
     'geoform': p => {
 			let vertices =  mgraticule.gvertices(p.payload.graticule)
 			let faces = mgraticule.gfaces(p.payload.graticule)
@@ -151,7 +151,7 @@ let muonAlima = function muonAlima (__mapper) {
 	}
   // -------------------------------  gratifaces11
   let gratilines21 = {
-    'halo': 'geojson',
+    'halo':'geofold',
     'geoform': p => {
       let edges = mgraticule.gedges(p.payload.graticule)
 			let type = 'Feature'
@@ -171,7 +171,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
  // -------------------------------  gratilines22
   let gratilines22 = {
-    'halo': 'geojson',
+    'halo':'geofold',
     'geoform': p => {
       let edges = mgraticule.gedges(p.payload.graticule)
 			let type = 'Feature'
@@ -194,10 +194,10 @@ let muonAlima = function muonAlima (__mapper) {
  *      @animas
  */
   let animas = [
-    gratifaces11, // h.geojson g.natform
-    gratifaces12, // h.geojson g.natform
-    gratilines21, // h.geojson g.natform
-    gratilines22, // h.geojson g.natform
+    gratifaces11, // h.geofold g.natform
+    gratifaces12, // h.geofold g.natform
+    gratilines21, // h.geofold g.natform
+    gratilines22, // h.geofold g.natform
 
   ]
 

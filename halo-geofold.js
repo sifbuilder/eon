@@ -1,14 +1,14 @@
 /**********************
- *    @haloGeojson
+ *    @haloGeofold
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloGeojson = global.haloGeojson || {})))
+      : (factory((global.haloGeofold = global.haloGeofold || {})))
 }(this, function (exports) {
   'use strict'
 
-  let haloGeojson = function haloGeojson (__mapper = {}) {
+  let haloGeofold = function haloGeofold (__mapper = {}) {
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
       mric = __mapper('xs').m('ric'),
@@ -55,8 +55,8 @@
 			}
 
 
-				if (0 && 1)	console.log('h.geojson.gramm geonode', geonode)
-				if (0 && 1)	console.log('h.geojson.gramm gj', gj)
+				if (0 && 1)	console.log('h.geofold.gramm geonode', geonode)
+				if (0 && 1)	console.log('h.geofold.gramm gj', gj)
 		
 			
       gj = mgeoj.featurize(gj) 										// featurize
@@ -85,24 +85,24 @@
         return newAnigram
       })
 
-      // if (1 && 1)	console.log('h.geojson newAnigrams:', newAnigrams.length, newAnigrams)
+      // if (1 && 1)	console.log('h.geofold newAnigrams:', newAnigrams.length, newAnigrams)
       return newAnigrams
     }
 
     /**********************
    *    @enty
    */
-    let haloGeojson_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-    let haloGeojson_gramm = anima => gramm(anima)
+    let haloGeofold_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+    let haloGeofold_gramm = anima => gramm(anima)
 
-    let haloGeojson = {}
-    haloGeojson.ween = anima => haloGeojson_ween(anima)
-    haloGeojson.gramm = anima => haloGeojson_gramm(anima)
+    let haloGeofold = {}
+    haloGeofold.ween = anima => haloGeofold_ween(anima)
+    haloGeofold.gramm = anima => haloGeofold_gramm(anima)
 
-    let enty = haloGeojson
+    let enty = haloGeofold
 
     return enty
   }
 
-  exports.haloGeojson = haloGeojson
+  exports.haloGeofold = haloGeofold
 }))

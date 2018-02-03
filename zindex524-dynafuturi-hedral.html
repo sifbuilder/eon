@@ -98,7 +98,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geograt
   let geograt = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
     'geoform': (anitem) => {
       let payload = anitem.payload
       let graticule = payload.graticule
@@ -140,7 +140,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoearth
   let geoearth = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': () => {
       let geo = Object.assign({},
@@ -165,7 +165,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoearth
   let geoshpere = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': {
       type: 'Feature',
@@ -272,9 +272,9 @@ let muonAlima = function muonAlima (__mapper) {
  *
  */
   let animas = [
-    geograt, // h.geojson g.hedrals
-    geoearth, // h.geojson g.hedrals
-    geoshpere, // h.geojson g.hedrals
+    geograt, // h.geofold g.hedrals
+    geoearth, // h.geofold g.hedrals
+    geoshpere, // h.geofold g.hedrals
     img, // h.img
     text // h.text
   ]

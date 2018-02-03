@@ -21,7 +21,8 @@ let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 1, wen: 1, webgl: 1, key: 1}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props()
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+		mnat = __mapper('xs').m('nat')
 
   /*******************************************
  *    @pics
@@ -37,20 +38,15 @@ let muonAlima = function (__mapper) {
   // -------------------------------  natform
   let natform = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': p => ({
       'type': 'Feature',
       'geometry': {
         'type': 'Polygon',
-        'coordinates': Array.of(__mapper('xs').m('nat')
-          .natPolygon(__mapper('xs').m('nat')
-            .nform(p.payload.form)
-          )
-        )
-      },
-      'id': 0,
-      'properties': {}
+        'coordinates': mnat.natPolygon(p.payload.form),
+				'properties': {}
+			}
     }),
 
     'payload': {
@@ -121,7 +117,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  avaform
   let avaform = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': p => ({
       'type': 'Feature',
@@ -211,7 +207,7 @@ let muonAlima = function (__mapper) {
   */
   natform.payload.avatars = {
 
-    avaform // h.geojson
+    avaform // h.geofold
 
   }
 

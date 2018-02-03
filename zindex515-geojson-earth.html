@@ -134,7 +134,7 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let geoearth = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': () => {
       let gj = Object.assign({},
@@ -157,7 +157,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
 
   let animas = [
-    geoearth // h.geojson g.orthographic
+    geoearth // h.geofold g.orthographic
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

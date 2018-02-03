@@ -44,21 +44,14 @@ let muonAlima = function (__mapper) {
  */
   let natform = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': p => ({
       'type': 'Feature',
       'geometry': {
         'type': 'Polygon',
-        'coordinates': Array.of(__mapper('xs').m('nat')
-          .natPolygon(__mapper('xs').m('nat')
-            .nform(p.payload.form)
-          )
-        )
-      },
-      'id': 0,
-      'properties': {
-
+        'coordinates': mnat.natPolygon(p.payload.form),
+				'properties': {}
 			}
     }),
 
@@ -134,7 +127,7 @@ let muonAlima = function (__mapper) {
  */
   let avaform = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': p => {
 

@@ -168,7 +168,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoline
   let geoline = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': [[[ () => ({
       'type': 'LineString',
@@ -190,7 +190,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geopoint
   let geopoint = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': () => ({
       'type': 'Point',
@@ -208,7 +208,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geograt
   let geograt = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
     'geoform': (anitem) => {
       let payload = anitem.payload
       let graticule = payload.graticule
@@ -252,7 +252,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoearth
   let geoearth = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': () => {
       let geo = Object.assign({},
@@ -276,7 +276,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoform
   let geoform = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': ani => ({
       'type': 'Polygon',
@@ -303,7 +303,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geosphere
   let geosphere = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': {
       type: 'Feature',
@@ -329,11 +329,11 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let animas = [
     geograt, // h.geograt g.futuri
-    geoearth, // h.geojson g.futuri
-    geosphere, // h.geojson g.futuri
-    geoform, // h.geojson g.futuri
-    geoline, // h.geojson g.futuri
-    geopoint // h.geojson g.futuri
+    geoearth, // h.geofold g.futuri
+    geosphere, // h.geofold g.futuri
+    geoform, // h.geofold g.futuri
+    geoline, // h.geofold g.futuri
+    geopoint // h.geofold g.futuri
   ]
 
   let animaApi = function animaApi () {

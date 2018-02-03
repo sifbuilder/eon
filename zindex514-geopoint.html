@@ -33,7 +33,7 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let geopoint = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': {
       'type': 'Feature',
@@ -62,7 +62,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
 
   let animas = [
-    geopoint // h.geojson g.uniwen
+    geopoint // h.geofold g.uniwen
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

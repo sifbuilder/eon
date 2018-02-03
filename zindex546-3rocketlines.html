@@ -97,7 +97,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  gratiform
   let gratiform = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': p => {
 
@@ -146,7 +146,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  earth
   let earth = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': () => {
       let gjls = Object.assign({},
@@ -218,8 +218,8 @@ let muonAlima = function muonAlima (__mapper) {
 
   let animas = [
     img, // h.img
-    gratiform, // h.geojson g.natform
-    earth // h.geojson g.natform
+    gratiform, // h.geofold g.natform
+    earth // h.geofold g.natform
   ]
 
   let animaApi = function animaApi () {

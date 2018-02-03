@@ -44,27 +44,14 @@ let muonAlima = function (__mapper) {
  */
   let natform = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': p => ({
       'type': 'Feature',
       'geometry': {
         'type': 'Polygon',
-        'coordinates': Array.of(__mapper('xs').m('nat')
-          .natPolygon(__mapper('xs').m('nat')
-            .nform(p.payload.form)
-          )
-        )
-      },
-      'id': 0,
-      'properties': {
-				
-          geonode: {
-            type: 'Feature',
-            geometry: { type: 'Point', coordinates: [0, 0, 0] },
-            properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-          }				
-				
+        'coordinates': mnat.natPolygon(p.payload.form),
+				'properties': {}
 			}
     }),
 
@@ -134,7 +121,7 @@ let muonAlima = function (__mapper) {
  */
   let ava1 = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': p => {
 			
@@ -223,7 +210,7 @@ let muonAlima = function (__mapper) {
 	
  let ava2 = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': p => {
 			
@@ -354,8 +341,8 @@ let muonAlima = function (__mapper) {
  *
  */
   natform.payload.avatars = {
-    ava1, // haloava1.haloava1.geojson
-    ava2, // haloava1.haloava1.geojson
+    ava1, // haloava1.haloava1.geofold
+    ava2, // haloava1.haloava1.geofold
   }
 
   let animas = [

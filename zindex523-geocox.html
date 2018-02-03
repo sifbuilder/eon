@@ -133,7 +133,7 @@
   // -------------------------------  geograt
   let geograt = {
 
-      'halo': 'geojson',
+      'halo':'geofold',
 
       'geoform': (p) => {
         let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
@@ -158,7 +158,7 @@
   // -------------------------------  geoearth
   let geoearth = {
 
-      'halo': 'geojson',
+      'halo':'geofold',
 
       'geoform': () => {
         let geo = Object.assign({},
@@ -182,7 +182,7 @@
   // -------------------------------  geosphere
   let geosphere = {
 
-      'halo': 'geojson',
+      'halo':'geofold',
 
       'geoform': {
         type: 'Feature',
@@ -247,9 +247,9 @@
  *
  */
   let animas = [
-      geograt, // h.geojson g.cox
-      geoearth, // h.geojson g.cox
-      geosphere, // h.geojson g.cox
+      geograt, // h.geofold g.cox
+      geoearth, // h.geofold g.cox
+      geosphere, // h.geofold g.cox
       img // h.img
     ]
 

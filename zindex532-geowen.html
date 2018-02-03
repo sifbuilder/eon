@@ -80,7 +80,7 @@ let muonAlima = function (__mapper) {
  */
   let geoearth1 = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': () => {
       let gj = Object.assign({},
@@ -112,7 +112,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  geograt1
   let geograt1 = {
 
-      'halo': 'geojson',
+      'halo':'geofold',
 
       'geoform': p => ({
           type: 'Feature',
@@ -147,7 +147,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  geosphere
   let geosphere1 = {
 
-      'halo': 'geojson',
+      'halo':'geofold',
 
       'geoform': {
         type: 'Feature',
@@ -173,7 +173,7 @@ let muonAlima = function (__mapper) {
     }	
  let geoearth2 = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': () => {
       let gj = Object.assign({},
@@ -205,7 +205,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  geograt1
   let geograt2 = {
 
-      'halo': 'geojson',
+      'halo':'geofold',
 
       'geoform': p => ({
           type: 'Feature',
@@ -240,7 +240,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  geosphere
   let geosphere2 = {
 
-      'halo': 'geojson',
+      'halo':'geofold',
 
       'geoform': {
         type: 'Feature',
@@ -267,12 +267,12 @@ let muonAlima = function (__mapper) {
 
 		
   let animas = [
-    geoearth1, // h.geojson g.orthographic
-    geograt1, // h.geojson 
-    geosphere1, // h.geojson 
-    geoearth2, // h.geojson g.mercator
-    geograt2, // h.geojson 
-    geosphere2, // h.geojson 
+    geoearth1, // h.geofold g.orthographic
+    geograt1, // h.geofold 
+    geosphere1, // h.geofold 
+    geoearth2, // h.geofold g.mercator
+    geograt2, // h.geofold 
+    geosphere2, // h.geofold 
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

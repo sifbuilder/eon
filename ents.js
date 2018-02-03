@@ -84,7 +84,7 @@ document.write("<script src='muon-wen.js'><\/script>")
 /*  halo */  
 document.write("<script src='halo-core.js'><\/script>")    
 document.write("<script src='halo-fuel.js'><\/script>")    
-document.write("<script src='halo-geojson.js'><\/script>")    
+document.write("<script src='halo-geofold.js'><\/script>")    
 document.write("<script src='halo-img.js'><\/script>")    
 document.write("<script src='halo-nat.js'><\/script>")    
 document.write("<script src='halo-pacer.js'><\/script>")    

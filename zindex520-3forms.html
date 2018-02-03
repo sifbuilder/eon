@@ -140,7 +140,7 @@ let muonAlima = function muonAlima (__mapper) {
  *    @animas
  */
   let p1 = {
-    halo: 'geojson',
+    halo:'geofold',
     'geoform': p => {
 				let coords = mnat.natPolygon({x:f1x,y:f1y,z:f1z})
 				return {'type': 'Feature','geometry': {'type': 'MultiLineString',
@@ -152,7 +152,7 @@ let muonAlima = function muonAlima (__mapper) {
 		proform: Object.assign({}, proform, {translate: [150, 100, 0] })}
   }
   let p2 = {
-    halo: 'geojson',
+    halo:'geofold',
     'geoform': p => {
 				let coords = mnat.natPolygon({x:f2x,y:f2y,z:f2z})
 				return {
@@ -544,7 +544,7 @@ let muonAlima = function muonAlima (__mapper) {
       proform: Object.assign({}, proform, {translate: [250, 100, 0] })}
   }
   let p3 = {
-    halo: 'geojson',
+    halo:'geofold',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
         'coordinates': mnat.natPolygon({x:f3x,y:f3y,z:f3z})},'properties': {}}),
     payload: {tim,
@@ -553,7 +553,7 @@ let muonAlima = function muonAlima (__mapper) {
       proform: Object.assign({}, proform, {translate: [350, 100, 0] })}
   }
   let p4 = {
-    halo: 'geojson',
+    halo:'geofold',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
         'coordinates': mnat.natPolygon({x:f4x,y:f4y,z:f4z})},'properties': {}}),
     payload: {tim,
@@ -562,7 +562,7 @@ let muonAlima = function muonAlima (__mapper) {
       proform: Object.assign({}, proform, {translate: [450, 100, 0] })}
   }
   let p5 = {
-    halo: 'geojson',
+    halo:'geofold',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
         'coordinates': mnat.natPolygon({x:f5x,y:f5y,z:f5z})},'properties': {}}),
     payload: {tim,
@@ -571,7 +571,7 @@ let muonAlima = function muonAlima (__mapper) {
       proform: Object.assign({}, proform, {translate: [150, 200, 0] })}
   }
   let p6 = {
-    halo: 'geojson',
+    halo:'geofold',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
         'coordinates': mnat.natPolygon({x:f6x,y:f6y,z:f6z})},'properties': {}}),
     payload: {tim,
@@ -580,7 +580,7 @@ let muonAlima = function muonAlima (__mapper) {
       proform: Object.assign({}, proform, {translate: [250, 200, 0] })}
   }
   let p7 = {
-    halo: 'geojson',
+    halo:'geofold',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
         'coordinates': mnat.natPolygon({x:f7x,y:f7y,z:f7z})},'properties': {}}),
     payload: {tim,
@@ -589,7 +589,7 @@ let muonAlima = function muonAlima (__mapper) {
       proform: Object.assign({}, proform, {translate: [350, 200, 0] })}
   }
   let p8 = {
-    halo: 'geojson',
+    halo:'geofold',
     'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
         'coordinates': mnat.natPolygon({x:f8x,y:f8y,z:f8z})},'properties': {}}),
     payload: {tim,
@@ -601,7 +601,7 @@ let muonAlima = function muonAlima (__mapper) {
 	// geoearth
   let geoearth = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': () => {
       let gj = Object.assign({},
@@ -639,15 +639,15 @@ let muonAlima = function muonAlima (__mapper) {
   }	
 		
   let animas = [
-    // p1, // h.geojson g.uniwen
-    p2, // h.geojson g.uniwen
-    // p3, // h.geojson g.uniwen
-    // p4, // h.geojson g.uniwen
-    // p5, // h.geojson g.uniwen
-    // p6, // h.geojson g.uniwen
-    // p7, // h.geojson g.uniwen
-    // p8, // h.geojson g.uniwen
-    // geoearth // h.geojson g.orthographic
+    // p1, // h.geofold g.uniwen
+    p2, // h.geofold g.uniwen
+    // p3, // h.geofold g.uniwen
+    // p4, // h.geofold g.uniwen
+    // p5, // h.geofold g.uniwen
+    // p6, // h.geofold g.uniwen
+    // p7, // h.geofold g.uniwen
+    // p8, // h.geofold g.uniwen
+    // geoearth // h.geofold g.orthographic
 
   ]
 

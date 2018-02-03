@@ -95,7 +95,7 @@ let muonAlima = function (__mapper) {
 				if (preani) {
 						ani = preani
 				} else {													// create anima
-						ani.halo = "geojson"					// create halo
+						ani.halo="geofold"					// create halo
 
 						ani.geoform = {								// will create anigram
 									"type": "Feature",
@@ -232,7 +232,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  nat2
   let nat2 = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': p => ({
       'type': 'Feature',
@@ -401,7 +401,7 @@ let muonAlima = function (__mapper) {
 
 		}	
   let gratilines21 = {
-    'halo': 'geojson',
+    'halo':'geofold',
     'geoform': p => {
       let edges = mgraticule.gedges(p.payload.graticule)
 			let type = 'Feature'
@@ -948,9 +948,9 @@ let forceCube = function forceCube(params) {
   }
 
   let animas = [
-    nat1, // h.geojson
-    // nat2 // h.geojson
-    gratilines21 // h.geojson
+    nat1, // h.geofold
+    // nat2 // h.geofold
+    gratilines21 // h.geofold
 
   ]
 

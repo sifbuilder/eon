@@ -158,7 +158,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  nat
   let nat = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': p => ({'type': 'Feature',
 			'geometry': {'type': 'Polygon','coordinates': mnat.natPolygon(p.payload.form)},
@@ -191,7 +191,7 @@ let muonAlima = function muonAlima (__mapper) {
  
 
   let animas = [
-    nat,      // h.geojson g.uniwen
+    nat,      // h.geofold g.uniwen
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

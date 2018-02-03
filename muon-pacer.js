@@ -136,7 +136,7 @@ console.log("count", count)
 
             if (newItem === undefined) {                // if not, create new anigram
               newItem = {}
-              newItem.halo = 'geojson'
+              newItem.halo='geofold'
 
 
               newItem.geoform = geojsor(payload, i) 		// anigram, counter
@@ -170,7 +170,7 @@ console.log("count", count)
               }
               newItem.geoform.geometry.coordinates = coords
 
-							newItems = [...newItems,...__mapper('xs').h('geojson').gramm(newItem)] // add items
+							newItems = [...newItems,...__mapper('xs').h('geofold').gramm(newItem)] // add items
 
             } else if (newItem.geoform.geometry.type === 'Point') {			// POINT
 
@@ -188,7 +188,7 @@ console.log("count", count)
 
 									newItem.geoform.geometry.coordinates = [0,0,0]
 									newItem.payload.proform = {'projection': 'uniwen','translate': vsitus}	// proform
-									newItems = [...newItems,...__mapper('xs').h('geojson').gramm(newItem)]	// add items
+									newItems = [...newItems,...__mapper('xs').h('geofold').gramm(newItem)]	// add items
 
 								}
 
@@ -197,7 +197,7 @@ console.log("count", count)
 
 									newItem.geoform.geometry.coordinates = [0,0,0]
 									newItem.payload.proform = {'projection': 'uniwen','translate': vsitus}	// proform
-									newItems = [...newItems,...__mapper('xs').h('geojson').gramm(newItem)]	// add items
+									newItems = [...newItems,...__mapper('xs').h('geofold').gramm(newItem)]	// add items
 
               }
 
@@ -212,7 +212,7 @@ console.log("count", count)
                 newItem.geoform.geometry.coordinates = itemcoords
 								newItem.payload.geonode.geometry.coordinates = geonodecoords
 								newItem.payload.proform = {'projection': 'uniwen','translate': vsitus}	// proform
-								newItems = [...newItems,...__mapper('xs').h('geojson').gramm(newItem)]	// add items
+								newItems = [...newItems,...__mapper('xs').h('geofold').gramm(newItem)]	// add items
 
 
 						}

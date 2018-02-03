@@ -78,7 +78,7 @@
   // -------------------------------  geograt
   let geograt = {
 
-      'halo': 'geojson',
+      'halo':'geofold',
 
       'geoform': p => {
         let payload = p.payload
@@ -106,7 +106,7 @@
   // -------------------------------  geoearth
   let geoearth = {
 
-      'halo': 'geojson',
+      'halo':'geofold',
 
       'geoform': [[[ () => {
         let geo = Object.assign({},
@@ -137,7 +137,7 @@
   // -------------------------------  geosphere
   let geosphere = {
 
-      halo: 'geojson',
+      halo:'geofold',
 
       geoform: {
         type: 'Feature',
@@ -199,9 +199,9 @@
 
   let animas = [
       img, // h.img
-      geograt, // h.geojson g.futuri
-      geoearth, // h.geojson g.futuri
-      geosphere // h.geojson  g.futuri
+      geograt, // h.geofold g.futuri
+      geoearth, // h.geofold g.futuri
+      geosphere // h.geofold  g.futuri
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

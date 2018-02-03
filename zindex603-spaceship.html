@@ -67,7 +67,7 @@ let muonAlima = function (__mapper) {
  */
   let natform = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': p => ({
       'type': 'Feature',
@@ -159,7 +159,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  grat
   let grat = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
 
     'geoform': (p) => {
       let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
@@ -265,8 +265,8 @@ let muonAlima = function (__mapper) {
 
   let animas = [
 
-    natform, // h.geojson
-    grat 			// h.geojson
+    natform, // h.geofold
+    grat 			// h.geofold
 
   ]
 

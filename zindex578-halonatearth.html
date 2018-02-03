@@ -253,7 +253,7 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let aniEarth = {
 
-    halo: 'geojson',
+    halo:'geofold',
 
     geoform: p => {
       let payload = p.payload
@@ -335,7 +335,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  aniCube
   let aniCube = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
     'geoform': (p) => {
       let payload = p.payload,
         ric = payload.ric
@@ -421,7 +421,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  gratiCube
   let gratiCube = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
     'geoform': (anitem) => {
       let payload = anitem.payload
       let graticule = payload.graticule
@@ -469,7 +469,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  gratiCirc
   let gratiCirc = {
 
-    'halo': 'geojson',
+    'halo':'geofold',
     'geoform': (anitem) => {
       let payload = anitem.payload
       let graticule = payload.graticule
@@ -512,10 +512,10 @@ let muonAlima = function muonAlima (__mapper) {
  *
  */
   let animas = [
-    aniEarth, // h.geojson g.natform g.uniwen
-    aniCube, // h.geojson g.uniwen
-    gratiCube, // h.geojson
-    gratiCirc, // h.geojson
+    aniEarth, // h.geofold g.natform g.uniwen
+    aniCube, // h.geofold g.uniwen
+    gratiCube, // h.geofold
+    gratiCirc, // h.geofold
     img // h.img
   ]
   let animaApi = function animaApi () {
