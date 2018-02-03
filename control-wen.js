@@ -32,10 +32,7 @@
 
     function stopMomentum () { cancelAnimationFrame(state.timer); state.timer = null }
 
-		
-    // reset to default rotation
-    function rebase () {
-
+    function rebase () {				// reset to default rotation
       state.rotInDrag = [0, 0, 0]
     }
 
@@ -60,18 +57,16 @@
       cPos: null,
       pPos: null
 		}
-		
-    // get event position
-    let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
 
-    // start drag control
-    let control = elem => elem.call(drag.on('start', dragstarted).on('drag', dragged).on('end', dragended))
+    
+    let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]			// event position
 
-    // stop drag control
+    let control = elem => elem.call(drag.on('start', dragstarted).on('drag', dragged).on('end', dragended))	// start drag control
+
     let reset = elem => elem.call(drag.on('start', null).on('drag', null).on('end', null))
 
-    // dragstarted listener
-    let dragstarted = function () {
+		// dragstarted listener
+    let dragstarted = function () {		
       let e = d3.event
 
       if (state.grabbed) return // drag ongoing
@@ -83,15 +78,15 @@
       state.rotAccum = mgeom.add(state.rotAccum, state.rotInDrag)
       state.rotInDrag = [0, 0, 0]
     }
-
-    // dragged  listener
-    let dragged = function () {
+    
+		// dragged  listener
+    let dragged = function () {		
       let e = d3.event
 
       if (!state.grabbed) return
+			
       let pos = getPos(e) //  d3.mouse(this)
-      let dx = state.grabbed[1] - pos[1],
-        dy = pos[0] - state.grabbed[0]
+      let dx = state.grabbed[1] - pos[1], dy = pos[0] - state.grabbed[0]
       if (!state.moved) {
         if (dx * dx + dy * dy < state.moveSpan) return
         state.moved = true // moved
@@ -134,12 +129,6 @@
     enty.dragended = dragended
     enty.control = control
     enty.reset = reset
-
-    enty.mult = _ => _ !== undefined ? (inits.mult = _, enty) : inits.mult // effect multiplier
-    enty.rotInDrag = _ => _ !== undefined ? (state.rotInDrag = mgeom.to_radians(_), enty) : state.rotInDrag.map(mgeom.to_degrees)
-    enty.rotAccum = _ => _ !== undefined ? (state.rotAccum = mgeom.to_radians(_), enty) : state.rotAccum.map(mgeom.to_degrees)
-    enty.rotVel = _ => _ !== undefined ? (state.rotVel = mgeom.to_radians(_), enty) : state.rotVel.map(mgeom.to_degrees)
-    enty.rotInit = _ => _ !== undefined ? (inits.rotInit = mgeom.to_radians(_), enty) : inits.rotInit.map(mgeom.to_degrees)
 
     enty.rotation = () => mgeom.add(state.rotAccum, state.rotInDrag).map(mgeom.to_degrees)
 

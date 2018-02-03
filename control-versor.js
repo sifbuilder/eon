@@ -11,17 +11,18 @@
 
   let controlVersor = function (__mapper = {}) {
 		
-    let mversor = __mapper('xs').m('versor')()
-
+    let mversor = __mapper('xs').m('versor')(),
+				mgeom = __mapper('xs').m('geom')
+				
     let drag = d3.drag()
 
     let state = {}
     state.projection = d3.geoOrthographic()
     state.rotation = [0, 0, 0]
-    state.v0 // Mouse cartesian position at start of drag gesture
+    state.v0 // Mouse cartesian position invprojected
     state.r0 // Projection rotation as Euler angles at start
-    state.q0 // Projection rotation as versor at start
-    state.p0 // Polar coordintes
+    state.q0 // Quaternion. Projection rotation 
+    state.p0 // Mouse position (polar)
     state.dtc // Distance initial dot to center untransformed
 
     // inside
@@ -37,7 +38,7 @@
       return Math.abs(dtc) < 1
     }
 
-    // get event position
+    // event position
     let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
 
     // start drag control
@@ -54,9 +55,9 @@
 
       if (projection.invert !== undefined && projection.rotate !== undefined) {
         state.p0 = getPos(e) // d3.mouse(this)
-        let inve0 = projection.invert(state.p0)
+        let inve0 = projection.invert(state.p0)	// spherical
         if (inve0 !== undefined) {
-          state.v0 = mversor.cartesian(inve0)
+          state.v0 = mgeom.cartesian(inve0)
           state.r0 = projection.rotate()
           state.q0 = mversor(state.r0)
         }
@@ -73,7 +74,7 @@
         if (state.v0 !== undefined && state.r0 !== undefined) {
           let inve0 = projection.rotate(state.r0).invert(getPos(e))
           if (inve0 !== undefined) {
-            let v1 = mversor.cartesian(inve0)
+            let v1 = mgeom.cartesian(inve0)
             let q1 = mversor.multiply(state.q0, mversor.delta(state.v0, v1))
             let r1 = mversor.rotation(q1)
 
