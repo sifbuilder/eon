@@ -87,8 +87,13 @@
       stopMomentum()
 			
       state.moved = false // not moved yet
-      state.cPos = state.pPos = state.grabbed = getPos(e) // position from event
-      state.rotAccum = mgeom.add(state.rotAccum, state.rotInDrag)
+			
+      state.grabbed = getPos(e) // mouse position
+			state.pPos = state.grabbed // previous position 
+      state.cPos = state.pPos // current position
+			
+      state.rotAccum = mgeom.add(state.rotAccum, state.rotInDrag) // rotation
+			
       rebase()
     }
 

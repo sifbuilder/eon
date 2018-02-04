@@ -13,7 +13,6 @@
       cwen = __mapper('xs').c('wen')(),
       cversor = __mapper('xs').c('versor'),
       mwen = __mapper('xs').m('wen'),
-      mversor = __mapper('xs').m('versor')(),
       mstace = __mapper('xs').m('stace'),
       mproj3ct = __mapper('xs').m('proj3ct'),
       mgeom = __mapper('xs').m('geom'),
@@ -26,18 +25,14 @@
  *        if control:versor   versor rotation
  */
     let protion = function (prjdef, anigram) {
-			
       let p = prjdef
       let prj = guniwen(p)
 
       if (p !== undefined) {
-				
         if (f.isString(p.projection)) { // if _projection singular name
           prj = __mapper('xs').g(p.projection)(p) // props
-					
         } else if (f.isFunction(p.projection)) { // if is projection
           prj = p.projection // props passed to projection
-					
         } else if (f.isArray(p.projections)) { // if plural select one
           prj = p.projections[ Math.round(p.projectidx || 0) ]
 
@@ -46,42 +41,38 @@
           }
         }
 
-
         if (prj.rotate !== undefined) {
-					
           let rot = (p.rotate) ? p.rotate : [0, 0, 0]
-					let controlRotation =  mgeom.zerovector(rot)
-					
-					let control
-					if (p.control === 'versor') control = cversor // VERSOR 
-          else control = cwen // WEN 
-					
-					controlRotation = control
-								.projection(prj)	// tbd
-								.rotation() // rotation from control wen
+          let controlRotation = mgeom.zerovector(rot)
 
-					
-					if (controlRotation.length == 2) {		// planar form
-						if (controlRotation[0] * controlRotation[1] !== 0) {
-							controlRotation = mwen.cross([controlRotation[0], 0, 0], [0, controlRotation[1], 0])
-						}
-					}
+          let control
+          if (p.control === 'versor') control = cversor // VERSOR
+          else control = cwen // WEN
 
-					rot = mgeom.add(rot, controlRotation)
-					
+          controlRotation = control
+            .projection(prj) // tbd
+            .rotation() // rotation from control wen
+
+          if (controlRotation.length == 2) { // planar form
+            if (controlRotation[0] * controlRotation[1] !== 0) {
+              controlRotation = mwen.cross([controlRotation[0], 0, 0], [0, controlRotation[1], 0])
+            }
+          }
+
+          rot = mgeom.add(rot, controlRotation)
+
           p.rotate = rot
-					
         }
 
         let translate = p.translate
         if (f.isObject(translate) && f.isPosition(translate)) {
-          translate = Object.values(translate)		// translate is {x,y,z}
+          translate = Object.values(translate) // translate is {x,y,z}
           p.translate = translate
         }
 
         let center = p.center
         if (f.isObject(center) && f.isPosition(center)) {
-          center = Object.values(center)					// center is {x,y,z}
+          center = Object.values(center) // center is {x,y,z}
           p.center = center
         }
 
@@ -93,14 +84,14 @@
     }
 
     /* ***************************
- *     	 @projier
- *			 json = mprofier.projier(f.v(prodef, anigram), anigram)(json)
+ *       @projier
+ *       json = mprofier.projier(f.v(prodef, anigram), anigram)(json)
  */
     let projier = (prodef, anigram) => // projer is fenrir if no prodef
-				json => (prodef) ? mproj3ct(json, protion(prodef, anigram)) : json
+      json => (prodef) ? mproj3ct(json, protion(prodef, anigram)) : json
 
     /****************************
- *     	 @ereformer
+ *       @ereformer
  */
     let ereformer = anigram => {
       let projdef = anigram.payload.ereform
@@ -109,59 +100,50 @@
       return json => mproj3ct(json, projer)
     }
     /****************************
- *     	 @conformer
+ *       @conformer
  */
     let conformer = anigram => {
       let projdef = anigram.payload.conform
 
-			let projer
-			
-			 if (projdef === undefined) {
-				 
-				 projer = d => d
-				
-			 } else  {
-				 
-					let projection = protion(projdef, anigram)
-					projer = json => mproj3ct(json, projection)
-			}
+      let projer
+
+      if (projdef === undefined) {
+        projer = d => d
+      } else {
+        let projection = protion(projdef, anigram)
+        projer = json => mproj3ct(json, projection)
+      }
 
       return projer
     }
     /****************************
- *     	 @proformer
+ *       @proformer
  */
     let proformer = anigram => {
       let uid = anigram.payload.uid
       let projdef = anigram.payload.proform
 
-				
-			let projer
-			if (projdef === undefined) {
-				 
-						projer = d => d
-			
-			} else {
+      let projer
+      if (projdef === undefined) {
+        projer = d => d
+      } else {
+        if (projdef.translate) {
+          let translates = mstace.getLocations(projdef.translate, anigram)
+          let translate = translates[0] // translate is first translate
 
-						if (projdef.translate) {
-							let translates = mstace.getLocations(projdef.translate, anigram)
-							let translate = translates[0]				// translate is first translate
+          projdef.translate = translate
+        }
 
-							projdef.translate = translate
-						}
+        let projection = protion(projdef, anigram)
 
-						let projection = protion(projdef, anigram)
+        projer = json => { // anigram
+          let proformed = mproj3ct(json, projection) // proform geoform
 
-						projer = json => {									// anigram
+          return proformed
+        }
+      }
 
-							let proformed =	mproj3ct(json, projection)				// proform geoform
-
-							return proformed
-						}
-			}
-						
-			return projer
-			
+      return projer
     }
 
     /****************************
