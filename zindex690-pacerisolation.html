@@ -239,44 +239,6 @@ let muonAlima = function (__mapper) {
   }
 
   /*******************************************
- *      @forces
- *
- *
- *
- */
-  /*******************************************
- *      @force_energy
- */
-  let force_energy = { // aniForce
-    properties: {
-      alpha: 1,
-      alphaMin: 0.001,
-      alphaDecay: 0,
-      alphaTarget: 0
-    },
-
-    'field': function field (params = {}) {
-      let nodes = params.nodes
-      let aniCompForces = []
-
-      let forceParams = {
-        'type': 'energy',
-        'filter': d => true,
-        'src': d3_force,
-        'nodes': nodes
-      }
-
-      let field = {
-        'key': 'energy',
-        'force': mforces(forceParams)
-
-      }
-
-      aniCompForces.push(field)
-      return aniCompForces
-    }
-  }
-  /*******************************************
  *      @gratilines21
  */
   let form = {
@@ -380,6 +342,42 @@ let muonAlima = function (__mapper) {
       'graticule': graticule
     }
   }
+
+  /*******************************************
+ *      @forces
+ *
+ *
+ *
+ */
+  /*******************************************
+ *      @force_energy
+ */
+  let force_energy = { // aniForce
+    properties: {
+      alpha: 1,
+      alphaMin: 0.001,
+      alphaDecay: 0,
+      alphaTarget: 0
+    },
+
+    'field': function field (params = {}) {
+      let nodes = params.nodes
+
+      let forceParams = {
+        'type': 'energy',
+        'filter': d => true,
+        'src': d3_force,
+        'nodes': nodes
+      }
+
+      let field = {
+        'key': 'energy',
+        'force': mforces(forceParams)
+      }
+
+      return Array.of(field)
+    }
+  }	
   /*******************************************
  *      @force_viscosity
  */
@@ -390,8 +388,6 @@ let muonAlima = function (__mapper) {
 
     'field': function (params = {}) { // field.field
       let nodes = params.nodes // nodes
-
-      let aniCompForces = []
 
       let forceParams = {
         'type': 'noforce',
@@ -406,9 +402,7 @@ let muonAlima = function (__mapper) {
         'force': mforces(forceParams)
       }
 
-      aniCompForces.push(field)
-
-      return aniCompForces
+      return Array.of(field)
     }
   }
   /*******************************************
@@ -630,7 +624,7 @@ let muonAlima = function (__mapper) {
   let force_manybody = { // aniForce
 
     properties: {
-      strength: -0.9,
+      strength: -1.9,
       theta: 0.9,
       distanceMin: 0,
       distanceMax: Infinity
@@ -911,7 +905,7 @@ let muonAlima = function (__mapper) {
   nat1.payload.forces = {
     force_energy,
     force_viscosity,
-    // force_manybody,
+    force_manybody,
     // force_gravity,
     // force_charge,
     // force_cube,
