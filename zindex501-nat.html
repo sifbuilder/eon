@@ -26,12 +26,7 @@ let muonAlima = function muonAlima (__mapper) {
     height = renderer.height(),
     scaleView = Math.min(width / 2, height) / Math.PI
 
-  let f = __mapper({'props': muonProps.muonProps()}).props(),
-    g = __mapper('xs').m('geom'),
-    mwen = __mapper('xs').m('wen'),
-    cwen = __mapper('xs').c('wen')(),
-    mversor = __mapper('xs').m('versor')(),
-    mnat = __mapper('xs').m('nat')
+  let mnat = __mapper('xs').m('nat')
 
   /*******************************************
  *      @pics
@@ -145,7 +140,6 @@ let muonAlima = function muonAlima (__mapper) {
     'control': 'wen'
   }
   let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
-  let tureCirc = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
   /*******************************************
  *    @animas
@@ -238,10 +232,10 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  nat
   let nat = {
 
-    'halo':'geofold',
+    'halo': 'geofold',
 
     'geoform': p => ({'type': 'Feature',
-			'geometry': {'type': 'Polygon','coordinates': mnat.natPolygon(p.payload.form)},
+      'geometry': {'type': 'Polygon', 'coordinates': mnat.natPolygon(p.payload.form)},
       'properties': {}
     }),
 
@@ -261,12 +255,12 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  circ
   let circ = {
 
-    'halo':'geofold',
+    'halo': 'geofold',
 
     'geoform': p => {
       let ret = {
         'type': 'Feature',
-        'geometry': {'type': 'Polygon','coordinates': mnat.natPolygon(p.payload.form)},
+        'geometry': {'type': 'Polygon', 'coordinates': mnat.natPolygon(p.payload.form)},
         'properties': {}
       }
       return ret
@@ -279,18 +273,17 @@ let muonAlima = function muonAlima (__mapper) {
 
       proform,
 
-          geonode: {
-            type: 'Feature',
-            geometry: { type: 'Point', coordinates: [0, 0, 0] },
-            properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-          },
-					
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      },
+
       boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
       uid: null,
       parentuid: null,
       geofold: null,
-      geonode: null,
       avatars: null,
       forces: null,
       inited: 0,
@@ -301,10 +294,10 @@ let muonAlima = function muonAlima (__mapper) {
   }
 
   let animas = [
-    nat,      // h.geofold g.uniwen
-    circ, 			// h.geofold g.uniwen
-    img,      // h.img
-    text,     // h.text
+    nat, // h.geofold g.uniwen
+    circ, // h.geofold g.uniwen
+    img, // h.img
+    text // h.text
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

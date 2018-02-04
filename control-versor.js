@@ -55,10 +55,10 @@
 
       if (projection.invert !== undefined && projection.rotate !== undefined) {
         state.p0 = getPos(e) // d3.mouse(this)
-        let inve0 = projection.invert(state.p0)	// spherical
+        let inve0 = projection.invert(state.p0)	// spherical invert mouse position
         if (inve0 !== undefined) {
           state.v0 = mgeom.cartesian(inve0)
-          state.r0 = projection.rotate()
+          state.r0 = projection.rotate()			// rotation
           state.q0 = mversor(state.r0)
         }
       }
