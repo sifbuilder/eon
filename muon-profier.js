@@ -25,24 +25,24 @@
  *        if control:versor   versor rotation
  */
     let protion = function (prjdef, anigram) {
-      let p = prjdef
-      let prj = guniwen(p)
+			
+      let prj = guniwen(prjdef)
 
-      if (p !== undefined) {
-        if (f.isString(p.projection)) { // if _projection singular name
-          prj = __mapper('xs').g(p.projection)(p) // props
-        } else if (f.isFunction(p.projection)) { // if is projection
-          prj = p.projection // props passed to projection
-        } else if (f.isArray(p.projections)) { // if plural select one
-          prj = p.projections[ Math.round(p.projectidx || 0) ]
+      if (prjdef !== undefined) {
+        if (f.isString(prjdef.projection)) { // if _projection singular name
+          prj = __mapper('xs').g(prjdef.projection)(prjdef) // props
+        } else if (f.isFunction(prjdef.projection)) { // if is projection
+          prj = prjdef.projection // props passed to projection
+        } else if (f.isArray(prjdef.projections)) { // if plural select one
+          prj = prjdef.projections[ Math.round(prjdef.projectidx || 0) ]
 
           if (f.isString(prj)) { // if name in array
-            prj = __mapper('xs').g(prj)(p) // get projection from name
+            prj = __mapper('xs').g(prj)(prjdef) // get projection from name
           }
         }
 
         if (prj.rotate !== undefined) {
-          let rot = (p.rotate) ? p.rotate : [0, 0, 0]
+          let rot = (prjdef.rotate) ? prjdef.rotate : [0, 0, 0]
           let controlRotation = mgeom.zerovector(rot)
 
           if (controlRotation.length == 2) { // planar rotation
@@ -54,8 +54,8 @@
 					}
 					
           let control
-          if (p.control === 'versor') control = cversor // VERSOR
-          else control = cwen // WEN
+          if (prjdef.projection === 'uniwen' || prjdef.control === 'wen') control = cwen // WEN
+          else control = cversor  // VERSOR
 					
           controlRotation = control
             .projection(prj) // tbd
@@ -64,22 +64,22 @@
 
           rot = mgeom.add(rot, controlRotation)
 
-          p.rotate = rot
+          prjdef.rotate = rot
         }
 
-        let translate = p.translate
+        let translate = prjdef.translate
         if (f.isObject(translate) && f.isPosition(translate)) {
           translate = Object.values(translate) // translate is {x,y,z}
-          p.translate = translate
+          prjdef.translate = translate
         }
 
-        let center = p.center
+        let center = prjdef.center
         if (f.isObject(center) && f.isPosition(center)) {
           center = Object.values(center) // center is {x,y,z}
-          p.center = center
+          prjdef.center = center
         }
 
-        for (let [key, value] of Object.entries(p)) {
+        for (let [key, value] of Object.entries(prjdef)) {
           if (f.isFunction(prj[key])) prj[key](value)
         }
       }

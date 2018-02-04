@@ -137,8 +137,6 @@
    */
     let enty = function (prjdef = {}) {
 			
-			if (1 && 1) console.log("guniwen:prjdef", prjdef)			
-			
       let m = profion(prjdef)
       let vars = Object.keys(prjdef)
 

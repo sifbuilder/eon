@@ -19,13 +19,6 @@
 
     let drag = d3.drag()
 
-    function momentum () {
-      if (Math.abs(state.vel[0]) < inits.epsilon && Math.abs(state.vel[1]) < inits.epsilon) return
-      state.vel[0] *= inits.decay; state.vel[1] *= inits.decay
-      state.rotInDrag[0] += state.vel[0]; state.rotInDrag[1] += state.vel[1]
-      if (state.timer) state.timer = requestAnimationFrame(momentum)
-    }
-
     function tick () {
 
       if (state.autorotimer) state.autorotimer = requestAnimationFrame(tick)
@@ -105,8 +98,6 @@
       let e = d3.event
       let pos = getPos(e) //  d3.mouse(this)
 
-let inve0 = state.projection.invert(pos)	
-console.log("inve0", inve0)			
 
       let dx = state.grabbed[1] - pos[1],
           dy = - (state.grabbed[0] - pos[0])
@@ -143,6 +134,14 @@ console.log("inve0", inve0)
       ]
 
       state.timer = requestAnimationFrame(momentum)
+    }
+
+		
+    function momentum () {
+      if (Math.abs(state.vel[0]) < inits.epsilon && Math.abs(state.vel[1]) < inits.epsilon) return
+      state.vel[0] *= inits.decay; state.vel[1] *= inits.decay
+      state.rotInDrag[0] += state.vel[0]; state.rotInDrag[1] += state.vel[1]
+      if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
 
     /*******************************************
