@@ -29,11 +29,11 @@
       return [x, 2 * atan(exp(y)) - halfPi]
     }
 
-		let mercator
+
     /*******************************************
    *      @enty mercator
    */
-    var enty = mercator = function () { // mercator
+    var enty = function () { // mercator
       let m = mercatorProjection(mercatorRaw)
       return m
     }

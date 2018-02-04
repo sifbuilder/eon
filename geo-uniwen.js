@@ -55,6 +55,9 @@
   *       @wenProjInvert
   */
     let wenProjInvert = function (point) {
+			
+			if (1 && 1) console.log("wenProjInvert:point", point)
+			
       let rotate = state.rotate,
         scale = state.scale,
         translate = state.translate,
@@ -95,6 +98,7 @@
         lens = state.lens
 
       let c = [x, y, z]
+			
       c = wenRotation(rotate)(...c) // rotate
 
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
@@ -132,6 +136,9 @@
    *    @enty
    */
     let enty = function (prjdef = {}) {
+			
+			if (1 && 1) console.log("guniwen:prjdef", prjdef)			
+			
       let m = profion(prjdef)
       let vars = Object.keys(prjdef)
 

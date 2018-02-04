@@ -105,6 +105,8 @@
       let e = d3.event
       let pos = getPos(e) //  d3.mouse(this)
 
+let inve0 = state.projection.invert(pos)	
+console.log("inve0", inve0)			
 
       let dx = state.grabbed[1] - pos[1],
           dy = - (state.grabbed[0] - pos[0])

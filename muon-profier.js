@@ -45,19 +45,22 @@
           let rot = (p.rotate) ? p.rotate : [0, 0, 0]
           let controlRotation = mgeom.zerovector(rot)
 
+          if (controlRotation.length == 2) { // planar rotation
+            if (controlRotation[0] * controlRotation[1] !== 0) {
+              controlRotation = mwen.cross([controlRotation[0], 0, 0], [0, controlRotation[1], 0])
+            }
+          } else {
+						controlRotation[2] = 0
+					}
+					
           let control
           if (p.control === 'versor') control = cversor // VERSOR
           else control = cwen // WEN
-
+					
           controlRotation = control
             .projection(prj) // tbd
             .rotation() // rotation from control wen
 
-          if (controlRotation.length == 2) { // planar form
-            if (controlRotation[0] * controlRotation[1] !== 0) {
-              controlRotation = mwen.cross([controlRotation[0], 0, 0], [0, controlRotation[1], 0])
-            }
-          }
 
           rot = mgeom.add(rot, controlRotation)
 
