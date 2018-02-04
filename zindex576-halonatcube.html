@@ -19,7 +19,7 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1})
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
 		mgeom = __mapper('xs').m('geom')
@@ -97,7 +97,7 @@ let muonAlima = function muonAlima (__mapper) {
       let payload = p.payload
       let ric = payload.ric
 
-      let json = {type: 'FeatureCollection', features: []}
+      let gj = {type: 'FeatureCollection', features: []}
 
       let points = payload.points // payload.points
       let faces = payload.faces // payload.faces
@@ -110,22 +110,23 @@ let muonAlima = function muonAlima (__mapper) {
           .map(mgeom.to_degrees)
         geometry.coordinates = Array.of(geometry.coordinates)
 
-        let feature = {type: 'Feature', geometry: {}, properties: {}}
-
         let _ric = {}
         _ric.gid = ric.gid
         _ric.cid = 'face'
         _ric.fid = i
 
-        feature.geometry = geometry
-
+        let feature = {
+							type: 'Feature', 
+							geometry: geometry, 
+							properties: {}
+				}
         feature.properties.ric = _ric
-        feature.properties.sort = 'feature'
         feature.properties.boform = face.boform
 
-        json.features.push(feature)
+        gj.features.push(feature)
       }
-      return json
+			if (1 && 1) console.log("gj", gj)			
+      return gj
     },
 
     'payload': {
