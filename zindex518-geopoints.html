@@ -206,53 +206,7 @@ let muonAlima = function muonAlima (__mapper) {
       }
     }}
 
-  let p9 = {
-    halo:'geofold',
-    geoform,
-    payload: {tim,
-      boform,
-      ric: {'gid': 'p', 'cid': 'p', 'fid': 'p9'},
-      proform: {projection: 'uniwen',
-        scale: 1,
-        rotate: [ 0, 0, 0 ],
-        translate: {
-          'x': [[[ {
-            'm1': 4,
-            'm2': 4,
-            'n1': 2,
-            'n2': 2,
-            'n3': 2,
-            'a': 1,
-            'b': 1, // circle
-            'ra2': 100,
-            'v0': 0,
-            'v1': 1,
-            'w4': 90,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
-            'fas8': 0
-          } ]]],
-          'y': [[[ {
-            'm1': 4,
-            'm2': 4,
-            'n1': 100,
-            'n2': 100,
-            'n3': 100,
-            'a': 1,
-            'b': 1, // square
-            'ra2': 100,
-            'v0': 0,
-            'v1': 1,
-            'w4': 90,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
-            'fas8': 0
-          } ]]]
-        }
-      }
-    }}
+
   let p10 = { // NOK
     halo:'geofold',
     geoform,
@@ -444,47 +398,6 @@ let muonAlima = function muonAlima (__mapper) {
       }
     }}
 
-  let p14 = {
-    halo:'geofold',
-    geoform,
-    payload: {tim,
-      boform,
-      ric: {'gid': 'p', 'cid': 'p', 'fid': 'p14'},
-      proform: {projection: 'uniwen',
-        scale: 1,
-        rotate: [ 0, 0, 0 ],
-        dims: 2,
-        translate:
-
-       [[[ t => {
-         let bsnap = __mapper('xs').m('snap')
-         let fn = (a, b) => [ a[0] + b.x, a[1] + b.y, a[2] + b.z ]
-         let args = [
-           [378, 124, 0],
-           [[[ {
-             'm1': 4,
-             'm2': 4,
-             'n1': 2,
-             'n2': 2,
-             'n3': 2,
-             'a': 1,
-             'b': 1, // circle
-             'ra2': 100,
-             'v0': 0,
-             'v1': 1,
-             'w4': 90,
-             'seg5': 360,
-             'pa6': 0,
-             'pb7': -1,
-             'fas8': 0
-           } ]]]
-         ]
-         args = args.map(d => bsnap(d, t, 0))
-         return fn(...args)
-       } ]]]
-
-      }
-    }}
 
   let p15 = {
     halo:'geofold',
@@ -574,12 +487,12 @@ let muonAlima = function muonAlima (__mapper) {
     p6, // h.geofold g.uniwen
     p7, // h.geofold g.uniwen
     p8, // h.geofold g.uniwen
-    p9, // h.geofold g.uniwen
+
     p10, // h.geofold g.uniwen
     p11, // h.geofold g.uniwen
     p12, // h.geofold g.uniwen
     p13, // h.geofold g.uniwen
-    p14, // h.geofold g.uniwen
+
     p15, // h.geofold g.uniwen
     p16 // h.geofold g.uniwen
 

@@ -11,14 +11,6 @@
 </head>
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
-
-<script src='https://d3js.org/d3.v4.min.js'></script>
-<script src='https://d3js.org/d3-geo.v1.min.js'></script>
-<script src='https://d3js.org/d3-geo-projection.v2.min.js'></script>
-<script src='https:////unpkg.com/d3-force-3d@1.0.7/build/d3-force-3d.bundle.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.0/topojson.min.js'></script>
-<script src='https:////cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js'></script>
-<script src='https:////unpkg.com/three-trackballcontrols-web@0.0.2/dist/three-trackballcontrols.min.js'></script>
 <script src="enls.js"></script>
 <script src="ents.js"></script>
 
@@ -26,7 +18,7 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1}) // INIT
 
   let mnat = __mapper('xs').m('nat'),
 		mgeom = __mapper('xs').m('geom')
@@ -35,7 +27,7 @@ let muonAlima = function muonAlima (__mapper) {
   /*******************************************
  *    @pics
  */
-  let tim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let tim = {'td': 92200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   /*******************************************
  *      @animas
@@ -52,7 +44,7 @@ let muonAlima = function muonAlima (__mapper) {
       geometry: {
 
         'type': 'Point',
-        'coordinates': [ 40, 40 ]
+        'coordinates': [ 5, 20 ]
 
       },
       properties: {
@@ -230,7 +222,7 @@ let muonAlima = function muonAlima (__mapper) {
     'geoform': p => {
 
 			let randomize = 0,
-				samples = 30,
+				samples = 36,
 				rnd = 1.0
 				
 			if (randomize) {
@@ -256,7 +248,7 @@ let muonAlima = function muonAlima (__mapper) {
 				'properties': {}
 			}
 			
-			if (1 && 1) console.log("gj", gj)
+			if (0 && 1) console.log("gj", gj)
 			return gj
 		},
 
@@ -264,22 +256,12 @@ let muonAlima = function muonAlima (__mapper) {
       'tim': tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'fibonat'},
 
-			 // 'proform': {
 
-        // 'projection': 'uniwen',
-        // 'translate': [ 320, 200],
-        // 'scale': 1,
-        // 'rotate': [-5, 50, 0],
-        // 'lens': [0,1,Infinity], // [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 400 ], // [0,1], // [1,0]
-        // 'dims': 3,
-        // 'control': 'wen'
-      // },
-			
       'proform': {
         'projection': 'uniwen',
 
         'translate': 
-					[ [350, 200, 0],
+					[ [250, 200, 0],
           [[[ {
             'm1': 4,
             'm2': 4,
@@ -297,7 +279,7 @@ let muonAlima = function muonAlima (__mapper) {
             'pb7': -1,
             'fas8': 0
           } ]]] ],
-        'scale': 1,
+        'scale': 1.75,
         'rotate': [ [[[0,90]]], [[[0,90]]], 0 ],
         'lens': [0, 1, Infinity],
         'control': 'wen'
@@ -309,7 +291,7 @@ let muonAlima = function muonAlima (__mapper) {
         // properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
       // },
 
-      boform: { 'csx': 0, 'cf': [[[222, 111, 222]]], 'co': [[[0.2, 0.2]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      boform: { 'csx': 0, 'cf': [[[777, 777, 777]]], 'co': [[[0.2, 0.2]]], 'cs': [[[777, 888]]], 'cw': [[[0.2, 0.2]]], 'cp': [[[0.9, 0.9]]]},
 
       'conform': {
 
@@ -323,7 +305,7 @@ let muonAlima = function muonAlima (__mapper) {
 							'n2': [[[2,2]]],
 							'n3': [[[2,2]]],
 							'a': [[[1,1]]],
-							'b': [[[0.95,0.98]]], // moon
+							'b': [[[1,1]]], // moon
 							'ra2': 100,
 							'v0': 0,
 							'v1': 1,
@@ -341,7 +323,7 @@ let muonAlima = function muonAlima (__mapper) {
 							'n2': [[[2,2]]],
 							'n3': [[[2,2]]],
 							'a': [[[1,1]]],
-							'b': [[[0.95,0.98]]], // moon
+							'b': [[[1,1]]], // moon
 							'ra2': 100,
 							'v0': 0,
 							'v1': 1,
@@ -360,7 +342,7 @@ let muonAlima = function muonAlima (__mapper) {
 							'n3': [[[2,2]]],
 							'a': [[[1,1]]],
 							'b': [[[0.95,0.98]]], // moon
-							'ra2': 100 / Math.sqrt(2),
+							'ra2': 100 ,
 							'v0': 0,
 							'v1': 1,
 							'seg5': [[[360, 360]]],
@@ -377,16 +359,123 @@ let muonAlima = function muonAlima (__mapper) {
     }
 
   }	
+	
+	
+  // -------------------------------  gratiform
+  let gratiform = {
+
+    'halo':'geofold',
+
+    'geoform': p => {
+
+      let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
+			let type = 'Feature'
+			let properties = {}
+      let geometry = {type: 'MultiLineString',coordinates: gedges}
+      let gj = {type, geometry, properties}
+
+			return gj
+		},
+
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+
+			'conform': {
+
+				'projection': 'natform',
+				'form': {
+
+						"x": {
+							"m1": 6, "m2": 6, "n1": 60, "n2": 100, "n3": 30, "a": 1, "b": 1,
+							"ra2": 52,
+							"v0": 0,"v1":1,
+							"w4":  0,
+							"seg5": 360,"pa6":0,"pb7":-1,
+							"fas8": 0,
+
+							"fn0": Math.cos,
+							"dom3": [0,360],
+							"exp9": [2,0,0,0],
+
+						},
+						"y": {
+							"m1":2,"m2":2,"n1":1,"n2":1,"n3":1,"a":1,"b":1,			// biform
+							"ra2": 36,
+							"v0":0,"v1":1,
+							"w4": 0,
+							"seg5": 360,"pa6":0,"pb7":-1,
+
+							"fas8": -90, 		// fas8, antifase
+							"fn0": Math.cos,
+							"dom3": [0,360],
+							"exp9": [0,0,0,0],
+
+						},
+						"z": {
+							"m1":2,"m2":2,"n1":1,"n2":1,"n3":1,"a":1,"b":1,			// biform
+							"ra2": 52,
+							"v0": 0,"v1":1,
+							"w4":  0,
+							"seg5": 360,"pa6":0,"pb7":-1,
+
+							"fn0": d => Math.cos(d),
+							"dom3": [0,360],
+							"exp9": [0,0,0, [[[1,2]]]],
+
+						}
+					}
+
+			},
+			
+      proform: {
+        projection: 'uniwen',
+        'translate': {
+						'x':
+									{
+										'pos': [[[ 0, 1 * 360]]]
+									},
+						'y':
+									{
+										'pos': [[[ 0, 1 * 360]]]
+									},
+						'z': {
+										'pos': [[[ 0, 1 * 360]]]
+									}
+					},
+        scale: 0.5,
+
+      },
+			
+      'graticule': {
+
+				'frame': [ [ [-180, 180, 90, 9],
+					[-90, 90, 45, 5] ],
+				[	[-180, 180, 90, 9],
+					[-90, 90, 45, 5] ] ]
+
+			},
+
+    }
+
+  }	
   /*******************************************
  * @animaApi
  *
  */
+   fibonat.payload.avatars = {
+    gratiform // haloavaform.haloavaform.geojson
+  }
+
+	
   let animas = [
 
     img, // h.img
     text, // h.text
     // nat, // h.geofold
-    fibonat // h.geofold
+    fibonat, // h.geofold
+    // gratiform, // h.geofold
   ]
 
   let animaApi = function animaApi () {

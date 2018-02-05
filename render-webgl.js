@@ -34,7 +34,7 @@
     /* navInfo */
     state.navInfo = document.createElement('div') // Add nav info section
     state.navInfo.classList.add('graph-nav-info')
-    state.navInfo.innerHTML = 'ALT/right to stop/restart animation'
+    state.navInfo.innerHTML = 'if key ALT/right to switch animation'
     document.body.appendChild(state.navInfo) // state.domElem.appendChild(navInfo);
 
     /* tooltip */
@@ -280,7 +280,7 @@
         state.raycaster.setFromCamera(state.mouse, state.camera) // Update tooltip
         const intersects = state.raycaster.intersectObjects(state.scene.children)
         /* if (intersects.length > 0) console.log(" ****************** webgl intersects" , intersects) */
-        state.toolTipElem.innerHTML = intersects.length ? intersects[0].object.index || 'Hi e' : 'Hi e'
+        state.toolTipElem.innerHTML = intersects.length ? intersects[0].object.index || '_e_' : '_e_'
       }
 
       state.controls.update() // Frame cycle
