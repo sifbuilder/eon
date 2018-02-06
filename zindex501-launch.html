@@ -18,7 +18,7 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, img: 1, key: 1}) // INIT
 
   let mnat = __mapper('xs').m('nat'),
     mliner = __mapper('xs').m('liner'),
@@ -261,7 +261,7 @@ let muonAlima = function muonAlima (__mapper) {
     payload: {
       'tim': tim,
       'ric': {'gid': 'gratifold', 'cid': 'gratifold', 'fid': 'gratifold'},
-      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+      'boform': { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9, 0.9]]]},
 
       fibonat: fibonat,
       conform: {'projection': 'natform','form': natform},
@@ -288,6 +288,88 @@ let muonAlima = function muonAlima (__mapper) {
     }
 
   }
+	  // -------------------------------  img
+  let img = {
+
+    halo: 'img',
+
+    geoform: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }
+  /*******************************************
+ *    @animas
+ *
+ */
+  let geoearth = {
+
+    'halo':'geofold',
+
+    'geoform': () => {
+      let gj = Object.assign({},
+        topojson.feature(
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
+        )
+      )
+      gj = __mapper('xs').m('geoj').trim(gj)
+      return gj
+    },
+
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
+      'boform': { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+      'proform': {
+
+					'projection': 'orthographic',
+					'scale': [[[100, 100]]],
+					'translate': {
+
+							'x': [[[300, 200]]],
+							'y': 200,
+							'z': 0
+
+						},
+					'rotate': [ [[[0, -1 * 360]]], 0, 0 ],
+					'control': 'versor'
+
+				}
+    }
+
+  }
+
   /*******************************************
  * @animaApi
  *
@@ -299,7 +381,8 @@ let muonAlima = function muonAlima (__mapper) {
   let animas = [
 	
     fibofold, // h.geofold
-
+		geoearth, // h.geofold g.orthographic
+    img // h.img
   ]
 
   let animaApi = function animaApi () {

@@ -19,7 +19,7 @@
 
 let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, key: 1, img: 1}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props()
   let g = __mapper('xs').m('geom')
@@ -59,7 +59,7 @@ let muonAlima = function (__mapper) {
  *
  */
 
-  let tim = {'td': 22800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let tim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   /* ******************************************
  *      @natform
@@ -152,7 +152,47 @@ let muonAlima = function (__mapper) {
     }
 
   }	
-	
+	  // -------------------------------  img
+  let img = {
+
+    halo: 'img',
+
+    geoform: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }
+
   /*******************************************
  *      @animaApi
  *
@@ -161,7 +201,7 @@ let muonAlima = function (__mapper) {
   let animas = [
 
     gratiform, // h.geofold
-
+    img // h.img
 
   ]
 

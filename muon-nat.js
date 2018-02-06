@@ -282,8 +282,10 @@
     let natPolygon = function (form) {	
 
 				let formm = nform(form)					// NFORM		
-				let gj
-		
+				let gj = {
+								type: 'MultiLineString', 
+								coordinates: []
+						}		
 				if (0 && 1) console.log("mnat:formm", formm)	
 					
 				if (Object.keys(formm).length > 2) { 
@@ -302,10 +304,7 @@
 				
 
 						let edges = mgraticule.gedges(graticule)
-						gj = {
-								type: 'MultiLineString', 
-								coordinates: edges
-						}
+						gj.coordinates = edges
 			
 
 						let projdef = conform
@@ -351,7 +350,7 @@
 
 						let ring = mlacer.slide(streams, 'max')
 
-						gj = Array.of(ring)
+						gj.coordinates = Array.of(ring)
 					}
 						
 						return gj
