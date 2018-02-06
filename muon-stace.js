@@ -83,7 +83,7 @@
  *             array of locations in stace dim
  */
     let getLocsInDim = function (staceDim, parentCoordsDim = []) {
-      if (0 && 1) console.log('m.stace.getLocsInDim staceDim', staceDim)
+      if (1 && 1) console.log('m.stace.getLocsInDim staceDim', staceDim)
 
       let locations
 
@@ -185,15 +185,21 @@
                 let parentCoords = manitem.parentCoords(anigram) // parentCoords
                 let parentLocationsDimd = mlacer.unslide(parentCoords) // unslide
                 let parentLocationsDim = parentLocationsDimd[i]
+								
+								if (parentLocationsDim !== undefined) {
+									locationsPerDim[i] = getLocsInDim(v1, parentLocationsDim)
+								}
 
-                locationsPerDim[i] = getLocsInDim(v1, parentLocationsDim)
+                
               }
             }
 						
 						
           }
-          locations = mlacer.slide(locationsPerDim)									// [300, 200]
-          if (0 && 1) console.log('m.stace.getLocsInDim locations', locations)
+					if (locationsPerDim.length > 0) {
+						locations = mlacer.slide(locationsPerDim)									// [300, 200]
+						if (0 && 1) console.log('m.stace.getLocsInDim locations', locations)
+					}
         }
 
         if (locations.length === 0) locations = []

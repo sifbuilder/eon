@@ -60,7 +60,7 @@
 			
       let rotate = state.rotate,
         scale = state.scale,
-        translate = state.translate,
+        translate = state.translate || [0,0,0],
         lens = state.lens
 
       let x = point[0]
@@ -94,7 +94,7 @@
     let pointStream = function (x, y, z = 0) {
       let rotate = state.rotate,
         scale = state.scale,
-        translate = state.translate,
+        translate = state.translate || [0,0,0],
         lens = state.lens
 
       let c = [x, y, z]
@@ -104,6 +104,7 @@
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
 
       c = mwen.projection(c, lens[2], scale) // project
+
 
       if (f.isPureArray(translate)) {
         c = c.map((d, i) => d + (translate[i] || 0)) // translate

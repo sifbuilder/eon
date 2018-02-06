@@ -21,10 +21,6 @@
     const radians = Math.PI / 180
     const tau = 2 * Math.PI
 
-    function reset () {
-      cache = cacheStream = null
-      return projection
-    }
 
     /* **************************
      *        @rador : seg5 unit circle rador
@@ -138,7 +134,6 @@
 	
 
 				let exps = formmvv.map(d => d.exp9)
-				// exps = [ [2,0,0,0], [0,0,0,0], [0,0,0,1], [0,0,1,0] ]	//  _e_
 
 				
 				let ff = []
@@ -149,29 +144,13 @@
 
 				
 				let rs = []
-					// rs[0] = (radioform[0] !== undefined) ? radioform[0](l) * formmvv[0].fn0(lambda + w[0]) : 1
-					// rs[1] = (radioform[1] !== undefined) ? radioform[1](l) * formmvv[1].fn0(lambda + w[1]) : 1
-					// rs[2] = (radioform[2] !== undefined) ? radioform[2](p) * formmvv[2].fn0(phi + w[2]) : 1
-					// rs[3] = (radioform[3] !== undefined) ? radioform[3](p) * formmvv[3].fn0(phi + w[3]) : 1
 					rs[0] = (radioform[0] !== undefined) ? radioform[0](l) : 1
 					rs[1] = (radioform[1] !== undefined) ? radioform[1](l) : 1
 					rs[2] = (radioform[2] !== undefined) ? radioform[2](p) : 1
 					rs[3] = (radioform[3] !== undefined) ? radioform[3](p) : 1
 
-
-				// square, square,circle, r2,r2, extent [-180,180], [-180,180], [0,360]  		// once
-				// square, square,square, r2,r2, extent [-180,180], [-180,180], [-180,180]	// cube
-
-				// let x = rad[0] * r0 * cos(lambda + w[0]) * cos(phi + w[2]) * r2
-				// let y = rad[1] * r1 * sin(lambda + w[1]) * cos(phi + w[2]) * r2
-				// let z = rad[2] * r2	* r2  					 * sin(phi + w[2])
-
 				let point = formmvv.map( (d,i) => {
 					let r
-					// if (i === 0) r = rad[0] * rs[0]**exps[0][0] * rs[1]**exps[0][1] * rs[2]**exps[0][2] * rs[3]**exps[0][3]
-					// if (i === 1) r = rad[1] * rs[0]**exps[1][0] * rs[1]**exps[1][1] * rs[2]**exps[1][2] * rs[3]**exps[1][3]
-					// if (i === 2) r = rad[2] * rs[0]**exps[2][0] * rs[1]**exps[2][1] * rs[2]**exps[2][2] * rs[3]**exps[2][3]
-					// if (i === 3) r = rad[3] * rs[0]**exps[3][0] * rs[1]**exps[3][1] * rs[2]**exps[3][2] * rs[3]**exps[3][3]					
 					if (i === 0) r = rad[0] * ff[0] * ff[2] * rs[0]**exps[0][0] * rs[1]**exps[0][1] * rs[2]**exps[0][2] * rs[3]**exps[0][3]
 					if (i === 1) r = rad[1] * ff[1] * ff[2] * rs[0]**exps[1][0] * rs[1]**exps[1][1] * rs[2]**exps[1][2] * rs[3]**exps[1][3]
 					if (i === 2) r = rad[2] * ff[3] * 				rs[0]**exps[2][0] * rs[1]**exps[2][1] * rs[2]**exps[2][2] * rs[3]**exps[2][3]
@@ -179,7 +158,6 @@
 					return r
 				})
 
-// console.log("pont",point[0], point[1], point[2])
 
         return [ point[0], point[1], point[2] ] // [x,y,z]
       }
@@ -187,8 +165,6 @@
 			return vertex
     }
 
-
- 
     /**********************
    *    @nform
    *      compleate form for natform
@@ -290,14 +266,8 @@
 				if (i==3 && form.exp9 === undefined) form.exp9 = [0,0,1,0]
 			}
 			
-			
-			
-			
-			if (0 && 1) console.log("nformed", nformed)
-			
       return nformed
     }
-
 
    /**********************
      *    @natPolygon
@@ -337,7 +307,7 @@
         })
         .map(d => [...d, d[0]]) // close polygon
 
-      let ring = mlacer.slide(streams, 'max')				//
+      let ring = mlacer.slide(streams, 'max')
 
       return Array.of(ring)
     }		
@@ -346,9 +316,9 @@
      */
     let enty = function () {}
 
-    enty.natPolygon = natPolygon //
+    enty.natPolygon = natPolygon
     enty.natform	 = natform
-    enty.nform = nform //
+    enty.nform = nform
 
     return enty
   }

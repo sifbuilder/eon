@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1}) // INIT
+
+  let mnat = __mapper('xs').m('nat'),
+    mliner = __mapper('xs').m('liner'),
+    manitem = __mapper('xs').m('anitem'),
+    mgeom = __mapper('xs').m('geom'),
+    mfibonat = __mapper('xs').m('fibonat'),
+    msnap = __mapper('xs').m('snap'),
+    mprofier = __mapper('xs').m('profier'),
+    mversor = __mapper('xs').m('versor')
+
+
+  /*******************************************
+ *    @pics
+ */
+  let tim = {'td': 72200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+	let natform = {
+
+            "x": {
+              "m1": 6, "m2": 6, "n1": 60, "n2": 100, "n3": 30, "a": 1, "b": 1,
+              "ra2": 26,
+              "v0": 0,"v1":1,
+              "w4":  0,
+              "seg5": 360,"pa6":0,"pb7":-1,
+              "fas8": 0,
+
+              "fn0": Math.cos,
+              "dom3": [0,360],
+              "exp9": [2,0,0,0],
+
+            },
+            "y": {
+              "m1":2,"m2":2,"n1":1,"n2":1,"n3":1,"a":1,"b":1,     // biform
+              "ra2": 18,
+              "v0":0,"v1":1,
+              "w4": 0,
+              "seg5": 360,"pa6":0,"pb7":-1,
+
+              "fas8": -90,    // fas8, antifase
+              "fn0": Math.cos,
+              "dom3": [0,360],
+              "exp9": [0,0,0,0],
+
+            },
+            "z": {
+              "m1":2,"m2":2,"n1":1,"n2":1,"n3":1,"a":1,"b":1,     // biform
+              "ra2": 26,
+              "v0": 0,"v1":1,
+              "w4":  0,
+              "seg5": 360,"pa6":0,"pb7":-1,
+
+              "fn0": d => Math.cos(d),
+              "dom3": [0,360],
+              "exp9": [0,0,0, [[[1,2]]]],
+
+            }
+          }
+	
+  let pathform = {
+
+            'x': {
+              'm1': [[[4,4]]],
+              'm2': [[[4,4]]],
+              'n1': [[[2,2]]],
+              'n2': [[[2,2]]],
+              'n3': [[[2,2]]],
+              'a': [[[1,1]]],
+              'b': [[[1,1]]], // moon
+              'ra2': 160,
+              'v0': 0,
+              'v1': 1,
+              'seg5': [[[360, 360]]],
+              'w4': [[[0, 0 - 0 * 360]]],
+              'pa6': 0,
+              'pb7': -1,
+              'fas8': 0
+            },
+
+            'y': {
+              'm1': [[[4,4]]],
+              'm2': [[[4,4]]],
+              'n1': [[[2,2]]],
+              'n2': [[[2,2]]],
+              'n3': [[[2,2]]],
+              'a': [[[1,1]]],
+              'b': [[[1,1]]], // moon
+              'ra2': 160,
+              'v0': 0,
+              'v1': 1,
+              'seg5': [[[360, 360]]],
+              'w4': [[[0, 0 - 0 * 360]]],
+              'pa6': 0,
+              'pb7': -1,
+              'fas8': -90
+            },
+
+            'z': {
+              'm1': [[[4,4]]],
+              'm2': [[[4,4]]],
+              'n1': [[[2,2]]],
+              'n2': [[[2,2]]],
+              'n3': [[[2,2]]],
+              'a': [[[1,1]]],
+              'b': [[[0.95,0.98]]], // moon
+              'ra2': 160 ,
+              'v0': 0,
+              'v1': 1,
+              'seg5': [[[360, 360]]],
+              'w4': [[[0, 0 - 0 * 360]]],
+              'pa6': 0,
+              'pb7': -1,
+              'fas8': 0
+            }
+
+          }
+
+    let proform = {
+        'projection': 'uniwen',
+        'translate': [300, 200, 0],
+        'scale': 1,
+        'rotate': [ [[[0,90]]], [[[0,90]]], 0 ],
+        'lens': [0, 1, Infinity],
+        'control': 'wen'
+      }
+
+
+     let geonode = {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      }
+
+		let graticule = {
+
+        'frame': [ [ [-180, 180, 90, 9],
+          [-90, 90, 45, 5] ],
+        [ [-180, 180, 90, 9],
+          [-90, 90, 45, 5] ] ]
+
+      }
+
+		let fibonat = {
+        randomize: 0,
+        samples: 12,
+        dotsInSegment: 12
+      }			
+  /*******************************************
+ *      @animas
+ *
+ */	
+  // -------------------------------  fibofold
+  let fibofold = {
+
+    'halo': 'geofold',
+
+    'geoform': p => {
+      let coords = mfibonat.stream(p.payload.fibonat)	// spherical
+      let gj = {
+        'type': 'Feature',
+        'geometry': {'type': 'LineString', 'coordinates': coords},
+        'properties': {}
+      }
+      return gj
+
+
+		},
+
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'fibofold'},
+      boform: { 'csx': 0, 'cf': [[[777, 777, 777]]], 'co': [[[0.2, 0.2]]], 'cs': [[[777, 888]]], 'cw': [[[0.2, 0.2]]], 'cp': [[[0.9, 0.9]]]},
+
+      fibonat: fibonat,
+      conform: { 'projection': 'natform','form': pathform },
+      proform: proform,
+
+    }
+
+  }
+
+  /* ******************************************
+ *      @avaform
+ *
+ */
+  let prehalo = function (anima) {
+
+    let anigram = manitem(anima).anigram()
+
+		if (0) {
+			let coords = mfibonat.stream(anigram.payload.fibonat) // spherical degrees
+			let t = anigram.payload.tim.unitTime
+			let coord = msnap(coords, t , 1)
+			let idx = Math.floor(msnap([0, coords.length], t , 1))
+			if (coords[idx] !== undefined && coords[idx+1] !== undefined) {
+
+				let c0 = coords[idx]
+				let c1 = coords[idx + 1]
+				
+				let p0 = mgeom.cartesian(c0)
+				let p1 = mgeom.cartesian(c1)
+				
+				let q1 = mversor().delta(p0, p1)
+				let r1 = mversor().rotation(q1)	// degrees
+
+			
+				anigram.payload.conform.form.x.w4 += r1[0]
+				anigram.payload.conform.form.y.w4 += r1[1]
+				anigram.payload.conform.form.z.w4 += r1[2]
+			
+			}
+    }
+
+    return anigram
+  }
+
+  let haloAvajson_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+
+  let haloAvajson_gramm = anima => __mapper('xs').h('geofold').gramm(prehalo(anima))
+
+  let haloAvajson = {}
+  haloAvajson.ween = anima => haloAvajson_ween(anima)
+  haloAvajson.gramm = anima => haloAvajson_gramm(anima)
+
+  // -------------------------------  gratifold
+  let gratifold = {
+
+    'halo':'geofold',
+
+    'geoform': p => {
+
+      let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
+      let gj = {
+          type: 'Feature',
+          geometry: {type: 'MultiLineString',coordinates: gedges},
+          properties: {}
+      }
+      return gj
+    },
+
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'gratifold', 'cid': 'gratifold', 'fid': 'gratifold'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+
+      fibonat: fibonat,
+      conform: {'projection': 'natform','form': natform},
+			proform: {
+        projection: 'uniwen',
+        'translate': {
+						'x':
+									{
+										'pos': [[[ 0, 1 * 360]]]
+									},
+						'y':
+									{
+										'pos': [[[ 0, 1 * 360]]]
+									},
+						'z': {
+										'pos': [[[ 0, 1 * 360]]]
+									}
+					},
+        scale: 0.5,
+
+      },
+			graticule: graticule,
+
+    }
+
+  }
+  /*******************************************
+ * @animaApi
+ *
+ */
+   fibofold.payload.avatars = {
+    gratifold // haloavaform.haloavaform.geojson
+  }
+
+  let animas = [
+	
+    // gratifold, // haloavaform.haloavaform.geojson
+
+    fibofold, // h.geofold
+
+  ]
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>
