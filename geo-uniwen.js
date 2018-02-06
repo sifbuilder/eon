@@ -56,7 +56,7 @@
   */
     let wenProjInvert = function (point) {
 			
-			if (1 && 1) console.log("wenProjInvert:point", point)
+			if (0 && 1) console.log("wenProjInvert:point", point)
 			
       let rotate = state.rotate,
         scale = state.scale,

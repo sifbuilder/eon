@@ -83,7 +83,7 @@
  *             array of locations in stace dim
  */
     let getLocsInDim = function (staceDim, parentCoordsDim = []) {
-      if (1 && 1) console.log('m.stace.getLocsInDim staceDim', staceDim)
+      if (0 && 1) console.log('m.stace.getLocsInDim staceDim', staceDim)
 
       let locations
 

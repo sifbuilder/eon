@@ -11,7 +11,7 @@
   let haloNat = function haloNat (__mapper = {}) {
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
-			mnat = __mapper('xs').m('nat')
+      mnat = __mapper('xs').m('nat')
 
     let r = __mapper('xs').r('renderer'),
       width = r.width(),
@@ -22,22 +22,16 @@
    *    @gramm
    */
     let gramm = function (anima, newAnigrams = []) {
-			
-      let anigram = manitem(anima).anigram(),						// anigram
-			
-        halo = 				anigram.halo, // halo
-        geoform = 		p => ({
-						type: 'Feature',
-						geometry: {
-							type: 'Polygon',
-							coordinates: mnat.natPolygon(p.payload.form)
-						},
-						properties: {}
-					})
 
-      anima.geoform = geoform
+      let anigram = manitem(anima).anigram(),           // anigram
+        geoform =     p => {
+					let geonat = mnat.natPolygon(p.payload.form)
+					return {'type': 'Feature','geometry': geonat,'properties': {}}}
 
-      newAnigrams = __mapper('xs').h('geofold').gramm(anima)
+      anigram.halo = 'geofold' // halo
+      anigram.geoform = geoform
+
+      newAnigrams = __mapper('xs').h('geofold').gramm(anigram)
 
       return newAnigrams
     }

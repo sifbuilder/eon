@@ -11,7 +11,10 @@
   let muonNat = function muonNat (__mapper = {}) {
 		
     let f = __mapper('props')(),
-      mlacer = __mapper('xs').m('lacer')
+      mlacer = __mapper('xs').m('lacer'),
+      mgraticule = __mapper('xs').m('graticule'),
+      mprofier = __mapper('xs').m('profier'),
+      mproj3ct = __mapper('xs').m('proj3ct')
 
 		let cache = {} // points, form
 
@@ -65,7 +68,7 @@
           pts.push(t)
         }
 
-        let radUnit = 1 / maxRadio // * Math.SQRT1_2 / maxRadio 	normalize
+        let radUnit = 1 / maxRadio //  Math.SQRT1_2 / maxRadio 	normalize
         pts = pts.map(d => d * radUnit)
 
         cache.forml = forml
@@ -203,7 +206,10 @@
 						let fas8z = (form.z.fas8z !== undefined) ? form.z.fas8 : 0
 						nformed.z = Object.assign({}, defs, form.z, {fas8: fas8z})
 						
-						nformed.r = Object.assign({}, defs, form.z, {fas8: fas8z - 90}) // fas8
+						nformed.r = Object.assign({}, defs, form.z, 
+							{fas8: fas8z - 90,
+								exp9: [ 0, 0, 0, 1 ],
+							}) // fas8
 					}
 					
       } else if (form && typeof form === 'object' &&				// form:{x:obj}
@@ -232,16 +238,16 @@
 						nformed.x = form[0]
 						nformed.y = form[1] || Object.assign({}, defs, form[0], {fas8: form.fas8 - 90})
 						
-						if (form[3] !== undefined && form[4] !== undefined) {	// [x,y,z,r]
+						if (form[2] !== undefined && form[3] !== undefined) {	// [x,y,z,r]
 							
-							nformed.z = form[3]
-							nformed.r = form[4] 					
+							nformed.z = form[2]
+							nformed.r = form[3] 					
 							
-						} else if (form[3] !== undefined && form[4] === undefined) {	// [x,y,z]
+						} else if (form[2] !== undefined && form[3] === undefined) {	// [x,y,z]
 							
-							let fas8 = (form[3].fas8 !== undefined) ? form[3].fas8 : 0
-							nformed.z = Object.assign({}, defs, form[3], {fas8: fas8})
-							nformed.r = Object.assign({}, defs, form[3], {fas8: form[3].fas8 - 90}) // fas8
+							let fas8 = (form[2].fas8 !== undefined) ? form[2].fas8 : 0
+							nformed.z = Object.assign({}, defs, form[2], {fas8: fas8})
+							nformed.r = Object.assign({}, defs, form[2], {fas8: form[2].fas8 - 90}) // fas8
 						}						
 				
       }
@@ -273,43 +279,82 @@
      *    @natPolygon
      *       coordinates = Array.of(__mapper("xs").m("nat").natPolygon(p.form))
      */
-    let natPolygon = function (form) {
+    let natPolygon = function (form) {	
 
-			let formm = nform(form)					// nform
-			
-      if (0 && 1) console.log('m.nat natPolygon formm', formm)
+				let formm = nform(form)					// NFORM		
+				let gj
+		
+				if (0 && 1) console.log("mnat:formm", formm)	
+					
+				if (Object.keys(formm).length > 2) { 
+						let dx =  360 / formm.x.seg5
+						let dy =  360 / formm.y.seg5
 				
-      let dimstreams = Object.keys(formm)
+				
+						let graticule = {
 
-      dimstreams = dimstreams
-        .map(d => rador(formm[d])) 	// rador of dim d
+							'frame': [ [ [-180, 180, dx, dx], [-90, 90, dy, dy] ],
+												[ [-180, 180, dx, dx], [-90, 90, dy, dy] ] 
+											]
+							}
+				
+						let conform = {'projection': 'natform', 'form': formm}		
+				
 
-      dimstreams = dimstreams
-        .map((d, i) => d.map(p => p * formm[ Object.keys(formm)[i]].ra2)) // size
+						let edges = mgraticule.gedges(graticule)
+						gj = {
+								type: 'MultiLineString', 
+								coordinates: edges
+						}
+			
 
-      dimstreams = dimstreams
-        .map((d, i) => d.map((p, j) => { // rotation
-          let formdim = formm[Object.keys(formm)[i]]
-          let angUnit = tau / d.length
-          let refAng = (formdim.w4 + formdim.fas8) * radians
-          let v1 = formdim.v1
-          let ang = ((j * angUnit * v1) - refAng + tau) % tau // j point
-          let r = p * Math.cos(ang) // each point
-          return r
-        }))
+						let projdef = conform
+						
+							let projection = mprofier.protion(projdef)
+							let projer = json => mproj3ct(json, projection)
 
-      let streams = dimstreams		// streams
-        .map((d, i) => {
-          let dim = Object.keys(formm)[i]
-          let pa6 = formm[dim].pa6
-          let pb7 = formm[dim].pb7
-          return f.streamRange(d, pa6, pb7)
-        })
-        .map(d => [...d, d[0]]) // close polygon
+						gj = projer(gj)
+				
+						if (0 && 1) console.log("mnat:gj", gj)
 
-      let ring = mlacer.slide(streams, 'max')
+				} else {
+					
+						if (0 && 1) console.log('m.nat natPolygon formm', formm)
+							
+						let dimstreams = Object.keys(formm)
 
-      return Array.of(ring)
+						dimstreams = dimstreams
+							.map(d => rador(formm[d])) 	// RADOR of dim d
+
+						dimstreams = dimstreams
+							.map((d, i) => d.map(p => p * formm[ Object.keys(formm)[i]].ra2)) // size
+
+						dimstreams = dimstreams
+							.map((d, i) => d.map((p, j) => { // rotation
+								let formdim = formm[Object.keys(formm)[i]]
+								let angUnit = tau / d.length
+								let refAng = (formdim.w4 + formdim.fas8) * radians
+								let v1 = formdim.v1
+								let ang = ((j * angUnit * v1) - refAng + tau) % tau // j point
+								let r = p * Math.cos(ang) // each point
+								return r
+							}))		// dim x cartesian
+
+						let streams = dimstreams		// streams
+							.map((d, i) => {
+								let dim = Object.keys(formm)[i]
+								let pa6 = formm[dim].pa6
+								let pb7 = formm[dim].pb7
+								return f.streamRange(d, pa6, pb7)
+							})
+							.map(d => [...d, d[0]]) // close polygon
+
+						let ring = mlacer.slide(streams, 'max')
+
+						gj = Array.of(ring)
+					}
+						
+						return gj
     }		
     /***************************
      *        @enty

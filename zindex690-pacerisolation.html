@@ -534,7 +534,7 @@ let muonAlima = function (__mapper) {
     function force () {
       for (let i = 0; i < nodes.length; ++i) {
         let node = nodes[i]
-        if (1 && 1) console.log('forceCube', i, edge, node.y)
+        if (0 && 1) console.log('forceCube', i, edge, node.y)
 
         if (node.x < -edge) node.vx = Math.abs(node.vx) // node.vx *= -1
         if (node.x > edge) node.vx = -Math.abs(node.vx) // node.vx *= -1
@@ -547,7 +547,7 @@ let muonAlima = function (__mapper) {
     }
 
     function initialize () { 
-			if (1 && 1) console.log("initialize", nodes.length)		
+			if (0 && 1) console.log("initialize", nodes.length)		
 			if (!nodes) return 
 		}
 

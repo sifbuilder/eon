@@ -24,9 +24,9 @@
 <script>
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, img: 1})	// INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, img: 1}) // INIT
 
-	let mgraticule = __mapper('xs').m('graticule')
+  let mgraticule = __mapper('xs').m('graticule')
 
   let renderer = __mapper('renderRenderer'),
     width = renderer.width(),
@@ -40,153 +40,180 @@ let muonAlima = function muonAlima (__mapper) {
   let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
   let form = {
 
-				"x": {
-					"m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
-					"ra2": 90,
-					"v0": 0,"v1":1,
-					"w4": 0,
-					"seg5": 360,"pa6":0,"pb7":-1,
+    'x': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 90,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
 
-					"fas8": 0,
-					"fn0": Math.cos,
-					"dom3": [-180,180],
-					"exp9": [1,0,1,0],
+      'fas8': 0,
+      'fn0': Math.cos,
+      'dom3': [-180, 180],
+      'exp9': [1, 0, 1, 0]
 
-				},
-				"y": {
-					"m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
-					"ra2": 90,
-					"v0":0,"v1":1,
-					"w4": 0,
-					"seg5": 360,"pa6":0,"pb7":-1,
+    },
+    'y': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 90,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
 
-					"fas8": -90, 		// fas8, antifase
-					"fn0": Math.cos,
-					"dom3": [-180,180],
-					"exp9": [0,1,1,0],
+      'fas8': -90,    // fas8, antifase
+      'fn0': Math.cos,
+      'dom3': [-180, 180],
+      'exp9': [0, 1, 1, 0]
 
-				},
-				"z": {
-					"m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1, // square
-					"ra2": 90, // 180,
-					"v0": 0,"v1":1,
-					"w4": 0,
-					"seg5": 360,"pa6":0,"pb7":-1,
+    },
+    'z': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 90, // 180,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
 
-					"fn0": d => Math.cos(d),
-					"dom3": [-180,180],
-					"exp9": [ 0,0,0,1 ],
+      'fn0': d => Math.cos(d),
+      'dom3': [-180, 180],
+      'exp9': [ 0, 0, 0, 1 ]
 
-				}
-			}
+    }
+  }
 
-  let conform = {'projection': 'natform','form': form}
-  let proform = {projection: 'uniwen',translate: [230,240,0],rotate: [ 90, 0, 0 ],scale: 1,'dims': 3,'control': 'wen'}
+  let conform = {'projection': 'natform', 'form': form}
+  let proform = {projection: 'uniwen', translate: [230, 240, 0], rotate: [ 90, 0, 0 ], scale: 1, 'dims': 3, 'control': 'wen'}
   let graticule = {
 
-				'frame': [ [ [-180, 180, 45, 45],
-					[-90, 90, 22.5, 22.5] ],
-				[	[-180, 180, 45, 45],
-					[-90, 90, 22.5, 22.5] ] ]
+    'frame': [ [ [-180, 180, 45, 45],
+      [-90, 90, 22.5, 22.5] ],
+    [ [-180, 180, 45, 45],
+      [-90, 90, 22.5, 22.5] ] ]
 
-			}
+  }
 
   let gratiextent = {
 
-			'lattice': [ [180, 45],
-										[90, 22.5] ]
+    'lattice': [ [180, 45],
+      [90, 22.5] ]
 
-		}
+  }
 
   /*******************************************
  *     @animas
  */
   // -------------------------------  gratifaces11
   let gratifaces11 = {
-    'halo':'geofold',
+    'halo': 'geofold',
     'geoform': p => {
-			let vertices =  mgraticule.gvertices(p.payload.graticule)
-			let faces = mgraticule.gfaces(p.payload.graticule)
-			faces = faces.map(face => [...face, face[0]])
-			faces = faces.map(face => // faces : points => vertices
-          face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
-			)					//  (2) [-180, -45] [0, 0] [-180, 0]
-      let features = faces.map( face => ({
-						type: "Feature",geometry: {type: 'Polygon',coordinates: Array.of(face)},properties: {},}))
-			let gj = {type: "FeatureCollection",features: features}
-			return gj
-		},
+      let vertices = mgraticule.gvertices(p.payload.graticule)
+      let faces = mgraticule.gfaces(p.payload.graticule)
+      faces = faces.map(face => [...face, face[0]])
+      faces = faces.map(face => // faces : points => vertices
+        face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
+      )         //  (2) [-180, -45] [0, 0] [-180, 0]
+      let features = faces.map(face => ({
+        type: 'Feature', geometry: {type: 'Polygon', coordinates: Array.of(face)}, properties: {}}))
+      let gj = {type: 'FeatureCollection', features: features}
+      return gj
+    },
     'payload': {
       'tim': tim,
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratifaces11'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
-			'conform': conform,
-      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 200, 150 ],scale: 1,'dims': 3,'control': 'wen'},
-      'graticule': graticule,
+      'conform': conform,
+      'proform': {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 200, 150 ], scale: 1, 'dims': 3, 'control': 'wen'},
+      'graticule': graticule
     }
   }
- // -------------------------------  gratifaces12
+  // -------------------------------  gratifaces12
   let gratifaces12 = {
-    'halo':'geofold',
+    'halo': 'geofold',
     'geoform': p => {
-			let vertices =  mgraticule.gvertices(p.payload.graticule)
-			let faces = mgraticule.gfaces(p.payload.graticule)
-			faces = faces.map(face => [...face, face[0]])
-			faces = faces.map(face => // faces : points => vertices
-          face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
-			)					//  (2) [-180, -45] [0, 0] [-180, 0]
-      let features = faces.map( face => ({
-						type: "Feature",geometry: {type: 'Polygon',coordinates: Array.of(face)},properties: {},}))
-			let gj = {type: "FeatureCollection",features: features}
-			return gj
-		},
+      let vertices = mgraticule.gvertices(p.payload.graticule)
+      let faces = mgraticule.gfaces(p.payload.graticule)
+      faces = faces.map(face => [...face, face[0]])
+      faces = faces.map(face => // faces : points => vertices
+        face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
+      )         //  (2) [-180, -45] [0, 0] [-180, 0]
+      let features = faces.map(face => ({
+        type: 'Feature', geometry: {type: 'Polygon', coordinates: Array.of(face)}, properties: {}}))
+      let gj = {type: 'FeatureCollection', features: features}
+      return gj
+    },
     'payload': {
       'tim': tim,
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratifaces12'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
-			'conform': conform,
-      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 200, 300 ],scale: 1,'dims': 3,'control': 'wen'},
-      'graticule': gratiextent,
+      'conform': conform,
+      'proform': {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 200, 300 ], scale: 1, 'dims': 3, 'control': 'wen'},
+      'graticule': gratiextent
     }
-	}
+  }
   // -------------------------------  gratifaces11
   let gratilines21 = {
-    'halo':'geofold',
+    'halo': 'geofold',
     'geoform': p => {
       let edges = mgraticule.gedges(p.payload.graticule)
-			let type = 'Feature'
-			let properties = {}
-      let geometry = {type: 'MultiLineString',coordinates: edges}
+      let type = 'Feature'
+      let properties = {}
+      let geometry = {type: 'MultiLineString', coordinates: edges}
       let gj = {type, geometry, properties}
-			return gj
-		},
+      return gj
+    },
     'payload': {
       'tim': tim,
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
-			'conform': conform,
-      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 400, 150 ],scale: 1,'dims': 3,'control': 'wen'},
-      'graticule': graticule,
+      'conform': conform,
+      'proform': {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 400, 150 ], scale: 1, 'dims': 3, 'control': 'wen'},
+      'graticule': graticule
     }
   }
- // -------------------------------  gratilines22
+  // -------------------------------  gratilines22
   let gratilines22 = {
-    'halo':'geofold',
+    'halo': 'geofold',
     'geoform': p => {
       let edges = mgraticule.gedges(p.payload.graticule)
-			let type = 'Feature'
-			let properties = {}
-      let geometry = {type: 'MultiLineString',coordinates: edges}
+      let type = 'Feature'
+      let properties = {}
+      let geometry = {type: 'MultiLineString', coordinates: edges}
       let gj = {type, geometry, properties}
-			return gj
-		},
+      return gj
+    },
     'payload': {
       'tim': tim,
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines22'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
-			'conform': conform,
-      'proform': {projection: 'uniwen',rotate: [30,30,0],translate: [ 400, 300 ],scale: 1,'dims': 3,'control': 'wen'},
-      'graticule': gratiextent,
+      'conform': conform,
+      'proform': {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 400, 300 ], scale: 1, 'dims': 3, 'control': 'wen'},
+      'graticule': gratiextent
     }
   }
 
@@ -197,7 +224,7 @@ let muonAlima = function muonAlima (__mapper) {
     gratifaces11, // h.geofold g.natform
     gratifaces12, // h.geofold g.natform
     gratilines21, // h.geofold g.natform
-    gratilines22, // h.geofold g.natform
+    gratilines22 // h.geofold g.natform
 
   ]
 

@@ -120,7 +120,7 @@
 
           updItems.push(updItem)
         }
-        // if (simNodes.length > 2) if (1 && 1) console.log('m.simulation updItems --- ', updItems[2].payload)
+        // if (simNodes.length > 2) if (0 && 1) console.log('m.simulation updItems --- ', updItems[2].payload)
       }
 if (0 && 1) updItems.forEach(d => console.log(" ------ aniSims", d.payload.geonode.geometry.coordinates))
       return updItems

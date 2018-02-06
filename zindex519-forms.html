@@ -69,14 +69,16 @@ let muonAlima = function muonAlima (__mapper) {
       "m1":3.93,"m2":3.93,"n1":2,"n2":2,"n3":1,"a":2.5,"b":1, // ellipse eye
       'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': 360
     }
-		
+	
   /*******************************************
  *    @animas
  */
   let p1 = {
     halo:'geofold',
-    'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natPolygon(f1)},'properties': {}}),
+    'geoform': p => ({
+				'type': 'Feature',
+				'geometry': {'type': 'Polygon','coordinates': mnat.natPolygon(f1)},
+				'properties': {}}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p1'},

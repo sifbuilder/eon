@@ -24,6 +24,11 @@ var muonAnimas = function () {
 	state.simfly = { "m1":10.07,"m2":13.45,"n1":0.75,"n2":0.32,"n3":10,"a":1,"b":1,	}
 	state.tri = { "m1":[[[3,3]]],"m2":[[[3,3]]],"n1":1,"n2":1,"n3":1,"a":1,"b":1,	}
 
+	
+	state.C0011 = {
+      "m1":3.93,"m2":3.93,"n1":2,"n2":2,"n3":1,"a":2.5,"b":1,
+    }	// http://paulbourke.net/geometry/supershape/C_0011.jpg
+		
 	state.satellite = {
 
 				"x": {

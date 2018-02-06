@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<meta charset='utf-8'>
 <title>animas</title>
 <head >
 
@@ -9,143 +9,199 @@
   </style>
 
 </head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
+<body style='cursor:crosshair'></body>
+<div id='viewframe' class='viewframe'></div>
 
-<script src="enls.js"></script>
-<script src="ents.js"></script>
+<script src='enls.js'></script>
+<script src='ents.js'></script>
 
 <script>
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, img: 0}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, img: 1}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
     bsnap = __mapper('xs').m('snap'),
     mlacer = __mapper('xs').m('lacer'),
-    mnat = __mapper('xs').m('nat')
+    mnat = __mapper('xs').m('nat'),
+    mgraticule = __mapper('xs').m('graticule')
 
   /*******************************************
  *      @pics
  */
-  let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-  let boform = { csx: 0, cf: 777, cs: 444, cw: 1.7, co: 0.7, cp: 0.5}
+  let tim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let boform = { csx: 0, cf: 777, cs: 666, cw: 0.7, co: 0.07, cp: 0.9}
   let geoform = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0]}, properties: {pointRadius: 6}}
 
   let translate = {'m1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
     'ra2': 60,'v0': 0,'v1': 1,'w4': 90,'seg5': 360,'pa6': 0,'pb7': -1,'fas8': 0}
-  let proform = {projection: 'uniwen', scale: 1, translate: [ 0, 0, 0 ], rotate: [ 0, 0, 0 ]}
+  let proform = {projection: 'uniwen', scale: 1, translate: [ 0, 0, 0 ], rotate: [ 0, 0, 0 ], lens: [0, 1, Infinity]}
+	let conform = { 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1,}
 
 
-	let f1x = {
+	let f1x = {		// http://paulbourke.net/geometry/supershape/C_0011.jpg
+      'm1':8,'m2':8,'n1':60,'n2':100,'n3':30,'a':1,'b':1,	// 
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': 0,'dom3': [-180,180],'exp9': [1, 0, 1, 0],'fn0': Math.cos,
+    }
+	let f1y = {
+      'm1':8,'m2':8,'n1':60,'n2':100,'n3':30,'a':1,'b':1,	// 
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': -90,'dom3': [-180,180],'exp9': [0, 1, 1, 0],'fn0': Math.cos,
+    }		
+	let f1z = {
+      'm1':2,'m2':2,'n1':10,'n2':10,'n3':10,'a':1,'b':1,	// 
+      'ra2': 60/Math.sqrt(2),'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': 0,'dom3': [-180,180],'exp9': [ 0, 0, 0, 1 ],'fn0': Math.cos,
+    }
+
+	let f2x = {		// http://paulbourke.net/geometry/supershape/C_0033.jpg
+      'm1':1,'m2':1,'n1':37.41,'n2':-0.24,'n3':19.07,'a':1,'b':1,	// 
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': 0,'dom3': [-180,180],'exp9': [1, 0, 1, 0],'fn0': Math.cos,
+    }
+	let f2y = {
+      'm1':1,'m2':1,'n1':37.41,'n2':-0.24,'n3':19.07,'a':1,'b':1,	// 
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': -90,'dom3': [-180,180],'exp9': [0, 1, 1, 0],'fn0': Math.cos,
+    }		
+	let f2z = {
+      'm1':4,'m2':4,'n1':100,'n2':100,'n3':100,'a':1,'b':1,	// 
+      'ra2': 60/Math.sqrt(2),'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': 0,'dom3': [-180,180],'exp9': [ 0, 0, 0, 1 ],'fn0': Math.cos,
+    }
+		
+	let f3x = {
+      'm1':6,'m2':6,'n1':2,'n2':7,'n3':7,'a':1,'b':1,	// star
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': 0,'exp9': [1, 0, 1, 0],'fn0': Math.cos,
+    }
+	let f3y = {
+      'm1':6,'m2':6,'n1':2,'n2':7,'n3':7,'a':1,'b':1,	// star
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': -90,'dom3': [-180,180],'exp9': [0, 1, 1, 0],'fn0': Math.cos,
+    }
+	let f3z = {
+      'm1':6,'m2':6,'n1':2,'n2':7,'n3':7,'a':1,'b':1,	// star
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': 0,'dom3': [-180,180],'exp9': [ 0, 0, 0, 1 ],'fn0': Math.cos,
+    }
+	let f4x = {
+      'm1':8,'m2':8,'n1':60,'n2':100,'n3':30,'a':1,'b':1,	// 
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': 0,'dom3': [-180,180],'exp9': [1, 0, 1, 0],'fn0': Math.cos,
+    }
+	let f4y = {
+      'm1':8,'m2':8,'n1':60,'n2':100,'n3':30,'a':1,'b':1,	// 
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': -90,'dom3': [-180,180],'exp9': [0, 1, 1, 0],'fn0': Math.cos,
+    }
+	let f4z = {
+      'm1':2,'m2':2,'n1':10,'n2':10,'n3':10,'a':1,'b':1,	// 
+      'ra2': 60/Math.sqrt(2),'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': 0,'dom3': [-90,90],'exp9': [ 0, 0, 0, 1 ],'fn0': Math.cos,
+    }
+	let f5x = {
+      'm1':8,'m2':38,'n1':60,'n2':100,'n3':30,'a':1,'b':1,	// 
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': 0,'dom3': [-180,180],'exp9': [1, 0, 1, 0],'fn0': Math.cos,
+    }
+	let f5y = {
+      'm1':8,'m2':38,'n1':60,'n2':100,'n3':30,'a':1,'b':1,	// 
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': -90,'dom3': [-180,180],'exp9': [0, 1, 1, 0],'fn0': Math.cos,
+    }
+	let f5z = {
+      'm1':2,'m2':2,'n1':10,'n2':10,'n3':10,'a':1,'b':1,	// 
+      'ra2': 60/Math.sqrt(2),'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': 0,'dom3': [-180,180],'exp9': [ 0, 0, 0, 1 ],'fn0': Math.cos,
+    }
+	let f6x = {
+      'm1':4,'m2':4,'n1':2,'n2':2,'n3':2,'a':1,'b':1,	// circle
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f6y = {
+      'm1':4,'m2':4,'n1':2,'n2':2,'n3':2,'a':1,'b':1,	// circle
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1, 'fas8': -90
+    }
+	let f6z = {
+      'm1':4,'m2':4,'n1':2,'n2':2,'n3':2,'a':1,'b':1,	// circle
+      'ra2': 60/Math.sqrt(2),'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f7x = {
+      'm1':3,'m2':3,'n1':1,'n2':1,'n3':1,'a':1,'b':1, // tri
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f7y = {
+      'm1':3,'m2':3,'n1':1,'n2':1,'n3':1,'a':1,'b':1, // tri
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 'fas8': -90
+    }
+	let f7z = {
+      'm1':3,'m2':3,'n1':1,'n2':1,'n3':1,'a':1,'b':1, // tri
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f8x = {
+      'm1':3.93,'m2':3.93,'n1':2,'n2':2,'n3':1,'a':2.5,'b':1, // ellipse eye
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f8y = {
+      'm1':3.93,'m2':3.93,'n1':2,'n2':2,'n3':1,'a':2.5,'b':1, // ellipse eye
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 'fas8': -90
+    }
+	let f8z = {
+      'm1':3.93,'m2':3.93,'n1':2,'n2':2,'n3':1,'a':2.5,'b':1, // ellipse eye
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f9x = {
+      'm1':5,'m2':5,'n1':1000,'n2':600,'n3':600,'a':1,'b':1, // pentagon
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': 0,'dom3': [-180,180],'exp9': [1, 0, 1, 0],'fn0': Math.cos,
+    }
+	let f9y = {
+      'm1':5,'m2':5,'n1':1000,'n2':600,'n3':600,'a':1,'b':1, // pentagon
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': -90,'dom3': [-180,180],'exp9': [0, 1, 1, 0],'fn0': Math.cos,
+    }
+	let f9z = {
+      'm1':5,'m2':5,'n1':1000,'n2':600,'n3':600,'a':1,'b':1, // pentagon
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 
+			'fas8': 0,'dom3': [-180,180],'exp9': [ 0, 0, 0, 1 ],'fn0': Math.cos,
+    }	
+	let f10x = {
       'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
       'ra2': 60,'v0': 0,'v1': 1,'seg5': 64,'w4': 60,'pa6': 0,'pb7': -1, 'fas8': 0
     }
-	let f1y = {
+	let f10y = {
       'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
       'ra2': 60,'v0': 0,'v1': 1,'seg5': 64,'w4': 60,'pa6': 0,'pb7': -1, 'fas8': -90
     }		
-	let f1z = {
+	let f10z = {
       'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
       'ra2': 60,'v0': 0,'v1': 1,'seg5': 64,'w4': 60,'pa6': 0,'pb7': -1, 'fas8': 0
     }
 		
-	let f2x = {
+	let f12x = {
+      'm1':6,'m2':6,'n1':1000,'n2':400,'n3':400,'a':1,'b':1, // hexagon
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 'fas8': 0
+    }
+	let f12y = {
+      'm1':6,'m2':6,'n1':1000,'n2':400,'n3':400,'a':1,'b':1, // hexagon
+      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1, 'fas8': -90
+    }
+	let f12z = {
       'm1':6,'m2':6,'n1':1000,'n2':400,'n3':400,'a':1,'b':1, // hexagon
       'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-	let f2y = {
-      'm1':6,'m2':6,'n1':1000,'n2':400,'n3':400,'a':1,'b':1, // hexagon
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
-    }
-	let f2z = {
-      'm1':6,'m2':6,'n1':1000,'n2':400,'n3':400,'a':1,'b':1, // hexagon
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-	let f3x = {
-      "m1":6,"m2":6,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-	let f3y = {
-      "m1":6,"m2":6,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
-    }
-	let f3z = {
-      "m1":6,"m2":6,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-	let f4x = {
-      "m1":5,"m2":5,"n1":1000,"n2":600,"n3":600,"a":1,"b":1, // pentagon
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-	let f4y = {
-      "m1":5,"m2":5,"n1":1000,"n2":600,"n3":600,"a":1,"b":1, // pentagon
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
-    }
-	let f4z = {
-      "m1":5,"m2":5,"n1":1000,"n2":600,"n3":600,"a":1,"b":1, // pentagon
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-	let f5x = {
-      "m1":5,"m2":5,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-	let f5y = {
-      "m1":5,"m2":5,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
-    }
-	let f5z = {
-      "m1":5,"m2":5,"n1":2,"n2":7,"n3":7,"a":1,"b":1,	// star
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-	let f6x = {
-      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-	let f6y = {
-      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
-    }
-	let f6z = {
-      "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-	let f7x = {
-      "m1":3,"m2":3,"n1":1,"n2":1,"n3":1,"a":1,"b":1, // tri
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-	let f7y = {
-      "m1":3,"m2":3,"n1":1,"n2":1,"n3":1,"a":1,"b":1, // tri
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
-    }
-	let f7z = {
-      "m1":3,"m2":3,"n1":1,"n2":1,"n3":1,"a":1,"b":1, // tri
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-	let f8x = {
-      "m1":3.93,"m2":3.93,"n1":2,"n2":2,"n3":1,"a":2.5,"b":1, // ellipse eye
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-	let f8y = {
-      "m1":3.93,"m2":3.93,"n1":2,"n2":2,"n3":1,"a":2.5,"b":1, // ellipse eye
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': -90
-    }
-	let f8z = {
-      "m1":3.93,"m2":3.93,"n1":2,"n2":2,"n3":1,"a":2.5,"b":1, // ellipse eye
-      'ra2': 60,'v0': 0,'v1': 1,'seg5': 360,'w4': 90,'pa6': 0,'pb7': -1, 'fas8': 0
-    }
-		
+    }		
+
   /*******************************************
  *    @animas
  */
   let p1 = {
     halo:'geofold',
     'geoform': p => {
-				let coords = mnat.natPolygon({x:f1x,y:f1y,z:f1z})
-				return {'type': 'Feature','geometry': {'type': 'MultiLineString',
-        'coordinates': mnat.natPolygon({x:f1x,y:f1y,z:f1z})},'properties': {}}
-		},
+				let geonat = mnat.natPolygon({x:f1x,y:f1y,z:f1z})
+				return {'type': 'Feature','geometry': geonat,'properties': {}}},
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p1'},
@@ -153,80 +209,80 @@ let muonAlima = function muonAlima (__mapper) {
   }
   let p2 = {
     halo:'geofold',
-    geoform: p => {
-			let gj = {
-				'type': 'Feature',
-				'geometry': {'type': 'Polygon', 'coordinates': mnat.natPolygon({x:f2x,y:f2y,z:f2z})},
-				'properties': {}
-			}
-		if (1 && 1) console.log("gj", gj)
-		return gj},
-
+    'geoform': p => {
+				let geonat = mnat.natPolygon({x:f2x,y:f2y,z:f2z})
+				return {'type': 'Feature','geometry': geonat,'properties': {}}},
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p2'},
-      proform: Object.assign({}, proform, {translate: [250, 100, 0] })}
+      proform: Object.assign({}, proform, {translate: [250, 100, 0] })
+		},
   }
   let p3 = {
     halo:'geofold',
-    'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natPolygon({x:f3x,y:f3y,z:f3z})},'properties': {}}),
+    'geoform': {
+				'type': 'Feature',
+				'geometry': mnat.natPolygon({x:f3x,y:f3y,z:f3z}),
+				'properties': {}},
     payload: {tim,
       boform,
+      form: {x:f3x,y:f3y,z:f3z},
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p3'},
       proform: Object.assign({}, proform, {translate: [350, 100, 0] })}
   }
   let p4 = {
     halo:'geofold',
-    'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natPolygon({x:f4x,y:f4y,z:f4z})},'properties': {}}),
+		geoform: p => {
+      let edges = mgraticule.gedges({'lattice': [ [180, 45],[90, 22.5] ]})
+			let type = 'Feature'
+			let properties = {}
+      let geometry = {type: 'MultiLineString',coordinates: edges}
+      return {type, geometry, properties}
+		},
     payload: {tim,
-      boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p4'},
-      proform: Object.assign({}, proform, {translate: [450, 100, 0] })}
+      boform,
+			conform: {'projection':'natform','form': {x:f4x,y:f4y,z:f4z}},
+      proform: Object.assign({}, proform, {translate: [300, 200, 0] })} // [450, 100, 0] })}
   }
   let p5 = {
     halo:'geofold',
-    'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natPolygon({x:f5x,y:f5y,z:f5z})},'properties': {}}),
+		geoform: p => {
+      let vertices = mgraticule.gvertices({'lattice': [ [180, 55],[90, 2.5] ]})
+      let faces = mgraticule.gfaces({'lattice': [ [180, 55],[90, 2.5] ]})
+      faces = faces.map(face => [...face, face[0]])
+      faces = faces.map(face => // faces : points => vertices
+        face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
+      )         //  (2) [-180, -45] [0, 0] [-180, 0]
+      let features = faces.map(face => ({
+        type: 'Feature', geometry: {type: 'Polygon', coordinates: Array.of(face)}, properties: {}}))
+      return {type: 'FeatureCollection', features}
+    },
     payload: {tim,
-      boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p5'},
-      proform: Object.assign({}, proform, {translate: [150, 200, 0] })}
+      boform,
+			conform: {'projection':'natform','form': {x:f5x,y:f5y,z:f5z}},
+      proform: Object.assign({}, proform, {translate: [150, 200, 0], rotate: [ [[[0,90]]], [[[0,90]]], 0] })}
   }
+	
+	
   let p6 = {
-    halo:'geofold',
-    'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natPolygon({x:f6x,y:f6y,z:f6z})},'properties': {}}),
+    halo:'nat',
+    geoform: null,
     payload: {tim,
       boform,
+			form: {x:f6x,y:f6y,z:f6z},
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p6'},
-      proform: Object.assign({}, proform, {translate: [250, 200, 0] })}
+      proform: Object.assign({}, proform, {translate: [400, 300, 0] })}
   }
-  let p7 = {
-    halo:'geofold',
-    'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natPolygon({x:f7x,y:f7y,z:f7z})},'properties': {}}),
-    payload: {tim,
-      boform,
-      ric: {'gid': 'p', 'cid': 'p', 'fid': 'p7'},
-      proform: Object.assign({}, proform, {translate: [350, 200, 0] })}
-  }
-  let p8 = {
-    halo:'geofold',
-    'geoform': p => ({'type': 'Feature','geometry': {'type': 'Polygon',
-        'coordinates': mnat.natPolygon({x:f8x,y:f8y,z:f8z})},'properties': {}}),
-    payload: {tim,
-      boform,
-      ric: {'gid': 'p', 'cid': 'p', 'fid': 'p8'},
-      proform: Object.assign({}, proform, {translate: [450, 200, 0] })}
-  }
+	
+	
+
 	
 	// geoearth
   let geoearth = {
 
     'halo':'geofold',
-
     'geoform': () => {
       let gj = Object.assign({},
         topojson.feature(
@@ -234,26 +290,18 @@ let muonAlima = function muonAlima (__mapper) {
           __mapper('xs').d('worldTopo110m').data().objects.land
         )
       )
-			if (0 && 1) console.log("earth feature", gj)
+			if (0 && 1) console.log('earth feature', gj)
       gj = __mapper('xs').m('geoj').trim(gj)
       return gj
     },
-
     payload: {
       'tim': tim,
       'ric': {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
       'boform': { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
       'proform': {
-
 				'projection': 'orthographic',
 				'scale': [[[100, 0.5]]],
-				'translate': {
-
-						'x': [[[100, 500]]],
-						'y': 200,
-						'z': 0
-
-					},
+				'translate': [100,300,0],
 				'rotate': [ [[[0, -1 * 360]]], 0, 0 ],
 				'control': 'versor'
 
@@ -263,15 +311,14 @@ let muonAlima = function muonAlima (__mapper) {
   }	
 		
   let animas = [
-    // p1, // h.geofold g.uniwen
+    p1, // h.geofold g.uniwen
     p2, // h.geofold g.uniwen
-    // p3, // h.geofold g.uniwen
-    // p4, // h.geofold g.uniwen
-    // p5, // h.geofold g.uniwen
-    // p6, // h.geofold g.uniwen
-    // p7, // h.geofold g.uniwen
-    // p8, // h.geofold g.uniwen
-    // geoearth // h.geofold g.orthographic
+    p3, // h.geofold g.uniwen
+    p4, // h.geofold g.uniwen
+    p5, // h.geofold g.uniwen
+    p6, // h.geofold g.uniwen
+
+    geoearth // h.geofold g.orthographic
 
   ]
 
@@ -281,4 +328,4 @@ let muonAlima = function muonAlima (__mapper) {
 let __mapper = muonMapper.muonMapper()
 __mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
-<body style="cursor:crosshair"></body>
+<body style='cursor:crosshair'></body>

@@ -24,7 +24,7 @@
  *        if control:wen  wen rotation and if 2d: wen z rotation
  *        if control:versor   versor rotation
  */
-    let protion = function (prjdef, anigram) {
+    let protion = function (prjdef) {
 			
       let prj = guniwen(prjdef)
 
@@ -91,14 +91,14 @@
  *       json = mprofier.projier(f.v(prodef, anigram), anigram)(json)
  */
     let projier = (prodef, anigram) => // projer is fenrir if no prodef
-      json => (prodef) ? mproj3ct(json, protion(prodef, anigram)) : json
+      json => (prodef) ? mproj3ct(json, protion(prodef)) : json
 
     /****************************
  *       @ereformer
  */
     let ereformer = anigram => {
       let projdef = anigram.payload.ereform
-      let projer = protion(projdef, anigram)
+      let projer = protion(projdef)
 
       return json => mproj3ct(json, projer)
     }
@@ -113,7 +113,7 @@
       if (projdef === undefined) {
         projer = d => d
       } else {
-        let projection = protion(projdef, anigram)
+        let projection = protion(projdef)
         projer = json => mproj3ct(json, projection)
       }
 
@@ -137,7 +137,7 @@
           projdef.translate = translate
         }
 
-        let projection = protion(projdef, anigram)
+        let projection = protion(projdef)
 
         projer = json => { // anigram
           let proformed = mproj3ct(json, projection) // proform geoform
