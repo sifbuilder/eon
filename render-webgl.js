@@ -118,8 +118,6 @@
  */
     let render = function (elapsed, featurecollection, maxlimit) {
 			
-			if (0 && 1) console.log("r.webgl.render:elapsed", elapsed)
-			
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
