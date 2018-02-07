@@ -20,7 +20,6 @@
     __mapper({'xs': xs.xs(__mapper)}) // PROXIES
     __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 1})
 
-
   /*******************************************
  *    @pics
  *
@@ -98,7 +97,7 @@
 
       'frame': [ [ [-180, 180, 45, 45],
         [-90, 90, 22.5, 22.5] ],
-			[	[-180, 180, 45, 45],
+      [	[-180, 180, 45, 45],
         [-90, 90, 22.5, 22.5] ] ]
 
     }
@@ -121,7 +120,7 @@
   // -------------------------------  geograt
   let geograt = {
 
-      'halo':'geofold',
+      'halo': 'geofold',
 
       'geoform': (p) => {
         let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
@@ -145,7 +144,7 @@
   // -------------------------------  geoearth
   let geoearth = {
 
-      'halo':'geofold',
+      'halo': 'geofold',
 
       'geoform': () => {
         let geo = Object.assign({},
@@ -170,7 +169,7 @@
   // -------------------------------  geosphere
   let geosphere = {
 
-      'halo':'geofold',
+      'halo': 'geofold',
 
       'geoform': {
         type: 'Feature',

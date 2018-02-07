@@ -22,14 +22,14 @@ let muonAlima = function (__mapper) {
   __mapper('xs').m('init')({svg: 1, versor: 1, wen: 1, webgl: 1, key: 1}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
-		mgeom = __mapper('xs').m('geom'),
-		mwen = __mapper('xs').m('wen'),
-		mnat = __mapper('xs').m('nat'),
-		rrenderer = __mapper('xs').r('renderer'),
-		mliner = __mapper('xs').m('liner')
+    mgeom = __mapper('xs').m('geom'),
+    mwen = __mapper('xs').m('wen'),
+    mnat = __mapper('xs').m('nat'),
+    rrenderer = __mapper('xs').r('renderer'),
+    mliner = __mapper('xs').m('liner')
 
   let width = rrenderer.width(),
-		height = rrenderer.height()
+    height = rrenderer.height()
 
   /*******************************************
  *      @pics
@@ -44,15 +44,15 @@ let muonAlima = function (__mapper) {
  */
   let natform = {
 
-    'halo':'geofold',
+    'halo': 'geofold',
 
     'geoform': p => ({
       'type': 'Feature',
       'geometry': {
         'type': 'Polygon',
         'coordinates': mnat.natPolygon(p.payload.form),
-				'properties': {}
-			}
+        'properties': {}
+      }
     }),
 
     'payload': {
@@ -71,12 +71,11 @@ let muonAlima = function (__mapper) {
         'dims': 3,
         'control': 'wen'
       },
-          geonode: {
-            type: 'Feature',
-            geometry: { type: 'Point', coordinates: [0, 0, 0] },
-            properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-          },
-
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      },
 
       'form': {
 
@@ -127,21 +126,20 @@ let muonAlima = function (__mapper) {
  */
   let avaform = {
 
-    'halo':'geofold',
+    'halo': 'geofold',
 
     'geoform': p => {
-
-			let rotate = mliner.orientate(p).rotate()
+      let rotate = mliner.orientate(p).rotate()
 			    p.payload.form.x.w4 += rotate
-					p.payload.form.y.w4 += rotate
-			let nat = {
-      'type': 'Feature',
-      'geometry': {
-        'type': 'Polygon',
-        'coordinates': __mapper('xs').m('nat').natPolygon(p.payload.form)
-      },
-      'id': null,
-      'properties': {
+      p.payload.form.y.w4 += rotate
+      let nat = {
+        'type': 'Feature',
+        'geometry': {
+          'type': 'Polygon',
+          'coordinates': __mapper('xs').m('nat').natPolygon(p.payload.form)
+        },
+        'id': null,
+        'properties': {
 
           geonode: {
             type: 'Feature',
@@ -149,10 +147,10 @@ let muonAlima = function (__mapper) {
             properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
           }
 
-			}
-    }
-		return nat
-		},
+        }
+      }
+      return nat
+    },
 
     'payload': {
       'tim': tim,
@@ -163,16 +161,16 @@ let muonAlima = function (__mapper) {
       'proform': {
         'projection': 'uniwen',
         'translate': {
-						'x':
+          'x':
 									{
-										'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]]
+									  'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]]
 									},
-						'y':
+          'y':
 									{
-										'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]]
+									  'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]]
 									},
-						'z': 0
-					},
+          'z': 0
+        },
         'scale': 1,
         'rotate': [0, 0, 0],
         'focale': Infinity,
@@ -185,7 +183,13 @@ let muonAlima = function (__mapper) {
       'form': {
 
         'x': {
-          'm1': -7.66,'m2': -3.73,'n1': 16.24,'n2': 5.98,'n3': 17,'a': 8.98,'b': 0.19,
+          'm1': -7.66,
+          'm2': -3.73,
+          'n1': 16.24,
+          'n2': 5.98,
+          'n3': 17,
+          'a': 8.98,
+          'b': 0.19,
           'ra2': [[[48, 122]]],
           'v0': 0,
           'v1': 1,
@@ -196,7 +200,13 @@ let muonAlima = function (__mapper) {
           'fas8': -90
         },
         'y': {
-          'm1': -7.66,'m2': -3.73,'n1': 16.24,'n2': 5.98,'n3': 17,'a': 8.98,'b': 0.19,
+          'm1': -7.66,
+          'm2': -3.73,
+          'n1': 16.24,
+          'n2': 5.98,
+          'n3': 17,
+          'a': 8.98,
+          'b': 0.19,
           'ra2': [[[48, 122]]],
           'v0': 0,
           'v1': 1,

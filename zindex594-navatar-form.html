@@ -22,7 +22,7 @@ let muonAlima = function (__mapper) {
   __mapper('xs').m('init')({svg: 1, versor: 1, wen: 1, webgl: 1, key: 1}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
-		mnat = __mapper('xs').m('nat')
+    mnat = __mapper('xs').m('nat')
 
   /*******************************************
  *    @pics
@@ -38,15 +38,15 @@ let muonAlima = function (__mapper) {
   // -------------------------------  natform
   let natform = {
 
-    'halo':'geofold',
+    'halo': 'geofold',
 
     'geoform': p => ({
       'type': 'Feature',
       'geometry': {
         'type': 'Polygon',
         'coordinates': mnat.natPolygon(p.payload.form),
-				'properties': {}
-			}
+        'properties': {}
+      }
     }),
 
     'payload': {
@@ -66,11 +66,11 @@ let muonAlima = function (__mapper) {
         'control': 'wen'
       },
 
-			geonode: {
-				type: 'Feature',
-				geometry: { type: 'Point', coordinates: [0, 0, 0] },
-				properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-			},		
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      },
       'form': {
 
         'x': {
@@ -117,7 +117,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  avaform
   let avaform = {
 
-    'halo':'geofold',
+    'halo': 'geofold',
 
     'geoform': p => ({
       'type': 'Feature',

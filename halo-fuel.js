@@ -27,7 +27,7 @@
       let anigram = manitem(anima).anigram(),		// anigram
         hallo = 			anigram.halo, 						// halo
         geoform = 		anigram.geoform 					// geoform
-				
+
       let payload = 	anigram.payload, 					// payload
         boform = 			payload.boform, 					// boform
         ric = 				payload.ric, 							// ric
@@ -37,8 +37,8 @@
         uid = 				payload.uid, 							// uid
         parentuid = 	payload.parentuid 				// parentuid
 
-			if (1 && 1) console.log('h.fuel.haloFuel')
-	
+      if (0 && 1) console.log('h.fuel.haloFuel')
+
       let fuel = payload.fuel,
         ra2 = fuel.ra2,
         candidates = fuel.candidates,
@@ -49,7 +49,7 @@
 
       if (parentAnigram) {
         // polygon = parentAnigram.payload.geofold.geometry.coordinates[0] 					// outer ring
-				let geometry = parentAnigram.geoform.geometry
+        let geometry = parentAnigram.geoform.geometry
         polygon = mgeoj.getCoords(geometry) 					// outer ring
       } else {
         polygon = mgeom.extentPolygon([[0, 0], [width, height]]) // viewport
@@ -79,7 +79,7 @@
           'projection': 'uniwen',
           'translate': remainCandies[i]			// translate each candy to candy location
         }
-        if (1 && 1) console.log('h.fuel.gramm _proform', i, _proform.translate)
+        if (0 && 1) console.log('h.fuel.gramm _proform', i, _proform.translate)
         let newAnigram = {}									// new anigram per fuel nat
         newAnigram.halo = 'fuel'
         newAnigram.geoform = geoform

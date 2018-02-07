@@ -10,9 +10,9 @@
 
   let muonSimulation = function (__mapper = {}) {
     let f = __mapper('props')(),
-			msnap = __mapper('xs').m('snap'),
-			mstore = __mapper('xs').m('store'),
-			mgeonode = __mapper('xs').m('geonode')
+      msnap = __mapper('xs').m('snap'),
+      mstore = __mapper('xs').m('store'),
+      mgeonode = __mapper('xs').m('geonode')
 
     let _geonode = {
       type: 'Feature',
@@ -50,19 +50,16 @@
     function initNodes (aniItems, nDim) {
       let simNodes = []
 
-
       for (let i = 0, n = aniItems.length; i < n; ++i) {
         let aniItem = aniItems[i]
         let payload = aniItem.payload
         let geonode = mgeonode.set(payload.geonode)
-
 
         let simNode = {}
 
         simNode.x = 	geonode.geometry.coordinates[0]	// geonode location to simnode
         simNode.y = 	geonode.geometry.coordinates[1]
         simNode.z = 	geonode.geometry.coordinates[2]
-
 
         simNode.vx = 	geonode.properties.velin[0]	// geonode velocity to simnode
         simNode.vy = 	geonode.properties.velin[1]
@@ -94,27 +91,26 @@
           let simNode = simNodes[i]
 
           let updItem = aniItems[i]		// each anitem
-					
-					let geonode = mgeonode.set(updItem.payload.geonode)	// geonode to upd
 
+          let geonode = mgeonode.set(updItem.payload.geonode)	// geonode to upd
 
           geonode.properties.geodelta[0] = simNode.x - geonode.geometry.coordinates[0]
           geonode.properties.geodelta[1] = simNode.y - geonode.geometry.coordinates[1]
           geonode.properties.geodelta[2] = simNode.z - geonode.geometry.coordinates[2]
 
-					geonode.properties.velin[0] = simNode.vx		// linear velocities
+          geonode.properties.velin[0] = simNode.vx		// linear velocities
           geonode.properties.velin[1] = simNode.vy
           geonode.properties.velin[2] = simNode.vz
 
-					geonode.properties.prevous[0] = geonode.geometry.coordinates[0]	// previous location
+          geonode.properties.prevous[0] = geonode.geometry.coordinates[0]	// previous location
           geonode.properties.prevous[1] = geonode.geometry.coordinates[1]
           geonode.properties.prevous[2] = geonode.geometry.coordinates[2]
 
-					geonode.geometry.coordinates[0] = simNode.x			// after sim location
+          geonode.geometry.coordinates[0] = simNode.x			// after sim location
           geonode.geometry.coordinates[1] = simNode.y
           geonode.geometry.coordinates[2] = simNode.z
 
-					updItem.payload.geonode = geonode
+          updItem.payload.geonode = geonode
 
           if (0 && 1) console.log('m.simulation updItem', i, updItem.payload.geonode.geometry.coordinates)
 
@@ -122,7 +118,7 @@
         }
         // if (simNodes.length > 2) if (0 && 1) console.log('m.simulation updItems --- ', updItems[2].payload)
       }
-if (0 && 1) updItems.forEach(d => console.log(" ------ aniSims", d.payload.geonode.geometry.coordinates))
+      if (0 && 1) updItems.forEach(d => console.log(' ------ aniSims', d.payload.geonode.geometry.coordinates))
       return updItems
     }
 
@@ -161,9 +157,8 @@ if (0 && 1) updItems.forEach(d => console.log(" ------ aniSims", d.payload.geono
                 if (aniForce.ticked !== undefined) aniForce.ticked
 
                 aniSims = restoreNodes(aniNodes, aniItems)	// > aniNodes
-if (0 && 1) aniSims.forEach((d,i) => console.log(" ....... aniSims", i,d.payload.geonode.geometry.coordinates))
+                if (0 && 1) aniSims.forEach((d, i) => console.log(' ....... aniSims', i, d.payload.geonode.geometry.coordinates))
                 mstore.apply({type: 'UPDATEANIMAS', caller: 'simulation', animas: aniSims})
-
               })
 
             if (aniForce.field !== undefined) { // field forces

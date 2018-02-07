@@ -33,7 +33,7 @@ let muonAlima = function muonAlima (__mapper) {
     mmouse = __mapper('xs').m('mouse'),
     mstace = __mapper('xs').m('stace'),
     mstore = __mapper('xs').m('store'),
-		mnat = __mapper('xs').m('nat')
+    mnat = __mapper('xs').m('nat')
 
   /*******************************************
  *      @pics
@@ -149,12 +149,12 @@ let muonAlima = function muonAlima (__mapper) {
 
   let natProform = {
     'projection': 'uniwen',
-    'translate': [ [ 130, 120 ] , [[[ natStace ]]] ], //
+    'translate': [ [ 130, 120 ], [[[ natStace ]]] ], //
     'scale': 1,
     'rotate': [ 0, 0, 0 ],
     'lens': [0, 1, Infinity],
     'control': 'wen'
-		
+
   }
 
   let natBoform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
@@ -167,7 +167,7 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let nat = {
 
-    'halo':'geofold',
+    'halo': 'geofold',
     'geoform': p => ({
       'type': 'Feature',
       'geometry': {
@@ -185,11 +185,11 @@ let muonAlima = function muonAlima (__mapper) {
       'proform': natProform,
       form: natForm,
 
-			geonode: {
-				type: 'Feature',
-				geometry: { type: 'Point', coordinates: [0, 0, 0] },
-				properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-			},			
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      }
 
     }
 
@@ -237,20 +237,19 @@ let muonAlima = function muonAlima (__mapper) {
         'span': 0,
 				 aad: 1,
 
-
         autoSitus: d => mstace.getLocus(null, d),
 
         fider: d => d.payload.ric.fid,
-				
-        geojsor: (d,i) => ({
-							type: 'Feature', 
-							geometry: {type: 'LineString', coordinates: null},
-							properties: {}
-				})
-				
-			}
-		}
-	}
+
+        geojsor: (d, i) => ({
+          type: 'Feature',
+          geometry: {type: 'LineString', coordinates: null},
+          properties: {}
+        })
+
+      }
+    }
+  }
 
   /*******************************************
  * @animaApi

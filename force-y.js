@@ -11,11 +11,10 @@
   let forcey = function (__mapper = {}) {
     let props = __mapper('props')()
 
-		/***********
+    /***********
 		*		@force
 		*/
     let force = function (params) {
-			
       let position = params.position || 0
       let strength = params.strength || (() => 0.1)
 
@@ -26,7 +25,6 @@
 
       return d3force
     }
-
 
     let enty = function () {}
     enty.force = force

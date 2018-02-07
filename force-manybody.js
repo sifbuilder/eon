@@ -11,11 +11,10 @@
   let forcemanybody = function (__mapper = {}) {
     let props = __mapper('props')()
 
-		/***********
+    /***********
 		*		@force
-		*/		
+		*/
     let force = function (params) {
-			
       let strength = params.strength || (() => 0.1)
       let theta = params.theta || (() => 0.9)
       let distanceMin = params.distanceMin || 1

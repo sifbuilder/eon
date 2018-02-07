@@ -36,10 +36,9 @@
           console.log('type undefined')
         } else if (typeof anigram.payload.boform !== 'object') {
           console.log('boform is not an object')
-					
         } else if (json.type === 'Feature') {
           let feature = json
-					
+
           let anigramBoform = anigram.payload.boform
           let featureBoform = {}, featureStyle = {}
           if (feature.properties !== undefined && feature.properties.boform !== undefined) {
@@ -52,9 +51,8 @@
             featureStyle = feature.properties.style
           }
 
-					if (feature.properties === undefined) feature.properties = {}
+          if (feature.properties === undefined) feature.properties = {}
           feature.properties.style = Object.assign(jsonStyle, featureStyle)
-					
         } else if (json.type === 'FeatureCollection') {
           for (let i = 0; i < json.features.length; i++) {
             let feature = json.features[i]

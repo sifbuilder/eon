@@ -83,12 +83,12 @@ let muonAlima = function (__mapper) {
         'control': 'wen'
       },
 
-			geonode: {
-				type: 'Feature',
-				geometry: { type: 'Point', coordinates: [0, 0, 0] },
-				properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-			},	
-			
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      },
+
       pacer: {
         'initN': 0,
         'eventN': 1,
@@ -99,16 +99,15 @@ let muonAlima = function (__mapper) {
         'span': 15 / 1400,
 				 aad: 1,
 
-				
         autoSitus: d => mstace.getLocus(null, d),
 
         fider: anitem => anitem.payload.ric.fid,
 
-        geojsor: (d,i) => ({
-							type: 'Feature',
-							geometry: {type: 'LineString', coordinates: null},
-							properties: {}
-				})
+        geojsor: (d, i) => ({
+          type: 'Feature',
+          geometry: {type: 'LineString', coordinates: null},
+          properties: {}
+        })
 
       }
     }

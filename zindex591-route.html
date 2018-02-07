@@ -29,8 +29,7 @@ let muonAlima = function (__mapper) {
     mmouse = __mapper('xs').m('mouse'),
     mstace = __mapper('xs').m('stace'),
     mstore = __mapper('xs').m('store'),
-		mnat = __mapper('xs').m('nat')
-
+    mnat = __mapper('xs').m('nat')
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
@@ -40,7 +39,7 @@ let muonAlima = function (__mapper) {
     degrees = 180 / Math.PI
 
   if (__mapper('controlKey') !== undefined) {
-    let controltimerLeftArrowAlt = () => {      // LEFT ARROW
+    let controltimerLeftArrowAlt = () => { // LEFT ARROW
       if (__mapper('muonAnimation').animationStop !== undefined) {
         console.log('controltimerLeftArrowAlt')
         if (__mapper('controlTimer').started()) {
@@ -54,7 +53,7 @@ let muonAlima = function (__mapper) {
   }
 
   if (__mapper('controlKey') !== undefined) {
-    let controltimerUpArrowAlt = () => {          // UP ARROW
+    let controltimerUpArrowAlt = () => { // UP ARROW
       console.log('controltimerUpArrowAlt')
       __mapper('controlWen').control(__mapper('renderSvg').svg()) // SVG WEN
     }
@@ -71,19 +70,54 @@ let muonAlima = function (__mapper) {
   let traceForm = {
 
     'x': {
-      'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1,
-      'm1': 5,'m2': 5,'n1': 30,'n2': 100,'n3': 100,'a': 1,'b': 1,
-      'w4': 0,'ra2': 16,'v0': 0,'v1': 1,'seg5': 360,'w4': [[[90, 90 - 0 * 360]]],
-      'pa6': 0,'pb7': 360,
-			'fas8': 0
+      'm1': 4,
+      'm2': 4,
+      'n1': 2,
+      'n2': 2,
+      'n3': 2,
+      'a': 1,
+      'b': 1,
+      'm1': 5,
+      'm2': 5,
+      'n1': 30,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1,
+      'w4': 0,
+      'ra2': 16,
+      'v0': 0,
+      'v1': 1,
+      'seg5': 360,
+      'w4': [[[90, 90 - 0 * 360]]],
+      'pa6': 0,
+      'pb7': 360,
+      'fas8': 0
     },
 
     'y': {
-      'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1,
-      'm1': 5,'m2': 5,'n1': 30,'n2': 100,'n3': 100,'a': 1,'b': 1,
-			'w4': 0,'ra2': 16,'v0': 0,'v1': 1,
-      'seg5': 360,'w4': [[[90, 90 - 0 * 360]]],
-      'pa6': 0,'pb7': 360,
+      'm1': 4,
+      'm2': 4,
+      'n1': 2,
+      'n2': 2,
+      'n3': 2,
+      'a': 1,
+      'b': 1,
+      'm1': 5,
+      'm2': 5,
+      'n1': 30,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1,
+      'w4': 0,
+      'ra2': 16,
+      'v0': 0,
+      'v1': 1,
+      'seg5': 360,
+      'w4': [[[90, 90 - 0 * 360]]],
+      'pa6': 0,
+      'pb7': 360,
       'fas8': -90
     }
 
@@ -93,37 +127,57 @@ let muonAlima = function (__mapper) {
 
     'x': {
       'm1': [[[-8, -4, -2, -7.66]]],
-          'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
-          'n1': [[[16.24, 16.24, 16.24, 16.24]]],
-          'n2': [[[6, 6, 6, 5.98]]],
-          'n3': [[[13, 15, 17, 17]]],
-          'a': [[[9, 9, 9, 8.98]]],
-          'b': [[[0.2, 0.2, 0.2, 0.19]]],
-      'ra2': [[[30,50]]],'v0': 0,'v1': 1,
-      'seg5': 360,'w4': [[[90, 90 - 0 * 360]]],
-      'pa6': 0,'pb7': 360,
+      'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
+      'n1': [[[16.24, 16.24, 16.24, 16.24]]],
+      'n2': [[[6, 6, 6, 5.98]]],
+      'n3': [[[13, 15, 17, 17]]],
+      'a': [[[9, 9, 9, 8.98]]],
+      'b': [[[0.2, 0.2, 0.2, 0.19]]],
+      'ra2': [[[30, 50]]],
+      'v0': 0,
+      'v1': 1,
+      'seg5': 360,
+      'w4': [[[90, 90 - 0 * 360]]],
+      'pa6': 0,
+      'pb7': 360,
       'fas8': 0
     },
 
     'y': {
-     'm1': [[[-8, -4, -2, -7.66]]],
-          'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
-          'n1': [[[16.24, 16.24, 16.24, 16.24]]],
-          'n2': [[[6, 6, 6, 5.98]]],
-          'n3': [[[13, 15, 17, 17]]],
-          'a': [[[9, 9, 9, 8.98]]],
-          'b': [[[0.2, 0.2, 0.2, 0.19]]],
-      'ra2': [[[30,50]]],'v0': 0,'v1': 1,'seg5': 360,
+      'm1': [[[-8, -4, -2, -7.66]]],
+      'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
+      'n1': [[[16.24, 16.24, 16.24, 16.24]]],
+      'n2': [[[6, 6, 6, 5.98]]],
+      'n3': [[[13, 15, 17, 17]]],
+      'a': [[[9, 9, 9, 8.98]]],
+      'b': [[[0.2, 0.2, 0.2, 0.19]]],
+      'ra2': [[[30, 50]]],
+      'v0': 0,
+      'v1': 1,
+      'seg5': 360,
       'w4': [[[90, 90 - 0 * 360]]],
-      'pa6': 0,'pb7': 360,
+      'pa6': 0,
+      'pb7': 360,
       'fas8': -90
     }
 
   }
 
   let natStace = {
-    "m1":6,"m2":6,"n1":2,"n2":7,"n3":7,"a":1,"b":1,
-    'ra2': 90,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+    'm1': 6,
+    'm2': 6,
+    'n1': 2,
+    'n2': 7,
+    'n3': 7,
+    'a': 1,
+    'b': 1,
+    'ra2': 90,
+    'v0': 0,
+    'v1': 1,
+    'w4': 0,
+    'seg5': 360,
+    'pa6': 0,
+    'pb7': -1,
     'fas8': 0
   }
 
@@ -141,30 +195,28 @@ let muonAlima = function (__mapper) {
 
   let traceBoform = { 'csx': 0, 'cf': [[[444, 444]]], 'co': [[[0.9, 0.9]]], 'cs': [[[777, 777]]], 'cw': [[[1.7, 1.7]]], 'cp': [[[0.99, 0.99]]]}
 
-
- /*******************************************
+  /*******************************************
  *    @animas
  *
  */
   let geonat = {
 
-    'halo':'geofold',
+    'halo': 'geofold',
     'geoform': p => {
+      let rotate = mliner.orientate(p).rotate()
 
-			let rotate = mliner.orientate(p).rotate()
+      p.payload.form.x.w4 = rotate
+      p.payload.form.y.w4 = rotate
 
-          p.payload.form.x.w4 = rotate
-          p.payload.form.y.w4 = rotate
-
-			let form = p.payload.form
-			let natcoords = mnat.natPolygon(form)
-			let natgj = {
-				'type': 'Feature',
-				'geometry': {'type': 'Polygon','coordinates': natcoords},
-				'properties': {}
-			}
-			return natgj
-		},
+      let form = p.payload.form
+      let natcoords = mnat.natPolygon(form)
+      let natgj = {
+        'type': 'Feature',
+        'geometry': {'type': 'Polygon', 'coordinates': natcoords},
+        'properties': {}
+      }
+      return natgj
+    },
 
     'payload': {
 
@@ -173,22 +225,19 @@ let muonAlima = function (__mapper) {
       'boform': natBoform,
 
       'proform': p => {		// 'proform': natProform,
-
-					let proform = p.payload.natProform
-					return proform
-			},
-
+        let proform = p.payload.natProform
+        return proform
+      },
 
       form: natForm,
-			
-			geonode: {
-				type: 'Feature',
-				geometry: { type: 'Point', coordinates: [0, 0, 0] },
-				properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-			},						
 
-			natProform: natProform
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      },
 
+      natProform: natProform
 
     }
 
@@ -236,20 +285,19 @@ let muonAlima = function (__mapper) {
         'span': 0,
 				 aad: 1,
 
-
         autoSitus: d => mstace.getLocus(null, d),
 
         fider: d => d.payload.ric.fid,
 
-        geojsor: (d,i) => ({
-							type: 'Feature',
-							geometry: {type: 'LineString', coordinates: null},
-							properties: {}
-				})
+        geojsor: (d, i) => ({
+          type: 'Feature',
+          geometry: {type: 'LineString', coordinates: null},
+          properties: {}
+        })
 
-			}
-		}
-	}
+      }
+    }
+  }
 
   let pathline = {
 
@@ -259,7 +307,7 @@ let muonAlima = function (__mapper) {
 
       tim,
       ric: {'gid': 'trace', 'cid': 'trace', 'fid': 'pathline'},
-      boform: { 'csx': 0, 'cf': [[[444, 444]]], 'co': [[[0.09, 0.09]]], 'cs': [[[777, 777]]], 'cw': [[[1.2, 1.2]]], 'cp': [[[0.99, 0.99]]]}	,
+      boform: { 'csx': 0, 'cf': [[[444, 444]]], 'co': [[[0.09, 0.09]]], 'cs': [[[777, 777]]], 'cw': [[[1.2, 1.2]]], 'cp': [[[0.99, 0.99]]]},
 
       'proform': {
         'projection': 'uniwen',
@@ -291,21 +339,19 @@ let muonAlima = function (__mapper) {
         'span': 0,
 				 aad: 1,
 
-
         autoSitus: d => mstace.getLocus(null, d),
 
         fider: anitem => anitem.payload.ric.fid,
 
-        geojsor: (d,i) => ({
-							type: 'Feature',
-							geometry: {type: 'LineString', coordinates: null},
-							properties: {}
-				})
+        geojsor: (d, i) => ({
+          type: 'Feature',
+          geometry: {type: 'LineString', coordinates: null},
+          properties: {}
+        })
 
-			}
-		}
-	}
-
+      }
+    }
+  }
 
   // -------------------------------  routeline
   let routeline = {
@@ -327,12 +373,12 @@ let muonAlima = function (__mapper) {
         'control': 'wen'
       },
 
-			geonode: {
-				type: 'Feature',
-				geometry: { type: 'Point', coordinates: [0, 0, 0] },
-				properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-			},		
-			
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      },
+
       pacer: {
         'initN': 0,
         'eventN': 1,
@@ -348,11 +394,11 @@ let muonAlima = function (__mapper) {
 
         fider: anitem => anitem.payload.ric.fid,
 
-        geojsor: (d,i) => ({
-							type: 'Feature',
-							geometry: {type: 'LineString', coordinates: null},
-							properties: {}
-				})
+        geojsor: (d, i) => ({
+          type: 'Feature',
+          geometry: {type: 'LineString', coordinates: null},
+          properties: {}
+        })
 
       }
     }
@@ -365,20 +411,19 @@ let muonAlima = function (__mapper) {
  */
   let avaform = {
 
-    'halo':'geofold', // haloAvajson,
+    'halo': 'geofold', // haloAvajson,
 
     'geoform': p => {
-
       let rotate = mliner.orientate(p).rotate()
-          p.payload.form.x.w4 += rotate
-          p.payload.form.y.w4 += rotate
-					
+      p.payload.form.x.w4 += rotate
+      p.payload.form.y.w4 += rotate
+
       let nat = {
-				'type': 'Feature',
-				'geometry': {'type': 'Polygon','coordinates': mnat.natPolygon(p.payload.form)},
-				'properties': {}
-			}
-			return nat
+        'type': 'Feature',
+        'geometry': {'type': 'Polygon', 'coordinates': mnat.natPolygon(p.payload.form)},
+        'properties': {}
+      }
+      return nat
     },
 
     'payload': {
@@ -387,27 +432,27 @@ let muonAlima = function (__mapper) {
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'avaform'},
 
       'boform': { 'csx': 0, 'cf': [[[333, 999]]], 'co': [[[0.999, 0.999]]], 'cs': [[[666, 555]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.999, 0.999]]]},
-			
-						geonode: {
-							type: 'Feature',
-							geometry: { type: 'Point', coordinates: [0, 0, 0] },
-							properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-						},
-						
+
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      },
+
       'proform': {
         'projection': 'uniwen',
-        'translate': 
+        'translate':
 				{
-          'x':
+				  'x':
               {
                 'pos': [[[ 0, 1 * 100]]]
               },
-          'y':
+				  'y':
               {
                 'pos': [[[ 0, 1 * 100]]]
               },
-          'z': 0
-        },
+				  'z': 0
+				},
         'scale': 1,
         'rotate': [0, 0, 0],
         'lens': [0, 1, Infinity],
@@ -415,7 +460,7 @@ let muonAlima = function (__mapper) {
         'control': 'wen'
       },
 
-      'form': {       // rocket
+      'form': { // rocket
 
         'x': {
           'm1': [[[-8, -4, -2, -7.66]]],
@@ -503,24 +548,24 @@ let muonAlima = function (__mapper) {
   */
   routeline.payload.avatars = {
 
-    avaform,  // haloAvajson h.nat
+    avaform // haloAvajson h.nat
 
   }
   avaform.payload.avatars = {
 
-		pathline // h.pacer
+    pathline // h.pacer
 
   }
   geonat.payload.avatars = {
 
-    traceline, // h.pacer
+    traceline // h.pacer
 
   }
   let animas = [
 
-    routeline,  // h.pacer		free liner
-		geonat,			 // h.nat geoform:natForm proform:natProform.natstace
-    img,      // h.img
+    routeline, // h.pacer		free liner
+    geonat,			 // h.nat geoform:natForm proform:natProform.natstace
+    img // h.img
   ]
 
   let animaApi = function animaApi () {

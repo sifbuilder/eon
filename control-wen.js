@@ -20,9 +20,7 @@
     let drag = d3.drag()
 
     function tick () {
-
       if (state.autorotimer) state.autorotimer = requestAnimationFrame(tick)
-
     }
 
     function stopMomentum () { cancelAnimationFrame(state.timer); state.timer = null }
@@ -32,12 +30,12 @@
       mult: 2e-3, // rotInDrag factor
       rotInit: [0, 0, 0],
       timeSpan: 200,
-      epsilon: 1e-3,
+      epsilon: 1e-3
     }
 
     // reset to default rotation
     function rebase () {
-      state.rotInDrag = [0,0,0]
+      state.rotInDrag = [0, 0, 0]
     }
 
     let state = {
@@ -98,9 +96,8 @@
       let e = d3.event
       let pos = getPos(e) //  d3.mouse(this)
 
-
       let dx = state.grabbed[1] - pos[1],
-          dy = - (state.grabbed[0] - pos[0])
+        dy = -(state.grabbed[0] - pos[0])
 
       if (!state.moved) {
         if (dx * dx + dy * dy < state.moveSpan) return
@@ -117,7 +114,6 @@
         state.rotVel[1] + dy * inits.mult,
         state.rotVel[2] + 0
       ]
-			
     }
 
     // dragended  listener
@@ -128,15 +124,14 @@
       let f = Math.max(0, 1 - (Date.now() - state.lastMoveTime))
       state.vel = [ // velocity
 
-          (state.pPos[1] - state.cPos[1]) * inits.mult,
-          (state.cPos[0] - state.pPos[0]) * inits.mult 
+        (state.pPos[1] - state.cPos[1]) * inits.mult,
+        (state.cPos[0] - state.pPos[0]) * inits.mult
 
       ]
 
       state.timer = requestAnimationFrame(momentum)
     }
 
-		
     function momentum () {
       if (Math.abs(state.vel[0]) < inits.epsilon && Math.abs(state.vel[1]) < inits.epsilon) return
       state.vel[0] *= inits.decay; state.vel[1] *= inits.decay

@@ -189,24 +189,23 @@
         let type = json.type
 
         if (type === 'Feature') {
-								features = Array.of(json)
-								
+          features = Array.of(json)
         } else if (type === 'FeatureCollection') {
-								features = json.features
-								
+          features = json.features
         } else if (type === 'GeometryCollection') {
-								features = json.map(d => ({
-									type: 'Feature', 
-									geometry: {
-											type: d.type, 
-											coordinates: d.coordinates}, properties: {}}))
+          features = json.map(d => ({
+            type: 'Feature',
+            geometry: {
+              type: d.type,
+              coordinates: d.coordinates},
+            properties: {}}))
         } else {
-								features = Array.of({
-									type: 'Feature', 
-									geometry: {
-											type: json.type, 
-											coordinates: json.coordinates}, 
-									properties: {}})
+          features = Array.of({
+            type: 'Feature',
+            geometry: {
+              type: json.type,
+              coordinates: json.coordinates},
+            properties: {}})
         }
       } else {
         console.log('m.geoj.featurize not supported geojson ')

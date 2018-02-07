@@ -15,7 +15,7 @@
    *        @arrays
    */
 	 props.a = d => (Array.isArray(d)) ? [...d] : [d]
-		
+
     props.cloneArray = function cloneArray (obj) {
       if (Array.isArray(obj)) {
         let r = [ ...obj ]
@@ -30,7 +30,7 @@
    */
     props.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
     props.f = d => (typeof (d) === 'function') ? d : () => d
-		
+
     /***************************
    *        @objects
    */
@@ -81,7 +81,7 @@
       }
 
       return ret
-    }		
+    }
     /***************************
    *        @paths
    */
@@ -315,7 +315,7 @@
       }
       return ret
     }
-		
+
     /***************************
    *        @fibonacciSphere
    */
@@ -396,7 +396,7 @@
       let _entidx = arr[entidx]
       return props.enxs(_ent, _ents, _entidx)
     }
-		
+
     /***************************
    *        @positions
    */
@@ -406,10 +406,8 @@
 				typeof obj[q] === 'number'
       , true)
 
-			
-
     props.debug = () => [].join.call(arguments, '\n')
-			
+
     /***************************
    *        @enty
    */

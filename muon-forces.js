@@ -12,8 +12,6 @@
 	 *		@isolate
 	 */
   let isolate = function (params) {	// filter, force, nodes, params, type
-	
-	
     let nodes = params.nodes
     let force = params.force
     let filter = params.filter
@@ -29,10 +27,8 @@
     }
   }
 
-
   var muonForces = function (__mapper = {}) {
     let f = __mapper('props')()
-
 
     let force = function (params) {
       let aniforce, d3force
@@ -45,9 +41,9 @@
 
       if (params.type !== undefined) {
         p.type = params.type
-        p.force = (__mapper('xs').f(p.type)) 
-						? __mapper('xs').f(p.type).force(params) 		// muon d3force
-						: null 
+        p.force = (__mapper('xs').f(p.type))
+          ? __mapper('xs').f(p.type).force(params) 		// muon d3force
+          : null
         p.params = params
       }
 
@@ -55,7 +51,7 @@
       return aniforce
     }
 
-		let enty = v => force(v)
+    let enty = v => force(v)
 
     return enty
   }

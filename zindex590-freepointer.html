@@ -83,7 +83,7 @@ let muonAlima = function (__mapper) {
         'translate': {'x': 0, 'y': 0, 'z': 0 },
         'scale': 1,
         'rotate': [0, 0, 0],
-        'lens': [0, 1 ,Infinity],
+        'lens': [0, 1, Infinity],
         'dims': 3,
         'control': 'wen'
       },
@@ -98,45 +98,42 @@ let muonAlima = function (__mapper) {
         span: 0,
 
         initSitus: ani => ({x: width / 2, y: height / 2, z: 0 }),
-				
+
         eventSitus: ani => {
-						let situs
-						if (mmouse.event() !== undefined) {
-							let x = mmouse.event().x
-							let y = mmouse.event().y
-							let z = 0
-							situs = {x, y, z }
-						}
-						return situs
-				},
+          let situs
+          if (mmouse.event() !== undefined) {
+            let x = mmouse.event().x
+            let y = mmouse.event().y
+            let z = 0
+            situs = {x, y, z }
+          }
+          return situs
+        },
 
         autoSitus: ani => mstace.getLocus(ani),
 
-        fider: anitem => 'item' + 
+        fider: anitem => 'item' +
 					mstore.anigrams()
-						.filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
+					  .filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
 												ani.payload.ric.cid === anitem.payload.ric.cid)
-						.length,
+					  .length,
 
-        geojsor: (d,i) => ({
-							type: 'Feature', 
-							geometry: {type: 'Point', coordinates: null},
-							
+        geojsor: (d, i) => ({
+          type: 'Feature',
+          geometry: {type: 'Point', coordinates: null},
+
 						 'properties': {
 
-								geonode: {
-									type: 'Feature',
-									geometry: { type: 'Point', coordinates: [0,0,0] },
-									properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-								}
+            geonode: {
+              type: 'Feature',
+              geometry: { type: 'Point', coordinates: [0, 0, 0] },
+              properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+            }
 
-							}
+          }
 
+        })
 
-							
-							
-				})
-				
       }
 
     }

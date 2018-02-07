@@ -11,11 +11,10 @@
   var forceCollide = function (__mapper = {}) {
     let props = __mapper('props')()
 
-		/***********
+    /***********
 		*		@force
-		*/		
+		*/
     let force = function (params) {
-			
       let nodes = params.nodes || []
 
       let strength = params.strength || 1

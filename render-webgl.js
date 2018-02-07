@@ -109,15 +109,14 @@
     state.controls.keys = [ 65, 83, 68 ]
 
     let denser = point => {
-			if (!Array.isArray(point)) console.log("point ",point," is not cartesian")
-			return new THREE.Vector3(...point)		
-		}
-		
+      if (!Array.isArray(point)) console.log('point ', point, ' is not cartesian')
+      return new THREE.Vector3(...point)
+    }
+
     /***************************
  *        @render
  */
     let render = function (elapsed, featurecollection, maxlimit) {
-			
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
@@ -136,8 +135,8 @@
         .entries(features)
 
       for (let i in gitems) { // DOTS (seg5===0) each group gid
-        let gid = gitems[i].key, 
-					citems = gitems[i].values
+        let gid = gitems[i].key,
+          citems = gitems[i].values
 
         for (let j in citems) { // each class cid
           let cid = citems[j].key // cid
@@ -149,8 +148,6 @@
             .filter(d => d.properties.sort === 'feature' || d.properties.sort === undefined) // default
 
           if (features.length > 0) {
-
-
             for (let k in features) { // DOTS (seg5===0) each group gid
               let item = features[k] // feature
 

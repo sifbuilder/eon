@@ -58,10 +58,10 @@
     }
 
     function projectFeature (o, stream) {
-			if (0 && 1) console.log("m.proj3ct.projectFeature enter")
-			let geometry = projectGeometry(o.geometry, stream)
-			if (0 && 1) console.log("m.proj3ct.projectFeature exit")
-			let ret = {
+      if (0 && 1) console.log('m.proj3ct.projectFeature enter')
+      let geometry = projectGeometry(o.geometry, stream)
+      if (0 && 1) console.log('m.proj3ct.projectFeature exit')
+      let ret = {
         type: 'Feature',
         id: o.id,
         properties: o.properties,
@@ -80,7 +80,7 @@
     }
 
     function projectGeometry (o, stream) {
-			if (0 && 1) console.log("m.proj3ct.projectGeometry enter", o.type)			
+      if (0 && 1) console.log('m.proj3ct.projectGeometry enter', o.type)
       if (!o) return null
       if (o.type === 'GeometryCollection') return projectGeometryCollection(o, stream)
       var sink
@@ -94,20 +94,17 @@
         case 'Sphere': sink = sinkPolygon; break
         default: return null
       }
-			
-			
-			
-			if (0 && 1) console.log("m.proj3ct.projectGeometry second", o)					
-			let streamSink = 	stream(sink)
-			if (0 && 1) console.log(" <<< m.proj3ct.projectGeometry sec b", streamSink)					
-				
+
+      if (0 && 1) console.log('m.proj3ct.projectGeometry second', o)
+      let streamSink = 	stream(sink)
+      if (0 && 1) console.log(' <<< m.proj3ct.projectGeometry sec b', streamSink)
+
       d3Geo.geoStream(o, streamSink)
       // return sink.resul	t()
-			if (0 && 1) console.log(">>> m.proj3ct.projectGeometry between")	
+      if (0 && 1) console.log('>>> m.proj3ct.projectGeometry between')
 
-				
       let ret = sink.result()
-			if (0 && 1) console.log("m.proj3ct.projectGeometry exit")			
+      if (0 && 1) console.log('m.proj3ct.projectGeometry exit')
       return ret
     }
 
@@ -136,14 +133,14 @@
         if (points.length) lines.push(points), points = []
       },
       result: function () {
-			if (0 && 1) console.log("m.proj3ct.sinkLine enter")			
-				
+        if (0 && 1) console.log('m.proj3ct.sinkLine enter')
+
         var result = !lines.length ? null
           : lines.length < 2 ? {type: 'LineString', coordinates: lines[0]}
             : {type: 'MultiLineString', coordinates: lines}
         lines = []
-			if (0 && 1) console.log("m.proj3ct.sinkLine exit")			
-				
+        if (0 && 1) console.log('m.proj3ct.sinkLine exit')
+
         return result
       }
     }

@@ -73,69 +73,55 @@
       if (0 && 1) console.log('m.ric.qualier ric', ric)
 
       if (json.type === undefined) {
-				
         console.log('type undefined')
-				
       } else if (typeof ric !== 'object') {
-				
         console.log('ric is not an object')
-				
       } else if (json.type === 'Feature') {
+        let _ric = {}
+        _ric.gid = ric.gid		// ric from param ric
+        _ric.cid = ric.cid
+        _ric.fid = ric.fid
 
-					let _ric = {}
-          _ric.gid = ric.gid		// ric from param ric
-          _ric.cid = ric.cid
-          _ric.fid = ric.fid
+        if (0 && 1) console.log(' ------------- ric', _ric.gid, _ric.cid, _ric.fid)
 
-	if (0 && 1) console.log(" ------------- ric", _ric.gid, _ric.cid, _ric.fid)				
-				
         let feature = json
         let properties = feature.properties || {}
 
-          if (ric.fid === undefined) 							_ric.fid = ric.cid		// inherit cid
-          else if (typeof ric.fid === 'function') _ric.fid = ric.fid(i, ric, anigram)
-          else 																		_ric.fid = ric.fid
+        if (ric.fid === undefined) 							_ric.fid = ric.cid		// inherit cid
+        else if (typeof ric.fid === 'function') _ric.fid = ric.fid(i, ric, anigram)
+        else 																		_ric.fid = ric.fid
 
         properties.ric = {gid, cid, fid}
         properties.uid = __mapper('xs').m('ric').buildUIDFromRic(properties.ric)
-				
-        feature.id = properties.uid
-				feature.properties = properties
-				
-				json = feature
 
-				
+        feature.id = properties.uid
+        feature.properties = properties
+
+        json = feature
       } else if (json.type === 'FeatureCollection') {
-				
         let features = json.features							// feature in FeatureCollection
         for (let i = 0; i < features.length; i++) {
-					
           let feature = features[i]								// this feature
 
-          let properties = feature.properties || {}	
+          let properties = feature.properties || {}
 
-					
-					let _ric = {}
+          let _ric = {}
           _ric.gid = ric.gid		// ric from param ric
           _ric.cid = ric.cid
           _ric.fid = ric.fid
-					
-		
+
           if (ric.fid === undefined) 							_ric.fid = ric.cid + (i || '')
           else if (typeof ric.fid === 'function') _ric.fid = ric.fid(i, ric, anigram)
           else 																		_ric.fid = ric.fid + (i || '')
-	
-						
-						feature.properties.ric = _ric
-	if (0 && 1) console.log(" ------------- ric", feature.properties.ric.gid, feature.properties.ric.cid, feature.properties.ric.fid)	
-						
-						feature.properties.uid = __mapper('xs').m('ric').buildUIDFromRic(feature.properties.ric)
-						feature.id = feature.properties.uid
-						feature.properties.nid = i
-						
+
+          feature.properties.ric = _ric
+          if (0 && 1) console.log(' ------------- ric', feature.properties.ric.gid, feature.properties.ric.cid, feature.properties.ric.fid)
+
+          feature.properties.uid = __mapper('xs').m('ric').buildUIDFromRic(feature.properties.ric)
+          feature.id = feature.properties.uid
+          feature.properties.nid = i
         }
         json.features = features
-				
       } else {
         console.log('m.boform.boformer nothing done')
       }

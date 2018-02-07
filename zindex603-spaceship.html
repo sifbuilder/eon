@@ -68,90 +68,116 @@ let muonAlima = function (__mapper) {
   // -------------------------------  gratiform
   let gratiform = {
 
-    'halo':'geofold',
+    'halo': 'geofold',
 
     'geoform': p => {
-
       let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
-			let type = 'Feature'
-			let properties = {}
-      let geometry = {type: 'MultiLineString',coordinates: gedges}
+      let type = 'Feature'
+      let properties = {}
+      let geometry = {type: 'MultiLineString', coordinates: gedges}
       let gj = {type, geometry, properties}
 
-			return gj
-		},
+      return gj
+    },
 
     'payload': {
       'tim': tim,
       'ric': {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.1, 0.1]]], 'cp': [[[0.9, 0.9, 0.9]]]},
 
-			'conform': {
+      'conform': {
 
-				'projection': 'natform',
-				'form': {
+        'projection': 'natform',
+        'form': {
 
-						"x": {
-							"m1": 6, "m2": 6, "n1": 60, "n2": 100, "n3": 30, "a": 1, "b": 1,
-							"ra2": 242,
-							"v0": 0,"v1":1,
-							"w4":  0,
-							"seg5": 360,"pa6":0,"pb7":-1,
-							"fas8": 0,
+          'x': {
+            'm1': 6,
+            'm2': 6,
+            'n1': 60,
+            'n2': 100,
+            'n3': 30,
+            'a': 1,
+            'b': 1,
+            'ra2': 242,
+            'v0': 0,
+            'v1': 1,
+            'w4': 0,
+            'seg5': 360,
+            'pa6': 0,
+            'pb7': -1,
+            'fas8': 0,
 
-							"fn0": Math.cos,
-							"dom3": [0,360],
-							"exp9": [2,0,0,0],
+            'fn0': Math.cos,
+            'dom3': [0, 360],
+            'exp9': [2, 0, 0, 0]
 
-						},
-						"y": {
-							"m1":2,"m2":2,"n1":1,"n2":1,"n3":1,"a":1,"b":1,			// biform
-							"ra2": 180,
-							"v0":0,"v1":1,
-							"w4": 0,
-							"seg5": 360,"pa6":0,"pb7":-1,
+          },
+          'y': {
+            'm1': 2,
+            'm2': 2,
+            'n1': 1,
+            'n2': 1,
+            'n3': 1,
+            'a': 1,
+            'b': 1,			// biform
+            'ra2': 180,
+            'v0': 0,
+            'v1': 1,
+            'w4': 0,
+            'seg5': 360,
+            'pa6': 0,
+            'pb7': -1,
 
-							"fas8": -90, 		// fas8, antifase
-							"fn0": Math.cos,
-							"dom3": [0,360],
-							"exp9": [0,0,0,0],
+            'fas8': -90, 		// fas8, antifase
+            'fn0': Math.cos,
+            'dom3': [0, 360],
+            'exp9': [0, 0, 0, 0]
 
-						},
-						"z": {
-							"m1":2,"m2":2,"n1":1,"n2":1,"n3":1,"a":1,"b":1,			// biform
-							"ra2": 242,
-							"v0": 0,"v1":1,
-							"w4":  0,
-							"seg5": 360,"pa6":0,"pb7":-1,
+          },
+          'z': {
+            'm1': 2,
+            'm2': 2,
+            'n1': 1,
+            'n2': 1,
+            'n3': 1,
+            'a': 1,
+            'b': 1,			// biform
+            'ra2': 242,
+            'v0': 0,
+            'v1': 1,
+            'w4': 0,
+            'seg5': 360,
+            'pa6': 0,
+            'pb7': -1,
 
-							"fn0": d => Math.cos(d),
-							"dom3": [0,360],
-							"exp9": [0,0,0, [[[0,2]]] ],
+            'fn0': d => Math.cos(d),
+            'dom3': [0, 360],
+            'exp9': [0, 0, 0, [[[0, 2]]] ]
 
-						}
-					}
-
-			},
-			
-      proform: {
-        projection: 'uniwen',
-        'translate': [300,200,0],
-        scale: 0.5,
+          }
+        }
 
       },
-			
+
+      proform: {
+        projection: 'uniwen',
+        'translate': [300, 200, 0],
+        scale: 0.5
+
+      },
+
       'graticule': {
 
-				'frame': [ [ [-180, 180, [[[180,180,180,180,180,90,90,90,90,90]]], 9],
-					[-90, 90, [[[90,90,90,90,90,45,45,45,45,45]]], 5] ],
-				[	[-180, 180, [[[180,180,180,180,180,90,90,90,90,90]]], 9],
-					[-90, 90, [[[90,90,90,90,90,45,45,45,45,45]]], 5] ] ]
+        'frame': [ [ [-180, 180, [[[180, 180, 180, 180, 180, 90, 90, 90, 90, 90]]], 9],
+          [-90, 90, [[[90, 90, 90, 90, 90, 45, 45, 45, 45, 45]]], 5] ],
+        [	[-180, 180, [[[180, 180, 180, 180, 180, 90, 90, 90, 90, 90]]], 9],
+          [-90, 90, [[[90, 90, 90, 90, 90, 45, 45, 45, 45, 45]]], 5] ] ]
 
-			},
+      }
 
     }
 
-  }	
+  }
 	  // -------------------------------  img
   let img = {
 

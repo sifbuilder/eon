@@ -33,50 +33,45 @@
       return siti
     }
 
-  /* **********
+    /* **********
  *             @getPosInDim
  */
-   let getPosInDim = function (staceDim) {
+    let getPosInDim = function (staceDim) {
 		 let poses = getPosesInDim(staceDim)
 		 return poses[0]
-		 
 	 }
-	 
-  /* **********
+
+    /* **********
  *             @getPosInDim
  */
-   let getPosesInDim = function (staceDim) {
+    let getPosesInDim = function (staceDim) {
       if (0 && 1) console.log('m.stace.getLocsInDim staceDim', staceDim)
 
       let poses = null
 
       if (typeof staceDim === 'number') {
-				//
+        //
       } else if (typeof staceDim === 'object' && staceDim.pos !== undefined) { // staceDim pos
-
-				if (typeof staceDim.pos === 'number') { // number
-            poses = Array.of(staceDim.pos)
-
+        if (typeof staceDim.pos === 'number') { // number
+          poses = Array.of(staceDim.pos)
         } else if (Array.isArray(staceDim.pos)) {
-            let dist = staceDim.dist || 0 // distance to position
-            let fas = staceDim.fas || 0 // phase in positions
-            let c0 = staceDim.pos[0] // * staceDim.length / 100    // _e_
-            let c1 = staceDim.pos[1] // * staceDim.length / 100    // _e_
+          let dist = staceDim.dist || 0 // distance to position
+          let fas = staceDim.fas || 0 // phase in positions
+          let c0 = staceDim.pos[0] // * staceDim.length / 100    // _e_
+          let c1 = staceDim.pos[1] // * staceDim.length / 100    // _e_
 
-            let pos0 = Math.floor(c0) // first of positions array
-            let pos1 = Math.floor(c1) // last of positions array
+          let pos0 = Math.floor(c0) // first of positions array
+          let pos1 = Math.floor(c1) // last of positions array
 
-            if (pos0 <= pos1) {
-              poses = d3.range(pos0, pos1, step) // d3 create positional array
-            } else {
-              poses = d3.range(pos1, pos0, step) // d3 create positional array
-            }
-				}
-			}
-			return poses
-
-	}
-
+          if (pos0 <= pos1) {
+            poses = d3.range(pos0, pos1, step) // d3 create positional array
+          } else {
+            poses = d3.range(pos1, pos0, step) // d3 create positional array
+          }
+        }
+      }
+      return poses
+    }
 
     /* **********
  *             @getLocsInDim
@@ -145,7 +140,6 @@
       if (anigram !== undefined) stace = stace || anigram.payload.stace
 
       if (stace !== undefined && stace !== null) {
-				
         if (Array.isArray(stace)) { // stace :: [x,y,z]
           let location = []
           let val = stace // single location from stace array
@@ -168,12 +162,11 @@
           } else {
             console.log(' location format not supported')
           }
-					
         } else if (typeof stace === 'object') { 									// {'x':300, 'y':200}}
           let entries = Object.entries(stace)
           let locationsPerDim = []
 
-          for (let i = 0; i < entries.length; i++) {							
+          for (let i = 0; i < entries.length; i++) {
             let entry = entries[i]																			// ['x', 200]
             let k1 = entry[0]
             let v1 = entry[1]
@@ -185,25 +178,20 @@
                 let parentCoords = manitem.parentCoords(anigram) // parentCoords
                 let parentLocationsDimd = mlacer.unslide(parentCoords) // unslide
                 let parentLocationsDim = parentLocationsDimd[i]
-								
-								if (parentLocationsDim !== undefined) {
-									locationsPerDim[i] = getLocsInDim(v1, parentLocationsDim)
-								}
 
-                
+                if (parentLocationsDim !== undefined) {
+                  locationsPerDim[i] = getLocsInDim(v1, parentLocationsDim)
+                }
               }
             }
-						
-						
           }
-					if (locationsPerDim.length > 0) {
-						locations = mlacer.slide(locationsPerDim)									// [300, 200]
-						if (0 && 1) console.log('m.stace.getLocsInDim locations', locations)
-					}
+          if (locationsPerDim.length > 0) {
+            locations = mlacer.slide(locationsPerDim)									// [300, 200]
+            if (0 && 1) console.log('m.stace.getLocsInDim locations', locations)
+          }
         }
 
         if (locations.length === 0) locations = []
-				
       }	else {	// stace not defined take situs from parent
         let parentSitus = __mapper('xs').m('anitem').parentSitus(anigram)
         locations = Array.of(parentSitus)
@@ -266,9 +254,9 @@
   *         @enty
   */
     function enty () { return enty }
-		
+
     enty.getPosInDim = getPosInDim //  getPosInDim
-		
+
     enty.getLocus = getLocus //  location
     enty.getLocifion = getLocifion //  projection
     enty.getLocifier = getLocifier //  projector

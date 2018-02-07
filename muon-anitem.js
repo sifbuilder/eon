@@ -10,7 +10,7 @@
 
   let muonAnitem = function muonAnitem (__mapper = {}) {
     let f = __mapper('props')(),
-			mgeonode = __mapper('xs').m('geonode')
+      mgeonode = __mapper('xs').m('geonode')
 
     /***************************************
  *        @anitem
@@ -89,7 +89,7 @@
       let parent = __mapper('xs').m('store').findAnigramFromUid(parentuid)
 
       if (parent !== undefined) {
-				parent.payload.geonode = mgeonode.set(parent.payload.geonode) 
+        parent.payload.geonode = mgeonode.set(parent.payload.geonode)
         coords = parent.payload.geonode.geometry.coordinates
       }
 
@@ -117,7 +117,6 @@
   *   @enty
   */
     let enty = function (anima, t) {
-			
       let anigram = {}
       if (anima !== undefined) {
         if (t !== undefined) {
@@ -127,12 +126,11 @@
           anigram = __mapper('xs').m('snap')(anima, t)
         }
         if (anigram.payload === undefined) anigram.payload = {}
-				
-				anigram.geoform = f.v((anigram.geoform|| coreGeoform()), anigram)	// geoform
-				anigram.payload.conform = f.v(anigram.payload.conform, anigram)		// conform
-				anigram.payload.proform = f.v(anigram.payload.proform, anigram)		// proform
-				
-				
+
+        anigram.geoform = f.v((anigram.geoform || coreGeoform()), anigram)	// geoform
+        anigram.payload.conform = f.v(anigram.payload.conform, anigram)		// conform
+        anigram.payload.proform = f.v(anigram.payload.proform, anigram)		// proform
+
         setAnitem(anigram)
       }
       return enty

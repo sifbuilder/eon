@@ -11,11 +11,11 @@
 
   let muonAnimation = function muonAnimation (__mapper) {
     let f = __mapper('props')(),
-			mstore = 	__mapper('xs').m('store')
+      mstore = 	__mapper('xs').m('store')
 
     let state = {}
-			state.animas = [] // global animas
-		
+    state.animas = [] // global animas
+
     /*******************************************
      *
      *      @aniListener
@@ -39,7 +39,7 @@
       }
 
       if (state.animas.length > 0) if (0 && 1) console.log(' .................... m.animation animas ', state.animas.length)
-				
+
       /*******************************************
      *    @STOP
      */
@@ -65,7 +65,6 @@
 
       state.animas = f.a(__mapper('muonStore').animasLive())
 
-
       /*******************************************
      *    @GRAMM animas to anigrams
      */
@@ -74,11 +73,10 @@
         let anima = state.animas[i]
 
         let newAnigrams = []
-				newAnigrams = f.a(mstore.gramm(anima)) /* GRAMM */
-
+        newAnigrams = f.a(mstore.gramm(anima)) /* GRAMM */
       }
 
-			let anigrams = __mapper('xs').m('store').anigrams()
+      let anigrams = __mapper('xs').m('store').anigrams()
       if (0 && 1) console.log('m.animation anigrams', anigrams.length)
 
       /*******************************************

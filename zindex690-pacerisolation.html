@@ -71,7 +71,7 @@ let muonAlima = function (__mapper) {
 
     animas = []
 
-		let nbr = 10
+    let nbr = 10
     for (let i = 0; i < nbr; i++) {
       let ani = f.cloneObj(nat1) // clone of model anima
       ani.payload.ric.gid = 'nat'
@@ -80,7 +80,7 @@ let muonAlima = function (__mapper) {
 
       ani.payload.boform.cf = (i % 2) ? 777 : 333
       ani.payload.boform.cs = (i % 2) ? 777 : 333
-			
+
       let preani = mstore.getAnima(ani.payload.ric)
       if (preani) {
         ani = preani
@@ -329,10 +329,10 @@ let muonAlima = function (__mapper) {
   let gratilines21 = {
     'halo': 'geofold',
     'geoform': p => ({
-				type: 'Feature', 
-				geometry: {type: 'MultiLineString', coordinates: mgraticule.gedges(p.payload.graticule)}, 
-				properties: {}
-		}),
+      type: 'Feature',
+      geometry: {type: 'MultiLineString', coordinates: mgraticule.gedges(p.payload.graticule)},
+      properties: {}
+    }),
     'payload': {
       'tim': tim,
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},
@@ -377,7 +377,7 @@ let muonAlima = function (__mapper) {
 
       return Array.of(field)
     }
-  }	
+  }
   /*******************************************
  *      @force_viscosity
  */
@@ -542,21 +542,20 @@ let muonAlima = function (__mapper) {
         if (node.y > edge) node.vy = -Math.abs(node.vy) // node.vy *= -1
         if (node.z < -edge) node.vz = Math.abs(node.vz) // node.vy *= -1
         if (node.z > edge) node.vz = -Math.abs(node.vz) // node.vy *= -1
-				
       }
     }
 
-    function initialize () { 
-			if (0 && 1) console.log("initialize", nodes.length)		
-			if (!nodes) return 
-		}
+    function initialize () {
+      if (0 && 1) console.log('initialize', nodes.length)
+      if (!nodes) return
+    }
 
     return force
   }
 
   let force_cube = {
     'properties': {
-      edge: 200,
+      edge: 200
     },
 
     'field': params => {
@@ -605,7 +604,7 @@ let muonAlima = function (__mapper) {
         strength: strength,
         radius: d => 9,
         filter: function (d) {
-          return d.payload.ric.gid === "nat"
+          return d.payload.ric.gid === 'nat'
         },
         src: d3_force,
         nodes: nodes
@@ -838,7 +837,7 @@ let muonAlima = function (__mapper) {
         'position': 200,
         'strength': d => attractionCtt,
         filter: d => d.payload.ric.gid === 'nat',
-					src: d3_force,
+        src: d3_force,
         'nodes': nodes
       }
 
@@ -855,14 +854,14 @@ let muonAlima = function (__mapper) {
   let force_center_orange = {
     properties: {
       attractionCtt: 0.0025,
-			center: {x: 100, y: 100, z: 100}
+      center: {x: 100, y: 100, z: 100}
     },
     field: function (params = {}) {
       let attractionCtt = params.properties.attractionCtt
       let center = params.properties.center
       let strength = attractionCtt
       let nodes = params.nodes
-	
+
       let forceParams = {
         'type': 'center',	// f.center
         'center': center,
@@ -871,21 +870,21 @@ let muonAlima = function (__mapper) {
         'src': d3_force,
         'nodes': nodes
       }
-      let force = {'key': 'center_orange', 'force': mforces(forceParams)} 
-			return Array.of( force )
+      let force = {'key': 'center_orange', 'force': mforces(forceParams)}
+      return Array.of(force)
     }
-  }	
+  }
   let force_center_gold = {
     properties: {
       attractionCtt: 0.0025,
-			center: {x: 200, y: 200, z: 200}
+      center: {x: 200, y: 200, z: 200}
     },
     field: function (params = {}) {
       let attractionCtt = params.properties.attractionCtt
       let center = params.properties.center
       let strength = attractionCtt
       let nodes = params.nodes
-	
+
       let forceParams = {
         'type': 'center',	// f.center
         'center': center,
@@ -894,10 +893,10 @@ let muonAlima = function (__mapper) {
         'src': d3_force,
         'nodes': nodes
       }
-      let force = {'key': 'center_golde', 'force': mforces(forceParams)} 
-			return Array.of( force )
+      let force = {'key': 'center_golde', 'force': mforces(forceParams)}
+      return Array.of(force)
     }
-  }		
+  }
   /*******************************************
  *        @animaApi
  *
@@ -915,7 +914,7 @@ let muonAlima = function (__mapper) {
     // force_Y,
     // force_Z,
     force_center_orange,
-    force_center_gold,
+    force_center_gold
   }
 
   let animas = [

@@ -15,7 +15,6 @@
    *    @clone : anigram
    */
     let clone = function (v) {
-
       if (v === null) return null // 00 _____ o
       else if (typeof (v) === 'number') return v // 02 _____ num
       else if (typeof (v) === 'string') return v // 03 _____ str

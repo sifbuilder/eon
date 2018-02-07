@@ -12,7 +12,6 @@
  *    @muonInit
  */
   let muonInit = function muonInit (__mapper = {}) {
-		
   /*******************************************
  *    @enty
  */

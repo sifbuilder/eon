@@ -1,4 +1,4 @@
-  /*******************************************
+/*******************************************
  *      @forcecenter
  */
 (function (global, factory) {
@@ -11,11 +11,10 @@
   var forcecenter = function forcecenter (__mapper = {}) {
     let props = __mapper('props')()
 
-		/***********
+    /***********
 		*		@force
 		*/
     let force = function (params) {
-			
       let x = params.center.x || 0
       let y = params.center.y || 0
       let z = params.center.z || 0
@@ -26,7 +25,6 @@
 
       return d3force
     }
-
 
     var enty = function enty () {}
     enty.force = force

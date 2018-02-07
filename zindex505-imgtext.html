@@ -21,9 +21,8 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1}) // INIT
 
   let mnat = __mapper('xs').m('nat'),
-		mgeom = __mapper('xs').m('geom'),
-		mfibonat = __mapper('xs').m('fibonat')
-
+    mgeom = __mapper('xs').m('geom'),
+    mfibonat = __mapper('xs').m('fibonat')
 
   /*******************************************
  *    @pics
@@ -120,67 +119,65 @@ let muonAlima = function muonAlima (__mapper) {
 
     }
   }
-	
- 
+
   // -------------------------------  nat
   let fibonat = {
 
     'halo': 'geofold',
 
     'geoform': p => {
-		
-			let coords = mfibonat.stream(p.payload.fibonat)
-			let gj = {
-				'type': 'Feature',
-				'geometry': {'type': 'LineString', 'coordinates': coords},
-				'properties': {}
-			}
-			
-			return gj
-		},
+      let coords = mfibonat.stream(p.payload.fibonat)
+      let gj = {
+        'type': 'Feature',
+        'geometry': {'type': 'LineString', 'coordinates': coords},
+        'properties': {}
+      }
+
+      return gj
+    },
 
     'payload': {
       'tim': tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'fibonat'},
 
-			fibonat: {
-				randomize: 0,
-				samples: 12,
-				dotsInSegment: 2
-			},
-			
+      fibonat: {
+        randomize: 0,
+        samples: 12,
+        dotsInSegment: 2
+      },
+
       'proform': {
         'projection': 'uniwen',
 
-        'translate': 
+        'translate':
 					[ [250, 200, 0],
-          [[[ {
-            'm1': 4,
-            'm2': 4,
-            'n1': 2,
-            'n2': 2,
-            'n3': 2,
-            'a': 4,
-            'b': 2, // circle
-            'ra2': 12,
-            'v0': 0,
-            'v1': 1,
-            'w4': 0,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
-            'fas8': 0
-          } ]]] ],
+					  [[[ {
+					    'm1': 4,
+					    'm2': 4,
+					    'n1': 2,
+					    'n2': 2,
+					    'n3': 2,
+					    'a': 4,
+					    'b': 2, // circle
+					    'ra2': 12,
+					    'v0': 0,
+					    'v1': 1,
+					    'w4': 0,
+					    'seg5': 360,
+					    'pa6': 0,
+					    'pb7': -1,
+					    'fas8': 0
+					  } ]]] ],
         'scale': 1.75,
-        'rotate': [ [[[0,90]]], [[[0,90]]], 0 ],
+        'rotate': [ [[[0, 90]]], [[[0, 90]]], 0 ],
         'lens': [0, 1, Infinity],
         'control': 'wen'
       },
 
       // geonode: {
-        // type: 'Feature',
-        // geometry: { type: 'Point', coordinates: [0, 0, 0] },
-        // properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      // type: 'Feature',
+      // geometry: { type: 'Point', coordinates: [0, 0, 0] },
+      // properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
       // },
 
       boform: { 'csx': 0, 'cf': [[[777, 777, 777]]], 'co': [[[0.2, 0.2]]], 'cs': [[[777, 888]]], 'cw': [[[0.2, 0.2]]], 'cp': [[[0.9, 0.9]]]},
@@ -190,129 +187,126 @@ let muonAlima = function muonAlima (__mapper) {
         'projection': 'natform',
         'form': {
 
-						'x': {
-							'm1': [[[4,4]]],
-							'm2': [[[4,4]]],
-							'n1': [[[2,2]]],
-							'n2': [[[2,2]]],
-							'n3': [[[2,2]]],
-							'a': [[[1,1]]],
-							'b': [[[1,1]]], // moon
-							'ra2': 100,
-							'v0': 0,
-							'v1': 1,
-							'seg5': [[[360, 360]]],
-							'w4': [[[0, 0 - 0 * 360]]],
-							'pa6': 0,
-							'pb7': -1,
-							'fas8': 0
-						},
+          'x': {
+            'm1': [[[4, 4]]],
+            'm2': [[[4, 4]]],
+            'n1': [[[2, 2]]],
+            'n2': [[[2, 2]]],
+            'n3': [[[2, 2]]],
+            'a': [[[1, 1]]],
+            'b': [[[1, 1]]], // moon
+            'ra2': 100,
+            'v0': 0,
+            'v1': 1,
+            'seg5': [[[360, 360]]],
+            'w4': [[[0, 0 - 0 * 360]]],
+            'pa6': 0,
+            'pb7': -1,
+            'fas8': 0
+          },
 
-						'y': {
-							'm1': [[[4,4]]],
-							'm2': [[[4,4]]],
-							'n1': [[[2,2]]],
-							'n2': [[[2,2]]],
-							'n3': [[[2,2]]],
-							'a': [[[1,1]]],
-							'b': [[[1,1]]], // moon
-							'ra2': 100,
-							'v0': 0,
-							'v1': 1,
-							'seg5': [[[360, 360]]],
-							'w4': [[[0, 0 - 0 * 360]]],
-							'pa6': 0,
-							'pb7': -1,
-							'fas8': -90
-						},
-						
-						'z': {
-							'm1': [[[4,4]]],
-							'm2': [[[4,4]]],
-							'n1': [[[2,2]]],
-							'n2': [[[2,2]]],
-							'n3': [[[2,2]]],
-							'a': [[[1,1]]],
-							'b': [[[0.95,0.98]]], // moon
-							'ra2': 100 ,
-							'v0': 0,
-							'v1': 1,
-							'seg5': [[[360, 360]]],
-							'w4': [[[0, 0 - 0 * 360]]],
-							'pa6': 0,
-							'pb7': -1,
-							'fas8': 0
-						}
+          'y': {
+            'm1': [[[4, 4]]],
+            'm2': [[[4, 4]]],
+            'n1': [[[2, 2]]],
+            'n2': [[[2, 2]]],
+            'n3': [[[2, 2]]],
+            'a': [[[1, 1]]],
+            'b': [[[1, 1]]], // moon
+            'ra2': 100,
+            'v0': 0,
+            'v1': 1,
+            'seg5': [[[360, 360]]],
+            'w4': [[[0, 0 - 0 * 360]]],
+            'pa6': 0,
+            'pb7': -1,
+            'fas8': -90
+          },
 
-					}
+          'z': {
+            'm1': [[[4, 4]]],
+            'm2': [[[4, 4]]],
+            'n1': [[[2, 2]]],
+            'n2': [[[2, 2]]],
+            'n3': [[[2, 2]]],
+            'a': [[[1, 1]]],
+            'b': [[[0.95, 0.98]]], // moon
+            'ra2': 100,
+            'v0': 0,
+            'v1': 1,
+            'seg5': [[[360, 360]]],
+            'w4': [[[0, 0 - 0 * 360]]],
+            'pa6': 0,
+            'pb7': -1,
+            'fas8': 0
+          }
 
-      },
+        }
+
+      }
 
     }
 
-  }	
-	
-	
+  }
+
   // -------------------------------  earthnat
   let earthnat = {
 
     'halo': 'geofold',
 
     'geoform': p => {
-		
-			
-						let gj = Object.assign({},
-							topojson.mesh(
-								__mapper('xs').d('worldTopo110m').data(),
-								__mapper('xs').d('worldTopo110m').data().objects.land
-							)
-						)
-			
-			return gj
-		},
+      let gj = Object.assign({},
+        topojson.mesh(
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
+        )
+      )
+
+      return gj
+    },
 
     'payload': {
       'tim': tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'earthnat'},
 
-			fibonat: {
-				randomize: 0,
-				samples: 12,
-				dotsInSegment: 2
-			},
-			
+      fibonat: {
+        randomize: 0,
+        samples: 12,
+        dotsInSegment: 2
+      },
+
       'proform': {
         'projection': 'uniwen',
 
-        'translate': 
+        'translate':
 					[ [250, 200, 0],
-          [[[ {
-            'm1': 4,
-            'm2': 4,
-            'n1': 2,
-            'n2': 2,
-            'n3': 2,
-            'a': 4,
-            'b': 2, // circle
-            'ra2': 12,
-            'v0': 0,
-            'v1': 1,
-            'w4': 0,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
-            'fas8': 0
-          } ]]] ],
+					  [[[ {
+					    'm1': 4,
+					    'm2': 4,
+					    'n1': 2,
+					    'n2': 2,
+					    'n3': 2,
+					    'a': 4,
+					    'b': 2, // circle
+					    'ra2': 12,
+					    'v0': 0,
+					    'v1': 1,
+					    'w4': 0,
+					    'seg5': 360,
+					    'pa6': 0,
+					    'pb7': -1,
+					    'fas8': 0
+					  } ]]] ],
         'scale': 1.75,
-        'rotate': [ [[[0,90]]], [[[0,90]]], 0 ],
+        'rotate': [ [[[0, 90]]], [[[0, 90]]], 0 ],
         'lens': [0, 1, Infinity],
         'control': 'wen'
       },
 
       // geonode: {
-        // type: 'Feature',
-        // geometry: { type: 'Point', coordinates: [0, 0, 0] },
-        // properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      // type: 'Feature',
+      // geometry: { type: 'Point', coordinates: [0, 0, 0] },
+      // properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
       // },
 
       boform: { 'csx': 0, 'cf': [[[777, 777, 777]]], 'co': [[[0.2, 0.2]]], 'cs': [[[777, 888]]], 'cw': [[[0.2, 0.2]]], 'cp': [[[0.9, 0.9]]]},
@@ -322,79 +316,79 @@ let muonAlima = function muonAlima (__mapper) {
         'projection': 'natform',
         'form': {
 
-						'x': {
-							'm1': [[[4,4]]],
-							'm2': [[[4,4]]],
-							'n1': [[[2,2]]],
-							'n2': [[[2,2]]],
-							'n3': [[[2,2]]],
-							'a': [[[1,1]]],
-							'b': [[[1,1]]], // moon
-							'ra2': 100,
-							'v0': 0,
-							'v1': 1,
-							'seg5': [[[360, 360]]],
-							'w4': [[[0, 0 - 0 * 360]]],
-							'pa6': 0,
-							'pb7': -1,
-							'fas8': 0
-						},
+          'x': {
+            'm1': [[[4, 4]]],
+            'm2': [[[4, 4]]],
+            'n1': [[[2, 2]]],
+            'n2': [[[2, 2]]],
+            'n3': [[[2, 2]]],
+            'a': [[[1, 1]]],
+            'b': [[[1, 1]]], // moon
+            'ra2': 100,
+            'v0': 0,
+            'v1': 1,
+            'seg5': [[[360, 360]]],
+            'w4': [[[0, 0 - 0 * 360]]],
+            'pa6': 0,
+            'pb7': -1,
+            'fas8': 0
+          },
 
-						'y': {
-							'm1': [[[4,4]]],
-							'm2': [[[4,4]]],
-							'n1': [[[2,2]]],
-							'n2': [[[2,2]]],
-							'n3': [[[2,2]]],
-							'a': [[[1,1]]],
-							'b': [[[1,1]]], // moon
-							'ra2': 100,
-							'v0': 0,
-							'v1': 1,
-							'seg5': [[[360, 360]]],
-							'w4': [[[0, 0 - 0 * 360]]],
-							'pa6': 0,
-							'pb7': -1,
-							'fas8': -90
-						},
-						
-						'z': {
-							'm1': [[[4,4]]],
-							'm2': [[[4,4]]],
-							'n1': [[[2,2]]],
-							'n2': [[[2,2]]],
-							'n3': [[[2,2]]],
-							'a': [[[1,1]]],
-							'b': [[[0.95,0.98]]], // moon
-							'ra2': 100 ,
-							'v0': 0,
-							'v1': 1,
-							'seg5': [[[360, 360]]],
-							'w4': [[[0, 0 - 0 * 360]]],
-							'pa6': 0,
-							'pb7': -1,
-							'fas8': 0
-						}
+          'y': {
+            'm1': [[[4, 4]]],
+            'm2': [[[4, 4]]],
+            'n1': [[[2, 2]]],
+            'n2': [[[2, 2]]],
+            'n3': [[[2, 2]]],
+            'a': [[[1, 1]]],
+            'b': [[[1, 1]]], // moon
+            'ra2': 100,
+            'v0': 0,
+            'v1': 1,
+            'seg5': [[[360, 360]]],
+            'w4': [[[0, 0 - 0 * 360]]],
+            'pa6': 0,
+            'pb7': -1,
+            'fas8': -90
+          },
 
-					}
+          'z': {
+            'm1': [[[4, 4]]],
+            'm2': [[[4, 4]]],
+            'n1': [[[2, 2]]],
+            'n2': [[[2, 2]]],
+            'n3': [[[2, 2]]],
+            'a': [[[1, 1]]],
+            'b': [[[0.95, 0.98]]], // moon
+            'ra2': 100,
+            'v0': 0,
+            'v1': 1,
+            'seg5': [[[360, 360]]],
+            'w4': [[[0, 0 - 0 * 360]]],
+            'pa6': 0,
+            'pb7': -1,
+            'fas8': 0
+          }
 
-      },
+        }
+
+      }
 
     }
 
-  }	
+  }
   /*******************************************
  * @animaApi
  *
  */
- 
+
   let animas = [
 
     img, // h.img
     text, // h.text
 
     fibonat, // h.geofold
-    earthnat, // h.geofold
+    earthnat // h.geofold
 
   ]
 

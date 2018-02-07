@@ -48,7 +48,7 @@ let muonAlima = function muonAlima (__mapper) {
       'seg5': 360,
       'pa6': 0,
       'pb7': -1,
-      'fas8': 0,
+      'fas8': 0
     },
     'y': {
       'm1': 4,
@@ -65,7 +65,7 @@ let muonAlima = function muonAlima (__mapper) {
       'seg5': 360,
       'pa6': 0,
       'pb7': -1,
-      'fas8': -90,
+      'fas8': -90
     },
     'z': {
       'm1': 4,
@@ -75,14 +75,14 @@ let muonAlima = function muonAlima (__mapper) {
       'n3': 100,
       'a': 1,
       'b': 1, // square
-      'ra2': 250 / Math.sqrt(2) ,
+      'ra2': 250 / Math.sqrt(2),
       'v0': 0,
       'v1': 1,
       'w4': 0,
       'seg5': 360,
       'pa6': 0,
       'pb7': -1,
-      'fas8': 0,
+      'fas8': 0
     }
 
   }
@@ -97,11 +97,11 @@ let muonAlima = function muonAlima (__mapper) {
 
   let graticule = {
 
-				'lattice': [ [180, 90 ],				// X	major minor	21 22
-											[90, 90 ] ]				// Y	major minor
+    'lattice': [ [180, 90 ],				// X	major minor	21 22
+      [90, 90 ] ]				// Y	major minor
 
-			}
-			
+  }
+
   let conform = {
 
     'projection': 'natform',
@@ -112,15 +112,15 @@ let muonAlima = function muonAlima (__mapper) {
 
     'projection': 'uniwen',
     'translate': stace,
-		'lens': [0, 1, Infinity],
-				// 'dims': 3,
-				'control': 'wen'
+    'lens': [0, 1, Infinity],
+    // 'dims': 3,
+    'control': 'wen'
   }
 
   // -------------------------------  earth
   let earth = {
 
-    'halo':'geofold',
+    'halo': 'geofold',
 
     'geoform': () => {
       let gjls = Object.assign({},
@@ -144,17 +144,16 @@ let muonAlima = function muonAlima (__mapper) {
     }
   }
 
-
   // -------------------------------  threegrat
   let threegrat = {
 
-    'halo':'geofold',
+    'halo': 'geofold',
 
     'geoform': p => {
       let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
       return {
         type: 'Feature',
-        geometry: {type: 'MultiLineString',coordinates: gedges},
+        geometry: {type: 'MultiLineString', coordinates: gedges},
         properties: {}
       }
     },
@@ -165,15 +164,15 @@ let muonAlima = function muonAlima (__mapper) {
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.3, 'co': [[[0.3, 0.3, 0.3]]], 'cp': [[[0.3, 0.3, 0.3]]]},
 
       'conform': conform,
-			
+
 			 proform: proform,
-			
+
       'graticule': {
 
-				'lattice': [ [180, 45 ],
-											[90, 30 ] ]
+        'lattice': [ [180, 45 ],
+          [90, 30 ] ]
 
-			},
+      }
 
     }
 
@@ -227,7 +226,7 @@ let muonAlima = function muonAlima (__mapper) {
   let animas = [
     threegrat, // h.geofold g.natform
     earth, // h.geofold g.natform
-    img, // h.img
+    img // h.img
   ]
 
   let animaApi = function animaApi () {

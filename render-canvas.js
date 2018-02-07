@@ -2,12 +2,13 @@
  *    @renderCanvas
  */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.renderCanvas = global.renderCanvas || {})));
-}(this, function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.renderCanvas = global.renderCanvas || {})))
+}(this, function (exports) {
+  'use strict'
 
-let renderCanvas = function (__mapper = {}) {
+  let renderCanvas = function (__mapper = {}) {
     let state = {}
     let radians = Math.PI / 180
 
@@ -16,35 +17,31 @@ let renderCanvas = function (__mapper = {}) {
     state.height = r.height()
 
     let canvas = null
-        canvas =
+    canvas =
           d3.select('.viewframe')
             .append('canvas')
-              .attr("id", "canvas")
-              .attr("class", "canvas")
-              .attr('width', state.width)
-              .attr('height', state.height)
-              .style("position", "absolute")
-              .style("top", 0)
-              .style("left", 0)
-              .style("border", "1px solid lightgray")
-              .style("position", "absolute; top:0px; left:0px; z-index:1")
-              .attr("pointer-events", "none")
-              .attr("overflow", "visible")
+            .attr('id', 'canvas')
+            .attr('class', 'canvas')
+            .attr('width', state.width)
+            .attr('height', state.height)
+            .style('position', 'absolute')
+            .style('top', 0)
+            .style('left', 0)
+            .style('border', '1px solid lightgray')
+            .style('position', 'absolute; top:0px; left:0px; z-index:1')
+            .attr('pointer-events', 'none')
+            .attr('overflow', 'visible')
 
-
-
-  /* render */
+    /* render */
     let render = function (elapsed, featurecollection, maxlimit) {
-
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
             d.properties.ric !== undefined // req ric
         )
 
-      let canvas = d3.select(".canvas")
-      let context = canvas.node().getContext("2d")
-
+      let canvas = d3.select('.canvas')
+      let context = canvas.node().getContext('2d')
 
       /* clean canvas */
       context.clearRect(0, 0, width, height)
@@ -64,14 +61,11 @@ let renderCanvas = function (__mapper = {}) {
           let fitems = citems[j].values // fitems
           let now = fitems.slice(-1)[0]
 
-
-         /*  ................. GEOJSON FEATURE ................. */
+          /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
             .filter(d => d.properties.sort === 'feature' || d.properties.sort === undefined) // default
 
           if (features.length > 0) {
-
-
             for (let k in features) { // DOTS (seg5===0) each group gid
               let item = features[k] // feature
 
@@ -81,38 +75,27 @@ let renderCanvas = function (__mapper = {}) {
               let geometry = feature.geometry // rings in MultiPolygon, MultiLineString
 
               if (geometry.type === 'LineString') {
+                let coordinates = Array.of(geometry.coordinates)
 
+                let fillStyle = feature.properties.style.fill
+                let strokeStyle = feature.properties.style.stroke
+                let lineWidth = feature.properties.style['stroke-width']
 
-                  let coordinates = Array.of(geometry.coordinates)
-
-
-                    let fillStyle = feature.properties.style.fill
-                    let strokeStyle = feature.properties.style.stroke
-                    let lineWidth = feature.properties.style['stroke-width']
-
-                    context.beginPath()
-                    let now = performance.now()
-                    path(coordinates)
-                    context.lineWidth = lineWidth
-                    context.strokeStyle = strokeStyle
-                    context.stroke()
-                    context.fillStyle = fillStyle
-                    context.fill()
-                    context.closePath()
-
-
-                }
+                context.beginPath()
+                let now = performance.now()
+                path(coordinates)
+                context.lineWidth = lineWidth
+                context.strokeStyle = strokeStyle
+                context.stroke()
+                context.fillStyle = fillStyle
+                context.fill()
+                context.closePath()
               }
             }
-
-
-
-
-					
+          }
         } // citems
       } // gitems
-
-  } // render
+    } // render
 
     /***************************
  *        @enty
@@ -120,9 +103,7 @@ let renderCanvas = function (__mapper = {}) {
     let enty = function enty () {}
     enty.render = render
     return enty
+  }
 
-}
-
-exports.renderCanvas = renderCanvas
-
-}));
+  exports.renderCanvas = renderCanvas
+}))

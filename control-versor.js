@@ -10,21 +10,20 @@
   'use strict'
 
   let controlVersor = function (__mapper = {}) {
-		
     let mversor = __mapper('xs').m('versor')(),
-				mgeom = __mapper('xs').m('geom')
-				
+      mgeom = __mapper('xs').m('geom')
+
     let drag = d3.drag()
 
     let state = {
-			projection: d3.geoOrthographic(),
-			rotation: [0, 0, 0],
-			v0: null, // Mouse cartesian position invprojected
-			r0: null, // Projection rotation as Euler angles at start
-			q0: null, // Quaternion. Projection rotation 
-			p0: null, // Mouse position (polar)
-			dtc: null, // Distance initial dot to center untransformed
-		}
+      projection: d3.geoOrthographic(),
+      rotation: [0, 0, 0],
+      v0: null, // Mouse cartesian position invprojected
+      r0: null, // Projection rotation as Euler angles at start
+      q0: null, // Quaternion. Projection rotation
+      p0: null, // Mouse position (polar)
+      dtc: null // Distance initial dot to center untransformed
+    }
     // inside
     function inside (p) {
       let pt0 = p
@@ -83,9 +82,9 @@
         }
       }
     }
-		
-		// dragended  listener
-		let dragended = function () {}
+
+    // dragended  listener
+    let dragended = function () {}
 
     /*******************************************
    *    @enty

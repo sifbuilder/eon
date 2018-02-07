@@ -2,197 +2,168 @@
  *        @muonStats
  */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.muonStats = global.muonStats || {})));
-}(this, function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.muonStats = global.muonStats || {})))
+}(this, function (exports) {
+  'use strict'
 
-/**
+  /**
  * 		@author mrdoob / http://mrdoob.com/
  *		https://github.com/mrdoob/stats.js/
  */
 
-/*******************************************
+  /*******************************************
  * 		@muonStats
- */		
-var muonStats = function muonStats(__mapper = {}) {
+ */
+  var muonStats = function muonStats (__mapper = {}) {
+    let props = __mapper('props')()
+    let local = {}
 
-	let props = __mapper("props")()
-	let local = {}
+    let width = __mapper('renderRenderer').width()
+    let height = __mapper('renderRenderer').height()
 
-	let width = __mapper("renderRenderer").width()
-	let height = __mapper("renderRenderer").height()	
+    var enty = function () {
+      var mode = 0
 
-	
-	var enty = function () {
+      var container = document.createElement('div')
+      container.style.cssText = 'position:fixed;top:0;left:0;cursor:pointer;opacity:0.9;z-index:10000'
+      container.addEventListener('click', function (event) {
+        event.preventDefault()
+        showPanel(++mode % container.children.length)
+      }, false)
 
-		var mode = 0;
+      //
 
-		var container = document.createElement( 'div' );
-		container.style.cssText = 'position:fixed;top:0;left:0;cursor:pointer;opacity:0.9;z-index:10000';
-		container.addEventListener( 'click', function ( event ) {
+      function addPanel (panel) {
+        container.appendChild(panel.dom)
+        return panel
+      }
 
-			event.preventDefault();
-			showPanel( ++ mode % container.children.length );
+      function showPanel (id) {
+        for (var i = 0; i < container.children.length; i++) {
+          container.children[ i ].style.display = i === id ? 'block' : 'none'
+        }
 
-		}, false );
+        mode = id
+      }
 
-		//
+      //
 
-		function addPanel( panel ) {
+      var beginTime = (performance || Date).now(), prevTime = beginTime, frames = 0
 
-			container.appendChild( panel.dom );
-			return panel;
+      var fpsPanel = addPanel(new enty.Panel('FPS', '#0ff', '#002'))
+      var msPanel = addPanel(new enty.Panel('MS', '#0f0', '#020'))
 
-		}
+      if (self.performance && self.performance.memory) {
+        var memPanel = addPanel(new enty.Panel('MB', '#f08', '#201'))
+      }
 
-		function showPanel( id ) {
+      showPanel(0)
 
-			for ( var i = 0; i < container.children.length; i ++ ) {
+      return {
 
-				container.children[ i ].style.display = i === id ? 'block' : 'none';
+        REVISION: 16,
 
-			}
+        dom: container,
 
-			mode = id;
+        addPanel: addPanel,
+        showPanel: showPanel,
 
-		}
+        begin: function () {
+          beginTime = (performance || Date).now()
+        },
 
-		//
+        end: function () {
+          frames++
 
-		var beginTime = ( performance || Date ).now(), prevTime = beginTime, frames = 0;
+          var time = (performance || Date).now()
 
-		var fpsPanel = addPanel( new enty.Panel( 'FPS', '#0ff', '#002' ) );
-		var msPanel = addPanel( new enty.Panel( 'MS', '#0f0', '#020' ) );
+          msPanel.update(time - beginTime, 200)
 
-		if ( self.performance && self.performance.memory ) {
+          if (time >= prevTime + 1000) {
+            fpsPanel.update((frames * 1000) / (time - prevTime), 100)
 
-			var memPanel = addPanel( new enty.Panel( 'MB', '#f08', '#201' ) );
+            prevTime = time
+            frames = 0
 
-		}
+            if (memPanel) {
+              var memory = performance.memory
+              memPanel.update(memory.usedJSHeapSize / 1048576, memory.jsHeapSizeLimit / 1048576)
+            }
+          }
 
-		showPanel( 0 );
+          return time
+        },
 
-		return {
+        update: function () {
+          beginTime = this.end()
+        },
 
-			REVISION: 16,
+        // Backwards Compatibility
 
-			dom: container,
+        domElement: container,
+        setMode: showPanel
 
-			addPanel: addPanel,
-			showPanel: showPanel,
+      }
+    }
 
-			begin: function () {
+    enty.Panel = function (name, fg, bg) {
+      var min = Infinity, max = 0, round = Math.round
+      var PR = round(window.devicePixelRatio || 1)
 
-				beginTime = ( performance || Date ).now();
+      var WIDTH = 80 * PR, HEIGHT = 48 * PR,
+        TEXT_X = 3 * PR, TEXT_Y = 2 * PR,
+        GRAPH_X = 3 * PR, GRAPH_Y = 15 * PR,
+        GRAPH_WIDTH = 74 * PR, GRAPH_HEIGHT = 30 * PR
 
-			},
+      var canvas = document.createElement('canvas')
+      canvas.width = WIDTH
+      canvas.height = HEIGHT
+      canvas.style.cssText = 'width:80px;height:48px'
 
-			end: function () {
+      var context = canvas.getContext('2d')
+      context.font = 'bold ' + (9 * PR) + 'px Helvetica,Arial,sans-serif'
+      context.textBaseline = 'top'
 
-				frames ++;
+      context.fillStyle = bg
+      context.fillRect(0, 0, WIDTH, HEIGHT)
 
-				var time = ( performance || Date ).now();
+      context.fillStyle = fg
+      context.fillText(name, TEXT_X, TEXT_Y)
+      context.fillRect(GRAPH_X, GRAPH_Y, GRAPH_WIDTH, GRAPH_HEIGHT)
 
-				msPanel.update( time - beginTime, 200 );
+      context.fillStyle = bg
+      context.globalAlpha = 0.9
+      context.fillRect(GRAPH_X, GRAPH_Y, GRAPH_WIDTH, GRAPH_HEIGHT)
 
-				if ( time >= prevTime + 1000 ) {
+      return {
 
-					fpsPanel.update( ( frames * 1000 ) / ( time - prevTime ), 100 );
+        dom: canvas,
 
-					prevTime = time;
-					frames = 0;
+        update: function (value, maxValue) {
+          min = Math.min(min, value)
+          max = Math.max(max, value)
 
-					if ( memPanel ) {
+          context.fillStyle = bg
+          context.globalAlpha = 1
+          context.fillRect(0, 0, WIDTH, GRAPH_Y)
+          context.fillStyle = fg
+          context.fillText(round(value) + ' ' + name + ' (' + round(min) + '-' + round(max) + ')', TEXT_X, TEXT_Y)
 
-						var memory = performance.memory;
-						memPanel.update( memory.usedJSHeapSize / 1048576, memory.jsHeapSizeLimit / 1048576 );
+          context.drawImage(canvas, GRAPH_X + PR, GRAPH_Y, GRAPH_WIDTH - PR, GRAPH_HEIGHT, GRAPH_X, GRAPH_Y, GRAPH_WIDTH - PR, GRAPH_HEIGHT)
 
-					}
+          context.fillRect(GRAPH_X + GRAPH_WIDTH - PR, GRAPH_Y, PR, GRAPH_HEIGHT)
 
-				}
+          context.fillStyle = bg
+          context.globalAlpha = 0.9
+          context.fillRect(GRAPH_X + GRAPH_WIDTH - PR, GRAPH_Y, PR, round((1 - (value / maxValue)) * GRAPH_HEIGHT))
+        }
 
-				return time;
+      }
+    }
+    return enty
+  }
 
-			},
-
-			update: function () {
-
-				beginTime = this.end();
-
-			},
-
-			// Backwards Compatibility
-
-			domElement: container,
-			setMode: showPanel
-
-		};
-
-	};
-
-	enty.Panel = function ( name, fg, bg ) {
-
-		var min = Infinity, max = 0, round = Math.round;
-		var PR = round( window.devicePixelRatio || 1 );
-
-		var WIDTH = 80 * PR, HEIGHT = 48 * PR,
-				TEXT_X = 3 * PR, TEXT_Y = 2 * PR,
-				GRAPH_X = 3 * PR, GRAPH_Y = 15 * PR,
-				GRAPH_WIDTH = 74 * PR, GRAPH_HEIGHT = 30 * PR;
-
-		var canvas = document.createElement( 'canvas' );
-		canvas.width = WIDTH;
-		canvas.height = HEIGHT;
-		canvas.style.cssText = 'width:80px;height:48px';
-
-		var context = canvas.getContext( '2d' );
-		context.font = 'bold ' + ( 9 * PR ) + 'px Helvetica,Arial,sans-serif';
-		context.textBaseline = 'top';
-
-		context.fillStyle = bg;
-		context.fillRect( 0, 0, WIDTH, HEIGHT );
-
-		context.fillStyle = fg;
-		context.fillText( name, TEXT_X, TEXT_Y );
-		context.fillRect( GRAPH_X, GRAPH_Y, GRAPH_WIDTH, GRAPH_HEIGHT );
-
-		context.fillStyle = bg;
-		context.globalAlpha = 0.9;
-		context.fillRect( GRAPH_X, GRAPH_Y, GRAPH_WIDTH, GRAPH_HEIGHT );
-
-		return {
-
-			dom: canvas,
-
-			update: function ( value, maxValue ) {
-
-				min = Math.min( min, value );
-				max = Math.max( max, value );
-
-				context.fillStyle = bg;
-				context.globalAlpha = 1;
-				context.fillRect( 0, 0, WIDTH, GRAPH_Y );
-				context.fillStyle = fg;
-				context.fillText( round( value ) + ' ' + name + ' (' + round( min ) + '-' + round( max ) + ')', TEXT_X, TEXT_Y );
-
-				context.drawImage( canvas, GRAPH_X + PR, GRAPH_Y, GRAPH_WIDTH - PR, GRAPH_HEIGHT, GRAPH_X, GRAPH_Y, GRAPH_WIDTH - PR, GRAPH_HEIGHT );
-
-				context.fillRect( GRAPH_X + GRAPH_WIDTH - PR, GRAPH_Y, PR, GRAPH_HEIGHT );
-
-				context.fillStyle = bg;
-				context.globalAlpha = 0.9;
-				context.fillRect( GRAPH_X + GRAPH_WIDTH - PR, GRAPH_Y, PR, round( ( 1 - ( value / maxValue ) ) * GRAPH_HEIGHT ) );
-
-			}
-
-		};
-
-	};
-	return enty
-}
-	
-	
-exports.muonStats = muonStats
-
-}));
+  exports.muonStats = muonStats
+}))

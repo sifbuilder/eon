@@ -22,9 +22,9 @@ let muonAlima = function (__mapper) {
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 0, webgl: 1, key: 1}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
-		mliner = __mapper('xs').m('liner'),
-		manitem = __mapper('xs').m('anitem'),
-		mnat = __mapper('xs').m('nat')
+    mliner = __mapper('xs').m('liner'),
+    manitem = __mapper('xs').m('anitem'),
+    mnat = __mapper('xs').m('nat')
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
@@ -100,11 +100,11 @@ let muonAlima = function (__mapper) {
 
         fider: anitem => anitem.payload.ric.fid,
 
-        geojsor: (d,i) => ({
-							type: 'Feature',
-							geometry: {type: 'LineString', coordinates: null},
-							properties: {}
-				})				 
+        geojsor: (d, i) => ({
+          type: 'Feature',
+          geometry: {type: 'LineString', coordinates: null},
+          properties: {}
+        })
       }
     }
 
@@ -115,7 +115,6 @@ let muonAlima = function (__mapper) {
  *
  */
   let prehalo = function (anima) {
-		
     let anigram = manitem(anima).anigram()
 
     let rotate = mliner.orientate(anigram).rotate()
@@ -126,7 +125,7 @@ let muonAlima = function (__mapper) {
   }
 
   let haloAvajson_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-	
+
   let haloAvajson_gramm = anima => __mapper('xs').h('nat').gramm(prehalo(anima))
 
   let haloAvajson = {}
@@ -155,7 +154,7 @@ let muonAlima = function (__mapper) {
         },
         'scale': 1,
         'rotate': [0, 0, 0],
-        'lens': [0, 1,Infinity],
+        'lens': [0, 1, Infinity],
         'dims': 3,
         'control': 'wen'
       },

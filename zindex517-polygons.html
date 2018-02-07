@@ -51,7 +51,7 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let idPolygon = {
 
-    'halo':'geofold',
+    'halo': 'geofold',
 
     'geoform': (p) => {
       let payload = p.payload
@@ -72,17 +72,15 @@ let muonAlima = function muonAlima (__mapper) {
 
       let feature = {type: 'Feature', geometry: {}, properties: {}}
       let _ric = {gid: ric.gid, cid: ric.cid, fid: 'orange'}
-			feature.properties.ric = _ric
-			
+      feature.properties.ric = _ric
+
       feature.properties.sort = 'feature'
       feature.geometry = geometry
       feature.properties.boform = boform
 
-
       let gj = {type: 'FeatureCollection', features: []}
       gj.features.push(feature)
       return gj
-			
     },
 
     payload: {
@@ -106,7 +104,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
   let wenPolygon = {
 
-    'halo':'geofold',
+    'halo': 'geofold',
 
     'geoform': (p) => {
       let payload = p.payload
@@ -136,26 +134,25 @@ let muonAlima = function muonAlima (__mapper) {
       let gj = {type: 'FeatureCollection', features: []}
       gj.features.push(feature)
       return gj
-			
     },
-		payload: {
-			'tim': tim,
-			'ric': {'gid': 'wenPolygon', 'cid': 'wenPolygon', 'fid': 'wenPolygon'},
-			'boform': {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'wenPolygon', 'cid': 'wenPolygon', 'fid': 'wenPolygon'},
+      'boform': {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
-			'proform': {
+      'proform': {
 
-				'projection': 'uniwen',
-				'translate': [ 400, 200],
-				'scale': 100,
-				'rotate': [0, 0, 0],
-				'focale': Infinity,
-				'zafin': [0, 1],
-				'lens': [0, 1, Infinity],
-				'dims': 3,
-				'control': 'wen'
-			}
-		}
+        'projection': 'uniwen',
+        'translate': [ 400, 200],
+        'scale': 100,
+        'rotate': [0, 0, 0],
+        'focale': Infinity,
+        'zafin': [0, 1],
+        'lens': [0, 1, Infinity],
+        'dims': 3,
+        'control': 'wen'
+      }
+    }
 
   }
 

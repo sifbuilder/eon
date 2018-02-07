@@ -83,11 +83,10 @@ let muonAlima = function (__mapper) {
         'rotate': [0, 0, 0],
         'focale': Infinity,
         'zafin': [0, 1],
-        'lens': [0, 1,Infinity],
+        'lens': [0, 1, Infinity],
         'dims': 3,
         'control': 'wen'
       },
-
 
       geonode: {
         type: 'Feature',
@@ -117,11 +116,11 @@ let muonAlima = function (__mapper) {
         eventSitus: d => ({x: mmouse.event().x, y: mmouse.event().y, z: 0 }),
         autoSitus: d => mstace.getLocus(d),
 
-        geojsor: (d,i) => ({
-							type: 'Feature', 
-							geometry: {type: 'Point', coordinates: null},
-							properties: {}
-				})
+        geojsor: (d, i) => ({
+          type: 'Feature',
+          geometry: {type: 'Point', coordinates: null},
+          properties: {}
+        })
 
       }
 

@@ -17,20 +17,19 @@
       width = r.width(),
       height = r.height()
 
-
     /****************************
    *    @gramm
    */
     let gramm = function (anima, newAnigrams = []) {
-
-      let anigram = manitem(anima).anigram()           // anigram
+      let anigram = manitem(anima).anigram() // anigram
 
       anigram.halo = 'geofold' // halo
       anigram.geoform = p => {
-					let geonat = mnat.natPolygon(p.payload.form)
-					return {'type':'Feature',
-							'geometry': geonat,
-							'properties': {}}}
+        let geonat = mnat.natPolygon(p.payload.form)
+        return {'type': 'Feature',
+          'geometry': geonat,
+          'properties': {}}
+      }
 
       newAnigrams = __mapper('xs').h('geofold').gramm(anigram)
 

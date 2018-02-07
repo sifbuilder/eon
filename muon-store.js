@@ -13,7 +13,7 @@
 
   let muonStore = function muonStore (__mapper) {
     let f = __mapper('props')()
-		
+
     let state = {}
     state.animas = [] // animas array
     state.aniset = {} // animas by uid
@@ -86,7 +86,7 @@
       let halo = (anigram.halo !== undefined && typeof anigram.halo === 'object')
         ? anigram.halo // halo in anima
         : __mapper('xs').h(anigram.halo) // halo in store
-			if (halo === null) console.log("halo ", anigram.halo, " not found")
+      if (halo === null) console.log('halo ', anigram.halo, ' not found')
       let weened = halo.ween(anima) // ANIMA HALO.WEEN
       weened.forEach(d => { // qualify each ween
         d.payload.uid = __mapper('xs').m('ric').buildUID(d) // uid for children
@@ -96,7 +96,7 @@
       return newItems
     }
 
-  /* **************************
+    /* **************************
  *        @gramm
  */
     let gramm = function (anima, newItems = []) {
@@ -111,41 +111,38 @@
       let halo																		// anigram halo
 
       if (anima && (elapsed && elapsed >= wait)) { // if anima in time
-        if (anigram.halo !== undefined && 
+        if (anigram.halo !== undefined &&
 					(typeof anigram.halo === 'function' || typeof anigram.halo === 'object')) {
           halo = anigram.halo // halo in anima
-				} else {
-					halo = __mapper('xs').h(anigram.halo) // or halo in store
-				}
+        } else {
+          halo = __mapper('xs').h(anigram.halo) // or halo in store
+        }
 
         if (!halo) console.log('halo ', halo, ' not defined')
-					
-				else newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
 
-        if (newAnigrams !== null && newAnigrams.length>0) {
+        else newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
+
+        if (newAnigrams !== null && newAnigrams.length > 0) {
           __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newAnigrams})
           newItems = newItems.concat(f.a(newAnigrams))
         } // else console.log('halo ', halo, ' returns no anigram')
-				
       }
-
 
       if (newItems !== undefined && newItems.length > 0) { // check if avatars in NEW animas
         for (let i = 0; i < newItems.length; i++) {
           let newItem = newItems[i] // each new item
-					
-					if (0 && 1) console.log("m.store.gramm:newItem", newItem)	
+
+          if (0 && 1) console.log('m.store.gramm:newItem', newItem)
 
           if (newItem.payload.avatars !== undefined && newItem.payload.avatars !== null) { // AVATARS
             let avatars = (typeof newItem.payload.avatars === 'object') ? Object.values(newItem.payload.avatars) : newItem.payload.avatars
             for (let j = 0; j < avatars.length; j++) {
               let newSubItems = []
               let avatar = avatars[j]
-							
+
               avatar.payload.uid = __mapper('xs').m('ric').buildUID(avatar) // uid for children
               avatar.payload.tim = anigram.payload.tim // time from anima
               avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
-
 
               newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
               __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newSubItems})
