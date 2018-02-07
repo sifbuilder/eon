@@ -18,7 +18,6 @@
       rotate = [0, 0, 0],
       translate = [0, 0, 0],
       lens = [0, 1, Infinity],
-      dims = 3
 
 
 		// 		pointStream

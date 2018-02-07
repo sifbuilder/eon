@@ -37,16 +37,11 @@
   let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   let proformCube = {
-      'projections': ['uniwen', 'unidentity', 'identity', 'universor', 'unimercator'],
-      'projectidx': 0,
+      'projection': 'uniwen',
       'translate': [ [[[320, 320]]], 200],
       'scale': 60,
       'rotate': [-5, 50, 0],
-      'focale': 4,
-      'zafin': [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]] ], // [0,1], // [1,0]
-      'lens': [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 4 ], // [0,1], // [1,0]
-      'dims': 3,
-      'control': 'wen'
+      'lens': [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 4 ],
   }
 
   let graticule = {
