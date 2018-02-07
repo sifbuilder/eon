@@ -98,8 +98,8 @@
         if (0 && 1)	console.log('m.liner preAnigram ', preAnigram)
 
         if (preAnigram.geoform && preAnigram.payload.preani) {		// two points to set direction
-          let _c = preAnigram.geoform.properties.geonode.geometry.coordinates
-          let __c = preAnigram.payload.preani.geoform.properties.geonode.geometry.coordinates
+          let _c = preAnigram.payload.geonode.geometry.coordinates
+          let __c = preAnigram.payload.preani.payload.geonode.geometry.coordinates
 
           let refCoordsDims = mlacer.unslide(refCoords)
 

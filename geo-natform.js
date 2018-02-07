@@ -17,7 +17,7 @@
       scale = [1, 1, 1],
       rotate = [0, 0, 0],
       translate = [0, 0, 0],
-      lens = [0, 1, Infinity],
+      lens = [0, 1, Infinity]
 
 
 		// 		pointStream
