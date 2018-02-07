@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+/*******************************************
+ *      @alima
+ *
+ */
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, wen: 1, versor: 1, img: 0, webgl: 1}) // INIT
+
+  let f = __mapper({'props': muonProps.muonProps()}).props() // props
+  let g = __mapper('xs').m('geom')
+
+  /*******************************************
+ *    @port
+ *
+ */
+  let r = __mapper('xs').r('renderer'),
+    width = r.width(),
+    height = r.height()
+
+  /*******************************************
+ *    @pics
+ */
+  let tim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let form = {
+
+    'x': {
+
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+
+      'ra2': 162,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': 0
+    },
+    'y': {
+
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+
+      'ra2': 162,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': -90
+    },
+    'z': {
+      'm1': [[[3, 3]]],
+      'm2': [[[3, 3]]],
+      'n1': 1,
+      'n2': 1,
+      'n3': 1,
+      'a': 1,
+      'b': 1, // tri
+
+      'ra2': 30,
+      'v0': 0,
+      'v1': 1,
+      'w4': 0,
+      'seg5': 360,
+      'pa6': 0,
+      'pb7': -1,
+      'fas8': 0
+    }
+  }
+
+  let stace = {
+    'x': 0,
+    'y': 0,
+    'z': 0
+  }
+
+  let graticule = {
+
+    'frame': [ [ [-180, 180, 45, 45],
+      [-90, 90, 22.5, 22.5] ],
+    [	[-180, 180, 45, 45],
+      [-90, 90, 22.5, 22.5] ] ]
+
+  }
+
+  let proform = {
+
+    'projection': 'futuri',
+    'scale': 30,
+    'rotate': [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
+    'translate': [ 300, 200 ],
+
+    'faciaRotation': [[[Math.PI / 1, Math.PI / 1]]],
+
+    'control': 'versor'
+
+  }
+
+  let payload = {
+
+    'scale': 1,
+    'rotate': [28, -4, 0],
+    'tree': [-1, 4, 5, 2, 0, 1], //   [-1, 0, 0  , 0, 0, 4 ], //
+    'faciaRotation': Math.PI / 4,
+    'vertices': [
+      [-1, -1, 1], // 0  // 0
+      [ 1, -1, 1], // 1  // 1
+      [ 1, 1, 1], // 2  // 2
+      [-1, 1, 1], // 3  // 3
+      [-1, -1, -1], // 5  // 4
+      [ 1, -1, -1], // 4  // 5
+      [ 1, 1, -1], // 7  // 6
+      [-1, 1, -1] // 6  // 7
+    ],
+    'polyhedron': [
+      [1, 0, 3, 2, 1], // N
+      [1, 2, 6, 5, 1],
+      [2, 3, 7, 6, 2],
+      [3, 0, 4, 7, 3],
+      [0, 1, 5, 4, 0],
+      [5, 6, 7, 4, 5] // S
+    ],
+    'graticule': {
+
+      'frame': [ [ [-180, 180, 45, 45],
+        [-90, 90, 22.5, 22.5] ],
+      [	[-180, 180, 45, 45],
+        [-90, 90, 22.5, 22.5] ] ]
+
+    }
+
+  }
+  /*******************************************
+ *      @animas
+ *
+ */
+  // -------------------------------  geoline
+  let geoline = {
+
+    'halo': 'geofold',
+
+    'geoform': [[[ () => ({
+      'type': 'LineString',
+      'coordinates': [
+        [-90, 0],
+        [90, [[[0, 0]]] ]
+      ]
+    }) ]]],
+
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'geoform', 'cid': 'geoform', 'fid': 'geoline'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+
+      'proform': proform
+    }
+
+  }
+  // -------------------------------  geopoint
+  let geopoint = {
+
+    'halo': 'geofold',
+
+    'geoform': () => ({
+      'type': 'Point',
+      'coordinates': [0, 90]
+    }),
+
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'geoform', 'cid': 'geoform', 'fid': 'geopoint'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      'proform': proform
+    }
+
+  }
+  // -------------------------------  geograt
+  let geograt = {
+
+    'halo': 'geofold',
+    'geoform': (anitem) => {
+      let payload = anitem.payload
+      let graticule = payload.graticule
+
+      let grarr = __mapper('xs').m('graticule').grarr(graticule)
+      let mersCoords = grarr.mms.coordinates
+      let parsCoords = grarr.pps.coordinates
+      let coords = [].concat(mersCoords).concat(parsCoords)
+      let json = {
+        type: 'Feature',
+        geometry: {
+          type: 'MultiLineString',
+          coordinates: coords
+        },
+        properties: {}
+      }
+      return json
+    },
+
+    'payload': {
+
+      'tim': tim,
+      'ric': {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
+      'boform': { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.49, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
+
+      'proform': proform,
+
+      'graticule': {
+
+        'frame': [ [ [-180, 180, 45, 45],
+          [-90, 90, 22.5, 22.5] ],
+        [	[-180, 180, 45, 45],
+          [-90, 90, 22.5, 22.5] ] ]
+
+      }
+
+    }
+
+  }
+
+  // -------------------------------  geoearth
+  let geoearth = {
+
+    'halo': 'geofold',
+
+    'geoform': () => {
+      let geo = Object.assign({},
+        topojson.feature(
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
+        )
+      )
+      geo = __mapper('xs').m('geoj').trim(geo)
+      return geo
+    },
+
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
+      'boform': { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+
+      'proform': proform
+    }
+  }
+  // -------------------------------  geoform
+  let geoform = {
+
+    'halo': 'geofold',
+
+    'geoform': ani => ({
+      'type': 'Polygon',
+      'coordinates': [ [
+        [0 + 0, 0 + 0],
+        [0 + 0, 0 + 60],
+        [0 + 60, 0 + 60],
+        [0 + 60, 0 + 0],
+        [0 + 0, 0 + 0 ]
+      ] ],
+      'properties': {}
+    }),
+
+    payload: {
+
+      'tim': tim,
+      'ric': {'gid': 'geoform', 'cid': 'geoform', 'fid': 'geoform'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      'proform': proform
+    }
+
+  }
+
+  // -------------------------------  geosphere
+  let geosphere = {
+
+    'halo': 'geofold',
+
+    'geoform': {
+      type: 'Feature',
+      geometry: {
+        type: 'Sphere'
+      },
+      properties: {}
+    },
+
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'geosphere', 'cid': 'geosphere', 'fid': 'geosphere'},
+      'boform': { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
+
+      'proform': proform
+    }
+
+  }
+
+  /*******************************************
+ * @animaApi
+ *
+ */
+  let animas = [
+    geograt, // h.geograt g.futuri
+    geoearth, // h.geofold g.futuri
+    geosphere, // h.geofold g.futuri
+    geoform, // h.geofold g.futuri
+    geoline, // h.geofold g.futuri
+    geopoint // h.geofold g.futuri
+  ]
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

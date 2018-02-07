@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 1, wen: 1, webgl: 1, key: 1}) // INIT
+
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+    mgeom = __mapper('xs').m('geom'),
+    mwen = __mapper('xs').m('wen'),
+    mnat = __mapper('xs').m('nat'),
+    rrenderer = __mapper('xs').r('renderer'),
+    mliner = __mapper('xs').m('liner')
+
+  let width = rrenderer.width(),
+    height = rrenderer.height()
+
+  /*******************************************
+ *      @pics
+ *
+ */
+
+  let tim = {'td': 22800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+  /* ******************************************
+ *      @natform
+ *
+ */
+  let natform = {
+
+    'halo': 'geofold',
+
+    'geoform': p => ({
+      'type': 'Feature',
+      'geometry': mnat.natPolygon(p.payload.form),
+			'properties':{}
+    }),
+
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
+      'boform': { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
+
+      'proform': {
+        'projection': 'uniwen',
+        'translate': [200, 150, 0],
+        'scale': 1,
+        'rotate': [0, 0, 0],
+        'lens': [0, 1, Infinity],
+      },
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      },
+
+      'form': {
+
+        'x': {
+          'm1': 4,
+          'm2': 4,
+          'n1': 2,
+          'n2': 2,
+          'n3': 2,
+          'a': 1,
+          'b': 2, // ellipse
+          'ra2': 120,
+          'v0': 0,
+          'v1': 1,
+          'seg5': [[[360, 360]]],
+          'w4': [[[90, 90 - 0 * 360]]],
+          'pa6': 0,
+          'pb7': 360,
+          'fas8': 0
+        },
+
+        'y': {
+          'm1': 4,
+          'm2': 4,
+          'n1': 2,
+          'n2': 2,
+          'n3': 2,
+          'a': 1,
+          'b': 2, // ellipse
+          'ra2': 120,
+          'v0': 0,
+          'v1': 1,
+          'seg5': [[[360, 360]]],
+          'w4': [[[90, 90 - 0 * 360]]],
+          'pa6': 0,
+          'pb7': 360,
+          'fas8': -90
+        }
+
+      }
+    }
+
+  }
+
+  /* ******************************************
+ *      @avaform
+ *
+ */
+  let avaform = {
+
+    'halo': 'geofold',
+
+    'geoform': p => {
+      let rotate = mliner.orientate(p).rotate()
+			    p.payload.form.x.w4 += rotate
+      p.payload.form.y.w4 += rotate
+      let nat = {
+        'type': 'Feature',
+        'geometry': __mapper('xs').m('nat').natPolygon(p.payload.form),
+        'id': null,
+        'properties': {
+
+          geonode: {
+            type: 'Feature',
+            geometry: { type: 'Point', coordinates: [0, 0, 0] },
+            properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+          }
+
+        }
+      }
+      return nat
+    },
+
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'avaform'},
+
+      'boform': { 'csx': 0, 'cf': [[[666, 555]]], 'co': [[[0.999, 0.999]]], 'cs': [[[666, 555]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.999, 0.999]]]},
+
+      'proform': {
+        'projection': 'uniwen',
+        'translate': {
+          'x':
+									{
+									  'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]]
+									},
+          'y':
+									{
+									  'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]]
+									},
+          'z': 0
+        },
+        'scale': 1,
+        'rotate': [0, 0, 0],
+        'lens': [0, 1, Infinity],
+      },
+
+      'form': {
+
+        'x': {
+          'm1': -7.66,
+          'm2': -3.73,
+          'n1': 16.24,
+          'n2': 5.98,
+          'n3': 17,
+          'a': 8.98,
+          'b': 0.19,
+          'ra2': [[[48, 122]]],
+          'v0': 0,
+          'v1': 1,
+          'w4': [[[90, 90 - 0 * 360]]],
+          'seg5': 360,
+          'pa6': 0,
+          'pb7': -1,
+          'fas8': -90
+        },
+        'y': {
+          'm1': -7.66,
+          'm2': -3.73,
+          'n1': 16.24,
+          'n2': 5.98,
+          'n3': 17,
+          'a': 8.98,
+          'b': 0.19,
+          'ra2': [[[48, 122]]],
+          'v0': 0,
+          'v1': 1,
+          'w4': [[[90, 90 - 0 * 360]]],
+          'seg5': 360,
+          'pa6': 0,
+          'pb7': -1,
+          'fas8': 0
+        }
+
+      }
+
+    }
+
+  }
+  // ------------------------- img
+  let img = {
+
+    halo: 'img',
+
+    geoform: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }
+
+  /*******************************************
+ *      @animaApi
+ *
+ */
+  natform.payload.avatars = {
+    avaform // haloavaform.haloavaform.geojson
+  }
+
+  let animas = [
+
+    natform, // h.nat
+    img 		// h.img
+
+  ]
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

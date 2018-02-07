@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 0, webgl: 1, key: 1}) // INIT
+
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+    mgeom = __mapper('xs').m('geom'),
+    mwen = __mapper('xs').m('wen'),
+    mmouse = __mapper('xs').m('mouse')
+
+  let r = __mapper('xs').r('renderer'),
+    width = r.width(),
+    height = r.height()
+
+  if (__mapper('controlKey') !== undefined) {
+    let controltimerLeftArrowAlt = () => { // LEFT ARROW
+      if (__mapper('muonAnimation').animationStop !== undefined) {
+        console.log('controltimerLeftArrowAlt')
+        if (__mapper('controlTimer').started()) {
+          __mapper('controlTimer').stop()
+        } else {
+          __mapper('controlTimer').resume()
+        }
+      }
+    }
+    __mapper('controlKey').subscribe(controltimerLeftArrowAlt, 'leftArrowAlt')
+  }
+
+  if (__mapper('controlKey') !== undefined) {
+    let controltimerUpArrowAlt = () => { // UP ARROW
+      console.log('controltimerUpArrowAlt')
+      __mapper('controlWen').control(__mapper('renderSvg').svg()) // SVG WEN
+    }
+    __mapper('controlKey').subscribe(controltimerUpArrowAlt, 'upArrowAlt')
+  }
+
+  /*******************************************
+ *    	@pics
+ *
+ */
+
+  let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+  /*******************************************
+ *    	@animas
+ *
+ */
+  // -------------------------------  lineform
+  let lineform = {
+
+    'halo': 'pacer',
+    'payload': {
+
+      'tim': tim,
+      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'lineform'},
+      'boform': { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
+
+      'proform': {
+        'projection': 'uniwen',
+        'translate': [0, 0, 0],
+        'scale': 1,
+        'rotate': [0, 0, 0],
+        'lens': [0, 1, Infinity],
+      },
+
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      },
+
+      pacer: {
+        'initN': 0,
+        'eventN': 1,
+        'autoN': 0,
+        'autoP': 0.1,
+        'outed': 0,
+        'maxN': 60,
+        'span': 15 / 1400,
+				 aad: 1,
+
+        autoSitus: d => mstace.getLocus(null, d),
+
+        fider: anitem => anitem.payload.ric.fid,
+
+        geojsor: (d, i) => ({
+          type: 'Feature',
+          geometry: {type: 'LineString', coordinates: null},
+          properties: {}
+        })
+
+      }
+    }
+
+  }
+
+  /*******************************************
+ * @animaApi
+ *
+ */
+
+  let animas = [
+
+    lineform // h.pacer
+
+  ]
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

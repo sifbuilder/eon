@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 0, webgl: 1, key: 1}) // INIT
+
+  let f = __mapper({'props': muonProps.muonProps()}).props()
+  let mgeom = __mapper('xs').m('geom')
+  let mwen = __mapper('xs').m('wen')
+  let mmouse = __mapper('xs').m('mouse')
+
+  let r = __mapper('xs').r('renderer'),
+    width = r.width(),
+    height = r.height()
+
+  if (__mapper('controlKey') !== undefined) {
+    let controltimerLeftArrowAlt = () => { // LEFT ARROW
+      if (__mapper('muonAnimation').animationStop !== undefined) {
+        console.log('controltimerLeftArrowAlt')
+        if (__mapper('controlTimer').started()) {
+          __mapper('controlTimer').stop()
+        } else {
+          __mapper('controlTimer').resume()
+        }
+      }
+    }
+    __mapper('controlKey').subscribe(controltimerLeftArrowAlt, 'leftArrowAlt')
+  }
+
+  if (__mapper('controlKey') !== undefined) {
+    let controltimerUpArrowAlt = () => { // UP ARROW
+      console.log('controltimerUpArrowAlt')
+      __mapper('controlWen').control(__mapper('renderSvg').svg()) // SVG WEN
+    }
+    __mapper('controlKey').subscribe(controltimerUpArrowAlt, 'upArrowAlt')
+  }
+
+  /*******************************************
+ *    	@pics
+ *
+ */
+
+  let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+  /*******************************************
+ *    	@animas
+ *
+ */
+
+  // -------------------------------  pointform
+  let pointform = {
+
+    'halo': 'pacer',
+
+    'payload': {
+
+      'tim': tim,
+      'ric': {'gid': 'pacer', 'cid': 'pacer', 'fid': 'pacer'},
+      'boform': { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
+
+      'proform': {
+        'projection': 'uniwen',
+        'transpose': [ 0, 0, 0],
+        'translate': {'x': 0, 'y': 0, 'z': 0 },
+        'scale': 1,
+        'rotate': [0, 0, 0],
+        'lens': [0, 1, Infinity],
+      },
+
+      geonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0]
+        },
+        properties: {
+          orgen: [0, 0, 0],
+          velin: [0, 0, 0],
+          velang: [0, 0, 0],
+          prevous: [0, 0, 0],
+          geodelta: [0, 0, 0]
+        }
+      },
+
+      pacer: {
+        'initN': 0,
+        'eventN': 1,
+        'autoN': 0,
+        'autoP': 0.1,
+        'outed': 0,
+        'maxN': 60,
+        'span': 15 / 1400,
+
+        initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
+        eventSitus: d => ({x: mmouse.event().x, y: mmouse.event().y, z: 0 }),
+        autoSitus: d => mstace.getLocus(d),
+
+        geojsor: (d, i) => ({
+          type: 'Feature',
+          geometry: {type: 'Point', coordinates: null},
+          properties: {}
+        })
+
+      }
+
+    }
+
+  }
+
+  /*******************************************
+ * 			@forces
+ *
+ */
+	 // force_energy
+  let force_energy = {							// aniForce
+    'properties': {
+      alpha: 1,
+      alphaMin: 0.001,
+      alphaDecay: 0,
+      alphaTarget: 0
+    },
+
+    'field': function field (params = {}) {
+      let nodes = params.nodes
+      let aniCompForces = []
+
+      let forceParams = {
+        'type': 'energy',
+        'filter': d => true,
+        'src': d3_force,
+        'nodes': nodes
+      }
+
+      let field = 	{
+        'key': 'energy',
+        'force': __mapper('xs').m('forces')(forceParams)
+
+      }
+
+      aniCompForces.push(field)
+      return aniCompForces
+    }
+  }
+  // force_viscosity
+  let force_viscosity = {
+    'properties': {
+      velocityDecay: 0.0002
+    },
+
+    'field': function (params = {}) {	// field.field
+      let nodes = params.nodes					// nodes
+
+      let aniCompForces = []
+
+      let forceParams = {
+        'type': 'noforce',
+        'filter': d => true,
+        'src': d3_force,
+        'nodes': nodes
+      }
+
+      let field = 	{
+        'key': 'viscosity',
+        'force': __mapper('xs').m('forces')(forceParams)
+      }
+
+      aniCompForces.push(field)
+
+      return aniCompForces
+    }
+  }
+  // force_manybody
+  let force_manybody = {											// aniForce
+    'properties': {
+      'charge': -1.9
+    },
+
+    'field': params => {
+      let nodes = params.nodes
+      let aniCompForces = []
+
+      let charge = params.properties.charge
+
+      let forceParams = {
+        type: 'manybody',
+        strength: charge,
+        filter: d => d.payload.ric.gid === 'nat',
+        dim: 2,
+        src: d3_force,		// d3
+        nodes: nodes
+      }
+
+      let field = 	{
+        'key': 'charge',
+        'force': __mapper('xs').m('forces')(forceParams)
+      }
+      aniCompForces.push(field)
+      return aniCompForces
+    }
+  }
+  /*******************************************
+ * 			@forceGravity
+ */
+  let forceGravity = function forceGravity (params) {
+    let nodes = params.nodes
+    let newNodes = []
+
+    let gravity = params.gravity
+
+    function force () {													// builtin d3force (vs muon d3force)
+      for (let i = 0; i < nodes.length; ++i) {
+        let node = nodes[i]
+        node.vy += gravity		// node.vx += 0.001 * Math.random()
+      }
+    }
+
+    function initialize () {
+      if (!nodes) return
+    }
+
+    return force
+  }
+
+  let force_gravity = {													// aniForce
+    'properties': {
+      gravity: 3.1
+    },
+
+    'field': function field (params = {}) {			// force.field
+      let nodes = params.nodes
+      let aniCompForces = []
+
+      let gravity = params.properties.gravity		// params.properties
+
+      let forceParams = {
+        type: 'gravity',
+        gravity: gravity,
+        filter: d => d.payload.ric.gid === 'nat',
+        dim: 2,
+        src: d3_force,
+        nodes: nodes
+      }
+
+      let field = 	{
+        'key': 'gravity',
+        'force': forceGravity(forceParams)
+      }
+      aniCompForces.push(field)
+      return aniCompForces
+    }
+  }
+
+  /*******************************************
+ * @animaApi
+ *
+ */
+  pointform.payload.forces = {
+    force_gravity,
+    force_energy,
+    force_viscosity,
+    force_manybody
+  }
+
+  let animas = [
+    pointform // h.pointer
+
+  ]
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

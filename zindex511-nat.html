@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, img: 0, key: 1, gui: 0, fps: 0, stats: 0}) // INIT
+
+  let renderer = __mapper('renderRenderer'),
+    width = renderer.width(),
+    height = renderer.height(),
+    scaleView = Math.min(width / 2, height) / Math.PI
+
+  let mnat = __mapper('xs').m('nat')
+
+  /*******************************************
+ *      @pics
+ */
+  let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let formCirc = {
+
+    'x': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 2,
+      'n2': 2,
+      'n3': 2,
+      'a': 1,
+      'b': 1, // circle
+      'ra2': 100,
+      'v0': 0,
+      'v1': 1,
+      'seg5': [[[360, 360]]],
+      'w4': [[[90, 90 - 0 * 360]]],
+      'pa6': 0,
+      'pb7': 360,
+      'fas8': 0
+    },
+
+    'y': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 2,
+      'n2': 2,
+      'n3': 2,
+      'a': 1,
+      'b': 1, // circle
+      'ra2': 100,
+      'v0': 0,
+      'v1': 1,
+      'seg5': [[[360, 360]]],
+      'w4': [[[90, 90 - 0 * 360]]],
+      'pa6': 0,
+      'pb7': 360,
+      'fas8': -90
+    }
+
+  }
+
+  let formNat = {
+
+    'x': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 100,
+      'v0': 0,
+      'v1': 1,
+      'seg5': [[[360, 360]]],
+      'w4': [[[90, 90 - 0 * 360]]],
+      'pa6': 0,
+      'pb7': 360,
+      'fas8': 0
+    },
+
+    'y': {
+      'm1': 4,
+      'm2': 4,
+      'n1': 100,
+      'n2': 100,
+      'n3': 100,
+      'a': 1,
+      'b': 1, // square
+      'ra2': 100,
+      'v0': 0,
+      'v1': 1,
+      'seg5': [[[360, 360]]],
+      'w4': [[[90, 90 - 0 * 360]]],
+      'pa6': 0,
+      'pb7': 360,
+      'fas8': -90
+    }
+
+  }
+
+  let stace = {
+    'm1': 4,
+    'm2': 4,
+    'n1': 2,
+    'n2': 2,
+    'n3': 2,
+    'a': 4,
+    'b': 2, // circle
+    'ra2': 90,
+    'v0': 0,
+    'v1': 1,
+    'w4': 0,
+    'seg5': 360,
+    'pa6': 0,
+    'pb7': -1,
+    'fas8': 0
+  }
+
+  let proform = {
+    'projection': 'uniwen',
+
+    'translate': [ [300, 200, 0], [[[ stace ]]] ],
+    'scale': 1,
+    'rotate': [ 0, 0 ],
+    'lens': [0, 1, Infinity],
+    'control': 'wen'
+  }
+  let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+
+  /*******************************************
+ *    @animas
+ *
+ */
+
+  // -------------------------------  img
+  let img = {
+
+    halo: 'img',
+
+    geoform: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }
+  // -------------------------------  text
+  let text = {
+
+    halo: 'text',
+
+    geoform: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [0, 0]
+
+      },
+      properties: {
+        sort: 'text',
+        text: p.payload.text.text,
+        style: {
+          'font-size': p.payload.text.style['font-size']
+        }
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
+      boform: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 230, 240 ]
+      },
+      text: {
+        text: 'e',
+        style: {
+          'font-size': 24,
+          'font-family': 'BankFuturistic',
+          'text-anchor': 'center'
+
+        }
+      }
+
+    }
+  }
+  // -------------------------------  nat
+  let nat = {
+
+    'halo': 'geofold',
+
+    'geoform': p => ({'type': 'Feature',
+      'geometry': mnat.natPolygon(p.payload.form),
+      'properties': {}
+    }),
+
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
+
+      'proform': proform,
+
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      },
+
+      'boform': { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+      form: formNat
+
+    }
+
+  }
+  // -------------------------------  circ
+  let circ = {
+
+    'halo': 'geofold',
+
+    'geoform': p => {
+      let ret = {
+        'type': 'Feature',
+        'geometry': mnat.natPolygon(p.payload.form),
+        'properties': {}
+      }
+      return ret
+    },
+
+    'payload': {
+      tim,
+
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'circ'},
+
+      proform,
+
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      },
+
+      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+      uid: null,
+      parentuid: null,
+      geofold: null,
+      avatars: null,
+      forces: null,
+      inited: 0,
+      gelded: 1,
+
+      form: formCirc
+    }
+  }
+
+  let animas = [
+    nat, // h.geofold g.uniwen
+    circ, // h.geofold g.uniwen
+    img, // h.img
+    text // h.text
+  ]
+
+  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

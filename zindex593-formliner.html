@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 0, webgl: 1, key: 1}) // INIT
+
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+    mliner = __mapper('xs').m('liner'),
+    manitem = __mapper('xs').m('anitem'),
+    mnat = __mapper('xs').m('nat')
+
+  let r = __mapper('xs').r('renderer'),
+    width = r.width(),
+    height = r.height()
+
+  let radians = Math.PI / 180,
+    degrees = 180 / Math.PI
+
+  if (__mapper('controlKey') !== undefined) {
+    let controltimerLeftArrowAlt = () => { // LEFT ARROW
+      if (__mapper('muonAnimation').animationStop !== undefined) {
+        console.log('controltimerLeftArrowAlt')
+        if (__mapper('controlTimer').started()) {
+          __mapper('controlTimer').stop()
+        } else {
+          __mapper('controlTimer').resume()
+        }
+      }
+    }
+    __mapper('controlKey').subscribe(controltimerLeftArrowAlt, 'leftArrowAlt')
+  }
+
+  if (__mapper('controlKey') !== undefined) {
+    let controltimerUpArrowAlt = () => { // UP ARROW
+      console.log('controltimerUpArrowAlt')
+      __mapper('controlWen').control(__mapper('renderSvg').svg()) // SVG WEN
+    }
+    __mapper('controlKey').subscribe(controltimerUpArrowAlt, 'upArrowAlt')
+  }
+
+  /*******************************************
+ *    @pics
+ *
+ */
+
+  let tim = {'td': 22800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+  /* ******************************************
+ *      @natform
+ *
+ */
+
+  // -------------------------------  lineform
+  let lineform = {
+
+    'halo': 'pacer',
+
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'lineform'},
+      'boform': { 'csx': 0, 'cf': [[[555, 999]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 999]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
+      'proform': {
+        'projection': 'uniwen',
+        'translate': [ 0, 0 ],
+        'scale': 1,
+        'rotate': [0, 0, 0],
+        'lens': [0, 1, Infinity],
+      },
+
+      pacer: {
+        'initN': 0,
+        'eventN': 1,
+        'autoN': 0,
+        'autoP': 0.1,
+        'outed': 0,
+        'maxN': 60,
+        'span': 15 / 1400,
+				 aad: 1,
+
+        autoSitus: d => mstace.getLocus(null, d),
+
+        fider: anitem => anitem.payload.ric.fid,
+
+        geojsor: (d, i) => ({
+          type: 'Feature',
+          geometry: {type: 'LineString', coordinates: null},
+          properties: {}
+        })
+      }
+    }
+
+  }
+
+  /* ******************************************
+ *      @avaform
+ *
+ */
+  let prehalo = function (anima) {
+    let anigram = manitem(anima).anigram()
+
+    let rotate = mliner.orientate(anigram).rotate()
+
+    anigram.payload.form.x.w4 += rotate
+    anigram.payload.form.y.w4 += rotate
+    return anigram
+  }
+
+  let haloAvajson_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+
+  let haloAvajson_gramm = anima => __mapper('xs').h('nat').gramm(prehalo(anima))
+
+  let haloAvajson = {}
+  haloAvajson.ween = anima => haloAvajson_ween(anima)
+  haloAvajson.gramm = anima => haloAvajson_gramm(anima)
+
+  // -------------------------------  avaform
+  let avaform = {
+
+    'halo': haloAvajson,
+
+    'geoform': null,
+
+    'payload': {
+      'tim': tim,
+      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'avaform'},
+      'boform': { 'csx': 0, 'cf': [[[333, 999]]], 'co': [[[0.999, 0.999]]], 'cs': [[[666, 555]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.999, 0.999]]]},
+
+      'proform': {
+        'projection': 'uniwen',
+        'center': [ 0, 0, 0],
+        'translate': {
+          'x': { 'pos': [[[ 0, 1 * 100]]] },
+          'y': { 'pos': [[[ 0, 1 * 100]]] },
+          'z': 0
+        },
+        'scale': 1,
+        'rotate': [0, 0, 0],
+        'lens': [0, 1, Infinity],
+      },
+
+      'form': { // rocket
+
+        'x': {
+          'm1': [[[-8, -4, -2, -7.66]]],
+          'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
+          'n1': [[[16.24, 16.24, 16.24, 16.24]]],
+          'n2': [[[6, 6, 6, 5.98]]],
+          'n3': [[[13, 15, 17, 17]]],
+          'a': [[[9, 9, 9, 8.98]]],
+          'b': [[[0.2, 0.2, 0.2, 0.19]]],
+          'ra2': 36,
+          'v0': 0,
+          'v1': 1,
+          'w4': [[[90, 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], //
+          'seg5': 360,
+          'pa6': 0,
+          'pb7': -1,
+          'fas8': -90
+        },
+        'y': {
+          'm1': [[[-8, -4, -2, -7.66]]],
+          'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
+          'n1': [[[16.24, 16.24, 16.24, 16.24]]],
+          'n2': [[[6, 6, 6, 5.98]]],
+          'n3': [[[13, 15, 17, 17]]],
+          'a': [[[9, 9, 9, 8.98]]],
+          'b': [[[0.2, 0.2, 0.2, 0.19]]],
+          'ra2': 36,
+          'v0': 0,
+          'v1': 1,
+          'w4': [[[90, 90 - 0 * 360]]], //  [[[60, 60 + 1 * 360]]], //
+          'seg5': 360,
+          'pa6': 0,
+          'pb7': -1,
+          'fas8': 0 // fas8, antifase
+        }
+
+      }
+
+    }
+
+  }
+
+  /*******************************************
+ *      @animaApi
+ *
+ */
+  lineform.payload.avatars = {
+
+    avaform // haloAvajson h.nat
+
+  }
+
+  let animas = [
+
+    lineform // h.liner
+
+  ]
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

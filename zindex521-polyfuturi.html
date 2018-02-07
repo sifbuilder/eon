@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+/*******************************************
+ *      @alima
+ *
+ */
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, wen: 1, versor: 1, img: 0, webgl: 1}) // INIT
+
+  /*******************************************
+ *    @pics
+ */
+  let tim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+  /*******************************************
+ *      @animas
+ *
+ */
+  // -------------------------------  geoearth
+  let geoearthSE = {
+
+    'halo': 'geofold',
+
+    'geoform': () => {
+      let geo = Object.assign({},
+        topojson.feature(
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
+        )
+      )
+      geo = __mapper('xs').m('geoj').trim(geo)
+      return geo
+    },
+
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthSE'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+
+      'proform': {
+
+        'projection': 'futuri',
+        'scale': 20,
+        'rotate': [ [[[0, -120]]], [[[0, -120]]], [[[0, -120]]] ],
+        'translate': [ 255, 250 ],
+
+        'faciaRotation': [[[Math.PI / 1, Math.PI / 1]]],
+
+        'control': 'versor'
+
+      }
+    }
+
+  }
+  // -------------------------------  geoearth
+  let geoearthSW = {
+
+    'halo': 'geofold',
+
+    'geoform': () => {
+      let geo = Object.assign({},
+        topojson.feature(
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
+        )
+      )
+      geo = __mapper('xs').m('geoj').trim(geo)
+      return geo
+    },
+
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthSW'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+
+      'proform': {
+
+        'projection': 'futuri',
+        'scale': 20,
+        'rotate': [ [[[0, -120]]], [[[0, -120]]], [[[0, -120]]] ],
+        'translate': [ 135, 250 ],
+
+        'faciaRotation': [[[Math.PI / 2, Math.PI / 2]]],
+
+        'control': 'versor'
+
+      }
+    }
+
+  }
+  // -------------------------------  geoearthNW
+  let geoearthNW = {
+
+    'halo': 'geofold',
+
+    'geoform': () => {
+      let geo = Object.assign({},
+        topojson.feature(
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
+        )
+      )
+      geo = __mapper('xs').m('geoj').trim(geo)
+      return geo
+    },
+
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthNW'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+
+      'proform': {
+
+        'projection': 'futuri',
+        'scale': 20,
+        'rotate': [ [[[0, -120]]], [[[0, -120]]], [[[0, -120]]] ],
+        'translate': [ 135, 130 ],
+
+        'faciaRotation': [[[Math.PI / 0.5, Math.PI / 0.5]]],
+
+        'control': 'versor'
+
+      }
+    }
+
+  }
+  // -------------------------------  geoearthNE
+  let geoearthNE = {
+
+    'halo': 'geofold',
+
+    'geoform': () => {
+      let geo = Object.assign({},
+        topojson.feature(
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
+        )
+      )
+      geo = __mapper('xs').m('geoj').trim(geo)
+      return geo
+    },
+
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthNE'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+
+      'proform': {
+
+        'projection': 'futuri',
+        'scale': 20,
+        'rotate': [ [[[0, -120]]], [[[0, -120]]], [[[0, -120]]] ],
+        'translate': [ 255, 130 ],
+
+        'faciaRotation': [[[Math.PI / 0.6666, Math.PI / 0.6666]]],
+
+        'control': 'versor'
+
+      }
+    }
+
+  }
+  // -------------------------------  img
+  let img = {
+
+    halo: 'img',
+
+    geoform: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }
+
+  /*******************************************
+ * @animaApi
+ *
+ */
+  let animas = [
+    geoearthSE, // h.geofold
+    geoearthSW, // h.geofold
+    geoearthNW, // h.geofold
+    geoearthNE, // h.geofold
+    img // h.img
+  ]
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>
