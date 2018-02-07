@@ -25,7 +25,7 @@
  *        if control:versor   versor rotation
  */
     let protion = function (prjdef) {
-			
+      if (0 && 1) console.log("m.profier.protion:prjdef", prjdef)
       let prj = guniwen(prjdef)
 
       if (prjdef !== undefined) {
@@ -42,28 +42,29 @@
         }
 
         if (prj.rotate !== undefined) {
+					
           let rot = (prjdef.rotate) ? prjdef.rotate : [0, 0, 0]
-          let controlRotation = mgeom.zerovector(rot)
-
-          if (controlRotation.length == 2) { // planar rotation
-            if (controlRotation[0] * controlRotation[1] !== 0) {
-              controlRotation = mwen.cross([controlRotation[0], 0, 0], [0, controlRotation[1], 0])
-            }
-          } else {
-						controlRotation[2] = 0
-					}
+					
+					let dims = rot.length		// planar or spherical geometry
+					if (rot.length == 2) rot[2] = 0
+					
 					
           let control
           if (prjdef.projection === 'uniwen' || prjdef.control === 'wen') control = cwen // WEN
           else control = cversor  // VERSOR
-					
-          controlRotation = control
+
+          let controlRotation = control
             .projection(prj) // tbd
             .rotation() // rotation from control wen
 
 
           rot = mgeom.add(rot, controlRotation)
 
+          if (dims == 2) { // planar rotation
+              rot = mwen.cross([rot[0], 0, 0], [0, rot[1], 0])
+          }
+					
+					
           prjdef.rotate = rot
         }
 

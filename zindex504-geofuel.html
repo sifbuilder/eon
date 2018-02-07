@@ -91,7 +91,7 @@ let muonAlima = function muonAlima (__mapper) {
       'n3': 1.2,
       'a': 1,
       'b': 1, // reaulaux
-      'ra2': 100,
+      'ra2': 60,
       'v0': 0,
       'v1': 1,
       'seg5': [[[360, 360]]],
@@ -111,7 +111,7 @@ let muonAlima = function muonAlima (__mapper) {
       'a': 1,
       'b': 1, // reaulaux
 
-      'ra2': 100,
+      'ra2': 60,
       'v0': 0,
       'v1': 1,
       'seg5': [[[360, 360]]],
@@ -142,14 +142,23 @@ let muonAlima = function muonAlima (__mapper) {
   }
 
   let proform = {
+		
     'projection': 'uniwen',
     'translate': [ [ 300, 200 ], [[[ stace ]]] ],
     'scale': 1,
-    'rotate': [ 0, 0, [[[0, 0]]] ],
-    'focale': 12,
-    'zafin': [0, 1],
-    'dims': 2,
-    'control': 'wen'
+    'rotate': [ 0, 0, 0 ],
+    'lens': [0, 1, Infinity],
+
+  }
+
+ let proformFlat = {
+	 
+    'projection': 'uniwen',
+    'translate': [ [ 400, 300 ], [[[ stace ]]] ],
+    'scale': 1,
+    'rotate': [ 0, 0 ],
+    'lens': [0, 1, Infinity],
+
   }
 
   let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
@@ -161,13 +170,25 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let nat = {
 
-    'halo': 'nat',
-    'payload': {
-      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
+    halo: 'nat',
+    payload: {
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
       tim,
       boform,
       proform,
-      form: form
+      form
+    }
+
+  }
+ let natFlat = {
+
+    halo: 'nat',
+    payload: {
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natFlat'},
+      tim,
+      boform,
+      proform: proformFlat,
+      form
     }
 
   }
@@ -178,10 +199,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     'geoform': p => ({
       'type': 'Feature',
-      'geometry': {
-        'type': 'Polygon',
-        'coordinates': mnat.natPolygon(p.payload.form)
-      },
+      'geometry': mnat.natPolygon(p.payload.form),
       'properties': {}
     }),
 
@@ -249,9 +267,13 @@ let muonAlima = function muonAlima (__mapper) {
   nat.payload.avatars = {
     fuelnat // h.fuel
   }
+  natFlat.payload.avatars = {
+    fuelnat // h.fuel
+  }
 
   let animas = [
     nat, // h.nat
+    natFlat, // h.nat
     img,       // h.img
   ]
 

@@ -13,8 +13,8 @@
       manitem = __mapper('xs').m('anitem'),
       mstore = __mapper('xs').m('store'),
       mquad = __mapper('xs').m('quad'),
-      hnat = __mapper('xs').h('nat'),
-      mgeom = __mapper('xs').m('geom')
+      mgeom = __mapper('xs').m('geom'),
+      mgeoj = __mapper('xs').m('geoj')
 
     let r = __mapper('xs').r('renderer'),
       width = r.width(),
@@ -26,17 +26,19 @@
     let gramm = function (anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram(),		// anigram
         hallo = 			anigram.halo, 						// halo
-        geoform = 		anigram.geoform, 					// geoform
-        payload = 		anigram.payload, 					// payload
+        geoform = 		anigram.geoform 					// geoform
+				
+      let payload = 	anigram.payload, 					// payload
         boform = 			payload.boform, 					// boform
         ric = 				payload.ric, 							// ric
         tim = 				payload.tim, 							// tim
         proform =			payload.proform, 					// proform
         conform = 		payload.conform, 					// conform
         uid = 				payload.uid, 							// uid
-        parentuid = 	payload.parentuid, 				// parentuid
-        json
+        parentuid = 	payload.parentuid 				// parentuid
 
+			if (1 && 1) console.log('h.fuel.haloFuel')
+	
       let fuel = payload.fuel,
         ra2 = fuel.ra2,
         candidates = fuel.candidates,
@@ -47,7 +49,8 @@
 
       if (parentAnigram) {
         // polygon = parentAnigram.payload.geofold.geometry.coordinates[0] 					// outer ring
-        polygon = parentAnigram.geoform.geometry.coordinates[0] 					// outer ring
+				let geometry = parentAnigram.geoform.geometry
+        polygon = mgeoj.getCoords(geometry) 					// outer ring
       } else {
         polygon = mgeom.extentPolygon([[0, 0], [width, height]]) // viewport
       }
@@ -76,7 +79,7 @@
           'projection': 'uniwen',
           'translate': remainCandies[i]			// translate each candy to candy location
         }
-        if (0 && 1) console.log('h.fuel.gramm _proform', i, _proform.translate)
+        if (1 && 1) console.log('h.fuel.gramm _proform', i, _proform.translate)
         let newAnigram = {}									// new anigram per fuel nat
         newAnigram.halo = 'fuel'
         newAnigram.geoform = geoform
@@ -84,7 +87,7 @@
         newAnigram.payload.ric = _ric						// identify each fuel nat
         newAnigram.payload.proform = _proform			// proform of each fuel nat
 
-        let avaAnigrams = hnat.gramm(newAnigram)
+        let avaAnigrams = __mapper('xs').h('nat').gramm(newAnigram)
         newAnigrams = [...newAnigrams, ...avaAnigrams]
       }
 
