@@ -208,11 +208,9 @@ let muonAlima = function (__mapper) {
       p.payload.form.x.w4 = rotate
       p.payload.form.y.w4 = rotate
 
-      let form = p.payload.form
-      let natcoords = mnat.natPolygon(form)
       let natgj = {
         'type': 'Feature',
-        'geometry': {'type': 'Polygon', 'coordinates': natcoords},
+        'geometry': mnat.natPolygon(p.payload.form),
         'properties': {}
       }
       return natgj
@@ -420,7 +418,7 @@ let muonAlima = function (__mapper) {
 
       let nat = {
         'type': 'Feature',
-        'geometry': {'type': 'Polygon', 'coordinates': mnat.natPolygon(p.payload.form)},
+        'geometry': mnat.natPolygon(p.payload.form),
         'properties': {}
       }
       return nat

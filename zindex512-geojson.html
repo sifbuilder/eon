@@ -92,10 +92,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     'geoform': p => ({
       'type': 'Feature',
-      'geometry': {
-        'type': 'Polygon',
-        'coordinates': __mapper('xs').m('nat').natPolygon(p.payload.form)
-      },
+      'geometry': __mapper('xs').m('nat').natPolygon(p.payload.form),
       'properties': {}
     }),
     'payload': {

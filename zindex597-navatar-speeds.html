@@ -48,11 +48,7 @@ let muonAlima = function (__mapper) {
 
     'geoform': p => ({
       'type': 'Feature',
-      'geometry': {
-        'type': 'Polygon',
-        'coordinates': mnat.natPolygon(p.payload.form),
-        'properties': {}
-      }
+      'geometry': mnat.natPolygon(p.payload.form)
     }),
 
     'payload': {
@@ -129,10 +125,7 @@ let muonAlima = function (__mapper) {
       p.payload.form.y.w4 += rotate
       let nat = {
         'type': 'Feature',
-        'geometry': {
-          'type': 'Polygon',
-          'coordinates': __mapper('xs').m('nat').natPolygon(p.payload.form)
-        },
+        'geometry': __mapper('xs').m('nat').natPolygon(p.payload.form),
         'id': null,
         'properties': {
 
@@ -228,10 +221,7 @@ let muonAlima = function (__mapper) {
       p.payload.form.y.w4 += rotate
       let nat = {
         'type': 'Feature',
-        'geometry': {
-          'type': 'Polygon',
-          'coordinates': __mapper('xs').m('nat').natPolygon(p.payload.form)
-        },
+        'geometry': __mapper('xs').m('nat').natPolygon(p.payload.form),
         'id': null,
         'properties': {
 
