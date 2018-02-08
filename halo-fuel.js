@@ -37,7 +37,7 @@
         uid = 				payload.uid, 							// uid
         parentuid = 	payload.parentuid 				// parentuid
 
-      if (0 && 1) console.log('h.fuel.haloFuel')
+      if (1 && 1) console.log('h.fuel.haloFuel')
 
       let fuel = payload.fuel,
         ra2 = fuel.ra2,
@@ -55,6 +55,8 @@
         polygon = mgeom.extentPolygon([[0, 0], [width, height]]) // viewport
       }
 
+            if (1 && 1) console.log("polygon", polygon)
+              
       let foundcandies = mquad.candysearch(ra2, polygon, candidates, sample) // candies
 
       let remainCandies = []

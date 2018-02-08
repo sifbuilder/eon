@@ -11,8 +11,8 @@
   let haloGeofold = function haloGeofold (__mapper = {}) {
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
-      mric = __mapper('xs').m(ric),
-      mboform = __mapper('xs').m(boform),
+      mric = __mapper('xs').m('ric'),
+      mboform = __mapper('xs').m('boform'),
       mgeoj = __mapper('xs').m('geoj'),
       mprofier = __mapper('xs').m('profier'),
       mstore = __mapper('xs').m('store'),

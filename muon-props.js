@@ -408,6 +408,29 @@
 
     props.debug = () => [].join.call(arguments, '\n')
 
+   /******************
+ *        reticule
+ */
+    props.reticule = function (ret = []) {
+      let retAng = ret[0]
+      let retRad = ret[1]
+
+      let ccs =
+        d3.range(retRad[0], retRad[1], retRad[2]) // range rad
+          .map(ro =>
+            d3.range(retAng[0], retAng[1] + epsilon, retAng[2]) // range ang - +epsilon
+              .map(t => [ro * Math.cos(t * Math.PI / 180), ro * Math.sin(t * Math.PI / 180)]))
+
+      let rrs =
+        d3.range(retAng[0], retAng[1], retAng[2])
+          .map(fi =>
+            d3.range(retRad[0], retRad[1], retRad[2])
+              .map(t => [t * Math.cos(fi * Math.PI / 180), t * Math.sin(fi * Math.PI / 180)]))
+
+      return { ccs, rrs }
+    }
+   
+    
     /***************************
    *        @enty
    */

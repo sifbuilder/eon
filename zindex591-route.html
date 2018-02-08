@@ -206,7 +206,8 @@ let muonAlima = function (__mapper) {
       p.payload.form.x.w4 = rotate
       p.payload.form.y.w4 = rotate
 
-      let natgj = mnat.natFeature(p.payload.form),
+      return mnat.natFeature(p.payload.form)
+    },
 
     payload: {
 

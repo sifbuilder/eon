@@ -13,8 +13,8 @@
 		    manitem = __mapper('xs').m('anitem'),
       mgeoj = __mapper('xs').m('geoj'),
       mprofier = __mapper('xs').m('profier'),
-      mboform = __mapper('xs').m(boform),
-      mric = __mapper('xs').m(ric),
+      mboform = __mapper('xs').m('boform'),
+      mric = __mapper('xs').m('ric'),
       mstace = __mapper('xs').m('stace')
 
     let _geoform = p => ({ // geoform

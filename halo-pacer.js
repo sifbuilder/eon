@@ -17,7 +17,7 @@
       cversor = __mapper('xs').c('versor'),
       mstace = __mapper('xs').m('stace'),
       manitem = __mapper('xs').m('anitem'),
-      mric = __mapper('xs').m(ric),
+      mric = __mapper('xs').m('ric'),
       mstore = __mapper('xs').m('store'),
       svg = __mapper('renderSvg').svg()
 

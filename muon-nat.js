@@ -301,7 +301,7 @@
                     [ [-180, 180, dx, dx], [-90, 90, dy, dy] ] // mm,mp
                   ]
           }
-        geo.coordinates = mgraticule.gedges(graticule)
+        geo.coordinates = [Array.of(mgraticule.gedges(graticule))
         let conform = {'projection': 'natform', 'form': formm}
         let projection = mprofier.protion(conform)
         let projer = json => mproj3ct(json, projection)

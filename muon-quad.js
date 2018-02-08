@@ -84,6 +84,9 @@
        *    rad: non overlap area
        */
     let candysearch = function (rad = 10, ring = null, candidates = 10, sample = 10, goal = 10) {
+      
+      if (1 && 1) console.log("candysearch")
+      
       let mols = []
       let extent = quad.extent()
       let frame = (ring) ? __mapper('xs').m('geom').polygonExtent(ring) : extent
