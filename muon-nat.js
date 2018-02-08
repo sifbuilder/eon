@@ -276,12 +276,12 @@
 
 
    /**********************
-     *    @natPolygon
-     *       coordinates = Array.of(__mapper("xs").m("nat").natPolygon(p.form))
+     *    @natFeature
+     *       coordinates = Array.of(__mapper("xs").m("nat").natFeature(p.form))
      */
-    let natPolygon = function (form) {
+    let natFeature = function (form) {
         let formm = nform(form)         // NFORM
-        let polygon = {'type': 'Feature','geometry': null,'properties': {}}
+        let feature = {'type': 'Feature','geometry': null,'properties': {}}
         
         let geo = {type: 'MultiLineString', coordinates: []}
         
@@ -307,12 +307,11 @@
         let projer = json => mproj3ct(json, projection)
 
         geo = projer(geo)
-        polygon.geometry = geo
+        feature.geometry = geo
         
         if (0 && 1) console.log("mnat:geo", geo)
 
-        return polygon.geometry
-        // return polygon
+        return feature
         
     }
     /***************************
@@ -320,7 +319,7 @@
      */
     let enty = function () {}
 
-    enty.natPolygon = natPolygon
+    enty.natFeature = natFeature
     enty.natform   = natform
     enty.nform = nform
 

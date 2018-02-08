@@ -24,12 +24,7 @@
       let anigram = manitem(anima).anigram() // anigram
 
       anigram.halo = 'geofold' // halo
-      anigram.geoform = p => {
-        let geonat = mnat.natPolygon(p.payload.form)
-        return {'type': 'Feature',
-          'geometry': geonat,
-          'properties': {}}
-      }
+      anigram.geoform = p => mnat.natFeature(p.payload.form)
 
       newAnigrams = __mapper('xs').h('geofold').gramm(anigram)
 

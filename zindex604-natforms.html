@@ -119,7 +119,7 @@ let muonAlima = function (__mapper) {
     halo: 'geofold',
 
     geoform: p => ({'type': 'Feature',
-      'geometry': mnat.natPolygon(p.payload.form),
+      'geometry': mnat.natFeature(p.payload.form),
       'properties': {}
     }),
 
