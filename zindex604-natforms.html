@@ -75,17 +75,17 @@ let muonAlima = function (__mapper) {
 
         'x': {
           'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
-          'ra2': 120,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+          'ra2': 60,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
           'fas8': 0,'dom3': [-180, 180],'exp9': [1, 0, 1, 0],'fn0': Math.cos
         },
         'y': {
           'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
-          'ra2': 120,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+          'ra2': 60,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
           'fas8': -90,'dom3': [-180, 180],'exp9': [0, 1, 1, 0],'fn0': Math.cos
         },
         'z': {
           'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
-          'ra2': 120 / Math.sqrt(2),'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+          'ra2': 60 / Math.sqrt(2),'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
           'fas8': 0,'dom3': [-180, [[[160,180,180]]] ],'exp9': [ 0, 0, 0, 1 ],'fn0': Math.cos
         }
 
@@ -100,28 +100,17 @@ let muonAlima = function (__mapper) {
 
       }
  	
-	let proformNat = {
-	projection: 'uniwen',
-	'rotate': [0, 0],
-	'translate': [200, 200],
-	scale: 0.5
 
-	}  
   /* ******************************************
  *      @natform
  *
  */
-
-
   // -------------------------------  geonat
   let geonat = {
 
     halo: 'geofold',
 
-    geoform: p => ({'type': 'Feature',
-      'geometry': mnat.natFeature(p.payload.form),
-      'properties': {}
-    }),
+    geoform: p => mnat.natFeature(p.payload.form),
 
     payload: {
       'tim': tim,
@@ -158,7 +147,7 @@ let muonAlima = function (__mapper) {
       'ric': {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.1, 0.1]]], 'cp': [[[0.9, 0.9, 0.9]]]},
 
-      'conform': {
+      conform: {
 
         'projection': 'natform',
         'form': {x: form.x, y: form.y},
@@ -167,8 +156,8 @@ let muonAlima = function (__mapper) {
 
       proform: {
         projection: 'uniwen',
-        'translate': [300, 200, 0],
-        scale: 0.5
+        translate: [300, 200, 0],
+        scale: 1
 
       },
 
@@ -190,7 +179,7 @@ let muonAlima = function (__mapper) {
        'proform': {
         projection: 'uniwen',
         'translate': [400, 200, 0],
-        scale: 0.5
+        scale: 1
 
       },
       form: {x: form.x, y: form.y},
@@ -206,8 +195,8 @@ let muonAlima = function (__mapper) {
   let animas = [
 
     geonat, // h.geofold
-    // gratiform, // h.geofold
-    // halonat, // h.nat
+    gratiform, // h.geofold
+    halonat, // h.nat
 
 
   ]
