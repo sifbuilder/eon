@@ -281,7 +281,10 @@
      */
     let natPolygon = function (form) {
         let formm = nform(form)         // NFORM
-        let gj = {type: 'MultiLineString', coordinates: []}
+        let polygon = {'type': 'Feature','geometry': null,'properties': {}}
+        
+        let geo = {type: 'MultiLineString', coordinates: []}
+        
         if (1 && 1) console.log("mnat:formm", formm)
 
         let dx, dy
@@ -298,16 +301,18 @@
                     [ [-180, 180, dx, dx], [-90, 90, dy, dy] ] // mm,mp
                   ]
           }
-        gj.coordinates = mgraticule.gedges(graticule)
+        geo.coordinates = mgraticule.gedges(graticule)
         let conform = {'projection': 'natform', 'form': formm}
         let projection = mprofier.protion(conform)
         let projer = json => mproj3ct(json, projection)
 
-        gj = projer(gj)
+        geo = projer(geo)
+        polygon.geometry = geo
+        
+        if (0 && 1) console.log("mnat:geo", geo)
 
-        if (1 && 1) console.log("mnat:gj", gj)
-
-        return gj
+        return polygon.geometry
+        // return polygon
         
     }
     /***************************
