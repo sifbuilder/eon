@@ -113,8 +113,8 @@ let muonAlima = function (__mapper) {
     geoform: p => mnat.natFeature(p.payload.form),
 
     payload: {
-      'tim': tim,
-      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'geonat'},
+      tim: tim,
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'geonat'},
       boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
       geonode: {
         type: 'Feature',
@@ -143,14 +143,14 @@ let muonAlima = function (__mapper) {
     geoform: geoform,
 
     payload: {
-      'tim': tim,
-      'ric': {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
-      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.1, 0.1]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+      tim: tim,
+      ric: {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
+      boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.1, 0.1]]], 'cp': [[[0.9, 0.9, 0.9]]]},
 
       conform: {
 
-        'projection': 'natform',
-        'form': {x: form.x, y: form.y},
+        projection: 'natform',
+        form: {x: form.x, y: form.y},
 
       },
 
@@ -172,13 +172,13 @@ let muonAlima = function (__mapper) {
 
     halo: 'nat',
     payload: {
-      'tim': tim,
-      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'halonat'},
-      'boform': { 'csx': 0, 'cf': 666, 'cs': 333, 'cw': 0.9, 'co': 0.1, 'cp': 0.9},
+      tim: tim,
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'halonat'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': 333, 'cw': 0.9, 'co': 0.1, 'cp': 0.9},
 
-       'proform': {
+       proform: {
         projection: 'uniwen',
-        'translate': [400, 200, 0],
+        translate: [400, 200, 0],
         scale: 1
 
       },

@@ -32,7 +32,7 @@
 
           let uid = (updAnima.payload.uid !== undefined) // uid
             ? updAnima.payload.uid
-            : __mapper('xs').m('ric').buildUID(updAnima)
+            : __mapper('xs').m(ric).buildUID(updAnima)
 
           let index = enty.findFromUid(uid, state.animas)
           if (index !== -1) { // anima exists
@@ -42,7 +42,7 @@
               state.animas[index] = updAnima // replace
             }
           } else { // new anima
-            updAnima.payload.tim = __mapper('xs').m('tim')(updAnima.payload.tim, elapsed) // set tim elapsed
+            updAnima.payload.tim = __mapper('xs').m(tim)(updAnima.payload.tim, elapsed) // set tim elapsed
             updAnima.payload.uid = uid // set uid if new anima
             updAnima.payload.nid = __mapper('xs').m('store').getNid() // node id in animas collection
 
@@ -89,7 +89,7 @@
       if (halo === null) console.log('halo ', anigram.halo, ' not found')
       let weened = halo.ween(anima) // ANIMA HALO.WEEN
       weened.forEach(d => { // qualify each ween
-        d.payload.uid = __mapper('xs').m('ric').buildUID(d) // uid for children
+        d.payload.uid = __mapper('xs').m(ric).buildUID(d) // uid for children
         newItems.push(d)
       })
 
@@ -140,7 +140,7 @@
               let newSubItems = []
               let avatar = avatars[j]
 
-              avatar.payload.uid = __mapper('xs').m('ric').buildUID(avatar) // uid for children
+              avatar.payload.uid = __mapper('xs').m(ric).buildUID(avatar) // uid for children
               avatar.payload.tim = anigram.payload.tim // time from anima
               avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
 
@@ -192,7 +192,7 @@
       )
 
     enty.findByUid = (item, list) => {
-      let uid = __mapper('xs').m('ric').buildUID(item)
+      let uid = __mapper('xs').m(ric).buildUID(item)
       return enty.findFromUid(uid, list)
     }
 

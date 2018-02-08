@@ -211,10 +211,10 @@ let muonAlima = function (__mapper) {
     payload: {
 
       tim,
-      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'geonat'},
-      'boform': natBoform,
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'geonat'},
+      boform: natBoform,
 
-      'proform': p => {		// 'proform': natProform,
+      proform: p => {		// proform: natProform,
         let proform = p.payload.natProform
         return proform
       },
@@ -243,7 +243,7 @@ let muonAlima = function (__mapper) {
       ric: {'gid': 'trace', 'cid': 'trace', 'fid': 'traceline'},
       boform: traceBoform,
 
-      'proform': {
+      proform: {
         'projection': 'uniwen',
         'translate': {
           'x':
@@ -297,7 +297,7 @@ let muonAlima = function (__mapper) {
       ric: {'gid': 'trace', 'cid': 'trace', 'fid': 'pathline'},
       boform: { 'csx': 0, 'cf': [[[444, 444]]], 'co': [[[0.09, 0.09]]], 'cs': [[[777, 777]]], 'cw': [[[1.2, 1.2]]], 'cp': [[[0.99, 0.99]]]},
 
-      'proform': {
+      proform: {
         'projection': 'uniwen',
         'translate': {
           'x':
@@ -345,11 +345,11 @@ let muonAlima = function (__mapper) {
     halo: 'pacer',
 
     payload: {
-      'tim': tim,
-      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'routeline'},
-      'boform': { 'csx': 0, 'cf': [[[111, 999]]], 'co': [[[0.09, 0.09]]], 'cs': [[[999, 999]]], 'cw': [[[0.3, 0.3]]], 'cp': [[[0.99, 0.99]]]},
+      tim: tim,
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'routeline'},
+      boform: { 'csx': 0, 'cf': [[[111, 999]]], 'co': [[[0.09, 0.09]]], 'cs': [[[999, 999]]], 'cw': [[[0.3, 0.3]]], 'cp': [[[0.99, 0.99]]]},
 
-      'proform': {
+      proform: {
         'projection': 'uniwen',
         'translate': [ 0, 0],
         'scale': 1,
@@ -412,10 +412,10 @@ let muonAlima = function (__mapper) {
 
     payload: {
 
-      'tim': tim,
-      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'avaform'},
+      tim: tim,
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'avaform'},
 
-      'boform': { 'csx': 0, 'cf': [[[333, 999]]], 'co': [[[0.999, 0.999]]], 'cs': [[[666, 555]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.999, 0.999]]]},
+      boform: { 'csx': 0, 'cf': [[[333, 999]]], 'co': [[[0.999, 0.999]]], 'cs': [[[666, 555]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.999, 0.999]]]},
 
       geonode: {
         type: 'Feature',
@@ -423,7 +423,7 @@ let muonAlima = function (__mapper) {
         properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
       },
 
-      'proform': {
+      proform: {
         'projection': 'uniwen',
         'translate':
 				{

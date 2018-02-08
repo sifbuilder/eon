@@ -92,7 +92,7 @@
         else 																		_ric.fid = ric.fid
 
         properties.ric = {gid, cid, fid}
-        properties.uid = __mapper('xs').m('ric').buildUIDFromRic(properties.ric)
+        properties.uid = __mapper('xs').m(ric).buildUIDFromRic(properties.ric)
 
         feature.id = properties.uid
         feature.properties = properties
@@ -117,7 +117,7 @@
           feature.properties.ric = _ric
           if (0 && 1) console.log(' ------------- ric', feature.properties.ric.gid, feature.properties.ric.cid, feature.properties.ric.fid)
 
-          feature.properties.uid = __mapper('xs').m('ric').buildUIDFromRic(feature.properties.ric)
+          feature.properties.uid = __mapper('xs').m(ric).buildUIDFromRic(feature.properties.ric)
           feature.id = feature.properties.uid
           feature.properties.nid = i
         }
