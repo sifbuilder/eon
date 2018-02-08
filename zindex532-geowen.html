@@ -80,9 +80,9 @@ let muonAlima = function (__mapper) {
  */
   let geoearth1 = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': () => {
+    geoform: () => {
       let gj = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),
@@ -112,15 +112,15 @@ let muonAlima = function (__mapper) {
   // -------------------------------  geograt1
   let geograt1 = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => ({
+    geoform: p => ({
       type: 'Feature',
       geometry: {type: 'MultiLineString', coordinates: mgraticule.gedges(p.payload.graticule)},
       properties: {}
     }),
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt1'},
       'boform': { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
@@ -147,9 +147,9 @@ let muonAlima = function (__mapper) {
   // -------------------------------  geosphere
   let geosphere1 = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': {
+    geoform: {
       type: 'Feature',
       geometry: {type: 'Sphere'},
       properties: {}
@@ -173,9 +173,9 @@ let muonAlima = function (__mapper) {
   }
   let geoearth2 = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': () => {
+    geoform: () => {
       let gj = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),
@@ -205,15 +205,15 @@ let muonAlima = function (__mapper) {
   // -------------------------------  geograt1
   let geograt2 = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => ({
+    geoform: p => ({
       type: 'Feature',
       geometry: {type: 'MultiLineString', coordinates: mgraticule.gedges(p.payload.graticule)},
       properties: {}
     }),
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt2'},
       'boform': { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
@@ -240,9 +240,9 @@ let muonAlima = function (__mapper) {
   // -------------------------------  geosphere
   let geosphere2 = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': {
+    geoform: {
       type: 'Feature',
       geometry: {type: 'Sphere'},
       properties: {}

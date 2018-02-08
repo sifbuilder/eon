@@ -109,9 +109,9 @@ let muonAlima = function (__mapper) {
   // -------------------------------  nat1
   let nat1 = {
 
-    'halo': haloIsolationHalo,
+    halo: haloIsolationHalo,
 
-    'geoform': p => ({
+    geoform: p => ({
       'type': 'Feature',
       'geometry': {
         'type': 'Polygon',
@@ -120,7 +120,7 @@ let muonAlima = function (__mapper) {
       'properties': {}
     }),
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'ani', 'cid': 'ani', 'fid': 'nat1'},
 
@@ -323,13 +323,13 @@ let muonAlima = function (__mapper) {
 
   }
   let gratilines21 = {
-    'halo': 'geofold',
-    'geoform': p => ({
+    halo: 'geofold',
+    geoform: p => ({
       type: 'Feature',
       geometry: {type: 'MultiLineString', coordinates: mgraticule.gedges(p.payload.graticule)},
       properties: {}
     }),
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},

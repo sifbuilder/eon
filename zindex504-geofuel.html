@@ -195,15 +195,15 @@ let muonAlima = function muonAlima (__mapper) {
 
   let fuelnat = {
 
-    'halo': 'fuel',
+    halo: 'fuel',
 
-    'geoform': p => ({
+    geoform: p => ({
       'type': 'Feature',
       'geometry': mnat.natPolygon(p.payload.form),
       'properties': {}
     }),
 
-    'payload': {
+    payload: {
       tim,
       ric: {'gid': 'fuel', 'cid': 'fuel'},
       boform: boformFuel,

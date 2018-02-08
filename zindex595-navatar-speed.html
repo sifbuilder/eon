@@ -44,15 +44,15 @@ let muonAlima = function (__mapper) {
  */
   let natform = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => ({
+    geoform: p => ({
       'type': 'Feature',
       'geometry': mnat.natPolygon(p.payload.form),
 			'properties':{}
     }),
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
       'boform': { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
@@ -119,9 +119,9 @@ let muonAlima = function (__mapper) {
  */
   let avaform = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => {
+    geoform: p => {
       let rotate = mliner.orientate(p).rotate()
 			    p.payload.form.x.w4 += rotate
       p.payload.form.y.w4 += rotate
@@ -142,7 +142,7 @@ let muonAlima = function (__mapper) {
       return nat
     },
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'avaform'},
 

@@ -73,9 +73,9 @@
   // -------------------------------  geograt
   let geograt = {
 
-      'halo': 'geofold',
+      halo: 'geofold',
 
-      'geoform': p => {
+      geoform: p => {
         let payload = p.payload
 
         let gedges = __mapper('xs').m('graticule').gedges(payload.graticule)
@@ -101,9 +101,9 @@
   // -------------------------------  geoearth
   let geoearth = {
 
-      'halo': 'geofold',
+      halo: 'geofold',
 
-      'geoform': [[[ () => {
+      geoform: [[[ () => {
         let geo = Object.assign({},
           topojson.feature(
             __mapper('xs').d('worldTopo110m').data(),

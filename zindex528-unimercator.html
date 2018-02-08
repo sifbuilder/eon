@@ -48,9 +48,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoearth
   let geoearth = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': () => {
+    geoform: () => {
       let geo = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),

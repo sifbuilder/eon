@@ -130,8 +130,8 @@ let muonAlima = function muonAlima (__mapper) {
  */
   // -------------------------------  gratifaces11
   let gratifaces11 = {
-    'halo': 'geofold',
-    'geoform': p => {
+    halo: 'geofold',
+    geoform: p => {
       let vertices = mgraticule.gvertices(p.payload.graticule)
       let faces = mgraticule.gfaces(p.payload.graticule)
       faces = faces.map(face => [...face, face[0]])
@@ -143,7 +143,7 @@ let muonAlima = function muonAlima (__mapper) {
       let gj = {type: 'FeatureCollection', features: features}
       return gj
     },
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratifaces11'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
@@ -154,8 +154,8 @@ let muonAlima = function muonAlima (__mapper) {
   }
   // -------------------------------  gratifaces12
   let gratifaces12 = {
-    'halo': 'geofold',
-    'geoform': p => {
+    halo: 'geofold',
+    geoform: p => {
       let vertices = mgraticule.gvertices(p.payload.graticule)
       let faces = mgraticule.gfaces(p.payload.graticule)
       faces = faces.map(face => [...face, face[0]])
@@ -167,7 +167,7 @@ let muonAlima = function muonAlima (__mapper) {
       let gj = {type: 'FeatureCollection', features: features}
       return gj
     },
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratifaces12'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
@@ -178,8 +178,8 @@ let muonAlima = function muonAlima (__mapper) {
   }
   // -------------------------------  gratifaces11
   let gratilines21 = {
-    'halo': 'geofold',
-    'geoform': p => {
+    halo: 'geofold',
+    geoform: p => {
       let edges = mgraticule.gedges(p.payload.graticule)
       let type = 'Feature'
       let properties = {}
@@ -187,7 +187,7 @@ let muonAlima = function muonAlima (__mapper) {
       let gj = {type, geometry, properties}
       return gj
     },
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
@@ -198,8 +198,8 @@ let muonAlima = function muonAlima (__mapper) {
   }
   // -------------------------------  gratilines22
   let gratilines22 = {
-    'halo': 'geofold',
-    'geoform': p => {
+    halo: 'geofold',
+    geoform: p => {
       let edges = mgraticule.gedges(p.payload.graticule)
       let type = 'Feature'
       let properties = {}
@@ -207,7 +207,7 @@ let muonAlima = function muonAlima (__mapper) {
       let gj = {type, geometry, properties}
       return gj
     },
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines22'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},

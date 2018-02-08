@@ -89,15 +89,15 @@ let muonAlima = function (__mapper) {
  */
   let natform = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => ({
+    geoform: p => ({
       'type': 'Feature',
       'geometry': mnat.natPolygon(p.payload.form),
       'properties': {}
     }),
 
-    'payload': {
+    payload: {
 
       'tim': tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
@@ -119,20 +119,27 @@ let muonAlima = function (__mapper) {
   // -------------------------------  gratform
   let gratform = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => ({
+    geoform: p => ({
       type: 'Feature',
       geometry: {type: 'MultiLineString', coordinates: mgraticule.gedges(p.payload.graticule)},
       properties: {}
     }),
 
-    'payload': {
+    payload: {
 
       'tim': tim,
       'ric': {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform'},
       'boform': { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
 
+      'conform': {
+
+        'projection': 'natform',
+        'form': form
+
+      },
+      
       'proform': {
         'projection': 'uniwen',
         'translate': [ 200, 275],
@@ -141,12 +148,6 @@ let muonAlima = function (__mapper) {
         'lens': [ 0,1,Infinity ],
       },
 
-      'conform': {
-
-        'projection': 'natform',
-        'form': form
-
-      },
 
       'graticule': {
 

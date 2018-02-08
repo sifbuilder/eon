@@ -36,9 +36,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoearth
   let geoearthSE = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': () => {
+    geoform: () => {
       let geo = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),
@@ -72,9 +72,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoearth
   let geoearthSW = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': () => {
+    geoform: () => {
       let geo = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),
@@ -108,9 +108,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoearthNW
   let geoearthNW = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': () => {
+    geoform: () => {
       let geo = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),
@@ -144,9 +144,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoearthNE
   let geoearthNE = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': () => {
+    geoform: () => {
       let geo = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),

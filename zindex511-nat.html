@@ -232,14 +232,14 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  nat
   let nat = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => ({'type': 'Feature',
+    geoform: p => ({'type': 'Feature',
       'geometry': mnat.natPolygon(p.payload.form),
       'properties': {}
     }),
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
 
@@ -261,9 +261,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  circ
   let circ = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => {
+    geoform: p => {
       let ret = {
         'type': 'Feature',
         'geometry': mnat.natPolygon(p.payload.form),
@@ -272,7 +272,7 @@ let muonAlima = function muonAlima (__mapper) {
       return ret
     },
 
-    'payload': {
+    payload: {
       tim,
 
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'circ'},

@@ -118,9 +118,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  earth
   let earth = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': () => {
+    geoform: () => {
       let gjls = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),
@@ -148,9 +148,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  gratifaces
   let gratifaces = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => {
+    geoform: p => {
       let vertices = mgraticule.gvertices(p.payload.graticule)
       let faces = mgraticule.gfaces(p.payload.graticule)
       faces = faces.map(face => [...face, face[0]])
@@ -167,7 +167,7 @@ let muonAlima = function muonAlima (__mapper) {
       return gj
     },
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'gratiface', 'cid': 'gratiface', 'fid': 'gratiface'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 111, 'cw': 0.3, 'co': [[[0.3, 0.3, 0.3]]], 'cp': [[[0.9, 0.9, 0.9]]]},

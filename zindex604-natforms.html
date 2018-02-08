@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, key: 1, img: 1}) // INIT
+
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+	mnat = __mapper('xs').m('nat')
+
+  let r = __mapper('xs').r('renderer'),
+    width = r.width(),
+    height = r.height()
+
+  let radians = Math.PI / 180,
+    degrees = 180 / Math.PI
+
+  if (__mapper('controlKey') !== undefined) {
+    let controltimerLeftArrowAlt = () => { // LEFT ARROW
+      if (__mapper('muonAnimation').animationStop !== undefined) {
+        console.log('controltimerLeftArrowAlt')
+        if (__mapper('controlTimer').started()) {
+          __mapper('controlTimer').stop()
+        } else {
+          __mapper('controlTimer').resume()
+        }
+      }
+    }
+    __mapper('controlKey').subscribe(controltimerLeftArrowAlt, 'leftArrowAlt')
+  }
+
+  if (__mapper('controlKey') !== undefined) {
+    let controltimerUpArrowAlt = () => { // UP ARROW
+      console.log('controltimerUpArrowAlt')
+      __mapper('controlWen').control(__mapper('renderSvg').svg()) // SVG WEN
+    }
+    __mapper('controlKey').subscribe(controltimerUpArrowAlt, 'upArrowAlt')
+  }
+
+  /*******************************************
+ *    @controls
+ *
+ */
+
+  let tim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+	let geoform = p => {
+      let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
+      let gj = {
+        type: 'Feature', 
+        geometry: {type: 'MultiLineString', coordinates: gedges}, 
+        properties: {}
+      }
+	
+      return gj
+    }
+
+		let form = {
+
+        'x': {
+          'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+          'ra2': 120,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+          'fas8': 0,'dom3': [-180, 180],'exp9': [1, 0, 1, 0],'fn0': Math.cos
+        },
+        'y': {
+          'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+          'ra2': 120,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+          'fas8': -90,'dom3': [-180, 180],'exp9': [0, 1, 1, 0],'fn0': Math.cos
+        },
+        'z': {
+          'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+          'ra2': 120 / Math.sqrt(2),'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+          'fas8': 0,'dom3': [-180, [[[160,180,180]]] ],'exp9': [ 0, 0, 0, 1 ],'fn0': Math.cos
+        }
+
+    }
+
+		let graticule = {
+
+        'frame': [ [ [-180, 180, [[[180, 180]]], 9],
+          [-90, 90, [[[90, 90]]], 5] ],
+        [	[-180, 180, [[[180, 180]]], 9],
+          [-90, 90, [[[90, 90]]], 5] ] ]
+
+      }
+ 	
+	let proformNat = {
+	projection: 'uniwen',
+	'rotate': [0, 0],
+	'translate': [200, 200],
+	scale: 0.5
+
+	}  
+  /* ******************************************
+ *      @natform
+ *
+ */
+
+
+  // -------------------------------  geonat
+  let geonat = {
+
+    halo: 'geofold',
+
+    geoform: p => ({'type': 'Feature',
+      'geometry': mnat.natPolygon(p.payload.form),
+      'properties': {}
+    }),
+
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'geonat'},
+      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      },
+
+      proform: {
+        projection: 'uniwen',
+        translate: [200, 200],
+        rotate: [0, 0],
+        scale: 1
+
+      },
+
+      form: {x: form.x, y: form.y},
+	  
+    }
+
+  }
+  // -------------------------------  gratiform
+  let gratiform = {
+
+    halo: 'geofold',
+
+    geoform: geoform,
+
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
+      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.1, 0.1]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+
+      'conform': {
+
+        'projection': 'natform',
+        'form': {x: form.x, y: form.y},
+
+      },
+
+      proform: {
+        projection: 'uniwen',
+        'translate': [300, 200, 0],
+        scale: 0.5
+
+      },
+
+      graticule: graticule
+
+    }
+
+  }
+
+   // -------------------------------  halonat
+  let halonat = {
+
+    halo: 'nat',
+    payload: {
+      'tim': tim,
+      'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'halonat'},
+      'boform': { 'csx': 0, 'cf': 666, 'cs': 333, 'cw': 0.9, 'co': 0.1, 'cp': 0.9},
+
+       'proform': {
+        projection: 'uniwen',
+        'translate': [400, 200, 0],
+        scale: 0.5
+
+      },
+      form: {x: form.x, y: form.y},
+    }
+
+  }
+ 
+  /*******************************************
+ *      @animaApi
+ *
+ */
+
+  let animas = [
+
+    geonat, // h.geofold
+    // gratiform, // h.geofold
+    // halonat, // h.nat
+
+
+  ]
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

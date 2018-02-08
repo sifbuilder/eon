@@ -122,9 +122,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  gratiform
   let gratiform = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => {
+    geoform: p => {
       let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
       let type = 'Feature'
       let properties = {}
@@ -134,7 +134,7 @@ let muonAlima = function muonAlima (__mapper) {
       return gj
     },
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
 
@@ -160,9 +160,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  earth
   let earth = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': () => {
+    geoform: () => {
       let gjls = Object.assign({},
         topojson.mesh(
           __mapper('xs').d('worldTopo110m').data(),

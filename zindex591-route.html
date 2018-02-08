@@ -199,8 +199,8 @@ let muonAlima = function (__mapper) {
  */
   let geonat = {
 
-    'halo': 'geofold',
-    'geoform': p => {
+    halo: 'geofold',
+    geoform: p => {
       let rotate = mliner.orientate(p).rotate()
 
       p.payload.form.x.w4 = rotate
@@ -214,7 +214,7 @@ let muonAlima = function (__mapper) {
       return natgj
     },
 
-    'payload': {
+    payload: {
 
       tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'geonat'},
@@ -348,9 +348,9 @@ let muonAlima = function (__mapper) {
   // -------------------------------  routeline
   let routeline = {
 
-    'halo': 'pacer',
+    halo: 'pacer',
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'routeline'},
       'boform': { 'csx': 0, 'cf': [[[111, 999]]], 'co': [[[0.09, 0.09]]], 'cs': [[[999, 999]]], 'cw': [[[0.3, 0.3]]], 'cp': [[[0.99, 0.99]]]},
@@ -401,9 +401,9 @@ let muonAlima = function (__mapper) {
  */
   let avaform = {
 
-    'halo': 'geofold', // haloAvajson,
+    halo: 'geofold', // haloAvajson,
 
-    'geoform': p => {
+    geoform: p => {
       let rotate = mliner.orientate(p).rotate()
       p.payload.form.x.w4 += rotate
       p.payload.form.y.w4 += rotate
@@ -416,7 +416,7 @@ let muonAlima = function (__mapper) {
       return nat
     },
 
-    'payload': {
+    payload: {
 
       'tim': tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'avaform'},

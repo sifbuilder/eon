@@ -230,6 +230,7 @@
       let parsCoords = g.pps.coordinates
 
       let coords = [...mersCoords, ...parsCoords]
+			// let geo = {type: 'MultiLineString', coordinates: coords}
       return coords
     }
     /* *********************

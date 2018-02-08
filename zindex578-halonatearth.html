@@ -329,8 +329,8 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  aniCube
   let aniCube = {
 
-    'halo': 'geofold',
-    'geoform': (p) => {
+    halo: 'geofold',
+    geoform: (p) => {
       let payload = p.payload,
         ric = payload.ric
 
@@ -358,7 +358,7 @@ let muonAlima = function muonAlima (__mapper) {
       return json
     },
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'aniCube', 'cid': 'aniCube', 'fid': 'aniCube'},
       'boform': { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
@@ -415,8 +415,8 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  gratiCube
   let gratiCube = {
 
-    'halo': 'geofold',
-    'geoform': (anitem) => {
+    halo: 'geofold',
+    geoform: (anitem) => {
       let payload = anitem.payload
       let graticule = payload.graticule
 
@@ -437,7 +437,7 @@ let muonAlima = function muonAlima (__mapper) {
       return json
     },
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'gratiCube', 'cid': 'gratiCube', 'fid': 'gratiCube'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
@@ -463,8 +463,8 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  gratiCirc
   let gratiCirc = {
 
-    'halo': 'geofold',
-    'geoform': (anitem) => {
+    halo: 'geofold',
+    geoform: (anitem) => {
       let payload = anitem.payload
       let graticule = payload.graticule
 
@@ -478,7 +478,7 @@ let muonAlima = function muonAlima (__mapper) {
       return json
     },
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'gratiCube', 'cid': 'gratiCube', 'fid': 'gratiCirc'},
       'boform': { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},

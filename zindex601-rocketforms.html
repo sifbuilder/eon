@@ -58,15 +58,15 @@ let muonAlima = function (__mapper) {
  */
   let natform = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => ({
+    geoform: p => ({
       'type': 'Feature',
       'geometry': mnat.natPolygon(p.payload.form),
       'properties': {}
     }),
 
-    'payload': {
+    payload: {
 
       'tim': tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},

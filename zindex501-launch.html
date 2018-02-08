@@ -197,9 +197,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  fibofold
   let fibofold = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => {
+    geoform: p => {
       let coords = mfibonat.stream(p.payload.fibonat)	// spherical
       let gj = {
         'type': 'Feature',
@@ -264,9 +264,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  gratifold
   let gratifold = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => {
+    geoform: p => {
       let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
       let gj = {
         type: 'Feature',
@@ -352,9 +352,9 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let geoearth = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': () => {
+    geoform: () => {
       let gj = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),

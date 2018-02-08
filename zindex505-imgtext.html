@@ -37,9 +37,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  img
   let img = {
 
-    'halo': 'img',
+    halo: 'img',
 
-    'geoform': p => ({
+    geoform: p => ({
       type: 'Feature',
       geometry: {
 
@@ -54,7 +54,7 @@ let muonAlima = function muonAlima (__mapper) {
       }
     }),
 
-    'payload': {
+    payload: {
 
       'tim': tim,
       'ric': {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
@@ -80,9 +80,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  text
   let text = {
 
-    'halo': 'text',
+    halo: 'text',
 
-    'geoform': p => ({
+    geoform: p => ({
       type: 'Feature',
       geometry: {
 
@@ -97,7 +97,7 @@ let muonAlima = function muonAlima (__mapper) {
       }
     }),
 
-    'payload': {
+    payload: {
 
       'tim': tim,
       'ric': {'gid': 'text', 'cid': 'text', 'fid': 'text'},
@@ -123,9 +123,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  nat
   let fibonat = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => {
+    geoform: p => {
       let coords = mfibonat.stream(p.payload.fibonat)
       let gj = {
         'type': 'Feature',
@@ -136,7 +136,7 @@ let muonAlima = function muonAlima (__mapper) {
       return gj
     },
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'fibonat'},
 
@@ -252,9 +252,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  earthnat
   let earthnat = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': p => {
+    geoform: p => {
       let gj = Object.assign({},
         topojson.mesh(
           __mapper('xs').d('worldTopo110m').data(),
@@ -265,7 +265,7 @@ let muonAlima = function muonAlima (__mapper) {
       return gj
     },
 
-    'payload': {
+    payload: {
       'tim': tim,
       'ric': {'gid': 'nat', 'cid': 'nat', 'fid': 'earthnat'},
 

@@ -120,9 +120,9 @@
   // -------------------------------  geograt
   let geograt = {
 
-      'halo': 'geofold',
+      halo: 'geofold',
 
-      'geoform': (p) => {
+      geoform: (p) => {
         let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
         return {
           type: 'Feature',
@@ -131,7 +131,7 @@
         }
       },
 
-      'payload': {
+      payload: {
         'tim': tim,
         'ric': {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
         'boform': { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
@@ -144,9 +144,9 @@
   // -------------------------------  geoearth
   let geoearth = {
 
-      'halo': 'geofold',
+      halo: 'geofold',
 
-      'geoform': () => {
+      geoform: () => {
         let geo = Object.assign({},
           topojson.feature(
             __mapper('xs').d('worldTopo110m').data(),
@@ -169,9 +169,9 @@
   // -------------------------------  geosphere
   let geosphere = {
 
-      'halo': 'geofold',
+      halo: 'geofold',
 
-      'geoform': {
+      geoform: {
         type: 'Feature',
         geometry: {
           type: 'Sphere'

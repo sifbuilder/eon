@@ -168,9 +168,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoline
   let geoline = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': [[[ () => ({
+    geoform: [[[ () => ({
       'type': 'LineString',
       'coordinates': [
         [-90, 0],
@@ -180,7 +180,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     payload: {
       'tim': tim,
-      'ric': {'gid': 'geoform', 'cid': 'geoform', 'fid': 'geoline'},
+      'ric': {'gid': geoform, 'cid': geoform, 'fid': 'geoline'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
 
       'proform': proform
@@ -190,16 +190,16 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geopoint
   let geopoint = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': () => ({
+    geoform: () => ({
       'type': 'Point',
       'coordinates': [0, 90]
     }),
 
     payload: {
       'tim': tim,
-      'ric': {'gid': 'geoform', 'cid': 'geoform', 'fid': 'geopoint'},
+      'ric': {'gid': geoform, 'cid': geoform, 'fid': 'geopoint'},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
       'proform': proform
     }
@@ -208,8 +208,8 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geograt
   let geograt = {
 
-    'halo': 'geofold',
-    'geoform': (anitem) => {
+    halo: 'geofold',
+    geoform: (anitem) => {
       let payload = anitem.payload
       let graticule = payload.graticule
 
@@ -228,7 +228,7 @@ let muonAlima = function muonAlima (__mapper) {
       return json
     },
 
-    'payload': {
+    payload: {
 
       'tim': tim,
       'ric': {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
@@ -252,9 +252,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoearth
   let geoearth = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': () => {
+    geoform: () => {
       let geo = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),
@@ -276,9 +276,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoform
   let geoform = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': ani => ({
+    geoform: ani => ({
       'type': 'Polygon',
       'coordinates': [ [
         [0 + 0, 0 + 0],
@@ -293,7 +293,7 @@ let muonAlima = function muonAlima (__mapper) {
     payload: {
 
       'tim': tim,
-      'ric': {'gid': 'geoform', 'cid': 'geoform', 'fid': 'geoform'},
+      'ric': {'gid': geoform, 'cid': geoform, 'fid': geoform},
       'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
       'proform': proform
     }
@@ -303,9 +303,9 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geosphere
   let geosphere = {
 
-    'halo': 'geofold',
+    halo: 'geofold',
 
-    'geoform': {
+    geoform: {
       type: 'Feature',
       geometry: {
         type: 'Sphere'
