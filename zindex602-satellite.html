@@ -60,63 +60,27 @@ let muonAlima = function (__mapper) {
  *    @controls
  *
  */
-
+	// z.dom3: [-180, [[[160,180,180]]] ]
+	// payload.frame: [-0, 180, 22.5, 22.5]
   let tim = {'td': 22800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   let form = {
-
     'x': {
-      'm1': 4,
-      'm2': 4,
-      'n1': 2,
-      'n2': 2,
-      'n3': 2,
-      'a': 1,
-      'b': 1, 		// circle
-      'ra2': 1,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0,
-      'seg5': 360,
-      'pa6': 0,
-      'pb7': -1,
-      'fas8': 0
+      'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1,
+      'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+      'fas8': 0,'dom3': [-180, 180],'exp9': [1, 0, 1, 0],'fn0': Math.cos
     },
     'y': {
-      'm1': 4,
-      'm2': 4,
-      'n1': 2,
-      'n2': 2,
-      'n3': 2,
-      'a': 1,
-      'b': 1, 		// circle
-      'ra2': 1,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0,
-      'seg5': 360,
-      'pa6': 0,
-      'pb7': -1,
-      'fas8': -90
+      'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1,
+      'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+      'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+      'fas8': -90,'dom3': [-180, 180],'exp9': [0, 1, 1, 0],'fn0': Math.cos
     },
     'z': {
-      'm1': 8,
-      'm2': 1,
-      'n1': 2,
-      'n2': 2,
-      'n3': 2,
-      'a': 1,
-      'b': 1, 		// pseudo circle
-      'ra2': 1,
-      'v0': 0,
-      'v1': 1,
-      'w4': 60,
-      'seg5': 360,
-      'pa6': 0,
-      'pb7': -1,
-      'fas8': 0
+      "m1":8,"m2":1,"n1":2,"n2":2,"n3":2,"a":1,"b":1,     // antenna
+      'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+      'fas8': 0,'dom3': [-180, [[[160,180,180]]] ],'exp9': [ 0, 0, 0, 1 ],'fn0': Math.cos
     }
-
   }
 
   /* ******************************************
@@ -141,10 +105,10 @@ let muonAlima = function (__mapper) {
 
       'proform': {
         'projection': 'uniwen',
-        'translate': [ 280, 200],
-        'scale': 60,
-        'rotate': [-5, 50, 0],
-        'lens': [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 4 ],
+        'translate': [ 300, 200],
+        'scale': 100,
+        'rotate': [0, 0, 0],
+        'lens': [ 0,1,Infinity ],
       },
 
       'form': form
@@ -152,8 +116,8 @@ let muonAlima = function (__mapper) {
 
   }
 
-  // -------------------------------  grat
-  let grat = {
+  // -------------------------------  gratform
+  let gratform = {
 
     'halo': 'geofold',
 
@@ -166,15 +130,15 @@ let muonAlima = function (__mapper) {
     'payload': {
 
       'tim': tim,
-      'ric': {'gid': 'grat', 'cid': 'grat', 'fid': 'grat'},
-      'boform': { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.3, 'co': [[[0.3, 0.3, 0.3]]], 'cp': [[[0.3, 0.3, 0.3]]]},
+      'ric': {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform'},
+      'boform': { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
 
       'proform': {
         'projection': 'uniwen',
-        'translate': [ 280, 200],
-        'scale': 60,
-        'rotate': [-5, 50, 0],
-        'lens': [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 4 ],
+        'translate': [ 200, 275],
+        'scale': 200,
+        'rotate': [0, 90, 0],
+        'lens': [ 0,1,Infinity ],
       },
 
       'conform': {
@@ -186,17 +150,61 @@ let muonAlima = function (__mapper) {
 
       'graticule': {
 
-        'frame': [ [ [-180, 180, 45, 45],
-          [-90, 90, 22.5, 22.5] ],
-        [	[-180, 180, 45, 45],
-          [-90, 90, 22.5, 22.5] ] ]
+        // 'frame': [ [ [-180, 180, 15, 15], [-90, [[[0,90]]], 22.5, 22.5] ],
+                  // [ [-180, 180, 15, 15], [-90, [[[0,90]]], 22.5, 22.5] ] ]
+
+        // 'frame': [ [ [-180, 180, 180, 30], [-0, 180, 360, 30] ],
+                  // [ [-180, 180, 180, 30], [-0, 180, 360, 30] ] ]
+
+
+        'frame': [ [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ],
+                  [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ] ]
 
       }
 
     }
 
   }
+	  // -------------------------------  img
+  let img = {
 
+    halo: 'img',
+
+    geoform: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }
   /*******************************************
  *      @animaApi
  *
@@ -204,8 +212,9 @@ let muonAlima = function (__mapper) {
 
   let animas = [
 
-    natform, // h.geofold
-    grat 			// h.geofold
+    // natform, // h.geofold
+    gratform,      // h.geofold
+		img // h.img
 
   ]
 
