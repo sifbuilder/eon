@@ -249,7 +249,7 @@
       let z = 0
       let dotsinring = outring.length
       for (let k = 0; k < dotsinring; k++) {
-        let ck = outring[k][2] // z camera view
+        let ck = outring[k][2] || 0 // z camera view
         z += ck
       }
       return z / dotsinring

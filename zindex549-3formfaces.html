@@ -132,7 +132,7 @@ let muonAlima = function muonAlima (__mapper) {
   let gratifaces11 = {
     halo: 'geofold',
     geoform: p => {
-      let vertices = mgraticule.gvertices(p.payload.graticule)
+      let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates
       let faces = mgraticule.gfaces(p.payload.graticule)
       faces = faces.map(face => [...face, face[0]])
       faces = faces.map(face => // faces : points => vertices
@@ -156,7 +156,7 @@ let muonAlima = function muonAlima (__mapper) {
   let gratifaces12 = {
     halo: 'geofold',
     geoform: p => {
-      let vertices = mgraticule.gvertices(p.payload.graticule)
+      let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates
       let faces = mgraticule.gfaces(p.payload.graticule)
       faces = faces.map(face => [...face, face[0]])
       faces = faces.map(face => // faces : points => vertices
@@ -179,14 +179,8 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  gratifaces11
   let gratilines21 = {
     halo: 'geofold',
-    geoform: p => {
-      let edges = mgraticule.gedges(p.payload.graticule)
-      let type = 'Feature'
-      let properties = {}
-      let geometry = {type: 'MultiLineString', coordinates: edges}
-      let gj = {type, geometry, properties}
-      return gj
-    },
+    geoform: p => mgraticule.gedges(p.payload.graticule),
+    
     payload: {
       tim: tim,
       ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},

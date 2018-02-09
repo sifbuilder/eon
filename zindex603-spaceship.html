@@ -70,15 +70,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'geofold',
 
-    geoform: p => {
-      let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
-      let type = 'Feature'
-      let properties = {}
-      let geometry = {type: 'MultiLineString', coordinates: gedges}
-      let gj = {type, geometry, properties}
-
-      return gj
-    },
+    geoform: p => __mapper('xs').m('graticule').gedges(p.payload.graticule),
 
     payload: {
       tim: tim,

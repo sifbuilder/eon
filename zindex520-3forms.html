@@ -701,13 +701,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
   let p4 = {
     halo: 'geofold',
-    geoform: p => {
-      let edges = mgraticule.gedges({'lattice': [ [180, 45], [90, 22.5] ]})
-      let type = 'Feature'
-      let properties = {}
-      let geometry = {type: 'MultiLineString', coordinates: edges}
-      return {type, geometry, properties}
-    },
+    geoform: p => mgraticule.gedges({'lattice': [ [180, 45], [90, 22.5] ]}),
     payload: {tim,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p4'},
       boform,
@@ -717,7 +711,8 @@ let muonAlima = function muonAlima (__mapper) {
   let p5 = {
     halo: 'geofold',
     geoform: p => {
-      let vertices = mgraticule.gvertices({'lattice': [ [180, 55], [90, 2.5] ]})
+      let vertices = mgraticule.gvertices({'lattice': [ [180, 55], [90, 2.5] ]})  
+        .geometry.coordinates
       let faces = mgraticule.gfaces({'lattice': [ [180, 55], [90, 2.5] ]})
       faces = faces.map(face => [...face, face[0]])
       faces = faces.map(face => // faces : points => vertices

@@ -132,17 +132,7 @@
 
       halo: 'geofold',
 
-      geoform: p => {
-        let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
-        return {
-          type: 'Feature',
-          geometry: {
-            type: 'MultiLineString',
-            coordinates: gedges
-          },
-          properties: {}
-        }
-      },
+      geoform: p => __mapper('xs').m('graticule').gedges(p.payload.graticule),
 
       payload: {
         tim: tim,

@@ -229,9 +229,13 @@
       let mersCoords = g.mms.coordinates
       let parsCoords = g.pps.coordinates
 
-      let coords = [...mersCoords, ...parsCoords]
-			// let geo = {type: 'MultiLineString', coordinates: coords}
-      return coords
+      let coords = [].concat(mersCoords).concat(parsCoords)
+      if (1 && 1) console.log("gedges coords", coords)
+      return {
+        type: 'Feature',
+        geometry: {type: 'MultiLineString',coordinates: coords},
+        properties: {}
+      }   
     }
     /* *********************
      *    @gvertices
@@ -281,7 +285,13 @@
         }
       }
 
-      return vertices
+      // return vertices
+      return {
+        type: 'Feature',
+        geometry: {type: 'LineString',coordinates: vertices},
+        properties: {}
+      }      
+      
     }
 
     /* *********************

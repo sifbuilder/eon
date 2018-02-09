@@ -209,24 +209,7 @@ let muonAlima = function muonAlima (__mapper) {
   let geograt = {
 
     halo: 'geofold',
-    geoform: (anitem) => {
-      let payload = anitem.payload
-      let graticule = payload.graticule
-
-      let grarr = __mapper('xs').m('graticule').grarr(graticule)
-      let mersCoords = grarr.mms.coordinates
-      let parsCoords = grarr.pps.coordinates
-      let coords = [].concat(mersCoords).concat(parsCoords)
-      let json = {
-        type: 'Feature',
-        geometry: {
-          type: 'MultiLineString',
-          coordinates: coords
-        },
-        properties: {}
-      }
-      return json
-    },
+    geoform: ani => __mapper('xs').m('graticule').gedges(ani.payload.graticule),
 
     payload: {
 

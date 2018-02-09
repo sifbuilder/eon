@@ -136,7 +136,7 @@ let muonAlima = function muonAlima (__mapper) {
       // let geometry = {type: 'MultiLineString',coordinates: gedges}
       // let gj = {type, geometry, properties}
 
-      let vertices = mgraticule.gvertices(p.payload.graticule)
+      let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates
       let faces = mgraticule.gfaces(p.payload.graticule)
       faces = faces.map(face => [...face, face[0]])
       faces = faces.map(function (face) { // faces : points => vertices

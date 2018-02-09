@@ -79,14 +79,7 @@
         let payload = p.payload
 
         let gedges = __mapper('xs').m('graticule').gedges(payload.graticule)
-        return {
-          type: 'Feature',
-          geometry: {
-            type: 'MultiLineString',
-            coordinates: gedges
-          },
-          properties: {}
-        }
+        return gedges
       },
 
       payload: {

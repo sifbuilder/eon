@@ -317,11 +317,7 @@ let muonAlima = function (__mapper) {
   }
   let gratilines21 = {
     halo: 'geofold',
-    geoform: p => ({
-      type: 'Feature',
-      geometry: {type: 'MultiLineString', coordinates: mgraticule.gedges(p.payload.graticule)},
-      properties: {}
-    }),
+    geoform: p => mgraticule.gedges(p.payload.graticule)},
     payload: {
       tim: tim,
       ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},

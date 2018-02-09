@@ -281,9 +281,7 @@
      */
     let natFeature = function (form) {
         let formm = nform(form)         // NFORM
-        let feature = {'type': 'Feature','geometry': null,'properties': {}}
         
-        let geo = {type: 'MultiLineString', coordinates: []}
         
         if (1 && 1) console.log("mnat:formm", formm)
 
@@ -301,15 +299,21 @@
                     [ [-180, 180, dx, dx], [-90, 90, dy, dy] ] // mm,mp
                   ]
           }
-        geo.coordinates = [Array.of(mgraticule.gedges(graticule))
-        let conform = {'projection': 'natform', 'form': formm}
-        let projection = mprofier.protion(conform)
-        let projer = json => mproj3ct(json, projection)
-
-        geo = projer(geo)
-        feature.geometry = geo
+         
+         
+        let feature = {'type': 'Feature','geometry': null,'properties': {}}
+         
+        let gj = {type: 'MultiLineString', coordinates: []}        
+        gj.coordinates = mgraticule.gedges(graticule).geometry.coordinates
         
-        if (0 && 1) console.log("mnat:geo", geo)
+        let conform = {'projection': 'natform', 'form': formm}
+        let projection = mprofier.protion({'projection': 'natform', 'form': formm})
+        
+        gj = mproj3ct(gj, projection)
+        
+        feature.geometry = gj
+        
+        if (0 && 1) console.log("mnat:geo", gj)
 
         return feature
         
