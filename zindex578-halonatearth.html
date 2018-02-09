@@ -416,7 +416,8 @@ let muonAlima = function muonAlima (__mapper) {
   let gratiCube = {
 
     halo: 'geofold',
-    geoform: anitem => __mapper('xs').m('graticule').gedges(graticule),
+    
+    geoform: anitem => __mapper('xs').m('graticule').gedges(anitem.payload.graticule),
 
     payload: {
       tim: tim,
