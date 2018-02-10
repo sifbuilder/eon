@@ -61,7 +61,6 @@
      *      mersCoords to get vert coords
      */
     let bifaces = function bifaces (i, j, xn, yn) {
-      if (0 && 1) console.log('m.graticule.bifaces:', i, j, xn, yn)
       let index = tidx(xn, yn)
 
       let i0 = i
@@ -122,8 +121,6 @@
         PY = DY						// y_precision		eg. 2.5
         py = PY
 
-        if (0 && 1) console.log('lattice xs', X0, X1, DX, PX, x0, x1, dx, px)
-        if (0 && 1) console.log('lattice ys', Y0, Y1, DY, PY, y0, y1, dy, py)
       } else 	if (params.frame !== undefined) {		// frame
         let graticule = params.frame // major, minor
         
@@ -162,8 +159,6 @@
         dy = y_extent[2]
         py = y_extent[3]
 
-        if (0 && 1) console.log('frame xs', X0, X1, DX, PX, x0, x1, dx, px)
-        if (0 && 1) console.log('frame ys', Y0, Y1, DY, PY, y0, y1, dy, py)
       }
 
       return {
@@ -318,7 +313,6 @@
 
      */
     let gvertices = function (params = {}) {
-      if (0 && 1) console.log('m.graticule.gvertices:params', params)
 
       let g = grarr(params)
       let mersCoords = g.mms.coordinates	// with y delta, precision
@@ -329,15 +323,10 @@
 
       let ry = dy / py			// step to precision ratio in meridiam
 
-      if (0 && 1) console.log('m.graticule.gvertiecs:mersCoords', mersCoords)
-      if (0 && 1) console.log('m.graticule.gvertiecs:parsCoords', parsCoords)
-
       let mersq = mersCoords.length // 	[-90, 90]		[dy,py]
       let parsq = parsCoords.length //  [-180, 180] [dx,px]
 
       let index = tidx(mersq, parsq) // 12, 7
-
-      if (0 && 1) console.log('m.graticule.gvertiecs:q', mersq, parsq)
 
       let m0 = 0 // 0
       let mn = mersq // 12

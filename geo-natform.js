@@ -24,7 +24,6 @@
     let pointStream = function (prjdef) {
 			
       let natform = mnat.natform(prjdef.form) // m.nat.natform (a,b,c) => [a,b,c]
-		  if (0 && 1)	console.log('m.natform.geoNatform:natform', natform)
 				
       let stream = function (lambda, phi, radio = 1) {
         this.stream.point(...natform(lambda, phi, radio))

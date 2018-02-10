@@ -36,7 +36,6 @@
       ) {
         string = cache.string
       } else {
-        if (0 && 1) console.log('m.fibonat.stream recalculate')
 
         let rnd = (randomize) ? Math.random() * samples : 1.0
 

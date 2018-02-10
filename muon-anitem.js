@@ -39,7 +39,6 @@
  *
  */
     let node = function () {
-      if (0 && 1) console.log('anitem', anitem)
       if (anitem.payload === undefined) anitem.payload = {}
 
       let node = {

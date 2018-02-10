@@ -33,34 +33,34 @@
         proform = payload.proform, // proform
         conform = payload.conform, // conform
         uid = payload.uid, // uid
-        parentuid = payload.parentuid, // parentuid
-        geonode = payload.geonode, // geonode
-        gj = f.v(geoform, anigram)
+        parentuid = payload.parentuid // parentuid
         
-        if (!mgeoj.isValid(gj)) {
-            console.error("h.geofold:gj not valid", gj)
-        }
         
-      gj = mprofier.conformer(anigram)(gj)
+      let gjGeoformed = f.v(geoform, anigram)
+        
+      if (!mgeoj.isValid(gjGeoformed)) { console.error("h.geofold:gj not valid", gjGeoformed)}
+        
+      let gjConformed = mprofier.conformer(anigram)(gjGeoformed)
 
-      gj = mprofier.proformer(anigram)(gj)
+      let gjProformed = mprofier.proformer(anigram)(gjConformed)
 
-      if (geonode) { // if payload.geonode
-        let fieldEffect = {
-          'projection': 'uniwen',
-          'translate': [ geonode.geometry.coordinates[0], geonode.geometry.coordinates[1], geonode.geometry.coordinates[2] ]}
-        gj = mprofier.projier(fieldEffect, anigram)(gj)
-
-        geonode = mprofier.proformer(anigram)(geonode) // projected position
+      let gjGeonode = payload.geonode || {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
       }
+      let fieldEffect = {
+        'projection': 'uniwen',
+        'translate': gjGeonode.geometry.coordinates
+      }
+      let gjGeosimed = mprofier.projier(fieldEffect, anigram)(gjProformed)
 
-      gj = mgeoj.featurize(gj) // featurize
+      gjGeonode = mprofier.proformer(anigram)(gjGeonode) // projected position
+
+      let gj = mgeoj.featurize(gjGeosimed) // featurize
       gj = mboform.boformer(anigram, gj) // boform
       gj = mgeoj.zorder(gj) // order
       gj = mric.qualier(ric, anigram, gj) // qualify
-
-      if (0 && 1) console.log('h.geofold.gramm geonode', geonode)
-      if (0 && 1) console.log('h.geofold.gramm gj', gj)
 
       newAnigrams = gj.features.map((d, i) => { // d is feature
         let newAnigram = {}
@@ -70,14 +70,13 @@
         newAnigram.payload.ric = d.properties.ric // hoist ric
         newAnigram.payload.uid = d.properties.uid // hoist uid
         newAnigram.payload.preani = mstore.findAnigramFromUid(d.properties.uid)
-        newAnigram.payload.geonode = geonode // assign projected geonode
+        newAnigram.payload.geonode = gjGeonode // assign projected geonode
 
         newAnigram.geoform = d // inherit geoform
 
         return newAnigram
       })
 
-      if (0 && 1) console.log('h.geofold newAnigrams:', newAnigrams.length, newAnigrams)
       return newAnigrams
     }
 

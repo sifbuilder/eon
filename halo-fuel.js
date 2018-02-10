@@ -28,7 +28,7 @@
         hallo =       anigram.halo,             // halo
         geoform =     anigram.geoform           // geoform
 
-      let payload =   anigram.payload,          // payload
+      let payload =   anigram.payload,          // payload 
         boform =      payload.boform,           // boform
         ric =         payload.ric,              // ric
         tim =         payload.tim,              // tim
@@ -47,16 +47,12 @@
       let parentAnigram = mstore.findAnigramFromUid(parentuid)
 
       if (parentAnigram) {
-        // polygon = parentAnigram.payload.geofold.geometry.coordinates[0]          // outer ring
         let geometry = parentAnigram.geoform.geometry
-            if (1 && 1) console.log("parent valid gj", mgeoj.isValid(geometry))
-            if (1 && 1) console.log("parent polygon", geometry)
+        if (!mgeoj.isValid(geometry)) { console.error("h.geofold:gj not valid", geometry)}
         polygon = mgeoj.getCoords(geometry)           // outer ring
       } else {
         polygon = mgeom.extentPolygon([[0, 0], [width, height]]) // viewport
       }
-
-
 
       let foundcandies = mquad.candysearch(ra2, polygon, candidates, sample) // candies
 
@@ -82,7 +78,6 @@
           'projection': 'uniwen',
           'translate': remainCandies[i]     // translate each candy to candy location
         }
-        if (0 && 1) console.log('h.fuel.gramm _proform', i, _proform.translate)
         let newAnigram = {}                 // new anigram per fuel nat
         newAnigram.halo = 'fuel'
         newAnigram.geoform = geoform

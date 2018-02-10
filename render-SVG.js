@@ -65,7 +65,6 @@
           .html('')
       }
       if (payload == null) { // if null return the layer
-        if (0 && 1) console.log(' payload', payload)
         let svgLayer = d3.select('body').selectAll('svg').data(['svg'])
           .enter()
           .append('svg')
@@ -76,7 +75,6 @@
           .style('border', '1px solid lightgray')
         return svgLayer
       } else if (payload == 'image') { // if image insert image
-        if (0 && 1) console.log(' payload', payload)
         if (d3.select('.image').empty()) {
           let img = svg.selectAll('image').data([0])
             .enter()
@@ -91,7 +89,6 @@
       }
       // manage the dom elements
       else if (typeof (payload) === 'string') { // 'svg:g.links/path.link', data, idfn}
-        if (0 && 1) console.log(' payload', payload)
         let parts = payload.split('/')
         let layerpart = (parts[0]) ? parts[0] : 'svg'
         let elemspart = (parts[1]) ? parts[1] : null
@@ -139,14 +136,11 @@
  */
 
     let render = function (elapsed, featurecollection, maxlimit) {
-      if (0 && 1) console.log('featurecollection', featurecollection)
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
             d.properties.ric !== undefined // req ric
         )
-
-      if (0 && 1) console.log('render features', features)
 
       let svg = __mapper('renderSvg').svg()
 
@@ -155,8 +149,6 @@
         .key(function (d) { return d.properties.ric.cid })
         .entries(features) // features
 
-      if (0 && 1) console.log('render gitems', gitems)
-
       for (let i in gitems) { // DOTS (seg5===0) each group gid
         let gid = gitems[i].key, citems = gitems[i].values
 
@@ -164,8 +156,6 @@
           let cid = citems[j].key // cid
           let fitems = citems[j].values // fitems
           let current = fitems.slice(-1)[0]
-
-          if (0 && 1) console.log('r.svg.render fitems', fitems)
 
           /*  ................. TEXTS ................. */
           let texts = fitems
@@ -241,13 +231,11 @@
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
 
           if (features.length > 0) {
-            if (0 && 1) console.log('r.svg.render features', features)
 
             __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.id)
 
               .data(() => features)
               .attr('d', d => {
-                if (0 && 1) console.log('r.svg.render d', d)
                 if (d.properties.style === undefined) console.log('style undefined')
 
                 let object = d // geojson feature

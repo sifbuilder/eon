@@ -70,7 +70,6 @@
  */
 
     let qualier = function (ric = {}, anigram, json) {
-      if (0 && 1) console.log('m.ric.qualier ric', ric)
 
       if (json.type === undefined) {
         console.log('type undefined')
@@ -82,7 +81,6 @@
         _ric.cid = ric.cid
         _ric.fid = ric.fid
 
-        if (0 && 1) console.log(' ------------- ric', _ric.gid, _ric.cid, _ric.fid)
 
         let feature = json
         let properties = feature.properties || {}
@@ -115,7 +113,6 @@
           else 																		_ric.fid = ric.fid + (i || '')
 
           feature.properties.ric = _ric
-          if (0 && 1) console.log(' ------------- ric', feature.properties.ric.gid, feature.properties.ric.cid, feature.properties.ric.fid)
 
           feature.properties.uid = __mapper('xs').m('ric').buildUIDFromRic(feature.properties.ric)
           feature.id = feature.properties.uid

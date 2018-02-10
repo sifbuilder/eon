@@ -25,7 +25,6 @@
  *        if control:versor   versor rotation
  */
     let protion = function (prjdef) {
-      if (0 && 1) console.log('m.profier.protion:prjdef', prjdef)
       let prj = guniwen(prjdef)
 
       if (prjdef !== undefined) {

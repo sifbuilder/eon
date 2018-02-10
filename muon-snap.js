@@ -18,7 +18,6 @@
    *    @snap : anigram, t, flag
    */
     let snap = function snap (v, t = 0, g = 0) {
-      if (0 && 1) console.log('b.snap', v)
 
       // ____________________________________________________ un-tagged
       if (v === null) return null // 00 _____ o
@@ -37,12 +36,10 @@
         return ws
       } else if (f.isObject(v) && // 06 ___ v :: {}
           g !== 1) {
-        if (0 && 1) console.log('b.snap.snap object in', v)
         let r = {}
         for (let y of Reflect.ownKeys(v)) {
           r[y] = snap(v[y], t) // reenter
         }
-        if (0 && 1) console.log('b.snap.snap object out', r)
         return r
       } else if (f.isDoubleArray(v) && // 07 [[ [ [], [] ] ]]   inter arrays interpolation
         f.isQuasiPureArray(v[0][0]) && // double array with array of arrays elem
@@ -108,7 +105,7 @@
           console.error("g type not supported")
         }
         ws = snap(natRing, t, 1)				// (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
-console.log(" ------------- ws",natRing,ws)        
+    
         return ws
       } else if (f.isArray(v) && // 11_____ [v]*
           f.isPureArray(v) &&

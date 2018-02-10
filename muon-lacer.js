@@ -83,7 +83,6 @@
       let nbr = streams.length
 
       let inpattern = streams.reduce((p, q) => p && f.isNumericArray(q), true)
-      if (0 && 1) if (!inpattern) console.log(' streams not in pattern', streams)
 
       let lengths = streams.map(d => d.length),
         mx = Math.max(...lengths),

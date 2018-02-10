@@ -64,7 +64,6 @@
             let newItem = newAnigrams[i] // new anigram
             let uid = newItem.payload.uid
             let index = enty.findFromUid(uid, state.anigrams) // find index from d.payload.uid
-            if (0 && 1) console.log('UPDANIGRAM newItem', uid, index, newItem)
             if (index === -1) index = state.anigrams.length // add holder if new
             state.anigrams[index] = newItem // replace anigram
           }
@@ -101,7 +100,6 @@
  */
     let gramm = function (anima, newItems = []) {
       let anigram = __mapper('xs').m('anitem').anigram(anima)
-      if (0 && 1) console.log('m.store.gramm:anigram uid', anigram.payload.uid)
 
       let tim = anigram.payload.tim,
         elapsed = tim.elapsed,
@@ -131,8 +129,6 @@
       if (newItems !== undefined && newItems.length > 0) { // check if avatars in NEW animas
         for (let i = 0; i < newItems.length; i++) {
           let newItem = newItems[i] // each new item
-
-          if (0 && 1) console.log('m.store.gramm:newItem', newItem)
 
           if (newItem.payload.avatars !== undefined && newItem.payload.avatars !== null) { // AVATARS
             let avatars = (typeof newItem.payload.avatars === 'object') ? Object.values(newItem.payload.avatars) : newItem.payload.avatars

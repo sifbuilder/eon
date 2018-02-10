@@ -95,7 +95,6 @@
           }
         }
       } else if (preAnigram !== undefined) {
-        if (0 && 1)	console.log('m.liner preAnigram ', preAnigram)
 
         if (preAnigram.geoform && preAnigram.payload.preani) {		// two points to set direction
           let _c = preAnigram.payload.geonode.geometry.coordinates

@@ -183,7 +183,6 @@
       // gjson.properties carries:
       //	ric
       //	sort
-      if (0 && 1) console.log('m.geoj featurize', json)
       let features = []
       if (json && json.type) {
         let type = json.type
@@ -259,7 +258,6 @@
    */
     let getCoords = function (json, coords = []) {
       if (json === undefined) {
-        if (0 && 1) console.log('m.geoj.getCoords json is undefined')
       } else {
         if (json.type == 'Feature') {
           let geometry = json.geometry
@@ -303,18 +301,16 @@
         }
       }
 
-      if (0 && 1) console.log('m.geoj.getCoords', coords)
-
       return coords
     }
     /**********************
    *    @isValid
    */
     let isValid = function (json, type) {
+
       let valid = true
       if (json === undefined) {
         valid = false
-        if (0 && 1) console.log('m.geoj.getCoords json is undefined')
       } else {
         if (json.type == 'Feature') {
           if (json.geometry) {
@@ -387,9 +383,11 @@
                 true),
               true)
                 
+        } else if (json.type == 'Sphere') {
+            valid = true
         } else {
           valid = false
-          throw new Error('json type not identified.')
+          throw new Error('json type not identified.', json)
         }
       }
 

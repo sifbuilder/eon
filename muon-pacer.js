@@ -80,8 +80,6 @@
       mouse.mouseDownShared = mmouse.mouseDownShared() // shareddown
       mouse.event = mmouse.event() // event
 
-      if (mouse.event === 'mousedown') if (0 && 1) console.log('h.pacer ', mouse.event.type)
-
       if (mouse.event && mouse.event.type === 'mouseup') { // if mouse up then reset
         cwen.reset(svg)
         cversor.reset(svg)
@@ -115,7 +113,6 @@
             if (key === 'init') { // init defaults center
               situs = initSitus(payload)
             } else if (key === 'auto') { // auto defauts random
-              if (0 && 1) console.log('h.pacer muonPacerHalo_gramm situs', situs)
               situs = autoSitus(payload) // eg.  d => mstace.getLocus(d)
             } else if (key === 'event') { // event defaults event
               situs = eventSitus(payload)

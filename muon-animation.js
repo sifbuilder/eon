@@ -24,8 +24,6 @@
     let aniListener = function aniListener (elapsed) {
       state.animas = f.a(__mapper('muonStore').animasLive())
 
-      if (0 && 1) console.log(' .............. animas', elapsed, state.animas.length, state.animas)
-
       /*******************************************
      *    @TIME
      */
@@ -38,7 +36,6 @@
         }
       }
 
-      if (state.animas.length > 0) if (0 && 1) console.log(' .................... m.animation animas ', state.animas.length)
 
       /*******************************************
      *    @STOP
@@ -77,7 +74,6 @@
       }
 
       let anigrams = __mapper('xs').m('store').anigrams()
-      if (0 && 1) console.log('m.animation anigrams', anigrams.length)
 
       /*******************************************
     *     @RENDER
@@ -87,8 +83,6 @@
         'type': 'FeatureCollection',
         'features': anigrams.map(d => d.geoform)
       }
-
-      if (0 && 1) console.log('m.animation featurecollection ', featurecollection)
 
       if (__mapper('renderSvg') !== undefined) __mapper('renderSvg').render(elapsed, featurecollection)
       if (__mapper('renderWebgl') !== undefined) __mapper('renderWebgl').render(elapsed, featurecollection)

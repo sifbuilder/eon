@@ -141,12 +141,9 @@
       let t = 0
       let maxRadio = 0
 
-      if (0 && 1) console.log('m.rador.rador forml', forml, cache.forml)
-
       if (f.isSame(forml, cache.forml)) {
         pts = cache.points
 
-        if (0 && 1) console.log('m.rador.rador cashed')
       } else {
         const {m1, m2, n1, n2, n3, a, b, v0, v1, seg5} = forml
         const angUnit = tau / seg5 // dots per period
@@ -213,8 +210,6 @@
 
       let formm = nform(form)         // nform
 
-      if (0 && 1) console.log("m.nat.natform:formm", formm)
-
       let formmvv = Object.values(formm)
 
       let doms = formmvv.map(d => d.dom3)
@@ -236,9 +231,6 @@
 
         let lambda = l * radians
         let phi = p * radians
-
-
-        if (0 && 1) console.log("r", l, p, r0,r1,r2)
 
 
         let exps = formmvv.map(d => d.exp9)
@@ -267,7 +259,6 @@
         })
 
         let projpnt = (point[2] !== undefined) ? [ point[0], point[1], point[2] ] :  [ point[0], point[1] ]
-        if (0 && 1) console.log("vertex", l, p, projpnt[0], projpnt[1])
         return projpnt // [x,y,z]
       }
 
@@ -281,11 +272,6 @@
      */
     let natFeature = function (form) {
         let formm = nform(form)         // NFORM
-
-
-        if (1 && 1) console.log("mnat:formm", formm)
-
-
 
         let geometry
         let dx, dy

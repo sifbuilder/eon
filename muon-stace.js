@@ -45,7 +45,6 @@
  *             @getPosInDim
  */
     let getPosesInDim = function (staceDim) {
-      if (0 && 1) console.log('m.stace.getLocsInDim staceDim', staceDim)
 
       let poses = null
 
@@ -78,7 +77,6 @@
  *             array of locations in stace dim
  */
     let getLocsInDim = function (staceDim, parentCoordsDim = []) {
-      if (0 && 1) console.log('m.stace.getLocsInDim staceDim', staceDim)
 
       let locations
 
@@ -135,7 +133,6 @@
  */
 
     let getLocations = function (stace, anigram, locations = []) {
-      if (0 && 1) console.log('m.stace.getLocations:stace', stace)
 
       if (anigram !== undefined) stace = stace || anigram.payload.stace
 
@@ -187,7 +184,6 @@
           }
           if (locationsPerDim.length > 0) {
             locations = mlacer.slide(locationsPerDim)									// [300, 200]
-            if (0 && 1) console.log('m.stace.getLocsInDim locations', locations)
           }
         }
 
@@ -203,7 +199,6 @@
  *        @getLocus
  */
     let getLocus = function (stace, anigram) {
-      if (0 && 1) console.log('m.stace.getLocus stace', stace)
 
       let locus = null // default locus _e_
 

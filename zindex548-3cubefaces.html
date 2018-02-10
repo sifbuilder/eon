@@ -129,7 +129,6 @@ let muonAlima = function muonAlima (__mapper) {
       )
       gjls = __mapper('xs').m('geoj').trim(gjls)
       gj = gjls
-      if (0 && 1) console.log('gj ', gj)
       return gj
     },
 
@@ -162,7 +161,6 @@ let muonAlima = function muonAlima (__mapper) {
       let features = faces.map(face => ({
         type: 'Feature', geometry: {type: 'Polygon', coordinates: Array.of(face)}, properties: {}}))
       let gj = {type: 'FeatureCollection', features: features}
-      if (0 && 1)	console.log('z.3faces gj:', gj)
 
       return gj
     },

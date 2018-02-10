@@ -112,13 +112,9 @@
 
           updItem.payload.geonode = geonode
 
-          if (0 && 1) console.log('m.simulation updItem', i, updItem.payload.geonode.geometry.coordinates)
-
           updItems.push(updItem)
         }
-        // if (simNodes.length > 2) if (0 && 1) console.log('m.simulation updItems --- ', updItems[2].payload)
       }
-      if (0 && 1) updItems.forEach(d => console.log(' ------ aniSims', d.payload.geonode.geometry.coordinates))
       return updItems
     }
 
@@ -129,7 +125,6 @@
       let aniSims = []
       let numDims = 3
 
-      if (0 && 1) console.log('m.animation simulate', aniItems.length)
       let aniNodes = initNodes(aniItems, dim)		// < aniNodes
 
       sim
@@ -157,7 +152,6 @@
                 if (aniForce.ticked !== undefined) aniForce.ticked
 
                 aniSims = restoreNodes(aniNodes, aniItems)	// > aniNodes
-                if (0 && 1) aniSims.forEach((d, i) => console.log(' ....... aniSims', i, d.payload.geonode.geometry.coordinates))
                 mstore.apply({type: 'UPDATEANIMAS', caller: 'simulation', animas: aniSims})
               })
 
