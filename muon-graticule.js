@@ -12,7 +12,9 @@
   // GeoJSON in Three.js
 
   let muonGraticule = function (__mapper = {}) {
-    let f = __mapper('props')()
+    let f = __mapper('props')(),
+      mgeoj = __mapper('xs').m('geoj')
+      
 
     const acos = Math.acos, asin = Math.asin, atan2 = Math.atan2, cos = Math.cos,
       max = Math.max, min = Math.min, PI = Math.PI, sin = Math.sin, sqrt = Math.sqrt,
@@ -81,10 +83,14 @@
       let X0, X1, DX, PX, x0, x1, dx, px,
         Y0, Y1, DY, PY, y0, y1, dy, py
 
+      let X_extent, Y_extent, x_extent, y_extent
+      
       if (params.lattice !== undefined) {							// lattice
-        let extent = params.lattice, // major, minor
-          x_extent = extent[0],
-          y_extent = extent[1]
+      
+        let lattice = params.lattice
+      
+        x_extent = lattice[0] // major, minor
+        y_extent = lattice[1]
 
         if (Array.isArray(x_extent[0])) {
           X1 = x_extent[0][1] // x_extentMajor 	eg. 180
@@ -119,11 +125,22 @@
         if (0 && 1) console.log('lattice xs', X0, X1, DX, PX, x0, x1, dx, px)
         if (0 && 1) console.log('lattice ys', Y0, Y1, DY, PY, y0, y1, dy, py)
       } else 	if (params.frame !== undefined) {		// frame
-        let graticule = params.frame, // major, minor
-          X_extent = graticule[0][0],
-          Y_extent = graticule[0][1],
-          x_extent = graticule[1][0],
+        let graticule = params.frame // major, minor
+        
+        if (graticule.length === 2) {
+        
+          X_extent = graticule[0][0]
+          Y_extent = graticule[0][1]
+          x_extent = graticule[1][0]
           y_extent = graticule[1][1]
+          
+        } else if (graticule.length === 1) { // major, minor coincide
+          
+          X_extent = graticule[0][0]
+          Y_extent = graticule[0][1]
+          x_extent = graticule[0][0]
+          y_extent = graticule[0][1]          
+        }
 
         X0 = X_extent[0]
         X1 = X_extent[1]
@@ -174,9 +191,11 @@
  */
 
     let grarr = function (params = {}) {
+      
       let {X0, X1, DX, PX, x0, x1, dx, px,
         Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
-
+       
+        
       let bigmer = (params.bigmer !== undefined) ? params.bigmer : 1
       let bigpar = (params.bigpar !== undefined) ? params.bigpar : 1
 
@@ -203,24 +222,38 @@
       let mmShort = merfn(x0, x1, dx) // short mers
       let mmAll = merge(mmBig, mmShort)
 
-      let mms = {type: 'MultiLineString',
-        coordinates: mmAll.map(d => (Math.abs(d % DX) > epsilon) ? x(d) : X(d))}
-      let bmm = {type: 'MultiLineString', coordinates: mmBig}// long meridiams
-      let mm = {type: 'MultiLineString', coordinates: mmShort}// meridiams
-
+         
       let ppBig = parfn(Y0, Y1, DY)
       let ppShort = parfn(y0, y1 + epsilon, dy)
-      let ppAll = merge(ppBig, ppShort)
+      let ppAll = merge(ppBig, ppShort)     
+      
+      
+      
+      let mms = {
+        type: 'MultiLineString',
+        coordinates: mmAll.map(d => (Math.abs(d % DX) > epsilon) ? x(d) : X(d))
+      }
+      if (!mgeoj.isValid(mms)) {
+          console.error("mms not valid")
+      }
 
-      let pps = {type: 'MultiLineString',
-        coordinates: ppAll.map(d => (Math.abs(d % DY) > epsilon) ? y(d) : Y(d))}
-      let bp = {type: 'MultiLineString', coordinates: ppBig}// long parallel
-      let pp = {type: 'MultiLineString', coordinates: ppShort}// parallels
 
-      let ret = {mm, mms, bp, bmm, pp, pps}
+      let pps = {
+        type: 'MultiLineString',
+        coordinates: ppAll.map(d => (Math.abs(d % DY) > epsilon) ? y(d) : Y(d))
+      }
+      if (!mgeoj.isValid(pps)) {
+          console.error("pps not valid")
+      }
+
+        
+      let ret = {mms, pps}
 
       return ret
     }
+    
+  
+    
     /* *******************
  *        gedges
  */
@@ -230,13 +263,56 @@
       let parsCoords = g.pps.coordinates
 
       let coords = [].concat(mersCoords).concat(parsCoords)
-      if (1 && 1) console.log("gedges coords", coords)
-      return {
+      
+      let gj = {
         type: 'Feature',
-        geometry: {type: 'MultiLineString',coordinates: coords},
-        properties: {}
+        geometry: {type: 'MultiLineString',coordinates: coords,},
+        properties: {mgraticule:'gedges'}
       }   
+      if (!mgeoj.isValid(gj)) console.error("gj not valid")
+
+      return gj
     }
+    
+    /* *******************
+ *        medges
+ */
+    let medges = function (params = {}) {
+      let g = grarr(params)
+      let mersCoords = g.mms.coordinates
+      let parsCoords = g.pps.coordinates
+
+      let coords = [].concat(mersCoords)
+      
+      let gj = {
+        type: 'Feature',
+        geometry: {type: 'MultiLineString',coordinates: coords,},
+        properties: {mgraticule:'gedges'}
+      }   
+      if (!mgeoj.isValid(gj)) console.error("gj not valid")
+
+      return gj
+    }
+    
+    /* *******************
+ *        pedges
+ */
+    let pedges = function (params = {}) {
+      let g = grarr(params)
+      let mersCoords = g.mms.coordinates
+      let parsCoords = g.pps.coordinates
+
+      let coords = [].concat(parsCoords)
+      
+      let gj = {
+        type: 'Feature',
+        geometry: {type: 'MultiLineString',coordinates: coords,},
+        properties: {mgraticule:'gedges'}
+      }   
+      if (!mgeoj.isValid(gj)) console.error("gj not valid")
+
+      return gj
+    }    
     /* *********************
      *    @gvertices
 
@@ -347,7 +423,10 @@
 
     enty.grarr = grarr
 
+
     enty.gedges = gedges
+    enty.medges = medges
+    enty.pedges = pedges
     enty.gfaces = gfaces
     enty.gvertices = gvertices
 

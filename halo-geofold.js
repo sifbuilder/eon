@@ -36,7 +36,11 @@
         parentuid = payload.parentuid, // parentuid
         geonode = payload.geonode, // geonode
         gj = f.v(geoform, anigram)
-
+        
+        if (!mgeoj.isValid(gj)) {
+            console.error("h.geofold:gj not valid", gj)
+        }
+        
       gj = mprofier.conformer(anigram)(gj)
 
       gj = mprofier.proformer(anigram)(gj)

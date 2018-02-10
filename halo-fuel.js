@@ -24,20 +24,19 @@
     state.items = [] // fuel particles
 
     let gramm = function (anima, newAnigrams = []) {
-      let anigram = manitem(anima).anigram(),		// anigram
-        hallo = 			anigram.halo, 						// halo
-        geoform = 		anigram.geoform 					// geoform
+      let anigram = manitem(anima).anigram(),   // anigram
+        hallo =       anigram.halo,             // halo
+        geoform =     anigram.geoform           // geoform
 
-      let payload = 	anigram.payload, 					// payload
-        boform = 			payload.boform, 					// boform
-        ric = 				payload.ric, 							// ric
-        tim = 				payload.tim, 							// tim
-        proform =			payload.proform, 					// proform
-        conform = 		payload.conform, 					// conform
-        uid = 				payload.uid, 							// uid
-        parentuid = 	payload.parentuid 				// parentuid
+      let payload =   anigram.payload,          // payload
+        boform =      payload.boform,           // boform
+        ric =         payload.ric,              // ric
+        tim =         payload.tim,              // tim
+        proform =     payload.proform,          // proform
+        conform =     payload.conform,          // conform
+        uid =         payload.uid,              // uid
+        parentuid =   payload.parentuid         // parentuid
 
-      if (1 && 1) console.log('h.fuel.haloFuel')
 
       let fuel = payload.fuel,
         ra2 = fuel.ra2,
@@ -48,46 +47,48 @@
       let parentAnigram = mstore.findAnigramFromUid(parentuid)
 
       if (parentAnigram) {
-        // polygon = parentAnigram.payload.geofold.geometry.coordinates[0] 					// outer ring
+        // polygon = parentAnigram.payload.geofold.geometry.coordinates[0]          // outer ring
         let geometry = parentAnigram.geoform.geometry
-        polygon = mgeoj.getCoords(geometry) 					// outer ring
+            if (1 && 1) console.log("parent valid gj", mgeoj.isValid(geometry))
+            if (1 && 1) console.log("parent polygon", geometry)
+        polygon = mgeoj.getCoords(geometry)           // outer ring
       } else {
         polygon = mgeom.extentPolygon([[0, 0], [width, height]]) // viewport
       }
 
-            if (1 && 1) console.log("polygon", polygon)
-              
+
+
       let foundcandies = mquad.candysearch(ra2, polygon, candidates, sample) // candies
 
       let remainCandies = []
       if (fuel.f === 3) { // 3 - old and new all time _e_
         remainCandies = state.items
         remainCandies = [...remaincandies, ...foundcandies]
-      } else if (fuel.f === 2) { 			// 2 - just new			_e_
+      } else if (fuel.f === 2) {      // 2 - just new     _e_
         remainCandies = foundcandies
       } else { //  1 - old and new in polygon
         remainCandies = state.items.filter(c => d3.polygonContains(polygon, c))
         remainCandies = [...remainCandies, ...foundcandies]
       }
 
-      for (let i = 0; i < remainCandies.length; i++) {			// for each candy ...
+      for (let i = 0; i < remainCandies.length; i++) {      // for each candy ...
         let idx = i
-        let gid = ric.gid															// from ava ric
+        let gid = ric.gid                             // from ava ric
         let cid = ric.cid
         let fid = (ric.fid === undefined) ? ric.cid + '_' + idx : ric.fid
         let _ric = {gid, cid, fid}
 
-        let _proform = {												// proform each candy
+        let _proform = {                        // proform each candy
           'projection': 'uniwen',
-          'translate': remainCandies[i]			// translate each candy to candy location
+          'translate': remainCandies[i]     // translate each candy to candy location
         }
         if (0 && 1) console.log('h.fuel.gramm _proform', i, _proform.translate)
-        let newAnigram = {}									// new anigram per fuel nat
+        let newAnigram = {}                 // new anigram per fuel nat
         newAnigram.halo = 'fuel'
         newAnigram.geoform = geoform
         newAnigram.payload = payload
-        newAnigram.payload.ric = _ric						// identify each fuel nat
-        newAnigram.payload.proform = _proform			// proform of each fuel nat
+        newAnigram.payload.ric = _ric           // identify each fuel nat
+        newAnigram.payload.proform = _proform     // proform of each fuel nat
 
         let avaAnigrams = __mapper('xs').h('nat').gramm(newAnigram)
         newAnigrams = [...newAnigrams, ...avaAnigrams]

@@ -18,11 +18,11 @@
 
     let cache = {} // points, form
 
-    const cos = Math.cos, sin = Math.sin
-    const neg = x => x < 0 || (x === 0 && (1 / x < 0))
-    const pos = x => x > 0 || (x === 0 && (1 / x > 0))
-    const radians = Math.PI / 180
-    const tau = 2 * Math.PI
+    const cos = Math.cos, sin = Math.sin,
+      neg = x => x < 0 || (x === 0 && (1 / x < 0)),
+      pos = x => x > 0 || (x === 0 && (1 / x > 0)),
+      radians = Math.PI / 180,
+      tau = 2 * Math.PI
 
    /**********************
    *    @nform
@@ -35,11 +35,11 @@
       if (form && typeof form === 'object' &&         // {obj}
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
 
-
           let fas8x = (form.fas8 !== undefined) ? form.fas8 : 0
 
           nformed.x = Object.assign({}, defs, form, {fas8: fas8x}) // fas8 def 0
-          nformed.y = Object.assign({}, defs, (form.y || form), {fas8: fas8x - 90})
+          nformed.y = Object.assign({}, defs, form, {fas8: fas8x - 90})
+
 
       } else if (form && typeof form === 'object' && // {x,y}
             (form.x !== undefined && form.y !== undefined)) {
@@ -234,7 +234,6 @@
 
       let vertex = function (l, p, radio = 1) { // spherical degrees [0,360]
 
-
         let lambda = l * radians
         let phi = p * radians
 
@@ -267,8 +266,9 @@
           return r
         })
 
-
-        return [ point[0], point[1], point[2] ] // [x,y,z]
+        let projpnt = (point[2] !== undefined) ? [ point[0], point[1], point[2] ] :  [ point[0], point[1] ]
+        if (0 && 1) console.log("vertex", l, p, projpnt[0], projpnt[1])
+        return projpnt // [x,y,z]
       }
 
       return vertex
@@ -281,42 +281,54 @@
      */
     let natFeature = function (form) {
         let formm = nform(form)         // NFORM
-        
-        
+
+
         if (1 && 1) console.log("mnat:formm", formm)
 
+
+
+        let geometry
         let dx, dy
         if (Object.keys(formm).length > 2) {
             dx =  360 / formm.x.seg5
             dy =  360 / formm.y.seg5
+            let graticule = {
+              frame: [ [ [-180, 180, dx, dx], [-90, 90, dy, dy] ],  // Mm,Mp
+                        [ [-180, 180, dx, dx], [-90, 90, dy, dy] ] // mm,mp
+                      ]
+            }
+            geometry = mgraticule.gedges(graticule).geometry
+            
+
         } else {
             dx =  360 / formm.x.seg5
-            dy =  360
+            let tau = 2 * Math.PI
+            let rads = Math.PI / 180
+
+            let coords = d3.range(-180, 180, dx).map(d => [d,0])
+            geometry = {type:'LineString', coordinates: coords}
+            
         }
-        
-        let graticule = {
-          'frame': [ [ [-180, 180, dx, dx], [-90, 90, dy, dy] ],  // Mm,Mp
-                    [ [-180, 180, dx, dx], [-90, 90, dy, dy] ] // mm,mp
-                  ]
-          }
-         
-         
-        let feature = {'type': 'Feature','geometry': null,'properties': {}}
-         
-        let gj = {type: 'MultiLineString', coordinates: []}        
-        gj.coordinates = mgraticule.gedges(graticule).geometry.coordinates
-        
+
+
+
+        let feature = {
+            type: 'Feature',
+            geometry: geometry,
+            properties: {
+              mnat: '[[long,lat]] def radio:1'
+            }
+        }
+
+
         let conform = {'projection': 'natform', 'form': formm}
         let projection = mprofier.protion({'projection': 'natform', 'form': formm})
-        
-        gj = mproj3ct(gj, projection)
-        
-        feature.geometry = gj
-        
-        if (0 && 1) console.log("mnat:geo", gj)
 
-        return feature
-        
+        let natgj = mproj3ct(feature, projection)
+
+
+        return natgj
+
     }
     /***************************
      *        @enty

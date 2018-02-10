@@ -25,6 +25,35 @@
       return r
     }
 
+    props.parray = d => (Array.isArray(d)) ? d.slice() : [d]
+
+    props.rarray = d => (Array.isArray(d)) ? [ ...d ].reverse() : [d] // reverse array
+    
+    props.isNumericArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'number', true)
+
+    // pure array: no object/funcion elements
+    props.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true)
+
+    // quasipure array: arrrays, string or number elements
+    props.isQuasiPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev &&
+        Array.isArray(curr) ||
+        typeof (curr) === 'string' ||
+        typeof (curr) === 'number'
+      , true)
+
+    props.isDoubleSingleArray = d => (Array.isArray(d) && // [[_]]
+        Array.isArray(d[0]) &&
+        d.length === 1 &&
+        d[0].length === 1
+    )
+    props.isDoubleArray = d => (Array.isArray(d) && // [[_]]
+        Array.isArray(d[0]) &&
+        d.length === 1
+    )
+
+    // tripleArray" animas animation, single polygon geojson MultiPolygon
+    props.isTripleArray = d => (Array.isArray(d) && Array.isArray(d[0]) && Array.isArray(d[0][0]) &&
+        d.length === 1 && d[0].length === 1 && d[0][0].length === 1) // [[[_]]]    
     /***************************
    *        @functions
    */
@@ -171,39 +200,12 @@
       return pos
     }
 
-    props.parray = d => (Array.isArray(d)) ? d.slice() : [d]
-
     props.geoscale = extent => d3.scaleLinear().domain(extent[0]).range(extent[1])
 
-    props.rarray = d => (Array.isArray(d)) ? [ ...d ].reverse() : [d] // reverse array
 
     props.closerange = (a, b) => [...d3.range(a, b), a]
 
-    props.isNumericArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'number', true)
 
-    // pure array: no object/funcion elements
-    props.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true)
-
-    // quasipure array: arrrays, string or number elements
-    props.isQuasiPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev &&
-        Array.isArray(curr) ||
-        typeof (curr) === 'string' ||
-        typeof (curr) === 'number'
-      , true)
-
-    props.isDoubleSingleArray = d => (Array.isArray(d) && // [[_]]
-        Array.isArray(d[0]) &&
-        d.length === 1 &&
-        d[0].length === 1
-    )
-    props.isDoubleArray = d => (Array.isArray(d) && // [[_]]
-        Array.isArray(d[0]) &&
-        d.length === 1
-    )
-
-    // tripleArray" animas animation, single polygon geojson MultiPolygon
-    props.isTripleArray = d => (Array.isArray(d) && Array.isArray(d[0]) && Array.isArray(d[0][0]) &&
-        d.length === 1 && d[0].length === 1 && d[0][0].length === 1) // [[[_]]]
     props.isPureObject = d => (!Array.isArray(d) &&
                 typeof d === 'object' &&
                 Object.keys(d).reduce((p, c) => p && (typeof d[c] !== 'object'), true)

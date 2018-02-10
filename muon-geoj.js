@@ -308,6 +308,95 @@
       return coords
     }
     /**********************
+   *    @isValid
+   */
+    let isValid = function (json, type) {
+      let valid = true
+      if (json === undefined) {
+        valid = false
+        if (0 && 1) console.log('m.geoj.getCoords json is undefined')
+      } else {
+        if (json.type == 'Feature') {
+          if (json.geometry) {
+            valid = isValid(json.geometry)
+          }
+        } else if (json.type == 'FeatureCollection') {
+          for (let i = 0; i < json.features.length; i++) {
+            valid = valid && isValid(json.features[i])
+          }
+        } else if (json.type == 'GeometryCollection') {
+            if (json.geometries !== undefined) {
+              for (let j = 0; j < json.geometries.length; j++) {
+                valid = valid && isValid(json.geometries[j])
+              }              
+            }
+        } else if (json.type === 'Point') {
+            let point = json.coordinates
+            valid = valid && 
+              Array.isArray(point) && 
+                point.reduce((p, q) => p && typeof q === 'number', true)
+            
+        } else if (json.type === 'LineString') {
+            let line = json.coordinates
+            valid = valid &&
+              line.reduce((p,q) => p && 
+                 Array.isArray(q) && q.reduce( (p2,q2) => p2 && typeof q2 === 'number', true), 
+                  true)
+
+        } else if (json.type === 'MultiPoint') {
+            let points = json.coordinates
+            points = valid &&
+              points.reduce((p,q) => p && 
+                  q.reduce( (p2,q2) => p2 && typeof q2 === 'number', true), 
+                  true)    
+        
+        } else if (json.type === 'Polygon') {
+          
+            let rings = json.coordinates
+              valid = valid &&
+                rings.reduce((p,q) => p && 
+                  q.reduce((p2,q2) => p2 &&     // ring
+                    q2.reduce((p3,q3) => p3 &&  // point
+                      typeof q3 === 'number',   // coord
+                    true), 
+                  true),
+                true)
+          
+        } else if (json.type === 'MultiLineString') {
+          
+            let lines = json.coordinates
+              valid = valid &&
+                lines.reduce((p,q) => p && 
+                  Array.isArray(q) && q.reduce((p2,q2) => p2 &&     // line
+                    Array.isArray(q2) && q2.reduce((p3,q3) => p3 &&  // point
+                      typeof q3 === 'number',   // coord
+                    true), 
+                  true),
+                true)
+          
+        } else if (json.type === 'MultiPolygon') {
+            let polygons = json.coordinates
+              valid = valid &&
+                polygons.reduce((p,q) => p && 
+                  Array.isArray(q) && q.reduce((p2,q2) => p2 &&       // polygon
+                    Array.isArray(q2) && q2.reduce((p3,q3) => p3 &&    // ring
+                      Array.isArray(q3) && q3.reduce((p4,q4) => p4 &&  // point
+                        typeof q4 === 'number',   // coord
+                    true), 
+                  true),
+                true),
+              true)
+                
+        } else {
+          valid = false
+          throw new Error('json type not identified.')
+        }
+      }
+
+
+      return valid
+    }    
+    /**********************
    *    @enty
    */
     let enty = function enty () {}
@@ -323,6 +412,7 @@
     enty.zorder = zorder
     enty.centroid = centroid
     enty.getCoords = getCoords // get coordinates, eg from parent
+    enty.isValid = isValid // si valid geojson
 
     return enty
   }

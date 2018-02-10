@@ -11,7 +11,8 @@
   let muonSnap = function muonSnap (__mapper = {}) {
     let f = __mapper('props')(),
       mnat = __mapper('xs').m('nat'),
-      mlacer = __mapper('xs').m('lacer')
+      mlacer = __mapper('xs').m('lacer'),
+      mgeoj = __mapper('xs').m('geoj')
 
     /***********
    *    @snap : anigram, t, flag
@@ -88,10 +89,26 @@
       } else if (f.isObject(v) && // 10 ___ v :: {b, c, d ...}*
                                       g === 1) {					// assume nat on object
         let ws
-        let geometry = mnat.natFeature(v).geometry
-        let multidimcoords = geometry.coordinates	// nat object => gj polygon geometry
-        let natOuterRing = multidimcoords[0]		// outer ring
-        ws = snap(natOuterRing, t, 1)				// (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
+        
+        let feature = mnat.natFeature(v)
+        if (!mgeoj.isValid(feature)) {
+            console.error("gj not valid", v, feature)
+        }
+        let geometry = feature.geometry
+        let natRing
+        if (geometry.type === "LineString") {
+          natRing = geometry.coordinates
+        } else if (geometry.type === "MultiLineString") {
+          natRing = geometry.coordinates[0]		// first line
+        } else if (geometry.type === "Polygon") {
+          natRing = geometry.coordinates[0]  // outer ring
+        } else if (geometry.type === "MultiPolygon") {
+          natRing = geometry.coordinates[0][0]		// outer ring of first polygon
+        } else {
+          console.error("g type not supported")
+        }
+        ws = snap(natRing, t, 1)				// (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
+console.log(" ------------- ws",natRing,ws)        
         return ws
       } else if (f.isArray(v) && // 11_____ [v]*
           f.isPureArray(v) &&
@@ -101,9 +118,9 @@
         let w = d3.scaleLinear().domain(d).range(r)
         return w(t)
       } else if (f.isArray(v) && // 12 _____ [v1,v2,v3]*
-      f.isPureArray(v) &&
-      v.length > 1 &&
-      g === 1) {
+          f.isPureArray(v) &&
+          v.length > 1 &&
+          g === 1) {
         let d = v.map((item, idx) => idx / (v.length - 1))
         let r = v
         let w = d3.scaleLinear()
@@ -111,8 +128,8 @@
           .range(r)
         return w(t)
       } else if (f.isArray(v) && // 13 _____ [[a1,a2,a3],[b1,b2]]*
-      f.isQuasiPureArray(v) && // => [[a1,b1],[a2,b1'],[a3,b2]]
-      g === 1) {													// [][] dosnap qualifier
+          f.isQuasiPureArray(v) && // => [[a1,b1],[a2,b1'],[a3,b2]]
+          g === 1) {													// [][] dosnap qualifier
         let ws = mlacer.unslide(v).filter(d => d.length > 0).map(d => snap(d, t, 1))
         return ws
       } else {
