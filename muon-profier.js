@@ -30,10 +30,10 @@
       if (prjdef !== undefined) {
         if (f.isString(prjdef.projection)) { // if _projection singular name
           prj = __mapper('xs').g(prjdef.projection)(prjdef) // props
-          
+
         } else if (f.isFunction(prjdef.projection)) { // if is projection
           prj = prjdef.projection // props passed to projection
-          
+
         } else if (f.isArray(prjdef.projections)) { // if plural select one
           prj = prjdef.projections[ Math.round(prjdef.projectidx || 0) ]
 
@@ -45,7 +45,7 @@
         if (prj.rotate !== undefined) {
           let rot = (prjdef.rotate) ? prjdef.rotate : [0, 0, 0]
 
-          let dims = rot.length		// planar or spherical geometry
+          let dims = rot.length   // planar or spherical geometry
           if (rot.length == 2) rot[2] = 0
 
           let control
@@ -65,6 +65,7 @@
           prjdef.rotate = rot
         }
 
+  
         let translate = prjdef.translate
         if (f.isObject(translate) && f.isPosition(translate)) {
           translate = Object.values(translate) // translate is {x,y,z}

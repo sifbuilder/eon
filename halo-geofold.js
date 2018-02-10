@@ -47,11 +47,11 @@
       let gjGeonode = payload.geonode || {
         type: 'Feature',
         geometry: { type: 'Point', coordinates: [0, 0, 0] },
-        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+        properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null}
       }
       let fieldEffect = {
         'projection': 'uniwen',
-        'translate': gjGeonode.geometry.coordinates
+        'translate': gjGeonode.properties.velin   // velin
       }
       let gjGeosimed = mprofier.projier(fieldEffect, anigram)(gjProformed)
 

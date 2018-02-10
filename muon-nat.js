@@ -275,20 +275,17 @@
 
         let geometry
         let dx, dy
+        
         if (Object.keys(formm).length > 2) {
-            dx =  360 / formm.x.seg5
-            dy =  360 / formm.y.seg5
-            let graticule = {
-              frame: [ [ [-180, 180, dx, dx], [-90, 90, dy, dy] ],  // Mm,Mp
-                        [ [-180, 180, dx, dx], [-90, 90, dy, dy] ] // mm,mp
-                      ]
-            }
+          
+            dx =  360 / formm.x.seg5  // x
+            dy =  360 / formm.z.seg5  // z
+            let graticule = {frame: [ [ [-180, 180, dx, dx], [-90, 90, dy, dy] ] ],}  // x, y
             geometry = mgraticule.gedges(graticule).geometry
             
-
+          
         } else {
-            dx =  360 / formm.x.seg5
-            let tau = 2 * Math.PI
+            dx =  360 / formm.x.seg5  // x
             let rads = Math.PI / 180
 
             let coords = d3.range(-180, 180, dx).map(d => [d,0])
@@ -306,12 +303,10 @@
             }
         }
 
-
         let conform = {'projection': 'natform', 'form': formm}
         let projection = mprofier.protion({'projection': 'natform', 'form': formm})
 
         let natgj = mproj3ct(feature, projection)
-
 
         return natgj
 
