@@ -187,12 +187,14 @@ let muonAlima = function (__mapper) {
         autoSitus: d => mstace.getLocus(null, d),
 
         fider: d => d.payload.ric.fid,
-
-        geojsor: (d, i) => ({
-          type: 'Feature',
-          geometry: {type: 'LineString', coordinates: null},
-          properties: {}
-        })
+        
+        geojsor: () => {
+            let ani = {}
+              ani.halo = 'geofold'
+              ani.geoform =  {type: 'Feature',geometry: {type: 'LineString', coordinates: null},properties: {}}
+              ani.payload = {}
+            return ani
+        }
 
       }
     }

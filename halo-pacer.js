@@ -69,9 +69,18 @@
         ? anitem => anitem.payload.ric.fid
         : payload.pacer.fider
 
+        
       geojsor = (payload.pacer.geojsor === undefined)
-        ? d => ({type: 'Point', coordinates: null}) //  default
-        : payload.pacer.geojsor // (ani, counter) => geometry
+        ? d => ({
+          halo: 'geofold',
+          geoform: {type: 'Point', coordinates: null},
+          payload: {}
+        })
+        : payload.pacer.geojsor // (ani, counter) => geometry             
+        
+      // geojsor = (payload.pacer.geojsor === undefined)
+        // ? d => ({type: 'Point', coordinates: null}) //  default
+        // : payload.pacer.geojsor // (ani, counter) => geometry
 
       /* ****
        *    count
@@ -137,13 +146,15 @@
             let newItem = mstore.findAnigramFromUid(uid) // anigram DOES exist ??
 
             if (newItem === undefined) { // if not, create new anigram
-              newItem = {}
-              newItem.halo = 'geofold'
+            
+              // newItem = {}
+              // newItem.halo = 'geofold'
+              // newItem.geoform = geojsor(anigram, i) 		// anigram, counter
+              // newItem.geoform.id = uid
+              // newItem.payload = {}
+              
+              newItem = geojsor(anigram, i)
 
-              newItem.geoform = geojsor(anigram, i) 		// anigram, counter
-              newItem.geoform.id = uid
-
-              newItem.payload = {}
             }
             newItem.payload.ric = _ric // item id
             newItem.payload.tim = anigram.payload.tim // item time

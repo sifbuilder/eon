@@ -116,21 +116,21 @@ let muonAlima = function (__mapper) {
 												ani.payload.ric.cid === anitem.payload.ric.cid)
 					  .length,
 
-        geojsor: (d, i) => ({
-          type: 'Feature',
-          geometry: {type: 'Point', coordinates: null},
-
-						 'properties': {
-
-            geonode: {
-              type: 'Feature',
-              geometry: { type: 'Point', coordinates: [0, 0, 0] },
-              properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null}
-            }
-
+            
+        geojsor: () => {
+          let ani = {}
+            ani.halo = 'geofold'
+            ani.geoform =  {type: 'Feature',geometry: {type: 'LineString', coordinates: null},properties: {}}
+            ani.payload = {
+              geonode: {
+                type: 'Feature',
+                geometry: { type: 'Point', coordinates: [0, 0, 0] },
+                properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null}
+              }
           }
+          return ani
+        }
 
-        })
 
       }
 

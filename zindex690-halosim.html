@@ -135,11 +135,13 @@ let muonAlima = function (__mapper) {
         eventSitus: d => ({x: mmouse.event().x, y: mmouse.event().y, z: 0 }),
         autoSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
 
-        geojsor: (d, i) => ({
-          type: 'Feature',
-          geometry: {type: 'Point', coordinates: null},
-          properties: {}
-        })
+        geojsor: () => {
+            let ani = {}
+              ani.halo = 'geofold'
+              ani.geoform =  {type: 'Feature',geometry: {type: 'Point', coordinates: null},properties: {}}
+              ani.payload = {}
+            return ani
+        }
 
       },
 
