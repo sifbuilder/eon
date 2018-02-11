@@ -207,7 +207,7 @@
             properties: {}})
         }
       } else {
-        console.log('m.geoj.featurize not supported geojson ')
+        console.log('m.geoj.featurize not supported geojson ',json)
       }
 
       return {type: 'FeatureCollection', features}

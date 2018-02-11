@@ -67,13 +67,13 @@
 
   
         let translate = prjdef.translate
-        if (f.isObject(translate) && f.isPosition(translate)) {
+        if (translate && f.isObject(translate) && f.isPosition(translate)) {
           translate = Object.values(translate) // translate is {x,y,z}
           prjdef.translate = translate
         }
 
         let center = prjdef.center
-        if (f.isObject(center) && f.isPosition(center)) {
+        if (translate && f.isObject(center) && f.isPosition(center)) {
           center = Object.values(center) // center is {x,y,z}
           prjdef.center = center
         }

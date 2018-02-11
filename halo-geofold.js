@@ -47,35 +47,40 @@
       let gjGeonode = payload.geonode || {
         type: 'Feature',
         geometry: { type: 'Point', coordinates: [0, 0, 0] },
-        properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null}
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
       }
-      let fieldEffect = {
-        'projection': 'uniwen',
-        'translate': gjGeonode.properties.velin   // velin
+      let gjGeosimed 
+      if (gjGeonode.properties.velin) {
+        let fieldEffect = {
+          'projection': 'uniwen',
+          'translate': gjGeonode.properties.velin   // velin
+        }
+        gjGeosimed = mprofier.projier(fieldEffect, anigram)(gjProformed)
+      } else {
+        gjGeosimed = gjProformed
       }
-      let gjGeosimed = mprofier.projier(fieldEffect, anigram)(gjProformed)
-
       gjGeonode = mprofier.proformer(anigram)(gjGeonode) // projected position
 
       let gj = mgeoj.featurize(gjGeosimed) // featurize
-      gj = mboform.boformer(anigram, gj) // boform
-      gj = mgeoj.zorder(gj) // order
-      gj = mric.qualier(ric, anigram, gj) // qualify
+        gj = mboform.boformer(anigram, gj) // boform
+        gj = mgeoj.zorder(gj) // order
+        gj = mric.qualier(ric, anigram, gj) // qualify
 
-      newAnigrams = gj.features.map((d, i) => { // d is feature
-        let newAnigram = {}
+        newAnigrams = gj.features.map((d, i) => { // d is feature
+      
+          let newAnigram = {}
+          newAnigram.payload = {}
+          newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
+          newAnigram.payload.ric = d.properties.ric // hoist ric
+          newAnigram.payload.uid = d.properties.uid // hoist uid
+          newAnigram.payload.preani = mstore.findAnigramFromUid(d.properties.uid)
+          newAnigram.payload.geonode = gjGeonode // assign projected geonode
 
-        newAnigram.payload = {}
-        newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
-        newAnigram.payload.ric = d.properties.ric // hoist ric
-        newAnigram.payload.uid = d.properties.uid // hoist uid
-        newAnigram.payload.preani = mstore.findAnigramFromUid(d.properties.uid)
-        newAnigram.payload.geonode = gjGeonode // assign projected geonode
+          newAnigram.geoform = d // inherit geoform
 
-        newAnigram.geoform = d // inherit geoform
-
-        return newAnigram
-      })
+          return newAnigram
+          
+        })
 
       return newAnigrams
     }
