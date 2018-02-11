@@ -44,24 +44,34 @@
 
       let gjProformed = mprofier.proformer(anigram)(gjConformed)
 
-      let gjGeonode = payload.geonode || {
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [0, 0, 0] },
-        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-      }
-      let gjGeosimed 
-      if (gjGeonode.properties.velin) {
+      let gj = gjProformed
+      
+      // let gjGeonode = payload.geonode || {
+        // type: 'Feature',
+        // geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        // properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      // }
+      // if (gjGeonode.properties.velin) {
+        // let fieldEffect = {
+          // 'projection': 'uniwen',
+          // 'translate': gjGeonode.properties.velin   // velin
+        // }
+        // gj = mprofier.projier(fieldEffect, anigram)(gjProformed)
+      // } else {
+        // gj = gjProformed
+      // }
+      // gjGeonode = mprofier.proformer(anigram)(gjGeonode) // projected position
+      let geonode = payload.geonode
+      if (geonode) { // if payload.geonode
         let fieldEffect = {
           'projection': 'uniwen',
-          'translate': gjGeonode.properties.velin   // velin
-        }
-        gjGeosimed = mprofier.projier(fieldEffect, anigram)(gjProformed)
-      } else {
-        gjGeosimed = gjProformed
-      }
-      gjGeonode = mprofier.proformer(anigram)(gjGeonode) // projected position
+          'translate': [ geonode.geometry.coordinates[0], geonode.geometry.coordinates[1], geonode.geometry.coordinates[2] ]}
+        gj = mprofier.projier(fieldEffect, anigram)(gj)
 
-      let gj = mgeoj.featurize(gjGeosimed) // featurize
+        geonode = mprofier.proformer(anigram)(geonode) // projected position
+      }
+      
+      gj = mgeoj.featurize(gj) // featurize
         gj = mboform.boformer(anigram, gj) // boform
         gj = mgeoj.zorder(gj) // order
         gj = mric.qualier(ric, anigram, gj) // qualify
@@ -74,7 +84,7 @@
           newAnigram.payload.ric = d.properties.ric // hoist ric
           newAnigram.payload.uid = d.properties.uid // hoist uid
           newAnigram.payload.preani = mstore.findAnigramFromUid(d.properties.uid)
-          newAnigram.payload.geonode = gjGeonode // assign projected geonode
+          newAnigram.payload.geonode = geonode // assign projected geonode
 
           newAnigram.geoform = d // inherit geoform
 

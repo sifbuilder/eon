@@ -28,6 +28,7 @@
       }
     }
 
+    // let d3_force = d3
     let sim = d3_force.forceSimulation() //
     let dim = 3
 

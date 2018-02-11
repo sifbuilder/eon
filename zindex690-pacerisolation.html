@@ -21,6 +21,8 @@ let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1, img: 0}) // INIT
 
+  // let d3_force = d3  
+  
   let f = __mapper({'props': muonProps.muonProps()}).props()
   mgeom = __mapper('xs').m('geom'),
   mwen = __mapper('xs').m('wen'),
@@ -82,6 +84,7 @@ let muonAlima = function (__mapper) {
       ani.payload.boform.cs = (i % 2) ? 777 : 333
 
       let preani = mstore.getAnima(ani.payload.ric)
+      
       if (preani) {
         ani = preani
       } else { // create anima
@@ -902,7 +905,7 @@ let muonAlima = function (__mapper) {
 
   let animas = [
     nat1, // h.geofold
-    gratilines21 // h.geofold
+    // gratilines21 // h.geofold
 
   ]
 
