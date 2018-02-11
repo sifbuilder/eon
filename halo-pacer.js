@@ -32,10 +32,14 @@
     }
     // -------------------------------  haloPacerHalo_gramm
     let haloPacerHalo_gramm = function (anima, newItems = []) {
+      
+if (1 && 1) console.log("anima", anima)      
+      
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
-        geoform = anigram.geoform || manitem.coreGeoform(), // geoform
-        payload = anigram.payload, // payload
+        geoform = anigram.geoform || manitem.coreGeoform() // geoform
+        
+      let payload = anigram.payload, // payload
         boform = payload.boform, // boform
         ric = payload.ric, // ric
         tim = payload.tim, // tim
@@ -43,10 +47,14 @@
         conform = payload.conform, // conform
         uid = payload.uid, // uid
         parentuid = payload.parentuid, // parentuid
-        pacer = payload.pacer || {}, // pacer
+        inited = payload.inited, // inited
+        gelded = payload.gelded // gelded
+        
+      let pacer = payload.pacer || {}, // pacer
         mousesignal = pacer.mousesignal || 0, // mousesignal
         span = pacer.span || 0, // span between items
-        aad = pacer.aad || 0 // aad to previtem
+        aad = pacer.aad || 0, // aad to previtem
+        outted = pacer.outted || 0 // outted
 
       let initSitus, eventSitus, autoSitus, fider, geojsor
 
@@ -71,16 +79,13 @@
 
         
       geojsor = (payload.pacer.geojsor === undefined)
-        ? d => ({
+        ? (d,i) => ({
           halo: 'geofold',
           geoform: {type: 'Point', coordinates: null},
           payload: {}
         })
-        : payload.pacer.geojsor // (ani, counter) => geometry             
-        
-      // geojsor = (payload.pacer.geojsor === undefined)
-        // ? d => ({type: 'Point', coordinates: null}) //  default
-        // : payload.pacer.geojsor // (ani, counter) => geometry
+        : payload.pacer.geojsor // (ani, counter) => ani, geometry             
+
 
       /* ****
        *    count
@@ -108,22 +113,26 @@
           count.event = Math.floor(pacer.eventN) //  if in state or was event
         }
       }
-
-      if (pacer.inited === undefined || pacer.inited !== 1) {
+            
+      if (outted === undefined || outted !== 1) {
         count.init = Math.floor(pacer.initN) // count INIT
       }
 
-      let cyletime = tim.unitPassed - (pacer.outed || 0)
+      let cyletime = tim.unitPassed - (pacer.outtimed || 0)
 
       if (cyletime >= pacer.autoP) { // if cycle time above autopath
         count.auto = Math.floor(pacer.autoN) // count AUTO
-        pacer.outed = tim.unitPassed // updated with anima
+        pacer.outtimed = tim.unitPassed // updated with anima
 
-        anima.payload.inited = 1 //  inited
-        anima.payload.pacer.outed = pacer.outed //  outed at time units
+        
+        
+        
+        anima.payload.pacer.outted = 1 // off
+        anima.payload.pacer.outtimed = pacer.outtimed //  outtimed at time units
         let animas = Array.of(anima) // upd ANIMA
         __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
       }
+           
 
       if (Object.keys(count).length > 0) { // on pace count
         let situs
@@ -146,16 +155,12 @@
             let newItem = mstore.findAnigramFromUid(uid) // anigram DOES exist ??
 
             if (newItem === undefined) { // if not, create new anigram
-            
-              // newItem = {}
-              // newItem.halo = 'geofold'
-              // newItem.geoform = geojsor(anigram, i) 		// anigram, counter
-              // newItem.geoform.id = uid
-              // newItem.payload = {}
               
               newItem = geojsor(anigram, i)
 
             }
+
+
             newItem.payload.ric = _ric // item id
             newItem.payload.tim = anigram.payload.tim // item time
             newItem.payload.boform = anigram.payload.boform // item style
@@ -164,6 +169,7 @@
             let vsitus = Object.values(situs) // {x:280,y:229,z:0} => [x,y,0]
 
             if (aad && newItem.geoform.geometry.type === 'LineString') { // CUM LINE
+            
               let coords = newItem.geoform.geometry.coordinates // geocoords of new item
               if (coords && coords.length > 0) {
                 let loc = coords[coords.length - 1] // last point in cummul string
@@ -179,7 +185,9 @@
               newItem.geoform.geometry.coordinates = coords
 
               newItems = [...newItems, ...__mapper('xs').h('geofold').gramm(newItem)] // add items
+              
             } else if (newItem.geoform.geometry.type === 'Point') {			// POINT
+            
               let itemcoords = newItem.geoform.geometry.coordinates
 
               if (itemcoords !== null) { // paced item DOES exist
@@ -199,7 +207,9 @@
                 newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
                 newItems = [...newItems, ...__mapper('xs').h('geofold').gramm(newItem)]	// add items
               }
+              
             } else {
+              
               let itemcoords = newItem.geoform.geometry.coordinates
               let geonode = newItem.payload.geonode.properties.geonode
               let geonodecoords = geonode.geometry.coordinates

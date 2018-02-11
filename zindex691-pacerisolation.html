@@ -21,8 +21,8 @@ let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1, img: 0}) // INIT
 
-  // let d3_force = d3  
-  
+  // let d3_force = d3
+
   let f = __mapper({'props': muonProps.muonProps()}).props()
   mgeom = __mapper('xs').m('geom'),
   mwen = __mapper('xs').m('wen'),
@@ -84,7 +84,7 @@ let muonAlima = function (__mapper) {
       ani.payload.boform.cs = (i % 2) ? 777 : 333
 
       let preani = mstore.getAnima(ani.payload.ric)
-      
+
       if (preani) {
         ani = preani
       } else { // create anima
@@ -118,20 +118,20 @@ let muonAlima = function (__mapper) {
 
     payload: {
       tim: tim,
-      ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'nat1'},
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
 
       pacer: {
         initN: 2,
         eventN: 1,
         autoN: 0,
         autoP: 0,
-        outed: 0,
-        maxN: 60,
+        outtimed: 0,
+        maxN: 10,
         span: 15 / 1400,
 
 
         initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
-        
+
         // eventSitus: d => ({x: mmouse.event().x, y: mmouse.event().y, z: 0 }),
         eventSitus: ani => {
           let situs
@@ -139,38 +139,40 @@ let muonAlima = function (__mapper) {
             let x = mmouse.event().x
             let y = mmouse.event().y
             let z = 0
-            situs = {x, y, z }
+            situs = {x, y, z}
           }
           return situs
         },
-        
+
         autoSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
 
         // fider: (payload, i) => 'item' + i,
         fider: anitem => 'item' +     // anima fid
-					mstore.anigrams()
-					  .filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
-												ani.payload.ric.cid === anitem.payload.ric.cid)
-					  .length,
+          mstore.anigrams()
+            .filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
+                        ani.payload.ric.cid === anitem.payload.ric.cid)
+            .length,
+
             
-        geojsor: () => {
+        geojsor: (d,i) => {
+if (1 && 1) console.log("d", d)
             let ani = {}
-              ani.halo = 'geofold'
-              ani.geoform =  {type: 'Feature',geometry: {type: 'Point', coordinates: null},properties: {}}
-              ani.payload = {}
+              ani.halo = 'geofold'  // set halo
+              ani.geoform =  {type: 'Feature',geometry: {type: 'Point', coordinates: null},properties: {}}    // define geoform
+              ani.payload = d.payload   // inherit payload
             return ani
         }
-        
-        
+
+
 
       },
-      
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
+
 
       geonode: {
         type: 'Feature',
@@ -817,7 +819,7 @@ let muonAlima = function (__mapper) {
         'position': 200,
         'strength': d => attractionCtt,
         filter: d => d.payload.ric.gid === 'nat',
-				  src: d3_force,
+          src: d3_force,
         'nodes': nodes
       }
 
@@ -863,7 +865,7 @@ let muonAlima = function (__mapper) {
       return forces
     }
   }
-	  /*******************************************
+    /*******************************************
  *      @center
  */
   let force_center_orange = {
@@ -878,7 +880,7 @@ let muonAlima = function (__mapper) {
       let nodes = params.nodes
 
       let forceParams = {
-        'type': 'center',	// f.center
+        'type': 'center', // f.center
         'center': center,
         'strength': d => attractionCtt,
         'filter': d => d.payload.ric.cid === 'orange',
@@ -901,7 +903,7 @@ let muonAlima = function (__mapper) {
       let nodes = params.nodes
 
       let forceParams = {
-        'type': 'center',	// f.center
+        'type': 'center', // f.center
         'center': center,
         'strength': d => attractionCtt,
         'filter': d => d.payload.ric.cid === 'gold',
@@ -948,4 +950,5 @@ let muonAlima = function (__mapper) {
 let __mapper = muonMapper.muonMapper()
 __mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
+
 <body style="cursor:crosshair"></body>

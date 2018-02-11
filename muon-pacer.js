@@ -95,11 +95,11 @@
         count.init = Math.floor(pacer.initN) // count INIT
       }
 
-      let cyletime = tim.unitPassed - (pacer.outed || 0)
+      let cyletime = tim.unitPassed - (pacer.outtimed || 0)
 
       if (cyletime >= pacer.autoP) { // if cycle time above autopath
         count.auto = Math.floor(pacer.autoN) // count AUTO
-        pacer.outed = tim.unitPassed // updated with anima
+        pacer.outtimed = tim.unitPassed // updated with anima
       }
 
       console.log('count', count)
