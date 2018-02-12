@@ -66,7 +66,6 @@
         cwen.reset(svg)
         cversor.reset(svg)
       }
-
       if (mouse.event !== undefined && mouse.mouseDown === 1) { // on mouse DOWN
         if (mousesignal === 0 || mouse.event.type === 'mousedown') { //
           count.event = Math.floor(pacer.eventN) //  if in state or was event
@@ -81,44 +80,15 @@
 
       if (cycletime >= pacer.autoP) { // if cycle time above autopath
         count.auto = Math.floor(pacer.autoN) // count AUTO
-        pacer.outtimed = tim.unitPassed // updated with anima
+        // outtimed 
          
-        anima.payload.inited = 1 // 
-        anima.payload.gelded = 1 // 
-        anima.payload.pacer.outted = 1 // off
-        anima.payload.pacer.outtimed = pacer.outtimed //  outtimed at time units
-        let animas = Array.of(anima) // upd ANIMA
-        __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
-        
       }
 
 
-      if (Object.keys(count).length > 0) { // on pace count
-      
-        for (let i = 0; i < Object.keys(count).length; i++) { // for each COUNT
-        
-          let key = Object.keys(count)[i] // count sort
-
-          if (count[key] > 0) { // if count on this sort
-          
-            let newItem = {}
+      newItems = payload.pacer.geojsor(payload, count)  // new geoItems
 
 
-            for (let j=0; j<count[key]; j++) {
-                  
-              newItem =  payload.pacer.geojsor(payload, j, key) 
-
-               
-              console.log("m.pacer:key", key, count[key], j, newItem.payload.ric)
-
- 
-              newItems.push(newItem)
-            }
-          }
-        }
-      }
-
-      console.log('m.pacer:newItems', newItems)
+      if (0 && 1) console.log('m.pacer:newItems', newItems)
       return newItems
     }
 
