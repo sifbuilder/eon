@@ -25,15 +25,9 @@
       width = r.width(),
       height = r.height()
 
-    // -------------------------------  haloPacerHalo_ween
-    let haloPacerHalo_ween = function haloPacerHalo_gramm (anima, newItems = []) {
-      if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
-      return newItems
-    }
+  
     // -------------------------------  haloPacerHalo_gramm
-    let haloPacerHalo_gramm = function (anima, newItems = []) {
-      
-if (1 && 1) console.log("anima", anima)      
+    let pacer = function (anima, newItems = []) {
       
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
@@ -125,8 +119,8 @@ if (1 && 1) console.log("anima", anima)
         pacer.outtimed = tim.unitPassed // updated with anima
 
         
-        
-        
+        anima.payload.inited = 1 // 
+        anima.payload.gelded = 1 // 
         anima.payload.pacer.outted = 1 // off
         anima.payload.pacer.outtimed = pacer.outtimed //  outtimed at time units
         let animas = Array.of(anima) // upd ANIMA
@@ -148,84 +142,127 @@ if (1 && 1) console.log("anima", anima)
               situs = eventSitus(anigram)
             }
 
-            let _ric = ric
-            _ric.fid = fider(anigram) // fider set in the payload or default
-
-            let uid = mric.buildUIDFromRic(_ric) // uid
-            let newItem = mstore.findAnigramFromUid(uid) // anigram DOES exist ??
-
-            if (newItem === undefined) { // if not, create new anigram
+            // for (let j=0; j<count[key]; j++) {
               
-              newItem = geojsor(anigram, i)
+              // if (1 && 1) console.log("key", key, count[key], j)
 
-            }
+                
+                
+                
+                
+                  
+                  
+                  
+              let _ric = ric
+              _ric.fid = fider(anigram) // fider set in the payload or default
 
+              let uid = mric.buildUIDFromRic(_ric) // uid
+              let newItem = mstore.findAnigramFromUid(uid) // anigram DOES exist ??
 
-            newItem.payload.ric = _ric // item id
-            newItem.payload.tim = anigram.payload.tim // item time
-            newItem.payload.boform = anigram.payload.boform // item style
-            newItem.payload.avatars = anigram.payload.avatars // items may have avatars
+              if (newItem === undefined) { // if not, create new anigram
+                
+                newItem = geojsor(anigram, i)
 
-            let vsitus = Object.values(situs) // {x:280,y:229,z:0} => [x,y,0]
-
-            if (aad && newItem.geoform.geometry.type === 'LineString') { // CUM LINE
-            
-              let coords = newItem.geoform.geometry.coordinates // geocoords of new item
-              if (coords && coords.length > 0) {
-                let loc = coords[coords.length - 1] // last point in cummul string
-                let dx = vsitus[0] - loc[0]
-                let dy = vsitus[1] - loc[1]
-                let dz = vsitus[2] - loc[2]
-                let d = dx * dx + dy * dy + dz * dz // distance from vsitus to last point
-
-                if (d > span) coords.push(vsitus) // add segment if above pixspan distance
-              } else {
-                coords = Array.of(vsitus)
               }
-              newItem.geoform.geometry.coordinates = coords
 
-              newItems = [...newItems, ...__mapper('xs').h('geofold').gramm(newItem)] // add items
+
+              newItem.payload.ric = _ric // item id
+              newItem.payload.tim = anigram.payload.tim // item time
+              newItem.payload.boform = anigram.payload.boform // item style
+              newItem.payload.avatars = anigram.payload.avatars // items may have avatars
+
+              let vsitus = Object.values(situs) // {x:280,y:229,z:0} => [x,y,0]
+
+              if (aad && newItem.geoform.geometry.type === 'LineString') { // CUM LINE
               
-            } else if (newItem.geoform.geometry.type === 'Point') {			// POINT
-            
-              let itemcoords = newItem.geoform.geometry.coordinates
+                let coords = newItem.geoform.geometry.coordinates // geocoords of new item
+                if (coords && coords.length > 0) {
+                  let loc = coords[coords.length - 1] // last point in cummul string
+                  let dx = vsitus[0] - loc[0]
+                  let dy = vsitus[1] - loc[1]
+                  let dz = vsitus[2] - loc[2]
+                  let d = dx * dx + dy * dy + dz * dz // distance from vsitus to last point
 
-              if (itemcoords !== null) { // paced item DOES exist
-                let loc = itemcoords
-                let dx = vsitus[0] - loc[0]
-                let dy = vsitus[1] - loc[1]
-                let dz = vsitus[2] - loc[2]
-                let d = dx * dx + dy * dy + dz * dz
+                  if (d > span) coords.push(vsitus) // add segment if above pixspan distance
+                } else {
+                  coords = Array.of(vsitus)
+                }
+                newItem.geoform.geometry.coordinates = coords
 
-                if (d >= span) {
+                newItems = [...newItems, ...__mapper('xs').h('geofold').gramm(newItem)] // add items
+                
+              } else if (newItem.geoform.geometry.type === 'Point') {			// POINT
+              
+                let itemcoords = newItem.geoform.geometry.coordinates
+
+                if (itemcoords !== null) { // paced item DOES exist
+                  let loc = itemcoords
+                  let dx = vsitus[0] - loc[0]
+                  let dy = vsitus[1] - loc[1]
+                  let dz = vsitus[2] - loc[2]
+                  let d = dx * dx + dy * dy + dz * dz
+
+                  if (d >= span) {
+                    newItem.geoform.geometry.coordinates = [0, 0, 0]
+                    newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
+                    newItems = [...newItems, ...__mapper('xs').h('geofold').gramm(newItem)]	// add items
+                  }
+                  
+                } else {											// paced item NOT exists
                   newItem.geoform.geometry.coordinates = [0, 0, 0]
                   newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
                   newItems = [...newItems, ...__mapper('xs').h('geofold').gramm(newItem)]	// add items
                 }
-              } else {											// paced item NOT exists
-                newItem.geoform.geometry.coordinates = [0, 0, 0]
+                
+              } else {
+                
+                let itemcoords = newItem.geoform.geometry.coordinates
+                let geonode = newItem.payload.geonode.properties.geonode
+                let geonodecoords = geonode.geometry.coordinates
+
+                if (geonodecoords == undefined || geonodecoords == null) geonodecoords = [0, 0]
+                newItem.geoform.geometry.coordinates = itemcoords
+                newItem.payload.geonode.geometry.coordinates = geonodecoords
                 newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
                 newItems = [...newItems, ...__mapper('xs').h('geofold').gramm(newItem)]	// add items
-              }
+                
+              }               
+                
+                
+                
+                
+                
+                
+                
+                
               
-            } else {
-              
-              let itemcoords = newItem.geoform.geometry.coordinates
-              let geonode = newItem.payload.geonode.properties.geonode
-              let geonodecoords = geonode.geometry.coordinates
+            // }
+  
 
-              if (geonodecoords == undefined || geonodecoords == null) geonodecoords = [0, 0]
-              newItem.geoform.geometry.coordinates = itemcoords
-              newItem.payload.geonode.geometry.coordinates = geonodecoords
-              newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
-              newItems = [...newItems, ...__mapper('xs').h('geofold').gramm(newItem)]	// add items
-            }
+
+            
+            
+            
           }
         }
       }
-
+if (1 && 1) console.log("newItems", newItems)
       return newItems
     }
+    
+
+    // -------------------------------  haloPacerHalo_ween
+    // let haloPacerHalo_ween = function haloPacerHalo_gramm (anima, newItems = []) {
+      // if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
+      // return newItems
+    // }
+    // let haloPacerHalo_gramm = pacer
+
+    
+    let haloPacerHalo_ween = pacer
+    let haloPacerHalo_gramm = anima => [] // GRAMM))    
+
+    
 
     let haloPacerHalo = function haloPacerHalo () {}
     haloPacerHalo.ween = anima => haloPacerHalo_ween(anima)

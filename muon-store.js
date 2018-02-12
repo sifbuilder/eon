@@ -80,7 +80,7 @@
     let ween = function (anima, newItems = []) {
       let anigram = __mapper('xs').m('anitem').anigram(anima)
 
-      if (anigram.halo === undefined) console.error('halo not defined')
+      if (anigram.halo === undefined) console.error('halo is undefined')
       if (anigram.halo === null) console.error('halo is null')
       let halo = (anigram.halo !== undefined && typeof anigram.halo === 'object')
         ? anigram.halo // halo in anima
