@@ -30,7 +30,9 @@ let muonAlima = function (__mapper) {
   mstore = __mapper('xs').m('store'),
   mpacer = __mapper('xs').m('pacer'),
   mgraticule = __mapper('xs').m('graticule'),
-  mforces = __mapper('xs').m('forces')
+  mforces = __mapper('xs').m('forces'),
+  mpacer = __mapper('xs').m('pacer'),
+  mric = __mapper('xs').m('ric')
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
@@ -68,7 +70,7 @@ let muonAlima = function (__mapper) {
  *      @animas
  *
  */
-  let haloIsolation_ween = anima => { // WEEN
+  let ____haloIsolation_ween = anima => { // WEEN
     let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
     animas = []
@@ -102,8 +104,29 @@ let muonAlima = function (__mapper) {
 
     return animas
   }
+  
+  let ___haloIsolation_ween = anima => { // WEEN
+     let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+      return animas
+  }
 
-  let haloIsolation_gramm = anima => [] // GRAMM))
+     
+  let haloIsolation_gramm = anima => [] // GRAMM
+
+  
+  let haloIsolation_ween = anima => { // WEEN
+
+    
+     animas = []
+     
+     animas = mpacer(anima.payload)
+     
+  
+  if (1 && 1) console.log("haloIsolation_ween animas", animas)
+    
+    return animas
+  }
+  
 
   let haloIsolationHalo = {}
   haloIsolationHalo.ween = anima => haloIsolation_ween(anima)
@@ -112,13 +135,13 @@ let muonAlima = function (__mapper) {
   // -------------------------------  nat1
   let nat1 = {
 
-    halo: 'pacer', // haloIsolationHalo,
+    halo: haloIsolationHalo, // 'pacer', // 
 
     geoform: p => mnat.natFeature(p.payload.form),
 
     payload: {
       tim: tim,
-      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
+      ric: {'gid': 'nat', 'cid': 'gnat', 'fid': 'nat'},
 
       pacer: {
         initN: 3,
@@ -129,38 +152,65 @@ let muonAlima = function (__mapper) {
         maxN: 10,
         span: 15 / 1400,
 
+            
+        geojsor: (p,i,k) => {
 
-        initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
-
-        // eventSitus: d => ({x: mmouse.event().x, y: mmouse.event().y, z: 0 }),
-        eventSitus: ani => {
-          let situs
-          if (mmouse.event() !== undefined) {
-            let x = mmouse.event().x
-            let y = mmouse.event().y
-            let z = 0
-            situs = {x, y, z}
-          }
-          return situs
-        },
-
-        autoSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
-
-        // fider: (payload, i) => 'item' + i,
-        fider: anitem => 'item' +     // anima fid
-          mstore.anigrams()
-            .filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
-                        ani.payload.ric.cid === anitem.payload.ric.cid)
-            .length,
+              
+    console.log("------------- z.691:p", p.ric, i, k)        
+        
+            let _halo = 'geofold'  // set halo
+            let _geoform =  {       // define geoform
+                type: 'Feature',
+                geometry: {type: 'Point', coordinates: [0,0,0]},
+                properties: {}
+            }
+            let _payload = p  // payload is inherited from anima
+                  
+            
+            
+            let anis = mstore.anigrams() 
+              .filter(ani => ani.payload.ric.gid === _payload.ric.gid &&
+                          ani.payload.ric.cid === _payload.ric.cid).length
+              
+            
+            let _ric = {}
+            _ric.gid = 'nat'
+            _ric.cid = 'nat'
+            _ric.fid = 'nat' + (anis + i) // fidder
+            
+            let _uid = mric.buildUIDFromRic(_ric) // uid    
 
             
-        geojsor: (d,i) => {
+            let newItem = mstore.findAnigramFromUid(_uid) // anigram DOES exist ??
+            
 
-            let ani = {}
-              ani.halo = 'geofold'  // set halo
-              ani.geoform =  {type: 'Feature',geometry: {type: 'Point', coordinates: null},properties: {}}    // define geoform
-              ani.payload = d.payload   // inherit payload
-            return ani
+            if (newItem === undefined) { // if not, create new anigram
+            
+              newItem = {}
+              
+              newItem.halo = _halo // set halo
+
+              newItem.geoform = _geoform 		// set geoform
+              
+              newItem.id = _uid // set id
+
+              newItem.payload = _payload // set payload
+              
+              newItem.payload.ric = Object.assign({},_ric)   // set ric
+
+            }             
+          
+              
+            let situs = [0,0,0]
+            if (k === 'auto' && mmouse.event() !== undefined) situs = [mmouse.event().x, mmouse.event().y, 0]
+            else if (k === 'init') situs = [width / 2, height / 2, 0 ]
+            else if (k === 'event') situs = [width / 2, height / 2, 0 ]
+            
+            newItem.payload.proform = {'projection': 'uniwen', 'translate': situs}	// proform
+          
+    console.log(" ................... z.691:p", newItem.payload.ric)        
+              
+            return newItem
         }
 
 

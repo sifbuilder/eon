@@ -9,6 +9,9 @@
   'use strict'
 
   let haloPacer = function haloPacer (__mapper = {}) {
+
+  if (1 && 1) console.log("h.pacer")  
+    
     let f = __mapper({'props': muonProps.muonProps()}).props(),
       mgeom = __mapper('xs').m('geom'),
       mwen = __mapper('xs').m('wen'),
