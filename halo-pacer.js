@@ -140,12 +140,8 @@
             let newItem = mstore.findAnigramFromUid(uid) // anigram DOES exist ??
 
             if (newItem === undefined) { // if not, create new anigram
-              newItem = {}
-              newItem.halo = 'geofold'
-
-              newItem.geoform = geojsor(anigram, i) 		// anigram, counter
+              newItem = geojsor(anigram, i) 		// anigram, counter
               newItem.geoform.id = uid
-
               newItem.payload = {}
             }
             newItem.payload.ric = _ric // item id
