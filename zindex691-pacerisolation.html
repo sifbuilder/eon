@@ -32,6 +32,8 @@ let muonAlima = function (__mapper) {
     mric = __mapper('xs').m('ric'),
     mmouse = __mapper('xs').m('mouse')
 
+  let d3_force = d3
+    
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
     height = r.height()
@@ -68,50 +70,10 @@ let muonAlima = function (__mapper) {
  *      @animas
  *
  */
-  let ____haloIsolation_ween = anima => { // WEEN
-    let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-
-    animas = []
-
-    let nbr = 10
-    for (let i = 0; i < nbr; i++) {
-      let ani = f.cloneObj(nat1) // clone of model anima
-      ani.payload.ric.gid = 'nat'
-      ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
-      ani.payload.ric.fid = 'item' + i // identify
-
-      ani.payload.boform.cf = (i % 2) ? 777 : 333
-      ani.payload.boform.cs = (i % 2) ? 777 : 333
-
-      let preani = mstore.getAnima(ani.payload.ric)
-
-      if (preani) {
-        ani = preani
-      } else { // create anima
-        ani.halo = 'geofold' // create halo
-
-        ani.geoform = { // will create anigram
-          'type': 'Feature',
-          'geometry': {'type': 'Point', 'coordinates': [0, 0, 0]}
-        }
-
-        ani.payload.geonode.properties.orgen = [0, 0, 0 ]
-      }
-      animas.push(ani)
-    }
-
-    return animas
-  }
-
-  let ___haloIsolation_ween = anima => { // WEEN
-    let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-    return animas
-  }
 
   let haloIsolation_gramm = anima => [] // GRAMM
 
-  
-  
+
   let haloIsolation_ween = anima => { // WEEN
     animas = []
 
@@ -122,9 +84,9 @@ let muonAlima = function (__mapper) {
         anima.payload.pacer.outted = 1 // off
         
         let cycletime = anima.payload.tim.unitPassed - (anima.payload.pacer.outtimed || 0)
-          if (cycletime >= anima.payload.pacer.autoP) { // if cycle time above autopath
-              anima.payload.pacer.outtimed = anima.payload.tim.unitPassed // updated with anima
-              anima.payload.pacer.outtimed = anima.payload.pacer.outtimed //  outtimed at time units
+          if (cycletime >= anima.payload.pacer.autoP) {
+            anima.payload.pacer.outtimed = anima.payload.tim.unitPassed
+            anima.payload.pacer.outtimed = anima.payload.pacer.outtimed
           }        
         
         let animas = Array.of(anima) // upd ANIMA
@@ -162,7 +124,6 @@ let muonAlima = function (__mapper) {
 
         // geojsor: (p, i, k) => {
         geojsor: (p, count) => {
-if (1 && 1) console.log("691 count", count )  
           let newItems = []
           if (Object.keys(count).length > 0) { // on pace count
 

@@ -26,7 +26,7 @@
       return d3force
     }
 
-    var enty = function enty () {}
+    var enty = function () {}
     enty.force = force
 
     return enty

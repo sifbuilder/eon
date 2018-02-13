@@ -42,6 +42,7 @@ document.write("<script src='geo-uniwen.js'><\/script>")
 /*  lib */  
 document.write("<script src='lib-complex.js'><\/script>")    
 document.write("<script src='lib-dat.gui.js'><\/script>")    
+document.write("<script src='lib-papaparse.js'><\/script>")    
 /*  muons */  
 document.write("<script src='muon-animas.js'><\/script>")    
 document.write("<script src='muon-animation.js'><\/script>")    
