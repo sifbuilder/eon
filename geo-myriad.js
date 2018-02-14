@@ -20,9 +20,13 @@
   // LICENSE# Released under the The MIT License.
 
   let geoMyriad = function geoMyriad (__mapper = {}) {
-    let width = __mapper('xs').r('renderer').width()
-    let height = __mapper('xs').r('renderer').height()
-    let scaleProj = Math.min(width / 2, height) / Math.PI
+    
+    let mkruskal = __mapper('xs').m('kruskal')
+    
+    let renderer = __mapper('renderRenderer'),
+      width = renderer.width(),
+      height = renderer.height(),
+      scaleProj = Math.min(width / 2, height) / Math.PI
 
     let epsilon = 1e-6, epsilon2 = epsilon * epsilon
     let asin = Math.asin, atan = Math.atan
@@ -55,7 +59,7 @@
     let state = {}
     state.futuryCef1 = Math.PI / 4
     state.tree = [-1, 4, 5, 2, 0, 1] // [-1, 0, 0, 0, 0, 4] //
-    state.rotate = [28, -4, 0] // See that California touches the corner, and Australia
+    state.rotate = [28, -4, 0]
 
     let enxs = function (ent, ents, entidx = 0) {
       if (ent !== undefined) { // if projection singular
@@ -107,7 +111,7 @@
     }
 
     let voro = d3.geoVoronoi()(cornerpoints)
-    let polyhedron = voro.polygons().features.map(d => d.geometry.coordinates[0]) // polyhedron
+    let polyhedron = voro.polygons().features.map(d => d.geometry.coordinates[0])
     let links = voro.links().features.map(d => d.properties)// .filter(d => d.urquhart)
 
     links.forEach(l => { // prefer certain links
@@ -117,7 +121,7 @@
 
     let k = {
       type: 'FeatureCollection',
-      features: __mapper('xs').m('kruskal')(links).map(l => ({
+      features: mkruskal(links).map(l => ({
         type: 'LineString',
         coordinates: [l.source.coordinates, l.target.coordinates],
         properties: l

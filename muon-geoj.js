@@ -359,7 +359,6 @@
                 true)
           
         } else if (json.type === 'MultiLineString') {
-          
             let lines = json.coordinates
               valid = valid &&
                 lines.reduce((p,q) => p && 

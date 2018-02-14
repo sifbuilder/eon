@@ -102,7 +102,7 @@ let muonAlima = function (__mapper) {
         'projection': 'orthographic',
         'scale': 100,
         'translate': [ 150, 250 ],
-        'rotate': [ [[[0, 0]]], 0, 0 ],
+        'rotate': [ 0, 0, 0 ],
         'control': 'versor'
 
       }
@@ -114,11 +114,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'geofold',
 
-    geoform: p => ({
-      type: 'Feature',
-      geometry: {type: 'MultiLineString', coordinates: mgraticule.gedges(p.payload.graticule)},
-      properties: {}
-    }),
+    geoform: p => mgraticule.gedges(p.payload.graticule),
 
     payload: {
       tim: tim,

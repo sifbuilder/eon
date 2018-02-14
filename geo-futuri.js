@@ -20,17 +20,19 @@
   // LICENSE# Released under the The MIT License.
 
   let geofuturi = function geofuturi (__mapper = {}) {
+    
+    let f = __mapper({'props': muonProps.muonProps()}).props(),
+      mgeom = __mapper('xs').m('geom'),
+      mpolyhedral = __mapper('xs').m('polyhedral')
+
     let renderer = __mapper('renderRenderer'),
       width = renderer.width(),
       height = renderer.height(),
       scaleProj = Math.min(width / 2, height) / Math.PI
 
-    let f = __mapper({'props': muonProps.muonProps()}).props()
-    let g = __mapper('xs').m('geom')
-
-    let atan = Math.atan
-    let pi = Math.PI, degrees = 180 / pi
-    let sqrt1_2 = Math.SQRT1_2
+    let atan = Math.atan,
+      pi = Math.PI, degrees = 180 / pi,
+      sqrt1_2 = Math.SQRT1_2
 
     /*******************************************
  *      @polyhedron
@@ -61,9 +63,9 @@
         [ 1, -1, -1], // 4  // 5
         [ 1, 1, -1], // 7  // 6
         [-1, 1, -1] // 6  // 7
-      ].map(g.normalize)
-        .map(g.spherical)
-        .map(g.to_degrees)
+      ].map(mgeom.normalize)
+        .map(mgeom.spherical)
+        .map(mgeom.to_degrees)
 
       vertices = d3.merge([
         vertices
@@ -91,12 +93,10 @@
       if (!p.geoRotation) p.geoRotation = c => [-c[0], -c[1], 0]
       if (!p.tree) p.tree = [-1, 4, 5, 2, 0, 1]
       if (!p.rotate) p.rotate = [28, -4, 0] // California
-
       if (!p.faces) p.faces = faces
-
       if (!p.prjRaw) p.prjRaw = d3.geoGnomonicRaw
 
-      return __mapper('xs').m('polyhedral')(p)
+      return mpolyhedral(p)
     }
 
     return enty

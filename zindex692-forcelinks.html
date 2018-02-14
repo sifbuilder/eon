@@ -21,8 +21,8 @@ let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1, img: 0}) // INIT
 
-  // let d3_force = d3  
-  
+  let d3_force = d3
+
   let f = __mapper({'props': muonProps.muonProps()}).props()
   mgeom = __mapper('xs').m('geom'),
   mwen = __mapper('xs').m('wen'),
@@ -48,48 +48,58 @@ let muonAlima = function (__mapper) {
  *      @animas
  *
  */
-  let haloIsolation_ween = anima => { // WEEN
+  let haloForce_ween = anima => { // WEEN
     let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
     animas = []
 
+      let sys = {
+        nodes: {
+          type: 'FeatureCollection',
+          features: []
+        },
+
+        links: {
+          type: 'FeatureCollection',
+          features: []
+        },
+      }
+
+
+      const perimeter = 2, length = 3;
+      const getId = (col, row) => `${col},${row}`;
+      let nodes = [], links = [];
+      for (let colIdx=0; colIdx<perimeter; colIdx++) {
+        for (let rowIdx=0; rowIdx<length; rowIdx++) {
+          const id = getId(colIdx, rowIdx);
+          nodes.push({id});
+          
+          if (rowIdx>0) {
+            links.push({ source: getId(colIdx, rowIdx-1), target: id });
+          }
+          
+          links.push({ source: getId((colIdx || perimeter) - 1, rowIdx), target: id })
+        }
+      }
+      let r = { nodes, links }
+
+      if (1 && 1) console.log("nodes", nodes[0])
+
+        
+        
+    for (let i = 0; i < nodes.length; i++) {        // NODES
     
-    
-	const perimeter = 12, length = 30;
-
-	const getId = (col, row) => `${col},${row}`;
-
-	let nodes = [], links = [];
-	for (let colIdx=0; colIdx<perimeter; colIdx++) {
-		for (let rowIdx=0; rowIdx<length; rowIdx++) {
-			const id = getId(colIdx, rowIdx);
-			nodes.push({id});
-
-			// Link vertically
-			if (rowIdx>0) {
-				links.push({ source: getId(colIdx, rowIdx-1), target: id });
-			}
-
-			// Link horizontally
-			links.push({ source: getId((colIdx || perimeter) - 1, rowIdx), target: id });
-		}
-	}    
-  let r = { nodes, links }  
-  
-  
-    
-    let nbr = 10
-    for (let i = 0; i < nbr; i++) {
       let ani = f.cloneObj(nat1) // clone of model anima
       ani.payload.ric.gid = 'nat'
       ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
       ani.payload.ric.fid = 'item' + i // identify
+      ani.payload.uid = __mapper('xs').m('ric').buildUIDFromRic(ani.payload.ric)
 
       ani.payload.boform.cf = (i % 2) ? 777 : 333
       ani.payload.boform.cs = (i % 2) ? 777 : 333
 
       let preani = mstore.getAnima(ani.payload.ric)
-      
+
       if (preani) {
         ani = preani
       } else { // create anima
@@ -104,20 +114,69 @@ let muonAlima = function (__mapper) {
       }
       animas.push(ani)
     }
+    
+    if (1 && 1) console.log("links", links[0])
+    
+    for (let i = 0; i < links.length; i++) {    // {source: "11,0", target: "0,0"}
+    
+      let link = {
+        source: nodes[i],
+        target: nodes[i]
+      }      
+  
+      let ani = f.cloneObj(nat1) // clone of model anima
+      ani.payload.ric.gid = 'glink'
+      ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
+      ani.payload.ric.fid = 'item' + i // identify
+      ani.payload.uid = __mapper('xs').m('ric').buildUIDFromRic(ani.payload.ric)
+
+      ani.payload.boform.cf = (i % 2) ? 777 : 333
+      ani.payload.boform.cs = (i % 2) ? 777 : 333
+
+      
+      ani.link = link
+      // vertex[0] = nodes[link[0]]
+      // vertex[1] = nodes[link[1]]
+      
+      
+      let preani = mstore.getAnima(ani.payload.ric)
+
+      if (preani) {
+        
+        ani = preani
+        
+      } else { // create anima
+        ani.halo = 'geofold' // create halo
+
+        ani.geoform = { // will create anigram
+          'type': 'Feature',
+          'geometry': {'type': 'LineString', 'coordinates': [0, 0, 0]}
+        }
+
+        ani.payload.geonode.properties.orgen = [0, 0, 0 ]
+      }
+      
+      
+      animas.push(ani)
+    }
+    
+    
+    
+    
 
     return animas
   }
 
-  let haloIsolation_gramm = anima => [] // GRAMM))
+  let haloForce_gramm = anima => [] // GRAMM))
 
-  let haloIsolationHalo = {}
-  haloIsolationHalo.ween = anima => haloIsolation_ween(anima)
-  haloIsolationHalo.gramm = anima => haloIsolation_gramm(anima)
+  let haloForceHalo = {}
+  haloForceHalo.ween = anima => haloForce_ween(anima)
+  haloForceHalo.gramm = anima => haloForce_gramm(anima)
 
   // -------------------------------  nat1
   let nat1 = {
 
-    halo: haloIsolationHalo,
+    halo: haloForceHalo,
 
     geoform: p => mnat.natFeature(p.payload.form),
 
@@ -167,12 +226,6 @@ let muonAlima = function (__mapper) {
       proform: {
         'projection': 'uniwen',
         'translate': [200, 50, 0],
-        // [ [ [[[100, 400]]], 200 ],
-        // [[[ {
-        // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
-        // 'ra2': 30,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-        // 'fas8': 0
-        // } ]]] ],
         'scale': 1,
         'rotate': [ 0, 0, [[[0, 0]]] ],
         'lens': [0, 1, 12],
@@ -624,6 +677,7 @@ let muonAlima = function (__mapper) {
 
     field: params => {
       let nodes = params.nodes
+
       let strength = params.properties.strength
 
       let forces = []
@@ -632,7 +686,6 @@ let muonAlima = function (__mapper) {
         type: 'manybody', // f.manybody
         strength: strength,
         filter: d => d.payload.ric.gid === 'nat',
-        src: d3_force, // d3
         nodes: nodes
       }
 
@@ -795,7 +848,7 @@ let muonAlima = function (__mapper) {
         'position': 200,
         'strength': d => attractionCtt,
         filter: d => d.payload.ric.gid === 'nat',
-				  src: d3_force,
+          src: d3_force,
         'nodes': nodes
       }
 
@@ -841,7 +894,7 @@ let muonAlima = function (__mapper) {
       return forces
     }
   }
-	  /*******************************************
+    /*******************************************
  *      @center
  */
   let force_center_orange = {
@@ -856,7 +909,7 @@ let muonAlima = function (__mapper) {
       let nodes = params.nodes
 
       let forceParams = {
-        'type': 'center',	// f.center
+        'type': 'center', // f.center
         'center': center,
         'strength': d => attractionCtt,
         'filter': d => d.payload.ric.cid === 'orange',
@@ -879,7 +932,7 @@ let muonAlima = function (__mapper) {
       let nodes = params.nodes
 
       let forceParams = {
-        'type': 'center',	// f.center
+        'type': 'center', // f.center
         'center': center,
         'strength': d => attractionCtt,
         'filter': d => d.payload.ric.cid === 'gold',
@@ -888,6 +941,46 @@ let muonAlima = function (__mapper) {
       }
       let force = {'key': 'center_golde', 'force': mforces(forceParams)}
       return Array.of(force)
+    }
+  }
+   // field_link
+  let force_link = {
+    properties: {
+
+      strength: 1,
+      distance: d => 100,
+      distances: [d => 100],
+      iterations: 1
+    },
+    
+    field: params => {
+      let nodes = params.nodes
+
+      let strength = 1,
+        distance = d => 100,
+        iterations = 1
+
+      let forces = []
+
+      let forceParams =  {
+        type: 'linkForce',
+        strength: strength,
+        id: d => d.uid,
+        distance: d => distance,
+        iterations: iterations,
+
+        filter: d => d.payload.ric.gid === 'glink',
+        nodes: nodes,
+        links: nodes.filter(d => (d.payload.ric.gid === 'glink'))
+
+      }
+
+      let force = mforces(forceParams)
+      let field = {'key': 'link', 'force': force}
+
+      forces.push(field)
+
+      return forces
     }
   }
   /*******************************************
@@ -907,7 +1000,8 @@ let muonAlima = function (__mapper) {
     // force_Y,
     // force_Z,
     force_center_orange,
-    force_center_gold
+    force_center_gold,
+    force_link
   }
 
   let animas = [
