@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  let haloFuel = function haloFuel (__mapper = {}) {
+  let haloFuel = function (__mapper = {}) {
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
       mstore = __mapper('xs').m('store'),
@@ -25,7 +25,7 @@
 
     let gramm = function (anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram(),   // anigram
-        hallo =       anigram.halo,             // halo
+        halo =       anigram.halo,             // halo
         geoform =     anigram.geoform           // geoform
 
       let payload =   anigram.payload,          // payload 
@@ -79,7 +79,7 @@
           'translate': remainCandies[i]     // translate each candy to candy location
         }
         let newAnigram = {}                 // new anigram per fuel nat
-        newAnigram.halo = 'fuel'
+        newAnigram.halo = 'nat'
         newAnigram.geoform = geoform
         newAnigram.payload = payload
         newAnigram.payload.ric = _ric           // identify each fuel nat

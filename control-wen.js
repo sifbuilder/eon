@@ -134,8 +134,12 @@
 
     function momentum () {
       if (Math.abs(state.vel[0]) < inits.epsilon && Math.abs(state.vel[1]) < inits.epsilon) return
-      state.vel[0] *= inits.decay; state.vel[1] *= inits.decay
-      state.rotInDrag[0] += state.vel[0]; state.rotInDrag[1] += state.vel[1]
+        state.vel[0] *= inits.decay 
+        state.vel[1] *= inits.decay
+        
+        state.rotInDrag[0] += state.vel[0] 
+        state.rotInDrag[1] += state.vel[1]
+        
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
 

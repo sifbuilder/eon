@@ -49,14 +49,14 @@
       return json
     }
 
-    let gramm = function gramm (anima, newAnigrams = []) {
+    let gramm = function (anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram(),							// anigram
 			  halo = 				anigram.halo, // halo
         geoform = 		anigram.geoform || _geoform, // geoform
         payload = 		anigram.payload, // payload
         boform = 			payload.boform, // boform
-        ric = payload.ric, // ric
-        tim = payload.tim, // tim
+        ric =         payload.ric, // ric
+        tim =         payload.tim, // tim
         proform =			payload.proform, // proform
         conform = 		payload.conform, // conform
         uid = 				payload.uid, // uid
