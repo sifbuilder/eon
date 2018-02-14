@@ -16,6 +16,8 @@ var haloNums = function (__mapper = {}) {
 	 */
 	let gramn = function (anima, newAnigrams = []) {
     
+    if (1 && 1) console.log("h.nums.gram", anima)
+    
     let anigram = manitem(anima).anigram(),   // anigram
       halo =       anigram.halo,             // halo
       geoform =     anigram.geoform           // geoform
@@ -68,7 +70,7 @@ var haloNums = function (__mapper = {}) {
 
 
 			let newAnigram = {}                 // new anigram per fuel nat
-        newAnigram.halo = 'nat'
+        newAnigram.halo = 'text'
         newAnigram.geoform = geoform
         newAnigram.payload = payload
         newAnigram.payload.ric = _ric           // identify each fuel nat
@@ -90,9 +92,10 @@ var haloNums = function (__mapper = {}) {
     let haloNums_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
     let haloNums_gramm = anima => gramm(anima)
 
-    let haloNums = {}
-    haloNums.ween = anima => haloNums_ween(anima)
-    haloNums.gramm = anima => haloNums_gramm(anima)
+    let haloNums = {
+        ween: anima => haloNums_ween(anima),
+        gramm: anima => haloNums_gramm(anima)
+    }
 
     let enty = haloNums
 
