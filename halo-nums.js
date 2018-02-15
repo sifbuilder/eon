@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var haloNums = function (__mapper = {}) {
+  let haloNums = function (__mapper = {}) {
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
       mstore = __mapper('xs').m('store'),
@@ -18,7 +18,7 @@
    *    @gramm
    */
     let gramm = function (anima, newAnigrams = []) {
-      if (1 && 1) console.log('h.nums.gram', anima)
+      if (0 && 1) console.log('h.nums.gram:anima  ', anima)
 
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
@@ -37,13 +37,15 @@
         if (!mgeoj.isValid(geometry)) { console.error('h.geofold:gj not valid', geometry) }
         parentCoords = mgeoj.getCoords(geometry) // outer ring
       }
-
+      
+      if (1 && 1) console.log('h.nums.gram:parentCoords', parentCoords)
+        
       let locations = []
       if (nums.pos !== undefined && parentCoords !== undefined) {
         if (Array.isArray(nums.pos)) { // pos is array
           locations = d3.range(nums.pos[0], nums.pos[1], nums.step)
             .map(d => d % parentCoords.length) // mod
-        } else if (typeof (pos) === 'number') { // one position
+        } else if (typeof (nums.pos) === 'number') { // one position
           locations = [Math.floor(nums.pos % parentCoords.length)]
         }
       }
@@ -57,33 +59,68 @@
 
         let _proform = { // proform each candy
           'projection': 'uniwen',
-          'translate': locations[i] // translate each candy to candy location
+          'translate': parentCoords[locations[i]] // translate each candy to candy location
         }
 
-        let _text = Object.assign({}, text, {text: locations[i]})
+       
+          let _geoform = function (p) { // geoform
+            let payload = p.payload,
+              text = payload.nums, // nums
+              boform = p.boform || {}
+              
+            text.style = text.style || {}
+              
 
-        let newAnigram = {} // new anigram per fuel nat
-        newAnigram.halo = 'text'
-        newAnigram.geoform = geoform
-        newAnigram.payload = payload
-        newAnigram.payload.ric = _ric // identify each fuel nat
-        newAnigram.payload.proform = _proform // proform of each fuel nat
-        newAnigram.payload.text = _text //
+            let json = {
+              type: 'Feature',
+              geometry: { type: 'Point', coordinates: [0, 0] },
+              properties: {
+                sort: 'text'  ,
+                text: locations[i],   // nums
+                style: {
 
-        let avaAnigrams = __mapper('xs').h('text').gramm(newAnigram)
-        newAnigrams = [...newAnigrams, ...avaAnigrams]
+                  'rotate': text.style['rotate'],
+                  'font-size': text.style['font-size'],
+                  'font-family': text.style['font-family'],
+                  'text-anchor': text.style['text-anchor'],
+
+                  'width': text.style.width,
+                  'height': text.style.height,
+
+                  'dx': text.style.dx,
+                  'dy': text.style.dy,
+
+                  'textLength': text.style.textLength,
+                  'lengthAdjust': text.style.lengthAdjust
+
+                }
+              }
+            }
+            return json
+          }
+    
+    
+        anima.geoform = _geoform
+        anima.payload.proform = _proform
+        newAnigrams = [...newAnigrams, ...__mapper('xs').h('geofold').gramm(anima)]
       }
+      
+      if (1 && 1) console.log('h.nums.gram:newAnigrams', newAnigrams)
+      
       return newAnigrams
     }
 
     /**********************
      *    @enty
      */
-    let enty = function () {}
-    enty.ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = 1, [anima]) : []
-    enty.gramm = anima => gramm(anima)
+    let haloNums = {}
+    haloNums.ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = 1, [anima]) : []
+    haloNums.gramm = anima => gramm(anima)
+
+    let enty = haloNums
 
     return enty
+    
   }
 
   exports.haloNums = haloNums

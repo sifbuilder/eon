@@ -90,6 +90,7 @@ document.write("<script src='halo-fuel.js'><\/script>")
 document.write("<script src='halo-geofold.js'><\/script>")    
 document.write("<script src='halo-img.js'><\/script>")    
 document.write("<script src='halo-nat.js'><\/script>")    
+document.write("<script src='halo-nums.js'><\/script>")    
 document.write("<script src='halo-pacer.js'><\/script>")    
 document.write("<script src='halo-text.js'><\/script>")    
 /*  x  proxy */  

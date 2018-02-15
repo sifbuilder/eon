@@ -100,8 +100,9 @@
   */
     let coreGeoform = () => p => ({ // geoform
       type: 'Feature',
-      geometry: { type: 'Point', coordinates: null},
-      properties: {sort: 'feature' }})
+      geometry: { type: 'Point', coordinates: [0,0,0]},
+      properties: {}
+    })
 
     /***********
   *   @coreGeonode
@@ -126,7 +127,7 @@
         }
         if (anigram.payload === undefined) anigram.payload = {}
 
-        anigram.geoform = f.v((anigram.geoform || coreGeoform()), anigram)	// geoform
+        anigram.geoform = f.v((anigram.geoform), anigram)	// geoform
         anigram.payload.conform = f.v(anigram.payload.conform, anigram)		// conform
         anigram.payload.proform = f.v(anigram.payload.proform, anigram)		// proform
 

@@ -116,7 +116,7 @@
           halo = __mapper('xs').h(anigram.halo) // or halo in store
         }
 
-        if (!halo) console.log('halo ', halo, ' not defined')
+        if (!halo) console.log('halo', anigram.halo, ' not defined')
 
         else newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
 

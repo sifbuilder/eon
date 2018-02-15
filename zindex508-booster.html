@@ -221,7 +221,13 @@ let muonAlima = function muonAlima (__mapper) {
 
     halo: 'nums',
 
-    geoform: p => mnat.natFeature(p.payload.form),
+    geoform: {
+      type: 'Feature',
+      geometry: {
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+      },
+    },
 
     payload: {
       tim,
@@ -241,7 +247,7 @@ let muonAlima = function muonAlima (__mapper) {
  *
  */
 
-   circ.payload.avatars = {
+  circ.payload.avatars = {
     nums // h.nums
   }
 

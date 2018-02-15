@@ -26,6 +26,7 @@
         type: 'Feature',
         geometry: { type: 'Point', coordinates: [0, 0] },
         properties: {
+          sort: 'text'  ,
           text: text.text,
           style: {
 
@@ -50,6 +51,7 @@
     }
 
     let gramm = function (anima, newAnigrams = []) {
+   
       let anigram = manitem(anima).anigram(),							// anigram
 			  halo = 				anigram.halo, // halo
         geoform = 		anigram.geoform || _geoform, // geoform
@@ -63,7 +65,7 @@
         parentuid = 	payload.parentuid, // parentuid
         json
 
-      anima.payload.geoform = geoform
+      anima.geoform = geoform
       newAnigrams = __mapper('xs').h('geofold').gramm(anima)
 
       return newAnigrams
