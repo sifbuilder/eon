@@ -93,7 +93,7 @@ let muonAlima = function (__mapper) {
       ani.payload.ric.gid = 'nat'
       ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
       ani.payload.ric.fid = 'item' + i // identify
-      ani.payload.uid = __mapper('xs').m('ric').buildUIDFromRic(ani.payload.ric)
+      ani.payload.uid = __mapper('xs').m('ric').getuid(ani.payload.ric)
 
       ani.payload.boform.cf = (i % 2) ? 777 : 333
       ani.payload.boform.cs = (i % 2) ? 777 : 333
@@ -128,7 +128,7 @@ let muonAlima = function (__mapper) {
       ani.payload.ric.gid = 'glink'
       ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
       ani.payload.ric.fid = 'item' + i // identify
-      ani.payload.uid = __mapper('xs').m('ric').buildUIDFromRic(ani.payload.ric)
+      ani.payload.uid = __mapper('xs').m('ric').getuid(ani.payload.ric)
 
       ani.payload.boform.cf = (i % 2) ? 777 : 333
       ani.payload.boform.cs = (i % 2) ? 777 : 333
@@ -943,7 +943,7 @@ let muonAlima = function (__mapper) {
       return Array.of(force)
     }
   }
-   // field_link
+   // force_link
   let force_link = {
     properties: {
 

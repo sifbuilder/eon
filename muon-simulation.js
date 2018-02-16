@@ -54,17 +54,22 @@
       for (let i = 0, n = aniItems.length; i < n; ++i) {
         let aniItem = aniItems[i]
         let payload = aniItem.payload
+        
         let geonode = mgeonode.set(payload.geonode)
+        
 
+        let geometry = geonode.geometry   
+        let properties = geonode.properties
+        
         let simNode = {}
 
-        simNode.x = 	geonode.geometry.coordinates[0]	// geonode location to simnode
-        simNode.y = 	geonode.geometry.coordinates[1]
-        simNode.z = 	geonode.geometry.coordinates[2]
+        simNode.x = 	geometry.coordinates[0]	// geonode location to simnode
+        simNode.y = 	geometry.coordinates[1]
+        simNode.z = 	geometry.coordinates[2]
 
-        simNode.vx = 	geonode.properties.velin[0]	// geonode velocity to simnode
-        simNode.vy = 	geonode.properties.velin[1]
-        simNode.vz = 	geonode.properties.velin[2]
+        simNode.vx = 	properties.velin[0]	// geonode velocity to simnode
+        simNode.vy = 	properties.velin[1]
+        simNode.vz = 	properties.velin[2]
 
         simNode.payload = payload										// anitem payload to simnode
         simNode.id = payload.uid										// anitem uid to simnode id

@@ -38,6 +38,16 @@
         
       let gjGeoformed = f.v(geoform, anigram)
         
+// let stream =  gjGeoformed.geometry.coordinates   
+// if (0 && 1) console.log("stream", stream)        
+// let tr = stream.map((p,i,a) => (i==0) ? p : p.map( (c,j,q) => {
+  // console.log("c", a[i+1][j], a[i][j])
+    // let r = (a[i+1][j] - a[i][j])
+    // return r
+  // }    )) 
+// if (1 && 1) console.log("tr", tr) 
+
+      
       if (!mgeoj.isValid(gjGeoformed)) { console.error("h.geofold:gj not valid", gjGeoformed)}
         
       let gjConformed = mprofier.conformer(anigram)(gjGeoformed)
@@ -61,6 +71,7 @@
         // gj = gjProformed
       // }
       // gjGeonode = mprofier.proformer(anigram)(gjGeonode) // projected position
+      
       let geonode = payload.geonode
       if (geonode) { // if payload.geonode
         let fieldEffect = {

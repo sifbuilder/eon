@@ -102,6 +102,7 @@
     let enty = haloFuel
 
     return enty
+    
   }
 
   exports.haloFuel = haloFuel

@@ -136,7 +136,7 @@
             let _ric = ric
             _ric.fid = fider(anigram) // fider set in the payload or default
 
-            let uid = mric.buildUIDFromRic(_ric) // uid
+            let uid = mric.getuid(_ric) // uid
             let newItem = mstore.findAnigramFromUid(uid) // anigram DOES exist ??
 
             if (newItem === undefined) { // if not, create new anigram

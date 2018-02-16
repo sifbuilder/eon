@@ -319,7 +319,7 @@ if (0 && 1) console.log("691 count", count )
                     _ric.cid = 'nat'
                     _ric.fid = 'nat' + (anis + j) // fidder
 
-                    let _uid = mric.buildUIDFromRic(_ric) // uid
+                    let _uid = mric.getuid(_ric) // uid
 
                     let newItem = mstore.findAnigramFromUid(_uid) // anigram DOES exist ??
                     if (newItem === undefined) { // if not, create new anigram

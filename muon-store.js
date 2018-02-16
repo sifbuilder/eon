@@ -32,7 +32,7 @@
 
           let uid = (updAnima.payload.uid !== undefined) // uid
             ? updAnima.payload.uid
-            : __mapper('xs').m('ric').buildUID(updAnima)
+            : __mapper('xs').m('ric').getuid(updAnima)
 
           let index = enty.findFromUid(uid, state.animas)
           if (index !== -1) { // anima exists
@@ -88,7 +88,7 @@
       if (halo === null) console.log('halo ', anigram.halo, ' not found')
       let weened = halo.ween(anima) // ANIMA HALO.WEEN
       weened.forEach(d => { // qualify each ween
-        d.payload.uid = __mapper('xs').m('ric').buildUID(d) // uid for children
+        d.payload.uid = __mapper('xs').m('ric').getuid(d) // uid for children
         newItems.push(d)
       })
 
@@ -136,7 +136,7 @@
               let newSubItems = []
               let avatar = avatars[j]
 
-              avatar.payload.uid = __mapper('xs').m('ric').buildUID(avatar) // uid for children
+              avatar.payload.uid = __mapper('xs').m('ric').getuid(avatar) // uid for children
               avatar.payload.tim = anigram.payload.tim // time from anima
               avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
 
@@ -188,7 +188,7 @@
       )
 
     enty.findByUid = (item, list) => {
-      let uid = __mapper('xs').m('ric').buildUID(item)
+      let uid = __mapper('xs').m('ric').getuid(item)
       return enty.findFromUid(uid, list)
     }
 

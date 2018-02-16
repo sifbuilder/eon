@@ -90,7 +90,7 @@
         else 																		_ric.fid = ric.fid
 
         properties.ric = {gid, cid, fid}
-        properties.uid = __mapper('xs').m('ric').buildUIDFromRic(properties.ric)
+        properties.uid = __mapper('xs').m('ric').getuid(properties.ric)
 
         feature.id = properties.uid
         feature.properties = properties
@@ -114,7 +114,7 @@
 
           feature.properties.ric = _ric
 
-          feature.properties.uid = __mapper('xs').m('ric').buildUIDFromRic(feature.properties.ric)
+          feature.properties.uid = __mapper('xs').m('ric').getuid(feature.properties.ric)
           feature.id = feature.properties.uid
           feature.properties.nid = i
         }
@@ -125,14 +125,40 @@
 
       return json
     }
+    /* **************************
+ *        @getuid
+ *				ani.ric => ani.feature.pros.ric => feature.id => ani.uid
+ */
 
+    let getuid = function (params) {
+      let uid
+      if (typeof(params) === 'object') {
+        if (params.fid !== undefined) {
+            let ric = params
+            uid = ric.gid + '_' + ric.cid + '_' + ric.fid
+        } else if (params.ric !== undefined ) {
+            uid = getuid(params.ric)
+        } else if (params.payload !== undefined && params.payload.ric !== undefined ) {
+            uid = getuid(params.payload.ric)
+        } else if (params.properties !== undefined && params.properties.ric !== undefined ) {
+            uid = getuid(params.properties.ric)
+        }
+      } else if (Array.isArray(params)) {
+        uid = params[0] + '_' + params[1] + '_' + params[2]
+      } else {
+        console.log('uid container not supported', params)
+      }
+      
+      return uid
+      
+    }
+    
     /**********************
    *    @enty
    */
     let enty = function enty () {}
     enty.getAnigramRic = getAnigramRic // build ric from anigram, i
-    enty.buildUIDFromRic = ric => ric.gid + '_' + ric.cid + '_' + ric.fid
-    enty.buildUID = anitem => enty.buildUIDFromRic(anitem.payload.ric)
+    enty.getuid = getuid
     enty.qualier = qualier
 
     return enty

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="enls.js"></script>
+<script src="ents.js"></script>
+
+<script>
+
+let muonAlima = function (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, key: 1, img: 1}) // INIT
+
+  let d3_force = d3
+
+  let f = __mapper({'props': muonProps.muonProps()}).props()
+  mgeom = __mapper('xs').m('geom'),
+  mwen = __mapper('xs').m('wen'),
+  mnat = __mapper('xs').m('nat'),
+  mstore = __mapper('xs').m('store'),
+  mpacer = __mapper('xs').m('pacer'),
+  mgraticule = __mapper('xs').m('graticule'),
+  mforces = __mapper('xs').m('forces'),
+  mric = __mapper('xs').m('ric')
+
+  let r = __mapper('xs').r('renderer'),
+    width = r.width(),
+    height = r.height()
+
+
+
+  /*******************************************
+ *      @pics
+ *
+ */
+  let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+  /*******************************************
+ *      @animas
+ *
+ */
+  let haloForce_ween = anima => { // WEEN
+    let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+
+    animas = []
+
+
+
+      let ball = {
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [300, 300, 0]
+        },
+        properties: {
+          name: 'ball',
+          velin: [0,0], // [vx,vy]
+        },
+      }
+
+      let pivot = {
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [300, 100, 0]
+        },
+        properties: {
+          name: 'pivot',
+          anchor: [300, 100, 0],    // [fx, fy]
+        },
+      }
+
+      let wire = {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 1]
+        },
+        properties: {
+          name: 'wire',
+          length: 90,
+        },
+      }
+
+      let graph = {
+        nodes: {
+          type: 'FeatureCollection',
+          features: [ball, pivot]
+        },
+
+        links: {
+          type: 'FeatureCollection',
+          features: [wire]
+        },
+      }
+
+    let nodes = graph.nodes.features
+    for (let i = 0; i < nodes.length; i++) {        // NODES
+
+      let parentform = nat1
+      let node = nodes[i]
+      let ani = f.cloneObj(nat1) // clone of model anima
+
+      ani.halo = 'geofold' // create halo
+      ani.geoform = node
+
+      let _ric = {}
+      _ric.gid = 'nat'
+      _ric.cid = (i % 2) ? 'orange' : 'gold'
+      _ric.fid = 'item' + i // identify
+      ani.payload.ric = _ric
+      ani.payload.uid = __mapper('xs').m('ric').getuid(ani.payload.ric)
+
+      ani.payload.boform.cf = (i % 2) ? 777 : 333
+      ani.payload.boform.cs = (i % 2) ? 777 : 333
+
+      let preani = mstore.getAnima(ani.payload.ric)
+
+      if (preani) ani = preani
+
+      animas.push(ani)
+    }
+
+
+    let links = graph.links.features
+    for (let i = 0; i < links.length; i++) {     // LINKS
+
+      let link = links[i].geometry.coordinates  // vertex pairs
+
+      let ani = f.cloneObj(nat1) // clone of model anima
+      ani.payload.ric.gid = 'glink'
+      ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
+      ani.payload.ric.fid = 'item' + i // identify
+      ani.payload.uid = mric.getuid(ani.payload.ric)
+
+      ani.payload.boform.cf = (i % 2) ? 777 : 333
+      ani.payload.boform.cs = (i % 2) ? 777 : 333
+
+      ani.link = {
+        source: link[0],
+        target: link[1]
+      }
+
+      let preani = mstore.getAnima(ani.payload.ric)
+
+      if (preani) {
+
+        ani = preani
+
+      } else { // create anima
+        ani.halo = 'geofold' // create halo
+
+        ani.geoform = { // will create anigram
+          type: 'Feature',
+          geometry: {
+              type: 'LineString',
+              coordinates: link.map(d => nodes[d].geometry.coordinates) // source, target
+          }
+        }
+
+      }
+
+
+      animas.push(ani)
+    }
+
+
+
+    if (1 && 1) console.log("animas", animas)
+
+    return animas
+  }
+
+  let haloForce_gramm = anima => [] // GRAMM))
+
+  let haloForceHalo = {}
+  haloForceHalo.ween = anima => haloForce_ween(anima)
+  haloForceHalo.gramm = anima => haloForce_gramm(anima)
+
+  // -------------------------------  nat1
+  let nat1 = {
+
+    halo: haloForceHalo,
+
+    geoform: {
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [0, 0, 0]
+        },
+    },
+    payload: {
+      tim: tim,
+      ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'nat1'},
+
+      pacer: {
+        'initN': 2,
+        'eventN': 1,
+        'autoN': 0,
+        'autoP': 0.1,
+        'outtimed': 0,
+        'maxN': 60,
+        'span': 15 / 1400,
+
+        fider: (payload, i) => 'item' + i,
+
+        initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
+        eventSitus: d => ({x: mmouse.event().x, y: mmouse.event().y, z: 0 }),
+        autoSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
+
+        geojsor: () => {
+            let ani = {}
+              ani.halo = 'geofold'
+              ani.geoform =  {type: 'Feature',geometry: {type: 'Point', coordinates: []},properties: {}}
+              ani.payload = {}
+            return ani
+        }
+
+      },
+
+      geonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0]
+        },
+        properties: {
+          orgen: [0, 0, 0],
+          velin: [0, 0, 0],
+          prevous: [0, 0, 0],
+          geodelta: [0, 0, 0]
+        }
+      },
+
+      // proform: {
+        // 'projection': 'uniwen',
+        // 'translate': [200, 50, 0],
+        // 'scale': 1,
+        // 'rotate': [ 0, 0, [[[0, 0]]] ],
+        // 'lens': [0, 1, 12],
+      // },
+
+      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+
+    }
+  }
+
+
+
+  /*******************************************
+ *      @forces
+ *
+ *
+ *
+ */
+  /*******************************************
+ *      @force_energy
+ */
+  let force_energy = { // aniForce
+    properties: {
+      alpha: 1,
+      alphaMin: 0.001,
+      alphaDecay: 0,
+      alphaTarget: 0
+    },
+
+    'field': function field (params = {}) {
+      let nodes = params.nodes
+
+      let forceParams = {
+        'type': 'energy',
+        'filter': d => true,
+        'nodes': nodes
+      }
+
+      let field = {
+        'key': 'energy',
+        'force': mforces(forceParams)
+      }
+
+      return Array.of(field)
+    }
+  }
+  /*******************************************
+ *      @force_viscosity
+ */
+  let force_viscosity = {
+    'properties': {
+      velocityDecay: 0
+    },
+
+    'field': function (params = {}) { // field.field
+      let nodes = params.nodes // nodes
+
+      let forceParams = {
+        'type': 'noforce',
+        'filter': d => true,
+        'nodes': nodes
+      }
+
+      let field = {
+        'key': 'viscosity',
+        'force': mforces(forceParams)
+      }
+
+      return Array.of(field)
+    }
+  }
+  /*******************************************
+ *      @force_link
+ */
+  let force_link = {
+    properties: {
+
+      strength: 1,
+      distance: d => 100,
+      distances: [d => 100],
+      iterations: 1
+    },
+
+    field: params => {
+      let nodes = params.nodes
+
+      let strength = 1,
+        distance = d => 100,
+        iterations = 1
+
+      let forces = []
+
+      let forceParams =  {
+        type: 'linkForce',
+        strength: strength,
+        id: d => d.uid,
+        distance: d => distance,
+        iterations: iterations,
+
+        filter: d => d.payload.ric.gid === 'glink',
+        nodes: nodes,
+        links: nodes.filter(d => (d.payload.ric.gid === 'glink'))
+
+      }
+
+      let force = mforces(forceParams)
+      let field = {'key': 'link', 'force': force}
+
+      forces.push(field)
+
+      return forces
+    }
+  }
+
+  /*******************************************
+ *      @forceGravity
+ */
+  let forceGravity = function (params) { // force
+    let nodes = params.nodes
+    let newNodes = []
+
+    let gravity = params.gravity
+
+    function force () { // d3force builtin (vs muon d3force)
+      for (let i = 0; i < nodes.length; ++i) {
+        let node = nodes[i]
+        node.vy += gravity // node.vx += 0.001 * Math.random()
+      }
+    }
+
+    function initialize () {
+      if (!nodes) return
+    }
+
+    return force
+  }
+
+  let force_gravity = { // aniForce:{properties, field}
+
+    properties: {
+
+      gravity: 0.1
+
+    },
+
+    field: params => { // force.field
+      let forces = []
+
+      let nodes = params.nodes // params: elapsed, nodes, properties.gravity
+      let gravity = params.properties.gravity // params.properties
+
+      let forceParams = {
+        type: 'gravity',
+        gravity: gravity,
+        filter: d => true, // d => d.payload.ric.gid === 'nat',
+        src: d3_force,
+        nodes: nodes
+      }
+
+      let force = forceGravity(forceParams)
+
+      let field = {
+        'key': 'gravity',
+        'force': force
+      }
+
+      forces.push(field)
+      return forces
+    }
+  }
+
+
+  /*******************************************
+ *        @animaApi
+ *
+ */
+  nat1.payload.forces = {
+    force_energy,
+    force_viscosity,
+    force_gravity,
+    force_link
+  }
+
+  let animas = [
+    nat1, // h.geofold
+
+
+  ]
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>
