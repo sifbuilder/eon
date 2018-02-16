@@ -46,6 +46,7 @@
     // return r
   // }    )) 
 // if (1 && 1) console.log("tr", tr) 
+// if (1 && 1) console.log("gjGeoformed", gjGeoformed) 
 
       
       if (!mgeoj.isValid(gjGeoformed)) { console.error("h.geofold:gj not valid", gjGeoformed)}

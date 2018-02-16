@@ -76,25 +76,34 @@
 
     /* *******************
  *        gratiparams
+ *
+ *      lattice.[ Xx, Yy ]
+ *      frame.[ [X,Y], [x,y] ]   X:[X0,X1,DX,PX]
+ *      frame.[ [ Xx, Yy ] ]    Xx:[X0,X1,DX,PX]
+ *      [ Xx, Yy ]
  */
 
-    let gratiparams = function (params = {}) {
+    let gratiparams = function (params = {}, rp = {}) {
       let X0, X1, DX, PX, x0, x1, dx, px,
         Y0, Y1, DY, PY, y0, y1, dy, py
 
       let X_extent, Y_extent, x_extent, y_extent
       
       if (params.lattice !== undefined) {							// lattice
+      // lattice: [x_extent, y_extent]
+      // eg. [ [180, 55], [90, 2.5] ]
       
         let lattice = params.lattice
       
-        x_extent = lattice[0] // major, minor
-        y_extent = lattice[1]
+        x_extent = lattice[0] // x major::minor
+        y_extent = lattice[1] // y major::minor
 
         if (Array.isArray(x_extent[0])) {
+          // eg. [ [ [-40,180], 55], [] ] 
           X1 = x_extent[0][1] // x_extentMajor 	eg. 180
           X0 = x_extent[0][0]
         } else {
+          // eg. [ [ 180, 55], [] ] 
           X1 = x_extent[0] // x_extentMajor 	eg. 180
           X0 = -X1
         }
@@ -117,14 +126,20 @@
         y1 = Y1 					 // y_extentMinor 	eg. 80
         y0 = -y1
         DY = y_extent[1] // y_stepMajor		eg. 360
-        dy = DY														// y_stepMinor		eg. 10
+        dy = DY						// y_stepMinor		eg. 10
         PY = DY						// y_precision		eg. 2.5
         py = PY
 
-      } else 	if (params.frame !== undefined) {		// frame
+        rp = {X0,X1,DX,PX,x0,x1,dx,px,Y0,Y1,DY,PY,y0,y1,dy,py}        
+        
+      } else if (params.frame !== undefined) {		// frame
+        // frame: [ [X_extent, Y_extent] , [x_extent, y_extent] ]
+        
         let graticule = params.frame // major, minor
         
         if (graticule.length === 2) {
+        // eg. [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ],
+            // [	[-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ]
         
           X_extent = graticule[0][0]
           Y_extent = graticule[0][1]
@@ -132,6 +147,7 @@
           y_extent = graticule[1][1]
           
         } else if (graticule.length === 1) { // major, minor coincide
+        // eg. [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ]
           
           X_extent = graticule[0][0]
           Y_extent = graticule[0][1]
@@ -159,26 +175,16 @@
         dy = y_extent[2]
         py = y_extent[3]
 
+        rp = {X0,X1,DX,PX,x0,x1,dx,px,Y0,Y1,DY,PY,y0,y1,dy,py}
+        
+      } else if (Array.isArray(params)) {		// default to frame 
+      // eg. [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ]
+        let p = {frame: params}
+        rp = gratiparams(p)
       }
 
-      return {
-        X0,
-        X1,
-        DX,
-        PX,
-        x0,
-        x1,
-        dx,
-        px,
-        Y0,
-        Y1,
-        DY,
-        PY,
-        y0,
-        y1,
-        dy,
-        py
-      }
+      return rp
+      
     }
 
     /* *******************
@@ -247,7 +253,25 @@
       return ret
     }
     
-  
+
+    /* *******************
+ *        equator
+ */
+    let equator = function (params) {
+    
+      let p = params || [ [ [-180, 180, 360, 1], [-90, 90, 360, 1] ] ] // [xMm, yMm]
+      let g = grarr(p)
+      let coords = g.pps.coordinates[0] // first and only ring
+      
+      let gj = {
+        type: 'Feature',
+        geometry: {type: 'LineString',coordinates: coords,},
+        properties: {mgraticule:'equator'}
+      }   
+      if (!mgeoj.isValid(gj)) console.error("gj not valid")
+
+      return gj
+    }  
     
     /* *******************
  *        gedges
@@ -418,6 +442,7 @@
     enty.pedges = pedges
     enty.gfaces = gfaces
     enty.gvertices = gvertices
+    enty.equator = equator
 
 
     return enty

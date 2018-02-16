@@ -274,25 +274,27 @@
         let formm = nform(form)         // NFORM
 
         let geometry
-        let dx, dy
+        let dx, dy, sx, sy
         
         if (Object.keys(formm).length > 2) {
           
-            dx =  360 / formm.x.seg5  // x
-            dy =  360 / formm.z.seg5  // z
-            let graticule = {frame: [ [ [-180, 180, dx, dx], [-90, 90, dy, dy] ] ],}  // x, y
-            geometry = mgraticule.gedges(graticule).geometry
-            
+            dx = 360 / formm.x.seg5  // x
+            dy = 360 / formm.z.seg5  // z
+            sx = dx
+            sy = dy
           
         } else {
-            dx =  360 / formm.x.seg5  // x
-            let rads = Math.PI / 180
+          
+            dx = 360 / formm.x.seg5  // x
+            dy = 360 / formm.y.seg5  // y
+            sx = 360
+            sy = 360
 
-            let coords = d3.range(-180, 180, dx).map(d => [d,0])
-            geometry = {type:'LineString', coordinates: coords}
-            
         }
-
+        
+        let graticule = {frame: [ [ [-180, 180, sx, dx], [-90, 90, sy, dy] ] ],}  // x, y
+        
+        geometry = mgraticule.gedges(graticule).geometry
 
 
         let feature = {
