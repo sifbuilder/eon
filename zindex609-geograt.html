@@ -32,7 +32,8 @@ let muonAlima = function (__mapper) {
     height = r.height()
 
   let radians = Math.PI / 180,
-    degrees = 180 / Math.PI
+    degrees = 180 / Math.PI,
+    cos = Math.cos, sin = Math.sin
 
   if (__mapper('controlKey') !== undefined) {
     let controltimerLeftArrowAlt = () => { // LEFT ARROW
@@ -60,36 +61,36 @@ let muonAlima = function (__mapper) {
  *    @controls
  *
  */
-	// z.dom3: [-180, [[[160,180,180]]] ]
-	// payload.frame: [-0, 180, 22.5, 22.5]
+  // z.dom3: [-180, [[[160,180,180]]] ]
+  // payload.frame: [-0, 180, 22.5, 22.5]
   let tim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   let form = {
     'x': {
-       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
+       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 4,  // square
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circle
-              'm1': -8,'m2': -3.5,'n1': 16.24,'n2': 6,'n3': 13,'a': 9,'b': 0.2, // booster
+       'm1': -8,'m2': -3.5,'n1': 16.24,'n2': 6,'n3': 13,'a': 9,'b': 0.2, // booster
       'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-      'fas8': 0,'dom3': [-180, 180],'exp9': [1, 0, 1, 0],'fn0': Math.cos
+      'fas8': 0,'dom3': [-180, 180],'exp9': [1, 0, [[[1,1,12]]], [[[1,1,12]]] ],'fn0': Math.cos
     },
     'y': {
-       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 4, // square
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-              'm1': -8,'m2': -3.5,'n1': 16.24,'n2': 6,'n3': 13,'a': 9,'b': 0.2, // booster
+       'm1': -8,'m2': -3.5,'n1': 16.24,'n2': 6,'n3': 13,'a': 9,'b': 0.2, // booster
       'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-      'fas8': -90,'dom3': [-180, 180],'exp9': [0, 1, 1, 0],'fn0': Math.cos
+      'fas8': -90,'dom3': [-180, 180],'exp9': [0, 1, [[[1,1,12]]], [[[1,1,12]]] ],'fn0': Math.cos
     },
     'z':
     {
       // 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circle
        // 'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
       'm1': -8,'m2': -3.5,'n1': 16.24,'n2': 6,'n3': 13,'a': 9,'b': 0.2, // booster
-      
-      'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 36,'pa6': 0,'pb7': -1,
+
+      'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
       // 'fas8': 0,'dom3': [-180, 180 ],'exp9': [ 0, 1, 2, 1 ],'fn0': d => Math.cos(d)
-      // 'fas8': 0,'dom3': [-180, 180 ],'exp9': [ 10, 0, 10, 0 ],'fn0': d => Math.cos(d)
+      // 'fas8': 0,'dom3': [-180, 180 ],'exp9': [ 10, 0, 10, 10 ],'fn0': d => Math.cos(d)
       // 'fas8': 0,'dom3': [-180, 180 ],'exp9': [ 0, 0, 0, 10 ],'fn0': d => Math.cos(d)
-      'fas8': 0,'dom3': [-180, 180 ],'exp9': [ 0, 0, -1, 1 ],'fn0': d => Math.cos(d)
+      'fas8': 0,'dom3': [-180, 180],'exp9': [ 1, 1, 0, 1 ],'fn0': [cos,cos,cos,cos]
     }
   }
 
@@ -144,7 +145,7 @@ let muonAlima = function (__mapper) {
         'form': form
 
       },
-      
+
       proform: {
         'projection': 'uniwen',
         'translate': [300, 175],
@@ -154,14 +155,14 @@ let muonAlima = function (__mapper) {
       },
 
 
-      'graticule': [ [ [ -180, 180, 15, 1], 
-                     [  -90, 90,  15, 1] ] ] 
+      'graticule': [ [ [ -180, 180, 15, 1],
+                     [  -180, 180,  15, 1] ] ]
 
 
     }
 
   }
-	  // -------------------------------  img
+    // -------------------------------  img
   let img = {
 
     halo: 'img',
@@ -210,7 +211,7 @@ let muonAlima = function (__mapper) {
 
     // natform, // h.geofold
     gratform,      // h.geofold
-		// img // h.img
+    // img // h.img
 
   ]
 

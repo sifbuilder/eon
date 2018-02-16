@@ -32,7 +32,7 @@
 
       let defs = {"v0":0,"v1":1,"ra2": 120,"w4":0,"seg5":360,"pa6":0,"pb7":-1,} // defs
 
-      if (form && typeof form === 'object' &&         // {obj}
+      if (form && typeof form === 'object' &&         // {nat}
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
 
           let fas8x = (form.fas8 !== undefined) ? form.fas8 : 0
@@ -112,7 +112,16 @@
       for (let i=0; i<formkeys.length; i++) {
         let key = formkeys[i]
         let form = nformed[key]
-        if (form.fn0 === undefined) form.fn0 = Math.cos // fn0 defs to cos on fas8
+        if (form.fn0 === undefined) {
+          form.fn0 = Math.cos // fn0 defs to cos on fas8
+        } else if (typeof form.fn0 === 'function') {
+          form.fn0 = Array.of(1, 2, 3, 4).fill(Math.cos)
+        } else if (Array.isArray(form.fn0)) {
+          // is function array
+        } else {
+          if (1 && 1) console.log("fn0")
+        }
+
       }
       for (let i=0; i<formkeys.length; i++) {
         let key = formkeys[i]
@@ -233,14 +242,12 @@
         let phi = p * radians
 
 
-        let exps = formmvv.map(d => d.exp9)
-
-
+        // apply fn to period
         let ff = []
-          ff[0] = formmvv[0].fn0(lambda + w[0])
-          ff[1] = formmvv[1].fn0(lambda + w[1])
-          ff[2] = (radioform[2] !== undefined) ? formmvv[2].fn0(phi + w[2]) : 1
-          ff[3] = (radioform[3] !== undefined) ? formmvv[3].fn0(phi + w[3]) : 1
+          ff[0] = formmvv[0].fn0[0](lambda + w[0])   // fn0
+          ff[1] = formmvv[1].fn0[1](lambda + w[1])
+          ff[2] = (radioform[2] !== undefined) ? formmvv[2].fn0[2](phi + w[2]) : 1
+          ff[3] = (radioform[3] !== undefined) ? formmvv[3].fn0[3](phi + w[3]) : 1
 
 
         let rs = []
@@ -249,6 +256,8 @@
           rs[2] = (radioform[2] !== undefined) ? radioform[2](p) : 1
           rs[3] = (radioform[3] !== undefined) ? radioform[3](p) : 1
 
+          
+        let exps = formmvv.map(d => d.exp9)   // exp9
         let point = formmvv.map( (d,i) => {
           let r
           if (i === 0) r = rad[0] * ff[0] * ff[2] * rs[0]**exps[0][0] * rs[1]**exps[0][1] * rs[2]**exps[0][2] * rs[3]**exps[0][3]

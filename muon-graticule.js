@@ -368,7 +368,6 @@
 
           vertices[index(i0, j0)] = mersCoords[i0][j0 * ry] // [0,0]	revert precision to step
           vertices[index(i0, j1)] = mersCoords[i0][j1 * ry]	// [0,1]
-
           vertices[index(i1, j0)] = mersCoords[i1][j0 * ry]	// [1,0]
           vertices[index(i1, j1)] = mersCoords[i1][j1 * ry]	// [1,1]
         }
