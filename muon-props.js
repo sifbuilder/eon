@@ -25,6 +25,27 @@
       return r
     }
 
+    props.arywinopen = (x0,x1,dx) => {
+      
+        let epsilon = 1e-5
+        let xx = []
+        let mx = Math.max(Math.abs(x0),Math.abs(x1))- epsilon
+        let mt = Math.ceil(mx / dx)
+        for (let i=-mt; i<mt; i++) {
+          if (x0 < i * dx && i * dx < x1) {
+            xx.push(i * dx)
+          }
+        }
+        return xx
+      
+    }
+    props.arywinclosed = (x0,x1,dx) => {
+      
+        return [x0, ...props.arywinopen(x0,x1,dx), x1]
+      
+    }
+    
+    
     props.parray = d => (Array.isArray(d)) ? d.slice() : [d]
 
     props.rarray = d => (Array.isArray(d)) ? [ ...d ].reverse() : [d] // reverse array

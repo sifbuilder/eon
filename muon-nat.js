@@ -113,11 +113,9 @@
         let key = formkeys[i]
         let form = nformed[key]
         if (form.fn0 === undefined) {
-          form.fn0 = Array.of(1, 2, 3, 4).fill(Math.cos) // fn0 defs to cos on fas8
+          form.fn0 = Math.cos // fn0 defs to cos on fas8
         } else if (typeof form.fn0 === 'function') {
-          form.fn0 = Array.of(1, 2, 3, 4).fill(Math.cos)
-        } else if (Array.isArray(form.fn0)) {
-          // is function array
+          //
         } else {
           if (1 && 1) console.log("fn0")
         }
@@ -217,54 +215,68 @@
    */
     let natform = function (form) {   // getVertex
 
-    if (1 && 1) console.log("natform", form)
-      let formm = nform(form)         // nform
+    if (0 && 1) console.log("natform", form)
+      let nformed = nform(form)         // nform
 
-      let formmvv = Object.values(formm)
+      let unfeld = Object.values(nformed)
 
-      let doms = formmvv.map(d => d.dom3)
-      // doms = [ [-180,180], [-180,180], [0,360], [0,360] ]        // _e_
-      let radions = Object.values(formm).map((v, i) => radorm(v, doms[i]))
+      let dominos = unfeld.map(d => d.dom3) // [ [-180,180], [-180,180], [-90,90], [-90,90] ] 
+      
+      let radions = unfeld.map((d, i) => radorm(d, dominos[i]))   // radorm
 
-      let radioform = Object.values(formm).map((d, i) => p => radions[i](p))
+      let radioform = unfeld.map((d, i) => p => radions[i](p))    // 
 
 
-      let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0]
-      if (formm) scale = formmvv.map(dim => dim.ra2)
-      if (formm) rotation = formmvv.map(dim => (dim.w4 || 0 + dim.fas8 || 0) * radians)
+      let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0], rad, w
+      if (nformed) rad = scale = unfeld.map(dim => dim.ra2)
+      if (nformed) w = rotation = unfeld.map(dim => (dim.w4 || 0 + dim.fas8 || 0) * radians)  //  yfase
       let coForm = {location, scale, rotation}
 
-      let rad = scale
-      let w = rotation
+      
+      let vertex = function (l, p, radio = 1) { // spherical degrees
 
-      let vertex = function (l, p, radio = 1) { // spherical degrees [0,360]
-
+      
+      if (0 && 1) if (l == 90 || l == -90) console.log("vertex", l, p)
         let lambda = l * radians
         let phi = p * radians
 
-
-        // apply fn to period
-        let ff = []
-          ff[0] = formmvv[0].fn0[0](lambda + w[0])   // fn0
-          ff[1] = formmvv[1].fn0[1](lambda + w[1])
-          ff[2] = (radioform[2] !== undefined) ? formmvv[2].fn0[2](phi + w[2]) : 1
-          ff[3] = (radioform[3] !== undefined) ? formmvv[3].fn0[3](phi + w[3]) : 1
-
-
         let rs = []
-          rs[0] = (radioform[0] !== undefined) ? radioform[0](l) : 1
-          rs[1] = (radioform[1] !== undefined) ? radioform[1](l) : 1
+          rs[0] = (radioform[0] !== undefined) ? radioform[0](l) : 1  // -90:0.159
+          rs[1] = (radioform[1] !== undefined) ? radioform[1](l) : 1  // 90:1.218
           rs[2] = (radioform[2] !== undefined) ? radioform[2](p) : 1
           rs[3] = (radioform[3] !== undefined) ? radioform[3](p) : 1
 
+        // apply fn to period
+        let ff = []
+          ff[0] = (radioform[0] !== undefined) ? unfeld[0].fn0(lambda + w[0]) : 1 // fn0
+          ff[1] = (radioform[1] !== undefined) ? unfeld[1].fn0(lambda + w[1]) : 1
+          ff[2] = (radioform[2] !== undefined) ? unfeld[2].fn0(phi + w[2]) : 1
+          ff[3] = (radioform[3] !== undefined) ? unfeld[3].fn0(phi + w[3]) : 1
+
           
-        let exps = formmvv.map(d => d.exp9)   // exp9
-        let point = formmvv.map( (d,i) => {
+        let exps = unfeld.map(d => d.exp9)   // exp9 exponential for feld 
+        let point = unfeld.map( (d,i) => {
           let r
-          if (i === 0) r = rad[0] * ff[0] * ff[2] * rs[0]**exps[0][0] * rs[1]**exps[0][1] * rs[2]**exps[0][2] * rs[3]**exps[0][3]
-          if (i === 1) r = rad[1] * ff[1] * ff[2] * rs[0]**exps[1][0] * rs[1]**exps[1][1] * rs[2]**exps[1][2] * rs[3]**exps[1][3]
-          if (i === 2) r = rad[2] * ff[3] *         rs[0]**exps[2][0] * rs[1]**exps[2][1] * rs[2]**exps[2][2] * rs[3]**exps[2][3]
-          if (i === 3) r = rad[3] * ff[2] *         rs[0]**exps[3][0] * rs[1]**exps[3][1] * rs[2]**exps[3][2] * rs[3]**exps[3][3]
+          if (i === 0) r = rad[0] * ff[0] * ff[2] * 
+                rs[0]**exps[0][0] * 
+                rs[1]**exps[0][1] * 
+                rs[2]**exps[0][2] * 
+                rs[3]**exps[0][3]
+          if (i === 1) r = rad[1] * ff[1] * ff[2] * 
+                rs[0]**exps[1][0] * 
+                rs[1]**exps[1][1] * 
+                rs[2]**exps[1][2] * 
+                rs[3]**exps[1][3]
+          if (i === 2) r = rad[2] * ff[3] *         
+                rs[0]**exps[2][0] * 
+                rs[1]**exps[2][1] * 
+                rs[2]**exps[2][2] * 
+                rs[3]**exps[2][3]
+          if (i === 3) r = rad[3] * ff[2] *         
+                rs[0]**exps[3][0] * 
+                rs[1]**exps[3][1] * 
+                rs[2]**exps[3][2] * 
+                rs[3]**exps[3][3]
           return r
         })
 
@@ -281,31 +293,41 @@
      *       coordinates = Array.of(__mapper("xs").m("nat").natFeature(p.form))
      */
     let natFeature = function (form) {
-        let formm = nform(form)         // NFORM
-
+        let nformed = nform(form)         // NFORM
+if (0 && 1) console.log("m.nat.natFeature:nformed", nformed)          
         let geometry
         let dx, dy, sx, sy
         
-        if (Object.keys(formm).length > 2) {
+        if (Object.keys(nformed).length > 2) {    // 3d
           
-            dx = 360 / formm.x.seg5  // x
-            dy = 360 / formm.z.seg5  // z
+            dx = 360 / nformed.x.seg5  // x
+            dy = 360 / nformed.z.seg5  // z
             sx = dx
             sy = dy
+        
+            let graticule = {frame: [ [ [-180, 180, sx, dx], [-90, 90, sy, dy] ] ],}  // x, y
+            geometry = mgraticule.gedges(graticule).geometry
           
-        } else {
+        } else {                                // 2d
           
-            dx = 360 / formm.x.seg5  // x
-            dy = 360 / formm.y.seg5  // y
+            dx = 360 / nformed.x.seg5  // x
+            dy = 360 / nformed.y.seg5  // y
             sx = 360
             sy = 360
+            // _e_
+            let graticule = {frame: [ [ [-180, 180, sx, dx], [-180, 180, sy, dy] ] ],}  // x, y
+            geometry = mgraticule.gedges(graticule).geometry
+            let p = geometry.coordinates[1].slice(0,-1)
+            p = [...p, p[0]]
+            
+            // 
+if (0 && 1) console.log("p", p)            
+            geometry.coordinates = Array.of(p)
+
 
         }
         
-        let graticule = {frame: [ [ [-180, 180, sx, dx], [-90, 90, sy, dy] ] ],}  // x, y
-        
-        geometry = mgraticule.gedges(graticule).geometry
-
+if (0 && 1) console.log("m.nat.geometry", geometry)
 
         let feature = {
             type: 'Feature',
@@ -315,8 +337,8 @@
             }
         }
 
-        let conform = {'projection': 'natform', 'form': formm}
-        let projection = mprofier.protion({'projection': 'natform', 'form': formm})
+
+        let projection = mprofier.protion({'projection': 'natform', 'form': nformed})
 
         let natgj = mproj3ct(feature, projection)
 

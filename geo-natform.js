@@ -26,6 +26,8 @@
       let natform = mnat.natform(prjdef.form) // m.nat.natform (a,b,c) => [a,b,c]
 				
       let stream = function (lambda, phi, radio = 1) {
+        if (0 && 1) console.log("stream.point", lambda, phi, ":::::", ...natform(lambda, phi, radio))
+        
         this.stream.point(...natform(lambda, phi, radio))
       }
 

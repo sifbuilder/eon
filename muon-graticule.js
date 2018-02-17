@@ -190,45 +190,57 @@
     /* *******************
  *        grarr
  */
-
-    let grarr = function (params = {}) {
-      
-      let {X0, X1, DX, PX, x0, x1, dx, px,
-        Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
-       
-        
-      let bigmer = (params.bigmer !== undefined) ? params.bigmer : 1
-      let bigpar = (params.bigpar !== undefined) ? params.bigpar : 1
-
-      let merfn = (params.merfn !== undefined) ? params.merfn : (a, b, d) => d3.range(Math.ceil(a / d) * d, b, d)
-      let parfn = (params.parfn !== undefined) ? params.parfn : (a, b, d) => d3.range(Math.ceil(a / d) * d, b, d)
-
-      let X = graticuleX(Y0, Y1, PY),		// get X for Y with precision PY
-        Y = graticuleY(X0, X1, PX)
-
-      let x = graticuleX(y0, y1, py),		// get y for x with precision py
-        y = graticuleY(x0, x1, px)
-
-      function graticuleX (y0, y1, dy) {
-        let y = d3.range(y0, y1 - epsilon, dy).concat(y1) // by intervals and close
+      function symgraticuleX (y0, y1, dy) {
+        let y = f.arywinclosed(y0, y1, dy)    // sym win
         return x => y.map(y => [x, y])
       }
 
-      function graticuleY (x0, x1, dx) {
-        let x = d3.range(x0, x1 - epsilon, dx).concat(x1)
+     function asymgraticuleX (y0, y1, dy) {
+        let y = d3.range(y0, y1 - epsilon, dy).concat(y1) // [y0,y1) ,y1]
+        return x => y.map(y => [x, y])
+      }
+
+      function symgraticuleY (x0, x1, dx) {
+        let x = f.arywinclosed(x0, x1, dx)    // sym win
+       
         return y => x.map(x => [x, y])
       }
+      
+     function asymgraticuleY (x0, x1, dx) {
+        let x = d3.range(x0, x1 - epsilon, dx).concat(x1) // [x0,x1) ,x1]
+        return y => x.map(x => [x, y])
+      }
+      
+      
+    let grarr = function (params = {}) {
+      
+      let {X0, X1, DX, PX, x0, x1, dx, px,
+           Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
+       
+      let bigmer = (params.bigmer !== undefined) ? params.bigmer : 1
+      
+      let bigpar = (params.bigpar !== undefined) ? params.bigpar : 1
+
+      let merfn = (params.merfn !== undefined) ? 
+          params.merfn : 
+          (a, b, d) => d3.range(Math.ceil(a / d) * d, b, d)
+      
+      let parfn = (params.parfn !== undefined) ? 
+          params.parfn : 
+          (a, b, d) => d3.range(Math.ceil(a / d) * d, b, d)
+
+      let X = symgraticuleX(Y0, Y1, PY),		// get X(Y) by PY
+          Y = symgraticuleY(X0, X1, PX),    // get Y(X) by PX
+          x = symgraticuleX(y0, y1, py),		// get x(y) by py
+          y = symgraticuleY(x0, x1, px)     // get y(x) by px
+
 
       let mmBig = merfn(X0, X1, DX) // long mers
       let mmShort = merfn(x0, x1, dx) // short mers
-      let mmAll = merge(mmBig, mmShort)
-
-         
+      let mmAll = merge(mmBig, mmShort) // deg location of mers in [-180,180] xy
       let ppBig = parfn(Y0, Y1, DY)
       let ppShort = parfn(y0, y1 + epsilon, dy)
-      let ppAll = merge(ppBig, ppShort)     
-      
-      
+      let ppAll = merge(ppBig, ppShort)   // deg location of pars in [-90,90] z   
       
       let mms = {
         type: 'MultiLineString',
@@ -249,7 +261,8 @@
 
         
       let ret = {mms, pps}
-
+if (1 && 1) console.log("m.grarr.mms", mms)
+if (1 && 1) console.log("m.grarr.pps", pps)
       return ret
     }
     
