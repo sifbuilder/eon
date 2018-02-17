@@ -37,8 +37,7 @@
         if (!mgeoj.isValid(geometry)) { console.error('h.geofold:gj not valid', geometry) }
         parentCoords = mgeoj.getCoords(geometry) // outer ring
       }
-      
-      if (1 && 1) console.log('h.nums.gram:parentCoords', parentCoords)
+
         
       let locations = []
       if (nums.pos !== undefined && parentCoords !== undefined) {
@@ -104,8 +103,7 @@
         anima.payload.proform = _proform
         newAnigrams = [...newAnigrams, ...__mapper('xs').h('geofold').gramm(anima)]
       }
-      
-      if (1 && 1) console.log('h.nums.gram:newAnigrams', newAnigrams)
+
       
       return newAnigrams
     }

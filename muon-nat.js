@@ -113,7 +113,7 @@
         let key = formkeys[i]
         let form = nformed[key]
         if (form.fn0 === undefined) {
-          form.fn0 = Math.cos // fn0 defs to cos on fas8
+          form.fn0 = Array.of(1, 2, 3, 4).fill(Math.cos) // fn0 defs to cos on fas8
         } else if (typeof form.fn0 === 'function') {
           form.fn0 = Array.of(1, 2, 3, 4).fill(Math.cos)
         } else if (Array.isArray(form.fn0)) {
@@ -217,6 +217,7 @@
    */
     let natform = function (form) {   // getVertex
 
+    if (1 && 1) console.log("natform", form)
       let formm = nform(form)         // nform
 
       let formmvv = Object.values(formm)
