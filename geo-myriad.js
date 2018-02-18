@@ -61,14 +61,14 @@
     state.tree = [-1, 4, 5, 2, 0, 1] // [-1, 0, 0, 0, 0, 4] //
     state.rotate = [28, -4, 0]
 
-    let enxs = function (ent, ents, entidx = 0) {
-      if (ent !== undefined) { // if projection singular
-        return ent.map(d => Math.round(d))
-      } else if (ents !== undefined) { // if plural select one
-        let idx = (entidx !== undefined) ? Math.round(entidx) : 0
-        return ents[idx].map(d => Math.round(d))
-      } else if (state[ent] !== undefined) {
-        return state[ent].map(d => Math.round(d))
+    let enxs = function (obj, objs, objidx = 0) {
+      if (obj !== undefined) { // if projection singular
+        return obj.map(d => Math.round(d))
+      } else if (objs !== undefined) { // if plural select one
+        let idx = (objidx !== undefined) ? Math.round(objidx) : 0
+        return objs[idx].map(d => Math.round(d))
+      } else if (state[obj] !== undefined) {
+        return state[obj].map(d => Math.round(d))
       } else {
         return undefined
       }

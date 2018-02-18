@@ -399,25 +399,25 @@
       }
     }
     /***************************
-   *        @ent
+   *        @obj
    *        entry from list and index
    */
-    props.enxs = function (ent, ents, entidx = 0) {
+    props.enxs = function (obj, objs, objidx = 0) {
       let ret
-      if (ent !== undefined) { // if ent singular
-        ret = ent // .map(d => Math.round(d))
-      } else if (ents !== undefined) { // if plural
-        if (typeof entidx === 'number') ret = ents[Math.round(entidx)] // get one
-        else if (Array.isArray(entidx)) ret = entidx.map(d => ents[Math.round(d)]) // get some
+      if (obj !== undefined) { // if obj singular
+        ret = obj // .map(d => Math.round(d))
+      } else if (objs !== undefined) { // if plural
+        if (typeof objidx === 'number') ret = objs[Math.round(objidx)] // get one
+        else if (Array.isArray(objidx)) ret = objidx.map(d => objs[Math.round(d)]) // get some
       }
       return ret
     }
 
-    props.entxx = function (ent, ents, entidx = 0, arr) {
-      let _ent = arr[ent]
-      let _ents = arr[ents]
-      let _entidx = arr[entidx]
-      return props.enxs(_ent, _ents, _entidx)
+    props.objxx = function (obj, objs, objidx = 0, arr) {
+      let _obj = arr[obj]
+      let _objs = arr[objs]
+      let _objidx = arr[objidx]
+      return props.enxs(_obj, _objs, _objidx)
     }
 
     /***************************
