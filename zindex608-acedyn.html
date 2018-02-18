@@ -115,7 +115,7 @@ let muonAlima = function (__mapper) {
  */
   let natform = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => mnat.natFeature(p.payload.form),
 
@@ -141,7 +141,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  gratform
   let gratform = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => {
       let g = mgraticule.gedges(p.payload.graticule)
@@ -302,7 +302,7 @@ if (0 && 1) console.log("691 count", count )
 
 
 
-                    let _halo = 'geofold' // set halo
+                    let _halo = 'ent' // set halo
                     let _geoform = { // define geoform
                       type: 'Feature',
                       geometry: {type: 'Point', coordinates: [0, 0, 0]},
@@ -539,7 +539,7 @@ if (0 && 1) console.log("691 count", count )
 
   }
   let gratilines21 = {
-    halo: 'geofold',
+    halo: 'ent',
     geoform: p => mgraticule.gedges(p.payload.graticule),
     payload: {
       tim: tim,
@@ -1129,9 +1129,9 @@ if (0 && 1) console.log("691 count", count )
   
   let animas = [
 
-    // natform, // h.geofold
-    gratform,      // h.geofold
-    // nat1, // h.geofold
+    // natform, // h.ent
+    gratform,      // h.ent
+    // nat1, // h.ent
 		img // h.img
 
   ]

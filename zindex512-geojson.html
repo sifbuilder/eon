@@ -89,7 +89,7 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let geoform = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => mnat.natFeature(p.payload.form),
     payload: {
@@ -104,7 +104,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
 
   let animas = [
-    geoform // h.geofold g.uniwen
+    geoform // h.ent g.uniwen
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

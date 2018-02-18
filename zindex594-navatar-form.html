@@ -38,7 +38,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  natform
   let natform = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => mnat.natFeature(p.payload.form),
 
@@ -106,7 +106,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  avaform
   let avaform = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => __mapper('xs').m('nat').natFeature(p.payload.form),
 
@@ -184,7 +184,7 @@ let muonAlima = function (__mapper) {
   */
   natform.payload.avatars = {
 
-    avaform // h.geofold
+    avaform // h.ent
 
   }
 

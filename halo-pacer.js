@@ -166,7 +166,7 @@
               }
               newItem.geoform.geometry.coordinates = coords
 
-              newItems = [...newItems, ...__mapper('xs').h('geofold').gramm(newItem)] // add items
+              newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)] // add items
             } else if (newItem.geoform.geometry.type === 'Point') {			// POINT
               let itemcoords = newItem.geoform.geometry.coordinates
 
@@ -180,12 +180,12 @@
                 if (d >= span) {
                   newItem.geoform.geometry.coordinates = [0, 0, 0]
                   newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
-                  newItems = [...newItems, ...__mapper('xs').h('geofold').gramm(newItem)]	// add items
+                  newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)]	// add items
                 }
               } else {											// paced item NOT exists
                 newItem.geoform.geometry.coordinates = [0, 0, 0]
                 newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
-                newItems = [...newItems, ...__mapper('xs').h('geofold').gramm(newItem)]	// add items
+                newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)]	// add items
               }
             } else {
               let itemcoords = newItem.geoform.geometry.coordinates
@@ -196,7 +196,7 @@
               newItem.geoform.geometry.coordinates = itemcoords
               newItem.payload.geonode.geometry.coordinates = geonodecoords
               newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
-              newItems = [...newItems, ...__mapper('xs').h('geofold').gramm(newItem)]	// add items
+              newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)]	// add items
             }
           }
         }

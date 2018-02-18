@@ -118,7 +118,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  earth
   let earth = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: () => {
       let gjls = Object.assign({},
@@ -147,7 +147,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  gratifaces
   let gratifaces = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => {
       let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates
@@ -186,8 +186,8 @@ let muonAlima = function muonAlima (__mapper) {
  */
 
   let animas = [
-    gratifaces, // h.geofold g.natform
-    earth // h.geofold g.natform
+    gratifaces, // h.ent g.natform
+    earth // h.ent g.natform
 
   ]
 

@@ -39,7 +39,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  natform
   let natform = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => mnat.natFeature(p.payload.form),
 
@@ -190,7 +190,7 @@ let muonAlima = function (__mapper) {
         
         geojsor: () => {
             let ani = {}
-              ani.halo = 'geofold'
+              ani.halo = 'ent'
               ani.geoform =  {type: 'Feature',geometry: {type: 'LineString', coordinates: null},properties: {}}
               ani.payload = {}
             return ani
@@ -251,7 +251,7 @@ let muonAlima = function (__mapper) {
 
 
   let animas = [
-    natform, // h.geofold
+    natform, // h.ent
     img // h.img
   ]
 

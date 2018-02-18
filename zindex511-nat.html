@@ -232,7 +232,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  nat
   let nat = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => mnat.natFeature(p.payload.form),
 
@@ -258,7 +258,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  circ
   let circ = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => mnat.natFeature(p.payload.form),
 
@@ -279,7 +279,7 @@ let muonAlima = function muonAlima (__mapper) {
 
       uid: null,
       parentuid: null,
-      geofold: null,
+      ent: null,
       avatars: null,
       forces: null,
       inited: 0,
@@ -290,8 +290,8 @@ let muonAlima = function muonAlima (__mapper) {
   }
 
   let animas = [
-    nat, // h.geofold g.uniwen
-    circ, // h.geofold g.uniwen
+    nat, // h.ent g.uniwen
+    circ, // h.ent g.uniwen
     img, // h.img
     text // h.text
   ]

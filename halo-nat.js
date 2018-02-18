@@ -23,10 +23,10 @@
     let gramm = function (anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram() // anigram
 
-      anigram.halo = 'geofold' // halo
+      anigram.halo = 'ent' // halo
       anigram.geoform = p => mnat.natFeature(p.payload.form)
 
-      newAnigrams = __mapper('xs').h('geofold').gramm(anigram)
+      newAnigrams = __mapper('xs').h('ent').gramm(anigram)
 
       return newAnigrams
     }

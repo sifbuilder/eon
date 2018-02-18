@@ -1,14 +1,14 @@
 /**********************
- *    @haloGeofold
+ *    @haloEnt
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloGeofold = global.haloGeofold || {})))
+      : (factory((global.haloEnt = global.haloEnt || {})))
 }(this, function (exports) {
   'use strict'
 
-  let haloGeofold = function haloGeofold (__mapper = {}) {
+  let haloEnt = function haloEnt (__mapper = {}) {
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
       mric = __mapper('xs').m('ric'),
@@ -42,7 +42,7 @@
 if (1 && 1) console.log("gjGeoformed", gjGeoformed) 
 
       
-      if (!mgeoj.isValid(gjGeoformed)) { console.error("h.geofold:gj not valid", gjGeoformed)}
+      if (!mgeoj.isValid(gjGeoformed)) { console.error("h.ent:gj not valid", gjGeoformed)}
         
       let gjConformed = mprofier.conformer(anigram)(gjGeoformed)
 
@@ -92,14 +92,14 @@ if (1 && 1) console.log("gjGeoformed", gjGeoformed)
     let haloGeofold_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
     let haloGeofold_gramm = anima => gramm(anima)
 
-    let haloGeofold = {}
-    haloGeofold.ween = anima => haloGeofold_ween(anima)
-    haloGeofold.gramm = anima => haloGeofold_gramm(anima)
+    let haloEnt = {}
+    haloEnt.ween = anima => haloGeofold_ween(anima)
+    haloEnt.gramm = anima => haloGeofold_gramm(anima)
 
-    let enty = haloGeofold
+    let enty = haloEnt
 
     return enty
   }
 
-  exports.haloGeofold = haloGeofold
+  exports.haloEnt = haloEnt
 }))

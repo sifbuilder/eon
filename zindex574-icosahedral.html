@@ -122,7 +122,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geograt
   let geograt = {
 
-    halo: 'geofold',
+    halo: 'ent',
     geoform: anitem => __mapper('xs').m('graticule').gedges(anitem.payload.graticule),
 
     payload: {
@@ -148,7 +148,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoearth
   let geoearth = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: () => {
       let geo = Object.assign({},
@@ -173,7 +173,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  geoearth
   let geoshpere = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: {
       type: 'Feature',
@@ -239,9 +239,9 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let animas = [
 
-    geograt, // h.geofold g.hedrals
-    geoearth, // h.geofold g.hedrals
-    geoshpere, // h.geofold g.hedrals
+    geograt, // h.ent g.hedrals
+    geoearth, // h.ent g.hedrals
+    geoshpere, // h.ent g.hedrals
     img // h.img
 
   ]

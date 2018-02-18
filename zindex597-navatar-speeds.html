@@ -44,7 +44,7 @@ let muonAlima = function (__mapper) {
  */
   let natform = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => ({
       'type': 'Feature',
@@ -113,7 +113,7 @@ let muonAlima = function (__mapper) {
  */
   let ava1 = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => {
       let rotate = mliner.orientate(p).rotate()
@@ -201,7 +201,7 @@ let muonAlima = function (__mapper) {
 
   let ava2 = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => {
       let rotate = mliner.orientate(p).rotate()
@@ -330,8 +330,8 @@ let muonAlima = function (__mapper) {
  *
  */
   natform.payload.avatars = {
-    ava1, // haloava1.haloava1.geofold
-    ava2 // haloava1.haloava1.geofold
+    ava1, // haloava1.haloava1.ent
+    ava2 // haloava1.haloava1.ent
   }
 
   let animas = [

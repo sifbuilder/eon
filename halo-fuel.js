@@ -48,7 +48,7 @@
 
       if (parentAnigram) {
         let geometry = parentAnigram.geoform.geometry
-        if (!mgeoj.isValid(geometry)) { console.error("h.geofold:gj not valid", geometry)}
+        if (!mgeoj.isValid(geometry)) { console.error("h.ent:gj not valid", geometry)}
         polygon = mgeoj.getCoords(geometry)           // outer ring
       } else {
         polygon = mgeom.extentPolygon([[0, 0], [width, height]]) // viewport

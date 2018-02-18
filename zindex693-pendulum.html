@@ -145,7 +145,7 @@ let muonAlima = function (__mapper) {
       let node = nodes[i]
       let ani = f.cloneObj(nat1) // base anitem on parent anima
 
-      ani.halo = 'geofold' // set halo
+      ani.halo = 'ent' // set halo
       ani.geoform = node // the geoform is the node
 
       let _ric = {}
@@ -181,8 +181,8 @@ let muonAlima = function (__mapper) {
       ani.payload.boform.cs = (i % 2) ? 777 : 333
 
       ani.link = {
-        source: link[0],  // link source value is a node property defined in link force
-        target: link[1]
+        source: link[0], // link source value is a node property defined in link force
+        target: link[1] // the link id is the geoform.properties.geonode.properties.id
       }
 
       let preani = mstore.getAnima(ani.payload.ric)
@@ -192,7 +192,7 @@ let muonAlima = function (__mapper) {
         ani = preani
 
       } else { // create anima
-        ani.halo = 'geofold' // create halo
+        ani.halo = 'ent' // create halo
 
         ani.geoform = { // will create anigram
           type: 'Feature',
@@ -254,7 +254,7 @@ let muonAlima = function (__mapper) {
 
         geojsor: () => {
             let ani = {}
-              ani.halo = 'geofold'
+              ani.halo = 'ent'
               ani.geoform =  {type: 'Feature',geometry: {type: 'Point', coordinates: []},properties: {}}
               ani.payload = {}
             return ani
@@ -463,7 +463,7 @@ let muonAlima = function (__mapper) {
   }
 
   let animas = [
-    nat1, // h.geofold
+    nat1, // h.ent
 
 
   ]

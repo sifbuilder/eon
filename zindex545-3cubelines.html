@@ -118,7 +118,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  earth
   let earth = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: () => {
       let gjls = Object.assign({},
@@ -145,7 +145,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  threegrat
   let threegrat = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => __mapper('xs').m('graticule').gedges(p.payload.graticule),
 
@@ -215,8 +215,8 @@ let muonAlima = function muonAlima (__mapper) {
  */
 
   let animas = [
-    threegrat, // h.geofold g.natform
-    earth, // h.geofold g.natform
+    threegrat, // h.ent g.natform
+    earth, // h.ent g.natform
     img // h.img
   ]
 

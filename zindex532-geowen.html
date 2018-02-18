@@ -80,7 +80,7 @@ let muonAlima = function (__mapper) {
  */
   let geoearth1 = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: () => {
       let gj = Object.assign({},
@@ -112,7 +112,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  geograt1
   let geograt1 = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => mgraticule.gedges(p.payload.graticule),
 
@@ -143,7 +143,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  geosphere
   let geosphere1 = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: {
       type: 'Feature',
@@ -169,7 +169,7 @@ let muonAlima = function (__mapper) {
   }
   let geoearth2 = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: () => {
       let gj = Object.assign({},
@@ -201,7 +201,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  geograt1
   let geograt2 = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => mgraticule.gedges(p.payload.graticule),
 
@@ -232,7 +232,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  geosphere
   let geosphere2 = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: {
       type: 'Feature',
@@ -258,12 +258,12 @@ let muonAlima = function (__mapper) {
   }
 
   let animas = [
-    geoearth1, // h.geofold g.orthographic
-    geograt1, // h.geofold
-    geosphere1, // h.geofold
-    geoearth2, // h.geofold g.mercator
-    geograt2, // h.geofold
-    geosphere2 // h.geofold
+    geoearth1, // h.ent g.orthographic
+    geograt1, // h.ent
+    geosphere1, // h.ent
+    geoearth2, // h.ent g.mercator
+    geograt2, // h.ent
+    geosphere2 // h.ent
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

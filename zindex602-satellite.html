@@ -89,7 +89,7 @@ let muonAlima = function (__mapper) {
  */
   let natform = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => mnat.natFeature(p.payload.form),
 
@@ -115,7 +115,7 @@ let muonAlima = function (__mapper) {
   // -------------------------------  gratform
   let gratform = {
 
-    halo: 'geofold',
+    halo: 'ent',
 
     geoform: p => mgraticule.gedges(p.payload.graticule),
 
@@ -205,8 +205,8 @@ let muonAlima = function (__mapper) {
 
   let animas = [
 
-    // natform, // h.geofold
-    gratform,      // h.geofold
+    // natform, // h.ent
+    gratform,      // h.ent
 		img // h.img
 
   ]

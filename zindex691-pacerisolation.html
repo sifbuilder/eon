@@ -140,7 +140,7 @@ let muonAlima = function (__mapper) {
 
 
 
-                    let _halo = 'geofold' // set halo
+                    let _halo = 'ent' // set halo
                     let _geoform = { // define geoform
                       type: 'Feature',
                       geometry: {type: 'Point', coordinates: [0, 0, 0]},
@@ -380,7 +380,7 @@ let muonAlima = function (__mapper) {
 
   }
   let gratilines21 = {
-    halo: 'geofold',
+    halo: 'ent',
     geoform: p => mgraticule.gedges(p.payload.graticule),
     payload: {
       tim: tim,
@@ -965,8 +965,8 @@ let muonAlima = function (__mapper) {
   }
 
   let animas = [
-    nat1 // h.geofold
-    // gratilines21 // h.geofold
+    nat1 // h.ent
+    // gratilines21 // h.ent
 
   ]
 

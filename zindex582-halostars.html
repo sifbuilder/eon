@@ -74,8 +74,8 @@ let muonAlima = function muonAlima (__mapper) {
     return star
   }
 
-  // ............ halogeoform
-  let halogeoform = p => {
+  // ............ haloEnt
+  let haloEnt = p => {
     let payload = p.payload,
       ric = payload.ric,
       boform = payload.boform
@@ -185,16 +185,16 @@ let muonAlima = function muonAlima (__mapper) {
       halo = 				anigram.halo, // halo
       geoform = 		anigram.geoform			// geoform
 
-    anima.geoform = halogeoform
+    anima.geoform = haloEnt
 
-    newAnigrams = __mapper('xs').h('geofold').gramm(anima)
+    newAnigrams = __mapper('xs').h('ent').gramm(anima)
 
     return newAnigrams
   }
 
   // ............ haloStars
   let haloStars = {}
-  haloStars.ween = __mapper('xs').h('geofold').ween
+  haloStars.ween = __mapper('xs').h('ent').ween
   haloStars.gramm = anima => grammStars(anima)
 
   /*******************************************

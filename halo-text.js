@@ -66,7 +66,7 @@
         json
 
       anima.geoform = geoform
-      newAnigrams = __mapper('xs').h('geofold').gramm(anima)
+      newAnigrams = __mapper('xs').h('ent').gramm(anima)
 
       return newAnigrams
     }

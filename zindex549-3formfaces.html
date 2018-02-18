@@ -130,7 +130,7 @@ let muonAlima = function muonAlima (__mapper) {
  */
   // -------------------------------  gratifaces11
   let gratifaces11 = {
-    halo: 'geofold',
+    halo: 'ent',
     geoform: p => {
       let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates
       let faces = mgraticule.gfaces(p.payload.graticule)
@@ -154,7 +154,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
   // -------------------------------  gratifaces12
   let gratifaces12 = {
-    halo: 'geofold',
+    halo: 'ent',
     geoform: p => {
       let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates
       let faces = mgraticule.gfaces(p.payload.graticule)
@@ -178,7 +178,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
   // -------------------------------  gratifaces11
   let gratilines21 = {
-    halo: 'geofold',
+    halo: 'ent',
     geoform: p => mgraticule.gedges(p.payload.graticule),
     
     payload: {
@@ -192,7 +192,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
   // -------------------------------  gratilines22
   let gratilines22 = {
-    halo: 'geofold',
+    halo: 'ent',
     geoform: p => mgraticule.gedges(p.payload.graticule),
     payload: {
       tim: tim,
@@ -208,10 +208,10 @@ let muonAlima = function muonAlima (__mapper) {
  *      @animas
  */
   let animas = [
-    gratifaces11, // h.geofold g.natform
-    gratifaces12, // h.geofold g.natform
-    gratilines21, // h.geofold g.natform
-    gratilines22 // h.geofold g.natform
+    gratifaces11, // h.ent g.natform
+    gratifaces12, // h.ent g.natform
+    gratilines21, // h.ent g.natform
+    gratilines22 // h.ent g.natform
 
   ]
 

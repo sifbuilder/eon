@@ -77,7 +77,7 @@ let muonAlima = function (__mapper) {
 
   let nat1 = {
 
-    halo: haloIsolationHalo, // 'geofold',
+    halo: haloIsolationHalo, // 'ent',
 
     geoform: geoform,
 
@@ -111,7 +111,7 @@ let muonAlima = function (__mapper) {
 
               if (count[key] > 0) { // if count on this sort
                 for (let j = 0; j < count[key]; j++) {
-                  let _halo = 'geofold' // set halo
+                  let _halo = 'ent' // set halo
                   let _geoform = { // define geoform
                     type: 'Feature',
                     geometry: {type: 'Point', coordinates: [0, 0, 0]},
@@ -379,7 +379,7 @@ let muonAlima = function (__mapper) {
   }
 
   let animas = [
-    nat1 // h.geofold
+    nat1 // h.ent
   ]
 
   let animaApi = function animaApi () {

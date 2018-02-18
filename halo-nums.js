@@ -34,7 +34,7 @@
       let parentAnigram = mstore.findAnigramFromUid(parentuid)
       if (parentAnigram) {
         let geometry = parentAnigram.geoform.geometry
-        if (!mgeoj.isValid(geometry)) { console.error('h.geofold:gj not valid', geometry) }
+        if (!mgeoj.isValid(geometry)) { console.error('h.ent:gj not valid', geometry) }
         parentCoords = mgeoj.getCoords(geometry) // outer ring
       }
 
@@ -101,7 +101,7 @@
     
         anima.geoform = _geoform
         anima.payload.proform = _proform
-        newAnigrams = [...newAnigrams, ...__mapper('xs').h('geofold').gramm(anima)]
+        newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(anima)]
       }
 
       

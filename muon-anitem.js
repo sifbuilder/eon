@@ -71,7 +71,7 @@
       let parent = __mapper('xs').m('store').findAnigramFromUid(parentuid)
 
       if (parent !== undefined) {
-        // let geoj = parent.payload.geofold
+        // let geoj = parent.payload.ent
         let geoj = parent.geoform
         coords = __mapper('xs').m('geoj').getCoords(geoj)
       }
