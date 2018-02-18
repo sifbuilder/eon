@@ -47,7 +47,9 @@
       return cttes
     }
 
-    // ------------------------- initNodes
+/***************************
+ *        @initNodes
+ */
     function initNodes (aniItems, nDim) {
       let simNodes = []
 
@@ -61,8 +63,6 @@
         if (aniItem.geofold.properties) geonode = aniItem.geofold.properties.geonode
         geonode = mgeonode.init(geonode)
 
-if (0 && 1) console.log("geonode", geonode)
-
         // the simnode location is in the geonode geometry
         let nodeGeometry = geonode.geometry
         let simNode = {}
@@ -70,6 +70,11 @@ if (0 && 1) console.log("geonode", geonode)
         simNode.y =   nodeGeometry.coordinates[1]
         simNode.z =   nodeGeometry.coordinates[2]
 
+        if (simNode.x === undefined || isNaN(simNode.x)) simNode.x = 0  // location defs
+        if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1)  simNode.y = 0
+        if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2)  simNode.z = 0
+        
+        
         // the simnode status is in the geonode properties 
         let properties = geonode.properties
         if (properties.anchor !== undefined) {
@@ -82,19 +87,17 @@ if (0 && 1) console.log("geonode", geonode)
         simNode.vx =  properties.velin[0] // geonode velocity to simnode
         simNode.vy =  properties.velin[1]
         simNode.vz =  properties.velin[2]
-
+        
+        if (isNaN(simNode.vx)) simNode.vx = 0                   // velocity defs
+        if (nDim > 1 && isNaN(simNode.vy)) simNode.vy = 0
+        if (nDim > 2 && isNaN(simNode.vz)) simNode.vz = 0
         simNode.payload = payload // anitem payload to simnode
         
         
         simNode.id = payload.id // simnode id from geofold.payload.id
 
-        if (simNode.x === undefined || isNaN(simNode.x)) simNode.x = 0  // location defs
-        if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1)  simNode.y = 0
-        if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2)  simNode.z = 0
 
-        if (isNaN(simNode.vx)) simNode.vx = 0                   // velocity defs
-        if (nDim > 1 && isNaN(simNode.vy)) simNode.vy = 0
-        if (nDim > 2 && isNaN(simNode.vz)) simNode.vz = 0
+
 
         simNodes.push(simNode)
       }
@@ -103,10 +106,12 @@ if (1 && 1) console.log("simNodes", simNodes)
       return simNodes
     }
 
-    // ------------------------- restoreNodes
+/***************************
+ *        @restoreNodes
+ */
     function restoreNodes (simNodes, aniItems) {
       let updItems = []
-if (0 && 1) console.log("aniItems", aniItems)
+
       if (simNodes.length > 0) {
         for (let i = 0; i < simNodes.length; ++i) {
           let simNode = simNodes[i]
@@ -120,7 +125,6 @@ if (0 && 1) console.log("aniItems", aniItems)
           
           let geonode = updItem.geofold.properties.geonode
           geonode = mgeonode.init(geonode)
-if (0 && 1) console.log("geonode", geonode)
           geonode.properties.geodelta[0] = simNode.x - geonode.geometry.coordinates[0]
           geonode.properties.geodelta[1] = simNode.y - geonode.geometry.coordinates[1]
           geonode.properties.geodelta[2] = simNode.z - geonode.geometry.coordinates[2]
