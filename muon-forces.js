@@ -46,6 +46,9 @@
           : null
         p.params = params
       }
+      if (p.force == null && p.type !== 'noforce') {
+        console.info(p.type, "force not found")
+      }
 
       aniforce = isolate(p)			// force, params:{nodes, filter, force}
       return aniforce

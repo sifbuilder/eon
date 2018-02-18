@@ -56,14 +56,14 @@ let muonAlima = function (__mapper) {
 
 
 
-      let ball = {
+      let ball = {      // geofold
         type: 'Feature',
         geometry: {
             type: 'Point',
             coordinates: [300, 300, 0]
         },
         properties: {
-          id: 'ball',
+          name: 'ball',    // will use d.properties.name as simnode.id
           geonode: {
             type: 'Feature',
             geometry: {
@@ -89,7 +89,7 @@ let muonAlima = function (__mapper) {
             coordinates: [300, 100, 0]
         },
         properties: {
-           id: 'pivot',
+           name: 'pivot',
            geonode: {
             type: 'Feature',
             geometry: {
@@ -112,7 +112,7 @@ let muonAlima = function (__mapper) {
           coordinates: [0, 1]
         },
         properties: {
-          id: 'wire',
+          name: 'wire',
           length: 90,
           geonode: {
             type: 'Feature',
@@ -154,6 +154,7 @@ let muonAlima = function (__mapper) {
       _ric.fid = 'node' + i // fid identify
       ani.payload.ric = _ric // set ric
       
+      ani.payload.id = ani.geofold.properties.name // set nod id from geofold properties
       ani.payload.uid = mric.getuid(ani.payload.ric) // set uid
       ani.payload.boform.cf = (i % 2) ? 777 : 333 // stype per class
       ani.payload.boform.cs = (i % 2) ? 777 : 333
@@ -373,9 +374,20 @@ let muonAlima = function (__mapper) {
       let forces = []
 
       let forceParams =  {
-        type: 'linkForce',
+        type: 'link',
         strength: strength,
-        id: d => d.uid,
+        id: d => {
+
+          //  link force between linknodes
+          //
+          //  linknode is defined in m.sim.initNodes from anitem
+          //
+          //  anitem.payload.properties.id
+          // 
+          //  linknode.id from simnode.id
+          return d.id
+          
+        },
         distance: d => distance,
         iterations: iterations,
 
@@ -386,8 +398,11 @@ let muonAlima = function (__mapper) {
       }
 
       let force = mforces(forceParams)
-      let field = {'key': 'link', 'force': force}
-
+      
+      let field = {
+          'key': 'mylink', 
+          'force': force
+      }
       forces.push(field)
 
       return forces

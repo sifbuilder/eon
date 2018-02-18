@@ -83,8 +83,10 @@ if (0 && 1) console.log("geonode", geonode)
         simNode.vy =  properties.velin[1]
         simNode.vz =  properties.velin[2]
 
-        simNode.payload = payload                   // anitem payload to simnode
-        simNode.id = payload.uid                    // anitem uid to simnode id
+        simNode.payload = payload // anitem payload to simnode
+        
+        
+        simNode.id = payload.id // simnode id from geofold.payload.id
 
         if (simNode.x === undefined || isNaN(simNode.x)) simNode.x = 0  // location defs
         if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1)  simNode.y = 0
@@ -96,7 +98,7 @@ if (0 && 1) console.log("geonode", geonode)
 
         simNodes.push(simNode)
       }
-if (0 && 1) console.log("simNodes", simNodes)
+if (1 && 1) console.log("simNodes", simNodes)
 
       return simNodes
     }

@@ -162,7 +162,7 @@
             .filter(d => d.properties.sort === 'text')
 
           if (texts.length > 0) {
-            __mapper('renderSvg').elems('svg:g.' + gid + '/text.' + cid, texts, d => d.id)
+            __mapper('renderSvg').elems('svg:g.' + gid + '/text.' + cid, texts, d => d.uid)
               .text(d => {
                 return d.properties.text
               })
@@ -232,7 +232,7 @@
 
           if (features.length > 0) {
 
-            __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.id)
+            __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)
 
               .data(() => features)
               .attr('d', d => {
