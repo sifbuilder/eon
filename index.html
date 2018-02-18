@@ -208,7 +208,7 @@ let fibofold = {
 
 halo: 'ent',
 
-geoform: p => {
+geofold: p => {
 let coords = mfibonat.stream(p.payload.fibonat)	// spherical
 let gj = {
 'type': 'Feature',
@@ -275,7 +275,7 @@ let gratifold = {
 
 halo: 'ent',
 
-geoform: p => __mapper('xs').m('graticule').gedges(p.payload.graticule),
+geofold: p => __mapper('xs').m('graticule').gedges(p.payload.graticule),
 
 payload: {
 tim: tim,
@@ -312,7 +312,7 @@ let img = {
 
 halo: 'img',
 
-geoform: p => ({
+geofold: p => ({
 type: 'Feature',
 geometry: {
 
@@ -355,7 +355,7 @@ let geoearth = {
 
 halo: 'ent',
 
-geoform: () => {
+geofold: () => {
 let gj = Object.assign({},
 topojson.feature(
 __mapper('xs').d('worldTopo110m').data(),

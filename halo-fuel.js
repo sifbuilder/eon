@@ -26,7 +26,7 @@
     let gramm = function (anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram(),   // anigram
         halo =       anigram.halo,             // halo
-        geoform =     anigram.geoform           // geoform
+        geofold =     anigram.geofold           // geofold
 
       let payload =   anigram.payload,          // payload 
         boform =      payload.boform,           // boform
@@ -47,7 +47,7 @@
       let parentAnigram = mstore.findAnigramFromUid(parentuid)
 
       if (parentAnigram) {
-        let geometry = parentAnigram.geoform.geometry
+        let geometry = parentAnigram.geofold.geometry
         if (!mgeoj.isValid(geometry)) { console.error("h.ent:gj not valid", geometry)}
         polygon = mgeoj.getCoords(geometry)           // outer ring
       } else {
@@ -80,7 +80,7 @@
         }
         let newAnigram = {}                 // new anigram per fuel nat
         newAnigram.halo = 'nat'
-        newAnigram.geoform = geoform
+        newAnigram.geofold = geofold
         newAnigram.payload = payload
         newAnigram.payload.ric = _ric           // identify each fuel nat
         newAnigram.payload.proform = _proform     // proform of each fuel nat

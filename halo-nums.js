@@ -22,7 +22,7 @@
 
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
-        geoform = anigram.geoform // geoform
+        geofold = anigram.geofold // geofold
 
       let payload = anigram.payload, // payload
         ric = payload.ric, // ric
@@ -33,7 +33,7 @@
       let parentCoords
       let parentAnigram = mstore.findAnigramFromUid(parentuid)
       if (parentAnigram) {
-        let geometry = parentAnigram.geoform.geometry
+        let geometry = parentAnigram.geofold.geometry
         if (!mgeoj.isValid(geometry)) { console.error('h.ent:gj not valid', geometry) }
         parentCoords = mgeoj.getCoords(geometry) // outer ring
       }
@@ -62,7 +62,7 @@
         }
 
        
-          let _geoform = function (p) { // geoform
+          let _geoform = function (p) { // geofold
             let payload = p.payload,
               text = payload.nums, // nums
               boform = p.boform || {}
@@ -99,7 +99,7 @@
           }
     
     
-        anima.geoform = _geoform
+        anima.geofold = _geoform
         anima.payload.proform = _proform
         newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(anima)]
       }

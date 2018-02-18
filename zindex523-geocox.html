@@ -135,7 +135,7 @@
 
       halo: 'ent',
 
-      geoform: (p) => {
+      geofold: (p) => {
         let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
         return gedges
       },
@@ -156,7 +156,7 @@
 
       halo: 'ent',
 
-      geoform: () => {
+      geofold: () => {
         let geo = Object.assign({},
           topojson.feature(
             __mapper('xs').d('worldTopo110m').data(),
@@ -180,7 +180,7 @@
 
       halo: 'ent',
 
-      geoform: {
+      geofold: {
         type: 'Feature',
         geometry: {
           type: 'Sphere'
@@ -202,7 +202,7 @@
 
       halo: 'img',
 
-      geoform: p => ({
+      geofold: p => ({
         type: 'Feature',
         geometry: {
 

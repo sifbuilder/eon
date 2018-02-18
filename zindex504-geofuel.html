@@ -197,7 +197,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     halo: 'fuel',
 
-    geoform: p => mnat.natFeature(p.payload.form),
+    geofold: p => mnat.natFeature(p.payload.form),
 
     payload: {
       tim,
@@ -219,7 +219,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     halo: 'img',
 
-    geoform: p => ({
+    geofold: p => ({
       type: 'Feature',
       geometry: {
 

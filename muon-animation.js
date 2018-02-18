@@ -80,7 +80,7 @@ if (0 && 1) console.log("state.animas", state.animas)
 
       let featurecollection = {
         'type': 'FeatureCollection',
-        'features': anigrams.map(d => d.geoform)
+        'features': anigrams.map(d => d.geofold)
       }
 
       if (__mapper('renderSvg') !== undefined) __mapper('renderSvg').render(elapsed, featurecollection)

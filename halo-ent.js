@@ -24,7 +24,7 @@
     let gramm = function (anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
-        geoform = anigram.geoform, // geoform
+        geofold = anigram.geofold, // geofold
         payload = anigram.payload // payload
 
       let boform = payload.boform, // boform
@@ -36,7 +36,7 @@
         parentuid = payload.parentuid // parentuid
         
         
-      let gjGeoformed = f.v(geoform, anigram)
+      let gjGeoformed = f.v(geofold, anigram)
         
 
 if (1 && 1) console.log("gjGeoformed", gjGeoformed) 
@@ -77,7 +77,7 @@ if (1 && 1) console.log("gjGeoformed", gjGeoformed)
           newAnigram.payload.preani = mstore.findAnigramFromUid(d.properties.uid)
           // newAnigram.payload.geonode = geonode // assign projected geonode
 
-          newAnigram.geoform = d // inherit geoform
+          newAnigram.geofold = d // inherit geofold
 
           return newAnigram
           

@@ -183,9 +183,9 @@ let muonAlima = function muonAlima (__mapper) {
   let grammStars = function (anima, newAnigrams = []) {
     let anigram = manitem(anima).anigram(),						// anigram
       halo = 				anigram.halo, // halo
-      geoform = 		anigram.geoform			// geoform
+      geofold = 		anigram.geofold			// geofold
 
-    anima.geoform = haloEnt
+    anima.geofold = haloEnt
 
     newAnigrams = __mapper('xs').h('ent').gramm(anima)
 
@@ -206,7 +206,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     halo: 'img',
 
-    geoform: p => ({
+    geofold: p => ({
       type: 'Feature',
       geometry: {
 

@@ -120,7 +120,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     halo: 'ent',
 
-    geoform: () => {
+    geofold: () => {
       let gjls = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),
@@ -149,7 +149,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     halo: 'ent',
 
-    geoform: p => {
+    geofold: p => {
       let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates
       let faces = mgraticule.gfaces(p.payload.graticule)
       faces = faces.map(face => [...face, face[0]])

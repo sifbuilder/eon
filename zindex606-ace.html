@@ -112,7 +112,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geoform: p => mnat.natFeature(p.payload.form),
+    geofold: p => mnat.natFeature(p.payload.form),
 
     payload: {
 
@@ -138,7 +138,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geoform: p => {
+    geofold: p => {
       let g = mgraticule.gedges(p.payload.graticule)
       return g
     },
@@ -188,7 +188,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'img',
 
-    geoform: p => ({
+    geofold: p => ({
       type: 'Feature',
       geometry: {
 

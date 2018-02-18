@@ -25,7 +25,7 @@
 
         halo: d.halo, // type
 
-        geoform: d.geoform, // geometry
+        geofold: d.geofold, // geometry
 
         payload: d.payload // properties
 
@@ -72,7 +72,7 @@
 
       if (parent !== undefined) {
         // let geoj = parent.payload.ent
-        let geoj = parent.geoform
+        let geoj = parent.geofold
         coords = __mapper('xs').m('geoj').getCoords(geoj)
       }
 
@@ -98,7 +98,7 @@
     /***********
   *   @coreGeoform
   */
-    let coreGeoform = () => p => ({ // geoform
+    let coreGeoform = () => p => ({ // geofold
       type: 'Feature',
       geometry: { type: 'Point', coordinates: [0,0,0]},
       properties: {}
@@ -127,7 +127,7 @@
         }
         if (anigram.payload === undefined) anigram.payload = {}
 
-        anigram.geoform = f.v((anigram.geoform), anigram)	// geoform
+        anigram.geofold = f.v((anigram.geofold), anigram)	// geofold
         anigram.payload.conform = f.v(anigram.payload.conform, anigram)		// conform
         anigram.payload.proform = f.v(anigram.payload.proform, anigram)		// proform
 
@@ -137,10 +137,10 @@
     }
 
     enty.halo = (_) => { return _ !== undefined ? (anitem.halo = _, anitem) : anitem.halo }
-    enty.geoform = (_) => { return _ !== undefined ? (anitem.geoform = _, anitem) : anitem.geoform }
+    enty.geofold = (_) => { return _ !== undefined ? (anitem.geofold = _, anitem) : anitem.geofold }
     enty.payload = (_) => { return _ !== undefined ? (anitem.payload = _, anitem) : anitem.payload }
 
-    enty.coreGeoform = coreGeoform			// default halo geoform
+    enty.coreGeoform = coreGeoform			// default halo geofold
     enty.coreGeonode = coreGeonode			// default halo geonode
 
     enty.anigram = (ani, t) => {		// anigam

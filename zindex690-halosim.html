@@ -95,7 +95,7 @@ let muonAlima = function (__mapper) {
       } else { // create anima
         ani.halo = 'ent' // create halo
 
-        ani.geoform = { // will create anigram
+        ani.geofold = { // will create anigram
           'type': 'Feature',
           'geometry': {'type': 'Point', 'coordinates': [0, 0, 0]}
         }
@@ -119,7 +119,7 @@ let muonAlima = function (__mapper) {
 
     halo: haloIsolationHalo,
 
-    geoform: p => mnat.natFeature(p.payload.form),
+    geofold: p => mnat.natFeature(p.payload.form),
 
     payload: {
       tim: tim,
@@ -143,7 +143,7 @@ let muonAlima = function (__mapper) {
         geojsor: () => {
             let ani = {}
               ani.halo = 'ent'
-              ani.geoform =  {type: 'Feature',geometry: {type: 'Point', coordinates: null},properties: {}}
+              ani.geofold =  {type: 'Feature',geometry: {type: 'Point', coordinates: null},properties: {}}
               ani.payload = {}
             return ani
         }
@@ -327,7 +327,7 @@ let muonAlima = function (__mapper) {
   }
   let gratilines21 = {
     halo: 'ent',
-    geoform: p => mgraticule.gedges(p.payload.graticule),
+    geofold: p => mgraticule.gedges(p.payload.graticule),
     payload: {
       tim: tim,
       ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},

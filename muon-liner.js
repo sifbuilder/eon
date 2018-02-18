@@ -46,7 +46,7 @@
       let parentuid = anigram.payload.parentuid
       let parent = mstore.findAnigramFromUid(parentuid)
       if (parent !== undefined) {
-        let gj = parent.geoform
+        let gj = parent.geofold
         refCoords = mgeoj.getCoords(gj)
 
         if (refCoords && refCoords.length > 2) {		// two points to set direction
@@ -96,7 +96,7 @@
         }
       } else if (preAnigram !== undefined) {
 
-        if (preAnigram.geoform && preAnigram.payload.preani) {		// two points to set direction
+        if (preAnigram.geofold && preAnigram.payload.preani) {		// two points to set direction
           let _c = preAnigram.payload.geonode.geometry.coordinates
           let __c = preAnigram.payload.preani.payload.geonode.geometry.coordinates
 

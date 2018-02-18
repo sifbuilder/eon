@@ -60,7 +60,7 @@ let muonAlima = function (__mapper) {
 
   let tim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-	let geoform = p => __mapper('xs').m('graticule').gedges(p.payload.graticule)
+	let geofold = p => __mapper('xs').m('graticule').gedges(p.payload.graticule)
 
 		let form = {
 
@@ -101,7 +101,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geoform: p => mnat.natFeature(p.payload.form),
+    geofold: p => mnat.natFeature(p.payload.form),
 
     payload: {
       tim: tim,
@@ -131,7 +131,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geoform: geoform,
+    geofold: geofold,
 
     payload: {
       tim: tim,

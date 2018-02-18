@@ -117,7 +117,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geoform: p => mnat.natFeature(p.payload.form),
+    geofold: p => mnat.natFeature(p.payload.form),
 
     payload: {
 
@@ -143,7 +143,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geoform: p => {
+    geofold: p => {
       let g = mgraticule.gedges(p.payload.graticule)
       return g
     },
@@ -193,7 +193,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'img',
 
-    geoform: p => ({
+    geofold: p => ({
       type: 'Feature',
       geometry: {
 
@@ -268,7 +268,7 @@ let muonAlima = function (__mapper) {
 
     halo: haloIsolationHalo, // 'pacer', //
 
-    geoform: p => mnat.natFeature(p.payload.form),
+    geofold: p => mnat.natFeature(p.payload.form),
 
     payload: {
       tim: tim,
@@ -303,7 +303,7 @@ if (0 && 1) console.log("691 count", count )
 
 
                     let _halo = 'ent' // set halo
-                    let _geoform = { // define geoform
+                    let _geoform = { // define geofold
                       type: 'Feature',
                       geometry: {type: 'Point', coordinates: [0, 0, 0]},
                       properties: {}
@@ -326,7 +326,7 @@ if (0 && 1) console.log("691 count", count )
                   
                       newItem = {}
                       newItem.halo = _halo // set halo
-                      newItem.geoform = _geoform // set geoform
+                      newItem.geofold = _geoform // set geofold
                       newItem.id = _uid // set id
                       newItem.payload = _payload // set payload
                       newItem.payload.ric = Object.assign({}, _ric) // set ric
@@ -540,7 +540,7 @@ if (0 && 1) console.log("691 count", count )
   }
   let gratilines21 = {
     halo: 'ent',
-    geoform: p => mgraticule.gedges(p.payload.graticule),
+    geofold: p => mgraticule.gedges(p.payload.graticule),
     payload: {
       tim: tim,
       ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},

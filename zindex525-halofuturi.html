@@ -157,7 +157,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     halo: 'ent',
 
-    geoform: [[[ () => ({
+    geofold: [[[ () => ({
       'type': 'LineString',
       'coordinates': [
         [-90, 0],
@@ -179,7 +179,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     halo: 'ent',
 
-    geoform: () => ({
+    geofold: () => ({
       'type': 'Point',
       'coordinates': [0, 90]
     }),
@@ -196,7 +196,7 @@ let muonAlima = function muonAlima (__mapper) {
   let geograt = {
 
     halo: 'ent',
-    geoform: ani => __mapper('xs').m('graticule').gedges(ani.payload.graticule),
+    geofold: ani => __mapper('xs').m('graticule').gedges(ani.payload.graticule),
 
     payload: {
 
@@ -222,7 +222,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     halo: 'ent',
 
-    geoform: () => {
+    geofold: () => {
       let geo = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),
@@ -241,12 +241,12 @@ let muonAlima = function muonAlima (__mapper) {
       proform: proform
     }
   }
-  // -------------------------------  geoform
-  let geoform = {
+  // -------------------------------  geofold
+  let geofold = {
 
     halo: 'ent',
 
-    geoform: ani => ({
+    geofold: ani => ({
       'type': 'Polygon',
       'coordinates': [ [
         [0 + 0, 0 + 0],
@@ -273,7 +273,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     halo: 'ent',
 
-    geoform: {
+    geofold: {
       type: 'Feature',
       geometry: {
         type: 'Sphere'
@@ -299,7 +299,7 @@ let muonAlima = function muonAlima (__mapper) {
     geograt, // h.geograt g.futuri
     geoearth, // h.ent g.futuri
     geosphere, // h.ent g.futuri
-    geoform, // h.ent g.futuri
+    geofold, // h.ent g.futuri
     geoline, // h.ent g.futuri
     geopoint // h.ent g.futuri
   ]

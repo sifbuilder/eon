@@ -24,7 +24,7 @@
       let anigram = manitem(anima).anigram() // anigram
 
       anigram.halo = 'ent' // halo
-      anigram.geoform = p => mnat.natFeature(p.payload.form)
+      anigram.geofold = p => mnat.natFeature(p.payload.form)
 
       newAnigrams = __mapper('xs').h('ent').gramm(anigram)
 

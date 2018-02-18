@@ -32,7 +32,7 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let tim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
   let boform = { csx: 0, cf: 777, cs: 666, cw: 0.7, co: 0.07, cp: 0.9}
-  let geoform = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0]}, properties: {pointRadius: 6}}
+  let geofold = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0]}, properties: {pointRadius: 6}}
 
   let translate = {'m1': 4,
     'm2': 4,
@@ -675,7 +675,7 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let p1 = {
     halo: 'ent',
-    geoform: p => mnat.natFeature({x: f2x, y: f2y, z: f2z}),
+    geofold: p => mnat.natFeature({x: f2x, y: f2y, z: f2z}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p1'},
@@ -683,7 +683,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
   let p2 = {
     halo: 'ent',
-    geoform: p => mnat.natFeature({x: f2x, y: f2y, z: f2z}),
+    geofold: p => mnat.natFeature({x: f2x, y: f2y, z: f2z}),
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p2'},
@@ -692,7 +692,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
   let p3 = {
     halo: 'ent',
-    geoform: mnat.natFeature({x: f3x, y: f3y, z: f3z}),
+    geofold: mnat.natFeature({x: f3x, y: f3y, z: f3z}),
     payload: {tim,
       boform,
       form: {x: f3x, y: f3y, z: f3z},
@@ -701,7 +701,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
   let p4 = {
     halo: 'ent',
-    geoform: p => mgraticule.gedges({'lattice': [ [180, 45], [90, 22.5] ]}),
+    geofold: p => mgraticule.gedges({'lattice': [ [180, 45], [90, 22.5] ]}),
     payload: {tim,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p4'},
       boform,
@@ -710,7 +710,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
   let p5 = {
     halo: 'ent',
-    geoform: p => {
+    geofold: p => {
       let vertices = mgraticule.gvertices({'lattice': [ [180, 55], [90, 2.5] ]})  
         .geometry.coordinates
       let faces = mgraticule.gfaces({'lattice': [ [180, 55], [90, 2.5] ]})
@@ -731,7 +731,7 @@ let muonAlima = function muonAlima (__mapper) {
 
   let p6 = {
     halo: 'nat',
-    geoform: null,
+    geofold: null,
     payload: {tim,
       boform,
       form: {x: f6x, y: f6y, z: f6z},
@@ -743,7 +743,7 @@ let muonAlima = function muonAlima (__mapper) {
   let geoearth = {
 
     halo: 'ent',
-    geoform: () => {
+    geofold: () => {
       let gj = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),

@@ -17,7 +17,7 @@
       mric = __mapper('xs').m('ric'),
       mstace = __mapper('xs').m('stace')
 
-    let _geoform = function (p) { // geoform
+    let _geoform = function (p) { // geofold
       let payload = p.payload,
         text = payload.text, // needs text
         boform = p.boform || {}
@@ -54,7 +54,7 @@
    
       let anigram = manitem(anima).anigram(),							// anigram
 			  halo = 				anigram.halo, // halo
-        geoform = 		anigram.geoform || _geoform, // geoform
+        geofold = 		anigram.geofold || _geoform, // geofold
         payload = 		anigram.payload, // payload
         boform = 			payload.boform, // boform
         ric =         payload.ric, // ric
@@ -65,7 +65,7 @@
         parentuid = 	payload.parentuid, // parentuid
         json
 
-      anima.geoform = geoform
+      anima.geofold = geofold
       newAnigrams = __mapper('xs').h('ent').gramm(anima)
 
       return newAnigrams

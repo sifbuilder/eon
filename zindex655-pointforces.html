@@ -39,7 +39,7 @@ let muonAlima = function (__mapper) {
  */
   let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
   let boform = { csx: 0, cf: 777, cs: 222, cw: 1.7, co: 0.7, cp: 0.5}
-  let geoform = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0, 0]}, properties: {pointRadius: 6}}
+  let geofold = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0, 0]}, properties: {pointRadius: 6}}
 
   /*******************************************
  *      @animas
@@ -79,7 +79,7 @@ let muonAlima = function (__mapper) {
 
     halo: haloIsolationHalo, // 'ent',
 
-    geoform: geoform,
+    geofold: geofold,
 
     payload: {
       tim: tim,
@@ -112,7 +112,7 @@ let muonAlima = function (__mapper) {
               if (count[key] > 0) { // if count on this sort
                 for (let j = 0; j < count[key]; j++) {
                   let _halo = 'ent' // set halo
-                  let _geoform = { // define geoform
+                  let _geoform = { // define geofold
                     type: 'Feature',
                     geometry: {type: 'Point', coordinates: [0, 0, 0]},
                     properties: {}
@@ -134,7 +134,7 @@ let muonAlima = function (__mapper) {
                   if (newItem === undefined) { // if not, create new anigram
                     newItem = {}
                     newItem.halo = _halo // set halo
-                    newItem.geoform = _geoform // set geoform
+                    newItem.geofold = _geoform // set geofold
                     newItem.id = _uid // set id
                     newItem.payload = _payload // set payload
                     newItem.payload.ric = Object.assign({}, _ric) // set ric

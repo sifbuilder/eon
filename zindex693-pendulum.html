@@ -146,7 +146,7 @@ let muonAlima = function (__mapper) {
       let ani = f.cloneObj(nat1) // base anitem on parent anima
 
       ani.halo = 'ent' // set halo
-      ani.geoform = node // the geoform is the node
+      ani.geofold = node // the geofold is the node
 
       let _ric = {}
       _ric.gid = 'nat' // gid nat will get force fields
@@ -182,7 +182,7 @@ let muonAlima = function (__mapper) {
 
       ani.link = {
         source: link[0], // link source value is a node property defined in link force
-        target: link[1] // the link id is the geoform.properties.geonode.properties.id
+        target: link[1] // the link id is the geofold.properties.geonode.properties.id
       }
 
       let preani = mstore.getAnima(ani.payload.ric)
@@ -194,7 +194,7 @@ let muonAlima = function (__mapper) {
       } else { // create anima
         ani.halo = 'ent' // create halo
 
-        ani.geoform = { // will create anigram
+        ani.geofold = { // will create anigram
           type: 'Feature',
           geometry: {
               type: 'LineString',
@@ -226,7 +226,7 @@ let muonAlima = function (__mapper) {
 
     halo: haloForceHalo,
 
-    geoform: {
+    geofold: {
         type: 'Feature',
         geometry: {
             type: 'Point',
@@ -255,7 +255,7 @@ let muonAlima = function (__mapper) {
         geojsor: () => {
             let ani = {}
               ani.halo = 'ent'
-              ani.geoform =  {type: 'Feature',geometry: {type: 'Point', coordinates: []},properties: {}}
+              ani.geofold =  {type: 'Feature',geometry: {type: 'Point', coordinates: []},properties: {}}
               ani.payload = {}
             return ani
         }

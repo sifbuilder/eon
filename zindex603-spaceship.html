@@ -70,7 +70,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geoform: p => __mapper('xs').m('graticule').gedges(p.payload.graticule),
+    geofold: p => __mapper('xs').m('graticule').gedges(p.payload.graticule),
 
     payload: {
       tim: tim,
@@ -175,7 +175,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'img',
 
-    geoform: p => ({
+    geofold: p => ({
       type: 'Feature',
       geometry: {
 

@@ -126,7 +126,7 @@
       let projdef = anigram.payload.proform
 
 if (1 && 1) console.log("proformer anigram", anigram)      
-    let geonode = anigram.geoform.properties.geonode
+    let geonode = anigram.geofold.properties.geonode
 
       let projer
       if (projdef === undefined) {
@@ -146,7 +146,7 @@ if (1 && 1) console.log("proformer anigram", anigram)
 
         projer = json => { // anigram
         
-          let proformed = mproj3ct(json, projection) // proform geoform
+          let proformed = mproj3ct(json, projection) // proform geofold
 
           return proformed
         }

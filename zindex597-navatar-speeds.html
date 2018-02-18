@@ -46,7 +46,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geoform: p => ({
+    geofold: p => ({
       'type': 'Feature',
       'geometry': mnat.natFeature(p.payload.form)
     }),
@@ -115,7 +115,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geoform: p => {
+    geofold: p => {
       let rotate = mliner.orientate(p).rotate()
 			    p.payload.form.x.w4 += rotate
       p.payload.form.y.w4 += rotate
@@ -203,7 +203,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geoform: p => {
+    geofold: p => {
       let rotate = mliner.orientate(p).rotate()
 			    p.payload.form.x.w4 += rotate
       p.payload.form.y.w4 += rotate
@@ -289,7 +289,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'img',
 
-    geoform: p => ({
+    geofold: p => ({
       type: 'Feature',
       geometry: {
 

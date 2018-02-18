@@ -200,7 +200,7 @@ let muonAlima = function (__mapper) {
   let geonat = {
 
     halo: 'ent',
-    geoform: p => {
+    geofold: p => {
       let rotate = mliner.orientate(p).rotate()
 
       p.payload.form.x.w4 = rotate
@@ -398,7 +398,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent', // haloAvajson,
 
-    geoform: p => {
+    geofold: p => {
       let rotate = mliner.orientate(p).rotate()
       p.payload.form.x.w4 += rotate
       p.payload.form.y.w4 += rotate
@@ -490,7 +490,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'img',
 
-    geoform: p => ({
+    geofold: p => ({
       type: 'Feature',
       geometry: {
 
@@ -547,7 +547,7 @@ let muonAlima = function (__mapper) {
   let animas = [
 
     routeline, // h.pacer		free liner
-    geonat,			 // h.nat geoform:natForm proform:natProform.natstace
+    geonat,			 // h.nat geofold:natForm proform:natProform.natstace
     img // h.img
   ]
 

@@ -34,7 +34,7 @@
     let haloPacerHalo_gramm = function (anima, newItems = []) {
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
-        geoform = anigram.geoform || manitem.coreGeoform(), // geoform
+        geofold = anigram.geofold || manitem.coreGeoform(), // geofold
         payload = anigram.payload, // payload
         boform = payload.boform, // boform
         ric = payload.ric, // ric
@@ -141,7 +141,7 @@
 
             if (newItem === undefined) { // if not, create new anigram
               newItem = geojsor(anigram, i) 		// anigram, counter
-              newItem.geoform.id = uid
+              newItem.geofold.id = uid
               newItem.payload = {}
             }
             newItem.payload.ric = _ric // item id
@@ -151,8 +151,8 @@
 
             let vsitus = Object.values(situs) // {x:280,y:229,z:0} => [x,y,0]
 
-            if (aad && newItem.geoform.geometry.type === 'LineString') { // CUM LINE
-              let coords = newItem.geoform.geometry.coordinates // geocoords of new item
+            if (aad && newItem.geofold.geometry.type === 'LineString') { // CUM LINE
+              let coords = newItem.geofold.geometry.coordinates // geocoords of new item
               if (coords && coords.length > 0) {
                 let loc = coords[coords.length - 1] // last point in cummul string
                 let dx = vsitus[0] - loc[0]
@@ -164,11 +164,11 @@
               } else {
                 coords = Array.of(vsitus)
               }
-              newItem.geoform.geometry.coordinates = coords
+              newItem.geofold.geometry.coordinates = coords
 
               newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)] // add items
-            } else if (newItem.geoform.geometry.type === 'Point') {			// POINT
-              let itemcoords = newItem.geoform.geometry.coordinates
+            } else if (newItem.geofold.geometry.type === 'Point') {			// POINT
+              let itemcoords = newItem.geofold.geometry.coordinates
 
               if (itemcoords !== null) { // paced item DOES exist
                 let loc = itemcoords
@@ -178,22 +178,22 @@
                 let d = dx * dx + dy * dy + dz * dz
 
                 if (d >= span) {
-                  newItem.geoform.geometry.coordinates = [0, 0, 0]
+                  newItem.geofold.geometry.coordinates = [0, 0, 0]
                   newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
                   newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)]	// add items
                 }
               } else {											// paced item NOT exists
-                newItem.geoform.geometry.coordinates = [0, 0, 0]
+                newItem.geofold.geometry.coordinates = [0, 0, 0]
                 newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
                 newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)]	// add items
               }
             } else {
-              let itemcoords = newItem.geoform.geometry.coordinates
+              let itemcoords = newItem.geofold.geometry.coordinates
               let geonode = newItem.payload.geonode.properties.geonode
               let geonodecoords = geonode.geometry.coordinates
 
               if (geonodecoords == undefined || geonodecoords == null) geonodecoords = [0, 0]
-              newItem.geoform.geometry.coordinates = itemcoords
+              newItem.geofold.geometry.coordinates = itemcoords
               newItem.payload.geonode.geometry.coordinates = geonodecoords
               newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
               newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)]	// add items
