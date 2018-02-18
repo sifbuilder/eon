@@ -36,13 +36,22 @@ let muonAlima = function muonAlima (__mapper) {
     halo: 'geofold',
 
     geoform: {
-      'type': 'Feature',
-      'geometry': {
-        'type': 'Point',
-        'coordinates': [ 150, 150, 0 ]
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [ 150, 150, 0 ]
       },
-      'id': 'geopoint',
-      'properties': {pointRadius: 6 }
+      properties: {
+         pointRadius: 6,
+         geonode: {
+          type: 'Feature',
+          geometry: { 
+            type: 'Point', 
+            coordinates: [0, 0, 0] 
+          },
+          properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+        },
+      }
     },
 
     payload: {
@@ -51,10 +60,10 @@ let muonAlima = function muonAlima (__mapper) {
       boform: { 'csx': 0, 'cf': [[[555, 777]]], 'cs': 222, 'cw': [[[1.7, 1.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
       proform: {
 
-        'projection': 'uniwen',
-        'scale': 1,
-        'translate': [ 100, 100 ],
-        'rotate': [ 0, 0 ],
+        projection: 'uniwen',
+        scale: 1,
+        translate: [ 100, 100 ],
+        rotate: [ 0, 0 ],
 
       }
     }

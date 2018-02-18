@@ -122,13 +122,19 @@
  *       @proformer
  */
     let proformer = anigram => {
-      let uid = anigram.payload.uid
+      
       let projdef = anigram.payload.proform
+
+if (1 && 1) console.log("proformer anigram", anigram)      
+    let geonode = anigram.geoform.properties.geonode
 
       let projer
       if (projdef === undefined) {
+        
         projer = d => d
+        
       } else {
+        
         if (projdef.translate) {
           let translates = mstace.getLocations(projdef.translate, anigram)
           let translate = translates[0] // translate is first translate
@@ -139,6 +145,7 @@
         let projection = protion(projdef)
 
         projer = json => { // anigram
+        
           let proformed = mproj3ct(json, projection) // proform geoform
 
           return proformed

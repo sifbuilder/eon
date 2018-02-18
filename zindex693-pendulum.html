@@ -58,37 +58,73 @@ let muonAlima = function (__mapper) {
 
       let ball = {
         type: 'Feature',
+        id: 'ball',
         geometry: {
             type: 'Point',
             coordinates: [300, 300, 0]
         },
         properties: {
-          name: 'ball',
-          velin: [0,0], // [vx,vy]
+
+
+           geonode: {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [0, 0, 0]
+            },
+            properties: {
+                orgen: [], 
+                velin: [0.8,0], 
+                velang: [], 
+                prevous: [], 
+                geodelta: []
+             }
+          },
+
         },
       }
 
       let pivot = {
         type: 'Feature',
+        id: 'pivot',
         geometry: {
             type: 'Point',
             coordinates: [300, 100, 0]
         },
         properties: {
-          name: 'pivot',
-          anchor: [300, 100, 0],    // [fx, fy]
+           geonode: {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [0, 0, 0]
+            },
+            properties: {
+              anchor: [300, 100, 0], // [fx, fy]
+              orgen: [], velin: [0,0], velang: [], prevous: [], geodelta: []
+            }
+          },
+
         },
       }
 
       let wire = {
         type: 'Feature',
+        id: 'wire',
         geometry: {
           type: 'Point',
           coordinates: [0, 1]
         },
         properties: {
-          name: 'wire',
           length: 90,
+           geonode: {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [0, 0, 0]
+            },
+            properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+          },
+
         },
       }
 
@@ -104,7 +140,7 @@ let muonAlima = function (__mapper) {
         },
       }
 
-    let nodes = graph.nodes.features
+    let nodes = graph.nodes.features || []
     for (let i = 0; i < nodes.length; i++) {        // NODES
 
       let parentform = nat1
@@ -132,7 +168,7 @@ let muonAlima = function (__mapper) {
     }
 
 
-    let links = graph.links.features
+    let links = (graph.links || {} ).features || []
     for (let i = 0; i < links.length; i++) {     // LINKS
 
       let link = links[i].geometry.coordinates  // vertex pairs
@@ -242,13 +278,13 @@ let muonAlima = function (__mapper) {
         }
       },
 
-      // proform: {
-        // 'projection': 'uniwen',
-        // 'translate': [200, 50, 0],
-        // 'scale': 1,
-        // 'rotate': [ 0, 0, [[[0, 0]]] ],
-        // 'lens': [0, 1, 12],
-      // },
+      proform: {
+        'projection': 'uniwen',
+        'translate': [2, 5, 0],
+        'scale': 1,
+        'rotate': [ 0, 0, [[[0, 0]]] ],
+        'lens': [0, 1, 12],
+      },
 
       boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
@@ -400,9 +436,8 @@ let muonAlima = function (__mapper) {
       let forceParams = {
         type: 'gravity',
         gravity: gravity,
-        filter: d => true, // d => d.payload.ric.gid === 'nat',
-        src: d3_force,
-        nodes: nodes
+        filter: d => d.payload.ric.gid === 'nat',
+        nodes: nodes.filter(d => (d.payload.ric.gid === 'nat'))
       }
 
       let force = forceGravity(forceParams)

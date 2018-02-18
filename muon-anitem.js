@@ -88,7 +88,7 @@
       let parent = __mapper('xs').m('store').findAnigramFromUid(parentuid)
 
       if (parent !== undefined) {
-        parent.payload.geonode = mgeonode.set(parent.payload.geonode)
+        parent.payload.geonode = mgeonode.setGeonode(parent.payload.geonode)
         coords = parent.payload.geonode.geometry.coordinates
       }
 
