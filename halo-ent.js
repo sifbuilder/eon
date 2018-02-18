@@ -39,7 +39,7 @@
       let gjGeoformed = f.v(geofold, anigram)
         
 
-if (1 && 1) console.log("gjGeoformed", gjGeoformed) 
+if (0 && 1) console.log("gjGeoformed", gjGeoformed) 
 
       
       if (!mgeoj.isValid(gjGeoformed)) { console.error("h.ent:gj not valid", gjGeoformed)}
@@ -73,6 +73,7 @@ if (1 && 1) console.log("gjGeoformed", gjGeoformed)
           newAnigram.payload = {}
           newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
           newAnigram.payload.ric = d.properties.ric // hoist ric
+          newAnigram.payload.id = d.properties.uid // hoist uid
           newAnigram.payload.uid = d.properties.uid // hoist uid
           newAnigram.payload.preani = mstore.findAnigramFromUid(d.properties.uid)
           // newAnigram.payload.geonode = geonode // assign projected geonode

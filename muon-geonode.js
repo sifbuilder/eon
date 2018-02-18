@@ -14,7 +14,7 @@
     /***************************
  *        @getAnigramRic
  */
-    let setGeonode = function (node={}) {
+    let init = function (node={}) {
       let _geonode = {
         type: 'Feature',
         geometry: {
@@ -39,7 +39,7 @@
    *    @enty
    */
     let enty = function () {}
-    enty.setGeonode = setGeonode // build geonode
+    enty.init = init // build geonode
 
     return enty
   }

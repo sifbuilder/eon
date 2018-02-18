@@ -59,7 +59,7 @@
         // the geonode ports info of the simnode
         let geonode
         if (aniItem.geofold.properties) geonode = aniItem.geofold.properties.geonode
-        geonode = mgeonode.setGeonode(geonode)
+        geonode = mgeonode.init(geonode)
 
 if (0 && 1) console.log("geonode", geonode)
 
@@ -119,7 +119,7 @@ if (0 && 1) console.log("aniItems", aniItems)
           if (updItem.geofold.properties.geonode === undefined) updItem.geofold.properties.geonode = {}
           
           let geonode = updItem.geofold.properties.geonode
-          geonode = mgeonode.setGeonode(geonode)
+          geonode = mgeonode.init(geonode)
 if (0 && 1) console.log("geonode", geonode)
           geonode.properties.geodelta[0] = simNode.x - geonode.geometry.coordinates[0]
           geonode.properties.geodelta[1] = simNode.y - geonode.geometry.coordinates[1]

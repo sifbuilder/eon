@@ -125,7 +125,7 @@
       
       let projdef = anigram.payload.proform
 
-if (1 && 1) console.log("proformer anigram", anigram)      
+if (0 && 1) console.log("proformer anigram", anigram)      
     let geonode = anigram.geofold.properties.geonode
 
       let projer
