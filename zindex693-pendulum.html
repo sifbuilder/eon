@@ -210,9 +210,11 @@ let muonAlima = function (__mapper) {
                     .geometry.coordinates) // geonode coordinates
           },
           properties: {}
+
         }
-        ani.payload = f.cloneObj(oriform.payload) // base anitem on parent anima
-        ani.payload = f.cloneObj(oriform.payload) // base anitem on parent anima
+        
+        // base anitem on parent anima
+        ani.payload = f.cloneObj(oriform.payload)   // get tim
         
         ani.payload.ric = _ric // set ric        
         ani.payload.uid = mric.getuid(ani.payload.ric)
