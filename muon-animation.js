@@ -56,9 +56,9 @@
       /*******************************************
       *    @SIM defaults position of nodes
       */
-      let sim = __mapper('xs').m('simulation').sim() // simulation on animas
+      let sim = __mapper('xs').m('sim').sim() // simulation on animas
 if (0 && 1) console.log("state.animas", state.animas)
-      __mapper('xs').m('simulation').simulate(sim, state.animas, elapsed)	// stored
+      __mapper('xs').m('sim').simulate(sim, state.animas, elapsed)	// stored
 
       state.animas = f.a(__mapper('muonStore').animasLive())
       /*******************************************

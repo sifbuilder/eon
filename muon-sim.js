@@ -1,14 +1,14 @@
 /***************************
- *        @muonSimulation
+ *        @muonSim
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonSimulation = global.muonSimulation || {})))
+      : (factory((global.muonSim = global.muonSim || {})))
 }(this, function (exports) {
   'use strict'
 
-  let muonSimulation = function (__mapper = {}) {
+  let muonSim = function (__mapper = {}) {
     let f = __mapper('props')(),
       msnap = __mapper('xs').m('snap'),
       mstore = __mapper('xs').m('store'),
@@ -215,5 +215,5 @@ if (1 && 1) console.log("aniNodes", aniNodes)
     return enty
   }
 
-  exports.muonSimulation = muonSimulation
+  exports.muonSim = muonSim
 }))
