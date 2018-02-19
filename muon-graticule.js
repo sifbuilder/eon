@@ -261,8 +261,8 @@
 
         
       let ret = {mms, pps}
-if (1 && 1) console.log("m.grarr.mms", mms)
-if (1 && 1) console.log("m.grarr.pps", pps)
+if (0 && 1) console.log("m.grarr.mms", mms)
+if (0 && 1) console.log("m.grarr.pps", pps)
       return ret
     }
     

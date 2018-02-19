@@ -119,18 +119,25 @@
       }
 
       if (Object.keys(count).length > 0) { // on pace count
+      
         let situs
         for (let i = 0; i < Object.keys(count).length; i++) { // for each COUNT
           let key = Object.keys(count)[i] // count sort
 
           if (count[key] > 0) { // if count on this sort
             if (key === 'init') { // init defaults center
+            
               situs = initSitus(anigram)
+              
             } else if (key === 'auto') { // auto defauts random
-              if (0 && 1) console.log('h.pacer haloPacerHalo_gramm situs', situs)
+            
               situs = autoSitus(anigram) // eg.  d => mstace.getLocus(d)
+      if (1 && 1) console.log("h.pacer.haloPacerHalo_gramm:situs", situs)
+            
             } else if (key === 'event') { // event defaults event
+            
               situs = eventSitus(anigram)
+              
             }
 
             let _ric = ric
