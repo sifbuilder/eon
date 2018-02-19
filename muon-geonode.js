@@ -15,7 +15,7 @@
  *        @getAnigramRic
  */
     let init = function (node={}) {
-      let _geonode = {
+      let geonode = {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -30,9 +30,9 @@
         }
       }
 
-      let geonode = Object.assign({}, _geonode, node)
+      let _geonode = Object.assign({}, geonode, node)
 
-      return geonode
+      return _geonode
     }
 
     /**********************

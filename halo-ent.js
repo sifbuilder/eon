@@ -39,7 +39,7 @@
       let gjGeoformed = f.v(geofold, anigram)
         
 
-if (0 && 1) console.log("gjGeoformed", gjGeoformed) 
+if (1 && 1) console.log("gjGeoformed", gjGeoformed) 
 
       
       if (!mgeoj.isValid(gjGeoformed)) { console.error("h.ent:gj not valid", gjGeoformed)}
@@ -51,15 +51,16 @@ if (0 && 1) console.log("gjGeoformed", gjGeoformed)
       let gj = gjProformed
 
       
-      let geonode = gjGeoformed.properties.geonode
+      let geonode = gj.properties.geonode
       if (geonode) { // if payload.geonode
         let fieldEffect = {
           'projection': 'uniwen',
           'translate': geonode.geometry.coordinates
         }
-        gj = mprofier.projier(fieldEffect, anigram)(gj)
-
         geonode = mprofier.proformer(anigram)(geonode) // projected position
+        geonode.properties.projs = (geonode.properties.projs) ? geonode.properties.projs : []
+        // geonode.properties.projs.push()
+        gj.properties.geonode = geonode
       }
       
       gj = mgeoj.featurize(gj) // featurize
@@ -76,7 +77,6 @@ if (0 && 1) console.log("gjGeoformed", gjGeoformed)
           newAnigram.payload.id = d.properties.uid // hoist uid
           newAnigram.payload.uid = d.properties.uid // hoist uid
           newAnigram.payload.preani = mstore.findAnigramFromUid(d.properties.uid)
-          // newAnigram.payload.geonode = geonode // assign projected geonode
 
           newAnigram.geofold = d // inherit geofold
 

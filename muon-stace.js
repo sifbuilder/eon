@@ -14,6 +14,21 @@
       mlacer = __mapper('xs').m('lacer'),
       manitem = __mapper('xs').m('anitem')
 
+      
+    // LOCUS is the position of the entity in the coordinates system
+    //  locus is encapsulated in the geofold.geonode.geometry
+    //  locus may remain at origin while modifying location through translation
+    // 
+    // POSITION is the position of the idenfitied vertex within the entity
+    //  position is absolut in the coordinates system
+    //
+    // SITUS is the combination of the locus and the position
+    // 
+    // sim updates the geonode
+    //
+    // proform.translate moves geometry to translated geometry      
+
+    
     // ........................ getSiti         situs: Arary.of(ani.x, .y, .z)
     let getSiti = function (anima, siti = []) {
       let situs = {}
@@ -128,15 +143,16 @@
 
     /* ***************************************
  *        @getLocations
- *         get val of d in dim dim
+ *         get val of d in dim
  *          called by m.profier.proform to get translate
  */
 
     let getLocations = function (stace, anigram, locations = []) {
-
+if (1 && 1) console.log("getLocations", stace)
       if (anigram !== undefined) stace = stace || anigram.payload.stace
 
       if (stace !== undefined && stace !== null) {
+        
         if (Array.isArray(stace)) { // stace :: [x,y,z]
           let location = []
           let val = stace // single location from stace array
@@ -202,19 +218,30 @@
 
       let locus = null // default locus _e_
 
+      // siti from anima root, defined eg. in sim
       let siti = getSiti(anigram) // anima    .x,.y,.z - root and sim
+      
+      // locations from stace, position
       let locations = getLocations(stace, anigram) // anigram  stace x || x.pos || x.ref
 
+      // if situs and location, add them
       if (siti && siti.length > 0 && locations && locations.length > 0) { // siti, locations
+      
         let situs = siti[0]
         let location = locations[0]
 
         locus = f.fa(situs).map((d, i) => d + location[i]) // add situs, location
+        
       } else if (siti && siti.length > 0) { // if siti
+      
         locus = siti[0] // first situs
+        
       } else if (locations && locations.length > 0) { // if locations
+      
         locus = locations[0] // first location
+        
       }
+
 
       return locus
     }

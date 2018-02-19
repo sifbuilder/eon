@@ -131,9 +131,16 @@
               
             } else if (key === 'auto') { // auto defauts random
             
-              situs = autoSitus(anigram) // eg.  d => mstace.getLocus(d)
-      if (1 && 1) console.log("h.pacer.haloPacerHalo_gramm:situs", situs)
             
+            
+              situs = autoSitus(anigram) // eg.  d => mstace.getLocus(d)
+            
+            // 506: autoSitus: d => mstace.getLocus(null, anigram)
+
+            
+ if (1 && 1) console.log("autoSitus", situs)           
+            
+             
             } else if (key === 'event') { // event defaults event
             
               situs = eventSitus(anigram)

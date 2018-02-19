@@ -320,8 +320,6 @@ if (0 && 1) console.log("m.nat.natFeature:nformed", nformed)
             let p = geometry.coordinates[1].slice(0,-1)
             p = [...p, p[0]]
             
-            // 
-if (0 && 1) console.log("p", p)            
             geometry.coordinates = Array.of(p)
 
 
@@ -333,7 +331,21 @@ if (0 && 1) console.log("m.nat.geometry", geometry)
             type: 'Feature',
             geometry: geometry,
             properties: {
-              mnat: '[[long,lat]] def radio:1'
+              docnat: '[[long,lat]] def radio:1',
+              geonode: {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [0, 0, 0]
+                },
+                properties: {
+                  orgen: [0, 0, 0], 
+                  velin: [0, 0, 0], 
+                  velang: [0, 0, 0], 
+                  prevous: [0, 0, 0], 
+                  geodelta: [0, 0, 0]
+                }
+              }
             }
         }
 
