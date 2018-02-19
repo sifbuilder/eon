@@ -59,7 +59,7 @@
 
         // the geonode ports info of the simnode
         let geonode
-        if (aniItem.geofold.properties) geonode = aniItem.geofold.properties.geonode
+        if (aniItem && aniItem.geofold && aniItem.geofold.properties) geonode = aniItem.geofold.properties.geonode
         geonode = mgeonode.init(geonode)
 
         // the simnode location is in the geonode geometry
