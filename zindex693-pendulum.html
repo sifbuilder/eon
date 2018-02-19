@@ -99,7 +99,7 @@ let muonAlima = function (__mapper) {
             },
             properties: {
               orgen: [], 
-              velin: [0.4, 0], 
+              velin: [0, 0], 
               velang: [], 
               prevous: [], 
               geodelta: []
@@ -425,27 +425,24 @@ let muonAlima = function (__mapper) {
  */
   let force_link = {
     properties: {
-
-      strength: 1,
-      distance: d => 100,
-      distances: [d => 100],
+      strength: () => 1,
+      distance: () => 100,
       iterations: 1
     },
 
     field: params => {
       let nodes = params.nodes
 
-      let strength = 1,
-        distance = d => 100,
+      let strength = (link, i, links) => 0.1,
+        distance = (link, i, links) => 100,
         iterations = 1
 
       let forces = []
 
       let forceParams =  {
         type: 'link',
-        strength: strength,
         id: d => {
-
+          //
           //  link force between linknodes
           //
           //  z.693.halo  ani.geofold.properties.name
@@ -459,10 +456,11 @@ let muonAlima = function (__mapper) {
           return d.id
           
         },
+        strength: strength,
         distance: distance,
         iterations: iterations,
 
-        filter: d => d.payload.ric.gid === 'glink',
+        filter: d => d.payload.ric.gid === 'nat', // filter to get nodes
         nodes: nodes,
         links: nodes.filter(d => (d.payload.ric.gid === 'glink'))
 
@@ -488,7 +486,7 @@ let muonAlima = function (__mapper) {
   nat1.payload.forces = {
     force_energy,
     force_viscosity,
-    force_gravity,
+    force_gravity,  
     force_link
   }
 

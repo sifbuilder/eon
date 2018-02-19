@@ -53,7 +53,6 @@
     function initNodes (aniItems, nDim) {
       let simNodes = []
 
-      if (0 && 1) console.log("aniItems", aniItems)
       for (let i = 0, n = aniItems.length; i < n; ++i) {
         let aniItem = aniItems[i]
         let payload = aniItem.payload
@@ -94,14 +93,22 @@
         simNode.payload = payload // anitem payload to simnode
         
         
-        simNode.id = payload.id // simnode id from geofold.payload.id
+        
+        if (payload.id !== undefined) {
+          simNode.id = payload.id // simnode id from geofold.payload.id
+        } else {
+          simNode.id = payload.uid
+        }
 
+        if (payload.link) {
+            simNode.source = payload.link.source
+            simNode.target = payload.link.target
+        }
 
 
 
         simNodes.push(simNode)
       }
-if (1 && 1) console.log("simNodes", simNodes)
 
       return simNodes
     }
@@ -157,7 +164,6 @@ if (1 && 1) console.log("simNodes", simNodes)
       let numDims = 3
 
       let aniNodes = initNodes(aniItems, dim)   // < aniNodes
-if (1 && 1) console.log("aniNodes", aniNodes)
       sim
         .stop()
         .numDimensions(numDims)
