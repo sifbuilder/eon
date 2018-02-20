@@ -14,21 +14,20 @@
       mlacer = __mapper('xs').m('lacer'),
       manitem = __mapper('xs').m('anitem')
 
-      
     // SITUS is the position of the entity in the coordinates system
     //  situs is encapsulated in the geofold.properties.geonode.geometry
     //  situs may remain at origin while modifying location through translation
     //   there is one single situs associated to an anitem
     //   getSitus: get the position of the geonode (SITUATION)
     //      get the first position from geofold.properties.geonode.geometry
-    // 
-    // 
-    // POS is the node (vertex) in the parent anitem 
-    // 
+    //
+    //
+    // POS is the node (vertex) in the parent anitem
+    //
     // TRANSPOT cartesian value of the translate property
-    //        eg: [300,200,0], 
-    //            {x:300,y:100,z:0}, 
-    //            [ [300,200,0], {x:300,y:100,z:0} ], 
+    //        eg: [300,200,0],
+    //            {x:300,y:100,z:0},
+    //            [ [300,200,0], {x:300,y:100,z:0} ],
     //            [[[ {nat} ]]]
     //    getTranspots:(stace, anitem) get coordinates returned by translate
     //    getTranspot(stace, anitem): get first coordinate returned by translate
@@ -40,27 +39,23 @@
     // LOCUS is the combination of the locus and the transpos
     //    getLoci:    qet array of locus (LOCATIONS)
     //    getLocus:   qet first locus (LOCATION)
-    // 
+    //
     // sim updates the geonode
     //
-    // proform.translate moves geometry to translated geometry      
+    // proform.translate moves geometry to translated geometry
 
-    
     // ........................ getSiti         situs: Arary.of(ani.x, .y, .z)
     let getSiti = function (anima, siti = []) {
-
-  
       if (anima && anima.geofold && anima.geofold.properties.geonod) {
-          siti = Array.of(anima.geofold.properties.geonode.geometry.coordinates)
+        siti = Array.of(anima.geofold.properties.geonode.geometry.coordinates)
       }
-      
+
       return siti
     }
 
-    // ........................ getSitus     
+    // ........................ getSitus
     let getSitus = anima => getSiti(anima)[0]
- 
-   
+
     /* **********
  *             @getPosInDim
  */
@@ -73,7 +68,6 @@
  *             @getPosInDim
  */
     let getPosesInDim = function (staceDim) {
-
       let poses = null
 
       if (typeof staceDim === 'number') {
@@ -86,6 +80,7 @@
           let fas = staceDim.fas || 0 // phase in positions
           let c0 = staceDim.pos[0] // * staceDim.length / 100    // _e_
           let c1 = staceDim.pos[1] // * staceDim.length / 100    // _e_
+          let step = 1
 
           let pos0 = Math.floor(c0) // first of positions array
           let pos1 = Math.floor(c1) // last of positions array
@@ -105,7 +100,6 @@
  *             array of locations in stace dim
  */
     let getLocsInDim = function (staceDim, parentCoordsDim = []) {
-
       let locations
 
       if (typeof staceDim === 'number') {
@@ -154,18 +148,16 @@
       return locations
     }
 
-  /* ***************************************
+    /* ***************************************
  *        @getTranspots
  *         get val of d in dim
  *          called by m.profier.proform to get translate
  */
 
     let getTranspots = function (stace, anigram, locations = []) {
-      
       if (anigram !== undefined) stace = stace || anigram.payload.stace
 
       if (stace !== undefined && stace !== null) {
-        
         if (Array.isArray(stace)) { // stace :: [x,y,z]
           let location = []
           let val = stace // single location from stace array
@@ -221,42 +213,33 @@
         let parentSitus = __mapper('xs').m('anitem').parentSitus(anigram)
         locations = Array.of(parentSitus)
       }
-      
+
       return locations
     }
-    
-  /* **************************************
+
+    /* **************************************
  *        @getTranspot
- */   
-   let getTranspot = (stace, anigram) => getTranspots(stace, anigram)[0]
-   
+ */
+    let getTranspot = (stace, anigram) => getTranspots(stace, anigram)[0]
 
     /* **************************************
  *        @getLoci
  */
     let getLoci = function (stace, anigram) {
-
       let locations = [] // default locations _e_
 
       let situs = getSitus(anigram) // anima    .x,.y,.z - root and sim
-      
-if (1 && 1) console.log(" getTranspotsstace", stace)      
+
+      if (1 && 1) console.log(' getTranspotsstace', stace)
       let spots = getTranspots(stace, anigram) // anigram  stace x || x.pos || x.ref
 
       if (situs && spots && spots.length > 0) { // if situs and spots
-      
-        locations = spots.map(spot => spot.map((d,i) => d + situs[i])) // transpose spots by situs
-        
+        locations = spots.map(spot => spot.map((d, i) => d + situs[i])) // transpose spots by situs
       } else if (situs) { // if situs
-      
         locations = Array.of(situs) // siti
-        
       } else if (spots && spots.length > 0) { // if spots
-      
         locations = spots // locations
-        
       }
-
 
       return locations
     }
@@ -264,8 +247,7 @@ if (1 && 1) console.log(" getTranspotsstace", stace)
  *        @getLocus
  */
     let getLocus = (stace, anigram) => getLoci(stace, anigram)[0]
-      
-    
+
     /* **************************************
  *        @getLocifion
  *        get the uniwen projection with translate to anigram location
@@ -299,12 +281,12 @@ if (1 && 1) console.log(" getTranspotsstace", stace)
 
     enty.getPosInDim = getPosInDim //  getPosInDim
 
-    enty.getSiti = getSiti //  
-    enty.getSitus = getSitus //  
+    enty.getSiti = getSiti //
+    enty.getSitus = getSitus //
 
     enty.getLoci = getLoci //  locations
     enty.getLocus = getLocus //  location
-    
+
     enty.getLocifion = getLocifion //  projection
     enty.getLocifier = getLocifier //  projector
 
