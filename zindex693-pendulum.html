@@ -71,10 +71,10 @@ let muonAlima = function (__mapper) {
               coordinates: [300, 100, 0]
             },
             properties: {
-              anchor: [300, 100, 0], // [fx, fy]
+              anchor: 1, // [fx, fy]
               orgen: [], 
-              velin: [0, 0], 
-              velang: [], 
+              velin: [0, 0, 0], 
+              velang: [0, 0, 0], 
               prevous: [], 
               geodelta: []
             }
@@ -99,8 +99,8 @@ let muonAlima = function (__mapper) {
             },
             properties: {
               orgen: [], 
-              velin: [0, 0], 
-              velang: [], 
+              velin: [0, 0, 0], 
+              velang: [0, 0, 0],  
               prevous: [], 
               geodelta: []
             }
@@ -257,10 +257,70 @@ let muonAlima = function (__mapper) {
             type: 'Point',
             coordinates: [0, 0, 0]
         },
+        properties: {},
     },
     payload: {
       tim: tim,
       ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'nat1'},
+
+      pacer: {
+        initN: 2,
+        eventN: 1,
+        autoN: 0,
+        autoP: 0.1,
+        outtimed: 0,
+        maxN: 60,
+        span: 15 / 1400,
+
+        fider: (payload, i) => 'item' + i,
+
+        initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
+        eventSitus: d => ({x: mmouse.event().x, y: mmouse.event().y, z: 0 }),
+        autoSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
+
+        geojsor: () => ({
+              halo: 'ent',
+              geofold:  {
+                  type: 'Feature',
+                  geometry: {type: 'Point', coordinates: []},
+                  properties: {}},
+              payload: {}
+            })
+
+      },
+
+
+      proform: {
+        'projection': 'uniwen',
+        'translate': [0, 0, 0],
+        'scale': 1,
+        'rotate': [ 0, 0, [[[0, 0]]] ],
+        'lens': [0, 1, Infinity],
+      },
+
+      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+
+    }
+  }
+
+
+  // -------------------------------  nat1
+  let nat2 = {
+
+    halo: 'ent',
+
+    geofold: {
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [0, 0, 0]
+        },
+        properties: {}
+    },
+    payload: {
+      tim: tim,
+      ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'nat2'},
 
       pacer: {
         'initN': 2,
@@ -289,7 +349,7 @@ let muonAlima = function (__mapper) {
 
       proform: {
         'projection': 'uniwen',
-        'translate': [0, 0, 0],
+        'translate': [300, 200, 0],
         'scale': 1,
         'rotate': [ 0, 0, [[[0, 0]]] ],
         'lens': [0, 1, Infinity],
@@ -300,7 +360,6 @@ let muonAlima = function (__mapper) {
 
     }
   }
-
 
 
   /*******************************************
@@ -492,6 +551,7 @@ let muonAlima = function (__mapper) {
 
   let animas = [
     nat1, // h.ent
+    // nat2, // h.ent
 
 
   ]

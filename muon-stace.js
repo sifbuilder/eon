@@ -19,7 +19,7 @@
     //  situs is encapsulated in the geofold.properties.geonode.geometry
     //  situs may remain at origin while modifying location through translation
     //   there is one single situs associated to an anitem
-    //   getSitus: get the position of the geonode or the origin of the coords system
+    //   getSitus: get the position of the geonode (SITUATION)
     //      get the first position from geofold.properties.geonode.geometry
     // 
     // 
@@ -33,7 +33,7 @@
     //    getTranspots:(stace, anitem) get coordinates returned by translate
     //    getTranspot(stace, anitem): get first coordinate returned by translate
     //
-    // SPOTS: locations of stace in anitem
+    // SPOTS: locations of stace in anitem (POSITION)
     //    getSpots(stace, anitem)
     //
     //

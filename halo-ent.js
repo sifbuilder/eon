@@ -62,16 +62,19 @@
 
       
       let gj = gjProformed
+      
+      
      if (1 && 1) console.log("gj", gj)
       let geonode = gj.properties.geonode
       if (geonode) { // if payload.geonode
-        let fieldEffect = {
+        let situation = {   // situs defined in geonode
           'projection': 'uniwen',
           'translate': geonode.geometry.coordinates
         }
+        gj = mproj3ct(gj, mprofier.profiom(situation)) 
+        
         geonode = mprofier.proformer(anigram)(geonode) // projected position
         geonode.properties.projs = (geonode.properties.projs) ? geonode.properties.projs : []
-        // geonode.properties.projs.push()
         gj.properties.geonode = geonode
       }
       

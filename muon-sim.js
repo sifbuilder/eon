@@ -76,10 +76,10 @@
         
         // the simnode status is in the geonode properties 
         let properties = geonode.properties
-        if (properties.anchor !== undefined) {
-          simNode.fx = properties.anchor[0] // fix location
-          simNode.fy = properties.anchor[1]
-          simNode.fz = properties.anchor[2]
+        if (properties.anchor) {  // fix situs
+          simNode.fx = simNode.x
+          simNode.fy = simNode.y
+          simNode.fz = simNode.z
         }
 
         // the simnode velocity is in the geonode properties velin
