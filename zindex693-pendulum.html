@@ -19,7 +19,7 @@
 
 let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, key: 1, img: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1, img: 0}) // INIT
 
   let d3_force = d3
 
@@ -31,7 +31,8 @@ let muonAlima = function (__mapper) {
   mpacer = __mapper('xs').m('pacer'),
   mgraticule = __mapper('xs').m('graticule'),
   mforces = __mapper('xs').m('forces'),
-  mric = __mapper('xs').m('ric')
+  mric = __mapper('xs').m('ric'),
+  mstace = __mapper('xs').m('stace')
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
@@ -46,14 +47,18 @@ let muonAlima = function (__mapper) {
   let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   /*******************************************
+ *
+ *
+ *
  *      @animas
+ *
+ *
  *
  */
   let haloForce_ween = anima => { // WEEN
     let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
     animas = []
-
 
 
       let pivot = {
@@ -68,10 +73,10 @@ let muonAlima = function (__mapper) {
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [300, 100, 0]
+              coordinates: [300, 200, 0]
             },
             properties: {
-              anchor: 1, // [fx, fy]
+              anchor: 1, // [fx, fy, fz]
               orgen: [], 
               velin: [0, 0, 0], 
               velang: [0, 0, 0], 
@@ -91,15 +96,16 @@ let muonAlima = function (__mapper) {
         },
         properties: {
           name: 'ball',    // will use d.properties.name as simnode.id
+          pointRadius: 9,
           geonode: {
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [320, 40, 0]
+              coordinates: [320, 140, 0]
             },
             properties: {
               orgen: [], 
-              velin: [0, 0, 0], 
+              velin: [0, 0.5, 2.5], 
               velang: [0, 0, 0],  
               prevous: [], 
               geodelta: []
@@ -117,14 +123,19 @@ let muonAlima = function (__mapper) {
         },
         properties: {
           name: 'wire',
-          length: 90,
           geonode: {
             type: 'Feature',
             geometry: {
               type: 'Point',
               coordinates: [0, 0, 0]
             },
-            properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+            properties: {
+              orgen: [], 
+              velin: [0, 0, 0], 
+              velang: [0, 0, 0],  
+              prevous: [], 
+              geodelta: []
+            }
           },
 
         },
@@ -163,17 +174,35 @@ let muonAlima = function (__mapper) {
         
         ani.halo = 'ent' // set halo
         ani.geofold = node // the geofold is the node
+        
         ani.payload = f.cloneObj(oriform.payload) // base anitem on parent anima
 
         ani.payload.ric = _ric // set ric
         ani.payload.id = ani.geofold.properties.name // set nod id from geofold properties
         ani.payload.uid = mric.getuid(ani.payload.ric) // set uid
+        
         ani.payload.boform.cf = (i % 2) ? 777 : 333 // stype per class
         ani.payload.boform.cs = (i % 2) ? 777 : 333        
-        
-      }
-      
+       
 
+        ani.payload.proform = {
+          'projection': 'uniwen',
+          'translate': [0, 0, 0],
+          'scale': 1,
+          'rotate': [ 60, 60, 60 ],
+          'lens': [0, 1, Infinity],
+        }
+       
+      }
+  
+      if (ani.geofold.properties.name === 'ball') {
+        ani.payload.avatars = {
+
+            traceline // h.pacer
+
+          }
+      }
+  
       animas.push(ani)
     }
 
@@ -213,15 +242,17 @@ let muonAlima = function (__mapper) {
 
         }
         
-        // base anitem on parent anima
-        ani.payload = f.cloneObj(oriform.payload)   // get tim
+        
+        ani.payload = f.cloneObj(oriform.payload) // base anitem on parent anima  // get tim
         
         ani.payload.ric = _ric // set ric        
         ani.payload.uid = mric.getuid(ani.payload.ric)
-        ani.payload.boform.cf = (i % 2) ? 777 : 777
-        ani.payload.boform.cs = (i % 2) ? 777 : 777
-        ani.payload.boform.cw = 0.9
+        
+        ani.payload.boform.cf = (i % 2) ? 444 : 444
+        ani.payload.boform.cs = (i % 2) ? 444 : 444
+        ani.payload.boform.cw = 0.4
         ani.payload.boform.cp = 0.9
+        
         ani.payload.link = {
           source: link[0], // link.source node
           target: link[1] // link node id from geofold.properties.geonode.properties.id
@@ -234,8 +265,6 @@ let muonAlima = function (__mapper) {
     }
 
 
-
-    if (0 && 1 && 1) console.log("animas", animas)
 
     return animas
   }
@@ -281,9 +310,12 @@ let muonAlima = function (__mapper) {
         geojsor: () => ({
               halo: 'ent',
               geofold:  {
-                  type: 'Feature',
-                  geometry: {type: 'Point', coordinates: []},
-                  properties: {}},
+                type: 'Feature',
+                geometry: {
+                  type: 'Point', 
+                  coordinates: []
+                },
+                properties: {}},
               payload: {}
             })
 
@@ -361,8 +393,70 @@ let muonAlima = function (__mapper) {
     }
   }
 
-
   /*******************************************
+ *
+ *
+ *
+ *      @avatars
+ *
+ *
+ *
+ */
+ 
+ 
+  let traceline = {
+
+    halo: 'pacer',
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'trace', 'cid': 'trace', 'fid': 'traceline'},
+      boform: { 'csx': 0, 'cf': [[[777, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[777, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.99, 0.99]]]},
+
+      stace: {
+          'x': { 'pos': 0 },
+          'y': { 'pos': 0 },
+          'z': 0
+      },
+
+      pacer: {
+        initN: 0,
+        eventN: 0,
+        autoN: 1,
+        autoP: 0.01,
+        outtimed: 0,
+        maxN: 60,
+        span: 0,
+        aad: 1,
+
+        autoSitus: d => mstace.getLocus(d.payload.stace, d), // situs of anigram
+
+        fider: d => d.payload.ric.fid,
+
+        geojsor: () => {
+            let ani = {}
+              ani.halo = 'ent'
+              ani.geofold =  {
+                  type: 'Feature',
+                  geometry: {
+                      type: 'LineString',
+                      coordinates: null
+                  },
+                  properties: {}
+              }
+              ani.payload = {}
+            return ani
+        }
+
+      }
+    }
+  }
+ 
+  /*******************************************
+ *
+ *
+ *
  *      @forces
  *
  *
