@@ -15,23 +15,31 @@
       manitem = __mapper('xs').m('anitem')
 
       
-    // LOCUS is the position of the entity in the coordinates system
-    //  locus is encapsulated in the geofold.properties.geonode.geometry
-    //  locus may remain at origin while modifying location through translation
-    //   there is one single locus associated to an anitem
-    //   getLocus: get the position of the geonode or the origin of the coords system
+    // SITUS is the position of the entity in the coordinates system
+    //  situs is encapsulated in the geofold.properties.geonode.geometry
+    //  situs may remain at origin while modifying location through translation
+    //   there is one single situs associated to an anitem
+    //   getSitus: get the position of the geonode or the origin of the coords system
     //      get the first position from geofold.properties.geonode.geometry
+    // 
     // 
     // POS is the node (vertex) in the parent anitem 
     // 
-    // TRANSIT cartesian value of the translate property
-    //    eg: [300,200,0], {x:300,y:100,z:0}, [ [300,200,0], {x:300,y:100,z:0} ], [[[nat]]]
-    //    getTransits: get coordinates returned by translate
-    //    getTransit: get first coordinate returned by translate
+    // TRANSPOT cartesian value of the translate property
+    //        eg: [300,200,0], 
+    //            {x:300,y:100,z:0}, 
+    //            [ [300,200,0], {x:300,y:100,z:0} ], 
+    //            [[[ {nat} ]]]
+    //    getTranspots:(stace, anitem) get coordinates returned by translate
+    //    getTranspot(stace, anitem): get first coordinate returned by translate
     //
-    // SITUS is the combination of the locus and the position
-    //    getSiti:    qet array of situs
-    //    getSitus:   qet first situs
+    // SPOTS: locations of stace in anitem
+    //    getSpots(stace, anitem)
+    //
+    //
+    // LOCUS is the combination of the locus and the transpos
+    //    getLoci:    qet array of locus (LOCATIONS)
+    //    getLocus:   qet first locus (LOCATION)
     // 
     // sim updates the geonode
     //
@@ -40,23 +48,19 @@
     
     // ........................ getSiti         situs: Arary.of(ani.x, .y, .z)
     let getSiti = function (anima, siti = []) {
-      let situs = {}
 
-      if (typeof anima === 'object') {
-        if (typeof anima.x === 'number') situs.x = anima.x
-        if (typeof anima.y === 'number') situs.y = anima.y
-        if (typeof anima.z === 'number') situs.z = anima.z
+  
+      if (anima && anima.geofold && anima.geofold.properties.geonod) {
+          siti = Array.of(anima.geofold.properties.geonode.geometry.coordinates)
       }
-
-      if (Object.keys(situs).length === 0) situs = undefined
-      else {
-        situs = Object.values(situs)
-        siti.push(situs)
-      }
-
+      
       return siti
     }
 
+    // ........................ getSitus     
+    let getSitus = anima => getSiti(anima)[0]
+ 
+   
     /* **********
  *             @getPosInDim
  */
@@ -150,14 +154,14 @@
       return locations
     }
 
-    /* ***************************************
- *        @getLocations
+  /* ***************************************
+ *        @getTranspots
  *         get val of d in dim
  *          called by m.profier.proform to get translate
  */
 
-    let getLocations = function (stace, anigram, locations = []) {
-if (1 && 1) console.log("getLocations", stace)
+    let getTranspots = function (stace, anigram, locations = []) {
+      
       if (anigram !== undefined) stace = stace || anigram.payload.stace
 
       if (stace !== undefined && stace !== null) {
@@ -217,44 +221,51 @@ if (1 && 1) console.log("getLocations", stace)
         let parentSitus = __mapper('xs').m('anitem').parentSitus(anigram)
         locations = Array.of(parentSitus)
       }
+      
       return locations
     }
+    
+  /* **************************************
+ *        @getTranspot
+ */   
+   let getTranspot = (stace, anigram) => getTranspots(stace, anigram)[0]
+   
 
     /* **************************************
- *        @getLocus
+ *        @getLoci
  */
-    let getLocus = function (stace, anigram) {
+    let getLoci = function (stace, anigram) {
 
-      let locus = null // default locus _e_
+      let locations = [] // default locations _e_
 
-      // siti from anima root, defined eg. in sim
-      let siti = getSiti(anigram) // anima    .x,.y,.z - root and sim
+      let situs = getSitus(anigram) // anima    .x,.y,.z - root and sim
       
-      // locations from stace, position
-      let locations = getLocations(stace, anigram) // anigram  stace x || x.pos || x.ref
+if (1 && 1) console.log(" getTranspotsstace", stace)      
+      let spots = getTranspots(stace, anigram) // anigram  stace x || x.pos || x.ref
 
-      // if situs and location, add them
-      if (siti && siti.length > 0 && locations && locations.length > 0) { // siti, locations
+      if (situs && spots && spots.length > 0) { // if situs and spots
       
-        let situs = siti[0]
-        let location = locations[0]
-
-        locus = f.fa(situs).map((d, i) => d + location[i]) // add situs, location
+        locations = spots.map(spot => spot.map((d,i) => d + situs[i])) // transpose spots by situs
         
-      } else if (siti && siti.length > 0) { // if siti
+      } else if (situs) { // if situs
       
-        locus = siti[0] // first situs
+        locations = Array.of(situs) // siti
         
-      } else if (locations && locations.length > 0) { // if locations
+      } else if (spots && spots.length > 0) { // if spots
       
-        locus = locations[0] // first location
+        locations = spots // locations
         
       }
 
 
-      return locus
+      return locations
     }
-
+    /* **************************************
+ *        @getLocus
+ */
+    let getLocus = (stace, anigram) => getLoci(stace, anigram)[0]
+      
+    
     /* **************************************
  *        @getLocifion
  *        get the uniwen projection with translate to anigram location
@@ -268,7 +279,7 @@ if (1 && 1) console.log("getLocations", stace)
         'translate': [ locus[0], locus[1], locus[2] ]
       }
 
-      return __mapper('xs').m('profier').protion(projection)
+      return __mapper('xs').m('profier').profiom(projection)
     }
 
     /* **************************************
@@ -288,11 +299,17 @@ if (1 && 1) console.log("getLocations", stace)
 
     enty.getPosInDim = getPosInDim //  getPosInDim
 
+    enty.getSiti = getSiti //  
+    enty.getSitus = getSitus //  
+
+    enty.getLoci = getLoci //  locations
     enty.getLocus = getLocus //  location
+    
     enty.getLocifion = getLocifion //  projection
     enty.getLocifier = getLocifier //  projector
 
-    enty.getLocations = getLocations //  getLocations
+    enty.getTranspot = getTranspot //  getTranspot
+    enty.getTranspots = getTranspots //  getTranspots
 
     return enty
   }

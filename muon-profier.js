@@ -19,12 +19,12 @@
       guniwen = __mapper('xs').g('uniwen')
 
     /****************************
- *      @protion
+ *      @profiom
  *        get projection from proform and apply projection properties
  *        if control:wen  wen rotation and if 2d: wen z rotation
  *        if control:versor   versor rotation
  */
-    let protion = function (prjdef) {
+    let profiom = function (prjdef) {
       let prj = guniwen(prjdef)
 
       if (prjdef !== undefined) {
@@ -90,14 +90,14 @@
  *       json = mprofier.projier(f.v(prodef, anigram), anigram)(json)
  */
     let projier = (prodef, anigram) => // projer is fenrir if no prodef
-      json => (prodef) ? mproj3ct(json, protion(prodef)) : json
+      json => (prodef) ? mproj3ct(json, profiom(prodef)) : json
 
     /****************************
  *       @ereformer
  */
     let ereformer = anigram => {
       let projdef = anigram.payload.ereform
-      let projer = protion(projdef)
+      let projer = profiom(projdef)
 
       return json => mproj3ct(json, projer)
     }
@@ -112,7 +112,7 @@
       if (projdef === undefined) {
         projer = d => d
       } else {
-        let projection = protion(projdef)
+        let projection = profiom(projdef)
         projer = json => mproj3ct(json, projection)
       }
 
@@ -125,8 +125,6 @@
       
       let projdef = anigram.payload.proform
 
-    let geonode = anigram.geofold.properties.geonode
-
       let projer
       if (projdef === undefined) {
         
@@ -135,13 +133,14 @@
       } else {
         
         if (projdef.translate) {
-          let translates = mstace.getLocations(projdef.translate, anigram)
-          let translate = translates[0] // translate is first translate
-
+          
+          let translate = mstace.getTranspot(projdef.translate, anigram)
+          
           projdef.translate = translate
+          
         }
 
-        let projection = protion(projdef)
+        let projection = profiom(projdef)
 
         projer = json => { // anigram
         
@@ -158,7 +157,7 @@
  *      @enty
  */
     let enty = function () {}
-    enty.protion = protion
+    enty.profiom = profiom
     enty.projier = projier
     enty.proformer = proformer
     enty.ereformer = ereformer

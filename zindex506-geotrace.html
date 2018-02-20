@@ -197,20 +197,10 @@ let muonAlima = function muonAlima (__mapper) {
       ric: {'gid': 'trace', 'cid': 'trace', 'fid': 'traceline'},
       boform: traceBoform,
 
-      proform: {
-        'projection': 'uniwen',
-        'translate': {
-          'x': {
-                'pos': 0
-              },
-          'y': {
-                'pos': 0
-              },
+      stace: {
+          'x': { 'pos': 0 },
+          'y': { 'pos': 0 },
           'z': 0
-        },
-        'scale': 1,
-        'rotate': [0, 0, 0], // [-5,50,0],
-        'lens': [0, 1, Infinity],
       },
 
       pacer: {
@@ -223,7 +213,7 @@ let muonAlima = function muonAlima (__mapper) {
         span: 0,
         aad: 1,
 
-        autoSitus: d => mstace.getLocus(null, d), // situs of anigram
+        autoSitus: d => mstace.getLocus(d.payload.stace, d), // situs of anigram
 
         fider: d => d.payload.ric.fid,
 

@@ -132,13 +132,7 @@
             } else if (key === 'auto') { // auto defauts random
             
             
-            
-              situs = autoSitus(anigram) // eg.  d => mstace.getLocus(d)
-            
-            // 506: autoSitus: d => mstace.getLocus(null, anigram)
-
-            
- if (1 && 1) console.log("autoSitus", situs)           
+              situs = autoSitus(anigram) // eg.  d => mstace.getLocus(null, d
             
              
             } else if (key === 'event') { // event defaults event

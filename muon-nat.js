@@ -350,7 +350,7 @@ if (0 && 1) console.log("m.nat.geometry", geometry)
         }
 
 
-        let projection = mprofier.protion({'projection': 'natform', 'form': nformed})
+        let projection = mprofier.profiom({'projection': 'natform', 'form': nformed})
 
         let natgj = mproj3ct(feature, projection)
 

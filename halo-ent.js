@@ -16,7 +16,8 @@
       mgeoj = __mapper('xs').m('geoj'),
       mprofier = __mapper('xs').m('profier'),
       mstore = __mapper('xs').m('store'),
-      mproj3ct = __mapper('xs').m('proj3ct')
+      mproj3ct = __mapper('xs').m('proj3ct'),
+      mstace = __mapper('xs').m('stace')
 
     /**********************
    *    @gramify
@@ -37,20 +38,31 @@
         
         
       let gjGeoformed = f.v(geofold, anigram)
-        
-
-if (1 && 1) console.log("gjGeoformed", gjGeoformed) 
-
-      
       if (!mgeoj.isValid(gjGeoformed)) { console.error("h.ent:gj not valid", gjGeoformed)}
         
+
+      // conform does not affect geonode. impacts siti of avatars
       let gjConformed = mprofier.conformer(anigram)(gjGeoformed)
 
-      let gjProformed = mprofier.proformer(anigram)(gjConformed)
+      
+      // proform // let gjProformed = mprofier.proformer(anigram)(gjConformed)
+      let gjProformed = gjConformed
+      if (anigram.payload.proform) {
+        
+        let projdef = anigram.payload.proform
+        
+        if (projdef.translate) {
+          projdef.translate = mstace.getTranspot(projdef.translate, anigram)
+        }
+        
+        let projection = mprofier.profiom(projdef) 
+        gjProformed = mproj3ct(gjConformed, projection) 
 
-      let gj = gjProformed
+      }
 
       
+      let gj = gjProformed
+     if (1 && 1) console.log("gj", gj)
       let geonode = gj.properties.geonode
       if (geonode) { // if payload.geonode
         let fieldEffect = {
@@ -62,6 +74,8 @@ if (1 && 1) console.log("gjGeoformed", gjGeoformed)
         // geonode.properties.projs.push()
         gj.properties.geonode = geonode
       }
+      
+      
       
       gj = mgeoj.featurize(gj) // featurize
         gj = mboform.boformer(anigram, gj) // boform
