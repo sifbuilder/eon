@@ -16,13 +16,22 @@
 
       
     // LOCUS is the position of the entity in the coordinates system
-    //  locus is encapsulated in the geofold.geonode.geometry
+    //  locus is encapsulated in the geofold.properties.geonode.geometry
     //  locus may remain at origin while modifying location through translation
+    //   there is one single locus associated to an anitem
+    //   getLocus: get the position of the geonode or the origin of the coords system
+    //      get the first position from geofold.properties.geonode.geometry
     // 
-    // POSITION is the position of the idenfitied vertex within the entity
-    //  position is absolut in the coordinates system
+    // POS is the node (vertex) in the parent anitem 
+    // 
+    // TRANSIT cartesian value of the translate property
+    //    eg: [300,200,0], {x:300,y:100,z:0}, [ [300,200,0], {x:300,y:100,z:0} ], [[[nat]]]
+    //    getTransits: get coordinates returned by translate
+    //    getTransit: get first coordinate returned by translate
     //
     // SITUS is the combination of the locus and the position
+    //    getSiti:    qet array of situs
+    //    getSitus:   qet first situs
     // 
     // sim updates the geonode
     //
