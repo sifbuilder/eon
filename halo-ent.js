@@ -62,11 +62,8 @@
 
       
       let gj = gjProformed
-      
-      
-     if (1 && 1) console.log("gj", gj)
-      let geonode = gj.properties.geonode
-      if (geonode) { // if payload.geonode
+      if (gj.properties && gj.properties.geonode) { // if payload.geonode
+        let geonode = gj.properties.geonode
         let situation = {   // situs defined in geonode
           'projection': 'uniwen',
           'translate': geonode.geometry.coordinates
