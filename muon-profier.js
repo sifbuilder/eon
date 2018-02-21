@@ -65,7 +65,7 @@
           prjdef.rotate = rot
         }
 
-  
+
         let translate = prjdef.translate
         if (translate && f.isObject(translate) && f.isPosition(translate)) {
           translate = Object.values(translate) // translate is {x,y,z}
@@ -119,48 +119,58 @@
       return projer
     }
     /****************************
+ *       @proformion
+ */
+    let proformion = (anigram) => {
+
+      let projection = profiom({ 
+          'projection': 'uniwen',
+      })
+    
+      let projdef = anigram.payload.proform
+      
+      if (projdef !== undefined) {
+
+          let geofold = anigram.geofold
+
+
+          let translate = []
+
+          if (geofold.properties && geofold.properties.geonode) { // if geonode
+            let geonode = geofold.properties.geonode
+            translate.push(geonode.geometry.coordinates)
+          }
+          if (projdef.translate) {
+            translate.push(mstace.getTranspot(projdef.translate, anigram))
+          }
+          projdef.translate = translate
+
+          projection = profiom(projdef)
+
+      }
+if (0 && 1) console.log("projection", projection)         
+ 
+      return projection
+    }
+    
+    /****************************
  *       @proformer
  */
-    let proformer = anigram => {
-      
-      let projdef = anigram.payload.proform
-
-      let projer
-      if (projdef === undefined) {
-        
-        projer = d => d
-        
-      } else {
-        
-        if (projdef.translate) {
-          
-          let translate = mstace.getTranspot(projdef.translate, anigram)
-          
-          projdef.translate = translate
-          
-        }
-
-        let projection = profiom(projdef)
-
-        projer = json => { // anigram
-        
-          let proformed = mproj3ct(json, projection) // proform geofold
-
-          return proformed
-        }
-      }
-
-      return projer
-    }
-
+    let proformer = anitem => json => mproj3ct(json, proformion(anitem))
+ 
+ 
     /****************************
  *      @enty
  */
     let enty = function () {}
     enty.profiom = profiom
     enty.projier = projier
+    
+    enty.proformion = proformion
     enty.proformer = proformer
+    
     enty.ereformer = ereformer
+    
     enty.conformer = conformer
 
     return enty

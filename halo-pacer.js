@@ -18,8 +18,7 @@
       mstace = __mapper('xs').m('stace'),
       manitem = __mapper('xs').m('anitem'),
       mric = __mapper('xs').m('ric'),
-      mstore = __mapper('xs').m('store'),
-      svg = __mapper('renderSvg').svg()
+      mstore = __mapper('xs').m('store')
 
     let r = __mapper('xs').r('renderer'),
       width = r.width(),
@@ -92,6 +91,7 @@
       if (mouse.event === 'mousedown') if (0 && 1) console.log('h.pacer ', mouse.event.type)
 
       if (mouse.event && mouse.event.type === 'mouseup') { // if mouse up then reset
+        let svg = __mapper('renderSvg').svg()
         cwen.reset(svg)
         cversor.reset(svg)
       }

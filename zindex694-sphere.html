@@ -19,7 +19,7 @@
 
 let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, key: 1, img: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1, img: 0}) // INIT
 
   let d3_force = d3
 
@@ -73,7 +73,7 @@ let muonAlima = function (__mapper) {
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [300, 200, 0]
+              coordinates: [200, 400, 0]
             },
             properties: {
               anchor: 1, // [fx, fy, fz]
@@ -92,7 +92,7 @@ let muonAlima = function (__mapper) {
         type: 'Feature',
         geometry: {
             type: 'Point',
-            coordinates: [0, 0, 0]
+            coordinates: [320, 140, 0] // [0, 0, 0]
         },
         properties: {
           name: 'ball',    // will use d.properties.name as simnode.id
@@ -101,11 +101,11 @@ let muonAlima = function (__mapper) {
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [320, 140, 0]
+              coordinates: [0, 0, 0] // [320, 140, 0]
             },
             properties: {
               orgen: [], 
-              velin: [0, 2.5, 2.5], 
+              velin: [0, 0.5, 2.5], 
               velang: [0, 0, 0],  
               prevous: [], 
               geodelta: []
@@ -144,12 +144,14 @@ let muonAlima = function (__mapper) {
       let graph = {
         nodes: {
           type: 'FeatureCollection',
-          features: [ball, pivot]
+          // features: [ball, pivot]
+          features: [ball]
         },
 
         links: {
           type: 'FeatureCollection',
-          features: [wire]
+          // features: [wire]
+          features: []
         },
       }
 
@@ -195,13 +197,13 @@ let muonAlima = function (__mapper) {
        
       }
   
-      if (ani.geofold.properties.name === 'ball') {
-        ani.payload.avatars = {
+      // if (ani.geofold.properties.name === 'ball') {
+        // ani.payload.avatars = {
 
-            traceline // h.pacer
+            // traceline // h.pacer
 
-          }
-      }
+          // }
+      // }
   
       animas.push(ani)
     }
@@ -324,9 +326,9 @@ let muonAlima = function (__mapper) {
 
       proform: {
         'projection': 'uniwen',
-        'translate': [0, 0, 0],
+        'translate': [150, 150, 0],
         'scale': 1,
-        'rotate': [ 0, 0, 0 ], // [ [[[0, 6 * 360]]], [[[0, 6 * 360]]], [[[0, 6 * 360]]] ],
+        'rotate': [ 0, 0, 0 ],
         'lens': [0, 1, Infinity],
       },
 
@@ -346,7 +348,8 @@ let muonAlima = function (__mapper) {
         type: 'Feature',
         geometry: {
             type: 'Point',
-            coordinates: [0, 0, 0]
+            // coordinates: [300, 100, 0],
+            coordinates: [0, 0, 0],
         },
         properties: {}
     },
@@ -381,9 +384,10 @@ let muonAlima = function (__mapper) {
 
       proform: {
         'projection': 'uniwen',
-        'translate': [300, 200, 0],
+        'translate': [0, 0, 0],
+        // 'translate': [300, 100, 0],
         'scale': 1,
-        'rotate': [ 0, 0, [[[0, 0]]] ],
+        'rotate': [ 0, 0, 0 ],
         'lens': [0, 1, Infinity],
       },
 
@@ -392,46 +396,7 @@ let muonAlima = function (__mapper) {
 
     }
   }
-	  // -------------------------------  img
-  let img = {
 
-    halo: 'img',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }
   /*******************************************
  *
  *
@@ -675,17 +640,16 @@ let muonAlima = function (__mapper) {
  *        @animaApi
  *
  */
-  nat1.payload.forces = {
-    force_energy,
-    force_viscosity,
-    force_gravity,  
-    force_link
-  }
+  // nat1.payload.forces = {
+    // force_energy,
+    // force_viscosity,
+    // force_gravity,  
+    // force_link
+  // }
 
   let animas = [
     nat1, // h.ent
     // nat2, // h.ent
-    img // h.img    
 
 
   ]

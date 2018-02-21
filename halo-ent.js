@@ -44,36 +44,68 @@
       // conform does not affect geonode. impacts siti of avatars
       let gjConformed = mprofier.conformer(anigram)(gjGeoformed)
 
+       
+       
+       
+      let prebased = gjConformed
       
-      // proform // let gjProformed = mprofier.proformer(anigram)(gjConformed)
-      let gjProformed = gjConformed
-      if (anigram.payload.proform) {
+      
+      //    geonode translation
+      //    translate geofold geometry by geonode coordinates
+      //    need tranlation before rotation
+      //
+      // if (prebased.properties && prebased.properties.geonode) { // if payload.geonode
+        // let geonode = prebased.properties.geonode
+        // let situation = {   // situs defined in geonode
+          // 'projection': 'uniwen',
+          // 'translate': geonode.geometry.coordinates
+        // }
+        // prebased = mproj3ct(prebased, mprofier.profiom(situation)) 
+      // }
+      
+      if (1 && 1) if (anigram.geofold.properties.name == 'ball') console.log("anigram", anigram)
+      
+      //    rotation, control rotation, proform stace translation
+      //    uniwen: rotation, tranlations
+      //
+      let proformion = mprofier.proformion(anigram),
+          gjProformed = mproj3ct(prebased, proformion),
+          gj = gjProformed
+          
+          
+  console.log("anigram", anigram.payload.uid,
+                          gj.geometry.coordinates,
+                          // gj.properties.geonode.geometry.coordinates
+                          )
+          
+      // let gjProformed = gjConformed
+      // if (anigram.payload.proform) {
         
-        let projdef = anigram.payload.proform
+        // let projdef = anigram.payload.proform
         
-        if (projdef.translate) {
-          projdef.translate = mstace.getTranspot(projdef.translate, anigram)
-        }
+        // if (projdef.translate) {
+          // projdef.translate = mstace.getTranspot(projdef.translate, anigram)
+        // }
         
-        let projection = mprofier.profiom(projdef) 
-        gjProformed = mproj3ct(gjConformed, projection) 
+        // let projection = mprofier.profiom(projdef) 
+        // gjProformed = mproj3ct(gjConformed, projection) 
 
-      }
+      // }
 
       
-      let gj = gjProformed
-      if (gj.properties && gj.properties.geonode) { // if payload.geonode
-        let geonode = gj.properties.geonode
-        let situation = {   // situs defined in geonode
-          'projection': 'uniwen',
-          'translate': geonode.geometry.coordinates
-        }
-        gj = mproj3ct(gj, mprofier.profiom(situation)) 
+      // let gj = gjProformed
+      // if (gj.properties && gj.properties.geonode) { // if payload.geonode
+        // let geonode = gj.properties.geonode
+        // let situation = {   // situs defined in geonode
+          // 'projection': 'uniwen',
+          // 'translate': geonode.geometry.coordinates
+        // }
+        // gj = mproj3ct(gj, mprofier.profiom(situation)) 
         
-        geonode = mprofier.proformer(anigram)(geonode) // projected position
-        geonode.properties.projs = (geonode.properties.projs) ? geonode.properties.projs : []
-        gj.properties.geonode = geonode
-      }
+        // geonode = mprofier.proformer(anigram)(geonode) // projected position
+        // geonode.properties.projs = (geonode.properties.projs) ? geonode.properties.projs : []
+        // gj.properties.geonode = geonode
+      // }
       
       
       

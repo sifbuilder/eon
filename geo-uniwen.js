@@ -66,6 +66,9 @@
       let z = point[2] || 0
 
       let c = [x, y, z]
+      
+      c = wenRotInverse(rotate)(...c) //   inverse rotation
+
 
       if (f.isPureArray(translate)) {
         c = c.map((d, i) => d - (translate[i] || 0)) // inverse translate
@@ -81,8 +84,6 @@
 
       c = [ c[0], c[1], (c[2] - lens[0]) / lens[1] ] // inverse focus
 
-      c = wenRotInverse(rotate)(...c) //   inverse rotation
-
       return c
     }
 
@@ -96,8 +97,6 @@
         lens = state.lens
 
       let c = [x, y, z]
-
-      c = wenRotation(rotate)(...c) // rotate
 
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
 
@@ -113,6 +112,9 @@
           c = c.map((d, i) => d + (trans[i] || 0)) // translate
         }
       }
+      
+      c = wenRotation(rotate)(...c) // rotate
+
 
       this.stream.point(...c)
     }
