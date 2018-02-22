@@ -77,10 +77,11 @@
       }
 
       let cycletime = tim.unitPassed - (pacer.outtimed || 0)
-
-      if (cycletime >= pacer.autoP) { // if cycle time above autopath
+      if (cycletime >= pacer.autoP && 
+            tim.unitPassed > (pacer.autoT || 0)
+              ) { // if cycle time above autopath
+              
         count.auto = Math.floor(pacer.autoN) // count AUTO
-        // outtimed 
          
       }
 

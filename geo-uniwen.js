@@ -66,7 +66,7 @@
       let z = point[2] || 0
 
       let c = [x, y, z]
-      
+
       c = wenRotInverse(rotate)(...c) //   inverse rotation
 
 
@@ -97,7 +97,7 @@
         lens = state.lens
 
       let c = [x, y, z]
-
+      c = wenRotation(rotate)(...c) // rotate
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
 
       c = mwen.projection(c, lens[2], scale) // project
@@ -112,13 +112,17 @@
           c = c.map((d, i) => d + (trans[i] || 0)) // translate
         }
       }
-      
-      c = wenRotation(rotate)(...c) // rotate
+
+      // c = wenRotation(rotate)(...c) // rotate
 
 
       this.stream.point(...c)
     }
-
+    
+    
+    /**************************
+  *       @profion
+  */
     let profion = () => {
       let geoTrans = d3.geoTransform({
         point: pointStream,

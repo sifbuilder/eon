@@ -111,11 +111,11 @@
       if (cyletime >= pacer.autoP) { // if cycle time above autopath
         let autoT = pacer.autoT ? pacer.autoT : 0
         if (cyletime > autoT) {
+         
           count.auto = Math.floor(pacer.autoN) // count AUTO
-          pacer.outed = tim.unitPassed // updated with anima
 
           anima.payload.inited = 1 //  inited
-          anima.payload.pacer.outed = pacer.outed //  outed at time units
+          anima.payload.pacer.outed = tim.unitPassed // updated with anima
           let animas = Array.of(anima) // upd ANIMA
           __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
         }

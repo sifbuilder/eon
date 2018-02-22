@@ -110,10 +110,14 @@
       let projer
 
       if (projdef === undefined) {
+        
         projer = d => d
+        
       } else {
+        
         let projection = profiom(projdef)
         projer = json => mproj3ct(json, projection)
+        
       }
 
       return projer
@@ -136,7 +140,9 @@
 
           let translate = []
 
-          if (geofold.properties && geofold.properties.geonode) { // if geonode
+          // if geonode
+          //    translate fold by geonode location
+          if (geofold.properties && geofold.properties.geonode) { 
             let geonode = geofold.properties.geonode
             translate.push(geonode.geometry.coordinates)
           }
@@ -148,7 +154,6 @@
           projection = profiom(projdef)
 
       }
-if (0 && 1) console.log("projection", projection)         
  
       return projection
     }
