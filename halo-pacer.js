@@ -109,13 +109,16 @@
       let cyletime = tim.unitPassed - (pacer.outed || 0)
 
       if (cyletime >= pacer.autoP) { // if cycle time above autopath
-        count.auto = Math.floor(pacer.autoN) // count AUTO
-        pacer.outed = tim.unitPassed // updated with anima
+        let autoT = pacer.autoT ? pacer.autoT : 0
+        if (cyletime > autoT) {
+          count.auto = Math.floor(pacer.autoN) // count AUTO
+          pacer.outed = tim.unitPassed // updated with anima
 
-        anima.payload.inited = 1 //  inited
-        anima.payload.pacer.outed = pacer.outed //  outed at time units
-        let animas = Array.of(anima) // upd ANIMA
-        __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
+          anima.payload.inited = 1 //  inited
+          anima.payload.pacer.outed = pacer.outed //  outed at time units
+          let animas = Array.of(anima) // upd ANIMA
+          __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
+        }
       }
 
       if (Object.keys(count).length > 0) { // on pace count

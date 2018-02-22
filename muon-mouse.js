@@ -1,6 +1,6 @@
 /***********
-	 *		@muonMouse
-	 */
+   *    @muonMouse
+   */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
@@ -9,14 +9,11 @@
   'use strict'
 
   var muonMouse = function muonMouse (__mapper = {}) {
-    let props = __mapper('props')()
-    let f = props.lib
-
     let local = {}
 
     /***********
-	*		@enty
-	*/
+  *   @enty
+  */
     let enty = function () { return enty }
 
     enty.event = _ => {
