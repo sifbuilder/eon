@@ -17,6 +17,7 @@
 
     const init = {}
     init.scale = [1, 1, 1]
+    init.prerotate = [0, 0, 0]
     init.rotate = [0, 0, 0]
     init.translate = [0, 0, 0]
     init.center = [0, 0, 0]
@@ -30,14 +31,14 @@
     state.lens = init.lens
 
     let wenRotation = function (rot) {
-      let rox = mwen.matrix(rot !== undefined ? mgeom.to_radians(rot) : cwen.rotInDrag())
+      let rox = mwen.matrix(rot !== undefined ? mgeom.to_radians(rot) : cwen.rotation())
       return function (x, y, z = 0) {
         return mwen.rotateMatrix([x, y, z], rox)
       }
     }
 
     let wenRotInverse = function (rot) {
-      let rox = mwen.matrix(rot !== undefined ? mgeom.to_radians(rot) : cwen.rotInDrag())
+      let rox = mwen.matrix(rot !== undefined ? mgeom.to_radians(rot) : cwen.rotation())
       let invrox = mwen.transpose33(rox)
       return function (x, y, z = 0) {
         return mwen.rotateMatrix([x, y, z], invrox)
@@ -57,6 +58,7 @@
     let wenProjInvert = function (point) {
 
       let rotate = state.rotate,
+        prerotate = state.prerotate,
         scale = state.scale,
         translate = state.translate || [0,0,0],
         lens = state.lens
@@ -84,6 +86,9 @@
 
       c = [ c[0], c[1], (c[2] - lens[0]) / lens[1] ] // inverse focus
 
+      c = wenRotInverse(prerotate)(...c) //   inverse prerotation
+
+      
       return c
     }
 
@@ -92,12 +97,16 @@
   */
     let pointStream = function (x, y, z = 0) {
       let rotate = state.rotate,
+        prerotate = state.prerotate,
         scale = state.scale,
         translate = state.translate || [0,0,0],
         lens = state.lens
 
       let c = [x, y, z]
-      c = wenRotation(rotate)(...c) // rotate
+      
+      c = wenRotation(prerotate)(...c) // prerotate
+      // c = wenRotation(rotate)(...c) // rotate
+       
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
 
       c = mwen.projection(c, lens[2], scale) // project
@@ -113,7 +122,7 @@
         }
       }
 
-      // c = wenRotation(rotate)(...c) // rotate
+      c = wenRotation(rotate)(...c) // rotate
 
 
       this.stream.point(...c)
@@ -151,6 +160,7 @@
         if (state[vars[i]] !== undefined) state[vars[i]] = prjdef[vars[i]] // upd state
       }
 
+      m.prerotate = _ => (_ !== undefined) ? (state.prerotate = _, m) : state.prerotate
       m.translate = _ => (_ !== undefined) ? (state.translate = _, m) : state.translate
       m.rotate = _ => (_ !== undefined) ? (state.rotate = _, m) : state.rotate
       m.scale = _ => (_ !== undefined) ? (state.scale = _, m) : state.scale

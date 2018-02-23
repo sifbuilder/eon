@@ -30,14 +30,16 @@ let muonAlima = function (__mapper) {
     mforces = __mapper('xs').m('forces'),
     mpacer = __mapper('xs').m('pacer'),
     mric = __mapper('xs').m('ric'),
-    mmouse = __mapper('xs').m('mouse')    
+    mmouse = __mapper('xs').m('mouse'),
+      cwen = __mapper('xs').c('wen')(),
+      cversor = __mapper('xs').c('versor')
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
     height = r.height()
 
   let d3_force = d3
-  
+
   let radians = Math.PI / 180,
     degrees = 180 / Math.PI
 
@@ -67,8 +69,8 @@ let muonAlima = function (__mapper) {
  *    @controls
  *
  */
-	// z.dom3: [-180, [[[160,180,180]]] ]
-	// payload.frame: [-0, 180, 22.5, 22.5]
+  // z.dom3: [-180, [[[160,180,180]]] ]
+  // payload.frame: [-0, 180, 22.5, 22.5]
   let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   let form = {
@@ -92,7 +94,7 @@ let muonAlima = function (__mapper) {
         'n2': 6, // [[[6, 6, 6, 5.98]]],
         'n3': 13, // [[[13, 15, 17, 17]]],
         'a': 9, // [[[9, 9, 9, 8.98]]],
-        'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],  
+        'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
       'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
       'fas8': -90,'dom3': [-180, 180],'exp9': [0, 1, 1, 0],'fn0': Math.cos
     },
@@ -105,7 +107,7 @@ let muonAlima = function (__mapper) {
         'n3': 13, // [[[13, 15, 17, 17]]],
         'a': 9, // [[[9, 9, 9, 8.98]]],
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
-        
+
       'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
       'fas8': -90,'dom3': [-180, 180 ],'exp9': [ 0, 0, 0, 0 ],'fn0': Math.cos
     }
@@ -162,12 +164,13 @@ let muonAlima = function (__mapper) {
         'form': form
 
       },
-      
+
       proform: {
         'projection': 'uniwen',
         'translate': [300, 175],
         'scale': 300,
-        'rotate': [0, 90, 0],
+        // 'rotate': [ [[[0, 10 * 360]]], 90, 0],
+        'prerotate': () => cwen.rotation(),
         'lens': [ 0,1,Infinity ],
       },
 
@@ -175,7 +178,7 @@ let muonAlima = function (__mapper) {
       'graticule': {
 
         // 'frame': [ [ [ [[[-1,-1,-180]]], [[[1,1,180]]], 45, 6],  // mx
-        
+
                 // [ [[[-6,-90,-90]]], [[[6,90,90]]], 30, 6] ]]  // my
 
         // 'frame': [ [ [ [[[-1,-1,-90,-180]]], [[[1,1,90,180]]], [[[90,90]]], 1],   // x
@@ -190,7 +193,7 @@ let muonAlima = function (__mapper) {
     }
 
   }
-	  // -------------------------------  img
+    // -------------------------------  img
   let img = {
 
     halo: 'img',
@@ -230,32 +233,32 @@ let muonAlima = function (__mapper) {
 
     }
   }
-  
- 	  // -------------------------------  img 
+
+    // -------------------------------  img
 
   let haloIsolation_gramm = anima => [] // GRAMM
 
 
   let haloIsolation_ween = anima => { // WEEN
-  
+
     animas = []
 
     animas = mpacer(anima.payload)
-     if (1 && 1) console.log('haloIsolation_ween animas', animas)   
-    
+     if (1 && 1) console.log('haloIsolation_ween animas', animas)
+
     if (animas.length > 0) {
-        anima.payload.inited = 1 // 
-        anima.payload.gelded = 1 // 
+        anima.payload.inited = 1 //
+        anima.payload.gelded = 1 //
         anima.payload.pacer.outted = 1 // off
-        
+
         let cycletime = anima.payload.tim.unitPassed - (anima.payload.pacer.outtimed || 0)
           if (cycletime >= anima.payload.pacer.autoP &&
                 cycletime >= anima.payload.pacer.autoT) {
-              
+
             anima.payload.pacer.outted = anima.payload.tim.unitPassed
-            
-          }        
-        
+
+          }
+
         let animas = Array.of(anima) // upd ANIMA
         __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
     }
@@ -329,7 +332,7 @@ let muonAlima = function (__mapper) {
 
                     let newItem = mstore.findAnigramFromUid(_uid) // anigram DOES exist ??
                     if (newItem === undefined) { // if not, create new anigram
-                  
+
                       newItem = {}
                       newItem.halo = _halo // set halo
                       newItem.geofold = _geoform // set geofold
@@ -353,7 +356,7 @@ let muonAlima = function (__mapper) {
             }
           }
 
-          
+
           return newItems
 
 
@@ -1106,9 +1109,9 @@ let muonAlima = function (__mapper) {
       return Array.of(force)
     }
   }
-  
-  
-  
+
+
+
   /*******************************************
  *      @animaApi
  *
@@ -1128,14 +1131,14 @@ let muonAlima = function (__mapper) {
     force_center_orange,
     force_center_gold
   }
-  
-  
+
+
   let animas = [
 
     // natform, // h.ent
     gratform,      // h.ent
     nat1, // h.ent
-		img // h.img
+    img // h.img
 
   ]
 

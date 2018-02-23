@@ -42,28 +42,28 @@
           }
         }
 
-        if (prj.rotate !== undefined) {
-          let rot = (prjdef.rotate) ? prjdef.rotate : [0, 0, 0]
+        // if (prj.rotate !== undefined) {
+          // let rot = (prjdef.rotate) ? prjdef.rotate : [0, 0, 0]
 
-          let dims = rot.length   // planar or spherical geometry
-          if (rot.length == 2) rot[2] = 0
+          // let dims = rot.length   // planar or spherical geometry
+          // if (rot.length == 2) rot[2] = 0
 
-          let control
-          if (prjdef.projection === 'uniwen' || prjdef.control === 'wen') control = cwen // WEN
-          else control = cversor // VERSOR
+          // let control
+          // if (prjdef.projection === 'uniwen' || prjdef.control === 'wen') control = cwen // WEN
+          // else control = cversor // VERSOR
 
-          let controlRotation = control
-            .projection(prj) // tbd
-            .rotation() // rotation from control wen
+          // let controlRotation = control
+            // .projection(prj) // tbd
+            // .rotation() // rotation from control wen
 
-          rot = mgeom.add(rot, controlRotation)
+          // rot = mgeom.add(rot, controlRotation)
 
-          if (dims == 2) { // planar rotation
-            rot = mwen.cross([rot[0], 0, 0], [0, rot[1], 0])
-          }
+          // if (dims == 2) { // planar rotation
+            // rot = mwen.cross([rot[0], 0, 0], [0, rot[1], 0])
+          // }
 
-          prjdef.rotate = rot
-        }
+          // prjdef.rotate = rot
+        // }
 
 
         let translate = prjdef.translate

@@ -24,7 +24,9 @@ let muonAlima = function (__mapper) {
   let f = __mapper({'props': muonProps.muonProps()}).props(),
     mnat = __mapper('xs').m('nat'),
     mstace = __mapper('xs').m('stace'),
-    manimas = __mapper('xs').m('animas')
+    manimas = __mapper('xs').m('animas'),
+      cwen = __mapper('xs').c('wen')(),
+      cversor = __mapper('xs').c('versor')
     
     
 
@@ -117,17 +119,11 @@ let muonAlima = function (__mapper) {
       
       proform: {
         'projection': 'uniwen',
-        // 'translate': {
-          // 'x':
-              // {
-                // 'pos': [[[ 0, 1 * 360]]]
-              // },
-          // 'y':
-              // {
-                // 'pos': [[[ 0, 1 * 360]]]
-              // },
-          // 'z': 0
-        // },
+        'translate': {
+          'x': {'pos': [[[ 0, 1 * 360]]]},
+          'y':{ 'pos': [[[ 0, 1 * 360]]]},
+          'z': 0
+        },
         'scale': 1,
         'rotate': [0, 0, 0], // [-5,50,0],
         'lens': [0, 1, Infinity],
