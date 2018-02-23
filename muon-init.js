@@ -60,24 +60,24 @@
       }
 
       let mouseMoveListener = function (event) {				// mouse move
-        let mmouse = __mapper('xs').m('mouse')
-        mmouse.mouseMove(1)
-        mmouse.mouseDownShared(1)
-        mmouse.event(event)
+        let cmouse = __mapper('xs').c('mouse')
+        cmouse.mouseMove(1)
+        cmouse.mouseDownShared(1)
+        cmouse.event(event)
       }
 
       let mouseDownListener = function (event) {				// mouse down
-        let mmouse = __mapper('xs').m('mouse')
-        mmouse.mouseDown(1)
-        mmouse.mouseDownShared(1)
-        mmouse.event(event)
+        let cmouse = __mapper('xs').c('mouse')
+        cmouse.mouseDown(1)
+        cmouse.mouseDownShared(1)
+        cmouse.event(event)
       }
 
       let mouseUpListener = function (event) {					// mouse up
-        let mmouse = __mapper('xs').m('mouse')
-        mmouse.mouseDown(0)
-        mmouse.mouseDownShared(0)
-        mmouse.event(event)
+        let cmouse = __mapper('xs').c('mouse')
+        cmouse.mouseDown(0)
+        cmouse.mouseDownShared(0)
+        cmouse.event(event)
       }
 
       if (__mapper('renderSvg')) __mapper('xs').c('mouseDown').control(__mapper('renderSvg').svg()).subscribe(mouseDownListener, __mapper('renderSvg').svg())

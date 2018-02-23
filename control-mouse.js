@@ -1,14 +1,14 @@
 /***********
-   *    @muonMouse
+   *    @controlMouse
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonMouse = global.muonMouse || {})))
+      : (factory((global.controlMouse = global.controlMouse || {})))
 }(this, function (exports) {
   'use strict'
 
-  var muonMouse = function muonMouse (__mapper = {}) {
+  var controlMouse = function controlMouse (__mapper = {}) {
     let local = {}
 
     /***********
@@ -49,5 +49,5 @@
     return enty
   }
 
-  exports.muonMouse = muonMouse
+  exports.controlMouse = controlMouse
 }))

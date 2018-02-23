@@ -2,6 +2,7 @@
 /*  bosons */  
 /*  controls */  
 document.write("<script src='control-key.js'><\/script>")    
+document.write("<script src='control-mouse.js'><\/script>")    
 document.write("<script src='control-mouseDown.js'><\/script>")    
 document.write("<script src='control-mouseLeave.js'><\/script>")    
 document.write("<script src='control-mouseMove.js'><\/script>")    
@@ -64,7 +65,6 @@ document.write("<script src='muon-kruskal.js'><\/script>")
 document.write("<script src='muon-lacer.js'><\/script>")    
 document.write("<script src='muon-liner.js'><\/script>")    
 document.write("<script src='muon-mapper.js'><\/script>")    
-document.write("<script src='muon-mouse.js'><\/script>")    
 document.write("<script src='muon-nat.js'><\/script>")    
 document.write("<script src='muon-newton.js'><\/script>")    
 document.write("<script src='muon-pacer.js'><\/script>")    

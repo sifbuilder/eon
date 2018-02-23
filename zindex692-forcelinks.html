@@ -196,7 +196,7 @@ let muonAlima = function (__mapper) {
         fider: (payload, i) => 'item' + i,
 
         initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
-        eventSitus: d => ({x: mmouse.event().x, y: mmouse.event().y, z: 0 }),
+        eventSitus: d => ({x: cmouse.event().x, y: cmouse.event().y, z: 0 }),
         autoSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
 
         geojsor: () => {
