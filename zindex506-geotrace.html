@@ -33,7 +33,8 @@ let muonAlima = function muonAlima (__mapper) {
     mmouse = __mapper('xs').m('mouse'),
     mstace = __mapper('xs').m('stace'),
     mstore = __mapper('xs').m('store'),
-    mnat = __mapper('xs').m('nat')
+    mnat = __mapper('xs').m('nat'),
+    manimas = __mapper('xs').m('animas')
 
 
   /*******************************************
@@ -148,7 +149,7 @@ let muonAlima = function muonAlima (__mapper) {
 
   let natProform = {
     'projection': 'uniwen',
-    'translate': [ [ 130, 120 ], [[[ natStace ]]] ], //
+    'translate': [ [ 270, 180 ], [[[ natStace ]]] ], //
     'scale': 1,
     'rotate': [ 0, 0, 0 ],
     'lens': [0, 1, Infinity],
@@ -235,13 +236,70 @@ let muonAlima = function muonAlima (__mapper) {
       }
     }
   }
+ // -------------------------------  sphere
+  let sphere = {
 
+    halo: 'ent',
+
+    geofold: p => mnat.natFeature(p.payload.form),
+
+    payload: {
+      tim: tim,
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'sphere'},
+
+      geonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0]
+        },
+        properties: {
+          orgen: [0, 0, 0],
+          velin: [0, 0, 0],
+          prevous: [0, 0, 0],
+          geodelta: [0, 0, 0]
+        }
+      },
+      proform: {
+        'projection': 'uniwen',
+        'translate':
+        [
+          [ [[[300, 400]]], 200, 100 ],
+          [[[ {
+            'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
+            'ra2': 90,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,'fas8': 0
+          } ]]]
+        ],
+        'scale': 1,
+        'rotate': [ 0, 0, 0 ],
+        'lens': [0, 1, Infinity],
+      },
+
+      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+      form: {
+
+        'x': {
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': 0,'pa6': 0,'pb7': 360,'fas8': 0
+        },
+        'y': {
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': 0,'pa6': 0,'pb7': 360,'fas8': -90
+        },
+        'z': {
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': 0,'pa6': 0,'pb7': 360,'fas8': 0
+        }
+      }
+    }
+  }
   /*******************************************
  * @animaApi
  *
  */
 
-  nat.payload.avatars = {
+  sphere.payload.avatars = {
 
     traceline // h.pacer
 
@@ -249,8 +307,10 @@ let muonAlima = function muonAlima (__mapper) {
 
   let animas = [
 
-    nat // h.nat
+    // nat, // h.nat
+    sphere, // h.nat
     // traceline,     // h.pacer
+    {...manimas('img'), tim}
 
   ]
 

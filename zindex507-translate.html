@@ -23,7 +23,10 @@ let muonAlima = function (__mapper) {
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
     mnat = __mapper('xs').m('nat'),
-    mstace = __mapper('xs').m('stace')
+    mstace = __mapper('xs').m('stace'),
+    manimas = __mapper('xs').m('animas')
+    
+    
 
   /*******************************************
  *      @pics
@@ -36,8 +39,8 @@ let muonAlima = function (__mapper) {
  *      @animas
  *
  */
-  // -------------------------------  natform
-  let natform = {
+  // -------------------------------  sphere
+  let sphere = {
 
     halo: 'ent',
 
@@ -45,7 +48,7 @@ let muonAlima = function (__mapper) {
 
     payload: {
       tim: tim,
-      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'sphere'},
 
       geonode: {
         type: 'Feature',
@@ -66,21 +69,8 @@ let muonAlima = function (__mapper) {
         [
           [ [[[300, 400]]], 200, 100 ],
           [[[ {
-            'm1': 4,
-            'm2': 4,
-            'n1': 2,
-            'n2': 2,
-            'n3': 2,
-            'a': 4,
-            'b': 2, // circle
-            'ra2': 90,
-            'v0': 0,
-            'v1': 1,
-            'w4': 0,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
-            'fas8': 0
+            'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
+            'ra2': 90,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,'fas8': 0
           } ]]]
         ],
         'scale': 1,
@@ -93,55 +83,16 @@ let muonAlima = function (__mapper) {
       form: {
 
         'x': {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 20,
-          'v0': 0,
-          'v1': 1,
-          'seg5': 12,
-          'w4': 0,
-          'pa6': 0,
-          'pb7': 360,
-          'fas8': 0
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': 0,'pa6': 0,'pb7': 360,'fas8': 0
         },
         'y': {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 20,
-          'v0': 0,
-          'v1': 1,
-          'seg5': 12,
-          'w4': 0,
-          'pa6': 0,
-          'pb7': 360,
-          'fas8': -90
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': 0,'pa6': 0,'pb7': 360,'fas8': -90
         },
         'z': {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 20,
-          'v0': 0,
-          'v1': 1,
-          'seg5': 12,
-          'w4': 0,
-          'pa6': 0,
-          'pb7': 360,
-          'fas8': 0
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': 0,'pa6': 0,'pb7': 360,'fas8': 0
         }
       }
     }
@@ -208,50 +159,13 @@ let muonAlima = function (__mapper) {
     }
   }
 	  // -------------------------------  img
-  let img = {
+  let img = {...manimas('img'), tim}
 
-    halo: 'img',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }  
   /*******************************************
  *        @animaApi
  *
  */
-  natform.payload.avatars = {
+  sphere.payload.avatars = {
 
     traceline // h.pacer
 
@@ -259,7 +173,7 @@ let muonAlima = function (__mapper) {
 
 
   let animas = [
-    natform, // h.ent
+    sphere, // h.ent
     img // h.img
   ]
 
