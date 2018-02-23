@@ -187,6 +187,15 @@
       let dy = y1 - y2
       return Math.sqrt(dx * dx + dy * dy)
     }
+    
+    
+    enty.distance3d = (v1, v2) => {
+      let dx = v2[0] - v1[0],
+        dy = v2[1] - v1[1],
+        dz = v2[2] - v1[2]
+      return dx * dx + dy * dy + dz * dz
+    }    
+    
     enty.normalize$2 = (x, y) => {
       let l = enty.distance(0, 0, x, y)
       if (l > 0.00001) {

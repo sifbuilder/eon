@@ -66,6 +66,7 @@
         cwen.reset(svg)
         cversor.reset(svg)
       }
+      
       if (mouse.event !== undefined && mouse.mouseDown === 1) { // on mouse DOWN
         if (mousesignal === 0 || mouse.event.type === 'mousedown') { //
           count.event = Math.floor(pacer.eventN) //  if in state or was event
@@ -77,6 +78,7 @@
       }
 
       let cycletime = tim.unitPassed - (pacer.outtimed || 0)
+      
       if (cycletime >= pacer.autoP && 
             tim.unitPassed > (pacer.autoT || 0)
               ) { // if cycle time above autopath

@@ -41,12 +41,14 @@
         proform = payload.proform, // proform
         conform = payload.conform, // conform
         uid = payload.uid, // uid
-        parentuid = payload.parentuid, // parentuid
-        pacer = payload.pacer || {}, // pacer
+        parentuid = payload.parentuid // parentuid
+
+      let pacer = payload.pacer || {}, // pacer
         mousesignal = pacer.mousesignal || 0, // mousesignal
         span = pacer.span || 0, // span between items
-        aad = pacer.aad || 0 // aad to previtem
-
+        aad = pacer.aad || 0, // aad to previtem
+        outted = pacer.outted || 0 // outted
+        
       let initSitus, eventSitus, autoSitus, fider, geojsor
 
       /* ****
@@ -57,7 +59,7 @@
         : payload.pacer.initSitus
 
       eventSitus = (payload.pacer.eventSitus === undefined) // eventSitus
-        ? d => ({x: mouse.event.x, y: mouse.event.y, z: 0 })
+        ? d => ({x: mmouse.event().x, y: mmouse.event().y, z: 0 })
         : payload.pacer.eventSitus
 
       autoSitus = (payload.pacer.autoSitus === undefined) // autoSitus
@@ -80,24 +82,14 @@
       /* ****
        *    controls
        */
-      let mouse = {} // mouse control
-
-      mouse.mouseDown = mmouse.mouseDown() // down
-      mouse.mouseUp = mmouse.mouseUp() // up
-      mouse.mouseMove = mmouse.mouseMove() // move
-      mouse.mouseDownShared = mmouse.mouseDownShared() // shareddown
-      mouse.event = mmouse.event() // event
-
-      if (mouse.event === 'mousedown') if (0 && 1) console.log('h.pacer ', mouse.event.type)
-
-      if (mouse.event && mouse.event.type === 'mouseup') { // if mouse up then reset
+      if (mmouse.event() && mmouse.event().type === 'mouseup') { // if mouse up then reset
         let svg = __mapper('renderSvg').svg()
         cwen.reset(svg)
         cversor.reset(svg)
       }
 
-      if (mouse.event !== undefined && mouse.mouseDown === 1) { // on mouse DOWN
-        if (mousesignal === 0 || mouse.event.type === 'mousedown') { //
+      if (mmouse.event() !== undefined && mmouse.mouseDown() === 1) { // on mouse DOWN
+        if (mousesignal === 0 || mmouse.event().type === 'mousedown') { //
           count.event = Math.floor(pacer.eventN) //  if in state or was event
         }
       }
@@ -106,44 +98,36 @@
         count.init = Math.floor(pacer.initN) // count INIT
       }
 
-      let cyletime = tim.unitPassed - (pacer.outed || 0)
+      let cycletime = tim.unitPassed - (pacer.outed || 0)
 
-      if (cyletime >= pacer.autoP) { // if cycle time above autopath
-        let autoT = pacer.autoT ? pacer.autoT : 0
-        if (cyletime > autoT) {
-         
+      if (cycletime >= pacer.autoP && 
+            tim.unitPassed > (pacer.autoT || 0)
+              ) { // if cycle time above autopath
+              
           count.auto = Math.floor(pacer.autoN) // count AUTO
 
           anima.payload.inited = 1 //  inited
           anima.payload.pacer.outed = tim.unitPassed // updated with anima
           let animas = Array.of(anima) // upd ANIMA
-          __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
-        }
+          mstore.apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
       }
 
       if (Object.keys(count).length > 0) { // on pace count
-      
         let situs
         for (let i = 0; i < Object.keys(count).length; i++) { // for each COUNT
           let key = Object.keys(count)[i] // count sort
 
           if (count[key] > 0) { // if count on this sort
             if (key === 'init') { // init defaults center
-            
               situs = initSitus(anigram)
-              
             } else if (key === 'auto') { // auto defauts random
-            
-            
               situs = autoSitus(anigram) // eg.  d => mstace.getLocus(null, d
-            
-             
             } else if (key === 'event') { // event defaults event
-            
               situs = eventSitus(anigram)
-              
             }
+            if (typeof situs === 'object') situs = Object.values(situs) // {x:280,y:229,z:0} => [x,y,0]
 
+            
             let _ric = ric
             _ric.fid = fider(anigram) // fider set in the payload or default
 
@@ -151,7 +135,7 @@
             let newItem = mstore.findAnigramFromUid(uid) // anigram DOES exist ??
 
             if (newItem === undefined) { // if not, create new anigram
-              newItem = geojsor(anigram, i) 		// anigram, counter
+              newItem = geojsor(anigram, i) // anigram, counter
               newItem.geofold.id = uid
               newItem.payload = {}
             }
@@ -160,54 +144,74 @@
             newItem.payload.boform = anigram.payload.boform // item style
             newItem.payload.avatars = anigram.payload.avatars // items may have avatars
 
-            let vsitus = Object.values(situs) // {x:280,y:229,z:0} => [x,y,0]
 
+            
+            
             if (aad && newItem.geofold.geometry.type === 'LineString') { // CUM LINE
+            //
+            //      if add to LineString
+            //
               let coords = newItem.geofold.geometry.coordinates // geocoords of new item
               if (coords && coords.length > 0) {
-                let loc = coords[coords.length - 1] // last point in cummul string
-                let dx = vsitus[0] - loc[0]
-                let dy = vsitus[1] - loc[1]
-                let dz = vsitus[2] - loc[2]
-                let d = dx * dx + dy * dy + dz * dz // distance from vsitus to last point
+                
+                let presitus = coords[coords.length - 1] // last point in cummul string
 
-                if (d > span) coords.push(vsitus) // add segment if above pixspan distance
+                let d = mgeom.distance3d(presitus, situs)
+
+                if (d > span) coords.push(situs) // add segment if above pixspan distance
+                
               } else {
-                coords = Array.of(vsitus)
+                
+                coords = Array.of(situs)
+                
               }
               newItem.geofold.geometry.coordinates = coords
 
               newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)] // add items
-            } else if (newItem.geofold.geometry.type === 'Point') {			// POINT
-              let itemcoords = newItem.geofold.geometry.coordinates
+            } else if (newItem.geofold.geometry.type === 'Point') { // POINT
+            //
+            //      if Point
+            //
+              let presitus = newItem.geofold.geometry.coordinates
 
-              if (itemcoords !== null) { // paced item DOES exist
-                let loc = itemcoords
-                let dx = vsitus[0] - loc[0]
-                let dy = vsitus[1] - loc[1]
-                let dz = vsitus[2] - loc[2]
-                let d = dx * dx + dy * dy + dz * dz
-
+              if (presitus !== null) { // if paced item DOES exist
+              
+               // distance from previous situs
+                let d = mgeom.distance3d(presitus, situs)
+                
+               // if distance from previous point greater than span 
                 if (d >= span) {
                   newItem.geofold.geometry.coordinates = [0, 0, 0]
-                  newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
-                  newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)]	// add items
+                  newItem.payload.proform = {
+                      projection: 'uniwen', 
+                      translate: situs
+                  } // proform
+                  
+                  // process newItem as h.ent
+                  let newAnigrams = __mapper('xs').h('ent').gramm(newItem)
+                  
+                  // add new anigrams
+                  newItems = [...newItems, ...newAnigrams]
+                  
                 }
-              } else {											// paced item NOT exists
+              } else { // paced item NOT exists
                 newItem.geofold.geometry.coordinates = [0, 0, 0]
-                newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
-                newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)]	// add items
+                newItem.payload.proform = {'projection': 'uniwen', 'translate': situs} // proform
+                newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)] // add items
               }
             } else {
+            //
+            //      
+            //
               let itemcoords = newItem.geofold.geometry.coordinates
               let geonode = newItem.payload.geonode.properties.geonode
               let geonodecoords = geonode.geometry.coordinates
 
-              if (geonodecoords == undefined || geonodecoords == null) geonodecoords = [0, 0]
+              if (geonodecoords === undefined || geonodecoords == null) geonodecoords = [0, 0]
               newItem.geofold.geometry.coordinates = itemcoords
               newItem.payload.geonode.geometry.coordinates = geonodecoords
-              newItem.payload.proform = {'projection': 'uniwen', 'translate': vsitus}	// proform
-              newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)]	// add items
+              newItem.payload.proform = {'projection': 'uniwen', 'translate': situs} // proform
+              newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)] // add items
             }
           }
         }
