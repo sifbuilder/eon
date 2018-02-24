@@ -24,7 +24,7 @@ let muonAlima = function (__mapper) {
   let f = __mapper({'props': muonProps.muonProps()}).props(),
     mgeom = __mapper('xs').m('geom'),
     mwen = __mapper('xs').m('wen'),
-    cmouse = __mapper('xs').c('mouse'),
+    crayder = __mapper('xs').c('rayder'),
     mstace = __mapper('xs').m('stace'),
     mstore = __mapper('xs').m('store')
 
@@ -99,9 +99,9 @@ let muonAlima = function (__mapper) {
 
         eventSitus: ani => {
           let situs
-          if (cmouse.event() !== undefined) {
-            let x = cmouse.event().x
-            let y = cmouse.event().y
+          if (crayder.event() !== undefined) {
+            let x = crayder.event().x
+            let y = crayder.event().y
             let z = 0
             situs = {x, y, z }
           }

@@ -12,7 +12,7 @@
     let f = __mapper({'props': muonProps.muonProps()}).props(),
       mgeom = __mapper('xs').m('geom'),
       mwen = __mapper('xs').m('wen'),
-      cmouse = __mapper('xs').c('mouse'),
+      crayder = __mapper('xs').c('rayder'),
       cwen = __mapper('xs').c('wen'),
       cversor = __mapper('xs').c('versor'),
       mstace = __mapper('xs').m('stace'),
@@ -59,7 +59,7 @@
         : payload.pacer.initSitus
 
       eventSitus = (payload.pacer.eventSitus === undefined) // eventSitus
-        ? d => ({x: cmouse.event().x, y: cmouse.event().y, z: 0 })
+        ? d => ({x: crayder.event().x, y: crayder.event().y, z: 0 })
         : payload.pacer.eventSitus
 
       autoSitus = (payload.pacer.autoSitus === undefined) // autoSitus
@@ -82,14 +82,14 @@
       /* ****
        *    controls
        */
-      if (cmouse.event() && cmouse.event().type === 'mouseup') { // if mouse up then reset
+      if (crayder.event() && crayder.event().type === 'mouseup') { // if mouse up then reset
         let svg = __mapper('renderSvg').svg()
         cwen.reset(svg)
         cversor.reset(svg)
       }
 
-      if (cmouse.event() !== undefined && cmouse.mouseDown() === 1) { // on mouse DOWN
-        if (mousesignal === 0 || cmouse.event().type === 'mousedown') { //
+      if (crayder.event() !== undefined && crayder.mouseDown() === 1) { // on mouse DOWN
+        if (mousesignal === 0 || crayder.event().type === 'mousedown') { //
           count.event = Math.floor(pacer.eventN) //  if in state or was event
         }
       }

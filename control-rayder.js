@@ -1,14 +1,14 @@
 /***********
-   *    @controlMouse
+   *    @controlRayder
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.controlMouse = global.controlMouse || {})))
+      : (factory((global.controlRayder = global.controlRayder || {})))
 }(this, function (exports) {
   'use strict'
 
-  var controlMouse = function controlMouse (__mapper = {}) {
+  var controlRayder = function controlRayder (__mapper = {}) {
     let local = {}
 
     /***********
@@ -49,5 +49,5 @@
     return enty
   }
 
-  exports.controlMouse = controlMouse
+  exports.controlRayder = controlRayder
 }))

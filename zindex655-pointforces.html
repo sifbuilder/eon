@@ -25,7 +25,7 @@ let muonAlima = function (__mapper) {
     mpacer = __mapper('xs').m('pacer'),
     mstore = __mapper('xs').m('store'),
     mric = __mapper('xs').m('ric'),
-    cmouse = __mapper('xs').c('mouse')
+    crayder = __mapper('xs').c('rayder')
 
   let d3_force = d3
 
@@ -144,7 +144,7 @@ let muonAlima = function (__mapper) {
                   }
 
                   let situs = [0, 0, 0]
-                  if (key === 'event' && cmouse.event() !== undefined) situs = [cmouse.event().x, cmouse.event().y, 0]
+                  if (key === 'event' && crayder.event() !== undefined) situs = [crayder.event().x, crayder.event().y, 0]
                   else if (key === 'init') situs = [width / 2, height / 2, 0 ]
                   else if (key === 'auto') situs = [width / 2, height / 2, 0 ]
 

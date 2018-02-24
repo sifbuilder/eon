@@ -220,11 +220,11 @@
 
       let unfeld = Object.values(nformed)
 
-      let dominos = unfeld.map(d => d.dom3) // [ [-180,180], [-180,180], [-90,90], [-90,90] ] 
-      
+      let dominos = unfeld.map(d => d.dom3) // [ [-180,180], [-180,180], [-90,90], [-90,90] ]
+
       let radions = unfeld.map((d, i) => radorm(d, dominos[i]))   // radorm
 
-      let radioform = unfeld.map((d, i) => p => radions[i](p))    // 
+      let radioform = unfeld.map((d, i) => p => radions[i](p))    //
 
 
       let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0], rad, w
@@ -232,10 +232,10 @@
       if (nformed) w = rotation = unfeld.map(dim => (dim.w4 || 0 + dim.fas8 || 0) * radians)  //  yfase
       let coForm = {location, scale, rotation}
 
-      
+
       let vertex = function (l, p, radio = 1) { // spherical degrees
 
-      
+
       if (0 && 1) if (l == 90 || l == -90) console.log("vertex", l, p)
         let lambda = l * radians
         let phi = p * radians
@@ -253,29 +253,35 @@
           ff[2] = (radioform[2] !== undefined) ? unfeld[2].fn0(phi + w[2]) : 1
           ff[3] = (radioform[3] !== undefined) ? unfeld[3].fn0(phi + w[3]) : 1
 
-          
-        let exps = unfeld.map(d => d.exp9)   // exp9 exponential for feld 
+
+        let exps = unfeld.map(d => d.exp9)   // exp9 exponential for feld
         let point = unfeld.map( (d,i) => {
           let r
-          if (i === 0) r = rad[0] * ff[0] * ff[2] * 
-                rs[0]**exps[0][0] * 
-                rs[1]**exps[0][1] * 
-                rs[2]**exps[0][2] * 
+          if (i === 0) r = rad[0] *
+                ff[0] *
+                ff[2] *
+                rs[0]**exps[0][0] *
+                rs[1]**exps[0][1] *
+                rs[2]**exps[0][2] *
                 rs[3]**exps[0][3]
-          if (i === 1) r = rad[1] * ff[1] * ff[2] * 
-                rs[0]**exps[1][0] * 
-                rs[1]**exps[1][1] * 
-                rs[2]**exps[1][2] * 
+          if (i === 1) r = rad[1] *
+                ff[1] *
+                ff[2] *
+                rs[0]**exps[1][0] *
+                rs[1]**exps[1][1] *
+                rs[2]**exps[1][2] *
                 rs[3]**exps[1][3]
-          if (i === 2) r = rad[2] * ff[3] *         
-                rs[0]**exps[2][0] * 
-                rs[1]**exps[2][1] * 
-                rs[2]**exps[2][2] * 
+          if (i === 2) r = rad[2] *
+                ff[3] *
+                rs[0]**exps[2][0] *
+                rs[1]**exps[2][1] *
+                rs[2]**exps[2][2] *
                 rs[3]**exps[2][3]
-          if (i === 3) r = rad[3] * ff[2] *         
-                rs[0]**exps[3][0] * 
-                rs[1]**exps[3][1] * 
-                rs[2]**exps[3][2] * 
+          if (i === 3) r = rad[3] *
+                ff[2] *
+                rs[0]**exps[3][0] *
+                rs[1]**exps[3][1] *
+                rs[2]**exps[3][2] *
                 rs[3]**exps[3][3]
           return r
         })
@@ -294,22 +300,22 @@
      */
     let natFeature = function (form) {
         let nformed = nform(form)         // NFORM
-if (0 && 1) console.log("m.nat.natFeature:nformed", nformed)          
+if (0 && 1) console.log("m.nat.natFeature:nformed", nformed)
         let geometry
         let dx, dy, sx, sy
-        
+
         if (Object.keys(nformed).length > 2) {    // 3d
-          
+
             dx = 360 / nformed.x.seg5  // x
             dy = 360 / nformed.z.seg5  // z
             sx = dx
             sy = dy
-        
+
             let graticule = {frame: [ [ [-180, 180, sx, dx], [-90, 90, sy, dy] ] ],}  // x, y
             geometry = mgraticule.gedges(graticule).geometry
-          
+
         } else {                                // 2d
-          
+
             dx = 360 / nformed.x.seg5  // x
             dy = 360 / nformed.y.seg5  // y
             sx = 360
@@ -319,12 +325,12 @@ if (0 && 1) console.log("m.nat.natFeature:nformed", nformed)
             geometry = mgraticule.gedges(graticule).geometry
             let p = geometry.coordinates[1].slice(0,-1)
             p = [...p, p[0]]
-            
+
             geometry.coordinates = Array.of(p)
 
 
         }
-        
+
 if (0 && 1) console.log("m.nat.geometry", geometry)
 
         let feature = {
@@ -339,10 +345,10 @@ if (0 && 1) console.log("m.nat.geometry", geometry)
                   coordinates: [0, 0, 0]
                 },
                 properties: {
-                  orgen: [0, 0, 0], 
-                  velin: [0, 0, 0], 
-                  velang: [0, 0, 0], 
-                  prevous: [0, 0, 0], 
+                  orgen: [0, 0, 0],
+                  velin: [0, 0, 0],
+                  velang: [0, 0, 0],
+                  prevous: [0, 0, 0],
                   geodelta: [0, 0, 0]
                 }
               }

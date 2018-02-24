@@ -1,5 +1,5 @@
 /*  d3  */  
-document.write("<script src='d3.v5.min.js'><\/script>")    
+document.write("<script src='d3.v5.js'><\/script>")    
 document.write("<script src='d3-force-3d.js'><\/script>")    
 document.write("<script src='d3-force-bounce.js'><\/script>")    
 document.write("<script src='d3-force-bounce.min.js'><\/script>")    

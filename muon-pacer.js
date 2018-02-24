@@ -12,7 +12,7 @@
     let f = __mapper({'props': muonProps.muonProps()}).props(),
       mgeom = __mapper('xs').m('geom'),
       mwen = __mapper('xs').m('wen'),
-      cmouse = __mapper('xs').c('mouse'),
+      crayder = __mapper('xs').c('rayder'),
       cwen = __mapper('xs').c('wen'),
       cversor = __mapper('xs').c('versor'),
       mstace = __mapper('xs').m('stace'),
@@ -55,11 +55,11 @@
        */
       let mouse = {} // mouse control
 
-      mouse.mouseDown = cmouse.mouseDown() // down
-      mouse.mouseUp = cmouse.mouseUp() // up
-      mouse.mouseMove = cmouse.mouseMove() // move
-      mouse.mouseDownShared = cmouse.mouseDownShared() // shareddown
-      mouse.event = cmouse.event() // event
+      mouse.mouseDown = crayder.mouseDown() // down
+      mouse.mouseUp = crayder.mouseUp() // up
+      mouse.mouseMove = crayder.mouseMove() // move
+      mouse.mouseDownShared = crayder.mouseDownShared() // shareddown
+      mouse.event = crayder.event() // event
 
       if (mouse.event && mouse.event.type === 'mouseup') { // if mouse up then reset
         let svg = __mapper('renderSvg').svg()

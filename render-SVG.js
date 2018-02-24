@@ -242,9 +242,11 @@
                 let properties = object.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
+                
+                let geoPath = d3.geoPath()
                 let path = (pointRadius !== undefined) // geoPath
-                  ? d3.geoPath().pointRadius(pointRadius)
-                  : d3.geoPath()
+                  ? geoPath.pointRadius(pointRadius)
+                  : geoPath
                 return path(object)
               })
 

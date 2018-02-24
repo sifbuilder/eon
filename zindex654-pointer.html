@@ -24,7 +24,7 @@ let muonAlima = function (__mapper) {
   let f = __mapper({'props': muonProps.muonProps()}).props()
   let mgeom = __mapper('xs').m('geom')
   let mwen = __mapper('xs').m('wen')
-  let cmouse = __mapper('xs').c('mouse')
+  let crayder = __mapper('xs').c('rayder')
 
   let d3_force = d3
   
@@ -111,7 +111,7 @@ let muonAlima = function (__mapper) {
         span: 15 / 1400,
 
         initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
-        eventSitus: d => ({x: cmouse.event().x - 40, y: cmouse.event().y, z: 0 }),
+        eventSitus: d => ({x: crayder.event().x - 40, y: crayder.event().y, z: 0 }),
         autoSitus: d => mstace.getLocus(d),
 
         geojsor: () => ({
