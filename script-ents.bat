@@ -1,16 +1,16 @@
 @ECHO OFF
 
 REM create file to load js components
-SET outEnls=enls.js
+SET outEnls=script-enls.js
 if  EXIST %outEnls%  DEL %outEnls%
 
-SET outEnts=ents.js
+SET outEnts=script-ents.js
 if  EXIST %outEnts%  DEL %outEnts%
 
 setlocal enabledelayedexpansion
 
 
-REM  ------------------------ enls
+REM  ------------------------ script-enls
 echo /*  d3  */ >> %outEnls% 
 for /f "delims=" %%f in ('dir /b /a-d /on d3*') do  echo document.write("<script src='%%f'><\/script>")   >> %outEnls% 
 
@@ -22,7 +22,7 @@ for /f "delims=" %%f in ('dir /b /a-d /on three*') do  echo document.write("<scr
 
 
 
-REM ------------------------ ents
+REM ------------------------ script-ents
 echo /* https://www.irt.org/script/974.htm */ >> %outEnts% 
 
 echo /*  bosons */ >> %outEnts% 

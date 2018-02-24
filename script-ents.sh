@@ -1,19 +1,19 @@
 #!/bin/sh
-echo 'ents.sh'
+echo 'script-ents.sh'
 
-outEnls="enls.js"
+outEnls="script-enls.js"
 if [ -f "$outEnls" ] 
 then 
 	echo "./$outEnls"
 fi
 
-outEnts="ents.js"
+outEnts="script-ents.js"
 if [ -f "$outEnts" ] 
 then 
 	echo "./$outEnts"
 fi
 
-#  ------------------------ enls
+#  ------------------------ script-enls
 echo -e "/*  enls */" > $outEnls
 
 echo -e "/*  d3 */" >> $outEnls
@@ -36,7 +36,7 @@ do
 done
 
 
-#  ------------------------ ents
+#  ------------------------ script-ents
 echo -e "/*  ents */" > $outEnts
 
 echo -e "/*  boson */" >> $outEnts
