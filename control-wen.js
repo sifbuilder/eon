@@ -91,11 +91,11 @@
 
     // dragged  listener
     let dragged = function () {
+    
       if (!state.grabbed) return
 
       let e = d3.event
       let pos = getPos(e) //  d3.mouse(this)
-
       let dx = state.grabbed[1] - pos[1],
         dy = -(state.grabbed[0] - pos[0])
 
@@ -118,6 +118,7 @@
 
     // dragended  listener
     let dragended = function () {
+
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return

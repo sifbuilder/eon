@@ -60,8 +60,7 @@
         gj = mric.qualier(ric, anigram, gj) // qualify
 
         newAnigrams = gj.features.map((d, i) => { // d is feature
-      
-      if (1 && 1) console.log("d", d)
+
       
           d.properties.tim = tim  // tim in geofold 
           d.properties.vim = vim  // vim in geofold needed to render

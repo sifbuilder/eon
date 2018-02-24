@@ -64,7 +64,7 @@
         enty.mouseMove(1)
         enty.mouseDownShared(1)
         enty.event(event)
-        proj(event)
+        // proj(event)
       }
 
       // mouse down

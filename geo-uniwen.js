@@ -95,15 +95,23 @@
     /**************************
   *       @pointStream
   */
-    let pointStream = function (x, y, z = 0) {
+    let pointStream = function (x, y, z) {
       let rotate = state.rotate,
         prerotate = state.prerotate,
         scale = state.scale,
         translate = state.translate || [0,0,0],
         lens = state.lens
 
-      let c = [x, y, z]
+      if (z === undefined) {    // 2d geom
+        z = 0
+        
+        prerotate = mwen.cross([prerotate[0], 0, 0], [0, prerotate[1], 0])
+        rotate = mwen.cross([rotate[0], 0, 0], [0, rotate[1], 0])
+        
+      }
       
+      let c = [x, y, z]
+    
       c = wenRotation(prerotate)(...c) // prerotate, eg. wen around nat center
        
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus

@@ -22,7 +22,7 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 1, img: 0}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
-    bsnap = __mapper('xs').m('snap'),
+    msnap = __mapper('xs').m('snap'),
     mlacer = __mapper('xs').m('lacer')
 
   /*******************************************
@@ -343,7 +343,7 @@ let muonAlima = function muonAlima (__mapper) {
         translate: [
 
           [[[ t => {
-            let bsnap = __mapper('xs').m('snap')
+            let msnap = __mapper('xs').m('snap')
             let fn = (a, b) => a + b.x
             let args = [
               378,
@@ -365,7 +365,7 @@ let muonAlima = function muonAlima (__mapper) {
                 'fas8': 0
               } ]]]
             ]
-            args = args.map(d => bsnap(d, t, 0))
+            args = args.map(d => msnap(d, t, 0))
             return fn(...args)
           } ]]],
 
@@ -386,9 +386,9 @@ let muonAlima = function muonAlima (__mapper) {
             'pb7': -1,
             'fas8': 0
           }) => {
-            let bsnap = __mapper('xs').m('snap')
+            let msnap = __mapper('xs').m('snap')
             let as = a
-            let bs = bsnap(b, t, 1).y
+            let bs = msnap(b, t, 1).y
             return as + bs
           } ]]]
 
