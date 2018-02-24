@@ -90,13 +90,15 @@
         else 																		_ric.fid = ric.fid
 
         properties.ric = {gid, cid, fid}
-        properties.uid = __mapper('xs').m('ric').getuid(properties.ric)
+        properties.uid = getuid(properties.ric)
 
         feature.id = properties.uid
         feature.properties = properties
 
         json = feature
+        
       } else if (json.type === 'FeatureCollection') {
+        
         let features = json.features							// feature in FeatureCollection
         for (let i = 0; i < features.length; i++) {
           let feature = features[i]								// this feature
@@ -114,7 +116,7 @@
 
           feature.properties.ric = _ric
 
-          feature.properties.uid = __mapper('xs').m('ric').getuid(feature.properties.ric)
+          feature.properties.uid = getuid(feature.properties.ric)
           feature.id = feature.properties.uid
           feature.properties.nid = i
         }

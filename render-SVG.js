@@ -11,6 +11,16 @@
   let renderSvg = function (__mapper = {}) {
     let f = __mapper('props')()
 
+    // http://tutorials.jenkov.com/svg/svg-viewport-view-box.html
+    // The viewport is the visible area of the SVG image
+    // Default units are pixels
+    // <svg width="600" height="400"></svg>
+    
+    // The svg viewBox attribute is used to redefine the viewport coordinates
+    // two first coordinates define user coordinates of upper left corner
+    // two last coordinates define user coordinates of lower right corner
+    //  <svg width="600" height="400" viewBox="0 0 50 20" > 
+    
     let r = __mapper('xs').r('renderer'),
       width = r.width(),
       height = r.height()
@@ -20,9 +30,7 @@
     width = width - margin.left - margin.right,
     height = height - margin.top - margin.bottom
 
-    let state = {}
-    state.width = width
-    state.height = height
+    let state = {width, height}   // Viewport
 
     let svglayer = d3.select('.viewframe')
       .append('svg')
@@ -131,7 +139,9 @@
  *
  *
  * 			@render
- *
+ *    
+ *      gets anima.geofold's from m.animation
+ *      
  *
  */
 
@@ -232,18 +242,30 @@
 
           if (features.length > 0) {
 
+          
+            //  view pprojection
+            let toview = { // view projection
+                'projection': 'uniwen',
+                'prerotate': [0,0,0],
+                'translate': [width/2, height/2, 0],
+                'rotate': [0,0,0],
+                'scale': [1,-1,1],
+                'lens': [0,1,Infinity]
+            }
+            let toviewproj = __mapper('xs').g('uniwen')(toview)
+          
             __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)
 
               .data(() => features)
               .attr('d', d => {
                 if (d.properties.style === undefined) console.log('style undefined')
-
+if (1 && 1) console.log("object", d)
                 let object = d // geojson feature
                 let properties = object.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
                 
-                let geoPath = d3.geoPath()
+                let geoPath = d3.geoPath(toviewproj)  // path on view projection
                 let path = (pointRadius !== undefined) // geoPath
                   ? geoPath.pointRadius(pointRadius)
                   : geoPath

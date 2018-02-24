@@ -29,8 +29,10 @@
         payload = anigram.payload // payload
 
       let boform = payload.boform, // boform
+        avatars = payload.avatars, // avatars
         ric = payload.ric, // ric
         tim = payload.tim, // tim
+        vim = payload.vim, // vim
         proform = payload.proform, // proform
         conform = payload.conform, // conform
         uid = payload.uid, // uid
@@ -44,38 +46,36 @@
       // conform does not affect geonode. impacts siti of avatars
       let gjConformed = mprofier.conformer(anigram)(gjGeoformed)
 
-       
-      let prebased = gjConformed
       
-
-      if (0 && 1) console.log("anigram", anigram)
-      
-      //    rotation, control rotation, proform stace translation
-      //    uniwen: rotation, tranlations
-      //
+      //    uniwen: prerotation, tranlations, scale, project, rotation
       let proformion = mprofier.proformion(anigram),
-          gjProformed = mproj3ct(prebased, proformion),
+          gjProformed = mproj3ct(gjConformed, proformion),
           gj = gjProformed
           
 
       
-      gj = mgeoj.featurize(gj) // featurize
+        gj = mgeoj.featurize(gj) // featurize
         gj = mboform.boformer(anigram, gj) // boform
         gj = mgeoj.zorder(gj) // order
         gj = mric.qualier(ric, anigram, gj) // qualify
 
         newAnigrams = gj.features.map((d, i) => { // d is feature
       
-          let newAnigram = {}
-          newAnigram.payload = {}
-          newAnigram.payload.avatars = anigram.payload.avatars // inherit avatars
-          newAnigram.payload.ric = d.properties.ric // hoist ric
-          newAnigram.payload.id = d.properties.uid // hoist uid
-          newAnigram.payload.uid = d.properties.uid // hoist uid
-          newAnigram.payload.preani = mstore.findAnigramFromUid(d.properties.uid)
-
-          newAnigram.geofold = d // inherit geofold
-
+      if (1 && 1) console.log("d", d)
+      
+          d.properties.tim = tim  // tim in geofold 
+          d.properties.vim = vim  // vim in geofold needed to render
+           
+          let newAnigram = {
+            geofold: d, // inherit geofold
+            payload: {  // payload is lost in m.animation before rendering
+              avatars, // inherit avatars
+              ric: d.properties.ric, // hoist ric
+              id: d.properties.uid, // hoist uid
+              uid: d.properties.uid, // hoist uid
+              preani: mstore.findAnigramFromUid(d.properties.uid)
+            },
+          }
           return newAnigram
           
         })

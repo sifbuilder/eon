@@ -104,8 +104,7 @@
 
       let c = [x, y, z]
       
-      c = wenRotation(prerotate)(...c) // prerotate
-      // c = wenRotation(rotate)(...c) // rotate
+      c = wenRotation(prerotate)(...c) // prerotate, eg. wen around nat center
        
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
 
