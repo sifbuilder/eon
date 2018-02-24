@@ -168,6 +168,7 @@
               newItem.geofold.geometry.coordinates = coords
 
               newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)] // add items
+              
             } else if (newItem.geofold.geometry.type === 'Point') { // POINT
             //
             //      if Point

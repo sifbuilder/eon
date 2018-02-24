@@ -2,10 +2,6 @@
 /*  bosons */  
 /*  controls */  
 document.write("<script src='control-key.js'><\/script>")    
-document.write("<script src='control-mouseDown.js'><\/script>")    
-document.write("<script src='control-mouseLeave.js'><\/script>")    
-document.write("<script src='control-mouseMove.js'><\/script>")    
-document.write("<script src='control-mouseUp.js'><\/script>")    
 document.write("<script src='control-pos.js'><\/script>")    
 document.write("<script src='control-raycaster.js'><\/script>")    
 document.write("<script src='control-rayder.js'><\/script>")    

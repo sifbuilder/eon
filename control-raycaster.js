@@ -10,34 +10,25 @@
   'use strict'
 
   let controlRaycaster = function controlRaycaster (__mapper = {}) {
+    
     let f = __mapper('props')()
 
     let raycaster = new THREE.Raycaster()
 
-    let state = {}
-    state.mouse = new THREE.Vector2()
+    let state = {
+      mouse: new THREE.Vector2(),
+      domNode: null
+    }
     state.mouse.x = -2 // Initialize off canvas
     state.mouse.y = -2
-    state.domNode = null
 
-    /*******************************************
-   *      @enty
-   *
-   */
-    let enty = function enty () {}
-
-    enty.domNode = function domNode (domNode) {
-      if (domNode === undefined) return state.domNode
-      state.domNode = domNode
-      return enty
-    }
     /*******************************************
    *      @listerner
    *
    */
-    let listerner = function listerner (event) {
+    let listerner = function (event) {
+      
       let domElem = enty.domNode()
-
       let width = domElem.getBoundingClientRect().width
       let height = domElem.getBoundingClientRect().height
 
@@ -46,6 +37,7 @@
           x: event.pageX - offset.left,
           y: event.pageY - offset.top
         }
+        
       state.mouse.x = (relPos.x / width) * 2 - 1
       state.mouse.y = -(relPos.y / height) * 2 + 1
 
@@ -58,17 +50,19 @@
     }
 
     /*******************************************
-   *      @control
+   *      @enty
    *
    */
-    enty.control = function control (domNode) {
+    let enty = () => enty
+
+    enty.domNode = _ => (_ !== undefined) ? (state.domNode = _, enty) : state.domNode
+    
+    enty.control = function (domNode) {
       enty.domNode(domNode)
       domNode.addEventListener('mousemove', listerner) // event listener
     }
 
-    enty.mouse = function () {
-      return state.mouse
-    }
+    enty.mouse = () => state.mouse
 
     return enty
   }

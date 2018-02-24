@@ -259,7 +259,7 @@
               .data(() => features)
               .attr('d', d => {
                 if (d.properties.style === undefined) console.log('style undefined')
-if (1 && 1) console.log("object", d)
+
                 let object = d // geojson feature
                 let properties = object.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius

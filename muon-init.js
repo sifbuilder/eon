@@ -27,21 +27,17 @@
       // BCK IMAGE
       if (p.img) __mapper('xs').m('image')('zimg-black.jpg')
 
-
-       // SVG WEN
+      // SVG WEN
       if (p.svg && p.wen) __mapper('xs').c('wen').control(__mapper('renderSvg').svg())
 
-       // SVG VERSOR
+      // SVG VERSOR
       if (p.svg && p.versor) __mapper('xs').c('versor').control(__mapper('renderSvg').svg())
 
-
-       // WEBGL
+      // WEBGL
       if (p.webgl) __mapper({'renderWebgl': renderWebgl.renderWebgl(__mapper)})
 
-
-       // ANIMATION
+      // ANIMATION
       __mapper({'muonAnimation': muonAnimation.muonAnimation(__mapper)})
-
 
       // STORE
       __mapper({'muonStore': muonStore.muonStore(__mapper)})
@@ -49,6 +45,7 @@
       // GUI https://github.com/dataarts/dat.gui
       if (p.gui) { gui = new dat.GUI(); gui.add(window, 'restart') }
 
+      // KEYBRD CONTROLS
       if (p.key) {
         __mapper('xs').c('key').start()                 // KEYBRD CONTROLS
 
@@ -64,46 +61,9 @@
         __mapper('xs').c('key').subscribe(controltimerRightArrowAlt, 'rightArrowAlt')
       }
 
-
-      // mouse move
-      //
-      let mouseMoveListener = function (event) {
-        let crayder = __mapper('xs').c('rayder')
-        crayder.mouseMove(1)
-        crayder.mouseDownShared(1)
-        crayder.event(event)
-      }
-
-      // mouse down
-      //
-      let mouseDownListener = function (event) {
-        let crayder = __mapper('xs').c('rayder')
-        crayder.mouseDown(1)
-        crayder.mouseDownShared(1)
-        crayder.event(event)
-      }
-
-      // mouse up
-      //
-      let mouseUpListener = function (event) {
-        let crayder = __mapper('xs').c('rayder')
-        crayder.mouseDown(0)
-        crayder.mouseDownShared(0)
-        crayder.event(event)
-      }
-
-
-      // subscribe mouse listeners: down, up, move
-      //
-      if (__mapper('renderSvg')) __mapper('xs').c('mouseDown').control(__mapper('renderSvg').svg()).subscribe(mouseDownListener, __mapper('renderSvg').svg())
-        
+      // RAYDER mouse control
+       __mapper('xs').c('rayder').control(__mapper('renderSvg').svg())
       
-      if (__mapper('renderSvg')) __mapper('xs').c('mouseUp').control(__mapper('renderSvg').svg()).subscribe(mouseUpListener, __mapper('renderSvg').svg())
-        
-      
-      if (__mapper('renderSvg')) __mapper('xs').c('mouseMove').control(__mapper('renderSvg').svg()).subscribe(mouseMoveListener, __mapper('renderSvg').svg())
-
-
       // FPS frames per second applicance
       if (p.fps) {
         const fpsdiv = d3.select('body').append('div').attr('id', 'fps')
