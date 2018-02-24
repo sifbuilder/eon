@@ -15,7 +15,6 @@
     let r = __mapper('xs').r('renderer'),
       width = r.width(),
       height = r.height()
-
       
     let state = {
       mouse: {},

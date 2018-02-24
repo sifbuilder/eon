@@ -11,8 +11,8 @@
 </head>
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
-<script src="enls.js"></script>
-<script src="ents.js"></script>
+<script src="script-enls.js"></script>
+<script src="script-ents.js"></script>
 
 <script>
 /*******************************************
@@ -39,43 +39,13 @@ let muonAlima = function muonAlima (__mapper) {
   let formFuel = {
 
     'x': {
-
-      'm1': 5,
-      'm2': 5,
-      'n1': 30,
-      'n2': 100,
-      'n3': 100,
-      'a': 1,
-      'b': 1,
-
-      'ra2': 6,
-      'v0': 0,
-      'v1': 1,
-      'seg5': [[[48, 48]]],
-      'w4': 0,
-      'pa6': 0,
-      'pb7': 360,
-      'fas8': 0
+      'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+      'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[48, 48]]], 'w4': 0, 'pa6': 0, 'pb7': 360, 'fas8': 0
     },
 
     'y': {
-
-      'm1': 5,
-      'm2': 5,
-      'n1': 30,
-      'n2': 100,
-      'n3': 100,
-      'a': 1,
-      'b': 1,
-
-      'ra2': 6,
-      'v0': 0,
-      'v1': 1,
-      'seg5': [[[48, 48]]],
-      'w4': 0,
-      'pa6': 0,
-      'pb7': 360,
-      'fas8': -90
+      'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+      'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[48, 48]]], 'w4': 0, 'pa6': 0, 'pb7': 360, 'fas8': -90
     }
 
   }
@@ -84,79 +54,41 @@ let muonAlima = function muonAlima (__mapper) {
 
     'x': {
 
-      'm1': 3,
-      'm2': 3,
-      'n1': 1,
-      'n2': 1.2,
-      'n3': 1.2,
-      'a': 1,
-      'b': 1, // reaulaux
-      'ra2': 60,
-      'v0': 0,
-      'v1': 1,
-      'seg5': [[[360, 360]]],
-      'w4': 0,
-      'pa6': 0,
-      'pb7': 360,
-      'fas8': 0
+      'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulaux
+      'ra2': 60, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360, 'fas8': 0
     },
 
     'y': {
 
-      'm1': 3,
-      'm2': 3,
-      'n1': 1,
-      'n2': 1.2,
-      'n3': 1.2,
-      'a': 1,
-      'b': 1, // reaulaux
+      'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulaux
 
-      'ra2': 60,
-      'v0': 0,
-      'v1': 1,
-      'seg5': [[[360, 360]]],
-      'w4': 0,
-      'pa6': 0,
-      'pb7': 360,
-      'fas8': -90
+      'ra2': 60, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360, 'fas8': -90
     }
 
   }
 
   let stace = {
-    'm1': 4,
-    'm2': 4,
-    'n1': 2,
-    'n2': 2,
-    'n3': 2,
-    'a': 4,
-    'b': 2, // circle
-    'ra2': 30,
-    'v0': 0,
-    'v1': 1,
-    'w4': 0,
-    'seg5': 360,
-    'pa6': 0,
-    'pb7': -1,
+    'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
+    'ra2': 30, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
   }
 
   let proform = {
 
-    'projection': 'uniwen',
-    'translate': [ [ 300, 200 ], [[[ stace ]]] ],
-    'scale': 1,
-    'rotate': [ 0, 0, 0 ],
-    'lens': [0, 1, Infinity]
+    projection: 'uniwen',
+    translate: [ [ 0, 0 ], [[[ stace ]]] ],
+    scale: 1,
+    rotate: [ 0, 0, 0 ],
+    lens: [0, 1, Infinity]
 
   }
 
   let proformFlat = {
 
-    'projection': 'uniwen',
-    'translate': [ [ 400, 300 ], [[[ stace ]]] ],
-    'scale': 1,
-    'rotate': [ 0, 0 ],
-    'lens': [0, 1, Infinity]
+    projection: 'uniwen',
+    translate: [ [ 100, 100 ], [[[ stace ]]] ],
+    scale: 1,
+    rotate: [ 0, 0 ],
+    lens: [0, 1, Infinity]
 
   }
 
@@ -179,7 +111,7 @@ let muonAlima = function muonAlima (__mapper) {
     }
 
   }
-  
+
   let natFlat = {
 
     halo: 'nat',
@@ -245,10 +177,10 @@ let muonAlima = function muonAlima (__mapper) {
       },
       img: {
         url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
+        style: {
+          width: [[[60, 60]]],
+          height: [[[40, 40]]],
+          rotate: [[[ 0, 0 ]]]
         }
       }
 
@@ -270,7 +202,7 @@ let muonAlima = function muonAlima (__mapper) {
   let animas = [
     nat, // h.nat
     natFlat, // h.nat
-    // img // h.img
+    img // h.img
   ]
 
   let animaApi = function animaApi () {

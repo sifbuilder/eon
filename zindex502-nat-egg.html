@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<meta charset='utf-8'>
 <title>animas</title>
 <head >
 
   <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+    body { margin: 0; position: fixed; top: 0; right: 0; bottom: 0; left: 0; }
+    div#fps,svg { position: fixed; top: 0; left: 0; color: white; }
   </style>
 
 </head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-<script src="enls.js"></script>
-<script src="ents.js"></script>
+<body style='cursor:crosshair'></body>
+<div id='viewframe' class='viewframe'></div>
+<script src='script-enls.js'></script>
+<script src='script-ents.js'></script>
 
 <script>
 
@@ -20,59 +20,55 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 0, img: 1, gui: 0, fps: 0, stats: 0}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props(),
+  let f = __mapper({props: muonProps.muonProps()}).props(),
     mnat = __mapper('xs').m('nat'),
     cwen = __mapper('xs').c('wen')
 
   /*******************************************
  *      @pics
  */
-  let tim = {'td': 36800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let tim = {td: 36800, t0: 0, t1: 1000, t2: 1, t3: 1}
   let formCirc = {
-
-    'x': {
+    x: {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 2, 'b': 1, // circ
       'ra2': 60, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': 360, 'fas8': 0
     },
-
-    'y': {
-      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a':2, 'b': 1, // circ
+    y: {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 2, 'b': 1, // circ
       'ra2': 60, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': 360, 'fas8': -90
     }
-
   }
 
   let formNat = {
-
-    'x': {
+    x: {
       'm1': 2, 'm2': 2, 'n1': 0.3, 'n2': -3, 'n3': 8, 'a': 8, 'b': 8, // egg
       'ra2': 60, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360, 'fas8': 0
     },
-
-    'y': {
+    y: {
       'm1': 2, 'm2': 2, 'n1': 0.3, 'n2': -3, 'n3': 8, 'a': 8, 'b': 8, // egg
       'ra2': 60, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360, 'fas8': -90
     }
-
   }
+
   let stace = {
     'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
     'ra2': 30, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1, 'fas8': 0
   }
 
+  let boformNat = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+
+  let boformCirc = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.39, 0.39]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+
   let proform = {
-    'projection': 'uniwen',
-    'prerotate': [[[ cwen.rotation ]]],
-    'translate': [ [0, 0, 0], [[[ stace ]]] ],
-    'scale': 1,
-    'rotate': [ 0, 0, 60 ],
-    'lens': [0, 1, 12],
+
+    projection: 'uniwen',
+    prerotate: [[[ cwen.rotation ]]],
+    translate: [ [0, 0, 0], [[[ stace ]]] ],
+    scale: 1,
+    rotate: [ 0, 0, 60 ],
+    lens: [0, 1, 12]
 
   }
-  
-  let boformNat = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
-  
-  let boformCirc = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.39, 0.39]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
   /*******************************************
  *      @animas
@@ -83,7 +79,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     payload: {
       tim,
-      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
+      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
       boform: boformNat,
       proform,
       form: formNat
@@ -95,7 +91,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     payload: {
       tim,
-      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'formCirc'},
+      ric: {gid: 'nat', cid: 'nat', fid: 'formCirc'},
       boform: boformCirc,
       proform,
       form: formCirc
@@ -123,4 +119,4 @@ let muonAlima = function muonAlima (__mapper) {
 let __mapper = muonMapper.muonMapper()
 __mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
-<body style="cursor:crosshair"></body>
+<body style='cursor:crosshair'></body>

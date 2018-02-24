@@ -152,7 +152,10 @@ module.exports = {
     "yoda": ["error", "never"],
     },
     "plugins": [
-        "html"
-    ]
-};
+      "html",
+      "destructuring"
+    ],
+    "extends": ["plugin:destructuring/recommended"]    
+     
+  }
 

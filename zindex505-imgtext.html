@@ -11,8 +11,8 @@
 </head>
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
-<script src="enls.js"></script>
-<script src="ents.js"></script>
+<script src="script-enls.js"></script>
+<script src="script-ents.js"></script>
 
 <script>
 
@@ -128,9 +128,9 @@ let muonAlima = function muonAlima (__mapper) {
     geofold: p => {
       let coords = mfibonat.stream(p.payload.fibonat)
       let gj = {
-        'type': 'Feature',
-        'geometry': {'type': 'LineString', 'coordinates': coords},
-        'properties': {}
+        type: 'Feature',
+        geometry: {'type': 'LineString', 'coordinates': coords},
+        properties: {}
       }
 
       return gj
@@ -150,24 +150,24 @@ let muonAlima = function muonAlima (__mapper) {
         'projection': 'uniwen',
 
         'translate':
-					[ [250, 200, 0],
-					  [[[ {
-					    'm1': 4,
-					    'm2': 4,
-					    'n1': 2,
-					    'n2': 2,
-					    'n3': 2,
-					    'a': 4,
-					    'b': 2, // circle
-					    'ra2': 12,
-					    'v0': 0,
-					    'v1': 1,
-					    'w4': 0,
-					    'seg5': 360,
-					    'pa6': 0,
-					    'pb7': -1,
-					    'fas8': 0
-					  } ]]] ],
+          [ [0, 0, 0],
+            [[[ {
+              'm1': 4,
+              'm2': 4,
+              'n1': 2,
+              'n2': 2,
+              'n3': 2,
+              'a': 4,
+              'b': 2, // circle
+              'ra2': 12,
+              'v0': 0,
+              'v1': 1,
+              'w4': 0,
+              'seg5': 360,
+              'pa6': 0,
+              'pb7': -1,
+              'fas8': 0
+            } ]]] ],
         'scale': 1.75,
         'rotate': [ [[[0, 90]]], [[[0, 90]]], 0 ],
         'lens': [0, 1, Infinity],
@@ -175,9 +175,9 @@ let muonAlima = function muonAlima (__mapper) {
       },
 
       geonode: {
-      type: 'Feature',
-      geometry: { type: 'Point', coordinates: [0, 0, 0] },
-      properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
       },
 
       boform: { 'csx': 0, 'cf': [[[777, 777, 777]]], 'co': [[[0.2, 0.2]]], 'cs': [[[777, 888]]], 'cw': [[[0.2, 0.2]]], 'cp': [[[0.9, 0.9]]]},
@@ -279,24 +279,24 @@ let muonAlima = function muonAlima (__mapper) {
         'projection': 'uniwen',
 
         'translate':
-					[ [250, 200, 0],
-					  [[[ {
-					    'm1': 4,
-					    'm2': 4,
-					    'n1': 2,
-					    'n2': 2,
-					    'n3': 2,
-					    'a': 4,
-					    'b': 2, // circle
-					    'ra2': 12,
-					    'v0': 0,
-					    'v1': 1,
-					    'w4': 0,
-					    'seg5': 360,
-					    'pa6': 0,
-					    'pb7': -1,
-					    'fas8': 0
-					  } ]]] ],
+          [ [0, 0, 0],
+            [[[ {
+              'm1': 4,
+              'm2': 4,
+              'n1': 2,
+              'n2': 2,
+              'n3': 2,
+              'a': 4,
+              'b': 2, // circle
+              'ra2': 12,
+              'v0': 0,
+              'v1': 1,
+              'w4': 0,
+              'seg5': 360,
+              'pa6': 0,
+              'pb7': -1,
+              'fas8': 0
+            } ]]] ],
         'scale': 1.75,
         'rotate': [ [[[0, 90]]], [[[0, 90]]], 0 ],
         'lens': [0, 1, Infinity],
@@ -304,9 +304,9 @@ let muonAlima = function muonAlima (__mapper) {
       },
 
       geonode: {
-      type: 'Feature',
-      geometry: { type: 'Point', coordinates: [0, 0, 0] },
-      properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null}
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null}
       },
 
       boform: { 'csx': 0, 'cf': [[[777, 777, 777]]], 'co': [[[0.2, 0.2]]], 'cs': [[[777, 888]]], 'cw': [[[0.2, 0.2]]], 'cp': [[[0.9, 0.9]]]},

@@ -47,9 +47,31 @@
 
       // KEYBRD CONTROLS
       if (p.key) {
-        __mapper('xs').c('key').start()                 // KEYBRD CONTROLS
+        __mapper('xs').c('key').start() // KEYBRD CONTROLS
 
-        let controltimerRightArrowAlt = () => {         // ARROW
+        if (__mapper('controlKey') !== undefined) {
+          let controltimerLeftArrowAlt = () => { // LEFT ARROW
+            if (__mapper('muonAnimation').animationStop !== undefined) {
+              console.log('controltimerLeftArrowAlt')
+              if (__mapper('controlTimer').started()) {
+                __mapper('controlTimer').stop()
+              } else {
+                __mapper('controlTimer').resume()
+              }
+            }
+          }
+          __mapper('controlKey').subscribe(controltimerLeftArrowAlt, 'leftArrowAlt')
+        }
+
+        if (__mapper('controlKey') !== undefined) {
+          let controltimerUpArrowAlt = () => { // UP ARROW
+            console.log('controltimerUpArrowAlt')
+            __mapper('controlWen').control(__mapper('renderSvg').svg()) // SVG WEN
+          }
+          __mapper('controlKey').subscribe(controltimerUpArrowAlt, 'upArrowAlt')
+        }
+
+        let controltimerRightArrowAlt = () => { // RIGHT ARROW
           if (__mapper('muonAnimation').animationStop !== undefined) {
             if (__mapper('controlTimer').started()) {
               __mapper('controlTimer').stop()
@@ -62,8 +84,8 @@
       }
 
       // RAYDER mouse control
-       __mapper('xs').c('rayder').control(__mapper('renderSvg').svg())
-      
+      __mapper('xs').c('rayder').control(__mapper('renderSvg').svg())
+
       // FPS frames per second applicance
       if (p.fps) {
         const fpsdiv = d3.select('body').append('div').attr('id', 'fps')

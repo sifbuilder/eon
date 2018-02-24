@@ -9,11 +9,13 @@
   'use strict'
 
   function controlTimer (__mapper) {
-    let state = {}
-    state.now = performance.now()
-    state.restartTime = performance.now()
-    state.resumeTime = performance.now()
-    state.stopTime = performance.now()
+    let now = performance.now()
+    let state = {
+      now,
+      restartTime: now,
+      resumeTime: now,
+      stopTime: now
+    }
 
     let currentListeners = []
     let nextListeners = currentListeners

@@ -215,10 +215,10 @@
    */
     let natform = function (form) {   // getVertex
 
-    if (0 && 1) console.log("natform", form)
       let nformed = nform(form)         // nform
 
       let unfeld = Object.values(nformed)
+    if (1 && 1) console.log("m.nat:unfeld", unfeld)
 
       let dominos = unfeld.map(d => d.dom3) // [ [-180,180], [-180,180], [-90,90], [-90,90] ]
 
