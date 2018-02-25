@@ -19,7 +19,7 @@
       let y = params.center.y || 0
       let z = params.center.z || 0
 
-      let d3src = (params.src !== undefined) ? params.src : d3_force // d3
+      let d3src = (params.src !== undefined) ? params.src : d3 // d3_force
 
       let d3force = d3src.forceCenter(x, y, z)
 
