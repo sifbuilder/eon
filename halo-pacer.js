@@ -240,18 +240,9 @@
             //
             //      
             //
-              let itemcoords = newItem.geofold.geometry.coordinates
-              let geonode = newItem.payload.geonode.properties.geonode
-              let geonodecoords = geonode.geometry.coordinates
 
-              if (geonodecoords === undefined || geonodecoords == null) geonodecoords = [0, 0]
-              newItem.geofold.geometry.coordinates = itemcoords
-              newItem.payload.geonode.geometry.coordinates = geonodecoords
-              newItem.payload.proform = {
-                  projection: 'uniwen', 
-                  translate: situs
-              } // proform
-              newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)] // add items
+                
+                newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)] // add items
             }
           }
         }

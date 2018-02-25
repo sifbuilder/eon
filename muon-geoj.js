@@ -335,6 +335,7 @@
         } else if (json.type === 'LineString') {
             let line = json.coordinates
             valid = valid &&
+              Array.isArray(line) &&
               line.reduce((p,q) => p && 
                  Array.isArray(q) && q.reduce( (p2,q2) => p2 && typeof q2 === 'number', true), 
                   true)

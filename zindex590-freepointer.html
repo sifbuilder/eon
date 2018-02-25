@@ -110,6 +110,12 @@ let muonAlima = function (__mapper) {
 
         autoSitus: ani => mstace.getLocus(ani),
 
+        eventSitus: d => ({
+            x: crayder.mouse().x,  // x: crayder.event().x, 
+            y: crayder.mouse().y,  // crayder.event().y, 
+            z: 0 
+        }),
+        
         fider: anitem => 'item' +
 					mstore.anigrams()
 					  .filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
@@ -118,15 +124,28 @@ let muonAlima = function (__mapper) {
 
             
         geojsor: () => {
-          let ani = {}
-            ani.halo = 'ent'
-            ani.geofold =  {type: 'Feature',geometry: {type: 'LineString', coordinates: null},properties: {}}
-            ani.payload = {
-              geonode: {
-                type: 'Feature',
-                geometry: { type: 'Point', coordinates: [0, 0, 0] },
-                properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null}
+          let ani = {
+            halo: 'ent',
+            geofold:  {
+              type: 'Feature',
+              geometry: {
+                type: 'Point', 
+                coordinates: null
+              },
+              properties: {
+                geonode: {
+                  type: 'Feature',
+                  geometry: { type: 'Point', coordinates: [0, 0, 0] },
+                  properties: {
+                    orgen: null, 
+                    velin: [0, 0, 0], 
+                    velang: [0, 0, 0], 
+                    prevous: null, 
+                    geodelta: null}
+                }
               }
+            },
+            payload: {}
           }
           return ani
         }
