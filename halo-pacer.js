@@ -112,21 +112,36 @@
           mstore.apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
       }
 
+      
+      // count anitems in this iteration
+      //
       if (Object.keys(count).length > 0) { // on pace count
-        let situs
-        for (let i = 0; i < Object.keys(count).length; i++) { // for each COUNT
+      
+        let situs // situs of new anitem dependent on kind
+        
+        for (let i = 0; i < Object.keys(count).length; i++) {
+          // for each item in COUNT
+        
           let key = Object.keys(count)[i] // count sort
 
           if (count[key] > 0) { // if count on this sort
+          
             if (key === 'init') { // init defaults center
+            
               situs = initSitus(anigram)
+              
             } else if (key === 'auto') { // auto defauts random
-              situs = autoSitus(anigram) // eg.  d => mstace.getLocus(null, d
+            
+              situs = autoSitus(anigram) // eg. d => mstace.getLocus(null, d
+              
             } else if (key === 'event') { // event defaults event
+            
               situs = eventSitus(anigram)
+              
             }
             if (typeof situs === 'object') situs = Object.values(situs) // {x:280,y:229,z:0} => [x,y,0]
 
+            
             
             let _ric = ric
             _ric.fid = fider(anigram) // fider set in the payload or default
@@ -137,37 +152,54 @@
             if (newItem === undefined) { // if not, create new anigram
               newItem = geojsor(anigram, i) // anigram, counter
               newItem.geofold.id = uid
-              newItem.payload = {}
+              newItem.payload =  newItem.payload || {}
             }
             newItem.payload.ric = _ric // item id
             newItem.payload.tim = anigram.payload.tim // item time
+            newItem.payload.proform = anigram.payload.proform // 
             newItem.payload.boform = anigram.payload.boform // item style
             newItem.payload.avatars = anigram.payload.avatars // items may have avatars
 
-
+            if (1 && 1) console.log("h.pacer newItem", newItem.payload.proform)
             
             
-            if (aad && newItem.geofold.geometry.type === 'LineString') { // CUM LINE
+            if (aad && newItem.geofold.geometry.type === 'LineString') { 
             //
-            //      if add to LineString
+            //      CUM LINE
             //
-              let coords = newItem.geofold.geometry.coordinates // geocoords of new item
+            //      if add anitem to LineString
+            //
+            //
+            
+            // geocoords of new item
+              let coords = newItem.geofold.geometry.coordinates 
+              
               if (coords && coords.length > 0) {
                 
                 let presitus = coords[coords.length - 1] // last point in cummul string
 
-                let d = mgeom.distance3d(presitus, situs)
+                let d = mgeom.distance3d(presitus, situs) // 3d distance
 
-                if (d > span) coords.push(situs) // add segment if above pixspan distance
+                if (d > span) {
+                  
+                  // if beyond pixspan distance
+                  
+                  coords.push(situs) // add dot to LineString
+                }
                 
               } else {
                 
                 coords = Array.of(situs)
                 
               }
+              
+              // 
               newItem.geofold.geometry.coordinates = coords
 
-              newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)] // add items
+              // n.ent of newItem
+              let newItemsInCount = __mapper('xs').h('ent').gramm(newItem)
+              
+              newItems = [...newItems, ...newItemsInCount] // add items
               
             } else if (newItem.geofold.geometry.type === 'Point') { // POINT
             //
@@ -197,7 +229,11 @@
                 }
               } else { // paced item NOT exists
                 newItem.geofold.geometry.coordinates = [0, 0, 0]
-                newItem.payload.proform = {'projection': 'uniwen', 'translate': situs} // proform
+                newItem.payload.proform = {
+                    projection: 'uniwen', 
+                    translate: situs
+                } // proform
+                
                 newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)] // add items
               }
             } else {
@@ -211,7 +247,10 @@
               if (geonodecoords === undefined || geonodecoords == null) geonodecoords = [0, 0]
               newItem.geofold.geometry.coordinates = itemcoords
               newItem.payload.geonode.geometry.coordinates = geonodecoords
-              newItem.payload.proform = {'projection': 'uniwen', 'translate': situs} // proform
+              newItem.payload.proform = {
+                  projection: 'uniwen', 
+                  translate: situs
+              } // proform
               newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)] // add items
             }
           }

@@ -230,7 +230,7 @@
 
       let situs = getSitus(anigram) // anima    .x,.y,.z - root and sim
 
-      if (1 && 1) console.log(' getTranspotsstace', stace)
+      if (0 && 1) console.log(' getTranspotsstace', stace)
       let spots = getTranspots(stace, anigram) // anigram  stace x || x.pos || x.ref
 
       if (situs && spots && spots.length > 0) { // if situs and spots

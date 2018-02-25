@@ -242,34 +242,37 @@
 
           if (features.length > 0) {
 
-          
-            //  view pprojection
-            let toview = { // view projection
-                'projection': 'uniwen',
-                'prerotate': [0,0,0],
-                'translate': [width/2, height/2, 0],
-                'rotate': [0,0,0],
-                'scale': [1,-1,1],
-                'lens': [0,1,Infinity]
-            }
-            let toviewproj = __mapper('xs').g('uniwen')(toview)
-          
             __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)
 
               .data(() => features)
               .attr('d', d => {
                 if (d.properties.style === undefined) console.log('style undefined')
 
-                let object = d // geojson feature
-                let properties = object.properties || {} // properties
+                let geoitem = d // geojson feature
+                let properties = geoitem.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
+                
+                
+                  //  view pprojection
+                  let basprj = { // view projection
+                      'projection': 'uniwen',
+                      'prerotate': [0,0,0],
+                      'translate': [width/2, height/2, 0],
+                      'rotate': [0,0,0],
+                      'scale': [1,-1,1],
+                      'lens': [0,1,Infinity]
+                  }
+                  let toview = (properties.vim !== undefined) ? properties.vim : basprj
+                  let toviewproj = __mapper('xs').g('uniwen')(toview)                
+                
+                
                 
                 let geoPath = d3.geoPath(toviewproj)  // path on view projection
                 let path = (pointRadius !== undefined) // geoPath
                   ? geoPath.pointRadius(pointRadius)
                   : geoPath
-                return path(object)
+                return path(geoitem)
               })
 
               .style('fill', d => d.properties.style.fill)

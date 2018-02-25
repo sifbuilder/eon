@@ -32,7 +32,8 @@ let muonAlima = function (__mapper) {
   mgraticule = __mapper('xs').m('graticule'),
   mforces = __mapper('xs').m('forces'),
   mric = __mapper('xs').m('ric'),
-  mstace = __mapper('xs').m('stace')
+  mstace = __mapper('xs').m('stace'),
+  cwen = __mapper('xs').c('wen')
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
@@ -44,7 +45,7 @@ let muonAlima = function (__mapper) {
  *      @pics
  *
  */
-  let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let tim = {'td': 22800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   /*******************************************
  *
@@ -105,7 +106,7 @@ let muonAlima = function (__mapper) {
             },
             properties: {
               orgen: [], 
-              velin: [0, 2.5, 2.5], 
+              velin: [0, 2.5 * Math.random(), 2.5 * Math.random()], 
               velang: [0, 0, 0],  
               prevous: [], 
               geodelta: []
@@ -184,14 +185,6 @@ let muonAlima = function (__mapper) {
         ani.payload.boform.cf = (i % 2) ? 777 : 333 // stype per class
         ani.payload.boform.cs = (i % 2) ? 777 : 333        
        
-
-        ani.payload.proform = {
-          'projection': 'uniwen',
-          'translate': [0, 0, 0],
-          'scale': 1,
-          'rotate': [ 0, 0, 0 ],
-          'lens': [0, 1, Infinity],
-        }
        
       }
   
@@ -257,6 +250,8 @@ let muonAlima = function (__mapper) {
           source: link[0], // link.source node
           target: link[1] // link node id from geofold.properties.geonode.properties.id
         }
+
+
         
       }
 
@@ -315,9 +310,15 @@ let muonAlima = function (__mapper) {
                   type: 'Point', 
                   coordinates: []
                 },
-                properties: {}},
-              payload: {}
-            })
+                properties: {}
+              },
+              
+              payload: {
+              
+              
+              
+             }
+          })
 
       },
 
@@ -326,7 +327,7 @@ let muonAlima = function (__mapper) {
         'projection': 'uniwen',
         'translate': [0, 0, 0],
         'scale': 1,
-        'rotate': [ 0, 0, 0 ], // [ [[[0, 6 * 360]]], [[[0, 6 * 360]]], [[[0, 6 * 360]]] ],
+        'rotate': [[[cwen.rotation]]],
         'lens': [0, 1, Infinity],
       },
 
@@ -383,7 +384,7 @@ let muonAlima = function (__mapper) {
         'projection': 'uniwen',
         'translate': [300, 200, 0],
         'scale': 1,
-        'rotate': [ 0, 0, [[[0, 0]]] ],
+        'rotate': [ 0, 0, 0 ],
         'lens': [0, 1, Infinity],
       },
 
@@ -459,6 +460,14 @@ let muonAlima = function (__mapper) {
           'z': 0
       },
 
+      proform: {
+        'projection': 'uniwen',
+        'translate': [0, 0, 0],
+        'scale': 1,
+        'rotate': [[[cwen.rotation]]],
+        'lens': [0, 1, Infinity],
+      },       
+      
       pacer: {
         initN: 0,
         eventN: 0,
@@ -482,7 +491,9 @@ let muonAlima = function (__mapper) {
                       type: 'LineString',
                       coordinates: null
                   },
-                  properties: {}
+                  properties: {
+                    
+                  }
               }
               ani.payload = {}
             return ani

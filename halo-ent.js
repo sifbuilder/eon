@@ -38,7 +38,9 @@
         uid = payload.uid, // uid
         parentuid = payload.parentuid // parentuid
         
-        
+    if (0 && 1) console.log("h.nat proform", ric)
+    if (0 && 1) if (proform !== undefined) console.log("h.nat proform", ric, proform.rotate)
+      
       let gjGeoformed = f.v(geofold, anigram)
       if (!mgeoj.isValid(gjGeoformed)) { console.error("h.ent:gj not valid", gjGeoformed)}
         

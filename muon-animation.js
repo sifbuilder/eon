@@ -36,14 +36,18 @@
         }
       }
 
-
       /*******************************************
      *    @STOP
      */
       let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.payload.tim.limit + item.payload.tim.msStart), 0)
-      if (isNaN(maxlimit)) state.animationStop()
-      if (maxlimit > 0 && elapsed > maxlimit) state.animationStop() // stop if spired
-      if (elapsed > maxlimit) state.animationStop() // stop if anigrams spired
+      if (isNaN(maxlimit) ||
+            (maxlimit > 0 && elapsed > maxlimit) || // stop if spired
+            (elapsed > maxlimit) ) { // stop if anigrams spired
+
+        state.animationStop()
+        
+      }
+      
       /*******************************************
      *    @WEEN generate animas and offsprings
      */
