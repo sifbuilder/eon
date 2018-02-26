@@ -37,6 +37,8 @@ let muonAlima = function (__mapper) {
     width = r.width(),
     height = r.height()
 
+  const sqrt2 = Math.sqrt(2)  
+    
   /*******************************************
  *      @pics
  *
@@ -90,15 +92,14 @@ let muonAlima = function (__mapper) {
       ric: {'gid': 'nat', 'cid': 'gnat', 'fid': 'nat'},
 
       pacer: {
-        initN: 0,
-        eventN: 1,
-        autoN: 2,
-        autoP: 0.01,
-        outtimed: 0,
+        initN: 60,
+        eventN: 0,
+        autoN: 0,
+        autoP: 0,
+        autoT: 0,
         maxN: 60,
         span: 15 / 1400,
 
-        // geojsor: (p, i, k) => {
         geojsor: (p, count) => {
           let newItems = []
           if (Object.keys(count).length > 0) { // on pace count
@@ -140,16 +141,20 @@ let muonAlima = function (__mapper) {
 
                   let situs = [0, 0, 0]
                   if (key === 'event' && crayder.event() !== undefined) situs = [crayder.event().x, crayder.event().y, 0]
-                  else if (key === 'init') situs = [0, 0, 0] // [width / 2, height / 2, 0 ]
                   else if (key === 'auto') situs = [0, 0, 0] // [width / 2, height / 2, 0 ]
+                  else if (key === 'init') {
+                      // situs = [0, 0, 0] // [width / 2, height / 2, 0 ]
+                      situs = [ width * (1 - Math.random),
+                              height * (1 - Math.random),
+                              width * (1 - Math.random) ] // [width / 2, height / 2, 0 ]
+                  }
 
                   newItem.payload.proform = {
-                      projection: 'uniwen', 
-                      rotate: [[[ cwen.ratation ]]], 
+                      projection: 'uniwen',
+                      rotate: [[[ cwen.rotation ]]],
                       translate: situs
                   } // proform
 
-                  // console.log("z691:key", key, count[key], j, newItem.payload.ric)
 
                   newItems.push(f.cloneObj(newItem))
                 }
@@ -157,9 +162,6 @@ let muonAlima = function (__mapper) {
             }
           }
 
-          // for (let i=0; i<newItems.length; i++) {
-          // if (1 && 1) console.log("z691:newItem ric", i, newItems[i].payload.ric)
-          // }
 
           return newItems
         }
@@ -180,19 +182,6 @@ let muonAlima = function (__mapper) {
         }
       },
 
-      proform: {
-        'projection': 'uniwen',
-        'translate': [200, 50, 0],
-        // [ [ [[[100, 400]]], 200 ],
-        // [[[ {
-        // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
-        // 'ra2': 30,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-        // 'fas8': 0
-        // } ]]] ],
-        'scale': 1,
-        'rotate': [ 0, 0, [[[0, 0]]] ],
-        'lens': [0, 1, 12]
-      },
 
       boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
@@ -221,26 +210,26 @@ let muonAlima = function (__mapper) {
 
     'x': {
       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-      'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1, 'fas8': 0,
+      'ra2': 200, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1, 'fas8': 0,
       'fn0': Math.cos, 'dom3': [-180, 180], 'exp9': [1, 0, 1, 0]
 
     },
     'y': {
       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-      'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1, 'fas8': -90,
+      'ra2': 200, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1, 'fas8': -90,
       'fn0': Math.cos, 'dom3': [-180, 180], 'exp9': [0, 1, 1, 0]
 
     },
     'z': {
       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-      'ra2': 100 / Math.sqrt(2), 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1, 'fas8': 0,
+      'ra2': 200 / sqrt2, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1, 'fas8': 0,
       'fn0': d => Math.cos(d), 'dom3': [-180, 180], 'exp9': [ 0, 0, 0, 1 ]
 
     }
   }
 
   let conform = {'projection': 'natform', 'form': form}
-  
+
   let graticule = {
 
     frame: [ [ [-180, 180, 45, 45], // X mayor   11 12
@@ -256,7 +245,7 @@ let muonAlima = function (__mapper) {
       [90, 22.5] ] // Y  major minor
 
   }
-  
+
   let gratilines21 = {
     halo: 'ent',
     geofold: p => mgraticule.gedges(p.payload.graticule),
@@ -265,11 +254,11 @@ let muonAlima = function (__mapper) {
       conform,
       graticule,
       ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},
-      boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+      boform: { 'csx': 0, 'cf': 666, 'cs': 333, 'cw': 0.9, 'co': 0.03, 'cp': 0.9 },
       proform: {
-        projection: 'uniwen', 
-        rotate: [[[ cwen.ratation ]]], 
-        translate: [ 1, 1, 1 ], 
+        projection: 'uniwen',
+        rotate: [[[ cwen.rotation ]]],
+        translate: [ 1, 1, 1 ],
         scale: 1
       }
     }
@@ -314,7 +303,7 @@ let muonAlima = function (__mapper) {
  */
   let force_viscosity = {
     properties: {
-      velocityDecay: 0
+      velocityDecay: 0.001
     },
 
     field: function (params = {}) { // field.field
@@ -516,7 +505,9 @@ let muonAlima = function (__mapper) {
 
     'properties': {
 
-      strength: 0.03
+      strength: 0.001,
+      iterations: 3,
+      radius: 6
 
     },
 
@@ -525,11 +516,17 @@ let muonAlima = function (__mapper) {
       let forces = []
 
       let strength = params.properties.strength
+      let iterations = params.properties.iterations
+      let radius = params.properties.radius
 
       let forceParams = {
-        type: 'collide',
+        // type: 'collide',
+        force: d3.forceCollide()
+                .radius(radius)
+                .iterations(iterations)
+                .strength(strength),
         strength: strength,
-        radius: d => 9,
+        // radius: d => 9,
         filter: function (d) {
           return d.payload.ric.gid === 'nat'
         },
@@ -550,7 +547,7 @@ let muonAlima = function (__mapper) {
   let force_manybody = { // aniForce
 
     properties: {
-      strength: -1.9,
+      strength: -0.05,
       theta: 0.9,
       distanceMin: 0,
       distanceMax: Infinity
@@ -559,14 +556,19 @@ let muonAlima = function (__mapper) {
     field: params => {
       let nodes = params.nodes
       let strength = params.properties.strength
+      let theta = params.properties.theta
+      let distanceMin = params.properties.distanceMin
+      let distanceMax = params.properties.distanceMax
 
       let forces = []
 
       let forceParams = {
-        type: 'manybody', // f.manybody
+        // type: 'manybody', // f.manybody
+        force: d3.forceManyBody()
+                .strength(strength)
+                .theta(theta),
         strength: strength,
         filter: d => d.payload.ric.gid === 'nat',
-        src: d3_force, // d3
         nodes: nodes
       }
 
@@ -673,151 +675,297 @@ let muonAlima = function (__mapper) {
  *      @forceX
  */
 
-  let force_X = {
+  let force_X_orange = {
 
     properties: {
 
-      attractionCtt: 0.9
+      strength: 0.001,
+      position: -100 / sqrt2,
 
     },
 
     field: params => { // force.field
+
       let forces = []
 
-      let attractionCtt = params.properties.attractionCtt
+      let strength = params.properties.strength
+      let position = params.properties.position
 
       let nodes = params.nodes
 
       let forceParams = {
-        type: 'x', // f.x
-        position: 200,
-        strength: d => attractionCtt,
-        filter: d => d.payload.ric.gid === 'nat',
-        src: d3_force,
+        force: d3.forceX(position)
+                .strength(strength),
+
+        filter: d => d.payload.ric.cid === 'orange',
         nodes: nodes
       }
 
-      let force = mforces(forceParams)
-      let field = {'key': 'x_center', 'force': force}
+      let field = {
+        key: 'X_orange',
+        force: mforces(forceParams)
+      }
 
       forces.push(field)
       return forces
+
+    }
+  }
+
+  let force_X_gold = {
+
+    properties: {
+
+      strength: 0.001,
+      position: 100 / sqrt2,
+
+    },
+
+    field: params => { // force.field
+
+      let forces = []
+
+      let strength = params.properties.strength
+      let position = params.properties.position
+
+      let nodes = params.nodes
+
+      let forceParams = {
+        force: d3.forceX(position)
+                .strength(strength),
+
+        filter: d => d.payload.ric.cid === 'gold',
+        nodes: nodes
+      }
+
+      let field = {
+        key: 'X_gold',
+        force: mforces(forceParams)
+      }
+
+      forces.push(field)
+      return forces
+
     }
   }
 
   /*******************************************
  *      @forceY
- *
  */
-  let force_Y = {
+
+  let force_Y_orange = {
 
     properties: {
 
-      attractionCtt: 0.9
+      strength: 0.001,
+      position: -100 / sqrt2,
 
     },
 
-    field: function field (params = {}) {
+    field: params => { // force.field
+
       let forces = []
 
-      let attractionCtt = params.properties.attractionCtt
+      let strength = params.properties.strength
+      let position = params.properties.position
 
       let nodes = params.nodes
 
       let forceParams = {
-        type: 'y',
-        position: 200,
-        strength: d => attractionCtt,
-        filter: d => d.payload.ric.gid === 'nat',
+        force: d3.forceY(position)
+                .strength(strength),
+
+        filter: d => d.payload.ric.cid === 'orange',
         nodes: nodes
       }
 
-      let force = mforces(forceParams)
-      let field = {'key': 'y_center', 'force': force}
+      let field = {
+        key: 'Y_orange',
+        force: mforces(forceParams)
+      }
 
       forces.push(field)
       return forces
+
+    }
+  }
+
+  let force_Y_gold = {
+
+    properties: {
+
+      strength: 0.001,
+      position: 100 / sqrt2,
+
+    },
+
+    field: params => { // force.field
+
+      let forces = []
+
+      let strength = params.properties.strength
+      let position = params.properties.position
+
+      let nodes = params.nodes
+
+      let forceParams = {
+        force: d3.forceY(position)
+                .strength(strength),
+
+        filter: d => d.payload.ric.cid === 'gold',
+        nodes: nodes
+      }
+
+      let field = {
+        key: 'Y_gold',
+        force: mforces(forceParams)
+      }
+
+      forces.push(field)
+      return forces
+
     }
   }
   /*******************************************
  *      @forceZ
- *
  */
-  let force_Z = {
+
+  let force_Z_orange = {
 
     properties: {
 
-      attractionCtt: 0.9
+      strength: 0.001,
+      position: -100 / sqrt2,
 
     },
 
-    field: function field (params = {}) {
+    field: params => { // force.field
+
       let forces = []
 
-      let attractionCtt = params.properties.attractionCtt
+      let strength = params.properties.strength
+      let position = params.properties.position
 
       let nodes = params.nodes
 
       let forceParams = {
-        type: 'z',
-        position: 200,
-        strength: d => attractionCtt,
-        filter: d => d.payload.ric.gid === 'nat',
+        force: d3.forceZ(position)
+                .strength(strength),
+
+        filter: d => d.payload.ric.cid === 'orange',
         nodes: nodes
       }
 
-      let force = mforces(forceParams)
-      let field = {'key': 'z_center', 'force': force}
+      let field = {
+        key: 'Z_orange',
+        force: mforces(forceParams)
+      }
 
       forces.push(field)
+      return forces
+
+    }
+  }
+
+  let force_Z_gold = {
+
+    properties: {
+
+      strength: 0.001,
+      position: 100 / sqrt2,
+
+    },
+
+    field: params => { // force.field
+
+      let forces = []
+
+      let strength = params.properties.strength
+      let position = params.properties.position
+
+      let nodes = params.nodes
+
+      let forceParams = {
+        force: d3.forceZ(position)
+                .strength(strength),
+
+        filter: d => d.payload.ric.cid === 'gold',
+        nodes: nodes
+      }
+
+      let field = {
+        key: 'Z_gold',
+        force: mforces(forceParams)
+      }
+
+      forces.push(field)
+      return forces
+
+    }
+  }
+  /*******************************************
+ *      @centerorange
+ */
+  let force_center_orange = {
+    properties: {
+      strength: 1.0025,
+      center: [-100, -100, -100]
+    },
+
+    field: params => {
+      let nodes = params.nodes
+      let center = params.properties.center
+      let strength = params.properties.strength
+
+      let forces = []
+
+      let forceParams = {
+        strength: d => strength,
+        filter: d => d.payload.ric.cid === 'orange',
+        force: d3.forceCenter(...center),
+        nodes: nodes
+      }
+
+      let field = {
+          'key': 'orange',
+          'force': mforces(forceParams)
+      }
+
+      forces.push(field)
+
       return forces
     }
   }
   /*******************************************
- *      @center
+ *      @centergold
  */
-  let force_center_orange = {
-    properties: {
-      attractionCtt: 1.0025,
-      center: {x: -100, y: -100, z: -100}
-    },
-    field: function (params = {}) {
-      let attractionCtt = params.properties.attractionCtt
-      let center = params.properties.center
-      let strength = attractionCtt
-      let nodes = params.nodes
-
-      let forceParams = {
-        type: 'center', // f.center
-        center: center,
-        strength: d => attractionCtt,
-        filter: d => d.payload.ric.cid === 'orange',
-        nodes: nodes
-      }
-      let force = {'key': 'center_orange', 'force': mforces(forceParams)}
-      return Array.of(force)
-    }
-  }
   let force_center_gold = {
     properties: {
-      attractionCtt: 1.0025,
-      center: {x: 100, y: 100, z: 100}
+      strength: 1.0025,
+      center: [100, 100, 100]
     },
-    field: function (params = {}) {
-      let attractionCtt = params.properties.attractionCtt
-      let center = params.properties.center
-      let strength = attractionCtt
+
+    field: params => {
       let nodes = params.nodes
+      let center = params.properties.center
+      let strength = params.properties.strength
+
+      let forces = []
 
       let forceParams = {
-        type: 'center', // f.center
-        center: center,
-        strength: d => attractionCtt,
         filter: d => d.payload.ric.cid === 'gold',
+        force: d3.forceCenter(...center),
         nodes: nodes
       }
-      let force = {'key': 'center_gold', 'force': mforces(forceParams)}
-      return Array.of(force)
+
+      let field = {
+         key: 'gold',
+         force: mforces(forceParams)
+      }
+
+      forces.push(field)
+
+      return forces
     }
   }
   /*******************************************
@@ -827,17 +975,22 @@ let muonAlima = function (__mapper) {
   nat1.payload.forces = {
     force_energy,
     force_viscosity,
-    // force_manybody,
+    force_manybody,
     // force_gravity,
     // force_charge,
     // force_cube,
     // force_sphere
-    // force_collide,
-    // force_X,
+    force_collide,
+    force_X_gold,
+    force_X_orange,
+    force_Y_gold,
+    force_Y_orange,
+    force_Z_gold,
+    force_Z_orange,
     // force_Y,
     // force_Z,
-    force_center_orange,
-    force_center_gold
+    // force_center_orange,
+    // force_center_gold
   }
 
   let animas = [

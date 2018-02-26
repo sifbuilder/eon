@@ -741,7 +741,7 @@ let muonAlima = function (__mapper) {
   /*******************************************
  *      @forceCube
  */
-  let forceCube = function forceCube (params) {
+  let forceCube = function (params) {
     let nodes = params.nodes
     let edge = params.edge
 
@@ -753,8 +753,8 @@ let muonAlima = function (__mapper) {
         if (node.x > edge) node.vx = -Math.abs(node.vx) // node.vx *= -1
         if (node.y < -edge) node.vy = Math.abs(node.vy) // node.vy *= -1
         if (node.y > edge) node.vy = -Math.abs(node.vy) // node.vy *= -1
-        if (node.z < -edge) node.vz = Math.abs(node.vz) // node.vy *= -1
-        if (node.z > edge) node.vz = -Math.abs(node.vz) // node.vy *= -1
+        if (node.z < -edge) node.vz = Math.abs(node.vz) // node.vz *= -1
+        if (node.z > edge) node.vz = -Math.abs(node.vz) // node.vz *= -1
       }
     }
 

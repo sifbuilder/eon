@@ -18,7 +18,7 @@
 
     if (force !== null) {
       let simNodes = nodes.filter(filter)			// filter nodes
-      let dim = params.params.dim || 3					// params for dim
+      let dim = params.dim || 3					// params for dim
 
       var initialize = force.initialize
       force.initialize = () => initialize.call(force, simNodes, dim)
@@ -34,9 +34,9 @@
       let aniforce, d3force
 
       let p = {
-        'nodes': params.nodes,
-        'filter': params.filter,
-        'force': params.force || undefined
+        nodes: params.nodes,
+        filter: params.filter,
+        force: params.force || undefined
       }
 
       if (params.type !== undefined) {
@@ -53,7 +53,9 @@
       aniforce = isolate(p)			// force, params:{nodes, filter, force}
       return aniforce
     }
-
+    /***********
+     *		@enty
+     */
     let enty = v => force(v)
 
     return enty

@@ -28,7 +28,6 @@
 
     var enty = function enty () {}
     enty.force = force
-
     return enty
   }
 

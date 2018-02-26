@@ -39,7 +39,7 @@
       }
       let toviewproj = __mapper('xs').g('uniwen')(toview)
 
-    if (1 && 1) console.log("toviewproj", toviewproj)  
+    if (0 && 1) console.log("toviewproj", toviewproj)  
     
       // proj
       let proj = function (event) {
@@ -76,9 +76,9 @@
           // return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
         // }
         
-        if (1 && 1) console.log("state.event", event.x, event.y)
-        if (1 && 1) console.log("state.mouse", state.mouse)
-        if (1 && 1) console.log("t", t)
+        if (0 && 1) console.log("state.event", event.x, event.y)
+        if (0 && 1) console.log("state.mouse", state.mouse)
+        if (0 && 1) console.log("t", t)
       }
     
     
