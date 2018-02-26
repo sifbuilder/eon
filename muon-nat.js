@@ -31,7 +31,8 @@
     let nform = function (form, nformed = {}) {
 
       let defs = {"v0":0,"v1":1,"ra2": 120,"w4":0,"seg5":360,"pa6":0,"pb7":-1,} // defs
-
+      let phase = -90
+      
       if (form && typeof form === 'object' &&         // {nat}
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
 
@@ -47,7 +48,7 @@
           let fas8x = (form.x.fas8 !== undefined) ? form.x.fas8 : 0
           nformed.x = Object.assign({}, defs, form.x, {fas8: fas8x})
 
-          let fas8y = (form.y.fas8 !== undefined) ? form.y.fas8 : fas8x-90
+          let fas8y = (form.y.fas8 !== undefined) ? form.y.fas8 : fas8x + phase
           nformed.y = Object.assign({}, defs, form.y, {fas8: fas8y})
 
           if (form.z !== undefined && form.r !== undefined) { // {x,y,z,r}
@@ -63,9 +64,7 @@
             nformed.z = Object.assign({}, defs, form.z, {fas8: fas8z})
 
             nformed.r = Object.assign({}, defs, form.z,
-              {fas8: fas8z - 90,
-                exp9: [ 0, 0, 0, 1 ],
-              }) // fas8
+              {fas8: fas8z + phase}) // fas8
           }
 
       } else if (form && typeof form === 'object' &&        // form:{x:obj}
@@ -74,7 +73,7 @@
             let fas8x = (form.x.fas8 !== undefined) ? form.x.fas8 : 0
             nformed.x = Object.assign({}, defs, form.x, {fas8: fas8x})
 
-            nformed.y = Object.assign({}, defs, (form.y || form.x), {fas8: fas8x - 90}) // fas8
+            nformed.y = Object.assign({}, defs, (form.y || form.x), {fas8: fas8x + phase}) // fas8
 
             if (form.z !== undefined && form.r !== undefined) { // {x,y,z,r}
 
@@ -86,13 +85,13 @@
               let fas8z = (form.z.fas8 !== undefined) ? form.z.fas8 : 0
               nformed.z = Object.assign({}, defs, form.z, {fas8: fas8z})
 
-              nformed.r = Object.assign({}, defs, form.z, {fas8: fas8z - 90}) // fas8
+              nformed.r = Object.assign({}, defs, form.z, {fas8: fas8z + phase}) // fas8
             }
 
       } else if (form && Array.isArray(form)) {                   // [x,y]
 
             nformed.x = form[0]
-            nformed.y = form[1] || Object.assign({}, defs, form[0], {fas8: form.fas8 - 90})
+            nformed.y = form[1] || Object.assign({}, defs, form[0], {fas8: form.fas8 + phase})
 
             if (form[2] !== undefined && form[3] !== undefined) { // [x,y,z,r]
 
@@ -103,7 +102,7 @@
 
               let fas8 = (form[2].fas8 !== undefined) ? form[2].fas8 : 0
               nformed.z = Object.assign({}, defs, form[2], {fas8: fas8})
-              nformed.r = Object.assign({}, defs, form[2], {fas8: form[2].fas8 - 90}) // fas8
+              nformed.r = Object.assign({}, defs, form[2], {fas8: form[2].fas8 + phase}) // fas8
             }
 
       }
@@ -112,27 +111,28 @@
       for (let i=0; i<formkeys.length; i++) {
         let key = formkeys[i]
         let form = nformed[key]
-        if (form.fn0 === undefined) {
-          form.fn0 = Math.cos // fn0 defs to cos on fas8
-        } else if (typeof form.fn0 === 'function') {
-          //
-        } else {
-          if (1 && 1) console.log("fn0")
-        }
-
+        // if (form.dom3 === undefined) form.dom3 = [-180,180] // dom3 defs to [-180,180]
+        if (i==0 && form.dom3 === undefined) form.dom3 = [-180,180]
+        if (i==1 && form.dom3 === undefined) form.dom3 = [-180,180]
+        if (i==2 && form.dom3 === undefined) form.dom3 = [-90,90]
+        if (i==3 && form.dom3 === undefined) form.dom3 = [-90,90]          
       }
       for (let i=0; i<formkeys.length; i++) {
         let key = formkeys[i]
         let form = nformed[key]
-        if (form.dom3 === undefined) form.dom3 = [-180,180] // dom3 defs to [-180,180]
+        if (i==0 && form.pr0 === undefined) form.pr0 = Math.cos
+        if (i==1 && form.pr0 === undefined) form.pr0 = Math.cos
+        if (i==2 && form.pr0 === undefined) form.pr0 = Math.cos
+        if (i==3 && form.pr0 === undefined) form.pr0 = Math.cos    
+        
       }
       for (let i=0; i<formkeys.length; i++) {     // ext9 defs to spheric exps
         let key = formkeys[i]
         let form = nformed[key]
-        if (i==0 && form.exp9 === undefined) form.exp9 = [1,0,1,0]
-        if (i==1 && form.exp9 === undefined) form.exp9 = [0,1,1,0]
-        if (i==2 && form.exp9 === undefined) form.exp9 = [0,0,0,1]
-        if (i==3 && form.exp9 === undefined) form.exp9 = [0,0,1,0]
+        if (i==0 && form.fn9 === undefined) form.fn9 = (a,b,c,d) => a**1 * b**0 * c**1 * d**0
+        if (i==1 && form.fn9 === undefined) form.fn9 = (a,b,c,d) => a**0 * b**1 * c**1 * d**0
+        if (i==2 && form.fn9 === undefined) form.fn9 = (a,b,c,d) => a**0 * b**0 * c**0 * d**1
+        if (i==3 && form.fn9 === undefined) form.fn9 = (a,b,c,d) => a**0 * b**0 * c**1 * d**0
       }
 
       return nformed
@@ -227,62 +227,55 @@
       let radioform = unfeld.map((d, i) => p => radions[i](p))    //
 
 
-      let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0], rad, w
+      let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0], rad, wr
       if (nformed) rad = scale = unfeld.map(dim => dim.ra2)
-      if (nformed) w = rotation = unfeld.map(dim => (dim.w4 || 0 + dim.fas8 || 0) * radians)  //  yfase
+      if (nformed) wr = rotation = unfeld.map(dim => (dim.w4 || 0 + dim.fas8 || 0) * radians)  //  yfase
       let coForm = {location, scale, rotation}
 
 
-      let vertex = function (l, p, radio = 1) { // spherical degrees
+      let vertex = function (lamdaAd, phiBd, radio = 1) { // spherical degrees
 
 
-      if (0 && 1) if (l == 90 || l == -90) console.log("vertex", l, p)
-        let lambda = l * radians
-        let phi = p * radians
+      if (0 && 1) if (lamdaAd == 90 || lamdaAd == -90) console.log("vertex", lamdaAd, phiBd)
+        let lambdaAr = lamdaAd * radians
+        let phiBr = phiBd * radians
 
         let rs = []
-          rs[0] = (radioform[0] !== undefined) ? radioform[0](l) : 1  // -90:0.159
-          rs[1] = (radioform[1] !== undefined) ? radioform[1](l) : 1  // 90:1.218
-          rs[2] = (radioform[2] !== undefined) ? radioform[2](p) : 1
-          rs[3] = (radioform[3] !== undefined) ? radioform[3](p) : 1
+          rs[0] =  radioform[0](lamdaAd) || 1  // -90:0.159
+          rs[1] =  radioform[1](lamdaAd) || 1  // 90:1.218
+          rs[2] =  radioform[2](phiBd) || 1
+          rs[3] =  radioform[3](phiBd) || 1
 
         // apply fn to period
         let ff = []
-          ff[0] = (radioform[0] !== undefined) ? unfeld[0].fn0(lambda + w[0]) : 1 // fn0
-          ff[1] = (radioform[1] !== undefined) ? unfeld[1].fn0(lambda + w[1]) : 1
-          ff[2] = (radioform[2] !== undefined) ? unfeld[2].fn0(phi + w[2]) : 1
-          ff[3] = (radioform[3] !== undefined) ? unfeld[3].fn0(phi + w[3]) : 1
+          ff[0] =  unfeld[0].pr0(lambdaAr + wr[0]) || 1 // pr0
+          ff[1] =  unfeld[1].pr0(lambdaAr + wr[1]) || 1
+          ff[2] =  unfeld[2].pr0(phiBr + wr[2])    || 1
+          ff[3] =  unfeld[3].pr0(phiBr + wr[3])    || 1
 
+        let pp = []   
+          pp[0] =  rs[0] * ff[0]
+          pp[1] =  rs[1] * ff[1]
+          pp[2] =  rs[2] * ff[2]
+          pp[3] =  rs[3] * ff[3]
 
-        let exps = unfeld.map(d => d.exp9)   // exp9 exponential for feld
+        let cc = []  
+          cc[0] = unfeld[0].fn9
+          cc[1] = unfeld[1].fn9
+          cc[2] = unfeld[2].fn9
+          cc[3] = unfeld[3].fn9
+          
+        let exps = unfeld.map(d => d.fn9)   // fn9 exponential for feld
         let point = unfeld.map( (d,i) => {
           let r
-          if (i === 0) r = rad[0] *
-                ff[0] *
-                ff[2] *
-                rs[0]**exps[0][0] *
-                rs[1]**exps[0][1] *
-                rs[2]**exps[0][2] *
-                rs[3]**exps[0][3]
-          if (i === 1) r = rad[1] *
-                ff[1] *
-                ff[2] *
-                rs[0]**exps[1][0] *
-                rs[1]**exps[1][1] *
-                rs[2]**exps[1][2] *
-                rs[3]**exps[1][3]
-          if (i === 2) r = rad[2] *
-                ff[3] *
-                rs[0]**exps[2][0] *
-                rs[1]**exps[2][1] *
-                rs[2]**exps[2][2] *
-                rs[3]**exps[2][3]
-          if (i === 3) r = rad[3] *
-                ff[2] *
-                rs[0]**exps[3][0] *
-                rs[1]**exps[3][1] *
-                rs[2]**exps[3][2] *
-                rs[3]**exps[3][3]
+          if (i === 0) r = rad[0] * cc[0](...pp)
+                
+          if (i === 1) r = rad[1] * cc[1](...pp)
+                
+          if (i === 2) r = rad[2] * cc[2](...pp)
+                
+          if (i === 3) r = rad[3] * cc[3](...pp)
+            
           return r
         })
 
