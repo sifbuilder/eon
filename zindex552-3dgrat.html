@@ -18,9 +18,10 @@
 <script>
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, img: 0})	// INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, img: 1})	// INIT
 
-  let mgraticule = __mapper('xs').m('graticule')
+  let mgraticule = __mapper('xs').m('graticule'),
+    cwen = __mapper('xs').c('wen')
 
   let renderer = __mapper('renderRenderer'),
     width = renderer.width(),
@@ -36,20 +37,20 @@ let muonAlima = function muonAlima (__mapper) {
 
     'x': {
       'm1': 6,'m2': 6,'n1': 60,'n2': 100,'n3': 30,'a': 1,'b': 1,
-      'ra2': 260,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,'fas8': 0,
-      'fn0': Math.cos,'dom3': [0, 360],'exp9': [2, 0, 0, 0]
+      'ra2': 90,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,'fas8': 0,
+      'fn0': Math.cos,'dom3': [-180, 180],'exp9': [1, 0, 1, 0]
 
     },
     'y': {
       'm1': 2,'m2': 2,'n1': 1,'n2': 1,'n3': 1,'a': 1,'b': 1,			// biform
-      'ra2': 180,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,'fas8': -90,
-      'fn0': Math.cos,'dom3': [0, 360],'exp9': [0, 0, 0, 0]
+      'ra2': 90,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,'fas8': -90,
+      'fn0': Math.cos,'dom3': [-180, 180],'exp9': [0, 1, 1, 0]
 
     },
     'z': {
       'm1': 2,'m2': 2,'n1': 1,'n2': 1,'n3': 1,'a': 1,'b': 1,			// biform
-      'ra2': 260,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-      'fn0': d => Math.cos(d),'dom3': [0, 360],'exp9': [0, 0, 0, [[[1, 2]]]]
+      'ra2': 90,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+      'fn0': d => Math.cos(d),'dom3': [-90, 90],'exp9': [0, 0, 0, 1]
 
     }
   }
@@ -62,10 +63,11 @@ let muonAlima = function muonAlima (__mapper) {
   }
 
   let proform = {
+    prerotate: [[[ cwen.rotation ]]],
     projection: 'uniwen',
-    translate: [ 230, 240 ],
+    translate: [ 0, 0 , 0],
     rotate: [ 0, 0, 0 ],
-    scale: 0.5,
+    scale: 1,
   }
 
   /*******************************************
@@ -102,83 +104,16 @@ let muonAlima = function muonAlima (__mapper) {
 
   }
 
-  // -------------------------------  earth
-  let earth = {
 
-    halo: 'ent',
 
-    geofold: () => {
-      let gjls = Object.assign({},
-        topojson.mesh(
-          __mapper('xs').d('worldTopo110m').data(),
-          __mapper('xs').d('worldTopo110m').data().objects.land
-        )
-      )
-      gjls = __mapper('xs').m('geoj').trim(gjls)
-      gj = {type: 'Feature', geometry: gjls, properties: {}}
-      return gj
-    },
-
-    payload: {
-      tim: tim,
-      ric: {'gid': 'earth', 'cid': 'earth', 'fid': 'earth'},
-
-      boform: { 'csx': 0, 'cf': 333, 'cs': 777, 'cw': 0.3, 'co': [[[0.29, 0.29, 0.29]]], 'cp': [[[0.7, 0.7, 0.7]]]},
-
-      'conform': conform,
-
-      proform: proform
-    }
-  }
-  // -------------------------------  img
-  let img = {
-
-    halo: 'img',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }
   /*******************************************
  *      @animas
  *
  */
 
   let animas = [
-    img, // h.img
+
     gratiform, // h.ent g.natform
-    earth // h.ent g.natform
   ]
 
   let animaApi = function animaApi () {
