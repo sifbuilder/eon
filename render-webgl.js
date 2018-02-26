@@ -9,13 +9,14 @@
   'use strict'
 
   let renderWebgl = function renderWebgl (__mapper = {}) {
-    let state = {}
-    let radians = Math.PI / 180
+    
+    const radians = Math.PI / 180
 
     let r = __mapper('xs').r('renderer')
+    
+    let state = {}
     state.width = r.width(),
     state.height = r.height()
-
     state.renderer = new THREE.WebGLRenderer({antialias: true})
     state.domElem = state.renderer.domElement // canvas
     state.domElem.innerHTML = '' // Wipe DOM
@@ -70,14 +71,24 @@
 
     /* camera container */
     state.camera = new THREE.PerspectiveCamera(45, state.width / state.height, 0.1, 9000) // Setup camera
-    state.camera.position.x = 0
-    state.camera.position.y = 0
-    state.camera.position.z = 900
+      state.camera.position.x = 0
+      state.camera.position.y = 0
+      state.camera.position.z = 500   
+    
+    // state.camera = new THREE.OrthographicCamera(
+        // window.innerWidth / - 16, window.innerWidth / 16,window.innerHeight / 16, window.innerHeight / - 16, 0.1, 9000 );
+        // state.camera.position.x = 2;
+        // state.camera.position.y = 1;
+        // state.camera.position.z = 900;
+    
+    
+
     state.camera.rotation.x = 0
     state.camera.rotation.y = 0
     state.camera.rotation.z = 0
     state.camera.distance2nodesFactor = 300
     state.camera.lookAt(new THREE.Vector3(0, 0, 0))
+    
     function resizeCanvas () {
       if (state.width && state.height) {
         state.renderer.setSize(state.width, state.height)

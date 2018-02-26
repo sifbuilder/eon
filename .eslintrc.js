@@ -3,6 +3,9 @@ module.exports = {
         "browser": true,
         "es6": true
     },
+    "parserOptions": {
+        "ecmaVersion": 2016
+    },    
     "extends": "eslint:recommended",
     "rules": {
     "accessor-pairs": "error",
