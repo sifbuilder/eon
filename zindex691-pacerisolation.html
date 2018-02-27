@@ -112,7 +112,9 @@ let muonAlima = function (__mapper) {
                   let _geoform = { // define geofold
                     type: 'Feature',
                     geometry: {type: 'Point', coordinates: [0, 0, 0]},
-                    properties: {}
+                    properties: {
+                      pointRadius: 12.5 
+                    }
                   }
                   let _payload = p // payload is inherited from anima
 
@@ -211,19 +213,19 @@ let muonAlima = function (__mapper) {
     'x': {
       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
       'ra2': 200, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1, 'fas8': 0,
-      'pr0': Math.cos, 'dom3': [-180, 180], 'fn9': [1, 0, 1, 0]
+      'pr0': Math.cos, 'dom3': [-180, 180]
 
     },
     'y': {
       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
       'ra2': 200, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1, 'fas8': -90,
-      'pr0': Math.cos, 'dom3': [-180, 180], 'fn9': [0, 1, 1, 0]
+      'pr0': Math.cos, 'dom3': [-180, 180]
 
     },
     'z': {
       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
       'ra2': 200 / sqrt2, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1, 'fas8': 0,
-      'pr0': d => Math.cos(d), 'dom3': [-180, 180], 'fn9': [ 0, 0, 0, 1 ]
+      'pr0': d => Math.cos(d), 'dom3': [-180, 180]
 
     }
   }
@@ -428,14 +430,12 @@ let muonAlima = function (__mapper) {
         type: 'sphere',
         filter: d => d.payload.ric.gid === 'animaRed',
         rad: rad,
-        dim: 3,
-        src: d3_force,
         nodes: nodes
       }
 
       let field = {
-        'key': 'sphere',
-        'force': forceSphere(forceParams)
+        key: 'sphere',
+        force: forceSphere(forceParams)
 
       }
       forces.push(field)
@@ -505,9 +505,9 @@ let muonAlima = function (__mapper) {
 
     'properties': {
 
-      strength: 0.001,
+      strength: 0.1,
       iterations: 3,
-      radius: 6
+      radius: 12
 
     },
 
@@ -525,8 +525,6 @@ let muonAlima = function (__mapper) {
                 .radius(radius)
                 .iterations(iterations)
                 .strength(strength),
-        strength: strength,
-        // radius: d => 9,
         filter: function (d) {
           return d.payload.ric.gid === 'nat'
         },
@@ -547,7 +545,7 @@ let muonAlima = function (__mapper) {
   let force_manybody = { // aniForce
 
     properties: {
-      strength: -0.05,
+      strength: -0.001,
       theta: 0.9,
       distanceMin: 0,
       distanceMax: Infinity
@@ -565,8 +563,8 @@ let muonAlima = function (__mapper) {
       let forceParams = {
         // type: 'manybody', // f.manybody
         force: d3.forceManyBody()
-                .strength(strength)
-                .theta(theta),
+                // .theta(theta),
+                .strength(strength),
         strength: strength,
         filter: d => d.payload.ric.gid === 'nat',
         nodes: nodes

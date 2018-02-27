@@ -25,7 +25,8 @@ let muonAlima = function (__mapper) {
     mpacer = __mapper('xs').m('pacer'),
     mstore = __mapper('xs').m('store'),
     mric = __mapper('xs').m('ric'),
-    crayder = __mapper('xs').c('rayder')
+    crayder = __mapper('xs').c('rayder'),
+    mforces = __mapper('xs').m('forces'),    
 
   let d3_force = d3
 
@@ -219,11 +220,11 @@ let muonAlima = function (__mapper) {
 
   // force_viscosity
   let force_viscosity = {
-    'properties': {
+    properties: {
       velocityDecay: 0.01
     },
 
-    'field': function (params = {}) { // field.field
+    field: function (params = {}) { // field.field
       let nodes = params.nodes // nodes
 
       let aniCompForces = []
@@ -231,13 +232,12 @@ let muonAlima = function (__mapper) {
       let forceParams = {
         'type': 'noforce',
         'filter': d => true,
-        'src': d3_force,
         'nodes': nodes
       }
 
       let field = {
         'key': 'viscosity',
-        'force': __mapper('xs').m('forces')(forceParams)
+        'force': mforces(forceParams)
       }
 
       aniCompForces.push(field)
@@ -286,13 +286,15 @@ let muonAlima = function (__mapper) {
 
   // force_collide
   let force_collide = { // aniForce
-    'properties': {
-      'radii': 16
+    properties: {
+      
+      radius: 16
+      
     },
 
-    'field': params => {
+    field: params => {
       let nodes = params.nodes
-      let aniCompForces = []
+      let forces = []
 
       let charge = params.properties.charge
 
@@ -305,19 +307,19 @@ let muonAlima = function (__mapper) {
 
       let force = params => {
         let strength = params.strength || 1
-        let radius = params.radii || 1
+        let radius = params.radius || 1
         let iterations = params.iterations || 1
         return d3.forceCollide(radius)
           .strength(strength)
       }
 
       let field = {
-        'key': 'collide',
-        'force': force(forceParams)
+        key: 'collide',
+        force: force(forceParams)
       }
 
-      aniCompForces.push(field)
-      return aniCompForces
+      forces.push(field)
+      return forces
     }
   }
 

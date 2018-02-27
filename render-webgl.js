@@ -70,16 +70,22 @@
     }
 
     /* camera container */
-    state.camera = new THREE.PerspectiveCamera(45, state.width / state.height, 0.1, 9000) // Setup camera
-      state.camera.position.x = 0
-      state.camera.position.y = 0
-      state.camera.position.z = 500   
+    // state.camera = new THREE.PerspectiveCamera(45, state.width / state.height, 0.1, 9000) // Setup camera
+      // state.camera.position.x = 0
+      // state.camera.position.y = 0
+      // state.camera.position.z = 500   
     
-    // state.camera = new THREE.OrthographicCamera(
-        // window.innerWidth / - 16, window.innerWidth / 16,window.innerHeight / 16, window.innerHeight / - 16, 0.1, 9000 );
-        // state.camera.position.x = 2;
-        // state.camera.position.y = 1;
-        // state.camera.position.z = 900;
+    state.camera = new THREE.OrthographicCamera(
+        -state.width/2, // window.innerWidth / - 16,
+        state.width/2, // window.innerWidth / 16,
+        state.height/2, // window.innerHeight / 16, 
+        -state.height/2, // window.innerHeight / - 16, 
+        0.1, 
+        9000 );
+        
+        state.camera.position.x = 2;
+        state.camera.position.y = 1;
+        state.camera.position.z = 900;
     
     
 

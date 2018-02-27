@@ -316,7 +316,6 @@ let muonAlima = function (__mapper) {
               payload: {
               
               
-              
              }
           })
 
@@ -324,11 +323,11 @@ let muonAlima = function (__mapper) {
 
 
       proform: {
-        'projection': 'uniwen',
-        'translate': [0, 0, 0],
-        'scale': 1,
-        'rotate': [[[cwen.rotation]]],
-        'lens': [0, 1, Infinity],
+        projection: 'uniwen',
+        translate: [0, 0, 0],
+        scale: 1,
+        rotate: [[[cwen.rotation]]],
+        lens: [0, 1, Infinity],
       },
 
       boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
@@ -461,11 +460,11 @@ let muonAlima = function (__mapper) {
       },
 
       proform: {
-        'projection': 'uniwen',
-        'translate': [0, 0, 0],
-        'scale': 1,
-        'rotate': [[[cwen.rotation]]],
-        'lens': [0, 1, Infinity],
+        projection: 'uniwen',
+        translate: [0, 0, 0],
+        scale: 1,
+        rotate: [[[cwen.rotation]]],
+        lens: [0, 1, Infinity],
       },       
       
       pacer: {
@@ -544,11 +543,11 @@ let muonAlima = function (__mapper) {
  *      @force_viscosity
  */
   let force_viscosity = {
-    'properties': {
+    properties: {
       velocityDecay: 0
     },
 
-    'field': function (params = {}) { // field.field
+    field: function (params = {}) { // field.field
       let nodes = params.nodes // nodes
 
       let forceParams = {
