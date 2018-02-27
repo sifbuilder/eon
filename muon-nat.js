@@ -29,7 +29,7 @@
    */
     let nform = function (form, nformed = {}) {
       let defs = {'v0': 0, 'v1': 1, 'ra2': 120, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1} // defs
-      let phase = -90
+      let phase = 0
 
       if (form && typeof form === 'object' && // {nat}
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
@@ -101,9 +101,9 @@
         let key = formkeys[i]
         let form = nformed[key]
         if (i === 0 && form.pr0 === undefined) form.pr0 = Math.cos
-        if (i === 1 && form.pr0 === undefined) form.pr0 = Math.cos
+        if (i === 1 && form.pr0 === undefined) form.pr0 = d => Math.cos(d - Math.PI/2)
         if (i === 2 && form.pr0 === undefined) form.pr0 = Math.cos
-        if (i === 3 && form.pr0 === undefined) form.pr0 = Math.cos
+        if (i === 3 && form.pr0 === undefined) form.pr0 = d => Math.cos(d - Math.PI/2)
       }
       for (let i = 0; i < formkeys.length; i++) { // ext9 defs to spheric exps
         let key = formkeys[i]
@@ -201,10 +201,12 @@
 
       let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0], rad, wr
       if (nformed) rad = scale = unfeld.map(dim => dim.ra2)
-      if (nformed) wr = rotation = unfeld.map(dim => (dim.w4 || 0 + dim.fas8 || 0) * radians) //  yfase
+      // if (nformed) wr = rotation = unfeld.map(dim => (dim.w4 || 0 + dim.fas8 || 0) * radians) //  yfase
+      if (nformed) wr = rotation = unfeld.map(dim => (dim.w4 || 0 ) * radians) //  yfase
 
       let vertex = function (lamdaAd, phiBd, radio = 1) { // spherical degrees
-        if (0 && 1) if (lamdaAd === 90 || lamdaAd === -90) console.log('vertex', lamdaAd, phiBd)
+      
+          
         let lambdaAr = lamdaAd * radians
         let phiBr = phiBd * radians
 
@@ -214,6 +216,10 @@
         rs[2] = radioform[2](phiBd) || 1
         rs[3] = radioform[3](phiBd) || 1
 
+
+        if (1 && 1) console.log('vertex', unfeld[1].pr0, wr[1])
+        
+        
         // apply fn to period
         let ff = []
         ff[0] = unfeld[0].pr0(lambdaAr + wr[0]) || 1 // pr0
