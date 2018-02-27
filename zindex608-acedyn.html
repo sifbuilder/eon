@@ -84,7 +84,8 @@ let muonAlima = function (__mapper) {
         'a': 9, // [[[9, 9, 9, 8.98]]],
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
       'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180],'fn9': [1, 0, 1, 0],'pr0': Math.cos
+      'dom3': [-180, 180],
+      'pr0': Math.cos
     },
     'y': {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
@@ -96,7 +97,8 @@ let muonAlima = function (__mapper) {
         'a': 9, // [[[9, 9, 9, 8.98]]],
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
       'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180],'fn9': [0, 1, 1, 0],'pr0': Math.cos
+      'dom3': [-180, 180],
+      'pr0': Math.sin
     },
     'z': {
       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
@@ -107,9 +109,9 @@ let muonAlima = function (__mapper) {
         'n3': 13, // [[[13, 15, 17, 17]]],
         'a': 9, // [[[9, 9, 9, 8.98]]],
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
-
       'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180 ],'fn9': [ 0, 0, 0, 0 ],'pr0': Math.cos
+      'dom3': [-180, 180 ], 
+      'pr0': Math.cos
     }
   }
 
@@ -130,6 +132,7 @@ let muonAlima = function (__mapper) {
       boform: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
 
       proform: {
+        'prerotate': [[[ cwen.rotation ]]],
         'projection': 'uniwen',
         'translate': [ 350, 200],
         'scale': 100,
@@ -158,7 +161,7 @@ let muonAlima = function (__mapper) {
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform'},
       boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
 
-      'conform': {
+      conform: {
 
         'projection': 'natform',
         'form': form
@@ -169,20 +172,13 @@ let muonAlima = function (__mapper) {
         'projection': 'uniwen',
         'translate': [0, 0],
         'scale': 300,
-        // 'rotate': [ [[[0, 10 * 360]]], 90, 0],
-        'prerotate': cwen.rotation(),
+        'rotate': [ 0, 0, 0],
+        'prerotate': [[[ cwen.rotation ]]],
         'lens': [ 0,1,Infinity ],
       },
 
 
-      'graticule': {
-
-        // 'frame': [ [ [ [[[-1,-1,-180]]], [[[1,1,180]]], 45, 6],  // mx
-
-                // [ [[[-6,-90,-90]]], [[[6,90,90]]], 30, 6] ]]  // my
-
-        // 'frame': [ [ [ [[[-1,-1,-90,-180]]], [[[1,1,90,180]]], [[[90,90]]], 1],   // x
-                  // [ [[[0,-180,-180,-180]]], [[[0,180,180,180]]], [[[30,30]]], 1] ] ] // y
+      graticule: {
 
         'frame': [ [ [ [[[-1,-1,-180,-180,-180]]], [[[1,1,180,180,180]]], [[[15,15]]], 1],   // x
                      [ [[[0,-90,-180,-180,-180]]], [[[0,90,180,180,180]]], [[[15,15]]], 1] ] ] // y
@@ -361,10 +357,6 @@ let muonAlima = function (__mapper) {
 
 
 
-
-
-
-
         }
 
       },
@@ -476,11 +468,9 @@ let muonAlima = function (__mapper) {
       'seg5': 360,
       'pa6': 0,
       'pb7': -1,
-
       
-      'pr0': Math.cos,
       'dom3': [-180, 180],
-      'fn9': [1, 0, 1, 0]
+      
 
     },
     'y': {
@@ -498,11 +488,8 @@ let muonAlima = function (__mapper) {
       'seg5': 360,
       'pa6': 0,
       'pb7': -1,
-
-       
-      'pr0': Math.cos,
+      
       'dom3': [-180, 180],
-      'fn9': [0, 1, 1, 0]
 
     },
     'z': {
@@ -521,9 +508,7 @@ let muonAlima = function (__mapper) {
       'pa6': 0,
       'pb7': -1,
 
-      'pr0': d => Math.cos(d),
-      'dom3': [-180, 180],
-      'fn9': [ 0, 0, 0, 1 ]
+      'dom3': [-90, 90],
 
     }
   }
@@ -1088,21 +1073,19 @@ let muonAlima = function (__mapper) {
   }
   let force_center_gold = {
     properties: {
-      attractionCtt: 0.0025,
+      strength: 0.0025,
       center: {x: 200, y: 200, z: 200}
     },
     field: function (params = {}) {
-      let attractionCtt = params.properties.attractionCtt
+      let strength = params.properties.strength
       let center = params.properties.center
-      let strength = attractionCtt
       let nodes = params.nodes
 
       let forceParams = {
         'type': 'center', // f.center
         'center': center,
-        'strength': d => attractionCtt,
+        'strength': d => strength,
         'filter': d => d.payload.ric.cid === 'gold',
-        'src': d3_force,
         'nodes': nodes
       }
       let force = {'key': 'center_golde', 'force': mforces(forceParams)}
@@ -1137,7 +1120,7 @@ let muonAlima = function (__mapper) {
 
     // natform, // h.ent
     gratform,      // h.ent
-    nat1, // h.ent
+    // nat1, // h.ent
     img // h.img
 
   ]

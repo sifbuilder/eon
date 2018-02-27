@@ -25,7 +25,9 @@ let muonAlima = function (__mapper) {
     g = __mapper('xs').m('geom'),
     w = __mapper('xs').m('wen'),
     mnat = __mapper('xs').m('nat'),
-    mgraticule = __mapper('xs').m('graticule')
+    mgraticule = __mapper('xs').m('graticule'),
+      cwen = __mapper('xs').c('wen')(),
+      cversor = __mapper('xs').c('versor')
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
@@ -75,7 +77,7 @@ let muonAlima = function (__mapper) {
         'a': 9, // [[[9, 9, 9, 8.98]]],
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
       'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180],'fn9': [1, 0, 1, 0],'pr0': Math.cos
+      'dom3': [-180, 180],
     },
     'y': {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
@@ -87,7 +89,7 @@ let muonAlima = function (__mapper) {
         'a': 9, // [[[9, 9, 9, 8.98]]],
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],  
       'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180],'fn9': [0, 1, 1, 0],'pr0': Math.cos
+      'dom3': [-180, 180],
     },
     'z': {
       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
@@ -100,7 +102,7 @@ let muonAlima = function (__mapper) {
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
         
       'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180 ],'fn9': [ 0, 0, 0, 1 ],'pr0': Math.cos
+      'dom3': [-180, 180 ],
     }
   }
 
@@ -157,8 +159,9 @@ let muonAlima = function (__mapper) {
       },
       
       proform: {
+        'prerotate': [[[ cwen.rotation ]]],
         'projection': 'uniwen',
-        'translate': [300, 175],
+        'translate': [0, 0, 0],
         'scale': 300,
         'rotate': [0, 90, 0],
         'lens': [ 0,1,Infinity ],
@@ -166,13 +169,6 @@ let muonAlima = function (__mapper) {
 
 
       'graticule': {
-
-        // 'frame': [ [ [ [[[-1,-1,-180]]], [[[1,1,180]]], 45, 6],  // mx
-        
-                // [ [[[-6,-90,-90]]], [[[6,90,90]]], 30, 6] ]]  // my
-
-        // 'frame': [ [ [ [[[-1,-1,-90,-180]]], [[[1,1,90,180]]], [[[90,90]]], 1],   // x
-                  // [ [[[0,-180,-180,-180]]], [[[0,180,180,180]]], [[[30,30]]], 1] ] ] // y
 
         'frame': [ [ [ [[[-1,-1,-180]]], [[[1,1,180]]], [[[90,90]]], 1],   // x
                   [ [[[0,-90,-180]]], [[[0,90,180]]], [[[15,15]]], 1] ] ] // y

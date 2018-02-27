@@ -29,61 +29,56 @@
    */
     let nform = function (form, nformed = {}) {
       let defs = {'v0': 0, 'v1': 1, 'ra2': 120, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1} // defs
-      let phase = 0
 
       if (form && typeof form === 'object' && // {nat}
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
-        let fas8x = (form.fas8 !== undefined) ? form.fas8 : 0
 
-        nformed.x = Object.assign({}, defs, form, {fas8: fas8x}) // fas8 def 0
-        nformed.y = Object.assign({}, defs, form, {fas8: fas8x - 90})
+        nformed.x = Object.assign({}, defs, form)
+        nformed.y = Object.assign({}, defs, form)
       } else if (form && typeof form === 'object' && // {x,y}
             (form.x !== undefined && form.y !== undefined)) {
-        let fas8x = (form.x.fas8 !== undefined) ? form.x.fas8 : 0
-        nformed.x = Object.assign({}, defs, form.x, {fas8: fas8x})
+        nformed.x = Object.assign({}, defs, form.x)
 
-        let fas8y = (form.y.fas8 !== undefined) ? form.y.fas8 : fas8x + phase
-        nformed.y = Object.assign({}, defs, form.y, {fas8: fas8y})
+        nformed.y = Object.assign({}, defs, form.y)
 
         if (form.z !== undefined && form.r !== undefined) { // {x,y,z,r}
-          let fas8z = (form.z.fas8 !== undefined) ? form.z.fas8 : 0
-          nformed.z = Object.assign({}, defs, form.z, {fas8: fas8z})
+          nformed.z = Object.assign({}, defs, form.z)
 
           nformed.r = form.r
         } else if (form.z !== undefined && form.r === undefined) { // {x,y,z}
-          let fas8z = (form.z.fas8z !== undefined) ? form.z.fas8 : 0
-          nformed.z = Object.assign({}, defs, form.z, {fas8: fas8z})
+        
+        
+          nformed.z = Object.assign({}, defs, form.z)
 
-          nformed.r = Object.assign({}, defs, form.z,
-            {fas8: fas8z + phase}) // fas8
+          nformed.r = Object.assign({}, defs)
+          
+          
+          
         }
       } else if (form && typeof form === 'object' && // form:{x:obj}
             (form.x !== undefined && form.y === undefined)) {
-        let fas8x = (form.x.fas8 !== undefined) ? form.x.fas8 : 0
-        nformed.x = Object.assign({}, defs, form.x, {fas8: fas8x})
+        nformed.x = Object.assign({}, defs, form.x)
 
-        nformed.y = Object.assign({}, defs, (form.y || form.x), {fas8: fas8x + phase}) // fas8
+        nformed.y = Object.assign({}, defs, (form.y || form.x))
 
         if (form.z !== undefined && form.r !== undefined) { // {x,y,z,r}
           nformed.z = form.z
           nformed.r = form.r
         } else if (form.z !== undefined && form.r === undefined) { // {x,y,z}
-          let fas8z = (form.z.fas8 !== undefined) ? form.z.fas8 : 0
-          nformed.z = Object.assign({}, defs, form.z, {fas8: fas8z})
+          nformed.z = Object.assign({}, defs, form.z)
 
-          nformed.r = Object.assign({}, defs, form.z, {fas8: fas8z + phase}) // fas8
+          nformed.r = Object.assign({}, defs, form.z)
         }
       } else if (form && Array.isArray(form)) { // [x,y]
         nformed.x = form[0]
-        nformed.y = form[1] || Object.assign({}, defs, form[0], {fas8: form.fas8 + phase})
+        nformed.y = form[1] || Object.assign({}, defs, form[0])
 
         if (form[2] !== undefined && form[3] !== undefined) { // [x,y,z,r]
           nformed.z = form[2]
           nformed.r = form[3]
         } else if (form[2] !== undefined && form[3] === undefined) { // [x,y,z]
-          let fas8 = (form[2].fas8 !== undefined) ? form[2].fas8 : 0
-          nformed.z = Object.assign({}, defs, form[2], {fas8: fas8})
-          nformed.r = Object.assign({}, defs, form[2], {fas8: form[2].fas8 + phase}) // fas8
+          nformed.z = Object.assign({}, defs, form[2])
+          nformed.r = Object.assign({}, defs, form[2])
         }
       }
 
@@ -91,23 +86,22 @@
       for (let i = 0; i < formkeys.length; i++) {
         let key = formkeys[i]
         let form = nformed[key]
-        // if (form.dom3 === undefined) form.dom3 = [-180,180] // dom3 defs to [-180,180]
+
+        // dom3 --- axis domain
         if (i === 0 && form.dom3 === undefined) form.dom3 = [-180, 180]
         if (i === 1 && form.dom3 === undefined) form.dom3 = [-180, 180]
         if (i === 2 && form.dom3 === undefined) form.dom3 = [-90, 90]
         if (i === 3 && form.dom3 === undefined) form.dom3 = [-90, 90]
-      }
-      for (let i = 0; i < formkeys.length; i++) {
-        let key = formkeys[i]
-        let form = nformed[key]
+
+        
+        // pr0 --- projection on axis
         if (i === 0 && form.pr0 === undefined) form.pr0 = Math.cos
-        if (i === 1 && form.pr0 === undefined) form.pr0 = d => Math.cos(d - Math.PI/2)
+        if (i === 1 && form.pr0 === undefined) form.pr0 = Math.sin
         if (i === 2 && form.pr0 === undefined) form.pr0 = Math.cos
-        if (i === 3 && form.pr0 === undefined) form.pr0 = d => Math.cos(d - Math.PI/2)
-      }
-      for (let i = 0; i < formkeys.length; i++) { // ext9 defs to spheric exps
-        let key = formkeys[i]
-        let form = nformed[key]
+        if (i === 3 && form.pr0 === undefined) form.pr0 = Math.sin
+
+
+        // fn9 --- dimension function
         if (i === 0 && form.fn9 === undefined) form.fn9 = (a, b, c, d) => a ** 1 * b ** 0 * c ** 1 * d ** 0
         if (i === 1 && form.fn9 === undefined) form.fn9 = (a, b, c, d) => a ** 0 * b ** 1 * c ** 1 * d ** 0
         if (i === 2 && form.fn9 === undefined) form.fn9 = (a, b, c, d) => a ** 0 * b ** 0 * c ** 0 * d ** 1
@@ -215,17 +209,13 @@
         rs[1] = radioform[1](lamdaAd) || 1 // 90:1.218
         rs[2] = radioform[2](phiBd) || 1
         rs[3] = radioform[3](phiBd) || 1
-
-
-        if (1 && 1) console.log('vertex', unfeld[1].pr0, wr[1])
-        
         
         // apply fn to period
         let ff = []
-        ff[0] = unfeld[0].pr0(lambdaAr + wr[0]) || 1 // pr0
-        ff[1] = unfeld[1].pr0(lambdaAr + wr[1]) || 1
-        ff[2] = unfeld[2].pr0(phiBr + wr[2]) || 1
-        ff[3] = unfeld[3].pr0(phiBr + wr[3]) || 1
+        ff[0] = unfeld[0].pr0(lambdaAr + wr[0])
+        ff[1] = unfeld[1].pr0(lambdaAr + wr[1])
+        ff[2] = unfeld[2].pr0(phiBr + wr[2])
+        ff[3] = unfeld[3].pr0(phiBr + wr[3])
 
         let pp = []
         pp[0] = rs[0] * ff[0]
