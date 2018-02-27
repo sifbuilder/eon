@@ -94,18 +94,18 @@
         if (i === 3 && form.dom3 === undefined) form.dom3 = [-90, 90]
 
         
-        // pr0 --- projection on axis
-        if (i === 0 && form.pr0 === undefined) form.pr0 = Math.cos
-        if (i === 1 && form.pr0 === undefined) form.pr0 = Math.sin
-        if (i === 2 && form.pr0 === undefined) form.pr0 = Math.cos
-        if (i === 3 && form.pr0 === undefined) form.pr0 = Math.sin
+        // pr8 --- projection on axis
+        if (i === 0 && form.pr8 === undefined) form.pr8 = Math.cos
+        if (i === 1 && form.pr8 === undefined) form.pr8 = Math.sin
+        if (i === 2 && form.pr8 === undefined) form.pr8 = Math.cos
+        if (i === 3 && form.pr8 === undefined) form.pr8 = Math.sin
 
 
-        // fn9 --- dimension function
-        if (i === 0 && form.fn9 === undefined) form.fn9 = (a, b, c, d) => a ** 1 * b ** 0 * c ** 1 * d ** 0
-        if (i === 1 && form.fn9 === undefined) form.fn9 = (a, b, c, d) => a ** 0 * b ** 1 * c ** 1 * d ** 0
-        if (i === 2 && form.fn9 === undefined) form.fn9 = (a, b, c, d) => a ** 0 * b ** 0 * c ** 0 * d ** 1
-        if (i === 3 && form.fn9 === undefined) form.fn9 = (a, b, c, d) => a ** 0 * b ** 0 * c ** 1 * d ** 0
+        // fn0 --- dimension function
+        if (i === 0 && form.fn0 === undefined) form.fn0 = (a, b, c, d) => a ** 1 * b ** 0 * c ** 1 * d ** 0
+        if (i === 1 && form.fn0 === undefined) form.fn0 = (a, b, c, d) => a ** 0 * b ** 1 * c ** 1 * d ** 0
+        if (i === 2 && form.fn0 === undefined) form.fn0 = (a, b, c, d) => a ** 0 * b ** 0 * c ** 0 * d ** 1
+        if (i === 3 && form.fn0 === undefined) form.fn0 = (a, b, c, d) => a ** 0 * b ** 0 * c ** 1 * d ** 0
       }
 
       return nformed
@@ -212,10 +212,10 @@
         
         // apply fn to period
         let ff = []
-        ff[0] = unfeld[0].pr0(lambdaAr + wr[0])
-        ff[1] = unfeld[1].pr0(lambdaAr + wr[1])
-        ff[2] = unfeld[2].pr0(phiBr + wr[2])
-        ff[3] = unfeld[3].pr0(phiBr + wr[3])
+        ff[0] = unfeld[0].pr8(lambdaAr + wr[0])
+        ff[1] = unfeld[1].pr8(lambdaAr + wr[1])
+        ff[2] = unfeld[2].pr8(phiBr + wr[2])
+        ff[3] = unfeld[3].pr8(phiBr + wr[3])
 
         let pp = []
         pp[0] = rs[0] * ff[0]
@@ -224,12 +224,12 @@
         pp[3] = rs[3] * ff[3]
 
         let cc = []
-        cc[0] = unfeld[0].fn9
-        cc[1] = unfeld[1].fn9
-        cc[2] = unfeld[2].fn9
-        cc[3] = unfeld[3].fn9
+        cc[0] = unfeld[0].fn0
+        cc[1] = unfeld[1].fn0
+        cc[2] = unfeld[2].fn0
+        cc[3] = unfeld[3].fn0
 
-        let exps = unfeld.map(d => d.fn9) // fn9 exponential for feld
+        let exps = unfeld.map(d => d.fn0) // fn0 exponential for feld
         let point = unfeld.map((d, i) => {
           let r
           if (i === 0) r = rad[0] * cc[0](...pp)
