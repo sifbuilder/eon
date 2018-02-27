@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="script-enls.js"></script>
+<script src="script-ents.js"></script>
+
+<script>
+
+let muonAlima = function (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, key: 1, img: 1}) // INIT
+
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+    g = __mapper('xs').m('geom'),
+    w = __mapper('xs').m('wen'),
+    mnat = __mapper('xs').m('nat'),
+    mgraticule = __mapper('xs').m('graticule'),
+    cwen = __mapper('xs').c('wen')(),
+    cversor = __mapper('xs').c('versor')
+
+  let r = __mapper('xs').r('renderer'),
+    width = r.width(),
+    height = r.height()
+
+  let radians = Math.PI / 180,
+    degrees = 180 / Math.PI
+
+  if (__mapper('controlKey') !== undefined) {
+    let controltimerLeftArrowAlt = () => { // LEFT ARROW
+      if (__mapper('muonAnimation').animationStop !== undefined) {
+        console.log('controltimerLeftArrowAlt')
+        if (__mapper('controlTimer').started()) {
+          __mapper('controlTimer').stop()
+        } else {
+          __mapper('controlTimer').resume()
+        }
+      }
+    }
+    __mapper('controlKey').subscribe(controltimerLeftArrowAlt, 'leftArrowAlt')
+  }
+
+  if (__mapper('controlKey') !== undefined) {
+    let controltimerUpArrowAlt = () => { // UP ARROW
+      console.log('controltimerUpArrowAlt')
+      __mapper('controlWen').control(__mapper('renderSvg').svg()) // SVG WEN
+    }
+    __mapper('controlKey').subscribe(controltimerUpArrowAlt, 'upArrowAlt')
+  }
+
+  /*******************************************
+ *    @controls
+ *
+ */
+  // z.dom3: [-180, [[[160,180,180]]] ]
+  // payload.frame: [-0, 180, 22.5, 22.5]
+  let tim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+  let form = {
+    'x': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+      'm1': -8, // [[[-8, -4, -2, -7.66]]],
+      'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
+      'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
+      'n2': 6, // [[[6, 6, 6, 5.98]]],
+      'n3': 13, // [[[13, 15, 17, 17]]],
+      'a': 9, // [[[9, 9, 9, 8.98]]],
+      'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
+      'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180]
+    },
+    'y': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+      'm1': -8, // [[[-8, -4, -2, -7.66]]],
+      'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
+      'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
+      'n2': 6, // [[[6, 6, 6, 5.98]]],
+      'n3': 13, // [[[13, 15, 17, 17]]],
+      'a': 9, // [[[9, 9, 9, 8.98]]],
+      'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
+      'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180]
+    },
+    // 'z': {
+      // 'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+      // 'm1': -8, // [[[-8, -4, -2, -7.66]]],
+      // 'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
+      // 'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
+      // 'n2': 6, // [[[6, 6, 6, 5.98]]],
+      // 'n3': 13, // [[[13, 15, 17, 17]]],
+      // 'a': 9, // [[[9, 9, 9, 8.98]]],
+      // 'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
+
+      // 'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+      // 'dom3': [-180, 180 ]
+    // }
+  }
+
+  // -------------------------------  gratform
+  let gratform = {
+
+    halo: 'ent',
+
+    geofold: p => mgraticule.gedges(p.payload.graticule),
+
+    payload: {
+
+      tim: tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
+
+      'conform': {
+
+        'projection': 'natform',
+        'form': form
+
+      },
+
+      proform: {
+        'projection': 'uniwen',
+        'prerotate': [[[ cwen.rotation ]]],
+        'translate': [ 0, 0],
+        'scale': 100,
+        'rotate': [0, 0],
+        'lens': [ 0, 1, Infinity ]
+      },
+
+
+      'graticule': {
+
+        'frame': [ [ [ [[[-1, -1, -180]]], [[[1, 1, 180]]], [[[15, 15]]], 15], // x
+          [ [[[0, -90, -180]]], [[[0, 90, 180]]], [[[15, 15]]], 15] ] ] // y
+
+      }
+
+    }
+
+  }
+	  // -------------------------------  img
+  let img = {
+
+    halo: 'img',
+
+    geofold: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }
+  /*******************************************
+ *      @animaApi
+ *
+ */
+
+  let animas = [
+
+    gratform, // h.ent
+    img // h.img
+
+  ]
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>
