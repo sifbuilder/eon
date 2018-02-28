@@ -102,10 +102,10 @@
 
 
         // fn0 --- dimension function
-        if (i === 0 && form.fn0 === undefined) form.fn0 = (a, b, c=1, d=1) => a ** 1 * b ** 0 * c ** 1 * d ** 0
-        if (i === 1 && form.fn0 === undefined) form.fn0 = (a, b, c=1, d=1) => a ** 0 * b ** 1 * c ** 1 * d ** 0
-        if (i === 2 && form.fn0 === undefined) form.fn0 = (a, b, c=1, d=1) => a ** 0 * b ** 0 * c ** 0 * d ** 1
-        if (i === 3 && form.fn0 === undefined) form.fn0 = (a, b, c=1, d=1) => a ** 0 * b ** 0 * c ** 1 * d ** 0
+        if (i === 0 && form.fn0 === undefined) form.fn0 = (r,s,u,v, a,b,c=1,d=1) => a * cos(r) * c * cos(u)
+        if (i === 1 && form.fn0 === undefined) form.fn0 = (r,s,u,v, a,b,c=1,d=1) => b * sin(r) * c * cos(u)
+        if (i === 2 && form.fn0 === undefined) form.fn0 = (r,s,u,v, a,b,c=1,d=1) =>                        d * sin(v)
+        if (i === 3 && form.fn0 === undefined) form.fn0 = (r,s,u,v, a,b,c=1,d=1) =>              c * cos(u)
       }
    
 
@@ -210,13 +210,24 @@
         
         let rayscale = unfeld.map((d, i) => p => radions[i](p* degrees)) // rayscale works on degres
         
-        let pp = unfeld.map( (d,i) => 
-                  d.pr8(ppR[i]) * 
-                  (rayscale[i](ppR[i]) || 1)
-            )  // dax.fn0 on pars
+        let rs = unfeld.map( (d,i) => rayscale[i](ppR[i]) || 1)  // radorn on dax par
+        
+        // let ff = unfeld.map( (d,i) => d.pr8(ppR[i]))  // pr8 projection on dax
+                
+        // let pp = unfeld.map( (d,i) => d.pr8(ppR[i]) * rs[i] )  // dax.fn0 on pars
+        
+        // let rr = unfeld.map( (d, i) => d.fn0(...pp) ) // 
+
         
         
-        let point = unfeld.map( (d, i) => radio * rad[i] * d.fn0(...pp))
+        let rr = unfeld.map( (d, i) => d.fn0(...ppR, ...rs) ) // 
+        // if (1 && 1) console.log("rrr", rrr)
+        
+        
+        
+        
+        let point = unfeld.map( (d, i) => radio * rad[i] * rr[i])
+
 
         let projpnt = (point[2] !== undefined) ? 
               [ point[0], point[1], point[2] ] :    // 3D
