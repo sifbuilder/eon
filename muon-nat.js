@@ -21,6 +21,7 @@
       neg = x => x < 0 || (x === 0 && (1 / x < 0)),
       pos = x => x > 0 || (x === 0 && (1 / x > 0)),
       radians = Math.PI / 180,
+      degrees = 180 / Math.PI,
       tau = 2 * Math.PI
 
     /**********************
@@ -113,7 +114,7 @@
 
     /* **************************
      *        @rador : seg5 unit circle rador
-     *          m.snap.snap (dim form => rador)
+     *          m.snap.snap (dax form => rador)
      */
     let rador = function (forml) { // polarCoords
       let pts = []
@@ -191,13 +192,11 @@
 
       let radions = unfeld.map((d, i) => radorm(d, dominos[i])) // radorm
 
-      let radioscale = unfeld.map((d, i) => p => radions[i](p)) //
+      // let rayscale = unfeld.map((d, i) => p => radions[i](p)) //
 
       let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0], rad, wr, wd
-      if (nformed) rad = scale = unfeld.map(dim => dim.ra2)
-      // if (nformed) wr = rotation = unfeld.map(dim => (dim.w4 || 0 + dim.fas8 || 0) * radians) //  yfase
-      if (nformed) wr = rotation = unfeld.map(dim => (dim.w4 || 0 ) * radians) //  yfase
-      if (nformed) wd = rotation = unfeld.map(dim => (dim.w4 || 0 )) //  yfase
+      if (nformed) rad = scale = unfeld.map(dax => dax.ra2)
+      if (nformed) wd = rotation = unfeld.map(dax => (dax.w4 || 0 )) //  yfase
 
       let vertex = function (lambdaD, phiD, radio = 1) { // spherical degrees
       
@@ -207,19 +206,21 @@
           ppD[2] = phiD    + wd[2]
           ppD[3] = phiD    + wd[3]
           
-        let ppR = ppD.map( d => d * radians)  // pars in radians
+        let ppR = ppD.map( d => d * radians)  // pars in radians per dax
         
-        let rs = radioscale.map( (d,i) => d(ppD[i]) || 1)  // radorn
+        let rayscale = unfeld.map((d, i) => p => radions[i](p* degrees)) // rayscale works on degres
         
-        let ff = unfeld.map( (d,i) => d.pr8(ppR[i]))  // projects
-
-        let pp = unfeld.map( (d,i) => ff[i] * rs[i])  // pars
-
-        let fn0 = unfeld.map(d => d.fn0)
+        let pp = unfeld.map( (d,i) => 
+                  d.pr8(ppR[i]) * 
+                  (rayscale[i](ppR[i]) || 1)
+            )  // dax.fn0 on pars
         
-        let point = unfeld.map((d, i) => rad[i] * fn0[i](...pp))
+        
+        let point = unfeld.map( (d, i) => radio * rad[i] * d.fn0(...pp))
 
-        let projpnt = (point[2] !== undefined) ? [ point[0], point[1], point[2] ] : [ point[0], point[1] ]
+        let projpnt = (point[2] !== undefined) ? 
+              [ point[0], point[1], point[2] ] :    // 3D
+              [ point[0], point[1] ]                // 2D
         return projpnt // [x,y,z]
       }
 
