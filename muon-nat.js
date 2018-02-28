@@ -35,6 +35,7 @@
 
         nformed.x = Object.assign({}, defs, form)
         nformed.y = Object.assign({}, defs, form)
+        
       } else if (form && typeof form === 'object' && // {x,y}
             (form.x !== undefined && form.y !== undefined)) {
         nformed.x = Object.assign({}, defs, form.x)
@@ -45,14 +46,12 @@
           nformed.z = Object.assign({}, defs, form.z)
 
           nformed.r = form.r
+          
         } else if (form.z !== undefined && form.r === undefined) { // {x,y,z}
-        
         
           nformed.z = Object.assign({}, defs, form.z)
 
           nformed.r = Object.assign({}, defs)
-          
-          
           
         }
       } else if (form && typeof form === 'object' && // form:{x:obj}
@@ -102,11 +101,12 @@
 
 
         // fn0 --- dimension function
-        if (i === 0 && form.fn0 === undefined) form.fn0 = (a, b, c, d) => a ** 1 * b ** 0 * c ** 1 * d ** 0
-        if (i === 1 && form.fn0 === undefined) form.fn0 = (a, b, c, d) => a ** 0 * b ** 1 * c ** 1 * d ** 0
-        if (i === 2 && form.fn0 === undefined) form.fn0 = (a, b, c, d) => a ** 0 * b ** 0 * c ** 0 * d ** 1
-        if (i === 3 && form.fn0 === undefined) form.fn0 = (a, b, c, d) => a ** 0 * b ** 0 * c ** 1 * d ** 0
+        if (i === 0 && form.fn0 === undefined) form.fn0 = (a, b, c=1, d=1) => a ** 1 * b ** 0 * c ** 1 * d ** 0
+        if (i === 1 && form.fn0 === undefined) form.fn0 = (a, b, c=1, d=1) => a ** 0 * b ** 1 * c ** 1 * d ** 0
+        if (i === 2 && form.fn0 === undefined) form.fn0 = (a, b, c=1, d=1) => a ** 0 * b ** 0 * c ** 0 * d ** 1
+        if (i === 3 && form.fn0 === undefined) form.fn0 = (a, b, c=1, d=1) => a ** 0 * b ** 0 * c ** 1 * d ** 0
       }
+   
 
       return nformed
     }
@@ -191,57 +191,33 @@
 
       let radions = unfeld.map((d, i) => radorm(d, dominos[i])) // radorm
 
-      let radioform = unfeld.map((d, i) => p => radions[i](p)) //
+      let radioscale = unfeld.map((d, i) => p => radions[i](p)) //
 
-      let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0], rad, wr
+      let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0], rad, wr, wd
       if (nformed) rad = scale = unfeld.map(dim => dim.ra2)
       // if (nformed) wr = rotation = unfeld.map(dim => (dim.w4 || 0 + dim.fas8 || 0) * radians) //  yfase
       if (nformed) wr = rotation = unfeld.map(dim => (dim.w4 || 0 ) * radians) //  yfase
+      if (nformed) wd = rotation = unfeld.map(dim => (dim.w4 || 0 )) //  yfase
 
-      let vertex = function (lamdaAd, phiBd, radio = 1) { // spherical degrees
+      let vertex = function (lambdaD, phiD, radio = 1) { // spherical degrees
       
+        let ppD = []      // pars in degrees
+          ppD[0] = lambdaD + wd[0]
+          ppD[1] = lambdaD + wd[1]
+          ppD[2] = phiD    + wd[2]
+          ppD[3] = phiD    + wd[3]
           
-        let lambdaAr = lamdaAd * radians
-        let phiBr = phiBd * radians
-
-        let rs = []
-        rs[0] = radioform[0](lamdaAd) || 1 // -90:0.159
-        rs[1] = radioform[1](lamdaAd) || 1 // 90:1.218
-        rs[2] = radioform[2](phiBd) || 1
-        rs[3] = radioform[3](phiBd) || 1
+        let ppR = ppD.map( d => d * radians)  // pars in radians
         
-        // apply fn to period
-        let ff = []
-        ff[0] = unfeld[0].pr8(lambdaAr + wr[0])
-        ff[1] = unfeld[1].pr8(lambdaAr + wr[1])
-        ff[2] = unfeld[2].pr8(phiBr + wr[2])
-        ff[3] = unfeld[3].pr8(phiBr + wr[3])
+        let rs = radioscale.map( (d,i) => d(ppD[i]) || 1)  // radorn
+        
+        let ff = unfeld.map( (d,i) => d.pr8(ppR[i]))  // projects
 
-        let pp = []
-        pp[0] = rs[0] * ff[0]
-        pp[1] = rs[1] * ff[1]
-        pp[2] = rs[2] * ff[2]
-        pp[3] = rs[3] * ff[3]
+        let pp = unfeld.map( (d,i) => ff[i] * rs[i])  // pars
 
-        let cc = []
-        cc[0] = unfeld[0].fn0
-        cc[1] = unfeld[1].fn0
-        cc[2] = unfeld[2].fn0
-        cc[3] = unfeld[3].fn0
-
-        let exps = unfeld.map(d => d.fn0) // fn0 exponential for feld
-        let point = unfeld.map((d, i) => {
-          let r
-          if (i === 0) r = rad[0] * cc[0](...pp)
-
-          if (i === 1) r = rad[1] * cc[1](...pp)
-
-          if (i === 2) r = rad[2] * cc[2](...pp)
-
-          if (i === 3) r = rad[3] * cc[3](...pp)
-
-          return r
-        })
+        let fn0 = unfeld.map(d => d.fn0)
+        
+        let point = unfeld.map((d, i) => rad[i] * fn0[i](...pp))
 
         let projpnt = (point[2] !== undefined) ? [ point[0], point[1], point[2] ] : [ point[0], point[1] ]
         return projpnt // [x,y,z]

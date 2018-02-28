@@ -25,7 +25,8 @@ let muonAlima = function (__mapper) {
     g = __mapper('xs').m('geom'),
     w = __mapper('xs').m('wen'),
     mnat = __mapper('xs').m('nat'),
-    mgraticule = __mapper('xs').m('graticule')
+    mgraticule = __mapper('xs').m('graticule'),
+    cwen = __mapper('xs').c('wen')()
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
@@ -33,28 +34,6 @@ let muonAlima = function (__mapper) {
 
   let radians = Math.PI / 180,
     degrees = 180 / Math.PI
-
-  if (__mapper('controlKey') !== undefined) {
-    let controltimerLeftArrowAlt = () => { // LEFT ARROW
-      if (__mapper('muonAnimation').animationStop !== undefined) {
-        console.log('controltimerLeftArrowAlt')
-        if (__mapper('controlTimer').started()) {
-          __mapper('controlTimer').stop()
-        } else {
-          __mapper('controlTimer').resume()
-        }
-      }
-    }
-    __mapper('controlKey').subscribe(controltimerLeftArrowAlt, 'leftArrowAlt')
-  }
-
-  if (__mapper('controlKey') !== undefined) {
-    let controltimerUpArrowAlt = () => { // UP ARROW
-      console.log('controltimerUpArrowAlt')
-      __mapper('controlWen').control(__mapper('renderSvg').svg()) // SVG WEN
-    }
-    __mapper('controlKey').subscribe(controltimerUpArrowAlt, 'upArrowAlt')
-  }
 
   /*******************************************
  *    @controls
@@ -67,40 +46,42 @@ let muonAlima = function (__mapper) {
   let form = {
     'x': {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
-        'm1': -8, // [[[-8, -4, -2, -7.66]]],
-        'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
-        'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
-        'n2': 6, // [[[6, 6, 6, 5.98]]],
-        'n3': 13, // [[[13, 15, 17, 17]]],
-        'a': 9, // [[[9, 9, 9, 8.98]]],
-        'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
-      'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+      'm1': -8, // [[[-8, -4, -2, -7.66]]],
+      'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
+      'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
+      'n2': 6, // [[[6, 6, 6, 5.98]]],
+      'n3': 13, // [[[13, 15, 17, 17]]],
+      'a': 9, // [[[9, 9, 9, 8.98]]],
+      'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
+      'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
       'dom3': [-180, 180],
+      'pr8': Math.cos
     },
     'y': {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
-        'm1': -8, // [[[-8, -4, -2, -7.66]]],
-        'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
-        'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
-        'n2': 6, // [[[6, 6, 6, 5.98]]],
-        'n3': 13, // [[[13, 15, 17, 17]]],
-        'a': 9, // [[[9, 9, 9, 8.98]]],
-        'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],  
-      'ra2': 1,'v0': 0,'v1': 1,'w4': 90,'seg5': 360,'pa6': 0,'pb7': -1,
+      'm1': -8, // [[[-8, -4, -2, -7.66]]],
+      'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
+      'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
+      'n2': 6, // [[[6, 6, 6, 5.98]]],
+      'n3': 13, // [[[13, 15, 17, 17]]],
+      'a': 9, // [[[9, 9, 9, 8.98]]],
+      'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
+      'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
       'dom3': [-180, 180],
+      'pr8': Math.sin
     },
     'z': {
       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-        'm1': -8, // [[[-8, -4, -2, -7.66]]],
-        'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
-        'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
-        'n2': 6, // [[[6, 6, 6, 5.98]]],
-        'n3': 13, // [[[13, 15, 17, 17]]],
-        'a': 9, // [[[9, 9, 9, 8.98]]],
-        'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
-        
-      'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180 ],'fn0': [ 2, 3, 0, 0 ],
+      'm1': -8, // [[[-8, -4, -2, -7.66]]],
+      'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
+      'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
+      'n2': 6, // [[[6, 6, 6, 5.98]]],
+      'n3': 13, // [[[13, 15, 17, 17]]],
+      'a': 9, // [[[9, 9, 9, 8.98]]],
+      'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
+      'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180 ],
+      'pr8': Math.cos
     }
   }
 
@@ -122,10 +103,11 @@ let muonAlima = function (__mapper) {
 
       proform: {
         'projection': 'uniwen',
-        'translate': [ 350, 200],
-        'scale': 100,
-        'rotate': [0, 0, 0],
-        'lens': [ 0,1,Infinity ],
+        'prerotate': [[[ cwen.rotation ]]],
+        'translate': [0, 0],
+        'scale': 300,
+        'rotate': [ 0, 0, 0],
+        'lens': [ 0, 1, Infinity ]
       },
 
       'form': form
@@ -158,21 +140,16 @@ let muonAlima = function (__mapper) {
       
       proform: {
         'projection': 'uniwen',
-        'translate': [300, 175],
+        'prerotate': [[[ cwen.rotation ]]],
+        'translate': [0, 0],
         'scale': 300,
-        'rotate': [0, 90, 0],
-        'lens': [ 0,1,Infinity ],
+        'rotate': [ 0, 0, 0],
+        'lens': [ 0, 1, Infinity ]
       },
 
 
       'graticule': {
 
-        // 'frame': [ [ [ [[[-1,-1,-180]]], [[[1,1,180]]], 45, 6],  // mx
-        
-                // [ [[[-6,-90,-90]]], [[[6,90,90]]], 30, 6] ]]  // my
-
-        // 'frame': [ [ [ [[[-1,-1,-90,-180]]], [[[1,1,90,180]]], [[[90,90]]], 1],   // x
-                  // [ [[[0,-180,-180,-180]]], [[[0,180,180,180]]], [[[30,30]]], 1] ] ] // y
 
         'frame': [ [ [ [[[-1,-1,-180]]], [[[1,1,180]]], [[[15,15]]], 1],   // x
                   [ [[[0,-90,-180]]], [[[0,90,180]]], [[[15,15]]], 1] ] ] // y

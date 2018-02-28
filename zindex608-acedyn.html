@@ -22,8 +22,6 @@ let muonAlima = function (__mapper) {
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, key: 1, img: 1}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
-    g = __mapper('xs').m('geom'),
-    w = __mapper('xs').m('wen'),
     mnat = __mapper('xs').m('nat'),
     mstore = __mapper('xs').m('store'),
     mgraticule = __mapper('xs').m('graticule'),
@@ -31,39 +29,17 @@ let muonAlima = function (__mapper) {
     mpacer = __mapper('xs').m('pacer'),
     mric = __mapper('xs').m('ric'),
     crayder = __mapper('xs').c('rayder'),
-      cwen = __mapper('xs').c('wen')(),
-      cversor = __mapper('xs').c('versor')
+    cwen = __mapper('xs').c('wen')(),
+    cversor = __mapper('xs').c('versor')
 
   let r = __mapper('xs').r('renderer'),
     width = r.width(),
     height = r.height()
 
-  let d3_force = d3
-
   let radians = Math.PI / 180,
     degrees = 180 / Math.PI
 
-  if (__mapper('controlKey') !== undefined) {
-    let controltimerLeftArrowAlt = () => { // LEFT ARROW
-      if (__mapper('muonAnimation').animationStop !== undefined) {
-        console.log('controltimerLeftArrowAlt')
-        if (__mapper('controlTimer').started()) {
-          __mapper('controlTimer').stop()
-        } else {
-          __mapper('controlTimer').resume()
-        }
-      }
-    }
-    __mapper('controlKey').subscribe(controltimerLeftArrowAlt, 'leftArrowAlt')
-  }
-
-  if (__mapper('controlKey') !== undefined) {
-    let controltimerUpArrowAlt = () => { // UP ARROW
-      console.log('controltimerUpArrowAlt')
-      __mapper('controlWen').control(__mapper('renderSvg').svg()) // SVG WEN
-    }
-    __mapper('controlKey').subscribe(controltimerUpArrowAlt, 'upArrowAlt')
-  }
+  let d3_force = d3
 
   /*******************************************
  *    @controls
@@ -76,73 +52,43 @@ let muonAlima = function (__mapper) {
   let form = {
     'x': {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
-        'm1': -8, // [[[-8, -4, -2, -7.66]]],
-        'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
-        'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
-        'n2': 6, // [[[6, 6, 6, 5.98]]],
-        'n3': 13, // [[[13, 15, 17, 17]]],
-        'a': 9, // [[[9, 9, 9, 8.98]]],
-        'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
-      'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+      'm1': -8, // [[[-8, -4, -2, -7.66]]],
+      'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
+      'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
+      'n2': 6, // [[[6, 6, 6, 5.98]]],
+      'n3': 13, // [[[13, 15, 17, 17]]],
+      'a': 9, // [[[9, 9, 9, 8.98]]],
+      'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
+      'ra2': 180, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
       'dom3': [-180, 180],
       'pr8': Math.cos
     },
     'y': {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
-        'm1': -8, // [[[-8, -4, -2, -7.66]]],
-        'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
-        'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
-        'n2': 6, // [[[6, 6, 6, 5.98]]],
-        'n3': 13, // [[[13, 15, 17, 17]]],
-        'a': 9, // [[[9, 9, 9, 8.98]]],
-        'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
-      'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+      'm1': -8, // [[[-8, -4, -2, -7.66]]],
+      'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
+      'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
+      'n2': 6, // [[[6, 6, 6, 5.98]]],
+      'n3': 13, // [[[13, 15, 17, 17]]],
+      'a': 9, // [[[9, 9, 9, 8.98]]],
+      'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
+      'ra2': 180, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
       'dom3': [-180, 180],
       'pr8': Math.sin
     },
     'z': {
       'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-        'm1': -8, // [[[-8, -4, -2, -7.66]]],
-        'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
-        'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
-        'n2': 6, // [[[6, 6, 6, 5.98]]],
-        'n3': 13, // [[[13, 15, 17, 17]]],
-        'a': 9, // [[[9, 9, 9, 8.98]]],
-        'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
-      'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180 ], 
+      'm1': -8, // [[[-8, -4, -2, -7.66]]],
+      'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
+      'n1': 16.24, // [[[16.24, 16.24, 16.24, 16.24]]],
+      'n2': 6, // [[[6, 6, 6, 5.98]]],
+      'n3': 13, // [[[13, 15, 17, 17]]],
+      'a': 9, // [[[9, 9, 9, 8.98]]],
+      'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
+      'ra2': 180, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180 ],
       'pr8': Math.cos
     }
-  }
-
-  /* ******************************************
- *      @natform
- *
- */
-  let natform = {
-
-    halo: 'ent',
-
-    geofold: p => mnat.natFeature(p.payload.form),
-
-    payload: {
-
-      tim: tim,
-      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
-      boform: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
-
-      proform: {
-        'prerotate': [[[ cwen.rotation ]]],
-        'projection': 'uniwen',
-        'translate': [ 350, 200],
-        'scale': 100,
-        'rotate': [0, 0, 0],
-        'lens': [ 0,1,Infinity ],
-      },
-
-      'form': form
-    }
-
   }
 
   // -------------------------------  gratform
@@ -150,10 +96,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geofold: p => {
-      let g = mgraticule.gedges(p.payload.graticule)
-      return g
-    },
+    geofold: p => mgraticule.gedges(p.payload.graticule),
 
     payload: {
 
@@ -163,33 +106,31 @@ let muonAlima = function (__mapper) {
 
       conform: {
 
-        'projection': 'natform',
-        'form': form
+        projection: 'natform',
+        form: form
 
       },
 
       proform: {
         'projection': 'uniwen',
-        'translate': [0, 0],
-        'scale': 300,
-        'rotate': [ 0, 0, 0],
         'prerotate': [[[ cwen.rotation ]]],
-        'lens': [ 0,1,Infinity ],
+        'translate': [0, 0],
+        'scale': 1,
+        'rotate': [ 0, 0, 0],
+        'lens': [ 0, 1, Infinity ]
       },
-
 
       graticule: {
 
-        'frame': [ [ [ [[[-1,-1,-180,-180,-180]]], [[[1,1,180,180,180]]], [[[15,15]]], 1],   // x
-                     [ [[[0,-90,-180,-180,-180]]], [[[0,90,180,180,180]]], [[[15,15]]], 1] ] ] // y
-
+        frame: [ [ [ [[[-1, -1, -180, -180, -180]]], [[[1, 1, 180, 180, 180]]], [[[15, 15]]], 1],
+          [ [[[0, -90, -180, -180, -180]]], [[[0, 90, 180, 180, 180]]], [[[15, 15]]], 1] ] ]
 
       }
 
     }
 
   }
-    // -------------------------------  img
+  // -------------------------------  img
   let img = {
 
     halo: 'img',
@@ -230,33 +171,29 @@ let muonAlima = function (__mapper) {
     }
   }
 
-    // -------------------------------  img
+  // -------------------------------  img
 
   let haloIsolation_gramm = anima => [] // GRAMM
 
-
   let haloIsolation_ween = anima => { // WEEN
-
     animas = []
 
     animas = mpacer(anima.payload)
-     if (1 && 1) console.log('haloIsolation_ween animas', animas)
+    if (1 && 1) console.log('haloIsolation_ween animas', animas)
 
     if (animas.length > 0) {
-        anima.payload.inited = 1 //
-        anima.payload.gelded = 1 //
-        anima.payload.pacer.outted = 1 // off
+      anima.payload.inited = 1 //
+      anima.payload.gelded = 1 //
+      anima.payload.pacer.outted = 1 // off
 
-        let cycletime = anima.payload.tim.unitPassed - (anima.payload.pacer.outtimed || 0)
-          if (cycletime >= anima.payload.pacer.autoP &&
+      let cycletime = anima.payload.tim.unitPassed - (anima.payload.pacer.outtimed || 0)
+      if (cycletime >= anima.payload.pacer.autoP &&
                 cycletime >= anima.payload.pacer.autoT) {
+        anima.payload.pacer.outted = anima.payload.tim.unitPassed
+      }
 
-            anima.payload.pacer.outted = anima.payload.tim.unitPassed
-
-          }
-
-        let animas = Array.of(anima) // upd ANIMA
-        __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
+      let animas = Array.of(anima) // upd ANIMA
+      __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
     }
 
     if (0 && 1) console.log('haloIsolation_ween animas', animas)
@@ -293,70 +230,54 @@ let muonAlima = function (__mapper) {
         geojsor: (p, count) => {
           let newItems = []
           if (Object.keys(count).length > 0) { // on pace count
-
             for (let i = 0; i < Object.keys(count).length; i++) { // for each COUNT
-
               let key = Object.keys(count)[i] // count sort
 
               if (count[key] > 0) { // if count on this sort
-
-
-
-
                 for (let j = 0; j < count[key]; j++) {
+                  let _halo = 'ent' // set halo
+                  let _geoform = { // define geofold
+                    type: 'Feature',
+                    geometry: {type: 'Point', coordinates: [0, 0, 0]},
+                    properties: {}
+                  }
+                  let _payload = p // payload is inherited from anima
 
-
-
-                    let _halo = 'ent' // set halo
-                    let _geoform = { // define geofold
-                      type: 'Feature',
-                      geometry: {type: 'Point', coordinates: [0, 0, 0]},
-                      properties: {}
-                    }
-                    let _payload = p // payload is inherited from anima
-
-                    let anis = mstore.anigrams()
-                      .filter(ani => ani.payload.ric.gid === _payload.ric.gid &&
+                  let anis = mstore.anigrams()
+                    .filter(ani => ani.payload.ric.gid === _payload.ric.gid &&
                                     ani.payload.ric.cid === _payload.ric.cid).length
 
-                    let _ric = {}
-                    _ric.gid = 'nat'
-                    _ric.cid = 'nat'
-                    _ric.fid = 'nat' + (anis + j) // fidder
+                  let _ric = {}
+                  _ric.gid = 'nat'
+                  _ric.cid = 'nat'
+                  _ric.fid = 'nat' + (anis + j) // fidder
 
-                    let _uid = mric.getuid(_ric) // uid
+                  let _uid = mric.getuid(_ric) // uid
 
-                    let newItem = mstore.findAnigramFromUid(_uid) // anigram DOES exist ??
-                    if (newItem === undefined) { // if not, create new anigram
+                  let newItem = mstore.findAnigramFromUid(_uid) // anigram DOES exist ??
+                  if (newItem === undefined) { // if not, create new anigram
+                    newItem = {}
+                    newItem.halo = _halo // set halo
+                    newItem.geofold = _geoform // set geofold
+                    newItem.id = _uid // set id
+                    newItem.payload = _payload // set payload
+                    newItem.payload.ric = Object.assign({}, _ric) // set ric
+                  }
 
-                      newItem = {}
-                      newItem.halo = _halo // set halo
-                      newItem.geofold = _geoform // set geofold
-                      newItem.id = _uid // set id
-                      newItem.payload = _payload // set payload
-                      newItem.payload.ric = Object.assign({}, _ric) // set ric
-                    }
+                  let situs = [0, 0, 0]
+                  if (key === 'event' && crayder.event() !== undefined) situs = [crayder.event().x, crayder.event().y, 0]
+                  else if (key === 'init') situs = [width / 2, height / 2, 0 ]
+                  else if (key === 'auto') situs = [width / 2, height / 2, 0 ]
 
-                    let situs = [0, 0, 0]
-                    if (key === 'event' && crayder.event() !== undefined) situs = [crayder.event().x, crayder.event().y, 0]
-                    else if (key === 'init') situs = [width / 2, height / 2, 0 ]
-                    else if (key === 'auto') situs = [width / 2, height / 2, 0 ]
-
-                    newItem.payload.proform = {'projection': 'uniwen', 'translate': situs} // proform
-
+                  newItem.payload.proform = {'projection': 'uniwen', 'translate': situs} // proform
 
                   newItems.push(f.cloneObj(newItem))
-
                 }
               }
             }
           }
 
-
           return newItems
-
-
-
         }
 
       },
@@ -382,7 +303,7 @@ let muonAlima = function (__mapper) {
         // [[[ {
         // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
         // 'ra2': 30,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-        // 
+        //
         // } ]]] ],
         'scale': 1,
         'rotate': [ 0, 0, [[[0, 0]]] ],
@@ -394,55 +315,18 @@ let muonAlima = function (__mapper) {
       form: {
 
         'x': {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 20,
-          'v0': 0,
-          'v1': 1,
-          'seg5': 12,
-          'w4': [[[90, 90 - 0 * 360]]],
-          'pa6': 0,
-          'pb7': 360,
-          
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': 90,'pa6': 0,'pb7': 360
         },
         'y': {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 20,
-          'v0': 0,
-          'v1': 1,
-          'seg5': 12,
-          'w4': [[[90, 90 - 0 * 360]]],
-          'pa6': 0,
-          'pb7': 360,
-          
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': 90,'pa6': 0,'pb7': 360
+
         },
         'z': {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 0,
-          'v0': 0,
-          'v1': 1,
-          'seg5': 12,
-          'w4': [[[90, 90 - 0 * 360]]],
-          'pa6': 0,
-          'pb7': 360,
-          
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': 90,'pa6': 0,'pb7': 360
+
         }
       }
     }
@@ -454,61 +338,22 @@ let muonAlima = function (__mapper) {
   let formGrat = {
 
     'x': {
-      'm1': 4,
-      'm2': 4,
-      'n1': 100,
-      'n2': 100,
-      'n3': 100,
-      'a': 1,
-      'b': 1, // square
-      'ra2': 200, // 180,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0, //  [[[0,-360,0]]],
-      'seg5': 360,
-      'pa6': 0,
-      'pb7': -1,
-      
-      'dom3': [-180, 180],
-      
+      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+      'ra2': 200,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+      'dom3': [-180, 180]
 
     },
     'y': {
-      'm1': 4,
-      'm2': 4,
-      'n1': 100,
-      'n2': 100,
-      'n3': 100,
-      'a': 1,
-      'b': 1, // square
-      'ra2': 200,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0, //  [[[0,-360,0]]], // [[[60, 60 + 1 * 360]]], //
-      'seg5': 360,
-      'pa6': 0,
-      'pb7': -1,
-      
-      'dom3': [-180, 180],
+      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+      'ra2': 200,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+      'dom3': [-180, 180]
 
     },
     'z': {
-      'm1': 4,
-      'm2': 4,
-      'n1': 100,
-      'n2': 100,
-      'n3': 100,
-      'a': 1,
-      'b': 1, // square
-      'ra2': 200, // 180,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0, // [[[180,360,180]]], // [[[0,-360,0]]],
-      'seg5': 360 / Math.sqrt(2),
-      'pa6': 0,
-      'pb7': -1,
-
-      'dom3': [-90, 90],
+      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+      'ra2': 200,'v0': 0,'v1': 1,'w4': 0,'seg5': 360 / Math.sqrt(2),'pa6': 0,'pb7': -1,
+      'dom3': [-90, 90]
 
     }
   }
@@ -516,10 +361,8 @@ let muonAlima = function (__mapper) {
   let conform = {'projection': 'natform', 'form': formGrat}
   let graticule = {
 
-    'frame': [ [ [-180, 180, 45, 45], // [ [ [-180, 180, 90, 2.5], // X mayor   11 12
-      [-90, 90, 22.5, 22.5] ], // [-90, 90, 360, 2.5] ], // Y mayor
-    [ [-180, 180, 45, 45], // [  [-180, 180, 10, 2.5], // x minor
-      [-90, 90, 22.5, 22.5] ] ] // [-80, 80, 10, 2.5] ] ] , // y minor
+    'frame': [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ],
+              [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ]
 
   }
 
@@ -1093,8 +936,6 @@ let muonAlima = function (__mapper) {
     }
   }
 
-
-
   /*******************************************
  *      @animaApi
  *
@@ -1115,11 +956,9 @@ let muonAlima = function (__mapper) {
     force_center_gold
   }
 
-
   let animas = [
 
-    // natform, // h.ent
-    gratform,      // h.ent
+    gratform, // h.ent
     // nat1, // h.ent
     img // h.img
 
