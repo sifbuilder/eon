@@ -93,18 +93,11 @@
         if (i === 2 && form.dom3 === undefined) form.dom3 = [-90, 90]
         if (i === 3 && form.dom3 === undefined) form.dom3 = [-90, 90]
 
-        
-        // pr8 --- projection on axis
-        if (i === 0 && form.pr8 === undefined) form.pr8 = Math.cos
-        if (i === 1 && form.pr8 === undefined) form.pr8 = Math.sin
-        if (i === 2 && form.pr8 === undefined) form.pr8 = Math.cos
-        if (i === 3 && form.pr8 === undefined) form.pr8 = Math.sin
-
 
         // fn0 --- dimension function
         if (i === 0 && form.fn0 === undefined) form.fn0 = (r,s,u,v, a,b,c=1,d=1) => a * cos(r) * c * cos(u)
         if (i === 1 && form.fn0 === undefined) form.fn0 = (r,s,u,v, a,b,c=1,d=1) => b * sin(r) * c * cos(u)
-        if (i === 2 && form.fn0 === undefined) form.fn0 = (r,s,u,v, a,b,c=1,d=1) =>                        d * sin(v)
+        if (i === 2 && form.fn0 === undefined) form.fn0 = (r,s,u,v, a,b,c=1,d=1) =>              d * sin(v)
         if (i === 3 && form.fn0 === undefined) form.fn0 = (r,s,u,v, a,b,c=1,d=1) =>              c * cos(u)
       }
    
@@ -192,42 +185,27 @@
 
       let radions = unfeld.map((d, i) => radorm(d, dominos[i])) // radorm
 
-      // let rayscale = unfeld.map((d, i) => p => radions[i](p)) //
-
       let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0], rad, wr, wd
       if (nformed) rad = scale = unfeld.map(dax => dax.ra2)
       if (nformed) wd = rotation = unfeld.map(dax => (dax.w4 || 0 )) //  yfase
 
-      let vertex = function (lambdaD, phiD, radio = 1) { // spherical degrees
+      let vertex = function (lambdaD, phiD = 0, radio = 1) { // spherical degrees
       
         let ppD = []      // pars in degrees
           ppD[0] = lambdaD + wd[0]
           ppD[1] = lambdaD + wd[1]
-          ppD[2] = phiD    + wd[2]
-          ppD[3] = phiD    + wd[3]
+          ppD[2] = phiD    + (wd[2] || 0)
+          ppD[3] = phiD    + (wd[3] || 0)
           
         let ppR = ppD.map( d => d * radians)  // pars in radians per dax
         
-        let rayscale = unfeld.map((d, i) => p => radions[i](p* degrees)) // rayscale works on degres
+        let rayscale = unfeld.map((d, i) => p => radions[i](p* degrees)) // rayscale on degres
         
         let rs = unfeld.map( (d,i) => rayscale[i](ppR[i]) || 1)  // radorn on dax par
-        
-        // let ff = unfeld.map( (d,i) => d.pr8(ppR[i]))  // pr8 projection on dax
-                
-        // let pp = unfeld.map( (d,i) => d.pr8(ppR[i]) * rs[i] )  // dax.fn0 on pars
-        
-        // let rr = unfeld.map( (d, i) => d.fn0(...pp) ) // 
 
-        
-        
         let rr = unfeld.map( (d, i) => d.fn0(...ppR, ...rs) ) // 
-        // if (1 && 1) console.log("rrr", rrr)
-        
-        
-        
         
         let point = unfeld.map( (d, i) => radio * rad[i] * rr[i])
-
 
         let projpnt = (point[2] !== undefined) ? 
               [ point[0], point[1], point[2] ] :    // 3D

@@ -27,8 +27,11 @@ let muonAlima = function muonAlima (__mapper) {
     mfibonat = __mapper('xs').m('fibonat'),
     msnap = __mapper('xs').m('snap'),
     mprofier = __mapper('xs').m('profier'),
-    mversor = __mapper('xs').m('versor')
+    mversor = __mapper('xs').m('versor'),
+    cwen = __mapper('xs').c('wen')
 
+  const cos = Math.cos, sin = Math.sin  
+    
   /*******************************************
  *    @pics
  */
@@ -37,68 +40,29 @@ let muonAlima = function muonAlima (__mapper) {
   let natform = {
 
     'x': {
-      'm1': 6,
-      'm2': 6,
-      'n1': 60,
-      'n2': 100,
-      'n3': 30,
-      'a': 1,
-      'b': 1,
-      'ra2': 26,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0,
-      'seg5': 360,
-      'pa6': 0,
-      'pb7': -1,
-      
-
-      ,
+      'm1': 6,'m2': 6,'n1': 60,'n2': 100,'n3': 30,'a': 1,'b': 1,
+      'ra2': 26,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
       'dom3': [0, 360],
-      'fn0': [2, 0, 0, 0]
-
+      // 'fn0': [2, 0, 0, 0],
+      'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>
+              (a * cos(r) * c * cos(u)) * (a * cos(r) * c * cos(u))
     },
     'y': {
-      'm1': 2,
-      'm2': 2,
-      'n1': 1,
-      'n2': 1,
-      'n3': 1,
-      'a': 1,
-      'b': 1, // biform
-      'ra2': 18,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0,
-      'seg5': 360,
-      'pa6': 0,
-      'pb7': -1,
+      'm1': 2,'m2': 2,'n1': 1,'n2': 1,'n3': 1,'a': 1,'b': 1, // biform
+      'ra2': 18,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
 
-       
-      ,
       'dom3': [0, 360],
-      'fn0': [0, 0, 0, 0]
+      // 'fn0': [0, 0, 0, 0]
+      'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => 1
 
     },
     'z': {
-      'm1': 2,
-      'm2': 2,
-      'n1': 1,
-      'n2': 1,
-      'n3': 1,
-      'a': 1,
-      'b': 1, // biform
-      'ra2': 26,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0,
-      'seg5': 360,
-      'pa6': 0,
-      'pb7': -1,
+      'm1': 2,'m2': 2,'n1': 1,'n2': 1,'n3': 1,'a': 1,'b': 1, // biform
+      'ra2': 26,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
 
-      'pr8': d => Math.cos(d),
       'dom3': [0, 360],
-      'fn0': [0, 0, 0, [[[1, 2]]]]
+      // 'fn0': [0, 0, 0, [[[1, 2]]]]
+      'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => d * sin(v)
 
     }
   }
@@ -106,56 +70,20 @@ let muonAlima = function muonAlima (__mapper) {
   let pathform = {
 
     'x': {
-      'm1': [[[4, 4]]],
-      'm2': [[[4, 4]]],
-      'n1': [[[2, 2]]],
-      'n2': [[[2, 2]]],
-      'n3': [[[2, 2]]],
-      'a': [[[1, 1]]],
-      'b': [[[1, 1]]], // moon
-      'ra2': 160,
-      'v0': 0,
-      'v1': 1,
-      'seg5': 360,
-      'w4': 0,
-      'pa6': 0,
-      'pb7': -1,
+      'm1': [[[4, 4]]],'m2': [[[4, 4]]],'n1': [[[2, 2]]],'n2': [[[2, 2]]],'n3': [[[2, 2]]],'a': [[[1, 1]]],'b': [[[1, 1]]], // moon
+      'ra2': 160,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1,
       
     },
 
     'y': {
-      'm1': [[[4, 4]]],
-      'm2': [[[4, 4]]],
-      'n1': [[[2, 2]]],
-      'n2': [[[2, 2]]],
-      'n3': [[[2, 2]]],
-      'a': [[[1, 1]]],
-      'b': [[[1, 1]]], // moon
-      'ra2': 160,
-      'v0': 0,
-      'v1': 1,
-      'seg5': 360,
-      'w4': 0,
-      'pa6': 0,
-      'pb7': -1,
+      'm1': [[[4, 4]]],'m2': [[[4, 4]]],'n1': [[[2, 2]]],'n2': [[[2, 2]]],'n3': [[[2, 2]]],'a': [[[1, 1]]],'b': [[[1, 1]]], // moon
+      'ra2': 160,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1,
       
     },
 
     'z': {
-      'm1': [[[4, 4]]],
-      'm2': [[[4, 4]]],
-      'n1': [[[2, 2]]],
-      'n2': [[[2, 2]]],
-      'n3': [[[2, 2]]],
-      'a': [[[1, 1]]],
-      'b': [[[0.95, 0.98]]], // moon
-      'ra2': 160,
-      'v0': 0,
-      'v1': 1,
-      'seg5': [[[360, 360]]],
-      'w4': [[[0, 0 - 0 * 360]]],
-      'pa6': 0,
-      'pb7': -1,
+      'm1': [[[4, 4]]],'m2': [[[4, 4]]],'n1': [[[2, 2]]],'n2': [[[2, 2]]],'n3': [[[2, 2]]],'a': [[[1, 1]]],'b': [[[0.95, 0.98]]], // moon
+      'ra2': 160,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[0, 0 - 0 * 360]]],'pa6': 0,'pb7': -1,
       
     }
 
@@ -163,11 +91,11 @@ let muonAlima = function muonAlima (__mapper) {
 
   let proform = {
     'projection': 'uniwen',
-    'translate': [300, 200, 0],
+    'prerotate': [[[ cwen.rotation ]]],
+    'translate': [0, 0, 0],
     'scale': 1,
     'rotate': [ [[[0, 90]]], [[[0, 90]]], 0 ],
     'lens': [0, 1, Infinity],
-    'control': 'wen'
   }
 
   let geonode = {
@@ -213,7 +141,10 @@ let muonAlima = function muonAlima (__mapper) {
       boform: { 'csx': 0, 'cf': [[[777, 777, 777]]], 'co': [[[0.2, 0.2]]], 'cs': [[[777, 888]]], 'cw': [[[0.2, 0.2]]], 'cp': [[[0.9, 0.9]]]},
 
       fibonat: fibonat,
-      conform: { 'projection': 'natform', 'form': pathform },
+      conform: { 
+        'projection': 'natform', 
+        'form': pathform 
+      },
       proform: proform
 
     }
@@ -272,17 +203,18 @@ let muonAlima = function muonAlima (__mapper) {
       boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9, 0.9]]]},
 
       fibonat: fibonat,
-      conform: {'projection': 'natform', 'form': natform},
+      conform: {
+        'projection': 'natform', 
+        'form': natform
+      },
       proform: {
         projection: 'uniwen',
         'translate': {
-          'x':
-									{
-									  'pos': [[[ 0, 1 * 360]]]
+          'x': {
+						'pos': [[[ 0, 1 * 360]]]
 									},
-          'y':
-									{
-									  'pos': [[[ 0, 1 * 360]]]
+          'y': {
+						'pos': [[[ 0, 1 * 360]]]
 									},
           'z': {
             'pos': [[[ 0, 1 * 360]]]
@@ -365,8 +297,8 @@ let muonAlima = function muonAlima (__mapper) {
         'scale': [[[100, 100]]],
         'translate': {
 
-          'x': [[[300, 200]]],
-          'y': 200,
+          'x': [[[0, 0]]],
+          'y': 0,
           'z': 0
 
         },

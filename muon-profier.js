@@ -132,24 +132,26 @@
       })
     
       let projdef = anigram.payload.proform
-      
+   if (1 && 1) console.log("proformion:projdef", projdef)
       if (projdef !== undefined) {
 
           let geofold = anigram.geofold
 
 
-          let translate = []
+          // let translate = []
 
-          // if geonode
-          //    translate fold by geonode location
+          // if geonode translate fold by geonode location
           if (geofold.properties && geofold.properties.geonode) { 
             let geonode = geofold.properties.geonode
-            translate.push(geonode.geometry.coordinates)
+            projdef.translate = projdef.translate === undefined ?
+              geonode.geometry.coordinates :
+              projdef.translate.push(geonode.geometry.coordinates) 
           }
-          if (projdef.translate) {
-            translate.push(mstace.getTranspot(projdef.translate, anigram))
-          }
-          projdef.translate = translate
+          
+          // if (projdef.translate) {
+            // projdef.translate.push(mstace.getTranspot(projdef.translate, anigram))
+          // }
+          // projdef.translate = translate
 
           projection = profiom(projdef)
 
