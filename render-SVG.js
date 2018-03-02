@@ -21,14 +21,10 @@
     // two last coordinates define user coordinates of lower right corner
     //  <svg width="600" height="400" viewBox="0 0 50 20" > 
     
+    // https://bl.ocks.org/mbostock/3019563   // Margin Convention
     let r = __mapper('xs').r('renderer'),
       width = r.width(),
       height = r.height()
-
-    // https://bl.ocks.org/mbostock/3019563   // Margin Convention
-    let margin = {top: 20, right: 10, bottom: 20, left: 10}
-    width = width - margin.left - margin.right,
-    height = height - margin.top - margin.bottom
 
     let state = {width, height}   // Viewport
 

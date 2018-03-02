@@ -102,12 +102,10 @@
         translate = state.translate || [0,0,0],
         lens = state.lens
 
-      if (z === undefined) {    // 2d geom
+      if (z === undefined && rotate.length === 3 ) {    // 2d geom
         z = 0
-        
         prerotate = mwen.cross([prerotate[0], 0, 0], [0, prerotate[1], 0])
         rotate = mwen.cross([rotate[0], 0, 0], [0, rotate[1], 0])
-        
       }
       
       let c = [x, y, z]

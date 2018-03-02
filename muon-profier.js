@@ -199,10 +199,11 @@
             let daxes = Math.max(rotate.length, prerotate.length)
             let addrotate = d3.range(0, daxes, 1).map( (d,i) => (rotate[i] || 0) + ((prerotate[i] || 0)))
             rotate = addrotate          
-            projdef.rotate = rotate            
+            projdef.rotate = rotate     
+
             
           }
-          
+             if (1 && 1) console.log("rotate", rotate)     
           
           projection = profion(projdef)
 

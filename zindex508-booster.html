@@ -86,20 +86,8 @@ let muonAlima = function muonAlima (__mapper) {
   }
 
   let stace = {
-    'm1': 4,
-    'm2': 4,
-    'n1': 2,
-    'n2': 2,
-    'n3': 2,
-    'a': 4,
-    'b': 2, // circle
-    'ra2': 90,
-    'v0': 0,
-    'v1': 1,
-    'w4': 0,
-    'seg5': 12,
-    'pa6': 0,
-    'pb7': -1,
+    'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+    'ra2': 90,'v0': 0,'v1': 1,'w4': 0,'seg5': 12,'pa6': 0,'pb7': -1,
     
   }
 
@@ -108,7 +96,6 @@ let muonAlima = function muonAlima (__mapper) {
  *    @animas
  *
  */
-
   // -------------------------------  nat1
   let nat1 = {
 
@@ -123,7 +110,7 @@ let muonAlima = function muonAlima (__mapper) {
       proform: {
           'projection': 'uniwen',
 
-          'translate': [ [200, 200, 0], ], //  [[[ stace ]]] ],
+          'translate': [ [-100, 0, 0], ], //  [[[ stace ]]] ],
           'scale': 1,
           'rotate': [ 0, 0, 0 ],
           'lens': [0, 1, Infinity],
@@ -150,7 +137,7 @@ let muonAlima = function muonAlima (__mapper) {
       proform: {
           'projection': 'uniwen',
 
-          'translate': [ [400, 200, 0], ], //  [[[ stace ]]] ],
+          'translate': [ [100, 0, 0], ], //  [[[ stace ]]] ],
           'scale': 1,
           'rotate': [ 0, 0, 0 ],
           'lens': [0, 1, Infinity],
@@ -162,7 +149,6 @@ let muonAlima = function muonAlima (__mapper) {
         let o = f.cloneObj(formNat)
         o.x.seg5 = 18
         o.y.seg5 = 18
- 
         o.z.seg5 = 9
         return o
       }(),
@@ -185,7 +171,7 @@ let muonAlima = function muonAlima (__mapper) {
       proform: {
           'projection': 'uniwen',
 
-          'translate': [ [300, 200, 0], ], //  [[[ stace ]]] ],
+          'translate': [ [0, 0, 0], ], //  [[[ stace ]]] ],
           'scale': 1,
           'rotate': [ 0, 0, 0 ],
           'lens': [0, 1, Infinity],
@@ -252,8 +238,8 @@ let muonAlima = function muonAlima (__mapper) {
 
   let animas = [
     nat1, // h.ent g.uniwen
-    // nat2, // h.ent g.uniwen
-    // circ // h.ent g.uniwen
+    nat2, // h.ent g.uniwen
+    circ // h.ent g.uniwen
 
   ]
 
