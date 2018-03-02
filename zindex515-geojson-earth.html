@@ -21,9 +21,11 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 1, img: 0}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props()
+    let f = __mapper('props')(),
+      cwen = __mapper('xs').c('wen')(),
+      cversor = __mapper('xs').c('versor')
 
   /*******************************************
  *      @pics
@@ -54,7 +56,9 @@ let muonAlima = function muonAlima (__mapper) {
   let proform = {
 
     'projection': 'orthographic',
-    // 'scale': [[[100, 0.5]]],
+    'prerotate': [[[ cversor.rotation ]]],
+    'translate': [100,0,0],
+    'scale': 100,
     // 'translate': {
 
       // 'x': [[[100, 500]]],
@@ -62,7 +66,7 @@ let muonAlima = function muonAlima (__mapper) {
       // 'z': 0
 
     // },
-    // 'rotate': [ [[[0, -1 * 360]]], 0, 0 ],
+    'rotate': [ [[[0, -1 * 360]]], 0, 0 ],
     // 'control': 'versor'
 
   }

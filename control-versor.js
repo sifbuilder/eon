@@ -65,6 +65,7 @@
 
     // dragged  listener
     let dragged = function () {
+      
       let e = d3.event
 
       let projection = state.projection
@@ -97,7 +98,7 @@
     enty.reset = reset
 
     enty.projection = _ => _ !== undefined ? (state.projection = _, enty) : state.projection
-    enty.rotation = _ => _ !== undefined ? (state.rotation = _, enty) : state.rotation
+    enty.rotation = () => state.rotation
 
     return enty
   }

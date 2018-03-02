@@ -137,9 +137,9 @@
     
     
     /**************************
-  *       @profion
+  *       @uniprofion
   */
-    let profion = () => {
+    let uniprofion = () => {
       let geoTrans = d3.geoTransform({
         point: pointStream,
         sphere: d => d })
@@ -158,7 +158,7 @@
    */
     let enty = function (prjdef = {}) {
 
-      let m = profion(prjdef)
+      let m = uniprofion(prjdef)
       let vars = Object.keys(prjdef)
 
       state = Object.assign({}, init) // reste proj state

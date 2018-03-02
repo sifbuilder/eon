@@ -22,8 +22,13 @@
  */
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, wen: 1, versor: 1, img: 0, webgl: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, wen: 1, versor: 1, webgl: 0, img: 1}) // INIT
 
+
+  let f = __mapper('props')(),
+    cwen = __mapper('xs').c('wen')(),
+    cversor = __mapper('xs').c('versor')
+      
   /*******************************************
  *    @pics
  */
@@ -57,13 +62,12 @@ let muonAlima = function muonAlima (__mapper) {
       proform: {
 
         'projection': 'futuri',
+        'prerotate': [[[ cversor.rotation ]]],
         'scale': 20,
-        'rotate': [ [[[0, -120]]], [[[0, -120]]], [[[0, -120]]] ],
-        'translate': [ 255, 250 ],
+        'rotate': [ 0,0,0 ],
+        'translate': [ 55, 50 ],
 
         'faciaRotation': [[[Math.PI / 1, Math.PI / 1]]],
-
-        'control': 'versor'
 
       }
     }
@@ -93,13 +97,13 @@ let muonAlima = function muonAlima (__mapper) {
       proform: {
 
         'projection': 'futuri',
+        'prerotate': [[[ cversor.rotation ]]],        
         'scale': 20,
-        'rotate': [ [[[0, -120]]], [[[0, -120]]], [[[0, -120]]] ],
-        'translate': [ 135, 250 ],
+        'rotate': [ 0,0,0 ],
+
+        'translate': [ -65, 50 ],
 
         'faciaRotation': [[[Math.PI / 2, Math.PI / 2]]],
-
-        'control': 'versor'
 
       }
     }
@@ -129,13 +133,14 @@ let muonAlima = function muonAlima (__mapper) {
       proform: {
 
         'projection': 'futuri',
+        'prerotate': [[[ cversor.rotation ]]],     
+
         'scale': 20,
-        'rotate': [ [[[0, -120]]], [[[0, -120]]], [[[0, -120]]] ],
-        'translate': [ 135, 130 ],
+        'rotate': [ 0,0,0 ],
+
+        'translate': [ -65, -70 ],
 
         'faciaRotation': [[[Math.PI / 0.5, Math.PI / 0.5]]],
-
-        'control': 'versor'
 
       }
     }
@@ -165,13 +170,14 @@ let muonAlima = function muonAlima (__mapper) {
       proform: {
 
         'projection': 'futuri',
+        'prerotate': [[[ cversor.rotation ]]],     
+        
         'scale': 20,
-        'rotate': [ [[[0, -120]]], [[[0, -120]]], [[[0, -120]]] ],
-        'translate': [ 255, 130 ],
+        'rotate': [ 0,0,0 ],
+
+        'translate': [ 55, -70 ],
 
         'faciaRotation': [[[Math.PI / 0.6666, Math.PI / 0.6666]]],
-
-        'control': 'versor'
 
       }
     }

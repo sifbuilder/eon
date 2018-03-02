@@ -34,8 +34,8 @@
     }
 
 
-		// 		profion
-    let profion = prjdef => {		// projection:natform, form:{x,y,z}
+		// 		natprofion
+    let natprofion = prjdef => {		// projection:natform, form:{x,y,z}
 
       let geoTrans = d3.geoTransform({
 					point: pointStream(prjdef)})
@@ -53,7 +53,7 @@
    */
     let enty = function (prjdef = {}) {
 			
-      let m = profion(prjdef)
+      let m = natprofion(prjdef)
 
       return m
     }

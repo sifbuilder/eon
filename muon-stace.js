@@ -261,7 +261,7 @@
         'translate': [ locus[0], locus[1], locus[2] ]
       }
 
-      return __mapper('xs').m('profier').profiom(projection)
+      return __mapper('xs').m('profier').profion(projection)
     }
 
     /* **************************************

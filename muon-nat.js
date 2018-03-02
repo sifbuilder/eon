@@ -272,7 +272,7 @@
         }
       }
 
-      let projection = mprofier.profiom({'projection': 'natform', 'form': nformed})
+      let projection = mprofier.profion({'projection': 'natform', 'form': nformed})
 
       let natgj = mproj3ct(feature, projection)
 

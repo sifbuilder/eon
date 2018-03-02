@@ -25,6 +25,9 @@ let muonAlima = function (__mapper) {
     mgraticule = __mapper('xs').m('graticule'),
     cwen = __mapper('xs').c('wen')
     
+  const cos = Math.cos,  
+    sin = Math.sin
+    
   /*******************************************
  *      @pics
  *
@@ -57,19 +60,22 @@ let muonAlima = function (__mapper) {
             'm1': 6, 'm2': 6, 'n1': 60, 'n2': 100, 'n3': 30, 'a': 1, 'b': 1,
             'ra2': 242, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1, 
 
-            , 'dom3': [0, 360], 'fn0': [2, 0, 0, 0]
+            'dom3': [0, 360],
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r) * a * cos(r) 
 
           },
           'y': {
             'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1,			// biform
             'ra2': 180, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1, 
-            , 'dom3': [0, 360], 'fn0': [0, 0, 0, 0]
+            'dom3': [0, 360], 
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => 1
 
           },
           'z': {
             'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1,			// biform
             'ra2': 242, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-            'pr8': d => Math.cos(d), 'dom3': [0, 360], 'fn0': [0, 0, 0, [[[0, 2]]] ]
+            'pr8': d => Math.cos(d), 'dom3': [0, 360], 
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => d * sin(v) * d * sin(v)
 
           }
         }
@@ -94,6 +100,9 @@ let muonAlima = function (__mapper) {
     }
 
   }
+  
+  
+
 	  // -------------------------------  img
   let img = {
 

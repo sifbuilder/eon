@@ -19,12 +19,12 @@
       guniwen = __mapper('xs').g('uniwen')
 
     /****************************
- *      @profiom
+ *      @profion
  *        get projection from proform and apply projection properties
  *        if control:wen  wen rotation and if 2d: wen z rotation
  *        if control:versor   versor rotation
  */
-    let profiom = function (prjdef) {
+    let profion = function (prjdef) {
       let prj = guniwen(prjdef)
 
       if (prjdef !== undefined) {
@@ -86,20 +86,20 @@
     }
 
     /* ***************************
- *       @projier
- *       json = mprofier.projier(f.v(prodef, anigram), anigram)(json)
+ *       @projer
+ *       json = mprofier.projer(f.v(prodef, anigram), anigram)(json)
  */
-    let projier = (prodef, anigram) => // projer is fenrir if no prodef
-      json => (prodef) ? mproj3ct(json, profiom(prodef)) : json
+    let projer = (prodef, anigram) => // projer is fenrir if no prodef
+      json => (prodef) ? mproj3ct(json, profion(prodef)) : json
 
     /****************************
  *       @ereformer
  */
     let ereformer = anigram => {
       let projdef = anigram.payload.ereform
-      let projer = profiom(projdef)
+      let projion = profion(projdef)
 
-      return json => mproj3ct(json, projer)
+      return json => mproj3ct(json, projion)
     }
     /****************************
  *       @conformer
@@ -107,53 +107,104 @@
     let conformer = anigram => {
       let projdef = anigram.payload.conform
 
-      let projer
+      let projion
 
       if (projdef === undefined) {
         
-        projer = d => d
+        projion = d => d
         
       } else {
         
-        let projection = profiom(projdef)
-        projer = json => mproj3ct(json, projection)
+        let projection = profion(projdef)
+        projion = json => mproj3ct(json, projection)
         
       }
 
-      return projer
+      return projion
     }
     /****************************
  *       @proformion
  */
-    let proformion = (anigram) => {
+    let proformion = anigram => {
 
-      let projection = profiom({ 
-          'projection': 'uniwen',
-      })
+      let projection
     
-      let projdef = anigram.payload.proform
-   if (1 && 1) console.log("proformion:projdef", projdef)
-      if (projdef !== undefined) {
+      // the proform projection defintion is in the payload
+      
+      let projdef =  anigram.payload.proform
+      
+      if (projdef === undefined) {
+        
+        // if projection is not define, 
+        //    default to uniwen with default configuration
+        
+        projection = profion({ 
+          'projection': 'uniwen',
+        })
+      
+      } else {
 
           let geofold = anigram.geofold
 
+          
+          // initialize translate for projection definition
+          //
+          
+          let translate = []
 
-          // let translate = []
+          // if translate, then
+          //      translate to translate
+          
+          if (projdef.translate) {
+              translate = mstace.getTranspot(projdef.translate, anigram)
+          }
 
-          // if geonode translate fold by geonode location
+          
+          // if geonode defined, then
+          //      translate geofold by geonode location
+          
           if (geofold.properties && geofold.properties.geonode) { 
             let geonode = geofold.properties.geonode
-            projdef.translate = projdef.translate === undefined ?
-              geonode.geometry.coordinates :
-              projdef.translate.push(geonode.geometry.coordinates) 
+            let nodetranslate = geonode.geometry.coordinates
+            
+            let daxes = Math.max(translate.length, nodetranslate.length)
+            let addtranslate = d3.range(0, daxes, 1).map( (d,i) => (translate[i] || 0) + ((nodetranslate[i] || 0)))
+            translate = addtranslate
+            projdef.translate = translate
+            
           }
           
-          // if (projdef.translate) {
-            // projdef.translate.push(mstace.getTranspot(projdef.translate, anigram))
-          // }
-          // projdef.translate = translate
+          
+          // initialize rotate for projection definition
+          //
+          
+          let rotate, prerotate = []
 
-          projection = profiom(projdef)
+          // if rotate, then
+          //        rotate
+          
+          if (projdef.rotate) {
+              rotate = projdef.rotate
+          }
+          
+          if (projdef.prerotate) {
+              prerotate = projdef.prerotate
+          }
+
+          // if projection not uniwen, then
+          //        prerotate to be added to rotate
+          
+          if (projdef.projection !== 'uniwen') {
+
+            let daxes = Math.max(rotate.length, prerotate.length)
+            let addrotate = d3.range(0, daxes, 1).map( (d,i) => (rotate[i] || 0) + ((prerotate[i] || 0)))
+            rotate = addrotate          
+            projdef.rotate = rotate            
+            
+          }
+          
+          
+          projection = profion(projdef)
 
       }
  
@@ -170,8 +221,8 @@
  *      @enty
  */
     let enty = function () {}
-    enty.profiom = profiom
-    enty.projier = projier
+    enty.profion = profion
+    enty.projer = projer
     
     enty.proformion = proformion
     enty.proformer = proformer
