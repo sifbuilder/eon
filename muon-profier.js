@@ -156,6 +156,7 @@
           //      translate to translate
           
           if (projdef.translate) {
+              if (typeof projdef.translate === 'object') projdef.translate = Object.values(projdef.translate)
               translate = mstace.getTranspot(projdef.translate, anigram)
           }
 
@@ -203,7 +204,7 @@
 
             
           }
-             if (1 && 1) console.log("rotate", rotate)     
+             if (0 && 1) console.log("rotate", rotate)     
           
           projection = profion(projdef)
 

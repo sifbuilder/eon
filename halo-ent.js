@@ -44,7 +44,7 @@
       let gjGeoformed = f.v(geofold, anigram)
       if (!mgeoj.isValid(gjGeoformed)) { console.error("h.ent:gj not valid", gjGeoformed)}
         
-    if (0 && 1) console.log("h.nat gjGeoformed", gjGeoformed)
+    if (1 && 1) console.log("h.nat anigram", anigram.proform)
 
       // conform does not affect geonode. impacts siti of avatars
       let gjConformed = mprofier.conformer(anigram)(gjGeoformed)
@@ -69,6 +69,7 @@
           d.properties.vim = vim  // vim in geofold needed to render
            
           let newAnigram = {
+            halo: halo, // inherit halo
             geofold: d, // inherit geofold
             payload: {  // payload is lost in m.animation before rendering
               avatars, // inherit avatars

@@ -151,26 +151,28 @@
 
             if (newItem === undefined) { // if not, create new anigram
               newItem = geojsor(anigram, i) // anigram, counter
-              newItem.geofold.id = uid
+              newItem.payload.id = uid
               newItem.payload =  newItem.payload || {}
             }
+     if (0 && 1) console.log("h.pacer newItem", newItem)            
             newItem.payload.ric = _ric // item id
-            newItem.payload.tim = anigram.payload.tim // item time
-            newItem.payload.proform = anigram.payload.proform // 
-            newItem.payload.boform = anigram.payload.boform // item style
-            newItem.payload.avatars = anigram.payload.avatars // items may have avatars
+            newItem.payload.tim = anigram.payload.tim // inherit time
+            newItem.payload.form = newItem.payload.form || anigram.payload.form // 
+            newItem.payload.proform = newItem.payload.proform || anigram.payload.proform // 
+            newItem.payload.boform = newItem.payload.boform || anigram.payload.boform // item style
+            newItem.payload.avatars = newItem.payload.avatars || anigram.payload.avatars // items may have avatars
 
-            if (1 && 1) console.log("h.pacer newItem", newItem.payload.proform)
+
             
             
-            if (aad && newItem.geofold.geometry.type === 'LineString') { 
-            //
-            //      CUM LINE
-            //
-            //      if add anitem to LineString
-            //
-            //
             
+            
+            if (aad && newItem.geofold && newItem.geofold.geometry.type === 'LineString') { 
+            //
+            //      
+            //      CUM LINE    if add anitem to LineString
+            //      
+            //
             // geocoords of new item
               let coords = newItem.geofold.geometry.coordinates 
               
@@ -201,9 +203,11 @@
               
               newItems = [...newItems, ...newItemsInCount] // add items
               
-            } else if (newItem.geofold.geometry.type === 'Point') { // POINT
+            } else if (newItem.geofold && newItem.geofold.geometry.type === 'Point') { // POINT
             //
-            //      if Point
+            //      
+            //      if POINT
+            //      
             //
               let presitus = newItem.geofold.geometry.coordinates
 
@@ -234,15 +238,21 @@
                     translate: situs
                 } // proform
                 
-                newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)] // add items
+                let newGrams = __mapper('xs').h('ent').gramm(newItem)
+                newItems = [...newItems, ...newGrams] // add items
               }
             } else {
             //
             //      
+            //      TRACE NAT
+            //      
             //
-
+            
+            let halo = newItem.halo
+if (0 && 1) console.log("------------------- trace nat", halo, newItem)
                 
-                newItems = [...newItems, ...__mapper('xs').h('ent').gramm(newItem)] // add items
+                let newGrams = __mapper('xs').h(halo).gramm(newItem)
+                newItems = [...newItems, ...newGrams] // add items
             }
           }
         }
