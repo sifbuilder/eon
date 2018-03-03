@@ -62,12 +62,19 @@
       return node
     }
 
-    /***********
-  *   @parentCoords
+    /* **********
+  *   @parentCoords - get paranet coords from avatar payload
+  *       
   */
-    let parentCoords = function (anitem, coords = []) {
+    let parentCoords = function (payload, coords = []) {
+      
+      
+      // if whole anitem has been passed, focus on payload
+      if (payload && payload.payload !== undefined) payload = payload.payload
+      
+      
       let parentGeometry
-      let parentuid = anitem.payload.parentuid
+      let parentuid = payload.parentuid
       let parent = __mapper('xs').m('store').findAnigramFromUid(parentuid)
 
       if (parent !== undefined) {
@@ -79,12 +86,18 @@
       return coords
     }
 
-    /***********
-  *   @parentSitus
+    /* **********
+  *   @parentSitus - get paranet situs from avatar payload
   */
-    let parentSitus = function (anitem, coords = []) {
+    let parentSitus = function (payload, coords = []) {
+      
+      
+      // if whole anitem has been passed, focus on payload
+      if (payload && payload.payload !== undefined) payload = payload.payload      
+      
+      
       let parentGeometry
-      let parentuid = anitem.payload.parentuid
+      let parentuid = payload.parentuid
       let parent = __mapper('xs').m('store').findAnigramFromUid(parentuid)
 
       if (parent !== undefined) {

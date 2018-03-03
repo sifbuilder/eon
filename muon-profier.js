@@ -131,7 +131,11 @@
     
       // the proform projection defintion is in the payload
       
-      let projdef =  anigram.payload.proform
+
+      let geofold = anigram.geofold,
+        payload = anigram.payload,
+        projdef =  payload.proform
+      
       
       if (projdef === undefined) {
         
@@ -144,9 +148,8 @@
       
       } else {
 
-          let geofold = anigram.geofold
 
-          
+     if (0 && 1) console.log("---------------- payload", payload)
           // initialize translate for projection definition
           //
           
@@ -157,7 +160,7 @@
           
           if (projdef.translate) {
               if (typeof projdef.translate === 'object') projdef.translate = Object.values(projdef.translate)
-              translate = mstace.getTranspot(projdef.translate, anigram)
+              translate = mstace.getTranspot(projdef.translate, payload)
           }
 
           

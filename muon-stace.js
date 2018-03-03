@@ -154,8 +154,9 @@
  *          called by m.profier.proform to get translate
  */
 
-    let getTranspots = function (stace, anigram, locations = []) {
-      if (anigram !== undefined) stace = stace || anigram.payload.stace
+    let getTranspots = function (stace, payload, locations = []) {
+      
+      if (payload !== undefined) stace = stace || payload.stace
 
       if (stace !== undefined && stace !== null) {
         if (Array.isArray(stace)) { // stace :: [x,y,z]
@@ -193,7 +194,7 @@
 
             else if (typeof v1 === 'object') {
               if (v1.hasOwnProperty('pos')) {
-                let parentCoords = manitem.parentCoords(anigram) // parentCoords
+                let parentCoords = manitem.parentCoords(payload) // parentCoords
                 let parentLocationsDimd = mlacer.unslide(parentCoords) // unslide
                 let parentLocationsDim = parentLocationsDimd[i]
 
@@ -210,8 +211,10 @@
 
         if (locations.length === 0) locations = []
       }	else {	// stace not defined take situs from parent
-        let parentSitus = __mapper('xs').m('anitem').parentSitus(anigram)
+      
+        let parentSitus = __mapper('xs').m('anitem').parentSitus(payload)
         locations = Array.of(parentSitus)
+        
       }
 
       return locations
@@ -220,18 +223,18 @@
     /* **************************************
  *        @getTranspot
  */
-    let getTranspot = (stace, anigram) => getTranspots(stace, anigram)[0]
+    let getTranspot = (stace, payload) => getTranspots(stace, payload)[0]
 
     /* **************************************
  *        @getLoci
  */
-    let getLoci = function (stace, anigram) {
+    let getLoci = function (stace, payload) {
       let locations = [] // default locations _e_
 
-      let situs = getSitus(anigram) // anima    .x,.y,.z - root and sim
+      let situs = getSitus(payload) // anima    .x,.y,.z - root and sim
 
       if (0 && 1) console.log(' getTranspotsstace', stace)
-      let spots = getTranspots(stace, anigram) // anigram  stace x || x.pos || x.ref
+      let spots = getTranspots(stace, payload) // payload  stace x || x.pos || x.ref
 
       if (situs && spots && spots.length > 0) { // if situs and spots
         locations = spots.map(spot => spot.map((d, i) => d + situs[i])) // transpose spots by situs
@@ -246,15 +249,15 @@
     /* **************************************
  *        @getLocus
  */
-    let getLocus = (stace, anigram) => getLoci(stace, anigram)[0]
+    let getLocus = (stace, payload) => getLoci(stace, payload)[0]
 
     /* **************************************
  *        @getLocifion
  *        get the uniwen projection with translate to anigram location
  *        getLocus
  */
-    let getLocifion = function (stace, anigram) {
-      let locus = getLocus(stace, anigram)
+    let getLocifion = function (stace, payload) {
+      let locus = getLocus(stace, payload)
 
       let projection = {
         'projection': 'uniwen',
@@ -268,8 +271,8 @@
  *        @getLocifier
  *        locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
  */
-    let getLocifier = function (stace, anigram = {}) {
-      let locifion = getLocifion(stace, anigram)
+    let getLocifier = function (stace, payload = {}) {
+      let locifion = getLocifion(stace, payload)
 
       return g => __mapper('xs').m('proj3ct')(g, locifion)
     }

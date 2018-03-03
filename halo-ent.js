@@ -44,7 +44,7 @@
       let gjGeoformed = f.v(geofold, anigram)
       if (!mgeoj.isValid(gjGeoformed)) { console.error("h.ent:gj not valid", gjGeoformed)}
         
-    if (1 && 1) console.log("h.nat anigram", anigram.proform)
+    if (0 && 1) if (uid === 'trace_trace_traceani') console.log("h.nat anigram:proform", halo, anigram, proform)
 
       // conform does not affect geonode. impacts siti of avatars
       let gjConformed = mprofier.conformer(anigram)(gjGeoformed)

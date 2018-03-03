@@ -134,11 +134,17 @@ let muonAlima = function muonAlima (__mapper) {
       ric: {gid: 'trace', cid: 'trace', fid: 'traceani'},
       boform: traceBoform,
 
-      // stace: {
-        // 'x': -100,
-        // 'y': -100,
-        // 'z': 0
-      // },
+      proform: {
+          projection: 'uniwen',
+          translate:  [0,0,0],
+          rotate: [0,0,0]
+        },
+
+      stace: {
+            'x': { 'pos': 0 },     //  [[[-100,100]]], // 
+            'y': { 'pos': 0 },     //  [[[-100,100]]], // 
+            'z': 0
+        },
 
       pacer: {
         initN: 0,
@@ -150,7 +156,14 @@ let muonAlima = function muonAlima (__mapper) {
         span: 0,
 
 
-        // autoSitus: d => mstace.getLocus(d.payload.stace, d), // situs of anigram
+        
+        // proform situs from avatar payload 
+        //
+        autoSitus: d => {
+          let situs = mstace.getLocus(d.payload.stace, d.payload) 
+if (0 && 1) console.log("situs", d.payload.stace, situs)          
+          return situs
+        },
 
         fider: d => d.payload.ric.fid,
 
@@ -160,19 +173,9 @@ let muonAlima = function muonAlima (__mapper) {
             payload: {
               tim,
               ric: {gid: 'nat', cid: 'nat', fid: 'formCirc'},
-              boform: traceBoform,
-              proform: {
-                projection: 'uniwen',
-                translate: {
-                  'x': [[[-100,100]]], // { 'pos': 0 },
-                  'y': [[[-100,100]]], // { 'pos': 0 },
-                  'z': 0
-                },
-                rotate: [0,0,0]
-              },
-              form: natForm
-            }
-          
+              form: traceForm
+            },
+            // proform: this.proform,
         }),
 
       }

@@ -25,7 +25,7 @@
     state.mouse.y = -2
 
     
-    // if (1 && 1) console.log("width", width)
+    // if (0 && 1) console.log("width", width)
     
     
     
