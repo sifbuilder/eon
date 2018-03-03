@@ -31,44 +31,27 @@ let muonAlima = function muonAlima (__mapper) {
 
   let tim = {'td': 210220, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  let formCirc = {
-      'x': {
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-        'ra2': 90,'v0': 0, 'v1': 1,'w4': [[[0, 1 * 360]]],'seg5': 360, 'pa6': 0, 'pb7': -1,
-      },
-      'y': {
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-        'ra2': 90,'v0': 0, 'v1': 1,'w4': [[[0, 1 * 360]]],'seg5': 360, 'pa6': 0, 'pb7': -1,
-      }
-    }
 
   /*******************************************
  *      @animas
  */
   let getForm = function (params = {}) {
     let NAME = params.name || 'anis'
-    let ROW = params.row || 2
-    let COL = params.col || 2
-    let DEPTH = params.depth || 2
-    let RAD = params.rad || 90 // 80
-    let SIDES = params.sides || 5 // w4   // 5  // 4
-    let WINIT = params.wbase || 1 // base angular vel
-    let ANGINIT = params.anginit || 0 // 0 internal, 180 extenal
+      ROW = params.row || 2,
+      COL = params.col || 2,
+      DEPTH = params.depth || 2,
+      RAD = params.rad || 90,
+      SIDES = params.sides || 5,
+      WINIT = params.wbase || 1, // base angular vel
+      ANGINIT = params.anginit || 0 // 0 internal, 180 extenal
 
-    let A = params.a || 0
-    let B = params.b || 0
-    let C = params.c || 0
-    let D = params.d || 0
-    let E = params.e || 0
 
     let ww0 = []
     let ww1 = []
-    let rr0 = []
-    let rr1 = []
 
     let turn = 360
-    let x = -100 + (COL - 1) * 200 // 100 + (COL - 1) * 200
-    let y = 100 + (ROW - 1) * 175
+    let x = -60 + (COL - 1) * 200   // -100
+    let y = 0 + (ROW - 1) * 175      // 100
 
     let signexp = level => Math.pow(-1, level)
 
@@ -82,8 +65,19 @@ let muonAlima = function muonAlima (__mapper) {
 
         tim,
         ric: {'typ': 'nat', 'gid': NAME, 'cid': NAME, 'fid': NAME},
-        form: formCirc,
         boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.1, 'co': 0.7, 'cp': 0.7},
+        
+        form: {
+          x: {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 90,'v0': 0, 'v1': 1,'w4': 0,'seg5': 360, 'pa6': 0, 'pb7': -1,
+          },
+          y: {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 90,'v0': 0, 'v1': 1,'w4': 0,'seg5': 360, 'pa6': 0, 'pb7': -1,
+          }
+        },
+        
         proform: {
 
           projection: 'uniwen',
@@ -97,38 +91,38 @@ let muonAlima = function muonAlima (__mapper) {
     }
 
 
-    let animaTraces = { // SUB-MARKS line trace
+    let traceLine = { // SUB-MARKS line trace
 
       halo: 'pacer',
 
       payload: {
         tim,
         ric: {'typ': 'nat', 'gid': NAME + 'traces' + 0, 'cid': NAME + 'traces' + 0, 'fid': NAME + 'traces' + 0},
-        boform: {'csx': 0, 'cf': 111, 'cs': 666, 'cw': 0.99, 'co': 0.1, 'cp': 0.99},
+        boform: {'csx': 0, 'cf': 111, 'cs': 666, 'cw': 0.99, 'co': 0.2, 'cp': 0.99},
 
-        stace: {
-          'x': { 'pos': 0 },  // 'dist': 0, 'step': 120
-          'y': { 'pos': 0 },  // 'dist': 0, 'step': 120
-          'z': 0
+        proform: {
+
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          scale: 1,
+          translate: {
+            x: { pos: [[[0, 0]]] },
+            y: { pos: [[[0, 0]]] },
+            z: 0
+          },
+          rotate: [ 0, 0, 0 ],
+
         },
 
         pacer: {
-          initN: 0,
-          eventN: 0,
-          autoN: 1,
-          autoP: 0.01,
-          outtimed: 0,
-          maxN: 60,
-          span: 0,
-          aad: 1,
+          initN: 0,eventN: 0,autoN: 1,autoP: 0.01,outtimed: 0,maxN: 60,span: 0,aad: 1,
 
-          autoSitus: d => mstace.getLocus(d.payload.stace, d), // situs of anigram
+          autoSitus: ani => mstace.getLocus(ani.payload.proform.translate, ani.payload),
 
+          fider: ani => ani.payload.ric.fid,
 
-          fider: d => d.payload.ric.fid,
+          geojsor: (ani) => ({
 
-          geojsor: () => ({
-            
               halo: 'ent',
               geofold: {
                 type: 'Feature',
@@ -139,38 +133,24 @@ let muonAlima = function muonAlima (__mapper) {
                 properties: {}
               },
               payload: {}
-            
+
           }),
-          
+
         },
-
-
       }
-
     }
 
     /***********
   *         @ww0 ang vel begin
   */
-    let fn_ww0 = function (anginit, winit, sides, level, a, b, c, d, e) {
-      a = f.functor(a); b = f.functor(b); c = f.functor(c); d = f.functor(d); e = f.functor(e)
-      let r
-      if (level === 0) r = 0
-      else {
-        r =
-            0 * anginit +
-            0 * (
-              + fn_ww1(anginit, winit, sides, 0, a, b, c, d, e)
-              - fn_ww0(anginit, winit, sides, 0, a, b, c, d, e)
-            )
-      }
+    let fn_ww0 = function (anginit, winit, sides, level) {
+      let r = 0
       return r
     }
     /***********
   *         @ww1 ang vel end
-  */      
-    let fn_ww1 = function (anginit, winit, sides, level, a, b, c, d, e) {
-      a = f.functor(a); b = f.functor(b); c = f.functor(c); d = f.functor(d); e = f.functor(e)
+  */
+    let fn_ww1 = function (anginit, winit, sides, level) {
       let r = 0
       if (level === 0) r = winit * turn
       else {
@@ -182,73 +162,43 @@ let muonAlima = function muonAlima (__mapper) {
     }
 
     /***********
-  *         @rr0 ref begin
-  */    
-    let fn_rr0 = function (anginit, winit, sides, level, a, b, c, d, e) {
-      a = f.functor(a); b = f.functor(b); c = f.functor(c); d = f.functor(d); e = f.functor(e)
-
-      let r = 0
-      if (level === 0) r = winit * turn
-      else {
-        r = 0
-      }
-      return r
-    }
-    /***********
-  *         @rr1 ref end
-  */        
-    let fn_rr1 = function (anginit, winit, sides, level, a, b, c, d, e) {
-      a = f.functor(a); b = f.functor(b); c = f.functor(c); d = f.functor(d); e = f.functor(e)
-
-      let r
-      if (level === 0) r = 0 * turn
-      else {
-        r =
-            0 * (
-            + fn_ww1(anginit, winit, sides, 0, a, b, c, d, e)
-             - fn_ww0(anginit, winit, sides, 0, a, b, c, d, e)
-          )
-      }
-      return r
-    }
-
-    /***********
   *         @create animas
   */
     for (level = 0; level < DEPTH; level++) {
-      let sign = Math.pow(-1, level)
 
-      ww0[level] = fn_ww0(ANGINIT, WINIT, SIDES, level, A, B, C, D, E)
-      ww1[level] = fn_ww1(ANGINIT, WINIT, SIDES, level, A, B, C, D, E)
-      rr0[level] = fn_rr0(ANGINIT, WINIT, SIDES, level, A, B, C, D, E)
-      rr1[level] = fn_rr1(ANGINIT, WINIT, SIDES, level, A, B, C, D, E)
-
+      ww0[level] = fn_ww0(ANGINIT, WINIT, SIDES, level)
+      ww1[level] = fn_ww1(ANGINIT, WINIT, SIDES, level)
 
       // anis h.nat
       anis[level] = f.cloneObj(anis[level - 1] || anima)
-      
-      
+
+      // cycloid ric
       anis[level].payload.ric = {
         'gid': 'nat',
         'cid': NAME + level,
         'fid': NAME + level
       }
-      
-      anis[level].payload.form.x.ra2 = anis[level].payload.form.y.ra2 = [[[RAD / (Math.pow(2, level)) ]]]
-      anis[level].payload.form.x.w4 = anis[level].payload.form.y.w4 = [[[ ww0[level], ww1[level] ]]]
-      anis[level].payload.boform.cf = 333
 
+      // cycloid radius
+      anis[level].payload.form.x.ra2 = anis[level].payload.form.y.ra2 = [[[RAD / (Math.pow(2, level)) ]]]
+      
+      // cycloid rotation
+      anis[level].payload.form.x.w4 = anis[level].payload.form.y.w4 = [[[ ww0[level], ww1[level] ]]]
+      
+      // cycloid boform
+      anis[level].payload.boform.cf = 222
+
+      // cycloid position for upper levels
       if (level !== 0) {
         anis[level].payload.proform.x = anis[level].payload.proform.y = { //  ref - pos : nb of vertex
-          'pos': 0, // 'ref': 180 // #10 with extended range
+          'pos': 0,
         }
       }
 
-      traces[level] = f.cloneObj(traces[level - 1] || animaTraces)
-      traces[level].payload.ric = {'typ': 'nat', 'gid': NAME + 'traces' + level, 'cid': NAME + 'traces' + level, 'fid': NAME + 'traces' + level}
+      traces[level] = f.cloneObj(traces[level - 1] || traceLine)
+      traces[level].payload.ric = {gid: NAME + 'traces' + level, cid: NAME + 'traces' + level, fid: NAME + 'traces' + level}
 
       // if (level === DEPTH) traces[level].payload.boform.cp = 1
-
 
 
     }
@@ -256,35 +206,88 @@ let muonAlima = function muonAlima (__mapper) {
     /*  -------------------------- */
 
     for (level = DEPTH - 1; level >= 0; level--) { // DEPTH:3  2, 1, 0
-    
+
+
       anis[level].payload.avatars = []
-      if (anis[level + 1] !== undefined) anis[level].payload.avatars.push(anis[level + 1])
-      if (level === DEPTH - 1) anis[level].payload.avatars.push(traces[level])
-        
-      if (0 && 1) console.log("traces[level]", level, anis)  
-        
+
+      if (anis[level + 1] !== undefined) {
+
+        let avatar = anis[level + 1]
+
+        if (1 && 1) console.log("traces[level]", level, avatar)
+
+        anis[level].payload.avatars.push(avatar)
+
+      }
+
+      if (level === DEPTH - 1) {
+        anis[level].payload.avatars.push(traces[level])
+      }
+
+
     }
-  
-  
+
+
     return anis[0]
   }
-  
+  // -------------------------------  img
+  let img = {
+
+    halo: 'img',
+
+    geofold: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {gid: 'imgg', cid: 'imgc', fid: 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }
     /***********
   *         @animas
   */
   let forms = []
-  forms[0] = getForm({a:1,b:0,c:-1,d:-1,e:0,depth:2,rad:30,sides:5,wbase:1,anginit:180,name:"as11",row:1,col:1})
-  // forms[1] = getForm({a:1,b:0,c:-1,d:-1,e:0,depth:3,rad:30,sides:5,wbase:1,anginit:180,name:"as12",row:1,col:2})
-  // forms[2] = getForm({a:1,b:0,c:-1,d:-1,e:0,depth:4,rad:30,sides:5,wbase:1,anginit:180,name:"as13",row:1,col:3})
-  // forms[3] = getForm({a: 1, b: 0, c: -1, d: -1, e: 0, depth: 5, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as21', row: 2, col: 1})
-  // forms[4] = getForm({a:1,b:0,c:-1,d:-1,e:0,depth:6,rad:30,sides:5,wbase:1,anginit:180,name:"as22",row:2,col:2})
-  // forms[5] = getForm({a:1,b:0,c:-1,d:-1,e:0,depth:7,rad:30,sides:5,wbase:1,anginit:180,name:"as23",row:2,col:3})
-  // forms[6] = getForm({a:1,b:0,c:-1,d:-1,e:0,depth:8,rad:30,sides:5,wbase:1,anginit:180,name:"as31",row:3,col:1})
-  // forms[7] = getForm({a:1,b:0,c:-1,d:-1,e:0,depth:9,rad:30,sides:5,wbase:1,anginit:180,name:"as32",row:3,col:2})
-  // forms[8] = getForm({a:1,b:0,c:-1,d:-1,e:0,depth:10,rad:30,sides:5,wbase:1,anginit:180,name:"as33",row:3,col:3})
+  // rad: initial radius: 30
+  forms[0] = getForm({depth:2,rad:60,sides:5,wbase:1,anginit:180,name:"as11",row:1,col:1})
+  // forms[1] = getForm({depth:3,rad:30,sides:5,wbase:1,anginit:180,name:"as12",row:1,col:2})
+  // forms[2] = getForm({depth:4,rad:30,sides:5,wbase:1,anginit:180,name:"as13",row:1,col:3})
+  // forms[3] = getForm({depth: 5, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as21', row: 2, col: 1})
+  // forms[4] = getForm({depth:6,rad:30,sides:5,wbase:1,anginit:180,name:"as22",row:2,col:2})
+  // forms[5] = getForm({depth:7,rad:30,sides:5,wbase:1,anginit:180,name:"as23",row:2,col:3})
+  // forms[6] = getForm({depth:8,rad:30,sides:5,wbase:1,anginit:180,name:"as31",row:3,col:1})
+  // forms[7] = getForm({depth:9,rad:30,sides:5,wbase:1,anginit:180,name:"as32",row:3,col:2})
+  // forms[8] = getForm({depth:10,rad:30,sides:5,wbase:1,anginit:180,name:"as33",row:3,col:3})
   // animas = [form11,form12,form13,form21,form22,form23,form31,form32,form33]
   animas = forms
 
+  animas = [...animas, img] // h.img
   /*******************************************
  *      @animaApi
  *

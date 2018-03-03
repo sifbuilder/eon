@@ -46,14 +46,14 @@ let muonAlima = function muonAlima (__mapper) {
     'x': {
 
       'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-      'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360, 
+      'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
 
     },
 
     'y': {
 
       'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-      'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360, 
+      'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
 
     }
 
@@ -64,13 +64,13 @@ let muonAlima = function muonAlima (__mapper) {
     'x': {
 
       'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
-      'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360, 
+      'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360,
     },
 
     'y': {
 
       'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
-      'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360, 
+      'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360,
 
     }
 
@@ -78,13 +78,13 @@ let muonAlima = function muonAlima (__mapper) {
 
   let natStace = {
     'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
-    'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1, 
+    'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
   }
 
   let natProform = {
     'projection': 'uniwen',
     'prerotate': [[[ cwen.rotation ]]],
-    
+
     'translate': [ [ 70, 80 ], [[[ natStace ]]] ], //
     'scale': 1,
     'rotate': [ 0, 0, 0 ],
@@ -123,15 +123,15 @@ let muonAlima = function muonAlima (__mapper) {
     }
   }
 
- // ....................... traceani
-  let traceani = {
+ // ....................... traceform
+  let traceform = {
 
     halo: 'pacer',
 
     payload: {
 
       tim,
-      ric: {gid: 'trace', cid: 'trace', fid: 'traceani'},
+      ric: {gid: 'trace', cid: 'trace', fid: 'traceform'},
       boform: traceBoform,
 
       proform: {
@@ -141,8 +141,8 @@ let muonAlima = function muonAlima (__mapper) {
         },
 
       stace: {
-            'x': { 'pos': 0 },     //  [[[-100,100]]], // 
-            'y': { 'pos': 0 },     //  [[[-100,100]]], // 
+            'x': { 'pos': [[[0,360]]] },     //  [[[-100,100]]], //
+            'y': { 'pos': [[[0,360]]] },     //  [[[-100,100]]], //
             'z': 0
         },
 
@@ -154,28 +154,24 @@ let muonAlima = function muonAlima (__mapper) {
         outtimed: 0,
         maxN: 60,
         span: 0,
+        aad: 0,
 
 
-        
-        // proform situs from avatar payload 
+        // avatar situs - newitem.payload.proform.transform in m.pacer
         //
-        autoSitus: d => {
-          let situs = mstace.getLocus(d.payload.stace, d.payload) 
-if (0 && 1) console.log("situs", d.payload.stace, situs)          
-          return situs
-        },
+        autoSitus: d => mstace.getLocus(d.payload.stace, d.payload),
 
         fider: d => d.payload.ric.fid,
 
         geojsor: () => ({
-          
+
             halo: 'nat', // 'ent',
             payload: {
               tim,
               ric: {gid: 'nat', cid: 'nat', fid: 'formCirc'},
               form: traceForm
             },
-            // proform: this.proform,
+            
         }),
 
       }
@@ -189,7 +185,7 @@ if (0 && 1) console.log("situs", d.payload.stace, situs)
 
   nat.payload.avatars = {
 
-    traceani // h.pacer
+    traceform // h.pacer
 
   }
 
