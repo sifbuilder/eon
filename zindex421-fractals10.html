@@ -44,7 +44,7 @@ let muonAlima = function muonAlima (__mapper) {
       SIDES = params.sides || 5,
       WINIT = params.wbase || 1, // base angular vel
       ANGINIT = params.anginit || 0, // 0 internal, 180 extenal
-      CF = params.cf || (d => 222 * d) // cfonlevel
+      CF = params.cf || (d => 222 * 1) // cfonlevel
 
 
     let ww0 = []
@@ -52,7 +52,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     let turn = 360
     let x = -100 + (COL - 1) * 200   // -100
-    let y = 60 + (ROW - 1) * 175      // 100
+    let y = 100 + (ROW - 1) * 175      // 100
 
     let signexp = level => Math.pow(-1, level)
 
@@ -276,7 +276,7 @@ let muonAlima = function muonAlima (__mapper) {
   */
   let forms = []
   // default: depth:2,rad:30,sides:5,wbase:1,anginit:180,name:"as11",row:1,col:1
-  forms[0] = getForm({depth:2,rad:90,sides:5,wbase:1,anginit:180,name:"as11",row:1,col:1})
+  forms[0] = getForm({depth:2,rad:30,sides:5,wbase:1,anginit:180,name:"as11",row:1,col:1})
   // forms[1] = getForm({depth:3,rad:30,sides:5,wbase:1,anginit:180,name:"as12",row:1,col:2})
   // forms[2] = getForm({depth:4,rad:30,sides:5,wbase:1,anginit:180,name:"as13",row:1,col:3})
   // forms[3] = getForm({depth: 5, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as21', row: 2, col: 1})
