@@ -75,6 +75,44 @@
     // tripleArray" animas animation, single polygon geojson MultiPolygon
     props.isTripleArray = d => (Array.isArray(d) && Array.isArray(d[0]) && Array.isArray(d[0][0]) &&
         d.length === 1 && d[0].length === 1 && d[0][0].length === 1) // [[[_]]]    
+        
+        
+        
+    /* **************************
+   *        @interlink
+   *
+   *        [ [a1,a2,a3], [b1,b2] ]     [ [a1,b1], [a2,b2x], [a3,b2] ]
+   *        [ {a1,a2,a3}, [b1,b2] ]     [ [a1v,b1], [a2v,b2x], [a3v,b2] ]
+   *        [ {a1,a2,a3}, {b1,b2} ]     [ [a1v,b1], [a2v,b2x], [a3v,b2] ]
+   */
+    props.interlink = function (streams = [], compl = 'max') {
+      let nbr = streams.length
+
+      let inpattern = streams.reduce((p, q) => p && props.isNumericArray(q), true)
+
+      let lengths = streams.map(d => d.length),
+        mx = Math.max(...lengths),
+        mn = Math.min(...lengths)
+
+      let streamXYZ = []
+      if (compl === 'min') {
+        let pointsHowmany = mn // min length
+
+        for (let i = 0; i < pointsHowmany; i++) {
+          streamXYZ[i] = streams.map(d => d[i])
+        }
+        let scales = streams.map(d => d3.scaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))
+      } else {
+        let pointsHowmany = mx // max length
+        let scales = streams.map(d => d3.scaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))
+        for (let j = 0; j < pointsHowmany; j++) {
+          let w = streams.map((s, k) => streams[k][Math.round(scales[k](j))])
+          streamXYZ.push(w)
+        }
+      }
+      return streamXYZ
+    }        
+        
     /***************************
    *        @functions
    */

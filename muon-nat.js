@@ -115,8 +115,11 @@
       let maxRadio = 0
 
       if (f.isSame(forml, cache.forml)) {
+        
         pts = cache.points
+        
       } else {
+        
         const {m1, m2, n1, n2, n3, a, b, v0, v1, seg5} = forml
         const angUnit = tau / seg5 // dots per period
 
@@ -176,14 +179,16 @@
    *      callls m.nat.radorm
    */
     let natform = function (form) { // getVertex
+if (1 && 1) console.log("m.nat.natform form", form)      
       let nformed = nform(form) // nform
 
+      
       let unfeld = Object.values(nformed)
-      if (0 && 1) console.log('m.nat:unfeld', unfeld)
 
       let dominos = unfeld.map(d => d.dom3) // [ [-180,180], [-180,180], [-90,90], [-90,90] ]
 
       let radions = unfeld.map((d, i) => radorm(d, dominos[i])) // radorm
+      let rayscale = unfeld.map((d, i) => p => radions[i](p* degrees)) // rayscale on degres
 
       let scale = [1, 1, 1], rotation = [0, 0, 0], location = [0, 0, 0], rad, wr, wd
       if (nformed) rad = scale = unfeld.map(dax => dax.ra2)
@@ -198,11 +203,7 @@
           ppD[3] = phiD    + (wd[3] || 0)
           
         let ppR = ppD.map( d => d * radians)  // pars in radians per dax
-        
-        let rayscale = unfeld.map((d, i) => p => radions[i](p* degrees)) // rayscale on degres
-        
         let rs = unfeld.map( (d,i) => rayscale[i](ppR[i]) || 1)  // radorn on dax par
-
         let rr = unfeld.map( (d, i) => d.fn0(...ppR, ...rs) ) // 
         
         let point = unfeld.map( (d, i) => radio * rad[i] * rr[i])
@@ -221,6 +222,9 @@
      *       coordinates = Array.of(__mapper("xs").m("nat").natFeature(p.form))
      */
     let natFeature = function (form) {
+      
+      if (1 && 1) console.log("m.nat.natFeature form", form)
+      
       let nformed = nform(form) // NFORM
       if (0 && 1) console.log('m.nat.natFeature:nformed', nformed)
       let geometry
@@ -232,9 +236,16 @@
         sx = dx
         sy = dy
 
+        
+        
         let graticule = {frame: [ [ [-180, 180, sx, dx], [-90, 90, sy, dy] ] ]} // x, y
+        
+        
         geometry = mgraticule.gedges(graticule).geometry
+        
+        
       } else { // 2d
+      
         dx = 360 / nformed.x.seg5 // x
         dy = 360 / nformed.y.seg5 // y
         sx = 360

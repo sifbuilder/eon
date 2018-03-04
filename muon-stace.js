@@ -60,9 +60,9 @@
  *             @getPosInDim
  */
     let getPosInDim = function (staceDim) {
-		 let poses = getPosesInDim(staceDim)
-		 return poses[0]
-	 }
+     let poses = getPosesInDim(staceDim)
+     return poses[0]
+   }
 
     /* **********
  *             @getPosInDim
@@ -155,7 +155,7 @@
  */
 
     let getTranspots = function (stace, payload, locations = []) {
-      
+
       if (payload !== undefined) stace = stace || payload.stace
 
       if (stace !== undefined && stace !== null) {
@@ -164,9 +164,11 @@
           let val = stace // single location from stace array
 
           if (f.isArray(val) && f.isPureArray(val)) { // [x,y,z]
-            location = val.map((d, i) => val[i])	// one location
+            location = val.map((d, i) => val[i])  // one location
             locations.push(location)
+
           } if (f.isArray(val) && f.isQuasiPureArray(val)) { // sum by dim [[a1,a2,a3],[b1,b2]]*
+
             let poses = val.length // additive positions eg.2
             let mx = Math.max(...val.map(d => d.length)) // num of dims eg. 3
 
@@ -178,43 +180,79 @@
               location[i] = loc
             }
             locations.push(location)
-          } else {
-            console.log(' location format not supported')
+
+          } else {                        // [ 200, {y: { pos: 20 }} ]
+            let newLocations = []
+            let mx = val.length
+            for (let i = 0; i < mx; i++) { // for each dimension
+
+              if (typeof val[i] === 'number')   {     
+                
+                newLocations[i] = val[i]
+                
+              } else if (typeof val[i] === 'object')   {
+                
+                let v = val[i]
+                let locationsDax = []
+                
+                if (v.hasOwnProperty('pos')) {
+                  let parentCoords = manitem.parentCoords(payload) // parentCoords
+                  let parentLocationsDaxes = mlacer.unslide(parentCoords) // unslide
+                  let parentLocationsDax = parentLocationsDaxes[i]   // dax stream
+
+                  if (parentLocationsDax !== undefined) {
+                    locationsDax = getLocsInDim(v, parentLocationsDax)
+                  }
+                }
+
+                newLocations[i] = locationsDax
+                
+              }
+
+
+
+            }
+
+            // console.log(' location format not supported')
+            locations = [...locations, ...f.interlink(newLocations)]
+
+
+
           }
-        } else if (typeof stace === 'object') { 									// {'x':300, 'y':200}}
+        } else if (typeof stace === 'object') {                   // {'x':300, 'y':200}}
           let entries = Object.entries(stace)
-          let locationsPerDim = []
+          let locationsPerDax = []
 
           for (let i = 0; i < entries.length; i++) {
-            let entry = entries[i]																			// ['x', 200]
+            let entry = entries[i]                                      // ['x', 200]
             let k1 = entry[0]
             let v1 = entry[1]
 
-            if (typeof v1 === 'number') locationsPerDim[i] = Array.of(v1) // [200]
+            if (typeof v1 === 'number') locationsPerDax[i] = Array.of(v1) // [200]
 
             else if (typeof v1 === 'object') {
               if (v1.hasOwnProperty('pos')) {
                 let parentCoords = manitem.parentCoords(payload) // parentCoords
-                let parentLocationsDimd = mlacer.unslide(parentCoords) // unslide
-                let parentLocationsDim = parentLocationsDimd[i]
+                let parentLocationsDaxes = mlacer.unslide(parentCoords) // unslide
+                let parentLocationsDax = parentLocationsDaxes[i]
 
-                if (parentLocationsDim !== undefined) {
-                  locationsPerDim[i] = getLocsInDim(v1, parentLocationsDim)
+                if (parentLocationsDax !== undefined) {
+                  locationsPerDax[i] = getLocsInDim(v1, parentLocationsDax)
                 }
               }
             }
           }
-          if (locationsPerDim.length > 0) {
-            locations = mlacer.slide(locationsPerDim)									// [300, 200]
+          if (locationsPerDax.length > 0) {
+            locations = mlacer.slide(locationsPerDax)                 // [300, 200]
           }
         }
 
         if (locations.length === 0) locations = []
-      }	else {	// stace not defined take situs from parent
-      
+      } else {  // stace not defined take situs from parent
+
         let parentSitus = __mapper('xs').m('anitem').parentSitus(payload)
         locations = Array.of(parentSitus)
-        
+
       }
 
       return locations
