@@ -21,14 +21,19 @@
    *    @gramm
    */
     let gramm = function (anima, newAnigrams = []) {
+
+
       let anigram = manitem(anima).anigram() // anigram
 
       anigram.halo = 'ent' // halo
       anigram.geofold = p => mnat.natFeature(p.payload.form)
+if (1 && 1) console.log("h.nat.gram -------", anima.payload.uid)
 
       newAnigrams = __mapper('xs').h('ent').gramm(anigram)
+if (1 && 1) console.log("h.nat.gram <<<<<<<", anima.payload.uid)
 
       return newAnigrams
+
     }
 
     /****************************
@@ -39,7 +44,11 @@
 
     let haloNat = {}
     haloNat.ween = anima => haloNat_ween(anima)
-    haloNat.gramm = anima => haloNat_gramm(anima)
+    haloNat.gramm = anima => {
+  if (1 && 1) console.log("h.nat.gram >>>>>>", anima.payload.uid)    
+      let r = haloNat_gramm(anima)
+      return r
+    }
 
     let enty = haloNat
 

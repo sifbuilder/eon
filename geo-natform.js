@@ -111,7 +111,7 @@
    *      calls m.nat.radorm
    */
     let natVertex = function (form) { // getVertex
-if (1 && 1) console.log("g.nat.natVertex form", form)      
+    
       let nformed = mnat.natNform(form) // natNform
 
       let unfeld = Object.values(nformed)
@@ -147,8 +147,6 @@ if (1 && 1) console.log("g.nat.natVertex form", form)
 
       return vertex
     }
-      
-      
       
       
       

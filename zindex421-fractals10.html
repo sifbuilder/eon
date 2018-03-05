@@ -29,7 +29,7 @@ let muonAlima = function muonAlima (__mapper) {
  *      @pics
  */
 
-  let tim = {'td': 110220, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let tim = {'td': 10220, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   /*******************************************
  *      @animas
@@ -77,15 +77,9 @@ let muonAlima = function muonAlima (__mapper) {
         boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.1, 'co': 0.7, 'cp': 0.7},
 
         form: {
-          x: {
             'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
             'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
           },
-          y: {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
-          }
-        },
 
         proform: {
 
@@ -186,10 +180,12 @@ if (1 && 1) console.log("level", level)
       }
 
       // --------- Sr -------------- cycloid radius - 
-      anis[level].payload.form.x.ra2 = anis[level].payload.form.y.ra2 = [[[ RAD / (Math.pow(2, level)) ]]]
+      // anis[level].payload.form.x.ra2 = anis[level].payload.form.y.ra2 = [[[ RAD / (Math.pow(2, level)) ]]]
+      anis[level].payload.form.ra2 = [[[ RAD / (Math.pow(2, level)) ]]]
 
       // --------- Sw -------------- cycloid rotation
-      anis[level].payload.form.x.w4 = anis[level].payload.form.y.w4 = [[[ ww0[level], ww1[level] ]]]
+      // anis[level].payload.form.x.w4 = anis[level].payload.form.y.w4 = [[[ ww0[level], ww1[level] ]]]
+      anis[level].payload.form.w4 = [[[ ww0[level], ww1[level] ]]]
 
       // cycloid boform
       anis[level].payload.boform.cf = CF(level)
@@ -222,7 +218,7 @@ if (1 && 1) console.log("level", level)
 
       // add line trace avatar to upper level
       if (level === DEPTH - 1) {
-        anis[level].payload.avatars.push(traces[level])
+        // anis[level].payload.avatars.push(traces[level])
       }
     }
 
@@ -237,9 +233,9 @@ if (1 && 1) console.log("level", level)
   // forms.push(getForm({depth: 2, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as11', row: 1, col: 1}))
   // forms.push(getForm({depth: 3, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2}))
   // forms.push(getForm({depth: 4, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as13', row: 1, col: 3}))
-  forms.push(getForm({depth: 5, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as21', row: 2, col: 1}))
+  // forms.push(getForm({depth: 5, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as21', row: 2, col: 1}))
   // forms.push(getForm({depth: 6, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as22', row: 2, col: 2}))
-  // forms.push(getForm({depth: 7, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as23', row: 2, col: 3}))
+  forms.push(getForm({depth: 7, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as23', row: 2, col: 3}))
   // forms.push(getForm({depth: 8, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as31', row: 3, col: 1}))
   // forms.push(getForm({depth: 9, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as32', row: 3, col: 2}))
   // forms.push(getForm({depth: 10, rad: 30, sides: 5, wbase: 1, anginit: 180, name: 'as33', row: 3, col: 3}))

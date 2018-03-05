@@ -112,8 +112,6 @@
      */
     let natFeature = function (form) {
       
-      if (1 && 1) console.log("m.nat.natFeature form", form)
-      
       let feature
   
       if (f.isSame(form, cache.form)) {
@@ -122,10 +120,10 @@
         
       } else {  
     
-    
+    if (0 && 1) console.log("m.nat natFeature form", form)
             
               let nformed = natNform(form) // NFORM
-              if (0 && 1) console.log('m.nat.natFeature:nformed', nformed)
+
               let geometry
               let dx, dy, sx, sy
 
@@ -189,6 +187,8 @@
 
          cache.form = form
          cache.feature = feature  
+   if (0 && 1) console.log("m.nat natFeature feature", feature)
+         
       }               
       
       return feature

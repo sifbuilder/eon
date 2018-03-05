@@ -12,12 +12,15 @@
   //      https://github.com/d3/d3-ease#easeElasticOut
 
   let muonStore = function muonStore (__mapper) {
-    let f = __mapper('props')()
+    let f = __mapper('props')(),
+      mtim = 	__mapper('xs').m('tim'),
+      manitem = 	__mapper('xs').m('anitem')
 
-    let state = {}
-    state.animas = [] // animas array
-    state.aniset = {} // animas by uid
-    state.anigrams = [] // behavior - an anigram may have many avatars
+    let state = {
+      animas: [], // animas array
+      aniset: {}, // animas by uid
+      anigrams: [] // behavior - an anigram may have many avatars
+    }
 
     let apply = function apply (action = {}) {
       /***************************
@@ -109,21 +112,39 @@
       let halo																		// anigram halo
 
       if (anima && (elapsed && elapsed >= wait)) { // if anima in time
-        if (anigram.halo !== undefined &&
-					(typeof anigram.halo === 'function' || typeof anigram.halo === 'object')) {
-          halo = anigram.halo // halo in anima
+      
+        halo = (anigram.halo !== undefined &&
+            (typeof anigram.halo === 'function' || typeof anigram.halo === 'object')) ?
+            anigram.halo : // halo in anima
+            __mapper('xs').h(anigram.halo) // or halo in store
+        
+    
+        if (halo) {
+          
+                  
+          newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
+          
+          
+          if (newAnigrams !== null && newAnigrams.length > 0) {
+            
+            __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newAnigrams})
+            
+            newItems = newItems.concat(f.a(newAnigrams))
+            
+          } else {
+            
+            if (0 && 1) console.log('halo ', halo, ' returns no anigram')
+            
+          }
+        
+
         } else {
-          halo = __mapper('xs').h(anigram.halo) // or halo in store
+          
+          console.log('halo', anigram.halo, ' not defined')
+
+          
         }
 
-        if (!halo) console.log('halo', anigram.halo, ' not defined')
-
-        else newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
-
-        if (newAnigrams !== null && newAnigrams.length > 0) {
-          __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newAnigrams})
-          newItems = newItems.concat(f.a(newAnigrams))
-        } // else console.log('halo ', halo, ' returns no anigram')
       }
 
       if (newItems !== undefined && newItems.length > 0) { // check if avatars in NEW animas
@@ -132,6 +153,7 @@
 
           if (newItem.payload.avatars !== undefined && newItem.payload.avatars !== null) { // AVATARS
             let avatars = (typeof newItem.payload.avatars === 'object') ? Object.values(newItem.payload.avatars) : newItem.payload.avatars
+            
             for (let j = 0; j < avatars.length; j++) {
               let newSubItems = []
               let avatar = avatars[j]
@@ -141,9 +163,11 @@
               avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
 
               newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
+              
+              
               __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newSubItems})
 
-              newItems = newItems.concat(f.a(newSubItems))
+              
             }
           }
         }
