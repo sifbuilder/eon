@@ -25,9 +25,9 @@ let muonAlima = function muonAlima (__mapper) {
   /**********************
    *    @libs
    */
-  let renderer = __mapper('renderRenderer'),
-    width = renderer.width(),
-    height = renderer.height(),
+  let renderport = __mapper('renderRenderport'),
+    width = renderport.width(),
+    height = renderport.height(),
     scaleView = Math.min(width / 2, height) / Math.PI
 
   let f = __mapper({'props': muonProps.muonProps()}).props()

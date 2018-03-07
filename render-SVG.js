@@ -22,7 +22,7 @@
     //  <svg width="600" height="400" viewBox="0 0 50 20" > 
     
     // https://bl.ocks.org/mbostock/3019563   // Margin Convention
-    let r = __mapper('xs').r('renderer'),
+    let r = __mapper('xs').r('renderport'),
       width = r.width(),
       height = r.height()
 
@@ -251,16 +251,18 @@
                 
                 
                   //  view pprojection
-                  let basprj = { // view projection
-                      'projection': 'uniwen',
-                      'prerotate': [0,0,0],
-                      'translate': [width/2, height/2, 0],
-                      'rotate': [0,0,0],
-                      'scale': [1,-1,1],
-                      'lens': [0,1,Infinity]
-                  }
-                  let toview = (properties.vim !== undefined) ? properties.vim : basprj
-                  let toviewproj = __mapper('xs').g('uniwen')(toview)                
+                  // let basprj = { // view projection
+                      // 'projection': 'uniwen',
+                      // 'prerotate': [0,0,0],
+                      // 'translate': [width/2, height/2, 0],
+                      // 'rotate': [0,0,0],
+                      // 'scale': [1,-1,1],
+                      // 'lens': [0,1,Infinity]
+                  // }
+                  // let toview = (properties.vim !== undefined) ? properties.vim : basprj
+                  // let toviewproj = __mapper('xs').g('uniwen')(toview)                
+                
+                  let toviewproj = r.toviewproj()
                 
                 
                 

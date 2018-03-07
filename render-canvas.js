@@ -12,7 +12,7 @@
     let state = {}
     let radians = Math.PI / 180
 
-    let r = __mapper('xs').r('renderer')
+    let r = __mapper('xs').r('renderport')
     state.width = r.width(),
     state.height = r.height()
 

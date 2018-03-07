@@ -20,15 +20,21 @@
       mric = __mapper('xs').m('ric'),
       mstore = __mapper('xs').m('store')
 
-    let r = __mapper('xs').r('renderer'),
+    let r = __mapper('xs').r('renderport'),
       width = r.width(),
       height = r.height()
 
     // -------------------------------  haloPacerHalo_ween
-    let haloPacerHalo_ween = function haloPacerHalo_gramm (anima, newItems = []) {
-      if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
-      return newItems
-    }
+    // let haloPacerHalo_ween = function  (anima, newItems = []) {
+      // if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
+      // return newItems
+    // }
+    
+// let haloPacerHalo_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []    
+
+
+let haloPacerHalo_ween = anima => [] 
+
     // -------------------------------  haloPacerHalo_gramm
     let haloPacerHalo_gramm = function (anima, newItems = []) {
       let anigram = manitem(anima).anigram(), // anigram
@@ -108,7 +114,8 @@
         anima.payload.inited = 1 //  inited
         anima.payload.pacer.outed = tim.unitPassed // updated with anima
         let animas = Array.of(anima) // upd ANIMA
-        mstore.apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
+        // mstore.apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
+        mstore.apply({'type': 'UPDANIGRAM', 'caller': 'h.pacer', animas})
       }
 
       // count anitems in this iteration
@@ -157,6 +164,7 @@
                 newItem = geojsor(anigram, i) // anigram, counter per paced type
                 newItem.payload.id = uid
                 newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
+                
               } else {
 
               // the geofold is recreated ... remove for form accumulation _e_
@@ -177,21 +185,24 @@
                 let d = mgeom.distance3d(presitus, situs) // 3d distance
 
                 if (d > span) {
-                  // if beyond pixspan distance
-
-                  coords.push(situs) // add dot to LineString
+                  
+                  coords.push(situs) // if beyond pixspan distance add dot to LineString
+                  
                 }
+                
+ if (1 && 1) console.log("h.pacer line coords", coords.length)               
               } else {
                 coords = Array.of(situs)
               }
 
               //
               newItem.geofold.geometry.coordinates = coords
-
               // n.ent of newItem
               let newItemsInCount = __mapper('xs').h('ent').gramm(newItem)
-
+if (1 && 1) console.log("h.pacer h.ent gram newItemsInCount", newItemsInCount)
               newItems = [...newItems, ...newItemsInCount] // add items
+              // newItems = [...newItems, newItem] // add items
+              
             } else {
               //  if the newItem has NOT been CREATED yet ....
               //
@@ -274,7 +285,7 @@
       return newItems
     }
 
-    let haloPacerHalo = function haloPacerHalo () {}
+    let haloPacerHalo = function () {}
     haloPacerHalo.ween = anima => haloPacerHalo_ween(anima)
     haloPacerHalo.gramm = anima => haloPacerHalo_gramm(anima)
 

@@ -13,7 +13,7 @@
       manitem = __mapper('xs').m('anitem'),
       mnat = __mapper('xs').m('nat')
 
-    let r = __mapper('xs').r('renderer'),
+    let r = __mapper('xs').r('renderport'),
       width = r.width(),
       height = r.height()
 
@@ -27,10 +27,8 @@
 
       anigram.halo = 'ent' // halo
       anigram.geofold = p => mnat.natFeature(p.payload.form)
-if (1 && 1) console.log("h.nat.gram -------", anima.payload.uid)
 
       newAnigrams = __mapper('xs').h('ent').gramm(anigram)
-if (1 && 1) console.log("h.nat.gram <<<<<<<", anima.payload.uid)
 
       return newAnigrams
 
@@ -45,7 +43,6 @@ if (1 && 1) console.log("h.nat.gram <<<<<<<", anima.payload.uid)
     let haloNat = {}
     haloNat.ween = anima => haloNat_ween(anima)
     haloNat.gramm = anima => {
-  if (1 && 1) console.log("h.nat.gram >>>>>>", anima.payload.uid)    
       let r = haloNat_gramm(anima)
       return r
     }

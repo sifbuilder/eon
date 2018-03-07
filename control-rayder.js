@@ -13,7 +13,7 @@
     let f = __mapper('props')(),
           mproj3ct = __mapper('xs').m('proj3ct')
 
-    let r = __mapper('xs').r('renderer'),
+    let r = __mapper('xs').r('renderport'),
       width = r.width(),
       height = r.height()
       
@@ -23,24 +23,25 @@
     }
     state.mouse.x = -2 // Initialize off canvas
     state.mouse.y = -2
+   
+   
+   
+   
+    
+      // let toview = { // view projection
+        // 'projection': 'uniwen',
+        // 'prerotate': [0,0,0],
+        // 'translate': [width/2, height/2, 0],
+        // 'rotate': [0,0,0],
+        // 'scale': [1,-1,1],
+        // 'lens': [0,1,Infinity]
+      // }
+      // let toviewproj = __mapper('xs').g('uniwen')(toview)
+      let toviewproj = r.toviewproj()
 
-    
-    // if (0 && 1) console.log("width", width)
-    
-    
-    
-      let toview = { // view projection
-        'projection': 'uniwen',
-        'prerotate': [0,0,0],
-        'translate': [width/2, height/2, 0],
-        'rotate': [0,0,0],
-        'scale': [1,-1,1],
-        'lens': [0,1,Infinity]
-      }
-      let toviewproj = __mapper('xs').g('uniwen')(toview)
 
-    if (0 && 1) console.log("toviewproj", toviewproj)  
-    
+
+      
       // proj
       let proj = function (event) {
         

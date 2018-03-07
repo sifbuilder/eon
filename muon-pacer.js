@@ -20,7 +20,7 @@
       mric = __mapper('xs').m('ric'),
       mstore = __mapper('xs').m('store')
 
-    let r = __mapper('xs').r('renderer'),
+    let r = __mapper('xs').r('renderport'),
       width = r.width(),
       height = r.height()
 

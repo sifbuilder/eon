@@ -28,9 +28,9 @@ let muonAlima = function muonAlima (__mapper) {
 
   let mgraticule = __mapper('xs').m('graticule')
 
-  let renderer = __mapper('renderRenderer'),
-    width = renderer.width(),
-    height = renderer.height(),
+  let renderport = __mapper('renderRenderport'),
+    width = renderport.width(),
+    height = renderport.height(),
     scaleProj = Math.min(width / 2, height) / Math.PI
 
   /*******************************************

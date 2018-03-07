@@ -11,9 +11,9 @@
   var muonPolyhedral = function muonPolyhedral (__mapper = {}) {
     let f = __mapper({'props': muonProps.muonProps()}).props()	// props
 
-    let renderer = __mapper('renderRenderer'),
-      width = renderer.width(),
-      height = renderer.height()
+    let renderport = __mapper('renderRenderport'),
+      width = renderport.width(),
+      height = renderport.height()
 
     let d3Geo = d3
     let pi = Math.PI, degrees = 180 / pi, radians = pi / 180

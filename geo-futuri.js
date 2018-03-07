@@ -25,9 +25,9 @@
       mgeom = __mapper('xs').m('geom'),
       mpolyhedral = __mapper('xs').m('polyhedral')
 
-    let renderer = __mapper('renderRenderer'),
-      width = renderer.width(),
-      height = renderer.height(),
+    let renderport = __mapper('renderRenderport'),
+      width = renderport.width(),
+      height = renderport.height(),
       scaleProj = Math.min(width / 2, height) / Math.PI
 
     let atan = Math.atan,

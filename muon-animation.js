@@ -68,16 +68,12 @@ if (0 && 1) console.log("state.animas", state.animas)
       /*******************************************
      *    @GRAMM animas to anigrams
      */
-if (1 && 1) console.log("m.animation gram    >>>>>>>>>>")
-
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
-if (1 && 1) console.log("m.animation gram    -----------", i)
 
         let newAnigrams = []
         newAnigrams = f.a(mstore.gramm(anima)) /* GRAMM */
       }
-if (1 && 1) console.log("m.animation gram    <<<<<<<<<")
 
       let anigrams = __mapper('xs').m('store').anigrams()
 

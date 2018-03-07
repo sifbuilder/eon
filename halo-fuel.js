@@ -16,7 +16,7 @@
       mgeom = __mapper('xs').m('geom'),
       mgeoj = __mapper('xs').m('geoj')
 
-    let r = __mapper('xs').r('renderer'),
+    let r = __mapper('xs').r('renderport'),
       width = r.width(),
       height = r.height()
 

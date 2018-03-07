@@ -20,8 +20,8 @@
     let props = __mapper('props')()
     let local = {}
 
-    let width = __mapper('renderRenderer').width()
-    let height = __mapper('renderRenderer').height()
+    let width = __mapper('renderRenderport').width()
+    let height = __mapper('renderRenderport').height()
 
     var enty = function () {
       var mode = 0

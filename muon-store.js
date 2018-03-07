@@ -37,6 +37,8 @@
             ? updAnima.payload.uid
             : __mapper('xs').m('ric').getuid(updAnima)
 
+          if (1 && 1) console.log("m.store UPDANIMA", action, uid)  
+            
           let index = enty.findFromUid(uid, state.animas)
           if (index !== -1) { // anima exists
             if (updAnima.payload.delled === 1) {
@@ -60,7 +62,7 @@
  *        @UPDANIGRAM
  */
       if (action.type === 'UPDANIGRAM') {
-        let newAnigrams = action.anigrams
+        let newAnigrams = f.fa(action.anigrams)
 
         for (let i = 0; i < newAnigrams.length; i++) {
           if (newAnigrams[i] !== undefined) {
@@ -162,6 +164,7 @@
               avatar.payload.tim = anigram.payload.tim // time from anima
               avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
 
+if (1 && 1) console.log("h.store gram avatar", newItem)              
               newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
               
               

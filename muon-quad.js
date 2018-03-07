@@ -17,7 +17,7 @@
 
   let muonQuad = function (__mapper) {
     let props = __mapper('props')()
-    let r = __mapper('xs').r('renderer'),
+    let r = __mapper('xs').r('renderport'),
       width = r.width(),
       height = r.height()
 

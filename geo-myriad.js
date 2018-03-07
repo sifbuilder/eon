@@ -23,9 +23,9 @@
     
     let mkruskal = __mapper('xs').m('kruskal')
     
-    let renderer = __mapper('renderRenderer'),
-      width = renderer.width(),
-      height = renderer.height(),
+    let renderport = __mapper('renderRenderport'),
+      width = renderport.width(),
+      height = renderport.height(),
       scaleProj = Math.min(width / 2, height) / Math.PI
 
     let epsilon = 1e-6, epsilon2 = epsilon * epsilon

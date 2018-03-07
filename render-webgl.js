@@ -12,13 +12,13 @@
     
     const radians = Math.PI / 180
 
-    let r = __mapper('xs').r('renderer')
+    let r = __mapper('xs').r('renderport')
     
     let state = {}
     state.width = r.width(),
     state.height = r.height()
-    state.renderer = new THREE.WebGLRenderer({antialias: true})
-    state.domElem = state.renderer.domElement // canvas
+    state.renderport = new THREE.WebGLRenderer({antialias: true})
+    state.domElem = state.renderport.domElement // canvas
     state.domElem.innerHTML = '' // Wipe DOM
     state.domElem.style.display = 'block'
     state.context = state.domElem.getContext('webgl')
@@ -97,7 +97,7 @@
     
     function resizeCanvas () {
       if (state.width && state.height) {
-        state.renderer.setSize(state.width, state.height)
+        state.renderport.setSize(state.width, state.height)
         state.camera.aspect = state.width / state.height
         state.camera.updateProjectionMatrix()
       }
@@ -297,7 +297,7 @@
 
       state.controls.update() // Frame cycle
 
-      state.renderer.render(state.scene, state.camera)
+      state.renderport.render(state.scene, state.camera)
     }
 
     /***************************
