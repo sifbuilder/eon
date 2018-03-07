@@ -22,11 +22,12 @@
     //  <svg width="600" height="400" viewBox="0 0 50 20" > 
     
     // https://bl.ocks.org/mbostock/3019563   // Margin Convention
-    let r = __mapper('xs').r('renderport'),
-      width = r.width(),
-      height = r.height()
+    let r = __mapper('xs').r('renderport')
 
-    let state = {width, height}   // Viewport
+    let state = {
+       width: r.width(), 
+       height: r.height()
+    }   // Viewport
 
     let svglayer = d3.select('.viewframe')
       .append('svg')
@@ -74,8 +75,8 @@
           .append('svg')
           .attr('class', 'svg')
           .attr('id', 'svg')
-          .attr('width', function () { return (typeof width !== 'undefined') ? width : 600 })
-          .attr('height', function () { return (typeof height !== 'undefined') ? height : 400 })
+          .attr('width', state.width)
+          .attr('height', state.height)
           .style('border', '1px solid lightgray')
         return svgLayer
       } else if (payload == 'image') { // if image insert image
@@ -86,8 +87,8 @@
             .attr('xlink:href', './image.jpg')
             .attr('x', '0')
             .attr('y', '0')
-            .attr('width', function () { return (typeof width !== 'undefined') ? width : 600 })
-            .attr('height', function () { return (typeof height !== 'undefined') ? height : 400 })
+            .attr('width', state.width)
+            .attr('height', state.height)
           return img
         }
       }

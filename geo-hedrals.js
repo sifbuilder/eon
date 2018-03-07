@@ -25,7 +25,7 @@
 			
       if (!p.prjRaw) p.prjRaw = d3.geoGnomonicRaw // prjRaw
 			
-      p.tree = f.entxx('tree', 'trees', 'treeidx', p) // tree
+      p.tree = f.objxx('tree', 'trees', 'treeidx', p) // tree
 			
       if (!p.tree) p.tree = [-1]									// root
 

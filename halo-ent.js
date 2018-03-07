@@ -55,7 +55,7 @@
           gjProformed = mproj3ct(gjConformed, proformion),
           gj = gjProformed
           
-    if (1 && 1) console.log("gj", gj)
+    if (0 && 1) console.log("gj", gj)
       
         gj = mgeoj.featurize(gj) // featurize
         gj = mboform.boformer(anigram, gj) // boform

@@ -12,10 +12,13 @@
     
     let props = __mapper('props')()
 
-    let width = props.width || 600,
-      height = props.height || 400,
-      margin = {top: 20, right: 10, bottom: 20, left: 10},
-      scaleView = Math.min(width / 2, height) / Math.PI
+    let margin = {top: 20, right: 10, bottom: 20, left: 10},
+      viewWidth = props.viewWidth || 600,
+      viewHeight = props.viewHeight || 400,      
+      scaleView = Math.min(viewWidth / 2, viewHeight) / Math.PI,
+      width = viewWidth - margin.left - margin.right,
+      height = viewHeight - margin.top - margin.bottom
+    
     
     let projection = 'uniwen',
       prerotate = [0,0,0],
@@ -30,8 +33,8 @@
  */
     let enty = function () {}
 
-    enty.width = _ => (_ === undefined) ? width - margin.left - margin.right : (width = _, enty)
-    enty.height = _ => (_ === undefined) ? height - margin.top - margin.bottom : (height = _, enty)
+    enty.width = _ => (_ === undefined) ? width : (width = _, enty)
+    enty.height = _ => (_ === undefined) ? height : (height = _, enty)
     enty.margin = _ => (_ === undefined) ? margin : (margin = _, enty)
     enty.scaleView = () => scaleView
 

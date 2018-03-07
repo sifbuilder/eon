@@ -83,9 +83,9 @@
         0.1, 
         9000 );
         
-        state.camera.position.x = 2;
-        state.camera.position.y = 1;
-        state.camera.position.z = 900;
+        state.camera.position.x = 0
+        state.camera.position.y = 0
+        state.camera.position.z = 900
     
     
 

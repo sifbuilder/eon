@@ -19,7 +19,7 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 1, img: 0}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 1, img: 0, pos:0}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props()
 
@@ -70,7 +70,7 @@ let muonAlima = function muonAlima (__mapper) {
       ric: {'gid': 'geopoint', 'cid': 'geopoint', 'fid': 'geopoint'},
       boform: { 'csx': 0, 'cf': [[[555, 777]]], 'cs': 222, 'cw': [[[1.7, 1.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
       
-      zenform: [ 10, [[[10,100]]] ],
+      zenform: [ 0, 0 ],
       
       proform: {
 
