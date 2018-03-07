@@ -59,7 +59,8 @@ let muonAlima = function (__mapper) {
             'dom3': [-180, 180],
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r) * c * cos(u)
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => r
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => cos(r)
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => cos(r)
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => r
               
 
     },
@@ -71,7 +72,8 @@ let muonAlima = function (__mapper) {
             'dom3': [-180, 180],
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(s) * c * cos(u)
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin( 12 * s)
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => sin(s)
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => sin(s)
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => s
     },
     'z': {
             'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b  ': 1,  // circ            
@@ -127,7 +129,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geofold: p => mgraticule.gedges(p.payload.graticule),
+    geofold: p => mgraticule.dedges(p.payload.graticule),
 
     payload: {
 

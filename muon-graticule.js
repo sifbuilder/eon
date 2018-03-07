@@ -345,6 +345,50 @@ if (0 && 1) console.log("m.grarr.pps", pps)
 
       return gj
     }    
+    
+   /* *********************
+     *    @dedges
+     */
+    let dedges = function (params) {
+      let g = grarr(params)
+      let mersCoords = g.mms.coordinates
+      let parsCoords = g.pps.coordinates
+
+      let mersq = mersCoords.length // 12 x 7
+      let parsq = parsCoords.length //  7 x 13
+      let index = tidx(mersq, parsq) // 12, 7
+
+      let m0 = 0 // 0
+      let mn = mersq // 12
+      let p0 = 0 // 0
+      let pn = parsq // 6
+      
+      let lines = []
+      let line = []
+      for (let i = m0; i < mn; i++) { // meridians    0 - 11
+        for (let j = p0; j < pn - 1; j++) { // exclude upper segement
+          let i0 = i
+          let i1 = (i + 1) % mersq // mer 12 is mer 0
+
+          let j0 = j
+          let j1 = (j + 1) // % (parsq) // parabolic
+
+          let coord = [ index(i0, j0), index(i1, j1) ]
+          line.push(coord)
+        }
+        lines.push(line)
+      }
+
+      let gj = {
+        type: 'Feature',
+        geometry: {type: 'MultiLineString',coordinates: lines,},
+        properties: {mgraticule:'gedges'}
+      }   
+      if (!mgeoj.isValid(gj)) console.error("gj not valid")
+
+      return gj
+    }
+    
     /* *********************
      *    @gvertices
 
@@ -452,6 +496,9 @@ if (0 && 1) console.log("m.grarr.pps", pps)
     enty.gedges = gedges
     enty.medges = medges
     enty.pedges = pedges
+    
+    enty.dedges = dedges
+    
     enty.gfaces = gfaces
     enty.gvertices = gvertices
     enty.equator = equator
