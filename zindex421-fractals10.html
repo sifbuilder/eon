@@ -63,7 +63,7 @@ let muonAlima = function muonAlima (__mapper) {
       dy = 100,
       turn = 360
       
-    const cyclet = 172000
+    const cyclet = 272000
     
     let x = x0 + (COL - 1) * dx,
       y = y0 + (ROW - 1) * dy
@@ -82,7 +82,8 @@ let muonAlima = function muonAlima (__mapper) {
 
     let anima = {
 
-      halo: 'nat',
+      halo: 'ent',
+      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
 
         tim: {'td': cyclet * DEPTH, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
@@ -115,7 +116,6 @@ let muonAlima = function muonAlima (__mapper) {
       halo: 'pacer',
 
       payload: {
-        // tim, get tim from parent
         ric: {'typ': 'nat', 'gid': NAME + 'traces' + 0, 'cid': NAME + 'traces' + 0, 'fid': NAME + 'traces' + 0},
         boform: {'csx': 0, 'cf': 111, 'cs': 666, 'cw': 0.99, 'co': 0.2, 'cp': 0.99},
 
@@ -166,8 +166,6 @@ let muonAlima = function muonAlima (__mapper) {
   *         @create animas
   */
     for (level = 0; level < DEPTH; level++) {
-
-
 
       // anis h.nat
       anis[level] = f.cloneObj(anis[level - 1] || anima)
@@ -220,13 +218,13 @@ let muonAlima = function muonAlima (__mapper) {
       }
 
       // add line trace avatar to upper level
+      
       if (level === DEPTH - 1) {
-if (1 && 1) console.log("traces", level, traces[level] )        
-        anis[level].payload.avatars.push(traces[level])
+          anis[level].payload.avatars.push(traces[level])
       }
       
       if (level === DEPTH - 1) {    // add image as avatar to root nat
-        // anis[level].payload.avatars.push(img)
+        anis[level].payload.avatars.push(img)
       }      
     }
 

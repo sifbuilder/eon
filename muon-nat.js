@@ -163,7 +163,7 @@
                 type: 'Feature',
                 geometry: geometry,
                 properties: {
-                  docnat: '[[long,lat]] def radio:1',
+                  docnat: '',
                   geonode: {
                     type: 'Feature',
                     geometry: {

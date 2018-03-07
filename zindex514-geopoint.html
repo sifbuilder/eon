@@ -35,11 +35,16 @@ let muonAlima = function muonAlima (__mapper) {
 
     halo: 'ent',
 
-    geofold: {
+    geofold: d => ({
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates: [ 150, 150, 0 ]
+        coordinates: Complex({re:0,im:0})
+          .add(
+            d.payload.zenform[0],
+            d.payload.zenform[1]
+          )
+          .toVector()
       },
       properties: {
          pointRadius: 6,
@@ -47,28 +52,31 @@ let muonAlima = function muonAlima (__mapper) {
           type: 'Feature',
           geometry: { 
             type: 'Point', 
-            coordinates: [0, 0, 0] 
+            coordinates: [0, 0] 
           },
           properties: {
-            orgen: [0, 0, 0], 
-            velin: [0, 0, 0], 
-            velang: [0, 0, 0], 
-            prevous: [0, 0, 0], 
-            geodelta: [0, 0, 0]
+            orgen: [0, 0], 
+            velin: [0, 0], 
+            velang: [0, 0], 
+            prevous: [0, 0], 
+            geodelta: [0, 0]
           }
         },
       }
-    },
+    }),
 
     payload: {
       tim: tim,
       ric: {'gid': 'geopoint', 'cid': 'geopoint', 'fid': 'geopoint'},
       boform: { 'csx': 0, 'cf': [[[555, 777]]], 'cs': 222, 'cw': [[[1.7, 1.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      
+      zenform: [ 10, [[[10,100]]] ],
+      
       proform: {
 
         projection: 'uniwen',
         scale: 1,
-        translate: [ 100, 100 ],
+        translate: [ 0, 0 ],
         rotate: [ 0, 0 ],
 
       }
