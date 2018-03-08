@@ -41,8 +41,8 @@ let muonAlima = function muonAlima (__mapper) {
         type: 'Point',
         coordinates: Complex({re:0,im:0})
           .add(
-            d.payload.zenform[0],
-            d.payload.zenform[1]
+            d.payload.zenform[0] * Math.cos(d.payload.zenform[1]),
+            d.payload.zenform[0] * Math.sin(d.payload.zenform[1])
           )
           .toVector()
       },
@@ -68,9 +68,9 @@ let muonAlima = function muonAlima (__mapper) {
     payload: {
       tim: tim,
       ric: {'gid': 'geopoint', 'cid': 'geopoint', 'fid': 'geopoint'},
-      boform: { 'csx': 0, 'cf': [[[555, 777]]], 'cs': 222, 'cw': [[[1.7, 1.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      boform: { 'csx': 0, 'cf': 666, 'cs': 222, 'cw': 1.7, 'co': 0.7, 'cp': 0.5},
       
-      zenform: [ 0, 0 ],
+      zenform: [ [[[0,100]]], [[[0,Math.PI]]] ],
       
       proform: {
 

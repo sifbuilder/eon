@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin: 0; position: fixed; top: 0; right: 0; bottom: 0; left: 0; }
+    div#fps,svg { position: fixed; top: 0; left: 0; color: white; }
+  </style>
+
+</head>
+<body style='cursor:crosshair'></body>
+<div id='viewframe' class='viewframe'></div>
+<script src='script-enls.js'></script>
+<script src='script-ents.js'></script>
+
+<script>
+
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 0, img: 1, gui: 0, fps: 0, stats: 0}) // INIT
+
+  let f = __mapper({props: muonProps.muonProps()}).props(),
+    mnat = __mapper('xs').m('nat'),
+    cwen = __mapper('xs').c('wen'),
+    mstace = __mapper('xs').m('stace')
+
+  /*******************************************
+ *      @animas
+ */
+  let getForm = function (params = {}) {
+
+  /***********
+  *         @
+  */
+    const  ww0 = level => (PHASED, SIDES) => PHASED
+    const  ww1 = level => (PHASED, SIDES) => PHASED + ( (1-SIDES)**level ) * turn
+    const  dd = level => (RAD) => RAD / (Math.pow(2, level))
+
+  /***********
+  *         @
+  */
+    let NAME = params.name || 'anis'
+    ROW = params.row || 2,
+    COL = params.col || 2,
+    DEPTH = params.depth || 2,
+    CF = params.cf || (d => 222 * 1), // cfonlevel
+
+    SIDES = params.sides || 5,
+
+    RAD = params.rad || 90,
+    PHASED = params.anginit || 0 // 0 internal, 180 extenal
+
+
+    const x0 = -150,
+      dx = 150,
+      y0 = -100,
+      dy = 100,
+      turn = 360
+
+    const cyclet = 12000
+
+    let x = x0 + (COL - 1) * dx,
+        y = y0 + (ROW - 1) * dy
+
+    const signexp = level => Math.pow(-1, level)
+
+    /***********
+  *         @img
+  */
+  let img = {
+
+    halo: 'img',
+
+    geofold: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      // tim: {'td': cyclet * DEPTH, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }
+
+    /***********
+  *         @traceLine
+  */
+    let traceLine = { // SUB-MARKS line trace
+
+      halo: 'pacer',
+
+      payload: {
+        ric: {'typ': 'nat', 'gid': 'traces' + 0, 'cid': 'traces' + 0, 'fid': 'traces' + 0},
+        boform: {'csx': 0, 'cf': 111, 'cs': 666, 'cw': 0.99, 'co': 0.2, 'cp': 0.99},
+
+        proform: {
+
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          scale: 1,
+          translate: {
+            x: { pos: [[[0, 0]]] },
+            y: { pos: [[[0, 0]]] },
+            z: 0
+          },
+          rotate: [ 0, 0, 0 ]
+
+        },
+
+        pacer: {
+          initN: 0, eventN: 0, autoN: 1, autoP: 0.0001, outtimed: 0, maxN: 60, span: 0, aad: 1,
+
+          autoSitus: ani => mstace.getLocus(ani.payload.proform.translate, ani.payload),
+
+          fider: ani => ani.payload.ric.fid,
+
+          geojsor: ani => ({
+
+            halo: 'ent',
+            geofold: {
+              type: 'Feature',
+              geometry: {
+                type: 'LineString',
+                coordinates: null
+              },
+              properties: {}
+            },
+            payload: {}
+
+          })
+
+        }
+      }
+    }
+
+   /***********
+  *         @animas
+  */
+    let anis = [] // initialize animas
+
+    let anima = {
+
+      halo: 'ent',
+
+      geofold: d => ({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: Complex({re:0,im:0})
+            .add(
+            
+              // d.payload.fourier.coef
+            
+            {re: d.payload.fourier.an[0] * Math.cos(d.payload.fourier.an[1]),
+            im: d.payload.fourier.an[0] * Math.sin(d.payload.fourier.an[1]) }
+              
+            )
+            .toVector()
+        },
+        properties: {
+           pointRadius: d.payload.fourier.rad,
+           geonode: {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [0, 0]
+            },
+            properties: {
+              orgen: [0, 0],
+              velin: [0, 0],
+              velang: [0, 0],
+              prevous: [0, 0],
+              geodelta: [0, 0]
+            }
+          },
+        }
+      }),
+      payload: {
+
+        tim: {'td': cyclet * DEPTH, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+        ric: {'typ': 'nat', 'gid': NAME, 'cid': NAME, 'fid': NAME},
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
+
+        fourier: {},
+
+        proform: {
+
+          projection: 'uniwen',
+          scale: 1,
+          translate: [ 0, 0 ],
+          rotate: [ 0, 0 ],
+
+        }
+      }
+    }
+
+    /***********
+  *         @create animas
+  */
+    for (level = 0; level < DEPTH; level++) {
+
+
+      anis[level] = f.cloneObj(anis[level - 1] || anima)  // anis h.nat
+
+
+      anis[level].payload.ric = {gid: 'nat', cid: NAME + level, fid: NAME + level}  // id
+
+      anis[level].payload.fourier.rad = 60 / (Math.pow(2, level))
+
+      anis[level].payload.fourier.an = [
+        (level === 0) ? 0 : anis[level - 1].payload.fourier.rad,
+        [[[PHASED, PHASED + ( (1-SIDES)**level ) * turn]]]
+      ] // an
+
+      anis[level].payload.fourier.coef = {
+          re: anis[level].payload.fourier.an[0] * Math.cos(anis[level].payload.fourier.an[1]),
+          im: anis[level].payload.fourier.an[0] * Math.sin(anis[level].payload.fourier.an[1])      
+      }
+if (1 && 1) console.log("coer", anis[level].payload.fourier)
+
+      anis[level].payload.boform.cf = CF(level)   // boform
+
+
+      if (level === DEPTH - 1) {    // add image as avatar to root nat
+        anis[level].payload.avatars = []
+        anis[level].payload.avatars.push(img)
+        anis[level].payload.avatars.push(traceLine)
+      }
+
+    }
+
+
+    if (1 && 1) console.log("anis",  anis)
+    return anis
+  }
+
+
+
+
+
+  /***********
+  *         @animas
+  */
+  let forms = []
+  // default: depth:2,rad:30,sides:5,wbase:1,anginit:180,name:"as11",row:1,col:1
+  // forms = getForm({depth: 2, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as11', row: 1, col: 1})
+  forms = getForm({depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2})
+  // forms = getForm({depth: 4, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as13', row: 1, col: 3})
+  // forms = getForm({depth: 5, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as21', row: 3, col: 1})
+  // forms = getForm({depth: 6, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as22', row: 2, col: 2})
+  // forms = getForm({depth: 7, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as23', row: 2, col: 3})
+  // forms = getForm({depth: 8, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as31', row: 3, col: 1})
+  // forms = getForm({depth: 9, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as32', row: 3, col: 2})
+  // forms = getForm({depth: 10, rad: 90, sides: 6, wbase: 1, anginit: 180, name: 'as33', row: 2, col: 2}
+  animas = forms
+
+  if (1 && 1) console.log('animas', animas)
+
+  // animas = [...animas, img] // h.img
+  /*******************************************
+ *      @animaApi
+ *
+ */
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style='cursor:crosshair'></body>
+
