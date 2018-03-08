@@ -42,7 +42,7 @@ let muonAlima = function (__mapper) {
   let d3_force = d3
 
   /*******************************************
- *    @controls
+ *        @pics
  *
  */
   // z.dom3: [-180, [[[160,180,180]]] ]
@@ -52,43 +52,42 @@ let muonAlima = function (__mapper) {
 
   let formGrat1 = {
     'x': {
-            'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
+            // 'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
             // 'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
-            // 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ            
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
             'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
             'dom3': [-180, 180],
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r) * c * cos(u)
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => r
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r) * c * cos(u)
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => cos(r)
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => r
-              
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => r
+
 
     },
     'y': {
-            'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
+            // 'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
             // 'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
-            // 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ            
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
             'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
             'dom3': [-180, 180],
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(s) * c * cos(u)
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(s) * c * cos(u)
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin( 12 * s)
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => sin(s)
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => s
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => s
     },
     'z': {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b  ': 1,  // circ            
-            'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
-            'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b  ': 1,  // circ
+            // 'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
+            // 'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
             'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
             'dom3': [-180, 180],
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(v) * c * cos(s)
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => u
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => c * sin(v)
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => u
 
     },
     'r': {
-            'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ            
-            'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
+            // 'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
+            // 'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
             'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
             'dom3': [-180, 180],
             'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => c * cos(u)
@@ -96,15 +95,14 @@ let muonAlima = function (__mapper) {
     }
   }
 
-  
- let formCirc = {
+
+ let formSphere = {
     'x': {
             'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
             'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
             'dom3': [-180, 180],
             'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>
-              a * cos(r) *
-              c * cos(u)
+              a * cos(r) * c * cos(u)
 
     },
     'y': {
@@ -112,8 +110,7 @@ let muonAlima = function (__mapper) {
             'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
             'dom3': [-180, 180],
             'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>
-              b * sin(r) *
-              c * cos(u)
+              b * sin(r) * c * cos(u)
     },
     'z': {
             'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
@@ -124,6 +121,21 @@ let muonAlima = function (__mapper) {
 
     }
   }
+
+  let frame = [ [ [ -180, 180, 30, 5], [ -180, 180, 30, 5] ] ]
+
+  let proform = {
+        projection: 'uniwen',
+        prerotate: [[[ cwen.rotation ]]],
+        translate: [0, 0, 0],
+        scale: 1,
+        rotate: [ 0, 0, 0],
+        lens: [ 0, 1, Infinity ]
+      }
+  /*******************************************
+ *      @animas
+ *
+ */
   // -------------------------------  gratform1
   let gratform1 = {
 
@@ -133,31 +145,15 @@ let muonAlima = function (__mapper) {
 
     payload: {
 
-      tim: tim,
+      tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform1'},
       boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
 
-      conform: {
+      conform: formGrat1,
 
-        projection: 'natform',
-        form: formGrat1
+      proform,
 
-      },
-
-      proform: {
-        'projection': 'uniwen',
-        'prerotate': [[[ cwen.rotation ]]],
-        'translate': [0, 0, 0],
-        'scale': 0.5,
-        'rotate': [ 0, 0, 0],
-        'lens': [ 0, 1, Infinity ]
-      },
-
-      graticule: {
-
-        frame: [ [ [ -180, 180, 30, 5], [ -180, 180, 30, 5] ] ]
-
-      }
+      graticule: { frame }
 
     }
 
@@ -171,35 +167,19 @@ let muonAlima = function (__mapper) {
 
     payload: {
 
-      tim: tim,
+      tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform'},
       boform: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.1, 'cp': 0.9 },
 
-      conform: {
+      conform: formSphere,
 
-        projection: 'natform',
-        form: formCirc
+      proform ,
 
-      },
-
-      proform: {
-        'projection': 'uniwen',
-        'prerotate': [[[ cwen.rotation ]]],
-        'translate': [0, 0, 0],
-        'scale': 1,
-        'rotate': [ 0, 0, 0],
-        'lens': [ 0, 1, Infinity ]
-      },
-
-      graticule: {
-
-        frame: [ [ [ -180, 180, 15, 1], [ -180, 180, 15, 1] ] ]
-
-      }
+      graticule:  frame
 
     }
 
-  }  
+  }
   // -------------------------------  img
   let img = {
 
@@ -251,7 +231,7 @@ let muonAlima = function (__mapper) {
   let animas = [
 
     gratform1, // h.ent
-    // circform, // h.ent
+    circform, // h.ent
     img // h.img
 
   ]

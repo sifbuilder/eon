@@ -105,19 +105,26 @@
  *       @conformer
  */
     let conformer = anigram => {
+      
       let projdef = anigram.payload.conform
-
       let projion
-
+      
       if (projdef === undefined) {
         
-        projion = d => d
+        projion = d => d  // identity if conformed undefined
         
-      } else {
-        
+      }  else {
+
+        if (projdef.projection === undefined) { 
+          projdef = {     // natform if projection undefined
+            projection: 'natform', // default to natform
+            form: projdef  // form is conform
+          }
+          
+        }
+          
         let projection = profion(projdef)
         projion = json => mproj3ct(json, projection)
-        
       }
 
       return projion
