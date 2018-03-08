@@ -627,9 +627,11 @@ let muonAlima = function (__mapper) {
  */
   let force_link = {
     properties: {
+      
       strength: () => 1,
       distance: () => 100,
       iterations: 1
+      
     },
 
     field: params => {
@@ -643,21 +645,7 @@ let muonAlima = function (__mapper) {
 
       let forceParams =  {
         type: 'link',
-        id: d => {
-          //
-          //  link force between linknodes
-          //
-          //  z.693.halo  ani.geofold.properties.name
-          //
-          //  z.693.halo  ani.geofold.properties.name => ani.payload.id
-          //
-          //  z.693.halo.force_link: sim to take node.id from simnode.id
-          //  
-          //  m.sim.initNodes:  ani.payload.id => simnode.id
-          //
-          return d.id
-          
-        },
+        id: d => d.id,
         strength: strength,
         distance: distance,
         iterations: iterations,
@@ -669,11 +657,8 @@ let muonAlima = function (__mapper) {
       }
 
       let force = mforces(forceParams)
+      let field = {key: 'mylink', force: force}
       
-      let field = {
-          'key': 'mylink', 
-          'force': force
-      }
       forces.push(field)
 
       return forces

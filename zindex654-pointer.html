@@ -111,7 +111,7 @@ let muonAlima = function (__mapper) {
         span: 15 / 1400,
 
         initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
-        eventSitus: d => ({x: crayder.event().x - 40, y: crayder.event().y, z: 0 }),
+        eventSitus: d => ({x: crayder.mouse().x, y: crayder.mouse().y, z: 0 }),
         autoSitus: d => mstace.getLocus(d),
 
         geojsor: () => ({

@@ -45,7 +45,7 @@ let muonAlima = function muonAlima (__mapper) {
   */
      
      
-    let NAME = params.name || 'anis'
+    let NAME = params.name || 'anis',
     ROW = params.row || 2,
     COL = params.col || 2,
     DEPTH = params.depth || 2,
@@ -56,14 +56,15 @@ let muonAlima = function muonAlima (__mapper) {
     RAD = params.rad || 90,
     PHASED = params.anginit || 0 // 0 internal, 180 extenal
      
-       
+      
+    const cyclet = 272000
+    
     const x0 = -150,
       dx = 150,
       y0 = -100,
       dy = 100,
       turn = 360
-      
-    const cyclet = 272000
+
     
     let x = x0 + (COL - 1) * dx,
       y = y0 + (ROW - 1) * dy
@@ -193,7 +194,6 @@ let muonAlima = function muonAlima (__mapper) {
       if (level !== 0) {    // cycloid position for upper levels
         anis[level].payload.proform.translate = {  x: { 'pos': 0 }, y: { 'pos': 0 } } //  ref - pos : nb of vertex
       }
-      if (1 && 1) console.log('anis[level]', level, anis[level])
       traces[level] = f.cloneObj(traces[level - 1] || traceLine)
       traces[level].payload.ric = {
           gid: NAME + 'traces' + level, 
@@ -287,7 +287,6 @@ let muonAlima = function muonAlima (__mapper) {
   // forms.push(getForm({depth: 10, rad: 90, sides: 6, wbase: 1, anginit: 180, name: 'as33', row: 2, col: 2}))
   animas = forms
 
-  if (1 && 1) console.log('animas', animas)
 
   // animas = [...animas, img] // h.img
   /*******************************************

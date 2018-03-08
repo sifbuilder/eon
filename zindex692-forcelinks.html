@@ -30,12 +30,12 @@ let muonAlima = function (__mapper) {
   mstore = __mapper('xs').m('store'),
   mpacer = __mapper('xs').m('pacer'),
   mgraticule = __mapper('xs').m('graticule'),
-  mforces = __mapper('xs').m('forces')
+  mforces = __mapper('xs').m('forces'),
+  mric = __mapper('xs').m('ric')
 
   let r = __mapper('xs').r('renderport'),
     width = r.width(),
     height = r.height()
-
 
 
   /*******************************************
@@ -83,10 +83,6 @@ let muonAlima = function (__mapper) {
       }
       let r = { nodes, links }
 
-      if (0 && 1) console.log("nodes", nodes[0])
-
-        
-        
     for (let i = 0; i < nodes.length; i++) {        // NODES
     
       let ani = f.cloneObj(nat1) // clone of model anima
@@ -115,14 +111,9 @@ let muonAlima = function (__mapper) {
       animas.push(ani)
     }
     
-    if (0 && 1) console.log("links", links[0])
-    
     for (let i = 0; i < links.length; i++) {    // {source: "11,0", target: "0,0"}
     
-      let link = {
-        source: nodes[i],
-        target: nodes[i]
-      }      
+      let link = { source: nodes[i], target: nodes[i] }      
   
       let ani = f.cloneObj(nat1) // clone of model anima
       ani.payload.ric.gid = 'glink'
@@ -150,7 +141,7 @@ let muonAlima = function (__mapper) {
 
         ani.geofold = { // will create anigram
           'type': 'Feature',
-          'geometry': {'type': 'LineString', 'coordinates': [0, 0, 0]}
+          'geometry': {'type': 'LineString', 'coordinates': Array.of([0, 0, 0])}
         }
 
         ani.payload.geonode.properties.orgen = [0, 0, 0 ]
@@ -161,9 +152,6 @@ let muonAlima = function (__mapper) {
     }
     
     
-    
-    
-
     return animas
   }
 
@@ -225,7 +213,7 @@ let muonAlima = function (__mapper) {
 
       proform: {
         'projection': 'uniwen',
-        'translate': [200, 50, 0],
+        'translate': [0, 0, 0],
         'scale': 1,
         'rotate': [ 0, 0, [[[0, 0]]] ],
         'lens': [0, 1, 12],
@@ -236,54 +224,18 @@ let muonAlima = function (__mapper) {
       form: {
 
         'x': {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 20,
-          'v0': 0,
-          'v1': 1,
-          'seg5': 12,
-          'w4': [[[90, 90 - 0 * 360]]],
-          'pa6': 0,
-          'pb7': 360,
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
           
         },
         'y': {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 20,
-          'v0': 0,
-          'v1': 1,
-          'seg5': 12,
-          'w4': [[[90, 90 - 0 * 360]]],
-          'pa6': 0,
-          'pb7': 360,
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
           
         },
         'z': {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 0,
-          'v0': 0,
-          'v1': 1,
-          'seg5': 12,
-          'w4': [[[90, 90 - 0 * 360]]],
-          'pa6': 0,
-          'pb7': 360,
+          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': [[[90, 90 - 0 * 360]]],'pa6': 0,'pb7': 360,
           
         }
       }
@@ -296,68 +248,18 @@ let muonAlima = function (__mapper) {
   let form = {
 
     'x': {
-      'm1': 4,
-      'm2': 4,
-      'n1': 100,
-      'n2': 100,
-      'n3': 100,
-      'a': 1,
-      'b': 1, // square
-      'ra2': 200, // 180,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0, //  [[[0,-360,0]]],
-      'seg5': 360,
-      'pa6': 0,
-      'pb7': -1,
-
+      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+      'ra2': 200,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,'dom3': [-180, 180],
       
-      ,
-      'dom3': [-180, 180],
-      
-
     },
     'y': {
-      'm1': 4,
-      'm2': 4,
-      'n1': 100,
-      'n2': 100,
-      'n3': 100,
-      'a': 1,
-      'b': 1, // square
-      'ra2': 200,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0, //  [[[0,-360,0]]], // [[[60, 60 + 1 * 360]]], //
-      'seg5': 360,
-      'pa6': 0,
-      'pb7': -1,
-
-       
-      ,
-      'dom3': [-180, 180],
-      
+      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+      'ra2': 200,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,'dom3': [-180, 180],
 
     },
     'z': {
-      'm1': 4,
-      'm2': 4,
-      'n1': 100,
-      'n2': 100,
-      'n3': 100,
-      'a': 1,
-      'b': 1, // square
-      'ra2': 200, // 180,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0, // [[[180,360,180]]], // [[[0,-360,0]]],
-      'seg5': 360 / Math.sqrt(2),
-      'pa6': 0,
-      'pb7': -1,
-
-      'pr8': d => Math.cos(d),
-      'dom3': [-180, 180],
-      
+      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+      'ra2': 200,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,'dom3': [-180, 180],
 
     }
   }
@@ -375,7 +277,7 @@ let muonAlima = function (__mapper) {
   let gratiextent = {
 
     'lattice': [ [180, 45], // X  major minor 21 22
-      [90, 22.5] ] // Y  major minor
+                  [90, 22.5] ] // Y  major minor
 
   }
   let gratilines21 = {
@@ -393,7 +295,6 @@ let muonAlima = function (__mapper) {
 
   /*******************************************
  *      @forces
- *
  *
  *
  */
@@ -430,11 +331,11 @@ let muonAlima = function (__mapper) {
  *      @force_viscosity
  */
   let force_viscosity = {
-    'properties': {
+    properties: {
       velocityDecay: 0.0002
     },
 
-    'field': function (params = {}) { // field.field
+    field: function (params = {}) { // field.field
       let nodes = params.nodes // nodes
 
       let forceParams = {
@@ -963,7 +864,7 @@ let muonAlima = function (__mapper) {
       let forces = []
 
       let forceParams =  {
-        type: 'linkForce',
+        type: 'link',
         strength: strength,
         id: d => d.uid,
         distance: d => distance,
@@ -976,7 +877,7 @@ let muonAlima = function (__mapper) {
       }
 
       let force = mforces(forceParams)
-      let field = {'key': 'link', 'force': force}
+      let field = {key: 'link', force: force}
 
       forces.push(field)
 

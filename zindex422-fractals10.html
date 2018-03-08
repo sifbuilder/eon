@@ -52,13 +52,15 @@ let muonAlima = function muonAlima (__mapper) {
     PHASED = params.anginit || 0 // 0 internal, 180 extenal
 
 
+
+    const cyclet = 111272000    
+    
     const x0 = -150,
       dx = 150,
       y0 = -100,
       dy = 100,
       turn = 360
 
-    const cyclet = 12000
 
     let x = x0 + (COL - 1) * dx,
         y = y0 + (ROW - 1) * dy
@@ -134,7 +136,7 @@ let muonAlima = function muonAlima (__mapper) {
         },
 
         pacer: {
-          initN: 0, eventN: 0, autoN: 1, autoP: 0.0001, outtimed: 0, maxN: 60, span: 0, aad: 1,
+          initN: 0, eventN: 0, autoN: 1, autoP: 0.0000000001, outtimed: 0, maxN: 60, span: 0, aad: 1,
 
           autoSitus: ani => mstace.getLocus(ani.payload.proform.translate, ani.payload),
 
@@ -175,10 +177,10 @@ let muonAlima = function muonAlima (__mapper) {
           coordinates: Complex({re:0,im:0})
             .add(
             
-              // d.payload.fourier.coef
+              d.payload.fourier.coef(d)
             
-            {re: d.payload.fourier.an[0] * Math.cos(d.payload.fourier.an[1]),
-            im: d.payload.fourier.an[0] * Math.sin(d.payload.fourier.an[1]) }
+            // {re: d.payload.fourier.an[0] * Math.cos(d.payload.fourier.an[1]),
+            // im: d.payload.fourier.an[0] * Math.sin(d.payload.fourier.an[1]) }
               
             )
             .toVector()
@@ -213,7 +215,7 @@ let muonAlima = function muonAlima (__mapper) {
 
           projection: 'uniwen',
           scale: 1,
-          translate: [ 0, 0 ],
+          translate: [ -50, 50 ],
           rotate: [ 0, 0 ],
 
         }
@@ -223,6 +225,14 @@ let muonAlima = function muonAlima (__mapper) {
     /***********
   *         @create animas
   */
+  
+    let radOnLevel = level => (level === 0) ? 0 : 60 / (Math.pow(2, level))
+    let zcoef = (rad, ang) => Complex({
+                re: rad * Math.cos(ang),
+                im: rad * Math.sin(ang) 
+            })
+    
+  
     for (level = 0; level < DEPTH; level++) {
 
 
@@ -231,19 +241,41 @@ let muonAlima = function muonAlima (__mapper) {
 
       anis[level].payload.ric = {gid: 'nat', cid: NAME + level, fid: NAME + level}  // id
 
-      anis[level].payload.fourier.rad = 60 / (Math.pow(2, level))
+      anis[level].payload.fourier.an = []
+      
+      
+      for (let j=0; j < level; j++) {
+        
+        anis[level].payload.fourier.an[j] = {}
+        anis[level].payload.fourier.an[j].rad = 60 / (Math.pow(2, j))
+        anis[level].payload.fourier.an[j].ang = [[[PHASED, PHASED + ( (1-SIDES)**j ) * turn]]]
 
-      anis[level].payload.fourier.an = [
-        (level === 0) ? 0 : anis[level - 1].payload.fourier.rad,
-        [[[PHASED, PHASED + ( (1-SIDES)**level ) * turn]]]
-      ] // an
+      }      
 
-      anis[level].payload.fourier.coef = {
-          re: anis[level].payload.fourier.an[0] * Math.cos(anis[level].payload.fourier.an[1]),
-          im: anis[level].payload.fourier.an[0] * Math.sin(anis[level].payload.fourier.an[1])      
+
+
+      anis[level].payload.fourier.rad = 60 / (Math.pow(2, level))      
+      
+        
+      anis[level].payload.fourier.coef = d => {
+         
+          let z = d.payload.fourier.an.reduce( (p, q) => {
+            
+            let aj = zcoef(q.rad, q.ang)  // q
+        
+            p = p.add(aj)
+  
+            return p
+          }
+          
+          , Complex({re:0, im:0}))
+
+          return z
       }
-if (1 && 1) console.log("coer", anis[level].payload.fourier)
 
+      
+
+      
       anis[level].payload.boform.cf = CF(level)   // boform
 
 
@@ -256,11 +288,8 @@ if (1 && 1) console.log("coer", anis[level].payload.fourier)
     }
 
 
-    if (1 && 1) console.log("anis",  anis)
     return anis
   }
-
-
 
 
 
@@ -270,17 +299,15 @@ if (1 && 1) console.log("coer", anis[level].payload.fourier)
   let forms = []
   // default: depth:2,rad:30,sides:5,wbase:1,anginit:180,name:"as11",row:1,col:1
   // forms = getForm({depth: 2, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as11', row: 1, col: 1})
-  forms = getForm({depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2})
+  // forms = getForm({depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2})
   // forms = getForm({depth: 4, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as13', row: 1, col: 3})
   // forms = getForm({depth: 5, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as21', row: 3, col: 1})
-  // forms = getForm({depth: 6, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as22', row: 2, col: 2})
+  forms = getForm({depth: 6, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as22', row: 2, col: 2})
   // forms = getForm({depth: 7, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as23', row: 2, col: 3})
   // forms = getForm({depth: 8, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as31', row: 3, col: 1})
   // forms = getForm({depth: 9, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as32', row: 3, col: 2})
   // forms = getForm({depth: 10, rad: 90, sides: 6, wbase: 1, anginit: 180, name: 'as33', row: 2, col: 2}
   animas = forms
-
-  if (1 && 1) console.log('animas', animas)
 
   // animas = [...animas, img] // h.img
   /*******************************************

@@ -167,11 +167,6 @@ let haloPacerHalo_ween = anima => []
                 
               } else {
 
-              // the geofold is recreated ... remove for form accumulation _e_
-
-              // newItem = geojsor(anigram, i) // anigram, counter per paced type
-              // newItem.payload.id = uid
-              // newItem.payload =  Object.assign({}, newItem.payload, anigram.payload)
 
               }
               newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
@@ -190,18 +185,16 @@ let haloPacerHalo_ween = anima => []
                   
                 }
                 
- if (1 && 1) console.log("h.pacer line coords", coords.length)               
+ if (0 && 1) console.log("h.pacer line coords", coords.length)               
               } else {
                 coords = Array.of(situs)
               }
 
-              //
               newItem.geofold.geometry.coordinates = coords
-              // n.ent of newItem
-              let newItemsInCount = __mapper('xs').h('ent').gramm(newItem)
-if (1 && 1) console.log("h.pacer h.ent gram newItemsInCount", newItemsInCount)
+              
+              let newItemsInCount = __mapper('xs').h('ent').gramm(newItem)  // n.ent of newItem
+if (0 && 1) console.log("h.pacer h.ent gram newItemsInCount", newItemsInCount)
               newItems = [...newItems, ...newItemsInCount] // add items
-              // newItems = [...newItems, newItem] // add items
               
             } else {
               //  if the newItem has NOT been CREATED yet ....
