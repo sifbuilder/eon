@@ -41,8 +41,7 @@ let muonAlima = function muonAlima (__mapper) {
     rotation = [0, 0, 0],
     rotMatrix
 
-  let versor = __mapper('xs').m('versor')()
-  let wen = __mapper('xs').c('wen')({rotInit})
+  let cwen = __mapper('xs').c('wen')
 
   /*******************************************
  *      @pics
@@ -52,11 +51,13 @@ let muonAlima = function muonAlima (__mapper) {
 
   let proform = {
 
-    'projection': 'uniwen',
-    'translate': [ 180, 200],
-    'scale': 90,
-    'rotate': [-5, 50, 0], // [0,0,0], //
-    'lens': [0, 1, 4], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+    projection: 'uniwen',
+    prerotate: [[[ cwen.rotation ]]],    
+    
+    translate: [ 0, 0],
+    scale: 90,
+    rotate: [-5, 50, 0], // [0,0,0], //
+    lens: [0, 1, 4], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
 		
   }
 

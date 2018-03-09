@@ -21,11 +21,9 @@ let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props(),
-    g = __mapper('xs').m('geom'),
-    w = __mapper('xs').m('wen'),
-    mnat = __mapper('xs').m('nat'),
-    mgraticule = __mapper('xs').m('graticule')
+  let mnat = __mapper('xs').m('nat'),
+    mgraticule = __mapper('xs').m('graticule'),
+    cwen = __mapper('xs').c('wen')
 
   let r = __mapper('xs').r('renderport'),
     width = r.width(),
@@ -79,7 +77,7 @@ let muonAlima = function (__mapper) {
     'z': {
       "m1":8,"m2":1,"n1":2,"n2":2,"n3":2,"a":1,"b":1,     // antenna
       'ra2': 1,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-      'dom3': [-180, [[[160,180,180]]] ],,
+      'dom3': [-180, [[[160,180,180]]] ],
     }
   }
 
@@ -101,7 +99,7 @@ let muonAlima = function (__mapper) {
 
       proform: {
         'projection': 'uniwen',
-        'translate': [ 300, 200],
+        'translate': [ 0, 0],
         'scale': 100,
         'rotate': [0, 0, 0],
         'lens': [ 0,1,Infinity ],
@@ -134,16 +132,17 @@ let muonAlima = function (__mapper) {
       
       proform: {
         'projection': 'uniwen',
-        'translate': [ 200, 275],
-        'scale': 200,
-        'rotate': [0, 90, 0],
+                prerotate: [[[ cwen.rotation ]]], 
+        'translate': [ 0, 0],
+        'scale': 100,
+        'rotate': [0, 0, 0],
         'lens': [ 0,1,Infinity ],
       },
 
 
-      'graticule': {
+      graticule: {
 
-        'frame': [ [ [-180, 180, 15, 15], [-0, [[[0,980]]], 22.5, 22.5] ],
+        frame: [ [ [-180, 180, 15, 15], [-0, [[[0,980]]], 22.5, 22.5] ],
                   [ [-180, 180, 15, 15], [-0, [[[0,980]]], 22.5, 22.5] ] ]
 
         // 'frame': [ [ [-180, 180, 180, 30], [-0, 180, 360, 30] ],

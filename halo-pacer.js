@@ -65,7 +65,7 @@ let haloPacerHalo_ween = anima => []
         : payload.pacer.initSitus
 
       eventSitus = (payload.pacer.eventSitus === undefined) // eventSitus
-        ? d => ({x: crayder.event().x, y: crayder.event().y, z: 0 })
+        ? d => ({x: crayder.mouse().x, y: crayder.mouse().y, z: 0 })
         : payload.pacer.eventSitus
 
       autoSitus = (payload.pacer.autoSitus === undefined) // autoSitus
@@ -88,14 +88,14 @@ let haloPacerHalo_ween = anima => []
       /* ****
        *    controls
        */
-      if (crayder.event() && crayder.event().type === 'mouseup') { // if mouse up then reset
+      if (crayder.mouse() && crayder.mouse().type === 'mouseup') { // if mouse up then reset
         let svg = __mapper('renderSvg').svg()
         cwen.reset(svg)
         cversor.reset(svg)
       }
 
-      if (crayder.event() !== undefined && crayder.mouseDown() === 1) { // on mouse DOWN
-        if (mousesignal === 0 || crayder.event().type === 'mousedown') { //
+      if (crayder.mouse() !== undefined && crayder.mouseDown() === 1) { // on mouse DOWN
+        if (mousesignal === 0 || crayder.mouse().type === 'mousedown') { //
           count.event = Math.floor(pacer.eventN) //  if in state or was event
         }
       }

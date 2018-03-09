@@ -35,8 +35,9 @@ let muonAlima = function muonAlima (__mapper) {
     rotation = [0, 0, 0],
     rotMatrix
 
-  let versor = __mapper('xs').m('versor')()
-  let wen = __mapper('xs').c('wen')({rotInit})
+  let mversor = __mapper('xs').m('versor')(),
+    cwen = __mapper('xs').c('wen')(),
+    cversor = __mapper('xs').c('versor')
 
   const sqrt2 = Math.sqrt(2)
 
@@ -48,11 +49,12 @@ let muonAlima = function muonAlima (__mapper) {
 
   let proform = {
 
-    'projection': 'uniwen',
-    'translate': [ 180, 200],
-    'scale': 90,
-    'rotate': [-5, 50, 0], // [0,0,0], //
-    'lens': [0, 1, 4],
+    projection: 'uniwen',
+    prerotate: [[[ cwen.rotation ]]],    
+    translate: [ 0, 0],
+    scale: 90,
+    rotate: [-5, 50, 0], // [0,0,0], //
+    lens: [0, 1, 4],
   }
 
   /*******************************************
@@ -210,8 +212,8 @@ let muonAlima = function muonAlima (__mapper) {
       type: 'Feature',
       geometry: {
 
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
+        type: 'Point',
+        coordinates: [ 0, 0 ]
 
       },
       properties: {

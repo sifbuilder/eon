@@ -21,41 +21,19 @@ let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, key: 1, img: 1}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props()
-  let g = __mapper('xs').m('geom')
-  let w = __mapper('xs').m('wen')
+  let cwen = __mapper('xs').c('wen')()
 
   let r = __mapper('xs').r('renderport'),
     width = r.width(),
     height = r.height()
 
-  let radians = Math.PI / 180,
-    degrees = 180 / Math.PI
+  let radians = Math.PI / 180, degrees = 180 / Math.PI,
+    sin = Math.sin, cos = Math.cos
 
-  if (__mapper('controlKey') !== undefined) {
-    let controltimerLeftArrowAlt = () => { // LEFT ARROW
-      if (__mapper('muonAnimation').animationStop !== undefined) {
-        console.log('controltimerLeftArrowAlt')
-        if (__mapper('controlTimer').started()) {
-          __mapper('controlTimer').stop()
-        } else {
-          __mapper('controlTimer').resume()
-        }
-      }
-    }
-    __mapper('controlKey').subscribe(controltimerLeftArrowAlt, 'leftArrowAlt')
-  }
 
-  if (__mapper('controlKey') !== undefined) {
-    let controltimerUpArrowAlt = () => { // UP ARROW
-      console.log('controltimerUpArrowAlt')
-      __mapper('controlWen').control(__mapper('renderSvg').svg()) // SVG WEN
-    }
-    __mapper('controlKey').subscribe(controltimerUpArrowAlt, 'upArrowAlt')
-  }
 
   /*******************************************
- *    @controls
+ *    @pics
  *
  */
 
@@ -83,68 +61,27 @@ let muonAlima = function (__mapper) {
         'form': {
 
           'x': {
-            'm1': 6,
-            'm2': 6,
-            'n1': 60,
-            'n2': 100,
-            'n3': 30,
-            'a': 1,
-            'b': 1,
-            'ra2': 242,
-            'v0': 0,
-            'v1': 1,
-            'w4': 0,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
+            'm1': 6,'m2': 6,'n1': 60,'n2': 100,'n3': 30,'a': 1,'b': 1,
+            'ra2': 242,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
             
-
-            ,
             'dom3': [0, 360],
-            'fn0': [2, 0, 0, 0]
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r) * a * cos(r) // [2, 0, 0, 0]
 
           },
           'y': {
-            'm1': 2,
-            'm2': 2,
-            'n1': 1,
-            'n2': 1,
-            'n3': 1,
-            'a': 1,
-            'b': 1,			// biform
-            'ra2': 180,
-            'v0': 0,
-            'v1': 1,
-            'w4': 0,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
+            'm1': 2,'m2': 2,'n1': 1,'n2': 1,'n3': 1,'a': 1,'b': 1,			// biform
+            'ra2': 180,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
 
-             		
-            ,
             'dom3': [0, 360],
-            'fn0': [0, 0, 0, 0]
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => 1 // [0, 0, 0, 0]
 
           },
           'z': {
-            'm1': 2,
-            'm2': 2,
-            'n1': 1,
-            'n2': 1,
-            'n3': 1,
-            'a': 1,
-            'b': 1,			// biform
-            'ra2': 242,
-            'v0': 0,
-            'v1': 1,
-            'w4': 0,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
+            'm1': 2,'m2': 2,'n1': 1,'n2': 1,'n3': 1,'a': 1,'b': 1,			// biform
+            'ra2': 242,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
 
-            'pr8': d => Math.cos(d),
             'dom3': [0, 360],
-            'fn0': [0, 0, 0, [[[0, 2]]] ]
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => d * sin(v) * d * sin(v) //  [0, 0, 0, [[[0, 2]]] ]
 
           }
         }
@@ -153,7 +90,8 @@ let muonAlima = function (__mapper) {
 
       proform: {
         projection: 'uniwen',
-        'translate': [300, 200, 0],
+        prerotate: [[[ cwen.rotation ]]],        
+        translate: [0, 0, 0],
         scale: 0.5
 
       },
