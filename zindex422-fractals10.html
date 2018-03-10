@@ -25,8 +25,8 @@ let muonAlima = function muonAlima (__mapper) {
     cwen = __mapper('xs').c('wen'),
     mstace = __mapper('xs').m('stace')
 
-  const pi = Math.PI,
-    pi2 = 2 * pi
+  const pi = Math.PI, pi2 = 2 * pi
+  
   /*******************************************
  *      @animas
  */
@@ -248,13 +248,13 @@ let muonAlima = function muonAlima (__mapper) {
         
         let rad = _RAD / (Math.pow(2, j))
         
-        // ang = [[[ 0, (-1)**(j) * (SIDES-1)**(j) * turn ]]]   
+        // ang = (j===0) ? [[[ 0, turn ]]] : [[[ 0, (-1)**(j) * (SIDES-1)**(j) * turn ]]]   
         ang = (j===0) ? [[[ 0, turn ]]] : [[[ 0, (1)**(j) * (SIDES-1)**(j) * turn ]]]   
         // let ang = [[[ 0, (2)**(j) * (SIDES) * turn ]]]
         
         anis[order].payload.fourier.an[j] = {rad, ang}
 
-if (0 && 1) console.log("ang", SIDES, order, j, turn, ang[0][0])
+if (1 && 1) console.log("ang", SIDES, order, j, turn, ang[0][0])
       }      
       
       // fourier coef(order)  

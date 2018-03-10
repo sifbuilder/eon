@@ -55,7 +55,16 @@
           gjProformed = mproj3ct(gjConformed, proformion),
           gj = gjProformed
           
-    if (0 && 1) console.log("gj", gj)
+          
+          
+        if (gj.properties.geonode !== undefined) {    
+          let pgj = mproj3ct(gj.properties.geonode, proformion)
+          gj.properties.geonode.properties.nodeProformed = pgj
+          if (1 && 1) console.log("gj", gj)
+        }
+      
+      
+      
       
         gj = mgeoj.featurize(gj) // featurize
         gj = mboform.boformer(anigram, gj) // boform
@@ -76,7 +85,7 @@
               ric: d.properties.ric, // hoist ric
               id: d.properties.uid, // hoist uid
               uid: d.properties.uid, // hoist uid
-              preani: mstore.findAnigramFromUid(d.properties.uid)
+              // preani: mstore.findAnigramFromUid(d.properties.uid)
             },
           }
           return newAnigram

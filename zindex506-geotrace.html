@@ -90,7 +90,7 @@ let muonAlima = function muonAlima (__mapper) {
 
   }
 
-  let natBoform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+  let natBoform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
   let traceBoform = { 'csx': 0, 'cf': [[[777, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[777, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.99, 0.99]]]}
 
@@ -121,14 +121,14 @@ let muonAlima = function muonAlima (__mapper) {
 
   }
 
-  let traceline = {
+  let tracelineSphere = {
 
     halo: 'pacer',
 
     payload: {
 
       tim,
-      ric: {'gid': 'trace', 'cid': 'trace', 'fid': 'traceline'},
+      ric: {gid: 'trace', cid: 'trace', fid: 'tracelineSphere'},
       boform: traceBoform,
 
       stace: {
@@ -138,16 +138,53 @@ let muonAlima = function muonAlima (__mapper) {
       },
 
       pacer: {
-        initN: 0,
-        eventN: 0,
-        autoN: 1,
-        autoP: 0.01,
-        outtimed: 0,
-        maxN: 60,
-        span: 0,
-        aad: 1,     // add on LineString
+        initN: 0,eventN: 0,autoN: 1,autoP: 0.01,outtimed: 0,maxN: 60,span: 0,aad: 1,     // add on LineString
 
         autoSitus: d => mstace.getLocus(d.payload.stace, d), // situs of anigram
+
+        fider: d => d.payload.ric.fid,
+
+        geojsor: () => ({
+          
+            halo: 'ent',
+            geofold: {
+              type: 'Feature',
+              geometry: {
+                type: 'LineString',
+                coordinates: null
+              },
+              properties: {}
+            },
+            payload: {}
+          
+        }),
+
+      }
+    }
+  }
+  
+  
+  let tracelineNat = {
+
+    halo: 'pacer',
+
+    payload: {
+
+      tim,
+      ric: {gid: 'trace', cid: 'trace', fid: 'tracelineNat'},
+      boform: traceBoform,
+
+      stace: null,
+      // {
+        // 'x': { 'pos': 0 },
+        // 'y': { 'pos': 0 },
+        // 'z': 0
+      // },
+
+      pacer: {
+        initN: 0,eventN: 0,autoN: 1,autoP: 0.01,outtimed: 0,maxN: 60,span: 0,aad: 1,     // add on LineString
+
+        autoSitus: d => mstace.getLocus(d.payload.stace, d.payload), // situs of anigram
 
         fider: d => d.payload.ric.fid,
 
@@ -235,7 +272,13 @@ let muonAlima = function muonAlima (__mapper) {
 
   sphere.payload.avatars = {
 
-    traceline // h.pacer
+    tracelineSphere // h.pacer
+
+  }
+
+  nat.payload.avatars = {
+
+    tracelineNat // h.pacer
 
   }
 
@@ -243,7 +286,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     nat, // h.nat
     sphere, // h.nat
-    // traceline,     // h.pacer
+    // tracelineSphere,     // h.pacer
     {...manimas('img'), tim}
 
   ]

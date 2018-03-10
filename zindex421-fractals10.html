@@ -25,7 +25,8 @@ let muonAlima = function muonAlima (__mapper) {
     cwen = __mapper('xs').c('wen'),
     mstace = __mapper('xs').m('stace')
 
-
+  const pi = Math.PI, pi2 = 2 * pi
+  
   /*******************************************
  *      @animas
  */
@@ -37,16 +38,15 @@ let muonAlima = function muonAlima (__mapper) {
   */
     const  ww0 = level => (PHASED, SIDES) => PHASED
     
-    const  ww1 = level => (PHASED, SIDES) => PHASED + ( (1-SIDES)**level ) * turn
+    // const  ww1 = level => (PHASED, SIDES) => PHASED + ( (1-SIDES)**level ) * turnGrad
+    const ww1 = level => (PHASED, SIDES) => PHASED + ( (-1)**level ) * ( (SIDES-1)**level ) * turnGrad
     
-    const  dd = level => (RAD) => RAD / (Math.pow(2, level))      
+    const dd = level => rad0 => rad0 / (Math.pow(2, level))      // rad(level)(rad0)
 
 
   /***********
   *         @
   */
-     
-     
     let NAME = params.name || 'anis',
     ROW = params.row || 2,
     COL = params.col || 2,
@@ -55,33 +55,68 @@ let muonAlima = function muonAlima (__mapper) {
 
     SIDES = params.sides || 5,
 
-    RAD = params.rad || 90,
+    _RAD = params.rad || 90,
     PHASED = params.anginit || 0 // 0 internal, 180 extenal
      
       
-    const cyclet = 272000
+    const cyclet = DEPTH * 2000
     
     const x0 = -150,
       dx = 150,
       y0 = -100,
       dy = 100,
-      turn = 360
+      turnGrad = 360
 
     
     let x = x0 + (COL - 1) * dx,
-      y = y0 + (ROW - 1) * dy
+        y = y0 + (ROW - 1) * dy
 
     const signexp = level => Math.pow(-1, level)
 
+  // -------------------------------  img
+  let img = {
+
+    halo: 'img',
+
+    geofold: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      // tim: {'td': cyclet * DEPTH, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }
+    
   /***********
   *         @animas
   */
-    
-    
-    let anis = {} // initialize animas
-
-    
-    let traces = {} // initialize line trace on highest level avatar
 
     let anima = {
 
@@ -127,11 +162,8 @@ let muonAlima = function muonAlima (__mapper) {
           projection: 'uniwen',
           prerotate: [[[ cwen.rotation ]]],
           scale: 1,
-          translate: {
-            x: { pos: [[[0, 0]]] },
-            y: { pos: [[[0, 0]]] },
-            z: 0
-          },
+          translate: null,
+          // translate: { x: { pos: [[[0, 0]]] }, y: { pos: [[[0, 0]]] }, z: 0 },
           rotate: [ 0, 0, 0 ]
 
         },
@@ -168,6 +200,10 @@ let muonAlima = function muonAlima (__mapper) {
     /***********
   *         @create animas
   */
+    let anis = {} // initialize animas
+    let traces = {} // initialize line trace on highest level avatar
+
+  
     for (level = 0; level < DEPTH; level++) {
 
       // anis h.nat
@@ -181,7 +217,7 @@ let muonAlima = function muonAlima (__mapper) {
       }
 
       // --------- Sr -------------- cycloid radius -
-      anis[level].payload.form.ra2 = dd(level)(RAD)
+      anis[level].payload.form.ra2 = dd(level)(_RAD)
 
       // --------- Sw -------------- cycloid rotation
       anis[level].payload.form.w4 =
@@ -194,7 +230,10 @@ let muonAlima = function muonAlima (__mapper) {
 
 
       if (level !== 0) {    // cycloid position for upper levels
-        anis[level].payload.proform.translate = {  x: { 'pos': 0 }, y: { 'pos': 0 } } //  ref - pos : nb of vertex
+        anis[level].payload.proform.translate = {  
+          x: { 'pos': 0 }, 
+          y: { 'pos': 0 } 
+        } //  ref - pos : nb of vertex
       }
       traces[level] = f.cloneObj(traces[level - 1] || traceLine)
       traces[level].payload.ric = {
@@ -232,46 +271,6 @@ let muonAlima = function muonAlima (__mapper) {
 
     return anis[0]
   }
-  // -------------------------------  img
-  let img = {
-
-    halo: 'img',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      // tim: {'td': cyclet * DEPTH, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }
 
   /***********
   *         @animas
@@ -279,9 +278,9 @@ let muonAlima = function muonAlima (__mapper) {
   let forms = []
   // default: depth:2,rad:30,sides:5,wbase:1,anginit:180,name:"as11",row:1,col:1
   // forms.push(getForm({depth: 2, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as11', row: 1, col: 1}))
-  // forms.push(getForm({depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2}))
+  forms.push(getForm({depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2}))
   // forms.push(getForm({depth: 4, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as13', row: 1, col: 3}))
-  forms.push(getForm({depth: 5, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as21', row: 3, col: 1}))
+  // forms.push(getForm({depth: 5, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as21', row: 3, col: 1}))
   // forms.push(getForm({depth: 6, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as22', row: 2, col: 2}))
   // forms.push(getForm({depth: 7, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as23', row: 2, col: 3}))
   // forms.push(getForm({depth: 8, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as31', row: 3, col: 1}))

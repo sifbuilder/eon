@@ -138,7 +138,7 @@ let haloPacerHalo_ween = anima => []
             } else if (key === 'event') { // event defaults event
               situs = eventSitus(anigram)
             }
-            if (typeof situs === 'object') situs = Object.values(situs) // {x:280,y:229,z:0} => [x,y,0]
+            if (situs && typeof situs === 'object') situs = Object.values(situs) // {x:280,y:229,z:0} => [x,y,0]
 
             // the anigram ric and the newItem fid conform the newItem id
             //

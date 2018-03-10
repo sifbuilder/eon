@@ -61,7 +61,20 @@
 
       return node
     }
-
+    
+    let nodeProformedSitus = function (ani) {
+      let r = [0,0,0]
+      if (ani.geofold &&
+            ani.geofold.properties.geonode &&
+              ani.geofold.properties.geonode.properties.nodeProformed !== undefined) {
+        r = ani.geofold.properties.geonode.properties.nodeProformed.geometry.coordinates
+      }
+      
+      if (0 && 1) console.log("nodeProformedSitus", r)
+      return r
+    }
+    
+    
     /* **********
   *   @parentCoords - get paranet coords from avatar payload
   *       
@@ -134,7 +147,7 @@
       if (anima !== undefined) {
         if (t !== undefined) {
           anigram = __mapper('xs').m('snap')(anima, t)
-        } else if (anima.payload.tim.unitTime !== undefined) {
+        } else if (anima.payload.tim && anima.payload.tim.unitTime !== undefined) {
           let t = anima.payload.tim.unitTime
           anigram = __mapper('xs').m('snap')(anima, t)
         }
@@ -152,6 +165,8 @@
     enty.halo = (_) => { return _ !== undefined ? (anitem.halo = _, anitem) : anitem.halo }
     enty.geofold = (_) => { return _ !== undefined ? (anitem.geofold = _, anitem) : anitem.geofold }
     enty.payload = (_) => { return _ !== undefined ? (anitem.payload = _, anitem) : anitem.payload }
+
+    enty.nodeProformedSitus = nodeProformedSitus
 
     enty.coreGeoform = coreGeoform			// default halo geofold
     enty.coreGeonode = coreGeonode			// default halo geonode

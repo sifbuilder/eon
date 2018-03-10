@@ -264,6 +264,9 @@
       if (!mgeoj.isValid(mms)) { console.error("mms not valid") }
 
       
+      
+      
+      
       // include equator
       let bigpar = (params.bigpar !== undefined) ? params.bigpar : 1
 

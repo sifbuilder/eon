@@ -249,8 +249,18 @@
 
         if (locations.length === 0) locations = []
       } else {  // stace not defined take situs from parent
+      
+        
+        
+        let parentuid = payload.parentuid
+        let parentani = __mapper('xs').m('store').findAnigramFromUid(parentuid)
+        
+ if (1 && 1) console.log("parentani", parentani)       
+        
+        let parentSitus = __mapper('xs').m('anitem')(parentani).nodeProformedSitus(parentani)
+        
 
-        let parentSitus = __mapper('xs').m('anitem').parentSitus(payload)
+        // let parentSitus = manitem.parentSitus(payload)
         locations = Array.of(parentSitus)
 
       }
