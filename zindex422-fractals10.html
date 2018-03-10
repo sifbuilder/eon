@@ -25,17 +25,13 @@ let muonAlima = function muonAlima (__mapper) {
     cwen = __mapper('xs').c('wen'),
     mstace = __mapper('xs').m('stace')
 
+  const pi = Math.PI,
+    pi2 = 2 * pi
   /*******************************************
  *      @animas
  */
   let getForm = function (params = {}) {
 
-  /***********
-  *         @
-  */
-    const  ww0 = level => (PHASED, SIDES) => PHASED
-    const  ww1 = level => (PHASED, SIDES) => PHASED + ( (1-SIDES)**level ) * turn
-    const  dd = level => (RAD) => RAD / (Math.pow(2, level))
 
   /***********
   *         @
@@ -48,24 +44,24 @@ let muonAlima = function muonAlima (__mapper) {
 
     SIDES = params.sides || 5,
 
-    RAD = params.rad || 90,
+    _RAD = params.rad || 90,
     PHASED = params.anginit || 0 // 0 internal, 180 extenal
 
 
+    const cyclet = DEPTH * 12000    
 
-    const cyclet = 111272000    
     
     const x0 = -150,
       dx = 150,
       y0 = -100,
       dy = 100,
-      turn = 360
+      turn = 2 * Math.PI // 360
 
 
     let x = x0 + (COL - 1) * dx,
         y = y0 + (ROW - 1) * dy
 
-    const signexp = level => Math.pow(-1, level)
+    const signexp = order => Math.pow(-1, order)
 
     /***********
   *         @img
@@ -178,9 +174,6 @@ let muonAlima = function muonAlima (__mapper) {
             .add(
             
               d.payload.fourier.coef(d)
-            
-            // {re: d.payload.fourier.an[0] * Math.cos(d.payload.fourier.an[1]),
-            // im: d.payload.fourier.an[0] * Math.sin(d.payload.fourier.an[1]) }
               
             )
             .toVector()
@@ -226,63 +219,63 @@ let muonAlima = function muonAlima (__mapper) {
   *         @create animas
   */
   
-    let radOnLevel = level => (level === 0) ? 0 : 60 / (Math.pow(2, level))
+    let radOnLevel = order => (order === 0) ? 0 : _RAD / (Math.pow(2, order))
     let zcoef = (rad, ang) => Complex({
                 re: rad * Math.cos(ang),
                 im: rad * Math.sin(ang) 
             })
     
   
-    for (level = 0; level < DEPTH; level++) {
+    for (order = 0; order < DEPTH; order++) {
 
 
-      anis[level] = f.cloneObj(anis[level - 1] || anima)  // anis h.nat
+      anis[order] = f.cloneObj(anis[order - 1] || anima)  // anis h.nat
 
 
-      anis[level].payload.ric = {gid: 'nat', cid: NAME + level, fid: NAME + level}  // id
+      anis[order].payload.ric = {gid: 'nat', cid: NAME + order, fid: NAME + order}  // id
 
-      anis[level].payload.fourier.an = []
       
       
-      for (let j=0; j < level; j++) {
+      // rad(order)
+      
+      anis[order].payload.fourier.rad = _RAD / (Math.pow(2, order))      
+
+      
+      // -------------- ans(order) ------------------
+      // 
+      anis[order].payload.fourier.an = []
+      for (let j=0; j < order; j++) {
         
-        anis[level].payload.fourier.an[j] = {}
-        anis[level].payload.fourier.an[j].rad = 60 / (Math.pow(2, j))
-        anis[level].payload.fourier.an[j].ang = [[[PHASED, PHASED + ( (1-SIDES)**j ) * turn]]]
+        let rad = _RAD / (Math.pow(2, j))
+        
+        // ang = [[[ 0, (-1)**(j) * (SIDES-1)**(j) * turn ]]]   
+        ang = (j===0) ? [[[ 0, turn ]]] : [[[ 0, (1)**(j) * (SIDES-1)**(j) * turn ]]]   
+        // let ang = [[[ 0, (2)**(j) * (SIDES) * turn ]]]
+        
+        anis[order].payload.fourier.an[j] = {rad, ang}
 
+if (0 && 1) console.log("ang", SIDES, order, j, turn, ang[0][0])
       }      
-
-
-
-      anis[level].payload.fourier.rad = 60 / (Math.pow(2, level))      
       
-        
-      anis[level].payload.fourier.coef = d => {
-         
+      // fourier coef(order)  
+      anis[order].payload.fourier.coef = d => {
           let z = d.payload.fourier.an.reduce( (p, q) => {
-            
             let aj = zcoef(q.rad, q.ang)  // q
-        
-            p = p.add(aj)
-  
-            return p
-          }
-          
-          , Complex({re:0, im:0}))
-
+            return p.add(aj)
+          } , Complex({re:0, im:0}))
           return z
       }
 
       
 
       
-      anis[level].payload.boform.cf = CF(level)   // boform
+      anis[order].payload.boform.cf = CF(order)   // boform
 
 
-      if (level === DEPTH - 1) {    // add image as avatar to root nat
-        anis[level].payload.avatars = []
-        anis[level].payload.avatars.push(img)
-        anis[level].payload.avatars.push(traceLine)
+      if (order === DEPTH - 1) {    // add image as avatar to root nat
+        anis[order].payload.avatars = []
+        anis[order].payload.avatars.push(img)
+        anis[order].payload.avatars.push(traceLine)
       }
 
     }
@@ -291,18 +284,16 @@ let muonAlima = function muonAlima (__mapper) {
     return anis
   }
 
-
-
   /***********
   *         @animas
   */
   let forms = []
   // default: depth:2,rad:30,sides:5,wbase:1,anginit:180,name:"as11",row:1,col:1
   // forms = getForm({depth: 2, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as11', row: 1, col: 1})
-  // forms = getForm({depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2})
+  forms = getForm({depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2})
   // forms = getForm({depth: 4, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as13', row: 1, col: 3})
   // forms = getForm({depth: 5, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as21', row: 3, col: 1})
-  forms = getForm({depth: 6, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as22', row: 2, col: 2})
+  // forms = getForm({depth: 6, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as22', row: 2, col: 2})
   // forms = getForm({depth: 7, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as23', row: 2, col: 3})
   // forms = getForm({depth: 8, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as31', row: 3, col: 1})
   // forms = getForm({depth: 9, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as32', row: 3, col: 2})

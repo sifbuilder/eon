@@ -162,12 +162,14 @@ let haloPacerHalo_ween = anima => []
               // generate the paced fold from the genigram
 
                 newItem = geojsor(anigram, i) // anigram, counter per paced type
+   if (0 && 1) console.log("h.pacer newItem", newItem)               
                 newItem.payload.id = uid
                 newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
                 
               } else {
 
-
+                // aad 
+                
               }
               newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
 

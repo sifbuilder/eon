@@ -18,10 +18,11 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 0, img: 1, gui: 0, fps: 0, stats: 0}) // INIT
+  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 1, wen: 1, webgl: 0, img: 1, gui: 0, fps: 0, stats: 0}) // INIT
 
   let f = __mapper({props: muonProps.muonProps()}).props(),
     mnat = __mapper('xs').m('nat'),
+    cversor = __mapper('xs').c('versor'),
     cwen = __mapper('xs').c('wen'),
     mstace = __mapper('xs').m('stace')
 
@@ -114,8 +115,8 @@ let muonAlima = function muonAlima (__mapper) {
           prerotate: [[[ cwen.rotation ]]],
           scale: 1,
           translate: {
-            x: { pos: [[[0, 0]]] },
-            y: { pos: [[[0, 0]]] },
+            x: { pos: [[[0, 0, 0]]] },
+            y: { pos: [[[0, 0, 0]]] },
             z: 0
           },
           rotate: [ 0, 0, 0 ]
