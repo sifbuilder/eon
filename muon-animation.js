@@ -44,7 +44,7 @@ if (0 && 1) console.log("............. state.animas", state.animas.length)
             (maxlimit > 0 && elapsed > maxlimit) || // stop if spired
             (elapsed > maxlimit) ) { // stop if anigrams spired
 
-        state.animationStop()
+        // state.animationStop()
         
       }
       
