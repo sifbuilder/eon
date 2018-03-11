@@ -219,7 +219,7 @@ let muonAlima = function muonAlima (__mapper) {
   *         @create animas
   */
   
-    let radOnLevel = order => (order === 0) ? 0 : _RAD / (Math.pow(2, order))
+    let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d))    // rad(level)
     let zcoef = (rad, ang) => Complex({
                 re: rad * Math.cos(ang),
                 im: rad * Math.sin(ang) 
@@ -236,25 +236,23 @@ let muonAlima = function muonAlima (__mapper) {
 
       
       
-      // rad(order)
-      
-      anis[order].payload.fourier.rad = _RAD / (Math.pow(2, order))      
-
       
       // -------------- ans(order) ------------------
       // 
-      anis[order].payload.fourier.an = []
+      anis[order].payload.fourier.an = [] // [0...DEPTH)
+      
       for (let j=0; j < order; j++) {
         
-        let rad = _RAD / (Math.pow(2, j))
+
         
         // ang = (j===0) ? [[[ 0, turn ]]] : [[[ 0, (-1)**(j) * (SIDES-1)**(j) * turn ]]]   
         ang = (j===0) ? [[[ 0, turn ]]] : [[[ 0, (1)**(j) * (SIDES-1)**(j) * turn ]]]   
-        // let ang = [[[ 0, (2)**(j) * (SIDES) * turn ]]]
+
+
         
+        let rad = radOnLevel(j)
         anis[order].payload.fourier.an[j] = {rad, ang}
 
-if (1 && 1) console.log("ang", SIDES, order, j, turn, ang[0][0])
       }      
       
       // fourier coef(order)  
@@ -267,7 +265,11 @@ if (1 && 1) console.log("ang", SIDES, order, j, turn, ang[0][0])
       }
 
       
+            // rad(order)
+      
+      anis[order].payload.fourier.rad = radOnLevel(order)     // -------------- rad 
 
+      
       
       anis[order].payload.boform.cf = CF(order)   // boform
 

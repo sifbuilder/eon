@@ -20,6 +20,24 @@
       max = Math.max, min = Math.min, PI = Math.PI, sin = Math.sin, sqrt = Math.sqrt,
       radians = PI / 180, degrees = 180 / PI, eps = 1e-5
 
+    // source: https://github.com/d3/d3-array/blob/master/src/range.js  
+    // license: https://github.com/d3/d3-array/blob/master/LICENSE
+    let d3range = function (start, stop, step) {
+      start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
+
+      var i = -1,
+          n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
+          range = new Array(n);
+
+      while (++i < n) {
+        range[i] = start + i * step;
+      }
+
+      return range;
+    }      
+
+    
+      
     let defaultMajor = [ [-180, 180, 90, 2.5], [-90, 90, 360, 2.5] ]
     let defaultMinor = [ [-180, 180, 10, 2.5], [-80, 80, 10, 2.5] ]
 
