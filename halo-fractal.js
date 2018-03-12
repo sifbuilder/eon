@@ -37,6 +37,8 @@
         
       let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d)) // rad(level)
       
+
+      
       let zcoef = (rad, ang) => Complex({
         re: rad * Math.cos(ang),
         im: rad * Math.sin(ang)
@@ -50,14 +52,13 @@
         anis[order].payload.ric = {gid: 'nat', cid: _NAME + order, fid: _NAME + order}
         anis[order].payload.fractal.an = [] // [0..._DEPTH)
         for (let j = 0; j < order; j++) {
-          let ang
-          if (1) {
-            ang = (j === 0) ? [[[ 0, turn ]]] : [[[ 0, (1) ** (j) * (_SIDES - 1) ** (j) * turn ]]]
-          } else {
-            ang = (j===0) ? [[[ 0, turn ]]] : [[[ 0, (-1)**(j) * (_SIDES-1)**(j) * turn ]]]
-          }
-          let rad = radOnLevel(j)
+          
+          let ang = fractal.angOnLevel(j) 
+
+          let rad = fractal.radOnLevel(j)
+          
           anis[order].payload.fractal.an[j] = {rad, ang}
+          
         }
 
         anis[order].payload.fractal.coef = d => { // fractal coef(order)

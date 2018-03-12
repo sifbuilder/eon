@@ -33,7 +33,7 @@ let muonAlima = function muonAlima (__mapper) {
  *      @pics
  *
  */
-  let tim = {'td': 13800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let tim = {'td': 113800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   /*******************************************
  *    @polyform anima  
@@ -60,9 +60,7 @@ let muonAlima = function muonAlima (__mapper) {
         'id': 0,
         'properties': {}
       }
-      
-if (1 && 1) console.log("gj", gj.geometry.coordinates)      
-      
+ 
       
       
       return gj
@@ -76,7 +74,7 @@ if (1 && 1) console.log("gj", gj.geometry.coordinates)
 
         'projection': 'uniwen',
         'scale': 1.0,
-        'translate': {'x': 0, 'y': 0 },
+        'translate': {x: 0, y: 0 },
         'rotate': [ 0, 0 ],
 
       }
@@ -98,11 +96,23 @@ if (1 && 1) console.log("gj", gj.geometry.coordinates)
 
         fractal: {
           
-          depth: 3,
+          depth: 5,
           rad: 30,
           sides: 6,
           anginit: 0,
           coef: d => ({re:0,im:0}),
+          
+
+            
+          radOnLevel: function(level) {
+            return (level === 0) ? this.rad : this.rad / (Math.pow(2, level))
+          },
+          
+          
+          angOnLevel: function(level) {
+            // (level === 0) ? [[[ 0, pi2 ]]] : [[[ 0, (1) ** (level) * (6 - 1) ** (level) * pi2 ]]]
+            return (level === 0) ? [[[ 0, pi2 ]]] : [[[ 0, (-1) ** (level) * (this.sides - 1) ** (level) * pi2 ]]]
+          },
           
           avatars: [{ // SUB-MARKS line trace
 
