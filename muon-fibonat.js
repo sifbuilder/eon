@@ -8,6 +8,15 @@
 }(this, function (exports) {
   'use strict'
 
+  // refs:
+  // Spreading points on a disc and on a sphere
+  // Marmakoide's Blog
+  // http://blog.marmakoide.org/
+
+  // Fibonacci sphere quasi-random radome
+  // Philippe Rivière’s Block 955da86d6a935b26d3599ca5e344fb38
+  // https://bl.ocks.org/fil/955da86d6a935b26d3599ca5e344fb38
+
   let muonFibonat = function muonFibonat (__mapper = {}) {
     let f = __mapper('props')(),
       mlacer = __mapper('xs').m('lacer'),
@@ -20,65 +29,60 @@
      *        @stream
      */
     let stream = function (params = {}) {
-      // let randomize = Math.floor(params.randomize)
-      // let samples = Math.floor(params.samples)
-      // let dotsInSegment = Math.floor(params.dotsInSegment)
-
-      let randomize = params.randomize
-      let samples = params.samples
-      let dotsInSegment = params.dotsInSegment
-
+      let randomize = params.randomize || false
+      let samples = params.samples || 50
+      let dotsInSegment = params.dotsInSegment || 12
+      let offsetstep = params.offsetstep || 2
+      let goldenangle = Math.PI * (3.0 - Math.sqrt(5.0))
+        
       let string = []
 
       if (randomize == cache.randomize &&
-				samples == cache.samples &&
-				dotsInSegment == cache.dotsInSegment
+        samples == cache.samples &&
+        dotsInSegment == cache.dotsInSegment
       ) {
         string = cache.string
       } else {
-
         let rnd = (randomize) ? Math.random() * samples : 1.0
 
-        const offset = 2.0 / samples
-        const increment = Math.PI * (3.0 - Math.sqrt(5.0))
+        const offset = offsetstep / samples
 
         let nodes = d3.range(samples)
           .map(i => {
-            const y = ((i * offset) - 1) + (offset / 2)
-            const r = Math.sqrt(1 - Math.pow(y, 2))
-            const phi = ((i + rnd) % samples) * increment
-            const x = Math.cos(phi) * r
-            const z = Math.sin(phi) * r
-            return ([x, y, z])	// eg. [-0.63, -0.5, 0.58]
+            const y = ((i * offset) - 1) + (offset / 2),
+              r = Math.sqrt(1 - Math.pow(y, 2)),
+              phi = ((i + rnd) % samples) * goldenangle,
+              x = Math.cos(phi) * r,
+              z = Math.sin(phi) * r
+            return ([x, y, z]) // eg. [-0.63, -0.5, 0.58]
           })
           .map(mgeom.spherical) // eg. [-0.7853, 0.6154]
-          .map(mgeom.to_degrees)	// eg. [-141.93, 35.80]
+          .map(mgeom.to_degrees) // eg. [-141.93, 35.80]
 
         let string = []
 
-        for (let i = 0; i < nodes.length - 1; i++) {	// before last node
+        for (let i = 0; i < nodes.length - 1; i++) { // before last node
           let dot0 = nodes[i]
           let dot1 = nodes[i + 1]
 
-          string.push(dot0)		// push beginning of segment
+          string.push(dot0) // push beginning of segment
 
-          if (dotsInSegment > 1) {		// for the interior
-            let dom = [0, dotsInSegment + 2 ]		// domain adds frontier
+          if (dotsInSegment > 1) { // for the interior
+            let dom = [0, dotsInSegment + 2 ] // domain adds frontier
 
-            let rngX = 	[ dot0[0], dot1[0] ]		// range bewteen segment extremes
-            let rngY = 	[ dot0[1], dot1[1] ]
+            let rngX = [ dot0[0], dot1[0] ] // range bewteen segment extremes
+            let rngY = [ dot0[1], dot1[1] ]
 
             let scaleX = d3.scaleLinear().domain(dom).range(rngX)
             let scaleY = d3.scaleLinear().domain(dom).range(rngY)
 
-            // [dot0, [1,..,indots]], dot1
             let indots = d3.range(1, dotsInSegment + 1, 1).map(d => [scaleX(d), scaleY(d)])
 
             string = [...string, ...indots]
           }
         }
 
-        string.push(nodes[nodes.length - 1])		// add last node
+        string.push(nodes[nodes.length - 1]) // add last node
 
         cache.randomize = randomize
         cache.samples = samples

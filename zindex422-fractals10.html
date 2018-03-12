@@ -25,86 +25,81 @@ let muonAlima = function muonAlima (__mapper) {
     cwen = __mapper('xs').c('wen'),
     mstace = __mapper('xs').m('stace')
 
-  const pi = Math.PI, pi2 = 2 * pi
-  
+  const pi = Math.PI, pi2 = 2 * pi,
+      turn = 2 * Math.PI // 360
+
   /*******************************************
  *      @animas
  */
   let getForm = function (params = {}) {
-
-
   /***********
   *         @
   */
-    let NAME = params.name || 'anis'
-    ROW = params.row || 2,
-    COL = params.col || 2,
-    DEPTH = params.depth || 2,
-    CF = params.cf || (d => 222 * 1), // cfonlevel
+    let _NAME = params.name || 'anis'
+    _ROW = params.row || 2,
+    _COL = params.col || 2,
+    _DEPTH = params.depth || 2,
+    _CF = params.cf || (d => 222 * 1), // cfonlevel
 
-    SIDES = params.sides || 5,
+    _SIDES = params.sides || 5,
 
     _RAD = params.rad || 90,
     PHASED = params.anginit || 0 // 0 internal, 180 extenal
 
+    const cyclet = _DEPTH * 12000
 
-    const cyclet = DEPTH * 12000    
-
-    
     const x0 = -150,
       dx = 150,
       y0 = -100,
-      dy = 100,
-      turn = 2 * Math.PI // 360
+      dy = 100
 
+    let x = x0 + (_COL - 1) * dx,
+      y = y0 + (_ROW - 1) * dy
 
-    let x = x0 + (COL - 1) * dx,
-        y = y0 + (ROW - 1) * dy
-
-    const signexp = order => Math.pow(-1, order)
+    const signexp = d => Math.pow(-1, d)
 
     /***********
   *         @img
   */
-  let img = {
+    let img = {
 
-    halo: 'img',
+      halo: 'img',
 
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
+      geofold: p => ({
+        type: 'Feature',
+        geometry: {
 
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
+          'type': 'Point',
+          'coordinates': [ 0, 0 ]
 
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      // tim: {'td': cyclet * DEPTH, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
+        },
+        properties: {
+          sort: 'img',
+          'xlink:href': p.payload.img.url,
+          style: p.payload.img.style
         }
-      }
+      }),
 
+      payload: {
+
+      // tim: {'td': cyclet * _DEPTH, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+        ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+        boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+        proform: {
+          projection: 'uniwen',
+          translate: [ 30, 40 ]
+        },
+        img: {
+          url: 'zimg-501.jpg',
+          'style': {
+            'width': [[[60, 60]]],
+            'height': [[[40, 40]]],
+            'rotate': [[[ 0, 0 ]]]
+          }
+        }
+
+      }
     }
-  }
 
     /***********
   *         @traceLine
@@ -114,7 +109,7 @@ let muonAlima = function muonAlima (__mapper) {
       halo: 'pacer',
 
       payload: {
-        ric: {'typ': 'nat', 'gid': 'traces' + 0, 'cid': 'traces' + 0, 'fid': 'traces' + 0},
+        ric: {'gid': 'traces' + 0, 'cid': 'traces' + 0, 'fid': 'traces' + 0},
         boform: {'csx': 0, 'cf': 111, 'cs': 666, 'cw': 0.99, 'co': 0.2, 'cp': 0.99},
 
         proform: {
@@ -157,7 +152,7 @@ let muonAlima = function muonAlima (__mapper) {
       }
     }
 
-   /***********
+    /***********
   *         @animas
   */
     let anis = [] // initialize animas
@@ -170,17 +165,17 @@ let muonAlima = function muonAlima (__mapper) {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: Complex({re:0,im:0})
+          coordinates: Complex({re: 0, im: 0})
             .add(
-            
-              d.payload.fourier.coef(d)
-              
+
+              d.payload.fractal.coef(d)
+
             )
             .toVector()
         },
         properties: {
-           pointRadius: d.payload.fourier.rad,
-           geonode: {
+          pointRadius: d.payload.fractal.rad,
+          geonode: {
             type: 'Feature',
             geometry: {
               type: 'Point',
@@ -193,23 +188,23 @@ let muonAlima = function muonAlima (__mapper) {
               prevous: [0, 0],
               geodelta: [0, 0]
             }
-          },
+          }
         }
       }),
       payload: {
 
-        tim: {'td': cyclet * DEPTH, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-        ric: {'typ': 'nat', 'gid': NAME, 'cid': NAME, 'fid': NAME},
+        tim: {'td': cyclet * _DEPTH, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+        ric: {'gid': _NAME, 'cid': _NAME, 'fid': _NAME},
         boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
 
-        fourier: {},
+        fractal: {},
 
         proform: {
 
           projection: 'uniwen',
           scale: 1,
-          translate: [ -50, 50 ],
-          rotate: [ 0, 0 ],
+          translate: [ -0, 0 ],
+          rotate: [ 0, 0 ]
 
         }
       }
@@ -218,70 +213,57 @@ let muonAlima = function muonAlima (__mapper) {
     /***********
   *         @create animas
   */
-  
-    let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d))    // rad(level)
+
+    let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d)) // rad(level)
     let zcoef = (rad, ang) => Complex({
-                re: rad * Math.cos(ang),
-                im: rad * Math.sin(ang) 
-            })
-    
-  
-    for (order = 0; order < DEPTH; order++) {
+      re: rad * Math.cos(ang),
+      im: rad * Math.sin(ang)
+    })
 
+    for (let order = 0; order < _DEPTH; order++) {
+      anis[order] = f.cloneObj(anis[order - 1] || anima) // anis h.nat
 
-      anis[order] = f.cloneObj(anis[order - 1] || anima)  // anis h.nat
+      anis[order].payload.ric = {gid: 'nat', cid: _NAME + order, fid: _NAME + order} // id
 
-
-      anis[order].payload.ric = {gid: 'nat', cid: NAME + order, fid: NAME + order}  // id
-
-      
-      
-      
       // -------------- ans(order) ------------------
-      // 
-      anis[order].payload.fourier.an = [] // [0...DEPTH)
-      
-      for (let j=0; j < order; j++) {
+      //
+      anis[order].payload.fractal.an = [] // [0..._DEPTH)
+
+      for (let j = 0; j < order; j++) {
         
-
+        let ang
+        if (1) {
+          ang = (j === 0) ? [[[ 0, turn ]]] : [[[ 0, (1) ** (j) * (_SIDES - 1) ** (j) * turn ]]]
+        } else {
+          ang = (j===0) ? [[[ 0, turn ]]] : [[[ 0, (-1)**(j) * (_SIDES-1)**(j) * turn ]]]
+        }
         
-        // ang = (j===0) ? [[[ 0, turn ]]] : [[[ 0, (-1)**(j) * (SIDES-1)**(j) * turn ]]]   
-        ang = (j===0) ? [[[ 0, turn ]]] : [[[ 0, (1)**(j) * (SIDES-1)**(j) * turn ]]]   
-
-
         
         let rad = radOnLevel(j)
-        anis[order].payload.fourier.an[j] = {rad, ang}
-
-      }      
-      
-      // fourier coef(order)  
-      anis[order].payload.fourier.coef = d => {
-          let z = d.payload.fourier.an.reduce( (p, q) => {
-            let aj = zcoef(q.rad, q.ang)  // q
-            return p.add(aj)
-          } , Complex({re:0, im:0}))
-          return z
+        anis[order].payload.fractal.an[j] = {rad, ang}
       }
 
-      
-            // rad(order)
-      
-      anis[order].payload.fourier.rad = radOnLevel(order)     // -------------- rad 
+      // fractal coef(order)
+      anis[order].payload.fractal.coef = d => {
+        let z = d.payload.fractal.an.reduce((p, q) => {
+          let aj = zcoef(q.rad, q.ang) // q
+          return p.add(aj)
+        }, Complex({re: 0, im: 0}))
+        return z
+      }
 
-      
-      
-      anis[order].payload.boform.cf = CF(order)   // boform
+      // rad(order)
 
+      anis[order].payload.fractal.rad = radOnLevel(order) // -------------- rad
 
-      if (order === DEPTH - 1) {    // add image as avatar to root nat
+      anis[order].payload.boform.cf = _CF(order) // boform
+
+      if (order === _DEPTH - 1) { // add image as avatar to root nat
         anis[order].payload.avatars = []
         anis[order].payload.avatars.push(img)
         anis[order].payload.avatars.push(traceLine)
       }
-
     }
-
 
     return anis
   }
