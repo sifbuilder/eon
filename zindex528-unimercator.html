@@ -37,7 +37,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     'projection': 'unimercator',
     'scale': 102,
-    'translate': [ 300, 200 ],
+    'translate': [ 0, 0 ],
     'rotate': [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ]
 
   }
@@ -57,8 +57,7 @@ let muonAlima = function muonAlima (__mapper) {
           __mapper('xs').d('worldTopo110m').data().objects.land
         )
       )
-      geo = __mapper('xs').m('geoj').trim(geo)
-      return geo
+      return __mapper('xs').m('geoj').trim(geo)
     },
     payload: {
       tim: tim,

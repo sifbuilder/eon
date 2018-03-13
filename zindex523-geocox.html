@@ -66,8 +66,8 @@
 
       'projection': 'cox',
       'prerotate': [[[ cversor.rotation ]]],      
-      'scale': [[[100, 100, 100, 100, 100, 100]]],
-      'center': [ 0, 0, 0 ],
+      'scale': [100],
+
       'translate': [ 0, 0 ],
       'rotate': [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
       'step': [[[0, 0, 1.1, 1.1, 0, 0]]],
@@ -86,10 +86,7 @@
 
       halo: 'ent',
 
-      geofold: p => {
-        let gedges = mgraticule.gedges(p.payload.graticule)
-        return gedges
-      },
+      geofold: p =>  mgraticule.gedges(p.payload.graticule),
 
       payload: {
         tim,

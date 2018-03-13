@@ -24,11 +24,13 @@ let muonAlima = function muonAlima (__mapper) {
     mliner = __mapper('xs').m('liner'),
     manitem = __mapper('xs').m('anitem'),
     mgeom = __mapper('xs').m('geom'),
+    mgeoj = __mapper('xs').m('geoj'),
     mfibonat = __mapper('xs').m('fibonat'),
     msnap = __mapper('xs').m('snap'),
     mprofier = __mapper('xs').m('profier'),
     mversor = __mapper('xs').m('versor'),
-    cwen = __mapper('xs').c('wen')
+    cwen = __mapper('xs').c('wen'),
+    cversor = __mapper('xs').c('versor')
 
   const cos = Math.cos, sin = Math.sin  
     
@@ -283,26 +285,26 @@ let muonAlima = function muonAlima (__mapper) {
           __mapper('xs').d('worldTopo110m').data().objects.land
         )
       )
-      gj = __mapper('xs').m('geoj').trim(gj)
-      return gj
+      return mgeoj.trim(gj)
     },
 
     payload: {
       tim: tim,
       ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
-      boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+      boform: { 'csx': 0, 'cf': [[[333, 333]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
       proform: {
 
         'projection': 'orthographic',
-        'scale': [[[100, 100]]],
+        'prerotate': [[[ cversor.rotation ]]],            
+        'scale': 100,
         'translate': {
 
-          'x': [[[0, 0]]],
+          'x': 0,
           'y': 0,
           'z': 0
 
         },
-        'rotate': [ [[[0, -1 * 360]]], 0, 0 ],
+        'rotate': [ 0, 0, 0 ],
         'control': 'versor'
 
       }
@@ -320,9 +322,9 @@ let muonAlima = function muonAlima (__mapper) {
 
   let animas = [
 
-    fibofold, // h.ent
+    // fibofold, // h.ent
     geoearth, // h.ent g.orthographic
-    img // h.img
+    // img // h.img
   ]
 
   let animaApi = function animaApi () {

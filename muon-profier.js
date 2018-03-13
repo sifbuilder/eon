@@ -25,59 +25,77 @@
  *        if control:versor   versor rotation
  */
     let profion = function (prjdef) {
-      let prj = guniwen(prjdef)
+      
+      let prj, prjname  // projection and projection name
 
       if (prjdef !== undefined) {
+        
         if (f.isString(prjdef.projection)) { // if _projection singular name
-          prj = __mapper('xs').g(prjdef.projection)(prjdef) // props
+        
+          prjname = prjdef
+          prj = __mapper('xs').g(prjdef.projection)(prjname)
 
-        } else if (f.isFunction(prjdef.projection)) { // if is projection
-          prj = prjdef.projection // props passed to projection
-
-        } else if (f.isArray(prjdef.projections)) { // if plural select one
+        }  else if (f.isArray(prjdef.projections)) { // if plural select one
+        
           prj = prjdef.projections[ Math.round(prjdef.projectidx || 0) ]
 
           if (f.isString(prj)) { // if name in array
-            prj = __mapper('xs').g(prj)(prjdef) // get projection from name
+          
+              prjname = prjdef
+              prj = __mapper('xs').g(prjdef.projection)(prjname) // get projection from name
+            
           }
+          
+        } else if (f.isFunction(prjdef.projection)) { // if is projection
+        
+          prj = prjdef.projection // props passed to projection
+
+        } else {
+          
+          // default to uniwen projection
+          prjname = 'uniwen'
+          prj = __mapper('xs').g(prjdef.projection)(prjname) // get projection from name          
+          
         }
 
-        // if (prj.rotate !== undefined) {
-          // let rot = (prjdef.rotate) ? prjdef.rotate : [0, 0, 0]
+        
+        // if not uniwen, rotation and prerotation must be combined
+        if (prjname !== 'uniwen' && prj.rotate !== undefined) {
+          
+          let rot = (prjdef.rotate) ? prjdef.rotate : [0, 0, 0]
 
-          // let dims = rot.length   // planar or spherical geometry
-          // if (rot.length == 2) rot[2] = 0
+          let dims = rot.length   // planar or spherical geometry
+          if (rot.length == 2) rot[2] = 0
 
-          // let control
-          // if (prjdef.projection === 'uniwen' || prjdef.control === 'wen') control = cwen // WEN
-          // else control = cversor // VERSOR
+          let control
+          if (prjdef.control === 'wen') control = cwen // WEN
+          else if (prjdef.control === 'versor') control = cversor // VERSOR
 
-          // let controlRotation = control
-            // .projection(prj) // tbd
-            // .rotation() // rotation from control wen
+          if (control !== undefined) {
+              let controlRotation = control
+                .projection(prj) // tbd
+                .rotation() // rotation from control wen
 
-          // rot = mgeom.add(rot, controlRotation)
+              rot = mgeom.add(rot, controlRotation)
 
-          // if (dims == 2) { // planar rotation
-            // rot = mwen.cross([rot[0], 0, 0], [0, rot[1], 0])
-          // }
+              if (dims == 2) { // planar rotation
+                rot = mwen.cross([rot[0], 0, 0], [0, rot[1], 0])
+              }
+              
+              prjdef.rotate = rot
+          }
 
-          // prjdef.rotate = rot
-        // }
+        }
 
 
+        
         let translate = prjdef.translate
         if (translate && f.isObject(translate) && f.isPosition(translate)) {
-          translate = Object.values(translate) // translate is {x,y,z}
+          translate = Object.values(translate) // translate {x,y,z} => [x,y,z]
           prjdef.translate = translate
         }
 
-        let center = prjdef.center
-        if (translate && f.isObject(center) && f.isPosition(center)) {
-          center = Object.values(center) // center is {x,y,z}
-          prjdef.center = center
-        }
-
+        
         for (let [key, value] of Object.entries(prjdef)) {
           if (f.isFunction(prj[key])) prj[key](value)
         }
@@ -166,7 +184,9 @@
           //      translate to translate
           
           if (projdef.translate) {
-              if (typeof projdef.translate === 'object') projdef.translate = Object.values(projdef.translate)
+              if (typeof projdef.translate === 'object' && f.isPosition(projdef.translate)) {
+                  projdef.translate = Object.values(projdef.translate)
+              }
               translate = mstace.getTranspot(projdef.translate, payload)
           }
 
