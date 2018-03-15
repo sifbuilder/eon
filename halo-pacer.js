@@ -184,8 +184,8 @@ let haloPacerHalo_ween = anima => []
               // //
               if (newItem.geofold.geometry) {
                   // geocoords of new item
-                  // let coords = newItem.geofold.geometry.coordinates
-                  let coords = __mapper('xs').m('geoj').getCoords(newItem.geofold)
+                  let coords = newItem.geofold.geometry.coordinates
+                  // let coords = __mapper('xs').m('geoj').getCoords(newItem.geofold)
      
                   if (coords && coords.length > 0) {
                

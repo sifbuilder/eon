@@ -39,10 +39,7 @@
       
 
       
-      let zcoef = (rad, ang) => Complex({
-        re: rad * Math.cos(ang),
-        im: rad * Math.sin(ang)
-      })      
+      let zcoef = (rad, ang) => Complex({ re: rad * Math.cos(ang), im: rad * Math.sin(ang) })      
       
       let anis = []
       for (let order = 0; order < _DEPTH; order++) {
@@ -78,23 +75,39 @@
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: Complex({re:0,im:0})
-                .add(
-                
-                  d.payload.fractal.coef(d)
-                  
-                )
-                .toVector()
+              
+              // ///
+              // the geoform coincides with te geonode
+              // //
+              coordinates: [0,0],
             },
             properties: {
                pointRadius: d.payload.fractal.rad,
+               
+               
+               // ///
+               // the geonode reflects the geoform situs where it is created
+               // the geonode returns the coordinates to unpositioned avatar
+               // //
                geonode: {
                 type: 'Feature',
                 geometry: {
                   type: 'Point',
-                  coordinates: [0, 0]
+                  coordinates: Complex({re:0,im:0})
+                    .add(
+                    
+                      d.payload.fractal.coef(d)
+                      
+                    )
+                    .toVector()
                 },
                 properties: { // geofold coindices with geonode
+                
+                
+               // ///
+               // the geonode is affected by forces
+               // maintains original situs
+               // //                
                   orgen: Complex({re:0,im:0})
                     .add(
                     

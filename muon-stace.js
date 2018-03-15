@@ -186,15 +186,15 @@
             let mx = val.length
             for (let i = 0; i < mx; i++) { // for each dimension
 
-              if (typeof val[i] === 'number')   {     
-                
+              if (typeof val[i] === 'number')   {
+
                 newLocations[i] = val[i]
-                
+
               } else if (typeof val[i] === 'object')   {
-                
+
                 let v = val[i]
                 let locationsDax = []
-                
+
                 if (v.hasOwnProperty('pos')) {
                   let parentCoords = manitem.parentCoords(payload) // parentCoords
                   let parentLocationsDaxes = mlacer.unslide(parentCoords) // unslide
@@ -206,7 +206,7 @@
                 }
 
                 newLocations[i] = locationsDax
-                
+
               }
 
 
@@ -219,7 +219,10 @@
 
 
           }
-        } else if (typeof stace === 'object') {                   // {'x':300, 'y':200}}
+        } else if (typeof stace === 'object') {  // {'x':300, 'y':200}}
+
+
+
           let entries = Object.entries(stace)
           let locationsPerDax = []
 
@@ -232,8 +235,8 @@
 
             else if (typeof v1 === 'object') {
               if (v1.hasOwnProperty('pos')) {
-if (0 && 1) console.log("pos", v1)       
-  
+if (0 && 1) console.log("pos", v1)
+
                 let parentCoords = manitem.parentCoords(payload) // parentCoords
                 let parentLocationsDaxes = mlacer.unslide(parentCoords) // unslide
                 let parentLocationsDax = parentLocationsDaxes[i]
@@ -250,17 +253,19 @@ if (0 && 1) console.log("pos", v1)
         }
 
         if (locations.length === 0) locations = []
+
       } else {  // stace not defined take situs from parent
-      
-        
-        
+
+
+
         let parentuid = payload.parentuid
         let parentani = __mapper('xs').m('store').findAnigramFromUid(parentuid)
-        
- if (0 && 1) console.log("parentani", parentani)       
-        
-        let parentSitus = __mapper('xs').m('anitem')(parentani).nodeProformedSitus(parentani)
-        
+
+ if (1 && 1) console.log("parentani", parentani)
+
+        // let parentSitus = __mapper('xs').m('anitem')(parentani).nodeProformedSitus(parentani)
+        let parentSitus = __mapper('xs').m('anitem')(parentani).nodeSitus(parentani)
+
 
         // let parentSitus = manitem.parentSitus(payload)
         locations = Array.of(parentSitus)
@@ -283,7 +288,7 @@ if (0 && 1) console.log("pos", v1)
 
       let situs = getSitus(payload) // anima    .x,.y,.z - root and sim
 
-      if (0 && 1) console.log(' getTranspotsstace', stace)
+      if (1 && 1) console.log(' getTranspotsstace', stace)
       let spots = getTranspots(stace, payload) // payload  stace x || x.pos || x.ref
 
       if (situs && spots && spots.length > 0) { // if situs and spots

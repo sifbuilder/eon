@@ -36,54 +36,7 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let tim = {'td': 113800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  /*******************************************
- *    @polyform anima  
- *
- */
-  let polyform = {
 
-    halo: 'ent',
-
-    geofold: p => {
-    
-      let gj = {
-        'type': 'Feature',
-        'geometry': {
-          'type': 'LineString',
-          'coordinates': [
-            [60 + 0,    60 + 0],
-            [60 - 120,  60 + 0],
-            [60 - 120,  60 - 120],
-            [60 + 0,    60 - 120],
-            [60 + 0,    60 + 0 ]
-          ]
-        },
-        'id': 0,
-        'properties': {}
-      }
- 
-      
-      
-      return gj
-    },
-
-    payload: {
-      tim: tim,
-      ric: { gid: 'geoani', cid: 'geoani', fid: 'polyform'},
-      boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.07, 0.07]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-
-        // 'projection': 'uniwen',
-        'prerotate': [[[ cversor.rotation ]]],
-        'projection': 'orthographic',
-        // 'scale': 1.0,
-        'scale': 100,
-        'translate': {x: 0, y: 0 },
-        'rotate': [ 0, 0 ],
-
-      }
-    }
-  }
   /*******************************************
  *    @fractal anima  
  *
@@ -98,16 +51,29 @@ let muonAlima = function muonAlima (__mapper) {
         ric: { gid: 'fractals', cid: 'fractals', fid: 'fractal'},
         boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
 
+
+        proform: {
+
+          projection: 'uniwen',
+          scale: 1.0,
+          
+          // projection: 'orthographic',
+          // scale: 100,
+          
+          prerotate: [[[ cversor.rotation ]]],
+          translate: {x: 0, y: 0 },
+          rotate: [ 0, 0 ],
+          
+        },        
+        
         fractal: {
           
-          depth: 2,
+          depth: 3,
           rad: 30,
           sides: 6,
           anginit: 0,
           coef: d => ({re:0,im:0}),
           
-
-            
           radOnLevel: function(level) {
             return (level === 0) ? this.rad : this.rad / (Math.pow(2, level))
           },
@@ -127,22 +93,22 @@ let muonAlima = function muonAlima (__mapper) {
                 boform: {'csx': 0, 'cf': 111, 'cs': 666, 'cw': 0.99, 'co': 0.2, 'cp': 0.99},
 
                 
-                stace: {
-                    x: { pos: 0 },
-                    y: { pos: 0 },
-                    z: 0,
-                  },
+                // stace: {
+                    // x: { pos: 0 },
+                    // y: { pos: 0 },
+                    // z: 0,
+                  // },
                 
                 
                 proform: {
 
-                  // projection: 'uniwen',
-                  // prerotate: [[[ cwen.rotation ]]],
-                  // scale: 1,
+                  projection: 'uniwen',
+                  scale: 1,
                   
-                  projection: 'orthographic',
-                  scale: 100,
+                  // projection: 'orthographic',
+                  // scale: 100,
                   
+                  prerotate: [[[ cwen.rotation ]]],
                   translate: {
                     x: 0,
                     y: 0,
@@ -155,7 +121,10 @@ let muonAlima = function muonAlima (__mapper) {
                 pacer: {
                   initN: 0, eventN: 0, autoN: 1, autoP: 0.0, outtimed: 0, maxN: 60, span: 0, aad: 1,
 
-                  autoSitus: ani => mstace.getLocus(ani.payload.stace, ani.payload),
+                  autoSitus: function (ani) {
+                    let situs = mstace.getLocus(ani.payload.stace, ani.payload)
+                    return situs
+                  },
 
                   fider: ani => ani.payload.ric.fid,
 
@@ -180,17 +149,6 @@ let muonAlima = function muonAlima (__mapper) {
           
         },
 
-        proform: {
-
-        // 'projection': 'uniwen',
-        'projection': 'orthographic',
-        'prerotate': [[[ cversor.rotation ]]],
-        'scale': 100,
-        // 'scale': 1.0,
-        'translate': {x: 0, y: 0 },
-        'rotate': [ 0, 0 ],
-          
-        }
       }
     } 
   /*******************************************
@@ -198,7 +156,6 @@ let muonAlima = function muonAlima (__mapper) {
  *
  */
   let animas = [
-    polyform, // h.ent g.uniwen
     fractform // h.fractal
   ]
 

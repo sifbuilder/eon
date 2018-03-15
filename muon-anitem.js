@@ -74,7 +74,18 @@
       return r
     }
     
+    let nodeSitus = function (ani) {
+      let r = [0,0,0]
+      if (ani.geofold && 
+            ani.geofold.properties.geonode ) {
+        r = ani.geofold.properties.geonode.geometry.coordinates
+      }
+      
+      if (0 && 1) console.log("nodeProformedSitus", r)
+      return r
+    }
     
+   
     /* **********
   *   @parentCoords - get paranet coords from avatar payload
   *       
@@ -167,6 +178,7 @@
     enty.payload = (_) => { return _ !== undefined ? (anitem.payload = _, anitem) : anitem.payload }
 
     enty.nodeProformedSitus = nodeProformedSitus
+    enty.nodeSitus = nodeSitus
 
     enty.coreGeoform = coreGeoform			// default halo geofold
     enty.coreGeonode = coreGeonode			// default halo geonode
