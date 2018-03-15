@@ -197,18 +197,19 @@ let haloPacerHalo_ween = anima => []
                     let d = mgeom.distance3d(presitus, situs) // 3d distance
 
                     if (d > span) {
+  if (1 && 1) console.log("coords a", coords)                    
                       
                       coords.push(situs) // if beyond span ADD to LineString
-                      
+  if (1 && 1) console.log("coords b", coords)                    
                     } 
                     
                   } else {
                     
                     
                     coords = Array.of(situs)
-                    
+    if (1 && 1) console.log("coords 0", coords)                
                   }
-if (1 && 1) console.log("coords", coords)
+
                   newItem.geofold.geometry.coordinates = coords
                   
                   // will apply conform, proform. will update proformed

@@ -10,7 +10,7 @@
 
   let haloImg = function haloImg (__mapper = {}) {
     let f = __mapper('props')(),
-		    manitem = __mapper('xs').m('anitem'),
+		  manitem = __mapper('xs').m('anitem'),
       mgeoj = __mapper('xs').m('geoj'),
       mprofier = __mapper('xs').m('profier'),
       mboform = __mapper('xs').m('boform'),
@@ -49,7 +49,6 @@
         parentuid = 	payload.parentuid, // parentuid
         json
 
-      anima.payload.geofold = geofold
       newAnigrams = __mapper('xs').h('ent').gramm(anima)
 
       return newAnigrams

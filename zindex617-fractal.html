@@ -54,11 +54,11 @@ let muonAlima = function muonAlima (__mapper) {
 
         proform: {
 
-          projection: 'uniwen',
-          scale: 1.0,
+          // projection: 'uniwen',
+          // scale: 1.0,
           
-          // projection: 'orthographic',
-          // scale: 100,
+          projection: 'orthographic',
+          scale: 100,
           
           prerotate: [[[ cversor.rotation ]]],
           translate: {x: 0, y: 0 },
@@ -102,18 +102,14 @@ let muonAlima = function muonAlima (__mapper) {
                 
                 proform: {
 
-                  projection: 'uniwen',
-                  scale: 1,
+                  // projection: 'uniwen',
+                  // scale: 1,
                   
-                  // projection: 'orthographic',
-                  // scale: 100,
+                  projection: 'orthographic',
+                  scale: 100,
                   
                   prerotate: [[[ cwen.rotation ]]],
-                  translate: {
-                    x: 0,
-                    y: 0,
-                    z: 0,
-                  },
+                  translate: { x: 0, y: 0, z: 0, },
                   rotate: [ 0, 0 ]
 
                 },
@@ -122,11 +118,19 @@ let muonAlima = function muonAlima (__mapper) {
                   initN: 0, eventN: 0, autoN: 1, autoP: 0.0, outtimed: 0, maxN: 60, span: 0, aad: 1,
 
                   autoSitus: function (ani) {
-                    let situs = mstace.getLocus(ani.payload.stace, ani.payload)
+                    
+if (1 && 1) console.log("autoSitus ani", ani)                    
+                    let situs = mstace.getTranspot(ani.payload.stace, ani.payload)
+if (1 && 1) console.log("autoSitus situs", situs)                    
                     return situs
                   },
 
-                  fider: ani => ani.payload.ric.fid,
+                  fider: function (ani) {
+                    let r = ani.payload.ric.fid + '___trace'
+if (1 && 1) console.log("fider r", r)                    
+                    
+                    return r
+                  },
 
                   geojsor: ani => ({
 
