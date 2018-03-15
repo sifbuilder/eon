@@ -38,33 +38,46 @@
         uid = payload.uid, // uid
         parentuid = payload.parentuid // parentuid
         
-    if (1 && 1) console.log("h.ent proform", ric)
+    if (0 && 1) console.log("h.ent proform", ric)
     if (0 && 1) if (proform !== undefined) console.log("h.ent proform", ric, proform.rotate)
       
-      let gjGeoformed = f.v(geofold, anigram)
-      if (!mgeoj.isValid(gjGeoformed)) { console.error("h.ent:gj not valid", gjGeoformed)}
-        
-      // conform does not affect geonode. impacts siti of avatars
-      let gjConformed = mprofier.conformer(anigram)(gjGeoformed)
+    
+    //  get GEOFOLD
+    //
+    let gjGeoformed = f.v(geofold, anigram)
+    if (!mgeoj.isValid(gjGeoformed)) { 
+      console.error("h.ent:gj not valid", gjGeoformed)
+    }
+      
+    //  CONFORM the geofold
+    //
+    // conform does not affect geonode. impacts siti of avatars
+    let gjConformed = mprofier.conformer(anigram)(gjGeoformed)
 
-    if (1 && 1) if (uid === 'traces0_traces0_traces0') {
+    if (0 && 1) if (uid === 'traces0_traces0_traces0') {
       console.log("h.ent anigram:proform", halo, anigram, proform)
     }
 
-      
+
+  if (0 && 1) console.log("h.ent proformed", gjConformed)
+    
+  
+      //    PROFORM the conform
+      //
       //    uniwen: prerotation, tranlations, scale, project, rotation
       let proformion = mprofier.proformion(anigram),
           gjProformed = mproj3ct(gjConformed, proformion),
           gj = gjProformed
+      //  geo projection may return GEOMETRY null
           
           
-          
+      //    PROFORM the geonode
+      //
         if (gj.properties && gj.properties.geonode !== undefined) {    // if Feature
           let pgj = mproj3ct(gj.properties.geonode, proformion)
           gj.properties.geonode.properties.nodeProformed = pgj
           if (0 && 1) console.log("gj", gj)
         }
-      
       
       
       

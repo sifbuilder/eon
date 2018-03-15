@@ -100,7 +100,7 @@ let muonAlima = function muonAlima (__mapper) {
 
         fractal: {
           
-          depth: 5,
+          depth: 2,
           rad: 30,
           sides: 6,
           anginit: 0,
@@ -126,20 +126,27 @@ let muonAlima = function muonAlima (__mapper) {
                 ric: {'gid': 'traces' + 0, 'cid': 'traces' + 0, 'fid': 'traces' + 0},
                 boform: {'csx': 0, 'cf': 111, 'cs': 666, 'cw': 0.99, 'co': 0.2, 'cp': 0.99},
 
+                
+                stace: {
+                    x: { pos: 0 },
+                    y: { pos: 0 },
+                    z: 0,
+                  },
+                
+                
                 proform: {
 
                   // projection: 'uniwen',
                   // prerotate: [[[ cwen.rotation ]]],
                   // scale: 1,
+                  
                   projection: 'orthographic',
-                  prerotate: [[[ cversor.rotation ]]],
                   scale: 100,
                   
                   translate: {
-                    x: { pos: [[[0, 0]]] },
-                    y: { pos: [[[0, 0]]] },
-                    
-
+                    x: 0,
+                    y: 0,
+                    z: 0,
                   },
                   rotate: [ 0, 0 ]
 
@@ -148,7 +155,7 @@ let muonAlima = function muonAlima (__mapper) {
                 pacer: {
                   initN: 0, eventN: 0, autoN: 1, autoP: 0.0, outtimed: 0, maxN: 60, span: 0, aad: 1,
 
-                  autoSitus: ani => mstace.getLocus(ani.payload.proform.translate, ani.payload),
+                  autoSitus: ani => mstace.getLocus(ani.payload.stace, ani.payload),
 
                   fider: ani => ani.payload.ric.fid,
 
@@ -159,7 +166,7 @@ let muonAlima = function muonAlima (__mapper) {
                       type: 'Feature',
                       geometry: {
                         type: 'LineString',
-                        coordinates: null
+                        coordinates: []
                       },
                       properties: {}
                     },

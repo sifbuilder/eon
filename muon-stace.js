@@ -232,6 +232,8 @@
 
             else if (typeof v1 === 'object') {
               if (v1.hasOwnProperty('pos')) {
+if (0 && 1) console.log("pos", v1)       
+  
                 let parentCoords = manitem.parentCoords(payload) // parentCoords
                 let parentLocationsDaxes = mlacer.unslide(parentCoords) // unslide
                 let parentLocationsDax = parentLocationsDaxes[i]
@@ -255,7 +257,7 @@
         let parentuid = payload.parentuid
         let parentani = __mapper('xs').m('store').findAnigramFromUid(parentuid)
         
- if (1 && 1) console.log("parentani", parentani)       
+ if (0 && 1) console.log("parentani", parentani)       
         
         let parentSitus = __mapper('xs').m('anitem')(parentani).nodeProformedSitus(parentani)
         

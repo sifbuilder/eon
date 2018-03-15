@@ -23,10 +23,18 @@ let muonAlima = function muonAlima (__mapper) {
   let f = __mapper({props: muonProps.muonProps()}).props(),
     mnat = __mapper('xs').m('nat'),
     cwen = __mapper('xs').c('wen'),
+    cversor = __mapper('xs').c('versor'),
     mstace = __mapper('xs').m('stace')
 
   const pi = Math.PI, pi2 = 2 * pi
   
+  
+  
+  /*******************************************
+ *      @animas
+ */ 
+ let tim = {'td': 111200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+ 
   /*******************************************
  *      @animas
  */
@@ -60,6 +68,8 @@ let muonAlima = function muonAlima (__mapper) {
      
       
     const cyclet = DEPTH * 2000
+    const duration = cyclet * DEPTH
+    
     
     const x0 = -150,
       dx = 150,
@@ -95,7 +105,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     payload: {
 
-      // tim: {'td': cyclet * DEPTH, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+      // tim: {'td': duration, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
       ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
       boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
       proform: {
@@ -114,9 +124,11 @@ let muonAlima = function muonAlima (__mapper) {
     }
   }
     
+  
   /***********
   *         @animas
   */
+
 
     let anima = {
 
@@ -124,20 +136,27 @@ let muonAlima = function muonAlima (__mapper) {
       geofold: p => mnat.natFeature(p.payload.form),
       payload: {
 
-        tim: {'td': cyclet * DEPTH, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-        ric: {''gid': NAME, 'cid': NAME, 'fid': NAME},
+        tim: tim, // {'td': duration, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+        ric: {gid: NAME, cid: NAME, fid: NAME},
         boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
 
         form: {
             'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
+            'ra2': 30, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1
           },
 
+          
         proform: {
 
-          projection: 'uniwen',
+        
+          projection: 'orthographic',
           prerotate: [[[ cwen.rotation ]]],
-          scale: 1,
+          scale: 100,
+        
+        
+          // projection: 'uniwen',
+          // prerotate: [[[ cwen.rotation ]]],
+          // scale: 1,
           translate: {
             x,
             y,
@@ -157,12 +176,23 @@ let muonAlima = function muonAlima (__mapper) {
         ric: {'gid': NAME + 'traces' + 0, 'cid': NAME + 'traces' + 0, 'fid': NAME + 'traces' + 0},
         boform: {'csx': 0, 'cf': 111, 'cs': 666, 'cw': 0.99, 'co': 0.2, 'cp': 0.99},
 
+       stace: {
+          x: { pos: 0 },
+          y: { pos: 0 },
+          z: 0,
+        },
+                  
         proform: {
 
+          // projection: 'orthographic',
+          // scale: 100,        
+          
+          prerotate: [[[ cwen.rotation ]]],
+        
           projection: 'uniwen',
           prerotate: [[[ cwen.rotation ]]],
           scale: 1,
-          translate: null,
+          // translate: null,
           // translate: { x: { pos: [[[0, 0]]] }, y: { pos: [[[0, 0]]] }, z: 0 },
           rotate: [ 0, 0, 0 ]
 
@@ -171,7 +201,7 @@ let muonAlima = function muonAlima (__mapper) {
         pacer: {
           initN: 0, eventN: 0, autoN: 1, autoP: 0.0001, outtimed: 0, maxN: 60, span: 0, aad: 1,
 
-          autoSitus: ani => mstace.getLocus(ani.payload.proform.translate, ani.payload),
+          autoSitus: ani => mstace.getLocus(ani.payload.stace, ani.payload),
 
           fider: ani => ani.payload.ric.fid,
 
@@ -182,7 +212,7 @@ let muonAlima = function muonAlima (__mapper) {
               type: 'Feature',
               geometry: {
                 type: 'LineString',
-                coordinates: null
+                coordinates: []
               },
               properties: {}
             },
@@ -193,8 +223,6 @@ let muonAlima = function muonAlima (__mapper) {
         }
       }
     }
-
-
 
 
     /***********
@@ -219,22 +247,21 @@ let muonAlima = function muonAlima (__mapper) {
       // --------- Sr -------------- cycloid radius -
       anis[level].payload.form.ra2 = dd(level)(_RAD)
 
-      // --------- Sw -------------- cycloid rotation
-      anis[level].payload.form.w4 =
-        [[[ ww0(level)(PHASED, SIDES),
-            ww1(level)(PHASED, SIDES)
-        ]]]
+      // --------- Sw -------------- cycloid ROTATION
+      anis[level].payload.form.w4 = [[[ ww0(level)(PHASED, SIDES), ww1(level)(PHASED, SIDES) ]]]
 
 
       anis[level].payload.boform.cf = CF(level)   // cycloid boform
 
 
-      if (level !== 0) {    // cycloid position for upper levels
+      if (level !== 0) {    // POSITION for upper cycloids
         anis[level].payload.proform.translate = {  
           x: { 'pos': 0 }, 
-          y: { 'pos': 0 } 
+          y: { 'pos': 0 }, 
+          z: 0 
         } //  ref - pos : nb of vertex
       }
+      
       traces[level] = f.cloneObj(traces[level - 1] || traceLine)
       traces[level].payload.ric = {
           gid: NAME + 'traces' + level, 
@@ -245,8 +272,8 @@ let muonAlima = function muonAlima (__mapper) {
       if (level === DEPTH) traces[level].payload.boform.cp = 1
     }
 
-    // link avatars
-
+    // link sub cycloids as avatars
+    
     for (level = DEPTH - 1; level >= 0; level--) { // DEPTH:3  2, 1, 0
       anis[level].payload.avatars = []
 
@@ -264,22 +291,26 @@ let muonAlima = function muonAlima (__mapper) {
           anis[level].payload.avatars.push(traces[level])
       }
       
+      // add img avatar to upper level
+      
       if (level === DEPTH - 1) {    // add image as avatar to root nat
-        anis[level].payload.avatars.push(img)
+        // anis[level].payload.avatars.push(img)
       }      
     }
 
     return anis[0]
   }
+  
 
   /***********
   *         @animas
   */
   let forms = []
   // default: depth:2,rad:30,sides:5,wbase:1,anginit:180,name:"as11",row:1,col:1
-  // forms.push(getForm({depth: 2, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as11', row: 1, col: 1}))
-  forms.push(getForm({depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2}))
-  // forms.push(getForm({depth: 4, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as13', row: 1, col: 3}))
+  // forms.push(getForm({depth: 1, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as11', row: 2, col: 2}))
+  // forms.push(getForm({depth: 2, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as11', row: 2, col: 2}))
+  // forms.push(getForm({depth: 3, rad: 15, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 2, col: 2}))
+  forms.push(getForm({depth: 4, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as13', row: 2, col: 2}))
   // forms.push(getForm({depth: 5, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as21', row: 3, col: 1}))
   // forms.push(getForm({depth: 6, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as22', row: 2, col: 2}))
   // forms.push(getForm({depth: 7, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as23', row: 2, col: 3}))
@@ -290,6 +321,7 @@ let muonAlima = function muonAlima (__mapper) {
 
 
   // animas = [...animas, img] // h.img
+  // animas = [...animas, animatter] // h.img
   /*******************************************
  *      @animaApi
  *

@@ -181,7 +181,10 @@
                 }
               }
 
-              let projection = mprofier.profion({'projection': 'natform', 'form': nformed})
+              let projection = mprofier.profion({
+                    projection: 'natform', 
+                    form: nformed
+              })
 
               feature = mproj3ct(gj, projection)
 

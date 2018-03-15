@@ -274,7 +274,8 @@
           }
         } else if (json.type === 'Point') {
           let geometry = json
-          coords.push(geometry.coordinates)
+          // coords.push(geometry.coordinates)
+          coords = [...coords, geometry.coordinates]  // if Point, return array
         } else if (json.type === 'LineString') {
           let line = json.coordinates
           let _coords = line

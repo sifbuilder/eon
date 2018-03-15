@@ -68,7 +68,7 @@
           }, Complex({re: 0, im: 0}))
           return z
         }
-        anis[order].payload.fractal.rad = radOnLevel(order) // -------------- rad
+        anis[order].payload.fractal.rad = radOnLevel(order) // rad
         anis[order].payload.boform.cf = _CF(order) // boform
         if (order === _DEPTH - 1) { // add avatars to last ani fractal
           anis[order].payload.avatars = anis[order].payload.fractal.avatars
@@ -94,8 +94,14 @@
                   type: 'Point',
                   coordinates: [0, 0]
                 },
-                properties: {
-                  orgen: [0, 0],
+                properties: { // geofold coindices with geonode
+                  orgen: Complex({re:0,im:0})
+                    .add(
+                    
+                      d.payload.fractal.coef(d)
+                      
+                    )
+                    .toVector(),
                   velin: [0, 0],
                   velang: [0, 0],
                   prevous: [0, 0],

@@ -97,7 +97,7 @@
 
         
         for (let [key, value] of Object.entries(prjdef)) {
-          if (f.isFunction(prj[key])) prj[key](value)
+          if (f.isFunction(prj[key]) && value !== null) prj[key](value)
         }
       }
       return prj
@@ -173,11 +173,8 @@
       
       } else {
 
-
-     if (0 && 1) console.log("---------------- payload", payload)
           // initialize translate for projection definition
           //
-          
           let translate = []
 
           // if translate, then

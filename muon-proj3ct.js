@@ -97,9 +97,10 @@
       let streamSink = 	stream(sink)
 
       d3Geo.geoStream(o, streamSink)
-      // return sink.resul	t()
+      // return sink.result()
 
       let ret = sink.result()
+if (0 && 1) console.log("ret", o , ret)      
       return ret
     }
 
@@ -116,6 +117,7 @@
           : points.length < 2 ? {type: 'Point', coordinates: points[0]}
             : {type: 'MultiPoint', coordinates: points}
         points = []
+        
         return result
       }
     }
