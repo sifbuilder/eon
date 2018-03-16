@@ -82,6 +82,7 @@ document.write("<script src='muon-versor.js'><\/script>")
 document.write("<script src='muon-voro.js'><\/script>")    
 document.write("<script src='muon-wen.js'><\/script>")    
 /*  halo */  
+document.write("<script src='halo-axis.js'><\/script>")    
 document.write("<script src='halo-core.js'><\/script>")    
 document.write("<script src='halo-ent.js'><\/script>")    
 document.write("<script src='halo-fractal.js'><\/script>")    

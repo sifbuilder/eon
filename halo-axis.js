@@ -8,10 +8,9 @@
 }(this, function (exports) {
   'use strict'
 
-  var haloAxis = function haloAxis (__mapper = {}) {
+  var haloAxis = function (__mapper = {}) {
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem')
-
       
    let _geoform = p => ({ // geofold
       type: 'Feature',
@@ -25,9 +24,9 @@
     })      
       
     /****************************
-   *    @gramn
+   *    @gramm
    */
-    let gramn = function gramn (anima, newAnigrams = []) {
+    let gramm = function (anima, newAnigrams = []) {
       
       let anigram = manitem(anima).anigram(),													// anigram
 			  halo = 				anigram.halo, // halo
@@ -54,7 +53,7 @@
         domain0 = axis.domain0 || 0,
         domain1 = axis.domain1 || 0,
         tickSize = axis.tickSize || 2,
-        tickFormat = axis.tickFormat || '',
+        tickFormat = axis.tickFormat || ''
 
       let scale = d3['scaleTime']()
       if (scaleType !== undefined) {
@@ -71,36 +70,45 @@
       let newAnigram = {}
       
       newAnigram.halo = 'axis'  // renderee
-      
       newAnigram.geofold = geofold
+      newAnigram.payload = Object.assign({},newAnigram.payload,anigram.payload)
       
-      newAnigram.payload = {}
+      newAnigram.geofold.properties = {}
       
-      newAnigram.payload.scale = scale
+      newAnigram.geofold.properties.sort = 'axis'  // renderee
+      
+      newAnigram.geofold.properties.ric = anigram.payload.ric
+      newAnigram.geofold.properties.uid = anigram.payload.uid
+      
+      
+      newAnigram.geofold.properties.axis = {}
+      
+      newAnigram.geofold.properties.axis.scale = scale
         .domain([domain0, domain1])
         .range([range0, range1])
 
-      newAnigram.payload.d3Axis = d3Axis(scale)
+      newAnigram.geofold.properties.axis.d3Axis = d3Axis(scale)
         .tickSize(tickSize)
         .tickFormat((tickFormat === '') ? '' : d3.format(tickFormat))
         .tickSizeOuter(0)
 
-      newAnigram.payload.textAnchor = 'middle'
-      newAnigram.payload.fontFamily = 'sans-serif'
+      newAnigram.geofold.properties.axis.textAnchor = 'middle'
+      newAnigram.geofold.properties.axis.fontFamily = 'sans-serif'
 
-
-
+if (1 && 1) console.log("newAnigram", anigram, newAnigram)
       newAnigrams.push(newAnigram)
 
       return newAnigrams
     }
 
-    /****************************
- *    @enty
+    /***************************
+ *        @enty
  */
-    var enty = function enty () {}
-    enty.ween = anima => (anima.inited !== true) ? (anima.inited = true, [anima]) : []
-    enty.gramn = anima => gramn(anima)
+    let haloAxis = {}
+    haloAxis.ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = 1, [anima]) : []
+    haloAxis.gramm = anima => gramm(anima)
+
+    let enty = haloAxis
 
     return enty
   }

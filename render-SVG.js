@@ -15,19 +15,19 @@
     // The viewport is the visible area of the SVG image
     // Default units are pixels
     // <svg width="600" height="400"></svg>
-    
+
     // The svg viewBox attribute is used to redefine the viewport coordinates
     // two first coordinates define user coordinates of upper left corner
     // two last coordinates define user coordinates of lower right corner
-    //  <svg width="600" height="400" viewBox="0 0 50 20" > 
-    
+    //  <svg width="600" height="400" viewBox="0 0 50 20" >
+
     // https://bl.ocks.org/mbostock/3019563   // Margin Convention
     let r = __mapper('xs').r('renderport')
 
     let state = {
-       width: r.width(), 
-       height: r.height()
-    }   // Viewport
+      width: r.width(),
+      height: r.height()
+    } // Viewport
 
     let svglayer = d3.select('.viewframe')
       .append('svg')
@@ -136,13 +136,14 @@
  *
  *
  * 			@render
- *    
+ *
  *      gets anima.geofold's from m.animation
- *      
+ *
  *
  */
 
     let render = function (elapsed, featurecollection, maxlimit) {
+      if (0 && 1) console.log('state.animas featurecollection', featurecollection)
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
@@ -232,13 +233,41 @@
               .attr('height', d => d.properties.style.height)
           }
 
+          /*  ................. AXES ................. */
+          let axis = fitems
+            .filter(d => d.properties.sort === 'axis') // __ axis __
+            .filter((d, i) => (d.properties.delled !== 1)) // not delled
+
+          if (axis.length > 0) {
+              let ax = axis[0].properties.axis
+
+if (1 && 1) console.log("ax", ax)              
+              
+            __mapper('renderSvg').elems('svg:g.' + gid + '/g.' + cid, axis, d => d.id)
+
+              .data(() => axis)
+
+              .call(ax.d3Axis)		// .call(d3.axisBottom(x))
+              .attr('transform', d =>
+                'translate(' + d.tranlateX + ',' + d.tranlateY + ')' +
+                      'rotate(' + d.rotate + ')'
+              )
+              .style('font-size', d => d.size)
+              .style('font-family', 'BankFuturistic')
+              .style('fill', d => props.lib.kolor(d.cf, d.csx))
+              .style('stroke', d => props.lib.kolor(d.cs, d.csx))
+              .style('fill-opacity', d => d.co)
+              .style('stroke-width', d => d.cw)
+              .style('stroke-opacity', d => d.cp)
+              .style('text-anchor', d => d.textAnchor)
+          }
+
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
             .filter(d => d.properties.sort === 'feature' || d.properties.sort === undefined) // default
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
 
           if (features.length > 0) {
-
             __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)
 
               .data(() => features)
@@ -249,25 +278,21 @@
                 let properties = geoitem.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
-                
-                
-                  //  view pprojection
-                  // let basprj = { // view projection
-                      // 'projection': 'uniwen',
-                      // 'prerotate': [0,0,0],
-                      // 'translate': [width/2, height/2, 0],
-                      // 'rotate': [0,0,0],
-                      // 'scale': [1,-1,1],
-                      // 'lens': [0,1,Infinity]
-                  // }
-                  // let toview = (properties.vim !== undefined) ? properties.vim : basprj
-                  // let toviewproj = __mapper('xs').g('uniwen')(toview)                
-                
-                  let toviewproj = r.toviewproj()
-                
-                
-                
-                let geoPath = d3.geoPath(toviewproj)  // path on view projection
+                //  view pprojection
+                // let basprj = { // view projection
+                // 'projection': 'uniwen',
+                // 'prerotate': [0,0,0],
+                // 'translate': [width/2, height/2, 0],
+                // 'rotate': [0,0,0],
+                // 'scale': [1,-1,1],
+                // 'lens': [0,1,Infinity]
+                // }
+                // let toview = (properties.vim !== undefined) ? properties.vim : basprj
+                // let toviewproj = __mapper('xs').g('uniwen')(toview)
+
+                let toviewproj = r.toviewproj()
+
+                let geoPath = d3.geoPath(toviewproj) // path on view projection
                 let path = (pointRadius !== undefined) // geoPath
                   ? geoPath.pointRadius(pointRadius)
                   : geoPath

@@ -61,7 +61,7 @@ if (0 && 1) console.log(" .......................... state.animas", state.animas
       *    @SIM defaults position of nodes
       */
       let sim = __mapper('xs').m('sim').sim() // simulation on animas
-if (0 && 1) console.log("state.animas", state.animas)
+
       __mapper('xs').m('sim').simulate(sim, state.animas, elapsed)	// stored
 
       state.animas = f.a(__mapper('muonStore').animasLive())
@@ -76,7 +76,7 @@ if (0 && 1) console.log("state.animas", state.animas)
       }
 
       let anigrams = __mapper('xs').m('store').anigrams()
-
+if (1 && 1) console.log("state.animas anigrams", anigrams)
       /*******************************************
     *     @RENDER
     */
