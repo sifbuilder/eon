@@ -241,7 +241,7 @@
           if (axis.length > 0) {
               let ax = axis[0].properties.axis
 
-if (1 && 1) console.log("ax", ax)              
+if (0 && 1) console.log("ax", ax)              
               
             __mapper('renderSvg').elems('svg:g.' + gid + '/g.' + cid, axis, d => d.id)
 

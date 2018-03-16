@@ -72,11 +72,19 @@ if (0 && 1) console.log(" .......................... state.animas", state.animas
         let anima = state.animas[i]
 
         let newAnigrams = []
+        
+        
+        // ///
+        // mstore.gramm calls UPDANIGRAM
+        // anigrams geofolds are saved in the proformed domain
+        // //
         newAnigrams = f.a(mstore.gramm(anima)) /* GRAMM */
+        
+        
       }
 
       let anigrams = __mapper('xs').m('store').anigrams()
-if (1 && 1) console.log("state.animas anigrams", anigrams)
+if (0 && 1) console.log("state.animas anigrams", anigrams)
       /*******************************************
     *     @RENDER
     */

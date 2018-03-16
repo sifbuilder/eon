@@ -261,7 +261,7 @@ if (0 && 1) console.log("pos", v1)
         let parentuid = payload.parentuid
         let parentani = __mapper('xs').m('store').findAnigramFromUid(parentuid)
 
- if (1 && 1) console.log(" ------------ parentani", parentani)
+ if (0 && 1) console.log(" ------------ parentani", parentani)
 
         // let parentSitus = __mapper('xs').m('anitem')(parentani).nodeProformedSitus(parentani)
         let parentSitus = __mapper('xs').m('anitem')(parentani).nodeSitus(parentani)
@@ -288,7 +288,7 @@ if (0 && 1) console.log("pos", v1)
 
       let situs = getSitus(payload) // anima    .x,.y,.z - root and sim
 
-      if (1 && 1) console.log('m.stace.getLoci:stace', stace)
+      if (0 && 1) console.log('m.stace.getLoci:stace', stace)
       let spots = getTranspots(stace, payload) // payload  stace x || x.pos || x.ref
 
       if (situs && spots && spots.length > 0) { // if situs and spots

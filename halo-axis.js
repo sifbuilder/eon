@@ -95,7 +95,7 @@
       newAnigram.geofold.properties.axis.textAnchor = 'middle'
       newAnigram.geofold.properties.axis.fontFamily = 'sans-serif'
 
-if (1 && 1) console.log("newAnigram", anigram, newAnigram)
+if (0 && 1) console.log("newAnigram", anigram, newAnigram)
       newAnigrams.push(newAnigram)
 
       return newAnigrams
