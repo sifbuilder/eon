@@ -26,7 +26,7 @@ let muonAlima = function muonAlima (__mapper) {
     cversor = __mapper('xs').c('versor'),
     cwen = __mapper('xs').c('wen'),
     mstace = __mapper('xs').m('stace'),
-    mfourier = __mapper('xs').m('fourier'),
+    mfourier = __mapper('xs').m('fourier')
 
   const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
@@ -66,6 +66,16 @@ var shapes = {
           'properties': {}
         }
 
+        
+     mfourier.FourierDiagram(null, JSON.parse (shapes.lion ), 200 )
+     
+     mfourier.updateTransform()
+     let transform =   mfourier.transform()
+     if (1 && 1) console.log("transform", transform)
+     
+    // var diagram = new FourierDiagram (app, pathData, 200);
+    // diagram.draw();
+    
         return gj
       },
 
@@ -78,8 +88,8 @@ var shapes = {
 
         fourier: {
 
-          div: app, 
-          path: pathData, 
+          div: null, 
+          path: shapes.lion, 
           period: 200,
 
 

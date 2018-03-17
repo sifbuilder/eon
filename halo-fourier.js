@@ -1,14 +1,14 @@
 /****************************
- *      @haloFractal
+ *      @haloFourier
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloFractal = global.haloFractal || {})))
+      : (factory((global.haloFourier = global.haloFourier || {})))
 }(this, function (exports) {
   'use strict'
 
-  let haloFractal = function haloFractal (__mapper = {}) {
+  let haloFourier = function haloFourier (__mapper = {}) {
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
       mnat = __mapper('xs').m('nat')
@@ -144,17 +144,17 @@
     let haloNat_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
     let haloNat_gramm = anima => gramm(anima)
 
-    let haloFractal = {}
-    haloFractal.ween = anima => haloNat_ween(anima)
-    haloFractal.gramm = anima => {
+    let haloFourier = {}
+    haloFourier.ween = anima => haloNat_ween(anima)
+    haloFourier.gramm = anima => {
       let r = haloNat_gramm(anima)
       return r
     }
 
-    let enty = haloFractal
+    let enty = haloFourier
 
     return enty
   }
 
-  exports.haloFractal = haloFractal
+  exports.haloFourier = haloFourier
 }))
