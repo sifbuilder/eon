@@ -45,8 +45,11 @@
     //  get GEOFOLD
     //
     let gjGeoformed = f.v(geofold, anigram)
+    
+if (1 && 1) console.log("gjGeoformed", gjGeoformed)    
+    
     if (!mgeoj.isValid(gjGeoformed)) { 
-      console.error("h.ent:gj not valid", gjGeoformed)
+      console.error("h.ent:gj not valid", geofold, gjGeoformed)
     }
       
       // ///  
@@ -59,9 +62,7 @@
         console.log("h.ent anigram:proform", halo, anigram, proform)
       }
 
-
-  if (0 && 1) console.log("h.ent proformed", gjConformed)
-    
+  
   
       // ///
       //    PROFORM the conformed geofold

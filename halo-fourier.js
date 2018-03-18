@@ -11,129 +11,146 @@
   let haloFourier = function haloFourier (__mapper = {}) {
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
-      mnat = __mapper('xs').m('nat')
+      mstore = __mapper('xs').m('store'),
+      mric = __mapper('xs').m('ric')
 
-    let r = __mapper('xs').r('renderport'),
-      width = r.width(),
-      height = r.height()
 
-  const pi = Math.PI, pi2 = 2 * pi,
-      turn = 2 * Math.PI // 360
-
-      
     /****************************
    *    @gramm
    */
     let gramm = function (anima, newAnigrams = []) {
 
-      let anigram = manitem(anima).anigram() // anigram
-      let fractal = anigram.payload.fractal
-      
-      let _NAME = fractal.name || 'anis',
-        _DEPTH = fractal.depth || 2,
-        _CF = fractal.cf || (d => 222 * 1), // cf color onlevel
-        _SIDES = fractal.sides || 5,
-        _RAD = fractal.rad || 90
-        
-        
-        
-      let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d)) // rad(level)
-      
+      let anigram = manitem(anima).anigram(), // anigram
+        halo = anigram.halo, // halo
+        geofold = anigram.geofold // geofold
 
-      
-      let zcoef = (rad, ang) => Complex({ re: rad * Math.cos(ang), im: rad * Math.sin(ang) })      
-      
-      
-      
-      let anis = []
-      for (let order = 0; order < _DEPTH; order++) {
-        anis[order] = f.cloneObj(anis[order - 1] || anigram) // anis h.nat
-        anis[order].halo = 'ent' // halo
-        
-        anis[order].payload.ric = {gid: 'nat', cid: _NAME + order, fid: _NAME + order}
-        anis[order].payload.fractal.an = [] // [0..._DEPTH)
-        for (let j = 0; j < order; j++) {
-          
-          let ang = fractal.angOnLevel(j) 
+      let payload = anigram.payload, // payload
+        ric = payload.ric, // ric
+        tim = payload.tim, // tim
+        parentuid = payload.parentuid, // parentuid
+        fourier = payload.fourier
 
-          let rad = fractal.radOnLevel(j)
-          
-          anis[order].payload.fractal.an[j] = {rad, ang}
-          
-        }
+      let div = fourier.div,
+        path = fourier.path,
+        period = fourier.period,
+        transform = fourier.transform
 
-        anis[order].payload.fractal.coef = d => { // fractal coef(order)
-          let z = d.payload.fractal.an.reduce((p, q) => {
-            let aj = zcoef(q.rad, q.ang) // q
-            return p.add(aj)
-          }, Complex({re: 0, im: 0}))
-          return z
-        }
-        anis[order].payload.fractal.rad = radOnLevel(order) // rad
-        anis[order].payload.boform.cf = _CF(order) // boform
-        if (order === _DEPTH - 1) { // add avatars to last ani fractal
-          anis[order].payload.avatars = anis[order].payload.fractal.avatars
-        }
+       if (1 && 1) console.log("transform", transform)
+
+
+         
+       
+      var acc = Complex (0, 0);       
+      var polyString = "0,0 ";     
+     
+      var n = tim.unitTime // time % period;
+      var N = transform.length;       
+     
+      var nyquist = Math.floor (N / 2);
         
-        anis[order].geofold = d => ({
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              
-              // ///
-              // the geoform coincides with te geonode
-              // //
-              coordinates: [0,0],
-            },
-            properties: {
-               pointRadius: d.payload.fractal.rad,
-               
-               
-               // ///
-               // the geonode reflects the geoform situs where it is created
-               // the geonode returns the coordinates to unpositioned avatar
-               // //
-               geonode: {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: Complex({re:0,im:0})
-                    .add(
+      var k = 0;
                     
-                      d.payload.fractal.coef(d)
-                      
-                    )
-                    .toVector()
-                },
-                properties: { // geofold coindices with geonode
-                
-                
-               // ///
-               // the geonode is affected by forces
-               // maintains original situs
-               // //                
-                  orgen: Complex({re:0,im:0})
-                    .add(
-                    
-                      d.payload.fractal.coef(d)
-                      
-                    )
-                    .toVector(),
-                  velin: [0, 0],
-                  velang: [0, 0],
-                  prevous: [0, 0],
-                  geodelta: [0, 0]
-                }
+
+
+      let anitems = []
+      for (var i = 0; i < N; k++, i++) {
+
+        let idx = i
+        let gid = ric.gid // from ava ric
+        let cid = ric.cid
+        let fid = ric.fid + '_' + idx
+        let _ric = {gid, cid, fid}
+        let uid = mric.getuid(_ric) // uid
+
+        let newItem = mstore.findAnigramFromUid(uid) // anigram DOES exist ??
+
+      
+      
+      
+      
+        // if UNDEFINED
+      
+        if (newItem === undefined) { // if not, create new anigram
+
+         
+          var x = transform[i].re / transform.length;
+          var y = transform[i].im / transform.length;
+          var mag = Math.sqrt (x * x + y * y)        
+        
+       
+        
+          newItem = {}
+          newItem.halo = 'ent' // halo
+
+          newItem.geofold = {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: [0,0],
               },
+              properties: {
+                 pointRadius: mag, // d.payload.fractal.rad,
+
+                 geonode: {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [0,0]
+                  },
+                  properties: { // geofold coindices with geonode
+
+                    orgen: [0,0],
+                    velin: [0, 0],
+                    velang: [0, 0],
+                    prevous: [0, 0],
+                    geodelta: [0, 0]
+                    
+                  }
+                },
+              }
             }
-          })
-        
+            
+          newItem.payload = payload // payload
+          newItem.payload.uid = uid
+          newItem.payload.ric = _ric
+          newItem.payload.id = uid
+
+       
+           newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(newItem)]   
+
+       } 
+       
+
+           
+
+            var x = acc.re / N;
+            var y = acc.im / N;
+            
+            polyString += "" + x + "," + y + " ";
+
+            newItem.geofold.geometry.coordinates = [x, y]
+
+            
+            if (i === nyquist) {
+                k -= N;
+            }
+            
+            var coef = Complex (0, (-2) * Math.PI * k * n / period);
+            acc = acc.add(coef.exp().mul(transform[i]));
+   
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
       }
-      
-      for (let i=0; i<anis.length; i++) {
-        newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(anis[i])]
-      }
-      
+
       return newAnigrams
 
     }

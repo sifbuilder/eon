@@ -201,10 +201,17 @@ let animate = function (time) {
     /***************************
      *        @enty
      */
-    let enty = function () {}
+    let enty = () => {}
 
-    enty.FourierDiagram = FourierDiagram
-    enty.updateTransform = updateTransform
+    enty.FourierDiagram = function (_div, _path, _period) {
+      FourierDiagram(_div, _path, _period)
+      return enty
+    }
+    enty.updateTransform = function () {
+      updateTransform()
+      return enty
+    }
+
     enty.transform = () => transform
 
 

@@ -54,27 +54,18 @@ var shapes = {
  */
      let fractform = {
 
-      halo: 'ent',
+      halo: 'fourier',
 
       geofold: p => {
 
         let coords = []
 
         let gj = {
-          'type': 'Feature',
-          'geometry': {'type': 'MultiPoint','coordinates': coords },
-          'properties': {}
+          type: 'Feature',
+          geometry: {type: 'MultiPoint', coordinates: coords },
+          properties: {fourier:{}}
         }
 
-        
-     mfourier.FourierDiagram(null, JSON.parse (shapes.lion ), 200 )
-     
-     mfourier.updateTransform()
-     let transform =   mfourier.transform()
-     if (1 && 1) console.log("transform", transform)
-     
-    // var diagram = new FourierDiagram (app, pathData, 200);
-    // diagram.draw();
     
         return gj
       },
@@ -84,28 +75,31 @@ var shapes = {
 
         tim: tim,
         ric: { gid: 'fractals', cid: 'fractals', fid: 'fractal'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.02, 'cp': 0.7},
 
         fourier: {
 
           div: null, 
           path: shapes.lion, 
           period: 200,
+         transform: mfourier.FourierDiagram(null, JSON.parse (shapes.basicSquare ), 200 )
+          .updateTransform()
+          .transform()
 
 
         },
 
-        proform: {
+        // proform: {
         // projection: 'orthographic',
         // scale: 100,
 
-        projection: 'uniwen',
-        prerotate: [[[ cversor.rotation ]]],
-        scale: 1.0,
-        translate: {x: 0, y: 0 },
-        rotate: [ 0, 0 ],
+        // projection: 'uniwen',
+        // prerotate: [[[ cversor.rotation ]]],
+        // scale: 1.0,
+        // translate: {x: 0, y: 0 },
+        // rotate: [ 0, 0 ],
 
-        }
+        // }
       }
     }
   /*******************************************
