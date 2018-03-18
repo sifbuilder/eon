@@ -181,7 +181,7 @@ let haloPacerHalo_ween = anima => []
               // //
               newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
 
-if (1 && 1) console.log("situs", situs)
+if (0 && 1) console.log("situs", situs)
 
               // ///
               //  check span between samples
@@ -235,8 +235,8 @@ if (1 && 1) console.log("situs", situs)
                 // newItem.geofold.geometry.coordinates = newItem.geofold.properties.geoformed
 
                 
-  // if (1 && 1) console.log("geoformed", newItem.geofold.properties.geoformed)
-  if (1 && 1) console.log("coords", coords)
+  // if (0 && 1) console.log("geoformed", newItem.geofold.properties.geoformed)
+  if (0 && 1) console.log("coords", coords)
 
 
                 // will apply conform, proform. will update proformed

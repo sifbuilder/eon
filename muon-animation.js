@@ -23,7 +23,7 @@
      **/
     let aniListener = function aniListener (elapsed) {
       state.animas = f.a(__mapper('muonStore').animasLive())
-if (0 && 1) console.log(" .......................... state.animas", state.animas.length)
+if (0 && 1) console.log(" ---------------------------- state.animas", state.animas.length)
       /*******************************************
      *    @TIME
      */

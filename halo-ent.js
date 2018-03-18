@@ -23,6 +23,7 @@
    *    @gramify
    */
     let gramm = function (anima, newAnigrams = []) {
+      
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
         geofold = anigram.geofold, // geofold
@@ -45,8 +46,6 @@
     //  get GEOFOLD
     //
     let gjGeoformed = f.v(geofold, anigram)
-    
-if (1 && 1) console.log("gjGeoformed", gjGeoformed)    
     
     if (!mgeoj.isValid(gjGeoformed)) { 
       console.error("h.ent:gj not valid", geofold, gjGeoformed)

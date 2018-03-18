@@ -154,6 +154,8 @@
   *   @enty
   */
     let enty = function (anima, t) {
+      
+if (0 && 1) console.log("anima", anima)      
       let anigram = {}
       if (anima !== undefined) {
         if (t !== undefined) {

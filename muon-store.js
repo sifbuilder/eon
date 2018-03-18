@@ -119,7 +119,7 @@
             anigram.halo : // halo in anima
             __mapper('xs').h(anigram.halo) // or halo in store
         
-    
+
         if (halo) {
           
                   
@@ -151,7 +151,6 @@
       if (newItems !== undefined && newItems.length > 0) { // check if avatars in NEW animas
         for (let i = 0; i < newItems.length; i++) {
           let newItem = newItems[i] // each new item
-
           if (newItem.payload.avatars !== undefined && newItem.payload.avatars !== null) { // AVATARS
             let avatars = (typeof newItem.payload.avatars === 'object') ? Object.values(newItem.payload.avatars) : newItem.payload.avatars
             

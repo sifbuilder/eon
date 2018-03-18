@@ -29,7 +29,7 @@
       let anigram = manitem(anima).anigram() // anigram
       let fractal = anigram.payload.fractal
       
-      let _NAME = fractal.name || 'anis',
+      let _NAME = fractal.name || 'anitems',
         _DEPTH = fractal.depth || 2,
         _CF = fractal.cf || (d => 222 * 1), // cf color onlevel
         _SIDES = fractal.sides || 5,
@@ -38,44 +38,47 @@
         
         
       let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d)) // rad(level)
-      
-
-      
       let zcoef = (rad, ang) => Complex({ re: rad * Math.cos(ang), im: rad * Math.sin(ang) })      
       
       
       
-      let anis = []
-      for (let order = 0; order < _DEPTH; order++) {
-        anis[order] = f.cloneObj(anis[order - 1] || anigram) // anis h.nat
-        anis[order].halo = 'ent' // halo
+      let anitems = []
+      
+      // ///
+      //  for each level
+      // //
+      for (let i = 0; i < _DEPTH; i++) {
+        let newAnitem = anitems[i]
         
-        anis[order].payload.ric = {gid: 'nat', cid: _NAME + order, fid: _NAME + order}
-        anis[order].payload.fractal.an = [] // [0..._DEPTH)
-        for (let j = 0; j < order; j++) {
+        newAnitem = f.cloneObj(anitems[i - 1] || anigram) // anitems h.nat
+        newAnitem.halo = 'ent' // halo
+        
+        newAnitem.payload.ric = {gid: 'nat', cid: _NAME + i, fid: _NAME + i}
+        newAnitem.payload.fractal.an = [] // [0..._DEPTH)
+        for (let j = 0; j < i; j++) {
           
           let ang = fractal.angOnLevel(j) 
 
           let rad = fractal.radOnLevel(j)
           
-          anis[order].payload.fractal.an[j] = {rad, ang}
+          newAnitem.payload.fractal.an[j] = {rad, ang}
           
         }
 
-        anis[order].payload.fractal.coef = d => { // fractal coef(order)
+        newAnitem.payload.fractal.coef = d => { // fractal coef(i)
           let z = d.payload.fractal.an.reduce((p, q) => {
             let aj = zcoef(q.rad, q.ang) // q
             return p.add(aj)
           }, Complex({re: 0, im: 0}))
           return z
         }
-        anis[order].payload.fractal.rad = radOnLevel(order) // rad
-        anis[order].payload.boform.cf = _CF(order) // boform
-        if (order === _DEPTH - 1) { // add avatars to last ani fractal
-          anis[order].payload.avatars = anis[order].payload.fractal.avatars
+        newAnitem.payload.fractal.rad = radOnLevel(i) // rad
+        newAnitem.payload.boform.cf = _CF(i) // boform
+        if (i === _DEPTH - 1) { // add avatars to last ani fractal
+          newAnitem.payload.avatars = newAnitem.payload.fractal.avatars
         }
         
-        anis[order].geofold = d => ({
+        newAnitem.geofold = d => ({
             type: 'Feature',
             geometry: {
               type: 'Point',
@@ -87,7 +90,6 @@
             },
             properties: {
                pointRadius: d.payload.fractal.rad,
-               
                
                // ///
                // the geonode reflects the geoform situs where it is created
@@ -128,10 +130,12 @@
             }
           })
         
+        anitems[i] = newAnitem
+        
       }
       
-      for (let i=0; i<anis.length; i++) {
-        newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(anis[i])]
+      for (let i=0; i<anitems.length; i++) {
+        newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(anitems[i])]
       }
       
       return newAnigrams
