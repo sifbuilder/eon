@@ -8,6 +8,9 @@
 }(this, function (exports) {
   'use strict'
 
+  // https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
+  
+  
   var controlRayder = function controlRayder (__mapper = {}) {
     
     let f = __mapper('props')(),
@@ -18,85 +21,111 @@
       height = r.height()
       
     let state = {
+      
+      pointer: {},    // 
+      
       mouse: {},
+      touch: {},
+      
+      
       domNode: null
     }
-    state.mouse.x = -2 // Initialize off canvas
+    state.mouse.x = -2
     state.mouse.y = -2
    
+    state.pointer.x = -2
+    state.pointer.y = -2
    
-   
-   
-    
-      // let toview = { // view projection
-        // 'projection': 'uniwen',
-        // 'prerotate': [0,0,0],
-        // 'translate': [width/2, height/2, 0],
-        // 'rotate': [0,0,0],
-        // 'scale': [1,-1,1],
-        // 'lens': [0,1,Infinity]
-      // }
-      // let toviewproj = __mapper('xs').g('uniwen')(toview)
-      let toviewproj = r.toviewproj()
 
+      let toviewproj = r.toviewproj()
 
 
       
       // proj
       let proj = function (event) {
         
-        let gj = {
-            type: 'Point',
-            coordinates: [event.x, event.y],
-        }
-        
-        
-        // let domElem = enty.domNode()
-        // let width = width // domElem.getBoundingClientRect().width
-        // let height = height // domElem.getBoundingClientRect().height
-
-        // const offset = getOffset(domElem),
-          // relPos = {
-            // x: event.pageX - offset.left,
-            // y: event.pageY - offset.top
-          // }
+        if (0 && 1) console.log(" **** event type", event.type)        
           
-        // state.mouse.x = (relPos.x / width) * 2 - 1
-        // state.mouse.y = -(relPos.y / height) * 2 + 1
-        // state.mouse.x = (event.x - width / 2)
-        // state.mouse.y = -(event.y - height / 2)
+        if (event.type === "mousemove") {
 
-        let t = toviewproj.invert([event.x, event.y])
-        state.mouse.x = t[0]
-        state.mouse.y = t[1]
+
+              let t = toviewproj.invert([event.x, event.y])
+          
+              state.mouse.x = t[0]
+              state.mouse.y = t[1]
+  
+              state.pointer.x = t[0]   // 
+              state.pointer.y = t[1]   // 
+            
+ 
+  
+        }  else if (event.type === "touchmove") {
+
         
-        // function getOffset (el) {
-          // const rect = el.getBoundingClientRect(),
-            // scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-            // scrollTop = window.pageYOffset || document.documentElement.scrollTop
-          // return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
-        // }
+             let touch =  event.changedTouches[0]
         
-        if (0 && 1) console.log("state.event", event.x, event.y)
-        if (0 && 1) console.log("state.mouse", state.mouse)
-        if (0 && 1) console.log("t", t)
+        if (0 && 1) console.log("touch", touch)
+        
+             // let t = toviewproj.invert([touch.screenX, touch.screenY])
+             let t = toviewproj.invert([touch.clientX, touch.clientY])
+        
+         
+              state.mouse.x = t[0]
+              state.mouse.y = t[1]        
+         
+              state.pointer.x = t[0]   // 
+              state.pointer.y = t[1]   // 
+            
+            
+        }
+
       }
     
     
+      // ///
+      // //
+      // touch start
+      let touchStartListener = function (event) {
+        event.preventDefault()
+        enty.touchStart(1)
+        enty.touchStartShared(1)
+        enty.event(event)
+      }
+     
+      // touch move
+      let touchMoveListener = function (event) {
+        event.preventDefault()        
+        enty.touchMove(1)
+        enty.touchStartShared(1)
+        enty.event(event)
+        proj(event)
+      }
+   
+ 
+      // touch up
+      let touchEndListener = function (event) {
+        enty.touchStart(0)
+        enty.touchStartShared(0)
+        enty.event(event)
+      }      
     
+    
+    
+      // ///
+      // //
+      // mouse down
+      let mouseDownListener = function (event) {
+        enty.mouseDown(1)
+        enty.mouseDownShared(1)
+        enty.event(event)
+      }
+      
       // mouse move
       let mouseMoveListener = function (event) {
         enty.mouseMove(1)
         enty.mouseDownShared(1)
         enty.event(event)
         proj(event)
-      }
-
-      // mouse down
-      let mouseDownListener = function (event) {
-        enty.mouseDown(1)
-        enty.mouseDownShared(1)
-        enty.event(event)
       }
 
       // mouse up
@@ -106,6 +135,10 @@
         enty.event(event)
       }    
       
+      
+      
+      // ///
+      // //     
       // subscribe
       let subscribe = function  (listener, domNode, sensor) {
         if (typeof listener !== 'function') throw new Error('Listener to be function')
@@ -119,19 +152,40 @@
     let enty = () => enty
     
     enty.domNode = _ => (_ !== undefined) ? (state.domNode = _, enty) : state.domNode    
+    
     enty.mouse = () => state.mouse
+    enty.touch = () => state.touch
+    enty.pointer = () => state.pointer  // 
+    
     enty.control = function (domNode) {
       subscribe(mouseDownListener, __mapper('renderSvg').svg(), 'mousedown')
       subscribe(mouseUpListener, __mapper('renderSvg').svg(), 'mouseup')
       subscribe(mouseMoveListener, __mapper('renderSvg').svg(), 'mousemove')
+      
+      subscribe(touchStartListener, __mapper('renderSvg').svg(), 'touchstart')
+      subscribe(touchMoveListener, __mapper('renderSvg').svg(), 'touchmove')
+      subscribe(touchEndListener, __mapper('renderSvg').svg(), 'touchend')
+      
     }   
     
     enty.event = _ => _ !== undefined ? (state.event = _, enty) : state.event
-    enty.mouseMove = _ => (_ !== undefined) ? (state.mouseMove = _, enty) : state.mouseMove
+    
     enty.mouseDown = _ => (_ !== undefined) ? (state.mouseDown = _, enty) : state.mouseDown
     enty.mouseDownShared = _ => (_ !== undefined) ? (state.mouseDownShared = _, enty) : state.mouseDownShared
+    enty.mouseMove = _ => (_ !== undefined) ? (state.mouseMove = _, enty) : state.mouseMove
     enty.mouseUp = _ => (_ !== undefined) ? (state.mouseUp = _, enty) : state.mouseUp
+    
+    enty.touchStart = _ => (_ !== undefined) ? (state.touchStart = _, enty) : state.touchStart
+    enty.touchStartShared = _ => (_ !== undefined) ? (state.touchStartShared = _, enty) : state.touchStartShared
+    enty.touchMove = _ => (_ !== undefined) ? (state.touchMove = _, enty) : state.touchMove
+    enty.touchEnd = _ => (_ !== undefined) ? (state.touchEnd = _, enty) : state.touchEnd
+    
+   
+    
     enty.mouseProps = _ => (_ !== undefined) ? (state.mouseProps = _, enty) : state.mouseProps
+    
+    
+    
     
     // mouseDownListener, __mapper('renderSvg').svg(), 'mouseDown'
     enty.subscribe = subscribe

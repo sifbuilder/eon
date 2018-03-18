@@ -66,8 +66,8 @@ let haloPacerHalo_ween = anima => []
         ? d => ({x: width / 2, y: height / 2, z: 0 })
         : payload.pacer.initSitus
 
-      eventSitus = (payload.pacer.eventSitus === undefined) // eventSitus
-        ? d => ({x: crayder.mouse().x, y: crayder.mouse().y, z: 0 })
+      eventSitus = (payload.pacer.eventSitus === undefined) // eventSitus mouse or touch
+        ? d => ({x: crayder.pointer().x, y: crayder.pointer().y, z: 0 })
         : payload.pacer.eventSitus
 
       autoSitus = (payload.pacer.autoSitus === undefined) // autoSitus
@@ -90,22 +90,33 @@ let haloPacerHalo_ween = anima => []
       /* ****
        *    controls
        */
+       
       if (crayder.mouse() && crayder.mouse().type === 'mouseup') { // if mouse up then reset
         let svg = __mapper('renderSvg').svg()
         cwen.reset(svg)
         cversor.reset(svg)
       }
 
-      if (crayder.mouse() !== undefined && crayder.mouseDown() === 1) { // on mouse DOWN
+      if (0 && 1) console.log("crayder", crayder.touch(), crayder.touchStart())
+      if ( (crayder.mouse() !== undefined && crayder.mouseDown() === 1) 
+          || (crayder.touch() !== undefined && crayder.touchStart() === 1))
+          { // on mouse DOWN
         if (mousesignal === 0 || crayder.mouse().type === 'mousedown') { //
           count.event = Math.floor(pacer.eventN) //  if in state or was event
         }
       }
-
+      
+      
+      /* ****
+       *    init
+       */
       if (pacer.inited === undefined || pacer.inited !== 1) {
         count.init = Math.floor(pacer.initN) // count INIT
       }
 
+      /* ****
+       *    auto
+       */      
       let cycletime = tim.unitPassed - (pacer.outed || 0)
 
       if (cycletime >= pacer.autoP &&
