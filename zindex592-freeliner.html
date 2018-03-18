@@ -19,7 +19,7 @@
 
 let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 0, webgl: 1, key: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 0, webgl: 0, key: 1}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
     mgeom = __mapper('xs').m('geom'),
@@ -94,7 +94,7 @@ let muonAlima = function (__mapper) {
         autoP: 0.1,
         outtimed: 0,
         maxN: 60,
-        span: 15 / 1400,
+        span: 5 / 1400,
 				aad: 1,
 
         autoSitus: d => mstace.getLocus(null, d),

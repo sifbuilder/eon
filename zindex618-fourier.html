@@ -37,7 +37,7 @@ let muonAlima = function muonAlima (__mapper) {
  *      @pics
  *
  */
-  let tim = {'td': 13800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
 
   /*******************************************
@@ -90,25 +90,16 @@ let muonAlima = function muonAlima (__mapper) {
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
         boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.02, 'cp': 0.7},
-
-                 // proform: {
-
-
-  
-                  // projection: 'uniwen',                
-                  // prerotate: [[[ cwen.rotation ]]],
-                  // scale: 10,
-                  // translate: [0, 0],
-                  // rotate: [ 0, 0 ],
-                  // lens: [0, 1, Infinity]
-
-                // },       
+   
         
         fourier: {
 
-          transform: mfourier.fourierDiagram( JSON.parse (manimas('shapes').basicSquare ) )
+          transform: mfourier.fourierDiagram( 
+          JSON.parse (manimas('shapes').rachael ).map(d => [-d[0], d[1], d[2]]) 
+            )
             .updateTransform()
             .transform(),
+            
 
       
           avatars: [{ // SUB-MARKS line trace
@@ -168,12 +159,53 @@ let muonAlima = function muonAlima (__mapper) {
 
       }
     }
+  // -------------------------------  img
+  let img = {
+
+    halo: 'img',
+
+    geofold: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {gid: 'imgg', cid: 'imgc', fid: 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }    
   /*******************************************
  *    @enty
  *
  */
   let animas = [
-    fractform // h.fourier
+    fractform, // h.fourier
+   img // h.img
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

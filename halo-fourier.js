@@ -50,6 +50,7 @@
       let transformSorted = transform.slice()
         .map( (d,i) => Object.assign(d, {w:i}))
         .sort((a,b) => Complex(b).abs() - Complex(a).abs())
+
       
       if (0 && 1) console.log("transformSorted", transformSorted)
       
@@ -94,7 +95,6 @@
 
             // if (i === nyquist) {
                 // w -= N
-// if (0 && 1) console.log("w", i, nyquist, w)              
             // }
             if (transformSorted[i].w >= nyquist) {
                 transformSorted[i].w -= N

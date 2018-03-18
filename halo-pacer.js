@@ -192,8 +192,6 @@ let haloPacerHalo_ween = anima => []
               // //
               newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
 
-if (0 && 1) console.log("situs", situs)
-
               // ///
               //  check span between samples
               // //

@@ -42,7 +42,10 @@
     if (0 && 1) console.log("h.ent proform", ric)
     if (0 && 1) if (proform !== undefined) console.log("h.ent proform", ric, proform.rotate)
       
-    
+   
+   if (1 && 1) console.log("h.ent geofold", JSON.stringify(geofold.geometry.coordinates))
+ 
+   
     //  get GEOFOLD
     //
     let gjGeoformed = f.v(geofold, anigram)
