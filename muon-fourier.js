@@ -11,7 +11,7 @@
 // https://raw.githubusercontent.com/andymac-2/fourier-polygon/master/fourier-polygon.js
 // https://github.com/andymac-2/fourier-polygon
 // (C) 2018 Andrew Pritchard (MIT License)
-
+// https://www.youtube.com/watch?v=2hfoX51f6sg
 
 var muonFourier = function () {
 
