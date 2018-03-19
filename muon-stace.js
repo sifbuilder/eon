@@ -156,6 +156,8 @@
 
     let getTranspots = function (stace, payload, locations = []) {
 
+      if (0 && 1) console.log("m.stace.getTranspots", payload.uid, stace, payload)
+    
       if (payload !== undefined) stace = stace || payload.stace
 
       if (stace !== undefined && stace !== null) {
@@ -254,6 +256,11 @@ if (0 && 1) console.log("pos", v1)
 
         if (locations.length === 0) locations = []
 
+        
+        
+       // ///
+       //   stace not defined take situs from parent
+       // //
       } else {  // stace not defined take situs from parent
 
 
@@ -266,6 +273,7 @@ if (0 && 1) console.log("pos", v1)
         // let parentSitus = __mapper('xs').m('anitem')(parentani).nodeProformedSitus(parentani)
         let parentSitus = __mapper('xs').m('anitem')(parentani).nodeSitus(parentani)
 
+ if (0 && 1) console.log(" ------------ parentSitus", parentSitus)
 
         // let parentSitus = manitem.parentSitus(payload)
         locations = Array.of(parentSitus)
@@ -319,7 +327,7 @@ if (0 && 1) console.log("pos", v1)
         'translate': [ locus[0], locus[1], locus[2] ]
       }
 
-      return __mapper('xs').m('profier').profion(projection)
+      return __mapper('xs').m('profier').mappion(projection)
     }
 
     /* **************************************

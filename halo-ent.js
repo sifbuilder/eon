@@ -1,4 +1,4 @@
-/**********************
+ /**********************
  *    @haloEnt
  */
 (function (global, factory) {
@@ -61,18 +61,41 @@
       }
 
   
+      let gj = gjConformed
+  
+  
+  
+      // ///
+      //    EREFORM the conformed geofold
+      //    uniwen: prerotation, tranlations, scale, project, rotation
+      // //
+      let ereformion = mprofier.ereformion(anigram)
+      gj = mproj3ct(gj, ereformion)
+          
+          
+      // ///    
+      //    EREFORM geonode in geonode..nodeProformed
+      //    geonode retains GEOFORM domain
+      // //
+        if (gj.properties && gj.properties.geonode !== undefined) {    // if Feature
+          let pgj = mproj3ct(gj.properties.geonode, ereformion)
+          gj.properties.geonode.properties.nodeEreformed = pgj
+          if (0 && 1) console.log("gj", gj)
+        }  
+  
+  
+  
   
       // ///
       //    PROFORM the conformed geofold
       //    uniwen: prerotation, tranlations, scale, project, rotation
       // //
-      let proformion = mprofier.proformion(anigram),
-          gjProformed = mproj3ct(gjConformed, proformion),
-          gj = gjProformed
+      let proformion = mprofier.proformion(anigram)
+      gj = mproj3ct(gj, proformion)
           
           
       // ///    
-      //    host the PROFORM geonode in geonode..nodeProformed
+      //    PROFORM geonode in geonode..nodeProformed
       //    geonode retains GEOFORM domain
       // //
         if (gj.properties && gj.properties.geonode !== undefined) {    // if Feature

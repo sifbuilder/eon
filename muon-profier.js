@@ -18,13 +18,13 @@
       mgeom = __mapper('xs').m('geom'),
       guniwen = __mapper('xs').g('uniwen')
 
-    /****************************
- *      @profion
+    /* ***************************
+ *      @mappion
  *        get projection from proform and apply projection properties
  *        if control:wen  wen rotation and if 2d: wen z rotation
  *        if control:versor   versor rotation
  */
-    let profion = function (prjdef) {
+    let mappion = function (prjdef) {
       
       let prj, prjname  // projection and projection name
 
@@ -87,7 +87,6 @@
 
         }
 
-
         
         let translate = prjdef.translate
         if (translate && f.isObject(translate) && f.isPosition(translate)) {
@@ -108,17 +107,9 @@
  *       json = mprofier.projer(f.v(prodef, anigram), anigram)(json)
  */
     let projer = (prodef, anigram) => // projer is fenrir if no prodef
-      json => (prodef) ? mproj3ct(json, profion(prodef)) : json
+      json => (prodef) ? mproj3ct(json, mappion(prodef)) : json
 
-    /****************************
- *       @ereformer
- */
-    let ereformer = anigram => {
-      let projdef = anigram.payload.ereform
-      let projion = profion(projdef)
 
-      return json => mproj3ct(json, projion)
-    }
     /****************************
  *       @conformer
  */
@@ -141,7 +132,7 @@
           
         }
           
-        let projection = profion(projdef)
+        let projection = mappion(projdef)
         projion = json => mproj3ct(json, projection)
       }
 
@@ -150,16 +141,14 @@
     /****************************
  *       @proformion
  */
-    let proformion = anigram => {
+    let formion = (projdef, anigram) => {
 
       let projection
     
-      // the proform projection defintion is in the payload
+      // the projection definition is in the payload
       
-
       let geofold = anigram.geofold,
-        payload = anigram.payload,
-        projdef =  payload.proform
+        payload = anigram.payload
       
       
       if (projdef === undefined) {
@@ -167,7 +156,7 @@
         // if projection is not define, 
         //    default to uniwen with default configuration
         
-        projection = profion({ 
+        projection = mappion({ 
           'projection': 'uniwen',
         })
       
@@ -202,22 +191,15 @@
             
           }
           
-          
           // initialize rotate for projection definition
           //
-          
           let rotate, prerotate = []
 
-          // if rotate, then
-          //        rotate
+          // if rotate, then rotate
           
-          if (projdef.rotate) {
-              rotate = projdef.rotate
-          }
+          if (projdef.rotate) { rotate = projdef.rotate }
           
-          if (projdef.prerotate) {
-              prerotate = projdef.prerotate
-          }
+          if (projdef.prerotate) { prerotate = projdef.prerotate }
 
           // if projection not uniwen, then
           //        prerotate to be added to rotate
@@ -231,9 +213,8 @@
 
             
           }
-             if (0 && 1) console.log("rotate", rotate)     
           
-          projection = profion(projdef)
+          projection = mappion(projdef)
 
       }
  
@@ -241,21 +222,28 @@
     }
     
     /****************************
- *       @proformer
+ *       @proform
  */
+    let proformion = anigram => formion(anigram.payload.proform, anigram)
     let proformer = anitem => json => mproj3ct(json, proformion(anitem))
  
- 
+    /****************************
+ *       @ereform
+ */
+    let ereformion = anigram => formion(anigram.payload.ereform, anigram)
+    let ereformer = anitem => json => mproj3ct(json, ereformion(anitem))
+    
     /****************************
  *      @enty
  */
     let enty = function () {}
-    enty.profion = profion
+    enty.mappion = mappion
     enty.projer = projer
     
     enty.proformion = proformion
     enty.proformer = proformer
     
+    enty.ereformion = ereformion
     enty.ereformer = ereformer
     
     enty.conformer = conformer

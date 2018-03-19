@@ -82,9 +82,9 @@ let muonAlima = function muonAlima (__mapper) {
     'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
   }
 
-  let natBoform = { 'csx': 0, 'cf': [[[222, 444, 275]]], 'co': [[[0.59, 0.59]]], 'cs': [[[444, 444]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+  let natBoform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
-  let traceBoform = { 'csx': 0, 'cf': [[[333, 333]]], 'co': [[[0.09, 0.09]]], 'cs': [[[444, 444]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.99, 0.99]]]}
+  let traceBoform = { 'csx': 0, 'cf': [[[777, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[777, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.99, 0.99]]]}
 
   /*******************************************
  *    @animas
@@ -102,8 +102,8 @@ let muonAlima = function muonAlima (__mapper) {
 
       proform: {
         projection: 'uniwen',
-      translate: [ [ 70, 80 ], [[[ natStace ]]] ], //
-      // translate: [ [ 0, 1 ] ], //
+      // translate: [ [ 70, 80 ], [[[ natStace ]]] ], //
+      translate: [ [ 0, 1 ] ], //
         scale: 1,
         rotate: [ 0, 0, 0 ],
         lens: [0, 1, Infinity],
@@ -137,8 +137,8 @@ let muonAlima = function muonAlima (__mapper) {
       // },
       proform: {
       projection: 'uniwen',
-      translate: [ [ 70, 80 ], [[[ natStace ]]] ], //
-      // translate: [ [ 0, 1 ] ], //
+      // translate: [ [ 70, 80 ], [[[ natStace ]]] ], //
+      translate: [ [ 0, 1 ] ], //
       scale: 1,
       rotate: [ 0, 0, 0 ],
       lens: [0, 1, Infinity],
@@ -283,7 +283,7 @@ let muonAlima = function muonAlima (__mapper) {
   let animas = [
 
     nat, // h.nat
-    sphere, // h.nat
+    // sphere, // h.nat
     // tracelineSphere,     // h.pacer
     {...manimas('img'), tim}
 
