@@ -46,10 +46,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geofold: p => ({
-      'type': 'Feature',
-      'geometry': mnat.natFeature(p.payload.form)
-    }),
+    geofold: p => mnat.natFeature(p.payload.form),
 
     payload: {
       tim: tim,
