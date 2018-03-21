@@ -427,6 +427,13 @@
         return Math.round(value * multiplier) / multiplier
       }
     }
+    
+    /***************************
+   *        @strings
+   *        eg. `176.00,0.00 176.00,294.00 176.00,294.00`
+   */
+     props.strToJson = d => JSON.stringify(test.replace(/\n|\r/g, " ").split(" ").map(d => d.split(",").map(p=>Number.parseFloat(p))))
+   
     /***************************
    *        @obj
    *        entry from list and index

@@ -89,13 +89,14 @@ let muonAlima = function muonAlima (__mapper) {
 
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.02, 'cp': 0.7},
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
    
         
         fourier: {
 
           transform: mfourier.fourierDiagram( 
-          JSON.parse (manimas('shapes').rachael ).map(d => [-d[0], d[1], d[2]]) 
+          // JSON.parse (manimas('shapes').rachael ).map(d => [-d[0], d[1], d[2]]) 
+          JSON.parse (manimas('shapes').rhyno ).map(d => [d[0]-150, -d[1]+25, d[2]]) 
             )
             .updateTransform()
             .transform(),
@@ -108,7 +109,7 @@ let muonAlima = function muonAlima (__mapper) {
 
             payload: {
               ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-              boform: {'csx': 0, 'cf': 111, 'cs': 666, 'cw': 0.99, 'co': 0.2, 'cp': 0.99},
+              boform: {'csx': 0, 'cf': [[[111,222,111]]], 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
    
 

@@ -23,7 +23,7 @@
    *    @gramify
    */
     let gramm = function (anima, newAnigrams = []) {
-      
+
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
         geofold = anigram.geofold, // geofold
@@ -38,20 +38,20 @@
         conform = payload.conform, // conform
         uid = payload.uid, // uid
         parentuid = payload.parentuid // parentuid
-        
 
- 
-   
+
+
+
     //  get GEOFOLD
     //
     let gjGeoformed = f.v(geofold, anigram)
-    
-    if (!mgeoj.isValid(gjGeoformed)) { 
+
+    if (!mgeoj.isValid(gjGeoformed)) {
       console.error("h.ent:gj not valid", geofold, gjGeoformed)
     }
-      
-      // ///  
-      //    CONFORM 
+
+      // ///
+      //    CONFORM
       //    conform does not affect geonode
       // //
       let gjConformed = mprofier.conformer(anigram)(gjGeoformed)
@@ -60,20 +60,21 @@
         console.log("h.ent anigram:proform", halo, anigram, proform)
       }
 
-  
+
       let gj = gjConformed
-  
-  
-  
+
+
+
+
       // ///
       //    EREFORM the conformed geofold
       //    uniwen: prerotation, tranlations, scale, project, rotation
       // //
       let ereformion = mprofier.ereformion(anigram)
       gj = mproj3ct(gj, ereformion)
-          
-          
-      // ///    
+
+
+      // ///
       //    EREFORM geonode in geonode..nodeProformed
       //    geonode retains GEOFORM domain
       // //
@@ -81,20 +82,20 @@
           let pgj = mproj3ct(gj.properties.geonode, ereformion)
           gj.properties.geonode.properties.nodeEreformed = pgj
           if (0 && 1) console.log("gj", gj)
-        }  
-  
-  
-  
-  
+        }
+
+
+
+
       // ///
       //    PROFORM the conformed geofold
       //    uniwen: prerotation, tranlations, scale, project, rotation
       // //
       let proformion = mprofier.proformion(anigram)
       gj = mproj3ct(gj, proformion)
-          
-          
-      // ///    
+
+
+      // ///
       //    PROFORM geonode in geonode..nodeProformed
       //    geonode retains GEOFORM domain
       // //
@@ -103,9 +104,9 @@
           gj.properties.geonode.properties.nodeProformed = pgj
           if (0 && 1) console.log("gj", gj)
         }
-      
-      
-      
+
+
+
         gj = mgeoj.featurize(gj) // featurize
         gj = mboform.boformer(anigram, gj) // boform
         gj = mgeoj.zorder(gj) // order
@@ -113,10 +114,10 @@
 
         newAnigrams = gj.features.map((d, i) => { // d is feature
 
-      
-          d.properties.tim = tim  // tim in geofold 
+
+          d.properties.tim = tim  // tim in geofold
           d.properties.vim = vim  // vim in geofold needed to render
-           
+
           let newAnigram = {
             halo: halo, // inherit halo
             geofold: d, // inherit geofold
@@ -129,13 +130,13 @@
             },
           }
           return newAnigram
-          
+
         })
 
-      // ///    
+      // ///
       //    new anigrams are stored by m.animation
-      // //        
-        
+      // //
+
       return newAnigrams
     }
 
