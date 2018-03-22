@@ -268,13 +268,20 @@ if (0 && 1) console.log("pos", v1)
         let parentuid = payload.parentuid
         let parentani = __mapper('xs').m('store').findAnigramFromUid(parentuid)
 
- if (0 && 1) console.log(" ------------ parentani", parentani)
-
         // let parentSitus = __mapper('xs').m('anitem')(parentani).nodeProformedSitus(parentani)
-        let parentSitus = __mapper('xs').m('anitem')(parentani).nodeSitus(parentani)
+        let coords = __mapper('xs').m('anitem')(parentani).nodeSitus(parentani)
 
- if (0 && 1) console.log(" ------------ parentSitus", parentSitus)
+        let ere = parentani.geofold.properties.geonode.properties.nodeEreformed.geometry.coordinates
+        let pro = parentani.geofold.properties.geonode.properties.nodeProformed.geometry.coordinates
+        
 
+ if (1 && 1) console.log(" ------------ parentani", parentani)
+ if (1 && 1) console.log(" ------------ nodeEreformed", ere)
+ if (1 && 1) console.log(" ------------ nodeProformed", pro)
+ if (1 && 1) console.log(" ------------ parentSitus", coords)
+
+   let parentSitus = pro
+   
         // let parentSitus = manitem.parentSitus(payload)
         locations = Array.of(parentSitus)
 

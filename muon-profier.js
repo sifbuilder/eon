@@ -177,10 +177,8 @@
           }
 
           
-          // if geonode defined, then
-          //      translate geofold by geonode location
+          if (geofold.properties && geofold.properties.geonode) { // if geonode, translate geofold by geonode
           
-          if (geofold.properties && geofold.properties.geonode) { 
             let geonode = geofold.properties.geonode
             let nodetranslate = geonode.geometry.coordinates
             
@@ -191,20 +189,15 @@
             
           }
           
-          // initialize rotate for projection definition
-          //
-          let rotate, prerotate = []
-
-          // if rotate, then rotate
           
-          if (projdef.rotate) { rotate = projdef.rotate }
+          let rotate, prerotate = [] // initialize rotate for projection definition
+
+          
+          if (projdef.rotate) { rotate = projdef.rotate } // if rotate, then rotate
           
           if (projdef.prerotate) { prerotate = projdef.prerotate }
 
-          // if projection not uniwen, then
-          //        prerotate to be added to rotate
-          
-          if (projdef.projection !== 'uniwen') {
+          if (projdef.projection !== 'uniwen') { // if not uniwen, add prerotate to rotate
 
             let daxes = Math.max(rotate.length, prerotate.length)
             let addrotate = d3.range(0, daxes, 1).map( (d,i) => (rotate[i] || 0) + ((prerotate[i] || 0)))

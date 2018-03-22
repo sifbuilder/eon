@@ -41,6 +41,10 @@
 
 
 
+    // geoform
+    // geonode
+        
+        
 
     //  get GEOFOLD
     //
@@ -64,7 +68,7 @@
       let gj = gjConformed
 
 
-
+if (1 && 1) console.log("CONFORM", gj)
 
       // ///
       //    EREFORM the conformed geofold
@@ -84,7 +88,7 @@
           if (0 && 1) console.log("gj", gj)
         }
 
-
+if (1 && 1) console.log("EREFORM", gj)
 
 
       // ///
@@ -105,19 +109,33 @@
           if (0 && 1) console.log("gj", gj)
         }
 
-
+if (1 && 1) console.log("PROFORM", gj)
 
         gj = mgeoj.featurize(gj) // featurize
         gj = mboform.boformer(anigram, gj) // boform
         gj = mgeoj.zorder(gj) // order
         gj = mric.qualier(ric, anigram, gj) // qualify
 
+        
         newAnigrams = gj.features.map((d, i) => { // d is feature
 
 
           d.properties.tim = tim  // tim in geofold
           d.properties.vim = vim  // vim in geofold needed to render
 
+          // ///
+          //
+          // anigram.geofold :: last of geoform, conform, ereform, proformed
+          //
+          // ani:nodeSitus : ani.geofold.properties.geonode.geometry.coordinates
+          // parentani:situs : parent.payload.geonode.geometry.coordinates
+          //
+          //  geoform conform ereform proform
+          //                  
+          //  geonode  
+          //
+          // //
+          
           let newAnigram = {
             halo: halo, // inherit halo
             geofold: d, // inherit geofold
@@ -126,7 +144,6 @@
               ric: d.properties.ric, // hoist ric
               id: d.properties.uid, // hoist uid
               uid: d.properties.uid, // hoist uid
-              // preani: mstore.findAnigramFromUid(d.properties.uid)
             },
           }
           return newAnigram
