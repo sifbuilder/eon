@@ -213,7 +213,7 @@ if (0 && 1) console.log("count", count)
                 //  geoformed coords are pre-formed
                 // //
                 let geocoords = newItem.geofold.properties.geocoords || []
-   if (1 && 1) console.log("geocoords", geocoords)  
+  
                 if (coords && coords.length > 0) {
 
                    
@@ -226,7 +226,7 @@ if (0 && 1) console.log("count", count)
 
                     
                     coords.push(situs) // if beyond span ADD SITUS to LineString
-
+if (1 && 1) console.log("h.pacer add", situs)
 
                     geocoords.push(situs)
 

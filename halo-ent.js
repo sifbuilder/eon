@@ -19,6 +19,31 @@
       mproj3ct = __mapper('xs').m('proj3ct'),
       mstace = __mapper('xs').m('stace')
 
+      
+
+    // ///
+    //
+    // anigram.geofold :: last of geoform, conform, ereform, proformed
+    //
+    // ani:nodeSitus : ani.geofold.properties.geonode.geometry.coordinates
+    // parentani:situs : parent.payload.geonode.geometry.coordinates
+    //
+    //  geoform conform ereform proform
+    
+    //  geoForm = props.geoform
+    //  conForm = props.conform
+    //  ereForm = props.ereform
+    //  proForm = props.proform
+                  
+    //  geoNode = props.geonode.properties.nodeGeoformed
+    //  ereNode = props.geonode.properties.nodeEreformed
+    //  proNode = props.geonode.properties.nodeProformed
+
+    //  forms and nodes have geometry.coordinates
+    //
+    // //
+
+          
     /**********************
    *    @gramify
    */
@@ -41,7 +66,7 @@
 
 
     let gj
-if (1 && 1) console.log("gj", gj)      
+     
     
     
       //  get GEOFORM
@@ -49,9 +74,20 @@ if (1 && 1) console.log("gj", gj)
       gj = f.v(geofold, anigram)  // get geoform
       gj.properties = gj.properties || {} // recall genode
       gj.properties.genode = gj.properties.genode || {} // recall genode properties
+     
       
+    if (gj.type === 'FeatureCollection') {
+      
+    } else if (gj.type === 'Feature') {
+      
+    } else {
+      
+    }
+    
+    
       if (!mgeoj.isValid(gj)) { console.error("h.ent:gj not valid", geofold, gj) }
       gj.properties.geoform = mgeoj.deprop(gj) // store geoform
+      
       gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
     
       // ///
@@ -73,6 +109,7 @@ if (1 && 1) console.log("gj", gj)
       // //
       let ereformion = mprofier.ereformion(anigram)
       gj = mproj3ct(gj, ereformion)
+      
       gj.properties.ereform = mgeoj.deprop(gj) // store ereform
 
       gj.properties.nodeEreformed = mproj3ct(gj.properties.nodeConformed, ereformion)   // nodeConformed => nodeEreformed
@@ -85,12 +122,12 @@ if (1 && 1) console.log("gj", gj)
       //    PROFORM geonode in geonode..nodeProformed
       //    geonode retains GEOFORM domain
       // //
+ if (1 && 1) console.log("proform ________", gj)      
       let proformion = mprofier.proformion(anigram)
       gj = mproj3ct(gj, proformion)
       gj.properties.proform = mgeoj.deprop(gj)  // store proform
-      
+ if (1 && 1) console.log("proform", gj.properties.uid, gj.properties.proform)
       gj.properties.nodeProformed = mproj3ct(gj.properties.nodeEreformed, proformion) // nodeEreformed => nodeProformed
-
 
     
         gj = mgeoj.featurize(gj) // featurize
@@ -105,27 +142,6 @@ if (1 && 1) console.log("gj", gj)
           d.properties.tim = tim  // tim in geofold
           d.properties.vim = vim  // vim in geofold needed to render
 
-          // ///
-          //
-          // anigram.geofold :: last of geoform, conform, ereform, proformed
-          //
-          // ani:nodeSitus : ani.geofold.properties.geonode.geometry.coordinates
-          // parentani:situs : parent.payload.geonode.geometry.coordinates
-          //
-          //  geoform conform ereform proform
-          
-          //  geoForm = props.geoform
-          //  conForm = props.conform
-          //  ereForm = props.ereform
-          //  proForm = props.proform
-                        
-          //  geoNode = props.geonode.properties.nodeGeoformed
-          //  ereNode = props.geonode.properties.nodeEreformed
-          //  proNode = props.geonode.properties.nodeProformed
-
-          //  forms and nodes have geometry.coordinates
-          //
-          // //
           
           let newAnigram = {
             halo: halo, // inherit halo
@@ -141,11 +157,8 @@ if (1 && 1) console.log("gj", gj)
 
         })
 
-      // ///
-      //    new anigrams are stored by m.animation
-      // //
 
-      return newAnigrams
+      return newAnigrams //    new anigrams are stored by m.animation
     }
 
     /**********************

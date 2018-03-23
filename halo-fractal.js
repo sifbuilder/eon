@@ -50,7 +50,8 @@
         newAnitem.halo = 'ent' // halo
         
         newAnitem.payload.ric = {gid: 'nat', cid: _NAME + i, fid: _NAME + i}
-        newAnitem.payload.id = mric.getuid(newAnitem.payload.ric)
+        newAnitem.payload.uid = mric.getuid(newAnitem.payload.ric)
+        newAnitem.payload.id = newAnitem.payload.uid
         
         newAnitem.payload.fractal.fouriercomponent = [] // 
         
@@ -70,55 +71,34 @@
           }, Complex({re: 0, im: 0}))
 
         }
+        
         newAnitem.payload.fractal.rad = radOnLevel(i) // rad
+        
+        // ///
+        //  add avatar to last element
+        // //
         if (i === _DEPTH - 1) { // add avatars to last ani fractal
+        
+        
           newAnitem.payload.avatars = newAnitem.payload.fractal.avatars
+          
+          
         }
         
         
+        // set rad on fractal form
+        //
         newAnitem.payload.form = { // FORM
             'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
             'ra2': newAnitem.payload.fractal.rad, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 128, 'pa6': 0, 'pb7': -1
           }
         
-
-        
-        // newAnitem.geofold = d => ({   // i geofold
-            // type: 'Feature',
-            // geometry: {
-              // type: 'Point', coordinates: [0,0], // if Point, the geoform coincides with te geonode
-            // },
-            // properties: {
-               // pointRadius: d.payload.fractal.rad,  // applies to type Point
-               
-               // geonode: { // the geonode reflects the geoform situs where it is created
-                // type: 'Feature',
-                // geometry: {
-                  // type: 'Point',
-                  
-                  // coordinates: Complex({re:0,im:0})
-                    // .add(d.payload.fractal.coef(d))
-                    // .toVector() // the geonode returns the coordinates to unpositioned avatar
-                    
-                // },
-
-                // properties: { // geofold coindices with geonode
-                  // orgen: Complex({re:0,im:0}) // the geonode is affected by forces
-                    // .add( d.payload.fractal.coef(d) )
-                    // .toVector(), // maintains original situs
-                    
-                  // velin: [0, 0],
-                  // velang: [0, 0],
-                  // prevous: [0, 0],
-                  // geodelta: [0, 0]
-                // }
-              // },
-            // }
-          // })
           
           newAnitem.geofold = d => Object.assign(
             {}
             , mnat.natFeature(d.payload.form)   // nat from
+            // , {type: 'Feature',geometry: {type: 'Point', coordinates: [0,0], } }
+            
             , { properties:  {  // set properties from anigram payload
                  pointRadius: d.payload.fractal.rad,  // applies to type Point
                  
@@ -148,11 +128,7 @@
             }
             
           ), 
-          
-          // let v = Complex({re:0,im:0})
-                    // .add(newAnitem.payload.fractal.coef(d))
-                    // .toVector() 
-        
+ 
         
         anitems[i] = newAnitem
         

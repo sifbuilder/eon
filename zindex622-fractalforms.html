@@ -21,7 +21,7 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1}) // INIT
 
-  let f = __mapper({props: muonProps.muonProps()}).props(),
+  let f = __mapper('props')(),
     mnat = __mapper('xs').m('nat'),
     cversor = __mapper('xs').c('versor'),
     cwen = __mapper('xs').c('wen'),
@@ -38,39 +38,64 @@ let muonAlima = function muonAlima (__mapper) {
 
   let avaPacer = { // SUB-MARKS line trace
 
-      halo: 'pacer',
+    halo: 'pacer',
 
-      payload: {
-        ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.99, 'co': 0.6, 'cp': 0.99},
+    payload: {
+      ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.99, 'co': 0.06, 'cp': 0.99},
+
+        ereform: {    // ereform in the geometric domain
+
+          projection: 'uniwen',
+          scale: 1.0,
+          translate: [ [[[-0 * 360,0 * 360]]] , [[[-0 *90,0 *90]]]],
+          rotate: [ 0, 0 ],
+
+          anod: 1,  // compose geonode and geoform
+
+        },
+
+        proform: {    // proform in the geographic domain
+
+          projection: 'orthographic',
+          scale: 50,
+
+          prerotate: [[[ cversor.rotation ]]],
+          translate: [0,0],
+          rotate: [ 0, 0, 0 ],
+
+        },
+
+        stace: {
+          x: { pos: 0 },
+          y: { pos: 0 },
+          z: 0
+        },
+
+        pacer: {
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1, // add
+
+          // autoSitus: d => mstace.getLocus(this.stace, d.payload), // situs
+          autoSitus: d => mstace.getLocus(null, d.payload), // situs
+
+          fider: d => d.payload.ric.fid,
+
+          geojsor: () => ({
+
+            halo: 'ent',
+            geofold: {
+              type: 'Feature',
+              geometry: { type: 'LineString', coordinates: null },
+              properties: { doc: 'pacer' }
+            },
+            payload: {}
+
+          })
+
+        },
 
 
-          pacer: {
-            initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1, // add on LineString
 
-            autoSitus: d => mstace.getLocus(null, d.payload), // situs of anigram
-
-            fider: d => d.payload.ric.fid,
-
-            geojsor: () => ({
-
-              halo: 'ent',
-              geofold: {
-                type: 'Feature',
-                geometry: {
-                  type: 'LineString',
-                  coordinates: null
-                },
-                properties: {
-                  doc: 'pacer'
-                  
-                }
-              },
-              payload: {}
-
-            })
-
-          }
       }
     }
   /*******************************************
@@ -102,6 +127,8 @@ let muonAlima = function muonAlima (__mapper) {
           translate: [ [[[-0 * 360,0 * 360]]] , [[[-0 *90,0 *90]]]],
           rotate: [ 0, 0 ],
 
+          anod: 1,  // compose geonode and geoform -- align with h.fractal
+
         },
 
 
@@ -113,6 +140,7 @@ let muonAlima = function muonAlima (__mapper) {
           prerotate: [[[ cversor.rotation ]]],
           translate: [0,0],
           rotate: [ 0, 0, 0 ],
+
 
         },
 
@@ -134,6 +162,12 @@ let muonAlima = function muonAlima (__mapper) {
             return (level === 0) ? [[[ 0, pi2 ]]] : [[[ 0, (-1) ** (level) * (this.sides - 1) ** (level) * pi2 ]]]
           },
 
+          avatars: [
+            avaPacer,
+          ],
+
+
+
         },
 
       }
@@ -144,9 +178,9 @@ let muonAlima = function muonAlima (__mapper) {
  *    @enty
  *
  */
-  fractform.payload.avatars = {
+  // fractform.payload.avatars = {
     // avaPacer,
-  }
+  // }
 
   let animas = [
     fractform // h.fractal

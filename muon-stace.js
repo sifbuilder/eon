@@ -42,8 +42,178 @@
     //
     // sim updates the geonode
     //
-    // proform.translate moves geometry to translated geometry
+    // geoform creates the geoform
+    // conform updates the geoform
+    // ereform updates the geoform
+    // proform updates the geoform
 
+
+    /* ***************************************
+ *        @getTranspots
+ *         get val of d in dim
+ *          called by m.profier.proform to get translate
+ */
+
+    let getTranspots = function (stace, payload, locations = []) {
+
+      if (0 && 1) console.log("m.stace.getTranspots", payload.uid, stace, payload)
+    
+      if (payload !== undefined) stace = stace || payload.stace
+
+      if (stace !== undefined && stace !== null) {
+        
+        if (Array.isArray(stace)) { // stace :: [x,y,z]
+          let location = []
+          let val = stace // single location from stace array
+
+          if (f.isArray(val) && f.isPureArray(val)) { // [x,y,z]
+            location = val.map((d, i) => val[i])  // one location
+            locations.push(location)
+
+            
+          } if (f.isArray(val) && f.isQuasiPureArray(val)) { // sum by dim [[a1,a2,a3],[b1,b2]]*
+
+            let poses = val.length // additive positions eg.2
+            let mx = Math.max(...val.map(d => d.length)) // num of dims eg. 3
+
+            for (let i = 0; i < mx; i++) { // for each dimension
+              let loc = 0
+              for (let j = 0; j < poses; j++) {
+                loc = loc + val[j][i]
+              }
+              location[i] = loc
+            }
+            locations.push(location)
+
+          } else {                        // [ 200, {y: { pos: 20 }} ]
+            let newLocations = []
+            let mx = val.length
+            for (let i = 0; i < mx; i++) { // for each dimension
+
+              if (typeof val[i] === 'number')   {
+
+                newLocations[i] = val[i]
+
+              } else if (typeof val[i] === 'object')   {
+
+                let v = val[i]
+                let locationsDax = []
+
+                if (v.hasOwnProperty('pos')) {
+                  let parentCoords = manitem.parentCoords(payload) // parentCoords
+                  let parentLocationsDaxes = mlacer.unslide(parentCoords) // unslide
+                  let parentLocationsDax = parentLocationsDaxes[i]   // dax stream
+
+                  if (parentLocationsDax !== undefined) {
+                    locationsDax = getLocsInDim(v, parentLocationsDax)
+                  }
+                }
+
+                newLocations[i] = locationsDax
+
+              }
+
+
+
+            }
+
+            // console.log(' location format not supported')
+            locations = [...locations, ...f.interlink(newLocations)]
+
+
+
+          }
+        } else if (typeof stace === 'object') {  // {'x':300, 'y':200}}
+
+
+
+          let entries = Object.entries(stace)
+          let locationsPerDax = []
+
+          for (let i = 0; i < entries.length; i++) {
+            let entry = entries[i]                                      // ['x', 200]
+            let k1 = entry[0]
+            let v1 = entry[1]
+
+            if (typeof v1 === 'number') locationsPerDax[i] = Array.of(v1) // [200]
+
+            else if (typeof v1 === 'object') {
+              if (v1.hasOwnProperty('pos')) {
+if (0 && 1) console.log("pos", v1)
+
+                let parentCoords = manitem.parentCoords(payload) // parentCoords
+                let parentLocationsDaxes = mlacer.unslide(parentCoords) // unslide
+                let parentLocationsDax = parentLocationsDaxes[i]
+
+                if (parentLocationsDax !== undefined) {
+                  locationsPerDax[i] = getLocsInDim(v1, parentLocationsDax)
+                }
+              }
+            }
+          }
+          if (locationsPerDax.length > 0) {
+            locations = mlacer.slide(locationsPerDax)                 // [300, 200]
+          }
+        }
+
+        if (locations.length === 0) locations = []
+
+        
+        
+       // ///
+       //   stace not defined take situs from parent
+       // //
+      } else {  // stace not defined take situs from parent
+
+if (0 && 1) console.log(" ____________ stace not defined")
+
+        let parentuid = payload.parentuid
+        let parentani = __mapper('xs').m('store').findAnigramFromUid(parentuid)
+
+        let coords = __mapper('xs').m('anitem')(parentani).nodeSitus(parentani)
+
+        let geoForm = parentani.geofold.properties.geoform
+        let ereForm = parentani.geofold.properties.ereform
+        let proForm = parentani.geofold.properties.proform
+        
+        let geoNode = parentani.geofold.properties.nodeGeoformed
+        let ereNode = parentani.geofold.properties.nodeEreformed
+        let proNode = parentani.geofold.properties.nodeProformed || {geometry: {}}
+        
+
+ if (0 && 1) console.log(" ____________ parentani", parentani)
+ if (0 && 1) console.log(" ------------ nodeGeoNode", geoNode.geometry.coordinates)
+ if (0 && 1) console.log(" ------------ nodeEreNode", ereNode.geometry.coordinates)
+ if (0 && 1) console.log(" ------------ nodeProNode", proNode.geometry.coordinates)
+ if (0 && 1) console.log(" ------------ geoForm", geoForm.geometry.coordinates)
+ if (0 && 1) console.log(" ------------ ereForm", ereForm.geometry.coordinates)
+ if (0 && 1) console.log(" ------------ proForm", proForm.geometry.coordinates)
+ // if (0 && 1) console.log(" ------------ parentSitus", coords)
+
+   
+        // pronode may return geometry null
+        if (proNode.geometry) {
+   
+          let parentSitus = geoNode.geometry.coordinates  // _e_
+          // let parentSitus = ereNode.geometry.coordinates  // _e_
+          // let parentSitus = proNode.geometry.coordinates  // _e_
+ if (1 && 1) console.log(" ------------ add trace", parentSitus)
+          
+          locations = Array.of(parentSitus)
+          
+        }
+
+      }
+
+      return locations
+    }
+
+    /* **************************************
+ *        @getTranspot
+ */
+    let getTranspot = (stace, payload) => getTranspots(stace, payload)[0]
+    
+    
     // ........................ getSiti         situs: Arary.of(ani.x, .y, .z)
     let getSiti = function (anima, siti = []) {
       if (anima && anima.geofold && anima.geofold.properties.geonod) {
@@ -147,166 +317,6 @@
 
       return locations
     }
-
-    /* ***************************************
- *        @getTranspots
- *         get val of d in dim
- *          called by m.profier.proform to get translate
- */
-
-    let getTranspots = function (stace, payload, locations = []) {
-
-      if (0 && 1) console.log("m.stace.getTranspots", payload.uid, stace, payload)
-    
-      if (payload !== undefined) stace = stace || payload.stace
-
-      if (stace !== undefined && stace !== null) {
-        if (Array.isArray(stace)) { // stace :: [x,y,z]
-          let location = []
-          let val = stace // single location from stace array
-
-          if (f.isArray(val) && f.isPureArray(val)) { // [x,y,z]
-            location = val.map((d, i) => val[i])  // one location
-            locations.push(location)
-
-          } if (f.isArray(val) && f.isQuasiPureArray(val)) { // sum by dim [[a1,a2,a3],[b1,b2]]*
-
-            let poses = val.length // additive positions eg.2
-            let mx = Math.max(...val.map(d => d.length)) // num of dims eg. 3
-
-            for (let i = 0; i < mx; i++) { // for each dimension
-              let loc = 0
-              for (let j = 0; j < poses; j++) {
-                loc = loc + val[j][i]
-              }
-              location[i] = loc
-            }
-            locations.push(location)
-
-          } else {                        // [ 200, {y: { pos: 20 }} ]
-            let newLocations = []
-            let mx = val.length
-            for (let i = 0; i < mx; i++) { // for each dimension
-
-              if (typeof val[i] === 'number')   {
-
-                newLocations[i] = val[i]
-
-              } else if (typeof val[i] === 'object')   {
-
-                let v = val[i]
-                let locationsDax = []
-
-                if (v.hasOwnProperty('pos')) {
-                  let parentCoords = manitem.parentCoords(payload) // parentCoords
-                  let parentLocationsDaxes = mlacer.unslide(parentCoords) // unslide
-                  let parentLocationsDax = parentLocationsDaxes[i]   // dax stream
-
-                  if (parentLocationsDax !== undefined) {
-                    locationsDax = getLocsInDim(v, parentLocationsDax)
-                  }
-                }
-
-                newLocations[i] = locationsDax
-
-              }
-
-
-
-            }
-
-            // console.log(' location format not supported')
-            locations = [...locations, ...f.interlink(newLocations)]
-
-
-
-          }
-        } else if (typeof stace === 'object') {  // {'x':300, 'y':200}}
-
-
-
-          let entries = Object.entries(stace)
-          let locationsPerDax = []
-
-          for (let i = 0; i < entries.length; i++) {
-            let entry = entries[i]                                      // ['x', 200]
-            let k1 = entry[0]
-            let v1 = entry[1]
-
-            if (typeof v1 === 'number') locationsPerDax[i] = Array.of(v1) // [200]
-
-            else if (typeof v1 === 'object') {
-              if (v1.hasOwnProperty('pos')) {
-if (0 && 1) console.log("pos", v1)
-
-                let parentCoords = manitem.parentCoords(payload) // parentCoords
-                let parentLocationsDaxes = mlacer.unslide(parentCoords) // unslide
-                let parentLocationsDax = parentLocationsDaxes[i]
-
-                if (parentLocationsDax !== undefined) {
-                  locationsPerDax[i] = getLocsInDim(v1, parentLocationsDax)
-                }
-              }
-            }
-          }
-          if (locationsPerDax.length > 0) {
-            locations = mlacer.slide(locationsPerDax)                 // [300, 200]
-          }
-        }
-
-        if (locations.length === 0) locations = []
-
-        
-        
-       // ///
-       //   stace not defined take situs from parent
-       // //
-      } else {  // stace not defined take situs from parent
-
-
-
-        let parentuid = payload.parentuid
-        let parentani = __mapper('xs').m('store').findAnigramFromUid(parentuid)
-
-        let coords = __mapper('xs').m('anitem')(parentani).nodeSitus(parentani)
-
-        let geoForm = parentani.geofold.properties.geoform
-        let ereForm = parentani.geofold.properties.ereform
-        let proForm = parentani.geofold.properties.proform
-        
-        let geoNode = parentani.geofold.properties.nodeGeoformed
-        let ereNode = parentani.geofold.properties.nodeEreformed
-        let proNode = parentani.geofold.properties.nodeProformed
-        
-
- if (0 && 1) console.log(" ____________ parentani", parentani)
- if (0 && 1) console.log(" ------------ nodeGeoNode", geoNode.geometry.coordinates)
- if (0 && 1) console.log(" ------------ nodeEreNode", ereNode.geometry.coordinates)
- if (0 && 1) console.log(" ------------ nodeProNode", proNode.geometry.coordinates)
- if (0 && 1) console.log(" ------------ geoForm", geoForm.geometry.coordinates)
- if (0 && 1) console.log(" ------------ ereForm", ereForm.geometry.coordinates)
- if (0 && 1) console.log(" ------------ proForm", proForm.geometry.coordinates)
- if (0 && 1) console.log(" ------------ parentSitus", coords)
-
-   
-        // pronode may return geometry null
-        if (proNode.geometry) {
-   
-          let parentSitus = proNode.geometry.coordinates  // _e_
-     
-          // let parentSitus = manitem.parentSitus(payload)
-          locations = Array.of(parentSitus)
-        }
-
-      }
-
-      return locations
-    }
-
-    /* **************************************
- *        @getTranspot
- */
-    let getTranspot = (stace, payload) => getTranspots(stace, payload)[0]
 
     /* **************************************
  *        @getLoci

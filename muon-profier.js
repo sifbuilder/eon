@@ -18,6 +18,7 @@
       mgeom = __mapper('xs').m('geom'),
       guniwen = __mapper('xs').g('uniwen')
 
+
     /* ***************************
  *      @mappion
  *        get projection from proform and apply projection properties
@@ -101,6 +102,7 @@
       }
       return prj
     }
+    
 
     /* ***************************
  *       @projer
@@ -153,11 +155,10 @@
       
       if (projdef === undefined) {
         
-        // if projection is not define, 
-        //    default to uniwen with default configuration
-        
+        // if projection is not defined, default to uniwen with default configuration
+        //
         projection = mappion({ 
-          'projection': 'uniwen',
+          projection: 'uniwen',
         })
       
       } else {
@@ -166,9 +167,8 @@
           //
           let translate = []
 
-          // if translate, then
-          //      translate to translate
-          
+          // if translate, then translate
+          //
           if (projdef.translate) {
               if (typeof projdef.translate === 'object' && f.isPosition(projdef.translate)) {
                   projdef.translate = Object.values(projdef.translate)
@@ -176,11 +176,13 @@
               translate = mstace.getTranspot(projdef.translate, payload)
           }
 
+          // ///
+          // if projection includes anod, translate geofold by geonode
+          //
+          if (projdef.anod && geofold.properties && geofold.properties.geonode) { 
           
-          if (geofold.properties && geofold.properties.geonode) { // if geonode, translate geofold by geonode
-          
-            let geonode = geofold.properties.geonode
-            let nodetranslate = geonode.geometry.coordinates
+            let geonode = geofold.properties.geonode  // geonode
+            let nodetranslate = geonode.geometry.coordinates  // geonode coordinates for translate
             
             let daxes = Math.max(translate.length, nodetranslate.length)
             let addtranslate = d3.range(0, daxes, 1).map( (d,i) => (translate[i] || 0) + ((nodetranslate[i] || 0)))
@@ -217,13 +219,13 @@
     /****************************
  *       @proform
  */
-    let proformion = anigram => formion(anigram.payload.proform, anigram)
+    let proformion = anigram => formion(anigram.payload.proform , anigram)
     let proformer = anitem => json => mproj3ct(json, proformion(anitem))
  
     /****************************
  *       @ereform
  */
-    let ereformion = anigram => formion(anigram.payload.ereform, anigram)
+    let ereformion = anigram => formion(anigram.payload.ereform , anigram)
     let ereformer = anitem => json => mproj3ct(json, ereformion(anitem))
     
     /****************************
