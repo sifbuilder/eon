@@ -130,7 +130,7 @@ let haloPacerHalo_ween = anima => []
         // mstore.apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
         mstore.apply({'type': 'UPDANIGRAM', 'caller': 'h.pacer', animas})
       }
-
+if (0 && 1) console.log("count", count)
       // count anitems in this iteration
       //
       if (Object.keys(count).length > 0) { // on pace count
@@ -213,7 +213,7 @@ let haloPacerHalo_ween = anima => []
                 //  geoformed coords are pre-formed
                 // //
                 let geocoords = newItem.geofold.properties.geocoords || []
-                
+   if (1 && 1) console.log("geocoords", geocoords)  
                 if (coords && coords.length > 0) {
 
                    
@@ -249,8 +249,7 @@ let haloPacerHalo_ween = anima => []
                 newItem.geofold.geometry.coordinates = coords
                 
                 newItem.geofold.properties.geocoords = geocoords
-                
-if (0 && 1) console.log("geocoords", geocoords)
+
                 
                 // ///
                 //  conform, proform. update proformed

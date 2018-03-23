@@ -40,77 +40,59 @@
         parentuid = payload.parentuid // parentuid
 
 
-
-    // geoform
-    // geonode
-        
-        
-
-    //  get GEOFOLD
-    //
-    let gjGeoformed = f.v(geofold, anigram)
-
-    if (!mgeoj.isValid(gjGeoformed)) {
-      console.error("h.ent:gj not valid", geofold, gjGeoformed)
-    }
-
+    let gj
+if (1 && 1) console.log("gj", gj)      
+    
+    
+      //  get GEOFORM
+      //
+      gj = f.v(geofold, anigram)  // get geoform
+      gj.properties = gj.properties || {} // recall genode
+      gj.properties.genode = gj.properties.genode || {} // recall genode properties
+      
+      if (!mgeoj.isValid(gj)) { console.error("h.ent:gj not valid", geofold, gj) }
+      gj.properties.geoform = mgeoj.deprop(gj) // store geoform
+      gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
+    
       // ///
       //    CONFORM
       //    conform does not affect geonode
       // //
-      let gjConformed = mprofier.conformer(anigram)(gjGeoformed)
+      gj = mprofier.conformer(anigram)(gj)  // get conform
+      gj.properties.conform = mgeoj.deprop(gj) // store conform
+      
+      gj.properties.nodeConformed = gj.properties.geonode // nodeConformed : geonode
 
-      if (0 && 1) if (uid === 'traces0_traces0_traces0') {
-        console.log("h.ent anigram:proform", halo, anigram, proform)
-      }
-
-
-      let gj = gjConformed
-
-
-if (1 && 1) console.log("CONFORM", gj)
 
       // ///
       //    EREFORM the conformed geofold
       //    uniwen: prerotation, tranlations, scale, project, rotation
-      // //
-      let ereformion = mprofier.ereformion(anigram)
-      gj = mproj3ct(gj, ereformion)
-
-
-      // ///
+      //
       //    EREFORM geonode in geonode..nodeProformed
       //    geonode retains GEOFORM domain
       // //
-        if (gj.properties && gj.properties.geonode !== undefined) {    // if Feature
-          let pgj = mproj3ct(gj.properties.geonode, ereformion)
-          gj.properties.geonode.properties.nodeEreformed = pgj
-          if (0 && 1) console.log("gj", gj)
-        }
+      let ereformion = mprofier.ereformion(anigram)
+      gj = mproj3ct(gj, ereformion)
+      gj.properties.ereform = mgeoj.deprop(gj) // store ereform
 
-if (1 && 1) console.log("EREFORM", gj)
+      gj.properties.nodeEreformed = mproj3ct(gj.properties.nodeConformed, ereformion)   // nodeConformed => nodeEreformed
 
 
       // ///
       //    PROFORM the conformed geofold
       //    uniwen: prerotation, tranlations, scale, project, rotation
-      // //
-      let proformion = mprofier.proformion(anigram)
-      gj = mproj3ct(gj, proformion)
-
-
-      // ///
+      //
       //    PROFORM geonode in geonode..nodeProformed
       //    geonode retains GEOFORM domain
       // //
-        if (gj.properties && gj.properties.geonode !== undefined) {    // if Feature
-          let pgj = mproj3ct(gj.properties.geonode, proformion)
-          gj.properties.geonode.properties.nodeProformed = pgj
-          if (0 && 1) console.log("gj", gj)
-        }
+      let proformion = mprofier.proformion(anigram)
+      gj = mproj3ct(gj, proformion)
+      gj.properties.proform = mgeoj.deprop(gj)  // store proform
+      
+      gj.properties.nodeProformed = mproj3ct(gj.properties.nodeEreformed, proformion) // nodeEreformed => nodeProformed
 
-if (1 && 1) console.log("PROFORM", gj)
 
+    
         gj = mgeoj.featurize(gj) // featurize
         gj = mboform.boformer(anigram, gj) // boform
         gj = mgeoj.zorder(gj) // order
@@ -131,8 +113,17 @@ if (1 && 1) console.log("PROFORM", gj)
           // parentani:situs : parent.payload.geonode.geometry.coordinates
           //
           //  geoform conform ereform proform
-          //                  
-          //  geonode  
+          
+          //  geoForm = props.geoform
+          //  conForm = props.conform
+          //  ereForm = props.ereform
+          //  proForm = props.proform
+                        
+          //  geoNode = props.geonode.properties.nodeGeoformed
+          //  ereNode = props.geonode.properties.nodeEreformed
+          //  proNode = props.geonode.properties.nodeProformed
+
+          //  forms and nodes have geometry.coordinates
           //
           // //
           

@@ -268,22 +268,35 @@ if (0 && 1) console.log("pos", v1)
         let parentuid = payload.parentuid
         let parentani = __mapper('xs').m('store').findAnigramFromUid(parentuid)
 
-        // let parentSitus = __mapper('xs').m('anitem')(parentani).nodeProformedSitus(parentani)
         let coords = __mapper('xs').m('anitem')(parentani).nodeSitus(parentani)
 
-        let ere = parentani.geofold.properties.geonode.properties.nodeEreformed.geometry.coordinates
-        let pro = parentani.geofold.properties.geonode.properties.nodeProformed.geometry.coordinates
+        let geoForm = parentani.geofold.properties.geoform
+        let ereForm = parentani.geofold.properties.ereform
+        let proForm = parentani.geofold.properties.proform
+        
+        let geoNode = parentani.geofold.properties.nodeGeoformed
+        let ereNode = parentani.geofold.properties.nodeEreformed
+        let proNode = parentani.geofold.properties.nodeProformed
         
 
- if (1 && 1) console.log(" ------------ parentani", parentani)
- if (1 && 1) console.log(" ------------ nodeEreformed", ere)
- if (1 && 1) console.log(" ------------ nodeProformed", pro)
- if (1 && 1) console.log(" ------------ parentSitus", coords)
+ if (0 && 1) console.log(" ____________ parentani", parentani)
+ if (0 && 1) console.log(" ------------ nodeGeoNode", geoNode.geometry.coordinates)
+ if (0 && 1) console.log(" ------------ nodeEreNode", ereNode.geometry.coordinates)
+ if (0 && 1) console.log(" ------------ nodeProNode", proNode.geometry.coordinates)
+ if (0 && 1) console.log(" ------------ geoForm", geoForm.geometry.coordinates)
+ if (0 && 1) console.log(" ------------ ereForm", ereForm.geometry.coordinates)
+ if (0 && 1) console.log(" ------------ proForm", proForm.geometry.coordinates)
+ if (0 && 1) console.log(" ------------ parentSitus", coords)
 
-   let parentSitus = pro
    
-        // let parentSitus = manitem.parentSitus(payload)
-        locations = Array.of(parentSitus)
+        // pronode may return geometry null
+        if (proNode.geometry) {
+   
+          let parentSitus = proNode.geometry.coordinates  // _e_
+     
+          // let parentSitus = manitem.parentSitus(payload)
+          locations = Array.of(parentSitus)
+        }
 
       }
 

@@ -212,6 +212,20 @@
 
       return {type: 'FeatureCollection', features}
     }
+   /**********************
+   *   		 @deprop
+   */
+    let deprop = function (json) {
+      
+      let gj = Object.assign({}, json)
+      
+      if (gj && gj.properties) {
+        delete gj.properties
+        return gj
+      } else {
+        return gj
+      }
+    }
 
     /* *********************
    *    @zorder FeatureCollection
@@ -402,6 +416,7 @@
 
     enty.resample = resample
     enty.trim = trim
+    enty.deprop = deprop
     enty.snip = snip
     enty.largestPoly = largestPoly
     enty.lineStringFromStream = lineStringFromStream

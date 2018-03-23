@@ -163,7 +163,7 @@
                 type: 'Feature',
                 geometry: geometry,
                 properties: {
-                  docnat: '',
+                  doc: 'nat',
                   geonode: {
                     type: 'Feature',
                     geometry: {

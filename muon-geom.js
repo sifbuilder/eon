@@ -189,7 +189,7 @@
     }
     
     
-    enty.distance3d = (v1, v2) => {
+    enty.distance3d = (v1=0, v2=0) => {
       let dx = v2[0] - v1[0],
         dy = v2[1] - v1[1],
         dz = (v2[2] || 0) - (v1[2] || 0)
