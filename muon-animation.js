@@ -40,9 +40,13 @@ if (0 && 1) console.log(" ---------------------------- state.animas", state.anim
      *    @STOP
      */
       let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.payload.tim.limit + item.payload.tim.msStart), 0)
-      if (isNaN(maxlimit) ||
+      
+      let nostop = state.animas.reduce((pre, item) => (pre || item.payload.tim.nostop), false)
+
+  
+      if (!nostop && (isNaN(maxlimit) ||
             (maxlimit > 0 && elapsed > maxlimit) || // stop if spired
-            (elapsed > maxlimit) ) { // stop if anigrams spired
+            (elapsed > maxlimit) )) { // stop if anigrams spired
 
         state.animationStop()
         
