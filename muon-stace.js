@@ -145,7 +145,7 @@
           for (let i = 0; i < entries.length; i++) {  // for each stace object entry ...
 
             let entry = entries[i]                                      // ['x', 200]
-if (1 && 1) console.log("entry", entry)
+if (0 && 1) console.log("entry", entry)
 
             let k1 = entry[0]
             let v1 = entry[1]
@@ -253,7 +253,7 @@ if (0 && 1) console.log(" ____________ stace not defined")
           // let parentSitus = nodeGeoformed.geometry.coordinates  // _e_
           // let parentSitus = nodeEreformed.geometry.coordinates  // _e_
           let parentSitus = nodeProformed.geometry.coordinates  // _e_
- if (1 && 1) console.log(" ------------ add trace", parentSitus)
+ if (0 && 1) console.log(" ------------ add trace", parentSitus)
 
           locations = Array.of(parentSitus)
 

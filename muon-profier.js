@@ -21,7 +21,7 @@
 
     /* ***************************
  *      @mappion
- *        get projection from proform and apply projection properties
+ *        get projection from prjdef and apply projection properties
  *        if control:wen  wen rotation and if 2d: wen z rotation
  *        if control:versor   versor rotation
  */
@@ -59,6 +59,12 @@
           
         }
 
+        
+        // if (prjdef.invert && prj.invert !== undefined) {
+// if (1 && 1) console.log("prj invert", prj.invert)          
+          // prj = prj.invert
+          
+        // }
         
         // if not uniwen, rotation and prerotation must be combined
         if (prjname !== 'uniwen' && prj.rotate !== undefined) {
@@ -143,7 +149,7 @@
     /****************************
  *       @proformion
  */
-    let formion = (projdef, anigram) => {
+    let formion = (projdef, anigram = {}) => {
 
       let projection
     
@@ -173,7 +179,8 @@
               if (typeof projdef.translate === 'object' && f.isPosition(projdef.translate)) {
                   projdef.translate = Object.values(projdef.translate)
               }
-              translate = mstace.getTranspot(projdef.translate, payload)
+              // translate = mstace.getTranspot(projdef.translate, payload) // _e_
+              translate = projdef.translate
           }
 
           // ///
@@ -231,8 +238,10 @@
     /****************************
  *      @enty
  */
-    let enty = function () {}
+   
+   let enty = function () {}
     enty.mappion = mappion
+    enty.formion = formion
     enty.projer = projer
     
     enty.proformion = proformion

@@ -159,8 +159,26 @@ if (0 && 1) console.log("count", count)
             let _ric = ric
             _ric.fid = fider(anigram) // fider set in the payload or default
             let uid = mric.getuid(_ric) // uid
-            let newItem = mstore.findAnigramFromUid(uid) // anigram DOES exist ??
+            
+            let newItem = mstore.findAnigramFromUid(uid) || geojsor(anigram, i)
 
+            
+if (1 && 1) console.log("h.pacer newItem", newItem)  
+if (newItem.geofold.properties.formEreformed)  {
+  
+            newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+}
+
+
+            newItem.payload.uid = uid
+            newItem.payload.id = newItem.payload.uid
+            newItem.payload.ric = _ric
+            
+            newItem.payload.tim = anigram.payload.tim // _e_ 
+            newItem.payload.boform = anigram.payload.boform   // _e_ 
+            
+          newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
+                
             if (aad) {
 
               // ///
@@ -172,27 +190,9 @@ if (0 && 1) console.log("count", count)
               // //
 
               // ///
+              //  update newItem payload from parent - conform, proform
               //
-              //  if the newItem does not exist yet,
-              //  generate the newItem with halo anigram geojsor
-              //
-              // //
-              if (newItem === undefined) { // if not yet, create new anigram
-
-                newItem = geojsor(anigram, i) // anigram, counter per paced type
-
-                newItem.payload.id = uid
-                newItem.payload.ric = _ric
-                newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
-
-              }
-
-              // ///
-              //  update newItem payload from parent
-              //  the payload may be updated for this cycle - conform, proform
-              // //
-              newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
-
+              // newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
               // ///
               //  generate newItem.geofold.geometry again with geojsor
               //  if newItem has lost geometry (cause projection)
@@ -226,7 +226,7 @@ if (0 && 1) console.log("count", count)
 
                     
                     coords.push(situs) // if beyond span ADD SITUS to LineString
-if (1 && 1) console.log("h.pacer add", situs)
+                    if (1 && 1) console.log("h.pacer add", situs)
 
                     geocoords.push(situs)
 
@@ -252,7 +252,9 @@ if (1 && 1) console.log("h.pacer add", situs)
 
                 
                 // ///
-                //  conform, proform. update proformed
+                //  h.ent will conform, ereform, proform
+                //  each pace segment will accumulate at every cycle
+                //  no sense on continuous functions
                 // //
                 let newItemsInCount = __mapper('xs').h('ent').gramm(newItem)
                 newItems = [...newItems, ...newItemsInCount] // add items
