@@ -19,7 +19,7 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1, pos: 1}) // INIT
 
   let f = __mapper('props')(),
     mnat = __mapper('xs').m('nat'),
@@ -34,9 +34,9 @@ let muonAlima = function muonAlima (__mapper) {
  *      @pics
  *
  */
-  let tim = {'td': 113800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let tim = {'td': 13800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  let avaPacer = { // SUB-MARKS line trace
+  let seedForm = { // SUB-MARKS line trace
 
     halo: 'pacer',
 
@@ -95,16 +95,16 @@ let muonAlima = function muonAlima (__mapper) {
         },
 
 
-
       }
     }
   /*******************************************
  *    @fract anima
  *
  */
-     let fractform = {
+     let parentForm = {
 
-      halo: 'fractal',
+      // halo: 'fractal',
+      halo: 'ent',
 
       geofold: p => mnat.natFeature(p.payload.form),
 
@@ -116,16 +116,17 @@ let muonAlima = function muonAlima (__mapper) {
 
         form: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 9, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          'ra2': 3, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         },
 
 
         ereform: {    // ereform in the geometric domain
 
           projection: 'uniwen',
-          scale: 1.0,
-          translate: [ [[[-0 * 360,0 * 360]]] , [[[-0 *90,0 *90]]]],
+          scale: [1,-1,1],
+          translate: [ [[[-90, 90]]] , [[[-90, 90]]] ],
           rotate: [ 0, 0 ],
+          lens: [0,1,Infinity],
 
           anod: 1,  // compose geonode and geoform -- align with h.fractal
 
@@ -162,7 +163,7 @@ let muonAlima = function muonAlima (__mapper) {
           },
 
           avatars: [
-            avaPacer,
+            seedForm,
           ],
 
 
@@ -171,18 +172,69 @@ let muonAlima = function muonAlima (__mapper) {
 
       }
     }
+ /*******************************************
+ *    @sphere anima
+ *
+ */
+     let sphereForm = {
 
+      // halo: 'fractal',
+      halo: 'ent',
+
+      geofold: p => mnat.natFeature(p.payload.form),
+
+      payload: {
+
+        tim: tim,
+        ric: { gid: 'fractals', cid: 'fractals', fid: 'sphere'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
+
+        form: {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        },
+
+
+        ereform: {    // ereform in the geometric domain
+
+          projection: 'uniwen',
+          translate: [ [[[0, 0]]] , [[[0, 0]]] ],
+          rotate: [ 0, 0 ],
+          scale: [1,-1,1],
+          lens: [0,1,Infinity],
+      
+          anod: 1,  // compose geonode and geoform -- align with h.fractal
+
+        },
+
+
+        // proform: {    // proform in the geographic domain
+
+          // projection: 'orthographic',
+          // scale: 100,
+
+          // prerotate: [[[ cversor.rotation ]]],
+          // translate: [0,0],
+          // rotate: [ 0, 0 ],
+
+        // },
+
+
+
+      }
+    }
 
   /*******************************************
  *    @enty
  *
  */
-  // fractform.payload.avatars = {
-    // avaPacer,
+  // parentForm.payload.avatars = {
+    // seedForm,
   // }
 
   let animas = [
-    fractform // h.fractal
+    sphereForm, // h.ent
+    parentForm // h.fractal
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

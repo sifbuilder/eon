@@ -9,6 +9,13 @@
   'use strict'
 
   function controlPos (__mapper) {
+    
+    
+    let r = __mapper('xs').r('renderport'),
+      width = r.width(),
+      height = r.height()    
+    let toviewproj = r.toviewproj()
+      
     function prevent (e) {}
 
     function subject () {
@@ -36,11 +43,11 @@
 
       function drawPostipElem (postip) {
         postip
-          .attr('viewBox', '0 0 10 10')
-          .style('top', '-5px')
+          .attr('viewBox', '0 0 0 0')
+          .style('top', '-0px')
           .style('position', 'absolute')
-          .style('padding', '10px')
-          .style('background', 'rgba(255, 255, 255, .90)')
+          .style('padding', '0px')
+          .style('background', 'rgba(255, 255, 255, .999)')
           .style('border', '1px solid lightgray')
           .style('pointer-events', 'none')
           .style('z-index', '100')
@@ -51,7 +58,7 @@
       }
 
       function textPadFn (a) {
-        var s = String('_______' + Math.floor(a.ox) + ' : ' + Math.floor(a.oy) + '_______')
+        var s = String('___' + Math.floor(a.ox) + ' : ' + Math.floor(a.oy) + '___')
         return s
       }
 
@@ -87,11 +94,13 @@
       var datum = d,								// d datum
         node = this, 							// elem
         parent = node.parentNode,
-        origin = d3.mouse(parent),
-        ox = origin[0],
-        oy = origin[1]
-
-      var action = {ox: ox, oy: oy}
+        
+        // origin = d3.mouse(parent),
+        // var action = {ox: origin[0], oy: origin[1]}
+        
+        t = toviewproj.invert(d3.mouse(parent))
+        var action = {ox: t[0], oy: t[1]}
+      
       createPostipElem()
       displayTextPad(action)
       moveTextPad(node)
@@ -108,14 +117,14 @@
         .classed('postipped', false)
     }
 
-    // ......................... controlPos
-    function controlPos (selection) {
+    // ......................... enty
+    function enty (selection) {
       selection.on('mouseenter.pos', started)
       selection.on('mousemove.pos', moved)
       selection.on('mouseout.pos', ended)
     }
 
-    return controlPos
+    return enty
   }
 
   exports.controlPos = controlPos

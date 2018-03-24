@@ -11,7 +11,7 @@
   // https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
   
   
-  var controlRayder = function controlRayder (__mapper = {}) {
+  var controlRayder = function (__mapper = {}) {
     
     let f = __mapper('props')(),
           mproj3ct = __mapper('xs').m('proj3ct')
@@ -43,19 +43,16 @@
       
       // proj
       let proj = function (event) {
-        
-        if (0 && 1) console.log(" **** event type", event.type)        
-          
+         
         if (event.type === "mousemove") {
 
+            let t = toviewproj.invert([event.x, event.y])
+        
+            state.mouse.x = t[0]
+            state.mouse.y = t[1]
 
-              let t = toviewproj.invert([event.x, event.y])
-          
-              state.mouse.x = t[0]
-              state.mouse.y = t[1]
-  
-              state.pointer.x = t[0]   // 
-              state.pointer.y = t[1]   // 
+            state.pointer.x = t[0]   // 
+            state.pointer.y = t[1]   // 
             
  
   
@@ -63,10 +60,8 @@
 
         
              let touch =  event.changedTouches[0]
-        
-        if (0 && 1) console.log("touch", touch)
-        
-             // let t = toviewproj.invert([touch.screenX, touch.screenY])
+
+
              let t = toviewproj.invert([touch.clientX, touch.clientY])
         
          

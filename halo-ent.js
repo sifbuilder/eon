@@ -35,9 +35,9 @@
     //  ereForm = props.ereform
     //  proForm = props.proform
                   
-    //  geoNode = props.geonode.properties.nodeGeoformed
-    //  ereNode = props.geonode.properties.nodeEreformed
-    //  proNode = props.geonode.properties.nodeProformed
+    //  nodeGeoformed = props.geonode.properties.nodeGeoformed
+    //  nodeEreformed = props.geonode.properties.nodeEreformed
+    //  nodeProformed = props.geonode.properties.nodeProformed
 
     //  forms and nodes have geometry.coordinates
     //
@@ -86,7 +86,7 @@
     
     
       if (!mgeoj.isValid(gj)) { console.error("h.ent:gj not valid", geofold, gj) }
-      gj.properties.geoform = mgeoj.deprop(gj) // store geoform
+      gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
       
       gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
     
@@ -95,7 +95,7 @@
       //    conform does not affect geonode
       // //
       gj = mprofier.conformer(anigram)(gj)  // get conform
-      gj.properties.conform = mgeoj.deprop(gj) // store conform
+      gj.properties.formConformed = mgeoj.deprop(gj) // store conform
       
       gj.properties.nodeConformed = gj.properties.geonode // nodeConformed : geonode
 
@@ -110,7 +110,7 @@
       let ereformion = mprofier.ereformion(anigram)
       gj = mproj3ct(gj, ereformion)
       
-      gj.properties.ereform = mgeoj.deprop(gj) // store ereform
+      gj.properties.formEreformed = mgeoj.deprop(gj) // store ereform
 
       gj.properties.nodeEreformed = mproj3ct(gj.properties.nodeConformed, ereformion)   // nodeConformed => nodeEreformed
 
@@ -122,11 +122,14 @@
       //    PROFORM geonode in geonode..nodeProformed
       //    geonode retains GEOFORM domain
       // //
- if (1 && 1) console.log("proform ________", gj)      
       let proformion = mprofier.proformion(anigram)
       gj = mproj3ct(gj, proformion)
-      gj.properties.proform = mgeoj.deprop(gj)  // store proform
- if (1 && 1) console.log("proform", gj.properties.uid, gj.properties.proform)
+ if (1 && 1 && payload.uid == 'traces_traces_traces') {
+      gj.properties.formProformed = mgeoj.deprop(gj)  // store proform
+ if (1 && 1) console.log("proform ________", payload.uid)      
+ if (1 && 1) console.log("ereform", payload.uid, gj.properties.formEreformed.geometry.coordinates)
+ if (1 && 1) console.log("proform", payload.uid, gj.properties.formProformed.geometry.coordinates)
+ }
       gj.properties.nodeProformed = mproj3ct(gj.properties.nodeEreformed, proformion) // nodeEreformed => nodeProformed
 
     

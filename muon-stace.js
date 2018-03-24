@@ -56,12 +56,19 @@
 
     let getTranspots = function (stace, payload, locations = []) {
 
-      if (0 && 1) console.log("m.stace.getTranspots", payload.uid, stace, payload)
+        if (1 && 2 && payload.hasOwnProperty('payload')) console.log(` * error: mstace.getTranspots anitem passed instead of payload`)
     
+    
+      // stace taken from stace or from payload.stace
       if (payload !== undefined) stace = stace || payload.stace
 
-      if (stace !== undefined && stace !== null) {
-        
+      // if stace is defined and not null
+      if (stace) {
+
+      
+        // ///
+        //  stace is passed as array
+        //
         if (Array.isArray(stace)) { // stace :: [x,y,z]
           let location = []
           let val = stace // single location from stace array
@@ -70,7 +77,7 @@
             location = val.map((d, i) => val[i])  // one location
             locations.push(location)
 
-            
+
           } if (f.isArray(val) && f.isQuasiPureArray(val)) { // sum by dim [[a1,a2,a3],[b1,b2]]*
 
             let poses = val.length // additive positions eg.2
@@ -123,32 +130,81 @@
 
 
           }
+          
+          
+        // ///
+        //  stace is passed as object
+        //  each entry (dimension axis: dax) returns an array of locations 
+        //  all arrays are interlaced and returned as locations array
+        //  
         } else if (typeof stace === 'object') {  // {'x':300, 'y':200}}
-
-
 
           let entries = Object.entries(stace)
           let locationsPerDax = []
 
-          for (let i = 0; i < entries.length; i++) {
+          for (let i = 0; i < entries.length; i++) {  // for each stace object entry ...
+
             let entry = entries[i]                                      // ['x', 200]
+if (1 && 1) console.log("entry", entry)
+
             let k1 = entry[0]
             let v1 = entry[1]
 
             if (typeof v1 === 'number') locationsPerDax[i] = Array.of(v1) // [200]
 
             else if (typeof v1 === 'object') {
-              if (v1.hasOwnProperty('pos')) {
-if (0 && 1) console.log("pos", v1)
+              
+              
+              
+              // if (v1.hasOwnProperty('pos')) {
 
-                let parentCoords = manitem.parentCoords(payload) // parentCoords
-                let parentLocationsDaxes = mlacer.unslide(parentCoords) // unslide
-                let parentLocationsDax = parentLocationsDaxes[i]
 
-                if (parentLocationsDax !== undefined) {
-                  locationsPerDax[i] = getLocsInDim(v1, parentLocationsDax)
+                // let parentCoords = manitem.parentCoords(payload) // parentCoords
+                // let parentLocationsDaxes = mlacer.unslide(parentCoords) // unslide
+                // let parentLocationsDax = parentLocationsDaxes[i]
+                // if (parentLocationsDax !== undefined) {
+                  // locationsPerDax[i] = getLocsInDim(v1, parentLocationsDax)
+                // }
+
+                let parentuid = payload.parentuid
+                
+     if (1 && 2 && !parentuid) console.log(` * error: mstace.getTranspots:parentuid ${parentuid} in payload `, payload)             
+                
+                let parentani = __mapper('xs').m('store').findAnigramFromUid(parentuid)
+
+      if (1 && 2 && !parentani) console.log(` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)                
+                
+                let coords = __mapper('xs').m('anitem')(parentani).nodeSitus(parentani)
+
+                let formGeoform = parentani.geofold.properties.formGeoform
+                let formEreform = parentani.geofold.properties.formEreform
+                let formProform = parentani.geofold.properties.formProform
+
+                let nodeGeoformed = parentani.geofold.properties.nodeGeoformed || {geometry: {}}
+                let nodeEreformed = parentani.geofold.properties.nodeEreformed || {geometry: {}}
+                let nodeProformed = parentani.geofold.properties.nodeProformed || {geometry: {}}
+                
+                if (v1.hasOwnProperty('pos') && v1.hasOwnProperty('geo')) {
+
+                  locationsPerDax[i] = Array.of(nodeGeoformed.geometry.coordinates[i])
+
+                } else if (v1.hasOwnProperty('pos') && v1.hasOwnProperty('ere')) {
+
+                   locationsPerDax[i] = Array.of(nodeEreformed.geometry.coordinates[i])
+
+                } else if (v1.hasOwnProperty('pos') && v1.hasOwnProperty('pro')) {
+                    if (nodeProformed.geometry) {
+                      locationsPerDax[i] = Array.of(nodeProformed.geometry.coordinates[i])
+                    }
+
+                } else {
+              
+                   locationsPerDax[i] = Array.of(nodeProformed.geometry.coordinates[i])
+
                 }
-              }
+
+
+              // }
             }
           }
           if (locationsPerDax.length > 0) {
@@ -158,8 +214,8 @@ if (0 && 1) console.log("pos", v1)
 
         if (locations.length === 0) locations = []
 
-        
-        
+
+
        // ///
        //   stace not defined take situs from parent
        // //
@@ -172,35 +228,35 @@ if (0 && 1) console.log(" ____________ stace not defined")
 
         let coords = __mapper('xs').m('anitem')(parentani).nodeSitus(parentani)
 
-        let geoForm = parentani.geofold.properties.geoform
-        let ereForm = parentani.geofold.properties.ereform
-        let proForm = parentani.geofold.properties.proform
-        
-        let geoNode = parentani.geofold.properties.nodeGeoformed
-        let ereNode = parentani.geofold.properties.nodeEreformed
-        let proNode = parentani.geofold.properties.nodeProformed || {geometry: {}}
-        
+        let formGeoform = parentani.geofold.properties.formGeoform
+        let formEreform = parentani.geofold.properties.formEreform
+        let formProform = parentani.geofold.properties.formProform
 
- if (0 && 1) console.log(" ____________ parentani", parentani)
- if (0 && 1) console.log(" ------------ nodeGeoNode", geoNode.geometry.coordinates)
- if (0 && 1) console.log(" ------------ nodeEreNode", ereNode.geometry.coordinates)
- if (0 && 1) console.log(" ------------ nodeProNode", proNode.geometry.coordinates)
- if (0 && 1) console.log(" ------------ geoForm", geoForm.geometry.coordinates)
- if (0 && 1) console.log(" ------------ ereForm", ereForm.geometry.coordinates)
- if (0 && 1) console.log(" ------------ proForm", proForm.geometry.coordinates)
+        let nodeGeoformed = parentani.geofold.properties.nodeGeoformed
+        let nodeEreformed = parentani.geofold.properties.nodeEreformed
+        let nodeProformed = parentani.geofold.properties.nodeProformed || {geometry: {}}
+
+
+ // if (0 && 1) console.log(" ____________ parentani", parentani)
+ // if (0 && 1) console.log(" ------------ nodeGeoNode", nodeGeoformed.geometry.coordinates)
+ // if (0 && 1) console.log(" ------------ nodeEreNode", nodeEreformed.geometry.coordinates)
+ // if (0 && 1) console.log(" ------------ nodeProNode", nodeProformed.geometry.coordinates)
+ // if (0 && 1) console.log(" ------------ geoForm", formGeoform.geometry.coordinates)
+ // if (0 && 1) console.log(" ------------ ereForm", formEreform.geometry.coordinates)
+ // if (0 && 1) console.log(" ------------ proForm", formProform.geometry.coordinates)
  // if (0 && 1) console.log(" ------------ parentSitus", coords)
 
-   
-        // pronode may return geometry null
-        if (proNode.geometry) {
-   
-          let parentSitus = geoNode.geometry.coordinates  // _e_
-          // let parentSitus = ereNode.geometry.coordinates  // _e_
-          // let parentSitus = proNode.geometry.coordinates  // _e_
+
+        // nodeProformed may return geometry null
+        if (nodeProformed.geometry) {
+
+          // let parentSitus = nodeGeoformed.geometry.coordinates  // _e_
+          // let parentSitus = nodeEreformed.geometry.coordinates  // _e_
+          let parentSitus = nodeProformed.geometry.coordinates  // _e_
  if (1 && 1) console.log(" ------------ add trace", parentSitus)
-          
+
           locations = Array.of(parentSitus)
-          
+
         }
 
       }
@@ -212,8 +268,8 @@ if (0 && 1) console.log(" ____________ stace not defined")
  *        @getTranspot
  */
     let getTranspot = (stace, payload) => getTranspots(stace, payload)[0]
-    
-    
+
+
     // ........................ getSiti         situs: Arary.of(ani.x, .y, .z)
     let getSiti = function (anima, siti = []) {
       if (anima && anima.geofold && anima.geofold.properties.geonod) {
