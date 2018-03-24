@@ -61,7 +61,7 @@
 
         
         // if (prjdef.invert && prj.invert !== undefined) {
-// if (1 && 1) console.log("prj invert", prj.invert)          
+// if (0 && 1) console.log("prj invert", prj.invert)          
           // prj = prj.invert
           
         // }

@@ -124,11 +124,11 @@
       // //
       let proformion = mprofier.proformion(anigram)
       gj = mproj3ct(gj, proformion)
- if (1 && 1 && payload.uid == 'traces_traces_traces') {
+ if (0 && 1 && payload.uid == 'traces_traces_traces') {
       gj.properties.formProformed = mgeoj.deprop(gj)  // store proform
- if (1 && 1) console.log("proform ________", payload.uid)      
- if (1 && 1) console.log("ereform", payload.uid, gj.properties.formEreformed.geometry.coordinates)
- if (1 && 1) console.log("proform", payload.uid, gj.properties.formProformed.geometry.coordinates)
+ if (0 && 1) console.log("proform ________", payload.uid)      
+ if (0 && 1) console.log("ereform", payload.uid, gj.properties.formEreformed.geometry.coordinates)
+ if (0 && 1) console.log("proform", payload.uid, gj.properties.formProformed.geometry.coordinates)
  }
       gj.properties.nodeProformed = mproj3ct(gj.properties.nodeEreformed, proformion) // nodeEreformed => nodeProformed
 

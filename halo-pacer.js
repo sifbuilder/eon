@@ -160,14 +160,15 @@ if (0 && 1) console.log("count", count)
             _ric.fid = fider(anigram) // fider set in the payload or default
             let uid = mric.getuid(_ric) // uid
             
-            let newItem = mstore.findAnigramFromUid(uid) || geojsor(anigram, i)
+            // let newItem = mstore.findAnigramFromUid(uid) || geojsor(anigram, i)
+            let newItem = payload.pacer.geojsor(anigram, i)
 
             
-if (1 && 1) console.log("h.pacer newItem", newItem)  
-if (newItem.geofold.properties.formEreformed)  {
+// if (0 && 1) console.log("h.pacer newItem", newItem)  
+// if (newItem.geofold.properties.formEreformed)  {
   
-            newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
-}
+            // newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+// }
 
 
             newItem.payload.uid = uid
@@ -226,7 +227,7 @@ if (newItem.geofold.properties.formEreformed)  {
 
                     
                     coords.push(situs) // if beyond span ADD SITUS to LineString
-                    if (1 && 1) console.log("h.pacer add", situs)
+                    if (0 && 1) console.log("h.pacer add", situs)
 
                     geocoords.push(situs)
 
