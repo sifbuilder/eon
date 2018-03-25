@@ -19,13 +19,18 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1, key: 1, pos: 0}) // INIT
 
+  
   let f = __mapper('props')(),
     mnat = __mapper('xs').m('nat'),
     cversor = __mapper('xs').c('versor'),
     cwen = __mapper('xs').c('wen'),
-    mstace = __mapper('xs').m('stace')
+    mstace = __mapper('xs').m('stace'),
+    mprofier = __mapper('xs').m('profier'),
+    mproj3ct = __mapper('xs').m('proj3ct'),
+    mric = __mapper('xs').m('ric'),
+    mstore = __mapper('xs').m('store')
 
   const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
@@ -34,75 +39,90 @@ let muonAlima = function muonAlima (__mapper) {
  *      @pics
  *
  */
-  let tim = {'td': 113800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let tim = {td: 513800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1}
+  
+  /*******************************************
+ *      @animas
+ *
+ */
 
-  let avaPacer = { // SUB-MARKS line trace
+  let seedForm = { // SUB-MARKS line trace
 
     halo: 'pacer',
 
     payload: {
       ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-      boform: {'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.99, 'co': 0.06, 'cp': 0.99},
+      boform: {'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.99, 'co': 0.06, 'cp': 0.69},
 
-        ereform: {    // ereform in the geometric domain
 
-          projection: 'uniwen',
-          scale: 1.0,
-          translate: [ [[[-0 * 360,0 * 360]]] , [[[-0 *90,0 *90]]]],
-          rotate: [ 0, 0 ],
+      proform: { // proform in the geographic domain
 
-          anod: 1,  // compose geonode and geoform
+        projection: 'orthographic',
+        scale: 90,
+        prerotate: [[[ cversor.rotation ]]],
+        translate: [0,0],
+        rotate: [ 0, 0 ],
 
-        },
-
-        proform: {    // proform in the geographic domain
-
-          projection: 'orthographic',
-          scale: 100,
-
-          prerotate: [[[ cversor.rotation ]]],
-          translate: [0,0],
-          rotate: [ 0, 0 ],
-
-        },
-
+      },
+      
         stace: {
-          x: { pos: 0, ere: 1 },
-          y: { pos: 0, ere: 1 },
+          x: { pos: 0, geo: 1 },
+          y: { pos: 0, geo: 1 },
           z: 0
         },
 
         pacer: {
           initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1, // add
 
+          autoSitus: d => {
+            let r =  mstace.getLocus(this.stace, d.payload) // situs
+            if (0 && 1) console.log("autoSitus", r)            
+            return r
+          },
           // autoSitus: d => mstace.getLocus(this.stace, d.payload), // situs
-          autoSitus: d => mstace.getLocus(null, d.payload), // situs
 
           fider: d => d.payload.ric.fid,
 
-          geojsor: () => ({
+          geojsor: function (d, i) {
+            let ric = d.payload.ric // ric
+            let uid = mric.getuid(ric)
 
-            halo: 'ent',
-            geofold: {
-              type: 'Feature',
-              geometry: { type: 'LineString', coordinates: null },
-              properties: { doc: 'pacer' }
-            },
-            payload: {}
+            let gj = {
 
-          })
+              halo: 'ent',
+              geofold: {
+                type: 'Feature',
+                geometry: { type: 'LineString', coordinates: null },
+                properties: { doc: 'pacer' }
+              },
+              payload: {
+                uid: uid,
+                id: uid,
+                ric: ric,
+                proform: this.proform
+              }
+
+            }
+
+            let newItem = mstore.findAnigramFromUid(uid) || gj
+
+            if (newItem.geofold.properties.formEreformed) {
+              newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+            }
+
+            return newItem
+          },
 
         },
 
-
-
       }
     }
-  /*******************************************
- *    @fract anima
+
+   /*******************************************
+ *    @parent anima
  *
  */
-     let fractform = {
+     let parentForm = {
 
       halo: 'fractal',
 
@@ -112,13 +132,12 @@ let muonAlima = function muonAlima (__mapper) {
 
         tim: tim,
         ric: { gid: 'fractals', cid: 'fractals', fid: 'fractal'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.1, 'cp': 0.7},
 
         form: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
           'ra2': 9, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         },
-
 
         ereform: {    // ereform in the geometric domain
 
@@ -132,20 +151,22 @@ let muonAlima = function muonAlima (__mapper) {
         },
 
 
-        proform: {    // proform in the geographic domain
+      proform: { // proform in the geographic domain
 
-          projection: 'orthographic',
-          scale: 100,
+        projection: 'orthographic',
+        scale: 90, // correlation between geometric and geographic
+        prerotate: [[[ cversor.rotation ]]],
+        translate: [0, 0],
+        rotate: [ 0, 0 ]
 
-          prerotate: [[[ cversor.rotation ]]],
-          translate: [0,0],
-          rotate: [ 0, 0 ],
-
-        },
-
+      },        
+        // avatars: {
+          // seedForm,
+        // },
+        
         fractal: {
 
-          depth: 2,
+          depth: 6,
           rad: 30,
           sides: 6,
           anginit: 0,
@@ -162,27 +183,100 @@ let muonAlima = function muonAlima (__mapper) {
           },
 
           avatars: [
-            avaPacer,
+            seedForm,
           ],
-
 
 
         },
 
       }
+    } 
+  
+ /*******************************************
+ *    @sphere anima
+ *
+ */
+     let sphereForm = {
+
+      halo: 'ent',
+
+      geofold: p => mnat.natFeature(p.payload.form),
+
+      payload: {
+
+        tim: tim,
+        ric: { gid: 'fractals', cid: 'fractals', fid: 'sphere'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.1, 'cp': 0.7},
+
+        form: {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        },
+
+        ereform: {    // ereform in the geometric domain
+
+          projection: 'uniwen',
+          translate: [ [[[0, 0]]] , [[[0, 0]]] ],
+          rotate: [ 0, 0 ],
+          scale: [1,-1,1],
+          lens: [0,1,Infinity],
+
+          anod: 1,  // compose geonode and geoform -- align with h.fractal
+
+        },
+
+      }
     }
+	  // -------------------------------  img
+  let img = {
 
+    halo: 'img',
 
+    geofold: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }    
   /*******************************************
  *    @enty
  *
  */
-  // fractform.payload.avatars = {
-    // avaPacer,
-  // }
+
 
   let animas = [
-    fractform // h.fractal
+    sphereForm, // h.ent
+    parentForm, // h.fractal
+    img // h.img
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

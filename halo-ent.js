@@ -73,7 +73,7 @@
       //
       gj = f.v(geofold, anigram)  // get geoform
       gj.properties = gj.properties || {} // recall genode
-      gj.properties.genode = gj.properties.genode || {} // recall genode properties
+      gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
      
       
     if (gj.type === 'FeatureCollection') {
@@ -113,6 +113,7 @@
       gj.properties.formEreformed = mgeoj.deprop(gj) // store ereform
 
       gj.properties.nodeEreformed = mproj3ct(gj.properties.nodeConformed, ereformion)   // nodeConformed => nodeEreformed
+   if (0 && 1) console.log("h.ent nodeEreformed", gj.properties.uid, gj.properties.nodeEreformed.geometry.coordinates)
 
 
       // ///
@@ -124,6 +125,7 @@
       // //
       let proformion = mprofier.proformion(anigram)
       gj = mproj3ct(gj, proformion)
+      
  if (0 && 1 && payload.uid == 'traces_traces_traces') {
       gj.properties.formProformed = mgeoj.deprop(gj)  // store proform
  if (0 && 1) console.log("proform ________", payload.uid)      

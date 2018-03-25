@@ -55,7 +55,11 @@
     props.isTripleArray = d => (Array.isArray(d) && Array.isArray(d[0]) && Array.isArray(d[0][0]) &&
         d.length === 1 && d[0].length === 1 && d[0][0].length === 1) // [[[_]]]    
         
-        
+      /***************************
+   *        @complex
+   */
+    props.zcoef = (rad, ang) => Complex({ re: rad * Math.cos(ang), im: rad * Math.sin(ang) })
+      
         
     /* **************************
    *        @interlink

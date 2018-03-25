@@ -187,7 +187,7 @@
           // if projection includes anod, translate geofold by geonode
           //
           if (projdef.anod && geofold.properties && geofold.properties.geonode) { 
-          
+if (1 && 1) console.log(" ****** anod", geofold.properties.uid, geofold.properties)          
             let geonode = geofold.properties.geonode  // geonode
             let nodetranslate = geonode.geometry.coordinates  // geonode coordinates for translate
             
