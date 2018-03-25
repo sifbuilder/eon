@@ -30,6 +30,10 @@
       dtc: null // Distance initial dot to center untransformed
     }
 
+   // event position
+    // let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
+    let getPos = r.getPos
+
     
     // start drag control
     let control = elem => elem.call(drag.on('start', dragstarted).on('drag', dragged).on('end', dragended))
@@ -44,7 +48,7 @@
       let projection = state.projection
 
       if (projection.invert !== undefined && projection.rotate !== undefined) {
-        state.p0 = r.getPos(e) // d3.mouse(this)
+        state.p0 = getPos(e) // d3.mouse(this)
          if (0 && 1) console.log('c.versor.dragstarted:p0', state.p0)                
         let inve0 = projection
                       .invert(state.p0)	// spherical invert mouse position
@@ -72,7 +76,7 @@
         if (state.v0 !== undefined && state.r0 !== undefined) {
           
 
-          let p0 = r.getPos(e)  // position of moving mouse in geometric space
+          let p0 = getPos(e)  // position of moving mouse in geometric space
           let rinvp0 = projection
                           .rotate(state.r0)
                           .invert(p0) 

@@ -15,7 +15,10 @@
   // https://github.com/wenliang-developer/web-developer-site
 
   let controlWen = function controlWen (__mapper = {}) {
-    let mgeom = __mapper('xs').m('geom')
+    
+    let r = __mapper('xs').r('renderport'),
+      mversor = __mapper('xs').m('versor')(),
+      mgeom = __mapper('xs').m('geom')
 
     let drag = d3.drag()
 
@@ -62,7 +65,8 @@
     }
 
     // event position
-    let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
+    // let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
+    let getPos = r.getPos
 
     // start drag control
     let control = elem => elem.call(drag.on('start', dragstarted).on('drag', dragged).on('end', dragended))
@@ -96,8 +100,10 @@
 
       let e = d3.event
       let pos = getPos(e) //  d3.mouse(this)
-      let dx = state.grabbed[1] - pos[1],
-        dy = -(state.grabbed[0] - pos[0])
+      // let dx = state.grabbed[1] - pos[1],
+        // dy = -(state.grabbed[0] - pos[0])
+      let dx = -(state.grabbed[0] - pos[0]),
+        dy = -(state.grabbed[1] - pos[1])
 
       if (!state.moved) {
         if (dx * dx + dy * dy < state.moveSpan) return
@@ -125,8 +131,10 @@
       let f = Math.max(0, 1 - (Date.now() - state.lastMoveTime))
       state.vel = [ // velocity
 
+        // (state.pPos[1] - state.cPos[1]) * inits.mult,
+        // (state.cPos[0] - state.pPos[0]) * inits.mult
+        (state.cPos[0] - state.pPos[0]) * inits.mult,
         (state.pPos[1] - state.cPos[1]) * inits.mult,
-        (state.cPos[0] - state.pPos[0]) * inits.mult
 
       ]
 
@@ -138,8 +146,10 @@
         state.vel[0] *= inits.decay 
         state.vel[1] *= inits.decay
         
+        // state.rotInDrag[0] += state.vel[0] 
+        // state.rotInDrag[1] += state.vel[1]
         state.rotInDrag[0] += state.vel[0] 
-        state.rotInDrag[1] += state.vel[1]
+        state.rotInDrag[1] -= state.vel[1]
         
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
