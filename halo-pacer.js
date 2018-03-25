@@ -232,7 +232,7 @@ if (0 && 1) console.log("anigram.payload", anigram.payload)
                     
                     coords.push(situs) // if beyond span ADD SITUS to LineString
                     // coords.push([situs[0]/2, situs[1]/2]) // if beyond span ADD SITUS to LineString
-                    if (1 && 1) console.log("h.pacer add", situs)
+                    if (0 && 1) console.log("h.pacer add", situs)
 
                     // geocoords.push(situs)
                     // geocoords.push([situs[0]/2, situs[1]/2])
@@ -306,7 +306,7 @@ if (0 && 1) console.log("h.pacer not aad")
                 if (presitus !== null) { // if paced item DOES exist
                   // distance from previous situs
                   let d = mgeom.distance3d(presitus, situs)
-if (1 && 1) console.log(" *********** h.pacer point translate")
+if (0 && 1) console.log(" *********** h.pacer point translate")
                   // if distance from previous point greater than span
                   if (d >= span) {
                     newItem.geofold.geometry.coordinates = [0, 0, 0]

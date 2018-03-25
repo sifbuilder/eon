@@ -12,13 +12,12 @@
     
     let props = __mapper('props')()
 
-    let margin = {top: 20, right: 10, bottom: 20, left: 10},
+    let margin = {top: 0, right: 0, bottom: 0, left: 0},
       viewWidth = props.viewWidth || 600,
       viewHeight = props.viewHeight || 400,      
       scaleView = Math.min(viewWidth / 2, viewHeight) / Math.PI,
       width = viewWidth - margin.left - margin.right,
       height = viewHeight - margin.top - margin.bottom
-    
     
     let projection = 'uniwen',
       prerotate = [0,0,0],
@@ -50,6 +49,25 @@
         lens
         
       })
+    
+    enty.getPos =  function (event) {
+      let pos
+      if (event.touches && event.touches.length) {
+          event = event.touches[0]
+          pos = [event.x, event.y]
+          
+          pos = enty.toviewproj().invert(pos)          
+          
+      } else {
+          pos = [event.x, event.y]
+          
+          // pos = enty.toviewproj().invert(pos)
+      }
+      pos = [ pos[0], pos[1] ]
+      if (0 && 1) console.log('event pos --------------- :', pos)      
+      return pos
+    }   
+    
     
     return enty
   }

@@ -1,10 +1,9 @@
+// https://d3js.org/d3-geo-projection/ Version 2.4.0. Copyright 2018 Mike Bostock.
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-geo'), require('d3-array'), require('d3-geo-polygon')) :
-	typeof define === 'function' && define.amd ? define(['exports', 'd3-geo', 'd3-array', 'd3-geo-polygon'], factory) :
-	(factory((global.d3 = global.d3 || {}),global.d3,global.d3,global.d3));
-}(this, (function (exports,d3Geo,d3Array,d3GeoPolygon) { 'use strict';
-
-// https://d3js.org/d3-geo-projection/ Version 2.3.1. Copyright 2017 Mike Bostock.
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-geo'), require('d3-array')) :
+	typeof define === 'function' && define.amd ? define(['exports', 'd3-geo', 'd3-array'], factory) :
+	(factory((global.d3 = global.d3 || {}),global.d3,global.d3));
+}(this, (function (exports,d3Geo,d3Array) { 'use strict';
 
 var abs = Math.abs;
 var atan = Math.atan;
@@ -1100,6 +1099,7 @@ var gilbert = function(projectionType) {
     return arguments.length ? (projection.center(gilbertForward(_)), gilbert) : gilbertInvert(projection.center());
   };
 
+  property("angle");
   property("clipAngle");
   property("clipExtent");
   property("scale");
@@ -1631,7 +1631,7 @@ function ellipticFi(phi, psi, m) {
   ];
 }
 
-// Calculate F(phi|m) where m = kÂ² = sinÂ²Î±.
+// Calculate F(phi|m) where m = k² = sin²α.
 // See Abramowitz and Stegun, 17.6.7.
 function ellipticF(phi, m) {
   if (!m) return phi;
@@ -1989,6 +1989,168 @@ homolosineRaw.invert = function(x, y) {
 
 var homolosine = function() {
   return d3Geo.geoProjection(homolosineRaw)
+      .scale(152.63);
+};
+
+// https://github.com/scijs/integrate-adaptive-simpson
+
+// This algorithm adapted from pseudocode in:
+// http://www.math.utk.edu/~ccollins/refs/Handouts/rich.pdf
+function adsimp (f, a, b, fa, fm, fb, V0, tol, maxdepth, depth, state) {
+  if (state.nanEncountered) {
+    return NaN;
+  }
+
+  var h, f1, f2, sl, sr, s2, m, V1, V2, err;
+
+  h = b - a;
+  f1 = f(a + h * 0.25);
+  f2 = f(b - h * 0.25);
+
+  // Simple check for NaN:
+  if (isNaN(f1)) {
+    state.nanEncountered = true;
+    return;
+  }
+
+  // Simple check for NaN:
+  if (isNaN(f2)) {
+    state.nanEncountered = true;
+    return;
+  }
+
+  sl = h * (fa + 4 * f1 + fm) / 12;
+  sr = h * (fm + 4 * f2 + fb) / 12;
+  s2 = sl + sr;
+  err = (s2 - V0) / 15;
+
+  if (depth > maxdepth) {
+    state.maxDepthCount++;
+    return s2 + err;
+  } else if (Math.abs(err) < tol) {
+    return s2 + err;
+  } else {
+    m = a + h * 0.5;
+
+    V1 = adsimp(f, a, m, fa, f1, fm, sl, tol * 0.5, maxdepth, depth + 1, state);
+
+    if (isNaN(V1)) {
+      state.nanEncountered = true;
+      return NaN;
+    }
+
+    V2 = adsimp(f, m, b, fm, f2, fb, sr, tol * 0.5, maxdepth, depth + 1, state);
+
+    if (isNaN(V2)) {
+      state.nanEncountered = true;
+      return NaN;
+    }
+
+    return V1 + V2;
+  }
+}
+
+function integrate (f, a, b, tol, maxdepth) {
+  var state = {
+    maxDepthCount: 0,
+    nanEncountered: false
+  };
+
+  if (tol === undefined) {
+    tol = 1e-8;
+  }
+  if (maxdepth === undefined) {
+    maxdepth = 20;
+  }
+
+  var fa = f(a);
+  var fm = f(0.5 * (a + b));
+  var fb = f(b);
+
+  var V0 = (fa + 4 * fm + fb) * (b - a) / 6;
+
+  var result = adsimp(f, a, b, fa, fm, fb, V0, tol, maxdepth, 1, state);
+
+/*
+  if (state.maxDepthCount > 0 && console && console.warn) {
+    console.warn('integrate-adaptive-simpson: Warning: maximum recursion depth (' + maxdepth + ') reached ' + state.maxDepthCount + ' times');
+  }
+
+  if (state.nanEncountered && console && console.warn) {
+    console.warn('integrate-adaptive-simpson: Warning: NaN encountered. Halting early.');
+  }
+*/
+
+  return result;
+}
+
+function hyperellipticalRaw(alpha, k, gamma) {
+
+  function elliptic (f) {
+    return alpha + (1 - alpha) * pow(1 - pow(f, k), 1 / k);
+  }
+
+  function z(f) {
+    return integrate(elliptic, 0, f, 1e-4);
+  }
+
+  var G = 1 / z(1),
+      n = 1000,
+      m = (1 + 1e-8) * G,
+      approx = [];
+  for (var i = 0; i <= n; i++)
+      approx.push(z(i / n) * m);
+
+  function Y(sinphi) {
+    var rmin = 0, rmax = n, r = n >> 1;
+    do {
+      if (approx[r] > sinphi) rmax = r; else rmin = r;
+      r = (rmin + rmax) >> 1;
+    } while (r > rmin);
+    var u = approx[r + 1] - approx[r];
+    if (u) u = (sinphi - approx[r + 1]) / u;
+    return (r + 1 + u) / n;
+  }
+
+  var ratio = 2 * Y(1) / pi * G / gamma;
+
+  var forward = function(lambda, phi) {
+    var y = Y(abs(sin(phi))),
+        x = elliptic(y) * lambda;
+    y /= ratio;
+    return [ x, (phi >= 0) ? y : -y ];
+  };
+
+  forward.invert = function(x, y) {
+    var phi;
+    y *= ratio;
+    if (abs(y) < 1) phi = sign(y) * asin(z(abs(y)) * G);
+    return [ x / elliptic(abs(y)), phi ];
+  };
+
+  return forward;
+}
+
+var hyperelliptical = function() {
+  var alpha = 0,
+      k = 2.5,
+      gamma = 1.183136, // affine = sqrt(2 * gamma / pi) = 0.8679
+      m = d3Geo.geoProjectionMutator(hyperellipticalRaw),
+      p = m(alpha, k, gamma);
+
+  p.alpha = function(_) {
+    return arguments.length ? m(alpha = +_, k, gamma) : alpha;
+  };
+
+  p.k = function(_) {
+    return arguments.length ? m(alpha, k = +_, gamma) : k;
+  };
+
+  p.gamma = function(_) {
+    return arguments.length ? m(alpha, k, gamma = +_) : gamma;
+  };
+
+  return p
       .scale(152.63);
 };
 
@@ -2823,16 +2985,10 @@ function angle$1(a, b) {
 //    augmented with a transform matrix.
 //  * face: a function that returns the appropriate node for a given {lambda, phi}
 //    point (radians).
-//  * r: rotation angle for final polyhedral net.  Defaults to -pi / 6 (for
-//    butterflies).
+//  * r: rotation angle for root face [deprecated by .angle()].
 var polyhedral = function(root, face, r) {
 
-  r = r == null ? -pi / 6 : r; // TODO automate
-
-  recurse(root, {transform: [
-    cos(r), sin(r), 0,
-    -sin(r), cos(r), 0
-  ]});
+  recurse(root, {transform: null});
 
   function recurse(node, parent) {
     node.edges = faceEdges(node.face);
@@ -2910,37 +3066,25 @@ var polyhedral = function(root, face, r) {
   var proj = d3Geo.geoProjection(forward),
       stream_ = proj.stream;
 
-  // if d3-geo-polygon and proj.preclip are available:
-  // run around the mesh of faces and stream all vertices to create the clipping polygon
-  if (d3GeoPolygon.geoClipPolygon && proj.preclip) {
-    var polygon = [];
-    outline({point: function(lambda, phi) { polygon.push([lambda, phi]); }}, 1e-4, root);
-    proj.preclip(d3GeoPolygon.geoClipPolygon({ type: "Polygon", coordinates: [ polygon ] }));
-  }
-
-  function noClip(s) { return s; }
-
   proj.stream = function(stream) {
     var rotate = proj.rotate(),
-        preclip = proj.preclip ? proj.preclip() : null,
         rotateStream = stream_(stream),
-        sphereStream = ((preclip ? proj.preclip(noClip) : proj).rotate([0, 0]), stream_(stream));
+        sphereStream = (proj.rotate([0, 0]), stream_(stream));
     proj.rotate(rotate);
-    if (preclip) proj.preclip(preclip);
     rotateStream.sphere = function() {
       sphereStream.polygonStart();
       sphereStream.lineStart();
-      outline(sphereStream, epsilon, root);
+      outline(sphereStream, root);
       sphereStream.lineEnd();
       sphereStream.polygonEnd();
     };
     return rotateStream;
   };
 
-  return proj;
+  return proj.angle(r == null ? -30 : r * degrees);
 };
 
-function outline(stream, epsilon$$1, node, parent) {
+function outline(stream, node, parent) {
   var point,
       edges = node.edges,
       n = edges.length,
@@ -2955,7 +3099,7 @@ function outline(stream, epsilon$$1, node, parent) {
   var c = dx === 180 || dx === 360
       ? [(b[0][0] + b[1][0]) / 2, (b[0][1] + b[1][1]) / 2]
       : d3Geo.geoCentroid(multiPoint);
-  // First find the shared edgeâ€¦
+  // First find the shared edge…
   if (parent) while (++j < n) {
     if (edges[j] === parent) break;
   }
@@ -2964,13 +3108,13 @@ function outline(stream, epsilon$$1, node, parent) {
     edge = edges[(i + j) % n];
     if (Array.isArray(edge)) {
       if (!inside) {
-        stream.point((point = d3Geo.geoInterpolate(edge[0], c)(epsilon$$1))[0], point[1]);
+        stream.point((point = d3Geo.geoInterpolate(edge[0], c)(epsilon))[0], point[1]);
         inside = true;
       }
-      stream.point((point = d3Geo.geoInterpolate(edge[1], c)(epsilon$$1))[0], point[1]);
+      stream.point((point = d3Geo.geoInterpolate(edge[1], c)(epsilon))[0], point[1]);
     } else {
       inside = false;
-      if (edge !== parent) outline(stream, epsilon$$1, edge, node);
+      if (edge !== parent) outline(stream, edge, node);
     }
   }
 }
@@ -3051,6 +3195,7 @@ var butterfly = function(faceProjection) {
             : lambda < pi / 2 ? phi < 0 ? 3 : 1
             : phi < 0 ? 7 : 5];
       })
+      .angle(-30)
       .scale(101.858)
       .center([0, 45]);
 };
@@ -3088,6 +3233,7 @@ var collignon$1 = function(faceProjection) {
             : lambda < pi / 2 ? phi < 0 ? 3 : 1
             : phi < 0 ? 7 : 5];
       })
+      .angle(-30)
       .scale(121.906)
       .center([0, 48.5904]);
 };
@@ -3173,6 +3319,7 @@ var waterman = function(faceProjection) {
   }
 
   return polyhedral(faces[0], face)
+      .angle(-30)
       .scale(110.625)
       .center([0,45]);
 };
@@ -3706,7 +3853,7 @@ function extractFragments(rings, polygon, fragments) {
   for (var j = 0, m = rings.length; j < m; ++j) {
     var ring = rings[j].slice();
 
-    // By default, assume that this ring doesnâ€™t need any stitching.
+    // By default, assume that this ring doesn’t need any stitching.
     fragments.push({index: -1, polygon: polygon, ring: ring});
 
     for (var i = 0, n = ring.length; i < n; ++i) {
@@ -3714,11 +3861,11 @@ function extractFragments(rings, polygon, fragments) {
           x = point[0],
           y = point[1];
 
-      // If this is an antimeridian or polar pointâ€¦
+      // If this is an antimeridian or polar point…
       if (x <= x0e || x >= x1e || y <= y0e || y >= y1e) {
         ring[i] = clampPoint(point);
 
-        // Advance through any antimeridian or polar pointsâ€¦
+        // Advance through any antimeridian or polar points…
         for (var k = i + 1; k < n; ++k) {
           var pointk = ring[k],
               xk = pointk[0],
@@ -3727,7 +3874,7 @@ function extractFragments(rings, polygon, fragments) {
         }
 
         // If this was just a single antimeridian or polar point,
-        // we donâ€™t need to cut this ring into a fragment;
+        // we don’t need to cut this ring into a fragment;
         // we can just leave it as-is.
         if (k === i + 1) continue;
 
@@ -3771,7 +3918,7 @@ function stitchFragments(fragments) {
       end,
       endFragment;
 
-  // For each fragmentâ€¦
+  // For each fragment…
   for (i = 0; i < n; ++i) {
     fragment = fragments[i];
     start = fragment.ring[0];
@@ -3788,7 +3935,7 @@ function stitchFragments(fragments) {
     fragmentByStart[start] = fragmentByEnd[end] = fragment;
   }
 
-  // For each open fragmentâ€¦
+  // For each open fragment…
   for (i = 0; i < n; ++i) {
     fragment = fragments[i];
     if (fragment) {
@@ -4370,6 +4517,8 @@ exports.geoHill = hill;
 exports.geoHillRaw = hillRaw;
 exports.geoHomolosine = homolosine;
 exports.geoHomolosineRaw = homolosineRaw;
+exports.geoHyperelliptical = hyperelliptical;
+exports.geoHyperellipticalRaw = hyperellipticalRaw;
 exports.geoInterrupt = interrupt;
 exports.geoInterruptedBoggs = boggs$1;
 exports.geoInterruptedHomolosine = homolosine$1;

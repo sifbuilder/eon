@@ -27,6 +27,8 @@
  */
     let mappion = function (prjdef) {
       
+      if (0 && 1) console.log("prjdef", prjdef)
+      
       let prj, prjname  // projection and projection name
 
       if (prjdef !== undefined) {
@@ -59,12 +61,7 @@
           
         }
 
-        
-        // if (prjdef.invert && prj.invert !== undefined) {
-// if (0 && 1) console.log("prj invert", prj.invert)          
-          // prj = prj.invert
-          
-        // }
+
         
         // if not uniwen, rotation and prerotation must be combined
         if (prjname !== 'uniwen' && prj.rotate !== undefined) {
@@ -187,7 +184,7 @@
           // if projection includes anod, translate geofold by geonode
           //
           if (projdef.anod && geofold.properties && geofold.properties.geonode) { 
-if (1 && 1) console.log(" ****** anod", geofold.properties.uid, geofold.properties)          
+if (0 && 1) console.log(" ****** anod", geofold.properties.uid, geofold.properties)          
             let geonode = geofold.properties.geonode  // geonode
             let nodetranslate = geonode.geometry.coordinates  // geonode coordinates for translate
             
