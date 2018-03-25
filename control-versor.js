@@ -19,9 +19,9 @@
 
     let state = {
       projection: d3.geoOrthographic()
-        .rotate([0,0,0])
+        .rotate([0, 0])
         .translate([0, 0])
-        .scale(90),
+        .scale(1),
       rotation: [0, 0, 0],
       v0: null, // Mouse cartesian position invprojected
       r0: null, // Projection rotation as Euler angles at start
@@ -45,17 +45,18 @@
 
       if (projection.invert !== undefined && projection.rotate !== undefined) {
         state.p0 = r.getPos(e) // d3.mouse(this)
-         if (1 && 1) console.log('c.versor.dragstarted:p0', state.p0)                
-        let inve0 = projection.invert(state.p0)	// spherical invert mouse position
-        if (1 && 1) console.log('c.versor.dragstarted:inve0', inve0)
+         if (0 && 1) console.log('c.versor.dragstarted:p0', state.p0)                
+        let inve0 = projection
+                      .invert(state.p0)	// spherical invert mouse position
+        if (0 && 1) console.log('c.versor.dragstarted:inve0', inve0)
           
         if (inve0 !== undefined) {
-          state.v0 = mgeom.cartesian(inve0)
-          state.r0 = projection.rotate()			// rotation
-          state.q0 = mversor(state.r0)
+          state.v0 = mgeom.cartesian(inve0) // cartesian in unit 3d-sphere
+          state.r0 = projection.rotate()		// rotate
+          state.q0 = mversor(state.r0)      // quaternion
         }
         
-         if (1 && 1) console.log('c.versor.dragstarted:p0', state.v0, state.q0)
+         if (0 && 1) console.log('c.versor.dragstarted:p0', state.v0, state.q0)
        
         
       }
@@ -70,19 +71,28 @@
       if (projection.invert !== undefined && projection.rotate !== undefined) {
         if (state.v0 !== undefined && state.r0 !== undefined) {
           
-          let p0 = r.getPos(e)
 
-          // let rinvp0 = projection.rotate(state.r0).invert(getPos(e))
-          let rinvp0 = projection.rotate(state.r0).invert(p0)
+          let p0 = r.getPos(e)  // position of moving mouse in geometric space
+          let rinvp0 = projection
+                          .rotate(state.r0)
+                          .invert(p0) 
           
           
-          if (0 && 1) console.log('c.versor.dragged', p0, rinvp0)        
+          if (0 && 1) console.log('c.versor.dragged', state.q0, rinvp0)        
             
           if (rinvp0 !== undefined) {
             let v1 = mgeom.cartesian(rinvp0)
-            let q1 = mversor.multiply(state.q0, mversor.delta(state.v0, v1))
-            let r1 = mversor.rotation(q1)
-
+            
+            // state.q0 is the quaternion from the start of the movement
+            
+            let delta = mversor.delta(state.v0, v1)
+            
+            if (1 && 1) console.log("delta", state.v0, v1, delta)
+            let q1 = mversor.multiply(state.q0, delta)
+            let r1 = mversor
+                      .rotation(q1)
+         if (1 && 1) console.log('c.versor.dragged rotation', r1)        
+ 
             state.rotation = r1 // set global rotate
           }
         }

@@ -76,12 +76,14 @@
           else if (prjdef.control === 'versor') control = cversor // VERSOR
 
           if (control !== undefined) {
+            
+         
               let controlRotation = control
                 .projection(prj) // tbd
                 .rotation() // rotation from control wen
-
+if (1 && 1) console.log("control controlRotation", controlRotation)  
               rot = mgeom.add(rot, controlRotation)
-
+ 
               if (dims == 2) { // planar rotation
                 rot = mwen.cross([rot[0], 0, 0], [0, rot[1], 0])
               }
