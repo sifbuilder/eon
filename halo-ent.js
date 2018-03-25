@@ -65,25 +65,25 @@
         parentuid = payload.parentuid // parentuid
 
 
-    let gj
+      let gj  
      
-    
     
       //  get GEOFORM
       //
       gj = f.v(geofold, anigram)  // get geoform
+       
+      if (gj.type === 'FeatureCollection') {
+        
+      } else if (gj.type === 'Feature') {
+        
+      } else {  // geometry
+        
+      }
+         
+      
       gj.properties = gj.properties || {} // recall genode
       gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
-     
-      
-    if (gj.type === 'FeatureCollection') {
-      
-    } else if (gj.type === 'Feature') {
-      
-    } else {
-      
-    }
-    
+
     
       if (!mgeoj.isValid(gj)) { console.error("h.ent:gj not valid", geofold, gj) }
       gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
