@@ -63,90 +63,68 @@
         conform = payload.conform, // conform
         uid = payload.uid, // uid
         parentuid = payload.parentuid // parentuid
-
-
-      let gj  
-     
     
       //  get GEOFORM
       //
+      let gj  
       gj = f.v(geofold, anigram)  // get geoform
-       
-      if (gj.type === 'FeatureCollection') {
-        
-      } else if (gj.type === 'Feature') {
-        
-      } else {  // geometry
-        
-      }
-         
-      
       gj.properties = gj.properties || {} // recall genode
       gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
-
     
       if (!mgeoj.isValid(gj)) { console.error("h.ent:gj not valid", geofold, gj) }
       gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
-      
       gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
-    
-      // ///
-      //    CONFORM
-      //    conform does not affect geonode
-      // //
-      gj = mprofier.conformer(anigram)(gj)  // get conform
-      gj.properties.formConformed = mgeoj.deprop(gj) // store conform
-      
-      gj.properties.nodeConformed = gj.properties.geonode // nodeConformed : geonode
 
+      let features = mgeoj.featurize(gj)
+      if (1 && 1) console.log("features", features)       
 
-      // ///
-      //    EREFORM the conformed geofold
-      //    uniwen: prerotation, tranlations, scale, project, rotation
-      //
-      //    EREFORM geonode in geonode..nodeProformed
-      //    geonode retains GEOFORM domain
-      // //
-      let ereformion = mprofier.ereformion(anigram)
-      gj = mproj3ct(gj, ereformion)
-      
-      gj.properties.formEreformed = mgeoj.deprop(gj) // store ereform
+      features = features.map( (feature,i) => {
+            // ///
+            //    CONFORM
+            //    conform does not affect geonode
+            // //
+            feature = mprofier.conformer(anigram)(feature)  // get conform
+            feature.properties.formConformed = mgeoj.deprop(feature) // store conform
+            
+            feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
 
-      gj.properties.nodeEreformed = mproj3ct(gj.properties.nodeConformed, ereformion)   // nodeConformed => nodeEreformed
-   if (0 && 1) console.log("h.ent nodeEreformed", gj.properties.uid, gj.properties.nodeEreformed.geometry.coordinates)
+            // ///
+            //    EREFORM the conformed geofold
+            //    uniwen: prerotation, tranlations, scale, project, rotation
+            //    geonode in geonode..nodeProformed - retains GEOFORM domain
+            // //
+            let ereformion = mprofier.ereformion(anigram)
+            feature = mproj3ct(feature, ereformion)
+            
+            feature.properties.formEreformed = mgeoj.deprop(feature) // store ereform
 
+            feature.properties.nodeEreformed = mproj3ct(feature.properties.nodeConformed, ereformion)   // nodeConformed => nodeEreformed
 
-      // ///
-      //    PROFORM the conformed geofold
-      //    uniwen: prerotation, tranlations, scale, project, rotation
-      //
-      //    PROFORM geonode in geonode..nodeProformed
-      //    geonode retains GEOFORM domain
-      // //
-      let proformion = mprofier.proformion(anigram)
-      gj = mproj3ct(gj, proformion)
-      
- if (0 && 1 && payload.uid == 'traces_traces_traces') {
-      gj.properties.formProformed = mgeoj.deprop(gj)  // store proform
- if (0 && 1) console.log("proform ________", payload.uid)      
- if (0 && 1) console.log("ereform", payload.uid, gj.properties.formEreformed.geometry.coordinates)
- if (0 && 1) console.log("proform", payload.uid, gj.properties.formProformed.geometry.coordinates)
- }
-      gj.properties.nodeProformed = mproj3ct(gj.properties.nodeEreformed, proformion) // nodeEreformed => nodeProformed
-
-    
-        gj = mgeoj.featurize(gj) // featurize
-        gj = mboform.boformer(anigram, gj) // boform
-        gj = mgeoj.zorder(gj) // order
-        gj = mric.qualier(ric, anigram, gj) // qualify
-
+            // ///
+            //    PROFORM the conformed geofold
+            //    uniwen: prerotation, tranlations, scale, project, rotation
+            //    geonode in geonode..nodeProformed - retains GEOFORM domain
+            // //
+            let proformion = mprofier.proformion(anigram)
+            feature = mproj3ct(feature, proformion)
+            
+            feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion) // nodeEreformed => nodeProformed
+            
+            feature = mboform.boformer(anigram, feature) // boform feature or feature collection
+            
+            return feature
+      })
         
-        newAnigrams = gj.features.map((d, i) => { // d is feature
+        let gjcollection = {type: 'FeatureCollection', features}
+    
+        // gj = mgeoj.featurecollect(gj) // featurecollect - pack features in collection
+        gjcollection = mgeoj.zorder(gjcollection) // order features in feature collection
+        gjcollection = mric.enric(ric, anigram, gjcollection) // ric to feature or feature collection
 
+        newAnigrams = gjcollection.features.map((d, i) => { // d is feature
 
           d.properties.tim = tim  // tim in geofold
           d.properties.vim = vim  // vim in geofold needed to render
-
           
           let newAnigram = {
             halo: halo, // inherit halo

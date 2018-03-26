@@ -65,11 +65,11 @@
       return ric
     }
     /* **************************
- *        @qualier
+ *        @enric
  *				ani.ric => ani.feature.pros.ric => feature.id => ani.uid
  */
 
-    let qualier = function (ric = {}, anigram, json) {
+    let enric = function (ric = {}, anigram, json) {
 
       if (json.type === undefined) {
         console.log('type undefined')
@@ -161,7 +161,7 @@
     let enty = function enty () {}
     enty.getAnigramRic = getAnigramRic // build ric from anigram, i
     enty.getuid = getuid
-    enty.qualier = qualier
+    enty.enric = enric
 
     return enty
   }

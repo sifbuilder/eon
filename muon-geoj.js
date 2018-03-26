@@ -172,17 +172,11 @@
 
       return geo
     }
-
-    /**********************
+   /**********************
    *   		 @featurize
    */
     let featurize = function (json) {
-      // a halo generate anigrams, each anigram with its own gjson
-      // gjson is of a geojson type supporting properties
-      // anigram gjson will be featurize and each feature then rendered
-      // gjson.properties carries:
-      //	ric
-      //	sort
+
       let features = []
       if (json && json.type) {
         let type = json.type
@@ -204,11 +198,26 @@
             geometry: {
               type: json.type,
               coordinates: json.coordinates},
-            properties: {}})
+            properties: {geonode: {}}})
         }
       } else {
         console.log('m.geoj.featurize not supported geojson ',json)
       }
+
+      return features
+    }
+    /**********************
+   *   		 @featurecollect
+   */
+    let featurecollect = function (json) {
+      // a halo generate anigrams, each anigram with its own gjson
+      // gjson is of a geojson type supporting properties
+      // anigram gjson will be featurecollect and each feature then rendered
+      // gjson.properties carries:
+      //	ric
+      //	sort
+      let features = []
+      featurize = featurize(json)
 
       return {type: 'FeatureCollection', features}
     }
@@ -422,6 +431,7 @@
     enty.lineStringFromStream = lineStringFromStream
     enty.polygonFromStream = polygonFromStream
     enty.multLineStringFromStreamArray = multLineStringFromStreamArray
+    enty.featurecollect = featurecollect
     enty.featurize = featurize
     enty.zorder = zorder
     enty.centroid = centroid

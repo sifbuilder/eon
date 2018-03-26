@@ -12,6 +12,9 @@
     let f = __mapper('props')()
     let mstore = __mapper('xs').m('store')
 
+    /* *********************
+   *    getStyle - process style attributes
+   */
     let getStyle = function (boform) {
       let style = {}
       if (boform !== undefined) {
@@ -28,19 +31,25 @@
     }
 
     /* *********************
-   *    @m.boform.boformer(boform, anigram, json)
+   *    @m.boform.boformer(anigram, json)
    */
     let boformer = function (anigram, json) {
       if (json !== undefined && json !== null) {
         if (json.type === undefined) {
-          console.log('type undefined')
+          
+          if (1 && 2) console.log('m.boform.boformer:json.type undefined')
+            
         } else if (typeof anigram.payload.boform !== 'object') {
-          console.log('boform is not an object')
-        } else if (json.type === 'Feature') {
+          
+          if (1 && 2) console.log('m.boform.boformer boform is not an object')
+            
+        } else if (json.type === 'Feature') { // Feature
+          
           let feature = json
 
           let anigramBoform = anigram.payload.boform
-          let featureBoform = {}, featureStyle = {}
+          let featureBoform = {}, 
+            featureStyle = {}
           if (feature.properties !== undefined && feature.properties.boform !== undefined) {
             featureBoform = feature.properties.boform
           }
@@ -53,7 +62,9 @@
 
           if (feature.properties === undefined) feature.properties = {}
           feature.properties.style = Object.assign(jsonStyle, featureStyle)
-        } else if (json.type === 'FeatureCollection') {
+          
+        } else if (json.type === 'FeatureCollection') { // FeatureCollection
+          
           for (let i = 0; i < json.features.length; i++) {
             let feature = json.features[i]
             feature = boformer(anigram, feature)
