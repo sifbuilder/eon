@@ -102,8 +102,8 @@
       let pos = getPos(e) //  d3.mouse(this)
       // let dx = state.grabbed[1] - pos[1],
         // dy = -(state.grabbed[0] - pos[0])
-      let dx = -(state.grabbed[0] - pos[0]),
-        dy = -(state.grabbed[1] - pos[1])
+      let dx = (state.grabbed[0] - pos[0]),
+        dy = (state.grabbed[1] - pos[1])
 
       if (!state.moved) {
         if (dx * dx + dy * dy < state.moveSpan) return

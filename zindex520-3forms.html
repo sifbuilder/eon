@@ -35,58 +35,23 @@ let muonAlima = function muonAlima (__mapper) {
   let geofold = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0]}, properties: {pointRadius: 6}}
 
   let translate = {'m1': 4,
-    'm2': 4,
-    'n1': 2,
-    'n2': 2,
-    'n3': 2,
-    'a': 1,
-    'b': 1, // circle
-    'ra2': 60,
-    'v0': 0,
-    'v1': 1,
-    'w4': 90,
-    'seg5': 360,
-    'pa6': 0,
-    'pb7': -1,
+    'm2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
+    'ra2': 60,'v0': 0,'v1': 1,'w4': 90,'seg5': 360,'pa6': 0,'pb7': -1,
     }
   let proform = {projection: 'uniwen', scale: 1, translate: [ 0, 0, 0 ], rotate: [ 0, 0, 0 ], lens: [0, 1, Infinity]}
   let conform = { 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1}
 
   let f1x = {		// http://paulbourke.net/geometry/supershape/C_0011.jpg
-    'm1': 8,
-    'm2': 8,
-    'n1': 60,
-    'n2': 100,
-    'n3': 30,
-    'a': 1,
-    'b': 1,	//
-    'ra2': 60,
-    'v0': 0,
-    'v1': 1,
-    'seg5': 120,
-    'w4': 0,
-    'pa6': 0,
-    'pb7': -1,
+    'm1': 8,'m2': 8,'n1': 60,'n2': 100,'n3': 30,'a': 1,'b': 1,	//
+    'ra2': 60,'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1,
     
     'dom3': [-180, 180],
     
     
   }
   let f1y = {
-    'm1': 8,
-    'm2': 8,
-    'n1': 60,
-    'n2': 100,
-    'n3': 30,
-    'a': 1,
-    'b': 1,	//
-    'ra2': 60,
-    'v0': 0,
-    'v1': 1,
-    'seg5': 120,
-    'w4': 0,
-    'pa6': 0,
-    'pb7': -1,
+    'm1': 8,'m2': 8,'n1': 60,'n2': 100,'n3': 30,'a': 1,'b': 1,	//
+    'ra2': 60,'v0': 0,'v1': 1,'seg5': 120,'w4': 0,'pa6': 0,'pb7': -1,
     
     'dom3': [-180, 180],
     
@@ -667,7 +632,7 @@ let muonAlima = function muonAlima (__mapper) {
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p1'},
-      proform: Object.assign({}, proform, {translate: [150, 100, 0] })}
+      proform: Object.assign({}, proform, {translate: [150 - 300, 100 - 200, 0] })}
   }
   let p2 = {
     halo: 'ent',
@@ -675,7 +640,7 @@ let muonAlima = function muonAlima (__mapper) {
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p2'},
-      proform: Object.assign({}, proform, {translate: [250, 100, 0] })
+      proform: Object.assign({}, proform, {translate: [250 - 300, 100 - 200, 0] })
     }
   }
   let p3 = {
@@ -685,7 +650,7 @@ let muonAlima = function muonAlima (__mapper) {
       boform,
       form: {x: f3x, y: f3y, z: f3z},
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p3'},
-      proform: Object.assign({}, proform, {translate: [350, 100, 0] })}
+      proform: Object.assign({}, proform, {translate: [350 - 300, 100 - 200, 0] })}
   }
   let p4 = {
     halo: 'ent',
@@ -694,7 +659,7 @@ let muonAlima = function muonAlima (__mapper) {
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p4'},
       boform,
       conform: {'projection': 'natform', 'form': {x: f4x, y: f4y, z: f4z}},
-      proform: Object.assign({}, proform, {translate: [300, 200, 0] })} // [450, 100, 0] })}
+      proform: Object.assign({}, proform, {translate: [300 - 300, 200 - 200, 0] })} // [450, 100, 0] })}
   }
   let p5 = {
     halo: 'ent',
@@ -714,7 +679,7 @@ let muonAlima = function muonAlima (__mapper) {
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p5'},
       boform,
       conform: {'projection': 'natform', 'form': {x: f5x, y: f5y, z: f5z}},
-      proform: Object.assign({}, proform, {translate: [150, 200, 0], rotate: [ [[[0, 90]]], [[[0, 90]]], 0] })}
+      proform: Object.assign({}, proform, {translate: [150 - 300, 200 - 200, 0], rotate: [ [[[0, 90]]], [[[0, 90]]], 0] })}
   }
 
   let p6 = {
@@ -724,7 +689,7 @@ let muonAlima = function muonAlima (__mapper) {
       boform,
       form: {x: f6x, y: f6y, z: f6z},
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p6'},
-      proform: Object.assign({}, proform, {translate: [400, 300, 0] })}
+      proform: Object.assign({}, proform, {translate: [400 - 300, 300 - 200, 0] })}
   }
 
   // geoearth
@@ -748,7 +713,7 @@ let muonAlima = function muonAlima (__mapper) {
       proform: {
         'projection': 'orthographic',
         'scale': [[[100, 0.5]]],
-        'translate': [100, 300, 0],
+        'translate': [100 - 300, 300 - 200, 0],
         'rotate': [ [[[0, -1 * 360]]], 0, 0 ],
         'control': 'versor'
 

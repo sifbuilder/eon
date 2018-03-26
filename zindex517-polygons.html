@@ -21,10 +21,6 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props()
-  let g = __mapper('xs').m('geom')
-  let w = __mapper('xs').m('wen')
-
   /**********************
    *    @
    */
@@ -37,8 +33,12 @@ let muonAlima = function muonAlima (__mapper) {
     rotMatrix,
     stars = []
 
-  let versor = __mapper('xs').m('versor')()
-  let wen = __mapper('xs').c('wen')({rotInit})
+
+  let f = __mapper('props')(),
+   mgeom = __mapper('xs').m('geom'),
+   mwen = __mapper('xs').m('wen'),
+   mversor = __mapper('xs').m('versor')()
+   cwen = __mapper('xs').c('wen')({rotInit})
 
   /*******************************************
  *    @pics
@@ -89,11 +89,12 @@ let muonAlima = function muonAlima (__mapper) {
       boform: {'csx': 0, 'cf': [[[666, 777, 666, 777, 666, 777, 666]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
       proform: {
 
-        'projection': 'uniwen',
-        'translate': [ 200, 200],
-        'scale': 100,
-        'rotate': [0, 0, 0], // [-5,50,0],
-        'lens': [0, 1, Infinity],
+        projection: 'uniwen',
+        translate: [ 200 - 300, 200 - 200 ],
+        scale: 90,
+        rotate: [0, 0, 0], // [-5,50,0],
+        lens: [0, 1, Infinity],
+        prerotate: [[[ cwen.rotation ]]],
       }
     }
 
@@ -139,10 +140,11 @@ let muonAlima = function muonAlima (__mapper) {
       proform: {
 
         'projection': 'uniwen',
-        'translate': [ 0, 0],
-        'scale': 100,
+        'translate': [ 400 - 300, 200 - 200],
+        'scale': 90,
         'rotate': [0, 0, 0],
         'lens': [0, 1, Infinity],
+         prerotate: [[[ cwen.rotation ]]],
       }
     }
 
@@ -153,8 +155,8 @@ let muonAlima = function muonAlima (__mapper) {
  *
  */
   let animas = [
-    idPolygon, // h.ent g.uniwen
-    wenPolygon // h.ent g.uniwen
+    idPolygon, // h.ent mgeom.uniwen
+    wenPolygon // h.ent mgeom.uniwen
 
   ]
   let animaApi = function animaApi () {

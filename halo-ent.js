@@ -71,13 +71,11 @@
       gj.properties = gj.properties || {} // recall genode
       gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
     
-      if (!mgeoj.isValid(gj)) { console.error("h.ent:gj not valid", geofold, gj) }
+      if (1 && 2 && !mgeoj.isValid(gj)) { console.error("h.ent:gj not valid", geofold, gj) }
       gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
       gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
 
-      let features = mgeoj.featurize(gj)
-      if (1 && 1) console.log("features", features)       
-
+      let features = mgeoj.featurize(gj)  // geojson to geojson features
       features = features.map( (feature,i) => {
             // ///
             //    CONFORM

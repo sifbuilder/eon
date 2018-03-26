@@ -33,21 +33,10 @@ let muonAlima = function muonAlima (__mapper) {
   let geofold = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0]}, properties: {pointRadius: 6}}
 
   let translate = {'m1': 4,
-    'm2': 4,
-    'n1': 2,
-    'n2': 2,
-    'n3': 2,
-    'a': 1,
-    'b': 1, // circle
-    'ra2': 100,
-    'v0': 0,
-    'v1': 1,
-    'w4': 90,
-    'seg5': 360,
-    'pa6': 0,
-    'pb7': -1,
-    }
-  let proform = {projection: 'uniwen', scale: 1, translate: [ 0, 100 ], rotate: [ 0, 0 ]}
+    'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+    'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+  }
+  let proform = {projection: 'uniwen', scale: 1, translate: [ 0 - 300, 100 ], rotate: [ 0, 0 ]}
 
   /*******************************************
  *    @animas
@@ -58,7 +47,7 @@ let muonAlima = function muonAlima (__mapper) {
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p1'},
-      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ 100, 125 ]]], 100, 0 ] }}
+      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ 100 - 300, 125 ]]], 100 - 200, 0 ] }}
   }
 
   let p2 = {
@@ -67,7 +56,7 @@ let muonAlima = function muonAlima (__mapper) {
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p2'},
-      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [[[ () => [ [[[150, 175]]], 100, 0] ]]] }}
+      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [[[ () => [ [[[150 - 300, 175 - 200]]], 100, 0] ]]] }}
   }
 
   let p3 = {
@@ -76,7 +65,7 @@ let muonAlima = function muonAlima (__mapper) {
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p3'},
-      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ t => (() => 175)() ]]], 100 ] }}
+      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ t => (() => 175 - 300)() ]]], 100 - 200 ] }}
   }
 
   let p4 = {
@@ -85,7 +74,7 @@ let muonAlima = function muonAlima (__mapper) {
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p4'},
-      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ 200, 225 ]]], 100, 0 ] }}
+      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ 200 - 300, 225 - 300 ]]], 100 - 200, 0 ] }}
   }
 
   let p5 = {
@@ -94,7 +83,7 @@ let muonAlima = function muonAlima (__mapper) {
     payload: {tim,
       boform,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p5'},
-      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: {x: [[[250, 275]]], y: 100 } }}
+      proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: {x: [[[250 - 300, 275 - 300]]], y: 100 - 200 } }}
   }
 
   let p6 = {
@@ -106,7 +95,7 @@ let muonAlima = function muonAlima (__mapper) {
       proform: {
         projection: 'uniwen',
         translate: [[[ () => {
-          let geo = {'type': 'LineString', 'coordinates': [ [300, 100, 0], [325, 100, 0], [300, 100, 0] ]}
+          let geo = {'type': 'LineString', 'coordinates': [ [300 - 300, 100, 0], [325 - 300, 100, 0], [300 - 300, 100 - 200, 0] ]}
           return f.ta(mlacer.unslide(geo.coordinates)) // dimensional triple array
         } ]]] }
     }}
@@ -122,38 +111,14 @@ let muonAlima = function muonAlima (__mapper) {
         rotate: [ 0, 0, 0 ],
         translate: [[[ {
           'x': {
-            'm1': 4,
-            'm2': 4,
-            'n1': 2,
-            'n2': 2,
-            'n3': 2,
-            'a': 1,
-            'b': 1, // circle
-            'ra2': 100,
-            'v0': 0,
-            'v1': 1,
-            'w4': 90,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
-            
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+
           },
           'y': {
-            'm1': 4,
-            'm2': 4,
-            'n1': 100,
-            'n2': 100,
-            'n3': 100,
-            'a': 1,
-            'b': 1, // square
-            'ra2': 100,
-            'v0': 0,
-            'v1': 1,
-            'w4': 90,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
-            
+            'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+            'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+
           }
         } ]]]
       }
@@ -169,38 +134,14 @@ let muonAlima = function muonAlima (__mapper) {
         scale: 1,
         rotate: [ 0, 0, 0 ],
         translate: [ [[[ {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 100,
-          'v0': 0,
-          'v1': 1,
-          'w4': 90,
-          'seg5': 360,
-          'pa6': 0,
-          'pb7': -1,
-          
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+
         } ]]],
         [[[ {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 100,
-          'v0': 0,
-          'v1': 1,
-          'w4': 90,
-          'seg5': 360,
-          'pa6': 0,
-          'pb7': -1,
-          
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+
         } ]]]
         ]
       }
@@ -218,21 +159,9 @@ let muonAlima = function muonAlima (__mapper) {
         translate: [
 
           [[[ (t, a = 378, b = {
-            'm1': 4,
-            'm2': 4,
-            'n1': 2,
-            'n2': 2,
-            'n3': 2,
-            'a': 1,
-            'b': 1, // circle
-            'ra2': 100,
-            'v0': 0,
-            'v1': 1,
-            'w4': 90,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
-            
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+
           }) => {
             let as = a
             let bs = __mapper('xs').m('snap')(b, t, 1).x
@@ -240,21 +169,9 @@ let muonAlima = function muonAlima (__mapper) {
           } ]]],
 
           [[[ (t, a = 100, b = {
-            'm1': 4,
-            'm2': 4,
-            'n1': 2,
-            'n2': 2,
-            'n3': 2,
-            'a': 1,
-            'b': 1, // circle
-            'ra2': 100,
-            'v0': 0,
-            'v1': 1,
-            'w4': 90,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
-            
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+
           }) => {
             let as = a
             let bs = __mapper('xs').m('snap')(b, t, 1).y
@@ -275,21 +192,9 @@ let muonAlima = function muonAlima (__mapper) {
         scale: 1,
         rotate: [ 0, 0, 0 ],
         translate: [[[ {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 100,
-          'v0': 0,
-          'v1': 1,
-          'w4': 90,
-          'seg5': 360,
-          'pa6': 0,
-          'pb7': -1,
-          
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+
         } ]]]
       }
     }}
@@ -305,21 +210,9 @@ let muonAlima = function muonAlima (__mapper) {
         rotate: [ 0, 0, 0 ],
         translate: [[[ (...args) => {
           let a = [[[ {
-            'm1': 4,
-            'm2': 4,
-            'n1': 2,
-            'n2': 2,
-            'n3': 2,
-            'a': 1,
-            'b': 1, // circle
-            'ra2': 100,
-            'v0': 0,
-            'v1': 1,
-            'w4': 90,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
-            
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+
           } ]]]
           if (args.length === 0) {
             return a
@@ -348,21 +241,9 @@ let muonAlima = function muonAlima (__mapper) {
             let args = [
               378,
               [[[ {
-                'm1': 4,
-                'm2': 4,
-                'n1': 2,
-                'n2': 2,
-                'n3': 2,
-                'a': 1,
-                'b': 1, // circle
-                'ra2': 100,
-                'v0': 0,
-                'v1': 1,
-                'w4': 90,
-                'seg5': 360,
-                'pa6': 0,
-                'pb7': -1,
-                
+                'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+                'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+
               } ]]]
             ]
             args = args.map(d => msnap(d, t, 0))
@@ -370,21 +251,9 @@ let muonAlima = function muonAlima (__mapper) {
           } ]]],
 
           [[[ (t, a = 100, b = {
-            'm1': 4,
-            'm2': 4,
-            'n1': 2,
-            'n2': 2,
-            'n3': 2,
-            'a': 1,
-            'b': 1, // circle
-            'ra2': 100,
-            'v0': 0,
-            'v1': 1,
-            'w4': 90,
-            'seg5': 360,
-            'pa6': 0,
-            'pb7': -1,
-            
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+
           }) => {
             let msnap = __mapper('xs').m('snap')
             let as = a
@@ -407,21 +276,9 @@ let muonAlima = function muonAlima (__mapper) {
         rotate: [ 0, 0 ],
         center: [ [[[ 100, 325 ]]], 100, 0 ],
         translate: [[[ {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 100,
-          'v0': 0,
-          'v1': 1,
-          'w4': 90,
-          'seg5': 360,
-          'pa6': 0,
-          'pb7': -1,
-          
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+
         } ]]]
       }
     }}
@@ -437,39 +294,15 @@ let muonAlima = function muonAlima (__mapper) {
         rotate: [ 0, 0 ],
         center: [ [[[ 300, 225 ]]], 300, 0 ],
         translate: [[[ {
-          'm1': 4,
-          'm2': 4,
-          'n1': 2,
-          'n2': 2,
-          'n3': 2,
-          'a': 1,
-          'b': 1, // circle
-          'ra2': 100,
-          'v0': 0,
-          'v1': 1,
-          'w4': 90,
-          'seg5': 360,
-          'pa6': 0,
-          'pb7': -1,
-          
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+
         } ]]]
       },
       stace: [[[ {
-        'm1': 4,
-        'm2': 4,
-        'n1': 2,
-        'n2': 2,
-        'n3': 2,
-        'a': 1,
-        'b': 1, // circle
-        'ra2': 100,
-        'v0': 0,
-        'v1': 1,
-        'w4': 90,
-        'seg5': 360,
-        'pa6': 0,
-        'pb7': -1,
-        
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+        'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1
+
       } ]]]
 
     }}

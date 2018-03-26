@@ -37,8 +37,6 @@
     enty.margin = _ => (_ === undefined) ? margin : (margin = _, enty)
     enty.scaleView = () => scaleView
 
-    
-    
     enty.toviewproj = () => 
       __mapper('xs').g(projection)({
         projection,
@@ -61,7 +59,7 @@
       } else {
           pos = [event.x, event.y]
           
-          // pos = enty.toviewproj().invert(pos)
+          pos = enty.toviewproj().invert(pos)
       }
       pos = [ pos[0], pos[1] ]
       if (0 && 1) console.log('event pos --------------- :', pos)      
