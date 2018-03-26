@@ -19,7 +19,7 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1, pos: 0}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, img: 1, pos: 0}) // INIT
 
   let f = __mapper('props')(),
     mnat = __mapper('xs').m('nat'),
@@ -38,7 +38,7 @@ let muonAlima = function muonAlima (__mapper) {
  *      @pics
  *
  */
-  let tim = {td: 1800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1}
+  let tim = {td: 31800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1}
 
   let projection = { 'projection': 'uniwen' }
   let stepion = mprofier.mappion(projection)
@@ -55,10 +55,11 @@ let muonAlima = function muonAlima (__mapper) {
 
         projection: 'orthographic',
         scale: 90, // correlation between geometric and geographic
-        prerotate: [[[ cversor.rotation ]]],
-        // prerotate: [[[ cwen.rotation ]]],
+        // prerotate: [[[ cversor.rotation ]]],
+        prerotate: [[[ cwen.rotation ]]],
           translate: [ 0, 0, 0 ],
-          rotate: [ 0, 0, 0 ],
+          // rotate: [ 0, 0, 0 ],
+          rotate: [ [[[0, 32 * 360]]], 0, 0 ],
           lens: [0, 1, Infinity],
       },
 
@@ -138,7 +139,7 @@ let muonAlima = function muonAlima (__mapper) {
         projection: 'uniwen',
         invert: 1,
         scale: [1, -1, 1],
-        translate: [ [[[-90, 90]]], [[[-90, 90]]] ],
+        translate: [ [[[- 32 * 90, 32 * 90]]], [[[-90, 90]]] ],
         // translate: [ [[[30, 30]]], [[[30, 30]]] ],
         rotate: [ 0, 0, 0 ],
         lens: [0, 1, Infinity],
@@ -151,10 +152,11 @@ let muonAlima = function muonAlima (__mapper) {
 
         projection: 'orthographic',
         scale: 90, // correlation between geometric and geographic
-        prerotate: [[[ cversor.rotation ]]],
-        // prerotate: [[[ cwen.rotation ]]],
+        // prerotate: [[[ cversor.rotation ]]],
+        prerotate: [[[ cwen.rotation ]]],
           translate: [ 0, 0, 0 ],
-          rotate: [ 0, 0, 0 ],
+          // rotate: [ 0, 0, 0 ],
+          rotate: [ [[[0, 32 * 360]]], 0, 0 ],
           lens: [0, 1, Infinity],
 
       }

@@ -49,7 +49,7 @@
 
       if (projection.invert !== undefined && projection.rotate !== undefined) {
         state.p0 = getPos(e) // d3.mouse(this)
-         if (0 && 1) console.log('c.versor.dragstarted:p0', state.p0)                
+         if (1 && 1) console.log('c.versor.dragstarted:p0', state.p0)                
         let inve0 = projection
                       .invert(state.p0)	// spherical invert mouse position
         if (0 && 1) console.log('c.versor.dragstarted:inve0', inve0)
