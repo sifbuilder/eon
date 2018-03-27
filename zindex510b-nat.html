@@ -33,46 +33,21 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  let proformNat = {
+
+  let proform = {
     'projection': 'uniwen',
     'prerotate': [[[ cwen.rotation ]]],    
     'translate': [ [0, 0, 0] ],
     'scale': 1,
     'rotate': [ 0, 0, 0 ],
-    'lens': [0, 1, 24],
-  }
-  let proformCirc = {
-    'projection': 'uniwen',
-    'prerotate': [[[ cwen.rotation ]]],    
-    'translate': [ [0, 0, 0] ],
-    'scale': 0.3,
-    'rotate': [ 0, 0, 0 ],
-    'lens': [0, 1, 12],
+    'lens': [0, 1, Infinity],
   }
   /*******************************************
  *    @animas
  *
  */
 
-  // -------------------------------  nat
-  let nat = {
 
-    halo: 'nat',
-
-    payload: {
-      tim,
-      
-      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
-
-      proform: proformNat,
-
-      boform: { 'csx': 0, 'cf': [[[888, 555, 111]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
-
-      form: {'m1': [[[4, 3.93]]], 'm2': [[[4, 3.93]]], 'n1': 2, 'n2': 2, 'n3': [[[2, 1]]], 'a': [[[2, 3]]], 'b': 1}
-
-    }
-
-  }
   // -------------------------------  circ
   let circ = {
 
@@ -83,60 +58,22 @@ let muonAlima = function muonAlima (__mapper) {
       
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'circ'},
 
-      proform: proformCirc,
+      proform: proform,
 
       boform: { 'csx': 0, 'cf': [[[222, 222, 444]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
-      form: {'m1': [[[4, 4]]], 'm2': [[[4, 4]]], 'n1': 4, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1}
+      form: {'m1': [[[4, 4]]], 'm2': [[[4, 4]]], 'n1': 4, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+      'ra2': 24,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,}
 
     }
 
   }  
-	  // -------------------------------  img
-  let img = {
 
-    halo: 'img',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }
 	  // -------------------------------  animas  
   let animas = [
-    nat, // h.ent g.uniwen
+
     circ, // h.ent g.uniwen
-    img // h.img
+
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

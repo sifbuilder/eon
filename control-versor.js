@@ -17,19 +17,38 @@
 
     let drag = d3.drag()
 
+    function tick () {
+      if (state.autorotimer) state.autorotimer = requestAnimationFrame(tick)
+    }
+
+    function stopMomentum () { cancelAnimationFrame(state.timer); state.timer = null }
+
+    
+    let inits = {
+      decay: 0.95,
+      mult: 2e-3, // rotInDrag factor
+      rotInit: [0, 0, 0],
+      timeSpan: 200,
+      epsilon: 1e-3
+    }
+    
+    
     let state = {
+      
       projection: d3.geoOrthographic()
         .rotate([0, 0])
         .translate([0, 0])
         .scale(1),
+        
       rotation: [0, 0, 0],
-      v0: null, // Mouse cartesian position invprojected
+      v0: null, // Mouse cartesian position inv-projected
       r0: null, // Projection rotation as Euler angles at start
       q0: null, // Quaternion. Projection rotation
       p0: null, // Mouse position (polar)
       dtc: null // Distance initial dot to center untransformed
     }
 
+    
    // event position
     // let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
     let getPos = r.getPos
@@ -48,38 +67,37 @@
       let projection = state.projection
 
       if (projection.invert !== undefined && projection.rotate !== undefined) {
-        state.p0 = getPos(e) // d3.mouse(this)
-         if (1 && 1) console.log('c.versor.dragstarted:p0', state.p0)                
-        let inve0 = projection
-                      .invert(state.p0)	// spherical invert mouse position
-        if (0 && 1) console.log('c.versor.dragstarted:inve0', inve0)
-          
+        
+        state.p0 = getPos(e) // d3.mouse(this) // initial position in geometric space
+        
+        let inve0 = projection.invert(state.p0)	// spherical invert mouse position  
         if (inve0 !== undefined) {
           state.v0 = mgeom.cartesian(inve0) // cartesian in unit 3d-sphere
-          state.r0 = projection.rotate()		// rotate
-          state.q0 = mversor(state.r0)      // quaternion
+          state.r0 = projection.rotate()		// rotation from (stated) projection
+          state.q0 = mversor(state.r0)      // quaternion from rotation
         }
-        
-         if (0 && 1) console.log('c.versor.dragstarted:p0', state.v0, state.q0)
-       
         
       }
     }
 
     // dragged  listener
     let dragged = function () {
+      
       let e = d3.event
 
       let projection = state.projection
 
+      // if projection has invert and rotate ...
       if (projection.invert !== undefined && projection.rotate !== undefined) {
-        if (state.v0 !== undefined && state.r0 !== undefined) {
+        
+        // if there is an initial rotation (r0) and initial velocity (v0)
+        if (state.r0 !== undefined && state.v0 !== undefined) {
           
-
-          let p0 = getPos(e)  // position of moving mouse in geometric space
-          let rinvp0 = projection
+          let p1 = getPos(e)  // position (p1) of moving mouse in geometric space
+          
+          let rinvp0 = projection // 
                           .rotate(state.r0)
-                          .invert(p0) 
+                          .invert(p1) 
           
           
           if (0 && 1) console.log('c.versor.dragged', state.q0, rinvp0)        
@@ -93,8 +111,7 @@
             
             if (1 && 1) console.log("delta", state.v0, v1, delta)
             let q1 = mversor.multiply(state.q0, delta)
-            let r1 = mversor
-                      .rotation(q1)
+            let r1 = mversor.rotation(q1)
          if (1 && 1) console.log('c.versor.dragged rotation', r1)        
  
             state.rotation = r1 // set global rotate
@@ -104,8 +121,24 @@
     }
 
     // dragended  listener
-    let dragended = function () {}
+    let dragended = function () {
+      
+      state.timer = requestAnimationFrame(momentum)
+      
+    }
 
+    function momentum () {
+      if (Math.abs(state.vel[0]) < inits.epsilon && Math.abs(state.vel[1]) < inits.epsilon) return
+        // state.vel[0] *= inits.decay 
+        // state.vel[1] *= inits.decay
+        
+
+        // state.rotInDrag[0] += state.vel[0] 
+        // state.rotInDrag[1] -= state.vel[1]
+        
+      if (state.timer) state.timer = requestAnimationFrame(momentum)
+    }
+  
     /*******************************************
    *    @enty
    */

@@ -59,8 +59,8 @@
       timer: null,
       autorotimer: null,
       rotMatrix: null,
-      cPos: null,
-      pPos: null
+      cPos: null,   // current position
+      pPos: null   // previous position
 
     }
 
@@ -100,10 +100,11 @@
 
       let e = d3.event
       let pos = getPos(e) //  d3.mouse(this)
-      // let dx = state.grabbed[1] - pos[1],
-        // dy = -(state.grabbed[0] - pos[0])
-      let dx = (state.grabbed[0] - pos[0]),
-        dy = (state.grabbed[1] - pos[1])
+        
+      let xsign = 1 //  y goes botton-up ?
+      let ysign = 1 //  x goes left to right ?
+      let dx = xsign * (pos[1] - state.grabbed[1]),
+        dy = ysign * (pos[0] - state.grabbed[0])
 
       if (!state.moved) {
         if (dx * dx + dy * dy < state.moveSpan) return
@@ -129,13 +130,14 @@
       state.grabbed = false
       if (!state.moved) return
       let f = Math.max(0, 1 - (Date.now() - state.lastMoveTime))
+      
+      let xsign = 1 //  y goes botton-up ?
+      let ysign = 1 //  x goes left to right ?
       state.vel = [ // velocity
 
-        // (state.pPos[1] - state.cPos[1]) * inits.mult,
-        // (state.cPos[0] - state.pPos[0]) * inits.mult
-        (state.cPos[0] - state.pPos[0]) * inits.mult,
-        (state.pPos[1] - state.cPos[1]) * inits.mult,
-
+        xsign *  (state.cPos[1] - state.pPos[1]) * inits.mult,
+        ysign * (state.cPos[0] - state.pPos[0]) * inits.mult
+        
       ]
 
       state.timer = requestAnimationFrame(momentum)
@@ -146,8 +148,6 @@
         state.vel[0] *= inits.decay 
         state.vel[1] *= inits.decay
         
-        // state.rotInDrag[0] += state.vel[0] 
-        // state.rotInDrag[1] += state.vel[1]
         state.rotInDrag[0] += state.vel[0] 
         state.rotInDrag[1] -= state.vel[1]
         
