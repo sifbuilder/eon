@@ -35,12 +35,14 @@ let muonAlima = function muonAlima (__mapper) {
 
 
   let proform = {
-    'projection': 'uniwen',
-    'prerotate': [[[ cwen.rotation ]]],    
-    'translate': [ [0, 0, 0] ],
-    'scale': 1,
-    'rotate': [ 0, 0, 0 ],
-    'lens': [0, 1, Infinity],
+    projection: 'uniwen',
+    // projection:  d3.geoOrthographic()
+      // .rotate([-10,-30]),    
+    prerotate: [[[ cwen.rotation ]]],    
+    translate: [ [0, 0, 0] ],
+    scale: 1,
+    rotate: [ 0, 0, 0 ],
+    lens: [0, 1, Infinity],
   }
   /*******************************************
  *    @animas

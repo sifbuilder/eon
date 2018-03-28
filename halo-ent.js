@@ -83,7 +83,6 @@
             // //
             feature = mprofier.conformer(anigram)(feature)  // get conform
             feature.properties.formConformed = mgeoj.deprop(feature) // store conform
-            
             feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
 
             // ///
@@ -91,24 +90,30 @@
             //    uniwen: prerotation, tranlations, scale, project, rotation
             //    geonode in geonode..nodeProformed - retains GEOFORM domain
             // //
-            let ereformion = mprofier.ereformion(anigram)
-            feature = mproj3ct(feature, ereformion)
-            
-            feature.properties.formEreformed = mgeoj.deprop(feature) // store ereform
-
-            feature.properties.nodeEreformed = mproj3ct(feature.properties.nodeConformed, ereformion)   // nodeConformed => nodeEreformed
+            if (payload.ereform) {
+              let ereformion = mprofier.ereformion(anigram)
+              feature = mproj3ct(feature, ereformion)
+              feature.properties.formEreformed = mgeoj.deprop(feature) // store ereform
+              feature.properties.nodeEreformed = mproj3ct(feature.properties.nodeConformed, ereformion)   //
+              nodeConformed => nodeEreformed
+            } else {
+              feature.properties.nodeEreformed = feature.properties.nodeConformed
+            }
 
             // ///
             //    PROFORM the conformed geofold
             //    uniwen: prerotation, tranlations, scale, project, rotation
             //    geonode in geonode..nodeProformed - retains GEOFORM domain
             // //
-            let proformion = mprofier.proformion(anigram)
-            feature = mproj3ct(feature, proformion)
-            
-            feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion) // nodeEreformed => nodeProformed
-            
-            feature = mboform.boformer(anigram, feature) // boform feature or feature collection
+            if (payload.proform) {
+              let proformion = mprofier.proformion(anigram)
+              feature = mproj3ct(feature, proformion)
+              feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion) // nodeEreformed => nodeProformed
+              feature = mboform.boformer(anigram, feature) // boform feature or feature collection
+            } else {
+              feature.properties.nodeProformed = feature.properties.nodeEreformed
+            }
+
             
             return feature
       })

@@ -21,17 +21,17 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 1, wen: 0, webgl: 0, img: 1}) // INIT
 
     let f = __mapper('props')(),
-      cwen = __mapper('xs').c('wen')(),
+      // cwen = __mapper('xs').c('wen')(),
       cversor = __mapper('xs').c('versor')
 
   /*******************************************
  *      @pics
  *
  */
-  let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
   let form = {
 
     'x': {
@@ -53,12 +53,34 @@ let muonAlima = function muonAlima (__mapper) {
 
   }
 
-  let proform = {
 
-    'projection': 'orthographic',
+
+// let projection = d3.geoOrthographic()
+      // .rotate([-10,-30])
+
+// var iprojection = d3.geoProjection(function(a,b) {
+  // return d3.geoOrthographicRaw(a,-b);
+// })
+  // .clipAngle(90)
+  // .translate(projection.translate())
+  // .scale(projection.scale());
+
+  
+  
+
+/*
+  let proformDark = {
+
+    // 'projection': 'orthographic',
+    // projection:  iprojection,
+
+    projection:  d3.geoProjection(function(a,b) {
+        return d3.geoOrthographicRaw(-a,-b);
+      }).clipAngle(90),    
+    
     'prerotate': [[[ cversor.rotation ]]],
-    'translate': [100,0,0],
-    'scale': 100,
+    'translate': [100 - 100,0,0],
+    'scale': 180,
     // 'translate': {
 
       // 'x': [[[100, 500]]],
@@ -66,15 +88,42 @@ let muonAlima = function muonAlima (__mapper) {
       // 'z': 0
 
     // },
-    'rotate': [ [[[0, -1 * 360]]], 0, 0 ],
-    // 'control': 'versor'
+    'rotate': [ [[[0, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
+    'control': 'versor'
 
   }
+  */
+
+  let proformFront = {
+
+    // 'projection': 'orthographic',
+    // projection:  iprojection,
+
+    // projection:  d3.geoProjection((a,b) => d3.geoOrthographicRaw(a,-b)
+      // ).clipAngle(90)        
+        // .translate([0, 0])
+        // .scale(1),       
+    
+
+    projection:   d3.geoOrthographic()
+        .rotate([0, 0])
+        .translate([0, 0])
+        .scale(1),    
+    
+    'prerotate': [[[ cversor.rotation ]]],
+    'translate': [100 - 100,0,0],
+    'scale': 180,
+    'rotate': [ [[[0, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
+    'control': 'versor'
+
+  }  
+  
   /*******************************************
  *    @animas
  *
  */
-  let geoearth = {
+ /*
+  let geoearthDark = {
 
     halo: 'ent',
 
@@ -91,15 +140,41 @@ let muonAlima = function muonAlima (__mapper) {
 
     payload: {
       tim,
-      proform,
-      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
-      boform: { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+      proform: proformDark,
+      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthDark'},
+      boform: { 'csx': 0, 'cf': [[[222, 222]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
     }
 
   }
+*/
+let geoearthFront = {
 
+    halo: 'ent',
+
+    geofold: () => {
+      let gj = Object.assign({},
+        topojson.feature(
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
+        )
+      )
+      gj = __mapper('xs').m('geoj').trim(gj)
+      return gj
+    },
+
+    payload: {
+      tim,
+      proform: proformFront,
+      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthFront'},
+      boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
+    }
+
+  }
+  
+  
   let animas = [
-    geoearth // h.ent g.orthographic
+    geoearthFront, // h.ent g.orthographic
+    // geoearthDark,
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

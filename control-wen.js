@@ -36,15 +36,19 @@
       epsilon: 1e-3
     }
 
-    // reset to default rotation
-    function rebase () {
-      state.rotInDrag = [0, 0, 0]
+    
+    function rebase () {     
+      state.rotInDrag = [0, 0, 0] // reset to default rotation
     }
 
     let state = {
 
-      projection: null, // _e_tbd
-
+      // projection: null, // __mapper('xs').g('uniwen'), // _e_tbd
+      projection: d3.geoOrthographic()
+        .rotate([0, 0])
+        .translate([0, 0])
+        .scale(1),
+        
       rotAccum: [0, 0, 0],
       rotInDrag: [0, 0, 0], // rotInDrag in radians
 
@@ -64,9 +68,8 @@
 
     }
 
-    // event position
-    // let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
-    let getPos = r.getPos
+    
+    let getPos = r.getPos // event position
 
     // start drag control
     let control = elem => elem.call(drag.on('start', dragstarted).on('drag', dragged).on('end', dragended))
@@ -85,12 +88,21 @@
       state.moved = false // not moved yet
 
       state.grabbed = getPos(e) // mouse position
-      state.pPos = state.grabbed // previous position
+      
+      state.p0 = state.grabbed // d3.mouse(this) // initial position in geometric space
+     
+      let projection = state.projection
+      if (projection.invert !== undefined && projection.rotate !== undefined) {
+         if (1 && 2) console.log('projection misses invert or rotate')        
+      }
+
+       
+      state.pPos = state.p0 // previous position
       state.cPos = state.pPos // current position
 
       state.rotAccum = mgeom.add(state.rotAccum, state.rotInDrag) // rotation
-
       rebase()
+
     }
 
     // dragged  listener
@@ -100,11 +112,13 @@
 
       let e = d3.event
       let pos = getPos(e) //  d3.mouse(this)
-        
+
+      let ipos = pos
+      
       let xsign = 1 //  y goes botton-up ?
       let ysign = 1 //  x goes left to right ?
-      let dx = xsign * (pos[1] - state.grabbed[1]),
-        dy = ysign * (pos[0] - state.grabbed[0])
+      let dx = xsign * (ipos[1] - state.grabbed[1]),
+          dy = ysign * (ipos[0] - state.grabbed[0])
 
       if (!state.moved) {
         if (dx * dx + dy * dy < state.moveSpan) return
@@ -115,7 +129,7 @@
       }
       state.lastMoveTime = Date.now()
       state.pPos = state.cPos
-      state.cPos = pos
+      state.cPos = ipos
       state.rotInDrag = [
         state.rotVel[0] + dx * inits.mult,
         state.rotVel[1] + dy * inits.mult,

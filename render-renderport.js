@@ -48,21 +48,32 @@
         
       })
     
-    enty.getPos =  function (event) {
+    enty.getPos =  function (signal) {
       let pos
-      if (event.touches && event.touches.length) {
-          event = event.touches[0]
-          pos = [event.x, event.y]
-          
-          pos = enty.toviewproj().invert(pos)          
-          
-      } else {
-          pos = [event.x, event.y]
-          
-          pos = enty.toviewproj().invert(pos)
+
+      if (Array.isArray(signal)) { // coordinates
+        
+        pos = [signal[0], signal[1]]
+        pos = enty.toviewproj().invert(pos)
+
+
+      } else if (typeof signal === 'object') { // event
+        if (signal.touches && signal.touches.length) {
+            signal = signal.touches[0]
+            pos = [signal.x, signal.y]
+            
+            pos = enty.toviewproj().invert(pos)          
+            
+        } else {
+            pos = [signal.x, signal.y]
+            
+            pos = enty.toviewproj().invert(pos)
+        }
+        
       }
+      
       pos = [ pos[0], pos[1] ]
-      if (0 && 1) console.log('event pos --------------- :', pos)      
+      if (0 && 1) console.log('signal pos --------------- :', pos)      
       return pos
     }   
     
