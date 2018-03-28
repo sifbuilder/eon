@@ -21,18 +21,13 @@
     let d3Selection = d3
     let d3Timer = d3
 
-    // let projection
-    let projection = d3.geoOrthographic()
-        .rotate([0, 0])
-        .translate([0, 0])
-        .scale(1)
-
     let format2dv = d => d.map(d => d.toFixed(2))
+    
     let inertia // enty.inertia => state.inertia
-
-       let state = {
-          rotation: [0, 0, 0],
-       }
+    let projection = d3.geoOrthographic()
+     let state = {
+        rotation: [0, 0, 0],
+     }
 
    /*******************************************
    *    @geoVersor
@@ -100,18 +95,20 @@
         let t11 = inertia.position
         let t12 = projection.invert(t11)
 
-        v11 = versor.cartesian(t2)
+        v11 = versor.cartesian(t12)
 
 
         opt.end && opt.end()
       },
 
       render: function (t) {
-        var rotation = versor.rotation(
-          versor.multiply(q10, versor.delta(v10, v11, t * 1000))
-        )
+        
+        let d21 = versor.delta(v10, v11, t * 1000)
+        let r21 = versor.multiply(q10, d21)
+        var rotation = versor.rotation(r21)
 
-                   if (1 && 1) console.log("-- end", format2dv(rotation))
+
+            state.rotation = rotation // set global rotate
 
 
         opt.render && opt.render(rotation)
@@ -234,7 +231,7 @@ if (1 && 1) console.log("position", position)
     let control = function(target, render, proj, opt) {
         // target.call(drag.on('start', dragstarted).on('drag', dragged).on('end', dragended))
 
-        inertia = geoInertialControl(target) // state inertia
+        inertia = geoInertialControl(target,null,null,opt) // state inertia
     }
 
     // stop drag control
