@@ -44,8 +44,8 @@
 
           if (f.isString(prj)) { // if name in array
 
-            prjname = prjdef
-            prj = __mapper('xs').g(prjdef.projection)(prjname) // get projection from name
+            // prj = __mapper('xs').g(prjdef.projection)(prjdef) // get projection from name
+            prj = __mapper('xs').g(prj)(prjdef) // get projection from name
 
           }
 
@@ -66,34 +66,36 @@
         // if not uniwen, rotation and prerotation must be combined
         if (prjname !== 'uniwen' && prj.rotate !== undefined) {
 
-          let rot = (prjdef.rotate) ? prjdef.rotate : [0, 0, 0]
+          let projrot = (prjdef.rotate) ? prjdef.rotate : [0, 0, 0]
 
-          let dims = rot.length   // planar or spherical geometry
-          if (rot.length == 2) rot[2] = 0
+          let dims = projrot.length   // planar or spherical geometry
+          if (projrot.length == 2) projrot[2] = 0
 
           let control
           if (prjdef.control === 'wen') control = cwen // WEN
           else if (prjdef.control === 'versor') control = cversor // VERSOR
+          if (1 && 2 && control === undefined) console.log("control undefined")
+          if (1 && 2 && !prj.invert) console.log(" projer invert not defined")
+            
+          let controlRotation = control
+            .projection(prj) // invert on projection
+            .rotation() // rotation from control wen
+            
+  if (1 && 1) console.log(" ***** projer controlRotation", projrot, controlRotation)
 
-          if (control !== undefined) {
 
-    if (1 && 2 && !prj.invert) console.log(" projer invert not defined")
-              let controlRotation = control
-                .projection(prj) // tbd
-                .rotation() // rotation from control wen
-    if (1 && 1) console.log(" ***** projer controlRotation", controlRotation)
+    
+    
+          // let rot = mgeom.add(projrot, controlRotation)
+          let rot = controlRotation
 
+          
+          
+          
+          
+          if (dims == 2)  rot = mwen.cross([rot[0], 0, 0], [0, rot[1], 0]) // planar rot
 
-              rot = mgeom.add(rot, controlRotation)
-
-              if (dims == 2) { // planar rotation
-    if (0 && 1) console.log("control prj dims", dims)
-              
-                rot = mwen.cross([rot[0], 0, 0], [0, rot[1], 0])
-              }
-
-              prjdef.rotate = rot
-          }
+          prjdef.rotate = rot
 
         }
 

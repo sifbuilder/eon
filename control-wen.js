@@ -19,11 +19,11 @@
     let r = __mapper('xs').r('renderport'),
       mversor = __mapper('xs').m('versor')(),
       mgeom = __mapper('xs').m('geom')
-
+    
     let drag = d3.drag()
 
     function tick () {
-      if (state.autorotimer) state.autorotimer = requestAnimationFrame(tick)
+      if (state.timer) state.timer = requestAnimationFrame(tick)
     }
 
     function stopMomentum () { cancelAnimationFrame(state.timer); state.timer = null }
@@ -31,7 +31,7 @@
     let inits = {
       decay: 0.95,
       mult: 2e-3, // rotInDrag factor
-      rotInit: [0, 0, 0],
+      rotInitInDegrees: [0, 0, 0],
       timeSpan: 200,
       epsilon: 1e-3
     }
@@ -40,6 +40,11 @@
     function rebase () {     
       state.rotInDrag = [0, 0, 0] // reset to default rotation
     }
+
+    let getPos = r.getPos // event position
+    // let xydirs = r.xydirs() // [1 -1] in pixel view
+    let xsign = 1 //  1 if x goes left to right
+    let ysign = -1 // 1 if y goes up down
 
     let state = {
 
@@ -61,15 +66,12 @@
       autoRot: false,
       lastMoveTime: null,
       timer: null,
-      autorotimer: null,
+      timer: null,
       rotMatrix: null,
       cPos: null,   // current position
       pPos: null   // previous position
 
     }
-
-    
-    let getPos = r.getPos // event position
 
     // start drag control
     let control = elem => elem.call(drag.on('start', dragstarted).on('drag', dragged).on('end', dragended))
@@ -77,6 +79,7 @@
     // stop drag control
     let reset = elem => elem.call(drag.on('start', null).on('drag', null).on('end', null))
 
+    
     // dragstarted listener
     let dragstarted = function () {
       let e = d3.event
@@ -89,11 +92,13 @@
 
       state.grabbed = getPos(e) // mouse position
       
-      state.p0 = state.grabbed // d3.mouse(this) // initial position in geometric space
+      state.p0 = state.grabbed // initial position in geometric space
      
       let projection = state.projection
-      if (projection.invert !== undefined && projection.rotate !== undefined) {
-         if (1 && 2) console.log('projection misses invert or rotate')        
+      if (projection.invert === undefined ) {
+         if (1 && 2) console.log('projection misses invert', projection)        
+      } else if (projection.rotate === undefined) {
+         if (1 && 2) console.log('projection misses rotate', projection)        
       }
 
        
@@ -113,23 +118,19 @@
       let e = d3.event
       let pos = getPos(e) //  d3.mouse(this)
 
-      let ipos = pos
-      
-      let xsign = 1 //  y goes botton-up ?
-      let ysign = 1 //  x goes left to right ?
-      let dx = xsign * (ipos[1] - state.grabbed[1]),
-          dy = ysign * (ipos[0] - state.grabbed[0])
+      let dx = xsign * (pos[1] - state.grabbed[1]),
+          dy = ysign * (state.grabbed[0] - pos[0])
 
       if (!state.moved) {
         if (dx * dx + dy * dy < state.moveSpan) return
         state.moved = true // moved
         state.autoRot = false
-        state.rotInDrag = inits.rotInit
+        state.rotInDrag = inits.rotInitInDegrees
         rebase()
       }
       state.lastMoveTime = Date.now()
       state.pPos = state.cPos
-      state.cPos = ipos
+      state.cPos = pos
       state.rotInDrag = [
         state.rotVel[0] + dx * inits.mult,
         state.rotVel[1] + dy * inits.mult,
@@ -145,8 +146,7 @@
       if (!state.moved) return
       let f = Math.max(0, 1 - (Date.now() - state.lastMoveTime))
       
-      let xsign = 1 //  y goes botton-up ?
-      let ysign = 1 //  x goes left to right ?
+
       state.vel = [ // velocity
 
         xsign *  (state.cPos[1] - state.pPos[1]) * inits.mult,
@@ -172,14 +172,15 @@
    *    @ENTY
    */
     let enty = function (p = {}) {
-      state.rotAccum = mgeom.to_radians(p.rotInit) || inits.rotInit
-      state.autorotimer = requestAnimationFrame(tick)
+      state.rotAccum = mgeom.to_radians(p.rotInitInDegrees) || inits.rotInitInDegrees
+      state.timer = requestAnimationFrame(tick)
       return enty
     }
 
     enty.dragstarted = dragstarted
     enty.dragged = dragged
     enty.dragended = dragended
+    
     enty.control = control
     enty.reset = reset
 
