@@ -50,7 +50,7 @@
     // dragstarted listener
     let dragstarted = function () {
 
-if (0 && 1) console.log("rotation begin", state.projection.rotate().map(d => d.toPrecision(2)))
+    if (0 && 1) console.log("rotation begin", state.projection.rotate().map(d => d.toPrecision(2)))
 
       let e = d3.event
 
@@ -79,7 +79,7 @@ if (0 && 1) console.log("rotation begin", state.projection.rotate().map(d => d.t
     // dragged  listener
     let dragged = function () {
       let e = d3.event
-if (0 && 1) console.log("rotation move a", state.projection.rotate().map(d => d.toPrecision(2))) 
+      // if (0 && 1) console.log("rotation move a", state.projection.rotate().map(d => d.toPrecision(2)))
       let proj = state.projection
 
       if (proj.invert === undefined
@@ -106,13 +106,13 @@ if (0 && 1) console.log("rotation move a", state.projection.rotate().map(d => d.
 
       // _ revert effect of rotate.invert _
       proj = state.rotation
-if (0 && 1) console.log("rotation move b", state.projection.rotate().map(d => d.toPrecision(2))) 
+if (0 && 1) console.log("rotation move b", state.projection.rotate().map(d => d.toPrecision(2)))
 
     }
 
     // dragended  listener
     let dragended = function () {
-if (0 && 1) console.log("rotation end", state.projection.rotate().map(d => d.toPrecision(2)))      
+if (0 && 1) console.log("rotation end", state.projection.rotate().map(d => d.toPrecision(2)))
     }
 
     /*******************************************
@@ -130,15 +130,17 @@ if (0 && 1) console.log("rotation end", state.projection.rotate().map(d => d.toP
 
     enty.projection = _ => {
       if (_ !== undefined) {
-    
-        state.projection = f.cloneObj(_)
-        return enty 
+            state.projection = f.cloneObj(_)
+
+if (1 && 1) console.log(" ***** projection", state.projection)
+
+        return enty
       } else {
         return state.projection
       }
     }
 
-    
+
     return enty
   }
 

@@ -95,10 +95,16 @@
             
             } else {  // NOT UNIWEN projection
 
-              // if not uniwen, rotation and prerotation must be combined
+              // prj projection is function with rotate method
+              // projdef.rotate is projdef property
+              
+              // if not uniwen, rotation from projdef.rotate and 
+              //  prerotation from control to be combined
               
               let projrot = prjdef.rotate ? prjdef.rotate : [0, 0, 0]
 
+              
+              
               let dims = projrot.length   // planar or spherical geometry
               if (projrot.length === 2) projrot[2] = 0 // projrot sets dimensions
 
@@ -227,7 +233,6 @@
           // if projection includes anod, translate geofold by geonode
           //
           if (projdef.anod && geofold.properties && geofold.properties.geonode) {
-if (0 && 1) console.log(" ****** anod", geofold.properties.uid, geofold.properties)
             let geonode = geofold.properties.geonode  // geonode
             let nodetranslate = geonode.geometry.coordinates  // geonode coordinates for translate
 
@@ -250,7 +255,7 @@ if (0 && 1) console.log(" ****** anod", geofold.properties.uid, geofold.properti
           } else if (projdef.projection !== 'uniwen') { // if not uniwen, add prerotate to rotate
 
           // ///
-          //    additoin to be done after control
+          //    addition to be done after control
           // //
           
             // let daxes = Math.max(rotate.length, prerotate.length)

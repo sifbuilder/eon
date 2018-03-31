@@ -41,6 +41,19 @@ let muonAlima = function muonAlima (__mapper) {
 
     }
 
+  
+   let proform = {
+    
+    projection:  'orthographic',
+
+    prerotate: [[[ () => cversor.rotation() ]]],
+    translate: [0,0,0],
+    scale: 180,
+    rotate: [ 0, 0, 0 ],
+    control: 'versor'
+
+  }       
+    
   let pFront = function(x,y) {
     let forward = (x, y) => d3.geoOrthographicRaw(x,-y)
     forward.invert = (x, y) => d3.geoOrthographicRaw.invert(x,-y)
@@ -76,7 +89,7 @@ let muonAlima = function muonAlima (__mapper) {
   let proformDark = {
     
     projection:  d3.geoProjection(pBack())
-      .rotate([0,0,0])
+      .rotate([-180,0,0])
       .clipAngle(90),
 
     prerotate: [[[ () => { 
@@ -91,18 +104,7 @@ let muonAlima = function muonAlima (__mapper) {
     control: 'versor'
 
   }  
-  
-   let proform = {
-    
-    projection:  'orthographic',
 
-    prerotate: [[[ () => cversor.rotation() ]]],
-    translate: [0,0,0],
-    scale: 180,
-    rotate: [ 0, 0, 0 ],
-    control: 'versor'
-
-  }   
   
   /*******************************************
  *    @animas
@@ -149,7 +151,7 @@ let geoearthFront = {
 
     payload: {
       tim,
-      proform: proform,
+      proform: proformFront,
       ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthFront'},
       boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
     }
@@ -176,8 +178,8 @@ let camera = {
 
   let animas = [
     // camera, // h.camera
-    // geoearthDark,
-    geoearthFront, // h.ent g.orthographic
+    geoearthDark,
+    // geoearthFront, // h.ent g.orthographic
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
