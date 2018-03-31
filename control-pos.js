@@ -14,7 +14,7 @@
     let r = __mapper('xs').r('renderport'),
       width = r.width(),
       height = r.height()    
-    let toviewproj = r.toviewproj()
+    let cameraProjer = r.cameraProjer()
       
     function prevent (e) {}
 
@@ -98,7 +98,7 @@
         // origin = d3.mouse(parent),
         // var action = {ox: origin[0], oy: origin[1]}
         
-        t = toviewproj.invert(d3.mouse(parent))
+        t = cameraProjer.invert(d3.mouse(parent))
         var action = {ox: t[0], oy: t[1]}
       
       createPostipElem()

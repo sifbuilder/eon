@@ -75,7 +75,7 @@
     }
     
     let nodeSitus = function (ani) {
-      if (1 && 2 && !ani)console.log(` * error: manitem.nodeSitus:ani: ${ani}`)
+      if (2 && 2 && !ani)console.log(` * error: manitem.nodeSitus:ani: ${ani}`)
       let r = [0,0,0]
       if (ani.geofold && 
             ani.geofold.properties.geonode ) {

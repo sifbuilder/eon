@@ -48,13 +48,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
  
  
-  let pBack = function(x,y) {
-    let forward = (x, y) => d3.geoOrthographicRaw(-x,-y)
-    forward.invert = (x, y) => d3.geoOrthographicRaw.invert(-x,-y)
-    return forward
-  }
-
-  let proformFront = {
+   let proformFront = {
     
     projection:  d3.geoProjection(pFront())
       .clipAngle(90),
@@ -72,24 +66,43 @@ let muonAlima = function muonAlima (__mapper) {
       control: 'versor'
 
   }
+  
+  let pBack = function(x,y) {
+    let forward = (x, y) => d3.geoOrthographicRaw(-x,-y)
+    forward.invert = (x, y) => d3.geoOrthographicRaw.invert(-x,-y)
+    return forward
+  }
 
   let proformDark = {
     
     projection:  d3.geoProjection(pBack())
+      .rotate([0,0,0])
       .clipAngle(90),
 
     prerotate: [[[ () => { 
       let rot = cversor.rotation()
-      rot = [rot[0] + 180, -rot[1], -rot[2]]
+      rot = [rot[0] - 180, -rot[1], -rot[2]]
       
       return rot
     }]]],
     translate: [0,0,0],
     scale: 180,
-    rotate: [ [[[0, 0 + 1 * 360]]], 0, 0 ],
+    rotate: [ 0, 0, 0 ],
     control: 'versor'
 
   }  
+  
+   let proform = {
+    
+    projection:  'orthographic',
+
+    prerotate: [[[ () => cversor.rotation() ]]],
+    translate: [0,0,0],
+    scale: 180,
+    rotate: [ 0, 0, 0 ],
+    control: 'versor'
+
+  }   
   
   /*******************************************
  *    @animas
@@ -136,16 +149,34 @@ let geoearthFront = {
 
     payload: {
       tim,
-      proform: proformFront,
+      proform: proform,
       ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthFront'},
       boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
     }
 
   }
 
+let camera = {
+
+    halo: 'camera',
+
+    payload: {
+      camera: {
+        projection: 'uniwen',
+        prerotate: [0,0,0],
+        translate: [0, 0, 0],
+        rotate: [0,0,0],
+        scale: [1,-1,1],
+        lens: [0,1,Infinity]
+      }
+    }
+
+  }
+
 
   let animas = [
-    geoearthDark,
+    // camera, // h.camera
+    // geoearthDark,
     geoearthFront, // h.ent g.orthographic
   ]
 

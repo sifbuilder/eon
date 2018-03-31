@@ -56,7 +56,7 @@
 
     let getTranspots = function (stace, payload, locations = []) {
 
-        if (1 && 2 && payload.hasOwnProperty('payload')) console.log(` * error: mstace.getTranspots anitem passed instead of payload`)
+        if (2 && 2 && payload.hasOwnProperty('payload')) console.log(` * error: mstace.getTranspots anitem passed instead of payload`)
     
     
       // stace taken from stace or from payload.stace
@@ -168,11 +168,11 @@ if (0 && 1) console.log("entry", entry)
 
                 let parentuid = payload.parentuid
                 
-     if (1 && 2 && !parentuid) console.log(` * error: mstace.getTranspots:parentuid ${parentuid} in payload `, payload)             
+     if (2 && 2 && !parentuid) console.log(` * error: mstace.getTranspots:parentuid ${parentuid} in payload `, payload)             
                 
                 let parentani = __mapper('xs').m('store').findAnigramFromUid(parentuid)
 
-      if (1 && 2 && !parentani) console.log(` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)                
+      if (2 && 2 && !parentani) console.log(` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)                
                 
                 let coords = __mapper('xs').m('anitem')(parentani).nodeSitus(parentani)
 

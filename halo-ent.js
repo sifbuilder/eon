@@ -109,11 +109,11 @@
               let proformion = mprofier.proformion(anigram)
               feature = mproj3ct(feature, proformion)
               feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion) // nodeEreformed => nodeProformed
-              feature = mboform.boformer(anigram, feature) // boform feature or feature collection
             } else {
               feature.properties.nodeProformed = feature.properties.nodeEreformed
             }
 
+           feature = mboform.boformer(anigram, feature) // boform feature or feature collection
             
             return feature
       })

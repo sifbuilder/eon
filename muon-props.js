@@ -113,6 +113,11 @@
    */
     props.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
     props.f = d => (typeof (d) === 'function') ? d : () => d
+    props.clone = d => {
+      let clone = {}
+      if (typeof d === 'object') clone = props.cloneObj(d)
+      else if (array.isArray(d)) clone = props.cloneArray(d)
+    return clone}
 
     /***************************
    *        @objects
@@ -423,20 +428,19 @@
       return r
     }
     /***************************
-   *        @format
+   *        @strings
    */
     props.d = function (precision) {
       return function (value) {
         var multiplier = Math.pow(10, precision || 0)
         return Math.round(value * multiplier) / multiplier
       }
-    }
-    
-    /***************************
-   *        @strings
-   *        eg. `176.00,0.00 176.00,294.00 176.00,294.00`
-   */
-     props.strToJson = d => JSON.stringify(test.replace(/\n|\r/g, " ").split(" ").map(d => d.split(",").map(p=>Number.parseFloat(p))))
+    }   
+
+    props.strToJson = d => JSON.stringify(test.replace(/\n|\r/g, " ").split(" ").map(d => d.split(",").map(p=>Number.parseFloat(p))))
+   
+    props.format2 = d => d.map(p => p ? +p.toFixed(2) : p)
+   
    
     /***************************
    *        @obj

@@ -27,78 +27,112 @@
  */
     let mappion = function (prjdef) {
 
-      if (0 && 1) console.log("prjdef", prjdef)
+      if (10 && 1) console.log(" ------ prjdef", prjdef.rotate)
 
       let prj, prjname  // projection and projection name
 
-      if (prjdef !== undefined) {
+      if (prjdef === undefined || prjdef.projection === undefined) {
+        
+          if (2 && 2) console.log("m.profier.mappion prjdef undefined", prjdef)
+          prj = guniwen({})
+          return prj
+        
+      }
 
-        if (f.isString(prjdef.projection)) { // if _projection singular name
+      
+      if (f.isString(prjdef.projection)) { // if _projection singular name
 
-          prjname = prjdef
-          prj = __mapper('xs').g(prjdef.projection)(prjname)
+        prjname = prjdef
+        prj = __mapper('xs').g(prjdef.projection)(prjname)
 
-        }  else if (f.isArray(prjdef.projections)) { // if plural select one
+      }  else if (f.isArray(prjdef.projections)) { // if plural select one
 
-            prj = prjdef.projections[ Math.round(prjdef.projectidx || 0) ]
+        prj = prjdef.projections[ Math.round(prjdef.projectidx || 0) ]
 
-          if (f.isString(prj)) { // if name in array
+        if (f.isString(prj)) { // if name in array
 
-            // prj = __mapper('xs').g(prjdef.projection)(prjdef) // get projection from name
-            prj = __mapper('xs').g(prj)(prjdef) // get projection from name
-
-          }
-
-        } else if (f.isFunction(prjdef.projection)) { // if is projection
-
-          prj = prjdef.projection // props passed to projection
+          // prj = __mapper('xs').g(prjdef.projection)(prjdef) // get projection from name
+          prj = __mapper('xs').g(prj)(prjdef) // get projection from name
 
         } else {
 
-          // default to uniwen projection
-          prjname = 'uniwen'
-          prj = __mapper('xs').g(prjdef.projection)(prjname) // get projection from name
-
+          if (2 && 2) console.log("m.profier.mappion index proj not name", prjdef)
+          prj = guniwen({})
+          return prj        
+          
         }
 
+      } else if (f.isFunction(prjdef.projection)) { // if is projection
+
+        prj = prjdef.projection // props passed to projection
+
+      } else {
+
+        // default to uniwen projection
+        prjname = 'uniwen'
+        prj = __mapper('xs').g(prjdef.projection)(prjname) // get projection from name
+
+      }
 
 
-        // if not uniwen, rotation and prerotation must be combined
-        if (prjname !== 'uniwen' && prj.rotate !== undefined) {
+        if (prj.rotate === undefined) {
+          
+          // if no rotate in projection, bypass rotation
+          if (2 && 2) console.log("m.profier.mappion rotate undefined", prj)
+          
+        } else {
 
-          let projrot = (prjdef.rotate) ? prjdef.rotate : [0, 0, 0]
-
-          let dims = projrot.length   // planar or spherical geometry
-          if (projrot.length == 2) projrot[2] = 0
-
-          let control
-          if (prjdef.control === 'wen') control = cwen // WEN
-          else if (prjdef.control === 'versor') control = cversor // VERSOR
-          if (1 && 2 && control === undefined) console.log("control undefined")
-          if (1 && 2 && !prj.invert) console.log(" projer invert not defined")
+            let control // rotation control
             
-          let controlRotation = control
-            .projection(prj) // invert on projection
-            .rotation() // rotation from control wen
+            if (prjname === 'uniwen') { // UNIWEN projection
+              
+              // if uniwen,  prerotation and rotation dealt with 
+              // in the projection: prerotate, translate, rotate
             
-  if (1 && 1) console.log(" ***** projer controlRotation", projrot, controlRotation)
+              if (prjdef.control === 'wen') control = cwen // WEN
+              else if (prjdef.control === 'versor') control = cversor // VERSOR
+              else control = cwen // WEN
+            
+            } else {  // NOT UNIWEN projection
+
+              // if not uniwen, rotation and prerotation must be combined
+              
+              let projrot = prjdef.rotate ? prjdef.rotate : [0, 0, 0]
+
+              let dims = projrot.length   // planar or spherical geometry
+              if (projrot.length === 2) projrot[2] = 0 // projrot sets dimensions
+
+              
+              if (prjdef.control === 'wen') control = cwen // WEN
+              else if (prjdef.control === 'versor') control = cversor // VERSOR
+              else control = cversor // VERSOR
+              
+              if (2 && 2 && control === undefined) console.log("control undefined")
+              if (2 && 2 && !prj.invert) console.log(" projer invert not defined")
+               
+
+               if (1 && 1) console.log("projrot", projrot[0])
+
+              let controlRotation = [0,0,0] 
+              controlRotation = control
+                .projection(prj) // invert on projection
+                .rotation() // rotation from control wen
+                
+                  if (1 && 1) console.log(" projrot", projrot[0])
+                  if (1 && 1) console.log(" control", controlRotation[0])
 
 
-    
-    
-          // let rot = mgeom.add(projrot, controlRotation)
-          let rot = controlRotation
+        
+        
+              let rot = mgeom.add(projrot, controlRotation) // ADD rotations
 
-          
-          
-          
-          
-          if (dims == 2)  rot = mwen.cross([rot[0], 0, 0], [0, rot[1], 0]) // planar rot
+              
+              // if (dims == 2)  rot = mwen.cross([rot[0], 0, 0], [0, rot[1], 0]) // planar rot
 
-          prjdef.rotate = rot
+              prjdef.rotate = rot
 
+            }
         }
-
 
         let translate = prjdef.translate
         if (translate && f.isObject(translate) && f.isPosition(translate)) {
@@ -110,10 +144,9 @@
         for (let [key, value] of Object.entries(prjdef)) {
           if (f.isFunction(prj[key]) && value !== null) prj[key](value)
         }
-      }
+      // }
       return prj
     }
-
 
     /* ***************************
  *       @projer
@@ -156,6 +189,8 @@
  */
     let formion = (projdef, anigram = {}) => {
 
+    if (1 && 1) console.log("projdef", projdef.rotate)
+    
       let projection
 
       // the projection definition is in the payload
@@ -208,16 +243,20 @@ if (0 && 1) console.log(" ****** anod", geofold.properties.uid, geofold.properti
 
 
           if (projdef.rotate) { rotate = projdef.rotate } // if rotate, then rotate
-
           if (projdef.prerotate) { prerotate = projdef.prerotate }
 
-          if (projdef.projection !== 'uniwen') { // if not uniwen, add prerotate to rotate
+          if (projdef.projection === 'uniwen') { 
+            // 
+          } else if (projdef.projection !== 'uniwen') { // if not uniwen, add prerotate to rotate
 
-            let daxes = Math.max(rotate.length, prerotate.length)
-            let addrotate = d3.range(0, daxes, 1).map( (d,i) => (rotate[i] || 0) + ((prerotate[i] || 0)))
-            rotate = addrotate
-            projdef.rotate = rotate
-
+          // ///
+          //    additoin to be done after control
+          // //
+          
+            // let daxes = Math.max(rotate.length, prerotate.length)
+            // let addrotate = d3.range(0, daxes, 1).map( (d,i) => (rotate[i] || 0) + ((prerotate[i] || 0)))
+            // rotate = addrotate
+            // projdef.rotate = rotate
 
           }
 

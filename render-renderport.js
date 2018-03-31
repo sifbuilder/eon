@@ -19,12 +19,14 @@
       width = viewWidth - margin.left - margin.right,
       height = viewHeight - margin.top - margin.bottom
 
-    let projection = 'uniwen',
-      prerotate = [0,0,0],
-      translate = [width/2, height/2, 0],
-      rotate = [0,0,0],
-      scale = [1,-1,1],
-      lens = [0,1,Infinity]
+    let prjdef = {
+      projection: 'uniwen',
+      prerotate: [0,0,0],
+      translate: [width/2, height/2, 0],
+      rotate: [0,0,0],
+      scale: [1,-1,1],
+      lens: [0,1,Infinity]
+    }
 
 
  /***************************
@@ -37,22 +39,25 @@
     enty.margin = _ => (_ === undefined) ? margin : (margin = _, enty)
     enty.scaleView = () => scaleView
 
-    enty.toviewproj = () =>
-      __mapper('xs').g(projection)({
-        projection,
-        prerotate,
-        translate,
-        rotate,
-        scale,
-        lens
+    // enty.cameraProjer = () => __mapper('xs').g(prjdef.projection)(prjdef)
 
-      })
+      
+    enty.cameraProjer = function(_) {
 
+        if (_ !== undefined) {
+            __mapper('xs').g(_.projection)(_)
+         } else {
+      if (1 && 1) console.log("*****************", _)           
+           __mapper('xs').g(prjdef.projection)(prjdef)
+         }
+    }      
+      
+    enty.cameraProjer = _ => (_ != undefined) ? __mapper('xs').g(_.projection)(_) : __mapper('xs').g(prjdef.projection)(prjdef)      
 
     enty.xydirs = function () {
 
-      let orig = enty.toviewproj().invert([0,0])
-      let xyvector = enty.toviewproj().invert([1,1])
+      let orig = enty.cameraProjer().invert([0,0])
+      let xyvector = enty.cameraProjer().invert([1,1])
 
       let dirs = []
       dirs[0] = Math.sign(xyvector[0] - orig[0])
@@ -71,7 +76,7 @@
       if (Array.isArray(signal)) { // coordinates
 
         pos = [signal[0], signal[1]]
-        pos = enty.toviewproj().invert(pos)
+        pos = enty.cameraProjer().invert(pos)
 
 
       } else if (typeof signal === 'object') { // event
@@ -79,12 +84,12 @@
             signal = signal.touches[0]
             pos = [signal.x, signal.y]
 
-            pos = enty.toviewproj().invert(pos)
+            pos = enty.cameraProjer().invert(pos)
 
         } else {
             pos = [signal.x, signal.y]
 
-            pos = enty.toviewproj().invert(pos)
+            pos = enty.cameraProjer().invert(pos)
         }
 
       }

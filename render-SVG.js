@@ -240,8 +240,7 @@
 
           if (axis.length > 0) {
               let ax = axis[0].properties.axis
-
-if (0 && 1) console.log("ax", ax)              
+           
               
             __mapper('renderSvg').elems('svg:g.' + gid + '/g.' + cid, axis, d => d.id)
 
@@ -278,21 +277,9 @@ if (0 && 1) console.log("ax", ax)
                 let properties = geoitem.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
-                //  view pprojection
-                // let basprj = { // view projection
-                // 'projection': 'uniwen',
-                // 'prerotate': [0,0,0],
-                // 'translate': [width/2, height/2, 0],
-                // 'rotate': [0,0,0],
-                // 'scale': [1,-1,1],
-                // 'lens': [0,1,Infinity]
-                // }
-                // let toview = (properties.vim !== undefined) ? properties.vim : basprj
-                // let toviewproj = __mapper('xs').g('uniwen')(toview)
+                let cameraProjer = r.cameraProjer()
 
-                let toviewproj = r.toviewproj()
-
-                let geoPath = d3.geoPath(toviewproj) // path on view projection
+                let geoPath = d3.geoPath(cameraProjer) // path on view projection
                 let path = (pointRadius !== undefined) // geoPath
                   ? geoPath.pointRadius(pointRadius)
                   : geoPath

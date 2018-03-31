@@ -37,11 +37,11 @@
       if (json !== undefined && json !== null) {
         if (json.type === undefined) {
           
-          if (1 && 2) console.log('m.boform.boformer:json.type undefined')
+          if (2 && 2) console.log('m.boform.boformer:json.type undefined')
             
         } else if (typeof anigram.payload.boform !== 'object') {
           
-          if (1 && 2) console.log('m.boform.boformer boform is not an object')
+          if (2 && 2) console.log('m.boform.boformer boform is not an object')
             
         } else if (json.type === 'Feature') { // Feature
           

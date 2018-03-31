@@ -34,7 +34,7 @@
     state.pointer.y = -2
    
 
-      let toviewproj = r.toviewproj()
+      let cameraProjer = r.cameraProjer()
 
 
       
@@ -43,7 +43,7 @@
          
         if (event.type === "mousemove") {
 
-            let t = toviewproj.invert([event.x, event.y])
+            let t = cameraProjer.invert([event.x, event.y])
         
             state.mouse.x = t[0]
             state.mouse.y = t[1]
@@ -59,7 +59,7 @@
              let touch =  event.changedTouches[0]
 
 
-             let t = toviewproj.invert([touch.clientX, touch.clientY])
+             let t = cameraProjer.invert([touch.clientX, touch.clientY])
         
          
               state.mouse.x = t[0]
