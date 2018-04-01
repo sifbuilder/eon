@@ -66,16 +66,17 @@ let muonAlima = function muonAlima (__mapper) {
     projection:  d3.geoProjection(pFront())
       .clipAngle(90),
 
- 
-    prerotate: [[[ () => {
-      let rot = cversor.rotation()
-      return rot
-    }]]],
+       // control: 'versor'
+       
+    // prerotate: [[[ () => {
+      // let rot = cversor.rotation()
+      // return rot
+    // }]]],
     
 
     translate: [0,0,0],
     scale: 180,
-    rotate: [ [[[120, 120]]], [[[0, 0 * 360]]], 0 ],
+    rotate: [ [[[0, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
       control: 'versor'
 
   }

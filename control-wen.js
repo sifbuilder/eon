@@ -30,15 +30,15 @@
 
     let inits = {
       decay: 0.95,
-      mult: 2e-3, // rotInDrag factor
-      rotInitInDegrees: [0, 0, 0],
+      mult: 2e-3, // rotInDrag_radians factor
+      rotInit_radians: [0, 0, 0],
       timeSpan: 200,
       epsilon: 1e-3
     }
 
     
     function rebase () {     
-      state.rotInDrag = [0, 0, 0] // reset to default rotation
+      state.rotInDrag_radians = [0, 0, 0] // reset to default rotation
     }
 
     let getPos = r.getPos // event position
@@ -54,8 +54,8 @@
         .translate([0, 0])
         .scale(1),
         
-      rotAccum: [0, 0, 0],
-      rotInDrag: [0, 0, 0], // rotInDrag in radians
+      rotAccum_radians: [0, 0, 0],
+      rotInDrag_radians: [0, 0, 0], // rotInDrag_radians in radians
 
       grabbed: false,
       moved: false,
@@ -105,7 +105,7 @@
       state.pPos = state.p0 // previous position
       state.cPos = state.pPos // current position
 
-      state.rotAccum = mgeom.add(state.rotAccum, state.rotInDrag) // rotation
+      state.rotAccum_radians = mgeom.add(state.rotAccum_radians, state.rotInDrag_radians) // rotation
       rebase()
 
     }
@@ -125,13 +125,13 @@
         if (dx * dx + dy * dy < state.moveSpan) return
         state.moved = true // moved
         state.autoRot = false
-        state.rotInDrag = inits.rotInitInDegrees
+        state.rotInDrag_radians = inits.rotInit_radians
         rebase()
       }
       state.lastMoveTime = Date.now()
       state.pPos = state.cPos
       state.cPos = pos
-      state.rotInDrag = [
+      state.rotInDrag_radians = [
         state.rotVel[0] + dx * inits.mult,
         state.rotVel[1] + dy * inits.mult,
         state.rotVel[2] + 0
@@ -162,8 +162,8 @@
         state.vel[0] *= inits.decay 
         state.vel[1] *= inits.decay
         
-        state.rotInDrag[0] += state.vel[0] 
-        state.rotInDrag[1] -= state.vel[1]
+        state.rotInDrag_radians[0] += state.vel[0] 
+        state.rotInDrag_radians[1] -= state.vel[1]
         
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
@@ -172,7 +172,7 @@
    *    @ENTY
    */
     let enty = function (p = {}) {
-      state.rotAccum = mgeom.to_radians(p.rotInitInDegrees) || inits.rotInitInDegrees
+      state.rotAccum_radians = mgeom.to_radians(p.rotInit) || inits.rotInit_radians
       state.timer = requestAnimationFrame(tick)
       return enty
     }
@@ -185,7 +185,7 @@
     enty.reset = reset
 
     enty.projection = _ => _ !== undefined ? (state.projection = _, enty) : state.projection
-    enty.rotation = () => mgeom.add(state.rotAccum, state.rotInDrag).map(mgeom.to_degrees)
+    enty.rotation = () => mgeom.add(state.rotAccum_radians, state.rotInDrag_radians).map(mgeom.to_degrees)
 
     return enty
   }
