@@ -47,7 +47,7 @@
         if (_ !== undefined) {
             __mapper('xs').g(_.projection)(_)
          } else {
-      if (1 && 1) console.log("*****************", _)           
+      if (0 && 1) console.log("*****************", _)           
            __mapper('xs').g(prjdef.projection)(prjdef)
          }
     }      
