@@ -32,46 +32,35 @@ let diagram,
   endTime = null
 
 
-let updateTransform = function () {
+  let updateTransform = function () {
 
-  if (0 && 1) console.log("updateTransform")
-    var N = polyline.length;
-    var _transform = [];
-    for (var k = 0; k < N; k++) {
-        var current = Complex (0, 0);
-        for (var n = 0; n < N; n++) {
-            var coef = Complex (0, (-2) * Math.PI * k * n / N)
-            let h = coef.exp().mul(polyline[n])
-            current = current.add(h);
-        }
-        _transform.push(current);
-    }
+    if (0 && 1) console.log("updateTransform")
+      var N = polyline.length;
+      var _transform = [];
+      for (var k = 0; k < N; k++) {
+          var current = Complex (0, 0);
+          for (var n = 0; n < N; n++) {
+              var coef = Complex (0, (-2) * Math.PI * k * n / N)
+              let h = coef.exp().mul(polyline[n])
+              current = current.add(h);
+          }
+          _transform.push(current);
+      }
 
-    // _transform = _transform.sort((a,b) => b.abs() - a.abs())
-
-
-// if (0 && 1) console.log("_transform", _transform.map(d => d.abs()))
-
-    transform = _transform;
-};
+      transform = _transform;
+  }
 
 
 
-var fourierDiagram = function (path) {
+  var fourierDiagram = function (path) {
 
-    if (0 && 1) console.log("fourierDiagram")
+      polyline = [];
+      for (var i = 0; i < path.length; i++) {
+          var point = path[i]
+          polyline.push (Complex(point[0], point[1]))
+      }
 
-
-    polyline = [];
-    for (var i = 0; i < path.length; i++) {
-        var point = path[i];
-        polyline.push (Complex(point[0], point[1]));
-    }
-
-};
-
-
-
+  }
 
 
     /***************************
