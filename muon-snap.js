@@ -14,11 +14,11 @@
       mlacer = __mapper('xs').m('lacer'),
       mgeoj = __mapper('xs').m('geoj')
 
-    /***********
-   *    @snap : anigram, t, flag
+    /* **********
+   *    @snap 
+   *      value (anigram), t (unit time), snap flag, parent
    */
-    let snap = function snap (v, t = 0, g = 0) {
-
+    let snap = function (v, t = 0, g = 0, p = undefined) {
       // ____________________________________________________ un-tagged
       if (v === null) return null // 00 _____ o
       else if (typeof (v) === 'number') return v // 02 _____ num
@@ -38,7 +38,7 @@
           g !== 1) {
         let r = {}
         for (let y of Reflect.ownKeys(v)) {
-          r[y] = snap(v[y], t) // reenter
+          r[y] = snap(v[y], t, g, v) // reenter object
         }
         return r
       } else if (f.isDoubleArray(v) && // 07 [[ [ [], [] ] ]]   inter arrays interpolation
@@ -62,7 +62,18 @@
         g !== 1
       ) {
         let fn = v[0][0][0]
-        let ws = snap(fn, t, 1) // snap function value
+        let ws
+        if (typeof p === 'object') {  // if method, call as object.method
+          
+          p.fn = fn
+          ws = snap(p.fn(t), t, 0)        
+          
+        } else {
+          
+          ws = snap(fn, t, 1) // snap function value
+          
+        }
+        
         return ws
       } else if (f.isArray(v) && // 08 ____ [ [[ [ ], {} ]] ]
         f.isTripleArray(v) &&
@@ -80,32 +91,32 @@
 
       // ____________________________________________________ tagged
 
-      else if (typeof (v) === 'function' &&								// 01 _____ fn snappable time function
+      else if (typeof (v) === 'function' &&  // 01 _____ fn snappable time function
                                       g === 1) {
         return snap(v(t), t, 0)
       } else if (f.isObject(v) && // 10 ___ v :: {b, c, d ...}*
-                                      g === 1) {					// assume nat on object
+                                      g === 1) {          // assume nat on object
         let ws
-        
+
         let feature = mnat.natFeature(v)
         if (!mgeoj.isValid(feature)) {
-            console.error("gj not valid", v, feature)
+          console.error('gj not valid', v, feature)
         }
         let geometry = feature.geometry
         let natRing
-        if (geometry.type === "LineString") {
+        if (geometry.type === 'LineString') {
           natRing = geometry.coordinates
-        } else if (geometry.type === "MultiLineString") {
-          natRing = geometry.coordinates[0]		// first line
-        } else if (geometry.type === "Polygon") {
-          natRing = geometry.coordinates[0]  // outer ring
-        } else if (geometry.type === "MultiPolygon") {
-          natRing = geometry.coordinates[0][0]		// outer ring of first polygon
+        } else if (geometry.type === 'MultiLineString') {
+          natRing = geometry.coordinates[0]   // first line
+        } else if (geometry.type === 'Polygon') {
+          natRing = geometry.coordinates[0] // outer ring
+        } else if (geometry.type === 'MultiPolygon') {
+          natRing = geometry.coordinates[0][0]    // outer ring of first polygon
         } else {
-          console.error("g type not supported")
+          console.error('g type not supported')
         }
-        ws = snap(natRing, t, 1)				// (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
-    
+        ws = snap(natRing, t, 1)        // (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
+
         return ws
       } else if (f.isArray(v) && // 11_____ [v]*
           f.isPureArray(v) &&
@@ -126,7 +137,7 @@
         return w(t)
       } else if (f.isArray(v) && // 13 _____ [[a1,a2,a3],[b1,b2]]*
           f.isQuasiPureArray(v) && // => [[a1,b1],[a2,b1'],[a3,b2]]
-          g === 1) {													// [][] dosnap qualifier
+          g === 1) {                          // [][] dosnap qualifier
         let ws = mlacer.unslide(v).filter(d => d.length > 0).map(d => snap(d, t, 1))
         return ws
       } else {

@@ -55,18 +55,27 @@
       rotAccum: [0, 0, 0],
       rotInDrag: [0, 0, 0], // rotInDrag in radians
     }
-
-
+  /*******************************************
+   *    @versorControl
+   *
+   */
+    let versorControl = {
+      dragstarted,
+      dragged,
+      dragended
+      
+    }
+   
+   
   /*******************************************
    *    @dragstarted
    *
    */
-    let dragstarted = function () {
+    function dragstarted () {
 
       let e = d3.event
       state.proj = state.projection
-
-if (1 && 1) console.log("projection", state.proj.rotate())      
+    
       
       // if (state.grabbed) return // drag ongoing
       state.moved = false // not moved yet       // stopMomentum()
@@ -91,7 +100,7 @@ if (1 && 1) console.log("projection", state.proj.rotate())
    *    @dragged
    *
    */
-    let dragged = function () {
+    function dragged () {
       
       let e = d3.event
       
@@ -104,13 +113,7 @@ if (1 && 1) console.log("projection", state.proj.rotate())
         state.rotInDrag = state.rotInit
         state.rotInDrag = [0, 0, 0] // rebase()
       }
-      
-       // -----------------    
-      // let inve0_spher = state.proj.invert(state.p0)
-      // state.inve0_cart = mgeom.cartesian(inve0_spher)
 
-      // state.r0 = state.proj.rotate() // rotation in projection
-      // state.q0 = [1,0,0,0] // mversor(state.r0) // versor takes degrees
       
       // -----------------    
       let inve1_spher = state.proj.rotate(state.r0).invert(getPos(e))
@@ -128,7 +131,7 @@ if (1 && 1) console.log("projection", state.proj.rotate())
    *    @dragended
    *
    */
-    let dragended = function () {
+    function dragended () {
        
     }
 
@@ -146,7 +149,7 @@ if (1 && 1) console.log("projection", state.proj.rotate())
       if (_ !== undefined) {
           state.projection = _.projection
           
-if (1 && 1) console.log("state.projection", state.projection.rotate())
+if (0 && 1) console.log("state.projection", state.projection.rotate())
           
           return enty
       } else {

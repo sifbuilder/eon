@@ -73,8 +73,7 @@ let muonAlima = function muonAlima (__mapper) {
     
     projection:  frontProjection,
        
-    prerotate: [[[ t => {
-     
+    prerotate: [[[ function (t) {
       let rot = __mapper('xs').c('versor')
         .projection({projection: frontProjection})
         .rotation()
@@ -115,7 +114,7 @@ let muonAlima = function muonAlima (__mapper) {
       let rot = __mapper('xs').c('versor')
         .projection({projection: projection})
         .rotation()
-      // rot = [-rot, -rot[1], -rot[2]]
+      rot = [-rot[1], -rot[1], -rot[2]]
       return rot
     }]]],
 
@@ -195,11 +194,26 @@ let camera = {
 
   }
 
+let graticuleFront = {
+
+    halo: 'ent',
+
+    geofold: () => d3.geoGraticule()(),
+
+    payload: {
+      tim,
+      proform: proformFront,
+      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
+      boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9},
+    }
+
+  }
 
   let animas = [
     // camera, // h.camera
     geoearthDark,
     geoearthFront, // h.ent g.orthographic
+    graticuleFront, // h.ent
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
