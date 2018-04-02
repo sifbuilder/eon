@@ -34,20 +34,20 @@ let diagram,
 
   let updateTransform = function () {
 
-    if (0 && 1) console.log("updateTransform")
+    if (1 && 1) console.log("updateTransform")
       var N = polyline.length;
       var _transform = [];
       for (var k = 0; k < N; k++) {
-          var current = Complex (0, 0);
+          var current = Complex (0, 0)
           for (var n = 0; n < N; n++) {
               var coef = Complex (0, (-2) * Math.PI * k * n / N)
               let h = coef.exp().mul(polyline[n])
-              current = current.add(h);
+              current = current.add(h)
           }
-          _transform.push(current);
+          _transform.push(current)
       }
 
-      transform = _transform;
+      transform = _transform
   }
 
 
