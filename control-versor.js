@@ -216,9 +216,9 @@ if (1 && 1) console.log("rotInDrag_grads", state.rotInDrag_grads)
 
         
         
-        state.rotInDrag_grads[0] += vel[0] 
-        state.rotInDrag_grads[1] += vel[1]
-        state.rotInDrag_grads[2] += vel[2]
+        // state.rotInDrag_grads[0] += vel[0] 
+        // state.rotInDrag_grads[1] += vel[1]
+        // state.rotInDrag_grads[2] += vel[2]
         // -----------------    
 
         
