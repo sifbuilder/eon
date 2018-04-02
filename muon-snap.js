@@ -16,7 +16,7 @@
 
     /* **********
    *    @snap 
-   *      value (anigram), t (unit time), snap flag, parent
+   *      value (anima), t (unit time), snap flag, parent
    */
     let snap = function (v, t = 0, g = 0, p = undefined) {
       // ____________________________________________________ un-tagged

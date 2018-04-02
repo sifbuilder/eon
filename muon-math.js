@@ -1,3 +1,4 @@
+// https://d3js.org/d3-geo-projection/ Version 2.4.0. Copyright 2018 Mike Bostock.
 /***********
  *    @muonMath
  */
@@ -9,7 +10,6 @@
   'use strict'
 
   let muonMath = function (__mapper = {}) {
-
 
 
 // https://github.com/scijs/integrate-adaptive-simpson
@@ -121,6 +121,8 @@ function integrate (f, a, b, tol, maxdepth) {
     function z(f) {
       return integrate(elliptic, 0, f, 1e-4);
     } 
+    var G = 1 / z(1)
+    
     */    
     enty.integrate = integrate
 
