@@ -14,7 +14,6 @@
       mstore = __mapper('xs').m('store'),
       mric = __mapper('xs').m('ric')
 
-
     /****************************
    *    @gramm
    */
@@ -43,17 +42,11 @@
       var nyquist = Math.floor (N / 2)
       var w = 0
 
-
-      
       // ///
       // // 
       let transformSorted = transform.slice()
         .map( (d,i) => Object.assign(d, {w:i}))
         .sort((a,b) => Complex(b).abs() - Complex(a).abs())
-
-      
-      if (0 && 1) console.log("transformSorted", transformSorted)
-      
       
       let anitems = []
 
@@ -92,15 +85,11 @@
             y = acc.im / N
 
 
-
-            // if (i === nyquist) {
-                // w -= N
-            // }
+            // if (i === nyquist) { w -= N }
             if (transformSorted[i].w >= nyquist) {
                 transformSorted[i].w -= N
             } 
 
-  
 
             // var coef = Complex (0, (-2) * Math.PI * w * t / period)
             // acc = acc.add(coef.exp().mul(transform[i]))
@@ -118,23 +107,17 @@
 
         }
 
-
-
-
         newItem.payload.tim = tim
         newItem.payload.ric = _ric
         newItem.payload.uid = uid
-
 
         newItem.geofold.geometry.coordinates = [x, y]
         newItem.geofold.properties.geonode.geometry.coordinates = [x, y]
         newItem.geofold.properties.geonode.properties.orgen = [x, y]
 
-
         anitems[i] = newItem
 
       }
-
 
 
       for (let i=0; i<anitems.length; i++) {

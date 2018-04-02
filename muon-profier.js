@@ -133,7 +133,7 @@
  
           if (geoproj.rotate === undefined) { // NO rotation in projection
             
-            if (2 && 2) console.log("m.profier.mappion rotate undefined", geoproj)
+            if (0 && 2) console.log(" ** m.profier.mappion rotate undefined in projdef", projdef)
             
           } 
           let control // rotation control

@@ -118,7 +118,7 @@
 
       state.r0 = state.proj.rotate() // rotation in projection in degrees
 
- if (1 && 1) console.log("r0", state.r0)     
+ if (0 && 1) console.log("r0", state.r0)     
       
       state.q0 = mversor(state.r0) // quaternion of initial rotation 
       // -----------------
@@ -210,7 +210,7 @@
         state.vel_spher[1] *= state.decay
 
         // -----------------    
-if (1 && 1) console.log("rotInDrag_grads", state.rotInDrag_grads)
+if (0 && 1) console.log("rotInDrag_grads", state.rotInDrag_grads)
   
         let vel = mgeom.cartesian(state.vel_spher)
 

@@ -32,7 +32,7 @@
       // return newItems
     // }
 
-// let haloPacerHalo_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+    // let haloPacerHalo_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
 
     let haloPacerHalo_ween = anima => []
@@ -131,18 +131,16 @@
         // mstore.apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
         mstore.apply({'type': 'UPDANIGRAM', 'caller': 'h.pacer', animas})
       }
-if (0 && 1) console.log("count", count)
-      // count anitems in this iteration
-      //
+      
       if (Object.keys(count).length > 0) { // on pace count
         let situs // situs of new anitem dependent on kind
 
-        for (let i = 0; i < Object.keys(count).length; i++) {
-          // for each item in COUNT
+        for (let i = 0; i < Object.keys(count).length; i++) { // in count
 
           let key = Object.keys(count)[i] // count sort
 
           if (count[key] > 0) { // if count on this sort
+          
             // newItem situs may be paradefined
             //
             if (key === 'init') { // init defaults center
@@ -152,7 +150,7 @@ if (0 && 1) console.log("count", count)
             } else if (key === 'event') { // event defaults event
               situs = eventSitus(anigram)
             }
-            if (situs && typeof situs === 'object') situs = Object.values(situs) // {x:280,y:229,z:0} => [x,y,0]
+            if (situs && typeof situs === 'object') situs = Object.values(situs)
 
             // ///
             // the anigram ric and the newItem fid conform the newItem id
@@ -161,31 +159,14 @@ if (0 && 1) console.log("count", count)
             _ric.fid = fider(anigram) // fider set in the payload or default
             let uid = mric.getuid(_ric) // uid
             
+            
             // let newItem = mstore.findAnigramFromUid(uid) || geojsor(anigram, i)
-            let newItem = payload.pacer.geojsor(anigram, i)
-
-            
-
-// if (newItem.geofold.properties.formEreformed)  {
-  
-            // newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
-// }
-
-
-            // newItem.payload.uid = uid
-            // newItem.payload.id = newItem.payload.uid
-            // newItem.payload.ric = _ric
-            
-            // newItem.payload.tim = anigram.payload.tim // _e_ 
-            // newItem.payload.boform = anigram.payload.boform   // _e_ 
-            
-if (0 && 1) console.log("newItem.payload", newItem.payload)            
-if (0 && 1) console.log("anigram.payload", anigram.payload)            
+            let newItem = payload.pacer.geojsor(anigram, i) // i in key.count
             
             newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
                 
             if (aad) {
-
+ 
               // ///
               //
               //
@@ -196,68 +177,45 @@ if (0 && 1) console.log("anigram.payload", anigram.payload)
 
               // ///
               //  update newItem payload from parent - conform, proform
-              //
-              // newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
+              //  newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
               // ///
-              //  generate newItem.geofold.geometry again with geojsor
               //  if newItem has lost geometry (cause projection)
+              //  generate newItem.geofold.geometry again with geojsor
               // //
                 if (!newItem.geofold.geometry) {
                     let payload = newItem.payload // newItem has lost geometry
                     newItem = geojsor(anigram, i) // anigram, counter per paced type
-                    newItem.payload = payload // payload was
+                    newItem.payload = payload // inherit payload
                 }
 
                 // ///
                 //  add situs to newItem coords
                 //  coords are final space coords (after h.ent, stored at m.animation)
                 // //
-                let coords = newItem.geofold.geometry.coordinates // domain coords
-                
-                // ///
-                //  geoformed coords are pre-formed
-                // //
-                let geocoords = newItem.geofold.properties.geocoords || []
+                let coords = newItem.geofold.geometry.coordinates || []// domain coords
+if (1 && 1) console.log("h.pacer coords", coords.length)                  
+                let geocoords = newItem.geofold.properties.geocoords // pre coords
   
                 if (coords && coords.length > 0) {
-
                    
                   let presitus = coords[coords.length - 1] // last point in paced string
 
-                  
-                  //  check span between samples
                   let d = mgeom.distance3d(presitus, situs) // distance to new coord
                   if (d >= span) {
 
-                    
                     coords.push(situs) // if beyond span ADD SITUS to LineString
-                    // coords.push([situs[0]/2, situs[1]/2]) // if beyond span ADD SITUS to LineString
-                    if (0 && 1) console.log("h.pacer add", situs)
-
-                    // geocoords.push(situs)
-                    // geocoords.push([situs[0]/2, situs[1]/2])
-
 
                   }
 
                 } else {
 
                   coords = Array.of(situs)  // coords start with first situs
-                  // coords = Array.of([situs[0]/2, situs[1]/2] )  // coords start with first situs
-
-
-                  // geocoords = Array.of(situs)
-
 
                 }
 
-                // ///
-                // update coords with coords
-                // //
-                newItem.geofold.geometry.coordinates = coords
-                
+                newItem.geofold.geometry.coordinates = coords // upd coords
                 newItem.geofold.properties.geocoords = geocoords
-
+if (1 && 1) console.log("h.pacer coords", newItem.geofold.geometry.coordinates.length)                  
                 
                 // ///
                 //  h.ent will conform, ereform, proform
@@ -267,11 +225,11 @@ if (0 && 1) console.log("anigram.payload", anigram.payload)
                 let newItemsInCount = __mapper('xs').h('ent').gramm(newItem)
                 newItems = [...newItems, ...newItemsInCount] // add items
 
-            // ///
+                
+                
             // if not aad
             // //
             } else {
-if (0 && 1) console.log("h.pacer not aad")              
               //  if the newItem has NOT been CREATED yet ....
               //
               if (newItem === undefined) { // if not, create new anigram
@@ -306,7 +264,7 @@ if (0 && 1) console.log("h.pacer not aad")
                 if (presitus !== null) { // if paced item DOES exist
                   // distance from previous situs
                   let d = mgeom.distance3d(presitus, situs)
-if (0 && 1) console.log(" *********** h.pacer point translate")
+
                   // if distance from previous point greater than span
                   if (d >= span) {
                     newItem.geofold.geometry.coordinates = [0, 0, 0]
