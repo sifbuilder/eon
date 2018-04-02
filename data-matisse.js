@@ -1,13 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
-              "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+/**********************
+ *			@dataMatisse
+ */	
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+  typeof define === 'function' && define.amd ? define(['exports'], factory) :
+  (factory((global.dataMatisse = global.dataMatisse || {})));
+}(this, function (exports) { 'use strict';
 
-<svg xmlns="http://www.w3.org/2000/svg"
-     width="2.77778in" height="3.45833in"
-     viewBox="0 0 200 249">
-  <path id="mbn"
-        fill="none" stroke="black" stroke-width="1"
-        d="M 110.55,107.45
+var dataMatisse = function (__mapper = {}) {
+
+		let data = { 
+
+      width:"2.77778in",
+      height:"3.45833in",
+      viewBox:"0 0 200 249",
+      path: {
+        id:"mbn",
+        fill:"none", stroke:"black", stroke-width:"1",
+        d:"M 110.55,107.45
            C 110.55,107.45 105.97,128.84 106.14,131.94
              106.38,136.29 114.35,150.83 116.69,155.94
              116.69,155.94 128.98,186.94 128.98,186.94
@@ -129,5 +139,19 @@
              112.13,99.99 110.85,105.38 110.85,105.38
              110.85,105.38 89.00,112.00 89.00,112.00
              89.00,112.00 103.00,131.00 103.00,131.00
-             103.00,131.00 110.55,107.45 110.55,107.45 Z" />
-</svg>
+             103.00,131.00 110.55,107.45 110.55,107.45 Z"
+      } // path
+    } // data
+/* -------------------------- */		
+/*       enty   						*/
+/* -------------------------- */
+		var enty = function enty() {}
+		enty.data = ()  => data
+		
+		return enty
+
+}
+
+exports.dataMatisse = dataMatisse
+
+}));

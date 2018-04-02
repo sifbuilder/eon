@@ -34,14 +34,17 @@ let diagram,
 
   let updateTransform = function () {
 
+    // mmath.integrate(fn, p0, p1, 1e-4)
+  
+  
     if (1 && 1) console.log("updateTransform")
       var N = polyline.length;
       var _transform = [];
-      for (var k = 0; k < N; k++) {
+      for (var k = 0; k < N; k++) { // N coefficients
           var current = Complex (0, 0)
-          for (var n = 0; n < N; n++) {
+          for (var n = 0; n < N; n++) { // each is sum of integrals
               var coef = Complex (0, (-2) * Math.PI * k * n / N)
-              let h = coef.exp().mul(polyline[n])
+              let h = coef.exp().mul(polyline[n]) // e^2pi.kn/N
               current = current.add(h)
           }
           _transform.push(current)
