@@ -128,12 +128,6 @@
         /****************************
          *      @ROTATE
          */
-          let rotate, prerotate = [] // initialize rotate for projection definition
-
-
-          if (projdef.rotate) { rotate = projdef.rotate } // if rotate, then rotate
-          if (projdef.prerotate) { prerotate = projdef.prerotate }
-
 
           geoproj = getProj(projdef)
  
@@ -148,20 +142,25 @@
           else if (projdef.control === 'versor') control = cversor // VERSOR
           else control = cwen // WEN
             
+
+          let rot = [0,0,0] 
+          projdef.projection = geoproj    // projdef has geoproj
+
+          
           let projrot = projdef.rotate ? projdef.rotate : [0, 0, 0]
           let dims = projrot.length   // planar or spherical geometry
           if (dims == 2)  rot = mwen.cross([rot[0], 0, 0], [0, rot[1], 0]) // planar rot
-
+          if (projrot) rot = mgeom.add(rot, projrot) // ADD projrot
           
-          projdef.projection = geoproj    // projdef has geoproj
           let controlRotation = control
             .projection(projdef) // invert on projection
             .rotation() // rotation from control wen
+          if (controlRotation) rot = mgeom.add(rot, controlRotation) // ADD controlRotation
      
-  if (1 && 1) console.log("controlRotation", controlRotation)   
-  
-          // let rot = mgeom.add(projrot, controlRotation) // ADD rotations
-          let rot = controlRotation // ADD rotations
+          let prerotate = projdef.prerotate
+          if (0 && 1) console.log("prerotate", projdef.prerotate)   
+          if (prerotate) rot = mgeom.add(rot, prerotate) // ADD prerotate
+
           projdef.rotate = rot
 
       }
@@ -191,8 +190,8 @@
  */
     let conformer = anigram => {
 
-      let projdef = anigram.payload.conform
       let projion
+      let projdef = anigram.payload.conform
 
       if (projdef === undefined) {
 

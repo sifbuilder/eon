@@ -47,7 +47,13 @@
       r0: null, // Projection rotation as Euler angles at start
       q0: null, // Quaternion. Projection rotation
       p0: null, // Mouse position (polar)
-      dtc: null // Distance initial dot to center untransformed
+      dtc: null, // Distance initial dot to center untransformed
+      
+      grabbed: false,
+      moved: false,      
+      rotInit: [0, 0, 0],
+      rotAccum: [0, 0, 0],
+      rotInDrag: [0, 0, 0], // rotInDrag in radians
     }
 
 
@@ -58,22 +64,27 @@
     let dragstarted = function () {
 
       let e = d3.event
+      state.proj = state.projection
 
-      let projection = state.projection
-
-      if (projection.invert === undefined
-        || projection.rotate === undefined) if (1 && 2) console.error("invert")
-
+if (1 && 1) console.log("projection", state.proj.rotate())      
+      
+      // if (state.grabbed) return // drag ongoing
+      state.moved = false // not moved yet       // stopMomentum()
+      state.grabbed = true
+       
       // -----------------          
       state.p0 = getPos(e) // d3.mouse(this)
 
-      let inve0_spher = projection.invert(state.p0)
+      let inve0_spher = state.proj.invert(state.p0)
       state.inve0_cart = mgeom.cartesian(inve0_spher)
 
-      state.r0 = projection.rotate() // rotation in projection
+      state.r0 = state.proj.rotate() // rotation in projection
       state.q0 = mversor(state.r0) // versor takes degrees
       // -----------------
 
+      state.rotAccum = mgeom.add(state.rotAccum, state.rotInDrag) // rotation
+      state.rotInDrag = [0, 0, 0] // rebase()
+      
     }
 
   /*******************************************
@@ -81,24 +92,35 @@
    *
    */
     let dragged = function () {
+      
       let e = d3.event
-      let proj = state.projection
+      
+      state.proj = state.projection
+      
+      if (!state.grabbed) return
+      if (!state.moved) {
+        state.moved = true // moved // state.autoRot = false
+        
+        state.rotInDrag = state.rotInit
+        state.rotInDrag = [0, 0, 0] // rebase()
+      }
+      
+       // -----------------    
+      // let inve0_spher = state.proj.invert(state.p0)
+      // state.inve0_cart = mgeom.cartesian(inve0_spher)
 
-      if (proj.invert === undefined
-        || proj.rotate === undefined) if (1 && 2) console.error("invert")
-
-
-      let inve1_spher = proj.rotate(state.r0).invert(getPos(e))
+      // state.r0 = state.proj.rotate() // rotation in projection
+      // state.q0 = [1,0,0,0] // mversor(state.r0) // versor takes degrees
+      
+      // -----------------    
+      let inve1_spher = state.proj.rotate(state.r0).invert(getPos(e))
       let inve1_cart = mgeom.cartesian(inve1_spher)
 
       let q1 = mversor.multiply(state.q0, mversor.delta(state.inve0_cart, inve1_cart))
       let r1 = mversor.rotation(q1) // in degrees
-
+      // -----------------    
+      
       state.rotation = r1 // set global rotation in degrees
-
-      // _ revert effect of rotate.invert _
-      // proj = state.rotation
-
 
     }
 
@@ -120,7 +142,17 @@
     enty.control = control
     enty.reset = reset
 
-    enty.projection = _ => _ !== undefined ? (state.projection = _.projection, enty) : state.projection
+    enty.projection = _ => {
+      if (_ !== undefined) {
+          state.projection = _.projection
+          
+if (1 && 1) console.log("state.projection", state.projection.rotate())
+          
+          return enty
+      } else {
+        return state.projection
+      }
+    }
     enty.rotation = _ => _ !== undefined ? (state.rotation = _, enty) : state.rotation
 
     return enty

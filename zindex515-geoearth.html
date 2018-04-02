@@ -31,7 +31,7 @@ let muonAlima = function muonAlima (__mapper) {
  *      @pics
  *
  */
-  let tim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
+  let tim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
   let form = {
       // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
       // 'm1': 3,'m2': 3,'n1': 1,'n2': 1,'n3': 1,'a': 1,'b': 1, //
@@ -53,56 +53,75 @@ let muonAlima = function muonAlima (__mapper) {
     control: 'versor'
 
   }       
-    
+
+  var projection = d3.geoOrthographic()
+      .rotate([-10,-30]);
+  
+  // FRONT
   let pFront = function(x,y) {
     let forward = (x, y) => d3.geoOrthographicRaw(x,-y)
     forward.invert = (x, y) => d3.geoOrthographicRaw.invert(x,-y)
     return forward
   }
  
- 
-   let proformFront = {
+  let frontProjection = d3.geoProjection(pFront())
+      .clipAngle(90)
+      .translate([0,0,0])
+      .rotate([0,0,0])
+      
+  let proformFront = {
     
-    projection:  d3.geoProjection(pFront())
-      .clipAngle(90),
-
-       // control: 'versor'
+    projection:  frontProjection,
        
-    // prerotate: [[[ () => {
-      // let rot = cversor.rotation()
-      // return rot
-    // }]]],
-    
+    prerotate: [[[ t => {
+     
+      let rot = __mapper('xs').c('versor')
+        .projection({projection: frontProjection})
+        .rotation()
+      return rot
+    } ]]],    
 
     translate: [0,0,0],
     scale: 180,
     rotate: [ [[[0, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
-      control: 'versor'
+      // control: 'versor'
 
   }
   
-  let pBack = function(x,y) {
+  // DARK
+  let pDark = function() {
     let forward = (x, y) => d3.geoOrthographicRaw(-x,-y)
     forward.invert = (x, y) => d3.geoOrthographicRaw.invert(-x,-y)
     return forward
   }
 
+  let darkProjection = d3.geoProjection(pDark())
+      .clipAngle(90)
+      .translate([0,0,0])
+      .scale(180)
+  // var darkProjection = d3.geoProjection(function(a,b) {
+    // return d3.geoOrthographicRaw(-a,-b);
+  // })  
+  // .clipAngle(90)
+  // .translate(projection.translate())
+  // .scale(projection.scale());
+  
+  
   let proformDark = {
     
-    projection:  d3.geoProjection(pBack())
-      .rotate([-180,0,0])
-      .clipAngle(90),
+    projection:  darkProjection,
 
-    prerotate: [[[ () => { 
-      let rot = cversor.rotation()
-      rot = [rot[0] - 180, -rot[1], -rot[2]]
-      
+    prerotate: [[[ t => { 
+      let rot = __mapper('xs').c('versor')
+        .projection({projection: projection})
+        .rotation()
+      // rot = [-rot, -rot[1], -rot[2]]
       return rot
     }]]],
-    translate: [0,0,0],
-    scale: 180,
-    rotate: [ 0, 0, 0 ],
-    control: 'versor'
+
+
+    rotate: [ [[[180, 180 + 0 * 360]]], [[[0, 0 * 360]]], 0 ],
+    // control: 'versor'
 
   }  
 
@@ -179,7 +198,7 @@ let camera = {
 
   let animas = [
     // camera, // h.camera
-    // geoearthDark,
+    geoearthDark,
     geoearthFront, // h.ent g.orthographic
   ]
 
