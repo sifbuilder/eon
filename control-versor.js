@@ -118,12 +118,12 @@
 
       state.r0 = state.proj.rotate() // rotation in projection in degrees
 
- if (0 && 1) console.log("r0", state.r0)     
       
       state.q0 = mversor(state.r0) // quaternion of initial rotation 
       // -----------------
 
       state.rotAtInit_grads = state.rotInitial_grads // rebase()
+ if (0 && 1) console.log("rotAtInit_grads", state.rotAtInit_grads)     
       
     }
 

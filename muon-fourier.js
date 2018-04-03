@@ -37,7 +37,7 @@ let diagram,
     // mmath.integrate(fn, p0, p1, 1e-4)
   
   
-    if (1 && 1) console.log("updateTransform")
+    if (0 && 1) console.log("updateTransform")
       var N = polyline.length;
       var _transform = [];
       for (var k = 0; k < N; k++) { // N coefficients
