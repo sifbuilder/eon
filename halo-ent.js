@@ -75,8 +75,11 @@
       gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
       gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
 
-      let features = mgeoj.featurize(gj)  // geojson to geojson features
+      // let features = mgeoj.featurize(gj)  // geojson to geojson features
+      let features = gj.features  // geojson to geojson features
+      
       features = features.map( (feature,i) => {
+if (1 && 1) console.log("h.ent features", i, features[i])      
             // ///
             //    CONFORM
             //    conform does not affect geonode

@@ -85,11 +85,19 @@
         payload = anigram.payload
 
 
-      if (projdef === undefined || projdef.projection === undefined) {
+      if (projdef === undefined) {
 
         // if projection is not defined, default to uniwen with default configuration
         //
-          if (2 && 2) console.log("m.profier.mappion projdef undefined", projdef)
+          if (2 && 2) console.log("** m.profier.mappion projdef undefined", projdef)
+          geoproj = mappion({projection: 'uniwen',})
+          geoproj = guniwen({})
+          
+      } else if ( projdef.projection === undefined) {
+
+        // if projection is not defined, default to uniwen with default configuration
+        //
+          if (2 && 2) console.log("** m.profier.mappion projection undefined set uniwen", projdef)
           geoproj = mappion({projection: 'uniwen',})
           geoproj = guniwen({})
 
@@ -131,6 +139,8 @@
 
           geoproj = getProj(projdef)
  
+      
+  
           if (geoproj.rotate === undefined) { // NO rotation in projection
             
             if (0 && 2) console.log(" ** m.profier.mappion rotate undefined in projdef", projdef)
@@ -165,14 +175,15 @@
 
       }
      
-     
-        delete projdef.projection
-        delete projdef.control
-        
-   
+
         for (let [key, value] of Object.entries(projdef)) {
-       
-          if (f.isFunction(geoproj[key]) && value !== null) geoproj[key](value)
+          
+          if (key === 'projection') { // bypass projection
+          } else if (key === 'control') { // bypass control
+          } else if (f.isFunction(geoproj[key]) && value !== null) {
+            geoproj[key](value)
+          }
+            
         }      
       
       return geoproj
