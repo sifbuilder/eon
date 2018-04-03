@@ -70,16 +70,17 @@
       gj = f.v(geofold, anigram)  // get geoform
       gj.properties = gj.properties || {} // recall genode
       gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
+if (1 && 1) console.log("gj", gj)
     
-      if (1 && 2 && !mgeoj.isValid(gj)) { console.error("h.ent:gj not valid", geofold, gj) }
+      if (2 && 2 && !mgeoj.isValid(gj)) { console.error("h.ent:gj not valid", geofold, gj) }
       gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
       gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
 
-      // let features = mgeoj.featurize(gj)  // geojson to geojson features
-      let features = gj.features  // geojson to geojson features
+      let features = mgeoj.featurize(gj)  // geojson to geojson features
+if (0 && 1) console.log("features", features.length, gj)
       
       features = features.map( (feature,i) => {
-if (1 && 1) console.log("h.ent features", i, features[i])      
+if (0 && 1) console.log("h.ent features", i, features[i].properties.boform.co)      
             // ///
             //    CONFORM
             //    conform does not affect geonode
@@ -109,6 +110,7 @@ if (1 && 1) console.log("h.ent features", i, features[i])
             //    geonode in geonode..nodeProformed - retains GEOFORM domain
             // //
             if (payload.proform) {
+if (0 && 1) console.log("feature ", i, payload.proform)              
               let proformion = mprofier.proformion(anigram)
               feature = mproj3ct(feature, proformion)
               feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion) // nodeEreformed => nodeProformed

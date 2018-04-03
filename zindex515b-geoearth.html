@@ -21,7 +21,7 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 1, wen: 0, webgl: 0, img: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 1, wen: 0, webgl: 0, img: 1, key: 1}) // INIT
 
     let f = __mapper('props')(),
       // cwen = __mapper('xs').c('wen')(),
@@ -31,12 +31,11 @@ let muonAlima = function muonAlima (__mapper) {
  *      @pics
  *
  */
-  let tim = {'td': 151800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
+  let tim = {'td': 11800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
   let form = {
       'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
       'ra2': 62,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
     }
-
 
 
 var projection = d3.geoOrthographic()
@@ -70,7 +69,7 @@ var projection = d3.geoOrthographic()
 
     translate: [0,0,0],
     scale: 180,
-    rotate: [ [[[0, 1 * 360]]], [[[0, 0 * 360]]], 0 ],
+    rotate: [ [[[0, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
       // control: 'versor'
 
   }
@@ -87,72 +86,65 @@ let geoearthFront = {
 
     geofold: p => {
       let unitTimeElapsed = p.payload.tim.unitElapsed
-      let gj = Object.assign({},
+      let gjfc = Object.assign({},
         topojson.feature(
           __mapper('xs').d('worldTopo110m').data(),
           __mapper('xs').d('worldTopo110m').data().objects.land
         )
       )
-      gj = __mapper('xs').m('geoj').trim(gj)
+      gjfc = __mapper('xs').m('geoj').trim(gjfc)
 
-      let mfgh = {
-        type: 'FeatureCollection',
-        properties: {},
-        features: []
+      
+      
+      // let mfgh = {type: 'FeatureCollection',properties: {},features: []}
+      // let polygons = gjfc.features[0].geometry.coordinates
+      // for (let i=0; i<polygons.length; i++) {
+        // let polygon = polygons[i]
+        // let feature = {type: 'Feature',properties: {},
+          // geometry: {type: 'Polygon',coordinates: [polygon]}
+        // }
+        // mfgh.features.push(feature)
+      // }
+
+      
+
+      gjfc = gjfc.features[0] // geometry in one feature with
+
+      let nb = gjfc.geometry.coordinates.reduce( (p,q) => p += q.length, 0)
+      nb = Math.floor(nb * unitTimeElapsed)
+
+      let ngj = {
+        type: 'Feature',
+        geometry: { type: 'Polygon',
+                    coordinates: []
+                  },
+        properties: {
+          boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.8, 'co': 0.1, 'cp': 0.9}
+          
+        },
       }
-      if (1 && 1) console.log("mfgh", mfgh)
-      let polygons = gj.features[0].geometry.coordinates
-      for (let i=0; i<polygons.length; i++) {
-        let polygon = polygons[i]
-        let feature = {
-          type: 'Feature',
-          properties: {},
-          geometry: {
-              type: 'Polygon',
-              coordinates: [polygon]
+
+      let outrings = []
+      let n = 0
+      for (let i=0; i<gjfc.geometry.coordinates.length; i++) {
+          let ring = gjfc.geometry.coordinates[i]
+          let ringLength = ring.length
+
+          if (n + ringLength < nb) {    // if ring in scope
+              ngj.geometry.coordinates.push(ring)
+              ngj.properties.boform.co = 1
+              n += ringLength
+              
+          } else {
+              let tmpring = ring.slice(0, nb-n)
+              ngj.geometry.coordinates.push(tmpring)
+              n += (nb-n)
+              break
           }
-        }
-        
-        mfgh.features.push(feature)
+
       }
 
-      if (1 && 1) console.log("mfgh features", mfgh.features) 
-      return mfgh
-
-      // gj = gj.features[0] // geometry in one feature with
-
-      // let nb = gj.geometry.coordinates.reduce( (p,q) => p += q.length, 0)
-      // nb = Math.floor(nb * unitTimeElapsed)
-
-      // let ngj = {
-        // type: 'Feature',
-        // properties: gj.properties,
-        // geometry: { type: 'Polygon',
-                    // coordinates: []
-                  // }
-      // }
-
-      // let outrings = []
-      // let n = 0
-      // for (let i=0; i<gj.geometry.coordinates.length; i++) {
-          // let ring = gj.geometry.coordinates[i]
-          // let ringLength = ring.length
-
-          // if (n + ringLength < nb) {
-              // ngj.geometry.coordinates.push(ring)
-              // n += ringLength
-          // } else {
-              // let tmpring = ring.slice(0, nb-n)
-              // ngj.geometry.coordinates.push(tmpring)
-              // n += (nb-n)
-              // break
-          // }
-
-          // if (0 && 1) console.log("i", i, n)
-      // }
-
-// if (1 && 1) console.log("gj", ngj)
-      // return ngj
+      return ngj
 
 
     },
