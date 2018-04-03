@@ -44,7 +44,7 @@ let diagram,
           var current = Complex (0, 0)
           for (var n = 0; n < N; n++) { // each is sum of integrals
               var coef = Complex (0, (-2) * Math.PI * k * n / N)
-              let h = coef.exp().mul(polyline[n]) // e^2pi.kn/N
+              let h = coef.exp().mul(polyline[n]) // v[n].e^-i2[pi]kn/N
               current = current.add(h)
           }
           _transform.push(current)
