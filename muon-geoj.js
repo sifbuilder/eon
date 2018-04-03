@@ -82,8 +82,8 @@
 
           for (let j = 0; j < feature.geometry.coordinates.length; j++) { // geometries in feature array
             let coords = largestPoly(feature.geometry.coordinates[j])
-            newFeature.geometry.type = 'MultiPolygon'
-            newFeature.geometry.coordinates[j] = coords
+            newFeature.geometry.type = 'Polygon'
+            newFeature.geometry.coordinates[j] = coords[0]
           }
 
           ret.features[i] = Object.assign({}, newFeature)
