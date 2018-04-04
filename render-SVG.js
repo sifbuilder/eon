@@ -268,11 +268,9 @@
 
           if (features.length > 0) {
             __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)
-
               .data(() => features)
               .attr('d', d => {
-                if (d.properties.style === undefined) console.log('style undefined')
-
+                if (2 && 2 && d.properties.style === undefined) console.log('** style undefined')
                 let geoitem = d // geojson feature
                 let properties = geoitem.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
@@ -283,7 +281,10 @@
                 let path = (pointRadius !== undefined) // geoPath
                   ? geoPath.pointRadius(pointRadius)
                   : geoPath
-                return path(geoitem)
+                  
+                
+                let ret = path(geoitem)
+                return ret
               })
 
               .style('fill', d => d.properties.style.fill)

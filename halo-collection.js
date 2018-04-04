@@ -43,11 +43,11 @@
       //  get GEOFORM
       //
       let gjcollection = f.v(geofold, anigram)  // get geoform
-        // gjcollection = mgeoj.zorder(gjcollection) // order features in feature collection
-        gjcollection = mric.enric(ric, anigram, gjcollection) // ric to feature or feature collection
+        // gjcollection = mric.enric(ric, anigram, gjcollection) 
 
         newAnigrams = gjcollection.features.map((d, i) => { // d is feature
-if (1 && 1) console.log("feature", i,  d) 
+ 
+if (0 && 1) console.log("ric", i, d.properties.ric) 
 
           d.properties.tim = tim  // tim in geofold
           d.properties.vim = vim  // vim in geofold needed to render

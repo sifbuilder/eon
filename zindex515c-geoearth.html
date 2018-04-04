@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="script-enls.js"></script>
+<script src="script-ents.js"></script>
+
+
+
+<script>
+
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 1, wen: 0, webgl: 0, img: 1}) // INIT
+
+    let f = __mapper('props')(),
+      cversor = __mapper('xs').c('versor'),
+      manitem = __mapper('xs').m('anitem'),
+      mric = __mapper('xs').m('ric'),
+      mboform = __mapper('xs').m('boform'),
+      mgeoj = __mapper('xs').m('geoj'),
+      mprofier = __mapper('xs').m('profier'),
+      mstore = __mapper('xs').m('store'),
+      mproj3ct = __mapper('xs').m('proj3ct'),
+      mstace = __mapper('xs').m('stace')
+
+  /*******************************************
+ *      @pics
+ *
+ */
+  let tim = {'td': 32800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
+  let form = {
+      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+      'ra2': 62,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+    }
+
+
+
+var projection = d3.geoOrthographic()
+          .clipAngle(90)
+          .translate([0,0,0])
+          .rotate([0,0,0])
+
+
+      // FRONT
+      let pFront = function(x,y) {
+        let forward = (x, y) => d3.geoOrthographicRaw(x,-y)
+        forward.invert = (x, y) => d3.geoOrthographicRaw.invert(x,-y)
+        return forward
+      }
+
+      let frontProjection = d3.geoProjection(pFront())
+          .clipAngle(90)
+          .translate([0,0,0])
+          .rotate([0,0,0])
+
+
+  let proformFront = {
+
+    projection:  frontProjection,
+    prerotate: [[[ function (t) {
+      let rot = cversor
+        .projection({projection: frontProjection}) // versor projection
+        .rotation()
+      return rot
+    } ]]],
+
+    translate: [0,0,0],
+    scale: 180,
+    rotate: [ [[[0, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
+      // control: 'versor'
+
+  }
+
+
+  /*******************************************
+ *    @animas
+ *
+ */
+
+let geoearthFront = {
+
+    // halo: 'ent',
+    halo: 'collection',
+
+    geofold: p => {
+
+      let anigram = p, // anigram
+        halo = p.halo, // halo
+        geofold = p.geofold, // geofold
+        payload = p.payload // payload
+
+      let unitTimeElapsed = p.payload.tim.unitElapsed
+      let gj = Object.assign({},
+        topojson.feature(
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
+        )
+      )
+      
+      // gi is a FeatureCollection with one Feature ni collection
+      gj = __mapper('xs').m('geoj').trim(gj)
+      
+      // gj is a Feature with geometry type Polygon and 124 rings 
+      gj = gj.features[0] // geometry in only feature, 1322 coords
+
+      let nb = gj.geometry.coordinates.reduce( (p,q) => p += q.length, 0) // 5072
+      nb = Math.floor(nb * unitTimeElapsed)
+   
+
+      let ngj = {
+        type: 'Feature',
+        properties: gj.properties,
+        geometry: { type: 'Polygon',coordinates: []}
+      }
+
+      // clip -------------- 
+      let outrings = []
+      let n = 0
+      for (let i=0; i<gj.geometry.coordinates.length; i++) {  // each ring
+          let ring = gj.geometry.coordinates[i]
+          let ringLength = ring.length
+
+          if (ringLength > 1 && (n + ringLength < nb)) {
+              ngj.geometry.coordinates[i] = ring
+              n += ringLength
+          } else {
+              let ringpart = ring.slice(0, nb-n)
+              ngj.geometry.coordinates[i] = ringpart
+              break
+          }
+      }
+      
+            // project -------------- ngj Polygon, ie array of rings
+            if (payload.proform) {
+              let proformion = mprofier.proformion(anigram)            
+              ngj = mproj3ct(ngj, proformion)
+            }
+            
+if (1 && 1 ) console.log("ngj", ngj.geometry.coordinates.length, ngj)
+  
+
+       // with -------------- ngj project Polygon
+       
+       let feature = {
+          type: 'Feature',
+          geometry: { type: 'Polygon', coordinates: []},
+          properties: {}
+       }          
+       
+      let newFeatureCollection = {type:'FeatureCollection', features:[]}
+      if (ngj.geometry !== null) {  // geometry may be null after projection
+      
+
+          
+               feature.properties.ric = { gid: 'earth', cid: 'earth', fid: 'poly'}
+               feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9}
+               feature = mboform.boformer(anigram, feature) 
+ 
+ 
+        // ngj is a Poligon ie. an array of rings
+        let ringsQ = ngj.geometry.coordinates.length  // rings in Polygon
+
+if (ringsQ > 1)        {
+  if (1 && 1) console.log("ringsQ", ringsQ)
+}
+        
+        for (let i=0; i<ringsQ; i++) { // rings
+            let ring = ngj.geometry.coordinates[i]
+            if (i < ringsQ) { // last ring is string
+    
+                // if (ring.length > 1) {
+                   feature.geometry.coordinates.push(ring)  // ring to pool
+                // }
+             
+            } else {
+               // let feature = {
+                // type: 'Feature',
+                // geometry: { type: 'LineString',coordinates: []},
+                // properties: {}
+               // }              
+                // if (ring.length > 1) {
+                 // feature.geometry.coordinates = ring
+                 // feature.properties.ric = { gid: 'earth', cid: 'earth', fid: 'line'}
+                 // feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.7, 'co': 0.1, 'cp': 0.9}
+                 // feature = mboform.boformer(anigram, feature)
+                 // newFeatureCollection.features.push(feature)  
+               // }
+               
+            }
+        }
+if (1 && 1) console.log("feature", feature)        
+       newFeatureCollection.features.push(feature)             
+
+        
+      }
+
+
+      return newFeatureCollection
+
+
+    },
+
+    payload: {
+      tim,
+      proform: proformFront,
+      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
+      boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
+    }
+
+  }
+
+let graticuleFront = {
+
+    halo: 'ent',
+
+    geofold: () => d3.geoGraticule()(),
+
+    payload: {
+      tim,
+      proform: proformFront,
+      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
+      boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9},
+    }
+
+  }
+
+
+  let animas = [
+
+    geoearthFront, // h.ent g.orthographic
+    graticuleFront, // h.ent
+  ]
+
+  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>
