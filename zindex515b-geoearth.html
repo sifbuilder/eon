@@ -24,8 +24,15 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper('xs').m('init')({svg: 1, versor: 1, wen: 0, webgl: 0, img: 1, key: 1}) // INIT
 
     let f = __mapper('props')(),
-      // cwen = __mapper('xs').c('wen')(),
-      cversor = __mapper('xs').c('versor')
+      cversor = __mapper('xs').c('versor'),
+      manitem = __mapper('xs').m('anitem'),
+      mric = __mapper('xs').m('ric'),
+      mboform = __mapper('xs').m('boform'),
+      mgeoj = __mapper('xs').m('geoj'),
+      mprofier = __mapper('xs').m('profier'),
+      mstore = __mapper('xs').m('store'),
+      mproj3ct = __mapper('xs').m('proj3ct'),
+      mstace = __mapper('xs').m('stace')      
 
   /*******************************************
  *      @pics
@@ -37,6 +44,7 @@ let muonAlima = function muonAlima (__mapper) {
       'ra2': 62,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
     }
 
+let boform = { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9}
 
 var projection = d3.geoOrthographic()
           .clipAngle(90)
@@ -82,9 +90,16 @@ var projection = d3.geoOrthographic()
 
 let geoearthFront = {
 
-    halo: 'ent',
+    // halo: 'ent',
+    halo: 'collection',
 
     geofold: p => {
+      
+      let anigram = p, // anigram
+        halo = p.halo, // halo
+        geofold = p.geofold, // geofold
+        payload = p.payload // payload      
+      
       let unitTimeElapsed = p.payload.tim.unitElapsed
       let gjfc = Object.assign({},
         topojson.feature(
@@ -95,56 +110,145 @@ let geoearthFront = {
       gjfc = __mapper('xs').m('geoj').trim(gjfc)
 
       
+      let mfgj = {type: 'FeatureCollection',properties: {},features: []}
+      let polygons = gjfc.features[0].geometry.coordinates
+      for (let i=0; i<polygons.length; i++) {
+        let polygon = polygons[i]
+        let feature = {type: 'Feature',properties: {},
+          geometry: {type: 'Polygon',coordinates: [polygon]}
+        }
+        mfgj.features.push(feature)
+      }
       
-      // let mfgh = {type: 'FeatureCollection',properties: {},features: []}
-      // let polygons = gjfc.features[0].geometry.coordinates
-      // for (let i=0; i<polygons.length; i++) {
-        // let polygon = polygons[i]
-        // let feature = {type: 'Feature',properties: {},
-          // geometry: {type: 'Polygon',coordinates: [polygon]}
-        // }
-        // mfgh.features.push(feature)
+
+            // ///
+            //    CONFORM
+            //    conform does not affect geonode
+            // //
+            mfgj = mprofier.conformer(anigram)(mfgj)  // get conform
+            mfgj.properties.formConformed = mgeoj.deprop(mfgj) // store conform
+            mfgj.properties.nodeConformed = mfgj.properties.geonode // nodeConformed : geonode
+  
+            if (payload.ereform) {
+              let ereformion = mprofier.ereformion(anigram)
+              mfgj = mproj3ct(mfgj, ereformion)
+
+            } 
+
+            if (payload.proform) {
+              let proformion = mprofier.proformion(anigram)
+              mfgj = mproj3ct(mfgj, proformion)
+            } 
+
+  if (1 && 1) console.log("mfgj", mfgj)   // feature collection       
+
+    
+    
+      let feats = mfgj.features // geometry in one feature with
+      // let nb = gjfc.geometry.coordinates.reduce( (p,q) => p += q.length, 0)
+      // nb = Math.floor(nb * unitTimeElapsed)   
+
+
+   
+    
+      let newFeatureCollection = {type:'FeatureCollection', features:[]}
+      for (let i=0; i<feats.length; i++) {
+        let feature = feats[i]
+        if (0 && 1) console.log("feature", i, feature)
+        feature.properties.boform = boform
+        newFeatureCollection.features.push(feature)
+      }   
+    
+    
+      // let newFeatureCollection = {type:'FeatureCollection', features:[]}
+      // let features = []
+      // for (let i=0; i<gjfc.length; i++) {
+        // let feature = gjfc[i]
+        // if (1 && 1) console.log("feature", i, feature)
+  
+        
+      // }
+      
+    
+
+
+
+      // let ngj = {
+        // type: 'Feature',
+        // geometry: { type: 'Polygon',
+                    // coordinates: []
+                  // },
+        // properties: {
+          // boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.8, 'co': 0.1, 'cp': 0.9}
+          
+        // },
+      // }
+
+      // let outrings = []
+      // let n = 0
+      // for (let i=0; i<gjfc.geometry.coordinates.length; i++) {
+          // let ring = gjfc.geometry.coordinates[i]
+          // let ringLength = ring.length
+
+          // if (n + ringLength < nb) {    // if ring in scope
+              // ngj.geometry.coordinates.push(ring)
+              // ngj.properties.boform.co = 1
+              // n += ringLength
+              
+          // } else {
+              // let tmpring = ring.slice(0, nb-n)
+              // ngj.geometry.coordinates.push(tmpring)
+              // n += (nb-n)
+              // break
+          // }
+
+      // }     
+      
+      
+      
+      
+      return newFeatureCollection
+      
+
+      // gjfc = gjfc.features[0] // geometry in one feature with
+
+      // let nb = gjfc.geometry.coordinates.reduce( (p,q) => p += q.length, 0)
+      // nb = Math.floor(nb * unitTimeElapsed)
+
+      // let ngj = {
+        // type: 'Feature',
+        // geometry: { type: 'Polygon',
+                    // coordinates: []
+                  // },
+        // properties: {
+          // boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.8, 'co': 0.1, 'cp': 0.9}
+          
+        // },
+      // }
+
+      // let outrings = []
+      // let n = 0
+      // for (let i=0; i<gjfc.geometry.coordinates.length; i++) {
+          // let ring = gjfc.geometry.coordinates[i]
+          // let ringLength = ring.length
+
+          // if (n + ringLength < nb) {    // if ring in scope
+              // ngj.geometry.coordinates.push(ring)
+              // ngj.properties.boform.co = 1
+              // n += ringLength
+              
+          // } else {
+              // let tmpring = ring.slice(0, nb-n)
+              // ngj.geometry.coordinates.push(tmpring)
+              // n += (nb-n)
+              // break
+          // }
+
       // }
 
       
-
-      gjfc = gjfc.features[0] // geometry in one feature with
-
-      let nb = gjfc.geometry.coordinates.reduce( (p,q) => p += q.length, 0)
-      nb = Math.floor(nb * unitTimeElapsed)
-
-      let ngj = {
-        type: 'Feature',
-        geometry: { type: 'Polygon',
-                    coordinates: []
-                  },
-        properties: {
-          boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.8, 'co': 0.1, 'cp': 0.9}
-          
-        },
-      }
-
-      let outrings = []
-      let n = 0
-      for (let i=0; i<gjfc.geometry.coordinates.length; i++) {
-          let ring = gjfc.geometry.coordinates[i]
-          let ringLength = ring.length
-
-          if (n + ringLength < nb) {    // if ring in scope
-              ngj.geometry.coordinates.push(ring)
-              ngj.properties.boform.co = 1
-              n += ringLength
-              
-          } else {
-              let tmpring = ring.slice(0, nb-n)
-              ngj.geometry.coordinates.push(tmpring)
-              n += (nb-n)
-              break
-          }
-
-      }
-
-      return ngj
+      
+      // return ngj
 
 
     },
