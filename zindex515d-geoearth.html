@@ -121,49 +121,12 @@ let geoearthFront = {
         mfgj.features.push(feature)
       }
       
-
-            // ///
-            //    CONFORM
-            //    conform does not affect geonode
-            // //
-            mfgj = mprofier.conformer(anigram)(mfgj)  // get conform
-            mfgj.properties.formConformed = mgeoj.deprop(mfgj) // store conform
-            mfgj.properties.nodeConformed = mfgj.properties.geonode // nodeConformed : geonode
-  
-            if (payload.ereform) {
-              let ereformion = mprofier.ereformion(anigram)
-              mfgj = mproj3ct(mfgj, ereformion)
-
-            } 
-
-            if (payload.proform) {
-              let proformion = mprofier.proformion(anigram)
-              mfgj = mproj3ct(mfgj, proformion)
-            } 
-
-  if (1 && 1) console.log("mfgj", mfgj)   // feature collection       
-
-    
-    
-      let feats = mfgj.features // geometry in one feature with
-      // let nb = gjfc.geometry.coordinates.reduce( (p,q) => p += q.length, 0)
-      // nb = Math.floor(nb * unitTimeElapsed)   
+ 
 
 
-   
-    
-      let newFeatureCollection = {type:'FeatureCollection', features:[]}
-      for (let i=0; i<feats.length; i++) {
-        let feature = feats[i]
-        if (0 && 1) console.log("feature", i, feature)
-        feature.properties.boform = boform
-        newFeatureCollection.features.push(feature)
-      }   
-    
-    
   
 
-      gjfc = gjfc.features[0] // geometry in one feature with
+      gjfc = gjfc.features[0] // geometry in one feature
 
       let nb = gjfc.geometry.coordinates.reduce( (p,q) => p += q.length, 0)
       nb = Math.floor(nb * unitTimeElapsed)
@@ -187,7 +150,7 @@ let geoearthFront = {
 
           if (n + ringLength < nb) {    // if ring in scope
               ngj.geometry.coordinates.push(ring)
-              ngj.properties.boform.co = 1
+              // ngj.properties.boform.co = 1
               n += ringLength
               
           } else {
@@ -199,9 +162,34 @@ let geoearthFront = {
 
       }
 
+     
+    
+      let rings = ngj.geometry.coordinates // 
+      let newFeatureCollection = {type:'FeatureCollection', features:[]}
       
+      for (let i=0; i<rings.length; i++) {
+        let ring = rings[i]
+        let feature = {
+          type: 'Feature',
+          geometry: { type: 'Polygon', coordinates: [ring]},
+          properties: {},
+        }        
+        if (i < rings.length - 1) { // first
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 1, 'cp': 0.9}
+if (1 && 1) console.log("feature other", i)          
+        } else {
+if (1 && 1) console.log("feature first", i)          
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 0.1, 'cp': 0.9}
+        }
+        
+        if (1 && 1) console.log("feature", i, ring)
+        newFeatureCollection.features.push(feature)
+      }   
       
-      return ngj
+
+      
+      // return ngj
+      return newFeatureCollection
 
 
     },
