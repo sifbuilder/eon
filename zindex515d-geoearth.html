@@ -53,7 +53,152 @@ var projection = d3.geoOrthographic()
           .rotate([0,0,0])
     
     
-      // FRONT
+
+  /*******************************************
+ *    @geoearthDark
+ *
+ */  
+     // DARK projection
+      let pDark = function() {
+        let forward = (x, y) => d3.geoOrthographicRaw(-x,-y)
+        forward.invert = (x, y) => d3.geoOrthographicRaw.invert(-x,-y)
+        return forward
+      }
+
+      let darkProjection = d3.geoProjection(pDark())
+          .clipAngle(90)
+          .translate([0,0,0])
+          .scale(180)
+ 
+      let proformDark = {
+        
+        projection:  darkProjection,
+        prerotate: [[[ t => { 
+          let rot = cversor
+            .projection({projection: frontProjection}) // versor projection
+            .rotation()
+          rot = [180-rot[1], -rot[1], -rot[2]]
+          return rot
+        }]]],
+
+
+        rotate: [ [[[0, 0 + 0 * 360]]], [[[0, 0 * 360]]], 0 ],
+        // control: 'versor'
+
+      }  
+
+      
+let geoearthDark = {
+
+    // halo: 'ent',
+    halo: 'formed',
+
+    geofold: p => {
+      
+      let anigram = p, // anigram
+        halo = p.halo, // halo
+        geofold = p.geofold, // geofold
+        payload = p.payload // payload      
+      
+      let unitTimeElapsed = p.payload.tim.unitElapsed
+      let gjfc = Object.assign({},
+        topojson.feature(
+          __mapper('xs').d('worldTopo110m').data(),
+          __mapper('xs').d('worldTopo110m').data().objects.land
+        )
+      )
+      gjfc = __mapper('xs').m('geoj').trim(gjfc)
+
+      
+      let mfgj = {type: 'FeatureCollection',properties: {},features: []}
+      let polygons = gjfc.features[0].geometry.coordinates
+      for (let i=0; i<polygons.length; i++) {
+        let polygon = polygons[i]
+        let feature = {type: 'Feature',properties: {},
+          geometry: {type: 'Polygon',coordinates: [polygon]}
+        }
+        mfgj.features.push(feature)
+      }
+ 
+      gjfc = gjfc.features[0] // geometry in one feature
+
+      let nb = gjfc.geometry.coordinates.reduce( (p,q) => p += q.length, 0)
+      nb = Math.floor(nb * unitTimeElapsed)
+
+      let ngj = {
+        type: 'Feature',
+        geometry: { type: 'Polygon',
+                    coordinates: []
+                  },
+        properties: {},
+      }
+
+      let outrings = []
+      let n = 0
+      for (let i=0; i<gjfc.geometry.coordinates.length; i++) {
+          let ring = gjfc.geometry.coordinates[i]
+          let ringLength = ring.length
+
+          if (n + ringLength < nb) {    // if ring in scope
+              ngj.geometry.coordinates.push(ring)
+              n += ringLength
+              
+          } else {
+              let tmpring = ring.slice(0, nb-n)
+              ngj.geometry.coordinates.push(tmpring)
+              n += (nb-n)
+              break
+          }
+
+      }
+
+     
+    
+      let rings = ngj.geometry.coordinates // 
+      let newFeatureCollection = {type:'FeatureCollection', features:[]}
+      
+      for (let i=0; i<rings.length; i++) {
+        let ring = rings[i]
+        let feature = {
+          type: 'Feature',
+          geometry: { type: 'Polygon', coordinates: [ring]},
+          properties: {},
+        }        
+        if (i < rings.length - 1) { // first
+            feature.properties.boform = { 'csx': 0, 'cf': 222, 'cs': 333, 'cw': 0.3, 'co': 0.3, 'cp': 0.4}
+        } else {
+            feature.properties.boform = { 'csx': 0, 'cf': 222, 'cs': 333, 'cw': 0.3, 'co': 0.1, 'cp': 0.4}
+        }
+        
+        newFeatureCollection.features.push(feature)
+      }   
+      
+      
+      if (payload.proform) {
+        let proformion = mprofier.proformion(anigram)
+        newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
+      } 
+        
+      return newFeatureCollection
+
+
+    },
+
+    payload: {
+      tim,
+      proform: proformDark,
+      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthDark'},
+      boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
+    }
+
+  }
+
+
+  /*******************************************
+ *    @geoearthFront
+ *
+ */
+      // FRONT projection
       let pFront = function(x,y) {
         let forward = (x, y) => d3.geoOrthographicRaw(x,-y)
         forward.invert = (x, y) => d3.geoOrthographicRaw.invert(x,-y)
@@ -66,29 +211,24 @@ var projection = d3.geoOrthographic()
           .rotate([0,0,0])
       
       
-  let proformFront = {
-    
-    projection:  frontProjection,
-    prerotate: [[[ function (t) {
-      let rot = cversor
-        .projection({projection: frontProjection}) // versor projection
-        .rotation()
-      return rot
-    } ]]],    
+      let proformFront = {
+        
+        projection:  frontProjection,
+        prerotate: [[[ function (t) {
+          let rot = cversor
+            .projection({projection: frontProjection}) // versor projection
+            .rotation()
+          return rot
+        } ]]],    
 
-    translate: [0,0,0],
-    scale: 180,
-    rotate: [ [[[0, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
-      // control: 'versor'
+        translate: [0,0,0],
+        scale: 180,
+        rotate: [ [[[0, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
+          // control: 'versor'
 
-  }
+      }
 
-
-  /*******************************************
- *    @animas
- *
- */
-
+      
 let geoearthFront = {
 
     // halo: 'ent',
@@ -120,9 +260,7 @@ let geoearthFront = {
         }
         mfgj.features.push(feature)
       }
-      
  
-
       gjfc = gjfc.features[0] // geometry in one feature
 
       let nb = gjfc.geometry.coordinates.reduce( (p,q) => p += q.length, 0)
@@ -147,7 +285,6 @@ let geoearthFront = {
 
           if (n + ringLength < nb) {    // if ring in scope
               ngj.geometry.coordinates.push(ring)
-              // ngj.properties.boform.co = 1
               n += ringLength
               
           } else {
@@ -172,23 +309,21 @@ let geoearthFront = {
           properties: {},
         }        
         if (i < rings.length - 1) { // first
-            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 1, 'cp': 0.9}
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 1, 'cp': 1}
         } else {
-            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 0.1, 'cp': 0.9}
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 0.1, 'cp': 1}
         }
         
-        if (0 && 1) console.log("feature", i, ring)
         newFeatureCollection.features.push(feature)
       }   
       
       
       
-            if (payload.proform) {
-              let proformion = mprofier.proformion(anigram)
-              newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
-            } 
+      if (payload.proform) {
+        let proformion = mprofier.proformion(anigram)
+        newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
+      } 
       
-if (0 && 1) console.log("newFeatureCollection", newFeatureCollection)
       return newFeatureCollection
 
 
@@ -203,6 +338,10 @@ if (0 && 1) console.log("newFeatureCollection", newFeatureCollection)
 
   }
 
+  /*******************************************
+ *    @graticuleFront
+ *
+ */  
 let graticuleFront = {
 
     halo: 'ent',
@@ -217,9 +356,13 @@ let graticuleFront = {
     }
 
   }
-
+  /*******************************************
+ *    @animas
+ *
+ */  
   let animas = [
 
+    geoearthDark, // h.ent g.orthographic
     geoearthFront, // h.ent g.orthographic
     graticuleFront, // h.ent
   ]
