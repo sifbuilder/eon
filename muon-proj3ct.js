@@ -96,11 +96,11 @@
 
       let streamSink = 	stream(sink)
 
-if (0 && 1) console.log("ret", o)      
       d3Geo.geoStream(o, streamSink)
       // return sink.result()
 
       let ret = sink.result()
+if (0 && 1) console.log("ret", o , ret)      
       return ret
     }
 
