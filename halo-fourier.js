@@ -111,6 +111,7 @@
         newItem.payload.tim = tim
         newItem.payload.ric = _ric
         newItem.payload.uid = uid
+        newItem.payload.boform = fourier.boform
 
         newItem.geofold.geometry.coordinates = [x, y]
         newItem.geofold.properties.geonode.geometry.coordinates = [x, y]

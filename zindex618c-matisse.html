@@ -117,12 +117,10 @@ let muonAlima = function muonAlima (__mapper) {
       proform: {
         'projection': 'uniwen',
         'translate': {
-          'x':
-									{
+          'x':{
 									  'pos': [[[ 0, 360]]]
 									},
-          'y': 
-									{
+          'y':{
 									  'pos': [[[ 0, 360]]]
 									},
           'z': 0
@@ -200,7 +198,7 @@ let fourierPacer = { // SUB-MARKS line trace
 
             payload: {
               ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-              boform: {'csx': 0, 'cf': [[[111,222,111]]], 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+              boform: {'csx': 0, 'cf': [[[444,444,444]]], 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
               pacer: { // aad for trace
                 initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
@@ -249,12 +247,28 @@ let fourierPacer = { // SUB-MARKS line trace
  *    @fourier anima
  *
  */
+ 
+
+      
+   let matisse =__mapper('xs').d('matisse').data()
+      var re = /C/      
+      let str = matisse.path.d
+      let a = []
+      let c0 = str.substring(str.lastIndexOf("M")+1,str.lastIndexOf("C")).split(',').map(Number);
+      let cn = str.substring(str.lastIndexOf("C")+1,str.lastIndexOf("Z")).split(/\r?\n/)
+          .map(d => d.trim())
+          .map(d => d.split(" ").slice(-1)[0].split(',').map(Number))
+      let data = [c0, ...cn]    
+     if (1 && 1) console.log("matisse", data)
+   
+ 
      let fourierForm = {
 
       halo: 'fourier',
 
       geofold: p => {
 
+      
         let coords = []
 
         let gj = {
@@ -291,21 +305,24 @@ let fourierPacer = { // SUB-MARKS line trace
 
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
+        boform: {'csx': 0, 'cf': 555, 'cs': 444, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
    
         fourier: {
 
           transform: mfourier.fourierDiagram( 
           
-          JSON.parse (manimas('shapes').rhyno ).map(d => [d[0]-150, -d[1]+25, d[2]]) 
+          // JSON.parse (manimas('shapes').rhyno ).map(d => [d[0]-150, -d[1]+25, d[2]]) 
+          data.map(d => [d[0]-150, -d[1]+125, d[2]]) 
+          
+          
             )
             .updateTransform()
             .transform(),
             
-          avatars: [fourierPacer] // fourier avatars
+          avatars: [fourierPacer], // fourier avatars
+          boform: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.3, 'co': 0.00012, 'cp': 0.7},
 
         },
-        
 
       }
     }
