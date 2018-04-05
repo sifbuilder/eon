@@ -91,8 +91,8 @@ var projection = d3.geoOrthographic()
 
 let geoearthFront = {
 
-    halo: 'ent',
-    // halo: 'collection',
+    // halo: 'ent',
+    halo: 'formed',
 
     geofold: p => {
       
@@ -122,9 +122,6 @@ let geoearthFront = {
       }
       
  
-
-
-  
 
       gjfc = gjfc.features[0] // geometry in one feature
 
@@ -176,19 +173,22 @@ let geoearthFront = {
         }        
         if (i < rings.length - 1) { // first
             feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 1, 'cp': 0.9}
-if (1 && 1) console.log("feature other", i)          
         } else {
-if (1 && 1) console.log("feature first", i)          
             feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 0.1, 'cp': 0.9}
         }
         
-        if (1 && 1) console.log("feature", i, ring)
+        if (0 && 1) console.log("feature", i, ring)
         newFeatureCollection.features.push(feature)
       }   
       
-
       
-      // return ngj
+      
+            if (payload.proform) {
+              let proformion = mprofier.proformion(anigram)
+              newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
+            } 
+      
+if (0 && 1) console.log("newFeatureCollection", newFeatureCollection)
       return newFeatureCollection
 
 
@@ -203,12 +203,25 @@ if (1 && 1) console.log("feature first", i)
 
   }
 
+let graticuleFront = {
 
+    halo: 'ent',
+
+    geofold: () => d3.geoGraticule()(),
+
+    payload: {
+      tim,
+      proform: proformFront,
+      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
+      boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9},
+    }
+
+  }
 
   let animas = [
 
     geoearthFront, // h.ent g.orthographic
-
+    graticuleFront, // h.ent
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

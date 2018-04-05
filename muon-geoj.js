@@ -378,7 +378,8 @@
                 rings.reduce((p,q) => p && 
                   q.reduce((p2,q2) => p2 &&     // ring
                     q2.reduce((p3,q3) => p3 &&  // point
-                      typeof q3 === 'number',   // coord
+                      typeof q3 === 'number' // coord
+                      || q3 === undefined,   // _e_ undefined
                     true), 
                   true),
                 true)

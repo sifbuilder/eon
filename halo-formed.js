@@ -1,14 +1,14 @@
  /**********************
- *    @haloCollection
+ *    @haloFormed
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloCollection = global.haloCollection || {})))
+      : (factory((global.haloFormed = global.haloFormed || {})))
 }(this, function (exports) {
   'use strict'
 
-  let haloCollection = function haloCollection (__mapper = {}) {
+  let haloFormed = function haloFormed (__mapper = {}) {
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
       mric = __mapper('xs').m('ric'),
@@ -43,23 +43,23 @@
       //  get GEOFORM
       //
       let gjcollection = f.v(geofold, anigram)  // get geoform
-        // gjcollection = mric.enric(ric, anigram, gjcollection) 
+        gjcollection = mric.enric(ric, anigram, gjcollection) 
 
-        newAnigrams = gjcollection.features.map((d, i) => { // d is feature
+        newAnigrams = gjcollection.features.map((feature, i) => { 
  
-if (0 && 1) console.log("ric", i, d.properties.ric) 
-
-          d.properties.tim = tim  // tim in geofold
-          d.properties.vim = vim  // vim in geofold needed to render
+if (0 && 1) console.log("ric", i, feature.properties.ric) 
+          feature = mboform.boformer(anigram, feature)
+          feature.properties.tim = tim  // tim in geofold
+          feature.properties.vim = vim  // vim in geofold needed to render
           
           let newAnigram = {
             halo: halo, // inherit halo
-            geofold: d, // inherit geofold
+            geofold: feature, // inherit geofold
             payload: {  // payload is lost in m.animation before rendering
               avatars, // inherit avatars
-              ric: d.properties.ric, // hoist ric
-              id: d.properties.uid, // hoist uid
-              uid: d.properties.uid, // hoist uid
+              ric: feature.properties.ric, // hoist ric
+              id: feature.properties.uid, // hoist uid
+              uid: feature.properties.uid, // hoist uid
             },
           }
           return newAnigram
@@ -76,14 +76,14 @@ if (0 && 1) console.log("ric", i, d.properties.ric)
     let haloGeofold_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
     let haloGeofold_gramm = anima => gramm(anima)
 
-    let haloCollection = {}
-    haloCollection.ween = anima => haloGeofold_ween(anima)
-    haloCollection.gramm = anima => haloGeofold_gramm(anima)
+    let haloFormed = {}
+    haloFormed.ween = anima => haloGeofold_ween(anima)
+    haloFormed.gramm = anima => haloGeofold_gramm(anima)
 
-    let enty = haloCollection
+    let enty = haloFormed
 
     return enty
   }
 
-  exports.haloCollection = haloCollection
+  exports.haloFormed = haloFormed
 }))

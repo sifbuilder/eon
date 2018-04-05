@@ -52,11 +52,11 @@
           if (feature.properties !== undefined && feature.properties.boform !== undefined) {
             boform = feature.properties.boform
           } else if (anigram.payload.boform) {
-            boform = feature.properties.boform
+            boform = anigram.payload.boform
           } else {
             if (2 && 2) console.log("(( boform not defined", json, anigram)
           }
-if (1 && 1) console.log("boform", boform.cf)          
+if (0 && 1) console.log("boform", boform)          
           let jsonStyle = getStyle(boform)
 
           if (feature.properties !== undefined && feature.properties.style !== undefined) {

@@ -77,7 +77,7 @@ let diagram,
       // return mmath.integrate(fn, a, b,e);
     // }    
     // let sum = z(sinci,0,1)
-    // if (1 && 1) console.log("sum", sum)
+    // if (0 && 1) console.log("sum", sum)
     
   
   
