@@ -11,8 +11,9 @@
 
   // https://github.com/Pomax/bezierjs
   // http://pomax.github.io/bezierjs/
+  // https://pomax.github.io/bezierinfo/
   
-  let muonNat = function muonBezierjs (__mapper = {}) {  
+  let muonBezierjs = function (__mapper = {}) {  
   
 /**
    * Utils

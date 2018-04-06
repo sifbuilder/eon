@@ -29,7 +29,8 @@ let muonAlima = function muonAlima (__mapper) {
     mfourier = __mapper('xs').m('fourier'),
     manimas = __mapper('xs').m('animas'),
     mric = __mapper('xs').m('ric'),
-    mstore = __mapper('xs').m('store')
+    mstore = __mapper('xs').m('store'),
+    mbezierjs = __mapper('xs').m('bezierjs')
 
   const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
@@ -251,16 +252,49 @@ let fourierPacer = { // SUB-MARKS line trace
 
       
    let matisse =__mapper('xs').d('matisse').data()
-      var re = /C/      
+      if (0 && 1) console.log("matisse", matisse)
+
+        var re = /C/      
       let str = matisse.path.d
       let a = []
       let c0 = str.substring(str.lastIndexOf("M")+1,str.lastIndexOf("C")).split(',').map(Number);
       let cn = str.substring(str.lastIndexOf("C")+1,str.lastIndexOf("Z")).split(/\r?\n/)
           .map(d => d.trim())
-          .map(d => d.split(" ").slice(-1)[0].split(',').map(Number))
-      let data = [c0, ...cn]    
-     if (0 && 1) console.log("matisse", data)
+          .map(d => d.split(' '))
+          .map(d => d.map(c => c.split(',').map(Number)))
+          .map( d => d.reduce( (p,q) => [...p, ...q] ,[]))  // 
+          
+      let cas = []
+      cas[0] = [...c0, ...cn[0]]
+      for (let i=0; i<cn.length-1; i++) {
+        cas[i+1] = [ ...cn[i].slice(-2), ...cn[i+1] ]
+      }
+      let m = cn.length-2
+      cas[m] = [ ...cn[m].slice(-2), ...cn[m+1] ] // close
+      cas[m+1] = [ ...cn[m].slice(-2), ...cn[m+1] ] // close
+      if (0 && 1) console.log("cas", cas)
+      
+      
+      let data = []
+      for (let i=0; i<cn.length-1; i++) {
+        let curve = new mbezierjs.Bezier(cas[i])
+        
+        let a = curve.compute(0.0), 
+          b = curve.compute(0.33), 
+          c = curve.compute(0.66) 
+        let points = [Object.values(a), Object.values(b), Object.values(c)]
+        data = [...data, ...points]
+        
+      }      
+      
+
+    
+      // data = [c0, ...cn]    
+      if (1 && 1) console.log("matisse", data)
    
+ 
+ 
+ 
  
      let fourierForm = {
 
@@ -326,7 +360,46 @@ let fourierPacer = { // SUB-MARKS line trace
 
       }
     }
-    
+   // -------------------------------  img
+  let img = {
+
+    halo: 'img',
+
+    geofold: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {gid: 'imgg', cid: 'imgc', fid: 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }   
   /*******************************************
  *    @enty
  *
@@ -335,7 +408,7 @@ let fourierPacer = { // SUB-MARKS line trace
  
   let animas = [
     fourierForm, // h.fourier
-
+    img // h.img
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
