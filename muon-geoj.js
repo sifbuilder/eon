@@ -26,6 +26,7 @@
       FeatureCollection: 'featurecollection'
     }
 
+    
     /**********************
    *    @resample
     *   Mike Bostock’s Block bfe064713436955c1ace
@@ -58,6 +59,78 @@
       coordinates.length = j + 1
     }
 
+    
+     
+    /**********************
+   *    @tclip
+   */
+
+    let tclip = function (gj, t=1, interval=[0,1]) {
+      let ret = gj
+      
+      let t0 =  interval[0],
+        t1 = interval[1],
+        period = t1 - t0,
+        tInPeriod = (t - t0) / period      
+      
+      if (t < interval[0] || t > interval[1]) {
+        
+          ret = []  // return empty set
+        
+      } else if (tInPeriod === 1) { // return geojson
+      } else if (gj.type && gj.type === 'Point') {
+      } else if (gj.type && gj.type === 'MultiPoint') {
+      } else if (gj.type && gj.type === 'LineString') {
+      } else if (gj.type && gj.type === 'MultiLineString') {
+      } else if (gj.type && gj.type === 'Polygon') {
+          
+          let ngj = { type: 'Polygon', coordinates: [],  } // return polygon
+         
+          // coordinates is array of rings
+          let tnb = gj.coordinates.reduce( (p,q) => p += q.length, 0)
+          let nb = Math.floor(tnb * tInPeriod)
+          
+          let outrings = []
+          let n = 0
+          for (let i=0; i<gj.coordinates.length; i++) {
+              let ring = gj.coordinates[i]
+              let ringLength = ring.length
+
+              if (n + ringLength < nb) {    // if ring in scope
+                  ngj.coordinates.push(ring)
+                  n += ringLength
+                  
+              } else {    // complement with part of next ring
+                  let tmpring = ring.slice(0, nb-n)
+                  ngj.coordinates.push(tmpring)
+                  n += (nb-n)
+                  break
+              }
+
+          }        
+              
+          ret = ngj
+
+        
+        
+      } else if (gj.type && gj.type === 'MultiPolygon') {
+      } else if (gj.type && gj.type === 'GeometryCollection') {
+      } else if (gj.type && gj.type === 'Feature') {
+        
+        
+        
+       
+                     
+        
+        
+      } else if (gj.type && gj.type === 'FeatureCollection') {
+      }
+      
+      
+      return ret
+      
+    }      
+    
     /**********************
    *    @trim
    */
@@ -422,9 +495,10 @@
     /**********************
    *    @enty
    */
-    let enty = function enty () {}
+    let enty = function () {}
 
     enty.resample = resample
+    enty.tclip = tclip
     enty.trim = trim
     enty.deprop = deprop
     enty.snip = snip

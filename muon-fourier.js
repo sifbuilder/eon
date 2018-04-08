@@ -80,9 +80,6 @@ let diagram,
     // if (0 && 1) console.log("sum", sum)
     
   
-  
-  
-    if (0 && 1) console.log("updateTransform")
       var N = polyline.length;
       var _transform = [];
       for (var k = 0; k < N; k++) { // N coefficients

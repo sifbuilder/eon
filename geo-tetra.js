@@ -101,7 +101,7 @@
         return ret
       }
 
-      prjRaw.invert = __mapper('xs').m('newton').geoInverse(prjRaw)
+      prjRaw.invert = __mapper('xs').m('math').geoInverse(prjRaw)
 
       return prjRaw
     }

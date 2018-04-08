@@ -18,28 +18,31 @@
       width = r.width(),
       height = r.height()
 
-  const pi = Math.PI, pi2 = 2 * pi,
+    const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
-
       
     /****************************
    *    @gramm
    */
     let gramm = function (anima, newAnigrams = []) {
 
-      let anigram = manitem(anima).anigram() // anigram
-      let fractal = anigram.payload.fractal
+      let anigram = manitem(anima).anigram(), // anigram
+        halo = anigram.halo, // halo
+        geofold = anigram.geofold // geofold
+      
+      let payload = anigram.payload, // payload
+        fractal = payload.fractal
       
       let _NAME = fractal.name || 'anitems',
-        _DEPTH = fractal.depth || 2,
+        N = fractal.depth || 2,
         _CF = fractal.cf || (d => 222 * 1), // cf color onlevel
         _SIDES = fractal.sides || 5,
         _RAD = fractal.rad || 90
         
        
       let anitems = []
-      for (let i = 0; i < _DEPTH; i++) {  // for LEVEL i in [0, _DEPTH)
-        let newAnitem = {} // 
+      for (let i = 0; i < N; i++) {  // for LEVEL i in [0, N)
+        let newAnitem = {}
         
         newAnitem = f.cloneObj(anitems[i - 1] || anigram) // anitems h.nat
         
@@ -66,9 +69,8 @@
           }, Complex({re: 0, im: 0}))
         }
         
-        // set rad on fractal form
-        //
-        let rad = fractal.radOnLevel(i) // rad
+
+        let rad = fractal.radOnLevel(i) // rad on fractal form
         newAnitem.payload.fractal.rad = rad
         newAnitem.payload.form = { // FORM
             'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
@@ -103,10 +105,7 @@
           
         ) 
  
-        // ///
-        //  add avatar to last cycloid
-        //
-        if (i === _DEPTH - 1) { // add avatars to last ani fractal
+        if (i === N - 1) { // add avatars to last cycloid
         
           newAnitem.payload.avatars = newAnitem.payload.fractal.avatars
           
@@ -116,6 +115,8 @@
         anitems[i] = newAnitem
         
       }
+      
+      
       
       for (let i=0; i<anitems.length; i++) {  // ent will ereform, proform
         newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(anitems[i])]

@@ -40,17 +40,20 @@
         uid = payload.uid, // uid
         parentuid = payload.parentuid // parentuid
     
-      //  get GEOFORM
+    
+    
+      //  get GEOFORM FeatureCollection
       //
       let gjcollection = f.v(geofold, anigram)  // get geoform
-        gjcollection = mric.enric(ric, anigram, gjcollection) 
+      
+        gjcollection = mgeoj.zorder(gjcollection) // order features in feature collection
+        gjcollection = mric.enric(ric, anigram, gjcollection) // ric to feature or feature collection
 
         newAnigrams = gjcollection.features.map((feature, i) => { 
  
-if (0 && 1) console.log("ric", i, feature.properties.ric) 
           feature = mboform.boformer(anigram, feature)
           feature.properties.tim = tim  // tim in geofold
-          feature.properties.vim = vim  // vim in geofold needed to render
+          feature.properties.vim = vim  // vim in geofold to render
           
           let newAnigram = {
             halo: halo, // inherit halo

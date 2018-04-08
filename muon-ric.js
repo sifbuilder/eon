@@ -76,7 +76,7 @@
       } else if (typeof ric !== 'object') {
         console.log('ric is not an object')
       } else if (json.type === 'Feature') {
-        let _ric = {}
+        let _ric = JSON.parse(JSON.stringify(ric))
         _ric.gid = ric.gid		// ric from param ric
         _ric.cid = ric.cid
         _ric.fid = ric.fid
@@ -105,7 +105,7 @@
 
           let properties = feature.properties || {}
 
-          let _ric = {}
+          let _ric = JSON.parse(JSON.stringify(ric))
           _ric.gid = ric.gid		// ric from param ric
           _ric.cid = ric.cid
           _ric.fid = ric.fid

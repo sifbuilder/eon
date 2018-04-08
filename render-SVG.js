@@ -265,8 +265,9 @@
           let features = fitems
             .filter(d => d.properties.sort === 'feature' || d.properties.sort === undefined) // default
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
-
-          if (features.length > 0) {
+            .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
+if (0 && 1) console.log("features", features)
+          // if (features.length > 0) {
             __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)
               .data(() => features)
               .attr('d', d => {
@@ -292,7 +293,7 @@
               .style('fill-opacity', d => d.properties.style['fill-opacity'])
               .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
               .style('stroke-width', d => d.properties.style['stroke-width'])
-          }
+          // }
           /*  ................. END SVG FORMS ................. */
         }
       }

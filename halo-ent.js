@@ -112,38 +112,22 @@
             } else {
               feature.properties.nodeProformed = feature.properties.nodeEreformed
             }
-
-           feature = mboform.boformer(anigram, feature) // boform feature or feature collection
             
             return feature
       })
         
         let gjcollection = {type: 'FeatureCollection', features}
-    
-        // gj = mgeoj.featurecollect(gj) // featurecollect - pack features in collection
-        gjcollection = mgeoj.zorder(gjcollection) // order features in feature collection
-        gjcollection = mric.enric(ric, anigram, gjcollection) // ric to feature or feature collection
+        
+        
+        
+        
+        anigram.geofold = gjcollection
+        newAnigrams = __mapper('xs').h('formed').gramm(anigram)
 
-        newAnigrams = gjcollection.features.map((d, i) => { // d is feature
-
-          d.properties.tim = tim  // tim in geofold
-          d.properties.vim = vim  // vim in geofold needed to render
-          
-          let newAnigram = {
-            halo: halo, // inherit halo
-            geofold: d, // inherit geofold
-            payload: {  // payload is lost in m.animation before rendering
-              avatars, // inherit avatars
-              ric: d.properties.ric, // hoist ric
-              id: d.properties.uid, // hoist uid
-              uid: d.properties.uid, // hoist uid
-            },
-          }
-          return newAnigram
-
-        })
-
-
+        
+        
+        
+if (0 && 1) console.log("h.ent newAnigrams", newAnigrams.length)
       return newAnigrams //    new anigrams are stored by m.animation
     }
 
