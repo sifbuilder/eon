@@ -102,10 +102,13 @@ let fourierPacer = { // SUB-MARKS line trace
     // let fourdata = svgdata.features[0].geometry.coordinates[0]
     let fourdata = svgdata
     let scale = [0.5,-0.5]
-    let translate = [-100,100]    
-    let data = msvg.castel(fourdata, {start:0, stop:0.9, step:0.33} )
-        data = data.map(d => [(scale[0] * d[0]) + translate[0],
-                        (scale[1] * d[1]) + translate[1] ]) 
+    let translate = [-100,100] 
+    
+    let data = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} )
+        // data = data.map(d => [(scale[0] * d[0]) + translate[0],
+                        // (scale[1] * d[1]) + translate[1] ]) 
+
+      if (1 && 1) console.log("data", data)
                         
     // let data = fourdata            
         // data = data.map(d => [(scale[0] * d[0]) + translate[0],
@@ -115,34 +118,45 @@ let fourierPacer = { // SUB-MARKS line trace
  
      let fourierForm = {
 
-      halo: 'fourier',
-
-      geofold: p => {
-
-        let gj = {
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: []  },
-          properties: {
-                 pointRadius: 3, // d.payload.fourier.rad,
-                 geonode: {
-                  type: 'Feature',
-                  geometry: { type: 'Point', coordinates: [0,0] },
-                  properties: { // geofold coindices with geonode
-                     orgen: [0,0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]
-                  }
-                },
-              }
-        }
+      halo: 'ent',
+      geofold: p => data,
+     
+     
+     
+      // halo: 'fourier',
+      // geofold: p => {
+        // let gj = {
+          // type: 'Feature',
+          // geometry: { type: 'Point', coordinates: []  },
+          // properties: {
+                 // pointRadius: 3, // d.payload.fourier.rad,
+                 // geonode: {
+                  // type: 'Feature',
+                  // geometry: { type: 'Point', coordinates: [0,0] },
+                  // properties: { // geofold coindices with geonode
+                     // orgen: [0,0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]
+                  // }
+                // },
+              // }
+        // }
     
-        return gj
-      },
+        // return gj
+      // },
 
       payload: {  // payload in fourierForm
 
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
         boform: {'csx': 0, 'cf': 555, 'cs': 444, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
-   
+
+        proform: {
+            projection: 'uniwen',
+            translate: [-100, 100, 0],
+            scale: [0.5, -0.5],
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, Infinity],
+          },
+
         fourier: {
 
           transform,

@@ -1,5 +1,5 @@
 /*******************************************
- * 			@muonSvg
+ *      @muonSvg
  *
  */
 (function (global, factory) {
@@ -12,9 +12,9 @@
   var muonSvg = function muonSvg (__mapper = {}) {
 
     let mbezierjs = __mapper('xs').m('bezierjs')
-    
-    
-    // source: https://github.com/d3/d3-array/blob/master/src/range.js  
+
+
+    // source: https://github.com/d3/d3-array/blob/master/src/range.js
     // license: https://github.com/d3/d3-array/blob/master/LICENSE
     let d3range = function (start, stop, step) {
       start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
@@ -28,105 +28,121 @@
       }
 
       return range;
-    }      
-    
-    
+    }
+
  /*******************************************
- * 			@castels
+ *      @engj
  *
- */   
- 
- 
+ */
+
+
+    let engj = function(svgdata) {
+
+        let gj = {
+          type: 'Feature',
+          geometry: { type: 'Polygon', coordinates: []  },
+          properties: {}
+        }
+
+
+    }
+
+ /*******************************************
+ *      @castels
+ *
+ */
+
+
     let castels = function(svgdata, frame={start:0, stop:1, step:0.33} ) {
+
+      let gj = {
+        type: 'Feature',
+        geometry: { type: 'Polygon', coordinates: []  },
+        properties: {}
+      }
+
       let pathdata  = []
       let range = d3range(frame.start, frame.stop, frame.step)
 
-      let re = /C/      
+      let re = /C/
       let str = svgdata.path.d
       let a = []
-      
-let rings =   str.trim().split('M')
 
-      
-    
-    let ncas = []   
-    for (let i=0; i<rings.length; i++) {
-      
-      
-      let c0 = str.substring(str.lastIndexOf("M")+1,str.lastIndexOf("C")).split(',').map(Number);
-      let cn = str.substring(str.lastIndexOf("C")+1,str.lastIndexOf("Z")).split(/\r?\n/)
-          .map(d => d.trim())
-          .map(d => d.split(' '))
-          .map(d => d.map(c => c.split(',').map(Number)))
-          .map( d => d.reduce( (p,q) => [...p, ...q] ,[]))  // 
-      
-      
-      let cas = []
-      cas[0] = [...c0, ...cn[0]]
-      for (let i=0; i<cn.length-1; i++) {
-        cas[i+1] = [ ...cn[i].slice(-2), ...cn[i+1] ]
+      let ringCases = []
+      let svgRings =   str.trim().split('M').slice(1) // M C Z
+
+      let ncas = []
+      for (let i=0; i<svgRings.length; i++) {
+        
+        let svgRing = svgRings[i]
+        
+        let c0 = svgRing.substring(svgRing.lastIndexOf("M")+1,svgRing.lastIndexOf("C")).split(',').map(Number);
+        let cn = svgRing.substring(svgRing.lastIndexOf("C")+1,svgRing.lastIndexOf("Z")).split(/\r?\n/)
+            .map(d => d.trim())
+            .map(d => d.split(' '))
+            .map(d => d.map(c => c.split(',').map(Number)))
+            .map( d => d.reduce( (p,q) => [...p, ...q] ,[]))  //
+
+        let cas = []
+        cas[0] = [...c0, ...cn[0]]
+
+        for (let i=0; i<cn.length-1; i++) {
+          cas[i+1] = [ ...cn[i].slice(-2), ...cn[i+1] ]
+        }
+        
+        let m = cn.length-2
+        cas[m] = [ ...cn[m].slice(-2), ...cn[m+1] ] // close
+
+        gj.geometry.coordinates.push(cas)
+
+        ringCases[i] = cas
       }
-      let m = cn.length-2
-      cas[m] = [ ...cn[m].slice(-2), ...cn[m+1] ] // close      
-      
-      ncas = [ ...ncas, ...cas ]
-      
-    }
- if (1 && 1) console.log("ncas", ncas.length, ncas)   
-    
-      // let c0 = str.substring(str.lastIndexOf("M")+1,str.lastIndexOf("C")).split(',').map(Number);
-      // let cn = str.substring(str.lastIndexOf("C")+1,str.lastIndexOf("Z")).split(/\r?\n/)
-          // .map(d => d.trim())
-          // .map(d => d.split(' '))
-          // .map(d => d.map(c => c.split(',').map(Number)))
-          // .map( d => d.reduce( (p,q) => [...p, ...q] ,[]))  // 
-          
-      // let cas = []
-      // cas[0] = [...c0, ...cn[0]]
-      // for (let i=0; i<cn.length-1; i++) {
-        // cas[i+1] = [ ...cn[i].slice(-2), ...cn[i+1] ]
-      // }
-      // let m = cn.length-2
-      // cas[m] = [ ...cn[m].slice(-2), ...cn[m+1] ] // close
-      
-    
-      // for (let i=0; i<cn.length-1; i++) {
-      for (let i=0; i<ncas.length-1; i++) {
-        let curve = new mbezierjs.Bezier(ncas[i])  // one cast
 
-        let points = []
-        for (let j=0; j<range.length; j++) {
-          let point = Object.values(curve.compute(range[j]))  // each point in cast
-          points.push(point)
+      
+      
+      for (let j=0; j< ringCases.length; j++) { // rings of knots
+
+        let ringCas = ringCases[j]
+        let ring = []
+        for (let k=0; k<ringCas.length; k++) {
+          let cas = ringCas[k]
+          let curve = new mbezierjs.Bezier(cas)
+          let points = []
+          for (let j=0; j<range.length; j++) {
+            let point = Object.values(curve.compute(range[j]))  // each point in cast
+            points.push(point)
+          }
+
+          ring = [...ring, ...points]
+
+
         }
 
-        pathdata = [...pathdata, ...points] // is ring or line string
-        
-      }      
-      
-      let curves = []
-      curves.push(pathdata)
- 
-      return curves      
-      
+        gj.geometry.coordinates[j] = ring
+    }
+
+
+
+      return gj
+
     }
  /*******************************************
- * 			@castel
+ *      @castel
  *
- */   
+ */
     let castel = function(svgdata, pathdata) {
-      
+
       return castels (svgdata, pathdata)[0]
-      
+
     }
     /*******************************************
-	 * 			@enty
-	 */
+   *      @enty
+   */
     var enty = function () {}
-    
+
     enty.castels = castels
     enty.castel = castel
-    
+
     return enty
   }
 
