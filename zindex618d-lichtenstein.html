@@ -98,12 +98,18 @@ let fourierPacer = { // SUB-MARKS line trace
  *    @fourier anima
  *
  */
-    let fourdata =__mapper('xs').d('lichtenstein').data()
-    let scale = [1,-1]
-    let translate = [-150,125]    
+    let svgdata = __mapper('xs').d('lichtenstein').data()
+    // let fourdata = svgdata.features[0].geometry.coordinates[0]
+    let fourdata = svgdata
+    let scale = [0.5,-0.5]
+    let translate = [-100,100]    
     let data = msvg.castel(fourdata, {start:0, stop:0.9, step:0.33} )
         data = data.map(d => [(scale[0] * d[0]) + translate[0],
                         (scale[1] * d[1]) + translate[1] ]) 
+                        
+    // let data = fourdata            
+        // data = data.map(d => [(scale[0] * d[0]) + translate[0],
+                        // (scale[1] * d[1]) + translate[1] ]) 
  
      let transform = mfourier.fourierDiagram(data).updateTransform().transform()
  

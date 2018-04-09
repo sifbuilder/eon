@@ -35,33 +35,64 @@
  * 			@castels
  *
  */   
-    let castels = function(svgdata, frame={start:0, stop:0.9, step:0.33} ) {
+ 
+ 
+    let castels = function(svgdata, frame={start:0, stop:1, step:0.33} ) {
       let pathdata  = []
       let range = d3range(frame.start, frame.stop, frame.step)
 
-      
-      
       let re = /C/      
       let str = svgdata.path.d
       let a = []
+      
+let rings =   str.trim().split('M')
+
+      
+    
+    let ncas = []   
+    for (let i=0; i<rings.length; i++) {
+      
+      
       let c0 = str.substring(str.lastIndexOf("M")+1,str.lastIndexOf("C")).split(',').map(Number);
       let cn = str.substring(str.lastIndexOf("C")+1,str.lastIndexOf("Z")).split(/\r?\n/)
           .map(d => d.trim())
           .map(d => d.split(' '))
           .map(d => d.map(c => c.split(',').map(Number)))
           .map( d => d.reduce( (p,q) => [...p, ...q] ,[]))  // 
-          
+      
+      
       let cas = []
       cas[0] = [...c0, ...cn[0]]
       for (let i=0; i<cn.length-1; i++) {
         cas[i+1] = [ ...cn[i].slice(-2), ...cn[i+1] ]
       }
       let m = cn.length-2
-      cas[m] = [ ...cn[m].slice(-2), ...cn[m+1] ] // close
+      cas[m] = [ ...cn[m].slice(-2), ...cn[m+1] ] // close      
+      
+      ncas = [ ...ncas, ...cas ]
+      
+    }
+ if (1 && 1) console.log("ncas", ncas.length, ncas)   
+    
+      // let c0 = str.substring(str.lastIndexOf("M")+1,str.lastIndexOf("C")).split(',').map(Number);
+      // let cn = str.substring(str.lastIndexOf("C")+1,str.lastIndexOf("Z")).split(/\r?\n/)
+          // .map(d => d.trim())
+          // .map(d => d.split(' '))
+          // .map(d => d.map(c => c.split(',').map(Number)))
+          // .map( d => d.reduce( (p,q) => [...p, ...q] ,[]))  // 
+          
+      // let cas = []
+      // cas[0] = [...c0, ...cn[0]]
+      // for (let i=0; i<cn.length-1; i++) {
+        // cas[i+1] = [ ...cn[i].slice(-2), ...cn[i+1] ]
+      // }
+      // let m = cn.length-2
+      // cas[m] = [ ...cn[m].slice(-2), ...cn[m+1] ] // close
       
     
-      for (let i=0; i<cn.length-1; i++) {
-        let curve = new mbezierjs.Bezier(cas[i])  // one cast
+      // for (let i=0; i<cn.length-1; i++) {
+      for (let i=0; i<ncas.length-1; i++) {
+        let curve = new mbezierjs.Bezier(ncas[i])  // one cast
 
         let points = []
         for (let j=0; j<range.length; j++) {

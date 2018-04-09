@@ -34,7 +34,7 @@
       let path = fourier.path,
         transform = fourier.transform,
         maglast = fourier.maglast || 3,  // pencil radious
-        interval = fourier.interval || [0.1,0.3] // fourier.period
+        interval = fourier.interval || [0,1] // fourier.period
         
       let t = tim.unitTime // time % period; i,[0,vertices] => t,[0,T]
 
