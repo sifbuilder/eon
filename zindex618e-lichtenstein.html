@@ -31,7 +31,10 @@ let muonAlima = function muonAlima (__mapper) {
     mric = __mapper('xs').m('ric'),
     mstore = __mapper('xs').m('store'),
     mbezierjs = __mapper('xs').m('bezierjs'),
-    msvg = __mapper('xs').m('svg')
+    msvg = __mapper('xs').m('svg'),
+    mgeoj = __mapper('xs').m('geoj'),
+    mprofier = __mapper('xs').m('profier'),
+    mproj3ct = __mapper('xs').m('proj3ct')
 
   const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
@@ -99,19 +102,111 @@ let fourierPacer = { // SUB-MARKS line trace
  *
  */
     let svgdata = __mapper('xs').d('lichtenstein').data()
+    // let fourdata = svgdata.features[0].geometry.coordinates[0]
     let fourdata = svgdata
     let scale = [0.5,-0.5]
     let translate = [-100,100] 
     
-    let data = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} )
+    let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} )
 
-     let transform = mfourier.fourierDiagram(data).updateTransform().transform()
+ 
+     let transform = mfourier.fourierDiagram(featurePolygon).updateTransform().transform()
  
      let fourierForm = {
 
-      halo: 'ent',
-      geofold: p => data,
      
+      halo: 'formed',   
+ 
+      geofold: p => {
+      
+        let anigram = p, // anigram
+          halo = p.halo, // halo
+          geofold = p.geofold, // geofold
+          payload = p.payload // payload      
+        
+        let unitTimeElapsed = p.payload.tim.unitElapsed
+
+        let feature = featurePolygon
+
+    
+        let ngj = {
+          type: 'Feature',
+          geometry: { type: 'Polygon',
+                      coordinates: mgeoj.tclip(feature.geometry, unitTimeElapsed).coordinates
+                    },
+          properties: {
+            boform: { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 1, 'cp': 0.9}
+            
+          },
+        }      
+
+      
+        let rings = ngj.geometry.coordinates // 
+        let newFeatureCollection = {type:'FeatureCollection', features:[]}
+        
+        for (let i=0; i<rings.length; i++) {
+          let ring = rings[i]
+          let feature = {
+            type: 'Feature',
+            geometry: { type: 'Polygon', coordinates: [ring]},
+            properties: {},
+          }        
+          if (i < rings.length - 1) { // first
+              feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 1, 'cp': 1}
+          } else {
+              feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 0.1, 'cp': 1}
+          }
+          
+          newFeatureCollection.features.push(feature)
+        }   
+        
+        
+        
+        newFeatureCollection.features = Array.of(ngj)
+        
+        let gj = newFeatureCollection
+
+        
+        
+        
+        
+        if (payload.proform) {
+          let proformion = mprofier.proformion(anigram)
+          newFeatureCollection = mproj3ct(gj, proformion)
+        } 
+        
+        return newFeatureCollection
+
+
+      },    
+       
+     
+     
+     
+     
+      // halo: 'ent',
+      // geofold: p => featurePolygon,
+
+      // halo: 'fourier',
+      // geofold: p => {
+        // let gj = {
+          // type: 'Feature',
+          // geometry: { type: 'Point', coordinates: []  },
+          // properties: {
+                 // pointRadius: 3, // d.payload.fourier.rad,
+                 // geonode: {
+                  // type: 'Feature',
+                  // geometry: { type: 'Point', coordinates: [0,0] },
+                  // properties: { // geofold coindices with geonode
+                     // orgen: [0,0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]
+                  // }
+                // },
+              // }
+        // }
+    
+        // return gj
+      // },
+
       payload: {  // payload in fourierForm
 
         tim: tim,
@@ -120,8 +215,8 @@ let fourierPacer = { // SUB-MARKS line trace
 
         proform: {
             projection: 'uniwen',
-            translate: [-100, 100, 0],
-            scale: [0.5, -0.5],
+            translate: [-220, 180, 0],
+            scale: [0.65, -0.65],
             rotate: [ 0, 0, 0 ],
             lens: [0, 1, Infinity],
           },
@@ -130,7 +225,7 @@ let fourierPacer = { // SUB-MARKS line trace
 
           transform,
           avatars: [fourierPacer], // fourier avatars
-          boform: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.3, 'co': 0.00012, 'cp': 0.7},
+          boform: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.3, 'co': 0.72, 'cp': 0.7},
 
         },
 

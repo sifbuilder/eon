@@ -52,7 +52,8 @@
  *
  */
 
-
+    let rarray = d => (Array.isArray(d)) ? [ ...d ].reverse() : [d]
+    
     let castels = function(svgdata, frame={start:0, stop:1, step:0.33} ) {
 
       let gj = {
@@ -64,32 +65,55 @@
       let pathdata  = []
       let range = d3range(frame.start, frame.stop, frame.step)
 
-      let re = /C/
       let str = svgdata.path.d
-      let a = []
-
-      let ringCases = []
       let svgRings =   str.trim().split('M').slice(1) // M C Z
 
-      let ncas = []
+      let ncas = [], ringCases = []
       for (let i=0; i<svgRings.length; i++) {
-        
-        let svgRing = svgRings[i]
-        
-        let c0 = svgRing.substring(svgRing.lastIndexOf("M")+1,svgRing.lastIndexOf("C")).split(',').map(Number);
-        let cn = svgRing.substring(svgRing.lastIndexOf("C")+1,svgRing.lastIndexOf("Z")).split(/\r?\n/)
-            .map(d => d.trim())
-            .map(d => d.split(' '))
-            .map(d => d.map(c => c.split(',').map(Number)))
-            .map( d => d.reduce( (p,q) => [...p, ...q] ,[]))  //
 
+        let svgRing = svgRings[i]
+
+        let c0 = svgRing.substring(svgRing.lastIndexOf("M")+1,svgRing.lastIndexOf("C")).split(',').map(Number)
+
+        
+        
+// let tmpcn =         svgRing.substring(svgRing.lastIndexOf("C")+1,svgRing.lastIndexOf("Z")).split(/\r?\n/).map(d => d.trim())
+// if (tmpcn[0].charAt(0) === 'i') {
+  // tmpcn[0] = tmpcn[0].substring(1).trim()
+  // tmpcn = tmpcn.reverse().map( d => d.reverse())
+  // if (1 && 1) console.log("tmpcn", tmpcn)
+// }
+       
+
+        let cn = svgRing.substring(svgRing.lastIndexOf("C")+1,svgRing.lastIndexOf("Z"))
+
+        if (cn.charAt(0) === 'i') {
+          cn = cn
+              .substring(1).trim()
+              .split(/\r?\n/)
+              .reverse()
+              .map(d => d.trim())
+              .map(d => d.split(' ').reverse())
+
+              .map(d => d.map(c => c.split(',').map(Number)))
+              .map( d => d.reduce( (p,q) => [...p, ...q] ,[]))  //          
+if (1 && 1) console.log("cn", cn)          
+        } else {
+          cn = cn
+              .split(/\r?\n/)
+              .map(d => d.trim())
+              .map(d => d.split(' '))
+              .map(d => d.map(c => c.split(',').map(Number)))
+              .map( d => d.reduce( (p,q) => [...p, ...q] ,[]))  //
+        }
+        
         let cas = []
         cas[0] = [...c0, ...cn[0]]
 
         for (let i=0; i<cn.length-1; i++) {
           cas[i+1] = [ ...cn[i].slice(-2), ...cn[i+1] ]
         }
-        
+
         let m = cn.length-2
         cas[m] = [ ...cn[m].slice(-2), ...cn[m+1] ] // close
 
@@ -98,8 +122,8 @@
         ringCases[i] = cas
       }
 
-      
-      
+
+
       for (let j=0; j< ringCases.length; j++) { // rings of knots
 
         let ringCas = ringCases[j]

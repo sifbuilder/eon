@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="script-enls.js"></script>
+<script src="script-ents.js"></script>
+
+<script>
+
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 1, img: 0}) // INIT
+
+  let f = __mapper({'props': muonProps.muonProps()}).props()
+
+  /*******************************************
+ *      @pics
+ *
+ */
+  let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+  /*******************************************
+ *    @animas
+ *
+ */
+  let geofold = {
+
+    halo: 'ent',
+
+    geofold: p => ({
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Polygon',
+        'coordinates': [
+          [
+            [60 + 0,    60 + 0],  // 60,60
+            [60 - 120,  60 + 0],  // -60,60
+            [60 - 120,  60 - 120], // -60,-60
+            [60 + 0,    60 - 120], // 60,-60
+            [60 + 0,    60 + 0 ]  // 60, 60
+          ],
+          [
+            [60 - 80,  60 + 30],  //  90, 90
+            [60 - 180,  60 + 30],  // -30, 90
+            [60 - 180,  60 - 90],  // -30,-30
+            [60 - 80,  60 - 90],  //  90,-30
+            [60 - 80,  60 + 30],  //  90, 90
+          ],
+         [
+            [60 + 30,  60 + 30],  //  90, 90
+            [60 + 30,  60 - 90],  //  90,-30
+            [60 - 90,  60 - 90],  // -30,-30
+            [60 - 90,  60 + 30],  // -30, 90
+            [60 + 30,  60 + 30],  //  90, 90
+            
+          ]
+
+        ]
+      },
+      'id': 0,
+      'properties': {}
+    }),
+
+    payload: {
+      tim: tim,
+      ric: {'gid': 'geoani', 'cid': 'geoani', 'fid': 'geoani'},
+      boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.77, 0.77]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+
+        'projection': 'uniwen',
+        'scale': 1.0,
+        'translate': {'x': 0, 'y': 0 },
+        'rotate': [ 0, 0 ],
+
+      }
+    }
+  }
+
+  let animas = [
+    geofold // h.ent g.uniwen
+  ]
+
+  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>
