@@ -96,9 +96,9 @@
      
       let projection = state.projection
       if (projection.invert === undefined ) {
-         if (2 && 2) console.log('projection misses invert', projection)        
+         if (2 && 2) console.log('** projection invert missing', projection)        
       } else if (projection.rotate === undefined) {
-         if (2 && 2) console.log('projection misses rotate', projection)        
+         if (2 && 2) console.log('** projection rotate missing', projection)        
       }
 
        
