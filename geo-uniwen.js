@@ -58,7 +58,6 @@
     let wenProjInvert = function (point) {
 
       let rotate = state.rotate,
-        prerotate = state.prerotate,
         scale = state.scale,
         translate = state.translate || [0,0,0],
         lens = state.lens
@@ -68,9 +67,6 @@
       let z = point[2] || 0
 
       let c = [x, y, z]
-
-      c = wenRotInverse(rotate)(...c) //   inverse rotation
-
 
       if (f.isPureArray(translate)) {
         c = c.map((d, i) => d - (translate[i] || 0)) // inverse translate
@@ -86,7 +82,7 @@
 
       c = [ c[0], c[1], (c[2] - lens[0]) / lens[1] ] // inverse focus
 
-      c = wenRotInverse(prerotate)(...c) //   inverse prerotation
+      c = wenRotInverse(rotate)(...c) //   inverse rotation
 
       
       return c
@@ -97,21 +93,15 @@
   */
     let pointStream = function (x, y, z) {
       let rotate = state.rotate,
-        prerotate = state.prerotate,
         scale = state.scale,
         translate = state.translate || [0,0,0],
         lens = state.lens
 
-      if (z === undefined || rotate.length === 2 ) {  // 2d geom
-        z = 0
-        prerotate = mwen.cross([prerotate[0], 0, 0], [0, prerotate[1], 0])
-        rotate = mwen.cross([rotate[0], 0, 0], [0, rotate[1], 0])
-      }
-      
+
       let c = [x, y, z]
-    
-      c = wenRotation(prerotate)(...c) // prerotate, eg. wen around nat center
-       
+
+			c = wenRotation(rotate)(...c) // rotate
+
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
 
       c = mwen.projection(c, lens[2], scale) // project
@@ -127,12 +117,10 @@
         }
       }
 
-      c = wenRotation(rotate)(...c) // rotate
 
 
       this.stream.point(...c)
     }
-    
     
     /**************************
   *       @uniprofion
@@ -165,7 +153,6 @@
         if (state[vars[i]] !== undefined) state[vars[i]] = prjdef[vars[i]] // upd state
       }
 
-      m.prerotate = _ => (_ !== undefined) ? (state.prerotate = _, m) : state.prerotate
       m.translate = _ => (_ !== undefined) ? (state.translate = _, m) : state.translate
       m.rotate = _ => (_ !== undefined) ? (state.rotate = _, m) : state.rotate
       m.scale = _ => (_ !== undefined) ? (state.scale = _, m) : state.scale

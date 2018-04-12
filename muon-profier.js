@@ -124,7 +124,6 @@
           }
 
 					
-					
 					if (projection.rotate !== undefined) { 	// rotate
 						
 						
