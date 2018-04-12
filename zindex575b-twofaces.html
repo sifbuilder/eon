@@ -19,7 +19,7 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, img:1, webgl: 0}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props()
 
@@ -30,15 +30,12 @@ let muonAlima = function muonAlima (__mapper) {
 
   let proformFaces = {
 
-    projection: 'uniwen',
-
-    translate: [ 180 - 300, 200 - 200 ],
-    scale: 90,
-    rotate: [0, 0, 0], // [-5,50,0],
-    lens: [0, 1, 4], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-		
-		control: 'wen'
-
+    'projection': 'uniwen',
+    'center': [ 0, 0 ],
+    'translate': [ 180 - 300, 200 - 200 ],
+    'scale': 90,
+    'rotate': [0, 0, 0], // [-5,50,0],
+    'lens': [0, 1, 4], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
 		
   }
 
@@ -47,18 +44,21 @@ let muonAlima = function muonAlima (__mapper) {
       boform = payload.boform // boform
 
     let faces = f.v(payload.faces) // payload.faces
-
     let json = {type: 'FeatureCollection', features: []}
 
-    for (let i = 0, l = faces.length; i < l; i++) {
-      let face = faces[i] // face cornersx position
+		
+    // for (let i = 0, l = faces.length; i < l; i++) {
+      // let face = faces[i] // face cornersx position
+    for (let i = 0, l = 40; i < l; i++) {
+      let face = faces[0] // face cornersx position
 
       let geometry = {type: 'Polygon', coordinates: []}
       geometry.coordinates = Array.of(face.vertices) // eg [-1, 1, 1]
 
       let properties = {}
-      properties.boform = face.boform || boform
-      properties.name = (i === 0) ? 'red' : 'orange'
+      // properties.boform = face.boform || boform
+      properties.boform = {'csx': 0, 'cf': 333 + 10 * i, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
+      properties.name = 'orange' + '_' + i
 
       let feature = {type: 'Feature', geometry: {}, properties: {}}
       feature.geometry = geometry
@@ -97,29 +97,68 @@ let muonAlima = function muonAlima (__mapper) {
           boform: {'csx': 0, 'cf': 333, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
         },
 
-        {
-          vertices: [
-            [-1, -1, -1],
-            [ 1, -1, -1],
-            [ 1, 1, -1],
-            [-1, 1, -1],
-            [-1, -1, -1]
-          ],
-          boform: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
-        }
+        // {
+          // vertices: [
+            // [-1, -1, -1],
+            // [ 1, -1, -1],
+            // [ 1, 1, -1],
+            // [-1, 1, -1],
+            // [-1, -1, -1]
+          // ],
+          // boform: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
+        // }
       ]
 
     }
   }
 
+  // -------------------------------  img
+  let img = {
 
+    halo: 'img',
+
+    geofold: p => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': p.payload.img.url,
+        style: p.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 30, 40 ]
+      },
+      img: {
+        url: 'zimg-501.jpg',
+        'style': {
+          'width': [[[60, 60]]],
+          'height': [[[40, 40]]],
+          'rotate': [[[ 0, 0 ]]]
+        }
+      }
+
+    }
+  }
   /*******************************************
  *      @animas
  *
  */
   let animas = [
     aniTwoFaces, // h.ent g.uniwen
-
+    img // h.img
   ]
   let animaApi = function animaApi () {
     __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

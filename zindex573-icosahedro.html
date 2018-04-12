@@ -25,7 +25,7 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1})
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props()
   let g = __mapper('xs').m('geom')
@@ -60,58 +60,19 @@ let muonAlima = function muonAlima (__mapper) {
 
     'x': {
 
-      'm1': 4,
-      'm2': 4,
-      'n1': 100,
-      'n2': 100,
-      'n3': 100,
-      'a': 1,
-      'b': 1, // square
-
-      'ra2': 162,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0,
-      'seg5': 360,
-      'pa6': 0,
-      'pb7': -1,
+      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+      'ra2': 162,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
       
     },
     'y': {
 
-      'm1': 4,
-      'm2': 4,
-      'n1': 100,
-      'n2': 100,
-      'n3': 100,
-      'a': 1,
-      'b': 1, // square
-
-      'ra2': 162,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0,
-      'seg5': 360,
-      'pa6': 0,
-      'pb7': -1,
+      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+      'ra2': 162,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
       
     },
     'z': {
-      'm1': [[[3, 3]]],
-      'm2': [[[3, 3]]],
-      'n1': 1,
-      'n2': 1,
-      'n3': 1,
-      'a': 1,
-      'b': 1, // tri
-
-      'ra2': 30,
-      'v0': 0,
-      'v1': 1,
-      'w4': 0,
-      'seg5': 360,
-      'pa6': 0,
-      'pb7': -1,
+      'm1': [[[3, 3]]],'m2': [[[3, 3]]],'n1': 1,'n2': 1,'n3': 1,'a': 1,'b': 1, // tri
+      'ra2': 30,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
       
     }
   }
@@ -162,7 +123,7 @@ let muonAlima = function muonAlima (__mapper) {
     'projection': 'uniwen',
     'translate': [ 130 - 300, 200 - 200],
     'scale': 90,
-    'rotate': [0, 0, 0],
+    'rotate': [0, [[[0,3 * 360]]], 0],
     'lens': [0, 1, Infinity],
 		
   }
@@ -198,7 +159,7 @@ let muonAlima = function muonAlima (__mapper) {
     return json
   }
   /*******************************************
- *      @animas
+ *      @aniFaces  anima
  *
  */
   let aniFaces = {
@@ -229,7 +190,10 @@ let muonAlima = function muonAlima (__mapper) {
       }
     }
   }
-
+  /*******************************************
+ *      @aniIco anima
+ *
+ */
   let aniIco = {
 
     halo: 'ent',
@@ -329,9 +293,9 @@ let muonAlima = function muonAlima (__mapper) {
  *
  */
   let animas = [
-    aniIco, // h.ent g.uniwen
+    // aniIco, // h.ent g.uniwen
     aniFaces, // h.ent g.uniwen
-    img // h.img
+    // img // h.img
   ]
   let animaApi = function animaApi () {
     __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

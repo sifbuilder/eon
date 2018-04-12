@@ -181,7 +181,7 @@
                 }
               }
 
-              let projection = mprofier.mappion({
+              let projection = mprofier.formion({
                     projection: 'natform', 
                     form: nformed
               })

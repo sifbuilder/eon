@@ -413,7 +413,7 @@ if (0 && 1) console.log(" ____________ stace not defined")
         'translate': [ locus[0], locus[1], locus[2] ]
       }
 
-      return __mapper('xs').m('profier').mappion(projection)
+      return __mapper('xs').m('profier').formion(projection)
     }
 
     /* **************************************
