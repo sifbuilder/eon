@@ -285,7 +285,8 @@
    */
     props.colors = {} // colors
     props.colors.scales = {
-      bos: d3.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Wheat']), // 0
+      snow: d3.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FFBF00', '#E1E7E4']), // 0
+      bos: d3.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Wheat']), // ex 0
       wheat: d3.scaleLinear().domain([0, 0.5, 1]).range(['black', 'Wheat', '#FF2400']), // 1
       red: d3.scaleLinear().domain([0, 0.5, 1]).range(['#FF2400', 'Yellow']), // 2
       ry: d3.scaleLinear().domain([0, 1]).range(['red', 'yellow']), // 3

@@ -21,28 +21,41 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, img:1, webgl: 0}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props()
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+    cwen = __mapper('xs').c('wen'),
+    cversor = __mapper('xs').c('versor')
 
   /*******************************************
  *    @pics
  */
   let tim = {'td': 9200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  let proformFaces = {
+  // let proformFaces = {
 
-    projection: 'uniwen',
+    // projection: 'uniwen',
 
-    translate: [ 180 - 300, 200 - 200 ],
-    scale: 90,
-    rotate: [0, 0, 0], // [-5,50,0],
-    lens: [0, 1, 4], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+    // translate: [ 180 - 300, 200 - 200 ],
+    // scale: 90,
+    // rotate: [0, 0, 0], // [-5,50,0],
+    // lens: [0, 1, Infinity], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
 		
-		control: 'wen'
+		// control: 'wen'
 
 		
-  }
+  // }
 
-  let geoformFaces = ani => { // geofold creates geojson featurecollection
+	  let proformFaces = [
+
+			{projection: __mapper('xs').g('uniwen')({lens: [0, 1, Infinity]})},
+			{rotate: [0, 0, 0]},
+			{rotate: [[[ cwen.rotation ]]]},
+
+			{translate: [ 180 - 300, 200 - 200 ]},
+			{scale: 90},
+			
+		]
+	
+  let geoformFaces = ani => { // geofold creates featurecollection
     let payload = ani.payload, // payload
       boform = payload.boform // boform
 
@@ -51,7 +64,7 @@ let muonAlima = function muonAlima (__mapper) {
     let json = {type: 'FeatureCollection', features: []}
 
     for (let i = 0, l = faces.length; i < l; i++) {
-      let face = faces[i] // face cornersx position
+      let face = faces[i] // face corners position
 
       let geometry = {type: 'Polygon', coordinates: []}
       geometry.coordinates = Array.of(face.vertices) // eg [-1, 1, 1]
