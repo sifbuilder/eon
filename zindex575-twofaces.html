@@ -30,31 +30,17 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let tim = {'td': 9200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  // let proformFaces = {
+  let proformFaces = {
 
-    // projection: 'uniwen',
-
-    // translate: [ 180 - 300, 200 - 200 ],
-    // scale: 90,
-    // rotate: [0, 0, 0], // [-5,50,0],
-    // lens: [0, 1, Infinity], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
-		
+    projection: 'uniwen',
+    translate: [ 180 - 300, 200 - 200 ],
+    scale: 90,
+    rotate: [ [0, 1, 12], [[[ cwen.rotation ]]] ],
+    lens: [0, 1, 12],
 		// control: 'wen'
-
 		
-  // }
+  }
 
-	  let proformFaces = [
-
-			{projection: __mapper('xs').g('uniwen')({lens: [0, 1, Infinity]})},
-			{rotate: [0, 0, 0]},
-			{rotate: [[[ cwen.rotation ]]]},
-
-			{translate: [ 180 - 300, 200 - 200 ]},
-			{scale: 90},
-			
-		]
-	
   let geoformFaces = ani => { // geofold creates featurecollection
     let payload = ani.payload, // payload
       boform = payload.boform // boform

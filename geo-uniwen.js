@@ -99,21 +99,29 @@
 
 
       let c = [x, y, z]
-
-			c = wenRotation(rotate)(...c) // rotate
-
+if (0 && 1) console.log("rotate", rotate) 
+      let rot = []
+      if (f.isPureArray(rotate)) {
+          rot = rotate
+      } else { // assume multiple translates
+        for (let k = 0; k < rotate.length; k++) {
+          rot = mgeom.add(rot, rotate[k])
+        }
+      }
+if (0 && 1) console.log("rot", rot)      
+      c = wenRotation(rot)(...c) // rotate
+      
+      
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
-
       c = mwen.projection(c, lens[2], scale) // project
 
 
       if (f.isPureArray(translate)) {
         c = c.map((d, i) => d + (translate[i] || 0)) // translate
       } else { // assume multiple translates
+        let trans = []
         for (let k = 0; k < translate.length; k++) {
-          let trans = translate[k] // if {} assume {x,y,z} => [,,]
-          if (typeof trans === 'object') trans = Object.values(trans).map(d => d || 0)
-          c = c.map((d, i) => d + (trans[i] || 0)) // translate
+          trans = mgeom.add(trans, translate[k])
         }
       }
 
@@ -145,13 +153,9 @@
     let enty = function (prjdef = {}) {
 
       let m = uniprofion(prjdef)
-      let vars = Object.keys(prjdef)
+      let keys = Object.keys(prjdef)
 
-      state = Object.assign({}, init) // reste proj state
-
-      for (let i = 0; i < vars.length; i++) {
-        if (state[vars[i]] !== undefined) state[vars[i]] = prjdef[vars[i]] // upd state
-      }
+      state = Object.assign({}, init, prjdef) // reste proj state
 
       m.translate = _ => (_ !== undefined) ? (state.translate = _, m) : state.translate
       m.rotate = _ => (_ !== undefined) ? (state.rotate = _, m) : state.rotate

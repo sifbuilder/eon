@@ -81,7 +81,7 @@
 // if (tmpcn[0].charAt(0) === 'i') {
   // tmpcn[0] = tmpcn[0].substring(1).trim()
   // tmpcn = tmpcn.reverse().map( d => d.reverse())
-  // if (1 && 1) console.log("tmpcn", tmpcn)
+  // if (0 && 1) console.log("tmpcn", tmpcn)
 // }
        
 
@@ -97,7 +97,7 @@
 
               .map(d => d.map(c => c.split(',').map(Number)))
               .map( d => d.reduce( (p,q) => [...p, ...q] ,[]))  //          
-if (1 && 1) console.log("cn", cn)          
+if (0 && 1) console.log("cn", cn)          
         } else {
           cn = cn
               .split(/\r?\n/)
