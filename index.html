@@ -3,412 +3,155 @@
 <title>animas</title>
 <head >
 
-<style>
-body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-div#fps,svg { position: fixed; top:0; left:0; color: white; }
-</style>
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
 
 </head>
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
+
  
 <script src='https://d3js.org/d3.v5.min.js'></script>  
 <script src='https://d3js.org/d3-geo.v1.min.js'></script> 
 <script src='https://d3js.org/d3-geo-projection.v2.min.js'></script> 
-<script src='https:////unpkg.com/d3-force-3d@1.0/build/d3-force-3d.bundle.min.js'></script>
+
+<!-- <script src='https:////unpkg.com/d3-force-3d@1.0/build/d3-force-3d.bundle.min.js'></script> -->
+<script src='https://unpkg.com/3d-force-graph@1.22.0/dist/3d-force-graph.min.js'></script> 
+<script src='https://unpkg.com/d3-force-3d@1.1.0/build/d3-force-3d.min.js'></script> 
+<script src="https://unpkg.com/d3-force-surface/dist/d3-force-surface.min.js"></script>
+<script src="https://unpkg.com/d3-force-magnetic@0.8.0/dist/d3-force-magnetic.min.js"></script>
+<script src="https://unpkg.com/d3-force-bounce/dist/d3-force-bounce.min.js"></script>
+<script src="https://unpkg.com/d3-force-pod/dist/d3-force-pod.min.js"></script>
+
+
+<script src="https://unpkg.com/d3-octree/build/d3-octree.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.3.7/papaparse.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/qwest/4.5.0/qwest.min.js"></script> -->
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.0/topojson.min.js'></script>
 
 <script src='https:////cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js'></script>
 <script src='https:////unpkg.com/three-trackballcontrols-web@0.0.2/dist/three-trackballcontrols.min.js'></script>
+
+<script src='https://unpkg.com/mathjs@4.0.1/dist/math.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js'></script>
+
+
 <script src="script-ents.js"></script>
 
 <script>
 
 let muonAlima = function muonAlima (__mapper) {
-__mapper({'xs': xs.xs(__mapper)}) // PROXIES
-__mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, img: 1, key: 1}) // INIT
-
-let mnat = __mapper('xs').m('nat'),
-mliner = __mapper('xs').m('liner'),
-manitem = __mapper('xs').m('anitem'),
-mgeom = __mapper('xs').m('geom'),
-mfibonat = __mapper('xs').m('fibonat'),
-msnap = __mapper('xs').m('snap'),
-mprofier = __mapper('xs').m('profier'),
-mversor = __mapper('xs').m('versor')
-
-/*******************************************
-*    @pics
-*/
-let tim = {'td': 72200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-
-let natform = {
-
-'x': {
-'m1': 6,
-'m2': 6,
-'n1': 60,
-'n2': 100,
-'n3': 30,
-'a': 1,
-'b': 1,
-'ra2': 26,
-'v0': 0,
-'v1': 1,
-'w4': 0,
-'seg5': 360,
-'pa6': 0,
-'pb7': -1,
-
-
-,
-'dom3': [0, 360],
-'fn0': [2, 0, 0, 0]
-
-},
-'y': {
-'m1': 2,
-'m2': 2,
-'n1': 1,
-'n2': 1,
-'n3': 1,
-'a': 1,
-'b': 1, // biform
-'ra2': 18,
-'v0': 0,
-'v1': 1,
-'w4': 0,
-'seg5': 360,
-'pa6': 0,
-'pb7': -1,
-
- 
-,
-'dom3': [0, 360],
-'fn0': [0, 0, 0, 0]
-
-},
-'z': {
-'m1': 2,
-'m2': 2,
-'n1': 1,
-'n2': 1,
-'n3': 1,
-'a': 1,
-'b': 1, // biform
-'ra2': 26,
-'v0': 0,
-'v1': 1,
-'w4': 0,
-'seg5': 360,
-'pa6': 0,
-'pb7': -1,
-
-'pr8': d => Math.cos(d),
-'dom3': [0, 360],
-'fn0': [0, 0, 0, [[[1, 2]]]]
-
-}
-}
-
-let pathform = {
-
-'x': {
-'m1': [[[4, 4]]],
-'m2': [[[4, 4]]],
-'n1': [[[2, 2]]],
-'n2': [[[2, 2]]],
-'n3': [[[2, 2]]],
-'a': [[[1, 1]]],
-'b': [[[1, 1]]], // moon
-'ra2': 160,
-'v0': 0,
-'v1': 1,
-'seg5': [[[360, 360]]],
-'w4': [[[0, 0 - 0 * 360]]],
-'pa6': 0,
-'pb7': -1,
-
-},
-
-'y': {
-'m1': [[[4, 4]]],
-'m2': [[[4, 4]]],
-'n1': [[[2, 2]]],
-'n2': [[[2, 2]]],
-'n3': [[[2, 2]]],
-'a': [[[1, 1]]],
-'b': [[[1, 1]]], // moon
-'ra2': 160,
-'v0': 0,
-'v1': 1,
-'seg5': [[[360, 360]]],
-'w4': [[[0, 0 - 0 * 360]]],
-'pa6': 0,
-'pb7': -1,
-
-},
-
-'z': {
-'m1': [[[4, 4]]],
-'m2': [[[4, 4]]],
-'n1': [[[2, 2]]],
-'n2': [[[2, 2]]],
-'n3': [[[2, 2]]],
-'a': [[[1, 1]]],
-'b': [[[0.95, 0.98]]], // moon
-'ra2': 160,
-'v0': 0,
-'v1': 1,
-'seg5': [[[360, 360]]],
-'w4': [[[0, 0 - 0 * 360]]],
-'pa6': 0,
-'pb7': -1,
-
-}
-
-}
-
-let proform = {
-'projection': 'uniwen',
-'translate': [300, 200, 0],
-'scale': 1,
-'rotate': [ [[[0, 90]]], [[[0, 90]]], 0 ],
-'lens': [0, 1, Infinity],
-'control': 'wen'
-}
-
-let geonode = {
-type: 'Feature',
-geometry: { type: 'Point', coordinates: [0, 0, 0] },
-properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null}
-}
-
-let graticule = {
-
-'frame': [ [ [-180, 180, 90, 9],
-[-90, 90, 45, 5] ],
-[ [-180, 180, 90, 9],
-[-90, 90, 45, 5] ] ]
-
-}
-
-let fibonat = {
-randomize: 0,
-samples: 12,
-dotsInSegment: 12
-}
-/*******************************************
-*      @animas
-*
-*/
-// -------------------------------  fibofold
-let fibofold = {
-
-halo: 'ent',
-
-geofold: p => {
-let coords = mfibonat.stream(p.payload.fibonat)	// spherical
-let gj = {
-'type': 'Feature',
-'geometry': {'type': 'LineString', 'coordinates': coords},
-'properties': {}
-}
-return gj
-},
-
-payload: {
-tim: tim,
-ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'fibofold'},
-boform: { 'csx': 0, 'cf': [[[777, 777, 777]]], 'co': [[[0.2, 0.2]]], 'cs': [[[777, 888]]], 'cw': [[[0.2, 0.2]]], 'cp': [[[0.9, 0.9]]]},
-
-fibonat: fibonat,
-conform: { 'projection': 'natform', 'form': pathform },
-proform: proform
-
-}
-
-}
-
-/* ******************************************
-*      @avaform
-*
-*/
-let prehalo = function (anima) {
-let anigram = manitem(anima).anigram()
-
-if (0) {
-let coords = mfibonat.stream(anigram.payload.fibonat) // spherical degrees
-let t = anigram.payload.tim.unitTime
-let coord = msnap(coords, t, 1)
-let idx = Math.floor(msnap([0, coords.length], t, 1))
-if (coords[idx] !== undefined && coords[idx + 1] !== undefined) {
-let c0 = coords[idx]
-let c1 = coords[idx + 1]
-
-let p0 = mgeom.cartesian(c0)
-let p1 = mgeom.cartesian(c1)
-
-let q1 = mversor().delta(p0, p1)
-let r1 = mversor().rotation(q1)	// degrees
-
-anigram.payload.conform.form.x.w4 += r1[0]
-anigram.payload.conform.form.y.w4 += r1[1]
-anigram.payload.conform.form.z.w4 += r1[2]
-}
-}
-
-return anigram
-}
-
-let haloAvajson_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-
-let haloAvajson_gramm = anima => __mapper('xs').h('ent').gramm(prehalo(anima))
-
-let haloAvajson = {}
-haloAvajson.ween = anima => haloAvajson_ween(anima)
-haloAvajson.gramm = anima => haloAvajson_gramm(anima)
-
-// -------------------------------  gratifold
-let gratifold = {
-
-halo: 'ent',
-
-geofold: p => __mapper('xs').m('graticule').gedges(p.payload.graticule),
-
-payload: {
-tim: tim,
-ric: {'gid': 'gratifold', 'cid': 'gratifold', 'fid': 'gratifold'},
-boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9, 0.9]]]},
-
-fibonat: fibonat,
-conform: {'projection': 'natform', 'form': natform},
-proform: {
-projection: 'uniwen',
-'translate': {
-'x':
-{
-'pos': [[[ 0, 1 * 360]]]
-},
-'y':
-{
-'pos': [[[ 0, 1 * 360]]]
-},
-'z': {
-'pos': [[[ 0, 1 * 360]]]
-}
-},
-scale: 0.5
-
-},
-graticule: graticule
-
-}
-
-}
-// -------------------------------  img
-let img = {
-
-halo: 'img',
-
-geofold: p => ({
-type: 'Feature',
-geometry: {
-
-'type': 'Point',
-'coordinates': [ 0, 0 ]
-
-},
-properties: {
-sort: 'img',
-'xlink:href': p.payload.img.url,
-style: p.payload.img.style
-}
-}),
-
-payload: {
-
-tim,
-ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-proform: {
-projection: 'uniwen',
-translate: [ 30, 40 ]
-},
-img: {
-url: 'zimg-501.jpg',
-'style': {
-'width': [[[60, 60]]],
-'height': [[[40, 40]]],
-'rotate': [[[ 0, 0 ]]]
-}
-}
-
-}
-}
-/*******************************************
-*    @animas
-*
-*/
-let geoearth = {
-
-halo: 'ent',
-
-geofold: () => {
-let gj = Object.assign({},
-topojson.feature(
-__mapper('xs').d('worldTopo110m').data(),
-__mapper('xs').d('worldTopo110m').data().objects.land
-)
-)
-gj = __mapper('xs').m('geoj').trim(gj)
-return gj
-},
-
-payload: {
-tim: tim,
-ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
-boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
-proform: {
-
-'projection': 'orthographic',
-'scale': [[[100, 100]]],
-'translate': {
-
-'x': [[[300, 200]]],
-'y': 200,
-'z': 0
-
-},
-'rotate': [ [[[0, -1 * 360]]], 0, 0 ],
-'control': 'versor'
-
-}
-}
-
-}
-
-/*******************************************
-* @animaApi
-*
-*/
-fibofold.payload.avatars = {
-gratifold // haloavaform.haloavaform.geojson
-}
-
-let animas = [
-
-fibofold, // h.ent
-geoearth, // h.ent g.orthographic
-img // h.img
-]
-
-let animaApi = function animaApi () {
-__mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
-}
-
-return animaApi
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1}) // INIT
+
+  let f = __mapper({props: muonProps.muonProps()}).props(),
+    mnat = __mapper('xs').m('nat'),
+    cversor = __mapper('xs').c('versor'),
+    cwen = __mapper('xs').c('wen'),
+    mstace = __mapper('xs').m('stace')
+
+  const pi = Math.PI, pi2 = 2 * pi,
+      turn = 2 * Math.PI // 360
+
+  /*******************************************
+ *      @pics
+ *
+ */
+  let tim = {'td': 113800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+
+  /*******************************************
+ *    @fractal anima
+ *
+ */
+     let fractform = {
+
+      halo: 'ent',
+
+      geofold: p => {
+
+      
+        let zcoef = (rad, ang) => Complex({
+          re: rad * Math.cos(ang),
+          im: rad * Math.sin(ang)
+        })       
+        let aj = zcoef(100, 0)
+      
+        let zs = []
+        let z = Complex({re: 0, im: 0})
+        zs.push(z)
+        zs.push(aj)
+        
+        let coords = zs.map( d => d.toVector())
+
+        let gj = {
+          'type': 'Feature',
+          'geometry': {'type': 'MultiPoint','coordinates': coords },
+          'properties': {}
+        }
+
+
+
+        return gj
+      },
+
+
+      payload: {
+
+        tim: tim,
+        ric: { gid: 'fractals', cid: 'fractals', fid: 'fractal'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
+
+        fractal: {
+
+          depth: 1,
+          rad: 6,
+          sides: 6,
+          anginit: 0,
+          coef: d => ({re:0,im:0}),
+
+
+
+          radOnLevel: function(level) {
+            return (level === 0) ? this.rad : this.rad / (Math.pow(2, level))
+          },
+
+
+          angOnLevel: function(level) {
+            // (level === 0) ? [[[ 0, pi2 ]]] : [[[ 0, (1) ** (level) * (6 - 1) ** (level) * pi2 ]]]
+            return (level === 0) ? [[[ 0, pi2 ]]] : [[[ 0, (-1) ** (level) * (this.sides - 1) ** (level) * pi2 ]]]
+          },
+
+
+
+        },
+
+        proform: {
+        // projection: 'orthographic',
+        // scale: 100,
+
+        projection: 'uniwen',
+        prerotate: [[[ cversor.rotation ]]],
+        scale: 1.0,
+        translate: {x: 0, y: 0 },
+        rotate: [ 0, 0 ],
+
+        }
+      }
+    }
+  /*******************************************
+ *    @enty
+ *
+ */
+  let animas = [
+    fractform // h.fractal
+  ]
+
+  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
 }
 
 let __mapper = muonMapper.muonMapper()
