@@ -70,7 +70,7 @@
             text.style = text.style || {}
               
 
-            let json = {
+            return {        // geoform
               type: 'Feature',
               geometry: { type: 'Point', coordinates: [0, 0] },
               properties: {
@@ -95,7 +95,7 @@
                 }
               }
             }
-            return json
+
           }
     
     

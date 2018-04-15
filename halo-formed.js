@@ -41,13 +41,12 @@
         parentuid = payload.parentuid // parentuid
     
     
-    
       //  get GEOFORM FeatureCollection
       //
       let gjcollection = f.v(geofold, anigram)  // get geoform
       
-        gjcollection = mgeoj.zorder(gjcollection) // order features in feature collection
-        gjcollection = mric.enric(ric, anigram, gjcollection) // ric to feature or feature collection
+        gjcollection = mgeoj.zorder(gjcollection) // order features in collection
+        gjcollection = mric.enric(ric, anigram, gjcollection) // ric to feature or collection
 
         newAnigrams = gjcollection.features.map((feature, i) => { 
  

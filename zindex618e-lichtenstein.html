@@ -110,8 +110,7 @@ let muonAlima = function muonAlima (__mapper) {
     
     
     let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} ) // castels
-
- if (1 && 1) console.log("featurePolygon", featurePolygon)   
+  
  
      let transform = mfourier
           .fourierDiagram(featurePolygon)
@@ -130,7 +129,11 @@ let muonAlima = function muonAlima (__mapper) {
           geofold = p.geofold, // geofold
           payload = p.payload // payload      
         
-        let unitTimeElapsed = p.payload.tim.unitElapsed
+        let t = p.payload.tim.unitElapsed
+        // let unitTimeElapsed = 2 * (t - 2 * Math.max(0, t - 0.5))
+        let unitTimeElapsed = 1 - 4 * (t -0.5)* (t -0.5)
+        // let unitTimeElapsed = 1
+if (1 && 1) console.log("unitTimeElapsed", unitTimeElapsed)        
 
         let feature = featurePolygon
 

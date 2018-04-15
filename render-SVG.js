@@ -170,10 +170,9 @@
             .filter(d => d.properties.sort === 'text')
 
           if (texts.length > 0) {
+            
             __mapper('renderSvg').elems('svg:g.' + gid + '/text.' + cid, texts, d => d.uid)
-              .text(d => {
-                return d.properties.text
-              })
+              .text(d => d.properties.text)
 
               .attr('x', 0) // translate instead
               .attr('y', 0) //
@@ -219,9 +218,9 @@
 
               .attr('transform', d => { // eg. "translate(21,20) rotate(15)")
                 return 'translate(' +
-                    d.geometry.coordinates[0] +		// .attr("x", d => d.geometry.coordinates[0])
+                    d.geometry.coordinates[0] +
                     ',' +
-                    d.geometry.coordinates[1] +		// .attr("y",  d => d.geometry.coordinates[1])
+                    d.geometry.coordinates[1] +
                     ')' +
                     ' rotate(' +
                     (d.properties.style.rotate || 0) +
@@ -234,39 +233,56 @@
           }
 
           /*  ................. AXES ................. */
-          let axis = fitems
+          let axes = fitems
             .filter(d => d.properties.sort === 'axis') // __ axis __
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
+            .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
+          // if (axes.length > 0) {
+            
 
-          if (axis.length > 0) {
-              let ax = axis[0].properties.axis
-           
+              // let ax = axes[0].properties.axis  
+             
+             
+let axcall = d3.axisBottom(d3.scaleLinear()
+                .domain([200,100])
+                .range([0,600]))
+                .tickSize(10)
+                .tickPadding(5)             
+if (1 && 1) console.log("cid", cid)
+  // cid = 'e'
+            __mapper('renderSvg').elems('svg:g.' + gid + '/g.' + 'e', axes, d => d.id)
+
+              .data(() => axes)
+
+              .call(axcall)
+              // .attr("transform", "translate(0,0)")
+              // .call(ax.d3Axis)		
+              // .attr('transform', d =>
+                // 'translate(' + d.tranlateX + ',' + d.tranlateY + ')' +
+                      // 'rotate(' + d.rotate + ')'
+              // )
+              // .style('font-size', d => d.properties.axis.fontSize)
+              // .style('text-anchor', d => d.properties.axis.textAnchor)
+              // .style('font-family', d => d.properties.axis.fontFamily)
               
-            __mapper('renderSvg').elems('svg:g.' + gid + '/g.' + cid, axis, d => d.id)
-
-              .data(() => axis)
-
-              .call(ax.d3Axis)		// .call(d3.axisBottom(x))
-              .attr('transform', d =>
-                'translate(' + d.tranlateX + ',' + d.tranlateY + ')' +
-                      'rotate(' + d.rotate + ')'
-              )
-              .style('font-size', d => d.size)
-              .style('font-family', 'BankFuturistic')
-              .style('fill', d => f.kolor(d.cf, d.csx))
-              .style('stroke', d => f.kolor(d.cs, d.csx))
-              .style('fill-opacity', d => d.co)
-              .style('stroke-width', d => d.cw)
-              .style('stroke-opacity', d => d.cp)
-              .style('text-anchor', d => d.textAnchor)
-          }
+              // .style('fill', d => {
+// if (1 && 1) console.log("axis", gid, cid, d)                
+                // return d.properties.style.fill
+              // })
+              // .style('stroke', d => d.properties.style.stroke)
+              // .style('fill-opacity', d => d.properties.style['fill-opacity'])
+              // .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
+              // .style('stroke-width', d => d.properties.style['stroke-width'])
+          // }
 
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
-            .filter(d => d.properties.sort === 'feature' || d.properties.sort === undefined) // default
+            .filter(d => d.properties.sort === 'feature' 
+            // || d.properties.sort === undefined
+            ) // default
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
-if (0 && 1) console.log("features", features)
+if (1 && 1) console.log("features", features)
           // if (features.length > 0) {
             __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)
               .data(() => features)
