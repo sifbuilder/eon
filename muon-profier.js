@@ -27,7 +27,7 @@
  */
       let getProj = function (projdef) {
 
-          if (1 && 1) console.log( 'projdef', projdef)
+          if (0 && 1) console.log( 'projdef', projdef)
 
           let geoproj
 
@@ -98,7 +98,7 @@
  */
     let formion = function (projdef, anigram = {}) {
 
-if (1 && 1) console.log('projdef', anigram, projdef)
+if (0 && 1) console.log('projdef', anigram, projdef)
 
       let projection
       let projname
@@ -128,23 +128,17 @@ if (1 && 1) console.log('projdef', anigram, projdef)
             } else { // if multi rotates
               let _trans = []
               for (let k = 0; k < protrans.length; k++) {
-                _trans = mgeom.add(_rot, protrans[k])
+                _trans = mgeom.add(_trans, protrans[k])
               }
               protrans = _trans
             }           
             
-            
-            
             translation = protrans
 
-            
             if (projdef.anod && geofold.properties && geofold.properties.geonode) {
               let geonode = geofold.properties.geonode  // geonode
-              let nodetranslate = geonode.geometry.coordinates  // geonode coordinates for translate
-
-              let daxes = Math.max(translate.length, nodetranslate.length)
-              let addtranslate = d3.range(0, daxes, 1).map( (d,i) => (translate[i] || 0) + ((nodetranslate[i] || 0)))
-              translation = addtranslate
+              let nodetranslate = geonode.geometry.coordinates  // geonode coords
+              translation = mgeom.add(translation, nodetranslate)
 
             }
           }

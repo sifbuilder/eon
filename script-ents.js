@@ -11,6 +11,7 @@ document.write("<script src='control-touchMove.js'><\/script>")
 document.write("<script src='control-versor.js'><\/script>")    
 document.write("<script src='control-wen.js'><\/script>")    
 /*  data */  
+document.write("<script src='data-licht4.js'><\/script>")    
 document.write("<script src='data-lichtenstein.js'><\/script>")    
 document.write("<script src='data-matisse.js'><\/script>")    
 document.write("<script src='data-worldTopo110m.js'><\/script>")    

@@ -49,7 +49,7 @@ let muonAlima = function muonAlima (__mapper) {
   /*******************************************
  *    @fourierPacer
  */  
-let fourierPacer = { // SUB-MARKS line trace
+  let fourierPacer = { // SUB-MARKS line trace
 
             halo: 'pacer',
 
@@ -101,16 +101,22 @@ let fourierPacer = { // SUB-MARKS line trace
  *    @fourier anima
  *
  */
-    let svgdata = __mapper('xs').d('lichtenstein').data()
-    // let fourdata = svgdata.features[0].geometry.coordinates[0]
+    // let svgdata = __mapper('xs').d('lichtenstein').data()
+    let svgdata = __mapper('xs').d('licht4').data()
+
     let fourdata = svgdata
     let scale = [0.5,-0.5]
     let translate = [-100,100] 
     
-    let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} )
+    
+    let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} ) // castels
 
+ if (1 && 1) console.log("featurePolygon", featurePolygon)   
  
-     let transform = mfourier.fourierDiagram(featurePolygon).updateTransform().transform()
+     let transform = mfourier
+          .fourierDiagram(featurePolygon)
+          .updateTransform()
+          .transform()
  
      let fourierForm = {
 
@@ -132,7 +138,7 @@ let fourierPacer = { // SUB-MARKS line trace
         let ngj = {
           type: 'Feature',
           geometry: { type: 'Polygon',
-                      coordinates: mgeoj.tclip(feature.geometry, unitTimeElapsed).coordinates
+               coordinates: mgeoj.tclip(feature.geometry, unitTimeElapsed).coordinates // tclip
                     },
           properties: {
             boform: { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 1, 'cp': 0.9}
@@ -140,7 +146,6 @@ let fourierPacer = { // SUB-MARKS line trace
           },
         }      
 
-      
         let rings = ngj.geometry.coordinates // 
         let newFeatureCollection = {type:'FeatureCollection', features:[]}
         
@@ -160,15 +165,9 @@ let fourierPacer = { // SUB-MARKS line trace
           newFeatureCollection.features.push(feature)
         }   
         
-        
-        
         newFeatureCollection.features = Array.of(ngj)
         
         let gj = newFeatureCollection
-
-        
-        
-        
         
         if (payload.proform) {
           let proformion = mprofier.proformion(anigram)
@@ -180,9 +179,7 @@ let fourierPacer = { // SUB-MARKS line trace
 
       },    
        
-     
-     
-     
+
      
       // halo: 'ent',
       // geofold: p => featurePolygon,

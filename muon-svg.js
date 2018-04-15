@@ -97,7 +97,7 @@
 
               .map(d => d.map(c => c.split(',').map(Number)))
               .map( d => d.reduce( (p,q) => [...p, ...q] ,[]))  //          
-if (0 && 1) console.log("cn", cn)          
+if (1 && 1) console.log("cn", cn)          
         } else {
           cn = cn
               .split(/\r?\n/)

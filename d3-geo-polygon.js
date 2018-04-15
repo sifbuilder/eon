@@ -40,25 +40,13 @@ var pi = Math.PI;
 var halfPi = pi / 2;
 var quarterPi = pi / 4;
 var tau = pi * 2;
-
-
 var radians = pi / 180;
-
 var abs = Math.abs;
-
 var atan2 = Math.atan2;
 var cos = Math.cos;
-
-
-
-
-
 var sin = Math.sin;
 var sign = Math.sign || function(x) { return x > 0 ? 1 : x < 0 ? -1 : 0; };
 var sqrt = Math.sqrt;
-
-
-
 
 function asin(x) {
   return x > 1 ? halfPi : x < -1 ? -halfPi : Math.asin(x);
@@ -227,9 +215,6 @@ function cartesianCross(a, b) {
 }
 
 // TODO return a
-
-
-
 
 // TODO return d
 function cartesianNormalizeInPlace(d) {
