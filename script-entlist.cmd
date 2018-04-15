@@ -140,26 +140,40 @@ with references including
         .filter(d => !scriptpattern.test(d))
 
         
+        let readmetxt = header + '\n'
         
       for (let i=0; i<files.length; i++) {
         let file = files[i]
         let fileTxt = fs.readFileSync(file,"utf8");        
         
-      const pattern = /\/\/md(.*)/gu    // //md 
-      const found = pattern.exec(fileTxt)
+      const pattern = /\/\/md(.*)/mg   // //md 
+      // const found = pattern.exec(fileTxt)
         
-        
+    
+          
+         var arr;  
+         while ((arr = pattern.exec(fileTxt)) !== null) {  
+            // New line:  
+            console.log ('0', arr[1]);  
+            
+            readmetxt += arr[1] + '\n'
+         }          
         
         // let found = fileTxt.match(pattern)
         
-        // if (1 && 1) console.log("file", i, file, found)
+        // if (1 && 1) console.log("readmetxt", readmetxt)
           
-        if (found) console.log("file", i, file, found.length, found[0], found[1])
+        // if (found) console.log("file", i, file, found.length)
+        // if (found) console.log("0:", found[0].trim())
+        // if (found) console.log("1:", found[1].trim())
+        // if (found) console.log("index:", pattern)
         
+      
+      
       }
       
       
-      fs.writeFileSync(readmefile,header);
+      fs.writeFileSync(readmefile,readmetxt);
 
       
   }
