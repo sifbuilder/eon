@@ -248,7 +248,7 @@ let axcall = d3.axisBottom(d3.scaleLinear()
                 .range([0,600]))
                 .tickSize(10)
                 .tickPadding(5)             
-if (1 && 1) console.log("cid", cid)
+if (0 && 1) console.log("cid", cid)
   // cid = 'e'
             __mapper('renderSvg').elems('svg:g.' + gid + '/g.' + 'e', axes, d => d.id)
 
@@ -266,7 +266,7 @@ if (1 && 1) console.log("cid", cid)
               // .style('font-family', d => d.properties.axis.fontFamily)
               
               // .style('fill', d => {
-// if (1 && 1) console.log("axis", gid, cid, d)                
+if (0 && 1) console.log("axis", gid, cid, d)                
                 // return d.properties.style.fill
               // })
               // .style('stroke', d => d.properties.style.stroke)
@@ -279,10 +279,9 @@ if (1 && 1) console.log("cid", cid)
           let features = fitems
             .filter(d => d.properties.sort === 'feature' 
             // || d.properties.sort === undefined
-            ) // default
+            )
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
-if (1 && 1) console.log("features", features)
           // if (features.length > 0) {
             __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)
               .data(() => features)

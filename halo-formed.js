@@ -53,6 +53,7 @@
           feature = mboform.boformer(anigram, feature)
           feature.properties.tim = tim  // tim in geofold
           feature.properties.vim = vim  // vim in geofold to render
+          feature.properties.sort = 'feature'  // svg sort
           
           let newAnigram = {
             halo: halo, // inherit halo
