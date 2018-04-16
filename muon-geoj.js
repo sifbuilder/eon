@@ -58,7 +58,6 @@ var complexifyGeometryType = {
     return ret
   },
   LineString: function(object) {
-    if (1 && 1) console.log("LineString", object)
     let ret = object      
     ret.coordinates = complexifyLine(object.coordinates);
     return ret

@@ -13,35 +13,135 @@
 // (C) 2018 Andrew Pritchard (MIT License)
 // https://www.youtube.com/watch?v=2hfoX51f6sg
 
+//md: m.fourier : fourier transform  
 var muonFourier = function (__mapper) {
-  
-  //md: m.fourier : fourier transform  
   
   let mgeoj = __mapper('xs').m('geoj')
 
+  
+  
+  
+  // fourierTransform
+var fourierTransformObjectType = {
+  Feature: function(object) {
+    return fourierTransformGeometry(object.geometry);
+  },
+  FeatureCollection: function(object) {
+    var features = object.features, i = -1, n = features.length;
+    
+    let ret = object
+    ret.features = features.map(feature => fourierTransformGeometry(feature.geometry))
+    return ret
+
+  }
+}
+
+var fourierTransformGeometryType = {
+  Sphere: function() {
+    // return true;
+  },
+  Point: function(object) {
+    return fourierTransformPoint(object.coordinates)
+  },
+  MultiPoint: function(object) {
+    var coordinates = object.coordinates.map(coords => fourierTransformPoint(coords))
+    let ret = object
+    ret.coordinates = coordinates
+    return ret
+  },
+  LineString: function(object) {
+    if (1 && 1) console.log("LineString", object)
+    let ret = object      
+    ret.coordinates = fourierTransformLine(object.coordinates);
+    return ret
+  },
+  MultiLineString: function(object) {
+    var coordinates = object.coordinates
+    
+    let ret = object
+    ret.coordinates = coordinates.map(line => fourierTransformLine(line))
+    return ret
+  },
+  Polygon: function(object) {
+    var coordinates = object.coordinates
+    
+    let ret = object
+    ret.coordinates = coordinates.map(line => fourierTransformLine(line))
+    return ret
+  },
+  MultiPolygon: function(object) {
+    var polygons = object.coordinates.map(
+      polygon => polygon.map(
+        ring => fourierTransformLine(ring)))
+
+      let ret = object
+      ret.coordinates = polygons
+      return ret    
+  },
+  GeometryCollection: function(object) {
+    var geometries = object.geometries.map(
+      geometry => fourierTransformGeometry(geometry))
+    return geometries
+  }
+}
+
+function fourierTransformGeometry(geometry) {
+  return geometry && fourierTransformGeometryType.hasOwnProperty(geometry.type)
+      ? fourierTransformGeometryType[geometry.type](geometry)
+      : false;
+}
+   
+function fourierTransform(object) {
+  return (object && fourierTransformObjectType.hasOwnProperty(object.type)
+      ? fourierTransformObjectType[object.type]
+      : fourierTransformGeometry)(object)
+}
+   
+function fourierTransformPoint(coordinates) {
+  // return Complex(coordinates[0], coordinates[1])
+}    
+     
+function fourierTransformLine(coordinates) {
+  
+      let N = coordinates.length;
+      let ret = [];
+      for (let k = 0; k < N; k++) { // N coefficients
+          let current = Complex (0, 0)
+          for (let n = 0; n < N; n++) { // each is sum of integrals
+              let coef = Complex (0, (-2) * Math.PI * k * n / N)
+              let h = coef.exp().mul(coordinates[n]) // v[n].e^-i2[pi]kn/N
+              current = current.add(h)
+          }
+          ret.push(current)
+      }
+      return ret
+      
+}    
+    
+    
+  
 
   
   
+    let tcoefs = function(gjc) {
+      
+      let ret = fourierTransform(gjc)
+      // ret = ret.coordinates
+      
+      return ret      
+    }
+  
+
+   //md: m.fourier.transformedCoefs : get fourier transform coefficients
+   //md:    transformedCoefs(geojson)
+   //md:    return geojson 
     let transformedCoefs = function (gj) {
   
       let gjc = mgeoj.complexify(gj)
-      let vectors = gjc.coordinates
+      let ret = tcoefs(gjc)  
+      return ret
       
-      
-      var N = vectors.length;
-      var _transform = [];
-      for (var k = 0; k < N; k++) { // N coefficients
-          var current = Complex (0, 0)
-          for (var n = 0; n < N; n++) { // each is sum of integrals
-              var coef = Complex (0, (-2) * Math.PI * k * n / N)
-              let h = coef.exp().mul(vectors[n]) // v[n].e^-i2[pi]kn/N
-              current = current.add(h)
-          }
-          _transform.push(current)
-      }
 
-      
-      return _transform
     }   
   
   
@@ -50,8 +150,6 @@ var muonFourier = function (__mapper) {
      *        @enty
      */
     let enty = () => {}
-
-
     enty.transformedCoefs = transformedCoefs 
 
 
