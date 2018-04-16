@@ -268,10 +268,7 @@ let fourierPacer = { // SUB-MARKS line trace
 
                  geonode: {
                   type: 'Feature',
-                  geometry: {
-                    type: 'Point',
-                    coordinates: [0,0]
-                  },
+                  geometry: { type: 'Point', coordinates: [0,0] },
                   properties: { // geofold coindices with geonode
 
                      orgen: [0,0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]
@@ -295,7 +292,7 @@ let fourierPacer = { // SUB-MARKS line trace
    
         fourier: {
 
-          transform: mfourier.fourierDiagram( 
+          transform: mfourier.complexify( 
           
           JSON.parse (manimas('shapes').rhyno ).map(d => [d[0]-150, -d[1]+25, d[2]]) 
             )

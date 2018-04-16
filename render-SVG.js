@@ -286,7 +286,7 @@ if (0 && 1) console.log("axis", gid, cid, d)
             __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)
               .data(() => features)
               .attr('d', d => {
-                if (2 && 2 && d.properties.style === undefined) console.log('** style undefined')
+                if (2 && 2 && d.properties.style === undefined) console.log('** style is undefined', d)
                 let geoitem = d // geojson feature
                 let properties = geoitem.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius

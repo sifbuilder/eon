@@ -34,7 +34,8 @@ let muonAlima = function muonAlima (__mapper) {
     msvg = __mapper('xs').m('svg'),
     mgeoj = __mapper('xs').m('geoj'),
     mprofier = __mapper('xs').m('profier'),
-    mproj3ct = __mapper('xs').m('proj3ct')
+    mproj3ct = __mapper('xs').m('proj3ct'),
+    mtclip = __mapper('xs').m('tclip')
 
   const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
@@ -113,7 +114,7 @@ let muonAlima = function muonAlima (__mapper) {
   
  
      let transform = mfourier
-          .fourierDiagram(featurePolygon)
+          .complexify(featurePolygon)
           .updateTransform()
           .transform()
  
@@ -141,7 +142,7 @@ if (1 && 1) console.log("unitTimeElapsed", unitTimeElapsed)
         let ngj = {
           type: 'Feature',
           geometry: { type: 'Polygon',
-               coordinates: mgeoj.tclip(feature.geometry, unitTimeElapsed).coordinates // tclip
+               coordinates: mtclip.tclip(feature.geometry, unitTimeElapsed).coordinates // tclip
                     },
           properties: {
             boform: { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 1, 'cp': 0.9}

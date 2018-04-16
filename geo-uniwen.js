@@ -99,7 +99,6 @@
 
 
       let c = [x, y, z]
-if (0 && 1) console.log("rotate", rotate) 
       let rot = []
       if (f.isPureArray(rotate)) {
           rot = rotate
@@ -108,9 +107,7 @@ if (0 && 1) console.log("rotate", rotate)
           rot = mgeom.add(rot, rotate[k])
         }
       }
-if (0 && 1) console.log("rot", rot)      
       c = wenRotation(rot)(...c) // rotate
-      
       
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
       c = mwen.projection(c, lens[2], scale) // project

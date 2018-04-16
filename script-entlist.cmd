@@ -15,7 +15,7 @@ const usage = `
 Usage: entlist [options]
 
 Options:
- -a, --action        Script action
+ -a, --action        Script action in {samplify,entlist,mdfy}
  -d, --debug         Debug output
  -v, --version       Output the version
  -h, --help          Show this help message
@@ -146,7 +146,7 @@ with references including
         let file = files[i]
         let fileTxt = fs.readFileSync(file,"utf8");        
         
-      const pattern = /\/\/md(.*)/mg   // //md 
+      const pattern = /\/\/md:(.*)/mg   // //md: 
       // const found = pattern.exec(fileTxt)
         
     

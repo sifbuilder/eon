@@ -27,6 +27,96 @@
     }
 
     
+    
+    
+    // complexify
+var complexifyObjectType = {
+  Feature: function(object) {
+    return complexifyGeometry(object.geometry);
+  },
+  FeatureCollection: function(object) {
+    var features = object.features, i = -1, n = features.length;
+    
+    let ret = object
+    ret.features = features.map(feature => complexifyGeometry(feature.geometry))
+    return ret
+
+  }
+};
+
+var complexifyGeometryType = {
+  Sphere: function() {
+    // return true;
+  },
+  Point: function(object) {
+    return complexifyPoint(object.coordinates)
+  },
+  MultiPoint: function(object) {
+    var coordinates = object.coordinates.map(coords => complexifyPoint(coords))
+    let ret = object
+    ret.coordinates = coordinates
+    return ret
+  },
+  LineString: function(object) {
+    if (1 && 1) console.log("LineString", object)
+    let ret = object      
+    ret.coordinates = complexifyLine(object.coordinates);
+    return ret
+  },
+  MultiLineString: function(object) {
+    var coordinates = object.coordinates
+    
+    let ret = object
+    ret.coordinates = coordinates.map(line => complexifyLine(line))
+    return ret
+  },
+  Polygon: function(object) {
+    var coordinates = object.coordinates
+    
+    let ret = object
+    ret.coordinates = coordinates.map(line => complexifyLine(line))
+    return ret
+  },
+  MultiPolygon: function(object) {
+    var polygons = object.coordinates.map(
+      polygon => polygon.map(
+        ring => complexifyLine(ring)))
+
+      let ret = object
+      ret.coordinates = polygons
+      return ret    
+  },
+  GeometryCollection: function(object) {
+    var geometries = object.geometries.map(
+      geometry => complexifyGeometry(geometry))
+    return geometries
+  }
+}
+
+function complexifyGeometry(geometry) {
+  return geometry && complexifyGeometryType.hasOwnProperty(geometry.type)
+      ? complexifyGeometryType[geometry.type](geometry)
+      : false;
+}
+   
+function complexify(object) {
+  return (object && complexifyObjectType.hasOwnProperty(object.type)
+      ? complexifyObjectType[object.type]
+      : complexifyGeometry)(object)
+}
+   
+function complexifyPoint(coordinates) {
+  return Complex(coordinates[0], coordinates[1])
+}    
+     
+function complexifyLine(coordinates) {
+    let ret = coordinates.map(coords => complexifyPoint(coords))
+    return ret
+}    
+    
+    
+    
+    
     /**********************
    *    @resample
     *   Mike Bostock’s Block bfe064713436955c1ace
@@ -60,76 +150,7 @@
     }
 
     
-     
-    /**********************
-   *    @tclip
-   */
-
-    let tclip = function (gj, t=1, interval=[0,1]) {
-      let ret = gj
       
-      let t0 =  interval[0],
-        t1 = interval[1],
-        period = t1 - t0,
-        tInPeriod = (t - t0) / period      
-      
-      if (t < interval[0] || t > interval[1]) {
-        
-          ret = []  // return empty set
-        
-      } else if (tInPeriod === 1) { // return geojson
-      } else if (gj.type && gj.type === 'Point') {
-      } else if (gj.type && gj.type === 'MultiPoint') {
-      } else if (gj.type && gj.type === 'LineString') {
-      } else if (gj.type && gj.type === 'MultiLineString') {
-      } else if (gj.type && gj.type === 'Polygon') {
-          
-          let ngj = { type: 'Polygon', coordinates: [],  } // return polygon
-         
-          // coordinates is array of rings
-          let tnb = gj.coordinates.reduce( (p,q) => p += q.length, 0)
-          let nb = Math.floor(tnb * tInPeriod)
-          
-          let outrings = []
-          let n = 0
-          for (let i=0; i<gj.coordinates.length; i++) {
-              let ring = gj.coordinates[i]
-              let ringLength = ring.length
-
-              if (n + ringLength < nb) {    // if ring in scope
-                  ngj.coordinates.push(ring)
-                  n += ringLength
-                  
-              } else {    // complement with part of next ring
-                  let tmpring = ring.slice(0, nb-n)
-                  ngj.coordinates.push(tmpring)
-                  n += (nb-n)
-                  break
-              }
-
-          }        
-              
-          ret = ngj
-
-        
-        
-      } else if (gj.type && gj.type === 'MultiPolygon') {
-      } else if (gj.type && gj.type === 'GeometryCollection') {
-      } else if (gj.type && gj.type === 'Feature') {
-        
-        
-        
-       
-                     
-        
-        
-      } else if (gj.type && gj.type === 'FeatureCollection') {
-      }
-      
-      
-      return ret
-      
-    }      
     
     /**********************
    *    @trim
@@ -498,8 +519,8 @@
     let enty = function () {}
 
     enty.resample = resample
-    enty.tclip = tclip
     enty.trim = trim
+    enty.complexify = complexify
     enty.deprop = deprop
     enty.snip = snip
     enty.largestPoly = largestPoly
