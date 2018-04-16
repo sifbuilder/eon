@@ -49,15 +49,89 @@
         period = t1 - t0,
         tInPeriod = (t - t0) / period
 
+        // return on rgj
+        let rgj
+        let json = transform
+        let tfeatures = []
+        if (json.type == 'Feature') {
+          let geometry = json.geometry
+          if (geometry !== null) coords = [...coords, ...getCoords(geometry)]
+        } else if (json.type == 'FeatureCollection') {
+          for (let feature_num = 0; feature_num < json.features.length; feature_num++) {
+            let feature = json.features[feature_num]
+            getCoords(feature, coords)
+          }
+        } else if (json.type == 'GeometryCollection') {
+          for (let geom_num = 0; geom_num < json.coords.length; geom_num++) {
+            let geometry = json.coords[geom_num]
+            coords.push(geometry)
+          }
+        } else if (json.type === 'Point') {
+          let geometry = json
+          // coords.push(geometry.coordinates)
+          coords = [...coords, geometry.coordinates]  // if Point, return array
+          
+        } else if (json.type === 'LineString') {
+          
+          let tfeature = {
+            type: 'Feature',
+            geometry: {type: 'LineString',coordinates: json.coordinates},
+            properties: {interval: interval}
+          }
+          tfeatures.push(tfeature)
+          
+          
+        } else if (json.type === 'MultiPoint') {
+          let geometry = json
+          coords.push(geometry)
+        } else if (json.type === 'Polygon') {
+          let rings = json.coordinates
+          let _coords = rings.reduce((p, q) => [...p, ...q], [])
+          coords = [...coords, ..._coords]
+        } else if (json.type === 'MultiLineString') {
+          
+          let lines = json.coordinates
+          for (let i=0; i<lines.length; i++) {
+            let line = lines[i]
+            
+            let tfeature = {
+              type: 'Feature',
+              geometry: {type: 'LineString',coordinates: line},
+              properties: {interval: interval}
+            }
+            tfeatures.push(tfeature)           
+            
+            
+          }
 
-        let anitems = []
+          
+          
+        } else if (json.type === 'MultiPolygon') {
+          let geometry = json
+          coords.push(geometry)
+        } else if (json.type === 'Sphere') {
+          let geometry = json
+          coords.push(geometry)
+        } else {
+          throw new Error('json type not identified.')
+        }
+        // transform = rgj // continue flow
         
-        for (let j=0; j<1; j++) {
+ if (1 && 1) console.log("tfeatures", tfeatures)       
+        
+        let anitems = []
+        for (let j=0; j<tfeatures.length; j++) {
+          
+            let tfeature = tfeatures[j]
+            transform = tfeature.geometry.coordinates
+          
             var N = transform.length
             var nyquist = Math.floor (N / 2)
             var w = 0 // frequency associated to cycloid index (for sorted)
 
 
+            
+            
             let transformSorted = transform.slice() // sort transform coefs by norm
               .map( (d,i) => Object.assign(d, {w:i}))
               .sort((a,b) => Complex(b).abs() - Complex(a).abs())
@@ -67,8 +141,9 @@
               let idx = i
               let gid = ric.gid // from ava ric
               let cid = ric.cid
-              let fid = ric.fid + '_' + idx
-
+              let fid = ric.fid + '_' + j + '_' + idx
+if (0 && 1) console.log("fid", j, i, fid)
+              
               let delled = (t < interval[0] || t > interval[1]) ? 1 : 0
 
               let _ric = {gid, cid, fid, delled}
@@ -96,6 +171,17 @@
                   newItem.geofold.properties.pointRadius = maglast  // pencil radio
                   newItem.payload.avatars = payload.fourier.avatars // add line pacer
 
+                  for (let k=0; k<newItem.payload.avatars.length; k++) {
+                    let a = newItem.payload.avatars[k]
+                    
+                    let gid = a.payload.ric.gid // from ava ric
+                    let cid = a.payload.ric.cid
+                    let fid = a.payload.ric.fid + '_' + j + '_' + i
+if (1 && 1) console.log("fid", fid)
+                    let _ric = {gid, cid, fid}    
+                    a.payload.ric  = _ric                  
+                    
+                  }
               }
 
               x = acc.re / N  //

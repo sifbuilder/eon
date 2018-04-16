@@ -118,18 +118,7 @@ function fourierTransformLine(coordinates) {
       
 }    
     
-    
-  
 
-  
-  
-    let tcoefs = function(gjc) {
-      
-      let ret = fourierTransform(gjc)
-      // ret = ret.coordinates
-      
-      return ret      
-    }
   
 
    //md: m.fourier.transformedCoefs : get fourier transform coefficients
@@ -138,7 +127,7 @@ function fourierTransformLine(coordinates) {
     let transformedCoefs = function (gj) {
   
       let gjc = mgeoj.complexify(gj)
-      let ret = tcoefs(gjc)  
+      let ret = fourierTransform(gjc)  
       return ret
       
 

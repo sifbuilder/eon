@@ -232,12 +232,9 @@ let fourierPacer = { // SUB-MARKS line trace
                   }
 
                   let newItem = mstore.findAnigramFromUid(uid) || gj
-                  if (0 && 1) console.log('h.pacer newItem', newItem)
                   if (newItem.geofold.properties.formEreformed) {
                     newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
                   }
-
-                  if (0 && 1) console.log('newItem', newItem)
 
                   return newItem
                 },
@@ -251,82 +248,62 @@ let fourierPacer = { // SUB-MARKS line trace
  *
  */
 let basicSquare = [
-// [
+[
   [0-100, 0], [0-100, 25], [0-100, 50], [0-100, 75], [0-100, 100], 
   [25-100, 100], [50-100, 100], [75-100, 100], [100-100, 100], 
   [100-100, 75], [100-100, 50], [100-100, 25], [100-100, 0], 
   [75-100, 0], [50-100, 0], [25-100, 0]
- // ], 
-  // [
-  // [0+100, 0], [0+100, 25], [0+100, 50], [0+100, 75], [0+100, 100], 
-  // [25+100, 100], [50+100, 100], [75+100, 100], [100+100, 100], 
+ ], 
+  [
+  [0+100, 0], [0+100, 25], [0+100, 50], [0+100, 75], [0+100, 100], 
+  [25+100, 100], [50+100, 100], [75+100, 100], [100+100, 100], 
   // [100+100, 75], [100+100, 50], [100+100, 25], [100+100, 0], 
-  // [75+100, 0], [50+100, 0], [25+100, 0]
- // ]  
+  [75+100, 0], [50+100, 0], [25+100, 0]
+ ]  
 ]
 
 let gj = {
-  type: 'LineString',
+  type: 'MultiLineString',
   coordinates: basicSquare
 }
 
               
-let transform = mfourier.transformedCoefs(gj).coordinates
+      let transform = mfourier.transformedCoefs(gj)
 
-            
-             
- 
+         
  
      let fourierForm = {
-
       halo: 'fourier',
-
       geofold: p => {
-
-        let coords = []
-
-        let gj = {
+        return {
           type: 'Feature',
           geometry: {
             type: 'Point', 
-            coordinates: coords 
+            coordinates: [] 
           },
           properties: {
-                 pointRadius: 3, // d.payload.fourier.rad,
-
-                 geonode: {
-                  type: 'Feature',
-                  geometry: { type: 'Point', coordinates: [0,0] },
-                  properties: { // geofold coindices with geonode
-
-                     orgen: [0,0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]
-
-                    
-                  }
-                },
+             pointRadius: 3, // d.payload.fourier.rad,
+             geonode: {
+              type: 'Feature',
+              geometry: { type: 'Point', coordinates: [0,0] },
+              properties: { // geofold coindices with geonode
+                 orgen: [0,0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]
               }
+            },
+          }
         }
 
-    
-        return gj
       },
-
-
       payload: {  // FOURIER TRANSFORM in payload.fourier.transform
-
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
         boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
-   
         fourier: {
-
           transform: transform,
-            
-          avatars: [fourierPacer] // fourier avatars
-
+          avatars: [
+            fourierPacer
+          ] // fourier avatars
         },
-        
-
       }
     }
     
