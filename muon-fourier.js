@@ -13,14 +13,14 @@
 // (C) 2018 Andrew Pritchard (MIT License)
 // https://www.youtube.com/watch?v=2hfoX51f6sg
 
-//md: m.fourier : fourier transform  
+//md: m.fourier : fourier transform
 var muonFourier = function (__mapper) {
-  
+
   let mgeoj = __mapper('xs').m('geoj')
 
-  
-  
-  
+
+
+
   // fourierTransform
 var fourierTransformObjectType = {
   Feature: function(object) {
@@ -28,7 +28,7 @@ var fourierTransformObjectType = {
   },
   FeatureCollection: function(object) {
     var features = object.features, i = -1, n = features.length;
-    
+
     let ret = object
     ret.features = features.map(feature => fourierTransformGeometry(feature.geometry))
     return ret
@@ -51,20 +51,20 @@ var fourierTransformGeometryType = {
   },
   LineString: function(object) {
     if (1 && 1) console.log("LineString", object)
-    let ret = object      
+    let ret = object
     ret.coordinates = fourierTransformLine(object.coordinates);
     return ret
   },
   MultiLineString: function(object) {
     var coordinates = object.coordinates
-    
+
     let ret = object
     ret.coordinates = coordinates.map(line => fourierTransformLine(line))
     return ret
   },
   Polygon: function(object) {
     var coordinates = object.coordinates
-    
+
     let ret = object
     ret.coordinates = coordinates.map(line => fourierTransformLine(line))
     return ret
@@ -76,7 +76,7 @@ var fourierTransformGeometryType = {
 
       let ret = object
       ret.coordinates = polygons
-      return ret    
+      return ret
   },
   GeometryCollection: function(object) {
     var geometries = object.geometries.map(
@@ -90,19 +90,21 @@ function fourierTransformGeometry(geometry) {
       ? fourierTransformGeometryType[geometry.type](geometry)
       : false;
 }
-   
+
 function fourierTransform(object) {
   return (object && fourierTransformObjectType.hasOwnProperty(object.type)
       ? fourierTransformObjectType[object.type]
       : fourierTransformGeometry)(object)
 }
-   
+
 function fourierTransformPoint(coordinates) {
   // return Complex(coordinates[0], coordinates[1])
-}    
-     
+}
+
+
+
 function fourierTransformLine(coordinates) {
-  
+
       let N = coordinates.length;
       let ret = [];
       for (let k = 0; k < N; k++) { // N coefficients
@@ -115,31 +117,31 @@ function fourierTransformLine(coordinates) {
           ret.push(current)
       }
       return ret
-      
-}    
-    
 
-  
+}
+
+
+
 
    //md: m.fourier.transformedCoefs : get fourier transform coefficients
    //md:    transformedCoefs(geojson)
-   //md:    return geojson 
+   //md:    return geojson
     let transformedCoefs = function (gj) {
-  
-      let gjc = mgeoj.complexify(gj)
-      let ret = fourierTransform(gjc)  
-      return ret
-      
 
-    }   
-  
-  
-  
+      let gjc = mgeoj.complexify(gj)
+      let ret = fourierTransform(gjc)
+      return ret
+
+
+    }
+
+
+
     /***************************
      *        @enty
      */
     let enty = () => {}
-    enty.transformedCoefs = transformedCoefs 
+    enty.transformedCoefs = transformedCoefs
 
 
     return enty

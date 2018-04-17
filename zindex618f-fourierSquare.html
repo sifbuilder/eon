@@ -19,7 +19,7 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1, key: 1}) // INIT
 
   let f = __mapper({props: muonProps.muonProps()}).props(),
     mnat = __mapper('xs').m('nat'),
@@ -30,7 +30,8 @@ let muonAlima = function muonAlima (__mapper) {
     manimas = __mapper('xs').m('animas'),
     mric = __mapper('xs').m('ric'),
     mstore = __mapper('xs').m('store'),
-    mgeoj = __mapper('xs').m('geoj')
+    mgeoj = __mapper('xs').m('geoj'),
+    msvg = __mapper('xs').m('svg')
 
   const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
@@ -40,119 +41,9 @@ let muonAlima = function muonAlima (__mapper) {
  *      @pics
  *
  */
-  let tim = {'td': 13800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let tim = {'td': 123800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  
-  
-  let natform = {
 
-    halo: 'ent',
-
-    geofold: p => mnat.natFeature(p.payload.form),
-
-    payload: {
-      
-      tim: tim,
-      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
-      boform: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
-
-      proform: {
-        'projection': 'uniwen',
-        'translate': [0, 0],
-        'scale': 1,
-        'rotate': [0, 0],
-        'lens': [0, 1, Infinity],
-      },
-      geonode: {
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [0, 0, 0] },
-        properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
-      },
-
-      'form': {
-
-        'x': {
-          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 2, // ellipse
-          'ra2': 120,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': 0,'pa6': 0,'pb7': 360,
-          
-        },
-
-        'y': {
-          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 2, // ellipse
-          'ra2': 120,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': 0,'pa6': 0,'pb7': 360,
-          
-        }
-
-      }
-    }
-
-  }
-
-  /* ******************************************
- *      @avaform
- *
- */
-  let avaform = {
-
-    halo: 'ent',
-
-    geofold: p => {
-      let rotate = mliner.orientate(p).rotate()
-      let nat = __mapper('xs').m('nat').natFeature(p.payload.form)
-        nat.properties = {
-          geonode: {
-            type: 'Feature',
-            geometry: { type: 'Point', coordinates: [0, 0, 0] },
-            properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null}
-          }
-        }
-      return nat
-    },
-
-    payload: {
-      tim: tim,
-      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'avaform'},
-
-      boform: { 'csx': 0, 'cf': [[[666, 555]]], 'co': [[[0.999, 0.999]]], 'cs': [[[666, 555]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.999, 0.999]]]},
-
-      proform: {
-        'projection': 'uniwen',
-        'translate': {
-          'x':
-									{
-									  'pos': [[[ 0, 360]]]
-									},
-          'y': 
-									{
-									  'pos': [[[ 0, 360]]]
-									},
-          'z': 0
-        },
-        'scale': 1,
-        'rotate': [0, 0, 0],
-        'lens': [0, 1, Infinity],
-      },
-
-      'form': {
-
-        'x': {
-          'm1': -7.66,'m2': -3.73,'n1': 16.24,'n2': 5.98,'n3': 17,'a': 8.98,'b': 11110.19,
-          'm1': 2, 'm2': 2, 'n1': 0.3, 'n2': -3, 'n3': 8, 'a': 1, 'b': 8, // egg          
-          'ra2': [[[48, 48]]],'v0': 0,'v1': 1,'w4': 0,'seg5': 3,'pa6': 0,'pb7': -1,
-          
-        },
-        'y': {
-          'm1': -7.66,'m2': -3.73,'n1': 16.24,'n2': 5.98,'n3': 17,'a': 8.98,'b': 0.19,
-          'm1': 2, 'm2': 2, 'n1': 0.3, 'n2': -3, 'n3': 8, 'a': 1, 'b': 8, // egg          
-          'ra2': [[[1, 1]]],'v0': 0,'v1': 1,'w4': 0,'seg5': 3,'pa6': 0,'pb7': -1,
-          
-        }
-
-      }
-
-    }
-
-  }  
 
   /*******************************************
  *    @aniLine anima
@@ -161,34 +52,17 @@ let muonAlima = function muonAlima (__mapper) {
    let aniLine = {
 
     halo: 'ent',
-
     geofold: {
-                  type: 'Feature',
-                  geometry: {
-                    type: 'LineString', 
-                    coordinates: [
-                      [-1, 0, 0],
-                      [ 1,  0, 0],
-                    ]},
-                    properties: {}
-                  },
-
+          type: 'Feature',
+          geometry: {
+            type: 'LineString', 
+            coordinates: [ [0-200, 0], [0-200, 25], [0-200, 50], [0-200, 100] ]},
+            properties: {}
+          },
     payload: {
       tim: tim,
       ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
-      boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
-      
-      proform: {
-        projection: 'uniwen',
-        translate: {
-            x: { pos: [[[0, 10]]] },
-            y: { pos: [[[0, 10]]] },
-            z: 0
-          },
-        scale: 90,
-        rotate: [ 0, 0, 0 ],
-        lens: [0, 1, Infinity],
-      }
+      boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
     }
 
   }  
@@ -201,7 +75,7 @@ let fourierPacer = { // SUB-MARKS line trace
 
             payload: {
               ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-              boform: {'csx': 0, 'cf': [[[111,222,111]]], 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+              boform: {'csx': 0, 'cf': [[[111,222,111]]], 'cs': 666, 'cw': 0.99, 'co': 0.04, 'cp': 0.99},
 
               pacer: { // aad for trace
                 initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
@@ -249,15 +123,22 @@ let fourierPacer = { // SUB-MARKS line trace
  */
 let basicSquare = [
 [
-  [0-100, 0], [0-100, 25], [0-100, 50], [0-100, 75], [0-100, 100], 
-  [25-100, 100], [50-100, 100], [75-100, 100], [100-100, 100], 
-  [100-100, 75], [100-100, 50], [100-100, 25], [100-100, 0], 
-  [75-100, 0], [50-100, 0], [25-100, 0]
+  // [0-200, 0],      [0-200, 33],    [0-200, 66],      [0-200, 100], 
+  [0-200, 0],     [0-200, 25],    [0-200, 50],    [0-200, 75], 
+  [0-200, 100],   [25-200, 100],  [50-200, 100],  [75-200, 100],  
+  [100-200, 100], [100-200, 75],  [100-200, 50],  [100-200, 25], 
+  [100-200, 0],   [75-200, 0],    [50-200, 0],    [25-200, 0]
  ], 
+// [
+  // [0-200, 0],     [0-200, 25],    [0-200, 50],    [0-200, 75], 
+  // [0-200, 100],   [25-200, 100],  [50-200, 100],  [75-200, 100],  
+  // [100-200, 100], [100-200, 75],  [100-200, 50],  [100-200, 25], 
+  // [100-200, 0],   [75-200, 0],    [50-200, 0],    [25-200, 0]
+ // ], 
   [
   [0+100, 0], [0+100, 25], [0+100, 50], [0+100, 75], [0+100, 100], 
   [25+100, 100], [50+100, 100], [75+100, 100], [100+100, 100], 
-  // [100+100, 75], [100+100, 50], [100+100, 25], [100+100, 0], 
+  [100+100, 75], [100+100, 50], [100+100, 25], [100+100, 0], 
   [75+100, 0], [50+100, 0], [25+100, 0]
  ]  
 ]
@@ -266,9 +147,15 @@ let gj = {
   type: 'MultiLineString',
   coordinates: basicSquare
 }
+let transform = mfourier.transformedCoefs(gj)
 
-              
-      let transform = mfourier.transformedCoefs(gj)
+
+    // let svgdata = __mapper('xs').d('lichtenstein').data()
+    // let fourdata = svgdata
+    // let scale = [1,1]
+    // let translate = [-0,0] 
+    // let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} )
+    // let transform = mfourier.transformedCoefs(featurePolygon)
 
          
  
@@ -282,7 +169,7 @@ let gj = {
             coordinates: [] 
           },
           properties: {
-             pointRadius: 3, // d.payload.fourier.rad,
+             pointRadius: 1, // d.payload.fourier.rad,
              geonode: {
               type: 'Feature',
               geometry: { type: 'Point', coordinates: [0,0] },
@@ -297,15 +184,17 @@ let gj = {
       payload: {  // FOURIER TRANSFORM in payload.fourier.transform
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99},
         fourier: {
           transform: transform,
-          avatars: [
-            fourierPacer
-          ] // fourier avatars
-        },
-      }
-    }
+          dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
+          avatars: {
+            fourierPacer: fourierPacer,
+            line: aniLine,
+          } // fourier avatars
+        }
+      } 
+     }
     
   /*******************************************
  *    @enty
@@ -315,6 +204,7 @@ let gj = {
  
   let animas = [
     fourierForm, // h.fourier
+    // aniLine, // h.ent
 
   ]
 
