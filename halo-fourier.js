@@ -219,26 +219,22 @@
               xn[i] = acc.re / N  // averate the summatory
               yn[i] = acc.im / N
               
-              
-              
-               if (i === M) {   // after last sinusoid
+             if (i === M) {   // after last sinusoid
 
-                  newItem.geofold.properties.pointRadius = maglast  // pencil radio
-                  let a = f.cloneObj(payload.fourier.avatars.fourierPacer)
-                  if (a) {  // if pacer avatar
-                    let gid = a.payload.ric.gid // from ava ric
-                    let cid = a.payload.ric.cid
-                    let fid = a.payload.ric.fid + '_' + j + '_' + i
-                    let _ric = {gid, cid, fid}
-                    let uid = mric.getuid(_ric)
-                    a.payload.ric  = _ric
-                    a.payload.uid  = uid
-                    a.payload.boform  = payload.fourier.dotboform
-                    newItem.payload.avatars = Array.of(a)
-                  }
+                newItem.geofold.properties.pointRadius = maglast  // pencil radio
+                let a = f.cloneObj(payload.fourier.avatars.fourierPacer)
+                if (a) {  // if pacer avatar
+                  let gid = a.payload.ric.gid // from ava ric
+                  let cid = a.payload.ric.cid
+                  let fid = a.payload.ric.fid + '_' + j + '_' + i
+                  let _ric = {gid, cid, fid}
+                  let uid = mric.getuid(_ric)
+                  a.payload.ric  = _ric
+                  a.payload.uid  = uid
+                  a.payload.boform  = payload.fourier.dotboform
+                  newItem.payload.avatars = Array.of(a)
                 }
-
-
+              }
 
 
               newItem.payload.tim = tim
@@ -254,11 +250,11 @@
 
             }
 
-           for (let i = 0; i < iAnitems.length - 1; i++) { //  for each anitem
+            for (let i = 0; i < iAnitems.length - 1; i++) { //  for each anitem
               let pointRadius = iAnitems[i].geofold.properties.pointRadius
               let nextPointRadius = iAnitems[i+1].geofold.properties.pointRadius
                 iAnitems[i].geofold.properties.pointRadius = nextPointRadius
-           }
+            }
 
          anitems = [...anitems, ...iAnitems]
         }

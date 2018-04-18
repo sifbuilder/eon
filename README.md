@@ -28,12 +28,29 @@ with references including
 
 - MIT
  h.fourier h.ent
-    h.fourier anigrams per frequency cycloid 
+    h.fourier anigrams per frequency cycloid
     cycloids in payload.fourier.transform resulting from m.fourier.complexify
- m.fourier : fourier transform  
+ m.fourier : fourier transform
+ m.fourier.transformedCoefs : get fourier transform coefficients
+    transformedCoefs(geojson)
+    return geojson
  m.svg.castels(svgdata, frame={start:0, stop:0.90, step:0.33} )
   svgdata: cubic beziers: MC...CZ
   frame.start: bezier interaval beginning
   frame.stop: bezier interval end
   frame.step: space between points
     eg: castels(svg, {start:0, stop:0.90, step:0.33}) will return 3 curve points in bezier
+ z.rhyno
+ rhyno data from m.animas
+   defined as (closed) LineString gemetry.coordinates 
+   mfourier.transformedCoefs(tfeature) 
+     @aniLine avatar
+       form.payload.fourier.avatars.line
+     @fourierPacer avatar
+       payload.pacer.geojsor 
+     @fourierForm anima
+       geofold.properties.pointRadius
+       payload.fourier.transform:  transform coefficients
+       payload.fourier.dotboform:  style of pencil dot
+       payload.fourier.avatars.fourierPacer  form trace
+       payload.fourier.avatars.line  sinusoid ray
