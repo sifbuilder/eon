@@ -139,7 +139,7 @@
         let anitems = []
         for (let j=0; j<tfeatures.length; j++) {
 
-              var acc = Complex (0, 0)
+            var acc = Complex (0, 0)  
               
             let tfeature = tfeatures[j]
             transform = tfeature.geometry.coordinates
@@ -151,10 +151,13 @@
 
             let transformSorted = transform.slice() // sort transform coefs by norm
               .map( (d,i) => Object.assign(d, {w:i}))
-              // .sort((a,b) => Complex(b).abs() - Complex(a).abs())
+              // .filter(d => Complex(d).abs() > 0.01)
+              .sort((a,b) => Complex(b).abs() - Complex(a).abs())
+            let M = transformSorted.length
+            N = M
+         if (1 && 1) console.log("transformSorted", M, transformSorted)
 
-
-            let xn = [], yn = [], magn = []
+            let xn = [], yn = [], magn = [], iAnitems = []
             for (let i = 0; i <= N; w++, i++) { //  for each circle
 
               let gid = ric.gid // from ava ric
@@ -169,66 +172,66 @@
               newItem.halo = 'ent' // halo
 
 
-              // let x, y, mag
               if (i < N) { // for each cycloid
 
-                  xn[i] = transformSorted[i].re / transformSorted.length
-                  yn[i] = transformSorted[i].im / transformSorted.length
-                  magn[i] = Math.sqrt (xn[i] * xn[i] + yn[i]* yn[i]) // amplitude of frequency
-if (1 && 1) console.log("xy", j, i, xn[i], yn[i])
-                  
-                  if (i === 0) {
-                    newItem.geofold.properties.pointRadius = magn[i] / 2
-                  } else {
-                    newItem.geofold.properties.pointRadius = magn[i] 
-                  }
+                if (transformSorted[i].w >= nyquist) transformSorted[i].w -= N  // nyquist
+                let phase = Complex (0, (2) * Math.PI * transformSorted[i].w * tInPeriod) 
+                                          // The sinusoid's frequency is w cycles per N samples
+                let unitRoot = phase.exp() // complex sinusoidal component e^i2[pi]w[i]n/N 
+                let ci = unitRoot.mul(transformSorted[i]) // Xi * root(i)
+                acc = acc.add(ci) // add component
 
-                  if (transformSorted[i].w >= nyquist) transformSorted[i].w -= N
 
-                  var coef = Complex (0, (-2) * Math.PI * transformSorted[i].w * tInPeriod)
-                  acc = acc.add(coef.exp().mul(transformSorted[i]))
 
-                  if (i > 1) {
-                      let ava = f.cloneObj(payload.fourier.avatars.line)
-                      ava.geofold.geometry.coordinates = [
-                          [acc.re / N, acc.im / N], 
-                          [xn[i-1], yn[i-1]] 
-                      ]
- if (0 && 1) console.log("ava", ava.geofold.geometry.coordinates)                     
+                // sinusoid amplitude
+                xn[i] = transformSorted[i].re
+                yn[i] = transformSorted[i].im
+                magn[i] = Math.sqrt (xn[i] * xn[i] + yn[i]* yn[i]) // amplitude of frequency
+                newItem.geofold.properties.pointRadius = magn[i] / M
 
-                      ava.payload.ric.fid += '_' + j + '_' + i
-                      newItem.payload.avatars = Array.of(ava)
-                      if (0 && 1) console.log("ava", ava)                  
-                  }
-                  
-                  
+                if (i > 0) {  // add ray avatar 
+                
+                
+                    let avaLine = f.cloneObj(payload.fourier.avatars.line)
+                    avaLine.geofold.geometry.coordinates = [
+                        [acc.re / N, acc.im / N],   // from this cycloid
+                        [xn[i-1], yn[i-1]]          // to prevous cycloid
+                    ]                 
+                    avaLine.payload.ric.fid += '_' + j + '_' + i
+                    
+                    
+                    newItem.payload.avatars = Array.of(avaLine)
+                }
+              
+              
+              
+              
               }
               
-
-                     if (i === N) {   // after last cycloid
+                
+              xn[i] = acc.re / N  // averate the summatory
+              yn[i] = acc.im / N
+              
+              
+              
+                     if (i === N) {   // after last sinusoid
 
                         newItem.geofold.properties.pointRadius = maglast  // pencil radio
-
                         let a = f.cloneObj(payload.fourier.avatars.fourierPacer)
                         if (a) {  // if pacer avatar
-
                           let gid = a.payload.ric.gid // from ava ric
                           let cid = a.payload.ric.cid
                           let fid = a.payload.ric.fid + '_' + j + '_' + i
-
                           let _ric = {gid, cid, fid}
                           let uid = mric.getuid(_ric)
                           a.payload.ric  = _ric
                           a.payload.uid  = uid
                           a.payload.boform  = payload.fourier.dotboform
-
                           newItem.payload.avatars = Array.of(a)
                         }
                       }
 
-                
-              xn[i] = acc.re / N
-              yn[i] = acc.im / N
+
 
 
               newItem.payload.tim = tim
@@ -240,13 +243,21 @@ if (1 && 1) console.log("xy", j, i, xn[i], yn[i])
               newItem.geofold.properties.geonode.geometry.coordinates = [xn[i], yn[i]]
               newItem.geofold.properties.geonode.properties.orgen = [xn[i], yn[i]]
 
-              anitems.push(newItem)
+              iAnitems[i] = newItem
 
             }
 
+           for (let i = 0; i < iAnitems.length - 1; i++) { //  for each anitem
+              let pointRadius = iAnitems[i].geofold.properties.pointRadius
+              let nextPointRadius = iAnitems[i+1].geofold.properties.pointRadius
+if (1 && 1) console.log("i", j, i, pointRadius, nextPointRadius)              
+                iAnitems[i].geofold.properties.pointRadius = nextPointRadius
+           }
+
+         anitems = [...anitems, ...iAnitems]
         }
 
-if (1 && 1) console.log("anitems", anitems)
+
       for (let i=0; i<anitems.length; i++) {
         newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(anitems[i])]
       }

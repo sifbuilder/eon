@@ -45,6 +45,7 @@ let muonAlima = function muonAlima (__mapper) {
 
 
 
+
   /*******************************************
  *    @aniLine anima
  *
@@ -169,7 +170,7 @@ let transform = mfourier.transformedCoefs(gj)
             coordinates: [] 
           },
           properties: {
-             pointRadius: 1, // d.payload.fourier.rad,
+             pointRadius: 0.01, // d.payload.fourier.rad,
              geonode: {
               type: 'Feature',
               geometry: { type: 'Point', coordinates: [0,0] },
@@ -191,6 +192,7 @@ let transform = mfourier.transformedCoefs(gj)
           avatars: {
             fourierPacer: fourierPacer,
             line: aniLine,
+
           } // fourier avatars
         }
       } 

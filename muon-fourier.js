@@ -105,16 +105,16 @@ function fourierTransformPoint(coordinates) {
 
 function fourierTransformLine(coordinates) {
 
-      let N = coordinates.length;
-      let ret = [];
-      for (let k = 0; k < N; k++) { // N coefficients
-          let current = Complex (0, 0)
+      let ret = []
+      let N = coordinates.length  // N coefficients
+      for (let k = 0; k < N; k++) { // k coefficient
+          let q = Complex (0, 0)
           for (let n = 0; n < N; n++) { // each is sum of integrals
               let coef = Complex (0, (-2) * Math.PI * k * n / N)
-              let h = coef.exp().mul(coordinates[n]) // v[n].e^-i2[pi]kn/N
-              current = current.add(h)
+              let ck = coef.exp().mul(coordinates[n]) // x[n].e^-i2[pi]kn/N
+              q = q.add(ck)  // sum n component 
           }
-          ret.push(current)
+          ret.push(q)
       }
       return ret
 
