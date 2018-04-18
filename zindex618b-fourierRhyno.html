@@ -34,15 +34,27 @@ let muonAlima = function muonAlima (__mapper) {
   const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
 
-      
+
   /*******************************************
  *      @pics
  *
  */
   let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
+
+  let data = JSON.parse(manimas('shapes').rhyno).map(d => [d[0]-150, -d[1]+25, d[2]])
   
+  let tfeature = {type: 'Feature',
+                geometry: {
+                  type: 'LineString',
+                  coordinates: data
+                }
+  }
   
+  let transform = mfourier.transformedCoefs(tfeature)  
+if (1 && 1) console.log("rhyno transform", transform)
+  
+
   let natform = {
 
     halo: 'ent',
@@ -50,7 +62,7 @@ let muonAlima = function muonAlima (__mapper) {
     geofold: p => mnat.natFeature(p.payload.form),
 
     payload: {
-      
+
       tim: tim,
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
       boform: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
@@ -73,13 +85,13 @@ let muonAlima = function muonAlima (__mapper) {
         'x': {
           'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 2, // ellipse
           'ra2': 120,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': 0,'pa6': 0,'pb7': 360,
-          
+
         },
 
         'y': {
           'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 2, // ellipse
           'ra2': 120,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': 0,'pa6': 0,'pb7': 360,
-          
+
         }
 
       }
@@ -118,13 +130,13 @@ let muonAlima = function muonAlima (__mapper) {
         'projection': 'uniwen',
         'translate': {
           'x':
-									{
-									  'pos': [[[ 0, 360]]]
-									},
-          'y': 
-									{
-									  'pos': [[[ 0, 360]]]
-									},
+                  {
+                    'pos': [[[ 0, 360]]]
+                  },
+          'y':
+                  {
+                    'pos': [[[ 0, 360]]]
+                  },
           'z': 0
         },
         'scale': 1,
@@ -136,22 +148,22 @@ let muonAlima = function muonAlima (__mapper) {
 
         'x': {
           'm1': -7.66,'m2': -3.73,'n1': 16.24,'n2': 5.98,'n3': 17,'a': 8.98,'b': 11110.19,
-          'm1': 2, 'm2': 2, 'n1': 0.3, 'n2': -3, 'n3': 8, 'a': 1, 'b': 8, // egg          
+          'm1': 2, 'm2': 2, 'n1': 0.3, 'n2': -3, 'n3': 8, 'a': 1, 'b': 8, // egg
           'ra2': [[[48, 48]]],'v0': 0,'v1': 1,'w4': 0,'seg5': 3,'pa6': 0,'pb7': -1,
-          
+
         },
         'y': {
           'm1': -7.66,'m2': -3.73,'n1': 16.24,'n2': 5.98,'n3': 17,'a': 8.98,'b': 0.19,
-          'm1': 2, 'm2': 2, 'n1': 0.3, 'n2': -3, 'n3': 8, 'a': 1, 'b': 8, // egg          
+          'm1': 2, 'm2': 2, 'n1': 0.3, 'n2': -3, 'n3': 8, 'a': 1, 'b': 8, // egg
           'ra2': [[[1, 1]]],'v0': 0,'v1': 1,'w4': 0,'seg5': 3,'pa6': 0,'pb7': -1,
-          
+
         }
 
       }
 
     }
 
-  }  
+  }
 
   /*******************************************
  *    @aniLine anima
@@ -162,21 +174,18 @@ let muonAlima = function muonAlima (__mapper) {
     halo: 'ent',
 
     geofold: {
-                  type: 'Feature',
-                  geometry: {
-                    type: 'LineString', 
-                    coordinates: [
-                      [-1, 0, 0],
-                      [ 1,  0, 0],
-                    ]},
-                    properties: {}
-                  },
+      type: 'Feature',
+      geometry: {
+        type: 'LineString',
+        coordinates: [[-1, 0, 0],[ 1,  0, 0],]},
+        properties: {}
+      },
 
     payload: {
       tim: tim,
       ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
-      boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
-      
+      boform: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.5, 'co': 1, 'cp': 1},
+
       proform: {
         projection: 'uniwen',
         translate: {
@@ -190,10 +199,10 @@ let muonAlima = function muonAlima (__mapper) {
       }
     }
 
-  }  
+  }
   /*******************************************
  *    @fourierPacer
- */  
+ */
 let fourierPacer = { // SUB-MARKS line trace
 
             halo: 'pacer',
@@ -243,7 +252,7 @@ let fourierPacer = { // SUB-MARKS line trace
 
               }
             }
-          }  
+          }
 
   /*******************************************
  *    @fourier anima
@@ -260,8 +269,8 @@ let fourierPacer = { // SUB-MARKS line trace
         let gj = {
           type: 'Feature',
           geometry: {
-            type: 'Point', 
-            coordinates: coords 
+            type: 'Point',
+            coordinates: coords
           },
           properties: {
                  pointRadius: 3, // d.payload.fourier.rad,
@@ -273,46 +282,44 @@ let fourierPacer = { // SUB-MARKS line trace
 
                      orgen: [0,0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]
 
-                    
+
                   }
                 },
               }
         }
 
-    
+
         return gj
       },
-
 
       payload: {  // payload in fourierForm
 
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
         boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
-   
+
         fourier: {
 
-          transform: mfourier.complexify( 
-          
-          JSON.parse (manimas('shapes').rhyno ).map(d => [d[0]-150, -d[1]+25, d[2]]) 
-            )
-            .updateTransform()
-            .transform(),
-            
-          avatars: [fourierPacer] // fourier avatars
+          transform: transform,
+          dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
+          avatars: {
+            fourierPacer: fourierPacer,
+            line: aniLine,
+
+          }
 
         },
-        
+
 
       }
     }
-    
+
   /*******************************************
  *    @enty
  *
  */
- 
- 
+
+
   let animas = [
     fourierForm, // h.fourier
 

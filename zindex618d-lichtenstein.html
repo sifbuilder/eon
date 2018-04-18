@@ -31,7 +31,8 @@ let muonAlima = function muonAlima (__mapper) {
     mric = __mapper('xs').m('ric'),
     mstore = __mapper('xs').m('store'),
     mbezierjs = __mapper('xs').m('bezierjs'),
-    msvg = __mapper('xs').m('svg')
+    msvg = __mapper('xs').m('svg'),
+    mgeoj = __mapper('xs').m('geoj')
 
   const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
@@ -103,11 +104,10 @@ let fourierPacer = { // SUB-MARKS line trace
     let scale = [0.5,-0.5]
     let translate = [-100,100] 
     
-    let data = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} )
-
-     let transform = mfourier.complexify(data).updateTransform().transform()
+    let data = msvg.castels( fourdata, {start:0, stop:0.9, step:0.33} )
+    let transform = mfourier.transformedCoefs(data)
  
-     let fourierForm = {
+    let fourierForm = {
 
       halo: 'ent',
       geofold: p => data,
@@ -128,7 +128,7 @@ let fourierPacer = { // SUB-MARKS line trace
 
         fourier: {
 
-          transform,
+          transform: transform,
           avatars: [fourierPacer], // fourier avatars
           boform: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.3, 'co': 0.00012, 'cp': 0.7},
 

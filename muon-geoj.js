@@ -470,7 +470,7 @@ function complexifyLine(coordinates) {
               valid = valid &&
                 rings.reduce((p,q) => p && 
                   q.reduce((p2,q2) => p2 &&     // ring
-                    q2.reduce((p3,q3) => p3 &&  // point
+                    Array.isArray(q2) && q2.reduce((p3,q3) => p3 &&  // point
                       typeof q3 === 'number' // coord
                       || q3 === undefined,   // _e_ undefined
                     true), 

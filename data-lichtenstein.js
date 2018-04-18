@@ -14,7 +14,7 @@ var dataLichtenstein = function (__mapper = {}) {
       'width':"2.33333in", 'height':"1.75in",
       'viewBox':"0 0 700 525",
       'path': {
-        'id':"face",
+        'id':"licht",
         'fill':"none", 'stroke':"black", 'strokeWidth':"1",
         'd':`M 420.58,19.79
            C 420.58,19.79 398.04,71.79 398.04,71.79

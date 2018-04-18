@@ -89,11 +89,23 @@
 
 
         } else if (json.type === 'MultiPolygon') {
-          let geometry = json
-          coords.push(geometry)
+          
+          let polygons = json.coordinates
+          for (let i=0; i<polygons.length; i++) {
+            let polygon = polygons[i]
+
+            let tfeature = {
+              type: 'Feature',
+              // geometry: {type: 'Polygon',coordinates: polygon},
+              geometry: {type: 'LineString',coordinates: polygon[0]},
+              properties: {interval: interval}
+            }
+            tfeatures.push(tfeature)
+          }
+          
         } else if (json.type === 'Sphere') {
-          let geometry = json
-          coords.push(geometry)
+            let geometry = json
+            coords.push(geometry)
         } else {
           throw new Error('json type not identified.')
         }
@@ -137,12 +149,12 @@
 
 
         let anitems = []
-        for (let j=0; j<tfeatures.length; j++) {
+        for (let j=0; j<tfeatures.length; j++) {  // FOR EACH FEATURE in time
 
             var acc = Complex (0, 0)  
               
             let tfeature = tfeatures[j]
-            transform = tfeature.geometry.coordinates
+            transform = tfeature.geometry.coordinates //
 
             var N = transform.length
             var nyquist = Math.floor (N / 2)
@@ -150,15 +162,13 @@
 
 
             let transformSorted = transform.slice() // sort transform coefs by norm
-              .map( (d,i) => Object.assign(d, {w:i}))
-              // .filter(d => Complex(d).abs() > 0.01)
+              .map( (d,i) => Object.assign(d, {w:i})) // frequency on index
+              .filter(d => Complex(d).abs() > 0.1)
               .sort((a,b) => Complex(b).abs() - Complex(a).abs())
             let M = transformSorted.length
-            N = M
-         if (1 && 1) console.log("transformSorted", M, transformSorted)
 
             let xn = [], yn = [], magn = [], iAnitems = []
-            for (let i = 0; i <= N; w++, i++) { //  for each circle
+            for (let i = 0; i <= M; i++) { //  FOR EACH ITEM in space
 
               let gid = ric.gid // from ava ric
               let cid = ric.cid
@@ -172,7 +182,7 @@
               newItem.halo = 'ent' // halo
 
 
-              if (i < N) { // for each cycloid
+              if (i < M) { // for each cycloid
 
                 if (transformSorted[i].w >= nyquist) transformSorted[i].w -= N  // nyquist
                 let phase = Complex (0, (2) * Math.PI * transformSorted[i].w * tInPeriod) 
@@ -187,7 +197,7 @@
                 xn[i] = transformSorted[i].re
                 yn[i] = transformSorted[i].im
                 magn[i] = Math.sqrt (xn[i] * xn[i] + yn[i]* yn[i]) // amplitude of frequency
-                newItem.geofold.properties.pointRadius = magn[i] / M
+                newItem.geofold.properties.pointRadius = magn[i] / N
 
                 if (i > 0) {  // add ray avatar 
                 
@@ -204,32 +214,29 @@
                 }
               
               
-              
-              
               }
               
-                
               xn[i] = acc.re / N  // averate the summatory
               yn[i] = acc.im / N
               
               
               
-                     if (i === N) {   // after last sinusoid
+               if (i === M) {   // after last sinusoid
 
-                        newItem.geofold.properties.pointRadius = maglast  // pencil radio
-                        let a = f.cloneObj(payload.fourier.avatars.fourierPacer)
-                        if (a) {  // if pacer avatar
-                          let gid = a.payload.ric.gid // from ava ric
-                          let cid = a.payload.ric.cid
-                          let fid = a.payload.ric.fid + '_' + j + '_' + i
-                          let _ric = {gid, cid, fid}
-                          let uid = mric.getuid(_ric)
-                          a.payload.ric  = _ric
-                          a.payload.uid  = uid
-                          a.payload.boform  = payload.fourier.dotboform
-                          newItem.payload.avatars = Array.of(a)
-                        }
-                      }
+                  newItem.geofold.properties.pointRadius = maglast  // pencil radio
+                  let a = f.cloneObj(payload.fourier.avatars.fourierPacer)
+                  if (a) {  // if pacer avatar
+                    let gid = a.payload.ric.gid // from ava ric
+                    let cid = a.payload.ric.cid
+                    let fid = a.payload.ric.fid + '_' + j + '_' + i
+                    let _ric = {gid, cid, fid}
+                    let uid = mric.getuid(_ric)
+                    a.payload.ric  = _ric
+                    a.payload.uid  = uid
+                    a.payload.boform  = payload.fourier.dotboform
+                    newItem.payload.avatars = Array.of(a)
+                  }
+                }
 
 
 
@@ -250,7 +257,6 @@
            for (let i = 0; i < iAnitems.length - 1; i++) { //  for each anitem
               let pointRadius = iAnitems[i].geofold.properties.pointRadius
               let nextPointRadius = iAnitems[i+1].geofold.properties.pointRadius
-if (1 && 1) console.log("i", j, i, pointRadius, nextPointRadius)              
                 iAnitems[i].geofold.properties.pointRadius = nextPointRadius
            }
 

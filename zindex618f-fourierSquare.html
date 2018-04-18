@@ -31,7 +31,9 @@ let muonAlima = function muonAlima (__mapper) {
     mric = __mapper('xs').m('ric'),
     mstore = __mapper('xs').m('store'),
     mgeoj = __mapper('xs').m('geoj'),
-    msvg = __mapper('xs').m('svg')
+    msvg = __mapper('xs').m('svg'),
+    mprofier = __mapper('xs').m('profier'),
+    mproj3ct = __mapper('xs').m('proj3ct')
 
   const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
@@ -144,21 +146,33 @@ let basicSquare = [
  ]  
 ]
 
-let gj = {
-  type: 'MultiLineString',
-  coordinates: basicSquare
-}
-let transform = mfourier.transformedCoefs(gj)
+// let gj = {
+  // type: 'MultiLineString',
+  // coordinates: basicSquare
+// }
+// let transform = mfourier.transformedCoefs(gj)
 
+    let proform = {
 
-    // let svgdata = __mapper('xs').d('lichtenstein').data()
-    // let fourdata = svgdata
-    // let scale = [1,1]
-    // let translate = [-0,0] 
-    // let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} )
-    // let transform = mfourier.transformedCoefs(featurePolygon)
+      projection: 'uniwen',
+      translate: [ -5 * 300, -6 * 100 ],
+      scale: 3,
+      rotate: [ 0, 0 ],
+      lens: [0, 1, Infinity]
 
-         
+    }
+
+    let svgdata = __mapper('xs').d('lichtenstein').data()
+    let fourdata = svgdata
+    let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} )
+    
+              let proformion = mprofier.formion(proform)
+              featurePolygon = mproj3ct(featurePolygon, proformion)
+              if (1 && 1) console.log("featurePolygon", featurePolygon)
+                    
+    let transform = mfourier.transformedCoefs(featurePolygon)
+    transform.coordinates = [transform.coordinates[0]]
+
  
      let fourierForm = {
       halo: 'fourier',
