@@ -37,86 +37,72 @@ let muonAlima = function muonAlima (__mapper) {
     mproj3ct = __mapper('xs').m('proj3ct'),
     mtclip = __mapper('xs').m('tclip')
 
-  const pi = Math.PI, pi2 = 2 * pi,
-      turn = 2 * Math.PI // 360
 
-      
   /*******************************************
  *      @pics
  *
  */
   let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  /*******************************************
- *    @fourierPacer
- */  
+    let svgdata = __mapper('xs').d('licht4').data()
+    let fourdata = svgdata
+    
+    let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} ) // castels
+    let gj = { type: 'Polygon', coordinates: featurePolygon.geometry.coordinates }    
+  
+    let transforms = mfourier.transformedCoefs(gj)  
+        transforms = mgeoj.ntime(transforms, [0,1])
+
+  //md:     @fourierPacer avatar
   let fourierPacer = { // SUB-MARKS line trace
 
-            halo: 'pacer',
+      halo: 'pacer',
+      payload: {
+        ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
+        boform: {'csx': 0, 'cf': [[[444,444,444]]], 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
-            payload: {
-              ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-              boform: {'csx': 0, 'cf': [[[444,444,444]]], 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+        pacer: { // aad for trace
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
+          autoSitus: d => mstace.getLocus(this.stace, d.payload), // situs
+          fider: d => d.payload.ric.fid,
+          geojsor: function (d, i) {
+            let ric = d.payload.ric // ric
+            let uid = mric.getuid(ric)
 
-              pacer: { // aad for trace
-                initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
+            let gj = {
 
-                autoSitus: d => mstace.getLocus(this.stace, d.payload), // situs
-
-                fider: d => d.payload.ric.fid,
-
-                geojsor: function (d, i) {
-                  let ric = d.payload.ric // ric
-                  let uid = mric.getuid(ric)
-
-                  let gj = {
-
-                    halo: 'ent',
-                    geofold: {
-                      type: 'Feature',
-                      geometry: { type: 'LineString', coordinates: null },
-                      properties: { doc: 'pacer' }
-                    },
-                    payload: {
-                      uid: uid,
-                      id: uid,
-                      ric: ric,
-                      proform: this.proform
-                    }
-
-                  }
-
-                  let newItem = mstore.findAnigramFromUid(uid) || gj
-                  if (newItem.geofold.properties.formEreformed) {
-                    newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
-                  }
-
-                  return newItem
-                },
-
+              halo: 'ent',
+              geofold: {
+                type: 'Feature',
+                geometry: { type: 'LineString', coordinates: null },
+                properties: { doc: 'pacer' }
+              },
+              payload: {
+                uid: uid,
+                id: uid,
+                ric: ric,
+                proform: this.proform
               }
+
             }
-          }  
+
+            let newItem = mstore.findAnigramFromUid(uid) || gj
+            if (newItem.geofold.properties.formEreformed) {
+              newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+            }
+
+            return newItem
+          },
+
+        }
+      }
+    }  
 
   /*******************************************
  *    @fourier anima
  *
  */
-    // let svgdata = __mapper('xs').d('lichtenstein').data()
-    let svgdata = __mapper('xs').d('licht4').data()
 
-    let fourdata = svgdata
-    let scale = [0.5,-0.5]
-    let translate = [-100,100] 
-    
-    
-    let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} ) // castels
-  
- 
-     let transforms = mfourier
-          .complexify(featurePolygon)
-          .updateTransform()
-          .transform()
  
      let fourierForm = {
 
@@ -184,29 +170,7 @@ if (1 && 1) console.log("unitTimeElapsed", unitTimeElapsed)
       },    
        
 
-     
-      // halo: 'ent',
-      // geofold: p => featurePolygon,
 
-      // halo: 'fourier',
-      // geofold: p => {
-        // let gj = {
-          // type: 'Feature',
-          // geometry: { type: 'Point', coordinates: []  },
-          // properties: {
-                 // pointRadius: 3, // d.payload.fourier.rad,
-                 // geonode: {
-                  // type: 'Feature',
-                  // geometry: { type: 'Point', coordinates: [0,0] },
-                  // properties: { // geofold coindices with geonode
-                     // orgen: [0,0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]
-                  // }
-                // },
-              // }
-        // }
-    
-        // return gj
-      // },
 
       payload: {  // payload in fourierForm
 
