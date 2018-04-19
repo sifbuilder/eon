@@ -123,9 +123,8 @@ let geoearthDark = {
 
       gjfc = gjfc.features[0] // geometry in one feature
 
-      let nb = gjfc.geometry.coordinates.reduce( (p,q) => p += q.length, 0)
-      nb = Math.floor(nb * unitTimeElapsed)
-
+      let nb = Math.floor(mgeoj.getCoordsLength(gjfc) * unitTimeElapsed)  // coords per time
+  
       let ngj = {
         type: 'Feature',
         geometry: { type: 'Polygon',

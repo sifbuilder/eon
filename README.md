@@ -27,13 +27,39 @@ with references including
 # License
 
 - MIT
- ##h.fourier h.ent
+ ## h.fourier
     h.fourier anigrams per frequency cycloid
-    cycloids in payload.fourier.transform resulting from m.fourier.complexify
+    cycloids in payload.fourier.transforms resulting from m.fourier.complexify
+    anigrams turned to h.ent
+ ### h.fourier.gramm
+   payload.fourier.transforms, gj featurized, complexified, ntimed
+   payload.fourier.maglast pencil radio
+   payload.fourier.interval [0,1] delete anigrams outside
+   payload.fourier.tolerance 1 remove sinusoids below
+   payload.fourier.dotboform style of pencil dot
+   payload.fourier.avatars.fourierPacer  form trace
+   payload.fourier.avatars.line  sinusoid ray
+   time in period is (t - t0) / (t1 - t0), with t unit time
+   fidder(j,i) per feature and sinusoid
+   features are rendered simultaneously on time period
+   filter and sort sinusoids per amplitude
+ del item outside time period (ric.delled = 1)
+   beyond nyquist w frequency is aliased by -N
+   sinusoid is Sum( Xi * e^i2[pi]w[i]n/N )
+   The sinusoid's frequency is w cycles per N samples
+ no add segments ourside time period (pacer.autoN = 0)
+   each point/circle anigram has radius of next sinusoid amplitude
  m.fourier : fourier transform
  m.fourier.transformedCoefs : get fourier transform coefficients
     transformedCoefs(geojson)
     return geojson
+ ## mgeoj.ntime
+   json
+   interval
+ ## mgeoj.featurize
+   json
+     transform gj.FeatureCollection, gj.Feature, gj.GeometryCollection
+     to array of gj.Features
  m.svg.castels(svgdata, frame={start:0, stop:0.90, step:0.33} )
   svgdata: cubic beziers: MC...CZ
   frame.start: bezier interaval beginning
@@ -48,12 +74,12 @@ with references including
        form.payload.fourier.avatars.line
      @fourierPacer avatar
        payload.pacer.aad:1 add segments to LineString trace
-       payload.pacer.geojsor 
        payload.pacer.autoSitus place situs on parent (stace undefined)  
        payload.pacer.fider take fid from payload.ric.fid  
+       payload.pacer.geojsor 
      @fourierForm anima
        geofold.properties.pointRadius
-       payload.fourier.transform:  transform coefficients
+       payload.fourier.transforms:  transforms coefficients
        payload.fourier.dotboform:  style of pencil dot
        payload.fourier.avatars.fourierPacer  form trace
        payload.fourier.avatars.line  sinusoid ray
@@ -62,11 +88,11 @@ with references including
        form.payload.fourier.avatars.line
      @fourierPacer avatar
        payload.pacer.geojsor
-     data is basic square as MultiLineString geometry.coordinates
+     data is basic square. MultiLineString geometry.coordinates
      @fourierForm anima
        payload.fourier.avatars.fourierPacer  form trace
        payload.fourier.avatars.line  sinusoid ray
- ##z.618g-fourierLincht
+ ## z.618g-fourierLicht
      @aniLine avatar
        form.payload.fourier.avatars.line
      @fourierPacer avatar

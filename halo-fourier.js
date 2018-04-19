@@ -15,15 +15,15 @@
       mric = __mapper('xs').m('ric'),
       mgeoj = __mapper('xs').m('geoj')
 
-  //md: ## h.fourier 
+  //md: ## h.fourier
   //md:    h.fourier anigrams per frequency cycloid
-  //md:    cycloids in payload.fourier.transform resulting from m.fourier.complexify
+  //md:    cycloids in payload.fourier.transforms resulting from m.fourier.complexify
   //md:    anigrams turned to h.ent
 
 
   //md: ### h.fourier.gramm
-  //md:   payload.fourier.transform , gj featurized and ntimed 
-  //md:   payload.fourier.maglast pencil radio 
+  //md:   payload.fourier.transforms, gj featurized, complexified, ntimed
+  //md:   payload.fourier.maglast pencil radio
   //md:   payload.fourier.interval [0,1] delete anigrams outside
   //md:   payload.fourier.tolerance 1 remove sinusoids below
   //md:   payload.fourier.dotboform style of pencil dot
@@ -43,131 +43,139 @@
         boform = payload.boform
 
       let path = fourier.path,
-        transform = fourier.transform,
-        maglast = fourier.maglast || 3,  // pencil radio
+        transforms = fourier.transforms,
+        maglast = fourier.maglast || 3, // pencil radio
         interval = fourier.interval || [0,1], // fourier.period
         tolerance = fourier.tolerance || 1
 
+      //md:   time in period is (t - t0) / (t1 - t0), with t unit time
       let t = tim.unitTime // time % period; i,[0,vertices] => t,[0,T]
-      let t0 =  interval[0],
+      let t0 = interval[0],
         t1 = interval[1],
         period = t1 - t0,
-        tInPeriod = (t - t0) / period
+        tRelToPeriod = (t - t0) / period, // time relative to interval
+        tInPeriod = (t < interval[0] || t > interval[1]) ? 0 : 1, // time in of interval
+        tNotInPeriod = (t < interval[0] || t > interval[1]) ? 1 : 0 // time out of interval
 
-     let tfeatures = transform
+          if (1 && 1) console.log("tInPeriod", t, interval, tInPeriod)
+      //md:   fidder(j,i) per feature and sinusoid
+      let fidder = (d,i,j) => d + '_' + i + '_' + j
 
+      //md:   features are rendered simultaneously on time period
+      let anitems = []
+      for (let j=0; j<transforms.length; j++) {  // FOR EACH FEATURE in time
 
-        let anitems = []
-        for (let j=0; j<tfeatures.length; j++) {  // FOR EACH FEATURE in time
+          var acc = Complex (0, 0)  // summatory
 
-            var acc = Complex (0, 0)  
-              
-            let tfeature = tfeatures[j]
-            let coordinates = tfeature.geometry.coordinates //
+          let tfeature = transforms[j]
+          let coordinates = tfeature.geometry.coordinates //
 
-            var N = coordinates.length
-            var nyquist = Math.floor (N / 2)
-            var w = 0 // frequency associated to cycloid index (for sorted)
+          var N = coordinates.length // number of fequencies
+          var nyquist = Math.floor (N / 2)  // nyquist frequency
+          var w = 0 // frequency associated to cycloid index (for sorted)
 
+          //md:   filter and sort sinusoids per amplitude
+          let transformSorted = coordinates.slice() // sort coordinates coefs by norm
+            .map( (d,i) => Object.assign(d, {w:i})) // frequency on index
+            .filter(d => Complex(d).abs() / N > tolerance)
+            .sort((a,b) => Complex(b).abs() - Complex(a).abs())
+          let M = transformSorted.length
 
-            let transformSorted = coordinates.slice() // sort coordinates coefs by norm
-              .map( (d,i) => Object.assign(d, {w:i})) // frequency on index
-              .filter(d => Complex(d).abs() / N > tolerance)
-              .sort((a,b) => Complex(b).abs() - Complex(a).abs())
-        if (0 && 1) console.log("transformSorted", transformSorted)
-            let M = transformSorted.length
+          let xn = [], yn = [], magn = [], iAnitems = []
+          for (let i = 0; i <= M; i++) { //  FOR EACH sinusoid, new anitem
 
-            let xn = [], yn = [], magn = [], iAnitems = []
-            for (let i = 0; i <= M; i++) { //  FOR EACH ITEM in space
+            let gid = ric.gid // from ava ric
+            let cid = ric.cid
+            let fid = fidder(ric.fid, j, i)
 
-              let gid = ric.gid // from ava ric
-              let cid = ric.cid
-              let fid = ric.fid + '_' + j + '_' + i // fid(j, i)
-              let delled = (t < interval[0] || t > interval[1]) ? 1 : 0
+            //md: del item outside time period (ric.delled = 1)
+            let _ric = {gid, cid, fid, delled:tNotInPeriod} // is DELLED ?
+            let uid = mric.getuid(_ric) // uid
 
-              let _ric = {gid, cid, fid, delled}
-              let uid = mric.getuid(_ric) // uid
+            let newItem = f.cloneObj(anigram) // anitems h.nat
+            newItem.halo = 'ent' // halo
 
-              let newItem = f.cloneObj(anigram) // anitems h.nat
-              newItem.halo = 'ent' // halo
+            if (i < M) { // for each cycloid
 
+              //md:   beyond nyquist w frequency is aliased by -N
+              if (transformSorted[i].w >= nyquist) transformSorted[i].w -= N  // nyquist
 
-              if (i < M) { // for each cycloid
+              //md:   sinusoid is Sum( Xi * e^i2[pi]w[i]n/N )
+              //md:   The sinusoid's frequency is w cycles per N samples
+              let phase = Complex (0, 2 * Math.PI * transformSorted[i].w * tRelToPeriod)
+              let unitRoot = phase.exp() // complex sinusoidal component e^i2[pi]w[i]n/N
+              let ci = unitRoot.mul(transformSorted[i]) // Xi * root(i)
+              acc = acc.add(ci) // add component
 
-                if (transformSorted[i].w >= nyquist) transformSorted[i].w -= N  // nyquist
-                let phase = Complex (0, (2) * Math.PI * transformSorted[i].w * tInPeriod) 
-                                          // The sinusoid's frequency is w cycles per N samples
-                let unitRoot = phase.exp() // complex sinusoidal component e^i2[pi]w[i]n/N 
-                let ci = unitRoot.mul(transformSorted[i]) // Xi * root(i)
-                acc = acc.add(ci) // add component
+              // sinusoid amplitude
+              xn[i] = transformSorted[i].re
+              yn[i] = transformSorted[i].im
+              magn[i] = Math.sqrt (xn[i] * xn[i] + yn[i]* yn[i]) // amplitude of frequency
+              newItem.geofold.properties.pointRadius = magn[i] / N
 
+              if (i > 0) {  // add ray avatar
 
-
-                // sinusoid amplitude
-                xn[i] = transformSorted[i].re
-                yn[i] = transformSorted[i].im
-                magn[i] = Math.sqrt (xn[i] * xn[i] + yn[i]* yn[i]) // amplitude of frequency
-                newItem.geofold.properties.pointRadius = magn[i] / N
-
-                if (i > 0) {  // add ray avatar 
-                
-                
-                    let avaLine = f.cloneObj(payload.fourier.avatars.line)
-                    avaLine.geofold.geometry.coordinates = [
-                        [acc.re / N, acc.im / N],   // from this cycloid
-                        [xn[i-1], yn[i-1]]          // to prevous cycloid
-                    ]                 
-                    avaLine.payload.ric.fid += '_' + j + '_' + i
-                    
-                    
-                    newItem.payload.avatars = Array.of(avaLine)
-                }
-              
-              
+                  let avaLine = f.cloneObj(payload.fourier.avatars.line)
+                  avaLine.geofold.geometry.coordinates = [
+                      [acc.re / N, acc.im / N],   // from this cycloid
+                      [xn[i-1], yn[i-1]]          // to prevous cycloid
+                  ]
+                  avaLine.payload.ric.fid = fidder(avaLine.payload.ric.fid, j, i)
+                  newItem.payload.avatars = Array.of(avaLine)
               }
-              
-              xn[i] = acc.re / N  // averate the summatory
-              yn[i] = acc.im / N
-              
-             if (i === M) {   // after last sinusoid
-
-                newItem.geofold.properties.pointRadius = maglast  // pencil radio
-                let a = f.cloneObj(payload.fourier.avatars.fourierPacer)
-                if (a) {  // if pacer avatar
-                  let gid = a.payload.ric.gid // from ava ric
-                  let cid = a.payload.ric.cid
-                  let fid = a.payload.ric.fid + '_' + j + '_' + i
-                  let _ric = {gid, cid, fid}
-                  let uid = mric.getuid(_ric)
-                  a.payload.ric  = _ric
-                  a.payload.uid  = uid
-                  a.payload.boform  = payload.fourier.dotboform
-                  newItem.payload.avatars = Array.of(a)
-                }
-              }
-
-
-              newItem.payload.tim = tim
-              newItem.payload.ric = _ric
-              newItem.payload.uid = uid
-              newItem.payload.boform = boform
-
-              newItem.geofold.geometry.coordinates = [xn[i], yn[i]]
-              newItem.geofold.properties.geonode.geometry.coordinates = [xn[i], yn[i]]
-              newItem.geofold.properties.geonode.properties.orgen = [xn[i], yn[i]]
-
-              iAnitems[i] = newItem
 
             }
 
-            for (let i = 0; i < iAnitems.length - 1; i++) { //  for each anitem
-              let pointRadius = iAnitems[i].geofold.properties.pointRadius
-              let nextPointRadius = iAnitems[i+1].geofold.properties.pointRadius
-                iAnitems[i].geofold.properties.pointRadius = nextPointRadius
+           xn[i] = acc.re / N  // averate the summatory
+           yn[i] = acc.im / N
+
+           //md: add pencil on last sinusoid and pacer avatar
+           if (i === M) {
+
+              
+              newItem.geofold.properties.pointRadius = maglast  // PENCIL radio magnitude of last
+
+              let a = f.cloneObj(payload.fourier.avatars.fourierPacer)  // PACER
+              if (a) {  // if pacer avatar
+
+                //md: no add segments ourside time period (pacer.autoN = 0)
+                if (tNotInPeriod) a.payload.pacer.autoN = 0 // add no segments ourside period
+
+                let gid = a.payload.ric.gid // from ava ric
+                let cid = a.payload.ric.cid
+                let fid = fidder(a.payload.ric.fid, j, i)
+                let _ric = {gid, cid, fid}
+                let uid = mric.getuid(_ric)
+                a.payload.ric  = _ric
+                a.payload.uid  = uid
+                newItem.payload.avatars = Array.of(a)
+              }
             }
 
-         anitems = [...anitems, ...iAnitems]
-        }
+
+            newItem.payload.tim = tim
+            newItem.payload.ric = _ric
+            newItem.payload.uid = uid
+            newItem.payload.boform = boform
+
+            newItem.geofold.geometry.coordinates = [xn[i], yn[i]]
+            newItem.geofold.properties.geonode.geometry.coordinates = [xn[i], yn[i]]
+            newItem.geofold.properties.geonode.properties.orgen = [xn[i], yn[i]]
+
+            iAnitems[i] = newItem
+
+          }
+
+          //md:   each point/circle anigram has radius of next sinusoid amplitude
+          for (let i = 0; i < iAnitems.length - 1; i++) { //  for each anitem
+            let pointRadius = iAnitems[i].geofold.properties.pointRadius
+            let nextPointRadius = iAnitems[i+1].geofold.properties.pointRadius
+              iAnitems[i].geofold.properties.pointRadius = nextPointRadius
+          }
+
+
+          anitems = [...anitems, ...iAnitems]
+      }
 
 
       for (let i=0; i<anitems.length; i++) {

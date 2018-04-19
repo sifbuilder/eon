@@ -51,8 +51,8 @@ let muonAlima = function muonAlima (__mapper) {
   //md:   mfourier.transformedCoefs(tfeature) 
   let data = JSON.parse(manimas('shapes').rhyno).map(d => [d[0]-150, -d[1]+25, d[2]])
   let tfeature = {type: 'Feature',geometry: {type: 'LineString',coordinates: data} }
-  let transform = mfourier.transformedCoefs(tfeature)  
-      transform = mgeoj.ntime(transform, [0,1])
+  let transforms = mfourier.transformedCoefs(tfeature)  
+      transforms = mgeoj.ntime(transforms, [0,1])
 
   //md:     @aniLine avatar
   //md:       form.payload.fourier.avatars.line
@@ -85,10 +85,10 @@ let muonAlima = function muonAlima (__mapper) {
         halo: 'pacer',
         payload: {
           ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-          boform: {'csx': 0, 'cf': [[[111,222,111]]], 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+          boform: {'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
           pacer: { // aad for trace
-            initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
+            initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 600, span: 0, aad: 1,
             autoSitus: d => mstace.getLocus(this.stace, d.payload),
             fider: d => d.payload.ric.fid,
             geojsor: function (d, i) {
@@ -124,7 +124,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     //md:     @fourierForm anima
     //md:       geofold.properties.pointRadius
-    //md:       payload.fourier.transform:  transform coefficients
+    //md:       payload.fourier.transforms:  transforms coefficients
     //md:       payload.fourier.dotboform:  style of pencil dot
     //md:       payload.fourier.avatars.fourierPacer  form trace
     //md:       payload.fourier.avatars.line  sinusoid ray
@@ -155,8 +155,8 @@ let muonAlima = function muonAlima (__mapper) {
 
         fourier: {
 
-          transform: transform,
-          interval: [0,0.1],
+          transforms: transforms,
+          interval: [0.1,0.5],
           tolerance: 0.1,
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
           avatars: {

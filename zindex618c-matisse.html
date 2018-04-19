@@ -105,7 +105,7 @@ let fourierPacer = { // SUB-MARKS line trace
         data = data.map(d => [(scale[0] * d[0]) + translate[0],
                         (scale[1] * d[1]) + translate[1] ]) 
  
-     let transform = mfourier.complexify(data).updateTransform().transform()
+     let transforms = mfourier.complexify(data).updateTransform().transform()
  
      let fourierForm = {
 
@@ -142,7 +142,7 @@ let fourierPacer = { // SUB-MARKS line trace
    
         fourier: {
 
-          transform,
+          transforms,
           avatars: [fourierPacer], // fourier avatars
           boform: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.3, 'co': 0.00012, 'cp': 0.7},
 

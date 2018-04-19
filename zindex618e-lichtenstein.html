@@ -113,7 +113,7 @@ let muonAlima = function muonAlima (__mapper) {
     let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} ) // castels
   
  
-     let transform = mfourier
+     let transforms = mfourier
           .complexify(featurePolygon)
           .updateTransform()
           .transform()
@@ -224,7 +224,7 @@ if (1 && 1) console.log("unitTimeElapsed", unitTimeElapsed)
 
         fourier: {
 
-          transform,
+          transforms,
           avatars: [fourierPacer], // fourier avatars
           boform: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.3, 'co': 0.72, 'cp': 0.7},
 

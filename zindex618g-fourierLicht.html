@@ -43,7 +43,7 @@ let muonAlima = function muonAlima (__mapper) {
   let tim = {'td': 123800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
 
-  //md: ## z.618g-fourierLincht
+  //md: ## z.618g-fourierLicht
   
   //md:     @aniLine avatar
   //md:       form.payload.fourier.avatars.line
@@ -137,12 +137,12 @@ let fourierPacer = {
               gj = mproj3ct(gj, proformion)
               // if (1 && 1) console.log("featurePolygon", featurePolygon)
                     
-    let transform = mfourier.transformedCoefs(gj)
-    transform = mgeoj.ntime(transform, [0,1])
-    // transform.coordinates = [transform.coordinates[0]]
-    // transform = { type: 'MultiLineString', coordinates: transform.coordinates[0] }
+    let transforms = mfourier.transformedCoefs(gj)
+    transforms = mgeoj.ntime(transforms, [0,1])
+    // transforms.coordinates = [transforms.coordinates[0]]
+    // transforms = { type: 'MultiLineString', coordinates: transforms.coordinates[0] }
  
-if (1 && 1) console.log("transform", transform) 
+if (1 && 1) console.log("transforms", transforms) 
  
      let fourierForm = {
       halo: 'fourier',
@@ -171,7 +171,7 @@ if (1 && 1) console.log("transform", transform)
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
         boform: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99},
         fourier: {
-          transform: transform,
+          transforms: transforms,
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
           avatars: {
             fourierPacer: fourierPacer, // trace

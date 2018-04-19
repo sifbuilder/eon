@@ -130,8 +130,8 @@ let basicSquare = [
  ]  
 ]
 let gj = { type: 'MultiLineString', coordinates: basicSquare }
-let transform = mfourier.transformedCoefs(gj)
-transform = mgeoj.ntime(transform, [0,1])
+let transforms = mfourier.transformedCoefs(gj)
+transforms = mgeoj.ntime(transforms, [0,1])
 
   //md:     @fourierForm anima
   //md:       payload.fourier.avatars.fourierPacer  form trace
@@ -158,12 +158,12 @@ transform = mgeoj.ntime(transform, [0,1])
         }
 
       },
-      payload: {  // FOURIER TRANSFORM in payload.fourier.transform
+      payload: {  // FOURIER TRANSFORM in payload.fourier.transforms
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
         boform: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99}, // circle
         fourier: {
-          transform: transform,
+          transforms: transforms,
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
           avatars: {
             fourierPacer: fourierPacer, // trace
