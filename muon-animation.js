@@ -88,7 +88,7 @@ if (0 && 1) console.log(" ---------------------------- state.animas", state.anim
       }
 
       let anigrams = __mapper('xs').m('store').anigrams()
-if (0 && 1) console.log("state.animas anigrams", anigrams)
+if (1 && 1) console.log("state.animas anigrams", anigrams.length)
       /*******************************************
     *     @RENDER
     */

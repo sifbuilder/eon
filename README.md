@@ -27,7 +27,7 @@ with references including
 # License
 
 - MIT
- h.fourier h.ent
+ ##h.fourier h.ent
     h.fourier anigrams per frequency cycloid
     cycloids in payload.fourier.transform resulting from m.fourier.complexify
  m.fourier : fourier transform
@@ -40,17 +40,35 @@ with references including
   frame.stop: bezier interval end
   frame.step: space between points
     eg: castels(svg, {start:0, stop:0.90, step:0.33}) will return 3 curve points in bezier
- z.rhyno
+ z.618b-fourierRhyno
  rhyno data from m.animas
    defined as (closed) LineString gemetry.coordinates 
    mfourier.transformedCoefs(tfeature) 
      @aniLine avatar
        form.payload.fourier.avatars.line
      @fourierPacer avatar
+       payload.pacer.aad:1 add segments to LineString trace
        payload.pacer.geojsor 
+       payload.pacer.autoSitus place situs on parent (stace undefined)  
+       payload.pacer.fider take fid from payload.ric.fid  
      @fourierForm anima
        geofold.properties.pointRadius
        payload.fourier.transform:  transform coefficients
        payload.fourier.dotboform:  style of pencil dot
        payload.fourier.avatars.fourierPacer  form trace
        payload.fourier.avatars.line  sinusoid ray
+ z.618f-fourierSquare
+     @aniLine avatar
+       form.payload.fourier.avatars.line
+     @fourierPacer avatar
+       payload.pacer.geojsor
+     data is basic square as MultiLineString geometry.coordinates
+     @fourierForm anima
+       payload.fourier.avatars.fourierPacer  form trace
+       payload.fourier.avatars.line  sinusoid ray
+ ##z.618g-fourierLincht
+     @aniLine avatar
+       form.payload.fourier.avatars.line
+     @fourierPacer avatar
+       payload.pacer.geojsor
+     data is svg MCZ...MCZ

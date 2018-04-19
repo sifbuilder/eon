@@ -12,114 +12,24 @@
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
       mstore = __mapper('xs').m('store'),
-      mric = __mapper('xs').m('ric')
+      mric = __mapper('xs').m('ric'),
+      mgeoj = __mapper('xs').m('geoj')
 
-//md: h.fourier h.ent
-//md:    h.fourier anigrams per frequency cycloid
-//md:    cycloids in payload.fourier.transform resulting from m.fourier.complexify
-
-
-
-
-  let featurize = function(json, interval) {
-
-        // return on rgj
-        // let json = transform
-        let tfeatures = []
-        if (json.type == 'Feature') {
-          let geometry = json.geometry
-          if (geometry !== null) coords = [...coords, ...getCoords(geometry)]
-        } else if (json.type == 'FeatureCollection') {
-          for (let feature_num = 0; feature_num < json.features.length; feature_num++) {
-            let feature = json.features[feature_num]
-            getCoords(feature, coords)
-          }
-        } else if (json.type == 'GeometryCollection') {
-          for (let geom_num = 0; geom_num < json.coords.length; geom_num++) {
-            let geometry = json.coords[geom_num]
-            coords.push(geometry)
-          }
-        } else if (json.type === 'Point') {
-          let geometry = json
-          coords = [...coords, geometry.coordinates]  // if Point, return array
-
-        } else if (json.type === 'LineString') {
-
-          let tfeature = {
-            type: 'Feature',
-            geometry: {type: 'LineString',coordinates: json.coordinates},
-            properties: {interval: interval}
-          }
-          tfeatures.push(tfeature)
+  //md: ## h.fourier 
+  //md:    h.fourier anigrams per frequency cycloid
+  //md:    cycloids in payload.fourier.transform resulting from m.fourier.complexify
+  //md:    anigrams turned to h.ent
 
 
-        } else if (json.type === 'MultiPoint') {
-          let geometry = json
-          coords.push(geometry)
-
-
-        } else if (json.type === 'Polygon') {
-
-          let rings = json.coordinates
-          for (let i=0; i<rings.length; i++) {
-            let line = rings[i]
-
-            let tfeature = {
-              type: 'Feature',
-              geometry: {type: 'LineString',coordinates: line},
-              properties: {interval: interval}
-            }
-            tfeatures.push(tfeature)
-          }
-
-        } else if (json.type === 'MultiLineString') {
-
-          let lines = json.coordinates
-          for (let i=0; i<lines.length; i++) {
-            let line = lines[i]
-
-            let tfeature = {
-              type: 'Feature',
-              geometry: {type: 'LineString',coordinates: line},
-              properties: {interval: interval}
-            }
-            tfeatures.push(tfeature)
-          }
-
-
-
-        } else if (json.type === 'MultiPolygon') {
-          
-          let polygons = json.coordinates
-          for (let i=0; i<polygons.length; i++) {
-            let polygon = polygons[i]
-
-            let tfeature = {
-              type: 'Feature',
-              // geometry: {type: 'Polygon',coordinates: polygon},
-              geometry: {type: 'LineString',coordinates: polygon[0]},
-              properties: {interval: interval}
-            }
-            tfeatures.push(tfeature)
-          }
-          
-        } else if (json.type === 'Sphere') {
-            let geometry = json
-            coords.push(geometry)
-        } else {
-          throw new Error('json type not identified.')
-        }
-
-        return tfeatures
-  }
-
-
-    /****************************
-   *    @gramm
-   */
+  //md: ### h.fourier.gramm
+  //md:   payload.fourier.transform , gj featurized and ntimed 
+  //md:   payload.fourier.maglast pencil radio 
+  //md:   payload.fourier.interval [0,1] delete anigrams outside
+  //md:   payload.fourier.tolerance 1 remove sinusoids below
+  //md:   payload.fourier.dotboform style of pencil dot
+  //md:   payload.fourier.avatars.fourierPacer  form trace
+  //md:   payload.fourier.avatars.line  sinusoid ray
     let gramm = function (anima, newAnigrams = []) {
-
-
 
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
@@ -135,17 +45,16 @@
       let path = fourier.path,
         transform = fourier.transform,
         maglast = fourier.maglast || 3,  // pencil radio
-        interval = fourier.interval || [0,1] // fourier.period
+        interval = fourier.interval || [0,1], // fourier.period
+        tolerance = fourier.tolerance || 1
 
       let t = tim.unitTime // time % period; i,[0,vertices] => t,[0,T]
-
       let t0 =  interval[0],
         t1 = interval[1],
         period = t1 - t0,
         tInPeriod = (t - t0) / period
 
-
-      let tfeatures = featurize(transform, interval)
+     let tfeatures = transform
 
 
         let anitems = []
@@ -154,17 +63,18 @@
             var acc = Complex (0, 0)  
               
             let tfeature = tfeatures[j]
-            transform = tfeature.geometry.coordinates //
+            let coordinates = tfeature.geometry.coordinates //
 
-            var N = transform.length
+            var N = coordinates.length
             var nyquist = Math.floor (N / 2)
             var w = 0 // frequency associated to cycloid index (for sorted)
 
 
-            let transformSorted = transform.slice() // sort transform coefs by norm
+            let transformSorted = coordinates.slice() // sort coordinates coefs by norm
               .map( (d,i) => Object.assign(d, {w:i})) // frequency on index
-              .filter(d => Complex(d).abs() > 0.1)
+              .filter(d => Complex(d).abs() / N > tolerance)
               .sort((a,b) => Complex(b).abs() - Complex(a).abs())
+        if (0 && 1) console.log("transformSorted", transformSorted)
             let M = transformSorted.length
 
             let xn = [], yn = [], magn = [], iAnitems = []

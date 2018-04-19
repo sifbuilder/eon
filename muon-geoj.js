@@ -265,9 +265,107 @@ function complexifyLine(coordinates) {
 
       return geo
     }
-   /**********************
-   *   		 @featurize
-   */
+
+
+
+  //md: ## mgeoj.ntime
+  //md:   json
+  //md:   interval
+  let ntime = function(json, interval) {
+
+        let tfeatures = []
+        if (json.type == 'Feature') {
+          let geometry = json.geometry
+          if (geometry !== null) coords = [...coords, ...getCoords(geometry)]
+        } else if (json.type == 'FeatureCollection') {
+          for (let feature_num = 0; feature_num < json.features.length; feature_num++) {
+            let feature = json.features[feature_num]
+            getCoords(feature, coords)
+          }
+        } else if (json.type == 'GeometryCollection') {
+          for (let geom_num = 0; geom_num < json.coords.length; geom_num++) {
+            let geometry = json.coords[geom_num]
+            coords.push(geometry)
+          }
+        } else if (json.type === 'Point') {
+          let geometry = json
+          coords = [...coords, geometry.coordinates]  // if Point, return array
+
+        } else if (json.type === 'LineString') {
+
+          let tfeature = {
+            type: 'Feature',
+            geometry: {type: 'LineString',coordinates: json.coordinates},
+            properties: {interval: interval}
+          }
+          tfeatures.push(tfeature)
+
+
+        } else if (json.type === 'MultiPoint') {
+          let geometry = json
+          coords.push(geometry)
+
+
+        } else if (json.type === 'Polygon') {
+
+          let rings = json.coordinates
+          for (let i=0; i<rings.length; i++) {
+            let line = rings[i]
+
+            let tfeature = {
+              type: 'Feature',
+              geometry: {type: 'LineString',coordinates: line},
+              properties: {interval: interval}
+            }
+            tfeatures.push(tfeature)
+          }
+
+        } else if (json.type === 'MultiLineString') {
+
+          let lines = json.coordinates
+          for (let i=0; i<lines.length; i++) {
+            let line = lines[i]
+
+            let tfeature = {
+              type: 'Feature',
+              geometry: {type: 'LineString',coordinates: line},
+              properties: {interval: interval}
+            }
+            tfeatures.push(tfeature)
+          }
+
+
+        } else if (json.type === 'MultiPolygon') {
+          
+          let polygons = json.coordinates
+          for (let i=0; i<polygons.length; i++) {
+            let polygon = polygons[i]
+
+            let tfeature = {
+              type: 'Feature',
+              // geometry: {type: 'Polygon',coordinates: polygon},
+              geometry: {type: 'LineString',coordinates: polygon[0]},
+              properties: {interval: interval}
+            }
+            tfeatures.push(tfeature)
+          }
+          
+        } else if (json.type === 'Sphere') {
+            let geometry = json
+            coords.push(geometry)
+        } else {
+          throw new Error('json type not identified.')
+        }
+
+        return tfeatures
+  }
+
+
+    
+  //md: ## mgeoj.featurize
+  //md:   json
+  //md:     transform gj.FeatureCollection, gj.Feature, gj.GeometryCollection
+  //md:     to array of gj.Features
     let featurize = function (json) {
 
       let features = []
@@ -299,9 +397,7 @@ function complexifyLine(coordinates) {
 
       return features
     }
-    /**********************
-   *   		 @featurecollect
-   */
+
     let featurecollect = function (json) {
       // a halo generate anigrams, each anigram with its own gjson
       // gjson is of a geojson type supporting properties
@@ -528,6 +624,7 @@ function complexifyLine(coordinates) {
     enty.multLineStringFromStreamArray = multLineStringFromStreamArray
     enty.featurecollect = featurecollect
     enty.featurize = featurize
+    enty.ntime = ntime
     enty.zorder = zorder
     enty.centroid = centroid
     enty.getCoords = getCoords // get coordinates, eg from parent

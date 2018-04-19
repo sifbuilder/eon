@@ -29,7 +29,8 @@ let muonAlima = function muonAlima (__mapper) {
     mfourier = __mapper('xs').m('fourier'),
     manimas = __mapper('xs').m('animas'),
     mric = __mapper('xs').m('ric'),
-    mstore = __mapper('xs').m('store')
+    mstore = __mapper('xs').m('store'),
+    mgeoj = __mapper('xs').m('geoj')
 
   /*******************************************
  *      @pics
@@ -38,7 +39,7 @@ let muonAlima = function muonAlima (__mapper) {
   let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
   let proform = {
         projection: 'uniwen',
-        translate: { x: { pos: [[[0, 0]]] }, y: { pos: [[[0, 0]]] }, z: 0 },
+        translate: { x: { pos: 0 }, y: { pos: 0 }, z: 0 },
         scale: 90,
         rotate: [ 0, 0, 0 ],
         lens: [0, 1, Infinity],
@@ -51,6 +52,7 @@ let muonAlima = function muonAlima (__mapper) {
   let data = JSON.parse(manimas('shapes').rhyno).map(d => [d[0]-150, -d[1]+25, d[2]])
   let tfeature = {type: 'Feature',geometry: {type: 'LineString',coordinates: data} }
   let transform = mfourier.transformedCoefs(tfeature)  
+      transform = mgeoj.ntime(transform, [0,1])
 
   //md:     @aniLine avatar
   //md:       form.payload.fourier.avatars.line
@@ -75,9 +77,9 @@ let muonAlima = function muonAlima (__mapper) {
   
   //md:     @fourierPacer avatar
   //md:       payload.pacer.aad:1 add segments to LineString trace
-  //md:       payload.pacer.geojsor 
   //md:       payload.pacer.autoSitus place situs on parent (stace undefined)  
   //md:       payload.pacer.fider take fid from payload.ric.fid  
+  //md:       payload.pacer.geojsor 
   let fourierPacer = { // SUB-MARKS line trace
 
         halo: 'pacer',
@@ -120,12 +122,12 @@ let muonAlima = function muonAlima (__mapper) {
         }
       }
 
-//md:     @fourierForm anima
-//md:       geofold.properties.pointRadius
-//md:       payload.fourier.transform:  transform coefficients
-//md:       payload.fourier.dotboform:  style of pencil dot
-//md:       payload.fourier.avatars.fourierPacer  form trace
-//md:       payload.fourier.avatars.line  sinusoid ray
+    //md:     @fourierForm anima
+    //md:       geofold.properties.pointRadius
+    //md:       payload.fourier.transform:  transform coefficients
+    //md:       payload.fourier.dotboform:  style of pencil dot
+    //md:       payload.fourier.avatars.fourierPacer  form trace
+    //md:       payload.fourier.avatars.line  sinusoid ray
      let fourierForm = {
 
       halo: 'fourier',
@@ -134,7 +136,6 @@ let muonAlima = function muonAlima (__mapper) {
           type: 'Feature',
           geometry: { type: 'Point', coordinates: [] },
           properties: {
-             pointRadius: 3, // d.payload.fourier.rad,
              geonode: {
               type: 'Feature',
               geometry: { type: 'Point', coordinates: [0,0] },
@@ -144,7 +145,6 @@ let muonAlima = function muonAlima (__mapper) {
             },
           }
         }
-
       },
 
       payload: {  // payload in fourierForm
@@ -156,6 +156,8 @@ let muonAlima = function muonAlima (__mapper) {
         fourier: {
 
           transform: transform,
+          interval: [0,0.1],
+          tolerance: 0.1,
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
           avatars: {
             fourierPacer: fourierPacer,

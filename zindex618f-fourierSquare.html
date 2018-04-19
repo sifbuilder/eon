@@ -114,7 +114,7 @@ let fourierPacer = {
       }
     }  
 
-  //md:     data is basic square as MultiLineString geometry.coordinates
+  //md:     data is basic square. MultiLineString geometry.coordinates
 let basicSquare = [
 [
   [0-200, 0],     [0-200, 25],    [0-200, 50],    [0-200, 75], 
@@ -131,10 +131,11 @@ let basicSquare = [
 ]
 let gj = { type: 'MultiLineString', coordinates: basicSquare }
 let transform = mfourier.transformedCoefs(gj)
+transform = mgeoj.ntime(transform, [0,1])
 
-//md:     @fourierForm anima
-//md:       payload.fourier.avatars.fourierPacer  form trace
-//md:       payload.fourier.avatars.line  sinusoid ray
+  //md:     @fourierForm anima
+  //md:       payload.fourier.avatars.fourierPacer  form trace
+  //md:       payload.fourier.avatars.line  sinusoid ray
      let fourierForm = {
       halo: 'fourier',
       geofold: p => {
@@ -160,13 +161,13 @@ let transform = mfourier.transformedCoefs(gj)
       payload: {  // FOURIER TRANSFORM in payload.fourier.transform
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99},
+        boform: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99}, // circle
         fourier: {
           transform: transform,
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
           avatars: {
-            fourierPacer: fourierPacer,
-            line: aniLine,
+            fourierPacer: fourierPacer, // trace
+            line: aniLine,  // ray
 
           } // fourier avatars
         }
