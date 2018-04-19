@@ -21,8 +21,9 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1, key: 1}) // INIT
 
-  let f = __mapper({props: muonProps.muonProps()}).props(),
-    mnat = __mapper('xs').m('nat'),
+  //md: ## z.618g-fourierLicht  d.lichtenstein
+  
+  let f = __mapper({props: muonProps.muonProps()}).props()
     cversor = __mapper('xs').c('versor'),
     cwen = __mapper('xs').c('wen'),
     mstace = __mapper('xs').m('stace'),
@@ -34,17 +35,36 @@ let muonAlima = function muonAlima (__mapper) {
     msvg = __mapper('xs').m('svg'),
     mprofier = __mapper('xs').m('profier'),
     mproj3ct = __mapper('xs').m('proj3ct')
-
       
   /*******************************************
  *      @pics
- *
  */
-  let tim = {'td': 123800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-
-
-  //md: ## z.618g-fourierLicht
+  let tim = {'td': 93800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
   
+  /*******************************************
+ *      @data
+ */
+    //md:     data is svg MCZ...MCZ
+    let svgdata = __mapper('xs').d('licht4').data()
+    let fourdata = svgdata
+    let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} )
+    
+    let gj = { type: 'Polygon', coordinates: featurePolygon.geometry.coordinates }    
+    
+          let proform = {
+            projection: 'uniwen',
+            translate: [ -100, 125 ],
+            scale: [0.5, -0.5],
+            rotate: [ 0, 0 ],
+            lens: [0, 1, Infinity]
+          }
+          let proformion = mprofier.formion(proform)
+          gj = mproj3ct(gj, proformion)
+                    
+    let transforms = mfourier.transformedCoefs(gj)
+    transforms = mgeoj.ntime(transforms, [0,1])
+    
+    
   //md:     @aniLine avatar
   //md:       form.payload.fourier.avatars.line
    let aniLine = {
@@ -67,7 +87,7 @@ let muonAlima = function muonAlima (__mapper) {
   
   //md:     @fourierPacer avatar
   //md:       payload.pacer.geojsor
-let fourierPacer = {
+  let fourierPacer = {
 
       halo: 'pacer',
       payload: {
@@ -77,9 +97,7 @@ let fourierPacer = {
         pacer: { // aad for trace
           initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
           autoSitus: d => mstace.getLocus(this.stace, d.payload), // situs
-
           fider: d => d.payload.ric.fid,
-
           geojsor: function (d, i) {
             let ric = d.payload.ric // ric
             let uid = mric.getuid(ric)
@@ -113,36 +131,7 @@ let fourierPacer = {
       }
     }  
 
-
-    let proform = {
-
-      projection: 'uniwen',
-      translate: [ -100, 125 ],
-      scale: [0.5, -0.5],
-      rotate: [ 0, 0 ],
-      lens: [0, 1, Infinity]
-
-    }
-
-
-  //md:     data is svg MCZ...MCZ
-    let svgdata = __mapper('xs').d('lichtenstein').data()
-    let fourdata = svgdata
-    let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} )
-    
-    let gj = { type: 'Polygon', coordinates: featurePolygon.geometry.coordinates }    
-    
-    if (1 && 1) console.log("gj", gj)
-          let proformion = mprofier.formion(proform)
-          gj = mproj3ct(gj, proformion)
-                    
-    let transforms = mfourier.transformedCoefs(gj)
-    transforms = mgeoj.ntime(transforms, [0,1])
-    // transforms.coordinates = [transforms.coordinates[0]]
-    // transforms = { type: 'MultiLineString', coordinates: transforms.coordinates[0] }
- 
-if (1 && 1) console.log("transforms", transforms) 
- 
+    //md:     @fourierForm h.fourier
      let fourierForm = {
       halo: 'fourier',
       geofold: p => {
@@ -153,7 +142,7 @@ if (1 && 1) console.log("transforms", transforms)
             coordinates: [] 
           },
           properties: {
-             pointRadius: 0.01, // d.payload.fourier.rad,
+             pointRadius: 1, // d.payload.fourier.rad,
              geonode: {
               type: 'Feature',
               geometry: { type: 'Point', coordinates: [0,0] },
@@ -170,7 +159,10 @@ if (1 && 1) console.log("transforms", transforms)
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
         boform: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99},
         fourier: {
+          interval: [0.0,0.99],
+          tolerance: 0.33,
           transforms: transforms,
+          
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
           avatars: {
             fourierPacer: fourierPacer, // trace
@@ -185,12 +177,8 @@ if (1 && 1) console.log("transforms", transforms)
  *    @enty
  *
  */
- 
- 
   let animas = [
     fourierForm, // h.fourier
-    // aniLine, // h.ent
-
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

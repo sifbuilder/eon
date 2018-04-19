@@ -72,23 +72,23 @@ if (0 && 1) console.log(" ---------------------------- state.animas", state.anim
       /*******************************************
      *    @GRAMM animas to anigrams
      */
+if (0 && 1) console.log("state.animas animas", state.animas.length)
+      
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
 
         let newAnigrams = []
         
         
-        // ///
-        // mstore.gramm calls UPDANIGRAM
-        // anigrams geofolds are saved in the proformed domain
-        // //
+        //md: mstore.gramm calls UPDANIGRAM
+        //md: anigrams geofolds are saved in the proformed domain
         newAnigrams = f.a(mstore.gramm(anima)) /* GRAMM */
         
         
       }
 
       let anigrams = __mapper('xs').m('store').anigrams()
-if (1 && 1) console.log("state.animas anigrams", anigrams.length)
+if (0 && 1) console.log("state.animas anigrams", anigrams.length)
       /*******************************************
     *     @RENDER
     */

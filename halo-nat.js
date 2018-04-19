@@ -22,7 +22,6 @@
    */
     let gramm = function (anima, newAnigrams = []) {
 
-
       let anigram = manitem(anima).anigram() // anigram
 
       anigram.halo = 'ent' // halo

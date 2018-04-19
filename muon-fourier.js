@@ -19,8 +19,6 @@ var muonFourier = function (__mapper) {
   let mgeoj = __mapper('xs').m('geoj')
 
 
-
-
   // fourierTransform
 var fourierTransformObjectType = {
   Feature: function(object) {
@@ -50,7 +48,6 @@ var fourierTransformGeometryType = {
     return ret
   },
   LineString: function(object) {
-    if (1 && 1) console.log("LineString", object)
     let ret = object
     ret.coordinates = fourierTransformLine(object.coordinates);
     return ret
@@ -129,9 +126,7 @@ function fourierTransformLine(coordinates) {
     let transformedCoefs = function (gj) {
 
       let gjc = mgeoj.complexify(gj)
-      let ret = fourierTransform(gjc)
-      return ret
-
+      return fourierTransform(gjc)
 
     }
 

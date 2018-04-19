@@ -20,6 +20,8 @@
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, webgl: 0, img: 1}) // INIT
+    
+  //md: ## z.618e-lichtenstein d.licht4
 
   let f = __mapper({props: muonProps.muonProps()}).props(),
     mnat = __mapper('xs').m('nat'),
@@ -37,25 +39,25 @@ let muonAlima = function muonAlima (__mapper) {
     mproj3ct = __mapper('xs').m('proj3ct'),
     mtclip = __mapper('xs').m('tclip')
 
-
   /*******************************************
  *      @pics
- *
  */
   let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-
+  
+  /*******************************************
+ *      @data
+ */  
     let svgdata = __mapper('xs').d('licht4').data()
     let fourdata = svgdata
-    
     let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} ) // castels
-    let gj = { type: 'Polygon', coordinates: featurePolygon.geometry.coordinates }    
-  
-    let transforms = mfourier.transformedCoefs(gj)  
+    
+    let gj = { type: 'Polygon', coordinates: featurePolygon.geometry.coordinates }
+
+    let transforms = mfourier.transformedCoefs(gj)
         transforms = mgeoj.ntime(transforms, [0,1])
 
-  //md:     @fourierPacer avatar
-  let fourierPacer = { // SUB-MARKS line trace
-
+    //md:     @fourierPacer avatar h.pacer
+    let fourierPacer = { // SUB-MARKS line trace
       halo: 'pacer',
       payload: {
         ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
@@ -96,35 +98,36 @@ let muonAlima = function muonAlima (__mapper) {
 
         }
       }
-    }  
+    }
 
   /*******************************************
  *    @fourier anima
  *
  */
 
- 
      let fourierForm = {
 
-     
-      halo: 'formed',   
- 
+      halo: 'formed',
+
       geofold: p => {
-      
+
         let anigram = p, // anigram
           halo = p.halo, // halo
           geofold = p.geofold, // geofold
-          payload = p.payload // payload      
-        
+          payload = p.payload // payload
+
         let t = p.payload.tim.unitElapsed
-        // let unitTimeElapsed = 2 * (t - 2 * Math.max(0, t - 0.5))
-        let unitTimeElapsed = 1 - 4 * (t -0.5)* (t -0.5)
-        // let unitTimeElapsed = 1
-if (1 && 1) console.log("unitTimeElapsed", unitTimeElapsed)        
+        let unitTimeElapsed = t
+        if (0) {
+            unitTimeElapsed = 2 * (t - 2 * Math.max(0, t - 0.5))
+        } else if (0) {
+            unitTimeElapsed = 1 - 4 * (t -0.5)* (t -0.5)
+        } else if (0) {
+            unitTimeElapsed = 1
+        }
 
         let feature = featurePolygon
 
-    
         let ngj = {
           type: 'Feature',
           geometry: { type: 'Polygon',
@@ -132,45 +135,42 @@ if (1 && 1) console.log("unitTimeElapsed", unitTimeElapsed)
                     },
           properties: {
             boform: { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 1, 'cp': 0.9}
-            
-          },
-        }      
 
-        let rings = ngj.geometry.coordinates // 
+          },
+        }
+
+        let rings = ngj.geometry.coordinates //
         let newFeatureCollection = {type:'FeatureCollection', features:[]}
-        
+
         for (let i=0; i<rings.length; i++) {
           let ring = rings[i]
           let feature = {
             type: 'Feature',
             geometry: { type: 'Polygon', coordinates: [ring]},
             properties: {},
-          }        
+          }
           if (i < rings.length - 1) { // first
               feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 1, 'cp': 1}
           } else {
               feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 0.1, 'cp': 1}
           }
-          
+
           newFeatureCollection.features.push(feature)
-        }   
-        
+        }
+
         newFeatureCollection.features = Array.of(ngj)
-        
+
         let gj = newFeatureCollection
-        
+
         if (payload.proform) {
           let proformion = mprofier.proformion(anigram)
           newFeatureCollection = mproj3ct(gj, proformion)
-        } 
-        
+        }
+
         return newFeatureCollection
 
 
-      },    
-       
-
-
+      },
 
       payload: {  // payload in fourierForm
 
@@ -201,8 +201,7 @@ if (1 && 1) console.log("unitTimeElapsed", unitTimeElapsed)
  *    @enty
  *
  */
- 
- 
+
   let animas = [
     fourierForm, // h.fourier
 

@@ -9,6 +9,7 @@
   'use strict'
 
   let haloFourier = function haloFourier (__mapper = {}) {
+   
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
       mstore = __mapper('xs').m('store'),
@@ -57,30 +58,30 @@
         tInPeriod = (t < interval[0] || t > interval[1]) ? 0 : 1, // time in of interval
         tNotInPeriod = (t < interval[0] || t > interval[1]) ? 1 : 0 // time out of interval
 
-          if (1 && 1) console.log("tInPeriod", t, interval, tInPeriod)
       //md:   fidder(j,i) per feature and sinusoid
       let fidder = (d,i,j) => d + '_' + i + '_' + j
 
       //md:   features are rendered simultaneously on time period
       let anitems = []
+if (1 && 1) console.log("haloFourier transforms", transforms.length)       
       for (let j=0; j<transforms.length; j++) {  // FOR EACH FEATURE in time
 
-          var acc = Complex (0, 0)  // summatory
 
           let tfeature = transforms[j]
           let coordinates = tfeature.geometry.coordinates //
-
           var N = coordinates.length // number of fequencies
           var nyquist = Math.floor (N / 2)  // nyquist frequency
           var w = 0 // frequency associated to cycloid index (for sorted)
 
-          //md:   filter and sort sinusoids per amplitude
+          
           let transformSorted = coordinates.slice() // sort coordinates coefs by norm
             .map( (d,i) => Object.assign(d, {w:i})) // frequency on index
-            .filter(d => Complex(d).abs() / N > tolerance)
-            .sort((a,b) => Complex(b).abs() - Complex(a).abs())
+            .filter(d => Complex(d).abs() / N > tolerance)  // filter per amplitude
+            .sort((a,b) => Complex(b).abs() - Complex(a).abs())  // sort per amplitude
+            
           let M = transformSorted.length
 
+          var acci = Complex (0, 0)  // summatory
           let xn = [], yn = [], magn = [], iAnitems = []
           for (let i = 0; i <= M; i++) { //  FOR EACH sinusoid, new anitem
 
@@ -92,8 +93,8 @@
             let _ric = {gid, cid, fid, delled:tNotInPeriod} // is DELLED ?
             let uid = mric.getuid(_ric) // uid
 
-            let newItem = f.cloneObj(anigram) // anitems h.nat
-            newItem.halo = 'ent' // halo
+            let newItem = f.cloneObj(anigram)
+            newItem.halo = 'ent' // halo.ent
 
             if (i < M) { // for each cycloid
 
@@ -102,36 +103,43 @@
 
               //md:   sinusoid is Sum( Xi * e^i2[pi]w[i]n/N )
               //md:   The sinusoid's frequency is w cycles per N samples
-              let phase = Complex (0, 2 * Math.PI * transformSorted[i].w * tRelToPeriod)
-              let unitRoot = phase.exp() // complex sinusoidal component e^i2[pi]w[i]n/N
-              let ci = unitRoot.mul(transformSorted[i]) // Xi * root(i)
-              acc = acc.add(ci) // add component
+              let phasei = Complex (0, 2 * Math.PI * transformSorted[i].w * tRelToPeriod)
+              let unitRooti = phasei.exp() // complex sinusoidal component e^i2[pi]w[i]n/N
+              let ci = unitRooti.mul(transformSorted[i]) // Xi * root(i)
+              acci = acci.add(ci) // add component
 
-              // sinusoid amplitude
+              
               xn[i] = transformSorted[i].re
               yn[i] = transformSorted[i].im
               magn[i] = Math.sqrt (xn[i] * xn[i] + yn[i]* yn[i]) // amplitude of frequency
-              newItem.geofold.properties.pointRadius = magn[i] / N
+              newItem.geofold.properties.pointRadius = magn[i] / N // sinusoid amplitude
 
               if (i > 0) {  // add ray avatar
 
                   let avaLine = f.cloneObj(payload.fourier.avatars.line)
                   avaLine.geofold.geometry.coordinates = [
-                      [acc.re / N, acc.im / N],   // from this cycloid
+                      [acci.re / N, acci.im / N],   // from this cycloid
                       [xn[i-1], yn[i-1]]          // to prevous cycloid
                   ]
-                  avaLine.payload.ric.fid = fidder(avaLine.payload.ric.fid, j, i)
+                  
+                  let gid = avaLine.payload.ric.gid // from ava ric
+                  let cid = avaLine.payload.ric.cid
+                  let fid = fidder(avaLine.payload.ric.fid, j, i)
+
+                  //md: del item outside time period (ric.delled = 1)
+                  let _ric = {gid, cid, fid, delled:tNotInPeriod} // is DELLED ?
+                  let uid = mric.getuid(_ric) // uid                  
+                  avaLine.payload.ric = _ric
                   newItem.payload.avatars = Array.of(avaLine)
               }
 
             }
 
-           xn[i] = acc.re / N  // averate the summatory
-           yn[i] = acc.im / N
+           xn[i] = acci.re / N  // averate the summatory
+           yn[i] = acci.im / N
 
            //md: add pencil on last sinusoid and pacer avatar
            if (i === M) {
-
               
               newItem.geofold.properties.pointRadius = maglast  // PENCIL radio magnitude of last
 
@@ -181,6 +189,7 @@
       for (let i=0; i<anitems.length; i++) {
         newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(anitems[i])]
       }
+if (1 && 1) console.log("haloFourier newAnigrams", newAnigrams.length)    
 
       return newAnigrams
 

@@ -18,30 +18,21 @@
       mstore = __mapper('xs').m('store'),
       mproj3ct = __mapper('xs').m('proj3ct'),
       mstace = __mapper('xs').m('stace')
-
       
 
-    // ///
-    //
-    // anigram.geofold :: last of geoform, conform, ereform, proformed
-    //
-    // ani:nodeSitus : ani.geofold.properties.geonode.geometry.coordinates
-    // parentani:situs : parent.payload.geonode.geometry.coordinates
-    //
-    //  geoform conform ereform proform
-    
-    //  geoForm = props.geoform
-    //  conForm = props.conform
-    //  ereForm = props.ereform
-    //  proForm = props.proform
-                  
-    //  nodeGeoformed = props.geonode.properties.nodeGeoformed
-    //  nodeEreformed = props.geonode.properties.nodeEreformed
-    //  nodeProformed = props.geonode.properties.nodeProformed
-
-    //  forms and nodes have geometry.coordinates
-    //
-    // //
+    //md: ## h.ent
+    //md: anigram.geofold : last of geoform, conform, ereform, proformed
+    //md: ani:nodeSitus : ani.geofold.properties.geonode.geometry.coordinates
+    //md: parentani:situs : parent.payload.geonode.geometry.coordinates
+    //md:  geoform conform ereform proform
+    //md:  geoForm = props.geoform
+    //md:  conForm = props.conform
+    //md:  ereForm = props.ereform
+    //md:  proForm = props.proform
+    //md:  nodeGeoformed = props.geonode.properties.nodeGeoformed
+    //md:  nodeEreformed = props.geonode.properties.nodeEreformed
+    //md:  nodeProformed = props.geonode.properties.nodeProformed
+    //md:  forms and nodes have geometry.coordinates
 
           
     /**********************
@@ -64,8 +55,7 @@
         uid = payload.uid, // uid
         parentuid = payload.parentuid // parentuid
     
-      //  get GEOFORM
-      //
+      //md:  get GEOFORM from anigram.geofold
       let gj  
       gj = f.v(geofold, anigram)  // get geoform
       gj.properties = gj.properties || {} // recall genode
@@ -77,19 +67,15 @@
 
       let features = mgeoj.featurize(gj)  // geojson to geojson features
       features = features.map( (feature,i) => {
-            // ///
-            //    CONFORM
-            //    conform does not affect geonode
-            // //
+
+            //md:    CONFORM  - conform does not affect geonode
             feature = mprofier.conformer(anigram)(feature)  // get conform
             feature.properties.formConformed = mgeoj.deprop(feature) // store conform
             feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
 
-            // ///
-            //    EREFORM the conformed geofold
-            //    uniwen: prerotation, tranlations, scale, project, rotation
-            //    geonode in geonode..nodeProformed - retains GEOFORM domain
-            // //
+            //md:    EREFORM  - ereform the conformed geofold
+            //md:     uniwen: prerotation, tranlations, scale, project, rotation
+            //md:     geonode in geonode..nodeProformed - retains GEOFORM domain
             if (payload.ereform) {
               let ereformion = mprofier.ereformion(anigram)
               feature = mproj3ct(feature, ereformion)
@@ -100,15 +86,14 @@
               feature.properties.nodeEreformed = feature.properties.nodeConformed
             }
 
-            // ///
-            //    PROFORM the conformed geofold
-            //    uniwen: prerotation, tranlations, scale, project, rotation
-            //    geonode in geonode..nodeProformed - retains GEOFORM domain
-            // //
+            //md:    PROFORM  - ereform the ereformed geofold
+            //md:     uniwen: prerotation, tranlations, scale, project, rotation
+            //md:     geonode in geonode..nodeProformed - retains GEOFORM domain
             if (payload.proform) {
               let proformion = mprofier.proformion(anigram)
               feature = mproj3ct(feature, proformion)
-              feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion) // nodeEreformed => nodeProformed
+              //md:     nodeEreformed from nodeProformed
+              feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion)
             } else {
               feature.properties.nodeProformed = feature.properties.nodeEreformed
             }
@@ -119,15 +104,9 @@
         let gjcollection = {type: 'FeatureCollection', features}
         
         
-        
-        
         anigram.geofold = gjcollection
         newAnigrams = __mapper('xs').h('formed').gramm(anigram)
-
         
-        
-        
-if (0 && 1) console.log("h.ent newAnigrams", newAnigrams.length)
       return newAnigrams //    new anigrams are stored by m.animation
     }
 
