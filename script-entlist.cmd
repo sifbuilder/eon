@@ -51,7 +51,7 @@ let action = options.action // action
 
 
 
-if (1 && 1) console.log("action", action)
+if (0 && 1) console.log("action", action)
   
   if (action === 'samplify') {
     
@@ -161,7 +161,7 @@ with references including
         
         // let found = fileTxt.match(pattern)
         
-        // if (1 && 1) console.log("readmetxt", readmetxt)
+        // if (0 && 1) console.log("readmetxt", readmetxt)
           
         // if (found) console.log("file", i, file, found.length)
         // if (found) console.log("0:", found[0].trim())

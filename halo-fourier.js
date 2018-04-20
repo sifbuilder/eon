@@ -49,6 +49,8 @@
         interval = fourier.interval || [0,1], // fourier.period
         tolerance = fourier.tolerance || 1
 
+       transforms =  geofold.features // 
+        
       //md:   time in period is (t - t0) / (t1 - t0), with t unit time
       let t = tim.unitTime // time % period; i,[0,vertices] => t,[0,T]
       let t0 = interval[0],
@@ -92,6 +94,23 @@
             let uid = mric.getuid(_ric) // uid
 
             let newItem = f.cloneObj(anigram)
+            newItem.geofold = 
+                // tfeature
+                {
+                  type: 'Feature',
+                  geometry: { type: 'Point',  coordinates: []  },
+                  properties: {
+                     pointRadius: 1, // d.payload.fourier.rad,
+                     geonode: {
+                      type: 'Feature',
+                      geometry: { type: 'Point', coordinates: [0,0] },
+                      properties: { // geofold coindices with geonode
+                         orgen: [0,0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]
+                      }
+                    },
+                  }
+                }
+            
             newItem.halo = 'ent' // halo.ent
 
             if (i < M) { // for each cycloid
@@ -179,6 +198,7 @@
               iAnitems[i].geofold.properties.pointRadius = nextPointRadius
           }
 
+if (0 && 1) console.log("haloFourier iAnitems", iAnitems)    
 
           anitems = [...anitems, ...iAnitems]
       }
@@ -187,7 +207,6 @@
       for (let i=0; i<anitems.length; i++) {
         newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(anitems[i])]
       }
-if (1 && 1) console.log("haloFourier newAnigrams", newAnigrams.length)    
 
       return newAnigrams
 

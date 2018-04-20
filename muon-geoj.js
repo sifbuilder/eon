@@ -514,7 +514,7 @@ function complexifyLine(coordinates) {
         ngj = { type: 'LineString', coordinates: [],  }
         ngj.coordinates = json.coordinates.slice(0, nb)
              
-        
+if (0 && 1) console.log("ngj", ngj)        
       } else if ((json.type === 'Feature')) {
         
         ngj = { type:'Feature', geometry: {}}
