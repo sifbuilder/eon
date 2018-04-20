@@ -47,7 +47,7 @@
 
       let gj = {
         type: 'Feature',
-        geometry: { type: 'Polygon', coordinates: []  },
+        geometry: { type: 'MultiLineString', coordinates: []  },
         properties: {}
       }
 
@@ -87,12 +87,14 @@
         let cas = []
         cas[0] = [...c0, ...cn[0]]
 
-        for (let i=0; i<cn.length-1; i++) {
-          cas[i+1] = [ ...cn[i].slice(-2), ...cn[i+1] ]
-        }
-
-        let m = cn.length-2
-        cas[m] = [ ...cn[m].slice(-2), ...cn[m+1] ] // close
+        if (cn.length > 1) {
+          for (let i=0; i<cn.length-1; i++) {
+            cas[i+1] = [ ...cn[i].slice(-2), ...cn[i+1] ]
+          }
+          let m = cn.length-2
+          cas[m] = [ ...cn[m].slice(-2), ...cn[m+1] ] // close
+        } 
+        
 
         gj.geometry.coordinates.push(cas)
 

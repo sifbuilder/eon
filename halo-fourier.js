@@ -63,9 +63,7 @@
 
       //md:   features are rendered simultaneously on time period
       let anitems = []
-if (1 && 1) console.log("haloFourier transforms", transforms.length)       
       for (let j=0; j<transforms.length; j++) {  // FOR EACH FEATURE in time
-
 
           let tfeature = transforms[j]
           let coordinates = tfeature.geometry.coordinates //
@@ -161,10 +159,10 @@ if (1 && 1) console.log("haloFourier transforms", transforms.length)
             }
 
 
-            newItem.payload.tim = tim
-            newItem.payload.ric = _ric
-            newItem.payload.uid = uid
-            newItem.payload.boform = boform
+            newItem.payload.tim = tim // tim
+            newItem.payload.ric = _ric // ric
+            newItem.payload.uid = uid // uid
+            newItem.payload.boform = boform // boform
 
             newItem.geofold.geometry.coordinates = [xn[i], yn[i]]
             newItem.geofold.properties.geonode.geometry.coordinates = [xn[i], yn[i]]

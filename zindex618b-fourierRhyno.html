@@ -16,7 +16,10 @@
 <script src="script-ents.js"></script>
 
 <script>
-
+  
+  //md: z.618b-fourierRhyno
+  //md: rhyno data from m.animas
+  
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1}) // INIT
@@ -30,29 +33,12 @@ let muonAlima = function muonAlima (__mapper) {
     manimas = __mapper('xs').m('animas'),
     mric = __mapper('xs').m('ric'),
     mstore = __mapper('xs').m('store'),
-    mgeoj = __mapper('xs').m('geoj')
+    mgeoj = __mapper('xs').m('geoj'),
+    mprofier = __mapper('xs').m('profier'),
+    mproj3ct = __mapper('xs').m('proj3ct')    
 
-  /*******************************************
- *      @pics
- *
- */
+
   let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-  let proform = {
-        projection: 'uniwen',
-        translate: { x: { pos: 0 }, y: { pos: 0 }, z: 0 },
-        scale: 90,
-        rotate: [ 0, 0, 0 ],
-        lens: [0, 1, Infinity],
-      }
-  
-  //md: z.618b-fourierRhyno
-  //md: rhyno data from m.animas
-  //md:   defined as (closed) LineString gemetry.coordinates 
-  //md:   mfourier.transformedCoefs(tfeature) 
-  let data = JSON.parse(manimas('shapes').rhyno).map(d => [d[0]-150, -d[1]+25, d[2]])
-  let tfeature = {type: 'Feature',geometry: {type: 'LineString',coordinates: data} }
-  let transforms = mfourier.transformedCoefs(tfeature)  
-      transforms = mgeoj.ntime(transforms, [0,1])
 
   //md:     @aniLine avatar
   //md:       form.payload.fourier.avatars.line
@@ -70,7 +56,6 @@ let muonAlima = function muonAlima (__mapper) {
       tim: tim,
       ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
       boform: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.5, 'co': 1, 'cp': 1},
-      proform: proform
     }
 
   }
@@ -122,6 +107,29 @@ let muonAlima = function muonAlima (__mapper) {
         }
       }
 
+      
+  //md:   defined as (closed) LineString gemetry.coordinates 
+  //md:   mfourier.transformedCoefs(tfeature) 
+  let svgdata = JSON.parse(manimas('shapes').rhyno)
+      // .map(d => [d[0]-150, -d[1]+25])
+      
+  let gj = {type: 'Feature',geometry: {type: 'LineString',coordinates: svgdata} }
+
+          let proform = {
+            projection: 'uniwen',
+            translate: [ -150, 125 ],
+            scale: [1, -1],
+            rotate: [ 0, 0 ],
+            lens: [0, 1, Infinity]
+          }
+          let proformion = mprofier.formion(proform)
+          gj = mproj3ct(gj, proformion)
+
+
+  let transforms = mfourier.transformedCoefs(gj)  
+      transforms = mgeoj.ntime(transforms, [0,1])
+
+      
     //md:     @fourierForm anima
     //md:       geofold.properties.pointRadius
     //md:       payload.fourier.transforms:  transforms coefficients
@@ -151,12 +159,11 @@ let muonAlima = function muonAlima (__mapper) {
 
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
+        boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.5, 'co': 0.12, 'cp': 0.99},
 
         fourier: {
-
           transforms: transforms,
-          interval: [0.1,0.5],
+          interval: [0.0,0.99],
           tolerance: 0.1,
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
           avatars: {
@@ -174,7 +181,6 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let animas = [
     fourierForm, // h.fourier
-
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

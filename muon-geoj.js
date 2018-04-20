@@ -470,6 +470,65 @@ function complexifyLine(coordinates) {
    //md:    get number of coordinates in gj
     let getCoordsLength = gj => getCoords(gj).length
 
+    
+
+   //md: ## mgeoj.getCoordsInRange
+   //md:    get first nb coordinates
+    let getCoordsInRange = function(json, nb) {
+      
+      let ngj = {}
+      
+      if (json.type === 'Polygon') {
+        ngj = {
+          type: 'Feature', geometry: { type: 'Polygon', coordinates: [] },
+          properties: {},
+        }
+        let n = 0
+        for (let i=0; i<json.geometry.coordinates.length; i++) {  // rings
+          let ring = json.geometry.coordinates[i]
+          let ringLength = ring.length
+
+          if (n + ringLength < nb) {    // if ring in scope
+              ngj.geometry.coordinates.push(ring)
+              n += ringLength
+             
+              
+          } else {
+              let tmpring = ring.slice(0, nb-n)
+              ngj.geometry.coordinates.push(tmpring)
+              n += (nb-n)
+             
+              break
+          }
+
+        }       
+        
+      } else if ((json.type === 'MultiPoint')) {
+        
+        ngj = { type: 'MultiPoint', coordinates: [],  }
+        ngj.coordinates = json.coordinates.slice(0, nb)
+             
+        
+      } else if ((json.type === 'LineString')) {
+        
+        ngj = { type: 'LineString', coordinates: [],  }
+        ngj.coordinates = json.coordinates.slice(0, nb)
+             
+        
+      } else if ((json.type === 'Feature')) {
+        
+        ngj = { type:'Feature', geometry: {}}
+        ngj.geometry = getCoordsInRange(json.geometry, nb)
+        
+      }
+
+      return ngj
+      
+      
+    }
+
+    
+    
 
    //md: ## mgeoj.isValid   check if gj is valid geojson type
    //md:    @json
@@ -508,7 +567,7 @@ function complexifyLine(coordinates) {
                  Array.isArray(q) && q.reduce( (p2,q2) => p2 && typeof q2 === 'number', true),
                   true)
 
-        } else if (json.type === 'MultiPoint') {
+        } else if (json.type === 'MultiPoint') {       
             let points = json.coordinates
             points = valid &&
               points.reduce((p,q) => p &&
@@ -584,6 +643,7 @@ function complexifyLine(coordinates) {
     enty.centroid = centroid
     enty.getCoords = getCoords
     enty.getCoordsLength = getCoordsLength
+    enty.getCoordsInRange = getCoordsInRange
     enty.isValid = isValid
 
     return enty

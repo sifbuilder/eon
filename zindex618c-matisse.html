@@ -17,6 +17,9 @@
 
 <script>
 
+  //md: z.618c-matisse
+
+
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 1, webgl: 0, img: 1}) // INIT
@@ -31,36 +34,47 @@ let muonAlima = function muonAlima (__mapper) {
     mric = __mapper('xs').m('ric'),
     mstore = __mapper('xs').m('store'),
     mbezierjs = __mapper('xs').m('bezierjs'),
-    msvg = __mapper('xs').m('svg')
+    msvg = __mapper('xs').m('svg'),
+    mgeoj = __mapper('xs').m('geoj'),
+    mprofier = __mapper('xs').m('profier'),
+    mproj3ct = __mapper('xs').m('proj3ct'),
+    mtclip = __mapper('xs').m('tclip')
 
-  const pi = Math.PI, pi2 = 2 * pi,
-      turn = 2 * Math.PI // 360
 
-      
-  /*******************************************
- *      @pics
- *
- */
   let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  /*******************************************
- *    @fourierPacer
- */  
+  //md:     @aniLine avatar
+  //md:       form.payload.fourier.avatars.line
+   let aniLine = {
+
+    halo: 'ent',
+    geofold: {
+      type: 'Feature',
+      geometry: {
+        type: 'LineString',
+        coordinates: []},
+        properties: {}
+      },
+    payload: {
+      tim: tim,
+      ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.5, 'co': 1, 'cp': 1},
+    }
+
+  }
+  
+  //md:     @fourierPacer avatar
 let fourierPacer = { // SUB-MARKS line trace
 
             halo: 'pacer',
-
             payload: {
               ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
               boform: {'csx': 0, 'cf': [[[444,444,444]]], 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
               pacer: { // aad for trace
                 initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
-
                 autoSitus: d => mstace.getLocus(this.stace, d.payload), // situs
-
                 fider: d => d.payload.ric.fid,
-
                 geojsor: function (d, i) {
                   let ric = d.payload.ric // ric
                   let uid = mric.getuid(ric)
@@ -93,20 +107,27 @@ let fourierPacer = { // SUB-MARKS line trace
               }
             }
           }  
-
   /*******************************************
- *    @fourier anima
+ *      @data
  *
  */
-    let matisse =__mapper('xs').d('matisse').data()
-    let scale = [1,-1]
-    let translate = [-150,125]    
-    let data = msvg.castel(matisse, {start:0, stop:0.9, step:0.33} )
-        data = data.map(d => [(scale[0] * d[0]) + translate[0],
-                        (scale[1] * d[1]) + translate[1] ]) 
+    //md:     @fourierForm matisse anima
+    let svgdata =__mapper('xs').d('matisse').data()
+    // let scale = [1,-1]
+    // let translate = [-150,125]    
+    // let data = msvg.castel(svgdata, {start:0, stop:0.9, step:0.33} )
+        // data = data.map(d => [(scale[0] * d[0]) + translate[0],
+                        // (scale[1] * d[1]) + translate[1] ]) 
  
-     let transforms = mfourier.complexify(data).updateTransform().transform()
- 
+    let fourdata = svgdata
+    let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} ) // castels
+    
+    let gj = { type: 'Polygon', coordinates: featurePolygon.geometry.coordinates }
+
+    let transforms = mfourier.transformedCoefs(gj)
+        transforms = mgeoj.ntime(transforms, [0,1])
+
+     //md:     @fourierForm anima
      let fourierForm = {
 
       halo: 'fourier',
@@ -150,55 +171,12 @@ let fourierPacer = { // SUB-MARKS line trace
 
       }
     }
-   // -------------------------------  img
-  let img = {
-
-    halo: 'img',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim,
-      ric: {gid: 'imgg', cid: 'imgc', fid: 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }   
-  /*******************************************
+  /****************************************
  *    @enty
  *
  */
- 
- 
   let animas = [
     fourierForm, // h.fourier
-    img // h.img
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

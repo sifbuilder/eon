@@ -41,44 +41,31 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
   let traceForm = {
-
     'x': {
-
       'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
       'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360
-
     },
-
     'y': {
-
       'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
       'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360
-
     }
-
   }
 
   let natForm = {
-
     'x': {
-
       'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // cyrcle
       'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360
     },
-
     'y': {
-
       'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // cyrcle
       'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360
-
     }
-
   }
 
   let natStace = {
-    'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
+    'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // ellipse
     'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
   }
 
@@ -102,8 +89,7 @@ let muonAlima = function muonAlima (__mapper) {
 
       proform: {
         projection: 'uniwen',
-      // translate: [ [ 70, 80 ], [[[ natStace ]]] ], //
-      translate: [ [ 0, 1 ] ], //
+        translate: [ [ 70, 80 ], [[[ natStace ]]] ],
         scale: 1,
         rotate: [ 0, 0, 0 ],
         lens: [0, 1, Infinity],
@@ -129,12 +115,12 @@ let muonAlima = function muonAlima (__mapper) {
       ric: {gid: 'trace', cid: 'trace', fid: 'tracelineNat'},
       boform: traceBoform,
 
-      // stace:
-      // {
-      // 'x': { 'pos': 0 },
-      // 'y': { 'pos': 0 },
-      // 'z': 0
-      // },
+      stace:
+      {
+      'x': { 'pos': 0 },
+      'y': { 'pos': 0 },
+      'z': 0
+      },
       proform: {
       projection: 'uniwen',
       // translate: [ [ 70, 80 ], [[[ natStace ]]] ], //
@@ -151,7 +137,7 @@ let muonAlima = function muonAlima (__mapper) {
 
         // stace null points to geonode
         // the geonode is un-proformed
-        autoSitus: d => mstace.getLocus(null, d.payload), // situs of anigram
+        autoSitus: d => mstace.getLocus(d.payload.stace, d.payload), // situs of anigram
 
         fider: d => d.payload.ric.fid,
 
@@ -285,7 +271,7 @@ let muonAlima = function muonAlima (__mapper) {
     nat, // h.nat
     // sphere, // h.nat
     // tracelineSphere,     // h.pacer
-    {...manimas('img'), tim}
+    // {...manimas('img'), tim}
 
   ]
 

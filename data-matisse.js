@@ -11,8 +11,7 @@ var dataMatisse = function (__mapper = {}) {
 
 		let data = { 
 
-      width:"2.77778in",
-      height:"3.45833in",
+      width:"2.77778in", height:"3.45833in",
       viewBox:"0 0 200 249",
       path: {
         id:"mbn",
