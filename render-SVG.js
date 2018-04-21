@@ -149,7 +149,6 @@
           d => d.properties !== undefined && // req properties
             d.properties.ric !== undefined // req ric
         )
-
       let svg = __mapper('renderSvg').svg()
 
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
@@ -210,6 +209,7 @@
           let imgs = fitems
             .filter(d => d.properties.sort === 'img') // __ imgs __
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
+if (1 && 1) console.log("imgs", imgs)
 
           if (imgs.length > 0) {
             __mapper('renderSvg').elems('svg:g.' + gid + '/image.' + cid, imgs, d => d.id)
@@ -237,7 +237,7 @@
             .filter(d => d.properties.sort === 'axis') // __ axis __
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
-          // if (axes.length > 0) {
+          if (axes.length > 0) {
             
 
               // let ax = axes[0].properties.axis  
@@ -273,16 +273,16 @@ if (0 && 1) console.log("axis", gid, cid, d)
               // .style('fill-opacity', d => d.properties.style['fill-opacity'])
               // .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
               // .style('stroke-width', d => d.properties.style['stroke-width'])
-          // }
+          }
 
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
             .filter(d => d.properties.sort === 'feature' 
-            // || d.properties.sort === undefined
+
             )
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
-          // if (features.length > 0) {
+          if (features.length > 0) {  // _e_
             __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)
               .data(() => features)
               .attr('d', d => {
@@ -308,7 +308,7 @@ if (0 && 1) console.log("axis", gid, cid, d)
               .style('fill-opacity', d => d.properties.style['fill-opacity'])
               .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
               .style('stroke-width', d => d.properties.style['stroke-width'])
-          // }
+          }
           /*  ................. END SVG FORMS ................. */
         }
       }

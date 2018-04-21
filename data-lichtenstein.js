@@ -11,12 +11,12 @@ var dataLichtenstein = function (__mapper = {}) {
 
 		let data = { 
 
-      'width':"2.33333in", 'height':"1.75in",
-      'viewBox':"0 0 700 525",
-      'path': {
-        'id':"licht",
-        'fill':"none", 'stroke':"black", 'strokeWidth':"1",
-        'd':`M 420.58,19.79
+      width:"2.33333in", height:"1.75in",
+      viewBox:"0 0 700 525",
+      path: {
+        id:"licht",
+        fill:"none", stroke:"black", strokeWidth:"1",
+        d:`M 420.58,19.79
            C 420.58,19.79 398.04,71.79 398.04,71.79
              398.04,71.79 389.58,96.79 389.58,96.79
              389.58,96.79 406.58,94.95 406.58,94.95
