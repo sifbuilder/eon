@@ -10,6 +10,8 @@ document.write("<script src='control-pos.js'><\/script>")
 document.write("<script src='control-key.js'><\/script>")
 /* data*/
 document.write("<script src='data-worldTopo110m.js'><\/script>")
+document.write("<script src='data-rachael.js'><\/script>")
+document.write("<script src='data-popart.js'><\/script>")
 document.write("<script src='data-matisse.js'><\/script>")
 document.write("<script src='data-line.js'><\/script>")
 document.write("<script src='data-lichtenstein.js'><\/script>")

@@ -47,7 +47,7 @@
         transforms = fourier.transforms,
         maglast = fourier.maglast || 3, // pencil radio
         interval = fourier.interval || [0,1], // fourier.period
-        tolerance = fourier.tolerance || 1
+        tolerance = fourier.tolerance || 0.5
 
        transforms =  geofold.features // 
         
