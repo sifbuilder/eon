@@ -45,38 +45,46 @@ let muonAlima = function muonAlima (__mapper) {
  *      @data
  */
   //md:     data is basic square. MultiLineString geometry.coordinates
-// let basicSquare = [
-// [
-  // [0-200, 0],     [0-200, 25],    [0-200, 50],    [0-200, 75], 
-  // [0-200, 100],   [25-200, 100],  [50-200, 100],  [75-200, 100],  
-  // [100-200, 100], [100-200, 75],  [100-200, 50],  [100-200, 25], 
-  // [100-200, 0],   [75-200, 0],    [50-200, 0],    [25-200, 0]
- // ], 
-  // [
-  // [0+100, 0], [0+100, 25], [0+100, 50], [0+100, 75], [0+100, 100], 
-  // [25+100, 100], [50+100, 100], [75+100, 100], [100+100, 100], 
-  // [100+100, 75], [100+100, 50], [100+100, 25], [100+100, 0], 
-  // [75+100, 0], [50+100, 0], [25+100, 0]
- // ]  
-// ]
-// let gj = { type: 'MultiLineString', coordinates: basicSquare }
 let basicSquare = [
+[
   [0-200, 0],     [0-200, 25],    [0-200, 50],    [0-200, 75], 
   [0-200, 100],   [25-200, 100],  [50-200, 100],  [75-200, 100],  
   [100-200, 100], [100-200, 75],  [100-200, 50],  [100-200, 25], 
   [100-200, 0],   [75-200, 0],    [50-200, 0],    [25-200, 0]
+ ], 
+  [
+  [0+100, 0], [0+100, 25], [0+100, 50], [0+100, 75], [0+100, 100], 
+  [25+100, 100], [50+100, 100], [75+100, 100], [100+100, 100], 
+  [100+100, 75], [100+100, 50], [100+100, 25], [100+100, 0], 
+  [75+100, 0], [50+100, 0], [25+100, 0]
+ ]  
 ]
-let gj = { type: 'LineString', coordinates: basicSquare }
-let transforms = mfourier.transformedCoefs(gj)
+let gjdata = { type: 'MultiLineString', coordinates: basicSquare }
+    let nb = mgeoj.getCoordsLength(gjdata)  // 894
+
+          let proform = {
+            projection: 'uniwen',
+            translate: [0, 0, 0],
+            scale: [1, 1],
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, Infinity],
+          }
+
+let geoData = mproj3ct(gjdata, mprofier.formion(proform)) 
+     geoData = mgeoj.getCoordsInRange(geoData, nb) // MultiLineString
+    if (1 && 1) console.log("geoData", geoData) 
+let transforms = mfourier.transformedCoefs(f.clone(geoData))
 transforms = mgeoj.ntime(transforms, [0,1])
   
-  
-  
+ let transformsFC = { type: 'FeatureCollection',features: transforms }
+    if (1 && 1) console.log("transformsFC", transformsFC) 
+
+      
   //md:     @aniDots anima
    let aniDots = {
 
     halo: 'ent',
-    geofold: {type:'Feature',properties:{pointRadius: 1,},geometry: { type: 'MultiPoint', coordinates: basicSquare }  },
+    geofold: {type:'Feature',properties:{pointRadius: 1,},geometry: { type: 'MultiPoint', coordinates: mgeoj.getCoords(geoData) }  },
     payload: {
       tim: tim,
       ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniDots'},
@@ -157,29 +165,13 @@ let fourierPacer = {
      let fourierForm = {
        
       halo: 'fourier',
-      geofold: p => {
-        return {
-          type: 'Feature',
-          geometry: { type: 'Point',  coordinates: [] },
-          properties: {
-             pointRadius: 0.01, // d.payload.fourier.rad,
-             geonode: {
-              type: 'Feature',
-              geometry: { type: 'Point', coordinates: [0,0] },
-              properties: { // geofold coindices with geonode
-                 orgen: [0,0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]
-              }
-            },
-          }
-        }
-
-      },
+      geofold: p => transformsFC,
       payload: {  // FOURIER TRANSFORM in payload.fourier.transforms
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
         boform: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99}, // circle
         fourier: {
-          transforms: transforms,
+
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
           avatars: {
             fourierPacer: fourierPacer, // trace

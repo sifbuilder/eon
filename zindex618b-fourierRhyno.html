@@ -40,6 +40,27 @@ let muonAlima = function muonAlima (__mapper) {
 
   let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
+  
+  //md:   data    
+  //md:   defined as (closed) LineString gemetry.coordinates 
+  //md:   mfourier.transformedCoefs(tfeature) 
+  let svgdata = JSON.parse(manimas('shapes').rhyno)
+  let data = {type: 'Feature',geometry: {type: 'LineString',coordinates: svgdata} }
+
+          let proform = {
+            projection: 'uniwen',
+            translate: [ -150, 125 ],
+            scale: [1, -1],
+            rotate: [ 0, 0 ],
+            lens: [0, 1, Infinity]
+          }
+          
+  let geoData = mproj3ct(data, mprofier.formion(proform))
+
+  let transforms = mfourier.transformedCoefs(geoData)  
+      transforms = mgeoj.ntime(transforms, [0,1])
+  let transformsFC = { type: 'FeatureCollection',features: transforms }
+  
   //md:     @aniLine avatar
   //md:       form.payload.fourier.avatars.line
    let aniLine = {
@@ -107,27 +128,6 @@ let muonAlima = function muonAlima (__mapper) {
         }
       }
 
-      
-  //md:   defined as (closed) LineString gemetry.coordinates 
-  //md:   mfourier.transformedCoefs(tfeature) 
-  let svgdata = JSON.parse(manimas('shapes').rhyno)
-      // .map(d => [d[0]-150, -d[1]+25])
-      
-  let gj = {type: 'Feature',geometry: {type: 'LineString',coordinates: svgdata} }
-
-          let proform = {
-            projection: 'uniwen',
-            translate: [ -150, 125 ],
-            scale: [1, -1],
-            rotate: [ 0, 0 ],
-            lens: [0, 1, Infinity]
-          }
-          let proformion = mprofier.formion(proform)
-          gj = mproj3ct(gj, proformion)
-
-
-  let transforms = mfourier.transformedCoefs(gj)  
-      transforms = mgeoj.ntime(transforms, [0,1])
 
       
     //md:     @fourierForm anima
@@ -139,21 +139,7 @@ let muonAlima = function muonAlima (__mapper) {
      let fourierForm = {
 
       halo: 'fourier',
-      geofold: p => {
-        return {
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [] },
-          properties: {
-             geonode: {
-              type: 'Feature',
-              geometry: { type: 'Point', coordinates: [0,0] },
-              properties: { // geofold coindices with geonode
-                orgen: [0,0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]
-              }
-            },
-          }
-        }
-      },
+      geofold: p => transformsFC,
 
       payload: {  // payload in fourierForm
 

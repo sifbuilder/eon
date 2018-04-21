@@ -20,8 +20,8 @@
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, webgl: 0, img: 1}) // INIT
-    
-  //md: ## z.618e-lichtenstein d.licht4
+
+  //md: ## z.619e-lichtenstein d.licht4 h.formed
 
   let f = __mapper({props: muonProps.muonProps()}).props(),
     mnat = __mapper('xs').m('nat'),
@@ -39,29 +39,29 @@ let muonAlima = function muonAlima (__mapper) {
     mproj3ct = __mapper('xs').m('proj3ct'),
     mtclip = __mapper('xs').m('tclip')
 
-  /*******************************************
- *      @pics
- */
-  let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-  
-  /*******************************************
- *      @data
- */  
-    let svgdata = __mapper('xs').d('licht4').data()
-    let fourdata = svgdata
-    let featurePolygon = msvg.castels(fourdata, {start:0, stop:0.9, step:0.33} ) // castels
-    
-    let gj = { type: 'Polygon', coordinates: featurePolygon.geometry.coordinates }
+    //md:     tim
+    let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    let transforms = mfourier.transformedCoefs(gj)
-        transforms = mgeoj.ntime(transforms, [0,1])
+    //md:     data
+    let svgdata = __mapper('xs').d('licht4').data()
+    let gjdata = msvg.castels(svgdata, {start:0, stop:0.9, step:0.33} )
+    let nb = mgeoj.getCoordsLength(gjdata)  // 894
+    let proform = {
+            projection: 'uniwen',
+            translate: [-220, 180, 0],
+            scale: [0.65, -0.65],
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, Infinity],
+    }
+    let geoData = mproj3ct(gjdata, mprofier.formion(proform))
 
     //md:     @fourierPacer avatar h.pacer
     let fourierPacer = { // SUB-MARKS line trace
+
       halo: 'pacer',
       payload: {
         ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-        boform: {'csx': 0, 'cf': [[[444,444,444]]], 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+        boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
         pacer: { // aad for trace
           initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
@@ -71,7 +71,7 @@ let muonAlima = function muonAlima (__mapper) {
             let ric = d.payload.ric // ric
             let uid = mric.getuid(ric)
 
-            let gj = {
+            let geodata = {
 
               halo: 'ent',
               geofold: {
@@ -80,15 +80,13 @@ let muonAlima = function muonAlima (__mapper) {
                 properties: { doc: 'pacer' }
               },
               payload: {
-                uid: uid,
-                id: uid,
-                ric: ric,
+                uid: uid, id: uid, ric: ric,
                 proform: this.proform
               }
 
             }
 
-            let newItem = mstore.findAnigramFromUid(uid) || gj
+            let newItem = mstore.findAnigramFromUid(uid) || geodata
             if (newItem.geofold.properties.formEreformed) {
               newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
             }
@@ -99,7 +97,7 @@ let muonAlima = function muonAlima (__mapper) {
         }
       }
     }
-    //md:     @fourierForm anima h.formed
+    //md:     @fourierForm anima
      let fourierForm = {
 
       halo: 'formed',
@@ -111,30 +109,22 @@ let muonAlima = function muonAlima (__mapper) {
           geofold = p.geofold, // geofold
           payload = p.payload // payload
 
-        let t = p.payload.tim.unitElapsed
-        let unitTimeElapsed = t
-        if (0) {
-            unitTimeElapsed = 2 * (t - 2 * Math.max(0, t - 0.5))
-        } else if (0) {
-            unitTimeElapsed = 1 - 4 * (t -0.5)* (t -0.5)
-        } else if (0) {
-            unitTimeElapsed = 1
-        }
+        let unitElapsed = p.payload.tim.unitElapsed // unit time elapsed
+        let t = p.payload.tf(unitElapsed) || unitElapsed  // time function
 
-        let feature = featurePolygon
+        let nbt = Math.ceil(nb * t)
+        let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
+        let coords = csi(t).geometry.coordinates
 
         let ngj = {
           type: 'Feature',
-          geometry: { type: 'Polygon',
-               coordinates: mtclip.tclip(feature.geometry, unitTimeElapsed).coordinates // tclip
-                    },
+          geometry: { type: 'Polygon', coordinates: coords },
           properties: {
             boform: { 'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.8, 'co': 1, 'cp': 0.9}
-
           },
         }
 
-        let rings = ngj.geometry.coordinates //
+        let rings = ngj.geometry.coordinates // rings in Polygon
         let newFeatureCollection = {type:'FeatureCollection', features:[]}
 
         for (let i=0; i<rings.length; i++) {
@@ -155,15 +145,14 @@ let muonAlima = function muonAlima (__mapper) {
 
         newFeatureCollection.features = Array.of(ngj)
 
-        let gj = newFeatureCollection
+        let geodata = newFeatureCollection
 
         if (payload.proform) {
           let proformion = mprofier.proformion(anigram)
-          newFeatureCollection = mproj3ct(gj, proformion)
+          newFeatureCollection = mproj3ct(geodata, proformion)
         }
 
         return newFeatureCollection
-
 
       },
 
@@ -172,22 +161,10 @@ let muonAlima = function muonAlima (__mapper) {
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
         boform: {'csx': 0, 'cf': 555, 'cs': 444, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
-
-        proform: {
-            projection: 'uniwen',
-            translate: [-220, 180, 0],
-            scale: [0.65, -0.65],
-            rotate: [ 0, 0, 0 ],
-            lens: [0, 1, Infinity],
-          },
-
-        fourier: {
-
-          transforms,
-          avatars: [fourierPacer], // fourier avatars
-          boform: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.3, 'co': 0.72, 'cp': 0.7},
-
-        },
+        tf: t => t,
+        // tf: t => 2 * (t - 2 * Math.max(0, t - 0.5)),
+        // tf: t => 1 - 4 * (t - 0.5)* (t - 0.5),
+        // tf: t => 1,
 
       }
     }
@@ -198,8 +175,7 @@ let muonAlima = function muonAlima (__mapper) {
  */
 
   let animas = [
-    fourierForm, // h.fourier
-
+    fourierForm,
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

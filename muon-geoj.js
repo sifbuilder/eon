@@ -479,23 +479,19 @@ function complexifyLine(coordinates) {
       let ngj = {}
       
       if (json.type === 'Polygon') {
-        ngj = {
-          type: 'Feature', geometry: { type: 'Polygon', coordinates: [] },
-          properties: {},
-        }
+        ngj = {type: json.type, coordinates: [] }
         let n = 0
-        for (let i=0; i<json.geometry.coordinates.length; i++) {  // rings
-          let ring = json.geometry.coordinates[i]
+        for (let i=0; i<json.coordinates.length; i++) {  // rings
+          let ring = json.coordinates[i]
           let ringLength = ring.length
 
           if (n + ringLength < nb) {    // if ring in scope
-              ngj.geometry.coordinates.push(ring)
+              ngj.coordinates.push(ring)
               n += ringLength
-             
               
           } else {
               let tmpring = ring.slice(0, nb-n)
-              ngj.geometry.coordinates.push(tmpring)
+              ngj.coordinates.push(tmpring)
               n += (nb-n)
              
               break
@@ -503,21 +499,41 @@ function complexifyLine(coordinates) {
 
         }       
         
+      } else if ((json.type === 'MultiLineString')) {
+
+        ngj = { type: json.type, coordinates: [] }
+        let n = 0
+        for (let i=0; i<json.coordinates.length; i++) {  // rings
+          let line = json.coordinates[i]
+          let ringLength = line.length
+
+          if (n + ringLength < nb) {    // if line in scope
+              ngj.coordinates.push(line)
+              n += ringLength
+              
+          } else {
+              let tmpring = line.slice(0, nb-n)
+              ngj.coordinates.push(tmpring)
+              n += (nb-n)
+             
+              break
+          }
+
+        }   
+             
       } else if ((json.type === 'MultiPoint')) {
         
         ngj = { type: 'MultiPoint', coordinates: [],  }
         ngj.coordinates = json.coordinates.slice(0, nb)
              
-        
       } else if ((json.type === 'LineString')) {
         
-        ngj = { type: 'LineString', coordinates: [],  }
+        ngj = { type: json.type, coordinates: [],  }
         ngj.coordinates = json.coordinates.slice(0, nb)
-             
-if (0 && 1) console.log("ngj", ngj)        
+                    
       } else if ((json.type === 'Feature')) {
-        
-        ngj = { type:'Feature', geometry: {}}
+
+        ngj = { type:json.type, geometry: {}}
         ngj.geometry = getCoordsInRange(json.geometry, nb)
         
       }
@@ -623,12 +639,91 @@ if (0 && 1) console.log("ngj", ngj)
 
       return valid
     }
+    
+
+    /**********************
+   *    @tclip
+   */
+
+    let tclip = function (gj, t=1, interval=[0,1]) {
+      let ret = gj
+      
+      let t0 =  interval[0],
+        t1 = interval[1],
+        period = t1 - t0,
+        tInPeriod = (t - t0) / period      
+      
+      if (t < interval[0] || t > interval[1]) {
+        
+          ret = []  // return empty set
+        
+      } else if (tInPeriod === 1) { // return geojson
+      } else if (gj.type && gj.type === 'Point') {
+        
+        
+        ret = gj    // in period
+        
+      } else if (gj.type && gj.type === 'MultiPoint') {
+      } else if (gj.type && gj.type === 'LineString') {
+      } else if (gj.type && gj.type === 'MultiLineString') {
+      } else if (gj.type && gj.type === 'Polygon') {
+          
+        let ngj = { type: 'Polygon', coordinates: [] } // return polygon
+        
+        let rings = gj.coordinates // coords is rings array
+        let tnb = rings.reduce( (p,q) => p += q.length, 0) 
+        let nb = Math.floor(tnb * tInPeriod)
+        
+        let outrings = []
+        let n = 0
+        for (let i=0; i<rings.length; i++) {
+            let ring = rings[i]
+            let ringLength = ring.length
+
+            if (n + ringLength < nb) {    // if ring in scope
+                ngj.coordinates.push(ring)
+                n += ringLength
+                
+            } else {    // complement with part of next ring
+                let tmpring = ring.slice(0, nb-n)
+                ngj.coordinates.push(tmpring)
+                n += (nb-n)
+                break
+            }
+
+        }        
+            
+        ret = ngj
+
+        
+        
+      } else if (gj.type && gj.type === 'MultiPolygon') {
+      } else if (gj.type && gj.type === 'GeometryCollection') {
+      } else if (gj.type && gj.type === 'Feature') {
+        
+        
+        
+       
+                     
+        
+        
+      } else if (gj.type && gj.type === 'FeatureCollection') {
+      }
+      
+      
+      return ret
+      
+    }      
+    
+
+    
     /**********************
    *    @enty
    */
     let enty = function () {}
 
     enty.trim = trim
+    enty.tclip = tclip
     enty.complexify = complexify
     enty.deprop = deprop
     enty.snip = snip
