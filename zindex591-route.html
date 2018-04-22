@@ -21,15 +21,21 @@ let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 0, webg0: 1, key: 1, img: 1}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props(),
-    manitem = __mapper('xs').m('anitem'),
-    mliner = __mapper('xs').m('liner'),
-    mgeom = __mapper('xs').m('geom'),
-    mwen = __mapper('xs').m('wen'),
-    crayder = __mapper('xs').c('rayder'),
+  let f = __mapper({props: muonProps.muonProps()}).props(),
+    mnat = __mapper('xs').m('nat'),
+    cversor = __mapper('xs').c('versor'),
+    cwen = __mapper('xs').c('wen'),
     mstace = __mapper('xs').m('stace'),
+    mfourier = __mapper('xs').m('fourier'),
+    manimas = __mapper('xs').m('animas'),
+    mric = __mapper('xs').m('ric'),
     mstore = __mapper('xs').m('store'),
-    mnat = __mapper('xs').m('nat')
+    mbezierjs = __mapper('xs').m('bezierjs'),
+    msvg = __mapper('xs').m('svg'),
+    mgeoj = __mapper('xs').m('geoj'),
+    mprofier = __mapper('xs').m('profier'),
+    mproj3ct = __mapper('xs').m('proj3ct'),
+    mliner = __mapper('xs').m('liner')
 
   let r = __mapper('xs').r('renderport'),
     width = r.width(),
@@ -63,45 +69,6 @@ let muonAlima = function (__mapper) {
 
   }
 
-  let natForm = {
-
-    'x': {
-      'm1': [[[-8, -4, -2, -7.66]]],
-      'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
-      'n1': [[[16.24, 16.24, 16.24, 16.24]]],
-      'n2': [[[6, 6, 6, 5.98]]],
-      'n3': [[[13, 15, 17, 17]]],
-      'a': [[[9, 9, 9, 8.98]]],
-      'b': [[[0.2, 0.2, 0.2, 0.19]]],
-      'ra2': [[[30, 50]]],
-      'v0': 0,
-      'v1': 1,
-      'seg5': 360,
-      'w4': [[[90, 90 - 0 * 360]]],
-      'pa6': 0,
-      'pb7': 360,
-      
-    },
-
-    'y': {
-      'm1': [[[-8, -4, -2, -7.66]]],
-      'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
-      'n1': [[[16.24, 16.24, 16.24, 16.24]]],
-      'n2': [[[6, 6, 6, 5.98]]],
-      'n3': [[[13, 15, 17, 17]]],
-      'a': [[[9, 9, 9, 8.98]]],
-      'b': [[[0.2, 0.2, 0.2, 0.19]]],
-      'ra2': [[[30, 50]]],
-      'v0': 0,
-      'v1': 1,
-      'seg5': 360,
-      'w4': [[[90, 90 - 0 * 360]]],
-      'pa6': 0,
-      'pb7': 360,
-      
-    }
-
-  }
 
   let natStace = {
     'm1': 6,'m2': 6,'n1': 2,'n2': 7,'n3': 7,'a': 1,'b': 1,
@@ -109,17 +76,6 @@ let muonAlima = function (__mapper) {
     
   }
 
-  let natProform = {
-    'projection': 'uniwen',
-    'translate': [ [ 0, 0 ], [[[ natStace ]]] ],
-    'scale': 1,
-    'rotate': [ 0, 0, [[[0, 0]]] ],
-    'lens': [0, 1, Infinity],
-  }
-
-  let natBoform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.79, 0.79]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
-
-  let traceBoform = { 'csx': 0, 'cf': [[[444, 444]]], 'co': [[[0.9, 0.9]]], 'cs': [[[777, 777]]], 'cw': [[[1.7, 1.7]]], 'cp': [[[0.99, 0.99]]]}
 
   /*******************************************
  *    @animas
@@ -131,8 +87,8 @@ let muonAlima = function (__mapper) {
     geofold: p => {
       let rotate = mliner.orientate(p).rotate()
 
-      p.payload.form.x.w4 = rotate
-      p.payload.form.y.w4 = rotate
+        p.payload.form.x.w4 = rotate
+        p.payload.form.y.w4 = rotate
 
       return mnat.natFeature(p.payload.form)
     },
@@ -141,11 +97,49 @@ let muonAlima = function (__mapper) {
 
       tim,
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'geonat'},
-      boform: natBoform,
+      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.79, 0.79]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
       proform: p => p.payload.natProform,
 
-      form: natForm,
+      form: {
+
+          'x': {
+            'm1': [[[-8, -4, -2, -7.66]]],
+            'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
+            'n1': [[[16.24, 16.24, 16.24, 16.24]]],
+            'n2': [[[6, 6, 6, 5.98]]],
+            'n3': [[[13, 15, 17, 17]]],
+            'a': [[[9, 9, 9, 8.98]]],
+            'b': [[[0.2, 0.2, 0.2, 0.19]]],
+            'ra2': [[[30, 50]]],
+            'v0': 0,
+            'v1': 1,
+            'seg5': 360,
+            'w4': [[[90, 90 - 0 * 360]]],
+            'pa6': 0,
+            'pb7': 360,
+            
+          },
+
+          'y': {
+            'm1': [[[-8, -4, -2, -7.66]]],
+            'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
+            'n1': [[[16.24, 16.24, 16.24, 16.24]]],
+            'n2': [[[6, 6, 6, 5.98]]],
+            'n3': [[[13, 15, 17, 17]]],
+            'a': [[[9, 9, 9, 8.98]]],
+            'b': [[[0.2, 0.2, 0.2, 0.19]]],
+            'ra2': [[[30, 50]]],
+            'v0': 0,
+            'v1': 1,
+            'seg5': 360,
+            'w4': [[[90, 90 - 0 * 360]]],
+            'pa6': 0,
+            'pb7': 360,
+            
+          }
+
+        },
 
       geonode: {
         type: 'Feature',
@@ -153,7 +147,13 @@ let muonAlima = function (__mapper) {
         properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
       },
 
-      natProform: natProform
+      natProform: {
+          'projection': 'uniwen',
+          'translate': [ [ 0, 0 ], [[[ natStace ]]] ],
+          'scale': 1,
+          'rotate': [ 0, 0, [[[0, 0]]] ],
+          'lens': [0, 1, Infinity],
+        }
 
     }
 
@@ -167,7 +167,7 @@ let muonAlima = function (__mapper) {
 
       tim,
       ric: {'gid': 'trace', 'cid': 'trace', 'fid': 'traceline'},
-      boform: traceBoform,
+      boform: { 'csx': 0, 'cf': [[[444, 444]]], 'co': [[[0.9, 0.9]]], 'cs': [[[777, 777]]], 'cw': [[[1.7, 1.7]]], 'cp': [[[0.99, 0.99]]]},
 
       proform: {
         'projection': 'uniwen',
@@ -216,54 +216,47 @@ let muonAlima = function (__mapper) {
   let pathline = {
 
     halo: 'pacer',
-
     payload: {
+      ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
+      boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
-      tim,
-      ric: {'gid': 'trace', 'cid': 'trace', 'fid': 'pathline'},
-      boform: { 'csx': 0, 'cf': [[[444, 444]]], 'co': [[[0.09, 0.09]]], 'cs': [[[777, 777]]], 'cw': [[[1.2, 1.2]]], 'cp': [[[0.99, 0.99]]]},
-
-      proform: {
-        'projection': 'uniwen',
-        'translate': {
-          'x':
-							{
-							  'pos': 0
-							},
-          'y':
-							{
-							  'pos': 0
-							},
-          'z': 0
+      pacer: { // aad for trace
+        stace: {
+          x: { pos: 0 },
+          y: { pos: 0 },
+          z: 0
+        },               
+        initN: 0, eventN: 1, autoN: 0, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
+        autoSitus: function(a) {
+          let r =  mstace.getLocus(this.stace, a.payload) // situs
+          return r
         },
-        'scale': 1,
-        'rotate': [0, 0, 0], // [-5,50,0],
-        'lens': [0, 1, Infinity],
-      },
-
-      pacer: {
-        'initN': 0,
-        'eventN': 0,
-        'autoN': 1,
-        'autoP': 0.01,
-        'outtimed': 0,
-        'maxN': 60,
-        'span': 0,
-				 aad: 1,
-
-        autoSitus: d => mstace.getLocus(null, d),
-
-        fider: anitem => anitem.payload.ric.fid,
-
-        geojsor: (d, i) => ({
-          type: 'Feature',
-          geometry: {type: 'LineString', coordinates: null},
-          properties: {}
-        })
-
+        fider: a => a.payload.ric.fid,
+        geojsor: function (a, i) {
+          let ric = a.payload.ric // ric
+          let uid = mric.getuid(ric)
+          let gj = {
+            halo: 'ent',
+            geofold: {
+              type: 'Feature',
+              geometry: { type: 'LineString', coordinates: null },
+              properties: { doc: 'pacer' }
+            },
+            payload: {
+              uid: uid, id: uid, ric: ric,
+              proform: this.proform
+            }
+          }
+          let newItem = mstore.findAnigramFromUid(uid) || gj
+          if (newItem.geofold.properties.formEreformed) {
+            newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+          }
+          return newItem
+        },
       }
     }
   }
+
 
   // -------------------------------  routeline
   let routeline = {
@@ -273,15 +266,9 @@ let muonAlima = function (__mapper) {
     payload: {
       tim: tim,
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'routeline'},
-      boform: { 'csx': 0, 'cf': [[[111, 999]]], 'co': [[[0.09, 0.09]]], 'cs': [[[999, 999]]], 'cw': [[[0.3, 0.3]]], 'cp': [[[0.99, 0.99]]]},
+      boform: { 'csx': 0, 'cf': [[[111, 999]]], 'co': 0.09, 'cs': 999, 'cw': 0.3, 'cp': 0.99},
 
-      proform: {
-        'projection': 'uniwen',
-        'translate': [ 0, 0],
-        'scale': 1,
-        'rotate': [0, 0, 0],
-        'lens': [0, 1, Infinity],
-      },
+      proform: { projection: 'uniwen', translate: [ 0, 0], scale: 1, rotate: [0, 0, 0], lens: [0, 1, Infinity], },
 
       geonode: {
         type: 'Feature',
@@ -290,25 +277,34 @@ let muonAlima = function (__mapper) {
       },
 
       pacer: {
-        'initN': 0,
-        'eventN': 1,
-        'mousesignal': 0, // ['state', 'event']
-        'autoN': 0,
-        'autoP': 0.1,
-        'outtimed': 0,
-        'maxN': 60,
-        'span': 0,
-				 aad: 1,
+        mousesignal: 0, // ['state', 'event']
+        initN: 0,eventN: 1,autoN: 0,autoP: 0.1,outtimed: 0,maxN: 60,span: 0,aad: 1,
 
         autoSitus: d => mstace.getLocus(null, d),
 
-        fider: anitem => anitem.payload.ric.fid,
+        fider: a => a.payload.ric.fid,
 
-        geojsor: (d, i) => ({
-          type: 'Feature',
-          geometry: {type: 'LineString', coordinates: null},
-          properties: {}
-        })
+          geojsor: function (a, i) {
+            let ric = a.payload.ric // ric
+            let uid = mric.getuid(ric)
+            let gj = {
+              halo: 'ent',
+              geofold: {
+                type: 'Feature',
+                geometry: { type: 'LineString', coordinates: null },
+                properties: { doc: 'pacer' }
+              },
+              payload: {
+                uid: uid, id: uid, ric: ric,
+                proform: this.proform
+              }
+            }
+            let newItem = mstore.findAnigramFromUid(uid) || gj
+            if (newItem.geofold.properties.formEreformed) {
+              newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+            }
+            return newItem
+          },
 
       }
     }
@@ -410,46 +406,7 @@ let muonAlima = function (__mapper) {
     }
 
   }
-  // -------------------------------  img
-  let img = {
 
-    halo: 'img',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }
   /*******************************************
  *      @animaApi
  *
@@ -471,9 +428,9 @@ let muonAlima = function (__mapper) {
   }
   let animas = [
 
-    routeline, // h.pacer		free liner
+    // routeline, // h.pacer		free liner
     geonat,			 // h.nat geofold:natForm proform:natProform.natstace
-    img // h.img
+
   ]
 
   let animaApi = function animaApi () {
