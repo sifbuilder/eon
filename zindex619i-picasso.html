@@ -54,14 +54,13 @@ let muonAlima = function muonAlima (__mapper) {
     }
     let geoData = mproj3ct(gjdata, mprofier.formion(proform))
 
-//md:     polyPacer avatar
-let polyPacer = { // SUB-MARKS line trace
+//md:     formPacer avatar
+let formPacer = { // SUB-MARKS line trace
 
       halo: 'pacer',
       payload: {
         ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
         boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
-
         pacer: { // aad for trace
           initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
           autoSitus: d => mstace.getLocus(this.stace, d.payload), // situs
@@ -69,9 +68,7 @@ let polyPacer = { // SUB-MARKS line trace
           geojsor: function (d, i) {
             let ric = d.payload.ric // ric
             let uid = mric.getuid(ric)
-
             let gj = {
-
               halo: 'ent',
               geofold: {
                 type: 'Feature',
@@ -82,17 +79,13 @@ let polyPacer = { // SUB-MARKS line trace
                 uid: uid, id: uid, ric: ric,
                 proform: this.proform
               }
-
             }
-
             let newItem = mstore.findAnigramFromUid(uid) || gj
             if (newItem.geofold.properties.formEreformed) {
               newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
             }
-
             return newItem
           },
-
         }
       }
     }
@@ -102,15 +95,15 @@ let polyPacer = { // SUB-MARKS line trace
 
       halo: 'formed',
 
-      geofold: p => {
+      geofold: a => {
 
-        let anigram = p, // anigram
-          halo = p.halo, // halo
-          geofold = p.geofold, // geofold
-          payload = p.payload // payload
+        let anigram = a, // anigram
+          halo = a.halo, // halo
+          geofold = a.geofold, // geofold
+          payload = a.payload // payload
 
-        let unitElapsed = p.payload.tim.unitElapsed // unit time elapsed
-        let t = p.payload.tf(unitElapsed) || unitElapsed  // time function
+        let unitElapsed = a.payload.tim.unitElapsed // unit time elapsed
+        let t = a.payload.tf(unitElapsed) || unitElapsed  // time function
 
         let nbt = Math.ceil(nb * t)
         let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
@@ -173,7 +166,7 @@ let polyPacer = { // SUB-MARKS line trace
 
     halo: 'img',
 
-    geofold: p => ({
+    geofold: a => ({
       type: 'Feature',
       geometry: {
 
@@ -183,8 +176,8 @@ let polyPacer = { // SUB-MARKS line trace
       },
       properties: {
         sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
+        'xlink:href': a.payload.img.url,
+        style: a.payload.img.style
       }
     }),
 

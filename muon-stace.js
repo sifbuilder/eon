@@ -57,15 +57,15 @@
     let getTranspots = function (stace, payload, locations = []) {
 
         if (2 && 2 && payload.hasOwnProperty('payload')) console.log(` * error: mstace.getTranspots anitem passed instead of payload`)
-    
-    
+
+
       // stace taken from stace or from payload.stace
       if (payload !== undefined) stace = stace || payload.stace
 
       // if stace is defined and not null
       if (stace) {
 
-      
+
         // ///
         //  stace is passed as array
         //
@@ -130,13 +130,13 @@
 
 
           }
-          
-          
+
+
         // ///
         //  stace is passed as object
-        //  each entry (dimension axis: dax) returns an array of locations 
+        //  each entry (dimension axis: dax) returns an array of locations
         //  all arrays are interlaced and returned as locations array
-        //  
+        //
         } else if (typeof stace === 'object') {  // {'x':300, 'y':200}}
 
           let entries = Object.entries(stace)
@@ -153,9 +153,9 @@ if (0 && 1) console.log("entry", entry)
             if (typeof v1 === 'number') locationsPerDax[i] = Array.of(v1) // [200]
 
             else if (typeof v1 === 'object') {
-              
-              
-              
+
+
+
               // if (v1.hasOwnProperty('pos')) {
 
 
@@ -167,13 +167,13 @@ if (0 && 1) console.log("entry", entry)
                 // }
 
                 let parentuid = payload.parentuid
-                
-     if (2 && 2 && !parentuid) console.log(` * error: mstace.getTranspots:parentuid ${parentuid} in payload `, payload)             
-                
+
+                if (2 && 2 && !parentuid) console.log(` * error: mstace.getTranspots:parentuid ${parentuid} in payload `, payload)
+
                 let parentani = __mapper('xs').m('store').findAnigramFromUid(parentuid)
 
-      if (2 && 2 && !parentani) console.log(` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)                
-                
+                if (2 && 2 && !parentani) console.log(` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)
+
                 let coords = __mapper('xs').m('anitem')(parentani).nodeSitus(parentani)
 
                 let formGeoform = parentani.geofold.properties.formGeoform
@@ -183,24 +183,35 @@ if (0 && 1) console.log("entry", entry)
                 let nodeGeoformed = parentani.geofold.properties.nodeGeoformed || {geometry: {}}
                 let nodeEreformed = parentani.geofold.properties.nodeEreformed || {geometry: {}}
                 let nodeProformed = parentani.geofold.properties.nodeProformed || {geometry: {}}
-                
-                if (v1.hasOwnProperty('pos') && v1.hasOwnProperty('geo')) {
 
-                  locationsPerDax[i] = Array.of(nodeGeoformed.geometry.coordinates[i])
 
-                } else if (v1.hasOwnProperty('pos') && v1.hasOwnProperty('ere')) {
+                if (!v1.hasOwnProperty('pos')) {
+                    if (v1.hasOwnProperty('geo')) {
 
-                   locationsPerDax[i] = Array.of(nodeEreformed.geometry.coordinates[i])
+                      // node coordinates geoformed
+                      locationsPerDax[i] = Array.of(nodeGeoformed.geometry.coordinates[i])
 
-                } else if (v1.hasOwnProperty('pos') && v1.hasOwnProperty('pro')) {
-                    if (nodeProformed.geometry) {
-                      locationsPerDax[i] = Array.of(nodeProformed.geometry.coordinates[i])
+                    } else if (v1.hasOwnProperty('ere')) {
+
+                      // node coordinates ereformed
+                       locationsPerDax[i] = Array.of(nodeEreformed.geometry.coordinates[i])
+
+                    } else if (v1.hasOwnProperty('pro')) {
+
+                        // node coordinates proformed
+                        if (nodeProformed.geometry) {
+                          locationsPerDax[i] = Array.of(nodeProformed.geometry.coordinates[i])
+                        }
+
+                    } else {  // if pos look into geometry
+
+                       // if no pos and not state, default to node coordinates proformed
+                       locationsPerDax[i] = Array.of(nodeProformed.geometry.coordinates[i])
+
                     }
-
                 } else {
-              
-                   locationsPerDax[i] = Array.of(nodeProformed.geometry.coordinates[i])
 
+                       locationsPerDax[i] = Array.of(parentani.geofold.geometry.coordinates[i])
                 }
 
 

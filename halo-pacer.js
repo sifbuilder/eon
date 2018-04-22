@@ -26,13 +26,14 @@
 
     // -------------------------------  haloPacerHalo_ween
 
-    // pacer could apply to halo ween
-    // let haloPacerHalo_ween = function  (anima, newItems = []) {
-      // if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
-      // return newItems
-    // }
+    //md: h.pacer applies to h.gramm, could apply to h.ween
+    //md: eg: 
+    //md:     let haloPacerHalo_ween = function  (anima, newItems = []) {
+    //md:       if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
+    //md:       return newItems
+    //md:     }
 
-    // let haloPacerHalo_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+    //md: let haloPacerHalo_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
 
     let haloPacerHalo_ween = anima => []
@@ -58,28 +59,28 @@
         aad = pacer.aad || 0, // aad to previtem
         outted = pacer.outted || 0 // outted
 
-      let initSitus, eventSitus, autoSitus, fider, geojsor
 
       /* ****
        *    defaults
        */
-      initSitus = (payload.pacer.initSitus === undefined) // initSitus
+      payload.pacer.initSitus = (payload.pacer.initSitus === undefined) // initSitus
         ? d => ({x: 0, y: 0, z: 0 })
         : payload.pacer.initSitus
 
-      eventSitus = (payload.pacer.eventSitus === undefined) // eventSitus mouse or touch
+      payload.pacer.eventSitus = (payload.pacer.eventSitus === undefined) // eventSitus mouse or touch
         ? d => ({x: crayder.pointer().x, y: crayder.pointer().y, z: 0 })
         : payload.pacer.eventSitus
 
-      autoSitus = (payload.pacer.autoSitus === undefined) // autoSitus
+      payload.pacer.autoSitus = (payload.pacer.autoSitus === undefined) // autoSitus
         ? d => ({x: Math.random(), y: Math.random(), z: 0 })
         : payload.pacer.autoSitus
+        
 
-      fider = (payload.pacer.fider === undefined) // identifier
+      payload.pacer.fider = (payload.pacer.fider === undefined) // identifier
         ? anitem => anitem.payload.ric.fid
         : payload.pacer.fider
 
-      geojsor = (payload.pacer.geojsor === undefined)
+      payload.pacer.geojsor = (payload.pacer.geojsor === undefined)
         ? d => ({type: 'Point', coordinates: null}) //  default
         : payload.pacer.geojsor // (ani, counter) => geometry
 
@@ -141,22 +142,20 @@
 
           if (count[key] > 0) { // if count on this sort
           
-            // newItem situs may be paradefined
-            //
+            //md: call situs locators as pacer method to get this.stace
             if (key === 'init') { // init defaults center
-              situs = initSitus(anigram)
+              situs = payload.pacer.initSitus(anigram)
             } else if (key === 'auto') { // auto defauts random
-              situs = autoSitus(anigram) // eg. d => mstace.getLocus(null, d
+              situs = payload.pacer.autoSitus(anigram) // eg. d => mstace.getLocus(null, d
             } else if (key === 'event') { // event defaults event
-              situs = eventSitus(anigram)
+              situs = payload.pacer.eventSitus(anigram)
             }
             if (situs && typeof situs === 'object') situs = Object.values(situs)
 
-            // ///
-            // the anigram ric and the newItem fid conform the newItem id
-            // //
+            //md: the anigram ric and the newItem fider() conform the newItem id
+            //md: call fidder as pacer method
             let _ric = ric
-            _ric.fid = fider(anigram) // fider set in the payload or default
+            _ric.fid = payload.pacer.fider(anigram) // fider set in the payload or default
             let uid = mric.getuid(_ric) // uid
             
             
@@ -184,7 +183,8 @@
               // //
                 if (!newItem.geofold.geometry) {
                     let payload = newItem.payload // newItem has lost geometry
-                    newItem = geojsor(anigram, i) // anigram, counter per paced type
+                    //md: call geojsor as pacer method
+                    newItem = payload.pacer.geojsor(anigram, i) // anigram, counter per paced type
                     newItem.payload = payload // inherit payload
                 }
 

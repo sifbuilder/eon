@@ -59,7 +59,7 @@ let muonAlima = function muonAlima (__mapper) {
 
         projection: 'orthographic',
         scale: 90,
-        prerotate: [[[ cversor.rotation ]]],
+        // prerotate: [[[ cversor.rotation ]]],
         translate: [0,0],
         rotate: [ 0, 0 ],
 
@@ -274,9 +274,9 @@ let muonAlima = function muonAlima (__mapper) {
 
 
   let animas = [
-    sphereForm, // h.ent
+    // sphereForm, // h.ent
     parentForm, // h.fractal
-    img // h.img
+    // img // h.img
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

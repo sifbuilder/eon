@@ -209,7 +209,7 @@
           let imgs = fitems
             .filter(d => d.properties.sort === 'img') // __ imgs __
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
-if (1 && 1) console.log("imgs", imgs)
+if (0 && 1) console.log("imgs", imgs)
 
           if (imgs.length > 0) {
             __mapper('renderSvg').elems('svg:g.' + gid + '/image.' + cid, imgs, d => d.id)
