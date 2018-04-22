@@ -389,6 +389,7 @@ if (0 && 1) console.log(" ____________ stace not defined")
  *        @getLoci
  */
     let getLoci = function (stace, payload) {
+      
       let locations = [] // default locations _e_
 
       let situs = getSitus(payload) // anima    .x,.y,.z - root and sim

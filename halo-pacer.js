@@ -146,7 +146,9 @@
             if (key === 'init') { // init defaults center
               situs = payload.pacer.initSitus(anigram)
             } else if (key === 'auto') { // auto defauts random
-              situs = payload.pacer.autoSitus(anigram) // eg. d => mstace.getLocus(null, d
+              //md: h.pacer calls payload.pacer.autoSitus(anigram)
+              //md: autoSitus calls mstace.getLocus(stace, d.payload)
+              situs = payload.pacer.autoSitus(anigram)
             } else if (key === 'event') { // event defaults event
               situs = payload.pacer.eventSitus(anigram)
             }

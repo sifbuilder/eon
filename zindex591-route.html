@@ -159,55 +159,68 @@ let muonAlima = function (__mapper) {
 
   }
 
+  //md: traceline h.pacer avatar of geonat anima
   let traceline = {
 
     halo: 'pacer',
-
     payload: {
-
-      tim,
-      ric: {'gid': 'trace', 'cid': 'trace', 'fid': 'traceline'},
+      ric: {gid: 'trace', cid: 'trace', fid: 'traceline'},
       boform: { 'csx': 0, 'cf': [[[444, 444]]], 'co': [[[0.9, 0.9]]], 'cs': [[[777, 777]]], 'cw': [[[1.7, 1.7]]], 'cp': [[[0.99, 0.99]]]},
 
       proform: {
         'projection': 'uniwen',
-        'translate': {
-          'x':
-							// 300,
-							{
-							  'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]]
-							},
-          'y':
-							// 200,
-							{
-							  'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]]
-							},
+        'translate': { 
+          'x': { 'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]] },
+          'y': {'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]]},
           'z': 0
         },
         'scale': 1,
-        'rotate': [0, 0, 0], // [-5,50,0],
+        'rotate': [0, 0, 0],
         'lens': [0, 1, Infinity],
       },
 
-      pacer: {
-        'initN': 0,
-        'eventN': 0,
-        'autoN': 1,
-        'autoP': 0.01,
-        'outtimed': 0,
-        'maxN': 60,
-        'span': 0,
-				 aad: 1,
+      // stace: { 
+          // 'x': {'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]] },
+          // 'y': {'pos': [[[ 0, 1 * 360, 11 * 360, 12 * 360, 22 * 360, 23 * 360]]] },
+          // 'z': 0
+        // },
 
-        autoSitus: d => mstace.getLocus(null, d),
+      //md: the pacer is auto (autoP:1) LineString (aad:1)
+      pacer: {
+        initN: 0,eventN: 0,autoN: 1,autoP: 0.01,outtimed: 0,maxN: 60,span: 0,aad: 1,
+
+        //md: pacer.autoSitus mstace.getLocus gets pacer.stace and anigram.payload
+        autoSitus: d => mstace.getLocus(null, d.payload),
 
         fider: d => d.payload.ric.fid,
 
-        geojsor: (d, i) => ({
-          type: 'Feature',
-          geometry: {type: 'LineString', coordinates: null},
-          properties: {}
-        })
+        geojsor: function (d, i) {
+          let ric = d.payload.ric // ric
+          let uid = mric.getuid(ric)
+
+          let geodata = {
+
+            halo: 'ent',
+            geofold: {
+              type: 'Feature',
+              geometry: { type: 'LineString', coordinates: null },
+              properties: { doc: 'pacer' }
+            },
+            payload: {
+              uid: uid, id: uid, ric: ric,
+              // proform: this.proform
+            }
+
+          }
+
+          let newItem = mstore.findAnigramFromUid(uid) || geodata
+          if (newItem.geofold.properties.formEreformed) {
+            newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+          }
+
+          return newItem
+        },
+
 
       }
     }
