@@ -16,6 +16,7 @@ document.write("<script src='data-picasso.js'><\/script>")
 document.write("<script src='data-matisse.js'><\/script>")
 document.write("<script src='data-line.js'><\/script>")
 document.write("<script src='data-lichtenstein.js'><\/script>")
+document.write("<script src='data-licht5.js'><\/script>")
 document.write("<script src='data-licht4.js'><\/script>")
 /* force*/
 document.write("<script src='force-z.js'><\/script>")
