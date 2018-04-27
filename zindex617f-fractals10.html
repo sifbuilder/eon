@@ -15,7 +15,7 @@
 <script src='script-ents.js'></script>
 
 <script>
-//md: z.617e fractals
+//md: z.617f fractals
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
@@ -36,27 +36,22 @@ let muonAlima = function muonAlima (__mapper) {
     mprofier = __mapper('xs').m('profier'),
     mproj3ct = __mapper('xs').m('proj3ct')
 
-  const pi = Math.PI, pi2 = 2 * pi,
+    const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
 
-  /*******************************************
- *      @animas
- */
-  let getForm = function (params = {}) {
-  /***********
-  *         @
-  */
-    let _NAME = params.name || 'anis'
-    _ROW = params.row || 2,
-    _COL = params.col || 2,
-    _LEVEL = params.depth || 2,
-    _CF = params.cf || (d => 222 * 1), // cfonlevel
-    _SIDES = params.sides || 5,
-    _RAD = params.rad || 90,
-    PHASED = params.anginit || 0 // 0 internal, 180 extenal
-    
+
+
+    let _NAME = 'anis'
+      _ROW = 2,
+      _COL = 2,
+      _LEVEL =  2,
+      _CF = (d => 222 * 1), // cfonlevel
+      _SIDES = 5,
+      _RAD = 90,
+      PHASED =  0 // 0 internal, 180 extenal
+
     //md: cycle time proportional to number of sinusoids
-      
+
     const cyclet = _LEVEL * _LEVEL * 1000
 
     const x0 = -150,
@@ -68,156 +63,6 @@ let muonAlima = function muonAlima (__mapper) {
       y = y0 + (_ROW - 1) * dy
 
     const signexp = d => Math.pow(-1, d)
-
-    /***********
-  *         @traceLine
-  */
-  let traceLine = { // SUB-MARKS line trace
-  
-    halo: 'pacer',
-    payload: {
-      ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-      boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
-
-      pacer: { // aad for trace
-        stace: {
-          x: { pos: 0 },
-          y: { pos: 0 },
-          z: 0
-        },               
-        initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
-        autoSitus: function(a) {
-          let r =  mstace.getLocus(this.stace, a.payload) // situs
-          return r
-        },
-        fider: a => a.payload.ric.fid,
-        geojsor: function (a, i) {
-          let ric = a.payload.ric // ric
-          let uid = mric.getuid(ric)
-          let gj = {
-            halo: 'ent',
-            geofold: {
-              type: 'Feature',
-              geometry: { type: 'LineString', coordinates: null },
-              properties: { doc: 'pacer' }
-            },
-            payload: {
-              uid: uid, id: uid, ric: ric,
-              proform: this.proform
-            }
-          }
-          let newItem = mstore.findAnigramFromUid(uid) || gj
-          if (newItem.geofold.properties.formEreformed) {
-            newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
-          }
-          return newItem
-        },
-      }
-    }
-  }
-
-    /***********
-  *         @animas
-  */
-    let anis = [] // initialize animas
-
-    let anima = {
-
-      halo: 'ent',
-
-      geofold: a => ({
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          
-          
-          coordinates: Complex({re: 0, im: 0}) // the Point.Geometrty.coordinates got from the payload.fractal.coef 
-              .add(a.payload.fractal.coef(a))  // set on zcoef = (rad, ang)
-              .toVector() 
-           
-          
-        },
-        properties: {
-          pointRadius: a.payload.fractal.rad,
-          geonode: {
-            type: 'Feature',
-            geometry: {type: 'Point',coordinates: [0, 0]},
-            properties: {orgen: [0, 0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]}
-          }
-        }
-      }),
-      payload: {
-
-        tim: {'td': cyclet * _LEVEL, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-        ric: {'gid': _NAME, 'cid': _NAME, 'fid': _NAME},
-        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
-
-        fractal: {
-           
-            sides: 6,
-            level: 6,
-            
-        },  // set coef 
-
-        proform: { projection: 'uniwen',scale: 1,translate: [ -0, 0 ],rotate: [ 0, 0 ] }  // identity
-        
-      }
-    }
-
-    /***********
-  *         @create animas
-  */
-
-    let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d)) // amplitude of sinus (level)
-    let zcoef = (rad, ang) => Complex({re: rad * Math.cos(ang),im: rad * Math.sin(ang)}) // complex number
-
-    
-    for (let level = 0; level < _LEVEL; level++) {  // for each cycloid level
-      anis[level] = f.cloneObj(anis[level - 1] || anima) // anis h.nat
-
-      anis[level].payload.ric = {gid: 'nat', cid: _NAME + level, fid: _NAME + level} // id
-
-      // -------------- ans(level) ------------------
-      anis[level].payload.fractal.an = [] // [0..._LEVEL)
-
-      for (let j = 0; j < level; j++) {
-        
-        let ang
-        if (0) {
-          ang = (j === 0) ? [[[ 0, turn ]]] : [[[ 0, (1) ** (j) * (_SIDES - 1) ** (j) * turn ]]]
-        } else if (0) {
-          ang = (j===0) ? [[[ 0, turn ]]] : [[[ 0, (-1)**(j) * (_SIDES-1)**(j) * turn ]]]
-        } else {
-          //md: frequency 
-          ang = (j===0) ? [[[ 0, turn ]]] : [[[ 0, (1 - _SIDES)**(j) * turn ]]]
-        } 
-        
-        
-        let rad = radOnLevel(j)
-        anis[level].payload.fractal.an[j] = {rad, ang}
-      }
-
-      // fractal coef(level)
-      anis[level].payload.fractal.coef = d => {
-        let z = d.payload.fractal.an.reduce((p, q) => {
-          let aj = zcoef(q.rad, q.ang) // zcoef from amplitude and phase
-          return p.add(aj)
-        }, Complex({re: 0, im: 0}))
-        return z
-      }
-
-      // rad(level)
-      anis[level].payload.fractal.rad = radOnLevel(level) // -------------- rad
-      anis[level].payload.boform.cf = _CF(level) // boform  
-      if (level === _LEVEL - 1) { // add image as avatar to root nat
-        anis[level].payload.avatars = []
-        anis[level].payload.avatars.push(img) // push traceLine avatar to last cycloid
-        anis[level].payload.avatars.push(traceLine) // push traceLine avatar to last cycloid
-      }
-    }
-
-    return anis
-  }
 
     /***********
   *         @img
@@ -262,37 +107,126 @@ let muonAlima = function muonAlima (__mapper) {
       }
     }
 
-  /***********
-  *         @animas
+    /***********
+  *         @traceLine
   */
-  let forms = []
-  // default: depth:2,rad:30,sides:5,wbase:1,anginit:180,name:"as11",row:1,col:1
-  // forms = getForm({depth: 2, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as11', row: 1, col: 1})
-  forms = getForm({depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2})
-  // forms = getForm({depth: 4, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as13', row: 1, col: 3})
-  // forms = getForm({depth: 5, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as21', row: 3, col: 1})
-  // forms = getForm({depth: 6, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as22', row: 2, col: 2})
-  // forms = getForm({depth: 7, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as23', row: 2, col: 3})
-  // forms = getForm({depth: 8, rad: 90, sides: 6, wbase: 1, anginit: 180, name: 'as31', row: 3, col: 1})
-  // forms = getForm({depth: 9, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as32', row: 3, col: 2})
-  // forms = getForm({depth: 10, rad: 90, sides: 6, wbase: 1, anginit: 180, name: 'as33', row: 2, col: 2}
-  animas = forms
+  let traceLine = { // SUB-MARKS line trace
 
-  // animas = [...animas, img] // h.img
-  /*******************************************
- *      @animaApi
- *
- */
+    halo: 'pacer',
+    payload: {
+      ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
+      boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
-  let animaApi = function animaApi () {
-    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+      pacer: { // aad for trace
+        stace: {x: { pos: 0 },y: { pos: 0 },z: 0},      // 
+        initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
+        autoSitus: function(a) {
+          let r =  mstace.getLocus(this.stace, a.payload) // situs
+          return r
+        },
+        fider: a => a.payload.ric.fid,
+        geojsor: function (a, i) {
+          let ric = a.payload.ric // ric
+          let uid = mric.getuid(ric)
+          let gj = {
+            halo: 'ent',
+            geofold: {
+              type: 'Feature',
+              geometry: { type: 'LineString', coordinates: null },
+              properties: { doc: 'pacer' }
+            },
+            payload: {
+              uid: uid, id: uid, ric: ric,
+              proform: this.proform
+            }
+          }
+          let newItem = mstore.findAnigramFromUid(uid) || gj
+          if (newItem.geofold.properties.formEreformed) {
+            newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+          }
+          return newItem
+        },
+      }
+    }
   }
 
-  return animaApi
+    /***********
+  *         @anifractal
+  */
+
+    let anifractal = {
+
+      halo: 'fractal',
+
+      geofold: a => ({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+
+
+          coordinates: Complex({re: 0, im: 0})
+              .add(a.payload.fractal.zcoef(a))
+              .toVector()
+
+
+        },
+        properties: {
+          pointRadius: a.payload.fractal.rad,
+          geonode: {
+            type: 'Feature',
+            geometry: {type: 'Point',coordinates: [0, 0]},
+            properties: {orgen: [0, 0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]}
+          }
+        }
+      }),
+
+      payload: {
+
+        tim: {'td': 4 * 4 * 12000, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+        ric: {'gid': 'fractal', 'cid': 'fractal'},  // fid undefined
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
+
+        ereform: {projection: 'uniwen',scale: 1.0,translate: {x: 0, y: 0 },rotate: [ 0, 0 ],},
+
+        proform: { projection: 'uniwen',scale: 1,translate: [ -0, 0 ],rotate: [ 0, 0 ] },
+
+        fractal: {
+
+
+            timelevel: 300,
+            level: [[[4,8]]],
+            rad0: 60,
+            sides: 6,
+            
+            cfi: function(level) { return 100 * level },
+            rad: function(level, rad0) { return rad0 / Math.pow(2, level) },
+            ang: function(level, sides) { return [[[ 0, (-1)**(level) * (sides-1)**(level - 1) * 360 ]]]},
+            zcoef: function(rad, ang)  {
+                let ret = Complex({re: rad * Math.cos(ang),im: rad * Math.sin(ang)})
+
+                return ret
+            },
+
+            avatars: Array.of(traceLine)
+
+        },
+
+
+      }
+    }
+
+  /*******************************************
+ *    @enty
+ *
+ */
+  let animas = [
+    anifractal // h.fractal
+  ]
+
+  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
 }
 
 let __mapper = muonMapper.muonMapper()
 __mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
-<body style='cursor:crosshair'></body>
-
+<body style="cursor:crosshair"></body>

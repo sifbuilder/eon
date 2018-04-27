@@ -131,7 +131,9 @@ let muonAlima = function muonAlima (__mapper) {
           type: 'Point',
           
           
-          coordinates: Complex({re: 0, im: 0}) // the Point.Geometrty.coordinates got from the payload.fractal.coef 
+          //md: sinus location in anima.geofold.geometry.coordinates
+          //md:   adding the lower fractal coeficients
+          coordinates: Complex({re: 0, im: 0})
               .add(a.payload.fractal.coef(a))  // set on zcoef = (rad, ang)
               .toVector() 
            

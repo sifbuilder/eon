@@ -12,7 +12,8 @@
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
       mnat = __mapper('xs').m('nat'),
-      mric = __mapper('xs').m('ric')
+      mric = __mapper('xs').m('ric'),
+      msnap = __mapper('xs').m('snap')
 
     let r = __mapper('xs').r('renderport'),
       width = r.width(),
@@ -31,58 +32,77 @@
         geofold = anigram.geofold // geofold
       
       let payload = anigram.payload, // payload
+        tim = payload.tim,
         fractal = payload.fractal
       
-      let _NAME = fractal.name || 'anitems',
-        N = fractal.depth || 2,
-        _CF = fractal.cf || (d => 222 * 1), // cf color onlevel
-        _SIDES = fractal.sides || 5,
-        _RAD = fractal.rad || 90
+      let name = fractal.name,
+        fider = fractal.fider,
+        level = Math.floor(fractal.level) || 2, // level
+        cfi = fractal.cf, // cf color onlevel
+        sides = fractal.sides || 5,
+        rad0 = fractal.rad0 || 90
         
-       
+if (1 && 1) console.log("anima", anima.payload.fractal)        
+      let t = tim.unitElapsed  
+  
       let anitems = []
-      for (let i = 0; i < N; i++) {  // for LEVEL i in [0, N)
+      for (let i = 0; i < level; i++) {  // for LEVEL i in [0, level)
         let newAnitem = {}
         
         newAnitem = f.cloneObj(anitems[i - 1] || anigram) // anitems h.nat
         
         newAnitem.halo = 'ent' // halo
         
-        newAnitem.payload.ric = {gid: 'nat', cid: _NAME + i, fid: _NAME + i}
+        
+        // let ric = f.clone(newAnitem.payload.ric)
+        // if (ric.fid !== undefined) {
+        // } else if (fider !== undefined) {
+          // ric.fid = fider(ric.fid, i)
+        // } else {
+          // ric.fid = name + '_' + i
+        // }
+        // newAnitem.payload.ric = ric
+        
+        newAnitem.payload.ric = {gid:'fractal', cid:'fractal', fid:'fractal' + i }
         newAnitem.payload.uid = mric.getuid(newAnitem.payload.ric)
         newAnitem.payload.id = newAnitem.payload.uid
-        newAnitem.payload.boform.cf = _CF(i) // boform
+        
+        if (cfi !== undefined) newAnitem.payload.boform.cf = cfi(i) // boform
 
-        // fourier components
-        newAnitem.payload.fractal.fouriercomponent = [] // 
+        newAnitem.payload.fractal.fouriercomponent = [] //  fourier components
         for (let j = 0; j < i; j++) { // for j in [0, i)
+        
+          let radj = fractal.rad(j,rad0)
+          let angj = msnap(fractal.ang(j, sides),t)
+        
           newAnitem.payload.fractal.fouriercomponent[j] = {
-              rad: fractal.radOnLevel(j) , // angOnLevel(j)
-              ang: fractal.angOnLevel(j)
+              rad: radj , // angOnLevel(j)
+              ang: angj
           }
         }
-
-        // fourier coeficients
-        newAnitem.payload.fractal.coef = d => { // fractal coef(i)
+        if (0 && 1) console.log("fouriercomponent", i, newAnitem.payload.fractal.fouriercomponent)
+        newAnitem.payload.fractal.coef = d => { // fourier  coef(i)
           return d.payload.fractal.fouriercomponent.reduce((p, q) => {
             return p.add(f.zcoef(q.rad, q.ang)) // q
           }, Complex({re: 0, im: 0}))
         }
         
-
-        let rad = fractal.radOnLevel(i) // rad on fractal form
-        newAnitem.payload.fractal.rad = rad
-        newAnitem.payload.form = { // FORM
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': rad, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 128, 'pa6': 0, 'pb7': -1
-        }
+        newAnitem.payload.fractal.rad = fractal.rad(i,rad0) // rad on fractal form
+          
+        
+        let sinusLocation =  Complex({re: 0, im: 0})
+              .add(newAnitem.payload.fractal.coef(newAnitem))  // set on zcoef = (rad, ang)
+              .toVector()        
           
         newAnitem.geofold = d => Object.assign(
-          {}
-          , mnat.natFeature(d.payload.form)   // nat from
-          // , {type: 'Feature',geometry: {type: 'Point', coordinates: [0,0], } }
-          
-          , { properties:  {  // set properties from anigram payload
+          {
+              type: 'Feature',
+              geometry: {
+                type: 'Point', 
+                coordinates: sinusLocation, 
+              }
+             },
+             { properties:  {  // set properties from anigram payload
                pointRadius: d.payload.fractal.rad,  // applies to type Point
                
                geonode: { // geonode reflects geoform situs where created
@@ -90,9 +110,7 @@
                 geometry: {
                   type: 'Point',
                   
-                  coordinates: Complex({re:0,im:0})
-                    .add(d.payload.fractal.coef(d))
-                    .toVector() // geonode returns coords to unpositioned avatar
+                  coordinates: [0,0] // geonode returns coords to unpositioned avatar
                     
                 },
 
@@ -105,7 +123,7 @@
           
         ) 
  
-        if (i === N - 1) { // add avatars to last cycloid
+        if (i === level - 1) { // add avatars to last cycloid
         
           newAnitem.payload.avatars = newAnitem.payload.fractal.avatars
           
@@ -115,8 +133,7 @@
         anitems[i] = newAnitem
         
       }
-      
-      
+     
       
       for (let i=0; i<anitems.length; i++) {  // ent will ereform, proform
         newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(anitems[i])]

@@ -60,7 +60,7 @@
       gj = f.v(geofold, anigram)  // get geoform
       gj.properties = gj.properties || {} // recall genode
       gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
-    if (1 && 1) console.log("gj", gj)
+    if (0 && 1) console.log("gj", gj)
       if (2 && 2 && !mgeoj.isValid(gj)) { console.log("** h.ent:gj not valid", geofold, gj) }
       gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
       gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
