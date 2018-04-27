@@ -8,6 +8,8 @@
 }(this, function (exports) {
   'use strict'
 
+  //md: m.sim
+  
   let muonSim = function (__mapper = {}) {
     let f = __mapper('props')(),
       msnap = __mapper('xs').m('snap'),
@@ -47,12 +49,15 @@
       return cttes
     }
 
-/***************************
- *        @initNodes
+/* **************************
+ *        //md: initNodes
+ *        //md:   @aniItems
+ *        //md:   @nMim
  */
     function initNodes (aniItems, nDim) {
       let simNodes = []
-
+      
+      
       for (let i = 0, n = aniItems.length; i < n; ++i) {
         let aniItem = aniItems[i]
         let payload = aniItem.payload
@@ -110,6 +115,7 @@
         simNodes.push(simNode)
       }
 
+      //md: simnodes: {x,y,z}, {vx,vy,vz}, payload, index
       return simNodes
     }
 
@@ -153,6 +159,12 @@
           updItems.push(updItem)
         }
       }
+
+  
+      //md: aftersim geofold.properties.geonode (s)
+      //md:     coordinates
+      //md:     properties.{geodelta, prevous, velin}
+      
       return updItems
     }
 

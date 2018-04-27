@@ -60,7 +60,7 @@
       gj = f.v(geofold, anigram)  // get geoform
       gj.properties = gj.properties || {} // recall genode
       gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
-    
+    if (1 && 1) console.log("gj", gj)
       if (2 && 2 && !mgeoj.isValid(gj)) { console.log("** h.ent:gj not valid", geofold, gj) }
       gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
       gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
@@ -68,37 +68,37 @@
       let features = mgeoj.featurize(gj)  // geojson to geojson features
       features = features.map( (feature,i) => {
 
-            //md:    CONFORM  - conform does not affect geonode
-            feature = mprofier.conformer(anigram)(feature)  // get conform
-            feature.properties.formConformed = mgeoj.deprop(feature) // store conform
-            feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
+        //md:    CONFORM  - conform does not affect geonode
+        feature = mprofier.conformer(anigram)(feature)  // get conform
+        feature.properties.formConformed = mgeoj.deprop(feature) // store conform
+        feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
 
-            //md:    EREFORM  - ereform the conformed geofold
-            //md:     uniwen: prerotation, tranlations, scale, project, rotation
-            //md:     geonode in geonode..nodeProformed - retains GEOFORM domain
-            if (payload.ereform) {
-              let ereformion = mprofier.ereformion(anigram)
-              feature = mproj3ct(feature, ereformion)
-              feature.properties.formEreformed = mgeoj.deprop(feature) // store ereform
-              feature.properties.nodeEreformed = mproj3ct(feature.properties.nodeConformed, ereformion)   //
-              nodeConformed => nodeEreformed
-            } else {
-              feature.properties.nodeEreformed = feature.properties.nodeConformed
-            }
+        //md:    EREFORM  - ereform the conformed geofold
+        //md:     uniwen: prerotation, tranlations, scale, project, rotation
+        //md:     geonode in geonode..nodeProformed - retains GEOFORM domain
+        if (payload.ereform) {
+          let ereformion = mprofier.ereformion(anigram)
+          feature = mproj3ct(feature, ereformion)
+          feature.properties.formEreformed = mgeoj.deprop(feature) // store ereform
+          feature.properties.nodeEreformed = mproj3ct(feature.properties.nodeConformed, ereformion)   //
+          nodeConformed => nodeEreformed
+        } else {
+          feature.properties.nodeEreformed = feature.properties.nodeConformed
+        }
 
-            //md:    PROFORM  - ereform the ereformed geofold
-            //md:     uniwen: prerotation, tranlations, scale, project, rotation
-            //md:     geonode in geonode..nodeProformed - retains GEOFORM domain
-            if (payload.proform) {
-              let proformion = mprofier.proformion(anigram)
-              feature = mproj3ct(feature, proformion)
-              //md:     nodeEreformed from nodeProformed
-              feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion)
-            } else {
-              feature.properties.nodeProformed = feature.properties.nodeEreformed
-            }
-            
-            return feature
+        //md:    PROFORM  - ereform the ereformed geofold
+        //md:     uniwen: prerotation, tranlations, scale, project, rotation
+        //md:     geonode in geonode..nodeProformed - retains GEOFORM domain
+        if (payload.proform) {
+          let proformion = mprofier.proformion(anigram)
+          feature = mproj3ct(feature, proformion)
+          //md:     nodeEreformed from nodeProformed
+          feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion)
+        } else {
+          feature.properties.nodeProformed = feature.properties.nodeEreformed
+        }
+        
+        return feature
       })
         
         let gjcollection = {type: 'FeatureCollection', features}

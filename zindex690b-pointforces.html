@@ -19,7 +19,7 @@
 
 let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, key: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, img: 1, wen: 1, webgl: 0, key: 1}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
     mpacer = __mapper('xs').m('pacer'),
@@ -85,23 +85,11 @@ let muonAlima = function (__mapper) {
     payload: {
       tim: tim,
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natroot'},
-      proform: {
-        'projection': 'uniwen',
-        'translate': [0, 0, 0],
-        'scale': 1,
-        'rotate': [ 0, 0, 0 ],
-        'lens': [0, 1, 12]
-      },
+      proform: {'projection': 'uniwen','translate': [0, 0, 0],'scale': 1,'rotate': [ 0, 0, 0 ],'lens': [0, 1, 12]},
       boform: boform,
 
       pacer: {
-        initN: 0,
-        eventN: 1,
-        autoN: 2,
-        autoP: 0.01,
-        outtimed: 0,
-        maxN: 60,
-        span: 15 / 1400,
+        initN: 0,eventN: 1,autoN: 2,autoP: 0.01,outtimed: 0,maxN: 60,span: 15 / 1400,
 
         // geojsor: (p, i, k) => {
         geojsor: (p, count) => {
