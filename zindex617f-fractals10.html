@@ -37,9 +37,11 @@ let muonAlima = function muonAlima (__mapper) {
     mproj3ct = __mapper('xs').m('proj3ct')
 
     const pi = Math.PI, pi2 = 2 * pi,
-      turn = 2 * Math.PI // 360
+      turn = 2 * Math.PI // 360,
+      tau = 2 * Math.PI
 
 
+    let tim = {'td': 4 ** 2 * 9000, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}      
 
     let _NAME = 'anis'
       _ROW = 2,
@@ -88,7 +90,6 @@ let muonAlima = function muonAlima (__mapper) {
 
       payload: {
 
-      // tim: {'td': cyclet * _LEVEL, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
         ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
         boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
         proform: {
@@ -182,7 +183,8 @@ let muonAlima = function muonAlima (__mapper) {
 
       payload: {
 
-        tim: {'td': 4 * 4 * 12000, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+        // tim: {'td': 4 * 4 * 12000, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+        tim: tim,
         ric: {'gid': 'fractal', 'cid': 'fractal'},  // fid undefined
         boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
 
@@ -193,14 +195,13 @@ let muonAlima = function muonAlima (__mapper) {
         fractal: {
 
 
-            timelevel: 300,
-            level: [[[4,8]]],
+            level: [[[4,6]]],
             rad0: 60,
             sides: 6,
             
             cfi: function(level) { return 100 * level },
             rad: function(level, rad0) { return rad0 / Math.pow(2, level) },
-            ang: function(level, sides) { return [[[ 0, (-1)**(level) * (sides-1)**(level - 1) * 360 ]]]},
+            ang: function(level, sides) { return (level===0) ? [[[ 0, tau * 2 ]]] : [[[ 0, (-1)**(level) * (sides-1)**(level) * tau * 2]]] },
             zcoef: function(rad, ang)  {
                 let ret = Complex({re: rad * Math.cos(ang),im: rad * Math.sin(ang)})
 
@@ -209,6 +210,9 @@ let muonAlima = function muonAlima (__mapper) {
 
             avatars: Array.of(traceLine)
 
+            
+            
+            
         },
 
 

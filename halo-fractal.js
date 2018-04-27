@@ -42,9 +42,9 @@
         sides = fractal.sides || 5,
         rad0 = fractal.rad0 || 90
         
-if (1 && 1) console.log("anima", anima.payload.fractal)        
-      let t = tim.unitElapsed  
-  
+      
+      let t = tim.unitPassed // unitElapsed  
+    
       let anitems = []
       for (let i = 0; i < level; i++) {  // for LEVEL i in [0, level)
         let newAnitem = {}
@@ -73,7 +73,11 @@ if (1 && 1) console.log("anima", anima.payload.fractal)
         for (let j = 0; j < i; j++) { // for j in [0, i)
         
           let radj = fractal.rad(j,rad0)
-          let angj = msnap(fractal.ang(j, sides),t)
+          let angt = fractal.ang(j, sides)
+          let angj = msnap(angt, t)
+  if (1 && 1) console.log("t", t, tim)  
+
+        
         
           newAnitem.payload.fractal.fouriercomponent[j] = {
               rad: radj , // angOnLevel(j)
