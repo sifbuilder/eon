@@ -42,7 +42,7 @@
         cfi = fractal.cf, // cf color onlevel
         sides = fractal.sides || 5,
         rad0 = fractal.rad0 || 90,
-        pencilRadious = fractal.pencilRadious || 3
+        pencilRadious = fractal.pencilRadious || 2
 
       let t = tim.unitPassed // unitElapsed
 

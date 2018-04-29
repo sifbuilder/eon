@@ -65,7 +65,7 @@ let muonAlima = function muonAlima (__mapper) {
     let nb = mgeoj.getCoordsLength(gjdata)  // 894
     let proform = {
             projection: 'uniwen',
-            translate: [dx - 930, dy - 200, 0],
+            translate: [dx - 300, dy + 200, 0],
             scale: [rx * 1, ry * 1],
             rotate: [ 0, 0, 0 ],
             lens: [0, 1, Infinity],
@@ -195,7 +195,7 @@ let formPacer = { // SUB-MARKS line trace
       geometry: {
 
         'type': 'Point',
-        'coordinates': [ 100, 50 ]
+        'coordinates': [ 0, 0 ]
 
       },
       properties: {
@@ -212,13 +212,13 @@ let formPacer = { // SUB-MARKS line trace
       boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.3, 0.3]]]},
       proform: {
         projection: 'uniwen',
-        translate: [ 30, 80 ]
+        translate: [ 0, 0 ]
       },
       img: {
         url: 'zimg-img.jpg',
         style: {
-          width: 60 * 7,
-          height: 40 * 7,
+          width: 60 * 10,
+          height: 40 * 10,
           rotate: 0
         }
       }
