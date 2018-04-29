@@ -198,7 +198,6 @@
               iAnitems[i].geofold.properties.pointRadius = nextPointRadius
           }
 
-if (0 && 1) console.log("haloFourier iAnitems", iAnitems)    
 
           anitems = [...anitems, ...iAnitems]
       }

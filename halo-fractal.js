@@ -20,8 +20,9 @@
       height = r.height()
 
     const pi = Math.PI, pi2 = 2 * pi,
-      turn = 2 * Math.PI // 360
-      
+      turn = 2 * Math.PI,
+      tau = 2 * Math.PI
+
     /****************************
    *    @gramm
    */
@@ -30,119 +31,145 @@
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
         geofold = anigram.geofold // geofold
-      
+
       let payload = anigram.payload, // payload
         tim = payload.tim,
         fractal = payload.fractal
-      
+
       let name = fractal.name,
         fider = fractal.fider,
         level = Math.floor(fractal.level) || 2, // level
         cfi = fractal.cf, // cf color onlevel
         sides = fractal.sides || 5,
-        rad0 = fractal.rad0 || 90
-        
-      
-      let t = tim.unitPassed // unitElapsed  
-    
+        rad0 = fractal.rad0 || 90,
+        pencilRadious = fractal.pencilRadious || 3
+
+      let t = tim.unitPassed // unitElapsed
+
+      let fractalZcoef = fractal.zcoef ||  function (idx, arr) { return Complex ({
+                    re: arr[idx].rad * Math.cos(arr[idx].ang),
+                    im: arr[idx].rad * Math.sin(arr[idx].ang)
+      }) }
+
+      let fractalRad = fractal.rad ||  function (idx, arr) { return rad0 / Math.pow(2, idx) }
+      let fractalAng = fractal.ang ||  function (idx, arr)  { return (level===0) ?
+                      [[[ 0, tau * 1 ]]] :      // begin phase
+                      [[[ 0, (-1)**(idx) * (sides-1)**(idx) * tau * 1]]] }
+      let fractalDelta = fractal.zdelta ||  function (idx, arr) { return Complex({re: 0,im: 0}) }
+
       let anitems = []
-      for (let i = 0; i < level; i++) {  // for LEVEL i in [0, level)
-        let newAnitem = {}
-        
-        newAnitem = f.cloneObj(anitems[i - 1] || anigram) // anitems h.nat
-        
+
+      let fouriercomponents = [] //  fourier components [0,level-1]
+      for (let j = 0; j < level; j++) { // for j in [0, i)
+
+        let rad = msnap(fractalRad(j,rad0), t)  // amp time dependent
+        let ang = msnap(fractalAng(j, sides), t)   // phase time dependent
+
+        fouriercomponents[j] = {rad , ang }
+      }
+
+      
+      //md: define cycloids aggregate components [0,level]
+      for (let i = 0; i <= level; i++) {  // for LEVEL i in [0, level-1]
+        let newAnitem = f.cloneObj(anitems[i - 1] || anigram) // anitems h.nat
+ 
         newAnitem.halo = 'ent' // halo
+        newAnitem.payload = newAnitem.payload || {}
+        newAnitem.payload.avatars = newAnitem.payload.avatars || []
+         
         
-        
-        // let ric = f.clone(newAnitem.payload.ric)
-        // if (ric.fid !== undefined) {
-        // } else if (fider !== undefined) {
-          // ric.fid = fider(ric.fid, i)
-        // } else {
-          // ric.fid = name + '_' + i
-        // }
-        // newAnitem.payload.ric = ric
-        
-        newAnitem.payload.ric = {gid:'fractal', cid:'fractal', fid:'fractal' + i }
-        newAnitem.payload.uid = mric.getuid(newAnitem.payload.ric)
-        newAnitem.payload.id = newAnitem.payload.uid
-        
+          let ric = f.clone(anigram.payload.ric)
+          if (ric.fid !== undefined) { // ric.fid = ric.fid
+          } else if (fider !== undefined) { ric.fid = fider(ric.fid, i)
+          } else if (name !== undefined) { ric.fid = name + '_' + i
+          } else { ric.fid = 'fractal' + '_' + i
+          }
+        newAnitem.payload.ric = ric // ric
+        newAnitem.payload.uid = mric.getuid(newAnitem.payload.ric)  // uid
+        newAnitem.payload.id = newAnitem.payload.uid // id
+
         if (cfi !== undefined) newAnitem.payload.boform.cf = cfi(i) // boform
 
-        newAnitem.payload.fractal.fouriercomponent = [] //  fourier components
-        for (let j = 0; j < i; j++) { // for j in [0, i)
+     
         
-          let radj = fractal.rad(j,rad0)
-          let angt = fractal.ang(j, sides)
-          let angj = msnap(angt, t)
-  if (1 && 1) console.log("t", t, tim)  
+        let coef = Complex({re: 0, im: 0})  // location
+          for (let k=0; k<i; k++) {
+            
+            coef = coef.add(fractalZcoef(k, fouriercomponents))
 
-        
-        
-          newAnitem.payload.fractal.fouriercomponent[j] = {
-              rad: radj , // angOnLevel(j)
-              ang: angj
           }
-        }
-        if (0 && 1) console.log("fouriercomponent", i, newAnitem.payload.fractal.fouriercomponent)
-        newAnitem.payload.fractal.coef = d => { // fourier  coef(i)
-          return d.payload.fractal.fouriercomponent.reduce((p, q) => {
-            return p.add(f.zcoef(q.rad, q.ang)) // q
-          }, Complex({re: 0, im: 0}))
-        }
-        
-        newAnitem.payload.fractal.rad = fractal.rad(i,rad0) // rad on fractal form
-          
-        
-        let sinusLocation =  Complex({re: 0, im: 0})
-              .add(newAnitem.payload.fractal.coef(newAnitem))  // set on zcoef = (rad, ang)
-              .toVector()        
-          
-        newAnitem.geofold = d => Object.assign(
-          {
-              type: 'Feature',
-              geometry: {
-                type: 'Point', 
-                coordinates: sinusLocation, 
-              }
-             },
-             { properties:  {  // set properties from anigram payload
-               pointRadius: d.payload.fractal.rad,  // applies to type Point
-               
-               geonode: { // geonode reflects geoform situs where created
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  
-                  coordinates: [0,0] // geonode returns coords to unpositioned avatar
-                    
-                },
+        let sinusLocation =  coef.toVector()  // location
+        let sinusRad = fractalRad(i,rad0) // rad on fractal form
+  
 
-                properties: { // geofold coindices with geonode
+  
+        newAnitem.geofold = {
+              type: 'Feature',
+              geometry: {type: 'Point', coordinates: sinusLocation, },
+              properties:  {  // set properties from anigram payload
+               pointRadius: sinusRad,  // applies to type Point
+               geonode: {
+                type: 'Feature',
+                geometry: {type: 'Point',coordinates: [0,0]},
+                properties: {
                   orgen: [0,0], velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]
                 }
-              },
+              }
             }
           }
+
           
-        ) 
- 
-        if (i === level - 1) { // add avatars to last cycloid
-        
-          newAnitem.payload.avatars = newAnitem.payload.fractal.avatars
           
-        }        
-        
-        
+
+       if (i === level) { // add trace avatars to pencil
+
+          if (newAnitem.payload.fractal.traceLine !== undefined) {
+            newAnitem.payload.avatars.push(newAnitem.payload.fractal.traceLine)
+          }
+          newAnitem.geofold.properties.pointRadius = pencilRadious
+          
+        }
+
+
         anitems[i] = newAnitem
-        
+
       }
-     
-      
+
+          
+      if (fractal.rayLine !== undefined) {
+          for (let i = 0; i < level; i++) {
+          
+            let newAnitem = anitems[i]
+            
+            let rayLine = f.clone(fractal.rayLine)
+              let ric = f.clone(rayLine.payload.ric)
+              if (ric.fid !== undefined) { // ric.fid = ric.fid
+              } else if (fider !== undefined) { ric.fid = fider(ric.fid, i)
+              } else if (name !== undefined) { ric.fid = name + '_' + i
+              } else { ric.fid = 'fractal' + '_' + i
+              }
+            rayLine.payload.ric = ric // ric
+            rayLine.payload.uid = mric.getuid(newAnitem.payload.ric)  // uid
+            rayLine.payload.id = rayLine.payload.uid // id
+           
+            rayLine.geofold.geometry.coordinates = [
+              anitems[i].geofold.geometry.coordinates,
+              anitems[i+1].geofold.geometry.coordinates,
+            ]
+
+            
+            anitems[i].payload.avatars.push(rayLine)
+            
+
+        }
+      }
+          
+
+
       for (let i=0; i<anitems.length; i++) {  // ent will ereform, proform
         newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(anitems[i])]
       }
-      
+
       return newAnigrams
 
     }

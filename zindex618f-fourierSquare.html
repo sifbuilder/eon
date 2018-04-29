@@ -72,12 +72,12 @@ let gjdata = { type: 'MultiLineString', coordinates: basicSquare }
 
 let geoData = mproj3ct(gjdata, mprofier.formion(proform)) 
      geoData = mgeoj.getCoordsInRange(geoData, nb) // MultiLineString
-    if (1 && 1) console.log("geoData", geoData) 
+    if (0 && 1) console.log("geoData", geoData) 
 let transforms = mfourier.transformedCoefs(f.clone(geoData))
 transforms = mgeoj.ntime(transforms, [0,1])
   
  let transformsFC = { type: 'FeatureCollection',features: transforms }
-    if (1 && 1) console.log("transformsFC", transformsFC) 
+    if (0 && 1) console.log("transformsFC", transformsFC) 
 
       
   //md:     @aniDots anima
