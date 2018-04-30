@@ -322,7 +322,12 @@
       let rad = Math.sqrt(x * x + y * y)
       return [ang, 0, rad]
     }
-
+    /***************************
+   *        @numbers
+   */
+   props.grouplinear = d => n => Math.ceil(n / d)
+   props.groupgeometric = d => n => Math.ceil(n ** (1/ d))
+   
     /***************************
    *        @streams
    */
