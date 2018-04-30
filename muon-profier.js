@@ -135,6 +135,7 @@ if (0 && 1) console.log('projdef', anigram, projdef)
             
             translation = protrans
 
+            //md: if projdef.anod, add geofold.geometry.coordinates
             if (projdef.anod && geofold.properties && geofold.properties.geonode) {
               let geonode = geofold.properties.geonode  // geonode
               let nodetranslate = geonode.geometry.coordinates  // geonode coords
