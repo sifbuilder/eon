@@ -229,15 +229,7 @@ let muonAlima = function muonAlima (__mapper) {
               // if (level!==0 && level%2) angn1 = - phase - 1 * tau // evens
               // else angn1 = phase + (sides-1) * tau // evens
 
-              if (level === 1) {
-                angn1 = phase - 1 * tau
-              }
-             if (level === 3) {
-                angn1 = phase + 1 * tau
-              }
-             if (level === 5) {
-                angn1 = phase - 1 * tau
-              }
+                angn1 = phase + (-1)**level * tau
 
 
               let ret = (level===0) ? [[[ ang00 , ang01 ]]] : [[[ angn0, angn1 ]]]
