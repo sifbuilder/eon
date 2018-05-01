@@ -50,8 +50,6 @@ let zFile = options.zindex // from zindex file
 let action = options.action // action
 
 
-
-if (0 && 1) console.log("action", action)
   
   if (action === 'samplify') {
     
@@ -98,36 +96,34 @@ if (0 && 1) console.log("action", action)
       entlist(files, gens, args)
      
   } else if (action === 'mdfy') {
-      
-      let header = `
+    
+    
+     // md string begin
+      let header = ` 
 # d3animas
 
 - space-time manifolds
   
-## Author
+## a story by 
 
 - sifbuilder
 
-based upon
+based on an original idea from
 
-- [x] [Mike Bostock's D3jsv4] (https://github.com/d3)
+- [x] [Mike Bostock's d3] (https://github.com/d3)
 
-with references including
+with references to
 
-- [x] [three.js] (https://threejs.org/)
-- [x] [Mike Bostock’s Blocks] (https://bl.ocks.org/mbostock)
-- [x] [Vasco Asturiano’s Blocks] (https://bl.ocks.org/vasturiano)
-- [x] [Philippe Rivière’s Blocks] (https://bl.ocks.org/fil)
-- [x] [Mike Bostock’s Superformula Explorer Block](http://bl.ocks.org/mbostock/1021103)
-- [x] [Johan Giellis’s paper] (http://www.amjbot.org/content/90/3/333.full.pdf)
-- [x] [Christophe Viau’s D3 plugin based on superformulas.] (https://github.com/d3/d3-plugins/)
-- [x] [Dan Abramov's Redux] (https://github.com/reactjs/redux)
-- [x] [TJ Holowaychuk's frontend-boilerplate] (https://github.com/tj/frontend-boilerplate)
-- [x] [Kent C. Dodds' How to Contribute to an Open Source Project on GitHub] (https://github.com/eggheadio-github/stack-overflow-copy-paste)
+- [x] [Mike Bostock] (https://bl.ocks.org/mbostock)
+- [x] [Ricardo Cabello] (https://threejs.org/)
+- [x] [Vasco Asturiano] (https://bl.ocks.org/vasturiano)
+- [x] [Philippe Rivière] (https://bl.ocks.org/fil)
 
 # License
 
-- MIT`
+- MIT`            // md string end
+
+
 
       let scriptpattern = new RegExp( '^' + 'script', 'i')
       let pattern = '// ///.*' 
@@ -159,16 +155,8 @@ with references including
             readmetxt += arr[1] + '\n'
          }          
         
-        // let found = fileTxt.match(pattern)
-        
-        // if (0 && 1) console.log("readmetxt", readmetxt)
-          
-        // if (found) console.log("file", i, file, found.length)
-        // if (found) console.log("0:", found[0].trim())
-        // if (found) console.log("1:", found[1].trim())
-        // if (found) console.log("index:", pattern)
-        
-      
+        let found = fileTxt.match(pattern)
+     
       
       }
       
