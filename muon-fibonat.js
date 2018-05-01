@@ -8,24 +8,23 @@
 }(this, function (exports) {
   'use strict'
 
-  // refs:
-  // Spreading points on a disc and on a sphere
-  // Marmakoide's Blog
-  // http://blog.marmakoide.org/
+  // md: {filename}
+  // md: ref: Spreading points on a disc and on a sphere
+  // md:     Marmakoide's Blog
+  // md:     http://blog.marmakoide.org/
 
-  // Fibonacci sphere quasi-random radome
-  // Philippe Rivière’s Block 955da86d6a935b26d3599ca5e344fb38
-  // https://bl.ocks.org/fil/955da86d6a935b26d3599ca5e344fb38
+  // md: ref: Fibonacci sphere quasi-random radome
+  // md:     Philippe Rivière’s Block 955da86d6a935b26d3599ca5e344fb38
+  // md:     https://bl.ocks.org/fil/955da86d6a935b26d3599ca5e344fb38
 
   let muonFibonat = function muonFibonat (__mapper = {}) {
     let f = __mapper('props')(),
       mlacer = __mapper('xs').m('lacer'),
       mgeom = __mapper('xs').m('geom')
 
+    let radians = Math.PI / 180, degrees = 180 / Math.PI,
+      sin = Math.sin, cos = Math.cos
 
-  let radians = Math.PI / 180, degrees = 180 / Math.PI,
-    sin = Math.sin, cos = Math.cos
-    
     let cache = {} // payload, string
     cache.string = []
 
@@ -38,7 +37,7 @@
       let dotsInSegment = payload.dotsInSegment || 12
       let offsetstep = payload.offsetstep || 2
       let goldenangle = Math.PI * (3.0 - Math.sqrt(5.0))
-        
+
       let string = []
 
       if (randomize == cache.randomize &&
@@ -97,51 +96,43 @@
       return string
     }
 
-    
-     /* **************************
+    /* **************************
      *        @catesians
      */
     let catesians = function (payload = {}) {
-
-
       const samples = payload.fibonat.samples,
         offsetstep = payload.fibonat.offsetstep,
         xprecision = payload.fibonat.xprecision,
         yprecision = payload.fibonat.yprecision,
         goldenangle = payload.fibonat.goldenangle
 
-
       let rnd = 1.0
 
       const offset = offsetstep / samples
 
       let dots = d3.range(samples)
-      .map( i => {
-        const z = ((i * offset) - 1) + (offset / 2)
+        .map(i => {
+          const z = ((i * offset) - 1) + (offset / 2)
 
           const radius = Math.sqrt(1 - Math.pow(z, 2))
           const phi = ((i + rnd) % samples) * goldenangle
           const x = Math.cos(phi) * radius
           const y = Math.sin(phi) * radius
           return ([x, y, z]) // no conform, scale: 100
-          
-      })
+        })
       let gj = {
         type: 'Feature',
-        geometry: {type: 'LineString', coordinates: dots,},
+        geometry: {type: 'LineString', coordinates: dots},
         properties: {}
       }
 
-
       return gj
-    
     }
-    
-     /* **************************
+
+    /* **************************
      *        @interlinked
      */
     let interlinked = function (payload = {}) {
-
       const samples = payload.fibonat.samples,
         offsetstep = payload.fibonat.offsetstep,
         xprecision = payload.fibonat.xprecision,
@@ -151,47 +142,40 @@
       const offset = offsetstep / samples
 
       let dots = []
-      for (let i=0; i<samples; i++) {
+      for (let i = 0; i < samples; i++) {
         const z = ((i * offset) - 1) + (offset / 2) // , (i*s/n)-1 + s/2n ... 2
-        
 
         if (z <= 1) {
-          
           const radius = Math.sqrt(1 - Math.pow(z, 2))
- 
-          
+
           const phi = ((i + 1) % samples) * goldenangle
-          const lambda = Math.atan2(z,radius)
-          dots.push ([phi * degrees, lambda * degrees, 1]) // proform, scale: 1
+          const lambda = Math.atan2(z, radius)
+          dots.push([phi * degrees, lambda * degrees, 1]) // proform, scale: 1
         }
       }
 
       let lines = []
-      for (let i=0; i<dots.length-2; i++) { // -2
+      for (let i = 0; i < dots.length - 2; i++) { // -2
         lines.push(
 
-            f.interlink(
+          f.interlink(
             [
-              f.arywinclosed(dots[i][0], dots[i+1][0], xprecision),
-              f.arywinclosed(dots[i][1], dots[i+1][1], yprecision)
+              f.arywinclosed(dots[i][0], dots[i + 1][0], xprecision),
+              f.arywinclosed(dots[i][1], dots[i + 1][1], yprecision)
             ]
-            )
+          )
         )
-
       }
-      
+
       let gj = {
         type: 'Feature',
-        geometry: {type: 'MultiLineString', coordinates: lines,},
+        geometry: {type: 'MultiLineString', coordinates: lines},
         properties: {}
       }
-
-
 
       return gj
     }
 
-    
     /***************************
      *        @enty
      */

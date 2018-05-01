@@ -10,7 +10,9 @@
   "bin": {
     "d3animas": "."
   },
-  "dependencies": {},
+  "dependencies": {
+    "eslint": "^4.19.1"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

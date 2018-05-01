@@ -215,9 +215,9 @@ let muonAlima = function muonAlima (__mapper) {
             let k = sides // 1 / Math.pow(2, level)
             
             
-            if        (level === 0) { amp =  rad0            // 0:60
-            } else if (level === 1) { amp = rad0 / 4   // 1:30
-            } else if (level === 2) { amp = rad0 / 4   // 2:30
+            if        (level === 0) { amp = rad0             // 0:60
+            } else if (level === 1) { amp = rad0 / (k - 1)   // 1:30
+            } else if (level === 2) { amp = rad0 / (k - 1)   // 2:30
 
 
             } else                  { amp = rad0 / Math.pow(2, 1) 

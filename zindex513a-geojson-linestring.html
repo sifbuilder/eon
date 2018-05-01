@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="script-enls.js"></script>
+<script src="script-ents.js"></script>
+
+<script>
+
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, img: 0}) // INIT
+
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+    mnat = __mapper('xs').m('nat'),
+    mstore = __mapper('xs').m('store'),
+    mgraticule = __mapper('xs').m('graticule'),
+    mforces = __mapper('xs').m('forces'),
+    mpacer = __mapper('xs').m('pacer'),
+    mric = __mapper('xs').m('ric'),
+    crayder = __mapper('xs').c('rayder'),
+    cwen = __mapper('xs').c('wen')(),
+    cversor = __mapper('xs').c('versor'),
+    mfibonat = __mapper('xs').m('fibonat')
+
+  // md: {filename}
+  // md:   animas: [aniForm]
+  // md:   aniForm.halo:ent
+  // md:   aniForm.geofold is a gj.LineString with geometry.coordinates array
+  // md:   payload.tim.nostop:1 keeps cwen (init.wen:1)
+  // md:   aniForm.payload.proform is uniwen
+  // md:   proform.rotate in z gives planar rotation
+  // md:   proform.prerotate supports wen control rotation
+
+  let aniForm = {
+
+    halo: 'ent',
+
+    geofold: (p) => ({
+      'type': 'Feature',
+      'geometry': {
+        'type': 'LineString',
+        'coordinates': [
+          [60 + 0, 60 + 0],
+          [60 - 120, 60 + 0],
+          [60 - 120, 60 - 120],
+          [60 + 0, 60 - 120],
+          [60 + 0, 60 + 0 ]
+        ]
+      },
+      'properties': {}
+    }),
+
+    payload: {
+      tim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
+      ric: { gid: 'ani', cid: 'ani', fid: 'ani' },
+      boform: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.1, 0.2]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+
+        projection: 'uniwen',
+        scale: 1.0,
+        translate: {'x': 0, 'y': 0 },
+        prerotate: [[[ cwen.rotation ]]],
+        rotate: [ 0, 0, 0 ]
+
+      }
+    }
+  }
+
+  let animas = [
+    aniForm
+  ]
+
+  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

@@ -42,7 +42,7 @@ let muonAlima = function muonAlima (__mapper) {
       tau = 2 * Math.PI
 
 
-    let tim = {'td': 4 ** 2 * 9000, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let tim = {'td': 2 ** 2 * 9000, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let _NAME = 'anis'
       _ROW = 2,
@@ -92,7 +92,7 @@ let muonAlima = function muonAlima (__mapper) {
       payload: {
 
         ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-        boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+        boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.1, 0.1]]], 'cp': [[[0.5, 0.5]]]},
         proform: {
           projection: 'uniwen',
           translate: [ 30, 40 ]
@@ -117,7 +117,7 @@ let muonAlima = function muonAlima (__mapper) {
     halo: 'pacer',
     payload: {
       ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-      boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+      boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.1, 'cp': 0.99},
 
       pacer: { // aad for trace
         stace: {x: { pos: 0 },y: { pos: 0 },z: 0},      //
@@ -185,7 +185,7 @@ let muonAlima = function muonAlima (__mapper) {
 
       payload: {
 
-        // tim: {'td': 4 * 4 * 12000, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+
         tim: tim,
         ric: {'gid': 'fractal', 'cid': 'fractal'},  // fid undefined
         boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
@@ -197,14 +197,11 @@ let muonAlima = function muonAlima (__mapper) {
         fractal: {
 
 
-          
-        
-        
-          level: 3, // [[[2,6]]],
+          level: 3,
           rad0: 60,
           sides: 3,
-          turns: 2, //
-          phase: 0 * tau, //
+          turns: 2,
+          phase: 0 * tau,
 
           rad: function(level, rad0=60, sides) {
 
@@ -212,17 +209,17 @@ let muonAlima = function muonAlima (__mapper) {
             let groupgeometric = f.groupgeometric(2)(level+0.001)
 
             let amp = rad0
-            let k = sides // 1 / Math.pow(2, level)
-if (1 && 1) console.log("k", k)            
+            let k = sides
+         
             
             if        (level === 0) { amp = rad0
+            
             } else if (level === 1) { amp = rad0 / (k - 1)  // -rad0 / (k - 1) 
             } else if (level === 2) { amp = rad0 / (k - 1)
 
 
-            } else                  { amp = rad0 / Math.pow(2, 1)
+            } else                  { amp = rad0 / Math.pow(2, level)
             }
-
 
             return amp
           },
@@ -238,6 +235,7 @@ if (1 && 1) console.log("k", k)
               
 
               if        ( level === 0 ) { angn0 = phase0; angn1 = phase0 + 1 * tau
+              
               } else if ( level === 1 ) { angn0 = phase0; angn1 = phase0 - 0 * tau
               } else if ( level === 2 ) { angn0 = phase0; angn1 = phase0 - (k - 1) * tau
               
