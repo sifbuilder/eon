@@ -196,45 +196,51 @@ let muonAlima = function muonAlima (__mapper) {
         fractal: {
 
 
-          level: 4, // [[[2,6]]],
+          level: 3, // [[[2,6]]],
           rad0: 60,
           sides: 6,
           turns: 2, //
           phase: 0 * tau, //
 
-          rad: function(level=2, rad0=60) {
+          rad: function(level, rad0=60) {
 
             let grouplinear = f.grouplinear(2)(level)
             let groupgeometric = f.groupgeometric(2)(level+0.001)
 
-  
-            let ret = rad0
+            let amp = rad0
 
-            ret =  rad0 / Math.pow(2, grouplinear) 
-            
-              return ret
+            if        (level === 0) { amp = rad0
+            } else if (level === 1) { amp = rad0 / Math.pow(2, 1)
+            } else if (level === 2) { amp = rad0 / Math.pow(2, 1)
+
+
+            } else                  { amp = rad0 / Math.pow(2, 1)
+            }
+
+
+            return amp
           },
 
 
-          ang: function(level=2, sides=4, phase=0) {
+          ang: function(level=2, sides=4, phase0=0) {
 
             let grouplinear = f.grouplinear(2)(level)
 
-              let ang00 = phase + 0
-              let ang01 = phase + 1 * tau
-              let angn0 = phase + 0
+
+              let angn0 = 0,
+                  angn1 =0
               
-              // let angn1 = phase + (-1)**(level) * (sides-1)**(level) * tau
-              // let angn1 = phase + 2 *  tau
 
-              // if (level!==0 && level%2) angn1 = - phase - 1 * tau // evens
-              // else angn1 = phase + (sides-1) * tau // evens
+              if        ( level === 0 ) { angn0 = phase0; angn1 = phase0 + 1 * tau
+              } else if ( level === 1 ) { angn0 = phase0; angn1 = phase0 - 0 * tau
+              } else if ( level === 2 ) { angn0 = phase0; angn1 = phase0 - 2 * tau
+              
+   
+              } else                    { angn0 = phase0; angn1 = phase0 + (-1)**(level) * (sides-1)**(level) * tau
+              }
 
-                angn1 = phase + (-1)**level * (sides-1)**(level) * tau
-
-
-              let ret = (level===0) ? [[[ ang00 , ang01 ]]] : [[[ angn0, angn1 ]]]
-              return ret
+              let phase = [[[ angn0, angn1 ]]]
+              return phase
           },
 
 

@@ -38,7 +38,7 @@
 
       let name = fractal.name,
         fider = fractal.fider,
-        level = Math.floor(fractal.level) || 2, // level
+        level = (fractal.level !== undefined) ? Math.floor(fractal.level) : 2,
         cfi = fractal.cf, // cf color onlevel
         sides = fractal.sides || 5,
         rad0 = fractal.rad0 || 90,
@@ -62,7 +62,7 @@
       let fouriercomponents = [] //  fourier components [0,level-1]
       for (let j = 0; j < level; j++) { // for j in [0, i)
 
-        let rad = msnap(fractalRad(j,rad0), t)  // amp time dependent
+        let rad = msnap(fractalRad(j, rad0), t)  // amp time dependent
         let ang = msnap(fractalAng(j, sides), t)   // phase time dependent
 
         fouriercomponents[j] = {rad , ang }
