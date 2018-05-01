@@ -62,7 +62,7 @@
       let fouriercomponents = [] //  fourier components [0,level-1]
       for (let j = 0; j < level; j++) { // for j in [0, i)
 
-        let rad = msnap(fractalRad(j, rad0), t)  // amp time dependent
+        let rad = msnap(fractalRad(j, rad0, sides), t)  // amp time dependent
         let ang = msnap(fractalAng(j, sides), t)   // phase time dependent
 
         fouriercomponents[j] = {rad , ang }
