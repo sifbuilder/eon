@@ -8,6 +8,9 @@
 }(this, function (exports) {
   'use strict'
 
+  
+  
+  
   let muonProfier = function muonProfier (__mapper = {}) {
     let f = __mapper('props')(),
       cwen = __mapper('xs').c('wen')(),
@@ -91,14 +94,26 @@
       }
 
 
-    /* ***************************
- *      ##formion
- *       
+ 
 
- */
+    //md: ##formion
+    //md: - projdef
+    //md: - anigram
+    //md: get projection from projdef and apply projection properties
+    //md:  if projdef is not defined, uniwen with default configuration
+    //md:  if projdef.projection is not defined, idem.
+    //md:
+    //md:  if projdef includes anod, add geonode location to translate
+    //md:
+    //md:  if control:wen, wen control rotation
+    //md:  if control:versor, versor control rotation
+    //md:  if projdef.rotate is 2d, z rotation
+    //md:
+    //md:  if projdef.rotate is defined, projection rotation is calculated
+    //md:   if projdef.anod, add geofold.geometry.coordinates
+    
     let formion = function (projdef, anigram = {}) {
 
-if (0 && 1) console.log('projdef', anigram, projdef)
 
       let projection
       let projname
@@ -135,7 +150,6 @@ if (0 && 1) console.log('projdef', anigram, projdef)
             
             translation = protrans
 
-            //md: if projdef.anod, add geofold.geometry.coordinates
             if (projdef.anod && geofold.properties && geofold.properties.geonode) {
               let geonode = geofold.properties.geonode  // geonode
               let nodetranslate = geonode.geometry.coordinates  // geonode coords
@@ -178,6 +192,7 @@ if (0 && 1) console.log('projdef', anigram, projdef)
 
 
             let prerotate = projdef.prerotate
+if (1 && 1) console.log("prerotate",projdef, prerotate)            
             if (prerotate) rot = mgeom.add(rot, prerotate) // ADD prerotate
 
 
@@ -262,23 +277,7 @@ if (0 && 1) console.log('projdef', anigram, projdef)
  *      @enty
  */
 
- 
 
-    // ***************************
-    // // ##formion
-    // // - projdef
-    // // - anigram
-    // // get projection from projdef and apply projection properties
-    // //  if projdef is not defined, uniwen with default configuration
-    // //  if projdef.projection is not defined, idem.
-    // //
-    // //  if projdef includes anod, add geonode location to translate
-    // //
-    // //  if control:wen, wen control rotation
-    // //  if control:versor, versor control rotation
-    // //  if projdef.rotate is 2d, z rotation
-    // //
-    // //  if projdef.rotate is defined, projection rotation is calculated
  
  
    let enty = function () {}

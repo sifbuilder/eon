@@ -149,27 +149,27 @@ with references to
         let fileName = files[i]
         let fileTxt = fs.readFileSync(fileName,"utf8")
 
-        let nameFindPattern = /\/\/md: (\{filename\})/mg
-        let nameReplacePattern = /\{filename\}/i
+        let nameFindPattern = /md:(\{filename\})/mg
+        let nameReplacePattern = /md:\{filename\}/i
          var nameArr
          while ((nameArr = nameFindPattern.exec(fileTxt)) !== null) {
             fileTxt = fileTxt.replace(nameReplacePattern, fileName)
          }        
         
         
-        // const mdpattern = /\/\/md:(.*)/mg   // //md:
-        // var arr
-        // while ((arr = mdpattern.exec(fileTxt)) !== null) {
-            // console.log ('0', arr[1])
-            // readmetxt += arr[1] + '\n'
-        // }
+        const mdpattern = /\/\/md:(.*)/mg   // //md:
+        var arr
+        while ((arr = mdpattern.exec(fileTxt)) !== null) {
+            console.log ('0', arr[1])
+            readmetxt += arr[1] + '\n'
+        }
 
 
 
       }
 
 
-      // fs.writeFileSync(readmefile,readmetxt);
+      fs.writeFileSync(readmefile,readmetxt);
 
 
   }

@@ -17,13 +17,16 @@
 
 <script>
 
+  //md: md:{filename}
+  
+
 let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
-    g = __mapper('xs').m('geom'),
-    w = __mapper('xs').m('wen'),
+    mgeom = __mapper('xs').m('geom'),
+    mwen = __mapper('xs').m('wen'),
     mnat = __mapper('xs').m('nat'),
     mgraticule = __mapper('xs').m('graticule'),
     cwen = __mapper('xs').c('wen')()    
@@ -57,12 +60,8 @@ let muonAlima = function (__mapper) {
     __mapper('controlKey').subscribe(controltimerUpArrowAlt, 'upArrowAlt')
   }
 
-  /*******************************************
- *    @controls
- *
- */
-	// z.dom3: [-180, [[[160,180,180]]] ]
-	// payload.frame: [-0, 180, 22.5, 22.5]
+
+
   let tim = {'td': 22800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   let form = {
@@ -84,10 +83,6 @@ let muonAlima = function (__mapper) {
     }
   }
 
-  /* ******************************************
- *      @natform
- *
- */
   let natform = {
 
     halo: 'ent',
@@ -113,7 +108,11 @@ let muonAlima = function (__mapper) {
 
   }
 
-  // -------------------------------  gratform
+//md: anima gratform is a h.ent with geofold from mgraticule.gedges
+//md:   proform is uniwen with prerotate:cwen.rotation
+//md:   p.proform is uniwen with prerotate:cwen.rotation
+//md:   p.graticule is dynamic frame
+
   let gratform = {
 
     halo: 'ent',
@@ -134,16 +133,16 @@ let muonAlima = function (__mapper) {
       },
       
       proform: {
-        'projection': 'uniwen',
-        'prerotate': [[[ cwen.rotation ]]],        
-        'translate': [ 0, 0],
-        'scale': 100,
-        'rotate': [0, 0, 0],
-        'lens': [ 0,1,Infinity ],
+        projection: 'uniwen',
+        prerotate: [[[ cwen.rotation ]]],        
+        translate: [ 0, 0],
+        scale: 100,
+        rotate: [0, 0, 0],
+        lens: [ 0,1,Infinity ],
       },
 
 
-      'graticule': {
+      graticule: {
 
         // 'frame': [ [ [-180, 180, 15, 15], [-90, [[[0,90]]], 22.5, 22.5] ],
                   // [ [-180, 180, 15, 15], [-90, [[[0,90]]], 22.5, 22.5] ] ]
@@ -152,7 +151,7 @@ let muonAlima = function (__mapper) {
                   // [ [-180, 180, 180, 30], [-0, 180, 360, 30] ] ]
 
 
-        'frame': [ [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ],
+        frame: [ [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ],
                   [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ] ]
 
       }
@@ -160,46 +159,7 @@ let muonAlima = function (__mapper) {
     }
 
   }
-	  // -------------------------------  img
-  let img = {
 
-    halo: 'img',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }
   /*******************************************
  *      @animaApi
  *
@@ -209,7 +169,7 @@ let muonAlima = function (__mapper) {
 
     // natform, // h.ent
     gratform,      // h.ent
-		img // h.img
+
 
   ]
 

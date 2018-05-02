@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: {filename}
+  // md: md:{filename}
   // md: ref: Spreading points on a disc and on a sphere
   // md:     Marmakoide's Blog
   // md:     http://blog.marmakoide.org/

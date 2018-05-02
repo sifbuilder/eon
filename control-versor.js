@@ -9,6 +9,9 @@
 }(this, function (exports) {
   'use strict'
 
+  
+   //md: md:{filename}
+  
   let controlVersor = function (__mapper = {}) {
 
     let d3Drag = d3,
@@ -210,7 +213,6 @@
         state.vel_spher[1] *= state.decay
 
         // -----------------    
-if (0 && 1) console.log("rotInDrag_grads", state.rotInDrag_grads)
   
         let vel = mgeom.cartesian(state.vel_spher)
 

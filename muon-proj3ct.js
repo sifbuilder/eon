@@ -8,8 +8,10 @@
 }(this, function (exports) {
   'use strict'
 
-  // https://d3js.org/d3-geo-projection/ V
-  // Copyright 2017 Mike Bostock.
+  //md: md:{filename}
+  //md:  https://d3js.org/d3-geo-projection/
+  //md:  Copyright 2017 Mike Bostock.
+  //md:     proj3ct(gj, projection)
 
   var muonProj3ct = function (__mapper = {}) {
     
@@ -100,7 +102,6 @@
       // return sink.result()
 
       let ret = sink.result()
-if (0 && 1) console.log("ret", o , ret)      
       return ret
     }
 

@@ -17,17 +17,16 @@
 
 <script>
 
+
+
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1})
 
-  let f = __mapper({'props': muonProps.muonProps()}).props()
-  let g = __mapper('xs').m('geom')
-  let w = __mapper('xs').m('wen')
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+    mgeom = __mapper('xs').m('geom'),
+    mwen = __mapper('xs').m('wen')
 
-  /**********************
-   *    @
-   */
   let r = __mapper('xs').r('renderport'),
     width = r.width(),
     height = r.height()
@@ -37,14 +36,10 @@ let muonAlima = function muonAlima (__mapper) {
     rotMatrix,
     stars = []
 
-  let versor = __mapper('xs').m('versor')()
-  let wen = __mapper('xs').c('wen')({rotInit})
+  let mversor = __mapper('xs').m('versor')()
+  let cwen = __mapper('xs').c('wen')({rotInit})
 
-  /*******************************************
- *      @pics
- *
- */
-  let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
 
   /*******************************************
  *      @animas
@@ -84,16 +79,17 @@ let muonAlima = function muonAlima (__mapper) {
 
     payload: {
 
-      tim: tim,
+      tim: {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
       ric: {'gid': 'aniCube', 'cid': 'aniCube', 'fid': 'aniCube'},
       boform: { 'csx': 0, 'cf': 111, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
 
       proform: {
-        'projection': 'uniwen',
-        'translate': [ 280 - 300, 200 - 200],
-        'scale': 60,
-        'rotate': [-5, 50, 0],
-        'lens': [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 4 ],
+        projection: 'uniwen',
+        translate: [ 280 - 300, 200 - 200],
+        scale: 60,
+        rotate: [-5, 50, 0],
+        lens: [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 4 ],
+        prerotate: [[[ cwen.rotation ]]],
       },
 
       points: [
@@ -137,55 +133,12 @@ let muonAlima = function muonAlima (__mapper) {
 
     }
   }
-  // -------------------------------  img
-  let img = {
 
-    halo: 'img',
 
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }
-
-  /*******************************************
- *      @animas
- *
- */
   let animas = [
     aniCube, // h.ent g.uniwen
-    img // h.img
   ]
+  
   let animaApi = function animaApi () {
     __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
   }

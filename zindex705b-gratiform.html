@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="script-enls.js"></script>
+<script src="script-ents.js"></script>
+
+<script>
+
+// md: md:{filename}
+// md: ref: https://en.wikipedia.org/wiki/Surface_of_revolution
+
+let muonAlima = function (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, key: 1, img: 1}) // INIT
+
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+    mnat = __mapper('xs').m('nat'),
+    mstore = __mapper('xs').m('store'),
+    mgraticule = __mapper('xs').m('graticule'),
+    mforces = __mapper('xs').m('forces'),
+    mpacer = __mapper('xs').m('pacer'),
+    mric = __mapper('xs').m('ric'),
+    crayder = __mapper('xs').c('rayder'),
+    cwen = __mapper('xs').c('wen')(),
+    cversor = __mapper('xs').c('versor')
+
+  let r = __mapper('xs').r('renderport'),
+    width = r.width(),
+    height = r.height()
+
+  let radians = Math.PI / 180, degrees = 180 / Math.PI,
+    sin = Math.sin, cos = Math.cos
+
+
+  let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+  let formGrat = {
+    'x': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180],
+      'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r) * c * cos(u)
+      // 'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => a * cos(r)
+
+    },
+    'y': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180],
+      // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(r) * c * cos(u)
+      'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => b * sin(r)
+    },
+    'z': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+      'dom3': [-90, 90],
+      'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => u
+
+    },
+    'r': {
+      // 'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+      // 'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
+      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180],
+      'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => c
+
+    }
+  }
+
+  let frame = [ [ [ -180, 180, 90, 5], [ -180, 180, 30, 5] ] ]
+
+  let formSphere = {
+    'x': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180],
+      'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => a * cos(r) * c * cos(u)
+
+    },
+    'y': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180],
+      'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => b * sin(r) * c * cos(u)
+    },
+    'z': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180],
+      'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => d * sin(v)
+
+    }
+  }
+
+  let proform = {
+    projection: 'uniwen',
+    prerotate: [[[ cwen.rotation ]]],
+    translate: [0, 0, 0],
+    scale: 1,
+    rotate: [ 0, 0, 0],
+    lens: [ 0, 1, Infinity ]
+  }
+  /*******************************************
+ *      @animas
+ *
+ */
+  // -------------------------------  gratForm
+  let gratForm = {
+
+    halo: 'ent',
+
+    geofold: p => mgraticule.gedges(p.payload.graticule), // pedges
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratForm'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
+
+      conform: formGrat,
+
+      proform,
+
+      graticule: frame
+
+    }
+
+  }
+  // -------------------------------  sphereForm
+  let sphereForm = {
+
+    halo: 'ent',
+
+    geofold: p => mgraticule.gedges(p.payload.graticule),
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereForm'},
+      boform: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.1, 'cp': 0.9 },
+
+      conform: formSphere,
+
+      proform,
+
+      graticule: frame
+
+    }
+
+  }
+
+  /*******************************************
+ *      @animaApi
+ *
+ */
+
+  let animas = [
+
+    gratForm, // h.ent
+    sphereForm, // h.ent
+
+  ]
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>
