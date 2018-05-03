@@ -39,16 +39,21 @@ let muonAlima = function muonAlima (__mapper) {
     mproj3ct = __mapper('xs').m('proj3ct'),
     rrenderport = __mapper('xs').r('renderport')
 
-    //md:     tim
     let tim = {'td': 43800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    //md:     data
-    let svgdata = __mapper('xs').d('path').data() // path data
-    let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
-    let x0 = extent[0], y0= extent[1], x1 = extent[2], y1= extent[3]
-    
     let width = rrenderport.width(),
       height = rrenderport.height()
+      
+    //md:     img url is zimg-img.jpg
+    let imgurl = 'zimg-img.jpg'
+    let dataurl = 'path'
+    
+    //md:     data from d.path
+    let svgdata = __mapper('xs').d(dataurl).data() // path data :
+      
+    let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
+    let x0 = extent[0], y0= extent[1], x1 = extent[2], y1= extent[3]
+
     
     let r0 = width / (x1 - x0)
     let r1 = height / (y1 - y0)
@@ -62,13 +67,14 @@ let muonAlima = function muonAlima (__mapper) {
     let gjdata = msvg.castels(svgdata, {start:0, stop:0.9, step:0.091} )
 
     
-    let nb = mgeoj.getCoordsLength(gjdata)  // 894
+    let nb = mgeoj.getCoordsLength(gjdata)
+    
+    // proform translates to cent
     let proform = {
             projection: 'uniwen',
-            translate: [dx - 300, dy + 200, 0],
+            translate: [dx - 0, dy + 0, 0],
             scale: [rx * 1, ry * 1],
-            rotate: [ 0, 0, 0 ],
-            lens: [0, 1, Infinity],
+            rotate: [ 0, 0, 0 ], lens: [0, 1, Infinity],
     }
     let geoData = mproj3ct(gjdata, mprofier.formion(proform))
     
@@ -108,7 +114,7 @@ let formPacer = { // SUB-MARKS line trace
       }
     }
 
-//md:     polyForm anima
+    //md:     polyForm anima  h.formed
     let polyForm = {
 
       halo: 'formed',
@@ -215,7 +221,7 @@ let formPacer = { // SUB-MARKS line trace
         translate: [ 0, 0 ]
       },
       img: {
-        url: 'zimg-img.jpg',
+        url: imgurl,
         style: {
           width: 60 * 10,
           height: 40 * 10,
@@ -225,10 +231,6 @@ let formPacer = { // SUB-MARKS line trace
 
     }
   }
-  /*******************************************
- *    @enty
- *
- */
 
 
   let animas = [

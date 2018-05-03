@@ -35,16 +35,9 @@ let muonAlima = function muonAlima (__mapper) {
   const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
 
-  /*******************************************
- *      @pics
- *
- */
   let tim = {td: 513800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1}
   
-  /*******************************************
- *      @animas
- *
- */
+
 
   let seedForm = { // SUB-MARKS line trace
 
@@ -150,34 +143,31 @@ let muonAlima = function muonAlima (__mapper) {
         },
 
 
-      proform: { // proform in the geographic domain
+        proform: { // proform in the geographic domain
 
-        projection: 'orthographic',
-        scale: 90, // correlation between geometric and geographic
-        prerotate: [[[ cversor.rotation ]]],
-        translate: [0, 0],
-        rotate: [ 0, 0 ]
+          projection: 'orthographic',
+          scale: 90, // correlation between geometric and geographic
+          prerotate: [[[ cversor.rotation ]]],
+          translate: [0, 0],
+          rotate: [ 0, 0 ]
 
-      },        
-        // avatars: {
-          // seedForm,
-        // },
-        
+        },        
+
         fractal: {
 
           depth: 6,
-          rad: 30,
+          rad0: 30,
           sides: 6,
           anginit: 0,
           coef: d => ({re:0,im:0}),
 
-          radOnLevel: function(level) {
+          rad: function(level) {
             return (level === 0) ? this.rad : this.rad / (Math.pow(2, level))
           },
 
 
           angOnLevel: function(level) {
-            // (level === 0) ? [[[ 0, pi2 ]]] : [[[ 0, (1) ** (level) * (6 - 1) ** (level) * pi2 ]]]
+
             return (level === 0) ? [[[ 0, pi2 ]]] : [[[ 0, (-1) ** (level) * (this.sides - 1) ** (level) * pi2 ]]]
           },
 
@@ -226,46 +216,7 @@ let muonAlima = function muonAlima (__mapper) {
 
       }
     }
-	  // -------------------------------  img
-  let img = {
-
-    halo: 'img',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }    
+ 
   /*******************************************
  *    @enty
  *
@@ -275,7 +226,7 @@ let muonAlima = function muonAlima (__mapper) {
   let animas = [
     sphereForm, // h.ent
     parentForm, // h.fractal
-    img // h.img
+
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

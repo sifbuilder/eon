@@ -157,46 +157,7 @@ let muonAlima = function (__mapper) {
     }
 
   }
-	  // -------------------------------  img
-  let img = {
 
-    halo: 'img',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }
   /*******************************************
  *      @animaApi
  *
@@ -206,7 +167,7 @@ let muonAlima = function (__mapper) {
 
     // natform, // h.ent
     gratform,      // h.ent
-		img // h.img
+
 
   ]
 

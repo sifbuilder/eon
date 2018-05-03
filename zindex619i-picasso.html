@@ -21,7 +21,7 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 0, webgl: 0, img: 1}) // INIT
     
-  //md: ## z.619d-lichtenstein d.lichtenstein h.formed
+  //md: ## md:{filename}
   
   let f = __mapper({props: muonProps.muonProps()}).props(),
     mnat = __mapper('xs').m('nat'),
@@ -36,21 +36,46 @@ let muonAlima = function muonAlima (__mapper) {
     msvg = __mapper('xs').m('svg'),
     mgeoj = __mapper('xs').m('geoj'),
     mprofier = __mapper('xs').m('profier'),
-    mproj3ct = __mapper('xs').m('proj3ct')
+    mproj3ct = __mapper('xs').m('proj3ct'),
+    rrenderport = __mapper('xs').r('renderport')
 
-    //md:     tim
+
     let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    //md:     data
-    let svgdata = __mapper('xs').d('picasso').data()
-    let gjdata = msvg.castels(svgdata, {start:0, stop:0.9, step:0.33} )
-    let nb = mgeoj.getCoordsLength(gjdata)  // 894
+    let width = rrenderport.width(),
+      height = rrenderport.height()
+      
+    //md:     img url is zimg-img.jpg
+    let imgurl = 'zimg-picasso.png'
+    let dataurl = 'picasso'
+    
+    //md:     data from d.path
+    let svgdata = __mapper('xs').d(dataurl).data() // path data :
+      
+    let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
+    let x0 = extent[0], y0= extent[1], x1 = extent[2], y1= extent[3]
+
+    
+    let r0 = width / (x1 - x0)
+    let r1 = height / (y1 - y0)
+    let rx = Math.sign(r0) * Math.min(Math.abs(r0), Math.abs(r1))
+    let ry = - Math.sign(r1) * Math.min(Math.abs(r0), Math.abs(r1))
+    
+    let dx = - (width - (x1 - x0)) / 2
+    let dy = - (height - (y1 - y0)) / 2
+    
+      
+    let gjdata = msvg.castels(svgdata, {start:0, stop:0.9, step:0.091} )
+
+    
+    let nb = mgeoj.getCoordsLength(gjdata)
+    
+    // proform translates to cent
     let proform = {
             projection: 'uniwen',
-            translate: [-220, 180, 0],
-            scale: [0.65, -0.65],
-            rotate: [ 0, 0, 0 ],
-            lens: [0, 1, Infinity],
+            translate: [dx - 0, dy + 0, 0],
+            scale: [rx * 1, ry * 1],
+            rotate: [ 0, 0, 0 ], lens: [0, 1, Infinity],
     }
     let geoData = mproj3ct(gjdata, mprofier.formion(proform))
 
@@ -90,7 +115,7 @@ let formPacer = { // SUB-MARKS line trace
       }
     }
 
-//md:     polyForm anima
+//md:     polyForm anima  h.formed
     let polyForm = {
 
       halo: 'formed',
@@ -191,7 +216,7 @@ let formPacer = { // SUB-MARKS line trace
         translate: [ 30, 80 ]
       },
       img: {
-        url: 'zimg-picasso.png',
+        url: imgurl,
         style: {
           width: [[[150, 150]]],
           height: [[[100, 100]]],
@@ -201,15 +226,11 @@ let formPacer = { // SUB-MARKS line trace
 
     }
   }
-  /*******************************************
- *    @enty
- *
- */
 
 
   let animas = [
+    img, // h.img
     polyForm,
-    img // h.img
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

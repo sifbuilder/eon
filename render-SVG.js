@@ -143,7 +143,7 @@
  */
 
     let render = function (elapsed, featurecollection, maxlimit) {
-      if (0 && 1) console.log('state.animas featurecollection', featurecollection)
+      if (1 && 1) console.log('state.animas featurecollection', featurecollection)
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties

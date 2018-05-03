@@ -45,40 +45,6 @@ let muonAlima = function (__mapper) {
 
   let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  let formGrat = {
-    'x': {
-      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
-      'dom3': [-180, 180],
-      'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r) * c * cos(u)
-      // 'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => a * cos(r)
-
-    },
-    'y': {
-      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
-      'dom3': [-180, 180],
-      // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(r) * c * cos(u)
-      'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => b * sin(r)
-    },
-    'z': {
-      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
-      'dom3': [-90, 90],
-      'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => u
-
-    },
-    'r': {
-      // 'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
-      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-      // 'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
-      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
-      'dom3': [-180, 180],
-      'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => c
-
-    }
-  }
-
   let frame = [ [ [ -180, 180, 90, 5], [ -180, 180, 30, 5] ] ]
 
   let formSphere = {
@@ -112,32 +78,7 @@ let muonAlima = function (__mapper) {
     rotate: [ 0, 0, 0],
     lens: [ 0, 1, Infinity ]
   }
-  /*******************************************
- *      @animas
- *
- */
-  // -------------------------------  gratForm
-  let gratForm = {
 
-    halo: 'ent',
-
-    geofold: p => mgraticule.gedges(p.payload.graticule), // pedges
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratForm'},
-      boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
-
-      conform: formGrat,
-
-      proform,
-
-      graticule: frame
-
-    }
-
-  }
   // -------------------------------  sphereForm
   let sphereForm = {
 
@@ -168,7 +109,7 @@ let muonAlima = function (__mapper) {
 
   let animas = [
 
-    gratForm, // h.ent
+
     sphereForm, // h.ent
 
   ]

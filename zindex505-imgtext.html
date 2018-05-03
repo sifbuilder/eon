@@ -34,49 +34,7 @@ let muonAlima = function muonAlima (__mapper) {
  *
  */
 
-  // -------------------------------  img
-  let img = {
 
-    halo: 'img',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 5, 20 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim: tim,
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-
-      proform: {
-        'projection': 'uniwen',
-        'translate': [ [[[30, 60]]], 40 ]
-      },
-
-      'img': {
-        'url': 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 120]]],
-          'height': [[[40, 80]]],
-          'rotate': [[[ 0, -9 ]]]
-        }
-
-      }
-
-    }
-  }
   // -------------------------------  text
   let text = {
 
@@ -87,7 +45,7 @@ let muonAlima = function muonAlima (__mapper) {
       geometry: {
 
         'type': 'Point',
-        'coordinates': [490, 180]
+        'coordinates': [-200, 0]
 
       },
       properties: {
@@ -107,7 +65,7 @@ let muonAlima = function muonAlima (__mapper) {
         'translate': [ 30, 40 ]
       },
       'text': {
-        'text': 'e',
+        'text': 'text',
         'style': {
           'rotate': [[[ 0, 1 ]]],
           'font-size': [[[1, 6]]],
@@ -281,20 +239,8 @@ let muonAlima = function muonAlima (__mapper) {
         'translate':
           [ [0, 0, 0],
             [[[ {
-              'm1': 4,
-              'm2': 4,
-              'n1': 2,
-              'n2': 2,
-              'n3': 2,
-              'a': 4,
-              'b': 2, // circle
-              'ra2': 12,
-              'v0': 0,
-              'v1': 1,
-              'w4': 0,
-              'seg5': 360,
-              'pa6': 0,
-              'pb7': -1,
+              'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
+              'ra2': 12,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
               
             } ]]] ],
         'scale': 1.75,
@@ -384,11 +330,11 @@ let muonAlima = function muonAlima (__mapper) {
 
   let animas = [
 
-    img, // h.img
+
     text, // h.text
 
-    fibonat, // h.ent
-    earthnat // h.ent
+    // fibonat, // h.ent
+    // earthnat // h.ent
 
   ]
 

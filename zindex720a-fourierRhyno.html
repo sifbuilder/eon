@@ -17,7 +17,7 @@
 
 <script>
   
-  //md: z.618b-fourierRhyno
+  //md: md:{filename}
   //md: rhyno data from m.animas
   
 let muonAlima = function muonAlima (__mapper) {
@@ -41,20 +41,13 @@ let muonAlima = function muonAlima (__mapper) {
   let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   
-  //md:   data    
+  //md:   data from m.animas('shapes').rhyno unframed
   //md:   defined as (closed) LineString gemetry.coordinates 
   //md:   mfourier.transformedCoefs(tfeature) 
   let svgdata = JSON.parse(manimas('shapes').rhyno)
   let data = {type: 'Feature',geometry: {type: 'LineString',coordinates: svgdata} }
 
-          let proform = {
-            projection: 'uniwen',
-            translate: [ -150, 125 ],
-            scale: [1, -1],
-            rotate: [ 0, 0 ],
-            lens: [0, 1, Infinity]
-          }
-          
+  let proform = {projection: 'uniwen',translate: [ -150, 125 ],scale: [1, -1],rotate: [ 0, 0 ],lens: [0, 1, Infinity]}
   let geoData = mproj3ct(data, mprofier.formion(proform))
 
   let transforms = mfourier.transformedCoefs(geoData)  
@@ -152,6 +145,8 @@ let muonAlima = function muonAlima (__mapper) {
           interval: [0.0,0.99],
           tolerance: 0.1,
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
+          
+          //md: fourier avatars are defined by name
           avatars: {
             fourierPacer: fourierPacer,
             line: aniLine,

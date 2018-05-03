@@ -10,7 +10,9 @@ document.write("<script src='control-pos.js'><\/script>")
 document.write("<script src='control-key.js'><\/script>")
 /* data*/
 document.write("<script src='data-worldTopo110m.js'><\/script>")
+document.write("<script src='data-picasso.js'><\/script>")
 document.write("<script src='data-path.js'><\/script>")
+document.write("<script src='data-matisse.js'><\/script>")
 document.write("<script src='data-line.js'><\/script>")
 /* force*/
 document.write("<script src='force-z.js'><\/script>")
