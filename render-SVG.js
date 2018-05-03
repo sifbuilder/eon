@@ -11,17 +11,18 @@
   let renderSvg = function (__mapper = {}) {
     let f = __mapper('props')()
 
-    // http://tutorials.jenkov.com/svg/svg-viewport-view-box.html
-    // The viewport is the visible area of the SVG image
-    // Default units are pixels
-    // <svg width="600" height="400"></svg>
+    
+    //md: cif: http://tutorials.jenkov.com/svg/svg-viewport-view-box.html
+    //md:  The viewport is the visible area of the SVG image
+    //md:  Default units are pixels
+    //md:  <svg width="600" height="400"></svg>
+      
+    //md:  The svg viewBox attribute is used to redefine the viewport coordinates
+    //md:  two first coordinates define user coordinates of upper left corner
+    //md:  two last coordinates define user coordinates of lower right corner
+    //md:   <svg width="600" height="400" viewBox="0 0 50 20" >
 
-    // The svg viewBox attribute is used to redefine the viewport coordinates
-    // two first coordinates define user coordinates of upper left corner
-    // two last coordinates define user coordinates of lower right corner
-    //  <svg width="600" height="400" viewBox="0 0 50 20" >
-
-    // https://bl.ocks.org/mbostock/3019563   // Margin Convention
+    //md: ref: https://bl.ocks.org/mbostock/3019563   // Margin Convention
     let r = __mapper('xs').r('renderport')
 
     let state = {
@@ -141,7 +142,10 @@
  *
  *
  */
-
+    //md: # render
+    //md:   @elapsed
+    //md:   @featurecollection
+    //md:   @maxlimit
     let render = function (elapsed, featurecollection, maxlimit) {
       if (1 && 1) console.log('state.animas featurecollection', featurecollection)
       let features = featurecollection.features

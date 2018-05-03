@@ -21,10 +21,19 @@ let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 1, versor: 1, wen: 1, webgl: 1, img: 0}) // INIT
 
-  let f = __mapper({'props': muonProps.muonProps()}).props(),
-    mgraticule = __mapper('xs').m('graticule'),
-    mnat = __mapper('xs').m('nat'),
-    mgeoj = __mapper('xs').m('geoj')
+    let f = __mapper('props')(),
+      cversor = __mapper('xs').c('versor'),
+      manitem = __mapper('xs').m('anitem'),
+      mric = __mapper('xs').m('ric'),
+      mboform = __mapper('xs').m('boform'),
+      mgeoj = __mapper('xs').m('geoj'),
+      mprofier = __mapper('xs').m('profier'),
+      mstore = __mapper('xs').m('store'),
+      mproj3ct = __mapper('xs').m('proj3ct'),
+      mstace = __mapper('xs').m('stace'),
+      mgraticule = __mapper('xs').m('graticule'),
+      mnat = __mapper('xs').m('nat')      
+
 
   /*******************************************
  *      @pics
@@ -38,14 +47,14 @@ let muonAlima = function (__mapper) {
       'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
 
       'ra2': 62,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-      
+
     },
     'y': {
 
       'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
 
       'ra2': 62,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-       
+
     }
 
   }
@@ -54,6 +63,38 @@ let muonAlima = function (__mapper) {
  *    @animas
  *
  */
+     let pFront = function(x,y) {
+        let forward = (x, y) => d3.geoOrthographicRaw(x,-y)
+        forward.invert = (x, y) => d3.geoOrthographicRaw.invert(x,-y)
+        return forward
+      }
+     
+      let frontProjection = d3.geoProjection(pFront())
+          .clipAngle(90)
+          .translate([0,0,0])
+          .rotate([0,0,0])
+      
+      
+  let proformFront = {
+    
+    projection:  'orthographic',
+    prerotate: [[[ t =>
+      cversor
+        .projection({projection: frontProjection}) // versor projection
+        .rotation()
+
+ ]]],    
+    // prerotate: [[[ cversor.rotation() ]]],
+    translate: [0,0,0],
+    scale: 180,
+    rotate: [ [[[0, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
+      // control: 'versor'
+
+  }
+  
+  
+
+  
   let geoearth1 = {
 
     halo: 'ent',
@@ -65,26 +106,19 @@ let muonAlima = function (__mapper) {
           __mapper('xs').d('worldTopo110m').data().objects.land
         )
       )
-      gj = mgeoj.trim(gj)
+      gj = __mapper('xs').m('geoj').trim(gj)
       return gj
     },
 
     payload: {
-      tim: tim,
-      ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geoearth1'},
-      boform: { 'csx': 0, 'cf': [[[555, 555, 555, 555, 555, 555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
-      proform: {
-
-        'projection': 'orthographic',
-        'scale': 100,
-        'translate': [ -100, 0 ],
-        'rotate': [ 0, 0, 0 ],
-        'control': 'versor'
-
-      }
+      tim,
+      proform: proformFront,
+      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthFront'},
+      boform: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
     }
 
   }
+
   // -------------------------------  geograt1
   let geograt1 = {
 
@@ -108,10 +142,8 @@ let muonAlima = function (__mapper) {
       },
       'graticule': {
 
-        'frame': [ [ [-180, 180, 45, 45],
-          [-90, 90, 22.5, 22.5] ],
-        [	[-180, 180, 45, 45],
-          [-90, 90, 22.5, 22.5] ] ]
+        'frame': [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ],
+              [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ]
 
       }
     }
@@ -198,7 +230,7 @@ let muonAlima = function (__mapper) {
       'graticule': {
 
         'frame': [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ],
-                  [	[-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ]
+                  [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ]
 
       }
     }
@@ -233,11 +265,11 @@ let muonAlima = function (__mapper) {
 
   let animas = [
     geoearth1, // h.ent g.orthographic
-    geograt1, // h.ent
-    geosphere1, // h.ent
-    geoearth2, // h.ent g.mercator
-    geograt2, // h.ent
-    geosphere2 // h.ent
+    // geograt1, // h.ent
+    // geosphere1, // h.ent
+    // geoearth2, // h.ent g.mercator
+    // geograt2, // h.ent
+    // geosphere2 // h.ent
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
