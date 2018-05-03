@@ -79,8 +79,6 @@
 
 
 
-if (0 && 1) console.log("newAnigram", anigram, newAnigram)
-      // newAnigrams.push(newAnigram)
       newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(newAnigram)]
       return newAnigrams
     }

@@ -192,7 +192,7 @@
 
 
             let prerotate = projdef.prerotate
-if (1 && 1) console.log("prerotate",projdef, prerotate)            
+if (0 && 1) console.log("prerotate",projdef, prerotate)            
             if (prerotate) rot = mgeom.add(rot, prerotate) // ADD prerotate
 
 

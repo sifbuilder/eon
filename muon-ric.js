@@ -89,7 +89,10 @@
         else if (typeof ric.fid === 'function') _ric.fid = ric.fid(i, ric, anigram)
         else 																		_ric.fid = ric.fid
 
-        properties.ric = {gid, cid, fid}
+        properties.ric = {gid:_ric.gid
+                        , cid:_ric.cid
+                        , fid:_ric.fid
+                      }
         properties.uid = getuid(properties.ric)
 
         feature.id = properties.uid

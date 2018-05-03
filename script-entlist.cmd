@@ -145,7 +145,7 @@ with references to
         let readmetxt = header + '\n'
 
       for (let i=0; i<files.length; i++) {
-        
+
         let fileName = files[i]
         let fileTxt = fs.readFileSync(fileName,"utf8")
 
@@ -154,9 +154,9 @@ with references to
          var nameArr
          while ((nameArr = nameFindPattern.exec(fileTxt)) !== null) {
             fileTxt = fileTxt.replace(nameReplacePattern, fileName)
-         }        
-        
-        
+         }
+
+
         const mdpattern = /\/\/md:(.*)/mg   // //md:
         var arr
         while ((arr = mdpattern.exec(fileTxt)) !== null) {
@@ -172,7 +172,46 @@ with references to
       fs.writeFileSync(readmefile,readmetxt);
 
 
+  }  else if (action === 'uncomment') {
+
+    if (0 && 1) console.log("uncomment")
+
+      let scriptpattern = new RegExp( '^' + 'script', 'i')
+      let htmlpattern = new RegExp( '(.*)\.html$', 'i')
+      let jspattern = new RegExp( '(.*)\.js$', 'i')
+      let pattern = '// ///.*'
+      let regex = new RegExp( pattern, 'i')
+
+      const isDirectory = d => fs.lstatSync(d).isDirectory()
+      const isFile = d => fs.lstatSync(d).isFile()
+
+
+      let files = fs.readdirSync(appdir)
+        .filter(file => isFile(file))
+        .filter(d => !scriptpattern.test(d))
+        .filter(d => jspattern.test(d) || htmlpattern.test(d) )
+
+       for (let i=0; i<files.length; i++) {
+
+        let fileName = files[i]
+        let fileTxt = fs.readFileSync(fileName,"utf8")
+
+        let nameFindPattern = /^(.* && 1.*)$/mg
+        let nameReplacePattern = /md:\{filename\}/i
+         var arr
+         while ((arr = nameFindPattern.exec(fileTxt)) !== null) {
+              if (0 && 1) console.log("fileName", fileName)
+              if (0 && 1) console.log ('0', arr[1])
+            fileTxt = fileTxt.replace(nameReplacePattern, fileName)
+         }
+
+
+            
+          
+       }
+
   }
+
 
 
 

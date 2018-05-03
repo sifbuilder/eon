@@ -29,7 +29,8 @@
         halo = anigram.halo, // halo
         geofold = anigram.geofold, // geofold
         payload = anigram.payload // payload
-
+     
+        
       let boform = payload.boform, // boform
         avatars = payload.avatars, // avatars
         ric = payload.ric, // ric
@@ -44,10 +45,11 @@
       //  get GEOFORM FeatureCollection
       //
       let gjcollection = f.v(geofold, anigram)  // get geoform
-      
+      if (2 && 2 && gjcollection.type !== '-- FeatureCollection') console.log("gjcollection is not FeatureCollection", gjcollection)
         gjcollection = mgeoj.zorder(gjcollection) // order features in collection
         gjcollection = mric.enric(ric, anigram, gjcollection) // ric to feature or collection
 
+               
         newAnigrams = gjcollection.features.map((feature, i) => { 
  
           feature = mboform.boformer(anigram, feature)

@@ -377,7 +377,14 @@ function complexifyLine(coordinates) {
    //md: ## mgeoj.zorder
    //md: @json FeatureCollection
     let zorder = function (json) {
-      let features = json.features
+    
+      let features = []
+      if (json.type === "FeatureCollection") features = json.features
+      else {
+        if (2 && 2) console.log('json is not FeatureCollection')
+        return json
+      }
+       
       let zordered = features
         .map(d => {
           d.properties = d.properties || {}
@@ -386,7 +393,8 @@ function complexifyLine(coordinates) {
             if (d.geometry && d.geometry.coordinates && d.geometry.coordinates[0]) {
               let outring = d.geometry.coordinates[0] // for out ring
               let zorder = centroid(outring)
-              d.properties.zorder = zorder // try centroid.z
+              if (zorder)  d.properties.zorder = zorder // try centroid.z
+              else  d.properties.zorder = -Infinity // feature unformed
             } else {
               d.properties.zorder = -Infinity // feature unformed
             }

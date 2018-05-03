@@ -65,9 +65,31 @@
         parentuid = 	payload.parentuid, // parentuid
         json
 
-      anima.geofold = geofold
-      newAnigrams = __mapper('xs').h('ent').gramm(anima)
+      let newAnigram = { halo, geofold, payload }
+      newAnigram.geofold.properties = {
+          sort: 'text'  ,
+          text: payload.text,
+          style: {
 
+            'rotate': payload.text.style['rotate'],
+            'font-size': payload.text.style['font-size'],
+            'font-family': payload.text.style['font-family'],
+            'text-anchor': payload.text.style['text-anchor'],
+
+            'width': payload.text.style.width,
+            'height': payload.text.style.height,
+
+            'dx': payload.text.style.dx,
+            'dy': payload.text.style.dy,
+
+            'textLength': payload.text.style.textLength,
+            'lengthAdjust': payload.text.style.lengthAdjust
+
+          }
+        }
+
+
+      newAnigrams = [...newAnigrams, ...__mapper('xs').h('formed').gramm(newAnigram)]
       return newAnigrams
     }
 
