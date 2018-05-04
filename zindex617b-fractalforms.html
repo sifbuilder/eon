@@ -38,83 +38,66 @@ let muonAlima = function muonAlima (__mapper) {
   let tim = {td: 513800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1}
   
 
-
-  let seedForm = { // SUB-MARKS line trace
-
+    /***********
+  *         @traceLine
+  */
+  let traceLine = { // SUB-MARKS line trace
+  
     halo: 'pacer',
-
     payload: {
       ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-      boform: {'csx': 0, 'cf': 555, 'cs': 666, 'cw': 0.99, 'co': 0.06, 'cp': 0.69},
+      boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
-
-      proform: { // proform in the geographic domain
-
-        projection: 'orthographic',
-        scale: 90,
-        prerotate: [[[ cversor.rotation ]]],
-        translate: [0,0],
-        rotate: [ 0, 0 ],
-
-      },
-      
+      pacer: { // aad for trace
         stace: {
-          x: { pos: 0, geo: 1 },
-          y: { pos: 0, geo: 1 },
+          x: { pos: 0 },
+          y: { pos: 0 },
           z: 0
+        },               
+        initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
+        autoSitus: function(a) {
+          let r =  mstace.getLocus(this.stace, a.payload) // situs
+          return r
         },
-
-        pacer: {
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1, // add
-
-          autoSitus: d => {
-            let r =  mstace.getLocus(this.stace, d.payload) // situs
-            return r
-          },
-          // autoSitus: d => mstace.getLocus(this.stace, d.payload), // situs
-
-          fider: d => d.payload.ric.fid,
-
-          geojsor: function (d, i) {
-            let ric = d.payload.ric // ric
-            let uid = mric.getuid(ric)
-
-            let gj = {
-
-              halo: 'ent',
-              geofold: {
-                type: 'Feature',
-                geometry: { type: 'LineString', coordinates: null },
-                properties: { doc: 'pacer' }
-              },
-              payload: {
-                uid: uid,
-                id: uid,
-                ric: ric,
-                proform: this.proform
-              }
-
+        fider: a => a.payload.ric.fid,
+        
+        geojsor: function (a, i) {
+          let ric = a.payload.ric // ric
+          let uid = mric.getuid(ric)
+          let gj = {
+            halo: 'ent',
+            geofold: {
+              type: 'Feature',
+              geometry: { type: 'LineString', coordinates: null },
+              properties: { doc: 'pacer' }
+            },
+            payload: {
+              uid: uid, id: uid, ric: ric,
+              // proform: this.proform
+              proform: { // proform in the geographic domain
+                  projection: 'orthographic',
+                  scale: 90,
+                  prerotate: [[[ cversor.rotation ]]],
+                  translate: [0,0],
+                  rotate: [ 0, 0 ],
+                }
             }
-
-            let newItem = mstore.findAnigramFromUid(uid) || gj
-
-            if (newItem.geofold.properties.formEreformed) {
-              newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
-            }
-
-            return newItem
-          },
-
+          }
+          let newItem = mstore.findAnigramFromUid(uid) || gj
+          if (newItem.geofold.properties.formEreformed) {
+            newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+          }
+          return newItem
         },
-
       }
     }
+  }
 
    /*******************************************
  *    @parent anima
  *
  */
-     let parentForm = {
+     let fractalForm = {
 
       halo: 'fractal',
 
@@ -172,7 +155,7 @@ let muonAlima = function muonAlima (__mapper) {
           },
 
           avatars: [
-            seedForm,
+            traceLine,
           ],
 
 
@@ -224,8 +207,8 @@ let muonAlima = function muonAlima (__mapper) {
 
 
   let animas = [
-    sphereForm, // h.ent
-    parentForm, // h.fractal
+    // sphereForm, // h.ent
+    fractalForm, // h.fractal
 
   ]
 
