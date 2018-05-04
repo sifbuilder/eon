@@ -34,7 +34,6 @@ let muonAlima = function (__mapper) {
       mgraticule = __mapper('xs').m('graticule'),
       mnat = __mapper('xs').m('nat')      
 
-var epsilon = 1e-6;
 
   /*******************************************
  *      @pics
@@ -99,19 +98,33 @@ var epsilon = 1e-6;
       tim,
       proform: {
     
-          projection:  d3.geoOrthographicRaw()
-                .scale(100)
-                .clipAngle(90 + epsilon),
+          projection:  d3.geoOrthographic(),
+          prerotate: [[[ t =>
+            cversor
+              .projection({projection: frontProjection}) // versor projection
+              .rotation()
 
-          prerotate: [[[ cversor.rotation ]]],
-          
+          ]]],    
+       
+       
+       
+          // prerotate: [[[ cversor.rotation ]]],
           translate: [0,0,0],
           scale: 100,
           rotate: [ [[[0, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
             // control: 'versor'
 
         },
-     
+      // proform: {
+
+        // 'projection': 'orthographic',
+        // 'scale': 100,
+        // 'translate': [ -100, 0 ],
+        // 'rotate': [ [[[0, 0]]], 0, 0 ],
+        // 'prerotate': [[[ cversor.rotation ]]],
+
+
+      // },      
       ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthFront'},
       boform: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
     }

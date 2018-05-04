@@ -21,19 +21,13 @@
       
 
     //md: ## h.ent
-    //md: anigram.geofold : last of geoform, conform, ereform, proformed
-    //md: ani:nodeSitus : ani.geofold.properties.geonode.geometry.coordinates
-    //md: parentani:situs : parent.payload.geonode.geometry.coordinates
-    //md:  geoform conform ereform proform
-    //md:  geoForm = props.geoform
-    //md:  conForm = props.conform
-    //md:  ereForm = props.ereform
-    //md:  proForm = props.proform
-    //md:  nodeGeoformed = props.geonode.properties.nodeGeoformed
-    //md:  nodeEreformed = props.geonode.properties.nodeEreformed
-    //md:  nodeProformed = props.geonode.properties.nodeProformed
-    //md:  forms and nodes have geometry.coordinates
-
+    //md: h.ent.ween(anima)  sets inited and gelded and returns anima  
+    //md: h.ent.gramm(anima) gets newAnigrams and pass them to h.formed    
+    //md:   get anigram.geofold and initialize geonode if not defined  
+    //md:   keep formGeoformed from deprop'ed geofold  
+    //md:   keep formGeoformed has property nodeGeoformed  
+    //md:   featurize the geofold  
+    //md:  corform, ereform and proform the geofold and the geonode  
           
     /**********************
    *    @gramify
@@ -55,9 +49,9 @@
         uid = payload.uid, // uid
         parentuid = payload.parentuid // parentuid
     
-      //md:  get GEOFORM from anigram.geofold
+
       let gj  
-      gj = f.v(geofold, anigram)  // get geoform
+      gj = f.v(geofold, anigram)  // get geofold
       gj.properties = gj.properties || {} // recall genode
       gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
 
@@ -65,18 +59,19 @@
       gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
       gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
 
-      let features = mgeoj.featurize(gj)  // geojson to geojson features
-      features = features.map( (feature,i) => {
+      
+      let gjcollection = mgeoj.featurecollect(gj)
+      gjcollection.features = gjcollection.features.map( (feature,i) => {
+      // let features = mgeoj.featurize(gj)  // geojson to geojson features
+      // features = features.map( (feature,i) => {
 
-        //md:    CONFORM  - conform does not affect geonode
+
         feature = mprofier.conformer(anigram)(feature)  // get conform
         feature.properties.formConformed = mgeoj.deprop(feature) // store conform
         feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
 
-        //md:    EREFORM  - ereform the conformed geofold
-        //md:     uniwen: prerotation, tranlations, scale, project, rotation
-        //md:     geonode in geonode..nodeProformed - retains GEOFORM domain
-        if (payload.ereform) {
+
+        if (payload.ereform) {  // EREFORM
           let ereformion = mprofier.ereformion(anigram)
           feature = mproj3ct(feature, ereformion)
           feature.properties.formEreformed = mgeoj.deprop(feature) // store ereform
@@ -86,13 +81,11 @@
           feature.properties.nodeEreformed = feature.properties.nodeConformed
         }
 
-        //md:    PROFORM  - ereform the ereformed geofold
-        //md:     uniwen: prerotation, tranlations, scale, project, rotation
-        //md:     geonode in geonode..nodeProformed - retains GEOFORM domain
+
         if (payload.proform) {
           let proformion = mprofier.proformion(anigram)
           feature = mproj3ct(feature, proformion)
-          //md:     nodeEreformed from nodeProformed
+
           feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion)
         } else {
           feature.properties.nodeProformed = feature.properties.nodeEreformed
@@ -101,7 +94,7 @@
         return feature
       })
         
-        let gjcollection = {type: 'FeatureCollection', features}
+        // let gjcollection = {type: 'FeatureCollection', features}
         
         
         anigram.geofold = gjcollection
@@ -120,9 +113,10 @@
     haloEnt.ween = anima => haloGeofold_ween(anima)
     haloEnt.gramm = anima => haloGeofold_gramm(anima)
 
+    
     let enty = haloEnt
-
     return enty
+    
   }
 
   exports.haloEnt = haloEnt
