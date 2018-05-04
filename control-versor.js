@@ -252,7 +252,6 @@
     
     // enty.rotation = _ => {
     enty.rotation = () => {
-if (1 && 1) console.log("cversor rotation")      
       // if (_ !== undefined) {
         // state.rotation = _
         // return enty

@@ -34,6 +34,7 @@ let muonAlima = function (__mapper) {
       mgraticule = __mapper('xs').m('graticule'),
       mnat = __mapper('xs').m('nat')      
 
+var epsilon = 1e-6;
 
   /*******************************************
  *      @pics
@@ -63,35 +64,19 @@ let muonAlima = function (__mapper) {
  *    @animas
  *
  */
-     // let pFront = function(x,y) {
-        // let forward = (x, y) => d3.geoOrthographicRaw(x,-y)
-        // forward.invert = (x, y) => d3.geoOrthographicRaw.invert(x,-y)
-        // return forward
-      // }
+     let pFront = function(x,y) {
+        let forward = (x, y) => d3.geoOrthographicRaw(x,-y)
+        forward.invert = (x, y) => d3.geoOrthographicRaw.invert(x,-y)
+        return forward
+      }
      
-      // let frontProjection = d3.geoProjection(pFront())
-          // .clipAngle(90)
-          // .translate([0,0,0])
-          // .rotate([0,0,0])
+      let frontProjection = d3.geoProjection(pFront())
+          .clipAngle(90)
+          .translate([0,0,0])
+          .rotate([0,0,0])
       
       
-  let proformFront = {
-    
-    projection:  'orthographic',
-    // prerotate: [[[ t =>
-      // cversor
-        // .projection({projection: frontProjection}) // versor projection
-        // .rotation()
 
- // ]]],    
-    prerotate: [[[ cversor.rotation ]]],
-    translate: [0,0,0],
-    scale: 180,
-    rotate: [ [[[0, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
-      // control: 'versor'
-
-  }
-  
   
 
   
@@ -112,7 +97,21 @@ let muonAlima = function (__mapper) {
 
     payload: {
       tim,
-      proform: proformFront,
+      proform: {
+    
+          projection:  d3.geoOrthographicRaw()
+                .scale(100)
+                .clipAngle(90 + epsilon),
+
+          prerotate: [[[ cversor.rotation ]]],
+          
+          translate: [0,0,0],
+          scale: 100,
+          rotate: [ [[[0, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
+            // control: 'versor'
+
+        },
+     
       ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthFront'},
       boform: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
     }
