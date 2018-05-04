@@ -231,7 +231,10 @@
     /*******************************************
    *    @enty
    */
-    let enty = function enty () {}
+    let enty = function enty (p = {}) {
+      
+            return enty
+    }
 
     enty.dragstarted = dragstarted
     enty.dragged = dragged
@@ -247,14 +250,16 @@
       }
     }
     
-    enty.rotation = _ => {
-      if (_ !== undefined) {
-          state.rotation = _
-          return enty
-      } else {
+    // enty.rotation = _ => {
+    enty.rotation = () => {
+if (1 && 1) console.log("cversor rotation")      
+      // if (_ !== undefined) {
+        // state.rotation = _
+        // return enty
+      // } else {
         return mgeom.add(state.rotInDrag_grads, state.rotAtInit_grads)
         // return mgeom.add([0,0,0], state.rotAtInit_grads)
-      }
+      // }
     }
     
 

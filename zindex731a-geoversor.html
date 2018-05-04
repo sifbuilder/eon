@@ -63,28 +63,28 @@ let muonAlima = function (__mapper) {
  *    @animas
  *
  */
-     let pFront = function(x,y) {
-        let forward = (x, y) => d3.geoOrthographicRaw(x,-y)
-        forward.invert = (x, y) => d3.geoOrthographicRaw.invert(x,-y)
-        return forward
-      }
+     // let pFront = function(x,y) {
+        // let forward = (x, y) => d3.geoOrthographicRaw(x,-y)
+        // forward.invert = (x, y) => d3.geoOrthographicRaw.invert(x,-y)
+        // return forward
+      // }
      
-      let frontProjection = d3.geoProjection(pFront())
-          .clipAngle(90)
-          .translate([0,0,0])
-          .rotate([0,0,0])
+      // let frontProjection = d3.geoProjection(pFront())
+          // .clipAngle(90)
+          // .translate([0,0,0])
+          // .rotate([0,0,0])
       
       
   let proformFront = {
     
     projection:  'orthographic',
-    prerotate: [[[ t =>
-      cversor
-        .projection({projection: frontProjection}) // versor projection
-        .rotation()
+    // prerotate: [[[ t =>
+      // cversor
+        // .projection({projection: frontProjection}) // versor projection
+        // .rotation()
 
- ]]],    
-    // prerotate: [[[ cversor.rotation() ]]],
+ // ]]],    
+    prerotate: [[[ cversor.rotation ]]],
     translate: [0,0,0],
     scale: 180,
     rotate: [ [[[0, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
