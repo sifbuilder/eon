@@ -8,6 +8,23 @@
 }(this, function (exports) {
   'use strict'
 
+  
+
+    //md: md:{filename}
+    //md: applies to h.gramm
+    //md: @anigram al. a, get from m.anitem(a).anigram()
+    //md: @anigram.geofold al. g, if not in parent, def from m.anitem
+    //md: @anigram.payload al. p
+    //md: @p.pacer.add : pace items are added to pacer (eg. LineString trace)
+    //md: @p.pacer.initSitus  : situs for init items
+    //md: @p.pacer.autoSitus  : situs for auto items
+    //md: @p.pacer.eventSitus  : situs for event items
+    //md: p.pacer.autoSitus calls m.stace.getLocus(this.stace, a.payload)
+    
+    //md:   count is nb items to add to pacer (from init, auto, event)
+    
+  
+  
   let haloPacer = function haloPacer (__mapper = {}) {
     let f = __mapper({'props': muonProps.muonProps()}).props(),
       mgeom = __mapper('xs').m('geom'),
@@ -24,15 +41,9 @@
       width = r.width(),
       height = r.height()
 
-    // -------------------------------  haloPacerHalo_ween
-
-    //md: h.pacer 
-    //md: applies to h.gramm
-
 
     let haloPacerHalo_ween = anima => []
 
-    // -------------------------------  haloPacerHalo_gramm
     let haloPacerHalo_gramm = function (anima, newItems = []) {
       
       let anigram = manitem(anima).anigram(), // anigram
@@ -140,8 +151,6 @@
             if (key === 'init') { // init defaults center
               situs = payload.pacer.initSitus(anigram)
             } else if (key === 'auto') { // auto defauts random
-              //md: h.pacer calls payload.pacer.autoSitus(anigram)
-              //md: autoSitus calls mstace.getLocus(stace, d.payload)
               situs = payload.pacer.autoSitus(anigram)
             } else if (key === 'event') { // event defaults event
               situs = payload.pacer.eventSitus(anigram)

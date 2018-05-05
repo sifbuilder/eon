@@ -15,13 +15,13 @@ const usage = `
 Usage: entlist [options]
 
 Options:
- -a, --action        Script action in {samplify,entlist,mdfy}
+ -a, --action        Script action in {samplify,entlist,mdfy,mdeefy}
  -d, --debug         Debug output
  -v, --version       Output the version
  -h, --help          Show this help message
  -f, --files         Files to entities
  -m, --appdir        App directory path
- -t, --mdeeFile      File to extract md to README
+ -t, --mdeeFile      File to extract md to README eg. -a mdeefy -t halo.ent 
  -l, --libsFile      Output libs file
  -p, --entsFile      Output entity file
  -o, --stdout        Output to stdout
@@ -188,27 +188,32 @@ with references to
       if (1 && 1) console.log("fzs", fzs)
       
       let header = ''
-      let outText = header + '\n'
+      let newLine = '\n'
+      let endOfLine = '  '
+      let outText = header + newLine
 
       for (let i=0; i<fzs.length; i++) {
 
         let fileName = fzs[i]
         let fileTxt = fs.readFileSync(fileName,"utf8")
 
-        let nameFindPattern = /md:(\{filename\})/mg
-        let nameReplacePattern = /md:\{filename\}/i
+        let nameFindPattern = /md:(\{filename\})/mg // filename
+        let nameReplacePattern = /md:\{filename\}/i // ignoring case
          var nameArr
          while ((nameArr = nameFindPattern.exec(fileTxt)) !== null) {
             fileTxt = fileTxt.replace(nameReplacePattern, fileName)
          }
 
 
-        const mdpattern = /\/\/md:(.*)/mg   // //md:
+        const mdpattern = /\/\/md:(.*)/mg   // // md (global multiline)
         var arr
         while ((arr = mdpattern.exec(fileTxt)) !== null) {
             console.log ('0', arr[1])
-            outText += arr[1] + '\n'
+            outText += arr[1] + endOfLine + newLine
         }
+        
+        
+        
       }
 
       fs.writeFileSync(outfile,outText);
