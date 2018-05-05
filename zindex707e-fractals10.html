@@ -1,96 +1,143 @@
 <!DOCTYPE html>
-<meta charset='utf-8'>
+<meta charset="utf-8">
 <title>animas</title>
 <head >
 
   <style>
-    body { margin: 0; position: fixed; top: 0; right: 0; bottom: 0; left: 0; }
-    div#fps,svg { position: fixed; top: 0; left: 0; color: white; }
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
   </style>
 
 </head>
-<body style='cursor:crosshair'></body>
-<div id='viewframe' class='viewframe'></div>
-<script src='script-enls.js'></script>
-<script src='script-ents.js'></script>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+<script src="script-enls.js"></script>
+<script src="script-ents.js"></script>
 
 <script>
-
-  //md: ## md:{filename}
-  //md: cyclet cycle time proportional to number of sinusoids
-    
+/*******************************************
+ *      @alima
+ */
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 0, img: 1, gui: 0, fps: 0, stats: 0}) // INIT
 
-  let f = __mapper('props')(),
-    mnat = __mapper('xs').m('nat'),
-    cversor = __mapper('xs').c('versor'),
-    cwen = __mapper('xs').c('wen'),
-    mstace = __mapper('xs').m('stace'),
-    mfourier = __mapper('xs').m('fourier'),
-    manimas = __mapper('xs').m('animas'),
-    mric = __mapper('xs').m('ric'),
-    mstore = __mapper('xs').m('store'),
-    mbezierjs = __mapper('xs').m('bezierjs'),
-    msvg = __mapper('xs').m('svg'),
-    mgeoj = __mapper('xs').m('geoj'),
-    mprofier = __mapper('xs').m('profier'),
-    mproj3ct = __mapper('xs').m('proj3ct')
+  let renderport = __mapper('renderRenderport'),
+    width = renderport.width(),
+    height = renderport.height(),
+    scaleView = Math.min(width / 2, height) / Math.PI
 
-  const pi = Math.PI, pi2 = 2 * pi,
-      turn = 2 * Math.PI // 360
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+    mgeom = __mapper('xs').m('geom'),
+    mwen = __mapper('xs').m('wen'),
+    crayder = __mapper('xs').c('rayder'),
+    mstace = __mapper('xs').m('stace'),
+    mstore = __mapper('xs').m('store'),
+    mnat = __mapper('xs').m('nat'),
+    manimas = __mapper('xs').m('animas'),
+    mric = __mapper('xs').m('ric')
 
   /*******************************************
- *      @animas
+ *      @pics
  */
-  let getForm = function (params = {}) {
+  let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let traceForm = {
+    'x': {
+      'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+      'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360
+    },
+    'y': {
+      'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+      'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360
+    }
+  }
 
-    let _NAME = params.name || 'anis'
-    _ROW = params.row || 2,
-    _COL = params.col || 2,
-    _LEVEL = params.depth || 2,
-    _CF = params.cf || (d => 222 * 1), // cfonlevel
-    _SIDES = params.sides || 5,
-    _RAD = params.rad || 90,
-    PHASED = params.anginit || 0 // 0 internal, 180 extenal
+  let natForm = {
+    'x': {
+      'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // cyrcle
+      'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360
+    },
+    'y': {
+      'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // cyrcle
+      'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360
+    }
+  }
 
+  let natStace = {
+    'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // ellipse
+    'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
+  }
+
+  let natBoform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+
+  let traceBoform = { 'csx': 0, 'cf': [[[777, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[777, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.99, 0.99]]]}
+
+  /*******************************************
+ *    @animas
+ *
+ */
+  let nat = {
+
+    halo: 'ent',
+    // geofold: a => mnat.natFeature(a.payload.form),
+      geofold: a => ({
+        type: 'Feature',
+        geometry: {
+          
+          type: 'LineString', // type: 'Point', // 
+          coordinates: [ [0,0], [50,50] ] // coordinates: [0,0] //
+          
+        },
+        properties: {
+          geonode: {
+            type: 'Feature',
+            geometry: {type: 'Point', coordinates: [0, 0]},
+            properties: {orgen: [0, 0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]}
+          }
+        }
+      }),
       
-    const cyclet = _LEVEL * _LEVEL * 1000
+    payload: {
 
-    const x0 = -150,
-      dx = 150,
-      y0 = -100,
-      dy = 100
+      tim,
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
 
-    let x = x0 + (_COL - 1) * dx,
-      y = y0 + (_ROW - 1) * dy
+      proform: {
+        projection: 'uniwen',
+        translate: [ [ 70, 80 ], [[[ natStace ]]] ],
+        scale: 1,
+        rotate: [ 0, 0, 0 ],
+        lens: [0, 1, Infinity],
+        control: 'wen'
 
-    const signexp = d => Math.pow(-1, d)
+      },
 
-    /***********
-  *         @traceLine
-  */
-  let traceLine = { // SUB-MARKS line trace
-  
+      boform: natBoform,
+
+      form: natForm
+
+    }
+
+  }
+
+  let tracelineNat = {
+
+ 
     halo: 'pacer',
     payload: {
       ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
       boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       pacer: { // aad for trace
-        stace: {
-          x: { pos: 0 },
-          y: { pos: 0 },
-          z: 0
-        },               
+        stace: {x: { pos: 0 },y: { pos: 0 },z: 0},      //
         initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
         autoSitus: function(a) {
           let r =  mstace.getLocus(this.stace, a.payload) // situs
           return r
         },
         fider: a => a.payload.ric.fid,
-        
         geojsor: function (a, i) {
           let ric = a.payload.ric // ric
           let uid = mric.getuid(ric)
@@ -103,14 +150,7 @@ let muonAlima = function muonAlima (__mapper) {
             },
             payload: {
               uid: uid, id: uid, ric: ric,
-              // proform: this.proform
-              proform: { // proform in the geographic domain
-                  projection: 'orthographic',
-                  scale: 90,
-                  prerotate: [[[ cversor.rotation ]]],
-                  translate: [0,0],
-                  rotate: [ 0, 0 ],
-                }
+              proform: this.proform
             }
           }
           let newItem = mstore.findAnigramFromUid(uid) || gj
@@ -122,118 +162,121 @@ let muonAlima = function muonAlima (__mapper) {
       }
     }
   }
+  // -------------------------------  sphere
+  let sphere = {
 
-    /***********
-  *         @animas
-  */
-          
-    //md: sinus location in fractalForm.geofold.geometry.coordinates
-    //md:   adding the lower fractal coeficients
+    halo: 'ent',
 
-    let fractalForm = {
+    geofold: p => mnat.natFeature(p.payload.form),
 
-      halo: 'ent',
+    payload: {
 
-      geofold: a => ({
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          
-          coordinates: Complex({re: 0, im: 0})
-              .add(a.payload.fractal.coef(a))  // set on zcoef = (rad, ang)
-              .toVector() 
-           
-          
+      tim,
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'sphere'},
+
+      proform: {
+        projection: 'uniwen',
+        translate:
+        [
+          [ [[[0, 100]]], 0, 100 ],
+          [[[ {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
+            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
+          } ]]]
+        ],
+        scale: 1,
+        rotate: [ 0, 0, 0 ],
+        lens: [0, 1, Infinity]
+      },
+
+      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+      form: {
+
+        'x': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360
         },
-        properties: {
-          pointRadius: a.payload.fractal.rad,
-          geonode: {
-            type: 'Feature',
-            geometry: {type: 'Point',coordinates: [0, 0]},
-            properties: {orgen: [0, 0],velin: [0, 0],velang: [0, 0],prevous: [0, 0],geodelta: [0, 0]}
-          }
+        'y': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360
+        },
+        'z': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360
         }
-      }),
-      
-      payload: {
 
-        tim: {'td': cyclet * _LEVEL, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-        ric: {'gid': _NAME, 'cid': _NAME, 'fid': _NAME},
-        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
-
-        fractal: {},  // set coef 
-
-        proform: { projection: 'uniwen',scale: 1,translate: [ -0, 0 ],rotate: [ 0, 0 ] }  // identity
-        
       }
     }
-
-    /***********
-  *         @create animas
-  */
-    let anis = [] // initialize animas
-
-    let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d)) // amplitude of sinus (level)
-    let zcoef = (rad, ang) => Complex({re: rad * Math.cos(ang),im: rad * Math.sin(ang)}) // complex number
-
-    
-    for (let level = 0; level < _LEVEL; level++) {  // for each cycloid level
-      anis[level] = f.cloneObj(anis[level - 1] || fractalForm) // anis h.nat
-
-      anis[level].payload.ric = {gid: 'nat', cid: _NAME + level, fid: _NAME + level} // id
-
-      // -------------- ans(level) ------------------
-      anis[level].payload.fractal.an = [] // [0..._LEVEL)
-
-      for (let j = 0; j < level; j++) {
-        
-        let ang
-        if (0) {
-          ang = (j === 0) ? [[[ 0, turn ]]] : [[[ 0, (1) ** (j) * (_SIDES - 1) ** (j) * turn ]]]
-        } else if (0) {
-          ang = (j===0) ? [[[ 0, turn ]]] : [[[ 0, (-1)**(j) * (_SIDES-1)**(j) * turn ]]]
-        } else {
-          ang = (j===0) ? [[[ 0, turn ]]] : [[[ 0, (1 - _SIDES)**(j) * turn ]]] //frequency 
-        } 
-        
-        
-        let rad = radOnLevel(j)
-        anis[level].payload.fractal.an[j] = {rad, ang}
-      }
-
-      
-      anis[level].payload.fractal.coef = d => { // fractal coef(level)
-        let z = d.payload.fractal.an.reduce((p, q) => {
-          let aj = zcoef(q.rad, q.ang) // zcoef from amplitude and phase
-          return p.add(aj)
-        }, Complex({re: 0, im: 0}))
-        return z
-      }
-
-      
-      anis[level].payload.fractal.rad = radOnLevel(level) // rad(level)
-      anis[level].payload.boform.cf = _CF(level) // boform  
-      if (level === _LEVEL - 1) { // add image as avatar to root nat
-        anis[level].payload.avatars = []
-
-        anis[level].payload.avatars.push(traceLine) // push traceLine avatar to last cycloid
-      }
-    }
-
-    return anis
   }
 
+  let tracelineSphere = {
 
-  /***********
-  *         @animas
-  */
-  animas = getForm({depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2})
+    halo: 'pacer',
 
+    payload: {
+
+      tim,
+      ric: {gid: 'trace', cid: 'trace', fid: 'tracelineSphere'},
+      boform: traceBoform,
+
+      stace: {
+        'x': { 'pos': 0 },
+        'y': { 'pos': 0 },
+        'z': 0
+      },
+
+      pacer: {
+        initN: 0, eventN: 0, autoN: 1, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, aad: 1, // add on LineString
+
+        autoSitus: d => mstace.getLocus(d.payload.stace, d), // situs of anigram
+
+        fider: d => d.payload.ric.fid,
+
+        geojsor: () => ({
+
+          halo: 'ent',
+          geofold: {
+            type: 'Feature',
+            geometry: {
+              type: 'LineString',
+              coordinates: null
+            },
+            properties: {}
+          },
+          payload: {}
+
+        })
+
+      }
+    }
+  }
 
   /*******************************************
- *      @animaApi
+ * @animaApi
  *
  */
+
+  sphere.payload.avatars = {
+
+    tracelineSphere // h.pacer
+
+  }
+
+  nat.payload.avatars = {
+
+    tracelineNat // h.pacer
+
+  }
+
+  let animas = [
+
+    nat, // h.nat
+    // sphere, // h.nat
+    // tracelineSphere,     // h.pacer
+    // {...manimas('img'), tim}
+
+  ]
 
   let animaApi = function animaApi () {
     __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
@@ -245,5 +288,4 @@ let muonAlima = function muonAlima (__mapper) {
 let __mapper = muonMapper.muonMapper()
 __mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
-<body style='cursor:crosshair'></body>
-
+<body style="cursor:crosshair"></body>

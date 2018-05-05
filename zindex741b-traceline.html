@@ -78,7 +78,7 @@ let muonAlima = function muonAlima (__mapper) {
  *    @animas
  *
  */
-  let nat = {
+  let lineForm = {
 
     halo: 'ent',
     // geofold: a => mnat.natFeature(a.payload.form),
@@ -122,7 +122,7 @@ let muonAlima = function muonAlima (__mapper) {
 
   }
 
-  let tracelineNat = {
+  let traceLine = {
 
  
     halo: 'pacer',
@@ -162,119 +162,25 @@ let muonAlima = function muonAlima (__mapper) {
       }
     }
   }
-  // -------------------------------  sphere
-  let sphere = {
 
-    halo: 'ent',
-
-    geofold: p => mnat.natFeature(p.payload.form),
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'sphere'},
-
-      proform: {
-        projection: 'uniwen',
-        translate:
-        [
-          [ [[[0, 100]]], 0, 100 ],
-          [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
-            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
-          } ]]]
-        ],
-        scale: 1,
-        rotate: [ 0, 0, 0 ],
-        lens: [0, 1, Infinity]
-      },
-
-      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
-
-      form: {
-
-        'x': {
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360
-        },
-        'y': {
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360
-        },
-        'z': {
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360
-        }
-
-      }
-    }
-  }
-
-  let tracelineSphere = {
-
-    halo: 'pacer',
-
-    payload: {
-
-      tim,
-      ric: {gid: 'trace', cid: 'trace', fid: 'tracelineSphere'},
-      boform: traceBoform,
-
-      stace: {
-        'x': { 'pos': 0 },
-        'y': { 'pos': 0 },
-        'z': 0
-      },
-
-      pacer: {
-        initN: 0, eventN: 0, autoN: 1, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, aad: 1, // add on LineString
-
-        autoSitus: d => mstace.getLocus(d.payload.stace, d), // situs of anigram
-
-        fider: d => d.payload.ric.fid,
-
-        geojsor: () => ({
-
-          halo: 'ent',
-          geofold: {
-            type: 'Feature',
-            geometry: {
-              type: 'LineString',
-              coordinates: null
-            },
-            properties: {}
-          },
-          payload: {}
-
-        })
-
-      }
-    }
-  }
 
   /*******************************************
  * @animaApi
  *
  */
 
-  sphere.payload.avatars = {
 
-    tracelineSphere // h.pacer
 
-  }
+  lineForm.payload.avatars = {
 
-  nat.payload.avatars = {
-
-    tracelineNat // h.pacer
+    traceLine // h.pacer
 
   }
 
   let animas = [
 
-    nat, // h.nat
-    // sphere, // h.nat
-    // tracelineSphere,     // h.pacer
-    // {...manimas('img'), tim}
+    lineForm, // h.ent
+
 
   ]
 

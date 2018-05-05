@@ -26,14 +26,8 @@
 
     // -------------------------------  haloPacerHalo_ween
 
-    //md: h.pacer applies to h.gramm, could apply to h.ween
-    //md: eg: 
-    //md:     let haloPacerHalo_ween = function  (anima, newItems = []) {
-    //md:       if (anima.payload.inited !== 1) { anima.payload.inited = anima.payload.gelded = 1; newItems = Array.of(anima) }
-    //md:       return newItems
-    //md:     }
-
-    //md: let haloPacerHalo_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+    //md: h.pacer 
+    //md: applies to h.gramm
 
 
     let haloPacerHalo_ween = anima => []
@@ -195,8 +189,8 @@
                 //  coords are final space coords (after h.ent, stored at m.animation)
                 // //
                 let coords = newItem.geofold.geometry.coordinates || []// domain coords
-if (0 && 1) console.log("h.pacer coords", coords.length)                  
-                let geocoords = newItem.geofold.properties.geocoords // pre coords
+if (1 && 1) console.log("h.pacer coords", coords.length)                  
+                // let geocoords = newItem.geofold.properties.geocoords // pre coords
   
                 if (coords && coords.length > 0) {
                    
@@ -216,8 +210,8 @@ if (0 && 1) console.log("h.pacer coords", coords.length)
                 }
 
                 newItem.geofold.geometry.coordinates = coords // upd coords
-                newItem.geofold.properties.geocoords = geocoords
-if (0 && 1) console.log("h.pacer coords", newItem.geofold.geometry.coordinates.length)                  
+                // newItem.geofold.properties.geocoords = geocoords
+if (1 && 1) console.log("h.pacer coords", newItem.geofold.geometry.coordinates.length)                  
                 
                 // ///
                 //  h.ent will conform, ereform, proform

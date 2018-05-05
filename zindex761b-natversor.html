@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin: 0; position: fixed; top: 0; right: 0; bottom: 0; left: 0; }
+    div#fps,svg { position: fixed; top: 0; left: 0; color: white; }
+  </style>
+
+</head>
+<body style='cursor:crosshair'></body>
+<div id='viewframe' class='viewframe'></div>
+<script src='script-enls.js'></script>
+<script src='script-ents.js'></script>
+
+<script>
+
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 1, wen: 0, webgl: 0, img: 1, gui: 0, fps: 0, stats: 0}) // INIT
+
+  let f = __mapper({props: muonProps.muonProps()}).props(),
+    mnat = __mapper('xs').m('nat'),
+    cwen = __mapper('xs').c('wen'),
+    cversor = __mapper('xs').c('versor'),
+    mstace = __mapper('xs').m('stace')
+
+  const pi = Math.PI, pi2 = 2 * pi
+  
+
+ let tim = {'td': 11200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+ 
+
+
+    let anima = {
+
+      halo: 'ent',
+      geofold: p => mnat.natFeature(p.payload.form),
+      payload: {
+
+        tim: tim,
+        ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
+
+        form: {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 2, 'pa6': 0, 'pb7': -1
+          },
+          
+        proform: {
+        
+          projection: 'uniwen',
+          // prerotate: [[[ cwen.rotation ]]],
+          prerotate: [[[ cversor.rotation ]]],          
+          scale: 1,
+          translate: { x: 0, y: 0, z: 0 },
+          rotate: [ 0, 0, 0 ]
+
+        }
+      }
+    }
+
+ 
+  
+  let animatter = {
+
+      halo: 'ent',
+      geofold: p => mnat.natFeature(p.payload.form),
+      payload: {
+
+        tim: tim,
+        ric: {gid: 'animatter', cid: 'animatter', fid: 'animatter'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.09, 'cp': 0.7},
+
+        form: {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 20, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          },
+
+          
+        proform: {
+
+        
+          projection: 'orthographic',
+          // prerotate: [[[ cwen.rotation ]]],
+          prerotate: [[[ cversor.rotation ]]],
+          scale: 90,
+        
+        
+          // projection: 'uniwen',
+          // prerotate: [[[ cwen.rotation ]]],
+          // scale: 1,
+          translate: [ 0, 0, 0 ],
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+
+        }
+      }
+    }
+  /***********
+  *         @animas
+  */
+
+  animas = [
+    anima, 
+    animatter,
+  ]
+
+  /*******************************************
+ *      @animaApi
+ *
+ */
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style='cursor:crosshair'></body>
+

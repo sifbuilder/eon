@@ -120,8 +120,7 @@
         
       } else {  
     
-    if (0 && 1) console.log("m.nat natFeature form", form)
-            
+
               let nformed = natNform(form) // NFORM
 
               let geometry
@@ -133,7 +132,6 @@
                 sx = dx
                 sy = dy
 
-                
                 
                 let graticule = {frame: [ [ [-180, 180, sx, dx], [-90, 90, sy, dy] ] ]} // x, y
                 
@@ -157,7 +155,7 @@
                 geometry.coordinates = Array.of(p)
               }
 
-              if (0 && 1) console.log('m.nat.geometry', geometry)
+
 
               let gj = {
                 type: 'Feature',
@@ -187,10 +185,10 @@
               })
 
               feature = mproj3ct(gj, projection)
-
+ if (1 && 1) console.log('m.nat.feature', feature)
          cache.form = form
          cache.feature = feature  
-   if (0 && 1) console.log("m.nat natFeature feature", feature)
+
          
       }               
       

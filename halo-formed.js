@@ -45,7 +45,7 @@
       //  get GEOFORM FeatureCollection
       //
       let gjcollection = f.v(geofold, anigram)  // get geoform
-      if (2 && 2 && gjcollection.type !== '-- FeatureCollection') console.log("gjcollection is not FeatureCollection", gjcollection)
+      if (2 && 2 && gjcollection.type !== 'FeatureCollection') console.log("** gjcollection is not FeatureCollection", gjcollection)
         gjcollection = mgeoj.zorder(gjcollection) // order features in collection
         gjcollection = mric.enric(ric, anigram, gjcollection) // ric to feature or collection
 

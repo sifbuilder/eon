@@ -67,47 +67,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     const signexp = d => Math.pow(-1, d)
 
-    /***********
-  *         @img
-  */
-    let img = {
-
-      halo: 'img',
-
-      geofold: p => ({
-        type: 'Feature',
-        geometry: {
-
-          'type': 'Point',
-          'coordinates': [ 20, 30 ]
-
-        },
-        properties: {
-          sort: 'img',
-          'xlink:href': p.payload.img.url,
-          style: p.payload.img.style
-        }
-      }),
-
-      payload: {
-
-        ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-        boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-        proform: {
-          projection: 'uniwen',
-          translate: [ 30, 40 ]
-        },
-        img: {
-          url: 'zimg-501.jpg',
-          'style': {
-            'width': [[[60, 60]]],
-            'height': [[[40, 40]]],
-            'rotate': [[[ 0, 0 ]]]
-          }
-        }
-
-      }
-    }
+ 
 
     /***********
   *         @traceLine
@@ -223,7 +183,6 @@ let muonAlima = function muonAlima (__mapper) {
             } else                  { amp = rad0 / Math.pow(2, 1) 
             }
 
-if (0 && 1) console.log("k", level, sides, k, amp)
   
             return amp
           },

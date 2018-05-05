@@ -35,26 +35,21 @@ let muonAlima = function muonAlima (__mapper) {
     mstore = __mapper('xs').m('store'),
     mnat = __mapper('xs').m('nat'),
     manimas = __mapper('xs').m('animas'),
-    mric = __mapper('xs').m('ric')
+    mric = __mapper('xs').m('ric'),
+    cwen = __mapper('xs').c('wen'),
+    cversor = __mapper('xs').c('versor')
 
-  /*******************************************
- *      @pics
- */
+
   let tim = {'td': 26800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
   let traceForm = {
 
     'x': {
-
       'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
       'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360
-
     },
-
     'y': {
-
       'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
       'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360
-
     }
 
   }
@@ -62,18 +57,15 @@ let muonAlima = function muonAlima (__mapper) {
   let natForm = {
 
     'x': {
-
       'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // cyrcle
       'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360
     },
-
     'y': {
 
       'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // cyrcle
       'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360
-
     }
 
   }
@@ -103,13 +95,11 @@ let muonAlima = function muonAlima (__mapper) {
 
       proform: {
         projection: 'uniwen',
-      translate: [ [ 70, 80 ], [[[ natStace ]]] ], //
-      // translate: [ [ 0, 1 ] ], //
+        translate: [ [ 70, 80 ], [[[ natStace ]]] ], //
         scale: 1,
         rotate: [ 0, 0, 0 ],
         lens: [0, 1, Infinity],
         control: 'wen'
-
       },
 
       boform: natBoform,
@@ -120,45 +110,27 @@ let muonAlima = function muonAlima (__mapper) {
 
   }
 
-  let tracelineNat = {
-
+  let traceLine = {
+  
     halo: 'pacer',
-
+    
     payload: {
+      ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
+      boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
-      tim,
-      ric: {gid: 'trace', cid: 'trace', fid: 'tracelineNat'},
-      boform: traceBoform,
-
-      stace:
-      {
-        x: { pos: 0, ere: 1 },
-        y: { pos: 0, ere: 1 },
-        'z': 0
-      },
-      proform: {
-      projection: 'uniwen',
-      translate: [ [ 70, 80 ], [[[ natStace ]]] ], //
-      // translate: [ [ 0, 1 ] ], //
-      scale: 1,
-      rotate: [ 0, 0, 0 ],
-      lens: [0, 1, Infinity],
-      // control: 'wen'
-
-      },
       pacer: { // aad for trace
+        stace: { x: { pos: 0 }, y: { pos: 0 }, z: 0 },               
         initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
-
-        autoSitus: d => mstace.getLocus(this.stace, d.payload), // situs
-
-        fider: d => d.payload.ric.fid,
-
-        geojsor: function (d, i) {
-          let ric = d.payload.ric // ric
+        autoSitus: function(a) {
+          let r =  mstace.getLocus(this.stace, a.payload) // situs
+          return r
+        },
+        fider: a => a.payload.ric.fid,
+        
+        geojsor: function (a, i) {
+          let ric = a.payload.ric // ric
           let uid = mric.getuid(ric)
-
           let gj = {
-
             halo: 'ent',
             geofold: {
               type: 'Feature',
@@ -166,28 +138,24 @@ let muonAlima = function muonAlima (__mapper) {
               properties: { doc: 'pacer' }
             },
             payload: {
-              uid: uid,
-              id: uid,
-              ric: ric,
-              proform: this.proform
+              uid: uid, id: uid, ric: ric,
+              // proform: this.proform
+              proform: { // proform in the geographic domain
+                  projection: 'orthographic',
+                  scale: 90,
+                  prerotate: [[[ cwen.rotation ]]],
+                  translate: [0,0],
+                  rotate: [ 0, 0 ],
+                }
             }
-
           }
-
           let newItem = mstore.findAnigramFromUid(uid) || gj
-          if (0 && 1) console.log('h.pacer newItem', newItem)
           if (newItem.geofold.properties.formEreformed) {
             newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
           }
-
-          if (0 && 1) console.log('newItem', newItem)
-
           return newItem
         },
-
       }
-      
-      
     }
   }
   // -------------------------------  sphere
@@ -282,24 +250,22 @@ let muonAlima = function muonAlima (__mapper) {
  *
  */
 
-  sphere.payload.avatars = {
-
-    tracelineSphere // h.pacer
-
-  }
-
   nat.payload.avatars = {
 
-    tracelineNat // h.pacer
+    traceLine // h.pacer
 
   }
+
+  // sphere.payload.avatars = {
+
+    // tracelineNat // h.pacer
+
+  // }
 
   let animas = [
 
     nat, // h.nat
-    // sphere, // h.nat
-    // tracelineSphere,     // h.pacer
-    // {...manimas('img'), tim}
+
 
   ]
 
