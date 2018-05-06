@@ -11,11 +11,40 @@
   let muongeoj = function muongeoj (__mapper = {}) {
     let f = __mapper('props')()
 
-    //md: ## mgeoj
-    //md:   gj streams
-    //md:   refs:
-    //md:   https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6
-    //md:   https://github.com/mapbox/geojson-normalize/blob/master/index.js
+
+//md: # md:{filename}
+//md: **process geojson streams**
+
+//md: ## references
+//md: [Maarten’s Block geo to square tiles](https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6)
+//md: [geojson-normalize](https://github.com/mapbox/geojson-normalize/blob/master/index.js)
+
+//md: ## functions
+
+
+//md: ## methods
+//md: ### * trim
+//md: ### * tclip
+//md: ### * complexify
+//md: ### * deprop
+//md: ### * snip
+//md: ### * largestPoly
+//md: ### * lineStringFromStream
+//md: ### * polygonFromStream
+//md: ### * multLineStringFromStreamArray
+//md: ### * featurecollect
+//md: ### * featurize
+//md: ### * ntime
+//md: ### * zorder
+//md: ### * centroid
+//md: ### * getCoords
+//md: ### * getCoordsLength
+//md: ### * getCoordsInRange
+//md: ### * isValid
+
+//md: # license
+//md: MIT    
+
 
     let types = {
       Point: 'geometry',
@@ -381,7 +410,7 @@ function complexifyLine(coordinates) {
       let features = []
       if (json.type === "FeatureCollection") features = json.features
       else {
-        if (2 && 2) console.log('json is not FeatureCollection')
+        if (2 && 2) console.log('** json is not FeatureCollection')
         return json
       }
        

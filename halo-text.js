@@ -8,6 +8,14 @@
 }(this, function (exports) {
   'use strict'
 
+//md: # md:{filename}
+//md: **process text animas**
+
+
+
+//md: # license
+//md: MIT   
+
   let haloText = function (__mapper = {}) {
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
@@ -89,7 +97,7 @@
         }
 
 
-      newAnigrams = [...newAnigrams, ...__mapper('xs').h('formed').gramm(newAnigram)]
+      newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(newAnigram)]
       return newAnigrams
     }
 

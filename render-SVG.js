@@ -8,22 +8,31 @@
 }(this, function (exports) {
   'use strict'
 
+  // md: # md:{filename}
+  // md: **render svg**
+  // md:
+  // md:  The viewport is the visible area of the SVG image
+  // md:  Default units are pixels
+  // md:  `<svg width="600" height="400"></svg>`
+  // md:  The svg [viewBox](http://tutorials.jenkov.com/svg/svg-viewport-view-box.html) attribute is used to redefine the viewport coordinates
+  // md:  two first coordinates define user coordinates of upper left corner
+  // md:  two last coordinates define user coordinates of lower right corner
+  // md:  `<svg width="600" height="400" viewBox="0 0 50 20" >`
+  // md: ref: [Margin Convention](https://bl.ocks.org/mbostock/3019563)
+  // md: ## methods
+  // md: * ### svg
+  // md: * ### elems
+  // md:      call `elems(payload, data, idfn)`
+  // md: * ### render
+  // md:      call `render(elapsed, featurecollection, maxlimit)`
+  // md:      gets anima.geofold's from m.animation
+  // md:   @elapsed
+  // md:   @featurecollection
+  // md:   @maxlimit
+
   let renderSvg = function (__mapper = {}) {
-    let f = __mapper('props')()
-
-    
-    //md: cif: http://tutorials.jenkov.com/svg/svg-viewport-view-box.html
-    //md:  The viewport is the visible area of the SVG image
-    //md:  Default units are pixels
-    //md:  <svg width="600" height="400"></svg>
-      
-    //md:  The svg viewBox attribute is used to redefine the viewport coordinates
-    //md:  two first coordinates define user coordinates of upper left corner
-    //md:  two last coordinates define user coordinates of lower right corner
-    //md:   <svg width="600" height="400" viewBox="0 0 50 20" >
-
-    //md: ref: https://bl.ocks.org/mbostock/3019563   // Margin Convention
-    let r = __mapper('xs').r('renderport')
+    let f = __mapper('props')(),
+      r = __mapper('xs').r('renderport')
 
     let state = {
       width: r.width(),
@@ -49,10 +58,7 @@
       .attr('pointer-events', 'none')
       .attr('overflow', 'visible')
 
-    /* **************************
- * 				@svg
- *
- */
+    // ............................. svg
     let svg = function svg () {
       if (document.getElementById('viewframe') !== null) {
         return d3.select('#viewframe')
@@ -61,10 +67,7 @@
       }
     }
 
-    /* **************************
- * 				@elems
- *
- */
+    // ............................. elems
     let elems = function (payload, data = ['data'], idfn = null) {
       if (d3.select('.muon-style-block').empty()) {
         d3.select('head').append('style').attr('class', 'muon-style-block')
@@ -133,21 +136,8 @@
       }
     }
 
-    /* **************************
- *
- *
- * 			@render
- *
- *      gets anima.geofold's from m.animation
- *
- *
- */
-    //md: # render
-    //md:   @elapsed
-    //md:   @featurecollection
-    //md:   @maxlimit
+    // ............................. render
     let render = function (elapsed, featurecollection, maxlimit) {
-
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
@@ -173,7 +163,6 @@
             .filter(d => d.properties.sort === 'text')
 
           if (texts.length > 0) {
-            
             __mapper('renderSvg').elems('svg:g.' + gid + '/text.' + cid, texts, d => d.uid)
               .text(d => d.properties.text)
 
@@ -214,7 +203,6 @@
             .filter(d => d.properties.sort === 'img') // __ imgs __
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
 
-
           if (imgs.length > 0) {
             __mapper('renderSvg').elems('svg:g.' + gid + '/image.' + cid, imgs, d => d.id)
 
@@ -229,7 +217,7 @@
                     ' rotate(' +
                     (d.properties.style.rotate || 0) +
                     ' )'
-						 })
+              })
 
               .attr('xlink:href', d => d.properties['xlink:href'])
               .attr('width', d => d.properties.style.width)
@@ -242,36 +230,33 @@
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
           if (axes.length > 0) {
-            
+            // let ax = axes[0].properties.axis
 
-              // let ax = axes[0].properties.axis  
-             
-             
-let axcall = d3.axisBottom(d3.scaleLinear()
-                .domain([200,100])
-                .range([0,600]))
-                .tickSize(10)
-                .tickPadding(5)             
+            let axcall = d3.axisBottom(d3.scaleLinear()
+              .domain([200, 100])
+              .range([0, 600]))
+              .tickSize(10)
+              .tickPadding(5)
 
-  // cid = 'e'
+            // cid = 'e'
             __mapper('renderSvg').elems('svg:g.' + gid + '/g.' + 'e', axes, d => d.id)
 
               .data(() => axes)
 
               .call(axcall)
               // .attr("transform", "translate(0,0)")
-              // .call(ax.d3Axis)		
+              // .call(ax.d3Axis)
               // .attr('transform', d =>
-                // 'translate(' + d.tranlateX + ',' + d.tranlateY + ')' +
-                      // 'rotate(' + d.rotate + ')'
+            // 'translate(' + d.tranlateX + ',' + d.tranlateY + ')' +
+            // 'rotate(' + d.rotate + ')'
               // )
               // .style('font-size', d => d.properties.axis.fontSize)
               // .style('text-anchor', d => d.properties.axis.textAnchor)
               // .style('font-family', d => d.properties.axis.fontFamily)
-              
+
               // .style('fill', d => {
 
-                // return d.properties.style.fill
+            // return d.properties.style.fill
               // })
               // .style('stroke', d => d.properties.style.stroke)
               // .style('fill-opacity', d => d.properties.style['fill-opacity'])
@@ -281,12 +266,12 @@ let axcall = d3.axisBottom(d3.scaleLinear()
 
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
-            .filter(d => d.properties.sort === 'feature' 
+            .filter(d => d.properties.sort === 'feature'
 
             )
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
-          if (features.length > 0) {  // _e_
+          if (features.length > 0) { // _e_
             __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)
               .data(() => features)
               .attr('d', d => {
@@ -301,8 +286,7 @@ let axcall = d3.axisBottom(d3.scaleLinear()
                 let path = (pointRadius !== undefined) // geoPath
                   ? geoPath.pointRadius(pointRadius)
                   : geoPath
-                  
-                
+
                 let ret = path(geoitem)
                 return ret
               })
@@ -318,10 +302,7 @@ let axcall = d3.axisBottom(d3.scaleLinear()
       }
     }
 
-    /* **************************
- *      @enty
- *
- */
+    // ............................. enty
     let enty = function enty () {}
 
     enty.svg = svg

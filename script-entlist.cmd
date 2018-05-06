@@ -248,12 +248,9 @@ with references to
           var arr
           while ((arr = findPattern.exec(fileTxt)) !== null) {
               let toreplace = arr[0]
-              if (1 && 1) console.log ('find 0:', arr[0])            
-              if (1 && 1) console.log ('find 1:', arr[1])            
               fileTxt = fileTxt.replace(toreplace, '')
 
           }
-if (1 && 1) console.log("fileName", fileName)           
           fs.writeFileSync(fileName,fileTxt)    
 
         }
