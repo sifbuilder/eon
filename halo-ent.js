@@ -81,7 +81,7 @@
           feature.properties.nodeEreformed = feature.properties.nodeConformed
         }
 
-if (1 && 1) console.log("proform", payload.proform)
+
         if (payload.proform) {
           let proformion = mprofier.proformion(anigram)
           feature = mproj3ct(feature, proformion)
@@ -96,7 +96,7 @@ if (1 && 1) console.log("proform", payload.proform)
         
         // let gjcollection = {type: 'FeatureCollection', features}
         
-        
+if (1 && 1) console.log("this", this)        
         anigram.geofold = gjcollection
         newAnigrams = __mapper('xs').h('formed').gramm(anigram)
         

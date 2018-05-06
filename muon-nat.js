@@ -185,7 +185,7 @@
               })
 
               feature = mproj3ct(gj, projection)
- if (1 && 1) console.log('m.nat.feature', feature)
+
          cache.form = form
          cache.feature = feature  
 

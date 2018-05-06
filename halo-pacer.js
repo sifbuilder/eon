@@ -8,26 +8,20 @@
 }(this, function (exports) {
   'use strict'
 
-  
+  // md: # md:{filename}
+  // md: **create new items at init, on auto or upon event**
+  // md: * `@a.p.pacer.add`, if 1, pace items are added to pacer (eg. LineString trace)
+  // md: * `@a.p.pacer.initSitus`  : situs for init items
+  // md: * `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, a.payload)`,  auto time is
+  // md:   `a.p.tim.unitPassed - a.p.pacer.outed`
+  // md: * `@a.p.pacer.eventSitus` : situs for event items
+  // md:   `count` new items to pacer from init, auto and event
+  // md:
+  // md: * `@a.p.pacer.fidder`  : new item `fid` identifier
+  // md: * `@a.p.pacer.geojsor(@anigram, @counter)` : gets new item
 
-    //md: md:{filename}
-    //md: applies to h.gramm
-    //md: @anigram al. a, get from m.anitem(a).anigram()
-    //md: @anigram.geofold al. g, if not in parent, def from m.anitem
-    //md: @anigram.payload al. p
-    //md: @p.pacer.add : pace items are added to pacer (eg. LineString trace)
-    //md: @p.pacer.initSitus  : situs for init items
-    //md: @p.pacer.autoSitus  : situs for auto items
-    //md: @p.pacer.eventSitus  : situs for event items
-    //md: p.pacer.autoSitus calls m.stace.getLocus(this.stace, a.payload)
-    
-    //md:   count is nb items to add to pacer (from init, auto, event)
-    
-  
-  
   let haloPacer = function haloPacer (__mapper = {}) {
-    let f = __mapper({'props': muonProps.muonProps()}).props(),
-      mgeom = __mapper('xs').m('geom'),
+    let mgeom = __mapper('xs').m('geom'),
       mwen = __mapper('xs').m('wen'),
       crayder = __mapper('xs').c('rayder'),
       cwen = __mapper('xs').c('wen'),
@@ -35,17 +29,16 @@
       mstace = __mapper('xs').m('stace'),
       manitem = __mapper('xs').m('anitem'),
       mric = __mapper('xs').m('ric'),
-      mstore = __mapper('xs').m('store')
+      mstore = __mapper('xs').m('store'),
+      hent = __mapper('xs').h('ent')
 
     let r = __mapper('xs').r('renderport'),
       width = r.width(),
       height = r.height()
 
-
     let haloPacerHalo_ween = anima => []
 
     let haloPacerHalo_gramm = function (anima, newItems = []) {
-      
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
         geofold = anigram.geofold || manitem.coreGeoform(), // geofold
@@ -64,10 +57,7 @@
         aad = pacer.aad || 0, // aad to previtem
         outted = pacer.outted || 0 // outted
 
-
-      /* ****
-       *    defaults
-       */
+      // ....................... defaults
       payload.pacer.initSitus = (payload.pacer.initSitus === undefined) // initSitus
         ? d => ({x: 0, y: 0, z: 0 })
         : payload.pacer.initSitus
@@ -79,7 +69,6 @@
       payload.pacer.autoSitus = (payload.pacer.autoSitus === undefined) // autoSitus
         ? d => ({x: Math.random(), y: Math.random(), z: 0 })
         : payload.pacer.autoSitus
-        
 
       payload.pacer.fidder = (payload.pacer.fidder === undefined) // identifier
         ? anitem => anitem.payload.ric.fid
@@ -89,43 +78,30 @@
         ? d => ({type: 'Point', coordinates: null}) //  default
         : payload.pacer.geojsor // (ani, counter) => geometry
 
-      /* ****
-       *    count
-       */
+      // ....................... count
       let count = {} // items in cycle
 
-      /* ****
-       *    controls
-       */
-
+      // ....................... controls
       if (crayder.mouse() && crayder.mouse().type === 'mouseup') { // if mouse up then reset
         let svg = __mapper('renderSvg').svg()
         cwen.reset(svg)
         cversor.reset(svg)
       }
 
-
-      if ( (crayder.mouse() !== undefined && crayder.mouseDown() === 1)
-          || (crayder.touch() !== undefined && crayder.touchStart() === 1))
-          { // on mouse DOWN
+      if ((crayder.mouse() !== undefined && crayder.mouseDown() === 1) ||
+          (crayder.touch() !== undefined && crayder.touchStart() === 1)) { // on mouse DOWN
         if (mousesignal === 0 || crayder.mouse().type === 'mousedown') { //
           count.event = Math.floor(pacer.eventN) //  if in state or was event
         }
       }
 
-
-      /* ****
-       *    init
-       */
+      // ....................... init
       if (pacer.inited === undefined || pacer.inited !== 1) {
         count.init = Math.floor(pacer.initN) // count INIT
       }
 
-      /* ****
-       *    auto
-       */
+      // ....................... auto
       let cycletime = tim.unitPassed - (pacer.outed || 0)
-
       if (cycletime >= pacer.autoP &&
             tim.unitPassed > (pacer.autoT || 0)
       ) { // if cycle time above autopath
@@ -137,154 +113,89 @@
         // mstore.apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
         mstore.apply({'type': 'UPDANIGRAM', 'caller': 'h.pacer', animas})
       }
-      
+
       if (Object.keys(count).length > 0) { // on pace count
         let situs // situs of new anitem dependent on kind
 
-        for (let i = 0; i < Object.keys(count).length; i++) { // in count
-
-          let key = Object.keys(count)[i] // count sort
+        for (let counter = 0; counter < Object.keys(count).length; counter++) { // in count
+          let key = Object.keys(count)[counter] // count sort
 
           if (count[key] > 0) { // if count on this sort
-          
-            //md: call situs locators as pacer method to get this.stace
             if (key === 'init') { // init defaults center
               situs = payload.pacer.initSitus(anigram)
             } else if (key === 'auto') { // auto defauts random
               situs = payload.pacer.autoSitus(anigram)
+              
+
+              
             } else if (key === 'event') { // event defaults event
               situs = payload.pacer.eventSitus(anigram)
             }
             if (situs && typeof situs === 'object') situs = Object.values(situs)
 
-
-              
-            //md: the anigram ric and the newItem fidder() conform the newItem id
-            //md: call fidder as pacer method
             let _ric = ric
             _ric.fid = payload.pacer.fidder(anigram) // fidder set in the payload or default
             let uid = mric.getuid(_ric) // uid
-            
-            
-            // let newItem = mstore.findAnigramFromUid(uid) || geojsor(anigram, i)
-            let newItem = payload.pacer.geojsor(anigram, i) // i in key.count
-            
-            newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
-                
-            if (aad) {
- 
-              // ///
-              //
-              //
-              //      CUM LINE    if add anitem to LineString
-              //
-              //
-              // //
 
-              // ///
-              //  update newItem payload from parent - conform, proform
-              //  newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
-              // ///
-              //  if newItem has lost geometry (cause projection)
-              //  generate newItem.geofold.geometry again with geojsor
-              // //
-                if (!newItem.geofold.geometry) {
-                    let payload = newItem.payload // newItem has lost geometry
-                    //md: call geojsor as pacer method
-                    newItem = payload.pacer.geojsor(anigram, i) // anigram, counter per paced type
-                    newItem.payload = payload // inherit payload
+            let newItem = payload.pacer.geojsor(anigram, counter) // newItem from geojsor counter in key.count
+            newItem.payload = Object.assign({}, newItem.payload, anigram.payload) // newItem.payload
+
+            if (aad) { // .................... if aad,  add to LineString
+              if (!newItem.geofold.geometry) { // if newItem has lost geometry (cause projection)
+                let payload = newItem.payload // generate newItem.geofold.geometry again with geojsor
+                newItem = payload.pacer.geojsor(anigram, counter) // call geojsor as pacer method for this
+                newItem.payload = payload // inherit payload
+              }
+
+              //  add situs to newItem coords
+              //  coords are final space coords (after h.ent, stored at m.animation)
+              let coords = newItem.geofold.geometry.coordinates || [] // domain coords
+
+              // let geocoords = newItem.geofold.properties.geocoords // pre coords
+
+              if (coords && coords.length > 0) {
+                let presitus = coords[coords.length - 1] // last point in paced string
+
+                let d = mgeom.distance3d(presitus, situs) // distance to new coord
+                if (d >= span) {
+                  coords.push(situs) // if beyond span ADD SITUS to LineString
                 }
+              } else {
+                coords = Array.of(situs) // coords start with first situs
+              }
 
-                // ///
-                //  add situs to newItem coords
-                //  coords are final space coords (after h.ent, stored at m.animation)
-                // //
-                let coords = newItem.geofold.geometry.coordinates || []// domain coords
+              newItem.geofold.geometry.coordinates = coords // upd coords
+              // newItem.geofold.properties.geocoords = geocoords
 
-                // let geocoords = newItem.geofold.properties.geocoords // pre coords
-  
-                if (coords && coords.length > 0) {
-                   
-                  let presitus = coords[coords.length - 1] // last point in paced string
-
-                  let d = mgeom.distance3d(presitus, situs) // distance to new coord
-                  if (d >= span) {
-
-                    coords.push(situs) // if beyond span ADD SITUS to LineString
-
-                  }
-
-                } else {
-
-                  coords = Array.of(situs)  // coords start with first situs
-
-                }
-
-                newItem.geofold.geometry.coordinates = coords // upd coords
-                // newItem.geofold.properties.geocoords = geocoords
-
-                
-                // ///
-                //  h.ent will conform, ereform, proform
-                //  each pace segment will accumulate at every cycle
-                //  no sense on continuous functions
-                // //
-                let newItemsInCount = __mapper('xs').h('ent').gramm(newItem)
-                newItems = [...newItems, ...newItemsInCount] // add items
-
-                
-                
-            // if not aad
-            // //
-            } else {
-              //  if the newItem has NOT been CREATED yet ....
-              //
-              if (newItem === undefined) { // if not, create new anigram
-
-                //  the newItem is generated by the halo anigram geojsor
-                //
-                // generate the paced fold from the genigram
-
-                newItem = geojsor(anigram, i) // anigram, counter per paced type
+              let newItemsInCount = hent.gramm(newItem) // h.ent newItem
+              newItems = [...newItems, ...newItemsInCount] // add new items
+            } else { // ............... if NOT aad
+              if (newItem === undefined) { // if the newItem has NOT been CREATED yet ....
+                newItem = payload.pacer.geojsor(anigram, counter) // newItem anigram, counter per paced type
                 newItem.payload.id = uid
                 newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
-
               } else {
-                // the geofold is recreated ... remove for form accumulation _e_
-
-                newItem = geojsor(anigram, i) // anigram, counter per paced type
+                newItem = payload.pacer.geojsor(anigram, counter) // anigram, counter per paced type
                 newItem.payload.id = uid
                 newItem.payload = Object.assign({}, newItem.payload, anigram.payload)
               }
 
-
-              // ///
-              //
-              //      if POINT
-              //
-              // //
-
               if (newItem.geofold && newItem.geofold.geometry.type === 'Point') { // POINT
-
                 let presitus = newItem.geofold.geometry.coordinates
 
                 if (presitus !== null) { // if paced item DOES exist
-                  // distance from previous situs
-                  let d = mgeom.distance3d(presitus, situs)
+                  let d = mgeom.distance3d(presitus, situs) // distance from previous situs
 
-                  // if distance from previous point greater than span
-                  if (d >= span) {
+                  if (d >= span) { // if distance from previous point greater than span
                     newItem.geofold.geometry.coordinates = [0, 0, 0]
                     newItem.payload.proform = {
                       projection: 'uniwen',
                       translate: situs
                     } // proform
 
-                    // process newItem as h.ent
-                    let newAnigrams = __mapper('xs').h('ent').gramm(newItem)
+                    let newAnigrams = hent.gramm(newItem) // process newItem as h.ent
 
-                    // add new anigrams
-                    newItems = [...newItems, ...newAnigrams]
+                    newItems = [...newItems, ...newAnigrams] // add new anigrams
                   }
                 } else { // paced item NOT exists
                   newItem.geofold.geometry.coordinates = [0, 0, 0]
@@ -296,17 +207,10 @@
                   let newGrams = __mapper('xs').h('ent').gramm(newItem)
                   newItems = [...newItems, ...newGrams] // add items
                 }
-              } else {
-                //
-                //
-                //      TRACE NAT
-                //
-                //
-
+              } else { // ..... else TRACE NAT
                 let halo = newItem.halo
 
-                // transfer trace situs through proform
-                newItem.payload.proform = {
+                newItem.payload.proform = { // transfer trace situs to halo through proform
                   projection: 'uniwen',
                   translate: situs
                 } // proform
@@ -326,9 +230,7 @@
     haloPacerHalo.ween = anima => haloPacerHalo_ween(anima)
     haloPacerHalo.gramm = anima => haloPacerHalo_gramm(anima)
 
-    /**********************
-   *    @enty
-   */
+    // ....................... enty
     let enty = haloPacerHalo
 
     return enty

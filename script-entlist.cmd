@@ -158,7 +158,7 @@ with references to
          }
 
 
-        const mdpattern = /\/\/md:(.*)/mg   // //md:
+        const mdpattern = /\/\/ md:(.*)/mg   // // md:
         var arr
         while ((arr = mdpattern.exec(fileTxt)) !== null) {
             console.log ('0', arr[1])
@@ -203,10 +203,10 @@ with references to
          }
 
 
-        const mdpattern = /\/\/md: (.*)/mg   // // md (global multiline)
+        const mdpattern = /\/\/ md: (.*)/mg   // // md (global multiline)
         var arr
         while ((arr = mdpattern.exec(fileTxt)) !== null) {
-            console.log ('0', arr[1])
+            if (1 && 1) console.log ('md:', arr[1])
             outText += arr[1] + endOfLine + newLine
         }
         
@@ -238,16 +238,22 @@ with references to
 
         let fileName = files[i]
         let fileTxt = fs.readFileSync(fileName,"utf8")
-        let findPattern = /(^.* \&\& 1.*$)/mg   // pattern: && 1
+        let findPattern =     /^.*(0|1) \&\& 1.*$/mg   // pattern: (0|1) && 1
+        let replacePattern =  /^.*(0|1) \&\& 1.*$/i   // pattern: (0|1) && 1
         
-        let infile = findPattern.exec(fileTxt)
-        if (infile !== null) {
+        let exp =  RegExp('^.*(0|1) \&\& 1.*$','mg')
+        let infile = exp.test(fileTxt)
+        
+        if (infile) {
           var arr
           while ((arr = findPattern.exec(fileTxt)) !== null) {
-              fileTxt = fileTxt.replace(findPattern, '')
+              let toreplace = arr[0]
+              if (1 && 1) console.log ('find 0:', arr[0])            
+              if (1 && 1) console.log ('find 1:', arr[1])            
+              fileTxt = fileTxt.replace(toreplace, '')
 
           }
-           
+if (1 && 1) console.log("fileName", fileName)           
           fs.writeFileSync(fileName,fileTxt)    
 
         }

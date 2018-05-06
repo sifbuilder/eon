@@ -1,52 +1,11 @@
 
-# muon-profier.js  
-build geo projections  
-## functions  
-* ### getProj   
-  
-## methods  
-* ### formion  
-`formion (projdef, anigram)`  
-**get projection from projdef and apply projection properties**  
- if `@projdef` or `@projdef.projection` are not defined, assume `p.uniwen` identity  
- if `@projdef.translate != undefined`   
- * if pure array, translate to position  
- * if non-pure array, add translate positions  
- * if a position, `object` translate to position  
- * if other `object`, process as `stace.spot`  
-   
- if `@projdef.anod == 1` add `geofold.properties.geonode.geometry.coordinates` to translate  
- if `@projdef.rotate != undefined`   
- * if is pure array, apply rotation  
- * if is 2d, apply z rotation  
- * if non-pure array, add multi-rotations  
-   
- if `@projdef.prerotation [[[ control:wen ]]]` apply wen control rotation  
- if `@projdef.prerotation [[[ control:versor ]]]` apply versor control rotation  
- if `@projdef.control:wen` apply wen control rotation  
- if `@projdef.control:versor` apply versor control rotation  
-   
-### projer  
-call `mprofier.projer (prodef, anigram)`  
-*get formion projector on gj*  
-  
-### conformer  
-call `mprofier.conformer (anigram)`  
-assumes projection  
-```  
- projection: {  
-  projection: 'natform',  
-  form: anigram.payload.conform  
- }  
-```  
-*get formion projector*  
-  
-### proformion  
-call `mprofier.proformion (anigram)`  
-calls `formion(anigram.payload.proform, anigram)`  
-*get proform projection from projdef*  
-  
-### proformer  
-### ereformion  
-### ereformer  
-### conformer  
+# halo-pacer.js  
+**create new itesm at init, automatically or upon mouse event**  
+* `@a.p.pacer.add`, if 1, pace items are added to pacer (eg. LineString trace)  
+* `@a.p.pacer.initSitus`  : situs for init items  
+* `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, a.payload)`,  auto time is  
+  `a.p.tim.unitPassed - a.p.pacer.outed`  
+* `@a.p.pacer.eventSitus` : situs for event items  
+  `count` new items to pacer from init, auto and event  
+* `@a.p.pacer.fidder`  : new item `fid` identifier  
+* `@a.p.pacer.geojsor(@anigram, @counter)` : gets new item  
