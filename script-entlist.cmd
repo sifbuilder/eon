@@ -126,7 +126,6 @@ with references to
 - MIT`            // md string end
 
 
-
       let scriptpattern = new RegExp( '^' + 'script', 'i')
       let htmlpattern = new RegExp( '(.*)\.html$', 'i')
       let jspattern = new RegExp( '(.*)\.js$', 'i')
@@ -215,12 +214,10 @@ with references to
         
       }
 
-      fs.writeFileSync(outfile,outText);
+      fs.writeFileSync(outfile,outText)
 
       
   }  else if (action === 'uncomment') {
-
-    if (1 && 1) console.log("uncomment")
 
       let scriptpattern = new RegExp( '^' + 'script', 'i')
       let htmlpattern = new RegExp( '(.*)\.html$', 'i')
@@ -241,16 +238,19 @@ with references to
 
         let fileName = files[i]
         let fileTxt = fs.readFileSync(fileName,"utf8")
-        let findPattern = /(^.* \&\& 1.*$)/mg
-        var arr
-        while ((arr = findPattern.exec(fileTxt)) !== null) {
-            fileTxt = fileTxt.replace(findPattern, '')
-            if (1 && 1) console.log("fileName", fileName)
+        let findPattern = /(^.* \&\& 1.*$)/mg   // pattern: && 1
+        
+        let infile = findPattern.exec(fileTxt)
+        if (infile !== null) {
+          var arr
+          while ((arr = findPattern.exec(fileTxt)) !== null) {
+              fileTxt = fileTxt.replace(findPattern, '')
 
-         }
+          }
+           
+          fs.writeFileSync(fileName,fileTxt)    
 
-
-            
+        }
           
        }
 

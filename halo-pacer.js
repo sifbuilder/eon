@@ -104,7 +104,7 @@
         cversor.reset(svg)
       }
 
-      if (0 && 1) console.log("crayder", crayder.touch(), crayder.touchStart())
+
       if ( (crayder.mouse() !== undefined && crayder.mouseDown() === 1)
           || (crayder.touch() !== undefined && crayder.touchStart() === 1))
           { // on mouse DOWN
@@ -157,7 +157,7 @@
             }
             if (situs && typeof situs === 'object') situs = Object.values(situs)
 
-if (1 && 1) console.log("situs", situs)              
+
               
             //md: the anigram ric and the newItem fidder() conform the newItem id
             //md: call fidder as pacer method
@@ -200,7 +200,7 @@ if (1 && 1) console.log("situs", situs)
                 //  coords are final space coords (after h.ent, stored at m.animation)
                 // //
                 let coords = newItem.geofold.geometry.coordinates || []// domain coords
-if (1 && 1) console.log("h.pacer coords", coords.length)                  
+
                 // let geocoords = newItem.geofold.properties.geocoords // pre coords
   
                 if (coords && coords.length > 0) {
@@ -222,7 +222,7 @@ if (1 && 1) console.log("h.pacer coords", coords.length)
 
                 newItem.geofold.geometry.coordinates = coords // upd coords
                 // newItem.geofold.properties.geocoords = geocoords
-if (1 && 1) console.log("h.pacer coords", newItem.geofold.geometry.coordinates.length)                  
+
                 
                 // ///
                 //  h.ent will conform, ereform, proform

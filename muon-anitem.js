@@ -70,7 +70,7 @@
         r = ani.geofold.properties.geonode.properties.nodeProformed.geometry.coordinates
       }
       
-      if (0 && 1) console.log("nodeProformedSitus", r)
+
       return r
     }
     
@@ -84,7 +84,7 @@
         r = ani.geofold.properties.geonode.geometry.coordinates
       }
       
-      if (0 && 1) console.log("nodeProformedSitus", r)
+
       return r
     }
     
@@ -158,7 +158,7 @@
   */
     let enty = function (anima, t) {
       
-if (0 && 1) console.log("anima", anima)      
+
       let anigram = {}
       if (anima !== undefined) {
         if (t !== undefined) {

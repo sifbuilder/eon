@@ -47,7 +47,7 @@
         if (_ !== undefined) {
             __mapper('xs').g(_.projection)(_)
          } else {
-      if (0 && 1) console.log("*****************", _)           
+
            __mapper('xs').g(prjdef.projection)(prjdef)
          }
     }      
@@ -63,7 +63,7 @@
       dirs[0] = Math.sign(xyvector[0] - orig[0])
       dirs[1] = Math.sign(xyvector[1] - orig[1])
 
-        if (0 && 1) console.log('signal pos --------------- :', orig, xyvector, dirs)
+
 
       return dirs
     }

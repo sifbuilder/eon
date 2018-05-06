@@ -110,12 +110,12 @@ let muonAlima = function muonAlima (__mapper) {
           }
 
           let newItem = mstore.findAnigramFromUid(uid) || gj
-          if (0 && 1) console.log('h.pacer newItem', newItem)
+
           if (newItem.geofold.properties.formEreformed) {
             newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
           }
 
-          if (0 && 1) console.log('newItem', newItem)
+
 
           return newItem
         },

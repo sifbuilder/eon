@@ -147,7 +147,7 @@
     //md:   @featurecollection
     //md:   @maxlimit
     let render = function (elapsed, featurecollection, maxlimit) {
-      if (0 && 1) console.log('state.animas featurecollection', featurecollection)
+
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
@@ -213,7 +213,7 @@
           let imgs = fitems
             .filter(d => d.properties.sort === 'img') // __ imgs __
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
-if (0 && 1) console.log("imgs", imgs)
+
 
           if (imgs.length > 0) {
             __mapper('renderSvg').elems('svg:g.' + gid + '/image.' + cid, imgs, d => d.id)
@@ -252,7 +252,7 @@ let axcall = d3.axisBottom(d3.scaleLinear()
                 .range([0,600]))
                 .tickSize(10)
                 .tickPadding(5)             
-if (0 && 1) console.log("cid", cid)
+
   // cid = 'e'
             __mapper('renderSvg').elems('svg:g.' + gid + '/g.' + 'e', axes, d => d.id)
 
@@ -270,7 +270,7 @@ if (0 && 1) console.log("cid", cid)
               // .style('font-family', d => d.properties.axis.fontFamily)
               
               // .style('fill', d => {
-if (0 && 1) console.log("axis", gid, cid, d)                
+
                 // return d.properties.style.fill
               // })
               // .style('stroke', d => d.properties.style.stroke)

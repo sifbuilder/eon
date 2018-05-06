@@ -62,7 +62,7 @@
      */
     let getTranspots = function (stace, payload, locations = []) {
 
-if (1 && 1) console.log("getTranspots", stace)    
+
     
         if (2 && 2 && payload.hasOwnProperty('payload')) console.log(` * error: mstace.getTranspots anitem passed instead of payload`)
 
@@ -258,7 +258,7 @@ if (1 && 1) console.log("getTranspots", stace)
        // //
       } else {  // stace not defined take situs from parent
 
-if (0 && 1) console.log(" ____________ stace not defined")
+
 
         let parentuid = payload.parentuid
         let parentani = __mapper('xs').m('store').findAnigramFromUid(parentuid)
@@ -274,14 +274,14 @@ if (0 && 1) console.log(" ____________ stace not defined")
         let nodeProformed = parentani.geofold.properties.nodeProformed || {geometry: {}}
 
 
- // if (0 && 1) console.log(" ____________ parentani", parentani)
- // if (0 && 1) console.log(" ------------ nodeGeoNode", nodeGeoformed.geometry.coordinates)
- // if (0 && 1) console.log(" ------------ nodeEreNode", nodeEreformed.geometry.coordinates)
- // if (0 && 1) console.log(" ------------ nodeProNode", nodeProformed.geometry.coordinates)
- // if (0 && 1) console.log(" ------------ geoForm", formGeoform.geometry.coordinates)
- // if (0 && 1) console.log(" ------------ ereForm", formEreform.geometry.coordinates)
- // if (0 && 1) console.log(" ------------ proForm", formProform.geometry.coordinates)
- // if (0 && 1) console.log(" ------------ parentSitus", coords)
+
+
+
+
+
+
+
+
 
 
         // nodeProformed may return geometry null
@@ -290,7 +290,7 @@ if (0 && 1) console.log(" ____________ stace not defined")
           // let parentSitus = nodeGeoformed.geometry.coordinates  // _e_
           // let parentSitus = nodeEreformed.geometry.coordinates  // _e_
           let parentSitus = nodeProformed.geometry.coordinates  // _e_
- if (0 && 1) console.log(" ------------ add trace", parentSitus)
+
 
           locations = Array.of(parentSitus)
 
@@ -418,7 +418,7 @@ if (0 && 1) console.log(" ____________ stace not defined")
 
       let situs = getSitus(payload) // anima    .x,.y,.z - root and sim
 
-      if (0 && 1) console.log('m.stace.getLoci:stace', stace)
+
       let spots = getTranspots(stace, payload) // payload  stace x || x.pos || x.ref
 
       if (situs && spots && spots.length > 0) { // if situs and spots
@@ -429,7 +429,7 @@ if (0 && 1) console.log(" ____________ stace not defined")
         locations = spots // locations
       }
 
-if (1 && 1) console.log("m.stace getLoci locations", locations)      
+
       return locations
     }
     
