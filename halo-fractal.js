@@ -36,7 +36,7 @@
         fractal = payload.fractal
 
       let name = fractal.name,
-        fider = fractal.fider,
+        fidder = fractal.fidder,
         level = (fractal.level !== undefined) ? Math.floor(fractal.level) : 2,
         cfi = fractal.cf, // cf color onlevel
         sides = fractal.sides || 5,
@@ -81,7 +81,7 @@
 
         let ric = f.clone(anigram.payload.ric)
         if (ric.fid !== undefined) { // ric.fid = ric.fid
-        } else if (fider !== undefined) { ric.fid = fider(ric.fid, i)
+        } else if (fidder !== undefined) { ric.fid = fidder(ric.fid, i)
         } else if (name !== undefined) { ric.fid = name + '_' + i
         } else { ric.fid = 'fractal' + '_' + i
         }
@@ -133,7 +133,7 @@
           let rayLine = f.clone(fractal.rayLine)
           let ric = f.clone(rayLine.payload.ric)
           if (ric.fid !== undefined) { // ric.fid = ric.fid
-          } else if (fider !== undefined) { ric.fid = fider(ric.fid, i)
+          } else if (fidder !== undefined) { ric.fid = fidder(ric.fid, i)
           } else if (name !== undefined) { ric.fid = name + '_' + i
           } else { ric.fid = 'fractal' + '_' + i
           }

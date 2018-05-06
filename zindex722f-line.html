@@ -15,8 +15,7 @@
 <script src='script-ents.js'></script>
 
 <script>
-// md: md:{filename}
-// https://en.wikipedia.org/wiki/Epicycloid
+//md: z.617f fractals
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
@@ -42,7 +41,7 @@ let muonAlima = function muonAlima (__mapper) {
       tau = 2 * Math.PI
 
 
-    let tim = {'td': 4 ** 2 * 9000, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let tim = {'td': 3 ** 2 * 9000, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let _NAME = 'anis'
       _ROW = 2,
@@ -67,7 +66,47 @@ let muonAlima = function muonAlima (__mapper) {
 
     const signexp = d => Math.pow(-1, d)
 
- 
+    /***********
+  *         @img
+  */
+    let img = {
+
+      halo: 'img',
+
+      geofold: p => ({
+        type: 'Feature',
+        geometry: {
+
+          'type': 'Point',
+          'coordinates': [ 20, 30 ]
+
+        },
+        properties: {
+          sort: 'img',
+          'xlink:href': p.payload.img.url,
+          style: p.payload.img.style
+        }
+      }),
+
+      payload: {
+
+        ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+        boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+        proform: {
+          projection: 'uniwen',
+          translate: [ 30, 40 ]
+        },
+        img: {
+          url: 'zimg-501.jpg',
+          'style': {
+            'width': [[[60, 60]]],
+            'height': [[[40, 40]]],
+            'rotate': [[[ 0, 0 ]]]
+          }
+        }
+
+      }
+    }
 
     /***********
   *         @traceLine
@@ -86,7 +125,7 @@ let muonAlima = function muonAlima (__mapper) {
           let r =  mstace.getLocus(this.stace, a.payload) // situs
           return r
         },
-        fider: a => a.payload.ric.fid,
+        fidder: a => a.payload.ric.fid,
         geojsor: function (a, i) {
           let ric = a.payload.ric // ric
           let uid = mric.getuid(ric)
@@ -118,7 +157,7 @@ let muonAlima = function muonAlima (__mapper) {
     payload: {
       tim: tim,
       ric: {gid: 'ray', cid: 'ray'},
-      boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      boform: {'csx': 0, 'cf': 555, 'cs': 555, 'cw': 0.3, 'co': 0.999, 'cp': 0.999},
     }
 
   }
@@ -157,56 +196,48 @@ let muonAlima = function muonAlima (__mapper) {
         fractal: {
 
 
-          
-        
-        
           level: 3, // [[[2,6]]],
           rad0: 60,
-          sides: 5,
+          sides: 6,
           turns: 2, //
-          phase: 0 * tau, //
+          phase: 0.5 * tau, //
 
-          rad: function(level, rad0=60, sides=4) {
+          rad: function(level=2, rad0=60) { 
+          
+          
+if (0 && 1) console.log("level", level, level-1&1)          
+          
+              let ret = rad0
 
-            let grouplinear = f.grouplinear(2)(level)
-            let groupgeometric = f.groupgeometric(2)(level+0.001)
-
-            let amp = rad0
-            let k = sides // 1 / Math.pow(2, level)
-            
-            
-            if        (level === 0) { amp = rad0             // 0:60
-            } else if (level === 1) { amp = rad0 / (k - 1)   // 1:30
-            } else if (level === 2) { amp = rad0 / (k - 1)   // 2:30
-
-
-            } else                  { amp = rad0 / Math.pow(2, 1) 
-            }
-
-  
-            return amp
+              if (level!==0 && level-1&1) ret =  rad0 / Math.pow(2, level -1) // evens - same rad
+              else ret =  rad0 / Math.pow(2, level) // odds
+        
+        
+        
+              return ret
           },
+          
+          
+          ang: function(level=2, sides=4, phase=0) { 
+          
+              if (0 && 1) console.log("ang", level)
+          
+              let ang00 = phase + 0
+              let ang01 = phase + 1 * tau
+              let angn0 = phase + 0
+              // let angn1 = phase + (-1)**(level) * (sides-1)**(level) * tau
+              // let angn1 = phase + 2 *  tau
+          
+              // if (level!==0 && level%2) angn1 = - phase - 1 * tau // evens
+              // else angn1 = phase + (sides-1) * tau // evens
 
-
-          ang: function(level=2, sides=4, phase0=0) {
-
-            let grouplinear = f.grouplinear(2)(level)
-            let k = sides
-
-              let angn0 = 0,
-                  angn1 =0
-              
-
-              if        ( level === 0 ) { angn0 = phase0; angn1 = phase0 + 1 * tau
-              } else if ( level === 1 ) { angn0 = phase0; angn1 = phase0 - 0 * tau
-              } else if ( level === 2 ) { angn0 = phase0; angn1 = phase0 + (k - 1) * tau
-              
-   
-              } else     { angn0 = phase0; angn1 = phase0 + (-1)**(level) * (sides-1)**(level) * tau
+              if (level === 1) {
+                angn1 = phase - 1 * tau
               }
-
-              let phase = [[[ angn0, angn1 ]]]
-              return phase
+              
+              
+              let ret = (level===0) ? [[[ ang00 , ang01 ]]] : [[[ angn0, angn1 ]]]
+              return ret
           },
 
 
@@ -216,7 +247,7 @@ let muonAlima = function muonAlima (__mapper) {
 
               let ret = Complex({re: 0,im: 0})
 
-
+ 
                 let ang = arr[idx].ang
                 let rq = arr[idx].rad
 
@@ -225,13 +256,16 @@ let muonAlima = function muonAlima (__mapper) {
 
                 ret = Complex({re: x,im: y})
 
-
+   
 
               return ret
           },
 
           traceLine,
           rayLine,
+
+
+
 
 
         },

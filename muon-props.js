@@ -122,6 +122,11 @@
     /***************************
    *        @objects
    */
+   
+    props.isPureObject = d => typeof d === 'object' && 
+        d.getOwnPropertyNames.reduce((prev, curr) => prev && typeof d.curr !== 'object' && typeof d.curr !== 'function', true)
+  
+   
     // https://stackoverflow.com/questions/728360/how-do-i-correctly-clone-a-javascript-object
     props.o = obj => {
       if (obj == null || typeof obj !== 'object') return obj

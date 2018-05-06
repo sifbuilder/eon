@@ -151,7 +151,7 @@ let muonAlima = function muonAlima (__mapper) {
         pacer: { // aad for trace
           initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
           autoSitus: d => mstace.getLocus(this.stace, d.payload), // situs
-          fider: d => d.payload.ric.fid,
+          fidder: d => d.payload.ric.fid,
 
           geojsor: function (d, i) {
             let ric = d.payload.ric // ric

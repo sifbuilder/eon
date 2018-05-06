@@ -8,8 +8,44 @@
 }(this, function (exports) {
   'use strict'
 
-  // Version 0.0.0. Copyright 2017 Mike Bostock.
-  // GeoJSON in Three.js
+//md: # md:{filename}
+//md: **process graticule objects**
+
+//md: ## references
+//md: [D3.js](https://github.com/d3) by [Mike Bostock](https://en.wikipedia.org/wiki/Mike_Bostock)
+//md: [d3-geo/graticule.js](http://ci.testling.com/substack/minimist)
+
+//md: ## functions
+//md: ### tidx 
+//md: return `function(column, row)` that gives the sequential index of [column,row]
+//md: ``` js
+//md: tidx (horq, verq, hd = 1, vd = 1)
+//md: ```
+//md: * `@argv.horq` number of rows
+//md: * `@argv.verq` number of columns
+//md: * `@argv.hd`   span between columns
+//md: * `@argv.vd`   span between rows
+//md: 
+//md: ### ridx
+//md: return `function(idx)` , give [row,column] of sequential index
+
+//md: ### oneface
+//md: ### bifaces
+//md: ### gratiparams
+//md: ### arywinopen
+
+//md: ## methods
+//md: ### grarr
+//md: ### gedges
+//md: ### medges
+//md: ### pedges
+//md: ### dedges
+//md: ### gfaces
+//md: ### gvertices
+//md: ### equator
+
+//md: # license
+//md: MIT
 
   let muonGraticule = function (__mapper = {}) {
     let f = __mapper('props')(),
@@ -20,41 +56,20 @@
       max = Math.max, min = Math.min, PI = Math.PI, sin = Math.sin, sqrt = Math.sqrt,
       radians = PI / 180, degrees = 180 / PI, eps = 1e-5
 
-    // source: https://github.com/d3/d3-array/blob/master/src/range.js  
-    // license: https://github.com/d3/d3-array/blob/master/LICENSE
-    let d3range = function (start, stop, step) {
-      start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
-
-      var i = -1,
-          n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
-          range = new Array(n);
-
-      while (++i < n) {
-        range[i] = start + i * step;
-      }
-
-      return range;
-    }      
-
-    
       
     let defaultMajor = [ [-180, 180, 90, 2.5], [-90, 90, 360, 2.5] ]
     let defaultMinor = [ [-180, 180, 10, 2.5], [-80, 80, 10, 2.5] ]
 
-    /* *********************
-     *    @idx  index
-     *      given number of rows and columsn and span between rows and columns
-     *      give position of row.column
-     */
+    
+    // tidx
     let tidx = function (horq, verq, hd = 1, vd = 1) {
       return function (col, row) { // col, row
         let ret = (row * hd) * (horq * vd) + col
         return ret
       }
     }
-    /* *********************
-     *    @ridx reverse index
-     */
+
+    // ridx
     let ridx = function (horq, verq, hd = 1, vd = 1) {
       return function (idx) {
         let ret = [Math.floor(((idx / hd) / vd) / horq), idx % horq]

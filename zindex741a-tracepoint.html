@@ -125,7 +125,7 @@ let muonAlima = function muonAlima (__mapper) {
           let r =  mstace.getLocus(this.stace, a.payload) // situs
           return r
         },
-        fider: a => a.payload.ric.fid,
+        fidder: a => a.payload.ric.fid,
         
         geojsor: function (a, i) {
           let ric = a.payload.ric // ric
@@ -227,7 +227,7 @@ let muonAlima = function muonAlima (__mapper) {
 
         autoSitus: d => mstace.getLocus(d.payload.stace, d), // situs of anigram
 
-        fider: d => d.payload.ric.fid,
+        fidder: d => d.payload.ric.fid,
 
         geojsor: () => ({
 

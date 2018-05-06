@@ -81,7 +81,7 @@
           feature.properties.nodeEreformed = feature.properties.nodeConformed
         }
 
-
+if (1 && 1) console.log("proform", payload.proform)
         if (payload.proform) {
           let proformion = mprofier.proformion(anigram)
           feature = mproj3ct(feature, proformion)

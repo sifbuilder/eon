@@ -77,7 +77,7 @@ let muonAlima = function muonAlima (__mapper) {
   //md:     @fourierPacer avatar
   //md:       payload.pacer.aad:1 add segments to LineString trace
   //md:       payload.pacer.autoSitus place situs on parent (stace undefined)  
-  //md:       payload.pacer.fider take fid from payload.ric.fid  
+  //md:       payload.pacer.fidder take fid from payload.ric.fid  
   //md:       payload.pacer.geojsor 
   let fourierPacer = { // SUB-MARKS line trace
 
@@ -89,7 +89,7 @@ let muonAlima = function muonAlima (__mapper) {
           pacer: { // aad for trace
             initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 600, span: 0, aad: 1,
             autoSitus: d => mstace.getLocus(this.stace, d.payload),
-            fider: d => d.payload.ric.fid,
+            fidder: d => d.payload.ric.fid,
             geojsor: function (d, i) {
               let ric = d.payload.ric // ric
               let uid = mric.getuid(ric)

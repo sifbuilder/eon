@@ -8,67 +8,68 @@
 }(this, function (exports) {
   'use strict'
 
+//md: # md:{filename}
+//md: **manage location of aniItems**
+  
+//md: ## methods  
+//md: getPosInDim  getPosesInDim m.liner _e_
+//md: 
+//md: ### getSiti 
+//md: 
+//md: ### getSitus , or ani geonode
+//md:             ani position in the coords system
+//md:             in geofold.properties.geonode.geometry
+//md:             sim forces act on the ani geonodes
+//md: 
+//md: ### getLoci 
+//md: 
+//md: ### getLocus , locus and transpots
+//md: 
+//md: ### getLocifion 
+//md: 
+//md: ### getLocifier
+//md:  
+//md: ### getTranspot
+//md: 
+//md: ### getTranspots
+//md: `getTranspots(stace, payload)`
+//md: **get stace locations in @payload.ric**
+//md:  @stace  may be passed as param or as payload attribute
+//md:  @payload, to get parent coords if spot is relative to parent geometry
+//md: stace syntax:
+//md:     [300,200,0],  pure array
+//md:     [a1,a2,a3],[b1,b2]],  quasipure array, add by dax
+//md:     [{x:0}, a2],  array, process by dax
+//md:     [ [300,200,0], {x:300,y:100,z:0} ], 
+//md:     [[[ {nat} ]]]  , form 
+//md:     [{pos:0}, a2],  if pos, refer to aniparent
+//md:     {x:300,y:100,z:0},  object, process by dax
+//md:  if stace is object, each property is processed individually
+//md:   if stace.<dax>.pos and stace.<dax>.{geo, ere, pro}
+//md:       get spot from  nodeGeoformed, nodeEreformed or nodeProformed
+//md:   if stace.<dax>.pos and no transformation property
+//md:       get spot from `parentani.geofold.geometry.coordinates` 
+  
+  
   let muonStace = function (__mapper = {}) {
     let f = __mapper('props')(),
       mstore = __mapper('xs').m('store'),
       mlacer = __mapper('xs').m('lacer'),
       manitem = __mapper('xs').m('anitem')
 
-    // SITUS is the position of the entity in the coordinates system
-    //  situs is encapsulated in the geofold.properties.geonode.geometry
-    //  situs may remain at origin while modifying location through translation
-    //   there is one single situs associated to an anitem
-    //   getSitus: get the position of the geonode (SITUATION)
-    //      get the first position from geofold.properties.geonode.geometry
-    //
-    //
-    // POS is the node (vertex) in the parent anitem
-    //
-    // TRANSPOT cartesian value of the translate property
-    //        eg: [300,200,0],
-    //            {x:300,y:100,z:0},
-    //            [ [300,200,0], {x:300,y:100,z:0} ],
-    //            [[[ {nat} ]]]
-    //    getTranspots:(stace, anitem) get coordinates returned by translate
-    //    getTranspot(stace, anitem): get first coordinate returned by translate
-    //
-    // SPOTS: locations of stace in anitem (POSITION)
-    //    getSpots(stace, anitem)
-    //
-    //
-    // LOCUS is the combination of the locus and the transpos
-    //    getLoci:    qet array of locus (LOCATIONS)
-    //    getLocus:   qet first locus (LOCATION)
-    //
-    // sim updates the geonode
-    //
-    // geoform creates the geoform
-    // conform updates the geoform
-    // ereform updates the geoform
-    // proform updates the geoform
-
-
-    /* ***************************************
- *        @getTranspots
- *         get val of d in dim
- *          called by m.profier.proform to get translate
- */
-
+    /***********
+     *    @getTranspots
+     */
     let getTranspots = function (stace, payload, locations = []) {
 
+if (1 && 1) console.log("getTranspots", stace)    
+    
         if (2 && 2 && payload.hasOwnProperty('payload')) console.log(` * error: mstace.getTranspots anitem passed instead of payload`)
 
-
-      // stace taken from stace or from payload.stace
-      if (payload !== undefined) stace = stace || payload.stace
-
-      // if stace is defined and not null
-      if (stace) {
+      stace  = (payload !== undefined) ? stace : payload.stace  // stace as param or payload property
+      if (stace) {    // if stace is defined and not null
 
 
-        // ///
-        //  stace is passed as array
-        //
         if (Array.isArray(stace)) { // stace :: [x,y,z]
           let location = []
           let val = stace // single location from stace array
@@ -142,10 +143,10 @@
           let entries = Object.entries(stace)
           let locationsPerDax = []
 
-          for (let i = 0; i < entries.length; i++) {  // for each stace object entry ...
+          for (let i = 0; i < entries.length; i++) {  // for each dimension
 
             let entry = entries[i]                                      // ['x', 200]
-if (0 && 1) console.log("entry", entry)
+
 
             let k1 = entry[0]
             let v1 = entry[1]
@@ -173,8 +174,6 @@ if (0 && 1) console.log("entry", entry)
                 let parentani = __mapper('xs').m('store').findAnigramFromUid(parentuid)
 
                 if (2 && 2 && !parentani) console.log(` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)
-
-                let coords = __mapper('xs').m('anitem')(parentani).nodeSitus(parentani)
 
                 let formGeoform = parentani.geofold.properties.formGeoform
                 let formEreform = parentani.geofold.properties.formEreform
@@ -209,9 +208,36 @@ if (0 && 1) console.log("entry", entry)
                        locationsPerDax[i] = Array.of(nodeProformed.geometry.coordinates[i])
 
                     }
-                } else {
+                } else {  
 
-                       locationsPerDax[i] = Array.of(parentani.geofold.geometry.coordinates[i])
+                       // locationsPerDax[i] = Array.of(parentani.geofold.geometry.coordinates[i])
+                    let idx = v1.pos
+                    if (v1.hasOwnProperty('geo')) {
+
+                      // node coordinates geoformed
+                      locationsPerDax[i] = Array.of(nodeGeoformed.geometry.coordinates[idx])
+
+                    } else if (v1.hasOwnProperty('ere')) {
+
+                      // node coordinates ereformed
+                       locationsPerDax[i] = Array.of(nodeEreformed.geometry.coordinates[idx])
+
+                    } else if (v1.hasOwnProperty('pro')) {
+
+                        // node coordinates proformed
+                        if (nodeProformed.geometry) {
+                          locationsPerDax[i] = Array.of(nodeProformed.geometry.coordinates[idx])
+                        }
+
+                    } else {  // if pos look into geometry
+
+                       // if no pos and not state, default to node coordinates proformed
+                       let locInDax = parentani.geofold.geometry.coordinates[idx][i]
+                       locationsPerDax[i] = Array.of(locInDax)
+
+                    }
+                       
+                       
                 }
 
 
@@ -385,9 +411,7 @@ if (0 && 1) console.log(" ____________ stace not defined")
       return locations
     }
 
-    /* **************************************
- *        @getLoci
- */
+    // getLoci
     let getLoci = function (stace, payload) {
       
       let locations = [] // default locations _e_
@@ -405,11 +429,11 @@ if (0 && 1) console.log(" ____________ stace not defined")
         locations = spots // locations
       }
 
+if (1 && 1) console.log("m.stace getLoci locations", locations)      
       return locations
     }
-    /* **************************************
- *        @getLocus
- */
+    
+    // getLocus
     let getLocus = (stace, payload) => getLoci(stace, payload)[0]
 
     /* **************************************

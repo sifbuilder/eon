@@ -1,0 +1,52 @@
+
+# muon-profier.js  
+build geo projections  
+## functions  
+* ### getProj   
+  
+## methods  
+* ### formion  
+`formion (projdef, anigram)`  
+**get projection from projdef and apply projection properties**  
+ if `@projdef` or `@projdef.projection` are not defined, assume `p.uniwen` identity  
+ if `@projdef.translate != undefined`   
+ * if pure array, translate to position  
+ * if non-pure array, add translate positions  
+ * if a position, `object` translate to position  
+ * if other `object`, process as `stace.spot`  
+   
+ if `@projdef.anod == 1` add `geofold.properties.geonode.geometry.coordinates` to translate  
+ if `@projdef.rotate != undefined`   
+ * if is pure array, apply rotation  
+ * if is 2d, apply z rotation  
+ * if non-pure array, add multi-rotations  
+   
+ if `@projdef.prerotation [[[ control:wen ]]]` apply wen control rotation  
+ if `@projdef.prerotation [[[ control:versor ]]]` apply versor control rotation  
+ if `@projdef.control:wen` apply wen control rotation  
+ if `@projdef.control:versor` apply versor control rotation  
+   
+### projer  
+call `mprofier.projer (prodef, anigram)`  
+*get formion projector on gj*  
+  
+### conformer  
+call `mprofier.conformer (anigram)`  
+assumes projection  
+```  
+ projection: {  
+  projection: 'natform',  
+  form: anigram.payload.conform  
+ }  
+```  
+*get formion projector*  
+  
+### proformion  
+call `mprofier.proformion (anigram)`  
+calls `formion(anigram.payload.proform, anigram)`  
+*get proform projection from projdef*  
+  
+### proformer  
+### ereformion  
+### ereformer  
+### conformer  

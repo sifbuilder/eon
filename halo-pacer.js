@@ -81,9 +81,9 @@
         : payload.pacer.autoSitus
         
 
-      payload.pacer.fider = (payload.pacer.fider === undefined) // identifier
+      payload.pacer.fidder = (payload.pacer.fidder === undefined) // identifier
         ? anitem => anitem.payload.ric.fid
-        : payload.pacer.fider
+        : payload.pacer.fidder
 
       payload.pacer.geojsor = (payload.pacer.geojsor === undefined)
         ? d => ({type: 'Point', coordinates: null}) //  default
@@ -157,10 +157,12 @@
             }
             if (situs && typeof situs === 'object') situs = Object.values(situs)
 
-            //md: the anigram ric and the newItem fider() conform the newItem id
+if (1 && 1) console.log("situs", situs)              
+              
+            //md: the anigram ric and the newItem fidder() conform the newItem id
             //md: call fidder as pacer method
             let _ric = ric
-            _ric.fid = payload.pacer.fider(anigram) // fider set in the payload or default
+            _ric.fid = payload.pacer.fidder(anigram) // fidder set in the payload or default
             let uid = mric.getuid(_ric) // uid
             
             

@@ -74,6 +74,8 @@
       return r
     }
     
+    
+    
     let nodeSitus = function (ani) {
       if (2 && 2 && !ani)console.log(` * error: manitem.nodeSitus:ani: ${ani}`)
       let r = [0,0,0]

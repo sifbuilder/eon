@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const { entlist } = require('./script-entlist.js');
+const minimist = require('./lib-minimist.js')
 
-
-const args = require('minimist')(process.argv.slice(2), {
+const args = minimist(process.argv.slice(2), {
   alias:  {a:'action',o:'stdout',d:'debug',v:'version',h:'help',t:'mdeeFile',z:['zindex','index']},
   boolean:['l','o','d','v','m'],
   string: ['t','p','z','a'],
   default:{t:0.1, p:6}
 });
-const { neatJSON } = require('neatjson');
 
 const usage = `
 Usage: entlist [options]
@@ -143,7 +142,7 @@ with references to
         .filter(d => !scriptpattern.test(d))
         .filter(d => jspattern.test(d) || htmlpattern.test(d) )
 
-      let readmefile = 'README.md'
+      let readmefile = 'README.markdown'
 
         let readmetxt = header + '\n'
 
@@ -178,7 +177,7 @@ with references to
 
       let files = fs.readdirSync(appdir)
       let infile = mdeeFile
-      let outfile = 'README.md'
+      let outfile = 'README.markdown'
       
       let regex = new RegExp( '^.*' + infile + '.*.(html|js)', 'i')
       
@@ -205,7 +204,7 @@ with references to
          }
 
 
-        const mdpattern = /\/\/md:(.*)/mg   // // md (global multiline)
+        const mdpattern = /\/\/md: (.*)/mg   // // md (global multiline)
         var arr
         while ((arr = mdpattern.exec(fileTxt)) !== null) {
             console.log ('0', arr[1])
@@ -258,9 +257,5 @@ with references to
        }
 
   }
-
-
-
-
 
 

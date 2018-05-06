@@ -43,7 +43,7 @@
         aad = pacer.aad || 0, // aad to previtem
         outted = pacer.outted || 0 // outted
 
-      let initSitus, eventSitus, autoSitus, fider, geojsor
+      let initSitus, eventSitus, autoSitus, fidder, geojsor
 
       /* ****
        *    count

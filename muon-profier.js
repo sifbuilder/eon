@@ -9,8 +9,64 @@
   'use strict'
 
   
-  
-  
+//md: # md:{filename}
+//md: build geo projections
+
+//md: ## functions
+//md: * ### getProj 
+//md: 
+//md: ## methods
+//md: * ### formion
+//md: `formion (projdef, anigram)`
+//md: **get projection from projdef and apply projection properties**
+//md:  if `@projdef` or `@projdef.projection` are not defined, assume `p.uniwen` identity
+//md:  if `@projdef.translate != undefined` 
+//md:  * if pure array, translate to position
+//md:  * if non-pure array, add translate positions
+//md:  * if a position, `object` translate to position
+//md:  * if other `object`, process as `stace.spot`
+//md:  
+//md:  if `@projdef.anod == 1` add `geofold.properties.geonode.geometry.coordinates` to translate
+//md:
+//md:  if `@projdef.rotate != undefined` 
+//md:  * if is pure array, apply rotation
+//md:  * if is 2d, apply z rotation
+//md:  * if non-pure array, add multi-rotations
+//md:  
+//md:  if `@projdef.prerotation [[[ control:wen ]]]` apply wen control rotation
+//md:  if `@projdef.prerotation [[[ control:versor ]]]` apply versor control rotation
+//md:  if `@projdef.control:wen` apply wen control rotation
+//md:  if `@projdef.control:versor` apply versor control rotation
+//md:  
+//md: ### projer
+//md: use: `mprofier.projer(prodef, anigram)(gj)
+//md: *get formion projector on gj*
+//md: 
+//md: ### conformer
+//md: use: `mprofier.conformer (anigram)`
+//md: **get formion projector**
+//md: assumes `projection != undefined`
+//md: ```
+//md:  projection: {
+//md:   projection: 'natform',
+//md:   form: anigram.payload.conform
+//md:  }
+//md: ```
+//md: 
+//md: ### proformion
+//md: call `mprofier.proformion (anigram)`
+//md: calls `formion(anigram.payload.proform, anigram)`
+//md: **get proform projection from projdef**
+//md: 
+//md: ### proformer
+//md: 
+//md: 
+//md: ### ereformion
+//md: ### ereformer
+//md: 
+
+
+    
   let muonProfier = function muonProfier (__mapper = {}) {
     let f = __mapper('props')(),
       cwen = __mapper('xs').c('wen')(),
@@ -23,11 +79,7 @@
 
 
 
-    /* ***************************
- *      ##getProj
- *       - get projection from projdef and apply projection properties
-
- */
+      //  getProj
       let getProj = function (projdef) {
 
           if (0 && 1) console.log( 'projdef', projdef)
@@ -94,24 +146,8 @@
       }
 
 
- 
 
-    //md: ##formion
-    //md: - projdef
-    //md: - anigram
-    //md: get projection from projdef and apply projection properties
-    //md:  if projdef is not defined, uniwen with default configuration
-    //md:  if projdef.projection is not defined, idem.
-    //md:
-    //md:  if projdef includes anod, add geonode location to translate
-    //md:
-    //md:  if control:wen, wen control rotation
-    //md:  if control:versor, versor control rotation
-    //md:  if projdef.rotate is 2d, z rotation
-    //md:
-    //md:  if projdef.rotate is defined, projection rotation is calculated
-    //md:   if projdef.anod, add geofold.geometry.coordinates
-    
+    // formion
     let formion = function (projdef, anigram = {}) {
 
 
@@ -128,27 +164,28 @@
 
           projection =  getProj(projdef)
 
-          
+        
           if (projdef.translate) {    // TRANSLATE proj method
 
-            let trans = [0,0]
-          
-            if (typeof projdef.translate === 'object' && f.isPosition(projdef.translate)) {
-                projdef.translate = Object.values(projdef.translate)
-            }
-            let protrans = projdef.translate
-            
-            if (f.isPureArray(protrans)) {
-                protrans = protrans
-            } else { // if multi rotates
+            if (f.isPureArray(projdef.translate)) {
+                translation = projdef.translate
+                
+            } else if (Array.isArray(projdef.translate)) {
               let _trans = []
-              for (let k = 0; k < protrans.length; k++) {
-                _trans = mgeom.add(_trans, protrans[k])
+              for (let k = 0; k < projdef.translate.length; k++) {
+                _trans = mgeom.add(_trans, projdef.translate[k])
               }
-              protrans = _trans
-            }           
+              translation = _trans
+              
+            } else if (typeof projdef.translate === 'object' && f.isPosition(projdef.translate)) {
+               translation = Object.values(projdef.translate)
+                
+            } else if (typeof projdef.translate === 'object') {
+              
+               translation = mstace.getTranspot(projdef.translate, anigram.payload) 
+            }              
             
-            translation = protrans
+
 
             if (projdef.anod && geofold.properties && geofold.properties.geonode) {
               let geonode = geofold.properties.geonode  // geonode
@@ -156,9 +193,8 @@
               translation = mgeom.add(translation, nodetranslate)
 
             }
-          }
-
-
+          }          
+          
           if (projection.rotate !== undefined) {  // ROTATE proj method
 
             let rot = [0,0] // projection.rotate()
@@ -214,27 +250,18 @@ if (0 && 1) console.log("prerotate",projdef, prerotate)
             } else if (f.isFunction(projection[key]) && value !== null) {
               projection[key](value)
             }
-
         }
-
-
       }
-
-
 
       return projection
     }
-   /* ***************************
- *       @projer
- *       json = mprofier.projer(f.v(prodef, anigram), anigram)(json)
- */
+    
+    // projer
     let projer = (prodef, anigram) => // projer is fenrir if no prodef
       json => (prodef) ? mproj3ct(json, formion(prodef)) : json
 
 
-    /****************************
- *       @conformer
- */
+    // conformer
     let conformer = anigram => {
 
       let projion
@@ -261,25 +288,16 @@ if (0 && 1) console.log("prerotate",projdef, prerotate)
       return projion
     }
 
-    /****************************
- *       @proform
- */
+    //  proformion
     let proformion = anigram => formion(anigram.payload.proform , anigram)
     let proformer = anitem => json => mproj3ct(json, proformion(anitem))
 
-    /****************************
- *       @ereform
- */
+    //  ereformion
     let ereformion = anigram => formion(anigram.payload.ereform , anigram)
     let ereformer = anitem => json => mproj3ct(json, ereformion(anitem))
 
-    /****************************
- *      @enty
- */
 
-
- 
- 
+   // enty
    let enty = function () {}
     enty.formion = formion
     enty.projer = projer
