@@ -65,8 +65,6 @@
 //md: ### ereformer
 //md: 
 
-
-    
   let muonProfier = function muonProfier (__mapper = {}) {
     let f = __mapper('props')(),
       cwen = __mapper('xs').c('wen')(),
@@ -76,8 +74,6 @@
       mproj3ct = __mapper('xs').m('proj3ct'),
       mgeom = __mapper('xs').m('geom'),
       guniwen = __mapper('xs').g('uniwen')
-
-
 
       //  getProj
       let getProj = function (projdef) {

@@ -220,7 +220,7 @@ with references to
       
   }  else if (action === 'uncomment') {
 
-    if (0 && 1) console.log("uncomment")
+    if (1 && 1) console.log("uncomment")
 
       let scriptpattern = new RegExp( '^' + 'script', 'i')
       let htmlpattern = new RegExp( '(.*)\.html$', 'i')
@@ -241,14 +241,12 @@ with references to
 
         let fileName = files[i]
         let fileTxt = fs.readFileSync(fileName,"utf8")
+        let findPattern = /(^.* \&\& 1.*$)/mg
+        var arr
+        while ((arr = findPattern.exec(fileTxt)) !== null) {
+            fileTxt = fileTxt.replace(findPattern, '')
+            if (1 && 1) console.log("fileName", fileName)
 
-        let nameFindPattern = /^(.* && 1.*)$/mg
-        let nameReplacePattern = /md:\{filename\}/i
-         var arr
-         while ((arr = nameFindPattern.exec(fileTxt)) !== null) {
-              if (0 && 1) console.log("fileName", fileName)
-              if (0 && 1) console.log ('0', arr[1])
-            fileTxt = fileTxt.replace(nameReplacePattern, fileName)
          }
 
 
