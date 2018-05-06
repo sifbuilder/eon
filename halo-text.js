@@ -35,7 +35,7 @@
         geometry: { type: 'Point', coordinates: [0, 0] },
         properties: {
           sort: 'text'  ,
-          text: text.text,
+          text: text.string,
           style: {
 
             'rotate': text.style['rotate'],

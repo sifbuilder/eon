@@ -12,8 +12,10 @@
   // md: **create new items at init, on auto or upon event**
   // md: * `@a.p.pacer.add`, if 1, pace items are added to pacer (eg. LineString trace)
   // md: * `@a.p.pacer.initSitus`  : situs for init items
-  // md: * `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, a.payload)`,  auto time is
-  // md:   `a.p.tim.unitPassed - a.p.pacer.outed`
+  // md: * `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, a.payload)`
+  // md: call: `payload.pacer.autoSitus(anigram)` 
+  // md: autositus in zindex: `function(a) {return mstace.getLocus(this.stace, a.payload) }` gets `a.p.pacer.stance`
+  // md: auto time is `a.p.tim.unitPassed - a.p.pacer.outed`
   // md: * `@a.p.pacer.eventSitus` : situs for event items
   // md:   `count` new items to pacer from init, auto and event
   // md:
@@ -104,9 +106,9 @@
       let cycletime = tim.unitPassed - (pacer.outed || 0)
       if (cycletime >= pacer.autoP &&
             tim.unitPassed > (pacer.autoT || 0)
+            
       ) { // if cycle time above autopath
         count.auto = Math.floor(pacer.autoN) // count AUTO
-
         anima.payload.inited = 1 //  inited
         anima.payload.pacer.outed = tim.unitPassed // updated with anima
         let animas = Array.of(anima) // upd ANIMA
@@ -122,14 +124,17 @@
 
           if (count[key] > 0) { // if count on this sort
             if (key === 'init') { // init defaults center
+            
               situs = payload.pacer.initSitus(anigram)
+              
             } else if (key === 'auto') { // auto defauts random
+            
               situs = payload.pacer.autoSitus(anigram)
               
-
-              
             } else if (key === 'event') { // event defaults event
+            
               situs = payload.pacer.eventSitus(anigram)
+              
             }
             if (situs && typeof situs === 'object') situs = Object.values(situs)
 
@@ -169,6 +174,7 @@
 
               let newItemsInCount = hent.gramm(newItem) // h.ent newItem
               newItems = [...newItems, ...newItemsInCount] // add new items
+              
             } else { // ............... if NOT aad
               if (newItem === undefined) { // if the newItem has NOT been CREATED yet ....
                 newItem = payload.pacer.geojsor(anigram, counter) // newItem anigram, counter per paced type

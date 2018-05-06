@@ -163,8 +163,12 @@
             .filter(d => d.properties.sort === 'text')
 
           if (texts.length > 0) {
+
+
+          
+            
             __mapper('renderSvg').elems('svg:g.' + gid + '/text.' + cid, texts, d => d.uid)
-              .text(d => d.properties.text)
+              .text(d => d.properties.text.string)
 
               .attr('x', 0) // translate instead
               .attr('y', 0) //

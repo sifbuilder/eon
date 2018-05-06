@@ -10,14 +10,9 @@
 
   // md: # md:{filename}
   // md: **process h.ent animas**
-  // md: geoform, conform, ereform and proform anigrams and pass them to h.formed
-  // md: h.ent.ween(anima)  sets inited and gelded and returns anima
-  // md: h.ent.gramm(anima) gets newAnigrams and pass them to h.formed
-  // md:   get anigram.geofold and initialize geonode if not defined
-  // md:   keep formGeoformed from deprop'ed geofold
-  // md:   keep formGeoformed has property nodeGeoformed
-  // md:   featurize the geofold
-  // md:  corform, ereform and proform the geofold and the geonode
+  // md: Feature Collect gj. for each feature
+  // md:  geoform, conform, ereform and proform anigrams
+  // md:  then pass the FeatureCollection to h.formed
 
   let haloEnt = function haloEnt (__mapper = {}) {
     let f = __mapper('props')(),
@@ -58,9 +53,8 @@
       gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
 
       let gjcollection = mgeoj.featurecollect(gj) // FEATURE COLLECT
-      
+
       gjcollection.features = gjcollection.features.map((feature, i) => { // per feature
-        
         feature = mprofier.conformer(anigram)(feature) // CONFORM
         feature.properties.formConformed = mgeoj.deprop(feature) // store conform
         feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
@@ -75,7 +69,7 @@
           feature.properties.nodeEreformed = feature.properties.nodeConformed
         }
 
-        if (payload.proform) {  // PROFORM
+        if (payload.proform) { // PROFORM
           let proformion = mprofier.proformion(anigram)
           feature = mproj3ct(feature, proformion)
           feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion)
@@ -86,7 +80,7 @@
         return feature
       })
 
-      anigram.geofold = gjcollection
+      anigram.geofold = gjcollection // new anigram geofold is FeatureCollection
       newAnigrams = hformed.gramm(anigram)
 
       return newAnigrams //    new anigrams are stored by m.animation
