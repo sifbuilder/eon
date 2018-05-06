@@ -91,7 +91,7 @@
       newItems = payload.pacer.geojsor(payload, count)  // new geoItems
 
 
-      if (0 && 1) console.log('m.pacer:newItems', newItems)
+
       return newItems
     }
 

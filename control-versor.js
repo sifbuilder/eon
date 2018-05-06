@@ -126,7 +126,7 @@
       // -----------------
 
       state.rotAtInit_grads = state.rotInitial_grads // rebase()
- if (0 && 1) console.log("rotAtInit_grads", state.rotAtInit_grads)     
+
       
     }
 

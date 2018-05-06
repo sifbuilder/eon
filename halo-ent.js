@@ -96,7 +96,7 @@
         
         // let gjcollection = {type: 'FeatureCollection', features}
         
-if (1 && 1) console.log("this", this)        
+
         anigram.geofold = gjcollection
         newAnigrams = __mapper('xs').h('formed').gramm(anigram)
         

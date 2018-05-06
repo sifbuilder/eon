@@ -56,7 +56,7 @@
           } else {
             if (2 && 2) console.log("(( boform not defined", json, anigram)
           }
-if (0 && 1) console.log("boform", boform)          
+
           let jsonStyle = getStyle(boform)
 
           if (feature.properties !== undefined && feature.properties.style !== undefined) {

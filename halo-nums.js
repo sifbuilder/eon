@@ -18,7 +18,7 @@
    *    @gramm
    */
     let gramm = function (anima, newAnigrams = []) {
-      if (0 && 1) console.log('h.nums.gram:anima  ', anima)
+
 
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo

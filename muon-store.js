@@ -134,7 +134,7 @@
             
           } else {
             
-            if (0 && 1) console.log('halo ', halo, ' returns no anigram')
+
             
           }
         

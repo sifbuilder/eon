@@ -30,7 +30,7 @@
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
         geofold = anigram.geofold // geofold
-      if (0 && 1) console.log("----")
+
       let payload = anigram.payload, // payload
         tim = payload.tim,
         fractal = payload.fractal
