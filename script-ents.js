@@ -53,7 +53,6 @@ document.write("<script src='geo-cox.js'><\/script>")
 /* lib*/
 document.write("<script src='lib-turf.js'><\/script>")
 document.write("<script src='lib-papaparse.js'><\/script>")
-document.write("<script src='lib-minimist.js'><\/script>")
 document.write("<script src='lib-math.js'><\/script>")
 document.write("<script src='lib-dat.gui.js'><\/script>")
 document.write("<script src='lib-complex.js'><\/script>")

@@ -140,7 +140,8 @@
               if (Object.keys(nformed).length > 2) { // 3d
               
                 dx = 360 / nformed.x.seg5 // x
-                dy = 360 / nformed.z.seg5 // z
+                dy = 360 / nformed.z.seg5 // ____ z ___
+                               
                 sx = dx
                 sy = dy
 
@@ -160,8 +161,11 @@
                 sx = 360
                 sy = 360
                 
+                let xdomain = [-180, 180]
+                let ydomain = [-180, 180]              
+                
                 // _e_
-                let graticule = {frame: [ [ [-180, 180, sx, dx], [-180, 180, sy, dy] ] ]} // x, y
+                let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
                 geometry = mgraticule.gedges(graticule).geometry // geometry.type: MultiLineString
                 
                 let p = geometry.coordinates[1].slice(0, -1)

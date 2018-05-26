@@ -81,17 +81,17 @@ var haloTiles = function (__mapper = {}) {
 		}
 
     // .................... enty
-    let haloNat_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-    let haloNat_gramm = anima => gramm(anima)
+    let haloTiles_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+    let haloTiles_gramm = anima => gramm(anima)
 
-    let haloNat = {}
-    haloNat.ween = anima => haloNat_ween(anima)
-    haloNat.gramm = anima => haloNat_gramm(anima)
+    let haloTiles = {}
+    haloTiles.ween = anima => haloTiles_ween(anima)
+    haloTiles.gramm = anima => haloTiles_gramm(anima)
 
     let enty = haloTiles
 
     return enty
   }
 
-  exports.haloNat = haloNat
+  exports.haloTiles = haloTiles
 }))
