@@ -120,6 +120,9 @@
   // ............................. natFeature
     let natFeature = function (form) {
       
+      if (1 && 1) console.log('natFeature form', form)
+
+      
       let feature
   
       if (f.isSame(form, cache.form)) {
@@ -135,13 +138,16 @@
               let dx, dy, sx, sy
 
               if (Object.keys(nformed).length > 2) { // 3d
+              
                 dx = 360 / nformed.x.seg5 // x
                 dy = 360 / nformed.z.seg5 // z
                 sx = dx
                 sy = dy
 
+                let xdomain = [-180, 180]
+                let ydomain = [-90, 90]
                 
-                let graticule = {frame: [ [ [-180, 180, sx, dx], [-90, 90, sy, dy] ] ]} // x, y
+                let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
                 
                 
                 geometry = mgraticule.gedges(graticule).geometry

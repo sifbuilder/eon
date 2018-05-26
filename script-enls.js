@@ -16,5 +16,6 @@ document.write("<script src='d3-force-3d.js'><\/script>")
 /* topojson*/
 document.write("<script src='topojson.v3.js'><\/script>")
 /* three*/
-document.write("<script src='three.min.js'><\/script>")
+document.write("<script src='three.js'><\/script>")
+document.write("<script src='three-trackballcontrols.min.js'><\/script>")
 document.write("<script src='three-trackballcontrols.js'><\/script>")
