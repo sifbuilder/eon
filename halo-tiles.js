@@ -24,56 +24,65 @@ var haloTiles = function (__mapper = {}) {
       mgraticule = __mapper('xs').m('graticule')
 
     // .................... gramm
-	let gramn = function (anima, newAnigrams = []) {
-    
-      let anigram = manitem(anima).anigram() // anigram
+	let gramm = function (anima, newAnigrams = []) {
 
-      anigram.halo = 'ent' // halo
+      let anigram = manitem(anima).anigram(), // anigram
+        halo = anigram.halo, // halo
+        geofold = anigram.geofold, // geofold
+        payload = anigram.payload, // payload
+        avatars = anigram.avatars // avatars
+
+
+      let boform = payload.boform, // boform
+        ric = payload.ric, // ric
+        tim = payload.tim, // tim
+        vim = payload.vim, // vim
+        proform = payload.proform, // proform
+        conform = payload.conform, // conform
+        uid = payload.uid, // uid
+        parentuid = payload.parentuid // parentuid
+
+
+      let gj
+      gj = f.v(geofold, anigram) // get geofold
+      gj.properties = gj.properties || {} // recall genode
+      gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
+
+
+      let graticule = payload.graticule
 
 			let range = (anigram.range !== undefined ) ? anigram.range : null
 			let tile = (anigram.tile !== undefined ) ? anigram.tile : null
+			let verts =  mgraticule.gvertices(graticule)  // Feature.LineString
+      let vertices = verts.geometry.coordinates
+			let faces = mgraticule.gfaces(graticule)	// faces
 
-			let	gjson = a.geojson()						// get value of geo
-
-			let bigPolygons = gjson.coordinates
-
-			let grarr = mgraticule.grarr(a.graticule)	// grat {mms,pps}
-				let mersCoords = grarr.mms.coordinates
-				let parsCoords = grarr.pps.coordinates
-			let coords = [...mersCoords, ...parsCoords]
-
-			let verts =  mgraticule.getVerts(mersCoords,parsCoords)
-
-			let json = {type: "LineString",coordinates: verts}							// init json
-					json = mgeoj.jparse(json, threeConformer)	// conform vertex3d
-					// json =  __mapper("xs").m("stace").getLocifier(json, anigram)	// localize
-
-			let	vertices = mgeoj.getCoords(json)							// vertices
-
-			let faces = mgraticule.getFaces(mersCoords, parsCoords)	// faces
-
-			// let faces = __mapper("muonGraticule").getFaces(mersCoords, parsCoords, vertex3, range, tile, vertices, bigPolygons[0] )
-
-			let inFaces = []
-			for (let i=0; i<faces.length; i++) {
-        
+			for (let i=0; i<faces.length; i++) {  // each face is a single ring polygon
+      
+        let idx = i
+        let gid = ric.gid                             // from ava ric
+        let cid = ric.cid
+        let fid = ric.cid + '_' + idx
+        let _ric = {gid, cid, fid}      
+      
+      
+          let newItem = {}
+          newItem.halo = 'ent'
+          newItem.payload = Object.assign({}, anigram.payload)
+          newItem.payload.ric = _ric
+                  
+          newItem.geofold = {type: "Polygon",coordinates: []}	
+          
 					let face = faces[i]
-					let geoFace = [verts[face[0]], verts[face[1]], verts[face[2]] ]
+					let facering = [vertices[face[0]], vertices[face[1]], vertices[face[2]] ]
+          
+          newItem.geofold.coordinates = Array.of([...facering, facering[0]])
+          let newGrams = __mapper('xs').h('ent').gramm(newItem)
+          newAnigrams = [...newAnigrams, ...newGrams] // add items
 
-					// console.log("face", i, face)
-					// console.log("geoFace", i, JSON.stringify(geoFace))
-
-					let inside = mgeom.polygonInMultiPolygon(
-							geoFace,
-							bigPolygons // _e_
-					)
-
-					if (inside) inFaces.push(face)
-					// inFaces.push(face)
-					// console.log("inside", inside)
 			}
 
-			faces = inFaces
+if (1 && 1) console.log('newAnigrams', newAnigrams)
 
 
 

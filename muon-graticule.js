@@ -16,7 +16,7 @@
 //md: [d3-geo/graticule.js](http://ci.testling.com/substack/minimist)
 
 //md: ## functions
-//md: ### tidx 
+//md: *tidx 
 //md: return `function(column, row)` that gives the sequential index of [column,row]
 //md: ``` js
 //md: tidx (horq, verq, hd = 1, vd = 1)
@@ -26,19 +26,19 @@
 //md: * `@argv.hd`   span between columns
 //md: * `@argv.vd`   span between rows
 //md: 
-//md: ### ridx
+//md: *ridx
 //md: return `function(idx)` , give [row,column] of sequential index
 
-//md: ### oneface
+//md: *oneface
 //md:   a,b,c coord-vertices in [xn, yn] space give face verts indices
 
-//md: ### bifaces
+//md: *bifaces
 //md:  (i,h) in [xn,yn[]
 //md:  vertices to ...
 //md:  inPolygons to filter coords if in pols
 //md:  mersCoords to get vert coords
 
-//md: ### gratiparams
+//md: *gratiparams
 
 //md:  lattice.[ Xx, Yy ]
 //md:  frame.[ [X,Y], [x,y] ]   X:[X0,X1,DX,PX]
@@ -48,15 +48,30 @@
 //md: ### arywinopen
 
 //md: ## methods
-//md: ### grarr
-//md: ### gedges
-//md: ### medges
-//md: ### pedges
-//md: ### dedges
-//md: ### gfaces
-//md: ### gvertices
-//md: ### equator
-
+//md: *grarr
+//md: 
+//md: 
+//md: *gedges
+//md: 
+//md: 
+//md: *medges
+//md: 
+//md: 
+//md: *pedges
+//md: 
+//md: 
+//md: *dedges
+//md: 
+//md: 
+//md: *gfaces
+//md: 
+//md: 
+//md: *gvertices
+//md: 
+//md: 
+//md: *equator
+//md: 
+//md: 
 //md: # license
 //md: MIT
 
@@ -73,6 +88,8 @@
     let defaultMajor = [ [-180, 180, 90, 2.5], [-90, 90, 360, 2.5] ]
     let defaultMinor = [ [-180, 180, 10, 2.5], [-80, 80, 10, 2.5] ]
 
+    
+    let state = {}
     
     // .................. tidx  
     let tidx = function (horq, verq, hd = 1, vd = 1) {

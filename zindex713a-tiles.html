@@ -17,129 +17,169 @@
 
 <script>
 
-let muonAlima = function muonAlima (__mapper) {
+// md: md:{filename}
+// md: ref: https://en.wikipedia.org/wiki/Surface_of_revolution
+
+let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, bck: 0, key: 1, gui: 0, fps: 0, stats: 0}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, key: 1, bck: 1}) // INIT
 
-  let renderport = __mapper('renderRenderport'),
-    width = renderport.width(),
-    height = renderport.height(),
-    scaleProj = Math.min(width / 2, height) / Math.PI
+  let f = __mapper({'props': muonProps.muonProps()}).props(),
+    mnat = __mapper('xs').m('nat'),
+    mstore = __mapper('xs').m('store'),
+    mgraticule = __mapper('xs').m('graticule'),
+    mforces = __mapper('xs').m('forces'),
+    mpacer = __mapper('xs').m('pacer'),
+    mric = __mapper('xs').m('ric'),
+    crayder = __mapper('xs').c('rayder'),
+    cwen = __mapper('xs').c('wen')(),
+    cversor = __mapper('xs').c('versor')
 
-  let f = __mapper('props')(),
-    cwen = __mapper('xs').c('wen'),
-    mnat = __mapper('xs').m('nat')
+  let r = __mapper('xs').r('renderport'),
+    width = r.width(),
+    height = r.height()
 
   let radians = Math.PI / 180, degrees = 180 / Math.PI,
     sin = Math.sin, cos = Math.cos
 
 
-  // ............................. pics
-  let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop:1}
+  let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
+  // let frame = [ [ [ -180, 180, 90, 5], [ -180, 180, 30, 5] ] ]
+  let frame = [ [ [ -180, 180, 90, 90], [ -90, 90, 70, 70] ] ]
+
+  let formSphere = {
+    'x': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180],
+      'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => a * cos(r) * c * cos(u)
+
+    },
+    'y': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180],
+      'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => b * sin(r) * c * cos(u)
+    },
+    'z': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+      'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+      'dom3': [-90, 90],
+      'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => d * sin(v)
+
+    }
+  }
 
   let proform = {
-
     projection: 'uniwen',
-    scale: [1, 1],
-
-    // projection:  d3.geoOrthographic(),
-    // scale: 100,
-
     prerotate: [[[ cwen.rotation ]]],
-    translate: [ [0, 0, 0] ],
-    rotate: [ 0, 0, 0 ],
-    lens: [0, 1, Infinity],
+    translate: [0, 0, 0],
+    scale: 1,
+    rotate: [ 90, 0, 0],
+    lens: [ 0, 1, Infinity ]
   }
 
-  let conform = {
-    'x': { 
-      "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ      
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 4,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180],  // r.form.circ [-1.57, 1.57] 
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r)       * c * (  cos(u)),
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r) * c * cos(v),
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => r  * cos(u),
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => { return r },
-    },
-    'y': { 
-      "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,   // drop
-              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 4,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180],
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(r)       * c * ( cos(u)),
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(r) * c * cos(v),
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => { return s * s  },
-    },
+    // .................... sphereForm
+  let sphereForm = {
 
-    'z': { 
-        // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 5,'pa6': 0,'pb7': -1,
-      'dom3': [ -90,90 ],  
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => d * sin(v),
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(v)  *  c * cos(s),
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => c * cos(s),
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => 1 / ( 1 + v),
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => u, 
-    },
+    halo: 'ent',
+    geofold: p => mgraticule.gedges(p.payload.graticule),
 
-    'r': { 
-      "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
-      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 5,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180],
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => c * cos(u),
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => d,
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => { return v },
-    },
-
-  }
-
-let graticule = {
-
-			// "extent": [ [-180, 180, 90, 12],  [-180, 180, 360, 6] ],
-			// "extent": [ [-180, 180, [[[45,45]]], 45],  [-180, 180, 22.5, 22.5] ],
-			// "extent": [ [-180, 180, [[[12,12]]], 12],  [-180, 180, 12, 12] ],
-			// "extent": [ [-180, 180, [[[6,6]]], 6],  [-180, 180, 6, 6] ],
-			"extent": [ [-180, 180, [[[2,2]]], 2],  [-180, 180, 2, 2] ],
-
-		}	
-  // ............................. natForm
-  let natForm = {
-
-    // halo: 'nat',
-    // halo: 'ent',
-    halo: 'tiles',
-
-    geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
     
-    payload: {
-      tim,
+    
+    // halo: 'ent',
+    // geofold: function(p) {
+      // let graticule = p.payload.graticule
+			// let verts =  mgraticule.gvertices(graticule)  // Feature.LineString
+      // let vertices = verts.geometry.coordinates
+			// let faces = mgraticule.gfaces(graticule)	// faces
+      // if (1 && 1) console.log('vertices', vertices)
 
-      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
-
-      proform: proform,
-
-      boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.9, 0.9]]], 'cs': [[[888, 888]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
-
-      form: conform,
+      // let gj = {type: "Polygon",coordinates: []}	
       
-      graticule: graticule,
+ 			// for (let i=0; i<faces.length; i++) {
+
+					// let face = faces[i]
+					// let facering = [vertices[face[0]], vertices[face[1]], vertices[face[2]] ]
+          // gj.coordinates.push(facering)
+      
+      // }
+      
+      // return gj
+      
+    // },
+    
+        
+    // halo: 'ent',
+    // geofold: function(p) {
+      // let graticule = p.payload.graticule
+			// let verts =  mgraticule.gvertices(graticule)  // Feature.LineString
+      // let vertices = verts.geometry.coordinates
+			// let faces = mgraticule.gfaces(graticule)	// faces
+      // if (1 && 1) console.log('verts', verts)
+
+      // let gj = {type: "MultiPoint",coordinates: []}	
+      
+      // gj.coordinates = vertices
+      
+      // return gj
+      
+    // },
+    
+
+    // halo: 'ent',
+    // geofold: function(p) {
+      // let graticule = p.payload.graticule
+
+			// let grarr = mgraticule.grarr(graticule)	// grat {mms,pps}
+				// let mersCoords = grarr.mms.coordinates
+				// let parsCoords = grarr.pps.coordinates
+			// let coords = [...mersCoords, ...parsCoords]
+
+			// let verts =  mgraticule.gvertices(graticule)
+			// let faces = mgraticule.gfaces(graticule)	// faces
+
+    // },
+
+    
+    // halo: 'tiles',
+    // geofold: function(p) {
+      // let graticule = p.payload.graticule
+
+      // let gedges =  mgraticule.gedges(graticule)
+      // return gedges
+    // },
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereForm'},
+      boform: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.69, 'cp': 0.9 },
+
+      // conform: formSphere,
+
+      // proform: proform,
+
+      graticule: frame
 
     }
 
   }
 
-  // ............................. animas
+    // .................... animaApi
   let animas = [
 
-    natForm, // h.nat
+
+    sphereForm, // h.ent
 
   ]
 
-  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
 }
 
 let __mapper = muonMapper.muonMapper()

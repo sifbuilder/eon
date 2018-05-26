@@ -63,10 +63,6 @@
 
 
 
-
-
-
-
     // ............................. svg
     let svg = () => d3.select('#viewframe')
 
@@ -147,6 +143,8 @@
 
     // ............................. render
     let render = function (elapsed, featurecollection, maxlimit) {
+      
+      
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
@@ -281,11 +279,11 @@
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
             .filter(d => d.properties.sort === 'feature'
-
             )
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
           if (features.length > 0) { // _e_
+
 
             __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)  // elems
               .data(() => features)
