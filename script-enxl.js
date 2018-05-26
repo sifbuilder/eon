@@ -2,6 +2,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>  
 <script src='https://d3js.org/d3-geo.v1.min.js'></script> 
 <script src='https://d3js.org/d3-geo-projection.v2.min.js'></script> 
+<script src='https://unpkg.com/d3-require@1.0.3/dist/d3-require.min.js'></script> 
 
 <!-- <script src='https:////unpkg.com/d3-force-3d@1.0/build/d3-force-3d.bundle.min.js'></script> -->
 <script src='https://unpkg.com/3d-force-graph@1.22.0/dist/3d-force-graph.min.js'></script> 

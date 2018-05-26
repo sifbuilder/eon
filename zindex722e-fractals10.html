@@ -21,7 +21,7 @@
     
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 0, img: 1, gui: 0, fps: 0, stats: 0}) // INIT
+  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1, gui: 0, fps: 0, stats: 0}) // INIT
 
   let f = __mapper('props')(),
     mnat = __mapper('xs').m('nat'),
@@ -86,7 +86,7 @@ let muonAlima = function muonAlima (__mapper) {
         },               
         initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
         autoSitus: function(a) {
-          let r =  mstace.getLocus(this.stace, a.payload) // situs
+          let r =  mstace.getLocus(this.stace, a) // situs
           return r
         },
         fidder: a => a.payload.ric.fid,
@@ -214,9 +214,9 @@ let muonAlima = function muonAlima (__mapper) {
       anis[level].payload.fractal.rad = radOnLevel(level) // rad(level)
       anis[level].payload.boform.cf = _CF(level) // boform  
       if (level === _LEVEL - 1) { // add image as avatar to root nat
-        anis[level].payload.avatars = []
+        anis[level].avatars = []
 
-        anis[level].payload.avatars.push(traceLine) // push traceLine avatar to last cycloid
+        anis[level].avatars.push(traceLine) // push traceLine avatar to last cycloid
       }
     }
 

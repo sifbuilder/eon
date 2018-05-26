@@ -1,5 +1,6 @@
 /* d3*/
 document.write("<script src='d3.v5.js'><\/script>")
+document.write("<script src='d3-require.js'><\/script>")
 document.write("<script src='d3-octree.js'><\/script>")
 document.write("<script src='d3-inertia.js'><\/script>")
 document.write("<script src='d3-geo.js'><\/script>")
@@ -13,7 +14,7 @@ document.write("<script src='d3-force-magnetic.js'><\/script>")
 document.write("<script src='d3-force-bounce.js'><\/script>")
 document.write("<script src='d3-force-3d.js'><\/script>")
 /* topojson*/
-document.write("<script src='topojson.v3.min.js'><\/script>")
+document.write("<script src='topojson.v3.js'><\/script>")
 /* three*/
 document.write("<script src='three.min.js'><\/script>")
-document.write("<script src='three-trackballcontrols.min.js'><\/script>")
+document.write("<script src='three-trackballcontrols.js'><\/script>")

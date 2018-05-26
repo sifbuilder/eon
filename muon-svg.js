@@ -9,6 +9,25 @@
 }(this, function (exports) {
   'use strict'
 
+  
+// md: # md:{filename}
+// md: ## muons:
+// md: ### m.bezierjs
+// md: ## function:
+// md: ### rarray
+// md: ### d3range
+
+// md: ## methods:
+// md: ### castels:
+// md: `msvg.castels(svgdata, frame={start:0, stop:0.90, step:0.33} )`
+// md:  svgdata: cubic beziers: MC...CZ
+// md:  frame.start: bezier interaval beginning
+// md:  frame.stop: bezier interval end
+// md:  frame.step: space between points
+// md:    eg: castels(svg, {start:0, stop:0.90, step:0.33}) returns 3 curve points in bezier
+// md: ### castel
+  
+  
   var muonSvg = function muonSvg (__mapper = {}) {
 
     let mbezierjs = __mapper('xs').m('bezierjs')
@@ -32,17 +51,7 @@
     }
 
 
- /*******************************************
- *      @castels
- *
- */
-//md: m.svg.castels(svgdata, frame={start:0, stop:0.90, step:0.33} )
-//md:  svgdata: cubic beziers: MC...CZ
-//md:  frame.start: bezier interaval beginning
-//md:  frame.stop: bezier interval end
-//md:  frame.step: space between points
-//md:    eg: castels(svg, {start:0, stop:0.90, step:0.33}) will return 3 curve points in bezier
-    
+    // ........................... castels
     let castels = function(svgdata, frame={start:0, stop:0.90, step:0.33} ) {
 
       let gj = {
@@ -56,7 +65,6 @@
 
       let str = svgdata.path.d
       let svgRings =   str.trim().split('M').slice(1) // M C Z
-
       let ncas = [], ringCases = []
       for (let i=0; i<svgRings.length; i++) {
 
@@ -91,17 +99,18 @@
           for (let i=0; i<cn.length-1; i++) {
             cas[i+1] = [ ...cn[i].slice(-2), ...cn[i+1] ]
           }
-          let m = cn.length-2
-          cas[m] = [ ...cn[m].slice(-2), ...cn[m+1] ] // close
+          // let m = cn.length-2
+          // cas[m] = [ ...cn[m].slice(-2), ...cn[m+1] ] // close
+          // cas[m] = [ ...cn[m].slice(-2) ] // close
         } 
         
 
         gj.geometry.coordinates.push(cas)
 
         ringCases[i] = cas
+
+        
       }
-
-
 
       for (let j=0; j< ringCases.length; j++) { // rings of knots
 
@@ -127,18 +136,15 @@
       return gj
 
     }
- /*******************************************
- *      @castel
- *
- */
+    
+    // ........................... castel
     let castel = function(svgdata, pathdata) {
 
       return castels (svgdata, pathdata)[0]
 
     }
-    /*******************************************
-   *      @enty
-   */
+    
+    // ........................... enty
     var enty = function () {}
 
     enty.castels = castels

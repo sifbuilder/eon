@@ -77,7 +77,7 @@
 
         newAnitem.halo = 'ent' // halo
         newAnitem.payload = newAnitem.payload || {}
-        newAnitem.payload.avatars = newAnitem.payload.avatars || []
+        newAnitem.avatars = newAnitem.avatars || []
 
         let ric = f.clone(anigram.payload.ric)
         if (ric.fid !== undefined) { // ric.fid = ric.fid
@@ -119,7 +119,7 @@
 
         if (i === level) { // add trace avatars to pencil
           if (newAnitem.payload.fractal.traceLine !== undefined) {
-            newAnitem.payload.avatars.push(newAnitem.payload.fractal.traceLine)
+            newAnitem.avatars.push(newAnitem.payload.fractal.traceLine)
           }
         }
 
@@ -146,7 +146,7 @@
             anitems[i + 1].geofold.geometry.coordinates
           ]
 
-          anitems[i].payload.avatars.push(rayLine)
+          anitems[i].avatars.push(rayLine)
         }
       }
 

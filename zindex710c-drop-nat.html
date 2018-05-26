@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="script-enls.js"></script>
+<script src="script-ents.js"></script>
+
+<script>
+
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, bck: 0, key: 1, gui: 0, fps: 0, stats: 0}) // INIT
+
+  let renderport = __mapper('renderRenderport'),
+    width = renderport.width(),
+    height = renderport.height(),
+    scaleProj = Math.min(width / 2, height) / Math.PI
+
+  let f = __mapper('props')(),
+    cwen = __mapper('xs').c('wen'),
+    mnat = __mapper('xs').m('nat')
+
+  let radians = Math.PI / 180, degrees = 180 / Math.PI,
+    sin = Math.sin, cos = Math.cos
+
+
+  // ............................. pics
+  let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop:1}
+
+
+  let proform = {
+
+    projection: 'uniwen',
+    scale: [1, 1],
+
+    // projection:  d3.geoOrthographic(),
+    // scale: 100,
+
+    prerotate: [[[ cwen.rotation ]]],
+    translate: [ [0, 0, 0] ],
+    rotate: [ 6, 36, 6 ],
+    lens: [0, 1, Infinity],
+  }
+
+  let conform = {
+    'x': { 
+      "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ      
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 4,'pa6': 0,'pb7': -1,
+      'dom3': [-180, 180],  // r.form.circ [-1.57, 1.57] 
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r)       * c * (  cos(u)),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r) * c * cos(v),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => r  * cos(u),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => { return r },
+    },
+    'y': { 
+      "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,   // drop
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 4,'pa6': 0,'pb7': -1,
+      'dom3': [-180, 180],
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(r)       * c * ( cos(u)),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(r) * c * cos(v),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => { return s * s  },
+    },
+
+    'z': { 
+        // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 5,'pa6': 0,'pb7': -1,
+      'dom3': [ [[[-180,180]]], [[[180,-180]]] ],  
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => d * sin(v),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(v)  *  c * cos(s),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => c * cos(s),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => 1 / ( 1 + v),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => u, 
+    },
+
+    'r': { 
+      "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 4,'pa6': 0,'pb7': -1,
+      'dom3': [-180, 180],
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => c * cos(u),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => d,
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => { return v },
+    },
+
+  }
+
+
+  // ............................. natForm
+  let natForm = {
+
+    // halo: 'nat',
+    halo: 'ent',
+
+    geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
+    payload: {
+      tim,
+
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
+
+      proform: proform,
+
+      boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.9, 0.9]]], 'cs': [[[888, 888]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+      form: conform,
+
+    }
+
+  }
+
+  // ............................. animas
+  let animas = [
+
+    natForm, // h.nat
+
+  ]
+
+  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

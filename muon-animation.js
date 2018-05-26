@@ -9,7 +9,8 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonAnimation = function muonAnimation (__mapper) {
+  let muonAnimation = function (__mapper) {
+    
     let f = __mapper('props')(),
       mstore = 	__mapper('xs').m('store')
 
@@ -61,6 +62,7 @@
         __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': newAnimas})
       }
       state.animas = f.a(__mapper('muonStore').animasLive())
+      
       /*******************************************
       *    @SIM defaults position of nodes
       */
@@ -69,10 +71,10 @@
       __mapper('xs').m('sim').simulate(sim, state.animas, elapsed)	// stored
 
       state.animas = f.a(__mapper('muonStore').animasLive())
+      
       /*******************************************
      *    @GRAMM animas to anigrams
      */
-
       
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]

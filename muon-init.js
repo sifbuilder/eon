@@ -8,45 +8,70 @@
 }(this, function (exports) {
   'use strict'
 
-  /*******************************************
- *    @muonInit
- */
-  let muonInit = function muonInit (__mapper = {}) {
-  /*******************************************
- *    @enty
- */
-    let enty = function (p) {
-      if (p.canvas) __mapper({'renderCanvas': renderCanvas.renderCanvas(__mapper)})
+  let muonInit = function (__mapper = {}) {
+    
+    let state = {
+      canvas: 0,
+      svg: 0, // SVG
+      webgl: 0, // WEBGL
+      bck: 0, // BCK IMAGE
+      img: 'zimg-black.jpg', // BCK IMAGE
+      wen: 0, // SVG WEN
+      versor: 0, // SVG VERSOR
+      gui: 0, // GUI https://github.com/dataarts/dat.gui
+      key: 0, // KEYBRD CONTROLS
+      ray: 0, // RAYDER mouse control
+      fps: 0,
+      stats: 0
+    }
+    
+    // .................. setContext
+    let setContext = function (p) {
+      if (p.canvas && p.canvas !== state.canvas) {
+        state.canvas = 1
 
-      // SVG
-      if (p.svg) __mapper({'renderSvg': renderSvg.renderSvg(__mapper)})
+        __mapper({'renderCanvas': renderCanvas.renderCanvas(__mapper)})
+      }
 
-      // SVG POSITION
-      if (p.pos) __mapper('xs').c('pos')(__mapper('renderSvg').svg())
+      if (p.svg && p.svg !== state.svg) {
+        state.svg = 1
 
-      // BCK IMAGE
-      if (p.img) __mapper('xs').m('image')('zimg-black.jpg')
+        __mapper({'renderSvg': renderSvg.renderSvg(__mapper)})
+      }
 
-      // SVG WEN
-      if (p.svg && p.wen) __mapper('xs').c('wen').control(__mapper('renderSvg').svg())
+     if (p.bck && p.bck !== state.bck) {
+        state.bck = 1
 
-      // SVG VERSOR
-      if (p.svg && p.versor) __mapper('xs').c('versor').control(__mapper('renderSvg').svg())
+        __mapper('xs').m('image')(state.img)
+      }
 
-      // WEBGL
-      if (p.webgl) __mapper({'renderWebgl': renderWebgl.renderWebgl(__mapper)})
+      if (p.svg && p.wen && p.wen !== state.wen) {
+        state.wen = 1
 
-      // ANIMATION
-      __mapper({'muonAnimation': muonAnimation.muonAnimation(__mapper)})
+        __mapper('xs').c('wen').control(__mapper('renderSvg').svg())
+      }
 
-      // STORE
-      __mapper({'muonStore': muonStore.muonStore(__mapper)})
+      if (p.svg && p.versor && p.versor !== state.versor) {
+        state.versor = 1
 
-      // GUI https://github.com/dataarts/dat.gui
-      if (p.gui) { gui = new dat.GUI(); gui.add(window, 'restart') }
+        __mapper('xs').c('versor').control(__mapper('renderSvg').svg())
+      }
 
-      // KEYBRD CONTROLS
-      if (p.key) {
+      if (p.webgl && p.webgl !== state.webgl) {
+        state.webgl = 1
+
+        __mapper({'renderWebgl': renderWebgl.renderWebgl(__mapper)})
+      }
+
+      if (p.gui && p.gui !== state.gui) {
+        state.gui = 1
+
+        gui = new dat.GUI(); gui.add(window, 'restart')
+      }
+
+      if (p.key && p.key !== state.key) {
+        state.key = 1
+
         __mapper('xs').c('key').start() // KEYBRD CONTROLS
 
         if (__mapper('controlKey') !== undefined) {
@@ -83,17 +108,22 @@
         __mapper('xs').c('key').subscribe(controltimerRightArrowAlt, 'rightArrowAlt')
       }
 
-      // RAYDER mouse control
-      __mapper('xs').c('rayder').control(__mapper('renderSvg').svg())
+      if (p.ray && p.ray !== state.ray) {
+        state.ray = 1
 
-      // FPS frames per second applicance
-      if (p.fps) {
+        __mapper('xs').c('rayder').control(__mapper('renderSvg').svg())
+      }
+
+      if (p.fps && p.fps !== state.fps) {
+        state.fps = 1
+
         const fpsdiv = d3.select('body').append('div').attr('id', 'fps')
         __mapper('xs').m('fps').init()
       }
 
-      // STATS
-      if (p.stats) {
+      if (p.stats && p.stats !== state.stats) {
+        state.stats = 1
+
         let stats = __mapper('xs').m('stats')() // new Stats();
         stats.showPanel(-1) // 0: fps, 1: ms, 2: mb, 3+: custom
         document.body.appendChild(stats.dom)
@@ -105,6 +135,15 @@
       }
     }
 
+    
+    
+    let enty = function (p) {
+      
+      setContext(p)
+      if (__mapper('animation') === undefined)  __mapper({'muonAnimation': muonAnimation.muonAnimation(__mapper)})
+
+    }
+    enty.setContext = setContext
     return enty
   }
 

@@ -20,7 +20,7 @@
  */
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 0, img: 1, gui: 0, fps: 0, stats: 0}) // INIT
+  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1, gui: 0, fps: 0, stats: 0}) // INIT
 
   let renderport = __mapper('renderRenderport'),
     width = renderport.width(),
@@ -122,7 +122,7 @@ let muonAlima = function muonAlima (__mapper) {
         stace: { x: { pos: 0 }, y: { pos: 0 }, z: 0 },               
         initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
         autoSitus: function(a) {
-          let r =  mstace.getLocus(this.stace, a.payload) // situs
+          let r =  mstace.getLocus(this.stace, a) // situs
           return r
         },
         fidder: a => a.payload.ric.fid,

@@ -95,7 +95,7 @@
                       }
         properties.uid = getuid(properties.ric)
 
-        feature.id = properties.uid
+        // feature.id = properties.uid
         feature.properties = properties
 
         json = feature
@@ -120,7 +120,7 @@
           feature.properties.ric = _ric
 
           feature.properties.uid = getuid(feature.properties.ric)
-          feature.id = feature.properties.uid
+          // feature.id = feature.properties.uid
           feature.properties.nid = i
         }
         json.features = features

@@ -16,9 +16,25 @@
 
 <script>
 
+//md: # md:{filename}
+//md:
+//md:
+//md: ## animas
+//md: * [geoearth](#geoearth) -
+//md:     worldTopo110m topojson land feature
+//md:     init.versor and prerotate cversor
+//md:
+//md: * [fibofold](#fibofold) - tbd
+//md:
+//md: ##### avatars
+//md:    gratifold - tbd
+//md:
+//md: # license
+//md: MIT
+
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, img: 1, key: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 1, wen: 1, webgl: 0, bck: 1, key: 1}) // INIT
 
   let mnat = __mapper('xs').m('nat'),
     mliner = __mapper('xs').m('liner'),
@@ -32,11 +48,9 @@ let muonAlima = function muonAlima (__mapper) {
     cwen = __mapper('xs').c('wen'),
     cversor = __mapper('xs').c('versor')
 
-  const cos = Math.cos, sin = Math.sin  
-    
-  /*******************************************
- *    @pics
- */
+  const cos = Math.cos, sin = Math.sin
+
+  // .................. enty
   let tim = {'td': 72200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   let natform = {
@@ -45,7 +59,6 @@ let muonAlima = function muonAlima (__mapper) {
       'm1': 6,'m2': 6,'n1': 60,'n2': 100,'n3': 30,'a': 1,'b': 1,
       'ra2': 26,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
       'dom3': [0, 360],
-      // 'fn0': [2, 0, 0, 0],
       'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>
               (a * cos(r) * c * cos(u)) * (a * cos(r) * c * cos(u))
     },
@@ -72,19 +85,16 @@ let muonAlima = function muonAlima (__mapper) {
     'x': {
       'm1': [[[4, 4]]],'m2': [[[4, 4]]],'n1': [[[2, 2]]],'n2': [[[2, 2]]],'n3': [[[2, 2]]],'a': [[[1, 1]]],'b': [[[1, 1]]], // moon
       'ra2': 160,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1,
-      
-    },
 
+    },
     'y': {
       'm1': [[[4, 4]]],'m2': [[[4, 4]]],'n1': [[[2, 2]]],'n2': [[[2, 2]]],'n3': [[[2, 2]]],'a': [[[1, 1]]],'b': [[[1, 1]]], // moon
       'ra2': 160,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1,
-      
-    },
 
+    },
     'z': {
       'm1': [[[4, 4]]],'m2': [[[4, 4]]],'n1': [[[2, 2]]],'n2': [[[2, 2]]],'n3': [[[2, 2]]],'a': [[[1, 1]]],'b': [[[0.95, 0.98]]], // moon
       'ra2': 160,'v0': 0,'v1': 1,'seg5': [[[360, 360]]],'w4': [[[0, 0 - 0 * 360]]],'pa6': 0,'pb7': -1,
-      
     }
 
   }
@@ -116,162 +126,8 @@ let muonAlima = function muonAlima (__mapper) {
     samples: 12,
     dotsInSegment: 12
   }
-  /*******************************************
- *      @animas
- *
- */
-  // -------------------------------  fibofold
-  let fibofold = {
 
-    halo: 'ent',
-
-    geofold: p => {
-      let coords = mfibonat.stream(p.payload.fibonat)	// spherical
-      let gj = {
-        'type': 'Feature',
-        'geometry': {'type': 'LineString', 'coordinates': coords},
-        'properties': {}
-      }
-      return gj
-    },
-
-    payload: {
-      tim: tim,
-      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'fibofold'},
-      boform: { 'csx': 0, 'cf': [[[777, 777, 777]]], 'co': [[[0.2, 0.2]]], 'cs': [[[777, 888]]], 'cw': [[[0.2, 0.2]]], 'cp': [[[0.9, 0.9]]]},
-
-      fibonat: fibonat,
-      conform: { 
-        'projection': 'natform', 
-        'form': pathform 
-      },
-      proform: proform
-
-    }
-
-  }
-
-  /* ******************************************
- *      @avaform
- *
- */
-  let prehalo = function (anima) {
-    let anigram = manitem(anima).anigram()
-
-    if (0) {
-      let coords = mfibonat.stream(anigram.payload.fibonat) // spherical degrees
-      let t = anigram.payload.tim.unitTime
-      let coord = msnap(coords, t, 1)
-      let idx = Math.floor(msnap([0, coords.length], t, 1))
-      if (coords[idx] !== undefined && coords[idx + 1] !== undefined) {
-        let c0 = coords[idx]
-        let c1 = coords[idx + 1]
-
-        let p0 = mgeom.cartesian(c0)
-        let p1 = mgeom.cartesian(c1)
-
-        let q1 = mversor().delta(p0, p1)
-        let r1 = mversor().rotation(q1)	// degrees
-
-        anigram.payload.conform.form.x.w4 += r1[0]
-        anigram.payload.conform.form.y.w4 += r1[1]
-        anigram.payload.conform.form.z.w4 += r1[2]
-      }
-    }
-
-    return anigram
-  }
-
-  let haloAvajson_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-
-  let haloAvajson_gramm = anima => __mapper('xs').h('ent').gramm(prehalo(anima))
-
-  let haloAvajson = {}
-  haloAvajson.ween = anima => haloAvajson_ween(anima)
-  haloAvajson.gramm = anima => haloAvajson_gramm(anima)
-
-  // -------------------------------  gratifold
-  let gratifold = {
-
-    halo: 'ent',
-
-    geofold: p => __mapper('xs').m('graticule').gedges(p.payload.graticule),
-
-    payload: {
-      tim: tim,
-      ric: {'gid': 'gratifold', 'cid': 'gratifold', 'fid': 'gratifold'},
-      boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9, 0.9]]]},
-
-      fibonat: fibonat,
-      conform: {
-        'projection': 'natform', 
-        'form': natform
-      },
-      proform: {
-        projection: 'uniwen',
-        'translate': {
-          'x': {
-						'pos': [[[ 0, 1 * 360]]]
-									},
-          'y': {
-						'pos': [[[ 0, 1 * 360]]]
-									},
-          'z': {
-            'pos': [[[ 0, 1 * 360]]]
-          }
-        },
-        scale: 0.5
-
-      },
-      graticule: graticule
-
-    }
-
-  }
-	  // -------------------------------  img
-  let img = {
-
-    halo: 'img',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }
-  /*******************************************
- *    @animas
- *
- */
+  // .................. geoearth
   let geoearth = {
 
     halo: 'ent',
@@ -293,36 +149,87 @@ let muonAlima = function muonAlima (__mapper) {
       proform: {
 
         'projection': 'orthographic',
-        'prerotate': [[[ cversor.rotation ]]],            
+        'prerotate': [[[ cversor.rotation ]]],
         'scale': 100,
         'translate': {
-
           'x': 0,
           'y': 0,
           'z': 0
-
         },
         'rotate': [ 0, 0, 0 ],
-        'control': 'versor'
+        // 'control': 'versor'
 
       }
     }
 
   }
+  // .................. fibofold
+  let fibofold = {
 
-  /*******************************************
- * @animaApi
- *
- */
-  fibofold.payload.avatars = {
-    gratifold // haloavaform.haloavaform.geojson
+    halo: 'ent',
+
+    geofold: p => {
+      let coords = mfibonat.stream(p.payload.fibonat)	// spherical
+      return {
+        type: 'Feature',
+        geometry: {type: 'LineString', coordinates: coords},
+        properties: {}
+      }
+    },
+
+    payload: {
+      tim: tim,
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'fibofold'},
+      boform: { 'csx': 0, 'cf': [[[777, 777, 777]]], 'co': [[[0.2, 0.2]]], 'cs': [[[777, 888]]], 'cw': [[[0.2, 0.2]]], 'cp': [[[0.9, 0.9]]]},
+
+      fibonat: fibonat,
+      conform: { projection: 'natform', form: pathform },
+      proform: proform
+
+    }
+
+  }
+
+  // .................. gratifold
+  let gratifold = {
+
+    halo: 'ent',
+
+    geofold: p => __mapper('xs').m('graticule').gedges(p.payload.graticule),
+
+    payload: {
+      tim: tim,
+      ric: {'gid': 'gratifold', 'cid': 'gratifold', 'fid': 'gratifold'},
+      boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+
+      fibonat: fibonat,
+      conform: { projection: 'natform', form: natform },
+      proform: {
+        projection: 'uniwen',
+        translate: {
+          'x': { pos: [[[ 0, 1 * 360]]] , geo: 1},
+          'y': { pos: [[[ 0, 1 * 360]]] , geo: 1},
+          'z': { pos: [[[ 0, 1 * 360]]] , geo: 1}
+        },
+        scale: 0.5
+
+      },
+      graticule: graticule
+
+    }
+
+  }
+
+
+  // .................. animaApi
+  fibofold.avatars = {
+    gratifold
   }
 
   let animas = [
 
-    // fibofold, // h.ent
-    geoearth, // h.ent g.orthographic
-    // img // h.img
+    fibofold, // h.ent
+    // geoearth, // h.ent g.orthographic
   ]
 
   let animaApi = function animaApi () {

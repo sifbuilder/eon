@@ -9,45 +9,46 @@
   'use strict'
 
   let renderCanvas = function (__mapper = {}) {
-    let state = {}
-    let radians = Math.PI / 180
+    
+    let r = __mapper('xs').r('renderport'),
+      width = r.width(),
+      height = r.height()
+    
+    let state = {
+      width: width,
+      height: height
+    }
+    
+    let canvas = d3.select('.viewframe')
+        .append('canvas')
+        .attr('id', 'canvas')
+        .attr('class', 'canvas')
+        .attr('width', width)
+        .attr('height', height)
+        .style('position', 'absolute')
+        .style('top', 0)
+        .style('left', 0)
+        .style('border', '1px solid lightgray')
+        .style('position', 'absolute; top:0px; left:0px; z-index:1')
+        .attr('pointer-events', 'none')
+        .attr('overflow', 'visible')
 
-    let r = __mapper('xs').r('renderport')
-    state.width = r.width(),
-    state.height = r.height()
 
-    let canvas = null
-    canvas =
-          d3.select('.viewframe')
-            .append('canvas')
-            .attr('id', 'canvas')
-            .attr('class', 'canvas')
-            .attr('width', state.width)
-            .attr('height', state.height)
-            .style('position', 'absolute')
-            .style('top', 0)
-            .style('left', 0)
-            .style('border', '1px solid lightgray')
-            .style('position', 'absolute; top:0px; left:0px; z-index:1')
-            .attr('pointer-events', 'none')
-            .attr('overflow', 'visible')
-
-    /* render */
+    let context = canvas.node().getContext('2d')
+            
+            
+    // ............................. render
     let render = function (elapsed, featurecollection, maxlimit) {
+      
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
             d.properties.ric !== undefined // req ric
         )
 
-      let canvas = d3.select('.canvas')
-      let context = canvas.node().getContext('2d')
-
-      /* clean canvas */
-      context.clearRect(0, 0, width, height)
-
-      /* items to add to scene */
-      let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
+      context.clearRect(0, 0, width, height)  // clear canvas
+      
+      let gitems = d3.nest() // items in scene
         .key(function (d) { return d.properties.ric.gid })
         .key(function (d) { return d.properties.ric.cid })
         .entries(features)
@@ -74,7 +75,29 @@
 
               let geometry = feature.geometry // rings in MultiPolygon, MultiLineString
 
-              if (geometry.type === 'LineString') {
+              if (geometry.type === 'Point') {
+                
+              } else if (geometry.type === 'MultiPolygon') {
+
+              } else if (geometry.type === 'MultiLineString') {
+                
+               let coordinates = geometry.coordinates
+
+                let fillStyle = feature.properties.style.fill
+                let strokeStyle = feature.properties.style.stroke
+                let lineWidth = feature.properties.style['stroke-width']
+
+                context.beginPath()
+                let now = performance.now()
+                path(coordinates)
+                context.lineWidth = lineWidth
+                context.strokeStyle = strokeStyle
+                context.stroke()
+                context.fillStyle = fillStyle
+                context.fill()
+                context.closePath()
+                
+              } else if (geometry.type === 'LineString') {
                 let coordinates = Array.of(geometry.coordinates)
 
                 let fillStyle = feature.properties.style.fill
@@ -97,9 +120,8 @@
       } // gitems
     } // render
 
-    /***************************
- *        @enty
- */
+    // ............................. enty
+    
     let enty = function enty () {}
     enty.render = render
     return enty

@@ -11,38 +11,50 @@
 </head>
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
-
 <script src="script-enls.js"></script>
 <script src="script-ents.js"></script>
 
 <script>
 
+// md: # md:{filename}
+// md:
+// md: # license
+// md: MIT
+
 let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1, img: 0}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 1, key: 1, bck: 0}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
     mnat = __mapper('xs').m('nat'),
     mstace = __mapper('xs').m('stace'),
     manimas = __mapper('xs').m('animas'),
-      cwen = __mapper('xs').c('wen')(),
-      cversor = __mapper('xs').c('versor')
-    
-    
+    cwen = __mapper('xs').c('wen')(),
+    cversor = __mapper('xs').c('versor'),
+    mric = __mapper('xs').m('ric'),
+    mstore = __mapper('xs').m('store')
 
-  /*******************************************
- *      @pics
- *
- */
-
+  // ............................. pics
   let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  /*******************************************
- *      @animas
- *
- */
-  // -------------------------------  sphere
-  let sphere = {
+  let formSphere = {
+
+    'x': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+      'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360
+    },
+    'y': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+      'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360
+    },
+    'z': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+      'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360
+    }
+  }
+
+  // ............................. sphereAnima
+  let sphereAnima = {
 
     halo: 'ent',
 
@@ -54,15 +66,9 @@ let muonAlima = function (__mapper) {
 
       geonode: {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0]
-        },
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
         properties: {
-          orgen: [0, 0, 0],
-          velin: [0, 0, 0],
-          prevous: [0, 0, 0],
-          geodelta: [0, 0, 0]
+          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]
         }
       },
       proform: {
@@ -71,106 +77,89 @@ let muonAlima = function (__mapper) {
         [
           [ [[[0, 100]]], 0, 100 ],
           [[[ {
-            'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
-            'ra2': 90,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
+            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
           } ]]]
         ],
         'scale': 1,
         'rotate': [ 0, 0, 0 ],
-        'lens': [0, 1, Infinity],
+        'lens': [0, 1, Infinity]
       },
 
       boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
-      form: {
-
-        'x': {
-          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
-          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': 0,'pa6': 0,'pb7': 360,
-        },
-        'y': {
-          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
-          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': 0,'pa6': 0,'pb7': 360,
-        },
-        'z': {
-          'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
-          'ra2': 20,'v0': 0,'v1': 1,'seg5': 12,'w4': 0,'pa6': 0,'pb7': 360,
-        }
-      }
+      form: formSphere
     }
   }
+
+  // ............................. traceline anima
   let traceline = {
 
     halo: 'pacer',
 
     payload: {
 
-      tim,
       ric: {'gid': 'trace', 'cid': 'trace', 'fid': 'traceline'},
       boform: { 'csx': 0, 'cf': [[[888, 666]]], 'co': [[[0.09, 0.09]]], 'cs': [[[777, 777]]], 'cw': [[[0.7, 0.6]]], 'cp': [[[0.99, 0.99]]]},
 
-      
-      stace: {
-          'x': { 'pos': [[[ 0, 1 * 360]]] },
-          'y': { 'pos': [[[ 0, 1 * 360]]] },
-          'z': 0
-      },
-      
-      
-      proform: {
-        'projection': 'uniwen',
-        'translate': {
-          'x': {'pos': [[[ 0, 1 * 360]]]},
-          'y':{ 'pos': [[[ 0, 1 * 360]]]},
+      pacer: {
+        initN: 0, eventN: 0, autoN: 1, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, aad: 1,
+
+        stace: {
+          'x': { 'pos': [[[ 0, 1 * 360]]]},
+          'y': { 'pos': [[[ 0, 1 * 360]]]},
           'z': 0
         },
-        'scale': 1,
-        'rotate': [0, 0, 0], // [-5,50,0],
-        'lens': [0, 1, Infinity],
-      },
 
-      pacer: {
-        'initN': 0,
-        'eventN': 0,
-        'autoN': 1,
-        'autoP': 0.01,
-        'outtimed': 0,
-        'maxN': 60,
-        'span': 0,
-         aad: 1,
-
-        autoSitus: d => mstace.getLocus(null, d),
+        autoSitus: function (a) {
+          return mstace.getLocus(this.stace, a) // situs
+        },
 
         fidder: d => d.payload.ric.fid,
-        
-        geojsor: () => {
-            let ani = {}
-              ani.halo = 'ent'
-              ani.geofold =  {type: 'Feature',geometry: {type: 'LineString', coordinates: null},properties: {}}
-              ani.payload = {}
-            return ani
+
+        geojsor: function (d, i) {
+          let ric = d.payload.ric // ric
+          let uid = mric.getuid(ric)
+
+          let gj = {
+
+            halo: 'ent',
+            geofold: {
+              type: 'Feature',
+              geometry: { type: 'LineString', coordinates: null },
+              properties: {}
+            },
+            payload: {
+              uid: uid, ric: ric,
+              proform: this.proform
+            }
+
+          }
+
+          let newItem = mstore.findAnigramFromUid(uid) || gj
+
+          if (newItem.geofold.properties.formGeoformed) {
+            newItem.geofold.geometry = newItem.geofold.properties.formGeoformed.geometry
+          }
+
+          return newItem
         }
 
       }
     }
   }
-	  // -------------------------------  img
-  let img = {...manimas('img'), tim}
 
-  /*******************************************
- *        @animaApi
- *
- */
-  sphere.payload.avatars = {
+  // ............................. animaApi
+  sphereAnima.avatars = {
 
     traceline // h.pacer
 
   }
 
-
   let animas = [
-    sphere, // h.ent
-    img // h.img
+
+    sphereAnima // h.ent
+
   ]
 
   let animaApi = function animaApi () {

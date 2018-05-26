@@ -30,8 +30,21 @@
 //md: return `function(idx)` , give [row,column] of sequential index
 
 //md: ### oneface
+//md:   a,b,c coord-vertices in [xn, yn] space give face verts indices
+
 //md: ### bifaces
+//md:  (i,h) in [xn,yn[]
+//md:  vertices to ...
+//md:  inPolygons to filter coords if in pols
+//md:  mersCoords to get vert coords
+
 //md: ### gratiparams
+
+//md:  lattice.[ Xx, Yy ]
+//md:  frame.[ [X,Y], [x,y] ]   X:[X0,X1,DX,PX]
+//md:  frame.[ [ Xx, Yy ] ]    Xx:[X0,X1,DX,PX]
+//md:  [ Xx, Yy ]
+
 //md: ### arywinopen
 
 //md: ## methods
@@ -61,38 +74,30 @@
     let defaultMinor = [ [-180, 180, 10, 2.5], [-80, 80, 10, 2.5] ]
 
     
-    // tidx
+    // .................. tidx  
     let tidx = function (horq, verq, hd = 1, vd = 1) {
-      return function (col, row) { // col, row
+      return function (col, row) { // ridx([3,5]) => 17
         let ret = (row * hd) * (horq * vd) + col
         return ret
       }
     }
 
-    // ridx
-    let ridx = function (horq, verq, hd = 1, vd = 1) {
-      return function (idx) {
+    // .................. ridx   
+    let ridx = function (horq, verq, hd = 1, vd = 1) {  // ridx(6,4,1,1)
+      return function (idx) { // ridx(3) => [0,2], ridx(17) => [3,5]
         let ret = [Math.floor(((idx / hd) / vd) / horq), idx % horq]
         return ret
       }
     }
 
-    /* *********************
-     *    @oneface
-     *    a,b,c coord-vertices in [xn, yn] space give face verts indices
-     */
+    
+    // .................. oneface   
     let oneface = function (a, b, c, xn, yn) { //  xy,ru,ry
       let index = tidx(xn, yn)
       return [ index(a[0], a[1]), index(b[0], b[1]), index(c[0], c[1]) ]
     }
 
-    /* *********************
-     *    @bifaces
-     *    (i,h) in [xn,yn[]
-     *      vertices to ...
-     *      inPolygons to filter coords if in pols
-     *      mersCoords to get vert coords
-     */
+    // .................. bifaces   
     let bifaces = function bifaces (i, j, xn, yn) {
       let index = tidx(xn, yn)
 
@@ -107,15 +112,7 @@
       return [f1, f2]
     }
 
-    /* *******************
- *        gratiparams
- *
- *      lattice.[ Xx, Yy ]
- *      frame.[ [X,Y], [x,y] ]   X:[X0,X1,DX,PX]
- *      frame.[ [ Xx, Yy ] ]    Xx:[X0,X1,DX,PX]
- *      [ Xx, Yy ]
- */
-
+    // .................. gratiparams   
     let gratiparams = function (params = {}, rp = {}) {
       let X0, X1, DX, PX, x0, x1, dx, px,
         Y0, Y1, DY, PY, y0, y1, dy, py
@@ -131,12 +128,13 @@
         x_extent = lattice[0] // x major::minor
         y_extent = lattice[1] // y major::minor
 
-        if (Array.isArray(x_extent[0])) {
-          // eg. [ [ [-40,180], 55], [] ] 
+        if (Array.isArray(x_extent[0])) { // eg. [ [ [-40,180], 55], [] ] 
+          
           X1 = x_extent[0][1] // x_extentMajor 	eg. 180
           X0 = x_extent[0][0]
-        } else {
-          // eg. [ [ 180, 55], [] ] 
+          
+        } else { // eg. [ [ 180, 55], [] ] 
+          
           X1 = x_extent[0] // x_extentMajor 	eg. 180
           X0 = -X1
         }
@@ -211,8 +209,8 @@
         rp = {X0,X1,DX,PX,x0,x1,dx,px,Y0,Y1,DY,PY,y0,y1,dy,py}
         
       } else if (Array.isArray(params)) {		// default to frame 
-      // eg. [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ]
-        let p = {frame: params}
+      
+        let p = {frame: params} // eg. [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ]
         rp = gratiparams(p)
       }
 
@@ -220,10 +218,7 @@
       
     }
 
-     /* *******************
- *        LineStrings
- */ 
-
+    // .................. arywinopen   
       let arywinopen = (x0,x1,dx) => {
         
           let epsilon = 1e-5
@@ -265,9 +260,7 @@
         
       }
       
-     /* *******************
- *        grarr
- */     
+    // .................. grarr   
     let grarr = function (params = {}) {
       
       let {X0, X1, DX, PX, x0, x1, dx, px,
@@ -289,14 +282,13 @@
       
       let mmBig = merfn(X0, X1, DX) // long mers
       let mmShort = merfn(x0, x1, dx) // short mers
-      let mmAll = merge(mmBig, mmShort) // deg location of mers in [-180,180] xy
+      let mmAll = _merge(mmBig, mmShort) // deg location of mers in [-180,180] xy
       let mmLines = mmAll.map(d => (Math.abs(d % DX) > eps) ? x(d) : X(d))
       
       // meridians 
       let mms = { type: 'MultiLineString', coordinates: mmLines }
       if (!mgeoj.isValid(mms)) { console.error("mms not valid") }
 
-      
       
       
       
@@ -311,7 +303,7 @@
           
       let ppBig = parfn(Y0, Y1, DY)
       let ppShort = parfn(y0, y1 + eps, dy)
-      let ppAll = merge(ppBig, ppShort)   // deg location of pars in [-90,90] z   
+      let ppAll = _merge(ppBig, ppShort)   // deg location of pars in [-90,90] z   
       let ppLines = ppAll.map(d => (Math.abs(d % DY) > eps) ? y(d) : Y(d)) // d:120
       
       // parallels
@@ -324,9 +316,7 @@
     }
     
 
-    /* *******************
- *        equator
- */
+    // .................. equator
     let equator = function (params) {
     
       let p = params || [ [ [-180, 180, 360, 1], [-90, 90, 360, 1] ] ] // [xMm, yMm]
@@ -343,9 +333,7 @@
       return gj
     }  
     
-    /* *******************
- *        gedges
- */
+    // .................. gedges
     let gedges = function (params = {}) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
@@ -363,9 +351,7 @@
       return gj
     }
     
-    /* *******************
- *        medges
- */
+    // .................. medges
     let medges = function (params = {}) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
@@ -383,9 +369,7 @@
       return gj
     }
     
-    /* *******************
- *        pedges
- */
+    // .................. pedges
     let pedges = function (params = {}) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
@@ -403,9 +387,7 @@
       return gj
     }    
     
-   /* *********************
-     *    @dedges
-     */
+    // .................. dedges
     let dedges = function (params) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
@@ -446,10 +428,7 @@
       return gj
     }
     
-    /* *********************
-     *    @gvertices
-
-     */
+    // .................. gvertices
     let gvertices = function (params = {}) {
 
       let g = grarr(params)
@@ -496,9 +475,7 @@
       
     }
 
-    /* *********************
-     *    @gfaces
-     */
+    // .................. gfaces
     let gfaces = function (params, range = null, tile = null, inPolygons = []) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
@@ -530,10 +507,8 @@
       return faces
     }
 
-    /* *****************
- *        merge
- */
-    let merge = function (major, minor, ret = {}) {
+    // .................. _merge
+    let _merge = function (major, minor, ret = {}) {
       ret = [...major, ...minor]
         .sort((a, b) => a - b)
         .filter((elem, pos, arr) => arr.indexOf(elem) == pos)
@@ -542,9 +517,7 @@
     }
 
 
-    /* *****************
- *        enty
- */
+  // .................. enty
     let enty = function () {}
 
     enty.grarr = grarr

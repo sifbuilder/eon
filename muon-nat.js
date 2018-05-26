@@ -8,6 +8,21 @@
 }(this, function (exports) {
   'use strict'
 
+  // md: # md:{filename}
+  // md: **returns nat mesh**
+  // md:
+  // md: ### properties
+  // md:
+  // md: ### methods
+  // md: natFeature
+  // md: `coordinates = Array.of(__mapper("xs").m("nat").natFeature(p.form))`
+  // md:
+  // md: natNform
+  // md:  compleate form for natform
+  // md:
+  // md: # license
+  // md: MIT   
+  
   let muonNat = function muonNat (__mapper = {}) {
     let f = __mapper('props')(),
       mlacer = __mapper('xs').m('lacer'),
@@ -24,10 +39,7 @@
       degrees = 180 / Math.PI,
       tau = 2 * Math.PI
 
-    /**********************
-   *    @natNform
-   *      compleate form for natform
-   */
+  // ............................. natNform
     let natNform = function (form, nformed = {}) {
       let defs = {'v0': 0, 'v1': 1, 'ra2': 120, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1} // defs
 
@@ -101,15 +113,11 @@
         if (i === 3 && form.fn0 === undefined) form.fn0 = (r,s,u,v, a,b,c=1,d=1) =>              c * cos(u)
       }
    
-
       return nformed
     }
 
 
-    /**********************
-     *    @natFeature
-     *       coordinates = Array.of(__mapper("xs").m("nat").natFeature(p.form))
-     */
+  // ............................. natFeature
     let natFeature = function (form) {
       
       let feature
@@ -148,9 +156,11 @@
                 
                 // _e_
                 let graticule = {frame: [ [ [-180, 180, sx, dx], [-180, 180, sy, dy] ] ]} // x, y
-                geometry = mgraticule.gedges(graticule).geometry
+                geometry = mgraticule.gedges(graticule).geometry // geometry.type: MultiLineString
+                
                 let p = geometry.coordinates[1].slice(0, -1)
-                p = [...p, p[0]]
+                
+                // p = [...p, p[0]]  // close
 
                 geometry.coordinates = Array.of(p)
               }
@@ -164,16 +174,9 @@
                   doc: 'nat',
                   geonode: {
                     type: 'Feature',
-                    geometry: {
-                      type: 'Point',
-                      coordinates: [0, 0, 0]
-                    },
+                    geometry: {type: 'Point',coordinates: [0, 0, 0]},
                     properties: {
-                      orgen: [0, 0, 0],
-                      velin: [0, 0, 0],
-                      velang: [0, 0, 0],
-                      prevous: [0, 0, 0],
-                      geodelta: [0, 0, 0]
+                      orgen: [0, 0, 0],velin: [0, 0, 0],velang: [0, 0, 0],prevous: [0, 0, 0],geodelta: [0, 0, 0]
                     }
                   }
                 }
@@ -194,13 +197,37 @@
       
       return feature
     }
-    /***************************
-     *        @enty
-     */
+    
+ 
+
+  // ............................. closeFeature
+    let closeFeature = function (feature) {
+      if (1 && 1) console.log('feature', feature)
+
+      let newFeature = Object.assign({},feature)
+      if (feature.type === 'Feature' && feature.geometry.type === 'MultiLineString') {
+        
+        newFeature.geometry.type = 'Polygon'
+        newFeature.geometry.coordinates = newFeature.geometry.coordinates.map(line => [...line, line[0]])
+        
+      } else if (feature.type === 'Feature' && feature.geometry.type === 'LineString') {
+        
+        newFeature.geometry.type = 'Polygon'
+        let line = newFeature.geometry.coordinates
+        let closedline = [...line, line[0]]
+        newFeature.geometry.coordinates = Array.of(closedline)
+        
+      }
+      
+      return newFeature
+    }   
+    
+  // ............................. enty
     let enty = function () {}
 
     enty.natFeature = natFeature
     enty.natNform = natNform
+    enty.closeFeature = closeFeature
 
     return enty
   }

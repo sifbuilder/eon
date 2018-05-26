@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="script-enls.js"></script>
+<script src="script-ents.js"></script>
+
+<script>
+
+  // md: # md:{filename}
+  // md: **LineString aad pacer, orthographic projection**
+  // md: ### animas
+  // md: * sphereForm
+  // md: * leadForm
+  // md:    * traceForm avatar
+  // md:
+  // md:
+  // md: # license
+  // md: MIT
+
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1, pos: 0}) // INIT
+
+  let f = __mapper('props')(),
+      mnat = __mapper('xs').m('nat'),
+      cversor = __mapper('xs').c('versor'),
+      cwen = __mapper('xs').c('wen'),
+      mstace = __mapper('xs').m('stace'),
+      mprofier = __mapper('xs').m('profier'),
+      mproj3ct = __mapper('xs').m('proj3ct'),
+      mric = __mapper('xs').m('ric'),
+      mstore = __mapper('xs').m('store')
+
+  const pi = Math.PI, pi2 = 2 * pi,
+      turn = 2 * Math.PI // 360
+
+  // ............................. pics
+  let tim = {td: 15800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1}
+
+  // let translate = [ [[[- 32 * 90, 32 * 90]]], [[[-90, 90]]] ]
+  // let translate = [ [[[0, -60, 60, 0]]] , [[[0, 60, 60, 0]]] ]
+  // let translate = [ [[[0, -60, 60, 180, 300, -60, -60, 0]]] , [[[0, 0, , 60, 180, 300, 0, 0]]] ]
+  // let translate = [ [[[0, 120, 240, 360]]] , [[[-60, -60, -60, -60]]] ]
+  let translate = [ [[[ 0, 0, 60, 80, 0, 1, 1, 120, 240, 360, 360 ]]],
+      [[[90, 30, 30, 30, 90, -30, -60, -60, -60, -60, -30 ]]] ]
+
+  let projection = { projection: 'uniwen' }
+  let stepion = mprofier.formion(projection)
+
+  // ............................. traceForm
+  let traceForm = { // TRACE line h.pacer
+
+      halo: 'pacer',
+
+      payload: {
+        tim: {td: 35800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1},
+        ric: {gid: 'traces', cid: 'traces', fid: 'trace'},
+        boform: {'csx': 0, 'cf': 555, 'cs': [[[666, 666, 666, 666, 666, 500, 333, 333, 333, 333, 333]]],
+          'cw': 0.99, 'co': 0.06, 'cp': 0.99},
+
+        ereform: { // ereform in the geometric domain
+
+          projection: 'uniwen',
+          invert: 1,
+          scale: 1,
+          translate: [ 0 ,0, 0 ],
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+          anod: 1 // compose geonode and geoform
+
+        },
+
+        proform: { // proform in the geographic domain
+
+          projection: 'uniwen',
+          scale: [[[1,1]]], // correlation between geometric and geographic
+          prerotate: [[[ cwen.rotation ]]], // [[[ cversor.rotation ]]], //
+          translate: [ 0, 0, [[[0,1]]] ],
+          rotate: [ 0, [[[0,360]]], 0 ],
+          lens: [0, 1, Infinity]
+
+        },
+
+        pacer: { // aad for trace
+          initN: 0, 
+          eventN: 0, 
+          autoN: 1, 
+          autoP: 0, 
+          outtimed: 0, 
+          maxN: 60, 
+          span: 0, 
+          aad: 1,
+          type: 'LineString',
+          base: 'geo'
+
+          // stace: [ [[[ 0, 0, 60, 80, 0, 1, 1, 120, 240, 360, 360 ]]],
+              // [[[90, 30, 30, 30, 90, -30, -60, -60, -60, -60, -30 ]]],
+              // 0 ],  // stace on ereform
+
+         stace: [ [[[ 0, 0, 30, 40, 0, 1, 1, 60, 120, 180, 180 ]]],
+              [[[45, 15, 15, 15, 45, -15, -30, -30, -30, -30, -15 ]]],
+              0 ],  // stace on ereform
+
+
+          stacer: {
+            autoSitus: function(ani) {
+              return mstace.getLocus(ani.payload.pacer.stace, ani)
+            }
+          },
+
+
+
+        }
+
+      }
+  }
+
+
+
+
+  // ............................. enty
+
+  let animas = [
+
+      traceForm
+  ]
+
+  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

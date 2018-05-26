@@ -147,7 +147,7 @@
                   let _ric = {gid, cid, fid, delled:tNotInPeriod} // is DELLED ?
                   let uid = mric.getuid(_ric) // uid                  
                   avaLine.payload.ric = _ric
-                  newItem.payload.avatars = Array.of(avaLine)
+                  newItem.avatars = Array.of(avaLine)
               }
 
             }
@@ -173,7 +173,7 @@
                 let uid = mric.getuid(_ric)
                 a.payload.ric  = _ric
                 a.payload.uid  = uid
-                newItem.payload.avatars = Array.of(a)
+                newItem.avatars = Array.of(a)
               }
             }
 

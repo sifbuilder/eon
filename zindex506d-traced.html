@@ -23,7 +23,7 @@
   
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, img: 1, pos: 0}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1, pos: 0}) // INIT
 
   let f = __mapper('props')(),
       mnat = __mapper('xs').m('nat'),
@@ -81,7 +81,7 @@ let muonAlima = function muonAlima (__mapper) {
           },
   
           autoSitus: function(a) {
-              return mstace.getLocus(this.stace, a.payload) // situs
+              return mstace.getLocus(this.stace, a) // situs
           },
 
           fidder: d => d.payload.ric.fid,
@@ -109,8 +109,8 @@ let muonAlima = function muonAlima (__mapper) {
 
             let newItem = mstore.findAnigramFromUid(uid) || gj
 
-            if (newItem.geofold.properties.formEreformed) {
-              newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+            if (newItem.geofold.properties.formGeoformed) {
+              newItem.geofold.geometry = newItem.geofold.properties.formGeoformed.geometry
             }
 
             return newItem

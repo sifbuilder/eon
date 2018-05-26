@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="script-enls.js"></script>
+<script src="script-ents.js"></script>
+
+<script>
+
+let muonAlima = function muonAlima (__mapper) {
+  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  __mapper('xs').m('init')({svg: 1, versor: 0, webgl: 0, bck: 1}) // INIT
+    
+  //md: ## md:{filename}
+  //md: * formPacer is h.pacer avatar
+  //md: * polyForm is h.formed 
+  //md:     img url is imgurl
+  //md:     svg data source is dataurl
+  //md: 
+  //md: proforms centers the svg viewBox while inverting the y scale
+  //md: gjdata gets castels with start, stop, step 
+  //md:   step sets the number of points in each C bezier
+      
+  let f = __mapper({props: muonProps.muonProps()}).props(),
+    mnat = __mapper('xs').m('nat'),
+    cversor = __mapper('xs').c('versor'),
+    cwen = __mapper('xs').c('wen'),
+    mstace = __mapper('xs').m('stace'),
+    mfourier = __mapper('xs').m('fourier'),
+    manimas = __mapper('xs').m('animas'),
+    mric = __mapper('xs').m('ric'),
+    mstore = __mapper('xs').m('store'),
+    mbezierjs = __mapper('xs').m('bezierjs'),
+    msvg = __mapper('xs').m('svg'),
+    mgeoj = __mapper('xs').m('geoj'),
+    mprofier = __mapper('xs').m('profier'),
+    mproj3ct = __mapper('xs').m('proj3ct'),
+    rrenderport = __mapper('xs').r('renderport')
+
+    let tim = {'td': 32800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    let width = rrenderport.width(),
+      height = rrenderport.height()
+      
+    let imgurl = 'zimg-black.jpg' // 'zimg-img.jpg'
+    let dataurl = 'svg'
+    
+
+    let svgdata = __mapper('xs').d(dataurl).data() // path data :
+      
+    let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
+    let x0 = extent[0], y0= extent[1], x1 = extent[2], y1= extent[3]
+
+    
+    let r0 = width / (x1 - x0)
+    let r1 = height / (y1 - y0)
+    let rx = Math.sign(r0) * Math.min(Math.abs(r0), Math.abs(r1))
+    let ry = - Math.sign(r1) * Math.min(Math.abs(r0), Math.abs(r1))
+    
+    let cx = - (x1 - x0) * rx / 2      // (600 - 0) / 2 : 300
+    let cy = - (y1 - y0) * ry / 2      // (600 - 0) / 2 : 300
+ if (1 && 1) console.log("svgdata", svgdata)      
+    let gjdata = msvg.castels(svgdata, {start:0, stop:0.9, step:0.03} )
+  if (1 && 1) console.log("gjdata", gjdata)     
+    let nb = mgeoj.getCoordsLength(gjdata)
+    
+    
+    let proform = { // proform translates to cent
+            projection: 'uniwen',
+            translate: [cx, cy, 0],
+            scale: [rx * 1, ry * 1],
+            rotate: [ 0, 0, 0 ], lens: [0, 1, Infinity],
+    }
+    let geoData = mproj3ct(gjdata, mprofier.formion(proform))
+if (1 && 1) console.log("geoData", geoData)    
+    // ........................... formPacer
+    let formPacer = {
+
+      halo: 'pacer',
+      payload: {
+        ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
+        boform: {'csx': 0, 'cf': 444, 'cs': 111, 'cw': 1.99, 'co': 0.004, 'cp': 0.99},
+        pacer: { // aad for trace
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
+          autoSitus: d => mstace.getLocus(this.stace, d), // situs
+          fidder: d => d.payload.ric.fid,
+          geojsor: function (d, i) {
+            let ric = d.payload.ric,
+              uid = mric.getuid(ric)
+            let gj = {
+              halo: 'ent',
+              geofold: {
+                type: 'Feature',
+                geometry: { type: 'LineString', coordinates: null },
+                properties: { doc: 'pacer' }
+              },
+              payload: {
+                uid: uid, ric: ric,
+                proform: this.proform
+              }
+            }
+            
+            let newItem = mstore.findAnigramFromUid(uid)
+            if (newItem === undefined) newItem = gj
+
+            if (newItem.geofold.properties.formEreformed) { // Ere, Geo
+              newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+            }
+          
+            return newItem
+          },
+        }
+      }
+    }
+
+    // ........................... polyForm
+    let polyForm = {
+
+      halo: 'formed',
+
+      geofold: a => {
+
+        let anigram = a, // anigram
+          halo = a.halo, // halo
+          geofold = a.geofold, // geofold
+          payload = a.payload // payload
+
+        // let unitElapsed = a.payload.tim.unitElapsed // unit time elapsed
+        let unitTime = a.payload.tim.unitPassed // unit time elapsed
+        let t = a.payload.tf(unitTime) || unitTime  // time function
+
+        let nbt = Math.ceil(nb * t)
+        let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
+        let coords = csi(t).geometry.coordinates     
+      
+        
+        let ngj = {
+          type: 'Feature',
+          geometry: { type: 'Polygon', coordinates: [] },
+          properties: {
+            boform: { 'csx': 0, 'cf': 666, 'cs': 555, 'cw': 1.8, 'co': 0.01, 'cp': 0.9} // pencil
+          },
+        }
+
+        if (geoData.geometry.type === 'LineString') ngj.geometry.coordinates = Array.of(coords)
+        else if (geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = coords
+        else if (geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = coords
+        
+        let rings = ngj.geometry.coordinates // rings in Polygon
+        let newFeatureCollection = {type:'FeatureCollection', features:[]}
+
+        for (let i=0; i<rings.length; i++) {
+          let ring = rings[i]
+          let feature = {
+            type: 'Feature',
+            // geometry: { type: 'Polygon', coordinates: [ring]},
+            geometry: { type: 'LineString', coordinates: ring},
+            properties: {},
+          }
+          if (i < rings.length - 1) { 
+              feature.properties.boform = { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 2.2, 'co': 0.01, 'cp': 1}
+          } else {    // first
+              feature.properties.boform = { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 2.2, 'co': 0.01, 'cp': 1}
+          }
+
+          newFeatureCollection.features.push(feature)
+        }
+
+        // newFeatureCollection.features = Array.of(ngj)  //tbc
+
+        let geodata = newFeatureCollection
+
+        if (payload.proform) {
+          let proformion = mprofier.proformion(anigram)
+          newFeatureCollection = mproj3ct(geodata, proformion)
+        }
+
+        return newFeatureCollection
+
+      },
+
+      payload: {  // payload in polyForm
+
+        tim: tim,
+        ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
+        tf: t => t,
+        // tf: t => 2 * (t - 2 * Math.max(0, t - 0.5)),
+        // tf: t => 1 - 4 * (t - 0.5)* (t - 0.5),
+        // tf: t => 1,
+
+      }
+    }
+
+  let img = {
+
+    halo: 'img',
+
+    geofold: a => ({
+      type: 'Feature',
+      geometry: {
+
+        'type': 'Point',
+        'coordinates': [ 0, 0 ]
+
+      },
+      properties: {
+        sort: 'img',
+        'xlink:href': a.payload.img.url,
+        style: a.payload.img.style
+      }
+    }),
+
+    payload: {
+
+      tim,
+      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
+      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.3, 0.3]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 0, 0 ]
+      },
+      img: {
+        url: imgurl,
+        style: {
+          width: 60 * 10,
+          height: 40 * 10,
+          rotate: 0
+        }
+      }
+
+    }
+  }
+
+  let animas = [
+    img, // h.img
+    polyForm,
+  ]
+
+  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

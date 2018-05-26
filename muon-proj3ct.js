@@ -65,7 +65,7 @@
       let geometry = projectGeometry(o.geometry, stream)
       let ret = {
         type: 'Feature',
-        id: o.id,
+        // id: o.id,
         properties: o.properties,
         geometry: geometry
       }

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+	
+</head>
+<body style="cursor:crosshair"></body>
+
+<!--  d3   -->
+<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+<!-- <script src="https://d3js.org/d3-geo.v1.min.js"></script> -->
+<!-- <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> -->
+<!-- <script src="https:////unpkg.com/d3-force-3d@1.0/build/d3-force-3d.bundle.min.js"></script> -->
+<!--  topojson   -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.0/topojson.min.js"></script> -->
+<!--  three   -->
+<!-- <script src="https:////cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script> -->
+<!-- <script src="https:////unpkg.com/three-trackballcontrols-web@0.0.2/dist/three-trackballcontrols.min.js"></script> -->
+
+<div id="viewframe" class="viewframe"></div>
+<script src="ents.js"></script>
+
+<script>
+/*******************************************
+ * 			@PLUGIN
+ *
+ */	
+	var muonAlima = function muonAlima(__mapper) {
+
+		let props = __mapper({'props': muonProps.muonProps()}).props()	// props
+		let f = props.lib																// function
+		let local = {}																	// local
+		
+		__mapper({"xs": xs.xs(__mapper)})								// PROXIES
+		
+		// __mapper({"renderCanvas": renderCanvas.renderCanvas(__mapper)})	// CANVAS
+		
+		__mapper({"renderSVG": renderSVG.renderSVG(__mapper)})						// SVG
+		__mapper("xs").c("versor").control(__mapper("renderSVG").svg()) // SVG VERSOR	
+		// __mapper("xs").c("pos")(__mapper("renderSVG").svg())		// SVG POSITION
+		__mapper("xs").m("image")("zimg-black.jpg")				// BCK IMAGE
+		
+		__mapper({"renderWebgl": renderWebgl.renderWebgl(__mapper)})				// WEBGL
+		
+		__mapper({'muonAnimation': muonAnimation.muonAnimation(__mapper)})	// ANIMATION
+		__mapper({'muonStore': muonStore.muonStore(__mapper)})				// STORE
+		
+		__mapper("xs").c("key").start()									// KEYBRD CONTROLS	
+
+	// .............................................. RightArrowAlt
+	let controltimerRightArrowAlt = () => {
+
+		if (__mapper("muonAnimation").animationStop !== undefined)
+			{
+			console.log("started",__mapper("controlTimer").started())
+			if (__mapper("controlTimer").started()) {
+					__mapper("controlTimer").stop()
+			} else {
+					console.log("controlTimer resume")
+					__mapper("controlTimer").resume()
+			}	
+		}
+	}
+	__mapper("controlKey").subscribe(controltimerRightArrowAlt, "rightArrowAlt")
+		
+		
+/*******************************************
+ *		 @fps
+ * 
+ */				
+// const fpsdiv = d3.select('body').append('div').attr('id','fps') 
+// __mapper("xs").m("fps").init()	
+
+/*******************************************
+ *		 @stats
+ * 
+ */				
+// var stats = __mapper("xs").m("stats")() // new Stats();
+// stats.showPanel( -1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+// document.body.appendChild( stats.dom );
+// function animate() {
+	// stats.begin();	/* monitored code goes here */; stats.end();
+	// requestAnimationFrame( animate );
+// }
+// requestAnimationFrame( animate );		
+
+/*******************************************
+ * 			@props
+ * 
+ */				
+let tim = {"td":26800,"t0":0,"t1":1000,"t2":1,"t3":1,}
+
+let form =  {
+			
+			"x": {
+				"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
+				"ra2": [[[60,60,60]]],
+				"v0": 0,"v1":1,
+				"w4": [[[0 , 0 - 1 * 360]]], //  [[[60, 60 + 1 * 360]]], // 
+				"seg5": 360,"pa6":0,"pb7":-1,
+				"fas8": 0,
+			},
+			"y": {
+				"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
+				"ra2": [[[60,60,60]]],
+				"v0":0,"v1":1,
+				"w4": [[[0 , 0 - 1 * 360]]], //  [[[60, 60 + 1 * 360]]], // 
+				"seg5": 360,"pa6":0,"pb7":-1,
+				"fas8": 0, 		// fas8, antifase
+			},
+			"z": {
+				"m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,	// circle
+				"ra2": [[[260/  Math.sqrt(2),260/  Math.sqrt(2)]]],
+				"v0": 0,"v1":1,
+				"w4":  0, // [[[180,360,180]]], // [[[0,-360,0]]],
+				"seg5": 360,"pa6":0,"pb7":-1,
+				"fas8": 0,
+			}
+		
+	}
+
+let reticule = [ [0, 360, 6  ], [0, 1, 0.49 ] ]
+
+let graticule = {
+
+			"extent": [ [-180, 180, 12, 12],  [-180, 180, 12, 12] ],
+
+		}				
+
+let state = {
+			
+				"x": 300,
+				"y": 200,
+				"z": 0,
+			
+		}	
+		
+let projection = {
+				// "projections": ["unidentity","TransverseMercator","mercator", "AzimuthalEquidistant", "orthographic", "Equirectangular"],
+				// "projectidx": 1,
+				"projection": "Equirectangular",
+				"scale": 100,
+				"translate": [ 300, 200 ],
+				"rotate": [ [[[0,0]]], [[[0,0]]], [[[0,0]]] ],
+				"step": [[[0,0,1.1,1.1,0,0]]]						
+		}
+		
+
+/*******************************************
+ * 			@animas
+ * 
+ */			
+// ------------------------------- 	geoearth
+let geoearth = {
+			"pic": {
+				"tim": tim,
+				"ric": {"gid":"geoearth","cid":"geoearth","fid":"geoearth",},
+				"halo":"geonat",
+
+				"ture":{ "csx":0,"cf":[[[555,333,555,333,555]]],"cs":333,"cw":0.7,"co":[[[0.7,0.9,0.7,0.9,0.7]]],"cp":0.1,},
+				// "ereform": ereform,				
+				"projection": projection,				
+		
+				"geojson": ()=> {
+						let geo = Object.assign({},
+							topojson.feature(
+								__mapper("xs").d("worldTopo110m").data(), 
+								__mapper("xs").d("worldTopo110m").data().objects.land
+							)
+						)
+						geo = __mapper("xs").m("geoj").trim(geo)
+						return geo
+					},
+				"form":  form,
+				"state": state,		
+		
+			},
+		}
+// ------------------------------- 	georet		
+let georet = {
+			"pic": {
+				"tim": tim,
+				"ric": {"gid":"nat","cid":"nat","fid":"ret",},
+				"halo":"georet",
+				
+				"ture": { "csx":0,"cf":[[[888,333,888,333,888]]],
+						"cs":111,"cw":0.7,"co":[[[0.7,0.4]]],"cp":[[[1.7,1.7]]],},
+						
+				"projection":projection,
+				
+				"reticule": reticule,
+				
+				"form": form,
+				
+				"state": state,				
+				
+		}				
+	}
+
+// ------------------------------- 	geograt	
+let geograt = {
+			"pic": {
+				"tim": tim,
+				"ric": {"gid":"geograt","cid":"geograt","fid":"geograt",},
+				"halo":"geograt",
+
+				"ture": { "csx":0,"cf":[[[111,111]]],"cs":[[[222,444]]],"cw":0.9,"co":[[[0.05,0.05]]],"cp":[[[0.9,0.9]]],},
+				
+				"graticule": graticule,					
+
+				"projection": projection,			
+				
+				"form": form ,
+				
+				"state": state,				
+				
+			},
+		}		
+// ------------------------------- 	georet		
+let nat = {
+			"pic": {
+				"tim": {"td":12800,"t0":0,"t1":1000,"t2":1,"t3":1,},
+				"ric": {"gid":"nat","cid":"nat","fid":"nat",},
+				"halo":"nat",
+				
+				"ture": { "csx":0,"cf":[[[444,555,444,555,444]]],
+						"cs":111,"cw":0.7,"co":[[[0.9,0.9]]],"cp":[[[1.7,1.7]]],},
+				
+				"projection": projection,
+				
+				"reticule": reticule,
+				
+				"form": form,
+				
+		}				
+	}
+// ------------------------------- 	geosphere
+let geosphere = {
+			"pic": {
+				"tim": tim,
+				"ric": {"gid":"geosphere","cid":"geosphere","fid":"geosphere",},
+				"halo":"geojson",
+
+				"ture":{ "csx":0,"cf":444,"cs":333,"cw":0.2,"co":0.4,"cp":0.9,},
+				
+				"projection": projection,				
+				
+				"geojson": ()=> {
+						let geo = {"type": "Sphere"}
+						return geo
+					},
+				// "form": form,
+				"state": {},				
+				
+			},
+		}	
+
+/*******************************************
+ * 			@animaApi
+ * 
+ */
+ 
+		let animas = [
+				// georet,					// georet
+				// geoearth,				// geonat
+				geograt,				// geograt
+				// nat,					// nat
+				// img
+				// geosphere				// geojson
+		]
+
+		var animaApi = function animaApi() {
+			
+				for (let i=0; i < animas.length; i++) {
+					let anima = animas[i]
+					let newAnimas = __mapper("xs").m("store").ween(anima)
+						__mapper("xs").m("store").apply({"type":"UPDANIMA","caller":"alima","animas":newAnimas})
+					
+				}
+			
+		}
+	
+	return animaApi
+
+}
+
+var __mapper = muonMapper.muonMapper()
+var muonAlima = __mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

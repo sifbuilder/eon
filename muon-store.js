@@ -8,24 +8,80 @@
 }(this, function (exports) {
   'use strict'
 
-  // ref: https://bl.ocks.org/mbostock/6081914 transitions
-  //      https://github.com/d3/d3-ease#easeElasticOut
+  // md: # md:{filename}
+  // md: **manage anitems store**
+  // md: ## refs
+  // md: * `https://bl.ocks.org/mbostock/6081914 transitions`
+  // md: * `https://github.com/d3/d3-ease#easeElasticOut`
+  // md:
+  // md:
+  // md: ## methods
+  // md: * [apply](#apply) - adds, replace, delete anitems
+  // md:   @action: {UPDANIMA, UPDANIGRAM}
+  // md: * [ween](#ween) - process anitem through halo.ween
+  // md:   @anitem
+  // md: * [gramm](#gramm) - process anitem through halo.gramm
+  // md:   manage anitem's time
+  // md:   process anitem with anitem's halo.gramm
+  // md:   process anitem.avatars
+  // md: * animasInGroupHowMany
+  // md:   @anima
+  // md:   return live animas in group `anima.payload.rid.gid`
+  // md: * animasInClassHowMany
+  // md:   @anima
+  // md:   return live animas in class `anima.payload.rid.cid`
+  // md: * findIndexFromRic
+  // md:   @ric
+  // md:   @list
+  // md:   get anitem in @list by @ric {gid, cid, fid}
+  // md: * findIndex
+  // md:   @anitem
+  // md:   @list
+  // md:   get anitem in @list by @anitem.ric {gid, cid, fid}
+  // md: * findByUid
+  // md:   @anitem
+  // md:   @list
+  // md:   get anitem in @list by mric.getuid(@anitem)
+  // md: * findFromUid
+  // md:   @uid
+  // md:   @list
+  // md:   get anitem in @list by @uid
+  // md: * findIndexAnigramFromUid
+  // md: * findAnigramFromUid
+  // md: * findAnimaFromUid
+  // md: * born
+  // md: * unborn
+  // md: * getAnimaByUID
+  // md: * animas
+  // md: * anigrams
+  // md: * animasAll
+  // md: * animasLive
+  // md: * token
+  // md: * getNid
+  // md: * getAnigramIdx
+  // md: * getAnigram
+  // md: * getAnimaIdx
+  // md: * getAnima
+  // md:
+  // md:
+  // md: # license
+  // md: MIT
 
   let muonStore = function muonStore (__mapper) {
     let f = __mapper('props')(),
       mtim = 	__mapper('xs').m('tim'),
-      manitem = 	__mapper('xs').m('anitem')
+      manitem = 	__mapper('xs').m('anitem'),
+      mric = 	__mapper('xs').m('ric')
 
     let state = {
       animas: [], // animas array
       aniset: {}, // animas by uid
-      anigrams: [] // behavior - an anigram may have many avatars
+      anigrams: [] // behavior - anigrams may have avatars
     }
 
+    // .................. apply
     let apply = function apply (action = {}) {
-      /***************************
- *        @UPDANIMA
- */
+      // .................. UPDANIMA
       if (action.type === 'UPDANIMA') {
         let updAnimas = f.fa(action.animas) // get new animas as array
         let elapsed = action.elapsed || 0
@@ -37,7 +93,6 @@
             ? updAnima.payload.uid
             : __mapper('xs').m('ric').getuid(updAnima)
 
-            
           let index = enty.findFromUid(uid, state.animas)
           if (index !== -1) { // anima exists
             if (updAnima.payload.delled === 1) {
@@ -57,9 +112,8 @@
 
         return state.animas
       }
-      /***************************
- *        @UPDANIGRAM
- */
+
+      // .................. UPDANIGRAM
       if (action.type === 'UPDANIGRAM') {
         let newAnigrams = f.fa(action.anigrams)
 
@@ -77,10 +131,7 @@
       }
     }
 
-    /* **************************
- *        @ween
- *        ween every generation
- */
+      // .................. ween
     let ween = function (anima, newItems = []) {
       let anigram = __mapper('xs').m('anitem').anigram(anima)
 
@@ -99,9 +150,7 @@
       return newItems
     }
 
-    /* **************************
- *        @gramm
- */
+      // .................. gramm
     let gramm = function (anima, newItems = []) {
       let anigram = __mapper('xs').m('anitem').anigram(anima)
 
@@ -113,47 +162,32 @@
       let halo																		// anigram halo
 
       if (anima && (elapsed && elapsed >= wait)) { // if anima in time
-      
         halo = (anigram.halo !== undefined &&
-            (typeof anigram.halo === 'function' || typeof anigram.halo === 'object')) ?
-            anigram.halo : // halo in anima
-            __mapper('xs').h(anigram.halo) // or halo in store
-        
+            (typeof anigram.halo === 'function' || typeof anigram.halo === 'object'))
+          ? anigram.halo // halo in anima
+          : __mapper('xs').h(anigram.halo) // or halo in store
 
         if (halo) {
-          
-                  
           newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
-          
-          
+
           if (newAnigrams !== null && newAnigrams.length > 0) {
-            
             __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newAnigrams})
-            
+
             newItems = newItems.concat(f.a(newAnigrams))
-            
           } else {
-            
 
-            
           }
-        
-
         } else {
-          
           console.log('halo', anigram.halo, ' not defined')
-
-          
         }
-
       }
 
       if (newItems !== undefined && newItems.length > 0) { // check if avatars in NEW animas
         for (let i = 0; i < newItems.length; i++) {
           let newItem = newItems[i] // each new item
-          if (newItem.payload.avatars !== undefined && newItem.payload.avatars !== null) { // AVATARS
-            let avatars = (typeof newItem.payload.avatars === 'object') ? Object.values(newItem.payload.avatars) : newItem.payload.avatars
-            
+          if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
+            let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
+
             for (let j = 0; j < avatars.length; j++) {
               let newSubItems = []
               let avatar = avatars[j]
@@ -163,11 +197,8 @@
               avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
 
               newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
-              
-              
-              __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newSubItems})
 
-              
+              __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newSubItems})
             }
           }
         }
@@ -175,9 +206,8 @@
 
       return newItems
     }
-    /***************************
- *        @enty
- */
+    
+      // .................. enty
     function enty () {}
 
     enty.apply = apply
@@ -197,31 +227,26 @@
           .filter(d => (d.payload.ric.gid === anima.payload.ric.gid &&
                     d.payload.ric.cid === anima.payload.ric.cid)).length
 
-    enty.findIndex = (item, list) =>
-      list.findIndex(d =>
-        d.payload.ric.gid === item.ric.gid &&
-                d.payload.ric.cid === item.ric.cid &&
-                d.payload.ric.fid === item.ric.fid
-      )
-
-    enty.findIndexFromRic = (ric, list) =>
+     enty.findIndexFromRic = (ric, list) =>
       list.findIndex(d =>
         d.payload.ric.gid === ric.gid &&
                 d.payload.ric.cid === ric.cid &&
                 d.payload.ric.fid === ric.fid
       )
+      
+    enty.findIndex = (item, list) =>
+      enty.findIndexFromRic(item.ric, list)
 
-    enty.findByUid = (item, list) => {
-      let uid = __mapper('xs').m('ric').getuid(item)
-      return enty.findFromUid(uid, list)
-    }
 
+    enty.findByUid = (item, list) => enty.findFromUid(mric.getuid(item), list)
     enty.findFromUid = (uid, list) => list.findIndex(d => d.payload.uid === uid)
 
+    
     enty.findIndexAnigramFromUid = uid => enty.anigrams().findIndex(d => d.payload.uid === uid)
     enty.findAnigramFromUid = uid => state.anigrams.find(d => d.payload.uid === uid)
     enty.findAnimaFromUid = uid => state.animas.find(d => d.payload.uid === uid)
 
+    
     enty.born = d => d.payload.tim !== undefined && d.payload.tim.unitElapsed !== undefined && d.payload.tim.unitElapsed > f.epsilon
     enty.unborn = d => d.payload.tim === undefined && d.payload.tim.elapsed === undefined && d.payload.tim.unitElapsed === undefined && d.payload.tim.unitElapsed < f.epsilon
     enty.getAnimaByUID = uid => state.animas.find(d => d.payload.uid === uid)

@@ -16,11 +16,11 @@
 
 <script>
 // md: md:{filename}
-// https://en.wikipedia.org/wiki/Epicycloid
+// md: ref: [wikipedia](https://en.wikipedia.org/wiki/Epicycloid)
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 0, img: 1, gui: 0, key: 1, fps: 0, stats: 0}) // INIT
+  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1, gui: 0, key: 1, fps: 0, stats: 0}) // INIT
 
   let f = __mapper({props: muonProps.muonProps()}).props(),
     mnat = __mapper('xs').m('nat'),
@@ -67,7 +67,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     const signexp = d => Math.pow(-1, d)
 
- 
+
 
     /***********
   *         @traceLine
@@ -83,7 +83,7 @@ let muonAlima = function muonAlima (__mapper) {
         stace: {x: { pos: 0 },y: { pos: 0 },z: 0},      //
         initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
         autoSitus: function(a) {
-          let r =  mstace.getLocus(this.stace, a.payload) // situs
+          let r =  mstace.getLocus(this.stace, a) // situs
           return r
         },
         fidder: a => a.payload.ric.fid,
@@ -157,9 +157,9 @@ let muonAlima = function muonAlima (__mapper) {
         fractal: {
 
 
-          
-        
-        
+
+
+
           level: 3, // [[[2,6]]],
           rad0: 60,
           sides: 5,
@@ -173,17 +173,17 @@ let muonAlima = function muonAlima (__mapper) {
 
             let amp = rad0
             let k = sides // 1 / Math.pow(2, level)
-            
-            
+
+
             if        (level === 0) { amp = rad0             // 0:60
             } else if (level === 1) { amp = rad0 / (k - 1)   // 1:30
             } else if (level === 2) { amp = rad0 / (k - 1)   // 2:30
 
 
-            } else                  { amp = rad0 / Math.pow(2, 1) 
+            } else                  { amp = rad0 / Math.pow(2, 1)
             }
 
-  
+
             return amp
           },
 
@@ -195,13 +195,13 @@ let muonAlima = function muonAlima (__mapper) {
 
               let angn0 = 0,
                   angn1 =0
-              
+
 
               if        ( level === 0 ) { angn0 = phase0; angn1 = phase0 + 1 * tau
               } else if ( level === 1 ) { angn0 = phase0; angn1 = phase0 - 0 * tau
               } else if ( level === 2 ) { angn0 = phase0; angn1 = phase0 + (k - 1) * tau
-              
-   
+
+
               } else     { angn0 = phase0; angn1 = phase0 + (-1)**(level) * (sides-1)**(level) * tau
               }
 

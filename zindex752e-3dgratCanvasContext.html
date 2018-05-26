@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="script-enls.js"></script>
+<script src="script-ents.js"></script>
+
+<script>
+
+// md: # md:{filename}
+// md: ** **
+
+// md: # license
+// md: MIT
+
+let muonAlima = function (__mapper) {
+  // __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  // __mapper('xs').m('init')({svg: 0, versor: 0, wen: 0, webgl: 1, bck: 0})	// INIT
+
+  let mgraticule = __mapper('xs').m('graticule'),
+    cwen = __mapper('xs').c('wen')
+
+  let renderport = __mapper('renderRenderport'),
+    width = renderport.width(),
+    height = renderport.height(),
+    scaleProj = Math.min(width / 2, height) / Math.PI
+
+  // .................. pics
+
+  let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let form = {
+
+    'x': {
+      'm1': 6, 'm2': 6, 'n1': 60, 'n2': 100, 'n3': 30, 'a': 1, 'b': 1,
+      'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1, //
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180],
+      // fn0: (a,b,c,d) => a**0 * b**0 * c**0 * d**1
+
+    },
+    'y': {
+      'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1,			// biform
+      'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1, //
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180],
+      // fn0: (a,b,c,d) => a**0 * b**0 * c**0 * d**1
+
+    },
+    'z': {
+      'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1,			// biform
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 4, 'pa6': 0, 'pb7': -1,
+      'dom3': [-90, 90],
+      // fn0: (a,b,c,d) => a**0 * b**0 * c**0 * d**1
+      // fn0: (a,b,c,d) => { let r = Complex({re: a, im: b}).toVector()[0];  return r }
+
+    }
+  }
+
+  let conform = {
+
+    projection: 'natform',
+    form: form
+
+  }
+
+  let proform = {
+
+    prerotate: [[[ cwen.rotation ]]],
+    projection: 'uniwen',
+    translate: [ 0, 0, 0],
+    rotate: [ 0, 0, 0 ],
+    scale: 1
+
+  }
+
+  // .................. contextForm
+  let contextForm = {
+
+    halo: 'context',
+    payload: {
+      tim: tim,
+      ric: {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'context'},    
+      context: {svg: 0, versor: 0, wen: 0, webgl: 0, canvas: 1, bck: 1}
+    }
+     
+  }
+
+  // .................. gratiform
+  let gratiform = {
+
+    halo: 'ent',
+
+    geofold: p => __mapper('xs').m('graticule').gedges(p.payload.graticule),
+
+    payload: {
+      tim: tim,
+      ric: {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
+
+      boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+
+      conform: conform,
+
+      proform: proform,
+
+      graticule: {
+
+        frame: [ [ [-180, 180, 90, 90], [-90, 90, 45, 45] ] ] // X,Y
+
+      }
+
+    }
+
+  }
+
+  // .................. animaApi
+  let animas = [
+    contextForm, // h.context
+    gratiform // h.ent g.natform
+  ]
+
+  let animaApi = function animaApi () {
+    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  }
+
+  return animaApi
+}
+
+let __mapper = muonMapper.muonMapper()
+__mapper({'xs': xs.xs(__mapper)}) // PROXIES
+__mapper({'muonAnimation': muonAnimation.muonAnimation(__mapper)})
+__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
+</script>
+<body style="cursor:crosshair"></body>

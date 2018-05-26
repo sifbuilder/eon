@@ -19,7 +19,7 @@
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, img: 0, key: 1, gui: 0, fps: 0, stats: 0}) // INIT
+  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, bck: 0, key: 1, gui: 0, fps: 0, stats: 0}) // INIT
 
   let renderport = __mapper('renderRenderport'),
     width = renderport.width(),
@@ -29,22 +29,20 @@ let muonAlima = function muonAlima (__mapper) {
   let mnat = __mapper('xs').m('nat'),
   cwen = __mapper('xs').c('wen')
 
-  /*******************************************
- *      @pics
- */
+  // .................. pics
   let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
   let formCirc = {
 
     'x': {
       'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
       'ra2': 100,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1,
-      
+
     },
 
     'y': {
       'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
       'ra2': 100,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1,
-      
+
     }
 
   }
@@ -54,13 +52,13 @@ let muonAlima = function muonAlima (__mapper) {
     'x': {
       'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
       'ra2': 100,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': 360,
-      
+
     },
 
     'y': {
       'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
       'ra2': 100,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': 360,
-      
+
     }
 
   }
@@ -68,7 +66,7 @@ let muonAlima = function muonAlima (__mapper) {
   let stace = {
       'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
       'ra2': 100,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1,
-    
+
   }
 
   let proform = {
@@ -83,12 +81,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
   let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
-  /*******************************************
- *    @animas
- *
- */
-
-  // -------------------------------  img
+  // .................. img anima
   let img = {
 
     halo: 'img',
@@ -128,7 +121,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     }
   }
-  // -------------------------------  text
+  // -------------------------------  text anima
   let text = {
 
     halo: 'text',
@@ -171,7 +164,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     }
   }
-  // -------------------------------  nat
+  // .................. nat anima
   let nat = {
 
     halo: 'ent',
@@ -197,7 +190,7 @@ let muonAlima = function muonAlima (__mapper) {
     }
 
   }
-  // -------------------------------  circ
+  // .................. circ anima
   let circ = {
 
     halo: 'ent',
@@ -230,7 +223,7 @@ let muonAlima = function muonAlima (__mapper) {
       form: formCirc
     }
   }
-
+  // .................. animas
   let animas = [
     nat, // h.ent g.uniwen
     circ, // h.ent g.uniwen

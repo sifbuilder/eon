@@ -8,51 +8,134 @@
 }(this, function (exports) {
   'use strict'
 
-  let renderWebgl = function renderWebgl (__mapper = {}) {
+  let renderWebgl = function (__mapper = {}) {
+     
+     
+     
+// md: # md:{filename}
+// md: ** **
+// md: renderer.domElement 
+// md: ```
+// md:  <canvas width="600" height="400" style="display: block; width: 600px; height: 400px;"></canvas>
+// md: ```
+// md: canvas
+// md: ```
+// md:  Selection {_groups: [canvas#canvas.overlay], _parents: [html] }
+// md: ```
+// md:  Camera extent is viewport in pixels
+// md: ```
+// md: [[-300, 300, 200, -200]
+// md: ```
+// md: # license
+// md: MIT
     
+
     const radians = Math.PI / 180
-
-    let r = __mapper('xs').r('renderport')
     
-    let state = {}
-    state.width = r.width(),
-    state.height = r.height()
-    state.renderport = new THREE.WebGLRenderer({antialias: true})
-    state.domElem = state.renderport.domElement // canvas
-    state.domElem.innerHTML = '' // Wipe DOM
-    state.domElem.style.display = 'block'
-    state.context = state.domElem.getContext('webgl')
+    let _denser = point => {
+      if (!Array.isArray(point)) console.log('point ', point, ' is not cartesian')
+      return new THREE.Vector3(...point)
+    }
 
-    /* canvas */
-    d3.select('.viewframe')
-      .append(() => d3.select(state.domElem)
-        .attr('id', 'canvas')
-        .attr('class', 'overlay')
-        .style('position', 'absolute; top:0px; left:0px; z-index:1')
-        .node()
-      )
+    let r = __mapper('xs').r('renderport'),
+      width = r.width(),
+      height = r.height()
+  
+      
+    let craycaster = __mapper('xs').c('raycaster')
 
-    /* navInfo */
-    state.navInfo = document.createElement('div') // Add nav info section
-    state.navInfo.classList.add('graph-nav-info')
-    state.navInfo.innerHTML = 'if key ALT/right to switch animation'
-    document.body.appendChild(state.navInfo) // state.domElem.appendChild(navInfo);
+    let renderer = new THREE.WebGLRenderer({antialias: true})
+    
+    let domElem = renderer.domElement // canvas
+    domElem.innerHTML = '' // empty DOM
+    domElem.style.display = 'block'
 
-    /* tooltip */
-    state.toolTipElem = document.createElement('div') // Setup tooltip
-    state.toolTipElem.classList.add('graph-tooltip')
-    document.body.appendChild(state.toolTipElem) // state.domElem.appendChild(state.toolTipElem);
 
-    /* raycaster */
-    state.mouse = new THREE.Vector2()
-    state.mouse.x = -2 // Initialize off canvas
-    state.mouse.y = -2
-    state.mouse = __mapper('xs').c('raycaster').mouse()
-    state.toolTipElem.style.top = (state.mouse.y - 40) + 'px' // Move tooltip
-    state.toolTipElem.style.left = (state.mouse.x - 20) + 'px'
+    
+    let canvas = d3.select('.viewframe') // canvas
+        .append(() => d3.select(domElem)
+          .attr('id', 'canvas')
+          .attr('class', 'overlay')
+          .style('position', 'absolute; top:0px; left:0px; z-index:1')
+          .node()
+        )
+    let context = domElem.getContext('webgl')
 
-    /* cameraPropsSet */
-    let cameraPropsSet = (camera, cameraProps) => {
+    let navInfo = document.createElement('div') // Add nav info section
+    navInfo.classList.add('graph-nav-info')
+    navInfo.innerHTML = 'if key ALT/right to switch animation'
+    document.body.appendChild(navInfo) // state.domElem.appendChild(navInfo);
+
+    let mouse = craycaster.mouse() // control.RAYCASTER
+    craycaster.control(domElem) // control on elem 
+    let raycaster = new THREE.Raycaster() // intersect 
+
+    
+    let toolTipElem = document.createElement('div') // TOOLTIP
+    toolTipElem.classList.add('graph-tooltip')
+    toolTipElem.style.top = (mouse.y - 40) + 'px' // Move tooltip - on mouse
+    toolTipElem.style.left = (mouse.x - 20) + 'px'
+    document.body.appendChild(toolTipElem) // state.domElem.appendChild(state.toolTipElem);
+
+
+
+    let scene = new THREE.Scene() // SCENE
+      .add(new THREE.AmbientLight(0x333333))
+
+    let light = new THREE.DirectionalLight(0xe4eef9, 0.7) // LIGHT
+      .position.set(12, 12, 8)
+
+      
+    
+    let extent = [ -width / 2, width / 2, height / 2, -height / 2 ] // EXTENT
+    let camera = new THREE.OrthographicCamera( ...extent, 0.1, 9000)  // CAMERA
+    camera.position.x = 0
+    camera.position.y = 0
+    camera.position.z = 900
+    camera.rotation.x = 0
+    camera.rotation.y = 0
+    camera.rotation.z = 0
+    camera.distance2nodesFactor = 300
+    camera.lookAt(new THREE.Vector3(0, 0, 0))
+
+    
+
+    let controls = new TrackballControls(camera, domElem) // TRACK CONTROLS
+    controls.rotateSpeed = 1.0
+    controls.zoomSpeed = 1.2
+    controls.panSpeed = 0.8
+    controls.noZoom = false
+    controls.noPan = false
+    controls.staticMoving = true
+    controls.dynamicDampingFactor = 0.3
+    controls.keys = [ 65, 83, 68 ]
+
+    
+
+    // ............................. resizeRenderer
+    let resizeRenderer = function (renderer, props) {
+      let width = props.width
+      let height = props.height
+      if (width && height) {
+        renderer.setSize(width, height)
+      }
+      return renderer
+    }
+
+    // ............................. resizeCamera
+    let resizeCamera = function (camera, props) {
+      let width = props.width
+      let height = props.height
+      if (width && height) {
+        camera.aspect = width / height
+        camera.updateProjectionMatrix()
+      }
+      return camera
+    }
+
+
+    // ............................. cameraPropsSet
+    let cameraPropsSet = (camera, cameraProps) => { /* cameraPropsSet */
       if (cameraProps !== undefined) {
         if (cameraProps.rotate !== undefined) {
           if (cameraProps.rotate[0] !== undefined) camera.rotation.x = cameraProps.rotate[0] * radians
@@ -69,84 +152,39 @@
       return camera
     }
 
-    /* camera container */
-    // state.camera = new THREE.PerspectiveCamera(45, state.width / state.height, 0.1, 9000) // Setup camera
-      // state.camera.position.x = 0
-      // state.camera.position.y = 0
-      // state.camera.position.z = 500   
     
-    state.camera = new THREE.OrthographicCamera(
-        -state.width/2, // window.innerWidth / - 16,
-        state.width/2, // window.innerWidth / 16,
-        state.height/2, // window.innerHeight / 16, 
-        -state.height/2, // window.innerHeight / - 16, 
-        0.1, 
-        9000 );
-        
-        state.camera.position.x = 0
-        state.camera.position.y = 0
-        state.camera.position.z = 900
-    
-    
+    let state = {}
+    state.width = width
+    state.height = height
+    state.renderer = renderer
+    state.domElem = domElem
+    state.navInfo = navInfo
+    state.toolTipElem = toolTipElem
+    state.mouse = mouse
+    state.camera = camera
+    state.scene = scene
+    state.light = light
+    state.raycaster = raycaster
+    state.controls = controls
 
-    state.camera.rotation.x = 0
-    state.camera.rotation.y = 0
-    state.camera.rotation.z = 0
-    state.camera.distance2nodesFactor = 300
-    state.camera.lookAt(new THREE.Vector3(0, 0, 0))
-    
-    function resizeCanvas () {
-      if (state.width && state.height) {
-        state.renderport.setSize(state.width, state.height)
-        state.camera.aspect = state.width / state.height
-        state.camera.updateProjectionMatrix()
-      }
-    }
-    resizeCanvas()
+    state.renderer = resizeRenderer(renderer, state) // force update at start
+    state.camera = resizeCamera(camera, state) // force update at start
 
-    /* scene */
-    state.scene = new THREE.Scene() // Setup scene
-    state.scene.add(new THREE.AmbientLight(0x333333))
-    let light = new THREE.DirectionalLight(0xe4eef9, 0.7)
-    light.position.set(12, 12, 8)
-
-    /* controls */
-    __mapper('controlRaycaster').control(state.domElem) // state.domNode
-
-    state.raycaster = new THREE.Raycaster() // Capture mouse coords on move
-
-    state.controls = new TrackballControls(state.camera, state.domElem) // Add camera interaction
-    state.controls.rotateSpeed = 1.0
-    state.controls.zoomSpeed = 1.2
-    state.controls.panSpeed = 0.8
-    state.controls.noZoom = false
-    state.controls.noPan = false
-    state.controls.staticMoving = true
-    state.controls.dynamicDampingFactor = 0.3
-    state.controls.keys = [ 65, 83, 68 ]
-
-    let denser = point => {
-      if (!Array.isArray(point)) console.log('point ', point, ' is not cartesian')
-      return new THREE.Vector3(...point)
-    }
-
-    /***************************
- *        @render
- */
+    // ............................. render
     let render = function (elapsed, featurecollection, maxlimit) {
+      
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
             d.properties.ric !== undefined // req ric
         )
 
-      /* clean canvas */
-      while (state.scene.children.length > 0) {
+      while (state.scene.children.length > 0) { // clean canvas
         state.scene.remove(state.scene.children[0]) // clear the scene
       }
 
-      /* items to add to scene */
-      let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
+      
+      let gitems = d3.nest() // items in scene
         .key(function (d) { return d.properties.ric.gid })
         .key(function (d) { return d.properties.ric.cid })
         .entries(features)
@@ -174,7 +212,8 @@
               let geometry = feature.geometry // rings in MultiPolygon, MultiLineString
 
               if (geometry !== undefined && geometry !== null) {			// geometry may be null
-                if (geometry.type === 'Point') {
+              
+                if (geometry.type === 'Point') {  // Point
                   let node = item
 
                   state.material_color = style.fill
@@ -196,7 +235,8 @@
                   sphere.position.z = node.z || node.geometry.coordinates[2] || 0
 
                   state.scene.add(sphere)
-                } else if (geometry.type === 'MultiPolygon') {
+                  
+                } else if (geometry.type === 'MultiPolygon') {  // MultiPolygon
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
                     opacity: style['stroke-opacity']
@@ -208,14 +248,16 @@
                     let threeGeometry = new THREE.Geometry()
 
                     coordinates.forEach(function (line) {
-                      d3.pairs(line.map(denser), function (a, b) {
+                      d3.pairs(line.map(_denser), function (a, b) {
                         threeGeometry.vertices.push(a, b)
                       })
                       let object = new THREE.LineSegments(threeGeometry, threeMaterial)
                       if (object) state.scene.add(object)
                     })
                   }
-                } else if (geometry.type === 'LineString') {
+                  
+                } else if (geometry.type === 'LineString') {  // LineString
+                  
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
                     opacity: style['stroke-opacity']
@@ -226,13 +268,15 @@
                   let threeGeometry = new THREE.Geometry()
 
                   coordinates.forEach(function (line) {
-                    d3.pairs(line.map(denser), function (a, b) {
+                    d3.pairs(line.map(_denser), function (a, b) {
                       threeGeometry.vertices.push(a, b)
                     })
                     let object = new THREE.LineSegments(threeGeometry, threeMaterial)
                     if (object) state.scene.add(object)
                   })
-                } else {
+                
+                } else {      // other gj
+                  
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
                     opacity: style['stroke-opacity']
@@ -243,7 +287,7 @@
                   let threeGeometry = new THREE.Geometry()
 
                   coordinates.forEach(function (line) {
-                    d3.pairs(line.map(denser), function (a, b) {
+                    d3.pairs(line.map(_denser), function (a, b) {
                       threeGeometry.vertices.push(a, b)
                     })
                     let object = new THREE.LineSegments(threeGeometry, threeMaterial)
@@ -288,21 +332,24 @@
         } // citems
       } // gitems
 
+
+      
       if (state.mouse !== undefined) {
         state.raycaster.setFromCamera(state.mouse, state.camera) // Update tooltip
         const intersects = state.raycaster.intersectObjects(state.scene.children)
-        /* if (intersects.length > 0) console.log(" ****************** webgl intersects" , intersects) */
+        if (1 && 1 && intersects.length > 0) console.log('r.webgl.raycaster intersects', intersects)
         state.toolTipElem.innerHTML = intersects.length ? intersects[0].object.index || '_e_' : '_e_'
       }
 
-      state.controls.update() // Frame cycle
+      
+      state.controls.update() // TrackballControls of camera and domeElem
 
-      state.renderport.render(state.scene, state.camera)
+
+      
+      state.renderer.render(state.scene, state.camera)  // RENDER scene on camera
     }
 
-    /***************************
- *        @enty
- */
+    // ............................. enty
     let enty = function enty () {}
     enty.render = render
     return enty

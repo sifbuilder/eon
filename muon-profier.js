@@ -114,7 +114,7 @@
       return geoproj
     }
 
-    // formion
+    // ............................. formion
     let formion = function (projdef, anigram = {}) {
       let projection
       let projname
@@ -139,13 +139,15 @@
           } else if (typeof projdef.translate === 'object' && f.isPosition(projdef.translate)) {
             translation = Object.values(projdef.translate)
           } else if (typeof projdef.translate === 'object') {
-            translation = mstace.getTranspot(projdef.translate, anigram.payload)
+            translation = mstace.getTranspot(projdef.translate, anigram)
           }
 
           if (projdef.anod && geofold.properties && geofold.properties.geonode) {
             let geonode = geofold.properties.geonode // geonode
-            let nodetranslate = geonode.geometry.coordinates // geonode coords
-            translation = mgeom.add(translation, nodetranslate)
+            if (geonode.geometry && geonode.geometry.coordinate !== undefined) {
+              let nodetranslate = geonode.geometry.coordinates // geonode coords
+              translation = mgeom.add(translation, nodetranslate)
+            }
           }
         }
 
@@ -202,11 +204,11 @@
       return projection
     }
 
-    // projer
+    // ............................. projer
     let projer = (prodef, anigram) => // projer is fenrir if no prodef
       json => (prodef) ? mproj3ct(json, formion(prodef)) : json
 
-    // conformer
+    // ............................. conformer
     let conformer = anigram => {
       let projion
       let projdef = anigram.payload.conform
@@ -228,15 +230,15 @@
       return projion
     }
 
-    //  proformion
+    // ............................. proformion
     let proformion = anigram => formion(anigram.payload.proform, anigram)
     let proformer = anitem => json => mproj3ct(json, proformion(anitem))
 
-    //  ereformion
+    // ............................. ereformion
     let ereformion = anigram => formion(anigram.payload.ereform, anigram)
     let ereformer = anitem => json => mproj3ct(json, ereformion(anitem))
 
-    // enty
+    // ............................. enty
     let enty = function () {}
     enty.formion = formion
     enty.projer = projer

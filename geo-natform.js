@@ -73,6 +73,7 @@
           pts.push(t)
         }
 
+
         let radUnit = 1 / maxRadio //  Math.SQRT1_2 / maxRadio  normalize
         pts = pts.map(d => d * radUnit)
 
@@ -110,6 +111,7 @@
    *      called by g.natVertex.pointStream to build nat conform point stream
    *      calls m.nat.radorm
    */
+    // ............................. natVertex   
     let natVertex = function (form) { // getVertex
     
       let nformed = mnat.natNform(form) // natNform
@@ -151,7 +153,7 @@
       
       
       
-		// 		pointStream
+    // ............................. pointStream
     let pointStream = function (prjdef) {
 			
       let natPoint = natVertex(prjdef.form) // m.nat.natVertex (a,b,c) => [a,b,c]
@@ -165,7 +167,7 @@
     }
 
 
-		// 		natprofion
+    // ............................. natprofion
     let natprofion = prjdef => {		// projection:natPoint, form:{x,y,z}
 
       let geoTrans = d3.geoTransform({
@@ -179,9 +181,7 @@
 
     }
 
-    /****************************
-   *    @enty
-   */
+    // ............................. enty
     let enty = function (prjdef = {}) {
 			
       let m = natprofion(prjdef)

@@ -11,40 +11,82 @@
   let muongeoj = function muongeoj (__mapper = {}) {
     let f = __mapper('props')()
 
+    // md: # md:{filename}
+    // md: **process geojson streams**
 
-//md: # md:{filename}
-//md: **process geojson streams**
+    // md: ## references
+    // md: [Maarten’s Block geo to square tiles](https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6)
+    // md: [geojson-normalize](https://github.com/mapbox/geojson-normalize/blob/master/index.js)
 
-//md: ## references
-//md: [Maarten’s Block geo to square tiles](https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6)
-//md: [geojson-normalize](https://github.com/mapbox/geojson-normalize/blob/master/index.js)
+    // md: ## functions
 
-//md: ## functions
-
-
-//md: ## methods
-//md: ### * trim
-//md: ### * tclip
-//md: ### * complexify
-//md: ### * deprop
-//md: ### * snip
-//md: ### * largestPoly
-//md: ### * lineStringFromStream
-//md: ### * polygonFromStream
-//md: ### * multLineStringFromStreamArray
-//md: ### * featurecollect
-//md: ### * featurize
-//md: ### * ntime
-//md: ### * zorder
-//md: ### * centroid
-//md: ### * getCoords
-//md: ### * getCoordsLength
-//md: ### * getCoordsInRange
-//md: ### * isValid
-
-//md: # license
-//md: MIT    
-
+    // md: ## methods
+    // md: * ### trim
+    // md: **flatten gj**
+    // md:  ref: https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6
+    // md:
+    // md: * ### tclip
+    // md:
+    // md: * ### complexify
+    // md:  turns strings of coordinates into arrays of comples numbers
+    // md:  @gj
+    // md:
+    // md: * ### deprop
+    // md:   reomove properties from gj object
+    // md:
+    // md: * ### snip
+    // md:  return function to get dots within form range [pa6,pb7]
+    // md:   @form
+    // md:
+    // md: * ### largestPoly
+    // md:   return the lagest polity on gj
+    // md:  @gj: MultiPolygon
+    // md:
+    // md: * ### lineStringFromStream
+    // md:
+    // md: * ### polygonFromStream
+    // md:
+    // md: * ### multLineStringFromStreamArray
+    // md:
+    // md: * ### featurecollect
+    // md:     transform to FeatureCollection
+    // md:     @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}
+    // md:     called by halo to carry ric, sort as properties
+    // md:
+    // md: * ### featurize
+    // md:     transform to array of gj.Features
+    // md:     @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}
+    // md:
+    // md: * ### ntime
+    // md:   convert geometry to feature and add interval to properties
+    // md:   @gj
+    // md:   @interval
+    // md:
+    // md: * ### zorder
+    // md:   @gj FeatureCollection
+    // md:
+    // md: * ### centroid
+    // md:   get ring's centroid
+    // md:    @ring
+    // md:    called by zorder
+    // md:
+    // md: * ### getCoords
+    // md:    get array of coordinates from gj (eg. parent anigram)
+    // md:
+    // md: * ### getCoordsLength
+    // md:    get number of coordinates in gj
+    // md:
+    // md: * ### getCoordsInRange
+    // md:    get first nb coordinates
+    // md:
+    // md: * ### isValid
+    // md:    check if gj is valid geojson type
+    // md:    @gj
+    // md:    @type
+    // md:
+    // md:
+    // md: # license
+    // md: MIT
 
     let types = {
       Point: 'geometry',
@@ -58,102 +100,99 @@
       FeatureCollection: 'featurecollection'
     }
 
-     //md: ### mgeoj.complexify convert geometry coordinates to complex numbers
-     //md:  @gj
-var complexifyObjectType = {
-  Feature: function(object) {
-    return complexifyGeometry(object.geometry);
-  },
-  FeatureCollection: function(object) {
-    var features = object.features, i = -1, n = features.length;
-    let ret = object
-    ret.features = features.map(feature => complexifyGeometry(feature.geometry))
-    return ret
-  }
-};
+    // ...................... complexifyObjectType
+    var complexifyObjectType = {
+      Feature: function (object) {
+        return complexifyGeometry(object.geometry)
+      },
+      FeatureCollection: function (object) {
+        var features = object.features, i = -1, n = features.length
+        let ret = object
+        ret.features = features.map(feature => complexifyGeometry(feature.geometry))
+        return ret
+      }
+    }
 
-var complexifyGeometryType = {
-  Sphere: function() {
-    // return true;
-  },
-  Point: function(object) {
-    return complexifyPoint(object.coordinates)
-  },
-  MultiPoint: function(object) {
-    var coordinates = object.coordinates.map(coords => complexifyPoint(coords))
-    let ret = object
-    ret.coordinates = coordinates
-    return ret
-  },
-  LineString: function(object) {
-    let ret = object
-    ret.coordinates = complexifyLine(object.coordinates);
-    return ret
-  },
-  MultiLineString: function(object) {
-    var coordinates = object.coordinates
+    var complexifyGeometryType = {
+      Sphere: function () {
+        // return true;
+      },
+      Point: function (object) {
+        return complexifyPoint(object.coordinates)
+      },
+      MultiPoint: function (object) {
+        var coordinates = object.coordinates.map(coords => complexifyPoint(coords))
+        let ret = object
+        ret.coordinates = coordinates
+        return ret
+      },
+      LineString: function (object) {
+        let ret = object
+        ret.coordinates = complexifyLine(object.coordinates)
+        return ret
+      },
+      MultiLineString: function (object) {
+        var coordinates = object.coordinates
 
-    let ret = object
-    ret.coordinates = coordinates.map(line => complexifyLine(line))
-    return ret
-  },
-  Polygon: function(object) {
-    var coordinates = object.coordinates
+        let ret = object
+        ret.coordinates = coordinates.map(line => complexifyLine(line))
+        return ret
+      },
+      Polygon: function (object) {
+        var coordinates = object.coordinates
 
-    let ret = object
-    ret.coordinates = coordinates.map(line => complexifyLine(line))
-    return ret
-  },
-  MultiPolygon: function(object) {
-    var polygons = object.coordinates.map(
-      polygon => polygon.map(
-        ring => complexifyLine(ring)))
+        let ret = object
+        ret.coordinates = coordinates.map(line => complexifyLine(line))
+        return ret
+      },
+      MultiPolygon: function (object) {
+        var polygons = object.coordinates.map(
+          polygon => polygon.map(
+            ring => complexifyLine(ring)))
 
-      let ret = object
-      ret.coordinates = polygons
+        let ret = object
+        ret.coordinates = polygons
+        return ret
+      },
+      GeometryCollection: function (object) {
+        var geometries = object.geometries.map(
+          geometry => complexifyGeometry(geometry))
+        return geometries
+      }
+    }
+
+    function complexifyGeometry (geometry) {
+      return geometry && complexifyGeometryType.hasOwnProperty(geometry.type)
+        ? complexifyGeometryType[geometry.type](geometry)
+        : false
+    }
+
+    function complexify (object) {
+      return (object && complexifyObjectType.hasOwnProperty(object.type)
+        ? complexifyObjectType[object.type]
+        : complexifyGeometry)(object)
+    }
+
+    function complexifyPoint (coordinates) {
+      return Complex(coordinates[0], coordinates[1])
+    }
+
+    function complexifyLine (coordinates) {
+      let ret = coordinates.map(coords => complexifyPoint(coords))
       return ret
-  },
-  GeometryCollection: function(object) {
-    var geometries = object.geometries.map(
-      geometry => complexifyGeometry(geometry))
-    return geometries
-  }
-}
+    }
 
-function complexifyGeometry(geometry) {
-  return geometry && complexifyGeometryType.hasOwnProperty(geometry.type)
-      ? complexifyGeometryType[geometry.type](geometry)
-      : false;
-}
-
-function complexify(object) {
-  return (object && complexifyObjectType.hasOwnProperty(object.type)
-      ? complexifyObjectType[object.type]
-      : complexifyGeometry)(object)
-}
-
-function complexifyPoint(coordinates) {
-  return Complex(coordinates[0], coordinates[1])
-}
-
-function complexifyLine(coordinates) {
-    let ret = coordinates.map(coords => complexifyPoint(coords))
-    return ret
-}
-
-
-    //md: ### meoj.trim flatten gj
-    //md:  ref: https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6
-    let trim = function (json) {
+    // ...................... trim
+    let trim = function (gj) {
       let ret = {}
 
-      if (json.type === 'FeatureCollection') {
+      if (gj.type === 'FeatureCollection') {
         ret.type = 'FeatureCollection'
         ret.features = []
 
-        for (let i = 0; i < json.features.length; i++) {
+        for (let i = 0; i < gj.features.length; i++) {
           let newFeature = {}
-          let feature = json.features[i]
+          let feature = gj.features[i]
 
           newFeature.type = 'Feature'
           newFeature.properties = feature.properties
@@ -168,22 +207,21 @@ function complexifyLine(coordinates) {
 
           ret.features[i] = Object.assign({}, newFeature)
         }
-      } else if (json.type === 'MultiLineString') {
-        ret = json
+      } else if (gj.type === 'MultiLineString') {
+        ret = gj
       } else {
-        ret = json
+        ret = gj
       }
 
       return ret
     }
 
-    //md: ### meoj.snip return function to get dots within form range [pa6,pb7]
-    //md:   @form
+    // ...................... snip
     let snip = function (form) {
       let dims = __mapper('xs').m('anitem').dims()
       let braids = []
-      return function (json) {
-        let c = json.coordinates
+      return function (gj) {
+        let c = gj.coordinates
         for (let i = 0; i < c.length; i++) {
           let braid = f.unslide(c[i])
 
@@ -194,21 +232,20 @@ function complexifyLine(coordinates) {
             braids[j] = f.streamRange(braid[j], pa6, pb7)
           }
           let coordinates = f.slide(braids) // join dim threads
-          json.coordinates = Array.of(coordinates)
+          gj.coordinates = Array.of(coordinates)
         }
 
-        return json
+        return gj
       }
     }
 
-    //md: ## mgeoj.largestPoly  return the lagest polity on gj
-    //md:  @gj: MultiPolygon
-    let largestPoly = function largestPoly (json) {
+    // ...................... largestPoly
+    let largestPoly = function largestPoly (gj) {
       let size = -Number.MAX_VALUE,
         poly = null
 
-      for (let c = 0; c < json.length; c++) {
-        let tsize = (json.type === 'MultiPolygon') ? d3.polygonArea(json[c][0]) : d3.polygonArea(json[c])
+      for (let c = 0; c < gj.length; c++) {
+        let tsize = (gj.type === 'MultiPolygon') ? d3.polygonArea(gj[c][0]) : d3.polygonArea(gj[c])
 
         if (tsize > size) {
           size = tsize
@@ -216,7 +253,7 @@ function complexifyLine(coordinates) {
         }
       }
 
-      return [json.type === 'MultiPolygon' ? json[poly][0] : json[poly]]
+      return [gj.type === 'MultiPolygon' ? gj[poly][0] : gj[poly]]
     }
 
     let lineStringFromStream = function (coords, reverse = false, props = {}) {
@@ -250,119 +287,94 @@ function complexifyLine(coordinates) {
       return geo
     }
 
-  //md: ## mgeoj.ntime  convert geometry to feature and add interval to properties
-  //md:   json
-  //md:   interval
-  let ntime = function(json, interval = [0,1]) {
-
-        let tfeatures = []
-        if (json.type == 'Feature') {
-
-          let geometry = json.geometry
-          if (geometry !== null) coords = [...coords, ...getCoords(geometry)]
-
-        } else if (json.type == 'FeatureCollection') {
-
-          for (let feature_num = 0; feature_num < json.features.length; feature_num++) {
-            let feature = json.features[feature_num]
-            getCoords(feature, coords)
-          }
-
-        } else if (json.type == 'GeometryCollection') {
-
-          for (let geom_num = 0; geom_num < json.coords.length; geom_num++) {
-            let geometry = json.coords[geom_num]
-            coords.push(geometry)
-          }
-
-        } else if (json.type === 'Point') {
-
-          let geometry = json
-          coords = [...coords, geometry.coordinates]  // if Point, return array
-
-        } else if (json.type === 'LineString') {
+    // ...................... ntime
+    let ntime = function (gj, interval = [0, 1]) {
+      let tfeatures = []
+      if (gj.type == 'Feature') {
+        let geometry = gj.geometry
+        if (geometry !== null) coords = [...coords, ...getCoords(geometry)]
+      } else if (gj.type == 'FeatureCollection') {
+        for (let feature_num = 0; feature_num < gj.features.length; feature_num++) {
+          let feature = gj.features[feature_num]
+          getCoords(feature, coords)
+        }
+      } else if (gj.type == 'GeometryCollection') {
+        for (let geom_num = 0; geom_num < gj.coords.length; geom_num++) {
+          let geometry = gj.coords[geom_num]
+          coords.push(geometry)
+        }
+      } else if (gj.type === 'Point') {
+        let geometry = gj
+        coords = [...coords, geometry.coordinates] // if Point, return array
+      } else if (gj.type === 'LineString') {
+        let tfeature = {
+          type: 'Feature',
+          geometry: {type: 'LineString', coordinates: gj.coordinates},
+          properties: {interval: interval}
+        }
+        tfeatures.push(tfeature)
+      } else if (gj.type === 'MultiPoint') {
+        let geometry = gj
+        coords.push(geometry)
+      } else if (gj.type === 'Polygon') {
+        let rings = gj.coordinates
+        for (let i = 0; i < rings.length; i++) {
+          let line = rings[i]
 
           let tfeature = {
             type: 'Feature',
-            geometry: {type: 'LineString',coordinates: json.coordinates},
+            geometry: {type: 'LineString', coordinates: line},
             properties: {interval: interval}
           }
           tfeatures.push(tfeature)
-
-        } else if (json.type === 'MultiPoint') {
-
-          let geometry = json
-          coords.push(geometry)
-
-        } else if (json.type === 'Polygon') {
-
-          let rings = json.coordinates
-          for (let i=0; i<rings.length; i++) {
-            let line = rings[i]
-
-            let tfeature = {
-              type: 'Feature',
-              geometry: {type: 'LineString',coordinates: line},
-              properties: {interval: interval}
-            }
-            tfeatures.push(tfeature)
-          }
-
-        } else if (json.type === 'MultiLineString') {
-
-          let lines = json.coordinates
-          for (let i=0; i<lines.length; i++) {
-            let line = lines[i]
-
-            let tfeature = {
-              type: 'Feature',
-              geometry: {type: 'LineString',coordinates: line},
-              properties: {interval: interval}
-            }
-            tfeatures.push(tfeature)
-          }
-
-
-        } else if (json.type === 'MultiPolygon') {
-
-          let polygons = json.coordinates
-          for (let i=0; i<polygons.length; i++) {
-            let polygon = polygons[i]
-
-            let tfeature = {
-              type: 'Feature',
-              // geometry: {type: 'Polygon',coordinates: polygon},
-              geometry: {type: 'LineString',coordinates: polygon[0]},
-              properties: {interval: interval}
-            }
-            tfeatures.push(tfeature)
-          }
-
-        } else if (json.type === 'Sphere') {
-            let geometry = json
-            coords.push(geometry)
-        } else {
-          throw new Error('json type not identified.')
         }
+      } else if (gj.type === 'MultiLineString') {
+        let lines = gj.coordinates
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i]
 
-        return tfeatures
-  }
+          let tfeature = {
+            type: 'Feature',
+            geometry: {type: 'LineString', coordinates: line},
+            properties: {interval: interval}
+          }
+          tfeatures.push(tfeature)
+        }
+      } else if (gj.type === 'MultiPolygon') {
+        let polygons = gj.coordinates
+        for (let i = 0; i < polygons.length; i++) {
+          let polygon = polygons[i]
 
-  //md: ## mgeoj.featurize
-  //md:     transform to array of gj.Features
-  //md:     @json  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}
-    let featurize = function (json) {
+          let tfeature = {
+            type: 'Feature',
+            // geometry: {type: 'Polygon',coordinates: polygon},
+            geometry: {type: 'LineString', coordinates: polygon[0]},
+            properties: {interval: interval}
+          }
+          tfeatures.push(tfeature)
+        }
+      } else if (gj.type === 'Sphere') {
+        let geometry = gj
+        coords.push(geometry)
+      } else {
+        throw new Error('gj type not identified.')
+      }
 
+      return tfeatures
+    }
+
+    // ...................... featurize
+    let featurize = function (gj) {
       let features = []
-      if (json && json.type) {
-        let type = json.type
+      if (gj && gj.type) {
+        let type = gj.type
 
         if (type === 'Feature') {
-          features = Array.of(json)
+          features = Array.of(gj)
         } else if (type === 'FeatureCollection') {
-          features = json.features
+          features = gj.features
         } else if (type === 'GeometryCollection') {
-          features = json.map(d => ({
+          features = gj.map(d => ({
             type: 'Feature',
             geometry: {
               type: d.type,
@@ -372,78 +384,79 @@ function complexifyLine(coordinates) {
           features = Array.of({
             type: 'Feature',
             geometry: {
-              type: json.type,
-              coordinates: json.coordinates},
+              type: gj.type,
+              coordinates: gj.coordinates},
             properties: {geonode: {}}})
         }
       } else {
-        console.log('m.geoj.featurize not supported geojson ',json)
+        console.log('m.geoj.featurize not supported geojson ', gj)
       }
 
       return features
     }
 
-   //md: ## mgeoj.featurecollect
-  //md:     transform to FeatureCollection
-  //md:     @json  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}
-  //md:     called by halo to carry ric, sort as properties
-    let featurecollect = json => ({type: 'FeatureCollection', features: featurize(json)})
+    // ...................... featurecollect
+    let featurecollect = gj => ({type: 'FeatureCollection', features: featurize(gj)})
 
+    // ...................... deprop
+    let deprop = function (gj) {
+      let gj2 = Object.assign({}, gj)
 
-   //md: ## mgeoj.deprop  reomove properties from gj object
-    let deprop = function (json) {
-
-      let gj = Object.assign({}, json)
-
-      if (gj && gj.properties) {
-        delete gj.properties
-        return gj
+      if (gj2 && gj2.properties) {
+        delete gj2.properties
+        return gj2
       } else {
-        return gj
+        return gj2
       }
     }
 
-   //md: ## mgeoj.zorder
-   //md: @json FeatureCollection
-    let zorder = function (json) {
-    
+    // ...................... zorder
+    let zorder = function (gj) {
+      if (2 && 2 && !isValid(gj)) { console.log('** m.geoj.zorder:gj not valid', gj) }
+      
       let features = []
-      if (json.type === "FeatureCollection") features = json.features
+      if (gj.type === 'FeatureCollection') features = gj.features
       else {
-        if (2 && 2) console.log('** json is not FeatureCollection')
-        return json
+        if (2 && 2) console.log('** gj is not FeatureCollection')
+        return gj
       }
-       
+
       let zordered = features
         .map(d => {
           d.properties = d.properties || {}
-
           if (d.properties.zorder === undefined) { // if zorder undefined
-            if (d.geometry && d.geometry.coordinates && d.geometry.coordinates[0]) {
-              let outring = d.geometry.coordinates[0] // for out ring
-              let zorder = centroid(outring)
-              if (zorder)  d.properties.zorder = zorder // try centroid.z
-              else  d.properties.zorder = -Infinity // feature unformed
-            } else {
-              d.properties.zorder = -Infinity // feature unformed
-            }
+              if (d.geometry && d.geometry.coordinates && d.geometry.coordinates.length > 0) {
+                if (d.geometry.type === 'Polygon' ) {
+                  let outring = d.geometry.coordinates[0] // for out ring
+                  let zorder = centroid(outring)
+                  if (zorder) d.properties.zorder = zorder // try centroid.z
+                  else d.properties.zorder = -Infinity // feature unformed
+                } else if (d.geometry.type === 'LineString' ) {
+                  let outring = d.geometry.coordinates // string
+                  let zorder = centroid(outring)
+                  if (zorder) d.properties.zorder = zorder // try centroid.z
+                  else d.properties.zorder = -Infinity // feature unformed
+                }
+              } else {
+                d.properties.zorder = -Infinity // feature unformed
+              }
           }
           return d
         })
         .sort((a, b) => a.properties.zorder - b.properties.zorder) // z order
         .map((d, i) => { d.properties.nid = i; return d }) // sequential ordinal
 
-      json.features = zordered
+      gj.features = zordered
 
-      return json
+      return gj
     }
 
-   //md: ## mgeoj.centroid   get ring's centroid
-   //md:    @ring
-   //md:    called by zorder
+    // ...................... centroid
     let centroid = function (outring) {
+
       let z = 0
       let dotsinring = outring.length
+
       for (let k = 0; k < dotsinring; k++) {
         let ck = outring[k][2] || 0 // z camera view
         z += ck
@@ -451,312 +464,247 @@ function complexifyLine(coordinates) {
       return z / dotsinring
     }
 
-
-   //md: ## mgeoj.getCoords
-   //md:    get array of coordinates from gj (eg. parent anigram)
-    let getCoords = function (json, coords = []) {
-      if (json === undefined) {
+    // ...................... getCoords
+    let getCoords = function (gj, coords = []) {
+      if (gj === undefined) {
       } else {
-        if (json.type == 'Feature') {
-          let geometry = json.geometry
+        if (gj.type == 'Feature') {
+          let geometry = gj.geometry
           if (geometry !== null) coords = [...coords, ...getCoords(geometry)]
-        } else if (json.type == 'FeatureCollection') {
-          for (let feature_num = 0; feature_num < json.features.length; feature_num++) {
-            let feature = json.features[feature_num]
+        } else if (gj.type == 'FeatureCollection') {
+          for (let feature_num = 0; feature_num < gj.features.length; feature_num++) {
+            let feature = gj.features[feature_num]
             getCoords(feature, coords)
           }
-        } else if (json.type == 'GeometryCollection') {
-          for (let geom_num = 0; geom_num < json.coords.length; geom_num++) {
-            let geometry = json.coords[geom_num]
+        } else if (gj.type == 'GeometryCollection') {
+          for (let geom_num = 0; geom_num < gj.coords.length; geom_num++) {
+            let geometry = gj.coords[geom_num]
             coords.push(geometry)
           }
-        } else if (json.type === 'Point') {
-          let geometry = json
-          coords = [...coords, geometry.coordinates]  // if Point, return array
-        } else if (json.type === 'LineString') {
-          let line = json.coordinates
+        } else if (gj.type === 'Point') {
+          let geometry = gj
+          coords = [...coords, geometry.coordinates] // if Point, return array
+        } else if (gj.type === 'LineString') {
+          let line = gj.coordinates
           let _coords = line
           coords = [...coords, ..._coords]
-        } else if (json.type === 'MultiPoint') {
-          let geometry = json
+        } else if (gj.type === 'MultiPoint') {
+          let geometry = gj
           coords.push(geometry)
-        } else if (json.type === 'Polygon') {
-          let rings = json.coordinates
+        } else if (gj.type === 'Polygon') {
+          let rings = gj.coordinates
           let _coords = rings.reduce((p, q) => [...p, ...q], [])
           coords = [...coords, ..._coords]
-        } else if (json.type === 'MultiLineString') {
-          let lines = json.coordinates
+        } else if (gj.type === 'MultiLineString') {
+          let lines = gj.coordinates
           let _coords = lines.reduce((p, q) => [...p, ...q], [])
           coords = [...coords, ..._coords]
-        } else if (json.type === 'MultiPolygon') {
-          let geometry = json
+        } else if (gj.type === 'MultiPolygon') {
+          let geometry = gj
           coords.push(geometry)
-        } else if (json.type === 'Sphere') {
-          let geometry = json
+        } else if (gj.type === 'Sphere') {
+          let geometry = gj
           coords.push(geometry)
         } else {
-          throw new Error('json type not identified.')
+          throw new Error('gj type not identified.')
         }
       }
 
       return coords
     }
 
-
-   //md: ## mgeoj.getCoordsLength
-   //md:    get number of coordinates in gj
+    // ...................... getCoordsLength
     let getCoordsLength = gj => getCoords(gj).length
 
-    
-
-   //md: ## mgeoj.getCoordsInRange
-   //md:    get first nb coordinates
-    let getCoordsInRange = function(json, nb) {
-      
+    // ...................... getCoordsInRange
+    let getCoordsInRange = function (gj, nb) {
       let ngj = {}
-      
-      if (json.type === 'Polygon') {
-        ngj = {type: json.type, coordinates: [] }
+
+      if (gj.type === 'Polygon') {
+        ngj = {type: gj.type, coordinates: [] }
         let n = 0
-        for (let i=0; i<json.coordinates.length; i++) {  // rings
-          let ring = json.coordinates[i]
+        for (let i = 0; i < gj.coordinates.length; i++) { // rings
+          let ring = gj.coordinates[i]
           let ringLength = ring.length
 
-          if (n + ringLength < nb) {    // if ring in scope
-              ngj.coordinates.push(ring)
-              n += ringLength
-              
+          if (n + ringLength < nb) { // if ring in scope
+            ngj.coordinates.push(ring)
+            n += ringLength
           } else {
-              let tmpring = ring.slice(0, nb-n)
-              ngj.coordinates.push(tmpring)
-              n += (nb-n)
-             
-              break
+            let tmpring = ring.slice(0, nb - n)
+            ngj.coordinates.push(tmpring)
+            n += (nb - n)
+
+            break
           }
-
-        }       
-        
-      } else if ((json.type === 'MultiLineString')) {
-
-        ngj = { type: json.type, coordinates: [] }
+        }
+      } else if ((gj.type === 'MultiLineString')) {
+        ngj = { type: gj.type, coordinates: [] }
         let n = 0
-        for (let i=0; i<json.coordinates.length; i++) {  // rings
-          let line = json.coordinates[i]
+        for (let i = 0; i < gj.coordinates.length; i++) { // rings
+          let line = gj.coordinates[i]
           let ringLength = line.length
 
-          if (n + ringLength < nb) {    // if line in scope
-              ngj.coordinates.push(line)
-              n += ringLength
-              
+          if (n + ringLength < nb) { // if line in scope
+            ngj.coordinates.push(line)
+            n += ringLength
           } else {
-              let tmpring = line.slice(0, nb-n)
-              ngj.coordinates.push(tmpring)
-              n += (nb-n)
-             
-              break
+            let tmpring = line.slice(0, nb - n)
+            ngj.coordinates.push(tmpring)
+            n += (nb - n)
+
+            break
           }
-
-        }   
-             
-      } else if ((json.type === 'MultiPoint')) {
-        
-        ngj = { type: 'MultiPoint', coordinates: [],  }
-        ngj.coordinates = json.coordinates.slice(0, nb)
-             
-      } else if ((json.type === 'LineString')) {
-        
-        ngj = { type: json.type, coordinates: [],  }
-        ngj.coordinates = json.coordinates.slice(0, nb)
-                    
-      } else if ((json.type === 'Feature')) {
-
-        ngj = { type:json.type, geometry: {}}
-        ngj.geometry = getCoordsInRange(json.geometry, nb)
-        
+        }
+      } else if ((gj.type === 'MultiPoint')) {
+        ngj = { type: 'MultiPoint', coordinates: [] }
+        ngj.coordinates = gj.coordinates.slice(0, nb)
+      } else if ((gj.type === 'LineString')) {
+        ngj = { type: gj.type, coordinates: [] }
+        ngj.coordinates = gj.coordinates.slice(0, nb)
+      } else if ((gj.type === 'Feature')) {
+        ngj = { type: gj.type, geometry: {}}
+        ngj.geometry = getCoordsInRange(gj.geometry, nb)
       }
 
       return ngj
-      
-      
     }
 
-    
-    
-
-   //md: ## mgeoj.isValid   check if gj is valid geojson type
-   //md:    @json
-   //md:    @type
-    let isValid = function (json, type) {
-
+    // ............................. isValid
+    let isValid = function (gj, type) {
       let valid = true
-      if (json === undefined) {
+      if (gj === undefined) {
         valid = false
       } else {
-        if (json.type == 'Feature') {
-          if (json.geometry) {
-            valid = isValid(json.geometry)
+        if (gj.type == 'Feature') {
+          if (gj.geometry) {
+            valid = isValid(gj.geometry)
           }
-        } else if (json.type == 'FeatureCollection') {
-          for (let i = 0; i < json.features.length; i++) {
-            valid = valid && isValid(json.features[i])
+        } else if (gj.type == 'FeatureCollection') {
+          for (let i = 0; i < gj.features.length; i++) {
+            valid = valid && isValid(gj.features[i])
           }
-        } else if (json.type == 'GeometryCollection') {
-            if (json.geometries !== undefined) {
-              for (let j = 0; j < json.geometries.length; j++) {
-                valid = valid && isValid(json.geometries[j])
-              }
+        } else if (gj.type == 'GeometryCollection') {
+          if (gj.geometries !== undefined) {
+            for (let j = 0; j < gj.geometries.length; j++) {
+              valid = valid && isValid(gj.geometries[j])
             }
-        } else if (json.type === 'Point') {
-            let point = json.coordinates
-            valid = valid &&
+          }
+        } else if (gj.type === 'Point') {
+          let point = gj.coordinates
+          valid = valid &&
               Array.isArray(point) &&
-                point.reduce((p, q) => p && typeof q === 'number', true)
-
-        } else if (json.type === 'LineString') {
-            let line = json.coordinates
-            valid = valid &&
+                point.reduce((p, q) => p && typeof (q === 'number' || q === undefined), true)
+        } else if (gj.type === 'LineString') {
+          let line = gj.coordinates
+          valid = valid &&
               Array.isArray(line) &&
-              line.reduce((p,q) => p &&
-                 Array.isArray(q) && q.reduce( (p2,q2) => p2 && typeof q2 === 'number', true),
-                  true)
-
-        } else if (json.type === 'MultiPoint') {       
-            let points = json.coordinates
-            points = valid &&
-              points.reduce((p,q) => p &&
-                  q.reduce( (p2,q2) => p2 && typeof q2 === 'number', true),
-                  true)
-
-        } else if (json.type === 'Polygon') {
-
-            let rings = json.coordinates
-              valid = valid &&
-                rings.reduce((p,q) => p &&
-                  q.reduce((p2,q2) => p2 &&     // ring
-                    Array.isArray(q2) && q2.reduce((p3,q3) => p3 &&  // point
-                      typeof q3 === 'number' // coord
-                      // || q3 === undefined // _e_ undefined
-                      ,
-                    true),
-                  true),
-                true)
-
-        } else if (json.type === 'MultiLineString') {
-            let lines = json.coordinates
-              valid = valid &&
-                lines.reduce((p,q) => p &&
-                  Array.isArray(q) && q.reduce((p2,q2) => p2 &&     // line
-                    Array.isArray(q2) && q2.reduce((p3,q3) => p3 &&  // point
-                      typeof q3 === 'number',   // coord
-                    true),
-                  true),
-                true)
-
-        } else if (json.type === 'MultiPolygon') {
-            let polygons = json.coordinates
-              valid = valid &&
-                polygons.reduce((p,q) => p &&
-                  Array.isArray(q) && q.reduce((p2,q2) => p2 &&       // polygon
-                    Array.isArray(q2) && q2.reduce((p3,q3) => p3 &&    // ring
-                      Array.isArray(q3) && q3.reduce((p4,q4) => p4 &&  // point
-                        typeof q4 === 'number',   // coord
-                    true),
-                  true),
-                true),
+              line.reduce((p, q) => p &&
+                 q.reduce((p2, q2) => p2 && typeof (q2 === 'number' || q2 === undefined), true),
               true)
-
-        } else if (json.type == 'Sphere') {
-            valid = true
+        } else if (gj.type === 'MultiPoint') {
+          let points = gj.coordinates
+          points = valid &&
+              points.reduce((p, q) => p &&
+                  q.reduce((p2, q2) => p2 && typeof (q2 === 'number' || q2 === undefined), true),
+              true)
+        } else if (gj.type === 'Polygon') {
+          let rings = gj.coordinates
+          valid = valid &&
+                rings.reduce((p, q) => p &&
+                  q.reduce((p2, q2) => p2 && // ring
+                    Array.isArray(q2) && q2.reduce((p3, q3) => p3 && // point
+                      typeof (q3 === 'number' || q3 === undefined) // coord
+                    ,
+                  true),
+                  true),
+                true)
+        } else if (gj.type === 'MultiLineString') {
+          let lines = gj.coordinates
+          valid = valid &&
+                lines.reduce((p, q) => p &&
+                  Array.isArray(q) && q.reduce((p2, q2) => p2 && // line
+                    Array.isArray(q2) && q2.reduce((p3, q3) => p3 && // point
+                      typeof (q3 === 'number' || q3 === undefined), // coord
+                true),
+                true),
+                true)
+        } else if (gj.type === 'MultiPolygon') {
+          let polygons = gj.coordinates
+          valid = valid &&
+                polygons.reduce((p, q) => p &&
+                  Array.isArray(q) && q.reduce((p2, q2) => p2 && // polygon
+                    Array.isArray(q2) && q2.reduce((p3, q3) => p3 && // ring
+                      Array.isArray(q3) && q3.reduce((p4, q4) => p4 && // point
+                        typeof (q4 === 'number' || q4 === undefined), // coord
+                true),
+                true),
+                true),
+                true)
+        } else if (gj.type == 'Sphere') {
+          valid = true
         } else {
           valid = false
-          throw new Error('json type not identified.', json)
+          throw new Error('gj type not identified.', gj)
         }
       }
 
-
       return valid
     }
-    
 
-    /**********************
-   *    @tclip
-   */
-
-    let tclip = function (gj, t=1, interval=[0,1]) {
+    // ............................. tclip
+    let tclip = function (gj, t = 1, interval = [0, 1]) {
       let ret = gj
-      
-      let t0 =  interval[0],
+
+      let t0 = interval[0],
         t1 = interval[1],
         period = t1 - t0,
-        tInPeriod = (t - t0) / period      
-      
+        tInPeriod = (t - t0) / period
+
       if (t < interval[0] || t > interval[1]) {
-        
-          ret = []  // return empty set
-        
+        ret = [] // return empty set
       } else if (tInPeriod === 1) { // return geojson
       } else if (gj.type && gj.type === 'Point') {
-        
-        
-        ret = gj    // in period
-        
+        ret = gj // in period
       } else if (gj.type && gj.type === 'MultiPoint') {
       } else if (gj.type && gj.type === 'LineString') {
       } else if (gj.type && gj.type === 'MultiLineString') {
       } else if (gj.type && gj.type === 'Polygon') {
-          
         let ngj = { type: 'Polygon', coordinates: [] } // return polygon
-        
+
         let rings = gj.coordinates // coords is rings array
-        let tnb = rings.reduce( (p,q) => p += q.length, 0) 
+        let tnb = rings.reduce((p, q) => p += q.length, 0)
         let nb = Math.floor(tnb * tInPeriod)
-        
+
         let outrings = []
         let n = 0
-        for (let i=0; i<rings.length; i++) {
-            let ring = rings[i]
-            let ringLength = ring.length
+        for (let i = 0; i < rings.length; i++) {
+          let ring = rings[i]
+          let ringLength = ring.length
 
-            if (n + ringLength < nb) {    // if ring in scope
-                ngj.coordinates.push(ring)
-                n += ringLength
-                
-            } else {    // complement with part of next ring
-                let tmpring = ring.slice(0, nb-n)
-                ngj.coordinates.push(tmpring)
-                n += (nb-n)
-                break
-            }
+          if (n + ringLength < nb) { // if ring in scope
+            ngj.coordinates.push(ring)
+            n += ringLength
+          } else { // complement with part of next ring
+            let tmpring = ring.slice(0, nb - n)
+            ngj.coordinates.push(tmpring)
+            n += (nb - n)
+            break
+          }
+        }
 
-        }        
-            
         ret = ngj
-
-        
-        
       } else if (gj.type && gj.type === 'MultiPolygon') {
       } else if (gj.type && gj.type === 'GeometryCollection') {
       } else if (gj.type && gj.type === 'Feature') {
-        
-        
-        
-       
-                     
-        
-        
+
       } else if (gj.type && gj.type === 'FeatureCollection') {
       }
-      
-      
-      return ret
-      
-    }      
-    
 
-    
-    /**********************
-   *    @enty
-   */
+      return ret
+    }
+
+    // ............................. enty
     let enty = function () {}
 
     enty.trim = trim

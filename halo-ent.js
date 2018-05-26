@@ -13,8 +13,9 @@
   // md: Feature Collect gj. for each feature
   // md:  geoform, conform, ereform and proform anigrams
   // md:  then pass the FeatureCollection to h.formed
+  // md:  define `geofold.properties.geonode` if undefined
 
-  let haloEnt = function haloEnt (__mapper = {}) {
+  let haloEnt = function (__mapper = {}) {
     let f = __mapper('props')(),
       manitem = __mapper('xs').m('anitem'),
       mric = __mapper('xs').m('ric'),
@@ -31,10 +32,10 @@
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
         geofold = anigram.geofold, // geofold
-        payload = anigram.payload // payload
+        payload = anigram.payload, // payload
+        avatars = anigram.avatars // avatars
 
       let boform = payload.boform, // boform
-        avatars = payload.avatars, // avatars
         ric = payload.ric, // ric
         tim = payload.tim, // tim
         vim = payload.vim, // vim
@@ -54,10 +55,11 @@
 
       let gjcollection = mgeoj.featurecollect(gj) // FEATURE COLLECT
 
-      gjcollection.features = gjcollection.features.map((feature, i) => { // per feature
-        feature = mprofier.conformer(anigram)(feature) // CONFORM
-        feature.properties.formConformed = mgeoj.deprop(feature) // store conform
-        feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
+      gjcollection.features = gjcollection.features.map((f, i) => { // per feature
+   
+        let feature = mprofier.conformer(anigram)(f) // CONFORM
+          feature.properties.formConformed = mgeoj.deprop(feature) // store conform
+          feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
 
         if (payload.ereform) { // EREFORM
           let ereformion = mprofier.ereformion(anigram)
@@ -66,14 +68,17 @@
           feature.properties.nodeEreformed = mproj3ct(feature.properties.nodeConformed, ereformion) //
           nodeConformed => nodeEreformed
         } else {
+          feature.properties.formEreformed = feature.properties.formConformed
           feature.properties.nodeEreformed = feature.properties.nodeConformed
         }
 
         if (payload.proform) { // PROFORM
           let proformion = mprofier.proformion(anigram)
           feature = mproj3ct(feature, proformion)
+          feature.properties.formProformed = mgeoj.deprop(feature) // store proform
           feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion)
         } else {
+          feature.properties.formProformed = feature.properties.formEreformed
           feature.properties.nodeProformed = feature.properties.nodeEreformed
         }
 

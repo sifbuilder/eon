@@ -31,12 +31,15 @@
   // md:   @maxlimit
 
   let renderSvg = function (__mapper = {}) {
-    let f = __mapper('props')(),
-      r = __mapper('xs').r('renderport')
+    let f = __mapper('props')()
+
+    let r = __mapper('xs').r('renderport'),
+      width = r.width(),
+      height = r.height()
 
     let state = {
-      width: r.width(),
-      height: r.height()
+      width: width,
+      height: height
     } // Viewport
 
     let svglayer = d3.select('.viewframe')
@@ -52,28 +55,29 @@
     let svgElem = svglayer.append('rect')
       .attr('id', 'svg')
       .attr('class', 'svg')
-      .attr('width', state.width)
-      .attr('height', state.height)
       .style('fill', 'transparent')
       .attr('pointer-events', 'none')
       .attr('overflow', 'visible')
 
+
+
+
+
+
+
+
+
     // ............................. svg
-    let svg = function svg () {
-      if (document.getElementById('viewframe') !== null) {
-        return d3.select('#viewframe')
-      } else {
-        return d3.select('#svg')
-      }
-    }
+    let svg = () => d3.select('#viewframe')
 
     // ............................. elems
-    let elems = function (payload, data = ['data'], idfn = null) {
+    let elems = function (idfyer, data = ['data'], idfn = null) {
       if (d3.select('.muon-style-block').empty()) {
         d3.select('head').append('style').attr('class', 'muon-style-block')
           .html('')
       }
-      if (payload == null) { // if null return the layer
+
+      if (idfyer == null) { // if null return the layer
         let svgLayer = d3.select('body').selectAll('svg').data(['svg'])
           .enter()
           .append('svg')
@@ -83,7 +87,8 @@
           .attr('height', state.height)
           .style('border', '1px solid lightgray')
         return svgLayer
-      } else if (payload == 'image') { // if image insert image
+
+      } else if (idfyer == 'image') { // if image insert image
         if (d3.select('.image').empty()) {
           let img = svg.selectAll('image').data([0])
             .enter()
@@ -96,9 +101,10 @@
           return img
         }
       }
+
       // manage the dom elements
-      else if (typeof (payload) === 'string') { // 'svg:g.links/path.link', data, idfn}
-        let parts = payload.split('/')
+      else if (typeof (idfyer) === 'string') { // 'svg:g.links/path.link', data, idfn}
+        let parts = idfyer.split('/')
         let layerpart = (parts[0]) ? parts[0] : 'svg'
         let elemspart = (parts[1]) ? parts[1] : null
 
@@ -136,6 +142,9 @@
       }
     }
 
+
+
+
     // ............................. render
     let render = function (elapsed, featurecollection, maxlimit) {
       let features = featurecollection.features
@@ -165,10 +174,8 @@
           if (texts.length > 0) {
 
 
-          
-            
             __mapper('renderSvg').elems('svg:g.' + gid + '/text.' + cid, texts, d => d.uid)
-              .text(d => d.properties.text.string)
+              .text(d => d.properties.string)
 
               .attr('x', 0) // translate instead
               .attr('y', 0) //
@@ -183,6 +190,7 @@
                     ' rotate(' +
                     (d.properties.style['rotate'] || 0) +
                     ' )'
+                    
               )
 
               .style('dx', d => d.properties.style['dx'])
@@ -234,38 +242,40 @@
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
           if (axes.length > 0) {
-            // let ax = axes[0].properties.axis
 
-            let axcall = d3.axisBottom(d3.scaleLinear()
-              .domain([200, 100])
-              .range([0, 600]))
-              .tickSize(10)
-              .tickPadding(5)
+            for (let k = 0; k<axes.length; k++) {
 
-            // cid = 'e'
-            __mapper('renderSvg').elems('svg:g.' + gid + '/g.' + 'e', axes, d => d.id)
+             let axis = axes[k]
+             
+              __mapper('renderSvg').elems('svg:g.' + gid + '/g.' + cid, Array.of(axis), d => d.properties.uid)
 
-              .data(() => axes)
+                .data(() => Array.of(axis))
 
-              .call(axcall)
-              // .attr("transform", "translate(0,0)")
-              // .call(ax.d3Axis)
-              // .attr('transform', d =>
-            // 'translate(' + d.tranlateX + ',' + d.tranlateY + ')' +
-            // 'rotate(' + d.rotate + ')'
-              // )
-              // .style('font-size', d => d.properties.axis.fontSize)
-              // .style('text-anchor', d => d.properties.axis.textAnchor)
-              // .style('font-family', d => d.properties.axis.fontFamily)
+                .call(axis.properties.axis.d3Axis)
 
-              // .style('fill', d => {
+              .attr('transform', d => // eg. "translate(21,20) rotate(15)")
 
-            // return d.properties.style.fill
-              // })
-              // .style('stroke', d => d.properties.style.stroke)
-              // .style('fill-opacity', d => d.properties.style['fill-opacity'])
-              // .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
-              // .style('stroke-width', d => d.properties.style['stroke-width'])
+                'translate(' +
+                    d.geometry.coordinates[0] +
+                    ',' +
+                    d.geometry.coordinates[1] +
+                    ')' +
+                    ' rotate(' +
+                    (d.properties.axis.rotate || 0) +
+                    ' )'
+                    
+              )
+              
+                .style('font-size', d => d.properties.axis.style['font-size'])
+                .style('text-anchor', d => d.properties.axis.style['text-anchor'])
+                .style('font-family', d => d.properties.axis.style['font-family'])
+
+                .style('fill', d => d.properties.style.fill)
+                .style('stroke', d => d.properties.style.stroke)
+                .style('fill-opacity', d => d.properties.style['fill-opacity'])
+                .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
+                .style('stroke-width', d => d.properties.style['stroke-width'])
+            }
           }
 
           /*  ................. GEOJSON FEATURE ................. */
@@ -276,7 +286,8 @@
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
           if (features.length > 0) { // _e_
-            __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)
+
+            __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)  // elems
               .data(() => features)
               .attr('d', d => {
                 if (2 && 2 && d.properties.style === undefined) console.log('** style is undefined', d)
@@ -304,7 +315,14 @@
           /*  ................. END SVG FORMS ................. */
         }
       }
+
+
+
+
+
     }
+
+
 
     // ............................. enty
     let enty = function enty () {}

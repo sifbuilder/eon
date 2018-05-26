@@ -39,10 +39,10 @@
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
         geofold = anigram.geofold, // geofold
-        payload = anigram.payload // payload
+        payload = anigram.payload, // payload
+        avatars = anigram.avatars // avatars
 
       let boform = payload.boform, // boform
-        avatars = payload.avatars, // avatars
         ric = payload.ric, // ric
         tim = payload.tim, // tim
         vim = payload.vim, // vim
@@ -70,11 +70,11 @@
           halo: halo, // inherit halo
           geofold: feature, // inherit geofold
           payload: { // payload is lost in m.animation before rendering
-            avatars, // inherit avatars
             ric: feature.properties.ric, // hoist ric
             id: feature.properties.uid, // hoist uid
             uid: feature.properties.uid // hoist uid
-          }
+          },
+          avatars: avatars // inherit avatars
         }
         return newAnigram
       })

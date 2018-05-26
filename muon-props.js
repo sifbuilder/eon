@@ -15,26 +15,32 @@
    *        @arrays
    */
 	 props.a = d => (Array.isArray(d)) ? [...d] : [d]
-   
-   props.cloneArray = function (obj) {
-        if (Array.isArray(obj)) {
-          let r = [ ...obj ]
-        } else {
-          r = obj
-        }
-        return r
+
+    props.cloneArray = function (obj) {
+      if (Array.isArray(obj)) {
+        let r = [ ...obj ]
+      } else {
+        r = obj
       }
-   
+      return r
+    }
+
     props.parray = d => (Array.isArray(d)) ? d.slice() : [d]
 
     props.rarray = d => (Array.isArray(d)) ? [ ...d ].reverse() : [d] // reverse array
-    
+
     props.isNumericArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'number', true)
 
     // pure array: no object/funcion elements
     props.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true)
 
-    // quasipure array: arrrays, string or number elements
+		// functional array
+    props.isFunctionalArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'function', true)
+		
+    // pure multiarray: array of pure arrays
+    props.isPureMultiArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && props.isPureArray(curr), true)
+
+    // quasipure array: arrays, string or number elements
     props.isQuasiPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev &&
         Array.isArray(curr) ||
         typeof (curr) === 'string' ||
@@ -53,17 +59,27 @@
 
     // tripleArray" animas animation, single polygon geojson MultiPolygon
     props.isTripleArray = d => (Array.isArray(d) && Array.isArray(d[0]) && Array.isArray(d[0][0]) &&
-        d.length === 1 && d[0].length === 1 && d[0][0].length === 1) // [[[_]]]    
-        
-      /***************************
-   *        @complex
-   */
-    props.zcoef = (rad, ang) => Complex({ re: rad * Math.cos(ang), im: rad * Math.sin(ang) })
-      
-        
+        d.length === 1 && d[0].length === 1 && d[0][0].length === 1) // [[[_]]]
+
+    props.interadd = function (arr = []) {
+      let locations = []
+      let poses = arr.length // additive positions eg.2
+      let mx = Math.max(...arr.map(d => d.length)) // num of dims eg. 3
+
+      for (let i = 0; i < mx; i++) { // for each dimension
+        let loc = 0
+        for (let j = 0; j < poses; j++) {
+          loc = loc + arr[j][i]
+        }
+        location[i] = loc
+      }
+      locations.push(location)
+
+      return locations
+    }
+
     /* **************************
    *        @interlink
-   *
    *        [ [a1,a2,a3], [b1,b2] ]     [ [a1,b1], [a2,b2x], [a3,b2] ]
    *        [ {a1,a2,a3}, [b1,b2] ]     [ [a1v,b1], [a2v,b2x], [a3v,b2] ]
    *        [ {a1,a2,a3}, {b1,b2} ]     [ [a1v,b1], [a2v,b2x], [a3v,b2] ]
@@ -94,20 +110,26 @@
         }
       }
       return streamXYZ
-    }        
+    }
 
-    props.arywinopen = (x0,x1,dx) => {
-        
-          let epsilon = 1e-5
-          let xx = []
-          let mx = Math.max(Math.abs(x0),Math.abs(x1))- epsilon
-          let mt = Math.ceil(mx / dx)
-          for (let i=-mt; i<mt; i++) {if (x0 < i * dx && i * dx < x1) {xx.push(i * dx)}}
-          return xx
-        
-      }
-      
-    props.arywinclosed = (x0,x1,dx) => [x0, ...props.arywinopen(x0,x1,dx), x1]
+    props.interlace = props.interlink
+
+    props.arywinopen = (x0, x1, dx) => {
+      let epsilon = 1e-5
+      let xx = []
+      let mx = Math.max(Math.abs(x0), Math.abs(x1)) - epsilon
+      let mt = Math.ceil(mx / dx)
+      for (let i = -mt; i < mt; i++) { if (x0 < i * dx && i * dx < x1) { xx.push(i * dx) } }
+      return xx
+    }
+
+    props.arywinclosed = (x0, x1, dx) => [x0, ...props.arywinopen(x0, x1, dx), x1]
+
+    /***************************
+   *        @complex
+   */
+    props.zcoef = (rad, ang) => Complex({ re: rad * Math.cos(ang), im: rad * Math.sin(ang) })
+
     /***************************
    *        @functions
    */
@@ -117,16 +139,16 @@
       let clone = {}
       if (typeof d === 'object') clone = props.cloneObj(d)
       else if (array.isArray(d)) clone = props.cloneArray(d)
-    return clone}
+      return clone
+    }
 
     /***************************
    *        @objects
    */
-   
-    props.isPureObject = d => typeof d === 'object' && 
+
+    props.isPureObject = d => typeof d === 'object' &&
         d.getOwnPropertyNames.reduce((prev, curr) => prev && typeof d.curr !== 'object' && typeof d.curr !== 'function', true)
-  
-   
+
     // https://stackoverflow.com/questions/728360/how-do-i-correctly-clone-a-javascript-object
     props.o = obj => {
       if (obj == null || typeof obj !== 'object') return obj
@@ -266,9 +288,7 @@
 
     props.geoscale = extent => d3.scaleLinear().domain(extent[0]).range(extent[1])
 
-
     props.closerange = (a, b) => [...d3.range(a, b), a]
-
 
     props.isPureObject = d => (!Array.isArray(d) &&
                 typeof d === 'object' &&
@@ -330,9 +350,9 @@
     /***************************
    *        @numbers
    */
-   props.grouplinear = d => n => Math.ceil(n / d)
-   props.groupgeometric = d => n => Math.ceil(n ** (1/ d))
-   
+    props.grouplinear = d => n => Math.ceil(n / d)
+    props.groupgeometric = d => n => Math.ceil(n ** (1 / d))
+
     /***************************
    *        @streams
    */
@@ -446,13 +466,12 @@
         var multiplier = Math.pow(10, precision || 0)
         return Math.round(value * multiplier) / multiplier
       }
-    }   
+    }
 
-    props.strToJson = d => JSON.stringify(test.replace(/\n|\r/g, " ").split(" ").map(d => d.split(",").map(p=>Number.parseFloat(p))))
-   
+    props.strToJson = d => JSON.stringify(test.replace(/\n|\r/g, ' ').split(' ').map(d => d.split(',').map(p => Number.parseFloat(p))))
+
     props.format2 = d => d.map(p => p ? +p.toFixed(2) : p)
-   
-   
+
     /***************************
    *        @obj
    *        entry from list and index
@@ -486,7 +505,7 @@
 
     props.debug = () => [].join.call(arguments, '\n')
 
-   /******************
+    /******************
  *        reticule
  */
     props.reticule = function (ret = []) {
@@ -507,8 +526,7 @@
 
       return { ccs, rrs }
     }
-   
-    
+
     /***************************
    *        @enty
    */

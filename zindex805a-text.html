@@ -11,10 +11,23 @@
 </head>
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
+
 <script src="script-enls.js"></script>
 <script src="script-ents.js"></script>
 
 <script>
+
+
+// md: # md:{filename}
+// md: **expose text**
+
+// md: ## animas
+// md: * ### textAnima
+// md:     get the geofold from the default in h.text
+// md:     define in payload.text
+
+// md: # license
+// md: MIT
 
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
@@ -27,41 +40,25 @@ let muonAlima = function muonAlima (__mapper) {
   // .................. pics
   let tim = {'td': 12200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
+  // .................. textAnima
+  let textAnima = {
 
-  // .................. text
-  let text = {
-
-    halo: 'text',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        type: 'Point',
-        coordinates: [0, 0]
-
-      },
-      properties: {
-        sort: 'text',
-        text: p.payload.text.text,
-        style: p.payload.text.style
-      }
-    }),
+    halo: 'textform',
 
     payload: {
 
       tim: tim,
       ric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
-      boform: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.1, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      boform: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
       proform: {
         projection: 'uniwen',
-        translate: [ 30, 40 ]
+        translate: [ 130, 140 ]
       },
-      text: {
+      textform: {
         string: 'this is not a text',
         style: {
           rotate: [[[ 0, 1 ]]],
-          'font-size': [[[1, 6]]],
+          'font-size': [[[10, 60]]],
           'font-family': 'BankFuturistic',
           'text-anchor': 'center'
 
@@ -74,7 +71,7 @@ let muonAlima = function muonAlima (__mapper) {
   // .................. animaApi
   let animas = [
 
-    text, // h.text
+    textAnima, // h.text
 
   ]
 

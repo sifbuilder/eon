@@ -20,7 +20,7 @@
  */
 let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, img: 0, gui: 0, fps: 0, stats: 0}) // INIT
+  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, bck: 0, gui: 0, fps: 0, stats: 0}) // INIT
 
   /**********************
    *    @libs
@@ -192,10 +192,10 @@ let muonAlima = function muonAlima (__mapper) {
  *
  */
 
-  nat.payload.avatars = {
+  nat.avatars = {
     fuelnat // h.fuel
   }
-  natFlat.payload.avatars = {
+  natFlat.avatars = {
     fuelnat // h.fuel
   }
 
