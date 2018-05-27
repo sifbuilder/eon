@@ -151,7 +151,7 @@
                 let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
                 
                 
-                geometry = mgraticule.gedges(graticule).geometry
+                geometry = mgraticule.vhMultiLine(graticule).geometry
                 
                 
               } else { // 2d
@@ -166,7 +166,7 @@
                 
                 // _e_
                 let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
-                geometry = mgraticule.gedges(graticule).geometry // geometry.type: MultiLineString
+                geometry = mgraticule.vhMultiLine(graticule).geometry // geometry.type: MultiLineString
                 
                 let p = geometry.coordinates[1].slice(0, -1)
                 

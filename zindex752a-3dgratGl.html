@@ -101,7 +101,7 @@ let muonAlima = function (__mapper) {
 
     halo: 'ent',
 
-    geofold: p => __mapper('xs').m('graticule').gedges(p.payload.graticule),
+    geofold: p => __mapper('xs').m('graticule').vhMultiLine(p.payload.graticule),
 
     payload: {
       tim: tim,

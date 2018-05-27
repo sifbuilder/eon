@@ -39,12 +39,19 @@
 //md:  mersCoords to get vert coords
 
 //md: *gratiparams
-
+//md: use:
+//md: ```
+//md: let {X0, X1, DX, PX, x0, x1, dx, px,
+//md:      Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
+//md: ```
 //md:  lattice.[ Xx, Yy ]
+//md:   lattice specifies x and y discrete with same major and minor
 //md:  frame.[ [X,Y], [x,y] ]   X:[X0,X1,DX,PX]
+//md:   frame defineds x and y major and minor discretes
 //md:  frame.[ [ Xx, Yy ] ]    Xx:[X0,X1,DX,PX]
 //md:  [ Xx, Yy ]
-
+//md:   if type not specified assume lattice
+//md: 
 //md: *arywinopen
 //md:   call `arywinopen(x0,x1,dx)`
 //md:   return array of elements in [x0,x1] with pass dx
@@ -69,26 +76,30 @@
 //md: ## methods
 //md: *grarr
 //md:   return `{mms, pps}`  of meridians and parallels
-//md:     on symgraticuleX and symgraticuleY
+//md:     on symetrical  discretes with symgraticuleX and symgraticuleY
+//md:     mms and pps are gj.MultiLineString geometries
 //md: 
 //md: *equator
 //md:   return Feature.LineString coordinates: equator
 //md:     equator: [ [ [-180, 180, 360, 1], [-90, 90, 360, 1] ] ] 
 //md: 
-//md: *gedges
+//md: *vhMultiLine
 //md:   return Feature.MultiLineString.coordinates: [...mersCoords,...parsCoords]
 //md: 
-//md: *medges
+//md: *vMultiLine
 //md:   return Feature.MultiLineString.coordinates: mersCoords
 //md: 
-//md: *pedges
+//md: *hMultiLine
 //md:   return Feature.MultiLineString.coordinates: parsCoords
 //md: 
 //md: *dedges
 //md: 
 //md: 
 //md: *gvertices
-//md:   
+//md:   call `gvertices(params)`
+//md:   get mersq sym mers and parsq sym pars from grarr
+//md:   takes vertices from meridians with step being the y precision (dy/py)
+//md:   mers[i].length may be 5, while parsq: 3
 //md: 
 //md: *gfaces
 //md: 
@@ -336,8 +347,6 @@
       if (!mgeoj.isValid(mms)) { console.error("mms not valid") }
 
       
-      
-      
       // include equator
       let bigpar = (params.bigpar !== undefined) ? params.bigpar : 1
 
@@ -379,8 +388,8 @@
       return gj
     }  
     
-    // .................. gedges
-    let gedges = function (params = {}) {
+    // .................. vhMultiLine
+    let vhMultiLine = function (params = {}) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
       let parsCoords = g.pps.coordinates
@@ -390,15 +399,15 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString',coordinates: coords,},
-        properties: {mgraticule:'gedges'}
+        properties: {mgraticule:'vhMultiLine'}
       }   
       if (!mgeoj.isValid(gj)) console.error("gj not valid")
 
       return gj
     }
     
-    // .................. medges
-    let medges = function (params = {}) {
+    // .................. vMultiLine
+    let vMultiLine = function (params = {}) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
       let parsCoords = g.pps.coordinates
@@ -408,15 +417,15 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString',coordinates: coords,},
-        properties: {mgraticule:'gedges'}
+        properties: {mgraticule:'vhMultiLine'}
       }   
       if (!mgeoj.isValid(gj)) console.error("gj not valid")
 
       return gj
     }
     
-    // .................. pedges
-    let pedges = function (params = {}) {
+    // .................. hMultiLine
+    let hMultiLine = function (params = {}) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
       let parsCoords = g.pps.coordinates
@@ -426,7 +435,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString',coordinates: coords,},
-        properties: {mgraticule:'gedges'}
+        properties: {mgraticule:'vhMultiLine'}
       }   
       if (!mgeoj.isValid(gj)) console.error("gj not valid")
 
@@ -467,7 +476,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString',coordinates: lines,},
-        properties: {mgraticule:'gedges'}
+        properties: {mgraticule:'vhMultiLine'}
       }   
       if (!mgeoj.isValid(gj)) console.error("gj not valid")
 
@@ -490,28 +499,41 @@
       let parsq = parsCoords.length //  [-180, 180] [dx,px]
 
       let index = tidx(mersq, parsq) // 12, 7
+if (1 && 1) console.log('mersq, parsq', mersq, parsq)
+if (1 && 1) console.log('mersCoords', mersCoords[0])
 
-      let m0 = 0 // 0
-      let mn = mersq // 12
-      let p0 = 0 // 0
-      let pn = parsq // 6
+      let m0 = 0
+      let mn = mersq // eg. 4  mers with 5 coords each
+      let p0 = 0
+      let pn = parsq // eg. 3
 
       let vertices = []
       for (let i = m0; i < mn; i++) { // meridians
-        for (let j = p0; j < pn; j++) { // parallels   exclude upper lat
+        // for (let j = p0; j < pn; j++) { // parallels   exclude upper lat
+        for (let j = p0; j < mersCoords[i].length-1; j++) { // parallels   exclude upper lat
           let i0 = i							// mer index
           let i1 = (i + 1) % mersq 	// return to origin
 
           let j0 = j							// par index
           let j1 = (j + 1) 				//
 
-          vertices[index(i0, j0)] = mersCoords[i0][j0 * ry] // [0,0]	revert precision to step
-          vertices[index(i0, j1)] = mersCoords[i0][j1 * ry]	// [0,1]
-          vertices[index(i1, j0)] = mersCoords[i1][j0 * ry]	// [1,0]
-          vertices[index(i1, j1)] = mersCoords[i1][j1 * ry]	// [1,1]
+          let j0p = Math.round(j0 * ry) //	revert precision to step
+          let j1p = Math.round(j1 * ry)
+          
+          let verts = []
+          
+          verts[0] = vertices[index(i0, j0)] = mersCoords[i0][j0p] // [0,0] [0,0] 
+          verts[1] = vertices[index(i0, j1)] = mersCoords[i0][j1p] // [0,1] [0,1]
+          verts[2] = vertices[index(i1, j0)] = mersCoords[i1][j0p] // [1,0] [1,0]
+          verts[3] = vertices[index(i1, j1)] = mersCoords[i1][j1p] // [1,1] [1,1]
+          
+          // if (1 && 1) console.log('>>>')
+          // if (1 && 1) console.log('mers',i,j, i0,j0p, i1,j1p)
+          // if (1 && 1) console.log('verts', ...verts)
+
+
         }
       }
-
       
       return {    // return vertices
         type: 'Feature',
@@ -538,7 +560,8 @@
 
       let faces = []
       for (let i = m0; i < mn; i++) { // meridians    0 - 11
-        for (let j = p0; j < pn - 1; j++) { // exclude upper segement
+        // for (let j = p0; j < pn - 1; j++) { // exclude upper segement
+        for (let j = p0; j < mersCoords[i].length-1; j++) { // exclude upper segement
           let i0 = i
           let i1 = (i + 1) % mersq // mer 12 is mer 0
 
@@ -574,9 +597,9 @@
     enty.grarr = grarr
 
 
-    enty.gedges = gedges
-    enty.medges = medges
-    enty.pedges = pedges
+    enty.vhMultiLine = vhMultiLine
+    enty.vMultiLine = vMultiLine
+    enty.hMultiLine = hMultiLine
     
     enty.dedges = dedges
     

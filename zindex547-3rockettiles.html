@@ -126,10 +126,10 @@ let muonAlima = function muonAlima (__mapper) {
     halo: 'ent',
 
     geofold: p => {
-      // let gedges = __mapper('xs').m('graticule').gedges(p.payload.graticule)
+      // let vhMultiLine = __mapper('xs').m('graticule').vhMultiLine(p.payload.graticule)
       // let type = 'Feature'
       // let properties = {}
-      // let geometry = {type: 'MultiLineString',coordinates: gedges}
+      // let geometry = {type: 'MultiLineString',coordinates: vhMultiLine}
       // let gj = {type, geometry, properties}
 
       let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates

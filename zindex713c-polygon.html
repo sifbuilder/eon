@@ -113,28 +113,28 @@ let muonAlima = function (__mapper) {
     
     
     
-    // halo: 'ent',
-    // geofold: function(p) {
+    halo: 'ent',
+    geofold: function(p) {
       
-      // let graticule = p.payload.graticule
+      let graticule = p.payload.graticule
       
-			// let verts =  mgraticule.gvertices(graticule)  // Feature.LineString
-      // let vertices = verts.geometry.coordinates
-			// let faces = mgraticule.gfaces(graticule)	// faces
+			let verts =  mgraticule.gvertices(graticule)  // Feature.LineString
+      let vertices = verts.geometry.coordinates
+			let faces = mgraticule.gfaces(graticule)	// faces
 
-      // let gj = {type: "Polygon",coordinates: []}	
- 			// for (let i=0; i<faces.length; i++) {
+      let gj = {type: "Polygon",coordinates: []}	
+ 			for (let i=0; i<faces.length; i++) {
 
-					// let face = faces[i]
-					// let facering = [vertices[face[0]], vertices[face[1]], vertices[face[2]] ]
-          // facering = [...facering, facering[0]]
-          // gj.coordinates.push(facering)
+					let face = faces[i]
+					let facering = [vertices[face[0]], vertices[face[1]], vertices[face[2]] ]
+          facering = [...facering, facering[0]]
+          gj.coordinates.push(facering)
       
-      // }
+      }
       
-      // return gj
+      return gj
       
-    // },
+    },
     
         
     // halo: 'ent',
@@ -152,13 +152,13 @@ let muonAlima = function (__mapper) {
     // },
 
     
-    halo: 'tiles',
-    geofold: function(p) {
-      let graticule = p.payload.graticule
+    // halo: 'tiles',
+    // geofold: function(p) {
+      // let graticule = p.payload.graticule
 
-      let vhMultiLine =  mgraticule.vhMultiLine(graticule)
-      return vhMultiLine
-    },
+      // let vhMultiLine =  mgraticule.vhMultiLine(graticule)
+      // return vhMultiLine
+    // },
 
     payload: {
 

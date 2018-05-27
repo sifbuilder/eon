@@ -232,7 +232,7 @@ let muonAlima = function muonAlima (__mapper) {
   // -------------------------------  gratilines21
   let gratilines21 = {
     halo: 'ent',
-    geofold: p => mgraticule.gedges(p.payload.graticule),
+    geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
     payload: {
       tim: tim,
       ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},
@@ -250,7 +250,7 @@ let muonAlima = function muonAlima (__mapper) {
   let gratilines22 = {
     halo: 'ent',
     geofold: p => {
-      let edges = mgraticule.gedges(p.payload.graticule)
+      let edges = mgraticule.vhMultiLine(p.payload.graticule)
       let type = 'Feature'
       let properties = {}
       let geometry = {type: 'MultiLineString', coordinates: edges}

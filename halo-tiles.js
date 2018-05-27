@@ -82,7 +82,6 @@ var haloTiles = function (__mapper = {}) {
 
 			}
 
-if (1 && 1) console.log('newAnigrams', newAnigrams)
 
 
 

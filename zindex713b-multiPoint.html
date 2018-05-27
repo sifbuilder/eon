@@ -94,22 +94,22 @@ let muonAlima = function (__mapper) {
     // },
 
 
-    // halo: 'ent',
-    // geofold: function(p) {
+    halo: 'ent',
+    geofold: function(p) {
       
-      // let graticule = p.payload.graticule
+      let graticule = p.payload.graticule
       
-			// let verts =  mgraticule.gvertices(graticule)  // Feature.LineString
-      // let vertices = verts.geometry.coordinates
+			let verts =  mgraticule.gvertices(graticule)  // Feature.LineString
+      let vertices = verts.geometry.coordinates
       
-			// let faces = mgraticule.gfaces(graticule)	// faces
+			let faces = mgraticule.gfaces(graticule)	// faces
 
-      // let gj = {type: "MultiPoint",coordinates: []}	
-      // gj.coordinates = vertices
+      let gj = {type: "MultiPoint",coordinates: []}	
+      gj.coordinates = vertices
       
-      // return gj
+      return gj
       
-    // },
+    },
     
     
     
@@ -152,13 +152,13 @@ let muonAlima = function (__mapper) {
     // },
 
     
-    halo: 'tiles',
-    geofold: function(p) {
-      let graticule = p.payload.graticule
+    // halo: 'tiles',
+    // geofold: function(p) {
+      // let graticule = p.payload.graticule
 
-      let vhMultiLine =  mgraticule.vhMultiLine(graticule)
-      return vhMultiLine
-    },
+      // let vhMultiLine =  mgraticule.vhMultiLine(graticule)
+      // return vhMultiLine
+    // },
 
     payload: {
 

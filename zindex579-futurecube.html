@@ -78,8 +78,8 @@
       geofold: p => {
         let payload = p.payload
 
-        let gedges = __mapper('xs').m('graticule').gedges(payload.graticule)
-        return gedges
+        let vhMultiLine = __mapper('xs').m('graticule').vhMultiLine(payload.graticule)
+        return vhMultiLine
       },
 
       payload: {

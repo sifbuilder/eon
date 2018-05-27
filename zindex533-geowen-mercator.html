@@ -115,7 +115,7 @@ let muonAlima = function (__mapper) {
 
     geofold: p => ({
       type: 'Feature',
-      geometry: {type: 'MultiLineString', coordinates: mgraticule.gedges(p.payload.graticule)},
+      geometry: {type: 'MultiLineString', coordinates: mgraticule.vhMultiLine(p.payload.graticule)},
       properties: {}
     }),
 

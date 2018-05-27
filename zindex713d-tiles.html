@@ -83,82 +83,16 @@ let muonAlima = function (__mapper) {
     // .................... sphereForm
   let sphereForm = {
 
-    // halo: 'ent',
-    // geofold: function(p) {
-      
-      // let graticule = p.payload.graticule
-
-      // let vhMultiLine =  mgraticule.vhMultiLine(graticule)
-      // return vhMultiLine
-      
-    // },
-
-
-    // halo: 'ent',
-    // geofold: function(p) {
-      
-      // let graticule = p.payload.graticule
-      
-			// let verts =  mgraticule.gvertices(graticule)  // Feature.LineString
-      // let vertices = verts.geometry.coordinates
-      
-			// let faces = mgraticule.gfaces(graticule)	// faces
-
-      // let gj = {type: "MultiPoint",coordinates: []}	
-      // gj.coordinates = vertices
-      
-      // return gj
-      
-    // },
-    
-    
-    
-    // halo: 'ent',
-    // geofold: function(p) {
-      
-      // let graticule = p.payload.graticule
-      
-			// let verts =  mgraticule.gvertices(graticule)  // Feature.LineString
-      // let vertices = verts.geometry.coordinates
-			// let faces = mgraticule.gfaces(graticule)	// faces
-
-      // let gj = {type: "Polygon",coordinates: []}	
- 			// for (let i=0; i<faces.length; i++) {
-
-					// let face = faces[i]
-					// let facering = [vertices[face[0]], vertices[face[1]], vertices[face[2]] ]
-          // facering = [...facering, facering[0]]
-          // gj.coordinates.push(facering)
-      
-      // }
-      
-      // return gj
-      
-    // },
-    
-        
-    // halo: 'ent',
-    // geofold: function(p) {
-      // let graticule = p.payload.graticule
-
-			// let grarr = mgraticule.grarr(graticule)	// grat {mms,pps}
-				// let mersCoords = grarr.mms.coordinates
-				// let parsCoords = grarr.pps.coordinates
-			// let coords = [...mersCoords, ...parsCoords]
-
-			// let verts =  mgraticule.gvertices(graticule)
-			// let faces = mgraticule.gfaces(graticule)	// faces
-
-    // },
-
-    
-    halo: 'tiles',
+    halo: 'ent',
     geofold: function(p) {
+      
       let graticule = p.payload.graticule
 
       let vhMultiLine =  mgraticule.vhMultiLine(graticule)
       return vhMultiLine
+      
     },
+
 
     payload: {
 
