@@ -83,8 +83,8 @@ let muonAlima = function (__mapper) {
     // .................... sphereForm
   let sphereForm = {
 
-    halo: 'ent',
-    geofold: p => mgraticule.gedges(p.payload.graticule),
+    // halo: 'ent',
+    // geofold: p => mgraticule.gedges(p.payload.graticule),
 
     
     
@@ -111,21 +111,21 @@ let muonAlima = function (__mapper) {
     // },
     
         
-    // halo: 'ent',
-    // geofold: function(p) {
-      // let graticule = p.payload.graticule
-			// let verts =  mgraticule.gvertices(graticule)  // Feature.LineString
-      // let vertices = verts.geometry.coordinates
-			// let faces = mgraticule.gfaces(graticule)	// faces
-      // if (1 && 1) console.log('verts', verts)
+    halo: 'ent',
+    geofold: function(p) {
+      let graticule = p.payload.graticule
+			let verts =  mgraticule.gvertices(graticule)  // Feature.LineString
+      let vertices = verts.geometry.coordinates
+			let faces = mgraticule.gfaces(graticule)	// faces
+      if (1 && 1) console.log('verts', verts)
 
-      // let gj = {type: "MultiPoint",coordinates: []}	
+      let gj = {type: "MultiPoint",coordinates: []}	
       
-      // gj.coordinates = vertices
+      gj.coordinates = vertices
       
-      // return gj
+      return gj
       
-    // },
+    },
     
 
     // halo: 'ent',

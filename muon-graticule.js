@@ -45,28 +45,52 @@
 //md:  frame.[ [ Xx, Yy ] ]    Xx:[X0,X1,DX,PX]
 //md:  [ Xx, Yy ]
 
-//md: ### arywinopen
-
+//md: *arywinopen
+//md:   call `arywinopen(x0,x1,dx)`
+//md:   return array of elements in [x0,x1] with pass dx
+//md: 
+//md: *arywinclose
+//md:   as arywinopen closing the array
+//md: 
+//md: *symgraticuleY
+//md:   return function of dot to arywinclose array
+//md: 
+//md: *symgraticuleX
+//md:   return function of dot to arywinclose array
+//md:   open range interval [x0,x1)
+//md: 
+//md: *asymgraticuleY
+//md:   return function of dot to arywinclose array
+//md: 
+//md: *asymgraticuleX
+//md:   return function of dot to arywinclose array
+//md:   open range interval [x0,x1)
+//md: 
 //md: ## methods
 //md: *grarr
+//md:   return `{mms, pps}`  of meridians and parallels
+//md:     on symgraticuleX and symgraticuleY
 //md: 
+//md: *equator
+//md:   return Feature.LineString coordinates: equator
+//md:     equator: [ [ [-180, 180, 360, 1], [-90, 90, 360, 1] ] ] 
 //md: 
 //md: *gedges
-//md: 
+//md:   return Feature.MultiLineString.coordinates: [...mersCoords,...parsCoords]
 //md: 
 //md: *medges
-//md: 
+//md:   return Feature.MultiLineString.coordinates: mersCoords
 //md: 
 //md: *pedges
-//md: 
+//md:   return Feature.MultiLineString.coordinates: parsCoords
 //md: 
 //md: *dedges
 //md: 
 //md: 
-//md: *gfaces
-//md: 
-//md: 
 //md: *gvertices
+//md:   
+//md: 
+//md: *gfaces
 //md: 
 //md: 
 //md: *equator
@@ -240,37 +264,42 @@
         
           let epsilon = 1e-5
           let xx = []
-          let mx = Math.max(Math.abs(x0),Math.abs(x1))- epsilon
+          let mx = Math.max(Math.abs(x0),Math.abs(x1)) - epsilon
           let mt = Math.ceil(mx / dx)
           for (let i=-mt; i<mt; i++) {if (x0 < i * dx && i * dx < x1) {xx.push(i * dx)}}
           return xx
         
       }
-      
+
+    // .................. arywinclosed      
       let arywinclosed = (x0,x1,dx) => [x0, ...arywinopen(x0,x1,dx), x1]
      
-      function symgraticuleX (y0, y1, dy) {
+    // .................. symgraticuleX 
+    function symgraticuleX (y0, y1, dy) {
         
         let y = arywinclosed(y0, y1, dy)    // sym win
         return _ => y.map(y => [_, y])
         
       }
 
-      function symgraticuleY (x0, x1, dx) {
+    // .................. symgraticuleY 
+    function symgraticuleY (x0, x1, dx) {
         
         let x = arywinclosed(x0, x1, dx)    // sym win
         return _ => x.map(x => [x, _])
         
       }
       
-      function asymgraticuleX (y0, y1, dy) {
+    // .................. asymgraticuleX 
+    function asymgraticuleX (y0, y1, dy) {
         
         let y = d3.range(y0, y1 - eps, dy).concat(y1) // [y0,y1) ,y1]
         return _ => y.map(y => [_, y])
         
       }
       
-      function asymgraticuleY (x0, x1, dx) {
+    // .................. asymgraticuleY 
+    function asymgraticuleY (x0, x1, dx) {
         
         let x = d3.range(x0, x1 - eps, dx).concat(x1) // [x0,x1) ,x1]
         return _ => x.map(x => [x, _])
@@ -483,8 +512,8 @@
         }
       }
 
-      // return vertices
-      return {
+      
+      return {    // return vertices
         type: 'Feature',
         geometry: {type: 'LineString',coordinates: vertices},
         properties: {}
@@ -535,7 +564,12 @@
 
 
   // .................. enty
-    let enty = function () {}
+    let enty = function (p={}) {
+      
+      state.graticule = gratiparams(p)
+      return enty
+      
+    }
 
     enty.grarr = grarr
 
