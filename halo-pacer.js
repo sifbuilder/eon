@@ -152,11 +152,9 @@
         cwen.reset(svg)
         cversor.reset(svg)
       }
-if (1 && 1) console.log('crayder', crayder)
       if ((crayder.mouse() !== undefined && crayder.mouseDown() === 1) ||
           (crayder.touch() !== undefined && crayder.touchStart() === 1)) { // on mouse DOWN
 
-if (1 && 1) console.log('crayder', crayder.mouse())
 
         if (mousesignal === 0 || crayder.mouse().type === 'mousedown') { //
           count.event = Math.floor(pacer.eventN) //  if in state or was event
