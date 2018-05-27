@@ -119,8 +119,7 @@
 
   // ............................. natFeature
     let natFeature = function (form) {
-      
-      if (1 && 1) console.log('natFeature form', form)
+
 
       
       let feature
@@ -132,48 +131,48 @@
       } else {  
     
 
-              let nformed = natNform(form) // NFORM
+        let nformed = natNform(form) // NFORM
 
-              let geometry
-              let dx, dy, sx, sy
+        let geometry
+        let dx, dy, sx, sy
 
-              if (Object.keys(nformed).length > 2) { // 3d
-              
-                dx = 360 / nformed.x.seg5 // x
-                dy = 360 / nformed.z.seg5 // ____ z ___
-                               
-                sx = dx
-                sy = dy
+        if (Object.keys(nformed).length > 2) { // ___ 3d
+        
+          dx = 360 / nformed.x.seg5 // x
+          dy = 360 / nformed.z.seg5 // ____ z ___
+                         
+          sx = dx
+          sy = dy
 
-                let xdomain = [-180, 180]
-                let ydomain = [-90, 90]
-                
-                let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
-                
-                
-                geometry = mgraticule.vhMultiLine(graticule).geometry
-                
-                
-              } else { // 2d
-              
-                dx = 360 / nformed.x.seg5 // x
-                dy = 360 / nformed.y.seg5 // y
-                sx = 360
-                sy = 360
-                
-                let xdomain = [-180, 180]
-                let ydomain = [-180, 180]              
-                
-                // _e_
-                let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
-                geometry = mgraticule.vhMultiLine(graticule).geometry // geometry.type: MultiLineString
-                
-                let p = geometry.coordinates[1].slice(0, -1)
-                
-                // p = [...p, p[0]]  // close
+          let xdomain = form.x.dom3 || [-180, 180]
+          let ydomain = form.z.dom3 || [-90, 90]  // ____ z ___
+          
+          let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
+          
+          
+          geometry = mgraticule.vhMultiLine(graticule).geometry
+          
+          
+        } else { // ___ 2d
+        
+          dx = 360 / nformed.x.seg5 // x
+          dy = 360 / nformed.y.seg5 // y
+          sx = 360
+          sy = 360
+          
+          let xdomain = [-180, 180]
+          let ydomain = [-180, 180]              
+          
+          // _e_
+          let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
+          geometry = mgraticule.vhMultiLine(graticule).geometry // geometry.type: MultiLineString
+          
+          let p = geometry.coordinates[1].slice(0, -1)
+          
+          // p = [...p, p[0]]  // close
 
-                geometry.coordinates = Array.of(p)
-              }
+          geometry.coordinates = Array.of(p)
+        }
 
 
 
@@ -212,7 +211,7 @@
 
   // ............................. closeFeature
     let closeFeature = function (feature) {
-      if (1 && 1) console.log('feature', feature)
+
 
       let newFeature = Object.assign({},feature)
       if (feature.type === 'Feature' && feature.geometry.type === 'MultiLineString') {
