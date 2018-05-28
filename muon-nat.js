@@ -21,8 +21,8 @@
   // md:  compleate form for natform
   // md:
   // md: # license
-  // md: MIT   
-  
+  // md: MIT
+
   let muonNat = function muonNat (__mapper = {}) {
     let f = __mapper('props')(),
       mlacer = __mapper('xs').m('lacer'),
@@ -48,7 +48,7 @@
 
         nformed.x = Object.assign({}, defs, form)
         nformed.y = Object.assign({}, defs, form)
-        
+
       } else if (form && typeof form === 'object' && // {x,y}
             (form.x !== undefined && form.y !== undefined)) {
         nformed.x = Object.assign({}, defs, form.x)
@@ -59,13 +59,13 @@
           nformed.z = Object.assign({}, defs, form.z)
 
           nformed.r = form.r
-          
+
         } else if (form.z !== undefined && form.r === undefined) { // {x,y,z}
-        
+
           nformed.z = Object.assign({}, defs, form.z)
 
           nformed.r = Object.assign({}, defs)
-          
+
         }
       } else if (form && typeof form === 'object' && // form:{x:obj}
             (form.x !== undefined && form.y === undefined)) {
@@ -112,7 +112,7 @@
         if (i === 2 && form.fn0 === undefined) form.fn0 = (r,s,u,v, a,b,c=1,d=1) =>              d * sin(v)
         if (i === 3 && form.fn0 === undefined) form.fn0 = (r,s,u,v, a,b,c=1,d=1) =>              c * cos(u)
       }
-   
+
       return nformed
     }
 
@@ -121,15 +121,15 @@
     let natFeature = function (form) {
 
 
-      
+
       let feature
-  
+
       if (f.isSame(form, cache.form)) {
-        
+
         feature = cache.feature
-        
-      } else {  
-    
+
+      } else {
+
 
         let nformed = natNform(form) // NFORM
 
@@ -137,38 +137,38 @@
         let dx, dy, sx, sy
 
         if (Object.keys(nformed).length > 2) { // ___ 3d
-        
+
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.z.seg5 // ____ z ___
-                         
+
           sx = dx
           sy = dy
 
           let xdomain = form.x.dom3 || [-180, 180]
           let ydomain = form.z.dom3 || [-90, 90]  // ____ z ___
-          
+
           let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
-          
-          
+
+
           geometry = mgraticule.vhMultiLine(graticule).geometry
-          
-          
+
+
         } else { // ___ 2d
-        
+
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y
           sx = 360
           sy = 360
-          
+
           let xdomain = [-180, 180]
-          let ydomain = [-180, 180]              
-          
+          let ydomain = [-180, 180]
+
           // _e_
           let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
           geometry = mgraticule.vhMultiLine(graticule).geometry // geometry.type: MultiLineString
-          
+
           let p = geometry.coordinates[1].slice(0, -1)
-          
+
           // p = [...p, p[0]]  // close
 
           geometry.coordinates = Array.of(p)
@@ -192,18 +192,18 @@
               }
 
               let projection = mprofier.formion({
-                    projection: 'natform', 
+                    projection: 'natform',
                     form: nformed
               })
 
               feature = mproj3ct(gj, projection)
 
          cache.form = form
-         cache.feature = feature  
+         cache.feature = feature
 
-         
-      }               
-      
+
+      }
+
       return feature
     }
 
@@ -214,24 +214,24 @@
 
       let newFeature = Object.assign({},feature)
       if (feature.type === 'Feature' && feature.geometry.type === 'MultiLineString') {
-        
+
         newFeature.geometry.type = 'Polygon'
         newFeature.geometry.coordinates = newFeature.geometry.coordinates.map(line => [...line, line[0]])
-        
+
       } else if (feature.type === 'Feature' && feature.geometry.type === 'LineString') {
-        
+
         newFeature.geometry.type = 'Polygon'
         let line = newFeature.geometry.coordinates
         let closedline = [...line, line[0]]
         newFeature.geometry.coordinates = Array.of(closedline)
-        
+
       }
-      
+
       return newFeature
-    }   
-    
-    
-       
+    }
+
+
+
     /* **************************
      *        @rador : seg5 unit circle rador
      *          m.snap.snap (dax form => rador)
@@ -240,14 +240,14 @@
       let pts = []
       let t = 0
       let maxRadio = 0
-      
+
       const {m1, m2, n1, n2, n3, a, b, v0, v1, seg5} = form
       const bform = {m1, m2, n1, n2, n3, a, b, v0, v1, seg5}
-        
+
       if (f.isSame(bform, cache.bform)) {
-        
+
         pts = cache.points
-        
+
       } else {
 
         const angUnit = tau / seg5 // dots per period
@@ -294,7 +294,7 @@
      *            g.natform
      */
     function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
-    
+
       let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)
       let s1range = [0, radorPts.length - 1] // [0, seg5]
 
@@ -305,24 +305,21 @@
       let s2 = d3.scaleLinear().domain(s2extent).range(s2range) // [0,..,seg5] => rador
 
       return p => s2(s1(p)) //  [0,1) =s1=> [0,seg5) =rador=> [0,1]
-      
+
     }
 
-    
+
     /* *********************
    *    @natVertex
    *      called by g.natVertex.pointStream to build nat conform point stream
    *      calls m.nat.radorm
    */
-    // ............................. natVertex   
+    // ............................. natVertex
     let natVertex = function (form) { // getVertex
-    
+
       let nformed = natNform(form) // natNform
-
       let unfeld = Object.values(nformed)
-
       let dominos = unfeld.map(d => d.dom3) // [ [-180,180], [-180,180], [-90,90], [-90,90] ]
-
       let radions = unfeld.map((d, i) => radorm(d, dominos[i])) // radorm
       let rayscale = unfeld.map((d, i) => p => radions[i](p* degrees)) // rayscale on degres
 
@@ -331,21 +328,26 @@
       if (nformed) wd = rotation = unfeld.map(dax => (dax.w4 || 0 )) //  yfase
 
       let vertex = function (lambdaD, phiD = 0, radio = 1) { // spherical degrees
-      
+
         let ppD = []      // pars in degrees
           ppD[0] = lambdaD + wd[0]
           ppD[1] = lambdaD + wd[1]
           ppD[2] = phiD    + (wd[2] || 0)
           ppD[3] = phiD    + (wd[3] || 0)
-          
+
         let ppR = ppD.map( d => d * radians)  // r,s,u,v : pars in radians per dax
         let rs = unfeld.map( (d,i) => rayscale[i](ppR[i]) || 1)  // a,b,c,d : radorn on dax par
         
-        let rr = unfeld.map( (d, i) => d.fn0(...ppR, ...rs) ) // 
+        // form.fn0 takes radians and radorns
+        let rr = unfeld.map( (d, i) => d.fn0(...ppR, ...rs) ) //
         
+        // if (1 && 1) console.log('ppR', ppR)
+        // if (1 && 1) console.log('rs', rs)
+        // if (1 && 1) console.log('rr', rr)
+
         let point = unfeld.map( (d, i) => radio * rad[i] * rr[i])
 
-        let projpnt = (point[2] !== undefined) ? 
+        let projpnt = (point[2] !== undefined) ?
               [ point[0], point[1], point[2] ] :    // 3D
               [ point[0], point[1] ]                // 2D
         return projpnt // [x,y,z]
@@ -353,8 +355,8 @@
 
       return vertex
     }
-           
-    
+
+
   // ............................. enty
     let enty = function () {}
 

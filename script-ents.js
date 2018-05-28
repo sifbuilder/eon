@@ -106,6 +106,7 @@ document.write("<script src='muon-animas.js'><\/script>")
 /* halo*/
 document.write("<script src='halo-tiles.js'><\/script>")
 document.write("<script src='halo-textform.js'><\/script>")
+document.write("<script src='halo-quadric.js'><\/script>")
 document.write("<script src='halo-pacer.js'><\/script>")
 document.write("<script src='halo-numform.js'><\/script>")
 document.write("<script src='halo-nat.js'><\/script>")
