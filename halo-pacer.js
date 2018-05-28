@@ -63,7 +63,6 @@
 
     // ............................. _geofolder
     let _geofolder = function (ani, prob) {
-      if (1 && 1) console.log('ani', ani)
       let pacerPayload = ani.payload.pacer
       let geoType = pacerPayload.type || 'LineString',
         base = pacerPayload.base || 'geo'

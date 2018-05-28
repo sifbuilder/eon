@@ -35,7 +35,7 @@ let muonAlima = function muonAlima (__mapper) {
 
 
   // ............................. pics
-  let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop:1}
+  let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop:1, tf: t => t}
 
 
 
@@ -77,8 +77,29 @@ let muonAlima = function muonAlima (__mapper) {
   // [-180, 180] => r     * cos(v)
   // [-180, 180] => v
   // [-180, 180] => r     * sin(v)
+
+  
+  // papiro
+  // [-180, 180] => r     * cos(v)
+  // [-180, 180] => sin( 10 * v)
+  // [-180, 180] => r     * sin(v)  
+
+  // cup
+  // [-180, 180] => cos(r)       * c * (  cos(u))
+  // [-180, 180] => sin(r)       * c * ( cos(u))
+  // [-180, 180] => u * u  
   
 
+  // lace
+  // [-180, 180] => cos(r)       * c * (  cos(u))
+  // [-180, 180] => sin(r)       * c * ( cos(u))
+  // [-180, 180] => u 
+  
+  
+  // plane
+  // [-180, 180] => s * s * sin(u)
+  // [-180, 180] => sin(r)       * c * ( cos(u))
+  // [-180, 180] => u 
   
   let conform = {
     'x': { 
@@ -86,13 +107,13 @@ let muonAlima = function muonAlima (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ      
       'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 18,'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],  // r.form.circ [-1.57, 1.57] 
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r) * c * cos(v),
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r) * c * cos(v),
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => r  * cos(u),
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => s * s * sin(u),
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => r ,
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r)       * c * (  cos(u)),
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => cos(r)       * c * (  cos(v)),
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>  r  * cos(v),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => r ,
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r)       * c * cos(u),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => cos(r)       * c *  cos(v),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>  r  * cos(v),
     },
     'y': { 
       // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,   // drop
@@ -103,10 +124,10 @@ let muonAlima = function muonAlima (__mapper) {
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>  r * r * sin(v),
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>  s,
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>  s * s,
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(r)       * c * ( cos(u)),
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => sin(r)       * c * ( cos(v)),
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => v,
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => sin( 10 * v),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(r)       * c * cos(u),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => sin(r)       * c * cos(v),
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => v,
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => sin( 10 * v),
 
     },
 
@@ -121,7 +142,8 @@ let muonAlima = function muonAlima (__mapper) {
             'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => 1 / ( 1 + v),
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>  s * s * cos(u),            
             // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => sin(u),
-            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => r * sin(v), 
+            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => r * sin(v), 
+            'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => u * u , 
     },
 
     'r': { 

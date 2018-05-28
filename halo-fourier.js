@@ -30,6 +30,7 @@
   //md:   payload.fourier.dotboform style of pencil dot
   //md:   payload.fourier.avatars.fourierPacer  form trace
   //md:   payload.fourier.avatars.line  sinusoid ray
+  
     let gramm = function (anima, newAnigrams = []) {
 
       let anigram = manitem(anima).anigram(), // anigram
