@@ -160,8 +160,8 @@
           sx = 360
           sy = 360
 
-          let xdomain = [-180, 180]
-          let ydomain = [-180, 180]
+          let xdomain = form.x.dom3 || [-180, 180]
+          let ydomain = form.z.dom3 || [-180, 180]
 
           // _e_
           let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
@@ -191,13 +191,10 @@
                 }
               }
 
-              let projection = mprofier.formion({
-                    projection: 'natform',
-                    form: nformed
-              })
+              let projection = mprofier.formion({ projection: 'natform',form: nformed })
 
               feature = mproj3ct(gj, projection)
-
+              
          cache.form = form
          cache.feature = feature
 
