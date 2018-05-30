@@ -136,7 +136,8 @@
         let geometry
         let dx, dy, sx, sy
 
-        if (Object.keys(nformed).length > 2) { // ___ 3d
+        // if (Object.keys(nformed).length > 2 ) { // ___ 3d
+        if (nformed.z !== undefined ) { // ___ 3d
 
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.z.seg5 // ____ z ___
@@ -161,7 +162,7 @@
           sy = 360
 
           let xdomain = form.x.dom3 || [-180, 180]
-          let ydomain = form.z.dom3 || [-180, 180]
+          let ydomain = form.y.dom3 || [-180, 180]
 
           // _e_
           let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
