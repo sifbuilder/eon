@@ -217,8 +217,8 @@ let muonAlima = function muonAlima (__mapper) {
     // halo: 'ent',
     // halo: 'quadric',
 
-    // geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
-    geofold: p => mnat.natFeature(p.payload.form),
+    geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
+    // geofold: p => mnat.natFeature(p.payload.form),
     payload: {
       tim,
 
