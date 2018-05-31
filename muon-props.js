@@ -11,10 +11,12 @@
   let muonProps = function muonProps () {
     let props = {}
 
+    props.sum = (a,b) => a + b
+    
     /***************************
-   *        @arrays
-   */
-	 props.a = d => (Array.isArray(d)) ? [...d] : [d]
+    *        @arrays
+    */
+	  props.a = d => (Array.isArray(d)) ? [...d] : [d]
 
     props.cloneArray = function (obj) {
       if (Array.isArray(obj)) {

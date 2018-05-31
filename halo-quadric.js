@@ -28,17 +28,17 @@
     
     let ft = p => a => p.reduce( (acc,cur,i) => acc + cur * pow(a,i) , 0)
     
-    let fn = form =>    // form has defined a1, a2, a3, a4  , r1, r2, r3, r4
-      (r=0,s=0,u=0,v=0,a=1,b=1,c=1,d=1) => {
-        // let ret =   a * form.r1 * ft(functor(form.a1))(r) + 
-                    // b * form.r2 * ft(functor(form.a2))(s) + 
-                    // c * form.r3 * ft(functor(form.a3))(u) + 
-                    // d * form.r4 * ft(functor(form.a4))(v)
+    let fn = form =>    // form has defined a1, a2, a3, a4  , q1, q2, q3, q4
+      (q=0,s=0,u=0,v=0,a=1,b=1,c=1,d=1) => {
+        // let ret =   a * form.q1 * ft(functor(form.a1))(q) + 
+                    // b * form.q2 * ft(functor(form.a2))(s) + 
+                    // c * form.q3 * ft(functor(form.a3))(u) + 
+                    // d * form.q4 * ft(functor(form.a4))(v)
             
-       let ret =    ft(functor(form.r1))(a) * ft(functor(form.a1))(r) * 
-                    ft(functor(form.r2))(b) * ft(functor(form.a2))(s) * 
-                    ft(functor(form.r3))(c) * ft(functor(form.a3))(u) * 
-                    ft(functor(form.r4))(d) * ft(functor(form.a4))(v)
+       let ret =    ft(functor(form.q1))(a) * ft(functor(form.a1))(q) * 
+                    ft(functor(form.q2))(b) * ft(functor(form.a2))(s) * 
+                    ft(functor(form.q3))(c) * ft(functor(form.a3))(u) * 
+                    ft(functor(form.q4))(d) * ft(functor(form.a4))(v)
             
         return ret
       }
@@ -60,20 +60,22 @@
             formDax.a2 !== undefined ||
             formDax.a3 !== undefined ||
             formDax.a4 !== undefined ||
-            formDax.r1 !== undefined ||
-            formDax.r2 !== undefined ||
-            formDax.r3 !== undefined ||
-            formDax.r4 !== undefined )) {
+            formDax.q1 !== undefined ||
+            formDax.q2 !== undefined ||
+            formDax.q3 !== undefined ||
+            formDax.q4 !== undefined )) {
 
+            
              formDax.a1  = (formDax.a1 === undefined) ? functor(1) : functor(formDax.a1)
              formDax.a2  = (formDax.a2 === undefined) ? functor(1) : functor(formDax.a2)
              formDax.a3  = (formDax.a3 === undefined) ? functor(1) : functor(formDax.a3)
              formDax.a4  = (formDax.a4 === undefined) ? functor(1) : functor(formDax.a4)
-             formDax.r1  = (formDax.r1 === undefined) ?         1  : formDax.r1
-             formDax.r2  = (formDax.r2 === undefined) ?         1  : formDax.r2
-             formDax.r3  = (formDax.r3 === undefined) ?         1  : formDax.r3
-             formDax.r4  = (formDax.r4 === undefined) ?         1  : formDax.r4
-if (1 && 1) console.log('formDax', i, formDax)
+             
+             formDax.q1  = (formDax.q1 === undefined) ?         1  : formDax.q1
+             formDax.q2  = (formDax.q2 === undefined) ?         1  : formDax.q2
+             formDax.q3  = (formDax.q3 === undefined) ?         1  : formDax.q3
+             formDax.q4  = (formDax.q4 === undefined) ?         1  : formDax.q4
+
 
              formDax.fn0 = fn(formDax)
 
