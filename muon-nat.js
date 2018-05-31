@@ -120,9 +120,6 @@
   // ............................. natFeature
     let natFeature = function (form) {
 
-if (1 && 1) console.log('form', form.x.seg5)
-
-
       let feature
 
       if (f.isSame(form, cache.form)) {

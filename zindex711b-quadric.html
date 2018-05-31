@@ -55,8 +55,8 @@ let muonAlima = function muonAlima (__mapper) {
               infact9 = 1/fact9
 
 
-    let sinp = [1,0,-infact2,0,+infact4,0,-infact6,0,infact8]
-    let cosp = [0,+1,0,-infact3,0,+infact5,0,-infact7,0,infact9]
+    let sinp = [1,0,-infact2,0,infact4,0,-infact6,0,infact8]
+    let cosp = [0,1,0,-infact3,0,infact5,0,-infact7,0,infact9]
 
   // ............................. pics
   let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop:1, tf: t => t}
@@ -127,9 +127,9 @@ let muonAlima = function muonAlima (__mapper) {
 
 
   // cone
-  // [-180, 180] => r     * cos(v)
-  // [-180, 180] => r
-  // [-180, 180] => r     * sin(v)
+  // [-180, 180] => q     * cos(v)
+  // [-180, 180] => q
+  // [-180, 180] => q     * sin(v)
 
 
   let conform = {
@@ -139,8 +139,17 @@ let muonAlima = function muonAlima (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
       'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 18,'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],  // r.form.circ [-1.57, 1.57]
-          // r * cos(v)
-          c1:[1], e1:[0,1], c4:[1], e4:[1,0,-infact2,0,+infact4,0,-infact6,0,infact8]
+          // let cosp = [0,1,0,-infact3,0,infact5,0,-infact7,0,infact9]
+          // q * cos(v) => cos(q) * cos(v)  // parabole => sphere
+          
+          // c1: [1 , 0 ], e1: [0,1], 
+          // c4: [1 , 0 ], e4: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8]
+          
+          c1:[1, 0], e1: [ [[[0,1]]], [[[1, 0]]] , [[[0, -infact2]]], 0, [[[0, infact4]]], 0, [[[0, -infact6]]], 0, [[[0, infact8]]] ], 
+          c4:[1, 0], e4: [     1,        0,        [[[0, -infact2]]], 0, [[[0, infact4]]], 0, [[[0, -infact6]]], 0, [[[0, infact8]]] ], 
+          
+          // c1:[1, 0], e1:[1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8],
+          // c4:[1, 0], e4:[1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8],
 
     },
     
@@ -149,18 +158,35 @@ let muonAlima = function muonAlima (__mapper) {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
       'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 18,'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],
-          // 1 *  r * r
-          c1:[1], e1:[0,0,1]
+          //let sinp = [1,0,-infact2,0,infact4,0,-infact6,0,infact8]
+          // 1 * q * q => sin(q) * cos(v)
+          
+          // c1:[1, 0], e1:[0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+          // c4:[1, 0], e4:[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],   // id
+          
+          c1:[1, 0], e1: [0, [[[0, 1]]] , [[[1,0]]], [[[0, -infact3]]] ,0, [[[0, infact5]]] ,0, [[[0, -infact7]]], 0, [[[0, infact9]]] ],           
+          c4:[1, 0], e4:[ 1 ,0, [[[0, -infact2]]], 0, [[[0, infact4]]],0, [[[0,-infact6]]] ,0, [[[0,infact8]]] ],
 
+          // c1:[1, 0], e1: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0,infact9],
+          // c4:[1, 0], e4: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8],
+          
     },
 
     'z': {
         // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 18,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180],
-          // r * sin(v)
-          c1:[1], e1:[0,1], c4:[1], e4:[0,+1,0,-infact3,0,+infact5,0,-infact7,0,infact9]
+        'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 18,'pa6': 0,'pb7': -1,
+        'dom3': [-180, 180],
+          // q * sin(v) =>  sin(v)
+          
+          // c1:[1, 0], e1:[0,1], 
+          // c4:[1, 0], e4:[0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9]
+          
+          c1:[1, 0], e1:[ [[[0,1]]], [[[1,0]]] ], 
+          c4:[1, 0], e4:[0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9]
+          
+          // c1:[1, 0], e1:[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],   // id
+          // c4:[1, 0], e4: [0, 1, 0,-infact3, 0,infact5, 0, -infact7, 0, infact9],
 
     },
 
@@ -169,9 +195,9 @@ let muonAlima = function muonAlima (__mapper) {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
       'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 18,'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => c * cos(u),
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => d,
-            // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => { return v },
+            // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => c * cos(u),
+            // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => d,
+            'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => v,
     },
 
   }
@@ -196,7 +222,7 @@ let muonAlima = function muonAlima (__mapper) {
           projection: 'uniwen',
           // scale: [1, 1],
           scale: [0.5, 0.5],
-          scale: [0.2, 0.2],
+          scale: [ [[[0.2,1]]], [[[0.2,1]]] ],
 
           // projection:  d3.geoOrthographic(),
           // scale: 100,
@@ -208,7 +234,7 @@ let muonAlima = function muonAlima (__mapper) {
           lens: [0, 1, Infinity],
         },
 
-      boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 555]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
       form: conform,
 

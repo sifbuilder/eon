@@ -30,11 +30,7 @@
     
     let fn = form =>    // form has defined a1, a2, a3, a4  , q1, q2, q3, q4
       (q=0,s=0,u=0,v=0,a=1,b=1,c=1,d=1) => {
-        // let ret =   a * form.c1 * ft(functor(form.e1))(q) + 
-                    // b * form.c2 * ft(functor(form.e2))(s) + 
-                    // c * form.c3 * ft(functor(form.e3))(u) + 
-                    // d * form.c4 * ft(functor(form.e4))(v)
-            
+
        let ret =    ft(functor(form.c1))(a) * ft(functor(form.e1))(q) * 
                     ft(functor(form.c2))(b) * ft(functor(form.e2))(s) * 
                     ft(functor(form.c3))(c) * ft(functor(form.e3))(u) * 
@@ -56,10 +52,12 @@
           let formDax = entry[1]
 
           if (formDax.fn0 === undefined && (
+          
             formDax.e1 !== undefined ||
             formDax.e2 !== undefined ||
             formDax.e3 !== undefined ||
             formDax.e4 !== undefined ||
+            
             formDax.c1 !== undefined ||
             formDax.c2 !== undefined ||
             formDax.c3 !== undefined ||

@@ -31,32 +31,16 @@ let muonAlima = function muonAlima (__mapper) {
     mnat = __mapper('xs').m('nat')
 
   let radians = Math.PI / 180, degrees = 180 / Math.PI,
-    sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
+    sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
+    asin = Math.asin, acos = Math.acos, pi = Math.PI, pow = Math.pow
 
-
-  let fact = n =>  n - 1 > 0 ? n * fact(n - 1) : n
-  let fact1 = 1,
-       fact2 = 2,
-        fact3 = 6,
-         fact4 = 24,
-          fact5 = 120,
-           fact6 = 720,
-            fact7 = 5040,
-             fact8 = 40320,
-              fact9 = 362880
-  let infact1 = 1/fact1,
-       infact2 = 1/fact2,
-        infact3 = 1/fact3,
-         infact4 = 1/fact4,
-          infact5 = 1/fact5,
-           infact6 = 1/fact6,
-            infact7 = 1/fact7
-             infact8 = 1/fact8
-              infact9 = 1/fact9
-
-
-    let sinp = [1,0,-infact2,0,+infact4,0,-infact6,0,infact8]
-    let cosp = [0,+1,0,-infact3,0,+infact5,0,-infact7,0,infact9]
+  let  fact = function(num)
+  {
+      var rval=1;
+      for (let i = 2; i <= num; i++)
+          rval = rval * i
+      return rval;
+  }
 
   // ............................. pics
   let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop:1, tf: t => t}
@@ -66,12 +50,12 @@ let muonAlima = function muonAlima (__mapper) {
   // sphere
   // [-180, 180] => a * cos(r) * c * cos(v)
   // [-180, 180] => b * sin(r) * c * cos(v)
-  // [-180, 180] =>                       d * sin(u)
+  // [-180, 180] =>          d * sin(u)
 
   // hyperbole
   // [-180, 180] => r * c * cos(v)
   // [-180, 180] => s * s * s * c * cos(v)
-  // [-180, 180] =>                       d * sin(u)
+  // [-180, 180] =>        d * sin(u)
 
 
   // flat reticule
@@ -126,54 +110,104 @@ let muonAlima = function muonAlima (__mapper) {
   // [-180, 180] => u
 
 
+  // cone 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
+  // [-180, 180] => r     * cos(v)
+  // [-180, 180] => r
+  // [-180, 180] => r     * sin(v)
+
+
+
+  // form "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
+  // [-180, 180] => sqrt(a * sin(r))    * cos(v)
+  // [-180, 180] => a * sin(r)
+  // [-180, 180] => sqrt(a)     * sin(v)
+
+
+
+  // bolt "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
+  // [-180, 180] => sqrt(a)     *  cos(v)
+  // [-180, 180] =>      a  * sin(r)
+  // [-180, 180] => sqrt(a)     * sin(v)
+
+  // vel "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
+  // [-180, 180] => sqrt(a * sin(r))     *  cos(v)
+  // [-180, 180] =>      a  * sin(r)
+  // [-180, 180] => sqrt(a * sin(r))     * sin(v)
+
+  // spil
+  // [-180, 180] => - v,
+  // [-180, 180] =>  v * cos(q),
+  // [-180, 180] => sin(q) - 1,
+  // [-180, 180] =>  1 - sin(q)
+
+  // flat infinite
+  // [-180, 180] => - 1 - sin(q),
+  // [-180, 180] =>  1 - sin(q) * cos(q),
+  // [-180, 180] => sin(q) - 1,
+  // [-180, 180] =>  1 - sin(q)
+
   // cone
-  // [-180, 180] => q     * cos(v)
-  // [-180, 180] => q
-  // [-180, 180] => q     * sin(v)
+  // [-180, 180] => - (1 - sin(r))
+  // [-180, 180] =>   (1 - sin(r)) * cos(v),
+  // [-180, 180] => (1 - sin(r)) * sin(v),
+  // [-180, 180] =>  1 - sin(q)
+
+  // flat drop
+  // [-180, 180] => (sin(q) -1),
+  // [-180, 180] => - (sin(q) -1) * cos(q),
+  // [-180, 180] => (sin(q) - 1),
+  // [-180, 180] => (sin(q) - 1),
+  
+  // vol drop
+  // [-180, 180] => (sin(q) - 1),
+  // [-180, 180] => - (sin(q) - 1) * cos(q) * cos(v),
+  // [-180, 180] => - (sin(q) - 1) * cos(q) * sin(v),
+  // [-180, 180] => (sin(q) - 1),
 
 
   let conform = {
-    
     'x': {
       // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 18,'pa6': 0,'pb7': -1,
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 12,'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],  // r.form.circ [-1.57, 1.57]
-          // q * cos(v) => cos(q) * cos(v)
-          c1:[1], e1:[0,1], 
-          c4:[1], e4:[1,0,-infact2,0,+infact4,0,-infact6,0,infact8]
+      'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => a * cos(q) * c * cos(v),
+      'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => cos(q) * cos(v),
+      // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => a * cos(q),
+      // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => sqrt(a * sin(q))     *  cos(v),
+      // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => (sin(q) - 1),
 
     },
-    
     'y': {
       // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,   // drop
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 18,'pa6': 0,'pb7': -1,
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 12,'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],
-          // 1 *  q * q => sin(q) * cos(v)
-          c1:[1], e1:[0,0,1]
+      'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => a * sin(q) * c * cos(v),
+      'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => sin(q) * cos(v),
+      // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => pow(q,3) * sin(q),
+      // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => - (sin(q) - 1) * cos(q) * cos(v),
 
     },
 
     'z': {
         // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 18,'pa6': 0,'pb7': -1,
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 12,'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],
-          // q * sin(v) =>  sin(u)
-          c1:[1], e1:[0,1], 
-          c4:[1], e4:[0,+1,0,-infact3,0,+infact5,0,-infact7,0,infact9]
-
+      // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => - (sin(q) - 1) * cos(q) * sin(v),
+      'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => sin(v),
     },
 
     'r': {
       "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 18,'pa6': 0,'pb7': -1,
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 12,'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],
             // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => c * cos(u),
             // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => d,
             // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => { return v },
+            'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => (sin(q) - 1),
     },
 
   }
@@ -182,12 +216,12 @@ let muonAlima = function muonAlima (__mapper) {
   // ............................. natForm
   let natForm = {
 
-    // halo: 'nat',
+    halo: 'nat',
     // halo: 'ent',
-    halo: 'quadric',
+    // halo: 'quadric',
 
-    // geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
-    geofold: p => mnat.natFeature(p.payload.form),
+    geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
+    // geofold: p => mnat.natFeature(p.payload.form),
     payload: {
       tim,
 
@@ -198,15 +232,14 @@ let muonAlima = function muonAlima (__mapper) {
           projection: 'uniwen',
           // scale: [1, 1],
           scale: [0.5, 0.5],
-          scale: [0.2, 0.2],
 
           // projection:  d3.geoOrthographic(),
           // scale: 100,
 
           prerotate: [[[ cwen.rotation ]]],
           translate: [ [0, 0, 0] ],
-          rotate: [ [[[90 + 0, 90 + 0, 90 + 1 * 360, 90 + 1 * 360]]], 0, 0 ],
-          // rotate: [ 0, 0, 0 ],
+          // rotate: [ [[[90 + 0, 90 + 0, 90 + 1 * 360, 90 + 1 * 360]]], 0, 0 ],
+          rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
         },
 
