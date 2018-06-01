@@ -28,7 +28,6 @@
       hformed = __mapper('xs').h('formed')
 
     let geofolder = function (anigram) {
-      
       let geofold = anigram.geofold
       let payload = anigram.payload
       let gj
@@ -93,7 +92,7 @@
         parentuid = payload.parentuid // parentuid
 
       anigram.geofold = geofolder(anigram) // new anigram geofold is FeatureCollection
-      
+
       newAnigrams = hformed.gramm(anigram)
 
       return newAnigrams //    new anigrams are stored by m.animation
