@@ -1,14 +1,15 @@
 
 
 const d3 = require('./d3.v5.js')
-const mprops = require('./muon-props.js')
+global.d3 = d3
 
 
-if (1 && 1) console.log('mprops', mprops.muonProps().sum(2,3))
+const requiredprops = require('./muon-props.js')
+let mprops = requiredprops.muonProps()()
 
   
-  test('test add', () => {
-    expect(Math.max(1, 2)).toBe(2);
+  test('test tst', () => {
+    expect(mprops.tst(2,3)).toBe(5);
   })
 
 

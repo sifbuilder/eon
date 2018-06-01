@@ -9,9 +9,10 @@
   'use strict'
 
   let muonProps = function muonProps () {
+    
     let props = {}
 
-    props.sum = (a,b) => a + b
+    props.tst = (a,b) => a + b
     
     /***************************
     *        @arrays
