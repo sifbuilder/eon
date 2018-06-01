@@ -17,19 +17,15 @@
       mric = __mapper('xs').m('ric'),
       mstace = __mapper('xs').m('stace')
 
-    let _geoform = p => ({ // geofold
+    let _geofold = p => ({ // geofold
       type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [0, 0]
-
-      },
+      geometry: { type: 'Point', coordinates: [0, 0] },
       properties: {
         sort: 'img',
         attr: {
-          'width': p.payload.img.width,
-          'height': p.payload.img.height,
+          'width': p.payload.img.style.width,
+          'height': p.payload.img.style.height,
+          'rotate': p.payload.img.style.rotate,
           'xlink:href': p.payload.img.url
         }
       }
@@ -38,30 +34,18 @@
     let gramm = function gramm (anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram(),
 			  halo = 				anigram.halo, // halo
-        geofold = 		anigram.geofold || _geoform, // geofold
-        payload = 		anigram.payload, // payload
-        boform = 			payload.boform, // boform
-        ric = payload.ric, // ric
-        tim = payload.tim, // tim
-        proform =			payload.proform, // proform
-        conform = 		payload.conform, // conform
-        uid = 				payload.uid, // uid
-        parentuid = 	payload.parentuid, // parentuid
-        json
+        payload = 		anigram.payload // payload
 
-      let newAnigram = {
-        halo: halo, // inherit halo
-        geofold: geofold,
-        payload: payload
-      }
-if (1 && 1) console.log('newAnigram', newAnigram)
 
-      newAnigram.geofold.properties.ric = ric
-      newAnigram.geofold.properties.uid = uid
+        let geofold = _geofold(anigram) // geofold
 
-      newAnigrams = __mapper('xs').h('ent').gramm(newAnigram)
-
-      newAnigrams = Array.of(newAnigram)
+        let newAnigram = { 
+          halo, 
+          geofold, 
+          payload 
+        }
+      
+      newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(newAnigram)]
       return newAnigrams
     }
 

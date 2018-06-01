@@ -170,8 +170,6 @@
             .filter(d => d.properties.sort === 'text')
 
           if (texts.length > 0) {
-
-
             __mapper('renderSvg').elems('svg:g.' + gid + '/text.' + cid, texts, d => d.uid)
               .text(d => d.properties.string)
 
@@ -214,6 +212,9 @@
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
 
           if (imgs.length > 0) {
+            if (1 && 1) console.log('imgs', imgs)
+
+            
             __mapper('renderSvg').elems('svg:g.' + gid + '/image.' + cid, imgs, d => d.id)
 
               .data(() => imgs)
@@ -225,13 +226,13 @@
                     d.geometry.coordinates[1] +
                     ')' +
                     ' rotate(' +
-                    (d.properties.style.rotate || 0) +
+                    (d.properties.attr.rotate || 0) +
                     ' )'
               })
 
-              .attr('xlink:href', d => d.properties['xlink:href'])
-              .attr('width', d => d.properties.style.width)
-              .attr('height', d => d.properties.style.height)
+              .attr('xlink:href', d => d.properties.attr['xlink:href'])
+              .attr('width', d => d.properties.attr.width)
+              .attr('height', d => d.properties.attr.height)
           }
 
           /*  ................. AXES ................. */
