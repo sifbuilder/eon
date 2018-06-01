@@ -36,36 +36,30 @@
     })
 
     let gramm = function gramm (anima, newAnigrams = []) {
-      
-      let anigram =   manitem(anima).anigram(),
+      let anigram = manitem(anima).anigram(),
 			  halo = 				anigram.halo, // halo
         geofold = 		anigram.geofold || _geoform, // geofold
         payload = 		anigram.payload, // payload
         boform = 			payload.boform, // boform
-        ric =         payload.ric, // ric
-        tim =         payload.tim, // tim
+        ric = payload.ric, // ric
+        tim = payload.tim, // tim
         proform =			payload.proform, // proform
         conform = 		payload.conform, // conform
         uid = 				payload.uid, // uid
         parentuid = 	payload.parentuid, // parentuid
         json
 
-          let newAnigram = {
-            halo: halo, // inherit halo
-            geofold: geofold,
-            payload: {  // payload is lost in m.animation before rendering
-              ric: ric, // hoist ric
-              id: uid, // hoist uid
-              uid: uid, // hoist uid
-            },
-          }
-          
-          newAnigram.geofold.properties.ric = ric
-          newAnigram.geofold.properties.uid = uid
-          newAnigram.geofold.properties.id = uid
+      let newAnigram = {
+        halo: halo, // inherit halo
+        geofold: geofold,
+        payload: payload
+      }
+if (1 && 1) console.log('newAnigram', newAnigram)
 
-          // newAnigrams = __mapper('xs').h('ent').gramm(newAnigram)
-                
+      newAnigram.geofold.properties.ric = ric
+      newAnigram.geofold.properties.uid = uid
+
+      newAnigrams = __mapper('xs').h('ent').gramm(newAnigram)
 
       newAnigrams = Array.of(newAnigram)
       return newAnigrams

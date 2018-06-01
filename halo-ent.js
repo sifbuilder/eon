@@ -27,25 +27,13 @@
       mstace = __mapper('xs').m('stace'),
       hformed = __mapper('xs').h('formed')
 
-    // ............................. gramm
-    let gramm = function (anima, newAnigrams = []) {
-      let anigram = manitem(anima).anigram(), // anigram
-        halo = anigram.halo, // halo
-        geofold = anigram.geofold, // geofold
-        payload = anigram.payload, // payload
-        avatars = anigram.avatars // avatars
-
-      let boform = payload.boform, // boform
-        ric = payload.ric, // ric
-        tim = payload.tim, // tim
-        vim = payload.vim, // vim
-        proform = payload.proform, // proform
-        conform = payload.conform, // conform
-        uid = payload.uid, // uid
-        parentuid = payload.parentuid // parentuid
-
+    let geofolder = function (anigram) {
+      
+      let geofold = anigram.geofold
+      let payload = anigram.payload
       let gj
       gj = f.v(geofold, anigram) // get geofold
+
       gj.properties = gj.properties || {} // recall genode
       gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
 
@@ -56,10 +44,9 @@
       let gjcollection = mgeoj.featurecollect(gj) // FEATURE COLLECT
 
       gjcollection.features = gjcollection.features.map((f, i) => { // per feature
-   
         let feature = mprofier.conformer(anigram)(f) // CONFORM
-          feature.properties.formConformed = mgeoj.deprop(feature) // store conform
-          feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
+        feature.properties.formConformed = mgeoj.deprop(feature) // store conform
+        feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
 
         if (payload.ereform) { // EREFORM
           let ereformion = mprofier.ereformion(anigram)
@@ -85,7 +72,28 @@
         return feature
       })
 
-      anigram.geofold = gjcollection // new anigram geofold is FeatureCollection
+      return gjcollection
+    }
+
+    // ............................. gramm
+    let gramm = function (anima, newAnigrams = []) {
+      let anigram = manitem(anima).anigram(), // anigram
+        halo = anigram.halo, // halo
+        geofold = anigram.geofold, // geofold
+        payload = anigram.payload, // payload
+        avatars = anigram.avatars // avatars
+
+      let boform = payload.boform, // boform
+        ric = payload.ric, // ric
+        tim = payload.tim, // tim
+        vim = payload.vim, // vim
+        proform = payload.proform, // proform
+        conform = payload.conform, // conform
+        uid = payload.uid, // uid
+        parentuid = payload.parentuid // parentuid
+
+      anigram.geofold = geofolder(anigram) // new anigram geofold is FeatureCollection
+      
       newAnigrams = hformed.gramm(anigram)
 
       return newAnigrams //    new anigrams are stored by m.animation

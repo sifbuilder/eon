@@ -35,12 +35,7 @@ let muonAlima = function (__mapper) {
   let radians = Math.PI / 180,
     degrees = 180 / Math.PI
 
-  /*******************************************
- *    @controls
- *
- */
-	// z.dom3: [-180, [[[160,180,180]]] ]
-	// payload.frame: [-0, 180, 22.5, 22.5]
+  // .................. pics
   let tim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   let form = {
@@ -85,10 +80,7 @@ let muonAlima = function (__mapper) {
     }
   }
 
-  /* ******************************************
- *      @natform
- *
- */
+  // .................. natform
   let natform = {
 
     halo: 'ent',
@@ -115,7 +107,7 @@ let muonAlima = function (__mapper) {
 
   }
 
-  // -------------------------------  gratform
+  // .................. gratform
   let gratform = {
 
     halo: 'ent',
@@ -131,13 +123,8 @@ let muonAlima = function (__mapper) {
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform'},
       boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
 
-      'conform': {
+      conform: { 'projection': 'natform', form: form },
 
-        'projection': 'natform',
-        'form': form
-
-      },
-      
       proform: {
         'projection': 'uniwen',
         'prerotate': [[[ cwen.rotation ]]],
@@ -147,69 +134,22 @@ let muonAlima = function (__mapper) {
         'lens': [ 0, 1, Infinity ]
       },
 
-
       'graticule': {
 
-
-        'frame': [ [ [ [[[-1,-1,-180]]], [[[1,1,180]]], [[[15,15]]], 1],   // x
-                  [ [[[0,-90,-180]]], [[[0,90,180]]], [[[15,15]]], 1] ] ] // y
-
+        'frame': [ [ [ [[[-1, -1, -180]]], [[[1, 1, 180]]], [[[15, 15]]], 1], // x
+          [ [[[0, -90, -180]]], [[[0, 90, 180]]], [[[15, 15]]], 1] ] ] // y
 
       }
 
     }
 
   }
-	  // -------------------------------  img
-  let img = {
 
-    halo: 'img',
-
-    geofold: p => ({
-      type: 'Feature',
-      geometry: {
-
-        'type': 'Point',
-        'coordinates': [ 0, 0 ]
-
-      },
-      properties: {
-        sort: 'img',
-        'xlink:href': p.payload.img.url,
-        style: p.payload.img.style
-      }
-    }),
-
-    payload: {
-
-      tim,
-      ric: {'gid': 'imgg', 'cid': 'imgc', 'fid': 'imgf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      proform: {
-        projection: 'uniwen',
-        translate: [ 30, 40 ]
-      },
-      img: {
-        url: 'zimg-501.jpg',
-        'style': {
-          'width': [[[60, 60]]],
-          'height': [[[40, 40]]],
-          'rotate': [[[ 0, 0 ]]]
-        }
-      }
-
-    }
-  }
-  /*******************************************
- *      @animaApi
- *
- */
-
+  // .................. animaApi    
   let animas = [
 
-    // natform, // h.ent
-    gratform,      // h.ent
-		img // h.img
+    natform, // h.ent
+    gratform, // h.ent
 
   ]
 
