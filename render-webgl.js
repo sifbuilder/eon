@@ -46,7 +46,8 @@
     let craycaster = __mapper('xs').c('raycaster')
 
     let renderer = new THREE.WebGLRenderer({antialias: true})
-    
+        renderer.setClearColor(0x000000)
+        
     let domElem = renderer.domElement // canvas
     domElem.innerHTML = '' // empty DOM
     domElem.style.display = 'block'
