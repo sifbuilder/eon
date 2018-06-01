@@ -35,11 +35,13 @@
 
     let r = __mapper('xs').r('renderport'),
       width = r.width(),
-      height = r.height()
+      height = r.height(),
+      background = 'black'
 
     let state = {
       width: width,
-      height: height
+      height: height,
+      background: background,
     } // Viewport
 
     let svglayer = d3.select('.viewframe')
@@ -52,7 +54,7 @@
       .style('top', 0)
       .style('left', 0)
           
-          .style('background-color', 'black')
+          .style('background-color', state.background)
           
     let svgElem = svglayer.append('rect')
       .attr('id', 'svg')
