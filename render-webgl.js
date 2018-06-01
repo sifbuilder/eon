@@ -15,6 +15,7 @@
 // md: # md:{filename}
 // md: ** **
 // md: renderer.domElement 
+// md: body div#viewframe canvas#canvas
 // md: ```
 // md:  <canvas width="600" height="400" style="display: block; width: 600px; height: 400px;"></canvas>
 // md: ```
@@ -56,6 +57,8 @@
         .append(() => d3.select(domElem)
           .attr('id', 'canvas')
           .attr('class', 'overlay')
+
+          
           .style('position', 'absolute; top:0px; left:0px; z-index:1')
           .node()
         )
@@ -64,6 +67,7 @@
     let navInfo = document.createElement('div') // Add nav info section
     navInfo.classList.add('graph-nav-info')
     navInfo.innerHTML = 'if key ALT/right to switch animation'
+    
     document.body.appendChild(navInfo) // state.domElem.appendChild(navInfo);
 
     let mouse = craycaster.mouse() // control.RAYCASTER

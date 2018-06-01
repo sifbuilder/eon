@@ -51,7 +51,9 @@
       .attr('height', state.height)
       .style('top', 0)
       .style('left', 0)
-
+          
+          .style('background-color', 'black')
+          
     let svgElem = svglayer.append('rect')
       .attr('id', 'svg')
       .attr('class', 'svg')
@@ -84,7 +86,9 @@
           .style('border', '1px solid lightgray')
         return svgLayer
 
-      } else if (idfyer == 'image') { // if image insert image
+      } 
+      
+      else if (idfyer == 'image') { // if image insert image
         if (d3.select('.image').empty()) {
           let img = svg.selectAll('image').data([0])
             .enter()
