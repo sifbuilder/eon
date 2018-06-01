@@ -12,7 +12,7 @@
   
 let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 0, webgl: 0, bck: 1, key: 1}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 0, webgl: 0, bck: 0, key: 1}) // INIT
 
   let f = __mapper({'props': muonProps.muonProps()}).props(),
     mgeom = __mapper('xs').m('geom'),
