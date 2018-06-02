@@ -52,7 +52,7 @@
   // md:
 
   let muonStace = function (__mapper = {}) {
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       mstore = __mapper('xs').m('store'),
       mlacer = __mapper('xs').m('lacer'),
       manitem = __mapper('xs').m('anitem'),

@@ -9,7 +9,7 @@
   'use strict'
 
   let muongeoj = function muongeoj (__mapper = {}) {
-    let f = __mapper('props')()
+    let f = __mapper('xs').m('props')
 
     // md: # md:{filename}
     // md: **process geojson streams**

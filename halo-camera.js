@@ -10,7 +10,7 @@
 
   let haloCamera = function haloCamera (__mapper = {}) {
 
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       r = __mapper('xs').r('renderport'),
       manitem = __mapper('xs').m('anitem')
 

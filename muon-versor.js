@@ -14,7 +14,7 @@
 // ref: http://codepen.io/jorin/pen/YNajXZ
 
   var muonVersor = function (__mapper = {}) {
-    let props = __mapper('props')()
+    let props = __mapper('xs').m('props')
     var stace = Object.assign({})
 
     var acos = Math.acos,

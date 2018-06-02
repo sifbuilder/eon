@@ -11,7 +11,7 @@
   //md: m.sim
   
   let muonSim = function (__mapper = {}) {
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       msnap = __mapper('xs').m('snap'),
       mstore = __mapper('xs').m('store'),
       mgeonode = __mapper('xs').m('geonode')

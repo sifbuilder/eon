@@ -10,7 +10,7 @@
 
   let haloContext = function (__mapper = {}) {
     
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       manitem = __mapper('xs').m('anitem'),
       minit = __mapper('xs').m('init')
     

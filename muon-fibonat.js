@@ -18,7 +18,7 @@
   // md:     https://bl.ocks.org/fil/955da86d6a935b26d3599ca5e344fb38
 
   let muonFibonat = function muonFibonat (__mapper = {}) {
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       mlacer = __mapper('xs').m('lacer'),
       mgeom = __mapper('xs').m('geom')
 

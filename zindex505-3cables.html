@@ -35,7 +35,7 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({svg: 0, versor: 0, wen: 1, webgl: 1, key: 1}) // INIT
 
-  let f = __mapper('props')(),
+  let f = __mapper('xs').m('props'),
     mnat = __mapper('xs').m('nat'),
     mgeom = __mapper('xs').m('geom'),
     mfibonat = __mapper('xs').m('fibonat'),

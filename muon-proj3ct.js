@@ -15,7 +15,7 @@
 
   var muonProj3ct = function (__mapper = {}) {
     
-    let f = __mapper('props')()
+    let f = __mapper('xs').m('props')
     
     let noop = function () {}
     let d3Geo = d3

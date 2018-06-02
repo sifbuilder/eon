@@ -9,7 +9,7 @@
   'use strict'
 
   let muonLiner = function muonLiner (__mapper = {}) {
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       mlacer = __mapper('xs').m('lacer'),
       manitem = __mapper('xs').m('anitem'),
       mstore = __mapper('xs').m('store'),

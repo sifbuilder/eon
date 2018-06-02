@@ -9,7 +9,7 @@
   'use strict'
 
   let muonSnap = function muonSnap (__mapper = {}) {
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       mnat = __mapper('xs').m('nat'),
       mlacer = __mapper('xs').m('lacer'),
       mgeoj = __mapper('xs').m('geoj')

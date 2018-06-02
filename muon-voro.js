@@ -33,7 +33,7 @@
   }
 
   var muonVoro = function muonVoro (__mapper = {}) {
-    let f = __mapper('props')()
+    let f = __mapper('xs').m('props')
 
     let voronoi = d3.voronoi
     let FindDelaunayTriangulation = __mapper('pluginDelaunay').FindDelaunayTriangulation

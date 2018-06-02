@@ -31,8 +31,11 @@
   // md:   @maxlimit
 
   let renderSvg = function (__mapper = {}) {
-    let f = __mapper('props')()
-
+    // __mapper({'props': muonProps.muonProps})
+    
+    let f = __mapper('xs').m('props')
+    
+    
     let r = __mapper('xs').r('renderport'),
       width = r.width(),
       height = r.height(),

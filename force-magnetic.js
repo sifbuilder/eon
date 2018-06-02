@@ -11,7 +11,7 @@
   // https://bl.ocks.org/vasturiano/2da88fb89cc75d18b20d8a7776fd6860
 
   var forceMagnetic = function forceMagnetic (__mapper = {}) {
-    let props = __mapper('props')()
+    let props = __mapper('xs').m('props')
 
     /* -------------------------- */
     /*        force				  			*/

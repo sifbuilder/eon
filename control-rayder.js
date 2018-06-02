@@ -20,7 +20,7 @@
 
   var controlRayder = function (__mapper = {}) {
     
-    let f = __mapper('props')()   
+    let f = __mapper('xs').m('props')   
     
     let r = __mapper('xs').r('renderport'),
       width = r.width(),

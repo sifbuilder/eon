@@ -9,7 +9,7 @@
   'use strict'
 
   let forcex = function (__mapper = {}) {
-    let props = __mapper('props')()
+    let props = __mapper('xs').m('props')
 
     /***********
 		*		@force

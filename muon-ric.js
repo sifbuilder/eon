@@ -9,7 +9,7 @@
   'use strict'
 
   let muonRic = function muonRic (__mapper = {}) {
-    let props = __mapper('props')()
+    let props = __mapper('xs').m('props')
 
     // ric.halo: anima type
     // ric.gid: group id

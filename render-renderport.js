@@ -10,11 +10,12 @@
 
   let renderRenderport = function renderRenderport (__mapper = {}) {
     
-    let props = __mapper('props')()
-
+    // let f = __mapper('xs').m('props')
+    let f = __mapper('xs').m('props')
+    
     let margin = {top: 0, right: 0, bottom: 0, left: 0},
-      viewWidth = props.viewWidth || 600,
-      viewHeight = props.viewHeight || 400,
+      viewWidth = f.viewWidth || 600,
+      viewHeight = f.viewHeight || 400,
       scaleView = Math.min(viewWidth / 2, viewHeight) / Math.PI,
       width = viewWidth - margin.left - margin.right,
       height = viewHeight - margin.top - margin.bottom

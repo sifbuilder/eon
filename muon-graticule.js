@@ -111,7 +111,7 @@
 //md: MIT
 
   let muonGraticule = function (__mapper = {}) {
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       mgeoj = __mapper('xs').m('geoj')
       
 

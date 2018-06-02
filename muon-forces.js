@@ -28,7 +28,7 @@
   }
 
   var muonForces = function (__mapper = {}) {
-    let f = __mapper('props')()
+    let f = __mapper('xs').m('props')
 
     let force = function (params) {
       let aniforce, d3force

@@ -23,7 +23,7 @@
 //md: MIT
 
   let haloTextform = function (__mapper = {}) {
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       manitem = __mapper('xs').m('anitem'),
       mgeoj = __mapper('xs').m('geoj'),
       mprofier = __mapper('xs').m('profier'),

@@ -11,7 +11,7 @@
 
   let geoNatform = function geoNatform (__mapper = {}) {
 
-		let f = __mapper('props')(),
+		let f = __mapper('xs').m('props'),
       mnat = __mapper('xs').m('nat')
 
     let state = {},

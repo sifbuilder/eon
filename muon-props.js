@@ -533,7 +533,7 @@
     /***************************
    *        @enty
    */
-    let enty = () => props
+    let enty = props
 
     return enty
   }

@@ -9,7 +9,7 @@
   'use strict'
 
   let xs = function (__mapper = {}) {
-    let f = __mapper({'props': muonProps.muonProps()}).props()
+    // __mapper({'props': muonProps.muonProps()}).props()
 
     let item = function (params, pres = ['control', 'force', 'muon', 'render', 'shade'], ret = null) {
       let cap = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // capitalize string

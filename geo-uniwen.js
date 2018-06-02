@@ -10,7 +10,7 @@
   'use strict'
 
   let geoUniwen = function geoUniwen (__mapper = {}) {
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       mgeom = __mapper('xs').m('geom'),
       mwen = __mapper('xs').m('wen'),
       cwen = __mapper('xs').c('wen')

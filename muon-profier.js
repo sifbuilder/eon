@@ -65,7 +65,7 @@
   // md:
 
   let muonProfier = function muonProfier (__mapper = {}) {
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       cwen = __mapper('xs').c('wen')(),
       cversor = __mapper('xs').c('versor'),
       mwen = __mapper('xs').m('wen'),

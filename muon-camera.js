@@ -19,7 +19,7 @@
 
   var muonCamera = function (__mapper = {}) {
     
-    let f = __mapper('props')()    
+    let f = __mapper('xs').m('props')    
     
     let props = {}
     props.type = 'Camera'

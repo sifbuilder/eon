@@ -11,7 +11,7 @@
   // md: {filenam}
 
   let haloFractal = function haloFractal (__mapper = {}) {
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       manitem = __mapper('xs').m('anitem'),
       mnat = __mapper('xs').m('nat'),
       mric = __mapper('xs').m('ric'),

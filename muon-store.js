@@ -68,7 +68,7 @@
   // md: MIT
 
   let muonStore = function muonStore (__mapper) {
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       mtim = 	__mapper('xs').m('tim'),
       manitem = 	__mapper('xs').m('anitem'),
       mric = 	__mapper('xs').m('ric')

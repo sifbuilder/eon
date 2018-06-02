@@ -17,7 +17,7 @@
  * 		@muonStats
  */
   var muonStats = function muonStats (__mapper = {}) {
-    let props = __mapper('props')()
+    let props = __mapper('xs').m('props')
     let local = {}
 
     let width = __mapper('renderRenderport').width()

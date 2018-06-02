@@ -12,7 +12,7 @@
   /*        forceenergy  				*/
   /* -------------------------- */
   var forceenergy = function forceenergy (__mapper = {}) {
-    let props = __mapper('props')()
+    let props = __mapper('xs').m('props')
 
     // --------------------------- */
     //       force								 */

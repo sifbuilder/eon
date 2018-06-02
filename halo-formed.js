@@ -24,7 +24,7 @@
   // md:  then pass the collection back to `m.animation` for rendering
 
   let haloFormed = function haloFormed (__mapper = {}) {
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       manitem = __mapper('xs').m('anitem'),
       mric = __mapper('xs').m('ric'),
       mboform = __mapper('xs').m('boform'),

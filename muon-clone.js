@@ -9,7 +9,7 @@
   'use strict'
 
   let muonClone = function muonClone (__mapper = {}) {
-    let f = __mapper('props')()
+    let f = __mapper('xs').m('props')
 
     /***********
    *    @clone : anigram

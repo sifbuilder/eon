@@ -45,7 +45,7 @@
   // md: MIT
   
   let haloPacer = function haloPacer (__mapper = {}) {
-    let f = __mapper('props')(),
+    let f = __mapper('xs').m('props'),
       mgeom = __mapper('xs').m('geom'),
       mwen = __mapper('xs').m('wen'),
       crayder = __mapper('xs').c('rayder'),

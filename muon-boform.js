@@ -9,7 +9,7 @@
   'use strict'
 
   let muonBoform = function (__mapper = {}) {
-    let f = __mapper('props')()
+    let f = __mapper('xs').m('props')
     let mstore = __mapper('xs').m('store')
 
     /* *********************
