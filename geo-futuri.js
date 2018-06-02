@@ -21,7 +21,7 @@
 
   let geofuturi = function geofuturi (__mapper = {}) {
     
-    let f = __mapper({'props': muonProps.muonProps()}).props(),
+    let f = __mapper('xs').m('props'),
       mgeom = __mapper('xs').m('geom'),
       mpolyhedral = __mapper('xs').m('polyhedral')
 

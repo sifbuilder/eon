@@ -124,10 +124,10 @@
         if (i === 3 && form.dom3 === undefined) form.dom3 = [-90, 90]
 
         // fn0 --- dimension function
-        if (i === 0 && form.fn0 === undefined) form.fn0 = (r, s, u, v, a, b, c = 1, d = 1) => a * cos(r) * c * cos(u)
-        if (i === 1 && form.fn0 === undefined) form.fn0 = (r, s, u, v, a, b, c = 1, d = 1) => b * sin(r) * c * cos(u)
-        if (i === 2 && form.fn0 === undefined) form.fn0 = (r, s, u, v, a, b, c = 1, d = 1) => d * sin(v)
-        if (i === 3 && form.fn0 === undefined) form.fn0 = (r, s, u, v, a, b, c = 1, d = 1) => c * cos(u)
+        if (i === 0 && form.fn0 === undefined) form.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => a * cos(q) * c * cos(u)
+        if (i === 1 && form.fn0 === undefined) form.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => b * sin(q) * c * cos(u)
+        if (i === 2 && form.fn0 === undefined) form.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => d * sin(v)
+        if (i === 3 && form.fn0 === undefined) form.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => c * cos(u)
       }
 
       return nformed
@@ -143,7 +143,7 @@
         let nformed = natNform(form) // NFORM
 
         if (1 && 1) console.log('form', JSON.stringify(form))
-        if (1 && 1) console.log('nformed', JSON.stringify(nformed))
+        if (1 && 1) console.log('nformed', nformed)
 
         let geometry
         let dx, dy, sx, sy

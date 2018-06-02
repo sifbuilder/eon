@@ -9,7 +9,7 @@
   'use strict'
 
   var muonPolyhedral = function muonPolyhedral (__mapper = {}) {
-    let f = __mapper({'props': muonProps.muonProps()}).props()	// props
+    let f = __mapper('xs').m('props')	// props
 
     let renderport = __mapper('renderRenderport'),
       width = renderport.width(),

@@ -9,7 +9,7 @@
   'use strict'
 
   let muonPacer = function muonPacer (__mapper = {}) {
-    let f = __mapper({'props': muonProps.muonProps()}).props(),
+    let f = __mapper('xs').m('props'),
       mgeom = __mapper('xs').m('geom'),
       mwen = __mapper('xs').m('wen'),
       crayder = __mapper('xs').c('rayder'),
