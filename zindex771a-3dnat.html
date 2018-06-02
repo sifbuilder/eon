@@ -27,9 +27,7 @@ let muonAlima = function muonAlima (__mapper) {
     mnat = __mapper('xs').m('nat'),
     cwen = __mapper('xs').c('wen')()
 
-  /*******************************************
- *      @pics
- */
+  // ............................. pics
   let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
   let boform = { csx: 0, cf: 777, cs: 222, cw: 1.7, co: 0.7, cp: 0.5}
   let geofold = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0]}, properties: {pointRadius: 6}}
@@ -44,9 +42,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
 
 
-  /*******************************************
- *    @animas
- */
+  // ............................. p3 anima
    let p3 = {
     halo: 'ent',
     geofold: p => mnat.natFeature(f3),
@@ -61,7 +57,7 @@ let muonAlima = function muonAlima (__mapper) {
       }
   }
 
-
+  // ............................. animas
   let animas = [
   
     p3, // h.ent g.uniwen
