@@ -19,11 +19,13 @@
 
 // md: # md:{filename}
 // md: ** **
-// md: 
+
 // md: # license
 // md: MIT
 
 let muonAlima = function (__mapper) {
+  // __mapper({'xs': xs.xs(__mapper)}) // PROXIES
+  // __mapper('xs').m('init')({svg: 0, versor: 0, wen: 0, webgl: 1, bck: 0})	// INIT
 
   let mgraticule = __mapper('xs').m('graticule'),
     cwen = __mapper('xs').c('wen')
@@ -35,22 +37,34 @@ let muonAlima = function (__mapper) {
 
   // .................. pics
 
-  let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t=>Math.sin((Math.PI/2) * t)}
+  let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
   let form = {
 
     'x': {
+      'm1': 6, 'm2': 6, 'n1': 60, 'n2': 100, 'n3': 30, 'a': 1, 'b': 1,
+      'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1, //
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
       'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180],
+      // fn0: (a,b,c,d) => a**0 * b**0 * c**0 * d**1
 
     },
     'y': {
+      'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1,			// biform
+      'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1, //
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
       'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1,
+      'dom3': [-180, 180],
+      // fn0: (a,b,c,d) => a**0 * b**0 * c**0 * d**1
 
     },
     'z': {
+      'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1,			// biform
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
       'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 4, 'pa6': 0, 'pb7': -1,
+      'dom3': [-90, 90],
+      // fn0: (a,b,c,d) => a**0 * b**0 * c**0 * d**1
+      // fn0: (a,b,c,d) => { let r = Complex({re: a, im: b}).toVector()[0];  return r }
 
     }
   }
@@ -67,22 +81,23 @@ let muonAlima = function (__mapper) {
     prerotate: [[[ cwen.rotation ]]],
     projection: 'uniwen',
     translate: [ 0, 0, 0],
-    rotate: [ 0, [[[0,360]]], 0 ],
+    rotate: [ 0, 0, 0 ],
     scale: 1
 
   }
-  // .................. contextForm
-  let contextForm = {
+
+  // .................. sceneForm
+  let sceneForm = {
 
     halo: 'scene',
     payload: {
       tim: tim,
-      ric: {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'context'},
-      
-      context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 0}
+      ric: {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'context'},    
+      context: {svg: 0, versor: 0, wen: 0, webgl: 1, bck: 0}
     }
      
   }
+
   // .................. gratiform
   let gratiform = {
 
@@ -99,6 +114,24 @@ let muonAlima = function (__mapper) {
       conform: conform,
 
       proform: proform,
+      
+        // perspective
+        // vertical field view from the botton to the top degrees
+        // aspect ration
+      
+      camera: {
+        type: 'perspective',
+        extent: null, // extent
+        viewRange: null, // viewRange
+        lookAt: null, // maxDistance
+        position: null, // position
+        rotation: null, // rotation
+        
+      },
+      scene: {
+        sid: null,
+        light: null
+      },
 
       graticule: {
 
@@ -112,11 +145,11 @@ let muonAlima = function (__mapper) {
 
   // .................. animaApi
   let animas = [
-    contextForm, // h.context
+    sceneForm, // h.context
     gratiform // h.ent g.natform
   ]
 
-  let animaApi = function () {
+  let animaApi = function animaApi () {
     __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
   }
 

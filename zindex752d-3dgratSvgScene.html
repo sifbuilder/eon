@@ -25,7 +25,7 @@
 
 let muonAlima = function (__mapper) {
   // __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  // __mapper('xs').m('init')({svg: 0, versor: 0, wen: 0, webgl: 1, bck: 0})	// INIT
+  // __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, bck: 0})	// INIT
 
   let mgraticule = __mapper('xs').m('graticule'),
     cwen = __mapper('xs').c('wen')
@@ -81,23 +81,22 @@ let muonAlima = function (__mapper) {
     prerotate: [[[ cwen.rotation ]]],
     projection: 'uniwen',
     translate: [ 0, 0, 0],
-    rotate: [ 0, 0, 0 ],
+    rotate: [ 0, [[[0,360]]], 0 ],
     scale: 1
 
   }
-
-  // .................. contextForm
-  let contextForm = {
+  // .................. sceneForm
+  let sceneForm = {
 
     halo: 'scene',
     payload: {
       tim: tim,
-      ric: {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'context'},    
-      context: {svg: 0, versor: 0, wen: 0, webgl: 0, canvas: 1, bck: 0}
+      ric: {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'context'},
+      
+      context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 0}
     }
      
   }
-
   // .................. gratiform
   let gratiform = {
 
@@ -127,11 +126,11 @@ let muonAlima = function (__mapper) {
 
   // .................. animaApi
   let animas = [
-    contextForm, // h.context
+    sceneForm, // h.context
     gratiform // h.ent g.natform
   ]
 
-  let animaApi = function animaApi () {
+  let animaApi = function () {
     __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
   }
 

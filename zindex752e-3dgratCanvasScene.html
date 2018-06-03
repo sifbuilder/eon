@@ -86,14 +86,14 @@ let muonAlima = function (__mapper) {
 
   }
 
-  // .................. contextForm
-  let contextForm = {
+  // .................. sceneForm
+  let sceneForm = {
 
     halo: 'scene',
     payload: {
       tim: tim,
       ric: {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'context'},    
-      context: {svg: 0, versor: 0, wen: 0, webgl: 1, bck: 0}
+      context: {svg: 0, versor: 0, wen: 0, webgl: 0, canvas: 1, bck: 0}
     }
      
   }
@@ -127,7 +127,7 @@ let muonAlima = function (__mapper) {
 
   // .................. animaApi
   let animas = [
-    contextForm, // h.context
+    sceneForm, // h.context
     gratiform // h.ent g.natform
   ]
 
