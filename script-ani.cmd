@@ -18,6 +18,29 @@ const fetch = require('./script-node-fetch.js')
   // md: # license
   // md: MIT
 
+const header = `
+# d3animas
+
+- space-time manifolds
+
+## a story by
+
+- sifbuilder
+
+based on an original idea from
+
+- [x] [Mike Bostock] (https://github.com/d3) and
+- [x] [Ricardo Cabello] (https://threejs.org/)
+
+with references to
+
+- [x] [Vasco Asturiano] (https://bl.ocks.org/vasturiano)
+- [x] [Philippe Rivière] (https://bl.ocks.org/fil)
+
+# License
+
+- MIT` // md string end  
+  
 // ...................... entlist
 function entlist (files=[], gens=[], opts) {
   for (let k=0; k<gens.length; k++) {
@@ -130,12 +153,14 @@ let action = options.action // action
 
 
 // ...................... actions
-if (action === 'samplify') {    // ........... samplify
+if (action === 'samplify') {    // ........... samplify create index.html with enls
+if (1 && 1) console.log('options', options)
+
   let files = fs.readdirSync(appdir)
 
   let libsInXFile = fs.readFileSync(enxlFile, 'utf8')
   let toText = libsInXFile
-  let fromText = '<script src="script-enls.js"></script>'
+  let fromText = '<script src="script-enls.js"></script>' // will be replaced
   let regex = new RegExp('^.*' + zFile + '.*.html', 'i')
   let fzs = files.filter(d => regex.test(d))
   if (fzs.length > 0) {
@@ -146,8 +171,11 @@ if (action === 'samplify') {    // ........... samplify
     let zfileTxt = fs.readFileSync(fz, 'utf8')
     let newzText = zfileTxt.replace(fromText, toText)
     fs.writeFileSync(outzFile, newzText)
+  } else {
+      if (2 && 2) console.log('no zfile found')
   }
-} else if (action === 'entlist') { // ........... entlist
+  
+} else if (action === 'entlist') { // ........... entlist update ents and enls
 
   let testpattern = new RegExp('(.*)\.test\.(.*)$', 'i')
 
@@ -173,32 +201,10 @@ if (action === 'samplify') {    // ........... samplify
   entlist(files, gens, args)
   
   
-} else if (action === 'mdfy') {  // ........... mdfy
+} else if (action === 'mdfy') {  // ........... mdfy create md file
 
 
   // md string begin
-  let header = `
-# d3animas
-
-- space-time manifolds
-
-## a story by
-
-- sifbuilder
-
-based on an original idea from
-
-- [x] [Mike Bostock] (https://github.com/d3) and
-- [x] [Ricardo Cabello] (https://threejs.org/)
-
-with references to
-
-- [x] [Vasco Asturiano] (https://bl.ocks.org/vasturiano)
-- [x] [Philippe Rivière] (https://bl.ocks.org/fil)
-
-# License
-
-- MIT` // md string end
 
   let scriptpattern = new RegExp('^' + 'script', 'i')
   let htmlpattern = new RegExp('(.*)\.html$', 'i')
@@ -216,7 +222,7 @@ with references to
 
   let readmefile = 'README.markdown'
 
-  let readmetxt = header + '\n'
+  let readmetxt = header + '\n'   // header from props
 
   for (let i = 0; i < files.length; i++) {
     let fileName = files[i]
@@ -239,26 +245,13 @@ with references to
 
   fs.writeFileSync(readmefile, readmetxt)
   
-} else if (action === 'entest') { // ........... entest
+} else if (action === 'jest') { // ........... jest
 
-  let scriptpattern = new RegExp('^' + 'script', 'i')
-  let testpattern = new RegExp('(.*)\.test.*\.js$', 'i')
-  let pattern = '// ///.*'
-  let regex = new RegExp(pattern, 'i')
+  jest
+  
+} else if (action === 'eslint') { // ........... eslint
 
-  const isDirectory = d => fs.lstatSync(d).isDirectory()
-  const isFile = d => fs.lstatSync(d).isFile()
-
-  let files = fs.readdirSync(appdir)
-    .filter(file => isFile(file))
-    .filter(d => !scriptpattern.test(d))
-    .filter(d => testpattern.test(d))
-
-  for (let i = 0; i < files.length; i++) {
-      let fileName = files[i]
-      const { test } = require('./' + fileName)
-      test()
-  }
+  eslint
   
 } else if (action === 'mdeefy') { // ........... mdeefy
   let files = fs.readdirSync(appdir)
@@ -343,5 +336,7 @@ with references to
       });
 
 
-  console.log("Running at Port 8000");
+  if (1 && 1)  console.log("Running at Port 8000");
+} else {
+    if (2 && 2) console.log("action not found");
 }
