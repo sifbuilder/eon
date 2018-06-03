@@ -20,8 +20,8 @@
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.0/topojson.min.js'></script>
 
-<script src='https:////cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js'></script>
-<script src='https:////unpkg.com/three-trackballcontrols-web@0.0.2/dist/three-trackballcontrols.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js'></script>
+<script src='https://unpkg.com/three-trackballcontrols-web@0.0.2/dist/three-trackballcontrols.min.js'></script>
 
 <script src='https://unpkg.com/mathjs@4.0.1/dist/math.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js'></script>

@@ -124,6 +124,6 @@ document.write("<script src='halo-axis.js'><\/script>")
 document.write("<script src='x-s.js'><\/script>")
 /* render*/
 document.write("<script src='render-webgl.js'><\/script>")
-document.write("<script src='render-SVG.js'><\/script>")
+document.write("<script src='render-svg.js'><\/script>")
 document.write("<script src='render-renderport.js'><\/script>")
 document.write("<script src='render-canvas.js'><\/script>")
