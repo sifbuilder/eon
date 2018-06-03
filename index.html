@@ -12,11 +12,20 @@
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
 
- 
+<!-- d3 -->
 <script src='https://d3js.org/d3.v5.min.js'></script>  
-<script src='https://d3js.org/d3-geo.v1.min.js'></script> 
-<script src='https://d3js.org/d3-geo-projection.v2.min.js'></script> 
 <script src='https://unpkg.com/d3-require@1.0.3/dist/d3-require.min.js'></script> 
+<script src="https://unpkg.com/d3-octree/build/d3-octree.min.js"></script>
+
+<script src="https://unpkg.com/versor"></script> <!-- for inertia -->
+<script src="https://unpkg.com/d3-inertia"></script>
+
+<script src='https://d3js.org/d3-geo.v1.min.js'></script> 
+<script src='https://unpkg.com/d3-geo-voronoi@0.0.6/build/d3-geo-voronoi.min.js'></script> 
+<script src='https://d3js.org/d3-geo-projection.v2.min.js'></script> 
+
+<!-- <script src='https://unpkg.com/d3-geo-polygon@1.4.2/build/d3-geo-projection-clip-polyhedral.js'></script>   -->
+<script src='https://unpkg.com/d3-geo-polygon@1.4.2/build/d3-geo-polygon.min.js'></script> 
 
 <!-- <script src='https:////unpkg.com/d3-force-3d@1.0/build/d3-force-3d.bundle.min.js'></script> -->
 <script src='https://unpkg.com/3d-force-graph@1.22.0/dist/3d-force-graph.min.js'></script> 
@@ -26,19 +35,19 @@
 <script src="https://unpkg.com/d3-force-bounce/dist/d3-force-bounce.min.js"></script>
 <script src="https://unpkg.com/d3-force-pod/dist/d3-force-pod.min.js"></script>
 
-
-<script src="https://unpkg.com/d3-octree/build/d3-octree.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.3.7/papaparse.min.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/qwest/4.5.0/qwest.min.js"></script> -->
-
+<!-- topojson.js -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.0/topojson.min.js'></script>
 
+<!-- three.js -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js'></script>
 <script src='https://unpkg.com/three-trackballcontrols-web@0.0.2/dist/three-trackballcontrols.min.js'></script>
 
 <script src='https://unpkg.com/mathjs@4.0.1/dist/math.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js'></script>
+
+<!-- tensorflowjs -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.8.0"></script>
+
 
 
 <script src="script-ents.js"></script>
@@ -46,15 +55,12 @@
 <script>
 
 // md: # md:{filename}
-// md: ** **
-// md: 
+// md: **sine pacing graticules**
+// md:
 // md: # license
 // md: MIT
 
 let muonAlima = function (__mapper) {
-  // __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  // __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, bck: 0})	// INIT
-
   let mgraticule = __mapper('xs').m('graticule'),
     cwen = __mapper('xs').c('wen')
 
@@ -65,51 +71,76 @@ let muonAlima = function (__mapper) {
 
   // .................. pics
 
-  let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t=>t*t*t}
-  let form = {
+  let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
+
+  let form2d = {
 
     'x': {
-      'm1': 6, 'm2': 6, 'n1': 60, 'n2': 100, 'n3': 30, 'a': 1, 'b': 1,
-      'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1, //
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1,
-      'dom3': [-180, 180],
-      // fn0: (a,b,c,d) => a**0 * b**0 * c**0 * d**1
-
+      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1
     },
     'y': {
-      'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1,			// biform
-      'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1, //
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1,
-      'dom3': [-180, 180],
-      // fn0: (a,b,c,d) => a**0 * b**0 * c**0 * d**1
-
-    },
-    'z': {
-      'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1,			// biform
-      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 4, 'pa6': 0, 'pb7': -1,
-      'dom3': [-90, 90],
-      // fn0: (a,b,c,d) => a**0 * b**0 * c**0 * d**1
-      // fn0: (a,b,c,d) => { let r = Complex({re: a, im: b}).toVector()[0];  return r }
-
+      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1
     }
   }
 
-  let conform = {
+  let conform2d = {
 
     projection: 'natform',
-    form: form
+    form: form2d
 
   }
 
-  let proform = {
+  let proform2da = {
+
+    prerotate: [[[ cwen.rotation ]]],
+    projection: 'uniwen',
+    translate: [ -150, 0],
+    rotate: [ [[[0, 360]]], [[[0, 360]]] ],
+    scale: 1
+
+  }
+
+  let proform2db = {
+
+    prerotate: [[[ cwen.rotation ]]],
+    projection: 'uniwen',
+    translate: [ 150, 0],
+    rotate: [ 0, [[[0, 360]]], 0 ],
+    scale: 1
+
+  }
+
+  let form3d = {
+
+    'x': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1
+    },
+    'y': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1
+    },
+    'z': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 4, 'pa6': 0, 'pb7': -1
+    }
+  }
+
+  let conform3d = {
+
+    projection: 'natform',
+    form: form3d
+
+  }
+
+  let proform3d = {
 
     prerotate: [[[ cwen.rotation ]]],
     projection: 'uniwen',
     translate: [ 0, 0, 0],
-    rotate: [ 0, [[[0,360]]], 0 ],
+    rotate: [ 0, [[[0, 360]]], 0 ],
     scale: 1
 
   }
@@ -118,29 +149,84 @@ let muonAlima = function (__mapper) {
 
     halo: 'scene',
     payload: {
+
       tim: tim,
-      ric: {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'context'},
-      
+
+      ric: {gid: 'gratiform', cid: 'gratiform', fid: 'context'},
+
       context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 0}
     }
-     
+
   }
   // .................. gratiform
-  let gratiform = {
+  let gratiform2da = {
 
     halo: 'ent',
 
-    geofold: p => __mapper('xs').m('graticule').vhMultiLine(p.payload.graticule),
+    geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
     payload: {
       tim: tim,
-      ric: {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
+      ric: {gid: 'gratiform', cid: 'gratiform', fid: 'gratiform2da'},
 
-      boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+      boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333, 666, 333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
 
-      conform: conform,
+      conform: conform2d,
 
-      proform: proform,
+      proform: proform2da,
+
+      graticule: {
+
+        frame: [ [ [-180, 180, 90, 90], [-90, 90, 45, 45] ] ] // X,Y
+
+      }
+
+    }
+
+  }
+  // .................. gratiform
+  let gratiform2db = {
+
+    halo: 'ent',
+
+    geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+
+    payload: {
+      tim: tim,
+      ric: {gid: 'gratiform', cid: 'gratiform', fid: 'gratiform2db'},
+
+      boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333, 666, 333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
+
+      conform: conform2d,
+
+      proform: proform2db,
+
+      graticule: {
+
+        frame: [ [ [-180, 180, 90, 90], [-90, 90, 45, 45] ] ] // X,Y
+
+      }
+
+    }
+
+  }
+
+  // .................. gratiform
+  let gratiform3d = {
+
+    halo: 'ent',
+
+    geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+
+    payload: {
+      tim: tim,
+      ric: {gid: 'gratiform', cid: 'gratiform', fid: 'gratiform3d'},
+
+      boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333, 666, 333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
+
+      conform: conform3d,
+
+      proform: proform3d,
 
       graticule: {
 
@@ -154,8 +240,12 @@ let muonAlima = function (__mapper) {
 
   // .................. animaApi
   let animas = [
+
     sceneForm, // h.context
-    gratiform // h.ent g.natform
+    gratiform2da, // h.ent g.natform
+    gratiform3d, // h.ent g.natform
+    gratiform2db // h.ent g.natform
+
   ]
 
   let animaApi = function () {
