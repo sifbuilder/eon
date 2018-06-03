@@ -36,33 +36,70 @@ let muonAlima = function (__mapper) {
   // .................. pics
 
   let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
-  let form = {
+  
+  let form2d = {
 
     'x': {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
       'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1
-
     },
     'y': {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
       'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1
+    },
+  }  
 
+  let conform2d = {
+
+    projection: 'natform',
+    form: form2d
+
+  }
+
+  let proform2da = {
+
+    prerotate: [[[ cwen.rotation ]]],
+    projection: 'uniwen',
+    translate: [ -150, 0],
+    rotate: [ [[[0, Math.sqrt(360)]]], [[[0, Math.sqrt(360)]]] ],
+    scale: 1
+
+  }
+  
+  let proform2db = {
+
+    prerotate: [[[ cwen.rotation ]]],
+    projection: 'uniwen',
+    translate: [ 150, 0],
+    rotate: [ 0, [[[0, 360]]], 0 ],
+    scale: 1
+
+  }
+  
+  let form3d = {
+
+    'x': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1
+    },
+    'y': {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1
     },
     'z': {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
       'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 4, 'pa6': 0, 'pb7': -1
-
     }
   }
 
-  let conform = {
+  let conform3d = {
 
     projection: 'natform',
-    form: form
+    form: form3d
 
   }
 
-  let proform = {
+  let proform3d = {
 
     prerotate: [[[ cwen.rotation ]]],
     projection: 'uniwen',
@@ -86,7 +123,7 @@ let muonAlima = function (__mapper) {
 
   }
   // .................. gratiform
-  let gratiform = {
+  let gratiform2da = {
 
     halo: 'ent',
 
@@ -94,13 +131,66 @@ let muonAlima = function (__mapper) {
 
     payload: {
       tim: tim,
-      ric: {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
+      ric: {gid: 'gratiform', cid: 'gratiform', fid: 'gratiform2da'},
 
-      boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+      boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333,666,333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
 
-      conform: conform,
+      conform: conform2d,
 
-      proform: proform,
+      proform: proform2da,
+
+      graticule: {
+
+        frame: [ [ [-180, 180, 90, 90], [-90, 90, 45, 45] ] ] // X,Y
+
+      }
+
+    }
+
+  }
+    // .................. gratiform
+  let gratiform2db = {
+
+    halo: 'ent',
+
+    geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+
+    payload: {
+      tim: tim,
+      ric: {gid: 'gratiform', cid: 'gratiform', fid: 'gratiform2db'},
+
+      boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333,666,333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
+
+      conform: conform2d,
+
+      proform: proform2db,
+
+      graticule: {
+
+        frame: [ [ [-180, 180, 90, 90], [-90, 90, 45, 45] ] ] // X,Y
+
+      }
+
+    }
+
+  }
+  
+  // .................. gratiform
+  let gratiform3d = {
+
+    halo: 'ent',
+
+    geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+
+    payload: {
+      tim: tim,
+      ric: {gid: 'gratiform', cid: 'gratiform', fid: 'gratiform3d'},
+
+      boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333,666,333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
+
+      conform: conform3d,
+
+      proform: proform3d,
 
       graticule: {
 
@@ -115,7 +205,9 @@ let muonAlima = function (__mapper) {
   // .................. animaApi
   let animas = [
     sceneForm, // h.context
-    gratiform // h.ent g.natform
+    gratiform2da, // h.ent g.natform
+    gratiform2db, // h.ent g.natform
+    gratiform3d // h.ent g.natform
   ]
 
   let animaApi = function () {
