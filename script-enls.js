@@ -18,3 +18,5 @@ document.write("<script src='topojson.v3.js'><\/script>")
 /* three*/
 document.write("<script src='three.js'><\/script>")
 document.write("<script src='three-trackballcontrols.js'><\/script>")
+/* tfjs*/
+document.write("<script src='tfjs.js'><\/script>")

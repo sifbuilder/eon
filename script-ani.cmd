@@ -6,6 +6,19 @@ const minimist = require('./script-minimist.js')
 const fetch = require('./script-node-fetch.js')        
 
 
+  // md: # md:{filename}
+  // md: **out of system interactions**
+  // md: 
+  // md: * ### entlist
+  // md:  update script-enls.js and script-ents.js
+  // md:  script-enls.js may be replaced by script-enxl.js for network access
+  // md:  script-enxl.js is maintained manually
+  // md:  prefixes included in enls: 'd3', 'topojson', 'three', 'tfjs', maintained in action
+  // md: 
+  // md: # license
+  // md: MIT
+
+// ...................... entlist
 function entlist (files=[], gens=[], opts) {
   for (let k=0; k<gens.length; k++) {
       let payload = ''
@@ -45,10 +58,31 @@ function entlist (files=[], gens=[], opts) {
 
 
 const args = minimist(process.argv.slice(2), {
-  alias: {a: 'action', o: 'stdout', d: 'debug', v: 'version', h: 'help', s: 'serve', t: 'mdeeFile', z: ['zindex', 'index']},
-  boolean: ['l', 'o', 'd', 'v', 'm', 'serve'],
-  string: ['t', 'p', 'z', 'a'],
-  default: {t: 0.1, p: 6}
+  alias: {a: 'action', 
+            o: 'stdout', 
+            d: 'debug', 
+            v: 'version', 
+            h: 'help', 
+            s: 'serve', 
+            t: 'mdeeFile', 
+            z: ['zindex', 'index']
+           },
+  boolean: ['l', 
+            'o', 
+            'd', 
+            'v', 
+            'm', 
+            'serve'
+            ],
+  string: ['t', 
+            'p', 
+            'z', 
+            'a'
+            ],
+  default: {
+            t: 0.1, 
+            p: 6
+            }
 })
 
 const usage = `
@@ -94,6 +128,8 @@ let mdeeFile = options.mdeeFile // to md file
 let zFile = options.zindex // from zindex file
 let action = options.action // action
 
+
+// ...................... actions
 if (action === 'samplify') {    // ........... samplify
   let files = fs.readdirSync(appdir)
 
@@ -121,7 +157,7 @@ if (action === 'samplify') {    // ........... samplify
   let gens = [
 
     { // libs:
-      tags: ['d3', 'topojson', 'three'],
+      tags: ['d3', 'topojson', 'three', 'tfjs'],
       file: libsFile,
       regCode: '\\b.*'
     },
@@ -135,7 +171,11 @@ if (action === 'samplify') {    // ........... samplify
   ]
 
   entlist(files, gens, args)
-} else if (action === 'mdfy') {
+  
+  
+} else if (action === 'mdfy') {  // ........... mdfy
+
+
   // md string begin
   let header = `
 # d3animas
@@ -148,12 +188,11 @@ if (action === 'samplify') {    // ........... samplify
 
 based on an original idea from
 
-- [x] [Mike Bostock's d3] (https://github.com/d3)
+- [x] [Mike Bostock] (https://github.com/d3) and
+- [x] [Ricardo Cabello] (https://threejs.org/)
 
 with references to
 
-- [x] [Mike Bostock] (https://bl.ocks.org/mbostock)
-- [x] [Ricardo Cabello] (https://threejs.org/)
 - [x] [Vasco Asturiano] (https://bl.ocks.org/vasturiano)
 - [x] [Philippe Rivière] (https://bl.ocks.org/fil)
 
@@ -200,7 +239,7 @@ with references to
 
   fs.writeFileSync(readmefile, readmetxt)
   
-} else if (action === 'entest') {
+} else if (action === 'entest') { // ........... entest
 
   let scriptpattern = new RegExp('^' + 'script', 'i')
   let testpattern = new RegExp('(.*)\.test.*\.js$', 'i')
@@ -221,7 +260,7 @@ with references to
       test()
   }
   
-} else if (action === 'mdeefy') {
+} else if (action === 'mdeefy') { // ........... mdeefy
   let files = fs.readdirSync(appdir)
   let infile = mdeeFile
   let outfile = 'README.markdown'
@@ -254,7 +293,8 @@ with references to
   }
 
   fs.writeFileSync(outfile, outText)
-} else if (action === 'uncomment') {
+  
+} else if (action === 'uncomment') { // ........... uncomment
   let scriptpattern = new RegExp('^' + 'script', 'i')
   let htmlpattern = new RegExp('(.*)\.html$', 'i')
   let jspattern = new RegExp('(.*)\.js$', 'i')
@@ -287,7 +327,7 @@ with references to
       fs.writeFileSync(fileName, fileTxt)
     }
   }
-} else if (action === 'serve') {
+} else if (action === 'serve') { // ........... serve
   console.log('serve')
 
       let file = 'zindex503-3symplectic.html'
