@@ -183,6 +183,9 @@ if (1 && 1) console.log('options', options)
       if (2 && 2) console.log('no zfile found')
   }
 
+
+
+
 } else if (action === 'entlist') { // ........... entlist update ents and enls
 
   let testpattern = new RegExp('(.*)\.test\.(.*)$', 'i')
@@ -290,10 +293,6 @@ if (1 && 1) console.log('options', options)
   let type = parts[4]
 
 
-if (1 && 1) console.log('fullname', fullname)
-if (1 && 1) console.log('code', code)
-if (1 && 1) console.log('name', name)
-if (1 && 1) console.log('type', type)
 
     let fileTxt = fs.readFileSync(fileName, 'utf8')
 
