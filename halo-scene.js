@@ -1,14 +1,14 @@
 /*******************************************
- *    @haloContext
+ *    @haloScene
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloContext = global.haloContext || {})))
+      : (factory((global.haloScene = global.haloScene || {})))
 }(this, function (exports) {
   'use strict'
 
-  let haloContext = function (__mapper = {}) {
+  let haloScene = function (__mapper = {}) {
     
     let f = __mapper('xs').m('props'),
       manitem = __mapper('xs').m('anitem'),
@@ -44,5 +44,5 @@
     return enty
   }
 
-  exports.haloContext = haloContext
+  exports.haloScene = haloScene
 }))
