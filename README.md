@@ -1,5 +1,5 @@
  # 852d 3dgratSvgScene  
- ** graticules **  
+ **sine pacing graticules**  
   
  # license  
  MIT  

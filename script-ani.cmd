@@ -228,7 +228,7 @@ if (1 && 1) console.log('options', options)
     .filter(d => !scriptpattern.test(d))
     .filter(d => jspattern.test(d) || htmlpattern.test(d))
 
-  let readmefile = 'README.markdown'
+  let readmefile = 'README.md'
 
   let readmetxt = header + '\n'   // header from props
 
@@ -264,7 +264,7 @@ if (1 && 1) console.log('options', options)
 } else if (action === 'mdeefy') { // ........... mdeefy
   let files = fs.readdirSync(appdir)
   let infile = mdeeFile
-  let outfile = 'README.markdown'
+  let outfile = 'README.md'
 
   let regex = new RegExp('^.*' + infile + '.*(.html|js)?', 'i')
 
