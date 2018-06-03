@@ -36,7 +36,7 @@ let muonAlima = function (__mapper) {
   // .................. pics
 
   let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
-  
+
   let form2d = {
 
     'x': {
@@ -46,8 +46,8 @@ let muonAlima = function (__mapper) {
     'y': {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
       'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1
-    },
-  }  
+    }
+  }
 
   let conform2d = {
 
@@ -65,7 +65,7 @@ let muonAlima = function (__mapper) {
     scale: 1
 
   }
-  
+
   let proform2db = {
 
     prerotate: [[[ cwen.rotation ]]],
@@ -75,7 +75,7 @@ let muonAlima = function (__mapper) {
     scale: 1
 
   }
-  
+
   let form3d = {
 
     'x': {
@@ -133,7 +133,7 @@ let muonAlima = function (__mapper) {
       tim: tim,
       ric: {gid: 'gratiform', cid: 'gratiform', fid: 'gratiform2da'},
 
-      boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333,666,333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
+      boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333, 666, 333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
 
       conform: conform2d,
 
@@ -148,7 +148,7 @@ let muonAlima = function (__mapper) {
     }
 
   }
-    // .................. gratiform
+  // .................. gratiform
   let gratiform2db = {
 
     halo: 'ent',
@@ -159,7 +159,7 @@ let muonAlima = function (__mapper) {
       tim: tim,
       ric: {gid: 'gratiform', cid: 'gratiform', fid: 'gratiform2db'},
 
-      boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333,666,333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
+      boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333, 666, 333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
 
       conform: conform2d,
 
@@ -174,7 +174,7 @@ let muonAlima = function (__mapper) {
     }
 
   }
-  
+
   // .................. gratiform
   let gratiform3d = {
 
@@ -186,7 +186,7 @@ let muonAlima = function (__mapper) {
       tim: tim,
       ric: {gid: 'gratiform', cid: 'gratiform', fid: 'gratiform3d'},
 
-      boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333,666,333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
+      boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333, 666, 333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
 
       conform: conform3d,
 
@@ -204,11 +204,12 @@ let muonAlima = function (__mapper) {
 
   // .................. animaApi
   let animas = [
+
     sceneForm, // h.context
     gratiform2da, // h.ent g.natform
     gratiform3d, // h.ent g.natform
-    gratiform2db, // h.ent g.natform
-    
+    gratiform2db // h.ent g.natform
+
   ]
 
   let animaApi = function () {
