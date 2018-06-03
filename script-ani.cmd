@@ -3,18 +3,18 @@ const fs = require('fs')
 const http = require('http')
 // const { entlist } = require('./script-entlist.js')
 const minimist = require('./script-minimist.js')
-const fetch = require('./script-node-fetch.js')        
+const fetch = require('./script-node-fetch.js')
 
 
   // md: # md:{filename}
   // md: **out of system interactions**
-  // md: 
+  // md:
   // md: * ### entlist
   // md:  update script-enls.js and script-ents.js
   // md:  script-enls.js may be replaced by script-enxl.js for network access
   // md:  script-enxl.js is maintained manually
   // md:  prefixes included in enls: 'd3', 'topojson', 'three', 'tfjs', maintained in action
-  // md: 
+  // md:
   // md: # license
   // md: MIT
 
@@ -39,41 +39,41 @@ with references to
 
 # License
 
-- MIT` // md string end  
-  
+- MIT` // md string end
+
 // ...................... entlist
 function entlist (files=[], gens=[], opts) {
   for (let k=0; k<gens.length; k++) {
       let payload = ''
-        
+
       let gen = gens[k]
       let tags = gens[k].tags
       let outfile =  gens[k].file
       let regCode = gens[k].regCode
-      
+
       for (let i=0; i<tags.length; i++) {
         let tag = tags[i]
         let regex = new RegExp( '^' + tag + regCode, 'i')
         let filtered = files.filter(d => regex.test(d)).sort(function(a, b) {
             return  -a.localeCompare(b) // . < -
           })
-         
+
         payload +=  '/* ' + tag + '*/' + '\n'
-        
-        filtered.forEach( file => {         
-        
+
+        filtered.forEach( file => {
+
           payload +=  'document.write("<script src=\'' + file + '\'><\\/script>")' + '\n'
-          
+
         })
-        
+
       }
-      
+
       if (opts.stdout) {
         if (opts.files) console.log(`\n<files ${opts.files}>`);
         console.log('writing to ' + outfile + ': \n' + payload)
       } else {
         fs.writeFileSync(outfile,payload);
-        console.log('Wrote '+outfile);  
+        console.log('Wrote '+outfile);
       }
 
   }
@@ -81,35 +81,35 @@ function entlist (files=[], gens=[], opts) {
 
 
 const args = minimist(process.argv.slice(2), {
-  alias: {a: 'action', 
-            o: 'stdout', 
-            d: 'debug', 
-            v: 'version', 
-            h: 'help', 
-            s: 'serve', 
-            t: 'mdeeFile', 
+  alias: {a: 'action',
+            o: 'stdout',
+            d: 'debug',
+            v: 'version',
+            h: 'help',
+            s: 'serve',
+            t: 'mdeeFile',
             z: ['zindex', 'index']
            },
-  boolean: ['l', 
-            'o', 
-            'd', 
-            'v', 
-            'm', 
+  boolean: ['l',
+            'o',
+            'd',
+            'v',
+            'm',
             'serve'
             ],
-  string: ['t', 
-            'p', 
-            'z', 
+  string: ['t',
+            'p',
+            'z',
             'a'
             ],
   default: {
-            t: 0.1, 
+            t: 0.1,
             p: 6
             }
 })
 
 const usage = `
-Usage: entlist [options]
+Usage: script-ani [options]
 
 Options:
  -a, --action        Script action in {samplify,entlist,mdfy,mdeefy}
@@ -124,6 +124,14 @@ Options:
  -s, --serve         Server
  -o, --stdout        Output to stdout
  -z, --zindex        From zfile index
+
+
+Examples:
+
+ script-ani -a entlist
+ script-ani -a samplify -z 852d
+ script-ani -a mdeefy -t 852d
+
 `.trim()
 
 const entlistFile = args._[0]
@@ -174,7 +182,7 @@ if (1 && 1) console.log('options', options)
   } else {
       if (2 && 2) console.log('no zfile found')
   }
-  
+
 } else if (action === 'entlist') { // ........... entlist update ents and enls
 
   let testpattern = new RegExp('(.*)\.test\.(.*)$', 'i')
@@ -199,8 +207,8 @@ if (1 && 1) console.log('options', options)
   ]
 
   entlist(files, gens, args)
-  
-  
+
+
 } else if (action === 'mdfy') {  // ........... mdfy create md file
 
 
@@ -244,15 +252,15 @@ if (1 && 1) console.log('options', options)
   }
 
   fs.writeFileSync(readmefile, readmetxt)
-  
+
 } else if (action === 'jest') { // ........... jest
 
   jest
-  
+
 } else if (action === 'eslint') { // ........... eslint
 
   eslint
-  
+
 } else if (action === 'mdeefy') { // ........... mdeefy
   let files = fs.readdirSync(appdir)
   let infile = mdeeFile
@@ -260,22 +268,47 @@ if (1 && 1) console.log('options', options)
 
   let regex = new RegExp('^.*' + infile + '.*(.html|js)?', 'i')
 
+
+
   let fzs = files.filter(d => regex.test(d))
 
   let header = ''
   let newLine = '\n'
   let endOfLine = '  '
-  let outText = header + newLine
+  let outText = header
 
   for (let i = 0; i < fzs.length; i++) {
     let fileName = fzs[i]
+
+  let regex2 = new RegExp('^(zindex)?(.*)-(.*)\.(html|js)', 'i')
+  let parts = fileName.match(regex2)
+
+  let fullname = parts[0]
+  let part = parts[1]
+  let code = parts[2]
+  let name = parts[3]
+  let type = parts[4]
+
+
+if (1 && 1) console.log('fullname', fullname)
+if (1 && 1) console.log('code', code)
+if (1 && 1) console.log('name', name)
+if (1 && 1) console.log('type', type)
+
     let fileTxt = fs.readFileSync(fileName, 'utf8')
 
     let nameFindPattern = /md:(\{filename\})/mg // filename
     let nameReplacePattern = /md:\{filename\}/i // ignoring case
     var nameArr
     while ((nameArr = nameFindPattern.exec(fileTxt)) !== null) {
-      fileTxt = fileTxt.replace(nameReplacePattern, fileName)
+      if (type === 'html') {
+        fileTxt = fileTxt.replace(nameReplacePattern, code + ' ' + name)
+      } else if (type === 'js') {
+        fileTxt = fileTxt.replace(nameReplacePattern, fileName)
+      } else {
+        if (2 && 2) console.log('type not recognized', type)
+
+      }
     }
 
     const mdpattern = /\/\/.?md:(.*)/mg // // md (global multiline)
@@ -286,7 +319,7 @@ if (1 && 1) console.log('options', options)
   }
 
   fs.writeFileSync(outfile, outText)
-  
+
 } else if (action === 'uncomment') { // ........... uncomment
   let scriptpattern = new RegExp('^' + 'script', 'i')
   let htmlpattern = new RegExp('(.*)\.html$', 'i')
