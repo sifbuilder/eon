@@ -17,7 +17,6 @@
   // This software is distributed under the terms of the MIT License
   // ref: https://visionscarto.net/the-state-of-d3-voronoi
 
-  const line = d3.line()
 
   let x = function (d) {
     if (typeof d === 'object' && 'type' in d) {
@@ -173,7 +172,7 @@
             coordinates: [[ pos[i], line[0], line[1], pos[i] ]]
           }
           if (geoArea(b) > 2 * Math.PI + 1e-10) {
-            line = line.reverse()
+            line = d3.line.reverse()
           }
 
           geojson.type = 'Polygon'
