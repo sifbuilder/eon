@@ -11,8 +11,8 @@
 </head>
 <body style='cursor:crosshair'></body>
 <div id='viewframe' class='viewframe'></div>
-<script src='script-enls.js'></script>
-<script src='script-ents.js'></script>
+<script src='elem-enls.js'></script>
+<script src='elem-ents.js'></script>
 
 <script>
 
@@ -20,7 +20,7 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 1, wen: 0, webgl: 0, bck: 0, gui: 0, fps: 0, stats: 0}) // INIT
 
-  let f = __mapper({props: muonProps.muonProps()}).props(),
+  let f = __mapper('xs').m('props'),
     mnat = __mapper('xs').m('nat'),
     cwen = __mapper('xs').c('wen'),
     cversor = __mapper('xs').c('versor'),

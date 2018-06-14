@@ -11,8 +11,8 @@
 </head>
 <body style='cursor:crosshair'></body>
 <div id='viewframe' class='viewframe'></div>
-<script src='script-enls.js'></script>
-<script src='script-ents.js'></script>
+<script src='elem-enls.js'></script>
+<script src='elem-ents.js'></script>
 
 <script>
 //md: z.617f fractals
@@ -21,7 +21,7 @@ let muonAlima = function muonAlima (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 0, bck: 0, gui: 0, key: 1, fps: 0, stats: 0}) // INIT
 
-  let f = __mapper({props: muonProps.muonProps()}).props(),
+  let f = __mapper('xs').m('props'),
     mnat = __mapper('xs').m('nat'),
     cversor = __mapper('xs').c('versor'),
     cwen = __mapper('xs').c('wen'),
@@ -120,10 +120,10 @@ let muonAlima = function muonAlima (__mapper) {
 
   }
     /***********
-  *         @anifractal
+  *         @pointForm
   */
 
-    let anifractal = {
+    let pointForm = {
 
       halo: 'fractal',
 
@@ -223,7 +223,7 @@ let muonAlima = function muonAlima (__mapper) {
  *
  */
   let animas = [
-    anifractal // h.fractal
+    pointForm // h.fractal
   ]
 
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})

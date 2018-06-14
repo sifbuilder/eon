@@ -12,12 +12,19 @@
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
 
-<script src="script-enls.js"></script>
-<script src="script-ents.js"></script>
+<script src="elem-enls.js"></script>
+<script src="elem-ents.js"></script>
 
 <script>
 
-let muonAlima = function muonAlima (__mapper) {
+// md: # md:{filename}
+// md: ** **
+
+// md: # license
+// md: MIT
+
+let muonAlima = function (__mapper) {
+
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, bck: 0, key: 1, gui: 0, fps: 0, stats: 0}) // INIT
 
@@ -43,7 +50,7 @@ let muonAlima = function muonAlima (__mapper) {
   }
 
   // ............................. pics
-  let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop:1, tf: t => t}
+  let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop:1}
 
 
 
@@ -169,7 +176,7 @@ let muonAlima = function muonAlima (__mapper) {
     'x': {
       // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 12,'pa6': 0,'pb7': -1,
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 36,'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],  // r.form.circ [-1.57, 1.57]
       'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => a * cos(q) * c * cos(v),
       'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => a * cos(q),
@@ -180,7 +187,7 @@ let muonAlima = function muonAlima (__mapper) {
     'y': {
       // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,   // drop
               'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 12,'pa6': 0,'pb7': -1,
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 36,'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],
       // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => a * sin(q) * c * cos(v),
       // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => pow(q,3) * sin(q),
@@ -191,7 +198,7 @@ let muonAlima = function muonAlima (__mapper) {
     'z': {
         // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 12,'pa6': 0,'pb7': -1,
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': [[[2,2,24,24]]],'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],
       'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => - (sin(q) - 1) * cos(q) * sin(v),
     },
@@ -199,7 +206,7 @@ let muonAlima = function muonAlima (__mapper) {
     'r': {
       "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 12,'pa6': 0,'pb7': -1,
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': [[[2,2,24,24]]],'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],
             // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => c * cos(u),
             // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => d,
@@ -215,10 +222,10 @@ let muonAlima = function muonAlima (__mapper) {
 
     halo: 'nat',
     // halo: 'ent',
-    // halo: 'quadric',
+    // halo: 'nat',
 
-    geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
-    // geofold: p => mnat.natFeature(p.payload.form),
+    // geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
+    geofold: p => mnat.natFeature(p.payload.form),
     payload: {
       tim,
 
@@ -227,8 +234,7 @@ let muonAlima = function muonAlima (__mapper) {
       proform: {
 
           projection: 'uniwen',
-          // scale: [1, 1],
-          scale: [0.5, 0.5],
+          scale: [0.5, 0.5], // scale: [1, 1],
 
           // projection:  d3.geoOrthographic(),
           // scale: 100,
@@ -240,13 +246,14 @@ let muonAlima = function muonAlima (__mapper) {
           lens: [0, 1, Infinity],
         },
 
-      boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.9, 0.9]]], 'cs': [[[888, 888]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
       form: conform,
 
     }
 
   }
+
 
   // ............................. animas
   let animas = [

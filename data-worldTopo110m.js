@@ -1,22 +1,16 @@
 /**********************
  *			@dataWorldTopo110m
- */	
+ */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
   (factory((global.dataWorldTopo110m = global.dataWorldTopo110m || {})));
 }(this, function (exports) { 'use strict';
 
-
 // dataWorldTopo110m ref. https://github.com/topojson/world-atlas
+function dataWorldTopo110m(__mapper = {}) {
 
-var dataWorldTopo110m = function dataWorldTopo110m(__mapper = {}) {
-
-		let props = __mapper("props")()
-		let f = props.lib		
-		var state = Object.assign({},props.msg || {})
-		
-		let data = { 
+	let data = {
 	"type": "Topology",
 	"objects": {
 		"countries": {
@@ -18454,14 +18448,11 @@ var dataWorldTopo110m = function dataWorldTopo110m(__mapper = {}) {
 		-85.60903777459767]
 	}
 }
-		
 
-/* -------------------------- */		
-/*       enty   						*/
-/* -------------------------- */
+    // .................. enty
 		var enty = function enty() {}
 		enty.data = ()  => data
-		
+
 		return enty
 
 }

@@ -12,14 +12,14 @@
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
 
-<script src="script-enls.js"></script>
-<script src="script-ents.js"></script>
+<script src="elem-enls.js"></script>
+<script src="elem-ents.js"></script>
 
 <script>
 
 let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, key: 1, img: 0}) // INIT
+  __mapper('xs').m('init')({svg: 1, versor: 0, wen: 1, webgl: 0, key: 1, bck: 0}) // INIT
 
   let f = __mapper('xs').m('props'),
     mnat = __mapper('xs').m('nat'),
@@ -43,10 +43,7 @@ let muonAlima = function (__mapper) {
 
   let d3_force = d3
 
-  /*******************************************
- *        @pics
- *
- */
+  // ............................. pics
   // https://en.wikipedia.org/wiki/Surface_of_revolution
   // https://www.youtube.com/watch?v=Kpw7QyVTm6Y
 
@@ -76,11 +73,8 @@ let muonAlima = function (__mapper) {
 
   let frame = [ [ [ -180, 180, 90, 5], [ -180, 180, 30, 5] ] ]
 
-  /*******************************************
- *      @triForm
- *
- */
-  let triForm = {
+  // ............................. fiboForm h.ent
+  let fiboForm = {
 
     halo: 'ent',
 
@@ -90,23 +84,24 @@ let muonAlima = function (__mapper) {
 
       tim,
 
-      ric: {gid: 'grat', cid: 'grat', fid: 'triForm'},
-      boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.03, 'cp': 0.9 },
+      ric: {gid: 'grat', cid: 'grat', fid: 'fiboForm'},
+      boform: { 'csx': 0, 'cf': 888, 'cs': 888, 'cw': 0.9, 'co': 0.7, 'cp': 0.9 },
 
       fibonat: {
-        samples: [[[50, 50]]],
-        offsetstep: [[[0, 20]]],
-        // dotsInSegment: 1,
-        goldenangle: Math.PI * (3.0 - Math.sqrt(5.0))
+        samples: [[[2200, 2200]]],
+        offsetstep: [[[2, 199]]],
+        dotsInSegment: 1,
+        goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
+        geometry: 'MultiPoint'  // 'LineString'
       },
 
       proform: {
         projection: 'uniwen',
         prerotate: [[[ cwen.rotation ]]],
         translate: [0, 0, 0],
-        scale: 100,
-        rotate: [ 0, 0, 0],
-        lens: [ 0, 1, Infinity ]
+        scale: [[[100,150]]],
+        rotate: [ [[[0,90,90,90,90]]], 0, [[[0,0,90,90,90]]]],
+        lens: [ 0, 1, 200 ]
       },
 
       graticule: frame
@@ -114,10 +109,8 @@ let muonAlima = function (__mapper) {
     }
 
   }
-  /*******************************************
- *      @gratForm
- *
- */
+
+  // ............................. gratForm h.ent
   let gratForm = {
 
     halo: 'ent',
@@ -129,7 +122,7 @@ let muonAlima = function (__mapper) {
       tim,
 
       ric: {gid: 'grat', cid: 'grat', fid: 'gratForm'},
-      boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': [[[0.9, 1.9]]], 'co': 0.03, 'cp': 0.9 },
+      boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': [[[0.9, 1.9]]], 'co': 0.07, 'cp': 0.9 },
 
       fibonat: {
         samples: [[[50, 50]]],
@@ -142,14 +135,12 @@ let muonAlima = function (__mapper) {
       conform: {
         'x': {
           'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
-          
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+
           'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
-          'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => a * cos(r) * c * cos(u),
-
-
+          'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => a * cos(r) * c * cos(u)
         },
         'y': {
           'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
@@ -196,10 +187,8 @@ let muonAlima = function (__mapper) {
     }
 
   }
-  /*******************************************
- *      @sphereForm
- *
- */
+
+  // ............................. sphereForm h.ent
   let sphereForm = {
 
     halo: 'ent',
@@ -210,7 +199,7 @@ let muonAlima = function (__mapper) {
 
       tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereForm'},
-      boform: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': [[[ 0.6, 0.1 ]]], 'co': 0.1, 'cp': 0.99 },
+      boform: { 'csx': 0, 'cf': 333, 'cs': 666, 'cw': [[[ 0.2, 0.2 ]]], 'co': 0.1, 'cp': 0.99 },
 
       conform: {
         'x': {
@@ -231,6 +220,7 @@ let muonAlima = function (__mapper) {
           'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
           'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => b * sin(r) * c * cos(u)
+
         },
         'z': {
           'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
@@ -259,9 +249,9 @@ let muonAlima = function (__mapper) {
         projection: 'uniwen',
         prerotate: [[[ cwen.rotation ]]],
         translate: [0, 0, 0],
-        scale: 1,
-        rotate: [ 0, 0, 0],
-        lens: [ 0, 1, Infinity ]
+        scale: [[[1,1.5]]],
+        rotate: [ [[[0,90,90,90,90]]], 0, [[[0,0,90,90,90]]] ],
+        lens: [ 0, 1, 200 ]
       },
 
       graticule: [ [ [ -180, 180, 45, 5], [ -180, 180, 45, 5] ] ]
@@ -269,10 +259,7 @@ let muonAlima = function (__mapper) {
     }
 
   }
-  /*******************************************
- *      @img
- *
- */
+  // ............................. img h.img
   let img = {
 
     halo: 'img',
@@ -313,10 +300,7 @@ let muonAlima = function (__mapper) {
     }
   }
 
-  /*******************************************
- *      @axis
- *
- */
+  // ............................. axis h.axis
   let axis = {
 
     halo: 'axis',
@@ -336,10 +320,10 @@ let muonAlima = function (__mapper) {
 
       tim,
       ric: {gid: 'axg', cid: 'axc', fid: 'axf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      boform: { 'csx': 0, 'cf': [[[444, 444]]], 'cs': 444, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
       // proform: {
-        // projection: 'uniwen',
-        // translate: [ 0, 0 ]
+      // projection: 'uniwen',
+      // translate: [ 0, 0 ]
       // },
       axis: {
         label: 'space',
@@ -350,24 +334,20 @@ let muonAlima = function (__mapper) {
         domain0: 0,
         domain1: 1,
         range0: 0,
-        range1: 120,
-        'csx': 0, 'cf': [[[333, 555, 333, 555, 333, 555]]], 'cs': [[[888, 888]]], 'cw': 0.3, 'co': [[[0.9, 0.9]]], 'cp': 0.9
+        range1: 120
       }
 
     }
   }
-  /*******************************************
- *      @animaApi
- *
- */
 
+  // ............................. animaApi
   let animas = [
 
     // gratForm, // h.ent
-    // sphereForm, // h.ent
-    // triForm, // h.ent
+    sphereForm, // h.ent
+    fiboForm, // h.ent
     // img, // h.img
-    axis // h.axis
+    // axis // h.axis
 
   ]
 

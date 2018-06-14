@@ -8,12 +8,21 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonProps = function muonProps () {
-    
+
+  async function muonProps(__mapper = {}) {
+
     let props = {}
 
-    props.tst = (a,b) => a + b
+    let d3Array = await __mapper('xs').b('d3-array')
+    // let d3Scale = await __mapper('xs').b('d3-scale')
+    let d3Range = d3Array.range
+    // let d3scaleLinear = d3Scale.scaleLinear
     
+    // let d3Range = d3.range // d3Array.range
+    let d3scaleLinear = d3.scaleLinear // d3Scale.scaleLinear
+
+    props.addtst = (a,b) => a + b
+
     /***************************
     *        @arrays
     */
@@ -39,7 +48,7 @@
 
 		// functional array
     props.isFunctionalArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'function', true)
-		
+
     // pure multiarray: array of pure arrays
     props.isPureMultiArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && props.isPureArray(curr), true)
 
@@ -103,10 +112,10 @@
         for (let i = 0; i < pointsHowmany; i++) {
           streamXYZ[i] = streams.map(d => d[i])
         }
-        let scales = streams.map(d => d3.scaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))
+        let scales = streams.map(d => d3ScaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))
       } else {
         let pointsHowmany = mx // max length
-        let scales = streams.map(d => d3.scaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))
+        let scales = streams.map(d => d3ScaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))
         for (let j = 0; j < pointsHowmany; j++) {
           let w = streams.map((s, k) => streams[k][Math.round(scales[k](j))])
           streamXYZ.push(w)
@@ -203,57 +212,10 @@
     /***************************
    *        @paths
    */
-    props.diagonalp = function (d, v) { // error: d is undefined
-      // v < 0: linear link
-      // 0 < v < 1: curved link
-      // > 1: curvy link
 
-      let s = d.source
-      let t = d.target
-      let x0 = s.x // s.stace.stateA // s.x
-      let y0 = s.y //  s.stace.stateB //s.y
-      let x1 = t.x //  t.stace.stateA //t.x
-      let y1 = t.y //  t.stace.stateB //t.y
 
-      if ((x0 === undefined) ||
-          (y0 === undefined) ||
-          (x1 === undefined) ||
-          (y1 === undefined)) {
-        console.log('error in diagonal')
-        return null
-      }
-
-      let polygon = []
-
-      if (v < 0) { // linar
-        polygon = [ [x0, y0],
-          [x1, y1]
-        ]
-      } else if (v > 1) { // (1, )  curvy
-        let rd = 1 + d3.randomNormal(0, v - 1)() // v
-        polygon = [ [x0, y0],
-          [x0 + rd * (x1 - x0), y0],
-          [x0 + rd * (x1 - x0), y1],
-          [x1, y1]
-        ]
-      } else { // (0,1)    curve
-        let rd = 1 + d3.randomNormal(0, v)() // v
-
-        let r = -1 // let r = Math.sign((0.5 - Math.random()))
-
-        let x0a = x0 + r * rd * (x1 - x0)
-        let y0a = y0 - r * rd * (y1 - y0)
-        polygon = [
-          [x0, y0],
-          [x0a, y0a],
-          [x1, y1]
-        ]
-      }
-      return polygon
-    }
-
-    props.closerange = (a, b) => [...d3.range(a, b), a]
-    props.geoscale = extent => d3.scaleLinear().domain(extent[0]).range(extent[1])
+    props.closerange = (a, b) => [...d3Range(a, b), a]
+    props.geoscale = extent => d3ScaleLinear().domain(extent[0]).range(extent[1])
 
     props.addarray = (a1, a2) => a1.map((d, i) => d + a2[i])
     props.sum = (a, t) => a.reduce((p, c) => c[t] + p, 0)
@@ -289,9 +251,9 @@
       return pos
     }
 
-    props.geoscale = extent => d3.scaleLinear().domain(extent[0]).range(extent[1])
+    props.geoscale = extent => d3ScaleLinear().domain(extent[0]).range(extent[1])
 
-    props.closerange = (a, b) => [...d3.range(a, b), a]
+    props.closerange = (a, b) => [...d3Range(a, b), a]
 
     props.isPureObject = d => (!Array.isArray(d) &&
                 typeof d === 'object' &&
@@ -308,48 +270,7 @@
     props.value = v => (typeof v === 'function') ? v() : v
     props.noop = () => {}
 
-    /***************************
-   *        @colors
-   */
-    props.colors = {} // colors
-    props.colors.scales = {
-      snow: d3.scaleLinear().domain([0, 0.33, 0.66, 1]).range(['#3e2707', '#8e5e0b', '#f8a413', '#E1E7E4']), // brown orange ambar ice
-      bos: d3.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Wheat']), // ex 0
-      wheat: d3.scaleLinear().domain([0, 0.5, 1]).range(['black', 'Wheat', '#FF2400']), // 1
-      red: d3.scaleLinear().domain([0, 0.5, 1]).range(['#FF2400', 'Yellow']), // 2
-      ry: d3.scaleLinear().domain([0, 1]).range(['red', 'yellow']), // 3
-      bar: d3.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Yellow']), // 4
-      lab: d3.interpolateLab('#FF2400', 'yellow'), // 5
-      hsl: d3.interpolateLab('brown', 'steelblue'), // 6
-      rbl: d3.interpolateLab('red', 'blue'), // 7
-      plasma: d3.interpolatePlasma, // 8
-      cool: d3.interpolateCool, // 9
-      warm: d3.interpolateWarm, // 10
-      magma: d3.interpolateMagma, // 11
-      inferno: d3.interpolateInferno, // 12
-      viridis: d3.interpolateViridis, // 13
-      cubehelex: d3.interpolateCubehelexDefault, // 14
-      rainbow: d3.interpolateRainbow, // 15
-      bluered: d3.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'red' ]),
-      blueblack: d3.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'black' ]) // "red",])  // 0
-    }
-    props.colors.color = props.colors.scales.bos
-    props.colors.array = Object.keys(props.colors.scales).map(key => props.colors.scales[key])
 
-    props.color = (d = 0) => {
-      return props.colors.array[Math.round(d)]
-    }
-    props.kolor = (v, d = 0) => {
-      return props.color(d)(v / 1000)
-    }
-
-    props.polarize = function (point) { // cart to 2d planar
-      let x = point[0]
-      let y = point[1]
-      let ang = Math.atan2(y, x)
-      let rad = Math.sqrt(x * x + y * y)
-      return [ang, 0, rad]
-    }
     /***************************
    *        @numbers
    */
@@ -450,7 +371,7 @@
       const offset = 2.0 / samples
       const increment = Math.PI * (3.0 - Math.sqrt(5.0))
 
-      let r = d3.range(samples)
+      let r = d3Range(samples)
         .map((i) => {
           const y = ((i * offset) - 1) + (offset / 2)
           const r = Math.sqrt(1 - Math.pow(y, 2))
@@ -516,15 +437,15 @@
       let retRad = ret[1]
 
       let ccs =
-        d3.range(retRad[0], retRad[1], retRad[2]) // range rad
+        d3Range(retRad[0], retRad[1], retRad[2]) // range rad
           .map(ro =>
-            d3.range(retAng[0], retAng[1] + epsilon, retAng[2]) // range ang - +epsilon
+            d3Range(retAng[0], retAng[1] + epsilon, retAng[2]) // range ang - +epsilon
               .map(t => [ro * Math.cos(t * Math.PI / 180), ro * Math.sin(t * Math.PI / 180)]))
 
       let rrs =
-        d3.range(retAng[0], retAng[1], retAng[2])
+        d3Range(retAng[0], retAng[1], retAng[2])
           .map(fi =>
-            d3.range(retRad[0], retRad[1], retRad[2])
+            d3Range(retRad[0], retRad[1], retRad[2])
               .map(t => [t * Math.cos(fi * Math.PI / 180), t * Math.sin(fi * Math.PI / 180)]))
 
       return { ccs, rrs }

@@ -1,14 +1,14 @@
 /***********
- *    @muongeom
+ *    @muonGeom
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muongeom = global.muongeom || {})))
+      : (factory((global.muonGeom = global.muonGeom || {})))
 }(this, function (exports) {
   'use strict'
 
-  let muongeom = function muongeom (__mapper = {}) {
+  let muonGeom = function muonGeom (__mapper = {}) {
     let pi = Math.PI,
       degrees = 180 / pi,
       radians = pi / 180
@@ -308,5 +308,5 @@
     return enty
   }
 
-  exports.muongeom = muongeom
+  exports.muonGeom = muonGeom
 }))

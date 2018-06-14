@@ -8,19 +8,47 @@
 }(this, function (exports) {
   'use strict'
 
+
+  // md: # md:{filename}
+  // md: **cells interlinked within cells interlinked**
+  // md:
+  // md: # license
+  // md: MIT
+
+
   let muonLacer = function muonLacer (__mapper = {}) {
-    let f = __mapper('xs').m('props')
 
-    let r = __mapper('xs').r('renderport'),
-      width = r.width(),
-      height = r.height()
+    const isNumericArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'number', true)
 
-    let radians = Math.PI / 180,
-      degrees = 180 / Math.PI
+    // https://github.com/d3/d3-array/blob/master/src/range.js
+    const range = function(start, stop, step) {
+      start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
 
-    /***********
-   *    @interlace
-   */
+      var i = -1,
+          n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
+          range = new Array(n);
+
+      while (++i < n) {
+        range[i] = start + i * step;
+      }
+
+      return range;
+    }
+
+    // https://gist.github.com/vectorsize/7031902
+    // based on http://processing.org/reference/javadoc/core/processing/core/PApplet.html#map(float, float, float, float, float)
+    const scale = function(opts){
+      const istart = opts.domain[0],
+          istop  = opts.domain[1],
+          ostart = opts.range[0],
+          ostop  = opts.range[1];
+
+      return function scale(value) {
+        return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
+      }
+    }
+
+    // ...................... interlace
     let interlace = function (streams, t) {
       let ww = []
       let ses = [] // scale per position
@@ -38,7 +66,7 @@
 
         ses[i] = si // ses scale for i stream
 
-        let rid = d3.range(streams[i].length).map((d, i) => i)
+        let rid = range(streams[i].length).map((d, i) => i)
         let rir = streams[i]
         let ri = d3.scaleLinear() // argument scale
           .domain(rid) // from result position
@@ -51,7 +79,7 @@
         let rr = []
         let ss = []
 
-        for (let k = 0; k < streams.length; k++) { 	// each stream
+        for (let k = 0; k < streams.length; k++) { // each stream
           let vk = ses[k](j) // postion on stram
           let sk = res[k](vk) // time stream
 
@@ -82,7 +110,7 @@
     let slide = function (streams = [], compl = 'max') {
       let nbr = streams.length
 
-      let inpattern = streams.reduce((p, q) => p && f.isNumericArray(q), true)
+      let inpattern = streams.reduce((p, q) => p && isNumericArray(q), true)
 
       let lengths = streams.map(d => d.length),
         mx = Math.max(...lengths),
@@ -111,8 +139,8 @@
    *        @unslide
    */
     let unslide = function (stream = []) {
-      let lengths = stream.map(d => d.length)		// lengths of array elems
-      let mx = Math.max(...lengths)							// 3 if array of 3d coords
+      let lengths = stream.map(d => d.length) // lengths of array elems
+      let mx = Math.max(...lengths) // 3 if array of 3d coords
       let unslide = d3.range(mx).map(mx => [])
 
       for (let i = 0; i < stream.length; i++) {
@@ -128,40 +156,40 @@
    */
     let interadd = function (streams) {
       let ww = []
-      let ses = []				// scale per position
-      let res = []				// scale per position
+      let ses = [] // scale per position
+      let res = [] // scale per position
 
-      let nStreams = streams.length						// number of streams
+      let nStreams = streams.length // number of streams
       let nDots = streams.reduce((p, q) => Math.max(q.length, p), 0) // max dots
 
-      for (let i = 0; i < nStreams; i++) {			// scales
+      for (let i = 0; i < nStreams; i++) { // scales
         let sid = [0, nDots - 1]
         let sir = [0, streams[i].length - 1]
-        let si = d3.scaleLinear()		// argument scale
-          .domain(sid)		// from result position
-          .range(sir)		// to strem i position
+        let si = d3.scaleLinear() // argument scale
+          .domain(sid) // from result position
+          .range(sir) // to strem i position
 
-        ses[i] = si					// ses scale for i stream
+        ses[i] = si // ses scale for i stream
 
         let rid = d3.range(streams[i].length).map((d, i) => i)
         let rir = streams[i]
-        let ri = d3.scaleLinear()					// argument scale
-          .domain(rid)					// from result position
-          .range(rir)		// to strem i position
+        let ri = d3.scaleLinear() // argument scale
+          .domain(rid) // from result position
+          .range(rir) // to strem i position
 
-        res[i] = ri					// ses scale for i stream
+        res[i] = ri // ses scale for i stream
       }
 
-      for (let j = 0; j < nDots; j++) {				// each position j
+      for (let j = 0; j < nDots; j++) { // each position j
         let rr = []
         let ss = []
 
-        for (let k = 0; k < streams.length; k++) {			// each stream
-          let vk = ses[k](j)								// postion on stream
-          let sk = res[k](vk)								// time stream
+        for (let k = 0; k < streams.length; k++) { // each stream
+          let vk = ses[k](j) // postion on stream
+          let sk = res[k](vk) // time stream
 
-          rr.push(vk)		// [0, 0, 0], [0.5, 0.25, 1], [1, 0.5, 2]	positions per stream
-          ss.push(sk)		// [2, 33, 5], [2.5, 33.25, 6], [3, 33.5, 7]	values	j
+          rr.push(vk) // [0, 0, 0], [0.5, 0.25, 1], [1, 0.5, 2] positions per stream
+          ss.push(sk) // [2, 33, 5], [2.5, 33.25, 6], [3, 33.5, 7]  values  j
         }
 
         ww[j] = ss.reduce((p, q) => q + p, 0)

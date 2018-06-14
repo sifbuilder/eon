@@ -16,8 +16,7 @@
   // md:  define `geofold.properties.geonode` if undefined
 
   let haloEnt = function (__mapper = {}) {
-    let f = __mapper('xs').m('props'),
-      manitem = __mapper('xs').m('anitem'),
+    let manitem = __mapper('xs').m('anitem'),
       mric = __mapper('xs').m('ric'),
       mboform = __mapper('xs').m('boform'),
       mgeoj = __mapper('xs').m('geoj'),
@@ -27,6 +26,9 @@
       mstace = __mapper('xs').m('stace'),
       hformed = __mapper('xs').h('formed')
 
+    let f = {}
+        f.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
+      
     // ............................. gramm
     let gramm = function (anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram(), // anigram

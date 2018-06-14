@@ -1,4 +1,4 @@
-// d3-require Version 1.0.3 Copyright 2018 Observable, Inc.
+// d3-require Version 1.0.4 Copyright 2018 Observable, Inc.
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -28,7 +28,7 @@
   }
 
   function resolveMeta(target) {
-    const url = `${origin}${target.name}@${target.version || "latest"}/package.json`;
+    const url = `${origin}${target.name}${target.version ? `@${target.version}` : ""}/package.json`;
     let meta = metas.get(url);
     if (!meta) metas.set(url, meta = fetch(url).then(response => {
       if (!response.ok) throw new Error("unable to load package.json");

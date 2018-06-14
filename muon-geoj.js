@@ -1,14 +1,14 @@
 /***********
- *    @muongeoj
+ *    @muonGeoj
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muongeoj = global.muongeoj || {})))
+      : (factory((global.muonGeoj = global.muonGeoj || {})))
 }(this, function (exports) {
   'use strict'
 
-  let muongeoj = function muongeoj (__mapper = {}) {
+  let muonGeoj = function muonGeoj (__mapper = {}) {
     let f = __mapper('xs').m('props')
 
     // md: # md:{filename}
@@ -413,7 +413,7 @@
     // ...................... zorder
     let zorder = function (gj) {
       if (2 && 2 && !isValid(gj)) { console.log('** m.geoj.zorder:gj not valid', gj) }
-      
+
       let features = []
       if (gj.type === 'FeatureCollection') features = gj.features
       else {
@@ -425,21 +425,21 @@
         .map(d => {
           d.properties = d.properties || {}
           if (d.properties.zorder === undefined) { // if zorder undefined
-              if (d.geometry && d.geometry.coordinates && d.geometry.coordinates.length > 0) {
-                if (d.geometry.type === 'Polygon' ) {
-                  let outring = d.geometry.coordinates[0] // for out ring
-                  let zorder = centroid(outring)
-                  if (zorder) d.properties.zorder = zorder // try centroid.z
-                  else d.properties.zorder = -Infinity // feature unformed
-                } else if (d.geometry.type === 'LineString' ) {
-                  let outring = d.geometry.coordinates // string
-                  let zorder = centroid(outring)
-                  if (zorder) d.properties.zorder = zorder // try centroid.z
-                  else d.properties.zorder = -Infinity // feature unformed
-                }
-              } else {
-                d.properties.zorder = -Infinity // feature unformed
+            if (d.geometry && d.geometry.coordinates && d.geometry.coordinates.length > 0) {
+              if (d.geometry.type === 'Polygon') {
+                let outring = d.geometry.coordinates[0] // for out ring
+                let zorder = centroid(outring)
+                if (zorder) d.properties.zorder = zorder // try centroid.z
+                else d.properties.zorder = -Infinity // feature unformed
+              } else if (d.geometry.type === 'LineString') {
+                let outring = d.geometry.coordinates // string
+                let zorder = centroid(outring)
+                if (zorder) d.properties.zorder = zorder // try centroid.z
+                else d.properties.zorder = -Infinity // feature unformed
               }
+            } else {
+              d.properties.zorder = -Infinity // feature unformed
+            }
           }
           return d
         })
@@ -453,7 +453,6 @@
 
     // ...................... centroid
     let centroid = function (outring) {
-
       let z = 0
       let dotsinring = outring.length
 
@@ -729,5 +728,5 @@
     return enty
   }
 
-  exports.muongeoj = muongeoj
+  exports.muonGeoj = muonGeoj
 }))

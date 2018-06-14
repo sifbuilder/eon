@@ -9,63 +9,55 @@
 }(this, function (exports) {
   'use strict'
 
+  // md: # md:{filename}
+  // md: **returns nat projection**
+  // md:
+  // md: ### functions
+  // md: pointStream
+  // md: `pointStream projectionDefinition`
+  // md: projectionDefinition: {type:nat, form:form}
+  // md: get the nat for mvertices
+  // md: natPoint returns the nat projection per polar coordinates
+  // md:
+  // md: ### methods
+  // md: natprofion
+  // md:  compleate form for natform
+  // md:
+  // md: # license
+  // md: MIT
+
+  
   let geoNatform = function geoNatform (__mapper = {}) {
+    let mnat = __mapper('xs').m('nat')
 
-		let f = __mapper('xs').m('props'),
-      mnat = __mapper('xs').m('nat')
-
-    let state = {},
-      scale = [1, 1, 1],
-      rotate = [0, 0, 0],
-      translate = [0, 0, 0],
-      lens = [0, 1, Infinity]
-
-    const cos = Math.cos, sin = Math.sin,
-      neg = x => x < 0 || (x === 0 && (1 / x < 0)),
-      pos = x => x > 0 || (x === 0 && (1 / x > 0)),
-      radians = Math.PI / 180,
-      degrees = 180 / Math.PI,
-      tau = 2 * Math.PI
-      
     let cache = {} // points, form
-      
- 
-      
-      
+
     // ............................. pointStream
     let pointStream = function (prjdef) {
-			
       let natPoint = mnat.natVertex(prjdef.form) // m.nat.natVertex (a,b,c) => [a,b,c]
-				
+
       let stream = function (lambda, phi, radio = 1) {
-        
         this.stream.point(...natPoint(lambda, phi, radio))
       }
 
       return stream
     }
 
-
     // ............................. natprofion
     let natprofion = prjdef => {		// projection:natPoint, form:{x,y,z}
-
       let geoTrans = d3.geoTransform({
-					point: pointStream(prjdef)})
+        point: pointStream(prjdef)})
 
       let geoProj = p => geoTrans(p)
 
-					geoProj.stream = s => geoTrans.stream(s)
+      geoProj.stream = s => geoTrans.stream(s)
 
       return geoProj
-
     }
 
     // ............................. enty
     let enty = function (prjdef = {}) {
-			
-      let m = natprofion(prjdef)
-
-      return m
+      return natprofion(prjdef)
     }
 
     return enty

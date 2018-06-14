@@ -62,6 +62,24 @@
       degrees = 180 / Math.PI,
       tau = 2 * Math.PI
 
+    let pow = Math.pow
+
+    let functor = d => Array.isArray(d) ? d : Array.of(d)
+
+    let ft = p => a => p.reduce((acc, cur, i) => acc + cur * pow(a, i), 0)
+
+    let fn = form => // form has defined a1, a2, a3, a4  , q1, q2, q3, q4
+      (q = 0, s = 0, u = 0, v = 0, a = 1, b = 1, c = 1, d = 1) => {
+        let ret = ft(functor(form.c1))(a) * ft(functor(form.e1))(q) *
+                    ft(functor(form.c2))(b) * ft(functor(form.e2))(s) *
+                    ft(functor(form.c3))(c) * ft(functor(form.e3))(u) *
+                    ft(functor(form.c4))(d) * ft(functor(form.e4))(v)
+
+        return ret
+      }
+      
+      
+      
     // ............................. natNform
     let natNform = function (form, nformed = {}) {
       let defs = {'v0': 0, 'v1': 1, 'ra2': 120, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1} // defs
@@ -115,19 +133,43 @@
       let formkeys = Object.keys(nformed)
       for (let i = 0; i < formkeys.length; i++) {
         let key = formkeys[i]
-        let form = nformed[key]
+        let formDax = nformed[key]
 
         // dom3 --- axis domain
-        if (i === 0 && form.dom3 === undefined) form.dom3 = [-180, 180]
-        if (i === 1 && form.dom3 === undefined) form.dom3 = [-180, 180]
-        if (i === 2 && form.dom3 === undefined) form.dom3 = [-90, 90]
-        if (i === 3 && form.dom3 === undefined) form.dom3 = [-90, 90]
+        if (i === 0 && formDax.dom3 === undefined) formDax.dom3 = [-180, 180]
+        if (i === 1 && formDax.dom3 === undefined) formDax.dom3 = [-180, 180]
+        if (i === 2 && formDax.dom3 === undefined) formDax.dom3 = [-90, 90]
+        if (i === 3 && formDax.dom3 === undefined) formDax.dom3 = [-90, 90]
 
+          if (formDax.fn0 === undefined && (
+
+            formDax.e1 !== undefined ||
+            formDax.e2 !== undefined ||
+            formDax.e3 !== undefined ||
+            formDax.e4 !== undefined ||
+
+            formDax.c1 !== undefined ||
+            formDax.c2 !== undefined ||
+            formDax.c3 !== undefined ||
+            formDax.c4 !== undefined)) {
+            formDax.e1 = (formDax.e1 === undefined) ? functor(1) : functor(formDax.e1)
+            formDax.e2 = (formDax.e2 === undefined) ? functor(1) : functor(formDax.e2)
+            formDax.e3 = (formDax.e3 === undefined) ? functor(1) : functor(formDax.e3)
+            formDax.e4 = (formDax.e4 === undefined) ? functor(1) : functor(formDax.e4)
+
+            formDax.c1 = (formDax.c1 === undefined) ? 1 : formDax.c1
+            formDax.c2 = (formDax.c2 === undefined) ? 1 : formDax.c2
+            formDax.c3 = (formDax.c3 === undefined) ? 1 : formDax.c3
+            formDax.c4 = (formDax.c4 === undefined) ? 1 : formDax.c4
+
+            formDax.fn0 = fn(formDax)
+          }        
+        
         // fn0 --- dimension function
-        if (i === 0 && form.fn0 === undefined) form.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => a * cos(q) * c * cos(u)
-        if (i === 1 && form.fn0 === undefined) form.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => b * sin(q) * c * cos(u)
-        if (i === 2 && form.fn0 === undefined) form.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => d * sin(v)
-        if (i === 3 && form.fn0 === undefined) form.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => c * cos(u)
+        if (i === 0 && formDax.fn0 === undefined) formDax.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => a * cos(q) * c * cos(u)
+        if (i === 1 && formDax.fn0 === undefined) formDax.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => b * sin(q) * c * cos(u)
+        if (i === 2 && formDax.fn0 === undefined) formDax.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => d * sin(v)
+        if (i === 3 && formDax.fn0 === undefined) formDax.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => c * cos(u)
       }
 
       return nformed
@@ -141,9 +183,6 @@
         feature = cache.feature
       } else {
         let nformed = natNform(form) // NFORM
-
-        if (1 && 1) console.log('form', JSON.stringify(form))
-        if (1 && 1) console.log('nformed', nformed)
 
         let geometry
         let dx, dy, sx, sy
@@ -162,6 +201,7 @@
           let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
 
           geometry = mgraticule.vhMultiLine(graticule).geometry
+          // geometry = mgraticule.hMultiLine(graticule).geometry
         } else { // ___ 2d
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y
@@ -318,12 +358,7 @@
         let ppR = ppD.map(d => d * radians) // r,s,u,v : pars in radians per dax
         let rs = unfeld.map((d, i) => rayscale[i](ppR[i]) || 1) // a,b,c,d : radorn on dax par
 
-        // form.fn0 takes radians and radorns
-        let rr = unfeld.map((d, i) => d.fn0(...ppR, ...rs)) //
-
-        // if (1 && 1) console.log('ppR', ppR)
-        // if (1 && 1) console.log('rs', rs)
-        // if (1 && 1) console.log('rr', rr)
+        let rr = unfeld.map((d, i) => d.fn0(...ppR, ...rs)) // form.fn0 takes radians and radorns
 
         let point = unfeld.map((d, i) => radio * rad[i] * rr[i])
 

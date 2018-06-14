@@ -10,9 +10,9 @@ const fetch = require('./script-node-fetch.js')
   // md: **out of system interactions**
   // md:
   // md: * ### entlist
-  // md:  update script-enls.js and script-ents.js
-  // md:  script-enls.js may be replaced by script-enxl.js for network access
-  // md:  script-enxl.js is maintained manually
+  // md:  update elem-enls.js and elem-ents.js
+  // md:  elem-enls.js may be replaced by elem-enxl.js for network access
+  // md:  elem-enxl.js is maintained manually
   // md:  prefixes included in enls: 'd3', 'topojson', 'three', 'tfjs', maintained in action
   // md:
   // md: # license
@@ -142,11 +142,11 @@ const options = {
   layers: args.layers,
   debug: args.debug,
   appdir: args.appdir || '.',
-  entsFile: args.entsFile || 'script-ents.js',
-  libsFile: args.libsFile || 'script-enls.js',
+  entsFile: args.entsFile || 'elem-ents.js',
+  libsFile: args.libsFile || 'elem-enls.js',
   mdeeFile: args.mdeeFile,
   serve: args.serve,
-  enxlFile: args.enxlFile || 'script-enxl.js',
+  enxlFile: args.enxlFile || 'elem-enxl.js',
   zindex: args.zindex,
   action: args.action
 }
@@ -168,7 +168,7 @@ if (1 && 1) console.log('options', options)
 
   let libsInXFile = fs.readFileSync(enxlFile, 'utf8')
   let toText = libsInXFile
-  let fromText = '<script src="script-enls.js"></script>' // will be replaced
+  let fromText = '<script src="elem-enls.js"></script>' // will be replaced
   let regex = new RegExp('^.*' + zFile + '.*.html', 'i')
   let fzs = files.filter(d => regex.test(d))
   if (fzs.length > 0) {
@@ -202,7 +202,7 @@ if (1 && 1) console.log('options', options)
     },
 
     { // ents
-      tags: ['control', 'data', 'force', 'geo', 'lib', 'muon', 'halo', 'x', 'render'],
+      tags: ['boson', 'control', 'data', 'force', 'geo', 'lib', 'muon', 'halo', 'x', 'render'],
       file: entsFile,
       regCode: '\\b.*'
     }

@@ -1,20 +1,20 @@
 /**********************
- *			@dataSvg
+ *			@dataSvgOctopus
  */	
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.dataSvg = global.dataSvg || {})));
+  (factory((global.dataSvgOctopus = global.dataSvgOctopus || {})));
 }(this, function (exports) { 'use strict';
 
-var dataSvg = function (__mapper = {}) {
+var dataSvgOctopus = function (__mapper = {}) {
 
 		let data = { 
 
       'width':"2in", 'height':"2in",
       'viewBox':"0 0 600 600",
       'path': {
-        'id':"dataSvg",
+        'id':"dataSvgOctopus",
         'fill':"none", 'stroke':"black", 'strokeWidth':"1",
         'd':`M 378.19,154.00
            C 373.73,162.23 369.99,170.65 368.33,180.00
@@ -300,6 +300,6 @@ var dataSvg = function (__mapper = {}) {
 
 }
 
-exports.dataSvg = dataSvg
+exports.dataSvgOctopus = dataSvgOctopus
 
 }));

@@ -68,11 +68,28 @@
   // md: MIT
 
   let muonStore = function muonStore (__mapper) {
-    let f = __mapper('xs').m('props'),
-      mtim = 	__mapper('xs').m('tim'),
-      manitem = 	__mapper('xs').m('anitem'),
-      mric = 	__mapper('xs').m('ric')
+    let mric = 	__mapper('xs').m('ric')
 
+    let epsilon = 1e-5      
+	  let a = d => (Array.isArray(d)) ? [...d] : [d]      
+    let fa = d => { // force array
+      let ret
+      if (Array.isArray(d)) ret = d
+      else if (d === null) ret = []
+      else if (d === undefined) ret = []
+      else if (typeof d === 'object') ret = Object.values(d)
+      else ret = d
+      return a(ret)
+    }      
+    let o = obj => {
+      if (obj == null || typeof obj !== 'object') return obj
+      let copy = obj.constructor()
+      for (let attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr]
+      }
+      return copy
+    }      
+      
     let state = {
       animas: [], // animas array
       aniset: {}, // animas by uid
@@ -83,11 +100,11 @@
     let apply = function apply (action = {}) {
       // .................. UPDANIMA
       if (action.type === 'UPDANIMA') {
-        let updAnimas = f.fa(action.animas) // get new animas as array
+        let updAnimas = fa(action.animas) // get new animas as array
         let elapsed = action.elapsed || 0
 
         for (let i = 0; i < updAnimas.length; i++) {
-          let updAnima = f.o(updAnimas[i]) // each new anima
+          let updAnima = o(updAnimas[i]) // each new anima
 
           let uid = (updAnima.payload.uid !== undefined) // uid
             ? updAnima.payload.uid
@@ -115,7 +132,7 @@
 
       // .................. UPDANIGRAM
       if (action.type === 'UPDANIGRAM') {
-        let newAnigrams = f.fa(action.anigrams)
+        let newAnigrams = fa(action.anigrams)
 
         for (let i = 0; i < newAnigrams.length; i++) {
           if (newAnigrams[i] !== undefined) {
@@ -131,7 +148,7 @@
       }
     }
 
-      // .................. ween
+    // .................. ween
     let ween = function (anima, newItems = []) {
       let anigram = __mapper('xs').m('anitem').anigram(anima)
 
@@ -150,7 +167,7 @@
       return newItems
     }
 
-      // .................. gramm
+    // .................. gramm
     let gramm = function (anima, newItems = []) {
       let anigram = __mapper('xs').m('anitem').anigram(anima)
 
@@ -173,7 +190,7 @@
           if (newAnigrams !== null && newAnigrams.length > 0) {
             __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newAnigrams})
 
-            newItems = newItems.concat(f.a(newAnigrams))
+            newItems = newItems.concat(a(newAnigrams))
           } else {
 
           }
@@ -206,8 +223,8 @@
 
       return newItems
     }
-    
-      // .................. enty
+
+    // .................. enty
     function enty () {}
 
     enty.apply = apply
@@ -227,28 +244,25 @@
           .filter(d => (d.payload.ric.gid === anima.payload.ric.gid &&
                     d.payload.ric.cid === anima.payload.ric.cid)).length
 
-     enty.findIndexFromRic = (ric, list) =>
+    enty.findIndexFromRic = (ric, list) =>
       list.findIndex(d =>
         d.payload.ric.gid === ric.gid &&
                 d.payload.ric.cid === ric.cid &&
                 d.payload.ric.fid === ric.fid
       )
-      
+
     enty.findIndex = (item, list) =>
       enty.findIndexFromRic(item.ric, list)
-
 
     enty.findByUid = (item, list) => enty.findFromUid(mric.getuid(item), list)
     enty.findFromUid = (uid, list) => list.findIndex(d => d.payload.uid === uid)
 
-    
     enty.findIndexAnigramFromUid = uid => enty.anigrams().findIndex(d => d.payload.uid === uid)
     enty.findAnigramFromUid = uid => state.anigrams.find(d => d.payload.uid === uid)
     enty.findAnimaFromUid = uid => state.animas.find(d => d.payload.uid === uid)
 
-    
-    enty.born = d => d.payload.tim !== undefined && d.payload.tim.unitElapsed !== undefined && d.payload.tim.unitElapsed > f.epsilon
-    enty.unborn = d => d.payload.tim === undefined && d.payload.tim.elapsed === undefined && d.payload.tim.unitElapsed === undefined && d.payload.tim.unitElapsed < f.epsilon
+    enty.born = d => d.payload.tim !== undefined && d.payload.tim.unitElapsed !== undefined && d.payload.tim.unitElapsed > epsilon
+    enty.unborn = d => d.payload.tim === undefined && d.payload.tim.elapsed === undefined && d.payload.tim.unitElapsed === undefined && d.payload.tim.unitElapsed < epsilon
     enty.getAnimaByUID = uid => state.animas.find(d => d.payload.uid === uid)
 
     enty.animas = () => state.animas

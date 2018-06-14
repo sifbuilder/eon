@@ -55,7 +55,7 @@
       .style('top', 0)
       .style('left', 0)
           
-          .style('background-color', state.background)
+          .style('background-color', state.background)  // background
           
     let svgElem = svglayer.append('rect')
       .attr('id', 'svg')
@@ -63,9 +63,6 @@
       .style('fill', 'transparent')
       .attr('pointer-events', 'none')
       .attr('overflow', 'visible')
-
-
-
 
 
     // ............................. svg
@@ -91,19 +88,19 @@
 
       } 
       
-      else if (idfyer == 'image') { // if image insert image
-        if (d3.select('.image').empty()) {
-          let img = svg.selectAll('image').data([0])
-            .enter()
-            .insert('svg:image')
-            .attr('xlink:href', './image.jpg')
-            .attr('x', '0')
-            .attr('y', '0')
-            .attr('width', state.width)
-            .attr('height', state.height)
-          return img
-        }
-      }
+      // else if (idfyer == 'image') { // if image insert image
+        // if (d3.select('.image').empty()) {
+          // let img = svg.selectAll('image').data([0])
+            // .enter()
+            // .insert('svg:image')
+            // .attr('xlink:href', './image.jpg')
+            // .attr('x', '0')
+            // .attr('y', '0')
+            // .attr('width', state.width)
+            // .attr('height', state.height)
+          // return img
+        // }
+      // }
 
       // manage the dom elements
       else if (typeof (idfyer) === 'string') { // 'svg:g.links/path.link', data, idfn}
@@ -249,9 +246,13 @@
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
           if (axes.length > 0) {
 
+
             for (let k = 0; k<axes.length; k++) {
 
              let axis = axes[k]
+if (1 && 1) console.log('-----------geometry ', axis.geometry)
+if (1 && 1) console.log('-----------axis ', axis.properties.axis)
+if (1 && 1) console.log('-----------style ', axis.properties.style)
              
               __mapper('renderSvg').elems('svg:g.' + gid + '/g.' + cid, Array.of(axis), d => d.properties.uid)
 
@@ -276,7 +277,11 @@
                 .style('text-anchor', d => d.properties.axis.style['text-anchor'])
                 .style('font-family', d => d.properties.axis.style['font-family'])
 
-                .style('fill', d => d.properties.style.fill)
+                .style('fill', d => {
+if (1 && 1) console.log('d', d.properties.style)
+                  
+                  return d.properties.style.fill
+                })
                 .style('stroke', d => d.properties.style.stroke)
                 .style('fill-opacity', d => d.properties.style['fill-opacity'])
                 .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
@@ -321,9 +326,6 @@
           /*  ................. END SVG FORMS ................. */
         }
       }
-
-
-
 
 
     }

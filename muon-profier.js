@@ -65,8 +65,7 @@
   // md:
 
   let muonProfier = function muonProfier (__mapper = {}) {
-    let f = __mapper('xs').m('props'),
-      cwen = __mapper('xs').c('wen')(),
+    let cwen = __mapper('xs').c('wen')(),
       cversor = __mapper('xs').c('versor'),
       mwen = __mapper('xs').m('wen'),
       mstace = __mapper('xs').m('stace'),
@@ -74,6 +73,18 @@
       mgeom = __mapper('xs').m('geom'),
       guniwen = __mapper('xs').g('uniwen')
 
+    let f = {}
+      f.isString = d => typeof (d) === 'string'
+      f.isArray = d => Array.isArray(d)
+      f.isFunction = d => typeof (d) === 'function'      
+      f.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true)
+      f.isPosition = obj => Object.getOwnPropertyNames(obj).reduce((p, q) =>
+      p &&
+				(q === 'x' || q === 'y' || q === 'z') &&
+				typeof obj[q] === 'number'
+      , true)      
+      
+      
     //  getProj
     let getProj = function (projdef) {
       let geoproj

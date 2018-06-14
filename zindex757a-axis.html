@@ -12,8 +12,8 @@
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
 
-<script src="script-enls.js"></script>
-<script src="script-ents.js"></script>
+<script src="elem-enls.js"></script>
+<script src="elem-ents.js"></script>
 
 <script>
 
@@ -68,10 +68,10 @@ let muonAlima = function (__mapper) {
 
       tim,
       ric: {gid: 'axg', cid: 'axc', fid: 'axf'},
-      boform: { 'csx': 0, 'cf': [[[22, 22]]], 'cs': 22, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      boform: { 'csx': 0, 'cf': [[[666, 888]]], 'cs': 777, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
       proform: {
         projection: 'uniwen',
-        translate: [ 0, 200 ]
+        translate: [ 50, 200 ]
       },
       axis: {
         label: 'space',
@@ -80,10 +80,9 @@ let muonAlima = function (__mapper) {
         scaleType: 'scaleLinear', // "scaleTime",
         tickFormat: '.1f', // formatNumber
         tickPadding: 5,
-        tickSize: 10,
-        domain: [200,100],
-        range: [0,600],
-        'csx': 0, 'cf': [[[333, 555, 333, 555, 333, 555]]], 'cs': [[[888, 888]]], 'cw': 0.3, 'co': [[[0.9, 0.9]]], 'cp': 0.9
+        tickSize: 3,
+        domain: [20,10],
+        range: [0,100],
       }
 
     }

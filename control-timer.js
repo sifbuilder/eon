@@ -120,7 +120,7 @@
       }
     }
     // ......................... enty
-    function enty () {}
+    let enty = () => enty
 
     enty.started = () => started
     enty.start = start

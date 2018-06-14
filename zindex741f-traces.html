@@ -11,8 +11,8 @@
 </head>
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
-<script src="script-enls.js"></script>
-<script src="script-ents.js"></script>
+<script src="elem-enls.js"></script>
+<script src="elem-ents.js"></script>
 
 <script>
 
@@ -34,7 +34,7 @@ let muonAlima = function muonAlima (__mapper) {
     height = renderport.height(),
     scaleView = Math.min(width / 2, height) / Math.PI
 
-    let f = __mapper({props: muonProps.muonProps()}).props(),
+    let f = __mapper('xs').m('props'),
       mnat = __mapper('xs').m('nat'),
       cversor = __mapper('xs').c('versor'),
       cwen = __mapper('xs').c('wen'),

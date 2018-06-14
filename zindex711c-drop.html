@@ -12,12 +12,12 @@
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
 
-<script src="script-enls.js"></script>
-<script src="script-ents.js"></script>
+<script src="elem-enls.js"></script>
+<script src="elem-ents.js"></script>
 
 <script>
 
-let muonAlima = function muonAlima (__mapper) {
+let muonAlima = function (__mapper) {
   __mapper({'xs': xs.xs(__mapper)}) // PROXIES
   __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, bck: 0, key: 1, gui: 0, fps: 0, stats: 0}) // INIT
 
@@ -193,7 +193,7 @@ let muonAlima = function muonAlima (__mapper) {
 
     // halo: 'nat',
     // halo: 'ent',
-    halo: 'quadric',
+    halo: 'nat',
 
     // geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
     geofold: p => mnat.natFeature(p.payload.form),

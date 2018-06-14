@@ -61,12 +61,14 @@
   // md: MIT
 
   let muonAnitem = function muonAnitem (__mapper = {}) {
-    let f = __mapper('xs').m('props'),
-      mgeonode = __mapper('xs').m('geonode')
+    let mgeonode = __mapper('xs').m('geonode')
 
     let state = {}
     state.anitem = {}
 
+    let f = {}
+    f.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
+    
     // ............................. setAnitem
     let setAnitem = function (d = {}) {
       let a = state.anitem = {}

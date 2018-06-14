@@ -76,7 +76,7 @@
 
         if (__mapper('controlKey') !== undefined) {
           let controltimerLeftArrowAlt = () => { // LEFT ARROW
-            if (__mapper('muonAnimation').animationStop !== undefined) {
+            if (__mapper('bosonAnimation').animationStop !== undefined) {
               console.log('controltimerLeftArrowAlt')
               if (__mapper('controlTimer').started()) {
                 __mapper('controlTimer').stop()
@@ -97,7 +97,7 @@
         }
 
         let controltimerRightArrowAlt = () => { // RIGHT ARROW
-          if (__mapper('muonAnimation').animationStop !== undefined) {
+          if (__mapper('bosonAnimation').animationStop !== undefined) {
             if (__mapper('controlTimer').started()) {
               __mapper('controlTimer').stop()
             } else {
@@ -140,7 +140,7 @@
     let enty = function (p) {
       
       setContext(p)
-      if (__mapper('animation') === undefined)  __mapper({'muonAnimation': muonAnimation.muonAnimation(__mapper)})
+      if (__mapper('animation') === undefined)  __mapper({'bosonAnimation': bosonAnimation.bosonAnimation(__mapper)})
 
     }
     enty.setContext = setContext

@@ -12,14 +12,13 @@
   // md: ref: Spreading points on a disc and on a sphere
   // md:     Marmakoide's Blog
   // md:     http://blog.marmakoide.org/
-
+  // md:
   // md: ref: Fibonacci sphere quasi-random radome
   // md:     Philippe Rivière’s Block 955da86d6a935b26d3599ca5e344fb38
   // md:     https://bl.ocks.org/fil/955da86d6a935b26d3599ca5e344fb38
 
   let muonFibonat = function muonFibonat (__mapper = {}) {
     let f = __mapper('xs').m('props'),
-      mlacer = __mapper('xs').m('lacer'),
       mgeom = __mapper('xs').m('geom')
 
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
@@ -28,9 +27,7 @@
     let cache = {} // payload, string
     cache.string = []
 
-    /* **************************
-     *        @stream
-     */
+    // ............................. stream
     let stream = function (payload = {}) {
       let randomize = payload.randomize || false
       let samples = payload.samples || 50
@@ -96,9 +93,7 @@
       return string
     }
 
-    /* **************************
-     *        @catesians
-     */
+    // ............................. catesians
     let catesians = function (payload = {}) {
       const samples = payload.fibonat.samples,
         offsetstep = payload.fibonat.offsetstep,
@@ -122,16 +117,14 @@
         })
       let gj = {
         type: 'Feature',
-        geometry: {type: 'LineString', coordinates: dots},
+        geometry: {type: 'MultiPoint', coordinates: dots},
         properties: {}
       }
 
       return gj
     }
 
-    /* **************************
-     *        @interlinked
-     */
+    // ............................. interlinked
     let interlinked = function (payload = {}) {
       const samples = payload.fibonat.samples,
         offsetstep = payload.fibonat.offsetstep,
@@ -176,9 +169,7 @@
       return gj
     }
 
-    /***************************
-     *        @enty
-     */
+    // ............................. enty
     let enty = function () {}
 
     enty.stream = stream

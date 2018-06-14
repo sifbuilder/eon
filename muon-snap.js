@@ -8,16 +8,46 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonSnap = function muonSnap (__mapper = {}) {
-    let f = __mapper('xs').m('props'),
-      mnat = __mapper('xs').m('nat'),
+  // md: # md:{filename}
+  // md: **resolve bracket interpolations**
+  // md:
+  // md:
+  // md: # license
+  // md: MIT
+
+  function muonSnap(__mapper = {}) {
+    
+    let mnat = __mapper('xs').m('nat'),
       mlacer = __mapper('xs').m('lacer'),
       mgeoj = __mapper('xs').m('geoj')
 
-    /* **********
-   *    @snap 
-   *      value (anima), t (unit time), snap flag, parent
-   */
+      
+    // let propsPromise = __mapper('xs').m('props'),
+      // mnatPromise = 	__mapper('xs').m('nat'),
+      // mlacerPromise = 	__mapper('xs').m('lacer'),
+      // mgeojPromise = 	__mapper('xs').m('geoj')
+
+      
+    // let [f, mnat, mlacer, mgeoj] 
+      // = await Promise.all([propsPromise, mnatPromise, mlacerPromise, mgeojPromise])
+      
+     let f = {} 
+     f.isArray = d => Array.isArray(d)
+     f.isDoubleSingleArray = d => (Array.isArray(d) && // [[_]]
+        Array.isArray(d[0]) && d.length === 1 && d[0].length === 1 )
+     f.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true)
+     f.isObject = d => (typeof d === 'object' && Array.isArray(d) === false)
+     f.isDoubleArray = d => (Array.isArray(d) && // [[_]]
+        Array.isArray(d[0]) && d.length === 1 )
+      f.isTripleArray =  d => (Array.isArray(d) && Array.isArray(d[0]) && Array.isArray(d[0][0]) &&
+        d.length === 1 && d[0].length === 1 && d[0][0].length === 1) // [[[_]]]
+      f.isQuasiPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev &&
+        Array.isArray(curr) ||
+        typeof (curr) === 'string' ||
+        typeof (curr) === 'number'
+      , true)
+      
+    // .................. snap  value (anima), t (unit time), snap flag, parent
     let snap = function (v, t = 0, g = 0, p = undefined) {
       // ____________________________________________________ un-tagged
       if (v === null) return null // 00 _____ o
@@ -63,17 +93,13 @@
       ) {
         let fn = v[0][0][0]
         let ws
-        if (typeof p === 'object') {  // if method, call as object.method
-          
+        if (typeof p === 'object') { // if method, call as object.method
           p.fn = fn
-          ws = snap(p.fn(t), t, 0)        
-          
+          ws = snap(p.fn(t), t, 0)
         } else {
-          
           ws = snap(fn, t, 1) // snap function value
-          
         }
-        
+
         return ws
       } else if (f.isArray(v) && // 08 ____ [ [[ [ ], {} ]] ]
         f.isTripleArray(v) &&
@@ -91,11 +117,11 @@
 
       // ____________________________________________________ tagged
 
-      else if (typeof (v) === 'function' &&  // 01 _____ fn snappable time function
+      else if (typeof (v) === 'function' && // 01 _____ fn snappable time function
                                       g === 1) {
         return snap(v(t), t, 0)
       } else if (f.isObject(v) && // 10 ___ v :: {b, c, d ...}*
-                                      g === 1) {          // assume nat on object
+                                      g === 1) { // assume nat on object
         let ws
 
         let feature = mnat.natFeature(v)
@@ -107,22 +133,23 @@
         if (geometry.type === 'LineString') {
           natRing = geometry.coordinates
         } else if (geometry.type === 'MultiLineString') {
-          natRing = geometry.coordinates[0]   // first line
+          natRing = geometry.coordinates[0] // first line
         } else if (geometry.type === 'Polygon') {
           natRing = geometry.coordinates[0] // outer ring
         } else if (geometry.type === 'MultiPolygon') {
-          natRing = geometry.coordinates[0][0]    // outer ring of first polygon
+          natRing = geometry.coordinates[0][0] // outer ring of first polygon
         } else {
           console.error('g type not supported')
         }
-        ws = snap(natRing, t, 1)        // (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
+        ws = snap(natRing, t, 1) // (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
 
         return ws
       } else if (f.isArray(v) && // 11_____ [v]*
           f.isPureArray(v) &&
           v.length === 1 &&
           g === 1) {
-        let d = [0, 1], r = [v[0], v[0]]
+        let d = [0, 1],
+          r = [v[0], v[0]]
         let w = d3.scaleLinear().domain(d).range(r)
         return w(t)
       } else if (f.isArray(v) && // 12 _____ [v1,v2,v3]*
@@ -137,7 +164,7 @@
         return w(t)
       } else if (f.isArray(v) && // 13 _____ [[a1,a2,a3],[b1,b2]]*
           f.isQuasiPureArray(v) && // => [[a1,b1],[a2,b1'],[a3,b2]]
-          g === 1) {                          // [][] dosnap qualifier
+          g === 1) { // [][] dosnap qualifier
         let ws = mlacer.unslide(v).filter(d => d.length > 0).map(d => snap(d, t, 1))
         return ws
       } else {
@@ -145,9 +172,7 @@
       }
     }
 
-    /***********
-  *   @enty
-  */
+    // .................. enty
     let enty = function (v, t = 0, g = 0) {
       return snap(v, t, g)
     }
