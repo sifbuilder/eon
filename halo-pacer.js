@@ -56,6 +56,7 @@
       mric = __mapper('xs').m('ric'),
       mstore = __mapper('xs').m('store'),
       hent = __mapper('xs').h('ent')
+      // dynamic halo
 
     let r = __mapper('xs').r('renderport'),
       width = r.width(),

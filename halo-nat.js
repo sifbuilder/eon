@@ -20,7 +20,8 @@
   let haloNat = function haloNat (__mapper = {}) {
     let f = __mapper('xs').m('props'),
       manitem = __mapper('xs').m('anitem'),
-      mnat = __mapper('xs').m('nat')
+      mnat = __mapper('xs').m('nat'),
+      hent = __mapper('xs').f('ent')
 
 
     // .................... gramm
@@ -34,7 +35,7 @@
         // anigram.geofold = p => mnat.closeFeature(mnat.natFeature(p.payload.form))
         anigram.geofold = p => mnat.natFeature(p.payload.form)
 
-      newAnigrams = __mapper('xs').h('ent').gramm(anigram)
+      newAnigrams = hent.gramm(anigram)
 
       return newAnigrams
 

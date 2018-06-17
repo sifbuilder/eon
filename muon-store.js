@@ -68,8 +68,13 @@
   // md: MIT
 
   let muonStore = function muonStore (__mapper) {
-    let mric = 	__mapper('xs').m('ric')
-
+    
+    
+    let mric = 	__mapper('xs').m('ric'),
+     manitem = 	__mapper('xs').m('anitem'),
+     mtim = 	__mapper('xs').m('tim')
+     // dynamic halo
+     
     let epsilon = 1e-5      
 	  let a = d => (Array.isArray(d)) ? [...d] : [d]      
     let fa = d => { // force array
@@ -97,7 +102,7 @@
     }
 
     // .................. apply
-    let apply = function apply (action = {}) {
+    let _apply = function (action = {}) {
       // .................. UPDANIMA
       if (action.type === 'UPDANIMA') {
         let updAnimas = fa(action.animas) // get new animas as array
@@ -108,7 +113,7 @@
 
           let uid = (updAnima.payload.uid !== undefined) // uid
             ? updAnima.payload.uid
-            : __mapper('xs').m('ric').getuid(updAnima)
+            : mric.getuid(updAnima)
 
           let index = enty.findFromUid(uid, state.animas)
           if (index !== -1) { // anima exists
@@ -118,9 +123,9 @@
               state.animas[index] = updAnima // replace
             }
           } else { // new anima
-            updAnima.payload.tim = __mapper('xs').m('tim')(updAnima.payload.tim, elapsed) // set tim elapsed
+            updAnima.payload.tim = mtim.timing(updAnima.payload.tim, elapsed) // set tim elapsed
             updAnima.payload.uid = uid // set uid if new anima
-            updAnima.payload.nid = __mapper('xs').m('store').getNid() // node id in animas collection
+            updAnima.payload.nid = enty.getNid() // node id in animas collection
 
             state.aniset[updAnima.payload.uid] = updAnima // set new anima by uid
             state.animas[state.animas.length] = updAnima // register new anima
@@ -148,9 +153,10 @@
       }
     }
 
+    
     // .................. ween
     let ween = function (anima, newItems = []) {
-      let anigram = __mapper('xs').m('anitem').anigram(anima)
+      let anigram = manitem.anigram(anima)
 
       if (anigram.halo === undefined) console.error('halo is undefined')
       if (anigram.halo === null) console.error('halo is null')
@@ -160,7 +166,7 @@
       if (halo === null) console.log('halo ', anigram.halo, ' not found')
       let weened = halo.ween(anima) // ANIMA HALO.WEEN
       weened.forEach(d => { // qualify each ween
-        d.payload.uid = __mapper('xs').m('ric').getuid(d) // uid for children
+        d.payload.uid = mric.getuid(d) // uid for children
         newItems.push(d)
       })
 
@@ -169,7 +175,7 @@
 
     // .................. gramm
     let gramm = function (anima, newItems = []) {
-      let anigram = __mapper('xs').m('anitem').anigram(anima)
+      let anigram = manitem.anigram(anima)
 
       let tim = anigram.payload.tim,
         elapsed = tim.elapsed,
@@ -188,7 +194,7 @@
           newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
 
           if (newAnigrams !== null && newAnigrams.length > 0) {
-            __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newAnigrams})
+            _apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newAnigrams})
 
             newItems = newItems.concat(a(newAnigrams))
           } else {
@@ -209,13 +215,13 @@
               let newSubItems = []
               let avatar = avatars[j]
 
-              avatar.payload.uid = __mapper('xs').m('ric').getuid(avatar) // uid for children
+              avatar.payload.uid = mric.getuid(avatar) // uid for children
               avatar.payload.tim = anigram.payload.tim // time from anima
               avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
 
               newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
 
-              __mapper('xs').m('store').apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newSubItems})
+              _apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newSubItems})
             }
           }
         }
@@ -227,7 +233,7 @@
     // .................. enty
     function enty () {}
 
-    enty.apply = apply
+    enty.apply = _apply
     enty.gramm = gramm
     enty.ween = ween
 

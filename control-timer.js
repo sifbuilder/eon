@@ -9,6 +9,9 @@
   'use strict'
 
   function controlTimer (__mapper) {
+    
+    let mtimer = 	__mapper('xs').m('timer')
+    
     let now = performance.now()
     let state = {
       now,
@@ -105,7 +108,7 @@
       nextListeners.push(listener)
 
       d3timers[nextListeners.length - 1] =
-        __mapper('xs').m('timer').timer(listener, wait, 0)
+        mtimer.timer(listener, wait, 0)
 
       return function unsubscribe () {
         if (!isSubscribed) {

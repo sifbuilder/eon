@@ -14,7 +14,7 @@
     /**********************
    *    @timing
    */
-    let timing = function timing (pTim, pElapsed) {
+    let timing = function (pTim, pElapsed) {
       let tim = Object.assign({}, pTim)
       let _tim = Object.assign({}, pTim)
 
@@ -98,7 +98,8 @@
     /**********************
    *    @enty
    */
-    let enty = (pTim, pElapsed) => timing(pTim, pElapsed)
+    let enty = {}
+    enty.timing = timing
 
     return enty
   }

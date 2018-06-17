@@ -38,7 +38,7 @@
       state.animas = f.a(mstore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
-        anima.payload.tim = mtim(anima.payload.tim, elapsed) // set time
+        anima.payload.tim = mtim.timing(anima.payload.tim, elapsed) // set time
         if (elapsed > anima.payload.tim.limit + anima.payload.tim.msStart) {
           anima.payload.delled = 1 // crop by time
         }
