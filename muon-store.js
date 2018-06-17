@@ -67,7 +67,7 @@
   // md: # license
   // md: MIT
 
-  let muonStore = function muonStore (__mapper) {
+  let muonStore = function  (__mapper) {
     
     
     let mric = 	__mapper('xs').m('ric'),

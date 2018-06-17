@@ -173,7 +173,7 @@ let muonAlima = function muonAlima (__mapper) {
 
           }) => {
             let as = a
-            let bs = __mapper('xs').m('snap')(b, t, 1).x
+            let bs = __mapper('xs').m('snap').snap(b, t, 1).x
             return as + bs
           } ]]],
 
@@ -183,7 +183,7 @@ let muonAlima = function muonAlima (__mapper) {
 
           }) => {
             let as = a
-            let bs = __mapper('xs').m('snap')(b, t, 1).y
+            let bs = __mapper('xs').m('snap').snap(b, t, 1).y
             return as + bs
           } ]]]
 

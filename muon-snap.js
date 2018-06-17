@@ -173,9 +173,8 @@
     }
 
     // .................. enty
-    let enty = function (v, t = 0, g = 0) {
-      return snap(v, t, g)
-    }
+    let enty = {}
+     enty.snap = snap
 
     return enty
   }

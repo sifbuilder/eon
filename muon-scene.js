@@ -9,7 +9,10 @@
   'use strict'
 
   let muonScene = function (__mapper = {}) {
-    
+
+
+
+
     let state = {}
     state.scene = {
       canvas: 0,
@@ -25,7 +28,7 @@
       fps: 0,
       stats: 0
     }
-    
+
     // .................. scene
     let scenify = function (p) {
 
@@ -38,8 +41,9 @@
       if (p.svg && p.svg !== state.scene.svg) {
         state.scene.svg = 1
 
+       __mapper({'renderSvg': renderSvg.renderSvg(__mapper)})
 
-        __mapper({'renderSvg': renderSvg.renderSvg(__mapper)})
+
       }
 
      if (p.bck && p.bck !== state.scene.bck) {
@@ -138,7 +142,7 @@
       }
     }
 
-    
+
     let enty = {}
     enty.scenify = scenify
     enty.scene = _ => _ !== undefined ? (state.scene = _, enty) : state.scene

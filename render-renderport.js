@@ -35,7 +35,6 @@
 
       let scene = mscene.scene()
 
-      if (1 && 1) console.log(' ---------------- scene', scene)
 
       if (__mapper('renderSvg') !== undefined) __mapper('renderSvg').render(elapsed, featurecollection)
       if (__mapper('renderWebgl') !== undefined) __mapper('renderWebgl').render(elapsed, featurecollection)

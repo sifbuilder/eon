@@ -61,8 +61,12 @@
   // md: MIT
 
   let muonAnitem = function muonAnitem (__mapper = {}) {
-    let mgeonode = __mapper('xs').m('geonode')
-
+    
+    let mgeonode = __mapper('xs').m('geonode'),
+    // mstore = __mapper('xs').m('store'),  // mstack
+    // msnap = __mapper('xs').m('snap'),  // mstack
+    mgeoj = __mapper('xs').m('geoj')
+    
     let state = {}
     state.anitem = {}
 
@@ -145,12 +149,12 @@
 
       let parentGeometry
       let parentuid = payload.parentuid
-      let parent = __mapper('xs').m('store').findAnigramFromUid(parentuid)
+      let parent = __mapper('xs').m('store').findAnigramFromUid(parentuid) // mstack
 
       if (parent !== undefined) {
         // let geoj = parent.payload.ent
         let geoj = parent.geofold
-        coords = __mapper('xs').m('geoj').getCoords(geoj)
+        coords = mgeoj.getCoords(geoj)
       }
 
       return coords
@@ -192,10 +196,10 @@
       let anigram = {}
       if (anima !== undefined) {
         if (t !== undefined) {
-          anigram = __mapper('xs').m('snap')(anima, t)
+          anigram = __mapper('xs').m('snap').snap(anima, t)
         } else if (anima.payload.tim && anima.payload.tim.unitTime !== undefined) {
           let t = anima.payload.tim.unitTime
-          anigram = __mapper('xs').m('snap')(anima, t)
+          anigram = __mapper('xs').m('snap').snap(anima, t)
         }
         if (anigram.payload === undefined) anigram.payload = {}
 
@@ -221,7 +225,7 @@
     enty.anigram = (ani, t) => {		// anigam
       if (ani !== undefined) { // if give anima
         if (t !== undefined) { // if given time
-          ani = __mapper('xs').m('snap')(ani, t) // anima snap  to anigram
+          ani = __mapper('xs').m('snap').snap(ani, t) // anima snap  to anigram
         }
         setAnitem(ani) // build anitem
       }
