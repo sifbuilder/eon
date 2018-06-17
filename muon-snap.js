@@ -19,7 +19,8 @@
     
     let mnat = __mapper('xs').m('nat'),
       mlacer = __mapper('xs').m('lacer'),
-      mgeoj = __mapper('xs').m('geoj')
+      mgeoj = __mapper('xs').m('geoj'),
+      d3 = __mapper('d3')
 
       
     // let propsPromise = __mapper('xs').m('props'),

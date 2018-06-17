@@ -8,15 +8,14 @@
 }(this, function (exports) {
   'use strict'
 
-  //md: md:{filename}
-  //md:  https://d3js.org/d3-geo-projection/
-  //md:  Copyright 2017 Mike Bostock.
-  //md:     proj3ct(gj, projection)
+  // md: md:{filename}
+  // md:  https://d3js.org/d3-geo-projection/
+  // md:  Copyright 2017 Mike Bostock.
+  // md:     proj3ct(gj, projection)
 
   var muonProj3ct = function (__mapper = {}) {
-    
-    let f = __mapper('xs').m('props')
-    
+    let d3 = __mapper('d3')
+
     let noop = function () {}
     let d3Geo = d3
 
@@ -118,7 +117,7 @@
           : points.length < 2 ? {type: 'Point', coordinates: points[0]}
             : {type: 'MultiPoint', coordinates: points}
         points = []
-        
+
         return result
       }
     }
@@ -133,7 +132,6 @@
         if (points.length) lines.push(points), points = []
       },
       result: function () {
-
         var result = !lines.length ? null
           : lines.length < 2 ? {type: 'LineString', coordinates: lines[0]}
             : {type: 'MultiLineString', coordinates: lines}

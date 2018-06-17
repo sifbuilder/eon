@@ -10,7 +10,8 @@
 
   let muonBoform = function (__mapper = {}) {
     
-    let mstore = __mapper('xs').m('store')
+    let mstore = __mapper('xs').m('store'),
+      d3 = __mapper('d3')
 
     let colors = {} // colors
     colors.scales = {

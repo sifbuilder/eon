@@ -14,10 +14,10 @@
 
 
 <script src="x-mapper.js"></script>
-<script src="x-s.js"></script>
+<script src="./x-s.js"></script>
 
 <script src="./x-d3-require.js"></script>
- <script src="elem-enls.js"></script> 
+ <!-- <script src="elem-enls.js"></script>  -->
 <script src="elem-ents.js"></script>
 
 <script>
@@ -28,7 +28,7 @@
 // md: # license
 // md: MIT
 
-async function libex() {
+async function libex1() {
 
   let d3Parts = [
     './d3.v5.js',
@@ -48,11 +48,11 @@ async function libex() {
     ]
   let d3Promise = 	xD3Require.require(...d3Parts)
   let [d3] = await Promise.all([d3Promise])
-  
-  if (1 && 1) console.log('d3', d3)
 
-  
-__mapper({'d3': d3})    // register d3
+  return d3
+
+}
+async function libex2() {
 
 
   let topojsonParts = [
@@ -60,39 +60,47 @@ __mapper({'d3': d3})    // register d3
   ]
   let topojsonPromise = 	xD3Require.require(...topojsonParts)
   let [topojson] = await Promise.all([topojsonPromise])
-__mapper({'topojson': topojson})     // register topojson
+  return topojson
+
 
 }
 
 
   // .................. mapper, animas, animation
-  
-let __mapper = xMapper.xMapper() // init mapper
 
-__mapper({'xs': xs.xs(__mapper)}) // register proxy
 
-    
-    // libex()
-    
-    
+
+
  ____i()
 
 async function ____i() {
-   let animas = await animasPromise(__mapper)
-    let mstore = await  __mapper('xs').m('store')
-      mstore.apply({type: 'UPDANIMA', animas: animas})
-}    
-    
-    
-    
-// animasPromise(__mapper)     // store animas
-  // .then(function(animas){
-      // __mapper('xs').m('store').apply({type: 'UPDANIMA', animas: animas}) 
-  // })
+    let __mapper = xMapper.xMapper() // init mapper
 
 
-  
-__mapper({'bosonAnimation': bosonAnimation.bosonAnimation(__mapper)})  // call animation
+
+ __mapper({'xD3Require': xD3Require}) // map  global xD3Require
+    __mapper({'xs': xs.xs(__mapper)}) // map proxy
+
+ 
+if (1 && 1) console.log('xD3Require', __mapper('xD3Require') )
+
+ 
+    let d3 = await libex1()
+ __mapper({'d3': d3}) // map d3
+
+     let topojson =  await libex2()
+ __mapper({'topojson': topojson}) // map topojson
+
+
+
+    let animas = await animasPromise(__mapper)
+    let mstore = await __mapper('xs').m('store')  // map store
+    mstore.apply({type: 'UPDANIMA', animas: animas})  // store animas
+
+    __mapper({'bosonAnimation': bosonAnimation.bosonAnimation(__mapper)})  // call animation
+}
+
+
 
 
   // .................. async animasPromise
@@ -101,7 +109,7 @@ async function animasPromise(__mapper) {
   let rrenderport = __mapper('xs').r('renderport'),
     mgraticule = __mapper('xs').m('graticule'),
     cwen = __mapper('xs').c('wen')
-    
+
 
   let width = rrenderport.width(),
     height = rrenderport.height(),
@@ -276,8 +284,8 @@ async function animasPromise(__mapper) {
       context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 0}
     }
 
-  }  
-  
+  }
+
   // .................. animaset
   let animas = [
 

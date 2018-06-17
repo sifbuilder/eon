@@ -32,17 +32,17 @@
 
   let renderSvg = function (__mapper = {}) {
     
-    let f = __mapper('xs').m('props')
-    
-    let r = __mapper('xs').r('renderport'),
-      width = r.width(),
-      height = r.height(),
+    let rrenderport = __mapper('xs').r('renderport'),
+      d3 = __mapper('d3')
+
+    let width = rrenderport.width(),
+      height = rrenderport.height(),
       background = 'black'
 
     let state = {
       width: width,
       height: height,
-      background: background,
+      background: background
     } // Viewport
 
     let svglayer = d3.select('.viewframe')
@@ -54,16 +54,15 @@
       .attr('height', state.height)
       .style('top', 0)
       .style('left', 0)
-          
-          .style('background-color', state.background)  // background
-          
+
+      .style('background-color', state.background) // background
+
     let svgElem = svglayer.append('rect')
       .attr('id', 'svg')
       .attr('class', 'svg')
       .style('fill', 'transparent')
       .attr('pointer-events', 'none')
       .attr('overflow', 'visible')
-
 
     // ............................. svg
     let svg = () => d3.select('#viewframe')
@@ -85,21 +84,20 @@
           .attr('height', state.height)
           .style('border', '1px solid lightgray')
         return svgLayer
+      }
 
-      } 
-      
       // else if (idfyer == 'image') { // if image insert image
-        // if (d3.select('.image').empty()) {
-          // let img = svg.selectAll('image').data([0])
-            // .enter()
-            // .insert('svg:image')
-            // .attr('xlink:href', './image.jpg')
-            // .attr('x', '0')
-            // .attr('y', '0')
-            // .attr('width', state.width)
-            // .attr('height', state.height)
-          // return img
-        // }
+      // if (d3.select('.image').empty()) {
+      // let img = svg.selectAll('image').data([0])
+      // .enter()
+      // .insert('svg:image')
+      // .attr('xlink:href', './image.jpg')
+      // .attr('x', '0')
+      // .attr('y', '0')
+      // .attr('width', state.width)
+      // .attr('height', state.height)
+      // return img
+      // }
       // }
 
       // manage the dom elements
@@ -142,13 +140,8 @@
       }
     }
 
-
-
-
     // ............................. render
     let render = function (elapsed, featurecollection, maxlimit) {
-      
-      
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
@@ -190,7 +183,7 @@
                     ' rotate(' +
                     (d.properties.style['rotate'] || 0) +
                     ' )'
-                    
+
               )
 
               .style('dx', d => d.properties.style['dx'])
@@ -218,7 +211,6 @@
           if (imgs.length > 0) {
             if (1 && 1) console.log('imgs', imgs)
 
-            
             __mapper('renderSvg').elems('svg:g.' + gid + '/image.' + cid, imgs, d => d.id)
 
               .data(() => imgs)
@@ -245,24 +237,21 @@
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
           if (axes.length > 0) {
+            for (let k = 0; k < axes.length; k++) {
+              let axis = axes[k]
+              if (1 && 1) console.log('-----------geometry ', axis.geometry)
+              if (1 && 1) console.log('-----------axis ', axis.properties.axis)
+              if (1 && 1) console.log('-----------style ', axis.properties.style)
 
-
-            for (let k = 0; k<axes.length; k++) {
-
-             let axis = axes[k]
-if (1 && 1) console.log('-----------geometry ', axis.geometry)
-if (1 && 1) console.log('-----------axis ', axis.properties.axis)
-if (1 && 1) console.log('-----------style ', axis.properties.style)
-             
               __mapper('renderSvg').elems('svg:g.' + gid + '/g.' + cid, Array.of(axis), d => d.properties.uid)
 
                 .data(() => Array.of(axis))
 
                 .call(axis.properties.axis.d3Axis)
 
-              .attr('transform', d => // eg. "translate(21,20) rotate(15)")
+                .attr('transform', d => // eg. "translate(21,20) rotate(15)")
 
-                'translate(' +
+                  'translate(' +
                     d.geometry.coordinates[0] +
                     ',' +
                     d.geometry.coordinates[1] +
@@ -270,16 +259,16 @@ if (1 && 1) console.log('-----------style ', axis.properties.style)
                     ' rotate(' +
                     (d.properties.axis.rotate || 0) +
                     ' )'
-                    
-              )
-              
+
+                )
+
                 .style('font-size', d => d.properties.axis.style['font-size'])
                 .style('text-anchor', d => d.properties.axis.style['text-anchor'])
                 .style('font-family', d => d.properties.axis.style['font-family'])
 
                 .style('fill', d => {
-if (1 && 1) console.log('d', d.properties.style)
-                  
+                  if (1 && 1) console.log('d', d.properties.style)
+
                   return d.properties.style.fill
                 })
                 .style('stroke', d => d.properties.style.stroke)
@@ -296,9 +285,7 @@ if (1 && 1) console.log('d', d.properties.style)
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
           if (features.length > 0) { // _e_
-
-
-            __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid)  // elems
+            __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid) // elems
               .data(() => features)
               .attr('d', d => {
                 if (2 && 2 && d.properties.style === undefined) console.log('** style is undefined', d)
@@ -306,7 +293,7 @@ if (1 && 1) console.log('d', d.properties.style)
                 let properties = geoitem.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
-                let cameraProjer = r.cameraProjer()
+                let cameraProjer = rrenderport.cameraProjer()
 
                 let geoPath = d3.geoPath(cameraProjer) // path on view projection
                 let path = (pointRadius !== undefined) // geoPath
@@ -326,11 +313,7 @@ if (1 && 1) console.log('d', d.properties.style)
           /*  ................. END SVG FORMS ................. */
         }
       }
-
-
     }
-
-
 
     // ............................. enty
     let enty = function enty () {}

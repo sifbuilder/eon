@@ -51,7 +51,8 @@
   let muonNat = function muonNat (__mapper = {}) {
     let mgraticule = __mapper('xs').m('graticule'),
       mprofier = __mapper('xs').m('profier'),
-      mproj3ct = __mapper('xs').m('proj3ct')
+      mproj3ct = __mapper('xs').m('proj3ct'),
+      d3 = __mapper('d3')
 
     let cache = {} // feature, form
 

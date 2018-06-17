@@ -10,8 +10,13 @@
 
   let xs = function (__mapper = {}) {
 
+    let xD3Require = __mapper('xD3Require')
+  
     let cap = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // capitalize string
 
+    if (1 && 1) console.log('xD3Require', xD3Require)
+
+    
     // https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
     function camelize(str) {
       return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
@@ -21,17 +26,10 @@
       .replace(/\-+/g, '')  // if hyphen
     }
 
-
-    let getFromMapper = particle => __mapper(particle)
-    let getFromEnty = particle => particle()
-    let getAsFunction = particle => particle
-    
-    let getFromNet = async particle => {
-      let ret =  await d3.require(particle)
-      if (1 && 1) console.log('ret', ret)
-
-      return ret
-    }
+    let getFromMapper = part => __mapper(part)
+    let getFromEnty = part => part()
+    let getAsFunction = part => part
+    let getFromNet = async part => await xD3Require.require(part) // xD3Require is global
 
 
     // ............................. getFermion

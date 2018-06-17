@@ -9,52 +9,49 @@
 }(this, function (exports) {
   'use strict'
 
-  
-   //md: md:{filename}
-  
+// md: # md:{filename}
+// md: ** **
+// md:
+// md: # license
+// md: MIT
+
+
   let controlVersor = function (__mapper = {}) {
 
-    let d3Drag = d3,
-      d3Selection = d3,
-      d3Timer = d3
-    
-    let r = __mapper('xs').r('renderport'),
+
+    let rrenderport = __mapper('xs').r('renderport'),
       mversor = __mapper('xs').m('versor')(),
+      d3 = __mapper('d3'),
       mgeom = __mapper('xs').m('geom')
 
-    // let xydirs = r.xydirs() // [1 -1] in pixel view
-    let xsign = 1 //  1 if x goes left to right
-    let ysign = -1 // 1 if y goes up down      
- 
-    let drag = d3.drag()
 
+    // let xydirs = rrenderport.xydirs() // [1 -1] in pixel view
+    let xsign = 1 //  1 if x goes left to right
+    let ysign = -1 // 1 if y goes up down
 
     let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
-    getPos = r.getPos
+    getPos = rrenderport.getPos
 
     // start drag control
     let control = function(elem, props={}) {
-  
-      elem.call(drag
+
+      elem.call(d3.drag()
         .on('start', versorControl.dragstarted)
         .on('drag', versorControl.dragged)
         .on('end', versorControl.dragended))
-      
+
     }
 
     // stop drag control
-    let reset = elem => elem.call(drag
+    let reset = elem => elem.call(d3.drag()
         .on('start', null)
         .on('drag', null)
         .on('end', null))
 
-   /*******************************************
-   *    @state
-   *
-   */   
+    // ..................
     let state = {
 
-      projection: d3.geoOrthographic(),
+      projection: () => d3.geoOrthographic(),
 
       rotation: [0, 0, 0],
 
@@ -63,14 +60,14 @@
       q0: null, // Quaternion. Projection rotation
       p0: null, // Mouse position (spher)
       dtc: null, // Distance initial dot to center untransformed
-      
+
       grabbed: false,
-      moved: false,      
+      moved: false,
       rotInitial_grads: [0, 0, 0],
       rotInDrag_grads: [0, 0, 0],
       rotAtInit_grads: [0, 0, 0],
-      
-      
+
+
       decay: 0.95,
       mult: 2e-3, // rotInDrag_rads factor
       rotInit_rads: [0, 0, 0],
@@ -84,8 +81,8 @@
       timer: null,
       rotMatrix: null,
       cPos: null,   // current position
-      pPos: null   // previous position      
-      
+      pPos: null   // previous position
+
     }
   /*******************************************
    *    @versorControl
@@ -95,10 +92,10 @@
       dragstarted,
       dragged,
       dragended
-      
+
     }
-   
-   
+
+
   /*******************************************
    *    @dragstarted
    *
@@ -106,14 +103,14 @@
     function dragstarted () {
 
       let e = d3.event
-      state.proj = state.projection
-    
-      
+      state.proj = state.projection()
+
+
       if (state.grabbed) return // drag ongoing
       state.moved = false // not moved yet       // stopMomentum()
       state.grabbed = true
-       
-      // -----------------          
+
+      // -----------------
       state.p0 = getPos(e) // d3.mouse(this)
 
       let inve0_spher = state.proj.invert(state.p0)
@@ -121,13 +118,13 @@
 
       state.r0 = state.proj.rotate() // rotation in projection in degrees
 
-      
-      state.q0 = mversor(state.r0) // quaternion of initial rotation 
+
+      state.q0 = mversor(state.r0) // quaternion of initial rotation
       // -----------------
 
       state.rotAtInit_grads = state.rotInitial_grads // rebase()
 
-      
+
     }
 
   /*******************************************
@@ -135,49 +132,49 @@
    *
    */
     function dragged () {
-      
+
       let e = d3.event
-      
+
       state.proj = state.projection
-      
+
       if (!state.grabbed) return
       if (!state.moved) {
         state.moved = true // moved // state.autoRot = false
-        state.autoRot = false 
+        state.autoRot = false
         state.rotAtInit_grads = state.rotInitial_grads // rebase()
       }
 
-      // -----------------    
+      // -----------------
       state.lastMoveTime = Date.now()
-      
-      // -----------------    
+
+      // -----------------
       state.p1 = getPos(e)
 
-      // -----------------    
+      // -----------------
       state.inve1_spher = state.proj
         .rotate(state.r0)
         .invert(state.p1)
-           
+
       state.inve1_cart = mgeom.cartesian(state.inve1_spher)
-      
-      // -----------------   
-        
+
+      // -----------------
+
       state.pPos = state.cPos
-      state.cPos = state.inve1_spher      
-      
-      // -----------------    
+      state.cPos = state.inve1_spher
+
+      // -----------------
       // quaternion to rotate between inve0_cart and inve1_cart
       // compose rotations of pdelta_cart, then of q0
       // euler rotation angles
-      
+
       let pdelta_cart = mversor.delta(state.inve0_cart, state.inve1_cart)
       let q1 = mversor.multiply(state.q0, pdelta_cart)
       let r1 = mversor.rotation(q1) // in degrees
-      // -----------------    
-      
+      // -----------------
+
       state.rotInDrag_grads = r1
-      
- 
+
+
     }
 
   /*******************************************
@@ -185,54 +182,54 @@
    *
    */
     function dragended () {
-       
+
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
       let f = Math.max(0, 1 - (Date.now() - state.lastMoveTime))
-      
+
       state.vel_spher = [
 
         (state.cPos[1] - state.pPos[1]) * state.mult,
         (state.cPos[0] - state.pPos[0]) * state.mult
-        
+
       ]
       state.timer = requestAnimationFrame(momentum)
     }
 
-    
+
   /*******************************************
    *    @momentum
    *
-   */    
-   
+   */
+
     function momentum () {
       if (Math.abs(state.vel_spher[0]) < state.epsilon && Math.abs(state.vel_spher[1]) < state.epsilon) return
-      
-        state.vel_spher[0] *= state.decay 
+
+        state.vel_spher[0] *= state.decay
         state.vel_spher[1] *= state.decay
 
-        // -----------------    
-  
+        // -----------------
+
         let vel = mgeom.cartesian(state.vel_spher)
 
-        
-        
-        // state.rotInDrag_grads[0] += vel[0] 
+
+
+        // state.rotInDrag_grads[0] += vel[0]
         // state.rotInDrag_grads[1] += vel[1]
         // state.rotInDrag_grads[2] += vel[2]
-        // -----------------    
+        // -----------------
 
-        
+
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
-  
-    
+
+
     /*******************************************
    *    @enty
    */
     let enty = function enty (p = {}) {
-      
+
             return enty
     }
 
@@ -249,7 +246,7 @@
         return state.projection
       }
     }
-    
+
     // enty.rotation = _ => {
     enty.rotation = () => {
       // if (_ !== undefined) {
@@ -260,7 +257,7 @@
         // return mgeom.add([0,0,0], state.rotAtInit_grads)
       // }
     }
-    
+
 
 
     return enty

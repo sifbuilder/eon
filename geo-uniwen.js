@@ -12,7 +12,8 @@
   let geoUniwen = function geoUniwen (__mapper = {}) {
     let mgeom = __mapper('xs').m('geom'),
       mwen = __mapper('xs').m('wen'),
-      cwen = __mapper('xs').c('wen')
+      cwen = __mapper('xs').c('wen'),
+      d3 = __mapper('d3')
 
     let f = {}
     f.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true) 

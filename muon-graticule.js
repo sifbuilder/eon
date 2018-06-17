@@ -112,7 +112,9 @@
 
   let muonGraticule = function (__mapper = {}) {
 
-    let mgeoj = __mapper('xs').m('geoj')
+    let mgeoj = __mapper('xs').m('geoj'),
+      d3 = __mapper('d3')
+      
     let d3Range = d3.range
 
     const acos = Math.acos, asin = Math.asin, atan2 = Math.atan2, cos = Math.cos,

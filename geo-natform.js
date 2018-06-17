@@ -28,7 +28,8 @@
 
   
   let geoNatform = function geoNatform (__mapper = {}) {
-    let mnat = __mapper('xs').m('nat')
+    let mnat = __mapper('xs').m('nat'),
+      d3 = __mapper('d3')
 
     let cache = {} // points, form
 

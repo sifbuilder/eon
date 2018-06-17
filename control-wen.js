@@ -15,13 +15,13 @@
   // https://github.com/wenliang-developer/web-developer-site
 
   let controlWen = function controlWen (__mapper = {}) {
+
     
     let rrenderport = __mapper('xs').r('renderport'),
       mversor = __mapper('xs').m('versor')(),
-      // d3 = __mapper('d3'),
+      d3 = __mapper('d3'),
       mgeom = __mapper('xs').m('geom')
-    
-    let drag = d3.drag()
+
 
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)
@@ -29,6 +29,11 @@
 
     function stopMomentum () { cancelAnimationFrame(state.timer); state.timer = null }
 
+    
+    function rebase () {     
+      state.rotInDrag_radians = [0, 0, 0] // reset to default rotation
+    }
+    
     let inits = {
       decay: 0.95,
       mult: 2e-3, // rotInDrag_radians factor
@@ -37,20 +42,14 @@
       epsilon: 1e-3
     }
 
-    
-    function rebase () {     
-      state.rotInDrag_radians = [0, 0, 0] // reset to default rotation
-    }
-
     let getPos = rrenderport.getPos // event position
-    // let xydirs = rrenderport.xydirs() // [1 -1] in pixel view
     let xsign = 1 //  1 if x goes left to right
     let ysign = -1 // 1 if y goes up down
 
     let state = {
 
       // projection: null, // __mapper('xs').g('uniwen'), // _e_tbd
-      projection: d3.geoOrthographic()
+      projection: () => d3.geoOrthographic()
         .rotate([0, 0])
         .translate([0, 0])
         .scale(1),
@@ -75,10 +74,10 @@
     }
 
     // start drag control
-    let control = elem => elem.call(drag.on('start', dragstarted).on('drag', dragged).on('end', dragended))
+    let control = elem => elem.call(d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended))
 
     // stop drag control
-    let reset = elem => elem.call(drag.on('start', null).on('drag', null).on('end', null))
+    let reset = elem => elem.call(d3.drag().on('start', null).on('drag', null).on('end', null))
 
     
     // dragstarted listener
@@ -95,7 +94,7 @@
       
       state.p0 = state.grabbed // initial position in geometric space
      
-      let projection = state.projection
+      let projection = state.projection()
       if (projection.invert === undefined ) {
          if (2 && 2) console.log('** projection invert missing', projection)        
       } else if (projection.rotate === undefined) {
@@ -169,9 +168,7 @@
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
 
-    /*******************************************
-   *    @ENTY
-   */
+    // .................. enty
     let enty = function (p = {}) {
       state.rotAccum_radians = mgeom.to_radians(p.rotInit) || inits.rotInit_radians
       state.timer = requestAnimationFrame(tick)

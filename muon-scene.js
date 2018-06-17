@@ -10,7 +10,7 @@
 
   let muonScene = function (__mapper = {}) {
 
-
+    let d3 = __mapper('d3')
 
 
     let state = {}

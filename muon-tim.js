@@ -15,6 +15,9 @@
    *    @timing
    */
     let timing = function (pTim, pElapsed) {
+
+      let d3 = __mapper('d3')
+      
       let tim = Object.assign({}, pTim)
       let _tim = Object.assign({}, pTim)
 
@@ -54,7 +57,7 @@
       let d = (window === false) ? [tim.wait, tim.limit] : [0, duration] // time window
       if ((Math.sign(t0) === -1) || (Math.sign(t1) === -1)) timeinverse = true // inverse
       let r = (timeinverse === false) ? [0, 1] : [1, 0] // time inversion
-      let timescale = d3.scaleLinear().domain(d).range(r) // timescale: scale of life
+      let timescale = () => d3.scaleLinear().domain(d).range(r) // timescale: scale of life
 
       tim.msStart = tim.msStart || elapsed // -- start time (abs, ms)
       tim.msElapsed = tim.elapsed // -- abs time elapsed (abs, ms)
@@ -64,7 +67,7 @@
       tim.stopped = 1 // -- time is stopped
 
       let elapsedInPeriod = (period > epsilon) ? ((tim.elapsed % (duration / period)) * period) : elapsed
-      let unitTimeElapsedInPeriod = timescale(elapsedInPeriod) // abs elapsed time in period (units)
+      let unitTimeElapsedInPeriod = timescale()(elapsedInPeriod) // abs elapsed time in period (units)
       let elapsedstep = Math.round(elapsed / step) // elapsedstep
       if ((wait <= elapsed) && (elapsed <= limit) && (slots.indexOf(elapsedstep) !== null)) {
         slots.push(elapsedstep)
@@ -72,7 +75,7 @@
       }
 
       let passedInPeriod = (period > epsilon) ? ((tim.msPassed % (duration / period)) * period) : tim.msPassed
-      let unitTimePassedInPeriod = timescale(passedInPeriod) // rel msPassed time in period (units)
+      let unitTimePassedInPeriod = timescale()(passedInPeriod) // rel msPassed time in period (units)
       let passedstep = Math.round(tim.msPassed / step) // passedstep
 
       if ((wait <= tim.msPassed) && (tim.msPassed <= limit) && (slots.indexOf(passedstep) !== null)) {
