@@ -12,23 +12,43 @@
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
 
+
+<script src="muon-mapper.js"></script>
+<script src="x-s.js"></script>
+
 <script src="elem-enls.js"></script>
 <script src="elem-ents.js"></script>
 
 <script>
 
-let muonAlima = function muonAlima (__mapper) {
-  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({canvas: 0, svg: 1, versor: 0, wen: 1, webgl: 1, bck: 0, key: 1, gui: 0, fps: 0, stats: 0}) // INIT
+// md: # md:{filename}
+// md: ** **
+// md: 
+// md: # license
+// md: MIT
 
-  let renderport = __mapper('renderRenderport'),
-    width = renderport.width(),
-    height = renderport.height()
-    
-  let f = __mapper('xs').m('props'),
-    cwen = __mapper('xs').c('wen')
+// .................. mapper, animas, animation
 
-  // .................. pics 
+let __mapper = muonMapper.muonMapper() // init mapper
+__mapper({'xs': xs.xs(__mapper)}) // register proxy
+
+animasPromise(__mapper)
+  .then(function (animas) { // when animas promised returned
+    __mapper('xs').m('store').apply({type: 'UPDANIMA', animas: animas}) // store animas
+  })
+
+__mapper({'bosonAnimation': bosonAnimation.bosonAnimation(__mapper)}) // animation
+
+// .................. async animasPromise
+async function animasPromise (__mapper) {
+
+  let rrenderport = __mapper('xs').r('renderport')
+
+  let width = rrenderport.width(),
+    height = rrenderport.height(),
+    scaleProj = Math.min(width / 2, height) / Math.PI
+
+  // .................. pics
   let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   // .................. img
@@ -71,18 +91,28 @@ let muonAlima = function muonAlima (__mapper) {
 
     }
   }
+  // .................. sceneForm
+  let sceneForm = {
 
-  // .................. animas  
+    halo: 'scene',
+    payload: {
+
+      tim: tim,
+
+      ric: {gid: 'gratiform', cid: 'gratiform', fid: 'context'},
+
+      context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 0}
+    }
+
+  }
+  // .................. animas
   let animas = [
 
+      sceneForm, // h.context
     img // h.img
-    
+
   ]
 
-  return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+  return animas
 }
-
-let __mapper = muonMapper.muonMapper()
-__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
-<body style="cursor:crosshair"></body>

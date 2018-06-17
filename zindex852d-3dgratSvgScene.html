@@ -23,7 +23,7 @@
 
 // md: # md:{filename}
 // md: ** **
-
+// md:
 // md: # license
 // md: MIT
 
@@ -37,17 +37,21 @@ animasPromise(__mapper)
       __mapper('xs').m('store').apply({type: 'UPDANIMA', animas: animas}) // store animas
   })
 
+  
+  
 __mapper({'bosonAnimation': bosonAnimation.bosonAnimation(__mapper)})  // call animation
 
 
   // .................. async animasPromise
 async function animasPromise(__mapper) {
-  let mgraticule = __mapper('xs').m('graticule'),
-    cwen = __mapper('xs').c('wen')
 
-  let renderport = __mapper('renderRenderport'),
-    width = renderport.width(),
-    height = renderport.height(),
+  let rrenderport = __mapper('xs').r('renderport'),
+    mgraticule = __mapper('xs').m('graticule'),
+    cwen = __mapper('xs').c('wen')
+    
+
+  let width = rrenderport.width(),
+    height = rrenderport.height(),
     scaleProj = Math.min(width / 2, height) / Math.PI
 
   // .................. pics
@@ -125,20 +129,7 @@ async function animasPromise(__mapper) {
     scale: 1
 
   }
-  // .................. sceneForm
-  let sceneForm = {
 
-    halo: 'scene',
-    payload: {
-
-      tim: tim,
-
-      ric: {gid: 'gratiform', cid: 'gratiform', fid: 'context'},
-
-      context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 0}
-    }
-
-  }
   // .................. gratiform
   let gratiform2da = {
 
@@ -219,6 +210,21 @@ async function animasPromise(__mapper) {
 
   }
 
+  // .................. sceneForm
+  let sceneForm = {
+
+    halo: 'scene',
+    payload: {
+
+      tim: tim,
+
+      ric: {gid: 'gratiform', cid: 'gratiform', fid: 'context'},
+
+      context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 0}
+    }
+
+  }  
+  
   // .................. animaset
   let animas = [
 
