@@ -29,8 +29,10 @@
 
 
 
-let d3parts = [
-  'd3',
+let d3parts = {
+   name: 'd3',
+   parts: [
+  'd3@5',
   './d3-octree.js',
   './d3-inertia.js',
   './d3-geo.js',
@@ -44,18 +46,19 @@ let d3parts = [
   './d3-force-graph.min.js',
   './d3-force-bounce.js',
   './d3-force-3d.js'
-  ]
+  ]}
 
 
 
-let topojsonparts = [
-  'topojson',
-]
+let topojsonparts = {
+    name: 'topojson',
+    parts: ['topojson@3.0.2']
+}
 
 
-async function report(parts) {
-
-  let promises = 	xD3Require.require(...parts)
+async function report(ent) {
+  let name = ent.name
+  let promises = 	xD3Require.require(...ent.parts)
   let [promised] = await Promise.all([promises])
   return promised
 
