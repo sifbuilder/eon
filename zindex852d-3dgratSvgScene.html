@@ -29,39 +29,37 @@
 
 
 
-let d3parts = {
+let parts = [
+
+{
    name: 'd3',
    parts: [
-  'd3@5',
-  './d3-octree.js',
-  './d3-inertia.js',
-  './d3-geo.js',
-  './d3-geo-voronoi.js',
-  './d3-geo-projection.js',
-  './d3-geo-projection-clip-polyhedral.js',
-  './d3-geo-polygon.js',
-  './d3-force-surface.js',
-  './d3-force-pod.js',
-  './d3-force-magnetic.js',
-  './d3-force-graph.min.js',
-  './d3-force-bounce.js',
-  './d3-force-3d.js'
-  ]}
+    'd3@5',
+    './d3-octree.js',
+    './d3-inertia.js',
+    './d3-geo.js',
+    './d3-geo-voronoi.js',
+    './d3-geo-projection.js',
+    './d3-geo-projection-clip-polyhedral.js',
+    './d3-geo-polygon.js',
+    './d3-force-surface.js',
+    './d3-force-pod.js',
+    './d3-force-magnetic.js',
+    './d3-force-graph.min.js',
+    './d3-force-bounce.js',
+    './d3-force-3d.js'
+    ]},
 
-
-
-let topojsonparts = {
+ {
     name: 'topojson',
     parts: ['topojson@3.0.2']
 }
+]
 
-
-async function report(ent) {
-  let name = ent.name
-  let promises = 	xD3Require.require(...ent.parts)
+async function report(parts) {
+  let promises = 	xD3Require.require(...parts)
   let [promised] = await Promise.all([promises])
   return promised
-
 }
 
 
@@ -74,11 +72,21 @@ async function ____e() {
     __mapper({'xs': xs.xs(__mapper)}) // map proxy
 
 
-    let d3 = await report(d3parts)
-  __mapper({'d3': d3}) // map d3
+  // await parts.forEach(p => __mapper( {[p.name]: report(p.parts)} ))
+    
+  // const start = async () => {
+    // await Promise.all(parts.map(async p => {
+      // await __mapper( {[p.name]: report(p.parts)} )
 
-     let topojson =  await report(topojsonparts)
-  __mapper({'topojson': topojson}) // map topojson
+    // }))
+    // console.log('Done')
+  // }
+  // await start()    
+      
+    
+    
+  __mapper({[parts[0].name]: await report(parts[0].parts)}) // map d3
+  __mapper({[parts[1].name]: await report(parts[1].parts)}) // map topojson
 
 
 
