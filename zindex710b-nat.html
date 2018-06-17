@@ -74,7 +74,7 @@ let muonAlima = function muonAlima (__mapper) {
   return () => __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
 }
 
-let __mapper = muonMapper.muonMapper()
+let __mapper = xMapper.xMapper()
 __mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
 <body style="cursor:crosshair"></body>

@@ -1,8 +1,8 @@
 const d3 = require('./d3.v5.js')
 global.d3 = d3
 
-const muonMapper = require('./muon-mapper.js')
-let __mapper = muonMapper.muonMapper()
+const xMapper = require('./x-mapper.js')
+let __mapper = xMapper.xMapper()
 
 const xs = require('./x-s.js')
 __mapper({'xs': xs.xs(__mapper)}) // PROXIES

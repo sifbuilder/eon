@@ -16,8 +16,9 @@
 
   let controlWen = function controlWen (__mapper = {}) {
     
-    let r = __mapper('xs').r('renderport'),
+    let rrenderport = __mapper('xs').r('renderport'),
       mversor = __mapper('xs').m('versor')(),
+      // d3 = __mapper('d3'),
       mgeom = __mapper('xs').m('geom')
     
     let drag = d3.drag()
@@ -41,8 +42,8 @@
       state.rotInDrag_radians = [0, 0, 0] // reset to default rotation
     }
 
-    let getPos = r.getPos // event position
-    // let xydirs = r.xydirs() // [1 -1] in pixel view
+    let getPos = rrenderport.getPos // event position
+    // let xydirs = rrenderport.xydirs() // [1 -1] in pixel view
     let xsign = 1 //  1 if x goes left to right
     let ysign = -1 // 1 if y goes up down
 

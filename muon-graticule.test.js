@@ -1,11 +1,11 @@
 const d3 = require('./d3.v5.js')
 global.d3 = d3
 
-const muonMapper = require('./muon-mapper.js')
+const xMapper = require('./x-mapper.js')
 const xs = require('./x-s.js')
 const requiredGraticule = require('./muon-graticule.js')
 
-let __mapper = muonMapper.muonMapper()
+let __mapper = xMapper.xMapper()
 __mapper({'xs': xs.xs(__mapper)}).xs
 
 let mGraticule = requiredGraticule.muonGraticule(__mapper)
