@@ -14,10 +14,9 @@
 
 
 <script src="x-mapper.js"></script>
-<script src="./x-s.js"></script>
+<script src="x-s.js"></script>
+<script src="x-d3-require.js"></script>
 
-<script src="./x-d3-require.js"></script>
- <!-- <script src="elem-enls.js"></script>  -->
 <script src="elem-ents.js"></script>
 
 <script>
@@ -28,68 +27,55 @@
 // md: # license
 // md: MIT
 
-async function libex1() {
-
-  let d3Parts = [
-    './d3.v5.js',
-    './d3-octree.js',
-    './d3-inertia.js',
-    './d3-geo.js',
-    './d3-geo-voronoi.js',
-    './d3-geo-projection.js',
-    './d3-geo-projection-clip-polyhedral.js',
-    './d3-geo-polygon.js',
-    './d3-force-surface.js',
-    './d3-force-pod.js',
-    './d3-force-magnetic.js',
-    './d3-force-graph.min.js',
-    './d3-force-bounce.js',
-    './d3-force-3d.js'
-    ]
-  let d3Promise = 	xD3Require.require(...d3Parts)
-  let [d3] = await Promise.all([d3Promise])
-
-  return d3
-
-}
-async function libex2() {
 
 
-  let topojsonParts = [
-    './topojson.v3.js',
+let d3parts = [
+  './d3.v5.js',
+  './d3-octree.js',
+  './d3-inertia.js',
+  './d3-geo.js',
+  './d3-geo-voronoi.js',
+  './d3-geo-projection.js',
+  './d3-geo-projection-clip-polyhedral.js',
+  './d3-geo-polygon.js',
+  './d3-force-surface.js',
+  './d3-force-pod.js',
+  './d3-force-magnetic.js',
+  './d3-force-graph.min.js',
+  './d3-force-bounce.js',
+  './d3-force-3d.js'
   ]
-  let topojsonPromise = 	xD3Require.require(...topojsonParts)
-  let [topojson] = await Promise.all([topojsonPromise])
-  return topojson
 
+
+
+let topojsonparts = [
+  './topojson.v3.js',
+]
+
+
+async function report(parts) {
+
+  let promises = 	xD3Require.require(...parts)
+  let [promised] = await Promise.all([promises])
+  return promised
 
 }
 
 
-  // .................. mapper, animas, animation
+ ____e()
 
-
-
-
- ____i()
-
-async function ____i() {
+async function ____e() {
     let __mapper = xMapper.xMapper() // init mapper
 
-
-
- __mapper({'xD3Require': xD3Require}) // map  global xD3Require
+  __mapper({'xD3Require': xD3Require}) // map  global xD3Require
     __mapper({'xs': xs.xs(__mapper)}) // map proxy
 
- 
-if (1 && 1) console.log('xD3Require', __mapper('xD3Require') )
 
- 
-    let d3 = await libex1()
- __mapper({'d3': d3}) // map d3
+    let d3 = await report(d3parts)
+  __mapper({'d3': d3}) // map d3
 
-     let topojson =  await libex2()
- __mapper({'topojson': topojson}) // map topojson
+     let topojson =  await report(topojsonparts)
+  __mapper({'topojson': topojson}) // map topojson
 
 
 
