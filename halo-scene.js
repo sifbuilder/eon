@@ -12,17 +12,14 @@
     
     let f = __mapper('xs').m('props'),
       manitem = __mapper('xs').m('anitem'),
-      minit = __mapper('xs').m('init')
+      mscene = __mapper('xs').m('scene')
     
     let ween = function (anima, newAnimas = []) {
 
-    
       let p = anima.payload.context
-
-      minit.setContext(p)
+      mscene.scenify(p)
       
       newAnimas = Array.of(anima)
-      
       return newAnimas
     }
 

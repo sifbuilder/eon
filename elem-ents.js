@@ -105,6 +105,7 @@ document.write("<script src='muon-bezierjs.js'><\/script>")
 document.write("<script src='muon-audio.js'><\/script>")
 document.write("<script src='muon-anitem.js'><\/script>")
 document.write("<script src='muon-animas.js'><\/script>")
+document.write("<script src='muon-scene.js'><\/script>")
 /* halo*/
 document.write("<script src='halo-tiles.js'><\/script>")
 document.write("<script src='halo-textform.js'><\/script>")

@@ -11,10 +11,12 @@
   function controlPos (__mapper) {
     
     
-    let r = __mapper('xs').r('renderport'),
-      width = r.width(),
-      height = r.height()    
-    let cameraProjer = r.cameraProjer()
+    let rrenderport = __mapper('xs').r('renderport')
+    
+    
+    let  width = rrenderport.width(),
+      height = rrenderport.height()    
+    let cameraProjer = rrenderport.cameraProjer()
       
     function prevent (e) {}
 

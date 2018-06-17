@@ -15,10 +15,12 @@
       propsPromise = __mapper('xs').m('props'),
       mstorePromise = 	__mapper('xs').m('store'),
       msimPromise = 	__mapper('xs').m('sim'),
-      mtimPromise = 	__mapper('xs').m('tim')
+      mtimPromise = 	__mapper('xs').m('tim'),
+      rrenderportPromise = 	__mapper('xs').r('renderport')
 
-  let [ctimer, f, mstore, msim, mtim] 
-      = await Promise.all([ctimerPromise, propsPromise, mstorePromise, msimPromise, mtimPromise])
+  let [ctimer, mprops, mstore, msim, mtim, rrenderport] 
+      = await Promise.all(
+        [ctimerPromise, propsPromise, mstorePromise, msimPromise, mtimPromise, rrenderportPromise])
       
     let state = {}
     state.animas = [] // global animas
@@ -32,10 +34,10 @@
   // .................. aniListener
     function aniListener (elapsed) {
       
-      state.animas = f.a(mstore.animasLive())
+      state.animas = mprops.a(mstore.animasLive())
 
   // .................. time
-      state.animas = f.a(mstore.animasLive())
+      state.animas = mprops.a(mstore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
         anima.payload.tim = mtim.timing(anima.payload.tim, elapsed) // set time
@@ -66,7 +68,7 @@
         let newAnimas = mstore.ween(anima) // has generated animas
         mstore.apply({'type': 'UPDANIMA', 'caller': 'animation', 'animas': newAnimas})
       }
-      state.animas = f.a(mstore.animasLive())
+      state.animas = mprops.a(mstore.animasLive())
       
 
       // ............................. @SIM defaults position of nodes  
@@ -74,7 +76,7 @@
 
       msim.simulate(sim, state.animas, elapsed)	// stored
 
-      state.animas = f.a(mstore.animasLive())
+      state.animas = mprops.a(mstore.animasLive())
       
 
       // ............................. @GRAMM animas to anigrams      
@@ -86,7 +88,7 @@
         
         //md: mstore.gramm calls UPDANIGRAM
         //md: anigrams geofolds are saved in the proformed domain
-        newAnigrams = f.a(mstore.gramm(anima)) /* GRAMM */
+        newAnigrams = mprops.a(mstore.gramm(anima)) /* GRAMM */
         
       }
 
@@ -95,9 +97,9 @@
       // ............................. render
       let featurecollection = { 'type': 'FeatureCollection', 'features': anigrams.map(d => d.geofold) }
 
-      if (__mapper('renderSvg') !== undefined) __mapper('renderSvg').render(elapsed, featurecollection)
-      if (__mapper('renderWebgl') !== undefined) __mapper('renderWebgl').render(elapsed, featurecollection)
-      if (__mapper('renderCanvas') !== undefined) __mapper('renderCanvas').render(elapsed, featurecollection)
+      rrenderport.render(elapsed, featurecollection)
+      
+
     }
 
 

@@ -27,8 +27,8 @@
     }
     
     // .................. scene
-    let scene = function (p) {
-      if (1 && 1) console.log(' ----------------', p)
+    let scenify = function (p) {
+
       if (p.canvas && p.canvas !== state.scene.canvas) {
         state.scene.canvas = 1
 
@@ -139,12 +139,8 @@
     }
 
     
-    let enty = function (p) {
-      
-      scene(p)
-      if (__mapper('animation') === undefined)  __mapper({'bosonAnimation': bosonAnimation.bosonAnimation(__mapper)})
-
-    }
+    let enty = {}
+    enty.scenify = scenify
     enty.scene = _ => _ !== undefined ? (state.scene = _, enty) : state.scene
     return enty
   }
