@@ -1,5 +1,5 @@
 /* boson*/
-document.write("<script src='boson-promise.js'><\/script>")
+document.write("<script src='muon-promise.js'><\/script>")
 document.write("<script src='boson-animation.js'><\/script>")
 /* control*/
 document.write("<script src='control-wen.js'><\/script>")

@@ -1,17 +1,14 @@
 /***********
- *    @bosonPromise
+ *    @muonPromise
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.bosonPromise = global.bosonPromise || {})))
+      : (factory((global.muonPromise = global.muonPromise || {})))
 }(this, function (exports) {
   'use strict'
 
-  let bosonPromise = function(__mapper = {}) {
-    let f = __mapper('xs').m('props'),
-      mnat = __mapper('xs').m('nat'),
-      mgeoj = __mapper('xs').m('geoj')
+  let muonPromise = function(__mapper = {}) {
 
     let add = (a,b) => a + b
 
@@ -22,5 +19,5 @@
     return enty
   }
 
-  exports.bosonPromise = bosonPromise
+  exports.muonPromise = muonPromise
 }))
