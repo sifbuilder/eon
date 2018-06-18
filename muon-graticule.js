@@ -110,11 +110,16 @@
 //md: # license
 //md: MIT
 
-  let muonGraticule = function (__mapper = {}) {
+  async function muonGraticule (__mapper = {}) {
 
-    let mgeoj = __mapper('xs').m('geoj'),
-      d3 = __mapper('d3')
-      
+    let mgeoj = __mapper('xs').m('geoj')
+
+    // let d3 = __mapper('d3')
+    let d3Promise = __mapper('xs').b('d3')
+    let [d3] 
+      = await Promise.all(
+        [d3Promise])
+        
     let d3Range = d3.range
 
     const acos = Math.acos, asin = Math.asin, atan2 = Math.atan2, cos = Math.cos,
@@ -145,17 +150,17 @@
 
     return ret
   }
-  
-  
+
+
     let defaultMajor = [ [-180, 180, 90, 2.5], [-90, 90, 360, 2.5] ]
     let defaultMinor = [ [-180, 180, 10, 2.5], [-80, 80, 10, 2.5] ]
-    
+
     let state = {}
 
     let cache = {} // entryparams, gratiparams
         cache.entryparams = {}
         cache.gratiparams = {}
-        
+
     // .................. tidx
     let tidx = function (horq, verq, hd = 1, vd = 1) {
       return function (col, row) { // ridx([3,5]) => 17
@@ -350,7 +355,7 @@
     // .................. grarr
     let grarr = function (params = {}) {
 
-  
+
       let {X0, X1, DX, PX, x0, x1, dx, px,
            Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
 
@@ -630,7 +635,7 @@ if (1 && 1) console.log('mersCoords', mersCoords[0])
       return enty
     }
 
-  
+
     enty.tidx = tidx
     enty.ridx = ridx
     enty.gratiparams = gratiparams

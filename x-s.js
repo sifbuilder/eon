@@ -39,7 +39,7 @@
       else if (typeof (params) === 'string') nome = params
 
 
-      let itemName = pres + cap(nome) // item syn names
+      let itemName = (pres === '') ? nome : pres + cap(nome) // item syn names
 
         if (__mapper(itemName) !== undefined) { // item in mapper
 
@@ -80,7 +80,7 @@
     // ............................. async getBoson
     async function getBoson(params, pres = 'boson') {
 
-      let ret = await getFermion(params, pres)
+      let ret = await getFermion(params, '')
 
       if (ret === null) {
 

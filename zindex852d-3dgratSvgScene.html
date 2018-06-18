@@ -96,10 +96,16 @@ async function ____e() {
 async function animasPromise(__mapper) {
 
   let rrenderport = __mapper('xs').r('renderport'),
-    mgraticule = __mapper('xs').m('graticule'),
+    
     cwen = __mapper('xs').c('wen')
 
-
+    // let mgraticule = __mapper('xs').m('graticule')
+    let graticulePromise = __mapper('xs').b('muonGraticule')
+    let [mgraticule] 
+      = await Promise.all(
+        [graticulePromise])
+    
+    
   let width = rrenderport.width(),
     height = rrenderport.height(),
     scaleProj = Math.min(width / 2, height) / Math.PI
