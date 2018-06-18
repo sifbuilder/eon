@@ -13,9 +13,6 @@
     let xD3Require = __mapper('xD3Require')
   
     let cap = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // capitalize string
-
-    if (1 && 1) console.log('xD3Require', xD3Require)
-
     
     // https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
     function camelize(str) {

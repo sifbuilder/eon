@@ -48,7 +48,7 @@ let __parts = [
     './d3-force-3d.js'
     ]],
 
- ['topojson',  'topojson@3.0.2' ]
+ ['topojson',  'topojson' ]
  
 ]
 
@@ -57,7 +57,6 @@ async function report(part) {
   let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1])  // to array
   let promises = 	xD3Require.require(...parts)  // destructure value
   let [resolved] = await Promise.all([promises])  
-  
   return [ name, resolved ]
 }
 
@@ -90,7 +89,7 @@ async function ____e() {
     let mstore = await __mapper('xs').m('store')  // map store
     mstore.apply({type: 'UPDANIMA', animas: animas})  // store animas
 
-    __mapper({'bosonAnimation': bosonAnimation.bosonAnimation(__mapper)})  // call animation
+    __mapper({'bosonAnimation': bosonAnimation.bosonAnimation(__mapper)})  // animation
 }
 
 
