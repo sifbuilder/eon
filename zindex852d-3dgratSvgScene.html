@@ -28,12 +28,10 @@
 // md: MIT
 
 
+// =============
+let __parts = [
 
-let parts = [
-
-{
-   name: 'd3',
-   parts: [
+[ 'd3', [
     'd3@5',
     './d3-octree.js',
     './d3-inertia.js',
@@ -48,18 +46,19 @@ let parts = [
     './d3-force-graph.min.js',
     './d3-force-bounce.js',
     './d3-force-3d.js'
-    ]},
+    ]],
 
- {
-    name: 'topojson',
-    parts: ['topojson@3.0.2']
-}
+ ['topojson',  'topojson@3.0.2' ]
+ 
 ]
 
 async function report(part) {
-  let promises = 	xD3Require.require(...part.parts)
-  let [promised] = await Promise.all([promises])
-  return {name: part.name, value: promised}
+  let name = part[0]  // name
+  let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1])  // to array
+  let promises = 	xD3Require.require(...parts)  // destructure value
+  let [resolved] = await Promise.all([promises])  
+  
+  return [ name, resolved ]
 }
 
 
@@ -73,18 +72,15 @@ async function ____e() {
 
 
     
-    let apromises = parts.map(p => report(p))
-    await Promise.all(apromises)
+    let promises = __parts.map(p => report(p))
+    await Promise.all(promises)
           .catch(function(err) {
               console.log('A promise failed to resolve', err);
-              return apromises;
+              return promises;
           })
           .then(function(resolveds) {
             
-            if (1 && 1) console.log('resolveds', resolveds)
-
-            resolveds.map(r => __mapper({[r.name]: r.value }))
-            
+            resolveds.map(r => __mapper({[r[0]]: r[1] }))
 
           })
 
