@@ -83,7 +83,7 @@
 
         if (__mapper('controlKey') !== undefined) {
           let controltimerLeftArrowAlt = () => { // LEFT ARROW
-            if (__mapper('bosonAnimation').animationStop !== undefined) {
+            if (__mapper('muonAnimation').animationStop !== undefined) {
               console.log('controltimerLeftArrowAlt')
               if (__mapper('controlTimer').started()) {
                 __mapper('controlTimer').stop()
@@ -104,7 +104,7 @@
         }
 
         let controltimerRightArrowAlt = () => { // RIGHT ARROW
-          if (__mapper('bosonAnimation').animationStop !== undefined) {
+          if (__mapper('muonAnimation').animationStop !== undefined) {
             if (__mapper('controlTimer').started()) {
               __mapper('controlTimer').stop()
             } else {

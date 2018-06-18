@@ -1,6 +1,6 @@
 /* boson*/
 document.write("<script src='muon-promise.js'><\/script>")
-document.write("<script src='boson-animation.js'><\/script>")
+document.write("<script src='muon-animation.js'><\/script>")
 /* control*/
 document.write("<script src='control-wen.js'><\/script>")
 document.write("<script src='control-versor.js'><\/script>")

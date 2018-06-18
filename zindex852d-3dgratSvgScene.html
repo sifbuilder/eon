@@ -12,11 +12,9 @@
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
 
-
 <script src="x-mapper.js"></script>
 <script src="x-s.js"></script>
 <script src="x-d3-require.js"></script>
-
 <script src="elem-ents.js"></script>
 
 <script>
@@ -27,8 +25,6 @@
 // md: # license
 // md: MIT
 
-
-// =============
 let __parts = [
 
 [ 'd3', [
@@ -48,7 +44,10 @@ let __parts = [
     './d3-force-3d.js'
     ]],
 
- ['topojson',  'topojson' ]
+ ['topojson',  'topojson' ],
+ 
+ // ['muonPromise',  'muon-promise' ],
+ // ['muonAnimation',  'muon-animation' ],
  
 ]
 
@@ -56,26 +55,24 @@ async function report(part, __mapper) {
   let name = part[0]  // name
   let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1])  // to array
   
-if (1 && 1) console.log('xs', xs)
-  
   // let promises = 	await __mapper('xs').b('d3-array')
+  // let promises = 	await __mapper('xs').b(part)
+  // let [resolved] = await Promise.all([promises])  
+  // return [ name, resolved ]  
   
   let promises = 	xD3Require.require(...parts)  // destructure value
   let [resolved] = await Promise.all([promises])  
   return [ name, resolved ]
+  
 }
 
-
  ____e()
-
 async function ____e() {
     let __mapper = xMapper.xMapper() // init mapper
 
-  __mapper({'xD3Require': xD3Require}) // map  global xD3Require
+    __mapper({'xD3Require': xD3Require}) // map  global xD3Require
     __mapper({'xs': xs.xs(__mapper)}) // map proxy
 
-
-    
     let promises = __parts.map(p => report(p, __mapper))
     await Promise.all(promises)
           .catch(function(err) {
@@ -84,21 +81,16 @@ async function ____e() {
           })
           .then(function(resolveds) {
             
-            resolveds.map(r => __mapper({[r[0]]: r[1] }))
+              resolveds.map(r => __mapper({[r[0]]: r[1] }))
 
           })
-
-
 
     let animas = await animasPromise(__mapper)
     let mstore = await __mapper('xs').m('store')  // map store
     mstore.apply({type: 'UPDANIMA', animas: animas})  // store animas
 
-    __mapper({'bosonAnimation': bosonAnimation.bosonAnimation(__mapper)})  // animation
+    __mapper({'muonAnimation': muonAnimation.muonAnimation(__mapper)})  // animation
 }
-
-
-
 
   // .................. async animasPromise
 async function animasPromise(__mapper) {
@@ -202,18 +194,13 @@ async function animasPromise(__mapper) {
       boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333, 666, 333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
 
       conform: conform2d,
-
       proform: proform2da,
-
       graticule: {
-
         frame: [ [ [-180, 180, 90, 90], [-90, 90, 45, 45] ] ] // X,Y
-
       }
-
     }
-
   }
+  
   // .................. gratiform
   let gratiform2db = {
 
@@ -228,17 +215,11 @@ async function animasPromise(__mapper) {
       boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333, 666, 333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
 
       conform: conform2d,
-
       proform: proform2db,
-
       graticule: {
-
         frame: [ [ [-180, 180, 90, 90], [-90, 90, 45, 45] ] ] // X,Y
-
       }
-
     }
-
   }
 
   // .................. gratiform
@@ -255,17 +236,11 @@ async function animasPromise(__mapper) {
       boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333, 666, 333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
 
       conform: conform3d,
-
       proform: proform3d,
-
       graticule: {
-
         frame: [ [ [-180, 180, 90, 90], [-90, 90, 45, 45] ] ] // X,Y
-
       }
-
     }
-
   }
 
   // .................. sceneForm
@@ -273,11 +248,8 @@ async function animasPromise(__mapper) {
 
     halo: 'scene',
     payload: {
-
       tim: tim,
-
       ric: {gid: 'gratiform', cid: 'gratiform', fid: 'context'},
-
       context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 0}
     }
 

@@ -41,23 +41,16 @@
 
       let itemName = pres + cap(nome) // item syn names
 
-      
-         // if (1 && 1) console.log(`getFermion try to get ${itemName}`)      
-      
         if (__mapper(itemName) !== undefined) { // item in mapper
 
           ret =  getFromMapper(itemName)
           console.log(`getFermion got from mapper ${nome}`)
-          // break
 
         } else if (enty[nome] !== undefined) {    // item in enty
           ret =  getFromEnty(enty[nome])
           console.log(`getFermion got from enty ${nome}`)
 
-          // break
-
         } else {    //  eval
-
 
           let item
           try { item = eval(itemName)  } catch (e) {    /* eval */ }

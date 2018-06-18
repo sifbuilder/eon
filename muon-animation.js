@@ -1,15 +1,15 @@
 /******************************************
-  *       @bosonAnimation
+  *       @muonAnimation
   *
   **/
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.bosonAnimation = global.bosonAnimation || {})))
+      : (factory((global.muonAnimation = global.muonAnimation || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function bosonAnimation(__mapper) {
+  async function muonAnimation(__mapper) {
 
     let ctimerPromise = 	__mapper('xs').c('timer'),
       propsPromise = __mapper('xs').m('props'),
@@ -111,5 +111,5 @@
     return enty
   }
 
-  exports.bosonAnimation = bosonAnimation
+  exports.muonAnimation = muonAnimation
 }))
