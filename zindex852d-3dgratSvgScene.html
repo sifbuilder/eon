@@ -52,9 +52,14 @@ let __parts = [
  
 ]
 
-async function report(part) {
+async function report(part, __mapper) {
   let name = part[0]  // name
   let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1])  // to array
+  
+if (1 && 1) console.log('xs', xs)
+  
+  // let promises = 	await __mapper('xs').b('d3-array')
+  
   let promises = 	xD3Require.require(...parts)  // destructure value
   let [resolved] = await Promise.all([promises])  
   return [ name, resolved ]
@@ -71,7 +76,7 @@ async function ____e() {
 
 
     
-    let promises = __parts.map(p => report(p))
+    let promises = __parts.map(p => report(p, __mapper))
     await Promise.all(promises)
           .catch(function(err) {
               console.log('A promise failed to resolve', err);

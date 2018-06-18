@@ -13,6 +13,9 @@
     let xD3Require = __mapper('xD3Require')
   
     let cap = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // capitalize string
+
+    if (1 && 1) console.log('xD3Require', xD3Require)
+
     
     // https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
     function camelize(str) {
@@ -30,118 +33,93 @@
 
 
     // ............................. getFermion
-    function getFermion(params, pres = ['control', 'force', 'muon', 'render', 'shade'], ret = null) {
+    function getFermion(params, pres = '', ret = null) {
       let nome = null
       if (typeof (params) === 'object') nome = params.nome
       else if (typeof (params) === 'string') nome = params
 
-      let itemNames = pres.reduce((p, q) => [...p, q + cap(nome) ], []) // item syn names
 
+      let itemName = pres + cap(nome) // item syn names
 
-      for (let i = 0; i < itemNames.length; i++) {
-        let itemName = itemNames[i]
+      
+         if (1 && 1) console.log(`getFermion try to get ${itemName}`)      
+      
         if (__mapper(itemName) !== undefined) { // item in mapper
 
           ret =  getFromMapper(itemName)
-          // if (1 && 1) console.log('getFromMapper', itemName, ret)
 
-          break
+          // break
 
         } else if (enty[nome] !== undefined) {    // item in enty
           ret =  getFromEnty(enty[nome])
 
-          break
+          // break
 
         } else {    //  eval
 
+
           let item
-          try { item = eval(itemName)  } catch (e) { /* pass */ }
+          try { item = eval(itemName)  } catch (e) {    /* eval */ }
+
           if (typeof item === 'object') { // register in mapper
             let enty = {
                 [itemName]: item[itemName](__mapper)
             }
-            __mapper(enty) // regiester
+            __mapper(enty) // register
 
             ret =  getFromMapper(itemName) // item
-
-            break
+            // break
 
 
           } else {
 
-
+            if (2 && 2) console.log(`getFermion could not find ${nome}`)
 
           }
         }
-      }
+        
+      if (ret && 1 && 1) console.log(`getFermion got ${nome}`)
+        else console.log(`getFermion could not get ${nome}`)
       return ret
     }
 
 
     // ............................. async getBoson
-    async function getBoson(params, pres = ['control', 'force', 'muon', 'render', 'shade'], ret = null) {
+    async function getBoson(params, pres = 'boson') {
 
-    
-      // if (1 && 1) console.log('params', params)
-    
-      ret = await getFermion(params, pres = ['boson', 'control', 'force', 'muon', 'render', 'shade'], ret = null)
-      
-      
+      let ret = await getFermion(params, pres)
+
       if (ret === null) {
 
-        let nome = null
+        let nome
         if (typeof (params) === 'object') nome = params.nome
-        else if (typeof (params) === 'string') nome = params      
-      
+        else if (typeof (params) === 'string') nome = params
+
         ret = await getFromNet(nome)
-        console.log(`got from net ${nome} `, ret )
+        console.log(` !!!!!!!!!!!  got ${params} from net`)
 
       } else {
-        
-        console.log(`got async ${params} `, ret )
-        
+
+        console.log(` getBoson could not get boson ${params}`)
+
       }
 
+      if (!ret) console.log(` ===> getBoson could not get boson ${params}`)
       return ret
     }
 
     // ............................. enty
     let enty = function() {}
 
-
-    enty.boson = enty.b = function (params, pres = ['boson'], ret = null) {
-      return getBoson(params, pres = ['boson'], ret = null)
-    }
-    
-    
-    
-    enty.muon = enty.m = function (params, pres = ['muon'], ret = null) {
-      return getFermion(params, pres = ['muon'], ret = null)
-    }    
-    
-    enty.data = enty.d = function (params, pres = ['data'], ret = null) {
-      return getFermion(params, pres = ['data'], ret = null)
-    }
-    enty.force = enty.f = function (params, pres = ['force'], ret = null) {
-      return getFermion(params, pres = ['force'], ret = null)
-    }
-    enty.geo = enty.g = function (params, pres = ['proj'], ret = null) {
-      return getFermion(params, pres = ['geojson', 'geo', 'proj', 'd3.geo'], ret = null)
-    }
-    enty.halo = enty.h = function (params, pres = ['halo'], ret = null) {
-      return getFermion(params, pres = ['halo'], ret = null)
-    }
-
-    
-    
-    
-    enty.control = enty.c = function (params, pres = ['control'], ret = null) {
-      return getFermion(params, pres = ['control'], ret = null)
-    }
-    enty.render = enty.r = function (params, pres = ['render'], ret = null) {
-      return getFermion(params, pres = ['render'], ret = null)
-    }
-
+    enty.boson = enty.b = (params, pres = 'boson') => getBoson(params, pres)
+    enty.muon = enty.m = (params, pres = 'muon') => getFermion(params, pres)
+    enty.data = enty.d = (params, pres = 'data') => getFermion(params, pres)
+    enty.force = enty.f = (params, pres = 'force') => getFermion(params, pres)
+    enty.geo = enty.g = (params, pres = 'geo') => getFermion(params, pres)
+      // return getBoson(params, pres = ['geo', 'd3.geo'], ret = null)
+    enty.halo = enty.h = (params, pres = 'halo') => getFermion(params, pres)
+    enty.control = enty.c = (params, pres = 'control') => getFermion(params, pres)
+    enty.render = enty.r = (params, pres = 'render') => getFermion(params, pres)
 
     return enty
   }
