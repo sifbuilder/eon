@@ -42,16 +42,17 @@
       let itemName = pres + cap(nome) // item syn names
 
       
-         if (1 && 1) console.log(`getFermion try to get ${itemName}`)      
+         // if (1 && 1) console.log(`getFermion try to get ${itemName}`)      
       
         if (__mapper(itemName) !== undefined) { // item in mapper
 
           ret =  getFromMapper(itemName)
-
+          console.log(`getFermion got from mapper ${nome}`)
           // break
 
         } else if (enty[nome] !== undefined) {    // item in enty
           ret =  getFromEnty(enty[nome])
+          console.log(`getFermion got from enty ${nome}`)
 
           // break
 
@@ -68,8 +69,8 @@
             __mapper(enty) // register
 
             ret =  getFromMapper(itemName) // item
-            // break
-
+            console.log(`getFermion got eval ${nome}`)
+  
 
           } else {
 
@@ -78,8 +79,7 @@
           }
         }
         
-      if (ret && 1 && 1) console.log(`getFermion got ${nome}`)
-        else console.log(`getFermion could not get ${nome}`)
+      if (!ret && 1 && 1) console.log(`getFermion could not get ${nome}`)
       return ret
     }
 
@@ -100,11 +100,11 @@
 
       } else {
 
-        console.log(` getBoson could not get boson ${params}`)
+        console.log(`getBoson got fermion: ${params}`)
 
       }
 
-      if (!ret) console.log(` ===> getBoson could not get boson ${params}`)
+      if (!ret) console.log(` ===> getBoson could not get ${params}`)
       return ret
     }
 
