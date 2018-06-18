@@ -72,38 +72,21 @@ async function ____e() {
     __mapper({'xs': xs.xs(__mapper)}) // map proxy
 
 
-  // await parts.forEach(p => __mapper( {[p.name]: report(p.parts)} ))
-    
-  // const start = async () => {
-    // await Promise.all(parts.map(async p => {
-      // await __mapper( {[p.name]: report(p.parts)} )
-
-    // }))
-    // console.log('Done')
-  // }
-  // await start()    
-      
     
     let apromises = parts.map(p => report(p))
-    
-    // if (1 && 1) console.log('apromises', apromises)
+    await Promise.all(apromises)
+          .catch(function(err) {
+              console.log('A promise failed to resolve', err);
+              return apromises;
+          })
+          .then(function(resolveds) {
+            
+            if (1 && 1) console.log('resolveds', resolveds)
 
-      await Promise.all(apromises)
-            .catch(function(err) {
-                console.log('A promise failed to resolve', err);
-                return apromises;
-            })
-            .then(function(resolveds) {
-              
-              if (1 && 1) console.log('resolveds', resolveds)
+            resolveds.map(r => __mapper({[r.name]: r.value }))
+            
 
-              resolveds.map(r => __mapper({[r.name]: r.value }))
-              
-
-            })
-    
-  // __mapper({[parts[0].name]: (await report(parts[0])).value }) // map d3
-  // __mapper({[parts[1].name]: (await report(parts[1])).value }) // map topojson
+          })
 
 
 
