@@ -9,16 +9,19 @@
   'use strict'
 
 
-  async function muonProps(__mapper = {}) {
+   function muonProps(__mapper = {}) {
 
     let props = {}
 
-    let d3Array = await __mapper('xs').b('d3-array')
+    // let d3Array = await __mapper('xs').b('d3-array')
     // let d3Scale = await __mapper('xs').b('d3-scale')
-    let d3Range = d3Array.range
+    // let d3Range = d3Array.range
     // let d3scaleLinear = d3Scale.scaleLinear
     
-    // let d3Range = d3.range // d3Array.range
+    
+    let d3 = __mapper('d3')
+    
+    let d3Range = d3.range // d3Array.range
     let d3scaleLinear = d3.scaleLinear // d3Scale.scaleLinear
 
     props.addtst = (a,b) => a + b

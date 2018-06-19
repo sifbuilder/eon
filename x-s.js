@@ -40,6 +40,7 @@
 
 
       let itemName = (pres === '') ? nome : pres + cap(nome) // item syn names
+if (1 && 1) console.log('x.s itemName', itemName)
 
         if (__mapper(itemName) !== undefined) { // item in mapper
 

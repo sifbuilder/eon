@@ -9,18 +9,29 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonAnimation(__mapper) {
+   function muonAnimation(__mapper) {
 
-    let ctimerPromise = 	__mapper('xs').c('timer'),
-      propsPromise = __mapper('xs').m('props'),
-      mstorePromise = 	__mapper('xs').m('store'),
-      msimPromise = 	__mapper('xs').m('sim'),
-      mtimPromise = 	__mapper('xs').m('tim'),
-      rrenderportPromise = 	__mapper('xs').r('renderport')
+    // let ctimerPromise = 	__mapper('xs').c('timer'),
+      // propsPromise = __mapper('xs').m('props'),
+      // mstorePromise = 	__mapper('xs').m('store'),
+      // msimPromise = 	__mapper('xs').m('sim'),
+      // mtimPromise = 	__mapper('xs').m('tim'),
+      // rrenderportPromise = 	__mapper('xs').r('renderport')
 
-  let [ctimer, mprops, mstore, msim, mtim, rrenderport] 
-      = await Promise.all(
-        [ctimerPromise, propsPromise, mstorePromise, msimPromise, mtimPromise, rrenderportPromise])
+  // let [ctimer, mprops, mstore, msim, mtim, rrenderport] 
+      // = await Promise.all(
+        // [ctimerPromise, propsPromise, mstorePromise, msimPromise, mtimPromise, rrenderportPromise])
+      
+      
+    let ctimer = 	__mapper('xs').c('timer'),
+      mprops = __mapper('xs').m('props'),
+      mstore = 	__mapper('xs').m('store'),
+      msim = 	__mapper('xs').m('sim'),
+      mtim = 	__mapper('xs').m('tim'),
+      rrenderport = 	__mapper('xs').r('renderport')
+      
+      
+      
       
     let state = {}
     state.animas = [] // global animas

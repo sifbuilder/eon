@@ -15,6 +15,7 @@
 <script src="x-mapper.js"></script>
 <script src="x-s.js"></script>
 <script src="x-d3-require.js"></script>
+<script src="x-parts.js"></script>
 <script src="elem-ents.js"></script>
 
 <script>
@@ -28,26 +29,25 @@
 let __parts = [
 
 [ 'd3', [
-    'd3@5',
-    './d3-octree.js',
-    './d3-inertia.js',
-    './d3-geo.js',
-    './d3-geo-voronoi.js',
-    './d3-geo-projection.js',
-    './d3-geo-projection-clip-polyhedral.js',
-    './d3-geo-polygon.js',
-    './d3-force-surface.js',
-    './d3-force-pod.js',
-    './d3-force-magnetic.js',
-    './d3-force-graph.min.js',
-    './d3-force-bounce.js',
-    './d3-force-3d.js'
-    ]],
+          'd3@5',
+          './d3-octree.js',
+          './d3-inertia.js',
+          './d3-geo.js',
+          './d3-geo-voronoi.js',
+          './d3-geo-projection.js',
+          './d3-geo-projection-clip-polyhedral.js',
+          './d3-geo-polygon.js',
+          './d3-force-surface.js',
+          './d3-force-pod.js',
+          './d3-force-magnetic.js',
+          './d3-force-graph.min.js',
+          './d3-force-bounce.js',
+          './d3-force-3d.js'
+          ]],
 
- ['topojson',  'topojson' ],
+ ['topojson',  './topojson.v3.js' ],
  
- // ['muonPromise',  'muon-promise' ],
- // ['muonAnimation',  'muon-animation' ],
+ ['muonAnimation',  './muon-animation.js' ],
  
 ]
 
@@ -70,12 +70,23 @@ async function report(part) {
 
     await __mapper.reports(__parts) // get and register parts
 
+    
+    __mapper({'xParts': xParts.xParts(__mapper)}) // xParts  
+    let parts = __mapper('xParts')()
+if (1 && 1) console.log('parts', parts)
+      await __mapper.reports(parts) // get and register parts
+  
+    
 
     let animas = await animasPromise(__mapper)
     let mstore = await __mapper('xs').m('store')  // map store
     mstore.apply({type: 'UPDANIMA', animas: animas})  // store animas
       
-    __mapper({'muonAnimation': muonAnimation.muonAnimation(__mapper)})  // animation
+
+
+      __mapper('muonAnimation').muonAnimation(__mapper)
+    // __mapper({'muonAnimation': muonAnimation.muonAnimation(__mapper)})
+    
 })()
 
   // .................. async animasPromise

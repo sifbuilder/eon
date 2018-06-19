@@ -41,6 +41,18 @@ with references to
 
 - MIT` // md string end
 
+
+// ...................... camelize
+    function camelize(str) {
+      return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+        return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+      })
+      .replace(/\.[^.]*$/, '')  // remove file extension
+      .replace(/\s+/g, '')  // if white space
+      .replace(/\-+/g, '')  // if hyphen
+    }
+
+
 // ...................... entlist
 function entlist (files=[], gens=[], opts) {
   for (let k=0; k<gens.length; k++) {
@@ -62,7 +74,8 @@ function entlist (files=[], gens=[], opts) {
 
         filtered.forEach( file => {
 
-          payload +=  'document.write("<script src=\'' + file + '\'><\\/script>")' + '\n'
+          // payload +=  'document.write("<script src=\'' + file + '\'><\\/script>")' + '\n'
+          payload +=  '[\'' + camelize(file) + '\' , \'./' + file + '\']' + '\n'
 
         })
 
@@ -144,6 +157,7 @@ const options = {
   appdir: args.appdir || '.',
   entsFile: args.entsFile || 'elem-ents.js',
   libsFile: args.libsFile || 'elem-enls.js',
+  partsFile: args.partsFile || 'elem-parts.js',
   mdeeFile: args.mdeeFile,
   serve: args.serve,
   enxlFile: args.enxlFile || 'elem-enxl.js',
@@ -154,6 +168,7 @@ const options = {
 let appdir = options.appdir // app dir
 let entsFile = options.entsFile // ents file
 let libsFile = options.libsFile // libs file
+let partsFile = options.partsFile // parts file
 let enxlFile = options.enxlFile // ext libs file
 let mdeeFile = options.mdeeFile // to md file
 let zFile = options.zindex // from zindex file
@@ -195,15 +210,21 @@ if (1 && 1) console.log('options', options)
 
   let gens = [
 
-    { // libs:
-      tags: ['d3', 'topojson', 'three', 'tfjs'],
-      file: libsFile,
-      regCode: '\\b.*'
-    },
+    // { // libs:
+      // tags: ['d3', 'topojson', 'three', 'tfjs'],
+      // file: libsFile,
+      // regCode: '\\b.*'
+    // },
 
-    { // ents
-      tags: ['boson', 'control', 'data', 'force', 'geo', 'lib', 'muon', 'halo', 'x', 'render'],
-      file: entsFile,
+    // { // ents
+      // tags: ['boson', 'control', 'data', 'force', 'geo', 'lib', 'muon', 'halo', 'x', 'render'],
+      // file: entsFile,
+      // regCode: '\\b.*'
+    // }
+
+    { // parts
+      tags: ['boson', 'control', 'data', 'force', 'geo', 'lib', 'muon', 'halo', 'render'],
+      file: partsFile,
       regCode: '\\b.*'
     }
 
