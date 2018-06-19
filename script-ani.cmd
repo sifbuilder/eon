@@ -75,7 +75,7 @@ function entlist (files=[], gens=[], opts) {
         filtered.forEach( file => {
 
           // payload +=  'document.write("<script src=\'' + file + '\'><\\/script>")' + '\n'
-          payload +=  '[\'' + camelize(file) + '\' , \'./' + file + '\']' + '\n'
+          payload +=  '[\'' + camelize(file) + '\' , \'./' + file + '\'],' + '\n'
 
         })
 

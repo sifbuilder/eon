@@ -16,7 +16,7 @@
 <script src="x-s.js"></script>
 <script src="x-d3-require.js"></script>
 <script src="x-parts.js"></script>
-<script src="elem-ents.js"></script>
+<!-- <script src="elem-ents.js"></script> -->
 
 <script>
 
@@ -68,12 +68,12 @@ async function report(part) {
     __mapper({'xD3Require': xD3Require}) // map  global xD3Require
     __mapper({'xs': xs.xs(__mapper)}) // map proxy
 
-    await __mapper.reports(__parts) // get and register parts
+    // await __mapper.reports(__parts) // get and register parts
 
     
     __mapper({'xParts': xParts.xParts(__mapper)}) // xParts  
     let parts = __mapper('xParts')()
-if (1 && 1) console.log('parts', parts)
+    if (1 && 1) console.log('parts', parts)
       await __mapper.reports(parts) // get and register parts
   
     
@@ -92,15 +92,18 @@ if (1 && 1) console.log('parts', parts)
   // .................. async animasPromise
 async function animasPromise(__mapper) {
 
+  // let rrenderport = __mapper('xs').r('renderport').renderRenderport(__mapper),
   let rrenderport = __mapper('xs').r('renderport'),
-    
-    cwen = __mapper('xs').c('wen')
+       cwen = __mapper('xs').c('wen')
 
-    // let mgraticule = __mapper('xs').m('graticule')
-    let graticulePromise = __mapper('xs').b('muonGraticule')
-    let [mgraticule] 
-      = await Promise.all(
-        [graticulePromise])
+       if (1 && 1) console.log('rrenderport', rrenderport)
+
+       
+    let mgraticule = __mapper('xs').m('graticule')
+    // let graticulePromise = __mapper('xs').b('muonGraticule')
+    // let [mgraticule] 
+      // = await Promise.all(
+        // [graticulePromise])
     
     
   let width = rrenderport.width(),

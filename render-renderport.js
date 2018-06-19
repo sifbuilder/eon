@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  let renderRenderport = function renderRenderport (__mapper = {}) {
+  let renderRenderport = function (__mapper = {}) {
     
     let mscene = 	__mapper('xs').m('scene')
         

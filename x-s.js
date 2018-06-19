@@ -40,7 +40,6 @@
 
 
       let itemName = (pres === '') ? nome : pres + cap(nome) // item syn names
-if (1 && 1) console.log('x.s itemName', itemName)
 
         if (__mapper(itemName) !== undefined) { // item in mapper
 
@@ -58,7 +57,7 @@ if (1 && 1) console.log('x.s itemName', itemName)
 
           if (typeof item === 'object') { // register in mapper
             let enty = {
-                [itemName]: item[itemName](__mapper)
+                [itemName]: item[itemName](__mapper)  
             }
             __mapper(enty) // register
 
@@ -81,7 +80,7 @@ if (1 && 1) console.log('x.s itemName', itemName)
     // ............................. async getBoson
     async function getBoson(params, pres = 'boson') {
 
-      let ret = await getFermion(params, '')
+      let ret = await getFermion(params, pres)
 
       if (ret === null) {
 
@@ -105,7 +104,7 @@ if (1 && 1) console.log('x.s itemName', itemName)
     // ............................. enty
     let enty = function() {}
 
-    enty.boson = enty.b = (params, pres = 'boson') => getBoson(params, pres)
+    enty.boson = enty.b = (params, pres = '') => getBoson(params, pres)
     enty.muon = enty.m = (params, pres = 'muon') => getFermion(params, pres)
     enty.data = enty.d = (params, pres = 'data') => getFermion(params, pres)
     enty.force = enty.f = (params, pres = 'force') => getFermion(params, pres)

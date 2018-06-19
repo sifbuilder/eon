@@ -11,6 +11,7 @@
   let xMapper = function xMapper () {
     let state = {}
 
+    // ............................. retrieve
     function retrieve (_) {
       if (arguments.length < 1) return state
 
@@ -19,7 +20,7 @@
       if ((typeof _ === 'string') && (state[_] !== undefined)) return state[_]
     }
 
-    
+    // ............................. report    
     async function report (part) {
       let name = part[0] // name
       let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1]) // to array
@@ -32,19 +33,22 @@
       
     }
 
+    // ............................. reports        
     async function reports (parts) {
-// if (1 && 1) console.log('parts', parts)      
       let promises = parts.map(p => enty.report(p))
-// if (1 && 1) console.log('promises', promises)
       await Promise.all(promises)
         .catch(function (err) {
           console.log('A promise failed to resolve', err)
           return promises
         })
         .then(function (resolveds) {
-// if (1 && 1) console.log('resolveds', resolveds)
-
-          resolveds.map(r => retrieve( {[r[0]]: r[1] } )) // 
+          resolveds.map(r => {
+            let name = r[0]
+            // let part = r[1][name](enty)
+            let part = r[1]
+            if (1 && 1) console.log('resolved', name, part)
+            return retrieve( {name: part })  
+          }) // add to state
           
         })
     }
