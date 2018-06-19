@@ -68,18 +68,8 @@ async function report(part) {
     __mapper({'xD3Require': xD3Require}) // map  global xD3Require
     __mapper({'xs': xs.xs(__mapper)}) // map proxy
 
-    await __mapper.reports(__parts)
-    // let promises = __parts.map(p => __mapper.report(p))
-    // await Promise.all(promises)
-          // .catch(function(err) {
-              // console.log('A promise failed to resolve', err);
-              // return promises;
-          // })
-          // .then(function(resolveds) {
-            
-              // resolveds.map(r => __mapper({[r[0]]: r[1] }))
+    await __mapper.reports(__parts) // get and register parts
 
-          // })
 
     let animas = await animasPromise(__mapper)
     let mstore = await __mapper('xs').m('store')  // map store

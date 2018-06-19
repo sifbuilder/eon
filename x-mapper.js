@@ -11,12 +11,20 @@
   let xMapper = function xMapper () {
     let state = {}
 
+    function retrieve (_) {
+      if (arguments.length < 1) return state
+
+      if (typeof _ === 'object') return state = Object.assign({}, state, _)
+
+      if ((typeof _ === 'string') && (state[_] !== undefined)) return state[_]
+    }
+
     
     async function report (part) {
       let name = part[0] // name
       let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1]) // to array
 
-      let promises = xD3Require.require(...parts) // destructure value
+      let promises = retrieve('xD3Require').require(...parts) // destructure value
       let [resolved] = await Promise.all([promises])
       return [ name, resolved ]
     }
@@ -33,13 +41,7 @@
         })
     }
 
-    let enty = function (_) {
-      if (arguments.length < 1) return state
-
-      if (typeof _ === 'object') return state = Object.assign({}, state, _)
-
-      if ((typeof _ === 'string') && (state[_] !== undefined)) return state[_]
-    }
+    let enty = retrieve
 
     enty.report = report
     enty.reports = reports
