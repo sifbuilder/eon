@@ -51,14 +51,9 @@ let __parts = [
  
 ]
 
-async function report(part, __mapper) {
+async function report(part) {
   let name = part[0]  // name
   let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1])  // to array
-  
-  // let promises = 	await __mapper('xs').b('d3-array')
-  // let promises = 	await __mapper('xs').b(part)
-  // let [resolved] = await Promise.all([promises])  
-  // return [ name, resolved ]  
   
   let promises = 	xD3Require.require(...parts)  // destructure value
   let [resolved] = await Promise.all([promises])  
@@ -66,31 +61,32 @@ async function report(part, __mapper) {
   
 }
 
- ____e()
-async function ____e() {
+ 
+;(async function ____e() {
     let __mapper = xMapper.xMapper() // init mapper
 
     __mapper({'xD3Require': xD3Require}) // map  global xD3Require
     __mapper({'xs': xs.xs(__mapper)}) // map proxy
 
-    let promises = __parts.map(p => report(p, __mapper))
-    await Promise.all(promises)
-          .catch(function(err) {
-              console.log('A promise failed to resolve', err);
-              return promises;
-          })
-          .then(function(resolveds) {
+    await __mapper.reports(__parts)
+    // let promises = __parts.map(p => __mapper.report(p))
+    // await Promise.all(promises)
+          // .catch(function(err) {
+              // console.log('A promise failed to resolve', err);
+              // return promises;
+          // })
+          // .then(function(resolveds) {
             
-              resolveds.map(r => __mapper({[r[0]]: r[1] }))
+              // resolveds.map(r => __mapper({[r[0]]: r[1] }))
 
-          })
+          // })
 
     let animas = await animasPromise(__mapper)
     let mstore = await __mapper('xs').m('store')  // map store
     mstore.apply({type: 'UPDANIMA', animas: animas})  // store animas
-
+      
     __mapper({'muonAnimation': muonAnimation.muonAnimation(__mapper)})  // animation
-}
+})()
 
   // .................. async animasPromise
 async function animasPromise(__mapper) {
