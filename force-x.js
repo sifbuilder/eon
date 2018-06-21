@@ -1,14 +1,14 @@
 /***********
-	 *		@forcex
+	 *		@forceX
 	 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.forcex = global.forcex || {})))
+      : (factory((global.forceX = global.forceX || {})))
 }(this, function (exports) {
   'use strict'
 
-  let forcex = function (__mapper = {}) {
+  let forceX = function (__mapper = {}) {
     let props = __mapper('xs').m('props')
 
     /***********
@@ -31,5 +31,5 @@
     return enty
   }
 
-  exports.forcex = forcex
+  exports.forceX = forceX
 }))

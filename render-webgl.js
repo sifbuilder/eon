@@ -11,7 +11,6 @@
   let renderWebgl = function (__mapper = {}) {
      
      
-     
 // md: # md:{filename}
 // md: ** **
 // md: renderer.domElement 
@@ -28,8 +27,13 @@
 // md: [[-300, 300, 200, -200]
 // md: ```
 // md: # license
-// md: MIT
-    
+// md: MIT     
+     
+    let THREE = __mapper('xs').e('three'),
+      d3 = __mapper('xs').e('d3'),
+      rrenderport = __mapper('xs').r('renderport'),
+      craycaster = __mapper('xs').c('raycaster'),
+      threeTrackballcontrols = __mapper('xs').e('raycaster')
 
     const radians = Math.PI / 180
     
@@ -38,13 +42,9 @@
       return new THREE.Vector3(...point)
     }
 
-    let r = __mapper('xs').r('renderport'),
-      width = r.width(),
-      height = r.height()
+    let width = rrenderport.width(),
+      height = rrenderport.height()
   
-      
-    let craycaster = __mapper('xs').c('raycaster')
-
     let renderer = new THREE.WebGLRenderer({antialias: true})
         renderer.setClearColor(0x000000)
         
@@ -105,15 +105,15 @@
 
     
 
-    let controls = new TrackballControls(camera, domElem) // TRACK CONTROLS
-    controls.rotateSpeed = 1.0
-    controls.zoomSpeed = 1.2
-    controls.panSpeed = 0.8
-    controls.noZoom = false
-    controls.noPan = false
-    controls.staticMoving = true
-    controls.dynamicDampingFactor = 0.3
-    controls.keys = [ 65, 83, 68 ]
+    // let controls = new TrackballControls(camera, domElem) // TRACK CONTROLS
+    // controls.rotateSpeed = 1.0
+    // controls.zoomSpeed = 1.2
+    // controls.panSpeed = 0.8
+    // controls.noZoom = false
+    // controls.noPan = false
+    // controls.staticMoving = true
+    // controls.dynamicDampingFactor = 0.3
+    // controls.keys = [ 65, 83, 68 ]
 
     
 
@@ -170,7 +170,7 @@
     state.scene = scene
     state.light = light
     state.raycaster = raycaster
-    state.controls = controls
+    // state.controls = controls
 
     state.renderer = resizeRenderer(renderer, state) // force update at start
     state.camera = resizeCamera(camera, state) // force update at start
@@ -347,7 +347,7 @@
       }
 
       
-      state.controls.update() // TrackballControls of camera and domeElem
+      // state.controls.update() // TrackballControls of camera and domeElem
 
 
       

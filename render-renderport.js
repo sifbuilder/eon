@@ -9,9 +9,9 @@
   'use strict'
 
   let renderRenderport = function (__mapper = {}) {
-    
+
     let mscene = 	__mapper('xs').m('scene')
-        
+
     let margin = {top: 0, right: 0, bottom: 0, left: 0},
       viewWidth = 600,
       viewHeight = 400,
@@ -37,22 +37,27 @@
 
 
       if (__mapper('renderSvg') !== undefined) __mapper('renderSvg').render(elapsed, featurecollection)
-      if (__mapper('renderWebgl') !== undefined) __mapper('renderWebgl').render(elapsed, featurecollection)
-      if (__mapper('renderCanvas') !== undefined) __mapper('renderCanvas').render(elapsed, featurecollection)
+
+      if (__mapper('xs').r('webgl') !== undefined) {
+        if (1 && 1) console.log('__mapper', __mapper())
+
+        __mapper('xs').r('webgl').render(elapsed, featurecollection)
+      }
+      if (__mapper('renderCanvas') !== undefined) __mapper('xs').r('canvas').render(elapsed, featurecollection)
 
 
-    }    
-    
+    }
+
     enty.width = _ => (_ === undefined) ? width : (width = _, enty)
     enty.height = _ => (_ === undefined) ? height : (height = _, enty)
     enty.margin = _ => (_ === undefined) ? margin : (margin = _, enty)
     enty.scaleView = () => scaleView
 
 
-    // ............................. cameraProjer    
+    // ............................. cameraProjer
     enty.cameraProjer = _ => (_ != undefined) ? __mapper('xs').g(_.projection)(_) : __mapper('xs').g(prjdef.projection)(prjdef)
 
-    // ............................. xydirs    
+    // ............................. xydirs
     enty.xydirs = function () {
       let orig = enty.cameraProjer().invert([0, 0])
       let xyvector = enty.cameraProjer().invert([1, 1])
@@ -64,7 +69,7 @@
       return dirs
     }
 
-    // ............................. getPos    
+    // ............................. getPos
     enty.getPos = function (signal) {
       let pos
 
@@ -89,7 +94,7 @@
       return pos
     }
 
-    // ............................. projection    
+    // ............................. projection
     enty.projection = _ => _ !== undefined ? (projection = _, enty) : projection
 
     return enty

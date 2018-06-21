@@ -10,7 +10,7 @@
 
   var keys = []
 
-  function controlKey (payload) {
+  function controlKey (__mapper) {
     var currentListeners = []
     var nextListeners = currentListeners
 

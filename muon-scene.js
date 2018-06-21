@@ -11,6 +11,7 @@
   let muonScene = function (__mapper = {}) {
 
     let d3 = __mapper('d3')
+    
 
 
     let state = {}
@@ -35,14 +36,15 @@
       if (p.canvas && p.canvas !== state.scene.canvas) {
         state.scene.canvas = 1
 
-        __mapper({'renderCanvas': renderCanvas.renderCanvas(__mapper)})
+        // __mapper({'renderCanvas': renderCanvas.renderCanvas(__mapper)})
+        __mapper('renderCanvas').renderCanvas(__mapper)
       }
 
       if (p.svg && p.svg !== state.scene.svg) {
         state.scene.svg = 1
 
-       __mapper({'renderSvg': renderSvg.renderSvg(__mapper)})
-
+       // __mapper({'renderSvg': renderSvg.renderSvg(__mapper)})
+       __mapper('renderSvg').renderSvg(__mapper)
 
       }
 
@@ -55,7 +57,11 @@
       if (p.svg && p.wen && p.wen !== state.scene.wen) {
         state.scene.wen = 1
 
-        __mapper('xs').c('wen').control(__mapper('renderSvg').svg())
+        if (1 && 1) console.log('__mapper', __mapper())
+
+        let svg = __mapper('xs').r('svg').svg()
+        __mapper('xs').c('wen').control(svg)
+        
       }
 
       if (p.svg && p.versor && p.versor !== state.scene.versor) {

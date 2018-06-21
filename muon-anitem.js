@@ -60,7 +60,7 @@
   // md: # license
   // md: MIT
 
-  let muonAnitem = function muonAnitem (__mapper = {}) {
+  let muonAnitem = function (__mapper = {}) {
     
     let mgeonode = __mapper('xs').m('geonode'),
     // mstore = __mapper('xs').m('store'),  // mstack

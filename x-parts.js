@@ -110,7 +110,6 @@ let parts = [
 ['muonLiner' , './muon-liner.js'],
 ['muonLacer' , './muon-lacer.js'],
 ['muonKruskal' , './muon-kruskal.js'],
-['muonInertia' , './muon-inertia.js'],
 ['muonImage' , './muon-image.js'],
 ['muonGratitem' , './muon-gratitem.js'],
 ['muonGraticule' , './muon-graticule.js'],
@@ -148,7 +147,7 @@ let parts = [
 ['haloAxis' , './halo-axis.js'],
 /* render*/
 ['renderWebgl' , './render-webgl.js'],
-['renderSVG' , './render-SVG.js'],
+['renderSvg' , './render-svg.js'],
 ['renderRenderport' , './render-renderport.js'],
 ['renderCanvas' , './render-canvas.js'],
 
@@ -157,7 +156,7 @@ let parts = [
     // -parts
 
     let state = {
-      parts: [...libs, ...parts]
+      parts: [...parts]
     }
 
     let enty = _ => _ !== undefined ? (state.parts = _, state.parts) : state.parts

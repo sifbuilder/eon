@@ -11,12 +11,12 @@
   let xs = function (__mapper = {}) {
 
     let xD3Require = __mapper('xD3Require')
-  
+
     let cap = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // capitalize string
 
     if (1 && 1) console.log('xD3Require', xD3Require)
 
-    
+
     // https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
     function camelize(str) {
       return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
@@ -41,38 +41,35 @@
 
       let itemName = (pres === '') ? nome : pres + cap(nome) // item syn names
 
+        // mapper.itemName mapper.itemName[itemName](__mapper)
+
         if (__mapper(itemName) !== undefined) { // item in mapper
 
           ret =  getFromMapper(itemName)
-          console.log(`getFermion got from mapper ${nome}`)
-
-        } else if (enty[nome] !== undefined) {    // item in enty
-          ret =  getFromEnty(enty[nome])
-          console.log(`getFermion got from enty ${nome}`)
-
-        } else {    //  eval
-
-          let item
-          try { item = eval(itemName)  } catch (e) {    /* eval */ }
-
-          if (typeof item === 'object') { // register in mapper
-            let enty = {
-                [itemName]: item[itemName](__mapper)  
+          if (ret) {
+            if (ret[itemName] !== undefined) {
+              
+              let enty = ret[itemName](__mapper)
+              __mapper({ [itemName]: enty  })   // intermap enty
+           
+              ret = getFromMapper(itemName)
+              console.log(`${itemName} is cell`, ret)
+              
+            } else {
+              console.log(`${itemName} not cell`, ret)
             }
-            __mapper(enty) // register
-
-            ret =  getFromMapper(itemName) // item
-            console.log(`getFermion got eval ${nome}`)
-  
-
+            
+            console.log(`getFermion ${itemName} in mapper `, ret)
           } else {
-
-            if (2 && 2) console.log(`getFermion could not find ${nome}`)
-
+            console.log(`getFermion ${itemName} not in mapper ${itemName}`, ret)
           }
+
+        } else  {
+          
+            if (2 && 2) console.log(`getFermion ${itemName} not in mapper ${itemName}`, ret)
+
         }
-        
-      if (!ret && 1 && 1) console.log(`getFermion could not get ${nome}`)
+
       return ret
     }
 
@@ -105,6 +102,7 @@
     let enty = function() {}
 
     enty.boson = enty.b = (params, pres = '') => getBoson(params, pres)
+    enty.elon = enty.e = (params, pres = '') => getFermion(params, pres)
     enty.muon = enty.m = (params, pres = 'muon') => getFermion(params, pres)
     enty.data = enty.d = (params, pres = 'data') => getFermion(params, pres)
     enty.force = enty.f = (params, pres = 'force') => getFermion(params, pres)
