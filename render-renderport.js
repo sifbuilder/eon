@@ -39,7 +39,6 @@
       if (__mapper('renderSvg') !== undefined) __mapper('renderSvg').render(elapsed, featurecollection)
 
       if (__mapper('xs').r('webgl') !== undefined) {
-        if (1 && 1) console.log('__mapper', __mapper())
 
         __mapper('xs').r('webgl').render(elapsed, featurecollection)
       }

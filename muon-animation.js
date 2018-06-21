@@ -46,6 +46,7 @@
     function aniListener (elapsed) {
       
       state.animas = mprops.a(mstore.animasLive())
+// if (1 && 1) console.log(' .................. aniListener', state.animas.length, elapsed)
 
   // .................. time
       state.animas = mprops.a(mstore.animasLive())

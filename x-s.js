@@ -55,13 +55,11 @@
               ret = getFromMapper(itemName)
               console.log(`${itemName} is cell`, ret)
               
-            } else {
-              console.log(`${itemName} not cell`, ret)
-            }
+            } 
             
-            console.log(`getFermion ${itemName} in mapper `, ret)
+            // if (1 && 1) console.log(`getFermion ${itemName} in mapper `, ret)
           } else {
-            console.log(`getFermion ${itemName} not in mapper ${itemName}`, ret)
+            if (2 && 2) console.log(`getFermion ${itemName} not in mapper ${itemName}`, ret)
           }
 
         } else  {

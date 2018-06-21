@@ -73,7 +73,8 @@
       if (p.webgl && p.webgl !== state.scene.webgl) {
         state.scene.webgl = 1
 
-        __mapper({'renderWebgl': renderWebgl.renderWebgl(__mapper)})
+               __mapper('renderWebgl').renderWebgl(__mapper)
+
       }
 
       if (p.gui && p.gui !== state.scene.gui) {

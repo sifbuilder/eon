@@ -55,7 +55,6 @@
       .style('top', 0)
       .style('left', 0)
 
-      .style('background-color', state.background) // background
 
     let svgElem = svglayer.append('rect')
       .attr('id', 'svg')
@@ -63,6 +62,7 @@
       .style('fill', 'transparent')
       .attr('pointer-events', 'none')
       .attr('overflow', 'visible')
+      .style('background-color', state.background) // background
 
     // ............................. svg
     let svg = () => d3.select('#viewframe')
