@@ -100,7 +100,7 @@
     let enty = function() {}
 
     enty.boson = enty.b = (params, pres = '') => getBoson(params, pres)
-    enty.elon = enty.e = (params, pres = '') => getFermion(params, pres)
+    enty.quark = enty.q = (params, pres = '') => getFermion(params, pres)
     enty.muon = enty.m = (params, pres = 'muon') => getFermion(params, pres)
     enty.data = enty.d = (params, pres = 'data') => getFermion(params, pres)
     enty.force = enty.f = (params, pres = 'force') => getFermion(params, pres)

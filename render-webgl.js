@@ -29,11 +29,11 @@
 // md: # license
 // md: MIT     
      
-    let THREE = __mapper('xs').e('three'),
-      d3 = __mapper('xs').e('d3'),
+    let THREE = __mapper('xs').q('three'),
+      d3 = __mapper('xs').q('d3'),
       rrenderport = __mapper('xs').r('renderport'),
       craycaster = __mapper('xs').c('raycaster'),
-      threeTrackballcontrols = __mapper('xs').e('raycaster')
+      threeTrackballcontrols = __mapper('xs').q('raycaster')
 
     const radians = Math.PI / 180
     
