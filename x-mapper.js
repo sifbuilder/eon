@@ -20,8 +20,8 @@
     
     }
 
-    // ............................. mapPart    
-    async function mapPart (part) {
+    // ............................. mapOnePart    
+    async function mapOnePart (part) {
       let partName = part[0] // name
       let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1]) // to array
 
@@ -37,7 +37,7 @@
     async function mapParts (parts) {
       if (1 && 1) console.log('parts', parts)
 
-      let promises = parts.map(p => enty.mapPart(p))
+      let promises = parts.map(p => enty.mapOnePart(p))
       await Promise.all(promises)
         .catch(function (err) {
           console.log('A promise failed to resolve', err)
@@ -60,7 +60,7 @@
 
     let enty = intermap
 
-    enty.mapPart = mapPart
+    enty.mapOnePart = mapOnePart
     enty.mapParts = mapParts
 
     return enty

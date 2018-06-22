@@ -18,9 +18,7 @@
     // let d3Range = d3Array.range
     // let d3scaleLinear = d3Scale.scaleLinear
     
-    
     let d3 = __mapper('d3')
-    
     let d3Range = d3.range // d3Array.range
     let d3scaleLinear = d3.scaleLinear // d3Scale.scaleLinear
 
