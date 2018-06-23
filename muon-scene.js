@@ -10,7 +10,8 @@
 
   let muonScene = function (__mapper = {}) {
 
-    let d3 = __mapper('d3')
+    let d3 = __mapper('d3'),
+      mimage = __mapper('xs').m('image')
     
 
 
@@ -48,11 +49,6 @@
 
       }
 
-     if (p.bck && p.bck !== state.scene.bck) {
-        state.scene.bck = 1
-
-        __mapper('xs').m('image')(state.scene.img)
-      }
 
       if (p.svg && p.wen && p.wen !== state.scene.wen) {
         state.scene.wen = 1
@@ -73,7 +69,7 @@
       if (p.webgl && p.webgl !== state.scene.webgl) {
         state.scene.webgl = 1
 
-               __mapper('renderWebgl').renderWebgl(__mapper)
+        __mapper('renderWebgl').renderWebgl(__mapper)
 
       }
 

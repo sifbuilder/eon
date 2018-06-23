@@ -12,10 +12,7 @@
 
     let xD3Require = __mapper('xD3Require')
 
-    let cap = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // capitalize string
-
-    if (1 && 1) console.log('xD3Require', xD3Require)
-
+    let cap = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // capitalize
 
     // https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
     function camelize(str) {
@@ -29,7 +26,7 @@
     let getFromMapper = part => __mapper(part)
     let getFromEnty = part => part()
     let getAsFunction = part => part
-    let getFromNet = async part => await xD3Require.require(part) // xD3Require is global
+    let getFromNet = async part => await xD3Require.require(part) // global xD3Require
 
 
     // ............................. getFermion
@@ -105,7 +102,7 @@
     enty.data = enty.d = (params, pres = 'data') => getFermion(params, pres)
     enty.force = enty.f = (params, pres = 'force') => getFermion(params, pres)
     enty.geo = enty.g = (params, pres = 'geo') => getFermion(params, pres)
-      // return getBoson(params, pres = ['geo', 'd3.geo'], ret = null)
+    enty.proj = enty.p = (params, pres = 'd3.geo') => getFermion(params, pres)
     enty.halo = enty.h = (params, pres = 'halo') => getFermion(params, pres)
     enty.control = enty.c = (params, pres = 'control') => getFermion(params, pres)
     enty.render = enty.r = (params, pres = 'render') => getFermion(params, pres)

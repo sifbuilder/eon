@@ -21,11 +21,9 @@
     }
 
     // ............................. mapOnePart    
-    async function mapOnePart (part) {
+    async function mapOnePart (part) {  // partName: eg. haloPacer
       let partName = part[0] // name
       let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1]) // to array
-
-      // partName: eg. haloPacer
 
       let promises = intermap('xD3Require').require(...parts) // add to mapper state
       let [resolved] = await Promise.all([promises])

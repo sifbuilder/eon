@@ -60,22 +60,45 @@
 
     function requireAbsolute(url) {
       let module = modules.get(url);
-      if (!module) modules.set(url, module = new Promise((resolve, reject) => {
-        const script = document.createElement("script");
-        script.onload = () => {
-          try { resolve(queue.pop()(requireRelative(url))); }
-          catch (error) { reject(new Error("invalid module")); }
-          script.remove();
-        };
-        script.onerror = () => {
-          reject(new Error("unable to load module"));
-          script.remove();
-        };
-        script.async = true;
-        script.src = url;
-        window.define = define;
-        document.head.appendChild(script);
-      }));
+      
+        if (document && typeof modules.createElement === 'function') {
+          
+          
+          
+          
+          if (!module) modules.set(url, module = new Promise((resolve, reject) => {
+            const script = modules.createElement("script");
+            script.onload = () => {
+              try { resolve(queue.pop()(requireRelative(url))); }
+              catch (error) { reject(new Error("invalid module")); }
+              script.remove();
+            };
+            script.onerror = () => {
+              reject(new Error("unable to load module"));
+              script.remove();
+            };
+            script.async = true;
+            script.src = url;
+            window.define = define;
+            document.head.appendChild(script);
+          }));
+        } else {
+          
+          
+          
+            let meta = metas.get(url);
+            module = fetch(url)
+                .then(function (response) {// converts response to text
+                    return response.text()
+                })
+          
+          
+          
+          
+          
+          
+        }
+      
       return module;
     }
 

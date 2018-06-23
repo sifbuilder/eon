@@ -12,9 +12,9 @@
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
 
+<script src="x-d3-require.js"></script>
 <script src="x-mapper.js"></script>
 <script src="x-s.js"></script>
-<script src="x-d3-require.js"></script>
 <script src="x-libs.js"></script>
 <script src="x-parts.js"></script>
 
@@ -27,17 +27,6 @@
 // md: MIT
 
 
-async function report(part) {
-  let name = part[0]  // name
-  let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1])  // to array
-
-  let promises = 	xD3Require.require(...parts)  //
-  let [resolved] = await Promise.all([promises])
-  return [ name, resolved ]
-
-}
-
-
 ;(async function ____e() {
     let __mapper = xMapper.xMapper() // init mapper
 
@@ -45,13 +34,11 @@ async function report(part) {
     __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy part
 
     __mapper({'xLibs': xLibs.xLibs(__mapper)}) // xLibs    
-    let libs = __mapper('xLibs')()
-    await __mapper.mapParts(libs) // register libs
+    await __mapper.mapParts(__mapper('xLibs')()) // register libs
 
 
     __mapper({'xParts': xParts.xParts(__mapper)}) // xParts
-    let parts = __mapper('xParts')()
-    await __mapper.mapParts(parts) // get and register parts
+    await __mapper.mapParts(__mapper('xParts')()) // get and register parts
 
     
     let animas = await animasPromise(__mapper)
@@ -64,11 +51,14 @@ async function report(part) {
   // .................. animasPromise
 async function animasPromise(__mapper) {
 
-  let rrenderport = __mapper('xs').r('renderport'),
-       cwen = __mapper('xs').c('wen'),
-       mgraticule = __mapper('xs').m('graticule')
+  let rrenderportPromise = 	__mapper('xs').r('renderport'),
+      cwenPromise = 	__mapper('xs').c('wen'),
+      mgraticulePromise = 	__mapper('xs').m('graticule')
 
-
+  let [rrenderport, cwen, mgraticule] 
+      = await Promise.all(
+        [rrenderportPromise, cwenPromise, mgraticulePromise])
+      
   let width = rrenderport.width(),
     height = rrenderport.height(),
     scaleProj = Math.min(width / 2, height) / Math.PI
@@ -219,7 +209,7 @@ async function animasPromise(__mapper) {
     payload: {
       tim: tim,
       ric: {gid: 'gratiform', cid: 'gratiform', fid: 'context'},
-      context: {svg: 1, versor: 0, wen: 1, webgl: 1, bck: 0}
+      context: {svg: 1, versor: 0, wen: 1, webgl: 1, bck: 1}
     }
 
   }

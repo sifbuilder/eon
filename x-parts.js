@@ -110,7 +110,7 @@ let parts = [
 ['muonLiner' , './muon-liner.js'],
 ['muonLacer' , './muon-lacer.js'],
 ['muonKruskal' , './muon-kruskal.js'],
-['muonImage' , './muon-image.js'],
+// ['muonImage' , './muon-image.js'],
 ['muonGratitem' , './muon-gratitem.js'],
 ['muonGraticule' , './muon-graticule.js'],
 ['muonGeonode' , './muon-geonode.js'],

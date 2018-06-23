@@ -93,7 +93,7 @@
 //md:   return Feature.MultiLineString.coordinates: parsCoords
 //md:
 //md: *dedges
-//md:
+//md:   get grarr 
 //md:
 //md: *gvertices
 //md:   call `gvertices(params)`
@@ -110,15 +110,15 @@
 //md: # license
 //md: MIT
 
-  function muonGraticule (__mapper = {}) {
+  async function muonGraticule (__mapper = {}) {
 
     let mgeoj = __mapper('xs').m('geoj')
 
-    let d3 = __mapper('d3')
-    // let d3Promise = __mapper('xs').b('d3')
-    // let [d3] 
-      // = await Promise.all(
-        // [d3Promise])
+    // let d3 = __mapper('d3')
+    let d3Promise = __mapper('xs').b('d3')
+    let [d3] 
+      = await Promise.all(
+        [d3Promise])
         
     let d3Range = d3.range
 
@@ -161,8 +161,9 @@
         cache.entryparams = {}
         cache.gratiparams = {}
 
+        
     // .................. tidx
-    let tidx = function (horq, verq, hd = 1, vd = 1) {
+    let tidx = function (horq, verq, hd = 1, vd = 1) {  // tidx(6,4,1,1)
       return function (col, row) { // ridx([3,5]) => 17
         let ret = (row * hd) * (horq * vd) + col
         return ret
@@ -177,7 +178,6 @@
       }
     }
 
-
     // .................. oneface
     let oneface = function (a, b, c, xn, yn) { //  xy,ru,ry
       let index = tidx(xn, yn)
@@ -185,11 +185,11 @@
     }
 
     // .................. bifaces
-    let bifaces = function bifaces (i, j, xn, yn) {
+    let bifaces = function (i, j, xn, yn) {
       let index = tidx(xn, yn)
 
       let i0 = i
-      let i1 = (i + 1) % xn
+      let i1 = (i + 1) % xn // _e_
       let j0 = j
       let j1 = (j + 1)
 
@@ -355,11 +355,10 @@
     // .................. grarr
     let grarr = function (params = {}) {
 
-
       let {X0, X1, DX, PX, x0, x1, dx, px,
            Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
 
-      // get circles from point ni sphere and step
+      // get circles from point in sphere and step
       let X = symgraticuleX(Y0, Y1, PY),		// get X(Y) by PY
           Y = symgraticuleY(X0, X1, PX),    // get Y(X) by PX
           x = symgraticuleX(y0, y1, py),		// get x(y) by py
@@ -535,8 +534,6 @@
       let parsq = parsCoords.length //  [-180, 180] [dx,px]
 
       let index = tidx(mersq, parsq) // 12, 7
-if (1 && 1) console.log('mersq, parsq', mersq, parsq)
-if (1 && 1) console.log('mersCoords', mersCoords[0])
 
       let m0 = 0
       let mn = mersq // eg. 4  mers with 5 coords each

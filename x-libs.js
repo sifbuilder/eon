@@ -22,7 +22,7 @@ let libs = [
           'd3-geo',
           'd3-geo-voronoi',
           'd3-geo-projection',
-          './d3-geo-projection-clip-polyhedral.js',
+          // './d3-geo-projection-clip-polyhedral.js',
           'd3-geo-polygon',
           'd3-force-surface',
           'd3-force-pod',

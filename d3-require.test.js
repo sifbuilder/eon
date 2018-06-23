@@ -1,33 +1,60 @@
-
-// https://www.youtube.com/watch?v=bw10S2BK-5w  
-const d3 = require('./d3.v5.js')
-global.d3 = d3
-
-const xs = require('./x-s.js')
-
-
-const xMapper = require('./x-mapper.js')
-const requiredprops = require('./muon-props.js')
-
-d3.require = require('./d3-require.js').require
-//d3.require function require(name) {
-//   return arguments.length > 1 ? Promise.all(map.call(arguments, requireBase)).then(merge) : requireBase(name);
-//}
+let d3,
+    xs,
+    xmapper,
+    mprops,
+    fetch
 
 
-let __mapper = xMapper.xMapper()
-__mapper({'xs': xs.xs(__mapper)}).xs
-let mpropsPromise = requiredprops.muonProps(__mapper)
+const d3Require = require('./d3-require.js')
+var requireFromString = require('require-from-string');
+
+async function g () {
+
+
+  const xsPromise =  require('./x-s.js')
+  const xMapperPromise =  require('./x-mapper.js')
+  const mpropsPromise =  require('./muon-props.js')
+  const fetchPromise =  require('./script-node-fetch.js')
+
+
+  let [
+      xs,
+      xmapper,
+      mprops,
+      fetch,
+     ]
+  = await Promise.all(
+    [
+      xsPromise,
+      xMapperPromise,
+      mpropsPromise,
+      fetchPromise,
+    ])
+    .catch(e=>{console.log(e)})
+
+
+  global.fetch = fetch
+
+
+  let d3Promise = d3Require.require('d3')
+    let [
+      d3,
+    ]
+  = await Promise.all(
+    [d3Promise])
+    .catch(e=>{console.log(e)})
 
 
 
-const fetch = require('./script-node-fetch.js')
-global.fetch = fetch
+  global.d3 = d3
+  global.d3Require = d3Require
 
 
-async function asyncFetch(url) {
-  return await fetch(url);
+
 }
+
+g()
+
 
 
 
@@ -35,9 +62,14 @@ describe('asyncFetch', () => {
 
   it('can fetch', async () => {
 
-    const response = await asyncFetch('https://unpkg.com/d3-array@1.2.1/build/d3-array.js');
-    const result = await response.json();
+    const response = await d3Require.require('d3-array')
+    if (1 && 1) console.log('response', typeof response)
+
+    // const result = await response.text();
+    // const result = await response
+    const result = requireFromString(response)
     expect(result).toEqual("something");
+    // expect(5).toEqual(5);
 
   });
 });
