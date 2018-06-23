@@ -31,36 +31,25 @@
 
     // ............................. getFermion
     function getFermion(params, pres = '', ret = null) {
-      let nome = null
-      if (typeof (params) === 'object') nome = params.nome
-      else if (typeof (params) === 'string') nome = params
 
-
+      let nome = (typeof (params) === 'object') ? params.nome :  params
       let itemName = (pres === '') ? nome : pres + cap(nome) // item syn names
-
-        // mapper.itemName mapper.itemName[itemName](__mapper)
 
         if (__mapper(itemName) !== undefined) { // item in mapper
 
           ret =  getFromMapper(itemName)
-          if (ret) {
-            if (ret[itemName] !== undefined) {
-              
-              let enty = ret[itemName](__mapper)
-              __mapper({ [itemName]: enty  })   // intermap enty
-           
-              ret = getFromMapper(itemName)
-              console.log(`${itemName} is cell`, ret)
-              
-            } 
-            
-            // if (1 && 1) console.log(`getFermion ${itemName} in mapper `, ret)
-          } else {
-            if (2 && 2) console.log(`getFermion ${itemName} not in mapper ${itemName}`, ret)
+
+          if (ret[itemName] !== undefined) {  // if cell
+
+            let enty = ret[itemName](__mapper)  // get enty
+            __mapper({ [itemName]: enty  })   // intermap enty
+
+            ret = getFromMapper(itemName) // get from mapper
+
           }
 
         } else  {
-          
+
             if (2 && 2) console.log(`getFermion ${itemName} not in mapper ${itemName}`, ret)
 
         }
@@ -76,11 +65,10 @@
 
       if (ret === null) {
 
-        let nome
-        if (typeof (params) === 'object') nome = params.nome
-        else if (typeof (params) === 'string') nome = params
+        let nome = (typeof (params) === 'object') ? params.nome :  params
+        let itemName = (pres === '') ? nome : pres + cap(nome) // item syn names
 
-        ret = await getFromNet(nome)
+        ret = await getFromNet(itemName)
         console.log(` !!!!!!!!!!!  got ${params} from net`)
 
       } else {
@@ -89,7 +77,7 @@
 
       }
 
-      if (!ret) console.log(` ===> getBoson could not get ${params}`)
+      if (!ret) console.log(` ===>  could not get boson: ${params}`)
       return ret
     }
 
