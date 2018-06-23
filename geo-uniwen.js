@@ -16,8 +16,8 @@
       d3 = __mapper('d3')
 
     let f = {}
-    f.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true) 
-      
+    f.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true)
+
     const init = {}
     init.scale = [1, 1, 1]
     init.prerotate = [0, 0, 0]
@@ -87,7 +87,7 @@
 
       c = wenRotInverse(rotate)(...c) //   inverse rotation
 
-      
+
       return c
     }
 
@@ -111,7 +111,7 @@
         }
       }
       c = wenRotation(rot)(...c) // rotate
-      
+
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
       c = mwen.projection(c, lens[2], scale) // project
 
@@ -129,7 +129,7 @@
 
       this.stream.point(...c)
     }
-    
+
     /**************************
   *       @uniprofion
   */

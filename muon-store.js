@@ -67,16 +67,26 @@
   // md: # license
   // md: MIT
 
-  let muonStore = function  (__mapper) {
-    
-    
-    let mric = 	__mapper('xs').m('ric'),
-     manitem = 	__mapper('xs').m('anitem'),
-     mtim = 	__mapper('xs').m('tim')
-     // dynamic halo
-     
-    let epsilon = 1e-5      
-	  let a = d => (Array.isArray(d)) ? [...d] : [d]      
+  async function muonStore (__mapper) {
+
+    let __mtim    = 	__mapper('xs').m('tim'),
+        __mric    = 	__mapper('xs').m('ric'),
+        __manitem = 	__mapper('xs').m('anitem')
+
+  let [
+        mtim,
+        mric,
+        manitem
+       ] = await Promise.all([
+        __mtim,
+        __mric,
+        __manitem
+       ])           // dynamic halo
+
+
+
+    let epsilon = 1e-5
+	  let a = d => (Array.isArray(d)) ? [...d] : [d]
     let fa = d => { // force array
       let ret
       if (Array.isArray(d)) ret = d
@@ -85,7 +95,7 @@
       else if (typeof d === 'object') ret = Object.values(d)
       else ret = d
       return a(ret)
-    }      
+    }
     let o = obj => {
       if (obj == null || typeof obj !== 'object') return obj
       let copy = obj.constructor()
@@ -93,8 +103,8 @@
         if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr]
       }
       return copy
-    }      
-      
+    }
+
     let state = {
       animas: [], // animas array
       aniset: {}, // animas by uid
@@ -153,28 +163,44 @@
       }
     }
 
-    
+
     // .................. ween
-    let ween = function (anima, newItems = []) {
+    async function ween(anima, newItems = []) {
       let anigram = manitem.anigram(anima)
 
-      if (anigram.halo === undefined) console.error('halo is undefined')
-      if (anigram.halo === null) console.error('halo is null')
-      let halo = (anigram.halo !== undefined && typeof anigram.halo === 'object')
-        ? anigram.halo // halo in anima
-        : __mapper('xs').h(anigram.halo) // halo in store
-      if (halo === null) console.log('halo ', anigram.halo, ' not found')
-      let weened = halo.ween(anima) // ANIMA HALO.WEEN
-      weened.forEach(d => { // qualify each ween
-        d.payload.uid = mric.getuid(d) // uid for children
-        newItems.push(d)
-      })
+
+      if (anigram.halo !== undefined && typeof anigram.halo === 'string') {
+
+        __mapper('xs').h(anigram.halo)
+          .then( halo => {
+
+            if (halo === null) console.log('halo ', anigram.halo, ' not found')
+            let weened = halo.ween(anima) // ANIMA HALO.WEEN
+            weened.forEach(newItem => { // qualify each ween
+              newItem.payload.uid = mric.getuid(newItem) // uid for children
+              newItems.push(newItem)
+            })
+
+          })
+
+      } else {
+
+        let halo = anigram.halo
+
+          if (halo === null) console.log('halo ', anigram.halo, ' not found')
+          let weened = halo.ween(anima) // ANIMA HALO.WEEN
+          weened.forEach(newItem => { // qualify each ween
+            newItem.payload.uid = mric.getuid(newItem) // uid for children
+            newItems.push(newItem)
+          })
+
+      }
 
       return newItems
     }
 
     // .................. gramm
-    let gramm = function (anima, newItems = []) {
+     async function gramm(anima, newItems = []) {
       let anigram = manitem.anigram(anima)
 
       let tim = anigram.payload.tim,
@@ -184,48 +210,95 @@
       let newAnigrams = []
       let halo																		// anigram halo
 
-      if (anima && (elapsed && elapsed >= wait)) { // if anima in time
-        halo = (anigram.halo !== undefined &&
-            (typeof anigram.halo === 'function' || typeof anigram.halo === 'object'))
-          ? anigram.halo // halo in anima
-          : __mapper('xs').h(anigram.halo) // or halo in store
 
-        if (halo) {
-          newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
 
-          if (newAnigrams !== null && newAnigrams.length > 0) {
-            _apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newAnigrams})
+      if (anigram.halo !== undefined && typeof anigram.halo === 'string') {
 
-            newItems = newItems.concat(a(newAnigrams))
-          } else {
+        __mapper('xs').h(anigram.halo)
+          .then( halo => {
+            if (halo === null) console.log('halo ', anigram.halo, ' not found')
 
-          }
-        } else {
-          console.log('halo', anigram.halo, ' not defined')
-        }
-      }
-
-      if (newItems !== undefined && newItems.length > 0) { // check if avatars in NEW animas
-        for (let i = 0; i < newItems.length; i++) {
-          let newItem = newItems[i] // each new item
-          if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
-            let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
-
-            for (let j = 0; j < avatars.length; j++) {
-              let newSubItems = []
-              let avatar = avatars[j]
-
-              avatar.payload.uid = mric.getuid(avatar) // uid for children
-              avatar.payload.tim = anigram.payload.tim // time from anima
-              avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
-
-              newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
-
-              _apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newSubItems})
+            newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
+            if (newAnigrams !== null && newAnigrams.length > 0) {
+              _apply({'type': 'UPDANIGRAM', 'anigrams': newAnigrams})
+                newItems = newItems.concat(a(newAnigrams))
             }
-          }
-        }
+
+
+
+            if (newItems !== undefined && newItems.length > 0) { // check if avatars in NEW animas
+              for (let i = 0; i < newItems.length; i++) {
+                let newItem = newItems[i] // each new item
+                if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
+                  let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
+
+                  for (let j = 0; j < avatars.length; j++) {
+                    let newSubItems = []
+                    let avatar = avatars[j]
+
+                    avatar.payload.uid = mric.getuid(avatar) // uid for children
+                    avatar.payload.tim = anigram.payload.tim // time from anima
+                    avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
+
+                    newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
+
+                    _apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newSubItems})
+                  }
+                }
+              }
+            }
+
+
+
+
+
+
+          })
+
+      } else {
+
+          let halo = anigram.halo
+            if (halo === null) console.log('halo ', anigram.halo, ' not found')
+
+
+            newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
+            if (newAnigrams !== null && newAnigrams.length > 0) {
+              _apply({'type': 'UPDANIGRAM', 'anigrams': newAnigrams})
+                newItems = newItems.concat(a(newAnigrams))
+            }
+
+
+
+            if (newItems !== undefined && newItems.length > 0) { // check if avatars in NEW animas
+              for (let i = 0; i < newItems.length; i++) {
+                let newItem = newItems[i] // each new item
+                if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
+                  let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
+
+                  for (let j = 0; j < avatars.length; j++) {
+                    let newSubItems = []
+                    let avatar = avatars[j]
+
+                    avatar.payload.uid = mric.getuid(avatar) // uid for children
+                    avatar.payload.tim = anigram.payload.tim // time from anima
+                    avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
+
+                    newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
+
+                    _apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newSubItems})
+                  }
+                }
+              }
+            }
+
+
+
+
       }
+
+
+
+
 
       return newItems
     }

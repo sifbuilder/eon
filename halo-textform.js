@@ -8,28 +8,24 @@
 }(this, function (exports) {
   'use strict'
 
-//md: # md:{filename}
-//md: process text anitems
-//md: ## functions
-//md: * [_geofold](#_geofold) - uploads payload text form to geofold properties
-//md:
-//md:
-//md: ## methods
-//md: * [ween](#ween) - process anima
-//md: * [gramm](#gramm) - process anigram
-//md:   buils the newitem geoform and pass it to h.ent
-//md:
-//md: # license
-//md: MIT
+  // md: # md:{filename}
+  // md: process text anitems
+  // md: ## functions
+  // md: * [_geofold](#_geofold) - uploads payload text form to geofold properties
+  // md:
+  // md:
+  // md: ## methods
+  // md: * [ween](#ween) - process anima
+  // md: * [gramm](#gramm) - process anigram
+  // md:   buils the newitem geoform and pass it to h.ent
+  // md:
+  // md: # license
+  // md: MIT
 
-  let haloTextform = function (__mapper = {}) {
-    let f = __mapper('xs').m('props'),
-      manitem = __mapper('xs').m('anitem'),
-      mgeoj = __mapper('xs').m('geoj'),
-      mprofier = __mapper('xs').m('profier'),
-      mboform = __mapper('xs').m('boform'),
-      mric = __mapper('xs').m('ric'),
-      mstace = __mapper('xs').m('stace')
+  async function haloTextform(__mapper = {}) {
+    
+    let manitem = await __mapper('xs').m('anitem')
+    let hent = await __mapper('xs').h('ent')
 
     // .................. _geofold
     let _geofold = function (ani) { // geofold
@@ -64,20 +60,19 @@
 
     // .................. gramm
     let gramm = function (anima, newAnigrams = []) {
-
       let anigram = manitem(anima).anigram(),
         halo = 				anigram.halo,
         payload = 		anigram.payload
 
       let geofold = _geofold(anigram) // geofold
 
-      let newAnigram = { 
-        halo, 
-        geofold, 
-        payload 
+      let newAnigram = {
+        halo,
+        geofold,
+        payload
       }
-      
-      newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(newAnigram)]
+
+      newAnigrams = [...newAnigrams, ...hent.gramm(newAnigram)]
       return newAnigrams
     }
 

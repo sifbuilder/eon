@@ -51,20 +51,19 @@
   // .................. animasPromise
 async function animasPromise(__mapper) {
 
-  let rrenderportPromise = 	__mapper('xs').r('renderport'),
-      cwenPromise = 	__mapper('xs').c('wen'),
-      mgraticulePromise = 	__mapper('xs').m('graticule')
+  let __rrenderport   = 	__mapper('xs').r('renderport'),
+      __cwen          =   __mapper('xs').c('wen'),
+      __mgraticule    = 	__mapper('xs').m('graticule')
 
   let [rrenderport, cwen, mgraticule] 
       = await Promise.all(
-        [rrenderportPromise, cwenPromise, mgraticulePromise])
+        [__rrenderport, __cwen, __mgraticule])
       
   let width = rrenderport.width(),
     height = rrenderport.height(),
     scaleProj = Math.min(width / 2, height) / Math.PI
 
   // .................. pics
-
   let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
 
   let form2d = {
@@ -217,7 +216,7 @@ async function animasPromise(__mapper) {
   // .................. animaset
   let animas = [
 
-    sceneForm, // h.context
+
     gratiform2da, // h.ent g.natform
     gratiform3d, // h.ent g.natform
     gratiform2db // h.ent g.natform

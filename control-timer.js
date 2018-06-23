@@ -8,9 +8,18 @@
 }(this, function (exports) {
   'use strict'
 
-  function controlTimer (__mapper) {
+  async function controlTimer (__mapper) {
     
-    let mtimer = 	__mapper('xs').m('timer')
+    let   __mtimer      = __mapper('xs').m('timer')
+
+    let [
+          mtimer,
+       ] = await Promise.all( [
+          __mtimer,
+       ])    
+    
+    
+    // let mtimer = 	__mapper('xs').m('timer')
     
     let now = performance.now()
     let state = {

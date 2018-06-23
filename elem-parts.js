@@ -85,7 +85,7 @@
 ['muonLacer' , './muon-lacer.js'],
 ['muonKruskal' , './muon-kruskal.js'],
 ['muonInertia' , './muon-inertia.js'],
-['muonImage' , './muon-image.js'],
+// ['muonImage' , './muon-image.js'],
 ['muonGratitem' , './muon-gratitem.js'],
 ['muonGraticule' , './muon-graticule.js'],
 ['muonGeonode' , './muon-geonode.js'],

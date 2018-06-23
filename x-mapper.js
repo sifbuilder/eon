@@ -25,7 +25,7 @@
       let partName = part[0] // name
       let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1]) // to array
 
-      let promises = intermap('xD3Require').require(...parts) // add to mapper state
+      let promises = intermap('xD3Require').require(...parts) // to state
       let [resolved] = await Promise.all([promises])
       return [ partName, resolved ]
       
@@ -33,7 +33,6 @@
 
     // ............................. mapParts        
     async function mapParts (parts) {
-      if (1 && 1) console.log('parts', parts)
 
       let promises = parts.map(p => enty.mapOnePart(p))
       await Promise.all(promises)
@@ -47,8 +46,6 @@
             // let partCode = (r[1][partName] === undefined) ? r[1] : r[1][partName]
             let partCode = r[1]
             
-            if (1 && 1) console.log('intermap part:', partName, partCode)
-
             intermap( { [partName]: partCode  })   // add to mapper state
           }) 
           

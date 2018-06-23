@@ -8,11 +8,19 @@
 }(this, function (exports) {
   'use strict'
 
-  let haloScene = function (__mapper = {}) {
+  async function haloScene(__mapper = {}) {
+
+    let   __mscene          = __mapper('xs').m('scene')
+
+
+    let [
+          mscene,
+       ] = await Promise.all( [
+          __mscene,
+       ])    
     
-    let f = __mapper('xs').m('props'),
-      manitem = __mapper('xs').m('anitem'),
-      mscene = __mapper('xs').m('scene')
+    
+    // let mscene = __mapper('xs').m('scene')
     
     let ween = function (anima, newAnimas = []) {
 

@@ -20,22 +20,35 @@
   // md: * boform, decoding style properties
   // md: * set sort. `feature.properties.sort` will determine rendering. default to feature
   // md: * inherit avatars
-  // md:   
+  // md:
   // md:  then pass the collection back to `m.animation` for rendering
 
-  let haloFormed = function haloFormed (__mapper = {}) {
-    let manitem = __mapper('xs').m('anitem'),
-      mric = __mapper('xs').m('ric'),
-      mboform = __mapper('xs').m('boform'),
-      mgeoj = __mapper('xs').m('geoj'),
-      mprofier = __mapper('xs').m('profier'),
-      mstore = __mapper('xs').m('store'),
-      mproj3ct = __mapper('xs').m('proj3ct'),
-      mstace = __mapper('xs').m('stace')
+  async function haloFormed (__mapper = {}) {
+    
+    let cellpromises  = 	[
+                __mapper('xs').m('anitem'),
+                __mapper('xs').m('ric'),
+                __mapper('xs').m('boform'),
+                __mapper('xs').m('geoj'),
+              ]
+
+    let [
+        manitem,
+        mric,
+        mboform,
+        mgeoj,
+      ] = await Promise.all(
+        cellpromises
+      )       
+    
+    // let manitem = __mapper('xs').m('anitem'),
+      // mric = __mapper('xs').m('ric'),
+      // mboform = __mapper('xs').m('boform'),
+      // mgeoj = __mapper('xs').m('geoj')
 
     let f = {}
     f.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
-      
+
     // ............................. gramm
     let gramm = function (anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram(), // anigram
@@ -61,7 +74,6 @@
       gjcollection = mric.enric(ric, anigram, gjcollection) // ric to feature or collection
 
       newAnigrams = gjcollection.features.map((feature, i) => {
-
         feature = mboform.boformer(anigram, feature)
 
         feature.properties.tim = tim // tim in geofold

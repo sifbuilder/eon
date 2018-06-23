@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  let renderWebgl = function (__mapper = {}) {
+  async function renderWebgl(__mapper = {}) {
      
      
 // md: # md:{filename}
@@ -29,11 +29,31 @@
 // md: # license
 // md: MIT     
      
-    let THREE = __mapper('xs').q('three'),
-      d3 = __mapper('xs').q('d3'),
-      rrenderport = __mapper('xs').r('renderport'),
-      craycaster = __mapper('xs').c('raycaster'),
-      threeTrackballcontrols = __mapper('xs').q('raycaster')
+    let cellpromises  = 	[
+                __mapper('xs').q('three'),
+                __mapper('xs').q('d3'),
+                __mapper('xs').r('renderport'),
+                // __mapper('xs').q('raycaster'),
+                // __mapper('xs').c('raycaster'),
+              ]
+
+    let [
+        THREE,
+        d3,
+        rrenderport,
+        // threeTrackballcontrols,
+        // craycaster,
+      ] = await Promise.all(
+        cellpromises
+      )
+     
+     
+     
+    // let THREE = __mapper('xs').q('three'),
+      // d3 = __mapper('xs').q('d3'),
+      // rrenderport = __mapper('xs').r('renderport'),
+      // craycaster = __mapper('xs').c('raycaster'),
+      // threeTrackballcontrols = __mapper('xs').q('raycaster')
 
     const radians = Math.PI / 180
     
@@ -71,16 +91,16 @@
     
     document.body.appendChild(navInfo) // state.domElem.appendChild(navInfo);
 
-    let mouse = craycaster.mouse() // control.RAYCASTER
-    craycaster.control(domElem) // control on elem 
-    let raycaster = new THREE.Raycaster() // intersect 
+    // let mouse = craycaster.mouse() // control.RAYCASTER
+    // craycaster.control(domElem) // control on elem 
+    // let raycaster = new THREE.Raycaster() // intersect 
 
     
-    let toolTipElem = document.createElement('div') // TOOLTIP
-    toolTipElem.classList.add('graph-tooltip')
-    toolTipElem.style.top = (mouse.y - 40) + 'px' // Move tooltip - on mouse
-    toolTipElem.style.left = (mouse.x - 20) + 'px'
-    document.body.appendChild(toolTipElem) // state.domElem.appendChild(state.toolTipElem);
+    // let toolTipElem = document.createElement('div') // TOOLTIP
+    // toolTipElem.classList.add('graph-tooltip')
+    // toolTipElem.style.top = (mouse.y - 40) + 'px' // Move tooltip - on mouse
+    // toolTipElem.style.left = (mouse.x - 20) + 'px'
+    // document.body.appendChild(toolTipElem) // state.domElem.appendChild(state.toolTipElem);
 
 
 
@@ -164,12 +184,12 @@
     state.renderer = renderer
     state.domElem = domElem
     state.navInfo = navInfo
-    state.toolTipElem = toolTipElem
-    state.mouse = mouse
+    // state.toolTipElem = toolTipElem
+    // state.mouse = mouse
     state.camera = camera
     state.scene = scene
     state.light = light
-    state.raycaster = raycaster
+    // state.raycaster = raycaster
     // state.controls = controls
 
     state.renderer = resizeRenderer(renderer, state) // force update at start
@@ -339,12 +359,12 @@
 
 
       
-      if (state.mouse !== undefined) {
-        state.raycaster.setFromCamera(state.mouse, state.camera) // Update tooltip
-        const intersects = state.raycaster.intersectObjects(state.scene.children)
-        if (1 && 1 && intersects.length > 0) console.log('r.webgl.raycaster intersects', intersects)
-        state.toolTipElem.innerHTML = intersects.length ? intersects[0].object.index || '_e_' : '_e_'
-      }
+      // if (state.mouse !== undefined) {
+        // state.raycaster.setFromCamera(state.mouse, state.camera) // Update tooltip
+        // const intersects = state.raycaster.intersectObjects(state.scene.children)
+        // if (1 && 1 && intersects.length > 0) console.log('r.webgl.raycaster intersects', intersects)
+        // state.toolTipElem.innerHTML = intersects.length ? intersects[0].object.index || '_e_' : '_e_'
+      // }
 
       
       // state.controls.update() // TrackballControls of camera and domeElem

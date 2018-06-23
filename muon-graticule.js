@@ -112,13 +112,9 @@
 
   async function muonGraticule (__mapper = {}) {
 
-    let mgeoj = __mapper('xs').m('geoj')
+    let mgeoj = await __mapper('xs').m('geoj')
+    let d3 = await __mapper('xs').q('d3')
 
-    // let d3 = __mapper('d3')
-    let d3Promise = __mapper('xs').b('d3')
-    let [d3] 
-      = await Promise.all(
-        [d3Promise])
         
     let d3Range = d3.range
 

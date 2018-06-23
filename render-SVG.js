@@ -30,10 +30,23 @@
   // md:   @featurecollection
   // md:   @maxlimit
 
-  let renderSvg = function (__mapper = {}) {
-    
-    let rrenderport = __mapper('xs').r('renderport'),
-      d3 = __mapper('d3')
+  async function renderSvg(__mapper = {}) {
+
+    let cellpromises  = 	[
+                __mapper('xs').r('renderport'),
+                __mapper('xs').q('d3'),
+              ]
+
+    let [
+        rrenderport,  // cameraProjer
+        d3,
+      ] = await Promise.all(
+        cellpromises
+      )
+
+
+    // let rrenderport = __mapper('xs').r('renderport'),
+      // d3 = __mapper('d3')
 
     let width = rrenderport.width(),
       height = rrenderport.height(),
@@ -65,7 +78,7 @@
       .style('background-color', state.background) // background
 
     // ............................. svg
-    let svg = () => d3.select('#viewframe')
+    let _svg = () => d3.select('#viewframe')
 
     // ............................. elems
     let elems = function (idfyer, data = ['data'], idfn = null) {
@@ -147,7 +160,7 @@
           d => d.properties !== undefined && // req properties
             d.properties.ric !== undefined // req ric
         )
-      let svg = __mapper('renderSvg').svg()
+      let svg = _svg()
 
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
         .key(function (d) { return d.properties.ric.gid })
@@ -318,7 +331,7 @@
     // ............................. enty
     let enty = function enty () {}
 
-    enty.svg = svg
+    enty.svg = _svg
     enty.elems = elems
     enty.render = render
 

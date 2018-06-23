@@ -60,12 +60,27 @@
   // md: # license
   // md: MIT
 
-  let muonAnitem = function (__mapper = {}) {
+  async function muonAnitem(__mapper = {}) {
     
-    let mgeonode = __mapper('xs').m('geonode'),
-    // mstore = __mapper('xs').m('store'),  // mstack
-    // msnap = __mapper('xs').m('snap'),  // mstack
-    mgeoj = __mapper('xs').m('geoj')
+    
+    let cellpromises  = 	[
+                __mapper('xs').m('geonode'),
+                __mapper('xs').m('geoj'),
+              ]
+        
+    let [
+        mgeonode, 
+        mgeoj, 
+      ] = await Promise.all(
+        cellpromises
+      )    
+    
+    let msnap = await __mapper('xs').m('snap')
+// if (1 && 1) console.log('msnap', msnap)
+    
+    
+    // let mgeonode = __mapper('xs').m('geonode'),
+    // mgeoj = __mapper('xs').m('geoj')
     
     let state = {}
     state.anitem = {}
@@ -193,13 +208,19 @@
 
     // ............................. enty
     let enty = function (anima, t) {
+      
+      
       let anigram = {}
       if (anima !== undefined) {
+        
+        // lst msnap = __mapper('muonSnap')      // snap
+        // if (1 && 1) console.log('msnap', msnap)
+
         if (t !== undefined) {
-          anigram = __mapper('xs').m('snap').snap(anima, t)
+          anigram = msnap.snap(anima, t)
         } else if (anima.payload.tim && anima.payload.tim.unitTime !== undefined) {
           let t = anima.payload.tim.unitTime
-          anigram = __mapper('xs').m('snap').snap(anima, t)
+          anigram = msnap.snap(anima, t)
         }
         if (anigram.payload === undefined) anigram.payload = {}
 

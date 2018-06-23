@@ -16,13 +16,32 @@
 // md: MIT
 
 
-  let controlVersor = function (__mapper = {}) {
+  async function controlVersor(__mapper = {}) {
 
 
-    let rrenderport = __mapper('xs').r('renderport'),
-      mversor = __mapper('xs').m('versor')(),
-      d3 = __mapper('d3'),
-      mgeom = __mapper('xs').m('geom')
+    let   __rrenderport = __mapper('xs').r('renderport'),
+          __mversor     = __mapper('xs').m('versor'),
+          __d3          = __mapper('xs').q('d3'),
+          __mgeom       = __mapper('xs').m('geom')
+
+
+    let [
+          rrenderport,
+          mversor,
+          d3,
+          mgeom,
+       ] = await Promise.all( [
+          __rrenderport,
+          __mversor,
+          __d3,
+          __mgeom,
+       ])  
+  
+
+    // let rrenderport = __mapper('xs').r('renderport'),
+      // mversor = __mapper('xs').m('versor')(),
+      // d3 = __mapper('d3'),
+      // mgeom = __mapper('xs').m('geom')
 
 
     // let xydirs = rrenderport.xydirs() // [1 -1] in pixel view

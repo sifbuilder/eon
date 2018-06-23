@@ -15,22 +15,41 @@
   // md:  then pass the FeatureCollection to h.formed
   // md:  define `geofold.properties.geonode` if undefined
 
-  let haloEnt = function (__mapper = {}) {
-    let manitem = __mapper('xs').m('anitem'),
-      mric = __mapper('xs').m('ric'),
-      mboform = __mapper('xs').m('boform'),
-      mgeoj = __mapper('xs').m('geoj'),
-      mprofier = __mapper('xs').m('profier'),
-      mstore = __mapper('xs').m('store'),
-      mproj3ct = __mapper('xs').m('proj3ct'),
-      mstace = __mapper('xs').m('stace'),
-      hformed = __mapper('xs').h('formed')
+  async function haloEnt(__mapper = {}) {
+    
+    
+    let cellpromises  = 	[
+                __mapper('xs').m('anitem'),
+                __mapper('xs').m('geoj'),
+                __mapper('xs').m('profier'),
+                __mapper('xs').m('proj3ct'),
+                __mapper('xs').h('formed'),
+                __mapper('xs').m('props'),
+              ]
+        
+    let [
+        manitem, 
+        mgeoj, 
+        mprofier, 
+        mproj3ct, 
+        hformed, 
+        mprops, 
+      ] = await Promise.all(
+        cellpromises
+      )    
+    
+    
+    // let manitem = __mapper('xs').m('anitem'),
+      // mgeoj = __mapper('xs').m('geoj'),
+      // mprofier = __mapper('xs').m('profier'),
+      // mproj3ct = __mapper('xs').m('proj3ct'),
+      // hformed = __mapper('xs').h('formed')
 
     let f = {}
-        f.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
-      
+    f.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
+
     // ............................. gramm
-    let gramm = function (anima, newAnigrams = []) {
+    async function gramm(anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
         geofold = anigram.geofold, // geofold
@@ -57,34 +76,45 @@
 
       let gjcollection = mgeoj.featurecollect(gj) // FEATURE COLLECT
 
-      gjcollection.features = gjcollection.features.map((f, i) => { // per feature
-   
-        let feature = mprofier.conformer(anigram)(f) // CONFORM
-          feature.properties.formConformed = mgeoj.deprop(feature) // store conform
-          feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
+      
+      gjcollection.features = gjcollection.features.map((thisfeature, i) => { // per feature
 
-        if (payload.ereform) { // EREFORM
-          let ereformion = mprofier.ereformion(anigram)
-          feature = mproj3ct(feature, ereformion)
-          feature.properties.formEreformed = mgeoj.deprop(feature) // store ereform
-          feature.properties.nodeEreformed = mproj3ct(feature.properties.nodeConformed, ereformion) //
-          nodeConformed => nodeEreformed
-        } else {
-          feature.properties.formEreformed = feature.properties.formConformed
-          feature.properties.nodeEreformed = feature.properties.nodeConformed
-        }
 
-        if (payload.proform) { // PROFORM
-          let proformion = mprofier.proformion(anigram)
-          feature = mproj3ct(feature, proformion)
-          feature.properties.formProformed = mgeoj.deprop(feature) // store proform
-          feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion)
-        } else {
-          feature.properties.formProformed = feature.properties.formEreformed
-          feature.properties.nodeProformed = feature.properties.nodeEreformed
-        }
+      
+        mprofier.conformer(anigram) // CONFORM
+          .then(conformer => {
+  
+              let feature = conformer(thisfeature)
+             
+      if (1 && 1) console.log('feature', feature)           
+                  feature.properties.formConformed = mgeoj.deprop(feature) // store conform
+                  feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
 
-        return feature
+                  if (payload.ereform) { // EREFORM
+                    let ereformion = mprofier.ereformion(anigram)
+                    feature = mproj3ct(feature, ereformion)
+                    feature.properties.formEreformed = mgeoj.deprop(feature) // store ereform
+                    feature.properties.nodeEreformed = mproj3ct(feature.properties.nodeConformed, ereformion) //
+                    nodeConformed => nodeEreformed
+                  } else {
+                    feature.properties.formEreformed = feature.properties.formConformed
+                    feature.properties.nodeEreformed = feature.properties.nodeConformed
+                  }
+
+                  if (payload.proform) { // PROFORM
+                    let proformion = mprofier.proformion(anigram)
+                    feature = mproj3ct(feature, proformion)
+                    feature.properties.formProformed = mgeoj.deprop(feature) // store proform
+                    feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion)
+                  } else {
+                    feature.properties.formProformed = feature.properties.formEreformed
+                    feature.properties.nodeProformed = feature.properties.nodeEreformed
+                  }
+
+                  return feature
+          })
+                
+                
       })
 
       anigram.geofold = gjcollection // new anigram geofold is FeatureCollection

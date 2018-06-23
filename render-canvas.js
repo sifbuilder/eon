@@ -8,10 +8,20 @@
 }(this, function (exports) {
   'use strict'
 
-  let renderCanvas = function (__mapper = {}) {
+  async function renderCanvas(__mapper = {}) {
     
-    let rrenderport = __mapper('xs').r('renderport'),
-      d3 = __mapper('d3')
+    let cellpromises  = 	[
+                __mapper('xs').r('renderport'),
+                __mapper('xs').q('d3'),
+              ]
+
+    let [
+        rrenderport,
+        d3,
+      ] = await Promise.all(
+        cellpromises
+      )
+
       
     let  width = rrenderport.width(),
       height = rrenderport.height()

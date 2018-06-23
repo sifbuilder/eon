@@ -64,61 +64,116 @@
   // md: ### ereformer
   // md:
 
-  let muonProfier = function muonProfier (__mapper = {}) {
-    let cwen = __mapper('xs').c('wen')(),
-      cversor = __mapper('xs').c('versor'),
-      mwen = __mapper('xs').m('wen'),
-      mstace = __mapper('xs').m('stace'),
-      mproj3ct = __mapper('xs').m('proj3ct'),
-      mgeom = __mapper('xs').m('geom'),
-      guniwen = __mapper('xs').g('uniwen')
+  async function muonProfier (__mapper = {}) {
+
+    let   __cwen      = __mapper('xs').c('wen'),
+          __cversor   = __mapper('xs').c('versor'),
+          __mprops    = __mapper('xs').m('props'),
+          __mwen      = __mapper('xs').m('wen'),
+          __mstace    = __mapper('xs').m('stace'),
+          __mproj3ct  = __mapper('xs').m('proj3ct'),
+          __mgeom     = __mapper('xs').m('geom'),
+          __guniwen   = __mapper('xs').g('uniwen')
+
+
+    let [
+          cwen,
+          cversor,
+          mprops,
+          mwen,
+          mstace,
+          mproj3ct,
+          mgeom,
+          guniwen,
+       ] = await Promise.all( [
+          __cwen,
+          __cversor,
+          __mwen,
+          __mstace,
+          __mproj3ct,
+          __mgeom,
+          __guniwen,
+       ])
+
+
+    // let cwen      = __mapper('xs').c('wen')(),
+        // cversor   = __mapper('xs').c('versor'),
+        // mwen      = __mapper('xs').m('wen'),
+        // mstace    = __mapper('xs').m('stace'),
+        // mproj3ct  = __mapper('xs').m('proj3ct'),
+        // mgeom     = __mapper('xs').m('geom'),
+        // guniwen   = __mapper('xs').g('uniwen')
 
     let f = {}
       f.isString = d => typeof (d) === 'string'
       f.isArray = d => Array.isArray(d)
-      f.isFunction = d => typeof (d) === 'function'      
+      f.isFunction = d => typeof (d) === 'function'
       f.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true)
       f.isPosition = obj => Object.getOwnPropertyNames(obj).reduce((p, q) =>
       p &&
 				(q === 'x' || q === 'y' || q === 'z') &&
 				typeof obj[q] === 'number'
-      , true)      
-      
-      
+      , true)
+
+
     //  getProj
-    let getProj = function (projdef) {
+    async function getProj(projdef) {
       let geoproj
 
       if (projdef === undefined) {
+        
         if (2 && 2) console.log('** m.profier.formion projdef undefined', projdef)
         geoproj = formion({projection: 'uniwen'})
         geoproj = guniwen({})
+        
       } else if (typeof projdef === 'function') {
+        
         geoproj = projdef
+        
       } else if (Array.isArray(projdef)) {
         for (let i = 0; i < projdef.length; i++) { // projdef is now object
           let prop = projdef[i]
           if (prop.projection !== undefined) geoproj = getProj(prop.projection)
           break
         }
+        
       } else if (typeof projdef === 'object') {
+        
         if (f.isString(projdef.projection)) { // if _projection singular name
-          geoproj = __mapper('xs').g(projdef.projection)(projdef)
+        
+          let prj = await __mapper('xs').g(projdef.projection)
+
+          if (1 && 1) console.log('prj', prj)
+
+          
+          geoproj = prj(projdef)
+          
         } else if (f.isArray(projdef.projections)) { // if plural select one
+        
           geoproj = projdef.projections[ Math.round(projdef.projectidx || 0) ]
 
           if (f.isString(geoproj)) { // if name in array
-            geoproj = __mapper('xs').g(geoproj)(projdef) // get projection from name
+          
+            geoproj = await __mapper('xs').g(geoproj)(projdef) // get projection from name
+            
           } else {
+            
             if (2 && 2) console.log('m.profier.formion index proj not name', projdef)
             geoproj = guniwen({})
             return geoproj
+            
           }
+          
         } else if (f.isFunction(projdef.projection)) { // if is projection
+        
           geoproj = projdef.projection // props passed to projection
+          
         } else {
+          
           let projname = 'uniwen' // default to uniwen projection
-          geoproj = __mapper('xs').g(projdef.projection)(projname) // get projection from name
+          
+          geoproj =await  __mapper('xs').g(projdef.projection)(projname) // get projection from name
+          
         }
       }
 
@@ -126,7 +181,7 @@
     }
 
     // ............................. formion
-    let formion = function (projdef, anigram = {}) {
+    async function formion(projdef, anigram = {}) {
       let projection
       let projname
 
@@ -220,7 +275,7 @@
       json => (prodef) ? mproj3ct(json, formion(prodef)) : json
 
     // ............................. conformer
-    let conformer = anigram => {
+    async function conformer (anigram) {
       let projion
       let projdef = anigram.payload.conform
 

@@ -8,9 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonGeoj = function muonGeoj (__mapper = {}) {
-    let f = __mapper('xs').m('props')
-
+  
     // md: # md:{filename}
     // md: **process geojson streams**
 
@@ -87,6 +85,11 @@
     // md:
     // md: # license
     // md: MIT
+
+  
+  async function muonGeoj (__mapper = {}) {
+    
+    let mprops = await __mapper('xs').m('props')
 
     let types = {
       Point: 'geometry',
@@ -217,27 +220,27 @@
     }
 
     // ...................... snip
-    let snip = function (form) {
-      let dims = __mapper('xs').m('anitem').dims()
-      let braids = []
-      return function (gj) {
-        let c = gj.coordinates
-        for (let i = 0; i < c.length; i++) {
-          let braid = f.unslide(c[i])
+    // let snip = function (form) {
+      // let dims = __mapper('xs').m('anitem').dims()
+      // let braids = []
+      // return function (gj) {
+        // let c = gj.coordinates
+        // for (let i = 0; i < c.length; i++) {
+          // let braid = mprops.unslide(c[i])
 
-          for (let j = 0; j < braid.length; j++) {
-            let pa6 = (form[dims[j]] || {}).pa6
-            let pb7 = (form[dims[j]] || {}).pb7
+          // for (let j = 0; j < braid.length; j++) {
+            // let pa6 = (form[dims[j]] || {}).pa6
+            // let pb7 = (form[dims[j]] || {}).pb7
 
-            braids[j] = f.streamRange(braid[j], pa6, pb7)
-          }
-          let coordinates = f.slide(braids) // join dim threads
-          gj.coordinates = Array.of(coordinates)
-        }
+            // braids[j] = mprops.streamRange(braid[j], pa6, pb7)
+          // }
+          // let coordinates = mprops.slide(braids) // join dim threads
+          // gj.coordinates = Array.of(coordinates)
+        // }
 
-        return gj
-      }
-    }
+        // return gj
+      // }
+    // }
 
     // ...................... largestPoly
     let largestPoly = function largestPoly (gj) {
@@ -421,6 +424,9 @@
         return gj
       }
 
+      if (1 && 1) console.log('features', features)
+
+      
       let zordered = features
         .map(d => {
           d.properties = d.properties || {}
@@ -710,7 +716,7 @@
     enty.tclip = tclip
     enty.complexify = complexify
     enty.deprop = deprop
-    enty.snip = snip
+    // enty.snip = snip
     enty.largestPoly = largestPoly
     enty.lineStringFromStream = lineStringFromStream
     enty.polygonFromStream = polygonFromStream

@@ -10,12 +10,27 @@
 
   // md: m.sim
 
-  let muonSim = function (__mapper = {}) {
-    let mprops = __mapper('xs').m('props'),
-      msnap = __mapper('xs').m('snap'),
-      mstore = __mapper('xs').m('store'),
-      mgeonode = __mapper('xs').m('geonode'),
-      d3 = __mapper('d3')
+  async function muonSim(__mapper = {}) {
+
+
+    let cellpromises  = 	[
+          __mapper('xs').m('props'),
+          __mapper('xs').m('snap'),
+          __mapper('xs').m('store'),
+          __mapper('xs').m('geonode'),
+          __mapper('xs').q('d3'),
+          ]
+
+    let [
+          mprops,
+          msnap,
+          mstore,
+          mgeonode,
+          d3,
+       ] = await Promise.all(
+          cellpromises
+      )
+
 
     let _geonode = {
       type: 'Feature',

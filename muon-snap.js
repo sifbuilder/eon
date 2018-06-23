@@ -15,12 +15,29 @@
   // md: # license
   // md: MIT
 
-  function muonSnap(__mapper = {}) {
+  async function muonSnap(__mapper = {}) {
     
-    let mnat = __mapper('xs').m('nat'),
-      mlacer = __mapper('xs').m('lacer'),
-      mgeoj = __mapper('xs').m('geoj'),
-      d3 = __mapper('d3')
+    
+    let cellpromises  = 	[
+                __mapper('xs').m('nat'),
+                __mapper('xs').m('lacer'),
+                __mapper('xs').m('geoj'),
+                __mapper('xs').q('d3'),
+              ]
+
+    let [
+        mnat,
+        mlacer,
+        mgeoj,
+        d3,
+      ] = await Promise.all(
+        cellpromises
+      )    
+    
+    // let mnat = __mapper('xs').m('nat'),
+      // mlacer = __mapper('xs').m('lacer'),
+      // mgeoj = __mapper('xs').m('geoj'),
+      // d3 = __mapper('d3')
 
       
     // let propsPromise = __mapper('xs').m('props'),

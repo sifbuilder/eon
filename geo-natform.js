@@ -27,9 +27,10 @@
   // md: MIT
 
   
-  let geoNatform = function geoNatform (__mapper = {}) {
-    let mnat = __mapper('xs').m('nat'),
-      d3 = __mapper('d3')
+  async function geoNatform (__mapper = {}) {
+    
+    let mnat = await __mapper('xs').m('nat'),
+      d3 = await __mapper('d3')
 
     let cache = {} // points, form
 

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="x-d3-require.js"></script>
+<script src="x-mapper.js"></script>
+<script src="x-s.js"></script>
+<script src="x-libs.js"></script>
+<script src="x-parts.js"></script>
+
+<script>
+
+// md: # md:{filename}
+// md: ** **
+// md:
+// md: # license
+// md: MIT
+
+
+;(async function ____e() {
+    let __mapper = xMapper.xMapper() // init mapper
+
+    __mapper({'xD3Require': xD3Require}) //
+    __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy part
+
+    __mapper({'xLibs': xLibs.xLibs(__mapper)}) // xLibs    
+    await __mapper.mapParts(__mapper('xLibs')()) // register libs
+
+
+    __mapper({'xParts': xParts.xParts(__mapper)}) // xParts
+    await __mapper.mapParts(__mapper('xParts')()) // get and register parts
+
+    
+    let animas = await animasPromise(__mapper)
+    let mstore = await __mapper('xs').m('store')  // map store
+    mstore.apply({type: 'UPDANIMA', animas: animas})  // store animas
+    __mapper('muonAnimation').muonAnimation(__mapper) // animate
+
+})()
+
+  // .................. animasPromise
+async function animasPromise(__mapper) {
+
+    let cellpromises  = 	[
+                __mapper('xs').r('renderport'),
+              ]
+
+    let [
+        rrenderport,
+      ] = await Promise.all(
+        cellpromises
+      )    
+
+      
+  let width = rrenderport.width(),
+    height = rrenderport.height(),
+    scaleProj = Math.min(width / 2, height) / Math.PI
+
+  // .................. pics
+  let tim = {'td': 2800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
+
+  // .................. textAnima
+  let textAnima = {
+
+    halo: 'textform',
+
+    payload: {
+
+      tim: tim,
+      ric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
+      boform: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+      proform: {
+        projection: 'uniwen',
+        translate: [ 130, 140 ]
+      },
+      textform: {
+        string: 'this is not a text',
+        style: {
+          rotate: [[[ 0, 1 ]]],
+          'font-size': [[[10, 60]]],
+          'font-family': 'BankFuturistic',
+          'text-anchor': 'center'
+
+        }
+      }
+
+    }
+  }
+  // .................. sceneForm
+  let sceneForm = {
+
+    halo: 'scene',
+    payload: {
+      tim: tim,
+      ric: {gid: 'gratiform', cid: 'gratiform', fid: 'context'},
+      context: {svg: 1, versor: 0, wen: 1, webgl: 1, bck: 1}
+    }
+
+  }
+
+  // .................. animaset
+  let animas = [
+
+    sceneForm, // h.context
+    textAnima, // h.text
+  ]
+
+  return animas
+
+}
+
+</script>

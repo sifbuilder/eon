@@ -11,8 +11,8 @@
 
   // md: # md:{filename}
   // md: **returns mouse move coordinates in the unit square space**
-  // md: called by r.webgl 
-  // md: r.webgl sets renderer.domElement and gets mouse 
+  // md: called by r.webgl
+  // md: r.webgl sets renderer.domElement and gets mouse
   // md: mouse on camera is then used to get ray intersection on items on canvas
   // md: ### getters/setters
   // md: domNode
@@ -23,30 +23,28 @@
   // md: usage: `control(domnode)`
   // md:
   // md: # license
-  // md: MIT 
-  
+  // md: MIT
+
   let controlRaycaster = function controlRaycaster (__mapper = {}) {
-    
-    let f = __mapper('xs').m('props')
-    
-    let r = __mapper('xs').r('renderport'),
-      width = r.width(),
-      height = r.height()
+
+    // let r = __mapper('xs').r('renderport'),
+      // width = r.width(),
+      // height = r.height()
 
     let mouse = {
       x: -2, // Initialize off canvas
-      y: -2 
+      y: -2
     }
-    
+
     let pointer = {
-      x: -2, 
-      y: -2 
-    }      
-    
-    let touch = {}    
+      x: -2,
+      y: -2
+    }
+
+    let touch = {}
 
     let domNode = null
-    
+
     let state = {
       pointer,
       mouse,
@@ -54,38 +52,29 @@
       domNode
     }
 
-   // ............................. subscribe
+    // ............................. subscribe
     let subscribe = function (listener, domNode, sensor) {
-if (1 && 1) console.log('subscribedomNode', domNode)
-
       if (typeof listener !== 'function') throw new Error('Listener to be function')
-        
-      
+
       enty.domNode(domNode)
       state.domNode.node().addEventListener(sensor, listener)
-    
-    }    
+    }
 
-  // ............................. listerner
+    // ............................. listerner
     let projector = function (event) {
-      
       let domElem = enty.domNode()
       let width = domElem.getBoundingClientRect().width
       let height = domElem.getBoundingClientRect().height
 
+      const offset = getOffset(domElem), // {top: 0, left: 0}
+        relPos = {
+          x: event.pageX - offset.left,
+          y: event.pageY - offset.top
+        }
 
-      const offset = getOffset(domElem),  // {top: 0, left: 0}
-            relPos = {
-              x: event.pageX - offset.left,
-              y: event.pageY - offset.top
-            }
-    
-      
-    
       state.mouse.x = (relPos.x / width) * 2 - 1
       state.mouse.y = -(relPos.y / height) * 2 + 1
-      
-      
+
       function getOffset (el) {
         const rect = el.getBoundingClientRect(),
           scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
@@ -94,29 +83,23 @@ if (1 && 1) console.log('subscribedomNode', domNode)
       }
     }
 
-  // ............................. control    
-  let control = function (domNode) {
-    
+    // ............................. control
+    let control = function (domNode) {
       enty.domNode(domNode)
 
-    
       state.domNode.addEventListener('mousemove', mouseMoveListener) // event listener
       // subscribe(mouseMoveListener, domNode, 'mousemove') // event listener
-  }  
-    
-    
-  // ............................. mouseMoveListener
-    function mouseMoveListener (event) {
-      
-      projector(event)
-      
     }
-  // ............................. enty
+
+    // ............................. mouseMoveListener
+    function mouseMoveListener (event) {
+      projector(event)
+    }
+    // ............................. enty
     let enty = () => enty
 
     // enty.domNode = _ => (_ !== undefined) ? (state.domNode = _, enty) : state.domNode
-    enty.domNode = function(_) {
-
+    enty.domNode = function (_) {
       if (_ !== undefined) {
         state.domNode = _
         return enty
@@ -128,9 +111,9 @@ if (1 && 1) console.log('subscribedomNode', domNode)
     enty.mouse = () => state.mouse
     enty.touch = () => state.touch
     enty.pointer = () => state.pointer //
-    
+
     enty.control = control
-    
+
     return enty
   }
 

@@ -8,12 +8,23 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonScene = function (__mapper = {}) {
+  async function muonScene(__mapper = {}) {
 
-    let d3 = __mapper('d3'),
-      mimage = __mapper('xs').m('image')
+    let   __d3          = __mapper('xs').q('d3')
+
+
+    let [
+          d3,
+       ] = await Promise.all( [
+          __d3,
+       ])  
+  
+  
+    let rsvg = await __mapper('xs').r('svg')
+    let cwen = await __mapper('xs').c('wen')
+  
+    // let d3 = __mapper('d3')
     
-
 
     let state = {}
     state.scene = {
@@ -34,51 +45,23 @@
     // .................. scene
     let scenify = function (p) {
 
-      if (p.canvas && p.canvas !== state.scene.canvas) {
-        state.scene.canvas = 1
-
-        // __mapper({'renderCanvas': renderCanvas.renderCanvas(__mapper)})
-        __mapper('renderCanvas').renderCanvas(__mapper)
-      }
-
-      if (p.svg && p.svg !== state.scene.svg) {
-        state.scene.svg = 1
-
-       // __mapper({'renderSvg': renderSvg.renderSvg(__mapper)})
-       __mapper('renderSvg').renderSvg(__mapper)
-
-      }
-
 
       if (p.svg && p.wen && p.wen !== state.scene.wen) {
+        
         state.scene.wen = 1
-
-        if (1 && 1) console.log('__mapper', __mapper())
-
-        let svg = __mapper('xs').r('svg').svg()
-        __mapper('xs').c('wen').control(svg)
+        let svg = rsvg.svg()
+        cwen.control(svg)
         
       }
 
       if (p.svg && p.versor && p.versor !== state.scene.versor) {
+        
         state.scene.versor = 1
-
         __mapper('xs').c('versor').control(__mapper('renderSvg').svg())
+        
       }
-
-      if (p.webgl && p.webgl !== state.scene.webgl) {
-        state.scene.webgl = 1
-
-        __mapper('renderWebgl').renderWebgl(__mapper)
-
-      }
-
-      if (p.gui && p.gui !== state.scene.gui) {
-        state.scene.gui = 1
-
-        gui = new dat.GUI(); gui.add(window, 'restart')
-      }
-
+      
+    // ............................. key control animation
       if (p.key && p.key !== state.scene.key) {
         state.scene.key = 1
 
@@ -118,31 +101,7 @@
         __mapper('xs').c('key').subscribe(controltimerRightArrowAlt, 'rightArrowAlt')
       }
 
-      if (p.ray && p.ray !== state.scene.ray) {
-        state.scene.ray = 1
 
-        __mapper('xs').c('rayder').control(__mapper('renderSvg').svg())
-      }
-
-      if (p.fps && p.fps !== state.scene.fps) {
-        state.scene.fps = 1
-
-        const fpsdiv = d3.select('body').append('div').attr('id', 'fps')
-        __mapper('xs').m('fps').init()
-      }
-
-      if (p.stats && p.stats !== state.scene.stats) {
-        state.scene.stats = 1
-
-        let stats = __mapper('xs').m('stats')() // new Stats();
-        stats.showPanel(-1) // 0: fps, 1: ms, 2: mb, 3+: custom
-        document.body.appendChild(stats.dom)
-        function animate () {
-          stats.begin(); stats.end()
-          requestAnimationFrame(animate)
-        }
-        requestAnimationFrame(animate)
-      }
     }
 
 

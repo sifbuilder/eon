@@ -57,7 +57,6 @@
       return ret
     }
 
-
     // ............................. async getBoson
     async function getBoson(params, pres = 'boson') {
 
@@ -71,10 +70,6 @@
         ret = await getFromNet(itemName)
         console.log(` !!!!!!!!!!!  got ${params} from net`)
 
-      } else {
-
-        console.log(`getBoson got fermion: ${params}`)
-
       }
 
       if (!ret) console.log(` ===>  could not get boson: ${params}`)
@@ -85,13 +80,13 @@
     let enty = function() {}
 
     enty.boson = enty.b = (params, pres = '') => getBoson(params, pres)
-    enty.quark = enty.q = (params, pres = '') => getFermion(params, pres)
-    enty.muon = enty.m = (params, pres = 'muon') => getFermion(params, pres)
+    enty.quark = enty.q = (params, pres = '') => getBoson(params, pres)
+    enty.muon = enty.m = (params, pres = 'muon') => getBoson(params, pres)
     enty.data = enty.d = (params, pres = 'data') => getFermion(params, pres)
     enty.force = enty.f = (params, pres = 'force') => getFermion(params, pres)
     enty.geo = enty.g = (params, pres = 'geo') => getFermion(params, pres)
     enty.proj = enty.p = (params, pres = 'd3.geo') => getFermion(params, pres)
-    enty.halo = enty.h = (params, pres = 'halo') => getFermion(params, pres)
+    enty.halo = enty.h = (params, pres = 'halo') => getBoson(params, pres)
     enty.control = enty.c = (params, pres = 'control') => getFermion(params, pres)
     enty.render = enty.r = (params, pres = 'render') => getFermion(params, pres)
 

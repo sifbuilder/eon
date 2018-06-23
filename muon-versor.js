@@ -14,7 +14,9 @@
 // ref: http://codepen.io/jorin/pen/YNajXZ
 
   var muonVersor = function (__mapper = {}) {
+    
     let props = __mapper('xs').m('props')
+    
     var stace = Object.assign({})
 
     var acos = Math.acos,
@@ -103,7 +105,7 @@ function dot(v0, v1) {
  * 			@enty
  *
  */
-    var enty = () => versor
+    var enty = versor
 
     return enty
   }

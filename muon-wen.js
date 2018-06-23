@@ -13,7 +13,7 @@
   // https://codepen.io/wenliang-developer/pen/gMwvXR
   // https://github.com/wenliang-developer/web-developer-site
 
-  let muonWen = function muonWen (__mapper = {}) {
+  let muonWen = function (__mapper = {}) {
     function clip (n, m, M) { return n < M ? n > m ? n : m : M }
     function comeCloser (n, goal, factor, limit) {
       return (limit && Math.abs(goal - n) < limit) ? goal : n + (goal - n) / (factor || 10)
