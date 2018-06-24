@@ -69,9 +69,13 @@
     const cameraProjer = function (p = prjdef) {
     
       let cp = __mapper('geoUniwen')
-          .then(geo => { 
+          .then(uw => { 
 
-              return geo(prjdef)
+              let geo =  uw(prjdef)
+              
+if (1 && 1) console.log('r.renderport geo', geo)
+
+              return geo
               
           })
       
@@ -104,7 +108,9 @@
           pos = [signal.x, signal.y]
 
           pos = projer.invert(pos)
+          
         } else {
+          
           pos = [signal.x, signal.y]
 
           pos = projer.invert(pos)
@@ -122,6 +128,7 @@
     enty.projection = _ => _ !== undefined ? (projection = _, enty) : projection
     enty.cameraProjer = cameraProjer
     enty.getPos = getPos
+    enty.prjdef = () => prjdef
     return enty
   }
 

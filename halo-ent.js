@@ -72,40 +72,39 @@
             mprofier.conformer_(anigram), 
             mprofier.ereformion_(anigram),
             mprofier.proformion_(anigram),
-        ]);
+        ])
 
 
-            gjcollection.features = gjcollection.features.map((ifeature, i) => { // per feature
+        gjcollection.features = gjcollection.features.map((ifeature, i) => { // per feature
+        
+
+          // let conformion = await mprofier.conformer_(anigram) // CONFORM
+          let feature = conformion(ifeature) // CONFORM
+            feature.properties.formConformed = mgeoj.deprop(feature) // store conform
+            feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
+
             
-         
-              // let conformion = await mprofier.conformer_(anigram) // CONFORM
-              let feature = conformion(ifeature) // CONFORM
-                feature.properties.formConformed = mgeoj.deprop(feature) // store conform
-                feature.properties.nodeConformed = feature.properties.geonode // nodeConformed : geonode
+          if (payload.ereform) { // EREFORM
+            feature = mproj3ct(feature, ereformion)
+            feature.properties.formEreformed = mgeoj.deprop(feature) // store ereform
+            feature.properties.nodeEreformed = mproj3ct(feature.properties.nodeConformed, ereformion) //
+            nodeConformed => nodeEreformed
+          } else {
+            feature.properties.formEreformed = feature.properties.formConformed
+            feature.properties.nodeEreformed = feature.properties.nodeConformed
+          }
 
-              if (payload.ereform) { // EREFORM
-                // let ereformion = await mprofier.ereformion_(anigram)
-                feature = mproj3ct(feature, ereformion)
-                feature.properties.formEreformed = mgeoj.deprop(feature) // store ereform
-                feature.properties.nodeEreformed = mproj3ct(feature.properties.nodeConformed, ereformion) //
-                nodeConformed => nodeEreformed
-              } else {
-                feature.properties.formEreformed = feature.properties.formConformed
-                feature.properties.nodeEreformed = feature.properties.nodeConformed
-              }
-
-              if (payload.proform) { // PROFORM
-                // let proformion = await mprofier.proformion_(anigram)
-                feature = mproj3ct(feature, proformion)
-                feature.properties.formProformed = mgeoj.deprop(feature) // store proform
-                feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion)
-              } else {
-                feature.properties.formProformed = feature.properties.formEreformed
-                feature.properties.nodeProformed = feature.properties.nodeEreformed
-              }
-
-              return feature
-            })
+          if (payload.proform) { // PROFORM
+            feature = mproj3ct(feature, proformion)
+            feature.properties.formProformed = mgeoj.deprop(feature) // store proform
+            feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, proformion)
+          } else {
+            feature.properties.formProformed = feature.properties.formEreformed
+            feature.properties.nodeProformed = feature.properties.nodeEreformed
+          }
+ 
+          return feature
+        })
             
             
 

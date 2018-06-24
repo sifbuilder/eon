@@ -37,14 +37,14 @@
     let [
         rrenderport,  // cameraProjer
         d3,
+        guniwen,
       ] = await Promise.all([
         __mapper('xs').r('renderport'),
         __mapper('xs').q('d3'),      
+        __mapper('xs').g('uniwen'),      
       ])
 
 
-    // let rrenderport = __mapper('xs').r('renderport'),
-      // d3 = __mapper('d3')
 
     let width = rrenderport.width(),
       height = rrenderport.height(),
@@ -160,6 +160,14 @@
         )
       let svg = _svg()
 
+
+                let cameraProjer = rrenderport.cameraProjer()
+                let prjdef =   rrenderport.prjdef()
+                let prj = guniwen(prjdef)
+                cameraProjer =prj
+
+                
+      
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
         .key(function (d) { return d.properties.ric.gid })
         .key(function (d) { return d.properties.ric.cid })
@@ -304,8 +312,7 @@
                 let properties = geoitem.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
-                let cameraProjer = rrenderport.cameraProjer()
-
+                
                 let geoPath = d3.geoPath(cameraProjer) // path on view projection
                 let path = (pointRadius !== undefined) // geoPath
                   ? geoPath.pointRadius(pointRadius)

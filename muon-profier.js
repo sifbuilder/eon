@@ -276,11 +276,23 @@
     }
 
     // ............................. proformion_
-    const proformion_ = async anigram => await formion_(anigram.payload.proform, anigram)
+    async function proformion_(anigram) {
+        let prj = anigram.payload.proform
+        if (1 && 1 && prj === undefined) console.log('proformion_ prj', prj)
+        
+        let res = await formion_(prj, anigram)
+        return res
+    }
     const proformer = anitem => json => mproj3ct.project(json, proformion_(anitem))
 
     // ............................. ereformion_
-    const ereformion_ = async anigram => await formion_(anigram.payload.ereform, anigram)
+     async function ereformion_(anigram) {
+        let prj = anigram.payload.ereform
+        if (1 && 1 && prj === undefined) console.log('ereformion_ prj', prj)
+        
+        let res = await formion_(prj, anigram)
+        return res
+    }   
     const ereformer = anitem => json => mproj3ct.project(json, ereformion_(anitem))
 
     // ............................. enty
