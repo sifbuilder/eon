@@ -208,17 +208,19 @@
         wait = tim.wait
 
       let newAnigrams = []
-      let halo																		// anigram halo
+
+            if (1 && 1) console.log('......... halo', anigram.halo)
 
 
+            let halo = await __mapper('xs').h(anigram.halo)
 
-      if (anigram.halo !== undefined && typeof anigram.halo === 'string') {
-
-        __mapper('xs').h(anigram.halo)
-          .then( halo => {
             if (halo === null) console.log('halo ', anigram.halo, ' not found')
 
-            newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
+            newAnigrams = await halo.gramm(anima) // ANIMA HALO.GRAMM
+
+            if (1 && 1) console.log('......... newAnigrams', newAnigrams)
+
+
             if (newAnigrams !== null && newAnigrams.length > 0) {
               _apply({'type': 'UPDANIGRAM', 'anigrams': newAnigrams})
                 newItems = newItems.concat(a(newAnigrams))
@@ -241,7 +243,7 @@
                     avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
 
                     newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
-
+                    if (1 && 1) console.log('......... newSubItems', newSubItems)
                     _apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newSubItems})
                   }
                 }
@@ -250,51 +252,6 @@
 
 
 
-
-
-
-          })
-
-      } else {
-
-          let halo = anigram.halo
-            if (halo === null) console.log('halo ', anigram.halo, ' not found')
-
-
-            newAnigrams = halo.gramm(anima) // ANIMA HALO.GRAMM
-            if (newAnigrams !== null && newAnigrams.length > 0) {
-              _apply({'type': 'UPDANIGRAM', 'anigrams': newAnigrams})
-                newItems = newItems.concat(a(newAnigrams))
-            }
-
-
-
-            if (newItems !== undefined && newItems.length > 0) { // check if avatars in NEW animas
-              for (let i = 0; i < newItems.length; i++) {
-                let newItem = newItems[i] // each new item
-                if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
-                  let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
-
-                  for (let j = 0; j < avatars.length; j++) {
-                    let newSubItems = []
-                    let avatar = avatars[j]
-
-                    avatar.payload.uid = mric.getuid(avatar) // uid for children
-                    avatar.payload.tim = anigram.payload.tim // time from anima
-                    avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
-
-                    newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
-
-                    _apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newSubItems})
-                  }
-                }
-              }
-            }
-
-
-
-
-      }
 
 
 

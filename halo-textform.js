@@ -25,7 +25,7 @@
   async function haloTextform(__mapper = {}) {
     
     let manitem = await __mapper('xs').m('anitem')
-    let hent = await __mapper('xs').h('ent')
+    
 
     // .................. _geofold
     let _geofold = function (ani) { // geofold
@@ -59,7 +59,10 @@
     }
 
     // .................. gramm
-    let gramm = function (anima, newAnigrams = []) {
+    async function gramm(anima, newAnigrams = []) {
+      
+      if (1 && 1) console.log(' --------- h.textform gramm', anima)
+        
       let anigram = manitem(anima).anigram(),
         halo = 				anigram.halo,
         payload = 		anigram.payload
@@ -71,8 +74,16 @@
         geofold,
         payload
       }
+      
+      // let hent = await __mapper('xs').h('ent')
+       // newAnigrams = await hent.gramm(newAnigram)
+      const hformed = await __mapper('xs').h('formed')
+      newAnigrams = await hformed.gramm(newAnigram)
+      
+      if (1 && 1) console.log('anima', anima)
+      if (1 && 1) console.log(' --------- newAnigrams', newAnigrams)
 
-      newAnigrams = [...newAnigrams, ...hent.gramm(newAnigram)]
+      
       return newAnigrams
     }
 

@@ -79,8 +79,6 @@
       
       gjcollection.features = gjcollection.features.map((thisfeature, i) => { // per feature
 
-
-      
         mprofier.conformer(anigram) // CONFORM
           .then(conformer => {
   
@@ -119,6 +117,7 @@
 
       anigram.geofold = gjcollection // new anigram geofold is FeatureCollection
       newAnigrams = hformed.gramm(anigram)
+if (1 && 1) console.log('hent newAnigrams:', newAnigrams)
 
       return newAnigrams //    new anigrams are stored by m.animation
     }

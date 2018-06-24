@@ -50,7 +50,11 @@
     f.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
 
     // ............................. gramm
-    let gramm = function (anima, newAnigrams = []) {
+    async function gramm(anima, newAnigrams = []) {
+      
+      if (1 && 1) console.log('h.formed gramm anima', anima)
+
+      
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
         geofold = anigram.geofold, // geofold
@@ -68,7 +72,8 @@
 
       //  get GEOFORM FeatureCollection
       //
-      let gjcollection = f.v(geofold, anigram) // get geoform
+      let gj = f.v(geofold, anigram) // get geoformlet gjcollection = f.v(geofold, anigram) // get geoform
+      let gjcollection = mgeoj.featurecollect(gj) 
       if (2 && 2 && gjcollection.type !== 'FeatureCollection') console.log('** gjcollection is not FeatureCollection', gjcollection)
       gjcollection = mgeoj.zorder(gjcollection) // order features in collection
       gjcollection = mric.enric(ric, anigram, gjcollection) // ric to feature or collection

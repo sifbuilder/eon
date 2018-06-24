@@ -21,8 +21,8 @@
   // md: ref: [Margin Convention](https://bl.ocks.org/mbostock/3019563)
   // md: ## methods
   // md: * ### svg
-  // md: * ### elems
-  // md:      call `elems(payload, data, idfn)`
+  // md: * ### svgelems
+  // md:      call `svgelems(payload, data, idfn)`
   // md: * ### render
   // md:      call `render(elapsed, featurecollection, maxlimit)`
   // md:      gets anima.geofold's from m.animation
@@ -81,7 +81,7 @@
     let _svg = () => d3.select('#viewframe')
 
     // ............................. elems
-    let elems = function (idfyer, data = ['data'], idfn = null) {
+    let svgelems = function (idfyer, data = ['data'], idfn = null) {
       if (d3.select('.muon-style-block').empty()) {
         d3.select('head').append('style').attr('class', 'muon-style-block')
           .html('')
@@ -180,7 +180,7 @@
             .filter(d => d.properties.sort === 'text')
 
           if (texts.length > 0) {
-            __mapper('renderSvg').elems('svg:g.' + gid + '/text.' + cid, texts, d => d.uid)
+            svgelems('svg:g.' + gid + '/text.' + cid, texts, d => d.uid)
               .text(d => d.properties.string)
 
               .attr('x', 0) // translate instead
@@ -224,7 +224,7 @@
           if (imgs.length > 0) {
             if (1 && 1) console.log('imgs', imgs)
 
-            __mapper('renderSvg').elems('svg:g.' + gid + '/image.' + cid, imgs, d => d.id)
+            svgelems('svg:g.' + gid + '/image.' + cid, imgs, d => d.id)
 
               .data(() => imgs)
 
@@ -256,7 +256,7 @@
               if (1 && 1) console.log('-----------axis ', axis.properties.axis)
               if (1 && 1) console.log('-----------style ', axis.properties.style)
 
-              __mapper('renderSvg').elems('svg:g.' + gid + '/g.' + cid, Array.of(axis), d => d.properties.uid)
+              svgelems('svg:g.' + gid + '/g.' + cid, Array.of(axis), d => d.properties.uid)
 
                 .data(() => Array.of(axis))
 
@@ -298,7 +298,7 @@
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
           if (features.length > 0) { // _e_
-            __mapper('renderSvg').elems('svg:g.' + gid + '/path.' + cid, features, d => d.uid) // elems
+            svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.uid) // elems
               .data(() => features)
               .attr('d', d => {
                 if (2 && 2 && d.properties.style === undefined) console.log('** style is undefined', d)
@@ -332,7 +332,7 @@
     let enty = function enty () {}
 
     enty.svg = _svg
-    enty.elems = elems
+    enty.svgelems = svgelems
     enty.render = render
 
     return enty
