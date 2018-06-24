@@ -51,11 +51,7 @@
       Promise.all(promises)
         .then((resolved) => {
 
-          if (1 && 1) console.log('resolved', resolved)
-
           let newAnimas = resolved.reduce((p, q) => [...p, ...q], [])
-
-          if (1 && 1) console.log('newAnimas', newAnimas)
 
           mstore.apply({type: 'UPDANIMA', animas: newAnimas})
 
@@ -81,10 +77,8 @@
     const getgramms = async (animas) => {
 
       let promises = animas.map(anima => mstore.gramm(anima)) // stores anigrams
-if (1 && 1) console.log('promises', promises)
       Promise.all(promises)
         .then((resolved) => {
-if (1 && 1) console.log('resolved', resolved)
 
          let newAnigrams = resolved.reduce((p, q) => [...p, ...q], [])
 
@@ -105,7 +99,7 @@ if (1 && 1) console.log('resolved', resolved)
     async function aniListener (elapsed) {
 
       state.animas = mprops.a(mstore.animasLive())
-if (1 && 1) console.log(' .................. aniListener', state.animas, elapsed)
+if (1 && 1) console.log(' .................. aniListener', state.animas.length, elapsed)
 
   
     // .................. time
@@ -135,17 +129,14 @@ if (1 && 1) console.log(' .................. aniListener', state.animas, elapsed
 
 
         state.animas = await getweens(state.animas, elapsed)
-if (1 && 1) console.log('weened animas:', state.animas)
 
 
         // ............................. @SIM defaults position of nodes
         state.animas = await getsims(state.animas)
-if (1 && 1) console.log('simmed animas:', state.animas)
   
         // ............................. @GRAMM animas to anigrams
 
         let anigrams =  await getgramms(state.animas)
-if (1 && 1) console.log('anigrams', anigrams)
   
         // ............................. render
         let featurecollection = { 'type': 'FeatureCollection', 'features': anigrams.map(d => d.geofold) }

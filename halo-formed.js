@@ -52,9 +52,6 @@
     // ............................. gramm
     async function gramm(anima, newAnigrams = []) {
       
-      if (1 && 1) console.log('h.formed gramm anima', anima)
-
-      
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
         geofold = anigram.geofold, // geofold

@@ -61,8 +61,6 @@
     // .................. gramm
     async function gramm(anima, newAnigrams = []) {
       
-      if (1 && 1) console.log(' --------- h.textform gramm', anima)
-        
       let anigram = manitem(anima).anigram(),
         halo = 				anigram.halo,
         payload = 		anigram.payload
@@ -80,9 +78,6 @@
       // const hformed = await __mapper('xs').h('formed')
       // newAnigrams = await hformed.gramm(newAnigram)
       
-      if (1 && 1) console.log('anima', anima)
-      if (1 && 1) console.log(' --------- newAnigrams', newAnigrams)
-
       
       return newAnigrams
     }

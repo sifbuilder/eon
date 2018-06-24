@@ -424,9 +424,6 @@
         return gj
       }
 
-      if (1 && 1) console.log('features', features)
-
-      
       let zordered = features
         .map(d => {
           d.properties = d.properties || {}

@@ -209,24 +209,16 @@
 
       let newAnigrams = []
 
-            if (1 && 1) console.log('......... halo', anigram.halo)
-
-
             let halo = await __mapper('xs').h(anigram.halo)
 
             if (halo === null) console.log('halo ', anigram.halo, ' not found')
 
             newAnigrams = await halo.gramm(anima) // ANIMA HALO.GRAMM
 
-            if (1 && 1) console.log('......... newAnigrams', newAnigrams)
-
-
             if (newAnigrams !== null && newAnigrams.length > 0) {
               _apply({'type': 'UPDANIGRAM', 'anigrams': newAnigrams})
                 newItems = newItems.concat(a(newAnigrams))
             }
-
-
 
             if (newItems !== undefined && newItems.length > 0) { // check if avatars in NEW animas
               for (let i = 0; i < newItems.length; i++) {
@@ -243,17 +235,11 @@
                     avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
 
                     newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
-                    if (1 && 1) console.log('......... newSubItems', newSubItems)
                     _apply({'type': 'UPDANIGRAM', 'caller': 'm.store', 'anigrams': newSubItems})
                   }
                 }
               }
             }
-
-
-
-
-
 
 
 

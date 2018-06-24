@@ -67,58 +67,55 @@
 
     // ............................. cameraProjer
     const cameraProjer = function (p = prjdef) {
-
-// if (1 && 1) console.log(' ***************** __mapper', __mapper())
     
       let cp = __mapper('geoUniwen')
-          .then(geo => { return geo})
-      
+          .then(geo => { 
 
+              return geo(prjdef)
+              
+          })
       
     }
 
-    
     
     // ............................. xydirs
-    // enty.xydirs = function () {
-      // let orig = enty.cameraProjer().invert([0, 0])
-      // let xyvector = enty.cameraProjer().invert([1, 1])
+    const xydirs = function () {
+      let orig = enty.cameraProjer().invert([0, 0])
+      let xyvector = enty.cameraProjer().invert([1, 1])
 
-      // let dirs = []
-      // dirs[0] = Math.sign(xyvector[0] - orig[0])
-      // dirs[1] = Math.sign(xyvector[1] - orig[1])
+      let dirs = []
+      dirs[0] = Math.sign(xyvector[0] - orig[0])
+      dirs[1] = Math.sign(xyvector[1] - orig[1])
 
-      // return dirs
-    // }
-
-    // ............................. getPos
-    // async function getPos(signal) {
-      // let pos
-      // let projer = enty.cameraProjer()
-      
-      // if (Array.isArray(signal)) { // coordinates
-        // pos = [signal[0], signal[1]]
-        // pos = projer.invert(pos)
-      // } else if (typeof signal === 'object') { // event
-        // if (signal.touches && signal.touches.length) {
-          // signal = signal.touches[0]
-          // pos = [signal.x, signal.y]
-
-          // pos = projer.invert(pos)
-        // } else {
-          // pos = [signal.x, signal.y]
-
-          // pos = projer.invert(pos)
-        // }
-      // }
-
-      // pos = [ pos[0], pos[1] ]
-
-      // return pos
-    // }
-    function getPos(signal) {
-        return [0,0]
+      return dirs
     }
+
+    //............................. getPos
+    const getPos = function (signal) {
+      let pos
+      let projer = enty.cameraProjer()
+      
+      if (Array.isArray(signal)) { // coordinates
+        pos = [signal[0], signal[1]]
+        pos = projer.invert(pos)
+      } else if (typeof signal === 'object') { // event
+        if (signal.touches && signal.touches.length) {
+          signal = signal.touches[0]
+          pos = [signal.x, signal.y]
+
+          pos = projer.invert(pos)
+        } else {
+          pos = [signal.x, signal.y]
+
+          pos = projer.invert(pos)
+        }
+      }
+
+      pos = [ pos[0], pos[1] ]
+
+      return pos
+    }
+
     
 
     // ............................. projection

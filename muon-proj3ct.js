@@ -46,7 +46,6 @@
     }
 
     var project = function (object, projection) {		// index
-      if (1 && 1) console.log('projection', projection)
 
       var stream = projection.stream, project
       if (!stream) throw new Error('invalid projection', projection)

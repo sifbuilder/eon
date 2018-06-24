@@ -502,8 +502,6 @@
       let parsq = parsCoords.length //  [-180, 180] [dx,px]
 
       let index = tidx(mersq, parsq) // 12, 7
-if (1 && 1) console.log('mersq, parsq', mersq, parsq)
-if (1 && 1) console.log('mersCoords', mersCoords[0])
 
       let m0 = 0
       let mn = mersq // eg. 4  mers with 5 coords each

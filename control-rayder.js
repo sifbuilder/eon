@@ -54,10 +54,6 @@
   // ............................. projector
   function projector (event) {
     
-    if (typeof enty[ event.type ] == 'function' ) {
-      if (1 && 1) console.log('crayder.projector:event', event.type)
-    }
-
     if (event.type === 'mousemove') {
       
       let t = cameraProjer.invert([event.x, event.y])

@@ -77,8 +77,6 @@
 
             gjcollection.features = gjcollection.features.map((ifeature, i) => { // per feature
             
-            if (1 && 1) console.log(' ====================================== ifeature', ifeature)
-
          
               // let conformion = await mprofier.conformer_(anigram) // CONFORM
               let feature = conformion(ifeature) // CONFORM
@@ -113,7 +111,6 @@
 
       anigram.geofold = gjcollection // new anigram geofold is FeatureCollection
       newAnigrams = await hformed.gramm(anigram)  //_
-      if (1 && 1) console.log('hent newAnigrams:', newAnigrams)
 
       return newAnigrams //    new anigrams are stored by m.animation
     }

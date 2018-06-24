@@ -63,7 +63,6 @@ describe('asyncFetch', () => {
   it('can fetch', async () => {
 
     const response = await d3Require.require('d3-array')
-    if (1 && 1) console.log('response', typeof response)
 
     // const result = await response.text();
     // const result = await response
