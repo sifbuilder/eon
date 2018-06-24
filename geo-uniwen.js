@@ -9,14 +9,22 @@
 }(this, function (exports) {
   'use strict'
 
-  let geoUniwen = function geoUniwen (__mapper = {}) {
-    let mgeom = __mapper('xs').m('geom'),
-      mwen = __mapper('xs').m('wen'),
-      cwen = __mapper('xs').c('wen'),
-      d3 = __mapper('d3')
+  async function geoUniwen (__mapper = {}) {
 
-    let f = {}
-    f.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true)
+    let [
+          mgeom, 
+          mwen, 
+          cwen, 
+          d3, 
+          mprops, 
+      ] = await Promise.all([
+        __mapper('xs').m('geom'),
+        __mapper('xs').m('wen'),
+        __mapper('xs').c('wen'),
+        __mapper('xs').q('d3'),
+        __mapper('xs').m('props'),
+      ])        
+
 
     const init = {}
     init.scale = [1, 1, 1]
@@ -71,7 +79,7 @@
 
       let c = [x, y, z]
 
-      if (f.isPureArray(translate)) {
+      if (mprops.isPureArray(translate)) {
         c = c.map((d, i) => d - (translate[i] || 0)) // inverse translate
       } else { // assume multiple translates
         for (let k = 0; k < translate.length; k++) {
@@ -103,7 +111,7 @@
 
       let c = [x, y, z]
       let rot = []
-      if (f.isPureArray(rotate)) {
+      if (mprops.isPureArray(rotate)) {
           rot = rotate
       } else { // assume multiple translates
         for (let k = 0; k < rotate.length; k++) {
@@ -116,7 +124,7 @@
       c = mwen.projection(c, lens[2], scale) // project
 
 
-      if (f.isPureArray(translate)) {
+      if (mprops.isPureArray(translate)) {
         c = c.map((d, i) => d + (translate[i] || 0)) // translate
       } else { // assume multiple translates
         let trans = []

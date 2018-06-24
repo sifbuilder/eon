@@ -75,10 +75,10 @@
         payload
       }
       
-      // let hent = await __mapper('xs').h('ent')
-       // newAnigrams = await hent.gramm(newAnigram)
-      const hformed = await __mapper('xs').h('formed')
-      newAnigrams = await hformed.gramm(newAnigram)
+      let hent = await __mapper('xs').h('ent')
+       newAnigrams = await hent.gramm(newAnigram)
+      // const hformed = await __mapper('xs').h('formed')
+      // newAnigrams = await hformed.gramm(newAnigram)
       
       if (1 && 1) console.log('anima', anima)
       if (1 && 1) console.log(' --------- newAnigrams', newAnigrams)

@@ -16,21 +16,18 @@
 
   async function controlWen(__mapper = {}) {
 
-    let __rrenderport    = 	__mapper('xs').r('renderport'),
-        __mversor    = 	__mapper('xs').m('versor'),
-        __d3 = 	__mapper('xs').q('d3'),
-        __mgeom = 	__mapper('xs').m('geom')
-    
-    
-    let [rrenderport, mversor, d3, mgeom] 
-      = await Promise.all(
-        [__rrenderport, __mversor, __d3, __mgeom])    
-    
-    
-    // let rrenderport = __mapper('xs').r('renderport'),
-      // mversor = __mapper('xs').m('versor'),
-      // d3 = __mapper('xs').q('d3'),
-      // mgeom = __mapper('xs').m('geom')
+    let [
+          rrenderport, 
+          mversor, 
+          d3, 
+          mgeom 
+      ] = await Promise.all([
+        __mapper('xs').r('renderport'),
+        __mapper('xs').m('versor'),
+        __mapper('xs').q('d3'),
+        __mapper('xs').m('geom'),
+      ])    
+
 
 
     function tick () {

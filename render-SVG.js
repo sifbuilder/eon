@@ -32,17 +32,15 @@
 
   async function renderSvg(__mapper = {}) {
 
-    let cellpromises  = 	[
-                __mapper('xs').r('renderport'),
-                __mapper('xs').q('d3'),
-              ]
+
 
     let [
         rrenderport,  // cameraProjer
         d3,
-      ] = await Promise.all(
-        cellpromises
-      )
+      ] = await Promise.all([
+        __mapper('xs').r('renderport'),
+        __mapper('xs').q('d3'),      
+      ])
 
 
     // let rrenderport = __mapper('xs').r('renderport'),

@@ -13,8 +13,13 @@
   // md:  Copyright 2017 Mike Bostock.
   // md:     proj3ct(gj, projection)
 
-  var muonProj3ct = function (__mapper = {}) {
-    let d3 = __mapper('d3')
+  async function muonProj3ct(__mapper = {}) {
+    
+    let [
+        d3,
+      ] = await Promise.all([
+        __mapper('xs').q('d3'),      
+      ])
 
     let noop = function () {}
     let d3Geo = d3
@@ -41,8 +46,10 @@
     }
 
     var project = function (object, projection) {		// index
+      if (1 && 1) console.log('projection', projection)
+
       var stream = projection.stream, project
-      if (!stream) throw new Error('invalid projection')
+      if (!stream) throw new Error('invalid projection', projection)
       switch (object && object.type) {
         case 'Feature': project = projectFeature; break
         case 'FeatureCollection': project = projectFeatureCollection; break
@@ -184,11 +191,9 @@
       }
     }
 
-    /***************************
- *        @enty
- */
-    let enty = (object, projection) => project(object, projection)
-
+    // ............................. enty
+    let enty = project
+    enty.project = project
     return enty
   }
 
