@@ -28,8 +28,6 @@
         __mapper('xs').m('geom'),
       ])    
 
-
-
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)
     }
@@ -80,14 +78,13 @@
 
     }
 
-    // start drag control
+    // .................. start drag control
     let control = elem => elem.call(d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended))
 
-    // stop drag control
+    // .................. stop drag control
     let reset = elem => elem.call(d3.drag().on('start', null).on('drag', null).on('end', null))
 
-    
-    // dragstarted listener
+    // .................. dragstarted listener
     let dragstarted = function () {
       let e = d3.event
 
@@ -117,7 +114,7 @@
 
     }
 
-    // dragged  listener
+    // .................. dragged  listener
     let dragged = function () {
     
       if (!state.grabbed) return
@@ -145,7 +142,7 @@
       ]
     }
 
-    // dragended  listener
+    // .................. dragended  listener
     let dragended = function () {
 
       if (!state.grabbed) return
@@ -164,6 +161,7 @@
       state.timer = requestAnimationFrame(momentum)
     }
 
+    // .................. momentum    
     function momentum () {
       if (Math.abs(state.vel[0]) < inits.epsilon && Math.abs(state.vel[1]) < inits.epsilon) return
         state.vel[0] *= inits.decay 

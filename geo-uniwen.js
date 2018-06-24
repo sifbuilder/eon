@@ -63,9 +63,7 @@
       return [p[0] / f0, p[1] / f1, p[2]]
     }
 
-    /**************************
-  *       @wenProjInvert
-  */
+    // .................. wenProjInvert
     let wenProjInvert = function (point) {
 
       let rotate = state.rotate,
@@ -99,9 +97,7 @@
       return c
     }
 
-    /**************************
-  *       @pointStream
-  */
+    // .................. pointStream
     let pointStream = function (x, y, z) {
       let rotate = state.rotate,
         scale = state.scale,
@@ -133,14 +129,10 @@
         }
       }
 
-
-
       this.stream.point(...c)
     }
 
-    /**************************
-  *       @uniprofion
-  */
+    // .................. uniprofion
     let uniprofion = () => {
       let geoTrans = d3.geoTransform({
         point: pointStream,
@@ -155,9 +147,7 @@
       return geoProj
     }
 
-    /****************************
-   *    @enty
-   */
+    // .................. enty
     let enty = function (prjdef = {}) {
 
       let m = uniprofion(prjdef)
