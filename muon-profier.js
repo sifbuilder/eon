@@ -113,10 +113,13 @@
         
         if (mprops.isString(projdef.projection)) { // if _projection singular name
         
-          let prj = await __mapper('xs').g(projdef.projection)
-
-
+          // let mapperName = __mapper('xs').eonize(projdef.projection, 'geo')
+          // if (1 && 1) console.log('mapperName', mapperName)
+          // geoproj = __mapper(mapperName)
+            // .then(prj => prj(projdef))
+            // if (1 && 1) console.log('geoproj', geoproj)
           
+          let prj = await __mapper('xs').g(projdef.projection)         
           geoproj = prj(projdef)
           
         } else if (mprops.isArray(projdef.projections)) { // if plural select one
@@ -163,7 +166,7 @@
 
         if (typeof projdef !== 'object') { // projdef is object
         
-            if (2 && 2) console.log('getProj_ is not object', projdef)
+            // if (2 && 2) console.log('getProj_ is not object', projdef)
             projection = d => d 
             return  projection // id
             
@@ -255,9 +258,10 @@
     
     // ............................. conformer_
     async function conformer_ (anigram) {
-      let projion
+      
+      let projion = null
+      
       let projdef = anigram.payload.conform
-
       if (projdef === undefined) {
         projion = d => d // identity if conformed undefined
       } else {
@@ -277,21 +281,33 @@
 
     // ............................. proformion_
     async function proformion_(anigram) {
+if (1 && 1) console.log('proformion_', anigram)
+
+        let res = null
         let prj = anigram.payload.proform
-        if (1 && 1 && prj === undefined) console.log('proformion_ prj', prj)
+        if (prj) {
+          res = await formion_(prj, anigram)
+          return res
+        } else {
+          return res
+        }
         
-        let res = await formion_(prj, anigram)
-        return res
     }
+    
     const proformer = anitem => json => mproj3ct.project(json, proformion_(anitem))
 
     // ............................. ereformion_
      async function ereformion_(anigram) {
+       
+        let res = null
         let prj = anigram.payload.ereform
-        if (1 && 1 && prj === undefined) console.log('ereformion_ prj', prj)
+        if (prj) {
+          res = await formion_(prj, anigram)
+          return res
+        } else {
+          return res
+        }
         
-        let res = await formion_(prj, anigram)
-        return res
     }   
     const ereformer = anitem => json => mproj3ct.project(json, ereformion_(anitem))
 

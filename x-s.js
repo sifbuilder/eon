@@ -13,7 +13,9 @@
     let xD3Require = __mapper('xD3Require')
 
     let cap = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // capitalize
-
+    
+    let eonize = (nome, pres='') => (pres === '') ? nome : pres + cap(nome)
+    
     // https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
     function camelize(str) {
       return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
@@ -79,6 +81,7 @@
     // ............................. enty
     let enty = function() {}
 
+    enty.eonize = eonize
     enty.boson = enty.b = (params, pres = '') => getBoson(params, pres)
     enty.quark = enty.q = (params, pres = '') => getBoson(params, pres)
     enty.muon = enty.m = (params, pres = 'muon') => getBoson(params, pres)

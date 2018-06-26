@@ -77,8 +77,10 @@
     const getgramms = async (animas) => {
 
       let promises = animas.map(anima => mstore.gramm(anima)) // stores anigrams
+if (1 && 1) console.log('promises', promises)      
       Promise.all(promises)
         .then((resolved) => {
+if (1 && 1) console.log('resolved', resolved)
 
          let newAnigrams = resolved.reduce((p, q) => [...p, ...q], [])
 
@@ -127,22 +129,21 @@ if (1 && 1) console.log(' .................. aniListener', state.animas.length, 
 
       // ............................. @WEEN generate animas and offsprings
 
+          getweens(state.animas, elapsed)
+          .then(animas => getsims(state.animas))
+          .then(animas => getgramms(state.animas))
+          .then(anigrams => {
+            let featurecollection = { 'type': 'FeatureCollection', 'features': anigrams.map(d => d.geofold) }
+            rsvg.render(elapsed, featurecollection)
+          })
+        
+      
 
-        state.animas = await getweens(state.animas, elapsed)
-
-
-        // ............................. @SIM defaults position of nodes
-        state.animas = await getsims(state.animas)
-  
-        // ............................. @GRAMM animas to anigrams
-
-        let anigrams =  await getgramms(state.animas)
-  
-        // ............................. render
-        let featurecollection = { 'type': 'FeatureCollection', 'features': anigrams.map(d => d.geofold) }
-
-        // rrenderport.render(elapsed, featurecollection)
-        rsvg.render(elapsed, featurecollection)
+        // state.animas = await getweens(state.animas, elapsed)
+        // state.animas = await getsims(state.animas) //  @SIM defaults position of nodes
+        // let anigrams =  await getgramms(state.animas) //  @GRAMM animas to anigrams
+        // let featurecollection = { 'type': 'FeatureCollection', 'features': anigrams.map(d => d.geofold) }
+        // rsvg.render(elapsed, featurecollection) //  render
 
 
     }

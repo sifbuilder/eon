@@ -97,19 +97,6 @@
         return svgLayer
       }
 
-      // else if (idfyer == 'image') { // if image insert image
-      // if (d3.select('.image').empty()) {
-      // let img = svg.selectAll('image').data([0])
-      // .enter()
-      // .insert('svg:image')
-      // .attr('xlink:href', './image.jpg')
-      // .attr('x', '0')
-      // .attr('y', '0')
-      // .attr('width', state.width)
-      // .attr('height', state.height)
-      // return img
-      // }
-      // }
 
       // manage the dom elements
       else if (typeof (idfyer) === 'string') { // 'svg:g.links/path.link', data, idfn}
@@ -153,6 +140,11 @@
 
     // ............................. render
     let render = function (elapsed, featurecollection, maxlimit) {
+      
+      if (1 && 1) console.log(' ---------------- featurecollection', featurecollection)
+
+      
+      
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
@@ -162,17 +154,18 @@
 
 
                 let cameraProjer = rrenderport.cameraProjer()
-                let prjdef =   rrenderport.prjdef()
+                let prjdef = rrenderport.prjdef()
                 let prj = guniwen(prjdef)
-                cameraProjer =prj
+                cameraProjer = prj
 
-                
-      
+ 
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
         .key(function (d) { return d.properties.ric.gid })
         .key(function (d) { return d.properties.ric.cid })
         .entries(features) // features
 
+
+  
       for (let i in gitems) { // DOTS (seg5===0) each group gid
         let gid = gitems[i].key, citems = gitems[i].values
 
@@ -303,6 +296,7 @@
             )
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
+            
           if (features.length > 0) { // _e_
             svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.uid) // elems
               .data(() => features)
@@ -311,7 +305,6 @@
                 let geoitem = d // geojson feature
                 let properties = geoitem.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
-
                 
                 let geoPath = d3.geoPath(cameraProjer) // path on view projection
                 let path = (pointRadius !== undefined) // geoPath

@@ -149,7 +149,6 @@
 
     // .................. enty
     let enty = function (prjdef = {}) {
-      if (1 && 1) console.log('g.uniwen prjdef', prjdef)
 
       let m = uniprofion(prjdef)
       let keys = Object.keys(prjdef)

@@ -70,10 +70,8 @@
     
       let cp = __mapper('geoUniwen')
           .then(uw => { 
-
               let geo =  uw(prjdef)
               
-if (1 && 1) console.log('r.renderport geo', geo)
 
               return geo
               
