@@ -283,7 +283,8 @@
 
     // ............................. proformion_
     function proformion_(anigram) {
-if (1 && 1) console.log('proformion_', anigram)
+      
+        if (1 && 1) console.log('proformion_', anigram.payload.proform)
 
         let res = null
         let prj = anigram.payload.proform
@@ -298,15 +299,15 @@ if (1 && 1) console.log('proformion_', anigram)
     const proformer = anitem => json => mproj3ct.project(json, proformion_(anitem))
 
     // ............................. ereformion_
-      function ereformion_(anigram) {
+    function ereformion_(anigram) {
        
-        let res = null
-        let prj = anigram.payload.ereform
-        if (prj) {
-          return formion_(prj, anigram)
-        } else {
-          return res
-        }
+      let res = null
+      let prj = anigram.payload.ereform
+      if (prj) {
+        return formion_(prj, anigram)
+      } else {
+        return res
+      }
         
     }   
     const ereformer = anitem => json => mproj3ct.project(json, ereformion_(anitem))

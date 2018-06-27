@@ -38,8 +38,13 @@
 
 
     __mapper({'xParts': xParts.xParts(__mapper)}) // xParts
+    
     await __mapper.mapParts(__mapper('xParts')()) // get and register parts
 
+let haloRef = 'haloEnt'
+let halo = __mapper(haloRef)
+if (1 && 1) console.log(' ~~~~~~~~ halo', halo)    
+    
     
     let animas = await animasPromise(__mapper)
     let mstore = await __mapper('xs').m('store')  // map store

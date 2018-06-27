@@ -147,8 +147,15 @@
     // .................. ween
     async function ween(anima, newItems = []) {
       let anigram = manitem.anigram(anima)
-
-
+      
+      
+      
+if (1 && 1) console.log('anigram', anigram)
+let haloRef = __mapper('xs').eonize(anigram.halo, 'halo')
+let halo = __mapper(haloRef)
+if (1 && 1) console.log(' ~~~~~~~~ halo', halo)
+      
+    
       if (anigram.halo !== undefined && typeof anigram.halo === 'string') {
 
         __mapper('xs').h(anigram.halo)
@@ -163,18 +170,7 @@
 
           })
 
-      } else {
-
-        let halo = anigram.halo
-
-          if (halo === null) console.log('halo ', anigram.halo, ' not found')
-          let weened = halo.ween(anima) // ANIMA HALO.WEEN
-          weened.forEach(newItem => { // qualify each ween
-            newItem.payload.uid = mric.getuid(newItem) // uid for children
-            newItems.push(newItem)
-          })
-
-      }
+      } 
 
       return newItems
     }
@@ -219,11 +215,12 @@
 
               if (1 && 1) console.log('store gramm newItems', newItems)
 
-
               return newItems
             })
 
         })
+        
+
     }
 
     // ............................. gramm
