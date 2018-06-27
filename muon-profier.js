@@ -251,9 +251,8 @@
     }
 
     // ............................. projer_
-    async function projer_ (prodef, anigram) { // projer_ is fenrir if no prodef
-      let projection = await formion_(prodef)
-      return json => mproj3ct.project(json,  projection)
+    function projer_ (prodef, anigram) { // projer_ is fenrir if no prodef
+      return json => mproj3ct.project(json,  formion_(prodef))
     }
     
     // ............................. conformer_
@@ -275,7 +274,7 @@
         }
 
         let projection = await formion_(projdef)
-        projion = json => mproj3ct.project(json, projection)
+        projion = json => mproj3ct.project(json, formion_(projdef))
       }
 
       return projion
