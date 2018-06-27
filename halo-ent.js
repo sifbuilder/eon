@@ -70,7 +70,7 @@
 
     // ............................. gramm
     async function grammify (anigram, newAnigrams = []) {
-       if (1 && 1) console.log('grammify', anigram)
+       if (1 && 1) console.log('grammify proform', anigram.payload.proform)
 
       let [
             conformion,
@@ -99,10 +99,10 @@
     }
 
     // ............................. gramm
-    async function gramm (anima) {
+     function gramm (anima) {
       if (1 && 1) console.log('gramm', anima)
 
-      return await grammify(manitem(anima).anigram())
+      return  grammify(manitem(anima).anigram())
 
 
     }

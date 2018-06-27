@@ -263,7 +263,9 @@
       
       let projdef = anigram.payload.conform
       if (projdef === undefined) {
+        
         projion = d => d // identity if conformed undefined
+        
       } else {
         if (projdef.projection === undefined) {
           projdef = { // natform if projection undefined
@@ -280,14 +282,13 @@
     }
 
     // ............................. proformion_
-    async function proformion_(anigram) {
+    function proformion_(anigram) {
 if (1 && 1) console.log('proformion_', anigram)
 
         let res = null
         let prj = anigram.payload.proform
         if (prj) {
-          res = await formion_(prj, anigram)
-          return res
+          return formion_(prj, anigram)
         } else {
           return res
         }
@@ -297,13 +298,12 @@ if (1 && 1) console.log('proformion_', anigram)
     const proformer = anitem => json => mproj3ct.project(json, proformion_(anitem))
 
     // ............................. ereformion_
-     async function ereformion_(anigram) {
+      function ereformion_(anigram) {
        
         let res = null
         let prj = anigram.payload.ereform
         if (prj) {
-          res = await formion_(prj, anigram)
-          return res
+          return formion_(prj, anigram)
         } else {
           return res
         }

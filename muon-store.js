@@ -69,41 +69,21 @@
 
   async function muonStore (__mapper) {
 
-    let __mtim    = 	__mapper('xs').m('tim'),
-        __mric    = 	__mapper('xs').m('ric'),
-        __manitem = 	__mapper('xs').m('anitem')
-
-  let [
+    let [
         mtim,
         mric,
-        manitem
+        manitem,
+        mprops,
        ] = await Promise.all([
-        __mtim,
-        __mric,
-        __manitem
-       ])           // dynamic halo
-
+        __mapper('xs').m('tim'),
+        __mapper('xs').m('ric'),
+        __mapper('xs').m('anitem'),
+        __mapper('xs').m('props'),
+       ])
 
 
     let epsilon = 1e-5
-	  let a = d => (Array.isArray(d)) ? [...d] : [d]
-    let fa = d => { // force array
-      let ret
-      if (Array.isArray(d)) ret = d
-      else if (d === null) ret = []
-      else if (d === undefined) ret = []
-      else if (typeof d === 'object') ret = Object.values(d)
-      else ret = d
-      return a(ret)
-    }
-    let o = obj => {
-      if (obj == null || typeof obj !== 'object') return obj
-      let copy = obj.constructor()
-      for (let attr in obj) {
-        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr]
-      }
-      return copy
-    }
+
 
     let state = {
       animas: [], // animas array
@@ -115,11 +95,11 @@
     let _apply = function (action = {}) {
       // .................. UPDANIMA
       if (action.type === 'UPDANIMA') {
-        let updAnimas = fa(action.animas) // get new animas as array
+        let updAnimas = mprops.fa(action.animas) // get new animas as array
         let elapsed = action.elapsed || 0
 
         for (let i = 0; i < updAnimas.length; i++) {
-          let updAnima = o(updAnimas[i]) // each new anima
+          let updAnima = mprops.o(updAnimas[i]) // each new anima
 
           let uid = (updAnima.payload.uid !== undefined) // uid
             ? updAnima.payload.uid
@@ -147,7 +127,7 @@
 
       // .................. UPDANIGRAM
       if (action.type === 'UPDANIGRAM') {
-        let newAnigrams = fa(action.anigrams)
+        let newAnigrams = mprops.fa(action.anigrams)
 
         for (let i = 0; i < newAnigrams.length; i++) {
           if (newAnigrams[i] !== undefined) {
@@ -200,61 +180,57 @@
     }
 
     // .................. gramm
-     async function grammify(anigram, newItems = []) {
+    function grammify(anigram, newItems = []) {
+      
+      if (1 && 1) console.log('anigram', anigram)
+      let haloRef = __mapper('xs').eonize(anigram.halo, 'halo')
+      if (1 && 1) console.log('haloRef', haloRef)
 
-      let ref = __mapper('xs').eonize(anigram.halo, 'halo')
-      // if (1 && 1) console.log('ref', ref)      
-      // let halo = __mapper(ref)
-      // if (1 && 1) console.log('halo', halo)
-      return __mapper(ref)
+      return __mapper(haloRef)  // anigram halo
         .then(halo => {
             return halo.gramm(anigram) // ANIMA HALO.GRAMM
               .then(newAnigrams => {
-                  if (1 && 1) console.log('newAnigrams', newAnigrams)            
-                      if (newAnigrams !== null && newAnigrams.length > 0) {
-                        _apply({'type': 'UPDANIGRAM', 'anigrams': newAnigrams})
-                          newItems = newItems.concat(a(newAnigrams))
-                      }
+                if (1 && 1) console.log('newAnigrams', newAnigrams)
+                  if (newAnigrams !== null && newAnigrams.length > 0) {
+                    _apply({'type': 'UPDANIGRAM', 'anigrams': newAnigrams})
+                      newItems = newItems.concat(mprops.a(newAnigrams))
+                  }
 
-                      if (newItems !== undefined && newItems.length > 0) { // avatars in NEW animas
-                        for (let i = 0; i < newItems.length; i++) {
-                          let newItem = newItems[i] // each new item
-                          if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
-                            let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
+                  if (newItems !== undefined && newItems.length > 0) { // avatars in NEW animas
+                    for (let i = 0; i < newItems.length; i++) {
+                      let newItem = newItems[i] // each new item
+                      if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
+                        let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
 
-                            for (let j = 0; j < avatars.length; j++) {
-                              let newSubItems = []
-                              let avatar = avatars[j]
+                        for (let j = 0; j < avatars.length; j++) {
+                          let newSubItems = []
+                          let avatar = avatars[j]
 
-                              avatar.payload.uid = mric.getuid(avatar) // uid for children
-                              avatar.payload.tim = anigram.payload.tim // time from anima
-                              avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
+                          avatar.payload.uid = mric.getuid(avatar) // uid for children
+                          avatar.payload.tim = anigram.payload.tim // time from anima
+                          avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
 
-                              newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
-                              _apply({'type': 'UPDANIGRAM', 'anigrams': newSubItems})
-                            }
-                          }
+                          newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
+                          _apply({'type': 'UPDANIGRAM', 'anigrams': newSubItems})
                         }
                       }
+                    }
+                  }
 
-                if (1 && 1) console.log('store gramm newItems', newItems)
+              if (1 && 1) console.log('store gramm newItems', newItems)
 
 
-                return newItems
-              })
-              
+              return newItems
+            })
+
         })
     }
 
     // ............................. gramm
-    async function gramm (anima) {
-      if (1 && 1) console.log('gramm anima', anima)
-
-      return await grammify(manitem(anima).anigram())
+    let gramm = (anima) => grammify(manitem(anima).anigram())
 
 
-    }    
-    
+
     // .................. enty
     function enty () {}
 

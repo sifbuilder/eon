@@ -40,7 +40,18 @@
     /***************************
     *        @arrays
     */
-	  props.a = d => (Array.isArray(d)) ? [...d] : [d]
+	  props.a = d => {
+        let ret = []
+        if (d === undefined) { // ret = []
+        } else if (d === null) { // ret = []
+        } else if (Array.isArray(d)) {
+          ret = [...d]
+        } else {
+          ret = [d]
+        }
+        return ret
+        
+    }
 
     props.cloneArray = function (obj) {
       if (Array.isArray(obj)) {

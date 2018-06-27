@@ -36,20 +36,18 @@
 
       let promises = parts.map(p => enty.mapOnePart(p))
       await Promise.all(promises)
-        .catch(function (err) {
-          console.log('A promise failed to resolve', err)
-          return promises
-        })
         .then(function (resolvedParts) {
           resolvedParts.map(r => {
             let partName = r[0]
-            // let partCode = (r[1][partName] === undefined) ? r[1] : r[1][partName]
             let partCode = r[1]
-            
             intermap( { [partName]: partCode  })   // add to mapper state
           }) 
           
         })
+        .catch(function (err) {
+          console.log('A promise failed to resolve', err)
+          return promises
+        })        
     }
 
 
