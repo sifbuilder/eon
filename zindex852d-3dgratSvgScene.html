@@ -26,7 +26,6 @@
 // md: # license
 // md: MIT
 
-
 ;(async function ____e() {
     let __mapper = xMapper.xMapper() // init mapper
 
@@ -35,7 +34,6 @@
 
     __mapper({'xLibs': xLibs.xLibs(__mapper)}) // xLibs    
     await __mapper.mapParts(__mapper('xLibs')()) // register libs
-
 
     __mapper({'xParts': xParts.xParts(__mapper)}) // xParts
     
@@ -83,13 +81,7 @@ async function animasPromise(__mapper) {
     }
   }
 
-  let conform2d = {
-
-    projection: 'natform',
-    form: form2d
-
-  }
-
+  let conform2d = { projection: 'natform', form: form2d }
 
   let form3d = {
 
@@ -107,13 +99,7 @@ async function animasPromise(__mapper) {
     }
   }
 
-  let conform3d = {
-
-    projection: 'natform',
-    form: form3d
-
-  }
-
+  let conform3d = { projection: 'natform', form: form3d }
 
   // .................. gratiform
   let g1 = {
@@ -149,7 +135,6 @@ async function animasPromise(__mapper) {
   let g2 = {
 
     halo: 'ent',
-
     geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
     payload: {
@@ -216,7 +201,6 @@ async function animasPromise(__mapper) {
 
   // .................. animaset
   let animas = [
-
 
     g1, // h.ent g.natform
     // g2, // h.ent g.natform

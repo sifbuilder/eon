@@ -274,7 +274,7 @@
         }
 
         let projection = await formion_(projdef)
-        projion = json => mproj3ct.project(json, formion_(projdef))
+        projion = json => mproj3ct.project(json, projection)
       }
 
       return projion
