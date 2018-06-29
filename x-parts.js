@@ -85,7 +85,7 @@ let parts = [
 // ['libComplex' , './lib-complex.js'],
 /* muon*/
 ['muonWen' , './muon-wen.js'],
-['muonVoro' , './muon-voro.js'],
+// ['muonVoro' , './muon-voro.js'],
 ['muonVersor' , './muon-versor.js'],
 ['muonTimer' , './muon-timer.js'],
 ['muonTim' , './muon-tim.js'],
@@ -142,8 +142,8 @@ let parts = [
 // ['haloFourier' , './halo-fourier.js'],
 ['haloFormed' , './halo-formed.js'],
 ['haloEnt' , './halo-ent.js'],
-['haloCore' , './halo-core.js'],
-['haloCamera' , './halo-camera.js'],
+// ['haloCore' , './halo-core.js'],
+// ['haloCamera' , './halo-camera.js'],
 // ['haloAxis' , './halo-axis.js'],
 /* render*/
 // ['renderWebgl' , './render-webgl.js'],

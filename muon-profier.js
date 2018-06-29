@@ -89,13 +89,13 @@
 
 
     // ............................. getProj_
-    async function getProj_(projdef) {
+    function getProj_(projdef) {
       let geoproj
 
       if (projdef === undefined) {
         
         if (2 && 2) console.log('** m.profier.formion_ projdef undefined', projdef)
-        geoproj = formion_({projection: 'uniwen'})
+        // geoproj = formion_({projection: 'uniwen'})
         geoproj = guniwen({})
         
       } else if (typeof projdef === 'function') {
@@ -119,8 +119,18 @@
             // .then(prj => prj(projdef))
             // if (1 && 1) console.log('geoproj', geoproj)
           
-          let prj = await __mapper('xs').g(projdef.projection)         
-          geoproj = prj(projdef)
+          // let prj = await __mapper('xs').g(projdef.projection)   
+
+          let geo = __mapper('xs').eonize(projdef.projection, 'geo')
+          if (1 && 1) console.log('projdef.geo', geo)
+
+          let prj = __mapper('xs').getFermion(geo)
+          if (1 && 1) console.log('projdef.prj', prj)
+
+
+          geoproj = prj(projdef) // 
+          // geoproj = __mapper(__mapper('xs').eonize(projdef.projection, 'd3.geo'))(projdef) // 
+          // geoproj = prj(projdef)
           
         } else if (mprops.isArray(projdef.projections)) { // if plural select one
         
@@ -128,7 +138,8 @@
 
           if (mprops.isString(geoproj)) { // if name in array
           
-            geoproj = await __mapper('xs').g(geoproj)(projdef) // get projection from name
+            geoproj = __mapper(geoproj, 'geo')(projdef) // get projection from name
+            geoproj = __mapper(geoproj, 'd3.geo')(projdef) // get projection from name
             
           } else {
             
@@ -146,7 +157,7 @@
           
           let projname = 'uniwen' // default to uniwen projection
           
-          geoproj =await  __mapper('xs').g(projdef.projection)(projname) // get projection from name
+          geoproj =   guniwen() // get projection from name
           
         }
       }
@@ -155,7 +166,7 @@
     }
 
     // ............................. formion_
-    async function formion_(projdef, anigram = {}) {
+    function formion_(projdef, anigram = {}) {
         let projection
         let projname
 
@@ -171,7 +182,7 @@
             return  projection // id
             
         }
-        projection = await getProj_(projdef)
+        projection =  getProj_(projdef)
 
         if (projdef.translate) { // TRANSLATE proj method
           if (mprops.isPureArray(projdef.translate)) {
@@ -256,16 +267,13 @@
     }
     
     // ............................. conformer_
-    async function conformer_ (anigram) {
+     function conformer_ (anigram) {
       
-      let projion = null
+      let projion = d => d // identity if conformed undefined
       
       let projdef = anigram.payload.conform
-      if (projdef === undefined) {
-        
-        projion = d => d // identity if conformed undefined
-        
-      } else {
+      if (projdef !== undefined) {
+
         if (projdef.projection === undefined) {
           projdef = { // natform if projection undefined
             projection: 'natform', // default to natform
@@ -273,7 +281,7 @@
           }
         }
 
-        let projection = await formion_(projdef)
+        let projection =  formion_(projdef)
         projion = json => mproj3ct.project(json, projection)
       }
 

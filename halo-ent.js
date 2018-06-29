@@ -69,18 +69,13 @@
       }
 
     // ............................. gramm
-    async function grammify (anigram, newAnigrams = []) {
+     function grammify (anigram, newAnigrams = []) {
        if (1 && 1) console.log('grammify proform', anigram.payload.proform)
 
-      let [
-            conformion,
-            ereformion,
-            proformion
-           ] = await Promise.all([
-            mprofier.conformer_(anigram),
-            mprofier.ereformion_(anigram),
-            mprofier.proformion_(anigram)
-           ])
+      let conformion = mprofier.conformer_(anigram)
+            ereformion = mprofier.ereformion_(anigram)
+            proformion = mprofier.proformion_(anigram)
+
       const t = f => p(e(c(f,conformion),ereformion),proformion)
 
       let gj

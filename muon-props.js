@@ -19,8 +19,8 @@
     // let d3scaleLinear = d3Scale.scaleLinear
     
     let cellpromises  = 	[
-                __mapper('xs').q('d3'),
-              ]
+        __mapper('xs').q('d3'),
+      ]
 
     let [
         d3,

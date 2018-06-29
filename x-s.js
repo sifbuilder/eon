@@ -28,70 +28,67 @@
     let getFromMapper = part => __mapper(part)
     let getFromEnty = part => part()
     let getAsFunction = part => part
-    let getFromNet = async part => await xD3Require.require(part) // global xD3Require
+    let getFromNet = part => xD3Require.require(part) // global xD3Require
 
 
     // ............................. getFermion
-    function getFermion(params, pres = '', ret = null) {
+    function getFermion(nome, pres = '', ret = null) {
+if (1 && 1) console.log('getFermion', nome)
 
-      let nome = (typeof (params) === 'object') ? params.nome :  params
-      let itemName = (pres === '') ? nome : pres + cap(nome) // item syn names
+      let itemName = eonize(nome, pres)
 
-        if (__mapper(itemName) !== undefined) { // item in mapper
+      if (__mapper(itemName) !== undefined) { // item in mapper
 
-          ret =  getFromMapper(itemName)
+        ret =  getFromMapper(itemName)
 
-          if (ret[itemName] !== undefined) {  // if cell
+        if (ret[itemName] !== undefined) {  // if cell
 
-            let enty = ret[itemName](__mapper)  // get enty
-            __mapper({ [itemName]: enty  })   // intermap enty
+          let enty = ret[itemName](__mapper)  // get enty
+          __mapper({ [itemName]: enty  })   // intermap enty
 
-            ret = getFromMapper(itemName) // get from mapper
-
-          }
-
-        } else  {
-
-            if (2 && 2) console.log(`getFermion ${itemName} not in mapper ${itemName}`, ret)
+          ret = getFromMapper(itemName) // get from mapper
 
         }
+
+      } 
 
       return ret
     }
 
     // ............................. async getBoson
-    async function getBoson(params, pres = 'boson') {
+    function getBoson(nome, pres = 'boson', ret = null) {
 
-      let ret = await getFermion(params, pres)
+      ret = getFermion(nome, pres)
 
-      if (ret === null) {
+      if (ret) {
+        
+        return ret
+        
+      } else {
 
-        let nome = (typeof (params) === 'object') ? params.nome :  params
-        let itemName = (pres === '') ? nome : pres + cap(nome) // item syn names
+        return getFromNet(eonize(nome, pres))
+        .then(part => {return part})
 
-        ret = await getFromNet(itemName)
-        console.log(` !!!!!!!!!!!  got ${params} from net`)
+      } 
 
-      }
-
-      if (!ret) console.log(` ===>  could not get boson: ${params}`)
-      return ret
     }
 
     // ............................. enty
     let enty = function() {}
 
     enty.eonize = eonize
-    enty.boson = enty.b = (params, pres = '') => getBoson(params, pres)
-    enty.quark = enty.q = (params, pres = '') => getBoson(params, pres)
-    enty.muon = enty.m = (params, pres = 'muon') => getBoson(params, pres)
-    enty.data = enty.d = (params, pres = 'data') => getFermion(params, pres)
-    enty.force = enty.f = (params, pres = 'force') => getFermion(params, pres)
-    enty.geo = enty.g = (params, pres = 'geo') => getFermion(params, pres)
-    enty.proj = enty.p = (params, pres = 'd3.geo') => getFermion(params, pres)
-    enty.halo = enty.h = (params, pres = 'halo') => getBoson(params, pres)
-    enty.control = enty.c = (params, pres = 'control') => getFermion(params, pres)
-    enty.render = enty.r = (params, pres = 'render') => getFermion(params, pres)
+    enty.boson = enty.b = (nome, pres = '') => getBoson(nome, pres)
+    enty.quark = enty.q = (nome, pres = '') => getBoson(nome, pres)
+    enty.muon = enty.m = (nome, pres = 'muon') => getBoson(nome, pres)
+    enty.data = enty.d = (nome, pres = 'data') => getFermion(nome, pres)
+    enty.force = enty.f = (nome, pres = 'force') => getFermion(nome, pres)
+    enty.geo = enty.g = (nome, pres = 'geo') => getFermion(nome, pres)
+    enty.proj = enty.p = (nome, pres = 'd3.geo') => getFermion(nome, pres)
+    enty.halo = enty.h = (nome, pres = 'halo') => getBoson(nome, pres)
+    enty.control = enty.c = (nome, pres = 'control') => getFermion(nome, pres)
+    enty.render = enty.r = (nome, pres = 'render') => getFermion(nome, pres)
+    enty.getFermion = getFermion
+    enty.getBoson = getBoson
 
     return enty
   }

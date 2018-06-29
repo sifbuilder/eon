@@ -10,44 +10,57 @@
 
   let xMapper = function () {
     let state = {}
-
+    let getCell = (e,n,m) => e[n] !== undefined ? e[n](m) : e // eon, name, map
+    
     // ............................. intermap
     function intermap (_) {
-      
+
       if (arguments.length < 1) return state
-      if (typeof _ === 'object') return state = Object.assign({}, state, _)
-      if ((typeof _ === 'string') && (state[_] !== undefined)) return state[_]
-    
+      else if (typeof _ === 'object') return state = Object.assign({}, state, _)
+      else if (typeof _ === 'string' && state[_] !== undefined) return state[_]
+
     }
 
-    // ............................. mapOnePart    
-    async function mapOnePart (part) {  // partName: eg. haloPacer
-      let partName = part[0] // name
+    // ............................. mapOnePart
+    // function mapOnePart (part) {  // partName: eg. haloPacer
+    
+      // let partName = part[0] // name
+      // let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1]) // to array
+
+      // return intermap('xD3Require').require(...parts) // to state
+        // .then(value => {
+          
+          // return [ partName, value ]
+        // })
+
+
+    // }
+    function mapOnePart (part) {  // partName: eg. haloPacer
+    
+      let nome = part[0] // name
       let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1]) // to array
 
-      let promises = intermap('xD3Require').require(...parts) // to state
-      let [resolved] = await Promise.all([promises])
-      return [ partName, resolved ]
       
+      return intermap('xD3Require').require(...parts) // to state
+        .then(eon => [ nome, getCell(eon, nome, enty) ])
+
+
     }
 
-    // ............................. mapParts        
-    async function mapParts (parts) {
+    // ............................. mapParts
+    async function mapParts (parts) { // modifies mapper state
+    
+      await Promise.all(parts.map(p => enty.mapOnePart(p)))
+      .then(values => {
+          values.map(value => {
+            if (1 && 1) console.log('value', value)
 
-      let promises = parts.map(p => enty.mapOnePart(p))
-      await Promise.all(promises)
-        .then(function (resolvedParts) {
-          resolvedParts.map(r => {
-            let partName = r[0]
-            let partCode = r[1]
-            intermap( { [partName]: partCode  })   // add to mapper state
-          }) 
-          
-        })
-        .catch(function (err) {
-          console.log('A promise failed to resolve', err)
-          return promises
-        })        
+            let partName = value[0]
+            let partCode = value[1]
+            intermap( { [partName]: partCode[partName]  })   // add to mapper state
+          })
+      })
+
     }
 
 
