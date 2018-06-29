@@ -46,8 +46,8 @@
 
 
 
-    let width = rrenderport.width(),
-      height = rrenderport.height(),
+    let width = 600,
+      height = 400,
       background = 'black'
 
     let state = {

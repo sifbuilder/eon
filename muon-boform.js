@@ -8,11 +8,16 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonBoform = function (__mapper = {}) {
+  async function  muonBoform(__mapper = {}) {
     
-    let mstore = __mapper('xs').m('store'),
-      d3 = __mapper('xs').q('d3')
-
+    let [
+          mstore, 
+          d3, 
+      ] = await Promise.all([
+        __mapper('xs').m('store'),
+        __mapper('xs').q('d3'),
+      ])    
+    
     let colors = {} // colors
     colors.scales = {
       ambar: d3.scaleLinear().domain([0, 0.50, 1]).range(['black', '#FF2400', '#f8a413']), // balck   scarlet ambar

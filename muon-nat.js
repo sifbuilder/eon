@@ -50,28 +50,18 @@
 
   async function muonNat (__mapper = {}) {
     
-    let cellpromises  = 	[
-                __mapper('xs').m('graticule'),
-                __mapper('xs').m('profier'),
-                __mapper('xs').m('proj3ct'),
-                __mapper('xs').q('d3'),
-              ]
-
     let [
         mgraticule,
         mprofier,
         mproj3ct,
         d3,
-      ] = await Promise.all(
-        cellpromises
-      )        
-    
-    
-    // let mgraticule = __mapper('xs').m('graticule'),
-      // mprofier = __mapper('xs').m('profier'),
-      // mproj3ct = __mapper('xs').m('proj3ct'),
-      // d3 = __mapper('d3')
-
+      ] = await Promise.all( [
+        __mapper('xs').m('graticule'),
+        __mapper('xs').m('profier'),
+        __mapper('xs').m('proj3ct'),
+        __mapper('xs').q('d3'),
+        
+      ])        
     let cache = {} // feature, form
 
     const cos = Math.cos, sin = Math.sin,

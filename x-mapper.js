@@ -57,7 +57,9 @@
 
             let partName = value[0]
             let partCode = value[1]
-            intermap( { [partName]: partCode[partName]  })   // add to mapper state
+            let cell = { [partName]: partCode }
+if (1 && 1) console.log('cell', cell)            
+            intermap( cell )   // add to mapper state
           })
       })
 

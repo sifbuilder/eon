@@ -10,8 +10,15 @@
 
   // copyright mbostock
   // https://github.com/d3/d3-timer/blob/master/src/timer.js
-  let muonTimer = function muonTimer (__mapper = {}) {
-    let props = __mapper('xs').m('props')
+  async function  muonTimer(__mapper = {}) {
+    
+    let [
+          props, 
+      ] = await Promise.all([
+        __mapper('xs').m('props'),
+      ])    
+        
+    
 
     let frame = 0, // is an animation frame pending?
       timeout = 0, // is a timeout pending?

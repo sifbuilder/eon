@@ -8,7 +8,10 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonGeom = function muonGeom (__mapper = {}) {
+  async function muonGeom (__mapper = {}) {
+    
+    
+    
     let pi = Math.PI,
       degrees = 180 / pi,
       radians = pi / 180

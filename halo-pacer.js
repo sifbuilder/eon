@@ -10,9 +10,9 @@
 
   // md: # md:{filename}
   // md: **create new items at init, on auto or upon event**
-  // md: 
+  // md:
   // md: ### functions
-  // md: 
+  // md:
   // md: * ##### _geojsor
   // md: usage: `_geojsor(@ani, @prob`
   // md:  ani.pacer.initN
@@ -22,13 +22,13 @@
   // md:  ani.pacer.outtimed
   // md:  ani.pacer.maxN
   // md:  ani.pacer.span
-	// md: 	ani.pacer.aad: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
-	// md: 	ani.pacer.type: {LineString}
-	// md: 	ani.pacer.base: {geo, ere, pro}
-  // md: 
-  // md: 
+  // md: 	ani.pacer.aad: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
+  // md: 	ani.pacer.type: {LineString}
+  // md: 	ani.pacer.base: {geo, ere, pro}
+  // md:
+  // md:
   // md: ### methods
-  // md: 
+  // md:
   // md: * ##### gramm
   // md: `@a.p.pacer.initSitus`  : situs for init items
   // md: `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, ani)`
@@ -43,11 +43,9 @@
   // md:
   // md: ## license
   // md: MIT
-  
+
   let haloPacer = function haloPacer (__mapper = {}) {
-    let f = __mapper('xs').m('props'),
-      mgeom = __mapper('xs').m('geom'),
-      mwen = __mapper('xs').m('wen'),
+    let mgeom = __mapper('xs').m('geom'),
       crayder = __mapper('xs').c('rayder'),
       cwen = __mapper('xs').c('wen'),
       cversor = __mapper('xs').c('versor'),
@@ -57,10 +55,6 @@
       mstore = __mapper('xs').m('store'),
       hent = __mapper('xs').h('ent')
       // dynamic halo
-
-    let r = __mapper('xs').r('renderport'),
-      width = r.width(),
-      height = r.height()
 
     // ............................. _geofolder
     let _geofolder = function (ani, prob) {
@@ -139,12 +133,10 @@
 
       let count = {} // count: items in cycle
 
-
       //  pacer interfaces
       let geofolder = payload.pacer.geofolder || _geofolder
       let stacer = Object.assign({}, payload.pacer.stacer, _stacer)
       let riccer = payload.pacer.riccer || function (ani) { return ani.payload.ric }
-
 
       //  event
       if (crayder.mouse() && crayder.mouse().type === 'mouseup') { // if mouse up then reset
@@ -154,8 +146,6 @@
       }
       if ((crayder.mouse() !== undefined && crayder.mouseDown() === 1) ||
           (crayder.touch() !== undefined && crayder.touchStart() === 1)) { // on mouse DOWN
-
-
         if (mousesignal === 0 || crayder.mouse().type === 'mousedown') { //
           count.event = Math.floor(pacer.eventN) //  if in state or was event
         }
@@ -178,7 +168,7 @@
         // mstore.apply({'type': 'UPDANIMA', 'caller': 'h.pacer', animas})
         mstore.apply({'type': 'UPDANIGRAM', 'caller': 'h.pacer', animas})
       }
-  
+
       if (Object.keys(count).length > 0) { // on pace count
         let stace // situs of new anitem dependent on kind
 

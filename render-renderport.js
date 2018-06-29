@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  const renderRenderport = function renderRenderport (__mapper = {}) {
+  async function renderRenderport (__mapper = {}) {
     // let cellpromises = 	[
       // __mapper('xs').m('scene')
       // __mapper('xs').r('svg')

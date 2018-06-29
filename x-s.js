@@ -28,12 +28,12 @@
     let getFromMapper = part => __mapper(part)
     let getFromEnty = part => part()
     let getAsFunction = part => part
-    let getFromNet = part => xD3Require.require(part) // global xD3Require
+    // let getFromNet = part => xD3Require.require(part) // global xD3Require
+    let getFromNet = part => Promise.resolve(part)
 
 
     // ............................. getFermion
     function getFermion(nome, pres = '', ret = null) {
-if (1 && 1) console.log('getFermion', nome)
 
       let itemName = eonize(nome, pres)
 
@@ -43,10 +43,9 @@ if (1 && 1) console.log('getFermion', nome)
 
         if (ret[itemName] !== undefined) {  // if cell
 
-          let enty = ret[itemName](__mapper)  // get enty
-          __mapper({ [itemName]: enty  })   // intermap enty
-
-          ret = getFromMapper(itemName) // get from mapper
+          ret = ret[itemName](__mapper)  // get enty
+          
+          __mapper({ [itemName]: ret  })   // intermap enty
 
         }
 
