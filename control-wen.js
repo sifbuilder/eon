@@ -28,6 +28,7 @@
         __mapper('xs').m('geom'),
       ])    
 
+
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)
     }

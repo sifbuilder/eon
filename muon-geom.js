@@ -149,7 +149,7 @@
     /**************************
   *   @enty
   */
-    let enty = function enty () {}
+    let enty = function () {}
 
     enty.polygonArea = polygon => d3.polygonArea(polygon)
     enty.polygonRadius = polygon => Math.sqrt(Math.abs(d3.polygonArea(polygon))) / Math.PI

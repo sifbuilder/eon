@@ -10,15 +10,12 @@
 
   // copyright mbostock
   // https://github.com/d3/d3-timer/blob/master/src/timer.js
-  async function  muonTimer(__mapper = {}) {
-    
+  async function muonTimer (__mapper = {}) {
     let [
-          props, 
-      ] = await Promise.all([
-        __mapper('xs').m('props'),
-      ])    
-        
-    
+      mprops
+    ] = await Promise.all([
+      __mapper('xs').m('props')
+    ])
 
     let frame = 0, // is an animation frame pending?
       timeout = 0, // is a timeout pending?
@@ -40,7 +37,7 @@
       clockNow = 0
     }
 
-    let timer = function timer (callback, delay, time) {
+    let timer = function (callback, delay, time) {
       let t = new Timer()
       t.restart(callback, delay, time)
       return t
@@ -148,7 +145,7 @@
     /***************************
  *        @enty
  */
-    let enty = function enty () {}
+    let enty = {}
 
     enty.now = now
     enty.Timer = Timer

@@ -12,7 +12,6 @@
    async function muonAnimation(__mapper) {
 
     let [
-          ctimer,
           mprops,
           mstore,
           msim,
@@ -22,8 +21,8 @@
           rsvg,
           rwebgl,
           rrenderport,
+          ctimer,
       ] = await Promise.all( [
-          __mapper('xs').c('timer'),
           __mapper('xs').m('props'),
           __mapper('xs').m('store'),
           __mapper('xs').m('sim'),
@@ -33,16 +32,13 @@
           __mapper('xs').r('svg'),
           __mapper('xs').r('webgl'),
           __mapper('xs').r('renderport'),
+          __mapper('xs').c('timer'),
         ]
       )
 
     let state = {}
     state.animas = [] // global animas
 
-    // .................. register aniListener
-    if (state.animationStop === undefined) {
-      state.animationStop = ctimer.subscribe(aniListener)
-    }
 
     // .................. getweens
     const getweens = async (animas, elapsed) => {
@@ -77,10 +73,25 @@
       return mstore.anigrams()
 
     }
+ 
+     // .................. aniListener
+    function animate () {   
+
+        if (state.animationStop === undefined) {
+          if (1 && 1) console.log(' ------------------- animate')
+          state.animationStop = ctimer.subscribe(aniListener)
+        }    
+        
+    }
 
     // .................. aniListener
     function aniListener (elapsed) {
 
+
+    // .................. register aniListener
+
+    
+    
       state.animas = mprops.a(mstore.animasLive())
       if (1 && 1) console.log(' _____________________________ aniListener', state.animas.length, elapsed)
 
@@ -124,6 +135,7 @@
 
     // ............................. enty
     function enty () {}
+    enty.animate = animate
     enty.animationStop = () => state.animationStop
     return enty
   }

@@ -9,17 +9,16 @@
   'use strict'
 
   async function controlTimer (__mapper) {
-    
-    let   __mtimer      = __mapper('xs').m('timer')
 
     let [
+          mprops,    
           mtimer,
-       ] = await Promise.all( [
-          __mtimer,
+       ] = await Promise.all ([
+          __mapper('xs').m('props'),       
+          __mapper('xs').m('timer'),
        ])    
     
-    
-    // let mtimer = 	__mapper('xs').m('timer')
+
     
     let now = performance.now()
     let state = {
@@ -107,6 +106,8 @@
 
     // ......................... subscribe
     let subscribe = function (listener, wait = 0) {
+if (1 && 1) console.log('c.timer mtimer', mtimer)      
+      
       started = true
 
       if (typeof listener !== 'function') {
@@ -132,7 +133,8 @@
       }
     }
     // ......................... enty
-    let enty = () => enty
+    let enty = {}
+
 
     enty.started = () => started
     enty.start = start

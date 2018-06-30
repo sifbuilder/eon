@@ -8,18 +8,8 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: m.sim
 
   async function muonSim(__mapper = {}) {
-
-
-    let cellpromises  = 	[
-          __mapper('xs').m('props'),
-          __mapper('xs').m('snap'),
-          __mapper('xs').m('store'),
-          __mapper('xs').m('geonode'),
-          __mapper('xs').q('d3'),
-          ]
 
     let [
           mprops,
@@ -27,9 +17,13 @@
           mstore,
           mgeonode,
           d3,
-       ] = await Promise.all(
-          cellpromises
-      )
+       ] = await Promise.all([
+          __mapper('xs').m('props'),
+          __mapper('xs').m('snap'),
+          __mapper('xs').m('store'),
+          __mapper('xs').m('geonode'),
+          __mapper('xs').q('d3'),
+      ])
 
 
     let _geonode = {
@@ -238,7 +232,7 @@
     /***************************
  *        @enty
  */
-    let enty = function () {}
+    let enty = {}
     enty.sim = (_) => { if (_ === undefined) return sim; else { sim = _; return enty } }
     enty.dim = (_) => { if (_ === undefined) return dim; else { dim = _; return enty } }
     enty.simulate = simulate

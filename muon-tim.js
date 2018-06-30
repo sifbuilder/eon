@@ -15,9 +15,8 @@
    *    @timing
    */
     let timing = function (pTim, pElapsed) {
-
       let d3 = __mapper('d3')
-      
+
       let tim = Object.assign({}, pTim)
       let _tim = Object.assign({}, pTim)
 
@@ -44,8 +43,8 @@
       let unitStart = tim.unitStart // ref time start (common or relative) (units)
       let unitTime = tim.unitTime // ref time msPassed (common or relative) (units)
       let unitDelta = (tim.unitDelta !== undefined) ? tim.unitDelta : 0 // time (units) between ticks
-      
-      let tp = (tim.tp !== undefined) ? tim.tp : t=>t
+
+      let tp = (tim.tp !== undefined) ? tim.tp : t => t
 
       let tick = tim.tick // time msPassed (ticks)
 
@@ -85,9 +84,9 @@
       tim.unitDelta = tim.unitPassed - _tim.unitPassed // -- time units between ticks
 
       tim.unitTime = (common !== undefined) ? tim.unitElapsed : tim.unitPassed //  time (units)
-      
+
       tim.unitTime = tp(tim.unitTime)
-      
+
       tim.msTime = (common !== undefined) ? tim.msElapsed : tim.msPassed //  time (ms)
 
       if (tim.unitTime !== null) { // do not start yet if no unitTime

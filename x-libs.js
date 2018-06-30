@@ -10,10 +10,7 @@
 
 
 
-  let xLibs = function (__mapper = {}) {
-
-
-let libs = [
+let parts = [
 
 [ 'd3', [
           'd3',
@@ -32,19 +29,24 @@ let libs = [
           'd3-force-3d'
           ]],
 
- ['topojson',  'topojson' ],
+ [ 'topojson',  'topojson' ],
  
- ['three',  'three',
-          'three-trackballcontrols' ],
+ [ 'three', [
+          'three',
+          // 'three-trackballcontrols' 
+          ]],
 
 
 ]
 
+  let xLibs = function (__mapper = {}) {
+
     let state = {
-      libs: [...libs]
+      parts: [...parts]
     }
 
-    let enty = _ => _ !== undefined ? (state.libs = _, state.libs) : state.libs
+    let enty = {}
+    enty.parts = _ => _ !== undefined ? (state.parts = _, state.parts) : state.parts
     return enty
 
   }

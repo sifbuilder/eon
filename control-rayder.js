@@ -18,13 +18,20 @@
   // md: # license
   // md: MIT  
 
-  var controlRayder = function (__mapper = {}) {
+
+  async function controlRayder (__mapper) {
     
-    let f = __mapper('xs').m('props')   
-    
-    let r = __mapper('xs').r('renderport'),
-      width = r.width(),
-      height = r.height()
+    let [
+          mprops,    
+          mtimer,
+          rrenderport,
+       ] = await Promise.all ([
+          __mapper('xs').m('props'),       
+          __mapper('xs').m('timer'),
+          __mapper('xs').r('renderport'),
+       ])    
+        
+
 
 
     let mouse = {

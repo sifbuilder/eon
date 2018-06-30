@@ -12,65 +12,36 @@
 
     let xD3Require = __mapper('xD3Require')
 
-    let cap = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // capitalize
-    
-    let eonize = (nome, pres='') => (pres === '') ? nome : pres + cap(nome)
-    
-    // https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
-    function camelize(str) {
-      return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
-        return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
-      })
-      .replace(/\s+/g, '')  // if white space
-      .replace(/\-+/g, '')  // if hyphen
-    }
+    let capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) 
+    let eonize = (nome, pres='') => (pres === '') ? nome : pres + capitalize(nome)
+    let fermize = (nome, pres='') => (pres === '') ? './' + nome + '.js' : './' + pres + '-' + nome + '.js'
+    let camelize = str => str
+      .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index == 0 ? letter.toLowerCase() : letter.toUpperCase())
+      .replace(/\s+/g, '')  // remove white space
+      .replace(/\-+/g, '')  // remove hyphen
 
     let getFromMapper = part => __mapper(part)
     let getFromEnty = part => part()
     let getAsFunction = part => part
     // let getFromNet = part => xD3Require.require(part) // global xD3Require
-    let getFromNet = part => Promise.resolve(part)
+    let getFromNet = (name, pres) => Promise.resolve(part)
+    let getCell = (e,n,m) => e[n] !== undefined ? m({n: m(n)[n] })[n] : e // eon, name, map
 
 
     // ............................. getFermion
-    function getFermion(nome, pres = '', ret = null) {
-
-      let itemName = eonize(nome, pres)
-
-      if (__mapper(itemName) !== undefined) { // item in mapper
-
-        ret =  getFromMapper(itemName)
-
-        if (ret[itemName] !== undefined) {  // if cell
-
-          ret = ret[itemName](__mapper)  // get enty
-          
-          __mapper({ [itemName]: ret  })   // intermap enty
-
-        }
-
-      } 
-
-      return ret
+    function getFermion(name, pres) { // nome is partName: eg 'muonGraticule'
+    
+        let fermion = __mapper(eonize(name, pres)) 
+          // ? __mapper(nome)[nome] !== undefined 
+            // ? __mapper({ [nome]: __mapper(nome)[nome]  })[nome] // map and get
+          // ? getCell(__mapper(nome) , nome, __mapper)
+          ? __mapper(eonize(name, pres)) 
+          : __mapper.mapOnePart([eonize(name, pres), fermize(name, pres)])
+        return fermion
     }
 
     // ............................. async getBoson
-    function getBoson(nome, pres = 'boson', ret = null) {
-
-      ret = getFermion(nome, pres)
-
-      if (ret) {
-        
-        return ret
-        
-      } else {
-
-        return getFromNet(eonize(nome, pres))
-        .then(part => {return part})
-
-      } 
-
-    }
+    let getBoson = (name, pres) => getFermion(name, pres) || getFromNet(name, pres)
 
     // ............................. enty
     let enty = function() {}
@@ -79,13 +50,13 @@
     enty.boson = enty.b = (nome, pres = '') => getBoson(nome, pres)
     enty.quark = enty.q = (nome, pres = '') => getBoson(nome, pres)
     enty.muon = enty.m = (nome, pres = 'muon') => getBoson(nome, pres)
-    enty.data = enty.d = (nome, pres = 'data') => getFermion(nome, pres)
-    enty.force = enty.f = (nome, pres = 'force') => getFermion(nome, pres)
-    enty.geo = enty.g = (nome, pres = 'geo') => getFermion(nome, pres)
-    enty.proj = enty.p = (nome, pres = 'd3.geo') => getFermion(nome, pres)
+    enty.data = enty.d = (nome, pres = 'data') => getBoson(nome, pres)
+    enty.force = enty.f = (nome, pres = 'force') => getBoson(nome, pres)
+    enty.geo = enty.g = (nome, pres = 'geo') => getBoson(nome, pres)
+    enty.proj = enty.p = (nome, pres = 'd3.geo') => getBoson(nome, pres)
     enty.halo = enty.h = (nome, pres = 'halo') => getBoson(nome, pres)
-    enty.control = enty.c = (nome, pres = 'control') => getFermion(nome, pres)
-    enty.render = enty.r = (nome, pres = 'render') => getFermion(nome, pres)
+    enty.control = enty.c = (nome, pres = 'control') => getBoson(nome, pres)
+    enty.render = enty.r = (nome, pres = 'render') => getBoson(nome, pres)
     enty.getFermion = getFermion
     enty.getBoson = getBoson
 

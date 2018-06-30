@@ -21,7 +21,7 @@
     let f = __mapper('xs').m('props'),
       manitem = __mapper('xs').m('anitem'),
       mnat = __mapper('xs').m('nat'),
-      hent = __mapper('xs').f('ent')
+      hent = __mapper('xs').h('ent')
 
 
     // .................... gramm

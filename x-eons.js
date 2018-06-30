@@ -1,41 +1,13 @@
 /*******************************************
-*      @xParts
+*      @xEons
 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.xParts = global.xParts || {})))
+      : (factory((global.xEons = global.xEons || {})))
 }(this, function (exports) {
   'use strict'
 
-
-
-  let xParts = function (__mapper = {}) {
-
-
-let libs = [
-
-  [ 'd3', [
-          'd3@5',
-          './d3-octree.js',
-          './d3-inertia.js',
-          './d3-geo.js',
-          './d3-geo-voronoi.js',
-          './d3-geo-projection.js',
-          './d3-geo-projection-clip-polyhedral.js',
-          './d3-geo-polygon.js',
-          './d3-force-surface.js',
-          './d3-force-pod.js',
-          './d3-force-magnetic.js',
-          './d3-force-graph.min.js',
-          './d3-force-bounce.js',
-          './d3-force-3d.js'
-          ]],
-
- ['topojson',  './topojson.v3.js' ],
-
-
-]
 
 
 // _parts
@@ -155,14 +127,21 @@ let parts = [
     ]
     // -parts
 
+    
+    
+    
+
+  let xEons = function (__mapper = {}) {
+
     let state = {
       parts: [...parts]
     }
 
-    let enty = _ => _ !== undefined ? (state.parts = _, state.parts) : state.parts
+    let enty = {}
+    enty.parts = _ => _ !== undefined ? (state.parts = _, state.parts) : state.parts
     return enty
 
   }
 
-  exports.xParts = xParts
+  exports.xEons = xEons
 }))

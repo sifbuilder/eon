@@ -10,66 +10,34 @@
 
   let xMapper = function () {
     let state = {}
-    let getCell = (e,n,m) => e[n] !== undefined ? e[n](m) : e // eon, name, map
-    
+    const getCell = (e,n,m) => e[n] !== undefined ? e[n](m) : e // eon, name, map
+    const mapCell = (e,n,m) => m({[n]:e})[n] // eon, name, map
+    const a = d => Array.isArray(d) ? d : Array.of(d)
+
     // ............................. intermap
     function intermap (_) {
 
       if (arguments.length < 1) return state
       else if (typeof _ === 'object') return state = Object.assign({}, state, _)
       else if (typeof _ === 'string' && state[_] !== undefined) return state[_]
-
+      else if (typeof _ === 'string' && state[_] === undefined) return null
     }
 
-    // ............................. mapOnePart
-    // function mapOnePart (part) {  // partName: eg. haloPacer
-    
-      // let partName = part[0] // name
-      // let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1]) // to array
-
-      // return intermap('xD3Require').require(...parts) // to state
-        // .then(value => {
-          
-          // return [ partName, value ]
-        // })
+    function mapOnePart (part) {  // [ partName, [partEnts] ]
 
 
-    // }
-    function mapOnePart (part) {  // partName: eg. haloPacer
-    
-      let nome = part[0] // name
-      let parts = Array.isArray(part[1]) ? part[1] : Array.of(part[1]) // to array
-
-      
-      return intermap('xD3Require').require(...parts) // to state
-        .then(eon => [ nome, getCell(eon, nome, enty) ])
-
-
-    }
-
-    // ............................. mapParts
-    async function mapParts (parts) { // modifies mapper state
-    
-      await Promise.all(parts.map(p => enty.mapOnePart(p)))
-      .then(values => {
-          values.map(value => {
-            if (1 && 1) console.log('value', value)
-
-            let partName = value[0]
-            let partCode = value[1]
-            let cell = { [partName]: partCode }
-if (1 && 1) console.log('cell', cell)            
-            intermap( cell )   // add to mapper state
-          })
-      })
+      return enty('xD3Require').require(...a(part[1])) // to state
+        .then(eon => getCell(eon, part[0], enty)) // get 
+        .then(cell => mapCell(cell, part[0], enty)) // map
+        .catch(e => console.log(e))
 
     }
 
 
     let enty = intermap
-
     enty.mapOnePart = mapOnePart
-    enty.mapParts = mapParts
+    enty.getCell = getCell
+    enty.mapCell = mapCell
 
     return enty
   }

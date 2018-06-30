@@ -83,7 +83,7 @@
 
 
     let epsilon = 1e-5
-
+  
 
     let state = {
       animas: [], // animas array
@@ -92,7 +92,12 @@
     }
 
     // .................. apply
-    let _apply = function (action = {}) {
+    function _apply (action = {}) {
+
+    if (1 && 1) console.log('m.store mprops', JSON.stringify(mprops))
+    if (1 && 1) console.log('m.store mric', JSON.stringify(mric))
+
+      
       // .................. UPDANIMA
       if (action.type === 'UPDANIMA') {
         let updAnimas = mprops.fa(action.animas) // get new animas as array
@@ -229,7 +234,7 @@ if (1 && 1) console.log(' ~~~~~~~~ halo', halo)
 
 
     // .................. enty
-    function enty () {}
+    let enty = {}
 
     enty.apply = _apply
     enty.gramm = gramm

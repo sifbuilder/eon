@@ -17,6 +17,8 @@
         __mapper('xs').m('store'),
         __mapper('xs').q('d3'),
       ])    
+
+
     
     let colors = {} // colors
     colors.scales = {
