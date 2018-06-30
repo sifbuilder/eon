@@ -68,14 +68,10 @@
     // ............................. cameraProjer
     const cameraProjer = function (p = prjdef) {
     
-      let cp = __mapper('geoUniwen')
-          .then(uw => { 
-              let geo =  uw(prjdef)
-              
-
-              return geo
-              
-          })
+      let geo = __mapper('geoUniwen')(p)
+      if (1 && 1) console.log('geo', geo)
+        return geo
+          
       
     }
 

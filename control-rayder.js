@@ -55,7 +55,7 @@
       domNode
     }
     
-    let cameraProjer = r.cameraProjer()
+    let cameraProjer = rrenderport.cameraProjer()
     
   
   // ............................. projector
