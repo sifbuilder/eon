@@ -93,7 +93,7 @@
 //md:   return Feature.MultiLineString.coordinates: parsCoords
 //md:
 //md: *dedges
-//md:   get grarr 
+//md:   get grarr
 //md:
 //md: *gvertices
 //md:   call `gvertices(params)`
@@ -112,10 +112,14 @@
 
   async function muonGraticule (__mapper = {}) {
 
-    let mgeoj = await __mapper('xs').m('geoj')
-    let d3 = await __mapper('xs').q('d3')
-
-        
+    let [
+          mgeoj,
+          d3,
+       ] = await Promise.all( [
+        __mapper('xs').m('geoj'),
+        __mapper('xs').q('d3'),
+       ])   
+  
     let d3Range = d3.range
 
     const acos = Math.acos, asin = Math.asin, atan2 = Math.atan2, cos = Math.cos,
@@ -157,7 +161,7 @@
         cache.entryparams = {}
         cache.gratiparams = {}
 
-        
+
     // .................. tidx
     let tidx = function (horq, verq, hd = 1, vd = 1) {  // tidx(6,4,1,1)
       return function (col, row) { // ridx([3,5]) => 17
@@ -555,11 +559,6 @@
           verts[1] = vertices[index(i0, j1)] = mersCoords[i0][j1p] // [0,1] [0,1]
           verts[2] = vertices[index(i1, j0)] = mersCoords[i1][j0p] // [1,0] [1,0]
           verts[3] = vertices[index(i1, j1)] = mersCoords[i1][j1p] // [1,1] [1,1]
-
-          // if (1 && 1) console.log('>>>')
-          // if (1 && 1) console.log('mers',i,j, i0,j0p, i1,j1p)
-          // if (1 && 1) console.log('verts', ...verts)
-
 
         }
       }

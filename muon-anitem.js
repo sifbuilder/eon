@@ -10,84 +10,28 @@
 
   // md: # md:{filename}
   // md: **manage anitem definition**
-  // md: ## functions
-  // md: * [node](#node) - get sim node from anitem payload
-  // md:   @anitem
-  // md: * [setAnitem](#setAnitem) - rebuild the anitem root components
-  // md:   @anitem
-  // md: * nodeProformedSitus -
-  // md: * nodeSitus -
-  // md: * parentCoords -
-  // md: * parentSitus -
-  // md: * coreGeoform -
-  // md: * coreGeonode -
-  // md:
-  // md:
-  // md: ## methods
-  // md: * halo -
-  // md: * geofold -
-  // md: * payload -
-  // md: * nodeProformedSitus -
-  // md: * nodeSitus -
-  // md: * coreGeoform -
-  // md: * coreGeonode -
-  // md: * anigram -
-  // md: * parentCoords -
-  // md: * parentSitus -
-  // md: * node -
-  // md: * conform -
-  // md: * conform$2 -
-  // md: * form -
-  // md: * form$2 -
-  // md: * ereform -
-  // md: * proform -
-  // md: * ric -
-  // md: * tim -
-  // md: * boform -
-  // md: * avatars -
-  // md: * parentuid -
-  // md: * uid -
-  // md: * dims -
-  // md: * anilocation -
-  // md: * x -
-  // md: * y -
-  // md: * z -
-  // md: * iscoord -
-  // md: * isnat -
-  // md: * basicclone -
   // md:
   // md:
   // md: # license
   // md: MIT
 
   async function muonAnitem(__mapper = {}) {
-    
-    
-    let cellpromises  = 	[
+
+    let [
+        mgeonode,
+        mgeoj,
+        msnap,
+      ] = await Promise.all([
                 __mapper('xs').m('geonode'),
                 __mapper('xs').m('geoj'),
-              ]
-        
-    let [
-        mgeonode, 
-        mgeoj, 
-      ] = await Promise.all(
-        cellpromises
-      )    
-    
-    let msnap = await __mapper('xs').m('snap')
-// if (1 && 1) console.log('msnap', msnap)
-    
-    
-    // let mgeonode = __mapper('xs').m('geonode'),
-    // mgeoj = __mapper('xs').m('geoj')
-    
+                __mapper('xs').m('snap'),
+      ])
+
     let state = {}
     state.anitem = {}
 
-    let f = {}
-    f.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
-    
+    const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
+
     // ............................. setAnitem
     let setAnitem = function (d = {}) {
       let a = state.anitem = {}
@@ -206,15 +150,22 @@
       properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
     })
 
+    // ............................. _anigram
+    const _anigram =  (ani, t) => {		// anigam
+      if (ani !== undefined) { // if give anima
+        if (t !== undefined) { // if given time
+          ani = msnap(ani, t) // anima snap  to anigram
+        }
+        setAnitem(ani) // build anitem
+      }
+      return state.anitem // give anitem back
+    }
+
     // ............................. enty
     let enty = function (anima, t) {
-      
-      
+
       let anigram = {}
       if (anima !== undefined) {
-        
-        // lst msnap = __mapper('muonSnap')      // snap
-        // if (1 && 1) console.log('msnap', msnap)
 
         if (t !== undefined) {
           anigram = msnap.snap(anima, t)
@@ -224,75 +175,17 @@
         }
         if (anigram.payload === undefined) anigram.payload = {}
 
-        anigram.geofold = f.v((anigram.geofold), anigram)	// geofold
-        anigram.payload.conform = f.v(anigram.payload.conform, anigram)		// conform
-        anigram.payload.proform = f.v(anigram.payload.proform, anigram)		// proform
+        anigram.geofold = functor((anigram.geofold), anigram)	// geofold
+        anigram.payload.conform = functor(anigram.payload.conform, anigram)		// conform
+        anigram.payload.proform = functor(anigram.payload.proform, anigram)		// proform
 
         setAnitem(anigram)
       }
       return enty
     }
 
-    enty.halo = (_) => { return _ !== undefined ? (state.anitem.halo = _, state.anitem) : state.anitem.halo }
-    enty.geofold = (_) => { return _ !== undefined ? (state.anitem.geofold = _, state.anitem) : state.anitem.geofold }
-    enty.payload = (_) => { return _ !== undefined ? (state.anitem.payload = _, state.anitem) : state.anitem.payload }
+    enty.anigram = _anigram
 
-    enty.nodeProformedSitus = nodeProformedSitus
-    enty.nodeSitus = nodeSitus
-
-    enty.coreGeoform = coreGeoform			// default halo geofold
-    enty.coreGeonode = coreGeonode			// default halo geonode
-
-    enty.anigram = (ani, t) => {		// anigam
-      if (ani !== undefined) { // if give anima
-        if (t !== undefined) { // if given time
-          ani = __mapper('xs').m('snap').snap(ani, t) // anima snap  to anigram
-        }
-        setAnitem(ani) // build anitem
-      }
-      return state.anitem // give anitem back
-    }
-
-    enty.parentCoords = parentCoords
-    enty.parentSitus = parentSitus
-    enty.node = node // anitem => node
-
-    enty.conform = _ => { return _ !== undefined ? (state.anitem.payload.conform = _, state.anitem) : state.anitem.payload.conform }
-    enty.conform$2 = _ => { return _ !== undefined ? (state.anitem.payload.conform = _, state.anitem) : (delete state.anitem.payload.conform.z, state.anitem.payload.conform) }
-
-    enty.form = (_) => { return _ !== undefined ? (state.anitem.payload.form = _, state.anitem) : state.anitem.payload.form }
-    enty.form$2 = (_) => { return _ !== undefined ? (state.anitem.payload.form = _, state.anitem) : (delete state.anitem.payload.form.z, state.anitem.payload.form) }
-
-    enty.ereform = (_) => { return _ !== undefined ? (state.anitem.payload.ereform = _, state.anitem) : state.anitem.payload.ereform }
-
-    enty.proform = (_) => { return _ !== undefined ? (state.anitem.payload.proform = _, state.anitem) : state.anitem.payload.proform }
-
-    enty.ric = (_) => { return _ !== undefined ? (state.anitem.payload.ric = _, state.anitem) : state.anitem.payload.ric }
-    enty.tim = (_) => { return _ !== undefined ? (state.anitem.payload.tim = _, state.anitem) : state.anitem.payload.tim }
-    enty.boform = (_) => { return _ !== undefined ? (state.anitem.payload.boform = _, state.anitem) : state.anitem.payload.boform }
-
-    enty.avatars = (_) => { return _ !== undefined ? (state.anitem.avatars = _, state.anitem) : state.anitem.avatars }
-    enty.parentuid = (_) => { return _ !== undefined ? (state.anitem.payload.parentuid = _, state.anitem) : state.anitem.payload.parentuid }
-    enty.uid = (_) => { return _ !== undefined ? (state.anitem.payload.uid = _, state.anitem) : state.anitem.payload.uid }
-
-    enty.dims = () => ['x', 'y', 'z']
-    enty.anilocation = a => [ a.x, a.y, a.z ]
-    enty.x = a => a.x
-    enty.y = a => a.y
-    enty.z = a => a.z
-
-    enty.iscoord = _ => _.x !== undefined || _.y !== undefined || _.z !== undefined
-    enty.isnat = _ => _.m1 !== undefined && _.n1 !== undefined && _.a !== undefined
-    enty.basicclone = anigram => {
-      let clone = {}
-      clone.payload = {}
-      clone.payload.tim = anigram.payload.tim
-      clone.payload.ric = {}
-      clone.payload.ric.gid = anigram.payload.ric.gid
-      clone.payload.ric.cid = anigram.payload.ric.cid
-      clone.payload.ric.fid = anigram.payload.ric.fid
-      return clone
-    }
 
     return enty
   }

@@ -17,9 +17,7 @@
           msim,
           mtim,
           msnap,
-          rcanvas,
           rsvg,
-          rwebgl,
           rrenderport,
           ctimer,
       ] = await Promise.all( [
@@ -28,9 +26,7 @@
           __mapper('xs').m('sim'),
           __mapper('xs').m('tim'),
           __mapper('xs').m('snap'),
-          __mapper('xs').r('canvas'),
           __mapper('xs').r('svg'),
-          __mapper('xs').r('webgl'),
           __mapper('xs').r('renderport'),
           __mapper('xs').c('timer'),
         ]

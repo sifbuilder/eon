@@ -8,11 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
-  function controlPos (__mapper) {
+  async function controlPos (__mapper) {
     
-    
-    let rrenderport = __mapper('xs').r('renderport')
-    
+    let [
+          rrenderport,
+       ] = await Promise.all( [
+        __mapper('xs').r('renderport'),
+       ]) 
     
     let  width = rrenderport.width(),
       height = rrenderport.height()    

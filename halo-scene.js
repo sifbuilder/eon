@@ -10,29 +10,21 @@
 
   async function haloScene(__mapper = {}) {
 
-    let   __mscene          = __mapper('xs').m('scene')
-
-
     let [
           mscene,
        ] = await Promise.all( [
-          __mscene,
+          __mapper('xs').m('scene'),
        ])    
     
     
-    // let mscene = __mapper('xs').m('scene')
-    
+    // .................... ween    
     let ween = function (anima, newAnimas = []) {
-
       let p = anima.payload.context
       mscene.scenify(p)
-      
       newAnimas = Array.of(anima)
       return newAnimas
     }
 
-    // .................... enty
-    
     let haloNat_ween = anima => ween(anima)
     
     let haloNat_gramm = anima => anima
@@ -44,8 +36,8 @@
       
     }
 
+    // .................... enty
     let enty = haloNat
-
     return enty
   }
 

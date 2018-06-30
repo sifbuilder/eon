@@ -11,9 +11,7 @@
   let muonGeonode = function muonGeonode (__mapper = {}) {
     let props = __mapper('xs').m('props')
 
-    /***************************
- *        @getAnigramRic
- */
+    // ....................... init
     let init = function (node={}) {
       let geonode = {
         type: 'Feature',
@@ -31,13 +29,11 @@
       }
 
       let _geonode = Object.assign({}, geonode, node)
-
       return _geonode
+      
     }
 
-    /**********************
-   *    @enty
-   */
+    // ....................... enty
     let enty = function () {}
     enty.init = init // build geonode
 

@@ -33,7 +33,6 @@
   async function renderSvg(__mapper = {}) {
 
 
-
     let [
         rrenderport,  // cameraProjer
         d3,
@@ -139,11 +138,7 @@
 
     // ............................. render
     let render = function (elapsed, featurecollection, maxlimit) {
-      
-      if (1 && 1) console.log(' --------- render features', featurecollection.features.length)
-
-      
-      
+     
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties

@@ -24,34 +24,25 @@
   // md:  then pass the collection back to `m.animation` for rendering
 
   async function haloFormed (__mapper = {}) {
-    
-    let cellpromises  = 	[
-                __mapper('xs').m('anitem'),
-                __mapper('xs').m('ric'),
-                __mapper('xs').m('boform'),
-                __mapper('xs').m('geoj'),
-              ]
 
     let [
         manitem,
         mric,
         mboform,
         mgeoj,
-      ] = await Promise.all(
-        cellpromises
-      )       
-    
-    // let manitem = __mapper('xs').m('anitem'),
-      // mric = __mapper('xs').m('ric'),
-      // mboform = __mapper('xs').m('boform'),
-      // mgeoj = __mapper('xs').m('geoj')
+      ] = await Promise.all([
+          __mapper('xs').m('anitem'),
+          __mapper('xs').m('ric'),
+          __mapper('xs').m('boform'),
+          __mapper('xs').m('geoj'),
+      ])
 
-    let f = {}
-    f.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
+
+    const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
 
     // ............................. gramm
     async function gramm(anima, newAnigrams = []) {
-      
+
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
         geofold = anigram.geofold, // geofold
@@ -69,8 +60,8 @@
 
       //  get GEOFORM FeatureCollection
       //
-      let gj = f.v(geofold, anigram) // get geoformlet gjcollection = f.v(geofold, anigram) // get geoform
-      let gjcollection = mgeoj.featurecollect(gj) 
+      let gj = functor(geofold, anigram) 
+      let gjcollection = mgeoj.featurecollect(gj)
       if (2 && 2 && gjcollection.type !== 'FeatureCollection') console.log('** gjcollection is not FeatureCollection', gjcollection)
       gjcollection = mgeoj.zorder(gjcollection) // order features in collection
       gjcollection = mric.enric(ric, anigram, gjcollection) // ric to feature or collection
@@ -107,7 +98,6 @@
     haloFormed.gramm = anima => haloGeofold_gramm(anima)
 
     let enty = haloFormed
-
     return enty
   }
 

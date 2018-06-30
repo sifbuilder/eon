@@ -33,6 +33,7 @@
 
       ])
 
+      // ............................. conform
       const c = (f,x) => {
         let feature
         feature = x(f) // CONFORM
@@ -41,6 +42,7 @@
         return feature
       }
 
+      // ............................. ereform
       const e = (f,x) => {
         let feature = f
         if (x) { // EREFORM
@@ -55,6 +57,7 @@
         return feature
       }
 
+      // ............................. proform
       const p = (f,x) => {
         let feature = f
         if (x) { // PROFORM
@@ -69,8 +72,10 @@
       }
 
     // ............................. gramm
-     function grammify (anigram, newAnigrams = []) {
+     function gramm (anima, newAnigrams = []) {
 
+      let anigram = manitem(anima).anigram()
+      
       let conformion = mprofier.conformer_(anigram),
             ereformion = mprofier.ereformion_(anigram),
             proformion = mprofier.proformion_(anigram)
@@ -91,15 +96,6 @@
       return hformed.gramm(anigram) // _
 
     }
-
-    // ............................. gramm
-     function gramm (anima) {
-
-      return  grammify(manitem(anima).anigram())
-
-
-    }
-
 
     // ............................. enty
     let haloGeofold_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []

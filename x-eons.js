@@ -18,12 +18,12 @@ let parts = [
 ['controlWen' , './control-wen.js'],
 ['controlVersor' , './control-versor.js'],
 ['controlTouchMove' , './control-touchMove.js'],
-// ['controlTouchEnd' , './control-touchEnd.js'],
+['controlTouchEnd' , './control-touchEnd.js'],
 ['controlTimer' , './control-timer.js'],
 ['controlRayder' , './control-rayder.js'],
 // ['controlRaycaster' , './control-raycaster.js'],
-// ['controlPos' , './control-pos.js'],
-// ['controlKey' , './control-key.js'],
+['controlPos' , './control-pos.js'],
+['controlKey' , './control-key.js'],
 
 /* force*/
 // ['forceZ' , './force-z.js'],
@@ -61,7 +61,7 @@ let parts = [
 ['muonVersor' , './muon-versor.js'],
 ['muonTimer' , './muon-timer.js'],
 ['muonTim' , './muon-tim.js'],
-['muonSvg' , './muon-svg.js'],
+// ['muonSvg' , './muon-svg.js'],
 ['muonStore' , './muon-store.js'],
 // ['muonStats' , './muon-stats.js'],
 ['muonStace' , './muon-stace.js'],
@@ -76,7 +76,7 @@ let parts = [
 ['muonProj3ct' , './muon-proj3ct.js'],
 ['muonProfier' , './muon-profier.js'],
 // ['muonPolyhedral' , './muon-polyhedral.js'],
-// ['muonPacer' , './muon-pacer.js'],
+['muonPacer' , './muon-pacer.js'],
 ['muonNat' , './muon-nat.js'],
 // ['muonMath' , './muon-math.js'],
 // ['muonLiner' , './muon-liner.js'],
@@ -85,11 +85,11 @@ let parts = [
 // ['muonImage' , './muon-image.js'],
 // ['muonGratitem' , './muon-gratitem.js'],
 ['muonGraticule' , './muon-graticule.js'],
-['muonGeonode' , './muon-geonode.js'],
+// ['muonGeonode' , './muon-geonode.js'],
 ['muonGeom' , './muon-geom.js'],
 ['muonGeoj' , './muon-geoj.js'],
 // ['muonFourier' , './muon-fourier.js'],
-['muonForces' , './muon-forces.js'],
+// ['muonForces' , './muon-forces.js'],
 // ['muonFibonat' , './muon-fibonat.js'],
 // ['muonEventDispatcher' , './muon-eventDispatcher.js'],
 // ['muonDelaunay' , './muon-delaunay.js'],
@@ -100,13 +100,13 @@ let parts = [
 // ['muonAudio' , './muon-audio.js'],
 ['muonAnitem' , './muon-anitem.js'],
 ['muonAnimation' , './muon-animation.js'],
-['muonAnimas' , './muon-animas.js'],
+// ['muonAnimas' , './muon-animas.js'],
 /* halo*/
 // ['haloTiles' , './halo-tiles.js'],
 ['haloTextform' , './halo-textform.js'],
 ['haloScene' , './halo-scene.js'],
 ['haloPacer' , './halo-pacer.js'],
-['haloNumform' , './halo-numform.js'],
+// ['haloNumform' , './halo-numform.js'],
 ['haloNat' , './halo-nat.js'],
 ['haloImg' , './halo-img.js'],
 // ['haloFuel' , './halo-fuel.js'],
@@ -114,7 +114,7 @@ let parts = [
 // ['haloFourier' , './halo-fourier.js'],
 ['haloFormed' , './halo-formed.js'],
 ['haloEnt' , './halo-ent.js'],
-// ['haloCore' , './halo-core.js'],
+['haloCore' , './halo-core.js'],
 // ['haloCamera' , './halo-camera.js'],
 // ['haloAxis' , './halo-axis.js'],
 /* render*/
@@ -127,9 +127,9 @@ let parts = [
     ]
     // -parts
 
-    
-    
-    
+
+
+
 
   let xEons = function (__mapper = {}) {
 

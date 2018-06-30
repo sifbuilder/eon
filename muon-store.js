@@ -122,7 +122,7 @@
             state.animas[state.animas.length] = updAnima // register new anima
           }
         }
-if (1 && 1) console.log('mstore state.animas', state.animas)
+
 
         return state.animas
       }

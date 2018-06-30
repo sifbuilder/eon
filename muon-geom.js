@@ -10,8 +10,6 @@
 
   async function muonGeom (__mapper = {}) {
     
-    
-    
     let pi = Math.PI,
       degrees = 180 / pi,
       radians = pi / 180

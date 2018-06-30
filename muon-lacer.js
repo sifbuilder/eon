@@ -16,10 +16,11 @@
   // md: MIT
 
 
-  let muonLacer = function muonLacer (__mapper = {}) {
+  function muonLacer (__mapper = {}) {
 
     const isNumericArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'number', true)
 
+    // ...................... range
     // https://github.com/d3/d3-array/blob/master/src/range.js
     const range = function(start, stop, step) {
       start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
@@ -101,12 +102,12 @@
     }
 
     /* **************************
-   *        @slide
-   *
-   *        [ [a1,a2,a3], [b1,b2] ]     [ [a1,b1], [a2,b2x], [a3,b2] ]
-   *        [ {a1,a2,a3}, [b1,b2] ]     [ [a1v,b1], [a2v,b2x], [a3v,b2] ]
-   *        [ {a1,a2,a3}, {b1,b2} ]     [ [a1v,b1], [a2v,b2x], [a3v,b2] ]
-   */
+     *        @slide
+     *
+     *        [ [a1,a2,a3], [b1,b2] ]     [ [a1,b1], [a2,b2x], [a3,b2] ]
+     *        [ {a1,a2,a3}, [b1,b2] ]     [ [a1v,b1], [a2v,b2x], [a3v,b2] ]
+     *        [ {a1,a2,a3}, {b1,b2} ]     [ [a1v,b1], [a2v,b2x], [a3v,b2] ]
+     */
     let slide = function (streams = [], compl = 'max') {
       let nbr = streams.length
 
@@ -135,9 +136,7 @@
       return streamXYZ
     }
 
-    /* **************************
-   *        @unslide
-   */
+    // ....................... unslide
     let unslide = function (stream = []) {
       let lengths = stream.map(d => d.length) // lengths of array elems
       let mx = Math.max(...lengths) // 3 if array of 3d coords
@@ -151,9 +150,7 @@
       return unslide
     }
 
-    /* **************************
-   *        @interadd
-   */
+    // ....................... interadd
     let interadd = function (streams) {
       let ww = []
       let ses = [] // scale per position
@@ -197,9 +194,8 @@
 
       return ww
     }
-    /**********************
-   *    @enty
-   */
+
+    // ....................... enty
     let enty = function () {}
 
     enty.interlace = interlace

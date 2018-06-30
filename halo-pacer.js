@@ -44,18 +44,25 @@
   // md: ## license
   // md: MIT
 
-  let haloPacer = function haloPacer (__mapper = {}) {
-    let mgeom = __mapper('xs').m('geom'),
-      crayder = __mapper('xs').c('rayder'),
-      cwen = __mapper('xs').c('wen'),
-      cversor = __mapper('xs').c('versor'),
-      mstace = __mapper('xs').m('stace'),
-      manitem = __mapper('xs').m('anitem'),
-      mric = __mapper('xs').m('ric'),
-      mstore = __mapper('xs').m('store'),
-      hent = __mapper('xs').h('ent')
-      // dynamic halo
-
+  async function haloPacer (__mapper = {}) {
+    
+    
+       let [
+          mgeom,
+          crayder,
+          cwen,
+          cversor,
+          mstace,
+          manitem,
+          mric,
+          mstore,
+          hent,
+       ] = await Promise.all( [
+        __mapper('xs').m('geom'),
+        __mapper('xs').c('rayder'),
+        __mapper('xs').h('ent'),
+       ]) 
+    
     // ............................. _geofolder
     let _geofolder = function (ani, prob) {
       let pacerPayload = ani.payload.pacer

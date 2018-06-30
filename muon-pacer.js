@@ -8,25 +8,22 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonPacer = function muonPacer (__mapper = {}) {
-    let f = __mapper('xs').m('props'),
-      mgeom = __mapper('xs').m('geom'),
-      mwen = __mapper('xs').m('wen'),
-      crayder = __mapper('xs').c('rayder'),
-      cwen = __mapper('xs').c('wen'),
-      cversor = __mapper('xs').c('versor'),
-      mstace = __mapper('xs').m('stace'),
-      manitem = __mapper('xs').m('anitem'),
-      mric = __mapper('xs').m('ric'),
-      mstore = __mapper('xs').m('store')
+  async function muonPacer (__mapper = {}) {
+    
+    let [
+          crayder,
+          cwen,
+          cversor,
+       ] = await Promise.all( [
+        __mapper('xs').c('rayder'),
+        __mapper('xs').c('wen'),
+        __mapper('xs').c('versor'),
+       ])     
 
-    let r = __mapper('xs').r('renderport'),
-      width = r.width(),
-      height = r.height()
+
 
     // -------------------------------  muonPacerHalo_gramm
     let pacer = function (payload, newItems = []) {
-      
       let boform = payload.boform, // boform
         ric = payload.ric, // ric
         tim = payload.tim, // tim
@@ -36,7 +33,7 @@
         parentuid = payload.parentuid, // parentuid
         inited = payload.inited, // inited
         gelded = payload.gelded // gelded
-        
+
       let pacer = payload.pacer || {}, // pacer
         mousesignal = pacer.mousesignal || 0, // mousesignal
         span = pacer.span || 0, // span between items
@@ -45,14 +42,10 @@
 
       let initSitus, eventSitus, autoSitus, fidder, geojsor
 
-      /* ****
-       *    count
-       */
+
       let count = {} // items in cycle
 
-      /* ****
-       *    controls
-       */
+
       let mouse = {} // mouse control
 
       mouse.mouseDown = crayder.mouseDown() // down
@@ -66,7 +59,7 @@
         cwen.reset(svg)
         cversor.reset(svg)
       }
-      
+
       if (mouse.event !== undefined && mouse.mouseDown === 1) { // on mouse DOWN
         if (mousesignal === 0 || mouse.event.type === 'mousedown') { //
           count.event = Math.floor(pacer.eventN) //  if in state or was event
@@ -78,28 +71,20 @@
       }
 
       let cycletime = tim.unitPassed - (pacer.outtimed || 0)
-      
-      if (cycletime >= pacer.autoP && 
+
+      if (cycletime >= pacer.autoP &&
             tim.unitPassed > (pacer.autoT || 0)
-              ) { // if cycle time above autopath
-              
+      ) { // if cycle time above autopath
         count.auto = Math.floor(pacer.autoN) // count AUTO
-         
       }
 
-
-      newItems = payload.pacer.geojsor(payload, count)  // new geoItems
-
-
+      newItems = payload.pacer.geojsor(payload, count) // new geoItems
 
       return newItems
     }
 
-    /**********************
-   *    @enty
-   */
+    // ....................... enty
     let enty = pacer
-
     return enty
   }
 
