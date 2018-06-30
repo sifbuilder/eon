@@ -54,7 +54,7 @@
         // })
 
         rsvg.render(elapsed, featurecollection)
-        
+
       // if (__mapper('xs').r('webgl') !== undefined) __mapper('xs').r('webgl').render(elapsed, featurecollection)
 
       // if (__mapper('renderCanvas') !== undefined) __mapper('xs').r('canvas').render(elapsed, featurecollection)
@@ -67,15 +67,12 @@
 
     // ............................. cameraProjer
     const cameraProjer = function (p = prjdef) {
-    
+
       let geo = __mapper('geoUniwen')(p)
-      if (1 && 1) console.log('geo', geo)
-        return geo
-          
-      
+      return geo
+
     }
 
-    
     // ............................. xydirs
     const xydirs = function () {
       let orig = enty.cameraProjer().invert([0, 0])
@@ -92,7 +89,7 @@
     const getPos = function (signal) {
       let pos
       let projer = enty.cameraProjer()
-      
+
       if (Array.isArray(signal)) { // coordinates
         pos = [signal[0], signal[1]]
         pos = projer.invert(pos)
@@ -102,9 +99,9 @@
           pos = [signal.x, signal.y]
 
           pos = projer.invert(pos)
-          
+
         } else {
-          
+
           pos = [signal.x, signal.y]
 
           pos = projer.invert(pos)
@@ -116,7 +113,7 @@
       return pos
     }
 
-    
+
 
     // ............................. projection
     enty.projection = _ => _ !== undefined ? (projection = _, enty) : projection

@@ -8,9 +8,8 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonRic = function muonRic (__mapper = {}) {
+  async function muonRic (__mapper = {}) {
     
-    let props = __mapper('xs').m('props')
 
     // ric.halo: anima type
     // ric.gid: group id
@@ -159,10 +158,8 @@
       
     }
     
-    /**********************
-   *    @enty
-   */
-    let enty = function enty () {}
+   // ............................. enty
+    let enty = {}
     enty.getAnigramRic = getAnigramRic // build ric from anigram, i
     enty.getuid = getuid
     enty.enric = enric

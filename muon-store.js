@@ -93,10 +93,6 @@
 
     // .................. apply
     function _apply (action = {}) {
-
-    if (1 && 1) console.log('m.store mprops', JSON.stringify(mprops))
-    if (1 && 1) console.log('m.store mric', JSON.stringify(mric))
-
       
       // .................. UPDANIMA
       if (action.type === 'UPDANIMA') {
@@ -126,6 +122,7 @@
             state.animas[state.animas.length] = updAnima // register new anima
           }
         }
+if (1 && 1) console.log('mstore state.animas', state.animas)
 
         return state.animas
       }
@@ -152,14 +149,7 @@
     // .................. ween
     async function ween(anima, newItems = []) {
       let anigram = manitem.anigram(anima)
-      
-      
-      
-if (1 && 1) console.log('anigram', anigram)
-let haloRef = __mapper('xs').eonize(anigram.halo, 'halo')
-let halo = __mapper(haloRef)
-if (1 && 1) console.log(' ~~~~~~~~ halo', halo)
-      
+
     
       if (anigram.halo !== undefined && typeof anigram.halo === 'string') {
 

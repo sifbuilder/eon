@@ -13,7 +13,6 @@
 
     let [
           mprops,
-          mstore,
           msim,
           mtim,
           msnap,
@@ -24,7 +23,6 @@
           ctimer,
       ] = await Promise.all( [
           __mapper('xs').m('props'),
-          __mapper('xs').m('store'),
           __mapper('xs').m('sim'),
           __mapper('xs').m('tim'),
           __mapper('xs').m('snap'),
@@ -39,6 +37,15 @@
     let state = {}
     state.animas = [] // global animas
 
+
+    // .................. getsims
+    const getsims = (animas, elapsed) => {
+
+        let sim = msim.sim() // simulation on animas
+        msim.simulate(sim, animas, elapsed)	// stored
+        return mprops.a(mstore.animasLive())
+        
+    }
 
     // .................. getweens
     const getweens = async (animas, elapsed) => {
@@ -55,15 +62,6 @@
         .catch(e => {console.log(e)})
 
       return mprops.a(mstore.animasLive())
-    }
-
-    // .................. getsims
-    const getsims = (animas, elapsed) => {
-
-        let sim = msim.sim() // simulation on animas
-        msim.simulate(sim, animas, elapsed)	// stored
-        return mprops.a(mstore.animasLive())
-        
     }
 
     // .................. getgramms
@@ -89,10 +87,9 @@
 
 
     // .................. register aniListener
-
+      mstore = __mapper('muonStore')  // store in mapper
     
-    
-      state.animas = mprops.a(mstore.animasLive())
+      state.animas = mstore.animasLive()
       if (1 && 1) console.log(' _____________________________ aniListener', state.animas.length, elapsed)
 
 

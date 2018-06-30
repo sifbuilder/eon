@@ -106,7 +106,6 @@
 
     // ......................... subscribe
     let subscribe = function (listener, wait = 0) {
-if (1 && 1) console.log('c.timer mtimer', mtimer)      
       
       started = true
 
@@ -134,8 +133,6 @@ if (1 && 1) console.log('c.timer mtimer', mtimer)
     }
     // ......................... enty
     let enty = {}
-
-
     enty.started = () => started
     enty.start = start
     enty.restart = restart

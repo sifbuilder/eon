@@ -157,7 +157,7 @@
     }
     
    // ............................. enty
-    let enty = () => enty
+    let enty = {}
 
     enty.domNode = _ => (_ !== undefined) ? (state.domNode = _, enty) : state.domNode
 
