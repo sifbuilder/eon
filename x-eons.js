@@ -21,9 +21,9 @@ let parts = [
 ['controlTouchEnd' , './control-touchEnd.js'],
 ['controlTimer' , './control-timer.js'],
 ['controlRayder' , './control-rayder.js'],
-// ['controlRaycaster' , './control-raycaster.js'],
 ['controlPos' , './control-pos.js'],
 ['controlKey' , './control-key.js'],
+// ['controlRaycaster' , './control-raycaster.js'],
 
 /* force*/
 // ['forceZ' , './force-z.js'],

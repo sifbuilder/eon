@@ -6,17 +6,17 @@ const minimist = require('./script-minimist.js')
 const fetch = require('./script-node-fetch.js')
 
 
-  // md: # md:{filename}
-  // md: **out of system interactions**
-  // md:
-  // md: * ### entlist
-  // md:  update elem-enls.js and elem-ents.js
-  // md:  elem-enls.js may be replaced by elem-enxl.js for network access
-  // md:  elem-enxl.js is maintained manually
-  // md:  prefixes included in enls: 'd3', 'topojson', 'three', 'tfjs', maintained in action
-  // md:
-  // md: # license
-  // md: MIT
+// md: # md:{filename}
+// md: **out of system interactions**
+// md:
+// md: * ### entlist
+// md:  update elem-enls.js and elem-ents.js
+// md:  elem-enls.js may be replaced by elem-enxl.js for network access
+// md:  elem-enxl.js is maintained manually
+// md:  prefixes included in enls: 'd3', 'topojson', 'three', 'tfjs', maintained in action
+// md:
+// md: # license
+// md: MIT
 
 const header = `
 # d3animas
@@ -43,14 +43,14 @@ with references to
 
 
 // ...................... camelize
-    function camelize(str) {
-      return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
-        return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
-      })
-      .replace(/\.[^.]*$/, '')  // remove file extension
-      .replace(/\s+/g, '')  // if white space
-      .replace(/\-+/g, '')  // if hyphen
-    }
+function camelize(str) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+    return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+  })
+  .replace(/\.[^.]*$/, '')  // remove file extension
+  .replace(/\s+/g, '')  // if white space
+  .replace(/\-+/g, '')  // if hyphen
+}
 
 
 // ...................... entlist
@@ -157,7 +157,7 @@ const options = {
   appdir: args.appdir || '.',
   entsFile: args.entsFile || 'elem-ents.js',
   libsFile: args.libsFile || 'elem-enls.js',
-  partsFile: args.partsFile || 'elem-parts.js',
+  eonsFile: args.eonsFile || 'elem-eons.js',
   mdeeFile: args.mdeeFile,
   serve: args.serve,
   enxlFile: args.enxlFile || 'elem-enxl.js',
@@ -168,7 +168,7 @@ const options = {
 let appdir = options.appdir // app dir
 let entsFile = options.entsFile // ents file
 let libsFile = options.libsFile // libs file
-let partsFile = options.partsFile // parts file
+let eonsFile = options.eonsFile // parts file
 let enxlFile = options.enxlFile // ext libs file
 let mdeeFile = options.mdeeFile // to md file
 let zFile = options.zindex // from zindex file
@@ -201,7 +201,7 @@ if (1 && 1) console.log('options', options)
 
 
 
-} else if (action === 'entlist') { // ........... entlist update ents and enls
+} else if (action === 'entlist') { // ........... entlist (update ents and enls)
 
   let testpattern = new RegExp('(.*)\.test\.(.*)$', 'i')
 
@@ -210,11 +210,11 @@ if (1 && 1) console.log('options', options)
 
   let gens = [
 
-    // { // libs:
-      // tags: ['d3', 'topojson', 'three', 'tfjs'],
-      // file: libsFile,
-      // regCode: '\\b.*'
-    // },
+    { // libs:
+      tags: ['d3', 'topojson', 'three', 'tfjs'],
+      file: libsFile,
+      regCode: '\\b.*'
+    },
 
     // { // ents
       // tags: ['boson', 'control', 'data', 'force', 'geo', 'lib', 'muon', 'halo', 'x', 'render'],
@@ -222,9 +222,9 @@ if (1 && 1) console.log('options', options)
       // regCode: '\\b.*'
     // }
 
-    { // parts
+    { // eons
       tags: ['boson', 'control', 'data', 'force', 'geo', 'lib', 'muon', 'halo', 'render'],
-      file: partsFile,
+      file: eonsFile,
       regCode: '\\b.*'
     }
 
@@ -281,9 +281,33 @@ if (1 && 1) console.log('options', options)
 
   jest
 
+
+
 } else if (action === 'eslint') { // ........... eslint
 
   eslint
+
+
+
+} else if (action === 'renam') { // ........... renam
+
+  console.log('renam')
+  let files = fs.readdirSync(appdir)
+
+  let regex = new RegExp('^' + 'muon' + '.*' + '.*(.html|js)?', 'i')
+
+  let fzs = files.filter(d => regex.test(d))
+  for (let i = 0; i < fzs.length; i++) {
+  let fileName = fzs[i]
+    console.log('fileName:', fileName)
+
+    // fs.rename('/tmp/hello', '/tmp/world', function (err) {
+      // if (err) throw err;
+      // console.log('renamed complete');
+    // })
+
+  }
+
 
 } else if (action === 'mdeefy') { // ........... mdeefy
   let files = fs.readdirSync(appdir)
@@ -340,6 +364,8 @@ if (1 && 1) console.log('options', options)
 
   fs.writeFileSync(outfile, outText)
 
+
+
 } else if (action === 'uncomment') { // ........... uncomment
   let scriptpattern = new RegExp('^' + 'script', 'i')
   let htmlpattern = new RegExp('(.*)\.html$', 'i')
@@ -373,6 +399,9 @@ if (1 && 1) console.log('options', options)
       fs.writeFileSync(fileName, fileTxt)
     }
   }
+
+
+
 } else if (action === 'serve') { // ........... serve
   console.log('serve')
 
@@ -390,6 +419,9 @@ if (1 && 1) console.log('options', options)
 
 
   if (1 && 1)  console.log("Running at Port 8000");
+
+
+
 } else {
     if (2 && 2) console.log("action not found");
 }
