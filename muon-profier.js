@@ -122,10 +122,8 @@
           // let prj = await __mapper('xs').g(projdef.projection)   
 
           let geo = __mapper('xs').eonize(projdef.projection, 'geo')
-          if (1 && 1) console.log('projdef.geo', geo)
 
           let prj = __mapper('xs').getFermion(geo)
-          if (1 && 1) console.log('projdef.prj', prj)
 
 
           geoproj = prj(projdef) // 
@@ -291,8 +289,6 @@
     // ............................. proformion_
     function proformion_(anigram) {
       
-        if (1 && 1) console.log('proformion_', anigram.payload.proform)
-
         let res = null
         let prj = anigram.payload.proform
         if (prj) {

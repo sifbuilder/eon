@@ -45,7 +45,6 @@
       ])
 
 
-
     let width = 600,
       height = 400,
       background = 'black'
@@ -141,7 +140,7 @@
     // ............................. render
     let render = function (elapsed, featurecollection, maxlimit) {
       
-      if (1 && 1) console.log(' ---------------- featurecollection', featurecollection)
+      if (1 && 1) console.log(' --------- render features', featurecollection.features.length)
 
       
       

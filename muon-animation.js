@@ -13,6 +13,7 @@
 
     let [
           mprops,
+          mstore,
           msim,
           mtim,
           msnap,
@@ -23,6 +24,7 @@
           ctimer,
       ] = await Promise.all( [
           __mapper('xs').m('props'),
+          __mapper('xs').m('store'),
           __mapper('xs').m('sim'),
           __mapper('xs').m('tim'),
           __mapper('xs').m('snap'),
@@ -50,25 +52,31 @@
     // .................. getweens
     const getweens = async (animas, elapsed) => {
 
-      let promises = animas.map(anima => mstore.ween(anima))
-      Promise.all(promises)
-        .then((resolved) => {
-
-          let newAnimas = resolved.reduce((p, q) => [...p, ...q], [])
-
-          mstore.apply({type: 'UPDANIMA', animas: newAnimas})
-
-        })
-        .catch(e => {console.log(e)})
-
-      return mprops.a(mstore.animasLive())
+      // let promises = animas.map(anima => mstore.ween(anima))
+      // Promise.all(promises)
+        // .then((resolved) => {
+          // let newAnimas = resolved.reduce((p, q) => [...p, ...q], [])
+          // mstore.apply({type: 'UPDANIMA', animas: newAnimas})
+        // })
+        // .catch(e => {console.log(e)})
+      // return mprops.a(mstore.animasLive())
+ 
+      let newAnimas = animas.map(anima => mstore.ween(anima))
+      let allAnimas = mstore.animasLive()
+   
+      return allAnimas
+      
     }
 
     // .................. getgramms
     const getgramms = (animas, elapsed) => {
-
-      let promises = animas.map(anima => mstore.gramm(anima)) // stores anigrams
-      return mstore.anigrams()
+if (1 && 1) console.log('animas', animas)   
+      let newAnigrams = animas.map(anima => mstore.gramm(anima)) // stores anigrams
+if (1 && 1) console.log('newAnigrams', newAnigrams)   
+      let allAnigrams = mstore.anigrams()
+if (1 && 1) console.log('allAnigrams', allAnigrams)
+      
+      return allAnigrams
 
     }
  
@@ -119,8 +127,12 @@
       // ............................. @WEEN SIM GRAMM RENDEr
 
       getweens(state.animas, elapsed)
-      .then(animas => getsims(state.animas))
-      .then(animas => getgramms(state.animas))
+      .then(animas => {
+        return getsims(state.animas)
+      })
+      .then(animas => {
+        return getgramms(state.animas)
+      })
       .then(anigrams => {
         let featurecollection = { type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }
         rsvg.render(elapsed, featurecollection)

@@ -16,22 +16,22 @@
   // md:  define `geofold.properties.geonode` if undefined
 
   async function haloEnt (__mapper = {}) {
-    let [
-      manitem,
-      mgeoj,
-      mprofier,
-      mproj3ct,
-      hformed,
-      mprops
-    ] = await Promise.all([
-      __mapper('xs').m('anitem'),
-      __mapper('xs').m('geoj'),
-      __mapper('xs').m('profier'),
-      __mapper('xs').m('proj3ct'),
-      __mapper('xs').h('formed'),
-      __mapper('xs').m('props')
+      let [
+        manitem,
+        mgeoj,
+        mprofier,
+        mproj3ct,
+        hformed,
+        mprops
+      ] = await Promise.all([
+        __mapper('xs').m('anitem'),
+        __mapper('xs').m('geoj'),
+        __mapper('xs').m('profier'),
+        __mapper('xs').m('proj3ct'),
+        __mapper('xs').h('formed'),
+        __mapper('xs').m('props')
 
-    ])
+      ])
 
       const c = (f,x) => {
         let feature
@@ -70,10 +70,9 @@
 
     // ............................. gramm
      function grammify (anigram, newAnigrams = []) {
-       if (1 && 1) console.log('grammify proform', anigram.payload.proform)
 
-      let conformion = mprofier.conformer_(anigram)
-            ereformion = mprofier.ereformion_(anigram)
+      let conformion = mprofier.conformer_(anigram),
+            ereformion = mprofier.ereformion_(anigram),
             proformion = mprofier.proformion_(anigram)
 
       const t = f => p(e(c(f,conformion),ereformion),proformion)
@@ -95,7 +94,6 @@
 
     // ............................. gramm
      function gramm (anima) {
-      if (1 && 1) console.log('gramm', anima)
 
       return  grammify(manitem(anima).anigram())
 
