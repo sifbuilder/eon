@@ -103,10 +103,8 @@
       pPos: null   // previous position
 
     }
-  /*******************************************
-   *    @versorControl
-   *
-   */
+    
+    // ....................... versorControl
     let versorControl = {
       dragstarted,
       dragged,
@@ -114,11 +112,7 @@
 
     }
 
-
-  /*******************************************
-   *    @dragstarted
-   *
-   */
+    // ....................... dragstarted
     function dragstarted () {
 
       let e = d3.event
@@ -146,10 +140,7 @@
 
     }
 
-  /*******************************************
-   *    @dragged
-   *
-   */
+    // ....................... dragged
     function dragged () {
 
       let e = d3.event
@@ -196,10 +187,7 @@
 
     }
 
-  /*******************************************
-   *    @dragended
-   *
-   */
+    // ....................... dragended
     function dragended () {
 
       if (!state.grabbed) return
@@ -217,41 +205,21 @@
     }
 
 
-  /*******************************************
-   *    @momentum
-   *
-   */
-
+    // ....................... momentum
     function momentum () {
       if (Math.abs(state.vel_spher[0]) < state.epsilon && Math.abs(state.vel_spher[1]) < state.epsilon) return
 
         state.vel_spher[0] *= state.decay
         state.vel_spher[1] *= state.decay
 
-        // -----------------
-
         let vel = mgeom.cartesian(state.vel_spher)
-
-
-
-        // state.rotInDrag_grads[0] += vel[0]
-        // state.rotInDrag_grads[1] += vel[1]
-        // state.rotInDrag_grads[2] += vel[2]
-        // -----------------
-
 
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
 
 
-    /*******************************************
-   *    @enty
-   */
-    let enty = function enty (p = {}) {
-
-            return enty
-    }
-
+    // ....................... enty
+    function enty (){}
     enty.dragstarted = dragstarted
     enty.dragged = dragged
     enty.control = control

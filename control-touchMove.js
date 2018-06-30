@@ -9,7 +9,7 @@
 }(this, function (exports) {
   'use strict'
 
-  function touchMoveControl (payload) {
+  async function touchMoveControl (__mapper = {}) {
     var currentListeners = []
     var nextListeners = currentListeners
 
@@ -38,16 +38,16 @@
       }
     }
 
-    // ....................... controlApi
-    function controlApi () {}
+    // ....................... enty
+    let enty = {}
 
     // ....................... start
-    controlApi.start = function start (svg) {
+    enty.start = function start (svg) {
       svg.on('touchmove', 	function () { controlAction(this) })
-      return controlApi
+      return enty
     }
     // ....................... subscribe
-    controlApi.subscribe = function subscribe (listener) {
+    enty.subscribe = function subscribe (listener) {
       if (typeof listener !== 'function') {
         throw new Error('Expected listener to be a function.')
       }
@@ -67,7 +67,7 @@
       }
     }
 
-    return controlApi
+    return enty
   }
 
   exports.touchMoveControl = touchMoveControl

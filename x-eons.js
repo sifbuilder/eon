@@ -17,10 +17,10 @@ let parts = [
 /* control*/
 ['controlWen' , './control-wen.js'],
 ['controlVersor' , './control-versor.js'],
-// ['controlTouchMove' , './control-touchMove.js'],
+['controlTouchMove' , './control-touchMove.js'],
 // ['controlTouchEnd' , './control-touchEnd.js'],
 ['controlTimer' , './control-timer.js'],
-// ['controlRayder' , './control-rayder.js'],
+['controlRayder' , './control-rayder.js'],
 // ['controlRaycaster' , './control-raycaster.js'],
 // ['controlPos' , './control-pos.js'],
 // ['controlKey' , './control-key.js'],

@@ -9,7 +9,7 @@
 }(this, function (exports) {
   'use strict'
 
-  function touchEndControl (payload) {
+  async function touchEndControl (__mapper = {}) {
     var currentListeners = []
     var nextListeners = currentListeners
 
@@ -39,7 +39,7 @@
     }
 
     // ....................... enty
-    function enty () {}
+    function enty (){}
 
     // ....................... start
     enty.start = function (svg) {
