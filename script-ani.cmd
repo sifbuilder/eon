@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 const fs = require('fs')
+const path = require('path')
 const http = require('http')
 // const { entlist } = require('./script-entlist.js')
 const minimist = require('./script-minimist.js')
 const fetch = require('./script-node-fetch.js')
+
+const npm = require('npm')
 
 
 // md: # md:{filename}
@@ -50,6 +53,36 @@ function camelize(str) {
   .replace(/\.[^.]*$/, '')  // remove file extension
   .replace(/\s+/g, '')  // if white space
   .replace(/\-+/g, '')  // if hyphen
+}
+
+
+// ...................... mdfile
+function mdfile (file) {
+
+
+  let header = ''
+  let newLine = '\n'
+  let endOfLine = '  '
+  let outText = header
+  let fileName = file
+
+
+    let fileTxt = fs.readFileSync(fileName, 'utf8')
+    let nameFindPattern = /md:(\{filename\})/mg // filename
+    let nameReplacePattern = /md:\{filename\}/i // ignoring case
+    var nameArr
+    while ((nameArr = nameFindPattern.exec(fileTxt)) !== null) {
+        fileTxt = fileTxt.replace(nameReplacePattern, fileName)
+    }
+    const mdpattern = /\/\/.?md:(.*)/mg // // md (global multiline)
+    var arr
+    while ((arr = mdpattern.exec(fileTxt)) !== null) {
+      outText += arr[1] + endOfLine + newLine
+    }
+
+
+
+  return outText
 }
 
 
@@ -235,9 +268,6 @@ if (1 && 1) console.log('options', options)
 
 } else if (action === 'mdfy') {  // ........... mdfy create md file
 
-
-  // md string begin
-
   let scriptpattern = new RegExp('^' + 'script', 'i')
   let htmlpattern = new RegExp('(.*)\.html$', 'i')
   let jspattern = new RegExp('(.*)\.js$', 'i')
@@ -279,13 +309,98 @@ if (1 && 1) console.log('options', options)
 
 } else if (action === 'jest') { // ........... jest
 
-  jest
-
+  console.log('jest')
 
 
 } else if (action === 'eslint') { // ........... eslint
 
-  eslint
+  console.log('eslint')
+
+
+} else if (action === 'rollup') { // ........... rollup -----------------------
+
+
+
+  console.log('create dist folder')
+let path = './dist'
+let distfiles = [ "./README.md", "./LICENSE", "./package.json", "./index.js", "./rollup.config.js" ]
+fs.existsSync(path) || fs.mkdirSync("path");
+
+  console.log('for each file in scope:')
+
+// ---------------------------------- md
+  let testpattern = new RegExp('(.*)\.test\.(.*)$', 'i')
+let files = fs.readdirSync(appdir)
+let regex = new RegExp('^' + 'muon' + '.*' + '.*(.html|js)?', 'i')
+let fzs = files
+    .filter(d => regex.test(d))
+    .filter(d => !testpattern.test(d))
+    
+// fs.unlink('/tmp/hello', function (err) {
+  // if (err) throw err;
+  // console.log('successfully deleted /tmp/hello');
+// });
+// fs.rename('/tmp/hello', '/tmp/world', function (err) {
+  // if (err) throw err;
+  // console.log('renamed complete');
+// });    
+for (let i = 0; i < fzs.length; i++) {
+
+  let fileName = fzs[i]
+  let outfile = './dist/README.md'
+  fs.unlink(outfile, function (err) {
+    if (err) console.log('error',err)
+    console.log(`successfully deleted ${outfile}`)
+  })
+  let mdtext = fileName   // let mdtext = mdfile(fileName)
+  console.log('------------------------ outfile:', outfile, mdtext)
+  fs.writeFileSync(outfile, mdtext)
+
+}
+
+// ---------------------------------- package.json
+for (let i = 0; i < fzs.length; i++) {
+
+  let fileName = fzs[i]
+  let outfile = './dist/package.json'
+  fs.unlink(outfile, function (err) {
+    if (err) console.log('error',err)
+    console.log(`successfully deleted ${outfile}`)
+  })
+  
+  let pkg = {
+    name: fileName,
+    version: '0.0.1',
+    description: 'graticule muon',
+    author: {
+      "name": 'sifbuilder@gmail.com'
+    },
+    license: 'MIT',
+    repository: {
+      "type": "git",
+      "url": `github.com/sifbuilder/${fileName}.git`
+    },
+    main: 'eon-muon-graticule.js',
+  }  
+  let mdtext = JSON.stringify(pkg, null, ' ')
+  console.log('------------------------ outfile:', outfile, mdtext)
+  fs.writeFileSync(outfile, mdtext)
+
+}
+
+
+  // console.log('clean ./dist folder: ["README.md", "LICENSE"]')
+  // console.log('define package name, eg. eon-muon-graticule')
+  // console.log('create ./dist/README.md')
+  // console.log('create ./dist/LICENSE')
+  // console.log('create ./dist/index.js from ./eon-muon-graticule.js')
+  // console.log('create ./dist/package.json')
+  // console.log('make ./dist git repo')
+  // console.log('git clone git@github.com:    ')
+
+
+  // git clone git@gist.github.com:d411e851d52577cf212e2b04c7587496
+
 
 
 
@@ -300,12 +415,6 @@ if (1 && 1) console.log('options', options)
   for (let i = 0; i < fzs.length; i++) {
   let fileName = fzs[i]
     console.log('fileName:', fileName)
-
-    // fs.rename('/tmp/hello', '/tmp/world', function (err) {
-      // if (err) throw err;
-      // console.log('renamed complete');
-    // })
-
   }
 
 
@@ -315,8 +424,6 @@ if (1 && 1) console.log('options', options)
   let outfile = 'README.md'
 
   let regex = new RegExp('^.*' + infile + '.*(.html|js)?', 'i')
-
-
 
   let fzs = files.filter(d => regex.test(d))
 
@@ -336,8 +443,6 @@ if (1 && 1) console.log('options', options)
   let code = parts[2]
   let name = parts[3]
   let type = parts[4]
-
-
 
     let fileTxt = fs.readFileSync(fileName, 'utf8')
 
