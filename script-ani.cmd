@@ -386,6 +386,7 @@ for (let i = 0; i < fzs.length; i++) {
   console.log('------------------------ outfile:', outfile, mdtext)
   fs.writeFileSync(outfile, mdtext)
 
+  
 }
 
 
@@ -414,7 +415,10 @@ for (let i = 0; i < fzs.length; i++) {
   let fzs = files.filter(d => regex.test(d))
   for (let i = 0; i < fzs.length; i++) {
   let fileName = fzs[i]
-    console.log('fileName:', fileName)
+    
+    let newFileName = 'eon-' + fileName
+  
+    console.log('fileName:', fileName, newFileName)
   }
 
 
@@ -435,14 +439,14 @@ for (let i = 0; i < fzs.length; i++) {
   for (let i = 0; i < fzs.length; i++) {
     let fileName = fzs[i]
 
-  let regex2 = new RegExp('^(zindex)?(.*)-(.*)\.(html|js)', 'i')
-  let parts = fileName.match(regex2)
+    let regex2 = new RegExp('^(zindex)?(.*)-(.*)\.(html|js)', 'i')
+    let parts = fileName.match(regex2)
 
-  let fullname = parts[0]
-  let part = parts[1]
-  let code = parts[2]
-  let name = parts[3]
-  let type = parts[4]
+    let fullname = parts[0]
+    let part = parts[1]
+    let code = parts[2]
+    let name = parts[3]
+    let type = parts[4]
 
     let fileTxt = fs.readFileSync(fileName, 'utf8')
 
