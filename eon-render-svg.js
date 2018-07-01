@@ -321,7 +321,7 @@
     }
 
     // ............................. enty
-    let enty = function enty () {}
+    let enty = function enty(){}
 
     enty.svg = _svg
     enty.svgelems = svgelems

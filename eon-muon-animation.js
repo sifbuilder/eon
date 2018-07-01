@@ -108,7 +108,7 @@
     }
 
     // ............................. enty
-    function enty () {}
+    function enty(){}
     enty.animate = animate
     enty.animationStop = () => state.animationStop
     return enty

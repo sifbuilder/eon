@@ -26,6 +26,7 @@
 
     // ............................. mapOnePart    
     function mapOnePart (part) {  // [ partName, [partEnts] ]
+if (1 && 1) console.log('mapOnePart part', part)
 
       return enty('xD3Require').require(...a(part[1])) // to state
         .then(eon => getCell(eon, part[0], enty)) // get 

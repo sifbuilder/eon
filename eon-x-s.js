@@ -14,7 +14,11 @@
 
     let capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) 
     let eonize = (nome, pres='') => (pres === '') ? nome : pres + capitalize(nome)
-    let fermize = (nome, pres='') => (pres === '') ? './' + nome + '.js' : './' + pres + '-' + nome + '.js'
+    let fermize = (nome, pres='') => (pres === '') 
+        ? './' + nome + '.js' 
+        : (pres === 'control' || pres === 'geo' || pres === 'halo' || pres === 'muon' || pres === 'render' ) 
+            ? './' + 'eon' + '-' + pres + '-' + nome + '.js'
+            : './' + pres + '-' + nome + '.js'
     let camelize = str => str
       .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index == 0 ? letter.toLowerCase() : letter.toUpperCase())
       .replace(/\s+/g, '')  // remove white space
@@ -31,10 +35,9 @@
     // ............................. getFermion
     function getFermion(name, pres) { // nome is partName: eg 'muonGraticule'
     
-        let fermion = __mapper(eonize(name, pres)) 
-          // ? __mapper(nome)[nome] !== undefined 
-            // ? __mapper({ [nome]: __mapper(nome)[nome]  })[nome] // map and get
-          // ? getCell(__mapper(nome) , nome, __mapper)
+        let eon = eonize(name, pres)
+       if (1 && 1) console.log('eon', eon)        
+        let fermion = __mapper(eon) 
           ? __mapper(eonize(name, pres)) 
           : __mapper.mapOnePart([eonize(name, pres), fermize(name, pres)])
         return fermion

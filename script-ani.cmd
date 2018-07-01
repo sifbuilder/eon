@@ -256,7 +256,7 @@ if (1 && 1) console.log('options', options)
     // }
 
     { // eons
-      tags: ['boson', 'control', 'data', 'force', 'geo', 'lib', 'muon', 'halo', 'render'],
+      tags: ['boson', 'control', 'data', 'force', 'eon', 'geo', 'halo', 'lib', 'muon', 'render'],
       file: eonsFile,
       regCode: '\\b.*'
     }
@@ -410,7 +410,12 @@ for (let i = 0; i < fzs.length; i++) {
   console.log('renam')
   let files = fs.readdirSync(appdir)
 
-  let regex = new RegExp('^' + 'muon' + '.*' + '.*(.html|js)?', 'i')
+  // let regex = new RegExp('^' + 'muon' + '.*' + '.*(.html|js)?', 'i')
+  // let regex = new RegExp('^' + 'control' + '.*' + '.*(.html|js)?', 'i')
+  // let regex = new RegExp('^' + 'halo' + '.*' + '.*(.html|js)?', 'i')
+  // let regex = new RegExp('^' + 'render' + '.*' + '.*(.html|js)?', 'i')
+  // let regex = new RegExp('^' + 'x' + '.*' + '.*(.html|js)?', 'i')
+  let regex = new RegExp('^' + 'geo' + '.*' + '.*(.html|js)?', 'i')
 
   let fzs = files.filter(d => regex.test(d))
   for (let i = 0; i < fzs.length; i++) {
@@ -419,6 +424,7 @@ for (let i = 0; i < fzs.length; i++) {
     let newFileName = 'eon-' + fileName
   
     console.log('fileName:', fileName, newFileName)
+    fs.renameSync(fileName, newFileName)
   }
 
 

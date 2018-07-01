@@ -124,7 +124,7 @@
     }
 
     // ...................... enty
-    let enty = function enty () {}
+    let enty = function enty(){}
 
     enty.clip = clip
     enty.comeCloser = comeCloser
