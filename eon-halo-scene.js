@@ -7,37 +7,46 @@
       : (factory((global.haloScene = global.haloScene || {})))
 }(this, function (exports) {
   'use strict'
+  
+  // md: # md:{filename}
+  // md: ** **
+  // md:
+  // md: # license
+  // md: MIT
 
   async function haloScene(__mapper = {}) {
 
     let [
           mscene,
-       ] = await Promise.all( [
+       ] = await Promise.all([
           __mapper('xs').m('scene'),
        ])    
     
     
     // .................... ween    
-    let ween = function (anima, newAnimas = []) {
+    async function ween (anima, newAnimas = []) {
+      
       let p = anima.payload.context
       mscene.scenify(p)
       newAnimas = Array.of(anima)
       return newAnimas
-    }
-
-    let haloNat_ween = anima => ween(anima)
-    
-    let haloNat_gramm = anima => anima
-
-    let haloNat = {
-    
-      ween: anima => haloNat_ween(anima),
-      gramm: anima => haloNat_gramm(anima)
       
     }
+    // .................. gramm
+    async function gramm(anima, newAnigrams = []) {
+      return anima
+    }
+    
+    // .................. enty
+    let haloEon_ween = anima => ween(anima)
+    let haloEon_gramm = anima => gramm(anima)
 
-    // .................... enty
-    let enty = haloNat
+    let haloEon = {}
+    haloEon.ween = anima => haloEon_ween(anima)
+    haloEon.gramm = anima => haloEon_gramm(anima)
+
+    let enty = haloEon
+
     return enty
   }
 

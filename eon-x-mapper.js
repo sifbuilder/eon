@@ -7,6 +7,12 @@
       : (factory((global.xMapper = global.xMapper || {})))
 }(this, function (exports) {
   'use strict'
+  
+  // md: # md:{filename}
+  // md: ** **
+  // md:
+  // md: # license
+  // md: MIT  
 
   let xMapper = function () {
     let state = {}
@@ -26,7 +32,6 @@
 
     // ............................. mapOnePart    
     function mapOnePart (part) {  // [ partName, [partEnts] ]
-if (1 && 1) console.log('mapOnePart part', part)
 
       return enty('xD3Require').require(...a(part[1])) // to state
         .then(eon => getCell(eon, part[0], enty)) // get 

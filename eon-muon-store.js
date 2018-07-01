@@ -151,6 +151,7 @@
 
       let anigram = manitem.anigram(anima)
       let haloRef = __mapper('xs').eonize(anigram.halo, 'halo')
+      
       let newAnimas = __mapper(haloRef).ween(anigram) // ANIMA HALO.GRAMM
 
       if (newAnimas !== null && newAnimas.length > 0) {
@@ -220,6 +221,7 @@
     
     
       let halo = __mapper(haloRef)  // anigram halo
+if (1 && 1) console.log('haloRef', haloRef)
 
             return halo.gramm(anigram) // ANIMA HALO.GRAMM
               .then(newAnigrams => {

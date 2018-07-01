@@ -10,20 +10,16 @@
 
   async function muonScene(__mapper = {}) {
 
-    let   __d3          = __mapper('xs').q('d3')
-
-
     let [
           d3,
-       ] = await Promise.all( [
-          __d3,
+          rsvg,
+          cwen,
+       ] = await Promise.all([
+          __mapper('xs').q('d3'),
+          __mapper('xs').r('svg'),
+          __mapper('xs').c('wen'),
        ])  
-  
-  
-    let rsvg = await __mapper('xs').r('svg')
-    let cwen = await __mapper('xs').c('wen')
-  
-    // let d3 = __mapper('d3')
+
     
 
     let state = {}

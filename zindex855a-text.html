@@ -12,11 +12,11 @@
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
 
-<script src="x-d3-require.js"></script>
-<script src="x-mapper.js"></script>
-<script src="x-s.js"></script>
-<script src="x-libs.js"></script>
-<script src="x-parts.js"></script>
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+<script src="eon-x-libs.js"></script>
+<script src="eon-x-eons.js"></script>
 
 <script>
 
@@ -27,44 +27,36 @@
 // md: MIT
 
 
-;(async function ____e() {
+;(async function eon() {
     let __mapper = xMapper.xMapper() // init mapper
 
     __mapper({'xD3Require': xD3Require}) //
     __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy part
 
     __mapper({'xLibs': xLibs.xLibs(__mapper)}) // xLibs    
-    await __mapper.mapParts(__mapper('xLibs')()) // register libs
+    let libs = await Promise.all(__mapper('xLibs').parts().map(part => __mapper.mapOnePart(part) ))
 
+    __mapper({'xEons': xEons.xEons(__mapper)})
+    let eons = await Promise.all(__mapper('xEons').parts().map(part => __mapper.mapOnePart(part) ))
 
-    __mapper({'xParts': xParts.xParts(__mapper)}) // xParts
-    await __mapper.mapParts(__mapper('xParts')()) // get and register parts
-
-    
     let animas = await animasPromise(__mapper)
-    let mstore = await __mapper('xs').m('store')  // map store
+
+    let mstore = __mapper('muonStore')  // map store
     mstore.apply({type: 'UPDANIMA', animas: animas})  // store animas
-    __mapper('muonAnimation').muonAnimation(__mapper) // animate
+   
+    __mapper('muonAnimation').animate() // animate
 
 })()
 
   // .................. animasPromise
 async function animasPromise(__mapper) {
 
-    let cellpromises  = 	[
-                __mapper('xs').r('renderport'),
-              ]
-
     let [
         rrenderport,
-      ] = await Promise.all(
-        cellpromises
-      )    
+      ] = await Promise.all([
+        __mapper('xs').r('renderport'),
+      ])    
 
-      
-  let width = rrenderport.width(),
-    height = rrenderport.height(),
-    scaleProj = Math.min(width / 2, height) / Math.PI
 
   // .................. pics
   let tim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
@@ -105,7 +97,7 @@ async function animasPromise(__mapper) {
     payload: {
       tim: tim,
       ric: {gid: 'gratiform', cid: 'gratiform', fid: 'context'},
-      context: {svg: 1, versor: 0, wen: 1, webgl: 1, bck: 1}
+      context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1}
     }
 
   }

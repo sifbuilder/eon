@@ -27,20 +27,19 @@
     let getFromMapper = part => __mapper(part)
     let getFromEnty = part => part()
     let getAsFunction = part => part
-    // let getFromNet = part => xD3Require.require(part) // global xD3Require
-    let getFromNet = (name, pres) => Promise.resolve(part)
+    let getFromNet = part => xD3Require.require(part) // global xD3Require
+    // let getFromNet = (name, pres) => Promise.resolve(part)
     let getCell = (e,n,m) => e[n] !== undefined ? m({n: m(n)[n] })[n] : e // eon, name, map
-
 
     // ............................. getFermion
     function getFermion(name, pres) { // nome is partName: eg 'muonGraticule'
     
         let eon = eonize(name, pres)
-       if (1 && 1) console.log('eon', eon)        
         let fermion = __mapper(eon) 
           ? __mapper(eonize(name, pres)) 
           : __mapper.mapOnePart([eonize(name, pres), fermize(name, pres)])
         return fermion
+        
     }
 
     // ............................. async getBoson

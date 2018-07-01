@@ -24,8 +24,14 @@
 
   async function haloTextform(__mapper = {}) {
     
-    let manitem = await __mapper('xs').m('anitem')
-    
+
+        let [
+          manitem,
+          hent,
+       ] = await Promise.all( [
+          __mapper('xs').m('anitem'),
+          __mapper('xs').h('ent')
+       ])    
 
     // .................. _geofold
     let _geofold = function (ani) { // geofold
@@ -73,24 +79,21 @@
         payload
       }
       
-      let hent = await __mapper('xs').h('ent')
-       newAnigrams = await hent.gramm(newAnigram)
-      // const hformed = await __mapper('xs').h('formed')
-      // newAnigrams = await hformed.gramm(newAnigram)
-      
+      newAnigrams = await hent.gramm(newAnigram)
       
       return newAnigrams
+      
     }
 
     // .................. enty
-    let haloTextform_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-    let haloTextform_gramm = anima => gramm(anima)
+    let haloEon_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+    let haloEon_gramm = anima => gramm(anima)
 
-    let haloTextform = {}
-    haloTextform.ween = anima => haloTextform_ween(anima)
-    haloTextform.gramm = anima => haloTextform_gramm(anima)
+    let haloEon = {}
+    haloEon.ween = anima => haloEon_ween(anima)
+    haloEon.gramm = anima => haloEon_gramm(anima)
 
-    let enty = haloTextform
+    let enty = haloEon
 
     return enty
   }

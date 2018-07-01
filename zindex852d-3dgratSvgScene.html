@@ -26,7 +26,7 @@
 // md: # license
 // md: MIT
 
-;(async function ____e() {
+;(async function eon() {
     let __mapper = xMapper.xMapper() // init mapper
 
     __mapper({'xD3Require': xD3Require}) //
@@ -38,17 +38,11 @@
     __mapper({'xEons': xEons.xEons(__mapper)})
     let eons = await Promise.all(__mapper('xEons').parts().map(part => __mapper.mapOnePart(part) ))
 
-    
     let animas = await animasPromise(__mapper)
-    
 
     let mstore = __mapper('muonStore')  // map store
     mstore.apply({type: 'UPDANIMA', animas: animas})  // store animas
    
-        console.log('animas', animas)
-        console.log('animasLive', mstore.animasLive())
-        
-        
     __mapper('muonAnimation').animate() // animate
 
 })()
@@ -67,11 +61,6 @@ async function animasPromise(__mapper) {
      ])
       
 
-
-  
-  // let width = rrenderport.width(),
-    // height = rrenderport.height(),
-    // scaleProj = Math.min(width / 2, height) / Math.PI
 
   // .................. pics
   let tim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
@@ -105,8 +94,6 @@ async function animasPromise(__mapper) {
       'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 4, 'pa6': 0, 'pb7': -1
     }
   }
-
-  let conform3d = { projection: 'natform', form: form3d }
 
   // .................. gratiform
   let g1 = {
@@ -150,7 +137,7 @@ async function animasPromise(__mapper) {
 
       boform: { 'csx': 0, 'cf': [[[666, 555, 666]]], 'cs': [[[333, 666, 333]]], 'cw': 0.9, 'co': [[[0.09, 0.03, 0.09]]], 'cp': [[[0.9, 1.9, 0.9]]]},
 
-      conform: conform3d,
+      conform: { projection: 'natform', form: form3d },
       proform: {
 
           prerotate: [[[ cwen.rotation ]]],
@@ -201,7 +188,7 @@ async function animasPromise(__mapper) {
     payload: {
       tim: tim,
       ric: {gid: 'gratiform', cid: 'gratiform', fid: 'context'},
-      context: {svg: 1, versor: 0, wen: 1, webgl: 1, bck: 1}
+      context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1}
     }
 
   }

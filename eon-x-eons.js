@@ -9,7 +9,6 @@
   'use strict'
 
 
-// _parts
 let parts = [
 
 ['controlWen' , './eon-control-wen.js'],
@@ -57,12 +56,7 @@ let parts = [
 ['renderSvg' , './eon-render-svg.js'],
 ['renderRenderport' , './eon-render-renderport.js'],
 
-
     ]
-    // -parts
-
-
-
 
 
   let xEons = function (__mapper = {}) {
