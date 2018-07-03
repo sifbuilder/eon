@@ -8,20 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: **process h.formed anigrams**
-  // md:
-  // md: expects `a.geofold` to be `geojson.FeatureCollection`
-  // md: for the feature collection
-  // md: * order the collection on z dax, `mgeoj.zorder(gjcollection)`
-  // md: * identify to features on index, `mric.enric(ric, anigram, gjcollection)`
-  // md:
-  // md: then for each feature,
-  // md: * boform, decoding style properties
-  // md: * set sort. `feature.properties.sort` will determine rendering. default to feature
-  // md: * inherit avatars
-  // md:
-  // md:  then pass the collection back to `m.animation` for rendering
 
   async function haloFormed (__mapper = {}) {
     let [

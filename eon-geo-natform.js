@@ -9,22 +9,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: **returns nat projection**
-  // md:
-  // md: ### functions
-  // md: pointStream
-  // md: `pointStream projectionDefinition`
-  // md: projectionDefinition: {type:nat, form:form}
-  // md: get the nat for mvertices
-  // md: natPoint returns the nat projection per polar coordinates
-  // md:
-  // md: ### methods
-  // md: natprofion
-  // md:  compleate form for natform
-  // md:
-  // md: # license
-  // md: MIT
 
   async function geoNatform (__mapper = {}) {
     let mnat = await __mapper('xs').m('nat'),

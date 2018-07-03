@@ -8,41 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: **create new items at init, on auto or upon event**
-  // md:
-  // md: ### functions
-  // md:
-  // md: * ##### _geojsor
-  // md: usage: `_geojsor(@ani, @prob`
-  // md:  ani.pacer.initN
-  // md:  ani.pacer.eventN
-  // md:  ani.pacer.autoN
-  // md:  ani.pacer.autoP
-  // md:  ani.pacer.outtimed
-  // md:  ani.pacer.maxN
-  // md:  ani.pacer.span
-  // md: 	ani.pacer.aad: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
-  // md: 	ani.pacer.type: {LineString}
-  // md: 	ani.pacer.base: {geo, ere, pro}
-  // md:
-  // md:
-  // md: ### methods
-  // md:
-  // md: * ##### gramm
-  // md: `@a.p.pacer.initSitus`  : situs for init items
-  // md: `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, ani)`
-  // md: usage: `payload.pacer.autoSitus(anigram)`
-  // md: autositus in zindex: `function(a) {return mstace.getLocus(this.stace, ani) }` gets `ani.p.pacer.stance`
-  // md: auto time is `a.p.tim.unitPassed - a.p.pacer.outed`
-  // md: `@a.p.pacer.eventSitus` : situs for event items
-  // md: `count` new items to pacer from init, auto and event
-  // md:
-  // md: `@a.p.pacer.fidder`  : new item `fid` identifier
-  // md: `@a.p.pacer.geojsor(@anigram, @counter)` : gets new item
-  // md:
-  // md: ## license
-  // md: MIT
 
   async function haloPacer (__mapper = {}) {
     let [

@@ -8,64 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: **manage anitems store**
-  // md: ## refs
-  // md: * `https://bl.ocks.org/mbostock/6081914 transitions`
-  // md: * `https://github.com/d3/d3-ease#easeElasticOut`
-  // md:
-  // md:
-  // md: ## methods
-  // md: * [apply](#apply) - adds, replace, delete anitems
-  // md:   @action: {UPDANIMA, UPDANIGRAM}
-  // md: * [ween](#ween) - process anitem through halo.ween
-  // md:   @anitem
-  // md: * [gramm](#gramm) - process anitem through halo.gramm
-  // md:   manage anitem's time
-  // md:   process anitem with anitem's halo.gramm
-  // md:   process anitem.avatars
-  // md: * animasInGroupHowMany
-  // md:   @anima
-  // md:   return live animas in group `anima.payload.rid.gid`
-  // md: * animasInClassHowMany
-  // md:   @anima
-  // md:   return live animas in class `anima.payload.rid.cid`
-  // md: * findIndexFromRic
-  // md:   @ric
-  // md:   @list
-  // md:   get anitem in @list by @ric {gid, cid, fid}
-  // md: * findIndex
-  // md:   @anitem
-  // md:   @list
-  // md:   get anitem in @list by @anitem.ric {gid, cid, fid}
-  // md: * findByUid
-  // md:   @anitem
-  // md:   @list
-  // md:   get anitem in @list by mric.getuid(@anitem)
-  // md: * findFromUid
-  // md:   @uid
-  // md:   @list
-  // md:   get anitem in @list by @uid
-  // md: * findIndexAnigramFromUid
-  // md: * findAnigramFromUid
-  // md: * findAnimaFromUid
-  // md: * born
-  // md: * unborn
-  // md: * getAnimaByUID
-  // md: * animas
-  // md: * anigrams
-  // md: * animasAll
-  // md: * animasLive
-  // md: * token
-  // md: * getNid
-  // md: * getAnigramIdx
-  // md: * getAnigram
-  // md: * getAnimaIdx
-  // md: * getAnima
-  // md:
-  // md:
-  // md: # license
-  // md: MIT
 
   async function muonStore (__mapper) {
     let [

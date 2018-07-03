@@ -8,12 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: **process h.ent animas**
-  // md: Feature Collect gj. for each feature
-  // md:  geoform, conform, ereform and proform anigrams
-  // md:  then pass the FeatureCollection to h.formed
-  // md:  define `geofold.properties.geonode` if undefined
 
   async function haloEnt (__mapper = {}) {
     let [

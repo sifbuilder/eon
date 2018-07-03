@@ -9,15 +9,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: **wen functions**
-  // md:
-  // md: # license
-  // md: MIT
-
-  // https://github.com/wenliang-developer
-  // https://codepen.io/wenliang-developer/pen/gMwvXR
-  // https://github.com/wenliang-developer/web-developer-site
 
   let muonWen = function (__mapper = {}) {
     function clip (n, m, M) { return n < M ? n > m ? n : m : M }

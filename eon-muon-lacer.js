@@ -8,11 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: **cells interlinked within cells interlinked**
-  // md:
-  // md: # license
-  // md: MIT
 
   function muonLacer (__mapper = {}) {
     const isNumericArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'number', true)

@@ -8,12 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: ** **
-  // md:
-  // md: # license
-  // md: MIT
-
   let xMapper = function () {
     let state = {}
     const getCell = (e, n, m) => e[n] !== undefined ? e[n](m) : e // eon, name, map muonGraticule['muonGraticule'](__mapper)

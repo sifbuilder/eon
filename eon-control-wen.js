@@ -9,15 +9,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: ** **
-  // md: ref: http://codepen.io/bali_balo/pen/XbyrME?editors=1100)
-  // md: ref: https://github.com/wenliang-developer
-  // md: ref: https://codepen.io/wenliang-developer/pen/gMwvXR
-  // md: ref: https://github.com/wenliang-developer/web-developer-site
-  // md:
-  // md: # license
-  // md: MIT  
   
   async function controlWen (__mapper = {}) {
     let [

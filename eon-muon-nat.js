@@ -8,22 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: **returns nat mesh**
-  // md:
-  // md: ### properties
-  // md:
-  // md: ### methods
-  // md: natFeature
-  // md: `coordinates = Array.of(__mapper("xs").m("nat").natFeature(p.form))`
-  // md:
-  // md: natNform
-  // md:  compleate form for natform
-  // md:
-  // md: # license
-  // md: MIT
 
-  // http://adripofjavascript.com/blog/drips/object-equality-in-javascript.html
   let isSame = function (a, b) {
     let ret = false
     if (a !== undefined && b !== undefined) {

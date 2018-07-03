@@ -8,19 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: process text anitems
-  // md: ## functions
-  // md: * [_geofold](#_geofold) - uploads payload text form to geofold properties
-  // md:
-  // md:
-  // md: ## methods
-  // md: * [ween](#ween) - process anima
-  // md: * [gramm](#gramm) - process anigram
-  // md:   buils the newitem geoform and pass it to h.ent
-  // md:
-  // md: # license
-  // md: MIT
 
   async function haloTextform (__mapper = {}) {
     let [

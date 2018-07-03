@@ -8,12 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: **manage anitem definition**
-  // md:
-  // md:
-  // md: # license
-  // md: MIT
 
   async function muonAnitem (__mapper = {}) {
     let [

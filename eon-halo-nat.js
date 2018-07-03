@@ -8,12 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: **expose nat form**
-  // md: h.ent with  anima.geofold : `mnat.natFeature(p.payload.form)`
-  // md:
-  // md: # license
-  // md: MIT
 
   let haloNat = function haloNat (__mapper = {}) {
     let f = __mapper('xs').m('props'),

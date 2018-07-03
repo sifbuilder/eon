@@ -8,12 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: **resolve bracket interpolations**
-  // md:
-  // md:
-  // md: # license
-  // md: MIT
 
   async function muonSnap (__mapper = {}) {
     let cellpromises = 	[

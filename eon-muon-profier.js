@@ -8,61 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: build geo projections
-
-  // md: ## functions
-  // md: * ### getProj_
-  // md:
-  // md: ## methods
-  // md: * ### formion_
-  // md: `formion_ (projdef, anigram)`
-  // md: **get projection from projdef and apply projection properties**
-  // md:  if `@projdef` or `@projdef.projection` are not defined, assume `p.uniwen` identity
-  // md:  if `@projdef.translate != undefined`
-  // md:  * if pure array, translate to position
-  // md:  * if non-pure array, add translate positions
-  // md:  * if a position, `object` translate to position
-  // md:  * if other `object`, process as `stace.spot`
-  // md:
-  // md:  if `@projdef.anod == 1` add `geofold.properties.geonode.geometry.coordinates` to translate
-  // md:
-  // md:  if `@projdef.rotate != undefined`
-  // md:  * if is pure array, apply rotation
-  // md:  * if is 2d, apply z rotation
-  // md:  * if non-pure array, add multi-rotations
-  // md:
-  // md:  if `@projdef.prerotation [[[ control:wen ]]]` apply wen control rotation
-  // md:  if `@projdef.prerotation [[[ control:versor ]]]` apply versor control rotation
-  // md:  if `@projdef.control:wen` apply wen control rotation
-  // md:  if `@projdef.control:versor` apply versor control rotation
-  // md:
-  // md: ### projer_
-  // md: use: `mprofier.projer_(prodef, anigram)(gj)
-  // md: *get formion_ projector on gj*
-  // md:
-  // md: ### conformer_
-  // md: use: `mprofier.conformer_ (anigram)`
-  // md: **get formion_ projector**
-  // md: assumes `projection != undefined`
-  // md: ```
-  // md:  projection: {
-  // md:   projection: 'natform',
-  // md:   form: anigram.payload.conform
-  // md:  }
-  // md: ```
-  // md:
-  // md: ### proformion_
-  // md: call `mprofier.proformion_ (anigram)`
-  // md: calls `formion_(anigram.payload.proform, anigram)`
-  // md: **get proform projection from projdef**
-  // md:
-  // md: ### proformer
-  // md:
-  // md:
-  // md: ### ereformion_
-  // md: ### ereformer
-  // md:
 
   async function muonProfier (__mapper = {}) {
     let [

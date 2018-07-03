@@ -8,27 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: **render svg**
-  // md:
-  // md:  The viewport is the visible area of the SVG image
-  // md:  Default units are pixels
-  // md:  `<svg width="600" height="400"></svg>`
-  // md:  The svg [viewBox](http://tutorials.jenkov.com/svg/svg-viewport-view-box.html) attribute is used to redefine the viewport coordinates
-  // md:  two first coordinates define user coordinates of upper left corner
-  // md:  two last coordinates define user coordinates of lower right corner
-  // md:  `<svg width="600" height="400" viewBox="0 0 50 20" >`
-  // md: ref: [Margin Convention](https://bl.ocks.org/mbostock/3019563)
-  // md: ## methods
-  // md: * ### svg
-  // md: * ### svgelems
-  // md:      call `svgelems(payload, data, idfn)`
-  // md: * ### render
-  // md:      call `render(elapsed, featurecollection, maxlimit)`
-  // md:      gets anima.geofold's from m.animation
-  // md:   @elapsed
-  // md:   @featurecollection
-  // md:   @maxlimit
 
   async function renderSvg (__mapper = {}) {
     let [

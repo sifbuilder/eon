@@ -8,11 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # md:{filename}
-  // md: ** **
-  // md:
-  // md: # license
-  // md: MIT
 
   async function muonProps (__mapper = {}) {
     let props = {}
