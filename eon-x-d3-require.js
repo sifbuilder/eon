@@ -42,6 +42,7 @@
   }
 
   async function resolve (name, base) {
+
     if (name.startsWith(origin)) name = name.substring(origin.length)
     if (/^(\w+:)|\/\//i.test(name)) return name
     if (/^[.]{0,2}\//i.test(name)) return new URL(name, base == null ? location : base).href
@@ -64,8 +65,6 @@
     function requireAbsolute (url) {
       let module = modules.get(url)
 
-      // if (document !== null) {    // _e_
-
       if (!module) {
         modules.set(url, module = new Promise((resolve, reject) => {
           const script = document.createElement('script')
@@ -83,13 +82,6 @@
           document.head.appendChild(script)
         }))
       }
-
-      // } else {  // _e_
-      // module = fetch(url)
-      // .then(function (response) {
-      // return response.text()
-      // })
-      // }   // _e_
 
       return module
     }

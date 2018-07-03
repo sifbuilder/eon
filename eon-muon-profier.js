@@ -56,9 +56,8 @@
 
           // let prj = await __mapper('xs').g(projdef.projection)
 
-          let geo = __mapper('xs').eonize(projdef.projection, 'geo')
-
-          let prj = __mapper('xs').getFermion(geo)
+          let geoeon = __mapper('xs').eonize(projdef.projection, 'geo')
+          let prj = __mapper(geoeon)
 
           geoproj = prj(projdef) //
           // geoproj = __mapper(__mapper('xs').eonize(projdef.projection, 'd3.geo'))(projdef) //

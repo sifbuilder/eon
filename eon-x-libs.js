@@ -12,17 +12,17 @@
 
     [ 'd3', [
       'd3',
-      'd3-octree',
-      'd3-inertia',
-      'd3-geo',
-      'd3-geo-voronoi',
-      'd3-geo-projection',
-      'd3-geo-polygon',
-      'd3-force-surface',
-      'd3-force-pod',
-      'd3-force-magnetic',
-      '3d-force-graph',
-      'd3-force-bounce',
+      // 'd3-octree',
+      // 'd3-inertia',
+      // 'd3-geo',
+      // 'd3-geo-voronoi',
+      // 'd3-geo-projection',
+      // 'd3-geo-polygon',
+      // 'd3-force-surface',
+      // 'd3-force-pod',
+      // 'd3-force-magnetic',
+      // '3d-force-graph',
+      // 'd3-force-bounce',
       'd3-force-3d'
     ]],
 

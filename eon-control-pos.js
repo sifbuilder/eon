@@ -10,20 +10,18 @@
 
   async function controlPos (__mapper) {
     let [
-      rrenderport
+      d3,
+      rrenderport,
+      mscene,
     ] = await Promise.all([
-      __mapper('xs').r('renderport')
+      __mapper('d3'),
+      __mapper('xs').r('renderport'),
+      __mapper('xs').m('scene'),
     ])
 
-    let width = rrenderport.width(),
-      height = rrenderport.height()
-    let cameraProjer = rrenderport.cameraProjer()
-
+    let cameraProjer    // projection camera
+    
     function prevent (e) {}
-
-    function subject () {
-      return this
-    }
 
     function started (d) {}
 
@@ -94,8 +92,7 @@
         prevent(e)
       }
 
-      var datum = d,								// d datum
-        node = this, 							// elem
+      var node = this, // elem
         parent = node.parentNode,
 
         // origin = d3.mouse(parent),
@@ -110,9 +107,6 @@
     }
 
     function ended (d) {
-      var node = d3.select(this)		// selection
-      var datum = node.datum()		// datum
-
       d3.select('div.postip')
         .classed('postip-hidden', true)
         .style('opacity', 0)
@@ -122,6 +116,8 @@
 
     // ......................... enty
     function enty (selection) {
+      cameraProjer = rrenderport.cameraProjer()
+
       selection.on('mouseenter.pos', started)
       selection.on('mousemove.pos', moved)
       selection.on('mouseout.pos', ended)

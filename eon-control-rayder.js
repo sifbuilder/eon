@@ -9,14 +9,17 @@
   'use strict'
 
   async function controlRayder (__mapper) {
+    
     let [
       mprops,
       mtimer,
-      rrenderport
+      rrenderport,
+      rsvg
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('timer'),
-      __mapper('xs').r('renderport')
+      __mapper('xs').r('renderport'),
+      __mapper('xs').r('svg')
     ])
 
     let mouse = {
@@ -31,7 +34,7 @@
 
     let touch = {}
 
-    let domNode = __mapper('renderSvg').svg()
+    let domNode = rsvg.svg()
 
     let state = {
       pointer,

@@ -9,19 +9,20 @@
   'use strict'
 
   async function renderRenderport (__mapper = {}) {
-    // let cellpromises = 	[
-    // __mapper('xs').m('scene')
-    // __mapper('xs').r('svg')
-    // ]
 
     // let [
-    // mscene
-    // rsvg
+    // mscene,
     // ] = await Promise.all(
-    // cellpromises
+    // __mapper('xs').m('scene'),
     // )
 
-    // let mscene = 	__mapper('xs').m('scene')
+    
+    // let [
+      // guniwen
+    // ] = await Promise.all([
+      // __mapper('xs').g('uniwen')
+    // ])
+    
 
     let margin = {top: 0, right: 0, bottom: 0, left: 0},
       viewWidth = 600,
@@ -53,7 +54,7 @@
       // rsvg.render(elapsed, featurecollection)
       // })
 
-      rsvg.render(elapsed, featurecollection)
+      // rsvg.render(elapsed, featurecollection)
 
       // if (__mapper('xs').r('webgl') !== undefined) __mapper('xs').r('webgl').render(elapsed, featurecollection)
 
@@ -67,8 +68,9 @@
 
     // ............................. cameraProjer
     const cameraProjer = function (p = prjdef) {
-      let geo = __mapper('geoUniwen')(p)
-      return geo
+      let geo = __mapper('geoUniwen')
+
+      return geo(p)
     }
 
     // ............................. xydirs
