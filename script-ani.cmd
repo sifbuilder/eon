@@ -400,7 +400,7 @@ if (1 && 1) console.log('options', options)
 
 
 
-} else if (action === 'uncomment') { // ........... uncomment
+} else if (action === 'uncomment') { // ************* uncomment *************
   let scriptpattern = new RegExp('^' + 'script', 'i')
   let htmlpattern = new RegExp('(.*)\.html$', 'i')
   let jspattern = new RegExp('(.*)\.js$', 'i')
@@ -435,8 +435,14 @@ if (1 && 1) console.log('options', options)
   }
 
 
+} else if (action === 'untab') { // ************* untab *************
+// You can accomplished this with a simple regular expression find/replace: [ \t]{2,}
 
-} else if (action === 'serve') { // ........... serve
+// If you want to omit indentation, add a negative lookbehind: (?<!\s)[ \t]{2,}
+
+
+
+} else if (action === 'serve') { // ************* serve *************
   console.log('serve')
 
       let file = 'zindex503-3symplectic.html'
@@ -467,7 +473,7 @@ console.log('create dist folder ', path)
 
 
 let eonpattern = new RegExp('^' + 'eon' + '.*' + '.*(.html|js)?', 'i')
-let testpattern = new RegExp('(.*)\.test\.(.*)$', 'i') // ----------------- md
+let testpattern = new RegExp('(.*)\.test\.(.*)$', 'i') // ...................... md
 let files = fs.readdirSync(appdir)
 let fzs = files
     .filter(d => eonpattern.test(d))
@@ -491,7 +497,7 @@ for (let fileName of fzs) {    // for each eon - create README.md
 }
 
 
-// for (let fileName of fzs)  {  // ---------------------------------- rollup.config.js
+// for (let fileName of fzs)  {  // ...................... rollup.config.js
 // import uglify from "rollup-plugin-uglify";
 // import meta from "./package.json";
 // const copyright = `// ${meta.name} Version ${meta.version} Copyright ${new Date().getFullYear()} sifbuilder.`;
@@ -525,7 +531,7 @@ for (let fileName of fzs) {    // for each eon - create README.md
 // ];
 
 
-for (let fileName of fzs)  {  // ---------------------------------- package.json
+for (let fileName of fzs)  {  // ...................... package.json
 
   let outfile = './dist/package.json'
 
@@ -557,7 +563,7 @@ for (let fileName of fzs)  {  // ---------------------------------- package.json
 
 
 
-for (let fileName of fzs)  {  // ---------------------------------- index.js
+for (let fileName of fzs)  {  // ...................... index.js
 
   let infile = fileName
   let outfile = './dist/index.js'
@@ -573,7 +579,7 @@ for (let fileName of fzs)  {  // ---------------------------------- index.js
 }
 
 
-for (let fileName of fzs)  {  // ---------------------------------- LICENSE
+for (let fileName of fzs)  {  // ...................... LICENSE
 
   let infile = './LICENSE'
   let outfile = './dist/LICENSE'
