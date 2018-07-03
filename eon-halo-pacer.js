@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   async function haloPacer (__mapper = {}) {
     let [
       mgeom,

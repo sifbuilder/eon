@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   async function haloEnt (__mapper = {}) {
     let [
       manitem,

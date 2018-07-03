@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   async function muonGeoj (__mapper = {}) {
     let mprops = await __mapper('xs').m('props')
 

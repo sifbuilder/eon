@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   async function muonAnitem (__mapper = {}) {
     let [
       mgeonode,

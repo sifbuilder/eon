@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   async function haloTextform (__mapper = {}) {
     let [
       manitem,

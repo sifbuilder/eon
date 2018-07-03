@@ -9,7 +9,6 @@
 }(this, function (exports) {
   'use strict'
 
-  
   async function controlWen (__mapper = {}) {
     let [
       rrenderport,

@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   let isSame = function (a, b) {
     let ret = false
     if (a !== undefined && b !== undefined) {

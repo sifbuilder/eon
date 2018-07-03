@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   async function muonProps (__mapper = {}) {
     let props = {}
 

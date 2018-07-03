@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   let muonStace = function (__mapper = {}) {
     let f = __mapper('xs').m('props'),
       mstore = __mapper('xs').m('store'),

@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   let haloNat = function haloNat (__mapper = {}) {
     let f = __mapper('xs').m('props'),
       manitem = __mapper('xs').m('anitem'),

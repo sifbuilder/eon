@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   async function muonSnap (__mapper = {}) {
     let cellpromises = 	[
       __mapper('xs').m('nat'),

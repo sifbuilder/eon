@@ -9,7 +9,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   let muonWen = function (__mapper = {}) {
     function clip (n, m, M) { return n < M ? n > m ? n : m : M }
     function comeCloser (n, goal, factor, limit) {

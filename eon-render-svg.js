@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   async function renderSvg (__mapper = {}) {
     let [
       rrenderport, // cameraProjer
