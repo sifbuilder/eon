@@ -1,5 +1,5 @@
 
-# md:{filename}
+# eon-halo-pacer
 **create new items at init, on auto or upon event**
 
 ### functions
