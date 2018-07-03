@@ -65,15 +65,15 @@
       if (r) return r
 
       return enty.mapOnePart([eon, fon]) // [d3, ./d3.js] [muonVersor, ./eon-muon-versor.js]
-      // try {
-          // const eoncell = await enty.mapOnePart([eon, fon]) // [d3, ./d3.js] [muonVersor, ./eon-muon-versor.js]
-          // if (eoncell) return eoncell
-      // } catch (err) {
+      try {
+          const eoncell = await enty.mapOnePart([eon, fon]) // [d3, ./d3.js] [muonVersor, ./eon-muon-versor.js]
+          if (eoncell) return eoncell
+      } catch (err) {
 
 
-    // if (1 && 1) console.log(' ************ xeon', xeon)
-          // return await enty.mapOnePart([eon, xeon]) // [d3, ./d3.js] [muonVersor, ./eon-muon-versor.js]
-      // }
+    if (1 && 1) console.log(' ************ xeon', xeon)
+          return await enty.mapOnePart([eon, xeon]) // [d3, ./d3.js] [muonVersor, ./eon-muon-versor.js]
+      }
 
 
 
