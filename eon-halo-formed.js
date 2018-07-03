@@ -24,25 +24,22 @@
   // md:  then pass the collection back to `m.animation` for rendering
 
   async function haloFormed (__mapper = {}) {
-
     let [
-        manitem,
-        mric,
-        mboform,
-        mgeoj,
-      ] = await Promise.all([
-          __mapper('xs').m('anitem'),
-          __mapper('xs').m('ric'),
-          __mapper('xs').m('boform'),
-          __mapper('xs').m('geoj'),
-      ])
-
+      manitem,
+      mric,
+      mboform,
+      mgeoj
+    ] = await Promise.all([
+      __mapper('xs').m('anitem'),
+      __mapper('xs').m('ric'),
+      __mapper('xs').m('boform'),
+      __mapper('xs').m('geoj')
+    ])
 
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
 
     // ............................. gramm
-    async function gramm(anima, newAnigrams = []) {
-
+    async function gramm (anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram(), // anigram
         halo = anigram.halo, // halo
         geofold = anigram.geofold, // geofold
@@ -60,7 +57,7 @@
 
       //  get GEOFORM FeatureCollection
       //
-      let gj = functor(geofold, anigram) 
+      let gj = functor(geofold, anigram)
       let gjcollection = mgeoj.featurecollect(gj)
       if (2 && 2 && gjcollection.type !== 'FeatureCollection') console.log('** gjcollection is not FeatureCollection', gjcollection)
       gjcollection = mgeoj.zorder(gjcollection) // order features in collection

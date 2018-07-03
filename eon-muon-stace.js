@@ -27,7 +27,7 @@
   // md:
   // md: ### getLocifion
   // md: get the uniwen projection with translate to anigram location
-  // md: getLocus  
+  // md: getLocus
   // md:
   // md: ### getLocifier
   // md: locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
@@ -110,12 +110,11 @@
                 coords = nodeGeoformed.geometry.coordinates
               }
               locationsPerDax[i] = Array.of(coords[i])
-
             } else { // search on form
               let idx = Math.floor(v1.pos)
               let coords = []
               if (v1.hasOwnProperty('geo')) {
-                coords = mgeoj.getCoords(formGeoformed.geometry)               
+                coords = mgeoj.getCoords(formGeoformed.geometry)
               } else if (v1.hasOwnProperty('ere')) {
                 coords = mgeoj.getCoords(formEreformed.geometry)
               } else if (v1.hasOwnProperty('pro')) {
@@ -125,14 +124,13 @@
               }
               idx = (idx + coords.length) % coords.length
               locationsPerDax[i] = Array.of(coords[idx][i])
-              
             }
           }
           if (locationsPerDax.length > 0) {
             locations = mlacer.slide(locationsPerDax) // [300, 200]
           }
         }
-      } 
+      }
 
       return locations
     }

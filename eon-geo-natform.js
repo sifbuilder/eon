@@ -26,9 +26,7 @@
   // md: # license
   // md: MIT
 
-  
   async function geoNatform (__mapper = {}) {
-    
     let mnat = await __mapper('xs').m('nat'),
       d3 = await __mapper('d3')
 

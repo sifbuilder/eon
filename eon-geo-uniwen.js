@@ -10,21 +10,19 @@
   'use strict'
 
   async function geoUniwen (__mapper = {}) {
-
     let [
-          mgeom, 
-          mwen, 
-          cwen, 
-          d3, 
-          mprops, 
-      ] = await Promise.all([
-        __mapper('xs').m('geom'),
-        __mapper('xs').m('wen'),
-        __mapper('xs').c('wen'),
-        __mapper('xs').q('d3'),
-        __mapper('xs').m('props'),
-      ])        
-
+      mgeom,
+      mwen,
+      cwen,
+      d3,
+      mprops
+    ] = await Promise.all([
+      __mapper('xs').m('geom'),
+      __mapper('xs').m('wen'),
+      __mapper('xs').c('wen'),
+      __mapper('xs').q('d3'),
+      __mapper('xs').m('props')
+    ])
 
     const init = {}
     init.scale = [1, 1, 1]
@@ -65,10 +63,9 @@
 
     // .................. wenProjInvert
     let wenProjInvert = function (point) {
-
       let rotate = state.rotate,
         scale = state.scale,
-        translate = state.translate || [0,0,0],
+        translate = state.translate || [0, 0, 0],
         lens = state.lens
 
       let x = point[0]
@@ -93,7 +90,6 @@
 
       c = wenRotInverse(rotate)(...c) //   inverse rotation
 
-
       return c
     }
 
@@ -101,14 +97,13 @@
     let pointStream = function (x, y, z) {
       let rotate = state.rotate,
         scale = state.scale,
-        translate = state.translate || [0,0,0],
+        translate = state.translate || [0, 0, 0],
         lens = state.lens
-
 
       let c = [x, y, z]
       let rot = []
       if (mprops.isPureArray(rotate)) {
-          rot = rotate
+        rot = rotate
       } else { // assume multiple translates
         for (let k = 0; k < rotate.length; k++) {
           rot = mgeom.add(rot, rotate[k])
@@ -118,7 +113,6 @@
 
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
       c = mwen.projection(c, lens[2], scale) // project
-
 
       if (mprops.isPureArray(translate)) {
         c = c.map((d, i) => d + (translate[i] || 0)) // translate
@@ -149,7 +143,6 @@
 
     // .................. enty
     let enty = function (prjdef = {}) {
-
       let m = uniprofion(prjdef)
       let keys = Object.keys(prjdef)
 

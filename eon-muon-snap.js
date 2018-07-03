@@ -15,56 +15,52 @@
   // md: # license
   // md: MIT
 
-  async function muonSnap(__mapper = {}) {
-    
-    
-    let cellpromises  = 	[
-                __mapper('xs').m('nat'),
-                __mapper('xs').m('lacer'),
-                __mapper('xs').m('geoj'),
-                __mapper('xs').q('d3'),
-              ]
+  async function muonSnap (__mapper = {}) {
+    let cellpromises = 	[
+      __mapper('xs').m('nat'),
+      __mapper('xs').m('lacer'),
+      __mapper('xs').m('geoj'),
+      __mapper('xs').q('d3')
+    ]
 
     let [
-        mnat,
-        mlacer,
-        mgeoj,
-        d3,
-      ] = await Promise.all(
-        cellpromises
-      )    
-    
+      mnat,
+      mlacer,
+      mgeoj,
+      d3
+    ] = await Promise.all(
+      cellpromises
+    )
+
     // let mnat = __mapper('xs').m('nat'),
-      // mlacer = __mapper('xs').m('lacer'),
-      // mgeoj = __mapper('xs').m('geoj'),
-      // d3 = __mapper('d3')
+    // mlacer = __mapper('xs').m('lacer'),
+    // mgeoj = __mapper('xs').m('geoj'),
+    // d3 = __mapper('d3')
 
-      
     // let propsPromise = __mapper('xs').m('props'),
-      // mnatPromise = 	__mapper('xs').m('nat'),
-      // mlacerPromise = 	__mapper('xs').m('lacer'),
-      // mgeojPromise = 	__mapper('xs').m('geoj')
+    // mnatPromise = 	__mapper('xs').m('nat'),
+    // mlacerPromise = 	__mapper('xs').m('lacer'),
+    // mgeojPromise = 	__mapper('xs').m('geoj')
 
-      
-    // let [f, mnat, mlacer, mgeoj] 
-      // = await Promise.all([propsPromise, mnatPromise, mlacerPromise, mgeojPromise])
-      
-     let f = {} 
-     f.isArray = d => Array.isArray(d)
-     f.isDoubleSingleArray = d => (Array.isArray(d) && // [[_]]
-        Array.isArray(d[0]) && d.length === 1 && d[0].length === 1 )
-     f.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true)
-     f.isObject = d => (typeof d === 'object' && Array.isArray(d) === false)
-     f.isDoubleArray = d => (Array.isArray(d) && // [[_]]
-        Array.isArray(d[0]) && d.length === 1 )
-      f.isTripleArray =  d => (Array.isArray(d) && Array.isArray(d[0]) && Array.isArray(d[0][0]) &&
+    // let [f, mnat, mlacer, mgeoj]
+    // = await Promise.all([propsPromise, mnatPromise, mlacerPromise, mgeojPromise])
+
+    let f = {}
+    f.isArray = d => Array.isArray(d)
+    f.isDoubleSingleArray = d => (Array.isArray(d) && // [[_]]
+        Array.isArray(d[0]) && d.length === 1 && d[0].length === 1)
+    f.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true)
+    f.isObject = d => (typeof d === 'object' && Array.isArray(d) === false)
+    f.isDoubleArray = d => (Array.isArray(d) && // [[_]]
+        Array.isArray(d[0]) && d.length === 1)
+    f.isTripleArray = d => (Array.isArray(d) && Array.isArray(d[0]) && Array.isArray(d[0][0]) &&
         d.length === 1 && d[0].length === 1 && d[0][0].length === 1) // [[[_]]]
-      f.isQuasiPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev &&
+    f.isQuasiPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev &&
         Array.isArray(curr) ||
         typeof (curr) === 'string' ||
         typeof (curr) === 'number'
       , true)
-      
+
     // .................. snap  value (anima), t (unit time), snap flag, parent
     let snap = function (v, t = 0, g = 0, p = undefined) {
       // ____________________________________________________ un-tagged
@@ -192,7 +188,7 @@
 
     // .................. enty
     let enty = {}
-     enty.snap = snap
+    enty.snap = snap
 
     return enty
   }

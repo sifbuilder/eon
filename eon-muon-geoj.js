@@ -8,87 +8,84 @@
 }(this, function (exports) {
   'use strict'
 
-  
-    // md: # md:{filename}
-    // md: **process geojson streams**
+  // md: # md:{filename}
+  // md: **process geojson streams**
 
-    // md: ## references
-    // md: [Maarten’s Block geo to square tiles](https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6)
-    // md: [geojson-normalize](https://github.com/mapbox/geojson-normalize/blob/master/index.js)
+  // md: ## references
+  // md: [Maarten’s Block geo to square tiles](https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6)
+  // md: [geojson-normalize](https://github.com/mapbox/geojson-normalize/blob/master/index.js)
 
-    // md: ## functions
+  // md: ## functions
 
-    // md: ## methods
-    // md: * ### trim
-    // md: **flatten gj**
-    // md:  ref: https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6
-    // md:
-    // md: * ### tclip
-    // md:
-    // md: * ### complexify
-    // md:  turns strings of coordinates into arrays of comples numbers
-    // md:  @gj
-    // md:
-    // md: * ### deprop
-    // md:   reomove properties from gj object
-    // md:
-    // md: * ### snip
-    // md:  return function to get dots within form range [pa6,pb7]
-    // md:   @form
-    // md:
-    // md: * ### largestPoly
-    // md:   return the lagest polity on gj
-    // md:  @gj: MultiPolygon
-    // md:
-    // md: * ### lineStringFromStream
-    // md:
-    // md: * ### polygonFromStream
-    // md:
-    // md: * ### multLineStringFromStreamArray
-    // md:
-    // md: * ### featurecollect
-    // md:     transform to FeatureCollection
-    // md:     @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}
-    // md:     called by halo to carry ric, sort as properties
-    // md:
-    // md: * ### featurize
-    // md:     transform to array of gj.Features
-    // md:     @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}
-    // md:
-    // md: * ### ntime
-    // md:   convert geometry to feature and add interval to properties
-    // md:   @gj
-    // md:   @interval
-    // md:
-    // md: * ### zorder
-    // md:   @gj FeatureCollection
-    // md:
-    // md: * ### centroid
-    // md:   get ring's centroid
-    // md:    @ring
-    // md:    called by zorder
-    // md:
-    // md: * ### getCoords
-    // md:    get array of coordinates from gj (eg. parent anigram)
-    // md:
-    // md: * ### getCoordsLength
-    // md:    get number of coordinates in gj
-    // md:
-    // md: * ### getCoordsInRange
-    // md:    get first nb coordinates
-    // md:
-    // md: * ### isValid
-    // md:    check if gj is valid geojson type
-    // md:    @gj
-    // md:    @type
-    // md:
-    // md:
-    // md: # license
-    // md: MIT
+  // md: ## methods
+  // md: * ### trim
+  // md: **flatten gj**
+  // md:  ref: https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6
+  // md:
+  // md: * ### tclip
+  // md:
+  // md: * ### complexify
+  // md:  turns strings of coordinates into arrays of comples numbers
+  // md:  @gj
+  // md:
+  // md: * ### deprop
+  // md:   reomove properties from gj object
+  // md:
+  // md: * ### snip
+  // md:  return function to get dots within form range [pa6,pb7]
+  // md:   @form
+  // md:
+  // md: * ### largestPoly
+  // md:   return the lagest polity on gj
+  // md:  @gj: MultiPolygon
+  // md:
+  // md: * ### lineStringFromStream
+  // md:
+  // md: * ### polygonFromStream
+  // md:
+  // md: * ### multLineStringFromStreamArray
+  // md:
+  // md: * ### featurecollect
+  // md:     transform to FeatureCollection
+  // md:     @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}
+  // md:     called by halo to carry ric, sort as properties
+  // md:
+  // md: * ### featurize
+  // md:     transform to array of gj.Features
+  // md:     @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}
+  // md:
+  // md: * ### ntime
+  // md:   convert geometry to feature and add interval to properties
+  // md:   @gj
+  // md:   @interval
+  // md:
+  // md: * ### zorder
+  // md:   @gj FeatureCollection
+  // md:
+  // md: * ### centroid
+  // md:   get ring's centroid
+  // md:    @ring
+  // md:    called by zorder
+  // md:
+  // md: * ### getCoords
+  // md:    get array of coordinates from gj (eg. parent anigram)
+  // md:
+  // md: * ### getCoordsLength
+  // md:    get number of coordinates in gj
+  // md:
+  // md: * ### getCoordsInRange
+  // md:    get first nb coordinates
+  // md:
+  // md: * ### isValid
+  // md:    check if gj is valid geojson type
+  // md:    @gj
+  // md:    @type
+  // md:
+  // md:
+  // md: # license
+  // md: MIT
 
-  
   async function muonGeoj (__mapper = {}) {
-    
     let mprops = await __mapper('xs').m('props')
 
     let types = {

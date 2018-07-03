@@ -9,40 +9,36 @@
 }(this, function (exports) {
   'use strict'
 
-   async function muonAnimation(__mapper) {
-
+  async function muonAnimation (__mapper) {
     let [
-          mprops,
-          mstore,
-          msim,
-          mtim,
-          msnap,
-          rsvg,
-          rrenderport,
-          ctimer,
-      ] = await Promise.all( [
-          __mapper('xs').m('props'),
-          __mapper('xs').m('store'),
-          __mapper('xs').m('sim'),
-          __mapper('xs').m('tim'),
-          __mapper('xs').m('snap'),
-          __mapper('xs').r('svg'),
-          __mapper('xs').r('renderport'),
-          __mapper('xs').c('timer'),
-        ]
-      )
+      mprops,
+      mstore,
+      msim,
+      mtim,
+      msnap,
+      rsvg,
+      rrenderport,
+      ctimer
+    ] = await Promise.all([
+      __mapper('xs').m('props'),
+      __mapper('xs').m('store'),
+      __mapper('xs').m('sim'),
+      __mapper('xs').m('tim'),
+      __mapper('xs').m('snap'),
+      __mapper('xs').r('svg'),
+      __mapper('xs').r('renderport'),
+      __mapper('xs').c('timer')
+    ]
+    )
 
     let state = {}
     state.animas = [] // global animas
 
-
     // .................. getsims
     const getsims = (animas, elapsed) => {
-
       let sim = msim.sim() // simulation on animas
       msim.simulate(sim, animas, elapsed)	// stored
       return mprops.a(mstore.animasLive())
-        
     }
 
     // .................. getweens
@@ -54,26 +50,25 @@
     // .................. getgramms
     const getgramms = (animas, elapsed) => {
       let newAnigrams = animas.map(anima => mstore.gramm(anima)) // store anigrams
-      return mstore.anigrams()  // get anigrams from store
-    } 
- 
-     // .................. aniListener
-    function animate () {   
+      return mstore.anigrams() // get anigrams from store
+    }
+
+    // .................. aniListener
+    function animate () {
       if (state.animationStop === undefined) {
         state.animationStop = ctimer.subscribe(aniListener)
-      }    
+      }
     }
 
     // .................. aniListener
     function aniListener (elapsed) {
+      mstore = __mapper('muonStore') // store with state from __mapper
 
-      mstore = __mapper('muonStore')  // store with state from __mapper
-    
       state.animas = mstore.animasLive()
       if (1 && 1) console.log(' __________________ aniListener', state.animas.length, elapsed)
 
-    // .................. time
-    
+      // .................. time
+
       state.animas = mprops.a(mstore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
@@ -84,31 +79,28 @@
       }
 
       // ............................. @STOP
-      
+
       let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.payload.tim.limit + item.payload.tim.msStart), 0)
 
       let nostop = state.animas.reduce((pre, item) => (pre || item.payload.tim.nostop), false)
 
       if (!nostop && (isNaN(maxlimit) ||
             (maxlimit > 0 && elapsed > maxlimit) || // stop if spired
-            (elapsed > maxlimit) )) { // stop if anigrams spired
-
+            (elapsed > maxlimit))) { // stop if anigrams spired
         state.animationStop()
-
       }
 
       // ............................. @WEEN SIM GRAMM RENDEr
 
       getweens(state.animas, elapsed)
-      .then(animas => getsims(state.animas))
-      .then(animas => getgramms(state.animas))
-      .then(anigrams => ({ type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }))
-      .then(featurecollection => rsvg.render(elapsed, featurecollection))
-
+        .then(animas => getsims(state.animas))
+        .then(animas => getgramms(state.animas))
+        .then(anigrams => ({ type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }))
+        .then(featurecollection => rsvg.render(elapsed, featurecollection))
     }
 
     // ............................. enty
-    function enty(){}
+    function enty () {}
     enty.animate = animate
     enty.animationStop = () => state.animationStop
     return enty

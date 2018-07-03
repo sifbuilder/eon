@@ -45,24 +45,22 @@
   // md: MIT
 
   async function haloPacer (__mapper = {}) {
-    
-    
-       let [
-          mgeom,
-          crayder,
-          cwen,
-          cversor,
-          mstace,
-          manitem,
-          mric,
-          mstore,
-          hent,
-       ] = await Promise.all( [
-        __mapper('xs').m('geom'),
-        __mapper('xs').c('rayder'),
-        __mapper('xs').h('ent'),
-       ]) 
-    
+    let [
+      mgeom,
+      crayder,
+      cwen,
+      cversor,
+      mstace,
+      manitem,
+      mric,
+      mstore,
+      hent
+    ] = await Promise.all([
+      __mapper('xs').m('geom'),
+      __mapper('xs').c('rayder'),
+      __mapper('xs').h('ent')
+    ])
+
     // ............................. _geofolder
     let _geofolder = function (ani, prob) {
       let pacerPayload = ani.payload.pacer

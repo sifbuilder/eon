@@ -30,19 +30,16 @@
   // md:   @featurecollection
   // md:   @maxlimit
 
-  async function renderSvg(__mapper = {}) {
-
-
+  async function renderSvg (__mapper = {}) {
     let [
-        rrenderport,  // cameraProjer
-        d3,
-        guniwen,
-      ] = await Promise.all([
-        __mapper('xs').r('renderport'),
-        __mapper('xs').q('d3'),      
-        __mapper('xs').g('uniwen'),      
-      ])
-
+      rrenderport, // cameraProjer
+      d3,
+      guniwen
+    ] = await Promise.all([
+      __mapper('xs').r('renderport'),
+      __mapper('xs').q('d3'),
+      __mapper('xs').g('uniwen')
+    ])
 
     let width = 600,
       height = 400,
@@ -63,7 +60,6 @@
       .attr('height', state.height)
       .style('top', 0)
       .style('left', 0)
-
 
     let svgElem = svglayer.append('rect')
       .attr('id', 'svg')
@@ -94,7 +90,6 @@
           .style('border', '1px solid lightgray')
         return svgLayer
       }
-
 
       // manage the dom elements
       else if (typeof (idfyer) === 'string') { // 'svg:g.links/path.link', data, idfn}
@@ -138,7 +133,6 @@
 
     // ............................. render
     let render = function (elapsed, featurecollection, maxlimit) {
-     
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
@@ -146,20 +140,16 @@
         )
       let svg = _svg()
 
+      let cameraProjer = rrenderport.cameraProjer()
+      let prjdef = rrenderport.prjdef()
+      let prj = guniwen(prjdef)
+      cameraProjer = prj
 
-                let cameraProjer = rrenderport.cameraProjer()
-                let prjdef = rrenderport.prjdef()
-                let prj = guniwen(prjdef)
-                cameraProjer = prj
-
- 
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
         .key(function (d) { return d.properties.ric.gid })
         .key(function (d) { return d.properties.ric.cid })
         .entries(features) // features
 
-
-  
       for (let i in gitems) { // DOTS (seg5===0) each group gid
         let gid = gitems[i].key, citems = gitems[i].values
 
@@ -290,7 +280,7 @@
             )
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
-            
+
           if (features.length > 0) { // _e_
             svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.uid) // elems
               .data(() => features)
@@ -299,7 +289,7 @@
                 let geoitem = d // geojson feature
                 let properties = geoitem.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
-                
+
                 let geoPath = d3.geoPath(cameraProjer) // path on view projection
                 let path = (pointRadius !== undefined) // geoPath
                   ? geoPath.pointRadius(pointRadius)
@@ -321,7 +311,7 @@
     }
 
     // ............................. enty
-    let enty = function enty(){}
+    let enty = function enty () {}
 
     enty.svg = _svg
     enty.svgelems = svgelems

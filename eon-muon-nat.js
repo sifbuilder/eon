@@ -49,19 +49,18 @@
   }
 
   async function muonNat (__mapper = {}) {
-    
     let [
-        mgraticule,
-        mprofier,
-        mproj3ct,
-        d3,
-      ] = await Promise.all( [
-        __mapper('xs').m('graticule'),
-        __mapper('xs').m('profier'),
-        __mapper('xs').m('proj3ct'),
-        __mapper('xs').q('d3'),
-        
-      ])        
+      mgraticule,
+      mprofier,
+      mproj3ct,
+      d3
+    ] = await Promise.all([
+      __mapper('xs').m('graticule'),
+      __mapper('xs').m('profier'),
+      __mapper('xs').m('proj3ct'),
+      __mapper('xs').q('d3')
+
+    ])
     let cache = {} // feature, form
 
     const cos = Math.cos, sin = Math.sin,
@@ -86,9 +85,7 @@
 
         return ret
       }
-      
-      
-      
+
     // ............................. natNform
     let natNform = function (form, nformed = {}) {
       let defs = {'v0': 0, 'v1': 1, 'ra2': 120, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1} // defs
@@ -150,9 +147,9 @@
         if (i === 2 && formDax.dom3 === undefined) formDax.dom3 = [-90, 90]
         if (i === 3 && formDax.dom3 === undefined) formDax.dom3 = [-90, 90]
 
-          if (formDax.fn0 === undefined && (
+        if (formDax.fn0 === undefined && (
 
-            formDax.e1 !== undefined ||
+          formDax.e1 !== undefined ||
             formDax.e2 !== undefined ||
             formDax.e3 !== undefined ||
             formDax.e4 !== undefined ||
@@ -161,19 +158,19 @@
             formDax.c2 !== undefined ||
             formDax.c3 !== undefined ||
             formDax.c4 !== undefined)) {
-            formDax.e1 = (formDax.e1 === undefined) ? functor(1) : functor(formDax.e1)
-            formDax.e2 = (formDax.e2 === undefined) ? functor(1) : functor(formDax.e2)
-            formDax.e3 = (formDax.e3 === undefined) ? functor(1) : functor(formDax.e3)
-            formDax.e4 = (formDax.e4 === undefined) ? functor(1) : functor(formDax.e4)
+          formDax.e1 = (formDax.e1 === undefined) ? functor(1) : functor(formDax.e1)
+          formDax.e2 = (formDax.e2 === undefined) ? functor(1) : functor(formDax.e2)
+          formDax.e3 = (formDax.e3 === undefined) ? functor(1) : functor(formDax.e3)
+          formDax.e4 = (formDax.e4 === undefined) ? functor(1) : functor(formDax.e4)
 
-            formDax.c1 = (formDax.c1 === undefined) ? 1 : formDax.c1
-            formDax.c2 = (formDax.c2 === undefined) ? 1 : formDax.c2
-            formDax.c3 = (formDax.c3 === undefined) ? 1 : formDax.c3
-            formDax.c4 = (formDax.c4 === undefined) ? 1 : formDax.c4
+          formDax.c1 = (formDax.c1 === undefined) ? 1 : formDax.c1
+          formDax.c2 = (formDax.c2 === undefined) ? 1 : formDax.c2
+          formDax.c3 = (formDax.c3 === undefined) ? 1 : formDax.c3
+          formDax.c4 = (formDax.c4 === undefined) ? 1 : formDax.c4
 
-            formDax.fn0 = fn(formDax)
-          }        
-        
+          formDax.fn0 = fn(formDax)
+        }
+
         // fn0 --- dimension function
         if (i === 0 && formDax.fn0 === undefined) formDax.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => a * cos(q) * c * cos(u)
         if (i === 1 && formDax.fn0 === undefined) formDax.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => b * sin(q) * c * cos(u)

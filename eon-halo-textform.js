@@ -22,16 +22,14 @@
   // md: # license
   // md: MIT
 
-  async function haloTextform(__mapper = {}) {
-    
-
-        let [
-          manitem,
-          hent,
-       ] = await Promise.all( [
-          __mapper('xs').m('anitem'),
-          __mapper('xs').h('ent')
-       ])    
+  async function haloTextform (__mapper = {}) {
+    let [
+      manitem,
+      hent
+    ] = await Promise.all([
+      __mapper('xs').m('anitem'),
+      __mapper('xs').h('ent')
+    ])
 
     // .................. _geofold
     let _geofold = function (ani) { // geofold
@@ -65,8 +63,7 @@
     }
 
     // .................. gramm
-    async function gramm(anima, newAnigrams = []) {
-      
+    async function gramm (anima, newAnigrams = []) {
       let anigram = manitem(anima).anigram(),
         halo = 				anigram.halo,
         payload = 		anigram.payload
@@ -78,11 +75,10 @@
         geofold,
         payload
       }
-      
+
       newAnigrams = await hent.gramm(newAnigram)
-      
+
       return newAnigrams
-      
     }
 
     // .................. enty

@@ -8,11 +8,9 @@
 }(this, function (exports) {
   'use strict'
 
-
   function controlKey (__mapper) {
-    
     var keys = []
-    
+
     var currentListeners = []
     var nextListeners = currentListeners
 
@@ -142,7 +140,6 @@
       keys[e.keyCode] = false
     }
 
-
     // ....................... leftArrowAlt
     var leftArrowAlt = function leftArrowAlt (e) {
       console.log('leftArrowAltFn')
@@ -204,10 +201,10 @@
       console.log('downArrowCtrlFn')
     }
     // ....................... controlfn
-	  function controlfn (){}
+	  function controlfn () {}
 
     // ....................... enty
-    function enty(){}
+    function enty () {}
     enty.subscribe = subscribe
     enty.start = function start (svg) {
       document.addEventListener('keydown', handleKeyDown, false)

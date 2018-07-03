@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   // md: # md:{filename}
   // md: **expose nat form**
   // md: h.ent with  anima.geofold : `mnat.natFeature(p.payload.form)`
@@ -16,29 +15,24 @@
   // md: # license
   // md: MIT
 
-
   let haloNat = function haloNat (__mapper = {}) {
     let f = __mapper('xs').m('props'),
       manitem = __mapper('xs').m('anitem'),
       mnat = __mapper('xs').m('nat'),
       hent = __mapper('xs').h('ent')
 
-
     // .................... gramm
     let gramm = function (anima, newAnigrams = []) {
-
       let anigram = manitem(anima).anigram() // anigram
 
       anigram.halo = 'ent' // halo
 
-      
-        // anigram.geofold = p => mnat.closeFeature(mnat.natFeature(p.payload.form))
-        anigram.geofold = p => mnat.natFeature(p.payload.form)
+      // anigram.geofold = p => mnat.closeFeature(mnat.natFeature(p.payload.form))
+      anigram.geofold = p => mnat.natFeature(p.payload.form)
 
       newAnigrams = hent.gramm(anigram)
 
       return newAnigrams
-
     }
 
     // .................... enty

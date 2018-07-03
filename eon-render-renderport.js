@@ -10,15 +10,15 @@
 
   async function renderRenderport (__mapper = {}) {
     // let cellpromises = 	[
-      // __mapper('xs').m('scene')
-      // __mapper('xs').r('svg')
+    // __mapper('xs').m('scene')
+    // __mapper('xs').r('svg')
     // ]
 
     // let [
-      // mscene
-      // rsvg
+    // mscene
+    // rsvg
     // ] = await Promise.all(
-      // cellpromises
+    // cellpromises
     // )
 
     // let mscene = 	__mapper('xs').m('scene')
@@ -48,12 +48,12 @@
       // if (__mapper('renderSvg') !== undefined) __mapper('renderSvg').render(elapsed, featurecollection)
 
       // __mapper('renderSvg')['renderSvg'](__mapper)
-        // .then((rsvg) => {
-          // if (1 && 1) console.log('renderSvg', rsvg)
-          // rsvg.render(elapsed, featurecollection)
-        // })
+      // .then((rsvg) => {
+      // if (1 && 1) console.log('renderSvg', rsvg)
+      // rsvg.render(elapsed, featurecollection)
+      // })
 
-        rsvg.render(elapsed, featurecollection)
+      rsvg.render(elapsed, featurecollection)
 
       // if (__mapper('xs').r('webgl') !== undefined) __mapper('xs').r('webgl').render(elapsed, featurecollection)
 
@@ -67,10 +67,8 @@
 
     // ............................. cameraProjer
     const cameraProjer = function (p = prjdef) {
-
       let geo = __mapper('geoUniwen')(p)
       return geo
-
     }
 
     // ............................. xydirs
@@ -85,7 +83,7 @@
       return dirs
     }
 
-    //............................. getPos
+    // ............................. getPos
     const getPos = function (signal) {
       let pos
       let projer = enty.cameraProjer()
@@ -99,9 +97,7 @@
           pos = [signal.x, signal.y]
 
           pos = projer.invert(pos)
-
         } else {
-
           pos = [signal.x, signal.y]
 
           pos = projer.invert(pos)
@@ -112,8 +108,6 @@
 
       return pos
     }
-
-
 
     // ............................. projection
     enty.projection = _ => _ !== undefined ? (projection = _, enty) : projection

@@ -1,7 +1,9 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "amd": true,
+        "commonjs": true
     },
     "parserOptions": {
         "ecmaVersion": 8
@@ -127,7 +129,7 @@ module.exports = {
     "no-whitespace-before-property": "error",
     "no-with": "error",
     /*  "object-property-newline": ["error", { "allowMultiplePropertiesPerLine": true }], */
-    "one-var": ["error", { "initialized": "never" }],
+    /*  "one-var": ["error", { "initialized": "never" }], */
     "operator-linebreak": ["error", "after", { "overrides": { "?": "before", ":": "before" } }],
     "padded-blocks": ["error", { "blocks": "never", "switches": "never", "classes": "never" }],
     "prefer-promise-reject-errors": "error",

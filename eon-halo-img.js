@@ -36,15 +36,14 @@
 			  halo = 				anigram.halo, // halo
         payload = 		anigram.payload // payload
 
+      let geofold = _geofold(anigram) // geofold
 
-        let geofold = _geofold(anigram) // geofold
+      let newAnigram = {
+        halo,
+        geofold,
+        payload
+      }
 
-        let newAnigram = { 
-          halo, 
-          geofold, 
-          payload 
-        }
-      
       newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(newAnigram)]
       return newAnigrams
     }

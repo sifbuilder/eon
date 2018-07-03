@@ -13,13 +13,12 @@
   // md:  Copyright 2017 Mike Bostock.
   // md:     proj3ct(gj, projection)
 
-  async function muonProj3ct(__mapper = {}) {
-    
+  async function muonProj3ct (__mapper = {}) {
     let [
-        d3,
-      ] = await Promise.all([
-        __mapper('xs').q('d3'),      
-      ])
+      d3
+    ] = await Promise.all([
+      __mapper('xs').q('d3')
+    ])
 
     let noop = function () {}
     let d3Geo = d3
@@ -46,7 +45,6 @@
     }
 
     var project = function (object, projection) {		// index
-
       var stream = projection.stream, project
       if (!stream) throw new Error('invalid projection', projection)
       switch (object && object.type) {

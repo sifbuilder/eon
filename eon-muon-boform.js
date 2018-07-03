@@ -8,18 +8,15 @@
 }(this, function (exports) {
   'use strict'
 
-  async function  muonBoform(__mapper = {}) {
-    
+  async function muonBoform (__mapper = {}) {
     let [
-          mstore, 
-          d3, 
-      ] = await Promise.all([
-        __mapper('xs').m('store'),
-        __mapper('xs').q('d3'),
-      ])    
+      mstore,
+      d3
+    ] = await Promise.all([
+      __mapper('xs').m('store'),
+      __mapper('xs').q('d3')
+    ])
 
-
-    
     let colors = {} // colors
     colors.scales = {
       ambar: d3.scaleLinear().domain([0, 0.50, 1]).range(['black', '#FF2400', '#f8a413']), // balck   scarlet ambar
@@ -49,7 +46,7 @@
     let color = (d = 0) => {
       return colors.array[Math.round(d)]
     }
-    
+
     let kolor = (v, d = 0) => {
       return color(d)(v / 1000)
     }
@@ -60,8 +57,8 @@
       let ang = Math.atan2(y, x)
       let rad = Math.sqrt(x * x + y * y)
       return [ang, 0, rad]
-    }    
-    
+    }
+
     /* *********************
    *    getStyle - process style attributes
    */
@@ -86,25 +83,19 @@
     let boformer = function (anigram, json) {
       if (json !== undefined && json !== null) {
         if (json.type === undefined) {
-          
           if (2 && 2) console.log('m.boform.boformer:json.type undefined')
-            
         } else if (typeof anigram.payload.boform !== 'object') {
-          
           if (2 && 2) console.log('m.boform.boformer boform is not an object')
-            
         } else if (json.type === 'Feature') { // Feature
-          
           let feature = json
 
-          
           let boform = {}, featureStyle = {}
           if (feature.properties !== undefined && feature.properties.boform !== undefined) {
             boform = feature.properties.boform
           } else if (anigram.payload.boform) {
             boform = anigram.payload.boform
           } else {
-            if (2 && 2) console.log("(( boform not defined", json, anigram)
+            if (2 && 2) console.log('(( boform not defined', json, anigram)
           }
 
           let jsonStyle = getStyle(boform)
@@ -115,9 +106,7 @@
 
           if (feature.properties === undefined) feature.properties = {}
           feature.properties.style = Object.assign(jsonStyle, featureStyle)
-          
         } else if (json.type === 'FeatureCollection') { // FeatureCollection
-          
           for (let i = 0; i < json.features.length; i++) {
             let feature = json.features[i]
             feature = boformer(anigram, feature)

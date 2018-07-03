@@ -39,7 +39,7 @@
     }
 
     // ....................... enty
-    function enty (){}
+    function enty () {}
 
     // ....................... start
     enty.start = function (svg) {

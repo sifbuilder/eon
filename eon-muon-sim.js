@@ -8,23 +8,20 @@
 }(this, function (exports) {
   'use strict'
 
-
-  async function muonSim(__mapper = {}) {
-
+  async function muonSim (__mapper = {}) {
     let [
-          mprops,
-          msnap,
-          mstore,
-          mgeonode,
-          d3,
-       ] = await Promise.all([
-          __mapper('xs').m('props'),
-          __mapper('xs').m('snap'),
-          __mapper('xs').m('store'),
-          __mapper('xs').m('geonode'),
-          __mapper('xs').q('d3'),
-      ])
-
+      mprops,
+      msnap,
+      mstore,
+      mgeonode,
+      d3
+    ] = await Promise.all([
+      __mapper('xs').m('props'),
+      __mapper('xs').m('snap'),
+      __mapper('xs').m('store'),
+      __mapper('xs').m('geonode'),
+      __mapper('xs').q('d3')
+    ])
 
     let _geonode = {
       type: 'Feature',

@@ -12,50 +12,46 @@
   // md: ** **
   // md:
   // md: # license
-  // md: MIT  
+  // md: MIT
 
-  async function muonProps(__mapper = {}) {
-
+  async function muonProps (__mapper = {}) {
     let props = {}
 
     // let d3Array = await __mapper('xs').b('d3-array')
     // let d3Scale = await __mapper('xs').b('d3-scale')
     // let d3Range = d3Array.range
     // let d3scaleLinear = d3Scale.scaleLinear
-    
-    let cellpromises  = 	[
-        __mapper('xs').q('d3'),
-      ]
+
+    let cellpromises = 	[
+      __mapper('xs').q('d3')
+    ]
 
     let [
-        d3,
-      ] = await Promise.all(
-        cellpromises
-      )        
-        
-    
+      d3
+    ] = await Promise.all(
+      cellpromises
+    )
+
     // let d3 = __mapper('d3')
-    
-    
+
     let d3Range = d3.range // d3Array.range
     let d3scaleLinear = d3.scaleLinear // d3Scale.scaleLinear
 
-    props.addtst = (a,b) => a + b
+    props.addtst = (a, b) => a + b
 
     /***************************
     *        @arrays
     */
 	  props.a = d => {
-        let ret = []
-        if (d === undefined) { // ret = []
-        } else if (d === null) { // ret = []
-        } else if (Array.isArray(d)) {
-          ret = [...d]
-        } else {
-          ret = [d]
-        }
-        return ret
-        
+      let ret = []
+      if (d === undefined) { // ret = []
+      } else if (d === null) { // ret = []
+      } else if (Array.isArray(d)) {
+        ret = [...d]
+      } else {
+        ret = [d]
+      }
+      return ret
     }
 
     props.cloneArray = function (obj) {
@@ -76,7 +72,7 @@
     // pure array: no object/funcion elements
     props.isPureArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr !== 'object' && typeof curr !== 'function', true)
 
-		// functional array
+    // functional array
     props.isFunctionalArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'function', true)
 
     // pure multiarray: array of pure arrays
@@ -243,7 +239,6 @@
    *        @paths
    */
 
-
     props.closerange = (a, b) => [...d3Range(a, b), a]
     props.geoscale = extent => d3ScaleLinear().domain(extent[0]).range(extent[1])
 
@@ -299,7 +294,6 @@
     props.constant = v => (typeof v === 'function') ? v() : v
     props.value = v => (typeof v === 'function') ? v() : v
     props.noop = () => {}
-
 
     /***************************
    *        @numbers

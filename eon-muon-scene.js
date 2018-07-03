@@ -8,19 +8,16 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonScene(__mapper = {}) {
-
+  async function muonScene (__mapper = {}) {
     let [
-          d3,
-          rsvg,
-          cwen,
-       ] = await Promise.all([
-          __mapper('xs').q('d3'),
-          __mapper('xs').r('svg'),
-          __mapper('xs').c('wen'),
-       ])  
-
-    
+      d3,
+      rsvg,
+      cwen
+    ] = await Promise.all([
+      __mapper('xs').q('d3'),
+      __mapper('xs').r('svg'),
+      __mapper('xs').c('wen')
+    ])
 
     let state = {}
     state.scene = {
@@ -40,24 +37,18 @@
 
     // .................. scene
     let scenify = function (p) {
-
-
       if (p.svg && p.wen && p.wen !== state.scene.wen) {
-        
         state.scene.wen = 1
         let svg = rsvg.svg()
         cwen.control(svg)
-        
       }
 
       if (p.svg && p.versor && p.versor !== state.scene.versor) {
-        
         state.scene.versor = 1
         __mapper('xs').c('versor').control(__mapper('renderSvg').svg())
-        
       }
-      
-    // ............................. key control animation
+
+      // ............................. key control animation
       if (p.key && p.key !== state.scene.key) {
         state.scene.key = 1
 
@@ -96,10 +87,7 @@
         }
         __mapper('xs').c('key').subscribe(controltimerRightArrowAlt, 'rightArrowAlt')
       }
-
-
     }
-
 
     let enty = {}
     enty.scenify = scenify

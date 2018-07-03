@@ -9,17 +9,16 @@
   'use strict'
 
   async function controlPos (__mapper) {
-    
     let [
-          rrenderport,
-       ] = await Promise.all( [
-        __mapper('xs').r('renderport'),
-       ]) 
-    
-    let  width = rrenderport.width(),
-      height = rrenderport.height()    
+      rrenderport
+    ] = await Promise.all([
+      __mapper('xs').r('renderport')
+    ])
+
+    let width = rrenderport.width(),
+      height = rrenderport.height()
     let cameraProjer = rrenderport.cameraProjer()
-      
+
     function prevent (e) {}
 
     function subject () {
@@ -98,13 +97,13 @@
       var datum = d,								// d datum
         node = this, 							// elem
         parent = node.parentNode,
-        
+
         // origin = d3.mouse(parent),
         // var action = {ox: origin[0], oy: origin[1]}
-        
+
         t = cameraProjer.invert(d3.mouse(parent))
-        var action = {ox: t[0], oy: t[1]}
-      
+      var action = {ox: t[0], oy: t[1]}
+
       createPostipElem()
       displayTextPad(action)
       moveTextPad(node)

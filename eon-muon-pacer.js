@@ -12,22 +12,18 @@
   // md: ** **
   // md:
   // md: # license
-  // md: MIT  
+  // md: MIT
 
-  
   async function muonPacer (__mapper = {}) {
-    
     let [
-          crayder,
-          cwen,
-          cversor,
-       ] = await Promise.all( [
-        __mapper('xs').c('rayder'),
-        __mapper('xs').c('wen'),
-        __mapper('xs').c('versor'),
-       ])     
-
-
+      crayder,
+      cwen,
+      cversor
+    ] = await Promise.all([
+      __mapper('xs').c('rayder'),
+      __mapper('xs').c('wen'),
+      __mapper('xs').c('versor')
+    ])
 
     // -------------------------------  muonPacerHalo_gramm
     let pacer = function (payload, newItems = []) {
@@ -49,9 +45,7 @@
 
       let initSitus, eventSitus, autoSitus, fidder, geojsor
 
-
       let count = {} // items in cycle
-
 
       let mouse = {} // mouse control
 

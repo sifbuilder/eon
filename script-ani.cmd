@@ -5,6 +5,8 @@ const http = require('http')
 // const { entlist } = require('./script-entlist.js')
 const minimist = require('./script-minimist.js')
 const fetch = require('./script-node-fetch.js')
+const { spawn } = require('child_process')
+const { exec } = require('child_process')
 
 const npm = require('npm')
 
@@ -133,7 +135,7 @@ const args = minimist(process.argv.slice(2), {
             v: 'version',
             h: 'help',
             s: 'serve',
-            t: 'mdeeFile',
+            t: 'tFile',
             z: ['zindex', 'index']
            },
   boolean: ['l',
@@ -164,7 +166,7 @@ Options:
  -h, --help          Show this help message
  -f, --files         Files to entities
  -m, --appdir        App directory path
- -t, --mdeeFile      File to extract md to README eg. -a mdeefy -t halo.ent
+ -t, --tFile      File to extract md to README eg. -a mdeefy -t halo.ent
  -l, --libsFile      Output libs file
  -p, --entsFile      Output entity file
  -s, --serve         Server
@@ -191,7 +193,7 @@ const options = {
   entsFile: args.entsFile || 'elem-ents.js',
   libsFile: args.libsFile || 'elem-enls.js',
   eonsFile: args.eonsFile || 'elem-eons.js',
-  mdeeFile: args.mdeeFile,
+  tFile: args.tFile,
   serve: args.serve,
   enxlFile: args.enxlFile || 'elem-enxl.js',
   zindex: args.zindex,
@@ -203,7 +205,7 @@ let entsFile = options.entsFile // ents file
 let libsFile = options.libsFile // libs file
 let eonsFile = options.eonsFile // parts file
 let enxlFile = options.enxlFile // ext libs file
-let mdeeFile = options.mdeeFile // to md file
+let tFile = options.tFile // to md file
 let zFile = options.zindex // from zindex file
 let action = options.action // action
 
@@ -317,92 +319,6 @@ if (1 && 1) console.log('options', options)
   console.log('eslint')
 
 
-} else if (action === 'rollup') { // ........... rollup -----------------------
-
-
-
-  console.log('create dist folder')
-let path = './dist'
-let distfiles = [ "./README.md", "./LICENSE", "./package.json", "./index.js", "./rollup.config.js" ]
-fs.existsSync(path) || fs.mkdirSync("path");
-
-  console.log('for each file in scope:')
-
-// ---------------------------------- md
-  let testpattern = new RegExp('(.*)\.test\.(.*)$', 'i')
-let files = fs.readdirSync(appdir)
-let regex = new RegExp('^' + 'muon' + '.*' + '.*(.html|js)?', 'i')
-let fzs = files
-    .filter(d => regex.test(d))
-    .filter(d => !testpattern.test(d))
-    
-// fs.unlink('/tmp/hello', function (err) {
-  // if (err) throw err;
-  // console.log('successfully deleted /tmp/hello');
-// });
-// fs.rename('/tmp/hello', '/tmp/world', function (err) {
-  // if (err) throw err;
-  // console.log('renamed complete');
-// });    
-for (let i = 0; i < fzs.length; i++) {
-
-  let fileName = fzs[i]
-  let outfile = './dist/README.md'
-  fs.unlink(outfile, function (err) {
-    if (err) console.log('error',err)
-    console.log(`successfully deleted ${outfile}`)
-  })
-  let mdtext = fileName   // let mdtext = mdfile(fileName)
-  console.log('------------------------ outfile:', outfile, mdtext)
-  fs.writeFileSync(outfile, mdtext)
-
-}
-
-// ---------------------------------- package.json
-for (let i = 0; i < fzs.length; i++) {
-
-  let fileName = fzs[i]
-  let outfile = './dist/package.json'
-  fs.unlink(outfile, function (err) {
-    if (err) console.log('error',err)
-    console.log(`successfully deleted ${outfile}`)
-  })
-  
-  let pkg = {
-    name: fileName,
-    version: '0.0.1',
-    description: 'graticule muon',
-    author: {
-      "name": 'sifbuilder@gmail.com'
-    },
-    license: 'MIT',
-    repository: {
-      "type": "git",
-      "url": `github.com/sifbuilder/${fileName}.git`
-    },
-    main: 'eon-muon-graticule.js',
-  }  
-  let mdtext = JSON.stringify(pkg, null, ' ')
-  console.log('------------------------ outfile:', outfile, mdtext)
-  fs.writeFileSync(outfile, mdtext)
-
-  
-}
-
-
-  // console.log('clean ./dist folder: ["README.md", "LICENSE"]')
-  // console.log('define package name, eg. eon-muon-graticule')
-  // console.log('create ./dist/README.md')
-  // console.log('create ./dist/LICENSE')
-  // console.log('create ./dist/index.js from ./eon-muon-graticule.js')
-  // console.log('create ./dist/package.json')
-  // console.log('make ./dist git repo')
-  // console.log('git clone git@github.com:    ')
-
-
-  // git clone git@gist.github.com:d411e851d52577cf212e2b04c7587496
-
-
 
 
 } else if (action === 'renam') { // ........... renam
@@ -420,22 +336,25 @@ for (let i = 0; i < fzs.length; i++) {
   let fzs = files.filter(d => regex.test(d))
   for (let i = 0; i < fzs.length; i++) {
   let fileName = fzs[i]
-    
+
     let newFileName = 'eon-' + fileName
-  
+
     console.log('fileName:', fileName, newFileName)
     fs.renameSync(fileName, newFileName)
   }
 
 
 } else if (action === 'mdeefy') { // ........... mdeefy
-  let files = fs.readdirSync(appdir)
-  let infile = mdeeFile
+
+  let infile = tFile
   let outfile = 'README.md'
 
-  let regex = new RegExp('^.*' + infile + '.*(.html|js)?', 'i')
-
-  let fzs = files.filter(d => regex.test(d))
+  let eonpattern = new RegExp('^' + 'eon' + '.*' + '.*(.html|js)?', 'i')
+  let testpattern = new RegExp('(.*)\.test\.(.*)$', 'i') // ----------------- md
+  let files = fs.readdirSync(appdir)
+  let fzs = files
+      .filter(d => eonpattern.test(d))
+      .filter(d => !testpattern.test(d))
 
   let header = ''
   let newLine = '\n'
@@ -536,7 +455,165 @@ for (let i = 0; i < fzs.length; i++) {
   if (1 && 1)  console.log("Running at Port 8000");
 
 
+} else if (action === 'rollup') { // ************* rollup *************
+
+console.log(' rollup --tFile', tFile)
+let packver = '0.0.0-beta.1'
+
+
+let path = './dist' // distribution path
+fs.existsSync(path) || fs.mkdirSync(path);
+console.log('create dist folder ', path)
+
+
+let eonpattern = new RegExp('^' + 'eon' + '.*' + '.*(.html|js)?', 'i')
+let testpattern = new RegExp('(.*)\.test\.(.*)$', 'i') // ----------------- md
+let files = fs.readdirSync(appdir)
+let fzs = files
+    .filter(d => eonpattern.test(d))
+    .filter(d => !testpattern.test(d))
+fzs = [tFile]
+
+
+for (let fileName of fzs) {    // for each eon - create README.md
+
+  let outfile = './dist/README.md'
+
+  fs.existsSync(outfile) && fs.unlinkSync(outfile, (err) => { // delete file if exists
+    if (err) throw err;
+      console.log(`successfully deleted ${outfile}`);
+    })
+  let outtext = mdfile(fileName)  // md text
+
+  fs.writeFileSync(outfile, outtext)
+  console.log(' outfile:', fileName, outtext)
+
+}
+
+
+// for (let fileName of fzs)  {  // ---------------------------------- rollup.config.js
+// import uglify from "rollup-plugin-uglify";
+// import meta from "./package.json";
+// const copyright = `// ${meta.name} Version ${meta.version} Copyright ${new Date().getFullYear()} sifbuilder.`;
+// export default [
+  // {
+    // input: "index",
+    // output: {
+      // extend: true,
+      // file: "dist/d3-require.js",
+      // banner: copyright,
+      // format: "umd",
+      // name: "d3"
+    // }
+  // },
+  // {
+    // input: "index",
+    // plugins: [
+      // uglify({
+        // output: {
+          // preamble: copyright
+        // }
+      // })
+    // ],
+    // output: {
+      // extend: true,
+      // file: "dist/d3-require.min.js",
+      // format: "umd",
+      // name: "d3"
+    // }
+  // }
+// ];
+
+
+for (let fileName of fzs)  {  // ---------------------------------- package.json
+
+  let outfile = './dist/package.json'
+
+  let pkg = {
+    name: fileName,
+    version: packver,   // packver
+    description: 'graticule muon',
+    author: {
+      "name": 'sifbuilder@gmail.com'
+    },
+    license: 'MIT',
+    repository: {
+      "type": "git",
+      "url": `github.com/sifbuilder/${fileName}.git`
+    },
+    main: 'eon-muon-graticule.js',
+  }
+
+  fs.existsSync(outfile) && fs.unlinkSync(outfile, (err) => { // delete file if exists
+    if (err) throw err;
+      console.log(`successfully deleted ${outfile}`);
+    })
+  let outtext = JSON.stringify(pkg, null, ' ')
+
+  fs.writeFileSync(outfile, outtext)
+  console.log('------------------------ outfile:', outfile, outtext)
+
+}
+
+
+
+for (let fileName of fzs)  {  // ---------------------------------- index.js
+
+  let infile = fileName
+  let outfile = './dist/index.js'
+
+  fs.existsSync(outfile) && fs.unlinkSync(outfile, (err) => { // delete file if exists
+    if (err) throw err;
+      console.log(`successfully deleted ${outfile}`);
+    })
+
+  fs.copyFileSync(infile, outfile)
+  console.log('------------------------ index.js:', infile, outfile)
+
+}
+
+
+for (let fileName of fzs)  {  // ---------------------------------- LICENSE
+
+  let infile = './LICENSE'
+  let outfile = './dist/LICENSE'
+
+
+  fs.existsSync(outfile) && fs.unlinkSync(outfile, (err) => { // delete file if exists
+    if (err) throw err;
+      console.log(`successfully deleted ${outfile}`);
+    })
+
+  fs.copyFileSync(infile, outfile)
+  console.log('------------------------ LICENSE:', infile, outfile)
+
+}
+
+  // git clone git@gist.github.com:d411e851d52577cf212e2b04c7587496
+
+
+// exec('git --version', (error, stdout, stderr) => { // -------------- git
+  // if (error) {
+    // console.error(`exec error: ${error}`);
+    // return;
+  // }
+  // console.log(`stdout: ${stdout}`);
+  // console.log(`stderr: ${stderr}`);
+// })
+
+
+
+exec('npm --v', (error, stdout, stderr) => { // -------------- npm
+  if (error) {
+    console.error(`exec error: ${error}`)
+    return
+  }
+  console.log(`stdout: ${stdout}`)
+  // console.log(`stderr: ${stderr}`)
+})
+
+
 
 } else {
-    if (2 && 2) console.log("action not found");
+    if (2 && 2) console.log("action not found")
 }

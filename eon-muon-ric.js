@@ -9,8 +9,6 @@
   'use strict'
 
   async function muonRic (__mapper = {}) {
-    
-
     // ric.halo: anima type
     // ric.gid: group id
     // ric.cid: class id
@@ -70,7 +68,6 @@
  */
 
     let enric = function (ric = {}, anigram, json) {
-
       if (json.type === undefined) {
         console.log('type undefined')
       } else if (typeof ric !== 'object') {
@@ -81,7 +78,6 @@
         _ric.cid = ric.cid
         _ric.fid = ric.fid
 
-
         let feature = json
         let properties = feature.properties || {}
 
@@ -89,19 +85,17 @@
         else if (typeof ric.fid === 'function') _ric.fid = ric.fid(i, ric, anigram)
         else 																		_ric.fid = ric.fid
 
-        properties.ric = {gid:_ric.gid
-                        , cid:_ric.cid
-                        , fid:_ric.fid
-                      }
+        properties.ric = {gid: _ric.gid,
+          cid: _ric.cid,
+          fid: _ric.fid
+        }
         properties.uid = getuid(properties.ric)
 
         // feature.id = properties.uid
         feature.properties = properties
 
         json = feature
-        
       } else if (json.type === 'FeatureCollection') {
-        
         let features = json.features							// feature in FeatureCollection
         for (let i = 0; i < features.length; i++) {
           let feature = features[i]								// this feature
@@ -137,28 +131,27 @@
 
     let getuid = function (params) {
       let uid
-      if (typeof(params) === 'object') {
+      if (typeof (params) === 'object') {
         if (params.fid !== undefined) {
-            let ric = params
-            uid = ric.gid + '_' + ric.cid + '_' + ric.fid
-        } else if (params.ric !== undefined ) {
-            uid = getuid(params.ric)
-        } else if (params.payload !== undefined && params.payload.ric !== undefined ) {
-            uid = getuid(params.payload.ric)
-        } else if (params.properties !== undefined && params.properties.ric !== undefined ) {
-            uid = getuid(params.properties.ric)
+          let ric = params
+          uid = ric.gid + '_' + ric.cid + '_' + ric.fid
+        } else if (params.ric !== undefined) {
+          uid = getuid(params.ric)
+        } else if (params.payload !== undefined && params.payload.ric !== undefined) {
+          uid = getuid(params.payload.ric)
+        } else if (params.properties !== undefined && params.properties.ric !== undefined) {
+          uid = getuid(params.properties.ric)
         }
       } else if (Array.isArray(params)) {
         uid = params[0] + '_' + params[1] + '_' + params[2]
       } else {
         console.log('uid container not supported', params)
       }
-      
+
       return uid
-      
     }
-    
-   // ............................. enty
+
+    // ............................. enty
     let enty = {}
     enty.getAnigramRic = getAnigramRic // build ric from anigram, i
     enty.getuid = getuid

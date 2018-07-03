@@ -8,44 +8,41 @@
 }(this, function (exports) {
   'use strict'
 
-
   // md: # md:{filename}
   // md: **cells interlinked within cells interlinked**
   // md:
   // md: # license
   // md: MIT
 
-
   function muonLacer (__mapper = {}) {
-
     const isNumericArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'number', true)
 
     // ...................... range
     // https://github.com/d3/d3-array/blob/master/src/range.js
-    const range = function(start, stop, step) {
-      start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
+    const range = function (start, stop, step) {
+      start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step
 
       var i = -1,
-          n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
-          range = new Array(n);
+        n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
+        range = new Array(n)
 
       while (++i < n) {
-        range[i] = start + i * step;
+        range[i] = start + i * step
       }
 
-      return range;
+      return range
     }
 
     // https://gist.github.com/vectorsize/7031902
     // based on http://processing.org/reference/javadoc/core/processing/core/PApplet.html#map(float, float, float, float, float)
-    const scale = function(opts){
+    const scale = function (opts) {
       const istart = opts.domain[0],
-          istop  = opts.domain[1],
-          ostart = opts.range[0],
-          ostop  = opts.range[1];
+        istop = opts.domain[1],
+        ostart = opts.range[0],
+        ostop = opts.range[1]
 
-      return function scale(value) {
-        return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
+      return function scale (value) {
+        return ostart + (ostop - ostart) * ((value - istart) / (istop - istart))
       }
     }
 

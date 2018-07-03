@@ -14,20 +14,18 @@
   // https://codepen.io/wenliang-developer/pen/gMwvXR
   // https://github.com/wenliang-developer/web-developer-site
 
-  async function controlWen(__mapper = {}) {
-
+  async function controlWen (__mapper = {}) {
     let [
-          rrenderport, 
-          mversor, 
-          d3, 
-          mgeom 
-      ] = await Promise.all([
-        __mapper('xs').r('renderport'),
-        __mapper('xs').m('versor'),
-        __mapper('xs').q('d3'),
-        __mapper('xs').m('geom'),
-      ])    
-
+      rrenderport,
+      mversor,
+      d3,
+      mgeom
+    ] = await Promise.all([
+      __mapper('xs').r('renderport'),
+      __mapper('xs').m('versor'),
+      __mapper('xs').q('d3'),
+      __mapper('xs').m('geom')
+    ])
 
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)
@@ -35,11 +33,10 @@
 
     function stopMomentum () { cancelAnimationFrame(state.timer); state.timer = null }
 
-    
-    function rebase () {     
+    function rebase () {
       state.rotInDrag_radians = [0, 0, 0] // reset to default rotation
     }
-    
+
     let inits = {
       decay: 0.95,
       mult: 2e-3, // rotInDrag_radians factor
@@ -59,7 +56,7 @@
         .rotate([0, 0])
         .translate([0, 0])
         .scale(1),
-        
+
       rotAccum_radians: [0, 0, 0],
       rotInDrag_radians: [0, 0, 0], // rotInDrag_radians in radians
 
@@ -74,8 +71,8 @@
       timer: null,
       timer: null,
       rotMatrix: null,
-      cPos: null,   // current position
-      pPos: null   // previous position
+      cPos: null, // current position
+      pPos: null // previous position
 
     }
 
@@ -96,35 +93,32 @@
       state.moved = false // not moved yet
 
       state.grabbed = getPos(e) // mouse position
-      
+
       state.p0 = state.grabbed // initial position in geometric space
-     
+
       let projection = state.projection()
-      if (projection.invert === undefined ) {
-         if (2 && 2) console.log('** projection invert missing', projection)        
+      if (projection.invert === undefined) {
+        if (2 && 2) console.log('** projection invert missing', projection)
       } else if (projection.rotate === undefined) {
-         if (2 && 2) console.log('** projection rotate missing', projection)        
+        if (2 && 2) console.log('** projection rotate missing', projection)
       }
 
-       
       state.pPos = state.p0 // previous position
       state.cPos = state.pPos // current position
 
       state.rotAccum_radians = mgeom.add(state.rotAccum_radians, state.rotInDrag_radians) // rotation
       rebase()
-
     }
 
     // .................. dragged  listener
     let dragged = function () {
-    
       if (!state.grabbed) return
 
       let e = d3.event
       let pos = getPos(e) //  d3.mouse(this)
 
       let dx = xsign * (pos[1] - state.grabbed[1]),
-          dy = ysign * (state.grabbed[0] - pos[0])
+        dy = ysign * (state.grabbed[0] - pos[0])
 
       if (!state.moved) {
         if (dx * dx + dy * dy < state.moveSpan) return
@@ -145,32 +139,30 @@
 
     // .................. dragended  listener
     let dragended = function () {
-
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
       let f = Math.max(0, 1 - (Date.now() - state.lastMoveTime))
-      
 
       state.vel = [ // velocity
 
-        xsign *  (state.cPos[1] - state.pPos[1]) * inits.mult,
+        xsign * (state.cPos[1] - state.pPos[1]) * inits.mult,
         ysign * (state.cPos[0] - state.pPos[0]) * inits.mult
-        
+
       ]
 
       state.timer = requestAnimationFrame(momentum)
     }
 
-    // .................. momentum    
+    // .................. momentum
     function momentum () {
       if (Math.abs(state.vel[0]) < inits.epsilon && Math.abs(state.vel[1]) < inits.epsilon) return
-        state.vel[0] *= inits.decay 
-        state.vel[1] *= inits.decay
-        
-        state.rotInDrag_radians[0] += state.vel[0] 
-        state.rotInDrag_radians[1] -= state.vel[1]
-        
+      state.vel[0] *= inits.decay
+      state.vel[1] *= inits.decay
+
+      state.rotInDrag_radians[0] += state.vel[0]
+      state.rotInDrag_radians[1] -= state.vel[1]
+
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
 
@@ -184,7 +176,7 @@
     enty.dragstarted = dragstarted
     enty.dragged = dragged
     enty.dragended = dragended
-    
+
     enty.control = control
     enty.reset = reset
 

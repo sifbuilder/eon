@@ -9,26 +9,24 @@
 }(this, function (exports) {
   'use strict'
 
-// md: # md:{filename}
-// md: ** **
-// md:
-// md: # license
-// md: MIT
+  // md: # md:{filename}
+  // md: ** **
+  // md:
+  // md: # license
+  // md: MIT
 
-
-  async function controlVersor(__mapper = {}) {
-
+  async function controlVersor (__mapper = {}) {
     let [
-          rrenderport,
-          mversor,
-          d3,
-          mgeom,
-       ] = await Promise.all( [
-        __mapper('xs').r('renderport'),
-        __mapper('xs').m('versor'),
-        __mapper('xs').q('d3'),
-        __mapper('xs').m('geom')
-       ])  
+      rrenderport,
+      mversor,
+      d3,
+      mgeom
+    ] = await Promise.all([
+      __mapper('xs').r('renderport'),
+      __mapper('xs').m('versor'),
+      __mapper('xs').q('d3'),
+      __mapper('xs').m('geom')
+    ])
 
     // let xydirs = rrenderport.xydirs() // [1 -1] in pixel view
     let xsign = 1 //  1 if x goes left to right
@@ -38,20 +36,18 @@
     getPos = rrenderport.getPos
 
     // start drag control
-    let control = function(elem, props={}) {
-
+    let control = function (elem, props = {}) {
       elem.call(d3.drag()
         .on('start', versorControl.dragstarted)
         .on('drag', versorControl.dragged)
         .on('end', versorControl.dragended))
-
     }
 
     // stop drag control
     let reset = elem => elem.call(d3.drag()
-        .on('start', null)
-        .on('drag', null)
-        .on('end', null))
+      .on('start', null)
+      .on('drag', null)
+      .on('end', null))
 
     // ..................
     let state = {
@@ -72,7 +68,6 @@
       rotInDrag_grads: [0, 0, 0],
       rotAtInit_grads: [0, 0, 0],
 
-
       decay: 0.95,
       mult: 2e-3, // rotInDrag_rads factor
       rotInit_rads: [0, 0, 0],
@@ -85,11 +80,11 @@
       timer: null,
       timer: null,
       rotMatrix: null,
-      cPos: null,   // current position
-      pPos: null   // previous position
+      cPos: null, // current position
+      pPos: null // previous position
 
     }
-    
+
     // ....................... versorControl
     let versorControl = {
       dragstarted,
@@ -100,10 +95,8 @@
 
     // ....................... dragstarted
     function dragstarted () {
-
       let e = d3.event
       state.proj = state.projection()
-
 
       if (state.grabbed) return // drag ongoing
       state.moved = false // not moved yet       // stopMomentum()
@@ -117,18 +110,14 @@
 
       state.r0 = state.proj.rotate() // rotation in projection in degrees
 
-
       state.q0 = mversor(state.r0) // quaternion of initial rotation
       // -----------------
 
       state.rotAtInit_grads = state.rotInitial_grads // rebase()
-
-
     }
 
     // ....................... dragged
     function dragged () {
-
       let e = d3.event
 
       state.proj = state.projection
@@ -169,13 +158,10 @@
       // -----------------
 
       state.rotInDrag_grads = r1
-
-
     }
 
     // ....................... dragended
     function dragended () {
-
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
@@ -190,22 +176,20 @@
       state.timer = requestAnimationFrame(momentum)
     }
 
-
     // ....................... momentum
     function momentum () {
       if (Math.abs(state.vel_spher[0]) < state.epsilon && Math.abs(state.vel_spher[1]) < state.epsilon) return
 
-        state.vel_spher[0] *= state.decay
-        state.vel_spher[1] *= state.decay
+      state.vel_spher[0] *= state.decay
+      state.vel_spher[1] *= state.decay
 
-        let vel = mgeom.cartesian(state.vel_spher)
+      let vel = mgeom.cartesian(state.vel_spher)
 
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
 
-
     // ....................... enty
-    function enty (){}
+    function enty () {}
     enty.dragstarted = dragstarted
     enty.dragged = dragged
     enty.control = control
@@ -213,8 +197,8 @@
 
     enty.projection = _ => {
       if (_ !== undefined) {
-          state.projection = _.projection
-          return enty
+        state.projection = _.projection
+        return enty
       } else {
         return state.projection
       }
@@ -223,11 +207,11 @@
     // enty.rotation = _ => {
     enty.rotation = () => {
       // if (_ !== undefined) {
-        // state.rotation = _
-        // return enty
+      // state.rotation = _
+      // return enty
       // } else {
-        return mgeom.add(state.rotInDrag_grads, state.rotAtInit_grads)
-        // return mgeom.add([0,0,0], state.rotAtInit_grads)
+      return mgeom.add(state.rotInDrag_grads, state.rotAtInit_grads)
+      // return mgeom.add([0,0,0], state.rotAtInit_grads)
       // }
     }
 
