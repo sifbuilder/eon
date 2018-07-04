@@ -27,14 +27,16 @@
     __mapper({'xD3Require': xD3Require}) //
     __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy part
 
-    // __mapper({'xLibs': xLibs.xLibs(__mapper)}) // xLibs    
-    // let libs = await Promise.all(__mapper('xLibs').parts().map(part => __mapper('xs').getBoson(part) ))
+    __mapper({'xLibs': xLibs.xLibs(__mapper)}) // xLibs    
+    let libs = await Promise.all(__mapper('xLibs').parts().map(part => __mapper('xs').getBoson(part) ))
     // let libs = await Promise.all(__mapper('xLibs').parts().map(part => __mapper('xs').mapOnePart(part) ))
 
     __mapper({'xEons': xEons.xEons(__mapper)})
-    let eons = await Promise.all(__mapper('xEons').parts().map(part => __mapper('xs').mapOnePart(part) ))
+    // let eons = await Promise.all(__mapper('xEons').parts().map(part => __mapper('xs').mapOnePart(part) ))
+    let eons = await Promise.all(__mapper('xEons').parts().map(part => __mapper('xs').getBoson(part) ))
 
     let animas = await animasPromise(__mapper)
+if (1 && 1) console.log('__mapper', __mapper())
 
     let mstore = __mapper('muonStore')  // map store
     mstore.apply({type: 'UPDANIMA', animas: animas})  // store animas

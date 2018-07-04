@@ -11,15 +11,15 @@
   let xs = function (__mapper = {}) {
     let xD3Require = __mapper('xD3Require')
 
-    let capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1)
-    let eonize = (nome, pres = '') => (pres === '') ? nome : pres + capitalize(nome)
-    let fermize = (nome, pres = '') => (pres === '')
-      ? './' + nome + '.js'
-      : (pres === 'control' || pres === 'geo' || pres === 'halo' || pres === 'muon' || pres === 'render')
-        ? './' + 'eon' + '-' + pres + '-' + nome + '.js'
-        : './' + pres + '-' + nome + '.js'
+    let capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // wen => Wen
+    
+    
+    
+    let eonize = (nome, pres = '') => (pres === '') ? camelize(nome.replace(/^eon-/,'')) : pres + capitalize(nome) // [wen,muon] => muonWen
 
-    let xeonize = (nome, pres = '') => (pres === '')
+    let fermize = (nome, pres = '') => './' + xeonize(nome, pres) + '.js' // wen => ./muon-wen.js
+        
+    let xeonize = (nome, pres = '') => (pres === '')  // wen => eon-muon-wen
       ? nome
       : (pres === 'control' || pres === 'geo' || pres === 'halo' || pres === 'muon' || pres === 'render')
         ? 'eon' + '-' + pres + '-' + nome
@@ -42,43 +42,75 @@
     const mapCell = (e, n, m) => m({[n]: e})[n]
     const a = d => Array.isArray(d) ? d : Array.of(d)
 
+    
+    // let getEon = part => Promise.resolve(__mapper(eonize(part[0], part[1])))
+    let getEon = part => __mapper(eonize(part[0], part[1]))
+    let getFon = part => mapOnePart(__mapper(fermize(part[0], part[1])))
+    let getXeon = part => mapOnePart(__mapper(xeonize(part[0], part[1])))
+    
+
     // ............................. mapOnePart
     function mapOnePart (part) { // [ partName, [partEnts] ]
+
+      let [name, pres] = part
+// if (1 && 1) console.log('__ONE__ name, pres:', name, pres)
+
 
       return __mapper('xD3Require').require(...a(part[1])) // get eon
         .then(eon => getCell(eon, part[0], __mapper)) // eon to cell
         .then(cell => mapCell(cell, part[0], __mapper)) // map cell
-        .catch(e => console.log(' ************ ', part, e))
+        .catch(e => console.log(' **** mapOnePart ', part, e))
     }
 
-    // ............................. getFermion
-    async function getBoson (part) { // nome is partName: eg 'muonGraticule'
 
+    // ............................. mapTwoPart
+    function mapTwoPart (part) { // [ partName, [partEnts] ]
+
+      let [name, pres] = part
+// if (1 && 1) console.log('__TWO__ name, pres:', name, pres)
+
+
+      return __mapper('xD3Require').require(...a(part[1])) // get eon
+        .then(eon => getCell(eon, part[0], __mapper)) // eon to cell
+        .then(cell => mapCell(cell, part[0], __mapper)) // map cell
+        .catch(e => console.log(' **** mapTwoPart ', part, e))
+    }
+
+    
+    // ............................. getFermion
+    async function getBoson (inpart) { // nome is partName: eg 'muonGraticule'
+
+      // [d3, ''] => d3, ./d3.js, d3
+      // [uniwen, geo] => geoUniwen, ./muon-geo-uniwen.js, muon-geo-uniwen
+      // [eon-geo-uniwen, ''] => geoUniwen, ./muon-geo-uniwen.js, muon-geo-uniwen
+    
+      let part = []
+      if (Array.isArray(inpart)) {
+        part = inpart
+      } else if (typeof inpart === 'string') {
+        part = [inpart, '']
+      }
+      
       let [name, pres] = part
 
       let eon = eonize(name, pres)  // muonVersor
-      let fon = fermize(name, pres) // ./eon-muon-versor.js
+      let feon = fermize(name, pres) // ./eon-muon-versor.js
       let xeon = xeonize(name, pres) // eon-muon-versor
 
+      
+       // if (1 && 1) console.log('getBoson part:', part)
+       // if (1 && 1) console.log('getBoson eon, feon, xeon:', eon, feon, xeon)
+         
+      let eoncell = await getEon(part) // __mapper(eon)
+      if (eoncell) return eoncell
 
-      let r = __mapper(eon)
-      if (r) return r
-
-      return enty.mapOnePart([eon, fon]) // [d3, ./d3.js] [muonVersor, ./eon-muon-versor.js]
-      try {
-          const eoncell = await enty.mapOnePart([eon, fon]) // [d3, ./d3.js] [muonVersor, ./eon-muon-versor.js]
-          if (eoncell) return eoncell
-      } catch (err) {
-
-
-    if (1 && 1) console.log(' ************ xeon', xeon)
-          return await enty.mapOnePart([eon, xeon]) // [d3, ./d3.js] [muonVersor, ./eon-muon-versor.js]
-      }
-
-
-
+      let foncell = await enty.mapOnePart([eon, feon])
+      if (foncell) return foncell
+      
+      let xeoncell = await enty.mapTwoPart([eon, xeon])
+      if (xeoncell) return xeoncell
+      
     }
-
 
     // ............................. enty
     let enty = function () {}
@@ -96,6 +128,8 @@
     enty.render = enty.r = (nome, pres = 'render') => getBoson([nome, pres])
     enty.getBoson = getBoson
     enty.mapOnePart = mapOnePart
+    enty.mapTwoPart = mapTwoPart
+
 
     enty.eonize = eonize
     enty.fermize = fermize
