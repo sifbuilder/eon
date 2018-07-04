@@ -10,10 +10,8 @@
 
   async function controlTimer (__mapper) {
     let [
-      mprops,
       mtimer
     ] = await Promise.all([
-      __mapper('xs').m('props'),
       __mapper('xs').m('timer')
     ])
 
@@ -119,7 +117,7 @@
         if (!isSubscribed) {
           return
         }
-        let started = false //
+        started = false
         isSubscribed = false
         ensureCanMutateNextListeners()
         let index = nextListeners.indexOf(listener)

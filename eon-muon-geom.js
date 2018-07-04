@@ -9,6 +9,12 @@
   'use strict'
 
   async function muonGeom (__mapper = {}) {
+    let [
+      d3
+    ] = await Promise.all([
+      __mapper('xs').q('d3')
+    ])
+
     let pi = Math.PI,
       degrees = 180 / pi,
       radians = pi / 180

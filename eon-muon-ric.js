@@ -64,7 +64,7 @@
     }
     /* **************************
  *        @enric
- *				ani.ric => ani.feature.pros.ric => feature.id => ani.uid
+ *        ani.ric => ani.feature.pros.ric => feature.id => ani.uid
  */
 
     let enric = function (ric = {}, anigram, json) {
@@ -74,16 +74,16 @@
         console.log('ric is not an object')
       } else if (json.type === 'Feature') {
         let _ric = JSON.parse(JSON.stringify(ric))
-        _ric.gid = ric.gid		// ric from param ric
+        _ric.gid = ric.gid // ric from param ric
         _ric.cid = ric.cid
         _ric.fid = ric.fid
 
         let feature = json
         let properties = feature.properties || {}
 
-        if (ric.fid === undefined) 							_ric.fid = ric.cid		// inherit cid
-        else if (typeof ric.fid === 'function') _ric.fid = ric.fid(i, ric, anigram)
-        else 																		_ric.fid = ric.fid
+        if (ric.fid === undefined) _ric.fid = ric.cid // inherit cid
+        else if (typeof ric.fid === 'function') _ric.fid = ric.fid(ric, anigram)
+        else _ric.fid = ric.fid
 
         properties.ric = {gid: _ric.gid,
           cid: _ric.cid,
@@ -96,20 +96,20 @@
 
         json = feature
       } else if (json.type === 'FeatureCollection') {
-        let features = json.features							// feature in FeatureCollection
+        let features = json.features // feature in FeatureCollection
         for (let i = 0; i < features.length; i++) {
-          let feature = features[i]								// this feature
+          let feature = features[i] // this feature
 
           let properties = feature.properties || {}
 
           let _ric = JSON.parse(JSON.stringify(ric))
-          _ric.gid = ric.gid		// ric from param ric
+          _ric.gid = ric.gid // ric from param ric
           _ric.cid = ric.cid
           _ric.fid = ric.fid
 
-          if (ric.fid === undefined) 							_ric.fid = ric.cid + (i || '')
+          if (ric.fid === undefined) _ric.fid = ric.cid + (i || '')
           else if (typeof ric.fid === 'function') _ric.fid = ric.fid(i, ric, anigram)
-          else 																		_ric.fid = ric.fid + (i || '')
+          else _ric.fid = ric.fid + (i || '')
 
           feature.properties.ric = _ric
 
@@ -126,7 +126,7 @@
     }
     /* **************************
  *        @getuid
- *				ani.ric => ani.feature.pros.ric => feature.id => ani.uid
+ *        ani.ric => ani.feature.pros.ric => feature.id => ani.uid
  */
 
     let getuid = function (params) {

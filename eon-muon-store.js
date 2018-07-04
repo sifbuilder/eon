@@ -93,7 +93,6 @@
         newItems = newItems.concat(mprops.a(newAnimas))
       }
       return newItems
-
     }
 
     // .................. gramm
@@ -132,8 +131,6 @@
           }
           return newItems
         })
-
-
     }
 
     // .................. enty

@@ -11,18 +11,16 @@
   async function muonSim (__mapper = {}) {
     let [
       mprops,
-      msnap,
       mstore,
       mgeonode,
       d3,
-      d3Force3d,
+      d3Force3d
     ] = await Promise.all([
       __mapper('xs').m('props'),
-      __mapper('xs').m('snap'),
       __mapper('xs').m('store'),
       __mapper('xs').m('geonode'),
       __mapper('xs').q('d3'),
-      __mapper('xs').q('d3Force3d'),
+      __mapper('xs').q('d3Force3d')
     ])
 
     let _geonode = {

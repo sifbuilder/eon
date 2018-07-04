@@ -117,19 +117,19 @@
       // event.stopPropagation()
       // event.preventDefault()
       // keys[event.keyCode] = true // console.log("___ keys", keys, event)
-      // if 				(keys[70] && keys[17])					fKeyCtrl()				// CTRL-f
-      // else if (keys[68] && keys[17])					dKeyCtrl()				// CTRL-d
-      // else if (event.keyCode == '37' &&  keys[17]) leftArrowCtrl() 	// CTRL-LEFT
-      // else if (event.keyCode == '39' &&  keys[17]) rightArrowCtrl()	// CTRL-RIGHT
-      // else if (event.keyCode == '38' &&  keys[17]) upArrowCtrl()		// CTRL-UP
-      // else if (event.keyCode == '40' &&  keys[17]) downArrowCtrl()	// CTRL-DOWN
+      // if         (keys[70] && keys[17])          fKeyCtrl()        // CTRL-f
+      // else if (keys[68] && keys[17])         dKeyCtrl()        // CTRL-d
+      // else if (event.keyCode == '37' &&  keys[17]) leftArrowCtrl()   // CTRL-LEFT
+      // else if (event.keyCode == '39' &&  keys[17]) rightArrowCtrl()  // CTRL-RIGHT
+      // else if (event.keyCode == '38' &&  keys[17]) upArrowCtrl()   // CTRL-UP
+      // else if (event.keyCode == '40' &&  keys[17]) downArrowCtrl() // CTRL-DOWN
     }
     // ....................... fKeyCtrl
-    var fKeyCtrl = function fKeyCtrl () {		// change view
+    var fKeyCtrl = function fKeyCtrl () { // change view
       // // Ctrl 17 + Shift 16  + f 70
     }
     // ....................... dKeyCtrl
-    var dKeyCtrl = function dKeyCtrl () {		// change debug mode
+    var dKeyCtrl = function dKeyCtrl () { // change debug mode
       // // Ctrl 17 + Shift 16  + d 68
     }
     // ....................... handleKeyPressed
@@ -201,7 +201,7 @@
       console.log('downArrowCtrlFn')
     }
     // ....................... controlfn
-	  function controlfn () {}
+    function controlfn () {}
 
     // ....................... enty
     function enty () {}

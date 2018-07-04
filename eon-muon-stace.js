@@ -9,7 +9,7 @@
   'use strict'
 
   let muonStace = function (__mapper = {}) {
-    let f = __mapper('xs').m('props'),
+    let mprops = __mapper('xs').m('props'),
       mstore = __mapper('xs').m('store'),
       mlacer = __mapper('xs').m('lacer'),
       manitem = __mapper('xs').m('anitem'),
@@ -31,12 +31,12 @@
       if (Array.isArray(stace)) { // stace :: [x,y,z]
         stace = stace.map(d => typeof d === 'function' ? d() : d)	// eval
 
-        if (f.isPureArray(stace)) { // [x,y,z] numbers
+        if (mprops.isPureArray(stace)) { // [x,y,z] numbers
           valid = 1
           locations = Array.of(stace)
-        } else if (f.isPureMultiArray(stace)) { // sum by dim [[a1,a2,a3],[b1,b2]]
+        } else if (mprops.isPureMultiArray(stace)) { // sum by dim [[a1,a2,a3],[b1,b2]]
           valid = 1
-          locations = f.interadd(stace)
+          locations = mprops.interadd(stace)
         } else {
           let parentuid = payload.parentuid
           if (2 && 2 && !parentuid) console.log(` * error: mstace.getTranspots:parentuid ${parentuid} in payload `, payload)
@@ -153,7 +153,7 @@
         if (parentCoordsDim.length > 0) {
           locations = []
           if (typeof staceDim.pos === 'number') { // number
-            let pos = f.posInStream(staceDim.pos, parentCoordsDim)
+            let pos = mprops.posInStream(staceDim.pos, parentCoordsDim)
 
             let idx = Math.floor(pos)
 

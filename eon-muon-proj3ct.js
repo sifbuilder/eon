@@ -39,7 +39,7 @@
       return contains
     }
 
-    var project = function (object, projection) {		// index
+    var project = function (object, projection) { // index
       var stream = projection.stream, project
       if (!stream) throw new Error('invalid projection', projection)
       switch (object && object.type) {
@@ -94,7 +94,7 @@
         default: return null
       }
 
-      let streamSink = 	stream(sink)
+      let streamSink = stream(sink)
 
       d3Geo.geoStream(o, streamSink)
       // return sink.result()
@@ -109,7 +109,7 @@
     var sinkPoint = {
       point: function (x, y, z) {
         let point = (z === undefined) ? [x, y] : [x, y, z]
-        points.push(point)		// ____ z ____
+        points.push(point) // ____ z ____
       },
       result: function () {
         var result = !points.length ? null
@@ -125,7 +125,7 @@
       lineStart: noop,
       point: function (x, y, z) {
         let point = (z === undefined) ? [x, y] : [x, y, z]
-        points.push(point)		// ____ z ____
+        points.push(point) // ____ z ____
       },
       lineEnd: function () {
         if (points.length) lines.push(points), points = []
@@ -144,7 +144,7 @@
       polygonStart: noop,
       lineStart: noop,
       point: function (x, y, z) {
-        points.push([x, y, z])		// z
+        points.push([x, y, z]) // z
       },
       lineEnd: function () {
         var n = points.length

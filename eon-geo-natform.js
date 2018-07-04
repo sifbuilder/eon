@@ -16,7 +16,7 @@
     ] = await Promise.all([
       __mapper('xs').m('nat'),
       __mapper('d3')
-    ])    
+    ])
 
     let cache = {} // points, form
 

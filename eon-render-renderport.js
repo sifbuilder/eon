@@ -9,20 +9,17 @@
   'use strict'
 
   async function renderRenderport (__mapper = {}) {
-
     // let [
     // mscene,
     // ] = await Promise.all(
     // __mapper('xs').m('scene'),
     // )
 
-    
     // let [
-      // guniwen
+    // guniwen
     // ] = await Promise.all([
-      // __mapper('xs').g('uniwen')
+    // __mapper('xs').g('uniwen')
     // ])
-    
 
     let margin = {top: 0, right: 0, bottom: 0, left: 0},
       viewWidth = 600,

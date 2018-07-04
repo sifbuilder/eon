@@ -10,6 +10,12 @@
   'use strict'
 
   async function touchEndControl (__mapper = {}) {
+    let [
+      d3
+    ] = await Promise.all([
+      __mapper('xs').q('d3')
+    ])
+
     var currentListeners = []
     var nextListeners = currentListeners
 
@@ -43,7 +49,7 @@
 
     // ....................... start
     enty.start = function (svg) {
-      svg.on('touchend', 	function () { controlAction(this) })
+      svg.on('touchend',  function () { controlAction(this) })
       return enty
     }
     // ....................... subscribe

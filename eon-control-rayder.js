@@ -9,15 +9,10 @@
   'use strict'
 
   async function controlRayder (__mapper) {
-    
     let [
-      mprops,
-      mtimer,
       rrenderport,
       rsvg
     ] = await Promise.all([
-      __mapper('xs').m('props'),
-      __mapper('xs').m('timer'),
       __mapper('xs').r('renderport'),
       __mapper('xs').r('svg')
     ])

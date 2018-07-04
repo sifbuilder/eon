@@ -9,8 +9,6 @@
   'use strict'
 
   let muonGeonode = function muonGeonode (__mapper = {}) {
-    let props = __mapper('xs').m('props')
-
     // ....................... init
     let init = function (node = {}) {
       let geonode = {

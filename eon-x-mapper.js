@@ -11,7 +11,6 @@
   let xMapper = function () {
     let state = {}
 
-
     // ............................. enty
     let enty = function (_) {
       if (arguments.length < 1) return state
@@ -19,7 +18,6 @@
       else if (typeof _ === 'string' && state[_] !== undefined) return state[_]
       else if (typeof _ === 'string' && state[_] === undefined) return null
     }
-
 
     return enty
   }

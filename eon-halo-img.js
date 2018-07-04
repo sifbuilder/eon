@@ -9,13 +9,7 @@
   'use strict'
 
   let haloImg = function haloImg (__mapper = {}) {
-    let f = __mapper('xs').m('props'),
-		  manitem = __mapper('xs').m('anitem'),
-      mgeoj = __mapper('xs').m('geoj'),
-      mprofier = __mapper('xs').m('profier'),
-      mboform = __mapper('xs').m('boform'),
-      mric = __mapper('xs').m('ric'),
-      mstace = __mapper('xs').m('stace')
+    let manitem = __mapper('xs').m('anitem')
 
     let _geofold = p => ({ // geofold
       type: 'Feature',

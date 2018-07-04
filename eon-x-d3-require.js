@@ -42,7 +42,6 @@
   }
 
   async function resolve (name, base) {
-
     if (name.startsWith(origin)) name = name.substring(origin.length)
     if (/^(\w+:)|\/\//i.test(name)) return name
     if (/^[.]{0,2}\//i.test(name)) return new URL(name, base == null ? location : base).href

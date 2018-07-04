@@ -10,6 +10,12 @@
   'use strict'
 
   async function touchMoveControl (__mapper = {}) {
+    let [
+      d3
+    ] = await Promise.all([
+      __mapper('xs').q('d3')
+    ])
+
     var currentListeners = []
     var nextListeners = currentListeners
 
@@ -39,15 +45,15 @@
     }
 
     // ....................... enty
-    let enty = {}
+    function enty () {}
 
     // ....................... start
-    enty.start = function start (svg) {
-      svg.on('touchmove', 	function () { controlAction(this) })
+    enty.start = function (svg) {
+      svg.on('touchmove',   function () { controlAction(this) })
       return enty
     }
     // ....................... subscribe
-    enty.subscribe = function subscribe (listener) {
+    enty.subscribe = function (listener) {
       if (typeof listener !== 'function') {
         throw new Error('Expected listener to be a function.')
       }

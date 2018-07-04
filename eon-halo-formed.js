@@ -31,14 +31,10 @@
         payload = anigram.payload, // payload
         avatars = anigram.avatars // avatars
 
-      let boform = payload.boform, // boform
-        ric = payload.ric, // ric
+      let ric = payload.ric, // ric
         tim = payload.tim, // tim
         vim = payload.vim, // vim
-        proform = payload.proform, // proform
-        conform = payload.conform, // conform
-        uid = payload.uid, // uid
-        parentuid = payload.parentuid // parentuid
+        uid = payload.uid
 
       //  get GEOFORM FeatureCollection
       //

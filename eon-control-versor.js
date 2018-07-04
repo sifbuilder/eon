@@ -72,7 +72,6 @@
       autoRot: false,
       lastMoveTime: null,
       timer: null,
-      timer: null,
       rotMatrix: null,
       cPos: null, // current position
       pPos: null // previous position
@@ -159,7 +158,7 @@
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
-      let f = Math.max(0, 1 - (Date.now() - state.lastMoveTime))
+      let deltat = Math.max(0, 1 - (Date.now() - state.lastMoveTime))
 
       state.vel_spher = [
 

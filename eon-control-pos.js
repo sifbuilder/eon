@@ -12,15 +12,15 @@
     let [
       d3,
       rrenderport,
-      mscene,
+      mscene
     ] = await Promise.all([
       __mapper('d3'),
       __mapper('xs').r('renderport'),
-      __mapper('xs').m('scene'),
+      __mapper('xs').m('scene')
     ])
 
-    let cameraProjer    // projection camera
-    
+    let cameraProjer // projection camera
+
     function prevent (e) {}
 
     function started (d) {}
