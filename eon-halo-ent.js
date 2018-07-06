@@ -30,18 +30,21 @@
     const c = (f, xpromise) => {
       let feature = f
       if (xpromise) { // CONFORM
-        return xpromise.then( x => {
-          if (1 && 1) console.log('_conform_', feature, x)
-
-          feature = x(feature) // CONFORM
-          feature.properties.formConformed = mgeoj.deprop(feature) // store conform
-          feature.properties.nodeConformed = feature.properties.geonode
-
-          return feature
-        })
+        return Promise.resolve(xpromise)
+          .then(x => {
+            if (1 && 1) console.log('_conform_', feature, x)
+            return Promise.resolve(feature)
+                .then(feature => x(feature)) // CONFORM
+                .then(feature => {
+                  feature.properties.formConformed = mgeoj.deprop(feature) // store proform
+                  feature.properties.nodeConformed = feature.properties.geonode
+                  return feature})
+            })
       }
-      return feature
-    }
+      
+    }      
+      
+
 
     // ............................. ereform
     const e = (f, xpromise) => {
