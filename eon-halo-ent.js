@@ -42,10 +42,12 @@
     const e = (f, xpromise) => {
       let feature = f
       if (xpromise) { // EREFORM
-        feature = mproj3ct(feature, xpromise)
-        feature.properties.formEreformed = mgeoj.deprop(feature) // store ereform
-        feature.properties.nodeEreformed = mproj3ct(feature.properties.nodeConformed, xpromise) //
-        nodeConformed => nodeEreformed
+        return xpromise.then(x => {
+          feature = mproj3ct(feature, x)
+          feature.properties.formEreformed = mgeoj.deprop(feature) // store ereform
+          feature.properties.nodeEreformed = mproj3ct(feature.properties.nodeConformed, x) //
+          nodeConformed => nodeEreformed
+        return feature})
       } else {
         feature.properties.formEreformed = feature.properties.formConformed
         feature.properties.nodeEreformed = feature.properties.nodeConformed
