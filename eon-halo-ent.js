@@ -66,18 +66,31 @@
     const p = (f, xpromise) => {
       let feature = f
       if (xpromise) { // PROFORM
-        return xpromise.then(x => {
-                   if (1 && 1) console.log('_proform_', feature, x)
-          feature = mproj3ct(feature, x)
-          feature.properties.formProformed = mgeoj.deprop(feature) // store proform
-          feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, x)
-        return feature})
+        return Promise.resolve(xpromise)
+          .then(x => {
+            if (1 && 1) console.log('_proform_', feature, x)
+            return Promise.resolve(feature)
+                .then(feature => mproj3ct(feature, x))
+                .then(feature => {
+                  feature.properties.formProformed = mgeoj.deprop(feature) // store proform
+                  feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, x)
+                  return feature})
+            })
       } else {
         feature.properties.formProformed = feature.properties.formEreformed
         feature.properties.nodeProformed = feature.properties.nodeEreformed
       }
       return feature
     }
+
+    // ............................. transforms
+    let __transforms = ani => f => Promise.resolve(f)
+                            .then(f => c(f, mprofier.conformer_(ani)))
+                            .then(f => e(f, mprofier.ereformion_(ani)))
+                            .then(f => p(f, mprofier.proformion_(ani)))
+
+    let transforms = ani => f => p(c(f, mprofier.conformer_(ani)), mprofier.proformion_(ani))
+
 
 
 
@@ -96,10 +109,6 @@
         ereformed = ani => f => e(f, mprofier.ereformion_(ani)),
         proformed = ani => f => p(f, mprofier.proformion_(ani))
 
-    let transforms = ani => f => Promise.resolve(f)
-                            .then(f => c(f, mprofier.conformer_(ani)))
-                            .then(f => e(f, mprofier.ereformion_(ani)))
-                            .then(f => p(f, mprofier.proformion_(ani)))        
 
     // ............................. gramm
     function gramm (anima, newAnigrams = []) {
