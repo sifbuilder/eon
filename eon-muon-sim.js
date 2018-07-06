@@ -20,7 +20,7 @@
       __mapper('xs').m('store'),
       __mapper('xs').m('geonode'),
       __mapper('xs').q('d3'),
-      __mapper('xs').q('d3Force3d')
+      __mapper('xs').q('d3-force-3d')
     ])
 
     let _geonode = {

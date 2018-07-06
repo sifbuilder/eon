@@ -32,7 +32,9 @@
     const mapCell = (e, n, m) => m({[n]: e})[n]
     const a = d => Array.isArray(d) ? d : Array.of(d)
 
-    let getEon = part => __mapper(eonize(part[0], part[1]))
+    let getEon = part => {
+      return __mapper(eonize(part[0], part[1]))
+    }
 
     // ............................. mapEon
     function mapEon (part) { // d3Froce3d, ./d3-force-3d.js | d3-force-3d
@@ -57,14 +59,24 @@
       let feon = fermize(name, pres) // ./eon-muon-versor.js
       let xeon = xeonize(name, pres) // eon-muon-versor
 
+
       let eoncell = await getEon(part) // __mapper(eon)
-      if (eoncell) return eoncell
+      if (eoncell) {
+        // if (1 && 1) console.log('got eon', eon, eoncell)
+        return eoncell
+      }
 
       let foncell = await mapEon([eon, feon])
-      if (foncell) return foncell
+      if (foncell) {
+       // if (1 && 1) console.log('got feon', eon, feon)
+        return foncell
+      }
 
       let xeoncell = await mapEon([eon, xeon])
-      if (xeoncell) return xeoncell
+      if (xeoncell) {
+        // if (1 && 1) console.log('got xeon', eon, xeon)
+        return xeoncell
+      }
     }
 
     // ............................. enty

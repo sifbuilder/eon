@@ -62,10 +62,10 @@
 
     // .................. aniListener
     function aniListener (elapsed) {
+      
       mstore = __mapper('muonStore') // store with state from __mapper
-
       state.animas = mstore.animasLive()
-      if (0 && 1) console.log(' __________________ aniListener', state.animas.length, elapsed)
+      if (1 && 1) console.log(' __________________ aniListener', state.animas.length, elapsed.toFixed(0))
 
       // .................. time
 

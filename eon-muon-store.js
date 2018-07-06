@@ -84,7 +84,8 @@
     // .................. ween
     async function ween (anima, newItems = []) {
       let anigram = manitem.anigram(anima)
-      let haloRef = __mapper('xs').eonize(anigram.halo, 'halo')
+      // let haloRef = __mapper('xs').eonize(anigram.halo, 'halo')
+      let haloRef = await __mapper('xs').h(anigram.halo)
 
       let newAnimas = __mapper(haloRef).ween(anigram) // ANIMA HALO.GRAMM
 
@@ -96,10 +97,11 @@
     }
 
     // .................. gramm
-    function gramm (anima, newItems = []) {
+    async function gramm (anima, newItems = []) {
       let anigram = manitem(anima).anigram()
-      let haloRef = __mapper('xs').eonize(anigram.halo, 'halo')
-
+      // let haloRef = __mapper('xs').eonize(anigram.halo, 'halo')
+      let haloRef = await __mapper('xs').h(anigram.halo)
+      
       let halo = __mapper(haloRef) // anigram halo
 
       return halo.gramm(anigram) // ANIMA HALO.GRAMM

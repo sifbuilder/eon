@@ -31,7 +31,7 @@
     ])
 
     // ............................. getProj_
-    function getProj_ (projdef) {
+    async function getProj_ (projdef) {
       let geoproj
 
       if (projdef === undefined) {
@@ -56,9 +56,13 @@
 
           // let prj = await __mapper('xs').g(projdef.projection)
 
-          let geoeon = __mapper('xs').eonize(projdef.projection, 'geo')
-          let prj = __mapper(geoeon)
+          // let geoeon = __mapper('xs').eonize(projdef.projection, 'geo')
+          // let geoeon = await __mapper('xs').g(projdef.projection)
+// if (1 && 1) console.log('geoeon', geoeon)          
+          // let prj = __mapper(geoeon)
+// if (1 && 1) console.log('prj', prj)
 
+            let prj = await __mapper('xs').g(projdef.projection)
           geoproj = prj(projdef) //
           // geoproj = __mapper(__mapper('xs').eonize(projdef.projection, 'd3.geo'))(projdef) //
           // geoproj = prj(projdef)
@@ -86,7 +90,7 @@
     }
 
     // ............................. formion_
-    function formion_ (projdef, anigram = {}) {
+    async function formion_ (projdef, anigram = {}) {
       let projection
       let projname
 
@@ -100,7 +104,7 @@
         projection = d => d
         return projection // id
       }
-      projection = getProj_(projdef)
+      projection = await getProj_(projdef)
 
       if (projdef.translate) { // TRANSLATE proj method
         if (mprops.isPureArray(projdef.translate)) {
@@ -185,7 +189,7 @@
     }
 
     // ............................. conformer_
-    function conformer_ (anigram) {
+    async function conformer_ (anigram) {
       let projion = d => d // identity if conformed undefined
 
       let projdef = anigram.payload.conform
@@ -197,7 +201,7 @@
           }
         }
 
-        let projection = formion_(projdef)
+        let projection = await formion_(projdef)
         projion = json => mproj3ct.project(json, projection)
       }
 
