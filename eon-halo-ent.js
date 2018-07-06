@@ -28,22 +28,27 @@
 
     // ............................. conform
     const c = (f, xpromise) => {
+            if (1 && 1) console.log('_conform_', f, xpromise)
       let feature = f
       if (xpromise) { // CONFORM
         return Promise.resolve(xpromise)
           .then(x => {
-            if (1 && 1) console.log('_conform_', feature, x)
+
             return Promise.resolve(feature)
                 .then(feature => x(feature)) // CONFORM
                 .then(feature => {
                   feature.properties.formConformed = mgeoj.deprop(feature) // store proform
                   feature.properties.nodeConformed = feature.properties.geonode
-                  return feature})
+
+                  if (1 && 1) console.log('CONFORM ', feature)
+
+                  return feature
+                })
             })
       }
-      
-    }      
-      
+      return feature
+    }
+
 
 
     // ............................. ereform
@@ -67,18 +72,23 @@
 
     // ............................. proform
     const p = (f, xpromise) => {
+            if (1 && 1) console.log('_proform_', f, xpromise)
+
       let feature = f
       if (xpromise) { // PROFORM
         return Promise.resolve(xpromise)
           .then(x => {
-            if (1 && 1) console.log('_proform_', feature, x)
             return Promise.resolve(feature)
                 .then(feature => mproj3ct(feature, x))
                 .then(feature => {
                   feature.properties.formProformed = mgeoj.deprop(feature) // store proform
                   feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, x)
-                  return feature})
-            })
+
+                  if (1 && 1) console.log('PROFORM', feature)
+
+                  return feature
+                })
+          })
       } else {
         feature.properties.formProformed = feature.properties.formEreformed
         feature.properties.nodeProformed = feature.properties.nodeEreformed
@@ -87,12 +97,11 @@
     }
 
     // ............................. transforms
-    let __transforms = ani => f => Promise.resolve(f)
+    let transforms = ani => f => Promise.resolve(f)
                             .then(f => c(f, mprofier.conformer_(ani)))
                             .then(f => e(f, mprofier.ereformion_(ani)))
                             .then(f => p(f, mprofier.proformion_(ani)))
 
-    let transforms = ani => f => p(c(f, mprofier.conformer_(ani)), mprofier.proformion_(ani))
 
 
 
@@ -114,21 +123,17 @@
 
 
     // ............................. gramm
-    function gramm (anima, newAnigrams = []) {
+    function gramm (anigram, newAnigrams = []) {
 
-      return Promise.resolve(anima)
-          .then(anima => manitem(anima).anigram())  // get anigram
-          .then(anigram =>  {
-              let gj = getgj(anigram)
-              let gjcollection = mgeoj.featurecollect(gj)
-              return Promise.all(gjcollection.features.map(f => transforms(anigram)(f)))
+
+      return Promise.resolve(mgeoj.featurecollect(getgj(anigram)))
+        .then(gjcollection => Promise.all(gjcollection.features.map(f => transforms(anigram)(f)))
                 .then(newfeatures => {
+if (1 && 1) console.log(' ........... h.ent gramm', anigram)
                     let newcollection = Object.assign({}, gjcollection, {features:newfeatures})
                     let newanigram = Object.assign({}, anigram, {geofold: newcollection})
                     return hformed.gramm(newanigram)
-                })
-          })
-
+                }))
 
     }
 

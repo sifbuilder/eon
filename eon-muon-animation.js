@@ -38,7 +38,7 @@
     const getsims = (animas, elapsed) => {
       let sim = msim.sim() // simulation on animas
       msim.simulate(sim, animas, elapsed)	// stored
-      return mprops.a(mstore.animasLive())
+      return mstore.animasLive()
     }
 
     // .................. getweens
@@ -91,12 +91,26 @@
       }
 
       // ............................. @WEEN SIM GRAMM RENDEr
-
-      getweens(state.animas, elapsed)
-        .then(animas => getsims(state.animas))
-        .then(animas => getgramms(state.animas))
-        .then(anigrams => ({ type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }))
-        .then(featurecollection => rsvg.render(elapsed, featurecollection))
+      Promise.resolve(state.animas)
+        .then (animas => {
+ if (1 && 1) console.log('animation animas', animas)         
+          return getweens(animas, elapsed)
+        })
+        .then(animas => getsims(animas))
+        .then(animas => {
+if (1 && 1) console.log('animation animas', animas)
+            return getgramms(animas)
+        })
+        .then(anigrams => {
+if (1 && 1) console.log('animation anigrams', anigrams)
+          return { type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }
+        })
+        .then(featurecollection => {
+  if (1 && 1) console.log('animation featurecollection', featurecollection)        
+            rsvg.render(elapsed, featurecollection)
+        })
+        
+        
     }
 
     // ............................. enty

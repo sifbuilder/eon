@@ -60,7 +60,7 @@
           }
         }
 
-        return state.animas
+        return enty.animasLive()
       }
 
       // .................. UPDANIGRAM
@@ -96,43 +96,59 @@
       return newItems
     }
 
-    // .................. gramm
-    async function gramm (anima, newItems = []) {
-      let anigram = manitem(anima).anigram()
-      // let haloRef = __mapper('xs').eonize(anigram.halo, 'halo')
-      let haloRef = await __mapper('xs').h(anigram.halo)
+    
+     // .................. gramm
+    function gramm (anima, newItems = []) {
       
-      let halo = __mapper(haloRef) // anigram halo
 
-      return halo.gramm(anigram) // ANIMA HALO.GRAMM
-        .then(newAnigrams => {
-          if (newAnigrams !== null && newAnigrams.length > 0) {
-            _apply({'type': 'UPDANIGRAM', 'anigrams': newAnigrams})
-            newItems = newItems.concat(mprops.a(newAnigrams))
-          }
+      // let anigram = manitem(anima).anigram()
+      if (1 && 1) console.log('GRAM', manitem(anima).anigram())
+      return Promise.resolve(manitem(anima).anigram())
+        .then(anigram => __mapper('xs').h(anigram.halo)
+             .then(halo => halo.gramm(anigram))
+             .then(newAnigrams => _apply({type: 'UPDANIGRAM', anigrams: newAnigrams})))
+             .then(allanigrams => {console.log('allanigrams', allanigrams)})
 
-          if (newItems !== undefined && newItems.length > 0) { // avatars in NEW animas
-            for (let i = 0; i < newItems.length; i++) {
-              let newItem = newItems[i] // each new item
-              if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
-                let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
 
-                for (let j = 0; j < avatars.length; j++) {
-                  let newSubItems = []
-                  let avatar = avatars[j]
+    }
+    
+    // .................. gramm
+    async function __gramm (anima, newItems = []) {
+      
+      let anigram = manitem(anima).anigram()
+      
+if (1 && 1) console.log(' ----------- anigram', anigram)
+  
+      let halo = await __mapper('xs').h(anigram.halo)
+      
+      let newAnigrams = await halo.gramm(anigram) // ANIMA HALO.GRAMM
+  
+      if (newAnigrams !== null && newAnigrams.length > 0) {
+        _apply({type: 'UPDANIGRAM', anigrams: newAnigrams})
+        newItems = newItems.concat(newAnigrams)
 
-                  avatar.payload.uid = mric.getuid(avatar) // uid for children
-                  avatar.payload.tim = anigram.payload.tim // time from anima
-                  avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
+        // if (newAnigrams !== undefined && newAnigrams.length > 0) { // avatars in NEW animas
+          // for (let i = 0; i < newItems.length; i++) {
+            // let newItem = newAnigrams[i] // each new item
+            // if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
+              // let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
 
-                  newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
-                  _apply({'type': 'UPDANIGRAM', 'anigrams': newSubItems})
-                }
-              }
-            }
-          }
-          return newItems
-        })
+              // for (let j = 0; j < avatars.length; j++) {
+                // let newSubItems = []
+                // let avatar = avatars[j]
+
+                // avatar.payload.uid = mric.getuid(avatar) // uid for children
+                // avatar.payload.tim = anigram.payload.tim // time from anima
+                // avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
+
+                // newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
+                // _apply({'type': 'UPDANIGRAM', 'anigrams': newSubItems})
+              // }
+            // }
+          // }
+        // }
+        return newItems
+      }
     }
 
     // .................. enty
