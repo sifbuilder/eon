@@ -102,7 +102,7 @@
       
 
       // let anigram = manitem(anima).anigram()
-      if (1 && 1) console.log('GRAM', manitem(anima).anigram())
+      // if (1 && 1) console.log('GRAM', manitem(anima).anigram())
       return Promise.resolve(manitem(anima).anigram())
         .then(anigram => __mapper('xs').h(anigram.halo)
              .then(halo => halo.gramm(anigram))
@@ -117,7 +117,7 @@
       
       let anigram = manitem(anima).anigram()
       
-if (1 && 1) console.log(' ----------- anigram', anigram)
+// if (1 && 1) console.log(' ----------- anigram', anigram)
   
       let halo = await __mapper('xs').h(anigram.halo)
       
