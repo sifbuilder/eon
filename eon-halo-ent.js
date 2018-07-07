@@ -27,7 +27,7 @@
     ])
 
     // ............................. proform
-    const c = (feature, proj) => {
+    async function c (feature, proj) {
 
 
       if (proj) { // PROFORM
@@ -40,8 +40,6 @@
                   feature.properties.formConformed = mgeoj.deprop(feature)   // store proform
                   feature.properties.nodeConformed = feature.properties.geonode
 
-                  // if (1 && 1) console.log('PROFORM', feature)
-
                   return feature
                 })
           })
@@ -52,7 +50,7 @@
     }
 
     // ............................. ereform
-    const e = (feature, proj) => {
+    async function e (feature, proj) {
 
       if (proj) { // EREFORM
         if (1 && 1) console.log('_ereform_', feature, x)
@@ -72,7 +70,7 @@
     }
 
     // ............................. proform
-    const p = (feature, proj) => {
+    async function p (feature, proj) {
 
       if (proj) { // PROFORM
         if (1 && 1) console.log('_proform_', feature, proj)
@@ -109,9 +107,9 @@
     
     // ............................. transforms
     let transforms = (f, ani) => Promise.resolve(f)
-                            .then(f => c(f, mprofier.conformion_(ani)))
-                            .then(f => e(f, mprofier.ereformion_(ani)))
-                            .then(f => p(f, mprofier.proformion_(ani)))
+                            .then(f => c(f, mprofier.conformion_(ani))
+                              .then(f => e(f, mprofier.ereformion_(ani))
+                                .then(f => p(f, mprofier.proformion_(ani)))))
 
     // ............................. gramm
     async function gramm (anigram, newAnigrams = []) {
