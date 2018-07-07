@@ -37,10 +37,10 @@
             return Promise.resolve(feature)
                 .then(feature => x(feature)) // CONFORM
                 .then(feature => {
-                  feature.properties.formConformed = mgeoj.deprop(feature) // store proform
+                  feature.properties.formConformed = mgeoj.deprop(feature)   // store proform
                   feature.properties.nodeConformed = feature.properties.geonode
 
-                  if (1 && 1) console.log('CONFORM ', feature)
+                  // if (1 && 1) console.log('CONFORM ', feature)
 
                   return feature
                 })
@@ -84,7 +84,7 @@
                   feature.properties.formProformed = mgeoj.deprop(feature) // store proform
                   feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, x)
 
-                  if (1 && 1) console.log('PROFORM', feature)
+                  // if (1 && 1) console.log('PROFORM', feature)
 
                   return feature
                 })
@@ -98,7 +98,7 @@
 
     // ............................. transforms
     let transforms = ani => f => Promise.resolve(f)
-                            .then(f => c(f, mprofier.conformer_(ani)))
+                            .then(f => c(f, mprofier.conformion_(ani)))
                             .then(f => e(f, mprofier.ereformion_(ani)))
                             .then(f => p(f, mprofier.proformion_(ani)))
 
@@ -117,23 +117,63 @@
     }
 
 
-    let conformed = ani => f => c(f, mprofier.conformer_ (ani)),
+    let conformed = ani => f => c(f, mprofier.conformion_ (ani)),
         ereformed = ani => f => e(f, mprofier.ereformion_(ani)),
         proformed = ani => f => p(f, mprofier.proformion_(ani))
 
 
     // ............................. gramm
-    function gramm (anigram, newAnigrams = []) {
+    async function gramm (anigram, newAnigrams = []) {
 
 
       return Promise.resolve(mgeoj.featurecollect(getgj(anigram)))
         .then(gjcollection => Promise.all(gjcollection.features.map(f => transforms(anigram)(f)))
                 .then(newfeatures => {
-if (1 && 1) console.log(' ........... h.ent gramm', anigram)
                     let newcollection = Object.assign({}, gjcollection, {features:newfeatures})
                     let newanigram = Object.assign({}, anigram, {geofold: newcollection})
                     return hformed.gramm(newanigram)
                 }))
+
+// function sequence(array, callback) {
+  // function chain(array, index) {
+    // if (index == array.length) return Promise.resolve();
+    // return Promise.resolve(callback(array[index])).then(function () {
+      // return chain(array, index + 1)
+    // })
+  // }
+  // return chain(array, 0)
+// }
+
+      // let gjcollection = mgeoj.featurecollect(getgj(anigram))
+      // let features = gjcollection.features
+      // let feature = gjcollection.features[0]
+
+      // let [cer,
+            // per,
+           // ] = await Promise.all ([
+              // mprofier.conformer_ (anigram),
+              // mprofier.proformion_ (anigram)
+             // ])
+
+
+
+// if (1 && 1) console.log('cer', cer)
+// if (1 && 1) console.log('per', per)
+
+      // let cpromis = f => c(f, cer)
+      // let ppromis = f => p(f, per)
+
+
+      // let transforms = [cpromis, ppromis]
+      // sequence(transforms, function (transform) {
+
+        // return Promise.resolve(transform(feature))
+          // .then(function (newFeature) {
+          // console.log('got transformed feature ' + newFeature + transform)
+        // })
+      // }).catch(function (reason) {
+        // console.log(' ********* ', reason)
+      // })
 
     }
 

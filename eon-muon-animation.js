@@ -93,20 +93,20 @@
       // ............................. @WEEN SIM GRAMM RENDEr
       Promise.resolve(state.animas)
         .then (animas => {
- if (1 && 1) console.log('animation animas', animas)         
+ // if (1 && 1) console.log('animation animas', animas)         
           return getweens(animas, elapsed)
         })
         .then(animas => getsims(animas))
         .then(animas => {
-if (1 && 1) console.log('animation animas', animas)
+// if (1 && 1) console.log('animation animas', animas)
             return getgramms(animas)
         })
         .then(anigrams => {
-if (1 && 1) console.log('animation anigrams', anigrams)
+// if (1 && 1) console.log('animation anigrams', anigrams)
           return { type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }
         })
         .then(featurecollection => {
-  if (1 && 1) console.log('animation featurecollection', featurecollection)        
+  // if (1 && 1) console.log('animation featurecollection', featurecollection)        
             rsvg.render(elapsed, featurecollection)
         })
         

@@ -188,8 +188,8 @@
       return json => mproj3ct.project(json, formion_(prodef))
     }
 
-    // ............................. conformer_
-    async function conformer_ (anigram) {
+    // ............................. conformion_
+    async function conformion_ (anigram) {
       let projion = d => d // identity if conformed undefined
 
       let projdef = anigram.payload.conform
@@ -207,6 +207,8 @@
 
       return projion
     }
+    
+    function conformer() {}
 
     // ............................. proformion_
     function proformion_ (anigram) {
@@ -244,7 +246,8 @@
     enty.ereformion_ = ereformion_
     enty.ereformer = ereformer
 
-    enty.conformer_ = conformer_
+    enty.conformion_ = conformion_
+    enty.conformer = conformer
 
     return enty
   }
