@@ -189,26 +189,36 @@
     }
 
     // ............................. conformion_
-    async function conformion_ (anigram) {
-      let projion = d => d // identity if conformed undefined
+    // async function conformion_ (anigram) {
+      // let projion = d => d // identity if conformed undefined
 
-      let projdef = anigram.payload.conform
-      if (projdef !== undefined) {
-        if (projdef.projection === undefined) {
-          projdef = { // natform if projection undefined
-            projection: 'natform', // default to natform
-            form: projdef // form is conform
-          }
-        }
+      // let projdef = anigram.payload.conform
+      // if (projdef !== undefined) {
+        // if (projdef.projection === undefined) {
+          // projdef = { // natform if projection undefined
+            // projection: 'natform', // default to natform
+            // form: projdef // form is conform
+          // }
+        // }
 
-        let projection = await formion_(projdef)
-        projion = json => mproj3ct.project(json, projection)
+        // let projection = await formion_(projdef)
+        // projion = json => mproj3ct.project(json, projection)
+      // }
+
+      // return projion
+    // }
+    // function conformer() {}
+
+   async function conformion_ (anigram) {
+      let res = null
+      let prj = anigram.payload.conform
+      if (prj) {
+        return formion_(prj, anigram)
+      } else {
+        return res
       }
-
-      return projion
     }
-    
-    function conformer() {}
+    const conformer = anitem => json => mproj3ct.project(json, conformion_(anitem))
 
     // ............................. proformion_
     function proformion_ (anigram) {

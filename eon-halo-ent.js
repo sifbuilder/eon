@@ -27,29 +27,52 @@
     ])
 
     // ............................. conform
+    // const c = (f, xpromise) => {
+            // if (1 && 1) console.log('_conform_', f, xpromise)
+      // let feature = f
+      // if (xpromise) { // CONFORM
+        // return Promise.resolve(xpromise)
+          // .then(x => {
+
+            // return Promise.resolve(feature)
+                // .then(feature => x(feature)) // CONFORM
+                // .then(feature => {
+                  // feature.properties.formConformed = mgeoj.deprop(feature)   // store proform
+                  // feature.properties.nodeConformed = feature.properties.geonode
+
+                  // if (1 && 1) console.log('CONFORM ', feature)
+
+                  // return feature
+                // })
+            // })
+      // }
+      // return feature
+    // }
+
+    // ............................. proform
     const c = (f, xpromise) => {
             if (1 && 1) console.log('_conform_', f, xpromise)
+
       let feature = f
-      if (xpromise) { // CONFORM
+      if (xpromise) { // PROFORM
         return Promise.resolve(xpromise)
           .then(x => {
-
             return Promise.resolve(feature)
-                .then(feature => x(feature)) // CONFORM
+                .then(feature => mproj3ct(feature, x))
                 .then(feature => {
                   feature.properties.formConformed = mgeoj.deprop(feature)   // store proform
                   feature.properties.nodeConformed = feature.properties.geonode
 
-                  // if (1 && 1) console.log('CONFORM ', feature)
+                  // if (1 && 1) console.log('PROFORM', feature)
 
                   return feature
                 })
-            })
+          })
+      } else {
+
       }
       return feature
     }
-
-
 
     // ............................. ereform
     const e = (f, xpromise) => {
