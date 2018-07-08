@@ -41,26 +41,26 @@
       return mstore.animasLive()
     }
 
+    // .................. sequence    
+    function sequence(items, fromitem) {
+        function chain(items, index) {
+            return (index === items.length) 
+              ? Promise.resolve()
+              : Promise.resolve(fromitem(items[index])).then(() => chain(items, index + 1))
+        }
+        return chain(items, 0)
+    }
+
+
     // .................. getweens
-    const getweens = async (animas, elapsed) => {
-      let newAnimas = animas.map(anima => mstore.ween(anima))
+    const getweens = (animas, elapsed) => {
+      sequence(animas, anima => mstore.ween(anima))
       return mstore.animasLive()
     }
     
-    function sequence(array, callback) {
-        function chain(array, index) {
-          if (index == array.length) return Promise.resolve();
-            return Promise.resolve(callback(array[index])).then(function () {
-              return chain(array, index + 1);
-            })
-        }
-        return chain(array, 0);
-    }
-
     // .................. getgramms
     const getgramms = (animas, elapsed) => {
-      // let newAnigrams = animas.map(anima => mstore.gramm(anima)) // store anigrams
-      let newAnigrams = sequence(animas, anima => mstore.gramm(anima)) // store anigrams
+      sequence(animas, anima => mstore.gramm(anima)) // store anigrams
       return mstore.anigrams() // get anigrams from store
     }
 
