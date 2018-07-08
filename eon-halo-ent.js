@@ -47,6 +47,8 @@
 
     // ............................. conform
     function c (feature, proj) {
+
+
       let enproj = f => {
         f.properties.formConformed = mgeoj.deprop(f) // store proform
         f.properties.nodeConformed = f.properties.geonode
@@ -54,7 +56,11 @@
       }
 
       return Promise.resolve(proj)
-        .then(projection => enproj(mproj3ct(feature, projection)))
+        .then(projection => 
+          projection
+            ? enproj(mproj3ct(feature, projection))
+            : enproj(feature)
+        )
     }
 
     // ............................. proform

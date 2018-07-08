@@ -111,15 +111,13 @@
 
     // ............................. render
     let render = function (elapsed, featurecollection, maxlimit) {
-      if (1 && 1) console.log('featurecollection', featurecollection.features)
-
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
             d.properties.ric !== undefined // req ric
         )
 
-      if (1 && 1) console.log(' ------------------ render', features.length)
+      if (0 && 1) console.log(' ------------------ render', features.length)
 
       let svg = _svg()
 

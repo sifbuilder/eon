@@ -10,10 +10,8 @@
 
   async function haloTextform (__mapper = {}) {
     let [
-      manitem,
       hent
     ] = await Promise.all([
-      __mapper('xs').m('anitem'),
       __mapper('xs').h('ent')
     ])
 
@@ -49,22 +47,19 @@
     }
 
     // .................. gramm
-    async function gramm (anima, newAnigrams = []) {
-      let anigram = manitem(anima).anigram(),
-        halo = 				anigram.halo,
-        payload = 		anigram.payload
-
-      let geofold = _geofold(anigram) // geofold
+    async function gramm (anigram, newAnigrams = []) {
+      let halo = 			anigram.halo,
+        payload = 		anigram.payload,
+        geofold =     _geofold(anigram) // geofold
 
       let newAnigram = {
         halo,
         geofold,
         payload
       }
+      
+      return hent.gramm(newAnigram)
 
-      newAnigrams = await hent.gramm(newAnigram)
-
-      return newAnigrams
     }
 
     // .................. enty
