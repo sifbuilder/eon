@@ -82,15 +82,16 @@
 
     enty.ceonize = ceonize
     enty.boson = enty.b = (nome, pres = '') => getEon([nome, pres])
-    enty.muon = enty.m = (nome, pres = 'muon') => getEon([nome, pres])
+    enty.control = enty.c = (nome, pres = 'control') => getEon([nome, pres])
     enty.data = enty.d = (nome, pres = 'data') => getEon([nome, pres])
     enty.force = enty.f = (nome, pres = 'force') => getEon([nome, pres])
     enty.geo = enty.g = (nome, pres = 'geo') => getEon([nome, pres])
-    enty.proj = enty.p = (nome, pres = 'd3.geo') => getEon([nome, pres])
     enty.halo = enty.h = (nome, pres = 'halo') => getEon([nome, pres])
-    enty.control = enty.c = (nome, pres = 'control') => getEon([nome, pres])
+    enty.muon = enty.m = (nome, pres = 'muon') => getEon([nome, pres])
+    enty.proj = enty.p = (nome, pres = 'd3.geo') => getEon([nome, pres])
     enty.render = enty.r = (nome, pres = 'render') => getEon([nome, pres])
-    enty.getEon = getEon
+    enty.zindex = enty.z = (nome, pres = 'z') => getEon([nome, pres])
+
 
     return enty
   }
