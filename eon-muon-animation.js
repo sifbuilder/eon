@@ -41,23 +41,22 @@
       return mstore.animasLive()
     }
 
-    // .................. sequence    
-    function sequence(items, fromitem) {
-        function chain(items, index) {
-            return (index === items.length) 
-              ? Promise.resolve()
-              : Promise.resolve(fromitem(items[index])).then(() => chain(items, index + 1))
-        }
-        return chain(items, 0)
+    // .................. sequence
+    function sequence (items, fromitem) {
+      function chain (items, index) {
+        return (index === items.length)
+          ? Promise.resolve()
+          : Promise.resolve(fromitem(items[index])).then(() => chain(items, index + 1))
+      }
+      return chain(items, 0)
     }
-
 
     // .................. getweens
     const getweens = (animas, elapsed) => {
       sequence(animas, anima => mstore.ween(anima))
       return mstore.animasLive()
     }
-    
+
     // .................. getgramms
     const getgramms = (animas, elapsed) => {
       sequence(animas, anima => mstore.gramm(anima)) // store anigrams
@@ -73,7 +72,6 @@
 
     // .................. aniListener
     function aniListener (elapsed) {
-      
       mstore = __mapper('muonStore') // store with state from __mapper
       state.animas = mstore.animasLive()
       if (1 && 1) console.log(' __________________ aniListener', state.animas.length, elapsed.toFixed(0))
@@ -103,22 +101,20 @@
 
       // ............................. @WEEN SIM GRAMM RENDEr
       Promise.resolve(state.animas)
-        .then (animas => {
+        .then(animas => {
           return getweens(animas, elapsed)
         })
         .then(animas => getsims(animas))
         .then(animas => {
-            let anigrams = getgramms(animas)
-            return anigrams
+          let anigrams = getgramms(animas)
+          return anigrams
         })
         .then(anigrams => {
           return { type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }
         })
         .then(featurecollection => {
-            rsvg.render(elapsed, featurecollection)
+          rsvg.render(elapsed, featurecollection)
         })
-        
-        
     }
 
     // ............................. enty

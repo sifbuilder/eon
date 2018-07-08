@@ -58,11 +58,11 @@
 
           // let geoeon = __mapper('xs').eonize(projdef.projection, 'geo')
           // let geoeon = await __mapper('xs').g(projdef.projection)
-// if (1 && 1) console.log('geoeon', geoeon)          
+          // if (1 && 1) console.log('geoeon', geoeon)
           // let prj = __mapper(geoeon)
-// if (1 && 1) console.log('prj', prj)
+          // if (1 && 1) console.log('prj', prj)
 
-            let prj = await __mapper('xs').g(projdef.projection)
+          let prj = await __mapper('xs').g(projdef.projection)
           geoproj = prj(projdef) //
           // geoproj = __mapper(__mapper('xs').eonize(projdef.projection, 'd3.geo'))(projdef) //
           // geoproj = prj(projdef)
@@ -188,8 +188,7 @@
       return json => mproj3ct.project(json, formion_(prodef))
     }
 
-
-   async function conformion_ (anigram) {
+    async function conformion_ (anigram) {
       let res = null
       let prj = anigram.payload.conform
       if (prj) {

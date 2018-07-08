@@ -49,7 +49,7 @@
 
     // ....................... start
     enty.start = function (svg) {
-      svg.on('touchmove',   function () { controlAction(this) })
+      svg.on('touchmove', function () { controlAction(this) })
       return enty
     }
     // ....................... subscribe

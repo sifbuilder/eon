@@ -16,7 +16,6 @@
     // let d3Range = d3Array.range
     // let d3scaleLinear = d3Scale.scaleLinear
 
-
     let [
       d3
     ] = await Promise.all([
