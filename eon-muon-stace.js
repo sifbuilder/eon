@@ -13,23 +13,24 @@
       mstore = __mapper('xs').m('store'),
       mlacer = __mapper('xs').m('lacer'),
       mgeoj = __mapper('xs').m('geoj'),
-      mprofier = __mapper('xs').m('profier')
+      mprofier = __mapper('xs').m('profier'),
+      d3 = __mapper('xs').q('d3')
       
-    let [
+    // let [
       // mprops,
       // mstore,
       // mlacer,
       // mgeoj,
       // mprofier,
-      d3,
-    ] = await Promise.all([
+      // d3,
+    // ] = await Promise.all([
       // __mapper('xs').m('props'),
       // __mapper('xs').m('store'),
       // __mapper('xs').m('lacer'),
       // __mapper('xs').m('geoj'),
       // __mapper('xs').m('profier'),
-      __mapper('xs').q('d3'),
-    ])
+      // __mapper('xs').q('d3'),
+    // ])
 
     // ..................... isValidStace
     let getTranspots = function (s, ani) {

@@ -26,7 +26,7 @@
     const getCell = (e, n, m) => e[n] !== undefined ? e[n](m) : e
     const mapCell = (e, n, m) => m({[n]: e})[n]
     const a = d => Array.isArray(d) ? d : Array.of(d)
-    const getEon = part => {
+    const getEon2 = part => {
       return __mapper(eonize(part[0], part[1]))
     }
 
@@ -40,22 +40,16 @@ if (1 && 1) console.log('mapEon', part)
         .catch(e => console.log('could not map from ', part[1]))
     }
 
-    // ............................. getBoson
-    async function getBoson (inpart) { // nome is partName: eg 'muonGraticule'
-      let part = []
-      if (Array.isArray(inpart)) {
-        part = inpart
-      } else if (typeof inpart === 'string') {
-        part = [inpart, '']
-      }
-
+    // ............................. getEon
+    async function getEon (inpart) { // nome is partName: eg 'muonGraticule'
+      let part = (typeof inpart === 'string') ? [inpart, ''] : inpart
       let [name, pres] = part
 
       let eon = eonize(name, pres) // muonVersor
       let feon = fermize(name, pres) // ./eon-muon-versor.js
       let xeon = xeonize(name, pres) // eon-muon-versor
 
-      let eoncell = await getEon(part) // __mapper(eon)
+      let eoncell = await getEon2(part) // __mapper(eon)
       if (eoncell) {
         return eoncell
       }
@@ -75,17 +69,17 @@ if (1 && 1) console.log('mapEon', part)
     let enty = function () {}
 
     enty.eonize = eonize
-    enty.boson = enty.b = (nome, pres = '') => getBoson([nome, pres])
-    enty.quark = enty.q = (nome, pres = '') => getBoson([nome, pres])
-    enty.muon = enty.m = (nome, pres = 'muon') => getBoson([nome, pres])
-    enty.data = enty.d = (nome, pres = 'data') => getBoson([nome, pres])
-    enty.force = enty.f = (nome, pres = 'force') => getBoson([nome, pres])
-    enty.geo = enty.g = (nome, pres = 'geo') => getBoson([nome, pres])
-    enty.proj = enty.p = (nome, pres = 'd3.geo') => getBoson([nome, pres])
-    enty.halo = enty.h = (nome, pres = 'halo') => getBoson([nome, pres])
-    enty.control = enty.c = (nome, pres = 'control') => getBoson([nome, pres])
-    enty.render = enty.r = (nome, pres = 'render') => getBoson([nome, pres])
-    enty.getBoson = getBoson
+    enty.boson = enty.b = (nome, pres = '') => getEon([nome, pres])
+    enty.quark = enty.q = (nome, pres = '') => getEon([nome, pres])
+    enty.muon = enty.m = (nome, pres = 'muon') => getEon([nome, pres])
+    enty.data = enty.d = (nome, pres = 'data') => getEon([nome, pres])
+    enty.force = enty.f = (nome, pres = 'force') => getEon([nome, pres])
+    enty.geo = enty.g = (nome, pres = 'geo') => getEon([nome, pres])
+    enty.proj = enty.p = (nome, pres = 'd3.geo') => getEon([nome, pres])
+    enty.halo = enty.h = (nome, pres = 'halo') => getEon([nome, pres])
+    enty.control = enty.c = (nome, pres = 'control') => getEon([nome, pres])
+    enty.render = enty.r = (nome, pres = 'render') => getEon([nome, pres])
+    enty.getEon = getEon
 
     return enty
   }
