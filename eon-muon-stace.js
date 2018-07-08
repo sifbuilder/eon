@@ -14,7 +14,7 @@
       mlacer = __mapper('xs').m('lacer'),
       mgeoj = __mapper('xs').m('geoj'),
       mprofier = __mapper('xs').m('profier'),
-      d3 = __mapper('xs').q('d3')
+      d3 = __mapper('xs').b('d3')
       
     // let [
       // mprops,
@@ -29,7 +29,7 @@
       // __mapper('xs').m('lacer'),
       // __mapper('xs').m('geoj'),
       // __mapper('xs').m('profier'),
-      // __mapper('xs').q('d3'),
+      // __mapper('xs').b('d3'),
     // ])
 
     // ..................... isValidStace

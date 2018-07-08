@@ -14,7 +14,7 @@
       d3
     ] = await Promise.all([
       __mapper('xs').m('store'),
-      __mapper('xs').q('d3')
+      __mapper('xs').b('d3')
     ])
 
     let colors = {} // colors

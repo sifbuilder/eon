@@ -18,7 +18,7 @@
     ] = await Promise.all([
       __mapper('xs').r('renderport'),
       __mapper('xs').m('versor'),
-      __mapper('xs').q('d3'),
+      __mapper('xs').b('d3'),
       __mapper('xs').m('geom')
     ])
 

@@ -42,7 +42,7 @@
       __mapper('xs').m('graticule'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
-      __mapper('xs').q('d3')
+      __mapper('xs').b('d3')
 
     ])
     let cache = {} // feature, form

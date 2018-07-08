@@ -12,7 +12,7 @@
     let [
       d3
     ] = await Promise.all([
-      __mapper('xs').q('d3')
+      __mapper('xs').b('d3')
     ])
 
     let pi = Math.PI,

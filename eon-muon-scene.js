@@ -14,7 +14,7 @@
       rsvg,
       cwen
     ] = await Promise.all([
-      __mapper('xs').q('d3'),
+      __mapper('xs').b('d3'),
       __mapper('xs').r('svg'),
       __mapper('xs').c('wen')
     ])

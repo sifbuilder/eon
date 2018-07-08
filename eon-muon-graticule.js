@@ -14,7 +14,7 @@
       d3
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
-      __mapper('xs').q('d3')
+      __mapper('xs').b('d3')
     ])
 
     let d3Range = d3.range
