@@ -15,97 +15,98 @@
 <script src="eon-x-d3-require.js"></script>
 <script src="eon-x-mapper.js"></script>
 <script src="eon-x-s.js"></script>
-<script src="eon-x-libs.js"></script>
-<script src="eon-x-eons.js"></script>
 
 <script>
 
-
-
 ;(async function eon() {
+
     let __mapper = xMapper.xMapper() // init mapper
+    __mapper({'xD3Require': xD3Require}) // z.require
+    __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy
 
-    __mapper({'xD3Require': xD3Require}) //
-    __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy part
+    let muonStore = await __mapper('xs').m('store')  // map store
+    let muonAnimation = await __mapper('xs').m('animation')  // map animation
 
-    __mapper({'xLibs': xLibs.xLibs(__mapper)}) // xLibs    
-    let libs = await Promise.all(__mapper('xLibs').parts().map(part => __mapper.mapOnePart(part) ))
+    let xanimas_ = await zanimas(__mapper)
+    let animas = xanimas_.animas() // get animas
 
-    __mapper({'xEons': xEons.xEons(__mapper)})
-    let eons = await Promise.all(__mapper('xEons').parts().map(part => __mapper.mapOnePart(part) ))
-
-    let animas = await animasPromise(__mapper)
-
-    let mstore = __mapper('muonStore')  // map store
-    mstore.apply({type: 'UPDANIMA', animas: animas})  // store animas
-   
-    __mapper('muonAnimation').animate() // animate
+    __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}) // upd animas
+    muonAnimation.animate() // animate
 
 })()
 
-  // .................. animasPromise
-async function animasPromise(__mapper) {
+  // .................. zanimas
+async function zanimas(__mapper) {
 
     let [
         rrenderport,
       ] = await Promise.all([
         __mapper('xs').r('renderport'),
-      ])    
+      ])
 
 
-  // .................. pics
-  let tim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
+    let animas = function() {
 
-  // .................. textAnima
-  let textAnima = {
+      // .................. pics
+      let tim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
 
-    halo: 'textform',
+      // .................. textAnima
+      let textAnima = {
 
-    payload: {
+        halo: 'textform',
 
-      tim: tim,
-      ric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
-      boform: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
-      
-      proform: {
-        projection: 'uniwen',
-        translate: [ 130, 140 ]
-      },
-      
-      textform: {
-        string: 'this is not a text',
-        style: {
-          rotate: [[[ 0, 1 ]]],
-          'font-size': [[[10, 60]]],
-          'font-family': 'BankFuturistic',
-          'text-anchor': 'center'
+        payload: {
+
+          tim: tim,
+          ric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
+          boform: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+
+          proform: {
+            projection: 'uniwen',
+            translate: [ 130, 140 ]
+          },
+
+          textform: {
+            string: 'this is not a text',
+            style: {
+              rotate: [[[ 0, 1 ]]],
+              'font-size': [[[10, 60]]],
+              'font-family': 'BankFuturistic',
+              'text-anchor': 'center'
+
+            }
+          }
 
         }
       }
+      // .................. sceneForm
+      let sceneForm = {
 
+        halo: 'scene',
+        payload: {
+          tim: tim,
+          ric: {gid: 'gratiform', cid: 'gratiform', fid: 'context'},
+          context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1}
+        }
+
+      }
+
+      // .................. animaset
+      let animas = [
+
+        sceneForm, // h.context
+        textAnima, // h.text
+      ]
+
+      return animas
     }
-  }
-  // .................. sceneForm
-  let sceneForm = {
 
-    halo: 'scene',
-    payload: {
-      tim: tim,
-      ric: {gid: 'gratiform', cid: 'gratiform', fid: 'context'},
-      context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1}
-    }
 
-  }
-
-  // .................. animaset
-  let animas = [
-
-    sceneForm, // h.context
-    textAnima, // h.text
-  ]
-
-  return animas
+  let enty = () => {}
+  enty.animas = animas
+  return enty
 
 }
+
 
 </script>

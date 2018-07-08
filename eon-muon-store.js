@@ -68,6 +68,9 @@
         for (let i = 0; i < newAnigrams.length; i++) {
           if (newAnigrams[i] !== undefined) {
             let newItem = newAnigrams[i] // new anigram
+            
+            if (1 && 1) console.log('newItem', newItem)
+
             let uid = newItem.payload.uid
             let index = enty.findFromUid(uid, state.anigrams) // find index from d.payload.uid
             if (index === -1) index = state.anigrams.length // add holder if new

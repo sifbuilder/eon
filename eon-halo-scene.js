@@ -24,7 +24,7 @@
     }
     // .................. gramm
     async function gramm (anima, newAnigrams = []) {
-      return anima
+      return newAnigrams
     }
 
     // .................. enty
