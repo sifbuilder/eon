@@ -30,7 +30,7 @@
     let muonAnimation = await __mapper('xs').m('animation')  // map animation
     
     let xanimas = await __mapper('xs').z('852d-3dgratSvgScene') // map animas
-    let animas = xanimas.animas() // get animas
+    let animas = await xanimas.animas() // get animas
     
     __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}) // upd animas
     muonAnimation.animate() // animate
