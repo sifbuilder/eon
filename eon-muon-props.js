@@ -16,15 +16,12 @@
     // let d3Range = d3Array.range
     // let d3scaleLinear = d3Scale.scaleLinear
 
-    let cellpromises = 	[
-      __mapper('xs').q('d3')
-    ]
 
     let [
       d3
-    ] = await Promise.all(
-      cellpromises
-    )
+    ] = await Promise.all([
+      __mapper('xs').q('d3')
+    ])
 
     // let d3 = __mapper('d3')
 

@@ -8,7 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
-  function muonLacer (__mapper = {}) {
+  async function muonLacer (__mapper = {}) {
+    let [
+      d3
+    ] = await Promise.all([
+      __mapper('xs').q('d3')
+    ])
+
     const isNumericArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'number', true)
 
     // ...................... range

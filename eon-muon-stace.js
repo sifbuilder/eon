@@ -8,12 +8,28 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonStace = function (__mapper = {}) {
+  async function muonStace (__mapper = {}) {
     let mprops = __mapper('xs').m('props'),
       mstore = __mapper('xs').m('store'),
       mlacer = __mapper('xs').m('lacer'),
-      manitem = __mapper('xs').m('anitem'),
-      mgeoj = __mapper('xs').m('geoj')
+      mgeoj = __mapper('xs').m('geoj'),
+      mprofier = __mapper('xs').m('profier')
+      
+    let [
+      // mprops,
+      // mstore,
+      // mlacer,
+      // mgeoj,
+      // mprofier,
+      d3,
+    ] = await Promise.all([
+      // __mapper('xs').m('props'),
+      // __mapper('xs').m('store'),
+      // __mapper('xs').m('lacer'),
+      // __mapper('xs').m('geoj'),
+      // __mapper('xs').m('profier'),
+      __mapper('xs').q('d3'),
+    ])
 
     // ..................... isValidStace
     let getTranspots = function (s, ani) {
@@ -223,7 +239,7 @@
         'translate': [ locus[0], locus[1], locus[2] ]
       }
 
-      return __mapper('xs').m('profier').formion(projection)
+      return mprofier.formion(projection)
     }
 
     // ........................ getLocifier

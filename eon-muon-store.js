@@ -31,8 +31,7 @@
 
     // .................. apply
     function _apply (action = {}) {
-      // .................. UPDANIMA
-      if (action.type === 'UPDANIMA') {
+      if (action.type === 'UPDANIMA') { // .................. UPDANIMA
         let updAnimas = mprops.fa(action.animas) // get new animas as array
         let elapsed = action.elapsed || 0
 
@@ -63,8 +62,7 @@
         return enty.animasLive()
       }
 
-      // .................. UPDANIGRAM
-      if (action.type === 'UPDANIGRAM') {
+      if (action.type === 'UPDANIGRAM') { // .................. UPDANIGRAM
         let newAnigrams = mprops.fa(action.anigrams)
 
         for (let i = 0; i < newAnigrams.length; i++) {
@@ -84,7 +82,6 @@
     // .................. ween
     async function ween (anima, newItems = []) {
       let anigram = manitem.anigram(anima)
-      // let haloRef = __mapper('xs').eonize(anigram.halo, 'halo')
       let haloRef = await __mapper('xs').h(anigram.halo)
 
       let newAnimas = __mapper(haloRef).ween(anigram) // ANIMA HALO.GRAMM
@@ -96,59 +93,12 @@
       return newItems
     }
 
-    
-     // .................. gramm
+    // .................. gramm
     function gramm (anima, newItems = []) {
-      
-
-      // let anigram = manitem(anima).anigram()
-      // if (1 && 1) console.log('GRAM', manitem(anima).anigram())
       return Promise.resolve(manitem(anima).anigram())
         .then(anigram => __mapper('xs').h(anigram.halo)
-             .then(halo => halo.gramm(anigram))
-             .then(newAnigrams => _apply({type: 'UPDANIGRAM', anigrams: newAnigrams})))
-             .then(allanigrams => {console.log('allanigrams', allanigrams)})
-
-
-    }
-    
-    // .................. gramm
-    async function __gramm (anima, newItems = []) {
-      
-      let anigram = manitem(anima).anigram()
-      
-// if (1 && 1) console.log(' ----------- anigram', anigram)
-  
-      let halo = await __mapper('xs').h(anigram.halo)
-      
-      let newAnigrams = await halo.gramm(anigram) // ANIMA HALO.GRAMM
-  
-      if (newAnigrams !== null && newAnigrams.length > 0) {
-        _apply({type: 'UPDANIGRAM', anigrams: newAnigrams})
-        newItems = newItems.concat(newAnigrams)
-
-        // if (newAnigrams !== undefined && newAnigrams.length > 0) { // avatars in NEW animas
-          // for (let i = 0; i < newItems.length; i++) {
-            // let newItem = newAnigrams[i] // each new item
-            // if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
-              // let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
-
-              // for (let j = 0; j < avatars.length; j++) {
-                // let newSubItems = []
-                // let avatar = avatars[j]
-
-                // avatar.payload.uid = mric.getuid(avatar) // uid for children
-                // avatar.payload.tim = anigram.payload.tim // time from anima
-                // avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
-
-                // newSubItems = enty.gramm(avatar) // AVATAR GRAMM halogram
-                // _apply({'type': 'UPDANIGRAM', 'anigrams': newSubItems})
-              // }
-            // }
-          // }
-        // }
-        return newItems
-      }
+          .then(halo => halo.gramm(anigram))
+          .then(newAnigrams => _apply({type: 'UPDANIGRAM', anigrams: newAnigrams})))
     }
 
     // .................. enty

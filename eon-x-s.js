@@ -32,6 +32,8 @@
 
     // ............................. mapEon
     async function mapEon (part) { // d3Froce3d, ./d3-force-3d.js | d3-force-3d
+if (1 && 1) console.log('mapEon', part)
+    
       return xD3Require.require(...a(part[1])) // get eon
         .then(eon => getCell(eon, part[0], __mapper)) // eon to cell
         .then(cell => mapCell(cell, part[0], __mapper)) // map cell
