@@ -46,10 +46,21 @@
       let newAnimas = animas.map(anima => mstore.ween(anima))
       return mstore.animasLive()
     }
+    
+    function sequence(array, callback) {
+        function chain(array, index) {
+          if (index == array.length) return Promise.resolve();
+            return Promise.resolve(callback(array[index])).then(function () {
+              return chain(array, index + 1);
+            })
+        }
+        return chain(array, 0);
+    }
 
     // .................. getgramms
     const getgramms = (animas, elapsed) => {
-      let newAnigrams = animas.map(anima => mstore.gramm(anima)) // store anigrams
+      // let newAnigrams = animas.map(anima => mstore.gramm(anima)) // store anigrams
+      let newAnigrams = sequence(animas, anima => mstore.gramm(anima)) // store anigrams
       return mstore.anigrams() // get anigrams from store
     }
 
@@ -98,8 +109,10 @@
         })
         .then(animas => getsims(animas))
         .then(animas => {
-// if (1 && 1) console.log('animation animas', animas)
-            return getgramms(animas)
+if (1 && 1) console.log('-------------------------- 1')
+            let anigrams = getgramms(animas)
+if (1 && 1) console.log('-------------------------- 2')
+            return anigrams
         })
         .then(anigrams => {
 // if (1 && 1) console.log('animation anigrams', anigrams)

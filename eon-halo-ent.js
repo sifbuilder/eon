@@ -37,69 +37,78 @@ if (1 && 1) console.log('_ ereform _______________ 1 feature', feature)
           feature.properties.formEreformed = mgeoj.deprop(feature) // store ereform
           feature.properties.nodeEreformed = mproj3ct(feature.properties.nodeConformed, x) //
           nodeConformed => nodeEreformed
-if (1 && 1) console.log('_ ereform _______________ 2 feature', feature)          
+if (1 && 1) console.log('_ ereform _______________ 2 feature', feature)
           return feature
         })
       } else {
-        Promise.resolve(feature) 
+        Promise.resolve(feature)
           .then(feature => {
             feature.properties.formEreformed = feature.properties.formConformed
             feature.properties.nodeEreformed = feature.properties.nodeConformed
-if (1 && 1) console.log('_ ereform _______________ 2 feature', feature)            
+if (1 && 1) console.log('_ ereform _______________ 2 feature', feature)
             return feature
         })
       }
     }
 
-    // ............................. proform
-    async function c (feature, proj) {
-if (1 && 1) console.log('_ conform _______________ 1 feature', feature)
+    // ............................. conform
+    function c (feature, proj) {
+if (1 && 1) console.log('_ conform _______________ 1 feature', feature, proj)
 
-      if (proj) { // PROFORM
+      let enproj = f => {
+                  f.properties.formConformed = mgeoj.deprop(f)   // store proform
+                  f.properties.nodeConformed = f.properties.geonode
+                  return f
+                }
 
-        return Promise.resolve(proj)
-          .then(x => {
-            return Promise.resolve(feature)
-                .then(feature => mproj3ct(feature, x))
-                .then(feature => {
-                  feature.properties.formConformed = mgeoj.deprop(feature)   // store proform
-                  feature.properties.nodeConformed = feature.properties.geonode
-if (1 && 1) console.log('_ conform _______________ 2 feature', feature)
-                  return feature
-                })
-          })
-      }
-      return feature
+      return Promise.resolve(proj)
+          .then(projection => enproj(mproj3ct(feature, projection)))
+
     }
 
     // ............................. proform
-    async function p (feature, proj) {
-if (1 && 1) console.log('_ proform _______________ 1 feature', feature)
-      
-      let projection = await proj
-      if (projection) { // PROFORM
+    function p (feature, projection) {
+if (1 && 1) console.log('_ proform _______________ 1 feature', feature, projection)
 
-        return Promise.resolve(projection)
-          .then(x => {
-            return Promise.resolve(feature)
-                .then(feature => mproj3ct(feature, x))
-                .then(feature => {
-                  
-                  feature.properties.formProformed = mgeoj.deprop(feature) // store proform
-                  feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, x)
-if (1 && 1) console.log('_ proform _______________ 2 feature', feature)                  
-                  return feature
+
+      return Promise.all([feature, projection])
+        .then(r => {
+if (1 && 1) console.log('_ proform _______________ 2a0 r', r[0], r[1])
+                  let f = mproj3ct(r[0], r[1])
+                  f.properties.formProformed = mgeoj.deprop(f) // store proform
+                  f.properties.nodeProformed = mproj3ct(f.properties.nodeEreformed,r[1])
+if (1 && 1) console.log('_ proform _______________ 2a1 f', f, r[1])
+                  return f
                 })
-          })
-      } else {
-        feature.properties.formProformed = feature.properties.formEreformed
-        feature.properties.nodeProformed = feature.properties.nodeEreformed
-if (1 && 1) console.log('_ proform _______________ 2 feature', feature)             
-        return feature
-      }
+        .catch(e => {console.log('error', e)})
+
+
+
+
+      // if (projection) { // PROFORM
+
+
+        // return Promise.resolve(projection)
+          // .then(x => {
+            // return Promise.resolve(feature)
+                // .then(feature => mproj3ct(feature, x))
+                // .then(feature => {
+
+                  // feature.properties.formProformed = mgeoj.deprop(feature) // store proform
+                  // feature.properties.nodeProformed = mproj3ct(feature.properties.nodeEreformed, x)
+// if (1 && 1) console.log('_ proform _______________ 2a feature', feature, x)
+                  // return feature
+                // })
+          // })
+      // } else {
+        // feature.properties.formProformed = feature.properties.formEreformed
+        // feature.properties.nodeProformed = feature.properties.nodeEreformed
+// if (1 && 1) console.log('_ proform _______________ 2b feature', feature)
+        // return feature
+      // }
     }
 
-    
+
 
     const getgj = ani => {
 
@@ -111,7 +120,7 @@ if (1 && 1) console.log('_ proform _______________ 2 feature', feature)
       return gj
     }
 
-    
+
     // ............................. transforms
     let transformer = (ani) => {
                               let cproj = mprofier.conformion_(ani)
@@ -121,7 +130,7 @@ if (1 && 1) console.log('_ proform _______________ 2 feature', feature)
                               return f => p(c(f,cproj),pproj)
                            }
     let transforms = (f, ani) => transformer(ani)(f)
-                            
+
 
 
     // ............................. gramm
