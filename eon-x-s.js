@@ -65,7 +65,6 @@
       let ceon = ceonize(name, pres) // muonVersor
       let feon = feonize(name, pres) // ./eon-muon-versor.js
       let neon = xeonize(name, pres) // eon-muon-versor
-if (1 && 1) console.log('neon', ceon,feon, neon)
 
       var eonfroms = [
         () => getCeon([ceon, '']),
