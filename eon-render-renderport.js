@@ -9,17 +9,6 @@
   'use strict'
 
   async function renderRenderport (__mapper = {}) {
-    // let [
-    // mscene,
-    // ] = await Promise.all(
-    // __mapper('xs').m('scene'),
-    // )
-
-    // let [
-    // guniwen
-    // ] = await Promise.all([
-    // __mapper('xs').g('uniwen')
-    // ])
 
     let margin = {top: 0, right: 0, bottom: 0, left: 0},
       viewWidth = 600,
@@ -37,36 +26,9 @@
       lens: [0, 1, Infinity]
     }
 
-    // ............................. enty
-    let enty = function () {}
-
-    enty.render = function (elapsed, featurecollection) {
-      // let scene = mscene.scene()
-
-      // if (__mapper('renderSvg') !== undefined) __mapper('renderSvg').render(elapsed, featurecollection)
-
-      // __mapper('renderSvg')['renderSvg'](__mapper)
-      // .then((rsvg) => {
-      // if (1 && 1) console.log('renderSvg', rsvg)
-      // rsvg.render(elapsed, featurecollection)
-      // })
-
-      // rsvg.render(elapsed, featurecollection)
-
-      // if (__mapper('xs').r('webgl') !== undefined) __mapper('xs').r('webgl').render(elapsed, featurecollection)
-
-      // if (__mapper('renderCanvas') !== undefined) __mapper('xs').r('canvas').render(elapsed, featurecollection)
-    }
-
-    enty.width = _ => (_ === undefined) ? width : (width = _, enty)
-    enty.height = _ => (_ === undefined) ? height : (height = _, enty)
-    enty.margin = _ => (_ === undefined) ? margin : (margin = _, enty)
-    enty.scaleView = () => scaleView
-
     // ............................. cameraProjer
     const cameraProjer = function (p = prjdef) {
       let geo = __mapper('geoUniwen')
-
       return geo(p)
     }
 
@@ -108,6 +70,14 @@
       return pos
     }
 
+    // ............................. enty
+    let enty = function () {}
+
+    enty.width = _ => (_ === undefined) ? width : (width = _, enty)
+    enty.height = _ => (_ === undefined) ? height : (height = _, enty)
+    enty.margin = _ => (_ === undefined) ? margin : (margin = _, enty)
+    enty.scaleView = () => scaleView
+    
     // ............................. projection
     enty.projection = _ => _ !== undefined ? (projection = _, enty) : projection
     enty.cameraProjer = cameraProjer

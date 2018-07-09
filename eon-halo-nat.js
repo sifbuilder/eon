@@ -8,24 +8,19 @@
 }(this, function (exports) {
   'use strict'
 
-  let haloNat = function haloNat (__mapper = {}) {
-    let f = __mapper('xs').m('props'),
-      manitem = __mapper('xs').m('anitem'),
-      mnat = __mapper('xs').m('nat'),
-      hent = __mapper('xs').h('ent')
+  async function haloNat (__mapper = {}) {
+    let mnat = await __mapper('xs').m('nat'),
+      hent = await __mapper('xs').h('ent')
 
     // .................... gramm
-    let gramm = function (anima, newAnigrams = []) {
-      let anigram = manitem(anima).anigram() // anigram
+    let gramm = function (anigram, newAnigrams = []) {
 
-      anigram.halo = 'ent' // halo
+      return hent.gramm(Object.assign(
+        {},
+        anigram,
+        {geofold: p => mnat.natFeature(p.payload.form)}
+      ))
 
-      // anigram.geofold = p => mnat.closeFeature(mnat.natFeature(p.payload.form))
-      anigram.geofold = p => mnat.natFeature(p.payload.form)
-
-      newAnigrams = hent.gramm(anigram)
-
-      return newAnigrams
     }
 
     // .................... enty
