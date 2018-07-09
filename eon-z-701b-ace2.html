@@ -38,9 +38,11 @@ async function zindex (__mapper) {
   let [
     mgraticule,
     cwen,
+    mnat
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
+    __mapper('xs').m('nat')
   ])
 
   let animas = function () {
@@ -58,7 +60,8 @@ async function zindex (__mapper) {
         'a': 9, // [[[9, 9, 9, 8.98]]],
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
         'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-        'dom3': [-180, 180]
+        'dom3': [-180, 180],
+        'pr8': Math.cos
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
@@ -70,7 +73,8 @@ async function zindex (__mapper) {
         'a': 9, // [[[9, 9, 9, 8.98]]],
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
         'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-        'dom3': [-180, 180]
+        'dom3': [-180, 180],
+        'pr8': Math.sin
       },
       'z': {
         'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
@@ -82,41 +86,74 @@ async function zindex (__mapper) {
         'a': 9, // [[[9, 9, 9, 8.98]]],
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
         'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-        'dom3': [-180, 180 ]
+        'dom3': [-180, 180 ],
+        'pr8': Math.cos
       }
     }
 
-    // .................. gratiform
-    let gratiform = {
+    // .................. natform
+    let natform = {
 
       halo: 'ent',
 
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+      geofold: p => mnat.natFeature(p.payload.form),
 
       payload: {
 
         tim: tim,
-        ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratiform'},
-        boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
-
-        conform: { projection: 'natform', form: form },
+        ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
+        boform: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
 
         proform: {
-          projection: 'uniwen',
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [0, 0, 0],
-          scale: 100,
-          rotate: [0, 0, 0],
-          lens: [ 0, 1, Infinity ]
+          'projection': 'uniwen',
+          'prerotate': [[[ cwen.rotation ]]],
+          'translate': [0, 0],
+          'scale': 300,
+          'rotate': [ 0, 0, 0],
+          'lens': [ 0, 1, Infinity ]
         },
 
-        graticule: {
+        'form': form
+      }
 
-          frame: [ [ [ [[[-1, -1, -180]]], [[[1, 1, 180]]], [[[30, 30]]], 1], // x
+    }
+
+    // .................. gratform
+    let gratform = {
+
+      halo: 'ent',
+
+      geofold: p => {
+        let g = mgraticule.vhMultiLine(p.payload.graticule)
+        return g
+      },
+
+      payload: {
+
+        tim: tim,
+        ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform'},
+        boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
+
+        conform: { 'projection': 'natform', form: form },
+
+        proform: {
+          'projection': 'uniwen',
+          'prerotate': [[[ cwen.rotation ]]],
+          'translate': [0, 0],
+          'scale': 300,
+          'rotate': [ 0, 0, 0],
+          'lens': [ 0, 1, Infinity ]
+        },
+
+        'graticule': {
+
+          'frame': [ [ [ [[[-1, -1, -180]]], [[[1, 1, 180]]], [[[15, 15]]], 1], // x
             [ [[[0, -90, -180]]], [[[0, 90, 180]]], [[[15, 15]]], 1] ] ] // y
 
         }
+
       }
+
     }
     // .................. sceneForm
     let sceneForm = {
@@ -132,7 +169,7 @@ async function zindex (__mapper) {
     // .................. animaApi
     let animas = [
 
-      gratiform, // h.ent
+      natform, // h.ent
       sceneForm // h.scene
 
     ]

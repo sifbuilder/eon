@@ -34,37 +34,30 @@
     }
 
     // ............................. gramm
-    function gramm (anigram, newAnigrams = []) {
-      let halo = anigram.halo, // halo
-        geofold = anigram.geofold, // geofold
-        payload = anigram.payload, // payload
-        avatars = anigram.avatars // avatars
+    async function gramm (anigram) {
 
-      let ric = payload.ric, // ric
-        tim = payload.tim, // tim
-        vim = payload.vim // vim
-
-      let gjcollection = mgeoj.featurecollect(getgj(anigram))
+      let gjcollection = await mgeoj.featurecollect(getgj(anigram))
+      
       if (2 && 2 && gjcollection.type !== 'FeatureCollection') console.log('** gjcollection is not FeatureCollection', gjcollection)
       gjcollection = mgeoj.zorder(gjcollection) // order features in collection
-      gjcollection = mric.enric(ric, anigram, gjcollection) // ric to feature or collection
+      gjcollection = mric.enric(anigram.payload.ric, anigram, gjcollection) // ric to feature or collection
 
-      newAnigrams = gjcollection.features.map((feature, i) => {
+      let newAnigrams = gjcollection.features.map((feature, i) => {
         feature = mboform.boformer(anigram, feature)
 
-        feature.properties.tim = tim // tim in geofold
-        feature.properties.vim = vim // vim in geofold to render
+        feature.properties.tim = anigram.payload.tim // tim in geofold
+        feature.properties.vim = anigram.payload.vim // vim in geofold to render
         feature.properties.sort = feature.properties.sort || 'feature' // svg sort
 
         let newAnigram = {
-          halo: halo, // inherit halo
+          halo: anigram.halo, // inherit halo
           geofold: feature, // inherit geofold
           payload: { // payload is lost in m.animation before rendering
             ric: feature.properties.ric, // hoist ric
             id: feature.properties.uid, // hoist uid
             uid: feature.properties.uid // hoist uid
           },
-          avatars: avatars // inherit avatars
+          avatars: anigram.avatars // inherit avatars
         }
         return newAnigram
       })

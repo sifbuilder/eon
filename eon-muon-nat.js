@@ -171,6 +171,8 @@
 
       if (isSame(form, cache.form)) {
         feature = cache.feature
+        return feature
+        
       } else {
         let nformed = natNform(form) // NFORM
 
@@ -227,15 +229,22 @@
           }
         }
 
-        let projection = mprofier.formion({ projection: 'natform', form: nformed })
-
-        feature = mproj3ct(gj, projection)
-
-        cache.form = form
-        cache.feature = feature
+        return mprofier.formion_({ projection: 'natform', form: nformed })
+          .then(projection => mproj3ct(gj, projection))
+          .then(feature => {
+              cache.form = form
+              cache.feature = feature
+              return feature
+          })
+          
+        // let projection = mprofier.formion_({ projection: 'natform', form: nformed })
+        // feature = mproj3ct(gj, projection)
+        // cache.form = form
+        // cache.feature = feature
+        // return feature
       }
 
-      return feature
+
     }
 
     // ............................. closeFeature

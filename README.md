@@ -3,6 +3,7 @@
 **time space manyfolds**   
 
 701a [eon-z-701a-grati-ace](https://sifbuilder.github.io/eons/eon-z-701a-grati-ace.html)   
+701b [eon-z-701b-ace2](https://sifbuilder.github.io/eons/eon-z-701b-ace2.html)   
 752d [eon-z-752d-3dgratSvgScene](https://sifbuilder.github.io/eons/eon-z-752d-3dgratSvgScene.html)   
 752g [eon-z-752g-3formfaces](https://sifbuilder.github.io/eons/eon-z-752g-3formfaces.html)   
 **[852d](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.md)** [eon-z-852d-3dgratSvgScene](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.html)   
