@@ -65,11 +65,11 @@ muon [eon-muon-versor](https://sifbuilder.github.io/eons/eon-muon-versor.js)
 **[muon](https://sifbuilder.github.io/eons/eon-muon-wen.md)** [eon-muon-wen](https://sifbuilder.github.io/eons/eon-muon-wen.js)   
 render [eon-render-renderport](https://sifbuilder.github.io/eons/eon-render-renderport.js)   
 **[render](https://sifbuilder.github.io/eons/eon-render-svg.md)** [eon-render-svg](https://sifbuilder.github.io/eons/eon-render-svg.js)   
-x-d3 [eon-x-d3-require](https://sifbuilder.github.io/eons/eon-x-d3-require.js)   
+x [eon-x-d3-require](https://sifbuilder.github.io/eons/eon-x-d3-require.js)   
 **[x](https://sifbuilder.github.io/eons/eon-x-mapper.md)** [eon-x-mapper](https://sifbuilder.github.io/eons/eon-x-mapper.js)   
 **[x](https://sifbuilder.github.io/eons/eon-x-s.md)** [eon-x-s](https://sifbuilder.github.io/eons/eon-x-s.js)   
 x [eon-x-version](https://sifbuilder.github.io/eons/eon-x-version.js)   
-**[z-852d](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.md)** [eon-z-852d-3dgratSvgScene](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.js)   
+**[z](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.md)** [eon-z-852d-3dgratSvgScene](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.js)   
 
 # license  
 MIT  
