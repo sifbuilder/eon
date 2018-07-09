@@ -39,9 +39,11 @@ async function zindex (__mapper) {
   let [
     mgraticule,
     cwen,
+    mnat,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
+    __mapper('xs').m('nat'),
   ])
 
   // .................. animas
@@ -68,12 +70,14 @@ async function zindex (__mapper) {
       },
     }
 
+    // -------------------------------  gratform
     let g1 = {
+
       halo: 'ent',
       geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
       payload: {
         tim: tim,
-        ric: { gid: 'grat', cid: 'grat', fid: 'g1'},
+        ric: {gid: 'grat', cid: 'grat', fid: 'g1'},
         boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
         conform: { projection: 'natform', form: form },
         proform: {
@@ -85,18 +89,21 @@ async function zindex (__mapper) {
           lens: [ 0, 1, Infinity ],
         },
         graticule: {
-          'frame': [ [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ],
-            [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ] ],
+          frame: [ [ [-180, 180, 15, 15], [-0, [[[0, 980]]], 22.5, 22.5] ],
+            [ [-180, 180, 15, 15], [-0, [[[0, 980]]], 22.5, 22.5] ] ],
+
         },
       },
     }
 
+    // -------------------------------  gratform
     let g2 = {
+
       halo: 'ent',
       geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
       payload: {
         tim: tim,
-        ric: { gid: 'grat', cid: 'grat', fid: 'g2'},
+        ric: {gid: 'grat', cid: 'grat', fid: 'g2'},
         boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
         conform: { projection: 'natform', form: form },
         proform: {
@@ -110,16 +117,19 @@ async function zindex (__mapper) {
         graticule: {
           'frame': [ [ [-180, 180, 180, 30], [-0, 180, 360, 30] ],
             [ [-180, 180, 180, 30], [-0, 180, 360, 30] ] ],
+
         },
       },
     }
 
+    // -------------------------------  gratform
     let g3 = {
+
       halo: 'ent',
       geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
       payload: {
         tim: tim,
-        ric: { gid: 'grat', cid: 'grat', fid: 'g3'},
+        ric: {gid: 'grat', cid: 'grat', fid: 'g3'},
         boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
         conform: { projection: 'natform', form: form },
         proform: {
@@ -131,8 +141,9 @@ async function zindex (__mapper) {
           lens: [ 0, 1, Infinity ],
         },
         graticule: {
-          frame: [ [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ],
+          'frame': [ [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ],
             [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ] ],
+
         },
       },
     }

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // z.require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  // .................. eons
+  let [
+    cwen,
+    mprops,
+  ] = await Promise.all([
+    __mapper('xs').c('wen'),
+    __mapper('xs').m('props'),
+  ])
+
+  // .................. animas
+  let animas = function () {
+    // .................. pics
+    let tim = {'td': 9200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    let proformFaces = {
+
+      projection: 'uniwen',
+      translate: [ 180 - 300, 200 - 200 ],
+      scale: 90,
+      rotate: [ [0, 1, 12], [[[ cwen.rotation ]]] ],
+      lens: [0, 1, 12],
+    // control: 'wen'
+
+    }
+
+    let geoformFaces = ani => { // geofold creates featurecollection
+      let payload = ani.payload, // payload
+        boform = payload.boform // boform
+
+      let faces = mprops.v(payload.faces) // payload.faces
+
+      let json = {type: 'FeatureCollection', features: []}
+
+      for (let i = 0, l = faces.length; i < l; i++) {
+        let face = faces[i] // face corners position
+
+        let geometry = {type: 'Polygon', coordinates: []}
+        geometry.coordinates = Array.of(face.vertices) // eg [-1, 1, 1]
+
+        let properties = {}
+        properties.boform = face.boform || boform
+        properties.name = (i === 0) ? 'red' : 'orange'
+
+        let feature = {type: 'Feature', geometry: {}, properties: {}}
+        feature.geometry = geometry
+        feature.properties = properties
+
+        json.features.push(feature)
+      }
+      return json
+    }
+    /*******************************************
+ *      @animas
+ *
+ */
+    let aniTwoFaces = {
+
+      halo: 'ent',
+
+      geofold: geoformFaces, // geofold,
+
+      payload: {
+        tim: tim,
+        ric: {'gid': 'faces', 'cid': 'face', 'fid': 'face'},
+        boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+
+        proform: proformFaces,
+
+        faces: [
+          {
+            vertices: [
+              [-1, -1, 1],
+              [ 1, -1, 1],
+              [ 1, 1, 1],
+              [ -1, 1, 1],
+              [-1, -1, 1],
+            ],
+            boform: {'csx': 0, 'cf': 333, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
+          },
+
+          {
+            vertices: [
+              [-1, -1, -1],
+              [ 1, -1, -1],
+              [ 1, 1, -1],
+              [-1, 1, -1],
+              [-1, -1, -1],
+            ],
+            boform: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
+          },
+        ],
+
+      },
+    }
+    
+    // .................. sceneForm
+    let sceneForm = {
+
+      halo: 'scene',
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+    
+    // .................. animas
+    let animas = [
+      aniTwoFaces, // h.ent g.uniwen
+      sceneForm, // h.scene
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>

@@ -39,7 +39,7 @@ async function zindex (__mapper) {
   let [
     rrenderport,
   ] = await Promise.all([
-    __mapper('xs').r('renderport')
+    __mapper('xs').r('renderport'),
   ])
 
   // .................. animas
@@ -60,7 +60,7 @@ async function zindex (__mapper) {
 
         proform: {
           projection: 'uniwen',
-          translate: [ 130, 140 ]
+          translate: [ 130, 140 ],
         },
 
         textform: {
@@ -69,12 +69,12 @@ async function zindex (__mapper) {
             rotate: [[[ 0, 1 ]]],
             'font-size': [[[10, 60]]],
             'font-family': 'BankFuturistic',
-            'text-anchor': 'center'
+            'text-anchor': 'center',
 
-          }
-        }
+          },
+        },
 
-      }
+      },
     }
 
     // .................. sceneForm
@@ -84,8 +84,8 @@ async function zindex (__mapper) {
       payload: {
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1}
-      }
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
 
     }
 

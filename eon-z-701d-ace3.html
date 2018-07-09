@@ -40,13 +40,13 @@ async function zindex (__mapper) {
     cwen,
     d3,
     d3Force3d,
-    rrenderport
+    rrenderport,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').b('d3'),
     __mapper('xs').b('d3-force-3d'),
-    __mapper('xs').r('renderport')
+    __mapper('xs').r('renderport'),
   ])
 
   // .................. animas
@@ -71,7 +71,7 @@ async function zindex (__mapper) {
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          a * cos(r) * c * cos(u)
+          a * cos(r) * c * cos(u),
 
       },
       'y': {
@@ -81,7 +81,7 @@ async function zindex (__mapper) {
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          b * sin(s) * c * cos(u)
+          b * sin(s) * c * cos(u),
       },
       'z': {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
@@ -90,7 +90,7 @@ async function zindex (__mapper) {
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          b * sin(v) * c * cos(s)
+          b * sin(v) * c * cos(s),
 
       },
       'r': {
@@ -100,9 +100,9 @@ async function zindex (__mapper) {
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          c * cos(u)
+          c * cos(u),
 
-      }
+      },
     }
     let formGrat2 = {
       'x': {
@@ -116,7 +116,7 @@ async function zindex (__mapper) {
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
         'ra2': 180, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'pr8': Math.cos
+        'pr8': Math.cos,
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
@@ -129,7 +129,7 @@ async function zindex (__mapper) {
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
         'ra2': 180, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'pr8': Math.sin
+        'pr8': Math.sin,
       },
       'z': {
         'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
@@ -142,8 +142,8 @@ async function zindex (__mapper) {
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
         'ra2': 180, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180 ],
-        'pr8': Math.cos
-      }
+        'pr8': Math.cos,
+      },
     }
 
     let formGrat3 = {
@@ -152,29 +152,29 @@ async function zindex (__mapper) {
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          a * cos(r) * c * cos(u)
+          a * cos(r) * c * cos(u),
       },
       'y': {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          b * sin(s) * c * cos(u)
+          b * sin(s) * c * cos(u),
       },
       'z': {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          d * sin(v)
+          d * sin(v),
       },
       'r': {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          d * sin(v)
-      }
+          d * sin(v),
+      },
     }
 
     let formCirc = {
@@ -184,7 +184,7 @@ async function zindex (__mapper) {
         'dom3': [-180, 180],
         'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
           a * cos(r) *
-              c * cos(u)
+              c * cos(u),
 
       },
       'y': {
@@ -193,16 +193,16 @@ async function zindex (__mapper) {
         'dom3': [-180, 180],
         'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
           b * sin(r) *
-              c * cos(u)
+              c * cos(u),
       },
       'z': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          d * sin(v)
+          d * sin(v),
 
-      }
+      },
     }
     // -------------------------------  gratform1
     let gratform1 = {
@@ -220,7 +220,7 @@ async function zindex (__mapper) {
         conform: {
 
           projection: 'natform',
-          form: formGrat1
+          form: formGrat1,
 
         },
 
@@ -230,17 +230,17 @@ async function zindex (__mapper) {
           'translate': [125, 0, 0],
           'scale': 0.90,
           'rotate': [ 0, 0, 0],
-          'lens': [ 0, 1, Infinity ]
+          'lens': [ 0, 1, Infinity ],
         },
 
         graticule: {
 
           frame: [ [ [ [[[-1, -1, -180, -180, -180]]], [[[1, 1, 180, 180, 180]]], [[[15, 15]]], 1],
-            [ [[[0, -90, -180, -180, -180]]], [[[0, 90, 180, 180, 180]]], [[[15, 15]]], 1] ] ]
+            [ [[[0, -90, -180, -180, -180]]], [[[0, 90, 180, 180, 180]]], [[[15, 15]]], 1] ] ],
 
-        }
+        },
 
-      }
+      },
 
     }
 
@@ -260,7 +260,7 @@ async function zindex (__mapper) {
         conform: {
 
           projection: 'natform',
-          form: formGrat2
+          form: formGrat2,
 
         },
 
@@ -270,16 +270,16 @@ async function zindex (__mapper) {
           'translate': [-125, 0],
           'scale': 0.90,
           'rotate': [ 0, 0, 0],
-          'lens': [ 0, 1, Infinity ]
+          'lens': [ 0, 1, Infinity ],
         },
 
         graticule: {
 
           frame: [ [ [ [[[-1, -1, -180, -180, -180]]], [[[1, 1, 180, 180, 180]]], [[[15, 15]]], 1],
-            [ [[[0, -90, -180, -180, -180]]], [[[0, 90, 180, 180, 180]]], [[[15, 15]]], 1] ] ]
+            [ [[[0, -90, -180, -180, -180]]], [[[0, 90, 180, 180, 180]]], [[[15, 15]]], 1] ] ],
 
-        }
-      }
+        },
+      },
     }
 
     // -------------------------------  circform1
@@ -298,7 +298,7 @@ async function zindex (__mapper) {
         conform: {
 
           projection: 'natform',
-          form: formCirc
+          form: formCirc,
 
         },
 
@@ -308,15 +308,15 @@ async function zindex (__mapper) {
           'translate': [125, 0, 0],
           'scale': 0.90,
           'rotate': [ 0, 0, 0],
-          'lens': [ 0, 1, Infinity ]
+          'lens': [ 0, 1, Infinity ],
         },
 
         graticule: {
 
-          frame: [ [ [ -180, 180, 15, 1], [ -180, 180, 15, 1] ] ]
+          frame: [ [ [ -180, 180, 15, 1], [ -180, 180, 15, 1] ] ],
 
-        }
-      }
+        },
+      },
     }
     // -------------------------------  circform1
     let circform2 = {
@@ -339,16 +339,16 @@ async function zindex (__mapper) {
           'translate': [-125, 0, 0],
           'scale': 0.90,
           'rotate': [ 0, 0, 0],
-          'lens': [ 0, 1, Infinity ]
+          'lens': [ 0, 1, Infinity ],
         },
 
         graticule: {
 
-          frame: [ [ [ -180, 180, 15, 1], [ -180, 180, 15, 1] ] ]
+          frame: [ [ [ -180, 180, 15, 1], [ -180, 180, 15, 1] ] ],
 
-        }
+        },
 
-      }
+      },
     }
 
     // .................. sceneForm
@@ -358,8 +358,8 @@ async function zindex (__mapper) {
       payload: {
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1}
-      }
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
 
     }
 

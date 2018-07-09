@@ -38,11 +38,11 @@ async function zindex (__mapper) {
   let [
     mgraticule,
     cwen,
-    mnat
+    mnat,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
-    __mapper('xs').m('nat')
+    __mapper('xs').m('nat'),
   ])
 
   let animas = function () {
@@ -61,7 +61,7 @@ async function zindex (__mapper) {
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
         'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'pr8': Math.cos
+        'pr8': Math.cos,
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
@@ -74,7 +74,7 @@ async function zindex (__mapper) {
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
         'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'pr8': Math.sin
+        'pr8': Math.sin,
       },
       'z': {
         'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
@@ -87,8 +87,8 @@ async function zindex (__mapper) {
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
         'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180 ],
-        'pr8': Math.cos
-      }
+        'pr8': Math.cos,
+      },
     }
 
     // .................. natform
@@ -110,11 +110,11 @@ async function zindex (__mapper) {
           'translate': [0, 0],
           'scale': 300,
           'rotate': [ 0, 0, 0],
-          'lens': [ 0, 1, Infinity ]
+          'lens': [ 0, 1, Infinity ],
         },
 
-        'form': form
-      }
+        'form': form,
+      },
 
     }
 
@@ -142,17 +142,17 @@ async function zindex (__mapper) {
           'translate': [0, 0],
           'scale': 300,
           'rotate': [ 0, 0, 0],
-          'lens': [ 0, 1, Infinity ]
+          'lens': [ 0, 1, Infinity ],
         },
 
         'graticule': {
 
           'frame': [ [ [ [[[-1, -1, -180]]], [[[1, 1, 180]]], [[[15, 15]]], 1], // x
-            [ [[[0, -90, -180]]], [[[0, 90, 180]]], [[[15, 15]]], 1] ] ] // y
+            [ [[[0, -90, -180]]], [[[0, 90, 180]]], [[[15, 15]]], 1] ] ], // y
 
-        }
+        },
 
-      }
+      },
 
     }
     // .................. sceneForm
@@ -162,15 +162,15 @@ async function zindex (__mapper) {
       payload: {
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1}
-      }
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
 
     }
     // .................. animaApi
     let animas = [
 
       natform, // h.ent
-      sceneForm // h.scene
+      sceneForm, // h.scene
 
     ]
 
