@@ -1,8 +1,64 @@
-# eons
-**time space manyfolds**
+# eons 
 
-852d [eon-z-852d-3dgratSvgScene](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.html) - **[doc](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.md)**  
-855a [eon-z-855a-text](https://sifbuilder.github.io/eons/eon-z-855a-text.html) - **[doc](https://sifbuilder.github.io/eons/eon-z-855a-text.md)**  
+**time space manyfolds**   
 
-# license
+752d [eon-z-752d-3dgratSvgScene](https://sifbuilder.github.io/eons/eon-z-752d-3dgratSvgScene.html)   
+752g [eon-z-752g-3formfaces](https://sifbuilder.github.io/eons/eon-z-752g-3formfaces.html)   
+**[852d](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.md)** [eon-z-852d-3dgratSvgScene](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.html)   
+**[855a](https://sifbuilder.github.io/eons/eon-z-855a-text.md)** [eon-z-855a-text](https://sifbuilder.github.io/eons/eon-z-855a-text.html)   
+
+
+control [eon-control-key](https://sifbuilder.github.io/eons/eon-control-key.js)   
+control [eon-control-pos](https://sifbuilder.github.io/eons/eon-control-pos.js)   
+**[control](https://sifbuilder.github.io/eons/eon-control-rayder.md)** [eon-control-rayder](https://sifbuilder.github.io/eons/eon-control-rayder.js)   
+control [eon-control-timer](https://sifbuilder.github.io/eons/eon-control-timer.js)   
+control [eon-control-touchEnd](https://sifbuilder.github.io/eons/eon-control-touchEnd.js)   
+control [eon-control-touchMove](https://sifbuilder.github.io/eons/eon-control-touchMove.js)   
+**[control](https://sifbuilder.github.io/eons/eon-control-versor.md)** [eon-control-versor](https://sifbuilder.github.io/eons/eon-control-versor.js)   
+**[control](https://sifbuilder.github.io/eons/eon-control-wen.md)** [eon-control-wen](https://sifbuilder.github.io/eons/eon-control-wen.js)   
+**[geo](https://sifbuilder.github.io/eons/eon-geo-natform.md)** [eon-geo-natform](https://sifbuilder.github.io/eons/eon-geo-natform.js)   
+geo [eon-geo-uniwen](https://sifbuilder.github.io/eons/eon-geo-uniwen.js)   
+halo [eon-halo-core](https://sifbuilder.github.io/eons/eon-halo-core.js)   
+**[halo](https://sifbuilder.github.io/eons/eon-halo-ent.md)** [eon-halo-ent](https://sifbuilder.github.io/eons/eon-halo-ent.js)   
+**[halo](https://sifbuilder.github.io/eons/eon-halo-formed.md)** [eon-halo-formed](https://sifbuilder.github.io/eons/eon-halo-formed.js)   
+halo [eon-halo-img](https://sifbuilder.github.io/eons/eon-halo-img.js)   
+**[halo](https://sifbuilder.github.io/eons/eon-halo-nat.md)** [eon-halo-nat](https://sifbuilder.github.io/eons/eon-halo-nat.js)   
+**[halo](https://sifbuilder.github.io/eons/eon-halo-pacer.md)** [eon-halo-pacer](https://sifbuilder.github.io/eons/eon-halo-pacer.js)   
+**[halo](https://sifbuilder.github.io/eons/eon-halo-scene.md)** [eon-halo-scene](https://sifbuilder.github.io/eons/eon-halo-scene.js)   
+**[halo](https://sifbuilder.github.io/eons/eon-halo-textform.md)** [eon-halo-textform](https://sifbuilder.github.io/eons/eon-halo-textform.js)   
+muon [eon-muon-animas](https://sifbuilder.github.io/eons/eon-muon-animas.js)   
+muon [eon-muon-animation](https://sifbuilder.github.io/eons/eon-muon-animation.js)   
+**[muon](https://sifbuilder.github.io/eons/eon-muon-anitem.md)** [eon-muon-anitem](https://sifbuilder.github.io/eons/eon-muon-anitem.js)   
+muon [eon-muon-boform](https://sifbuilder.github.io/eons/eon-muon-boform.js)   
+**[muon](https://sifbuilder.github.io/eons/eon-muon-geoj.md)** [eon-muon-geoj](https://sifbuilder.github.io/eons/eon-muon-geoj.js)   
+muon [eon-muon-geom](https://sifbuilder.github.io/eons/eon-muon-geom.js)   
+muon [eon-muon-geonode](https://sifbuilder.github.io/eons/eon-muon-geonode.js)   
+**[muon](https://sifbuilder.github.io/eons/eon-muon-graticule.md)** [eon-muon-graticule](https://sifbuilder.github.io/eons/eon-muon-graticule.js)   
+**[muon](https://sifbuilder.github.io/eons/eon-muon-lacer.md)** [eon-muon-lacer](https://sifbuilder.github.io/eons/eon-muon-lacer.js)   
+**[muon](https://sifbuilder.github.io/eons/eon-muon-nat.md)** [eon-muon-nat](https://sifbuilder.github.io/eons/eon-muon-nat.js)   
+**[muon](https://sifbuilder.github.io/eons/eon-muon-pacer.md)** [eon-muon-pacer](https://sifbuilder.github.io/eons/eon-muon-pacer.js)   
+**[muon](https://sifbuilder.github.io/eons/eon-muon-profier.md)** [eon-muon-profier](https://sifbuilder.github.io/eons/eon-muon-profier.js)   
+**[muon](https://sifbuilder.github.io/eons/eon-muon-proj3ct.md)** [eon-muon-proj3ct](https://sifbuilder.github.io/eons/eon-muon-proj3ct.js)   
+**[muon](https://sifbuilder.github.io/eons/eon-muon-props.md)** [eon-muon-props](https://sifbuilder.github.io/eons/eon-muon-props.js)   
+muon [eon-muon-ric](https://sifbuilder.github.io/eons/eon-muon-ric.js)   
+muon [eon-muon-scene](https://sifbuilder.github.io/eons/eon-muon-scene.js)   
+muon [eon-muon-sim](https://sifbuilder.github.io/eons/eon-muon-sim.js)   
+**[muon](https://sifbuilder.github.io/eons/eon-muon-snap.md)** [eon-muon-snap](https://sifbuilder.github.io/eons/eon-muon-snap.js)   
+**[muon](https://sifbuilder.github.io/eons/eon-muon-stace.md)** [eon-muon-stace](https://sifbuilder.github.io/eons/eon-muon-stace.js)   
+**[muon](https://sifbuilder.github.io/eons/eon-muon-store.md)** [eon-muon-store](https://sifbuilder.github.io/eons/eon-muon-store.js)   
+muon [eon-muon-tim](https://sifbuilder.github.io/eons/eon-muon-tim.js)   
+muon [eon-muon-timer](https://sifbuilder.github.io/eons/eon-muon-timer.js)   
+muon [eon-muon-versor](https://sifbuilder.github.io/eons/eon-muon-versor.js)   
+**[muon](https://sifbuilder.github.io/eons/eon-muon-wen.md)** [eon-muon-wen](https://sifbuilder.github.io/eons/eon-muon-wen.js)   
+render [eon-render-renderport](https://sifbuilder.github.io/eons/eon-render-renderport.js)   
+**[render](https://sifbuilder.github.io/eons/eon-render-svg.md)** [eon-render-svg](https://sifbuilder.github.io/eons/eon-render-svg.js)   
+x-d3 [eon-x-d3-require](https://sifbuilder.github.io/eons/eon-x-d3-require.js)   
+x [eon-x-eons](https://sifbuilder.github.io/eons/eon-x-eons.js)   
+x [eon-x-libs](https://sifbuilder.github.io/eons/eon-x-libs.js)   
+**[x](https://sifbuilder.github.io/eons/eon-x-mapper.md)** [eon-x-mapper](https://sifbuilder.github.io/eons/eon-x-mapper.js)   
+**[x](https://sifbuilder.github.io/eons/eon-x-s.md)** [eon-x-s](https://sifbuilder.github.io/eons/eon-x-s.js)   
+x [eon-x-version](https://sifbuilder.github.io/eons/eon-x-version.js)   
+**[z-852d](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.md)** [eon-z-852d-3dgratSvgScene](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.js)   
+
+# license  
 MIT  

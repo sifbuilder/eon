@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // z.require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  let [
+    mgraticule
+  ] = await Promise.all([
+    __mapper('xs').m('graticule')
+  ])
+
+  let animas = function () {
+  // .................. pics
+    let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let form = {
+
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180]
+
+      },
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180]
+
+      },
+      'z': {
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        'pr8': d => Math.cos(d),
+        'dom3': [-180, 180]
+
+      }
+    }
+
+    let conform = {'projection': 'natform', 'form': form}
+    let proform = {projection: 'uniwen', translate: [230 - 300, 240 - 200, 0], rotate: [ 90, 0, 0 ], scale: 1}
+    let graticule = {
+
+      'frame': [ [ [-180, 180, 45, 45],
+        [-90, 90, 22.5, 22.5] ],
+      [ [-180, 180, 45, 45],
+        [-90, 90, 22.5, 22.5] ] ]
+
+    }
+
+    let gratiextent = {
+
+      'lattice': [ [180, 45],
+        [90, 22.5] ]
+
+    }
+
+    // -------------------------------  gratifaces11
+    let gratifaces11 = {
+      halo: 'ent',
+      geofold: p => {
+        let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates
+        let faces = mgraticule.gfaces(p.payload.graticule)
+        faces = faces.map(face => [...face, face[0]])
+        faces = faces.map(face => // faces : points => vertices
+          face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
+        ) //  (2) [-180, -45] [0, 0] [-180, 0]
+        let features = faces.map(face => ({
+          type: 'Feature', geometry: {type: 'Polygon', coordinates: Array.of(face)}, properties: {}}))
+        let gj = {type: 'FeatureCollection', features: features}
+        return gj
+      },
+      payload: {
+        tim: tim,
+        ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratifaces11'},
+        boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+        'conform': conform,
+        proform: {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 200 - 300, 150 - 200 ], scale: 1},
+        'graticule': graticule
+      }
+    }
+    // -------------------------------  gratifaces12
+    let gratifaces12 = {
+      halo: 'ent',
+      geofold: p => {
+        let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates
+        let faces = mgraticule.gfaces(p.payload.graticule)
+        faces = faces.map(face => [...face, face[0]])
+        faces = faces.map(face => // faces : points => vertices
+          face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
+        ) //  (2) [-180, -45] [0, 0] [-180, 0]
+        let features = faces.map(face => ({
+          type: 'Feature', geometry: {type: 'Polygon', coordinates: Array.of(face)}, properties: {}}))
+        let gj = {type: 'FeatureCollection', features: features}
+        return gj
+      },
+      payload: {
+        tim: tim,
+        ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratifaces12'},
+        boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+        'conform': conform,
+        proform: {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 200 - 300, 300 - 200 ], scale: 1},
+        'graticule': gratiextent
+      }
+    }
+    // -------------------------------  gratifaces11
+    let gratilines21 = {
+      halo: 'ent',
+      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+
+      payload: {
+        tim: tim,
+        ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},
+        boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+        'conform': conform,
+        proform: {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 400 - 300, 150 - 200 ], scale: 1},
+        'graticule': graticule
+      }
+    }
+    // -------------------------------  gratilines22
+    let gratilines22 = {
+      halo: 'ent',
+      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+      payload: {
+        tim: tim,
+        ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines22'},
+        boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+        'conform': conform,
+        proform: {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 400 - 300, 300 - 200 ], scale: 1},
+        'graticule': gratiextent
+      }
+    }
+    // .................. sceneForm
+    let sceneForm = {
+
+      halo: 'scene',
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1}
+      }
+
+    }
+    // -------------------------------  animas
+    let animas = [
+      gratifaces11, // h.ent g.natform
+      gratifaces12, // h.ent g.natform
+      gratilines21, // h.ent g.natform
+      gratilines22, // h.ent g.natform
+      sceneForm // h.context
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>

@@ -1,10 +1,9 @@
-
-  // md: # eon-control-rayder
-  // md: ** **
-  // md: ### refs
-  // md: * https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
-  // md:
-  // md:
-  // md:
-  // md: # license
-  // md: MIT
+# eon-control-rayder 
+** ** 
+### refs 
+* https://developer.mozilla.org/en-US/docs/Web/API/Touch_events 
+ 
+ 
+ 
+# license 
+MIT

@@ -1,7 +1,7 @@
-
-# eon-muon-snap
-**resolve bracket interpolations**
-
-
-# license
+ 
+# eon-muon-snap 
+**resolve bracket interpolations** 
+ 
+ 
+# license 
 MIT

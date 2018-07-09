@@ -151,7 +151,7 @@
         halo: 'scene',
         payload: {
           tim: tim,
-          ric: {gid: 'gratiform', cid: 'gratiform', fid: 'context'},
+          ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
           context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1}
         }
 
