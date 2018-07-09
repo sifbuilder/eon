@@ -20,7 +20,7 @@
       MultiPolygon: 'geometry',
       GeometryCollection: 'geometry',
       Feature: 'feature',
-      FeatureCollection: 'featurecollection'
+      FeatureCollection: 'featurecollection',
     }
 
     // ...................... complexifyObjectType
@@ -33,7 +33,7 @@
         let ret = object
         ret.features = features.map(feature => complexifyGeometry(feature.geometry))
         return ret
-      }
+      },
     }
 
     var complexifyGeometryType = {
@@ -81,7 +81,7 @@
         var geometries = object.geometries.map(
           geometry => complexifyGeometry(geometry))
         return geometries
-      }
+      },
     }
 
     function complexifyGeometry (geometry) {
@@ -233,7 +233,7 @@
         let tfeature = {
           type: 'Feature',
           geometry: {type: 'LineString', coordinates: gj.coordinates},
-          properties: {interval: interval}
+          properties: {interval: interval},
         }
         tfeatures.push(tfeature)
       } else if (gj.type === 'MultiPoint') {
@@ -247,7 +247,7 @@
           let tfeature = {
             type: 'Feature',
             geometry: {type: 'LineString', coordinates: line},
-            properties: {interval: interval}
+            properties: {interval: interval},
           }
           tfeatures.push(tfeature)
         }
@@ -259,7 +259,7 @@
           let tfeature = {
             type: 'Feature',
             geometry: {type: 'LineString', coordinates: line},
-            properties: {interval: interval}
+            properties: {interval: interval},
           }
           tfeatures.push(tfeature)
         }
@@ -272,7 +272,7 @@
             type: 'Feature',
             // geometry: {type: 'Polygon',coordinates: polygon},
             geometry: {type: 'LineString', coordinates: polygon[0]},
-            properties: {interval: interval}
+            properties: {interval: interval},
           }
           tfeatures.push(tfeature)
         }
@@ -287,8 +287,7 @@
     }
 
     // ...................... featurize
-    let featurize = function (gj_, features=[]) {
-
+    let featurize = function (gj_, features = []) {
       return Promise.resolve(gj_)
         .then(gj => {
           let type = gj.type
@@ -313,30 +312,29 @@
           }
           return features
         })
-        
-        
+
       // let features = []
       // if (gj && gj.type) {
         // let type = gj.type
 
         // if (type === 'Feature') {
-          // features = Array.of(gj)
+      // features = Array.of(gj)
         // } else if (type === 'FeatureCollection') {
-          // features = gj.features
+      // features = gj.features
         // } else if (type === 'GeometryCollection') {
-          // features = gj.map(d => ({
-            // type: 'Feature',
-            // geometry: {
-              // type: d.type,
-              // coordinates: d.coordinates},
-            // properties: {}}))
+      // features = gj.map(d => ({
+      // type: 'Feature',
+      // geometry: {
+      // type: d.type,
+      // coordinates: d.coordinates},
+      // properties: {}}))
         // } else {
-          // features = Array.of({
-            // type: 'Feature',
-            // geometry: {
-              // type: gj.type,
-              // coordinates: gj.coordinates},
-            // properties: {geonode: {}}})
+      // features = Array.of({
+      // type: 'Feature',
+      // geometry: {
+      // type: gj.type,
+      // coordinates: gj.coordinates},
+      // properties: {geonode: {}}})
         // }
       // } else {
         // console.log('m.geoj.featurize not supported geojson ', gj)
@@ -347,10 +345,9 @@
 
     // ...................... featurecollect
     // let featurecollect = gj => ({type: 'FeatureCollection', features: featurize(gj)})
-    async function featurecollect(gj) {
-      
+    async function featurecollect (gj) {
       let features = await featurize(gj)
-      return ({type: 'FeatureCollection', features: features})    
+      return ({type: 'FeatureCollection', features: features})
     }
 
     // ...................... deprop

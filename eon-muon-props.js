@@ -17,9 +17,9 @@
     // let d3scaleLinear = d3Scale.scaleLinear
 
     let [
-      d3
+      d3,
     ] = await Promise.all([
-      __mapper('xs').b('d3')
+      __mapper('xs').b('d3'),
     ])
 
     // let d3 = __mapper('d3')
@@ -357,7 +357,7 @@
       return [
         Math.cos(lambda) * cosphi,
         Math.sin(lambda) * cosphi,
-        Math.sin(phi)
+        Math.sin(phi),
       ]
     }
 

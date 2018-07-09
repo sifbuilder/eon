@@ -14,13 +14,13 @@
       mric,
       mboform,
       mgeoj,
-      mprops
+      mprops,
     ] = await Promise.all([
       __mapper('xs').m('anitem'),
       __mapper('xs').m('ric'),
       __mapper('xs').m('boform'),
       __mapper('xs').m('geoj'),
-      __mapper('xs').m('props')
+      __mapper('xs').m('props'),
     ])
 
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
@@ -35,9 +35,8 @@
 
     // ............................. gramm
     async function gramm (anigram) {
-
       let gjcollection = await mgeoj.featurecollect(getgj(anigram))
-      
+
       if (2 && 2 && gjcollection.type !== 'FeatureCollection') console.log('** gjcollection is not FeatureCollection', gjcollection)
       gjcollection = mgeoj.zorder(gjcollection) // order features in collection
       gjcollection = mric.enric(anigram.payload.ric, anigram, gjcollection) // ric to feature or collection
@@ -55,9 +54,9 @@
           payload: { // payload is lost in m.animation before rendering
             ric: feature.properties.ric, // hoist ric
             id: feature.properties.uid, // hoist uid
-            uid: feature.properties.uid // hoist uid
+            uid: feature.properties.uid, // hoist uid
           },
-          avatars: anigram.avatars // inherit avatars
+          avatars: anigram.avatars, // inherit avatars
         }
         return newAnigram
       })

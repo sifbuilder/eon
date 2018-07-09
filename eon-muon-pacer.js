@@ -12,11 +12,11 @@
     let [
       crayder,
       cwen,
-      cversor
+      cversor,
     ] = await Promise.all([
       __mapper('xs').c('rayder'),
       __mapper('xs').c('wen'),
-      __mapper('xs').c('versor')
+      __mapper('xs').c('versor'),
     ])
 
     // -------------------------------  muonPacerHalo_gramm

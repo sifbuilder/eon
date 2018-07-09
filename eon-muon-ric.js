@@ -87,7 +87,7 @@
 
         properties.ric = {gid: _ric.gid,
           cid: _ric.cid,
-          fid: _ric.fid
+          fid: _ric.fid,
         }
         properties.uid = getuid(properties.ric)
 

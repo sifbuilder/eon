@@ -14,9 +14,9 @@
 
   async function muonVersor (__mapper = {}) {
     let [
-      mprops
+      mprops,
     ] = await Promise.all([
-      __mapper('xs').m('props')
+      __mapper('xs').m('props'),
     ])
 
     var stace = Object.assign({})
@@ -42,7 +42,7 @@
         cl * cp * cg + sl * sp * sg,
         sl * cp * cg - cl * sp * sg,
         cl * sp * cg + sl * cp * sg,
-        cl * cp * sg - sl * sp * cg
+        cl * cp * sg - sl * sp * cg,
       ]
     }
 
@@ -57,7 +57,7 @@
       return [
         atan2(2 * (q[0] * q[1] + q[2] * q[3]), 1 - 2 * (q[1] * q[1] + q[2] * q[2])) * degrees,
         asin(max(-1, min(1, 2 * (q[0] * q[2] - q[3] * q[1])))) * degrees,
-        atan2(2 * (q[0] * q[3] + q[1] * q[2]), 1 - 2 * (q[2] * q[2] + q[3] * q[3])) * degrees
+        atan2(2 * (q[0] * q[3] + q[1] * q[2]), 1 - 2 * (q[2] * q[2] + q[3] * q[3])) * degrees,
       ]
     }
 
@@ -77,7 +77,7 @@
         q0[0] * q1[0] - q0[1] * q1[1] - q0[2] * q1[2] - q0[3] * q1[3],
         q0[0] * q1[1] + q0[1] * q1[0] + q0[2] * q1[3] - q0[3] * q1[2],
         q0[0] * q1[2] - q0[1] * q1[3] + q0[2] * q1[0] + q0[3] * q1[1],
-        q0[0] * q1[3] + q0[1] * q1[2] - q0[2] * q1[1] + q0[3] * q1[0]
+        q0[0] * q1[3] + q0[1] * q1[2] - q0[2] * q1[1] + q0[3] * q1[0],
       ]
     }
 
@@ -85,7 +85,7 @@
       return [
         v0[1] * v1[2] - v0[2] * v1[1],
         v0[2] * v1[0] - v0[0] * v1[2],
-        v0[0] * v1[1] - v0[1] * v1[0]
+        v0[0] * v1[1] - v0[1] * v1[0],
       ]
     }
 

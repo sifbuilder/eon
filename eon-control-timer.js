@@ -10,9 +10,9 @@
 
   async function controlTimer (__mapper) {
     let [
-      mtimer
+      mtimer,
     ] = await Promise.all([
-      __mapper('xs').m('timer')
+      __mapper('xs').m('timer'),
     ])
 
     let now = performance.now()
@@ -20,7 +20,7 @@
       now,
       restartTime: now,
       resumeTime: now,
-      stopTime: now
+      stopTime: now,
     }
 
     let currentListeners = []

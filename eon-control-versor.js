@@ -14,12 +14,12 @@
       rrenderport,
       mversor,
       d3,
-      mgeom
+      mgeom,
     ] = await Promise.all([
       __mapper('xs').r('renderport'),
       __mapper('xs').m('versor'),
       __mapper('xs').b('d3'),
-      __mapper('xs').m('geom')
+      __mapper('xs').m('geom'),
     ])
 
     // let xydirs = rrenderport.xydirs() // [1 -1] in pixel view
@@ -74,7 +74,7 @@
       timer: null,
       rotMatrix: null,
       cPos: null, // current position
-      pPos: null // previous position
+      pPos: null, // previous position
 
     }
 
@@ -82,7 +82,7 @@
     let versorControl = {
       dragstarted,
       dragged,
-      dragended
+      dragended,
 
     }
 
@@ -163,7 +163,7 @@
       state.vel_spher = [
 
         (state.cPos[1] - state.pPos[1]) * state.mult,
-        (state.cPos[0] - state.pPos[0]) * state.mult
+        (state.cPos[0] - state.pPos[0]) * state.mult,
 
       ]
       state.timer = requestAnimationFrame(momentum)

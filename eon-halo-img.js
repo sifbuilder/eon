@@ -20,9 +20,9 @@
           'width': p.payload.img.style.width,
           'height': p.payload.img.style.height,
           'rotate': p.payload.img.style.rotate,
-          'xlink:href': p.payload.img.url
-        }
-      }
+          'xlink:href': p.payload.img.url,
+        },
+      },
     })
 
     let gramm = function gramm (anima, newAnigrams = []) {
@@ -35,7 +35,7 @@
       let newAnigram = {
         halo,
         geofold,
-        payload
+        payload,
       }
 
       newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(newAnigram)]

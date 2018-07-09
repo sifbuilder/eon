@@ -14,13 +14,13 @@
       mnat,
       mlacer,
       mgeoj,
-      d3
+      d3,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('nat'),
       __mapper('xs').m('lacer'),
       __mapper('xs').m('geoj'),
-      __mapper('xs').b('d3')
+      __mapper('xs').b('d3'),
     ])
 
     // .................. snap  value (anima), t (unit time), snap flag, parent

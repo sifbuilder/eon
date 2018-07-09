@@ -9,23 +9,19 @@
 }(this, function (exports) {
   'use strict'
 
-
   // .................. z852d3dgratSvgScene
   async function z852d3dgratSvgScene (__mapper) {
-
-  let [
-        rrenderport,
-        cwen,
-        mgraticule
-     ] = await Promise.all([
+    let [
+      rrenderport,
+      cwen,
+      mgraticule,
+    ] = await Promise.all([
       __mapper('xs').r('renderport'),
       __mapper('xs').c('wen'),
-      __mapper('xs').m('graticule')
-     ])
-  
+      __mapper('xs').m('graticule'),
+    ])
 
-  let animas = function() {
-
+    let animas = function () {
       // .................. pics
       let tim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
 
@@ -33,12 +29,12 @@
 
         'x': {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1
+          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1,
         },
         'y': {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1
-        }
+          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1,
+        },
       }
 
       let conform2d = { projection: 'natform', form: form2d }
@@ -47,16 +43,16 @@
 
         'x': {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1
+          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1,
         },
         'y': {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1
+          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1,
         },
         'z': {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 4, 'pa6': 0, 'pb7': -1
-        }
+          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 4, 'pa6': 0, 'pb7': -1,
+        },
       }
 
       // .................. gratiform
@@ -75,19 +71,18 @@
           conform: conform2d,
           proform: {
 
-              prerotate: [[[ cwen.rotation ]]],
-              projection: 'uniwen',
-              translate: [ -150, 0],
-              rotate: [ [[[0, 360]]], [[[0, 360]]] ],
-              scale: 1
+            prerotate: [[[ cwen.rotation ]]],
+            projection: 'uniwen',
+            translate: [ -150, 0],
+            rotate: [ [[[0, 360]]], [[[0, 360]]] ],
+            scale: 1,
 
-            },
+          },
           graticule: {
-            frame: [ [ [-180, 180, 90, 90], [-90, 90, 15, 15] ] ] // X,Y
-          }
-        }
+            frame: [ [ [-180, 180, 90, 90], [-90, 90, 15, 15] ] ], // X,Y
+          },
+        },
       }
-
 
       // .................. gratiform
       let g2 = {
@@ -104,17 +99,17 @@
           conform: { projection: 'natform', form: form3d },
           proform: {
 
-              prerotate: [[[ cwen.rotation ]]],
-              projection: 'uniwen',
-              translate: [ 0, 0, 0],
-              rotate: [ 0, [[[0, 360]]], 0 ],
-              scale: 1
+            prerotate: [[[ cwen.rotation ]]],
+            projection: 'uniwen',
+            translate: [ 0, 0, 0],
+            rotate: [ 0, [[[0, 360]]], 0 ],
+            scale: 1,
 
-            },
+          },
           graticule: {
-            frame: [ [ [-180, 180, 90, 90], [-90, 90, 45, 45] ] ] // X,Y
-          }
-        }
+            frame: [ [ [-180, 180, 90, 90], [-90, 90, 45, 45] ] ], // X,Y
+          },
+        },
       }
 
       // .................. gratiform
@@ -133,17 +128,17 @@
           conform: conform2d,
           proform: {
 
-              prerotate: [[[ cwen.rotation ]]],
-              projection: 'uniwen',
-              translate: [ 150, 0],
-              rotate: [ 0, [[[0, 360]]], 0 ],
-              scale: 1
+            prerotate: [[[ cwen.rotation ]]],
+            projection: 'uniwen',
+            translate: [ 150, 0],
+            rotate: [ 0, [[[0, 360]]], 0 ],
+            scale: 1,
 
-            },
+          },
           graticule: {
-            frame: [ [ [-180, 180, 30, 30], [-90, 90, 45, 45] ] ] // X,Y
-          }
-        }
+            frame: [ [ [-180, 180, 30, 30], [-90, 90, 45, 45] ] ], // X,Y
+          },
+        },
       }
       // .................. sceneForm
       let sceneForm = {
@@ -152,8 +147,8 @@
         payload: {
           tim: tim,
           ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-          context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1}
-        }
+          context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+        },
 
       }
 
@@ -162,19 +157,17 @@
         g1, // h.ent g.natform
         g2, // h.ent g.natform
         g3, // h.ent g.natform
-        sceneForm, // h.scene 
-
+        sceneForm, // h.scene
 
       ]
 
       return animas
-  }
-  
-  let enty = () => {}
-  enty.animas = animas
-  return enty
+    }
 
-}
+    let enty = () => {}
+    enty.animas = animas
+    return enty
+  }
 
   exports.z852d3dgratSvgScene = z852d3dgratSvgScene
 }))

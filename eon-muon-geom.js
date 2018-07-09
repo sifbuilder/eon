@@ -10,9 +10,9 @@
 
   async function muonGeom (__mapper = {}) {
     let [
-      d3
+      d3,
     ] = await Promise.all([
-      __mapper('xs').b('d3')
+      __mapper('xs').b('d3'),
     ])
 
     let pi = Math.PI,
@@ -32,7 +32,7 @@
       return [
         Math.cos(lambda) * cosphi,
         Math.sin(lambda) * cosphi,
-        Math.sin(phi)
+        Math.sin(phi),
       ]
     }
 
@@ -171,7 +171,7 @@
       [e[0][0], e[1][1]],
       [e[1][0], e[1][1]],
       [e[1][0], e[0][1]],
-      [e[0][0], e[0][1]]
+      [e[0][0], e[0][1]],
     ]
 
     enty.pointsInPolygon = (points, pol) => points.filter(p => enty.pointInPolygon(p[0], p[1], pol))
@@ -214,7 +214,7 @@
     enty.spherical = function (cartesian) {
       return [
         Math.atan2(cartesian[1], cartesian[0]),
-        Math.asin(Math.max(-1, Math.min(1, cartesian[2])))
+        Math.asin(Math.max(-1, Math.min(1, cartesian[2]))),
       ]
     }
 
@@ -233,7 +233,7 @@
       return [
         Math.cos(lambda) * cosphi,
         Math.sin(lambda) * cosphi,
-        Math.sin(phi)
+        Math.sin(phi),
       ]
     }
 
@@ -284,7 +284,7 @@
       4.79323894565283e-7 -
         4.58968389565456e-7,
       -5.62970586787826e-7,
-      -3.92135372833465e-7
+      -3.92135372833465e-7,
     ]
 
     enty.coefsG0 = () => [
@@ -307,7 +307,7 @@
       1.92757960170179e-8,
       -3.82869799649063e-7,
       -3.57526015225576e-7,
-      -2.2175964844211e-7
+      -2.2175964844211e-7,
     ]
 
     return enty

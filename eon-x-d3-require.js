@@ -24,7 +24,7 @@
     return match && {
       name: match[1],
       version: match[2],
-      path: match[3]
+      path: match[3],
     }
   }
 

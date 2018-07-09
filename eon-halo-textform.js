@@ -10,9 +10,9 @@
 
   async function haloTextform (__mapper = {}) {
     let [
-      hent
+      hent,
     ] = await Promise.all([
-      __mapper('xs').h('ent')
+      __mapper('xs').h('ent'),
     ])
 
     // .................. _geofold
@@ -39,10 +39,10 @@
             'dy': textform.style.dy,
 
             'textLength': textform.style.textLength,
-            'lengthAdjust': textform.style.lengthAdjust
+            'lengthAdjust': textform.style.lengthAdjust,
 
-          }
-        }
+          },
+        },
       }
     }
 
@@ -50,16 +50,15 @@
     async function gramm (anigram, newAnigrams = []) {
       let halo = 			anigram.halo,
         payload = 		anigram.payload,
-        geofold =     _geofold(anigram) // geofold
+        geofold = _geofold(anigram) // geofold
 
       let newAnigram = {
         halo,
         geofold,
-        payload
+        payload,
       }
-      
-      return hent.gramm(newAnigram)
 
+      return hent.gramm(newAnigram)
     }
 
     // .................. enty

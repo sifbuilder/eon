@@ -9,7 +9,6 @@
   'use strict'
 
   async function renderRenderport (__mapper = {}) {
-
     let margin = {top: 0, right: 0, bottom: 0, left: 0},
       viewWidth = 600,
       viewHeight = 400,
@@ -23,7 +22,7 @@
       translate: [width / 2, height / 2, 0],
       rotate: [0, 0, 0],
       scale: [1, -1, 1],
-      lens: [0, 1, Infinity]
+      lens: [0, 1, Infinity],
     }
 
     // ............................. cameraProjer
@@ -77,7 +76,7 @@
     enty.height = _ => (_ === undefined) ? height : (height = _, enty)
     enty.margin = _ => (_ === undefined) ? margin : (margin = _, enty)
     enty.scaleView = () => scaleView
-    
+
     // ............................. projection
     enty.projection = _ => _ !== undefined ? (projection = _, enty) : projection
     enty.cameraProjer = cameraProjer

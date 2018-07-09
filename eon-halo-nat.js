@@ -14,13 +14,11 @@
 
     // .................... gramm
     let gramm = function (anigram, newAnigrams = []) {
-
       return hent.gramm(Object.assign(
         {},
         anigram,
         {geofold: p => mnat.natFeature(p.payload.form)}
       ))
-
     }
 
     // .................... enty

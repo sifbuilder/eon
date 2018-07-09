@@ -18,11 +18,11 @@
       manitem,
       mric,
       mstore,
-      hent
+      hent,
     ] = await Promise.all([
       __mapper('xs').m('geom'),
       __mapper('xs').c('rayder'),
-      __mapper('xs').h('ent')
+      __mapper('xs').h('ent'),
     ])
 
     // ............................. _geofolder
@@ -34,7 +34,7 @@
       let geofold = {
         type: 'Feature',
         geometry: { type: geoType, coordinates: null },
-        properties: {}
+        properties: {},
       }
 
       let ric = ani.payload.ric
@@ -75,7 +75,7 @@
       },
       eventSitus: function (ani) {
         return {x: crayder.pointer().x, y: crayder.pointer().y, z: 0 }
-      }
+      },
     }
 
     // ............................. ween

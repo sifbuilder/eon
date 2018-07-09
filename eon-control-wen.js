@@ -14,12 +14,12 @@
       rrenderport,
       mversor,
       d3,
-      mgeom
+      mgeom,
     ] = await Promise.all([
       __mapper('xs').r('renderport'),
       __mapper('xs').m('versor'),
       __mapper('xs').b('d3'),
-      __mapper('xs').m('geom')
+      __mapper('xs').m('geom'),
     ])
 
     function tick () {
@@ -37,7 +37,7 @@
       mult: 2e-3, // rotInDrag_radians factor
       rotInit_radians: [0, 0, 0],
       timeSpan: 200,
-      epsilon: 1e-3
+      epsilon: 1e-3,
     }
 
     let getPos = rrenderport.getPos // event position
@@ -66,7 +66,7 @@
       timer: null,
       rotMatrix: null,
       cPos: null, // current position
-      pPos: null // previous position
+      pPos: null, // previous position
 
     }
 
@@ -127,7 +127,7 @@
       state.rotInDrag_radians = [
         state.rotVel[0] + dx * inits.mult,
         state.rotVel[1] + dy * inits.mult,
-        state.rotVel[2] + 0
+        state.rotVel[2] + 0,
       ]
     }
 
@@ -141,7 +141,7 @@
       state.vel = [ // velocity
 
         xsign * (state.cPos[1] - state.pPos[1]) * inits.mult,
-        ysign * (state.cPos[0] - state.pPos[0]) * inits.mult
+        ysign * (state.cPos[0] - state.pPos[0]) * inits.mult,
 
       ]
 

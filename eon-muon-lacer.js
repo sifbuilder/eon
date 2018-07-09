@@ -10,9 +10,9 @@
 
   async function muonLacer (__mapper = {}) {
     let [
-      d3
+      d3,
     ] = await Promise.all([
-      __mapper('xs').b('d3')
+      __mapper('xs').b('d3'),
     ])
 
     const isNumericArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'number', true)

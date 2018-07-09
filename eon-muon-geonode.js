@@ -15,15 +15,15 @@
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [0, 0, 0]
+          coordinates: [0, 0, 0],
         },
         properties: {
           orgen: [0, 0, 0],
           velin: [0, 0, 0],
           velang: [0, 0, 0],
           prevous: [0, 0, 0],
-          geodelta: [0, 0, 0]
-        }
+          geodelta: [0, 0, 0],
+        },
       }
 
       let _geonode = Object.assign({}, geonode, node)

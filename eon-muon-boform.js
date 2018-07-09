@@ -11,10 +11,10 @@
   async function muonBoform (__mapper = {}) {
     let [
       mstore,
-      d3
+      d3,
     ] = await Promise.all([
       __mapper('xs').m('store'),
-      __mapper('xs').b('d3')
+      __mapper('xs').b('d3'),
     ])
 
     let colors = {} // colors
@@ -38,7 +38,7 @@
       cubehelex: d3.interpolateCubehelexDefault, // 14
       rainbow: d3.interpolateRainbow, // 15
       bluered: d3.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'red' ]),
-      blueblack: d3.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'black' ]) // "red",])  // 0
+      blueblack: d3.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'black' ]), // "red",])  // 0
     }
     colors.color = colors.scales.bos
     colors.array = Object.keys(colors.scales).map(key => colors.scales[key])

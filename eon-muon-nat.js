@@ -37,12 +37,12 @@
       mgraticule,
       mprofier,
       mproj3ct,
-      d3
+      d3,
     ] = await Promise.all([
       __mapper('xs').m('graticule'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
-      __mapper('xs').b('d3')
+      __mapper('xs').b('d3'),
 
     ])
     let cache = {} // feature, form
@@ -172,7 +172,6 @@
       if (isSame(form, cache.form)) {
         feature = cache.feature
         return feature
-        
       } else {
         let nformed = natNform(form) // NFORM
 
@@ -223,28 +222,26 @@
               type: 'Feature',
               geometry: {type: 'Point', coordinates: [0, 0, 0]},
               properties: {
-                orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]
-              }
-            }
-          }
+                orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+              },
+            },
+          },
         }
 
         return mprofier.formion_({ projection: 'natform', form: nformed })
           .then(projection => mproj3ct(gj, projection))
           .then(feature => {
-              cache.form = form
-              cache.feature = feature
-              return feature
+            cache.form = form
+            cache.feature = feature
+            return feature
           })
-          
+
         // let projection = mprofier.formion_({ projection: 'natform', form: nformed })
         // feature = mproj3ct(gj, projection)
         // cache.form = form
         // cache.feature = feature
         // return feature
       }
-
-
     }
 
     // ............................. closeFeature

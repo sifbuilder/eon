@@ -10,9 +10,9 @@
 
   async function muonProj3ct (__mapper = {}) {
     let [
-      d3
+      d3,
     ] = await Promise.all([
-      __mapper('xs').b('d3')
+      __mapper('xs').b('d3'),
     ])
 
     let noop = function () {}
@@ -55,7 +55,7 @@
         type: 'FeatureCollection',
         features: o.features.map(function (f) {
           return projectFeature(f, stream)
-        })
+        }),
       }
     }
 
@@ -65,7 +65,7 @@
         type: 'Feature',
         // id: o.id,
         properties: o.properties,
-        geometry: geometry
+        geometry: geometry,
       }
       return ret
     }
@@ -75,7 +75,7 @@
         type: 'GeometryCollection',
         geometries: o.geometries.map(function (o) {
           return projectGeometry(o, stream)
-        })
+        }),
       }
     }
 
@@ -118,7 +118,7 @@
         points = []
 
         return result
-      }
+      },
     }
 
     var sinkLine = {
@@ -137,7 +137,7 @@
         lines = []
 
         return result
-      }
+      },
     }
 
     var sinkPolygon = {
@@ -180,7 +180,7 @@
         return !polygons.length ? null
           : polygons.length > 1 ? {type: 'MultiPolygon', coordinates: polygons}
             : {type: 'Polygon', coordinates: polygons[0]}
-      }
+      },
     }
 
     // ............................. enty

@@ -11,9 +11,9 @@
 
   async function touchEndControl (__mapper = {}) {
     let [
-      d3
+      d3,
     ] = await Promise.all([
-      __mapper('xs').b('d3')
+      __mapper('xs').b('d3'),
     ])
 
     var currentListeners = []

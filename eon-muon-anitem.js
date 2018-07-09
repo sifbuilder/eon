@@ -12,11 +12,11 @@
     let [
       mgeonode,
       mgeoj,
-      msnap
+      msnap,
     ] = await Promise.all([
       __mapper('xs').m('geonode'),
       __mapper('xs').m('geoj'),
-      __mapper('xs').m('snap')
+      __mapper('xs').m('snap'),
     ])
 
     let state = {}
@@ -36,7 +36,7 @@
 
         payload: d.payload, // payload
 
-        avatars: d.avatars // avatars
+        avatars: d.avatars, // avatars
 
       }
 
@@ -63,7 +63,7 @@
         fz: state.anitem.payload.fz,
         dx: state.anitem.payload.dx,
         dy: state.anitem.payload.dy,
-        dz: state.anitem.payload.dz
+        dz: state.anitem.payload.dz,
       }
 
       return node
@@ -132,14 +132,14 @@
     let coreGeoform = () => p => ({ // geofold
       type: 'Feature',
       geometry: { type: 'Point', coordinates: [0, 0, 0]},
-      properties: {}
+      properties: {},
     })
 
     // ............................. coreGeonode
     let coreGeonode = () => ({
       type: 'Feature',
       geometry: { type: 'Point', coordinates: null },
-      properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null}
+      properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null},
     })
 
     // ............................. _anigram

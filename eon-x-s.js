@@ -12,9 +12,9 @@
     const xD3Require = __mapper('xD3Require')
 
     const capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // wen => Wen
-    const ceonize = (nome, pres = '') => (pres === '') 
-        ? camelize(nome.replace(/^eon-/, '')) 
-        : camelize(pres + '-' + nome) // [uni-wen,muon] => muonUniWen 
+    const ceonize = (nome, pres = '') => (pres === '')
+      ? camelize(nome.replace(/^eon-/, ''))
+      : camelize(pres + '-' + nome) // [uni-wen,muon] => muonUniWen
     const feonize = (nome, pres = '') => './' + xeonize(nome, pres) + '.js' // wen => ./muon-wen.js
     let xeonize = (nome, pres = '') => (pres === '') // wen => eon-muon-wen
       ? nome
@@ -69,7 +69,7 @@
       var eonfroms = [
         () => getCeon([ceon, '']),
         () => getFeon([ceon, feon]),
-        () => getNeon([ceon, neon])
+        () => getNeon([ceon, neon]),
       ]
 
       return eonfroms.reduce(
@@ -93,7 +93,6 @@
     enty.proj = enty.p = (nome, pres = 'd3.geo') => getEon([nome, pres])
     enty.render = enty.r = (nome, pres = 'render') => getEon([nome, pres])
     enty.zindex = enty.z = (nome, pres = 'z') => getEon([nome, pres])
-
 
     return enty
   }

@@ -17,7 +17,7 @@
       mstace,
       mproj3ct,
       mgeom,
-      guniwen
+      guniwen,
     ] = await Promise.all([
       __mapper('xs').c('wen'),
       __mapper('xs').c('versor'),
@@ -26,7 +26,7 @@
       __mapper('xs').m('stace'),
       __mapper('xs').m('proj3ct'),
       __mapper('xs').m('geom'),
-      __mapper('xs').g('uniwen')
+      __mapper('xs').g('uniwen'),
 
     ])
 

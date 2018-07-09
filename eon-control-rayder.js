@@ -11,20 +11,20 @@
   async function controlRayder (__mapper) {
     let [
       rrenderport,
-      rsvg
+      rsvg,
     ] = await Promise.all([
       __mapper('xs').r('renderport'),
-      __mapper('xs').r('svg')
+      __mapper('xs').r('svg'),
     ])
 
     let mouse = {
       x: -2, // Initialize off canvas
-      y: -2
+      y: -2,
     }
 
     let pointer = {
       x: -2,
-      y: -2
+      y: -2,
     }
 
     let touch = {}
@@ -35,7 +35,7 @@
       pointer,
       mouse,
       touch,
-      domNode
+      domNode,
     }
 
     let cameraProjer = rrenderport.cameraProjer()

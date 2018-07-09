@@ -13,12 +13,12 @@
       mtim,
       mric,
       manitem,
-      mprops
+      mprops,
     ] = await Promise.all([
       __mapper('xs').m('tim'),
       __mapper('xs').m('ric'),
       __mapper('xs').m('anitem'),
-      __mapper('xs').m('props')
+      __mapper('xs').m('props'),
     ])
 
     let epsilon = 1e-5
@@ -26,7 +26,7 @@
     let state = {
       animas: [], // animas array
       aniset: {}, // animas by uid
-      anigrams: [] // behavior - anigrams may have avatars
+      anigrams: [], // behavior - anigrams may have avatars
     }
 
     // .................. apply

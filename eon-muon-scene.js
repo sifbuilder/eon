@@ -12,11 +12,11 @@
     let [
       d3,
       rsvg,
-      cwen
+      cwen,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
       __mapper('xs').r('svg'),
-      __mapper('xs').c('wen')
+      __mapper('xs').c('wen'),
     ])
 
     let state = {}
@@ -32,7 +32,7 @@
       key: 0, // KEYBRD CONTROLS
       ray: 0, // RAYDER mouse control
       fps: 0,
-      stats: 0
+      stats: 0,
     }
 
     // .................. scene

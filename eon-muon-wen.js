@@ -49,14 +49,14 @@
       return [
         p[0] * m[0] + p[1] * m[3] + p[2] * m[6],
         p[0] * m[1] + p[1] * m[4] + p[2] * m[7],
-        p[0] * m[2] + p[1] * m[5] + p[2] * m[8]
+        p[0] * m[2] + p[1] * m[5] + p[2] * m[8],
       ]
     }
     function transpose33 (m) { // invert rotation
       return [
         m[0], m[3], m[6],
         m[1], m[4], m[7],
-        m[2], m[5], m[8]
+        m[2], m[5], m[8],
       ]
     }
     function rotate3dMatrix (x, y, z, a) {
@@ -64,7 +64,7 @@
       return [
         1 + c * (x * x - 1), x * y * c + z * s, x * z * c - y * s,
         x * y * c - z * s, 1 + c * (y * y - 1), y * z * c + x * s,
-        x * z * c + y * s, y * z * c - x * s, 1 + c * (z * z - 1)
+        x * z * c + y * s, y * z * c - x * s, 1 + c * (z * z - 1),
       ]
     }
     function mul33 (m, n) {
@@ -79,7 +79,7 @@
       return [
         m1 * n1 + m4 * n2 + m7 * n3, m2 * n1 + m5 * n2 + m8 * n3, m3 * n1 + m6 * n2 + m9 * n3,
         m1 * n4 + m4 * n5 + m7 * n6, m2 * n4 + m5 * n5 + m8 * n6, m3 * n4 + m6 * n5 + m9 * n6,
-        m1 * n7 + m4 * n8 + m7 * n9, m2 * n7 + m5 * n8 + m8 * n9, m3 * n7 + m6 * n8 + m9 * n9
+        m1 * n7 + m4 * n8 + m7 * n9, m2 * n7 + m5 * n8 + m8 * n9, m3 * n7 + m6 * n8 + m9 * n9,
       ]
     }
     function chainMul33 (base) {
@@ -93,7 +93,7 @@
       return [
         a[1] * b[2] - a[2] * b[1],
         a[2] * b[0] - a[0] * b[2],
-        a[0] * b[1] - a[1] * b[0]
+        a[0] * b[1] - a[1] * b[0],
       ]
     }
     function sub (a, b) {

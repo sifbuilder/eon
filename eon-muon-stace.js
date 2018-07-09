@@ -221,7 +221,7 @@
 
       let projection = {
         'projection': 'uniwen',
-        'translate': [ locus[0], locus[1], locus[2] ]
+        'translate': [ locus[0], locus[1], locus[2] ],
       }
 
       return mprofier.formion(projection)

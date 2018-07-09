@@ -10,9 +10,9 @@
 
   async function haloScene (__mapper = {}) {
     let [
-      mscene
+      mscene,
     ] = await Promise.all([
-      __mapper('xs').m('scene')
+      __mapper('xs').m('scene'),
     ])
 
     // .................... ween

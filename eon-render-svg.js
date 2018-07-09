@@ -12,11 +12,11 @@
     let [
       rrenderport, // cameraProjer
       d3,
-      guniwen
+      guniwen,
     ] = await Promise.all([
       __mapper('xs').r('renderport'),
       __mapper('xs').b('d3'),
-      __mapper('xs').g('uniwen')
+      __mapper('xs').g('uniwen'),
     ])
 
     let width = 600,
@@ -26,7 +26,7 @@
     let state = {
       width: width,
       height: height,
-      background: background
+      background: background,
     } // Viewport
 
     let svglayer = d3.select('.viewframe')

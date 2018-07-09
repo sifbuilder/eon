@@ -87,7 +87,7 @@
         this._call = callback
         this._time = time
         sleep()
-      }
+      },
 
     }
 

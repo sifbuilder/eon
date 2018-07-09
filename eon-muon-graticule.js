@@ -11,10 +11,10 @@
   async function muonGraticule (__mapper = {}) {
     let [
       mgeoj,
-      d3
+      d3,
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
-      __mapper('xs').b('d3')
+      __mapper('xs').b('d3'),
     ])
 
     let d3Range = d3.range
@@ -287,7 +287,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'LineString', coordinates: coords},
-        properties: {mgraticule: 'equator'}
+        properties: {mgraticule: 'equator'},
       }
       if (!mgeoj.isValid(gj)) console.error('gj not valid')
 
@@ -305,7 +305,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: coords},
-        properties: {mgraticule: 'vhMultiLine'}
+        properties: {mgraticule: 'vhMultiLine'},
       }
       if (!mgeoj.isValid(gj)) console.error('gj not valid')
 
@@ -323,7 +323,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: coords},
-        properties: {mgraticule: 'vhMultiLine'}
+        properties: {mgraticule: 'vhMultiLine'},
       }
       if (!mgeoj.isValid(gj)) console.error('gj not valid')
 
@@ -341,7 +341,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: coords},
-        properties: {mgraticule: 'vhMultiLine'}
+        properties: {mgraticule: 'vhMultiLine'},
       }
       if (!mgeoj.isValid(gj)) console.error('gj not valid')
 
@@ -382,7 +382,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: lines},
-        properties: {mgraticule: 'vhMultiLine'}
+        properties: {mgraticule: 'vhMultiLine'},
       }
       if (!mgeoj.isValid(gj)) console.error('gj not valid')
 
@@ -435,7 +435,7 @@
       return { // return vertices
         type: 'Feature',
         geometry: {type: 'LineString', coordinates: vertices},
-        properties: {}
+        properties: {},
       }
     }
 

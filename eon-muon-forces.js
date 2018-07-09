@@ -26,26 +26,22 @@
   }
 
   var muonForces = function (__mapper = {}) {
-
     // ...................... force
     let force = function (params) {
-      
       return __mapper('xs').f(params.type)
         .then(fforce => ({
-            nodes: params.nodes,
-            filter: params.filter,
-            force: (fforce) ? fforce.force(params) : params.force        
+          nodes: params.nodes,
+          filter: params.filter,
+          force: (fforce) ? fforce.force(params) : params.force,
         }))
         .then(sys => isolate(sys))
         .then(force => force)
-
     }
-    
+
     // ...................... enty
     let enty = () => {}
     enty.force = force
     return enty
-    
   }
 
   exports.muonForces = muonForces
