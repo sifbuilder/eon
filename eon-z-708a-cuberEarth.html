@@ -58,20 +58,29 @@ async function zindex (__mapper) {
 
     let formCube = {
 
-      'x': {
-        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-      },
-      'y': {
-        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-      },
-      'z': {
-        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-        'ra2': 120 / Math.sqrt(2), 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-      },
+    'x': {
+      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+      'ra2': 90,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+      'dom3': [-180, 180],
+      
+
+    },
+    'y': {
+      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+      'ra2': 90,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+      'dom3': [-180, 180],
+      
+
+    },
+    'z': {
+      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
+      'ra2': 90,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+      'pr8': d => Math.cos(d),
+      'dom3': [-180, 180],
+      
 
     }
+  }
 
     let formGratiCube = {
 
@@ -154,14 +163,7 @@ async function zindex (__mapper) {
             dworldTopo110m.data().objects.land
           )
         )
-
-        let feature = {
-          type: 'Feature',
-          geometry: geometry,
-          properties: {},
-        }
-
-        return feature
+        return { type: 'Feature', geometry: geometry, properties: {}, }
       },
 
       payload: {
@@ -308,10 +310,10 @@ async function zindex (__mapper) {
 
     // ............................. animas
     let animas = [
-      <!-- earthAni, // h.ent g.natform g.uniwen -->
-      <!-- cubeAni, // h.ent g.uniwen -->
-      graticubeAni, // h.ent
-      graticircAni, // h.ent
+      earthAni, // h.ent g.natform g.uniwen
+      cubeAni, // h.ent g.uniwen
+      <!-- graticubeAni, // h.ent -->
+      <!-- graticircAni, // h.ent -->
       sceneAni, // h.scene      
     ]
 
