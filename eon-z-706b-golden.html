@@ -1,25 +1,35 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
 <body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
 <script>
 
 ;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
+  const origin = 'https://sifbuilder.github.io/eons/'
+
+  const viewframe = document.createElement('div')
+  viewframe.id = 'viewframe'
+  viewframe.className = 'viewframe'
+  document.getElementsByTagName('body')[0].appendChild(viewframe)
+
+  let __mapper = await fetch(`${origin}eon-x-mapper.js`)
+    .then(response => response.text())
+    .then(string => {
+      Function(string)()
+      return (Function('return this')().xMapper.xMapper())
+    })
+
+  let xD3Require = await fetch(`${origin}eon-x-d3-require.js`)
+    .then(response => response.text())
+    .then(string => {
+      Function(string)()
+      return (Function('return this')().xD3Require)
+    })
+
+  let xD3Rexsquire = await fetch(`${origin}eon-x-s.js`)
+    .then(response => response.text())
+    .then(string => {
+      Function(string)()
+      return (Function('return this')().xs)
+    })
+
   __mapper({'xD3Require': xD3Require}) // map require
   __mapper({'xs': xs.xs(__mapper)}) // map xs
 
@@ -51,12 +61,11 @@ async function zindex (__mapper) {
 
   let animas = function () {
   // .................. pics
+    let tim = {'td': 13800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos,
       sqrt2 = Math.sqrt(2)
-
-    let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let wireForm = {
       'x': {
@@ -86,7 +95,7 @@ async function zindex (__mapper) {
       projection: 'uniwen',
       prerotate: [[[ cwen.rotation ]]],
       translate: [0, 0, 0],
-      scale: 0.1,
+      scale: 1,
       rotate: [ 0, 0, 0],
       lens: [ 0, 1, Infinity ],
     }
@@ -142,31 +151,51 @@ async function zindex (__mapper) {
         tim: tim,
 
         ric: {gid: 'wire', cid: 'wire', fid: 'wireAni'},
-        boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.03, 'cp': 0.9 },
+        boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 1.3, 'co': 0.03, 'cp': 0.99 },
 
         fibonat: {
-          samples: [[[1, 50]]],
-          offsetstep: [[[0.1, 2]]],
+          samples: [[[1, 30]]],
+          offsetstep: [[[0.1, 1]]],
           xprecision: 1,
-          yprecision: [[[100, 0.1]]],
+          yprecision: [[[100, 0.01]]],
           goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
         },
 
-        proform: wireForm,
+        conform: { projection: 'natform', form: wireForm },
 
         proform: wireProform,
 
         graticule: wireFrame,
 
       },
-
     }
-    // .................. sceneForm
-    let sceneForm = {
+
+    let sphereAni = {
+
+      halo: 'ent',
+
+      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+
+      payload: {
+
+        tim: tim,
+        ric: {gid: 'wire', cid: 'wire', fid: 'sphereAni'},
+        boform: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': [[[0.3,0.01]]], 'co': [[[0.1,0.01]]], 'cp': 0.99 },
+
+        conform: { projection: 'natform', form: wireForm },
+
+        proform: wireProform,
+
+        graticule: wireFrame,
+
+      },
+    }
+    // .................. sceneAni
+    let sceneAni = {
 
       halo: 'scene',
       payload: {
-        tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+        tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
@@ -176,7 +205,8 @@ async function zindex (__mapper) {
     let animas = [
 
       wireAni, // h.ent
-      sceneForm, // h.scene
+      sceneAni, // h.scene
+      sphereAni, // h.ent
 
     ]
     return animas

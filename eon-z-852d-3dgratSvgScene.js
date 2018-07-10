@@ -140,8 +140,8 @@
           },
         },
       }
-      // .................. sceneForm
-      let sceneForm = {
+      // .................. sceneAni
+      let sceneAni = {
 
         halo: 'scene',
         payload: {
@@ -157,7 +157,7 @@
         g1, // h.ent g.natform
         g2, // h.ent g.natform
         g3, // h.ent g.natform
-        sceneForm, // h.scene
+        sceneAni, // h.scene
 
       ]
 
