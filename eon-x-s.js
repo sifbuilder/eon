@@ -84,7 +84,7 @@
 
     enty.ceonize = ceonize
     enty.boson = enty.b = (nome, pres = '') => getEon([nome, pres])
-    enty.control = enty.c = (nome, pres = 'control') => getEon([nome, pres])
+    enty.ctl = enty.c = (nome, pres = 'ctl') => getEon([nome, pres])
     enty.data = enty.d = (nome, pres = 'data') => getEon([nome, pres])
     enty.force = enty.f = (nome, pres = 'force') => getEon([nome, pres])
     enty.geo = enty.g = (nome, pres = 'geo') => getEon([nome, pres])

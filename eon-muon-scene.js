@@ -54,34 +54,34 @@
 
         __mapper('xs').c('key').start() // KEYBRD CONTROLS
 
-        if (__mapper('controlKey') !== undefined) {
+        if (__mapper('ctlKey') !== undefined) {
           let controltimerLeftArrowAlt = () => { // LEFT ARROW
             if (__mapper('muonAnimation').animationStop !== undefined) {
               console.log('controltimerLeftArrowAlt')
-              if (__mapper('controlTimer').started()) {
-                __mapper('controlTimer').stop()
+              if (__mapper('ctlTimer').started()) {
+                __mapper('ctlTimer').stop()
               } else {
-                __mapper('controlTimer').resume()
+                __mapper('ctlTimer').resume()
               }
             }
           }
-          __mapper('controlKey').subscribe(controltimerLeftArrowAlt, 'leftArrowAlt')
+          __mapper('ctlKey').subscribe(controltimerLeftArrowAlt, 'leftArrowAlt')
         }
 
-        if (__mapper('controlKey') !== undefined) {
+        if (__mapper('ctlKey') !== undefined) {
           let controltimerUpArrowAlt = () => { // UP ARROW
             console.log('controltimerUpArrowAlt')
-            __mapper('controlWen').control(__mapper('renderSvg').svg()) // SVG WEN
+            __mapper('ctlWen').control(__mapper('renderSvg').svg()) // SVG WEN
           }
-          __mapper('controlKey').subscribe(controltimerUpArrowAlt, 'upArrowAlt')
+          __mapper('ctlKey').subscribe(controltimerUpArrowAlt, 'upArrowAlt')
         }
 
         let controltimerRightArrowAlt = () => { // RIGHT ARROW
           if (__mapper('muonAnimation').animationStop !== undefined) {
-            if (__mapper('controlTimer').started()) {
-              __mapper('controlTimer').stop()
+            if (__mapper('ctlTimer').started()) {
+              __mapper('ctlTimer').stop()
             } else {
-              __mapper('controlTimer').resume()
+              __mapper('ctlTimer').resume()
             }
           }
         }

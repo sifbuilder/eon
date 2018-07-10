@@ -1,5 +1,5 @@
  
-# eon-control-wen 
+# eon-ctl-wen 
 ** ** 
 ref: http://codepen.io/bali_balo/pen/XbyrME?editors=1100) 
 ref: https://github.com/wenliang-developer 
