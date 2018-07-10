@@ -26,7 +26,7 @@
       __mapper('xs').m('stace'),
       __mapper('xs').m('proj3ct'),
       __mapper('xs').m('geom'),
-      __mapper('xs').g('uniwen'),
+      __mapper('xs').p('uniwen'),
 
     ])
 
@@ -62,7 +62,8 @@
           // let prj = __mapper(geoeon)
           // if (1 && 1) console.log('prj', prj)
 
-          let prj = await __mapper('xs').g(projdef.projection)
+          // let prj = await __mapper('xs').g(projdef.projection)
+          let prj = await __mapper('xs').p(projdef.projection)
           geoproj = prj(projdef) //
           // geoproj = __mapper(__mapper('xs').eonize(projdef.projection, 'd3.geo'))(projdef) //
           // geoproj = prj(projdef)
@@ -70,8 +71,8 @@
           geoproj = projdef.projections[ Math.round(projdef.projectidx || 0) ]
 
           if (mprops.isString(geoproj)) { // if name in array
-            geoproj = __mapper(geoproj, 'geo')(projdef) // get projection from name
-            geoproj = __mapper(geoproj, 'd3.geo')(projdef) // get projection from name
+            geoproj = __mapper(geoproj, 'prj')(projdef) // get projection from name
+            // geoproj = __mapper(geoproj, 'd3.geo')(projdef) // get projection from name
           } else {
             if (2 && 2) console.log('m.profier.formion_ index proj not name', projdef)
             geoproj = guniwen({})

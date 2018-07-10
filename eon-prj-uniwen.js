@@ -1,15 +1,15 @@
 /*******************************************
- *    @geoUniwen
+ *    @prjUniwen
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.geoUniwen = global.geoUniwen || {})))
+      : (factory((global.prjUniwen = global.prjUniwen || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function geoUniwen (__mapper = {}) {
+  async function prjUniwen (__mapper = {}) {
     let [
       mgeom,
       mwen,
@@ -159,5 +159,5 @@
     return enty
   }
 
-  exports.geoUniwen = geoUniwen
+  exports.prjUniwen = prjUniwen
 }))

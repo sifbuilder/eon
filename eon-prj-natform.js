@@ -1,15 +1,15 @@
 /*******************************************
- *    @geoNatform
+ *    @prjNatform
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.geoNatform = global.geoNatform || {})))
+      : (factory((global.prjNatform = global.prjNatform || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function geoNatform (__mapper = {}) {
+  async function prjNatform (__mapper = {}) {
     let [
       mnat,
       d3,
@@ -51,5 +51,5 @@
     return enty
   }
 
-  exports.geoNatform = geoNatform
+  exports.prjNatform = prjNatform
 }))

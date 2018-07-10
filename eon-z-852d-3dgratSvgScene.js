@@ -154,9 +154,9 @@
 
       // .................. animaset
       animas = [
-        g1, // h.ent g.natform
-        g2, // h.ent g.natform
-        g3, // h.ent g.natform
+        g1, // h.ent p.natform
+        g2, // h.ent p.natform
+        g3, // h.ent p.natform
         sceneAni, // h.scene
 
       ]

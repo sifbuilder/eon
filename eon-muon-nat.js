@@ -312,7 +312,7 @@
 
     /* **************************
      *        @radorm
-     *            g.natform
+     *            p.natform
      */
     function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
       let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)

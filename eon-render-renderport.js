@@ -27,8 +27,8 @@
 
     // ............................. cameraProjer
     const cameraProjer = function (p = prjdef) {
-      let geo = __mapper('geoUniwen')
-      return geo(p)
+      let prj = __mapper('prjUniwen')
+      return prj(p)
     }
 
     // ............................. xydirs

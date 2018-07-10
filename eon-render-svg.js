@@ -16,7 +16,7 @@
     ] = await Promise.all([
       __mapper('xs').r('renderport'),
       __mapper('xs').b('d3'),
-      __mapper('xs').g('uniwen'),
+      __mapper('xs').p('uniwen'),
     ])
 
     let width = 600,
