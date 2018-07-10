@@ -27,7 +27,7 @@
       return newAnigrams
     }
 
-    // .................. enty
+    // .................. halo
     let haloEon_ween = anima => ween(anima)
     let haloEon_gramm = anima => gramm(anima)
 
@@ -35,6 +35,7 @@
     haloEon.ween = anima => haloEon_ween(anima)
     haloEon.gramm = anima => haloEon_gramm(anima)
 
+    // .................. enty    
     let enty = haloEon
 
     return enty
