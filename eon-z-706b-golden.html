@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map xs
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas})
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  let [
+    mprops,
+    mgraticule,
+    cwen,
+    mfibonat,
+    d3,
+  ] = await Promise.all([
+    __mapper('xs').m('props'),
+    __mapper('xs').m('graticule'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').m('fibonat'),
+    __mapper('xs').b('d3'),
+  ])
+
+  let animas = function () {
+  // .................. pics
+
+    let radians = Math.PI / 180, degrees = 180 / Math.PI,
+      sin = Math.sin, cos = Math.cos,
+      sqrt2 = Math.sqrt(2)
+
+    let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    let wireForm = {
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => a * cos(r) * c * cos(u),
+      },
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => b * sin(r) * c * cos(u),
+      },
+      'z': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => d * sin(v),
+
+      },
+    }
+
+    let wireFrame = [ [ [ -180, 180, 90, 5], [ -180, 180, 30, 5] ] ]
+
+    let wireProform = {
+      projection: 'uniwen',
+      prerotate: [[[ cwen.rotation ]]],
+      translate: [0, 0, 0],
+      scale: 0.1,
+      rotate: [ 0, 0, 0],
+      lens: [ 0, 1, Infinity ],
+    }
+
+    // .................. fiboForm anima
+    let wireAni = {
+
+      halo: 'ent',
+
+      geofold: p => {
+        let payload = p.payload || {}
+
+        const samples = payload.fibonat.samples,
+          offsetstep = payload.fibonat.offsetstep,
+          xprecision = payload.fibonat.xprecision,
+          yprecision = payload.fibonat.yprecision,
+          goldenangle = payload.fibonat.goldenangle
+
+        const offset = offsetstep / samples
+
+        let dots = []
+        for (let i = 0; i < samples; i++) {
+          const z = ((i * offset) - 1) + (offset / 2)
+          const radius = Math.sqrt(1 - Math.pow(z, 2))
+          const phi = ((i + 1) % samples) * goldenangle
+          const lambda = Math.atan2(z, radius)
+          dots.push([phi * degrees, lambda * degrees, 1]) // proform, scale: 1
+        }
+
+        let lines = []
+        for (let i = 0; i < dots.length - 2; i++) { // -2
+          lines.push(
+
+            mprops.interlink(
+              [
+                mprops.arywinclosed(dots[i][0], dots[i + 1][0], xprecision),
+                mprops.arywinclosed(dots[i][1], dots[i + 1][1], yprecision),
+              ]
+            )
+          )
+        }
+        let gj = {
+          type: 'Feature',
+          geometry: {type: 'MultiLineString', coordinates: lines},
+          properties: {},
+        }
+
+        return gj
+      },
+
+      payload: {
+
+        tim: tim,
+
+        ric: {gid: 'wire', cid: 'wire', fid: 'wireAni'},
+        boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.03, 'cp': 0.9 },
+
+        fibonat: {
+          samples: [[[1, 50]]],
+          offsetstep: [[[0.1, 2]]],
+          xprecision: 1,
+          yprecision: [[[100, 0.1]]],
+          goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
+        },
+
+        proform: wireForm,
+
+        proform: wireProform,
+
+        graticule: wireFrame,
+
+      },
+
+    }
+    // .................. sceneForm
+    let sceneForm = {
+
+      halo: 'scene',
+      payload: {
+        tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    let animas = [
+
+      wireAni, // h.ent
+      sceneForm, // h.scene
+
+    ]
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>

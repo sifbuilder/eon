@@ -1,4 +1,4 @@
-# eon-muon-geoj 
+eon-muon-geoj 
 **process geojson streams** 
  
 ## references 

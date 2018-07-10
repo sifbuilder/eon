@@ -13,10 +13,12 @@
       mprops,
       mlacer,
       mgeom,
+      d3,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('lacer'),
       __mapper('xs').m('geom'),
+      __mapper('xs').b('d3'),
     ])
 
 
