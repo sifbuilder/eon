@@ -14,6 +14,8 @@
 703c [eon-z-703c-linestring](https://sifbuilder.github.io/eons/eon-z-703c-linestring.html)   
 703d [eon-z-703d-polygons](https://sifbuilder.github.io/eons/eon-z-703d-polygons.html)   
 703e [eon-z-703e-cube](https://sifbuilder.github.io/eons/eon-z-703e-cube.html)   
+703f [eon-z-703f-fetchcube](https://sifbuilder.github.io/eons/eon-z-703f-fetchcube.html)   
+703g [eon-z-703g-halocube](https://sifbuilder.github.io/eons/eon-z-703g-halocube.html)   
 752d [eon-z-752d-3dgratSvgScene](https://sifbuilder.github.io/eons/eon-z-752d-3dgratSvgScene.html)   
 752g [eon-z-752g-3formfaces](https://sifbuilder.github.io/eons/eon-z-752g-3formfaces.html)   
 **[852d](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.md)** [eon-z-852d-3dgratSvgScene](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.html)   
