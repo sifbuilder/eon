@@ -22,6 +22,7 @@
 705e - [eon-z-705e-waveform](https://sifbuilder.github.io/eons/eon-z-705e-waveform.html)   
 706a - [eon-z-706a-fibonat](https://sifbuilder.github.io/eons/eon-z-706a-fibonat.html)   
 706b - [eon-z-706b-golden](https://sifbuilder.github.io/eons/eon-z-706b-golden.html)   
+706c - [eon-z-706c-fibonat](https://sifbuilder.github.io/eons/eon-z-706c-fibonat.html)   
 752d - [eon-z-752d-3dgratSvgScene](https://sifbuilder.github.io/eons/eon-z-752d-3dgratSvgScene.html)   
 752g - [eon-z-752g-3formfaces](https://sifbuilder.github.io/eons/eon-z-752g-3formfaces.html)   
 **[852d](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.md)** - [eon-z-852d-3dgratSvgScene](https://sifbuilder.github.io/eons/eon-z-852d-3dgratSvgScene.html)   
