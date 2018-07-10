@@ -11,38 +11,36 @@
 <script>
 
 ;(async function eon () {
+  const origin = 'https://sifbuilder.github.io/eons/'
 
-  const origin = "https://sifbuilder.github.io/eons/"
-  
   <!-- const body = document.createElement('body') -->
   <!-- document.appendChild(body) -->
-  
+
   const viewframe = document.createElement('div')
   viewframe.id = 'viewframe'
   viewframe.className = 'viewframe'
   document.getElementsByTagName('body')[0].appendChild(viewframe)
 
   let __mapper = await fetch(`${origin}eon-x-mapper.js`)
-      .then(response => response.text())
-      .then(string => {
-        Function( string ) ()
-        return (Function('return this')().xMapper.xMapper())
-      })
+    .then(response => response.text())
+    .then(string => {
+      Function(string)()
+      return (Function('return this')().xMapper.xMapper())
+    })
 
   let xD3Require = await fetch(`${origin}eon-x-d3-require.js`)
-      .then(response => response.text())
-      .then(string => {
-        Function( string ) ()
-        return (Function('return this')().xD3Require)
-      })
-  
+    .then(response => response.text())
+    .then(string => {
+      Function(string)()
+      return (Function('return this')().xD3Require)
+    })
+
   let xD3Rexsquire = await fetch(`${origin}eon-x-s.js`)
-      .then(response => response.text())
-      .then(string => {
-        Function( string ) ()
-        return (Function('return this')().xs)
-      })
-  
+    .then(response => response.text())
+    .then(string => {
+      Function(string)()
+      return (Function('return this')().xs)
+    })
 
   await __mapper({'xD3Require': xD3Require}) // z.require
   await __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy
@@ -73,15 +71,13 @@ async function zindex (__mapper) {
     // .................. pics
     let tim = {'td': 9200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  
     // .................. wenPolygon anima
     let wenPolygon = {
 
       halo: 'ent',
 
       geofold: (p) => {
-
-          let  points = [
+        let points = [
             [-1, -1, 1], // 0
             [ 1, -1, 1], // 1
             [ 1, 1, 1], // 2
@@ -90,8 +86,8 @@ async function zindex (__mapper) {
             [-1, -1, -0], // 5
             [ 1, -1, -0], // 4
             [ 1, 1, -0], // 7
-            [-1, 1, -0] // 6
-             ],
+            [-1, 1, -0], // 6
+          ],
           faces = [
             {
               pointsx: [0, 1, 2, 3, 0],
@@ -116,27 +112,27 @@ async function zindex (__mapper) {
             {
               pointsx: [4, 5, 1, 0, 4],
               name: 'top',
-              boform: { cf: 777, cs: 855, co: [[[0.9, 0.9, 0.9, 0.9]]], cp: 1 }}
+              boform: { cf: 777, cs: 855, co: [[[0.9, 0.9, 0.9, 0.9]]], cp: 1 }},
 
           ]
-          
-          let jsonFaces = {type: 'FeatureCollection', features: []}
 
-          for (let i = 0, l = faces.length; i < l; i++) {
-            let face = faces[i] // face pointsx position
-            let geometry = {type: 'Polygon', coordinates: []}
+        let jsonFaces = {type: 'FeatureCollection', features: []}
 
-            geometry.coordinates = Array.of(face.pointsx.map(k => points[k])) // eg [-1, 1, 1]
+        for (let i = 0, l = faces.length; i < l; i++) {
+          let face = faces[i] // face pointsx position
+          let geometry = {type: 'Polygon', coordinates: []}
 
-            let feature = {type: 'Feature', geometry: {}, properties: {}}
-            feature.properties.sort = 'feature'
-            feature.geometry = geometry
-            jsonFaces.features.push(feature)
-          }
+          geometry.coordinates = Array.of(face.pointsx.map(k => points[k])) // eg [-1, 1, 1]
 
-          let gj = {type: 'FeatureCollection', features: []}
-          gj.features = [...jsonFaces.features] // merge features
-    
+          let feature = {type: 'Feature', geometry: {}, properties: {}}
+          feature.properties.sort = 'feature'
+          feature.geometry = geometry
+          jsonFaces.features.push(feature)
+        }
+
+        let gj = {type: 'FeatureCollection', features: []}
+        gj.features = [...jsonFaces.features] // merge features
+
         return gj
       },
       payload: {
