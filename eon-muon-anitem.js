@@ -142,26 +142,16 @@
       properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null},
     })
 
-    // ............................. _anigram
-    const _anigram = (ani, t) => {		// anigam
-      if (ani !== undefined) { // if give anima
-        if (t !== undefined) { // if given time
-          ani = msnap(ani, t) // anima snap  to anigram
-        }
-        setAnitem(ani) // build anitem
-      }
-      return state.anitem // give anitem back
-    }
 
-    // ............................. enty
-    let enty = function (anima, t) {
-      let anigram = {}
-      if (anima !== undefined) {
+    // ............................. functorize
+    let functorize = function (ani, t) {
+      let anigram = ani
+      if (ani !== undefined) {
         if (t !== undefined) {
-          anigram = msnap.snap(anima, t)
-        } else if (anima.payload.tim && anima.payload.tim.unitTime !== undefined) {
-          let t = anima.payload.tim.unitTime
-          anigram = msnap.snap(anima, t)
+          anigram = msnap.snap(ani, t)
+        } else if (ani.payload.tim && ani.payload.tim.unitTime !== undefined) {
+          let t = ani.payload.tim.unitTime
+          anigram = msnap.snap(ani, t)
         }
         if (anigram.payload === undefined) anigram.payload = {}
 
@@ -169,12 +159,13 @@
         anigram.payload.conform = functor(anigram.payload.conform, anigram)		// conform
         anigram.payload.proform = functor(anigram.payload.proform, anigram)		// proform
 
-        setAnitem(anigram)
       }
-      return enty
+      return anigram
     }
 
-    enty.anigram = _anigram
+    let enty = () => {}
+    enty.functorize = functorize
+
 
     return enty
   }

@@ -25,9 +25,8 @@
       },
     })
 
-    let gramm = function gramm (anima, newAnigrams = []) {
-      let anigram = manitem(anima).anigram(),
-			  halo = 				anigram.halo, // halo
+    let gramm = function gramm (anigram, newAnigrams = []) {
+      let halo = 				anigram.halo, // halo
         payload = 		anigram.payload // payload
 
       let geofold = _geofold(anigram) // geofold

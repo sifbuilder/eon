@@ -46,7 +46,7 @@
 
     let state = {
 
-      // projection: null, // __mapper('xs').g('uniwen'), // _e_tbd
+      // projection: null, // __mapper('xs').p('uniwen'), // _e_tbd
       projection: () => d3.geoOrthographic()
         .rotate([0, 0])
         .translate([0, 0])

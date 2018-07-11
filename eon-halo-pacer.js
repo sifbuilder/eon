@@ -82,9 +82,8 @@
     let haloPacerHalo_ween = anima => []
 
     // ............................. gramm
-    let haloPacerHalo_gramm = function (anima, newItems = []) {
-      let anigram = manitem(anima).anigram(), // anigram
-        halo = anigram.halo, // halo
+    let haloPacerHalo_gramm = function (anigram, newItems = []) {
+      let halo = anigram.halo, // halo
         payload = anigram.payload, // payload
         boform = payload.boform, // boform
         ric = payload.ric, // ric

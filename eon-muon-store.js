@@ -80,22 +80,19 @@
     }
 
     // .................. ween
-    async function ween (anima, newItems = []) {
-      let anigram = manitem.anigram(anima)
-      let haloRef = await __mapper('xs').h(anigram.halo)
-
-      let newAnimas = __mapper(haloRef).ween(anigram) // ANIMA HALO.GRAMM
-
-      if (newAnimas !== null && newAnimas.length > 0) {
-        _apply({'type': 'UPDANIMA', 'animas': newAnimas})
-        newItems = newItems.concat(mprops.a(newAnimas))
-      }
-      return newItems
+     function ween (anitem, newItems = []) {
+      // return Promise.resolve(manitem.functorize(anitem).anigram())
+      return Promise.resolve(manitem.functorize(anitem))
+        .then(anigram => __mapper('xs').h(anigram.halo)
+          .then(halo => halo.gramm(anigram))
+          .then(newAnigrams => _apply({type: 'UPDANIMA', anigrams: newAnigrams})))
+          
     }
 
     // .................. gramm
-    function gramm (anima, newItems = []) {
-      return Promise.resolve(manitem(anima).anigram())
+    function gramm (anitem, newItems = []) {
+      // return Promise.resolve(manitem.functorize(anitem).anigram())
+      return Promise.resolve(manitem.functorize(anitem))
         .then(anigram => __mapper('xs').h(anigram.halo)
           .then(halo => halo.gramm(anigram))
           .then(newAnigrams => _apply({type: 'UPDANIGRAM', anigrams: newAnigrams})))

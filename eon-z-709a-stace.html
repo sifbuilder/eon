@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  // .................. eons
+  let [
+    mnat,
+  ] = await Promise.all([
+    __mapper('xs').m('nat'),
+  ])
+
+  // .................. animas
+  let animas = function () {
+    // .................. pics
+    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    let formNat = {
+
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+
+      },
+
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+
+      },
+
+    }
+
+    let stace = {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
+      'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+
+    }
+
+    let proform = {
+      projection: 'uniwen',
+      translate: [ [0, 0, 0], [[[ stace ]]] ],
+      scale: 1,
+      rotate: [ 0, 0, [[[0, 0]]] ],
+      lens: [0, 1, 12],
+    }
+
+    // .................. natAni anima
+    let natAni = {
+
+      halo: 'ent',
+
+      geofold: p => mnat.natFeature(p.payload.form),
+
+      payload: {
+        tim: tim,
+        ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
+
+        proform: proform,
+
+        geonode: {
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+        },
+
+        boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+        form: formNat,
+
+      },
+
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+      natAni, // h.ent
+      sceneAni, // h.context
+    ]
+
+    return animas
+  }
+  // .................. enty
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>

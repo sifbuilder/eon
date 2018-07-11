@@ -100,7 +100,7 @@
                                       g === 1) { // assume nat on object
         let ws
 
-        let feature = mnat.natFeature(v)
+        let feature = mnat.natFeature(v)  // async
         if (!mgeoj.isValid(feature)) {
           console.error('gj not valid', v, feature)
         }
