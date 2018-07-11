@@ -80,16 +80,17 @@
     }
 
     // .................. ween
-     function ween (anitem, newItems = []) {
+    async function ween (anitem) {
+      
       return Promise.resolve(manitem.functorize(anitem))
         .then(anigram => __mapper('xs').h(anigram.halo)
-          .then(halo => halo.gramm(anigram))
+          .then(halo => halo.ween(anigram))
           .then(newAnigrams => _apply({type: 'UPDANIMA', anigrams: newAnigrams})))
-          
+      
     }
 
     // .................. gramm
-    function gramm (anitem, newItems = []) {
+    function gramm (anitem) {
       return Promise.resolve(manitem.functorize(anitem))
         .then(anigram => __mapper('xs').h(anigram.halo)
           .then(halo => halo.gramm(anigram))
@@ -103,10 +104,52 @@
     enty.gramm = gramm
     enty.ween = ween
 
-    enty.findFromUid = (uid, list) => list.findIndex(d => d.payload.uid === uid) // mstore
-    enty.anigrams = () => state.anigrams // manimation
-    enty.animasLive = () => state.animas.filter(d => d.delled !== 1 && d.delled !== true) // manimation
-    enty.getNid = () => state.animas.length + 1 // mstore
+    enty.animasInGroupHowMany = anima =>
+      (anima === undefined)
+        ? 0
+        : enty.animasLive()
+          .filter(d => d.payload.ric.gid === anima.payload.ric.gid).length
+
+    enty.animasInClassHowMany = anima =>
+      (anima === undefined)
+        ? 0
+        : enty.animasLive()
+          .filter(d => (d.payload.ric.gid === anima.payload.ric.gid &&
+                    d.payload.ric.cid === anima.payload.ric.cid)).length
+
+    enty.findIndexFromRic = (ric, list) =>
+      list.findIndex(d =>
+        d.payload.ric.gid === ric.gid &&
+                d.payload.ric.cid === ric.cid &&
+                d.payload.ric.fid === ric.fid
+      )
+
+    enty.findIndex = (item, list) =>
+      enty.findIndexFromRic(item.ric, list)
+
+    enty.findByUid = (item, list) => enty.findFromUid(mric.getuid(item), list)
+    enty.findFromUid = (uid, list) => list.findIndex(d => d.payload.uid === uid)
+
+    enty.findIndexAnigramFromUid = uid => enty.anigrams().findIndex(d => d.payload.uid === uid)
+    enty.findAnigramFromUid = uid => state.anigrams.find(d => d.payload.uid === uid)
+    enty.findAnimaFromUid = uid => state.animas.find(d => d.payload.uid === uid)
+
+    enty.born = d => d.payload.tim !== undefined && d.payload.tim.unitElapsed !== undefined && d.payload.tim.unitElapsed > epsilon
+    enty.unborn = d => d.payload.tim === undefined && d.payload.tim.elapsed === undefined && d.payload.tim.unitElapsed === undefined && d.payload.tim.unitElapsed < epsilon
+    enty.getAnimaByUID = uid => state.animas.find(d => d.payload.uid === uid)
+
+    enty.animas = () => state.animas
+    enty.anigrams = () => state.anigrams
+    enty.animasAll = () => state.animas // animas including delled
+    enty.animasLive = () => state.animas.filter(d => d.delled !== 1 && d.delled !== true)
+    enty.token = () => state.animas.length + 1
+    enty.getNid = () => state.animas.length + 1
+
+    enty.getAnigramIdx = ric => enty.findIndexFromRic(ric, state.anigrams)
+    enty.getAnigram = ric => state.anigrams[enty.getAnigramIdx(ric)] || null
+
+    enty.getAnimaIdx = ric => enty.findIndexFromRic(ric, state.animas)
+    enty.getAnima = ric => state.animas[enty.getAnimaIdx(ric)] || null
 
     return enty
   }

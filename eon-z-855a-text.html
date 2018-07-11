@@ -37,9 +37,11 @@
 async function zindex (__mapper) {
   // .................. eons
   let [
-    rrenderport,
+    mprops,
+    cwen,
   ] = await Promise.all([
-    __mapper('xs').r('renderport'),
+    __mapper('xs').m('props'),
+    __mapper('xs').c('wen'),
   ])
 
   // .................. animas
@@ -93,7 +95,7 @@ async function zindex (__mapper) {
     let animas = [
 
       textAnima, // h.text
-      sceneAni, // h.context
+      sceneAni, // h.scene
 
     ]
 
