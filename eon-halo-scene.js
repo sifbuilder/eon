@@ -35,7 +35,7 @@
     haloEon.ween = anima => haloEon_ween(anima)
     haloEon.gramm = anima => haloEon_gramm(anima)
 
-    // .................. enty    
+    // .................. enty
     let enty = haloEon
 
     return enty

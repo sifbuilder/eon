@@ -38,7 +38,7 @@
       .attr('height', state.height)
       .style('top', 0)
       .style('left', 0)
-      .style('background-color', state.background) // background      
+      .style('background-color', state.background) // background
 
     let svgElem = svglayer.append('rect')
       .attr('id', 'svg')

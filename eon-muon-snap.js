@@ -100,25 +100,24 @@
                                       g === 1) { // assume nat on object
         let ws
 
-        let feature = mnat.natFeature(v)  // async
-        
-          if (!mgeoj.isValid(feature)) console.error('gj not valid', v, feature)
-          let geometry = feature.geometry
-              let natRing
-              if (geometry.type === 'LineString') {
-                natRing = geometry.coordinates
-              } else if (geometry.type === 'MultiLineString') {
-                natRing = geometry.coordinates[0] // first line
-              } else if (geometry.type === 'Polygon') {
-                natRing = geometry.coordinates[0] // outer ring
-              } else if (geometry.type === 'MultiPolygon') {
-                natRing = geometry.coordinates[0][0] // outer ring of first polygon
-              } else {
-                console.error('g type not supported')
-              }
-              ws = snap(natRing, t, 1) // (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
-          return ws
-          
+        let feature = mnat.natFeature(v) // async
+
+        if (!mgeoj.isValid(feature)) console.error('gj not valid', v, feature)
+        let geometry = feature.geometry
+        let natRing
+        if (geometry.type === 'LineString') {
+          natRing = geometry.coordinates
+        } else if (geometry.type === 'MultiLineString') {
+          natRing = geometry.coordinates[0] // first line
+        } else if (geometry.type === 'Polygon') {
+          natRing = geometry.coordinates[0] // outer ring
+        } else if (geometry.type === 'MultiPolygon') {
+          natRing = geometry.coordinates[0][0] // outer ring of first polygon
+        } else {
+          console.error('g type not supported')
+        }
+        ws = snap(natRing, t, 1) // (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
+        return ws
       } else if (mprops.isArray(v) && // 11_____ [v]*
           mprops.isPureArray(v) &&
           v.length === 1 &&

@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonFibonat(__mapper = {}) {
+  async function muonFibonat (__mapper = {}) {
     let [
       mprops,
       mlacer,
@@ -20,7 +20,6 @@
       __mapper('xs').m('geom'),
       __mapper('xs').b('d3'),
     ])
-
 
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos
@@ -119,7 +118,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'LineString', coordinates: dots},
-        properties: {}
+        properties: {},
       }
 
       return gj
@@ -155,7 +154,7 @@
           mprops.interlink(
             [
               mprops.arywinclosed(dots[i][0], dots[i + 1][0], xprecision),
-              mprops.arywinclosed(dots[i][1], dots[i + 1][1], yprecision)
+              mprops.arywinclosed(dots[i][1], dots[i + 1][1], yprecision),
             ]
           )
         )
@@ -164,7 +163,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: lines},
-        properties: {}
+        properties: {},
       }
 
       return gj

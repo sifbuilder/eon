@@ -80,13 +80,11 @@
     }
 
     // .................. ween
-    async function ween (anitem) {
-      
+    function ween (anitem) {
       return Promise.resolve(manitem.functorize(anitem))
         .then(anigram => __mapper('xs').h(anigram.halo)
           .then(halo => halo.ween(anigram))
           .then(newAnigrams => _apply({type: 'UPDANIMA', anigrams: newAnigrams})))
-      
     }
 
     // .................. gramm
