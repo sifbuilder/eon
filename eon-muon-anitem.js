@@ -25,14 +25,10 @@
     let functorize = function (ani, t) {
       let anigram = ani
       if (ani !== undefined) {
-        if (t !== undefined) {
-          anigram = msnap.snap(ani, t)
-        } else if (ani.payload.tim && ani.payload.tim.unitTime !== undefined) {
-          let t = ani.payload.tim.unitTime
-          anigram = msnap.snap(ani, t)
-        }
+        t = t || ani.payload.tim.unitTime
+        anigram = msnap.snap(ani, t)
+        
         if (anigram.payload === undefined) anigram.payload = {}
-
         anigram.geofold = functor((anigram.geofold), anigram)	// geofold
         anigram.payload.conform = functor(anigram.payload.conform, anigram)		// conform
         anigram.payload.proform = functor(anigram.payload.proform, anigram)		// proform

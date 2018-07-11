@@ -596,7 +596,8 @@
           valid = true
         } else {
           valid = false
-          throw new Error('gj type not identified.', gj)
+          console.error('gj type not identified', gj)
+          // throw new Error('gj type not identified.', gj)
         }
       }
 
