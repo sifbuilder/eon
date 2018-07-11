@@ -19,55 +19,7 @@
       __mapper('xs').m('snap'),
     ])
 
-    let state = {}
-    state.anitem = {}
-
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
-
-    // ............................. setAnitem
-    let setAnitem = function (d = {}) {
-      let a = state.anitem = {}
-
-      let c = {
-
-        halo: d.halo, // halo
-
-        geofold: d.geofold, // geofold
-
-        payload: d.payload, // payload
-
-        avatars: d.avatars, // avatars
-
-      }
-
-      a = Object.assign(a, c)
-      return a
-    }
-
-    // ............................. node
-    let node = function () {
-      if (state.anitem.payload === undefined) state.anitem.payload = {}
-
-      let node = {
-        x: state.anitem.payload.x,
-        y: state.anitem.payload.y,
-        z: state.anitem.payload.z,
-        _x: state.anitem.payload._x, // past
-        _y: state.anitem.payload._y, // past
-        _z: state.anitem.payload._z, // past
-        vx: state.anitem.payload.vx,
-        vy: state.anitem.payload.vy,
-        vz: state.anitem.payload.vz,
-        fx: state.anitem.payload.fx,
-        fy: state.anitem.payload.fy,
-        fz: state.anitem.payload.fz,
-        dx: state.anitem.payload.dx,
-        dy: state.anitem.payload.dy,
-        dz: state.anitem.payload.dz,
-      }
-
-      return node
-    }
 
     // ............................. nodeProformedSitus
     let nodeProformedSitus = function (ani) {
