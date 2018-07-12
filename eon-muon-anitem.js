@@ -32,21 +32,19 @@
         anigram.geofold = functor((anigram.geofold), anigram)	// geofold
         anigram.payload.conform = functor(anigram.payload.conform, anigram)	// conform
         anigram.payload.proform = functor(anigram.payload.proform, anigram)	// proform
-
       }
-      
+
       return {
 
-        halo:    anigram.halo, // halo
+        halo: anigram.halo, // halo
         geofold: anigram.geofold, // geofold
         payload: anigram.payload, // payload
         avatars: anigram.avatars, // avatars
 
       }
-      
     }
 
-    // ............................. enty    
+    // ............................. enty
     let enty = () => {}
     enty.functorize = functorize
     return enty

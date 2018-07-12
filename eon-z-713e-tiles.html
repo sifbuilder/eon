@@ -21,7 +21,7 @@
 ;(async function eon () {
   let __mapper = xMapper.xMapper() // init mapper
   __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map xs
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
 
   let muonStore = await __mapper('xs').m('store') // map store
   let muonAnimation = await __mapper('xs').m('animation') // map animation
@@ -29,93 +29,90 @@
   let xanimas = await zindex(__mapper)
   let animas = xanimas.animas() // get animas
 
-  __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas})
+  __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}) // upd animas
   muonAnimation.animate() // animate
 })()
 
 // .................. zindex
 async function zindex (__mapper) {
+  // .................. eons
   let [
-    mgraticule,
+    mnat,
+    mprops,
     cwen,
+    mgraticule,
   ] = await Promise.all([
-    __mapper('xs').m('graticule'),
+    __mapper('xs').m('nat'),
+    __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
+    __mapper('xs').m('graticule'),
   ])
 
+  // .................. animas
   let animas = function () {
-  // .................. pics
-    let sin = Math.sin, cos = Math.cos
+    // .................. pics
+    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let radians = Math.PI / 180, degrees = 180 / Math.PI,
+      sin = Math.sin, cos = Math.cos
 
-    let formNat = {
+    let conform = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => a * cos(r) * c * cos(u),
-      // 'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => a * cos(r)
 
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(r) * c * cos(u)
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => b * sin(r),
+        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => b * sin(r) * c * cos(u),
       },
       'z': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => u,
-
-      },
-      'r': {
-      // 'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        // 'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
-        'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
-        'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => c,
+        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => d * sin(v),
 
       },
     }
 
-    let frame = [ [ [ -180, 180, 90, 5], [ -180, 180, 30, 5] ] ]
+    // let frame = [ [ [ -180, 180, 90, 5], [ -180, 180, 30, 5] ] ]
+    let frame = [ [ [ -180, 180, 90, 90], [ -90, 90, 70, 70] ] ]
 
     let proform = {
       projection: 'uniwen',
       prerotate: [[[ cwen.rotation ]]],
       translate: [0, 0, 0],
-      scale: 0.5,
-      rotate: [ 0, 0, 0],
+      scale: 1,
+      rotate: [ 90, 0, 0],
       lens: [ 0, 1, Infinity ],
     }
 
-    // .................. gratiForm anima
-    let gratiForm = {
+    // .................. natAni
+    let natAni = {
 
-      halo: 'ent',
+      halo: 'tiles',
 
       geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
       payload: {
 
         tim,
-        ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratiForm'},
-        boform: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': 0.01, 'cp': 0.9 },
+        ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
+        boform: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
 
-        conform: { projection: 'natform', form: formNat },
+        conform: conform,
 
         proform: proform,
 
         graticule: frame,
 
       },
-
     }
+
     // .................. sceneAni
     let sceneAni = {
 
@@ -131,7 +128,7 @@ async function zindex (__mapper) {
     // .................. animas
     let animas = [
 
-      gratiForm, // h.ent
+      natAni, // h.ent g.uniwen
       sceneAni, // h.scene
     ]
 

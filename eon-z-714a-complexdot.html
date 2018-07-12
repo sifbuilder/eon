@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  // .................. eons
+  let [
+    mnat,
+    mprops,
+    cwen,
+    mgraticule,
+    lcomplex,
+  ] = await Promise.all([
+    __mapper('xs').m('nat'),
+    __mapper('xs').m('props'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').l('complex'),
+  ])
+
+  let Complex = __mapper('libComplex')
+  
+  // .................. animas
+  let animas = function () {
+    // .................. pics
+    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    let radians = Math.PI / 180, degrees = 180 / Math.PI,
+      sin = Math.sin, cos = Math.cos
+
+    let proform = {
+      projection: 'uniwen',
+      prerotate: [[[ cwen.rotation ]]],
+      translate: [0, 0, 0],
+      scale: 1,
+      rotate: [ 0, [[[0,360]]] , 0 ],
+      lens: [ 0, 1, Infinity ],
+    }
+
+    // .................. natAni
+    let natAni = {
+
+      halo: 'ent',
+
+      geofold: d => ({
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: Complex({re:0,im:0})
+          .add(
+            d.payload.zenform[0] * Math.cos(d.payload.zenform[1]),
+            d.payload.zenform[0] * Math.sin(d.payload.zenform[1])
+          )
+          .toVector()
+      },
+      properties: {
+         pointRadius: 6,
+         geonode: {
+          type: 'Feature',
+          geometry: { 
+            type: 'Point', 
+            coordinates: [0, 0] 
+          },
+          properties: {
+            orgen: [0, 0], 
+            velin: [0, 0], 
+            velang: [0, 0], 
+            prevous: [0, 0], 
+            geodelta: [0, 0]
+          }
+        },
+      }
+    }),
+
+
+      payload: {
+
+        tim,
+        ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
+        boform: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
+
+        zenform: [ [[[0,100]]], [[[0,Math.PI]]] ],
+
+        proform: proform,
+
+
+      },
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+
+      natAni, // h.ent g.uniwen
+      sceneAni, // h.scene
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>

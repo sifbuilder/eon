@@ -30,11 +30,7 @@
     const a = d => Array.isArray(d) ? d : Array.of(d)
 
     // ............................. getCeonSync
-    function getCeonSync (part) {
-      let ceon = part[0]
-      let r = __mapper(ceon)
-      return r
-    }
+    const getCeonSync = (part) => __mapper(part[0])
 
     // ............................. getCeon
     async function getCeon (part) {
@@ -89,6 +85,7 @@
     enty.force = enty.f = (nome, pres = 'force') => getEon([nome, pres])
     enty.geo = enty.g = (nome, pres = 'd3.geo') => getEon([nome, pres])
     enty.halo = enty.h = (nome, pres = 'halo') => getEon([nome, pres])
+    enty.lib = enty.l = (nome, pres = 'lib') => getEon([nome, pres])
     enty.muon = enty.m = (nome, pres = 'muon') => getEon([nome, pres])
     enty.prj = enty.p = (nome, pres = 'prj') => getEon([nome, pres])
     enty.render = enty.r = (nome, pres = 'render') => getEon([nome, pres])

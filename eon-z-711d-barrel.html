@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  // .................. eons
+  let [
+    mnat,
+    mprops,
+    cwen,
+  ] = await Promise.all([
+    __mapper('xs').m('nat'),
+    __mapper('xs').m('props'),
+    __mapper('xs').c('wen'),
+  ])
+
+  // .................. animas
+  let animas = function () {
+    // .................. pics
+    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    let radians = Math.PI / 180, degrees = 180 / Math.PI,
+      sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
+
+    let fact = n => n - 1 > 0 ? n * fact(n - 1) : n
+    let fact1 = 1,
+      fact2 = 2,
+      fact3 = 6,
+      fact4 = 24,
+      fact5 = 120,
+      fact6 = 720,
+      fact7 = 5040,
+      fact8 = 40320,
+      fact9 = 362880
+    let infact1 = 1 / fact1,
+      infact2 = 1 / fact2,
+      infact3 = 1 / fact3,
+      infact4 = 1 / fact4,
+      infact5 = 1 / fact5,
+      infact6 = 1 / fact6,
+      infact7 = 1 / fact7,
+      infact8 = 1 / fact8,
+      infact9 = 1 / fact9
+
+    let sinp = [1, 0, -infact2, 0, +infact4, 0, -infact6, 0, infact8]
+    let cosp = [0, +1, 0, -infact3, 0, +infact5, 0, -infact7, 0, infact9]
+
+    let conform = {
+
+      'x': {
+        'm1': [[[-8, -4, -2, -7.66]]],
+        'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
+        'n1': [[[16.24, 16.24, 16.24, 16.24]]],
+        'n2': [[[6, 6, 6, 5.98]]],
+        'n3': [[[13, 15, 17, 17]]],
+        'a': [[[9, 9, 9, 8.98]]],
+        'b': [[[0.2, 0.2, 0.2, 0.19]]],
+
+        'm1': 6, 'm2': 6, 'n1': 60, 'n2': 100, 'n3': 30, 'a': 1, 'b': 1,
+
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180], // r.form.circ [-1.57, 1.57]
+
+        // form
+        c1: [1, 1], e1: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // a * cos(q)
+      // c4:[1, 0], e4:[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],  // 1 * id(v)
+
+      },
+
+      'y': {
+        'm1': [[[-8, -4, -2, -7.66]]],
+        'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
+        'n1': [[[16.24, 16.24, 16.24, 16.24]]],
+        'n2': [[[6, 6, 6, 5.98]]],
+        'n3': [[[13, 15, 17, 17]]],
+        'a': [[[9, 9, 9, 8.98]]],
+        'b': [[[0.2, 0.2, 0.2, 0.19]]],
+
+        'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1,
+
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+
+        // form
+        c1: [1, 0], e1: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(q)
+        c4: [1, 0], e4: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(v)
+
+      },
+
+      'z': {
+        'm1': [[[-8, -4, -2, -7.66]]],
+        'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
+        'n1': [[[16.24, 16.24, 16.24, 16.24]]],
+        'n2': [[[6, 6, 6, 5.98]]],
+        'n3': [[[13, 15, 17, 17]]],
+        'a': [[[9, 9, 9, 8.98]]],
+        'b': [[[0.2, 0.2, 0.2, 0.19]]],
+
+        'm1': 2, 'm2': 2, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1,
+
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
+
+        'dom3': [-180, 180],
+
+        // form
+        c1: [1, 0], e1: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(q)
+        c4: [1, 0], e4: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(v)
+
+      },
+
+      'r': {
+        'm1': [[[-8, -4, -2, -7.66]]],
+        'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
+        'n1': [[[16.24, 16.24, 16.24, 16.24]]],
+        'n2': [[[6, 6, 6, 5.98]]],
+        'n3': [[[13, 15, 17, 17]]],
+        'a': [[[9, 9, 9, 8.98]]],
+        'b': [[[0.2, 0.2, 0.2, 0.19]]],
+
+        'm1': 6, 'm2': 6, 'n1': 60, 'n2': 100, 'n3': 30, 'a': 1, 'b': 1,
+
+        // 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
+
+        'dom3': [-180, 180],
+
+        // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => c * cos(u),
+        // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => d,
+        'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => v,
+      },
+
+    }
+
+    let proform = {
+
+      projection: 'uniwen',
+      // scale: [1, 1],
+      scale: [0.5, 0.5],
+      scale: [ [[[0.2, 1]]], [[[0.2, 1]]] ],
+
+      // projection:  d3.geoOrthographic(),
+      // scale: 100,
+
+      prerotate: [[[ cwen.rotation ]]],
+      translate: [ [0, 0, 0] ],
+      rotate: [ [[[90 + 0, 90 + 0, 90 + 1 * 360, 90 + 1 * 360]]], 0, 0 ],
+      // rotate: [ 0, 0, 0 ],
+      lens: [0, 1, Infinity],
+    }
+
+    // .................. natAni
+    let natAni = {
+
+      halo: 'nat',
+
+      geofold: p => mnat.natFeature(p.payload.form),
+      payload: {
+        tim,
+
+        ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+
+        proform: proform,
+
+        boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
+
+        form: conform,
+
+      },
+
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+
+      natAni, // h.ent g.uniwen
+      sceneAni, // h.scene
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>

@@ -189,32 +189,44 @@
       return json => mproj3ct.project(json, formion_(prodef))
     }
 
+    // ............................. conformion_
     async function conformion_ (anigram) {
+      return Promise.resolve(anigram)
+        .then(anigram => {
+          if (Array.isArray(anigram)) {
+if (1 && 1) console.log('m.profier.conformion_ newItem array')            
+            anigram = anigram[0]
+          }
+
+
       let res = null
       let prj = anigram.payload.conform
       if (prj) {
+        if (typeof prj === 'object' && prj.projection === undefined) {
+          prj = {projection: 'natform', form: prj }
+        }
         return formion_(prj, anigram)
       } else {
         return res
       }
+
+      
+      })
+
     }
+
     const conformer = anitem => json => mproj3ct.project(json, conformion_(anitem))
 
-    // ............................. proformion_
-    function proformion_ (anigram) {
-      let res = null
-      let prj = anigram.payload.proform
-      if (prj) {
-        return formion_(prj, anigram)
-      } else {
-        return res
-      }
-    }
-
-    const proformer = anitem => json => mproj3ct.project(json, proformion_(anitem))
-
     // ............................. ereformion_
-    function ereformion_ (anigram) {
+    async function ereformion_ (anigram) {
+      return Promise.resolve(anigram)      
+        .then(anigram => {
+          if (Array.isArray(anigram)) {
+if (1 && 1) console.log('m.profier.ereformion_ newItem array')            
+            anigram = anigram[0]
+          }
+
+      
       let res = null
       let prj = anigram.payload.ereform
       if (prj) {
@@ -222,8 +234,39 @@
       } else {
         return res
       }
+
+      
+      })
+
     }
+
+
     const ereformer = anitem => json => mproj3ct.project(json, ereformion_(anitem))
+
+    // ............................. proformion_
+    async function proformion_ (anigram) {
+      return Promise.resolve(anigram)      
+        .then(anigram => {
+          if (Array.isArray(anigram)) {
+if (1 && 1) console.log('m.profier.proformion_ newItem array')            
+            anigram = anigram[0]
+          }
+      
+      let res = null
+      let prj = anigram.payload.proform
+      if (prj) {
+        return formion_(prj, anigram)
+      } else {
+        return res
+      }
+      
+      
+      })
+
+    }
+
+
+    const proformer = anitem => json => mproj3ct.project(json, proformion_(anitem))
 
     // ............................. enty
     let enty = function () {}
