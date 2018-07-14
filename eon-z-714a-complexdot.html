@@ -50,7 +50,7 @@ async function zindex (__mapper) {
   ])
 
   let Complex = __mapper('libComplex')
-  
+
   // .................. animas
   let animas = function () {
     // .................. pics
@@ -64,7 +64,7 @@ async function zindex (__mapper) {
       prerotate: [[[ cwen.rotation ]]],
       translate: [0, 0, 0],
       scale: 1,
-      rotate: [ 0, [[[0,360]]] , 0 ],
+      rotate: [ 0, [[[0, 360]]], 0 ],
       lens: [ 0, 1, Infinity ],
     }
 
@@ -74,35 +74,34 @@ async function zindex (__mapper) {
       halo: 'ent',
 
       geofold: d => ({
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: Complex({re:0,im:0})
-          .add(
-            d.payload.zenform[0] * Math.cos(d.payload.zenform[1]),
-            d.payload.zenform[0] * Math.sin(d.payload.zenform[1])
-          )
-          .toVector()
-      },
-      properties: {
-         pointRadius: 6,
-         geonode: {
-          type: 'Feature',
-          geometry: { 
-            type: 'Point', 
-            coordinates: [0, 0] 
-          },
-          properties: {
-            orgen: [0, 0], 
-            velin: [0, 0], 
-            velang: [0, 0], 
-            prevous: [0, 0], 
-            geodelta: [0, 0]
-          }
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: Complex({re: 0, im: 0})
+            .add(
+              d.payload.zenform[0] * Math.cos(d.payload.zenform[1]),
+              d.payload.zenform[0] * Math.sin(d.payload.zenform[1])
+            )
+            .toVector(),
         },
-      }
-    }),
-
+        properties: {
+          pointRadius: 6,
+          geonode: {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [0, 0],
+            },
+            properties: {
+              orgen: [0, 0],
+              velin: [0, 0],
+              velang: [0, 0],
+              prevous: [0, 0],
+              geodelta: [0, 0],
+            },
+          },
+        },
+      }),
 
       payload: {
 
@@ -110,10 +109,9 @@ async function zindex (__mapper) {
         ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
         boform: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
 
-        zenform: [ [[[0,100]]], [[[0,Math.PI]]] ],
+        zenform: [ [[[0, 100]]], [[[0, Math.PI]]] ],
 
         proform: proform,
-
 
       },
     }

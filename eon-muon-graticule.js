@@ -17,7 +17,6 @@
       __mapper('xs').b('d3'),
     ])
 
-    let d3Range = d3.range
 
     const acos = Math.acos, asin = Math.asin, atan2 = Math.atan2, cos = Math.cos,
       max = Math.max, min = Math.min, PI = Math.PI, sin = Math.sin, sqrt = Math.sqrt,
@@ -219,18 +218,21 @@
 
     // .................. asymgraticuleX
     function asymgraticuleX (y0, y1, dy) {
+      let d3Range = d3.range
       let y = d3Range(y0, y1 - eps, dy).concat(y1) // [y0,y1) ,y1]
       return _ => y.map(y => [_, y])
     }
 
     // .................. asymgraticuleY
     function asymgraticuleY (x0, x1, dx) {
+      let d3Range = d3.range      
       let x = d3Range(x0, x1 - eps, dx).concat(x1) // [x0,x1) ,x1]
       return _ => x.map(x => [x, _])
     }
 
     // .................. grarr
     let grarr = function (params = {}) {
+      let d3Range = d3.range      
       let {X0, X1, DX, PX, x0, x1, dx, px,
         Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
 

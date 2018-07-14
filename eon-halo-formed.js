@@ -35,7 +35,6 @@
 
     // ............................. gramm
     async function gramm (anigram) {
-
       let gjcollection = await mgeoj.featurecollect(getgj(anigram))
 
       if (2 && 2 && gjcollection.type !== 'FeatureCollection') console.log('** gjcollection is not FeatureCollection', gjcollection)

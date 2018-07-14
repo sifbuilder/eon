@@ -11,12 +11,8 @@
   async function ctlPos (__mapper) {
     let [
       d3,
-      rrenderport,
-      mscene,
     ] = await Promise.all([
       __mapper('d3'),
-      __mapper('xs').r('renderport'),
-      __mapper('xs').m('scene'),
     ])
 
     let cameraProjer // projection camera
@@ -27,13 +23,14 @@
 
     function moved (d) {
       function createPostipElem () {
-        var padLayer = d3.select('body')
+        d3.select('body')
           .selectAll('g.refs')
           .data(['refs'])
           .enter()
           .insert('g', 'refs')
           .attr('class', 'refs')
-        var postipElem = d3.select('g.refs')
+
+        d3.select('g.refs')
           .selectAll('div.postip')
           .data(['divMousePos'])
           .enter()
@@ -116,8 +113,6 @@
 
     // ......................... enty
     function enty (selection) {
-      cameraProjer = rrenderport.cameraProjer()
-
       selection.on('mouseenter.pos', started)
       selection.on('mousemove.pos', moved)
       selection.on('mouseout.pos', ended)

@@ -1,5 +1,5 @@
 /*******************************************
- * 			@muonVersor
+ *      @muonVersor
  *
  */
 (function (global, factory) {
@@ -13,14 +13,6 @@
   // ref: http://codepen.io/jorin/pen/YNajXZ
 
   async function muonVersor (__mapper = {}) {
-    let [
-      mprops,
-    ] = await Promise.all([
-      __mapper('xs').m('props'),
-    ])
-
-    var stace = Object.assign({})
-
     var acos = Math.acos,
       asin = Math.asin,
       atan2 = Math.atan2,
@@ -64,7 +56,7 @@
     // Returns the quaternion to rotate between two cartesian points on the sphere.
     // alpha for tweening [0,1]
     versor.delta = function (v0, v1, alpha) {
-      if (arguments.length == 2) alpha = 1
+      if (arguments.length === 2) alpha = 1
       var w = cross(v0, v1), l = sqrt(dot(w, w))
       if (!l) return [1, 0, 0, 0]
       var t = alpha * acos(max(-1, min(1, dot(v0, v1)))) / 2, s = sin(t) // t = θ / 2
@@ -94,7 +86,7 @@
     }
 
     /*******************************************
- * 			@add
+ *      @add
  *
  */
     versor.add = function (v0, v1) {
@@ -103,10 +95,11 @@
         v0[2] + v1[2]]
     }
     /*******************************************
- * 			@enty
+ *      @enty
  *
  */
-    var enty = versor
+    var enty = () => {}
+    enty.versor = versor
 
     return enty
   }

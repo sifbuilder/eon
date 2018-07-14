@@ -21,10 +21,10 @@
           : Promise.resolve(fromitem(items[index])).then(() => chain(items, index + 1))
       }
       return chain(items, 0)
-    }      
+    }
 
-    function getTiles(anigram, newItems=[]) {
-     let geofold = anigram.geofold, // geofold
+    function getTiles (anigram, newItems = []) {
+      let geofold = anigram.geofold, // geofold
         payload = anigram.payload, // payload
         ric = payload.ric // ric
 
@@ -48,7 +48,7 @@
         let fid = ric.cid + '_' + idx
         let _ric = {gid, cid, fid}
 
-        let newItem = Object.assign({},anigram)
+        let newItem = Object.assign({}, anigram)
         newItem.halo = 'ent'
         newItem.payload = Object.assign({}, anigram.payload)
         newItem.payload.ric = _ric
@@ -60,25 +60,23 @@
         newItem.geofold.coordinates = Array.of([...facering, facering[0]])
 
         newItems.push(newItem)
-      }      
-
+      }
 
       return newItems
     }
-    
+
     // .................... gramm
     async function gramm (anigram) {
       // return hent.gramm(getTiles(anigram))
       return await Promise.all(getTiles(anigram).map(ani => hent.gramm(ani)))
     }
 
- 
     // .................. getgramms
     // const gramm = (anigram) => {
-      // sequence(animas, anima => mstore.gramm(anima)) // store anigrams
-      // return mstore.anigrams() // get anigrams from store
-    // }    
-    
+    // sequence(animas, anima => mstore.gramm(anima)) // store anigrams
+    // return mstore.anigrams() // get anigrams from store
+    // }
+
     // .................... gramm
     async function ___gramm (anigram) {
       let geofold = anigram.geofold, // geofold

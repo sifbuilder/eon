@@ -84,18 +84,16 @@
 
     // ............................. getgj
     const getgj = anitem => {
-
-      
       return Promise.resolve(anitem)
-      .then(ani => {
-        if (Array.isArray(ani)) ani = ani[0]
-        let gj = mprops.v(ani.geofold, ani) // get geofold
-        gj.properties = gj.properties || {} // recall genode
-        gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
-        gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
-        gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
-        return gj
-      })
+        .then(ani => {
+          if (Array.isArray(ani)) ani = ani[0]
+          let gj = mprops.v(ani.geofold, ani) // get geofold
+          gj.properties = gj.properties || {} // recall genode
+          gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
+          gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
+          gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
+          return gj
+        })
     }
 
     // ............................. transforms
@@ -109,23 +107,21 @@
 
     // ............................. gramm
     async function gramm (ani) {
-      
-        return Promise.resolve(ani)
-            
-          .then(anigram => Promise.resolve(mgeoj.featurecollect(getgj(Promise.resolve(anigram))))
-            .then(gjcollection => Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
-              .then(newfeatures => {
-                if (Array.isArray(anigram)) {
-                if (1 && 1) console.log('h.ent.gramm newItem array')     
-                  anigram = anigram[0]
-                }
-                let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
-                let newAni = Object.assign({}, anigram, {geofold: newcollection})
+      return Promise.resolve(ani)
 
+        .then(anigram => Promise.resolve(mgeoj.featurecollect(getgj(Promise.resolve(anigram))))
+          .then(gjcollection => Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
+            .then(newfeatures => {
+              if (Array.isArray(anigram)) {
+                if (1 && 1) console.log('h.ent.gramm newItem array')
+                anigram = anigram[0]
+              }
+              let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
+              let newAni = Object.assign({}, anigram, {geofold: newcollection})
 
-                let newAnigrams = hformed.gramm(newAni)
-                return newAnigrams
-              })))
+              let newAnigrams = hformed.gramm(newAni)
+              return newAnigrams
+            })))
     }
 
     // ............................. enty

@@ -11,15 +11,13 @@
 
   async function ctlWen (__mapper = {}) {
     let [
-      rrenderport,
-      mversor,
       d3,
       mgeom,
+      rrenderport,
     ] = await Promise.all([
-      __mapper('xs').r('renderport'),
-      __mapper('xs').m('versor'),
       __mapper('xs').b('d3'),
       __mapper('xs').m('geom'),
+      __mapper('xs').r('renderport'),
     ])
 
     function tick () {
@@ -91,11 +89,8 @@
       state.p0 = state.grabbed // initial position in geometric space
 
       let projection = state.projection()
-      if (projection.invert === undefined) {
-        if (2 && 2) console.log('** projection invert missing', projection)
-      } else if (projection.rotate === undefined) {
-        if (2 && 2) console.log('** projection rotate missing', projection)
-      }
+      if (2 && 1 && projection.invert === undefined) console.log('** projection invert missing', projection)
+      else if (2 && 1 && projection.rotate === undefined) console.log('** projection rotate missing', projection)
 
       state.pPos = state.p0 // previous position
       state.cPos = state.pPos // current position
@@ -136,7 +131,6 @@
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
-      let deltat = Math.max(0, 1 - (Date.now() - state.lastMoveTime))
 
       state.vel = [ // velocity
 

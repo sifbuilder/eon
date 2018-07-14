@@ -10,11 +10,11 @@
 
   async function ctlRayder (__mapper) {
     let [
-      rrenderport,
       rsvg,
+      rrenderport,
     ] = await Promise.all([
-      __mapper('xs').r('renderport'),
       __mapper('xs').r('svg'),
+      __mapper('xs').r('renderport'),
     ])
 
     let mouse = {

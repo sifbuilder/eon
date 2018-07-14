@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  function ctlKey (__mapper) {
+  async function ctlKey (__mapper) {
     var keys = []
 
     var currentListeners = []
@@ -82,47 +82,37 @@
     // ....................... handleKeyDown
     // https://www.kirupa.com/html5/keyboard_events_in_javascript.htm
     // https://github.com/gaearon/redux-devtools-dock-monitor
-    var handleKeyDown = function handleKeyDown (event) {
+    var handleKeyDown = function (event) {
       switch (event.key) {
         case 'ArrowLeft':
         case 'Left': // hack for IE and old Gecko
           if (event.getModifierState('Alt')) {
             leftArrowAlt()
             event.preventDefault()
-            break
           }
+          break
         case 'ArrowRight':
         case 'Right': // hack for IE and old Gecko
           if (event.getModifierState('Alt')) {
             rightArrowAlt()
             event.preventDefault()
-            break
           }
+          break
         case 'ArrowUp':
         case 'Up': // hack for IE and old Gecko
           if (event.getModifierState('Alt')) {
             upArrowAlt()
             event.preventDefault()
-            break
           }
+          break
         case 'ArrowDown':
         case 'Down': // hack for IE and old Gecko
           if (event.getModifierState('Alt')) {
             downArrowAlt()
             event.preventDefault()
-            break
           }
+          break
       }
-
-      // event.stopPropagation()
-      // event.preventDefault()
-      // keys[event.keyCode] = true // console.log("___ keys", keys, event)
-      // if         (keys[70] && keys[17])          fKeyCtrl()        // CTRL-f
-      // else if (keys[68] && keys[17])         dKeyCtrl()        // CTRL-d
-      // else if (event.keyCode == '37' &&  keys[17]) leftArrowCtrl()   // CTRL-LEFT
-      // else if (event.keyCode == '39' &&  keys[17]) rightArrowCtrl()  // CTRL-RIGHT
-      // else if (event.keyCode == '38' &&  keys[17]) upArrowCtrl()   // CTRL-UP
-      // else if (event.keyCode == '40' &&  keys[17]) downArrowCtrl() // CTRL-DOWN
     }
     // ....................... fKeyCtrl
     var fKeyCtrl = function fKeyCtrl () { // change view

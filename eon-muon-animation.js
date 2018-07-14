@@ -17,7 +17,6 @@
       mtim,
       msnap,
       rsvg,
-      rrenderport,
       ctimer,
     ] = await Promise.all([
       __mapper('xs').m('props'),
@@ -26,7 +25,6 @@
       __mapper('xs').m('tim'),
       __mapper('xs').m('snap'),
       __mapper('xs').r('svg'),
-      __mapper('xs').r('renderport'),
       __mapper('xs').c('timer'),
     ]
     )

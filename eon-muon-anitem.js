@@ -21,13 +21,21 @@
 
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
 
-    // ............................. functorize
-    let functorize = function (ani, t) {
+    // ............................. snapani
+    let snapani = function (ani, t) {
       let anigram
       if (ani !== undefined) {
         t = t || ani.payload.tim.unitTime
         anigram = msnap.snap(ani, t)
+      }
+      return anigram
+    }
 
+    // ............................. functorize
+    let functorize = function (ani, t) {
+      let anigram = snapani(ani, t)
+
+      if (anigram !== undefined) {
         if (anigram.payload === undefined) anigram.payload = {}
         anigram.geofold = functor((anigram.geofold), anigram)	// geofold
         anigram.payload.conform = functor(anigram.payload.conform, anigram)	// conform
@@ -46,6 +54,7 @@
 
     // ............................. enty
     let enty = () => {}
+    enty.snapani = snapani
     enty.functorize = functorize
     return enty
   }

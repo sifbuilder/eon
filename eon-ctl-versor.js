@@ -22,10 +22,6 @@
       __mapper('xs').m('geom'),
     ])
 
-    // let xydirs = rrenderport.xydirs() // [1 -1] in pixel view
-    let xsign = 1 //  1 if x goes left to right
-    let ysign = -1 // 1 if y goes up down
-
     let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
     getPos = rrenderport.getPos
 
@@ -50,7 +46,7 @@
 
       rotation: [0, 0, 0],
 
-      inve0_cart: null, // Mouse cartesian position invprojected
+      inve0Cart: null, // Mouse cartesian position invprojected
       r0: null, // Projection rotation as Euler angles at start
       q0: null, // Quaternion. Projection rotation
       p0: null, // Mouse position (spher)
@@ -98,8 +94,8 @@
       // -----------------
       state.p0 = getPos(e) // d3.mouse(this)
 
-      let inve0_spher = state.proj.invert(state.p0)
-      state.inve0_cart = mgeom.cartesian(inve0_spher)
+      let inve0Spher = state.proj.invert(state.p0)
+      state.inve0Cart = mgeom.cartesian(inve0Spher)
 
       state.r0 = state.proj.rotate() // rotation in projection in degrees
 
@@ -141,12 +137,12 @@
       state.cPos = state.inve1_spher
 
       // -----------------
-      // quaternion to rotate between inve0_cart and inve1_cart
-      // compose rotations of pdelta_cart, then of q0
+      // quaternion to rotate between inve0Cart and inve1_cart
+      // compose rotations of pdeltaCart, then of q0
       // euler rotation angles
 
-      let pdelta_cart = mversor.delta(state.inve0_cart, state.inve1_cart)
-      let q1 = mversor.multiply(state.q0, pdelta_cart)
+      let pdeltaCart = mversor.delta(state.inve0Cart, state.inve1_cart)
+      let q1 = mversor.multiply(state.q0, pdeltaCart)
       let r1 = mversor.rotation(q1) // in degrees
       // -----------------
 
@@ -158,7 +154,6 @@
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
-      let deltat = Math.max(0, 1 - (Date.now() - state.lastMoveTime))
 
       state.vel_spher = [
 
@@ -175,8 +170,6 @@
 
       state.vel_spher[0] *= state.decay
       state.vel_spher[1] *= state.decay
-
-      let vel = mgeom.cartesian(state.vel_spher)
 
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }

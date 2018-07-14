@@ -13,10 +13,14 @@
       d3,
       rsvg,
       cwen,
+      cversor,
+      ckey,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
       __mapper('xs').r('svg'),
       __mapper('xs').c('wen'),
+      __mapper('xs').c('versor'),
+      __mapper('xs').c('key'),
     ])
 
     let state = {}
@@ -45,16 +49,15 @@
 
       if (p.svg && p.versor && p.versor !== state.scene.versor) {
         state.scene.versor = 1
-        __mapper('xs').c('versor').control(__mapper('renderSvg').svg())
+        cversor.control(__mapper('renderSvg').svg())
       }
 
       // ............................. key control animation
       if (p.key && p.key !== state.scene.key) {
         state.scene.key = 1
 
-        __mapper('xs').c('key').start() // KEYBRD CONTROLS
-
         if (__mapper('ctlKey') !== undefined) {
+          __mapper('ctlKey').start() // KEYBRD CONTROLS
           let controltimerLeftArrowAlt = () => { // LEFT ARROW
             if (__mapper('muonAnimation').animationStop !== undefined) {
               console.log('controltimerLeftArrowAlt')
@@ -85,7 +88,7 @@
             }
           }
         }
-        __mapper('xs').c('key').subscribe(controltimerRightArrowAlt, 'rightArrowAlt')
+        __mapper('ctlKey').subscribe(controltimerRightArrowAlt, 'rightArrowAlt')
       }
     }
 
