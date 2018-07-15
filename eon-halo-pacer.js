@@ -88,7 +88,7 @@
     let ween = anima => []
 
     // ............................. gramm
-    async function gramm(anitem, newItems = []) {
+    async function gramm (anitem, newItems = []) {
       let halo = anitem.halo,
         payload = anitem.payload,
         ric = payload.ric,
@@ -168,7 +168,6 @@
             newItem.payload.uid = uid
 
             if (aad) { //  if aad,  add to LineString
-             
               //  add situs to newItem coords
               //  coords are final space coords (after h.ent, stored at m.animation)
               let coords = newItem.geofold.geometry.coordinates // domain coords
@@ -190,10 +189,7 @@
 
               let newItemsInCount = await hent.gramm(newItem) // h.ent newItem
               newItems = [...newItems, ...newItemsInCount] // add new items
-              
             } else { //  if NOT aad
-           
-            
               if (newItem.geofold && newItem.geofold.geometry.type === 'Point') { // POINT
                 let presitus = newItem.geofold.geometry.coordinates
 
@@ -210,7 +206,7 @@
                   newItem.geofold.geometry.coordinates = [0, 0, 0]
                   newItem.payload.proform = {projection: 'uniwen', translate: situs} // proform
 
-                  let newGrams = await  hent.gramm(newItem)
+                  let newGrams = await hent.gramm(newItem)
                   newItems = [...newItems, ...newGrams] // add items
                 }
               } else { // ..... else TRACE NAT
@@ -218,7 +214,7 @@
 
                 newItem.payload.proform = { projection: 'uniwen', translate: situs } // // transfer trace situs to halo through proform
 
-                let newGrams = await  __mapper('xs').h(halo).gramm(newItem)
+                let newGrams = await __mapper('xs').h(halo).gramm(newItem)
                 newItems = [...newItems, ...newGrams] // add items
               }
             }

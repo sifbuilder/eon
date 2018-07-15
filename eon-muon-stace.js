@@ -10,28 +10,27 @@
 
   async function muonStace (__mapper = {}) {
     // let [
-      // mprops,
-      // mstore,
-      // mlacer,
-      // mgeoj,
-      // mprofier,
+    // mprops,
+    // mstore,
+    // mlacer,
+    // mgeoj,
+    // mprofier,
     // ] = await Promise.all([
-      // __mapper('xs').m('props'),
-      // __mapper('xs').m('store'),
-      // __mapper('xs').m('lacer'),
-      // __mapper('xs').m('geoj'),
-      // __mapper('xs').m('profier'),
+    // __mapper('xs').m('props'),
+    // __mapper('xs').m('store'),
+    // __mapper('xs').m('lacer'),
+    // __mapper('xs').m('geoj'),
+    // __mapper('xs').m('profier'),
     // ])
 
     let mprops = await __mapper('xs').m('props'),
-    mgeoj = await __mapper('xs').m('geoj'),
-    mlacer = await __mapper('xs').m('lacer')
-    
+      mgeoj = await __mapper('xs').m('geoj'),
+      mlacer = await __mapper('xs').m('lacer')
+
     // let mprofier = await __mapper('xs').m('profier')
 
     // let  mstore = __mapper('xs').m('store') // sync
 
-    
     // ...................... range
     // https://github.com/d3/d3-array/blob/master/src/range.js
     const range = function (start, stop, step) {
@@ -47,14 +46,11 @@
 
       return range
     }
-    
-    
+
     // ..................... isValidStace
     let getTranspots = function (s, ani) {
-      
-      let  mstore = __mapper('muonStore') // sync
+      let mstore = __mapper('muonStore') // sync
 
-    
       let stace = s
       let payload = ani.payload
       let locations = []
@@ -254,21 +250,21 @@
 
     // ........................ getLocifion
     // let getLocifion = function (stace, ani) {
-      // let locus = getLocus(stace, ani)
+    // let locus = getLocus(stace, ani)
 
-      // let projection = {
-        // 'projection': 'uniwen',
-        // 'translate': [ locus[0], locus[1], locus[2] ],
-      // }
+    // let projection = {
+    // 'projection': 'uniwen',
+    // 'translate': [ locus[0], locus[1], locus[2] ],
+    // }
 
-      // return mprofier.formion(projection)
+    // return mprofier.formion(projection)
     // }
 
     // ........................ getLocifier
     // let getLocifier = function (stace, ani = {}) {
-      // let locifion = getLocifion(stace, ani)
+    // let locifion = getLocifion(stace, ani)
 
-      // return g => __mapper('xs').m('proj3ct')(g, locifion)
+    // return g => __mapper('xs').m('proj3ct')(g, locifion)
     // }
 
     // ........................ enty

@@ -94,24 +94,22 @@
           .then(newAnigrams => _apply({type: 'UPDANIMA', anigrams: newAnigrams})))
     }
 
-    let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars||[])
-
+    let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars || [])
 
     // .................. getavatars
     const getavatars = items => {
       items.forEach(item => {
         sequence(gavatars(item), avatar => {
-                  avatar.payload.uid = mric.getuid(avatar)
-                  avatar.payload.tim = item.payload.tim
-                  avatar.payload.parentuid = item.payload.uid
-                  gramm(avatar)
-
-          })
+          avatar.payload.uid = mric.getuid(avatar)
+          avatar.payload.tim = item.payload.tim
+          avatar.payload.parentuid = item.payload.uid
+          gramm(avatar)
         })
+      })
     }
 
     // .................. sequence
-    function sequence (items=[], fromitem) {
+    function sequence (items = [], fromitem) {
       function chain (items, index) {
         return (index === items.length)
           ? Promise.resolve()
@@ -121,7 +119,6 @@
     }
     // .................. gramm
     function gramm (anitem) {
-
       return Promise.resolve(manitem.functorize(anitem))
         .then(anigram => __mapper('xs').h(anigram.halo)
           .then(halo => {
@@ -130,57 +127,41 @@
             return newItems
           })
           .then(newItems => {
-                 
-             _apply({type: 'UPDANIGRAM', anigrams: newItems})
+            _apply({type: 'UPDANIGRAM', anigrams: newItems})
 
-                newItems.forEach(item => {
+            newItems.forEach(item => {
+              let avatars = gavatars(item)
 
+              avatars.forEach(avatar => {
+                avatar.payload.uid = mric.getuid(avatar)
+                avatar.payload.tim = anigram.payload.tim
+                avatar.payload.parentuid = anigram.payload.uid
 
-
-                  let avatars = gavatars(item)
-                  
-
-                  avatars.forEach(avatar => {
-                        avatar.payload.uid = mric.getuid(avatar)
-                        avatar.payload.tim = anigram.payload.tim
-                        avatar.payload.parentuid = anigram.payload.uid
-                  
-                          gramm(avatar)
-                    
-                  })
-                  
-                  
-                  
-                })
+                gramm(avatar)
+              })
+            })
           })
 
+          // for (let i = 0; i < newItems.length; i++) {
+          // let newItem = newItems[i] // each new item
+          // if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
+          // let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
 
+          // for (let j = 0; j < avatars.length; j++) {
+          // let newSubItems = []
+          // let avatar = avatars[j]
 
-            // for (let i = 0; i < newItems.length; i++) {
-              // let newItem = newItems[i] // each new item
-              // if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
-                // let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
+          // avatar.payload.uid = mric.getuid(avatar) // uid for children
+          // avatar.payload.tim = anigram.payload.tim // time from anima
+          // avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
 
-                // for (let j = 0; j < avatars.length; j++) {
-                  // let newSubItems = []
-                  // let avatar = avatars[j]
+          // gramm(avatar) // AVATAR GRAMM halogram
 
-                  // avatar.payload.uid = mric.getuid(avatar) // uid for children
-                  // avatar.payload.tim = anigram.payload.tim // time from anima
-                  // avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
+          // }
+          // }
+          // }
 
-                  // gramm(avatar) // AVATAR GRAMM halogram
-
-
-                // }
-              // }
-            // }
-
-
-
-
-
-            // return newItems
+          // return newItems
           // })
         )
     }

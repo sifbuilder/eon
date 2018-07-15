@@ -91,7 +91,7 @@
         v0[1] + v1[1],
         v0[2] + v1[2]]
     }
-    
+
     // .................. enty
     var enty = () => {}
     enty.versor = versor
