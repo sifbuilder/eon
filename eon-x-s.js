@@ -24,13 +24,13 @@
     const camelize = str => str
       .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index === 0 ? letter.toLowerCase() : letter.toUpperCase())
       .replace(/\s+/g, '') // remove white space
-      .replace(/\-+/g, '') // remove hyphen
+      .replace(/-+/g, '') // remove hyphen
     const getCell = (e, n, m) => e[n] !== undefined ? e[n](m) : e
     const mapCell = (e, n, m) => m({[n]: e})[n]
     const a = d => Array.isArray(d) ? d : Array.of(d)
 
     // ............................. getCeonSync
-    const getCeonSync = (part) => __mapper(part[0])
+    const getCeonSync = part => __mapper(part[0])
 
     // ............................. getCeon
     async function getCeon (part) {
@@ -69,7 +69,12 @@
       ]
 
       return eonfroms.reduce(
-        (p, q) => p.catch(failed => q()), // try qurrent if previous from failed
+        (p, q) => p.catch(failed => {
+          let r = Promise.resolve(getCeonSync([ceon, '']) || q())
+          // if (1 && 1) console.log('eonfroms', ceon, r)
+
+          return r
+        }),
         Promise.reject('init reduce'))
         .then(result => result)
         .catch(failed => { console.log('Failed: ', ceon, failed) })

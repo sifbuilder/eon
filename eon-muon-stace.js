@@ -9,15 +9,52 @@
   'use strict'
 
   async function muonStace (__mapper = {}) {
-    let mprops = __mapper('xs').m('props'),
-      mstore = __mapper('xs').m('store'),
-      mlacer = __mapper('xs').m('lacer'),
-      mgeoj = __mapper('xs').m('geoj'),
-      mprofier = __mapper('xs').m('profier'),
-      d3 = __mapper('xs').b('d3')
+    // let [
+      // mprops,
+      // mstore,
+      // mlacer,
+      // mgeoj,
+      // mprofier,
+    // ] = await Promise.all([
+      // __mapper('xs').m('props'),
+      // __mapper('xs').m('store'),
+      // __mapper('xs').m('lacer'),
+      // __mapper('xs').m('geoj'),
+      // __mapper('xs').m('profier'),
+    // ])
 
+    let mprops = await __mapper('xs').m('props'),
+    mgeoj = await __mapper('xs').m('geoj'),
+    mlacer = await __mapper('xs').m('lacer')
+    
+    // let mprofier = await __mapper('xs').m('profier')
+
+    // let  mstore = __mapper('xs').m('store') // sync
+
+    
+    // ...................... range
+    // https://github.com/d3/d3-array/blob/master/src/range.js
+    const range = function (start, stop, step) {
+      start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step
+
+      var i = -1,
+        n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
+        range = new Array(n)
+
+      while (++i < n) {
+        range[i] = start + i * step
+      }
+
+      return range
+    }
+    
+    
     // ..................... isValidStace
     let getTranspots = function (s, ani) {
+      
+      let  mstore = __mapper('muonStore') // sync
+
+    
       let stace = s
       let payload = ani.payload
       let locations = []
@@ -134,9 +171,9 @@
           let pos1 = Math.floor(c1) // last of positions array
 
           if (pos0 <= pos1) {
-            poses = d3.range(pos0, pos1, step) // d3 create positional array
+            poses = range(pos0, pos1, step) // d3 create positional array
           } else {
-            poses = d3.range(pos1, pos0, step) // d3 create positional array
+            poses = range(pos1, pos0, step) // d3 create positional array
           }
         }
       }
@@ -172,14 +209,14 @@
             let step = Math.round(staceDim.step) || 1 // step between positions
 
             if (pos0 <= pos1) {
-              locations = d3.range(pos0, pos1, step) // d3 create positional array
+              locations = range(pos0, pos1, step) // d3 create positional array
                 .map(d => d + fas) // displace positions by phase
                 .map(d => d % parentCoordsDim.length) // mod (-1)
                 .map(d => Math.floor(d)) // integer position
                 .map(d => parentCoordsDim[d]) // location from parent coords
                 .map(d => d + dist) // sum dist to dim location
             } else {
-              locations = d3.range(pos1, pos0, step) // d3 create positional array
+              locations = range(pos1, pos0, step) // d3 create positional array
                 .map(d => d + fas) // displace positions by phase
                 .map(d => d % parentCoordsDim.length) // mod
                 .map(d => Math.floor(d))
@@ -216,23 +253,23 @@
     let getLocus = (stace, ani) => getLoci(stace, ani)[0]
 
     // ........................ getLocifion
-    let getLocifion = function (stace, ani) {
-      let locus = getLocus(stace, ani)
+    // let getLocifion = function (stace, ani) {
+      // let locus = getLocus(stace, ani)
 
-      let projection = {
-        'projection': 'uniwen',
-        'translate': [ locus[0], locus[1], locus[2] ],
-      }
+      // let projection = {
+        // 'projection': 'uniwen',
+        // 'translate': [ locus[0], locus[1], locus[2] ],
+      // }
 
-      return mprofier.formion(projection)
-    }
+      // return mprofier.formion(projection)
+    // }
 
     // ........................ getLocifier
-    let getLocifier = function (stace, ani = {}) {
-      let locifion = getLocifion(stace, ani)
+    // let getLocifier = function (stace, ani = {}) {
+      // let locifion = getLocifion(stace, ani)
 
-      return g => __mapper('xs').m('proj3ct')(g, locifion)
-    }
+      // return g => __mapper('xs').m('proj3ct')(g, locifion)
+    // }
 
     // ........................ enty
     function enty () { return enty }
@@ -245,8 +282,8 @@
     enty.getLoci = getLoci //  locations
     enty.getLocus = getLocus //  location
 
-    enty.getLocifion = getLocifion //  projection
-    enty.getLocifier = getLocifier //  projector
+    // enty.getLocifion = getLocifion //  projection
+    // enty.getLocifier = getLocifier //  projector
 
     enty.getTranspot = getTranspot //  getTranspot
     enty.getTranspots = getTranspots //  getTranspots

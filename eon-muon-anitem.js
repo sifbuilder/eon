@@ -10,12 +10,8 @@
 
   async function muonAnitem (__mapper = {}) {
     let [
-      mgeonode,
-      mgeoj,
       msnap,
     ] = await Promise.all([
-      __mapper('xs').m('geonode'),
-      __mapper('xs').m('geoj'),
       __mapper('xs').m('snap'),
     ])
 
@@ -37,9 +33,9 @@
 
       if (anigram !== undefined) {
         if (anigram.payload === undefined) anigram.payload = {}
-        anigram.geofold = functor((anigram.geofold), anigram)	// geofold
-        anigram.payload.conform = functor(anigram.payload.conform, anigram)	// conform
-        anigram.payload.proform = functor(anigram.payload.proform, anigram)	// proform
+        anigram.geofold = functor((anigram.geofold), anigram) // geofold
+        anigram.payload.conform = functor(anigram.payload.conform, anigram) // conform
+        anigram.payload.proform = functor(anigram.payload.proform, anigram) // proform
       }
 
       return {

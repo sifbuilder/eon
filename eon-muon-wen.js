@@ -9,7 +9,7 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonWen = function (__mapper = {}) {
+  async function muonWen (__mapper = {}) {
     function clip (n, m, M) { return n < M ? n > m ? n : m : M }
     function comeCloser (n, goal, factor, limit) {
       return (limit && Math.abs(goal - n) < limit) ? goal : n + (goal - n) / (factor || 10)

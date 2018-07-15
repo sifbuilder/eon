@@ -17,7 +17,7 @@
       mstace,
       mproj3ct,
       mgeom,
-      guniwen,
+      puniwen,
     ] = await Promise.all([
       __mapper('xs').c('wen'),
       __mapper('xs').c('versor'),
@@ -37,7 +37,7 @@
       if (projdef === undefined) {
         if (2 && 2) console.log('** m.profier.formion_ projdef undefined', projdef)
         // geoproj = formion_({projection: 'uniwen'})
-        geoproj = guniwen({})
+        geoproj = puniwen({})
       } else if (typeof projdef === 'function') {
         geoproj = projdef
       } else if (Array.isArray(projdef)) {
@@ -75,7 +75,7 @@
             // geoproj = __mapper(geoproj, 'd3.geo')(projdef) // get projection from name
           } else {
             if (2 && 2) console.log('m.profier.formion_ index proj not name', projdef)
-            geoproj = guniwen({})
+            geoproj = puniwen({})
             return geoproj
           }
         } else if (mprops.isFunction(projdef.projection)) { // if is projection
@@ -83,7 +83,7 @@
         } else {
           let projname = 'uniwen' // default to uniwen projection
 
-          geoproj = guniwen() // get projection from name
+          geoproj = puniwen() // get projection from name
         }
       }
 

@@ -10,10 +10,8 @@
 
   async function muonBoform (__mapper = {}) {
     let [
-      mstore,
       d3,
     ] = await Promise.all([
-      __mapper('xs').m('store'),
       __mapper('xs').b('d3'),
     ])
 
@@ -51,14 +49,6 @@
       return color(d)(v / 1000)
     }
 
-    let polarize = function (point) { // cart to 2d planar
-      let x = point[0]
-      let y = point[1]
-      let ang = Math.atan2(y, x)
-      let rad = Math.sqrt(x * x + y * y)
-      return [ang, 0, rad]
-    }
-
     /* *********************
    *    getStyle - process style attributes
    */
@@ -83,9 +73,7 @@
     let boformer = function (anigram, json) {
       if (json !== undefined && json !== null) {
         if (json.type === undefined) {
-          if (2 && 2) console.log('m.boform.boformer:json.type undefined')
         } else if (typeof anigram.payload.boform !== 'object') {
-          if (2 && 2) console.log('m.boform.boformer boform is not an object')
         } else if (json.type === 'Feature') { // Feature
           let feature = json
 
@@ -95,7 +83,6 @@
           } else if (anigram.payload.boform) {
             boform = anigram.payload.boform
           } else {
-            if (2 && 2) console.log('(( boform not defined', json, anigram)
           }
 
           let jsonStyle = getStyle(boform)

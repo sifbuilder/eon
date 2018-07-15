@@ -8,14 +8,14 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonTim = function muonTim (__mapper = {}) {
-    let epsilon = 1e-5
+  async function muonTim(__mapper = {}) {
+      let epsilon = 1e-5
+      let scale = await __mapper('xs').b('d3-scale')
 
-    /**********************
-   *    @timing
-   */
-    let timing = function (pTim, pElapsed) {
-      let d3 = __mapper('d3')
+
+     function timing (pTim, pElapsed) {
+       
+      let scaleLinear = scale.scaleLinear
 
       let tim = Object.assign({}, pTim)
       let _tim = Object.assign({}, pTim)
@@ -56,7 +56,7 @@
       let d = (window === false) ? [tim.wait, tim.limit] : [0, duration] // time window
       if ((Math.sign(t0) === -1) || (Math.sign(t1) === -1)) timeinverse = true // inverse
       let r = (timeinverse === false) ? [0, 1] : [1, 0] // time inversion
-      let timescale = () => d3.scaleLinear().domain(d).range(r) // timescale: scale of life
+      let timescale = () => scaleLinear().domain(d).range(r) // timescale: scale of life
 
       tim.msStart = tim.msStart || elapsed // -- start time (abs, ms)
       tim.msElapsed = tim.elapsed // -- abs time elapsed (abs, ms)
@@ -97,9 +97,8 @@
 
       return tim
     }
-    /**********************
-   *    @enty
-   */
+
+    // .................. enty
     let enty = {}
     enty.timing = timing
 

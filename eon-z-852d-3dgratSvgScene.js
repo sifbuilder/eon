@@ -12,11 +12,9 @@
   // .................. z852d3dgratSvgScene
   async function z852d3dgratSvgScene (__mapper) {
     let [
-      rrenderport,
       cwen,
       mgraticule,
     ] = await Promise.all([
-      __mapper('xs').r('renderport'),
       __mapper('xs').c('wen'),
       __mapper('xs').m('graticule'),
     ])

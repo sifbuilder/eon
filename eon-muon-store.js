@@ -68,13 +68,13 @@
         for (let i = 0; i < newAnigrams.length; i++) {
           if (newAnigrams[i] !== undefined) {
             let newItem = newAnigrams[i] // new anigram
-            
+
             if (Array.isArray(newItem)) {
-if (1 && 1) console.log('m.store.apply.updanigram newItem array')
-              
+              if (1 && 1) console.log('m.store.apply.updanigram newItem array')
+
               newItem = newItem[0]
             }
-            
+
             let uid = newItem.payload.uid
             let index = enty.findFromUid(uid, state.anigrams) // find index from d.payload.uid
             if (index === -1) index = state.anigrams.length // add holder if new
@@ -94,12 +94,95 @@ if (1 && 1) console.log('m.store.apply.updanigram newItem array')
           .then(newAnigrams => _apply({type: 'UPDANIMA', anigrams: newAnigrams})))
     }
 
+    let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars||[])
+
+
+    // .................. getavatars
+    const getavatars = items => {
+      items.forEach(item => {
+        sequence(gavatars(item), avatar => {
+                  avatar.payload.uid = mric.getuid(avatar)
+                  avatar.payload.tim = item.payload.tim
+                  avatar.payload.parentuid = item.payload.uid
+                  gramm(avatar)
+
+          })
+        })
+    }
+
+    // .................. sequence
+    function sequence (items=[], fromitem) {
+      function chain (items, index) {
+        return (index === items.length)
+          ? Promise.resolve()
+          : Promise.resolve(fromitem(items[index])).then(() => chain(items, index + 1))
+      }
+      return chain(items, 0)
+    }
     // .................. gramm
     function gramm (anitem) {
+
       return Promise.resolve(manitem.functorize(anitem))
         .then(anigram => __mapper('xs').h(anigram.halo)
-          .then(halo => halo.gramm(anigram))
-          .then(newAnigrams => _apply({type: 'UPDANIGRAM', anigrams: newAnigrams})))
+          .then(halo => {
+            let newItems = halo.gramm(anigram)
+
+            return newItems
+          })
+          .then(newItems => {
+                 
+             _apply({type: 'UPDANIGRAM', anigrams: newItems})
+
+                newItems.forEach(item => {
+
+
+
+                  let avatars = gavatars(item)
+                  
+
+                  avatars.forEach(avatar => {
+                        avatar.payload.uid = mric.getuid(avatar)
+                        avatar.payload.tim = anigram.payload.tim
+                        avatar.payload.parentuid = anigram.payload.uid
+                  
+                          gramm(avatar)
+                    
+                  })
+                  
+                  
+                  
+                })
+          })
+
+
+
+            // for (let i = 0; i < newItems.length; i++) {
+              // let newItem = newItems[i] // each new item
+              // if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
+                // let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
+
+                // for (let j = 0; j < avatars.length; j++) {
+                  // let newSubItems = []
+                  // let avatar = avatars[j]
+
+                  // avatar.payload.uid = mric.getuid(avatar) // uid for children
+                  // avatar.payload.tim = anigram.payload.tim // time from anima
+                  // avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
+
+                  // gramm(avatar) // AVATAR GRAMM halogram
+
+
+                // }
+              // }
+            // }
+
+
+
+
+
+            // return newItems
+          // })
+        )
     }
 
     // .................. enty

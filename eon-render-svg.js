@@ -12,7 +12,7 @@
     let [
       rrenderport, // cameraProjer
       d3,
-      guniwen,
+      puniwen,
     ] = await Promise.all([
       __mapper('xs').r('renderport'),
       __mapper('xs').b('d3'),
@@ -124,7 +124,7 @@
 
       let cameraProjer = rrenderport.cameraProjer()
       let prjdef = rrenderport.prjdef()
-      let prj = guniwen(prjdef)
+      let prj = puniwen(prjdef)
       cameraProjer = prj
 
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")

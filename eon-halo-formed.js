@@ -10,20 +10,17 @@
 
   async function haloFormed (__mapper = {}) {
     let [
-      manitem,
       mric,
       mboform,
       mgeoj,
       mprops,
     ] = await Promise.all([
-      __mapper('xs').m('anitem'),
       __mapper('xs').m('ric'),
       __mapper('xs').m('boform'),
       __mapper('xs').m('geoj'),
       __mapper('xs').m('props'),
     ])
 
-    const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
     const getgj = ani => {
       let gj = mprops.v(ani.geofold, ani) // get geofold
       gj.properties = gj.properties || {} // recall genode
@@ -64,14 +61,15 @@
       return newAnigrams //    new anigrams are stored by m.animation
     }
 
-    // ............................. enty
-    let haloGeofold_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-    let haloGeofold_gramm = anima => gramm(anima)
+    // ............................. ween
+    let ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
+    // ............................. halo
     let haloFormed = {}
-    haloFormed.ween = anima => haloGeofold_ween(anima)
-    haloFormed.gramm = anima => haloGeofold_gramm(anima)
+    haloFormed.ween = anima => ween(anima)
+    haloFormed.gramm = anima => gramm(anima)
 
+    // ............................. enty
     let enty = haloFormed
     return enty
   }

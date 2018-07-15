@@ -21,16 +21,16 @@
       ))
     }
 
-    // .................... enty
-    let haloNat_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-    let haloNat_gramm = anima => gramm(anima)
+    // .................... ween
+    let ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
+    // .................... halo
     let haloNat = {}
-    haloNat.ween = anima => haloNat_ween(anima)
-    haloNat.gramm = anima => haloNat_gramm(anima)
+    haloNat.ween = anima => ween(anima)
+    haloNat.gramm = anima => gramm(anima)
 
+    // .................... enty
     let enty = haloNat
-
     return enty
   }
 

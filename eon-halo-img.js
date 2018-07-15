@@ -9,8 +9,6 @@
   'use strict'
 
   let haloImg = function haloImg (__mapper = {}) {
-    let manitem = __mapper('xs').m('anitem')
-
     let _geofold = p => ({ // geofold
       type: 'Feature',
       geometry: { type: 'Point', coordinates: [0, 0] },
@@ -26,8 +24,8 @@
     })
 
     let gramm = function gramm (anigram, newAnigrams = []) {
-      let halo = 				anigram.halo, // halo
-        payload = 		anigram.payload // payload
+      let halo = anigram.halo, // halo
+        payload = anigram.payload // payload
 
       let geofold = _geofold(anigram) // geofold
 

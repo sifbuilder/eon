@@ -113,7 +113,6 @@
           .then(gjcollection => Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
             .then(newfeatures => {
               if (Array.isArray(anigram)) {
-                if (1 && 1) console.log('h.ent.gramm newItem array')
                 anigram = anigram[0]
               }
               let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
@@ -124,14 +123,15 @@
             })))
     }
 
-    // ............................. enty
-    let haloGeofold_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-    let haloGeofold_gramm = anima => gramm(anima)
+    // ............................. ween
+    let ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
+    // ............................. halo
     let haloEnt = {}
-    haloEnt.ween = anima => haloGeofold_ween(anima)
-    haloEnt.gramm = anima => haloGeofold_gramm(anima)
+    haloEnt.ween = anima => ween(anima)
+    haloEnt.gramm = anima => gramm(anima)
 
+    // ............................. enty
     let enty = haloEnt
     return enty
   }

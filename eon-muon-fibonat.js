@@ -11,18 +11,15 @@
   async function muonFibonat (__mapper = {}) {
     let [
       mprops,
-      mlacer,
       mgeom,
       d3,
     ] = await Promise.all([
       __mapper('xs').m('props'),
-      __mapper('xs').m('lacer'),
       __mapper('xs').m('geom'),
       __mapper('xs').b('d3'),
     ])
 
-    let radians = Math.PI / 180, degrees = 180 / Math.PI,
-      sin = Math.sin, cos = Math.cos
+    let degrees = 180 / Math.PI
 
     let cache = {} // payload, string
     cache.string = []
@@ -37,9 +34,9 @@
 
       let string = []
 
-      if (randomize == cache.randomize &&
-        samples == cache.samples &&
-        dotsInSegment == cache.dotsInSegment
+      if (randomize === cache.randomize &&
+        samples === cache.samples &&
+        dotsInSegment === cache.dotsInSegment
       ) {
         string = cache.string
       } else {

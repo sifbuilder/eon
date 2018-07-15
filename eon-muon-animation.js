@@ -15,7 +15,6 @@
       mstore,
       msim,
       mtim,
-      msnap,
       rsvg,
       ctimer,
     ] = await Promise.all([
@@ -23,7 +22,6 @@
       __mapper('xs').m('store'),
       __mapper('xs').m('sim'),
       __mapper('xs').m('tim'),
-      __mapper('xs').m('snap'),
       __mapper('xs').r('svg'),
       __mapper('xs').c('timer'),
     ]
@@ -35,7 +33,7 @@
     // .................. getsims
     const getsims = (animas, elapsed) => {
       let sim = msim.sim() // simulation on animas
-      msim.simulate(sim, animas, elapsed)	// stored
+      msim.simulate(sim, animas, elapsed) // stored
       return mstore.animasLive()
     }
 
@@ -72,7 +70,6 @@
     function aniListener (elapsed) {
       mstore = __mapper('muonStore') // store with state from __mapper
       state.animas = mstore.animasLive()
-      if (0 && 1) console.log(' __________________ aniListener', state.animas.length, elapsed.toFixed(0))
 
       // .................. time
 

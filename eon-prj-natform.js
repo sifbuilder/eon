@@ -15,10 +15,8 @@
       d3,
     ] = await Promise.all([
       __mapper('xs').m('nat'),
-      __mapper('d3'),
+      __mapper('xs').b('d3'),
     ])
-
-    let cache = {} // points, form
 
     // ............................. pointStream
     let pointStream = function (prjdef) {
@@ -32,7 +30,7 @@
     }
 
     // ............................. natprofion
-    let natprofion = prjdef => {		// projection:natPoint, form:{x,y,z}
+    let natprofion = prjdef => { // projection:natPoint, form:{x,y,z}
       let geoTrans = d3.geoTransform({
         point: pointStream(prjdef)})
 

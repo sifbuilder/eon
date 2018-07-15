@@ -1,6 +1,6 @@
 /***********
-	 *		@muonForces
-	 */
+   *    @muonForces
+   */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
@@ -9,14 +9,14 @@
   'use strict'
 
   // ...................... isolate
-  let isolate = function (sys) {	// filter, force, nodes, sys, type
+  let isolate = function (sys) { // filter, force, nodes, sys, type
     let nodes = sys.nodes
     let force = sys.force
     let filter = sys.filter
 
     if (force !== null) {
-      let simNodes = nodes.filter(filter)			// filter nodes
-      let dim = sys.dim || 3					// sys for dim
+      let simNodes = nodes.filter(filter) // filter nodes
+      let dim = sys.dim || 3 // sys for dim
 
       var initialize = force.initialize
       force.initialize = () => initialize.call(force, simNodes, dim)
