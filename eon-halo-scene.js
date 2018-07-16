@@ -28,12 +28,9 @@
     }
 
     // .................. halo
-    let haloEon_ween = anima => ween(anima)
-    let haloEon_gramm = anima => gramm(anima)
-
     let haloEon = {}
-    haloEon.ween = anima => haloEon_ween(anima)
-    haloEon.gramm = anima => haloEon_gramm(anima)
+    haloEon.ween = anima => ween(anima)
+    haloEon.gramm = anima => gramm(anima)
 
     // .................. enty
     let enty = haloEon

@@ -87,11 +87,11 @@
     }
 
     // .................. ween
-    function ween (anitem) {
-      return Promise.resolve(manitem.functorize(anitem))
-        .then(anigram => __mapper('xs').h(anigram.halo)
-          .then(halo => halo.ween(anigram))
-          .then(newAnigrams => _apply({type: 'UPDANIMA', anigrams: newAnigrams})))
+    async function ween (anitem) {
+      let anigram = await manitem.functorize(anitem)
+      let halo = await __mapper('xs').h(anigram.halo)
+      let newAnigrams = await halo.ween(anigram)
+      return _apply({type: 'UPDANIMA', anigrams: newAnigrams})
     }
 
     let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars || [])
@@ -118,7 +118,7 @@
       return chain(items, 0)
     }
     // .................. gramm
-    function gramm (anitem) {
+    async function gramm (anitem) {
       return Promise.resolve(manitem.functorize(anitem))
         .then(anigram => __mapper('xs').h(anigram.halo)
           .then(halo => {
@@ -142,27 +142,6 @@
             })
           })
 
-          // for (let i = 0; i < newItems.length; i++) {
-          // let newItem = newItems[i] // each new item
-          // if (newItem.avatars !== undefined && newItem.avatars !== null) { // AVATARS
-          // let avatars = (typeof newItem.avatars === 'object') ? Object.values(newItem.avatars) : newItem.avatars
-
-          // for (let j = 0; j < avatars.length; j++) {
-          // let newSubItems = []
-          // let avatar = avatars[j]
-
-          // avatar.payload.uid = mric.getuid(avatar) // uid for children
-          // avatar.payload.tim = anigram.payload.tim // time from anima
-          // avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
-
-          // gramm(avatar) // AVATAR GRAMM halogram
-
-          // }
-          // }
-          // }
-
-          // return newItems
-          // })
         )
     }
 

@@ -9,27 +9,15 @@
   'use strict'
 
   async function muonStace (__mapper = {}) {
-    // let [
-    // mprops,
-    // mstore,
-    // mlacer,
-    // mgeoj,
-    // mprofier,
-    // ] = await Promise.all([
-    // __mapper('xs').m('props'),
-    // __mapper('xs').m('store'),
-    // __mapper('xs').m('lacer'),
-    // __mapper('xs').m('geoj'),
-    // __mapper('xs').m('profier'),
-    // ])
-
-    let mprops = await __mapper('xs').m('props'),
-      mgeoj = await __mapper('xs').m('geoj'),
-      mlacer = await __mapper('xs').m('lacer')
-
-    // let mprofier = await __mapper('xs').m('profier')
-
-    // let  mstore = __mapper('xs').m('store') // sync
+    let [
+    mprops,
+    mlacer,
+    mgeoj,
+    ] = await Promise.all([
+    __mapper('xs').m('props'),
+    __mapper('xs').m('lacer'),
+    __mapper('xs').m('geoj'),
+    ])
 
     // ...................... range
     // https://github.com/d3/d3-array/blob/master/src/range.js

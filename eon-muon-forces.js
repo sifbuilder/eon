@@ -25,7 +25,7 @@
     }
   }
 
-  var muonForces = function (__mapper = {}) {
+  async function muonForces (__mapper = {}) {
     // ...................... force
     let force = function (params) {
       return __mapper('xs').f(params.type)

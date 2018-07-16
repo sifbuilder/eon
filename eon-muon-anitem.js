@@ -18,19 +18,19 @@
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
 
     // ............................. snapani
-    let snapani = function (ani, t) {
-      let anigram
+    async function snapani (ani, t) {
+      let r = Promise.resolve()
       if (ani !== undefined) {
         t = t || ani.payload.tim.unitTime
-        anigram = msnap.snap(ani, t)
+        r = await msnap.snap(ani, t)
       }
-      return anigram
+
+      return r
     }
 
     // ............................. functorize
-    let functorize = function (ani, t) {
-      let anigram = snapani(ani, t)
-
+    async function functorize (ani, t) {
+      let anigram = await snapani(ani, t)
       if (anigram !== undefined) {
         if (anigram.payload === undefined) anigram.payload = {}
         anigram.geofold = functor((anigram.geofold), anigram) // geofold
@@ -38,7 +38,7 @@
         anigram.payload.proform = functor(anigram.payload.proform, anigram) // proform
       }
 
-      return {
+      let r = {
 
         halo: anigram.halo, // halo
         geofold: anigram.geofold, // geofold
@@ -46,6 +46,7 @@
         avatars: anigram.avatars, // avatars
 
       }
+      return r
     }
 
     // ............................. enty

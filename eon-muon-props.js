@@ -40,8 +40,9 @@
     }
 
     props.cloneArray = function (obj) {
+      let r
       if (Array.isArray(obj)) {
-        let r = [ ...obj ]
+        r = [ ...obj ]
       } else {
         r = obj
       }

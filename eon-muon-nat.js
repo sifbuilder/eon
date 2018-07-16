@@ -262,7 +262,6 @@
 
     /* **************************
      *        @rador : seg5 unit circle rador
-     *          m.snap.snap (dax form => rador)
      */
     let rador = function (form) { // polarCoords
       let pts = []

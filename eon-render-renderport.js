@@ -31,18 +31,6 @@
       return prj(p)
     }
 
-    // ............................. xydirs
-    const xydirs = function () {
-      let orig = enty.cameraProjer().invert([0, 0])
-      let xyvector = enty.cameraProjer().invert([1, 1])
-
-      let dirs = []
-      dirs[0] = Math.sign(xyvector[0] - orig[0])
-      dirs[1] = Math.sign(xyvector[1] - orig[1])
-
-      return dirs
-    }
-
     // ............................. getPos
     const getPos = function (signal) {
       let pos
@@ -78,7 +66,6 @@
     enty.scaleView = () => scaleView
 
     // ............................. projection
-    enty.projection = _ => _ !== undefined ? (projection = _, enty) : projection
     enty.cameraProjer = cameraProjer
     enty.getPos = getPos
     enty.prjdef = () => prjdef

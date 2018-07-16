@@ -24,29 +24,36 @@
     ])
 
     // .................. snap  value (anima), t (unit time), snap flag, parent
-    let snap = function (v, t = 0, g = 0, p = undefined) {
+    // function snap (v, t = 0, g = 0, p = undefined) {
+    async function snap (v, t = 0, g = 0, p = undefined) {
+      let ret = null
+
       // ____________________________________________________ un-tagged
-      if (v === null) return null // 00 _____ o
-      else if (typeof (v) === 'number') return v // 02 _____ num
-      else if (typeof (v) === 'string') return v // 03 _____ str
-      else if (mprops.isArray(v) && v.length === 0) return v // 04 _____ []
+      if (v === null) ret = null // 00 _____ o
+
+      else if (typeof (v) === 'number') ret = v // 02 _____ num
+
+      else if (typeof (v) === 'string') ret = v // 03 _____ str
+
+      else if (mprops.isArray(v) && v.length === 0) ret = v // 04 _____ []
+
       else if (typeof (v) === 'function' &&
         g !== 1) {
-        return v // 01 _____ fn v(t)
+        ret = v // 01 _____ fn v(t)
       } else if (mprops.isArray(v) && // 05 ____ [[ [ pure ] ]]  intra array interpolation
         mprops.isDoubleSingleArray(v) && // double array with single elem
         mprops.isPureArray(v[0][0]) && // single elem in double array is pure
         g !== 1
       ) {
-        let ws = snap(v[0][0], t, 1)
-        return ws
+        let ws = await snap(v[0][0], t, 1)
+        ret = ws
       } else if (mprops.isObject(v) && // 06 ___ v :: {}
           g !== 1) {
         let r = {}
         for (let y of Reflect.ownKeys(v)) {
-          r[y] = snap(v[y], t, g, v) // reenter object
+          r[y] = await snap(v[y], t, g, v) // reenter object
         }
-        return r
+        ret = r
       } else if (mprops.isDoubleArray(v) && // 07 [[ [ [], [] ] ]]   inter arrays interpolation
         mprops.isQuasiPureArray(v[0][0]) && // double array with array of arrays elem
         v[0][0].length === 1 &&
@@ -56,12 +63,12 @@
         for (let i = 0; i < v[0][0].length; i++) {
           let comp = v[0][0][i]
 
-          let intra = snap(comp, t, 1)
+          let intra = await snap(comp, t, 1)
           na.push(intra)
         }
-        let ws = snap(na, t, 1) // scales of internal array
+        let ws = await snap(na, t, 1) // scales of internal array
 
-        return ws
+        ret = ws
       } else if (mprops.isArray(v) && // 08a ____ [[[ fn() ]]]
         mprops.isTripleArray(v) &&
         typeof v[0][0][0] === 'function' &&
@@ -71,36 +78,32 @@
         let ws
         if (typeof p === 'object') { // if method, call as object.method
           p.fn = fn
-          ws = snap(p.fn(t), t, 0)
+          ws = await snap(p.fn(t), t, 0)
         } else {
-          ws = snap(fn, t, 1) // snap function value
+          ws = await snap(fn, t, 1) // snap function value
         }
-
-        return ws
+        ret = ws
       } else if (mprops.isArray(v) && // 08 ____ [ [[ [ ], {} ]] ]
         mprops.isTripleArray(v) &&
         g !== 1
       ) {
-        let ws = snap(v[0][0][0], t, 1) // scales of internal array
-
-        return ws
+        let ws = await snap(v[0][0][0], t, 1) // scales of internal array
+        ret = ws
       } else if (mprops.isArray(v) && // 09 ____ [[[ ], {}]] // last chance for the array
         g !== 1
       ) {
         let ws = v.map(d => snap(d, t, 0))
-        return ws
-      }
+        ret = await Promise.all(ws)
 
       // ____________________________________________________ tagged
-
-      else if (typeof (v) === 'function' && // 01 _____ fn snappable time function
+      } else if (typeof (v) === 'function' && // 01 _____ fn snappable time function
                                       g === 1) {
-        return snap(v(t), t, 0)
+        ret = await snap(v(t), t, 0)
       } else if (mprops.isObject(v) && // 10 ___ v :: {b, c, d ...}*
                                       g === 1) { // assume nat on object
         let ws
 
-        let feature = mnat.natFeature(v) // async
+        let feature = await mnat.natFeature(v) // async
 
         if (!mgeoj.isValid(feature)) console.error('gj not valid', v, feature)
         let geometry = feature.geometry
@@ -116,8 +119,8 @@
         } else {
           console.error('g type not supported')
         }
-        ws = snap(natRing, t, 1) // (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
-        return ws
+        ws = await snap(natRing, t, 1) // (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
+        ret = ws
       } else if (mprops.isArray(v) && // 11_____ [v]*
           mprops.isPureArray(v) &&
           v.length === 1 &&
@@ -125,7 +128,7 @@
         let d = [0, 1],
           r = [v[0], v[0]]
         let w = d3.scaleLinear().domain(d).range(r)
-        return w(t)
+        ret = w(t)
       } else if (mprops.isArray(v) && // 12 _____ [v1,v2,v3]*
           mprops.isPureArray(v) &&
           v.length > 1 &&
@@ -135,15 +138,17 @@
         let w = d3.scaleLinear()
           .domain(d)
           .range(r)
-        return w(t)
+        ret = w(t)
       } else if (mprops.isArray(v) && // 13 _____ [[a1,a2,a3],[b1,b2]]*
           mprops.isQuasiPureArray(v) && // => [[a1,b1],[a2,b1'],[a3,b2]]
           g === 1) { // [][] dosnap qualifier
         let ws = mlacer.unslide(v).filter(d => d.length > 0).map(d => snap(d, t, 1))
-        return ws
+        ret = await Promise.all(ws)
       } else {
-        return v
+        ret = v
       }
+
+      return ret
     }
 
     // .................. enty
