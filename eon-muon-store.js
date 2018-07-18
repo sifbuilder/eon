@@ -37,7 +37,6 @@
 
         for (let i = 0; i < updAnimas.length; i++) {
           let updAnima = mprops.o(updAnimas[i]) // each new anima
-
           let uid = (updAnima.payload.uid !== undefined) // uid
             ? updAnima.payload.uid
             : mric.getuid(updAnima)
@@ -58,8 +57,9 @@
             state.animas[state.animas.length] = updAnima // register new anima
           }
         }
-
-        return enty.animasLive()
+        
+        let animasLive = enty.animasLive()
+        return animasLive
       }
 
       if (action.type === 'UPDANIGRAM') { // .................. UPDANIGRAM
@@ -70,7 +70,6 @@
             let newItem = newAnigrams[i] // new anigram
 
             if (Array.isArray(newItem)) {
-              if (1 && 1) console.log('m.store.apply.updanigram newItem array')
 
               newItem = newItem[0]
             }
@@ -82,16 +81,18 @@
           }
         }
 
-        return state.anigrams
+        let anigram = state.anigrams
+        return anigram
       }
     }
 
     // .................. ween
     async function ween (anitem) {
       let anigram = await manitem.functorize(anitem)
-      let halo = await __mapper('xs').h(anigram.halo)
-      let newAnigrams = await halo.ween(anigram)
-      return _apply({type: 'UPDANIMA', anigrams: newAnigrams})
+      let halo = (typeof(anigram.halo) === 'object') ? await Promise.resolve(anigram.halo) : await __mapper('xs').h(anigram.halo)
+      let newAnimas = await halo.ween(anigram)
+      await _apply({type: 'UPDANIMA', animas: newAnimas}) // persist
+      return newAnimas
     }
 
     let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars || [])
@@ -119,16 +120,11 @@
     }
     // .................. gramm
     async function gramm (anitem) {
-      return Promise.resolve(manitem.functorize(anitem))
-        .then(anigram => __mapper('xs').h(anigram.halo)
-          .then(halo => {
-            let newItems = halo.gramm(anigram)
-
-            return newItems
-          })
-          .then(newItems => {
-            _apply({type: 'UPDANIGRAM', anigrams: newItems})
-
+      let anigram = await Promise.resolve(manitem.functorize(anitem))
+      let halo = (typeof(anigram.halo) === 'object') ? anigram.halo : await __mapper('xs').h(anigram.halo)
+      let newItems = await halo.gramm(anigram)
+      _apply({type: 'UPDANIGRAM', anigrams: newItems})
+      
             newItems.forEach(item => {
               let avatars = gavatars(item)
 
@@ -140,9 +136,8 @@
                 gramm(avatar)
               })
             })
-          })
+         
 
-        )
     }
 
     // .................. enty
@@ -198,6 +193,8 @@
 
     enty.getAnimaIdx = ric => enty.findIndexFromRic(ric, state.animas)
     enty.getAnima = ric => state.animas[enty.getAnimaIdx(ric)] || null
+    
+    enty.state = state
 
     return enty
   }

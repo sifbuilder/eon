@@ -31,9 +31,9 @@
     state.animas = [] // global animas
 
     // .................. getsims
-    const getsims = (animas, elapsed) => {
+    async function getsims_ (animas, elapsed) {
       let sim = msim.sim() // simulation on animas
-      msim.simulate(sim, animas, elapsed) // stored
+      await msim.simulate_(sim, animas, elapsed) // stored
       return mstore.animasLive()
     }
 
@@ -42,15 +42,17 @@
       function chain (items, index) {
         return (index === items.length)
           ? Promise.resolve()
-          : Promise.resolve(fromitem(items[index])).then(() => chain(items, index + 1))
+          : Promise.resolve(fromitem(items[index]))
+            .then(() => chain(items, index + 1))
       }
       return chain(items, 0)
     }
 
     // .................. getweens
     const getweens = (animas, elapsed) => {
-      sequence(animas, anima => mstore.ween(anima))
-      return mstore.animasLive()
+      return sequence(animas, anima => mstore.ween(anima)
+        .then(() => mstore.animasLive())
+        .then(animasLive => animasLive))
     }
 
     // .................. getgramms
@@ -70,7 +72,6 @@
     function aniListener (elapsed) {
       mstore = __mapper('muonStore') // store with state from __mapper
       state.animas = mstore.animasLive()
-
       // .................. time
 
       state.animas = mprops.a(mstore.animasLive())
@@ -97,9 +98,10 @@
       // ............................. @WEEN SIM GRAMM RENDEr
       Promise.resolve(state.animas)
         .then(animas => {
-          return getweens(animas, elapsed)
+          let newanimas = getweens(animas, elapsed) // get animas live
+          return newanimas
         })
-        .then(animas => getsims(animas))
+        .then(animas => getsims_(animas))
         .then(animas => {
           let anigrams = getgramms(animas)
           return anigrams

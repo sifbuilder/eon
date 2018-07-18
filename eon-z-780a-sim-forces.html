@@ -20,39 +20,67 @@
 
 ;(async function eon () {
   let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // z.require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
 
-  let xStore = await __mapper('xs').m('store') // map store
+  let muonStore = await __mapper('xs').m('store') // map store
   let muonAnimation = await __mapper('xs').m('animation') // map animation
 
   let xanimas = await zindex(__mapper)
   let animas = xanimas.animas() // get animas
 
-  __mapper('xStore').apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}) // upd animas
   muonAnimation.animate() // animate
 })()
 
 // .................. zindex
 async function zindex (__mapper) {
   let [
-    mgraticule,
-    cwen,
+    mprops,
     mforces,
     mnat,
-    d3,
     d3Force3d,
     rrenderport,
+    crayder,
   ] = await Promise.all([
-    __mapper('xs').m('graticule'),
-    __mapper('xs').c('wen'),
+    __mapper('xs').m('props'),
     __mapper('xs').m('forces'),
     __mapper('xs').m('nat'),
-    __mapper('xs').b('d3'),
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').r('renderport'),
+    __mapper('xs').c('rayder'),
   ])
 
+
+  
+  let [
+    forceVoid,  
+    forceEnergy,  
+    // forceViscosity,  
+    // forceManybody,  
+    // forceGravity,  
+    // forceCharge,  
+    // forceCube,  
+    forceCollide,  
+    // forceX,  
+    // forceY,  
+    // forceZ,  
+   ] = await Promise.all([ 
+    __mapper('xs').f('void'),
+    __mapper('xs').f('energy'),
+    // __mapper('xs').f('viscosity'),
+    // __mapper('xs').f('manybody'),
+    // __mapper('xs').f('gravity'),
+    // __mapper('xs').f('charge'),
+    // __mapper('xs').f('cube'),
+    __mapper('xs').f('collide'),
+    // __mapper('xs').f('x'),
+    // __mapper('xs').f('y'),
+    // __mapper('xs').f('z'),
+  ])
+
+  
+  let mstore = __mapper('muonStore')
   // .................. animas
   let animas = function () {
     let width = rrenderport.width(),
@@ -60,20 +88,88 @@ async function zindex (__mapper) {
 
     let d3_force = d3Force3d
 
+
+
+ let haloIsolation_ween = anima => { // WEEN
+    let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+
+    animas = []
+
+    
+    const perimeter = 12, length = 30;
+
+    const getId = (col, row) => `${col},${row}`;
+
+    let nodes = [], links = [];
+    for (let colIdx=0; colIdx<perimeter; colIdx++) {
+      for (let rowIdx=0; rowIdx<length; rowIdx++) {
+        const id = getId(colIdx, rowIdx);
+        nodes.push({id});
+
+        if (rowIdx>0) { // Link vertically
+          links.push({ source: getId(colIdx, rowIdx-1), target: id });
+        }
+
+        // Link horizontally
+        links.push({ source: getId((colIdx || perimeter) - 1, rowIdx), target: id });
+      }
+    }    
+    let r = { nodes, links }  
+    
+    let nbr = 2
+    for (let i = 0; i < nbr; i++) {
+      let ani = mprops.cloneObj(natAni) // clone of model anima
+      ani.payload.ric.gid = 'nat'
+      ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
+      ani.payload.ric.fid = 'item' + i // identify
+
+      ani.payload.boform.cf = (i % 2) ? 777 : 333
+      ani.payload.boform.cs = (i % 2) ? 777 : 333
+
+      let preani = mstore.getAnima(ani.payload.ric)
+      
+      if (preani) {
+        ani = preani
+      } else { // create anima
+        ani.halo = 'ent' // create halo
+
+        ani.geofold = { // will create anigram
+          type: 'Feature',
+          geometry: {type: 'Point', coordinates: [0, 0, 0]}
+        }
+
+        ani.payload.geonode.properties.orgen = [0, 0, 0 ]
+      }
+      animas.push(ani)
+    }
+
+    return animas
+  }
+
+  let haloIsolation_gramm = anima => [] // GRAMM))
+
+  let isolation = {
+    ween: anima => haloIsolation_ween(anima),
+    gramm: anima => haloIsolation_gramm(anima),
+  }
+    
+    
     // .................... pics
     let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    // .................... nat1
-    let nat1 = {
+    // .................... natAni
+    let natAni = {
 
-      halo: 'isolation',
+      halo: isolation,
 
       geofold: p => mnat.natFeature(p.payload.form),
 
       payload: {
         tim: tim,
-        ric: {gid: 'ani', cid: 'ani', fid: 'nat1'},
+        ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
+        
+        
         pacer: {
           initN: 2, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 15 / 1400,
 
@@ -100,17 +196,17 @@ async function zindex (__mapper) {
         },
 
         proform: {
-          'projection': 'uniwen',
-          'translate': [0, 0, 0],
+          projection: 'uniwen',
+          translate: [0, 0, 0],
           // [ [ [[[100, 400]]], 200 ],
           // [[[ {
           // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
           // 'ra2': 30,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
           //
           // } ]]] ],
-          'scale': 1,
-          'rotate': [ 0, 0, [[[0, 0]]] ],
-          'lens': [0, 1, 12],
+          scale: 1,
+          rotate: [ 0, 0, [[[0, 0]]] ],
+          lens: [0, 1, 12],
           anod: 1,
         },
 
@@ -134,9 +230,7 @@ async function zindex (__mapper) {
       },
     }
 
-    /*******************************************
- *      @force_energy
- */
+    // ............................. force_energy         
     let force_energy = { // aniForce
       properties: {
         alpha: 1,
@@ -145,54 +239,53 @@ async function zindex (__mapper) {
         alphaTarget: 0,
       },
 
-      'field': function field (params = {}) {
+      field: function field (params = {}) {
         let nodes = params.nodes
 
         let forceParams = {
-          'type': 'energy',
-          'filter': d => true,
-          'src': d3_force,
-          'nodes': nodes,
+          type: 'energy',
+          filter: d => true,
+          src: d3_force,
+          nodes: nodes,
         }
 
         let field = {
-          'key': 'energy',
-          'force': mforces.force(forceParams),
+          key: 'energy',
+          force: mforces.force_(forceParams),
         }
 
         return Array.of(field)
       },
     }
-    /*******************************************
- *      @force_viscosity
- */
+
+ 
+    // ............................. force_viscosity         
     let force_viscosity = {
-      'properties': {
+      properties: {
         velocityDecay: 0.0002,
       },
 
-      'field': function (params = {}) { // field.field
+      field: function (params = {}) { // field.field
         let nodes = params.nodes // nodes
 
         let forceParams = {
-          'type': 'noforce',
-          'filter': d => true,
+          type: 'void',
+          filter: d => true,
           dim: 3,
-          'src': d3_force,
-          'nodes': nodes,
+          src: d3_force,
+          nodes: nodes,
         }
 
         let field = {
-          'key': 'viscosity',
-          'force': mforces.force(forceParams),
+          key: 'viscosity',
+          force: mforces.force_(forceParams),
         }
 
         return Array.of(field)
       },
     }
-    /*******************************************
- *      @link
- */
+
+    // ............................. field_link        
     let field_link = {
       'properties': {},
       'field': function field (params = {}) {
@@ -214,7 +307,7 @@ async function zindex (__mapper) {
 
         let field = {
           'key': 'forceLink',
-          'force': mforces.force(forceParams),
+          'force': mforces.force_(forceParams),
         }
 
         forces.push(field)
@@ -223,10 +316,7 @@ async function zindex (__mapper) {
       },
     }
 
-    /*******************************************
- *      @forceSphere
- *
- */
+    // ............................. forceSphere      
     let forceSphere = function (params) {
       let nodes = params.nodes
 
@@ -309,9 +399,8 @@ async function zindex (__mapper) {
         return forces
       },
     }
-    /*******************************************
- *      @forceCube
- */
+
+    // ............................. forceCube       
     let forceCube = function forceCube (params) {
       let nodes = params.nodes
       let edge = params.edge
@@ -365,9 +454,7 @@ async function zindex (__mapper) {
       },
     }
 
-    /*******************************************
- *      @field_collide
- */
+    // ............................. force_collide    
     let force_collide = {
 
       'properties': {
@@ -393,16 +480,15 @@ async function zindex (__mapper) {
           nodes: nodes,
         }
 
-        let force = mforces.force(forceParams)
+        let force = mforces.force_(forceParams)
         let field = {'key': 'collide', 'force': force}
 
         forces.push(field)
         return forces
       },
     }
-    /*******************************************
- *      @force_manybody
- */
+
+    // ............................. force_manybody        
     let force_manybody = { // aniForce
 
       properties: {
@@ -426,16 +512,15 @@ async function zindex (__mapper) {
           nodes: nodes,
         }
 
-        let force = mforces.force(forceParams)
+        let force = mforces.force_(forceParams)
         let field = {'key': 'charge', 'force': force}
 
         forces.push(field)
         return forces
       },
     }
-    /*******************************************
- *      @forceGravity
- */
+
+    // ............................. forceGravity    
     let forceGravity = function (params) { // force
       let nodes = params.nodes
       let newNodes = []
@@ -489,10 +574,8 @@ async function zindex (__mapper) {
         return forces
       },
     }
-    /*******************************************
- *      @charge
- *
- */
+    
+    // ............................. force_charge
     let force_charge = {
       'properties': {
         'charge': -0.85,
@@ -516,7 +599,7 @@ async function zindex (__mapper) {
         let field = {
           'key': 'charge',
           'force': d => {
-            return mforces.force(forceParams)
+            return mforces.force_(forceParams)
           },
 
         }
@@ -525,10 +608,7 @@ async function zindex (__mapper) {
       },
     }
 
-    /*******************************************
- *      @forceX
- */
-
+    // ............................. force_X
     let force_X = {
 
       properties: {
@@ -553,7 +633,7 @@ async function zindex (__mapper) {
           'nodes': nodes,
         }
 
-        let force = mforces.force(forceParams)
+        let force = mforces.force_(forceParams)
         let field = {'key': 'x_center', 'force': force}
 
         forces.push(field)
@@ -561,10 +641,7 @@ async function zindex (__mapper) {
       },
     }
 
-    /*******************************************
- *      @forceY
- *
- */
+    // ............................. force_Y
     let force_Y = {
 
       properties: {
@@ -585,21 +662,18 @@ async function zindex (__mapper) {
           'position': 200,
           'strength': d => attractionCtt,
           filter: d => d.payload.ric.gid === 'nat',
-				  src: d3_force,
+          src: d3_force,
           'nodes': nodes,
         }
 
-        let force = mforces.force(forceParams)
+        let force = mforces.force_(forceParams)
         let field = {'key': 'y_center', 'force': force}
 
         forces.push(field)
         return forces
       },
     }
-    /*******************************************
- *      @forceZ
- *
- */
+    // ............................. force_Z
     let force_Z = {
 
       properties: {
@@ -624,16 +698,14 @@ async function zindex (__mapper) {
           'nodes': nodes,
         }
 
-        let force = mforces.force(forceParams)
+        let force = mforces.force_(forceParams)
         let field = {'key': 'z_center', 'force': force}
 
         forces.push(field)
         return forces
       },
     }
-	  /*******************************************
- *      @center
- */
+    // ............................. force_center_orange
     let force_center_orange = {
       properties: {
         attractionCtt: 0.0025,
@@ -646,14 +718,14 @@ async function zindex (__mapper) {
         let nodes = params.nodes
 
         let forceParams = {
-          'type': 'center',	// f.center
+          'type': 'center', // f.center
           'center': center,
           'strength': d => attractionCtt,
           'filter': d => d.payload.ric.cid === 'orange',
           'src': d3_force,
           'nodes': nodes,
         }
-        let force = {'key': 'center_orange', 'force': mforces.force(forceParams)}
+        let force = {'key': 'center_orange', 'force': mforces.force_(forceParams)}
         return Array.of(force)
       },
     }
@@ -669,30 +741,28 @@ async function zindex (__mapper) {
         let nodes = params.nodes
 
         let forceParams = {
-          'type': 'center',	// f.center
+          'type': 'center', // f.center
           'center': center,
           'strength': d => attractionCtt,
           'filter': d => d.payload.ric.cid === 'gold',
           'src': d3_force,
           'nodes': nodes,
         }
-        let force = {'key': 'center_golde', 'force': mforces.force(forceParams)}
+        let force = {'key': 'center_golde', 'force': mforces.force_(forceParams)}
         return Array.of(force)
       },
     }
-    /*******************************************
- *        @animaApi
- *
- */
-    nat1.payload.forces = {
+
+    // .................. natAni forces
+    natAni.payload.___forces = {
       force_energy,
-      force_viscosity,
+    force_viscosity,
     // force_manybody,
     // force_gravity,
     // force_charge,
     // force_cube,
     // force_sphere
-    // force_collide,
+    force_collide,
     // force_X,
     // force_Y,
     // force_Z,
@@ -700,8 +770,10 @@ async function zindex (__mapper) {
     // force_center_gold
     }
 
+    // .................. animas
     let animas = [
-      nat1, // h.ent
+
+      natAni, // h.ent
 
     ]
 

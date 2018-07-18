@@ -107,6 +107,7 @@
 
     // ............................. gramm
     async function gramm (ani) {
+      
       return Promise.resolve(ani)
 
         .then(anigram => Promise.resolve(mgeoj.featurecollect(getgj(Promise.resolve(anigram))))
