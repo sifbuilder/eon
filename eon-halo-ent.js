@@ -15,12 +15,14 @@
       mproj3ct,
       hformed,
       mprops,
+      manitem,
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
       __mapper('xs').h('formed'),
       __mapper('xs').m('props'),
+      __mapper('xs').m('anitem'),
 
     ])
 
@@ -106,9 +108,9 @@
     let transforms = (f, ani) => transformer(ani)(f)
 
     // ............................. gramm
-    async function gramm (ani) {
+    async function gramm (anima) {
       
-      return Promise.resolve(ani)
+      return Promise.resolve(manitem.functorize(anima))
 
         .then(anigram => Promise.resolve(mgeoj.featurecollect(getgj(Promise.resolve(anigram))))
           .then(gjcollection => Promise.all(gjcollection.features.map(f => transforms(f, anigram)))

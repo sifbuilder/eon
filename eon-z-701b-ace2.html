@@ -45,7 +45,7 @@ async function zindex (__mapper) {
     __mapper('xs').m('nat'),
   ])
 
-  let animas = function () {
+  let animas = function () { 
   // .................. pics
     let tim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -59,7 +59,7 @@ async function zindex (__mapper) {
         'n3': 13, // [[[13, 15, 17, 17]]],
         'a': 9, // [[[9, 9, 9, 8.98]]],
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
-        'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 72, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'pr8': Math.cos,
       },
@@ -72,7 +72,7 @@ async function zindex (__mapper) {
         'n3': 13, // [[[13, 15, 17, 17]]],
         'a': 9, // [[[9, 9, 9, 8.98]]],
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
-        'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 72, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'pr8': Math.sin,
       },
@@ -85,7 +85,7 @@ async function zindex (__mapper) {
         'n3': 13, // [[[13, 15, 17, 17]]],
         'a': 9, // [[[9, 9, 9, 8.98]]],
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
-        'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 72, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180 ],
         'pr8': Math.cos,
       },
@@ -134,21 +134,21 @@ async function zindex (__mapper) {
         ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform'},
         boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
 
-        conform: { 'projection': 'natform', form: form },
+        conform: { projection: 'natform', form: form },
 
         proform: {
-          'projection': 'uniwen',
-          'prerotate': [[[ cwen.rotation ]]],
-          'translate': [0, 0],
-          'scale': 300,
-          'rotate': [ 0, 0, 0],
-          'lens': [ 0, 1, Infinity ],
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [0, 0],
+          scale: 300,
+          rotate: [ 0, 0, 0],
+          lens: [ 0, 1, Infinity ],
         },
 
-        'graticule': {
+        graticule: {
 
-          'frame': [ [ [ [[[-1, -1, -180]]], [[[1, 1, 180]]], [[[15, 15]]], 1], // x
-            [ [[[0, -90, -180]]], [[[0, 90, 180]]], [[[15, 15]]], 1] ] ], // y
+          frame: [ [ [ [[[-1, -1, -180]]], [[[18, 18, 180]]], [[[15, 15]]], 15], // x
+            [ [[[0, -90, -180]]], [[[0, 90, 180]]], [[[15, 15]]], 15] ] ], // y
 
         },
 

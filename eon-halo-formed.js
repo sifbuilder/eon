@@ -14,11 +14,13 @@
       mboform,
       mgeoj,
       mprops,
+      manitem,
     ] = await Promise.all([
       __mapper('xs').m('ric'),
       __mapper('xs').m('boform'),
       __mapper('xs').m('geoj'),
       __mapper('xs').m('props'),
+      __mapper('xs').m('anitem'),
     ])
 
     const getgj = ani => {
@@ -31,7 +33,9 @@
     }
 
     // ............................. gramm
-    async function gramm (anigram) {
+    async function gramm (anima) {
+      let anigram = await Promise.resolve(manitem.functorize(anima))
+      
       let gjcollection = await mgeoj.featurecollect(getgj(anigram))
 
       if (2 && 2 && gjcollection.type !== 'FeatureCollection') console.log('** gjcollection is not FeatureCollection', gjcollection)

@@ -98,15 +98,20 @@
       // ............................. @WEEN SIM GRAMM RENDEr
       Promise.resolve(state.animas)
         .then(animas => {
-          let newanimas = getweens(animas, elapsed) // get animas live
-          return newanimas
+          let updanimas = getweens(animas, elapsed) // get animas live
+          return updanimas
         })
+        .then(animas => mstore.animasLive())
         .then(animas => getsims_(animas))
         .then(animas => {
           let anigrams = getgramms(animas)
           return anigrams
+         
         })
-        .then(anigrams => {
+        .then(updanigrams => {
+          let anigrams = mstore.anigrams()
+
+          
           return { type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }
         })
         .then(featurecollection => {

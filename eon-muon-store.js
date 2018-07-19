@@ -12,12 +12,12 @@
     let [
       mtim,
       mric,
-      manitem,
+      // manitem,
       mprops,
     ] = await Promise.all([
       __mapper('xs').m('tim'),
       __mapper('xs').m('ric'),
-      __mapper('xs').m('anitem'),
+      // __mapper('xs').m('anitem'),
       __mapper('xs').m('props'),
     ])
 
@@ -57,9 +57,10 @@
             state.animas[state.animas.length] = updAnima // register new anima
           }
         }
-        
-        let animasLive = enty.animasLive()
-        return animasLive
+
+        // let animasLive = enty.animasLive()
+        // return animasLive
+        return updAnimas
       }
 
       if (action.type === 'UPDANIGRAM') { // .................. UPDANIGRAM
@@ -80,21 +81,13 @@
             state.anigrams[index] = newItem // replace anigram
           }
         }
-
-        let anigram = state.anigrams
-        return anigram
+        // let anigram = state.anigrams
+        // return anigram
+        return newAnigrams
       }
     }
 
-    // .................. ween
-    async function ween (anitem) {
-      let anigram = await manitem.functorize(anitem)
-      let halo = (typeof(anigram.halo) === 'object') ? await Promise.resolve(anigram.halo) : await __mapper('xs').h(anigram.halo)
-      let newAnimas = await halo.ween(anigram)
-      await _apply({type: 'UPDANIMA', animas: newAnimas}) // persist
-      return newAnimas
-    }
-
+    // .................. gavatars
     let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars || [])
 
     // .................. getavatars
@@ -118,26 +111,43 @@
       }
       return chain(items, 0)
     }
+
+    // .................. ween
+    async function ween (anitem) {  // ok trace
+      // let anigram = await manitem.functorize(anitem)
+      let halo
+      if (typeof(anitem.halo) === 'object') {
+        halo = await Promise.resolve(anitem.halo)
+      } else {
+        halo = await __mapper('xs').h(anitem.halo)
+      }
+      let updAnimas = await halo.ween(anitem)  // UPDANIMA in halo
+
+    }
+
     // .................. gramm
     async function gramm (anitem) {
-      let anigram = await Promise.resolve(manitem.functorize(anitem))
-      let halo = (typeof(anigram.halo) === 'object') ? anigram.halo : await __mapper('xs').h(anigram.halo)
-      let newItems = await halo.gramm(anigram)
+      // let anigram = await Promise.resolve(manitem.functorize(anitem))
+     let halo
+      if (typeof(anitem.halo) === 'object') {
+        halo = await Promise.resolve(anitem.halo)
+      } else {
+        halo = await __mapper('xs').h(anitem.halo)
+      }
+      let newItems = await halo.gramm(anitem)
       _apply({type: 'UPDANIGRAM', anigrams: newItems})
-      
-            newItems.forEach(item => {
-              let avatars = gavatars(item)
 
-              avatars.forEach(avatar => {
-                avatar.payload.uid = mric.getuid(avatar)
-                avatar.payload.tim = anigram.payload.tim
-                avatar.payload.parentuid = anigram.payload.uid
+      newItems.forEach(item => {
+        let avatars = gavatars(item)
 
-                gramm(avatar)
-              })
-            })
-         
+        avatars.forEach(avatar => {
+          // avatar.payload.uid = mric.getuid(avatar)  // _e_
+          avatar.payload.tim = anitem.payload.tim
+          avatar.payload.parentuid = anitem.payload.uid
 
+          gramm(avatar)
+        })
+      })
     }
 
     // .................. enty
@@ -193,7 +203,7 @@
 
     enty.getAnimaIdx = ric => enty.findIndexFromRic(ric, state.animas)
     enty.getAnima = ric => state.animas[enty.getAnimaIdx(ric)] || null
-    
+
     enty.state = state
 
     return enty

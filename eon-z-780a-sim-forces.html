@@ -42,6 +42,7 @@ async function zindex (__mapper) {
     d3Force3d,
     rrenderport,
     crayder,
+    mric,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('forces'),
@@ -49,10 +50,9 @@ async function zindex (__mapper) {
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').r('renderport'),
     __mapper('xs').c('rayder'),
+    __mapper('xs').m('ric'),
   ])
 
-
-  
   let [
     forceVoid,  
     forceEnergy,  
@@ -123,6 +123,9 @@ async function zindex (__mapper) {
       ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
       ani.payload.ric.fid = 'item' + i // identify
 
+      let uid = mric.getuid(ani.payload.ric)
+      ani.payload.uid = uid
+     
       ani.payload.boform.cf = (i % 2) ? 777 : 333
       ani.payload.boform.cs = (i % 2) ? 777 : 333
 
@@ -135,14 +138,16 @@ async function zindex (__mapper) {
 
         ani.geofold = { // will create anigram
           type: 'Feature',
-          geometry: {type: 'Point', coordinates: [0, 0, 0]}
+          geometry: {type: 'Point', coordinates: [ 10 * i, 0, 0]},
+          properties: {},
         }
 
         ani.payload.geonode.properties.orgen = [0, 0, 0 ]
       }
       animas.push(ani)
     }
-
+    
+    mstore.apply({type: 'UPDANIMA', animas: animas})  // live
     return animas
   }
 

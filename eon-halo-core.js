@@ -8,9 +8,15 @@
 }(this, function (exports) {
   'use strict'
 
-  let haloCore = function (__mapper = {}) {
-    let ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-    let gramm = anima => Array.of(__mapper('xs').m('anitem')(anima).anigram())
+  async function haloCore (__mapper = {}) {
+    
+    let manitem = await __mapper('xs').m('anitem'),
+    
+    // ....................... ween
+    let ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, Array.of(anima)) : []
+    
+    // ....................... gramm
+    let gramm = anima => Array.of(manitem.functorize(anima))
 
     let haloCore = {}
     haloCore.ween = anima => ween(anima)

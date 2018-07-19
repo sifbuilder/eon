@@ -12,6 +12,7 @@
     let [
       mric,
       mgeom,
+      manitem,
       crayder,
       cwen,
       cversor,
@@ -21,6 +22,7 @@
     ] = await Promise.all([
       __mapper('xs').m('ric'),
       __mapper('xs').m('geom'),
+      __mapper('xs').m('anitem'),
       __mapper('xs').c('rayder'),
       __mapper('xs').c('wen'),
       __mapper('xs').c('versor'),
@@ -88,7 +90,9 @@
     let ween = anima => []
 
     // ............................. gramm
-    async function gramm (anitem, newItems = []) {
+    async function gramm (anima, newItems = []) {
+      let anitem = await Promise.resolve(manitem.functorize(anima))
+      
       let halo = anitem.halo,
         payload = anitem.payload,
         ric = payload.ric,
