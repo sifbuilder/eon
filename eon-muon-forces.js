@@ -8,10 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-
   async function muonForces (__mapper = {}) {
-    
-
     // ...................... isolate
     let isolate = function (sys) { // filter, force, nodes, sys, type
       let nodes = sys.nodes
@@ -27,19 +24,15 @@
 
         return force
       }
-    }    
-      
+    }
+
     // ...................... force
     function force (params) {
-      
       let f = __mapper('xs').ceonize(params.type, 'force')
-      
-     
-      
+
       // let fforce = await __mapper('xs').f(params.type)
       let fforce = __mapper(f)
-   console.log(' ----------- fforce', f, fforce)    
-      
+
       let sys = {
         nodes: params.nodes,
         filter: params.filter,

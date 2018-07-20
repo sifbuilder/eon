@@ -121,10 +121,9 @@
         } else if (typeof projdef.translate === 'object') {
           translation = mstace.getTranspot(projdef.translate, anigram)
         }
-
         if (projdef.anod && geofold.properties && geofold.properties.geonode) {
           let geonode = geofold.properties.geonode // geonode
-          if (geonode.geometry && geonode.geometry.coordinate !== undefined) {
+          if (geonode.geometry && geonode.geometry.coordinates !== undefined) {
             let nodetranslate = geonode.geometry.coordinates // geonode coords
             translation = mgeom.add(translation, nodetranslate)
           }

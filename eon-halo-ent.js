@@ -91,9 +91,9 @@
           if (Array.isArray(ani)) ani = ani[0]
           let gj = mprops.v(ani.geofold, ani) // get geofold
           gj.properties = gj.properties || {} // recall genode
-          gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
+          gj.properties.geonode = gj.properties.geonode || {} // recall genode props
           gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
-          gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
+          gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode  
           return gj
         })
     }
@@ -109,7 +109,6 @@
 
     // ............................. gramm
     async function gramm (anima) {
-      
       return Promise.resolve(manitem.functorize(anima))
 
         .then(anigram => Promise.resolve(mgeoj.featurecollect(getgj(Promise.resolve(anigram))))
@@ -120,8 +119,9 @@
               }
               let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
               let newAni = Object.assign({}, anigram, {geofold: newcollection})
-
-              let newAnigrams = hformed.gramm(newAni)
+              return hformed.gramm(newAni)
+            })
+            .then(newAnigrams => { 
               return newAnigrams
             })))
     }

@@ -64,13 +64,11 @@
         let aniItem = aniItems[i]
         let payload = aniItem.payload
 
-        
         let geonode // the geonode ports info of the simnode
         if (aniItem && aniItem.geofold && aniItem.geofold.properties) geonode = aniItem.geofold.properties.geonode
         geonode = mgeonode.init(geonode)
 
-        
-        let simNode = {}  // the simnode location is in the geonode geometry
+        let simNode = {} // the simnode location is in the geonode geometry
         let nodeGeometry = geonode.geometry
         simNode.x = nodeGeometry.coordinates[0] // geonode location to simnode
         simNode.y = nodeGeometry.coordinates[1]
@@ -80,7 +78,6 @@
         if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1) simNode.y = 0
         if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2) simNode.z = 0
 
-        
         let properties = geonode.properties // the simnode status is in the geonode properties
         if (properties.anchor) { // fix situs
           simNode.fx = simNode.x
@@ -118,6 +115,8 @@
 
     // ...................... restoreNodes
     function restoreNodes (simNodes, aniItems) {
+  
+      
       let updItems = []
 
       if (simNodes.length > 0) {
@@ -192,7 +191,7 @@
                 if (aniForce.ticked !== undefined) aniForce.ticked
 
                 aniSims = restoreNodes(aniNodes, aniItems) // > aniNodes
-                mstore.apply({type: 'UPDATEANIMAS', caller: 'simulation', animas: aniSims})
+                mstore.apply({type: 'UPDANIMA', caller: 'simulation', animas: aniSims})
               })
 
             if (aniForce.field !== undefined) { // field forces

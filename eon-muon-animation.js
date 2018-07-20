@@ -103,15 +103,14 @@
         })
         .then(animas => mstore.animasLive())
         .then(animas => getsims_(animas))
-        .then(animas => {
+        .then(updanimas => {
+          let animas = mstore.animasLive()
           let anigrams = getgramms(animas)
           return anigrams
-         
         })
         .then(updanigrams => {
           let anigrams = mstore.anigrams()
 
-          
           return { type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }
         })
         .then(featurecollection => {

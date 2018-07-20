@@ -11,10 +11,11 @@
   var forceCollide = function (__mapper = {}) {
   // .................. force
     let force = function (params) {
+  
       let d3_force = __mapper('d3Force3d')
 
       let strength = params.strength || 1
-      let radius = params.radii || 1
+      let radius = params.radii || 12
 
       let d3src = (params.src !== undefined) ? params.src : d3_force // d3
 

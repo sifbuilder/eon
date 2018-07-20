@@ -92,7 +92,7 @@
     // ............................. gramm
     async function gramm (anima, newItems = []) {
       let anitem = await Promise.resolve(manitem.functorize(anima))
-      
+
       let halo = anitem.halo,
         payload = anitem.payload,
         ric = payload.ric,

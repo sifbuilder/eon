@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  let [
+    mprops,
+    mforces,
+    mnat,
+    d3Force3d,
+    rrenderport,
+    crayder,
+    mric,
+  ] = await Promise.all([
+    __mapper('xs').m('props'),
+    __mapper('xs').m('forces'),
+    __mapper('xs').m('nat'),
+    __mapper('xs').b('d3-force-3d'),
+    __mapper('xs').r('renderport'),
+    __mapper('xs').c('rayder'),
+    __mapper('xs').m('ric'),
+  ])
+
+  
+  let mstore = __mapper('muonStore')
+  // .................. animas
+  let animas = function () {
+    let width = rrenderport.width(),
+      height = rrenderport.height()
+
+
+ let haloIsolation_ween = anima => { // WEEN
+    let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+
+    animas = []
+
+    
+    const perimeter = 12, length = 30;
+
+    const getId = (col, row) => `${col},${row}`;
+
+    let nodes = [], links = [];
+    for (let colIdx=0; colIdx<perimeter; colIdx++) {
+      for (let rowIdx=0; rowIdx<length; rowIdx++) {
+        const id = getId(colIdx, rowIdx);
+        nodes.push({id});
+
+        if (rowIdx>0) { // Link vertically
+          links.push({ source: getId(colIdx, rowIdx-1), target: id });
+        }
+
+        // Link horizontally
+        links.push({ source: getId((colIdx || perimeter) - 1, rowIdx), target: id });
+      }
+    }    
+    let r = { nodes, links }  
+    
+    let nbr = 2
+    for (let i = 0; i < nbr; i++) {
+      let ani = mprops.cloneObj(natAni) // clone of model anima
+      ani.payload.ric.gid = 'nat'
+      ani.payload.ric.cid = 'nat'
+      ani.payload.ric.fid = 'item' + i // identify
+
+      let uid = mric.getuid(ani.payload.ric)
+      ani.payload.uid = uid
+
+
+      let preani = mstore.getAnima(ani.payload.ric)
+      
+      if (preani) {
+        ani = preani
+      } else { // create anima
+        ani.halo = 'ent' // create halo
+
+        ani.geofold = { // will create anigram
+          type: 'Feature',
+          geometry: {type: 'Point', coordinates: [ 10 * i, 0, 0]},
+          properties: {pointRadius: 36},
+        }
+
+        ani.payload.geonode.properties.orgen = [0, 0, 0 ]
+      }
+      animas.push(ani)
+    }
+    
+    mstore.apply({type: 'UPDANIMA', animas: animas})  // live
+    return animas
+  }
+
+  let haloIsolation_gramm = anima => [] // GRAMM))
+
+  let isolation = {
+    ween: anima => haloIsolation_ween(anima),
+    gramm: anima => haloIsolation_gramm(anima),
+  }
+    
+    // .................... pics
+    let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    // .................... natAni
+    let natAni = {
+
+      halo: isolation,
+
+      geofold: p => mnat.natFeature(p.payload.form),
+
+      payload: {
+        tim: tim,
+        ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
+
+        
+        pacer: {
+          initN: 2, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 15 / 1400,
+
+          fidder: (payload, i) => 'item' + i,
+
+          initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
+          eventSitus: d => ({x: crayder.event().x, y: crayder.event().y, z: 0 }),
+          autoSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
+
+          geojsor: () => {
+            let ani = {}
+            ani.halo = 'ent'
+            ani.geofold = {type: 'Feature', geometry: {type: 'Point', coordinates: null}, properties: {}}
+            ani.payload = {}
+            return ani
+          },
+
+        },
+
+        geonode: {
+          type: 'Feature',
+          geometry: {type: 'Point', coordinates: [0, 0, 0]},
+          properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
+        },
+
+        proform: {
+          projection: 'uniwen',
+          translate: [0, 0, 0],
+          scale: 1,
+          rotate: [ 0, 0, [[[0, 0]]] ],
+          lens: [0, 1, 12],
+          anod: 1,
+        },
+
+        boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+        form: {
+
+          'x': {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
+          },
+          'y': {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
+          },
+
+        },
+      },
+    }
+
+
+    // .................. animas
+    let animas = [
+
+      natAni, // h.isolation
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>

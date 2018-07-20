@@ -71,7 +71,6 @@
             let newItem = newAnigrams[i] // new anigram
 
             if (Array.isArray(newItem)) {
-
               newItem = newItem[0]
             }
 
@@ -113,23 +112,22 @@
     }
 
     // .................. ween
-    async function ween (anitem) {  // ok trace
+    async function ween (anitem) { // ok trace
       // let anigram = await manitem.functorize(anitem)
       let halo
-      if (typeof(anitem.halo) === 'object') {
+      if (typeof (anitem.halo) === 'object') {
         halo = await Promise.resolve(anitem.halo)
       } else {
         halo = await __mapper('xs').h(anitem.halo)
       }
-      let updAnimas = await halo.ween(anitem)  // UPDANIMA in halo
-
+      let updAnimas = await halo.ween(anitem) // UPDANIMA in halo
     }
 
     // .................. gramm
     async function gramm (anitem) {
       // let anigram = await Promise.resolve(manitem.functorize(anitem))
-     let halo
-      if (typeof(anitem.halo) === 'object') {
+      let halo
+      if (typeof (anitem.halo) === 'object') {
         halo = await Promise.resolve(anitem.halo)
       } else {
         halo = await __mapper('xs').h(anitem.halo)

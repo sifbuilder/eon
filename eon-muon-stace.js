@@ -10,13 +10,13 @@
 
   async function muonStace (__mapper = {}) {
     let [
-    mprops,
-    mlacer,
-    mgeoj,
+      mprops,
+      mlacer,
+      mgeoj,
     ] = await Promise.all([
-    __mapper('xs').m('props'),
-    __mapper('xs').m('lacer'),
-    __mapper('xs').m('geoj'),
+      __mapper('xs').m('props'),
+      __mapper('xs').m('lacer'),
+      __mapper('xs').m('geoj'),
     ])
 
     // ...................... range

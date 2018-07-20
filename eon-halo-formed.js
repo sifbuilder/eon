@@ -35,10 +35,10 @@
     // ............................. gramm
     async function gramm (anima) {
       let anigram = await Promise.resolve(manitem.functorize(anima))
-      
+
       let gjcollection = await mgeoj.featurecollect(getgj(anigram))
 
-      if (2 && 2 && gjcollection.type !== 'FeatureCollection') console.log('** gjcollection is not FeatureCollection', gjcollection)
+      console.assert(gjcollection.type === 'FeatureCollection')
       gjcollection = mgeoj.zorder(gjcollection) // order features in collection
       gjcollection = mric.enric(anigram.payload.ric, anigram, gjcollection) // ric to feature or collection
 
