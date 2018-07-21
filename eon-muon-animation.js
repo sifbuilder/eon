@@ -72,6 +72,7 @@
     function aniListener (elapsed) {
       mstore = __mapper('muonStore') // store with state from __mapper
       state.animas = mstore.animasLive()
+      console.log(`animation ${elapsed} ${state.animas.length}`)
       // .................. time
 
       state.animas = mprops.a(mstore.animasLive())

@@ -15,7 +15,7 @@
 <script src="eon-x-d3-require.js"></script>
 <script src="eon-x-mapper.js"></script>
 <script src="eon-x-s.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.7"> </script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
 <script>
 
 ;(async function eon () {
@@ -31,11 +31,6 @@
 
   __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}) // upd animas
   muonAnimation.animate() // animate
-
-
-
-
-
 })()
 
 // .................. zindex
@@ -52,87 +47,73 @@ async function zindex (__mapper) {
   ])
 
   
-  
+  // ===================================================
+  const vars = [ // Step 1. output variables
+    tf.variable(tf.scalar(Math.random())), // vars[0]: a
+    tf.variable(tf.scalar(Math.random())), // vars[1]: b
+    tf.variable(tf.scalar(Math.random())), // vars[2]: c
+  ]
 
+  const learningRate = 0.01 // Step 2. Optimizer : optimize output :: minimize loss
+  const optimizer = tf.train.sgd(learningRate) // gradient descent optimizer
 
-
-const a = tf.variable(tf.scalar(Math.random())); // Step 1. Set up variables
-const b = tf.variable(tf.scalar(Math.random()));
-const c = tf.variable(tf.scalar(Math.random()));
-
-
-const learningRate = 0.01; // Step 2. Create an optimizer,
-const optimizer = tf.train.sgd(learningRate);
-
-
-function predict(input) { // Step 3. Write our training process functions. @return number predicted y value
-
-  return tf.tidy(() => {    // y = a * x ^ 2 + b * x + c
-    const x = tf.scalar(input);
-
-    const ax2 = a.mul(x.square());
-    const bx = b.mul(x);
-    const y = ax2.add(bx).add(c);
-
-    return y;
-  });
-}
-
-function loss(prediction, actual) {
-  const error = tf.scalar(actual).sub(prediction).square();
-  return error;
-}
-
-
-async function train(xs, ys, numIterations, done) {
-  let currentIteration = 0;
-
-  for (let iter = 0; iter < numIterations; iter++) {
-    for (let i = 0; i < xs.length; i++) {
-
-      optimizer.minimize(() => {
-        const pred = predict(xs[i]);
-        const predLoss = loss(pred, ys[i]);
-
-        return predLoss // as tf.Scalar;
-      });
-    }
-
-    await tf.nextFrame();
+  function predict (input) { // Step 3.
+    return tf.tidy(() => { // y = a * x ^ 2 + b * x + c // [c,b,a]
+      const x = tf.scalar(input)
+        const ax2 = vars[0].mul(x.square())
+        const bx = vars[1].mul(x)
+        const y = ax2.add(bx).add(vars[2])
+      return y
+    })
   }
 
-  done();
-}
+  function loss (prediction, actual) { // loss function: outputs to predictions
+    const error = tf.scalar(actual).sub(prediction).square()
+    return error
+  }
 
-function test(xs, ys) {
-  tf.tidy(() => {
-    const predictedYs = xs.map(predict);
-    console.log('Expected', ys);
-    console.log('Got', predictedYs.map((p) => p.dataSync()[0]));
+  async function train (xs, ys, numIterations, done) { // training plan
+    let currentIteration = 0
+
+    for (let iter = 0; iter < numIterations; iter++) {
+      for (let i = 0; i < xs.length; i++) {
+        optimizer.minimize(() => { // minimize loss on gradient descent
+          const pred = predict(xs[i]) // output predicted for input   xs[i]
+          const predLoss = loss(pred, ys[i]) // loss from output to predicted
+          return predLoss // as tf.Scalar
+        })
+      }
+      console.log(" ............  train iteration", iter, vars.map(d => d.dataSync()[0]))
+      await tf.nextFrame() // -------------------- frame
+    }
+
+    done()
+  }
+
+  function test (xs, ys) {
+    tf.tidy(() => {
+      const predictedYs = xs.map(predict)   // predict on learnt vars
+      console.log('Expected', ys)           // 
+      console.log('Got', predictedYs.map(p => p.dataSync()[0])) // from tensor
+    })
+  }
+
+  const data = {
+    xs: [0,       1,    2,    3],
+    ys: [0 * 1.1, 5.9, 16.8, 33.9],
+  }
+
+  console.log('Before training: using random coefficients')
+  test(data.xs, data.ys) // Before training
+
+  train(data.xs, data.ys, 50, () => { // Train
+    let tsvars = vars.map(d => d.dataSync()[0])
+    console.log(`After training: a=${tsvars[0]}, b=${tsvars[1]}, c=${tsvars[2]}`)
+    test(data.xs, data.ys)
   })
-}
+  // ===================================================
 
 
-const data = {
-  xs: [0, 1, 2, 3],
-  ys: [1.1, 5.9, 16.8, 33.9]
-}
-
-
-console.log('Before training: using random coefficients')
-test(data.xs, data.ys); // Lets see how it does before training.
-
-train(data.xs, data.ys, 50, () => {
-  console.log(
-    `After training: a=${a.dataSync()}, b=${b.dataSync()}, c=${c.dataSync()}`)
-  test(data.xs, data.ys);
-})
-
-
-
-
-
-  
   
   
   // .................. animas
@@ -166,48 +147,28 @@ train(data.xs, data.ys, 50, () => {
     let sinp = [1, 0, -infact2, 0, +infact4, 0, -infact6, 0, infact8]
     let cosp = [0, +1, 0, -infact3, 0, +infact5, 0, -infact7, 0, infact9]
 
-    let conform = {
+    let natform = function (q) {
+      let preform = {
         'x': {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
-          'dom3': [-180, 180], // r.form.circ [-1.57, 1.57]
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 90, 'pa6': 0, 'pb7': -1,
+          'dom3': [-180, 180],
           c1: [1], e1: [0, 1], // 1 * q
-        // c4: [1], e4: [1, 0, -infact2, 0, +infact4, 0, -infact6, 0, infact8],  // 1 * cos v
-
         },
-
         'y': {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 90, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
           c1: [1], e1: [0, 0, 1], // 1 * q**2
-
         },
-
-      // 'z': {
-        // 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        // 'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
-        // 'dom3': [-180, 180],
-        // c1: [1], e1: [0, 1],
-        // c4: [1], e4: [0, +1, 0, -infact3, 0, +infact5, 0, -infact7, 0, infact9],  // cos v
-
-      // },
-
-      // 'r': {
-        // 'm1': 1, 'm2': 1, 'n1': 0.5, 'n2': 0.5, 'n3': 0.5, 'a': 1, 'b': 1, // drop
-        // 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        // 'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
-        // 'dom3': [-180, 180],
-
-      // },
-
-
+      }
+      let form = Object.assign({}, preform, q)
+      return form
     }
 
     let proform = {
-
       projection: 'uniwen',
-      scale: [0.5, 0.5],
+      scale: [0.1, 0.1],
       prerotate: [[[ cwen.rotation ]]],
       translate: [ [0, 0, 0] ],
       rotate: [ 0, 0, 0 ],
@@ -218,39 +179,28 @@ train(data.xs, data.ys, 50, () => {
     let natAni = {
 
       halo: 'ent',
-
       geofold: p => {
-
-        return mnat.natFeature(p.payload.form)
-
-
-
+        let tfvars = vars.map(d => d.dataSync()[0])
+        let q = { natform: {y: { e1: tfvars } } }
+        return mnat.natFeature(p.payload.natform(q.natform))
       },
       payload: {
         tim: tim,
-
         ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
-
         proform: proform,
-
         boform: { 'csx': 0, 'cf': 111, 'co': 0.09, 'cs': 888, 'cw': 1.9, 'cp': [[[0.7, 0.9]]]},
-
-        form: conform,
-
+        natform: natform,
       },
-
     }
 
     // .................. sceneAni
     let sceneAni = {
-
       halo: 'scene',
       payload: {
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
-
     }
 
     // .................. animas

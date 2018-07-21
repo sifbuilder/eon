@@ -122,12 +122,11 @@ async function zindex (__mapper) {
         boform: traceBoform,
 
         pacer: { // aad for trace
+          stace: {x: { pos: 0 }, y: { pos: 0 }, z: { pos: 0 }},        
           initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
 
           autoSitus: d => mstace.getLocus(this.stace, d), // situs
-
           fidder: d => d.payload.ric.fid,
-
           geojsor: function (d, i) {
             let ric = d.payload.ric,
               uid = mric.getuid(ric)
