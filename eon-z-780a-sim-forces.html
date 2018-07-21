@@ -54,18 +54,18 @@ async function zindex (__mapper) {
   ])
 
   let [
-    forceVoid,  
-    forceEnergy,  
-    // forceViscosity,  
-    // forceManybody,  
-    // forceGravity,  
-    // forceCharge,  
-    // forceCube,  
-    forceCollide,  
-    // forceX,  
-    // forceY,  
-    // forceZ,  
-   ] = await Promise.all([ 
+    forceVoid,
+    forceEnergy,
+    // forceViscosity,
+    // forceManybody,
+    // forceGravity,
+    // forceCharge,
+    // forceCube,
+    forceCollide,
+    // forceX,
+    // forceY,
+    // forceZ,
+  ] = await Promise.all([
     __mapper('xs').f('void'),
     __mapper('xs').f('energy'),
     // __mapper('xs').f('viscosity'),
@@ -78,7 +78,7 @@ async function zindex (__mapper) {
     // __mapper('xs').f('y'),
     // __mapper('xs').f('z'),
   ])
-  
+
   let mstore = __mapper('muonStore')
   // .................. animas
   let animas = function () {
@@ -87,77 +87,73 @@ async function zindex (__mapper) {
 
     let d3_force = d3Force3d
 
+    let haloIsolation_ween = anima => { // WEEN
+      let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
+      animas = []
 
- let haloIsolation_ween = anima => { // WEEN
-    let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+      const perimeter = 12, length = 30
 
-    animas = []
+      const getId = (col, row) => `${col},${row}`
 
-    
-    const perimeter = 12, length = 30;
+      let nodes = [], links = []
+      for (let colIdx = 0; colIdx < perimeter; colIdx++) {
+        for (let rowIdx = 0; rowIdx < length; rowIdx++) {
+          const id = getId(colIdx, rowIdx)
+          nodes.push({id})
 
-    const getId = (col, row) => `${col},${row}`;
+          if (rowIdx > 0) { // Link vertically
+            links.push({ source: getId(colIdx, rowIdx - 1), target: id })
+          }
 
-    let nodes = [], links = [];
-    for (let colIdx=0; colIdx<perimeter; colIdx++) {
-      for (let rowIdx=0; rowIdx<length; rowIdx++) {
-        const id = getId(colIdx, rowIdx);
-        nodes.push({id});
-
-        if (rowIdx>0) { // Link vertically
-          links.push({ source: getId(colIdx, rowIdx-1), target: id });
+          // Link horizontally
+          links.push({ source: getId((colIdx || perimeter) - 1, rowIdx), target: id })
         }
-
-        // Link horizontally
-        links.push({ source: getId((colIdx || perimeter) - 1, rowIdx), target: id });
       }
-    }    
-    let r = { nodes, links }  
-    
-    let nbr = 2
-    for (let i = 0; i < nbr; i++) {
-      let ani = mprops.cloneObj(natAni) // clone of model anima
-      ani.payload.ric.gid = 'nat'
-      ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
-      ani.payload.ric.fid = 'item' + i // identify
+      let r = { nodes, links }
 
-      let uid = mric.getuid(ani.payload.ric)
-      ani.payload.uid = uid
-     
-      ani.payload.boform.cf = (i % 2) ? 777 : 333
-      ani.payload.boform.cs = (i % 2) ? 777 : 333
+      let nbr = 2
+      for (let i = 0; i < nbr; i++) {
+        let ani = mprops.cloneObj(natAni) // clone of model anima
+        ani.payload.ric.gid = 'nat'
+        ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
+        ani.payload.ric.fid = 'item' + i // identify
 
-      let preani = mstore.getAnima(ani.payload.ric)
-      
-      if (preani) {
-        ani = preani
-      } else { // create anima
-        ani.halo = 'ent' // create halo
+        let uid = mric.getuid(ani.payload.ric)
+        ani.payload.uid = uid
 
-        ani.geofold = { // will create anigram
-          type: 'Feature',
-          geometry: {type: 'Point', coordinates: [ 3 * i, 0, 0]},
-          properties: {},
+        ani.payload.boform.cf = (i % 2) ? 777 : 333
+        ani.payload.boform.cs = (i % 2) ? 777 : 333
+
+        let preani = mstore.getAnima(ani.payload.ric)
+
+        if (preani) {
+          ani = preani
+        } else { // create anima
+          ani.halo = 'ent' // create halo
+
+          ani.geofold = { // will create anigram
+            type: 'Feature',
+            geometry: {type: 'Point', coordinates: [ 3 * i, 0, 0]},
+            properties: {},
+          }
+
+          ani.payload.geonode.properties.orgen = [0, 0, 0 ]
         }
-
-        ani.payload.geonode.properties.orgen = [0, 0, 0 ]
+        animas.push(ani)
       }
-      animas.push(ani)
+
+      mstore.apply({type: 'UPDANIMA', animas: animas}) // live
+      return animas
     }
-    
-    mstore.apply({type: 'UPDANIMA', animas: animas})  // live
-    return animas
-  }
 
-  let haloIsolation_gramm = anima => [] // GRAMM))
+    let haloIsolation_gramm = anima => [] // GRAMM))
 
-  let isolation = {
-    ween: anima => haloIsolation_ween(anima),
-    gramm: anima => haloIsolation_gramm(anima),
-  }
-    
-    
+    let isolation = {
+      ween: anima => haloIsolation_ween(anima),
+      gramm: anima => haloIsolation_gramm(anima),
+    }
+
     // .................... pics
     let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -172,8 +168,6 @@ async function zindex (__mapper) {
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
-        
-        
         pacer: {
           initN: 2, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 15 / 1400,
 
@@ -211,7 +205,7 @@ async function zindex (__mapper) {
           scale: 1,
           rotate: [ 0, 0, [[[0, 0]]] ],
           lens: [0, 1, 12],
-          anod: 1,  // geonode
+          anod: 1, // geonode
         },
 
         boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
@@ -234,7 +228,7 @@ async function zindex (__mapper) {
       },
     }
 
-    // ............................. force_energy         
+    // ............................. force_energy
     let force_energy = { // aniForce
       properties: {
         alpha: 1,
@@ -262,8 +256,7 @@ async function zindex (__mapper) {
       },
     }
 
- 
-    // ............................. force_viscosity         
+    // ............................. force_viscosity
     let force_viscosity = {
       properties: {
         velocityDecay: 0.0002,
@@ -289,7 +282,7 @@ async function zindex (__mapper) {
       },
     }
 
-    // ............................. field_link        
+    // ............................. field_link
     let field_link = {
       'properties': {},
       'field': function field (params = {}) {
@@ -320,7 +313,7 @@ async function zindex (__mapper) {
       },
     }
 
-    // ............................. forceSphere      
+    // ............................. forceSphere
     let forceSphere = function (params) {
       let nodes = params.nodes
 
@@ -404,7 +397,7 @@ async function zindex (__mapper) {
       },
     }
 
-    // ............................. forceCube       
+    // ............................. forceCube
     let forceCube = function forceCube (params) {
       let nodes = params.nodes
       let edge = params.edge
@@ -458,7 +451,7 @@ async function zindex (__mapper) {
       },
     }
 
-    // ............................. force_collide    
+    // ............................. force_collide
     let force_collide = {
 
       properties: {
@@ -492,7 +485,7 @@ async function zindex (__mapper) {
       },
     }
 
-    // ............................. force_manybody        
+    // ............................. force_manybody
     let force_manybody = { // aniForce
 
       properties: {
@@ -524,7 +517,7 @@ async function zindex (__mapper) {
       },
     }
 
-    // ............................. forceGravity    
+    // ............................. forceGravity
     let forceGravity = function (params) { // force
       let nodes = params.nodes
       let newNodes = []
@@ -532,7 +525,6 @@ async function zindex (__mapper) {
       let gravity = params.gravity
 
       function force () { // d3force builtin (vs muon d3force)
-      
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
           node.vy += gravity // node.vx += 0.001 * Math.random()
@@ -579,7 +571,7 @@ async function zindex (__mapper) {
         return forces
       },
     }
-    
+
     // ............................. force_charge
     let force_charge = {
       'properties': {
@@ -761,13 +753,13 @@ async function zindex (__mapper) {
     // .................. natAni forces
     natAni.payload.forces = {
       force_energy,
-    force_viscosity,
-    // force_manybody,
-    // force_gravity,
-    // force_charge,
-    // force_cube,
-    // force_sphere
-    force_collide,
+      force_viscosity,
+      // force_manybody,
+      // force_gravity,
+      // force_charge,
+      // force_cube,
+      // force_sphere
+      force_collide,
     // force_X,
     // force_Y,
     // force_Z,

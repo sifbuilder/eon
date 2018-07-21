@@ -91,41 +91,37 @@
       let pproj = mprofier.proformion_(ani)
       return f => p(e(c(f, cproj), eproj), pproj)
     }
-    
-    // ............................. transforms    
+
+    // ............................. transforms
     let transforms = (f, ani) => transformer(ani)(f)
-    
+
     // ............................. getgj
     const getgj = anitem => {
-          
-          let ani = anitem
-          if (Array.isArray(ani)) ani = ani[0] // first anima
-          let gj = mprops.v(ani.geofold, ani) // get geofold
-          gj.properties = gj.properties || {} // recall genode
-          gj.properties.geonode = gj.properties.geonode || {} // recall genode props
-          gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
-          gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode  
-          return gj
-          
+      let ani = anitem
+      if (Array.isArray(ani)) ani = ani[0] // first anima
+      let gj = mprops.v(ani.geofold, ani) // get geofold
+      gj.properties = gj.properties || {} // recall genode
+      gj.properties.geonode = gj.properties.geonode || {} // recall genode props
+      gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
+      gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
+      return gj
     }
 
     // ............................. gramm
     async function gramm (anima) {
-        
-        let anigram = await manitem.functorize(anima)
-        
-        console.assert(Array.isArray(anigram) !== true)
-        let gjanigram = getgj(anigram)
-        let gjcollection = mgeoj.featurecollect(gjanigram)
-        
-        let newfeatures = await Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
-        
-              let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
-              let newAni = Object.assign({}, anigram, {geofold: newcollection})
-              
-        let newAnigrams = hformed.gramm(newAni)
-        return newAnigrams      
-        
+      let anigram = await manitem.functorize(anima)
+
+      console.assert(Array.isArray(anigram) !== true)
+      let gjanigram = getgj(anigram)
+      let gjcollection = mgeoj.featurecollect(gjanigram)
+
+      let newfeatures = await Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
+
+      let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
+      let newAni = Object.assign({}, anigram, {geofold: newcollection})
+
+      let newAnigrams = hformed.gramm(newAni)
+      return newAnigrams
     }
 
     // ............................. ween

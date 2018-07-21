@@ -11,7 +11,6 @@
   var forceCollide = function (__mapper = {}) {
   // .................. force
     let force = function (params) {
-  
       let d3_force = __mapper('d3Force3d')
 
       let strength = params.strength || 1

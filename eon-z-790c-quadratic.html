@@ -46,7 +46,6 @@ async function zindex (__mapper) {
     __mapper('xs').c('wen'),
   ])
 
-  
   // ===================================================
   const vars = [ // Step 1. variables - initialize random
     tf.variable(tf.scalar(Math.random())), // vars[0]: a
@@ -60,9 +59,9 @@ async function zindex (__mapper) {
   function predict (input) { // Step 3. output predicted from input on variables
     return tf.tidy(() => { // y = a * x ^ 2 + b * x + c // [c,b,a]
       const x = tf.scalar(input)
-        const ax2 = vars[0].mul(x.square())
-        const bx = vars[1].mul(x)
-        const y = ax2.add(bx).add(vars[2])
+      const ax2 = vars[0].mul(x.square())
+      const bx = vars[1].mul(x)
+      const y = ax2.add(bx).add(vars[2])
       return y
     })
   }
@@ -83,7 +82,7 @@ async function zindex (__mapper) {
           return predLoss // as tf.Scalar
         })
       }
-      console.log(" ............  train iteration", iter, vars.map(d => d.dataSync()[0]))
+      console.log(' ............  train iteration', iter, vars.map(d => d.dataSync()[0]))
       await tf.nextFrame() // -------------------- frame
     }
 
@@ -92,14 +91,14 @@ async function zindex (__mapper) {
 
   function test (xs, ys) {
     tf.tidy(() => {
-      const predictedYs = xs.map(predict)   // predict on learnt vars
-      console.log('Expected', ys)           // 
+      const predictedYs = xs.map(predict) // predict on learnt vars
+      console.log('Expected', ys) //
       console.log('Got', predictedYs.map(p => p.dataSync()[0])) // from tensor
     })
   }
 
   const data = {
-    xs: [0,       1,    2,    3],
+    xs: [0, 1, 2, 3],
     ys: [0 * 1.1, 5.9, 16.8, 33.9],
   }
 
@@ -113,9 +112,6 @@ async function zindex (__mapper) {
   })
   // ===================================================
 
-
-  
-  
   // .................. animas
   let animas = function () {
     // .................. pics

@@ -11,9 +11,9 @@
 
   async function ctlTouchMove (__mapper = {}) {
     let [
-     d3selection, 
+      d3selection,
     ] = await Promise.all([
-      __mapper('xs').b('d3-selection'),  
+      __mapper('xs').b('d3-selection'),
     ])
 
     var currentListeners = []

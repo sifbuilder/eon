@@ -19,8 +19,6 @@
 
     const isNumericArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'number', true)
 
-
-
     // ...................... interlace
     let interlace = function (streams, t) {
       let ww = []

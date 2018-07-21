@@ -13,11 +13,11 @@
     let [
       mnat,
       // d3,
-      d3geo,      
+      d3geo,
     ] = await Promise.all([
       __mapper('xs').m('nat'),
       // __mapper('xs').b('d3'),
-      __mapper('xs').b('d3-geo'),      
+      __mapper('xs').b('d3-geo'),
     ])
 
     // ............................. pointStream

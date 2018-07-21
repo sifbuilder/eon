@@ -192,10 +192,8 @@
               let newItemsInCount = await hent.gramm(newItem) // h.ent newItem
               newItems = [...newItems, ...newItemsInCount] // add new items
             } else { //  if NOT aad
+              if (1 && 1) console.log('--- newItem', newItem)
 
-if (1 && 1) console.log('--- newItem', newItem)
-
-            
               if (newItem.geofold && newItem.geofold.geometry.type === 'Point') { // POINT
                 let presitus = newItem.geofold.geometry.coordinates
 
@@ -227,7 +225,7 @@ if (1 && 1) console.log('--- newItem', newItem)
           }
         }
       }
-if (1 && 1) console.log('newItems', newItems)
+      if (1 && 1) console.log('newItems', newItems)
 
       return newItems
     }

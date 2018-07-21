@@ -56,7 +56,6 @@ async function zindex (__mapper) {
 
     let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-
     let natForm = {
       'x': {
         'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
@@ -76,74 +75,71 @@ async function zindex (__mapper) {
 
     let natBoform = { 'csx': 0, 'cf': [[[222, 444, 275]]], 'co': [[[0.59, 0.59]]], 'cs': [[[444, 444]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
-    
-     // ............................. halo
-     
-  let haloIsolation_ween = anima => { // WEEN
-    let newAnimas = []
-    let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+    // ............................. halo
 
-	const perimeter = 12, length = 30;
+    let haloIsolation_ween = anima => { // WEEN
+      let newAnimas = []
+      let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
-	const getId = (col, row) => `${col},${row}`;
+      const perimeter = 12, length = 30
 
-	let nodes = [], links = [];
-	for (let colIdx=0; colIdx<perimeter; colIdx++) {
-		for (let rowIdx=0; rowIdx<length; rowIdx++) {
-			const id = getId(colIdx, rowIdx);
-			nodes.push({id});
-			
-			if (rowIdx>0) { // Link vertically
-				links.push({ source: getId(colIdx, rowIdx-1), target: id });
-			}
+      const getId = (col, row) => `${col},${row}`
 
-			// Link horizontally
-			links.push({ source: getId((colIdx || perimeter) - 1, rowIdx), target: id });
-		}
-	}    
-  let r = { nodes, links }  
-  
-  
-    
-    let nbr = 2
-    for (let i = 0; i < nbr; i++) {
-      let ani = mprops.cloneObj(natAni) // clone of model anima
-      ani.payload.ric.gid = 'nat'
-      ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
-      ani.payload.ric.fid = 'item' + i // identify
+      let nodes = [], links = []
+      for (let colIdx = 0; colIdx < perimeter; colIdx++) {
+        for (let rowIdx = 0; rowIdx < length; rowIdx++) {
+          const id = getId(colIdx, rowIdx)
+          nodes.push({id})
 
-      let uid = mric.getuid(ani.payload.ric)
-      ani.payload.uid = uid
-      ani.payload.boform.cf = (i % 2) ? 777 : 333
-      ani.payload.boform.cs = (i % 2) ? 777 : 333
+          if (rowIdx > 0) { // Link vertically
+            links.push({ source: getId(colIdx, rowIdx - 1), target: id })
+          }
 
-      let preani = mstore.getAnima(ani.payload.ric)
-      
-      if (preani) {
-        ani = preani
-      } else { // create anima
-        ani.halo = 'ent' // halo ENT
-
-        ani.geofold = { // will create anigram
-          type: 'Feature',
-          geometry: {type: 'Point', coordinates: [i * 10, 0, 0]}  // sparation
+          // Link horizontally
+          links.push({ source: getId((colIdx || perimeter) - 1, rowIdx), target: id })
         }
-
-        ani.payload.geonode.properties.orgen = [0, 0, 0 ]
       }
-      newAnimas.push(ani)
+      let r = { nodes, links }
+
+      let nbr = 2
+      for (let i = 0; i < nbr; i++) {
+        let ani = mprops.cloneObj(natAni) // clone of model anima
+        ani.payload.ric.gid = 'nat'
+        ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
+        ani.payload.ric.fid = 'item' + i // identify
+
+        let uid = mric.getuid(ani.payload.ric)
+        ani.payload.uid = uid
+        ani.payload.boform.cf = (i % 2) ? 777 : 333
+        ani.payload.boform.cs = (i % 2) ? 777 : 333
+
+        let preani = mstore.getAnima(ani.payload.ric)
+
+        if (preani) {
+          ani = preani
+        } else { // create anima
+          ani.halo = 'ent' // halo ENT
+
+          ani.geofold = { // will create anigram
+            type: 'Feature',
+            geometry: {type: 'Point', coordinates: [i * 10, 0, 0]}, // sparation
+          }
+
+          ani.payload.geonode.properties.orgen = [0, 0, 0 ]
+        }
+        newAnimas.push(ani)
+      }
+
+      return newAnimas
     }
 
-    return newAnimas
-  }
+    let haloIsolation_gramm = anima => [] // GRAMM))
 
-  let haloIsolation_gramm = anima => [] // GRAMM))
+    let haloIsolationHalo = {}
+    haloIsolationHalo.ween = anima => haloIsolation_ween(anima)
+    haloIsolationHalo.gramm = anima => haloIsolation_gramm(anima)
 
-  let haloIsolationHalo = {}
-  haloIsolationHalo.ween = anima => haloIsolation_ween(anima)
-  haloIsolationHalo.gramm = anima => haloIsolation_gramm(anima)     
-
-     // ............................. natAni  
+    // ............................. natAni
     let natAni = {
 
       halo: haloIsolationHalo, // 'ent',
@@ -154,13 +150,13 @@ async function zindex (__mapper) {
 
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
-        
-      geonode: {
-        type: 'Feature',
-        geometry: {type: 'Point',coordinates: [0, 0, 0]},
-        properties: {orgen: [0, 0, 0],velin: [0, 0, 0],prevous: [0, 0, 0],geodelta: [0, 0, 0]}
-      },
-      
+
+        geonode: {
+          type: 'Feature',
+          geometry: {type: 'Point', coordinates: [0, 0, 0]},
+          properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
+        },
+
         proform: {
           projection: 'uniwen',
           translate:
@@ -197,7 +193,6 @@ async function zindex (__mapper) {
       },
     }
 
-
     // .................. sceneAni
     let sceneAni = {
 
@@ -209,7 +204,6 @@ async function zindex (__mapper) {
       },
 
     }
-
 
     // ............................. animas
     let animas = [

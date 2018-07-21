@@ -47,10 +47,10 @@
 
         feature.properties.tim = anigram.payload.tim // tim in geofold
         feature.properties.vim = anigram.payload.vim // vim in geofold to render
-        
-        console.assert(feature.properties.sort !== undefined, `${feature.properties.uid} feature sort not defined`)
-        
-        feature.properties.sort = feature.properties.sort || 'form' // svg sort
+
+        // console.assert(feature.properties.sort !== undefined, `${feature.properties.uid} feature sort not defined`)
+
+        feature.properties.sort = feature.properties.sort || 'form' // svg sort defaulted to form
 
         let newAnigram = {
           halo: anigram.halo, // inherit halo

@@ -262,7 +262,7 @@
       return newFeature
     }
 
-    // ............................. rador  
+    // ............................. rador
     let rador = function (form) { // polarCoords
       let pts = []
       let t = 0
@@ -309,7 +309,7 @@
       return pts // dots in path: [0,...,seg5] => [0,1]
     }
 
-    // ............................. radorm     
+    // ............................. radorm
     function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
       let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)
       let s1range = [0, radorPts.length - 1] // [0, seg5]

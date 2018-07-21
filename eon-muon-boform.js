@@ -19,7 +19,6 @@
 
     // .................. color
     function color (d = 0) {
-
       let colors = {}
 
       colors.scales = {
@@ -48,7 +47,6 @@
       colors.color = colors.scales.bos
       colors.array = Object.keys(colors.scales).map(key => colors.scales[key])
       return colors.array[Math.round(d)]
-
     }
 
     // .................. kolor

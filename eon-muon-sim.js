@@ -113,8 +113,6 @@
 
     // ...................... restoreNodes
     function restoreNodes (simNodes, aniItems) {
-  
-      
       let updItems = []
 
       if (simNodes.length > 0) {

@@ -32,11 +32,11 @@
     })
 
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
-    
+
     // ............................. gramm
     async function gramm (anima) {
       let anigram = await manitem.functorize(anima)
-      
+
       let halo = anigram.halo, // halo
         geofold = functor(anigram.geofold, anigram) || functor(_geoform, anigram),
         payload = anigram.payload, // payload
@@ -61,7 +61,7 @@
       let _d3axis = (orient) ? d3axis[orient] : d3axis['axisBottom']
 
       let newAnigram = mprops.clone(anigram) // clone
-      
+
       newAnigram.geofold.properties = {
         sort: 'axis',
         ric: ric,

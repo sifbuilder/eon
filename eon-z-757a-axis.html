@@ -47,41 +47,40 @@ async function zindex (__mapper) {
   // .................. animas
   let animas = function () {
     // .................. pics
-  let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
+    // ............................. firstAni
+    let firstAni = {
 
-  // ............................. firstAni
-  let firstAni = {
+      halo: 'axis',
 
-    halo: 'axis',
+      geofold: p => ({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [ 0, 0 ] },
+        properties: {},
+      }),
 
-    geofold: p => ({
-      type: 'Feature',
-      geometry: { type: 'Point', coordinates: [ 0, 0 ] },
-      properties: {}
-    }),
+      payload: {
 
-    payload: {
+        tim: tim,
+        ric: {gid: 'axg', cid: 'axc', fid: 'axf'},
+        boform: { 'csx': 0, 'cf': [[[777, 777]]], 'cs': 777, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
+        proform: { projection: 'uniwen', translate: [ 10, 6 ] },
+        axis: {
+          label: 'space',
+          rotate: 0,
+          orient: 'axisBottom', // 'axisLeft',
+          scaleType: 'scaleLinear', // "scaleTime",
+          tickFormat: '.1f', // formatNumber
+          tickPadding: 5,
+          tickSize: 10,
+          domain: [200, 100],
+          range: [0, 600],
+          'csx': 0, 'cf': [[[333, 555, 333, 555, 333, 555]]], 'cs': [[[888, 888]]], 'cw': 0.3, 'co': [[[0.9, 0.9]]], 'cp': 0.9,
+        },
 
-      tim: tim,
-      ric: {gid: 'axg', cid: 'axc', fid: 'axf'},
-      boform: { 'csx': 0, 'cf': [[[777, 777]]], 'cs': 777, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
-      proform: { projection: 'uniwen', translate: [ 10, 6 ] },
-      axis: {
-        label: 'space',
-        rotate: 0,
-        orient: 'axisBottom', // 'axisLeft',
-        scaleType: 'scaleLinear', // "scaleTime",
-        tickFormat: '.1f', // formatNumber
-        tickPadding: 5,
-        tickSize: 10,
-        domain: [200,100],
-        range: [0,600],
-        'csx': 0, 'cf': [[[333, 555, 333, 555, 333, 555]]], 'cs': [[[888, 888]]], 'cw': 0.3, 'co': [[[0.9, 0.9]]], 'cp': 0.9
-      }
-
+      },
     }
-  }
 
     // .................. sceneAni
     let sceneAni = {
