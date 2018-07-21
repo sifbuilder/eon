@@ -10,13 +10,12 @@
 
   async function muonProj3ct (__mapper = {}) {
     let [
-      d3,
+      d3geo,
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
+      __mapper('xs').b('d3-geo'),
     ])
 
     let noop = function () {}
-    let d3Geo = d3
 
     var clockwise = function (ring) {
       let n
@@ -96,7 +95,7 @@
 
       let streamSink = stream(sink)
 
-      d3Geo.geoStream(o, streamSink)
+      d3geo.geoStream(o, streamSink)
       // return sink.result()
 
       let ret = sink.result()

@@ -47,14 +47,17 @@
 
         feature.properties.tim = anigram.payload.tim // tim in geofold
         feature.properties.vim = anigram.payload.vim // vim in geofold to render
-        feature.properties.sort = feature.properties.sort || 'feature' // svg sort
+        
+        console.assert(feature.properties.sort !== undefined, `${feature.properties.uid} feature sort not defined`)
+        
+        feature.properties.sort = feature.properties.sort || 'form' // svg sort
 
         let newAnigram = {
           halo: anigram.halo, // inherit halo
           geofold: feature, // inherit geofold
           payload: { // payload is lost in m.animation before rendering
             ric: feature.properties.ric, // hoist ric
-            id: feature.properties.uid, // hoist uid
+            id: feature.properties.uid, // hoist id
             uid: feature.properties.uid, // hoist uid
           },
           avatars: anigram.avatars, // inherit avatars

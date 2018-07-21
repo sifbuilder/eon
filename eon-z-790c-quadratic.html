@@ -48,7 +48,7 @@ async function zindex (__mapper) {
 
   
   // ===================================================
-  const vars = [ // Step 1. output variables
+  const vars = [ // Step 1. variables - initialize random
     tf.variable(tf.scalar(Math.random())), // vars[0]: a
     tf.variable(tf.scalar(Math.random())), // vars[1]: b
     tf.variable(tf.scalar(Math.random())), // vars[2]: c
@@ -57,7 +57,7 @@ async function zindex (__mapper) {
   const learningRate = 0.01 // Step 2. Optimizer : optimize output :: minimize loss
   const optimizer = tf.train.sgd(learningRate) // gradient descent optimizer
 
-  function predict (input) { // Step 3.
+  function predict (input) { // Step 3. output predicted from input on variables
     return tf.tidy(() => { // y = a * x ^ 2 + b * x + c // [c,b,a]
       const x = tf.scalar(input)
         const ax2 = vars[0].mul(x.square())
@@ -67,7 +67,7 @@ async function zindex (__mapper) {
     })
   }
 
-  function loss (prediction, actual) { // loss function: outputs to predictions
+  function loss (prediction, actual) { // loss function: outputs to predicts
     const error = tf.scalar(actual).sub(prediction).square()
     return error
   }

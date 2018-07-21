@@ -11,11 +11,15 @@
   async function renderSvg (__mapper = {}) {
     let [
       rrenderport, // cameraProjer
-      d3,
+      d3selection,
+      d3geo,
+      d3collection,
       puniwen,
     ] = await Promise.all([
       __mapper('xs').r('renderport'),
-      __mapper('xs').b('d3'),
+      __mapper('xs').b('d3-selection'),
+      __mapper('xs').b('d3-geo'),
+      __mapper('xs').b('d3-collection'),
       __mapper('xs').p('uniwen'),
     ])
 
@@ -29,7 +33,7 @@
       background: background,
     } // Viewport
 
-    let svglayer = d3.select('.viewframe')
+    let svglayer = d3selection.select('.viewframe')
       .append('svg')
       .attr('id', 'svglayer')
       .attr('class', 'svglayer')
@@ -49,17 +53,17 @@
       .style('background-color', state.background) // background
 
     // ............................. svg
-    let _svg = () => d3.select('#viewframe')
+    let _svg = () => d3selection.select('#viewframe')
 
     // ............................. elems
     let svgelems = function (idfyer, data = ['data'], idfn = null) {
-      if (d3.select('.muon-style-block').empty()) {
-        d3.select('head').append('style').attr('class', 'muon-style-block')
+      if (d3selection.select('.muon-style-block').empty()) {
+        d3selection.select('head').append('style').attr('class', 'muon-style-block')
           .html('')
       }
 
       if (idfyer == null) { // if null return the layer
-        let svgLayer = d3.select('body').selectAll('svg').data(['svg'])
+        let svgLayer = d3selection.select('body').selectAll('svg').data(['svg'])
           .enter()
           .append('svg')
           .attr('class', 'svg')
@@ -88,7 +92,7 @@
         let elemtype = (elemsparts && elemsparts[0]) ? elemsparts[0] : 'circle'
         let elemcls = (elemsparts && elemsparts[1]) ? elemsparts[1] : 'elems'
 
-        let layerMark = d3.select(parentcls).selectAll('.' + layercls).data([layercls])
+        let layerMark = d3selection.select(parentcls).selectAll('.' + layercls).data([layercls])
         let layer = layerMark.enter().append('g')
           .merge(layerMark)
           .attr('class', layercls)
@@ -118,8 +122,6 @@
             d.properties.ric !== undefined // req ric
         )
 
-      if (0 && 1) console.log(' ------------------ render', features.length)
-
       let svg = _svg()
 
       let cameraProjer = rrenderport.cameraProjer()
@@ -127,7 +129,7 @@
       let prj = puniwen(prjdef)
       cameraProjer = prj
 
-      let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
+      let gitems = d3collection.nest() // let framesByGid = f.groupBy(frames, "gid")
         .key(function (d) { return d.properties.ric.gid })
         .key(function (d) { return d.properties.ric.cid })
         .entries(features) // features
@@ -217,15 +219,15 @@
           if (axes.length > 0) {
             for (let k = 0; k < axes.length; k++) {
               let axis = axes[k]
-              if (1 && 1) console.log('-----------geometry ', axis.geometry)
-              if (1 && 1) console.log('-----------axis ', axis.properties.axis)
-              if (1 && 1) console.log('-----------style ', axis.properties.style)
+
+              // d.properties.axis: cf, co, cp, cs, csx, cw, d3axis, domain, label, orient, range, rotate, scale, scaleType, tickFormat, tickPadding, tickSize,
+              // d.properties.axis.style :  font-family, font-size, text-anchor
 
               svgelems('svg:g.' + gid + '/g.' + cid, Array.of(axis), d => d.properties.uid)
 
                 .data(() => Array.of(axis))
 
-                .call(axis.properties.axis.d3Axis)
+                .call(axis.properties.axis.d3axis)
 
                 .attr('transform', d => // eg. "translate(21,20) rotate(15)")
 
@@ -244,11 +246,7 @@
                 .style('text-anchor', d => d.properties.axis.style['text-anchor'])
                 .style('font-family', d => d.properties.axis.style['font-family'])
 
-                .style('fill', d => {
-                  if (1 && 1) console.log('d', d.properties.style)
-
-                  return d.properties.style.fill
-                })
+                .style('fill', d => d.properties.style.fill)
                 .style('stroke', d => d.properties.style.stroke)
                 .style('fill-opacity', d => d.properties.style['fill-opacity'])
                 .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
@@ -258,7 +256,7 @@
 
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
-            .filter(d => d.properties.sort === 'feature'
+            .filter(d => d.properties.sort === 'form'
             )
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
@@ -272,7 +270,7 @@
                 let properties = geoitem.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
-                let geoPath = d3.geoPath(cameraProjer) // path on view projection
+                let geoPath = d3geo.geoPath(cameraProjer) // path on view projection
                 let path = (pointRadius !== undefined) // geoPath
                   ? geoPath.pointRadius(pointRadius)
                   : geoPath

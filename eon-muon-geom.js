@@ -10,9 +10,9 @@
 
   async function muonGeom (__mapper = {}) {
     let [
-      d3,
+      d3polygon,
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
+      __mapper('xs').b('d3-polygon'),
     ])
 
     let pi = Math.PI,
@@ -125,7 +125,7 @@
     }
 
     let pointInPolygon = function (px, py, vs) {
-      return d3.polygonContains(vs, [px, py])
+      return d3polygon.polygonContains(vs, [px, py])
     }
 
     let polygonInPolygon = function (ps, vs) {
@@ -154,12 +154,12 @@
   */
     let enty = function () {}
 
-    enty.polygonArea = polygon => d3.polygonArea(polygon)
-    enty.polygonRadius = polygon => Math.sqrt(Math.abs(d3.polygonArea(polygon))) / Math.PI
-    enty.polygonHull = points => d3.polygonHull(points)
-    enty.polygonContains = (polygon, p) => d3.polygonContains(polygon, p)
-    enty.polygonCentroid = polygon => d3.polygonCentroid(polygon)
-    enty.polygonLength = polygon => d3.polygonLength(polygon)
+    enty.polygonArea = polygon => d3polygon.polygonArea(polygon)
+    enty.polygonRadius = polygon => Math.sqrt(Math.abs(d3polygon.polygonArea(polygon))) / Math.PI
+    enty.polygonHull = points => d3polygon.polygonHull(points)
+    enty.polygonContains = (polygon, p) => d3polygon.polygonContains(polygon, p)
+    enty.polygonCentroid = polygon => d3polygon.polygonCentroid(polygon)
+    enty.polygonLength = polygon => d3polygon.polygonLength(polygon)
     enty.minExtent = points => [Math.min(...points.map(d => d[0])), Math.min(...points.map(d => d[1]))]
     enty.maxExtent = points => [Math.max(...points.map(d => d[0])), Math.max(...points.map(d => d[1]))]
     enty.polygonExtent = points => [enty.minExtent(points), enty.maxExtent(points)]

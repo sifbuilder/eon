@@ -11,11 +11,15 @@
 
   async function ctlWen (__mapper = {}) {
     let [
-      d3,
+      d3selection,      
+      d3geo,
+      d3drag,
       mgeom,
       rrenderport,
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
+      __mapper('xs').b('d3-selection'),      
+      __mapper('xs').b('d3-geo'),      
+      __mapper('xs').b('d3-drag'),      
       __mapper('xs').m('geom'),
       __mapper('xs').r('renderport'),
     ])
@@ -45,7 +49,7 @@
     let state = {
 
       // projection: null, // __mapper('xs').p('uniwen'), // _e_tbd
-      projection: () => d3.geoOrthographic()
+      projection: () => d3geo.geoOrthographic()
         .rotate([0, 0])
         .translate([0, 0])
         .scale(1),
@@ -69,14 +73,14 @@
     }
 
     // .................. start drag control
-    let control = elem => elem.call(d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended))
+    let control = elem => elem.call(d3drag.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended))
 
     // .................. stop drag control
-    let reset = elem => elem.call(d3.drag().on('start', null).on('drag', null).on('end', null))
+    let reset = elem => elem.call(d3drag.drag().on('start', null).on('drag', null).on('end', null))
 
     // .................. dragstarted listener
     let dragstarted = function () {
-      let e = d3.event
+      let e = d3selection.event
 
       if (state.grabbed) return // drag ongoing
 
@@ -103,7 +107,7 @@
     let dragged = function () {
       if (!state.grabbed) return
 
-      let e = d3.event
+      let e = d3selection.event
       let pos = getPos(e) //  d3.mouse(this)
 
       let dx = xsign * (pos[1] - state.grabbed[1]),

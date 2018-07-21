@@ -11,15 +11,12 @@
   async function muonProps (__mapper = {}) {
     let props = {}
 
-    // let d3Array = await __mapper('xs').b('d3-array')
-    // let d3Scale = await __mapper('xs').b('d3-scale')
-    // let d3Range = d3Array.range
-    // let d3scaleLinear = d3Scale.scaleLinear
-
     let [
-      d3,
+      d3scale,
+      d3array,
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
+      __mapper('xs').b('d3-scale'),
+      __mapper('xs').b('d3-array'),
     ])
 
     props.addtst = (a, b) => a + b
@@ -124,10 +121,10 @@
         for (let i = 0; i < pointsHowmany; i++) {
           streamXYZ[i] = streams.map(d => d[i])
         }
-        let scales = streams.map(d => d3.scaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))
+        let scales = streams.map(d => d3scale.scaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))
       } else {
         let pointsHowmany = mx // max length
-        let scales = streams.map(d => d3.scaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))
+        let scales = streams.map(d => d3scale.scaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))
         for (let j = 0; j < pointsHowmany; j++) {
           let w = streams.map((s, k) => streams[k][Math.round(scales[k](j))])
           streamXYZ.push(w)
@@ -225,8 +222,8 @@
    *        @paths
    */
 
-    props.closerange = (a, b) => [...d3.range(a, b), a]
-    props.geoscale = extent => d3.scaleLinear().domain(extent[0]).range(extent[1])
+    props.closerange = (a, b) => [...d3array.range(a, b), a]
+    props.geoscale = extent => d3scale.scaleLinear().domain(extent[0]).range(extent[1])
 
     props.addarray = (a1, a2) => a1.map((d, i) => d + a2[i])
     props.sum = (a, t) => a.reduce((p, c) => c[t] + p, 0)
@@ -262,9 +259,9 @@
       return pos
     }
 
-    props.geoscale = extent => d3.scaleLinear().domain(extent[0]).range(extent[1])
+    props.geoscale = extent => d3scale.scaleLinear().domain(extent[0]).range(extent[1])
 
-    props.closerange = (a, b) => [...d3.range(a, b), a]
+    props.closerange = (a, b) => [...d3array.range(a, b), a]
 
     props.isPureObject = d => (!Array.isArray(d) &&
                 typeof d === 'object' &&
@@ -381,7 +378,7 @@
       const offset = 2.0 / samples
       const increment = Math.PI * (3.0 - Math.sqrt(5.0))
 
-      let r = d3.range(samples)
+      let r = d3array.range(samples)
         .map((i) => {
           const y = ((i * offset) - 1) + (offset / 2)
           const r = Math.sqrt(1 - Math.pow(y, 2))
@@ -447,15 +444,15 @@
       let retRad = ret[1]
 
       let ccs =
-        d3.range(retRad[0], retRad[1], retRad[2]) // range rad
+        d3array.range(retRad[0], retRad[1], retRad[2]) // range rad
           .map(ro =>
-            d3.range(retAng[0], retAng[1] + epsilon, retAng[2]) // range ang - +epsilon
+            d3array.range(retAng[0], retAng[1] + epsilon, retAng[2]) // range ang - +epsilon
               .map(t => [ro * Math.cos(t * Math.PI / 180), ro * Math.sin(t * Math.PI / 180)]))
 
       let rrs =
-        d3.range(retAng[0], retAng[1], retAng[2])
+        d3array.range(retAng[0], retAng[1], retAng[2])
           .map(fi =>
-            d3.range(retRad[0], retRad[1], retRad[2])
+            d3array.range(retRad[0], retRad[1], retRad[2])
               .map(t => [t * Math.cos(fi * Math.PI / 180), t * Math.sin(fi * Math.PI / 180)]))
 
       return { ccs, rrs }

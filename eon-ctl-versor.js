@@ -13,13 +13,17 @@
     let [
       rrenderport,
       mversor,
-      d3,
       mgeom,
+      d3selection,      
+      d3geo,
+      d3drag,      
     ] = await Promise.all([
       __mapper('xs').r('renderport'),
       __mapper('xs').m('versor'),
-      __mapper('xs').b('d3'),
       __mapper('xs').m('geom'),
+      __mapper('xs').b('d3-selection'),      
+      __mapper('xs').b('d3-geo'),      
+      __mapper('xs').b('d3-drag'),       
     ])
 
     let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
@@ -27,14 +31,14 @@
 
     // start drag control
     let control = function (elem, props = {}) {
-      elem.call(d3.drag()
+      elem.call(d3drag.drag()
         .on('start', versorControl.dragstarted)
         .on('drag', versorControl.dragged)
         .on('end', versorControl.dragended))
     }
 
     // stop drag control
-    let reset = elem => elem.call(d3.drag()
+    let reset = elem => elem.call(d3drag.drag()
       .on('start', null)
       .on('drag', null)
       .on('end', null))
@@ -42,7 +46,7 @@
     // ..................
     let state = {
 
-      projection: () => d3.geoOrthographic(),
+      projection: () => d3geo.geoOrthographic(),
 
       rotation: [0, 0, 0],
 
@@ -84,7 +88,7 @@
 
     // ....................... dragstarted
     function dragstarted () {
-      let e = d3.event
+      let e = d3selection.event
       state.proj = state.projection()
 
       if (state.grabbed) return // drag ongoing
@@ -107,7 +111,7 @@
 
     // ....................... dragged
     function dragged () {
-      let e = d3.event
+      let e = d3selection.event
 
       state.proj = state.projection
 

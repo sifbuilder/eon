@@ -12,11 +12,13 @@
     let [
       mprops,
       mgeom,
-      d3,
+      d3scale,
+      d3array,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('geom'),
-      __mapper('xs').b('d3'),
+      __mapper('xs').b('d3-scale'),
+      __mapper('xs').b('d3-array'),
     ])
 
     let degrees = 180 / Math.PI
@@ -44,7 +46,7 @@
 
         const offset = offsetstep / samples
 
-        let nodes = d3.range(samples)
+        let nodes = d3array.range(samples)
           .map(i => {
             const y = ((i * offset) - 1) + (offset / 2),
               r = Math.sqrt(1 - Math.pow(y, 2)),
@@ -70,10 +72,10 @@
             let rngX = [ dot0[0], dot1[0] ] // range bewteen segment extremes
             let rngY = [ dot0[1], dot1[1] ]
 
-            let scaleX = d3.scaleLinear().domain(dom).range(rngX)
-            let scaleY = d3.scaleLinear().domain(dom).range(rngY)
+            let scaleX = d3scale.scaleLinear().domain(dom).range(rngX)
+            let scaleY = d3scale.scaleLinear().domain(dom).range(rngY)
 
-            let indots = d3.range(1, dotsInSegment + 1, 1).map(d => [scaleX(d), scaleY(d)])
+            let indots = d3array.range(1, dotsInSegment + 1, 1).map(d => [scaleX(d), scaleY(d)])
 
             string = [...string, ...indots]
           }
@@ -102,7 +104,7 @@
 
       const offset = offsetstep / samples
 
-      let dots = d3.range(samples)
+      let dots = d3array.range(samples)
         .map(i => {
           const z = ((i * offset) - 1) + (offset / 2)
 

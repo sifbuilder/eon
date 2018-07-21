@@ -14,13 +14,13 @@
       mnat,
       mlacer,
       mgeoj,
-      d3,
+      d3scale,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('nat'),
       __mapper('xs').m('lacer'),
       __mapper('xs').m('geoj'),
-      __mapper('xs').b('d3'),
+      __mapper('xs').b('d3-scale'),
     ])
 
     // .................. snap  value (anima), t (unit time), snap flag, parent
@@ -127,7 +127,7 @@
           g === 1) {
         let d = [0, 1],
           r = [v[0], v[0]]
-        let w = d3.scaleLinear().domain(d).range(r)
+        let w = d3scale.scaleLinear().domain(d).range(r)
         ret = w(t)
       } else if (mprops.isArray(v) && // 12 _____ [v1,v2,v3]*
           mprops.isPureArray(v) &&
@@ -135,7 +135,7 @@
           g === 1) {
         let d = v.map((item, idx) => idx / (v.length - 1))
         let r = v
-        let w = d3.scaleLinear()
+        let w = d3scale.scaleLinear()
           .domain(d)
           .range(r)
         ret = w(t)

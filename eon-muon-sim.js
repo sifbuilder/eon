@@ -13,13 +13,11 @@
       mprops,
       mstore,
       mgeonode,
-      d3,
       d3Force3d,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('store'),
       __mapper('xs').m('geonode'),
-      __mapper('xs').b('d3'),
       __mapper('xs').b('d3-force-3d'),
     ])
 

@@ -37,12 +37,14 @@
       mgraticule,
       mprofier,
       mproj3ct,
-      d3,
+      d3scale,
+      d3array,
     ] = await Promise.all([
       __mapper('xs').m('graticule'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
-      __mapper('xs').b('d3'),
+      __mapper('xs').b('d3-scale'),
+      __mapper('xs').b('d3-array'),
 
     ])
     let cache = {} // feature, form
@@ -312,11 +314,11 @@
       let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)
       let s1range = [0, radorPts.length - 1] // [0, seg5]
 
-      let s2extent = d3.range(0, radorPts.length - 1) // [0,...,seg5]
+      let s2extent = d3array.range(0, radorPts.length - 1) // [0,...,seg5]
       let s2range = radorPts // mormed form
 
-      let s1 = d3.scaleLinear().domain(s1extent).range(s1range) // [-1,1] => [0,seg5]
-      let s2 = d3.scaleLinear().domain(s2extent).range(s2range) // [0,..,seg5] => rador
+      let s1 = d3scale.scaleLinear().domain(s1extent).range(s1range) // [-1,1] => [0,seg5]
+      let s2 = d3scale.scaleLinear().domain(s2extent).range(s2range) // [0,..,seg5] => rador
 
       return p => s2(s1(p)) //  [0,1) =s1=> [0,seg5) =rador=> [0,1]
     }

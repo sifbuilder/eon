@@ -72,7 +72,7 @@
     function aniListener (elapsed) {
       mstore = __mapper('muonStore') // store with state from __mapper
       state.animas = mstore.animasLive()
-      console.log(`animation ${elapsed} ${state.animas.length}`)
+      console.log(` ................................... animation ${elapsed} ${state.animas.length}`)
       // .................. time
 
       state.animas = mprops.a(mstore.animasLive())
@@ -111,7 +111,6 @@
         })
         .then(updanigrams => {
           let anigrams = mstore.anigrams()
-
           return { type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }
         })
         .then(featurecollection => {

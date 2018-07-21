@@ -11,10 +11,10 @@
   async function muonGraticule (__mapper = {}) {
     let [
       mgeoj,
-      d3,
+      d3array,
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
-      __mapper('xs').b('d3'),
+      __mapper('xs').b('d3-array'),
     ])
 
     const acos = Math.acos, asin = Math.asin, atan2 = Math.atan2, cos = Math.cos,
@@ -217,21 +217,21 @@
 
     // .................. asymgraticuleX
     function asymgraticuleX (y0, y1, dy) {
-      let d3Range = d3.range
+      let d3Range = d3array.range
       let y = d3Range(y0, y1 - eps, dy).concat(y1) // [y0,y1) ,y1]
       return _ => y.map(y => [_, y])
     }
 
     // .................. asymgraticuleY
     function asymgraticuleY (x0, x1, dx) {
-      let d3Range = d3.range
+      let d3Range = d3array.range
       let x = d3Range(x0, x1 - eps, dx).concat(x1) // [x0,x1) ,x1]
       return _ => x.map(x => [x, _])
     }
 
     // .................. grarr
     let grarr = function (params = {}) {
-      let d3Range = d3.range
+      let d3Range = d3array.range
       let {X0, X1, DX, PX, x0, x1, dx, px,
         Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
 

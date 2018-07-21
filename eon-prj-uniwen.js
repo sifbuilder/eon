@@ -14,13 +14,13 @@
       mgeom,
       mwen,
       cwen,
-      d3,
+      d3geo,
       mprops,
     ] = await Promise.all([
       __mapper('xs').m('geom'),
       __mapper('xs').m('wen'),
       __mapper('xs').c('wen'),
-      __mapper('xs').b('d3'),
+      __mapper('xs').b('d3-geo'),
       __mapper('xs').m('props'),
     ])
 
@@ -128,7 +128,7 @@
 
     // .................. uniprofion
     let uniprofion = () => {
-      let geoTrans = d3.geoTransform({
+      let geoTrans = d3geo.geoTransform({
         point: pointStream,
         sphere: d => d })
 

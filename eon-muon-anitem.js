@@ -31,13 +31,14 @@
     // ............................. functorize
     async function functorize (ani, t) {
       let anigram = await snapani(ani, t)
-      if (anigram !== undefined) {
+      console.assert(anigram !== undefined)
+      
         if (anigram.payload === undefined) anigram.payload = {}
-        anigram.geofold = functor((anigram.geofold), anigram) // geofold
+      
+        anigram.geofold =         functor((anigram.geofold), anigram) // geofold
         anigram.payload.conform = functor(anigram.payload.conform, anigram) // conform
         anigram.payload.ereform = functor(anigram.payload.ereform, anigram) // ereform
         anigram.payload.proform = functor(anigram.payload.proform, anigram) // proform
-      }
 
       let r = {
 

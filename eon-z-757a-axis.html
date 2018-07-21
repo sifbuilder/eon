@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  // .................. eons
+  let [
+    mprops,
+    cwen,
+  ] = await Promise.all([
+    __mapper('xs').m('props'),
+    __mapper('xs').c('wen'),
+  ])
+
+  // .................. animas
+  let animas = function () {
+    // .................. pics
+  let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+
+  // ............................. firstAni
+  let firstAni = {
+
+    halo: 'axis',
+
+    geofold: p => ({
+      type: 'Feature',
+      geometry: { type: 'Point', coordinates: [ 0, 0 ] },
+      properties: {}
+    }),
+
+    payload: {
+
+      tim: tim,
+      ric: {gid: 'axg', cid: 'axc', fid: 'axf'},
+      boform: { 'csx': 0, 'cf': [[[777, 777]]], 'cs': 777, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
+      proform: { projection: 'uniwen', translate: [ 10, 6 ] },
+      axis: {
+        label: 'space',
+        rotate: 0,
+        orient: 'axisBottom', // 'axisLeft',
+        scaleType: 'scaleLinear', // "scaleTime",
+        tickFormat: '.1f', // formatNumber
+        tickPadding: 5,
+        tickSize: 10,
+        domain: [200,100],
+        range: [0,600],
+        'csx': 0, 'cf': [[[333, 555, 333, 555, 333, 555]]], 'cs': [[[888, 888]]], 'cw': 0.3, 'co': [[[0.9, 0.9]]], 'cp': 0.9
+      }
+
+    }
+  }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+
+      firstAni, // h.text
+      sceneAni, // h.scene
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>

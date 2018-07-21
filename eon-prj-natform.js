@@ -12,10 +12,12 @@
   async function prjNatform (__mapper = {}) {
     let [
       mnat,
-      d3,
+      // d3,
+      d3geo,      
     ] = await Promise.all([
       __mapper('xs').m('nat'),
-      __mapper('xs').b('d3'),
+      // __mapper('xs').b('d3'),
+      __mapper('xs').b('d3-geo'),      
     ])
 
     // ............................. pointStream
@@ -31,7 +33,7 @@
 
     // ............................. natprofion
     let natprofion = prjdef => { // projection:natPoint, form:{x,y,z}
-      let geoTrans = d3.geoTransform({
+      let geoTrans = d3geo.geoTransform({
         point: pointStream(prjdef)})
 
       let geoProj = p => geoTrans(p)

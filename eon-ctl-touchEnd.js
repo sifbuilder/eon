@@ -11,9 +11,9 @@
 
   async function ctlTouchEnd (__mapper = {}) {
     let [
-      d3,
+     d3selection, 
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
+      __mapper('xs').b('d3-selection'),  
     ])
 
     var currentListeners = []
@@ -35,7 +35,7 @@
     }
 
     function controlAction (svg) {
-      var e = d3.event
+      var e = d3selection.event
       pauseEvent(e)
 
       var listeners = currentListeners = nextListeners

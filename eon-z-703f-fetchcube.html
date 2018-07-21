@@ -125,7 +125,7 @@ async function zindex (__mapper) {
           geometry.coordinates = Array.of(face.pointsx.map(k => points[k])) // eg [-1, 1, 1]
 
           let feature = {type: 'Feature', geometry: {}, properties: {}}
-          feature.properties.sort = 'feature'
+          feature.properties.sort = 'form'
           feature.geometry = geometry
           jsonFaces.features.push(feature)
         }
