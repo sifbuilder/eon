@@ -17,7 +17,6 @@
       cwen,
       cversor,
       hent,
-      // mstore,
       mstace,
     ] = await Promise.all([
       __mapper('xs').m('ric'),
@@ -27,7 +26,6 @@
       __mapper('xs').c('wen'),
       __mapper('xs').c('versor'),
       __mapper('xs').h('ent'),
-      // __mapper('xs').m('store'),
       __mapper('xs').m('stace'),
     ])
 
@@ -106,8 +104,8 @@
       let count = {} // count: items in cycle
 
       //  pacer interfaces
-      let geofolder = payload.pacer.geofolder || _geofolder
-      let stacer = Object.assign({}, payload.pacer.stacer, _stacer)
+      let geofolder = payload.pacer.geofolder || _geofolder // geofolder
+      let stacer = Object.assign({}, payload.pacer.stacer, _stacer) // stacer
       let riccer = payload.pacer.riccer || function (ani) { return ani.payload.ric }
 
       //  event
@@ -194,6 +192,10 @@
               let newItemsInCount = await hent.gramm(newItem) // h.ent newItem
               newItems = [...newItems, ...newItemsInCount] // add new items
             } else { //  if NOT aad
+
+if (1 && 1) console.log('--- newItem', newItem)
+
+            
               if (newItem.geofold && newItem.geofold.geometry.type === 'Point') { // POINT
                 let presitus = newItem.geofold.geometry.coordinates
 
@@ -216,7 +218,7 @@
               } else { // ..... else TRACE NAT
                 let halo = newItem.halo
 
-                newItem.payload.proform = { projection: 'uniwen', translate: situs } // // transfer trace situs to halo through proform
+                newItem.payload.proform = { projection: 'uniwen', translate: situs } // proform transfer trace situs to halo
 
                 let newGrams = await __mapper('xs').h(halo).gramm(newItem)
                 newItems = [...newItems, ...newGrams] // add items
@@ -225,6 +227,7 @@
           }
         }
       }
+if (1 && 1) console.log('newItems', newItems)
 
       return newItems
     }

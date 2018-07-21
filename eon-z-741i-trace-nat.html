@@ -86,91 +86,64 @@ async function zindex (__mapper) {
 
     let traceBoform = { 'csx': 0, 'cf': [[[777, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[777, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.99, 0.99]]]}
 
-    // ............................. natAni
-    let natAni = {
+    // ............................. pointerAni
+    let pointerAni = {
 
-      halo: 'ent',
-      // geofold: a => mnat.natFeature(a.payload.form),
-      geofold: a => ({
-        type: 'Feature',
-        geometry: {
-
-          type: 'LineString', // type: 'Point', //
-          coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
-
-        },
-        properties: {
-          geonode: {
-            type: 'Feature',
-            geometry: {type: 'Point', coordinates: [0, 0]},
-            properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
-          },
-        },
-      }),
+      halo: 'pacer',
 
       payload: {
 
-        tim,
-        ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+        tim: tim,
+        ric: {gid: 'pacer', cid: 'pacer', fid: 'pacer'},
+        boform: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
         proform: {
           projection: 'uniwen',
-          translate: [ [ 70, 80 ], [[[ natStace ]]] ],
+          translate: [ 0, 0, 0],
           scale: 1,
-          rotate: [ 0, 0, 0 ],
+          rotate: [0, 0, 0],
           lens: [0, 1, Infinity],
-          control: 'wen',
+        },
+
+        geonode: {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0, 0],
+          },
+          properties: {
+            orgen: [0, 0, 0],
+            velin: [0, 0, 0],
+            velang: [0, 0, 0],
+            prevous: [0, 0, 0],
+            geodelta: [0, 0, 0],
+          },
+        },
+
+        pacer: {
+          initN: 10,
+          eventN: 1,
+          autoN: 0,
+          autoP: 0.1,
+          outtimed: 0,
+          maxN: 60,
+          span: 15 / 1400,
+
+          initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
+          eventSitus: d => ({x: crayder.mouse().x, y: crayder.mouse().y, z: 0 }),
+          autoSitus: d => mstace.getLocus(d),
+
+          geofolder: () => ({
+            // halo: 'ent',
+            // geofold: {type: 'Feature', geometry: {type: 'Point', coordinates: null}, properties: {}},
+            type: 'Feature', geometry: {type: 'Point', coordinates: null}, properties: {},
+            // payload: {},
+          }),
 
         },
 
-        boform: natBoform,
-
-        form: natForm,
-
       },
 
-    }
-
-    // ............................. traceline
-    let traceline = {
-
-      halo: 'pacer',
-      payload: {
-        tim,
-        ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-        boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
-
-        pacer: { // aad for trace
-          stace: {x: { pos: 0 }, y: { pos: 0 }, z: 0}, //
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
-          autoSitus: function (a) {
-            let r = mstace.getLocus(this.stace, a.payload) // situs
-            return r
-          },
-          fidder: a => a.payload.ric.fid,
-          geojsor: function (a, i) {
-            let ric = a.payload.ric // ric
-            let uid = mric.getuid(ric)
-            let gj = {
-              halo: 'ent',
-              geofold: {
-                type: 'Feature',
-                geometry: { type: 'LineString', coordinates: null },
-                properties: { doc: 'pacer' },
-              },
-              payload: {
-                uid: uid, id: uid, ric: ric,
-                proform: this.proform,
-              },
-            }
-            let newItem = mstore.findAnigramFromUid(uid) || gj
-            if (newItem.geofold.properties.formEreformed) {
-              newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
-            }
-            return newItem
-          },
-        },
-      },
     }
 
     // .................. sceneAni
@@ -184,17 +157,10 @@ async function zindex (__mapper) {
       },
 
     }
-
-    // ............................. avatars
-    natAni.avatars = {
-
-      traceline, // h.pacer
-
-    }
     // ............................. animas
     let animas = [
 
-      natAni, // h.nat
+      pointerAni, // h.nat
       sceneAni, // h.scene
     ]
 
