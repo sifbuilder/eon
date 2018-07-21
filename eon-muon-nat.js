@@ -260,9 +260,7 @@
       return newFeature
     }
 
-    /* **************************
-     *        @rador : seg5 unit circle rador
-     */
+    // ............................. rador  
     let rador = function (form) { // polarCoords
       let pts = []
       let t = 0
@@ -309,10 +307,7 @@
       return pts // dots in path: [0,...,seg5] => [0,1]
     }
 
-    /* **************************
-     *        @radorm
-     *            p.natform
-     */
+    // ............................. radorm     
     function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
       let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)
       let s1range = [0, radorPts.length - 1] // [0, seg5]
@@ -326,11 +321,6 @@
       return p => s2(s1(p)) //  [0,1) =s1=> [0,seg5) =rador=> [0,1]
     }
 
-    /* *********************
-   *    @natVertex
-   *      called by g.natVertex.pointStream to build nat conform point stream
-   *      calls m.nat.radorm
-   */
     // ............................. natVertex
     let natVertex = function (form) { // getVertex
       let nformed = natNform(form) // natNform

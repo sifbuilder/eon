@@ -35,6 +35,7 @@
         if (anigram.payload === undefined) anigram.payload = {}
         anigram.geofold = functor((anigram.geofold), anigram) // geofold
         anigram.payload.conform = functor(anigram.payload.conform, anigram) // conform
+        anigram.payload.ereform = functor(anigram.payload.ereform, anigram) // ereform
         anigram.payload.proform = functor(anigram.payload.proform, anigram) // proform
       }
 

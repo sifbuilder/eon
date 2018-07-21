@@ -144,7 +144,6 @@
           projrot = _rot
         }
         rot = mgeom.add(rot, projrot)
-
         let control = (projdef.control === 'wen') ? cwen
           : (projdef.control === 'versor') ? cversor
             : undefined

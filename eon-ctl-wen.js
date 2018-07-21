@@ -89,8 +89,8 @@
       state.p0 = state.grabbed // initial position in geometric space
 
       let projection = state.projection()
-      if (2 && 1 && projection.invert === undefined) console.log('** projection invert missing', projection)
-      else if (2 && 1 && projection.rotate === undefined) console.log('** projection rotate missing', projection)
+      console.assert(projection.invert !== undefined)
+      console.assert(projection.rotate !== undefined)
 
       state.pPos = state.p0 // previous position
       state.cPos = state.pPos // current position

@@ -70,9 +70,9 @@ async function zindex (__mapper) {
       infact4 = 1 / fact4,
       infact5 = 1 / fact5,
       infact6 = 1 / fact6,
-      infact7 = 1 / fact7
-    infact8 = 1 / fact8
-    infact9 = 1 / fact9
+      infact7 = 1 / fact7,
+      infact8 = 1 / fact8,
+      infact9 = 1 / fact9
 
     let sinp = [1, 0, -infact2, 0, +infact4, 0, -infact6, 0, infact8]
     let cosp = [0, +1, 0, -infact3, 0, +infact5, 0, -infact7, 0, infact9]
@@ -145,8 +145,8 @@ async function zindex (__mapper) {
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180], // r.form.circ [-1.57, 1.57]
         // q * cos(v) => cos(q) * cos(v)
-        c1: [1], e1: [0, 1],
-        c4: [1], e4: [1, 0, -infact2, 0, +infact4, 0, -infact6, 0, infact8],
+        c1: [1], e1: [0, 1], // 1 * q
+        c4: [1], e4: [1, 0, -infact2, 0, +infact4, 0, -infact6, 0, infact8], // 1 * cos v
 
       },
 
@@ -156,7 +156,7 @@ async function zindex (__mapper) {
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         // 1 *  q * q => sin(q) * cos(v)
-        c1: [1], e1: [0, 0, 1],
+        c1: [1], e1: [0, 0, 1],  // 1 * q**2
 
       },
 
@@ -167,7 +167,7 @@ async function zindex (__mapper) {
         'dom3': [-180, 180],
         // q * sin(v) =>  sin(u)
         c1: [1], e1: [0, 1],
-        c4: [1], e4: [0, +1, 0, -infact3, 0, +infact5, 0, -infact7, 0, infact9],
+        c4: [1], e4: [0, +1, 0, -infact3, 0, +infact5, 0, -infact7, 0, infact9], // cos v
 
       },
 
