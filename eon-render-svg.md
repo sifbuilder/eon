@@ -1,4 +1,3 @@
- 
 # eon-render-svg 
 **render svg** 
  
@@ -20,3 +19,11 @@ ref: [Margin Convention](https://bl.ocks.org/mbostock/3019563)
   @elapsed 
   @featurecollection 
   @maxlimit
+  
+  axes
+  // d.properties.axis: cf, co, cp, cs, csx, cw, d3axis, domain, label, orient, range, rotate, scale, scaleType, tickFormat, tickPadding, tickSize,
+  // d.properties.axis.style :  font-family, font-size, text-anchor
+  
+   
+# license 
+MIT

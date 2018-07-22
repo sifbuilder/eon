@@ -33,57 +33,61 @@
 
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
 
+
+
     // ............................. gramm
-    async function gramm (anima) {
-      let anigram = await manitem.functorize(anima)
+    function gramm (anima) {
 
-      let halo = anigram.halo, // halo
-        geofold = functor(anigram.geofold, anigram) || functor(_geoform, anigram),
-        payload = anigram.payload, // payload
-        ric = payload.ric, // ric
-        uid = payload.uid, // uid
-        axis = payload.axis // axis
+      return manitem.functorize(anima)
 
-      let range = axis.range || [0, 1],
-        domain = axis.domain || [0, 1],
-        rotate = axis.rotate || 0,
-        tickSize = axis.tickSize || 2,
-        tickPadding = axis.tickPadding || 20,
-        tickFormat = axis.tickFormat || '',
-        scaleType = axis.scaleType,
-        orient = axis.orient
+        .then(anigram => {
 
-        // tranlateX
-        // tranlateY
-        // rotate
+               let halo = anigram.halo, // halo
+                  geofold = functor(anigram.geofold, anigram) || functor(_geoform, anigram),
+                  payload = anigram.payload, // payload
+                  ric = payload.ric, // ric
+                  uid = payload.uid, // uid
+                  axis = payload.axis // axis
 
-      let _scale = (scaleType) ? d3scale[scaleType]() : d3scale['scaleTime']()
-      let _d3axis = (orient) ? d3axis[orient] : d3axis['axisBottom']
+                let range = axis.range || [0, 1],
+                  domain = axis.domain || [0, 1],
+                  rotate = axis.rotate || 0,
+                  tickSize = axis.tickSize || 2,
+                  tickPadding = axis.tickPadding || 20,
+                  tickFormat = axis.tickFormat || '',
+                  scaleType = axis.scaleType,
+                  orient = axis.orient
 
-      let newAnigram = mprops.clone(anigram) // clone
 
-      newAnigram.geofold.properties = {
-        sort: 'axis',
-        ric: ric,
-        uid: uid,
-        axis: Object.assign(axis, {
-          scale: _scale.domain(domain).range(range),
-          rotate: rotate,
-          d3axis: _d3axis(_scale.domain(domain).range(range))
-            .tickFormat((tickFormat === '') ? '' : d3format.format(tickFormat))
-            .tickSizeOuter(0)
-            .tickSize(tickSize)
-            .tickPadding(tickPadding),
-          style: {
-            'text-anchor': 'middle',
-            'font-size': 12,
-            'font-family': 'sans-serif',
-          },
-        }),
-      }
-      delete newAnigram.payload.axis
+                let _scale = (scaleType) ? d3scale[scaleType]() : d3scale['scaleTime']()
+                let _d3axis = (orient) ? d3axis[orient] : d3axis['axisBottom']
 
-      return hent.gramm(newAnigram)
+                let newAnigram = mprops.clone(anigram) // clone
+
+                newAnigram.geofold.properties = {
+                  sort: 'axis',
+                  ric: ric,
+                  uid: uid,
+                  axis: Object.assign(axis, {
+                    scale: _scale.domain(domain).range(range),
+                    rotate: rotate,
+                    d3axis: _d3axis(_scale.domain(domain).range(range))
+                      .tickFormat((tickFormat === '') ? '' : d3format.format(tickFormat))
+                      .tickSizeOuter(0)
+                      .tickSize(tickSize)
+                      .tickPadding(tickPadding),
+                    style: {
+                      'text-anchor': 'middle',
+                      'font-size': 12,
+                      'font-family': 'sans-serif',
+                    },
+                  }),
+                }
+                delete newAnigram.payload.axis
+            return hent.gramm(newAnigram)
+
+        })
+
     }
 
     // ............................. enty

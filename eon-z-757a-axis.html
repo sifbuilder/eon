@@ -45,70 +45,92 @@ async function zindex (__mapper) {
   // .................. animas
   let animas = function () {
     // .................. pics
-    let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let proform = {
 
       projection: 'uniwen',
-      translate: [ [[[0, 300]]], [[[0, 200]]] ],
+      translate: [ 300,200 ],
       scale: 90,
       rotate: [ [0, 1, 12], [[[ cwen.rotation ]]] ],
       lens: [0, 1, 12],
 
     }
 
-    let axis = {
+    let axisB = {
       label: 'space',
       rotate: 0,
       orient: 'axisBottom', // 'axisLeft',
       scaleType: 'scaleLinear', // "scaleTime",
       tickFormat: '.1f', // formatNumber
-      tickPadding: 5,
-      tickSize: 10,
-      domain: [200, 100],
-      range: [0, 600],
+      tickPadding: 2,
+      tickSize: 2,
+      domain: [0, 180],
+      range: [0, 200],
     }
 
-    let boform = { 'csx': 0, 'cf': [[[111, 999]]], 'cs': [[[111, 999]]], 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]}
+    let axisL = {
+      label: 'space',
+      rotate: 0,
+      orient: 'axisLeft', // 'axisLeft',
+      scaleType: 'scaleLinear', // "scaleTime",
+      tickFormat: '.1f', // formatNumber
+      tickPadding: 2,
+      tickSize: 2,
+      domain: [0, 180],
+      range: [0, 200],
+    }
 
-    // ............................. firstAni
-    let firstAni = {
+    let boform = { 'csx': 0, 'cf': [[[444, 999]]], 'cs': [[[444, 999]]], 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]}
 
+    // ............................. axisBottom
+    let axisBottom = {
       halo: 'axis',
-
       geofold: p => ({
         type: 'Feature',
         geometry: { type: 'Point', coordinates: [ 0, 0 ] },
         properties: {},
       }),
-
       payload: {
-
         tim: tim,
-        ric: {gid: 'axg', cid: 'axc', fid: 'axf'},
+        ric: {gid: 'ax', cid: 'ax', fid: 'xbottom'},
         boform: boform,
         proform: proform,
-        axis: axis,
-
+        axis: axisB,
+      },
+    }
+    // ............................. axisLeft
+    let axisLeft = {
+      halo: 'axis',
+      geofold: p => ({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [ 0, 0 ] },
+        properties: {},
+      }),
+      payload: {
+        tim: tim,
+        ric: {gid: 'ax', cid: 'ax', fid: 'xleft'},
+        boform: boform,
+        proform: proform,
+        axis: axisL,
       },
     }
 
     // .................. sceneAni
     let sceneAni = {
-
       halo: 'scene',
       payload: {
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
-
     }
 
     // .................. animas
     let animas = [
 
-      firstAni, // h.text
+      axisLeft, // h.axis
+      axisBottom, // h.axis
       sceneAni, // h.scene
 
     ]

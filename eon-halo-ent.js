@@ -112,15 +112,14 @@
       let anigram = await manitem.functorize(anima)
 
       console.assert(Array.isArray(anigram) !== true)
-      let gjanigram = getgj(anigram)
-      let gjcollection = mgeoj.featurecollect(gjanigram)
+      let gjcollection = mgeoj.featurecollect(getgj(anigram))
 
       let newfeatures = await Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
 
       let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
       let newAni = Object.assign({}, anigram, {geofold: newcollection})
 
-      let newAnigrams = hformed.gramm(newAni)
+      let newAnigrams = await hformed.gramm(newAni)
       return newAnigrams
     }
 

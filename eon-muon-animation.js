@@ -12,14 +12,12 @@
   async function muonAnimation (__mapper) {
     let [
       mprops,
-      mstore,
       msim,
       mtim,
       rsvg,
       ctimer,
     ] = await Promise.all([
       __mapper('xs').m('props'),
-      __mapper('xs').m('store'),
       __mapper('xs').m('sim'),
       __mapper('xs').m('tim'),
       __mapper('xs').r('svg'),
@@ -29,7 +27,7 @@
 
     let state = {}
     state.animas = [] // global animas
-
+    let mstore = __mapper('muonStore')
     // .................. getsims
     async function getsims_ (animas, elapsed) {
       let sim = msim.sim() // simulation on animas
@@ -48,18 +46,17 @@
       return chain(items, 0)
     }
 
+    // .................. waitInPromise  gist.github.com/leofavre/71fcb20bec2c2fb9031b90b79f9647b2
+    const waitInPromise = delay => arg => // .then(waitInPromise(17))
+      Number.isFinite(delay) && delay > 0
+        ? new Promise(resolve => setTimeout(() => resolve(arg), delay))
+        : Promise.resolve(arg)
     // .................. getweens
-    const getweens = (animas, elapsed) => {
-      return sequence(animas, anima => mstore.ween(anima)
-        .then(() => mstore.animasLive())
-        .then(animasLive => animasLive))
-    }
+    const getweens = animas => sequence(animas, anima => mstore.ween(anima))
+
 
     // .................. getgramms
-    const getgramms = (animas, elapsed) => {
-      sequence(animas, anima => mstore.gramm(anima)) // store anigrams
-      return mstore.anigrams() // get anigrams from store
-    }
+    const getgramms = animas => sequence(animas, anima => mstore.gramm(anima)) // store anigrams
 
     // .................. aniListener
     function animate () {
@@ -96,7 +93,9 @@
         state.animationStop()
       }
 
-      // ............................. @WEEN SIM GRAMM RENDEr
+
+    // ............................. @WEEN SIM GRAMM RENDEr
+
       Promise.resolve(state.animas)
         .then(animas => {
           let updanimas = getweens(animas, elapsed) // get animas live
@@ -114,8 +113,10 @@
           return { type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }
         })
         .then(featurecollection => {
-          rsvg.render(elapsed, featurecollection)
+          rsvg.render(featurecollection)
         })
+
+
     }
 
     // ............................. enty

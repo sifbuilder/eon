@@ -12,12 +12,10 @@
     let [
       mtim,
       mric,
-      // manitem,
       mprops,
     ] = await Promise.all([
       __mapper('xs').m('tim'),
       __mapper('xs').m('ric'),
-      // __mapper('xs').m('anitem'),
       __mapper('xs').m('props'),
     ])
 
@@ -58,8 +56,6 @@
           }
         }
 
-        // let animasLive = enty.animasLive()
-        // return animasLive
         return updAnimas
       }
 
@@ -80,8 +76,7 @@
             state.anigrams[index] = newItem // replace anigram
           }
         }
-        // let anigram = state.anigrams
-        // return anigram
+        
         return newAnigrams
       }
     }
@@ -113,7 +108,6 @@
 
     // .................. ween
     async function ween (anitem) { // ok trace
-      // let anigram = await manitem.functorize(anitem)
       let halo
       if (typeof (anitem.halo) === 'object') {
         halo = await Promise.resolve(anitem.halo)
@@ -125,7 +119,6 @@
 
     // .................. gramm
     async function gramm (anitem) {
-      // let anigram = await Promise.resolve(manitem.functorize(anitem))
       let halo
       if (typeof (anitem.halo) === 'object') {
         halo = await Promise.resolve(anitem.halo)
@@ -139,7 +132,6 @@
         let avatars = gavatars(item)
 
         avatars.forEach(avatar => {
-          // avatar.payload.uid = mric.getuid(avatar)  // _e_
           avatar.payload.tim = anitem.payload.tim
           avatar.payload.parentuid = anitem.payload.uid
 

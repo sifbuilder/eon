@@ -115,7 +115,7 @@
     }
 
     // ............................. render
-    let render = function (elapsed, featurecollection, maxlimit) {
+    let render = function (featurecollection, maxlimit) {
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
@@ -145,7 +145,9 @@
           /*  ................. TEXTS ................. */
           let texts = fitems
             .filter(d => d.properties.sort === 'text')
-
+            .filter((d, i) => (d.properties.delled !== 1)) // not delled
+            .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
+            
           if (texts.length > 0) {
             svgelems('svg:g.' + gid + '/text.' + cid, texts, d => d.uid)
               .text(d => d.properties.string)
@@ -212,22 +214,26 @@
           }
 
           /*  ................. AXES ................. */
+          // d.properties.axis: cf, co, cp, cs, csx, cw, d3axis, domain, label, orient, range, rotate, scale, scaleType, tickFormat, tickPadding, tickSize,
+          // d.properties.axis.style :  font-family, font-size, text-anchor
+              
           let axes = fitems
             .filter(d => d.properties.sort === 'axis') // __ axis __
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
+            
           if (axes.length > 0) {
+
+
             for (let k = 0; k < axes.length; k++) {
               let axis = axes[k]
-
-              // d.properties.axis: cf, co, cp, cs, csx, cw, d3axis, domain, label, orient, range, rotate, scale, scaleType, tickFormat, tickPadding, tickSize,
-              // d.properties.axis.style :  font-family, font-size, text-anchor
-
-              svgelems('svg:g.' + gid + '/g.' + cid, Array.of(axis), d => d.properties.uid)
+              let uid = axis.properties.uid
+              
+              svgelems('svg:g.' + gid + '/g.' + uid, Array.of(axis), d => d.properties.uid)
 
                 .data(() => Array.of(axis))
 
-                .call(axis.properties.axis.d3axis)
+                .call(d => d.call(d.datum().properties.axis.d3axis))
 
                 .attr('transform', d => // eg. "translate(21,20) rotate(15)")
 
@@ -254,16 +260,16 @@
             }
           }
 
-          /*  ................. GEOJSON FEATURE ................. */
-          let features = fitems
+          /*  ................. GEOJSON FORM ................. */
+          let forms = fitems
             .filter(d => d.properties.sort === 'form'
             )
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
 
-          if (features.length > 0) { // _e_
-            svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.uid) // elems
-              .data(() => features)
+          if (forms.length > 0) { // _e_
+            svgelems('svg:g.' + gid + '/path.' + cid, forms, d => d.uid) // elems
+              .data(() => forms)
               .attr('d', d => {
                 if (2 && 2 && d.properties.style === undefined) console.log('** style is undefined', d)
                 let geoitem = d // geojson feature
@@ -285,7 +291,7 @@
               .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
               .style('stroke-width', d => d.properties.style['stroke-width'])
           }
-          /*  ................. END SVG FORMS ................. */
+          /*  ................. END FORMS ................. */
         }
       }
     }
