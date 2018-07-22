@@ -29,7 +29,7 @@
   let xanimas = await zindex(__mapper)
   let animas = xanimas.animas() // get animas
 
-  __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas})
+  muonStore.apply({type: 'UPDANIMA', animas: animas})
   muonAnimation.animate() // animate
 })()
 

@@ -21,7 +21,7 @@
           let unitPassed = node.payload.tim.unitPassed
           if (unitPassed === undefined) console.log(' unitPassed undefined')
           if (unitPassed > retention) {
-            __mapper('muonStore').apply({type: 'DELANIMA', caller: 'force retention', anima: node})
+            muonStore.apply({type: 'DELANIMA', caller: 'force retention', anima: node})
           }
         }
       }

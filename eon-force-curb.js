@@ -23,7 +23,7 @@
           if (unitPassed === undefined) console.log(' unitPassed undefined')
 
           if (unitPassed > retention) {
-            __mapper('muonStore').apply({type: 'DELANIMA', caller: 'force', anima: node})
+            muonStore.apply({type: 'DELANIMA', caller: 'force', anima: node})
           }
         }
       }

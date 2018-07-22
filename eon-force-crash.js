@@ -28,7 +28,7 @@
           let dd = Math.sqrt(d2)
 
           if (dd < r) {
-            __mapper('muonStore').apply({type: 'DELANIMA', caller: 'force limit', anima: node})
+            muonStore.apply({type: 'DELANIMA', caller: 'force limit', anima: node})
           }
         }
       }
