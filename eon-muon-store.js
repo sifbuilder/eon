@@ -59,7 +59,7 @@
           }
         }
 
-        return enty.animasLive()
+        return updAnimas
       }
 
       if (action.type === 'UPDANIGRAM') { // .................. UPDANIGRAM
@@ -82,7 +82,7 @@
           }
         }
 
-        return state.anigrams
+        return newAnigrams
       }
     }
 
@@ -110,12 +110,14 @@
     }
     
     // .................. ween
-    function ween (anitem) {
-      return manitem.snapani(anitem)
-        .then(snapped => manitem.functorize(snapped))
-        .then(anigram => __mapper('xs').h(anigram.halo)
-          .then(halo => halo.ween(anigram))
-          .then(newAnigrams => _apply({type: 'UPDANIMA', anigrams: newAnigrams})))
+    async function ween (anitem) { // ok trace
+      let halo
+      if (typeof (anitem.halo) === 'object') {
+        halo = await Promise.resolve(anitem.halo)
+      } else {
+        halo = await __mapper('xs').h(anitem.halo)
+      }
+      let updAnimas = await halo.ween(anitem) // UPDANIMA in halo
     }
 
     let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars||[])
@@ -126,7 +128,7 @@
 
       return manitem.snapani(anitem)
         .then(snapped => manitem.functorize(snapped))
-        .then(anigram => __mapper('xs').h(anigram.halo)
+        .then(anigram =>(typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
           .then(halo => {
             let newItems = halo.gramm(anigram)
 

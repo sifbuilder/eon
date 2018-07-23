@@ -111,7 +111,7 @@
     }
 
     // ............................. render
-    let render = function (elapsed, featurecollection, maxlimit) {
+    let render = function (featurecollection, maxlimit) {
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties

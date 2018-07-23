@@ -109,7 +109,7 @@
           return { type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }
         })
         .then(featurecollection => {
-          rsvg.render(elapsed, featurecollection)
+          rsvg.render(featurecollection)
         })
     }
 
