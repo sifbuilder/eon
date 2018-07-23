@@ -15,14 +15,12 @@
       mproj3ct,
       hformed,
       mprops,
-      manitem,
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
       __mapper('xs').h('formed'),
       __mapper('xs').m('props'),
-      __mapper('xs').m('anitem'),
 
     ])
 
@@ -84,47 +82,45 @@
         .catch(e => { console.log('error', e) })
     }
 
-    // ............................. transformer
+    // ............................. getgj
+    const getgj = anitem => {
+      return Promise.resolve(anitem)
+        .then(ani => {
+          if (Array.isArray(ani)) ani = ani[0]
+          let gj = mprops.v(ani.geofold, ani) // get geofold
+          gj.properties = gj.properties || {} // recall genode
+          gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
+          gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
+          gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
+          return gj
+        })
+    }
+
+    // ............................. transforms
     let transformer = (ani) => {
       let cproj = mprofier.conformion_(ani)
       let eproj = mprofier.ereformion_(ani)
       let pproj = mprofier.proformion_(ani)
       return f => p(e(c(f, cproj), eproj), pproj)
     }
-
-    // ............................. transforms
     let transforms = (f, ani) => transformer(ani)(f)
 
-    // ............................. getgj
-    const getgj = anitem => {
-      let ani = anitem
-      if (Array.isArray(ani)) ani = ani[0] // first anima
-      let gj = mprops.v(ani.geofold, ani) // get geofold
-      gj.properties = gj.properties || {} // recall genode
-      gj.properties.geonode = gj.properties.geonode || {} // recall genode props
-      gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
-      gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
-      return gj
-    }
-
     // ............................. gramm
-    async function gramm (anima) {
-      
-      let anigram = await manitem.snapani(anima)
-      let anitem = await manitem.functorize(anigram)
-    
-      console.assert(Array.isArray(anitem) !== true)
-      let gj = getgj(anitem)
-      let gjcollection = mgeoj.featurecollect(gj)
-      
-      let newfeatures = await Promise.all(gjcollection.features.map(f => transforms(f, anitem)))
-      
-      let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
-      let newAni = Object.assign({}, anitem, {geofold: newcollection})
+    async function gramm (ani) {
+      return Promise.resolve(ani)
 
-      let newAnigrams = await hformed.gramm(newAni)
-      
-      return newAnigrams
+        .then(anigram => Promise.resolve(mgeoj.featurecollect(getgj(Promise.resolve(anigram))))
+          .then(gjcollection => Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
+            .then(newfeatures => {
+              if (Array.isArray(anigram)) {
+                anigram = anigram[0]
+              }
+              let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
+              let newAni = Object.assign({}, anigram, {geofold: newcollection})
+
+              let newAnigrams = hformed.gramm(newAni)
+              return newAnigrams
+            })))
     }
 
     // ............................. ween

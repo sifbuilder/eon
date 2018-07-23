@@ -12,12 +12,14 @@
   async function muonAnimation (__mapper) {
     let [
       mprops,
+      mstore,
       msim,
       mtim,
       rsvg,
       ctimer,
     ] = await Promise.all([
       __mapper('xs').m('props'),
+      __mapper('xs').m('store'),
       __mapper('xs').m('sim'),
       __mapper('xs').m('tim'),
       __mapper('xs').r('svg'),
@@ -27,11 +29,11 @@
 
     let state = {}
     state.animas = [] // global animas
-    let mstore = __mapper('muonStore')
+
     // .................. getsims
-    async function getsims (animas, elapsed) {
+    const getsims = (animas, elapsed) => {
       let sim = msim.sim() // simulation on animas
-      await msim.simulate_(sim, animas, elapsed) // stored
+      msim.simulate(sim, animas, elapsed) // stored
       return mstore.animasLive()
     }
 
@@ -40,23 +42,22 @@
       function chain (items, index) {
         return (index === items.length)
           ? Promise.resolve()
-          : Promise.resolve(fromitem(items[index]))
-            .then(() => chain(items, index + 1))
+          : Promise.resolve(fromitem(items[index])).then(() => chain(items, index + 1))
       }
       return chain(items, 0)
     }
 
-    // .................. waitInPromise  gist.github.com/leofavre/71fcb20bec2c2fb9031b90b79f9647b2
-    const waitInPromise = delay => arg => // .then(waitInPromise(17))
-      Number.isFinite(delay) && delay > 0
-        ? new Promise(resolve => setTimeout(() => resolve(arg), delay))
-        : Promise.resolve(arg)
     // .................. getweens
-    const getweens = animas => sequence(animas, anima => mstore.ween(anima))
-
+    const getweens = (animas, elapsed) => {
+      sequence(animas, anima => mstore.ween(anima))
+      return mstore.animasLive()
+    }
 
     // .................. getgramms
-    const getgramms = animas => sequence(animas, anima => mstore.gramm(anima)) // store anigrams
+    const getgramms = (animas, elapsed) => {
+      sequence(animas, anima => mstore.gramm(anima)) // store anigrams
+      return mstore.anigrams() // get anigrams from store
+    }
 
     // .................. aniListener
     function animate () {
@@ -67,9 +68,10 @@
 
     // .................. aniListener
     function aniListener (elapsed) {
-      console.log(` ................................... animation ${elapsed} ${state.animas.length}`)
+      console.log(` ................................... animation ${elapsed} ${state.animas.length}`)      
+      mstore = __mapper('muonStore') // store with state from __mapper
       state.animas = mstore.animasLive()
-      // console.log(` ................................... animation ${elapsed} ${state.animas.length}`)
+
       // .................. time
 
       state.animas = mprops.a(mstore.animasLive())
@@ -93,8 +95,7 @@
         state.animationStop()
       }
 
-
-    // ............................. @WEEN SIM GRAMM RENDEr
+      // ............................. @WEEN SIM GRAMM RENDEr
       Promise.resolve(state.animas)
         .then(animas => {
           return getweens(animas, elapsed)
@@ -110,8 +111,6 @@
         .then(featurecollection => {
           rsvg.render(elapsed, featurecollection)
         })
-
-
     }
 
     // ............................. enty

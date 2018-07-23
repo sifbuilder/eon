@@ -12,10 +12,12 @@
     let [
       mtim,
       mric,
+      manitem,
       mprops,
     ] = await Promise.all([
       __mapper('xs').m('tim'),
       __mapper('xs').m('ric'),
+      __mapper('xs').m('anitem'),
       __mapper('xs').m('props'),
     ])
 
@@ -35,6 +37,7 @@
 
         for (let i = 0; i < updAnimas.length; i++) {
           let updAnima = mprops.o(updAnimas[i]) // each new anima
+
           let uid = (updAnima.payload.uid !== undefined) // uid
             ? updAnima.payload.uid
             : mric.getuid(updAnima)
@@ -56,7 +59,7 @@
           }
         }
 
-        return updAnimas
+        return enty.animasLive()
       }
 
       if (action.type === 'UPDANIGRAM') { // .................. UPDANIGRAM
@@ -67,6 +70,8 @@
             let newItem = newAnigrams[i] // new anigram
 
             if (Array.isArray(newItem)) {
+              if (1 && 1) console.log('m.store.apply.updanigram newItem array')
+
               newItem = newItem[0]
             }
 
@@ -76,28 +81,37 @@
             state.anigrams[index] = newItem // replace anigram
           }
         }
-        
-        return newAnigrams
+
+        return state.anigrams
       }
     }
 
-    // .................. gavatars
-    let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars || [])
+    // .................. ween
+    function ween (anitem) {
+      return Promise.resolve(manitem.functorize(anitem))
+        .then(anigram => __mapper('xs').h(anigram.halo)
+          .then(halo => halo.ween(anigram))
+          .then(newAnigrams => _apply({type: 'UPDANIMA', anigrams: newAnigrams})))
+    }
+
+    let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars||[])
+
 
     // .................. getavatars
     const getavatars = items => {
       items.forEach(item => {
         sequence(gavatars(item), avatar => {
-          avatar.payload.uid = mric.getuid(avatar)
-          avatar.payload.tim = item.payload.tim
-          avatar.payload.parentuid = item.payload.uid
-          gramm(avatar)
+                  avatar.payload.uid = mric.getuid(avatar)
+                  avatar.payload.tim = item.payload.tim
+                  avatar.payload.parentuid = item.payload.uid
+                  gramm(avatar)
+
+          })
         })
-      })
     }
 
     // .................. sequence
-    function sequence (items = [], fromitem) {
+    function sequence (items=[], fromitem) {
       function chain (items, index) {
         return (index === items.length)
           ? Promise.resolve()
@@ -105,44 +119,43 @@
       }
       return chain(items, 0)
     }
-
-    // .................. ween
-    async function ween (anitem) { // ok trace
-      let halo
-      if (typeof (anitem.halo) === 'object') {
-        halo = await Promise.resolve(anitem.halo)
-      } else {
-        halo = await __mapper('xs').h(anitem.halo)
-      }
-      let updAnimas = await halo.ween(anitem) // UPDANIMA in halo
-    }
-
     // .................. gramm
-    async function gramm (anitem) {
-      let halo
-      
-      if (typeof (anitem.halo) === 'object') {
-        halo = await Promise.resolve(anitem.halo)
-      } else {
-        halo = await __mapper('xs').h(anitem.halo)
-      }
-if (1 && 1) console.log('mstore gramm pre halo')
+    function gramm (anitem) {
 
-      let newItems = await halo.gramm(anitem)
-   if (1 && 1) console.log('mstore gramm pst halo', newItems)
-      
-      _apply({type: 'UPDANIGRAM', anigrams: newItems})
+      return Promise.resolve(manitem.functorize(anitem))
+        .then(anigram => __mapper('xs').h(anigram.halo)
+          .then(halo => {
+            let newItems = halo.gramm(anigram)
 
-      newItems.forEach(item => {
-        let avatars = gavatars(item)
+            return newItems
+          })
+          .then(newItems => {
+                 
+             _apply({type: 'UPDANIGRAM', anigrams: newItems})
 
-        avatars.forEach(avatar => {
-          avatar.payload.tim = anitem.payload.tim
-          avatar.payload.parentuid = anitem.payload.uid
+                newItems.forEach(item => {
 
-          gramm(avatar)
-        })
-      })
+
+
+                  let avatars = gavatars(item)
+                  
+
+                  avatars.forEach(avatar => {
+                        avatar.payload.uid = mric.getuid(avatar)
+                        avatar.payload.tim = anigram.payload.tim
+                        avatar.payload.parentuid = anigram.payload.uid
+                  
+                          gramm(avatar)
+                    
+                  })
+                  
+                  
+                  
+                })
+          })
+
+
+        )
     }
 
     // .................. enty
@@ -198,8 +211,6 @@ if (1 && 1) console.log('mstore gramm pre halo')
 
     enty.getAnimaIdx = ric => enty.findIndexFromRic(ric, state.animas)
     enty.getAnima = ric => state.animas[enty.getAnimaIdx(ric)] || null
-
-    enty.state = state
 
     return enty
   }

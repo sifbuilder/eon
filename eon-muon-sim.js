@@ -13,11 +13,13 @@
       mprops,
       mstore,
       mgeonode,
+      d3,
       d3Force3d,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('store'),
       __mapper('xs').m('geonode'),
+      __mapper('xs').b('d3'),
       __mapper('xs').b('d3-force-3d'),
     ])
 
@@ -43,7 +45,7 @@
     // https://bl.ocks.org/frogcat/a06132f64b7164c1b1993c49dcd9178f
     // https://www.nist.gov/sites/default/files/documents/2017/05/09/d3rave_poster.pdf
 
-    // ...................... simConstants
+    // ------------------------- simConstants
     function simConstants (sim, fieldProps = {}) {
       let cttes = {}
       cttes.alpha = (fieldProps.alpha !== undefined) ? fieldProps.alpha : sim.alpha()
@@ -54,7 +56,11 @@
       return cttes
     }
 
-    // ...................... initNodes
+    /* **************************
+ *        //md: initNodes
+ *        //md:   @aniItems
+ *        //md:   @nMim
+ */
     function initNodes (aniItems, nDim) {
       let simNodes = []
 
@@ -62,12 +68,14 @@
         let aniItem = aniItems[i]
         let payload = aniItem.payload
 
-        let geonode // the geonode ports info of the simnode
+        // the geonode ports info of the simnode
+        let geonode
         if (aniItem && aniItem.geofold && aniItem.geofold.properties) geonode = aniItem.geofold.properties.geonode
         geonode = mgeonode.init(geonode)
 
-        let simNode = {} // the simnode location is in the geonode geometry
+        // the simnode location is in the geonode geometry
         let nodeGeometry = geonode.geometry
+        let simNode = {}
         simNode.x = nodeGeometry.coordinates[0] // geonode location to simnode
         simNode.y = nodeGeometry.coordinates[1]
         simNode.z = nodeGeometry.coordinates[2]
@@ -76,7 +84,8 @@
         if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1) simNode.y = 0
         if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2) simNode.z = 0
 
-        let properties = geonode.properties // the simnode status is in the geonode properties
+        // the simnode status is in the geonode properties
+        let properties = geonode.properties
         if (properties.anchor) { // fix situs
           simNode.fx = simNode.x
           simNode.fy = simNode.y
@@ -111,7 +120,9 @@
       return simNodes
     }
 
-    // ...................... restoreNodes
+    /***************************
+ *        @restoreNodes
+ */
     function restoreNodes (simNodes, aniItems) {
       let updItems = []
 
@@ -157,7 +168,9 @@
       return updItems
     }
 
-    // ...................... simulate
+    /***************************
+ *        @simulate
+ */
     let simulate = function (sim, aniItems = [], elapsed = 0, dim = 3) {
       let aniSims = []
       let numDims = 3
@@ -173,6 +186,7 @@
 
         if (aniItem.payload.forces !== undefined) { // forces in aniItem
           let forces = mprops.fa(aniItem.payload.forces)
+
           for (let j = 0; j < forces.length; j++) { // for each force in aniItem
             let aniForce = forces[j] // aniForce in anima.payload.forces eg. force_gravity
             let cttes = simConstants(sim, aniForce.properties)
@@ -187,14 +201,14 @@
                 if (aniForce.ticked !== undefined) aniForce.ticked
 
                 aniSims = restoreNodes(aniNodes, aniItems) // > aniNodes
-                mstore.apply({type: 'UPDANIMA', caller: 'simulation', animas: aniSims})
+                mstore.apply({type: 'UPDATEANIMAS', caller: 'simulation', animas: aniSims})
               })
 
             if (aniForce.field !== undefined) { // field forces
               let aniCompForces = aniForce.field({ // mamy to share properties
-                elapsed: elapsed, // elapsed
-                nodes: aniNodes, // aniNodes
-                properties: aniForce.properties, // snapped properties
+                'elapsed': elapsed, // elapsed
+                'nodes': aniNodes, // aniNodes
+                'properties': aniForce.properties, // snapped properties
               })
 
               for (let k = 0; k < aniCompForces.length; k++) {
@@ -212,11 +226,13 @@
       return aniSims
     }
 
-    // ...................... enty
+    /***************************
+ *        @enty
+ */
     let enty = {}
     enty.sim = (_) => { if (_ === undefined) return sim; else { sim = _; return enty } }
     enty.dim = (_) => { if (_ === undefined) return dim; else { dim = _; return enty } }
-    enty.simulate_ = simulate
+    enty.simulate = simulate
 
     return enty
   }

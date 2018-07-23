@@ -18,40 +18,34 @@
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
 
     // ............................. snapani
-    function snapani (ani, t) {
-      let r = Promise.resolve()
+    let snapani = function (ani, t) {
+      let anigram
       if (ani !== undefined) {
         t = t || ani.payload.tim.unitTime
-        r = msnap.snap(ani, t)
+        anigram = msnap.snap(ani, t)
       }
-      return r
+      return anigram
     }
 
     // ............................. functorize
-    async function functorize (anitem, t) {
-if (1 && 1) console.log('manitem functorize ani', anitem)
+    let functorize = function (ani, t) {
+      let anigram = snapani(ani, t)
 
-      
-      let geofold = await functor(anitem.geofold, anitem)
-if (1 && 1) console.log('manitem functorize geofold', geofold)
-  
-      anitem.geofold = geofold
-      
-      if (anitem.payload === undefined) anitem.payload = {}
-      anitem.payload.conform = functor(anitem.payload.conform, anitem)
-      anitem.payload.ereform = functor(anitem.payload.ereform, anitem)
-      anitem.payload.proform = functor(anitem.payload.proform, anitem)
+      if (anigram !== undefined) {
+        if (anigram.payload === undefined) anigram.payload = {}
+        anigram.geofold = functor((anigram.geofold), anigram) // geofold
+        anigram.payload.conform = functor(anigram.payload.conform, anigram) // conform
+        anigram.payload.proform = functor(anigram.payload.proform, anigram) // proform
+      }
 
-      let functorized = {
-              halo: anitem.halo, // halo
-              geofold: anitem.geofold, // geofold
-              payload: anitem.payload, // payload
-              avatars: anitem.avatars, // avatars
+      return {
 
-            }
-      return functorized
+        halo: anigram.halo, // halo
+        geofold: anigram.geofold, // geofold
+        payload: anigram.payload, // payload
+        avatars: anigram.avatars, // avatars
 
-
+      }
     }
 
     // ............................. enty

@@ -14,16 +14,13 @@
       mboform,
       mgeoj,
       mprops,
-      manitem,
     ] = await Promise.all([
       __mapper('xs').m('ric'),
       __mapper('xs').m('boform'),
       __mapper('xs').m('geoj'),
       __mapper('xs').m('props'),
-      __mapper('xs').m('anitem'),
     ])
 
-    // ............................. getgj    
     const getgj = ani => {
       let gj = mprops.v(ani.geofold, ani) // get geofold
       gj.properties = gj.properties || {} // recall genode
@@ -34,40 +31,32 @@
     }
 
     // ............................. gramm
-    async function gramm (anima) {
-if (1 && 1) console.log('***** h.formed anima', anima)
+    async function gramm (anigram) {
       
-      let anigram = await manitem.snapani(anima)
-if (1 && 1) console.log('h.ent gramm anigram', anigram)       
-      let anitem = await manitem.functorize(anigram)
       
-if (1 && 1) console.log('***** h.formed anitem', anitem)
-  
-      let gjcollection = await mgeoj.featurecollect(getgj(anitem))
-if (1 && 1) console.log('***** h.formed gjcollection', gjcollection)
-      console.assert(gjcollection.type === 'FeatureCollection')
+      
+      let gjcollection = await mgeoj.featurecollect(getgj(anigram))
+
+      if (2 && 2 && gjcollection.type !== 'FeatureCollection') console.log('** gjcollection is not FeatureCollection', gjcollection)
       gjcollection = mgeoj.zorder(gjcollection) // order features in collection
-      gjcollection = mric.enric(anitem.payload.ric, anitem, gjcollection) // ric to feature or collection
+      gjcollection = mric.enric(anigram.payload.ric, anigram, gjcollection) // ric to feature or collection
 
       let newAnigrams = gjcollection.features.map((feature, i) => {
-        feature = mboform.boformer(anitem, feature)
+        feature = mboform.boformer(anigram, feature)
 
-        feature.properties.tim = anitem.payload.tim // tim in geofold
-        feature.properties.vim = anitem.payload.vim // vim in geofold to render
-
-        // console.assert(feature.properties.sort !== undefined, `${feature.properties.uid} feature sort not defined`)
-
-        feature.properties.sort = feature.properties.sort || 'form' // svg sort defaulted to form
+        feature.properties.tim = anigram.payload.tim // tim in geofold
+        feature.properties.vim = anigram.payload.vim // vim in geofold to render
+        feature.properties.sort = feature.properties.sort || 'feature' // svg sort
 
         let newAnigram = {
-          halo: anitem.halo, // inherit halo
+          halo: anigram.halo, // inherit halo
           geofold: feature, // inherit geofold
           payload: { // payload is lost in m.animation before rendering
             ric: feature.properties.ric, // hoist ric
-            id: feature.properties.uid, // hoist id
+            id: feature.properties.uid, // hoist uid
             uid: feature.properties.uid, // hoist uid
           },
-          avatars: anitem.avatars, // inherit avatars
+          avatars: anigram.avatars, // inherit avatars
         }
         return newAnigram
       })
