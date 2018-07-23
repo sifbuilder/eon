@@ -29,7 +29,7 @@
     state.animas = [] // global animas
     let mstore = __mapper('muonStore')
     // .................. getsims
-    async function getsims_ (animas, elapsed) {
+    async function getsims (animas, elapsed) {
       let sim = msim.sim() // simulation on animas
       await msim.simulate_(sim, animas, elapsed) // stored
       return mstore.animasLive()
@@ -95,11 +95,21 @@
 
 
     // ............................. @WEEN SIM GRAMM RENDEr
-       getweens(mstore.animasLive(), elapsed)
-        .then(() => getsims_(mstore.animasLive())
-          .then(() => getgramms(mstore.animasLive())
-            .then(() => rsvg.render({ type: 'FeatureCollection', features: mstore.anigrams().map(d => d.geofold) }))
-        ))
+      Promise.resolve(state.animas)
+        .then(animas => {
+          return getweens(animas, elapsed)
+        })
+        .then(animas => getsims(animas))
+        .then(animas => {
+          let anigrams = getgramms(animas)
+          return anigrams
+        })
+        .then(anigrams => {
+          return { type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }
+        })
+        .then(featurecollection => {
+          rsvg.render(elapsed, featurecollection)
+        })
 
 
     }
