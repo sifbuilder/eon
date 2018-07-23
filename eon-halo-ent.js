@@ -110,9 +110,10 @@
     // ............................. gramm
     async function gramm (anima) {
       let anigram = await manitem.functorize(anima)
-
       console.assert(Array.isArray(anigram) !== true)
-      let gjcollection = mgeoj.featurecollect(getgj(anigram))
+      let gj = getgj(anigram)
+
+      let gjcollection = mgeoj.featurecollect(gj)
 
       let newfeatures = await Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
 

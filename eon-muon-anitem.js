@@ -18,37 +18,40 @@
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
 
     // ............................. snapani
-    async function snapani (ani, t) {
+    function snapani (ani, t) {
       let r = Promise.resolve()
       if (ani !== undefined) {
         t = t || ani.payload.tim.unitTime
-        r = await msnap.snap(ani, t)
+        r = msnap.snap(ani, t)
       }
-
       return r
     }
 
     // ............................. functorize
-    async function functorize (ani, t) {
-      let anigram = await snapani(ani, t)
-      console.assert(anigram !== undefined)
+    function functorize (ani, t) {
 
-      if (anigram.payload === undefined) anigram.payload = {}
+      return snapani(ani, t)
+        .then(anigram => Promise.resolve(functor(anigram.geofold, anigram))
+          .then(geofold => {
 
-      anigram.geofold = functor((anigram.geofold), anigram) // geofold
-      anigram.payload.conform = functor(anigram.payload.conform, anigram) // conform
-      anigram.payload.ereform = functor(anigram.payload.ereform, anigram) // ereform
-      anigram.payload.proform = functor(anigram.payload.proform, anigram) // proform
 
-      let r = {
+            anigram.geofold = geofold
+  if (1 && 1) console.log('geofold', anigram.geofold)
+            if (anigram.payload === undefined) anigram.payload = {}
+            anigram.payload.conform = functor(anigram.payload.conform, anigram)
+            anigram.payload.ereform = functor(anigram.payload.ereform, anigram)
+            anigram.payload.proform = functor(anigram.payload.proform, anigram)
 
-        halo: anigram.halo, // halo
-        geofold: anigram.geofold, // geofold
-        payload: anigram.payload, // payload
-        avatars: anigram.avatars, // avatars
+            return {
+              halo: anigram.halo, // halo
+              geofold: anigram.geofold, // geofold
+              payload: anigram.payload, // payload
+              avatars: anigram.avatars, // avatars
 
-      }
-      return r
+            }
+
+        }))
+
     }
 
     // ............................. enty

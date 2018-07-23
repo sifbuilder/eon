@@ -99,6 +99,7 @@
       } else if (typeof (v) === 'function' && // 01 _____ fn snappable time function
                                       g === 1) {
         ret = await snap(v(t), t, 0)
+        
       } else if (mprops.isObject(v) && // 10 ___ v :: {b, c, d ...}*
                                       g === 1) { // assume nat on object
         let ws

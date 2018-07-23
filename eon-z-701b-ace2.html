@@ -123,10 +123,7 @@ async function zindex (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => {
-        let g = mgraticule.vhMultiLine(p.payload.graticule)
-        return g
-      },
+      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
       payload: {
 
@@ -170,7 +167,8 @@ async function zindex (__mapper) {
     let animas = [
 
       natform, // h.ent
-      sceneAni, // h.scene
+      // sceneAni, // h.scene
+      gratform, // h.scene
 
     ]
 

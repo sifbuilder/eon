@@ -214,8 +214,7 @@
           }
 
           /*  ................. AXES ................. */
-          // d.properties.axis: cf, co, cp, cs, csx, cw, d3axis, domain, label, orient, range, rotate, scale, scaleType, tickFormat, tickPadding, tickSize,
-          // d.properties.axis.style :  font-family, font-size, text-anchor
+
               
           let axes = fitems
             .filter(d => d.properties.sort === 'axis') // __ axis __
