@@ -89,10 +89,11 @@
 
     // ............................. gramm
     async function gramm (anima, newItems = []) {
-      let anigram = await manitem.snapani(anima)
-if (1 && 1) console.log('h.ent gramm anigram', anigram)       
-      let anitem  = await manitem.functorize(anigram)
-
+      // let anigram = await manitem.snapani(anima)
+// if (1 && 1) console.log('h.ent gramm anigram', anigram)       
+      // let anitem  = await manitem.functorize(anigram)
+      let anitem = anima
+      
       let halo = anitem.halo,
         payload = anitem.payload,
         ric = payload.ric,

@@ -86,17 +86,6 @@
       }
     }
 
-    // .................. ween
-    function ween (anitem) {
-      return Promise.resolve(manitem.functorize(anitem))
-        .then(anigram => __mapper('xs').h(anigram.halo)
-          .then(halo => halo.ween(anigram))
-          .then(newAnigrams => _apply({type: 'UPDANIMA', anigrams: newAnigrams})))
-    }
-
-    let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars||[])
-
-
     // .................. getavatars
     const getavatars = items => {
       items.forEach(item => {
@@ -119,10 +108,24 @@
       }
       return chain(items, 0)
     }
+    
+    // .................. ween
+    function ween (anitem) {
+      return manitem.snapani(anitem)
+        .then(snapped => manitem.functorize(snapped))
+        .then(anigram => __mapper('xs').h(anigram.halo)
+          .then(halo => halo.ween(anigram))
+          .then(newAnigrams => _apply({type: 'UPDANIMA', anigrams: newAnigrams})))
+    }
+
+    let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars||[])
+
+
     // .................. gramm
     function gramm (anitem) {
 
-      return Promise.resolve(manitem.functorize(anitem))
+      return manitem.snapani(anitem)
+        .then(snapped => manitem.functorize(snapped))
         .then(anigram => __mapper('xs').h(anigram.halo)
           .then(halo => {
             let newItems = halo.gramm(anigram)

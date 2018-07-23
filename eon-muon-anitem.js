@@ -18,18 +18,19 @@
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
 
     // ............................. snapani
-    let snapani = function (ani, t) {
-      let anigram
+    function snapani (ani, t) {
+      let r = Promise.resolve()
       if (ani !== undefined) {
         t = t || ani.payload.tim.unitTime
-        anigram = msnap.snap(ani, t)
+        r = Promise.resolve(msnap.snap(ani, t))
       }
-      return anigram
+      return r
     }
 
     // ............................. functorize
     let functorize = function (ani, t) {
-      let anigram = snapani(ani, t)
+      // let anigram = snapani(ani, t)
+      let anigram = ani
 
       if (anigram !== undefined) {
         if (anigram.payload === undefined) anigram.payload = {}
