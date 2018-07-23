@@ -7,7 +7,7 @@
 701d - [eon-z-701d-ace3](https://sifbuilder.github.io/eon/eon-z-701d-ace3.html)   
 701e - [eon-z-701e-ace4](https://sifbuilder.github.io/eon/eon-z-701e-ace4.html)   
 702a - [eon-z-702a-grati-satellite](https://sifbuilder.github.io/eon/eon-z-702a-grati-satellite.html)   
-702b - [eon-z-702b-geograt](https://sifbuilder.github.io/eon/eon-z-702b-geograt.html)   
+702b - [eon-z-702b-nat](https://sifbuilder.github.io/eon/eon-z-702b-nat.html)   
 702c - [eon-z-702c-satellite](https://sifbuilder.github.io/eon/eon-z-702c-satellite.html)   
 703a - [eon-z-703a-twofaces](https://sifbuilder.github.io/eon/eon-z-703a-twofaces.html)   
 703b - [eon-z-703b-oneface](https://sifbuilder.github.io/eon/eon-z-703b-oneface.html)   
