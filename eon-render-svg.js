@@ -214,18 +214,19 @@
             .filter(d => d.properties.sort === 'axis') // __ axis __
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
+            
           if (axes.length > 0) {
+
+
             for (let k = 0; k < axes.length; k++) {
               let axis = axes[k]
-              if (1 && 1) console.log('-----------geometry ', axis.geometry)
-              if (1 && 1) console.log('-----------axis ', axis.properties.axis)
-              if (1 && 1) console.log('-----------style ', axis.properties.style)
-
-              svgelems('svg:g.' + gid + '/g.' + cid, Array.of(axis), d => d.properties.uid)
+              let uid = axis.properties.uid
+              
+              svgelems('svg:g.' + gid + '/g.' + uid, Array.of(axis), d => d.properties.uid)
 
                 .data(() => Array.of(axis))
 
-                .call(axis.properties.axis.d3Axis)
+                .call(d => d.call(d.datum().properties.axis.d3axis))
 
                 .attr('transform', d => // eg. "translate(21,20) rotate(15)")
 
@@ -244,11 +245,7 @@
                 .style('text-anchor', d => d.properties.axis.style['text-anchor'])
                 .style('font-family', d => d.properties.axis.style['font-family'])
 
-                .style('fill', d => {
-                  if (1 && 1) console.log('d', d.properties.style)
-
-                  return d.properties.style.fill
-                })
+                .style('fill', d => d.properties.style.fill)
                 .style('stroke', d => d.properties.style.stroke)
                 .style('fill-opacity', d => d.properties.style['fill-opacity'])
                 .style('stroke-opacity', d => d.properties.style['stroke-opacity'])

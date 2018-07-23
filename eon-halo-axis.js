@@ -39,7 +39,7 @@
     function gramm (anima) {
 
       return manitem.snapani(anima)
-        .then(anitem => functorize(anitem))
+        .then(snapped => manitem.functorize(snapped))
         .then(anigram => {
 
                let halo = anigram.halo, // halo
