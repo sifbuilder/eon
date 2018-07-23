@@ -32,12 +32,12 @@
       // let anigram = snapani(ani, t)
       let anigram = ani
 
-      if (anigram !== undefined) {
-        if (anigram.payload === undefined) anigram.payload = {}
+        console.assert(anigram !== undefined)
         anigram.geofold = functor((anigram.geofold), anigram) // geofold
+        
+        if (anigram.payload === undefined) anigram.payload = {}
         anigram.payload.conform = functor(anigram.payload.conform, anigram) // conform
         anigram.payload.proform = functor(anigram.payload.proform, anigram) // proform
-      }
 
       return {
 
