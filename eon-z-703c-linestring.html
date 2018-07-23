@@ -38,10 +38,8 @@ async function zindex (__mapper) {
   // .................. eons
   let [
     cwen,
-    mprops,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
-    __mapper('xs').m('props'),
   ])
 
   // .................. animas

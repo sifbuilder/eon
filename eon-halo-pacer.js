@@ -89,7 +89,9 @@
 
     // ............................. gramm
     async function gramm (anima, newItems = []) {
-      let anitem = await Promise.resolve(manitem.functorize(anima))
+      let anigram = await manitem.snapani(anima)
+if (1 && 1) console.log('h.ent gramm anigram', anigram)       
+      let anitem  = await manitem.functorize(anigram)
 
       let halo = anitem.halo,
         payload = anitem.payload,

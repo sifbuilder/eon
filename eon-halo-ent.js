@@ -109,18 +109,21 @@
 
     // ............................. gramm
     async function gramm (anima) {
-      let anigram = await manitem.functorize(anima)
-      console.assert(Array.isArray(anigram) !== true)
-      let gj = getgj(anigram)
-
+      
+      let anigram = await manitem.snapani(anima)
+      let anitem = await manitem.functorize(anigram)
+    
+      console.assert(Array.isArray(anitem) !== true)
+      let gj = getgj(anitem)
       let gjcollection = mgeoj.featurecollect(gj)
-
-      let newfeatures = await Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
-
+      
+      let newfeatures = await Promise.all(gjcollection.features.map(f => transforms(f, anitem)))
+      
       let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
-      let newAni = Object.assign({}, anigram, {geofold: newcollection})
+      let newAni = Object.assign({}, anitem, {geofold: newcollection})
 
       let newAnigrams = await hformed.gramm(newAni)
+      
       return newAnigrams
     }
 

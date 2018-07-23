@@ -61,8 +61,7 @@ async function zindex (__mapper) {
     }
 
     let geoformFaces = ani => { // geofold creates geojson featurecollection
-      let payload = ani.payload, // payload
-        boform = payload.boform // boform
+      let payload = ani.payload // payload
 
       let faces = mprops.v(payload.faces) // payload.faces
       let json = {type: 'FeatureCollection', features: []}

@@ -70,16 +70,16 @@ async function zindex (__mapper) {
       infact4 = 1 / fact4,
       infact5 = 1 / fact5,
       infact6 = 1 / fact6,
-      infact7 = 1 / fact7
-    infact8 = 1 / fact8
-    infact9 = 1 / fact9
+      infact7 = 1 / fact7,
+      infact8 = 1 / fact8,
+      infact9 = 1 / fact9
 
     let sinp = [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8]
     let cosp = [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9]
     let exp = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
 
     // ............................. pics
-    let tim = {'td': 18600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
+    let tim = {'td': 18600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 0, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
 
     let conform = {
       'x': {
@@ -122,7 +122,7 @@ async function zindex (__mapper) {
     // ............................. natAni
     let natAni = {
 
-      halo: 'nat',
+      halo: 'ent',
 
       geofold: p => mnat.natFeature(p.payload.form), // geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
       payload: {
@@ -131,20 +131,11 @@ async function zindex (__mapper) {
         ric: {gid: 'q', cid: 'q', fid: 'q'},
 
         proform: {
-
           projection: 'uniwen',
-          // scale: [1, 1],
-          // scale: [0.5, 0.5],
           scale: [ [[[1.5, 1.5]]], [[[1.5, 1.5]]] ],
-
-          // projection:  d3.geoOrthographic(),
-          // scale: 100,
-
           prerotate: [[[ cwen.rotation ]]],
           translate: [ [0, 0, 0] ],
-          // rotate: [ [[[90 + 0, 90 + 0, 90 + 1 * 360, 90 + 1 * 360]]], 0, 0 ],
           rotate: [ [[[-80, -100, -80, -100, -80, -100, -80, -100, -80, -100, -80]]], 6, 0 ],
-          // rotate: [ -90, 0, 0 ],
           lens: [0, 1, [[[5000, 5000, -5000, -5000]]] ],
         },
 
@@ -170,7 +161,7 @@ async function zindex (__mapper) {
     // ............................. animas
     let animas = [
 
-      sceneAni, // h.scene
+      // sceneAni, // h.scene
       natAni, // h.nat
 
     ]

@@ -38,8 +38,8 @@
     // ............................. gramm
     function gramm (anima) {
 
-      return manitem.functorize(anima)
-
+      return manitem.snapani(anima)
+        .then(anitem => functorize(anitem))
         .then(anigram => {
 
                let halo = anigram.halo, // halo

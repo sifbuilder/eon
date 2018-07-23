@@ -120,12 +120,17 @@
     // .................. gramm
     async function gramm (anitem) {
       let halo
+      
       if (typeof (anitem.halo) === 'object') {
         halo = await Promise.resolve(anitem.halo)
       } else {
         halo = await __mapper('xs').h(anitem.halo)
       }
+if (1 && 1) console.log('mstore gramm pre halo')
+
       let newItems = await halo.gramm(anitem)
+   if (1 && 1) console.log('mstore gramm pst halo', newItems)
+      
       _apply({type: 'UPDANIGRAM', anigrams: newItems})
 
       newItems.forEach(item => {

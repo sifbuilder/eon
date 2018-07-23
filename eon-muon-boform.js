@@ -10,11 +10,11 @@
 
   async function muonBoform (__mapper = {}) {
     let [
-      d3scale,
       d3interpolate,
+      d3scale,
     ] = await Promise.all([
-      __mapper('xs').b('d3-scale'),
       __mapper('xs').b('d3-interpolate'),
+      __mapper('xs').b('d3-scale'),
     ])
 
     // .................. color

@@ -67,9 +67,9 @@
 
     // .................. aniListener
     function aniListener (elapsed) {
-      mstore = __mapper('muonStore') // store with state from __mapper
-      state.animas = mstore.animasLive()
       console.log(` ................................... animation ${elapsed} ${state.animas.length}`)
+      state.animas = mstore.animasLive()
+      // console.log(` ................................... animation ${elapsed} ${state.animas.length}`)
       // .................. time
 
       state.animas = mprops.a(mstore.animasLive())
@@ -95,11 +95,11 @@
 
 
     // ............................. @WEEN SIM GRAMM RENDEr
-
-        getweens(mstore.animasLive(), elapsed)
-        .then(() => getsims_(mstore.animasLive()))
-        .then(() => getgramms(mstore.animasLive()))
-        .then(() => { rsvg.render({ type: 'FeatureCollection', features: mstore.anigrams().map(d => d.geofold) } ) })
+       getweens(mstore.animasLive(), elapsed)
+        .then(() => getsims_(mstore.animasLive())
+          .then(() => getgramms(mstore.animasLive())
+            .then(() => rsvg.render({ type: 'FeatureCollection', features: mstore.anigrams().map(d => d.geofold) }))
+        ))
 
 
     }

@@ -28,29 +28,29 @@
     }
 
     // ............................. functorize
-    function functorize (ani, t) {
+    async function functorize (anitem, t) {
+if (1 && 1) console.log('manitem functorize ani', anitem)
 
-      return snapani(ani, t)
-        .then(anigram => Promise.resolve(functor(anigram.geofold, anigram))
-          .then(geofold => {
+      
+      let geofold = await functor(anitem.geofold, anitem)
+if (1 && 1) console.log('manitem functorize geofold', geofold)
+  
+      anitem.geofold = geofold
+      
+      if (anitem.payload === undefined) anitem.payload = {}
+      anitem.payload.conform = functor(anitem.payload.conform, anitem)
+      anitem.payload.ereform = functor(anitem.payload.ereform, anitem)
+      anitem.payload.proform = functor(anitem.payload.proform, anitem)
 
-
-            anigram.geofold = geofold
-  if (1 && 1) console.log('geofold', anigram.geofold)
-            if (anigram.payload === undefined) anigram.payload = {}
-            anigram.payload.conform = functor(anigram.payload.conform, anigram)
-            anigram.payload.ereform = functor(anigram.payload.ereform, anigram)
-            anigram.payload.proform = functor(anigram.payload.proform, anigram)
-
-            return {
-              halo: anigram.halo, // halo
-              geofold: anigram.geofold, // geofold
-              payload: anigram.payload, // payload
-              avatars: anigram.avatars, // avatars
+      let functorized = {
+              halo: anitem.halo, // halo
+              geofold: anitem.geofold, // geofold
+              payload: anitem.payload, // payload
+              avatars: anitem.avatars, // avatars
 
             }
+      return functorized
 
-        }))
 
     }
 

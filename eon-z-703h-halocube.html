@@ -37,19 +37,23 @@
 async function haloStarshalo (__mapper = {}) {
    let [
      mgeoj,
-     mprofier,
-     mproj3ct,
      hformed,
-     mprops,
    ] = await Promise.all([
      __mapper('xs').m('geoj'),
-     __mapper('xs').m('profier'),
-     __mapper('xs').m('proj3ct'),
      __mapper('xs').h('formed'),
-     __mapper('xs').m('props'),
 
    ])
 
+   // ............................. getgj
+   const getgj = ani => {
+     let gj = mprops.v(ani.geofold, ani) // get geofold
+     gj.properties = gj.properties || {} // recall genode
+     gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
+     gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
+     gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
+     return gj
+   }
+ 
    // ............................. gramm
    async function gramm (anigram, newAnigrams = []) {
      return Promise.resolve(mgeoj.featurecollect(getgj(anigram)))
@@ -81,10 +85,8 @@ async function zindex (__mapper) {
    // .................. eons
    let [
      cwen,
-     mprops,
    ] = await Promise.all([
      __mapper('xs').c('wen'),
-     __mapper('xs').m('props'),
    ])
 
    // .................. animas

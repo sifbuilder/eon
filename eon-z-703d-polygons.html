@@ -38,10 +38,8 @@ async function zindex (__mapper) {
   // .................. eons
   let [
     cwen,
-    mprops,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
-    __mapper('xs').m('props'),
   ])
 
   // .................. animas
@@ -55,7 +53,6 @@ async function zindex (__mapper) {
       halo: 'ent',
 
       geofold: (p) => {
-        let payload = p.payload
         let coordinaes = [
           [-1, -1, 1],
           [ 1, -1, 1],
@@ -107,7 +104,6 @@ async function zindex (__mapper) {
       halo: 'ent',
 
       geofold: (p) => {
-        let payload = p.payload
         let coordinaes = [
           [-1, -1, 1],
           [ 1, -1, 1],
