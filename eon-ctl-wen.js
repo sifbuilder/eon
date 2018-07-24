@@ -11,19 +11,27 @@
 
   async function ctlWen (__mapper = {}) {
     let [
-      d3selection,
+      d3,
+      // d3drag,
+      // d3dispatch,
+      // d3selection,
       d3geo,
-      d3drag,
       mgeom,
       rrenderport,
     ] = await Promise.all([
-      __mapper('xs').b('d3-selection'),
+      __mapper('xs').b('d3'),
+      // __mapper('xs').b('d3-drag'),
+      // __mapper('xs').b('d3-dispatch'),
+      // __mapper('xs').b('d3-selection'),
       __mapper('xs').b('d3-geo'),
-      __mapper('xs').b('d3-drag'),
       __mapper('xs').m('geom'),
       __mapper('xs').r('renderport'),
     ])
 
+    let d3drag = d3
+    let d3dispatch = d3
+    let d3selection = d3
+    
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)
     }

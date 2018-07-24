@@ -9,7 +9,7 @@
   'use strict'
 
   let xVersion = function () {
-    let version = '0.0.0-beta.0'
+    let version = '0.0.1-rc1'
 
     // ............................. enty
     let enty = {}
