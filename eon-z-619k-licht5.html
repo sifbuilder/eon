@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  // .................. eons
+  let [
+    rrenderport,
+    mgeoj,
+    mproj3ct,
+    mprofier,
+    mstace,
+    mric,
+    msvg,
+    dlicht5,
+  ] = await Promise.all([
+    __mapper('xs').r('renderport'),
+    __mapper('xs').m('geoj'),
+    __mapper('xs').m('proj3ct'),
+    __mapper('xs').m('profier'),
+    __mapper('xs').m('stace'),
+    __mapper('xs').m('ric'),
+    __mapper('xs').m('svg'),
+    __mapper('xs').d('licht5'),
+  ])
+
+  let mstore = __mapper('xs').m('store')
+
+  // .................. animas
+  let animas = function () {
+    // .................. pics
+    let tim = {'td': 43800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    let svgdata = dlicht5.data()
+    let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
+    let x0 = extent[0], y0 = extent[1], x1 = extent[2], y1 = extent[3]
+
+    let width = rrenderport.width(),
+      height = rrenderport.height()
+
+    let r0 = width / (x1 - x0)
+    let r1 = height / (y1 - y0)
+    let rx = Math.sign(r0) * Math.min(Math.abs(r0), Math.abs(r1))
+    let ry = -Math.sign(r1) * Math.min(Math.abs(r0), Math.abs(r1))
+
+    let dx = -(width - (x1 - x0)) / 2
+    let dy = -(height - (y1 - y0)) / 2
+
+    let gjdata = msvg.castels(svgdata, {start: 0, stop: 0.9, step: 0.091})
+
+    let nb = mgeoj.getCoordsLength(gjdata) // 894
+    let proform = {
+      projection: 'uniwen',
+      translate: [dx - 230, dy + 0, 0],
+      scale: [rx * 0.2, ry * 0.2],
+      rotate: [ 0, 0, 0 ],
+      lens: [0, 1, Infinity],
+    }
+    let geoData = mproj3ct(gjdata, mprofier.formion_(proform))
+
+if (1 && 1) console.log('geoData', geoData)
+
+    // .................. polyForm
+    let polyForm = {
+
+      halo: 'formed',
+
+      geofold: ani => {
+        let anigram = ani, // anigram
+          halo = ani.halo, // halo
+          geofold = ani.geofold, // geofold
+          payload = ani.payload // payload
+
+        let unitElapsed = ani.payload.tim.unitElapsed // unit time elapsed
+        let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
+
+        let nbt = Math.ceil(nb * t)
+        let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
+
+        let coords = csi(t).geometry.coordinates
+
+        let ngj = {
+          type: 'Feature',
+          geometry: { type: 'Polygon', coordinates: [] },
+          properties: {
+            boform: { 'csx': 0, 'cf': 666, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 0.9},
+          },
+        }
+
+        // md: a single line generates a LineString from mproj3ct(geoData)
+        if (geoData.geometry.type === 'LineString') ngj.geometry.coordinates = Array.of(coords)
+        else if (geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = coords
+        else if (geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = coords
+
+        let rings = ngj.geometry.coordinates // rings in Polygon
+        let newFeatureCollection = {type: 'FeatureCollection', features: []}
+
+        for (let i = 0; i < rings.length; i++) {
+          let ring = rings[i]
+          let feature = {
+            type: 'Feature',
+            geometry: { type: 'Polygon', coordinates: [ring]},
+            properties: {},
+          }
+          if (i < rings.length - 1) { // first
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 1}
+          } else {
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.1, 'cp': 1}
+          }
+
+          newFeatureCollection.features.push(feature)
+        }
+
+        newFeatureCollection.features = Array.of(ngj)
+
+        let geodata = newFeatureCollection
+
+        if (payload.proform) {
+          let proformion = mprofier.proformion(anigram)
+          newFeatureCollection = mproj3ct(geodata, proformion)
+        }
+
+        return newFeatureCollection
+      },
+
+      payload: { // payload in polyForm
+
+        tim: tim,
+        ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
+        tf: t => t,
+        // tf: t => 2 * (t - 2 * Math.max(0, t - 0.5)),
+        // tf: t => 1 - 4 * (t - 0.5)* (t - 0.5),
+        // tf: t => 1,
+
+      },
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+
+      polyForm, // h.formed
+      sceneAni, // h.scene
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>
