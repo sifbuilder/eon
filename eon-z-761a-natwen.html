@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  // .................. eons
+  let [
+    mnat,
+    mprops,
+    cwen,
+    d3geo,
+  ] = await Promise.all([
+    __mapper('xs').m('nat'),
+    __mapper('xs').m('props'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').b('d3-geo'),
+  ])
+
+  // .................. animas
+  let animas = function () {
+    // .................. pics
+ let tim = {'td': 11200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+ 
+    let anima = {
+
+      halo: 'ent',
+      geofold: p => mnat.natFeature(p.payload.form),
+      payload: {
+
+        tim: tim,
+        ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
+
+        form: {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 2, 'pa6': 0, 'pb7': -1
+          },
+          
+        proform: {
+        
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          scale: 1,
+          translate: { x: 0, y: 0, z: 0 },
+          rotate: [ 0, 0, 0 ]
+
+        }
+      }
+    }
+
+  let animatter = {
+
+      halo: 'ent',
+      geofold: p => mnat.natFeature(p.payload.form),
+      payload: {
+
+        tim: tim,
+        ric: {gid: 'animatter', cid: 'animatter', fid: 'animatter'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.09, 'cp': 0.7},
+
+        form: {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 20, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          },
+
+          
+        proform: {
+        
+          projection: d3geo.geoOrthographic(),
+          prerotate: [[[ cwen.rotation ]]],
+          scale: 90,
+          translate: [ 0, 0, 0 ],
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+
+        }
+      }
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+
+      anima, // h.ent
+      animatter, // h.ent
+      sceneAni, // h.scene
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>
+

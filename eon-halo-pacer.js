@@ -88,11 +88,11 @@
     let ween = anima => []
 
     // ............................. gramm
-    async function gramm (anima, newItems = []) {
-      // let anigram = await manitem.snapani(anima)
+    async function gramm (ani, newItems = []) {
+      // let anigram = await manitem.snapani(ani)
 // if (1 && 1) console.log('h.ent gramm anigram', anigram)       
       // let anitem  = await manitem.functorize(anigram)
-      let anitem = anima
+      let anitem = ani
       
       let halo = anitem.halo,
         payload = anitem.payload,

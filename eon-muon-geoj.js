@@ -10,6 +10,7 @@
 
   async function muonGeoj (__mapper = {}) {
     let mprops = await __mapper('xs').m('props')
+    let lcomplex = await __mapper('xs').l('complex')
 
     let types = {
       Point: 'geometry',
@@ -23,6 +24,8 @@
       FeatureCollection: 'featurecollection',
     }
 
+    let Complex = lcomplex
+    
     // ...................... complexifyObjectType
     var complexifyObjectType = {
       Feature: function (object) {
