@@ -27,7 +27,7 @@
   let muonAnimation = await __mapper('xs').m('animation') // map animation
 
   let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
+  let animas = await xanimas.animas() // get animas
 
   muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
   muonAnimation.animate() // animate
@@ -67,8 +67,7 @@ async function zindex (__mapper) {
     let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
     let x0 = extent[0], y0 = extent[1], x1 = extent[2], y1 = extent[3]
 
-    let width = rrenderport.width(),
-      height = rrenderport.height()
+    let width = rrenderport.width(), height = rrenderport.height()
 
     let r0 = width / (x1 - x0)
     let r1 = height / (y1 - y0)
@@ -80,17 +79,18 @@ async function zindex (__mapper) {
 
     let gjdata = msvg.castels(svgdata, {start: 0, stop: 0.9, step: 0.091})
 
-    let nb = mgeoj.getCoordsLength(gjdata) // 894
+    let nb = mgeoj.getCoordsLength(gjdata) // will show (nb * t) dots,  eg. 894
+    
     let proform = {
       projection: 'uniwen',
-      translate: [dx - 230, dy + 0, 0],
+      translate: [dx - 0, dy - 0, 0],
       scale: [rx * 0.2, ry * 0.2],
       rotate: [ 0, 0, 0 ],
       lens: [0, 1, Infinity],
     }
-    let geoData = mproj3ct(gjdata, mprofier.formion_(proform))
-
-if (1 && 1) console.log('geoData', geoData)
+    
+    let project = mprofier.uniweon(proform)
+    let geoData = mproj3ct(gjdata, project)
 
     // .................. polyForm
     let polyForm = {
