@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  // .................. eons
+  let [
+    mfourier,
+    mproj3ct,
+    mprofier,
+    mgeoj,
+  ] = await Promise.all([
+    __mapper('xs').m('fourier'),
+    __mapper('xs').m('proj3ct'),
+    __mapper('xs').m('profier'),
+    __mapper('xs').m('geoj'),
+  ])
+
+  // .................. animas
+  let animas = function () {
+    // .................. pics
+  let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+  /*******************************************
+ *      @data
+ */
+    //md:     data is svg MCZ...MCZ
+    let svgdata = {
+      width:"2.77778in", height:"3.45833in",
+      viewBox:"0 0 300 300",
+      path: {
+        id:"mbn",
+        fill:"none", stroke:"black", 'strokeWidth':"1",
+        d:`M 0.00,0.00
+           C 100.00,0.00 200.00,0.00 300.00,0.00 Z`  // LineString
+      } // path
+    }
+    let data = msvg.castels(svgdata, {start:0, stop:0.9, step:1/3} ) // MultiLineString
+
+    let basicSquare = [
+    [
+      [0, 0],     [0, 25],    [0, 50],    [0, 75],
+      [0, 100],   [25, 100],  [50, 100],  [75, 100],
+      [100, 100], [100, 75],  [100, 50],  [100, 25],
+      [100, 0],   [75, 0],    [50, 0],    [25, 0], [0, 0]
+    ]
+    ] // MultiLineString
+   data.geometry.coordinates = basicSquare
+
+
+    let proform = (lat, lon) => ({projection: 'uniwen',translate: [ lat, lon ],scale: [1, 1],rotate: [ 0, 0 ],lens: [0, 1, Infinity]})
+
+    
+    let geoData = i => mproj3ct(data, mprofier.formion(proform(-250 + i * 60 + i * i * 16, 0)))
+    
+    let nb = mgeoj.getCoordsLength(data)
+    let csi = (i,t) => mgeoj.getCoordsInRange(geoData(i), Math.ceil(nb * t))
+
+    //md:     @aniDotted anima
+    let aniDotted = i => ({
+      halo: 'ent',
+      geofold: p => {
+        let cs = csi(i, (1+i)/4)
+        cs.geometry.type = 'MultiPoint' // switch to MultiPoint
+        return cs
+      },
+      payload: {
+        tim: tim,
+        ric: {gid: 'ani', cid: 'ani', fid: 'aniDotted'+i},
+        boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.5, 'co': 0.9, 'cp': 0.999},
+      }
+    })
+
+
+  //md:     @aniLine anima
+   let aniLine = i => ({
+
+    halo: 'ent',
+    geofold: p => {
+        let cs = csi(i, (1+i)/4)
+        cs.geometry.type = 'LineString' // switch to LineString
+        return cs
+    },
+    payload: {
+      pointRadius: 3,
+      tim: tim,
+      ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniLine'+i},
+      boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.3, 'co': 0.009, 'cp': 0.999},
+    }
+
+  })
+
+  //md:     @aniRay avatar
+  //md:       form.payload.fourier.avatars.line
+   let aniRay = i => ({
+
+    halo: 'ent',
+    geofold: {type: 'Feature',geometry: {type: 'LineString',coordinates: []},properties: {}},
+    payload: {
+      tim: tim,
+      ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniRay'+i},
+      boform: {'csx': 0, 'cf': 555, 'cs': 444, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+    }
+
+  })
+
+  //md:     @aniTrace avatar
+  //md:       form.payload.fourier.avatars.line
+   let aniTrace = i => ({
+
+    halo: 'ent',
+    geofold: {
+      type: 'Feature', geometry: {type: 'MultiPoint',coordinates: []},properties: {}},
+    payload: {
+      tim: tim,
+      ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniTrace'+i},
+      boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+    }
+
+  })
+
+  //md:     @fourierPacer avatar
+  //md:       payload.pacer.geojsor
+  let fourierPacer = i => ({
+
+      halo: 'pacer',
+      payload: {
+        ric: {gid: 'traces', cid: 'traces', fid: 'traces'+i},
+        boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+
+        pacer: { // aad for trace
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
+          autoSitus: d => mstace.getLocus(this.stace, d.payload), // situs
+          fidder: d => d.payload.ric.fid,
+
+          geojsor: function (d, i) {
+            let ric = d.payload.ric // ric
+            let uid = mric.getuid(ric)
+
+            let gj = {
+
+              halo: 'ent',
+              geofold: {
+                type: 'Feature',
+                geometry: { type: 'LineString', coordinates: null },
+                properties: { doc: 'pacer' }
+              },
+              payload: {
+                uid: uid,id: uid,ric: ric,
+                proform: this.proform
+              }
+
+            }
+
+            let newItem = mstore.findAnigramFromUid(uid) || gj
+            if (newItem.geofold.properties.formEreformed) {
+              newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+            }
+
+            return newItem
+          },
+
+        }
+      }
+    })
+
+    //md:     @fourierForm h.fourier
+     let fourierForm = i => ({
+      halo: 'fourier',
+      geofold: p => {
+
+        let cs = csi(i, (1+i)/4)
+          let transforms = mfourier.transformedCoefs(cs)
+          transforms = mgeoj.ntime(transforms, [0,1])
+          return { type: 'FeatureCollection',features: transforms }
+
+      },
+      payload: {  // FOURIER TRANSFORM in payload.fourier.transform
+        tim: tim,
+        ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'+i},
+        boform: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99},
+        fourier: {
+          interval: [ 0.0, 1.0 ], tolerance: 0.33,
+
+        }
+      }
+     })
+
+    let aniDotteds = []
+    let aniLines = []
+    let aniRays = []
+    let aniTraces = []
+    let fourierPacers = []
+    let fourierForms = []
+
+    for (let i=0; i<4; i++) {
+      aniDotteds[i] = aniDotted(i)
+      aniLines[i] = aniLine(i)
+      aniRays[i] = aniRay(i)
+      aniTraces[i] = aniTrace(i)
+      fourierPacers[i] = fourierPacer(i)
+      fourierForms[i] = fourierForm(i)
+
+      fourierForms[i].payload.fourier.avatars = {
+            fourierPacer: fourierPacers[i], // trace
+            line: aniRays[i],  // ray
+          }
+    }
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+    
+    // .................. animas
+  let animas = [
+    sceneAni, // h.scene
+    ...fourierForms, // h.fourier
+    ...aniDotteds, // h.ent
+    ...aniLines, // h.ent
+  ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>

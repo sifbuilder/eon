@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  // .................. eons
+  let [
+    mnat,
+  ] = await Promise.all([
+    __mapper('xs').m('nat'),
+  ])
+
+  // .................. animas
+  let animas = function () {
+    // .................. pics
+  let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+  let formFuel = {
+
+    'x': {
+      'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+      'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[48, 48]]], 'w4': 0, 'pa6': 0, 'pb7': 360, 
+    },
+
+    'y': {
+      'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+      'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[48, 48]]], 'w4': 0, 'pa6': 0, 'pb7': 360, 
+    }
+
+  }
+
+  let form = {
+
+    'x': {
+
+      'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulaux
+      'ra2': 60, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360, 
+    },
+
+    'y': {
+
+      'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulaux
+
+      'ra2': 60, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360, 
+    }
+
+  }
+
+  let stace = {
+    'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
+    'ra2': 30, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
+  }
+
+  let proform = {
+
+    projection: 'uniwen',
+    translate: [ [ 0, 0 ], [[[ stace ]]] ],
+    scale: 1,
+    rotate: [ 0, 0, 0 ],
+    lens: [0, 1, Infinity]
+
+  }
+
+  let proformFlat = {
+
+    projection: 'uniwen',
+    translate: [ [ -100, -100 ], [[[ stace ]]] ],
+    scale: 1,
+    rotate: [ 0, 0 ],
+    lens: [0, 1, Infinity]
+
+  }
+
+  let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+  let boformFuel = { 'csx': 0, 'cf': [[[777, 777]]], 'co': [[[0.9, 0.9]]], 'cs': [[[777, 777]]], 'cw': [[[0.1, 0.1]]], 'cp': [[[0.99, 0.99]]]}
+
+    // .................. animas
+  let nat = {
+
+    halo: 'nat',
+    payload: {
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
+      tim,
+      boform,
+      proform,
+      form
+    }
+
+  }
+
+  let natFlat = {
+
+    halo: 'nat',
+    payload: {
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natFlat'},
+      tim,
+      boform,
+      proform: proformFlat,
+      form
+    }
+
+  }
+
+  let fuelnat = {
+
+    halo: 'fuel',
+
+    geofold: p => mnat.natFeature(p.payload.form),
+
+    payload: {
+      tim,
+      ric: {'gid': 'fuel', 'cid': 'fuel'},
+      boform: boformFuel,
+      form: formFuel,
+      fuel: {
+        ra2: 3,
+        candidates: 5,
+        sample: 20,
+        goal: 10,
+        f: 1 // 2, 3
+      }
+    }
+
+  }
+
+
+    // .................. sceneAni
+    let sceneAni = {
+      halo: 'scene',
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+    }
+
+    // .................. animas
+  nat.payload.avatars = {
+    fuelnat // h.fuel
+  }
+  
+  natFlat.payload.avatars = {
+    fuelnat // h.fuel
+  }
+
+  let animas = [
+    nat, // h.nat
+    natFlat, // h.nat
+      sceneAni, // h.scene    
+  ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>
