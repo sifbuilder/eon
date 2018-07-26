@@ -94,7 +94,15 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => (1 / Math.exp(Math.abs(s / 2))) * cos(6 * s), // net
+        // 'fn0': (e1, e2, e3 = 0, e4 = 0, c1, c2, c3 = 1, c4 = 1) => (1 / Math.exp(Math.abs(e1 / 2))) * cos(6 * e1),
+        c4: 17,
+        'fn0': (e1, e2, e3 = 0, e4 = 0, c1, c2, c3 = 1, c4 = 1) => {
+          let m = 6
+          let w = ((e4 * degrees) + 180) / 18
+          return (1 / Math.exp(Math.abs(e1 / 2))) * cos(w * e1)
+        },
+
+
 
       },
 
@@ -108,9 +116,9 @@ async function zindex (__mapper) {
 
       'r': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
-        'dom3': [-180, 180],
-        c1: [1, 0], e1: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1 * id(q)
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
+        'dom3': [0, 6],
+        c4: [1, 0], e4 : [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1 * id(q)
 
       },
 
@@ -134,8 +142,8 @@ async function zindex (__mapper) {
           projection: 'uniwen',
           scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
           prerotate: [[[ cwen.rotation ]]],
-          translate: [ [0, -100, 0] ],
-          rotate: [ 0, [[[6,6]]], 0 ],
+          translate: [ [0, 0, 0] ],
+          rotate: [ 90, [[[0,360]]], 0 ],
           lens: [0, 1, [[[5000, 5000, 5000, 5000]]] ],
         },
 

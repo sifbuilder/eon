@@ -60,14 +60,19 @@
 
     let functor = d => Array.isArray(d) ? d : Array.of(d)
 
+    // p:[0,n], a => p[i] * a**i
     let ft = p => a => p.reduce((acc, cur, i) => acc + cur * pow(a, i), 0)
 
-    let fn = form => // form has defined a1, a2, a3, a4  , q1, q2, q3, q4
-      (q = 0, s = 0, u = 0, v = 0, a = 1, b = 1, c = 1, d = 1) => {
-        let ret = ft(functor(form.c1))(a) * ft(functor(form.e1))(q) *
-                    ft(functor(form.c2))(b) * ft(functor(form.e2))(s) *
-                    ft(functor(form.c3))(c) * ft(functor(form.e3))(u) *
-                    ft(functor(form.c4))(d) * ft(functor(form.e4))(v)
+    // form has defined 
+    // c1,c2,c3,c4: radius (default to 1)
+    // e1 [-2pi,2pi],e2[-2pi,2pi],e3[-pi,pi],e4[-pi,pi]: rad angles (default to 0)
+    // fn: c1[i] * c1**i 
+    let fn = form => 
+      (e1 = 0, e2 = 0, e3 = 0, e4 = 0,   c1 = 1, c2 = 1, c3 = 1, c4 = 1) => {
+        let ret = ft(functor(form.c1))(c1) * ft(functor(form.e1))(e1) *
+                  ft(functor(form.c2))(c2) * ft(functor(form.e2))(e2) *
+                  ft(functor(form.c3))(c3) * ft(functor(form.e3))(e3) *
+                  ft(functor(form.c4))(c4) * ft(functor(form.e4))(e4)
 
         return ret
       }
