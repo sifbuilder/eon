@@ -127,7 +127,9 @@
     function gramm (anitem) {
 
       return manitem.snapani(anitem)
-        .then(snapped => manitem.functorize(snapped))
+        .then(geofunctored => manitem.functorpayload(geofunctored))
+        .then(snapped => manitem.functorgeofold(snapped))
+        // .then(anitem => manitem.functorize(anitem))
         .then(anigram =>(typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
           .then(halo => {
             let newItems = halo.gramm(anigram)

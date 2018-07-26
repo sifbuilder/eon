@@ -142,6 +142,7 @@
       let sceneAni = {
 
         halo: 'scene',
+        geofold: null,
         payload: {
           tim: tim,
           ric: {gid: 'scene', cid: 'scene', fid: 'scene'},

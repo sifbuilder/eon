@@ -32,8 +32,8 @@
     let mstore = __mapper('muonStore')
 
     // ............................. _geofolder
-    let _geofolder = function (ani, prob) {
-      let pacerPayload = ani.payload.pacer
+    let _geofolder = function (anitem, prob) {
+      let pacerPayload = anitem.payload.pacer
       let geoType = pacerPayload.type || 'LineString',
         base = pacerPayload.base || 'geo'
 
@@ -43,7 +43,7 @@
         properties: {},
       }
 
-      let ric = ani.payload.ric
+      let ric = anitem.payload.ric
       let uid = mric.getuid(ric)
 
       let anitem = mstore.findAnigramFromUid(uid)
@@ -73,13 +73,13 @@
 
     // ............................. _stacer
     let _stacer = {
-      autoSitus: function (ani) {
-        return mstace.getLocus(ani.payload.pacer.stace, ani)
+      autoSitus: function (anitem) {
+        return mstace.getLocus(anitem.payload.pacer.stace, anitem)
       },
-      initSitus: function (ani) {
+      initSitus: function (anitem) {
         return {x: 0, y: 0, z: 0 }
       },
-      eventSitus: function (ani) {
+      eventSitus: function (anitem) {
         return {x: crayder.pointer().x, y: crayder.pointer().y, z: 0 }
       },
     }
@@ -88,11 +88,12 @@
     let ween = anima => []
 
     // ............................. gramm
-    async function gramm (ani, newItems = []) {
-      // let anigram = await manitem.snapani(ani)
+    async function gramm (anitem, newItems = []) {
 // if (1 && 1) console.log('h.ent gramm anigram', anigram)       
-      // let anitem  = await manitem.functorize(anigram)
-      let anitem = ani
+      // let anigram = await manitem.snapani(anitem)
+      // anigram  = await manitem.functorgeofold(anigram)
+      // anigram  = await manitem.functorpayload(anigram)
+      // let anitem = anigram
       
       let halo = anitem.halo,
         payload = anitem.payload,

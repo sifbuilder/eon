@@ -11,8 +11,10 @@
   async function muonAnitem (__mapper = {}) {
     let [
       msnap,
+      mprops,
     ] = await Promise.all([
       __mapper('xs').m('snap'),
+      __mapper('xs').m('props'),
     ])
 
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
@@ -29,7 +31,6 @@
 
     // ............................. functorize
     let functorize = function (ani, t) {
-      // let anigram = snapani(ani, t)
       let anigram = ani
 
         console.assert(anigram !== undefined)
@@ -49,10 +50,45 @@
       }
     }
 
+   // ............................. functorgeofold
+    let functorgeofold = function (anitem, t) {
+        let newAnitem = mprops.clone(anitem)
+
+        console.assert(anitem !== undefined)
+        console.assert(anitem.geofold !== undefined, anitem.payload.uid + ' geofold undefined')
+        
+        let geofold = functor((anitem.geofold), anitem) // geofold
+      
+        newAnitem.geofold = geofold
+        
+        return newAnitem
+    }
+    
+    // ............................. functorpayload
+    let functorpayload = function (anitem, t) {
+        let newAnitem = mprops.clone(anitem)
+
+        console.assert(anitem !== undefined)
+        console.assert(anitem.payload !== undefined, anitem.payload.uid + ' payload undefined')
+        
+        let ereform = functor(anitem.payload.ereform, anitem) // ereform
+        let conform = functor(anitem.payload.conform, anitem) // conform
+        let proform = functor(anitem.payload.proform, anitem) // proform
+      if (1 && 1) console.log('anitem', anitem)
+
+        newAnitem.payload.ereform = ereform
+        newAnitem.payload.conform = conform
+        newAnitem.payload.proform = proform
+        
+        return newAnitem
+    }
+
     // ............................. enty
     let enty = () => {}
     enty.snapani = snapani
     enty.functorize = functorize
+    enty.functorgeofold = functorgeofold
+    enty.functorpayload = functorpayload
     return enty
   }
 

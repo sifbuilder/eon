@@ -36,10 +36,11 @@
 
 
     // ............................. gramm
-    function gramm (anima) {
+    function gramm (anitem) {
 
-      return manitem.snapani(anima)
-        .then(snapped => manitem.functorize(snapped))
+      return manitem.snapani(anitem)
+        .then(snapped => manitem.functorgeofold(snapped))
+        .then(snapped => manitem.functorpayload(snapped))
         .then(anigram => {
 
                let halo = anigram.halo, // halo
