@@ -79,12 +79,12 @@ async function zindex (__mapper) {
     let exp = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
 
     // ............................. pics
-    let tim = {'td': 18600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 0, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
+    let tim = {'td': 18600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
 
     let conform = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         c1: [1, 0], e1: [0, 1], // 1 * q
         c4: [1, 0 ], e4: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(v)
@@ -92,17 +92,15 @@ async function zindex (__mapper) {
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         // 'fn0': (e1, e2, e3 = 0, e4 = 0, c1, c2, c3 = 1, c4 = 1) => (1 / Math.exp(Math.abs(e1 / 2))) * cos(6 * e1),
         c4: 17,
         'fn0': (e1, e2, e3 = 0, e4 = 0, c1, c2, c3 = 1, c4 = 1) => {
           let m = 6
-          let w = ((e4 * degrees) + 180) / 18
+          let w = ((e4 * degrees) + 60) / 60
           return (1 / Math.exp(Math.abs(e1 / 2))) * cos(w * e1)
         },
-
-
 
       },
 

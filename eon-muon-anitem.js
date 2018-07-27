@@ -35,7 +35,7 @@
 
         console.assert(anigram !== undefined)
         anigram.geofold = functor((anigram.geofold), anigram) // geofold
-        
+
         if (anigram.payload === undefined) anigram.payload = {}
         anigram.payload.conform = functor(anigram.payload.conform, anigram) // conform
         anigram.payload.proform = functor(anigram.payload.proform, anigram) // proform
@@ -56,30 +56,33 @@
 
         console.assert(anitem !== undefined)
         console.assert(anitem.geofold !== undefined, anitem.payload.uid + ' geofold undefined')
-        
+
         let geofold = functor((anitem.geofold), anitem) // geofold
-      
+
         newAnitem.geofold = geofold
-        
+
         return newAnitem
     }
-    
+
     // ............................. functorpayload
     let functorpayload = function (anitem, t) {
+
         let newAnitem = mprops.clone(anitem)
 
         console.assert(anitem !== undefined)
         console.assert(anitem.payload !== undefined, anitem.payload.uid + ' payload undefined')
-        
-        let ereform = functor(anitem.payload.ereform, anitem) // ereform
-        let conform = functor(anitem.payload.conform, anitem) // conform
-        let proform = functor(anitem.payload.proform, anitem) // proform
-      if (1 && 1) console.log('anitem', anitem)
 
-        newAnitem.payload.ereform = ereform
-        newAnitem.payload.conform = conform
-        newAnitem.payload.proform = proform
-        
+        if (anitem.payload.ereform !== undefined) {
+          let ereform = functor(anitem.payload.ereform, anitem) // ereform
+          newAnitem.payload.ereform = ereform
+        } else if (anitem.payload.conform !== undefined) {
+          let conform = functor(anitem.payload.conform, anitem) // conform
+          newAnitem.payload.conform = conform
+        } else if (anitem.payload.proform !== undefined) {
+          let proform = functor(anitem.payload.proform, anitem) // proform
+          newAnitem.payload.proform = proform
+        }
+
         return newAnitem
     }
 

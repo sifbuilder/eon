@@ -14,13 +14,15 @@
       mnat,
       mlacer,
       mgeoj,
-      d3,
+      // d3,
+      d3scale,      
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('nat'),
       __mapper('xs').m('lacer'),
       __mapper('xs').m('geoj'),
-      __mapper('xs').b('d3'),
+      // __mapper('xs').b('d3'),
+      __mapper('xs').b('d3-scale'),      
     ])
 
     // .................. snap  value (anima), t (unit time), snap flag, parent
@@ -99,6 +101,7 @@
       } else if (mprops.isObject(v) && // 10 ___ v :: {b, c, d ...}*
                                       g === 1) { // assume nat on object
         let ws
+if (1 && 1) console.log('v', v)
 
         let feature = mnat.natFeature(v) // async
         if (!mgeoj.isValid(feature)) console.error('gj not valid', v, feature)
@@ -113,7 +116,7 @@
         } else if (geometry.type === 'MultiPolygon') {
           natRing = geometry.coordinates[0][0] // outer ring of first polygon
         } else {
-          console.error('g type not supported')
+          console.log(`g type ${geometry.type} not supported`)
         }
         ws = snap(natRing, t, 1) // (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
         return ws
@@ -145,7 +148,7 @@
           g === 1) {
         let d = [0, 1],
           r = [v[0], v[0]]
-        let w = d3.scaleLinear().domain(d).range(r)
+        let w = d3scale.scaleLinear().domain(d).range(r)
         return w(t)
       } else if (mprops.isArray(v) && // 12 _____ [v1,v2,v3]*
           mprops.isPureArray(v) &&
@@ -153,7 +156,7 @@
           g === 1) {
         let d = v.map((item, idx) => idx / (v.length - 1))
         let r = v
-        let w = d3.scaleLinear()
+        let w = d3scale.scaleLinear()
           .domain(d)
           .range(r)
         return w(t)

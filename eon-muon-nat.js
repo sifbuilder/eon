@@ -8,38 +8,16 @@
 }(this, function (exports) {
   'use strict'
 
-  let isSame = function (a, b) {
-    let ret = false
-    if (a !== undefined && b !== undefined) {
-      var aProps = Object.getOwnPropertyNames(a)
-      var bProps = Object.getOwnPropertyNames(b)
-
-      if (aProps.length != bProps.length) {
-        return false
-      }
-
-      for (var i = 0; i < aProps.length; i++) {
-        var propName = aProps[i]
-
-        if (a[propName] !== b[propName]) {
-          return false
-        }
-      }
-
-      ret = true
-    }
-
-    return ret
-  }
-
   async function muonNat (__mapper = {}) {
     let [
+      mprops,
       mgraticule,
       mprofier,
       mproj3ct,
       d3scale,
       d3array,
     ] = await Promise.all([
+      __mapper('xs').m('props'),
       __mapper('xs').m('graticule'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
@@ -176,7 +154,7 @@
     let natFeature = function (form) {
       let feature
 
-      if (isSame(form, cache.form)) {
+      if (mprops.isSame(form, cache.form)) {
         feature = cache.feature
         return feature
       } else {
@@ -243,6 +221,21 @@
             return feature
           })
 
+        // let projection = mprofier.uniweon({ projection: 'natform', form: nformed })
+        // let feature = mproj3ct(gj, projection)
+            // cache.form = form
+            // cache.feature = feature
+        // return feature
+
+
+        // return mprofier.uniweon({ projection: 'natform', form: nformed })
+          // .then(projection => mproj3ct(gj, projection))
+          // .then(feature => {
+            // cache.form = form
+            // cache.feature = feature
+            // return feature
+          // })
+
         // let projection = mprofier.formion_({ projection: 'natform', form: nformed })
         // feature = mproj3ct(gj, projection)
         // cache.form = form
@@ -276,7 +269,7 @@
       const {m1, m2, n1, n2, n3, a, b, v0, v1, seg5} = form
       const bform = {m1, m2, n1, n2, n3, a, b, v0, v1, seg5}
 
-      if (isSame(bform, cache.bform)) {
+      if (mprops.isSame(bform, cache.bform)) {
         pts = cache.points
       } else {
         const angUnit = tau / seg5 // dots per period

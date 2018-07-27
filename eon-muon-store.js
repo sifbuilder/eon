@@ -20,7 +20,13 @@
       __mapper('xs').m('anitem'),
       __mapper('xs').m('props'),
     ])
-
+    .catch(function(err) {
+         console.log('A m.store promise failed to resolve', err)
+    })
+    .then(function(arrayOfPromises) {
+        console.log('m.store promises resolved')
+    })    
+    
     let epsilon = 1e-5
 
     let state = {
@@ -129,20 +135,13 @@
       return manitem.snapani(anitem)
         .then(geofunctored => manitem.functorpayload(geofunctored))
         .then(snapped => manitem.functorgeofold(snapped))
-        // .then(anitem => manitem.functorize(anitem))
         .then(anigram =>(typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
-          .then(halo => {
-            let newItems = halo.gramm(anigram)
-
-            return newItems
-          })
+          .then(halo => halo.gramm(anigram))
           .then(newItems => {
                  
              _apply({type: 'UPDANIGRAM', anigrams: newItems})
 
                 newItems.forEach(item => {
-
-
 
                   let avatars = gavatars(item)
                   

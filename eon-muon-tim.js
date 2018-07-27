@@ -9,11 +9,13 @@
   'use strict'
 
   async function muonTim (__mapper = {}) {
-    let epsilon = 1e-5
-    let scale = await __mapper('xs').b('d3-scale')
+    
+    let d3scale = await __mapper('xs').b('d3-scale')
 
     function timing (pTim, pElapsed) {
-      let scaleLinear = scale.scaleLinear
+      let epsilon = 1e-5
+    
+      let scaleLinear = d3scale.scaleLinear
 
       let tim = Object.assign({}, pTim)
       let _tim = Object.assign({}, pTim)

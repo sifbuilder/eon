@@ -9,7 +9,6 @@
   'use strict'
 
   async function muonProps (__mapper = {}) {
-    let props = {}
 
     let [
       d3scale,
@@ -19,6 +18,7 @@
       __mapper('xs').b('d3-array'),
     ])
 
+    let props = {}
     props.addtst = (a, b) => a + b
 
     /***************************
