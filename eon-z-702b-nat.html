@@ -38,12 +38,12 @@ async function zindex (__mapper) {
   // .................. eons
   let [
     mgraticule,
-    cwen,
     mnat,
+    cwen,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
-    __mapper('xs').c('wen'),
     __mapper('xs').m('nat'),
+    __mapper('xs').c('wen'),
   ])
 
   // .................. animas

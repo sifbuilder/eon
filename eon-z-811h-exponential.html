@@ -84,17 +84,21 @@ async function zindex (__mapper) {
     let conform = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c1: [1, 0], e1: [0, 1], // 1 * q
-        c4: [1, 0 ], e4: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(v)
+        e3: [[[1,400]]],
+        // c1: [1, 0], e1: [0, 1], // 1 * e1
+        // c4: [1, 0 ], e4: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(e4)
+        'fn0': (e1, e2, e3 = 0, e4 = 0, c1, c2, c3 = 1, c4 = 1) => {
+console.log('e3', e3)          
+          return 1 * e1 * 1 * cos(e4)
+        },         
 
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        // 'fn0': (e1, e2, e3 = 0, e4 = 0, c1, c2, c3 = 1, c4 = 1) => (1 / Math.exp(Math.abs(e1 / 2))) * cos(6 * e1),
         c4: 17,
         'fn0': (e1, e2, e3 = 0, e4 = 0, c1, c2, c3 = 1, c4 = 1) => {
           let m = 6
@@ -106,17 +110,25 @@ async function zindex (__mapper) {
 
       'z': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
-        c1: [1, 0], e1: [0, 1], // 1 * q
-        c4: [1, 0], e4: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(v)
+        // c1: [1, 0], e1: [0, 1], // 1 * q
+        // c4: [1, 0], e4: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(e4)
+        'fn0': (e1, e2, e3 = 0, e4 = 0, c1, c2, c3 = 1, c4 = 1) => {
+          return 1 * e1 * 1 * sin(e4)
+        },        
+        
+        
       },
 
       'r': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
-        'dom3': [0, 6],
-        c4: [1, 0], e4 : [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1 * id(q)
+        'dom3': [-90, 90],
+        // c4: [1, 0], e4 : [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1 * id(q)
+        'fn0': (e1, e2, e3 = 0, e4 = 0, c1, c2, c3 = 1, c4 = 1) => {
+          return c4 * cos(e4)
+        },
 
       },
 
@@ -130,7 +142,7 @@ async function zindex (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => mnat.natFeature(p.payload.form), // geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
+      geofold: p => mnat.natFeature(p.payload.form), // mnat.closeFeature(mnat.natFeature(p.payload.form)),
       payload: {
         tim,
 

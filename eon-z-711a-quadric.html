@@ -77,66 +77,6 @@ async function zindex (__mapper) {
     let sinp = [1, 0, -infact2, 0, +infact4, 0, -infact6, 0, infact8]
     let cosp = [0, +1, 0, -infact3, 0, +infact5, 0, -infact7, 0, infact9]
 
-    // sphere
-    // [-180, 180] => a * cos(r) * c * cos(v)
-    // [-180, 180] => b * sin(r) * c * cos(v)
-    // [-180, 180] =>                       d * sin(u)
-
-    // hyperbole
-    // [-180, 180] => r * c * cos(v)
-    // [-180, 180] => s * s * s * c * cos(v)
-    // [-180, 180] =>                       d * sin(u)
-
-    // flat reticule
-    // [-180, 180] => r
-    // [-180, 180] => 0
-    // [-180, 180] => u
-
-    // rectantular parabole
-    // [-180, 180] => r
-    // [-180, 180] => r * r
-    // [-180, 180] => u
-
-    // envelop parabole
-    // [-180, 180] => r  * cos(v)
-    // [-180, 180] => r * r
-    // [-180, 180] => sin(v)
-
-    // parabole
-    // [-180, 180] => r     * cos(v)
-    // [-180, 180] => r * r
-    // [-180, 180] => r     * sin(v)
-
-    // spiral
-    // [-180, 180] => r     * cos(v)
-    // [-180, 180] => v
-    // [-180, 180] => r     * sin(v)
-
-    // papiro
-    // [-180, 180] => r     * cos(v)
-    // [-180, 180] => sin( 10 * v)
-    // [-180, 180] => r     * sin(v)
-
-    // cup
-    // [-180, 180] => cos(r)       * c * ( cos(u))
-    // [-180, 180] => sin(r)       * c * ( cos(u))
-    // [-180, 180] => u * u
-
-    // lace
-    // [-180, 180] => cos(r)       * c * (  cos(u))
-    // [-180, 180] => sin(r)       * c * ( cos(u))
-    // [-180, 180] => u
-
-    // plane
-    // [-180, 180] => s * s * sin(u)
-    // [-180, 180] => sin(r)       * c * ( cos(u))
-    // [-180, 180] => u
-
-    // cone
-    // [-180, 180] => q     * cos(v)
-    // [-180, 180] => q
-    // [-180, 180] => q     * sin(v)
-
     let conform = {
 
       'x': {

@@ -45,7 +45,7 @@
 
     // form has defined
     // c1,c2,c3,c4: radius (default to 1)
-    // e1 [-2pi,2pi],e2[-2pi,2pi],e3[-pi,pi],e4[-pi,pi]: rad angles (default to 0)
+    // e1 [-2pi,2pi],e2[-2pi,2pi],e3[-pi,pi],e4[-pi,pi]: radian-angles (default to 0)
     // fn: c1[i] * c1**i
     let fn = form =>
       (e1 = 0, e2 = 0, e3 = 0, e4 = 0,   c1 = 1, c2 = 1, c3 = 1, c4 = 1) => {
@@ -189,13 +189,11 @@
           let xdomain = nformed.x.dom3 || [-180, 180]
           let ydomain = nformed.y.dom3 || [-180, 180]
 
-          // _e_
-          let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
+          
+          let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // _e_ x, y
           geometry = mgraticule.vhMultiLine(graticule).geometry // geometry.type: MultiLineString
 
           let p = geometry.coordinates[1].slice(0, -1)
-
-          // p = [...p, p[0]]  // close
 
           geometry.coordinates = Array.of(p)
         }
@@ -215,14 +213,6 @@
           },
         }
 
-        // return mprofier.formion_({ projection: 'natform', form: nformed })
-          // .then(projection => mproj3ct(gj, projection))
-          // .then(feature => {
-            // cache.form = form
-            // cache.feature = feature
-            // return feature
-          // })
-
         let projDef = { projection: 'natform', form: nformed }
         let projection = natprojection(projDef)
         let feature = mproj3ct(gj, projection)
@@ -230,34 +220,6 @@
             cache.feature = feature
          return feature
 
-        // return mprofier.formion_({ projection: 'natform', form: nformed })
-          // .then(projection => mproj3ct(gj, projection))
-          // .then(feature => {
-            // cache.form = form
-            // cache.feature = feature
-            // return feature
-          // })
-
-        // let projection = mprofier.uniweon({ projection: 'natform', form: nformed })
-        // let feature = mproj3ct(gj, projection)
-            // cache.form = form
-            // cache.feature = feature
-        // return feature
-
-
-        // return mprofier.uniweon({ projection: 'natform', form: nformed })
-          // .then(projection => mproj3ct(gj, projection))
-          // .then(feature => {
-            // cache.form = form
-            // cache.feature = feature
-            // return feature
-          // })
-
-        // let projection = mprofier.formion_({ projection: 'natform', form: nformed })
-        // feature = mproj3ct(gj, projection)
-        // cache.form = form
-        // cache.feature = feature
-        // return feature
       }
     }
 
