@@ -57,6 +57,24 @@
         return ret
       }
 
+    let isunpar = formDax => true
+        && formDax.e1 === undefined
+        && formDax.e2 === undefined 
+        && formDax.e3 === undefined 
+        && formDax.e4 === undefined 
+        && formDax.c1 === undefined 
+        && formDax.c2 === undefined 
+        && formDax.c3 === undefined 
+        && formDax.c4 === undefined 
+    
+    
+    let fndefaults = [
+        (e1, e2, e3, e4, c1, c2, c3 = 1, c4 = 1) => c1 * cos(e1) * c * cos(e3),
+        (e1, e2, e3, e4, c1, c2, c3 = 1, c4 = 1) => c2 * sin(e1) * c * cos(e3),
+        (e1, e2, e3, e4, c1, c2, c3 = 1, c4 = 1) => c4 * sin(e4),
+        (e1, e2, e3, e4, c1, c2, c3 = 1, c4 = 1) => c3 * cos(e3),
+    ]
+      
     // ............................. natNform
     let natNform = function (form, nformed = {}) {
       let defs = {'v0': 0, 'v1': 1, 'ra2': 120, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1} // defs
@@ -118,17 +136,7 @@
         if (i === 2 && formDax.dom3 === undefined) formDax.dom3 = [-90, 90]
         if (i === 3 && formDax.dom3 === undefined) formDax.dom3 = [-90, 90]
 
-        if (formDax.fn0 === undefined && (
 
-          formDax.e1 !== undefined ||
-            formDax.e2 !== undefined ||
-            formDax.e3 !== undefined ||
-            formDax.e4 !== undefined ||
-
-            formDax.c1 !== undefined ||
-            formDax.c2 !== undefined ||
-            formDax.c3 !== undefined ||
-            formDax.c4 !== undefined)) {
           formDax.e1 = (formDax.e1 === undefined) ? functor(1) : functor(formDax.e1)
           formDax.e2 = (formDax.e2 === undefined) ? functor(1) : functor(formDax.e2)
           formDax.e3 = (formDax.e3 === undefined) ? functor(1) : functor(formDax.e3)
@@ -139,15 +147,39 @@
           formDax.c3 = (formDax.c3 === undefined) ? 1 : formDax.c3
           formDax.c4 = (formDax.c4 === undefined) ? 1 : formDax.c4
 
-          formDax.fn0 = fn(formDax)
-        }
 
-        // fn0 --- dimension function
-        if (i === 0 && formDax.fn0 === undefined) formDax.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => a * cos(q) * c * cos(u)
-        if (i === 1 && formDax.fn0 === undefined) formDax.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => b * sin(q) * c * cos(u)
-        if (i === 2 && formDax.fn0 === undefined) formDax.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => d * sin(v)
-        if (i === 3 && formDax.fn0 === undefined) formDax.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => c * cos(u)
+        
+        if (i === 0 && formDax.fn0 === undefined) {
+          if (isunpar(formDax)) {
+            formDax.fn0 = fndefaults[0]
+          } else {
+            formDax.fn0 = fn(formDax)
+          }
+        }
+        if (i === 1 && formDax.fn0 === undefined) {
+          if (isunpar(formDax)) {
+            formDax.fn0 = fndefaults[1]
+          } else {
+            formDax.fn0 = fn(formDax)
+          }
+        }
+        if (i === 2 && formDax.fn0 === undefined) {
+          if (isunpar(formDax)) {
+            formDax.fn0 = fndefaults[2]
+          } else {
+            formDax.fn0 = fn(formDax)
+          }
+        }
+        if (i === 3 && formDax.fn0 === undefined) {
+          if (isunpar(formDax)) {
+            formDax.fn0 = fndefaults[3]
+          } else {
+            formDax.fn0 = fn(formDax)
+          }
+        }
       }
+    
+    
 
       return nformed
     }
