@@ -10,25 +10,25 @@
 
   async function muonProfier (__mapper = {}) {
     let [
-      cwen,
-      cversor,
       mprops,
       mwen,
       mstace,
       mproj3ct,
       mgeom,
+      cwen,
+      cversor,
       puniwen,
-      pnatform,
+      // pnatform,
     ] = await Promise.all([
-      __mapper('xs').c('wen'),
-      __mapper('xs').c('versor'),
       __mapper('xs').m('props'),
       __mapper('xs').m('wen'),
       __mapper('xs').m('stace'),
       __mapper('xs').m('proj3ct'),
       __mapper('xs').m('geom'),
+      __mapper('xs').c('wen'),
+      __mapper('xs').c('versor'),
       __mapper('xs').p('uniwen'),
-      __mapper('xs').p('natform'),
+      // __mapper('xs').p('natform'),
 
     ])
 
@@ -272,87 +272,6 @@
     }
     
 
-
-    // ............................. natfion
-    let natfion = function (projdef) {
-
-      let translation, rotation
-      let projection = pnatform()
-
-      if (projdef.translate) { // TRANSLATE proj method
-        if (mprops.isPureArray(projdef.translate)) {
-          translation = projdef.translate
-        } else if (Array.isArray(projdef.translate)) {
-          let _trans = []
-          for (let k = 0; k < projdef.translate.length; k++) {
-            _trans = mgeom.add(_trans, projdef.translate[k])
-          }
-          translation = _trans
-        } else if (typeof projdef.translate === 'object' && mprops.isPosition(projdef.translate)) {
-          translation = Object.values(projdef.translate)
-        } else if (typeof projdef.translate === 'object') {
-          // translation = mstace.getTranspot(projdef.translate, anigram)
-        }
-        if (projdef.anod && geofold.properties && geofold.properties.geonode) {
-          let geonode = geofold.properties.geonode // geonode
-          if (geonode.geometry && geonode.geometry.coordinates !== undefined) {
-            let nodetranslate = geonode.geometry.coordinates // geonode coords
-            translation = mgeom.add(translation, nodetranslate)
-          }
-        }
-      }
-
-      if (projection.rotate !== undefined) { // ROTATE proj method
-        let rot = [0, 0] // projection.rotate()
-
-        let projrot = projdef.rotate || [0, 0, 0] // default to 3d
-        if (mprops.isPureArray(projrot)) {
-          projrot = projrot
-        } else { // if multi rotates
-          let _rot = []
-          for (let k = 0; k < projrot.length; k++) {
-            _rot = mgeom.add(_rot, projrot[k])
-          }
-          projrot = _rot
-        }
-        rot = mgeom.add(rot, projrot)
-        let control = (projdef.control === 'wen') ? cwen
-          : (projdef.control === 'versor') ? cversor
-            : undefined
-
-        if (control !== undefined) {
-          let controlRotation = control
-            .projection(projection) // invert on projection
-            .rotation() // rotation from control wen
-
-          if (controlRotation) rot = mgeom.add(rot, controlRotation)
-        }
-
-        let prerotate = projdef.prerotate
-
-        if (prerotate) rot = mgeom.add(rot, prerotate) // ADD prerotate
-
-        let dims = projrot.length // planar or spherical geometry
-        if (dims == 2) rot = mwen.cross([ Math.sqrt(rot[0]), 0, 0], [0, Math.sqrt(rot[1]), 0]) // planar rot
-
-        rotation = rot
-      }
-
-      for (let [key, value] of Object.entries(projdef)) { // object
-        if (key === 'projection') { // bypass projection
-        } else if (key === 'control') { // bypass control
-        } else if (key === 'rotate') { // rotate rotation
-          projection.rotate(rotation)
-        } else if (key === 'translate') { // translate translation
-          projection.translate(translation)
-        } else if (mprops.isFunction(projection[key]) && value !== null) {
-          projection[key](value)
-        }
-      }
-
-      return projection
-    }
-        
     // ............................. conformion_
     async function conformion_ (anigram) {
       return Promise.resolve(anigram)
@@ -434,7 +353,7 @@
     enty.conformer = conformer
     
     enty.uniweon = uniweon
-    enty.natfion = natfion
+
 
     return enty
   }

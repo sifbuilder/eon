@@ -16,6 +16,7 @@
       mproj3ct,
       d3scale,
       d3array,
+      d3geo,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('graticule'),
@@ -23,6 +24,7 @@
       __mapper('xs').m('proj3ct'),
       __mapper('xs').b('d3-scale'),
       __mapper('xs').b('d3-array'),
+      __mapper('xs').b('d3-geo'),
 
     ])
     let cache = {} // feature, form
@@ -41,11 +43,11 @@
     // p:[0,n], a => p[i] * a**i
     let ft = p => a => p.reduce((acc, cur, i) => acc + cur * pow(a, i), 0)
 
-    // form has defined 
+    // form has defined
     // c1,c2,c3,c4: radius (default to 1)
     // e1 [-2pi,2pi],e2[-2pi,2pi],e3[-pi,pi],e4[-pi,pi]: rad angles (default to 0)
-    // fn: c1[i] * c1**i 
-    let fn = form => 
+    // fn: c1[i] * c1**i
+    let fn = form =>
       (e1 = 0, e2 = 0, e3 = 0, e4 = 0,   c1 = 1, c2 = 1, c3 = 1, c4 = 1) => {
         let ret = ft(functor(form.c1))(c1) * ft(functor(form.e1))(e1) *
                   ft(functor(form.c2))(c2) * ft(functor(form.e2))(e2) *
@@ -213,13 +215,28 @@
           },
         }
 
-        return mprofier.formion_({ projection: 'natform', form: nformed })
-          .then(projection => mproj3ct(gj, projection))
-          .then(feature => {
-            cache.form = form
+        // return mprofier.formion_({ projection: 'natform', form: nformed })
+          // .then(projection => mproj3ct(gj, projection))
+          // .then(feature => {
+            // cache.form = form
+            // cache.feature = feature
+            // return feature
+          // })
+
+        let projDef = { projection: 'natform', form: nformed }
+        let projection = natprojection(projDef)
+        let feature = mproj3ct(gj, projection)
+            cache.form = projDef.form
             cache.feature = feature
-            return feature
-          })
+         return feature
+
+        // return mprofier.formion_({ projection: 'natform', form: nformed })
+          // .then(projection => mproj3ct(gj, projection))
+          // .then(feature => {
+            // cache.form = form
+            // cache.feature = feature
+            // return feature
+          // })
 
         // let projection = mprofier.uniweon({ projection: 'natform', form: nformed })
         // let feature = mproj3ct(gj, projection)
@@ -356,6 +373,26 @@
       return vertex
     }
 
+    // ............................. pointStream
+    let pointStream = function (prjdef) {
+
+      let natPoint = natVertex(prjdef.form) // m.nat.natVertex (a,b,c) => [a,b,c]
+      return function (lambda, phi, radio = 1) { this.stream.point(...natPoint(lambda, phi, radio)) }
+
+    }
+
+    // ............................. natprojection
+    let natprojection = prjdef => { // projection:natPoint, form:{x,y,z}
+
+      let geoTrans = d3geo.geoTransform({ point: pointStream(prjdef) })
+      let geoProj = p => geoTrans(p)
+      geoProj.stream = s => geoTrans.stream(s)
+      return geoProj
+
+    }
+
+
+
     // ............................. enty
     let enty = function () {}
 
@@ -365,6 +402,7 @@
     enty.natVertex = natVertex
     enty.rador = rador
     enty.radorm = radorm
+    enty.natprojection = natprojection
 
     return enty
   }

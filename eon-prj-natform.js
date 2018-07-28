@@ -18,34 +18,7 @@
       __mapper('xs').b('d3-geo'),
     ])
 
-    // ............................. pointStream
-    let pointStream = function (prjdef) {
-      let natPoint = mnat.natVertex(prjdef.form) // m.nat.natVertex (a,b,c) => [a,b,c]
-
-      let stream = function (lambda, phi, radio = 1) {
-        this.stream.point(...natPoint(lambda, phi, radio))
-      }
-
-      return stream
-    }
-
-    // ............................. natprofion
-    let natprofion = prjdef => { // projection:natPoint, form:{x,y,z}
-      let geoTrans = d3geo.geoTransform({
-        point: pointStream(prjdef)})
-
-      let geoProj = p => geoTrans(p)
-
-      geoProj.stream = s => geoTrans.stream(s)
-
-      return geoProj
-    }
-
-    // ............................. enty
-    let enty = function (prjdef = {}) {
-      return natprofion(prjdef)
-    }
-
+    let enty = prjdef => mnat.natprojection(prjdef)
     return enty
   }
 

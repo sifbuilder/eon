@@ -19,13 +19,11 @@
       __mapper('xs').m('ric'),
       __mapper('xs').m('anitem'),
       __mapper('xs').m('props'),
-    ])
+    ]) 
     .catch(function(err) {
          console.log('A m.store promise failed to resolve', err)
     })
-    .then(function(arrayOfPromises) {
-        console.log('m.store promises resolved')
-    })    
+  
     
     let epsilon = 1e-5
 
