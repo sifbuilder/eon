@@ -48,7 +48,7 @@
       let fractalZcoef = fractal.zcoef || function (idx, arr) {
         return Complex({
           re: arr[idx].rad * Math.cos(arr[idx].ang),
-          im: arr[idx].rad * Math.sin(arr[idx].ang)
+          im: arr[idx].rad * Math.sin(arr[idx].ang),
         })
       }
 
@@ -60,16 +60,14 @@
       }
       let fractalDelta = fractal.zdelta || function (idx, arr) { return Complex({re: 0, im: 0}) }
 
-
-      
-      //md: rad and ang are time dependent functions
+      // md: rad and ang are time dependent functions
       let harmonics = [] //  fourier components [0,level-1]
       for (let j = 0; j < level; j++) { // for j in [0, i)
         let rad = msnap(fractalRad(j, rad0, sides), t) // amp time dependent
         let ang = msnap(fractalAng(j, sides), t) // phase time dependent
         harmonics[j] = {rad, ang }
       }
-      
+
       // md: define cycloids aggregate components [0,level]
       let anitems = []
       for (let i = 0; i <= level; i++) { // for LEVEL i in [0, level-1]
@@ -81,9 +79,12 @@
 
         let ric = f.clone(anigram.payload.ric)
         if (ric.fid !== undefined) { // ric.fid = ric.fid
-        } else if (fidder !== undefined) { ric.fid = fidder(ric.fid, i)
-        } else if (name !== undefined) { ric.fid = name + '_' + i
-        } else { ric.fid = 'fractal' + '_' + i
+        } else if (fidder !== undefined) {
+          ric.fid = fidder(ric.fid, i)
+        } else if (name !== undefined) {
+          ric.fid = name + '_' + i
+        } else {
+          ric.fid = 'fractal' + '_' + i
         }
         newAnitem.payload.ric = ric // ric
         newAnitem.payload.uid = mric.getuid(newAnitem.payload.ric) // uid
@@ -96,12 +97,12 @@
           coef = coef.add(fractalZcoef(k, harmonics))
         }
         let sinusLocation = coef.toVector() // location
-        
-        let sinusRad = pencilRadius  // initialize rad with pencil radius
-        if (i<level) {
-          sinusRad =  harmonics[i].rad // get rad from harmonic
+
+        let sinusRad = pencilRadius // initialize rad with pencil radius
+        if (i < level) {
+          sinusRad = harmonics[i].rad // get rad from harmonic
         }
-        
+
         newAnitem.geofold = {
           type: 'Feature',
           geometry: {type: 'Point', coordinates: sinusLocation },
@@ -111,10 +112,10 @@
               type: 'Feature',
               geometry: {type: 'Point', coordinates: [0, 0]},
               properties: {
-                orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]
-              }
-            }
-          }
+                orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0],
+              },
+            },
+          },
         }
 
         if (i === level) { // add trace avatars to pencil
@@ -133,9 +134,12 @@
           let rayLine = f.clone(fractal.rayLine)
           let ric = f.clone(rayLine.payload.ric)
           if (ric.fid !== undefined) { // ric.fid = ric.fid
-          } else if (fidder !== undefined) { ric.fid = fidder(ric.fid, i)
-          } else if (name !== undefined) { ric.fid = name + '_' + i
-          } else { ric.fid = 'fractal' + '_' + i
+          } else if (fidder !== undefined) {
+            ric.fid = fidder(ric.fid, i)
+          } else if (name !== undefined) {
+            ric.fid = name + '_' + i
+          } else {
+            ric.fid = 'fractal' + '_' + i
           }
           rayLine.payload.ric = ric // ric
           rayLine.payload.uid = mric.getuid(newAnitem.payload.ric) // uid
@@ -143,7 +147,7 @@
 
           rayLine.geofold.geometry.coordinates = [
             anitems[i].geofold.geometry.coordinates,
-            anitems[i + 1].geofold.geometry.coordinates
+            anitems[i + 1].geofold.geometry.coordinates,
           ]
 
           anitems[i].payload.avatars.push(rayLine)

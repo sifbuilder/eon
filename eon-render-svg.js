@@ -214,14 +214,12 @@
             .filter(d => d.properties.sort === 'axis') // __ axis __
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
-            
+
           if (axes.length > 0) {
-
-
             for (let k = 0; k < axes.length; k++) {
               let axis = axes[k]
               let uid = axis.properties.uid
-              
+
               svgelems('svg:g.' + gid + '/g.' + uid, Array.of(axis), d => d.properties.uid)
 
                 .data(() => Array.of(axis))

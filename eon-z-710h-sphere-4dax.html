@@ -40,16 +40,11 @@ async function zindex (__mapper) {
     mnat,
     mprops,
     cwen,
-    mgraticule,
-    lcomplex,
   ] = await Promise.all([
     __mapper('xs').m('nat'),
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
-    __mapper('xs').l('complex'),
   ])
-
-  let Complex = __mapper('libComplex')
 
   // .................. animas
   let animas = function () {
@@ -57,63 +52,69 @@ async function zindex (__mapper) {
     let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
-      sin = Math.sin, cos = Math.cos
+      sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
+
+
+    let conform = {
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180], // r.form.circ [-1.57, 1.57]
+        // 'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => a * cos(q) * c * cos(v),
+      },
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        // 'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => a * sin(q) * c * cos(v),
+      },
+
+      'z': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        // 'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => sin(v),
+      },
+
+      'r': {
+        'm1': 1, 'm2': 1, 'n1': 0.5, 'n2': 0.5, 'n3': 0.5, 'a': 1, 'b': 1, // drop
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        // 'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => (sin(q) - 1),
+      },
+
+    }
 
     let proform = {
+
       projection: 'uniwen',
+      scale: [1, 1],
       prerotate: [[[ cwen.rotation ]]],
-      translate: [0, 0, 0],
-      scale: 1,
-      rotate: [ 0, [[[0, 360]]], 0 ],
-      lens: [ 0, 1, Infinity ],
+      translate: [ [0, 0, 0] ],
+      rotate: [ 0, 0, 0 ],
+      lens: [0, 1, Infinity],
     }
 
     // .................. natAni
     let natAni = {
 
-      halo: 'ent',
+      halo: 'nat',
 
-      geofold: d => ({
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: Complex({re: 0, im: 0})
-            .add(
-              d.payload.zenform[0] * Math.cos(d.payload.zenform[1]),
-              d.payload.zenform[0] * Math.sin(d.payload.zenform[1])
-            )
-            .toVector(),
-        },
-        properties: {
-          pointRadius: 6,
-          geonode: {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [0, 0],
-            },
-            properties: {
-              orgen: [0, 0],
-              velin: [0, 0],
-              velang: [0, 0],
-              prevous: [0, 0],
-              geodelta: [0, 0],
-            },
-          },
-        },
-      }),
-
+      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
-
         tim,
-        ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
-        boform: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
 
-        zenform: [ [[[0, 100]]], [[[0, Math.PI]]] ],
+        ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
         proform: proform,
 
+        boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
+
+        form: conform,
+
       },
+
     }
 
     // .................. sceneAni

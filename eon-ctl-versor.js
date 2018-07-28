@@ -11,7 +11,7 @@
 
   async function ctlVersor (__mapper = {}) {
     let [
-      d3,    
+      d3,
       rrenderport,
       mversor,
       mgeom,
@@ -19,7 +19,7 @@
       d3geo,
       // d3drag,
     ] = await Promise.all([
-      __mapper('xs').b('d3'),    
+      __mapper('xs').b('d3'),
       __mapper('xs').r('renderport'),
       __mapper('xs').m('versor'),
       __mapper('xs').m('geom'),
@@ -31,7 +31,7 @@
     let d3drag = d3
     let d3dispatch = d3
     let d3selection = d3
-    
+
     let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]
     getPos = rrenderport.getPos
 

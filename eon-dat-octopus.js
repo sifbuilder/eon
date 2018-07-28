@@ -1,22 +1,22 @@
 /**********************
  *			@datOctopus
- */	
+ */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.datOctopus = global.datOctopus || {})));
-}(this, function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.datOctopus = global.datOctopus || {})))
+}(this, function (exports) {
+  'use strict'
 
-var datOctopus = function (__mapper = {}) {
+  var datOctopus = function (__mapper = {}) {
+    let data = {
 
-		let data = { 
-
-      'width':"2in", 'height':"2in",
-      'viewBox':"0 0 600 600",
+      'width': '2in', 'height': '2in',
+      'viewBox': '0 0 600 600',
       'path': {
-        'id':"datOctopus",
-        'fill':"none", 'stroke':"black", 'strokeWidth':"1",
-        'd':`M 378.19,154.00
+        'id': 'datOctopus',
+        'fill': 'none', 'stroke': 'black', 'strokeWidth': '1',
+        'd': `M 378.19,154.00
            C 373.73,162.23 369.99,170.65 368.33,180.00
              366.41,190.71 366.88,202.14 367.00,213.00
              367.00,213.00 369.00,235.00 369.00,235.00
@@ -288,18 +288,16 @@ var datOctopus = function (__mapper = {}) {
              296.32,452.94 299.23,449.65 299.89,442.00
              300.77,431.80 292.28,419.53 281.00,424.23
              272.55,427.75 268.88,435.33 268.17,444.00
-             267.31,454.53 273.56,456.88 278.31,459.06 Z `
-      } // path
+             267.31,454.53 273.56,456.88 278.31,459.06 Z `,
+      }, // path
     } // data
-    
+
     // ........................... enty
-		var enty = function enty() {}
-		enty.data = ()  => data
-		
-		return enty
+    var enty = function enty () {}
+    enty.data = () => data
 
-}
+    return enty
+  }
 
-exports.datOctopus = datOctopus
-
-}));
+  exports.datOctopus = datOctopus
+}))

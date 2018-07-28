@@ -1,22 +1,22 @@
 /**********************
  *			@datLicht5
- */	
+ */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.datLicht5 = global.datLicht5 || {})));
-}(this, function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.datLicht5 = global.datLicht5 || {})))
+}(this, function (exports) {
+  'use strict'
 
-var datLicht5 = function (__mapper = {}) {
+  var datLicht5 = function (__mapper = {}) {
+    let data = {
 
-		let data = { 
-
-      width:"2.77778in", height:"3.45833in",
-      viewBox:"0 0 547 700",
+      width: '2.77778in', height: '3.45833in',
+      viewBox: '0 0 547 700',
       path: {
-        id:"NuBleuII",
-        fill:"none", stroke:"black", 'strokeWidth':"1",
-        d:`M 967.86,825.28
+        id: 'NuBleuII',
+        fill: 'none', stroke: 'black', 'strokeWidth': '1',
+        d: `M 967.86,825.28
            C 961.00,816.75 955.33,802.67 899.04,775.37
              869.50,750.50 764.00,716.00 822.00,640.00
              781.50,643.50 781.36,689.22 780.58,692.38
@@ -787,18 +787,16 @@ var datLicht5 = function (__mapper = {}) {
              871.03,1204.11 868.98,1199.34 870.12,1197.88
              871.24,1196.46 873.22,1188.68 872.25,1187.50
              870.62,1185.52 846.12,1191.12 846.12,1191.12
-             840.75,1192.00 843.25,1199.38 843.25,1199.88 Z`
-      } // path
+             840.75,1192.00 843.25,1199.38 843.25,1199.88 Z`,
+      }, // path
     } // data
-    
+
     // .................. enty
-		var enty = function enty() {}
-		enty.data = ()  => data
-		
-		return enty
+    var enty = function enty () {}
+    enty.data = () => data
 
-}
+    return enty
+  }
 
-exports.datLicht5 = datLicht5
-
-}));
+  exports.datLicht5 = datLicht5
+}))

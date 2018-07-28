@@ -32,7 +32,6 @@
 
     // ............................. gramm
     async function gramm (anigram) {
-      
       let gjcollection = await mgeoj.featurecollect(getgj(anigram))
 
       console.assert(gjcollection.type === 'FeatureCollection')

@@ -20,7 +20,6 @@
   // LICENSE# Released under the The MIT License.
 
   let prjFuturi = function prjFuturi (__mapper = {}) {
-    
     let f = __mapper({'props': muonProps.muonProps()}).props(),
       mgeom = __mapper('xs').m('geom'),
       mpolyhedral = __mapper('xs').m('polyhedral')
@@ -51,7 +50,7 @@
         [ (-1 * ang - 45), -phi1], // 7
         [ (0 * ang - 45), -phi1], // 4
         [ (1 * ang - 45), -phi1], // 5
-        [ (2 * ang - 45), -phi1] // 6
+        [ (2 * ang - 45), -phi1], // 6
       ]
     } else {
       vertices = [
@@ -62,13 +61,13 @@
         [-1, -1, -1], // 5  // 4
         [ 1, -1, -1], // 4  // 5
         [ 1, 1, -1], // 7  // 6
-        [-1, 1, -1] // 6  // 7
+        [-1, 1, -1], // 6  // 7
       ].map(mgeom.normalize)
         .map(mgeom.spherical)
         .map(mgeom.to_degrees)
 
       vertices = d3.merge([
-        vertices
+        vertices,
       ])
     }
 
@@ -78,7 +77,7 @@
       [2, 3, 7, 6, 2],
       [3, 0, 4, 7, 3],
       [0, 1, 5, 4, 0],
-      [5, 6, 7, 4, 5] // S
+      [5, 6, 7, 4, 5], // S
     ].map(function (face) {
       return face.map(function (i) {
         return vertices[i]

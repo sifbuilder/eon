@@ -103,7 +103,7 @@ async function zindex (__mapper) {
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
         'ra2': 180, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'pr8': Math.cos,
+
       },
       'y': {
         'm1': -8, // [[[-8, -4, -2, -7.66]]],
@@ -115,7 +115,7 @@ async function zindex (__mapper) {
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
         'ra2': 180, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'pr8': Math.sin,
+
       },
       'z': {
         'm1': -8, // [[[-8, -4, -2, -7.66]]],
@@ -127,7 +127,7 @@ async function zindex (__mapper) {
         'b': 0.2, // [[[0.2, 0.2, 0.2, 0.19]]],
         'ra2': 180, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180 ],
-        'pr8': Math.cos,
+
       },
     }
 
@@ -205,12 +205,12 @@ async function zindex (__mapper) {
         conform: { projection: 'natform', form: formGrat1 },
 
         proform: {
-          'projection': 'uniwen',
-          'prerotate': [[[ cwen.rotation ]]],
-          'translate': [125, 0, 0],
-          'scale': 0.90,
-          'rotate': [ 0, 0, 0],
-          'lens': [ 0, 1, Infinity ],
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [125, 0, 0],
+          scale: 0.90,
+          rotate: [ 0, 0, 0],
+          lens: [ 0, 1, Infinity ],
         },
 
         graticule: {
@@ -237,20 +237,15 @@ async function zindex (__mapper) {
         ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform2'},
         boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
 
-        conform: {
-
-          projection: 'natform',
-          form: formGrat2,
-
-        },
+        conform: { projection: 'natform', form: formGrat2, },
 
         proform: {
-          'projection': 'uniwen',
-          'prerotate': [[[ cwen.rotation ]]],
-          'translate': [-125, 0],
-          'scale': 0.90,
-          'rotate': [ 0, 0, 0],
-          'lens': [ 0, 1, Infinity ],
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [-125, 0],
+          scale: 0.90,
+          rotate: [ 0, 0, 0],
+          lens: [ 0, 1, Infinity ],
         },
 
         graticule: {
@@ -314,12 +309,12 @@ async function zindex (__mapper) {
         conform: { projection: 'natform', form: formCirc },
 
         proform: {
-          'projection': 'uniwen',
-          'prerotate': [[[ cwen.rotation ]]],
-          'translate': [-125, 0, 0],
-          'scale': 0.90,
-          'rotate': [ 0, 0, 0],
-          'lens': [ 0, 1, Infinity ],
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [-125, 0, 0],
+          scale: 0.90,
+          rotate: [ 0, 0, 0],
+          lens: [ 0, 1, Infinity ],
         },
 
         graticule: {
@@ -335,6 +330,7 @@ async function zindex (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
+      geofold: null,
       payload: {
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},

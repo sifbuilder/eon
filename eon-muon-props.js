@@ -9,7 +9,6 @@
   'use strict'
 
   async function muonProps (__mapper = {}) {
-
     let [
       d3scale,
       d3array,

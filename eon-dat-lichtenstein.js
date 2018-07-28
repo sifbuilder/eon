@@ -1,22 +1,22 @@
 /**********************
  *			@datLichtenstein
- */	
+ */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.datLichtenstein = global.datLichtenstein || {})));
-}(this, function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.datLichtenstein = global.datLichtenstein || {})))
+}(this, function (exports) {
+  'use strict'
 
-var datLichtenstein = function (__mapper = {}) {
+  var datLichtenstein = function (__mapper = {}) {
+    let data = {
 
-		let data = { 
-
-      width:"2.33333in", height:"1.75in",
-      viewBox:"0 0 700 525",
+      width: '2.33333in', height: '1.75in',
+      viewBox: '0 0 700 525',
       path: {
-        id:"licht",
-        fill:"none", stroke:"black", strokeWidth:"1",
-        d:`M 420.58,19.79
+        id: 'licht',
+        fill: 'none', stroke: 'black', strokeWidth: '1',
+        d: `M 420.58,19.79
            C 420.58,19.79 398.04,71.79 398.04,71.79
              398.04,71.79 389.58,96.79 389.58,96.79
              389.58,96.79 406.58,94.95 406.58,94.95
@@ -325,19 +325,17 @@ var datLichtenstein = function (__mapper = {}) {
              225.12,479.64 207.08,477.08 202.83,477.71
              198.12,478.41 192.41,481.89 188.12,484.01
              188.12,484.01 165.83,494.48 165.83,494.48
-             159.94,497.58 148.21,499.11 144.83,504.50 Z`
-      } // path
+             159.94,497.58 148.21,499.11 144.83,504.50 Z`,
+      }, // path
     } // data
-/* -------------------------- */		
-/*       enty   						*/
-/* -------------------------- */
-		var enty = function enty() {}
-		enty.data = ()  => data
-		
-		return enty
+    /* -------------------------- */
+    /*       enty   						*/
+    /* -------------------------- */
+    var enty = function enty () {}
+    enty.data = () => data
 
-}
+    return enty
+  }
 
-exports.datLichtenstein = datLichtenstein
-
-}));
+  exports.datLichtenstein = datLichtenstein
+}))

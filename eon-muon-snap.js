@@ -15,14 +15,14 @@
       mlacer,
       mgeoj,
       // d3,
-      d3scale,      
+      d3scale,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('nat'),
       __mapper('xs').m('lacer'),
       __mapper('xs').m('geoj'),
       // __mapper('xs').b('d3'),
-      __mapper('xs').b('d3-scale'),      
+      __mapper('xs').b('d3-scale'),
     ])
 
     // .................. snap  value (anima), t (unit time), snap flag, parent
@@ -101,7 +101,7 @@
       } else if (mprops.isObject(v) && // 10 ___ v :: {b, c, d ...}*
                                       g === 1) { // assume nat on object
         let ws
-if (1 && 1) console.log('v', v)
+        if (1 && 1) console.log('v', v)
 
         let feature = mnat.natFeature(v) // async
         if (!mgeoj.isValid(feature)) console.error('gj not valid', v, feature)
@@ -120,28 +120,8 @@ if (1 && 1) console.log('v', v)
         }
         ws = snap(natRing, t, 1) // (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
         return ws
-        
-        // return mnat.natFeature(v) // async
-        // .then(feature => {
-          // if (1 && 1) console.log('feature', feature)
 
-          // if (!mgeoj.isValid(feature)) console.error('gj not valid', v, feature)
-          // let geometry = feature.geometry
-          // let natRing
-          // if (geometry.type === 'LineString') {
-            // natRing = geometry.coordinates
-          // } else if (geometry.type === 'MultiLineString') {
-            // natRing = geometry.coordinates[0] // first line
-          // } else if (geometry.type === 'Polygon') {
-            // natRing = geometry.coordinates[0] // outer ring
-          // } else if (geometry.type === 'MultiPolygon') {
-            // natRing = geometry.coordinates[0][0] // outer ring of first polygon
-          // } else {
-            // console.error('g type not supported')
-          // }
-          // return snap(natRing, t, 1) // (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
-        // })
-        
+
       } else if (mprops.isArray(v) && // 11_____ [v]*
           mprops.isPureArray(v) &&
           v.length === 1 &&

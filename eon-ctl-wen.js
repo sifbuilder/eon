@@ -31,7 +31,7 @@
     let d3drag = d3
     let d3dispatch = d3
     let d3selection = d3
-    
+
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)
     }

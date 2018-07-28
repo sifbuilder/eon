@@ -24,19 +24,18 @@
     state.items = [] // fuel particles
 
     let gramm = function (anima, newAnigrams = []) {
-      let anigram = manitem(anima).anigram(),   // anigram
-        halo =       anigram.halo,             // halo
-        geofold =     anigram.geofold           // geofold
+      let anigram = manitem(anima).anigram(), // anigram
+        halo = anigram.halo, // halo
+        geofold = anigram.geofold // geofold
 
-      let payload =   anigram.payload,          // payload 
-        boform =      payload.boform,           // boform
-        ric =         payload.ric,              // ric
-        tim =         payload.tim,              // tim
-        proform =     payload.proform,          // proform
-        conform =     payload.conform,          // conform
-        uid =         payload.uid,              // uid
-        parentuid =   payload.parentuid         // parentuid
-
+      let payload = anigram.payload, // payload
+        boform = payload.boform, // boform
+        ric = payload.ric, // ric
+        tim = payload.tim, // tim
+        proform = payload.proform, // proform
+        conform = payload.conform, // conform
+        uid = payload.uid, // uid
+        parentuid = payload.parentuid // parentuid
 
       let fuel = payload.fuel,
         ra2 = fuel.ra2,
@@ -48,8 +47,8 @@
 
       if (parentAnigram) {
         let geometry = parentAnigram.geofold.geometry
-        if (!mgeoj.isValid(geometry)) { console.error("h.ent:gj not valid", geometry)}
-        polygon = mgeoj.getCoords(geometry)           // outer ring
+        if (!mgeoj.isValid(geometry)) { console.error('h.ent:gj not valid', geometry) }
+        polygon = mgeoj.getCoords(geometry) // outer ring
       } else {
         polygon = mgeom.extentPolygon([[0, 0], [width, height]]) // viewport
       }
@@ -60,30 +59,30 @@
       if (fuel.f === 3) { // 3 - old and new all time _e_
         remainCandies = state.items
         remainCandies = [...remaincandies, ...foundcandies]
-      } else if (fuel.f === 2) {      // 2 - just new     _e_
+      } else if (fuel.f === 2) { // 2 - just new     _e_
         remainCandies = foundcandies
       } else { //  1 - old and new in polygon
         remainCandies = state.items.filter(c => d3.polygonContains(polygon, c))
         remainCandies = [...remainCandies, ...foundcandies]
       }
 
-      for (let i = 0; i < remainCandies.length; i++) {      // for each candy ...
+      for (let i = 0; i < remainCandies.length; i++) { // for each candy ...
         let idx = i
-        let gid = ric.gid                             // from ava ric
+        let gid = ric.gid // from ava ric
         let cid = ric.cid
         let fid = (ric.fid === undefined) ? ric.cid + '_' + idx : ric.fid
         let _ric = {gid, cid, fid}
 
-        let _proform = {                        // proform each candy
+        let _proform = { // proform each candy
           'projection': 'uniwen',
-          'translate': remainCandies[i]     // translate each candy to candy location
+          'translate': remainCandies[i], // translate each candy to candy location
         }
-        let newAnigram = {}                 // new anigram per fuel nat
+        let newAnigram = {} // new anigram per fuel nat
         newAnigram.halo = 'nat'
         newAnigram.geofold = geofold
         newAnigram.payload = payload
-        newAnigram.payload.ric = _ric           // identify each fuel nat
-        newAnigram.payload.proform = _proform     // proform of each fuel nat
+        newAnigram.payload.ric = _ric // identify each fuel nat
+        newAnigram.payload.proform = _proform // proform of each fuel nat
 
         let avaAnigrams = __mapper('xs').h('nat').gramm(newAnigram)
         newAnigrams = [...newAnigrams, ...avaAnigrams]
@@ -102,7 +101,6 @@
     let enty = haloFuel
 
     return enty
-    
   }
 
   exports.haloFuel = haloFuel

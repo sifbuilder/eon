@@ -1,22 +1,22 @@
 /**********************
  *			@datPopart
- */	
+ */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.datPopart = global.datPopart || {})));
-}(this, function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.datPopart = global.datPopart || {})))
+}(this, function (exports) {
+  'use strict'
 
-var datPopart = function (__mapper = {}) {
+  var datPopart = function (__mapper = {}) {
+    let data = {
 
-		let data = { 
-
-      'width':"2.33333in", 'height':"1.75in",
-      'viewBox':"0 0 1920 1080",
+      'width': '2.33333in', 'height': '1.75in',
+      'viewBox': '0 0 1920 1080',
       'path': {
-        'id':"popart",
-        'fill':"none", 'stroke':"black", 'strokeWidth':"1",
-        'd':`M 1204.10,91.74
+        'id': 'popart',
+        'fill': 'none', 'stroke': 'black', 'strokeWidth': '1',
+        'd': `M 1204.10,91.74
            C 1196.37,96.38 1191.64,109.88 1187.73,117.87
              1186.05,121.30 1183.87,124.95 1184.31,128.96
              1184.72,132.64 1187.12,133.48 1187.91,136.46
@@ -505,19 +505,17 @@ var datPopart = function (__mapper = {}) {
              895.00,965.42 886.86,967.88 885.00,971.00
              884.48,966.19 885.21,957.97 878.90,956.47
              873.33,955.15 869.78,962.54 869.26,967.00
-             869.00,969.19 873.45,995.39 880.00,986.00 Z`
-      } // path
+             869.00,969.19 873.45,995.39 880.00,986.00 Z`,
+      }, // path
     } // data
-/* -------------------------- */		
-/*       enty   						*/
-/* -------------------------- */
-		var enty = function enty() {}
-		enty.data = ()  => data
-		
-		return enty
+    /* -------------------------- */
+    /*       enty   						*/
+    /* -------------------------- */
+    var enty = function enty () {}
+    enty.data = () => data
 
-}
+    return enty
+  }
 
-exports.datPopart = datPopart
-
-}));
+  exports.datPopart = datPopart
+}))

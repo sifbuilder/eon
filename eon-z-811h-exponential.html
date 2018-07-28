@@ -86,12 +86,12 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c1: [[[1,400]]],
-        // c1: [1, 0], e1: [0, 1], // 1 * e1
-        // c4: [1, 0 ], e4: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(e4)
-        'fn0': (e1, e2, e3 = 0, e4 = 0, c1, c2, c3 = 1, c4 = 1) => {
-// console.log('c1', c1)          
-          return 1 * e1 * 1 * cos(e4)
+        c0: [[[1,400]]],
+        // c0: [1, 0], e0: [0, 1], // 1 * e0
+        // c3: [1, 0 ], e3: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(e3)
+        'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
+      
+          return 1 * e0 * 1 * cos(e3)
         },         
 
       },
@@ -99,11 +99,11 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c4: 17,
-        'fn0': (e1, e2, e3 = 0, e4 = 0, c1, c2, c3 = 1, c4 = 1) => {
+        c3: 17,
+        'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
           let m = 6
-          let w = ((e4 * degrees) + 60) / 60
-          return (1 / Math.exp(Math.abs(e1 * 8))) * cos(w * e1)
+          let w = ((e3 * degrees) + 60) / 60
+          return (1 / Math.exp(Math.abs(e0 * 8))) * cos(w * e0)
         },
 
       },
@@ -112,10 +112,10 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 180 ],
-        // c1: [1, 0], e1: [0, 1], // 1 * q
-        // c4: [1, 0], e4: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(e4)
-        'fn0': (e1, e2, e3 = 0, e4 = 0, c1, c2, c3 = 1, c4 = 1) => {
-          return 1 * e1 * 1 * sin(e4)
+        // c0: [1, 0], e0: [0, 1], // 1 * q
+        // c3: [1, 0], e3: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(e3)
+        'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
+          return 1 * e0 * 1 * sin(e3)
         },        
         
         
@@ -125,10 +125,11 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
         'dom3': [0, [[[0,180]]] ],
-        // c4: [1, 0], e4 : [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1 * id(q)
-        c4:  [[[1,400]]],
-        'fn0': (e1, e2, e3 = 0, e4 = 0, c1, c2, c3 = 1, c4 = 1) => {
-          return c4 * cos(e4)
+        // c3: [1, 0], e3 : [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1 * id(q)
+        c3:  [[[1,777]]],
+        'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
+  
+          return c3
         },
 
       },
@@ -142,9 +143,9 @@ async function zindex (__mapper) {
     let natAni = {
 
       halo: 'ent',
-
       geofold: p => mnat.natFeature(p.payload.form), // mnat.closeFeature(mnat.natFeature(p.payload.form)),
       payload: {
+        
         tim,
 
         ric: {gid: 'q', cid: 'q', fid: 'q'},
@@ -154,7 +155,7 @@ async function zindex (__mapper) {
           scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
           prerotate: [[[ cwen.rotation ]]],
           translate: [ [0, 0, 0] ],
-          rotate: [ 90, [[[0,360]]], 0 ],
+          rotate: [ -160, [[[0,360]]], 0 ],
           lens: [0, 1, [[[5000, 5000, 5000, 5000]]] ],
         },
 

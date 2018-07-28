@@ -297,6 +297,7 @@ async function zindex (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
+      geofold: null,
       payload: {
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
@@ -309,8 +310,8 @@ async function zindex (__mapper) {
     let animas = [
       earthAni, // h.ent p.natform g.uniwen
       cubeAni, // h.ent g.uniwen
-      <!-- graticubeAni, // h.ent -->
-      <!-- graticircAni, // h.ent -->
+      graticubeAni, // h.ent
+      graticircAni, // h.ent
       sceneAni, // h.scene
     ]
 

@@ -1,22 +1,22 @@
 /**********************
  *			@datMatisse
- */	
+ */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.datMatisse = global.datMatisse || {})));
-}(this, function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.datMatisse = global.datMatisse || {})))
+}(this, function (exports) {
+  'use strict'
 
-var datMatisse = function (__mapper = {}) {
+  var datMatisse = function (__mapper = {}) {
+    let data = {
 
-		let data = { 
-
-      width:"2.77778in", height:"3.45833in",
-      viewBox:"0 0 547 700",
+      width: '2.77778in', height: '3.45833in',
+      viewBox: '0 0 547 700',
       path: {
-        id:"NuBleuII",
-        fill:"none", stroke:"black", 'strokeWidth':"1",
-        d:`M 326.25,226.75
+        id: 'NuBleuII',
+        fill: 'none', stroke: 'black', 'strokeWidth': '1',
+        d: `M 326.25,226.75
            Ci 325.22,227.06 326.25,242.75 332.25,250.42
              338.38,258.75 346.88,264.04 346.88,264.04
              346.87,264.00 355.38,268.50 362.62,269.00
@@ -273,19 +273,17 @@ var datMatisse = function (__mapper = {}) {
              336.01,207.78 343.25,200.25 348.62,196.25
              348.62,196.25 348.50,199.38 348.50,199.38
              348.50,199.38 333.00,218.25 333.00,218.25
-             333.00,218.25 326.25,226.75 326.25,226.75 Z`
-      } // path
+             333.00,218.25 326.25,226.75 326.25,226.75 Z`,
+      }, // path
     } // data
-/* -------------------------- */		
-/*       enty   						*/
-/* -------------------------- */
-		var enty = function enty() {}
-		enty.data = ()  => data
-		
-		return enty
+    /* -------------------------- */
+    /*       enty   						*/
+    /* -------------------------- */
+    var enty = function enty () {}
+    enty.data = () => data
 
-}
+    return enty
+  }
 
-exports.datMatisse = datMatisse
-
-}));
+  exports.datMatisse = datMatisse
+}))

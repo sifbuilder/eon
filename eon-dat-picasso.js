@@ -1,22 +1,22 @@
 /**********************
  *			@datPicasso
- */	
+ */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.datPicasso = global.datPicasso || {})));
-}(this, function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.datPicasso = global.datPicasso || {})))
+}(this, function (exports) {
+  'use strict'
 
-var datPicasso = function (__mapper = {}) {
+  var datPicasso = function (__mapper = {}) {
+    let data = {
 
-		let data = { 
-
-      width:"5.01389in", height:"7.23611in",
-      viewBox:"0 0 361 521",
+      width: '5.01389in', height: '7.23611in',
+      viewBox: '0 0 361 521',
       path: {
-        id:"picasso",
-        fill:"none", stroke:"black", strokeWidth:"1",
-        d:`M 118.73,26.00
+        id: 'picasso',
+        fill: 'none', stroke: 'black', strokeWidth: '1',
+        d: `M 118.73,26.00
            C 118.42,31.26 115.78,35.81 110.36,37.45
              110.36,37.45 100.33,52.00 100.33,52.00
              100.33,52.00 94.33,65.00 94.33,65.00
@@ -266,19 +266,17 @@ var datPicasso = function (__mapper = {}) {
              110.73,112.55 118.55,114.18 118.55,114.36
              118.55,114.55 130.18,114.91 130.73,114.91
              131.27,114.91 143.64,112.55 143.82,112.55
-             143.90,112.55 133.33,107.67 133.33,107.67 Z`
-      } // path
+             143.90,112.55 133.33,107.67 133.33,107.67 Z`,
+      }, // path
     } // data
-/* -------------------------- */		
-/*       enty   						*/
-/* -------------------------- */
-		var enty = function enty() {}
-		enty.data = ()  => data
-		
-		return enty
+    /* -------------------------- */
+    /*       enty   						*/
+    /* -------------------------- */
+    var enty = function enty () {}
+    enty.data = () => data
 
-}
+    return enty
+  }
 
-exports.datPicasso = datPicasso
-
-}));
+  exports.datPicasso = datPicasso
+}))

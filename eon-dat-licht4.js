@@ -1,22 +1,22 @@
 /**********************
  *			@datLicht4
- */	
+ */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.datLicht4 = global.datLicht4 || {})));
-}(this, function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.datLicht4 = global.datLicht4 || {})))
+}(this, function (exports) {
+  'use strict'
 
-var datLicht4 = function (__mapper = {}) {
+  var datLicht4 = function (__mapper = {}) {
+    let data = {
 
-		let data = { 
-
-      'width':"2.33333in", 'height':"1.75in",
-      'viewBox':"0 0 700 525",
+      'width': '2.33333in', 'height': '1.75in',
+      'viewBox': '0 0 700 525',
       'path': {
-        'id':"face",
-        'fill':"none", 'stroke':"black", 'strokeWidth':"1",
-        'd':`M 0.00,103.00
+        'id': 'face',
+        'fill': 'none', 'stroke': 'black', 'strokeWidth': '1',
+        'd': `M 0.00,103.00
            C 0.00,103.00 14.00,92.00 14.00,92.00
              14.00,92.00 10.75,102.00 10.75,102.00
              10.75,102.00 4.98,123.00 4.98,123.00
@@ -674,19 +674,17 @@ var datLicht4 = function (__mapper = {}) {
            C 408.00,518.00 405.00,525.00 405.00,525.00
              405.00,525.00 410.00,525.00 410.00,525.00
              410.00,525.00 410.00,518.00 410.00,518.00
-             410.00,518.00 408.00,518.00 408.00,518.00 Z`
-      } // path
+             410.00,518.00 408.00,518.00 408.00,518.00 Z`,
+      }, // path
     } // data
-/* -------------------------- */		
-/*       enty   						*/
-/* -------------------------- */
-		var enty = function enty() {}
-		enty.data = ()  => data
-		
-		return enty
+    /* -------------------------- */
+    /*       enty   						*/
+    /* -------------------------- */
+    var enty = function enty () {}
+    enty.data = () => data
 
-}
+    return enty
+  }
 
-exports.datLicht4 = datLicht4
-
-}));
+  exports.datLicht4 = datLicht4
+}))

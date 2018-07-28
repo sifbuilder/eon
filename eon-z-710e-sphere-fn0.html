@@ -54,110 +54,6 @@ async function zindex (__mapper) {
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
 
-    // sphere
-    // [-180, 180] => a * cos(r) * c * cos(v)
-    // [-180, 180] => b * sin(r) * c * cos(v)
-    // [-180, 180] =>          d * sin(u)
-
-    // hyperbole
-    // [-180, 180] => r * c * cos(v)
-    // [-180, 180] => s * s * s * c * cos(v)
-    // [-180, 180] =>        d * sin(u)
-
-    // flat reticule
-    // [-180, 180] => r
-    // [-180, 180] => 0
-    // [-180, 180] => u
-
-    // rectantular parabole
-    // [-180, 180] => r
-    // [-180, 180] => r * r
-    // [-180, 180] => u
-
-    // envelop parabole
-    // [-180, 180] => r  * cos(v)
-    // [-180, 180] => r * r
-    // [-180, 180] => sin(v)
-
-    // parabole
-    // [-180, 180] => r     * cos(v)
-    // [-180, 180] => r * r
-    // [-180, 180] => r     * sin(v)
-
-    // spiral
-    // [-180, 180] => r     * cos(v)
-    // [-180, 180] => v
-    // [-180, 180] => r     * sin(v)
-
-    // papiro
-    // [-180, 180] => r     * cos(v)
-    // [-180, 180] => sin( 10 * v)
-    // [-180, 180] => r     * sin(v)
-
-    // cup
-    // [-180, 180] => cos(r)       * c * ( cos(u))
-    // [-180, 180] => sin(r)       * c * ( cos(u))
-    // [-180, 180] => u * u
-
-    // lace
-    // [-180, 180] => cos(r)       * c * (  cos(u))
-    // [-180, 180] => sin(r)       * c * ( cos(u))
-    // [-180, 180] => u
-
-    // plane
-    // [-180, 180] => s * s * sin(u)
-    // [-180, 180] => sin(r)       * c * ( cos(u))
-    // [-180, 180] => u
-
-    // cone 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
-    // [-180, 180] => r     * cos(v)
-    // [-180, 180] => r
-    // [-180, 180] => r     * sin(v)
-
-    // form "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
-    // [-180, 180] => sqrt(a * sin(r))    * cos(v)
-    // [-180, 180] => a * sin(r)
-    // [-180, 180] => sqrt(a)     * sin(v)
-
-    // bolt "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
-    // [-180, 180] => sqrt(a)     *  cos(v)
-    // [-180, 180] =>      a  * sin(r)
-    // [-180, 180] => sqrt(a)     * sin(v)
-
-    // vel "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
-    // [-180, 180] => sqrt(a * sin(r))     *  cos(v)
-    // [-180, 180] =>      a  * sin(r)
-    // [-180, 180] => sqrt(a * sin(r))     * sin(v)
-
-    // spil
-    // [-180, 180] => - v,
-    // [-180, 180] =>  v * cos(q),
-    // [-180, 180] => sin(q) - 1,
-    // [-180, 180] =>  1 - sin(q)
-
-    // flat infinite
-    // [-180, 180] => - 1 - sin(q),
-    // [-180, 180] =>  1 - sin(q) * cos(q),
-    // [-180, 180] => sin(q) - 1,
-    // [-180, 180] =>  1 - sin(q)
-
-    // cone
-    // [-180, 180] => - (1 - sin(r))
-    // [-180, 180] =>   (1 - sin(r)) * cos(v),
-    // [-180, 180] => (1 - sin(r)) * sin(v),
-    // [-180, 180] =>  1 - sin(q)
-
-    // flat drop
-    // [-180, 180] => (sin(q) -1),
-    // [-180, 180] => - (sin(q) -1) * cos(q),
-    // [-180, 180] => (sin(q) - 1),
-    // [-180, 180] => (sin(q) - 1),
-
-    // vol drop
-    // [-180, 180] => (sin(q) - 1),
-    // [-180, 180] => - (sin(q) - 1) * cos(q) * cos(v),
-    // [-180, 180] => - (sin(q) - 1) * cos(q) * sin(v),
-    // [-180, 180] => (sin(q) - 1),
 
     let conform = {
       'x': {
@@ -166,7 +62,7 @@ async function zindex (__mapper) {
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180], // r.form.circ [-1.57, 1.57]
         'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => a * cos(q) * c * cos(v),
-        'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => cos(q) * cos(v),
+        // 'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => cos(q) * cos(v),
       // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => a * cos(q),
       // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => sqrt(a * sin(q))     *  cos(v),
       // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => (sin(q) - 1),
@@ -178,7 +74,7 @@ async function zindex (__mapper) {
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => a * sin(q) * c * cos(v),
-        'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => sin(q) * cos(v),
+        // 'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => sin(q) * cos(v),
       // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => pow(q,3) * sin(q),
       // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => - (sin(q) - 1) * cos(q) * cos(v),
 
@@ -210,7 +106,7 @@ async function zindex (__mapper) {
 
       projection: 'uniwen',
       // scale: [1, 1],
-      scale: [0.5, 0.5],
+      scale: [1, 1],
 
       // projection:  d3.geoOrthographic(),
       // scale: 100,
@@ -247,6 +143,7 @@ async function zindex (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
+      geofold: null,
       payload: {
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},

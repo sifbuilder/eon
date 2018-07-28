@@ -41,11 +41,13 @@ async function zindex (__mapper) {
     mproj3ct,
     mprofier,
     mgeoj,
+    msvg,
   ] = await Promise.all([
     __mapper('xs').m('fourier'),
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
     __mapper('xs').m('geoj'),
+    __mapper('xs').m('svg'),
   ])
 
   // .................. animas
@@ -83,7 +85,7 @@ async function zindex (__mapper) {
     let proform = (lat, lon) => ({projection: 'uniwen',translate: [ lat, lon ],scale: [1, 1],rotate: [ 0, 0 ],lens: [0, 1, Infinity]})
 
     
-    let geoData = i => mproj3ct(data, mprofier.formion(proform(-250 + i * 60 + i * i * 16, 0)))
+    let geoData = i => mproj3ct(data, mprofier.formion_(proform(-250 + i * 60 + i * i * 16, 0)))
     
     let nb = mgeoj.getCoordsLength(data)
     let csi = (i,t) => mgeoj.getCoordsInRange(geoData(i), Math.ceil(nb * t))
@@ -242,6 +244,7 @@ async function zindex (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
+      geofold: null,
       payload: {
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},

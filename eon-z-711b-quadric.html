@@ -87,16 +87,16 @@ async function zindex (__mapper) {
         'dom3': [-180, 180], // r.form.circ [-1.57, 1.57]
 
         // parabole
-        // c1: [1 , 0 ], e1: [0, 1],  // 1 * q
-        // c4: [1 , 0 ], e4: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8]  // 1 * cos(v)
+        // c0: [1 , 0 ], e0: [0, 1],  // 1 * q
+        // c3: [1 , 0 ], e3: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8]  // 1 * cos(v)
 
         // parabole => sphere
-        c1: [1, 0], e1: [ [[[0, 1]]], [[[1, 0]]], [[[0, -infact2]]], 0, [[[0, infact4]]], 0, [[[0, -infact6]]], 0, [[[0, infact8]]] ],
-        c4: [1, 0], e4: [ 1, 0, [[[0, -infact2]]], 0, [[[0, infact4]]], 0, [[[0, -infact6]]], 0, [[[0, infact8]]] ],
+        c0: [1, 0], e0: [ [[[0, 1]]], [[[1, 0]]], [[[0, -infact2]]], 0, [[[0, infact4]]], 0, [[[0, -infact6]]], 0, [[[0, infact8]]] ],
+        c3: [1, 0], e3: [ 1, 0, [[[0, -infact2]]], 0, [[[0, infact4]]], 0, [[[0, -infact6]]], 0, [[[0, infact8]]] ],
 
         // sphere
-        // c1:[1, 0], e1:[1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(q)
-        // c4:[1, 0], e4:[1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(v)
+        // c0:[1, 0], e0:[1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(q)
+        // c3:[1, 0], e3:[1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(v)
 
       },
 
@@ -107,16 +107,16 @@ async function zindex (__mapper) {
         'dom3': [-180, 180],
 
         // parabole
-        // c1:[1, 0], e1:[0, 0, 1, 0, 0, 0, 0, 0, 0, 0],  // 1 * q * q
-        // c4:[1, 0], e4:[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],  // 1 * id(v)
+        // c0:[1, 0], e0:[0, 0, 1, 0, 0, 0, 0, 0, 0, 0],  // 1 * q * q
+        // c3:[1, 0], e3:[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],  // 1 * id(v)
 
         // parabole => sphere
-        c1: [1, 0], e1: [0, [[[0, 1]]], [[[1, 0]]], [[[0, -infact3]]], 0, [[[0, infact5]]], 0, [[[0, -infact7]]], 0, [[[0, infact9]]] ],
-        c4: [1, 0], e4: [ 1, 0, [[[0, -infact2]]], 0, [[[0, infact4]]], 0, [[[0, -infact6]]], 0, [[[0, infact8]]] ],
+        c0: [1, 0], e0: [0, [[[0, 1]]], [[[1, 0]]], [[[0, -infact3]]], 0, [[[0, infact5]]], 0, [[[0, -infact7]]], 0, [[[0, infact9]]] ],
+        c3: [1, 0], e3: [ 1, 0, [[[0, -infact2]]], 0, [[[0, infact4]]], 0, [[[0, -infact6]]], 0, [[[0, infact8]]] ],
 
         // sphere
-        // c1:[1, 0], e1: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0,infact9],  // 1 * sin(q)
-        // c4:[1, 0], e4: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8],  // 1 * cos(v)
+        // c0:[1, 0], e0: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0,infact9],  // 1 * sin(q)
+        // c3:[1, 0], e3: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8],  // 1 * cos(v)
 
       },
 
@@ -127,16 +127,16 @@ async function zindex (__mapper) {
         'dom3': [-180, 180],
 
         // parabole
-        // c1:[1, 0], e1:[0,1], // 1 * q
-        // c4:[1, 0], e4:[0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9] // 1 * sin(v)
+        // c0:[1, 0], e0:[0,1], // 1 * q
+        // c3:[1, 0], e3:[0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9] // 1 * sin(v)
 
         // parabole => sphere
-        c1: [1, 0], e1: [ [[[0, 1]]], [[[1, 0]]] ],
-        c4: [1, 0], e4: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9],
+        c0: [1, 0], e0: [ [[[0, 1]]], [[[1, 0]]] ],
+        c3: [1, 0], e3: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9],
 
         // sphere
-        // c1:[1, 0], e1:[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],   // 1 * id(q)
-        // c4:[1, 0], e4: [0, 1, 0,-infact3, 0,infact5, 0, -infact7, 0, infact9], // 1 * sin(v)
+        // c0:[1, 0], e0:[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],   // 1 * id(q)
+        // c3:[1, 0], e3: [0, 1, 0,-infact3, 0,infact5, 0, -infact7, 0, infact9], // 1 * sin(v)
 
       },
 
@@ -194,6 +194,7 @@ async function zindex (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
+      geofold: null,
       payload: {
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},

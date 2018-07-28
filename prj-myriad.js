@@ -20,9 +20,8 @@
   // LICENSE# Released under the The MIT License.
 
   let prjMyriad = function prjMyriad (__mapper = {}) {
-    
     let mkruskal = __mapper('xs').m('kruskal')
-    
+
     let renderport = __mapper('renderRenderport'),
       width = renderport.width(),
       height = renderport.height(),
@@ -39,7 +38,7 @@
     function spherical (cartesian) {
       return [
         Math.atan2(cartesian[1], cartesian[0]),
-        Math.asin(Math.max(-1, Math.min(1, cartesian[2])))
+        Math.asin(Math.max(-1, Math.min(1, cartesian[2]))),
       ]
     }
 
@@ -87,13 +86,13 @@
     let vertices = [
       [0, 1, g],
       [g, 0, 1],
-      [1, g, 0]
+      [1, g, 0],
     ]
     vertices = d3.merge([
       vertices,
       vertices.map(d => d.map(e => e * (e == 1 ? -1 : 1))),
       vertices.map(d => d.map(e => e * (e > 1 ? -1 : 1))),
-      vertices.map(d => d.map(e => e * (e > 0 ? -1 : 1)))
+      vertices.map(d => d.map(e => e * (e > 0 ? -1 : 1))),
     ])
       .map(normalize)
       .map(spherical)
@@ -105,9 +104,9 @@
         return {
           type: 'Point',
           index: i,
-          coordinates: f
+          coordinates: f,
         }
-      })
+      }),
     }
 
     let voro = d3.geoVoronoi()(cornerpoints)
@@ -124,8 +123,8 @@
       features: mkruskal(links).map(l => ({
         type: 'LineString',
         coordinates: [l.source.coordinates, l.target.coordinates],
-        properties: l
-      }))
+        properties: l,
+      })),
     }
 
     let tree0 = [-1]
@@ -173,7 +172,7 @@
             return d3Geo.geoContains({ type: 'Polygon', coordinates: [ polygon ] },
               [lambda * degrees, phi * degrees])
           },
-          project: faceProjection(face)
+          project: faceProjection(face),
         }
       })
 

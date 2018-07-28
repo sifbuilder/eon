@@ -44,37 +44,49 @@
     let ft = p => a => p.reduce((acc, cur, i) => acc + cur * pow(a, i), 0)
 
     // form has defined
-    // c1,c2,c3,c4: radius (default to 1)
+    // c0,c1,c2,c3: radius (default to 1)
     // e1 [-2pi,2pi],e2[-2pi,2pi],e3[-pi,pi],e4[-pi,pi]: radian-angles (default to 0)
-    // fn: c1[i] * c1**i
+    // fn: c0[i] * c0**i
     let fn = form =>
-      (e1 = 0, e2 = 0, e3 = 0, e4 = 0,   c1 = 1, c2 = 1, c3 = 1, c4 = 1) => {
-        let ret = ft(functor(form.c1))(c1) * ft(functor(form.e1))(e1) *
+      (e0 = 0, e1 = 0, e2 = 0, e3 = 0, c0 = 1, c1 = 1, c2 = 1, c3 = 1) => {
+        let ret = ft(functor(form.c0))(c0) * ft(functor(form.e0))(e0) *
+                  ft(functor(form.c1))(c1) * ft(functor(form.e1))(e1) *
                   ft(functor(form.c2))(c2) * ft(functor(form.e2))(e2) *
-                  ft(functor(form.c3))(c3) * ft(functor(form.e3))(e3) *
-                  ft(functor(form.c4))(c4) * ft(functor(form.e4))(e4)
+                  ft(functor(form.c3))(c3) * ft(functor(form.e3))(e3)
 
         return ret
       }
 
-    let isunpar = formDax => true
-        && formDax.e1 === undefined
-        && formDax.e2 === undefined 
-        && formDax.e3 === undefined 
-        && formDax.e4 === undefined 
-        && formDax.c1 === undefined 
-        && formDax.c2 === undefined 
-        && formDax.c3 === undefined 
-        && formDax.c4 === undefined 
-    
-    
+    let isunpar = formDax => formDax.e0 === undefined &&
+                            formDax.e1 === undefined &&
+                            formDax.e2 === undefined &&
+                            formDax.e3 === undefined &&
+                            formDax.c0 === undefined &&
+                            formDax.c1 === undefined &&
+                            formDax.c2 === undefined &&
+                            formDax.c3 === undefined
+
     let fndefaults = [
-        (e1, e2, e3, e4, c1, c2, c3 = 1, c4 = 1) => c1 * cos(e1) * c * cos(e3),
-        (e1, e2, e3, e4, c1, c2, c3 = 1, c4 = 1) => c2 * sin(e1) * c * cos(e3),
-        (e1, e2, e3, e4, c1, c2, c3 = 1, c4 = 1) => c4 * sin(e4),
-        (e1, e2, e3, e4, c1, c2, c3 = 1, c4 = 1) => c3 * cos(e3),
+      (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c0 * cos(e0) * c2 * cos(e2),
+      (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c1 * sin(e0) * c2 * cos(e2),
+      (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c2 * sin(e3),
+      (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c3 * cos(e2),
     ]
-      
+
+    let enformDax = function(formDax) {
+        formDax.e0 = (formDax.e0 === undefined) ? functor(0) : functor(formDax.e0)
+        formDax.e1 = (formDax.e1 === undefined) ? functor(0) : functor(formDax.e1)
+        formDax.e2 = (formDax.e2 === undefined) ? functor(0) : functor(formDax.e2)
+        formDax.e3 = (formDax.e3 === undefined) ? functor(0) : functor(formDax.e3)
+
+        formDax.c0 = (formDax.c0 === undefined) ? 1 : formDax.c0
+        formDax.c1 = (formDax.c1 === undefined) ? 1 : formDax.c1
+        formDax.c2 = (formDax.c2 === undefined) ? 1 : formDax.c2
+        formDax.c3 = (formDax.c3 === undefined) ? 1 : formDax.c3    
+        
+        return formDax
+    }
+    
     // ............................. natNform
     let natNform = function (form, nformed = {}) {
       let defs = {'v0': 0, 'v1': 1, 'ra2': 120, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1} // defs
@@ -137,49 +149,17 @@
         if (i === 3 && formDax.dom3 === undefined) formDax.dom3 = [-90, 90]
 
 
-          formDax.e1 = (formDax.e1 === undefined) ? functor(1) : functor(formDax.e1)
-          formDax.e2 = (formDax.e2 === undefined) ? functor(1) : functor(formDax.e2)
-          formDax.e3 = (formDax.e3 === undefined) ? functor(1) : functor(formDax.e3)
-          formDax.e4 = (formDax.e4 === undefined) ? functor(1) : functor(formDax.e4)
 
-          formDax.c1 = (formDax.c1 === undefined) ? 1 : formDax.c1
-          formDax.c2 = (formDax.c2 === undefined) ? 1 : formDax.c2
-          formDax.c3 = (formDax.c3 === undefined) ? 1 : formDax.c3
-          formDax.c4 = (formDax.c4 === undefined) ? 1 : formDax.c4
+        if (formDax.fn0 === undefined) {
+          if (isunpar(formDax)) {
+            formDax.fn0 = fndefaults[i]
+          } else {
+            formDax.fn0 = fn(formDax)
+          }
+        }
+        formDax = enformDax(formDax)
 
-
-        
-        if (i === 0 && formDax.fn0 === undefined) {
-          if (isunpar(formDax)) {
-            formDax.fn0 = fndefaults[0]
-          } else {
-            formDax.fn0 = fn(formDax)
-          }
-        }
-        if (i === 1 && formDax.fn0 === undefined) {
-          if (isunpar(formDax)) {
-            formDax.fn0 = fndefaults[1]
-          } else {
-            formDax.fn0 = fn(formDax)
-          }
-        }
-        if (i === 2 && formDax.fn0 === undefined) {
-          if (isunpar(formDax)) {
-            formDax.fn0 = fndefaults[2]
-          } else {
-            formDax.fn0 = fn(formDax)
-          }
-        }
-        if (i === 3 && formDax.fn0 === undefined) {
-          if (isunpar(formDax)) {
-            formDax.fn0 = fndefaults[3]
-          } else {
-            formDax.fn0 = fn(formDax)
-          }
-        }
       }
-    
-    
 
       return nformed
     }
@@ -221,7 +201,6 @@
           let xdomain = nformed.x.dom3 || [-180, 180]
           let ydomain = nformed.y.dom3 || [-180, 180]
 
-          
           let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // _e_ x, y
           geometry = mgraticule.vhMultiLine(graticule).geometry // geometry.type: MultiLineString
 
@@ -248,10 +227,9 @@
         let projDef = { projection: 'natform', form: nformed }
         let projection = natprojection(projDef)
         let feature = mproj3ct(gj, projection)
-            cache.form = projDef.form
-            cache.feature = feature
-         return feature
-
+        cache.form = projDef.form
+        cache.feature = feature
+        return feature
       }
     }
 
@@ -369,23 +347,17 @@
 
     // ............................. pointStream
     let pointStream = function (prjdef) {
-
       let natPoint = natVertex(prjdef.form) // m.nat.natVertex (a,b,c) => [a,b,c]
       return function (lambda, phi, radio = 1) { this.stream.point(...natPoint(lambda, phi, radio)) }
-
     }
 
     // ............................. natprojection
     let natprojection = prjdef => { // projection:natPoint, form:{x,y,z}
-
       let geoTrans = d3geo.geoTransform({ point: pointStream(prjdef) })
       let geoProj = p => geoTrans(p)
       geoProj.stream = s => geoTrans.stream(s)
       return geoProj
-
     }
-
-
 
     // ............................. enty
     let enty = function () {}

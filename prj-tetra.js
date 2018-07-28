@@ -20,9 +20,8 @@
   // https://bl.ocks.org/fil/e5b449606ca1e3e120cda8d08a7f3351
 
   let prjTetra = function prjTetra (__mapper = {}) {
-		
-		let mpolyhedral = __mapper('xs').m('polyhedral')
-		
+    let mpolyhedral = __mapper('xs').m('polyhedral')
+
     let renderport = __mapper('renderRenderport'),
       width = renderport.width(),
       height = renderport.height(),
@@ -113,14 +112,14 @@
       [0, 90],
       [-180, -asin1_3 * degrees],
       [-60, -asin1_3 * degrees],
-      [60, -asin1_3 * degrees]
+      [60, -asin1_3 * degrees],
     ]
 
     let faces = [
       [1, 2, 3, 1],
       [0, 2, 1, 0],
       [0, 3, 2, 0],
-      [0, 1, 3, 0]
+      [0, 1, 3, 0],
     ].map(function (face) {
       return face.map(function (i) {
         return vertices[i]

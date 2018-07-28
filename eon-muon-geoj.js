@@ -25,7 +25,7 @@
     }
 
     let Complex = lcomplex
-    
+
     // ...................... complexifyObjectType
     var complexifyObjectType = {
       Feature: function (object) {

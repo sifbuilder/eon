@@ -19,12 +19,11 @@
       __mapper('xs').m('ric'),
       __mapper('xs').m('anitem'),
       __mapper('xs').m('props'),
-    ]) 
-    .catch(function(err) {
-         console.log('A m.store promise failed to resolve', err)
-    })
-  
-    
+    ])
+      .catch(function (err) {
+        console.log('A m.store promise failed to resolve', err)
+      })
+
     let epsilon = 1e-5
 
     let state = {
@@ -94,17 +93,16 @@
     const getavatars = items => {
       items.forEach(item => {
         sequence(gavatars(item), avatar => {
-                  avatar.payload.uid = mric.getuid(avatar)
-                  avatar.payload.tim = item.payload.tim
-                  avatar.payload.parentuid = item.payload.uid
-                  gramm(avatar)
-
-          })
+          avatar.payload.uid = mric.getuid(avatar)
+          avatar.payload.tim = item.payload.tim
+          avatar.payload.parentuid = item.payload.uid
+          gramm(avatar)
         })
+      })
     }
 
     // .................. sequence
-    function sequence (items=[], fromitem) {
+    function sequence (items = [], fromitem) {
       function chain (items, index) {
         return (index === items.length)
           ? Promise.resolve()
@@ -112,7 +110,7 @@
       }
       return chain(items, 0)
     }
-    
+
     // .................. ween
     async function ween (anitem) { // ok trace
       let halo
@@ -124,40 +122,30 @@
       let updAnimas = await halo.ween(anitem) // UPDANIMA in halo
     }
 
-    let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars||[])
-
+    let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars || [])
 
     // .................. gramm
     function gramm (anitem) {
-
       return manitem.snapani(anitem)
         .then(geofunctored => manitem.functorpayload(geofunctored))
         .then(snapped => manitem.functorgeofold(snapped))
-        .then(anigram =>(typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
+        .then(anigram => (typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
           .then(halo => halo.gramm(anigram))
           .then(newItems => {
-                 
-             _apply({type: 'UPDANIGRAM', anigrams: newItems})
+            _apply({type: 'UPDANIGRAM', anigrams: newItems})
 
-                newItems.forEach(item => {
+            newItems.forEach(item => {
+              let avatars = gavatars(item)
 
-                  let avatars = gavatars(item)
-                  
+              avatars.forEach(avatar => {
+                avatar.payload.uid = mric.getuid(avatar)
+                avatar.payload.tim = anigram.payload.tim
+                avatar.payload.parentuid = anigram.payload.uid
 
-                  avatars.forEach(avatar => {
-                        avatar.payload.uid = mric.getuid(avatar)
-                        avatar.payload.tim = anigram.payload.tim
-                        avatar.payload.parentuid = anigram.payload.uid
-                  
-                          gramm(avatar)
-                    
-                  })
-                  
-                  
-                  
-                })
+                gramm(avatar)
+              })
+            })
           })
-
 
         )
     }

@@ -1,22 +1,22 @@
 /**********************
  *			@dataRachael2
- */	
+ */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.dataRachael2 = global.dataRachael2 || {})));
-}(this, function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.dataRachael2 = global.dataRachael2 || {})))
+}(this, function (exports) {
+  'use strict'
 
-var dataRachael2 = function (__mapper = {}) {
+  var dataRachael2 = function (__mapper = {}) {
+    let data = {
 
-		let data = { 
-
-      'width':"2in", 'height':"1.33333in",
-      'viewBox':"0 0 600 400",
+      'width': '2in', 'height': '1.33333in',
+      'viewBox': '0 0 600 400',
       'path': {
-        'id':"popart",
-        'fill':"none", 'stroke':"black", 'strokeWidth':"1",
-        'd':`M 283.00,19.00
+        'id': 'popart',
+        'fill': 'none', 'stroke': 'black', 'strokeWidth': '1',
+        'd': `M 283.00,19.00
            C 276.22,18.99 272.97,18.92 267.22,14.68
              264.13,12.40 263.33,9.32 259.96,8.29
              257.08,7.40 254.69,9.50 251.91,9.94
@@ -361,19 +361,17 @@ var dataRachael2 = function (__mapper = {}) {
              257.51,345.61 240.13,339.09 231.27,331.97
              227.61,329.03 227.98,325.36 224.61,323.41
              220.80,321.19 216.95,323.33 213.00,322.89
-             213.00,322.89 202.00,320.00 202.00,320.00 Z`
-      } // path
+             213.00,322.89 202.00,320.00 202.00,320.00 Z`,
+      }, // path
     } // data
-/* -------------------------- */		
-/*       enty   						*/
-/* -------------------------- */
-		var enty = function enty() {}
-		enty.data = ()  => data
-		
-		return enty
+    /* -------------------------- */
+    /*       enty   						*/
+    /* -------------------------- */
+    var enty = function enty () {}
+    enty.data = () => data
 
-}
+    return enty
+  }
 
-exports.dataRachael2 = dataRachael2
-
-}));
+  exports.dataRachael2 = dataRachael2
+}))

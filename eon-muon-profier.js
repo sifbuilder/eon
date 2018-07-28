@@ -92,9 +92,6 @@
       return geoproj
     }
 
-    
-    
-
     // ............................. formion_
     async function formion_ (projdef, anigram = {}) {
       let projection
@@ -192,11 +189,8 @@
       return json => mproj3ct.project(json, formion_(prodef))
     }
 
-    
-
     // ............................. uniweon
     let uniweon = function (projdef) {
-
       let translation, rotation
       let projection = puniwen()
 
@@ -273,7 +267,6 @@
 
       return projection
     }
-    
 
     // ............................. conformion_
     async function conformion_ (anigram) {
@@ -354,9 +347,8 @@
 
     enty.conformion_ = conformion_
     enty.conformer = conformer
-    
-    enty.uniweon = uniweon
 
+    enty.uniweon = uniweon
 
     return enty
   }

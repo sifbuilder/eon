@@ -86,8 +86,8 @@ async function zindex (__mapper) {
         'dom3': [-180, 180], // r.form.circ [-1.57, 1.57]
 
         // drop
-        c1: [1, 1], e1: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // a * cos(q)
-        // c4:[1, 0], e4:[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],  // 1 * id(v)
+        c0: [1, 1], e0: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // a * cos(q)
+        // c3:[1, 0], e3:[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],  // 1 * id(v)
 
       },
 
@@ -98,8 +98,8 @@ async function zindex (__mapper) {
         'dom3': [-180, 180],
 
         // drop
-        c1: [1, 0], e1: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(q)
-        c4: [1, 0], e4: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(v)
+        c0: [1, 0], e0: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(q)
+        c3: [1, 0], e3: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(v)
 
       },
 
@@ -111,8 +111,8 @@ async function zindex (__mapper) {
         'dom3': [-90, 90], // drop
 
         // drop
-        c1: [1, 0], e1: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(q)
-        c4: [1, 0], e4: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(v)
+        c0: [1, 0], e0: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(q)
+        c3: [1, 0], e3: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(v)
 
       },
 
@@ -171,6 +171,7 @@ async function zindex (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
+      geofold: null,
       payload: {
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},

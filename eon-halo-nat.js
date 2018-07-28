@@ -13,12 +13,14 @@
       hent = await __mapper('xs').h('ent')
 
     // .................... gramm
-    let gramm = function (anima) {
+    let gramm = async function (anima) {
       return hent.gramm(Object.assign(
-        {},
         anima,
-        {geofold: p => mnat.natFeature(p.payload.form)}
+        { halo: 'ent',
+          geofold: mnat.natFeature(anima.payload.form) 
+        }
       ))
+
     }
 
     // .................... ween

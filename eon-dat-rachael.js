@@ -1,22 +1,22 @@
 /**********************
  *			@datRachael
- */	
+ */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.datRachael = global.datRachael || {})));
-}(this, function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.datRachael = global.datRachael || {})))
+}(this, function (exports) {
+  'use strict'
 
-var datRachael = function (__mapper = {}) {
+  var datRachael = function (__mapper = {}) {
+    let data = {
 
-		let data = { 
-
-      'width':"2.33333in", 'height':"1.75in",
-      'viewBox':"0 0 1920 1080",
+      'width': '2.33333in', 'height': '1.75in',
+      'viewBox': '0 0 1920 1080',
       'path': {
-        'id':"popart",
-        'fill':"none", 'stroke':"black", 'strokeWidth':"1",
-        'd':`M 899.25,300.50
+        'id': 'popart',
+        'fill': 'none', 'stroke': 'black', 'strokeWidth': '1',
+        'd': `M 899.25,300.50
            C 898.70,300.50 885.27,301.45 884.91,301.82
              884.55,302.18 885.45,307.82 885.45,307.82
              885.45,307.82 898.50,308.57 898.50,308.75
@@ -210,19 +210,17 @@ var datRachael = function (__mapper = {}) {
              874.33,649.17 872.89,646.55 870.91,644.73
              867.71,641.77 869.66,643.42 866.91,640.55
              861.91,637.55 862.94,637.93 857.82,636.18
-             855.77,636.39 853.18,635.69 852.18,635.82 Z`
-      } // path
+             855.77,636.39 853.18,635.69 852.18,635.82 Z`,
+      }, // path
     } // data
-/* -------------------------- */		
-/*       enty   						*/
-/* -------------------------- */
-		var enty = function enty() {}
-		enty.data = ()  => data
-		
-		return enty
+    /* -------------------------- */
+    /*       enty   						*/
+    /* -------------------------- */
+    var enty = function enty () {}
+    enty.data = () => data
 
-}
+    return enty
+  }
 
-exports.datRachael = datRachael
-
-}));
+  exports.datRachael = datRachael
+}))
