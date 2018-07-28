@@ -46,9 +46,9 @@
       let ric = anitem.payload.ric
       let uid = mric.getuid(ric)
 
-      let anitem = mstore.findAnigramFromUid(uid)
-      if (anitem !== undefined && anitem.geofold !== undefined) {
-        geofold = anitem.geofold
+      let oldani = mstore.findAnigramFromUid(uid)
+      if (oldani !== undefined && oldani.geofold !== undefined) {
+        geofold = oldani.geofold
         if (base === 'geo') {
           if (geofold.properties.formGeoformed) { // revert geometry to formGeoformed
             geofold.geometry = geofold.properties.formGeoformed.geometry
@@ -89,12 +89,12 @@
 
     // ............................. gramm
     async function gramm (anitem, newItems = []) {
-// if (1 && 1) console.log('h.ent gramm anigram', anigram)       
+      // if (1 && 1) console.log('h.ent gramm anigram', anigram)
       // let anigram = await manitem.snapani(anitem)
       // anigram  = await manitem.functorgeofold(anigram)
       // anigram  = await manitem.functorpayload(anigram)
       // let anitem = anigram
-      
+
       let halo = anitem.halo,
         payload = anitem.payload,
         ric = payload.ric,

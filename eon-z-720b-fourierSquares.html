@@ -55,9 +55,7 @@ async function zindex (__mapper) {
     // .................. pics
   let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  /*******************************************
- *      @data
- */
+
     //md:     data is svg MCZ...MCZ
     let svgdata = {
       width:"2.77778in", height:"3.45833in",
@@ -79,18 +77,18 @@ async function zindex (__mapper) {
       [100, 0],   [75, 0],    [50, 0],    [25, 0], [0, 0]
     ]
     ] // MultiLineString
-   data.geometry.coordinates = basicSquare
+    data.geometry.coordinates = basicSquare
 
 
     let proform = (lat, lon) => ({projection: 'uniwen',translate: [ lat, lon ],scale: [1, 1],rotate: [ 0, 0 ],lens: [0, 1, Infinity]})
 
     
-    let geoData = i => mproj3ct(data, mprofier.formion_(proform(-250 + i * 60 + i * i * 16, 0)))
+    let geoData = i => mproj3ct(data, mprofier.uniweon(proform(-250 + i * 60 + i * i * 16, 0)))
     
     let nb = mgeoj.getCoordsLength(data)
     let csi = (i,t) => mgeoj.getCoordsInRange(geoData(i), Math.ceil(nb * t))
 
-    //md:     @aniDotted anima
+    // .................. aniDotted anima    
     let aniDotted = i => ({
       halo: 'ent',
       geofold: p => {
@@ -106,7 +104,7 @@ async function zindex (__mapper) {
     })
 
 
-  //md:     @aniLine anima
+    // .................. animas
    let aniLine = i => ({
 
     halo: 'ent',
@@ -124,8 +122,7 @@ async function zindex (__mapper) {
 
   })
 
-  //md:     @aniRay avatar
-  //md:       form.payload.fourier.avatars.line
+    // .................. aniRay avatar - form.payload.fourier.avatars.line
    let aniRay = i => ({
 
     halo: 'ent',
@@ -138,8 +135,7 @@ async function zindex (__mapper) {
 
   })
 
-  //md:     @aniTrace avatar
-  //md:       form.payload.fourier.avatars.line
+    // .................. aniTrace avatar - form.payload.fourier.avatars.line
    let aniTrace = i => ({
 
     halo: 'ent',
@@ -153,8 +149,7 @@ async function zindex (__mapper) {
 
   })
 
-  //md:     @fourierPacer avatar
-  //md:       payload.pacer.geojsor
+  // .................. fourierPacer avatar - payload.pacer.geojsor
   let fourierPacer = i => ({
 
       halo: 'pacer',
@@ -198,7 +193,8 @@ async function zindex (__mapper) {
       }
     })
 
-    //md:     @fourierForm h.fourier
+
+    // .................. fourierForm h.fourier    
      let fourierForm = i => ({
       halo: 'fourier',
       geofold: p => {

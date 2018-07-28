@@ -109,6 +109,7 @@ async function zindex (__mapper) {
   let nat = {
 
     halo: 'nat',
+    geofold: null,
     payload: {
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
       tim,
@@ -122,6 +123,7 @@ async function zindex (__mapper) {
   let natFlat = {
 
     halo: 'nat',
+    geofold: null,    
     payload: {
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natFlat'},
       tim,
@@ -135,9 +137,7 @@ async function zindex (__mapper) {
   let fuelnat = {
 
     halo: 'fuel',
-
     geofold: p => mnat.natFeature(p.payload.form),
-
     payload: {
       tim,
       ric: {'gid': 'fuel', 'cid': 'fuel'},

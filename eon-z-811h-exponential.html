@@ -79,19 +79,20 @@ async function zindex (__mapper) {
     let exp = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
 
     // ............................. pics
-    let tim = {'td': 18600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
+    let tim = {'td': 9600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
 
     let conform = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1, // segs5: hmesh
         'dom3': [-180, 180],
         c0: [[[1,400]]],
         // c0: [1, 0], e0: [0, 1], // 1 * e0
         // c3: [1, 0 ], e3: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(e3)
         'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
       
-          return 1 * e0 * 1 * cos(e3)
+          return c0 * e0 * c3 * cos(e3)
+          
         },         
 
       },
@@ -99,37 +100,41 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c3: 17,
+        c3: [[[2,8]]],
         'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
-          let m = 6
-          let w = ((e3 * degrees) + 60) / 60
-          return (1 / Math.exp(Math.abs(e0 * 8))) * cos(w * e0)
+
+          let expm = 16 * 0.1 * c3
+          return (1 / Math.exp(Math.abs(e0 * expm)))  // expm: `6
         },
 
       },
 
       'z': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 8, 'pa6': 0, 'pb7': -1,
-        'dom3': [0, 180 ],
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 16, 'pa6': 0, 'pb7': -1,    // segs5: 16
+        // 'dom3': [0, [[[0,180]]] ],
+        'dom3': [0, 180 ],        
         // c0: [1, 0], e0: [0, 1], // 1 * q
         // c3: [1, 0], e3: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(e3)
         'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
-          return 1 * e0 * 1 * sin(e3)
+          return c0 * e0 * c3 * sin(e3)
         },        
-        
         
       },
 
       'r': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
-        'dom3': [0, [[[0,180]]] ],
+        // 'dom3': [0, [[[0,180]]] ],
+        'dom3': [0, 180 ],
         // c3: [1, 0], e3 : [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1 * id(q)
-        c3:  [[[1,777]]],
+       'dom3': [0, 180 ],
         'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
   
-          return c3
+  // console.log(e0, e1, e2, e3, c0, c1, c2, c3)
+  
+          return 1
+          
         },
 
       },
@@ -152,10 +157,11 @@ async function zindex (__mapper) {
 
         proform: {
           projection: 'uniwen',
-          scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
+          // scale: [ [[[0.001, 0.5]]], [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
+          scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
           prerotate: [[[ cwen.rotation ]]],
           translate: [ [0, 0, 0] ],
-          rotate: [ -160, [[[0,360]]], 0 ],
+          rotate: [ [[[-170,-160,-170]]], [[[0,360]]], 0 ],
           lens: [0, 1, [[[5000, 5000, 5000, 5000]]] ],
         },
 

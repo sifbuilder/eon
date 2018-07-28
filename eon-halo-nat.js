@@ -17,10 +17,9 @@
       return hent.gramm(Object.assign(
         anima,
         { halo: 'ent',
-          geofold: mnat.natFeature(anima.payload.form) 
+          geofold: mnat.natFeature(anima.payload.form),
         }
       ))
-
     }
 
     // .................... ween

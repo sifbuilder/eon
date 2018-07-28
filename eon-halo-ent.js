@@ -107,8 +107,6 @@
 
     // ............................. gramm
     async function gramm (ani) {
-      if (1 && 1) console.log('ani', ani)
-
       return Promise.resolve(ani)
 
         .then(anigram => Promise.resolve(mgeoj.featurecollect(getgj(Promise.resolve(anigram))))

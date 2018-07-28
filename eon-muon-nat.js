@@ -73,20 +73,20 @@
       (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c3 * cos(e2),
     ]
 
-    let enformDax = function(formDax) {
-        formDax.e0 = (formDax.e0 === undefined) ? functor(0) : functor(formDax.e0)
-        formDax.e1 = (formDax.e1 === undefined) ? functor(0) : functor(formDax.e1)
-        formDax.e2 = (formDax.e2 === undefined) ? functor(0) : functor(formDax.e2)
-        formDax.e3 = (formDax.e3 === undefined) ? functor(0) : functor(formDax.e3)
+    let enformDax = function (formDax) {
+      formDax.e0 = (formDax.e0 === undefined) ? functor(formDax.w4 * radians) : functor(formDax.e0)
+      formDax.e1 = (formDax.e1 === undefined) ? functor(formDax.w4 * radians) : functor(formDax.e1)
+      formDax.e2 = (formDax.e2 === undefined) ? functor(formDax.w4 * radians) : functor(formDax.e2)
+      formDax.e3 = (formDax.e3 === undefined) ? functor(formDax.w4 * radians) : functor(formDax.e3)
 
-        formDax.c0 = (formDax.c0 === undefined) ? 1 : formDax.c0
-        formDax.c1 = (formDax.c1 === undefined) ? 1 : formDax.c1
-        formDax.c2 = (formDax.c2 === undefined) ? 1 : formDax.c2
-        formDax.c3 = (formDax.c3 === undefined) ? 1 : formDax.c3    
-        
-        return formDax
+      formDax.c0 = (formDax.c0 === undefined) ? formDax.ra2 : formDax.c0
+      formDax.c1 = (formDax.c1 === undefined) ? formDax.ra2 : formDax.c1
+      formDax.c2 = (formDax.c2 === undefined) ? formDax.ra2 : formDax.c2
+      formDax.c3 = (formDax.c3 === undefined) ? formDax.ra2 : formDax.c3
+
+      return formDax
     }
-    
+
     // ............................. natNform
     let natNform = function (form, nformed = {}) {
       let defs = {'v0': 0, 'v1': 1, 'ra2': 120, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1} // defs
@@ -148,8 +148,6 @@
         if (i === 2 && formDax.dom3 === undefined) formDax.dom3 = [-90, 90]
         if (i === 3 && formDax.dom3 === undefined) formDax.dom3 = [-90, 90]
 
-
-
         if (formDax.fn0 === undefined) {
           if (isunpar(formDax)) {
             formDax.fn0 = fndefaults[i]
@@ -159,7 +157,9 @@
         }
         formDax = enformDax(formDax)
 
+
       }
+
 
       return nformed
     }

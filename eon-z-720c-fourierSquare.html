@@ -37,11 +37,13 @@
 async function zindex (__mapper) {
   // .................. eons
   let [
+    mprops,
     mfourier,
     mproj3ct,
     mprofier,
     mgeoj,
   ] = await Promise.all([
+    __mapper('xs').m('props'),
     __mapper('xs').m('fourier'),
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
@@ -82,10 +84,10 @@ let gjdata = { type: 'MultiLineString', coordinates: basicSquare }
             lens: [0, 1, Infinity],
           }
 
-let geoData = mproj3ct(gjdata, mprofier.formion(proform)) 
+let geoData = mproj3ct(gjdata, mprofier.uniweon(proform)) 
      geoData = mgeoj.getCoordsInRange(geoData, nb) // MultiLineString
 
-let transforms = mfourier.transformedCoefs(f.clone(geoData))
+let transforms = mfourier.transformedCoefs(mprops.clone(geoData))
 transforms = mgeoj.ntime(transforms, [0,1])
   
  let transformsFC = { type: 'FeatureCollection',features: transforms }

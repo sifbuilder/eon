@@ -101,7 +101,6 @@
       } else if (mprops.isObject(v) && // 10 ___ v :: {b, c, d ...}*
                                       g === 1) { // assume nat on object
         let ws
-        if (1 && 1) console.log('v', v)
 
         let feature = mnat.natFeature(v) // async
         if (!mgeoj.isValid(feature)) console.error('gj not valid', v, feature)
@@ -120,8 +119,6 @@
         }
         ws = snap(natRing, t, 1) // (13) snap [[x1,y1,z1],...,[xn,yn,zn]]
         return ws
-
-
       } else if (mprops.isArray(v) && // 11_____ [v]*
           mprops.isPureArray(v) &&
           v.length === 1 &&
