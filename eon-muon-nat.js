@@ -67,17 +67,17 @@
       }
 
     let nformparams = form => {
-        let e0 = form.e0 !== undefined ? form.e0 : 0
-        let e1 = form.e1 !== undefined ? form.e1 : 0
-        let e2 = form.e2 !== undefined ? form.e2 : 0
-        let e3 = form.e3 !== undefined ? form.e3 : 0
+      let e0 = form.e0 !== undefined ? form.e0 : 0
+      let e1 = form.e1 !== undefined ? form.e1 : 0
+      let e2 = form.e2 !== undefined ? form.e2 : 0
+      let e3 = form.e3 !== undefined ? form.e3 : 0
 
-        let c0 = form.c0 !== undefined ? form.c0 : 1
-        let c1 = form.c1 !== undefined ? form.c1 : 1
-        let c2 = form.c2 !== undefined ? form.c2 : 1
-        let c3 = form.c3 !== undefined ? form.c3 : 1
+      let c0 = form.c0 !== undefined ? form.c0 : 1
+      let c1 = form.c1 !== undefined ? form.c1 : 1
+      let c2 = form.c2 !== undefined ? form.c2 : 1
+      let c3 = form.c3 !== undefined ? form.c3 : 1
 
-        return [e0, e1, e2, e3, c0, c1, c2, c3]
+      return [e0, e1, e2, e3, c0, c1, c2, c3]
     }
 
     let isunpar = formDax => formDax.e0 === undefined &&
@@ -100,20 +100,19 @@
       [-180, 180],
       [-180, 180],
       [-90, 90],
-      [-90, 90]
+      [-90, 90],
     ]
 
     let enformDax = function (formDax) {
-      
-          formDax.c0 = (formDax.c0 === undefined) ? 1 : formDax.c0
-          formDax.c1 = (formDax.c1 === undefined) ? 1 : formDax.c1
-          formDax.c2 = (formDax.c2 === undefined) ? 1 : formDax.c2
-          formDax.c3 = (formDax.c3 === undefined) ? 1 : formDax.c3
+      formDax.c0 = (formDax.c0 === undefined) ? 1 : formDax.c0
+      formDax.c1 = (formDax.c1 === undefined) ? 1 : formDax.c1
+      formDax.c2 = (formDax.c2 === undefined) ? 1 : formDax.c2
+      formDax.c3 = (formDax.c3 === undefined) ? 1 : formDax.c3
 
-          formDax.e0 = (formDax.e0 === undefined) ? functor(1) : functor(formDax.e0)
-          formDax.e1 = (formDax.e1 === undefined) ? functor(1) : functor(formDax.e1)
-          formDax.e2 = (formDax.e2 === undefined) ? functor(1) : functor(formDax.e2)
-          formDax.e3 = (formDax.e3 === undefined) ? functor(1) : functor(formDax.e3)
+      formDax.e0 = (formDax.e0 === undefined) ? functor(1) : functor(formDax.e0)
+      formDax.e1 = (formDax.e1 === undefined) ? functor(1) : functor(formDax.e1)
+      formDax.e2 = (formDax.e2 === undefined) ? functor(1) : functor(formDax.e2)
+      formDax.e3 = (formDax.e3 === undefined) ? functor(1) : functor(formDax.e3)
 
       return formDax
     }
@@ -175,21 +174,18 @@
 
         if (formDax.dom3 === undefined) formDax.dom3 = domdefaults[i] // dom3 --- axis domain
 
-        if (formDax.fn0 === undefined) {  // fn0 not defined
-          if (isunpar(formDax)) {         // cs and es not defined
-            formDax.fn0 = fndefaults[i]   // fn0 defauls to sphere
-          } else {                        // some cs and es defined
+        if (formDax.fn0 === undefined) { // fn0 not defined
+          if (isunpar(formDax)) { // cs and es not defined
+            formDax.fn0 = fndefaults[i] // fn0 defauls to sphere
+          } else { // some cs and es defined
             formDax = enformDax(formDax)
-            formDax.fn0 = fn(formDax)     // cs and es series define fn0
+            formDax.fn0 = fn(formDax) // cs and es series define fn0
           }
         } else {
-          formDax = enformDax(formDax)      // neutralize undefined cs and es for defined fn0
+          formDax = enformDax(formDax) // neutralize undefined cs and es for defined fn0
           // formDax.fn0 = formDax.fn0(...nformparams(formDax))
         }
-
-
       }
-
 
       return nformed
     }
@@ -328,9 +324,8 @@
 
     // ............................. radorm
     function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
-    
       let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)
-      
+
       let s1range = [0, radorPts.length - 1] // [0, seg5]
 
       let s2extent = d3array.range(0, radorPts.length - 1) // [0,...,seg5]
@@ -344,7 +339,6 @@
 
     // ............................. natVertex
     let natVertex = function (form) { // getVertex
-
       let nformed = natNform(form) // natNform
 
       let unfeld = Object.values(nformed) // dax values
@@ -370,7 +364,7 @@
 
         // ppR (es) : lambda/phi radians in dom3
         let ppR = ppD.map(d => d * radians) // e0,e1,e2,e3 : pars in radians per dax
-        
+
         // rs (cs)
         let rs = unfeld.map((d, i) => rayscale[i](ppR[i]) || 1) // c0,c1,c2,c3 : radorn on dax par
 

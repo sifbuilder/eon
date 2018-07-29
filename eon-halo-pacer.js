@@ -196,7 +196,6 @@
               let newItemsInCount = await hent.gramm(newItem) // h.ent newItem
               newItems = [...newItems, ...newItemsInCount] // add new items
             } else { //  if NOT aad
-
               if (newItem.geofold && newItem.geofold.geometry.type === 'Point') { // POINT
                 let presitus = newItem.geofold.geometry.coordinates
 
