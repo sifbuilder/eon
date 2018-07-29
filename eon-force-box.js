@@ -9,6 +9,8 @@
   'use strict'
 
   var forceBox = function forceBox (__mapper = {}) {
+    let muonStore = __mapper('muonStore')
+
     let constant = x => () => x
 
     let force = function (params) {
@@ -36,7 +38,7 @@
             if (ys > south) node.vy *= -1 // south
           } else if (act === 'erase') {
             if (xw < west || xe > east || yn < north || ys > south) {
-              __mapper('muonStore').apply({'type': 'DELANIMA', 'caller': 'force limit', 'anima': node})
+              muonStore.apply({'type': 'DELANIMA', 'caller': 'force limit', 'anima': node})
             }
           }
         }

@@ -1,5 +1,5 @@
 /**********************
- *			@datMatisse
+ *      @datMatisse
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
@@ -277,7 +277,7 @@
       }, // path
     } // data
     /* -------------------------- */
-    /*       enty   						*/
+    /*       enty               */
     /* -------------------------- */
     var enty = function enty () {}
     enty.data = () => data

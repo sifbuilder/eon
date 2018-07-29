@@ -93,7 +93,7 @@
       (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c0 * cos(e0) * c2 * cos(e2),
       (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c1 * sin(e0) * c2 * cos(e2),
       (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c2 * sin(e3),
-      (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c3 * cos(e2),
+      (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c3 * cos(e3),
     ]
 
     let domdefaults = [
@@ -176,15 +176,19 @@
 
         if (formDax.fn0 === undefined) { // fn0 not defined
           if (isunpar(formDax)) { // cs and es not defined
+          
             formDax.fn0 = fndefaults[i] // fn0 defauls to sphere
+            
           } else { // some cs and es defined
             formDax = enformDax(formDax)
             formDax.fn0 = fn(formDax) // cs and es series define fn0
           }
-        } else {
-          formDax = enformDax(formDax) // neutralize undefined cs and es for defined fn0
-          // formDax.fn0 = formDax.fn0(...nformparams(formDax))
         }
+          formDax = enformDax(formDax) // neutralize undefined cs and es for defined fn0
+          
+if (1 && 1) console.log('formDax', formDax)
+
+          
       }
 
       return nformed
@@ -252,7 +256,10 @@
 
         let projDef = { projection: 'natform', form: nformed }
         let projection = natprojection(projDef)
+
+
         let feature = mproj3ct(gj, projection)
+        if (1 && 1) console.log('feature', feature)        
         cache.form = projDef.form
         cache.feature = feature
         return feature

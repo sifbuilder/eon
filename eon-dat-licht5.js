@@ -1,5 +1,5 @@
 /**********************
- *			@datLicht5
+ *      @datLicht5
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)

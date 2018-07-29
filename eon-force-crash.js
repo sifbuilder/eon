@@ -9,6 +9,8 @@
   'use strict'
 
   var forceCrash = function (__mapper = {}) {
+    let muonStore = __mapper('muonStore')
+
     let constant = x => () => x
 
     let force = function (params) {

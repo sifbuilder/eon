@@ -9,7 +9,8 @@
   'use strict'
 
   var forceCurb = function forceCurb (__mapper = {}) {
-    // .................. force
+    let muonStore = __mapper('muonStore')
+
     let force = function (params) {
       let nodes = params.nodes
       let retention = params.retention // unit retention

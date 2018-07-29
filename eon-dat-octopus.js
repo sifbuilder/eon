@@ -1,5 +1,5 @@
 /**********************
- *			@datOctopus
+ *      @datOctopus
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)

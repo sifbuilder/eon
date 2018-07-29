@@ -144,7 +144,6 @@
     // .................. enty
     let enty = function (prjdef = {}) {
       let m = uniprofion(prjdef)
-      let keys = Object.keys(prjdef)
 
       state = Object.assign({}, init, prjdef) // reste proj state
 

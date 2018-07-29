@@ -9,7 +9,8 @@
   'use strict'
 
   var forceEnergy = function forceEnergy (__mapper = {}) {
-    // .................. force
+    let muonStore = __mapper('muonStore')
+
     let force = function (params) {
       let nodes = params.nodes
       let retention = params.retention // unit retention
