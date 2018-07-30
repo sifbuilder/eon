@@ -23,7 +23,7 @@
     /***************************
     *        @arrays
     */
-	  props.a = d => {
+    props.a = d => {
       let ret = []
       if (d === undefined) { // ret = []
       } else if (d === null) { // ret = []
@@ -250,7 +250,7 @@
 
     props.ta = d => (Array.isArray(d)) ? d.map(di => [[ di ]]) : [[ d ]] // to tripleArray
 
-    props.posInStream = function (rpos, stream) {	// pos from rel-pos in stream
+    props.posInStream = function (rpos, stream) { // pos from rel-pos in stream
       let pos
       let unidimLength = stream.length
       pos = Math.round(rpos * unidimLength / 100)
@@ -429,8 +429,8 @@
    */
     props.isPosition = obj => Object.getOwnPropertyNames(obj).reduce((p, q) =>
       p &&
-				(q === 'x' || q === 'y' || q === 'z') &&
-				typeof obj[q] === 'number'
+        (q === 'x' || q === 'y' || q === 'z') &&
+        typeof obj[q] === 'number'
       , true)
 
     props.debug = () => [].join.call(arguments, '\n')

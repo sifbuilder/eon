@@ -31,7 +31,7 @@
         return fourierTransformGeometry(object.geometry)
       },
       FeatureCollection: function (object) {
-        var features = object.features, i = -1, n = features.length
+        var features = object.features
 
         let ret = object
         ret.features = features.map(feature => fourierTransformGeometry(feature.geometry))

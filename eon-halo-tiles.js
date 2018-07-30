@@ -38,9 +38,8 @@
       let tile = (anigram.tile !== undefined) ? anigram.tile : null
       let verts = mgraticule.gvertices(graticule) // Feature.LineString
       let vertices = verts.geometry.coordinates
-      let faces = mgraticule.gfaces(graticule)	// faces
+      let faces = mgraticule.gfaces(graticule) // faces
 
-      let gramPromises = []
       for (let i = 0; i < faces.length; i++) { // single ring polygon
         let idx = i
         let gid = ric.gid // from ava ric
@@ -66,60 +65,8 @@
     }
 
     // .................... gramm
-    async function gramm (anigram) {
-      // return hent.gramm(getTiles(anigram))
-      return await Promise.all(getTiles(anigram).map(ani => hent.gramm(ani)))
-    }
-
-    // .................. getgramms
-    // const gramm = (anigram) => {
-    // sequence(animas, anima => mstore.gramm(anima)) // store anigrams
-    // return mstore.anigrams() // get anigrams from store
-    // }
-
-    // .................... gramm
-    async function ___gramm (anigram) {
-      let geofold = anigram.geofold, // geofold
-        payload = anigram.payload, // payload
-        ric = payload.ric // ric
-
-      let gj = mprops.v(geofold, anigram) // get geofold
-      gj.properties = gj.properties || {} // recall genode
-      gj.properties.geonode = gj.properties.geonode || {}
-
-      let graticule = payload.graticule
-
-      let range = (anigram.range !== undefined) ? anigram.range : null
-      let tile = (anigram.tile !== undefined) ? anigram.tile : null
-      let verts = mgraticule.gvertices(graticule) // Feature.LineString
-      let vertices = verts.geometry.coordinates
-      let faces = mgraticule.gfaces(graticule)	// faces
-
-      let gramPromises = []
-      for (let i = 0; i < faces.length; i++) { // single ring polygon
-        let idx = i
-        let gid = ric.gid // from ava ric
-        let cid = ric.cid
-        let fid = ric.cid + '_' + idx
-        let _ric = {gid, cid, fid}
-
-        let newItem = {}
-        newItem.halo = 'ent'
-        newItem.payload = Object.assign({}, anigram.payload)
-        newItem.payload.ric = _ric
-
-        newItem.geofold = {type: 'Polygon', coordinates: []}
-
-        let face = faces[i]
-        let facering = [vertices[face[0]], vertices[face[1]], vertices[face[2]]]
-        newItem.geofold.coordinates = Array.of([...facering, facering[0]])
-
-        gramPromises.push(hent.gramm(newItem))
-      }
-
-      let newAnigrams = await Promise.all(gramPromises)
-      if (1 && 1) console.log('newAnigrams', [...newAnigrams])
-      return [...newAnigrams]
+    function gramm (anigram) {
+      return Promise.all(getTiles(anigram).map(ani => hent.gramm(ani)))
     }
 
     // .................... enty

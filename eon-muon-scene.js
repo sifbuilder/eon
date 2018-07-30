@@ -14,12 +14,16 @@
       cwen,
       cversor,
       ckey,
+      ctimer,
     ] = await Promise.all([
       __mapper('xs').r('svg'),
       __mapper('xs').c('wen'),
       __mapper('xs').c('versor'),
       __mapper('xs').c('key'),
+      __mapper('xs').c('timer'),
     ])
+
+    let manimation = __mapper('muonAnimation')
 
     let state = {}
     state.scene = {
@@ -47,46 +51,46 @@
 
       if (p.svg && p.versor && p.versor !== state.scene.versor) {
         state.scene.versor = 1
-        cversor.control(__mapper('renderSvg').svg())
+        cversor.control(rsvg.svg())
       }
 
       // ............................. key control animation
       if (p.key && p.key !== state.scene.key) {
         state.scene.key = 1
 
-        if (__mapper('ctlKey') !== undefined) {
-          __mapper('ctlKey').start() // KEYBRD CONTROLS
+        if (ckey !== undefined) {
+          ckey.start() // KEYBRD CONTROLS
           let controltimerLeftArrowAlt = () => { // LEFT ARROW
-            if (__mapper('muonAnimation').animationStop !== undefined) {
+            if (manimation.animationStop !== undefined) {
               console.log('controltimerLeftArrowAlt')
-              if (__mapper('ctlTimer').started()) {
-                __mapper('ctlTimer').stop()
+              if (ctimer.started()) {
+                ctimer.stop()
               } else {
-                __mapper('ctlTimer').resume()
+                ctimer.resume()
               }
             }
           }
-          __mapper('ctlKey').subscribe(controltimerLeftArrowAlt, 'leftArrowAlt')
+          ckey.subscribe(controltimerLeftArrowAlt, 'leftArrowAlt')
         }
 
-        if (__mapper('ctlKey') !== undefined) {
+        if (ckey !== undefined) {
           let controltimerUpArrowAlt = () => { // UP ARROW
             console.log('controltimerUpArrowAlt')
-            __mapper('ctlWen').control(__mapper('renderSvg').svg()) // SVG WEN
+            cwen.control(rsvg.svg()) // SVG WEN
           }
-          __mapper('ctlKey').subscribe(controltimerUpArrowAlt, 'upArrowAlt')
+          ckey.subscribe(controltimerUpArrowAlt, 'upArrowAlt')
         }
 
         let controltimerRightArrowAlt = () => { // RIGHT ARROW
-          if (__mapper('muonAnimation').animationStop !== undefined) {
-            if (__mapper('ctlTimer').started()) {
-              __mapper('ctlTimer').stop()
+          if (manimation.animationStop !== undefined) {
+            if (ctimer.started()) {
+              ctimer.stop()
             } else {
-              __mapper('ctlTimer').resume()
+              ctimer.resume()
             }
           }
         }
-        __mapper('ctlKey').subscribe(controltimerRightArrowAlt, 'rightArrowAlt')
+        ckey.subscribe(controltimerRightArrowAlt, 'rightArrowAlt')
       }
     }
 

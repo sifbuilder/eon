@@ -12,7 +12,6 @@
     let [
       mric,
       mgeom,
-      manitem,
       crayder,
       cwen,
       cversor,
@@ -21,7 +20,6 @@
     ] = await Promise.all([
       __mapper('xs').m('ric'),
       __mapper('xs').m('geom'),
-      __mapper('xs').m('anitem'),
       __mapper('xs').c('rayder'),
       __mapper('xs').c('wen'),
       __mapper('xs').c('versor'),

@@ -96,8 +96,6 @@
     let catesians = function (payload = {}) {
       const samples = payload.fibonat.samples,
         offsetstep = payload.fibonat.offsetstep,
-        xprecision = payload.fibonat.xprecision,
-        yprecision = payload.fibonat.yprecision,
         goldenangle = payload.fibonat.goldenangle
 
       let rnd = 1.0

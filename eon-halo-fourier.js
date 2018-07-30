@@ -11,35 +11,18 @@
   async function haloFourier (__mapper = {}) {
     let [
       mprops,
-      manitem,
       mric,
-      mgeoj,
       lcomplex,
       hent,
     ] = await Promise.all([
       __mapper('xs').m('props'),
-      __mapper('xs').m('anitem'),
       __mapper('xs').m('ric'),
-      __mapper('xs').m('geoj'),
       __mapper('xs').l('complex'),
       __mapper('xs').h('ent'),
     ])
 
     let Complex = lcomplex
 
-    // md: ## h.fourier
-    // md:    h.fourier anigrams per frequency cycloid
-    // md:    cycloids in payload.fourier.transforms resulting from m.fourier.complexify
-    // md:    anigrams turned to h.ent
-
-    // md: ### h.fourier.gramm
-    // md:   payload.fourier.transforms, gj featurized, complexified, ntimed
-    // md:   payload.fourier.maglast pencil radio
-    // md:   payload.fourier.interval [0,1] delete anigrams outside
-    // md:   payload.fourier.tolerance 1 remove sinusoids below
-    // md:   payload.fourier.dotboform style of pencil dot
-    // md:   payload.fourier.avatars.fourierPacer  form trace
-    // md:   payload.fourier.avatars.line  sinusoid ray
     let gramm = function (ani, newAnigrams = []) {
       let anigram = ani,
         halo = anigram.halo, // halo

@@ -17,8 +17,6 @@
       __mapper('xs').b('d3-array'),
     ])
 
-    const isNumericArray = d => Array.isArray(d) && d.reduce((prev, curr) => prev && typeof curr === 'number', true)
-
     // ...................... interlace
     let interlace = function (streams, t) {
       let ww = []
@@ -79,10 +77,6 @@
      *        [ {a1,a2,a3}, {b1,b2} ]     [ [a1v,b1], [a2v,b2x], [a3v,b2] ]
      */
     let slide = function (streams = [], compl = 'max') {
-      let nbr = streams.length
-
-      let inpattern = streams.reduce((p, q) => p && isNumericArray(q), true)
-
       let lengths = streams.map(d => d.length),
         mx = Math.max(...lengths),
         mn = Math.min(...lengths)
@@ -94,7 +88,6 @@
         for (let i = 0; i < pointsHowmany; i++) {
           streamXYZ[i] = streams.map(d => d[i])
         }
-        let scales = streams.map(d => d3scale.scaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))
       } else {
         let pointsHowmany = mx // max length
         let scales = streams.map(d => d3scale.scaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))

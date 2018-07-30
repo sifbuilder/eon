@@ -45,13 +45,13 @@
       let valid = 0
 
       if (stace && typeof stace === 'object') {
-        if (stace.x !== undefined) {	// if .x then position object
+        if (stace.x !== undefined) { // if .x then position object
           stace = [ stace.x, stace.y || 0, stace.z || 0 ]
         }
       }
 
       if (Array.isArray(stace)) { // stace :: [x,y,z]
-        stace = stace.map(d => typeof d === 'function' ? d() : d)	// eval
+        stace = stace.map(d => typeof d === 'function' ? d() : d) // eval
 
         if (mprops.isPureArray(stace)) { // [x,y,z] numbers
           valid = 1
@@ -77,7 +77,7 @@
             let staceDax = stace[i]
             let v1 = staceDax
 
-            if (!v1.hasOwnProperty('pos')) {	// in node
+            if (!v1.hasOwnProperty('pos')) { // in node
               let coords = []
               if (v1.hasOwnProperty('geo')) { // GEO
                 coords = nodeGeoformed.geometry.coordinates

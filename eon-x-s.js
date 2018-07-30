@@ -69,12 +69,7 @@
       ]
 
       return eonfroms.reduce(
-        (p, q) => p.catch(failed => {
-          let r = Promise.resolve(getCeonSync([ceon, '']) || q())
-          // if (1 && 1) console.log('eonfroms', ceon, r)
-
-          return r
-        }),
+        (p, q) => p.catch(failed => Promise.resolve(getCeonSync([ceon, '']) || q())),
         Promise.reject('init reduce'))
         .then(result => result)
         .catch(failed => { console.log('Failed: ', ceon, failed) })

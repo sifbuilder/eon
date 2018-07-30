@@ -29,7 +29,6 @@
     ])
 
     let d3drag = d3
-    let d3dispatch = d3
     let d3selection = d3
 
     let getPos = e => (e.touches && e.touches.length) ? (e = e.touches[0], [e.x, e.y]) : [e.x, e.y]

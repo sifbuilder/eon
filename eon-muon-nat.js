@@ -63,12 +63,13 @@
         form.c[3] = form.c[3] !== undefined ? form.c[3] : 1
 
         let ret =   ft(functor(form.c[0]))(xc(c[0])) 
-                  * ft(functor(form.e[0]))(xe(e[0]))
                   * ft(functor(form.c[1]))(xc(c[1])) 
-                  * ft(functor(form.e[1]))(xe(e[1]))
                   * ft(functor(form.c[2]))(xc(c[2])) 
-                  * ft(functor(form.e[2]))(xe(e[2]))
                   * ft(functor(form.c[3]))(xc(c[3])) 
+                  
+                  * ft(functor(form.e[0]))(xe(e[0]))
+                  * ft(functor(form.e[1]))(xe(e[1]))
+                  * ft(functor(form.e[2]))(xe(e[2]))
                   * ft(functor(form.e[3]))(xe(e[3]))
 
         return ret

@@ -73,8 +73,6 @@
             let newItem = newAnigrams[i] // new anigram
 
             if (Array.isArray(newItem)) {
-              if (1 && 1) console.log('m.store.apply.updanigram newItem array')
-
               newItem = newItem[0]
             }
 
@@ -101,6 +99,9 @@
       })
     }
 
+    // .................. gavatars
+    let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars || [])
+
     // .................. sequence
     function sequence (items = [], fromitem) {
       function chain (items, index) {
@@ -119,10 +120,8 @@
       } else {
         halo = await __mapper('xs').h(anitem.halo)
       }
-      let updAnimas = await halo.ween(anitem) // UPDANIMA in halo
+      await halo.ween(anitem) // UPDANIMA in halo
     }
-
-    let gavatars = item => (typeof item.avatars === 'object') ? Object.values(item.avatars) : (item.avatars || [])
 
     // .................. gramm
     function gramm (anitem) {

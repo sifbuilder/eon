@@ -18,7 +18,6 @@
       cwen,
       cversor,
       puniwen,
-      // pnatform,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('wen'),
@@ -28,7 +27,6 @@
       __mapper('xs').c('wen'),
       __mapper('xs').c('versor'),
       __mapper('xs').p('uniwen'),
-      // __mapper('xs').p('natform'),
 
     ])
 
@@ -36,9 +34,8 @@
     async function getProj_ (projdef) {
       let geoproj
 
+      console.assert(projdef !== undefined, 'm.profier.formion_ projdef undefined')
       if (projdef === undefined) {
-        if (2 && 2) console.log('** m.profier.formion_ projdef undefined', projdef)
-        // geoproj = formion_({projection: 'uniwen'})
         geoproj = puniwen({})
       } else if (typeof projdef === 'function') {
         geoproj = projdef
@@ -50,33 +47,14 @@
         }
       } else if (typeof projdef === 'object') {
         if (mprops.isString(projdef.projection)) { // if _projection singular name
-          // let mapperName = __mapper('xs').eonize(projdef.projection, 'geo')
-          // if (1 && 1) console.log('mapperName', mapperName)
-          // geoproj = __mapper(mapperName)
-          // .then(prj => prj(projdef))
-          // if (1 && 1) console.log('geoproj', geoproj)
-
-          // let prj = await __mapper('xs').g(projdef.projection)
-
-          // let geoeon = __mapper('xs').eonize(projdef.projection, 'geo')
-          // let geoeon = await __mapper('xs').g(projdef.projection)
-          // if (1 && 1) console.log('geoeon', geoeon)
-          // let prj = __mapper(geoeon)
-          // if (1 && 1) console.log('prj', prj)
-
-          // let prj = await __mapper('xs').g(projdef.projection)
           let prj = await __mapper('xs').p(projdef.projection)
           geoproj = prj(projdef) //
-          // geoproj = __mapper(__mapper('xs').eonize(projdef.projection, 'd3.geo'))(projdef) //
-          // geoproj = prj(projdef)
         } else if (mprops.isArray(projdef.projections)) { // if plural select one
           geoproj = projdef.projections[ Math.round(projdef.projectidx || 0) ]
 
           if (mprops.isString(geoproj)) { // if name in array
             geoproj = __mapper(geoproj, 'prj')(projdef) // get projection from name
-            // geoproj = __mapper(geoproj, 'd3.geo')(projdef) // get projection from name
           } else {
-            if (2 && 2) console.log('m.profier.formion_ index proj not name', projdef)
             geoproj = puniwen({})
             return geoproj
           }
@@ -103,7 +81,6 @@
       let translation, rotation
 
       if (typeof projdef !== 'object') { // projdef is object
-        // if (2 && 2) console.log('getProj_ is not object', projdef)
         projection = d => d
         return projection // id
       }

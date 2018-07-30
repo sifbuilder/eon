@@ -77,8 +77,7 @@
     enty.margin = _ => (_ === undefined) ? margin : (margin = _, enty)
     enty.scaleView = () => scaleView
 
-    // ............................. projection
-    enty.projection = _ => _ !== undefined ? (projection = _, enty) : projection
+    enty.xydirs = xydirs
     enty.cameraProjer = cameraProjer
     enty.getPos = getPos
     enty.prjdef = () => prjdef

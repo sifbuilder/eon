@@ -25,23 +25,13 @@
       __mapper('xs').m('anitem'),
     ])
 
-    let _geoform = p => ({ // geofold
-      type: 'Feature',
-      geometry: { type: 'Point', coordinates: [0, 0] },
-      properties: {},
-    })
-
-    const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
-
     // ............................. gramm
     function gramm (anitem) {
       return manitem.snapani(anitem)
         .then(snapped => manitem.functorgeofold(snapped))
         .then(snapped => manitem.functorpayload(snapped))
         .then(anigram => {
-          let halo = anigram.halo, // halo
-            geofold = functor(anigram.geofold, anigram) || functor(_geoform, anigram),
-            payload = anigram.payload, // payload
+          let payload = anigram.payload, // payload
             ric = payload.ric, // ric
             uid = payload.uid, // uid
             axis = payload.axis // axis
