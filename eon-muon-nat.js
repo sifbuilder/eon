@@ -40,34 +40,39 @@
 
     let functor = d => Array.isArray(d) ? d : Array.of(d)
 
-    // p:[0,n], a => p[i] * a**i
-    let ft = p => a => p.reduce((acc, cur, i) => acc + cur * pow(a, i), 0)
+    let xc = c => c !== undefined ? c : 1
+    let xe = e => e !== undefined ? e : 0
+
+    
+    // p:[0,n], v => p[i] * v**i
+    let ft = p => v => p.reduce((acc, cur, i) => acc + cur * pow(v, i), 0)
 
     // c[0],c[1],c[2],c[3]: radius (default to 1)
     // e[1] [-2pi,2pi],e[2][-2pi,2pi],e[3][-pi,pi],e4[-pi,pi]: radian-angles (default to 0)
     // fn: c[0][i] * c[0]**i
     let fn = form =>
-      (e = [] , c = [] ) => {
-        e[0] = form.e[0] !== undefined ? form.e[0] : 0
-        e[1] = form.e[1] !== undefined ? form.e[1] : 0
-        e[2] = form.e[2] !== undefined ? form.e[2] : 0
-        e[3] = form.e[3] !== undefined ? form.e[3] : 0
+      (e = [], c = []) => {
+        form.e[0] = form.e[0] !== undefined ? form.e[0] : 0
+        form.e[1] = form.e[1] !== undefined ? form.e[1] : 0
+        form.e[2] = form.e[2] !== undefined ? form.e[2] : 0
+        form.e[3] = form.e[3] !== undefined ? form.e[3] : 0
 
-        c[0] = form.c[0] !== undefined ? form.c[0] : 1
-        c[1] = form.c[1] !== undefined ? form.c[1] : 1
-        c[2] = form.c[2] !== undefined ? form.c[2] : 1
-        c[3] = form.c[3] !== undefined ? form.c[3] : 1
+        form.c[0] = form.c[0] !== undefined ? form.c[0] : 1
+        form.c[1] = form.c[1] !== undefined ? form.c[1] : 1
+        form.c[2] = form.c[2] !== undefined ? form.c[2] : 1
+        form.c[3] = form.c[3] !== undefined ? form.c[3] : 1
 
-        let ret = ft(functor(form.c[0]))(c[0]) * ft(functor(form.e[0]))(e[0]) *
-                  ft(functor(form.c[1]))(c[1]) * ft(functor(form.e[1]))(e[1]) *
-                  ft(functor(form.c[2]))(c[2]) * ft(functor(form.e[2]))(e[2]) *
-                  ft(functor(form.c[3]))(c[3]) * ft(functor(form.e[3]))(e[3])
+        let ret =   ft(functor(form.c[0]))(xc(c[0])) 
+                  * ft(functor(form.e[0]))(xe(e[0]))
+                  * ft(functor(form.c[1]))(xc(c[1])) 
+                  * ft(functor(form.e[1]))(xe(e[1]))
+                  * ft(functor(form.c[2]))(xc(c[2])) 
+                  * ft(functor(form.e[2]))(xe(e[2]))
+                  * ft(functor(form.c[3]))(xc(c[3])) 
+                  * ft(functor(form.e[3]))(xe(e[3]))
 
         return ret
       }
-
-    let xc = c => c !== undefined ? c : 1
-    let xe = e => e !== undefined ? e : 0
 
 
     let isunpar = formDax =>  formDax.e === undefined &&
@@ -76,8 +81,8 @@
     let fndefaults = [
       (e, c) => c[0] * cos(e[0]) * xc(c[2]) * cos(xe(e[2])),
       (e, c) => c[1] * sin(e[0]) * xc(c[2]) * cos(xe(e[2])),
-      (e, c) => xc(c[2]) * sin(xe(e[3])),
-      (e, c) => xc(c[3]) * cos(xe(e[3])),
+      (e, c) =>                    xc(c[2]) * sin(xe(e[3])),
+      (e, c) =>                    xc(c[3]) * cos(xe(e[3])),
     ]
 
     let domdefaults = [
@@ -156,8 +161,10 @@
             formDax.fn0 = fndefaults[i] // fn0 defauls to sphere
 
           } else { // some cs and es defined
+
             formDax = enformDax(formDax)
             formDax.fn0 = fn(formDax) // cs and es series define fn0
+            
           }
         }
         formDax = enformDax(formDax) // neutralize undefined cs and es for defined fn0

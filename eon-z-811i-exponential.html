@@ -86,19 +86,20 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        // c0: [1], e0: [0, 1], // 1 * q
-        // c3: [1], e3: [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(v)
-        'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
-          return c0 * e0 * c3 * cos(e3)
+        // c: [1, 0, 1], 
+        // [1 * q, 0, 1 * cos(v)]
+        // e: [ [0, 1], 0, [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8] ],
+        'fn0': (e,c) => {
+          return c[0] * e[0] * c[3] * cos(e[3])
         }, 
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c1: [[[18, 0, -18]]],
-        'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1, dax) => {
-          return (1 / Math.exp(Math.abs(e1 / 2))) * cos(dax.c1 * e0)
+        c: [ [[[18, 0, -18]]], 0, 0 ],
+        'fn0': (e, c, dax) => {
+          return (1 / Math.exp(Math.abs(e[1] / 2))) * cos(dax.c[0] * e[0])
         },
 
       },
@@ -107,10 +108,10 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 180],
-        // c0: [1], e0: [0, 1], // 1 * q
-        // c3: [1], e3: [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(v)
-        'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
-          return c0 * e0 * c3 * sin(e3)
+        // c: [1, 0, 1], 
+        // e: [[0, 1], 0, [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9] ], // 1 * sin(v)
+        'fn0': (e,c) => {
+          return c[0] * e[0] * c[3] * sin(e[3])
         },            
       },
 
@@ -118,7 +119,8 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 90 ],
-        // c1: [1, 0], e1: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1 * id(q)
+        // c: [ 0, 1 ], 
+        // e: [0, [1, 0, 0, 0, 0, 0, 0, 0, 0, 0] ], // 1 * id(q)
 
       },
 
