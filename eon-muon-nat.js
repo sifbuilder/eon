@@ -43,57 +43,41 @@
     // p:[0,n], a => p[i] * a**i
     let ft = p => a => p.reduce((acc, cur, i) => acc + cur * pow(a, i), 0)
 
-    // c0,c1,c2,c3: radius (default to 1)
-    // e1 [-2pi,2pi],e2[-2pi,2pi],e3[-pi,pi],e4[-pi,pi]: radian-angles (default to 0)
-    // fn: c0[i] * c0**i
+    // c[0],c[1],c[2],c[3]: radius (default to 1)
+    // e[1] [-2pi,2pi],e[2][-2pi,2pi],e[3][-pi,pi],e4[-pi,pi]: radian-angles (default to 0)
+    // fn: c[0][i] * c[0]**i
     let fn = form =>
-      (e0 = 0, e1 = 0, e2 = 0, e3 = 0, c0 = 1, c1 = 1, c2 = 1, c3 = 1) => {
-        e0 = form.e0 !== undefined ? form.e0 : 0
-        e1 = form.e1 !== undefined ? form.e1 : 0
-        e2 = form.e2 !== undefined ? form.e2 : 0
-        e3 = form.e3 !== undefined ? form.e3 : 0
+      (e = [] , c = [] ) => {
+        e[0] = form.e[0] !== undefined ? form.e[0] : 0
+        e[1] = form.e[1] !== undefined ? form.e[1] : 0
+        e[2] = form.e[2] !== undefined ? form.e[2] : 0
+        e[3] = form.e[3] !== undefined ? form.e[3] : 0
 
-        c0 = form.c0 !== undefined ? form.c0 : 1
-        c1 = form.c1 !== undefined ? form.c1 : 1
-        c2 = form.c2 !== undefined ? form.c2 : 1
-        c3 = form.c3 !== undefined ? form.c3 : 1
+        c[0] = form.c[0] !== undefined ? form.c[0] : 1
+        c[1] = form.c[1] !== undefined ? form.c[1] : 1
+        c[2] = form.c[2] !== undefined ? form.c[2] : 1
+        c[3] = form.c[3] !== undefined ? form.c[3] : 1
 
-        let ret = ft(functor(form.c0))(c0) * ft(functor(form.e0))(e0) *
-                  ft(functor(form.c1))(c1) * ft(functor(form.e1))(e1) *
-                  ft(functor(form.c2))(c2) * ft(functor(form.e2))(e2) *
-                  ft(functor(form.c3))(c3) * ft(functor(form.e3))(e3)
+        let ret = ft(functor(form.c[0]))(c[0]) * ft(functor(form.e[0]))(e[0]) *
+                  ft(functor(form.c[1]))(c[1]) * ft(functor(form.e[1]))(e[1]) *
+                  ft(functor(form.c[2]))(c[2]) * ft(functor(form.e[2]))(e[2]) *
+                  ft(functor(form.c[3]))(c[3]) * ft(functor(form.e[3]))(e[3])
 
         return ret
       }
 
-    let nformparams = form => {
-      let e0 = form.e0 !== undefined ? form.e0 : 0
-      let e1 = form.e1 !== undefined ? form.e1 : 0
-      let e2 = form.e2 !== undefined ? form.e2 : 0
-      let e3 = form.e3 !== undefined ? form.e3 : 0
+    let xc = c => c !== undefined ? c : 1
+    let xe = e => e !== undefined ? e : 0
 
-      let c0 = form.c0 !== undefined ? form.c0 : 1
-      let c1 = form.c1 !== undefined ? form.c1 : 1
-      let c2 = form.c2 !== undefined ? form.c2 : 1
-      let c3 = form.c3 !== undefined ? form.c3 : 1
 
-      return [e0, e1, e2, e3, c0, c1, c2, c3]
-    }
-
-    let isunpar = formDax => formDax.e0 === undefined &&
-                            formDax.e1 === undefined &&
-                            formDax.e2 === undefined &&
-                            formDax.e3 === undefined &&
-                            formDax.c0 === undefined &&
-                            formDax.c1 === undefined &&
-                            formDax.c2 === undefined &&
-                            formDax.c3 === undefined
+    let isunpar = formDax =>  formDax.e === undefined &&
+                              formDax.c === undefined
 
     let fndefaults = [
-      (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c0 * cos(e0) * c2 * cos(e2),
-      (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c1 * sin(e0) * c2 * cos(e2),
-      (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c2 * sin(e3),
-      (e0, e1, e2, e3, c0, c1, c2 = 1, c3 = 1) => c3 * cos(e3),
+      (e, c) => c[0] * cos(e[0]) * xc(c[2]) * cos(xe(e[2])),
+      (e, c) => c[1] * sin(e[0]) * xc(c[2]) * cos(xe(e[2])),
+      (e, c) => xc(c[2]) * sin(xe(e[3])),
+      (e, c) => xc(c[3]) * cos(xe(e[3])),
     ]
 
     let domdefaults = [
@@ -104,16 +88,8 @@
     ]
 
     let enformDax = function (formDax) {
-      formDax.c0 = (formDax.c0 === undefined) ? 1 : formDax.c0
-      formDax.c1 = (formDax.c1 === undefined) ? 1 : formDax.c1
-      formDax.c2 = (formDax.c2 === undefined) ? 1 : formDax.c2
-      formDax.c3 = (formDax.c3 === undefined) ? 1 : formDax.c3
-
-      formDax.e0 = (formDax.e0 === undefined) ? functor(1) : functor(formDax.e0)
-      formDax.e1 = (formDax.e1 === undefined) ? functor(1) : functor(formDax.e1)
-      formDax.e2 = (formDax.e2 === undefined) ? functor(1) : functor(formDax.e2)
-      formDax.e3 = (formDax.e3 === undefined) ? functor(1) : functor(formDax.e3)
-
+      formDax.c = (formDax.c === undefined) ? 1 : formDax.c
+      formDax.e = (formDax.e === undefined) ? functor(1) : functor(formDax.e)
       return formDax
     }
 
@@ -176,19 +152,16 @@
 
         if (formDax.fn0 === undefined) { // fn0 not defined
           if (isunpar(formDax)) { // cs and es not defined
-          
+
             formDax.fn0 = fndefaults[i] // fn0 defauls to sphere
-            
+
           } else { // some cs and es defined
             formDax = enformDax(formDax)
             formDax.fn0 = fn(formDax) // cs and es series define fn0
           }
         }
-          formDax = enformDax(formDax) // neutralize undefined cs and es for defined fn0
-          
-if (1 && 1) console.log('formDax', formDax)
+        formDax = enformDax(formDax) // neutralize undefined cs and es for defined fn0
 
-          
       }
 
       return nformed
@@ -257,9 +230,7 @@ if (1 && 1) console.log('formDax', formDax)
         let projDef = { projection: 'natform', form: nformed }
         let projection = natprojection(projDef)
 
-
         let feature = mproj3ct(gj, projection)
-        if (1 && 1) console.log('feature', feature)        
         cache.form = projDef.form
         cache.feature = feature
         return feature
@@ -370,13 +341,13 @@ if (1 && 1) console.log('formDax', formDax)
         ppD[3] = phiD + (wd[3] || 0)
 
         // ppR (es) : lambda/phi radians in dom3
-        let ppR = ppD.map(d => d * radians) // e0,e1,e2,e3 : pars in radians per dax
+        let ppR = ppD.map(d => d * radians) // e[0],e[1],e[2],e[3] : pars in radians per dax
 
         // rs (cs)
-        let rs = unfeld.map((d, i) => rayscale[i](ppR[i]) || 1) // c0,c1,c2,c3 : radorn on dax par
+        let rs = unfeld.map((d, i) => rayscale[i](ppR[i]) || 1) // c[0],c[1],c[2],c[3] : radorn on dax par
 
         // fn0
-        let rr = unfeld.map((d, i) => d.fn0(...ppR, ...rs, d)) // form.fn0 takes radians and radorns
+        let rr = unfeld.map((d, i) => d.fn0(ppR, rs, d)) // form.fn0 takes radians and radorns
 
         let point = unfeld.map((d, i) => radio * rad[i] * rr[i])
 

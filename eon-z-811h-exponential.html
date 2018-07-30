@@ -86,11 +86,10 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1, // segs5: hmesh
         'dom3': [-180, 180],
-        c0: [[[1,400]]],
-        // c0: [1, 0], e0: [0, 1], // 1 * e0
-        // c3: [1, 0 ], e3: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(e3)
-        'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
-          return c0 * e0 * c3 * cos(e3)
+        // c[0]: [1, 0], e[0]: [0, 1], // 1 * e[0]
+        // c[3]: [1, 0 ], e[3]: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(e[3])
+        'fn0': (e, c) => {
+          return c[0] * e[0] * c[3] * cos(e[3])
         },         
 
       },
@@ -98,11 +97,11 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c3: [[[2,8]]],
-        'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
+        // c[3]: [[[2,8]]],
+        'fn0': (e, c) => {
 
-          let expm = 16 * 0.1 * c3
-          return (1 / Math.exp(Math.abs(e0 * expm)))  // expm: `6
+          let expm = 16 * 0.1 * c[3]
+          return (1 / Math.exp(Math.abs(e[0] * expm)))  // expm: `6
         },
 
       },
@@ -112,10 +111,10 @@ async function zindex (__mapper) {
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 16, 'pa6': 0, 'pb7': -1,    // segs5: 16
         // 'dom3': [0, [[[0,180]]] ],
         'dom3': [0, 180 ],        
-        // c0: [1, 0], e0: [0, 1], // 1 * q
-        // c3: [1, 0], e3: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(e3)
-        'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
-          return c0 * e0 * c3 * sin(e3)
+        // c[0]: [1, 0], e[0]: [0, 1], // 1 * q
+        // c[3]: [1, 0], e[3]: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(e[3])
+        'fn0': (e, c) => {
+          return c[0] * e[0] * c[3] * sin(e[3])
         },        
         
       },
@@ -125,9 +124,9 @@ async function zindex (__mapper) {
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
         // 'dom3': [0, [[[0,180]]] ],
         'dom3': [0, 180 ],
-        // c3: [1, 0], e3 : [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1 * id(q)
+        // c[3]: [1, 0], e[3] : [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1 * id(q)
        'dom3': [0, 180 ],
-        'fn0': (e0, e1, e2 = 0, e3 = 0, c0, c1, c2 = 1, c3 = 1) => {
+        'fn0': (e, c) => {
   
           return 1
           
