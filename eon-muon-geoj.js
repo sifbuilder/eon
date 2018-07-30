@@ -273,7 +273,7 @@
 
           let tfeature = {
             type: 'Feature',
-            geometry: {type: 'LineString', coordinates: polygon[0]},  // [0]
+            geometry: {type: 'LineString', coordinates: polygon[0]}, // [0]
             properties: {interval: interval},
           }
           tfeatures.push(tfeature)

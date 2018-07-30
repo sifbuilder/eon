@@ -43,7 +43,6 @@
     let xc = c => c !== undefined ? c : 1
     let xe = e => e !== undefined ? e : 0
 
-    
     // p:[0,n], v => p[i] * v**i
     let ft = p => v => p.reduce((acc, cur, i) => acc + cur * pow(v, i), 0)
 
@@ -62,28 +61,27 @@
         form.c[2] = form.c[2] !== undefined ? form.c[2] : 1
         form.c[3] = form.c[3] !== undefined ? form.c[3] : 1
 
-        let ret =   ft(functor(form.c[0]))(xc(c[0])) 
-                  * ft(functor(form.c[1]))(xc(c[1])) 
-                  * ft(functor(form.c[2]))(xc(c[2])) 
-                  * ft(functor(form.c[3]))(xc(c[3])) 
-                  
-                  * ft(functor(form.e[0]))(xe(e[0]))
-                  * ft(functor(form.e[1]))(xe(e[1]))
-                  * ft(functor(form.e[2]))(xe(e[2]))
-                  * ft(functor(form.e[3]))(xe(e[3]))
+        let ret = ft(functor(form.c[0]))(xc(c[0])) *
+                  ft(functor(form.c[1]))(xc(c[1])) *
+                  ft(functor(form.c[2]))(xc(c[2])) *
+                  ft(functor(form.c[3]))(xc(c[3])) *
+
+                  ft(functor(form.e[0]))(xe(e[0])) *
+                  ft(functor(form.e[1]))(xe(e[1])) *
+                  ft(functor(form.e[2]))(xe(e[2])) *
+                  ft(functor(form.e[3]))(xe(e[3]))
 
         return ret
       }
 
-
-    let isunpar = formDax =>  formDax.e === undefined &&
+    let isunpar = formDax => formDax.e === undefined &&
                               formDax.c === undefined
 
     let fndefaults = [
       (e, c) => c[0] * cos(e[0]) * xc(c[2]) * cos(xe(e[2])),
       (e, c) => c[1] * sin(e[0]) * xc(c[2]) * cos(xe(e[2])),
-      (e, c) =>                    xc(c[2]) * sin(xe(e[3])),
-      (e, c) =>                    xc(c[3]) * cos(xe(e[3])),
+      (e, c) => xc(c[2]) * sin(xe(e[3])),
+      (e, c) => xc(c[3]) * cos(xe(e[3])),
     ]
 
     let domdefaults = [
@@ -158,18 +156,13 @@
 
         if (formDax.fn0 === undefined) { // fn0 not defined
           if (isunpar(formDax)) { // cs and es not defined
-
             formDax.fn0 = fndefaults[i] // fn0 defauls to sphere
-
           } else { // some cs and es defined
-
             formDax = enformDax(formDax)
             formDax.fn0 = fn(formDax) // cs and es series define fn0
-            
           }
         }
         formDax = enformDax(formDax) // neutralize undefined cs and es for defined fn0
-
       }
 
       return nformed
