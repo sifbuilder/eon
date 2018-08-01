@@ -190,7 +190,6 @@
 
               newItem.geofold.geometry.coordinates = coords // upd coords
               newItem.geofold.properties.geocoords = geocoords
-
               let newItemsInCount = await hent.gramm(newItem) // h.ent newItem
               newItems = [...newItems, ...newItemsInCount] // add new items
             } else { //  if NOT aad
@@ -217,6 +216,7 @@
                 let halo = newItem.halo
 
                 newItem.payload.proform = { projection: 'uniwen', translate: situs } // proform transfer trace situs to halo
+
 
                 let newGrams = await __mapper('xs').h(halo).gramm(newItem)
                 newItems = [...newItems, ...newGrams] // add items

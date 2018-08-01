@@ -38,16 +38,16 @@ async function zindex (__mapper) {
   // .................. eons
   let [
     mfourier,
-    drhyno,
     mproj3ct,
     mprofier,
     mgeoj,
+    drhyno,
   ] = await Promise.all([
     __mapper('xs').m('fourier'),
-    __mapper('xs').d('rhyno'),
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
     __mapper('xs').m('geoj'),
+    __mapper('xs').d('rhyno'),
   ])
 
   // .................. animas
@@ -55,25 +55,30 @@ async function zindex (__mapper) {
     // .................. pics
   let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  
+
   //md:   data from m.animas('shapes').rhyno unframed
-  //md:   defined as (closed) LineString gemetry.coordinates 
-  //md:   mfourier.transformedCoefs(tfeature) 
+  //md:   defined as (closed) LineString gemetry.coordinates
+  //md:   mfourier.transformedCoefs(tfeature)
   let svgdata = JSON.parse(drhyno.data())
   let data = {type: 'Feature',geometry: {type: 'LineString',coordinates: svgdata} }
 
-  let proform = {projection: 'uniwen',translate: [ -150, 125 ],scale: [1, -1],rotate: [ 0, 0 ],lens: [0, 1, Infinity]}
+  let proform = {
+      projection: 'uniwen',
+      translate: [ -100, 100 ],
+      scale: [1, -1],
+      rotate: [ 0, 0 ],
+      lens: [0, 1, 
+      Infinity]
+  }
+  
   let geoData = mproj3ct(data, mprofier.uniweon(proform))
 
-  let transforms = mfourier.transformedCoefs(geoData)  
+  let transforms = mfourier.transformedCoefs(geoData)
       transforms = mgeoj.ntime(transforms, [0,1])
   let transformsFC = { type: 'FeatureCollection',features: transforms }
-  
 
-  
-  
-  //md:     @aniLine avatar
-  //md:       form.payload.fourier.avatars.line
+
+  // ............................. aniLine
    let aniLine = {
 
     halo: 'ent',
@@ -87,66 +92,54 @@ async function zindex (__mapper) {
     payload: {
       tim: tim,
       ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
-      boform: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.5, 'co': 1, 'cp': 1},
+      boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
     }
 
   }
-  
-  //md:     @fourierPacer avatar
-  //md:       payload.pacer.aad:1 add segments to LineString trace
-  //md:       payload.pacer.autoSitus place situs on parent (stace undefined)  
-  //md:       payload.pacer.fidder take fid from payload.ric.fid  
-  //md:       payload.pacer.geojsor 
-  let fourierPacer = { // SUB-MARKS line trace
 
-        halo: 'pacer',
-        payload: {
-          ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-          boform: {'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+  // ............................. traceline
+  let traceline = { // SUB-MARKS line trace
 
-          pacer: { // aad for trace
-            initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 600, span: 0, aad: 1,
-            autoSitus: d => mstace.getLocus(this.stace, d.payload),
-            fidder: d => d.payload.ric.fid,
-            geojsor: function (d, i) {
-              let ric = d.payload.ric // ric
-              let uid = mric.getuid(ric)
+      halo: 'pacer',
+      geofold: null,
+      payload: {
+        tim,
+        ric: {gid: 'trace', cid: 'trace', fid: 'trace'},
+        boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.9, 'cp': 0.99},
 
-              let gj = {
+        pacer: { // aad for trace
+          stace: {x: { pos: 0 }, y: { pos: 0 }, z: 0}, //
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
+          autoSitus: function (a) {
+            return mstace.getLocus(this.stace, a.payload) // situs
+          },
 
-                halo: 'ent',
-                geofold: {
-                  type: 'Feature',
-                  geometry: { type: 'LineString', coordinates: null },
-                  properties: { doc: 'pacer' }
-                },
-                payload: {
-                  uid: uid,
-                  id: uid,
-                  ric: ric,
-                  proform: this.proform
-                }
-
-              }
-
-              let newItem = mstore.findAnigramFromUid(uid) || gj
-              if (newItem.geofold.properties.formEreformed) {
-                newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
-              }
-              return newItem
-            },
-          }
-        }
-      }
+          geojsor: function (d, i) {
+            let ric = d.payload.ric // ric
+            let uid = mric.getuid(ric)
+            let gj = {
+              halo: 'ent',
+              geofold: {
+                type: 'Feature',
+                geometry: { type: 'LineString', coordinates: null },
+              },
+              payload: {
+                uid: uid, id: uid, ric: ric,
+                proform: this.proform,
+              },
+            }
+            let newItem = mstore.findAnigramFromUid(uid) || gj
+            if (newItem.geofold.properties.formEreformed) {
+              newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+            }
+            return newItem
+          },
+        },
+      },
+    }
 
 
-      
-    //md:     @fourierForm anima
-    //md:       geofold.properties.pointRadius
-    //md:       payload.fourier.transforms:  transforms coefficients
-    //md:       payload.fourier.dotboform:  style of pencil dot
-    //md:       payload.fourier.avatars.fourierPacer  form trace
-    //md:       payload.fourier.avatars.line  sinusoid ray
+    // .................. fourierForm
      let fourierForm = {
 
       halo: 'fourier',
@@ -155,19 +148,19 @@ async function zindex (__mapper) {
       payload: {  // payload in fourierForm
 
         tim: tim,
-        ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.5, 'co': 0.12, 'cp': 0.99},
+        ric: { gid: 'fourier', cid: 'fourier', fid: 'fourier'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.095, 'co': 0.092, 'cp': 0.99},
 
         fourier: {
           transforms: transforms,
           interval: [0.0,0.99],
-          tolerance: 0.1,
+          tolerance: 0.1,  // 0.1 
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
-          
-          //md: fourier avatars are defined by name
+
+          //  fourier avatars are defined by name
           avatars: {
-            fourierPacer: fourierPacer,
-            line: aniLine,
+            traceline: traceline,
+            rayline: aniLine,
 
           }
         },

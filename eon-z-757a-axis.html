@@ -45,102 +45,97 @@ async function zindex (__mapper) {
   // .................. animas
   let animas = function () {
     // .................. pics
-    let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let tim = {'td': 13800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let proform = {
 
       projection: 'uniwen',
-      translate: [ 300, 200 ],
-      scale: 90,
-      rotate: [ [0, 1, 12], [[[ cwen.rotation ]]] ],
-      lens: [0, 1, 12],
+      translate: [ 0, 0 ],
+      scale: 1,
+      rotate: [0, 0, 0],
+      prerotate: [[[ cwen.rotation ]]],
+      lens: [0, 1, Infinity],
 
-    }
-
-    let axisBottom = {
-      label: 'space',
-      rotate: 0,
-      orient: 'axisBottom', // 'axisLeft',
-      scaleType: 'scaleLinear', // "scaleTime",
-      tickFormat: '.1f', // formatNumber
-      tickPadding: 2,
-      tickSize: 2,
-      domain: [0, 180],
-      range: [0, 200],
-    }
-
-    let axisLeft = {
-      label: 'space',
-      rotate: 0,
-      orient: 'axisLeft', // 'axisLeft',
-      scaleType: 'scaleLinear', // "scaleTime",
-      tickFormat: '.1f', // formatNumber
-      tickPadding: 2,
-      tickSize: 2,
-      domain: [0, 180],
-      range: [0, 200],
-    }
-
-    let axisLeft2 = {
-      label: 'space',
-      rotate: 45,
-      orient: 'axisLeft', // 'axisLeft',
-      scaleType: 'scaleLinear', // "scaleTime",
-      tickFormat: '.1f', // formatNumber
-      tickPadding: 2,
-      tickSize: 2,
-      domain: [0, 180],
-      range: [0, 200],
     }
 
     let boform = { 'csx': 0, 'cf': [[[444, 999]]], 'cs': [[[444, 999]]], 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]}
 
     // ............................. axisBottom
-    let axisX = {
+    let axis1 = {
       halo: 'axis',
       geofold: p => ({
         type: 'Feature',
-        geometry: { type: 'Point', coordinates: [ 0, 0 ] },
+        geometry: { type: 'LineString', coordinates: [ [0,0,0], [1,0,0] ] },
         properties: {},
       }),
       payload: {
         tim: tim,
-        ric: {gid: 'ax', cid: 'ax', fid: 'xbottom'},
+        ric: {gid: 'ax', cid: 'ax', fid: 'x1'},
         boform: boform,
         proform: proform,
-        axis: axisBottom,
+        axis: {
+          label: 'space',
+          rotate: 0,
+          orient: 'axisBottom', // 'axisLeft',
+          scaleType: 'scaleLinear', // "scaleTime",
+          tickFormat: '.1f', // formatNumber
+          tickPadding: 2,
+          tickSize: 2,
+          domain: [0, 180],
+          range: [0, 200],
+        },
       },
     }
     // ............................. axisLeft
-    let axisY = {
-      halo: 'axis',
+    let axis2 = {
+      halo: 'ent',
       geofold: p => ({
         type: 'Feature',
-        geometry: { type: 'Point', coordinates: [ 0, 0 ] },
+        geometry: { type: 'LineString', coordinates: [ [0,0,0], [0,100,0] ] },
         properties: {},
       }),
       payload: {
         tim: tim,
-        ric: {gid: 'ax', cid: 'ax', fid: 'xleft'},
+        ric: {gid: 'ax', cid: 'ax', fid: 'x2'},
         boform: boform,
         proform: proform,
-        axis: axisLeft,
+        axis: {
+          label: 'space',
+          rotate: 0,
+          orient: 'axisLeft',
+          scaleType: 'scaleLinear',
+          tickFormat: '.1f',
+          tickPadding: 2,
+          tickSize: 2,
+          domain: [0, 180],
+          range: [0, 200],
+        },
       },
     }    
     // ............................. axisLeft
-    let axisZ = {
+    let axis3 = {
       halo: 'axis',
       geofold: p => ({
         type: 'Feature',
-        geometry: { type: 'Point', coordinates: [ 0, 0 ] },
+        geometry: { type: 'LineString', coordinates: [ [0,0,0], [0,0,1] ] },
         properties: {},
       }),
       payload: {
         tim: tim,
-        ric: {gid: 'ax', cid: 'ax', fid: 'xleft2'},
+        ric: {gid: 'ax', cid: 'ax', fid: 'x3'},
         boform: boform,
         proform: proform,
-        axis: axisLeft2,
+        axis: {
+          label: 'space',
+          rotate: 45,
+          orient: 'axisLeft', // 'axisTop','axisRight','axisBotton','axisLeft'
+          scaleType: 'scaleLinear', // "scaleTime",
+          tickFormat: '.1f', // formatNumber
+          tickPadding: 2,
+          tickSize: 2,
+          domain: [0, 180],
+          range: [0, 200],
+        },
       },
     }
 
@@ -160,9 +155,9 @@ async function zindex (__mapper) {
     // .................. animas
     let animas = [
 
-      axisX, // h.axis
-      axisY, // h.axis
-      axisZ, // h.axis
+      // axis1, // h.axis
+      axis2, // h.axis
+      // axis3, // h.axis
       sceneAni, // h.scene
 
     ]

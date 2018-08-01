@@ -149,8 +149,8 @@ async function zindex (__mapper) {
 
   })
 
-  // .................. fourierPacer avatar - payload.pacer.geojsor
-  let fourierPacer = i => ({
+  // .................. traceline avatar - payload.pacer.geojsor
+  let traceline = i => ({
 
       halo: 'pacer',
       payload: {
@@ -228,11 +228,11 @@ async function zindex (__mapper) {
       aniLines[i] = aniLine(i)
       aniRays[i] = aniRay(i)
       aniTraces[i] = aniTrace(i)
-      fourierPacers[i] = fourierPacer(i)
+      fourierPacers[i] = traceline(i)
       fourierForms[i] = fourierForm(i)
 
       fourierForms[i].payload.fourier.avatars = {
-            fourierPacer: fourierPacers[i], // trace
+            traceline: fourierPacers[i], // trace
             line: aniRays[i],  // ray
           }
     }

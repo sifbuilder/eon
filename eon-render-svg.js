@@ -13,10 +13,12 @@
       rrenderport, // cameraProjer
       d3,
       puniwen,
+      mproj3ct,
     ] = await Promise.all([
       __mapper('xs').r('renderport'),
       __mapper('xs').b('d3'),
       __mapper('xs').p('uniwen'),
+      __mapper('xs').m('proj3ct'),
     ])
 
     let width = 600,
@@ -151,18 +153,30 @@
               .attr('x', 0) // translate instead
               .attr('y', 0) //
 
-              .attr('transform', d => // eg. "translate(21,20) rotate(15)")
+              .attr('transform', d => {// eg. "translate(21,20) rotate(15)")
+                // translate tx, ty
+                // rotate cx, cy
+                // scale sx, sy
+                // skew skew
 
-                'translate(' +
-                    d.geometry.coordinates[0] +
+              let item = d
+              let geometry = item.geometry
+              let projgeo = mproj3ct.project(geometry, cameraProjer)
+
+              let translate = projgeo.coordinates
+              let rotate = item.properties.style['rotate']
+
+
+                let r = 'translate(' +
+                    translate[0] +
                     ',' +
-                    d.geometry.coordinates[1] +
+                    translate[1] +
                     ')' +
                     ' rotate(' +
-                    (d.properties.style['rotate'] || 0) +
+                    (rotate || 0) +
                     ' )'
-
-              )
+                return r
+              })
 
               .style('dx', d => d.properties.style['dx'])
               .style('dy', d => d.properties.style['dx'])
@@ -194,14 +208,24 @@
               .data(() => imgs)
 
               .attr('transform', d => { // eg. "translate(21,20) rotate(15)")
-                return 'translate(' +
-                    d.geometry.coordinates[0] +
+              
+                let item = d
+                let geometry = item.geometry
+                let projgeo = mproj3ct.project(geometry, cameraProjer)
+
+                let translate = projgeo.coordinates
+                let rotate = item.properties.attr.rotate || 0       
+              
+                let r = 'translate(' +
+                    translate[0] +
                     ',' +
-                    d.geometry.coordinates[1] +
+                    translate[1] +
                     ')' +
                     ' rotate(' +
-                    (d.properties.attr.rotate || 0) +
+                    (rotate || 0) +
                     ' )'
+                return r
+                    
               })
 
               .attr('xlink:href', d => d.properties.attr['xlink:href'])
@@ -226,18 +250,30 @@
 
                 .call(d => d.call(d.datum().properties.axis.d3axis))
 
-                .attr('transform', d => // eg. "translate(21,20) rotate(15)")
+                .attr('transform', d => {// eg. "translate(21,20) rotate(15)")
 
-                  'translate(' +
-                    d.geometry.coordinates[0] +
-                    ',' +
-                    d.geometry.coordinates[1] +
-                    ')' +
-                    ' rotate(' +
-                    (d.properties.axis.rotate || 0) +
-                    ' )'
+                  let item = d
+                  let geometry = item.geometry
+                  if (1 && 1) console.log('versor', item.geometry.coordinates[1])
+                  
+                  
+                  // let projgeo = mproj3ct.project(geometry, cameraProjer)
+                  
+                  let geocoords = geometry.coordinates
+                  let geooringin = geocoords[0]
+                  let geoextreme = geocoords[1]
+                  
 
-                )
+                  let translate = geooringin  // versor origin
+                  
+
+                  let rotate = item.properties.axis.rotate || 0
+
+                  let r = 'translate(' + translate[0] + ',' + translate[1] + ')' 
+                          + ' rotate(' + rotate  + ' )'
+                  return r
+                })
+              
 
                 .style('font-size', d => d.properties.axis.style['font-size'])
                 .style('text-anchor', d => d.properties.axis.style['text-anchor'])
@@ -263,8 +299,8 @@
               .data(() => features)
               .attr('d', d => {
                 if (2 && 2 && d.properties.style === undefined) console.log('** style is undefined', d)
-                let geoitem = d // geojson feature
-                let properties = geoitem.properties || {} // properties
+                let item = d // geojson feature
+                let properties = item.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
                 let geoPath = d3.geoPath(cameraProjer) // path on view projection
@@ -272,7 +308,7 @@
                   ? geoPath.pointRadius(pointRadius)
                   : geoPath
 
-                let ret = path(geoitem)
+                let ret = path(item)
                 return ret
               })
 

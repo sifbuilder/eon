@@ -9,5 +9,5 @@
   payload.fourier.interval [0,1] delete anigrams outside
   payload.fourier.tolerance 1 remove sinusoids below
   payload.fourier.dotboform style of pencil dot
-  payload.fourier.avatars.fourierPacer  form trace
+  payload.fourier.avatars.traceline  form trace
   payload.fourier.avatars.line  sinusoid ray

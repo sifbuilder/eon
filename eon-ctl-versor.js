@@ -15,16 +15,16 @@
       rrenderport,
       mversor,
       mgeom,
-      // d3selection,
       d3geo,
+      // d3selection,
       // d3drag,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
       __mapper('xs').r('renderport'),
       __mapper('xs').m('versor'),
       __mapper('xs').m('geom'),
-      // __mapper('xs').b('d3-selection'),
       __mapper('xs').b('d3-geo'),
+      // __mapper('xs').b('d3-selection'),
       // __mapper('xs').b('d3-drag'),
     ])
 

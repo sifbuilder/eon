@@ -26,7 +26,7 @@
     ])
 
     // ............................. gramm
-    function gramm (anitem) {
+    async function gramm (anitem) {
       return manitem.snapani(anitem)
         .then(snapped => manitem.functorgeofold(snapped))
         .then(snapped => manitem.functorpayload(snapped))
@@ -44,12 +44,11 @@
             tickFormat = axis.tickFormat || '',
             scaleType = axis.scaleType,
             orient = axis.orient
+            console.assert(orient !== undefined, 'axis orientation undefined')
 
           let _scale = (scaleType) ? d3scale[scaleType]() : d3scale['scaleTime']()
-          let _d3axis = (orient) ? d3axis[orient] : d3axis['axisBottom']
-
+          
           let newAnigram = mprops.clone(anigram) // clone
-
           newAnigram.geofold.properties = {
             sort: 'axis',
             ric: ric,
@@ -57,7 +56,7 @@
             axis: Object.assign(axis, {
               scale: _scale.domain(domain).range(range),
               rotate: rotate,
-              d3axis: _d3axis(_scale.domain(domain).range(range))
+              d3axis: d3axis[orient](_scale.domain(domain).range(range))
                 .tickFormat((tickFormat === '') ? '' : d3format.format(tickFormat))
                 .tickSizeOuter(0)
                 .tickSize(tickSize)
@@ -72,6 +71,7 @@
           delete newAnigram.payload.axis
           return hent.gramm(newAnigram)
         })
+
     }
 
     // ............................. enty

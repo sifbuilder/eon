@@ -132,14 +132,14 @@
           .then(halo => halo.gramm(anigram))
           .then(newItems => {
             _apply({type: 'UPDANIGRAM', anigrams: newItems})
+            newItems.forEach(newItem => {
 
-            newItems.forEach(item => {
-              let avatars = gavatars(item)
+              let avatars = gavatars(newItem)
 
               avatars.forEach(avatar => {
-                avatar.payload.uid = mric.getuid(avatar)
-                avatar.payload.tim = anigram.payload.tim
-                avatar.payload.parentuid = anigram.payload.uid
+                avatar.payload.tim = anigram.payload.tim  // tim from anigram
+                avatar.payload.uid = mric.getuid(avatar) // uid from avatar
+                avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
 
                 gramm(avatar)
               })

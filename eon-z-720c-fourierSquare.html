@@ -127,9 +127,9 @@ transforms = mgeoj.ntime(transforms, [0,1])
 
   }  
   
-  //md:     @fourierPacer avatar
+  //md:     @traceline avatar
   //md:       payload.pacer.geojsor
-let fourierPacer = {
+let traceline = {
 
       halo: 'pacer',
       payload: {
@@ -174,7 +174,7 @@ let fourierPacer = {
     }  
 
   //md:     @fourierForm anima
-  //md:       payload.fourier.avatars.fourierPacer  form trace
+  //md:       payload.fourier.avatars.traceline  form trace
   //md:       payload.fourier.avatars.line  sinusoid ray
      let fourierForm = {
        
@@ -188,7 +188,7 @@ let fourierPacer = {
 
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
           avatars: {
-            fourierPacer: fourierPacer, // trace
+            traceline: traceline, // trace
             line: aniRay,  // ray
 
           } // fourier avatars

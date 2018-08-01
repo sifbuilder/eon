@@ -90,7 +90,6 @@ async function zindex (__mapper) {
     let natAni = {
 
       halo: 'ent',
-      // geofold: a => mnat.natFeature(a.payload.form),
       geofold: a => ({
         type: 'Feature',
         geometry: {
@@ -148,9 +147,9 @@ async function zindex (__mapper) {
             let r = mstace.getLocus(this.stace, a.payload) // situs
             return r
           },
-          fidder: a => a.payload.ric.fid,
-          geojsor: function (a, i) {
-            let ric = a.payload.ric // ric
+          fidder: d => d.payload.ric.fid,
+          geojsor: function (d, i) {
+            let ric = d.payload.ric // ric
             let uid = mric.getuid(ric)
             let gj = {
               halo: 'ent',
