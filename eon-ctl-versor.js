@@ -51,7 +51,7 @@
     // ..................
     let state = {
 
-      projection: () => d3geo.geoOrthographic(),
+      projection: d3geo.geoOrthographic(),
 
       rotation: [0, 0, 0],
 
@@ -93,8 +93,10 @@
 
     // ....................... dragstarted
     function dragstarted () {
+      if (1 && 1) console.log(' ************* ')
+
       let e = d3selection.event
-      state.proj = state.projection()
+      state.proj = state.projection
 
       if (state.grabbed) return // drag ongoing
       state.moved = false // not moved yet       // stopMomentum()

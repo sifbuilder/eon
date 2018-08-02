@@ -93,8 +93,7 @@
     }
 
     // .................. enty
-    var enty = () => {}
-    enty.versor = versor
+    var enty = versor
     return enty
   }
 
