@@ -32,7 +32,7 @@
         return complexifyGeometry(object.geometry)
       },
       FeatureCollection: function (object) {
-        var features = object.features, i = -1, n = features.length
+        var features = object.features, i = -1, addedCoords = features.length
         let ret = object
         ret.features = features.map(feature => complexifyGeometry(feature.geometry))
         return ret
@@ -364,6 +364,8 @@
       }
     }
 
+
+
     // ...................... zorder
     let zorder = function (gj) {
       if (2 && 2 && !isValid(gj)) { console.log('** m.geoj.zorder:gj not valid', gj) }
@@ -470,54 +472,78 @@
     let getCoordsLength = gj => getCoords(gj).length
 
     // ...................... getCoordsInRange
-    let getCoordsInRange = function (gj, nb) {
-      let ngj = {}
+    //  nb: numver of coords, firstCoord: start coord
+    let getCoordsInRange = function (gj, toaddCoords, firstCoord = 0, ngj = {type: null, coordinates: [] }) {
+
+if (1 && 1) console.log('getCoordsInRange get ', toaddCoords, ' starting in ', firstCoord)
+
+
+      let pointerInCoords = 0 // pointer to current coord at beginning of line
+      let addedCoords = 0 // toaddCoords of added coords
+
+
+      ngj.type = gj.type
 
       if (gj.type === 'Polygon') {
-        ngj = {type: gj.type, coordinates: [] }
-        let n = 0
         for (let i = 0; i < gj.coordinates.length; i++) { // rings
           let ring = gj.coordinates[i]
           let ringLength = ring.length
 
-          if (n + ringLength < nb) { // if ring in scope
+          if (addedCoords + ringLength < toaddCoords) { // if ring in scope
             ngj.coordinates.push(ring)
-            n += ringLength
+            addedCoords += ringLength
           } else {
-            let tmpring = ring.slice(0, nb - n)
+            let tmpring = ring.slice(0, toaddCoords - addedCoords)
             ngj.coordinates.push(tmpring)
-            n += (nb - n)
+            addedCoords += (toaddCoords - addedCoords)
 
             break
           }
         }
       } else if ((gj.type === 'MultiLineString')) {
-        ngj = { type: gj.type, coordinates: [] }
-        let n = 0
-        for (let i = 0; i < gj.coordinates.length; i++) { // rings
-          let line = gj.coordinates[i]
-          let ringLength = line.length
 
-          if (n + ringLength < nb) { // if line in scope
-            ngj.coordinates.push(line)
-            n += ringLength
-          } else {
-            let tmpring = line.slice(0, nb - n)
-            ngj.coordinates.push(tmpring)
-            n += (nb - n)
+        let lines = gj.coordinates
+        for (let i = 0; i < lines.length; i++) { // for each line
 
-            break
+          let line = lines[i]
+          let ringLength = line.length  // number of coords in line
+          let remainingCoords = toaddCoords - addedCoords
+
+if (1 && 1) console.log('remainingCoords', i, remainingCoords)
+
+          let startInLine = firstCoord - pointerInCoords
+          let tmpLine = line.slice(startInLine, startInLine + remainingCoords)
+          if (tmpLine.length > 0) {
+            ngj.coordinates.push(tmpLine)
+            addedCoords += tmpLine.length        
+
+            pointerInCoords += tmpLine.length
           }
+            
         }
+        
+if (1 && 1) console.log('ngj', ngj.coordinates)
+        
+
       } else if ((gj.type === 'MultiPoint')) {
-        ngj = { type: 'MultiPoint', coordinates: [] }
-        ngj.coordinates = gj.coordinates.slice(0, nb)
+        ngj.coordinates = gj.coordinates.slice(0, toaddCoords)
+
       } else if ((gj.type === 'LineString')) {
-        ngj = { type: gj.type, coordinates: [] }
-        ngj.coordinates = gj.coordinates.slice(0, nb)
+
+          let line = gj.coordinates  // coords in line
+          let ringLength = line.length  // number of coords in line
+          let remainingCoords = toaddCoords - addedCoords
+
+            let startInLine = firstCoord - pointerInCoords
+
+            let tmpLine = line.slice(startInLine, startInLine + remainingCoords)
+            ngj.coordinates = tmpLine
+            addedCoords += tmpLine.length
+
+
       } else if ((gj.type === 'Feature')) {
-        ngj = { type: gj.type, geometry: {}}
-        ngj.geometry = getCoordsInRange(gj.geometry, nb)
+        ngj.geometry = getCoordsInRange(gj.geometry, toaddCoords, firstCoord)
+
       }
 
       return ngj
@@ -631,18 +657,18 @@
         let nb = Math.floor(tnb * tInPeriod)
 
         let outrings = []
-        let n = 0
+        let addedCoords = 0
         for (let i = 0; i < rings.length; i++) {
           let ring = rings[i]
           let ringLength = ring.length
 
-          if (n + ringLength < nb) { // if ring in scope
+          if (addedCoords + ringLength < nb) { // if ring in scope
             ngj.coordinates.push(ring)
-            n += ringLength
+            addedCoords += ringLength
           } else { // complement with part of next ring
-            let tmpring = ring.slice(0, nb - n)
+            let tmpring = ring.slice(0, nb - addedCoords)
             ngj.coordinates.push(tmpring)
-            n += (nb - n)
+            addedCoords += (nb - addedCoords)
             break
           }
         }

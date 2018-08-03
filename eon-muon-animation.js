@@ -29,6 +29,7 @@
 
     let state = {}
     state.animas = [] // global animas
+    state.promise = null
 
     // .................. getsims
     const getsims = (animas, elapsed) => {
@@ -96,7 +97,7 @@
       }
 
       // ............................. @WEEN SIM GRAMM RENDEr
-      Promise.resolve(state.animas)
+      state.promise = Promise.resolve(state.animas)
         .then(animas => {
           return getweens(animas, elapsed)
         })
@@ -111,6 +112,7 @@
         .then(featurecollection => {
           rsvg.render(featurecollection)
         })
+        .catch(e => {console.log(e)})
     }
 
     // ............................. enty
