@@ -25,7 +25,25 @@
       .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index === 0 ? letter.toLowerCase() : letter.toUpperCase())
       .replace(/\s+/g, '') // remove white space
       .replace(/-+/g, '') // remove hyphen
-    const getCell = (e, n, m) => e[n] !== undefined ? e[n](m) : e
+    const getCell = (e, n, m) => {  // eon, name, mapper
+      
+      // if (1 && 1) console.log(' *************  ', n, e)
+
+      if (e[n] !== undefined && typeof e[n] === 'function')  {
+        
+        return e[n](m)
+        
+      } else if (typeof e === 'object') {
+        
+        return e
+        
+      } else {
+        
+        return e
+      }
+        
+      // return e[n] !== undefined ? e[n](m) : e
+    }
     const mapCell = (e, n, m) => m({[n]: e})[n]
     const a = d => Array.isArray(d) ? d : Array.of(d)
 
@@ -41,6 +59,7 @@
 
     // ............................. getFeon
     async function getFeon (part) { // d3Froce3d, ./d3-force-3d.js
+    // if (1 && 1) console.log('part', part[0])    
       return xD3Require.require(...a(part[1])) // get eon
         .then(eon => getCell(eon, part[0], __mapper)) // eon to cell
         .then(cell => mapCell(cell, part[0], __mapper)) // map cell
@@ -48,6 +67,8 @@
 
     // ............................. getNeon
     async function getNeon (part) { // d3Froce3d, d3-force-3d
+    // if (1 && 1) console.log('part', part[0])
+
       return xD3Require.require(...a(part[1])) // get eon
         .then(eon => getCell(eon, part[0], __mapper)) // eon to cell
         .then(cell => mapCell(cell, part[0], __mapper)) // map cell
@@ -71,7 +92,7 @@
       return eonfroms.reduce(
         (p, q) => p.catch(failed => Promise.resolve(getCeonSync([ceon, '']) || q())),
         Promise.reject('init reduce'))
-        .then(result => result)
+        // .then(result => result)
         .catch(failed => { console.log('Failed: ', ceon, failed) })
     }
 

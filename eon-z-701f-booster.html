@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  // .................. eons
+  let [
+    mprops,
+    cwen,
+    mnat,
+  ] = await Promise.all([
+    __mapper('xs').m('props'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').m('nat'),
+  ])
+
+  // .................. animas
+  let animas = function () {
+    // .................. pics
+    let radians = Math.PI / 180, degrees = 180 / Math.PI,
+      sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
+
+    let fact = n => n - 1 > 0 ? n * fact(n - 1) : n
+    let fact0 = 1,
+        fact1 = 1,
+        fact2 = 2,
+        fact3 = 6,
+        fact4 = 24,
+        fact5 = 120,
+        fact6 = 720,
+        fact7 = 5040,
+        fact8 = 40320,
+        fact9 = 362880
+    let infact0 = 1 / fact0,
+        infact1 = 1 / fact1,
+        infact2 = 1 / fact2,
+        infact3 = 1 / fact3,
+        infact4 = 1 / fact4,
+        infact5 = 1 / fact5,
+        infact6 = 1 / fact6,
+        infact7 = 1 / fact7,
+        infact8 = 1 / fact8,
+        infact9 = 1 / fact9
+
+    let sinp = [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8]
+    let cosp = [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9]
+    let exp = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
+
+    // ............................. pics
+    let tim = {'td': 12600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
+
+
+    let conformLine = {
+      'x': {
+        'm1': -7.66, 'm2': -3.73, 'n1': 16.24, 'n2': 5.98, 'n3': 17, 'a': 8.98, 'b': 0.19,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e,c) => c[0] * cos(e[0]),        
+      },
+      'y': {
+        'm1': -7.66, 'm2': -3.73, 'n1': 16.24, 'n2': 5.98, 'n3': 17, 'a': 8.98, 'b': 0.19,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e,c) => c[1] * sin(e[0]) * cos(e[3]),        
+      },
+      'z': {
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 2, 'b': 1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e,c) => c[1] * sin(e[0]) * sin(e[3]),        
+      },
+      'r': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
+      },
+    }    
+
+    let conformTorus = {
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[15,15,30]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e,c) => c[0] * (10 + 5 * cos(e[0])) * c[2] * cos(e[3]),
+      },
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[15,15,30]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        c: [ 1, 1, [[[10,10]]], [[[5,5]]]], 
+        'fn0': (e,c,d) => c[1] * (d.c[2] + d.c[3] * cos(e[0])) * c[2] * sin(e[3]),
+      },
+      'z': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[15,15,30]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [ -180 , 180 ],
+        c: [ 1, 1, 1, [[[5,5]]] ], 
+         'fn0': (e,c,d) => d.c[3] * c[3] * sin(e[0]),
+      },
+      'r': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[15,15,30]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [ -180, 180 ],
+        'fn0': (e,c) => c[3] * cos(e[2]),
+      },
+    }    
+
+    let conformSphere = {
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[15,15,15]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e,c) => c[0] * cos(e[0]) * c[2] * cos(e[3]),
+      },
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[15,15,15]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c, dax) => c[1] * sin(e[0]) * c[2] * cos(e[3]),
+      },
+      'z': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[15,15,15]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [-90, 90],
+        'fn0': (e,c) => c[2] * sin(e[3]),
+      },
+      'r': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[15,15,15]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [-90, 90],
+        'fn0': (e,c) => c[3] * cos(e[2]) ,
+      },
+    }
+
+
+    let conformHyper = {
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[15,30,30]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e,c) =>  c[0] * cos(e[0]) * c[2] * Math.cosh(e[3]),
+      },
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[15,30,30]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        c: [ [[[18, 0, -18]]], 0, 0 ],
+        'fn0': (e, c, dax) => c[1] * sin(e[0]) * c[2] * Math.cosh(e[3]),
+
+      },
+
+      'z': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[15,30,30]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [-90, 90],
+        'fn0': (e,c) => c[3] *  Math.sinh(e[2]),
+      },
+
+      'r': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[15,30,30]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [-90, 90],
+      },
+
+    }
+
+    let boformLine = { 'csx': 0, 'cf': [[[ 777, 777, 777]]], 'co': [[[0.02, 0.001, 0.001, 0.001]]],
+      'cs': [[[888, 888, 888]]], 'cw': [[[1.99, 0.99, 0.99, 0.99]]], 'cp': [[[0.99, 0.2, 0.2, 0.9]]]}
+
+    let boformSphere = { 'csx': 0, 'cf': [[[ 777, 777, 777]]], 'co': [[[0.02, 0.001, 0.001, 0.001]]],
+      'cs': [[[888, 888, 888]]], 'cw': [[[1.99, 0.99, 0.99, 0.99]]], 'cp': [[[0.99, 0.2, 0.2, 0.9]]]}
+      
+    let boformHyper = { 'csx': 0, 'cf': [[[ 777, 777, 777]]], 'co': [[[0.001, 0.02, 0.001, 0.001]]],
+      'cs': [[[222, 666, 666]]], 'cw': [[[0.99, 1.99, 0.99, 0.99]]], 'cp': [[[0.01, 0.99, 0.2, 0.9]]]}
+      
+    let boformTorus = { 'csx': 0, 'cf': [[[ 777, 777, 777]]], 'co': [[[0.001,0.001, 0.02, 0.001]]],
+      'cs': [[[222, 444, 444]]], 'cw': [[[0.99, 0.99, 1.99, 0.99]]], 'cp': [[[0.01, 0.01, 0.99, 0.9]]]}
+
+    // ............................. hyperAni
+    let hyperAni = {
+      halo: 'ent',
+      geofold: p => mnat.natFeature(p.payload.form),
+      payload: {
+        tim,
+        ric: {gid: 'q', cid: 'q', fid: 'q1'},
+        proform: {
+          projection: 'uniwen',
+          scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [ 0, 0, 0 ],
+          rotate: [ -75, 0, 0 ],
+          lens: [0, 1, Infinity ],
+        },
+        boform: boformHyper,
+        form: conformHyper,
+      },
+    }
+
+    // ............................. sphereAni
+    let sphereAni = {
+      halo: 'ent',
+      geofold: p => mnat.natFeature(p.payload.form),
+      payload: {
+        tim,
+        ric: {gid: 'q', cid: 'q', fid: 'q2'},
+        proform: {
+          projection: 'uniwen',
+          scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [ 0, 0, 0 ],
+          rotate: [ -75, 0, 0 ],
+          lens: [0, 1, Infinity ],
+        },
+        boform: boformSphere,
+        form: conformSphere,
+      },
+    }
+
+    // ............................. sphereAni
+    let lineAni = {
+      halo: 'ent',
+      geofold: p => mnat.natFeature(p.payload.form),
+      payload: {
+        tim,
+        ric: {gid: 'q', cid: 'q', fid: 'q4'},
+        proform: {
+          projection: 'uniwen',
+          scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [ 0, 0, 0 ],
+          rotate: [ -75, 0, 0 ],
+          lens: [0, 1, Infinity ],
+        },
+        boform: boformSphere,
+        form: conformLine,
+      },
+    }
+    
+    // ............................. torusAni
+    let torusAni = {
+      halo: 'ent',
+      geofold: p => mnat.natFeature(p.payload.form),
+      payload: {
+        tim,
+        ric: {gid: 'q', cid: 'q', fid: 'q3'},
+        proform: {
+          projection: 'uniwen',
+          scale: [ [[[0.1, 0.1]]], [[[0.1, 0.1]]] ],
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [ 0, 0, 0 ],
+          rotate: [ -75, 0, 0 ],
+          lens: [0, 1, Infinity ],
+        },
+        boform: boformTorus,
+        form: conformTorus,
+      },
+    }
+    
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // ............................. animas
+    let animas = [
+
+      sceneAni, // h.scene
+      // sphereAni, // h.nat
+      // hyperAni, // h.nat
+      // torusAni, // h.nat
+      lineAni, // h.nat
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>

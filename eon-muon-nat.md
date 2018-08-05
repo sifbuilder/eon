@@ -31,7 +31,18 @@ natprojection
 
 conforms
 `   
-
+    net
+    'fn0': (e,c) => c[0] * e[0] * c[3] * cos(e[3])
+    'fn0': (e, c) => (1 / Math.exp(Math.abs(e[1] / 2))) * cos(9 * e[1]),
+    'fn0': (e,c) => c[0] * e[0] * c[3] * sin(e[3])
+    'fn0': (e,c) => 1
+          
+    sphere          
+    'fn0': (e,c) => c[0] * cos(e[0]) * c[3] * cos(e[3])
+    'fn0': (e,c) => c[0] * sin(e[0]) * c[3] * cos(e[3])
+    'fn0': (e,c) => c[3] * sin(e[3])
+    'fn0': (e,c) => c[3] * cos(e[3])          
+          
     sphere
     [-180, 180] => c[0] * cos(e[0]) * c[2] * cos(e[3])
     [-180, 180] => c[1] * sin(e[0]) * c[2] * cos(e[3])

@@ -10,6 +10,7 @@
 
   async function muonNat (__mapper = {}) {
     let [
+      glmatrix,
       mprops,
       mgraticule,
       mprofier,
@@ -18,6 +19,7 @@
       d3array,
       d3geo,
     ] = await Promise.all([
+      __mapper('xs').b('gl-matrix'),
       __mapper('xs').m('props'),
       __mapper('xs').m('graticule'),
       __mapper('xs').m('profier'),
@@ -46,36 +48,45 @@
     // p:[0,n], v => p[i] * v**i
     let ft = p => v => p.reduce((acc, cur, i) => acc + cur * pow(v, i), 0)
 
+    let tensorize = (d, dim=4, defv=0) => Array(dim).fill(defv).map( (c,i) => functor(d)[i] !== undefined ? functor(functor(d)[i]) : functor(defv))
+
     // c[0],c[1],c[2],c[3]: radius (default to 1)
     // e[1] [-2pi,2pi],e[2][-2pi,2pi],e[3][-pi,pi],e4[-pi,pi]: radian-angles (default to 0)
     // fn: c[0][i] * c[0]**i
-    let fn = form =>
+    let fn = dax =>
       (e = [], c = []) => {
-        form.e[0] = form.e[0] !== undefined ? form.e[0] : 0
-        form.e[1] = form.e[1] !== undefined ? form.e[1] : 0
-        form.e[2] = form.e[2] !== undefined ? form.e[2] : 0
-        form.e[3] = form.e[3] !== undefined ? form.e[3] : 0
 
-        form.c[0] = form.c[0] !== undefined ? form.c[0] : 1
-        form.c[1] = form.c[1] !== undefined ? form.c[1] : 1
-        form.c[2] = form.c[2] !== undefined ? form.c[2] : 1
-        form.c[3] = form.c[3] !== undefined ? form.c[3] : 1
+        dax.e[0] = dax.e[0] !== undefined ? dax.e[0] : 1
+        dax.e[1] = dax.e[1] !== undefined ? dax.e[1] : 1
+        dax.e[2] = dax.e[2] !== undefined ? dax.e[2] : 1
+        dax.e[3] = dax.e[3] !== undefined ? dax.e[3] : 1
 
-        let ret = ft(functor(form.c[0]))(xc(c[0])) *
-                  ft(functor(form.c[1]))(xc(c[1])) *
-                  ft(functor(form.c[2]))(xc(c[2])) *
-                  ft(functor(form.c[3]))(xc(c[3])) *
+        dax.c[0] = dax.c[0] !== undefined ? dax.c[0] : 1
+        dax.c[1] = dax.c[1] !== undefined ? dax.c[1] : 1
+        dax.c[2] = dax.c[2] !== undefined ? dax.c[2] : 1
+        dax.c[3] = dax.c[3] !== undefined ? dax.c[3] : 1
 
-                  ft(functor(form.e[0]))(xe(e[0])) *
-                  ft(functor(form.e[1]))(xe(e[1])) *
-                  ft(functor(form.e[2]))(xe(e[2])) *
-                  ft(functor(form.e[3]))(xe(e[3]))
+        let cf = tensorize(dax.c)
+        let ef = tensorize(dax.e)
+
+        let cp = c.map(d => xc(d))
+        let ep = e.map(d => xe(d))
+
+        let ret = ft(cf[0])(cp[0]) * ft(ef[0])(ep[0]) *
+                  ft(cf[1])(cp[1]) * ft(ef[1])(ep[1]) *
+                  ft(cf[2])(cp[2]) * ft(ef[2])(ep[2]) *
+                  ft(cf[3])(cp[3]) * ft(ef[3])(ep[3])
+
+
+        // let tensor = glmatrix.mat4.fromValues(...tensorize(e[0]), ...tensorize(e[1]), ...tensorize(e[2]), ...tensorize(e[3]) )
+        // let vector = glmatrix.vec4.fromValues(xe(e[0]), xe(e[1]), xe(e[2]), xe(e[3]) )
+        // let position = glmatrix.vec4.transformMat4(glmatrix.vec4.create(), vector, tensor)
+
 
         return ret
       }
 
-    let isunpar = formDax => formDax.e === undefined &&
-                              formDax.c === undefined
+    let isunpar = formDax => formDax.e === undefined && formDax.c === undefined
 
     let fndefaults = [
       (e, c) => c[0] * cos(e[0]) * xc(c[2]) * cos(xe(e[2])),
