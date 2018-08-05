@@ -115,13 +115,10 @@
       }
       // c = wenRotation(rot)(...c) // rotate
       
-      
-      
-// if (1 && 1) console.log('scale', scale)
       c = c.map( (d,i) => d * (scale[i] || 1))
-
       
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
+      
       // c = mwen.projection(c, lens[2], scale) // project
       c = mwen.projection(c, lens[2], 1) // project
 
