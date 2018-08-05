@@ -53,8 +53,8 @@ async function zindex (__mapper) {
         geometry: {
           type: 'LineString',
           coordinates: [
-            [0, 0, 0],
-            [0, 100, 100],
+            [0 + 0, 0 + 0, 0 + 0],
+            [0 + 100, 0 + 100, 0],
           ],
         },
         'properties': {},
@@ -67,8 +67,8 @@ async function zindex (__mapper) {
         proform: {
 
           projection: 'uniwen',
-          scale: 1.0,
-          translate: {'x': 0, 'y': 0 },
+          scale: [ 1, 1, 1] ,
+          translate: [ 0, 0, 0 ],
           prerotate: [[[ cwen.rotation ]]],
           rotate: [ 0, 0, 0 ],
 
