@@ -53,52 +53,50 @@ async function zindex (__mapper) {
   // .................. animas
   let animas = function () {
     // .................. pics
-  let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
+    // md:   data from m.animas('shapes').rhyno unframed
+    // md:   defined as (closed) LineString gemetry.coordinates
+    // md:   mfourier.transformedCoefs(tfeature)
+    let svgdata = JSON.parse(drhyno.data())
+    let data = {type: 'Feature', geometry: {type: 'LineString', coordinates: svgdata} }
 
-  //md:   data from m.animas('shapes').rhyno unframed
-  //md:   defined as (closed) LineString gemetry.coordinates
-  //md:   mfourier.transformedCoefs(tfeature)
-  let svgdata = JSON.parse(drhyno.data())
-  let data = {type: 'Feature',geometry: {type: 'LineString',coordinates: svgdata} }
-
-  let proform = {
+    let proform = {
       projection: 'uniwen',
       translate: [ -100, 100 ],
       scale: [1, -1],
       rotate: [ 0, 0 ],
-      lens: [0, 1, 
-      Infinity]
-  }
-  
-  let geoData = mproj3ct(data, mprofier.uniweon(proform))
-
-  let transforms = mfourier.transformedCoefs(geoData)
-      transforms = mgeoj.ntime(transforms, [0,1])
-  let transformsFC = { type: 'FeatureCollection',features: transforms }
-
-
-  // ............................. aniLine
-   let aniLine = {
-
-    halo: 'ent',
-    geofold: {
-      type: 'Feature',
-      geometry: {
-        type: 'LineString',
-        coordinates: []},
-        properties: {}
-      },
-    payload: {
-      tim: tim,
-      ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
-      boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
+      lens: [0, 1,
+        Infinity],
     }
 
-  }
+    let geoData = mproj3ct(data, mprofier.uniweon(proform))
 
-  // ............................. traceline
-  let traceline = { // SUB-MARKS line trace
+    let transforms = mfourier.transformedCoefs(geoData)
+    transforms = mgeoj.ntime(transforms, [0, 1])
+    let transformsFC = { type: 'FeatureCollection', features: transforms }
+
+    // ............................. aniLine
+    let aniLine = {
+
+      halo: 'ent',
+      geofold: {
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: []},
+        properties: {},
+      },
+      payload: {
+        tim: tim,
+        ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
+      },
+
+    }
+
+    // ............................. traceline
+    let traceline = { // SUB-MARKS line trace
 
       halo: 'pacer',
       geofold: null,
@@ -138,14 +136,13 @@ async function zindex (__mapper) {
       },
     }
 
-
     // .................. fourierForm
-     let fourierForm = {
+    let fourierForm = {
 
       halo: 'fourier',
       geofold: p => transformsFC,
 
-      payload: {  // payload in fourierForm
+      payload: { // payload in fourierForm
 
         tim: tim,
         ric: { gid: 'fourier', cid: 'fourier', fid: 'fourier'},
@@ -153,8 +150,8 @@ async function zindex (__mapper) {
 
         fourier: {
           transforms: transforms,
-          interval: [0.0,0.99],
-          tolerance: 0.1,  // 0.1 
+          interval: [0.0, 0.99],
+          tolerance: 0.1, // 0.1
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
 
           //  fourier avatars are defined by name
@@ -162,11 +159,10 @@ async function zindex (__mapper) {
             traceline: traceline,
             rayline: aniLine,
 
-          }
+          },
         },
-      }
+      },
     }
-
 
     // .................. sceneAni
     let sceneAni = {

@@ -44,10 +44,10 @@
             tickFormat = axis.tickFormat || '',
             scaleType = axis.scaleType,
             orient = axis.orient
-            console.assert(orient !== undefined, 'axis orientation undefined')
+          console.assert(orient !== undefined, 'axis orientation undefined')
 
           let _scale = (scaleType) ? d3scale[scaleType]() : d3scale['scaleTime']()
-          
+
           let newAnigram = mprops.clone(anigram) // clone
           newAnigram.geofold.properties = {
             sort: 'axis',
@@ -71,7 +71,6 @@
           delete newAnigram.payload.axis
           return hent.gramm(newAnigram)
         })
-
     }
 
     // ............................. enty

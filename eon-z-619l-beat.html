@@ -72,23 +72,21 @@ async function zindex (__mapper) {
 
     let w = rrenderport.width(),
       h = rrenderport.height(),
-      wr = w/2,
-      hr = h/2
+      wr = w / 2,
+      hr = h / 2
 
-    let imgw =   x1 - x0
-    let imgh =   y1 - y0
-
+    let imgw = x1 - x0
+    let imgh = y1 - y0
 
     let dx = -wr,
       dy = hr
 
     let kx = w / imgw,
-      ky = - h / imgh
-
+      ky = -h / imgh
 
     let start = 0,
-    stop = 0.9,
-    step = 0.091
+      stop = 0.9,
+      step = 0.091
 
     let gjdata = msvg.castels(svgdata, {start: start, stop: stop, step: step})
 
@@ -120,23 +118,18 @@ async function zindex (__mapper) {
         let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
 
         let nbt = Math.ceil(nb * t)
-        let nbs = nbt 
-        
-        
+        let nbs = nbt
+
         let csi = t => (geometry, coords, startingin) => mgeoj.getCoordsInRange(geometry, coords, startingin)
-        
-        
+
         // let geo = csi(t)(geoData.geometry, nbt)
         let geo = csi(t)(geoData.geometry, 380, nbs)
         let tcoords = geo.coordinates
 
-        
         // if (1 && 1) console.log('coords GET', nb, nbt)
         // if (1 && 1) console.log('coords geoData', geoData.geometry.coordinates)
         // if (1 && 1) console.log('coords csi', tcoords)
 
-        
-        
         let ngj = {
           type: 'Feature',
           geometry: { type: 'Polygon', coordinates: [] },

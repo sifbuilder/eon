@@ -133,11 +133,10 @@
           .then(newItems => {
             _apply({type: 'UPDANIGRAM', anigrams: newItems})
             newItems.forEach(newItem => {
-
               let avatars = gavatars(newItem)
 
               avatars.forEach(avatar => {
-                avatar.payload.tim = anigram.payload.tim  // tim from anigram
+                avatar.payload.tim = anigram.payload.tim // tim from anigram
                 avatar.payload.uid = mric.getuid(avatar) // uid from avatar
                 avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
 

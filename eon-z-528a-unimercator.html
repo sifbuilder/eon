@@ -38,7 +38,7 @@ let muonAlima = function muonAlima (__mapper) {
     'projection': 'unimercator',
     'scale': 102,
     'translate': [ 0, 0 ],
-    'rotate': [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ]
+    'rotate': [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
 
   }
   /*******************************************
@@ -64,8 +64,8 @@ let muonAlima = function muonAlima (__mapper) {
       ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
       boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.9, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
 
-      proform: proform
-    }
+      proform: proform,
+    },
 
   }
 
@@ -75,7 +75,7 @@ let muonAlima = function muonAlima (__mapper) {
  */
   let animas = [
 
-    geoearth // h.ent g.unimercator
+    geoearth, // h.ent g.unimercator
 
   ]
   let animaApi = function animaApi () {

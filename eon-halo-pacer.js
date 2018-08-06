@@ -217,7 +217,6 @@
 
                 newItem.payload.proform = { projection: 'uniwen', translate: situs } // proform transfer trace situs to halo
 
-
                 let newGrams = await __mapper('xs').h(halo).gramm(newItem)
                 newItems = [...newItems, ...newGrams] // add items
               }

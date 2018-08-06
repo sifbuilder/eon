@@ -1,4 +1,4 @@
-  /****************************
+/****************************
  *      @haloFourier
  */
 (function (global, factory) {
@@ -23,7 +23,7 @@
 
     let Complex = lcomplex
 
-    // ............................. gramm    
+    // ............................. gramm
     async function gramm (ani, newAnigrams = []) {
       let anigram = ani,
         halo = anigram.halo, // halo
@@ -70,61 +70,55 @@
           .filter(d => Complex(d).abs() / N > tolerance) // filter per amplitude
           .sort((a, b) => Complex(b).abs() - Complex(a).abs()) // sort per amplitude
 
-        // 
+        //
         //  M: number of cycloids
         //
         let M = transformSorted.length
 
         var acci = Complex(0, 0) // summatory
         let xn = [], yn = [], magn = [], iAnitems = []
-        
-        
+
         //
         //  for EACH sinusoid, generate a new anitem
         //
-        for (let i = 0; i <= M; i++) { 
+        for (let i = 0; i <= M; i++) {
           let gid = ric.gid // from ava ric
           let cid = ric.cid
           let fid = fidder(ric.fid, j, i)
 
-          // 
+          //
           //  del item if outside time period (ric.delled = 1)
           //
           let _ric = {gid, cid, fid, delled: tNotInPeriod} // is DELLED ?
           let _uid = mric.getuid(_ric) // uid
 
-          
           //
           //  each newItem is cloned from the h.fourier anigram
           //
           let newItem = mprops.cloneObj(anigram)
 
+          newItem.halo = 'ent' // halo.ent
 
-          newItem.halo = 'ent' // halo.ent         
-          
-          newItem.geofold ={
-                  type: 'Feature', // tfeature
-                  geometry: { type: 'Point', coordinates: [] },
-                  properties: {
-                    pointRadius: 1, // d.payload.fourier.rad,
-                    geonode: {
-                      type: 'Feature',
-                      geometry: { type: 'Point', coordinates: [0, 0] },
-                      properties: { // geofold coindices with geonode
-                        orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0],
-                      },
-                    },
-                  },
-                }
+          newItem.geofold = {
+            type: 'Feature', // tfeature
+            geometry: { type: 'Point', coordinates: [] },
+            properties: {
+              pointRadius: 1, // d.payload.fourier.rad,
+              geonode: {
+                type: 'Feature',
+                geometry: { type: 'Point', coordinates: [0, 0] },
+                properties: { // geofold coindices with geonode
+                  orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0],
+                },
+              },
+            },
+          }
 
-
-
-          
           //
           // for each cycloid < M (nyquist frequency)
-          //     beyond nyquist w frequency is aliased by -N      
-          //           
-          if (i < M) { 
+          //     beyond nyquist w frequency is aliased by -N
+          //
+          if (i < M) {
             if (transformSorted[i].w >= nyquist) transformSorted[i].w -= N // nyquist
 
             // md:   sinusoid is Sum( Xi * e^i2[pi]w[i]n/N )
@@ -139,10 +133,9 @@
             magn[i] = Math.sqrt(xn[i] * xn[i] + yn[i] * yn[i]) // amplitude of frequency
             newItem.geofold.properties.pointRadius = magn[i] / N // sinusoid amplitude
 
-            
-          //
-          // to all cycloids, add __RAY__ avatar 
-          //            
+            //
+            // to all cycloids, add __RAY__ avatar
+            //
             if (i > 0) { // add ray avatar
               let rayline = mprops.cloneObj(payload.fourier.avatars.rayline)
               rayline.geofold.geometry.coordinates = [
@@ -154,16 +147,11 @@
               let cid = rayline.payload.ric.cid
               let fid = fidder(rayline.payload.ric.fid, j, i)
 
-              
-              
               // md: del item outside time period (ric.delled = 1)
               let _ric = {gid, cid, fid, delled: tNotInPeriod} // is DELLED ?
               let uid = mric.getuid(_ric) // uid
               rayline.payload.ric = _ric
               // newItem.avatars = {rayline: rayline} // ADD RAYLINE
-              
-              
-              
             }
           }
 
@@ -171,33 +159,28 @@
           yn[i] = acci.im / N
 
           //
-          // if last sinusoid, then add __TRACE__ avatar 
+          // if last sinusoid, then add __TRACE__ avatar
           //
           if (i === M) {
-            
-            let riccer = payload.fourier.riccer || function (ani) { return ani.payload.fourier.avatars.traceline.payload.ric }            
-            
+            let riccer = payload.fourier.riccer || function (ani) { return ani.payload.fourier.avatars.traceline.payload.ric }
+
             newItem.geofold.properties.pointRadius = maglast // PENCIL radio magnitude of last
 
             //
             // init PACER clonned from fourier avatar
             //
             let traceline = mprops.cloneObj(payload.fourier.avatars.traceline)
-            console.assert(traceline !== undefined, "traceline undefined")
+            console.assert(traceline !== undefined, 'traceline undefined')
             if (traceline) { // if pacer avatar
-            
-            
               // md: no add segments ourside time period (pacer.autoN = 0)
               if (tNotInPeriod) traceline.payload.pacer.autoN = 0 // add no segments ourside period
 
-              
               //
               //  traceline ric
               //
               traceline.payload.ric = riccer(newItem)
-              traceline.payload.uid =  mric.getuid(traceline.payload.ric) 
-              
-           
+              traceline.payload.uid = mric.getuid(traceline.payload.ric)
+
               newItem.avatars = {traceline: traceline}
             }
           }
@@ -216,22 +199,19 @@
 
         // md:   each point/circle anigram has radius of next sinusoid amplitude
         for (let i = 0; i < iAnitems.length - 1; i++) { //  for each anitem
-        
           let pointRadius = iAnitems[i].geofold.properties.pointRadius
           let nextPointRadius = iAnitems[i + 1].geofold.properties.pointRadius
           iAnitems[i].geofold.properties.pointRadius = nextPointRadius
-          
         }
 
         anitems = [...anitems, ...iAnitems]
       }
       return Promise.all(anitems.map(ani => hent.gramm(ani)))
-      .then(anigramLists => {
-        let anigrams = anigramLists.reduce((p, q) => Array.isArray(q) ? [...p, ...q] : [...p, q], [])
+        .then(anigramLists => {
+          let anigrams = anigramLists.reduce((p, q) => Array.isArray(q) ? [...p, ...q] : [...p, q], [])
 
-        
-        return anigrams
-      })
+          return anigrams
+        })
     }
 
     // .................... enty

@@ -364,8 +364,6 @@
       }
     }
 
-
-
     // ...................... zorder
     let zorder = function (gj) {
       if (2 && 2 && !isValid(gj)) { console.log('** m.geoj.zorder:gj not valid', gj) }
@@ -474,13 +472,10 @@
     // ...................... getCoordsInRange
     //  nb: numver of coords, firstCoord: start coord
     let getCoordsInRange = function (gj, toaddCoords, firstCoord = 0, ngj = {type: null, coordinates: [] }) {
-
-if (1 && 1) console.log('getCoordsInRange get ', toaddCoords, ' starting in ', firstCoord)
-
+      if (1 && 1) console.log('getCoordsInRange get ', toaddCoords, ' starting in ', firstCoord)
 
       let pointerInCoords = 0 // pointer to current coord at beginning of line
       let addedCoords = 0 // toaddCoords of added coords
-
 
       ngj.type = gj.type
 
@@ -501,49 +496,39 @@ if (1 && 1) console.log('getCoordsInRange get ', toaddCoords, ' starting in ', f
           }
         }
       } else if ((gj.type === 'MultiLineString')) {
-
         let lines = gj.coordinates
         for (let i = 0; i < lines.length; i++) { // for each line
-
           let line = lines[i]
-          let ringLength = line.length  // number of coords in line
+          let ringLength = line.length // number of coords in line
           let remainingCoords = toaddCoords - addedCoords
 
-if (1 && 1) console.log('remainingCoords', i, remainingCoords)
+          if (1 && 1) console.log('remainingCoords', i, remainingCoords)
 
           let startInLine = firstCoord - pointerInCoords
           let tmpLine = line.slice(startInLine, startInLine + remainingCoords)
           if (tmpLine.length > 0) {
             ngj.coordinates.push(tmpLine)
-            addedCoords += tmpLine.length        
+            addedCoords += tmpLine.length
 
             pointerInCoords += tmpLine.length
           }
-            
         }
-        
-if (1 && 1) console.log('ngj', ngj.coordinates)
-        
 
+        if (1 && 1) console.log('ngj', ngj.coordinates)
       } else if ((gj.type === 'MultiPoint')) {
         ngj.coordinates = gj.coordinates.slice(0, toaddCoords)
-
       } else if ((gj.type === 'LineString')) {
+        let line = gj.coordinates // coords in line
+        let ringLength = line.length // number of coords in line
+        let remainingCoords = toaddCoords - addedCoords
 
-          let line = gj.coordinates  // coords in line
-          let ringLength = line.length  // number of coords in line
-          let remainingCoords = toaddCoords - addedCoords
+        let startInLine = firstCoord - pointerInCoords
 
-            let startInLine = firstCoord - pointerInCoords
-
-            let tmpLine = line.slice(startInLine, startInLine + remainingCoords)
-            ngj.coordinates = tmpLine
-            addedCoords += tmpLine.length
-
-
+        let tmpLine = line.slice(startInLine, startInLine + remainingCoords)
+        ngj.coordinates = tmpLine
+        addedCoords += tmpLine.length
       } else if ((gj.type === 'Feature')) {
         ngj.geometry = getCoordsInRange(gj.geometry, toaddCoords, firstCoord)
-
       }
 
       return ngj

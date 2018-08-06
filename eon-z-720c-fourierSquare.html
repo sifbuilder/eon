@@ -53,88 +53,86 @@ async function zindex (__mapper) {
   // .................. animas
   let animas = function () {
     // .................. pics
-  let tim = {'td': 123800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let tim = {'td': 123800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  /*******************************************
+    /*******************************************
  *      @data
  */
-  //md:     data is basic square. MultiLineString geometry.coordinates
-let basicSquare = [
-[
-  [0-200, 0],     [0-200, 25],    [0-200, 50],    [0-200, 75], 
-  [0-200, 100],   [25-200, 100],  [50-200, 100],  [75-200, 100],  
-  [100-200, 100], [100-200, 75],  [100-200, 50],  [100-200, 25], 
-  [100-200, 0],   [75-200, 0],    [50-200, 0],    [25-200, 0]
- ], 
-  [
-  [0+100, 0], [0+100, 25], [0+100, 50], [0+100, 75], [0+100, 100], 
-  [25+100, 100], [50+100, 100], [75+100, 100], [100+100, 100], 
-  [100+100, 75], [100+100, 50], [100+100, 25], [100+100, 0], 
-  [75+100, 0], [50+100, 0], [25+100, 0]
- ]  
-]
-let gjdata = { type: 'MultiLineString', coordinates: basicSquare }
-    let nb = mgeoj.getCoordsLength(gjdata)  // 894
+    // md:     data is basic square. MultiLineString geometry.coordinates
+    let basicSquare = [
+      [
+        [0 - 200, 0], [0 - 200, 25], [0 - 200, 50], [0 - 200, 75],
+        [0 - 200, 100], [25 - 200, 100], [50 - 200, 100], [75 - 200, 100],
+        [100 - 200, 100], [100 - 200, 75], [100 - 200, 50], [100 - 200, 25],
+        [100 - 200, 0], [75 - 200, 0], [50 - 200, 0], [25 - 200, 0],
+      ],
+      [
+        [0 + 100, 0], [0 + 100, 25], [0 + 100, 50], [0 + 100, 75], [0 + 100, 100],
+        [25 + 100, 100], [50 + 100, 100], [75 + 100, 100], [100 + 100, 100],
+        [100 + 100, 75], [100 + 100, 50], [100 + 100, 25], [100 + 100, 0],
+        [75 + 100, 0], [50 + 100, 0], [25 + 100, 0],
+      ],
+    ]
+    let gjdata = { type: 'MultiLineString', coordinates: basicSquare }
+    let nb = mgeoj.getCoordsLength(gjdata) // 894
 
-          let proform = {
-            projection: 'uniwen',
-            translate: [0, 0, 0],
-            scale: [1, 1],
-            rotate: [ 0, 0, 0 ],
-            lens: [0, 1, Infinity],
-          }
-
-let geoData = mproj3ct(gjdata, mprofier.uniweon(proform)) 
-     geoData = mgeoj.getCoordsInRange(geoData, nb) // MultiLineString
-
-let transforms = mfourier.transformedCoefs(mprops.clone(geoData))
-transforms = mgeoj.ntime(transforms, [0,1])
-  
- let transformsFC = { type: 'FeatureCollection',features: transforms }
-
-
-      
-  //md:     @aniDots anima
-   let aniDots = {
-
-    halo: 'ent',
-    geofold: {type:'Feature',properties:{pointRadius: 1,},geometry: { type: 'MultiPoint', coordinates: mgeoj.getCoords(geoData) }  },
-    payload: {
-      tim: tim,
-      ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniDots'},
-      boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.5, 'co': 0.999, 'cp': 0.999},
+    let proform = {
+      projection: 'uniwen',
+      translate: [0, 0, 0],
+      scale: [1, 1],
+      rotate: [ 0, 0, 0 ],
+      lens: [0, 1, Infinity],
     }
 
-  }   
-  
-  //md:     @aniRay avatar
-  //md:       form.payload.fourier.avatars.line
-   let aniRay = {
+    let geoData = mproj3ct(gjdata, mprofier.uniweon(proform))
+    geoData = mgeoj.getCoordsInRange(geoData, nb) // MultiLineString
 
-    halo: 'ent',
-    geofold: {
-          type: 'Feature',
-          geometry: {
-            type: 'LineString', 
-            coordinates: []},
-            properties: {}
-          },
-    payload: {
-      tim: tim,
-      ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
-      boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+    let transforms = mfourier.transformedCoefs(mprops.clone(geoData))
+    transforms = mgeoj.ntime(transforms, [0, 1])
+
+    let transformsFC = { type: 'FeatureCollection', features: transforms }
+
+    // md:     @aniDots anima
+    let aniDots = {
+
+      halo: 'ent',
+      geofold: {type: 'Feature', properties: {pointRadius: 1}, geometry: { type: 'MultiPoint', coordinates: mgeoj.getCoords(geoData) } },
+      payload: {
+        tim: tim,
+        ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniDots'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.5, 'co': 0.999, 'cp': 0.999},
+      },
+
     }
 
-  }  
-  
-  //md:     @traceline avatar
-  //md:       payload.pacer.geojsor
-let traceline = {
+    // md:     @aniRay avatar
+    // md:       form.payload.fourier.avatars.line
+    let aniRay = {
+
+      halo: 'ent',
+      geofold: {
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: []},
+        properties: {},
+      },
+      payload: {
+        tim: tim,
+        ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      },
+
+    }
+
+    // md:     @traceline avatar
+    // md:       payload.pacer.geojsor
+    let traceline = {
 
       halo: 'pacer',
       payload: {
         ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-        boform: {'csx': 0, 'cf': [[[111,222,111]]], 'cs': 666, 'cw': 0.99, 'co': 0.04, 'cp': 0.99},
+        boform: {'csx': 0, 'cf': [[[111, 222, 111]]], 'cs': 666, 'cw': 0.99, 'co': 0.04, 'cp': 0.99},
 
         pacer: { // aad for trace
           initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
@@ -150,14 +148,14 @@ let traceline = {
               geofold: {
                 type: 'Feature',
                 geometry: { type: 'LineString', coordinates: null },
-                properties: { doc: 'pacer' }
+                properties: { doc: 'pacer' },
               },
               payload: {
                 uid: uid,
                 id: uid,
                 ric: ric,
-                proform: this.proform
-              }
+                proform: this.proform,
+              },
 
             }
 
@@ -169,18 +167,18 @@ let traceline = {
             return newItem
           },
 
-        }
-      }
-    }  
+        },
+      },
+    }
 
-  //md:     @fourierForm anima
-  //md:       payload.fourier.avatars.traceline  form trace
-  //md:       payload.fourier.avatars.line  sinusoid ray
-     let fourierForm = {
-       
+    // md:     @fourierForm anima
+    // md:       payload.fourier.avatars.traceline  form trace
+    // md:       payload.fourier.avatars.line  sinusoid ray
+    let fourierForm = {
+
       halo: 'fourier',
       geofold: p => transformsFC,
-      payload: {  // FOURIER TRANSFORM in payload.fourier.transforms
+      payload: { // FOURIER TRANSFORM in payload.fourier.transforms
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
         boform: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99}, // circle
@@ -189,13 +187,12 @@ let traceline = {
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
           avatars: {
             traceline: traceline, // trace
-            line: aniRay,  // ray
+            line: aniRay, // ray
 
-          } // fourier avatars
-        }
-      } 
-     }
-    
+          }, // fourier avatars
+        },
+      },
+    }
 
     // .................. sceneAni
     let sceneAni = {

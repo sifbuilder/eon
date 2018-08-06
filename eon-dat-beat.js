@@ -11,8 +11,8 @@
   var datBeat = function (__mapper = {}) {
     let data = {
 
-      'width': "505.82mm", 'height': "285.714mm",
-      'viewBox': "0 0 1912 1080",
+      'width': '505.82mm', 'height': '285.714mm',
+      'viewBox': '0 0 1912 1080',
       'path': {
         'id': 'beat',
         'fill': 'none', 'stroke': 'black', 'strokeWidth': '1',
@@ -720,8 +720,8 @@
              747.00,0.00 695.00,0.00 695.00,0.00 Z`,
       }, // path
     } // data
-    
-  // .................. enty
+
+    // .................. enty
     var enty = function enty () {}
     enty.data = () => data
 

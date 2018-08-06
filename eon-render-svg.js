@@ -153,19 +153,18 @@
               .attr('x', 0) // translate instead
               .attr('y', 0) //
 
-              .attr('transform', d => {// eg. "translate(21,20) rotate(15)")
+              .attr('transform', d => { // eg. "translate(21,20) rotate(15)")
                 // translate tx, ty
                 // rotate cx, cy
                 // scale sx, sy
                 // skew skew
 
-              let item = d
-              let geometry = item.geometry
-              let projgeo = mproj3ct.project(geometry, cameraProjer)
+                let item = d
+                let geometry = item.geometry
+                let projgeo = mproj3ct.project(geometry, cameraProjer)
 
-              let translate = projgeo.coordinates
-              let rotate = item.properties.style['rotate']
-
+                let translate = projgeo.coordinates
+                let rotate = item.properties.style['rotate']
 
                 let r = 'translate(' +
                     translate[0] +
@@ -208,14 +207,13 @@
               .data(() => imgs)
 
               .attr('transform', d => { // eg. "translate(21,20) rotate(15)")
-              
                 let item = d
                 let geometry = item.geometry
                 let projgeo = mproj3ct.project(geometry, cameraProjer)
 
                 let translate = projgeo.coordinates
-                let rotate = item.properties.attr.rotate || 0       
-              
+                let rotate = item.properties.attr.rotate || 0
+
                 let r = 'translate(' +
                     translate[0] +
                     ',' +
@@ -225,7 +223,6 @@
                     (rotate || 0) +
                     ' )'
                 return r
-                    
               })
 
               .attr('xlink:href', d => d.properties.attr['xlink:href'])
@@ -250,30 +247,25 @@
 
                 .call(d => d.call(d.datum().properties.axis.d3axis))
 
-                .attr('transform', d => {// eg. "translate(21,20) rotate(15)")
-
+                .attr('transform', d => { // eg. "translate(21,20) rotate(15)")
                   let item = d
                   let geometry = item.geometry
                   if (1 && 1) console.log('versor', item.geometry.coordinates[1])
-                  
-                  
+
                   // let projgeo = mproj3ct.project(geometry, cameraProjer)
-                  
+
                   let geocoords = geometry.coordinates
                   let geooringin = geocoords[0]
                   let geoextreme = geocoords[1]
-                  
 
-                  let translate = geooringin  // versor origin
-                  
+                  let translate = geooringin // versor origin
 
                   let rotate = item.properties.axis.rotate || 0
 
-                  let r = 'translate(' + translate[0] + ',' + translate[1] + ')' 
-                          + ' rotate(' + rotate  + ' )'
+                  let r = 'translate(' + translate[0] + ',' + translate[1] + ')' +
+                          ' rotate(' + rotate + ' )'
                   return r
                 })
-              
 
                 .style('font-size', d => d.properties.axis.style['font-size'])
                 .style('text-anchor', d => d.properties.axis.style['text-anchor'])

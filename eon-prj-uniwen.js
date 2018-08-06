@@ -100,11 +100,10 @@
         translate = state.translate || [0, 0, 0],
         lens = state.lens
 
-        
       let c = [x, y, z]
-      
-      scale = Array.isArray(scale) ? scale : c.map( (d,i) => scale[i] || 1)
-      
+
+      scale = Array.isArray(scale) ? scale : c.map((d, i) => scale[i] || 1)
+
       let rot = []
       if (mprops.isPureArray(rotate)) {
         rot = rotate
@@ -114,11 +113,11 @@
         }
       }
       c = wenRotation(rot)(...c) // rotate
-      
-      c = c.map( (d,i) => d * (scale[i] || 1))
-      
+
+      c = c.map((d, i) => d * (scale[i] || 1))
+
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
-      
+
       c = mwen.projection(c, lens[2], scale) // project
       // c = mwen.projection(c, lens[2], 1) // project
 

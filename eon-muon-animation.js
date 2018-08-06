@@ -112,7 +112,7 @@
         .then(featurecollection => {
           rsvg.render(featurecollection)
         })
-        .catch(e => {console.log(e)})
+        .catch(e => { console.log(e) })
     }
 
     // ............................. enty

@@ -53,108 +53,104 @@ async function zindex (__mapper) {
   // .................. animas
   let animas = function () {
     // .................. pics
-  let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-
-    //md:     data is svg MCZ...MCZ
+    // md:     data is svg MCZ...MCZ
     let svgdata = {
-      width:"2.77778in", height:"3.45833in",
-      viewBox:"0 0 300 300",
+      width: '2.77778in', height: '3.45833in',
+      viewBox: '0 0 300 300',
       path: {
-        id:"mbn",
-        fill:"none", stroke:"black", 'strokeWidth':"1",
-        d:`M 0.00,0.00
-           C 100.00,0.00 200.00,0.00 300.00,0.00 Z`  // LineString
-      } // path
+        id: 'mbn',
+        fill: 'none', stroke: 'black', 'strokeWidth': '1',
+        d: `M 0.00,0.00
+           C 100.00,0.00 200.00,0.00 300.00,0.00 Z`, // LineString
+      }, // path
     }
-    let data = msvg.castels(svgdata, {start:0, stop:0.9, step:1/3} ) // MultiLineString
+    let data = msvg.castels(svgdata, {start: 0, stop: 0.9, step: 1 / 3}) // MultiLineString
 
     let basicSquare = [
-    [
-      [0, 0],     [0, 25],    [0, 50],    [0, 75],
-      [0, 100],   [25, 100],  [50, 100],  [75, 100],
-      [100, 100], [100, 75],  [100, 50],  [100, 25],
-      [100, 0],   [75, 0],    [50, 0],    [25, 0], [0, 0]
-    ]
+      [
+        [0, 0], [0, 25], [0, 50], [0, 75],
+        [0, 100], [25, 100], [50, 100], [75, 100],
+        [100, 100], [100, 75], [100, 50], [100, 25],
+        [100, 0], [75, 0], [50, 0], [25, 0], [0, 0],
+      ],
     ] // MultiLineString
     data.geometry.coordinates = basicSquare
 
+    let proform = (lat, lon) => ({projection: 'uniwen', translate: [ lat, lon ], scale: [1, 1], rotate: [ 0, 0 ], lens: [0, 1, Infinity]})
 
-    let proform = (lat, lon) => ({projection: 'uniwen',translate: [ lat, lon ],scale: [1, 1],rotate: [ 0, 0 ],lens: [0, 1, Infinity]})
-
-    
     let geoData = i => mproj3ct(data, mprofier.uniweon(proform(-250 + i * 60 + i * i * 16, 0)))
-    
-    let nb = mgeoj.getCoordsLength(data)
-    let csi = (i,t) => mgeoj.getCoordsInRange(geoData(i), Math.ceil(nb * t))
 
-    // .................. aniDotted anima    
+    let nb = mgeoj.getCoordsLength(data)
+    let csi = (i, t) => mgeoj.getCoordsInRange(geoData(i), Math.ceil(nb * t))
+
+    // .................. aniDotted anima
     let aniDotted = i => ({
       halo: 'ent',
       geofold: p => {
-        let cs = csi(i, (1+i)/4)
+        let cs = csi(i, (1 + i) / 4)
         cs.geometry.type = 'MultiPoint' // switch to MultiPoint
         return cs
       },
       payload: {
         tim: tim,
-        ric: {gid: 'ani', cid: 'ani', fid: 'aniDotted'+i},
+        ric: {gid: 'ani', cid: 'ani', fid: 'aniDotted' + i},
         boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.5, 'co': 0.9, 'cp': 0.999},
-      }
+      },
     })
 
-
     // .................. animas
-   let aniLine = i => ({
+    let aniLine = i => ({
 
-    halo: 'ent',
-    geofold: p => {
-        let cs = csi(i, (1+i)/4)
+      halo: 'ent',
+      geofold: p => {
+        let cs = csi(i, (1 + i) / 4)
         cs.geometry.type = 'LineString' // switch to LineString
         return cs
-    },
-    payload: {
-      pointRadius: 3,
-      tim: tim,
-      ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniLine'+i},
-      boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.3, 'co': 0.009, 'cp': 0.999},
-    }
+      },
+      payload: {
+        pointRadius: 3,
+        tim: tim,
+        ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniLine' + i},
+        boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.3, 'co': 0.009, 'cp': 0.999},
+      },
 
-  })
+    })
 
     // .................. aniRay avatar - form.payload.fourier.avatars.line
-   let aniRay = i => ({
+    let aniRay = i => ({
 
-    halo: 'ent',
-    geofold: {type: 'Feature',geometry: {type: 'LineString',coordinates: []},properties: {}},
-    payload: {
-      tim: tim,
-      ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniRay'+i},
-      boform: {'csx': 0, 'cf': 555, 'cs': 444, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
-    }
+      halo: 'ent',
+      geofold: {type: 'Feature', geometry: {type: 'LineString', coordinates: []}, properties: {}},
+      payload: {
+        tim: tim,
+        ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniRay' + i},
+        boform: {'csx': 0, 'cf': 555, 'cs': 444, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      },
 
-  })
+    })
 
     // .................. aniTrace avatar - form.payload.fourier.avatars.line
-   let aniTrace = i => ({
+    let aniTrace = i => ({
 
-    halo: 'ent',
-    geofold: {
-      type: 'Feature', geometry: {type: 'MultiPoint',coordinates: []},properties: {}},
-    payload: {
-      tim: tim,
-      ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniTrace'+i},
-      boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
-    }
+      halo: 'ent',
+      geofold: {
+        type: 'Feature', geometry: {type: 'MultiPoint', coordinates: []}, properties: {}},
+      payload: {
+        tim: tim,
+        ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniTrace' + i},
+        boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      },
 
-  })
+    })
 
-  // .................. traceline avatar - payload.pacer.geojsor
-  let traceline = i => ({
+    // .................. traceline avatar - payload.pacer.geojsor
+    let traceline = i => ({
 
       halo: 'pacer',
       payload: {
-        ric: {gid: 'traces', cid: 'traces', fid: 'traces'+i},
+        ric: {gid: 'traces', cid: 'traces', fid: 'traces' + i},
         boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
         pacer: { // aad for trace
@@ -172,12 +168,12 @@ async function zindex (__mapper) {
               geofold: {
                 type: 'Feature',
                 geometry: { type: 'LineString', coordinates: null },
-                properties: { doc: 'pacer' }
+                properties: { doc: 'pacer' },
               },
               payload: {
-                uid: uid,id: uid,ric: ric,
-                proform: this.proform
-              }
+                uid: uid, id: uid, ric: ric,
+                proform: this.proform,
+              },
 
             }
 
@@ -189,32 +185,29 @@ async function zindex (__mapper) {
             return newItem
           },
 
-        }
-      }
+        },
+      },
     })
 
-
-    // .................. fourierForm h.fourier    
-     let fourierForm = i => ({
+    // .................. fourierForm h.fourier
+    let fourierForm = i => ({
       halo: 'fourier',
       geofold: p => {
-
-        let cs = csi(i, (1+i)/4)
-          let transforms = mfourier.transformedCoefs(cs)
-          transforms = mgeoj.ntime(transforms, [0,1])
-          return { type: 'FeatureCollection',features: transforms }
-
+        let cs = csi(i, (1 + i) / 4)
+        let transforms = mfourier.transformedCoefs(cs)
+        transforms = mgeoj.ntime(transforms, [0, 1])
+        return { type: 'FeatureCollection', features: transforms }
       },
-      payload: {  // FOURIER TRANSFORM in payload.fourier.transform
+      payload: { // FOURIER TRANSFORM in payload.fourier.transform
         tim: tim,
-        ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'+i},
+        ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier' + i},
         boform: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99},
         fourier: {
           interval: [ 0.0, 1.0 ], tolerance: 0.33,
 
-        }
-      }
-     })
+        },
+      },
+    })
 
     let aniDotteds = []
     let aniLines = []
@@ -223,7 +216,7 @@ async function zindex (__mapper) {
     let fourierPacers = []
     let fourierForms = []
 
-    for (let i=0; i<4; i++) {
+    for (let i = 0; i < 4; i++) {
       aniDotteds[i] = aniDotted(i)
       aniLines[i] = aniLine(i)
       aniRays[i] = aniRay(i)
@@ -232,9 +225,9 @@ async function zindex (__mapper) {
       fourierForms[i] = fourierForm(i)
 
       fourierForms[i].payload.fourier.avatars = {
-            traceline: fourierPacers[i], // trace
-            line: aniRays[i],  // ray
-          }
+        traceline: fourierPacers[i], // trace
+        line: aniRays[i], // ray
+      }
     }
     // .................. sceneAni
     let sceneAni = {
@@ -248,14 +241,14 @@ async function zindex (__mapper) {
       },
 
     }
-    
+
     // .................. animas
-  let animas = [
-    sceneAni, // h.scene
-    ...fourierForms, // h.fourier
-    ...aniDotteds, // h.ent
-    ...aniLines, // h.ent
-  ]
+    let animas = [
+      sceneAni, // h.scene
+      ...fourierForms, // h.fourier
+      ...aniDotteds, // h.ent
+      ...aniLines, // h.ent
+    ]
 
     return animas
   }

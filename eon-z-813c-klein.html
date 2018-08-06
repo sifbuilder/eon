@@ -59,25 +59,25 @@ async function zindex (__mapper) {
 
     let fact = n => n - 1 > 0 ? n * fact(n - 1) : n
     let fact0 = 1,
-        fact1 = 1,
-        fact2 = 2,
-        fact3 = 6,
-        fact4 = 24,
-        fact5 = 120,
-        fact6 = 720,
-        fact7 = 5040,
-        fact8 = 40320,
-        fact9 = 362880
+      fact1 = 1,
+      fact2 = 2,
+      fact3 = 6,
+      fact4 = 24,
+      fact5 = 120,
+      fact6 = 720,
+      fact7 = 5040,
+      fact8 = 40320,
+      fact9 = 362880
     let infact0 = 1 / fact0,
-        infact1 = 1 / fact1,
-        infact2 = 1 / fact2,
-        infact3 = 1 / fact3,
-        infact4 = 1 / fact4,
-        infact5 = 1 / fact5,
-        infact6 = 1 / fact6,
-        infact7 = 1 / fact7,
-        infact8 = 1 / fact8,
-        infact9 = 1 / fact9
+      infact1 = 1 / fact1,
+      infact2 = 1 / fact2,
+      infact3 = 1 / fact3,
+      infact4 = 1 / fact4,
+      infact5 = 1 / fact5,
+      infact6 = 1 / fact6,
+      infact7 = 1 / fact7,
+      infact8 = 1 / fact8,
+      infact9 = 1 / fact9
 
     let cost = [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8]
     let sint = [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9]
@@ -88,73 +88,71 @@ async function zindex (__mapper) {
     // ............................. pics
     let tim = {'td': 18600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => t}
 
-
     let conformLight = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[12,12]]], 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[12, 12]]], 'pa6': 0, 'pb7': -1,
         'dom3': [ 0, 180 ],
         // 'dom3': [ [[[0,0,-180]]], [[[0,180,180]]] ],
         // 'dom3': [ [[[0,-90]]], [[[0,90]]] ],
-        'dom3': [ [[[-180,-180]]], [[[180,180]]] ],
+        'dom3': [ [[[-180, -180]]], [[[180, 180]]] ],
         'dom3': [ -180, 180 ],
-        c: [ 1, 1, -2/15, [[[5,5]]]],
-        'fn0': (e,c,d) => 
-          (-2/15) * cos(e[2]) * (
-               3 * cos(e[0])
-            - 30 * sin(e[2])
-            + 90 * Math.pow(cos(e[2]),4) * sin(e[2])
-            - 60 * Math.pow(cos(e[2]),6) * sin(e[2])
-            +  5 * cos(e[2]) * cos(e[0]) * sin(e[2]) 
-         )
+        c: [ 1, 1, -2 / 15, [[[5, 5]]]],
+        'fn0': (e, c, d) =>
+          (-2 / 15) * cos(e[2]) * (
+            3 * cos(e[0]) -
+            30 * sin(e[2]) +
+            90 * Math.pow(cos(e[2]), 4) * sin(e[2]) -
+            60 * Math.pow(cos(e[2]), 6) * sin(e[2]) +
+            5 * cos(e[2]) * cos(e[0]) * sin(e[2])
+          )
         ,
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[12,12]]], 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[12, 12]]], 'pa6': 0, 'pb7': -1,
         // 'dom3': [ [[[0,0,-180]]], [[[0,180,180]]] ],
         'dom3': [ -180, 360 ],
         c: [ 1, 1, 1, 1],
-        'fn0': (e,c,d) => 
-          (-1/15) * sin(e[2]) * (
-               3 * cos(e[0])
-            -  3 * Math.pow(cos(e[2]),2) * cos(e[0])
-            - 48 * Math.pow(cos(e[2]),4) * cos(e[0])
-            + 48 * Math.pow(cos(e[2]),6) * cos(e[0])
-            - 60 * sin(e[2])
-            +  5 * Math.pow(cos(e[2]),3) * cos(e[0]) * sin(e[2])
-            -  5 * Math.pow(cos(e[2]),3) * cos(e[0]) * sin(e[2])
-            - 80 * Math.pow(cos(e[2]),5) * cos(e[0]) * sin(e[2])
-            + 80 * Math.pow(cos(e[2]),7) * cos(e[0]) * sin(e[2])
-           )
+        'fn0': (e, c, d) =>
+          (-1 / 15) * sin(e[2]) * (
+            3 * cos(e[0]) -
+            3 * Math.pow(cos(e[2]), 2) * cos(e[0]) -
+            48 * Math.pow(cos(e[2]), 4) * cos(e[0]) +
+            48 * Math.pow(cos(e[2]), 6) * cos(e[0]) -
+            60 * sin(e[2]) +
+            5 * Math.pow(cos(e[2]), 3) * cos(e[0]) * sin(e[2]) -
+            5 * Math.pow(cos(e[2]), 3) * cos(e[0]) * sin(e[2]) -
+            80 * Math.pow(cos(e[2]), 5) * cos(e[0]) * sin(e[2]) +
+            80 * Math.pow(cos(e[2]), 7) * cos(e[0]) * sin(e[2])
+          )
         ,
       },
       'z': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 
-          'seg5':    [[[0, 15, 60, 120, 120,  0, 0, 15,  15,  30,  120]]], 
-          'pa6': 0, 'pb7': -1,
-        'dom3': [ 0, [[[0, 90,180, 180, 180,  0, 15, 90, 180, 180]]] ],
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0,
+        'seg5': [[[0, 15, 60, 120, 120, 0, 0, 15, 15, 30, 120]]],
+        'pa6': 0, 'pb7': -1,
+        'dom3': [ 0, [[[0, 90, 180, 180, 180, 0, 15, 90, 180, 180]]] ],
         // 'dom3': [ 0, 180 ],
-        c: [ 1, 
-                     0, 
-                      [[[0, 0, 0,   0,  0,    0,  1,  1,   1, 1  ]]], 1],
-        'fn0': (e,c,d) => 
-          (2/15) * (
-              3 + 
-              5 * cos(e[2]) * sin(e[2]) 
-              ) *  Math.pow(sin(e[0]), d.c[2])
-            ,
+        c: [ 1,
+          0,
+          [[[0, 0, 0, 0, 0, 0, 1, 1, 1, 1 ]]], 1],
+        'fn0': (e, c, d) =>
+          (2 / 15) * (
+            3 +
+              5 * cos(e[2]) * sin(e[2])
+          ) * Math.pow(sin(e[0]), d.c[2])
+        ,
       },
       'r': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         // 'dom3': [ [[[0,0,-180]]], [[[0,180,180]]] ],
         'dom3': [ -180, 180 ],
-        'fn0': (e,c,d) => d.c[3] * sin(e[2] * (1 + epsilon * sin(e[0]))),
+        'fn0': (e, c, d) => d.c[3] * sin(e[2] * (1 + epsilon * sin(e[0]))),
       },
 
     }
-
 
     // ............................. lightAni
     let lightAni = {
@@ -169,17 +167,15 @@ async function zindex (__mapper) {
           scale: [ 0.5, 0.5 ],
           prerotate: [[[ cwen.rotation ]]],
           translate: [ [0, -100, 0] ],
-          rotate: [ -[[[0,5,0]]], [[[10,30,10]]], 0 ],
+          rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
-              'cs': [[[333, 333, 555, 555]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
+          'cs': [[[333, 333, 555, 555]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
         form: conformLight,
       },
     }
-
-
 
     // .................. sceneAni
     let sceneAni = {
@@ -199,7 +195,6 @@ async function zindex (__mapper) {
 
       sceneAni, // h.scene
       lightAni, // h.ent
-
 
     ]
 

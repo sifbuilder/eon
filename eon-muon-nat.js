@@ -48,14 +48,13 @@
     // p:[0,n], v => p[i] * v**i
     let ft = p => v => p.reduce((acc, cur, i) => acc + cur * pow(v, i), 0)
 
-    let tensorize = (d, dim=4, defv=0) => Array(dim).fill(defv).map( (c,i) => functor(d)[i] !== undefined ? functor(functor(d)[i]) : functor(defv))
+    let tensorize = (d, dim = 4, defv = 0) => Array(dim).fill(defv).map((c, i) => functor(d)[i] !== undefined ? functor(functor(d)[i]) : functor(defv))
 
     // c[0],c[1],c[2],c[3]: radius (default to 1)
     // e[1] [-2pi,2pi],e[2][-2pi,2pi],e[3][-pi,pi],e4[-pi,pi]: radian-angles (default to 0)
     // fn: c[0][i] * c[0]**i
     let fn = dax =>
       (e = [], c = []) => {
-
         dax.e[0] = dax.e[0] !== undefined ? dax.e[0] : 1
         dax.e[1] = dax.e[1] !== undefined ? dax.e[1] : 1
         dax.e[2] = dax.e[2] !== undefined ? dax.e[2] : 1
@@ -77,11 +76,9 @@
                   ft(cf[2])(cp[2]) * ft(ef[2])(ep[2]) *
                   ft(cf[3])(cp[3]) * ft(ef[3])(ep[3])
 
-
         // let tensor = glmatrix.mat4.fromValues(...tensorize(e[0]), ...tensorize(e[1]), ...tensorize(e[2]), ...tensorize(e[3]) )
         // let vector = glmatrix.vec4.fromValues(xe(e[0]), xe(e[1]), xe(e[2]), xe(e[3]) )
         // let position = glmatrix.vec4.transformMat4(glmatrix.vec4.create(), vector, tensor)
-
 
         return ret
       }
