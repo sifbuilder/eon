@@ -12,7 +12,7 @@
     let [
       mprops,
       mric,
-      lcomplex,
+      Complex,
       hent,
     ] = await Promise.all([
       __mapper('xs').m('props'),
@@ -21,7 +21,6 @@
       __mapper('xs').h('ent'),
     ])
 
-    let Complex = lcomplex
 
     // ............................. gramm
     async function gramm (ani, newAnigrams = []) {
