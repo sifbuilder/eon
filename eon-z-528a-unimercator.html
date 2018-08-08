@@ -4,12 +4,6 @@
 <head >
 
   <style>
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
     body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
     div#fps,svg { position: fixed; top:0; left:0; color: white; }
   </style>
@@ -18,47 +12,69 @@
 <body style="cursor:crosshair"></body>
 <div id="viewframe" class="viewframe"></div>
 
-<script src="script-enls.js"></script>
-<script src="script-ents.js"></script>
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
 
 <script>
 
-let muonAlima = function muonAlima (__mapper) {
-  __mapper({'xs': xs.xs(__mapper)}) // PROXIES
-  __mapper('xs').m('init')({svg: 1, versor: 1, wen: 0, webgl: 1}) // INIT
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map xs
 
-  /*******************************************
- *      @pics
- *
- */
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  muonStore.apply({type: 'UPDANIMA', animas: animas})
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  let [
+    mgraticule,
+    cwen,
+    topojson,
+    dworldTopo110m,
+    punimercator,
+  ] = await Promise.all([
+    __mapper('xs').m('graticule'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').b('topojson'),
+    __mapper('xs').d('worldTopo110m'),    
+    __mapper('xs').p('unimercator'),
+  ])
+
+  let animas = function () {
+  // .................. pics
   let tim = {'td': 32200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
   let proform = {
 
-    'projection': 'unimercator',
+    'projection': punimercator,
     'scale': 102,
     'translate': [ 0, 0 ],
     'rotate': [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
 
   }
-  /*******************************************
- *    @animas
- *
- */
-  // -------------------------------  geoearth
+
+  // .................. geoearth
   let geoearth = {
 
     halo: 'ent',
-
-    geofold: () => {
-      let geo = Object.assign({},
-        topojson.feature(
-          __mapper('xs').d('worldTopo110m').data(),
-          __mapper('xs').d('worldTopo110m').data().objects.land
+      geofold: p => {
+        let geometry = Object.assign({},
+          topojson.mesh(
+            dworldTopo110m.data(),
+            dworldTopo110m.data().objects.land
+          )
         )
-      )
-      return __mapper('xs').m('geoj').trim(geo)
-    },
+        return { type: 'Feature', geometry: geometry, properties: {} }
+      },
     payload: {
       tim: tim,
       ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
@@ -69,23 +85,18 @@ let muonAlima = function muonAlima (__mapper) {
 
   }
 
-  /*******************************************
- *    @animaApi
- *
- */
+    // .................. animas
   let animas = [
 
     geoearth, // h.ent g.unimercator
 
   ]
-  let animaApi = function animaApi () {
-    __mapper('xs').m('store').apply({'type': 'UPDANIMA', 'caller': 'alima', 'animas': animas})
+
+    return animas
   }
 
-  return animaApi
+  let enty = () => {}
+  enty.animas = animas
+  return enty
 }
-
-let __mapper = muonMapper.muonMapper()
-__mapper({'muonAlima': muonAlima(__mapper)}).muonAlima(__mapper)
 </script>
-<body style="cursor:crosshair"></body>
