@@ -472,13 +472,12 @@
     // ...................... getCoordsInRange
     //  nb: numver of coords, firstCoord: start coord
     let getCoordsInRange = function (gj, toaddCoords, firstCoord = 0, ngj = {type: null, coordinates: [] }) {
-      if (1 && 1) console.log('get ', toaddCoords, ' coords starting starting at ', firstCoord)
 
       let pointerInCoords = 0 // pointer to current coord at beginning of line
       let addedCoords = 0 // added coords
       let startInLine = 0 // start coord of line i
       let firstCoordInLine = 0
-      
+
       ngj.type = gj.type
 
       if (gj.type === 'Polygon') {
@@ -497,63 +496,47 @@
             break
           }
         }
-        
-        
-        
-        
+
+
+
+
       } else if ((gj.type === 'MultiLineString')) {
         let lines = gj.coordinates
         let numboflinesingj = lines.length
 
-        if (1 && 1) console.log('with lines: ',  lines.map(d => d.length))
-
         for (let i = 0; i < numboflinesingj; i++) { // for each line
-        
+
           let line = lines[i]
           let linelength = line.length // number of coords in line
-if (1 && 1) console.log('  line of coords ', linelength, ' in line ', i)
-    
-  
+
+
           // toaddCoords: coords to add
           // firstCoord: first coord to start adding in gj coords system
-          
-          // coords to be added when processing line i
-          let remainingCoords = toaddCoords - addedCoords
-          
+          // remainingCoords: coords to be added when processing line i
           // firstCoordInLine: first coordinate of line i in abs gj coords system
           // addedCoords: number of coords added before line i
-          // pointerInCoords: ???? 
-
           // tmpstart: first coord in line coords system
-          let tmpstart = (firstCoord + addedCoords) - firstCoordInLine 
-          
           // tmpend: last coord in line coords system
+
+          let remainingCoords = toaddCoords - addedCoords
+          let tmpstart = (firstCoord + addedCoords) - firstCoordInLine
           let tmpend = tmpstart + remainingCoords
-                    
-           // if (1 && 1) console.log('firstCoord', firstCoord)
-           // if (1 && 1) console.log('pointerInCoords', pointerInCoords)
-           // if (1 && 1) console.log('tmpstart', tmpstart)
-           // if (1 && 1) console.log('tmpend', tmpend)
-           // if (1 && 1) console.log('remainingCoords', remainingCoords)
-if (1 && 1) console.log('line ', i, tmpstart, tmpend, ' with start ', firstCoordInLine)
+
           let tmpLine = []
-          if (tmpstart >= 0 && tmpend >=0) {    
+          if (tmpstart >= 0 && tmpend >=0) {
             tmpLine = line.slice(tmpstart, tmpend)
-            
+
             if (tmpLine.length > 0) {
               ngj.coordinates.push(tmpLine)
-              
+
               addedCoords += tmpLine.length
-              
-              // if (1 && 1) console.log('got coords', tmpLine.length, ' starting at coord: ', tmpstart, ' out of ', remainingCoords )
-              if (1 && 1) console.log(' ******** got coords', tmpLine.length, ' at line: ', i)
 
             }
           }
           pointerInCoords += tmpLine.length
           firstCoordInLine = firstCoordInLine + linelength
 
-          
+
         }
 
         // if (1 && 1) console.log('ngj', JSON.stringify(ngj.coordinates[ngj.coordinates.length - 1].slice(-3)))
