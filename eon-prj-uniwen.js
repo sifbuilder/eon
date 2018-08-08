@@ -97,29 +97,24 @@
     let pointStream = function (x, y, z) {
       let rotate = state.rotate,
         scale = state.scale,
-        translate = state.translate || [0, 0, 0],
+        translate = state.translate || [0,0,0],
         lens = state.lens
 
+
       let c = [x, y, z]
-
-      scale = Array.isArray(scale) ? scale : c.map((d, i) => scale[i] || 1)
-
       let rot = []
       if (mprops.isPureArray(rotate)) {
-        rot = rotate
+          rot = rotate
       } else { // assume multiple translates
         for (let k = 0; k < rotate.length; k++) {
           rot = mgeom.add(rot, rotate[k])
         }
       }
       c = wenRotation(rot)(...c) // rotate
-
-      c = c.map((d, i) => d * (scale[i] || 1))
-
+      
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
+      c = mwen.projection(c, lens[2], scale) // project
 
-      // c = mwen.projection(c, lens[2], scale) // project
-      c = mwen.projection(c, lens[2], 1) // project
 
       if (mprops.isPureArray(translate)) {
         c = c.map((d, i) => d + (translate[i] || 0)) // translate
@@ -129,7 +124,8 @@
           trans = mgeom.add(trans, translate[k])
         }
       }
-      // c = wenRotation(rot)(...c) // rotate
+
+
 
       this.stream.point(...c)
     }

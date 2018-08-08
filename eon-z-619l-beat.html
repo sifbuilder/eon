@@ -120,19 +120,12 @@ async function zindex (__mapper) {
         let nbt = Math.ceil(nb * t)
         let startingpoint = nbt
 
-        if (1 && 1) console.log('beat dots', nb, ' at time ', t, ' starting ', startingpoint)
-
-        
         let csi = t => (geometry, coords, startingin) => mgeoj.getCoordsInRange(geometry, coords, startingin)
         let pointsatatime = 1200
         
-        // let geo = csi(t)(geoData.geometry, nbt)
+        // let geo = csi(t)(geoData.geometry, nbt)  // time dependent many from beginning
         let geo = csi(t)(geoData.geometry, pointsatatime, startingpoint)
         let tcoords = geo.coordinates
-
-        // if (1 && 1) console.log('coords GET', nb, nbt)
-        // if (1 && 1) console.log('coords geoData', geoData.geometry.coordinates)
-        // if (1 && 1) console.log('coords csi', tcoords)
 
         let ngj = {
           type: 'Feature',

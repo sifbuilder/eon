@@ -50,8 +50,6 @@ async function zindex (__mapper) {
     let sin = Math.sin, cos = Math.cos
 
     // .................. pics
-    // z.dom3: [-180, [[[160,180,180]]] ]
-    // payload.frame: [-0, 180, 22.5, 22.5]
     // https://en.wikipedia.org/wiki/Surface_of_revolution
     let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -62,8 +60,7 @@ async function zindex (__mapper) {
         // 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          a * cos(r) * c * cos(u),
+        'fn0': (e, c, d) => c[0] * cos(e[0]) * c[2] * cos(e[2]),
 
       },
       'y': {
@@ -72,8 +69,7 @@ async function zindex (__mapper) {
         // 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          b * sin(s) * c * cos(u),
+        'fn0': (e, c, d) => c[1] * sin(e[1]) * c[2] * cos(e[2]),
       },
       'z': {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
@@ -81,8 +77,7 @@ async function zindex (__mapper) {
         // 'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          b * sin(v) * c * cos(s),
+        'fn0': (e, c, d) => c[1] * sin(e[3]) * c[2] * cos(e[1]),
 
       },
       'r': {
@@ -91,8 +86,7 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          c * cos(u),
+        'fn0': (e, c, d) => c[2] * cos(e[2]),
 
       },
     }
@@ -101,29 +95,25 @@ async function zindex (__mapper) {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          a * cos(r) * c * cos(u),
+        'fn0': (e, c, d) => c[0] * cos(e[0]) * c[2] * cos(e[2]),
       },
       'y': {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          b * sin(s) * c * cos(u),
+        'fn0': (e, c, d) => c[1] * sin(e[1]) * c[2] * cos(e[2]),
       },
       'z': {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          d * sin(v),
+        'fn0': (e, c, d) => c[3] * sin(e[3]),
       },
       'r': {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          d * sin(v),
+        'fn0': (e, c, d) => c[3] * sin(e[3]),
       },
     }
 
@@ -132,29 +122,25 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          a * cos(r) *
-              c * cos(u),
+        'fn0': (e, c, d) => c[0] * cos(e[0]) * c[2] * cos(e[2]),
 
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          b * sin(r) *
-              c * cos(u),
+        'fn0': (e, c, d) => c[1] * sin(e[0]) * c[2] * cos(e[2]),
       },
       'z': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          d * sin(v),
+        'fn0': (e, c, d) => c[3] * sin(e[3]),
 
       },
     }
-    // -------------------------------  gratform1
+    
+    // .................. gratform1
     let gratform1 = {
 
       halo: 'ent',
@@ -175,12 +161,12 @@ async function zindex (__mapper) {
         },
 
         proform: {
-          'projection': 'uniwen',
-          'prerotate': [[[ cwen.rotation ]]],
-          'translate': [0, 0, 0],
-          'scale': 1,
-          'rotate': [ 0, 0, 0],
-          'lens': [ 0, 1, Infinity ],
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [0, 0, 0],
+          scale: 1,
+          rotate: [ 0, 0, 0],
+          lens: [ 0, 1, Infinity ],
         },
 
         graticule: {
@@ -191,7 +177,8 @@ async function zindex (__mapper) {
       },
 
     }
-    // -------------------------------  circform
+    
+    // .................. circform
     let circform = {
 
       halo: 'ent',
@@ -207,12 +194,12 @@ async function zindex (__mapper) {
         conform: { projection: 'natform', form: formCirc },
 
         proform: {
-          'projection': 'uniwen',
-          'prerotate': [[[ cwen.rotation ]]],
-          'translate': [0, 0, 0],
-          'scale': 1,
-          'rotate': [ 0, 0, 0],
-          'lens': [ 0, 1, Infinity ],
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [0, 0, 0],
+          scale: 1,
+          rotate: [ 0, 0, 0],
+          lens: [ 0, 1, Infinity ],
         },
 
         graticule: {
