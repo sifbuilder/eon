@@ -54,65 +54,6 @@ async function zindex (__mapper) {
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
 
-    // sphere
-    // [-180, 180] => a * cos(r) * c * cos(v)
-    // [-180, 180] => b * sin(r) * c * cos(v)
-    // [-180, 180] =>                       d * sin(u)
-
-    // hyperbole
-    // [-180, 180] => r * c * cos(v)
-    // [-180, 180] => s * s * s * c * cos(v)
-    // [-180, 180] =>                       d * sin(u)
-
-    // flat reticule
-    // [-180, 180] => r
-    // [-180, 180] => 0
-    // [-180, 180] => u
-
-    // rectantular parabole
-    // [-180, 180] => r
-    // [-180, 180] => r * r
-    // [-180, 180] => u
-
-    // envelop parabole
-    // [-180, 180] => r  * cos(v)
-    // [-180, 180] => r * r
-    // [-180, 180] => sin(v)
-
-    // parabole
-    // [-180, 180] => q     * cos(v)
-    // [-180, 180] => q * q
-    // [-180, 180] => q     * sin(v)
-
-    // spiral
-    // [-180, 180] => r     * cos(v)
-    // [-180, 180] => v
-    // [-180, 180] => r     * sin(v)
-
-    // papiro
-    // [-180, 180] => r     * cos(v)
-    // [-180, 180] => sin( 10 * v)
-    // [-180, 180] => r     * sin(v)
-
-    // cup
-    // [-180, 180] => cos(r)       * c * (  cos(u))
-    // [-180, 180] => sin(r)       * c * ( cos(u))
-    // [-180, 180] => u * u
-
-    // lace
-    // [-180, 180] => cos(r)       * c * (  cos(u))
-    // [-180, 180] => sin(r)       * c * ( cos(u))
-    // [-180, 180] => u
-
-    // plane
-    // [-180, 180] => s * s * sin(u)
-    // [-180, 180] => sin(r)       * c * ( cos(u))
-    // [-180, 180] => u
-
-    // cone
-    // [-180, 180] => r     * cos(v)
-    // [-180, 180] => r
-    // [-180, 180] => r     * sin(v)
 
     let conform = {
       'x': {
@@ -125,7 +66,7 @@ async function zindex (__mapper) {
         // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => s * s * sin(u),
         // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => cos(r)       * cos(u),
         // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => cos(r)       * c *  cos(v),
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => r * cos(v),
+        'fn0': (e, c, d) => e[0] * cos(e[3]),
         // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => r,
       },
       'y': {
@@ -135,7 +76,7 @@ async function zindex (__mapper) {
         'dom3': [-180, 180],
         // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => b * sin(r) * c * cos(v),
         // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>  r * r * sin(v),
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => r * r,
+        'fn0': (e, c, d) => e[0] * e[0],
         // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>  r,
         // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>  s,
         // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>  s * s,
@@ -157,7 +98,7 @@ async function zindex (__mapper) {
         // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => 1 / ( 1 + v),
         // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) =>  s * s * cos(u),
         // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => sin(u),
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) => r * sin(v),
+        'fn0': (e, c, d) => e[0] * sin(e[3]),
         // 'fn0': (r,s, u=0,v=0, a,b, c=1,d=1) => u * u ,
       },
 
