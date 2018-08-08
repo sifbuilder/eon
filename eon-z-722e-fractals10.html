@@ -43,18 +43,17 @@ async function zindex (__mapper) {
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
-      __mapper('xs').l('complex'),
+    __mapper('xs').l('complex'),
   ])
 
   // .................. animas
   let animas = function () {
     // .................. pics
 
-  const pi = Math.PI, pi2 = 2 * pi,
+    const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
 
-
-  let getForm = function (params = {}) {
+    let getForm = function (params = {}) {
       let _NAME = params.name || 'anis'
       _ROW = params.row || 2,
       _COL = params.col || 2,
@@ -76,8 +75,8 @@ async function zindex (__mapper) {
 
       const signexp = d => Math.pow(-1, d)
 
-    // .................. traceLine
-  let traceLine = { // SUB-MARKS line trace
+      // .................. traceLine
+      let traceLine = { // SUB-MARKS line trace
 
         halo: 'pacer',
         geofold: null,
@@ -128,8 +127,7 @@ async function zindex (__mapper) {
             },
           },
         },
-  }
-
+      }
 
       // md: sinus location in fractalForm.geofold.geometry.coordinates
       // md:   adding the lower fractal coeficients
@@ -171,7 +169,7 @@ async function zindex (__mapper) {
         },
       }
 
-    // .................. create anis
+      // .................. create anis
       let anis = [] // initialize animas
 
       let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d)) // amplitude of sinus (level)
@@ -217,8 +215,7 @@ async function zindex (__mapper) {
       }
 
       return anis
-  }
-
+    }
 
     animas = getForm({depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2})
 

@@ -9,7 +9,6 @@
   'use strict'
 
   async function muonGeoj (__mapper = {}) {
-    
     let [
       d3polygon,
       mprops,
@@ -19,7 +18,7 @@
       __mapper('xs').m('props'),
       __mapper('xs').l('complex'),
     ])
-    
+
     let types = {
       Point: 'geometry',
       MultiPoint: 'geometry',
@@ -480,7 +479,6 @@
     // ...................... getCoordsInRange
     //  nb: numver of coords, firstCoord: start coord
     let getCoordsInRange = function (gj, toaddCoords, firstCoord = 0, ngj = {type: null, coordinates: [] }) {
-
       let pointerInCoords = 0 // pointer to current coord at beginning of line
       let addedCoords = 0 // added coords
       let startInLine = 0 // start coord of line i
@@ -504,19 +502,13 @@
             break
           }
         }
-
-
-
-
       } else if ((gj.type === 'MultiLineString')) {
         let lines = gj.coordinates
         let numboflinesingj = lines.length
 
         for (let i = 0; i < numboflinesingj; i++) { // for each line
-
           let line = lines[i]
           let linelength = line.length // number of coords in line
-
 
           // toaddCoords: coords to add
           // firstCoord: first coord to start adding in gj coords system
@@ -531,27 +523,22 @@
           let tmpend = tmpstart + remainingCoords
 
           let tmpLine = []
-          if (tmpstart >= 0 && tmpend >=0) {
+          if (tmpstart >= 0 && tmpend >= 0) {
             tmpLine = line.slice(tmpstart, tmpend)
 
             if (tmpLine.length > 0) {
               ngj.coordinates.push(tmpLine)
 
               addedCoords += tmpLine.length
-
             }
           }
           pointerInCoords += tmpLine.length
           firstCoordInLine = firstCoordInLine + linelength
-
-
         }
 
         // if (1 && 1) console.log('ngj', JSON.stringify(ngj.coordinates[ngj.coordinates.length - 1].slice(-3)))
-
       } else if ((gj.type === 'MultiPoint')) {
         ngj.coordinates = gj.coordinates.slice(0, toaddCoords)
-
       } else if ((gj.type === 'LineString')) {
         let line = gj.coordinates // coords in line
         let linelength = line.length // number of coords in line

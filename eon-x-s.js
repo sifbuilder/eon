@@ -26,8 +26,6 @@
       .replace(/\s+/g, '') // remove white space
       .replace(/-+/g, '') // remove hyphen
     const getCell = (e, n, m) => { // eon, name, mapper
-      // if (1 && 1) console.log(' *************  ', n, e)
-
       if (e[n] !== undefined && typeof e[n] === 'function') {
         return e[n](m)
       } else if (typeof e === 'object') {
@@ -86,7 +84,6 @@
       return eonfroms.reduce(
         (p, q) => p.catch(failed => Promise.resolve(getCeonSync([ceon, '']) || q())),
         Promise.reject('init reduce'))
-        // .then(result => result)
         .catch(failed => { console.log('Failed: ', ceon, failed) })
     }
 

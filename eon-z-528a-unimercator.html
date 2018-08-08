@@ -45,27 +45,27 @@ async function zindex (__mapper) {
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').b('topojson'),
-    __mapper('xs').d('worldTopo110m'),    
+    __mapper('xs').d('worldTopo110m'),
     __mapper('xs').p('unimercator'),
   ])
 
   let animas = function () {
   // .................. pics
-  let tim = {'td': 32200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let tim = {'td': 32200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  let proform = {
+    let proform = {
 
-    'projection': punimercator,
-    'scale': 102,
-    'translate': [ 0, 0 ],
-    'rotate': [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
+      'projection': punimercator,
+      'scale': 102,
+      'translate': [ 0, 0 ],
+      'rotate': [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
 
-  }
+    }
 
-  // .................. geoearth
-  let geoearth = {
+    // .................. geoearth
+    let geoearth = {
 
-    halo: 'ent',
+      halo: 'ent',
       geofold: p => {
         let geometry = Object.assign({},
           topojson.mesh(
@@ -75,22 +75,22 @@ async function zindex (__mapper) {
         )
         return { type: 'Feature', geometry: geometry, properties: {} }
       },
-    payload: {
-      tim: tim,
-      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
-      boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.9, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+      payload: {
+        tim: tim,
+        ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
+        boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.9, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
 
-      proform: proform,
-    },
+        proform: proform,
+      },
 
-  }
+    }
 
     // .................. animas
-  let animas = [
+    let animas = [
 
-    geoearth, // h.ent g.unimercator
+      geoearth, // h.ent g.unimercator
 
-  ]
+    ]
 
     return animas
   }

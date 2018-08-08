@@ -21,7 +21,6 @@
       __mapper('xs').h('ent'),
     ])
 
-
     // ............................. gramm
     async function gramm (ani, newAnigrams = []) {
       let anigram = ani,

@@ -19,11 +19,11 @@
     ])
 
     let atan = Math.atan,
-			exp = Math.exp,
-			log = Math.log,
-			tan = Math.tan,
-			pi = Math.PI,
-			halfPi = pi / 2
+      exp = Math.exp,
+      log = Math.log,
+      tan = Math.tan,
+      pi = Math.PI,
+      halfPi = pi / 2
 
     function mercatorRaw (lambda, phi) {
       return [lambda, log(tan((halfPi + phi) / 2))]
@@ -31,7 +31,6 @@
     mercatorRaw.invert = function (x, y) {
       return [x, 2 * atan(exp(y)) - halfPi]
     }
-
 
     // ............................. enty
     var enty = function () { // mercator

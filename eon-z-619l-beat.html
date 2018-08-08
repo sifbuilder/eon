@@ -122,7 +122,7 @@ async function zindex (__mapper) {
 
         let csi = t => (geometry, coords, startingin) => mgeoj.getCoordsInRange(geometry, coords, startingin)
         let pointsatatime = 1200
-        
+
         // let geo = csi(t)(geoData.geometry, nbt)  // time dependent many from beginning
         let geo = csi(t)(geoData.geometry, pointsatatime, startingpoint)
         let tcoords = geo.coordinates

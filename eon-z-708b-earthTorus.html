@@ -55,12 +55,11 @@ async function zindex (__mapper) {
 
   // .................. animas
   let animas = function () {
-    
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
       sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh,
       exp = Math.exp
-    
+
     // .................. pics
     let fact = n => n - 1 > 0 ? n * fact(n - 1) : n
     let fact0 = 1,
@@ -83,13 +82,12 @@ async function zindex (__mapper) {
       infact7 = 1 / fact7,
       infact8 = 1 / fact8,
       infact9 = 1 / fact9
-      
+
     let cost = [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8]
     let sint = [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9]
     let cosht = [infact0, 0, +infact2, 0, infact4, 0, +infact6, 0, infact8]
     let sinht = [0, infact1, 0, +infact3, 0, infact5, 0, +infact7, 0, infact9]
     let expt = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
-    
 
     let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, 'nostop': 1}
 
@@ -192,16 +190,16 @@ async function zindex (__mapper) {
       lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
 
     }
-     // let  proformTorus =  {
-          // projection: 'uniwen',
-          // scale: [ 1, 1, 1 ],
-          // prerotate: [[[ cwen.rotation ]]],
-          // translate: [ [0, 0, 0] ],
-          // rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
-          // rotate: [ 0, 0, 0 ],
-          // lens: [ 0, 1, Infinity ],
-        // }
-        
+    // let  proformTorus =  {
+    // projection: 'uniwen',
+    // scale: [ 1, 1, 1 ],
+    // prerotate: [[[ cwen.rotation ]]],
+    // translate: [ [0, 0, 0] ],
+    // rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
+    // rotate: [ 0, 0, 0 ],
+    // lens: [ 0, 1, Infinity ],
+    // }
+
     let proformTorus = {
 
       projection: 'uniwen',
@@ -215,12 +213,12 @@ async function zindex (__mapper) {
 
     // let proformEarth = {
 
-      // projection: 'uniwen',
-      // prerotate: [[[ cwen.rotation ]]],
-      // translate: [ 0, 0],
-      // scale: 1,
-      // rotate: [-5, 50, 0 ], // [-5,50,0], //
-      // lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
+    // projection: 'uniwen',
+    // prerotate: [[[ cwen.rotation ]]],
+    // translate: [ 0, 0],
+    // scale: 1,
+    // rotate: [-5, 50, 0 ], // [-5,50,0], //
+    // lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
 
     // }
 

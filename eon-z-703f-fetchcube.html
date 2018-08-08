@@ -13,9 +13,6 @@
 ;(async function eon () {
   const origin = 'https://sifbuilder.github.io/eon/'
 
-  <!-- const body = document.createElement('body') -->
-  <!-- document.appendChild(body) -->
-
   const viewframe = document.createElement('div')
   viewframe.id = 'viewframe'
   viewframe.className = 'viewframe'
@@ -75,7 +72,6 @@ async function zindex (__mapper) {
     let wenPolygon = {
 
       halo: 'ent',
-
       geofold: (p) => {
         let points = [
             [-1, -1, 1], // 0
@@ -137,18 +133,18 @@ async function zindex (__mapper) {
       },
       payload: {
         tim: tim,
-        ric: {'gid': 'wenPolygon', 'cid': 'wenPolygon', 'fid': 'wenPolygon'},
+        ric: {gid: 'wenPolygon', cid: 'wenPolygon', fid: 'wenPolygon'},
         boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
         proform: {
 
           projection: 'uniwen',
-          translate: [ 400 - 400, 200 - 200],
+          translate: [ 0, 0],
           scale: 90,
           rotate: [0, 0, 0],
           lens: [0, 1, Infinity],
           prerotate: [[[ cwen.rotation ]]],
-          control: 'wen',
+
         },
       },
 
