@@ -9,9 +9,17 @@
   'use strict'
 
   async function muonGeoj (__mapper = {}) {
-    let mprops = await __mapper('xs').m('props')
-    let lcomplex = await __mapper('xs').l('complex')
-
+    
+    let [
+      d3polygon,
+      mprops,
+      lcomplex,
+    ] = await Promise.all([
+      __mapper('xs').b('d3-polygon'),
+      __mapper('xs').m('props'),
+      __mapper('xs').l('complex'),
+    ])
+    
     let types = {
       Point: 'geometry',
       MultiPoint: 'geometry',
@@ -171,7 +179,7 @@
         poly = null
 
       for (let c = 0; c < gj.length; c++) {
-        let tsize = (gj.type === 'MultiPolygon') ? d3.polygonArea(gj[c][0]) : d3.polygonArea(gj[c])
+        let tsize = (gj.type === 'MultiPolygon') ? d3polygon.polygonArea(gj[c][0]) : d3polygon.polygonArea(gj[c])
 
         if (tsize > size) {
           size = tsize
