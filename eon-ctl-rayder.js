@@ -10,26 +10,30 @@
 
   async function ctlRayder (__mapper) {
     let [
+      d3,
       rsvg,
       rrenderport,
     ] = await Promise.all([
+      __mapper('xs').b('d3'),
       __mapper('xs').r('svg'),
       __mapper('xs').r('renderport'),
     ])
+
+    let d3selection = d3
 
     let mouse = {
       x: -2, // Initialize off canvas
       y: -2,
     }
 
-    let pointer = {
-      x: -2,
-      y: -2,
-    }
-
+    let pointer = mouse
     let touch = {}
-
     let domNode = rsvg.svg()
+
+    let getPos = rrenderport.getPos // event position
+    let xsign = 1 //  1 if x goes left to right
+    let ysign = -1 // 1 if y goes up down
+
 
     let state = {
       pointer,
@@ -38,6 +42,8 @@
       domNode,
     }
 
+    state.grabbed = false    
+    
     let cameraProjer = rrenderport.cameraProjer()
 
     // ............................. projector
@@ -48,8 +54,9 @@
         state.mouse.x = t[0]
         state.mouse.y = t[1]
 
-        state.pointer.x = t[0] //
-        state.pointer.y = t[1] //
+        state.pointer.x = t[0]
+        state.pointer.y = t[1]
+
       } else if (event.type === 'touchmove') {
         let touch = event.changedTouches[0]
 
@@ -58,8 +65,8 @@
         state.mouse.x = t[0]
         state.mouse.y = t[1]
 
-        state.pointer.x = t[0] //
-        state.pointer.y = t[1] //
+        state.pointer.x = t[0]
+        state.pointer.y = t[1]
       }
     }
 
@@ -89,24 +96,64 @@
 
     // ............................. mouseDownListener
     function mouseDownListener (event) {
-      enty.mouseDown(1)
-      enty.mouseDownShared(1)
-      enty.event(event)
+      if (1 && 1) console.log(' *-*-* mouseDownListener', event.type)
+
+     if (state.grabbed) return
+
+      // let e = d3selection.event
+      let e = event
+
+
+      state.moved = false // not moved yet
+      let pos = getPos(e)  // mouse position
+      
+// if (1 && 1) console.log(' *********** pos', pos)
+
+      
+      state.grabbed = pos
+
+
+      // enty.mouseDown(1)
+      // enty.mouseDownShared(1)
+      // enty.event(event)
     }
 
     // ............................. mouseMoveListener
     function mouseMoveListener (event) {
-      enty.mouseMove(1)
-      enty.mouseDownShared(1)
-      enty.event(event)
-      projector(event)
+      if (1 && 1) console.log('mouseMoveListener')
+      if (!state.grabbed) return
+
+      // let e = d3selection.event
+      let e = event
+      let pos = getPos(e) //  d3.mouse(this)
+      let dx = xsign * (pos[1] - state.grabbed[1]),
+        dy = ysign * (state.grabbed[0] - pos[0])
+
+      if (!state.moved) {
+        if (dx * dx + dy * dy < state.moveSpan) return
+        state.moved = true // moved
+      }
+
+      state.lastMoveTime = Date.now()
+
+      // enty.mouseMove(1)
+      // enty.mouseDownShared(1)
+      // enty.event(event)
+      // projector(event)
     }
 
     // ............................. mouseUpListener
     function mouseUpListener (event) {
-      enty.mouseDown(0)
-      enty.mouseDownShared(0)
-      enty.event(event)
+      if (1 && 1) console.log(' **************************** mouseUpListener', state, event)
+
+      if (!state.grabbed) return
+      state.grabbed = false
+      if (!state.moved) return
+
+
+      // enty.mouseDown(0)
+      // enty.mouseDownShared(0)
+      // enty.event(event)
     }
 
     // ............................. subscribe
@@ -120,12 +167,12 @@
       enty.domNode(domNode)
 
       subscribe(mouseDownListener, state.domNode, 'mousedown')
-      subscribe(mouseUpListener, state.domNode, 'mouseup')
       subscribe(mouseMoveListener, state.domNode, 'mousemove')
+      subscribe(mouseUpListener, state.domNode,   'mouseup')
 
       subscribe(touchStartListener, state.domNode, 'touchstart')
       subscribe(touchMoveListener, state.domNode, 'touchmove')
-      subscribe(touchEndListener, state.domNode, 'touchend')
+      subscribe(touchEndListener, state.domNode,  'touchend')
     }
 
     // ............................. enty
@@ -133,11 +180,15 @@
 
     enty.domNode = _ => (_ !== undefined) ? (state.domNode = _, enty) : state.domNode
 
+    enty.grabbed = () => state.grabbed
+
+
     enty.mouse = () => state.mouse
     enty.touch = () => state.touch
     enty.pointer = () => state.pointer //
 
     enty.control = control
+    enty.event = _ => _ !== undefined ? (state.event = _, enty) : state.event
 
     enty.mouseDown = _ => (_ !== undefined) ? (state.mouseDown = _, enty) : state.mouseDown
     enty.mouseDownShared = _ => (_ !== undefined) ? (state.mouseDownShared = _, enty) : state.mouseDownShared

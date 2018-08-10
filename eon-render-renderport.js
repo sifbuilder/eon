@@ -51,7 +51,9 @@
       if (Array.isArray(signal)) { // coordinates
         pos = [signal[0], signal[1]]
         pos = projer.invert(pos)
+        
       } else if (typeof signal === 'object') { // event
+      
         if (signal.touches && signal.touches.length) {
           signal = signal.touches[0]
           pos = [signal.x, signal.y]

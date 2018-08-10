@@ -15,12 +15,14 @@
       cversor,
       ckey,
       ctimer,
+      crayder,
     ] = await Promise.all([
       __mapper('xs').r('svg'),
       __mapper('xs').c('wen'),
       __mapper('xs').c('versor'),
       __mapper('xs').c('key'),
       __mapper('xs').c('timer'),
+      __mapper('xs').c('rayder'),
     ])
 
     let manimation = __mapper('muonAnimation')
@@ -51,9 +53,18 @@
 
       if (p.svg && p.versor && p.versor !== state.scene.versor) {
         state.scene.versor = 1
-        cversor.control(rsvg.svg())
+        let svg = rsvg.svg()            
+        cversor.control(svg)
       }
 
+      // ............................. ray control animation      
+      // if ray, add ray controls to svg
+      if (p.ray && p.ray !== state.ray) {
+        state.ray = 1
+        let svg = rsvg.svg()        
+        crayder.control(svg)
+      }      
+      
       // ............................. key control animation
       if (p.key && p.key !== state.scene.key) {
         state.scene.key = 1

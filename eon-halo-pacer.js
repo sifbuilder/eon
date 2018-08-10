@@ -78,7 +78,8 @@
         return {x: 0, y: 0, z: 0 }
       },
       eventSitus: function (anitem) {
-        return {x: crayder.pointer().x, y: crayder.pointer().y, z: 0 }
+        // return {x: crayder.pointer().x, y: crayder.pointer().y, z: 0 }
+        return {x: crayder.grabbed()[0], y: crayder.grabbed()[1], z: 0 }
       },
     }
 
@@ -87,11 +88,6 @@
 
     // ............................. gramm
     async function gramm (anitem, newItems = []) {
-      // if (1 && 1) console.log('h.ent gramm anigram', anigram)
-      // let anigram = await manitem.snapani(anitem)
-      // anigram  = await manitem.functorgeofold(anigram)
-      // anigram  = await manitem.functorpayload(anigram)
-      // let anitem = anigram
 
       let halo = anitem.halo,
         payload = anitem.payload,
@@ -101,26 +97,33 @@
       let pacer = payload.pacer || {}, // pacer
         mousesignal = pacer.mousesignal || 0, // mousesignal
         span = pacer.span || 0, // span between items
-        aad = pacer.aad || 0 // aad to previtem
+        aad = pacer.aad || 0 // aad item to previous item
 
-      let count = {} // count: items in cycle
+      // count: items to be generated in clycle
+      let count = {}
 
       //  pacer interfaces
       let geofolder = payload.pacer.geofolder || _geofolder // geofolder
       let stacer = Object.assign({}, payload.pacer.stacer, _stacer) // stacer
+
+      // define record identifier function. default to the ani ric
       let riccer = payload.pacer.riccer || function (ani) { return ani.payload.ric }
 
-      //  event
+      //  reset the controls if mouse up
       if (crayder.mouse() && crayder.mouse().type === 'mouseup') { // if mouse up then reset
         let svg = __mapper('renderSvg').svg()
         cwen.reset(svg)
         cversor.reset(svg)
       }
-      if ((crayder.mouse() !== undefined && crayder.mouseDown() === 1) ||
-          (crayder.touch() !== undefined && crayder.touchStart() === 1)) { // on mouse DOWN
-        if (mousesignal === 0 || crayder.mouse().type === 'mousedown') { //
+
+
+
+      // if mouseDown
+      if (crayder.grabbed()) { //
+
+          // the event count is effective if mouse grabbed
           count.event = Math.floor(pacer.eventN) //  if in state or was event
-        }
+// if (1 && 1) console.log(' crayder grabbed', count.event, crayder.grabbed())
       }
 
       //  init
@@ -150,18 +153,23 @@
           if (count[key] > 0) { // if count on this sort
             if (key === 'init') {
               stace = stacer.initSitus(anitem) // INIT
+              
             } else if (key === 'auto') {
               stace = stacer.autoSitus(anitem) // AUTO
+              
             } else if (key === 'event') {
+              
+              
               stace = stacer.eventSitus(anitem) // EVENT
+
+
             }
 
             let situs = mstace.getLocus(stace, anitem)
 
             if (situs && typeof situs === 'object') situs = Object.values(situs)
 
-            let _ric = ric
-            _ric = riccer(anitem)
+            let _ric = riccer(anitem)
             let uid = mric.getuid(_ric) // uid
 
             let newItem = {}
@@ -171,7 +179,8 @@
             newItem.payload.ric = _ric
             newItem.payload.uid = uid
 
-            if (aad) { //  if aad,  add to LineString
+            // if the pacer mode is aad new item to ite (eg. segment point to LineString trace)
+            if (aad) {
               //  add situs to newItem coords
               //  coords are final space coords (after h.ent, stored at m.animation)
               let coords = newItem.geofold.geometry.coordinates // domain coords
@@ -192,27 +201,47 @@
               newItem.geofold.properties.geocoords = geocoords
               let newItemsInCount = await hent.gramm(newItem) // h.ent newItem
               newItems = [...newItems, ...newItemsInCount] // add new items
+
             } else { //  if NOT aad
+
+              // if newItem geometry type is Point, then ...
+              //
               if (newItem.geofold && newItem.geofold.geometry.type === 'Point') { // POINT
+
                 let presitus = newItem.geofold.geometry.coordinates
 
                 if (presitus !== null) { // if paced item DOES exist
+
                   let d = mgeom.distance3d(presitus, situs) // distance from previous situs
 
                   if (d >= span) { // if distance from previous point greater than span
                     newItem.geofold.geometry.coordinates = [0, 0, 0]
                     newItem.payload.proform = {projection: 'uniwen', translate: situs } // proform
+
+                    // h.ent newItem
                     let newAnigrams = await hent.gramm(newItem) // process newItem as h.ent
                     newItems = [...newItems, ...newAnigrams] // add new anigrams
                   }
-                } else { // paced item NOT exists
+
+                } else { // paced item does NOT exists
+
+                  // newItem geofold
                   newItem.geofold.geometry.coordinates = [0, 0, 0]
+
+                  // uniwen proform translater to situs
                   newItem.payload.proform = {projection: 'uniwen', translate: situs} // proform
 
+                  // h.ent.gramm newItem point
                   let newGrams = await hent.gramm(newItem)
+
+
                   newItems = [...newItems, ...newGrams] // add items
+
                 }
+
+              // if the trace form of newItem is not point then call gramm of the newItem halo
               } else { // ..... else TRACE NAT
+
                 let halo = newItem.halo
 
                 newItem.payload.proform = { projection: 'uniwen', translate: situs } // proform transfer trace situs to halo

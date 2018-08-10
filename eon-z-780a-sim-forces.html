@@ -90,10 +90,7 @@ async function zindex (__mapper) {
     let haloIsolation_ween = anima => { // WEEN
       let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
-      animas = []
-
       const perimeter = 12, length = 30
-
       const getId = (col, row) => `${col},${row}`
 
       let nodes = [], links = []
@@ -112,7 +109,7 @@ async function zindex (__mapper) {
       }
       let r = { nodes, links }
 
-      let nbr = 2
+      let nbr = 6
       for (let i = 0; i < nbr; i++) {
         let ani = mprops.cloneObj(natAni) // clone of model anima
         ani.payload.ric.gid = 'nat'
