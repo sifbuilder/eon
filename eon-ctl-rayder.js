@@ -96,34 +96,19 @@
 
     // ............................. mouseDownListener
     function mouseDownListener (event) {
-      if (1 && 1) console.log(' *-*-* mouseDownListener', event.type)
 
-     if (state.grabbed) return
-
-      // let e = d3selection.event
       let e = event
-
-
       state.moved = false // not moved yet
       let pos = getPos(e)  // mouse position
       
-// if (1 && 1) console.log(' *********** pos', pos)
-
-      
       state.grabbed = pos
 
-
-      // enty.mouseDown(1)
-      // enty.mouseDownShared(1)
-      // enty.event(event)
     }
 
     // ............................. mouseMoveListener
     function mouseMoveListener (event) {
-      if (1 && 1) console.log('mouseMoveListener')
       if (!state.grabbed) return
 
-      // let e = d3selection.event
       let e = event
       let pos = getPos(e) //  d3.mouse(this)
       let dx = xsign * (pos[1] - state.grabbed[1]),
@@ -136,24 +121,18 @@
 
       state.lastMoveTime = Date.now()
 
-      // enty.mouseMove(1)
-      // enty.mouseDownShared(1)
-      // enty.event(event)
-      // projector(event)
     }
 
     // ............................. mouseUpListener
     function mouseUpListener (event) {
       if (1 && 1) console.log(' **************************** mouseUpListener', state, event)
-
+        
+      let e = event
+        
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
 
-
-      // enty.mouseDown(0)
-      // enty.mouseDownShared(0)
-      // enty.event(event)
     }
 
     // ............................. subscribe
