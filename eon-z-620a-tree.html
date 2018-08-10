@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+// https://codepen.io/survivol/pen/pbGpog
+// https://hackernoon.com/javascript-promises-for-animation-sequences-e31873493d49
+// Twitter @OngEmil 
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = await xanimas.animas() // get animas
+
+  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  // .................. eons
+  let [
+    rrenderport,
+    mgeoj,
+    mproj3ct,
+    mprofier,
+    mstace,
+    mric,
+    msvg,
+    dlicht5,
+  ] = await Promise.all([
+    __mapper('xs').r('renderport'),
+    __mapper('xs').m('geoj'),
+    __mapper('xs').m('proj3ct'),
+    __mapper('xs').m('profier'),
+    __mapper('xs').m('stace'),
+    __mapper('xs').m('ric'),
+    __mapper('xs').m('svg'),
+    __mapper('xs').d('licht5'),
+  ])
+
+  let mstore = __mapper('xs').m('store')
+
+  // .................. animas
+  let animas = function () {
+    // .................. pics
+    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+        const MAX_FLOWER_AGE = 50
+        const MAX_GROWTH_TICKS = 15
+        const BRANCH_COLOR = "rgb(101, 67, 33)"
+        const SVG_NS = "http://www.w3.org/2000/svg"
+
+
+function shadeRGBColor(color, percent) {
+  var f = color.split(","),
+    t = percent < 0 ? 0 : 255,
+    p = percent < 0 ? percent * -1 : percent,
+    R = parseInt(f[0].slice(4)),
+    G = parseInt(f[1]),
+    B = parseInt(f[2]);
+  return (
+    "rgb(" +
+    (Math.round((t - R) * p) + R) +
+    "," +
+    (Math.round((t - G) * p) + G) +
+    "," +
+    (Math.round((t - B) * p) + B) +
+    ")"
+  );
+}
+
+  // const maxDepth = 11, trunkWidth = 12;
+  const maxDepth = 3, trunkWidth = 2;
+  const branchShrinkage = 0.8;
+  const maxAngleDelta = Math.PI / 2;
+  const delay = 100;
+  const svg = document.getElementById("svg");
+
+  const scaleIncrement = 0.1;
+  const flowerSize = 10.0;
+  const dropIncrement = 2.0;
+  const rotateIncrement = Math.PI * 2;
+
+  let wind = 0;
+  const windIncrement = 1;
+  const maxWind = 2.0;
+
+
+
+
+
+    let svgdata = dlicht5.data()
+    let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
+    let x0 = extent[0], y0 = extent[1], x1 = extent[2], y1 = extent[3]
+
+    let width = rrenderport.width(), height = rrenderport.height()
+
+    let r0 = width / (x1 - x0)
+    let r1 = height / (y1 - y0)
+    let rx = Math.sign(r0) * Math.min(Math.abs(r0), Math.abs(r1))
+    let ry = -Math.sign(r1) * Math.min(Math.abs(r0), Math.abs(r1))
+
+    let dx = -(width - (x1 - x0)) / 2
+    let dy = -(height - (y1 - y0)) / 2
+
+  const wrap = a => (Array.isArray(a) ? a : [a]);
+  const flatten = a => {
+    if (!Array.isArray(a)) {
+      return a;
+    }
+
+    const [left, right] = a;
+    return wrap(left).concat(wrap(right));
+  };
+
+
+    // .................. treeAni
+
+  const drawBranch = (
+    x1,
+    y1,
+    length,
+    angle,
+    depth,
+    branchWidth,
+    branchColor
+  ) => {
+    const x2 = x1 + length * Math.cos(angle);
+    const y2 = y1 + length * Math.sin(angle);
+
+
+    let lines = Array.of([ [x1, x2], [y1,y2] ])
+
+    const newDepth = depth - 1;
+    // if (newDepth <= 0) { return { x: x2, y: y2 } }
+    if (newDepth <= 0) { return [] }
+
+    const newBranchWidth = branchWidth * branchShrinkage;
+    const newBranchColor = shadeRGBColor(branchColor, 0.1);
+    let sublines = Array.of(-1, 1).map(direction => {
+      const newAngle = angle + maxAngleDelta * (Math.random() * 0.5 * direction);
+      const newLength = length * (branchShrinkage + Math.random() * (1.0 - branchShrinkage))
+
+             let branch = drawBranch(
+                x2,
+                y2,
+                newLength,
+                newAngle,
+                newDepth,
+                newBranchWidth,
+                newBranchColor
+              )
+              return branch
+
+    })
+// if (1 && 1) console.log('sublines', flatten(sublines))
+
+    lines = [...lines, ...flatten(sublines)]
+    return lines
+  };
+
+  // returns a promise that resolves to an array of the positions of the branches
+  const drawTree = (maxDepth, trunkWidth) => {
+    return drawBranch(
+      // Math.floor(window.innerWidth / 2),
+      // Math.floor(window.innerHeight / 1.02),
+      Math.floor(0 / 2),
+      Math.floor(0 / 1.02),
+      60,
+      -Math.PI / 2,
+      maxDepth,
+      trunkWidth,
+      BRANCH_COLOR
+    );
+  };
+
+    let treeAni = {
+
+      halo: 'formed',
+      geofold: ani => {
+        let anigram = ani, // anigram
+          halo = ani.halo, // halo
+          geofold = ani.geofold, // geofold
+          payload = ani.payload // payload
+
+        let newFeatureCollection = {type: 'FeatureCollection', features: []}
+        let feature = {
+          type: 'Feature',
+          geometry: { type: 'MultiLineString', coordinates: []},
+          properties: {},
+        }
+        let rings =  [
+                        [ [100.0, 10.0], [201.0, 11.0] ],
+                        [ [202.0, 12.0], [273.0, 113.0] ],
+
+
+                                      ]
+        // rings.map(r => feature.geometry.coordinates.push(r))
+
+
+        let tree = drawTree(maxDepth, trunkWidth)
+// if (1 && 1) console.log('tree', tree)
+          feature.geometry.coordinates = tree
+
+        newFeatureCollection.features.push(feature)
+
+
+
+        return newFeatureCollection
+      },
+      payload: {
+        tim: tim,
+        ric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
+        boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
+      },
+    }
+
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+        // tree: { [[[ ]]] },
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+
+      sceneAni, // h.scene
+      treeAni, // h.formed
+
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>
