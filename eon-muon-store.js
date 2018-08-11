@@ -129,22 +129,25 @@
         .then(geofunctored => manitem.functorpayload(geofunctored))
         .then(snapped => manitem.functorgeofold(snapped))
         .then(anigram => (typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
-          .then(halo => halo.gramm(anigram))
-          .then(newItems => {
-            _apply({type: 'UPDANIGRAM', anigrams: newItems})
-            newItems.forEach(newItem => {
-              let avatars = gavatars(newItem)
+          .then(halo => halo.gramm(anigram) // )
+            .then(newItems => {
+              if (1 && 1) console.log('newItems', anitem, newItems)
 
-              avatars.forEach(avatar => {
-                avatar.payload.tim = anigram.payload.tim // tim from anigram
-                avatar.payload.uid = mric.getuid(avatar) // uid from avatar
-                avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
+              _apply({type: 'UPDANIGRAM', anigrams: newItems})
+              newItems.forEach(newItem => {
+                let avatars = gavatars(newItem)
 
-                gramm(avatar)
+                avatars.forEach(avatar => {
+                  avatar.payload.tim = anigram.payload.tim // tim from anigram
+                  avatar.payload.uid = mric.getuid(avatar) // uid from avatar
+                  avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
+
+                  gramm(avatar)
+                  
+                })
               })
             })
-          })
-
+          )
         )
     }
 

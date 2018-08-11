@@ -107,19 +107,26 @@
 
     // ............................. gramm
     async function gramm (ani) {
+if (1 && 1) console.log('ani', ani)
+      
       return Promise.resolve(ani)
-
         .then(anigram => Promise.resolve(mgeoj.featurecollect(getgj(Promise.resolve(anigram))))
           .then(gjcollection => Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
             .then(newfeatures => {
+if (1 && 1) console.log('newfeatures', newfeatures)
+
               if (Array.isArray(anigram)) {
                 anigram = anigram[0]
               }
               let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
               let newAni = Object.assign({}, anigram, {geofold: newcollection})
 
-              let newAnigrams = hformed.gramm(newAni)
-              return newAnigrams
+              // let newAnigrams = hformed.gramm(newAni)
+              return hformed.gramm(newAni)
+                // .then(newAnigrams => {
+                    // if (1 && 1) console.log('newAnigrams', newAnigrams)
+                    // return newAnigrams
+                // })
             })))
     }
 

@@ -33,7 +33,7 @@
   let animas = await xanimas.animas() // get animas
 
   muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
+  muonAnimation.animate(0) // animate
 })()
 
 // .................. zindex
@@ -68,75 +68,50 @@ async function zindex (__mapper) {
 
         const MAX_FLOWER_AGE = 50
         const MAX_GROWTH_TICKS = 15
-        const BRANCH_COLOR = "rgb(101, 67, 33)"
         const SVG_NS = "http://www.w3.org/2000/svg"
 
+        function shadeRGBColor(color, percent) {
+          var f = color.split(","),
+            t = percent < 0 ? 0 : 255,
+            p = percent < 0 ? percent * -1 : percent,
+            R = parseInt(f[0].slice(4)),
+            G = parseInt(f[1]),
+            B = parseInt(f[2])
+          return (
+            "rgb(" +
+            (Math.round((t - R) * p) + R) +
+            "," +
+            (Math.round((t - G) * p) + G) +
+            "," +
+            (Math.round((t - B) * p) + B) +
+            ")"
+          )
+        }
 
-function shadeRGBColor(color, percent) {
-  var f = color.split(","),
-    t = percent < 0 ? 0 : 255,
-    p = percent < 0 ? percent * -1 : percent,
-    R = parseInt(f[0].slice(4)),
-    G = parseInt(f[1]),
-    B = parseInt(f[2]);
-  return (
-    "rgb(" +
-    (Math.round((t - R) * p) + R) +
-    "," +
-    (Math.round((t - G) * p) + G) +
-    "," +
-    (Math.round((t - B) * p) + B) +
-    ")"
-  );
-}
+      const branchShrinkage = 0.8
+      const maxAngleDelta = Math.PI / 2
+      const delay = 100
+      const svg = document.getElementById("svg")
 
-  // const maxDepth = 11, trunkWidth = 12;
-  const maxDepth = 3, trunkWidth = 2;
-  const branchShrinkage = 0.8;
-  const maxAngleDelta = Math.PI / 2;
-  const delay = 100;
-  const svg = document.getElementById("svg");
+      const scaleIncrement = 0.1
+      const flowerSize = 10.0
+      const dropIncrement = 2.0
+      const rotateIncrement = Math.PI * 2
+      let wind = 0
+      const windIncrement = 1
+      const maxWind = 2.0
 
-  const scaleIncrement = 0.1;
-  const flowerSize = 10.0;
-  const dropIncrement = 2.0;
-  const rotateIncrement = Math.PI * 2;
-
-  let wind = 0;
-  const windIncrement = 1;
-  const maxWind = 2.0;
-
-
-
-
-
-    let svgdata = dlicht5.data()
-    let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
-    let x0 = extent[0], y0 = extent[1], x1 = extent[2], y1 = extent[3]
-
-    let width = rrenderport.width(), height = rrenderport.height()
-
-    let r0 = width / (x1 - x0)
-    let r1 = height / (y1 - y0)
-    let rx = Math.sign(r0) * Math.min(Math.abs(r0), Math.abs(r1))
-    let ry = -Math.sign(r1) * Math.min(Math.abs(r0), Math.abs(r1))
-
-    let dx = -(width - (x1 - x0)) / 2
-    let dy = -(height - (y1 - y0)) / 2
-
-  const wrap = a => (Array.isArray(a) ? a : [a]);
-  const flatten = a => {
-    if (!Array.isArray(a)) {
-      return a;
-    }
-
-    const [left, right] = a;
-    return wrap(left).concat(wrap(right));
-  };
+      const wrap = a => (Array.isArray(a) ? a : [a])
+      const flatten = a => {
+        if (!Array.isArray(a)) {
+          return a
+        }
+        const [left, right] = a
+        return wrap(left).concat(wrap(right))
+      }
 
 
-    // .................. treeAni
-
+  // .................. drawBranch
   const drawBranch = (
     x1,
     y1,
@@ -146,20 +121,19 @@ function shadeRGBColor(color, percent) {
     branchWidth,
     branchColor
   ) => {
-    const x2 = x1 + length * Math.cos(angle);
-    const y2 = y1 + length * Math.sin(angle);
-
+    
+    const x2 = x1 + length * Math.cos(angle)
+    const y2 = y1 + length * Math.sin(angle)
 
     let lines = Array.of([ [x1, x2], [y1,y2] ])
 
-    const newDepth = depth - 1;
-    // if (newDepth <= 0) { return { x: x2, y: y2 } }
+    const newDepth = depth - 1
     if (newDepth <= 0) { return [] }
 
-    const newBranchWidth = branchWidth * branchShrinkage;
-    const newBranchColor = shadeRGBColor(branchColor, 0.1);
+    const newBranchWidth = branchWidth * branchShrinkage
+    const newBranchColor = shadeRGBColor(branchColor, 0.1)
     let sublines = Array.of(-1, 1).map(direction => {
-      const newAngle = angle + maxAngleDelta * (Math.random() * 0.5 * direction);
+      const newAngle = angle + maxAngleDelta * (Math.random() * 0.5 * direction)
       const newLength = length * (branchShrinkage + Math.random() * (1.0 - branchShrinkage))
 
              let branch = drawBranch(
@@ -174,27 +148,25 @@ function shadeRGBColor(color, percent) {
               return branch
 
     })
-// if (1 && 1) console.log('sublines', flatten(sublines))
 
     lines = [...lines, ...flatten(sublines)]
     return lines
-  };
+  }
 
-  // returns a promise that resolves to an array of the positions of the branches
-  const drawTree = (maxDepth, trunkWidth) => {
+    // .................. drawTree
+  const drawTree = (maxDepth, trunkWidth, branchColor) => {
     return drawBranch(
-      // Math.floor(window.innerWidth / 2),
-      // Math.floor(window.innerHeight / 1.02),
       Math.floor(0 / 2),
       Math.floor(0 / 1.02),
       60,
       -Math.PI / 2,
       maxDepth,
       trunkWidth,
-      BRANCH_COLOR
-    );
-  };
+      branchColor
+    )
+  }
 
+    // .................. treeAni  
     let treeAni = {
 
       halo: 'formed',
@@ -210,29 +182,32 @@ function shadeRGBColor(color, percent) {
           geometry: { type: 'MultiLineString', coordinates: []},
           properties: {},
         }
-        let rings =  [
-                        [ [100.0, 10.0], [201.0, 11.0] ],
-                        [ [202.0, 12.0], [273.0, 113.0] ],
-
-
-                                      ]
-        // rings.map(r => feature.geometry.coordinates.push(r))
-
-
-        let tree = drawTree(maxDepth, trunkWidth)
-// if (1 && 1) console.log('tree', tree)
+        
+        const maxDepth = payload.tree.maxDepth,
+          trunkWidth = payload.tree.trunkWidth,
+          branchColor = payload.tree.branchColor
+          
+        let tree = drawTree(maxDepth, trunkWidth, branchColor)
           feature.geometry.coordinates = tree
-
+          
         newFeatureCollection.features.push(feature)
-
-
-
         return newFeatureCollection
+        
       },
+      
       payload: {
         tim: tim,
         ric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
         boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
+        tree: {
+          maxDepth: 3,  // 11
+          trunkWidth: 2,  // 12
+          branchColor: "rgb(101, 67, 33)",
+          branchShrinkage: 0.8,
+          maxAngleDelta: Math.PI / 2,
+          delay: 100,
+  
+        }
       },
     }
 
