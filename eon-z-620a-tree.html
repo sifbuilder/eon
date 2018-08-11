@@ -19,7 +19,7 @@
 <script>
 // https://codepen.io/survivol/pen/pbGpog
 // https://hackernoon.com/javascript-promises-for-animation-sequences-e31873493d49
-// Twitter @OngEmil 
+// Twitter @OngEmil
 
 ;(async function eon () {
   let __mapper = xMapper.xMapper() // init mapper
@@ -33,7 +33,7 @@
   let animas = await xanimas.animas() // get animas
 
   muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate(0) // animate
+  muonAnimation.animate() // animate
 })()
 
 // .................. zindex
@@ -111,62 +111,67 @@ async function zindex (__mapper) {
       }
 
 
-  // .................. drawBranch
-  const drawBranch = (
-    x1,
-    y1,
-    length,
-    angle,
-    depth,
-    branchWidth,
-    branchColor
-  ) => {
-    
-    const x2 = x1 + length * Math.cos(angle)
-    const y2 = y1 + length * Math.sin(angle)
+  // .................. buildBranch - from branch end build new branch
+  const buildBranch = ( length, angle, depth, branchWidth, branchColor, maxAngleDelta, branchShrinkage, branches ) => {
 
-    let lines = Array.of([ [x1, x2], [y1,y2] ])
+  // if (1 && 1) console.log('buildBranch', length, angle, depth, branchWidth)
+  if (1 && 1) console.log('depth', depth)
 
-    const newDepth = depth - 1
-    if (newDepth <= 0) { return [] }
+  
+    let newDepth = depth - 1;  
+    if (newDepth <= 0) { return branches }
+    let newBranchWidth = branchWidth * branchShrinkage
+    let newBranchColor = shadeRGBColor(branchColor, 0.1)
 
-    const newBranchWidth = branchWidth * branchShrinkage
-    const newBranchColor = shadeRGBColor(branchColor, 0.1)
-    let sublines = Array.of(-1, 1).map(direction => {
-      const newAngle = angle + maxAngleDelta * (Math.random() * 0.5 * direction)
-      const newLength = length * (branchShrinkage + Math.random() * (1.0 - branchShrinkage))
+    let newAngle = angle + maxAngleDelta * (Math.random() * 0.5)
+    let newLength = length * (branchShrinkage + Math.random() * (1.0 - branchShrinkage))
 
-             let branch = drawBranch(
-                x2,
-                y2,
-                newLength,
-                newAngle,
-                newDepth,
-                newBranchWidth,
-                newBranchColor
-              )
-              return branch
+    let newbranches = branches
+        .reduce( (tree,branch) => {
 
-    })
+            let x1 = branch[1][0]
+            let y1 = branch[1][1]
 
-    lines = [...lines, ...flatten(sublines)]
-    return lines
+
+            let newgen = Array.of(-1, 1).map(direction => {
+                let dirAngle = newAngle + maxAngleDelta * (Math.random() * 0.5 * direction)
+                let dirLength = newLength * (branchShrinkage + Math.random() * (1.0 - branchShrinkage))
+
+                const x2 = x1 + dirLength * Math.cos(dirAngle)
+                const y2 = y1 + dirLength * Math.sin(dirAngle)
+
+                let newbranch = [ [x1, y1], [x2,y2] ]
+
+                return newbranch
+
+          })
+
+          let r = [...tree, ...newgen]
+          return r
+        }, [])
+
+    let newTree = [...branches, ...newbranches]
+
+
+    return   buildBranch( newLength, newAngle, newDepth, newBranchWidth, newBranchColor, maxAngleDelta, branchShrinkage, newTree )
+
+
   }
 
-    // .................. drawTree
-  const drawTree = (maxDepth, trunkWidth, branchColor) => {
-    return drawBranch(
-      Math.floor(0 / 2),
-      Math.floor(0 / 1.02),
-      60,
-      -Math.PI / 2,
-      maxDepth,
-      trunkWidth,
-      branchColor
-    )
+    // .................. buildTree - from tree init to leaves
+  const buildTree = (x0, y0, length, angle, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage ) => {
+
+    let x1 = x0
+    let y1 = y0
+    let x2 = x1 + length * Math.cos(angle)
+    let y2 = y1 + length * Math.sin(angle)
+    let branches = Array.of([ [x1, y1], [x2,y2] ])
+
+    let tree = buildBranch(length, angle, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage, branches )
+    return tree
   }
 
-    // .................. treeAni  
+    // .................. treeAni
     let treeAni = {
 
       halo: 'formed',
@@ -182,31 +187,42 @@ async function zindex (__mapper) {
           geometry: { type: 'MultiLineString', coordinates: []},
           properties: {},
         }
-        
+
         const maxDepth = payload.tree.maxDepth,
           trunkWidth = payload.tree.trunkWidth,
-          branchColor = payload.tree.branchColor
-          
-        let tree = drawTree(maxDepth, trunkWidth, branchColor)
+          branchColor = payload.tree.branchColor,
+          length = payload.tree.length0,
+          angle = payload.tree.angle0,
+          x0 = payload.tree.x0,
+          y0 = payload.tree.y0,
+          branchShrinkage = payload.tree.branchShrinkage,
+          maxAngleDelta = payload.tree.maxAngleDelta
+
+        let tree = buildTree(x0, y0, length, angle, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage)
           feature.geometry.coordinates = tree
-          
+
         newFeatureCollection.features.push(feature)
         return newFeatureCollection
-        
+
       },
-      
+
       payload: {
         tim: tim,
         ric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
         boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
         tree: {
-          maxDepth: 3,  // 11
-          trunkWidth: 2,  // 12
+          x0: 0,
+          y0: -100,
+          length0: 60,
+          angle0: Math.PI / 2,
+          
+          maxDepth: [[[1,6]]],  // 11
+          trunkWidth: 4,  // 12
           branchColor: "rgb(101, 67, 33)",
           branchShrinkage: 0.8,
           maxAngleDelta: Math.PI / 2,
           delay: 100,
-  
+
         }
       },
     }

@@ -49,20 +49,21 @@
     }
 
     // .................. getweens
-    async function getweens (animas, elapsed) {
+     function getweens (animas, elapsed) {
       return sequence(animas, anima => mstore.ween(anima))
-        then(sequenced => {
-              return mstore.animasLive()
-        })
+        // sequence(animas, anima => mstore.ween(anima))
+        // then(sequenced => {
+              // return mstore.animasLive()
+        // })
         // return mstore.animasLive()
     }
 
     // .................. getgramms
-    async function getgramms (animas, elapsed) {
+     function getgramms (animas, elapsed) {
         return sequence(animas, anima => mstore.gramm(anima)) // store anigrams
-          .then(sequenced => {
-              return mstore.anigrams()
-        })
+          // .then(sequenced => {
+              // return mstore.anigrams()
+        // })
       // return mstore.anigrams() // get anigrams from store
     }
 
@@ -88,12 +89,13 @@
     async function collect (animas, elapsed) {
       let featurecollectionPromise = Promise.resolve(state.animas)
         .then(animas => {
-          let weened = getweens(animas, elapsed)
-          if (1 && 1) console.log('weened', weened)
-          return weened
+          getweens(animas, elapsed)
+            // .then(weened => mstore.animasLive())
+          // if (1 && 1) console.log('weened', weened)
+          // return weened
         })
         .then(animas => {
-           let simmed = getsims(animas)
+           let simmed = getsims(mstore.animasLive())
           if (1 && 1) console.log('simmed', simmed)
            return simmed
         })
@@ -103,9 +105,9 @@
           // if (1 && 1) console.log('anigrams', anigrams)
           // return anigrams
         })
-        .then(anigrams => {
-          if (1 && 1) console.log('anigrams', anigrams)          
-          let featurecollection = { type: 'FeatureCollection', features: anigrams.map(d => d.geofold) }
+        .then(() => {
+          // if (1 && 1) console.log('anigrams', anigrams)          
+          let featurecollection = { type: 'FeatureCollection', features: mstore.anigrams().map(d => d.geofold) }
           if (1 && 1) console.log('featurecollection', featurecollection)          
           return featurecollection
         })
