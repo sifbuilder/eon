@@ -98,7 +98,7 @@
         if (elemspart === null) {
           return layer
         } else {
-          if (!Array.isArray(data)) console.log('data is not an array')
+          console.assert(Array.isArray(data), `data ${data} is not an array`)
           let elemsupd = layer.selectAll('.' + elemcls)
             .data(data)
           let elems = elemsupd
@@ -114,7 +114,6 @@
 
     // ............................. render
     let render = function (featurecollection, maxlimit) {
-      if (1 && 1) console.log(' ------------------ render', featurecollection)      
       
       let features = featurecollection.features
         .filter(           
@@ -204,7 +203,6 @@
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
 
           if (imgs.length > 0) {
-            if (1 && 1) console.log('imgs', imgs)
 
             svgelems('svg:g.' + gid + '/image.' + cid, imgs, d => d.id)
 
@@ -254,7 +252,6 @@
                 .attr('transform', d => { // eg. "translate(21,20) rotate(15)")
                   let item = d
                   let geometry = item.geometry
-                  if (1 && 1) console.log('versor', item.geometry.coordinates[1])
 
                   // let projgeo = mproj3ct.project(geometry, cameraProjer)
 
@@ -294,7 +291,7 @@
             svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.uid) // elems
               .data(() => features)
               .attr('d', d => {
-                if (2 && 2 && d.properties.style === undefined) console.log('** style is undefined', d)
+                console.assert(d.properties.style === undefined, `style is undefined in ${d}`)
                 let item = d // geojson feature
                 let properties = item.properties || {} // properties
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius

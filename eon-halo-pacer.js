@@ -229,12 +229,16 @@
         //
         let anitems = Array.of(anitem)
         if (itemsort === 'anigram') {
-          mstore.apply({type: 'UPDANIGRAM', caller: 'h.pacer', anigrams: anitems})
+
+        
+        
         } else if (itemsort === 'anima') {
+          
+          
+          // save anima .......... to preserve inited and outed
           mstore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: anitems})
         }
       }
-if (1 && 1) console.log('count', count)
 
       //
       // count: eg: {init:4, auto:1, event:3}
@@ -282,7 +286,6 @@ if (1 && 1) console.log('count', count)
                 // if pacer.add mode, new items add to pacer generated item (eg. segment point to LineString trace)
                 //
                 if (aad) {
-
                   //  add situs to newItem coords
                   //  coords are final space coords (after h.ent, stored at m.animation)
                   let coords = newItem.geofold.geometry.coordinates // domain coords
@@ -301,7 +304,6 @@ if (1 && 1) console.log('count', count)
                     coords = Array.of(situs) // coords start with first situs
 
                   }
-if (1 && 1) console.log('coords', coords)
 
                   newItem.geofold.geometry.coordinates = coords // upd coords
                   newItem.geofold.properties.geocoords = geocoords
@@ -363,7 +365,6 @@ if (1 && 1) console.log('coords', coords)
           }
         }
       }
-if (1 && 1) console.log(' ... newItems', newItems.length, newItems)
 
       return newItems
     }
