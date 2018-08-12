@@ -119,11 +119,21 @@ async function zindex (__mapper) {
 
         pacer: {
           initN: 10, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 15 / 1400,
-          initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
-          eventSitus: d => ({x: crayder.mouse().x, y: crayder.mouse().y, z: 0 }),
-          autoSitus: d => mstace.getLocus(d),
+          
+          stacer: {
+            initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
+            eventSitus: d => ({x: crayder.mouse().x, y: crayder.mouse().y, z: 0 }),
+            autoSitus: d => mstace.getLocus(d),
+          },
+          
+          riccer: function (ani) { return ani.payload.ric },
+          
           geofolder: () => ({
-            type: 'Feature', geometry: {type: 'Point', coordinates: null}, properties: {},
+            type: 'Feature', 
+            geometry: {
+              type: 'Point', 
+              coordinates: null}, 
+              properties: {},
           }),
         },
       },

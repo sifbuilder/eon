@@ -40,10 +40,12 @@ async function zindex (__mapper) {
     mstace,
     mnat,
     mric,
+    mprops,
   ] = await Promise.all([
     __mapper('xs').m('stace'),
     __mapper('xs').m('nat'),
     __mapper('xs').m('ric'),
+    __mapper('xs').m('props'),
   ])
 
   let mstore = __mapper('mStore')
@@ -142,33 +144,45 @@ async function zindex (__mapper) {
 
         pacer: { // aad for trace
           stace: {x: { pos: 0 }, y: { pos: 0 }, z: 0}, //
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
-          autoSitus: function (a) {
-            let r = mstace.getLocus(this.stace, a.payload) // situs
-            return r
-          },
-          fidder: d => d.payload.ric.fid,
-          geojsor: function (d, i) {
-            let ric = d.payload.ric // ric
-            let uid = mric.getuid(ric)
-            let gj = {
-              halo: 'ent',
-              geofold: {
-                type: 'Feature',
-                geometry: { type: 'LineString', coordinates: null },
-                properties: { doc: 'pacer' },
-              },
-              payload: {
-                uid: uid, id: uid, ric: ric,
-                proform: this.proform,
-              },
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
+          
+          stacer: function (ani, props) {
+
+            let stace
+            if (props.key === 'init') {
+            
+              stace = {x: 0, y: 0, z: 0 } // INIT
+              
+            } else if (props.key === 'auto') {
+            
+              stace = mstace.getLocus(ani.payload.pacer.stace, ani) // AUTO
+              
+            } else if (props.key === 'event') {
+            
+              stace = {x: 0, y: 0, z: 0 } // EVENT
+              
             }
-            let newItem = mstore.findAnigramFromUid(uid) || gj
-            if (newItem.geofold.properties.formEreformed) {
-              newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
-            }
-            return newItem
+            return stace
           },
+          
+          riccer: function (ani, props) {
+            let newric = mprops.clone(ani.payload.ric)  // clone ric
+            newric.gid = newric.gid
+            newric.cid = newric.cid
+            newric.fid = newric.fid + props.counter 
+            return newric
+          },   
+          
+          geofolder: (ani, props) => ({
+            type: 'Feature', 
+            geometry: {
+              type: 'LineString', 
+              coordinates: null
+            }, 
+            properties: { doc: 'pacer' },
+          }),
+
+
         },
       },
     }

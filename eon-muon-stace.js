@@ -41,6 +41,7 @@
 
       let stace = s
       let payload = ani.payload
+      console.assert(payload !== undefined, ani, ' payload undefined')
       let locations = []
       let valid = 0
 
@@ -60,10 +61,12 @@
           valid = 1
           locations = mprops.interadd(stace)
         } else {
+
+
           let parentuid = payload.parentuid
-          if (2 && 2 && !parentuid) console.log(` * error: mstace.getTranspots:parentuid ${parentuid} in payload `, payload)
+          console.assert(parentuid !== undefined, ` * error: mstace.getTranspots:parentuid ${parentuid} in payload ${payload}`)
           let parentani = mstore.findAnigramFromUid(parentuid)
-          if (2 && 2 && !parentani) console.log(`** error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)
+          console.assert(parentani !== undefined, ` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)
 
           let formGeoformed = parentani.geofold.properties.formGeoformed
           let formEreformed = parentani.geofold.properties.formEreformed

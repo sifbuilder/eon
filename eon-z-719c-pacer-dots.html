@@ -59,66 +59,58 @@ async function zindex (__mapper) {
     let width = rrenderport.width(),
       height = rrenderport.height()
 
-    let haloIsolation_ween = anima => { // halo WEEN
-      let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-
-      let nbr = 12
-      
-      for (let i = 0; i < nbr; i++) {
-        let ani = mprops.cloneObj(natAni) // clone of model anima
-        ani.payload.ric.gid = 'nat'
-        ani.payload.ric.cid = 'nat'
-        ani.payload.ric.fid = 'item' + i // identify
-
-        let uid = mric.getuid(ani.payload.ric)
-        ani.payload.uid = uid
-
-        let preani = mstore.getAnima(ani.payload.ric)
-
-        if (preani) {
-          ani = preani
-        } else { // create anima
-          ani.halo = 'ent' // create halo
-
-          ani.geofold = { // will create anigram
-            type: 'Feature',
-            geometry: {
-              type: 'Point', 
-              coordinates: [ 10 * i, 0, 0]
-            },
-            properties: {pointRadius: 36},
-          }
-
-          ani.payload.geonode.properties.orgen = [0, 0, 0 ]
-        }
-        animas.push(ani)
-      }
-
-      mstore.apply({type: 'UPDANIMA', animas: animas}) // live
-      return animas
-    }
-
-    let haloIsolation_gramm = anima => [] // halo GRAMM))
-
-    let isolation = {
-      ween: anima => haloIsolation_ween(anima),
-      gramm: anima => haloIsolation_gramm(anima),
-    }
-
     // .................... pics
     let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     // .................... natAni
     let natAni = {
 
-      halo: isolation,  // halo defines ween and gramm behavior
-
+      halo: 'pacer',
+      
       geofold: p => mnat.natFeature(p.payload.form),
 
       payload: {
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
+        pacer: {
+          
+          item: 'anigram',
+        
+          initN: 6, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 15 / 1400,
+
+          riccer: function (ani, props) {
+            let newric = mprops.clone(ani.payload.ric)  // clone ric
+            newric.gid = newric.gid
+            newric.cid = newric.cid
+            newric.fid = newric.fid + props.counter 
+            return newric
+          },          
+          
+          stacer: function (ani, props) {
+            let stace
+            if (props.key === 'init') {
+              let a = 2 * Math.PI * Math.random()
+              stace = {x: 20 * Math.cos(a), y: 20 * Math.sin(a), z: 0 } // INIT
+            } else if (props.key === 'auto') {
+              stace = {x: crayder.event().x, y: crayder.event().y, z: 0 } // AUTO
+            } else if (props.key === 'event') {
+              stace = {x: 0, y: 0, z: 0 } // EVENT
+            }
+            return stace
+          },
+          
+          geofolder: () => ({
+            type: 'Feature', 
+            geometry: {
+              type: 'Point', 
+              coordinates: null
+            }, 
+            properties: {}
+          }),
+
+        },        
+        
         geonode: {
           type: 'Feature',
           geometry: {
