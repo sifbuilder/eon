@@ -250,7 +250,6 @@
       return Promise.resolve(anigram)
         .then(anigram => {
           if (Array.isArray(anigram)) {
-            if (1 && 1) console.log('m.profier.conformion_ newItem array')
             anigram = anigram[0]
           }
 
@@ -274,7 +273,6 @@
       return Promise.resolve(anigram)
         .then(anigram => {
           if (Array.isArray(anigram)) {
-            if (1 && 1) console.log('m.profier.ereformion_ newItem array')
             anigram = anigram[0]
           }
 
@@ -295,7 +293,6 @@
       return Promise.resolve(anigram)
         .then(anigram => {
           if (Array.isArray(anigram)) {
-            if (1 && 1) console.log('m.profier.proformion_ newItem array')
             anigram = anigram[0]
           }
 

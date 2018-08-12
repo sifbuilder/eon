@@ -91,12 +91,10 @@
         .then(animas => {
           getweens(animas, elapsed)
             // .then(weened => mstore.animasLive())
-          // if (1 && 1) console.log('weened', weened)
           // return weened
         })
         .then(animas => {
            let simmed = getsims(mstore.animasLive())
-          if (1 && 1) console.log('simmed', simmed)
            return simmed
         })
         .then(anisimmed => {
@@ -106,9 +104,7 @@
           // return anigrams
         })
         .then(() => {
-          // if (1 && 1) console.log('anigrams', anigrams)          
           let featurecollection = { type: 'FeatureCollection', features: mstore.anigrams().map(d => d.geofold) }
-          if (1 && 1) console.log('featurecollection', featurecollection)          
           return featurecollection
         })
         .catch(e => { console.log(e) })
@@ -127,7 +123,6 @@
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
         anima.payload.tim = mtim.timing(anima.payload.tim, elapsed) // set time
-        if (1 && 1) console.log('tim', anima.payload.tim)
 
         if (elapsed > anima.payload.tim.limit + anima.payload.tim.msStart) {
           anima.payload.delled = 1 // crop by time
@@ -149,8 +144,6 @@
       let featurecollectionPromise = collect (state.animas, elapsed)
       featurecollectionPromise
         .then(featurecollection =>  {
-          if (1 && 1) console.log('featurecollection', featurecollection)
-
             rsvg.render(featurecollection)
         })
 

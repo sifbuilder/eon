@@ -107,13 +107,11 @@
 
     // ............................. gramm
     async function gramm (ani) {
-if (1 && 1) console.log('ani', ani)
       
       return Promise.resolve(ani)
         .then(anigram => Promise.resolve(mgeoj.featurecollect(getgj(Promise.resolve(anigram))))
           .then(gjcollection => Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
             .then(newfeatures => {
-if (1 && 1) console.log('newfeatures', newfeatures)
 
               if (Array.isArray(anigram)) {
                 anigram = anigram[0]

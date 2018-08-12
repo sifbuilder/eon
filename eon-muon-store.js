@@ -131,7 +131,6 @@
         .then(anigram => (typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
           .then(halo => halo.gramm(anigram) // )
             .then(newItems => {
-              if (1 && 1) console.log('newItems', anitem, newItems)
 
               _apply({type: 'UPDANIGRAM', anigrams: newItems})
               newItems.forEach(newItem => {

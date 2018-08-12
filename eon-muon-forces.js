@@ -30,7 +30,7 @@
     function force (params) {
       let f = __mapper('xs').ceonize(params.type, 'force')
 
-      // let fforce = await __mapper('xs').f(params.type)
+      // let force = await __mapper('xs').f(params.type)
       let fforce = __mapper(f)
 
       let sys = {

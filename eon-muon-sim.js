@@ -205,10 +205,11 @@
               })
 
             if (aniForce.field !== undefined) { // field forces
+
               let aniCompForces = aniForce.field({ // mamy to share properties
-                'elapsed': elapsed, // elapsed
-                'nodes': aniNodes, // aniNodes
-                'properties': aniForce.properties, // snapped properties
+                elapsed: elapsed, // elapsed
+                nodes: aniNodes, // aniNodes
+                properties: aniForce.properties, // snapped properties
               })
 
               for (let k = 0; k < aniCompForces.length; k++) {
