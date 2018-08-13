@@ -122,13 +122,20 @@
 
     // ............................. _stacer
     let _stacer = function (ani, props) {
+      
       let stace
       if (props.key === 'init') {
+        
         stace = {x: 0, y: 0, z: 0 }
+        
       } else if (props.key === 'auto') {
+        
         stace = mstace.getLocus(ani.payload.pacer.stace, ani)
+        
       } else if (props.key === 'event') {
+        
         stace = {x: crayder.grabbed()[0], y: crayder.grabbed()[1], z: 0 }
+        
       }
 
       return stace
@@ -147,7 +154,7 @@
         mousesignal = pacer.mousesignal || 0, // mousesignal
         span = pacer.span || 0, // span between items
         aad = pacer.aad || 0, // aad item to previous item
-        itemsort = pacer.item || 'anigram', // pace items
+        itemsort = pacer.itemsort || 'anigram', // pace items
         geoType = pacer.type || 'LineString', //
         base = pacer.base || 'geo' //
 
@@ -219,12 +226,12 @@
       }
 
       //
-      //  init, pacer.initN
+      // init, pacer.initN
       if (pacer.inited === undefined || pacer.inited !== 1) {
         count.init = Math.floor(pacer.initN) // count INIT
       }
 
-      //  auto
+      // auto
       // cycletime since last outed item
       let cycletime = tim.unitPassed - (pacer.outed || 0)
 
@@ -326,7 +333,6 @@
                 // if not pacer.add, each pacer generated item
                 //
               } else { //  if NOT AAD
-                if (1 && 1) console.log('type', newItem.geofold.geometry.type)
 
                 // geofold is Feature
                 // if newItem geofold.geometry.type is Point, then ...
@@ -365,14 +371,20 @@
                   }
 
                   //
-                  // if the trace is NOT POINT, then NAT, call gramm of the newItem halo
+                  // trace NOT AAD, NOT POINT, assume NAT, call gramm of the newItem halo
                   //
                 } else {
-                  let halo = newItem.halo
+                  
+                  let halo = "ent" // newItem.halo
+                  delete newItem.payload.pacer
+                  
+                  newItem.payload.proform = { 
+                          projection: 'uniwen', 
+                          translate: situs 
+                  } // proform transfer trace situs to halo
 
-                  newItem.payload.proform = { projection: 'uniwen', translate: situs } // proform transfer trace situs to halo
-
-                  let newGrams = await __mapper('xs').h(halo).gramm(newItem)
+                  // let newGrams = await hent.gramm(newItem)
+                  let newGrams = await hent.gramm(newItem)
                   newItems = [...newItems, ...newGrams] // add items
                 }
               }

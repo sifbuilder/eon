@@ -73,9 +73,45 @@ async function zindex (__mapper) {
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
+
+        geonode: {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0, 0],
+          },
+          properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
+        },
+
+        proform: {
+          projection: 'uniwen',
+          translate: [0, 0, 0],
+          scale: 1,
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, 12],
+          anod: 1,
+        },
+
+        boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+        form: {
+
+          'x': {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': -1,
+          },
+          'y': {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': -1,
+          },
+
+        },
+
+
+
         pacer: {
 
-          item: 'anigram',
+          itemsort: 'anigram',
 
           initN: 6, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 15 / 1400,
 
@@ -111,39 +147,9 @@ async function zindex (__mapper) {
 
         },
 
-        geonode: {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [0, 0, 0],
-          },
-          properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
-        },
 
-        proform: {
-          projection: 'uniwen',
-          translate: [0, 0, 0],
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, 12],
-          anod: 1,
-        },
-
-        boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
-
-        form: {
-
-          'x': {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
-          },
-          'y': {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
-          },
-
-        },
       },
+
     }
 
     // .................. animas

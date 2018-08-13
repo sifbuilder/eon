@@ -8,6 +8,14 @@
 }(this, function (exports) {
   'use strict'
 
+
+// md: # eon-halo-ent
+// md: **process h.ent animas**
+// md: Feature Collect gj. for each feature
+// md: geoform, conform, ereform and proform anigrams
+// md: then pass the FeatureCollection to h.formed
+// md: define `geofold.properties.geonode` if undefined
+
   async function haloEnt (__mapper = {}) {
     let [
       mgeoj,
@@ -126,6 +134,8 @@
             })))
     }
 
+    
+    
     // ............................. ween
     let ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
