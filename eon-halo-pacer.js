@@ -89,8 +89,6 @@
       let preani = mstore.findAnigramFromUid(anitem.payload.uid)
 
 
-      console.assert(preani !== undefined, `anigram ${preani} is undefined`)
-
       // if there is a preani with a geofold ...
       if (preani !== undefined ) {
         
@@ -118,6 +116,7 @@
       } else {
         
         // if preani does not exisit return default geofold
+        // console.assert(preani !== undefined, `anigram ${preani} is undefined`)
         
       }
 
@@ -133,7 +132,7 @@
 
             } else if (props.key === 'auto') {
 
-              stace = mstace.getLocus(anitem.payload.pacer.stace, anitem)
+              stace = mstace.getLocus(ani.payload.pacer.stace, ani)
 
             } else if (props.key === 'event') {
 

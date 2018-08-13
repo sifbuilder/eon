@@ -35,15 +35,7 @@
       return ret
     }
 
-    props.cloneArray = function (obj) {
-      let r
-      if (Array.isArray(obj)) {
-        r = [ ...obj ]
-      } else {
-        r = obj
-      }
-      return r
-    }
+    props.cloneArray = a => Array.isArray(a) ? [ ...a ] : a
 
     props.parray = d => (Array.isArray(d)) ? d.slice() : [d]
 
@@ -156,7 +148,7 @@
     props.v = (d, ...p) => (typeof d === 'function') ? d(...p) : d
     props.f = d => (typeof (d) === 'function') ? d : () => d
     props.clone = d => {
-      let clone = {}
+      let clone = d
       if (typeof d === 'object') clone = props.cloneObj(d)
       else if (array.isArray(d)) clone = props.cloneArray(d)
       return clone
@@ -181,6 +173,7 @@
 
     // http://heyjavascript.com/4-creative-ways-to-cloneObj-objects/
     props.cloneObj = function (obj) {
+
       if (obj === null || typeof obj !== 'object') {
         return obj
       }

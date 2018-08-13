@@ -290,10 +290,10 @@
           if (features.length > 0) { // _e_
             svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.uid) // elems
               .data(() => features)
-              .attr('d', d => {
-                console.assert(d.properties.style === undefined, `style is undefined in ${d}`)
-                let item = d // geojson feature
-                let properties = item.properties || {} // properties
+              .attr('d', d => { // geojson feature
+              
+                let properties = d.properties || {} // properties
+                console.assert( properties.style !== undefined, `style is undefined in ${d}`)
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
                 let geoPath = d3.geoPath(cameraProjer) // path on view projection
@@ -301,7 +301,7 @@
                   ? geoPath.pointRadius(pointRadius)
                   : geoPath
 
-                let ret = path(item)
+                let ret = path(d)
                 return ret
               })
 
