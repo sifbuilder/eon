@@ -145,43 +145,38 @@ async function zindex (__mapper) {
         pacer: { // aad for trace
           stace: {x: { pos: 0 }, y: { pos: 0 }, z: 0}, //
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
-          
-          stacer: function (ani, props) {
 
+          stacer: function (ani, props) {
             let stace
             if (props.key === 'init') {
-            
               stace = {x: 0, y: 0, z: 0 } // INIT
-              
             } else if (props.key === 'auto') {
-            
               stace = mstace.getLocus(ani.payload.pacer.stace, ani) // AUTO
-              
             } else if (props.key === 'event') {
-            
               stace = {x: 0, y: 0, z: 0 } // EVENT
-              
             }
             return stace
           },
-          
+
           riccer: function (ani, props) {
-            let newric = mprops.clone(ani.payload.ric)  // clone ric
+            let newric = mprops.clone(ani.payload.ric) // clone ric
             newric.gid = newric.gid
             newric.cid = newric.cid
             newric.fid = newric.fid
             return newric
-          },   
-          
-          geofolder: (ani, props) => ({
-            type: 'Feature', 
-            geometry: {
-              type: 'LineString', 
-              coordinates: null
-            }, 
-            properties: { doc: 'pacer' },
-          }),
+          },
 
+          geofolder: (ani, props) => {
+            let geofold = {
+              type: 'Feature',
+              geometry: {
+                type: 'LineString',
+                coordinates: null,
+              },
+              properties: { doc: 'pacer' },
+            }
+            return geofold
+          },
 
         },
       },

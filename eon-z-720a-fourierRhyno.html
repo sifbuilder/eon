@@ -59,15 +59,20 @@ async function zindex (__mapper) {
     // md:   defined as (closed) LineString gemetry.coordinates
     // md:   mfourier.transformedCoefs(tfeature)
     let svgdata = JSON.parse(drhyno.data())
-    let data = {type: 'Feature', geometry: {type: 'LineString', coordinates: svgdata} }
+    let data = {
+      type: 'Feature',
+      geometry: {
+        type: 'LineString',
+        coordinates: svgdata,
+      },
+    }
 
     let proform = {
       projection: 'uniwen',
       translate: [ -100, 100 ],
       scale: [1, -1],
       rotate: [ 0, 0 ],
-      lens: [0, 1,
-        Infinity],
+      lens: [0, 1, Infinity],
     }
 
     let geoData = mproj3ct(data, mprofier.uniweon(proform))
@@ -109,18 +114,16 @@ async function zindex (__mapper) {
           stace: {x: { pos: 0 }, y: { pos: 0 }, z: 0}, //
           initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
 
-          autoSitus: function (a) {
-            return mstace.getLocus(this.stace, a.payload) // situs
-          },
-
           geojsor: function (d, i) {
             let ric = d.payload.ric // ric
             let uid = mric.getuid(ric)
+
             let gj = {
               halo: 'ent',
               geofold: {
                 type: 'Feature',
                 geometry: { type: 'LineString', coordinates: null },
+                properties: { doc: 'pacer' },
               },
               payload: {
                 uid: uid, id: uid, ric: ric,
@@ -131,6 +134,7 @@ async function zindex (__mapper) {
             if (newItem.geofold.properties.formEreformed) {
               newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
             }
+
             return newItem
           },
         },

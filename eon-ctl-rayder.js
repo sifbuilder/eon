@@ -34,7 +34,6 @@
     let xsign = 1 //  1 if x goes left to right
     let ysign = -1 // 1 if y goes up down
 
-
     let state = {
       pointer,
       mouse,
@@ -42,8 +41,8 @@
       domNode,
     }
 
-    state.grabbed = false    
-    
+    state.grabbed = false
+
     let cameraProjer = rrenderport.cameraProjer()
 
     // ............................. projector
@@ -56,7 +55,6 @@
 
         state.pointer.x = t[0]
         state.pointer.y = t[1]
-
       } else if (event.type === 'touchmove') {
         let touch = event.changedTouches[0]
 
@@ -96,13 +94,11 @@
 
     // ............................. mouseDownListener
     function mouseDownListener (event) {
-
       let e = event
       state.moved = false // not moved yet
-      let pos = getPos(e)  // mouse position
-      
-      state.grabbed = pos
+      let pos = getPos(e) // mouse position
 
+      state.grabbed = pos
     }
 
     // ............................. mouseMoveListener
@@ -120,19 +116,17 @@
       }
 
       state.lastMoveTime = Date.now()
-
     }
 
     // ............................. mouseUpListener
     function mouseUpListener (event) {
       if (1 && 1) console.log(' **************************** mouseUpListener', state, event)
-        
+
       let e = event
-        
+
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
-
     }
 
     // ............................. subscribe
@@ -147,11 +141,11 @@
 
       subscribe(mouseDownListener, state.domNode, 'mousedown')
       subscribe(mouseMoveListener, state.domNode, 'mousemove')
-      subscribe(mouseUpListener, state.domNode,   'mouseup')
+      subscribe(mouseUpListener, state.domNode, 'mouseup')
 
       subscribe(touchStartListener, state.domNode, 'touchstart')
       subscribe(touchMoveListener, state.domNode, 'touchmove')
-      subscribe(touchEndListener, state.domNode,  'touchend')
+      subscribe(touchEndListener, state.domNode, 'touchend')
     }
 
     // ............................. enty
@@ -160,7 +154,6 @@
     enty.domNode = _ => (_ !== undefined) ? (state.domNode = _, enty) : state.domNode
 
     enty.grabbed = () => state.grabbed
-
 
     enty.mouse = () => state.mouse
     enty.touch = () => state.touch

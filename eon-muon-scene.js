@@ -53,18 +53,18 @@
 
       if (p.svg && p.versor && p.versor !== state.scene.versor) {
         state.scene.versor = 1
-        let svg = rsvg.svg()            
+        let svg = rsvg.svg()
         cversor.control(svg)
       }
 
-      // ............................. ray control animation      
+      // ............................. ray control animation
       // if ray, add ray controls to svg
       if (p.ray && p.ray !== state.ray) {
         state.ray = 1
-        let svg = rsvg.svg()        
+        let svg = rsvg.svg()
         crayder.control(svg)
-      }      
-      
+      }
+
       // ............................. key control animation
       if (p.key && p.key !== state.scene.key) {
         state.scene.key = 1

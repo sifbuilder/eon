@@ -61,8 +61,6 @@
           valid = 1
           locations = mprops.interadd(stace)
         } else {
-
-
           let parentuid = payload.parentuid
           console.assert(parentuid !== undefined, ` * error: mstace.getTranspots:parentuid ${parentuid} in payload ${payload}`)
           let parentani = mstore.findAnigramFromUid(parentuid)

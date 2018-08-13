@@ -118,7 +118,7 @@ async function zindex (__mapper) {
 
     })
 
-    // .................. aniRay avatar - form.payload.fourier.avatars.line
+    // .................. aniRay avatar - form.payload.fourier.avatars.rayline
     let aniRay = i => ({
 
       halo: 'ent',
@@ -131,7 +131,7 @@ async function zindex (__mapper) {
 
     })
 
-    // .................. aniTrace avatar - form.payload.fourier.avatars.line
+    // .................. aniTrace avatar - form.payload.fourier.avatars.trace
     let aniTrace = i => ({
 
       halo: 'ent',
@@ -149,14 +149,13 @@ async function zindex (__mapper) {
     let traceline = i => ({
 
       halo: 'pacer',
+      geofold: null,
       payload: {
         ric: {gid: 'traces', cid: 'traces', fid: 'traces' + i},
         boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
         pacer: { // aad for trace
           initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
-          autoSitus: d => mstace.getLocus(this.stace, d.payload), // situs
-          fidder: d => d.payload.ric.fid,
 
           geojsor: function (d, i) {
             let ric = d.payload.ric // ric
@@ -191,7 +190,7 @@ async function zindex (__mapper) {
 
     // .................. fourierForm h.fourier
     let fourierForm = i => ({
-    
+
       halo: 'fourier',
       geofold: p => {
         let cs = csi(i, (1 + i) / 4)
@@ -226,8 +225,8 @@ async function zindex (__mapper) {
       fourierForms[i] = fourierForm(i)
 
       fourierForms[i].payload.fourier.avatars = {
-        traceline: fourierPacers[i], // trace
-        line: aniRays[i], // ray
+        traceline: fourierPacers[i], // traceline
+        rayline: aniRays[i], // rayline
       }
     }
     // .................. sceneAni

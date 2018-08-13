@@ -173,7 +173,6 @@
 
     // http://heyjavascript.com/4-creative-ways-to-cloneObj-objects/
     props.cloneObj = function (obj) {
-
       if (obj === null || typeof obj !== 'object') {
         return obj
       }

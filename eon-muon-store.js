@@ -131,7 +131,6 @@
         .then(anigram => (typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
           .then(halo => halo.gramm(anigram) // )
             .then(newItems => {
-
               _apply({type: 'UPDANIGRAM', anigrams: newItems})
               newItems.forEach(newItem => {
                 let avatars = gavatars(newItem)
@@ -142,7 +141,6 @@
                   avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
 
                   gramm(avatar)
-                  
                 })
               })
             })

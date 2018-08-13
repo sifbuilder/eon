@@ -114,16 +114,14 @@
 
     // ............................. render
     let render = function (featurecollection, maxlimit) {
-      
       let features = featurecollection.features
-        .filter(           
+        .filter(
           d => d !== null
         )
         .filter(
           d => d.properties !== undefined && // req properties
             d.properties.ric !== undefined // req ric
         )
-
 
       let svg = _svg()
 
@@ -203,7 +201,6 @@
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
 
           if (imgs.length > 0) {
-
             svgelems('svg:g.' + gid + '/image.' + cid, imgs, d => d.id)
 
               .data(() => imgs)
@@ -291,9 +288,8 @@
             svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.uid) // elems
               .data(() => features)
               .attr('d', d => { // geojson feature
-              
                 let properties = d.properties || {} // properties
-                console.assert( properties.style !== undefined, `style is undefined in ${d}`)
+                console.assert(properties.style !== undefined, `style is undefined in ${d}`)
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
                 let geoPath = d3.geoPath(cameraProjer) // path on view projection

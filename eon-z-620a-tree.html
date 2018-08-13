@@ -66,110 +66,100 @@ async function zindex (__mapper) {
     // .................. pics
     let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-        const MAX_FLOWER_AGE = 50
-        const MAX_GROWTH_TICKS = 15
-        const SVG_NS = "http://www.w3.org/2000/svg"
+    const MAX_FLOWER_AGE = 50
+    const MAX_GROWTH_TICKS = 15
+    const SVG_NS = 'http://www.w3.org/2000/svg'
 
-        function shadeRGBColor(color, percent) {
-          var f = color.split(","),
-            t = percent < 0 ? 0 : 255,
-            p = percent < 0 ? percent * -1 : percent,
-            R = parseInt(f[0].slice(4)),
-            G = parseInt(f[1]),
-            B = parseInt(f[2])
-          return (
-            "rgb(" +
+    function shadeRGBColor (color, percent) {
+      var f = color.split(','),
+        t = percent < 0 ? 0 : 255,
+        p = percent < 0 ? percent * -1 : percent,
+        R = parseInt(f[0].slice(4)),
+        G = parseInt(f[1]),
+        B = parseInt(f[2])
+      return (
+        'rgb(' +
             (Math.round((t - R) * p) + R) +
-            "," +
+            ',' +
             (Math.round((t - G) * p) + G) +
-            "," +
+            ',' +
             (Math.round((t - B) * p) + B) +
-            ")"
-          )
-        }
+            ')'
+      )
+    }
 
-      const branchShrinkage = 0.8
-      const maxAngleDelta = Math.PI / 2
-      const delay = 100
-      const svg = document.getElementById("svg")
+    const branchShrinkage = 0.8
+    const maxAngleDelta = Math.PI / 2
+    const delay = 100
+    const svg = document.getElementById('svg')
 
-      const scaleIncrement = 0.1
-      const flowerSize = 10.0
-      const dropIncrement = 2.0
-      const rotateIncrement = Math.PI * 2
-      let wind = 0
-      const windIncrement = 1
-      const maxWind = 2.0
+    const scaleIncrement = 0.1
+    const flowerSize = 10.0
+    const dropIncrement = 2.0
+    const rotateIncrement = Math.PI * 2
+    let wind = 0
+    const windIncrement = 1
+    const maxWind = 2.0
 
-      const wrap = a => (Array.isArray(a) ? a : [a])
-      const flatten = a => {
-        if (!Array.isArray(a)) {
-          return a
-        }
-        const [left, right] = a
-        return wrap(left).concat(wrap(right))
+    const wrap = a => (Array.isArray(a) ? a : [a])
+    const flatten = a => {
+      if (!Array.isArray(a)) {
+        return a
       }
+      const [left, right] = a
+      return wrap(left).concat(wrap(right))
+    }
 
+    // .................. buildBranch - from branch end build new branch
+    const buildBranch = (length, angle, depth, branchWidth, branchColor, maxAngleDelta, branchShrinkage, branches) => {
+      // if (1 && 1) console.log('buildBranch', length, angle, depth, branchWidth)
+      if (1 && 1) console.log('depth', depth)
 
-  // .................. buildBranch - from branch end build new branch
-  const buildBranch = ( length, angle, depth, branchWidth, branchColor, maxAngleDelta, branchShrinkage, branches ) => {
+      let newDepth = depth - 1
+      if (newDepth <= 0) { return branches }
+      let newBranchWidth = branchWidth * branchShrinkage
+      let newBranchColor = shadeRGBColor(branchColor, 0.1)
 
-  // if (1 && 1) console.log('buildBranch', length, angle, depth, branchWidth)
-  if (1 && 1) console.log('depth', depth)
+      let newAngle = angle + maxAngleDelta * (Math.random() * 0.5)
+      let newLength = length * (branchShrinkage + Math.random() * (1.0 - branchShrinkage))
 
-  
-    let newDepth = depth - 1;  
-    if (newDepth <= 0) { return branches }
-    let newBranchWidth = branchWidth * branchShrinkage
-    let newBranchColor = shadeRGBColor(branchColor, 0.1)
+      let newbranches = branches
+        .reduce((tree, branch) => {
+          let x1 = branch[1][0]
+          let y1 = branch[1][1]
 
-    let newAngle = angle + maxAngleDelta * (Math.random() * 0.5)
-    let newLength = length * (branchShrinkage + Math.random() * (1.0 - branchShrinkage))
+          let newgen = Array.of(-1, 1).map(direction => {
+            let dirAngle = newAngle + maxAngleDelta * (Math.random() * 0.5 * direction)
+            let dirLength = newLength * (branchShrinkage + Math.random() * (1.0 - branchShrinkage))
 
-    let newbranches = branches
-        .reduce( (tree,branch) => {
+            const x2 = x1 + dirLength * Math.cos(dirAngle)
+            const y2 = y1 + dirLength * Math.sin(dirAngle)
 
-            let x1 = branch[1][0]
-            let y1 = branch[1][1]
+            let newbranch = [ [x1, y1], [x2, y2] ]
 
-
-            let newgen = Array.of(-1, 1).map(direction => {
-                let dirAngle = newAngle + maxAngleDelta * (Math.random() * 0.5 * direction)
-                let dirLength = newLength * (branchShrinkage + Math.random() * (1.0 - branchShrinkage))
-
-                const x2 = x1 + dirLength * Math.cos(dirAngle)
-                const y2 = y1 + dirLength * Math.sin(dirAngle)
-
-                let newbranch = [ [x1, y1], [x2,y2] ]
-
-                return newbranch
-
+            return newbranch
           })
 
           let r = [...tree, ...newgen]
           return r
         }, [])
 
-    let newTree = [...branches, ...newbranches]
+      let newTree = [...branches, ...newbranches]
 
-
-    return   buildBranch( newLength, newAngle, newDepth, newBranchWidth, newBranchColor, maxAngleDelta, branchShrinkage, newTree )
-
-
-  }
+      return buildBranch(newLength, newAngle, newDepth, newBranchWidth, newBranchColor, maxAngleDelta, branchShrinkage, newTree)
+    }
 
     // .................. buildTree - from tree init to leaves
-  const buildTree = (x0, y0, length, angle, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage ) => {
+    const buildTree = (x0, y0, length, angle, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage) => {
+      let x1 = x0
+      let y1 = y0
+      let x2 = x1 + length * Math.cos(angle)
+      let y2 = y1 + length * Math.sin(angle)
+      let branches = Array.of([ [x1, y1], [x2, y2] ])
 
-    let x1 = x0
-    let y1 = y0
-    let x2 = x1 + length * Math.cos(angle)
-    let y2 = y1 + length * Math.sin(angle)
-    let branches = Array.of([ [x1, y1], [x2,y2] ])
-
-    let tree = buildBranch(length, angle, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage, branches )
-    return tree
-  }
+      let tree = buildBranch(length, angle, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage, branches)
+      return tree
+    }
 
     // .................. treeAni
     let treeAni = {
@@ -199,11 +189,10 @@ async function zindex (__mapper) {
           maxAngleDelta = payload.tree.maxAngleDelta
 
         let tree = buildTree(x0, y0, length, angle, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage)
-          feature.geometry.coordinates = tree
+        feature.geometry.coordinates = tree
 
         newFeatureCollection.features.push(feature)
         return newFeatureCollection
-
       },
 
       payload: {
@@ -215,18 +204,17 @@ async function zindex (__mapper) {
           y0: -100,
           length0: 60,
           angle0: Math.PI / 2,
-          
-          maxDepth: [[[1,6]]],  // 11
-          trunkWidth: 4,  // 12
-          branchColor: "rgb(101, 67, 33)",
+
+          maxDepth: [[[1, 6]]], // 11
+          trunkWidth: 4, // 12
+          branchColor: 'rgb(101, 67, 33)',
           branchShrinkage: 0.8,
           maxAngleDelta: Math.PI / 2,
           delay: 100,
 
-        }
+        },
       },
     }
-
 
     // .................. sceneAni
     let sceneAni = {
@@ -247,7 +235,6 @@ async function zindex (__mapper) {
 
       sceneAni, // h.scene
       treeAni, // h.formed
-
 
     ]
 

@@ -66,7 +66,7 @@ async function zindex (__mapper) {
     let natAni = {
 
       halo: 'pacer',
-      
+
       geofold: p => mnat.natFeature(p.payload.form),
 
       payload: {
@@ -74,19 +74,19 @@ async function zindex (__mapper) {
         ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
         pacer: {
-          
+
           item: 'anigram',
-        
+
           initN: 6, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 15 / 1400,
 
           riccer: function (ani, props) {
-            let newric = mprops.clone(ani.payload.ric)  // clone ric
+            let newric = mprops.clone(ani.payload.ric) // clone ric
             newric.gid = newric.gid
             newric.cid = newric.cid
-            newric.fid = newric.fid + props.counter 
+            newric.fid = newric.fid + props.counter
             return newric
-          },          
-          
+          },
+
           stacer: function (ani, props) {
             let stace
             if (props.key === 'init') {
@@ -99,23 +99,23 @@ async function zindex (__mapper) {
             }
             return stace
           },
-          
+
           geofolder: () => ({
-            type: 'Feature', 
+            type: 'Feature',
             geometry: {
-              type: 'Point', 
-              coordinates: null
-            }, 
-            properties: {}
+              type: 'Point',
+              coordinates: null,
+            },
+            properties: {},
           }),
 
-        },        
-        
+        },
+
         geonode: {
           type: 'Feature',
           geometry: {
-            type: 'Point', 
-            coordinates: [0, 0, 0]
+            type: 'Point',
+            coordinates: [0, 0, 0],
           },
           properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
         },

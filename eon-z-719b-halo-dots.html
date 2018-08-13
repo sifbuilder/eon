@@ -63,7 +63,7 @@ async function zindex (__mapper) {
       let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
       let nbr = 12
-      
+
       for (let i = 0; i < nbr; i++) {
         let ani = mprops.cloneObj(natAni) // clone of model anima
         ani.payload.ric.gid = 'nat'
@@ -83,8 +83,8 @@ async function zindex (__mapper) {
           ani.geofold = { // will create anigram
             type: 'Feature',
             geometry: {
-              type: 'Point', 
-              coordinates: [ 10 * i, 0, 0]
+              type: 'Point',
+              coordinates: [ 10 * i, 0, 0],
             },
             properties: {pointRadius: 36},
           }
@@ -111,7 +111,7 @@ async function zindex (__mapper) {
     // .................... natAni
     let natAni = {
 
-      halo: isolation,  // halo defines ween and gramm behavior
+      halo: isolation, // halo defines ween and gramm behavior
 
       geofold: p => mnat.natFeature(p.payload.form),
 
@@ -122,8 +122,8 @@ async function zindex (__mapper) {
         geonode: {
           type: 'Feature',
           geometry: {
-            type: 'Point', 
-            coordinates: [0, 0, 0]
+            type: 'Point',
+            coordinates: [0, 0, 0],
           },
           properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
         },

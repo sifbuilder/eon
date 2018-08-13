@@ -171,8 +171,8 @@
   exports.z852d3dgratSvgScene = z852d3dgratSvgScene
 }))
 
-// # eon-z-852d-3dgratSvgScene 
-// ** ** 
- 
-// # license 
+// # eon-z-852d-3dgratSvgScene
+// ** **
+
+// # license
 // MIT

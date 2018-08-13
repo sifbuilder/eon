@@ -135,7 +135,7 @@
             // to all cycloids, add __RAY__ avatar
             //
             if (i > 0) { // add ray avatar
-              let rayline = mprops.cloneObj(payload.fourier.avatars.rayline)
+              let rayline = mprops.cloneObj(payload.fourier.avatars.rayline) // rayline line
               rayline.geofold.geometry.coordinates = [
                 [acci.re / N, acci.im / N], // from this cycloid
                 [xn[i - 1], yn[i - 1]], // to prevous cycloid
@@ -167,7 +167,7 @@
             //
             // init PACER clonned from fourier avatar
             //
-            let traceline = mprops.cloneObj(payload.fourier.avatars.traceline)
+            let traceline = mprops.cloneObj(payload.fourier.avatars.traceline) // traceline
             console.assert(traceline !== undefined, 'traceline undefined')
             if (traceline) { // if pacer avatar
               // md: no add segments ourside time period (pacer.autoN = 0)

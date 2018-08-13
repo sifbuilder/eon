@@ -49,56 +49,49 @@
     }
 
     // .................. getweens
-     function getweens (animas, elapsed) {
+    function getweens (animas, elapsed) {
       return sequence(animas, anima => mstore.ween(anima))
-        // sequence(animas, anima => mstore.ween(anima))
-        // then(sequenced => {
-              // return mstore.animasLive()
-        // })
-        // return mstore.animasLive()
+      // sequence(animas, anima => mstore.ween(anima))
+      // then(sequenced => {
+      // return mstore.animasLive()
+      // })
+      // return mstore.animasLive()
     }
 
     // .................. getgramms
-     function getgramms (animas, elapsed) {
-        return sequence(animas, anima => mstore.gramm(anima)) // store anigrams
-          // .then(sequenced => {
-              // return mstore.anigrams()
-        // })
+    function getgramms (animas, elapsed) {
+      return sequence(animas, anima => mstore.gramm(anima)) // store anigrams
+      // .then(sequenced => {
+      // return mstore.anigrams()
+      // })
       // return mstore.anigrams() // get anigrams from store
     }
 
     // .................. animate
     async function animate (time) {
-        
-        if (time !== undefined ) {
-          
-          animier(time)
-        
-        } else {
-          
-          if (state.animationStop === undefined) {
-            state.animationStop = ctimer.subscribe(animier)
-          }
-          
+      if (time !== undefined) {
+        animier(time)
+      } else {
+        if (state.animationStop === undefined) {
+          state.animationStop = ctimer.subscribe(animier)
         }
-
-
+      }
     }
 
-     // .................. collect
+    // .................. collect
     async function collect (animas, elapsed) {
       let featurecollectionPromise = Promise.resolve(state.animas)
         .then(animas => {
           getweens(animas, elapsed)
-            // .then(weened => mstore.animasLive())
+          // .then(weened => mstore.animasLive())
           // return weened
         })
         .then(animas => {
-           let simmed = getsims(mstore.animasLive())
-           return simmed
+          let simmed = getsims(mstore.animasLive())
+          return simmed
         })
         .then(anisimmed => {
-            return getgramms(anisimmed)
+          return getgramms(anisimmed)
           // let anigrams = getgramms(anisimmed)
           // if (1 && 1) console.log('anigrams', anigrams)
           // return anigrams
@@ -109,7 +102,7 @@
         })
         .catch(e => { console.log(e) })
 
-        return featurecollectionPromise
+      return featurecollectionPromise
     }
 
     // ............................. ANIMIER
@@ -141,14 +134,12 @@
       }
 
       // ............................. @WEEN SIM GRAMM RENDER
-      let featurecollectionPromise = collect (state.animas, elapsed)
+      let featurecollectionPromise = collect(state.animas, elapsed)
       featurecollectionPromise
-        .then(featurecollection =>  {
-            rsvg.render(featurecollection)
+        .then(featurecollection => {
+          rsvg.render(featurecollection)
         })
-
     }
-
 
     // ............................. enty
     function enty () {}

@@ -10,9 +10,6 @@
   'use strict'
 
   async function controlRaycaster (__mapper = {}) {
-    
-    
-
     let mouse = {
       x: -2, // Initialize off canvas
       y: -2,

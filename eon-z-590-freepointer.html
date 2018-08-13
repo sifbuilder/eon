@@ -47,53 +47,53 @@ async function zindex (__mapper) {
   // .................. animas
   let animas = function () {
     // .................. pics
-  let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  // .................. pointform
-  let pointform = {
+    // .................. pointform
+    let pointform = {
 
-    halo: 'pacer',
-    geofold: null,
-    payload: {
+      halo: 'pacer',
+      geofold: null,
+      payload: {
 
-      tim: tim,
-      ric: {gid: 'nat', cid: 'nat', fid: 'pointform'},
-      boform: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
+        tim: tim,
+        ric: {gid: 'nat', cid: 'nat', fid: 'pointform'},
+        boform: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
-      proform: {
-        projection: 'uniwen',
-        center: [ 0, 0, 0],
-        translate: [0, 0, 0],
-        scale: 1,
-        rotate: [0, 0, 0],
-        lens: [0, 1, Infinity],
-      },
-
-      pacer: {
-        initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
-
-        initSitus: ani => ({x: width / 2, y: height / 2, z: 0 }),
-
-        eventSitus: ani => {
-          let situs
-          if (crayder.event() !== undefined) {
-            let x = crayder.event().x
-            let y = crayder.event().y
-            let z = 0
-            situs = {x, y, z }
-          }
-          return situs
+        proform: {
+          projection: 'uniwen',
+          center: [ 0, 0, 0],
+          translate: [0, 0, 0],
+          scale: 1,
+          rotate: [0, 0, 0],
+          lens: [0, 1, Infinity],
         },
 
-        autoSitus: ani => mstace.getLocus(ani),
+        pacer: {
+          initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
 
-        eventSitus: d => ({
-            x: crayder.mouse().x,  // x: crayder.event().x, 
-            y: crayder.mouse().y,  // crayder.event().y, 
-            z: 0 
-        }),
-        
-        fidder: anitem => 'item' +
+          initSitus: ani => ({x: width / 2, y: height / 2, z: 0 }),
+
+          eventSitus: ani => {
+            let situs
+            if (crayder.event() !== undefined) {
+              let x = crayder.event().x
+              let y = crayder.event().y
+              let z = 0
+              situs = {x, y, z }
+            }
+            return situs
+          },
+
+          autoSitus: ani => mstace.getLocus(ani),
+
+          eventSitus: d => ({
+            x: crayder.mouse().x, // x: crayder.event().x,
+            y: crayder.mouse().y, // crayder.event().y,
+            z: 0,
+          }),
+
+          fidder: anitem => 'item' +
 					mstore.anigrams()
 					  .filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
 												ani.payload.ric.cid === anitem.payload.ric.cid)
@@ -102,10 +102,10 @@ async function zindex (__mapper) {
           geofolder: () => ({
             type: 'Feature', geometry: {type: 'Point', coordinates: null}, properties: {},
           }),
-          
-      }
+
+        },
+      },
     }
-  }
 
     // .................. sceneAni
     let sceneAni = {

@@ -205,7 +205,6 @@
               })
 
             if (aniForce.field !== undefined) { // field forces
-
               let aniCompForces = aniForce.field({ // mamy to share properties
                 elapsed: elapsed, // elapsed
                 nodes: aniNodes, // aniNodes
