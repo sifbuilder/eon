@@ -144,9 +144,10 @@ async function zindex (__mapper) {
             geometry: {
               type: 'LineString',
               coordinates: [ [x0, y0, z0], [x1, y1, z1] ]},
-            properties: {},
+            properties: {
+              orgen: [0, 0, 0 ]
+            },
           }
-          ani.payload.geonode.properties.orgen = [0, 0, 0 ]
         }
         animas.push(ani)
       }
@@ -169,7 +170,7 @@ async function zindex (__mapper) {
     // ............................. natAni
     let natAni = {
 
-      halo: "pacer", // isolation,
+      halo: isolation,
 
       geofold: p => mnat.natFeature(p.payload.form),
 

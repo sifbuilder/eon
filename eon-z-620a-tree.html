@@ -40,35 +40,15 @@
 async function zindex (__mapper) {
   // .................. eons
   let [
-    rrenderport,
-    mgeoj,
-    mproj3ct,
-    mprofier,
-    mstace,
-    mric,
-    msvg,
     dlicht5,
   ] = await Promise.all([
-    __mapper('xs').r('renderport'),
-    __mapper('xs').m('geoj'),
-    __mapper('xs').m('proj3ct'),
-    __mapper('xs').m('profier'),
-    __mapper('xs').m('stace'),
-    __mapper('xs').m('ric'),
-    __mapper('xs').m('svg'),
     __mapper('xs').d('licht5'),
   ])
-
-  let mstore = __mapper('xs').m('store')
 
   // .................. animas
   let animas = function () {
     // .................. pics
     let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-
-    const MAX_FLOWER_AGE = 50
-    const MAX_GROWTH_TICKS = 15
-    const SVG_NS = 'http://www.w3.org/2000/svg'
 
     function shadeRGBColor (color, percent) {
       var f = color.split(','),
@@ -88,32 +68,9 @@ async function zindex (__mapper) {
       )
     }
 
-    const branchShrinkage = 0.8
-    const maxAngleDelta = Math.PI / 2
-    const delay = 100
-    const svg = document.getElementById('svg')
-
-    const scaleIncrement = 0.1
-    const flowerSize = 10.0
-    const dropIncrement = 2.0
-    const rotateIncrement = Math.PI * 2
-    let wind = 0
-    const windIncrement = 1
-    const maxWind = 2.0
-
-    const wrap = a => (Array.isArray(a) ? a : [a])
-    const flatten = a => {
-      if (!Array.isArray(a)) {
-        return a
-      }
-      const [left, right] = a
-      return wrap(left).concat(wrap(right))
-    }
-
     // .................. buildBranch - from branch end build new branch
     const buildBranch = (length, angle, depth, branchWidth, branchColor, maxAngleDelta, branchShrinkage, branches) => {
       // if (1 && 1) console.log('buildBranch', length, angle, depth, branchWidth)
-      if (1 && 1) console.log('depth', depth)
 
       let newDepth = depth - 1
       if (newDepth <= 0) { return branches }
@@ -166,10 +123,7 @@ async function zindex (__mapper) {
 
       halo: 'formed',
       geofold: ani => {
-        let anigram = ani, // anigram
-          halo = ani.halo, // halo
-          geofold = ani.geofold, // geofold
-          payload = ani.payload // payload
+        let payload = ani.payload // payload
 
         let newFeatureCollection = {type: 'FeatureCollection', features: []}
         let feature = {
@@ -225,7 +179,6 @@ async function zindex (__mapper) {
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-        // tree: { [[[ ]]] },
       },
 
     }
