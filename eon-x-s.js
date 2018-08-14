@@ -95,7 +95,7 @@
     enty.ctl = enty.c = (nome, pres = 'ctl') => getEon([nome, pres])
     enty.dat = enty.d = (nome, pres = 'dat') => getEon([nome, pres])
     enty.force = enty.f = (nome, pres = 'force') => getEon([nome, pres])
-    enty.geo = enty.g = (nome, pres = 'd3.geo') => getEon([nome, pres])
+    enty.geo = enty.g = (nome, pres = 'geo') => getEon([nome, pres])
     enty.halo = enty.h = (nome, pres = 'halo') => getEon([nome, pres])
     enty.lib = enty.l = (nome, pres = 'lib') => getEon([nome, pres])
     enty.muon = enty.m = (nome, pres = 'muon') => getEon([nome, pres])
