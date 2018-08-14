@@ -40,7 +40,6 @@
       let initSitus, eventSitus, autoSitus, fidder, geojsor
 
       let count = {} // items in cycle
-
       let mouse = {} // mouse control
 
       mouse.mouseDown = crayder.mouseDown() // down
