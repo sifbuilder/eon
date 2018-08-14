@@ -20,21 +20,20 @@
   // LICENSE# Released under the The MIT License.
 
   async function geoFuturi (__mapper = {}) {
-    
     let [
       mgeom,
       mpolyhedral,
-      rrenderport,
+      d3,
     ] = await Promise.all([
       __mapper('xs').m('geom'),
       __mapper('xs').m('polyhedral'),
-      __mapper('xs').r('renderport'),
-    ])    
+      __mapper('xs').b('d3'),
+    ])
 
-    let width = renderport.width(), height = renderport.height()
+    let d3selection = d3
+    let d3geo = d3
 
     let atan = Math.atan, pi = Math.PI, degrees = 180 / pi, sqrt1_2 = Math.SQRT1_2
-
 
     let vertices = []
     let mode = 'cartesian'
@@ -66,7 +65,7 @@
         .map(mgeom.spherical)
         .map(mgeom.to_degrees)
 
-      vertices = d3.merge([
+      vertices = d3selection.merge([
         vertices,
       ])
     }
@@ -91,7 +90,7 @@
       if (!p.tree) p.tree = [-1, 4, 5, 2, 0, 1]
       if (!p.rotate) p.rotate = [28, -4, 0] // California
       if (!p.faces) p.faces = faces
-      if (!p.prjRaw) p.prjRaw = d3.geoGnomonicRaw
+      if (!p.prjRaw) p.prjRaw = d3geo.geoGnomonicRaw
 
       return mpolyhedral(p)
     }

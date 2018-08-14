@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  let [
+    mnat,
+    mgraticule,
+    topojson,
+    dworldTopo110m,
+    d3geo,
+    d3geoprojection,
+    geoFuturi,
+    cwen,
+  ] = await Promise.all([
+    __mapper('xs').m('nat'),
+    __mapper('xs').m('graticule'),
+    __mapper('xs').b('topojson'),
+    __mapper('xs').d('worldTopo110m'),
+    __mapper('xs').b('d3-geo'),
+    __mapper('xs').b('d3-geo-projection'),
+    __mapper('xs').g('futuri'),
+    __mapper('xs').c('wen'),
+  ])
+
+  // .................. animas
+  let animas = function () {
+    // .................... pics
+    let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    let proformCube = {
+
+      projections: 'uniwen',
+      translate: [ 0, 0 ],
+      scale: 60,
+      rotate: [-5, 50, 0],
+      lens: [[[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 4],
+
+    }
+
+    let graticule = {
+
+      extent: [ [-180, 180, [[[30, 45, 30, 45, 30]]], [[[30, 45, 30, 45, 30]]]], [-90, 90, [[[12, 6, 12, 6, 12]]], [[[12, 6, 12, 6, 12]]]] ],
+
+    }
+
+    let proformFuture = {
+
+      projection: geoFuturi(),
+      scale: 30,
+      translate: [ 0, 0, 0 ],
+      rotate: [28, -4, 0],
+      trees: [ [-1, 0, 1, 5, 0, 2] ],
+      treeidx: [[[0, 0, 0]]],
+      faciaRotation: Math.PI / 1,
+
+    }
+
+    let geograt = {
+
+      halo: 'ent',
+      geofold: () => {
+        return Object.assign({},
+          topojson.feature(
+            dworldTopo110m.data(),
+            dworldTopo110m.data().objects.land
+          )
+        )
+      },
+      payload: {
+
+        tim: tim,
+        ric: {gid: 'geograt', cid: 'geograt', fid: 'geograt' },
+        boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+        graticule: graticule,
+        proform: proformFuture,
+
+      },
+
+    }
+
+    let geoearth = {
+
+      halo: 'ent',
+      payload: {
+
+        tim: tim,
+        ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
+        proform: proformFuture,
+        boform: { 'csx': 0,
+          'cf': [[[555, 333, 555, 333, 555, 333, 555]]],
+          'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+
+      },
+      geofold: () => {
+        return Object.assign({},
+          topojson.feature(
+            dworldTopo110m.data(),
+            dworldTopo110m.data().objects.land
+          )
+        )
+      },
+
+    }
+
+    let geosphere = {
+
+      halo: 'ent',
+      geofold: { type: 'Sphere'},
+      payload: {
+        tim: tim,
+        ric: {gid: 'geosphere', cid: 'geosphere', fid: 'geosphere' },
+        boform: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
+        proform: proformFuture,
+      },
+
+    }
+
+    let animas = [
+      geograt, // h.ent g.futuri
+      geoearth, // h.ent g.futuri
+      geosphere, // h.ent  g.futuri
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>

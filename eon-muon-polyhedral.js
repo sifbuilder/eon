@@ -9,18 +9,15 @@
   'use strict'
 
   async function muonPolyhedral (__mapper = {}) {
-    
     let [
-      rrenderport,
       d3geo,
+      d3geoprojection,
     ] = await Promise.all([
-      __mapper('xs').r('renderport'),
       __mapper('xs').b('d3-geo'),
-    ])  
-    
-    let width = renderport.width(), height = renderport.height()
+      __mapper('xs').b('d3-geo-projection'),
+    ])
 
-    let pi = Math.PI, degrees = 180 / pi, radians = pi / 180
+    let pi = Math.PI, degrees = 180 / pi
 
     let polyhedral = function (proform = {}) {
       let {faciaRotation, geoRotation, prjRaw, faces, tree} = proform
@@ -30,7 +27,7 @@
         let c = d3geo.geoCentroid({type: 'MultiPoint', coordinates: face})
         let rotate = geoRotation(c)
         let translate = [0, 0, 0]
-        let scale = 1			// convention
+        let scale = 1 // convention
         return prj.scale(scale).translate(translate).rotate(rotate)
       }
 
@@ -43,22 +40,22 @@
             return d3geo.geoContains({ type: 'Polygon', coordinates: [ polygon ] },
               [lambda * degrees, phi * degrees])
           },
-          project: faceProjection(face)
+          project: faceProjection(face),
         }
       })
 
-      tree.forEach(function (d, i) {					// tree
+      tree.forEach(function (d, i) { // tree
         let node = faces[d]
         node && (node.children || (node.children = [])).push(faces[i])
       })
 
-      let facefn = 	function (lambda, phi) {
+      let facefn = function (lambda, phi) {
         for (let i = 0; i < faces.length; i++) {
           if (faces[i].contains(lambda, phi)) return faces[i]
         }
       }
 
-      let m = d3geo.geoPolyhedral(
+      let m = d3geoprojection.geoPolyhedral(
         faces[0],
         facefn,
         faciaRotation, // rotation of the root face in the projected (pixel) space
