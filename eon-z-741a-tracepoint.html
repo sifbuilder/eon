@@ -40,13 +40,15 @@ async function zindex (__mapper) {
     mstace,
     mnat,
     mric,
+    cwen,
   ] = await Promise.all([
     __mapper('xs').m('stace'),
     __mapper('xs').m('nat'),
     __mapper('xs').m('ric'),
+    __mapper('xs').c('wen'),
   ])
 
-  let mstore = __mapper('mStore')
+  let mstore = __mapper('muonStore')
 
   // .................. animas
   let animas = function () {
@@ -129,32 +131,113 @@ async function zindex (__mapper) {
           stace: {x: { pos: 0 }, y: { pos: 0 }, z: { pos: 0 }},
 
           initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
-          autoSitus: function (a) {
-            let r = mstace.getLocus(this.stace, a.payload) // situs
-            return r
-          },
-          fidder: a => a.payload.ric.fid,
-          geojsor: function (a, i) {
-            let ric = a.payload.ric // ric
-            let uid = mric.getuid(ric)
-            let gj = {
-              halo: 'ent',
-              geofold: {
-                type: 'Feature',
-                geometry: { type: 'LineString', coordinates: null },
-                properties: { doc: 'pacer' },
-              },
-              payload: {
-                uid: uid, id: uid, ric: ric,
-                proform: this.proform,
-              },
+          
+
+          geojsor: function (ani, props={}) {
+
+            let geofolder = function (ani, props) {
+
+                let geofold = {
+                      type: 'Feature',
+                      geometry: {
+                        type: 'LineString',
+                        coordinates: null,
+                      },
+                      properties: {},
+                  }
+                  
+                  // get preexisting trace ani
+                  let preani = mstore.findAnigramFromUid(ani.payload.uid)
+                  let base = ani.payload.pacer.pace || 'geo'
+                  
+                  if (preani !== undefined) {
+                  
+                    if (preani.geofold) geofold = preani.geofold
+                    
+                    if (base === 'geo') {
+                      if (geofold.properties.formGeoformed) {
+                        geofold.geometry = geofold.properties.formGeoformed.geometry
+                      }
+                    } else if (base === 'ere') {
+                      if (geofold.properties.formEreformed) {
+                        geofold.geometry = geofold.properties.formEreformed.geometry
+                      }
+                    } else if (base === 'pro') {
+                      if (geofold.properties.formProformed) {
+                        geofold.geometry = geofold.properties.formProformed.geometry
+                      }
+                    } else {
+                      if (geofold.properties.formGeoformed) {
+                        geofold.geometry = geofold.properties.formGeoformed.geometry
+                      }
+                    }
+                  } else {
+
+                    // if preani does not exisit return default geofold
+
+                  }
+
+                  return geofold
+                }
+
+
+
+              let stacer = function (ani, props) {
+                let stace
+                if (props.key === 'init') {  // INIT
+                
+                  stace = {x: 0, y: 0, z: 0 }
+                  
+                } else if (props.key === 'auto') {  // AUTO
+                
+                  stace = mstace.getLocus(ani.payload.pacer.stace, ani) // AUTO
+                  
+                } else if (props.key === 'event') {  // EVENT
+                
+                  stace = {x: 0, y: 0, z: 0 }
+                }
+                return stace
+              }
+
+              let anitem = {
+
+                halo: "ent",
+                geofold: geofolder(ani, props),
+                payload: {
+                  tim: tim,
+                  ric: {
+
+                    gid: ani.payload.ric.gid,
+                    cid: ani.payload.ric.cid,
+                    fid: ani.payload.ric.fid, //  + props.counter,
+
+                  },
+                  uid: mric.getuid(ani.payload.ric),
+                  stace: stacer(ani, props),
+
+                  proform: {
+                    projection: 'uniwen',
+                    scale: [ 0.5, 0.5 ],
+                    prerotate: [[[ cwen.rotation ]]],
+                    translate: [ [0, -100, 0] ],
+                    rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
+                    rotate: [ 0, 0, 0 ],
+                    lens: [0, 1, Infinity ],
+                    anod: 1,
+                  },
+
+                  boform: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
+                }
+
             }
-            let newItem = mstore.findAnigramFromUid(uid) || gj
-            if (newItem.geofold.properties.formEreformed) {
-              newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
-            }
-            return newItem
-          },
+            return anitem
+
+           }, // geojsor          
+          
+
+          
+
+
         },
       },
     }

@@ -55,6 +55,7 @@
 
         state.pointer.x = t[0]
         state.pointer.y = t[1]
+        
       } else if (event.type === 'touchmove') {
         let touch = event.changedTouches[0]
 
@@ -119,10 +120,11 @@
     }
 
     // ............................. mouseUpListener
-    function mouseUpListener (event) {
-      if (1 && 1) console.log(' **************************** mouseUpListener', state, event)
+    function mouseUpListener (e) {
+     
+      
+      if (1 && 1) console.log(' **************************** mouseUpListener', state, e)
 
-      let e = event
 
       if (!state.grabbed) return
       state.grabbed = false
@@ -131,6 +133,8 @@
 
     // ............................. subscribe
     let subscribe = function (listener, domNode, sensor) {
+      if (1 && 1) console.log('sensor', sensor)
+
       if (typeof listener !== 'function') throw new Error('Listener to be function')
       domNode.node().addEventListener(sensor, listener) // mounseUp, mouseUpListener
     }
@@ -141,7 +145,7 @@
 
       subscribe(mouseDownListener, state.domNode, 'mousedown')
       subscribe(mouseMoveListener, state.domNode, 'mousemove')
-      subscribe(mouseUpListener, state.domNode, 'mouseup')
+      subscribe(mouseUpListener,   state.domNode, 'mouseup')
 
       subscribe(touchStartListener, state.domNode, 'touchstart')
       subscribe(touchMoveListener, state.domNode, 'touchmove')

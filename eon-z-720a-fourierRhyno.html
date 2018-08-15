@@ -106,16 +106,18 @@ async function zindex (__mapper) {
       halo: 'pacer',
       geofold: null,
       payload: {
-        tim,
-        ric: {gid: 'trace', cid: 'trace', fid: 'trace'},
-        boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.9, 'cp': 0.99},
 
         pacer: { // aad for trace
+          tim,
+          ric: {gid: 'trace', cid: 'trace', fid: 'trace'},
+          boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.9, 'cp': 0.99},
+
+        
           stace: {x: { pos: 0 }, y: { pos: 0 }, z: 0}, //
           initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
 
-          geojsor: function (d, i) {
-            let ric = d.payload.ric // ric
+          geojsor: function (ani, props) {
+            let ric = ani.payload.pacer.ric // ric
             let uid = mric.getuid(ric)
 
             let gj = {
