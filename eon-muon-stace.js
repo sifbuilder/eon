@@ -22,7 +22,9 @@
     // ...................... range
     // https://github.com/d3/d3-array/blob/master/src/range.js
     const range = function (start, stop, step) {
-      start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step
+      start = +start
+      stop = +stop
+      step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step
 
       var i = -1,
         n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
@@ -36,14 +38,15 @@
     }
 
     // ..................... isValidStace
-    let getTranspots = function (s, ani) {
+    let getTranspots = function (stace, ani) {
       let mstore = __mapper('muonStore') // sync
 
-      let stace = s
       let payload = ani.payload
       console.assert(payload !== undefined, ani, ' payload undefined')
       let locations = []
       let valid = 0
+
+      // if object, convert stace to array
 
       if (stace && typeof stace === 'object') {
         if (stace.x !== undefined) { // if .x then position object
@@ -51,64 +54,102 @@
         }
       }
 
+      // if function, funtorize stace
+
       if (Array.isArray(stace)) { // stace :: [x,y,z]
         stace = stace.map(d => typeof d === 'function' ? d() : d) // eval
+      }
 
-        if (mprops.isPureArray(stace)) { // [x,y,z] numbers
-          valid = 1
-          locations = Array.of(stace)
-        } else if (mprops.isPureMultiArray(stace)) { // sum by dim [[a1,a2,a3],[b1,b2]]
-          valid = 1
-          locations = mprops.interadd(stace)
-        } else {
-          let parentuid = payload.parentuid
-          console.assert(parentuid !== undefined, ` * error: mstace.getTranspots:parentuid ${parentuid} in payload ${payload}`)
-          let parentani = mstore.findAnigramFromUid(parentuid)
-          console.assert(parentani !== undefined, ` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)
+      if (typeof stace === undefined || stace === null) {
+        stace = [null, null, null]
+      }
 
-          let formGeoformed = parentani.geofold.properties.formGeoformed
-          let formEreformed = parentani.geofold.properties.formEreformed
-          let formProformed = parentani.geofold.properties.formProformed
-          let nodeGeoformed = parentani.geofold.properties.nodeGeoformed || {geometry: {}}
-          let nodeEreformed = parentani.geofold.properties.nodeEreformed || {geometry: {}}
-          let nodeProformed = parentani.geofold.properties.nodeProformed || {geometry: {}}
+      // if stace is simple array, spot is stace
 
-          let locationsPerDax = []
-          for (let i = 0; i < stace.length; i++) {
-            let staceDax = stace[i]
-            let v1 = staceDax
+      if (mprops.isPureArray(stace)) { // [x,y,z] numbers
+        valid = 1
+        locations = Array.of(stace)
 
-            if (!v1.hasOwnProperty('pos')) { // in node
-              let coords = []
-              if (v1.hasOwnProperty('geo')) { // GEO
-                coords = nodeGeoformed.geometry.coordinates
-              } else if (v1.hasOwnProperty('ere')) { // ERE
-                coords = nodeEreformed.geometry.coordinates
-              } else if (v1.hasOwnProperty('pro')) { // PRO
-                coords = nodeProformed.geometry.coordinates
-              } else { // if pos look into geometry
-                coords = nodeGeoformed.geometry.coordinates
-              }
-              locationsPerDax[i] = Array.of(coords[i])
-            } else { // search on form
-              let idx = Math.floor(v1.pos)
-              let coords = []
-              if (v1.hasOwnProperty('geo')) {
-                coords = mgeoj.getCoords(formGeoformed.geometry)
-              } else if (v1.hasOwnProperty('ere')) {
-                coords = mgeoj.getCoords(formEreformed.geometry)
-              } else if (v1.hasOwnProperty('pro')) {
-                coords = mgeoj.getCoords(formProformed.geometry)
-              } else { // if pos look into geometry
-                coords = mgeoj.getCoords(parentani.geofold.geometry)
-              }
-              idx = (idx + coords.length) % coords.length
-              locationsPerDax[i] = Array.of(coords[idx][i])
+      // if stace is a multiarray, get stace interadding per dax
+      } else if (mprops.isPureMultiArray(stace)) { // dax sum [[a1,a2,a3],[b1,b2]]
+        valid = 1
+        locations = mprops.interadd(stace)
+
+      // else, eg. if stace undefined, get stace from parent
+      } else {
+        let parentuid = payload.parentuid
+        console.assert(parentuid !== undefined, ` * error: mstace.getTranspots:parentuid ${parentuid} in payload ${payload}`)
+        let parentani = mstore.findAnigramFromUid(parentuid)
+        console.assert(parentani !== undefined, ` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)
+
+        let formGeoformed = parentani.geofold.properties.formGeoformed
+        let formEreformed = parentani.geofold.properties.formEreformed
+        let formProformed = parentani.geofold.properties.formProformed
+        
+        let nodeGeoformed = parentani.geofold.properties.nodeGeoformed || {geometry: {}}
+        let nodeEreformed = parentani.geofold.properties.nodeEreformed || {geometry: {}}
+        let nodeProformed = parentani.geofold.properties.nodeProformed || {geometry: {}}
+
+        let locationsPerDax = []
+
+        for (let i = 0; i < stace.length; i++) { // if stace undefined assumed dim 3
+          let v1 = stace[i] || {}
+
+          // if stace dax has position, define through parent geometry
+
+          if (v1.hasOwnProperty('pos')) {
+            let idx = Math.floor(v1.pos)
+            let coords = []
+            if (v1.hasOwnProperty('geo')) {
+              
+              coords = mgeoj.getCoords(formGeoformed.geometry)
+              
+            } else if (v1.hasOwnProperty('ere')) {
+              
+              coords = mgeoj.getCoords(formEreformed.geometry)
+              
+            } else if (v1.hasOwnProperty('pro')) {
+              
+              coords = mgeoj.getCoords(formProformed.geometry)
+              
+            } else { // if pos look into geometry
+            
+              coords = mgeoj.getCoords(parentani.geofold.geometry)
+              
             }
+
+            idx = (idx + coords.length) % coords.length
+            locationsPerDax[i] = Array.of(coords[idx][i])
+
+            // if stace is not defined ... refer to parent geonode position
+            
+          } else {
+            
+            let coords = []
+            if (v1.hasOwnProperty('geo')) { // GEO
+            
+              coords = nodeGeoformed.geometry.coordinates
+              
+            } else if (v1.hasOwnProperty('ere')) { // ERE
+            
+              coords = nodeEreformed.geometry.coordinates
+              
+            } else if (v1.hasOwnProperty('pro')) { // PRO
+            
+              coords = nodeProformed.geometry.coordinates
+              
+            } else { // if pos look into geometry
+            
+              coords = nodeGeoformed.geometry.coordinates
+              
+            }
+
+            locationsPerDax[i] = Array.of(coords[i])
           }
-          if (locationsPerDax.length > 0) {
-            locations = mlacer.slide(locationsPerDax) // [300, 200]
-          }
+        }
+
+        if (locationsPerDax.length > 0) {
+          locations = mlacer.slide(locationsPerDax) // [300, 200]
         }
       }
 
@@ -236,25 +277,6 @@
 
     // ........................ getLocus
     let getLocus = (stace, ani) => getLoci(stace, ani)[0]
-
-    // ........................ getLocifion
-    // let getLocifion = function (stace, ani) {
-    // let locus = getLocus(stace, ani)
-
-    // let projection = {
-    // 'projection': 'uniwen',
-    // 'translate': [ locus[0], locus[1], locus[2] ],
-    // }
-
-    // return mprofier.formion(projection)
-    // }
-
-    // ........................ getLocifier
-    // let getLocifier = function (stace, ani = {}) {
-    // let locifion = getLocifion(stace, ani)
-
-    // return g => __mapper('xs').m('proj3ct')(g, locifion)
-    // }
 
     // ........................ enty
     function enty () { return enty }

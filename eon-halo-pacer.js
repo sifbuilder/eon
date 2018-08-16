@@ -108,12 +108,12 @@
         count.init = Math.floor(pacer.initN) // count INIT
       }
 
-      // auto
-      // cycletime since last outed item
+
+      // cycletime since last outed item, relevant if auto
       let cycletime = tim.unitPassed - (pacer.outed || 0)
 
       // if the cycletime is longer than auto pace
-      //  abd unitPassed is beyong autoT ...
+      //  and unitPassed is beyong autoT ...
       if (cycletime >= pacer.autoP &&
             tim.unitPassed > (pacer.autoT || 0)
       ) {
@@ -178,20 +178,27 @@
               stace = newItem.payload.stace
 
 
-
+              // situs from ani.geofold.properties.geonode
+              // spot from transpot stace, ani
+              // locus: situs + spot
               let situs = mstace.getLocus(stace, anitem)
               if (situs && typeof situs === 'object') situs = Object.values(situs)
 
 
-              //
+              
               // payload.pacer.AAD
               // if pacer.add mode, new items add to pacer generated item (eg. segment point to LineString trace)
-              //
+              
               if (aad) {
-                //  add situs to newItem coords
+                
+                //  add situs to newItem geocoords
                 //  coords are final space coords (after h.ent, stored at m.animation)
-                let coords = newItem.geofold.geometry.coordinates // domain coords
-                let geocoords = newItem.geofold.properties.geocoords // pre coords
+                
+                // geocoords
+                let coords = newItem.geofold.geometry.coordinates // 
+                
+                // precoords               
+                let precoords = newItem.geofold.properties.geocoords // pre coords
 
                 if (coords && coords.length > 0) {
                   let presitus = coords[coords.length - 1] // last point in paced string
@@ -205,19 +212,19 @@
                 }
 
                 newItem.geofold.geometry.coordinates = coords // upd coords
-                newItem.geofold.properties.geocoords = geocoords
+                newItem.geofold.properties.geocoords = precoords
 
                 let newItemsInCount = await hent.gramm(newItem) // h.ent newItem
                 newItems = [...newItems, ...newItemsInCount] // add new items
 
                 // NOT pacer.AAD
                 // if not pacer.add, each pacer generated item
-                //
+                
               } else { //  if NOT AAD
 
                 // geofold is Feature
                 // if newItem geofold.geometry.type is Point, then ...
-                //
+                
                 if (newItem.geofold && newItem.geofold.geometry.type === 'Point') { // POINT
                   // coordinates from geofold
                   let presitus = newItem.geofold.geometry.coordinates

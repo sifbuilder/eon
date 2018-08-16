@@ -111,6 +111,8 @@
       let pproj = mprofier.proformion_(ani)
       return f => p(e(c(f, cproj), eproj), pproj)
     }
+    
+    // ............................. transforms    
     let transforms = (f, ani) => transformer(ani)(f)
 
     // ............................. gramm
@@ -125,16 +127,10 @@
               let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
               let newAni = Object.assign({}, anigram, {geofold: newcollection})
 
-              // let newAnigrams = hformed.gramm(newAni)
               return hformed.gramm(newAni)
-              // .then(newAnigrams => {
-              // if (1 && 1) console.log('newAnigrams', newAnigrams)
-              // return newAnigrams
-              // })
-            })))
+              
+          })))
     }
-
-    
     
     // ............................. ween
     let ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []

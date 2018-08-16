@@ -228,9 +228,16 @@
             doc: 'nat',
             geonode: {
               type: 'Feature',
-              geometry: {type: 'Point', coordinates: [0, 0, 0]},
+              geometry: {
+                type: 'Point', 
+                coordinates: [0, 0, 0]
+              },
               properties: {
-                orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+                orgen: [0, 0, 0], 
+                velin: [0, 0, 0], 
+                velang: [0, 0, 0], 
+                prevous: [0, 0, 0], 
+                geodelta: [0, 0, 0],
               },
             },
           },
