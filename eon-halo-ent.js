@@ -117,17 +117,32 @@
 
     // ............................. gramm
     async function gramm (ani) {
-      return Promise.resolve(ani)
-        .then(anigram => Promise.resolve(mgeoj.featurecollect(getgj(Promise.resolve(anigram))))
-          .then(gjcollection => Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
-            .then(newfeatures => {
-              if (Array.isArray(anigram)) {
-                anigram = anigram[0]
-              }
-              let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
-              let newAni = Object.assign({}, anigram, {geofold: newcollection})
 
-              return hformed.gramm(newAni)
+
+    
+    
+      return Promise.resolve(ani)
+      
+      
+        .then(anigram => mgeoj.featurecollect(getgj(anigram))
+        
+        
+          .then(gjcollection => Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
+          
+          
+            .then(newfeatures => {
+              
+              
+              if (Array.isArray(anigram)) { anigram = anigram[0] } // anigram is array ....
+              
+              
+              let newcollection = Object.assign({}, gjcollection, {features: newfeatures}) // add features to geojson collection
+              
+              
+              let newAni = Object.assign({}, anigram, {geofold: newcollection}) // assign geofold to anigram
+
+              
+              return hformed.gramm(newAni) // return anigrams from transformed ani
               
           })))
     }

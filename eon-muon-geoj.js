@@ -354,11 +354,15 @@
 
     // ...................... featurecollect
     // let featurecollect = gj => ({type: 'FeatureCollection', features: featurize(gj)})
+    
     async function featurecollect (gj) {
       let features = await featurize(gj)
       return ({type: 'FeatureCollection', features: features})
     }
-
+    // function featurecollect (gj) {
+      // let features = featurize(gj)
+      // return ({type: 'FeatureCollection', features: features})
+    // }
     // ...................... deprop
     let deprop = function (gj) {
       let gj2 = Object.assign({}, gj)
