@@ -297,31 +297,6 @@
 
     // ...................... featurize
     let featurize = function (gj_) {
-      // let features = []
-      // return Promise.resolve(gj_)
-        // .then(gj => {
-          // let type = gj.type
-          // if (type === 'Feature') {
-            // features = Array.of(gj)
-          // } else if (type === 'FeatureCollection') {
-            // features = gj.features
-          // } else if (type === 'GeometryCollection') {
-            // features = gj.map(d => ({
-              // type: 'Feature',
-              // geometry: {
-                // type: d.type,
-                // coordinates: d.coordinates},
-              // properties: {}}))
-          // } else {
-            // features = Array.of({
-              // type: 'Feature',
-              // geometry: {
-                // type: gj.type,
-                // coordinates: gj.coordinates},
-              // properties: {geonode: {}}})
-          // }
-          // return features
-        // })
 
       let features = []
       let gj = gj_
@@ -329,23 +304,23 @@
         let type = gj.type
 
         if (type === 'Feature') {
-      features = Array.of(gj)
+            features = Array.of(gj)
         } else if (type === 'FeatureCollection') {
-      features = gj.features
+            features = gj.features
         } else if (type === 'GeometryCollection') {
-      features = gj.map(d => ({
-      type: 'Feature',
-      geometry: {
-      type: d.type,
-      coordinates: d.coordinates},
-      properties: {}}))
+            features = gj.map(d => ({
+            type: 'Feature',
+            geometry: {
+            type: d.type,
+            coordinates: d.coordinates},
+            properties: {}}))
         } else {
-      features = Array.of({
-      type: 'Feature',
-      geometry: {
-      type: gj.type,
-      coordinates: gj.coordinates},
-      properties: {geonode: {}}})
+            features = Array.of({
+            type: 'Feature',
+            geometry: {
+            type: gj.type,
+            coordinates: gj.coordinates},
+            properties: {geonode: {}}})
         }
       } else {
         console.log('m.geoj.featurize not supported geojson ', gj)
@@ -355,16 +330,11 @@
     }
 
     // ...................... featurecollect
-    // let featurecollect = gj => ({type: 'FeatureCollection', features: featurize(gj)})
-    
-    // async function featurecollect (gj) {
-      // let features = await featurize(gj)
-      // return ({type: 'FeatureCollection', features: features})
-    // }
     function featurecollect (gj) {
       let features = featurize(gj)
       return ({type: 'FeatureCollection', features: features})
     }
+    
     // ...................... deprop
     let deprop = function (gj) {
       let gj2 = Object.assign({}, gj)

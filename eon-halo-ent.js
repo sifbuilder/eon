@@ -92,8 +92,6 @@
 
     // ............................. getgj
     const getgj = anitem => {
-      // return Promise.resolve(anitem)
-        // .then(ani => {
           let ani = anitem
           if (Array.isArray(ani)) ani = ani[0]
           let gj = mprops.v(ani.geofold, ani) // get geofold
@@ -102,7 +100,6 @@
           gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
           gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
           return gj
-        // })
     }
 
     // ............................. transforms
@@ -125,9 +122,6 @@
       
       let gjcollection = mgeoj.featurecollect(gj)
       
-      if (1 && 1) console.log('gjcollection', gjcollection.features)
-
-      
       let newfeatures = await Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
     
       let newcollection =  Object.assign({}, gjcollection, {features: newfeatures})
@@ -137,31 +131,7 @@
       let newAnitems = await hformed.gramm(newAni)
       
       return newAnitems
-    
-      // return Promise.resolve(ani)
-      
-      
-        // .then(anigram => mgeoj.featurecollect(getgj(anigram))
-        
-        
-          // .then(gjcollection => Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
-          
-          
-            // .then(newfeatures => {
-              
-              
-              // if (Array.isArray(anigram)) { anigram = anigram[0] } // anigram is array ....
-              
-              
-              // let newcollection = Object.assign({}, gjcollection, {features: newfeatures}) // add features to geojson collection
-              
-              
-              // let newAni = Object.assign({}, anigram, {geofold: newcollection}) // assign geofold to anigram
 
-              
-              // return hformed.gramm(newAni) // return anigrams from transformed ani
-              
-          // })))
     }
     
     // ............................. ween
