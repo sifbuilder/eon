@@ -42,12 +42,14 @@ async function zindex (__mapper) {
     mnat,
     mric,
     mstace,
+    crayder,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('nat'),
     __mapper('xs').m('ric'),
     __mapper('xs').m('stace'),
+    __mapper('xs').c('rayder'),
   ])
 
   let mstore = __mapper('muonStore')
@@ -57,6 +59,185 @@ async function zindex (__mapper) {
     // .................. pics
   let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
+
+    // .................. pointTrace
+    let pointTrace = {
+
+      halo: 'pacer',
+      geofold: null,
+      payload: {
+
+        tim: tim,
+        ric: {gid: 'nat', cid: 'nat', fid: 'pointTrace'},
+        boform: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
+
+        proform: {
+          projection: 'uniwen',
+          center: [ 0, 0, 0],
+          translate: [0, 0, 0],
+          scale: 1,
+          rotate: [0, 0, 0],
+          lens: [0, 1, Infinity],
+        },
+
+        pacer: {
+          initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
+
+          initSitus: ani => ({x: width / 2, y: height / 2, z: 0 }),
+
+          geojsor: function (ani, props={}) {
+
+            let geofolder = function (ani, props) {
+
+                let geofold = {
+                      type: 'Feature',
+                      geometry: {
+                        type: 'Point',
+                        coordinates: null,
+                      },
+                      properties: {},
+                  }
+                  
+                  // get preexisting trace ani
+                  
+                  let preani = mstore.findAnigramFromUid(ani.payload.uid)
+                  
+                  // if there is a preani with a geofold ...
+                  if (preani !== undefined) {
+                    
+                    // if preani has a geofold ...
+                    if (preani.geofold) geofold = preani.geofold
+                    // on pacer.base .... set geofold.geometry
+                    if (base === 'geo') {
+                      if (geofold.properties.formGeoformed) {
+                        geofold.geometry = geofold.properties.formGeoformed.geometry
+                      }
+                    } else if (base === 'ere') {
+                      if (geofold.properties.formEreformed) {
+                        geofold.geometry = geofold.properties.formEreformed.geometry
+                      }
+                    } else if (base === 'pro') {
+                      if (geofold.properties.formProformed) {
+                        geofold.geometry = geofold.properties.formProformed.geometry
+                      }
+                    } else {
+                      if (geofold.properties.formGeoformed) {
+                        geofold.geometry = geofold.properties.formGeoformed.geometry
+                      }
+                    }
+                  } else {
+
+                    // if preani does not exisit return default geofold
+                    // console.assert(preani !== undefined, `anigram ${preani} is undefined`)
+
+                  }
+
+                  return geofold
+                }
+
+              let riccer = function (ani, props) {
+                let newric = mprops.clone(ani.payload.ric) // clone ric
+                newric.gid = newric.gid
+                newric.cid = newric.cid
+                newric.fid = newric.fid + props.counter
+                return newric
+              }
+
+              let stacer = function (ani, props) {
+                let stace
+                if (props.key === 'init') {  // INIT
+                
+                  let a = 2 * Math.PI * Math.random()
+                  stace = {x: -120 + 90 * Math.random() * Math.cos(a), y: 90 + 90 * Math.random() * Math.sin(a), z: 0 }
+                  
+                } else if (props.key === 'auto') {  // AUTO
+                
+                  stace = mstace.getLocus(ani)
+                  
+                } else if (props.key === 'event') { // EVENT
+                
+                    if (crayder.grabbed() !== undefined) {
+                        let grabbed = crayder.grabbed()
+                        let x = grabbed[0]
+                        let y = grabbed[1]
+                        let z = 0
+                        stace = {x, y, z }
+                        
+                    }
+                }
+                
+                return stace
+              }
+
+              let anitem = {
+
+                halo: "ent",
+                geofold: geofolder(ani, props),
+                payload: {
+                  tim: tim,
+                  ric: {
+
+                    gid: ani.payload.ric.gid,
+                    cid: ani.payload.ric.cid,
+                    fid: ani.payload.ric.fid + props.counter,
+
+                  },
+                  uid: mric.getuid(ani.payload.ric),
+                  stace: stacer(ani, props),
+
+                  proform: {
+                    projection: 'uniwen',
+                    scale: [ 0.5, 0.5 ],
+                    prerotate: [[[ cwen.rotation ]]],
+                    translate: [ [0, -100, 0] ],
+                    rotate: [ 0, 0, 0 ],
+                    lens: [ 0, 1, Infinity ],
+                    anod: 1,
+                  },
+
+                  boform: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
+                }
+
+            }
+
+            return anitem
+
+           }, // geojsor          
+          
+          eventSitus: ani => {
+            let situs
+            if (crayder.event() !== undefined) {
+              let x = crayder.event().x
+              let y = crayder.event().y
+              let z = 0
+              situs = {x, y, z }
+            }
+            return situs
+          },
+
+          autoSitus: ani => mstace.getLocus(ani),
+
+          eventSitus: d => ({
+            x: crayder.mouse().x, // x: crayder.event().x,
+            y: crayder.mouse().y, // crayder.event().y,
+            z: 0,
+          }),
+
+          fidder: anitem => 'item' +
+					mstore.anigrams()
+					  .filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
+												ani.payload.ric.cid === anitem.payload.ric.cid)
+					  .length,
+
+          geofolder: () => ({
+            type: 'Feature', geometry: {type: 'Point', coordinates: null}, properties: {},
+          }),
+
+        },
+      },
+    }  
+  
+  
   // ....................... natAni1
   let natAni1 = {
 
@@ -118,11 +299,11 @@ async function zindex (__mapper) {
 
             gid: 'nattrace',
             cid: 'nattrace',
-            fid: 'nattrace', //  + props.counter,
+            fid: 'traceAni1', //  + props.counter,
 
           },
           
-          uid: mric.getuid({ gid: 'nattrace',cid: 'nattrace',fid: 'nattrace', }),    
+          uid: mric.getuid({ gid: 'nattrace',cid: 'nattrace',fid: 'traceAni1', }),    
 
 
           boform: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},    
@@ -198,6 +379,196 @@ async function zindex (__mapper) {
     }
   }
 
+  
+  
+   // ............................. natAni
+    let natAni2 = {
+
+      halo: 'ent',
+      geofold: a => ({
+        type: 'Feature',
+        geometry: {
+
+          type: 'LineString', // type: 'Point', //
+          coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
+
+        },
+        properties: {
+          geonode: {
+            type: 'Feature',
+            geometry: {type: 'Point', coordinates: [0, 0]},
+            properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
+          },
+        },
+      }),
+
+      payload: {
+
+        tim,
+        ric: {gid: 'nat', cid: 'nat', fid: 'natAni2'},
+
+        proform: {
+          projection: 'uniwen',
+          translate: [ [ -170, 80 ], [[[ {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // ellipse
+            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          } ]]] ],
+                scale: 1,
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+          control: 'wen',
+
+        },
+
+        boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+        form: {
+            'x': {
+              'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // cyrcle
+              'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360,
+            },
+            'y': {
+              'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // cyrcle
+              'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360,
+            },
+          },
+
+      },
+
+    }
+
+    // ............................. traceAni2
+    let traceAni2 = {
+
+      halo: 'pacer',
+      geofold: null,
+      payload: {
+        tim,
+        ric: {gid: 'traces', cid: 'traces', fid: 'traceAni2'},
+        boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+
+        pacer: { // aad for trace
+          stace: {x: { pos: 0 }, y: { pos: 0 }, z: 0}, //
+          
+          itemsort: 'anigram',
+          base: 'geo',          
+          
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
+
+          geojsor: function (ani, props={}) {
+
+            let geofolder = function (ani, props) {
+
+                let geofold = {
+                      type: 'Feature',
+                      geometry: {
+                        type: 'LineString',
+                        coordinates: null,
+                      },
+                      properties: {},
+                  }
+                  //
+                  // get preexisting trace ani
+                  //
+                  let preani = mstore.findAnigramFromUid(ani.payload.uid)
+                  //
+                  let base = ani.payload.pacer.pace || 'geo'
+                  //
+                  // if there is a preani with a geofold ...
+                  if (preani !== undefined) {
+                    // if preani has a geofold ...
+                    if (preani.geofold) geofold = preani.geofold
+                    
+                    // on pacer.base .... set geofold.geometry
+                    if (base === 'geo') {
+                      if (geofold.properties.formGeoformed) {
+                        geofold.geometry = geofold.properties.formGeoformed.geometry
+                      }
+                    } else if (base === 'ere') {
+                      if (geofold.properties.formEreformed) {
+                        geofold.geometry = geofold.properties.formEreformed.geometry
+                      }
+                    } else if (base === 'pro') {
+                      if (geofold.properties.formProformed) {
+                        geofold.geometry = geofold.properties.formProformed.geometry
+                      }
+                    } else {
+                      if (geofold.properties.formGeoformed) {
+                        geofold.geometry = geofold.properties.formGeoformed.geometry
+                      }
+                    }
+                  } else {
+
+                    // if preani does not exisit return default geofold
+                    // console.assert(preani !== undefined, `anigram ${preani} is undefined`)
+
+                  }
+
+                  return geofold
+                }
+
+
+
+              let stacer = function (ani, props) {
+                let stace
+                if (props.key === 'init') {  // INIT
+                
+                  stace = {x: 0, y: 0, z: 0 }
+                  
+                } else if (props.key === 'auto') {  // AUTO
+                
+                  stace = mstace.getLocus(ani.payload.pacer.stace, ani) // AUTO
+                  
+                } else if (props.key === 'event') {  // EVENT
+                
+                  stace = {x: 0, y: 0, z: 0 }
+                }
+                return stace
+              }
+
+              let anitem = {
+
+                halo: "ent",
+                geofold: geofolder(ani, props),
+                payload: {
+                  tim: tim,
+                  ric: {
+
+                    gid: ani.payload.ric.gid,
+                    cid: ani.payload.ric.cid,
+                    fid: ani.payload.ric.fid, //  + props.counter,
+
+                  },
+                  uid: mric.getuid(ani.payload.ric),
+                  stace: stacer(ani, props),
+
+                  proform: {
+                    projection: 'uniwen',
+                    scale: [ 0.5, 0.5 ],
+                    prerotate: [[[ cwen.rotation ]]],
+                    translate: [ [0, -100, 0] ],
+                    rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
+                    rotate: [ 0, 0, 0 ],
+                    lens: [0, 1, Infinity ],
+                    anod: 1,
+                  },
+
+                  boform: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
+                }
+
+            }
+            return anitem
+
+           }, // geojsor          
+          
+
+          
+        },
+      },
+    }  
+  
     // .................. sceneAni
     let sceneAni = {
 
@@ -206,21 +577,31 @@ async function zindex (__mapper) {
       payload: {
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1, ray: 1},
       },
 
     }
 
+    
+    
   // ....................... animapi
   natAni1.avatars = {
 
     traceAni1 // h.pacer
 
+  }    
+  // ....................... animapi
+  natAni2.avatars = {
+
+    traceAni2 // h.pacer
+
   }
 
     // .................. animas
     let animas = [
-      natAni1, // h.ent
+      natAni1, // h.pacer
+      natAni2, // h.pacer
+      pointTrace, // h.pacer
       sceneAni, // h.scene
     ]
 
