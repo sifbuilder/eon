@@ -90,7 +90,6 @@
             res.properties.nodeProformed = res.properties.nodeEreformed
 
           }
-          if (1 && 1) console.log('res', res.properties.nodeProformed.geometry.coordinates)
 
           return res
         })
@@ -136,8 +135,6 @@
       let newAni = Object.assign({}, anigram, {geofold: newcollection})    
     
       let newAnitems = await hformed.gramm(newAni)
-      
-      if (1 && 1) console.log('newAnitems', newAnitems)
       
       return newAnitems
 

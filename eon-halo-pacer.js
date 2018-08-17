@@ -194,7 +194,6 @@
               // locus: situs + spot
               let situs = mstace.getLocus(stace, anitem)
 
-if (1 && 1) console.log('trace situs', situs)
 
               if (situs && typeof situs === 'object') situs = Object.values(situs)
 
@@ -291,7 +290,6 @@ if (1 && 1) console.log('trace situs', situs)
                   })
                   let geoData = mproj3ct(newItem.geofold, project)                  
                   newItem.geofold = geoData
-                  if (1 && 1) console.log('newItem', newItem)
                   
                   // let newGrams = await hent.gramm(newItem)
                   let newGrams = await hent.gramm(newItem)
