@@ -53,6 +53,8 @@
       hent,
       mstace,
       mprops,
+      mprofier,
+      mproj3ct,
     ] = await Promise.all([
       __mapper('xs').m('ric'),
       __mapper('xs').m('geom'),
@@ -62,6 +64,8 @@
       __mapper('xs').h('ent'),
       __mapper('xs').m('stace'),
       __mapper('xs').m('props'),
+      __mapper('xs').m('profier'),
+      __mapper('xs').m('proj3ct'),
     ])
 
     let mstore = __mapper('muonStore')
@@ -274,13 +278,21 @@ if (1 && 1) console.log('trace situs', situs)
                 } else {
 
                   delete newItem.payload.pacer
-i
 
-                  newItem.payload.proform = {
+
+                  // newItem.payload.proform = {
+                          // projection: 'uniwen',
+                          // translate: situs
+                  // } // proform transfer trace situs to halo
+                 
+                  let project = mprofier.uniweon({
                           projection: 'uniwen',
                           translate: situs
-                  } // proform transfer trace situs to halo
-
+                  })
+                  let geoData = mproj3ct(newItem.geofold, project)                  
+                  newItem.geofold = geoData
+                  if (1 && 1) console.log('newItem', newItem)
+                  
                   // let newGrams = await hent.gramm(newItem)
                   let newGrams = await hent.gramm(newItem)
                   newItems = [...newItems, ...newGrams] // add items
