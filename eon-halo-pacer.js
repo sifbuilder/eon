@@ -174,7 +174,14 @@
 
 
 
-              // stace = stacer(anitem, props)
+              // eg.
+              // stace: {
+                  // x: { pos: 0, ere: 1 },
+                  // y: { pos: 0, ere: 1 },
+                  // z: 0
+              // },
+
+
               stace = newItem.payload.stace
 
 
@@ -182,22 +189,25 @@
               // spot from transpot stace, ani
               // locus: situs + spot
               let situs = mstace.getLocus(stace, anitem)
+
+if (1 && 1) console.log('trace situs', situs)
+
               if (situs && typeof situs === 'object') situs = Object.values(situs)
 
 
-              
+
               // payload.pacer.AAD
               // if pacer.add mode, new items add to pacer generated item (eg. segment point to LineString trace)
-              
+
               if (aad) {
-                
+
                 //  add situs to newItem geocoords
                 //  coords are final space coords (after h.ent, stored at m.animation)
-                
+
                 // geocoords
-                let coords = newItem.geofold.geometry.coordinates // 
-                
-                // precoords               
+                let coords = newItem.geofold.geometry.coordinates //
+
+                // precoords
                 let precoords = newItem.geofold.properties.geocoords // pre coords
 
                 if (coords && coords.length > 0) {
@@ -219,12 +229,12 @@
 
                 // NOT pacer.AAD
                 // if not pacer.add, each pacer generated item
-                
+
               } else { //  if NOT AAD
 
                 // geofold is Feature
                 // if newItem geofold.geometry.type is Point, then ...
-                
+
                 if (newItem.geofold && newItem.geofold.geometry.type === 'Point') { // POINT
                   // coordinates from geofold
                   let presitus = newItem.geofold.geometry.coordinates
@@ -263,8 +273,8 @@
                   //
                 } else {
 
-                  let halo = "ent" // newItem.halo
                   delete newItem.payload.pacer
+i
 
                   newItem.payload.proform = {
                           projection: 'uniwen',

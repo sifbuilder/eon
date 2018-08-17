@@ -73,19 +73,26 @@
     function p (feat, proj) {
       return Promise.all([feat, proj])
         .then(r => {
-          let feature = r[0]
-          let projection = r[1]
+          let [feature, projection] = r
+          let res
+        
           if (projection) {
-            let f = mproj3ct(feature, projection)
-            f.properties.formProformed = mgeoj.deprop(f) // store proform
-            f.properties.nodeProformed = mproj3ct(f.properties.nodeEreformed, projection)
-            return f
+            
+            res = mproj3ct(feature, projection)
+            res.properties.formProformed = mgeoj.deprop(res) // store proform
+            res.properties.nodeProformed = mproj3ct(res.properties.nodeEreformed, projection)
+
+            
           } else {
-            let f = feature
-            f.properties.formProformed = f.properties.formEreformed
-            f.properties.nodeProformed = f.properties.nodeEreformed
-            return f
+            
+            res = feature
+            res.properties.formProformed = res.properties.formEreformed
+            res.properties.nodeProformed = res.properties.nodeEreformed
+
           }
+          if (1 && 1) console.log('res', res.properties.nodeProformed.geometry.coordinates)
+
+          return res
         })
         .catch(e => { console.log('error', e) })
     }
@@ -129,6 +136,8 @@
       let newAni = Object.assign({}, anigram, {geofold: newcollection})    
     
       let newAnitems = await hformed.gramm(newAni)
+      
+      if (1 && 1) console.log('newAnitems', newAnitems)
       
       return newAnitems
 
