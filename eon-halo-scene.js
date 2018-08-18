@@ -16,14 +16,14 @@
     ])
 
     // .................... ween
-    async function ween (anima, newAnimas = []) {
+    function ween (anima, newAnimas = []) {
       let p = anima.payload.context
       mscene.scenify(p)
       newAnimas = Array.of(anima)
       return newAnimas
     }
     // .................. gramm
-    async function gramm (anima, newAnigrams = []) {
+    function gramm (anima, newAnigrams = []) {
       return newAnigrams
     }
 

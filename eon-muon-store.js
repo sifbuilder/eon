@@ -125,8 +125,8 @@
          let ceon =  __mapper("xs").ceonize(halo, "halo")
         if (1 && 1) console.log('halo', ceon)
         
-        // halo = await __mapper('xs').h(halo)
-        halo = __mapper(ceon)
+        halo = await __mapper('xs').h(halo)
+        // halo = __mapper(ceon)
         
         
       }
@@ -139,7 +139,7 @@
         .then(geofunctored => manitem.functorpayload(geofunctored))
         .then(snapped => manitem.functorgeofold(snapped))
         .then(anigram => (typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
-          .then(halo => halo.gramm(anigram) // )
+          .then(halo => Promise.resolve(halo.gramm(anigram))
             .then(newItems => {
               _apply({type: 'UPDANIGRAM', anigrams: newItems})
               newItems.forEach(newItem => {

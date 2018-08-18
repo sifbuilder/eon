@@ -45,6 +45,9 @@
 
     // .................. scene
     let scenify = function (p) {
+      
+      if (1 && 1) console.log('scenify', p, state.scene)      
+      
       if (p.svg && p.wen && p.wen !== state.scene.wen) {
         state.scene.wen = 1
         let svg = rsvg.svg()

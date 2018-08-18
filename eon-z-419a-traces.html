@@ -43,6 +43,10 @@ async function zindex (__mapper) {
     mric,
     mstace,
     crayder,
+    haloEnt,
+    // haloScene,
+    haloNat,
+    haloPacer,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
@@ -50,6 +54,10 @@ async function zindex (__mapper) {
     __mapper('xs').m('ric'),
     __mapper('xs').m('stace'),
     __mapper('xs').c('rayder'),
+    __mapper('xs').h('ent'),
+    // __mapper('xs').h('scene'),
+    __mapper('xs').h('nat'),
+    __mapper('xs').h('pacer'),
   ])
 
   let mstore = __mapper('muonStore')
@@ -599,8 +607,8 @@ async function zindex (__mapper) {
 
     // .................. animas
     let animas = [
-      natAni1, // h.pacer
-      natAni2, // h.pacer
+      // natAni1, // h.pacer
+      // natAni2, // h.pacer
       pointTrace, // h.pacer
       sceneAni, // h.scene
     ]
