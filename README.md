@@ -3,7 +3,7 @@
 **time space manyfolds**   
 
 419a - [eon-z-419a-traces](https://sifbuilder.github.io/eon/eon-z-419a-traces.html)   
-511 - [eon-z-511-nat](https://sifbuilder.github.io/eon/eon-z-511-nat.html)   
+511a - [eon-z-511a-nat-text](https://sifbuilder.github.io/eon/eon-z-511a-nat-text.html)   
 525 - [eon-z-525-3sim](https://sifbuilder.github.io/eon/eon-z-525-3sim.html)   
 528a - [eon-z-528a-unimercator](https://sifbuilder.github.io/eon/eon-z-528a-unimercator.html)   
 579a - [eon-z-579a-futurecube](https://sifbuilder.github.io/eon/eon-z-579a-futurecube.html)   
@@ -133,6 +133,9 @@
 813c - [eon-z-813c-klein](https://sifbuilder.github.io/eon/eon-z-813c-klein.html)   
 813m - [eon-z-813m-klein](https://sifbuilder.github.io/eon/eon-z-813m-klein.html)   
 813n - [eon-z-813n-moebious](https://sifbuilder.github.io/eon/eon-z-813n-moebious.html)   
+814a - [eon-z-814a-sphere](https://sifbuilder.github.io/eon/eon-z-814a-sphere.html)   
+814b - [eon-z-814b-sphere](https://sifbuilder.github.io/eon/eon-z-814b-sphere.html)   
+814c - [eon-z-814c-sphere-i](https://sifbuilder.github.io/eon/eon-z-814c-sphere-i.html)   
 **[852d](https://sifbuilder.github.io/eon/eon-z-852d-3dgratSvgScene.md)** - [eon-z-852d-3dgratSvgScene](https://sifbuilder.github.io/eon/eon-z-852d-3dgratSvgScene.html)   
 **[855a](https://sifbuilder.github.io/eon/eon-z-855a-text.md)** - [eon-z-855a-text](https://sifbuilder.github.io/eon/eon-z-855a-text.html)   
 

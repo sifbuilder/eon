@@ -123,10 +123,8 @@
       } else {
         
          let ceon =  __mapper("xs").ceonize(halo, "halo")
-        if (1 && 1) console.log('halo', ceon)
         
-        halo = await __mapper('xs').h(halo)
-        // halo = __mapper(ceon)
+        halo = await __mapper('xs').h(halo) // halo = __mapper(ceon)
         
         
       }

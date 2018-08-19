@@ -177,7 +177,7 @@
     }
 
     // ............................. natFeature
-    let natFeature = function (form) {
+    let natFeature = function (form, props={}) {
       let feature
 
       if (mprops.isSame(form, cache.form)) {
@@ -186,6 +186,17 @@
       } else {
         let nformed = natNform(form) // NFORM
 
+        let _geofn
+        if (props.h) {
+          _geofn = mgraticule.hMultiLine
+        } else if (props.v) {
+          _geofn = mgraticule.vMultiLine
+        } else {
+          _geofn = mgraticule.vhMultiLine
+        }
+        
+        
+        
         let geometry
         let dx, dy, sx, sy
 
@@ -202,7 +213,7 @@
 
           let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
 
-          geometry = mgraticule.vhMultiLine(graticule).geometry
+          geometry = _geofn(graticule).geometry
           // geometry = mgraticule.hMultiLine(graticule).geometry
         } else { // ___ 2d
           dx = 360 / nformed.x.seg5 // x
@@ -214,7 +225,7 @@
           let ydomain = nformed.y.dom3 || [-180, 180]
 
           let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // _e_ x, y
-          geometry = mgraticule.vhMultiLine(graticule).geometry // geometry.type: MultiLineString
+          geometry = _geofn(graticule).geometry // geometry.type: MultiLineString
 
           let p = geometry.coordinates[1].slice(0, -1)
 
