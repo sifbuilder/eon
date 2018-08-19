@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map xs
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  muonStore.apply({type: 'UPDANIMA', animas: animas})
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  let [
+    mprops,
+    cwen,
+    mgeom,
+    d3,
+  ] = await Promise.all([
+    __mapper('xs').m('props'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').m('geom'),
+    __mapper('xs').b('d3'),
+  ])
+
+  let animas = function () {
+  // .................. pics
+
+    let epsilon = 1e-6, epsilon2 = epsilon * epsilon, asin = Math.asin
+    let atan = Math.atan, abs = Math.abs
+    let pi = Math.PI, degrees = 180 / pi, asin1_3 = Math.asin(1 / 3)
+    let theta = atan(0.5) * degrees
+
+    const tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
+
+    let facesGeofold = p => {
+      let payload = p.payload,
+        ric = payload.ric,
+        faces = mprops.v(payload.faces) // payload.faces
+
+      let json = {type: 'FeatureCollection', features: []}
+
+      for (let i = 0, l = faces.length; i < l; i++) {
+        let face = faces[i] // face cornersx position
+
+        let geometry = {type: 'Polygon', coordinates: []}
+        geometry.coordinates = Array.of(face) // eg [-1, 1, 1]
+
+        let _ric = {}
+        _ric.gid = ric.gid
+        _ric.cid = ric.cid
+        _ric.fid = ric.cid + i
+
+        let feature = {type: 'Feature', geometry: {}, properties: {}}
+
+        feature.geometry = geometry
+
+        feature.properties.ric = _ric
+        feature.properties.sort = 'form'
+        feature.properties.boform = face.boform
+
+        json.features.push(feature)
+      }
+
+      return json
+    }
+
+    // .................. facesAni 
+    let facesAni = {
+
+      halo: 'ent',
+
+      geofold: facesGeofold,
+
+      payload: {
+        tim: tim,
+        ric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
+        boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+
+        proform: {
+
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [ 100, 0 ],
+          scale: 100,
+          rotate: [0, [[[0, 3 * 360]]], 0],
+          lens: [0, 1, [[[2, 2]]] ],
+
+        },
+
+        faces: function () { // icosahedronFaces
+          let faces = [],
+            s = 36,
+            y = Math.atan2(1, 2) * 180 / Math.PI
+          for (let x = 0; x < 360; x += 2 * s) {
+            faces.push(
+              [[x + 0 * s, -90], 
+                [x + 0 * s, -y], 
+                [x + 2 * s, -y], 
+                [x + 0 * s, -90]],
+              [[x + 1 * s, y], 
+                [x + 2 * s, -y], 
+                [x + 0 * s, -y], 
+                [x + 1 * s, y]],
+              [[x + 1 * s, y], 
+                [x + 0 * s, -y], 
+                [x - 1 * s, y], 
+                [x + 1 * s, y]],
+              [[x + 1 * s, y], 
+                [x - 1 * s, y], 
+                [x - 1 * s, 90], 
+                [x + 1 * s, y]]
+            )
+          }
+          return faces.map(face => face.map(mprops.cartesian))
+        },
+      },
+    }
+
+    // .................. dotsAni 
+    let dotsAni = {
+
+      halo: 'ent',
+
+      geofold: p => {
+        
+          let payload = p.payload,
+            ric = payload.ric,
+            points = payload.points,
+            faces = payload.faces
+
+          let json = {type: 'FeatureCollection', features: []}
+
+          for (let i = 0, l = faces.length; i < l; i++) {
+            let face = faces[i] // face cornersx position
+
+            let geometry = {type: 'Polygon', coordinates: []}
+            geometry.coordinates = Array.of(face.cornersx.map(k => points[k])) // eg [-1, 1, 1]
+
+            let _ric = {}
+            _ric.gid = ric.gid
+            _ric.cid = ric.cid
+            _ric.fid = ric.cid + i
+
+            let feature = {type: 'Feature', geometry: {}, properties: {}}
+
+            feature.geometry = geometry
+            feature.properties.ric = _ric
+            feature.properties.sort = 'form'
+            feature.properties.boform = face.boform
+
+            json.features.push(feature)
+          }
+
+
+          return json
+        },
+
+      payload: {
+
+        tim: tim,
+        ric: {gid: 'dotsAni', cid: 'dotsAni', fid: 'dotsAni'},
+        boform: {'csx': 0, 'cf': [[[111, 222, 111, 222, 111, 222, 111]]], 'cs': 777, 'cw': 0.2, 'co': 0.9, 'cp': 0.9},
+
+        proform: {
+
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [ -100, 0],
+          scale: 100,
+          rotate: [0, [[[0, 3 * 360]]], 0],
+          lens: [0, 1, Infinity],
+
+        },
+
+        points: [
+          [0, 90],
+          [0, -90],
+        ]
+          .concat(d3.range(10).map(function (i) {
+            let theta = Math.atan(0.5) * 180 / Math.PI
+            let phi = ((i * 36) + 180) % 360 - 180
+            return [phi, i & 1 ? theta : -theta]
+          }))
+          .map(mgeom.cartesian),
+
+          
+        faces: [
+
+          {cornersx: [ 0, 3, 11, 0]},
+          {cornersx: [ 0, 5, 3, 0]},
+          {cornersx: [ 0, 7, 5, 0]},
+          {cornersx: [ 0, 9, 7, 0]},
+          {cornersx: [ 0, 11, 9, 0]}, // North
+          {cornersx: [ 2, 11, 3, 2]},
+          {cornersx: [ 3, 4, 2, 3]},
+          {cornersx: [ 4, 3, 5, 4]},
+          {cornersx: [ 5, 6, 4, 5]},
+          {cornersx: [ 6, 5, 7, 6]},
+          {cornersx: [ 7, 8, 6, 7]},
+          {cornersx: [ 8, 7, 9, 8]},
+          {cornersx: [ 9, 10, 8, 9]},
+          {cornersx: [10, 9, 11, 10]},
+          {cornersx: [11, 2, 10, 11]}, // Equator
+          {cornersx: [ 1, 2, 4, 1]},
+          {cornersx: [ 1, 4, 6, 1]},
+          {cornersx: [ 1, 6, 8, 1]},
+          {cornersx: [ 1, 8, 10, 1]},
+          {cornersx: [ 1, 10, 2, 1]}, // South
+
+        ],
+
+      },
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+
+      facesAni, // h.ent
+      dotsAni, // h.ent
+      sceneAni, // h.scene
+
+    ]
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>

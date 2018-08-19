@@ -114,6 +114,7 @@
 
     // ............................. render
     let render = function (featurecollection, maxlimit) {
+
       let features = featurecollection.features
         .filter(
           d => d !== null
@@ -280,6 +281,7 @@
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
             .filter(d => d.properties.sort === 'feature'
+              || d.properties.sort === 'form'
             )
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled

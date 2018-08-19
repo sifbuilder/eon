@@ -21,14 +21,14 @@
       mgeoj,
       mprofier,
       mproj3ct,
-      hformed,
       mprops,
+      haloFormed,
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
-      __mapper('xs').h('formed'),
       __mapper('xs').m('props'),
+      __mapper('xs').h('formed'),
 
     ])
 
@@ -127,14 +127,17 @@
       let gj = getgj(anigram) 
       
       let gjcollection = mgeoj.featurecollect(gj)
-      
-      let newfeatures = await Promise.all(gjcollection.features.map(f => transforms(f, anigram)))
+    
+      let promisesForTransformedFeatures = gjcollection.features.map(f => transforms(f, anigram))
+    
+      let newfeatures = await Promise.all(promisesForTransformedFeatures)
     
       let newcollection =  Object.assign({}, gjcollection, {features: newfeatures})
     
       let newAni = Object.assign({}, anigram, {geofold: newcollection})    
     
-      let newAnitems = await hformed.gramm(newAni)
+      let newAnitems = haloFormed.gramm(newAni)
+
       
       return newAnitems
 

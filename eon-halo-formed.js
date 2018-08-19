@@ -31,8 +31,8 @@
     }
 
     // ............................. gramm
-    async function gramm (anigram) {
-      let gjcollection = await mgeoj.featurecollect(getgj(anigram))
+    function gramm (anigram) {
+      let gjcollection = mgeoj.featurecollect(getgj(anigram))
 
       console.assert(gjcollection.type === 'FeatureCollection')
       gjcollection = mgeoj.zorder(gjcollection) // order features in collection

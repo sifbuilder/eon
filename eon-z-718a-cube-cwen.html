@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  // .................. eons
+  let [
+    mprops,
+    cwen,
+  ] = await Promise.all([
+    __mapper('xs').m('props'),
+    __mapper('xs').c('wen'),
+  ])
+
+  // .................. animas
+  let animas = function () {
+    // .................. pics
+    let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    let rotInit = [0, 45, 0],
+      rotation = [0, 0, 0],
+      rotMatrix,
+      stars = []
+
+    cwen = cwen({rotInit})
+
+    // .................. aniCube anima
+    let aniCube = {
+
+      halo: 'ent',
+
+      geofold: p => {
+        let payload = p.payload
+        let ric = payload.ric
+
+        let json = {type: 'FeatureCollection', features: []}
+
+        let points = payload.points // payload.points
+        let faces = payload.faces // payload.faces
+
+        for (let i = 0, l = faces.length; i < l; i++) {
+          let face = faces[i] // face pointsx position
+
+          let geometry = {type: 'Polygon', coordinates: []}
+
+          geometry.coordinates = Array.of(face.pointsx.map(k => points[k])) // eg [-1, 1, 1]
+
+          let feature = {type: 'Feature', geometry: {}, properties: {}}
+
+          feature.properties.ric = {gid: ric.gid, cid: 'face', fid: i}
+          feature.properties.sort = 'form'
+          feature.geometry = geometry
+          feature.properties.boform = face.boform
+          json.features.push(feature)
+        }
+
+        return json // FeatureCollection.features[i].geometry.coordinates[i]::[-1, -1, 1]
+      },
+
+      payload: {
+
+        tim: tim,
+        ric: {'gid': 'aniCube', 'cid': 'aniCube', 'fid': 'aniCube'},
+        boform: { 'csx': 0, 'cf': 111, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
+
+        proform: {
+          projection: 'uniwen',
+          translate: [ 300 - 300, 200 - 200],
+          scale: 100,
+          rotate: [-5, 50, 0],
+          lens: [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 4 ],
+          prerotate: [[[ cwen.rotation ]]],
+        },
+
+        points: [
+          [-1, -1, 1], // 0
+          [ 1, -1, 1], // 1
+          [ 1, 1, 1], // 2
+          [-1, 1, 1], // 3
+          [ 1, -1, -1], // 4
+          [-1, -1, -1], // 5
+          [-1, 1, -1], // 6
+          [ 1, 1, -1], // 7
+        ],
+
+        faces: [
+          {
+            pointsx: [0, 1, 2, 3, 0],
+            name: 'front',
+            boform: { cf: 222, cs: 355, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
+          {
+            pointsx: [4, 5, 6, 7, 4],
+            name: 'back',
+            boform: { cf: 888, cs: 455, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
+          {
+            pointsx: [1, 4, 7, 2, 1],
+            name: 'right',
+            boform: { cf: 444, cs: 555, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
+          {
+            pointsx: [5, 0, 3, 6, 5],
+            name: 'left',
+            boform: { cf: 555, cs: 655, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
+          {
+            pointsx: [3, 2, 7, 6, 3],
+            name: 'bottom',
+            boform: { cf: 666, cs: 755, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
+          {
+            pointsx: [5, 4, 1, 0, 5],
+            name: 'top',
+            boform: { cf: 777, cs: 855, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
+
+        ],
+
+      },
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+    let animas = [
+      aniCube, // h.ent g.uniwen
+      sceneAni, // h.scene
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>
