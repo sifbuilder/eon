@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>animas</title>
+<head >
+
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+
+</head>
+<body style="cursor:crosshair"></body>
+<div id="viewframe" class="viewframe"></div>
+
+<script src="eon-x-d3-require.js"></script>
+<script src="eon-x-mapper.js"></script>
+<script src="eon-x-s.js"></script>
+
+<script>
+
+;(async function eon () {
+  let __mapper = xMapper.xMapper() // init mapper
+  __mapper({'xD3Require': xD3Require}) // map require
+  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+
+  let muonStore = await __mapper('xs').m('store') // map store
+  let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+  let xanimas = await zindex(__mapper)
+  let animas = xanimas.animas() // get animas
+
+  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
+  muonAnimation.animate() // animate
+})()
+
+// .................. zindex
+async function zindex (__mapper) {
+  // .................. eons
+  let [
+    mgeom,
+    mgraticule,
+    topojson,
+    dworldTopo110m,
+    mnat,
+    cwen,
+    cversor,
+    d3geo,
+    d3geoprojection,
+  ] = await Promise.all([
+    __mapper('xs').m('geom'),
+    __mapper('xs').m('graticule'),
+    __mapper('xs').b('topojson'),
+    __mapper('xs').d('worldTopo110m'),
+    __mapper('xs').m('nat'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').c('versor'),
+    __mapper('xs').b('d3-geo'),
+    __mapper('xs').b('d3-geo-projection'),
+  ])
+  // .................. animas
+  let animas = function () {
+
+  let tim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
+
+// .................. sceneAni
+  let projectionEarth = d3geo.geoOrthographic()
+      .translate([0,0,0])
+      .rotate([0,0,0])
+
+
+  let proformEarth = {
+
+    projection:  projectionEarth,
+    prerotate: [[[ cversor.rotation ]]],
+    translate: [0,0,0],
+    scale: 180,
+    rotate: [ 0, 0, 0 ],
+
+  }
+
+
+  let geoearth = {
+
+    halo: 'ent',
+
+      geofold: () => {
+        return Object.assign({},
+          topojson.feature(
+            dworldTopo110m.data(),
+            dworldTopo110m.data().objects.land
+          )
+        )
+      },
+
+    payload: {
+      tim,
+      proform: proformEarth,
+      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
+      boform: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
+    }
+
+  }
+
+
+  // .................. sceneAni
+  let sceneAni = {
+
+    halo: 'scene',
+    geofold: null,
+    payload: {
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1},
+    },
+
+  }
+
+  let animas = [
+    geoearth, // h.ent g.orthographic
+
+      sceneAni, // h.scene
+  ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.animas = animas
+  return enty
+}
+</script>

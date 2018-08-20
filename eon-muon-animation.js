@@ -100,7 +100,7 @@
           let featurecollection = { type: 'FeatureCollection', features: mstore.anigrams().map(d => d.geofold) }
           return featurecollection
         })
-        .catch(e => { console.log(e) })
+        // .catch(e => { console.log(e) })
 
       return featurecollectionPromise
     }
