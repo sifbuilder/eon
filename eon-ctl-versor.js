@@ -15,7 +15,7 @@
 // quaternion to rotate between inve0Cart and inve1_cart
 // compose rotations of pdeltaCart, then of q0
 // euler rotation angles
-      
+
 // # license
 // MIT
 
@@ -83,8 +83,8 @@
       decay: 0.95,
 
       mult_radians: 2e-3,                       // rotInDrag_radians factor
-      mult_grads: 2e-3, // rotInDrag_rads factor      
-      
+      mult_grads: 2e-3, // rotInDrag_rads factor
+
       rotInit_radians: [0, 0, 0],
       rotInit_grads: [0, 0, 0],
 
@@ -95,7 +95,7 @@
 
     let xsign = 1 //  1 if x goes left to right
     let ysign = -1 // 1 if y goes up down
-    
+
     // .................. state
     let state = {
 
@@ -113,10 +113,10 @@
       moved: false,
 
       rotVel_grads: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
-      vel_grads: [0, 0, 0],      
-      
+      vel_grads: [0, 0, 0],
+
       inve0Cart: null, // Mouse cartesian position invprojected
-      r0: null, // Projection rotation as Euler angles at start
+      r0_grads: null, // Projection rotation as Euler angles at start
       q0: null, // Quaternion. Projection rotation
       p0: null, // Mouse position (spher)
       dtc: null, // Distance initial dot to center untransformed
@@ -145,43 +145,44 @@
       state.moved = false // not moved yet       // stopMomentum()
       state.grabbed = getPos(e) // mouse position
 
-      state.p0 = state.grabbed
+      state.p0 = state.grabbed  // initial position in geometric space
 
       let projection = state.projection
       console.assert(projection.invert !== undefined)
-      console.assert(projection.rotate !== undefined)      
-      
+      console.assert(projection.rotate !== undefined)
+
       let inve0Spher = state.projection.invert(state.p0)
       state.inve0Cart = mgeom.cartesian(inve0Spher)
 
-      state.r0 = state.projection.rotate() // rotation in projection in degrees
-      state.q0 = mversor(state.r0) // quaternion of initial rotation
+      state.r0_grads = state.projection.rotate() // rotation in proform/proj in degrees
+      state.q0 = mversor(state.r0_grads) // quaternion of initial rotation
 
-      state.rotAccum_grads = 
+      state.rotAccum_grads =
             mgeom.add(
-              state.rotAccum_grads, 
-              state.rotInitial_grads) // rotation
+              state.rotAccum_grads,
+              // state.rotInitial_grads) // rotation
+              state.rotInDrag_grads) // rotation
       rebase()
     }
 
     // ....................... dragged
     function dragged () {
       if (!state.grabbed) return
-      
+
       let e = d3selection.event
 
       state.p1 = getPos(e)
-      
+
       if (!state.moved) {
         state.moved = true // moved // state.autoRot = false
         state.autoRot = false
-        // state.rotAccum_grads = state.rotInitial_grads 
-        state.rotInDrag_grads = inits.rotInit_grads 
+        // state.rotAccum_grads = state.rotInitial_grads
+        state.rotInDrag_grads = inits.rotInit_grads
         rebase()
       }
 
       state.inve1_spher = state.projection
-        .rotate(state.r0)
+        .rotate(state.r0_grads)
         .invert(state.p1)
 
       state.inve1_cart = mgeom.cartesian(state.inve1_spher)
@@ -192,7 +193,7 @@
 
       let pdeltaCart = mversor.delta(state.inve0Cart, state.inve1_cart)
       let q1 = mversor.multiply(state.q0, pdeltaCart)
-      
+
       let r1 = mversor.rotation(q1) // in degrees
 
       state.rotInDrag_grads = r1
@@ -210,25 +211,25 @@
         ysign * (state.cPos[0] - state.pPos[0]) * inits.mult_grads,
 
       ]
-      
-      state.timer = requestAnimationFrame(momentum)
+
+      // state.timer = requestAnimationFrame(momentum)
     }
 
     // ....................... momentum
     function momentum () {
-      
+
       if (Math.abs(state.vel_grads[0]) < state.epsilon && Math.abs(state.vel_grads[1]) < state.epsilon) return
 
       state.vel_grads[0] *= inits.decay
       state.vel_grads[1] *= inits.decay
-      
+
 
       state.rotInDrag_grads[0] += state.vel_grads[0]
-      state.rotInDrag_grads[1] -= state.vel_grads[1]      
-      
+      state.rotInDrag_grads[1] -= state.vel_grads[1]
+
 
       if (state.timer) state.timer = requestAnimationFrame(momentum)
-        
+
     }
 
     // ....................... enty
@@ -253,7 +254,8 @@
       // state.rotation = _
       // return enty
       // } else {
-      return mgeom.add(state.rotInDrag_grads, state.rotAccum_grads)
+      // return mgeom.add(state.rotInDrag_grads, state.rotAccum_grads)
+      return mgeom.add(state.rotInDrag_grads, [0,0,0])
       // return mgeom.add([0,0,0], state.rotAccum_grads)
       // }
     }
