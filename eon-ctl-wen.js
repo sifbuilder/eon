@@ -26,7 +26,7 @@
     let d3selection = d3
 
     let getPos = rrenderport.getPos // event position
-    
+
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)
     }
@@ -45,8 +45,8 @@
       dragged,
       dragended,
 
-    }  
-    
+    }
+
     // .................. start drag control
     let control = elem => elem.call(d3drag.drag().on('start', versorControl.dragstarted).on('drag', versorControl.dragged).on('end', versorControl.dragended))
 
@@ -68,7 +68,7 @@
     let xsign = 1 //  1 if x goes left to right
     let ysign = -1 // 1 if y goes up down
 
-    // .................. state    
+    // .................. state
     let state = {
 
       projection: () => d3geo.geoOrthographic()
@@ -94,33 +94,44 @@
       pPos: null, // previous position
 
     }
-  
-    
+
+
     // .................. dragstarted listener
     function dragstarted () {
+      // s: screen  state.sp, state.sq,
+      // g: geographic
+      // c: cartesian
+      // q: quaternion
+      // dP: delta present - rotAccum
+      // dQ: delta current - rotInDrag
+
+
       let e = d3selection.event
 
       if (state.grabbed) return // drag ongoing
 
       stopMomentum()
-
       state.moved = false // not moved yet
-      state.grabbed = getPos(e) // mouse position
 
-      state.p0 = state.grabbed // initial position in geometric space
 
-      let projection = state.projection()
-      console.assert(projection.invert !== undefined)
-      console.assert(projection.rotate !== undefined)
+      state.grabbed = getPos(e)
+
+  state.sq = getPos(e)
+
+      state.p0 = state.grabbed
+
+  state.sp = state.sq
+
 
       state.pPos = state.p0 // previous position
       state.cPos = state.pPos // current position
 
-      state.rotAccum_radians = 
+      state.rotAccum_radians =
             mgeom.add(
-              state.rotAccum_radians, 
+              state.rotAccum_radians,
               state.rotInDrag_radians) // rotation
-      rebase()
+
+      rebase()  // rebase rotInDrag
     }
 
     // .................. dragged  listener
@@ -128,29 +139,53 @@
       if (!state.grabbed) return
 
       let e = d3selection.event
-      
-      let pos = getPos(e) //  d3.mouse(this)
+      // let pos = getPos(e) //  d3.mouse(this)
 
-      let dx = xsign * (pos[1] - state.grabbed[1]),
-        dy = ysign * (state.grabbed[0] - pos[0])
+
+  state.sp = state.grabbed
+  state.sq = getPos(e)
+
+
+      // let dx = xsign * (pos[1] - state.grabbed[1]),
+          // dy = ysign * (state.grabbed[0] - pos[0])
+
+
+  // state.ds = [
+        let dx =   xsign * (state.sq[1] - state.sp [1]),
+            dy =   ysign * (state.sp[0] - state.sq[0])
+      // ]
+  // state.ddist = state.ds[0]  * state.ds[0]  + state.ds[1]  * state.ds[1]
+  let ddist = dx  * dx  + dy * dy
+  
 
       if (!state.moved) {
-        if (dx * dx + dy * dy < state.moveSpan) return
+        // if (dx * dx + dy * dy < state.moveSpan) return
+        if (ddist < state.moveSpan) return
         state.moved = true // moved
         state.autoRot = false
+        
         state.rotInDrag_radians = inits.rotInit_radians
         rebase()
       }
-      state.lastMoveTime = Date.now()
-      state.pPos = state.cPos
-      state.cPos = pos
       
+      
+      state.lastMoveTime = Date.now()
+      
+      // state.pPos = state.cPos
+      // state.cPos = pos
+
       let r1 = [
         state.rotVel_radians[0] + dx * inits.mult_radians,
         state.rotVel_radians[1] + dy * inits.mult_radians,
         state.rotVel_radians[2] + 0,
       ]
-      
+
+      // let r1 = [
+        // state.rotVel_radians[0] + state.ds[0] * inits.mult_radians,
+        // state.rotVel_radians[1] + state.ds[1] * inits.mult_radians,
+        // state.rotVel_radians[2] + 0,
+      // ]
+
       state.rotInDrag_radians = r1
     }
 
@@ -160,10 +195,19 @@
       state.grabbed = false
       if (!state.moved) return
 
+      
+      // state.vel_radians = [ // velocity
+
+        // xsign * (state.cPos[1] - state.pPos[1]) * inits.mult_radians,
+        // ysign * (state.cPos[0] - state.pPos[0]) * inits.mult_radians,
+
+      // ]      
+      
+      
       state.vel_radians = [ // velocity
 
-        xsign * (state.cPos[1] - state.pPos[1]) * inits.mult_radians,
-        ysign * (state.cPos[0] - state.pPos[0]) * inits.mult_radians,
+        xsign * (state.sq[1] - state.sp[1]) * inits.mult_radians,
+        ysign * (state.sq[0] - state.sp[0]) * inits.mult_radians,
 
       ]
 
@@ -172,9 +216,9 @@
 
     // .................. momentum
     function momentum () {
-      
+
       if (Math.abs(state.vel_radians[0]) < inits.epsilon && Math.abs(state.vel_radians[1]) < inits.epsilon) return
-      
+
       state.vel_radians[0] *= inits.decay
       state.vel_radians[1] *= inits.decay
 
@@ -182,7 +226,7 @@
       state.rotInDrag_radians[1] -= state.vel_radians[1]
 
       if (state.timer) state.timer = requestAnimationFrame(momentum)
-        
+
     }
 
     // .................. enty

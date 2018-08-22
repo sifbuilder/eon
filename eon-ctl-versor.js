@@ -136,6 +136,13 @@
 
     // ....................... dragstarted
     function dragstarted () {
+      // s: screen
+      // g: geographic
+      // c: cartesian
+      // q: quaternion
+      // dP: delta present - accum
+      // dQ: delta current - ondrag
+
       let e = d3selection.event
 
       if (state.grabbed) return // drag ongoing
@@ -154,7 +161,8 @@
       let inve0Spher = state.projection.invert(state.p0)
       state.inve0Cart = mgeom.cartesian(inve0Spher)
 
-      state.r0_grads = state.projection.rotate() // rotation in proform/proj in degrees
+      // state.r0_grads = state.projection.rotate() // rotation in proform/proj in degrees
+      state.r0_grads = inits.rotInit_radians // rotation in proform/proj in degrees
       state.q0 = mversor(state.r0_grads) // quaternion of initial rotation
 
       state.rotAccum_grads =
