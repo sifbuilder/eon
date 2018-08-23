@@ -59,29 +59,26 @@ async function zindex (__mapper) {
   ])
   // .................. animas
   let animas = function () {
+    let tim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
-  let tim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
+    // .................. sceneAni
+    let projectionEarth = d3geo.geoOrthographic()
+      .translate([0, 0, 0])
+      .rotate([0, 0, 0])
 
-// .................. sceneAni
-  let projectionEarth = d3geo.geoOrthographic()
-      .translate([0,0,0])
-      .rotate([0,0,0])
+    let proformEarth = {
 
+      projection: projectionEarth,
+      prerotate: [[[ cversor.rotation ]]],
+      translate: [0, 0, 0],
+      scale: 180,
+      rotate: [ 0, 0, 0 ],
 
-  let proformEarth = {
+    }
 
-    projection:  projectionEarth,
-    prerotate: [[[ cversor.rotation ]]],
-    translate: [0,0,0],
-    scale: 180,
-    rotate: [ 0, 0, 0 ],
+    let geoearth = {
 
-  }
-
-
-  let geoearth = {
-
-    halo: 'ent',
+      halo: 'ent',
 
       geofold: () => {
         return Object.assign({},
@@ -92,34 +89,33 @@ async function zindex (__mapper) {
         )
       },
 
-    payload: {
-      tim,
-      proform: proformEarth,
-      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
-      boform: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
+      payload: {
+        tim,
+        proform: proformEarth,
+        ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
+        boform: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
+      },
+
     }
 
-  }
+    // .................. sceneAni
+    let sceneAni = {
 
+      halo: 'scene',
+      geofold: null,
+      payload: {
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1},
+      },
 
-  // .................. sceneAni
-  let sceneAni = {
+    }
 
-    halo: 'scene',
-    geofold: null,
-    payload: {
-      tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1},
-    },
-
-  }
-
-  let animas = [
-    geoearth, // h.ent g.orthographic
+    let animas = [
+      geoearth, // h.ent g.orthographic
 
       sceneAni, // h.scene
-  ]
+    ]
 
     return animas
   }

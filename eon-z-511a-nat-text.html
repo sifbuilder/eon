@@ -55,56 +55,55 @@ async function zindex (__mapper) {
   // .................. animas
   let animas = function () {
     // .................. pics
-  let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-  let formCirc = {
+    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let formCirc = {
 
-    'x': {
-      'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
-      'ra2': 100,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1,
-      
-    },
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
 
-    'y': {
-      'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
-      'ra2': 100,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1,
-      
+      },
+
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+
+      },
+
     }
 
-  }
+    let formNat = {
 
-  let formNat = {
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': 360,
 
-    'x': {
-      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
-      'ra2': 100,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': 360,
-      
-    },
+      },
 
-    'y': {
-      'm1': 4,'m2': 4,'n1': 100,'n2': 100,'n3': 100,'a': 1,'b': 1, // square
-      'ra2': 100,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': 360,
-      
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': 360,
+
+      },
+
     }
 
-  }
+    let stace = {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+      'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
 
-  let stace = {
-      'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 1,'b': 1, // circle
-      'ra2': 100,'v0': 0,'v1': 1,'seg5': 360,'w4': 0,'pa6': 0,'pb7': -1,
-    
-  }
+    }
 
-  let proform = {
-    projection: 'uniwen',
-    prerotate: [[[ cwen.rotation ]]],
-    translate: [ [0, 0, 0], [[[ stace ]]] ],
-    scale: 1,
-    rotate: [ 0, 0 ],
-    lens: [0, 1, Infinity],
+    let proform = {
+      projection: 'uniwen',
+      prerotate: [[[ cwen.rotation ]]],
+      translate: [ [0, 0, 0], [[[ stace ]]] ],
+      scale: 1,
+      rotate: [ 0, 0 ],
+      lens: [0, 1, Infinity],
 
-  }
-  let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
-
+    }
+    let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
     // .................. text
     let textAni = {
@@ -135,64 +134,64 @@ async function zindex (__mapper) {
 
       },
     }
-  
+
     // .................. natAni
-  let natAni = {
+    let natAni = {
 
-    halo: 'ent',
+      halo: 'ent',
 
-    geofold: p => mnat.natFeature(p.payload.form),
+      geofold: p => mnat.natFeature(p.payload.form),
 
-    payload: {
-      tim: tim,
-      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      payload: {
+        tim: tim,
+        ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      proform: proform,
+        proform: proform,
 
-      geonode: {
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [0, 0, 0] },
-        properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null}
+        geonode: {
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+        },
+
+        boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+        form: formNat,
+
       },
-
-      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
-
-      form: formNat
 
     }
 
-  }
-  
-  // .................. circAni
-  let circAni = {
+    // .................. circAni
+    let circAni = {
 
-    halo: 'ent',
+      halo: 'ent',
 
-    geofold: p => mnat.natFeature(p.payload.form),
+      geofold: p => mnat.natFeature(p.payload.form),
 
-    payload: {
-      tim,
+      payload: {
+        tim,
 
-      ric: {gid: 'nat', cid: 'nat', fid: 'circ'},
+        ric: {gid: 'nat', cid: 'nat', fid: 'circ'},
 
-      proform,
+        proform,
 
-      geonode: {
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [0, 0, 0] },
-        properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null}
+        geonode: {
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+        },
+
+        boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+        uid: null,
+        parentuid: null,
+        inited: 0,
+        gelded: 1,
+
+        form: formCirc,
       },
-
-      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
-
-      uid: null,
-      parentuid: null,
-      inited: 0,
-      gelded: 1,
-
-      form: formCirc
     }
-  }
 
     // .................. sceneAni
     let sceneAni = {

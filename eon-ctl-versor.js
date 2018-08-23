@@ -234,7 +234,7 @@
 
     enty.projection = _ => {
       if (_ !== undefined) {
-        state.projection = _.projection   // .projection
+        state.projection = _.projection // .projection
         return enty
       } else {
         return state.projection

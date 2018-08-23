@@ -110,7 +110,7 @@ async function zindex (__mapper) {
       let r = { nodes, links }
 
       let nbr = anima.payload.pacer.initN // 6
-      
+
       for (let i = 0; i < nbr; i++) {
         let ani = mprops.cloneObj(natAni) // clone of model anima
         ani.payload.ric.gid = 'nat'
@@ -128,7 +128,6 @@ async function zindex (__mapper) {
         if (preani) {
           ani = preani
         } else { // create anima
-        
           ani.halo = 'ent' // create halo
 
           let x0 = -200 + 60 * Math.random()
@@ -145,7 +144,7 @@ async function zindex (__mapper) {
               type: 'LineString',
               coordinates: [ [x0, y0, z0], [x1, y1, z1] ]},
             properties: {
-              orgen: [0, 0, 0 ]
+              orgen: [0, 0, 0 ],
             },
           }
         }
@@ -166,7 +165,6 @@ async function zindex (__mapper) {
     // ............................. pics
     let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    
     // ............................. natAni
     let natAni = {
 
@@ -202,21 +200,19 @@ async function zindex (__mapper) {
             return stace
           },
 
-
           geofolder: p => mnat.natFeature(p.payload.form),
 
         },
 
-
         proform: {
           projection: 'uniwen',
-          translate: 
+          translate:
             [0, 0, 0],
           // [ [ [[[100, 400]]], 200 ],
           // [[[ {
           // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
           // 'ra2': 30,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-          
+
           // } ]]] ],
           scale: 1,
           rotate: [ 0, 0, [[[0, 0]]] ],
@@ -234,7 +230,7 @@ async function zindex (__mapper) {
           },
           'y': {
             'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4':0, 'pa6': 0, 'pb7': 360,
+            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
           },
           'z': {
             'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle

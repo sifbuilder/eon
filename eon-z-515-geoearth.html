@@ -45,7 +45,7 @@ async function zindex (__mapper) {
     cwen,
     cversor,
     d3geo,
-    d3geoprojection,    
+    d3geoprojection,
   ] = await Promise.all([
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
@@ -55,46 +55,44 @@ async function zindex (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').c('versor'),
     __mapper('xs').b('d3-geo'),
-    __mapper('xs').b('d3-geo-projection'),    
+    __mapper('xs').b('d3-geo-projection'),
   ])
   // .................. animas
   let animas = function () {
-  let tim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
+    let tim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
-  // .................. geoearthDark  DARK
-  let pDark = function() {
-    let forward = (x, y) => d3geo.geoOrthographicRaw(-x,-y)
-    forward.invert = (x, y) => d3geo.geoOrthographicRaw.invert(-x,-y)
-    return forward
-  }
+    // .................. geoearthDark  DARK
+    let pDark = function () {
+      let forward = (x, y) => d3geo.geoOrthographicRaw(-x, -y)
+      forward.invert = (x, y) => d3geo.geoOrthographicRaw.invert(-x, -y)
+      return forward
+    }
 
-  let darkProjection = d3geo.geoProjection(pDark())
+    let darkProjection = d3geo.geoProjection(pDark())
       .clipAngle(90)
-      .translate([0,0,0])
+      .translate([0, 0, 0])
       .scale(180)
 
-  
-  let proformDark = {
-    
-    projection:  darkProjection,
-    prerotate: [[[ t => { 
-      let rot = cversor
-        .projection({projection: darkProjection}) // versor projection
-        .rotation()
-      let res = [180+rot[0], -rot[1], -rot[2]]
-      return res
-    }]]],
+    let proformDark = {
 
+      projection: darkProjection,
+      prerotate: [[[ t => {
+        let rot = cversor
+          .projection({projection: darkProjection}) // versor projection
+          .rotation()
+        let res = [180 + rot[0], -rot[1], -rot[2]]
+        return res
+      }]]],
 
-    // rotate: [ [[[0, 0 + 0 * 360]]], [[[0, 0 * 360]]], 0 ],
-    rotate: [ 90, 0, 0 ],
+      // rotate: [ [[[0, 0 + 0 * 360]]], [[[0, 0 * 360]]], 0 ],
+      rotate: [ 90, 0, 0 ],
     // control: 'versor'
 
-  }   
- 
-  let geoearthDark = {
+    }
 
-    halo: 'ent',
+    let geoearthDark = {
+
+      halo: 'ent',
 
       geofold: () => {
         return Object.assign({},
@@ -105,50 +103,48 @@ async function zindex (__mapper) {
         )
       },
 
-    payload: {
-      tim,
-      proform: proformDark,
-      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthDark'},
-      boform: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+      payload: {
+        tim,
+        proform: proformDark,
+        ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthDark'},
+        boform: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+      },
+
     }
 
-  }
+    // .................. geoearthFront FRONT
+    let pFront = function (x, y) {
+      let forward = (x, y) => d3geo.geoOrthographicRaw(x, -y)
+      forward.invert = (x, y) => d3geo.geoOrthographicRaw.invert(x, -y)
+      return forward
+    }
 
-
-  // .................. geoearthFront FRONT
-  let pFront = function(x,y) {
-    let forward = (x, y) => d3geo.geoOrthographicRaw(x,-y)
-    forward.invert = (x, y) => d3geo.geoOrthographicRaw.invert(x,-y)
-    return forward
-  }
- 
-  let frontProjection = d3geo.geoProjection(pFront())
+    let frontProjection = d3geo.geoProjection(pFront())
       .clipAngle(90)
-      .translate([0,0,0])
-      .rotate([0,0,0])
-      
-      
-  let proformFront = {
-    
-    projection:  frontProjection,
-    prerotate: [[[ function (t) {
-      let rot = cversor
-        .projection({projection: frontProjection}) // versor projection
-        .rotation()
-      return rot
-    } ]]],    
+      .translate([0, 0, 0])
+      .rotate([0, 0, 0])
 
-    translate: [0,0,0],
-    scale: 180,
-    // rotate: [ [[[30, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
-    rotate: [ 90, 0, 0 ],
+    let proformFront = {
+
+      projection: frontProjection,
+      prerotate: [[[ function (t) {
+        let rot = cversor
+          .projection({projection: frontProjection}) // versor projection
+          .rotation()
+        return rot
+      } ]]],
+
+      translate: [0, 0, 0],
+      scale: 180,
+      // rotate: [ [[[30, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
+      rotate: [ 90, 0, 0 ],
       // control: 'versor'
 
-  }
-  
-  let geoearthFront = {
+    }
 
-    halo: 'ent',
+    let geoearthFront = {
+
+      halo: 'ent',
 
       geofold: () => {
         return Object.assign({},
@@ -159,30 +155,30 @@ async function zindex (__mapper) {
         )
       },
 
-    payload: {
-      tim,
-      proform: proformFront,
-      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthFront'},
-      boform: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
+      payload: {
+        tim,
+        proform: proformFront,
+        ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthFront'},
+        boform: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
+      },
+
     }
 
-  }
+    // .................. graticuleFront
+    let graticuleFront = {
 
-  // .................. graticuleFront  
-  let graticuleFront = {
+      halo: 'ent',
 
-    halo: 'ent',
+      geofold: () => d3.geoGraticule()(),
 
-    geofold: () => d3.geoGraticule()(),
+      payload: {
+        tim,
+        proform: proformFront,
+        ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
+        boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9},
+      },
 
-    payload: {
-      tim,
-      proform: proformFront,
-      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
-      boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9},
     }
-
-  }
 
     // .................. sceneAni
     let sceneAni = {
@@ -196,13 +192,13 @@ async function zindex (__mapper) {
       },
 
     }
-    
-  let animas = [
-    geoearthDark,
-    geoearthFront, // h.ent g.orthographic
-    // graticuleFront, // h.ent
-      sceneAni, // h.scene    
-  ]
+
+    let animas = [
+      geoearthDark,
+      geoearthFront, // h.ent g.orthographic
+      // graticuleFront, // h.ent
+      sceneAni, // h.scene
+    ]
 
     return animas
   }

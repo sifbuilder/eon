@@ -76,8 +76,7 @@ async function zindex (__mapper) {
 
       },
     }
-    
-    
+
     let stace = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
@@ -99,13 +98,13 @@ async function zindex (__mapper) {
 
       },
     }
-    
+
     const waveProform = {
       projection: 'uniwen',
       prerotate: [[[ cwen.rotation ]]],
       translate: [0, 0, 0],
       scale: 1,
-      rotate: [ 90, [[[0,6,-6,6,-6, 6]]], [[[0, 160 * 360]]] ], // dyn
+      rotate: [ 90, [[[0, 6, -6, 6, -6, 6]]], [[[0, 160 * 360]]] ], // dyn
       lens: [ 0, 1, Infinity ],
     }
     const waveProform2 = {
@@ -113,7 +112,7 @@ async function zindex (__mapper) {
       prerotate: [[[ cwen.rotation ]]],
       translate: [0, 0, 0],
       scale: 0.99,
-      rotate: [ 90, [[[0,-6, 6,-6,6,-6]]] , [[[0, - 160 * 360]]] ], // dyn
+      rotate: [ 90, [[[0, -6, 6, -6, 6, -6]]], [[[0, -160 * 360]]] ], // dyn
       lens: [ 0, 1, Infinity ],
     }
 
@@ -129,7 +128,6 @@ async function zindex (__mapper) {
     const waveFrame = [ [ [ -180, 180, 90, 5], [ -180, 180, 30, 5] ] ]
 
     const sphereFrame = [ [ [ -180, 180, 45, 5], [ -180, 180, 45, 5] ] ]
-
 
     let sphereForm = {
       'x': {
@@ -234,7 +232,7 @@ async function zindex (__mapper) {
 
       },
 
-    }    
+    }
     // .................. sphereForm anima
     let sphereAni = {
 

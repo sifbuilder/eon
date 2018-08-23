@@ -177,7 +177,7 @@
     }
 
     // ............................. natFeature
-    let natFeature = function (form, props={}) {
+    let natFeature = function (form, props = {}) {
       let feature
 
       if (mprops.isSame(form, cache.form)) {
@@ -194,9 +194,7 @@
         } else {
           _geofn = mgraticule.vhMultiLine
         }
-        
-        
-        
+
         let geometry
         let dx, dy, sx, sy
 
@@ -240,14 +238,14 @@
             geonode: {
               type: 'Feature',
               geometry: {
-                type: 'Point', 
-                coordinates: [0, 0, 0]
+                type: 'Point',
+                coordinates: [0, 0, 0],
               },
               properties: {
-                orgen: [0, 0, 0], 
-                velin: [0, 0, 0], 
-                velang: [0, 0, 0], 
-                prevous: [0, 0, 0], 
+                orgen: [0, 0, 0],
+                velin: [0, 0, 0],
+                velang: [0, 0, 0],
+                prevous: [0, 0, 0],
                 geodelta: [0, 0, 0],
               },
             },

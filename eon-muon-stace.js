@@ -85,7 +85,7 @@
         let formGeoformed = parentani.geofold.properties.formGeoformed
         let formEreformed = parentani.geofold.properties.formEreformed
         let formProformed = parentani.geofold.properties.formProformed
-        
+
         let nodeGeoformed = parentani.geofold.properties.nodeGeoformed || {geometry: {}}
         let nodeEreformed = parentani.geofold.properties.nodeEreformed || {geometry: {}}
         let nodeProformed = parentani.geofold.properties.nodeProformed || {geometry: {}}
@@ -101,47 +101,29 @@
             let idx = Math.floor(v1.pos)
             let coords = []
             if (v1.hasOwnProperty('geo')) {
-              
               coords = mgeoj.getCoords(formGeoformed.geometry)
-              
             } else if (v1.hasOwnProperty('ere')) {
-              
               coords = mgeoj.getCoords(formEreformed.geometry)
-              
             } else if (v1.hasOwnProperty('pro')) {
-              
               coords = mgeoj.getCoords(formProformed.geometry)
-              
             } else { // if pos look into geometry
-            
               coords = mgeoj.getCoords(parentani.geofold.geometry)
-              
             }
 
             idx = (idx + coords.length) % coords.length
             locationsPerDax[i] = Array.of(coords[idx][i])
 
             // if stace is not defined ... refer to parent geonode position
-            
           } else {
-            
             let coords = []
             if (v1.hasOwnProperty('geo')) { // GEO
-            
               coords = nodeGeoformed.geometry.coordinates
-              
             } else if (v1.hasOwnProperty('ere')) { // ERE
-            
               coords = nodeEreformed.geometry.coordinates
-              
             } else if (v1.hasOwnProperty('pro')) { // PRO
-            
               coords = nodeProformed.geometry.coordinates
-              
             } else { // if pos look into geometry
-            
               coords = nodeGeoformed.geometry.coordinates
-              
             }
 
             locationsPerDax[i] = Array.of(coords[i])

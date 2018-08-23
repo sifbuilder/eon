@@ -297,29 +297,28 @@
 
     // ...................... featurize
     let featurize = function (gj_) {
-
       let features = []
       let gj = gj_
       if (gj && gj.type) {
         let type = gj.type
 
         if (type === 'Feature') {
-            features = Array.of(gj)
+          features = Array.of(gj)
         } else if (type === 'FeatureCollection') {
-            features = gj.features
+          features = gj.features
         } else if (type === 'GeometryCollection') {
-            features = gj.map(d => ({
+          features = gj.map(d => ({
             type: 'Feature',
             geometry: {
-            type: d.type,
-            coordinates: d.coordinates},
+              type: d.type,
+              coordinates: d.coordinates},
             properties: {}}))
         } else {
-            features = Array.of({
+          features = Array.of({
             type: 'Feature',
             geometry: {
-            type: gj.type,
-            coordinates: gj.coordinates},
+              type: gj.type,
+              coordinates: gj.coordinates},
             properties: {geonode: {}}})
         }
       } else {
@@ -334,7 +333,7 @@
       let features = featurize(gj)
       return ({type: 'FeatureCollection', features: features})
     }
-    
+
     // ...................... deprop
     let deprop = function (gj) {
       let gj2 = Object.assign({}, gj)

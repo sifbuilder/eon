@@ -46,8 +46,8 @@ async function zindex (__mapper) {
     cwen,
     cversor,
     d3geo,
-    d3geoprojection,       
-    prjCox,       
+    d3geoprojection,
+    prjCox,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('geom'),
@@ -58,79 +58,78 @@ async function zindex (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').c('versor'),
     __mapper('xs').b('d3-geo'),
-    __mapper('xs').b('d3-geo-projection'),     
-    __mapper('xs').p('cox'),     
+    __mapper('xs').b('d3-geo-projection'),
+    __mapper('xs').p('cox'),
   ])
 
   // .................. animas
   let animas = function () {
     // .................. pics
-  let tim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-  const sqrt2 = Math.sqrt(2)
-  
-  let form = {
+    let tim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    const sqrt2 = Math.sqrt(2)
+
+    let form = {
 
       'x': {
-        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
-        'ra2': 162,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        'ra2': 162, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
       },
       'y': {
-        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
-        'ra2': 162,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        'ra2': 162, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
       },
       'z': {
-        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,  // square
-        'm1': [[[3, 3]]],'m2': [[[3, 3]]],'n1': 1,'n2': 1,'n3': 1,'a': 1,'b': 1, // tri
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        'm1': [[[3, 3]]], 'm2': [[[3, 3]]], 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1, // tri
         'ra2': [[[30, 30, 262 / sqrt2, 162 / sqrt2, 162 / sqrt2, 162 / sqrt2, 262 / sqrt2 ]]],
-        'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+        'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-      }
+      },
     }
 
-  let graticule = {
+    let graticule = {
 
-      'frame': [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ]
+      'frame': [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ],
 
     }
 
-   
     // ............................. geograt
-  let geograt = {
+    let geograt = {
 
       halo: 'ent',
 
-      geofold: p =>  mgraticule.vhMultiLine(p.payload.graticule),
+      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
       payload: {
         tim,
         proform: {
 
           projection: 'cox',
-          
-          prerotate: [[[ cversor.rotation ]]],      
+
+          prerotate: [[[ cversor.rotation ]]],
           scale: [100],
           translate: [ 0, 0 ],
           rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
           step: [[[0, 0, 1.1, 1.1, 0, 0]]],
-          
+
           prjlat: [[[1, 1]]],
           prjlagr: [[[0.5, 0.5]]],
           prjrad: [[[2.0, 2.0]]],
 
         },
         graticule,
-        
+
         ric: {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
         boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
 
-      }
+      },
 
     }
 
     // ............................. geoearth
-  let geoearth = {
+    let geoearth = {
 
       halo: 'ent',
 
@@ -150,55 +149,52 @@ async function zindex (__mapper) {
         cox: {
           prjlat: [[[1, 1]]],
           prjlagr: [[[0.5, 0.5]]],
-          prjrad: [[[2.0, 2.0]]],        
+          prjrad: [[[2.0, 2.0]]],
         },
-        
+
         proform: {
-          
+
           prjlat: [[[1, 1]]],
           prjlagr: [[[0.5, 0.5]]],
           prjrad: [[[2.0, 2.0]]],
-          
-        
+
           projection: 'cox',
-          prerotate: [[[ cversor.rotation ]]],      
+          prerotate: [[[ cversor.rotation ]]],
           scale: [100],
           translate: [ 0, 0 ],
           rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
           step: [[[0, 0, 1.1, 1.1, 0, 0]]],
 
-
         },
-      }
+      },
 
     }
-    
+
     // ............................. geosphere
-  // let geosphere = {
+    // let geosphere = {
 
-      // halo: 'ent',
+    // halo: 'ent',
 
-      // geofold: {
-        // type: 'Feature',
-        // geometry: {
-          // type: 'Sphere'
-        // },
-        // properties: {}
-      // },
+    // geofold: {
+    // type: 'Feature',
+    // geometry: {
+    // type: 'Sphere'
+    // },
+    // properties: {}
+    // },
 
-      // payload: {
-        // tim: tim,
-        // ric: {'gid': 'geosphere', 'cid': 'geosphere', 'fid': 'geosphere'},
-        // boform: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
+    // payload: {
+    // tim: tim,
+    // ric: {'gid': 'geosphere', 'cid': 'geosphere', 'fid': 'geosphere'},
+    // boform: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
 
-        // proform: proform
-      // }
+    // proform: proform
+    // }
 
     // }
 
-
     // ............................. animas
-  let animas = [
+    let animas = [
       geograt, // h.ent g.cox
       geoearth, // h.ent g.cox
       // geosphere, // h.ent g.cox

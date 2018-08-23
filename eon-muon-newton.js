@@ -10,9 +10,7 @@
   'use strict'
 
   // muonNewton muon
- async function muonNewton (__mapper = {}) {
-
-
+  async function muonNewton (__mapper = {}) {
     // import {abs, epsilon, halfPi, sqrt} from 'math'
     var abs = Math.abs, epsilon = 1e-6, halfPi = Math.PI / 2, sqrt = Math.sqrt
 
@@ -264,7 +262,7 @@
       if (typeof res !== 'object') {
         res = [ typeof res === 'number'
           ? +res
-          : 0
+          : 0,
         ]
       }
       var _fs = fs

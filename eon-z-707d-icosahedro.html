@@ -57,48 +57,44 @@ async function zindex (__mapper) {
 
     const tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
-
     // .................. facesAni anima
     let facesAni = {
 
       halo: 'ent',
 
       geofold: p => {
-      
-          let payload = p.payload,
-          
-            ric = payload.ric,
-            
-            faces = payload.faces(payload.breakage) // payload.faces
+        let payload = p.payload,
 
-          let json = {type: 'FeatureCollection', features: []}
+          ric = payload.ric,
 
-          for (let i = 0, l = faces.length; i < l; i++) {
-          
-            let face = faces[i] // face cornersx position
+          faces = payload.faces(payload.breakage) // payload.faces
 
-            let geometry = {type: 'Polygon', coordinates: []}
-            geometry.coordinates = Array.of(face) // eg [-1, 1, 1]
+        let json = {type: 'FeatureCollection', features: []}
 
-            let _ric = {}
-            _ric.gid = ric.gid
-            _ric.cid = ric.cid
-            _ric.fid = ric.cid + i
+        for (let i = 0, l = faces.length; i < l; i++) {
+          let face = faces[i] // face cornersx position
 
-            let feature = {type: 'Feature', geometry: {}, properties: {}}
+          let geometry = {type: 'Polygon', coordinates: []}
+          geometry.coordinates = Array.of(face) // eg [-1, 1, 1]
 
-            feature.geometry = geometry
+          let _ric = {}
+          _ric.gid = ric.gid
+          _ric.cid = ric.cid
+          _ric.fid = ric.cid + i
 
-            feature.properties.ric = _ric
-            feature.properties.sort = 'form'
-            feature.properties.boform = face.boform
+          let feature = {type: 'Feature', geometry: {}, properties: {}}
 
-            json.features.push(feature)
-          }
+          feature.geometry = geometry
 
+          feature.properties.ric = _ric
+          feature.properties.sort = 'form'
+          feature.properties.boform = face.boform
 
-          return json
-        },
+          json.features.push(feature)
+        }
+
+        return json
+      },
 
       payload: {
         tim: tim,
@@ -118,53 +114,52 @@ async function zindex (__mapper) {
 
         breakage: {
           s: 36,
-          y: [[[2, 1,1, 2]]],
-          z: [[[0, 1,1, 0]]],
+          y: [[[2, 1, 1, 2]]],
+          z: [[[0, 1, 1, 0]]],
         },
-        
-        faces: function (breakage={s:36, y:2, z:0}) { // icosahedronFaces
+
+        faces: function (breakage = {s: 36, y: 2, z: 0}) { // icosahedronFaces
           let faces = []
-          
+
           let s = breakage.s
           let y = breakage.y
           let z = breakage.z
-          
+
           let s0 = s,
-            
-            y1 = Math.atan2(1, y) * 180 / Math.PI,  // 26.56
-            y2 = Math.atan2(-1, y) * 180 / Math.PI,  // -26.56
-            
-            z1 = Math.atan2(1, z) * 180 / Math.PI  // 90
-            z2 = Math.atan2(-1, z) * 180 / Math.PI  // -90
-            
-            
+
+            y1 = Math.atan2(1, y) * 180 / Math.PI, // 26.56
+            y2 = Math.atan2(-1, y) * 180 / Math.PI, // -26.56
+
+            z1 = Math.atan2(1, z) * 180 / Math.PI // 90
+          z2 = Math.atan2(-1, z) * 180 / Math.PI // -90
+
           for (let x = 0; x < 360; x += 2 * s0) {
             faces.push(
-            
+
               [ [x + 0 * s0, z2], // -90
-                [x + 0 * s0, y2], 
-                [x + 2 * s0, y2], 
-                [x + 0 * s0, z2]  // -90
+                [x + 0 * s0, y2],
+                [x + 2 * s0, y2],
+                [x + 0 * s0, z2], // -90
               ],
               [
-                [x + 1 * s0, y1], 
-                [x + 2 * s0, y2], 
-                [x + 0 * s0, y2], 
-                [x + 1 * s0, y1]
+                [x + 1 * s0, y1],
+                [x + 2 * s0, y2],
+                [x + 0 * s0, y2],
+                [x + 1 * s0, y1],
               ],
               [
-                [x + 1 * s0, y1], 
-                [x + 0 * s0, y2], 
-                [x - 1 * s0, y1], 
-                [x + 1 * s0, y1]
+                [x + 1 * s0, y1],
+                [x + 0 * s0, y2],
+                [x - 1 * s0, y1],
+                [x + 1 * s0, y1],
               ],
               [
-                [x + 1 * s0, y1], 
-                [x - 1 * s0, y1], 
+                [x + 1 * s0, y1],
+                [x - 1 * s0, y1],
                 [x - 1 * s0, z1], // 90
-                [x + 1 * s0, y1]
+                [x + 1 * s0, y1],
               ]
-              
+
             )
           }
           return faces.map(face => face.map(mprops.cartesian))

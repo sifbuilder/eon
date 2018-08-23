@@ -55,7 +55,6 @@
 
         state.pointer.x = t[0]
         state.pointer.y = t[1]
-        
       } else if (event.type === 'touchmove') {
         let touch = event.changedTouches[0]
 
@@ -121,10 +120,7 @@
 
     // ............................. mouseUpListener
     function mouseUpListener (e) {
-     
-      
       if (1 && 1) console.log(' **************************** mouseUpListener', state, e)
-
 
       if (!state.grabbed) return
       state.grabbed = false
@@ -145,7 +141,7 @@
 
       subscribe(mouseDownListener, state.domNode, 'mousedown')
       subscribe(mouseMoveListener, state.domNode, 'mousemove')
-      subscribe(mouseUpListener,   state.domNode, 'mouseup')
+      subscribe(mouseUpListener, state.domNode, 'mouseup')
 
       subscribe(touchStartListener, state.domNode, 'touchstart')
       subscribe(touchMoveListener, state.domNode, 'touchmove')

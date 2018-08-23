@@ -8,13 +8,12 @@
 }(this, function (exports) {
   'use strict'
 
-
-// md: # eon-halo-ent
-// md: **process h.ent animas**
-// md: Feature Collect gj. for each feature
-// md: geoform, conform, ereform and proform anigrams
-// md: then pass the FeatureCollection to h.formed
-// md: define `geofold.properties.geonode` if undefined
+  // md: # eon-halo-ent
+  // md: **process h.ent animas**
+  // md: Feature Collect gj. for each feature
+  // md: geoform, conform, ereform and proform anigrams
+  // md: then pass the FeatureCollection to h.formed
+  // md: define `geofold.properties.geonode` if undefined
 
   async function haloEnt (__mapper = {}) {
     let [
@@ -75,20 +74,15 @@
         .then(r => {
           let [feature, projection] = r
           let res
-        
+
           if (projection) {
-            
             res = mproj3ct(feature, projection)
             res.properties.formProformed = mgeoj.deprop(res) // store proform
             res.properties.nodeProformed = mproj3ct(res.properties.nodeEreformed, projection)
-
-            
           } else {
-            
             res = feature
             res.properties.formProformed = res.properties.formEreformed
             res.properties.nodeProformed = res.properties.nodeEreformed
-
           }
 
           return res
@@ -98,14 +92,14 @@
 
     // ............................. getgj
     const getgj = anitem => {
-          let ani = anitem
-          if (Array.isArray(ani)) ani = ani[0]
-          let gj = mprops.v(ani.geofold, ani) // get geofold
-          gj.properties = gj.properties || {} // recall genode
-          gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
-          gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
-          gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
-          return gj
+      let ani = anitem
+      if (Array.isArray(ani)) ani = ani[0]
+      let gj = mprops.v(ani.geofold, ani) // get geofold
+      gj.properties = gj.properties || {} // recall genode
+      gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
+      gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
+      gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
+      return gj
     }
 
     // ............................. transforms
@@ -115,34 +109,31 @@
       let pproj = mprofier.proformion_(ani)
       return f => p(e(c(f, cproj), eproj), pproj)
     }
-    
-    // ............................. transforms    
+
+    // ............................. transforms
     let transforms = (f, ani) => transformer(ani)(f)
 
     // ............................. gramm
     async function gramm (ani) {
-
       let anigram = ani.length > 0 ? ani[0] : ani
-      
-      let gj = getgj(anigram) 
-      
+
+      let gj = getgj(anigram)
+
       let gjcollection = mgeoj.featurecollect(gj)
-    
+
       let promisesForTransformedFeatures = gjcollection.features.map(f => transforms(f, anigram))
-    
+
       let newfeatures = await Promise.all(promisesForTransformedFeatures)
-    
-      let newcollection =  Object.assign({}, gjcollection, {features: newfeatures})
-    
-      let newAni = Object.assign({}, anigram, {geofold: newcollection})    
-    
+
+      let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
+
+      let newAni = Object.assign({}, anigram, {geofold: newcollection})
+
       let newAnitems = haloFormed.gramm(newAni)
 
-      
       return newAnitems
-
     }
-    
+
     // ............................. ween
     let ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 

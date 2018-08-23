@@ -89,7 +89,7 @@ async function zindex (__mapper) {
       return json
     }
 
-    // .................. facesAni 
+    // .................. facesAni
     let facesAni = {
 
       halo: 'ent',
@@ -118,21 +118,21 @@ async function zindex (__mapper) {
             y = Math.atan2(1, 2) * 180 / Math.PI
           for (let x = 0; x < 360; x += 2 * s) {
             faces.push(
-              [[x + 0 * s, -90], 
-                [x + 0 * s, -y], 
-                [x + 2 * s, -y], 
+              [[x + 0 * s, -90],
+                [x + 0 * s, -y],
+                [x + 2 * s, -y],
                 [x + 0 * s, -90]],
-              [[x + 1 * s, y], 
-                [x + 2 * s, -y], 
-                [x + 0 * s, -y], 
+              [[x + 1 * s, y],
+                [x + 2 * s, -y],
+                [x + 0 * s, -y],
                 [x + 1 * s, y]],
-              [[x + 1 * s, y], 
-                [x + 0 * s, -y], 
-                [x - 1 * s, y], 
+              [[x + 1 * s, y],
+                [x + 0 * s, -y],
+                [x - 1 * s, y],
                 [x + 1 * s, y]],
-              [[x + 1 * s, y], 
-                [x - 1 * s, y], 
-                [x - 1 * s, 90], 
+              [[x + 1 * s, y],
+                [x - 1 * s, y],
+                [x - 1 * s, 90],
                 [x + 1 * s, y]]
             )
           }
@@ -141,44 +141,42 @@ async function zindex (__mapper) {
       },
     }
 
-    // .................. dotsAni 
+    // .................. dotsAni
     let dotsAni = {
 
       halo: 'ent',
 
       geofold: p => {
-        
-          let payload = p.payload,
-            ric = payload.ric,
-            points = payload.points,
-            faces = payload.faces
+        let payload = p.payload,
+          ric = payload.ric,
+          points = payload.points,
+          faces = payload.faces
 
-          let json = {type: 'FeatureCollection', features: []}
+        let json = {type: 'FeatureCollection', features: []}
 
-          for (let i = 0, l = faces.length; i < l; i++) {
-            let face = faces[i] // face cornersx position
+        for (let i = 0, l = faces.length; i < l; i++) {
+          let face = faces[i] // face cornersx position
 
-            let geometry = {type: 'Polygon', coordinates: []}
-            geometry.coordinates = Array.of(face.cornersx.map(k => points[k])) // eg [-1, 1, 1]
+          let geometry = {type: 'Polygon', coordinates: []}
+          geometry.coordinates = Array.of(face.cornersx.map(k => points[k])) // eg [-1, 1, 1]
 
-            let _ric = {}
-            _ric.gid = ric.gid
-            _ric.cid = ric.cid
-            _ric.fid = ric.cid + i
+          let _ric = {}
+          _ric.gid = ric.gid
+          _ric.cid = ric.cid
+          _ric.fid = ric.cid + i
 
-            let feature = {type: 'Feature', geometry: {}, properties: {}}
+          let feature = {type: 'Feature', geometry: {}, properties: {}}
 
-            feature.geometry = geometry
-            feature.properties.ric = _ric
-            feature.properties.sort = 'form'
-            feature.properties.boform = face.boform
+          feature.geometry = geometry
+          feature.properties.ric = _ric
+          feature.properties.sort = 'form'
+          feature.properties.boform = face.boform
 
-            json.features.push(feature)
-          }
+          json.features.push(feature)
+        }
 
-
-          return json
-        },
+        return json
+      },
 
       payload: {
 
@@ -208,7 +206,6 @@ async function zindex (__mapper) {
           }))
           .map(mgeom.cartesian),
 
-          
         faces: [
 
           {cornersx: [ 0, 3, 11, 0]},

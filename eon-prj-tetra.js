@@ -158,7 +158,7 @@
 
     let enty = function (prjdef = {}) {
       return p(prjdef)
-    }    
+    }
     return enty
   }
 

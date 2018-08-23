@@ -61,7 +61,7 @@
     }
 
     let epsilon = 1e-3
-    
+
     let xsign = 1 //  1 if x goes left to right
     let ysign = -1 // 1 if y goes up down
 
@@ -85,7 +85,7 @@
       timer: null,
 
       s1: null, // previous position
-      s2: null, // current position      
+      s2: null, // current position
     }
 
     // .................. dragstarted listener

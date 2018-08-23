@@ -73,115 +73,108 @@ async function zindex (__mapper) {
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
-
         pacer: {
 
           itemsort: 'anima',
           base: 'geo',
           initN: 2, eventN: 1, autoN: 0, autoP: 0.001, outtimed: 0, maxN: 60,
 
-
-          geojsor: function (ani, props={}) {
-
+          geojsor: function (ani, props = {}) {
             let geofolder = function (ani, props) {
-
-                let geofold = {
-                      type: 'Feature',
-                      geometry: {
-                        type: 'LineString',
-                        coordinates: [ [0, 0, 0], [10, -10, 10] ],
-                      },
-                      properties: {},
+              let geofold = {
+                type: 'Feature',
+                geometry: {
+                  type: 'LineString',
+                  coordinates: [ [0, 0, 0], [10, -10, 10] ],
+                },
+                properties: {},
+              }
+              //
+              // get preexisting trace ani
+              //
+              let preani = mstore.findAnigramFromUid(ani.payload.uid)
+              //
+              // if there is a preani with a geofold ...
+              if (preani !== undefined) {
+                // if preani has a geofold ...
+                if (preani.geofold) geofold = preani.geofold
+                //
+                // on pacer.base .... set geofold.geometry
+                if (base === 'geo') {
+                  if (geofold.properties.formGeoformed) { // revert geometry to formGeoformed
+                    geofold.geometry = geofold.properties.formGeoformed.geometry
                   }
-                  //
-                  // get preexisting trace ani
-                  //
-                  let preani = mstore.findAnigramFromUid(ani.payload.uid)
-                  //
-                  // if there is a preani with a geofold ...
-                  if (preani !== undefined) {
-                    // if preani has a geofold ...
-                    if (preani.geofold) geofold = preani.geofold
-                    //
-                    // on pacer.base .... set geofold.geometry
-                    if (base === 'geo') {
-                      if (geofold.properties.formGeoformed) { // revert geometry to formGeoformed
-                        geofold.geometry = geofold.properties.formGeoformed.geometry
-                      }
-                    } else if (base === 'ere') {
-                      if (geofold.properties.formEreformed) { // revert geometry to formEreformed
-                        geofold.geometry = geofold.properties.formEreformed.geometry
-                      }
-                    } else if (base === 'pro') {
-                      if (geofold.properties.formProformed) { // revert geometry to formProformed
-                        geofold.geometry = geofold.properties.formProformed.geometry
-                      }
-                    } else {
-                      if (geofold.properties.formGeoformed) { // revert geometry to formGeoformed
-                        geofold.geometry = geofold.properties.formGeoformed.geometry
-                      }
-                    }
-                  } else {
-
-                    // if preani does not exisit return default geofold
-                    // console.assert(preani !== undefined, `anigram ${preani} is undefined`)
-
+                } else if (base === 'ere') {
+                  if (geofold.properties.formEreformed) { // revert geometry to formEreformed
+                    geofold.geometry = geofold.properties.formEreformed.geometry
                   }
-
-                  return geofold
+                } else if (base === 'pro') {
+                  if (geofold.properties.formProformed) { // revert geometry to formProformed
+                    geofold.geometry = geofold.properties.formProformed.geometry
+                  }
+                } else {
+                  if (geofold.properties.formGeoformed) { // revert geometry to formGeoformed
+                    geofold.geometry = geofold.properties.formGeoformed.geometry
+                  }
                 }
+              } else {
 
+                // if preani does not exisit return default geofold
+                // console.assert(preani !== undefined, `anigram ${preani} is undefined`)
 
-
-              let stacer = function (ani, props) {
-                let stace
-                if (props.key === 'init') {
-                  let a = 2 * Math.PI * Math.random()
-                  stace = {x: -120 + 120 * Math.random() * Math.cos(a), y: 90 + 90 * Math.random() * Math.sin(a), z: 0 } // INIT
-                } else if (props.key === 'auto') {
-                  stace = {x: crayder.event().x, y: crayder.event().y, z: 0 } // AUTO
-                } else if (props.key === 'event') {
-                  stace = {x: 0, y: 0, z: 0 } // EVENT
-                }
-                return stace
               }
 
-              let anitem = {
+              return geofold
+            }
 
-                halo: "ent",
-                geofold: geofolder(ani, props),
-                payload: {
-                  tim: tim,
-                  ric: {
+            let stacer = function (ani, props) {
+              let stace
+              if (props.key === 'init') {
+                let a = 2 * Math.PI * Math.random()
+                stace = {x: -120 + 120 * Math.random() * Math.cos(a), y: 90 + 90 * Math.random() * Math.sin(a), z: 0 } // INIT
+              } else if (props.key === 'auto') {
+                stace = {x: crayder.event().x, y: crayder.event().y, z: 0 } // AUTO
+              } else if (props.key === 'event') {
+                stace = {x: 0, y: 0, z: 0 } // EVENT
+              }
+              return stace
+            }
 
-                    gid: ani.payload.ric.gid,
-                    cid: ani.payload.ric.cid,
-                    fid: ani.payload.ric.fid + props.counter,
+            let anitem = {
 
-                  },
-                  uid: mric.getuid(ani.payload.ric),
-                  stace: stacer(ani, props),
+              halo: 'ent',
+              geofold: geofolder(ani, props),
+              payload: {
+                tim: tim,
+                ric: {
 
-                  proform: {
-                    projection: 'uniwen',
-                    scale: [ 0.5, 0.5 ],
-                    prerotate: [[[ cwen.rotation ]]],
-                    translate: [ [0, -100, 0] ],
-                    rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
-                    rotate: [ 0, 0, 0 ],
-                    lens: [0, 1, Infinity ],
-                    anod: 1,
-                  },
+                  gid: ani.payload.ric.gid,
+                  cid: ani.payload.ric.cid,
+                  fid: ani.payload.ric.fid + props.counter,
 
-                  boform: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
-                }
+                },
+                uid: mric.getuid(ani.payload.ric),
+                stace: stacer(ani, props),
+
+                proform: {
+                  projection: 'uniwen',
+                  scale: [ 0.5, 0.5 ],
+                  prerotate: [[[ cwen.rotation ]]],
+                  translate: [ [0, -100, 0] ],
+                  rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
+                  rotate: [ 0, 0, 0 ],
+                  lens: [0, 1, Infinity ],
+                  anod: 1,
+                },
+
+                boform: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
+              },
 
             }
             return anitem
+          }, // geojsor
 
-           }, // geojsor
-
-        },    // pacer
+        }, // pacer
 
       },
 

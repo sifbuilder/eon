@@ -115,18 +115,13 @@
     // .................. ween
     async function ween (anitem) { // ok trace
       let halo = anitem.halo
-      
+
       if (typeof (halo) === 'object') {
-        
         halo = await Promise.resolve(halo)
-        
       } else {
-        
-         let ceon =  __mapper("xs").ceonize(halo, "halo")
-        
+        let ceon = __mapper('xs').ceonize(halo, 'halo')
+
         halo = await __mapper('xs').h(halo) // halo = __mapper(ceon)
-        
-        
       }
       await halo.ween(anitem) // UPDANIMA in halo
     }
