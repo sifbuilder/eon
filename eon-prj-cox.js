@@ -121,11 +121,10 @@
     }
 
     // .................. enty
-    let p = function (props) {
-
+    let p = function (opts) {
       let m
 
-      let {prjlat, prjlagr, prjrad} = props
+      let {prjlat, prjlagr, prjrad} = opts
 
       if ({prjlat, prjlagr, prjrad} ===
         cache.prjlat, cache.prjlagr, cache.prjrad &&
@@ -146,7 +145,7 @@
 
     let enty = function (prjdef = {}) {
       return p(prjdef)
-    }    
+    }
     return enty
   }
 
