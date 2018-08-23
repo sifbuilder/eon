@@ -11,10 +11,7 @@
 
   // muonNewton muon
   async function muonNewton (__mapper = {}) {
-    // import {abs, epsilon, halfPi, sqrt} from 'math'
     var abs = Math.abs, epsilon = 1e-6, halfPi = Math.PI / 2, sqrt = Math.sqrt
-
-    // import {cartesian, cartesianScale, spherical} from 'cartesian'
     var asin = Math.asin, atan2 = Math.atan2, cos = Math.cos, sin = Math.sin
 
     function spherical (cartesian) {
