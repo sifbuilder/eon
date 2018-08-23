@@ -27,6 +27,7 @@
       d3GeoProjection,
       d3Array,
       muonGeom,
+      muonMath,
     ] = await Promise.all([
       __mapper('xs').l('complex'),
       __mapper('xs').m('polyhedral'),
@@ -35,6 +36,7 @@
       __mapper('xs').b('d3-geo-projection'),
       __mapper('xs').b('d3-array'),
       __mapper('xs').m('geom'),
+      __mapper('xs').m('math'),
     ])
 
     let epsilon = 1e-6,
@@ -61,7 +63,7 @@
             h = Complex(0),
             z = Complex(s).mul(Math.sqrt(2))
 
-          let rot = w.clone().pow(d3.scan([0, 1, 2].map( // rotate to have s ~= 1
+          let rot = w.clone().pow(d3Array.scan([0, 1, 2].map( // rotate to have s ~= 1
             i => -(z.clone().mul(w.clone().pow(i))).re
           )))
 
@@ -76,7 +78,7 @@
             // https://bl.ocks.org/Fil/1aeff1cfda7188e9fbf037d8e466c95c
             let w1 = 1.4021821053254548
 
-            let G0 = __mapper('xs').m('geom').coefsG0() // G0 coeficients
+            let G0 = muonGeom.coefsG0() // G0 coeficients
 
             let G = Complex(0)
             for (let i = G0.length; i--;) {
@@ -108,13 +110,13 @@
           return t.toVector()
         }
 
-        let s = d3.geoStereographicRaw(lambda, phi) // lagrange
+        let s = d3Geo.geoStereographicRaw(lambda, phi) // lagrange
         let t = sm_1(s)
         let ret = t
         return ret
       }
 
-      prjRaw.invert = __mapper('xs').m('math').geoInverse(prjRaw)
+      prjRaw.invert = muonNewton.geoInverse(prjRaw)
 
       return prjRaw
     }
@@ -153,11 +155,12 @@
 
       if (!opts.prjRaw) opts.prjRaw = prj(prjlat, prjlagr, prjrad)
 
-      return mpolyhedral(opts)
+      return muonPolyhedral(opts)
     }
 
     let enty = function (prjdef = {}) {
-      return p(prjdef)
+      let res = p(prjdef)
+      return res
     }
     return enty
   }

@@ -49,7 +49,6 @@
             return f
           }
         })
-        .catch(e => { console.log('error', e) })
     }
 
     // ............................. conform
@@ -87,7 +86,6 @@
 
           return res
         })
-        .catch(e => { console.log('error', e) })
     }
 
     // ............................. getgj
