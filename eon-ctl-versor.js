@@ -136,10 +136,10 @@
       state.r1_grads = state.r2_grads
       state.q1 = state.q2
 
-      state.rotAccum_radians =
+      state.rotAccum_grads =
             mgeom.add(
-              state.rotAccum_radians,
-              state.rotInDrag_radians) // rotation
+              state.rotAccum_grads,
+              state.rotInDrag_grads) // rotation
 
       rebase() // rebase rotInDrag
     }
@@ -149,13 +149,12 @@
       if (!state.grabbed) return
 
       let e = d3selection.event
-
       state.s2 = getPos(e)
 
       state.c2Rads = state.projection.invert(state.s2)
       state.c2 = mgeom.cartesian(state.c2Rads)
 
-      state.qd = mversor.delta(state.c1, state.c2) // q(c0 to c1)
+      state.qd = mversor.delta(state.c2, state.c1) // q(c0 to c1)
       let q2 = mversor.multiply(state.q1, state.qd) // conmpose rotations
       let rotInDrag_grads = mversor.rotation(q2) // [a1,a2,a3] euler angles in degrees
 
@@ -173,8 +172,8 @@
       state.lastMoveTime = Date.now()
 
       let r2 = rotInDrag_grads
-
       state.rotInDrag_grads = r2
+
     }
 
     // .................. dragended
@@ -182,11 +181,6 @@
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
-
-      // state.vel_radians = [ // velocity
-      // xsign * (state.s2[1] - state.s1[1]) * inits.mult_radians,
-      // ysign * (state.s2[0] - state.s1[0]) * inits.mult_radians,
-      // ]
 
       state.timer = requestAnimationFrame(momentum)
     }
@@ -208,17 +202,20 @@
         state.qd[3],
       ]
 
-      state.rotInDrag_grads = mversor.rotation(state.qd)
+      let q2 = mversor.multiply(state.q1, state.qd) // conmpose rotations
+      let rotInDrag_grads = mversor.rotation(q2) // [a1,a2,a3] euler angles in degrees
+      state.rotInDrag_grads = rotInDrag_grads
 
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
 
     // .................. enty
     let enty = function (p = {}) {
-      let rotInit_degrees = p.rotInit
-      let rotInit_radians = mgeom.to_radians(rotInit_degrees)
+      // let rotInit_degrees = p.rotInit
+      // let rotInit_radians = mgeom.to_radians(rotInit_degrees)
 
-      state.rotAccum_radians = rotInit_radians || inits.rotInit_radians
+      // state.rotAccum_radians = rotInit_radians || inits.rotInit_radians
+      state.rotAccum_grads = rotInit_grads || inits.rotInit_grads
 
       state.timer = requestAnimationFrame(tick)
 
@@ -241,7 +238,11 @@
       }
     }
 
-    enty.rotation = () => mgeom.add(state.rotAccum_grads, state.rotInDrag_grads)
+    enty.rotation = () => {
+      let res = mgeom.add(state.rotAccum_grads, state.rotInDrag_grads)
+      
+      return res
+    }
     // enty.rotation = () => mgeom.add(state.rotAccum_radians, state.rotInDrag_radians)
     // .map(mgeom.to_degrees)
 

@@ -62,8 +62,8 @@
 
     let epsilon = 1e-3
 
-    let xsign = 1 //  1 if x goes left to right
-    let ysign = -1 // 1 if y goes up down
+    let xsign = -1 //  up/down
+    let ysign = -1 // left/right
 
     // .................. state
     let state = {
@@ -122,16 +122,13 @@
       if (!state.grabbed) return
 
       let e = d3selection.event
-
       state.s2 = getPos(e)
 
       let sd = [
-
         xsign * (state.s2[1] - state.s1[1]),
         ysign * (state.s1[0] - state.s2[0]),
       ]
       let sdist = sd[0] * sd[0] + sd[1] * sd[1]
-
       if (!state.moved) {
         if (sdist < inits.moveSpan) return
         state.moved = true // moved
@@ -143,7 +140,6 @@
       let r2 = [
         state.rotVel_radians[0] + sd[0] * inits.mult_radians,
         state.rotVel_radians[1] + sd[1] * inits.mult_radians,
-        state.rotVel_radians[2] + 0,
       ]
 
       state.rotInDrag_radians = r2
