@@ -11,7 +11,6 @@
 </head>
 <body style="cursor:crosshair"></body>
 
-
 <script src="eon-x-d3-require.js"></script>
 <script src="eon-x-mapper.js"></script>
 <script src="eon-x-s.js"></script>
@@ -39,9 +38,11 @@ async function zindex (__mapper) {
   let [
     cwen,
     mprops,
+    puniwen,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').m('props'),
+    __mapper('xs').p('uniwen'),
   ])
 
   // .................. animas
@@ -51,32 +52,33 @@ async function zindex (__mapper) {
 
     let proformFaces = {
 
-      projection: 'uniwen',
-      translate: [ 180 - 300, 200 - 200 ],
+      projection: puniwen(),
+      center: [ 0, 0 ],
+      translate: [ 180 - 180, 200 - 200 ],
       scale: 90,
-      prerotate: [[[ cwen.rotation ]]],
-      rotate: [ 0, 0, 0 ],
-      lens: [0, 1, 12],
+      rotate: [ [0, 1, 12], [[[ cwen.rotation ]]] ],
+      lens: [0, 1, 4], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
 
     }
 
-    let geoformFaces = ani => { // geofold creates featurecollection
-      let payload = ani.payload, // payload
-        boform = payload.boform // boform
+    let geoformFaces = ani => { // geofold creates geojson featurecollection
+      let payload = ani.payload // payload
 
       let faces = mprops.v(payload.faces) // payload.faces
-
       let json = {type: 'FeatureCollection', features: []}
 
-      for (let i = 0, l = faces.length; i < l; i++) {
-        let face = faces[i] // face corners position
+      // for (let i = 0, l = faces.length; i < l; i++) {
+      // let face = faces[i] // face cornersx position
+      for (let i = 0, l = 40; i < l; i++) {
+        let face = faces[0] // face cornersx position
 
         let geometry = {type: 'Polygon', coordinates: []}
         geometry.coordinates = Array.of(face.vertices) // eg [-1, 1, 1]
 
         let properties = {}
-        properties.boform = face.boform || boform
-        properties.name = (i === 0) ? 'red' : 'orange'
+        // properties.boform = face.boform || boform
+        properties.boform = {'csx': 0, 'cf': 333 + 10 * i, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
+        properties.name = 'orange' + '_' + i
 
         let feature = {type: 'Feature', geometry: {}, properties: {}}
         feature.geometry = geometry
@@ -86,12 +88,13 @@ async function zindex (__mapper) {
       }
       return json
     }
-
-    // .................. aniTwoFaces
-    let aniTwoFaces = {
+    // .................. aniOneFace
+    let aniOneFace = {
 
       halo: 'ent',
+
       geofold: geoformFaces, // geofold,
+
       payload: {
         tim: tim,
         ric: {'gid': 'faces', 'cid': 'face', 'fid': 'face'},
@@ -141,7 +144,7 @@ async function zindex (__mapper) {
 
     // .................. animas
     let animas = [
-      aniTwoFaces, // h.ent g.uniwen
+      aniOneFace, // h.ent g.uniwen
       sceneAni, // h.scene
     ]
 

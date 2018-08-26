@@ -37,8 +37,8 @@
       state.rotInDrag_radians = [0, 0, 0] // reset to default rotation
     }
 
-    // ....................... versorControl
-    let versorControl = {
+    // ....................... dragControl
+    let dragControl = {
       dragstarted,
       dragged,
       dragended,
@@ -46,7 +46,7 @@
     }
 
     // .................. start drag control
-    let control = elem => elem.call(d3drag.drag().on('start', versorControl.dragstarted).on('drag', versorControl.dragged).on('end', versorControl.dragended))
+    let control = elem => elem.call(d3drag.drag().on('start', dragControl.dragstarted).on('drag', dragControl.dragged).on('end', dragControl.dragended))
 
     // .................. stop drag control
     let reset = elem => elem.call(d3drag.drag().on('start', null).on('drag', null).on('end', null))
@@ -193,10 +193,22 @@
     enty.control = control
     enty.reset = reset
 
-    enty.projection = _ => _ !== undefined ? (state.projection = _, enty) : state.projection
+    enty.projection = _ => {
+      if (_ !== undefined) {
+        state.projection = _
+        return enty
+      } else { 
+        return state.projection
+      }
+    }
 
-    enty.rotation = () => mgeom.add(state.rotAccum_radians, state.rotInDrag_radians)
+    enty.rotation = () => {
+      let res = mgeom.add(
+        state.rotAccum_radians, 
+        state.rotInDrag_radians)
       .map(mgeom.to_degrees)
+      return res
+    }
 
     return enty
   }

@@ -137,8 +137,6 @@
       let featurecollectionPromise = collect(state.animas, elapsed)
       featurecollectionPromise
         .then(featurecollection => {
-          if (1 && 1) console.log('featurecollection', featurecollection)
-
           rsvg.render(featurecollection)
         })
     }
