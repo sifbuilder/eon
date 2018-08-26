@@ -9,6 +9,9 @@
   'use strict'
 
   async function renderSvg (__mapper = {}) {
+    
+    if (1 && 1) console.log('renderSvg', renderSvg)
+
     let [
       rrenderport, // cameraProjer
       d3,
@@ -31,10 +34,13 @@
       background: background,
     } // Viewport
 
-    let svglayer = d3.select('.viewframe')
+    // let svglayer = d3.select('.viewframe')
+    let svglayer = d3.select('body')
       .append('svg')
-      .attr('id', 'svglayer')
-      .attr('class', 'svglayer')
+      // .attr('id', 'svglayer')
+      .attr('id', 'viewframe')
+      // .attr('class', 'svglayer')
+      .attr('class', 'viewframe')
       .style('position', 'absolute')
       .attr('width', state.width)
       .attr('height', state.height)
@@ -114,6 +120,9 @@
 
     // ............................. render
     let render = function (featurecollection, maxlimit) {
+      
+      if (1 && 1) console.log('render', featurecollection)
+
       let features = featurecollection.features
         .filter(
           d => d !== null
