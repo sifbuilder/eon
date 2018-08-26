@@ -1,0 +1,278 @@
+// d3-require Version 1.0.4 Copyright 2018 Observable, Inc.
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.xEonify = global.xEonify || {})))
+}(this, function (exports) {
+  'use strict'
+
+  const metas = new Map()
+  const modules = new Map()
+  const queue = []
+  const map = queue.map
+  const some = queue.some
+  const hasOwnProperty = queue.hasOwnProperty
+  const origin = 'https://unpkg.com/'
+  const parseRe = /^((?:@[^/@]+\/)?[^/@]+)(?:@([^/]+))?(?:\/(.*))?$/
+
+  function string (value) {
+    return typeof value === 'string' ? value : ''
+  }
+
+  function parseIdentifier (identifier) {
+    const match = parseRe.exec(identifier)
+    return match && {
+      name: match[1],
+      version: match[2],
+      path: match[3],
+    }
+  }
+
+  function resolveMeta (target) {
+    const url = `${origin}${target.name}${target.version ? `@${target.version}` : ''}/package.json`
+    let meta = metas.get(url)
+    if (!meta) {
+      metas.set(url, meta = fetch(url).then(response => {
+        if (!response.ok) throw new Error('unable to load package.json')
+        if (response.redirected && !metas.has(response.url)) metas.set(response.url, meta)
+        return response.json()
+      }))
+    }
+    return meta
+  }
+
+  async function resolve (name, base) {
+    if (name.startsWith(origin)) name = name.substring(origin.length)
+    if (/^(\w+:)|\/\//i.test(name)) return name
+    if (/^[.]{0,2}\//i.test(name)) return new URL(name, base == null ? location : base).href
+    if (!name.length || /^[\s._]/.test(name) || /\s$/.test(name)) throw new Error('illegal name')
+    const target = parseIdentifier(name)
+    if (!target) return `${origin}${name}`
+    if (!target.version && base != null && base.startsWith(origin)) {
+      const meta = await resolveMeta(parseIdentifier(base.substring(origin.length)))
+      target.version = meta.dependencies && meta.dependencies[target.name] || meta.peerDependencies && meta.peerDependencies[target.name]
+    }
+    const meta = await resolveMeta(target)
+    return `${origin}${meta.name}@${meta.version}/${target.path || string(meta.unpkg) || string(meta.browser) || string(meta.main) || 'index.js'}`
+  }
+
+  const require = requireFrom(resolve)
+
+  function requireFrom (resolver) {
+    const requireBase = requireRelative(null)
+
+    function requireAbsolute (url) {
+      let module = modules.get(url)
+
+      if (!module) {
+        modules.set(url, module = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.onload = () => {
+            try { resolve(queue.pop()(requireRelative(url))) } catch (error) { reject(new Error('invalid module')) }
+            script.remove()
+          }
+          script.onerror = () => {
+            reject(new Error('unable to load module'))
+            script.remove()
+          }
+          script.async = true
+          script.src = url
+          window.define = define
+          document.head.appendChild(script)
+        }))
+      }
+
+      return module
+    }
+
+    function requireRelative (base) {
+      return name => Promise.resolve(resolver(name, base)).then(requireAbsolute)
+    }
+
+    function require (name) {
+      return arguments.length > 1
+        ? Promise.all(map.call(arguments, requireBase)).then(merge)
+        : requireBase(name)
+    }
+
+    require.resolve = resolver
+
+    return require
+  }
+
+  function merge (modules) {
+    const o = {}
+    for (const m of modules) {
+      for (const k in m) {
+        if (hasOwnProperty.call(m, k)) {
+          if (m[k] == null) Object.defineProperty(o, k, {get: getter(m, k)})
+          else o[k] = m[k]
+        }
+      }
+    }
+    return o
+  }
+
+  function getter (object, name) {
+    return () => object[name]
+  }
+
+  function isexports (name) {
+    return (name + '') === 'exports'
+  }
+
+  function define (name, dependencies, factory) {
+    const n = arguments.length
+    if (n < 2) factory = name, dependencies = []
+    else if (n < 3) factory = dependencies, dependencies = typeof name === 'string' ? [] : name
+    queue.push(some.call(dependencies, isexports) ? require => {
+      const exports = {}
+      return Promise.all(map.call(dependencies, name => {
+        return isexports(name += '') ? exports : require(name)
+      })).then(dependencies => {
+        factory.apply(null, dependencies)
+        return exports
+      })
+    } : require => {
+      return Promise.all(map.call(dependencies, require)).then(dependencies => {
+        return typeof factory === 'function' ? factory.apply(null, dependencies) : factory
+      })
+    })
+  }
+
+  define.amd = {}
+
+
+
+
+
+
+
+
+  let xs = function (__mapper = {}) {
+    const xD3Require = __mapper('xD3Require')
+
+    const capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // wen => Wen
+    const ceonize = (nome, pres = '') => (pres === '')
+      ? camelize(nome.replace(/^eon-/, ''))
+      : camelize(pres + '-' + nome) // [uni-wen,muon] => muonUniWen
+    const feonize = (nome, pres = '') => './' + xeonize(nome, pres) + '.js' // wen => ./muon-wen.js
+    let xeonize = (nome, pres = '') => (pres === '') // wen => eon-muon-wen
+      ? nome
+      : (pres !== '')
+        ? 'eon' + '-' + pres + '-' + nome
+        : pres + '-' + nome
+    const camelize = str => str
+      .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index === 0 ? letter.toLowerCase() : letter.toUpperCase())
+      .replace(/\s+/g, '') // remove white space
+      .replace(/-+/g, '') // remove hyphen
+    const getCell = (e, n, m) => { // eon, name, mapper
+      if (e[n] !== undefined && typeof e[n] === 'function') {
+        return e[n](m)
+      } else if (typeof e === 'object') {
+        return e
+      } else {
+        return e
+      }
+
+      // return e[n] !== undefined ? e[n](m) : e
+    }
+    const mapCell = (e, n, m) => m({[n]: e})[n]
+    const a = d => Array.isArray(d) ? d : Array.of(d)
+
+    // ............................. getCeonSync
+    const getCeonSync = part => __mapper(part[0])
+
+    // ............................. getCeon
+    async function getCeon (part) {
+      let ceon = part[0]
+      let r = __mapper(ceon)
+      return r ? Promise.resolve(r) : Promise.reject(r)
+    }
+
+    // ............................. getFeon
+    async function getFeon (part) { // d3Froce3d, ./d3-force-3d.js
+    // if (1 && 1) console.log('part', part[0])
+      return xD3Require.require(...a(part[1])) // get eon
+        .then(eon => getCell(eon, part[0], __mapper)) // eon to cell
+        .then(cell => mapCell(cell, part[0], __mapper)) // map cell
+    }
+
+    // ............................. getNeon
+    async function getNeon (part) { // d3Froce3d, d3-force-3d
+    // if (1 && 1) console.log('part', part[0])
+
+      return xD3Require.require(...a(part[1])) // get eon
+        .then(eon => getCell(eon, part[0], __mapper)) // eon to cell
+        .then(cell => mapCell(cell, part[0], __mapper)) // map cell
+    }
+
+    // ............................. getEon
+    async function getEon (inpart) { // nome is partName: eg 'muonGraticule'
+      let part = (typeof inpart === 'string') ? [inpart, ''] : inpart
+      let [name, pres] = part
+
+      let ceon = ceonize(name, pres) // muonVersor
+      let feon = feonize(name, pres) // ./eon-muon-versor.js
+      let neon = xeonize(name, pres) // eon-muon-versor
+
+      var eonfroms = [
+        () => getCeon([ceon, '']),
+        () => getFeon([ceon, feon]),
+        () => getNeon([ceon, neon]),
+      ]
+
+      return eonfroms.reduce(
+        (p, q) => p.catch(failed => Promise.resolve(getCeonSync([ceon, '']) || q())),
+        Promise.reject('init reduce'))
+        .catch(failed => { console.log('Failed: ', ceon, failed) })
+    }
+
+    // ............................. enty
+    let enty = function () {}
+
+    enty.ceonize = ceonize
+    enty.boson = enty.b = (nome, pres = '') => getEon([nome, pres])
+    enty.ctl = enty.c = (nome, pres = 'ctl') => getEon([nome, pres])
+    enty.dat = enty.d = (nome, pres = 'dat') => getEon([nome, pres])
+    enty.force = enty.f = (nome, pres = 'force') => getEon([nome, pres])
+    enty.geo = enty.g = (nome, pres = 'geo') => getEon([nome, pres])
+    enty.halo = enty.h = (nome, pres = 'halo') => getEon([nome, pres])
+    enty.lib = enty.l = (nome, pres = 'lib') => getEon([nome, pres])
+    enty.muon = enty.m = (nome, pres = 'muon') => getEon([nome, pres])
+    enty.prj = enty.p = (nome, pres = 'prj') => getEon([nome, pres])
+    enty.render = enty.r = (nome, pres = 'render') => getEon([nome, pres])
+    enty.zindex = enty.z = (nome, pres = 'z') => getEon([nome, pres])
+
+    return enty
+  }
+
+
+
+
+   let xMapper = function () {
+    let state = {}
+
+    // ............................. enty
+    let enty = function (_) {
+      if (arguments.length < 1) return state
+      else if (typeof _ === 'object') return (state = Object.assign({}, state, _))
+      else if (typeof _ === 'string' && state[_] !== undefined) return state[_]
+      else if (typeof _ === 'string' && state[_] === undefined) return null
+    }
+
+    return enty
+  }
+
+
+
+
+  exports.xMapper = xMapper
+
+  exports.xs = xs
+
+  exports.require = require
+  exports.requireFrom = requireFrom
+
+  Object.defineProperty(exports, '__esModule', { value: true })
+}))
