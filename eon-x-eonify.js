@@ -175,7 +175,6 @@
         return e
       }
 
-      // return e[n] !== undefined ? e[n](m) : e
     }
     const mapCell = (e, n, m) => m({[n]: e})[n]
     const a = d => Array.isArray(d) ? d : Array.of(d)
@@ -192,7 +191,6 @@
 
     // ............................. getFeon
     async function getFeon (part) { // d3Froce3d, ./d3-force-3d.js
-    // if (1 && 1) console.log('part', part[0])
       return xD3Require.require(...a(part[1])) // get eon
         .then(eon => getCell(eon, part[0], __mapper)) // eon to cell
         .then(cell => mapCell(cell, part[0], __mapper)) // map cell
@@ -200,8 +198,6 @@
 
     // ............................. getNeon
     async function getNeon (part) { // d3Froce3d, d3-force-3d
-    // if (1 && 1) console.log('part', part[0])
-
       return xD3Require.require(...a(part[1])) // get eon
         .then(eon => getCell(eon, part[0], __mapper)) // eon to cell
         .then(cell => mapCell(cell, part[0], __mapper)) // map cell
@@ -209,29 +205,45 @@
 
     // ............................. getEon
     async function getEon (inpart) { // nome is partName: eg 'muonGraticule'
-      let part = (typeof inpart === 'string') ? [inpart, ''] : inpart
-      let [name, pres] = part
 
-      let ceon = ceonize(name, pres) // muonVersor
-      let feon = feonize(name, pres) // ./eon-muon-versor.js
-      let neon = xeonize(name, pres) // eon-muon-versor
+      let part = (typeof inpart === 'string') ? [inpart, ''] : inpart // else array
 
-      var eonfroms = [
-        () => getCeon([ceon, '']),
-        () => getFeon([ceon, feon]),
-        () => getNeon([ceon, neon]),
-      ]
+      if (typeof part[0] === 'function') {
 
-      return eonfroms.reduce(
-        (p, q) => p.catch(failed => Promise.resolve(getCeonSync([ceon, '']) || q())),
-        Promise.reject('init reduce'))
-        .catch(failed => { console.log('Failed: ', ceon, failed) })
+        let [eonfn, pres] = part
+        let x = await eonfn(__mapper)
+        let res = await x[pres]()
+        return res
+
+      } else {
+
+        let [name, pres] = part
+
+        let ceon = ceonize(name, pres) // muonVersor
+        let feon = feonize(name, pres) // ./eon-muon-versor.js
+        let neon = xeonize(name, pres) // eon-muon-versor
+
+        var eonfroms = [
+          () => getCeon([ceon, '']),
+          () => getFeon([ceon, feon]),
+          () => getNeon([ceon, neon]),
+        ]
+
+        return eonfroms.reduce(
+          (p, q) => p.catch(failed => Promise.resolve(getCeonSync([ceon, '']) || q())),
+          Promise.reject('init reduce'))
+          .catch(failed => { console.log('Failed: ', ceon, failed) })
+
+
+      }
+
     }
 
     // ............................. enty
     let enty = function () {}
 
     enty.ceonize = ceonize
+    enty.ani = enty.a = (nome, pres = 'ani') => getEon([nome, pres])
     enty.boson = enty.b = (nome, pres = '') => getEon([nome, pres])
     enty.ctl = enty.c = (nome, pres = 'ctl') => getEon([nome, pres])
     enty.dat = enty.d = (nome, pres = 'dat') => getEon([nome, pres])
@@ -265,6 +277,29 @@
   }
 
 
+  let eon = async function(anitem) {
+    let __mapper = xEonify.xMapper() // init mapper
+    __mapper({'xD3Require': {
+          require: xEonify.require,
+          requireFrom: xEonify.requireFrom,
+        }
+    }) // map require
+    __mapper({'xs': xEonify.xs(__mapper)}) // map xs
+
+    let muonStore = await __mapper('xs').m('store') // map store
+    let muonAnimation = await __mapper('xs').m('animation') // map animation
+
+    console.assert(typeof anitem === 'function'
+      || typeof anitem === 'string') // anitem is function or string
+          
+    __mapper('xs').a(anitem) // proxy ani.anitem
+    .then(animas => __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}))  // store animas
+    .then(() => __mapper('muonAnimation').animate())  // animate
+
+
+  }
+
+  exports.eon = eon
 
 
   exports.xMapper = xMapper
