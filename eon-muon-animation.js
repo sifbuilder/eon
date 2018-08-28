@@ -97,7 +97,7 @@
           // return anigrams
         })
         .then(() => {
-          let featurecollection = { type: 'FeatureCollection', features: mstore.anigrams().map(d => d.geofold) }
+          let featurecollection = { type: 'FeatureCollection', features: mstore.anigrams().map(d => d.payload.geofold) }
           return featurecollection
         })
         // .catch(e => { console.log(e) })

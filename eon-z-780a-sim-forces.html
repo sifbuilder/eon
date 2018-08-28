@@ -128,16 +128,17 @@ async function zindex (__mapper) {
         } else { // create anima
           ani.halo = 'ent' // create halo
 
-          ani.geofold = { // will create anigram
+          ani.payload.geofold = { // will create anigram
             type: 'Feature',
             geometry: {type: 'Point', coordinates: [ 3 * i, 0, 0]},
-            properties: {},
+            properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
           }
 
           ani.payload.geonode.properties.orgen = [0, 0, 0 ]
         }
         animas.push(ani)
       }
+if (1 && 1) console.log('animas', animas)
 
       mstore.apply({type: 'UPDANIMA', animas: animas}) // live
       return animas
@@ -158,9 +159,10 @@ async function zindex (__mapper) {
 
       halo: isolation,
 
-      geofold: p => mnat.natFeature(p.payload.form),
 
       payload: {
+        geofold: p => mnat.natFeature(p.payload.form),
+
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
@@ -176,8 +178,10 @@ async function zindex (__mapper) {
           geojsor: () => {
             let ani = {}
             ani.halo = 'ent'
-            ani.geofold = {type: 'Feature', geometry: {type: 'Point', coordinates: null}, properties: {}}
-            ani.payload = {}
+            
+            ani.payload = {
+              geofold: {type: 'Feature', geometry: {type: 'Point', coordinates: null}, properties: {}}
+            }
             return ani
           },
 

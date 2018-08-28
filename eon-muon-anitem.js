@@ -34,16 +34,15 @@
       let anigram = ani
 
       console.assert(anigram !== undefined)
-      anigram.geofold = functor((anigram.geofold), anigram) // geofold
 
       if (anigram.payload === undefined) anigram.payload = {}
+      anigram.payload.geofold = functor(anigram.payload.geofold, anigram) // geofold
       anigram.payload.conform = functor(anigram.payload.conform, anigram) // conform
       anigram.payload.proform = functor(anigram.payload.proform, anigram) // proform
 
       return {
 
         halo: anigram.halo, // halo
-        geofold: anigram.geofold, // geofold
         payload: anigram.payload, // payload
         avatars: anigram.avatars, // avatars
 
@@ -55,11 +54,11 @@
       let newAnitem = mprops.clone(anitem)
 
       console.assert(anitem !== undefined)
-      console.assert(anitem.geofold !== undefined, anitem.payload.uid + ' geofold undefined')
+      console.assert(anitem.payload.geofold !== undefined, anitem.payload.uid + ' geofold undefined')
 
-      let geofold = functor((anitem.geofold), anitem) // geofold
+      let geofold = functor((anitem.payload.geofold), anitem) // geofold
 
-      newAnitem.geofold = geofold
+      newAnitem.payload.geofold = geofold
 
       return newAnitem
     }

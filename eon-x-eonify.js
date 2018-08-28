@@ -277,7 +277,9 @@
   }
 
 
-  let eon = async function(anitem) {
+  let eon = async function ({anitem, time}) {
+    if (1 && 1) console.log('anitem', anitem)
+
     let __mapper = xEonify.xMapper() // init mapper
     __mapper({'xD3Require': {
           require: xEonify.require,
@@ -294,7 +296,7 @@
           
     __mapper('xs').a(anitem) // proxy ani.anitem
     .then(animas => __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}))  // store animas
-    .then(() => __mapper('muonAnimation').animate())  // animate
+    .then(() => __mapper('muonAnimation').animate(time))  // animate
 
 
   }

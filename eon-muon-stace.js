@@ -82,13 +82,13 @@
         let parentani = mstore.findAnigramFromUid(parentuid)
         console.assert(parentani !== undefined, ` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)
 
-        let formGeoformed = parentani.geofold.properties.formGeoformed
-        let formEreformed = parentani.geofold.properties.formEreformed
-        let formProformed = parentani.geofold.properties.formProformed
+        let formGeoformed = parentani.payload.geofold.properties.formGeoformed
+        let formEreformed = parentani.payload.geofold.properties.formEreformed
+        let formProformed = parentani.payload.geofold.properties.formProformed
 
-        let nodeGeoformed = parentani.geofold.properties.nodeGeoformed || {geometry: {}}
-        let nodeEreformed = parentani.geofold.properties.nodeEreformed || {geometry: {}}
-        let nodeProformed = parentani.geofold.properties.nodeProformed || {geometry: {}}
+        let nodeGeoformed = parentani.payload.geofold.properties.nodeGeoformed || {geometry: {}}
+        let nodeEreformed = parentani.payload.geofold.properties.nodeEreformed || {geometry: {}}
+        let nodeProformed = parentani.payload.geofold.properties.nodeProformed || {geometry: {}}
 
         let locationsPerDax = []
 
@@ -107,7 +107,7 @@
             } else if (v1.hasOwnProperty('pro')) {
               coords = mgeoj.getCoords(formProformed.geometry)
             } else { // if pos look into geometry
-              coords = mgeoj.getCoords(parentani.geofold.geometry)
+              coords = mgeoj.getCoords(parentani.payload.geofold.geometry)
             }
 
             idx = (idx + coords.length) % coords.length
@@ -143,8 +143,8 @@
 
     // ........................ getSiti         situs: Arary.of(ani.x, .y, .z)
     let getSiti = function (anima, siti = []) {
-      if (anima && anima.geofold && anima.geofold.properties.geonode) {
-        siti = Array.of(anima.geofold.properties.geonode.geometry.coordinates)
+      if (anima && anima.payload.geofold && anima.payload.geofold.properties.geonode) {
+        siti = Array.of(anima.payload.geofold.properties.geonode.geometry.coordinates)
       }
 
       return siti

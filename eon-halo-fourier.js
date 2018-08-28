@@ -39,7 +39,7 @@
     async function gramm (ani, newAnigrams = []) {
       let anigram = ani,
         halo = anigram.halo, // halo
-        geofold = anigram.geofold // geofold
+        geofold = anigram.payload.geofold // geofold
 
       let payload = anigram.payload, // payload
         ric = payload.ric, // ric
@@ -111,7 +111,7 @@
 
           newItem.halo = 'ent' // halo.ent
 
-          newItem.geofold = {
+          newItem.payload.geofold = {
             type: 'Feature', // tfeature
             geometry: { type: 'Point', coordinates: [] },
             properties: {
@@ -143,14 +143,14 @@
             xn[i] = transformSorted[i].re
             yn[i] = transformSorted[i].im
             magn[i] = Math.sqrt(xn[i] * xn[i] + yn[i] * yn[i]) // amplitude of frequency
-            newItem.geofold.properties.pointRadius = magn[i] / N // sinusoid amplitude
+            newItem.payload.geofold.properties.pointRadius = magn[i] / N // sinusoid amplitude
 
             //
             // to all cycloids, add __RAY__ avatar
             //
             if (i > 0) { // add ray avatar
               let rayline = mprops.cloneObj(payload.fourier.avatars.rayline) // rayline line
-              rayline.geofold.geometry.coordinates = [
+              rayline.payload.geofold.geometry.coordinates = [
                 [acci.re / N, acci.im / N], // from this cycloid
                 [xn[i - 1], yn[i - 1]], // to prevous cycloid
               ]
@@ -176,7 +176,7 @@
           if (i === M) {
             let riccer = payload.fourier.riccer || function (ani) { return ani.payload.fourier.avatars.traceline.payload.ric }
 
-            newItem.geofold.properties.pointRadius = maglast // PENCIL radio magnitude of last
+            newItem.payload.geofold.properties.pointRadius = maglast // PENCIL radio magnitude of last
 
             //
             // init PACER clonned from fourier avatar
@@ -202,9 +202,9 @@
           newItem.payload.uid = _uid // uid
           newItem.payload.boform = boform // boform
 
-          newItem.geofold.geometry.coordinates = [xn[i], yn[i]]
-          newItem.geofold.properties.geonode.geometry.coordinates = [xn[i], yn[i]]
-          newItem.geofold.properties.geonode.properties.orgen = [xn[i], yn[i]]
+          newItem.payload.geofold.geometry.coordinates = [xn[i], yn[i]]
+          newItem.payload.geofold.properties.geonode.geometry.coordinates = [xn[i], yn[i]]
+          newItem.payload.geofold.properties.geonode.properties.orgen = [xn[i], yn[i]]
 
           iAnitems[i] = newItem
         }

@@ -92,7 +92,7 @@
     const getgj = anitem => {
       let ani = anitem
       if (Array.isArray(ani)) ani = ani[0]
-      let gj = mprops.v(ani.geofold, ani) // get geofold
+      let gj = mprops.v(ani.payload.geofold, ani) // get geofold
       gj.properties = gj.properties || {} // recall genode
       gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
       gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
@@ -111,34 +111,32 @@
     // ............................. transforms
     let transforms = (f, ani) => transformer(ani)(f)
 
-    // ............................. gramm
-    async function gramm (ani) {
-      let anigram = ani.length > 0 ? ani[0] : ani
+    // ............................. enent
+    async function enent (anitem) {
+      let anigram = anitem.length > 0 ? anitem[0] : anitem
 
-      let gj = getgj(anigram)
-
-      let gjcollection = mgeoj.featurecollect(gj)
-
+      let gjcollection = mgeoj.featurecollect(getgj(anigram))
       let promisesForTransformedFeatures = gjcollection.features.map(f => transforms(f, anigram))
-
       let newfeatures = await Promise.all(promisesForTransformedFeatures)
-
       let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
-
-      let newAni = Object.assign({}, anigram, {geofold: newcollection})
-
+      let newpayload = Object.assign({}, anigram.payload, {geofold: newcollection})
+      let newAni = Object.assign({}, anigram, {payload: newpayload})
       let newAnitems = haloFormed.gramm(newAni)
+if (1 && 1) console.log('newAnitems', newAnitems)
 
       return newAnitems
     }
 
+    // ............................. gramm
+    let gramm = anitem => enent (anitem)
+    
     // ............................. ween
-    let ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+    let ween = anitem => (anitem.payload.inited !== 1) ? (anitem.payload.inited = anitem.payload.gelded = 1, [anitem]) : []
 
     // ............................. halo
     let haloEnt = {}
-    haloEnt.ween = anima => ween(anima)
-    haloEnt.gramm = anima => gramm(anima)
+    haloEnt.ween = anitem => ween(anitem)
+    haloEnt.gramm = anitem => gramm(anitem)
 
     // ............................. enty
     let enty = haloEnt

@@ -24,7 +24,7 @@
     }
 
     function getTiles (anigram, newItems = []) {
-      let geofold = anigram.geofold, // geofold
+      let geofold = anigram.payload.geofold, // geofold
         payload = anigram.payload, // payload
         ric = payload.ric // ric
 
@@ -52,11 +52,11 @@
         newItem.payload = Object.assign({}, anigram.payload)
         newItem.payload.ric = _ric
 
-        newItem.geofold = {type: 'Polygon', coordinates: []}
+        newItem.payload.geofold = {type: 'Polygon', coordinates: []}
 
         let face = faces[i]
         let facering = [vertices[face[0]], vertices[face[1]], vertices[face[2]]]
-        newItem.geofold.coordinates = Array.of([...facering, facering[0]])
+        newItem.payload.geofold.coordinates = Array.of([...facering, facering[0]])
 
         newItems.push(newItem)
       }

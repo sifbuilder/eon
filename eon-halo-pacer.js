@@ -175,7 +175,7 @@
 
               stace = newItem.payload.stace
 
-              // situs from ani.geofold.properties.geonode
+              // situs from ani.payload.geofold.properties.geonode
               // spot from transpot stace, ani
               // locus: situs + spot
               let situs = mstace.getLocus(stace, anitem)
@@ -190,10 +190,10 @@
                 //  coords are final space coords (after h.ent, stored at m.animation)
 
                 // geocoords
-                let coords = newItem.geofold.geometry.coordinates //
+                let coords = newItem.payload.geofold.geometry.coordinates //
 
                 // precoords
-                let precoords = newItem.geofold.properties.geocoords // pre coords
+                let precoords = newItem.payload.geofold.properties.geocoords // pre coords
 
                 if (coords && coords.length > 0) {
                   let presitus = coords[coords.length - 1] // last point in paced string
@@ -206,8 +206,8 @@
                   coords = Array.of(situs) // coords start with first situs
                 }
 
-                newItem.geofold.geometry.coordinates = coords // upd coords
-                newItem.geofold.properties.geocoords = precoords
+                newItem.payload.geofold.geometry.coordinates = coords // upd coords
+                newItem.payload.geofold.properties.geocoords = precoords
 
                 let newItemsInCount = await hent.gramm(newItem) // h.ent newItem
                 newItems = [...newItems, ...newItemsInCount] // add new items
@@ -218,16 +218,16 @@
                 // geofold is Feature
                 // if newItem geofold.geometry.type is Point, then ...
 
-                if (newItem.geofold && newItem.geofold.geometry.type === 'Point') { // POINT
+                if (newItem.payload.geofold && newItem.payload.geofold.geometry.type === 'Point') { // POINT
                   // coordinates from geofold
-                  let presitus = newItem.geofold.geometry.coordinates
+                  let presitus = newItem.payload.geofold.geometry.coordinates
 
                   // if pacer item DOES  exist
                   if (presitus !== null) {
                     let d = mgeom.distance3d(presitus, situs) // distance from previous situs
 
                     if (d >= span) { // if distance from previous point greater than span
-                      newItem.geofold.geometry.coordinates = [0, 0, 0]
+                      newItem.payload.geofold.geometry.coordinates = [0, 0, 0]
                       newItem.payload.proform = {projection: 'uniwen', translate: situs } // proform
 
                       // h.ent newItem
@@ -238,7 +238,7 @@
                     // if pacer item DOES NOT exist
                   } else {
                     // initialize Point coordinates ...
-                    newItem.geofold.geometry.coordinates = [0, 0, 0]
+                    newItem.payload.geofold.geometry.coordinates = [0, 0, 0]
 
                     // ... to translate to situs thorough uniwen proform
                     newItem.payload.proform = {
@@ -266,8 +266,8 @@
                     projection: 'uniwen',
                     translate: situs,
                   })
-                  let geoData = mproj3ct(newItem.geofold, project)
-                  newItem.geofold = geoData
+                  let geoData = mproj3ct(newItem.payload.geofold, project)
+                  newItem.payload.geofold = geoData
 
                   // let newGrams = await hent.gramm(newItem)
                   let newGrams = await hent.gramm(newItem)

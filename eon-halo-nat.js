@@ -13,22 +13,19 @@
       hent = await __mapper('xs').h('ent')
 
     // .................... gramm
-    let gramm = async function (anima) {
-      return hent.gramm(Object.assign(
-        anima,
-        { halo: 'ent',
-          geofold: mnat.natFeature(anima.payload.form),
-        }
-      ))
+    let gramm = async function (anitem) {
+      anitem.halo = 'ent'
+      anitem.payload.geofold = mnat.natFeature(anitem.payload.geoform)
+      return hent.gramm(anitem)
     }
 
     // .................... ween
-    let ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+    let ween = anitem => (anitem.payload.inited !== 1) ? (anitem.payload.inited = anitem.payload.gelded = 1, [anitem]) : []
 
     // .................... halo
     let haloNat = {}
-    haloNat.ween = anima => ween(anima)
-    haloNat.gramm = anima => gramm(anima)
+    haloNat.ween = anitem => ween(anitem)
+    haloNat.gramm = anitem => gramm(anitem)
 
     // .................... enty
     let enty = haloNat

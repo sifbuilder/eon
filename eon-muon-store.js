@@ -119,9 +119,9 @@
       if (typeof (halo) === 'object') {
         halo = await Promise.resolve(halo)
       } else {
-        let ceon = __mapper('xs').ceonize(halo, 'halo')
-
-        halo = await __mapper('xs').h(halo) // halo = __mapper(ceon)
+        // let ceon = __mapper('xs').ceonize(halo, 'halo')
+        // halo = __mapper(ceon)
+        halo = await __mapper('xs').h(halo) 
       }
       await halo.ween(anitem) // UPDANIMA in halo
     }
