@@ -30,23 +30,31 @@
     }
 
     // ............................. functorize
-    let functorize = function (ani, t) {
-      let anigram = ani
+    let functorize = function (anitem, t) {
+      let newAnitem = mprops.clone(anitem)
 
-      console.assert(anigram !== undefined)
-
-      if (anigram.payload === undefined) anigram.payload = {}
-      anigram.payload.geofold = functor(anigram.payload.geofold, anigram) // geofold
-      anigram.payload.conform = functor(anigram.payload.conform, anigram) // conform
-      anigram.payload.proform = functor(anigram.payload.proform, anigram) // proform
-
-      return {
-
-        halo: anigram.halo, // halo
-        payload: anigram.payload, // payload
-        avatars: anigram.avatars, // avatars
-
+      console.assert(anitem !== undefined)
+      console.assert(anitem.payload !== undefined, anitem.payload.uid + ' payload undefined')
+      console.assert(anitem.payload.geofold !== undefined, anitem.payload.uid + ' geofold undefined')
+      
+      if (newAnitem.payload === undefined) newAnitem.payload = {}
+      
+      if (anitem.payload.ereform !== undefined) {
+        let ereform = functor(anitem.payload.ereform, anitem) // ereform
+        newAnitem.payload.ereform = ereform
+      } else if (anitem.payload.conform !== undefined) {
+        let conform = functor(anitem.payload.conform, anitem) // conform
+        newAnitem.payload.conform = conform
+      } else if (anitem.payload.proform !== undefined) {
+        let proform = functor(anitem.payload.proform, anitem) // proform
+        newAnitem.payload.proform = proform
       }
+      if (anitem.payload.geofold !== undefined) {
+        newAnitem.payload.geofold = functor(anitem.payload.geofold, anitem) // geofold
+      }
+      
+      return newAnitem
+
     }
 
     // ............................. functorgeofold

@@ -114,27 +114,30 @@
 
     // .................. ween
     async function ween (anitem) { // ok trace
+      // let anigram = anitem
       let halo = anitem.halo
-
       if (typeof (halo) === 'object') {
         halo = await Promise.resolve(halo)
       } else {
-        // let ceon = __mapper('xs').ceonize(halo, 'halo')
-        // halo = __mapper(ceon)
+        // halo = __mapper(__mapper('xs').ceonize(halo, 'halo'))
         halo = await __mapper('xs').h(halo) 
       }
-      await halo.ween(anitem) // UPDANIMA in halo
+      
+      let snapped = await manitem.snapani(anitem)
+      let anigram = await manitem.functorize(snapped)
+      
+      let newItems = await halo.ween(anigram) 
+      _apply({type: 'UPDANIMA', animas: newItems})  // UPDANIMA for sim
     }
 
     // .................. gramm
     function gramm (anitem) {
       return manitem.snapani(anitem)
-        .then(geofunctored => manitem.functorpayload(geofunctored))
-        .then(snapped => manitem.functorgeofold(snapped))
+        .then(snapped => manitem.functorize(snapped))
         .then(anigram => (typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
           .then(halo => Promise.resolve(halo.gramm(anigram))
             .then(newItems => {
-              _apply({type: 'UPDANIGRAM', anigrams: newItems})
+              _apply({type: 'UPDANIGRAM', anigrams: newItems})  // UPDANIGRAM 
               newItems.forEach(newItem => {
                 let avatars = gavatars(newItem)
 
