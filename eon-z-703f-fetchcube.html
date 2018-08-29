@@ -1,59 +1,9 @@
-<!-- <!DOCTYPE html> -->
-<!-- <meta charset="utf-8"> -->
-<!-- <title>animas</title> -->
-<body style="cursor:crosshair"></body>
-<!-- <div id="viewframe" class="viewframe"></div> -->
-
-<!-- <script src="eon-x-d3-require.js"></script> -->
-<!-- <script src="eon-x-mapper.js"></script> -->
-<!-- <script src="eon-x-s.js"></script> -->
-
+<script src="eon-x-eonify.js"></script>
 <script>
+xEonify.eon({anitem, time:undefined})
 
-;(async function eon () {
-  const origin = 'https://sifbuilder.github.io/eon/'
-
-  const viewframe = document.createElement('div')
-  viewframe.id = 'viewframe'
-  viewframe.className = 'viewframe'
-  document.getElementsByTagName('body')[0].appendChild(viewframe)
-
-  let __mapper = await fetch(`${origin}eon-x-mapper.js`)
-    .then(response => response.text())
-    .then(string => {
-      Function(string)()
-      return (Function('return this')().xMapper.xMapper())
-    })
-
-  let xD3Require = await fetch(`${origin}eon-x-d3-require.js`)
-    .then(response => response.text())
-    .then(string => {
-      Function(string)()
-      return (Function('return this')().xD3Require)
-    })
-
-  let xD3Rexsquire = await fetch(`${origin}eon-x-s.js`)
-    .then(response => response.text())
-    .then(string => {
-      Function(string)()
-      return (Function('return this')().xs)
-    })
-
-  await __mapper({'xD3Require': xD3Require}) // z.require
-  await __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = await xanimas.animas() // get animas
-
-  await muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  await muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
     cwen,
@@ -64,7 +14,7 @@ async function zindex (__mapper) {
   ])
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     // .................. pics
     let tim = {'td': 9200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -173,7 +123,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

@@ -1,50 +1,9 @@
-<body style="cursor:crosshair"></body>
+<script src="eon-x-eonify.js"></script>
 <script>
+xEonify.eon({anitem, time:undefined})
 
-;(async function eon () {
-  const origin = 'https://sifbuilder.github.io/eon/'
-
-  const viewframe = document.createElement('div')
-  viewframe.id = 'viewframe'
-  viewframe.className = 'viewframe'
-  document.getElementsByTagName('body')[0].appendChild(viewframe)
-
-  let __mapper = await fetch(`${origin}eon-x-mapper.js`)
-    .then(response => response.text())
-    .then(string => {
-      Function(string)()
-      return (Function('return this')().xMapper.xMapper())
-    })
-
-  let xD3Require = await fetch(`${origin}eon-x-d3-require.js`)
-    .then(response => response.text())
-    .then(string => {
-      Function(string)()
-      return (Function('return this')().xD3Require)
-    })
-
-  let xD3Rexsquire = await fetch(`${origin}eon-x-s.js`)
-    .then(response => response.text())
-    .then(string => {
-      Function(string)()
-      return (Function('return this')().xs)
-    })
-
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map xs
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas})
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   let [
     mprops,
     mgraticule,
@@ -57,7 +16,7 @@ async function zindex (__mapper) {
     __mapper('xs').m('fibonat'),
   ])
 
-  let animas = function () {
+  let ani = function () {
   // .................. pics
     let tim = {'td': 13800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -212,7 +171,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

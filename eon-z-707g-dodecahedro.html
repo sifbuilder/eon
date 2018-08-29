@@ -1,39 +1,9 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+xEonify.eon({anitem, time:undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map xs
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas})
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   let [
     mprops,
     cwen,
@@ -46,7 +16,7 @@ async function zindex (__mapper) {
     __mapper('xs').b('d3'),
   ])
 
-  let animas = function () {
+  let ani = function () {
   // .................. pics
 
     let epsilon = 1e-6, epsilon2 = epsilon * epsilon, asin = Math.asin
@@ -203,7 +173,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

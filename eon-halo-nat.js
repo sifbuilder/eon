@@ -14,8 +14,12 @@
 
     // .................... gramm
     let gramm = async function (anitem) {
+      
+      console.assert(anitem.payload.geoform !== undefined)
+      
       anitem.halo = 'ent'
       anitem.payload.geofold = mnat.natFeature(anitem.payload.geoform)
+      
       return hent.gramm(anitem)
     }
 
