@@ -113,17 +113,30 @@
 
     // ............................. enent
     async function enent (anitem) {
+if (1 && 1) console.log('anitem', anitem)   
+  
       let anigram = anitem.length > 0 ? anitem[0] : anitem
 
+      // anigram geofold to feature collection
+      
       let gjcollection = mgeoj.featurecollect(getgj(anigram))
+      
+      
+      // geojson conform, ereform, proform transforms 
+      
       let promisesForTransformedFeatures = gjcollection.features.map(f => transforms(f, anigram))
       let newfeatures = await Promise.all(promisesForTransformedFeatures)
+
+      // newitem geofold is collection of transformed features
+      
       let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
       let newpayload = Object.assign({}, anigram.payload, {geofold: newcollection})
       let newAni = Object.assign({}, anigram, {payload: newpayload})
+
+      // return h.formed newitems 
+      
       let newAnitems = haloFormed.gramm(newAni)
 if (1 && 1) console.log('newAnitems', newAnitems)
-
       return newAnitems
     }
 

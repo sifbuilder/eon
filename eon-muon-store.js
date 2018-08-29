@@ -114,7 +114,6 @@
 
     // .................. ween
     async function ween (anitem) { // ok trace
-      // let anigram = anitem
       let halo = anitem.halo
       if (typeof (halo) === 'object') {
         halo = await Promise.resolve(halo)
@@ -123,11 +122,14 @@
         halo = await __mapper('xs').h(halo) 
       }
       
-      let snapped = await manitem.snapani(anitem)
-      let anigram = await manitem.functorize(snapped)
+      let anigram = anitem
+      // let snapped = await manitem.snapani(anitem)
+      // let anigram = await manitem.functorize(snapped)
       
       let newItems = await halo.ween(anigram) 
-      _apply({type: 'UPDANIMA', animas: newItems})  // UPDANIMA for sim
+      
+      return newItems
+      // _apply({type: 'UPDANIMA', animas: newItems})  // UPDANIMA for sim
     }
 
     // .................. gramm

@@ -26,7 +26,10 @@
         },
       }
 
-      let _geonode = Object.assign({}, geonode, node)
+      let _geonode = geonode
+      if (node.geometry) _geonode.geometry = node.geometry
+      
+      if (node.properties) _geonode.properties = node.properties      
       return _geonode
     }
 
