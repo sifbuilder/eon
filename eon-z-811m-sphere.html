@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -99,24 +99,24 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => mnat.natFeature(p.payload.form), // geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
 
         ric: {gid: 'q', cid: 'q', fid: 'q'},
-
-        proform: {
-          projection: 'uniwen',
-          scale: [ [[[1, 1]]], [[[1, 1]]] ],
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ [0, 0, 0] ],
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity ],
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            scale: [ [[[1, 1]]], [[[1, 1]]] ],
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ [0, 0, 0] ],
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, Infinity ],
+          },
         },
-
         boform: boform,
 
-        form: conform,
+        geoform: conform,
 
       },
 

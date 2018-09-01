@@ -1,31 +1,8 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>eons</title>
-<head ></head>
-<body></body>
-
 <script src="eon-x-eonify.js"></script>
-
 <script>
+xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xEonify.xMapper() // init mapper
-  __mapper({'xD3Require': {
-        require: xEonify.require,
-        requireFrom: xEonify.requireFrom,
-      }
-  }) // map require  
-  __mapper({'xs': xEonify.xs(__mapper)}) // map xs
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await anitem(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
+// .................. anitem
 // .................. anitem
 async function anitem (__mapper) {
   // .................. eons
@@ -64,8 +41,8 @@ async function anitem (__mapper) {
     let pointTrace = {
 
       halo: 'pacer',
-      geofold: null,
       payload: {
+        geofold: null,
 
         tim: tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'pointTrace'},
@@ -231,9 +208,9 @@ async function anitem (__mapper) {
     let natAni1 = {
 
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.geoform),
 
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
 
         tim,
         ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
@@ -419,8 +396,8 @@ async function anitem (__mapper) {
     let traceAni2 = {
 
       halo: 'pacer',
-      geofold: null,
       payload: {
+        geofold: null,
         tim,
         ric: {gid: 'traces', cid: 'traces', fid: 'traceAni2'},
         boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
@@ -511,15 +488,17 @@ async function anitem (__mapper) {
                 uid: mric.getuid(ani.payload.ric),
                 stace: stacer(ani, props),
 
-                proform: {
-                  projection: 'uniwen',
-                  scale: [ 0.5, 0.5 ],
-                  prerotate: [[[ cwen.rotation ]]],
-                  translate: [ [0, -100, 0] ],
-                  rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
-                  rotate: [ 0, 0, 0 ],
-                  lens: [0, 1, Infinity ],
-                  anod: 1,
+                geobach: {
+                  proform: {
+                    projection: 'uniwen',
+                    scale: [ 0.5, 0.5 ],
+                    prerotate: [[[ cwen.rotation ]]],
+                    translate: [ [0, -100, 0] ],
+                    rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
+                    rotate: [ 0, 0, 0 ],
+                    lens: [0, 1, Infinity ],
+                    anod: 1,
+                  },
                 },
 
                 boform: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
@@ -536,16 +515,18 @@ async function anitem (__mapper) {
     let textAni = {
 
       halo: 'textform',
-      geofold: null,
       payload: {
+        geofold: null,
 
         tim: tim,
         ric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
         boform: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
-        proform: {
-          projection: 'uniwen',
-          translate: [ -250, 0 ],
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            translate: [ -250, 0 ],
+          },
         },
 
         textform: {
@@ -559,14 +540,14 @@ async function anitem (__mapper) {
           },
         },
 
-      }
+      },
     }
     // .................. sceneAni
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1, ray: 1},
@@ -591,7 +572,7 @@ async function anitem (__mapper) {
     let animas = [
       // natAni1, // h.pacer
       // natAni2, // h.pacer
-      textAni, // h.textform      
+      textAni, // h.textform
       pointTrace, // h.pacer
       sceneAni, // h.scene
     ]

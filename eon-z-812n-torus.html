@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -126,22 +126,24 @@ async function anitem (__mapper) {
     let torusAni1 = {
 
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q1'},
-        proform: {
-          projection: 'uniwen',
-          scale: [ 1, 1, 1 ],
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ [0, 0, 0] ],
-          rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
-          rotate: [ 0, 0, 0 ],
-          lens: [ 0, 1, Infinity ],
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            scale: [ 1, 1, 1 ],
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ [0, 0, 0] ],
+            rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
+            rotate: [ 0, 0, 0 ],
+            lens: [ 0, 1, Infinity ],
+          },
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.0009, 0.00099]]], 'cp': [[[0.0099, 0.0099]]]},
-        form: conformTorus1,
+        geoform: conformTorus1,
       },
     }
 
@@ -149,22 +151,24 @@ async function anitem (__mapper) {
     let torusAni2 = {
 
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form), // geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q2'},
-        proform: {
-          projection: 'uniwen',
-          scale: [ 1, 1, 1 ],
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ [0, 0, 0] ],
-          // rotate: [ -[[[0,5,0]]], [[[10,30,10]]], 0 ],
-          rotate: [ 0, 0, 0 ],
-          lens: [ 0, 1, Infinity ],
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            scale: [ 1, 1, 1 ],
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ [0, 0, 0] ],
+            // rotate: [ -[[[0,5,0]]], [[[10,30,10]]], 0 ],
+            rotate: [ 0, 0, 0 ],
+            lens: [ 0, 1, Infinity ],
+          },
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[999, 999, 999]]], 'cw': [[[3.9, 3.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9]]], 'cp': [[[0.99, 0.99]]]},
-        form: conformTorus2,
+        geoform: conformTorus2,
       },
     }
 
@@ -172,22 +176,24 @@ async function anitem (__mapper) {
     let torusAni3 = {
 
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form), // geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
+      geofold: p => mnat.natFeature(p.payload.geoform),
       payload: {
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q3'},
-        proform: {
-          projection: 'uniwen',
-          scale: [ 1, 1, 1 ],
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ [0, 0, 0] ],
-          rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
-          rotate: [ 0, 0, 0 ],
-          lens: [ 0, 1, Infinity ],
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            scale: [ 1, 1, 1 ],
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ [0, 0, 0] ],
+            rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
+            rotate: [ 0, 0, 0 ],
+            lens: [ 0, 1, Infinity ],
+          },
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-        form: conformTorus3,
+        geoform: conformTorus3,
       },
     }
 

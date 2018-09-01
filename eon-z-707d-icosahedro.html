@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -30,55 +30,57 @@ async function anitem (__mapper) {
     let facesAni = {
 
       halo: 'ent',
-
-      geofold: p => {
-        let payload = p.payload,
-
-          ric = payload.ric,
-
-          faces = payload.faces(payload.breakage) // payload.faces
-
-        let json = {type: 'FeatureCollection', features: []}
-
-        for (let i = 0, l = faces.length; i < l; i++) {
-          let face = faces[i] // face cornersx position
-
-          let geometry = {type: 'Polygon', coordinates: []}
-          geometry.coordinates = Array.of(face) // eg [-1, 1, 1]
-
-          let _ric = {}
-          _ric.gid = ric.gid
-          _ric.cid = ric.cid
-          _ric.fid = ric.cid + i
-
-          let feature = {type: 'Feature', geometry: {}, properties: {}}
-
-          feature.geometry = geometry
-
-          feature.properties.ric = _ric
-          feature.properties.sort = 'form'
-          feature.properties.boform = face.boform
-
-          json.features.push(feature)
-        }
-
-        return json
-      },
-
       payload: {
+
+        geofold: p => {
+          let payload = p.payload,
+
+            ric = payload.ric,
+
+            faces = payload.faces(payload.breakage) // payload.faces
+
+          let json = {type: 'FeatureCollection', features: []}
+
+          for (let i = 0, l = faces.length; i < l; i++) {
+            let face = faces[i] // face cornersx position
+
+            let geometry = {type: 'Polygon', coordinates: []}
+            geometry.coordinates = Array.of(face) // eg [-1, 1, 1]
+
+            let _ric = {}
+            _ric.gid = ric.gid
+            _ric.cid = ric.cid
+            _ric.fid = ric.cid + i
+
+            let feature = {type: 'Feature', geometry: {}, properties: {}}
+
+            feature.geometry = geometry
+
+            feature.properties.ric = _ric
+            feature.properties.sort = 'form'
+            feature.properties.boform = face.boform
+
+            json.features.push(feature)
+          }
+
+          return json
+        },
+
         tim: tim,
         ric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
         boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
-        proform: {
+        geobach: {
+          proform: {
 
-          projection: 'uniwen',
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ 0, 0, 0 ],
-          scale: 100,
-          rotate: [0, [[[0, 3 * 360]]], 0],
-          lens: [0, 1, [[[2000, 20]]] ],
+            projection: 'uniwen',
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ 0, 0, 0 ],
+            scale: 100,
+            rotate: [0, [[[0, 3 * 360]]], 0],
+            lens: [0, 1, [[[2000, 20]]] ],
 
+          },
         },
 
         breakage: {
@@ -140,8 +142,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -63,15 +63,15 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: geoformFaces, // geofold,
-
       payload: {
+        geofold: geoformFaces, // geofold,
         tim: tim,
         ric: {'gid': 'faces', 'cid': 'face', 'fid': 'face'},
         boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
-        proform: proformFaces,
-
+        geobach: {
+          proform: proformFaces,
+        },
         faces: [
           {
             vertices: [
@@ -103,8 +103,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

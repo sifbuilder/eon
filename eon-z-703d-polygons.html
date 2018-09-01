@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -20,49 +20,51 @@ async function anitem (__mapper) {
     let idPolygon = {
 
       halo: 'ent',
-
-      geofold: (p) => {
-        let coordinaes = [
-          [-1, -1, 1],
-          [ 1, -1, 1],
-          [ 1, 1, 1],
-          [ -1, 1, 1],
-          [-1, -1, 1],
-        ]
-
-        let ric = p.payload.ric
-        let boform = p.payload.boform
-
-        let geometry = {type: 'Polygon', coordinates: []}
-
-        geometry.coordinates = Array.of(coordinaes) // eg [-1, 1, 1]
-
-        let feature = {type: 'Feature', geometry: {}, properties: {}}
-        let _ric = {gid: ric.gid, cid: ric.cid, fid: 'orange'}
-        feature.properties.ric = _ric
-
-        feature.properties.sort = 'form'
-        feature.geometry = geometry
-        feature.properties.boform = boform
-
-        let gj = {type: 'FeatureCollection', features: []}
-        gj.features.push(feature)
-        return gj
-      },
-
       payload: {
+
+        geofold: (p) => {
+          let coordinaes = [
+            [-1, -1, 1],
+            [ 1, -1, 1],
+            [ 1, 1, 1],
+            [ -1, 1, 1],
+            [-1, -1, 1],
+          ]
+
+          let ric = p.payload.ric
+          let boform = p.payload.boform
+
+          let geometry = {type: 'Polygon', coordinates: []}
+
+          geometry.coordinates = Array.of(coordinaes) // eg [-1, 1, 1]
+
+          let feature = {type: 'Feature', geometry: {}, properties: {}}
+          let _ric = {gid: ric.gid, cid: ric.cid, fid: 'orange'}
+          feature.properties.ric = _ric
+
+          feature.properties.sort = 'form'
+          feature.geometry = geometry
+          feature.properties.boform = boform
+
+          let gj = {type: 'FeatureCollection', features: []}
+          gj.features.push(feature)
+          return gj
+        },
+
         tim: tim,
         ric: {'gid': 'idPolygon', 'cid': 'idPolygon', 'fid': 'idPolygon'},
         boform: {'csx': 0, 'cf': [[[666, 777, 666, 777, 666, 777, 666]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
-        proform: {
+        geobach: {
+          proform: {
 
-          projection: 'uniwen',
-          translate: [ 200 - 300, 200 - 200 ],
-          scale: 90,
-          rotate: [0, 0, 0], // [-5,50,0],
-          lens: [0, 1, Infinity],
-          prerotate: [[[ cwen.rotation ]]],
-          control: 'wen',
+            projection: 'uniwen',
+            translate: [ 200 - 300, 200 - 200 ],
+            scale: 90,
+            rotate: [0, 0, 0], // [-5,50,0],
+            lens: [0, 1, Infinity],
+            prerotate: [[[ cwen.rotation ]]],
+            control: 'wen',
+          },
         },
       },
 
@@ -72,48 +74,51 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: (p) => {
-        let coordinaes = [
-          [-1, -1, 1],
-          [ 1, -1, 1],
-          [ 1, 1, 1],
-          [ -1, 1, 1],
-          [-1, -1, 1],
-        ]
-
-        let ric = p.payload.ric
-        let boform = p.payload.boform
-
-        let geometry = {type: 'Polygon', coordinates: []}
-
-        geometry.coordinates = Array.of(coordinaes) // eg [-1, 1, 1]
-
-        let feature = {type: 'Feature', geometry: {}, properties: {}}
-        let _ric = {gid: ric.gid, cid: ric.cid, fid: 'red'}
-        feature.properties.ric = _ric
-
-        feature.properties.sort = 'form'
-        feature.geometry = geometry
-        feature.properties.boform = boform
-
-        let gj = {type: 'FeatureCollection', features: []}
-        gj.features.push(feature)
-        return gj
-      },
       payload: {
+
+        geofold: (p) => {
+          let coordinaes = [
+            [-1, -1, 1],
+            [ 1, -1, 1],
+            [ 1, 1, 1],
+            [ -1, 1, 1],
+            [-1, -1, 1],
+          ]
+
+          let ric = p.payload.ric
+          let boform = p.payload.boform
+
+          let geometry = {type: 'Polygon', coordinates: []}
+
+          geometry.coordinates = Array.of(coordinaes) // eg [-1, 1, 1]
+
+          let feature = {type: 'Feature', geometry: {}, properties: {}}
+          let _ric = {gid: ric.gid, cid: ric.cid, fid: 'red'}
+          feature.properties.ric = _ric
+
+          feature.properties.sort = 'form'
+          feature.geometry = geometry
+          feature.properties.boform = boform
+
+          let gj = {type: 'FeatureCollection', features: []}
+          gj.features.push(feature)
+          return gj
+        },
         tim: tim,
         ric: {'gid': 'wenPolygon', 'cid': 'wenPolygon', 'fid': 'wenPolygon'},
         boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
-        proform: {
+        geobach: {
+          proform: {
 
-          projection: 'uniwen',
-          translate: [ 400 - 300, 200 - 200],
-          scale: 90,
-          rotate: [0, 0, 0],
-          lens: [0, 1, Infinity],
-          prerotate: [[[ cwen.rotation ]]],
-          control: 'wen',
+            projection: 'uniwen',
+            translate: [ 400 - 300, 200 - 200],
+            scale: 90,
+            rotate: [0, 0, 0],
+            lens: [0, 1, Infinity],
+            prerotate: [[[ cwen.rotation ]]],
+            control: 'wen',
+          },
         },
       },
 
@@ -123,8 +128,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

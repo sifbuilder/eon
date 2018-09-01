@@ -64,83 +64,99 @@ async function anitem (__mapper) {
  */
     let p1 = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(f1),
       payload: {tim,
+        geofold: p => mnat.natFeature(f1),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p1'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [150 - 300, 100 - 200, 0],
-          control: 'wen' }},
-    }
+        geobach: {
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [150 - 300, 100 - 200, 0] }
+        },
+      },
+    },
     let p2 = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(f2),
       payload: {tim,
+        geofold: p => mnat.natFeature(f2),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p2'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [250 - 300, 100 - 200, 0],
-          control: 'wen' }},
-    }
+        geobach: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [250 - 300, 100 - 200, 0] }
+        },
+      },
+    },
     let p3 = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(f3),
       payload: {tim,
+        geofold: p => mnat.natFeature(f3),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p3'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [350 - 300, 100 - 200, 0],
-          control: 'wen' }},
-    }
+        geobach: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [350 - 300, 100 - 200, 0] }
+        },
+      },
+    },
     let p4 = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(f4),
       payload: {tim,
+        geofold: p => mnat.natFeature(f4),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p4'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [450 - 300, 100 - 200, 0],
-          control: 'wen' }},
-    }
+        geobach: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [450 - 300, 100 - 200, 0] }
+        },
+      },
+    },
     let p5 = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(f5),
       payload: {tim,
+        geofold: p => mnat.natFeature(f5),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p5'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [150 - 300, 300 - 200, 0],
-          control: 'wen' }},
-    }
+        geobach: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [150 - 300, 300 - 200, 0] }
+        },
+      },
+    },
     let p6 = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(f6),
       payload: {tim,
+        geofold: p => mnat.natFeature(f6),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p6'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [250 - 300, 300 - 200, 0],
-          control: 'wen' }},
-    }
+        geobach: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [250 - 300, 300 - 200, 0] }
+        },
+      },
+    },
     let p7 = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(f7),
       payload: {tim,
+        geofold: p => mnat.natFeature(f7),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p7'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [350 - 300, 300 - 200, 0],
-          control: 'wen' }},
-    }
+        geobach: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [350 - 300, 300 - 200, 0] }
+        },
+      },
+    },
     let p8 = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(f8),
       payload: {tim,
+        geofold: p => mnat.natFeature(f8),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p8'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [450 - 300, 300 - 200, 0],
-          control: 'wen' }},
-    }
+        geobach: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [450 - 300, 300 - 200, 0] }
+        },
+      },
+    },
 
     // .................. sceneAni
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

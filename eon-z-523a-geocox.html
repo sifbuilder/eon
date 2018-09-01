@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -69,24 +69,26 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
-
       payload: {
+        geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
         tim,
-        proform: {
 
-          projection: 'cox',
+        geobach: {
+          proform: {
 
-          prerotate: [[[ cversor.rotation ]]],
-          scale: [100],
-          translate: [ 0, 0 ],
-          rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
-          step: [[[0, 0, 1.1, 1.1, 0, 0]]],
+            projection: 'cox',
 
-          prjlat: [[[1, 1]]],
-          prjlagr: [[[0.5, 0.5]]],
-          prjrad: [[[2.0, 2.0]]],
+            prerotate: [[[ cversor.rotation ]]],
+            scale: [100],
+            translate: [ 0, 0 ],
+            rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
+            step: [[[0, 0, 1.1, 1.1, 0, 0]]],
 
+            prjlat: [[[1, 1]]],
+            prjlagr: [[[0.5, 0.5]]],
+            prjrad: [[[2.0, 2.0]]],
+
+          },
         },
         graticule,
 
@@ -102,15 +104,15 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: () => {
-        return Object.assign({},
-          topojson.feature(
-            dworldTopo110m.data(),
-            dworldTopo110m.data().objects.land
-          )
-        )
-      },
       payload: {
+        geofold: () => {
+          return Object.assign({},
+            topojson.feature(
+              dworldTopo110m.data(),
+              dworldTopo110m.data().objects.land
+            )
+          )
+        },
         tim: tim,
         ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
         boform: { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
@@ -121,52 +123,30 @@ async function anitem (__mapper) {
           prjrad: [[[2.0, 2.0]]],
         },
 
-        proform: {
+        geobach: {
+          proform: {
 
-          prjlat: [[[1, 1]]],
-          prjlagr: [[[0.5, 0.5]]],
-          prjrad: [[[2.0, 2.0]]],
+            prjlat: [[[1, 1]]],
+            prjlagr: [[[0.5, 0.5]]],
+            prjrad: [[[2.0, 2.0]]],
 
-          projection: 'cox',
-          prerotate: [[[ cversor.rotation ]]],
-          scale: [100],
-          translate: [ 0, 0 ],
-          rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
-          step: [[[0, 0, 1.1, 1.1, 0, 0]]],
+            projection: 'cox',
+            prerotate: [[[ cversor.rotation ]]],
+            scale: [100],
+            translate: [ 0, 0 ],
+            rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
+            step: [[[0, 0, 1.1, 1.1, 0, 0]]],
 
+          },
         },
       },
 
     }
 
-    // ............................. geosphere
-    // let geosphere = {
-
-    // halo: 'ent',
-
-    // geofold: {
-    // type: 'Feature',
-    // geometry: {
-    // type: 'Sphere'
-    // },
-    // properties: {}
-    // },
-
-    // payload: {
-    // tim: tim,
-    // ric: {'gid': 'geosphere', 'cid': 'geosphere', 'fid': 'geosphere'},
-    // boform: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
-
-    // proform: proform
-    // }
-
-    // }
-
     // ............................. animas
     let animas = [
       geograt, // h.ent g.cox
       geoearth, // h.ent g.cox
-      // geosphere, // h.ent g.cox
 
     ]
 

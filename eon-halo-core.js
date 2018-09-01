@@ -9,7 +9,6 @@
   'use strict'
 
   async function haloCore (__mapper = {}) {
-
     // ....................... ween
     let ween = anitem => (anitem.payload.inited !== 1) ? (anitem.payload.inited = anitem.payload.gelded = 1, Array.of(anitem)) : []
 
@@ -18,7 +17,7 @@
 
     let haloCore = {
       ween: anitem => ween(anitem),
-      gramm: anitem => gramm(anitem)
+      gramm: anitem => gramm(anitem),
     }
 
     // ....................... enty

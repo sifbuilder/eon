@@ -19,8 +19,7 @@
       __mapper('xs').c('versor'),
     ])
 
-
-    // ....................... pacer    
+    // ....................... pacer
     let pacer = function (payload, newItems = []) {
       let boform = payload.boform, // boform
         ric = payload.ric, // ric

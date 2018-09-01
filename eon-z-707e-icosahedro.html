@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -31,56 +31,56 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => {
-        let payload = p.payload,
-          ric = payload.ric,
-          points = payload.points,
-          faces = payload.faces
-
-        let json = {type: 'FeatureCollection', features: []}
-
-        for (let i = 0, l = faces.length; i < l; i++) {
-          let face = faces[i] // face cornersx position
-
-          let geometry = {type: 'Polygon', coordinates: []}
-          geometry.coordinates = Array.of(
-            [ ...face.map(k => points[k]), points[0] ]
-          ) // eg [-1, 1, 1]
-          let _ric = {}
-          _ric.gid = ric.gid
-          _ric.cid = ric.cid
-          _ric.fid = ric.cid + i
-
-          let feature = {type: 'Feature', geometry: {}, properties: {}}
-
-          feature.geometry = geometry
-          feature.properties.ric = _ric
-          feature.properties.sort = 'form'
-          feature.properties.boform = face.boform
-
-          json.features.push(feature)
-        }
-
-        return json
-      },
-
       payload: {
+        geofold: p => {
+          let payload = p.payload,
+            ric = payload.ric,
+            points = payload.points,
+            faces = payload.faces
+
+          let json = {type: 'FeatureCollection', features: []}
+
+          for (let i = 0, l = faces.length; i < l; i++) {
+            let face = faces[i] // face cornersx position
+
+            let geometry = {type: 'Polygon', coordinates: []}
+            geometry.coordinates = Array.of(
+              [ ...face.map(k => points[k]), points[0] ]
+            ) // eg [-1, 1, 1]
+            let _ric = {}
+            _ric.gid = ric.gid
+            _ric.cid = ric.cid
+            _ric.fid = ric.cid + i
+
+            let feature = {type: 'Feature', geometry: {}, properties: {}}
+
+            feature.geometry = geometry
+            feature.properties.ric = _ric
+            feature.properties.sort = 'form'
+            feature.properties.boform = face.boform
+
+            json.features.push(feature)
+          }
+
+          return json
+        },
 
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'ani1'},
         boform: {'csx': 0, 'cf': [[[111, 222, 111, 222, 111, 222, 111]]], 'cs': 777, 'cw': 0.2, 'co': 0.9, 'cp': 0.9},
 
-        proform: {
+        geobach: {
+          proform: {
 
-          projection: 'uniwen',
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ -100, 0],
-          scale: 100,
-          rotate: [0, [[[0, 3 * 360]]], 0],
-          lens: [0, 1, Infinity],
+            projection: 'uniwen',
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ -100, 0],
+            scale: 100,
+            rotate: [0, [[[0, 3 * 360]]], 0],
+            lens: [0, 1, Infinity],
 
+          },
         },
-
         points: [
           [0, 90],
           [0, -90],
@@ -125,56 +125,57 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => {
-        let payload = p.payload,
-          ric = payload.ric,
-          points = payload.points({C0: (1 + Math.sqrt(5)) / 4}),
-          faces = payload.faces()
+      payload: {
+        geofold: p => {
+          let payload = p.payload,
+            ric = payload.ric,
+            points = payload.points({C0: (1 + Math.sqrt(5)) / 4}),
+            faces = payload.faces()
 
-        let json = {type: 'FeatureCollection', features: []}
+          let json = {type: 'FeatureCollection', features: []}
 
-        for (let i = 0, l = faces.length; i < l; i++) {
-          let face = faces[i] // face cornersx position
+          for (let i = 0, l = faces.length; i < l; i++) {
+            let face = faces[i] // face cornersx position
 
-          let geometry = {type: 'Polygon', coordinates: []}
-          geometry.coordinates =
+            let geometry = {type: 'Polygon', coordinates: []}
+            geometry.coordinates =
                 Array.of(
                   [ ...face.map(k => points[k]), points[0] ]
                 ) // eg [-1, 1, 1]
 
-          let _ric = {}
-          _ric.gid = ric.gid
-          _ric.cid = ric.cid
-          _ric.fid = ric.cid + i
+            let _ric = {}
+            _ric.gid = ric.gid
+            _ric.cid = ric.cid
+            _ric.fid = ric.cid + i
 
-          let feature = {type: 'Feature', geometry: {}, properties: {}}
+            let feature = {type: 'Feature', geometry: {}, properties: {}}
 
-          feature.geometry = geometry
-          feature.properties.ric = _ric
-          feature.properties.sort = 'form'
-          feature.properties.boform = face.boform
+            feature.geometry = geometry
+            feature.properties.ric = _ric
+            feature.properties.sort = 'form'
+            feature.properties.boform = face.boform
 
-          json.features.push(feature)
-        }
+            json.features.push(feature)
+          }
 
-        return json
-      },
-
-      payload: {
+          return json
+        },
 
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
         boform: {'csx': 0, 'cf': [[[111, 222, 111, 222, 111, 222, 111]]], 'cs': 777, 'cw': 0.2, 'co': 0.9, 'cp': 0.9},
 
-        proform: {
+        geobach: {
+          proform: {
 
-          projection: 'uniwen',
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ +100, 0],
-          scale: 100,
-          rotate: [0, [[[0, 3 * 360]]], 0],
-          lens: [0, 1, Infinity],
+            projection: 'uniwen',
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ +100, 0],
+            scale: 100,
+            rotate: [0, [[[0, 3 * 360]]], 0],
+            lens: [0, 1, Infinity],
 
+          },
         },
 
         points: p => {
@@ -229,8 +230,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

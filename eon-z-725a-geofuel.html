@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -78,8 +78,8 @@ async function anitem (__mapper) {
     let nat = {
 
       halo: 'nat',
-      geofold: null,
       payload: {
+        geofold: null,
         ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
         tim,
         boform,
@@ -92,12 +92,14 @@ async function anitem (__mapper) {
     let natFlat = {
 
       halo: 'nat',
-      geofold: null,
       payload: {
+        geofold: null,
         ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natFlat'},
         tim,
         boform,
-        proform: proformFlat,
+        geobach: {
+          proform: proformFlat,
+        },
         form,
       },
 
@@ -106,12 +108,12 @@ async function anitem (__mapper) {
     let fuelnat = {
 
       halo: 'fuel',
-      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {'gid': 'fuel', 'cid': 'fuel'},
         boform: boformFuel,
-        form: formFuel,
+        geoform: formFuel,
         fuel: {
           ra2: 3,
           candidates: 5,
@@ -127,8 +129,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

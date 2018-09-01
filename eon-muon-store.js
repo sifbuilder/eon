@@ -119,15 +119,15 @@
         halo = await Promise.resolve(halo)
       } else {
         // halo = __mapper(__mapper('xs').ceonize(halo, 'halo'))
-        halo = await __mapper('xs').h(halo) 
+        halo = await __mapper('xs').h(halo)
       }
-      
+
       let anigram = anitem
       // let snapped = await manitem.snapani(anitem)
       // let anigram = await manitem.functorize(snapped)
-      
-      let newItems = await halo.ween(anigram) 
-      
+
+      let newItems = await halo.ween(anigram)
+
       return newItems
       // _apply({type: 'UPDANIMA', animas: newItems})  // UPDANIMA for sim
     }
@@ -139,7 +139,7 @@
         .then(anigram => (typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
           .then(halo => Promise.resolve(halo.gramm(anigram))
             .then(newItems => {
-              _apply({type: 'UPDANIGRAM', anigrams: newItems})  // UPDANIGRAM 
+              _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
               newItems.forEach(newItem => {
                 let avatars = gavatars(newItem)
 

@@ -68,32 +68,28 @@
         let aniItem = aniItems[i]
         let payload = aniItem.payload
 
+        if (aniItem.payload.geonode) { // if simmable  ...
+          // the geonode ports info of the simnode
+          let geonode = mgeonode.init(aniItem.payload.geonode)
 
+          // the simnode location is in the geonode geometry
+          let nodeGeometry = geonode.geometry
+          let simNode = {}
+          simNode.x = nodeGeometry.coordinates[0] // geonode location to simnode
+          simNode.y = nodeGeometry.coordinates[1]
+          simNode.z = nodeGeometry.coordinates[2]
 
+          if (simNode.x === undefined || isNaN(simNode.x)) simNode.x = 0 // location defs
+          if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1) simNode.y = 0
+          if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2) simNode.z = 0
 
-        if (aniItem.payload.geoNode) { // if simmable  ...
-        
-            // the geoNode ports info of the simnode
-            let geoNode = mgeonode.init(aniItem.payload.geoNode)
-
-            // the simnode location is in the geoNode geometry
-            let nodeGeometry = geoNode.geometry
-            let simNode = {}
-            simNode.x = nodeGeometry.coordinates[0] // geoNode location to simnode
-            simNode.y = nodeGeometry.coordinates[1]
-            simNode.z = nodeGeometry.coordinates[2]
-
-            if (simNode.x === undefined || isNaN(simNode.x)) simNode.x = 0 // location defs
-            if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1) simNode.y = 0
-            if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2) simNode.z = 0
-
-            // the simnode status is in the geoNode properties
-            let properties = geoNode.properties
-            if (properties.anchor) { // fix situs
-              simNode.fx = simNode.x
-              simNode.fy = simNode.y
-              simNode.fz = simNode.z
-            }
+          // the simnode status is in the geonode properties
+          let properties = geonode.properties
+          if (properties.anchor) { // fix situs
+            simNode.fx = simNode.x
+            simNode.fy = simNode.y
+            simNode.fz = simNode.z
+          }
 
           // the simnode velocity is in the geonode properties velin
           simNode.vx = properties.velin[0] // geonode velocity to simnode
@@ -117,10 +113,7 @@
           }
 
           simNodes.push(simNode)
-          
-          
         } else if (aniItem && aniItem.payload && aniItem.payload.geofold) { // if simmable  ...
-        
           // the geonode ports info of the simnode
           let geonode
           if (aniItem && aniItem.payload.geofold && aniItem.payload.geofold.properties) geonode = aniItem.payload.geofold.properties.geonode
@@ -168,19 +161,6 @@
 
           simNodes.push(simNode)
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
       }
 
       // md: simnodes: {x,y,z}, {vx,vy,vz}, payload, index
@@ -197,73 +177,60 @@
 
           let updItem = aniItems[i] // each anitem
 
-          
-          
-          if (updItem.payload.geoNode) {
+          if (updItem.payload.geonode) {
+            let geonode = mgeonode.init(updItem.payload.geonode)
+            geonode.properties.geodelta[0] = simNode.x - geonode.geometry.coordinates[0]
+            geonode.properties.geodelta[1] = simNode.y - geonode.geometry.coordinates[1]
+            geonode.properties.geodelta[2] = simNode.z - geonode.geometry.coordinates[2]
 
-              let geonode = mgeonode.init(updItem.payload.geoNode)
-              geonode.properties.geodelta[0] = simNode.x - geonode.geometry.coordinates[0]
-              geonode.properties.geodelta[1] = simNode.y - geonode.geometry.coordinates[1]
-              geonode.properties.geodelta[2] = simNode.z - geonode.geometry.coordinates[2]
+            geonode.properties.velin[0] = simNode.vx // linear velocities
+            geonode.properties.velin[1] = simNode.vy
+            geonode.properties.velin[2] = simNode.vz
 
-              geonode.properties.velin[0] = simNode.vx // linear velocities
-              geonode.properties.velin[1] = simNode.vy
-              geonode.properties.velin[2] = simNode.vz
+            geonode.properties.prevous[0] = geonode.geometry.coordinates[0] // previous location
+            geonode.properties.prevous[1] = geonode.geometry.coordinates[1]
+            geonode.properties.prevous[2] = geonode.geometry.coordinates[2]
 
-              geonode.properties.prevous[0] = geonode.geometry.coordinates[0] // previous location
-              geonode.properties.prevous[1] = geonode.geometry.coordinates[1]
-              geonode.properties.prevous[2] = geonode.geometry.coordinates[2]
+            geonode.geometry.coordinates[0] = simNode.x // after sim location
+            geonode.geometry.coordinates[1] = simNode.y
+            geonode.geometry.coordinates[2] = simNode.z
 
-              geonode.geometry.coordinates[0] = simNode.x // after sim location
-              geonode.geometry.coordinates[1] = simNode.y
-              geonode.geometry.coordinates[2] = simNode.z
-
-              updItem.payload.geoNode = geonode
-
+            updItem.payload.geonode = geonode
           } else if (updItem.geofold.properties.geonode) {
-            
           // make sure updItem has a geonode to get feedback from ani
-          if (updItem.payload.geofold === undefined) updItem.payload.geofold = {}
-          if (updItem.payload.geofold.properties === undefined) updItem.payload.geofold.properties = {}
-          if (updItem.payload.geofold.properties.geonode === undefined) updItem.payload.geofold.properties.geonode = {}
+            if (updItem.payload.geofold === undefined) updItem.payload.geofold = {}
+            if (updItem.payload.geofold.properties === undefined) updItem.payload.geofold.properties = {}
+            if (updItem.payload.geofold.properties.geonode === undefined) updItem.payload.geofold.properties.geonode = {}
 
-          // geonode retrieved as property of geofold
+            // geonode retrieved as property of geofold
 
-          let geonode = updItem.payload.geofold.properties.geonode
+            let geonode = updItem.payload.geofold.properties.geonode
 
-          // geonode inited from muonGeonode: feature Point
+            // geonode inited from muonGeonode: feature Point
 
-          geonode = mgeonode.init(geonode)
+            geonode = mgeonode.init(geonode)
 
-          // update geonode from simNode
+            // update geonode from simNode
 
-          geonode.properties.geodelta[0] = simNode.x - geonode.geometry.coordinates[0]
-          geonode.properties.geodelta[1] = simNode.y - geonode.geometry.coordinates[1]
-          geonode.properties.geodelta[2] = simNode.z - geonode.geometry.coordinates[2]
+            geonode.properties.geodelta[0] = simNode.x - geonode.geometry.coordinates[0]
+            geonode.properties.geodelta[1] = simNode.y - geonode.geometry.coordinates[1]
+            geonode.properties.geodelta[2] = simNode.z - geonode.geometry.coordinates[2]
 
-          geonode.properties.velin[0] = simNode.vx // linear velocities
-          geonode.properties.velin[1] = simNode.vy
-          geonode.properties.velin[2] = simNode.vz
+            geonode.properties.velin[0] = simNode.vx // linear velocities
+            geonode.properties.velin[1] = simNode.vy
+            geonode.properties.velin[2] = simNode.vz
 
-          geonode.properties.prevous[0] = geonode.geometry.coordinates[0] // previous location
-          geonode.properties.prevous[1] = geonode.geometry.coordinates[1]
-          geonode.properties.prevous[2] = geonode.geometry.coordinates[2]
+            geonode.properties.prevous[0] = geonode.geometry.coordinates[0] // previous location
+            geonode.properties.prevous[1] = geonode.geometry.coordinates[1]
+            geonode.properties.prevous[2] = geonode.geometry.coordinates[2]
 
-          geonode.geometry.coordinates[0] = simNode.x // after sim location
-          geonode.geometry.coordinates[1] = simNode.y
-          geonode.geometry.coordinates[2] = simNode.z
+            geonode.geometry.coordinates[0] = simNode.x // after sim location
+            geonode.geometry.coordinates[1] = simNode.y
+            geonode.geometry.coordinates[2] = simNode.z
 
-          updItem.payload.geofold.properties.geonode = geonode
+            updItem.payload.geofold.properties.geonode = geonode
+          }
 
-        }
-          
-          
-          
-          
-          
-          
-          
-          
           updItems.push(updItem)
         }
       }

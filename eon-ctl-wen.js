@@ -197,16 +197,16 @@
       if (_ !== undefined) {
         state.projection = _
         return enty
-      } else { 
+      } else {
         return state.projection
       }
     }
 
     enty.rotation = () => {
       let res = mgeom.add(
-        state.rotAccum_radians, 
+        state.rotAccum_radians,
         state.rotInDrag_radians)
-      .map(mgeom.to_degrees)
+        .map(mgeom.to_degrees)
       return res
     }
 

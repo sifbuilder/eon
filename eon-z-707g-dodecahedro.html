@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -31,113 +31,109 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => {
-        let payload = p.payload,
-          ric = payload.ric,
-          faces = payload.faces(payload.polyhedron) // payload.faces
-
-        let json = {type: 'FeatureCollection', features: []}
-
-        for (let i = 0, l = faces.length; i < l; i++) {
-          let face = faces[i] // face cornersx position
-
-          let geometry = {type: 'Polygon', coordinates: []}
-          geometry.coordinates = Array.of(face) // eg [-1, 1, 1]
-
-          let _ric = {}
-          _ric.gid = ric.gid
-          _ric.cid = ric.cid
-          _ric.fid = ric.cid + i
-
-          let feature = {type: 'Feature', geometry: {}, properties: {}}
-
-          feature.geometry = geometry
-
-          feature.properties.ric = _ric
-          feature.properties.sort = 'form'
-          feature.properties.boform = face.boform
-
-          json.features.push(feature)
-        }
-
-        return json
-      },
-
       payload: {
+        geofold: p => {
+          let payload = p.payload,
+            ric = payload.ric,
+            faces = payload.faces(payload.polyhedron) // payload.faces
+
+          let json = {type: 'FeatureCollection', features: []}
+
+          for (let i = 0, l = faces.length; i < l; i++) {
+            let face = faces[i] // face cornersx position
+
+            let geometry = {type: 'Polygon', coordinates: []}
+            geometry.coordinates = Array.of(face) // eg [-1, 1, 1]
+
+            let _ric = {}
+            _ric.gid = ric.gid
+            _ric.cid = ric.cid
+            _ric.fid = ric.cid + i
+
+            let feature = {type: 'Feature', geometry: {}, properties: {}}
+
+            feature.geometry = geometry
+
+            feature.properties.ric = _ric
+            feature.properties.sort = 'form'
+            feature.properties.boform = face.boform
+
+            json.features.push(feature)
+          }
+
+          return json
+        },
+
         tim: tim,
         ric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
         boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
-        proform: {
+        geobach: {
+          proform: {
 
-          projection: 'uniwen',
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ 0, 0, 0 ],
-          scale: 100,
-          rotate: [0, [[[0, 0 * 360]]], 0],
-          lens: [0, 1, 2000 ],
+            projection: 'uniwen',
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ 0, 0, 0 ],
+            scale: 100,
+            rotate: [0, [[[0, 0 * 360]]], 0],
+            lens: [0, 1, 2000 ],
 
+          },
         },
-
         // dihedral angle: 116.56°
         polyhedron: {
           C0: 0.809016994374947424102293417183, // = (1 + sqrt(5)) / 4
-          C1: 1.30901699437494742410229341718  // = (3 + sqrt(5)) / 4
+          C1: 1.30901699437494742410229341718, // = (3 + sqrt(5)) / 4
 
         },
 
-
         faces: function (polyhedron = {C0: 0.8, C1: 1.3}) { // {5,3}, V5.5.5
-
-
           let C0 = polyhedron.C0
           let C1 = polyhedron.C1
 
           let vertices = [
 
-            [ 0.0,  0.5,   C1],
-            [ 0.0,  0.5,  -C1],
-            [ 0.0, -0.5,   C1],
-            [ 0.0, -0.5,  -C1],
-            
-            [  C1,  0.0,  0.5],
-            [  C1,  0.0, -0.5],
-            [ -C1,  0.0,  0.5],
-            [ -C1,  0.0, -0.5],
-            
-            [ 0.5,   C1,  0.0],
-            [ 0.5,  -C1,  0.0],
-            [-0.5,   C1,  0.0],
-            [-0.5,  -C1,  0.0],
-            
-            [  C0,   C0,   C0],
-            [  C0,   C0,  -C0],
-            [  C0,  -C0,   C0],
-            [  C0,  -C0,  -C0],
-            
-            [ -C0,   C0,   C0],
-            [ -C0,   C0,  -C0],
-            [ -C0,  -C0,   C0],
-            [ -C0,  -C0,  -C0],
+            [ 0.0, 0.5, C1],
+            [ 0.0, 0.5, -C1],
+            [ 0.0, -0.5, C1],
+            [ 0.0, -0.5, -C1],
+
+            [ C1, 0.0, 0.5],
+            [ C1, 0.0, -0.5],
+            [ -C1, 0.0, 0.5],
+            [ -C1, 0.0, -0.5],
+
+            [ 0.5, C1, 0.0],
+            [ 0.5, -C1, 0.0],
+            [-0.5, C1, 0.0],
+            [-0.5, -C1, 0.0],
+
+            [ C0, C0, C0],
+            [ C0, C0, -C0],
+            [ C0, -C0, C0],
+            [ C0, -C0, -C0],
+
+            [ -C0, C0, C0],
+            [ -C0, C0, -C0],
+            [ -C0, -C0, C0],
+            [ -C0, -C0, -C0],
 
           ]
 
-
           let faces = [
 
-            [  0,  2, 14,  4, 12 ],
-            [  0, 12,  8, 10, 16 ],
-            [  0, 16,  6, 18,  2 ],
-            [  7,  6, 16, 10, 17 ],
-            [  7, 17,  1,  3, 19 ],
-            [  7, 19, 11, 18,  6 ],
-            [  9, 11, 19,  3, 15 ],
-            [  9, 15,  5,  4, 14 ],
-            [  9, 14,  2, 18, 11 ],
-            [ 13,  1, 17, 10,  8 ],
-            [ 13,  8, 12,  4,  5 ],
-            [ 13,  5, 15,  3,  1 ],
-
+            [ 0, 2, 14, 4, 12 ],
+            [ 0, 12, 8, 10, 16 ],
+            [ 0, 16, 6, 18, 2 ],
+            [ 7, 6, 16, 10, 17 ],
+            [ 7, 17, 1, 3, 19 ],
+            [ 7, 19, 11, 18, 6 ],
+            [ 9, 11, 19, 3, 15 ],
+            [ 9, 15, 5, 4, 14 ],
+            [ 9, 14, 2, 18, 11 ],
+            [ 13, 1, 17, 10, 8 ],
+            [ 13, 8, 12, 4, 5 ],
+            [ 13, 5, 15, 3, 1 ],
 
           ]
 
@@ -153,8 +149,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -38,6 +38,7 @@ async function anitem (__mapper) {
 
     let conform = {'projection': 'natform', 'form': form}
     let proform = {projection: 'uniwen', translate: [230 - 300, 240 - 200, 0], rotate: [ 90, 0, 0 ], scale: 1}
+
     let graticule = {
 
       'frame': [ [ [-180, 180, 45, 45],
@@ -57,84 +58,100 @@ async function anitem (__mapper) {
     // -------------------------------  gratifaces11
     let gratifaces11 = {
       halo: 'ent',
-      geofold: p => {
-        let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates
-        let faces = mgraticule.gfaces(p.payload.graticule)
-        faces = faces.map(face => [...face, face[0]])
-        faces = faces.map(face => // faces : points => vertices
-          face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
-        ) //  (2) [-180, -45] [0, 0] [-180, 0]
-        let features = faces.map(face => ({
-          type: 'Feature', geometry: {type: 'Polygon', coordinates: Array.of(face)}, properties: {}}))
-        let gj = {type: 'FeatureCollection', features: features}
-        return gj
-      },
       payload: {
+        geofold: p => {
+          let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates
+          let faces = mgraticule.gfaces(p.payload.graticule)
+          faces = faces.map(face => [...face, face[0]])
+          faces = faces.map(face => // faces : points => vertices
+            face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
+          ) //  (2) [-180, -45] [0, 0] [-180, 0]
+          let features = faces.map(face => ({
+            type: 'Feature', geometry: {type: 'Polygon', coordinates: Array.of(face)}, properties: {}}))
+          let gj = {type: 'FeatureCollection', features: features}
+          return gj
+        },
         tim: tim,
         ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratifaces11'},
+
         boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
-        'conform': conform,
-        proform: {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 200 - 300, 150 - 200 ], scale: 1},
-        'graticule': graticule,
+
+        geobach: {
+          conform: conform,
+
+          proform: {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 200 - 300, 150 - 200 ], scale: 1},
+        },
+
+        graticule: graticule,
       },
     }
     // -------------------------------  gratifaces12
     let gratifaces12 = {
       halo: 'ent',
-      geofold: p => {
-        let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates
-        let faces = mgraticule.gfaces(p.payload.graticule)
-        faces = faces.map(face => [...face, face[0]])
-        faces = faces.map(face => // faces : points => vertices
-          face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
-        ) //  (2) [-180, -45] [0, 0] [-180, 0]
-        let features = faces.map(face => ({
-          type: 'Feature', geometry: {type: 'Polygon', coordinates: Array.of(face)}, properties: {}}))
-        let gj = {type: 'FeatureCollection', features: features}
-        return gj
-      },
       payload: {
+        geofold: p => {
+          let vertices = mgraticule.gvertices(p.payload.graticule).geometry.coordinates
+          let faces = mgraticule.gfaces(p.payload.graticule)
+          faces = faces.map(face => [...face, face[0]])
+          faces = faces.map(face => // faces : points => vertices
+            face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
+          ) //  (2) [-180, -45] [0, 0] [-180, 0]
+          let features = faces.map(face => ({
+            type: 'Feature', geometry: {type: 'Polygon', coordinates: Array.of(face)}, properties: {}}))
+          let gj = {type: 'FeatureCollection', features: features}
+          return gj
+        },
         tim: tim,
         ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratifaces12'},
         boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
-        'conform': conform,
-        proform: {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 200 - 300, 300 - 200 ], scale: 1},
-        'graticule': gratiextent,
+
+        geobach: {
+          conform: conform,
+          proform: {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 200 - 300, 300 - 200 ], scale: 1},
+        },
+        graticule: gratiextent,
       },
     }
     // -------------------------------  gratifaces11
     let gratilines21 = {
       halo: 'ent',
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
       payload: {
+        geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
         tim: tim,
         ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},
         boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
-        'conform': conform,
-        proform: {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 400 - 300, 150 - 200 ], scale: 1},
-        'graticule': graticule,
+        geobach: {
+          conform: conform,
+          proform: {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 400 - 300, 150 - 200 ], scale: 1},
+        },
+
+        graticule: graticule,
       },
     }
     // -------------------------------  gratilines22
     let gratilines22 = {
       halo: 'ent',
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
       payload: {
+        geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
         tim: tim,
         ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines22'},
         boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
-        'conform': conform,
-        proform: {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 400 - 300, 300 - 200 ], scale: 1},
-        'graticule': gratiextent,
+
+        geobach: {
+          conform: conform,
+          proform: {projection: 'uniwen', rotate: [30, 30, 0], translate: [ 400 - 300, 300 - 200 ], scale: 1},
+        },
+
+        graticule: gratiextent,
       },
     }
     // .................. sceneAni
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

@@ -30,53 +30,48 @@
 
     ])
 
-    // ............................. getProj_
-    async function getProj_ (projdef) {
-      let geoproj
+    // ............................. getPrt
+    function getPrt (projdef) {
+      console.assert(!Array.isArray(projdef))
 
-      console.assert(projdef !== undefined, 'm.profier.formion_ projdef undefined')
+      let geoproj = puniwen() // default to p.uniwen
+
+      console.assert(projdef !== undefined, 'm.profier.formion projdef undefined')
+
       if (projdef === undefined) {
         geoproj = puniwen({})
       } else if (typeof projdef === 'function') {
         geoproj = projdef
-      } else if (Array.isArray(projdef)) {
-        for (let i = 0; i < projdef.length; i++) { // projdef is now object
-          let prop = projdef[i]
-          if (prop.projection !== undefined) geoproj = getProj_(prop.projection)
-          break
-        }
       } else if (typeof projdef === 'object') {
-        if (mprops.isString(projdef.projection)) { // if _projection singular name
-          let prj = await __mapper('xs').p(projdef.projection)
-          geoproj = prj(projdef) //
-        } else if (mprops.isArray(projdef.projections)) { // if plural select one
-          geoproj = projdef.projections[ Math.round(projdef.projectidx || 0) ]
+        if (typeof projdef.projection === 'string') {
+          let prjItem = projdef.projection
+          let prj = __mapper(prjItem) // try eg. uniwen
 
-          if (mprops.isString(geoproj)) { // if name in array
-            geoproj = __mapper(geoproj, 'prj')(projdef) // get projection from name
+          if (typeof projdef.projection === 'function') {
+            geoproj = prj(projdef)
           } else {
-            geoproj = puniwen({})
-            return geoproj
+            let ceon = __mapper('xs').ceonize(prjItem, 'prj')
+            let prj = __mapper(ceon)
+
+            console.assert(typeof prj === 'function', `prj ${prj} is not a function`)
+            geoproj = prj(projdef)
           }
         } else if (mprops.isFunction(projdef.projection)) { // if is projection
-          geoproj = projdef.projection // props passed to projection
-        } else {
-          let projname = 'uniwen' // default to uniwen projection
-
-          geoproj = puniwen() // get projection from name
+          geoproj = projdef.projection // props passed to projection _
         }
       }
 
       return geoproj
     }
 
-    // ............................. formion_
-    async function formion_ (projdef, anigram = {}) {
+    // ............................. formion
+    function formion (projdef, anigram = {}) {
       let projection
       let projname
 
       let payload = anigram.payload,
-        geofold = payload.geofold
+        geofold = payload.geofold,
+        geonode = payload.geonode
 
       let translation, rotation
 
@@ -84,7 +79,7 @@
         projection = d => d
         return projection // id
       }
-      projection = await getProj_(projdef)
+      projection = getPrt(projdef)
 
       if (projdef.translate) { // TRANSLATE proj method
         if (mprops.isPureArray(projdef.translate)) {
@@ -98,10 +93,10 @@
         } else if (typeof projdef.translate === 'object' && mprops.isPosition(projdef.translate)) {
           translation = Object.values(projdef.translate)
         } else if (typeof projdef.translate === 'object') {
-          translation = mstace.getTranspot(projdef.translate, anigram)
+          translation = mstace.getTranspot(projdef.translate, anigram) // get transpot - anigram
         }
+
         if (projdef.anod && geofold.properties && geofold.properties.geonode) {
-          let geonode = geofold.properties.geonode // geonode
           if (geonode.geometry && geonode.geometry.coordinates !== undefined) {
             let nodetranslate = geonode.geometry.coordinates // geonode coords
             translation = mgeom.add(translation, nodetranslate)
@@ -156,170 +151,84 @@
           projection[key](value)
         }
       }
-      // }
 
       return projection
     }
 
     // ............................. projer_
     function projer_ (prodef, anigram) { // projer_ is fenrir if no prodef
-      return json => mproj3ct.project(json, formion_(prodef))
+      return json => mproj3ct.project(json, formion(prodef))
     }
 
     // ............................. uniweon
-    let uniweon = function (projdef) {
-      let translation, rotation
-      let projection = puniwen()
+    let uniweon = projdef => puniwen(projdef)
 
-      if (projdef.translate) { // TRANSLATE proj method
-        if (mprops.isPureArray(projdef.translate)) {
-          translation = projdef.translate
-        } else if (Array.isArray(projdef.translate)) {
-          let _trans = []
-          for (let k = 0; k < projdef.translate.length; k++) {
-            _trans = mgeom.add(_trans, projdef.translate[k])
-          }
-          translation = _trans
-        } else if (typeof projdef.translate === 'object' && mprops.isPosition(projdef.translate)) {
-          translation = Object.values(projdef.translate)
-        } else if (typeof projdef.translate === 'object') {
-          // translation = mstace.getTranspot(projdef.translate, anigram)
+    // ............................. conformion
+    function conformion (anigram) {
+      console.assert(typeof anigram === 'object', 'anigram is not object')
+
+      let prj = anigram.payload.conform
+
+      let res = null
+      if (typeof prj === 'object' && prj.projection === undefined) {
+        prj = {
+          projection: 'natform',
+          form: prj,
         }
-        if (projdef.anod && geofold.properties && geofold.properties.geonode) {
-          let geonode = geofold.properties.geonode // geonode
-          if (geonode.geometry && geonode.geometry.coordinates !== undefined) {
-            let nodetranslate = geonode.geometry.coordinates // geonode coords
-            translation = mgeom.add(translation, nodetranslate)
-          }
-        }
+        res = formion(prj, anigram)
       }
 
-      if (projection.rotate !== undefined) { // ROTATE proj method
-        let rot = [0, 0] // projection.rotate()
-
-        let projrot = projdef.rotate || [0, 0, 0] // default to 3d
-        if (mprops.isPureArray(projrot)) {
-          projrot = projrot
-        } else { // if multi rotates
-          let _rot = []
-          for (let k = 0; k < projrot.length; k++) {
-            _rot = mgeom.add(_rot, projrot[k])
-          }
-          projrot = _rot
-        }
-        rot = mgeom.add(rot, projrot)
-        let control = (projdef.control === 'wen') ? cwen
-          : (projdef.control === 'versor') ? cversor
-            : undefined
-
-        if (control !== undefined) {
-          let controlRotation = control
-            .projection(projection) // invert on projection
-            .rotation() // rotation from control wen
-
-          if (controlRotation) rot = mgeom.add(rot, controlRotation)
-        }
-
-        let prerotate = projdef.prerotate
-
-        if (prerotate) rot = mgeom.add(rot, prerotate) // ADD prerotate
-
-        let dims = projrot.length // planar or spherical geometry
-        if (dims == 2) rot = mwen.cross([ Math.sqrt(rot[0]), 0, 0], [0, Math.sqrt(rot[1]), 0]) // planar rot
-
-        rotation = rot
+      if (typeof prj === 'function') {
+        res = formion(prj, anigram)
       }
 
-      for (let [key, value] of Object.entries(projdef)) { // object
-        if (key === 'projection') { // bypass projection
-        } else if (key === 'control') { // bypass control
-        } else if (key === 'rotate') { // rotate rotation
-          projection.rotate(rotation)
-        } else if (key === 'translate') { // translate translation
-          projection.translate(translation)
-        } else if (mprops.isFunction(projection[key]) && value !== null) {
-          projection[key](value)
-        }
+      return res
+    }
+
+    const conformer = anitem => json => mproj3ct.project(json, conformion(anitem))
+
+    // ............................. ereformion
+    function ereformion (anigram) {
+      console.assert(typeof anigram === 'object', 'anigram is not object')
+
+      let prj = anigram.payload.ereform
+
+      let res = null
+      if (prj) {
+        res = formion(prj, anigram)
       }
-
-      return projection
+      return res
     }
 
-    // ............................. conformion_
-    async function conformion_ (anigram) {
-      return Promise.resolve(anigram)
-        .then(anigram => {
-          if (Array.isArray(anigram)) {
-            anigram = anigram[0]
-          }
+    const ereformer = anitem => json => mproj3ct.project(json, ereformion(anitem))
 
-          let res = null
-          let prj = anigram.payload.conform
-          if (prj) {
-            if (typeof prj === 'object' && prj.projection === undefined) {
-              prj = {projection: 'natform', form: prj }
-            }
-            return formion_(prj, anigram)
-          } else {
-            return res
-          }
-        })
+    // ............................. proformion
+    function proformion (anigram) {
+      console.assert(typeof anigram === 'object', 'anigram is not object')
+
+      let prj = anigram.payload.proform
+
+      let res = null
+      if (prj) {
+        res = formion(prj, anigram)
+      }
+      return res
     }
 
-    const conformer = anitem => json => mproj3ct.project(json, conformion_(anitem))
-
-    // ............................. ereformion_
-    async function ereformion_ (anigram) {
-      return Promise.resolve(anigram)
-        .then(anigram => {
-          if (Array.isArray(anigram)) {
-            anigram = anigram[0]
-          }
-
-          let res = null
-          let prj = anigram.payload.ereform
-          if (prj) {
-            return formion_(prj, anigram)
-          } else {
-            return res
-          }
-        })
-    }
-
-    const ereformer = anitem => json => mproj3ct.project(json, ereformion_(anitem))
-
-    // ............................. proformion_
-    async function proformion_ (anigram) {
-      return Promise.resolve(anigram)
-        .then(anigram => {
-          if (Array.isArray(anigram)) {
-            anigram = anigram[0]
-          }
-
-          let res = null
-          let prj = anigram.payload.proform
-          if (prj) {
-            return formion_(prj, anigram)
-          } else {
-            return res
-          }
-        })
-    }
-
-    const proformer = anitem => json => mproj3ct.project(json, proformion_(anitem))
+    const proformer = anitem => json => mproj3ct.project(json, proformion(anitem))
 
     // ............................. enty
     let enty = function () {}
-    enty.formion_ = formion_
+    enty.formion = formion
     enty.projer_ = projer_
 
-    enty.proformion_ = proformion_
+    enty.proformion = proformion
     enty.proformer = proformer
 
-    enty.ereformion_ = ereformion_
+    enty.ereformion = ereformion
     enty.ereformer = ereformer
 
-    enty.conformion_ = conformion_
+    enty.conformion = conformion
     enty.conformer = conformer
 
     enty.uniweon = uniweon

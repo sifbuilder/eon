@@ -28,7 +28,6 @@
       // __mapper('xs').b('d3-drag'),
     ])
 
-
     let d3drag = d3
     let d3selection = d3
     let getPos = rrenderport.getPos // event position
@@ -125,7 +124,6 @@
       state.moved = false // not moved yet
       state.grabbed = getPos(e)
 
-      
       state.s2 = getPos(e) // current
       let inveGeo2 = state.projection.invert(state.s2)
       state.c2 = mgeom.cartesian(inveGeo2)
@@ -141,9 +139,9 @@
       // rot at the start of new drag
       state.rotAccum_degrees =
             mgeom.add(
-              [0,0,0],
-              [0,0,0],
-              // state.rotAccum_degrees, // 
+              [0, 0, 0],
+              [0, 0, 0]
+              // state.rotAccum_degrees, //
               // state.rotInDrag_degrees // at end of last drag
             )
 
@@ -158,15 +156,15 @@
       state.s2 = getPos(e)
 
       state.c2Rads = state.projection
-          .rotate(state.r1_degrees)
-          .invert(state.s2)
-          
+        .rotate(state.r1_degrees)
+        .invert(state.s2)
+
       state.c1 = state.c2
       state.c2 = mgeom.cartesian(state.c2Rads)
 
       state.qd1 = mversor.delta(state.c1, state.c2)
       state.vel_degrees = mversor.rotation(state.qd1)
-      if (1 && 1) console.log('vel_degrees', state.vel_degrees )
+      if (1 && 1) console.log('vel_degrees', state.vel_degrees)
 
       state.qd2 = mversor.delta(state.c0, state.c2) // q(c0 to c0)
       let rotInDrag_degrees = mversor.rotation(state.qd2)
@@ -175,7 +173,7 @@
         xsign * (state.s2[1] - state.s1[1]),
         ysign * (state.s1[0] - state.s2[0]),
       ]
-      
+
       if (!state.moved) {
         let sdist = sd[0] * sd[0] + sd[1] * sd[1]
         if (sdist < inits.moveSpan) return
@@ -186,7 +184,6 @@
 
       state.rotInDrag_degrees = rotInDrag_degrees
       state.lastMoveTime = Date.now()
-
     }
 
     // .................. dragended
@@ -200,23 +197,21 @@
 
     // .................. momentum
     function momentum () {
-
       // state.qd2 = [
-        // state.qd2[0] *= inits.decay,
-        // state.qd2[1],
-        // state.qd2[2],
-        // state.qd2[3],
+      // state.qd2[0] *= inits.decay,
+      // state.qd2[1],
+      // state.qd2[2],
+      // state.qd2[3],
       // ]
       // let rotInDrag_degrees = mversor.rotation(state.qd2)
       // state.rotInDrag_degrees = rotInDrag_degrees
-
 
       state.vel_degrees[0] *= inits.decay
       state.vel_degrees[1] *= inits.decay
 
       state.rotInDrag_degrees[0] += state.vel_degrees[0]
       state.rotInDrag_degrees[1] += state.vel_degrees[1]
-      
+
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
 
@@ -250,7 +245,7 @@
 
     enty.rotation = () => {
       let res = mgeom.add(
-        state.rotAccum_degrees, 
+        state.rotAccum_degrees,
         state.rotInDrag_degrees)
       return res
     }

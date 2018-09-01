@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -184,84 +184,91 @@ async function anitem (__mapper) {
     // ............................. hyperAni
     let hyperAni = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q1'},
-        proform: {
-          projection: 'uniwen',
-          scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ 0, 0, 0 ],
-          // rotate: [ -75, 0, [[[0,133 - 30]]] ],
-          rotate: rotate,
-          lens: [0, 1, Infinity ],
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ 0, 0, 0 ],
+            rotate: rotate,
+            lens: [0, 1, Infinity ],
+          },
         },
         boform: boformHyper,
-        form: conformHyper,
+        geoform: conformHyper,
       },
     }
 
     // ............................. sphereAni
     let sphereAni = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q2'},
-        proform: {
-          projection: 'uniwen',
-          scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ 0, 0, 0 ],
-          rotate: [ -75, 0, [[[0, 133 - 30]]] ],
-          rotate: rotate,
-          lens: [0, 1, Infinity ],
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ 0, 0, 0 ],
+            rotate: [ -75, 0, [[[0, 133 - 30]]] ],
+            rotate: rotate,
+            lens: [0, 1, Infinity ],
+          },
         },
         boform: boformSphere,
-        form: conformSphere,
+        geoform: conformSphere,
       },
     }
 
     // ............................. sphereAni
     let lineAni = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q4'},
-        proform: {
-          projection: 'uniwen',
-          scale: [ [[[3, 3]]], [[[3, 3]]] ],
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ 0, 0, 0 ],
-          rotate: [ -75, 0, [[[0, 133 - 30]]] ],
-          rotate: rotate,
-          lens: [0, 1, Infinity ],
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            scale: [ [[[3, 3]]], [[[3, 3]]] ],
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ 0, 0, 0 ],
+            rotate: [ -75, 0, [[[0, 133 - 30]]] ],
+            rotate: rotate,
+            lens: [0, 1, Infinity ],
+          },
         },
         boform: boformLine,
-        form: conformLine,
+        geoform: conformLine,
       },
     }
 
     // ............................. torusAni
     let torusAni = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q3'},
-        proform: {
-          projection: 'uniwen',
-          scale: [ [[[0.1, 0.1]]], [[[0.1, 0.1]]] ],
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ 0, 0, 0 ],
-          rotate: [ -75, 0, [[[0, 133 - 30]]] ],
-          rotate: rotate,
-          lens: [0, 1, Infinity ],
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            scale: [ [[[0.1, 0.1]]], [[[0.1, 0.1]]] ],
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ 0, 0, 0 ],
+            rotate: [ -75, 0, [[[0, 133 - 30]]] ],
+            rotate: rotate,
+            lens: [0, 1, Infinity ],
+          },
         },
         boform: boformTorus,
-        form: conformTorus,
+        geoform: conformTorus,
       },
     }
 
@@ -269,8 +276,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

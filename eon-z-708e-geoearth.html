@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -49,18 +49,19 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: () => {
-        return Object.assign({},
-          topojson.feature(
-            dworldTopo110m.data(),
-            dworldTopo110m.data().objects.land
-          )
-        )
-      },
-
       payload: {
+        geofold: () => {
+          return Object.assign({},
+            topojson.feature(
+              dworldTopo110m.data(),
+              dworldTopo110m.data().objects.land
+            )
+          )
+        },
         tim,
-        proform: proformEarth,
+        geobach: {
+          proform: proformEarth,
+        },
         ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
         boform: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
       },
@@ -71,8 +72,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1},

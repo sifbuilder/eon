@@ -27,7 +27,7 @@ natprojection
   calls p.nat
   breaks circularity m.profier(.natfion --> p.natform)
       -p.nat(.natprofion -> .pointStream -> m.nat.natVertex)
-      -m.nat(.natFeature -> m.profier.formion_)
+      -m.nat(.natFeature -> m.profier.formion)
 
 conforms
 `   

@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -65,18 +65,17 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
-
       payload: {
+        geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
         tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
         boform: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
+        geobach: {
+          conform: conform,
 
-        conform: conform,
-
-        proform: proform,
-
+          proform: proform,
+        },
         graticule: frame,
 
       },
@@ -86,8 +85,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

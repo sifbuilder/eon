@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -173,46 +173,54 @@ async function anitem (__mapper) {
     // .................. natAni1dax
     let natAni1dax = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
-        proform: proform1dax,
+        geobach: {
+          proform: proform1dax,
+        },
         boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
-        form: conform1dax,
+        geoform: conform1dax,
       },
     }
     let natAni2dax = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat2'},
-        proform: proform2dax,
+        geobach: {
+          proform: proform2dax,
+        },
         boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
-        form: conform2dax,
+        geoform: conform2dax,
       },
     }
     let natAni3dax = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat3'},
-        proform: proform3dax,
+        geobach: {
+          proform: proform3dax,
+        },
         boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
-        form: conform3dax,
+        geoform: conform3dax,
       },
     }
     let natAni4dax = {
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat4'},
-        proform: proform4dax,
+        geobach: {
+          proform: proform4dax,
+        },
         boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
-        form: conform4dax,
+        geoform: conform4dax,
       },
     }
 
@@ -220,8 +228,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

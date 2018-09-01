@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -65,34 +65,33 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: function (p) {
-        let graticule = p.payload.graticule
-
-        let verts = mgraticule.gvertices(graticule) // Feature.LineString
-        let vertices = verts.geometry.coordinates
-        let faces = mgraticule.gfaces(graticule)	// faces
-
-        let gj = {type: 'Polygon', coordinates: []}
- 			for (let i = 0; i < faces.length; i++) {
-          let face = faces[i]
-          let facering = [vertices[face[0]], vertices[face[1]], vertices[face[2]] ]
-          facering = [...facering, facering[0]]
-          gj.coordinates.push(facering)
-        }
-
-        return gj
-      },
-
       payload: {
 
+        geofold: function (p) {
+          let graticule = p.payload.graticule
+
+          let verts = mgraticule.gvertices(graticule) // Feature.LineString
+          let vertices = verts.geometry.coordinates
+          let faces = mgraticule.gfaces(graticule)	// faces
+
+          let gj = {type: 'Polygon', coordinates: []}
+          for (let i = 0; i < faces.length; i++) {
+            let face = faces[i]
+            let facering = [vertices[face[0]], vertices[face[1]], vertices[face[2]] ]
+            facering = [...facering, facering[0]]
+            gj.coordinates.push(facering)
+          }
+
+          return gj
+        },
         tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
         boform: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
+        geobach: {
+          conform: conform,
 
-        conform: conform,
-
-        proform: proform,
-
+          proform: proform,
+        },
         graticule: frame,
 
       },
@@ -102,8 +101,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

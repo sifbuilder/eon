@@ -142,39 +142,44 @@
 
   define.amd = {}
 
-
-
-
-
-
-
-
   let xs = function (__mapper = {}) {
     const xD3Require = __mapper('xD3Require')
 
     const capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // wen => Wen
-    const ceonize = (nome, pres = '') => (pres === '')
-      ? camelize(nome.replace(/^eon-/, ''))
-      : camelize(pres + '-' + nome) // [uni-wen,muon] => muonUniWen
+
+    const ceonize = function (nome, pres = '') {
+      let camelized
+      if (pres === '') {
+        camelized = camelize(nome.replace(/^eon-/, ''))
+      } else {
+        camelized = camelize(pres + '-' + nome) // [uni-wen,muon] => muonUniWen
+      }
+      return camelized
+    }
     const feonize = (nome, pres = '') => './' + xeonize(nome, pres) + '.js' // wen => ./muon-wen.js
     let xeonize = (nome, pres = '') => (pres === '') // wen => eon-muon-wen
       ? nome
       : (pres !== '')
         ? 'eon' + '-' + pres + '-' + nome
         : pres + '-' + nome
+
     const camelize = str => str
       .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index === 0 ? letter.toLowerCase() : letter.toUpperCase())
       .replace(/\s+/g, '') // remove white space
       .replace(/-+/g, '') // remove hyphen
-    const getCell = (e, n, m) => { // eon, name, mapper
+
+    const getCell = (e, n, m) => { // eon, name, mapper returns enty
       if (e[n] !== undefined && typeof e[n] === 'function') {
+      // if (1 && 1) console.log('getCell e', e)
+      // if (1 && 1) console.log('getCell n', n)
+      // if (1 && 1) console.log('getCell m', m)
+      // if (1 && 1) console.log('getCell a', e[n](m))
         return e[n](m)
       } else if (typeof e === 'object') {
         return e
       } else {
         return e
       }
-
     }
     const mapCell = (e, n, m) => m({[n]: e})[n]
     const a = d => Array.isArray(d) ? d : Array.of(d)
@@ -192,7 +197,13 @@
     // ............................. getFeon
     async function getFeon (part) { // d3Froce3d, ./d3-force-3d.js
       return xD3Require.require(...a(part[1])) // get eon
-        .then(eon => getCell(eon, part[0], __mapper)) // eon to cell
+        .then(eon => {
+          if (eon.ani852d3dgratSvgScene && 1 && 1) {
+            console.log('eon', eon)
+          }
+
+          return getCell(eon, part[0], __mapper) // eon to cell
+        })
         .then(cell => mapCell(cell, part[0], __mapper)) // map cell
     }
 
@@ -205,18 +216,14 @@
 
     // ............................. getEon
     async function getEon (inpart) { // nome is partName: eg 'muonGraticule'
-
       let part = (typeof inpart === 'string') ? [inpart, ''] : inpart // else array
 
       if (typeof part[0] === 'function') {
-
         let [eonfn, pres] = part
         let x = await eonfn(__mapper)
         let res = await x[pres]()
         return res
-
       } else {
-
         let [name, pres] = part
 
         let ceon = ceonize(name, pres) // muonVersor
@@ -233,10 +240,7 @@
           (p, q) => p.catch(failed => Promise.resolve(getCeonSync([ceon, '']) || q())),
           Promise.reject('init reduce'))
           .catch(failed => { console.log('Failed: ', ceon, failed) })
-
-
       }
-
     }
 
     // ............................. enty
@@ -259,10 +263,7 @@
     return enty
   }
 
-
-
-
-   let xMapper = function () {
+  let xMapper = function () {
     let state = {}
 
     // ............................. enty
@@ -276,32 +277,29 @@
     return enty
   }
 
-
   let eon = async function ({anitem, time}) {
-
     let __mapper = xEonify.xMapper() // init mapper
+
     __mapper({'xD3Require': {
-          require: xEonify.require,
-          requireFrom: xEonify.requireFrom,
-        }
+      require: xEonify.require,
+      requireFrom: xEonify.requireFrom,
+    },
     }) // map require
+
     __mapper({'xs': xEonify.xs(__mapper)}) // map xs
 
     let muonStore = await __mapper('xs').m('store') // map store
     let muonAnimation = await __mapper('xs').m('animation') // map animation
 
-    console.assert(typeof anitem === 'function'
-      || typeof anitem === 'string') // anitem is function or string
-          
+    console.assert(typeof anitem === 'function' ||
+      typeof anitem === 'string') // anitem is function or string
+
     __mapper('xs').a(anitem) // proxy ani.anitem
-    .then(animas => __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas}))  // store animas
-    .then(() => __mapper('muonAnimation').animate(time))  // animate
-
-
+      .then(animas => __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas})) // store animas
+      .then(() => __mapper('muonAnimation').animate(time)) // animate
   }
 
   exports.eon = eon
-
 
   exports.xMapper = xMapper
 

@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -64,16 +64,16 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: () => {
-        return Object.assign({},
-          topojson.feature(
-            dworldTopo110m.data(),
-            dworldTopo110m.data().objects.land
-          )
-        )
-      },
-
       payload: {
+        geofold: () => {
+          return Object.assign({},
+            topojson.feature(
+              dworldTopo110m.data(),
+              dworldTopo110m.data().objects.land
+            )
+          )
+        },
+
         tim,
         proform: proformDark,
         ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthDark'},
@@ -117,18 +117,21 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: () => {
-        return Object.assign({},
-          topojson.feature(
-            dworldTopo110m.data(),
-            dworldTopo110m.data().objects.land
-          )
-        )
-      },
-
       payload: {
+        geofold: () => {
+          return Object.assign({},
+            topojson.feature(
+              dworldTopo110m.data(),
+              dworldTopo110m.data().objects.land
+            )
+          )
+        },
+
         tim,
-        proform: proformFront,
+
+        geobach: {
+          proform: proformFront,
+        },
         ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthFront'},
         boform: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
       },
@@ -140,11 +143,14 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: () => d3.geoGraticule()(),
-
       payload: {
+        geofold: () => d3.geoGraticule()(),
+
         tim,
-        proform: proformFront,
+
+        geobach: {
+          proform: proformFront,
+        },
         ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
         boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9},
       },
@@ -155,8 +161,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1, key: 1},

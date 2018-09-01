@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -139,9 +139,8 @@ async function anitem (__mapper) {
 
       halo: isolation,
 
-      geofold: p => mnat.natFeature(p.payload.form),
-
       payload: {
+        geofold: p => mnat.natFeature(p.payload.form),
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
@@ -172,23 +171,23 @@ async function anitem (__mapper) {
           geofolder: p => mnat.natFeature(p.payload.form),
 
         },
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            translate:
+              [0, 0, 0],
+            // [ [ [[[100, 400]]], 200 ],
+            // [[[ {
+            // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
+            // 'ra2': 30,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
 
-        proform: {
-          projection: 'uniwen',
-          translate:
-            [0, 0, 0],
-          // [ [ [[[100, 400]]], 200 ],
-          // [[[ {
-          // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
-          // 'ra2': 30,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-
-          // } ]]] ],
-          scale: 1,
-          rotate: [ 0, 0, [[[0, 0]]] ],
-          lens: [0, 1, 12],
-          anod: 1, // geonode
+            // } ]]] ],
+            scale: 1,
+            rotate: [ 0, 0, [[[0, 0]]] ],
+            lens: [0, 1, 12],
+            anod: 1, // geonode
+          },
         },
-
         boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[777, 777]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.9, 0.9]]]},
 
         form: {

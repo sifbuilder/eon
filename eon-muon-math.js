@@ -10,88 +10,86 @@
   'use strict'
 
   let muonMath = function (__mapper = {}) {
+    // https://github.com/scijs/integrate-adaptive-simpson
 
+    // This algorithm adapted from pseudocode in:
+    // http://www.math.utk.edu/~ccollins/refs/Handouts/rich.pdf
+    function adsimp (f, a, b, fa, fm, fb, V0, tol, maxdepth, depth, state) {
+      if (state.nanEncountered) {
+        return NaN
+      }
 
-// https://github.com/scijs/integrate-adaptive-simpson
+      var h, f1, f2, sl, sr, s2, m, V1, V2, err
 
-// This algorithm adapted from pseudocode in:
-// http://www.math.utk.edu/~ccollins/refs/Handouts/rich.pdf
-function adsimp (f, a, b, fa, fm, fb, V0, tol, maxdepth, depth, state) {
-  if (state.nanEncountered) {
-    return NaN;
-  }
+      h = b - a
+      f1 = f(a + h * 0.25)
+      f2 = f(b - h * 0.25)
 
-  var h, f1, f2, sl, sr, s2, m, V1, V2, err;
+      // Simple check for NaN:
+      if (isNaN(f1)) {
+        state.nanEncountered = true
+        return
+      }
 
-  h = b - a;
-  f1 = f(a + h * 0.25);
-  f2 = f(b - h * 0.25);
+      // Simple check for NaN:
+      if (isNaN(f2)) {
+        state.nanEncountered = true
+        return
+      }
 
-  // Simple check for NaN:
-  if (isNaN(f1)) {
-    state.nanEncountered = true;
-    return;
-  }
+      sl = h * (fa + 4 * f1 + fm) / 12
+      sr = h * (fm + 4 * f2 + fb) / 12
+      s2 = sl + sr
+      err = (s2 - V0) / 15
 
-  // Simple check for NaN:
-  if (isNaN(f2)) {
-    state.nanEncountered = true;
-    return;
-  }
+      if (depth > maxdepth) {
+        state.maxDepthCount++
+        return s2 + err
+      } else if (Math.abs(err) < tol) {
+        return s2 + err
+      } else {
+        m = a + h * 0.5
 
-  sl = h * (fa + 4 * f1 + fm) / 12;
-  sr = h * (fm + 4 * f2 + fb) / 12;
-  s2 = sl + sr;
-  err = (s2 - V0) / 15;
+        V1 = adsimp(f, a, m, fa, f1, fm, sl, tol * 0.5, maxdepth, depth + 1, state)
 
-  if (depth > maxdepth) {
-    state.maxDepthCount++;
-    return s2 + err;
-  } else if (Math.abs(err) < tol) {
-    return s2 + err;
-  } else {
-    m = a + h * 0.5;
+        if (isNaN(V1)) {
+          state.nanEncountered = true
+          return NaN
+        }
 
-    V1 = adsimp(f, a, m, fa, f1, fm, sl, tol * 0.5, maxdepth, depth + 1, state);
+        V2 = adsimp(f, m, b, fm, f2, fb, sr, tol * 0.5, maxdepth, depth + 1, state)
 
-    if (isNaN(V1)) {
-      state.nanEncountered = true;
-      return NaN;
+        if (isNaN(V2)) {
+          state.nanEncountered = true
+          return NaN
+        }
+
+        return V1 + V2
+      }
     }
 
-    V2 = adsimp(f, m, b, fm, f2, fb, sr, tol * 0.5, maxdepth, depth + 1, state);
+    function integrate (f, a, b, tol, maxdepth) {
+      var state = {
+        maxDepthCount: 0,
+        nanEncountered: false,
+      }
 
-    if (isNaN(V2)) {
-      state.nanEncountered = true;
-      return NaN;
-    }
+      if (tol === undefined) {
+        tol = 1e-8
+      }
+      if (maxdepth === undefined) {
+        maxdepth = 20
+      }
 
-    return V1 + V2;
-  }
-}
+      var fa = f(a)
+      var fm = f(0.5 * (a + b))
+      var fb = f(b)
 
-function integrate (f, a, b, tol, maxdepth) {
-  var state = {
-    maxDepthCount: 0,
-    nanEncountered: false
-  };
+      var V0 = (fa + 4 * fm + fb) * (b - a) / 6
 
-  if (tol === undefined) {
-    tol = 1e-8;
-  }
-  if (maxdepth === undefined) {
-    maxdepth = 20;
-  }
+      var result = adsimp(f, a, b, fa, fm, fb, V0, tol, maxdepth, 1, state)
 
-  var fa = f(a);
-  var fm = f(0.5 * (a + b));
-  var fb = f(b);
-
-  var V0 = (fa + 4 * fm + fb) * (b - a) / 6;
-
-  var result = adsimp(f, a, b, fa, fm, fb, V0, tol, maxdepth, 1, state);
-
-/*
+      /*
   if (state.maxDepthCount > 0 && console && console.warn) {
     console.warn('integrate-adaptive-simpson: Warning: maximum recursion depth (' + maxdepth + ') reached ' + state.maxDepthCount + ' times');
   }
@@ -101,10 +99,9 @@ function integrate (f, a, b, tol, maxdepth) {
   }
 */
 
-  return result;
-}  
-  
-  
+      return result
+    }
+
     /**************************
   *   @enty
   */
@@ -113,17 +110,17 @@ function integrate (f, a, b, tol, maxdepth) {
     /*
     var pow = Math.pow;
     given alpha, k, gamma
-    
+
     function elliptic (f) {
       return alpha + (1 - alpha) * pow(1 - pow(f, k), 1 / k);
     }
 
     function z(f) {
       return integrate(elliptic, 0, f, 1e-4);
-    } 
+    }
     var G = 1 / z(1)
-    
-    */    
+
+    */
     enty.integrate = integrate
 
     return enty

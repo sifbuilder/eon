@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -22,7 +22,6 @@ async function anitem (__mapper) {
     __mapper('xs').m('ric'),
   ])
 
-
   let [
     forceVoid,
     forceEnergy,
@@ -33,16 +32,13 @@ async function anitem (__mapper) {
     __mapper('xs').f('collide'),
   ])
 
-
   let mstore = __mapper('muonStore')
   let d3_force = d3Force3d
 
   // .................. animas
   let ani = function () {
-
     // .................... pics
     let tim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-
 
     // .................... natAni2
     let natAni2 = {
@@ -53,36 +49,27 @@ async function anitem (__mapper) {
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
 
-        geofold: function(p) {
-
+        geofold: function (p) {
           return mnat.natFeature(p.payload.geoform)
-
         },
 
-        geoNode: {
-          "type": "Feature",
-          "geometry": null,
-         },
-
-
-        // geofold: p => mnat.natFeature(p.payload.geoform),
-
-        // geofold: {
-          // type: 'Feature',
-          // geometry: {type: 'Point', coordinates: [0, 0, 0]},
-          // properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
-        // },
-
-        proform: {
-          projection: 'uniwen',
-          translate: [ [[[-100,100]]] , 0, 0],
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, 12],
-          anod: 1, // geonode
+        geonode: {
+          'type': 'Feature',
+          'geometry': null,
         },
 
-        boform: { 'csx':0, 'cf':888, 'co':0.5, 'cs':666, 'cw':0.9, 'cp':0.8 },
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            translate: [ [[[-100, 100]]], 0, 0],
+            scale: 1,
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, 12],
+            anod: 1, // geonode
+          },
+        },
+
+        boform: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
 
         geoform: {
           'x': {
@@ -100,7 +87,6 @@ async function anitem (__mapper) {
         },
       },
     }
-
 
     // ............................. force_energy
     let force_energy = { // aniForce
@@ -218,7 +204,7 @@ async function anitem (__mapper) {
 
       properties: {
 
-        gravity: -0.02,
+        gravity: -0.001,
 
       },
 
@@ -261,7 +247,7 @@ async function anitem (__mapper) {
         tim: tim,
         ric: {gid: 'core', cid: 'core', fid: 'core'},
 
-      }
+      },
 
     }
 
@@ -273,7 +259,6 @@ async function anitem (__mapper) {
 
     // .................. animas
     let animas = [
-
 
       natAni2, // h.ent
       fieldAni, // h.core

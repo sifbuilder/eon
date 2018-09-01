@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -25,26 +25,27 @@ async function anitem (__mapper) {
     let anima = {
 
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform),
 
         tim: tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
         boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
 
-        form: {
+        geoform: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
           'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 2, 'pa6': 0, 'pb7': -1,
         },
+        geobach: {
+          proform: {
 
-        proform: {
+            projection: 'uniwen',
+            prerotate: [[[ cversor.rotation ]]],
+            scale: 1,
+            translate: { x: 0, y: 0, z: 0 },
+            rotate: [ 0, 0, 0 ],
 
-          projection: 'uniwen',
-          prerotate: [[[ cversor.rotation ]]],
-          scale: 1,
-          translate: { x: 0, y: 0, z: 0 },
-          rotate: [ 0, 0, 0 ],
-
+          },
         },
       },
     }
@@ -52,8 +53,8 @@ async function anitem (__mapper) {
     let animatter = {
 
       halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form),
       payload: {
+        geofold: p => mnat.natFeature(p.payload.form),
 
         tim: tim,
         ric: {gid: 'animatter', cid: 'animatter', fid: 'animatter'},
@@ -64,16 +65,19 @@ async function anitem (__mapper) {
           'ra2': 20, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         },
 
-        proform: {
+        geobach: {
+          proform: {
 
-          projection: d3geo.geoOrthographic(),
-          prerotate: [[[ cversor.rotation ]]],
-          scale: 90,
-          translate: [ 0, 0, 0 ],
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
+            projection: d3geo.geoOrthographic(),
+            prerotate: [[[ cversor.rotation ]]],
+            scale: 90,
+            translate: [ 0, 0, 0 ],
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, Infinity],
 
+          },
         },
+
       },
     }
 
@@ -81,8 +85,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1},

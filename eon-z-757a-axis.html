@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -32,16 +32,20 @@ async function anitem (__mapper) {
     // ............................. axisBottom
     let axis1 = {
       halo: 'axis',
-      geofold: p => ({
-        type: 'Feature',
-        geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [1, 0, 0] ] },
-        properties: {},
-      }),
       payload: {
+        geofold: p => ({
+          type: 'Feature',
+          geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [1, 0, 0] ] },
+          properties: {},
+        }),
         tim: tim,
         ric: {gid: 'ax', cid: 'ax', fid: 'x1'},
         boform: boform,
-        proform: proform,
+
+        geobach: {
+          proform: proform,
+        },
+
         axis: {
           label: 'space',
           rotate: 0,
@@ -58,16 +62,18 @@ async function anitem (__mapper) {
     // ............................. axisLeft
     let axis2 = {
       halo: 'ent',
-      geofold: p => ({
-        type: 'Feature',
-        geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 100, 0] ] },
-        properties: {},
-      }),
       payload: {
+        geofold: p => ({
+          type: 'Feature',
+          geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 100, 0] ] },
+          properties: {},
+        }),
         tim: tim,
         ric: {gid: 'ax', cid: 'ax', fid: 'x2'},
         boform: boform,
-        proform: proform,
+        geobach: {
+          proform: proform,
+        },
         axis: {
           label: 'space',
           rotate: 0,
@@ -84,16 +90,18 @@ async function anitem (__mapper) {
     // ............................. axisLeft
     let axis3 = {
       halo: 'axis',
-      geofold: p => ({
-        type: 'Feature',
-        geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 0, 1] ] },
-        properties: {},
-      }),
       payload: {
+        geofold: p => ({
+          type: 'Feature',
+          geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 0, 1] ] },
+          properties: {},
+        }),
         tim: tim,
         ric: {gid: 'ax', cid: 'ax', fid: 'x3'},
         boform: boform,
-        proform: proform,
+        geobach: {
+          proform: proform,
+        },
         axis: {
           label: 'space',
           rotate: 45,
@@ -112,8 +120,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

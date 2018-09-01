@@ -31,118 +31,56 @@
 
     ])
 
-    // ............................. ereform
-    function e (feat, proj) {
-      return Promise.all([feat, proj])
-        .then(r => {
-          let feature = r[0]
-          let projection = r[1]
-          if (projection) {
-            let f = mproj3ct(feature, projection)
-            f.properties.formEreformed = mgeoj.deprop(f) // store proform
-            f.properties.nodeEreformed = mproj3ct(f.properties.nodeConformed, projection)
-            return f
-          } else {
-            let f = feature
-            f.properties.formEreformed = f.properties.formConformed
-            f.properties.nodeEreformed = f.properties.nodeConformed
-            return f
-          }
-        })
-    }
+    // ............................. enent
+    function enent (anitem) {
+      console.assert(typeof anitem === 'object')
+      console.assert(Array.isArray(anitem) === false)
 
-    // ............................. conform
-    function c (feature, proj) {
-      let enproj = f => {
-        f.properties.formConformed = mgeoj.deprop(f) // store proform
-        f.properties.nodeConformed = f.properties.geonode
-        return f
+      let newAni = mprops.clone(anitem)
+
+      // aninode
+
+      let geonode = mprops.v(anitem.payload.geonode, anitem)
+
+      if (geonode && anitem.payload.geobach) {
+        for (let [bach, prt] of Object.entries(anitem.payload.geobach)) {
+          let properties = geonode.properties || {}
+          let node = mproj3ct(mgeoj.deprop(geonode), mprofier.formion(prt, anitem))
+          node.properties = properties
+          node.properties[bach] = node
+
+          newAni.payload.geonode = node
+        }
       }
 
-      return Promise.resolve(proj)
-        .then(projection =>
-          projection
-            ? enproj(mproj3ct(feature, projection))
-            : enproj(feature)
-        )
-    }
+      // anifold
 
-    // ............................. proform
-    function p (feat, proj) {
-      return Promise.all([feat, proj])
-        .then(r => {
-          let [feature, projection] = r
-          let res
+      let geofold = mprops.v(anitem.payload.geofold, anitem)
+      let gjcollection = mgeoj.featurecollect(geofold)
 
-          if (projection) {
-            res = mproj3ct(feature, projection)
-            res.properties.formProformed = mgeoj.deprop(res) // store proform
-            res.properties.nodeProformed = mproj3ct(res.properties.nodeEreformed, projection)
-          } else {
-            res = feature
-            res.properties.formProformed = res.properties.formEreformed
-            res.properties.nodeProformed = res.properties.nodeEreformed
-          }
+      if (geofold && anitem.payload.geobach) {
+        for (let [bach, prt] of Object.entries(anitem.payload.geobach)) {
+          gjcollection.features = gjcollection.features.map(
+            feature => {
+              let properties = feature.properties || {}
+              let node = mproj3ct(mgeoj.deprop(feature), mprofier.formion(prt, anitem))
+              node.properties = properties
+              node.properties[bach] = node
 
-          return res
-        })
-    }
+              return node
+            })
+        }
+      }
 
-    // ............................. getgj
-    const getgj = anitem => {
-      let ani = anitem
-      if (Array.isArray(ani)) ani = ani[0]
-      let gj = mprops.v(ani.payload.geofold, ani) // get geofold
-      gj.properties = gj.properties || {} // recall genode
-      gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
-      gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
-      gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
-      return gj
-    }
+      newAni.payload.geofold = gjcollection
 
-    // ............................. transforms
-    let transformer = (ani) => {
-      let cproj = mprofier.conformion_(ani)
-      let eproj = mprofier.ereformion_(ani)
-      let pproj = mprofier.proformion_(ani)
-      return f => p(e(c(f, cproj), eproj), pproj)
-    }
-
-    // ............................. transforms
-    let transforms = (f, ani) => transformer(ani)(f)
-
-    // ............................. enent
-    async function enent (anitem) {
-if (1 && 1) console.log('anitem', anitem)   
-  
-      let anigram = anitem.length > 0 ? anitem[0] : anitem
-
-      // anigram geofold to feature collection
-      
-      let gjcollection = mgeoj.featurecollect(getgj(anigram))
-      
-      
-      // geojson conform, ereform, proform transforms 
-      
-      let promisesForTransformedFeatures = gjcollection.features.map(f => transforms(f, anigram))
-      let newfeatures = await Promise.all(promisesForTransformedFeatures)
-
-      // newitem geofold is collection of transformed features
-      
-      let newcollection = Object.assign({}, gjcollection, {features: newfeatures})
-      let newpayload = Object.assign({}, anigram.payload, {geofold: newcollection})
-      let newAni = Object.assign({}, anigram, {payload: newpayload})
-
-      // return h.formed newitems 
-      
       let newAnitems = haloFormed.gramm(newAni)
-if (1 && 1) console.log('newAnitems', newAnitems)
       return newAnitems
     }
 
     // ............................. gramm
-    let gramm = anitem => enent (anitem)
-    
+    let gramm = anitem => enent(anitem)
+
     // ............................. ween
     let ween = anitem => (anitem.payload.inited !== 1) ? (anitem.payload.inited = anitem.payload.gelded = 1, [anitem]) : []
 

@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -37,8 +37,8 @@ async function anitem (__mapper) {
     let natAni = {
 
       halo: 'pacer',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
@@ -112,8 +112,8 @@ async function anitem (__mapper) {
             let anitem = {
 
               halo: 'ent',
-              geofold: geofolder(ani, props),
               payload: {
+                geofold: geofolder(ani, props),
                 tim: tim,
                 ric: {
 
@@ -125,15 +125,17 @@ async function anitem (__mapper) {
                 uid: mric.getuid(ani.payload.ric),
                 stace: stacer(ani, props),
 
-                proform: {
-                  projection: 'uniwen',
-                  scale: [ 0.5, 0.5 ],
-                  prerotate: [[[ cwen.rotation ]]],
-                  translate: [ [0, -100, 0] ],
-                  rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
-                  rotate: [ 0, 0, 0 ],
-                  lens: [0, 1, Infinity ],
-                  anod: 1,
+                geobach: {
+                  proform: {
+                    projection: 'uniwen',
+                    scale: [ 0.5, 0.5 ],
+                    prerotate: [[[ cwen.rotation ]]],
+                    translate: [ [0, -100, 0] ],
+                    rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
+                    rotate: [ 0, 0, 0 ],
+                    lens: [0, 1, Infinity ],
+                    anod: 1,
+                  },
                 },
 
                 boform: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},

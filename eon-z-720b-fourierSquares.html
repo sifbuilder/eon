@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -57,12 +57,12 @@ async function anitem (__mapper) {
     // .................. aniDotted anima
     let aniDotted = i => ({
       halo: 'ent',
-      geofold: p => {
-        let cs = csi(i, (1 + i) / 4)
-        cs.geometry.type = 'MultiPoint' // switch to MultiPoint
-        return cs
-      },
       payload: {
+        geofold: p => {
+          let cs = csi(i, (1 + i) / 4)
+          cs.geometry.type = 'MultiPoint' // switch to MultiPoint
+          return cs
+        },
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'aniDotted' + i},
         boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.5, 'co': 0.9, 'cp': 0.999},
@@ -73,12 +73,12 @@ async function anitem (__mapper) {
     let aniLine = i => ({
 
       halo: 'ent',
-      geofold: p => {
-        let cs = csi(i, (1 + i) / 4)
-        cs.geometry.type = 'LineString' // switch to LineString
-        return cs
-      },
       payload: {
+        geofold: p => {
+          let cs = csi(i, (1 + i) / 4)
+          cs.geometry.type = 'LineString' // switch to LineString
+          return cs
+        },
         pointRadius: 3,
         tim: tim,
         ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniLine' + i},
@@ -91,8 +91,8 @@ async function anitem (__mapper) {
     let aniRay = i => ({
 
       halo: 'ent',
-      geofold: {type: 'Feature', geometry: {type: 'LineString', coordinates: []}, properties: {}},
       payload: {
+        geofold: {type: 'Feature', geometry: {type: 'LineString', coordinates: []}, properties: {}},
         tim: tim,
         ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniRay' + i},
         boform: {'csx': 0, 'cf': 555, 'cs': 444, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
@@ -104,9 +104,10 @@ async function anitem (__mapper) {
     let aniTrace = i => ({
 
       halo: 'ent',
-      geofold: {
-        type: 'Feature', geometry: {type: 'MultiPoint', coordinates: []}, properties: {}},
       payload: {
+        geofold: {
+          type: 'Feature', geometry: {type: 'MultiPoint', coordinates: []}, properties: {}},
+
         tim: tim,
         ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniTrace' + i},
         boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
@@ -118,8 +119,8 @@ async function anitem (__mapper) {
     let traceline = i => ({
 
       halo: 'pacer',
-      geofold: null,
       payload: {
+        geofold: null,
         ric: {gid: 'traces', cid: 'traces', fid: 'traces' + i},
         boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
@@ -133,12 +134,12 @@ async function anitem (__mapper) {
             let gj = {
 
               halo: 'ent',
-              geofold: {
-                type: 'Feature',
-                geometry: { type: 'LineString', coordinates: null },
-                properties: { doc: 'pacer' },
-              },
               payload: {
+                geofold: {
+                  type: 'Feature',
+                  geometry: { type: 'LineString', coordinates: null },
+                  properties: { doc: 'pacer' },
+                },
                 uid: uid, id: uid, ric: ric,
                 proform: this.proform,
               },
@@ -161,13 +162,14 @@ async function anitem (__mapper) {
     let fourierForm = i => ({
 
       halo: 'fourier',
-      geofold: p => {
-        let cs = csi(i, (1 + i) / 4)
-        let transforms = mfourier.transformedCoefs(cs)
-        transforms = mgeoj.ntime(transforms, [0, 1])
-        return { type: 'FeatureCollection', features: transforms }
-      },
       payload: { // FOURIER TRANSFORM in payload.fourier.transform
+        geofold: p => {
+          let cs = csi(i, (1 + i) / 4)
+          let transforms = mfourier.transformedCoefs(cs)
+          transforms = mgeoj.ntime(transforms, [0, 1])
+          return { type: 'FeatureCollection', features: transforms }
+        },
+
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier' + i},
         boform: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99},
@@ -202,8 +204,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

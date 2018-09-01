@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -78,16 +78,18 @@ async function anitem (__mapper) {
     let textAni = {
 
       halo: 'textform',
-      geofold: null,
       payload: {
+        geofold: null,
 
         tim: tim,
         ric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
         boform: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
-        proform: {
-          projection: 'uniwen',
-          translate: [ -100, 0 ],
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            translate: [ -100, 0 ],
+          },
         },
 
         textform: {
@@ -109,14 +111,15 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => mnat.natFeature(p.payload.form),
-
       payload: {
+        geofold: p => mnat.natFeature(p.payload.form),
+
         tim: tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-        proform: proform,
-
+        geobach: {
+          proform: proform,
+        },
         geonode: {
           type: 'Feature',
           geometry: { type: 'Point', coordinates: [0, 0, 0] },
@@ -136,15 +139,16 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => mnat.natFeature(p.payload.form),
-
       payload: {
+        geofold: p => mnat.natFeature(p.payload.form),
+
         tim,
 
         ric: {gid: 'nat', cid: 'nat', fid: 'circ'},
 
-        proform,
-
+        geobach: {
+          proform,
+        },
         geonode: {
           type: 'Feature',
           geometry: { type: 'Point', coordinates: [0, 0, 0] },
@@ -166,8 +170,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
@@ -178,10 +182,10 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      natAni, // h.ent
-      circAni, // h.ent
+      // natAni, // h.ent
+      // circAni, // h.ent
       textAni, // h.text
-      sceneAni, // h.scene
+      // sceneAni, // h.scene
     ]
 
     return animas

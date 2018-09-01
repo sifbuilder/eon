@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -15,8 +15,8 @@ async function anitem (__mapper) {
     cwen,
     cversor,
     d3geo,
-    d3geoprojection,       
-    prjTetra,       
+    d3geoprojection,
+    prjTetra,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('geom'),
@@ -27,125 +27,145 @@ async function anitem (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').c('versor'),
     __mapper('xs').b('d3-geo'),
-    __mapper('xs').b('d3-geo-projection'),     
-    __mapper('xs').p('tetra'),     
+    __mapper('xs').b('d3-geo-projection'),
+    __mapper('xs').p('tetra'),
   ])
 
   // .................. animas
   let ani = function () {
     // .................. pics
-  let tim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let tim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-  let form = {
+    let form = {
 
       'x': {
 
         'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-        'ra2': 162, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
+        'ra2': 162, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
       },
       'y': {
 
         'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-        'ra2': 162, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
+        'ra2': 162, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
       },
       'z': {
 
         'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1, 'n3': 1, 'a': 1, 'b': 1, // tri
         'ra2': [[[30, 30, 262 / Math.sqrt(2), 162 / Math.sqrt(2), 162 / Math.sqrt(2), 162 / Math.sqrt(2), 262 / Math.sqrt(2) ]]],
-        'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1
+        'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-      }
+      },
     }
 
-  let graticule = {
+    let graticule = {
 
-      'frame': [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ]
+      frame: [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ],
 
     }
 
-  let proform = {
+    let proform = {
 
       projection: 'tetra',
-      prerotate: [[[ cversor.rotation ]]],          
+      prerotate: [[[ cversor.rotation ]]],
       scale: 50,
       center: [ 0, 0, 0 ],
-      translate: [0,0,0],
+      translate: [0, 0, 0],
       rotate: [ 0, 0, 0 ],
-      
+
       tetraCef1: [[[Math.PI / 6, Math.PI / 2]]],
-     
+
     }
 
-  // .............................  geograt
-  let geograt = {
+    // .............................  geograt
+    let geograt = {
 
       halo: 'ent',
 
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
-
       payload: {
+        geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+
         tim,
-        proform,
+
+        geobach: {
+          proform,
+        },
         graticule,
-        
-        ric: {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
-        
-        boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
 
-      }
-  }
+        ric: {gid: 'geograt', cid: 'geograt', fid: 'geograt'},
 
-  // .............................  geoearth
-  let geoearth = {
+        boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 0.9, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+
+      },
+    }
+
+    // .............................  geoearth
+    let geoearth = {
 
       halo: 'ent',
 
-      geofold: () => {
-        return Object.assign({},
-          topojson.feature(
-            dworldTopo110m.data(),
-            dworldTopo110m.data().objects.land
-          )
-        )
-      },
-
       payload: {
+        geofold: () => {
+          return Object.assign({},
+            topojson.feature(
+              dworldTopo110m.data(),
+              dworldTopo110m.data().objects.land
+            )
+          )
+        },
         tim,
-        proform,
-        
+
+        geobach: {
+          proform,
+        },
         ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
         boform: { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
 
-      }
+      },
 
     }
-  // .............................  geosphere
-  let geosphere = {
+    // .............................  geosphere
+    let geosphere = {
 
       halo: 'ent',
 
-      geofold: {
-        type: 'Feature',
-        geometry: {
-          type: 'Sphere'
-        },
-        properties: {}
-      },
-
       payload: {
+        geofold: {
+          type: 'Feature',
+          geometry: {
+            type: 'Sphere',
+          },
+          properties: {},
+        },
         tim,
-        proform,
+
+        geobach: {
+          proform,
+        },
         ric: {'gid': 'geosphere', 'cid': 'geosphere', 'fid': 'geosphere'},
-        boform: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9}
-      }
+        boform: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
+      },
 
     }
 
-  
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      payload: {
+        geofold: null,
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+        context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1},
+      },
+
+    }
+
     // ............................. animas
-  let animas = [
+    let animas = [
+
+      sceneAni, // h.scene
       geograt, // h.ent
       geoearth, // h.ent
       geosphere, // h.ent

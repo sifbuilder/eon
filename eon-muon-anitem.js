@@ -36,9 +36,9 @@
       console.assert(anitem !== undefined)
       console.assert(anitem.payload !== undefined, anitem.payload.uid + ' payload undefined')
       console.assert(anitem.payload.geofold !== undefined, anitem.payload.uid + ' geofold undefined')
-      
+
       if (newAnitem.payload === undefined) newAnitem.payload = {}
-      
+
       if (anitem.payload.ereform !== undefined) {
         let ereform = functor(anitem.payload.ereform, anitem) // ereform
         newAnitem.payload.ereform = ereform
@@ -52,9 +52,8 @@
       if (anitem.payload.geofold !== undefined) {
         newAnitem.payload.geofold = functor(anitem.payload.geofold, anitem) // geofold
       }
-      
-      return newAnitem
 
+      return newAnitem
     }
 
     // ............................. functorgeofold

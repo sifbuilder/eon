@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -85,14 +85,16 @@ async function anitem (__mapper) {
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-        proform: {
-          projection: 'uniwen',
-          translate: [ [ 70, 80 ], [[[ natStace ]]] ],
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
-          control: 'wen',
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            translate: [ [ 70, 80 ], [[[ natStace ]]] ],
+            scale: 1,
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, Infinity],
+            control: 'wen',
 
+          },
         },
 
         boform: natBoform,
@@ -107,8 +109,8 @@ async function anitem (__mapper) {
     let traceline = {
 
       halo: 'pacer',
-      geofold: null,
       payload: {
+        geofold: null,
         tim,
         ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
         boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
@@ -186,8 +188,8 @@ async function anitem (__mapper) {
             let anitem = {
 
               halo: 'ent',
-              geofold: geofolder(ani, props),
               payload: {
+                geofold: geofolder(ani, props),
                 tim: tim,
                 ric: {
 
@@ -199,15 +201,17 @@ async function anitem (__mapper) {
                 uid: mric.getuid(ani.payload.ric),
                 stace: stacer(ani, props),
 
-                proform: {
-                  projection: 'uniwen',
-                  scale: [ 0.5, 0.5 ],
-                  prerotate: [[[ cwen.rotation ]]],
-                  translate: [ [0, -100, 0] ],
-                  rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
-                  rotate: [ 0, 0, 0 ],
-                  lens: [0, 1, Infinity ],
-                  anod: 1,
+                geobach: {
+                  proform: {
+                    projection: 'uniwen',
+                    scale: [ 0.5, 0.5 ],
+                    prerotate: [[[ cwen.rotation ]]],
+                    translate: [ [0, -100, 0] ],
+                    rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
+                    rotate: [ 0, 0, 0 ],
+                    lens: [0, 1, Infinity ],
+                    anod: 1,
+                  },
                 },
 
                 boform: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
@@ -225,8 +229,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

@@ -2,11 +2,11 @@
 build geo projections 
  
 ## functions 
-* ### getProj_ 
+* ### getPrt 
  
 ## methods 
-* ### formion_ 
-`formion_ (projdef, anigram)` 
+* ### formion 
+`formion (projdef, anigram)` 
 **get projection from projdef and apply projection properties** 
  if `@projdef` or `@projdef.projection` are not defined, assume `p.uniwen` identity 
  if `@projdef.translate != undefined` 
@@ -29,11 +29,11 @@ build geo projections
  
 ### projer_ 
 use: `mprofier.projer_(prodef, anigram)(gj) 
-*get formion_ projector on gj* 
+*get formion projector on gj* 
  
 ### conformer_ 
 use: `mprofier.conformer_ (anigram)` 
-**get formion_ projector** 
+**get formion projector** 
 assumes `projection != undefined` 
 ``` 
  projection: { 
@@ -42,13 +42,13 @@ assumes `projection != undefined`
  } 
 ``` 
  
-### proformion_ 
-call `mprofier.proformion_ (anigram)` 
-calls `formion_(anigram.payload.proform, anigram)` 
+### proformion 
+call `mprofier.proformion (anigram)` 
+calls `formion(anigram.payload.proform, anigram)` 
 **get proform projection from projdef** 
  
 ### proformer 
  
  
-### ereformion_ 
+### ereformion 
 ### ereformer 

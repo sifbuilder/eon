@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -54,14 +54,14 @@ async function anitem (__mapper) {
     let aniLine = {
 
       halo: 'ent',
-      geofold: {
-        type: 'Feature',
-        geometry: {
-          type: 'LineString',
-          coordinates: []},
-        properties: {},
-      },
       payload: {
+        geofold: {
+          type: 'Feature',
+          geometry: {
+            type: 'LineString',
+            coordinates: []},
+          properties: {},
+        },
         tim: tim,
         ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
         boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
@@ -73,8 +73,8 @@ async function anitem (__mapper) {
     let traceline = { // SUB-MARKS line trace
 
       halo: 'pacer',
-      geofold: null,
       payload: {
+        geofold: null,
 
         pacer: { // aad for trace
           tim,
@@ -90,14 +90,17 @@ async function anitem (__mapper) {
 
             let gj = {
               halo: 'ent',
-              geofold: {
-                type: 'Feature',
-                geometry: { type: 'LineString', coordinates: null },
-                properties: { doc: 'pacer' },
-              },
               payload: {
+                geofold: {
+                  type: 'Feature',
+                  geometry: { type: 'LineString', coordinates: null },
+                  properties: { doc: 'pacer' },
+                },
+
                 uid: uid, id: uid, ric: ric,
-                proform: this.proform,
+                geobach: {
+                  proform: this.proform,
+                },
               },
             }
             let newItem = mstore.findAnigramFromUid(uid) || gj
@@ -115,9 +118,9 @@ async function anitem (__mapper) {
     let fourierForm = {
 
       halo: 'fourier',
-      geofold: p => transformsFC,
 
       payload: { // payload in fourierForm
+        geofold: p => transformsFC,
 
         tim: tim,
         ric: { gid: 'fourier', cid: 'fourier', fid: 'fourier'},
@@ -143,8 +146,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -62,48 +62,48 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => {
-        let payload = p.payload || {}
-
-        const samples = payload.fibonat.samples,
-          offsetstep = payload.fibonat.offsetstep,
-          xprecision = payload.fibonat.xprecision,
-          yprecision = payload.fibonat.yprecision,
-          goldenangle = payload.fibonat.goldenangle
-
-        const offset = offsetstep / samples
-
-        let dots = []
-        for (let i = 0; i < samples; i++) {
-          const z = ((i * offset) - 1) + (offset / 2)
-          const radius = Math.sqrt(1 - Math.pow(z, 2))
-          const phi = ((i + 1) % samples) * goldenangle
-          const lambda = Math.atan2(z, radius)
-          dots.push([phi * degrees, lambda * degrees, 1]) // proform, scale: 1
-        }
-
-        let lines = []
-        for (let i = 0; i < dots.length - 2; i++) { // -2
-          lines.push(
-
-            mprops.interlink(
-              [
-                mprops.arywinclosed(dots[i][0], dots[i + 1][0], xprecision),
-                mprops.arywinclosed(dots[i][1], dots[i + 1][1], yprecision),
-              ]
-            )
-          )
-        }
-        let gj = {
-          type: 'Feature',
-          geometry: {type: 'MultiLineString', coordinates: lines},
-          properties: {},
-        }
-
-        return gj
-      },
-
       payload: {
+
+        geofold: p => {
+          let payload = p.payload || {}
+
+          const samples = payload.fibonat.samples,
+            offsetstep = payload.fibonat.offsetstep,
+            xprecision = payload.fibonat.xprecision,
+            yprecision = payload.fibonat.yprecision,
+            goldenangle = payload.fibonat.goldenangle
+
+          const offset = offsetstep / samples
+
+          let dots = []
+          for (let i = 0; i < samples; i++) {
+            const z = ((i * offset) - 1) + (offset / 2)
+            const radius = Math.sqrt(1 - Math.pow(z, 2))
+            const phi = ((i + 1) % samples) * goldenangle
+            const lambda = Math.atan2(z, radius)
+            dots.push([phi * degrees, lambda * degrees, 1]) // proform, scale: 1
+          }
+
+          let lines = []
+          for (let i = 0; i < dots.length - 2; i++) { // -2
+            lines.push(
+
+              mprops.interlink(
+                [
+                  mprops.arywinclosed(dots[i][0], dots[i + 1][0], xprecision),
+                  mprops.arywinclosed(dots[i][1], dots[i + 1][1], yprecision),
+                ]
+              )
+            )
+          }
+          let gj = {
+            type: 'Feature',
+            geometry: {type: 'MultiLineString', coordinates: lines},
+            properties: {},
+          }
+
+          return gj
+        },
 
         tim: tim,
 
@@ -118,10 +118,11 @@ async function anitem (__mapper) {
           goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
         },
 
-        conform: { projection: 'natform', form: wireForm },
+        geobach: {
+          conform: { projection: 'natform', form: wireForm },
 
-        proform: wireProform,
-
+          proform: wireProform,
+        },
         graticule: wireFrame,
 
       },
@@ -131,18 +132,18 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
-
       payload: {
+        geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
         tim: tim,
         ric: {gid: 'wire', cid: 'wire', fid: 'sphereAni'},
         boform: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': [[[0.3, 0.01]]], 'co': [[[0.1, 0.01]]], 'cp': 0.99 },
 
-        conform: { projection: 'natform', form: wireForm },
+        geobach: {
+          conform: { projection: 'natform', form: wireForm },
 
-        proform: wireProform,
-
+          proform: wireProform,
+        },
         graticule: wireFrame,
 
       },
@@ -151,8 +152,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

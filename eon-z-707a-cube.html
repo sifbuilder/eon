@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -38,58 +38,59 @@ async function anitem (__mapper) {
     let cubeAni = {
 
       halo: 'ent',
-
-      geofold: p => {
-        let payload = p.payload
-        let ric = payload.ric
-
-        let gj = {type: 'FeatureCollection', features: []}
-
-        let points = payload.points // payload.points
-        let faces = payload.faces // payload.faces
-        for (let i = 0, l = faces.length; i < l; i++) {
-          let face = faces[i] // face pointsx position
-          let geometry = {type: 'Polygon', coordinates: []}
-          geometry.coordinates = face.pointsx.map(k => points[k]) // eg [-1, 1, 1]
-            .map(mgeom.normalize) // eg. [0.5773, -0.577, 0.5773]
-            .map(mgeom.spherical) // eg. [-0.7853, 0.6154]
-            .map(mgeom.to_degrees)
-          geometry.coordinates = Array.of(geometry.coordinates)
-
-          let _ric = {}
-          _ric.gid = ric.gid
-          _ric.cid = 'face'
-          _ric.fid = i
-
-          let feature = {
-            type: 'Feature',
-            geometry: geometry,
-            properties: {},
-          }
-          feature.properties.ric = _ric
-          feature.properties.boform = face.boform
-
-          gj.features.push(feature)
-        }
-        return gj
-      },
-
       payload: {
+
+        geofold: p => {
+          let payload = p.payload
+          let ric = payload.ric
+
+          let gj = {type: 'FeatureCollection', features: []}
+
+          let points = payload.points // payload.points
+          let faces = payload.faces // payload.faces
+          for (let i = 0, l = faces.length; i < l; i++) {
+            let face = faces[i] // face pointsx position
+            let geometry = {type: 'Polygon', coordinates: []}
+            geometry.coordinates = face.pointsx.map(k => points[k]) // eg [-1, 1, 1]
+              .map(mgeom.normalize) // eg. [0.5773, -0.577, 0.5773]
+              .map(mgeom.spherical) // eg. [-0.7853, 0.6154]
+              .map(mgeom.to_degrees)
+            geometry.coordinates = Array.of(geometry.coordinates)
+
+            let _ric = {}
+            _ric.gid = ric.gid
+            _ric.cid = 'face'
+            _ric.fid = i
+
+            let feature = {
+              type: 'Feature',
+              geometry: geometry,
+              properties: {},
+            }
+            feature.properties.ric = _ric
+            feature.properties.boform = face.boform
+
+            gj.features.push(feature)
+          }
+          return gj
+        },
 
         tim: tim,
         ric: {'gid': 'cubeAni', 'cid': 'cubeAni', 'fid': 'cubeAni'},
         boform: { 'csx': 0, 'cf': 111, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
 
-        conform: { projection: 'natform', form: cubeForm },
+        geobach: {
+          conform: { projection: 'natform', form: cubeForm },
 
-        proform: {
+          proform: {
 
-          projection: 'uniwen',
-          translate: [ 320 - 300, 200 - 200],
-          scale: 1,
-          rotate: [-5, 50, 0],
-          lens: [0, 1, Infinity], // [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 400 ], // [0,1], // [1,0]
-          prerotate: [[[ cwen.rotation ]]],
+            projection: 'uniwen',
+            translate: [ 320 - 300, 200 - 200],
+            scale: 1,
+            rotate: [-5, 50, 0],
+            lens: [0, 1, Infinity], // [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 400 ], // [0,1], // [1,0]
+            prerotate: [[[ cwen.rotation ]]],
+          },
         },
 
         points: [
@@ -137,8 +138,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

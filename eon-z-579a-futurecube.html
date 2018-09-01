@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -60,15 +60,15 @@ async function anitem (__mapper) {
     let geograt = {
 
       halo: 'ent',
-      geofold: () => {
-        return Object.assign({},
-          topojson.feature(
-            dworldTopo110m.data(),
-            dworldTopo110m.data().objects.land
-          )
-        )
-      },
       payload: {
+        geofold: () => {
+          return Object.assign({},
+            topojson.feature(
+              dworldTopo110m.data(),
+              dworldTopo110m.data().objects.land
+            )
+          )
+        },
 
         tim: tim,
         ric: {gid: 'geograt', cid: 'geograt', fid: 'geograt' },
@@ -87,7 +87,9 @@ async function anitem (__mapper) {
 
         tim: tim,
         ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
-        proform: proformFuture,
+        geobach: {
+          proform: proformFuture,
+        },
         boform: { 'csx': 0,
           'cf': [[[555, 333, 555, 333, 555, 333, 555]]],
           'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
@@ -107,8 +109,8 @@ async function anitem (__mapper) {
     let geosphere = {
 
       halo: 'ent',
-      geofold: { type: 'Sphere'},
       payload: {
+        geofold: { type: 'Sphere'},
         tim: tim,
         ric: {gid: 'geosphere', cid: 'geosphere', fid: 'geosphere' },
         boform: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},

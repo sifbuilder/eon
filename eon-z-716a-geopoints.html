@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -31,280 +31,313 @@ async function anitem (__mapper) {
     let proform = {projection: 'uniwen', scale: 1, translate: [ 0 - 300, 100 ], rotate: [ 0, 0 ],
       control: 'wen' }
 
-    /*******************************************
- *    @animas
- */
+    // .................. animas
     let p1 = {
       halo: 'ent',
-      geofold,
-      payload: {tim,
+      payload: {
+        geofold,
+        tim,
         boform,
         ric: {gid: 'p', cid: 'p', fid: 'p1'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ 100 - 300, 125 ]]], 100 - 200, 0 ],
-          control: 'wen' }},
+        geobach: {
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ 100 - 300, 125 ]]], 100 - 200, 0 ],
+          },
+        },
+      },
     }
 
     let p2 = {
       halo: 'ent',
-      geofold,
       payload: {tim,
+        geofold,
         boform,
         ric: {gid: 'p', cid: 'p', fid: 'p2'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [[[ () => [ [[[150 - 300, 175 - 200]]], 100, 0] ]]],
-          control: 'wen' }},
+        geobach: {
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [[[ () => [ [[[150 - 300, 175 - 200]]], 100, 0] ]]],
+          },
+        },
+      },
     }
 
     let p3 = {
       halo: 'ent',
-      geofold,
       payload: {tim,
+        geofold,
         boform,
         ric: {gid: 'p', cid: 'p', fid: 'p3'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ t => (() => 175 - 300)() ]]], 100 - 200 ],
-          control: 'wen' }},
+        geobach: {
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ t => (() => 175 - 300)() ]]], 100 - 200 ],
+          },
+        },
+      },
     }
 
     let p4 = {
       halo: 'ent',
-      geofold,
       payload: {tim,
+        geofold,
         boform,
         ric: {gid: 'p', cid: 'p', fid: 'p4'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ 200 - 300, 225 - 300 ]]], 100 - 200, 0 ],
-          control: 'wen' }},
+        geobach: {
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ 200 - 300, 225 - 300 ]]], 100 - 200, 0 ],
+          },
+        },
+      },
     }
 
     let p5 = {
       halo: 'ent',
-      geofold,
       payload: {tim,
+        geofold,
         boform,
         ric: {gid: 'p', cid: 'p', fid: 'p5'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: {x: [[[250 - 300, 275 - 300]]], y: 100 - 200 },
-          control: 'wen' }},
+        geobach: {
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: {x: [[[250 - 300, 275 - 300]]], y: 100 - 200 },
+          },
+        },
+      },
     }
 
     let p6 = {
       halo: 'ent',
-      geofold,
       payload: {tim,
+        geofold,
         boform,
         ric: {gid: 'p', cid: 'p', fid: 'p6'},
-        proform: {
-          projection: 'uniwen',
-          translate: [[[ () => {
-            let geo = {'type': 'LineString', 'coordinates': [ [300 - 300, 100, 0], [325 - 300, 100, 0], [300 - 300, 100 - 200, 0] ]}
-            return mprops.ta(mlacer.unslide(geo.coordinates)) // dimensional triple array
-          } ]]],
-          control: 'wen' },
-      }}
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            translate: [[[ () => {
+              let geo = {'type': 'LineString', 'coordinates': [ [300 - 300, 100, 0], [325 - 300, 100, 0], [300 - 300, 100 - 200, 0] ]}
+              return mprops.ta(mlacer.unslide(geo.coordinates)) // dimensional triple array
+            } ]]],
+          },
+        },
+      },
+    }
 
     let p7 = {
       halo: 'ent',
-      geofold,
       payload: {tim,
+        geofold,
         boform,
         ric: {gid: 'p', cid: 'p', fid: 'p7'},
-        proform: {projection: 'uniwen',
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          translate: [[[ {
-            'x': {
-              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-              'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        geobach: {
+          proform: {projection: 'uniwen',
+            scale: 1,
+            rotate: [ 0, 0, 0 ],
+            translate: [[[ {
+              'x': {
+                'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+                'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-            },
-            'y': {
-              'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-              'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+              },
+              'y': {
+                'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+                'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-            },
-          } ]]],
-          control: 'wen',
+              },
+            } ]]],
+          },
         },
-      }}
+      },
+    }
 
     let p8 = {
       halo: 'ent',
-      geofold,
       payload: {tim,
+        geofold,
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p8'},
-        proform: {projection: 'uniwen',
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          translate: [ [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        geobach: {
+          proform: {projection: 'uniwen',
+            scale: 1,
+            rotate: [ 0, 0, 0 ],
+            translate: [ [[[ {
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+              'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-          } ]]],
-          [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+            } ]]],
+            [[[ {
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+              'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-          } ]]],
-          ],
-          control: 'wen',
+            } ]]],
+            ],
+          },
         },
-      }}
+      },
+    }
 
     let p10 = { // NOK
       halo: 'ent',
-      geofold,
       payload: {tim,
+        geofold,
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p10'},
-        proform: {projection: 'uniwen',
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          translate: [
+        geobach: {
+          proform: {projection: 'uniwen',
+            scale: 1,
+            rotate: [ 0, 0, 0 ],
+            translate: [
 
-            [[[ (t, a = 378, b = {
-              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-              'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+              [[[ (t, a = 378, b = {
+                'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+                'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-            }) => {
-              let as = a
-              let bs = __mapper('xs').m('snap')(b, t, 1).x
-              return as + bs
-            } ]]],
+              }) => {
+                let as = a
+                let bs = __mapper('xs').m('snap')(b, t, 1).x
+                return as + bs
+              } ]]],
 
-            [[[ (t, a = 100, b = {
-              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-              'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+              [[[ (t, a = 100, b = {
+                'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+                'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-            }) => {
-              let as = a
-              let bs = __mapper('xs').m('snap')(b, t, 1).y
-              return as + bs
-            } ]]],
+              }) => {
+                let as = a
+                let bs = __mapper('xs').m('snap')(b, t, 1).y
+                return as + bs
+              } ]]],
 
-          ],
-          control: 'wen',
+            ],
+          },
         },
-      }}
+      },
+    }
 
     let p11 = {
       halo: 'ent',
-      geofold,
       payload: {tim,
+        geofold,
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p11'},
-        proform: {projection: 'uniwen',
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          translate: [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        geobach: {
+          proform: {projection: 'uniwen',
+            scale: 1,
+            rotate: [ 0, 0, 0 ],
+            translate: [[[ {
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+              'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-          } ]]],
-          control: 'wen',
+            } ]]],
+          },
         },
-      }}
+      },
+    }
 
     let p12 = {
       halo: 'ent',
-      geofold,
       payload: {tim,
+        geofold,
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p12'},
-        proform: {projection: 'uniwen',
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          translate: [[[ (...args) => {
-            let a = [[[ {
-              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-              'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        geobach: {
+          proform: {projection: 'uniwen',
+            scale: 1,
+            rotate: [ 0, 0, 0 ],
+            translate: [[[ (...args) => {
+              let a = [[[ {
+                'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+                'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-            } ]]]
-            if (args.length === 0) {
-              return a
-            } else {
-              let as = args[0]
-              return [ 100 + as.x, 100 + as.y ]
-            }
-          } ]]],
-          control: 'wen',
+              } ]]]
+              if (args.length === 0) {
+                return a
+              } else {
+                let as = args[0]
+                return [ 100 + as.x, 100 + as.y ]
+              }
+            } ]]],
+          },
         },
-	 }}
+      },
+    }
 
     let p13 = {
       halo: 'ent',
-      geofold,
       payload: {tim,
+        geofold,
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p13'},
-        proform: {projection: 'uniwen',
-          scale: 1,
-          rotate: [ 0, 0 ],
-          translate: [
+        geobach: {
+          proform: {projection: 'uniwen',
+            scale: 1,
+            rotate: [ 0, 0 ],
+            translate: [
 
-            [[[ t => {
-              let msnap = __mapper('xs').m('snap')
-              let fn = (a, b) => a + b.x
-              let args = [
-                378,
-                [[[ {
-                  'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-                  'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+              [[[ t => {
+                let msnap = __mapper('xs').m('snap')
+                let fn = (a, b) => a + b.x
+                let args = [
+                  378,
+                  [[[ {
+                    'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+                    'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-                } ]]],
-              ]
-              args = args.map(d => msnap(d, t, 0))
-              return fn(...args)
-            } ]]],
+                  } ]]],
+                ]
+                args = args.map(d => msnap(d, t, 0))
+                return fn(...args)
+              } ]]],
 
-            [[[ (t, a = 100, b = {
-              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-              'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+              [[[ (t, a = 100, b = {
+                'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+                'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-            }) => {
-              let msnap = __mapper('xs').m('snap')
-              let as = a
-              let bs = msnap(b, t, 1).y
-              return as + bs
-            } ]]],
+              }) => {
+                let msnap = __mapper('xs').m('snap')
+                let as = a
+                let bs = msnap(b, t, 1).y
+                return as + bs
+              } ]]],
 
-          ],
-          control: 'wen',
+            ],
+          },
         },
-      }}
+      },
+    }
 
     let p15 = {
       halo: 'ent',
-      geofold,
       payload: {tim,
+        geofold,
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p15'},
-        proform: {projection: 'uniwen',
-          scale: 1,
-          rotate: [ 0, 0 ],
-          center: [ [[[ 100, 325 ]]], 100, 0 ],
-          translate: [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        geobach: {
+          proform: {projection: 'uniwen',
+            scale: 1,
+            rotate: [ 0, 0 ],
+            center: [ [[[ 100, 325 ]]], 100, 0 ],
+            translate: [[[ {
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+              'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-          } ]]],
-          control: 'wen',
+            } ]]],
+          },
         },
-      }}
+      },
+    }
 
     let p16 = {
       halo: 'ent',
-      geofold,
       payload: {tim,
+        geofold,
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p16'},
-        proform: {projection: 'uniwen',
-          scale: 1,
-          rotate: [ 0, 0 ],
-          center: [ [[[ 300, 225 ]]], 300, 0 ],
-          translate: [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        geobach: {
+          proform: {projection: 'uniwen',
+            scale: 1,
+            rotate: [ 0, 0 ],
+            center: [ [[[ 300, 225 ]]], 300, 0 ],
+            translate: [[[ {
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+              'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
-          } ]]],
-          control: 'wen',
+            } ]]],
+            control: 'wen',
+          },
         },
         stace: [[[ {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle

@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -45,29 +45,31 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: () => {
-        let gj = Object.assign({},
-          topojson.feature(
-            dworldTopo110m.data(),
-            dworldTopo110m.data().objects.land
-          )
-        )
-        gj = mgeoj.trim(gj)
-        return gj
-      },
-
       payload: {
+        geofold: () => {
+          let gj = Object.assign({},
+            topojson.feature(
+              dworldTopo110m.data(),
+              dworldTopo110m.data().objects.land
+            )
+          )
+          gj = mgeoj.trim(gj)
+          return gj
+        },
+
         tim: tim,
         ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geoearth1'},
         boform: { 'csx': 0, 'cf': [[[555, 555, 555, 555, 555, 555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
-        proform: {
+        geobach: {
+          proform: {
 
-          projection: d3geo.geoOrthographic(),
-          scale: 100,
-          translate: [ 150 - 300, 250 - 200 ],
-          rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ cwen.rotation ]]],
+            projection: d3geo.geoOrthographic(),
+            scale: 100,
+            translate: [ 150 - 300, 250 - 200 ],
+            rotate: [ [[[0, 0]]], 0, 0 ],
+            prerotate: [[[ cwen.rotation ]]],
 
+          },
         },
       },
 
@@ -78,21 +80,21 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
-
       payload: {
+        geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
         tim: tim,
         ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt1'},
         boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+        geobach: {
+          proform: {
 
-        proform: {
+            projection: d3geo.geoOrthographic(),
+            scale: 100,
+            translate: [ 150 - 300, 250 - 200 ],
+            rotate: [ [[[0, 0]]], 0, 0 ],
+            prerotate: [[[ cwen.rotation ]]],
 
-          projection: d3geo.geoOrthographic(),
-          scale: 100,
-          translate: [ 150 - 300, 250 - 200 ],
-          rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ cwen.rotation ]]],
-
+          },
         },
         graticule: {
 
@@ -110,24 +112,26 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: {
-        type: 'Feature',
-        geometry: {type: 'Sphere'},
-        properties: {},
-      },
-
       payload: {
+
+        geofold: {
+          type: 'Feature',
+          geometry: {type: 'Sphere'},
+          properties: {},
+        },
         tim: tim,
         ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geosphere1'},
         boform: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
-        proform: {
+        geobach: {
+          proform: {
 
-          projection: d3geo.geoOrthographic(),
-          scale: 100,
-          translate: [ 150 - 300, 250 - 200 ],
-          rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ cwen.rotation ]]],
+            projection: d3geo.geoOrthographic(),
+            scale: 100,
+            translate: [ 150 - 300, 250 - 200 ],
+            rotate: [ [[[0, 0]]], 0, 0 ],
+            prerotate: [[[ cwen.rotation ]]],
 
+          },
         },
       },
 
@@ -138,29 +142,31 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: () => {
-        let gj = Object.assign({},
-          topojson.feature(
-            dworldTopo110m.data(),
-            dworldTopo110m.data().objects.land
-          )
-        )
-
-        return mgeoj.trim(gj)
-      },
-
       payload: {
+
+        geofold: () => {
+          let gj = Object.assign({},
+            topojson.feature(
+              dworldTopo110m.data(),
+              dworldTopo110m.data().objects.land
+            )
+          )
+
+          return mgeoj.trim(gj)
+        },
         tim: tim,
         ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geoearth2'},
         boform: { 'csx': 0, 'cf': [[[555, 555, 555, 555, 555, 555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
-        proform: {
+        geobach: {
+          proform: {
 
-          projection: d3geo.geoMercator(),
-          scale: 30,
-          translate: [ 400 - 300, 250 - 200 ],
-          rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ cwen.rotation ]]],
+            projection: d3geo.geoMercator(),
+            scale: 30,
+            translate: [ 400 - 300, 250 - 200 ],
+            rotate: [ [[[0, 0]]], 0, 0 ],
+            prerotate: [[[ cwen.rotation ]]],
 
+          },
         },
       },
 
@@ -171,21 +177,21 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
-
       payload: {
+        geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
         tim: tim,
         ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt2'},
         boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+        geobach: {
+          proform: {
 
-        proform: {
+            projection: d3geo.geoMercator(),
+            scale: 30,
+            translate: [ 400 - 300, 250 - 200 ],
+            rotate: [ [[[0, 0]]], 0, 0 ],
+            prerotate: [[[ cwen.rotation ]]],
 
-          projection: d3geo.geoMercator(),
-          scale: 30,
-          translate: [ 400 - 300, 250 - 200 ],
-          rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ cwen.rotation ]]],
-
+          },
         },
         graticule: {
 
@@ -201,24 +207,26 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      geofold: {
-        type: 'Feature',
-        geometry: {type: 'Sphere'},
-        properties: {},
-      },
-
       payload: {
+        geofold: {
+          type: 'Feature',
+          geometry: {type: 'Sphere'},
+          properties: {},
+        },
+
         tim: tim,
         ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geosphere2'},
         boform: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
-        proform: {
+        geobach: {
+          proform: {
 
-          projection: d3geo.geoMercator(),
-          scale: 30,
-          translate: [ 400 - 300, 250 - 200 ],
-          rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ cwen.rotation ]]],
+            projection: d3geo.geoMercator(),
+            scale: 30,
+            translate: [ 400 - 300, 250 - 200 ],
+            rotate: [ [[[0, 0]]], 0, 0 ],
+            prerotate: [[[ cwen.rotation ]]],
 
+          },
         },
       },
 
@@ -228,8 +236,8 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
       payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
