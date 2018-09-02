@@ -111,13 +111,13 @@ async function lightanimas (browser, fls, opts) {
 async function run (fls, opts) {
 
   const winwidth = 1200
-  const winheight = 1400
+  const winheight = 1200
   const browser = await puppeteer.launch({
     headless: false,
     devtools: true, // open DevTools when window launches
     args: ['--remote-debugging-port=9222',
             `--window-size=${ winwidth },${ winheight }`,  // Window size
-            '--show-fps-counter',
+            // '--show-fps-counter',
             '--trace-to-console',
     ]
   })

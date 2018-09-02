@@ -130,12 +130,12 @@
       state.s2 = getPos(e)
 
       
-      let sdq = [
+      let sdq = [ // qurrent
         xsign * (state.s2[1] - state.s1[1]),
         ysign * (state.s1[0] - state.s2[0]),
       ]     
       
-      let sdp = [
+      let sdp = [ // present
         xsign * (state.s2[1] - state.s0[1]),
         ysign * (state.s0[0] - state.s2[0]),
       ]

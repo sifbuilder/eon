@@ -43,9 +43,11 @@ async function anitem (__mapper) {
       infact8 = 1 / fact8,
       infact9 = 1 / fact9
 
-    let sinp = [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8]
-    let cosp = [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9]
-    let exp = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
+    let cost = [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8]
+    let sint = [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9]
+    let cosht = [infact0, 0, +infact2, 0, infact4, 0, +infact6, 0, infact8]
+    let sinht = [0, infact1, 0, +infact3, 0, infact5, 0, +infact7, 0, infact9]
+    let expt = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
 
     // ............................. pics
     let tim = {'td': 12600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
@@ -56,19 +58,19 @@ async function anitem (__mapper) {
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         c: [ ],
-        e: [ sinp, 1, [0, 1], sinp ],
-        // 'fn0': (e,c) => {
-        // return c[0] * cos(e[0]) * c[2] * cos(e[3])
-        // },
+        e: [ 
+          cost, 
+          1, 
+          [0, 1], 
+          cost 
+        ],
+        // fn0: (e, c) => c[0] * cos(e[0]) * e[2] * cos(e[3]),
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (e, c, dax) => {
-          return c[1] * sin(e[0]) * c[2] * cos(e[3])
-        },
-
+        'fn0': (e, c, dax) => c[1] * sin(e[0]) * c[2] * cos(e[3]) ,
       },
 
       'z': {
@@ -76,11 +78,16 @@ async function anitem (__mapper) {
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
         c: [], // [1, 1, 1, [0,1]],
-        e: [ 1, 1, cosp, 1 ], // 1 * sin(v)
+        e: [ 
+            1, 
+            1, 
+            sint, 
+            1 
+        ], // 1 * sin(v)
         // 'fn0': (e,c) => c[3] * sin(e[2]) ,
       },
 
-      'r': {
+      'w': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
