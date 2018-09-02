@@ -138,7 +138,6 @@
         if (dims == 2) rot = mwen.cross([ Math.sqrt(rot[0]), 0, 0], [0, Math.sqrt(rot[1]), 0]) // planar rot
 
         rotation = rot
-        if (1 && 1) console.log('rotation', rotation)
 
       }
 
