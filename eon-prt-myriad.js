@@ -1,11 +1,11 @@
 /*******************************************
- *      @prjMyriad
+ *      @prtMyriad
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.prjMyriad = global.prjMyriad || {})))
+      : (factory((global.prtMyriad = global.prtMyriad || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -19,7 +19,7 @@
   // forked from Fil's block: Furuti 3 - projection.clipPolygon()
   // LICENSE# Released under the The MIT License.
 
-  async function prjMyriad (__mapper = {}) {
+  async function prtMyriad (__mapper = {}) {
     let [
       mkruskal,
       d3GeoVoronoi,
@@ -70,7 +70,7 @@
       }
     }
 
-    let prjRaw = d3Geo.geoGnomonicRaw
+    let prtRaw = d3Geo.geoGnomonicRaw
 
     // ....................... polyhedron
 
@@ -146,12 +146,12 @@
       tree = enxs(tree, trees, treeidx) || tree0
 
       let faceProjection = function (face) {
-        let prj = d3Geo.geoProjection(prjRaw)
+        let prt = d3Geo.geoProjection(prtRaw)
         let c = d3Geo.geoCentroid({type: 'MultiPoint', coordinates: face})
         let rotate = [-c[0], -c[1], 0]
         let translate = [0, 0]
         let scale = 1 // convention
-        return prj.scale(scale).translate(translate).rotate(rotate)
+        return prt.scale(scale).translate(translate).rotate(rotate)
       }
 
       let faces = polyhedron.map(function (face) {
@@ -192,5 +192,5 @@
     return enty
   }
 
-  exports.prjMyriad = prjMyriad
+  exports.prtMyriad = prtMyriad
 }))

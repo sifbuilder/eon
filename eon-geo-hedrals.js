@@ -22,7 +22,7 @@
 
       if (!p.geoRotation) p.geoRotation = c => [-c[0], -c[1], 0] // geoRotation
 
-      if (!p.prjRaw) p.prjRaw = d3.geoGnomonicRaw // prjRaw
+      if (!p.prtRaw) p.prtRaw = d3.geoGnomonicRaw // prtRaw
 
       p.tree = f.objxx('tree', 'trees', 'treeidx', p) // tree
 

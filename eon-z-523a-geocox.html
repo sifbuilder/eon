@@ -16,7 +16,7 @@ async function anitem (__mapper) {
     cversor,
     d3geo,
     d3geoprojection,
-    prjCox,
+    prtCox,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('geom'),
@@ -84,9 +84,9 @@ async function anitem (__mapper) {
             rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
             step: [[[0, 0, 1.1, 1.1, 0, 0]]],
 
-            prjlat: [[[1, 1]]],
-            prjlagr: [[[0.5, 0.5]]],
-            prjrad: [[[2.0, 2.0]]],
+            prtlat: [[[1, 1]]],
+            prtlagr: [[[0.5, 0.5]]],
+            prtrad: [[[2.0, 2.0]]],
 
           },
         },
@@ -118,17 +118,17 @@ async function anitem (__mapper) {
         boform: { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
 
         cox: {
-          prjlat: [[[1, 1]]],
-          prjlagr: [[[0.5, 0.5]]],
-          prjrad: [[[2.0, 2.0]]],
+          prtlat: [[[1, 1]]],
+          prtlagr: [[[0.5, 0.5]]],
+          prtrad: [[[2.0, 2.0]]],
         },
 
         geobach: {
           proform: {
 
-            prjlat: [[[1, 1]]],
-            prjlagr: [[[0.5, 0.5]]],
-            prjrad: [[[2.0, 2.0]]],
+            prtlat: [[[1, 1]]],
+            prtlagr: [[[0.5, 0.5]]],
+            prtrad: [[[2.0, 2.0]]],
 
             projection: 'cox',
             prerotate: [[[ cversor.rotation ]]],

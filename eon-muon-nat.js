@@ -386,14 +386,14 @@
     }
 
     // ............................. pointStream
-    let pointStream = function (prjdef) {
-      let natPoint = natVertex(prjdef.geoform) // m.nat.natVertex (a,b,c) => [a,b,c]
+    let pointStream = function (prtdef) {
+      let natPoint = natVertex(prtdef.geoform) // m.nat.natVertex (a,b,c) => [a,b,c]
       return function (lambda, phi, radio = 1) { this.stream.point(...natPoint(lambda, phi, radio)) }
     }
 
     // ............................. natprojection
-    let natprojection = prjdef => { // projection:natPoint, form:{x,y,z}
-      let geoTrans = d3geo.geoTransform({ point: pointStream(prjdef) })
+    let natprojection = prtdef => { // projection:natPoint, form:{x,y,z}
+      let geoTrans = d3geo.geoTransform({ point: pointStream(prtdef) })
       let geoProj = p => geoTrans(p)
       geoProj.stream = s => geoTrans.stream(s)
       return geoProj

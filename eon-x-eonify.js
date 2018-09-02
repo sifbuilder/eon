@@ -256,7 +256,7 @@
     enty.halo = enty.h = (nome, pres = 'halo') => getEon([nome, pres])
     enty.lib = enty.l = (nome, pres = 'lib') => getEon([nome, pres])
     enty.muon = enty.m = (nome, pres = 'muon') => getEon([nome, pres])
-    enty.prj = enty.p = (nome, pres = 'prj') => getEon([nome, pres])
+    enty.prt = enty.p = (nome, pres = 'prt') => getEon([nome, pres])
     enty.render = enty.r = (nome, pres = 'render') => getEon([nome, pres])
     enty.zindex = enty.z = (nome, pres = 'z') => getEon([nome, pres])
 

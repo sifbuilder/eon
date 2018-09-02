@@ -1,11 +1,11 @@
 /*******************************************
- *      @prjCox
+ *      @prtCox
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.prjCox = global.prjCox || {})))
+      : (factory((global.prtCox = global.prtCox || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -19,7 +19,7 @@
   // https://visionscarto.net/cox-conformal-projection
   // http://www.cs.dartmouth.edu/~doug/wallpaper.pdf
 
-  async function prjCox (__mapper = {}) {
+  async function prtCox (__mapper = {}) {
     let [
       Complex,
       muonNewton,
@@ -53,12 +53,12 @@
       }
     }
 
-    // .................. prjRaw
-    // prjlat  || 1    // [1,-1] north/south
-    // prjlagr || 0.5  // lagrange coef
-    // prjrad  || 2    // radius
-    let prj = function (prjlat = 1, prjlagr = 0.5, prjrad = 1) {
-      let prjRaw = function (lambda, phi) {
+    // .................. prtRaw
+    // prtlat  || 1    // [1,-1] north/south
+    // prtlagr || 0.5  // lagrange coef
+    // prtrad  || 2    // radius
+    let prt = function (prtlat = 1, prtlagr = 0.5, prtrad = 1) {
+      let prtRaw = function (lambda, phi) {
         // Approximate \int _0 ^sm(z)  dt / (1 - t^3)^(2/3)
         // sm maps a triangle to a disc, sm^-1 does the opposite
         function sm_1 (s) {
@@ -107,35 +107,35 @@
           return k.toVector()
         }
 
-        let s = d3GeoProjection.geoLagrangeRaw(prjlagr)(lambda, phi) // lagrange
-        let s1 = [prjlat * s[1], prjlat * s[0]] // N/S
-        let s2 = [s1[0] / prjrad, s1[1] / prjrad] // radio
+        let s = d3GeoProjection.geoLagrangeRaw(prtlagr)(lambda, phi) // lagrange
+        let s1 = [prtlat * s[1], prtlat * s[0]] // N/S
+        let s2 = [s1[0] / prtrad, s1[1] / prtrad] // radio
         let t = sm_1(s2) // interpolation
-        let ret = [prjlat * t[1], prjlat * t[0]] // N/S
+        let ret = [prtlat * t[1], prtlat * t[0]] // N/S
         return ret
       }
 
-      prjRaw.invert = muonNewton.geoInverse(prjRaw)
+      prtRaw.invert = muonNewton.geoInverse(prtRaw)
 
-      return prjRaw
+      return prtRaw
     }
 
     // .................. enty
     let p = function (opts) {
       let m
 
-      let {prjlat, prjlagr, prjrad} = opts
+      let {prtlat, prtlagr, prtrad} = opts
 
-      if ({prjlat, prjlagr, prjrad} ===
-        cache.prjlat, cache.prjlagr, cache.prjrad &&
+      if ({prtlat, prtlagr, prtrad} ===
+        cache.prtlat, cache.prtlagr, cache.prtrad &&
           cacheProject !== undefined) {
         m = cacheProject
       } else {
-        cache.prjlat = prjlat
-        cache.prjlagr = prjlagr
-        cache.prjrad = prjrad
+        cache.prtlat = prtlat
+        cache.prtlagr = prtlagr
+        cache.prtrad = prtrad
 
-        m = d3Geo.geoProjection(prj(prjlat, prjlagr, prjrad))
+        m = d3Geo.geoProjection(prt(prtlat, prtlagr, prtrad))
 
         cacheProject = m
       }
@@ -143,11 +143,11 @@
       return m
     }
 
-    let enty = function (prjdef = {}) {
-      return p(prjdef)
+    let enty = function (prtdef = {}) {
+      return p(prtdef)
     }
     return enty
   }
 
-  exports.prjCox = prjCox
+  exports.prtCox = prtCox
 }))

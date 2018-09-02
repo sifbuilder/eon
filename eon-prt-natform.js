@@ -1,15 +1,15 @@
 /*******************************************
- *    @prjNatform
+ *    @ptjNatform
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.prjNatform = global.prjNatform || {})))
+      : (factory((global.ptjNatform = global.ptjNatform || {})))
 }(this, function (exports) {
   'use strict'
 
-  // # eon-prj-natform
+  // # eon-prt-natform
   // **returns nat projection**
 
   // ### functions
@@ -26,16 +26,16 @@
   // # license
   // MIT
 
-  async function prjNatform (__mapper = {}) {
+  async function ptjNatform (__mapper = {}) {
     let [
       mnat,
     ] = await Promise.all([
       __mapper('xs').m('nat'),
     ])
 
-    let enty = prjdef => mnat.natprojection(prjdef)
+    let enty = prtdef => mnat.natprojection(prtdef)
     return enty
   }
 
-  exports.prjNatform = prjNatform
+  exports.ptjNatform = ptjNatform
 }))

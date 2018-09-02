@@ -73,9 +73,9 @@
       }
     }
     /*******************************************
- *      @prjRaw
+ *      @prtRaw
  */
-    let prjRaw = d3.geoGnomonicRaw
+    let prtRaw = d3.geoGnomonicRaw
 
     /*******************************************
  *      @polyhedron
@@ -155,12 +155,12 @@
       tree = enxs(tree, trees, treeidx) || tree0
 
       let faceProjection = function (face) {
-        let prj = d3Geo.geoProjection(prjRaw)
+        let geo = d3Geo.geoProjection(prtRaw)
         let c = d3Geo.geoCentroid({type: 'MultiPoint', coordinates: face})
         let rotate = [-c[0], -c[1], 0]
         let translate = [0, 0]
         let scale = 1 // convention
-        return prj.scale(scale).translate(translate).rotate(rotate)
+        return geo.scale(scale).translate(translate).rotate(rotate)
       }
 
       let faces = polyhedron.map(function (face) {

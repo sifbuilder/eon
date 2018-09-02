@@ -1,17 +1,17 @@
 /*******************************************
- *      @prjUnimercator
+ *      @prtUnimercator
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.prjUnimercator = global.prjUnimercator || {})))
+      : (factory((global.prtUnimercator = global.prtUnimercator || {})))
 }(this, function (exports) {
   'use strict'
 
   // https://d3js.org/d3-geo/ Version 1.9.0. Copyright 2017 Mike Bostock.
 
-  async function prjUnimercator (__mapper = {}) {
+  async function prtUnimercator (__mapper = {}) {
     let [
       d3geo,
     ] = await Promise.all([
@@ -77,5 +77,5 @@
     return enty
   }
 
-  exports.prjUnimercator = prjUnimercator
+  exports.prtUnimercator = prtUnimercator
 }))

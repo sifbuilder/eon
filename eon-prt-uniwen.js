@@ -1,15 +1,15 @@
 /*******************************************
- *    @prjUniwen
+ *    @prtUniwen
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.prjUniwen = global.prjUniwen || {})))
+      : (factory((global.prtUniwen = global.prtUniwen || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function prjUniwen (__mapper = {}) {
+  async function prtUniwen (__mapper = {}) {
     let [
       mgeom,
       mwen,
@@ -142,10 +142,10 @@
     }
 
     // .................. enty
-    let enty = function (prjdef = {}) {
-      let m = uniprofion(prjdef)
+    let enty = function (prtdef = {}) {
+      let m = uniprofion(prtdef)
 
-      state = Object.assign({}, init, prjdef) // reste proj state
+      state = Object.assign({}, init, prtdef) // reste proj state
 
       m.translate = _ => (_ !== undefined) ? (state.translate = _, m) : state.translate
       m.rotate = _ => (_ !== undefined) ? (state.rotate = _, m) : state.rotate
@@ -158,5 +158,5 @@
     return enty
   }
 
-  exports.prjUniwen = prjUniwen
+  exports.prtUniwen = prtUniwen
 }))

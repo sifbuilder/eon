@@ -44,17 +44,17 @@
         geoproj = projdef
       } else if (typeof projdef === 'object') {
         if (typeof projdef.projection === 'string') {
-          let prjItem = projdef.projection
-          let prj = __mapper(prjItem) // try eg. uniwen
+          let prtItem = projdef.projection
+          let prt = __mapper(prtItem) // try eg. uniwen
 
           if (typeof projdef.projection === 'function') {
-            geoproj = prj(projdef)
+            geoproj = prt(projdef)
           } else {
-            let ceon = __mapper('xs').ceonize(prjItem, 'prj')
-            let prj = __mapper(ceon)
+            let ceon = __mapper('xs').ceonize(prtItem, 'prt')
+            let prt = __mapper(ceon)
 
-            console.assert(typeof prj === 'function', `prj ${prj} in ${projdef} is not a function`)
-            geoproj = prj(projdef)
+            console.assert(typeof prt === 'function', `prt ${prt} in ${projdef} is not a function`)
+            geoproj = prt(projdef)
           }
         } else if (mprops.isFunction(projdef.projection)) { // if is projection
           geoproj = projdef.projection // props passed to projection _
@@ -164,73 +164,10 @@
     // ............................. uniweon
     let uniweon = projdef => puniwen(projdef)
 
-    // ............................. conformion
-    // function conformion (anigram) {
-      // console.assert(typeof anigram === 'object', 'anigram is not object')
-
-      // let prj = anigram.payload.conform
-
-      // let res = null
-      // if (typeof prj === 'object' && prj.projection === undefined) {
-        // prj = {
-          // projection: 'natform',
-          // form: prj,
-        // }
-        // res = formion(prj, anigram)
-      // }
-
-      // if (typeof prj === 'function') {
-        // res = formion(prj, anigram)
-      // }
-
-      // return res
-    // }
-
-    // const conformer = anitem => json => mproj3ct.project(json, conformion(anitem))
-
-    // ............................. ereformion
-    // function ereformion (anigram) {
-      // console.assert(typeof anigram === 'object', 'anigram is not object')
-
-      // let prj = anigram.payload.ereform
-
-      // let res = null
-      // if (prj) {
-        // res = formion(prj, anigram)
-      // }
-      // return res
-    // }
-
-    // const ereformer = anitem => json => mproj3ct.project(json, ereformion(anitem))
-
-    // ............................. proformion
-    // function proformion (anigram) {
-      // console.assert(typeof anigram === 'object', 'anigram is not object')
-
-      // let prj = anigram.payload.proform
-
-      // let res = null
-      // if (prj) {
-        // res = formion(prj, anigram)
-      // }
-      // return res
-    // }
-
-    // const proformer = anitem => json => mproj3ct.project(json, proformion(anitem))
-
     // ............................. enty
     let enty = function () {}
     enty.formion = formion
     enty.projer_ = projer_
-
-    // enty.proformion = proformion
-    // enty.proformer = proformer
-
-    // enty.ereformion = ereformion
-    // enty.ereformer = ereformer
-
-    // enty.conformion = conformion
-    // enty.conformer = conformer
 
     enty.uniweon = uniweon
 

@@ -1,14 +1,14 @@
 /***************************
- *        @prjHedrals
+ *        @prtHedrals
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.prjHedrals = global.prjHedrals || {})))
+      : (factory((global.prtHedrals = global.prtHedrals || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function prjHedrals (__mapper = {}) {
+  async function prtHedrals (__mapper = {}) {
     let [
       mprops,
       mpolyhedral,
@@ -26,7 +26,7 @@
 
       if (!p.geoRotation) p.geoRotation = c => [-c[0], -c[1], 0] // geoRotation
 
-      if (!p.prjRaw) p.prjRaw = d3.geoGnomonicRaw // prjRaw
+      if (!p.prtRaw) p.prtRaw = d3.geoGnomonicRaw // prtRaw
 
       p.tree = mprops.objxx('tree', 'trees', 'treeidx', p) // tree
 
@@ -53,5 +53,5 @@
     return enty
   }
 
-  exports.prjHedrals = prjHedrals
+  exports.prtHedrals = prtHedrals
 }))

@@ -34,13 +34,13 @@
     let d3Geo = d3
 
     /*******************************************
- *      @prjRaw
+ *      @prtRaw
  */
-    //  prjlat  [1,-1] north/south
-    //  prjlagr lagrange coef
-    //  prjrad  radius
-    let prj = function (prjlat = 1, prjlagr = 0.5, prjrad = 1) {
-      let prjRaw = function (lambda, phi) { // leeRaw  // return d3.geoGnomonicRaw(...arguments);
+    //  prtlat  [1,-1] north/south
+    //  prtlagr lagrange coef
+    //  prtrad  radius
+    let prt = function (prtlat = 1, prtlagr = 0.5, prtrad = 1) {
+      let prtRaw = function (lambda, phi) { // leeRaw  // return d3.geoGnomonicRaw(...arguments);
         function sm_1 (s) {
           let w = Complex([Math.sin(-30 * radians), Math.cos(-30 * radians)]), // [-1/2, Math.sqrt(3)/2]
             k = Complex(0),
@@ -100,9 +100,9 @@
         return ret
       }
 
-      prjRaw.invert = __mapper('xs').m('newton').geoInverse(prjRaw)
+      prtRaw.invert = __mapper('xs').m('newton').geoInverse(prtRaw)
 
-      return prjRaw
+      return prtRaw
     }
 
     /*******************************************
@@ -130,7 +130,7 @@
   *       @enty
   */
     let enty = function (p = {}) {
-      let {prjlat, prjlagr, prjrad} = p
+      let {prtlat, prtlagr, prtrad} = p
 
       if (!p.faciaRotation) p.faciaRotation = Math.PI / 6
       if (!p.geoRotation) p.geoRotation = c => (Math.abs(c[1]) == 90) ? [ 0, -c[1], -30 ] : [ -c[0], -c[1], 30 ]
@@ -139,7 +139,7 @@
 
       if (!p.faces) p.faces = faces
 
-      if (!p.prjRaw) p.prjRaw = prj(prjlat, prjlagr, prjrad)
+      if (!p.prtRaw) p.prtRaw = prt(prtlat, prtlagr, prtrad)
 
       return mpolyhedral(p)
     }

@@ -90,7 +90,7 @@
       if (!p.tree) p.tree = [-1, 4, 5, 2, 0, 1]
       if (!p.rotate) p.rotate = [28, -4, 0] // California
       if (!p.faces) p.faces = faces
-      if (!p.prjRaw) p.prjRaw = d3geo.geoGnomonicRaw
+      if (!p.prtRaw) p.prtRaw = d3geo.geoGnomonicRaw
 
       return mpolyhedral(p)
     }

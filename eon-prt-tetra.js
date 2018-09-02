@@ -1,15 +1,15 @@
 /*******************************************
- *      @prjTetra
+ *      @prtTetra
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.prjTetra = global.prjTetra || {})))
+      : (factory((global.prtTetra = global.prtTetra || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function prjTetra (__mapper = {}) {
+  async function prtTetra (__mapper = {}) {
   // Philippe Rivière’s Block 1aafd8fa22b62243290674384c364dd0
   // Cox Projection
   // https://bl.ocks.org/fil/1aafd8fa22b62243290674384c364dd0
@@ -50,13 +50,13 @@
     // let d3Geo = d3
 
     /*******************************************
- *      @prjRaw
+ *      @prtRaw
  */
-    //  prjlat  [1,-1] north/south
-    //  prjlagr lagrange coef
-    //  prjrad  radius
-    let prj = function (prjlat = 1, prjlagr = 0.5, prjrad = 1) {
-      let prjRaw = function (lambda, phi) { // leeRaw  // return d3.geoGnomonicRaw(...arguments);
+    //  prtlat  [1,-1] north/south
+    //  prtlagr lagrange coef
+    //  prtrad  radius
+    let prt = function (prtlat = 1, prtlagr = 0.5, prtrad = 1) {
+      let prtRaw = function (lambda, phi) { // leeRaw  // return d3.geoGnomonicRaw(...arguments);
         function sm_1 (s) {
           let w = Complex([Math.sin(-30 * radians), Math.cos(-30 * radians)]), // [-1/2, Math.sqrt(3)/2]
             k = Complex(0),
@@ -116,9 +116,9 @@
         return ret
       }
 
-      prjRaw.invert = muonNewton.geoInverse(prjRaw)
+      prtRaw.invert = muonNewton.geoInverse(prtRaw)
 
-      return prjRaw
+      return prtRaw
     }
 
     /*******************************************
@@ -144,7 +144,7 @@
 
     // .................. enty
     let p = function (opts) {
-      let {prjlat, prjlagr, prjrad} = opts
+      let {prtlat, prtlagr, prtrad} = opts
 
       if (!opts.faciaRotation) opts.faciaRotation = Math.PI / 6
       if (!opts.geoRotation) opts.geoRotation = c => (Math.abs(c[1]) === 90) ? [ 0, -c[1], -30 ] : [ -c[0], -c[1], 30 ]
@@ -153,17 +153,17 @@
 
       if (!opts.faces) opts.faces = faces
 
-      if (!opts.prjRaw) opts.prjRaw = prj(prjlat, prjlagr, prjrad)
+      if (!opts.prtRaw) opts.prtRaw = prt(prtlat, prtlagr, prtrad)
 
       return muonPolyhedral(opts)
     }
 
-    let enty = function (prjdef = {}) {
-      let res = p(prjdef)
+    let enty = function (prtdef = {}) {
+      let res = p(prtdef)
       return res
     }
     return enty
   }
 
-  exports.prjTetra = prjTetra
+  exports.prtTetra = prtTetra
 }))

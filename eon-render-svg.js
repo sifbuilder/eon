@@ -158,9 +158,9 @@
       let svg = _svg()
 
       let cameraProjer = rrenderport.cameraProjer()
-      let prjdef = rrenderport.prjdef()
-      let prj = puniwen(prjdef)
-      cameraProjer = prj
+      let prtdef = rrenderport.prtdef()
+      let prt = puniwen(prtdef)
+      cameraProjer = prt
 
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
         .key(function (d) { return d.properties.ric.gid })
