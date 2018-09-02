@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time: undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -8,10 +8,12 @@ async function anitem (__mapper) {
     mgraticule,
     cwen,
     rrenderport,
+    prjNatform,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').r('renderport'),
+    __mapper('xs').p('natform'),
   ])
 
   // .................. animas
@@ -125,7 +127,7 @@ async function anitem (__mapper) {
           conform: {
 
             projection: 'natform',
-            form: formGrat1,
+            geoform: formGrat1,
 
           },
 

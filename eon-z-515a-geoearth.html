@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time: undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -75,7 +75,9 @@ async function anitem (__mapper) {
         },
 
         tim,
-        proform: proformDark,
+        geobach: {
+          proform: proformDark,
+        },
         ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthDark'},
         boform: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
       },
@@ -144,7 +146,7 @@ async function anitem (__mapper) {
       halo: 'ent',
 
       payload: {
-        geofold: () => d3.geoGraticule()(),
+        geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
         tim,
 
@@ -153,6 +155,14 @@ async function anitem (__mapper) {
         },
         ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
         boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9},
+
+        graticule: {
+
+          frame: [ [ [ -180, 180, 30, 30], // x
+            [ -180, 180, 15, 15] ] ], // y
+
+        },
+
       },
 
     }
@@ -173,7 +183,7 @@ async function anitem (__mapper) {
     let animas = [
       geoearthDark,
       geoearthFront, // h.ent g.orthographic
-      // graticuleFront, // h.ent
+      graticuleFront, // h.ent
       sceneAni, // h.scene
     ]
 

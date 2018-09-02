@@ -84,13 +84,14 @@
       lastMoveTime: null,
       timer: null,
 
+      s0: null, // previous position
       s1: null, // previous position
       s2: null, // current position
     }
 
     // .................. dragstarted listener
     function dragstarted () {
-      // s: screen  state.s1, state.s2,
+      // s: screen  state.s0, state.s1, state.s2,
       // g: geographic
       // c: cartesian
       // q: quaternion
@@ -108,6 +109,7 @@
 
       state.s2 = state.grabbed // present
       state.s1 = state.s2 // current
+      state.s0 = state.s1 // current
 
       state.rotAccum_radians =
             mgeom.add(
@@ -122,27 +124,43 @@
       if (!state.grabbed) return
 
       let e = d3selection.event
+      
+      
+      state.s1 = state.s2
       state.s2 = getPos(e)
 
-      let sd = [
+      
+      let sdq = [
         xsign * (state.s2[1] - state.s1[1]),
         ysign * (state.s1[0] - state.s2[0]),
+      ]     
+      
+      let sdp = [
+        xsign * (state.s2[1] - state.s0[1]),
+        ysign * (state.s0[0] - state.s2[0]),
       ]
-      let sdist = sd[0] * sd[0] + sd[1] * sd[1]
+      
+      let sdist = sdp[0] * sdp[0] + sdp[1] * sdp[1]
       if (!state.moved) {
         if (sdist < inits.moveSpan) return
         state.moved = true // moved
         state.rotInDrag_radians = inits.rotInit_radians
         rebase()
       }
+      
+      
       state.lastMoveTime = Date.now()
 
+      
       let r2 = [
-        state.rotVel_radians[0] + sd[0] * inits.mult_radians,
-        state.rotVel_radians[1] + sd[1] * inits.mult_radians,
+        state.rotVel_radians[0] + sdp[0] * inits.mult_radians,
+        state.rotVel_radians[1] + sdp[1] * inits.mult_radians,
       ]
 
       state.rotInDrag_radians = r2
+      
+      
+      
     }
 
     // .................. dragended
@@ -151,12 +169,14 @@
       state.grabbed = false
       if (!state.moved) return
 
+
       state.vel_radians = [ // velocity
 
         xsign * (state.s2[1] - state.s1[1]) * inits.mult_radians,
         ysign * (state.s2[0] - state.s1[0]) * inits.mult_radians,
 
       ]
+
 
       state.timer = requestAnimationFrame(momentum)
     }

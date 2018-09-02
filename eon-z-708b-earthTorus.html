@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time: undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -12,6 +12,7 @@ async function anitem (__mapper) {
     topojson,
     dworldTopo110m,
     mnat,
+    prjNatform,
   ] = await Promise.all([
     __mapper('xs').m('geom'),
     __mapper('xs').c('wen'),
@@ -19,10 +20,12 @@ async function anitem (__mapper) {
     __mapper('xs').b('topojson'),
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').m('nat'),
+    __mapper('xs').p('natform'),
   ])
 
   // .................. animas
   let ani = function () {
+    // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
       sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh,
@@ -193,7 +196,7 @@ async function anitem (__mapper) {
         ric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
         boform: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
         geobach: {
-          conform: { projection: 'natform', form: formTorus },
+          conform: { projection: 'natform', geoform: formTorus },
           proform: proformEarth,
         },
       },
@@ -238,7 +241,7 @@ async function anitem (__mapper) {
         boform: { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
 
         geobach: {
-          conform: { projection: 'natform', form: formSphere },
+          conform: { projection: 'natform', geoform: formSphere },
 
           proform: proformEarth,
         },
@@ -294,7 +297,7 @@ async function anitem (__mapper) {
         boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
         geobach: {
-          conform: { projection: 'natform', form: formGratiCube },
+          conform: { projection: 'natform', geoform: formGratiCube },
 
           proform: proformEarth,
         },
@@ -313,7 +316,7 @@ async function anitem (__mapper) {
         boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
         geobach: {
-          conform: { projection: 'natform', form: formSphere },
+          conform: { projection: 'natform', geoform: formSphere },
 
           proform: proformEarth,
         },
@@ -328,7 +331,9 @@ async function anitem (__mapper) {
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q1'},
-        proform: proformTorus,
+        geobach: {
+          proform: proformTorus,
+        },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
         geoform: formTorus,

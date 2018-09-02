@@ -319,7 +319,8 @@
             geometry: {
               type: gj.type,
               coordinates: gj.coordinates},
-            properties: {geonode: {}}})
+            properties: {}
+          })
         }
       } else {
         console.log('m.geoj.featurize not supported geojson ', gj)

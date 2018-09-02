@@ -252,11 +252,11 @@
           },
         }
 
-        let projDef = { projection: 'natform', form: nformed }
+        let projDef = { projection: 'natform', geoform: nformed }
         let projection = natprojection(projDef)
 
         let feature = mproj3ct(gj, projection)
-        cache.form = projDef.form
+        cache.geoform = projDef.geoform
         cache.feature = feature
         return feature
       }
@@ -387,7 +387,7 @@
 
     // ............................. pointStream
     let pointStream = function (prjdef) {
-      let natPoint = natVertex(prjdef.form) // m.nat.natVertex (a,b,c) => [a,b,c]
+      let natPoint = natVertex(prjdef.geoform) // m.nat.natVertex (a,b,c) => [a,b,c]
       return function (lambda, phi, radio = 1) { this.stream.point(...natPoint(lambda, phi, radio)) }
     }
 

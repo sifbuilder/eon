@@ -203,8 +203,8 @@
           newItem.payload.boform = boform // boform
 
           newItem.payload.geofold.geometry.coordinates = [xn[i], yn[i]]
-          newItem.payload.geofold.properties.geonode.geometry.coordinates = [xn[i], yn[i]]
-          newItem.payload.geofold.properties.geonode.properties.orgen = [xn[i], yn[i]]
+          newItem.payload.geonode.geometry.coordinates = [xn[i], yn[i]]
+          newItem.payload.geonode.properties.orgen = [xn[i], yn[i]]
 
           iAnitems[i] = newItem
         }

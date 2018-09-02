@@ -8,7 +8,7 @@ getPosInDim  getPosesInDim m.liner _e_
  
 ### getSitus , or ani geonode 
             ani position in the coords system 
-            in geofold.properties.geonode.geometry 
+            in geonode.geometry 
             sim forces act on the ani geonodes 
  
 ### getLoci 

@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time: undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -68,7 +68,9 @@ async function anitem (__mapper) {
         tim: tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
         boform: boform,
-        proform: proform,
+        geobach: {
+          proform: proform,
+        },
         geoform: formNat,
       },
 

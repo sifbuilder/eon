@@ -53,7 +53,7 @@
             let ceon = __mapper('xs').ceonize(prjItem, 'prj')
             let prj = __mapper(ceon)
 
-            console.assert(typeof prj === 'function', `prj ${prj} is not a function`)
+            console.assert(typeof prj === 'function', `prj ${prj} in ${projdef} is not a function`)
             geoproj = prj(projdef)
           }
         } else if (mprops.isFunction(projdef.projection)) { // if is projection
@@ -96,7 +96,7 @@
           translation = mstace.getTranspot(projdef.translate, anigram) // get transpot - anigram
         }
 
-        if (projdef.anod && geofold.properties && geofold.properties.geonode) {
+        if (projdef.anod && geonode) {
           if (geonode.geometry && geonode.geometry.coordinates !== undefined) {
             let nodetranslate = geonode.geometry.coordinates // geonode coords
             translation = mgeom.add(translation, nodetranslate)
@@ -164,72 +164,72 @@
     let uniweon = projdef => puniwen(projdef)
 
     // ............................. conformion
-    function conformion (anigram) {
-      console.assert(typeof anigram === 'object', 'anigram is not object')
+    // function conformion (anigram) {
+      // console.assert(typeof anigram === 'object', 'anigram is not object')
 
-      let prj = anigram.payload.conform
+      // let prj = anigram.payload.conform
 
-      let res = null
-      if (typeof prj === 'object' && prj.projection === undefined) {
-        prj = {
-          projection: 'natform',
-          form: prj,
-        }
-        res = formion(prj, anigram)
-      }
+      // let res = null
+      // if (typeof prj === 'object' && prj.projection === undefined) {
+        // prj = {
+          // projection: 'natform',
+          // form: prj,
+        // }
+        // res = formion(prj, anigram)
+      // }
 
-      if (typeof prj === 'function') {
-        res = formion(prj, anigram)
-      }
+      // if (typeof prj === 'function') {
+        // res = formion(prj, anigram)
+      // }
 
-      return res
-    }
+      // return res
+    // }
 
-    const conformer = anitem => json => mproj3ct.project(json, conformion(anitem))
+    // const conformer = anitem => json => mproj3ct.project(json, conformion(anitem))
 
     // ............................. ereformion
-    function ereformion (anigram) {
-      console.assert(typeof anigram === 'object', 'anigram is not object')
+    // function ereformion (anigram) {
+      // console.assert(typeof anigram === 'object', 'anigram is not object')
 
-      let prj = anigram.payload.ereform
+      // let prj = anigram.payload.ereform
 
-      let res = null
-      if (prj) {
-        res = formion(prj, anigram)
-      }
-      return res
-    }
+      // let res = null
+      // if (prj) {
+        // res = formion(prj, anigram)
+      // }
+      // return res
+    // }
 
-    const ereformer = anitem => json => mproj3ct.project(json, ereformion(anitem))
+    // const ereformer = anitem => json => mproj3ct.project(json, ereformion(anitem))
 
     // ............................. proformion
-    function proformion (anigram) {
-      console.assert(typeof anigram === 'object', 'anigram is not object')
+    // function proformion (anigram) {
+      // console.assert(typeof anigram === 'object', 'anigram is not object')
 
-      let prj = anigram.payload.proform
+      // let prj = anigram.payload.proform
 
-      let res = null
-      if (prj) {
-        res = formion(prj, anigram)
-      }
-      return res
-    }
+      // let res = null
+      // if (prj) {
+        // res = formion(prj, anigram)
+      // }
+      // return res
+    // }
 
-    const proformer = anitem => json => mproj3ct.project(json, proformion(anitem))
+    // const proformer = anitem => json => mproj3ct.project(json, proformion(anitem))
 
     // ............................. enty
     let enty = function () {}
     enty.formion = formion
     enty.projer_ = projer_
 
-    enty.proformion = proformion
-    enty.proformer = proformer
+    // enty.proformion = proformion
+    // enty.proformer = proformer
 
-    enty.ereformion = ereformion
-    enty.ereformer = ereformer
+    // enty.ereformion = ereformion
+    // enty.ereformer = ereformer
 
-    enty.conformion = conformion
-    enty.conformer = conformer
+    // enty.conformion = conformion
+    // enty.conformer = conformer
 
     enty.uniweon = uniweon
 

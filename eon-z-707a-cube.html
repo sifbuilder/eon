@@ -1,15 +1,17 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time: undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
   let [
     cwen,
     mgeom,
+    prjNatform,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').m('geom'),
+    __mapper('xs').p('natform'),
   ])
 
   let ani = function () {
@@ -80,7 +82,10 @@ async function anitem (__mapper) {
         boform: { 'csx': 0, 'cf': 111, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
 
         geobach: {
-          conform: { projection: 'natform', form: cubeForm },
+          conform: {
+            projection: 'natform',
+            geoform: cubeForm,
+          },
 
           proform: {
 

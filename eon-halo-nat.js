@@ -9,12 +9,17 @@
   'use strict'
 
   async function haloNat (__mapper = {}) {
-    let mnat = await __mapper('xs').m('nat'),
-      hent = await __mapper('xs').h('ent')
+    let [
+      mnat,
+      hent,
+    ] = await Promise.all([
+      __mapper('xs').m('nat'),
+      __mapper('xs').h('ent'),
+    ])
 
     // .................... gramm
     let gramm = async function (anitem) {
-      console.assert(anitem.payload.geoform !== undefined)
+      console.assert(anitem.payload.geoform !== undefined, 'geoform is undefined')
 
       anitem.halo = 'ent'
       anitem.payload.geofold = mnat.natFeature(anitem.payload.geoform)

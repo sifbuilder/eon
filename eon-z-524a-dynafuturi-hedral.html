@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time: undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -13,6 +13,7 @@ async function anitem (__mapper) {
     mgraticule,
     topojson,
     dworldTopo110m,
+    prjHedrals,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
@@ -21,6 +22,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('graticule'),
     __mapper('xs').b('topojson'),
     __mapper('xs').d('worldTopo110m'),
+    __mapper('xs').p('hedrals'),
   ])
 
   // .................. animas
@@ -71,8 +73,6 @@ async function anitem (__mapper) {
         [0, 1, 5, 4, 0],
         [5, 6, 7, 4, 5], // S
       ],
-
-      'control': 'versor',
 
     }
 
@@ -161,9 +161,11 @@ async function anitem (__mapper) {
         ric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
         boform: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
-        proform: {
-          projection: 'uniwen',
-          translate: [ -250, 0 ],
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            translate: [ -250, 0 ],
+          },
         },
 
         textform: {

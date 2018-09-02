@@ -112,8 +112,10 @@
       // cycletime since last outed item, relevant if auto
       let cycletime = tim.unitPassed - (pacer.outed || 0)
 
+
       // if the cycletime is longer than auto pace
       //  and unitPassed is beyong autoT ...
+
       if (cycletime >= pacer.autoP &&
             tim.unitPassed > (pacer.autoT || 0)
       ) {
@@ -140,127 +142,155 @@
         }
       }
 
-      //
+
+
+
       // count: eg: {init:4, auto:1, event:3}
-      //
+
+
+
+
       if (Object.keys(count).length > 0) { // on pace count, eg {init: 6, auto: 1}
-        let stace // situs of new anitem dependent on kind
 
         // for each key in count
-        for (let counter = 0; counter < Object.keys(count).length; counter++) { // in count
+        for (let counter = 0; counter < Object.keys(count).length; counter++) {
+        
           // key is count sort, eg. { init, auto, event }
           let key = Object.keys(count)[counter]
 
-          // value  is the number of items to be paced
+          // qitems is the number of items to be paced
           // generate qitems items of type key, eg. 6 (at init, on auto, when event)
+          
           let qitems = count[key]
 
-          // count, key, qitems, kq
-          if (qitems > 0) { // if count on this sort
+            // count, key, qitems, kq
+            
             for (let i = 0; i < qitems; i++) {
-              let props = {
-                count: count,
-                key: key,
-                counter: i,
+
+              let props = { count: count, key: key, counter: i, }
+
+              let newItem = {} // anitem from pacer props
+
+              // the paced ric is defined in the pacer. may be same as anitem
+              let ric = anitem.payload.pacer.ric(anitem, props)
+              let uid = mric.getuid(ric)
+
+              let preani = mstore.findAnigramFromUid(uid)
+
+              if (preani !== undefined) {
+
+                newItem = preani
+
+                if (base !== undefined) { // base
+                  
+                  // console.assert(newItem.payload.geofold.properties[base] !== undefined)
+                  // newItem.payload.geofold.geometry = newItem.payload.geofold.properties[base].geometry
+                  
+                }                
+                
+              } else {
+
+                newItem.halo = anitem.halo
+                newItem.payload = mprops.clone(anitem.payload)
+                newItem.payload.geofold = anitem.payload.pacer.geofold(anitem)
+
+                
+                
               }
 
-              let newItem = payload.pacer.geojsor(anitem, props)
 
-              // eg.
-              // stace: {
-              // x: { pos: 0, ere: 1 },
-              // y: { pos: 0, ere: 1 },
-              // z: 0
-              // },
 
-              stace = newItem.payload.stace
 
-              // situs from ani.payload.geofold.properties.geonode
-              // spot from transpot stace, ani
-              // locus: situs + spot
-              let situs = mstace.getLocus(stace, anitem)
+              let situs = anitem.payload.pacer.stace(anitem, props)
 
               if (situs && typeof situs === 'object') situs = Object.values(situs)
 
-              // payload.pacer.AAD
-              // if pacer.add mode, new items add to pacer generated item (eg. segment point to LineString trace)
 
-              if (aad) {
-                //  add situs to newItem geocoords
-                //  coords are final space coords (after h.ent, stored at m.animation)
+              // if opt.add  type is LineString and geometry adds coords
 
-                // geocoords
-                let coords = newItem.payload.geofold.geometry.coordinates //
+              if (aad) {  //  if AAD
 
-                // precoords
-                let precoords = newItem.payload.geofold.properties.geocoords // pre coords
+
+                let coords = newItem.payload.geofold.geometry.coordinates
 
                 if (coords && coords.length > 0) {
+
                   let presitus = coords[coords.length - 1] // last point in paced string
 
-                  let d = mgeom.distance3d(presitus, situs) // distance to new coord
-                  if (d >= span) {
-                    coords.push(situs) // if beyond span ADD SITUS to LineString
-                  }
+                    coords.push(situs)
+
+
                 } else {
+
+
                   coords = Array.of(situs) // coords start with first situs
+
                 }
 
                 newItem.payload.geofold.geometry.coordinates = coords // upd coords
-                newItem.payload.geofold.properties.geocoords = precoords
 
-                let newItemsInCount = await hent.gramm(newItem) // h.ent newItem
+
+                let newItemsInCount = hent.gramm(newItem) // h.ent newItem
+
+
                 newItems = [...newItems, ...newItemsInCount] // add new items
 
-                // NOT pacer.AAD
-                // if not pacer.add, each pacer generated item
+
+                // NOT pacer.AAD if not pacer.add, each pacer generated item
+
               } else { //  if NOT AAD
+
                 // geofold is Feature
                 // if newItem geofold.geometry.type is Point, then ...
 
                 if (newItem.payload.geofold && newItem.payload.geofold.geometry.type === 'Point') { // POINT
+                  
                   // coordinates from geofold
+                  
                   let presitus = newItem.payload.geofold.geometry.coordinates
 
                   // if pacer item DOES  exist
+                  
                   if (presitus !== null) {
+                    
                     let d = mgeom.distance3d(presitus, situs) // distance from previous situs
-
                     if (d >= span) { // if distance from previous point greater than span
                       newItem.payload.geofold.geometry.coordinates = [0, 0, 0]
-                      newItem.payload.proform = {projection: 'uniwen', translate: situs } // proform
+                      newItem.payload.geobach.proform = {
+                          projection: 'uniwen',
+                          translate: situs
+                      } // proform
 
                       // h.ent newItem
-                      let newAnigrams = await hent.gramm(newItem) // process newItem as h.ent
-                      newItems = [...newItems, ...newAnigrams] // add new anigrams
+                      let newItemsInCount = hent.gramm(newItem) // process newItem as h.ent
+                      newItems = [...newItems, ...newItemsInCount] // add new anigrams
+                      
                     }
 
-                    // if pacer item DOES NOT exist
+                    // if pacer preitem DOES NOT exist
+
                   } else {
+
                     // initialize Point coordinates ...
                     newItem.payload.geofold.geometry.coordinates = [0, 0, 0]
 
                     // ... to translate to situs thorough uniwen proform
-                    newItem.payload.proform = {
+                    newItem.payload.geobach.proform = {
                       projection: 'uniwen',
                       translate: situs,
                     }
 
                     // h.ent.gramm newItem point
-                    let newGrams = await hent.gramm(newItem)
-                    newItems = [...newItems, ...newGrams] // add items
+                    let newItemsInCount = await hent.gramm(newItem)
+                    newItems = [...newItems, ...newItemsInCount] // add items
                   }
 
-                  //
-                  // trace NOT AAD, NOT POINT, assume NAT, call gramm of the newItem halo
-                  //
-                } else {
-                  delete newItem.payload.pacer
 
-                  // newItem.payload.proform = {
-                  // projection: 'uniwen',
-                  // translate: situs
-                  // } // proform transfer trace situs to halo
+                  // trace NOT AAD, NOT POINT, assume NAT, call gramm of the newItem halo
+
+                } else {
+
+                  delete newItem.payload.pacer
 
                   let project = mprofier.uniweon({
                     projection: 'uniwen',
@@ -268,16 +298,14 @@
                   })
                   let geoData = mproj3ct(newItem.payload.geofold, project)
                   newItem.payload.geofold = geoData
-
-                  // let newGrams = await hent.gramm(newItem)
-                  let newGrams = await hent.gramm(newItem)
-                  newItems = [...newItems, ...newGrams] // add items
+                  let newItemsInCount = await hent.gramm(newItem)
+                  newItems = [...newItems, ...newItemsInCount] // add items
                 }
               }
             }
-          }
         }
       }
+
 
       return newItems
     }

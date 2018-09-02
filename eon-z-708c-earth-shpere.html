@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time:undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -11,12 +11,14 @@ async function anitem (__mapper) {
     mgraticule,
     topojson,
     dworldTopo110m,
+    prjNatform,
   ] = await Promise.all([
     __mapper('xs').m('geom'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('graticule'),
     __mapper('xs').b('topojson'),
     __mapper('xs').d('worldTopo110m'),
+    __mapper('xs').p('natform'),
   ])
 
   // .................. animas
@@ -41,7 +43,6 @@ async function anitem (__mapper) {
       'z': {
         'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
         'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-        'pr8': d => Math.cos(d),
         'dom3': [-180, 180],
 
       },
@@ -89,7 +90,7 @@ async function anitem (__mapper) {
       prerotate: [[[ cwen.rotation ]]],
       translate: [ 0, 0],
       scale: 1,
-      rotate: [-5, 50, [[[45, 45]]] ], // [-5,50,0], //
+      rotate: [-5, 50, 45 ], // [-5,50,0], //
       lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
 
     }
@@ -100,7 +101,7 @@ async function anitem (__mapper) {
       prerotate: [[[ cwen.rotation ]]],
       translate: [ 0, 0],
       scale: 1,
-      rotate: [-5, 50, [[[45, 45]]] ], // [-5,50,0], //
+      rotate: [-5, 50, 45 ], // [-5,50,0], //
       lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
 
     }
@@ -122,22 +123,24 @@ async function anitem (__mapper) {
       halo: 'ent',
 
       payload: {
-        geofold: p => {
-          let geometry = Object.assign({},
-            topojson.mesh(
+
+        geofold: () => {
+          return Object.assign({},
+            topojson.feature(
               dworldTopo110m.data(),
               dworldTopo110m.data().objects.land
             )
           )
-          return { type: 'Feature', geometry: geometry, properties: {} }
         },
-
 
         tim: tim,
         ric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
-        boform: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},        
+        boform: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
         geobach: {
-          conform: { projection: 'natform', form: formSphere },
+          conform: {
+            projection: 'natform',
+            geoform: formSphere,
+          },
           proform: proform,
         },
       },
@@ -177,17 +180,18 @@ async function anitem (__mapper) {
           return json
         },
 
-      
-      
         tim: tim,
         ric: {gid: 'cubeAni', cid: 'cubeAni', fid: 'cubeAni'},
         boform: { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
-        
+
         geobach: {
-          conform: { projection: 'natform', form: formSphere },
+          conform: {
+            projection: 'natform',
+            geoform: formSphere,
+          },
 
           proform: proform,
-        }
+        },
         points: [
           [-1, -1, 1], // 0
           [ 1, -1, 1], // 1
@@ -233,15 +237,14 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-
       payload: {
         geofold: anitem => mgraticule.vhMultiLine(anitem.payload.graticule),
         tim: tim,
         ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticubeAni'},
         boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
-        
+
         geobach: {
-          conform: { projection: 'natform', form: formGratiCube },
+          conform: { projection: 'natform', geoform: formGratiCube },
 
           proform: proform,
         },
@@ -258,9 +261,9 @@ async function anitem (__mapper) {
         tim: tim,
         ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticircAni'},
         boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
-        
+
         geobach: {
-          conform: { projection: 'natform', form: formSphere },
+          conform: { projection: 'natform', geoform: formSphere },
 
           proform: proform,
         },

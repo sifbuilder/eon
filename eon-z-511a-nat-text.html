@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time: undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -112,7 +112,7 @@ async function anitem (__mapper) {
       halo: 'ent',
 
       payload: {
-        geofold: p => mnat.natFeature(p.payload.form),
+        geofold: p => mnat.natFeature(p.payload.geoform),
 
         tim: tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
@@ -128,7 +128,7 @@ async function anitem (__mapper) {
 
         boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
-        form: formNat,
+        geoform: formNat,
 
       },
 
@@ -140,7 +140,7 @@ async function anitem (__mapper) {
       halo: 'ent',
 
       payload: {
-        geofold: p => mnat.natFeature(p.payload.form),
+        geofold: p => mnat.natFeature(p.payload.geoform),
 
         tim,
 
@@ -162,7 +162,7 @@ async function anitem (__mapper) {
         inited: 0,
         gelded: 1,
 
-        form: formCirc,
+        geoform: formCirc,
       },
     }
 
@@ -182,10 +182,10 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      // natAni, // h.ent
-      // circAni, // h.ent
+      natAni, // h.ent
+      circAni, // h.ent
       textAni, // h.text
-      // sceneAni, // h.scene
+      sceneAni, // h.scene
     ]
 
     return animas

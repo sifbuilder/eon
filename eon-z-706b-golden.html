@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time: undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -9,11 +9,13 @@ async function anitem (__mapper) {
     mgraticule,
     cwen,
     mfibonat,
+    prjNatform,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('fibonat'),
+    __mapper('xs').p('natform'),
   ])
 
   let ani = function () {
@@ -119,8 +121,10 @@ async function anitem (__mapper) {
         },
 
         geobach: {
-          conform: { projection: 'natform', form: wireForm },
-
+          conform: {
+            projection: 'natform',
+            geoform: wireForm,
+          },
           proform: wireProform,
         },
         graticule: wireFrame,
@@ -140,7 +144,7 @@ async function anitem (__mapper) {
         boform: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': [[[0.3, 0.01]]], 'co': [[[0.1, 0.01]]], 'cp': 0.99 },
 
         geobach: {
-          conform: { projection: 'natform', form: wireForm },
+          conform: { projection: 'natform', geoform: wireForm },
 
           proform: wireProform,
         },

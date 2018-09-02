@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time: undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -70,7 +70,7 @@ async function anitem (__mapper) {
       halo: 'nat',
 
       payload: {
-        geofold: p => mnat.natFeature(p.payload.form),
+        geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
 
         ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
@@ -81,7 +81,7 @@ async function anitem (__mapper) {
 
         boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
 
-        form: conform,
+        geoform: conform,
 
       },
 

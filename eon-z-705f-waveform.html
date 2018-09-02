@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time: undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -9,11 +9,13 @@ async function anitem (__mapper) {
     cwen,
     mfibonat,
     d3,
+    prjNatform,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('fibonat'),
     __mapper('xs').b('d3'),
+    __mapper('xs').p('natform'),
   ])
 
   let ani = function () {
@@ -162,8 +164,10 @@ async function anitem (__mapper) {
         },
 
         geobach: {
-          conform: { projection: 'natform', form: waveForm },
-
+          conform: {
+            projection: 'natform',
+            geoform: waveForm,
+          },
           proform: waveProform,
         },
         graticule: waveFrame,
@@ -193,7 +197,7 @@ async function anitem (__mapper) {
         },
 
         geobach: {
-          conform: { projection: 'natform', form: waveForm },
+          conform: { projection: 'natform', geoform: waveForm },
 
           proform: waveProform2,
         },
@@ -215,7 +219,7 @@ async function anitem (__mapper) {
         ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereAni'},
         boform: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.01, 0.9]]], 'cp': 0.9 },
 
-        conform: { projection: 'natform', form: sphereForm },
+        conform: { projection: 'natform', geoform: sphereForm },
 
         proform: sphereProform,
 
