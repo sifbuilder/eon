@@ -170,10 +170,6 @@
 
     const getCell = (e, n, m) => { // eon, name, mapper returns enty
       if (e[n] !== undefined && typeof e[n] === 'function') {
-      // if (1 && 1) console.log('getCell e', e)
-      // if (1 && 1) console.log('getCell n', n)
-      // if (1 && 1) console.log('getCell m', m)
-      // if (1 && 1) console.log('getCell a', e[n](m))
         return e[n](m)
       } else if (typeof e === 'object') {
         return e
@@ -207,8 +203,8 @@
         .then(cell => mapCell(cell, part[0], __mapper)) // map cell
     }
 
-    // ............................. getNeon
-    async function getNeon (part) { // d3Froce3d, d3-force-3d
+    // ............................. getXeon
+    async function getXeon (part) { // d3Froce3d, d3-force-3d
       return xD3Require.require(...a(part[1])) // get eon
         .then(eon => getCell(eon, part[0], __mapper)) // eon to cell
         .then(cell => mapCell(cell, part[0], __mapper)) // map cell
@@ -228,12 +224,12 @@
 
         let ceon = ceonize(name, pres) // muonVersor
         let feon = feonize(name, pres) // ./eon-muon-versor.js
-        let neon = xeonize(name, pres) // eon-muon-versor
+        let xeon = xeonize(name, pres) // eon-muon-versor
 
         var eonfroms = [
           () => getCeon([ceon, '']),
           () => getFeon([ceon, feon]),
-          () => getNeon([ceon, neon]),
+          () => getXeon([ceon, xeon]),
         ]
 
         return eonfroms.reduce(
