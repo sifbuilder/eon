@@ -3,11 +3,14 @@ const path = require('path')
 const http = require('http')
 const { spawn } = require('child_process')
 const { exec } = require('child_process')
+var npm = require('npm')
+
 
 let args = process.argv
 let [cmd, scp, ...opts] = args
 
-let alleons = opts[0] === 'all' ? 1 : 0 // publish eons vs all eons
+
+let scope = opts[0] // scope {eons (default), eonify, all}
 
 let dirname = path.dirname(require.main.filename)
 
@@ -24,12 +27,12 @@ function getMdtext (name) {
   if (name !== undefined) { // eon
 
     title = `eon ${name}`
-    subtitle = `a dream of **space-time manifolds**`
+    subtitle = `an imagine of **space-time manifolds**`
 
-  } else {  // eons
+  } else  {  // eons
 
     title = `eons`
-    subtitle = `dreams of **space-time manifolds**`
+    subtitle = `imagining **space-time manifolds**`
 
   }
 
@@ -39,7 +42,7 @@ function getMdtext (name) {
 
   ## ${subtitle}
 
-  ## story by
+  ## a story by
 
     sifbuilder
 
@@ -48,7 +51,7 @@ function getMdtext (name) {
   - [x] [Mike Bostock] (https://github.com/d3) and
   - [x] [Ricardo Cabello] (https://threejs.org/)
 
-  with oneiric derivations and integrations from among others
+  with influences from among others
 
   - [x] [Vasco Asturiano] (https://bl.ocks.org/vasturiano)
   - [x] [Philippe Rivière] (https://bl.ocks.org/fil)
@@ -94,6 +97,7 @@ const isFile = d => fs.lstatSync(d).isFile()
 
 const htmlpattern = new RegExp('^(eon.*)\.html$', 'i')
 const eonpattern = new RegExp('^' + 'eon' + '.*' + '.*(.html|js)', 'i')
+const eonifypattern = new RegExp('^' + 'eonify' + '.*' + '.*(.html|js)', 'i')
 const testpattern = new RegExp('(.*)\.test\.(.*)$', 'i')
 const mdpattern = /\/\/.?md:(.*)/mg // // md (global multiline)
 const imgpattern = new RegExp('(.*)(.jpg)$', 'i')
@@ -102,19 +106,29 @@ const zpattern = new RegExp('(.*)(.html)$', 'i')
 let indir = './'
 let fromfile = ''
 
-let infiles = fs.readdirSync(indir)
+let infiles = []
+
+if (scope === "eons") {
+
+  infiles = [ 'eons' ]  // if not all eons in param opts then publish eons
+
+} else if (scope === "eonify") {
+  
+  infiles = fs.readdirSync(indir)
   .filter(file => isFile(file))
-  // .filter(d => htmlpattern.test(d))
+    .filter(d => eonifypattern.test(d))
+    .filter(d => !testpattern.test(d))
+    .filter(d => !mdpattern.test(d))
+    .filter(d => !imgpattern.test(d))  
+  
+} else {
+  
+  infiles = fs.readdirSync(indir)
+  .filter(file => isFile(file))
     .filter(d => eonpattern.test(d))
     .filter(d => !testpattern.test(d))
     .filter(d => !mdpattern.test(d))
     .filter(d => !imgpattern.test(d))
-    // .filter(d => !zpattern.test(d))
-
-
-if (alleons !== 1) {
-
-  infiles = [ 'eons' ]  // if not all eons in param opts then publish eons
 
 }
 
@@ -166,8 +180,6 @@ let promises = infiles.map(fileName => {
     if (1 && 1) console.log('rootname:', rootname)
 
     let pckfolder = `${outdir}${rootname}/`     // pckfolder
-
-
 
     if (1 && 1) console.log('dist dir:', pckfolder)
     if (!fs.existsSync(pckfolder)) {
@@ -223,43 +235,35 @@ let promises = infiles.map(fileName => {
       tofile = `${pckfolder}${outfile}`
       fs.writeFileSync(tofile, packagetext)
 
-
-
-
       contextfilename = fullname  // place EON as fullname in build
       outfile = fullname // "index.js" //
       fromfile = `${indir}${contextfilename}`
 
      let ncdfolder = "build"
      let pckdistfolder = `${pckfolder}${ncdfolder}/`
-      // fs.existsSync(pckdistfolder) || fs.mkdirSync(pckdistfolder); console.log('create pck dist folder ', pckdistfolder)
+      fs.existsSync(pckdistfolder) || fs.mkdirSync(pckdistfolder); console.log('create pck dist folder ', pckdistfolder)
 
       tofile = `${pckdistfolder}${outfile}`
       if (fs.existsSync(fromfile)) {
           if (1 && 1) console.log('copy file to file ', fromfile, tofile)
-           // fs.copyFileSync(fromfile, tofile)
+           fs.copyFileSync(fromfile, tofile)
       } else {
-          if (1 && 1) console.log(`eon file ${fromfile} does not exsist `)
+          if (1 && 1) console.log(`no eon file ${fromfile} in dist `)
       }
 
+      let child = exec('npm install',
+        {cwd: `${pckfolder}`},
+        function (error, stdout, stderr) {
+           console.log('stdout: ' + stdout);
+           console.log('stderr: ' + stderr)
+           if (error !== null) { console.log('exec error: ' + error) }
+      })    
+    
+ 
+      child
 
 
-
-      exec(`npm --v 
-            && pwd 
-            && cd ${pckfolder} 
-            && pwd 
-            && dir
-            && npm publish
-            `, (error, stdout, stderr) => {  // publish
-        if (error) {
-          console.error(`exec error: ${error}`)
-          return
-        }
-        if (1) console.log(`${stdout}`)
-        if (1) console.log(`stderr: ${stderr}`)
-      })
-
+    
   })
 
 })
