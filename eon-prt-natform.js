@@ -1,11 +1,11 @@
 /*******************************************
- *    @ptjNatform
+ *    @prtNatform
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ptjNatform = global.ptjNatform || {})))
+      : (factory((global.prtNatform = global.prtNatform || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -26,7 +26,7 @@
   // # license
   // MIT
 
-  async function ptjNatform (__mapper = {}) {
+  async function prtNatform (__mapper = {}) {
     let [
       mnat,
     ] = await Promise.all([
@@ -37,5 +37,5 @@
     return enty
   }
 
-  exports.ptjNatform = ptjNatform
+  exports.prtNatform = prtNatform
 }))
