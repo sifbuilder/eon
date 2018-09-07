@@ -86,7 +86,7 @@ async function anitem (__mapper) {
 
     }
 
-    let conformMandarine = {
+    let conformTangerine = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[60, 60]]], 'pa6': 0, 'pb7': -1,
@@ -116,7 +116,7 @@ async function anitem (__mapper) {
 
     }
 
-    let conformLight = {
+    let conformLightSphere = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[360, 360]]], 'pa6': 0, 'pb7': -1,
@@ -146,31 +146,63 @@ async function anitem (__mapper) {
 
     }
 
-    // ............................. mandarineAni
-    let mandarineAni = {
+    let conformLightTangerine = {
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[360, 360]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [ [[[-180, 180]]], [[[-180, 180 + 360]]] ], // [ -180, 180 ],
+        c: [ 1, 1, 1, 1],
+        'fn0': (e, c, d) => cos(e[0]) * cos(e[2]),
+      },
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[360, 360]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [ [[[-180, 180]]], [[[-180, 180 + 360]]] ], // [ -180, 180 ],
+        c: [ 1, 1, 1, 1],
+        'fn0': (e, c, d) => sin(e[0]) * cos(e[2]),
+      },
+      'z': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[12, 12]]], 'pa6': 0, 'pb7': -1,
+        'dom3': [-90, 90], // [ [[[-90,90]]], [[[-80,80]]] ],
+        c: [ 1, 1, 1, 1],
+        'fn0': (e, c, d) => sin(e[2] + (pi / 18) * cos(6 * e[0])),
+      },
+      'w': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'dom3': [ -180, 180 ],
+        'fn0': (e, c, d) => d.c[3] * sin(e[2] * (1 + epsilon * sin(e[0]))),
+      },
+
+    }
+
+    // ............................. tangerineAni
+    let tangerineAni = {
 
       halo: 'ent',
       payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q2'},
-        proform: {
-          projection: 'uniwen',
-          scale: [ 1, 1 ],
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ [0, 0, 0] ],
-          rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity ],
+        geobach: {        
+          proform: {
+            projection: 'uniwen',
+            scale: [ 1, 1 ],
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ [0, 0, 0] ],
+            rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, Infinity ],
+          },
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[333, 333, 333]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-        geoform: conformMandarine,
+        geoform: conformTangerine,
       },
     }
 
-    // ............................. lightAni
-    let lightAni = {
+    // ............................. lightSphereAni
+    let lightSphereAni = {
 
       halo: 'ent',
       payload: {
@@ -190,7 +222,33 @@ async function anitem (__mapper) {
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[555, 555, 555]]], 'cw': [[[2.99, 2.99, 2.99]]], 'cp': [[[0.99, 0.99]]]},
-        geoform: conformLight,
+        geoform: conformLightSphere,
+      },
+    }
+
+    // ............................. lightTangerineAni
+    let lightTangerineAni = {
+
+      halo: 'ent',
+      payload: {
+        geofold: p => mnat.natFeature(p.payload.geoform, {h: 1}),
+        tim,
+        ric: {gid: 'g', cid: 'g', fid: 'g1'},
+
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            scale: [ 1, 1 ],
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ [0, 0, 0] ],
+            rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, Infinity ],
+          },
+        },
+        boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+          'cs': [[[555, 555, 555]]], 'cw': [[[2.99, 2.99, 2.99]]], 'cp': [[[0.99, 0.99]]]},
+        geoform: conformLightTangerine,
       },
     }
 
@@ -236,8 +294,10 @@ async function anitem (__mapper) {
     let animas = [
 
       sceneAni, // h.scene
-      sphereAni, // h.ent
-      lightAni, // h.ent
+      // sphereAni, // h.ent
+      // lightSphereAni, // h.ent
+      lightTangerineAni, // h.ent
+      tangerineAni, // h.ent
 
     ]
 

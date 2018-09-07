@@ -11,6 +11,8 @@ let [cmd, scp, ...opts] = args
 
 
 let scope = opts[0] // scope {eons (default), eonify, all}
+if (scope === undefined) scope = "eons"  // default to eons
+
 
 let dirname = path.dirname(require.main.filename)
 

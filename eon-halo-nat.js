@@ -18,7 +18,7 @@
     ])
 
     // .................... gramm
-    let gramm = async function (anitem) {
+    let gramm = function (anitem) {
       console.assert(anitem.payload.geoform !== undefined, 'geoform is undefined')
 
       anitem.halo = 'ent'
