@@ -249,6 +249,15 @@ async function anitem (__mapper) {
       payload: {
 
         geofold: p => mnat.natFeature(p.payload.geoform),
+        
+        geonode: {
+          type: 'Feature',
+          geometry: { 
+            type: 'Point', 
+            coordinates: [0, 0, 0] 
+          },
+          properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+        },
 
         tim: tim,
 
@@ -259,16 +268,24 @@ async function anitem (__mapper) {
         },
 
         geobach: {
+          // proform: {
+            // projection: 'uniwen',
+            // scale: 1,
+            // rotate: [ 0, 0, 0 ],
+            // lens: [0, 1, Infinity],
+            // translate: [ [ -170, 80 ], [[[ {
+              // 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2,
+              // 'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+            // } ]]] ],
+          // },
           proform: {
             projection: 'uniwen',
-            translate: [ [ -170, 80 ], [[[ {
-              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2,
-              'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-            } ]]] ],
+            translate: [0, 0, 0],
             scale: 1,
             rotate: [ 0, 0, 0 ],
             lens: [0, 1, Infinity],
-          },
+            anod: 1, // geonode
+          },          
         },
 
         boform: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
@@ -286,23 +303,52 @@ async function anitem (__mapper) {
 
         pacer: {
           halo: 'ent',
-
           itemsort: 'anigram',
-
           // base: 'geoform',
           initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, aad: 0,
 
-          stace: function (ani, props) {
-            let stace
-            if (props.key === 'init') { // INIT
-              stace = mstace.getLocus(ani.payload.pacer.stace, ani)
-            } else if (props.key === 'auto') { // AUTO
-              stace = mstace.getLocus(ani.payload.pacer.stace, ani)
-            } else if (props.key === 'event') { // EVENT
-              stace = {x: 0, y: 0, z: 0 }
-            }
-            return stace
-          },
+        
+        geonode: function (ani, props) {
+          let stace
+          if (props.key === 'init') { // INIT
+          
+            stace = mstace.getLocus([null,null,null], ani)    // stace is ani's transformed geonode
+            
+          } else if (props.key === 'auto') { // AUTO
+          
+            stace = mstace.getLocus([null,null,null], ani)
+            
+          } else if (props.key === 'event') { // EVENT
+          
+            stace = [0,0,0]
+            
+          }          
+          
+          // let coordinates = [0, 0, 0]
+          let coordinates = stace
+          let res = {
+            type: 'Feature',
+            geometry: { 
+              type: 'Point', 
+              coordinates: coordinates,
+            },
+            properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+          } 
+          return res
+        },
+          
+          
+          // stace: function (ani, props) {
+            // let stace
+            // if (props.key === 'init') { // INIT
+              // stace = mstace.getLocus(ani.payload.pacer.stace, ani)
+            // } else if (props.key === 'auto') { // AUTO
+              // stace = mstace.getLocus(ani.payload.pacer.stace, ani)
+            // } else if (props.key === 'event') { // EVENT
+              // stace = {x: 0, y: 0, z: 0 }
+            // }
+            // return stace
+          // },
 
         },
       },
@@ -541,9 +587,9 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
       natAni1, // h.pacer
-      natAni2, // h.pacer
-      textAni, // h.textform
-      pointTrace, // h.pacer
+      // natAni2, // h.pacer
+      // textAni, // h.textform
+      // pointTrace, // h.pacer
       sceneAni, // h.scene
     ]
 

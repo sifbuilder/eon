@@ -37,11 +37,11 @@
     ])
 
     const getgj = ani => {
-      let gj = mprops.v(ani.payload.geofold, ani) // get geofold
-      gj.properties = gj.properties || {} // recall genode
-      gj.properties.geonode = gj.properties.geonode || {} // recall genode properties
-      gj.properties.formGeoformed = mgeoj.deprop(gj) // store geoform
-      gj.properties.nodeGeoformed = gj.properties.geonode // nodeGeoformed : geonode
+      let gj = mprops.v(ani.payload.geofold, ani)
+      gj.properties = gj.properties || {} // geofold properties
+      gj.properties.geoformed = mgeoj.deprop(gj)
+      // gj.properties.geonode = gj.properties.geonode || {}
+      // gj.properties.nodeGeoformed = gj.properties.geonode
       return gj
     }
 
@@ -62,9 +62,9 @@
 
         let newAnigram = {
           halo: anigram.halo, // inherit halo
-          // geofold: feature, // inherit geofold
           payload: { // payload is lost in m.animation before rendering
             geofold: feature, // inherit geofold
+            geonode: anigram.payload.geonode,
             ric: feature.properties.ric, // hoist ric
             id: feature.properties.uid, // hoist uid
             uid: feature.properties.uid, // hoist uid

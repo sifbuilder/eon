@@ -39,6 +39,7 @@
 
     // ..................... isValidStace
     let getTranspots = function (stace, ani) {
+      
       let mstore = __mapper('muonStore') // sync
 
       let payload = ani.payload
@@ -97,10 +98,13 @@
           
           let coords = []
 
+          
+          
+          // if pos, idx refers to the position in the parent geofold coordinates
+          
+          
           if (v1.hasOwnProperty('pos')) {
 
-              // idx refers to the position in the parent geofold coordinates
-          
               let idx = Math.floor(v1.pos)
               
               // mod refers to the transformation
@@ -127,14 +131,19 @@
               
               locationsPerDax[i] = Array.of(coords[idx][i])
 
+          
+          
+          // if not pos, idx refers to the position in the parent geonode coordinates              
+              
           } else {
-            
+      
+
               // locations refer to the geonode or the stace locations
             
               if (v1.hasOwnProperty('mod')) { // geoform, conform, ereform, proform`
 
                 // get the mod on the geonode properties
-              
+                console.assert(geonode.properties[v1.mod].geometry !== undefined)
                 coords = geonode.properties[v1.mod].geometry.coordinates
 
               } else {
@@ -142,9 +151,9 @@
                 if (geonode) {
 
                   // get the geonode coordinates
-                
+             
                   console.assert(geonode.geometry !== undefined, `${geonode} geometry undefined`)
-                  coords = geonode.geometry
+                  coords = geonode.geometry.coordinates
                   
                 } else {
                   

@@ -240,8 +240,6 @@
               // NOT pacer.AAD if not pacer.add, pacer generates anitems
             } else { //  if NOT AAD
               // geofold is Feature
-              console.log(' -------------------- pacer', pacer)
-              console.log(' -------------------- props', Object.getOwnPropertyNames(pacer))
               
               // complete newItem definition
               
@@ -249,18 +247,15 @@
               for (let prop of ownProps) {
                 
                 
-                console.log('prop', prop)
-                console.log('prop', pacer[prop])
-                
                 if (prop === 'halo') {  // 
                 
-                  newItem.halo = mprops.v(pacer.halo, anitem)
+                  newItem.halo = mprops.v(pacer.halo, anitem, props)
                   
                 } else {
                   
                   if (newItem.payload[prop] !== undefined) {
                     
-                    newItem.payload[prop] = mprops.v(pacer[prop], anitem)
+                    newItem.payload[prop] = mprops.v(pacer[prop], anitem, props)
                     
                   }
                 
@@ -269,7 +264,6 @@
               }
  
               let halo = __mapper( __mapper('xs').ceonize(newItem.halo, 'halo'))
-              console.log('halo', halo)                   
               
               // let newItemsInCount = hent.gramm(newItem)
               let newItemsInCount = halo.gramm(newItem)

@@ -159,7 +159,7 @@
         }
       }
 
-      // md: aftersim geofold.properties.geonode (s)
+      // md: aftersim payload.geonode (s)
       // md:     coordinates
       // md:     properties.{geodelta, prevous, velin}
 

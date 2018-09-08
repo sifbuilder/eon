@@ -38,6 +38,8 @@
 
       let newAni = mprops.clone(anitem)
 
+console.log('newAni', newAni)      
+      
       // aninode
 
       let geonode = mprops.v(anitem.payload.geonode, anitem)
