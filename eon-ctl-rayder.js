@@ -127,7 +127,6 @@
 
     // ............................. mouseUpListener
     function mouseUpListener (e) {
-      if (1 && 1) console.log(' **************************** mouseUpListener', state, e)
 
       if (!state.grabbed) return
       state.grabbed = false
@@ -136,7 +135,6 @@
 
     // ............................. subscribe
     let subscribe = function (listener, domNode, sensor) {
-      if (1 && 1) console.log('sensor', sensor)
 
       if (typeof listener !== 'function') throw new Error('Listener to be function')
       domNode.node().addEventListener(sensor, listener) // mounseUp, mouseUpListener

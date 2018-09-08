@@ -67,91 +67,78 @@ async function deploy() {
         {},
         function (error, stdout, stderr) {
            console.log('stdout: ' + stdout);
-  })
-
+      })    
+     
   if (fs.existsSync(rootdirpath)) {
     console.log(`root folder ${rootdirpath} exists`) // ROOT DIR exists
   } else {
     console.log(`create dist folder ${rootdirpath}`) // CREATE ROOT DIR
-    await fs.mkdir(rootdirpath)
+    fs.mkdirSync(rootdirpath)
   }
-
-
+      
+      
   let packPath = `${sitepath}/package.json`
   let pckExists = fs.existsSync(packPath)
-  
-  
   if (pckExists) {
     console.log(`folder ${sitepath} already has a npm project`)
   } else {
     console.log(`create npm project ${netlifysite} in ${sitepath}`)
-    const { stdout } = await exec (`git clone https://github.com/sifbuilder/eons.git`,
+    const { stdout } = await exec (`gatsby new ${netlifysite} ${netlifyurl}`,
       {cwd: `${rootdirpath}`}
     )  // cd to root dir
     console.log(stdout)
-  }        
-  
-  let configMark = `${sitepath}/gatsby-config.js`
-  if (fs.existsSync(configMark)) {
-    console.log(`config already exist, no yarn`)
+  }      
+      
+      
+  console.log(`install cms plugin`)
+  await exec('npm install --save netlify-cms gatsby-plugin-netlify-cms',
+        {},
+        function (error, stdout, stderr) {
+           console.log('stdout: ' + stdout);
+           // console.log('stderr: ' + stderr)
+           // if (error !== null) { console.log('exec error: ' + error) }
+      })    
+      
+      
+  let tofile = `${sitepath}/gatsby-config.js`
+  let fromtext = `module.exports = {
+  plugins: ["gatsby-plugin-netlify-cms"],
+}
+`
+  await fs.writeFile(tofile, fromtext)    
+      
+      
+  let staticfolder =   `${sitepath}/static`  
+  if (fs.existsSync(staticfolder)) {
+    console.log(`root folder ${staticfolder} exists`) // static DIR exists
   } else {
-    console.log(`yarn project ${netlifysite} in ${sitepath}`)
-    const { stdout } = await exec (`yarn`,
-      {cwd: `${sitepath}`}
-    )  // cd to root dir
-    console.log(stdout)
-  }   
-  
-  
-  
-  let toAdminIndexPath = `${sitepath}/static/admin/index.html`
-  let fromAdminIndexText = `<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content Manager</title>
-</head>
-<body>
-  <!-- Include the script that builds the page and powers Netlify CMS -->
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-</body>
-</html>`
-  if (fs.existsSync(toAdminIndexPath)) {
-    console.log(`admin index file already exists`)
-  } else {
-    console.log(`create admin index file`)
-    await fs.writeFile(toAdminIndexPath, fromAdminIndexText)  
-  }  
-  
-  console.log(`src/cms/cms.js - upd - import from eon template `)
-  console.log(`src/cms/preview-templates/EonPagePreview.js - craete`)
-  console.log(`src/img/logo.svg - upd`)
-  console.log(`src/img/twitter-icon.svg - create`)
-  console.log(`src/components/Navbar - eons link`)
-  console.log(`src/components/Navbar - twitter link`)
-  console.log(`src/components/Eontiles.js`)
-  console.log(`src/pages/about/index.md`)
-  console.log(`src/pages/eontiles/`)
-  console.log(`src/pages/eontiles/index.md`)
-  console.log(`src/templates/eon-page.js`)
-  console.log(`public/img/*`)
-  console.log(`static/img/*`)
-  
-    
-  if (pckExists) {
-    console.log(`npm run develop`)
-    // const { stdout } = await exec (`npm run develop`,
-      // {cwd: `${sitepath}`}
-    // )  // cd to root dir
-    // console.log(stdout)
-  } else {
-    console.log(`folder ${sitepath} npm project does not exist, no run`)
-  }
-  
-  
-  
-  
+    console.log(`create dist folder ${staticfolder}`) // static ROOT DIR
+    fs.mkdirSync(staticfolder)
+  }      
+   
+  let toConfigFile =   `${sitepath}/config.yml`
+  let fromConfigText = `backend:
+  name: test-repo
+media_folder: static/assets
+public_folder: assets
+
+collections:
+  - name: blog
+    label: Blog
+    folder: blog
+    create: true
+    fields:
+      - { name: path, label: Path }
+      - { name: date, label: Date, widget: date }
+      - { name: title, label: Title }
+      - { name: body, label: Body, widget: markdown }      
+`      
+  await fs.writeFile(toConfigFile, fromConfigText)       
+      
+      
+      
+  console.log('done')      
+      
 }
 
 

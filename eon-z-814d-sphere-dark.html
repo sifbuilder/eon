@@ -98,7 +98,6 @@ async function anitem (__mapper) {
 
     }
 
-
     let conformLight = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
@@ -135,9 +134,6 @@ async function anitem (__mapper) {
 
     }
 
-
-
-
     // .................. geoearthDark  DARK
     let pDark = function () {
       let forward = (x, y) => d3geo.geoOrthographicRaw(-x, -y)
@@ -159,7 +155,7 @@ async function anitem (__mapper) {
       }]]],
       rotate: [ 0, 0, 0 ],
 
-    } 
+    }
     // ............................. lightAniDark
     let lightAniDark = {
 
@@ -177,7 +173,6 @@ async function anitem (__mapper) {
       },
     }
 
-    
     // .................. geoearthFront FRONT
 
     let pFront = function (x, y) {
@@ -204,7 +199,7 @@ async function anitem (__mapper) {
       translate: [0, 0, 0],
       scale: 100,
       // rotate:  [ 0, 0, 0 ], // [ 0, 9, [[[0, 3 * 360, 18 * 360, 0]]] ],
-      rotate: [[[ t => [0, 9, t * (1 -t) * 900 / (0.1 + (t - 0.7)) ] ]]],      
+      rotate: [[[ t => [0, 9, t * (1 - t) * 900 / (0.1 + (t - 0.7)) ] ]]],
 
     }
     // ............................. lightAniFront
@@ -218,13 +213,13 @@ async function anitem (__mapper) {
         geobach: {
           proform: proformFront,
           // proform: {
-            // projection: 'uniwen',
-            // scale: [ 1, 1 ],
-            // prerotate: [[[ cwen.rotation ]]],
-            // translate: [ [0, 0, 0] ],
-            // rotate: [ 0,0,0 ], // rotate: [ [[[90, 92, 87]]], [[[9, 6, 9]]], [[[0, 360]]] ],
-            // lens: [0, 1, Infinity ],
-          // },          
+          // projection: 'uniwen',
+          // scale: [ 1, 1 ],
+          // prerotate: [[[ cwen.rotation ]]],
+          // translate: [ [0, 0, 0] ],
+          // rotate: [ 0,0,0 ], // rotate: [ [[[90, 92, 87]]], [[[9, 6, 9]]], [[[0, 360]]] ],
+          // lens: [0, 1, Infinity ],
+          // },
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[555, 555, 555]]], 'cw': [[[2.99, 2.99, 2.99]]], 'cp': [[[0.99, 0.99]]]},
@@ -236,12 +231,12 @@ async function anitem (__mapper) {
 
       halo: 'ent',
       payload: {
-      
+
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim: tim,
         ric: {gid: 'q', cid: 'q', fid: 'q0'},
         geobach: {
-   
+
           proform: {
             projection: 'uniwen',
             scale: [ 1, 1 ],
@@ -264,13 +259,13 @@ async function anitem (__mapper) {
       payload: {
         geofold: p => {
           let res = mnat.natFeature(p.payload.geoform)
-console.log('res', res)          
+          console.log('res', res)
           return res
         },
         tim: tim,
         ric: {gid: 'q', cid: 'q', fid: 'q3'},
         geobach: {
-          proform: proformFront,          
+          proform: proformFront,
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[666, 666, 666]]], 'cw': [[[0.79, 0.79, 0.79]]], 'cp': [[[0.99, 0.99]]]},
@@ -290,13 +285,13 @@ console.log('res', res)
               dworldTopo110m.data().objects.land
             )
           )
-console.log('res', res)            
+          console.log('res', res)
           return res
-        },     
+        },
         tim: tim,
         ric: {gid: 'q', cid: 'q', fid: 'q4'},
         geobach: {
-          proform: proformFront,          
+          proform: proformFront,
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[666, 666, 666]]], 'cw': [[[0.79, 0.79, 0.79]]], 'cp': [[[0.99, 0.99]]]},

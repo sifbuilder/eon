@@ -58,11 +58,11 @@ async function anitem (__mapper) {
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         c: [ ],
-        e: [ 
-          cost, 
-          1, 
-          [0, 1], 
-          cost 
+        e: [
+          cost,
+          1,
+          [0, 1],
+          cost,
         ],
         // fn0: (e, c) => c[0] * cos(e[0]) * e[2] * cos(e[3]),
       },
@@ -70,7 +70,7 @@ async function anitem (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (e, c, dax) => c[1] * sin(e[0]) * c[2] * cos(e[3]) ,
+        'fn0': (e, c, dax) => c[1] * sin(e[0]) * c[2] * cos(e[3]),
       },
 
       'z': {
@@ -78,11 +78,11 @@ async function anitem (__mapper) {
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 60, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
         c: [], // [1, 1, 1, [0,1]],
-        e: [ 
-            1, 
-            1, 
-            sint, 
-            1 
+        e: [
+          1,
+          1,
+          sint,
+          1,
         ], // 1 * sin(v)
         // 'fn0': (e,c) => c[3] * sin(e[2]) ,
       },

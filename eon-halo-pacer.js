@@ -112,7 +112,6 @@
       // cycletime since last outed item, relevant if auto
       let cycletime = tim.unitPassed - (pacer.outed || 0)
 
-
       // if the cycletime is longer than auto pace
       //  and unitPassed is beyong autoT ...
 
@@ -142,170 +141,143 @@
         }
       }
 
-
-
-
       // count: eg: {init:4, auto:1, event:3}
-
-
-
-
+      
       if (Object.keys(count).length > 0) { // on pace count, eg {init: 6, auto: 1}
-
+      
         // for each key in count
-        for (let counter = 0; counter < Object.keys(count).length; counter++) {
         
-          // key is count sort, eg. { init, auto, event }
+        for (let counter = 0; counter < Object.keys(count).length; counter++) {
+          
+          // key is the sort of count { init, auto, event }
+          
           let key = Object.keys(count)[counter]
 
           // qitems is the number of items to be paced
           // generate qitems items of type key, eg. 6 (at init, on auto, when event)
-          
+
           let qitems = count[key]
 
-            // count, key, qitems, kq
+          // count, key, qitems, kq
+
+          for (let i = 0; i < qitems; i++) {
+            let props = { count: count, key: key, counter: i }
+
+            let newItem = mprops.clone(anitem) // INIT NEWITEM
+
+
+
+            // if opt.add  type is LineString and geometry adds coords
+
+            if (aad) { //  if AAD
             
-            for (let i = 0; i < qitems; i++) {
+              // the paced ric is defined dynamically in the pacer or inherited from the anitem.payload
 
-              let props = { count: count, key: key, counter: i, }
-
-              let newItem = {} // anitem from pacer props
-
-              // the paced ric is defined in the pacer. may be same as anitem
-              let ric = anitem.payload.pacer.ric(anitem, props)
+              let ric = (anitem.payload.pacer.ric !== undefined)
+                ? anitem.payload.pacer.ric(anitem, props)
+                : anitem.payload.ric
               let uid = mric.getuid(ric)
 
-              let preani = mstore.findAnigramFromUid(uid)
+              // check if precursor of newAnitem already exists
 
+              let preani = mstore.findAnigramFromUid(uid)
               if (preani !== undefined) {
+                
+                // if exists, newItem builds from precursor
 
                 newItem = preani
 
-                if (base !== undefined) { // base
-                  
+                // if (base !== undefined) { // base: {geoform, conform, ereform, proform}
+
                   // console.assert(newItem.payload.geofold.properties[base] !== undefined)
                   // newItem.payload.geofold.geometry = newItem.payload.geofold.properties[base].geometry
-                  
-                }                
+
+                // }
+                
+                // if NO precursor, build from payload and pacer
+                // payload may carry all info of newItem but new halo and pace count
+                // properties in pacer override those in payload
                 
               } else {
-
                 newItem.halo = anitem.halo
                 newItem.payload = mprops.clone(anitem.payload)
-                newItem.payload.geofold = anitem.payload.pacer.geofold(anitem)
 
+                // if functional pacer.geofold, override payload.geofold
                 
-                
-              }
-
-
+                if (anitem.payload.pacer.geofold !== undefined) {
+                  console.assert(typeof anitem.payload.pacer.geofold === 'function')
+                  newItem.payload.geofold = anitem.payload.pacer.geofold(anitem)
+                }
+              }            
+            
 
 
               let situs = anitem.payload.pacer.stace(anitem, props)
+              if (situs && typeof situs === 'object') situs = Object.values(situs)            
+              
+            
+            
+            
+              let coords = newItem.payload.geofold.geometry.coordinates
 
-              if (situs && typeof situs === 'object') situs = Object.values(situs)
+              if (coords && coords.length > 0) {
+                let presitus = coords[coords.length - 1] // last point in paced string
 
-
-              // if opt.add  type is LineString and geometry adds coords
-
-              if (aad) {  //  if AAD
-
-
-                let coords = newItem.payload.geofold.geometry.coordinates
-
-                if (coords && coords.length > 0) {
-
-                  let presitus = coords[coords.length - 1] // last point in paced string
-
-                    coords.push(situs)
-
-
-                } else {
-
-
-                  coords = Array.of(situs) // coords start with first situs
-
-                }
-
-                newItem.payload.geofold.geometry.coordinates = coords // upd coords
-
-
-                let newItemsInCount = hent.gramm(newItem) // h.ent newItem
-
-
-                newItems = [...newItems, ...newItemsInCount] // add new items
-
-
-                // NOT pacer.AAD if not pacer.add, each pacer generated item
-
-              } else { //  if NOT AAD
-
-                // geofold is Feature
-                // if newItem geofold.geometry.type is Point, then ...
-
-                if (newItem.payload.geofold && newItem.payload.geofold.geometry.type === 'Point') { // POINT
-                  
-                  // coordinates from geofold
-                  
-                  let presitus = newItem.payload.geofold.geometry.coordinates
-
-                  // if pacer item DOES  exist
-                  
-                  if (presitus !== null) {
-                    
-                    let d = mgeom.distance3d(presitus, situs) // distance from previous situs
-                    if (d >= span) { // if distance from previous point greater than span
-                      newItem.payload.geofold.geometry.coordinates = [0, 0, 0]
-                      newItem.payload.geobach.proform = {
-                          projection: 'uniwen',
-                          translate: situs
-                      } // proform
-
-                      // h.ent newItem
-                      let newItemsInCount = hent.gramm(newItem) // process newItem as h.ent
-                      newItems = [...newItems, ...newItemsInCount] // add new anigrams
-                      
-                    }
-
-                    // if pacer preitem DOES NOT exist
-
-                  } else {
-
-                    // initialize Point coordinates ...
-                    newItem.payload.geofold.geometry.coordinates = [0, 0, 0]
-
-                    // ... to translate to situs thorough uniwen proform
-                    newItem.payload.geobach.proform = {
-                      projection: 'uniwen',
-                      translate: situs,
-                    }
-
-                    // h.ent.gramm newItem point
-                    let newItemsInCount = await hent.gramm(newItem)
-                    newItems = [...newItems, ...newItemsInCount] // add items
-                  }
-
-
-                  // trace NOT AAD, NOT POINT, assume NAT, call gramm of the newItem halo
-
-                } else {
-
-                  delete newItem.payload.pacer
-
-                  let project = mprofier.uniweon({
-                    projection: 'uniwen',
-                    translate: situs,
-                  })
-                  let geoData = mproj3ct(newItem.payload.geofold, project)
-                  newItem.payload.geofold = geoData
-                  let newItemsInCount = await hent.gramm(newItem)
-                  newItems = [...newItems, ...newItemsInCount] // add items
-                }
+                coords.push(situs)
+              } else {
+                coords = Array.of(situs) // coords start with first situs
               }
+
+              newItem.payload.geofold.geometry.coordinates = coords // upd coords
+
+              let newItemsInCount = hent.gramm(newItem) // h.ent newItem
+              newItems = [...newItems, ...newItemsInCount] // add new items
+
+              
+              
+              
+              
+              // NOT pacer.AAD if not pacer.add, pacer generates anitems
+            } else { //  if NOT AAD
+              // geofold is Feature
+              console.log(' -------------------- pacer', pacer)
+              console.log(' -------------------- props', Object.getOwnPropertyNames(pacer))
+              
+              // complete newItem definition
+              
+              let ownProps = Object.getOwnPropertyNames(pacer)
+              for (let prop of ownProps) {
+                
+                
+                console.log('prop', prop)
+                console.log('prop', pacer[prop])
+                
+                if (prop === 'halo') {  // 
+                
+                  newItem.halo = mprops.v(pacer.halo, anitem)
+                  
+                } else {
+                  
+                  if (newItem.payload[prop] !== undefined) {
+                    
+                    newItem.payload[prop] = mprops.v(pacer[prop], anitem)
+                    
+                  }
+                
+                }
+              
+              }
+ 
+              let halo = __mapper( __mapper('xs').ceonize(newItem.halo, 'halo'))
+              console.log('halo', halo)                   
+              
+              // let newItemsInCount = hent.gramm(newItem)
+              let newItemsInCount = halo.gramm(newItem)
+              newItems = [...newItems, ...newItemsInCount] // add items
             }
+          }
         }
       }
-
 
       return newItems
     }

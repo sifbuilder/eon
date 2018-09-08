@@ -14,7 +14,6 @@ async function anitem (__mapper) {
     mstace,
     crayder,
     haloEnt,
-    // haloScene,
     haloNat,
     haloPacer,
   ] = await Promise.all([
@@ -25,7 +24,6 @@ async function anitem (__mapper) {
     __mapper('xs').m('stace'),
     __mapper('xs').c('rayder'),
     __mapper('xs').h('ent'),
-    // __mapper('xs').h('scene'),
     __mapper('xs').h('nat'),
     __mapper('xs').h('pacer'),
   ])
@@ -58,11 +56,11 @@ async function anitem (__mapper) {
         },
 
         pacer: {
+          base: 'geoform',
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
 
-          initSitus: ani => ({x: width / 2, y: height / 2, z: 0 }),
-
           geojsor: function (ani, props = {}) {
+            let base = props.base
             let geofolder = function (ani, props) {
               let geofold = {
                 type: 'Feature',
@@ -107,14 +105,6 @@ async function anitem (__mapper) {
               }
 
               return geofold
-            }
-
-            let riccer = function (ani, props) {
-              let newric = mprops.clone(ani.payload.ric) // clone ric
-              newric.gid = newric.gid
-              newric.cid = newric.cid
-              newric.fid = newric.fid + props.counter
-              return newric
             }
 
             let stacer = function (ani, props) {
@@ -171,17 +161,6 @@ async function anitem (__mapper) {
             return anitem
           }, // geojsor
 
-          eventSitus: ani => {
-            let situs
-            if (crayder.event() !== undefined) {
-              let x = crayder.event().x
-              let y = crayder.event().y
-              let z = 0
-              situs = {x, y, z }
-            }
-            return situs
-          },
-
           autoSitus: ani => mstace.getLocus(ani),
 
           eventSitus: d => ({
@@ -191,10 +170,10 @@ async function anitem (__mapper) {
           }),
 
           fidder: anitem => 'item' +
-					mstore.anigrams()
-					  .filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
-												ani.payload.ric.cid === anitem.payload.ric.cid)
-					  .length,
+          mstore.anigrams()
+            .filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
+                        ani.payload.ric.cid === anitem.payload.ric.cid)
+            .length,
 
           geofolder: () => ({
             type: 'Feature', geometry: {type: 'Point', coordinates: null}, properties: {},
@@ -210,21 +189,28 @@ async function anitem (__mapper) {
       halo: 'ent',
 
       payload: {
+
+        // md: geonode reflects the geometry of the form
+        // md: updated by transforms
+        // md: relative to geonode
+        // md: as geonode, properties keep transformed views
         geofold: p => mnat.natFeature(p.payload.geoform),
 
-        tim,
+        tim: tim,
         ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
         boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
-        proform: {
-          projection: 'uniwen',
-          prerotate: [[[ cwen.rotation ]]],
-          translate: [ [ 70, 80 ], [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
-            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          } ]]] ], //
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            prerotate: [[[ cwen.rotation ]]],
+            translate: [ [ 70, 80 ], [[[ {
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
+              'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+            } ]]] ], //
+            scale: 1,
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, Infinity],
+          },
         },
         geoform: {
           'x': {
@@ -237,14 +223,18 @@ async function anitem (__mapper) {
           },
         },
 
+        // md: geonode is reference to geofold
+        // md: updated by sim forces
+        // md: as geofold, properties keep transformed views
         geonode: {
           type: 'Feature',
           geometry: {
             type: 'Point',
             coordinates: [0, 0, 0],
           },
+          // md: orgen, velin, prevous needed in force fields
           properties: {
-            orgen: null, velin: null, velang: null, prevous: null, geodelta: null,
+            orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
           },
         },
 
@@ -256,20 +246,30 @@ async function anitem (__mapper) {
     let traceAni1 = {
 
       halo: 'pacer',
-      geofold: null,
       payload: {
+
+        geofold: p => mnat.natFeature(p.payload.geoform),
 
         tim: tim,
 
         ric: {
-
           gid: 'nattrace',
           cid: 'nattrace',
           fid: 'traceAni1', //  + props.counter,
-
         },
 
-        uid: mric.getuid({ gid: 'nattrace', cid: 'nattrace', fid: 'traceAni1' }),
+        geobach: {
+          proform: {
+            projection: 'uniwen',
+            translate: [ [ -170, 80 ], [[[ {
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2,
+              'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+            } ]]] ],
+            scale: 1,
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, Infinity],
+          },
+        },
 
         boform: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
 
@@ -285,16 +285,17 @@ async function anitem (__mapper) {
         },
 
         pacer: {
+          halo: 'ent',
+
+          itemsort: 'anigram',
+
+          // base: 'geoform',
           initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, aad: 0,
 
-          stacer: function (ani, props) {
+          stace: function (ani, props) {
             let stace
             if (props.key === 'init') { // INIT
-              stace = {
-                x: { pro: 1 },
-                y: { pro: 1 },
-                z: 0,
-              } // null // mstace.getLocus(ani.payload.pacer.stace, ani)
+              stace = mstace.getLocus(ani.payload.pacer.stace, ani)
             } else if (props.key === 'auto') { // AUTO
               stace = mstace.getLocus(ani.payload.pacer.stace, ani)
             } else if (props.key === 'event') { // EVENT
@@ -302,33 +303,6 @@ async function anitem (__mapper) {
             }
             return stace
           },
-
-          geojsor: function (ani, props = {}) {
-            let anitem = {
-
-              halo: 'nat',
-
-              geofold: mnat.natFeature(ani.payload.geoform), // null,
-
-              payload: {
-
-                tim: ani.payload.tim,
-
-                ric: ani.payload.ric,
-
-                uid: ani.payload.uid,
-
-                stace: ani.payload.pacer.stacer(ani, props),
-
-                proform: ani.payload.proform,
-
-                boform: ani.payload.boform,
-
-              },
-
-            }
-            return anitem
-          }, // geojsor
 
         },
       },
@@ -338,24 +312,23 @@ async function anitem (__mapper) {
     let natAni2 = {
 
       halo: 'ent',
-      geofold: a => ({
-        type: 'Feature',
-        geometry: {
-
-          type: 'LineString', // type: 'Point', //
-          coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
-
-        },
-        properties: {
-          geonode: {
-            type: 'Feature',
-            geometry: {type: 'Point', coordinates: [0, 0]},
-            properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
-          },
-        },
-      }),
-
       payload: {
+        geofold: a => ({
+          type: 'Feature',
+          geometry: {
+
+            type: 'LineString', // type: 'Point', //
+            coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
+
+          },
+          properties: {
+            geonode: {
+              type: 'Feature',
+              geometry: {type: 'Point', coordinates: [0, 0]},
+              properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
+            },
+          },
+        }),
 
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'natAni2'},
@@ -378,12 +351,10 @@ async function anitem (__mapper) {
         form: {
           'x': {
             'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // cyrcle
             'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360,
           },
           'y': {
             'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // cyrcle
             'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': 360,
           },
         },
@@ -495,7 +466,6 @@ async function anitem (__mapper) {
                     prerotate: [[[ cwen.rotation ]]],
                     translate: [ [0, -100, 0] ],
                     rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
-                    rotate: [ 0, 0, 0 ],
                     lens: [0, 1, Infinity ],
                     anod: 1,
                   },
@@ -570,8 +540,8 @@ async function anitem (__mapper) {
 
     // .................. animas
     let animas = [
-      // natAni1, // h.pacer
-      // natAni2, // h.pacer
+      natAni1, // h.pacer
+      natAni2, // h.pacer
       textAni, // h.textform
       pointTrace, // h.pacer
       sceneAni, // h.scene
