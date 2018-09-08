@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.5"> </script>
+  </head>
+  <body>
+  </body>
+</html>
+
+<script>
+  
+  const model = tf.sequential() // Model for linear regression
+  model.add(tf.layers.dense({units: 1, inputShape: [1]}))
+
+  model.compile({ // Model for training
+    loss: 'meanSquaredError', // loss
+    optimizer: 'sgd', // optimizer
+  })
+
+  const xs = tf.tensor2d([1, 2, 3, 4], [4, 1]) // training data
+  const ys = tf.tensor2d([1, 3, 5, 7], [4, 1])
+  
+  model.fit(xs, ys).then(() => { // Train model
+    model.predict(tf.tensor2d([5], [1, 1])) // use data point the model hasn't seen before
+      .print() // print to console
+  })
+  
+</script>
