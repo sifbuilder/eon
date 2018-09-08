@@ -37,8 +37,7 @@
       console.assert(Array.isArray(anitem) === false)
 
       let newAni = mprops.clone(anitem)
-
-console.log('newAni', newAni)      
+    
       
       // aninode
 
@@ -65,12 +64,18 @@ console.log('newAni', newAni)
           gjcollection.features = gjcollection.features.map(
             feature => {
               let properties = feature.properties || {}
-              let node = mproj3ct(mgeoj.deprop(feature), mprofier.formion(prt, anitem))
+              let prtion = mprofier.formion(prt, anitem)
+              let gjobj = mgeoj.deprop(feature)
+              
+              console.assert(gjobj.geometry.coordinates !== null)
+              
+              let node = mproj3ct(gjobj, prtion)
               node.properties = properties
               node.properties[bach] = node
 
               return node
-            })
+            }
+          )
         }
       }
 
