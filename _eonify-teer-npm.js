@@ -38,24 +38,113 @@ if (opts.length < 2) {
 
 let scope = 'eons' // default to root
 if (opts.length === 0) {
+    console.log(`node _eonify-teer-npm eons [publish]
+node _eonify-teer-npm eonitems [publish]
+`)
     dopublish = 0
     scope = 'eons'
+    
 } else if (opts.length === 1) {
+  
   if (opts[0] === 'publish') {
     scope = 'eonitems'  // cover all eons in scope
     dopublish = 1
   } else {
+    
     scope = opts[0] // filter eonitems
     dopublish = 0
   }
+  
 } else if (opts.length === 2) {
     scope = opts[0] // filter eonitems
-    dopublish = (opts[0] === 'publish') ? 1 : 0
+    dopublish = (opts[1] === 'publish') ? 1 : 0
+    
 }
 
 console.log(`scope ${scope}`)
 console.log(`dopublish ${dopublish}`)
-if (dopublish === 1) console.log('login to npm')
+  
+
+// md: getReadhtml
+// md: get eons html page
+
+function getReadhtml (inDir) {
+  
+  
+let outText = ''  
+  
+let indexpattern = new RegExp('^' + 'eon-z' + '.*' + '.*(.html)', 'i')
+let eonpattern = new RegExp('^' + 'eon' + '.*' + '.*(.js)', 'i')
+let testpattern = new RegExp('(.*)\.test\.(.*)$', 'i') //  test
+let mdpattern = new RegExp('(.*)\.md\.(.*)$', 'i') //  md
+let zpattern = new RegExp('^' + 'eon-z' + '.*' + '.*(.js)', 'i')
+
+let newLine = '\n'
+let endOfLine = '  '
+let header = `eons ${newLine}${newLine}`
+let footer = `${newLine}# license${endOfLine}${newLine}MIT${endOfLine}`
+
+outText += `${header}`  
+  
+
+let body = ''
+let indexfiles = fs.readdirSync(inDir) // index files in inDir
+  .filter(d => indexpattern.test(d))
+  .filter(d => !testpattern.test(d))
+  .filter(d => !mdpattern.test(d))
+
+for (let i = 0; i < indexfiles.length; i++) {
+  let fileName = indexfiles[i]
+
+  let regex2 = new RegExp('^(((eon-z-)?(((?!-).)*)-(.*))\.(html))', 'i')
+  let parts = fileName.match(regex2)
+
+  let fullname = parts[0]
+  let part = parts[1]
+  let name = parts[2]
+  let code = parts[4]
+
+  let type = parts[6]
+
+  let preline = `${code}` //
+  let bodyline = `[${name}](${root}${fullname})` //
+
+  let mdfullname = `${name}.md`
+  let postline = ''
+  if (fs.existsSync(mdfullname)) {
+    preline = `**[${preline}](${root}${mdfullname})**`
+  }
+  let line = `${preline} - ${bodyline} `
+
+  body += `${line}${endOfLine}${newLine}`
+}
+outText += `${body}${newLine}${newLine}`  
+outText += `${footer}`  
+  
+  
+
+
+  let eons = ''
+  let html = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>eons</title>
+  
+  
+</head>
+<body>
+
+  ${outText}
+  
+</body>
+</html>`
+
+  return html
+}
 
 // md: getMdtext
 // md: build the .md text
@@ -100,15 +189,17 @@ function getMdtext (name) {
 
 // md: getPackobj
 // md: build the package.json text
-// md: @fullname
+// md: @fullName
 // md: @name
 // md: @ver         version
 // md: @desc        description
 // md: @ncdfolder   package folder
 
-function getPackobj (fullname, name, ver, desc = '', ncdfolder = './') {
-  let unpkg = (fullname !== undefined) ? `${ncdfolder}${fullname}` : `${ncdfolder}`
+function getPackobj (fullName, name, ver, desc = '', ncdfolder = './') {
+  let unpkg = (fullName !== undefined) ? `${ncdfolder}${fullName}` : `${ncdfolder}`
 
+  if (fullName === undefined) fullName = 'eons.html'
+  
   let pkg = {
     name: `${name}`,
     version: `${ver}`,
@@ -125,6 +216,7 @@ function getPackobj (fullname, name, ver, desc = '', ncdfolder = './') {
     files: [
       `${ncdfolder}`,
     ],
+    main: `${fullName}`,
   }
   return JSON.stringify(pkg, 0, 2)
 }
@@ -144,15 +236,17 @@ let fromfile = ''
 
 let infiles = []
 
-//  eons is root
 
 if (scope === 'eons') { // eonify is root
 
+  // md: if scope is eons, get root
+  
   infiles = [ 'eons' ] // if not all eons in param opts then publish eons
 
-//  if eons, cover all eons
 
 } else if (scope === 'eonitems') {
+  
+  // md: if scope is eonitems, cover all eons items
   
   infiles = fs.readdirSync(indir)
     .filter(file => isFile(file))
@@ -161,14 +255,16 @@ if (scope === 'eons') { // eonify is root
     .filter(d => !mdpattern.test(d))
     .filter(d => !imgpattern.test(d))
 
-    
-//  if pattern, select eons
 
 } else {
   
+  // md: if scope is pattern, select eons
+  
+  const eonitemspattern = new RegExp('^' + '.*' + scope + '.*(.html|js)', 'i')
+
   infiles = fs.readdirSync(indir)
     .filter(file => isFile(file))
-    .filter(d => eonpattern.test(d))
+    .filter(d => eonitemspattern.test(d))
     .filter(d => !testpattern.test(d))
     .filter(d => !mdpattern.test(d))
     .filter(d => !imgpattern.test(d))
@@ -206,9 +302,9 @@ let promises = infiles.map(fileName => {
     .then(fileName => {
       if (1 && 1) console.log('out root dir', outdir)
 
-      let regex2 = new RegExp('^(((eon-)?(((?!-).)*)-(.*))\.(js))', 'i')
+      let regex2 = new RegExp('^(((eon-)?(((?!-).)*)-(.*))\.(html|js))', 'i')
       let parts = fileName.match(regex2) || []
-      let fullname = parts[0]
+      let fullName = parts[0]
       let name = parts[1]
       let rootname = parts[2] || 'eons' // ----------------
       let label = parts[3]
@@ -230,7 +326,7 @@ let promises = infiles.map(fileName => {
 
       // md: README
 
-      let mdtext = getMdtext(fullname) // place README
+      let mdtext = getMdtext(fullName) // place README
       let mdfilename = rootname + '.md'
       outfile = 'README.md'
       fromfile = `${indir}${mdfilename}`
@@ -270,29 +366,52 @@ let promises = infiles.map(fileName => {
 
       contextfilename = 'package.json' // place PACKAGE.json
       outfile = 'package.json'
-      let packagetext = getPackobj(fullname, rootname, packver, `${rootname}`, './')
+      let packagetext = getPackobj(fullName, rootname, packver, `${rootname}`, './')
       tofile = `${pckfolder}${outfile}`
       fs.writeFileSync(tofile, packagetext)
 
       // md: EONFILE
 
-      contextfilename = fullname // place EON as fullname in build
-      outfile = fullname // "index.js" //
-      fromfile = `${indir}${contextfilename}`
+      if (fileName === 'eons')     {  // if root
+      
+          console.log('build eons file')
+          
+          fromtext = getReadhtml(indir)
+          
+          outfile = `${fileName}.html`
 
-      let ncdfolder = 'build'
-      let pckdistfolder = `${pckfolder}${ncdfolder}/`
-      fs.existsSync(pckdistfolder) || fs.mkdirSync(pckdistfolder)
-      console.log('create pck dist folder ', pckdistfolder)
+          let ncdfolder = '.' // versus build, dist
+          let pckdistfolder = `${pckfolder}${ncdfolder}/`
+          fs.existsSync(pckdistfolder) || fs.mkdirSync(pckdistfolder)
+          console.log('create pck dist folder ', pckdistfolder)
 
-      tofile = `${pckdistfolder}${outfile}`
-      if (fs.existsSync(fromfile)) {
-        if (1 && 1) console.log('copy file to file ', fromfile, tofile)
-        fs.copyFileSync(fromfile, tofile)
+          tofile = `${pckdistfolder}${outfile}`
+          if (fs.existsSync(fromfile)) {
+            if (1 && 1) console.log('copy text to file ', fromtext, tofile)
+            fs.writeFileSync(tofile, fromtext)
+          } else {
+            if (1 && 1) console.log(`no eon file ${fromfile} in dist `)
+          }          
+          
       } else {
-        if (1 && 1) console.log(`no eon file ${fromfile} in dist `)
-      }
+        
+          fromfile = `${indir}${fullName}` // place EON as fullName in build
+          outfile = fullName // "index.js" //
 
+          let ncdfolder = '.' // versus build, dist
+          let pckdistfolder = `${pckfolder}${ncdfolder}/`
+          fs.existsSync(pckdistfolder) || fs.mkdirSync(pckdistfolder)
+          console.log('create pck dist folder ', pckdistfolder)
+
+          tofile = `${pckdistfolder}${outfile}`
+          if (fs.existsSync(fromfile)) {
+            if (1 && 1) console.log('copy file to file ', fromfile, tofile)
+            fs.copyFileSync(fromfile, tofile)
+          } else {
+            if (1 && 1) console.log(`no eon file ${fromfile} in dist `)
+          }
+      }
+      
       // md: NPM PUBLISH
 
       if (dopublish === 1) {
