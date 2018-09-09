@@ -43,8 +43,8 @@
 
       let geonode = mprops.v(anitem.payload.geonode, anitem)
 
-      if (geonode && anitem.payload.geoflit) {
-        for (let [bach, prt] of Object.entries(anitem.payload.geoflit)) {
+      if (geonode && anitem.payload.geodrift) {
+        for (let [bach, prt] of Object.entries(anitem.payload.geodrift)) {
           let properties = geonode.properties || {}
           let node = mproj3ct(mgeoj.deprop(geonode), mprofier.formion(prt, anitem))
           node.properties = properties
@@ -59,8 +59,8 @@
       let geofold = mprops.v(anitem.payload.geofold, anitem)
       let gjcollection = mgeoj.featurecollect(geofold)
 
-      if (geofold && anitem.payload.geoflit) {
-        for (let [bach, prt] of Object.entries(anitem.payload.geoflit)) {
+      if (geofold && anitem.payload.geodrift) {
+        for (let [bach, prt] of Object.entries(anitem.payload.geodrift)) {
           gjcollection.features = gjcollection.features.map(
             feature => {
               let properties = feature.properties || {}

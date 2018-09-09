@@ -68,9 +68,9 @@ console.log(`dopublish ${dopublish}`)
 // md: getReadhtml
 // md: get eons html page
 
-function getReadhtml (inDir) {
+function getReadhtml (inDir, root) {
   
-  
+root = root !== undefined ? root : 'https://sifbuilder.github.io/eon/'
 let outText = ''  
   
 let indexpattern = new RegExp('^' + 'eon-z' + '.*' + '.*(.html)', 'i')
@@ -81,7 +81,7 @@ let zpattern = new RegExp('^' + 'eon-z' + '.*' + '.*(.js)', 'i')
 
 let newLine = '\n'
 let endOfLine = '  '
-let header = `eons ${newLine}${newLine}`
+let header = `<h1>eons</h1> ${newLine}${newLine}`
 let footer = `${newLine}# license${endOfLine}${newLine}MIT${endOfLine}`
 
 outText += `${header}`  
@@ -93,6 +93,7 @@ let indexfiles = fs.readdirSync(inDir) // index files in inDir
   .filter(d => !testpattern.test(d))
   .filter(d => !mdpattern.test(d))
 
+body += `<ol class="list-unstyled">${newLine}`  
 for (let i = 0; i < indexfiles.length; i++) {
   let fileName = indexfiles[i]
 
@@ -108,16 +109,19 @@ for (let i = 0; i < indexfiles.length; i++) {
 
   let preline = `${code}` //
   let bodyline = `[${name}](${root}${fullname})` //
+  let urlline = `<li><a href="${root}${fullname}">${name}</a></li>` //
 
   let mdfullname = `${name}.md`
   let postline = ''
   if (fs.existsSync(mdfullname)) {
     preline = `**[${preline}](${root}${mdfullname})**`
   }
-  let line = `${preline} - ${bodyline} `
+  // let line = `${preline} - ${bodyline} `
+  let line = `${urlline} `
 
   body += `${line}${endOfLine}${newLine}`
 }
+body += `</ol>${newLine}`  
 outText += `${body}${newLine}${newLine}`  
 outText += `${footer}`  
   
@@ -293,7 +297,7 @@ let outtext = 'NOTEXT'
 
 // package version
 
-let packver = '0.0.1-rc1'
+let packver = '0.0.1-rc2'
 
 // promise
 
