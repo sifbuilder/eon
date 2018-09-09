@@ -30,18 +30,29 @@ async function anitem (__mapper) {
   let ani = function () {
     let tim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
-    // .................. sceneAni
-    let projectionEarth = d3geo.geoOrthographic()
-      .translate([0, 0, 0])
-      .rotate([0, 0, 0])
+    // .................. 
+
+    let pFront = function (x, y) {
+      let forward = (x, y) => d3geo.geoOrthographicRaw(x, -y)
+      forward.invert = (x, y) => d3geo.geoOrthographicRaw.invert(x, -y)
+      return forward
+    }
+
+    let frontProjection = d3geo.geoProjection(pFront())
+      .clipAngle(90)
 
     let proformEarth = {
 
-      projection: projectionEarth,
-      prerotate: [[[ cversor.rotation ]]],
+      projection: frontProjection,
+      prerotate: [[[ function (t) {
+        let rot = cversor
+          .projection({projection: frontProjection}) // versor projection
+          .rotation()
+        return rot
+      } ]]],
       translate: [0, 0, 0],
-      scale: 180,
-      rotate: [ 0, 0, 0 ],
+      scale: 100,
+      rotate: [ [[[0,360]]], 0, 0 ],
 
     }
 
