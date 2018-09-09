@@ -48,7 +48,7 @@
         ric: {gid: 'nat', cid: 'nat', fid: 'natform'},
         boform: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
 
-        geobach: {
+        geoflit: {
           proform: { projection: 'uniwen', translate: [0, 0, 0], scale: 1, rotate: [0, 0, 0], lens: [0, 1, Infinity] },
         },
         geoform: {

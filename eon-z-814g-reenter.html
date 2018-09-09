@@ -63,26 +63,26 @@ async function anitem (__mapper) {
     let conformRed = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         c: [1, 1, 1, 1, 1, 1, 1, 1,  ],
         e: [ 
           [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8],  // cost
-          [1, 0, 1],
-          [1, 0, 1], 
+          1, 
+          1, 
           [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8],  // cost
         ],
         // 'fn0': (e,c) => c[0] * cos(e[0]) * c[3] * cos(e[3]) // circ
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         c: [1, 1, 1, 1, 1, 1, 1, 1,  ],
         e: [ 
           [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // sint
-          [1, 0, 1], 
-          [1, 0, 0], 
+          1, 
+          1, 
           [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8],  // cost
         ],
         // 'fn0': (e,c) => c[0] * sin(e[0]) * c[3] * cos(e[3]) // circ
@@ -91,13 +91,13 @@ async function anitem (__mapper) {
 
       'z': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
         c: [],
         e: [ 
           1, 
           1, 
-          1,
+          [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8],  // cost 
           [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9] // expt
         ], 
         // 'fn0': (e,c) => c[3] * sin(e[3]) // circ
@@ -168,7 +168,7 @@ async function anitem (__mapper) {
         geoflit: {
           proform: {
             projection: 'uniwen',
-            scale: [ 0.2, 0.2 ],
+            scale: [ [[[1, 1]]], [[[1, 1]]] ],
             prerotate: [[[ cwen.rotation ]]],
             translate: [ [0, 0, 0] ],
             rotate: [ 0,
