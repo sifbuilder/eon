@@ -8,13 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
-// # eon-control-rayder 
-// ** ** 
-// ### refs 
-// * https://developer.mozilla.org/en-US/docs/Web/API/Touch_events 
-// # license 
-// MIT  
-  
+  // # eon-control-rayder
+  // ** **
+  // ### refs
+  // * https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
+  // # license
+  // MIT
+
   async function ctlRayder (__mapper) {
     let [
       d3,
@@ -127,7 +127,6 @@
 
     // ............................. mouseUpListener
     function mouseUpListener (e) {
-
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
@@ -135,7 +134,6 @@
 
     // ............................. subscribe
     let subscribe = function (listener, domNode, sensor) {
-
       if (typeof listener !== 'function') throw new Error('Listener to be function')
       domNode.node().addEventListener(sensor, listener) // mounseUp, mouseUpListener
     }

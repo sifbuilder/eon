@@ -35,22 +35,22 @@ async function anitem (__mapper) {
     let geoearth = {
 
       halo: 'ent',
-        geofold: p => {
-          let geometry = Object.assign({},
-            topojson.mesh(
-              dworldTopo110m.data(),
-              dworldTopo110m.data().objects.land
-            )
+      geofold: p => {
+        let geometry = Object.assign({},
+          topojson.mesh(
+            dworldTopo110m.data(),
+            dworldTopo110m.data().objects.land
           )
-          return { type: 'Feature', geometry: geometry, properties: {} }
-        },
-        tim: tim,
-        ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
-        boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.9, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+        )
+        return { type: 'Feature', geometry: geometry, properties: {} }
+      },
+      tim: tim,
+      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
+      boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.9, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
 
-        geodrift: {
-          proform: proform,
-        },
+      geodrift: {
+        proform: proform,
+      },
       payload: {
       },
 

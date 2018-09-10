@@ -28,7 +28,7 @@
     let d3Quadtree = d3
     let d3Random = d3
     let d3Polygon = d3
-    
+
     let width = rrenderport.width(), height = rrenderport.height()
 
     let x0 = 0, y0 = 0, x1 = width, y1 = height

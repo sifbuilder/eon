@@ -32,18 +32,18 @@ async function anitem (__mapper) {
     // ............................. axisBottom
     let axis1 = {
       halo: 'axis',
-        geofold: p => ({
-          type: 'Feature',
-          geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [1, 0, 0] ] },
-          properties: {},
-        }),
-        tim: tim,
-        ric: {gid: 'ax', cid: 'ax', fid: 'x1'},
-        boform: boform,
+      geofold: p => ({
+        type: 'Feature',
+        geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [1, 0, 0] ] },
+        properties: {},
+      }),
+      tim: tim,
+      ric: {gid: 'ax', cid: 'ax', fid: 'x1'},
+      boform: boform,
 
-        geodrift: {
-          proform: proform,
-        },
+      geodrift: {
+        proform: proform,
+      },
 
       payload: {
         axis: {
@@ -62,17 +62,17 @@ async function anitem (__mapper) {
     // ............................. axisLeft
     let axis2 = {
       halo: 'ent',
-        geofold: p => ({
-          type: 'Feature',
-          geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 100, 0] ] },
-          properties: {},
-        }),
-        tim: tim,
-        ric: {gid: 'ax', cid: 'ax', fid: 'x2'},
-        boform: boform,
-        geodrift: {
-          proform: proform,
-        },
+      geofold: p => ({
+        type: 'Feature',
+        geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 100, 0] ] },
+        properties: {},
+      }),
+      tim: tim,
+      ric: {gid: 'ax', cid: 'ax', fid: 'x2'},
+      boform: boform,
+      geodrift: {
+        proform: proform,
+      },
       payload: {
         axis: {
           label: 'space',
@@ -90,17 +90,17 @@ async function anitem (__mapper) {
     // ............................. axisLeft
     let axis3 = {
       halo: 'axis',
-        geofold: p => ({
-          type: 'Feature',
-          geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 0, 1] ] },
-          properties: {},
-        }),
-        tim: tim,
-        ric: {gid: 'ax', cid: 'ax', fid: 'x3'},
-        boform: boform,
-        geodrift: {
-          proform: proform,
-        },
+      geofold: p => ({
+        type: 'Feature',
+        geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 0, 1] ] },
+        properties: {},
+      }),
+      tim: tim,
+      ric: {gid: 'ax', cid: 'ax', fid: 'x3'},
+      boform: boform,
+      geodrift: {
+        proform: proform,
+      },
       payload: {
         axis: {
           label: 'space',
@@ -120,9 +120,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

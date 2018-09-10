@@ -88,16 +88,16 @@ async function anitem (__mapper) {
 
       halo: 'nat',
 
-        geofold: p => mnat.natFeature(p.payload.geoform),
-        tim,
+      geofold: p => mnat.natFeature(p.payload.geoform),
+      tim,
 
-        ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-        geodrift: {
-          proform: proform,
-        },
+      geodrift: {
+        proform: proform,
+      },
 
-        boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
+      boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
 
       payload: {
         geoform: conform,
@@ -110,9 +110,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

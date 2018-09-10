@@ -53,22 +53,22 @@ async function anitem (__mapper) {
     let natform = {
 
       halo: 'ent',
-        geofold: p => mnat.natFeature(p.payload.geoform),
+      geofold: p => mnat.natFeature(p.payload.geoform),
 
-        tim: tim,
-        ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
-        boform: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
+      tim: tim,
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
+      boform: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
 
-        geodrift: {
-          proform: {
-            projection: 'uniwen',
-            prerotate: [[[ cwen.rotation ]]],
-            translate: [-20, 20],
-            scale: 1,
-            rotate: [0, 0, 0],
-            lens: [ 0, 1, Infinity ],
-          },
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [-20, 20],
+          scale: 1,
+          rotate: [0, 0, 0],
+          lens: [ 0, 1, Infinity ],
         },
+      },
       payload: {
 
         geoform: conform,
@@ -80,9 +80,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

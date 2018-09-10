@@ -38,21 +38,21 @@ async function anitem (__mapper) {
       fact8 = 40320,
       fact9 = 362880
     let infact0 = 1 / fact0,
-        infact1 = 1 / fact1,
-        infact2 = 1 / fact2,
-        infact3 = 1 / fact3,
-        infact4 = 1 / fact4,
-        infact5 = 1 / fact5,
-        infact6 = 1 / fact6,
-        infact7 = 1 / fact7,
-        infact8 = 1 / fact8,
-        infact9 = 1 / fact9
+      infact1 = 1 / fact1,
+      infact2 = 1 / fact2,
+      infact3 = 1 / fact3,
+      infact4 = 1 / fact4,
+      infact5 = 1 / fact5,
+      infact6 = 1 / fact6,
+      infact7 = 1 / fact7,
+      infact8 = 1 / fact8,
+      infact9 = 1 / fact9
 
     let cost = [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // cost
-    sint = [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // sint
-    cosht = [infact0, 0, +infact2, 0, infact4, 0, +infact6, 0, infact8], // cosht
-    sinht = [0, infact1, 0, +infact3, 0, infact5, 0, +infact7, 0, infact9], // sinht
-    expt = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9] // expt
+      sint = [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // sint
+      cosht = [infact0, 0, +infact2, 0, infact4, 0, +infact6, 0, infact8], // cosht
+      sinht = [0, infact1, 0, +infact3, 0, infact5, 0, +infact7, 0, infact9], // sinht
+      expt = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9] // expt
 
     // ............................. pics
     let tim = {'td': 12600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
@@ -65,12 +65,12 @@ async function anitem (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c: [1, 1, 1, 1, 1, 1, 1, 1,  ],
-        e: [ 
-          [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8],  // cost
-          1, 
-          1, 
-          [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8],  // cost
+        c: [1, 1, 1, 1, 1, 1, 1, 1 ],
+        e: [
+          [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // cost
+          1,
+          1,
+          [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // cost
         ],
         // 'fn0': (e,c) => c[0] * cos(e[0]) * c[3] * cos(e[3]) // circ
       },
@@ -78,12 +78,12 @@ async function anitem (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c: [1, 1, 1, 1, 1, 1, 1, 1,  ],
-        e: [ 
+        c: [1, 1, 1, 1, 1, 1, 1, 1 ],
+        e: [
           [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // sint
-          1, 
-          1, 
-          [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8],  // cost
+          1,
+          1,
+          [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // cost
         ],
         // 'fn0': (e,c) => c[0] * sin(e[0]) * c[3] * cos(e[3]) // circ
 
@@ -94,12 +94,12 @@ async function anitem (__mapper) {
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
         c: [],
-        e: [ 
-          1, 
-          1, 
-          [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8],  // cost 
-          [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9] // expt
-        ], 
+        e: [
+          1,
+          1,
+          [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // cost
+          [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9], // expt
+        ],
         // 'fn0': (e,c) => c[3] * sin(e[3]) // circ
       },
 
@@ -114,7 +114,7 @@ async function anitem (__mapper) {
 
     }
     let conformBlue = {
-     'x': {
+      'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
@@ -128,7 +128,7 @@ async function anitem (__mapper) {
         'dom3': [-180, 180],
         // c: [],
         // e: [ sint, 1, 1, cost ],
-        'fn0': (e,c) => c[0] * sin(e[0]) * c[3] * cos(e[3])
+        'fn0': (e, c) => c[0] * sin(e[0]) * c[3] * cos(e[3]),
 
       },
 
@@ -154,29 +154,28 @@ async function anitem (__mapper) {
     let boformRed = { 'csx': 1, 'cf': [[[ 333, 333, 333]]], 'co': [[[0.069, 0.06, 0.069]]],
       'cs': [[[333, 333, 333]]], 'cw': [[[1.3, 1.3, 1.3]]], 'cp': [[[0.99, 0.99]]]}
 
-
     let boformBlue = { 'csx': 1, 'cf': [[[ 666, 666, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
       'cs': [[[666, 666, 666]]], 'cw': [[[1.3, 1.3, 1.3]]], 'cp': [[[0.99, 0.99]]]}
 
     // ............................. natAniRed
     let natAniRed = {
       halo: 'ent',
-        geofold: p => mnat.natFeature(p.payload.geoform),
-        tim,
-        ric: {gid: 'q', cid: 'q', fid: 'qred'},
-        geodrift: {
-          proform: {
-            projection: 'uniwen',
-            scale: [ [[[1, 1]]], [[[1, 1]]] ],
-            prerotate: [[[ cwen.rotation ]]],
-            translate: [ [0, 0, 0] ],
-            rotate: [ 0,
-              0,
-             0 ],
-            lens: [0, 1, Infinity ],
-          },
+      geofold: p => mnat.natFeature(p.payload.geoform),
+      tim,
+      ric: {gid: 'q', cid: 'q', fid: 'qred'},
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          scale: [ [[[1, 1]]], [[[1, 1]]] ],
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [ [0, 0, 0] ],
+          rotate: [ 0,
+            0,
+            0 ],
+          lens: [0, 1, Infinity ],
         },
-        boform: boformRed,
+      },
+      boform: boformRed,
       payload: {
         geoform: conformRed,
       },
@@ -184,22 +183,22 @@ async function anitem (__mapper) {
     // ............................. natAniBlue
     let natAniBlue = {
       halo: 'ent',
-        geofold: p => mnat.natFeature(p.payload.geoform),
-        tim,
-        ric: {gid: 'q', cid: 'q', fid: 'qblue'},
-        geodrift: {
-          proform: {
-            projection: 'uniwen',
-            scale: [ [[[1, 1]]], [[[1, 1]]] ],
-            prerotate: [[[ cwen.rotation ]]],
-            translate: [ [0, 0, 0] ],
-            rotate: [ 0,
-              0,
-             0 ],
-            lens: [0, 1, Infinity ],
-          },
+      geofold: p => mnat.natFeature(p.payload.geoform),
+      tim,
+      ric: {gid: 'q', cid: 'q', fid: 'qblue'},
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          scale: [ [[[1, 1]]], [[[1, 1]]] ],
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [ [0, 0, 0] ],
+          rotate: [ 0,
+            0,
+            0 ],
+          lens: [0, 1, Infinity ],
         },
-        boform: boformBlue,
+      },
+      boform: boformBlue,
       payload: {
         geoform: conformBlue,
       },
@@ -208,9 +207,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

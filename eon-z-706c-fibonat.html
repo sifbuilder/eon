@@ -95,16 +95,16 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: p => mfibonat.catesians(p.payload),
+      geofold: p => mfibonat.catesians(p.payload),
 
-        tim: tim,
+      tim: tim,
 
-        ric: {gid: 'grat', cid: 'grat', fid: 'fiboAni'},
-        boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 1.9, 'co': 0.6, 'cp': 0.9 },
+      ric: {gid: 'grat', cid: 'grat', fid: 'fiboAni'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 1.9, 'co': 0.6, 'cp': 0.9 },
 
-        geodrift: {
-          proform: fiboProform,
-        },
+      geodrift: {
+        proform: fiboProform,
+      },
       payload: {
 
         fibonat: {
@@ -124,19 +124,19 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: p => mgraticule.vhMultiLine(p.payload.graticule), // hMultiLine
+      geofold: p => mgraticule.vhMultiLine(p.payload.graticule), // hMultiLine
 
-        tim,
-        ric: {gid: 'grat', cid: 'grat', fid: 'sphereAni'},
-        boform: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[0.6, 0.6]]], 'co': [[[0.01, 0.9]]], 'cp': 0.9 },
+      tim,
+      ric: {gid: 'grat', cid: 'grat', fid: 'sphereAni'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[0.6, 0.6]]], 'co': [[[0.01, 0.9]]], 'cp': 0.9 },
 
-        geodrift: {
-          conform: {
-            projection: 'natform',
-            geoform: sphereForm,
-          },
-          proform: sphereProform,
+      geodrift: {
+        conform: {
+          projection: 'natform',
+          geoform: sphereForm,
         },
+        proform: sphereProform,
+      },
       payload: {
         graticule: sphereFrame,
 
@@ -147,9 +147,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

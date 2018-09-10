@@ -124,22 +124,20 @@
       if (!state.grabbed) return
 
       let e = d3selection.event
-      
-      
+
       state.s1 = state.s2
       state.s2 = getPos(e)
 
-      
       let sdq = [ // qurrent
         xsign * (state.s2[1] - state.s1[1]),
         ysign * (state.s1[0] - state.s2[0]),
-      ]     
-      
+      ]
+
       let sdp = [ // present
         xsign * (state.s2[1] - state.s0[1]),
         ysign * (state.s0[0] - state.s2[0]),
       ]
-      
+
       let sdist = sdp[0] * sdp[0] + sdp[1] * sdp[1]
       if (!state.moved) {
         if (sdist < inits.moveSpan) return
@@ -147,20 +145,15 @@
         state.rotInDrag_radians = inits.rotInit_radians
         rebase()
       }
-      
-      
+
       state.lastMoveTime = Date.now()
 
-      
       let r2 = [
         state.rotVel_radians[0] + sdp[0] * inits.mult_radians,
         state.rotVel_radians[1] + sdp[1] * inits.mult_radians,
       ]
 
       state.rotInDrag_radians = r2
-      
-      
-      
     }
 
     // .................. dragended
@@ -169,14 +162,12 @@
       state.grabbed = false
       if (!state.moved) return
 
-
       state.vel_radians = [ // velocity
 
         xsign * (state.s2[1] - state.s1[1]) * inits.mult_radians,
         ysign * (state.s2[0] - state.s1[0]) * inits.mult_radians,
 
       ]
-
 
       state.timer = requestAnimationFrame(momentum)
     }

@@ -80,16 +80,16 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: {
-          type: 'Feature',
-          geometry: {
-            type: 'LineString',
-            coordinates: []},
-          properties: {},
-        },
-        tim: tim,
-        ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      geofold: {
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: []},
+        properties: {},
+      },
+      tim: tim,
+      ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
       payload: {
       },
 
@@ -100,8 +100,8 @@ async function anitem (__mapper) {
     let traceline = {
 
       halo: 'pacer',
-        ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-        boform: {'csx': 0, 'cf': [[[111, 222, 111]]], 'cs': 666, 'cw': 0.99, 'co': 0.04, 'cp': 0.99},
+      ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
+      boform: {'csx': 0, 'cf': [[[111, 222, 111]]], 'cs': 666, 'cw': 0.99, 'co': 0.04, 'cp': 0.99},
 
       payload: {
         pacer: { // aad for trace
@@ -147,10 +147,10 @@ async function anitem (__mapper) {
     let fourierForm = {
 
       halo: 'fourier',
-        geofold: p => transformsFC,
-        tim: tim,
-        ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99}, // circle
+      geofold: p => transformsFC,
+      tim: tim,
+      ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99}, // circle
       payload: { // FOURIER TRANSFORM in payload.fourier.transforms
         fourier: {
 
@@ -168,9 +168,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

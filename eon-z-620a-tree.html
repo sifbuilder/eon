@@ -89,36 +89,36 @@ async function anitem (__mapper) {
 
       halo: 'formed',
 
-        geofold: ani => {
-          let payload = ani.payload // payload
+      geofold: ani => {
+        let payload = ani.payload // payload
 
-          let newFeatureCollection = {type: 'FeatureCollection', features: []}
-          let feature = {
-            type: 'Feature',
-            geometry: { type: 'MultiLineString', coordinates: []},
-            properties: {},
-          }
+        let newFeatureCollection = {type: 'FeatureCollection', features: []}
+        let feature = {
+          type: 'Feature',
+          geometry: { type: 'MultiLineString', coordinates: []},
+          properties: {},
+        }
 
-          const maxDepth = payload.tree.maxDepth,
-            trunkWidth = payload.tree.trunkWidth,
-            branchColor = payload.tree.branchColor,
-            length = payload.tree.length0,
-            angle = payload.tree.angle0,
-            x0 = payload.tree.x0,
-            y0 = payload.tree.y0,
-            branchShrinkage = payload.tree.branchShrinkage,
-            maxAngleDelta = payload.tree.maxAngleDelta
+        const maxDepth = payload.tree.maxDepth,
+          trunkWidth = payload.tree.trunkWidth,
+          branchColor = payload.tree.branchColor,
+          length = payload.tree.length0,
+          angle = payload.tree.angle0,
+          x0 = payload.tree.x0,
+          y0 = payload.tree.y0,
+          branchShrinkage = payload.tree.branchShrinkage,
+          maxAngleDelta = payload.tree.maxAngleDelta
 
-          let tree = buildTree(x0, y0, length, angle, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage)
-          feature.geometry.coordinates = tree
+        let tree = buildTree(x0, y0, length, angle, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage)
+        feature.geometry.coordinates = tree
 
-          newFeatureCollection.features.push(feature)
-          return newFeatureCollection
-        },
+        newFeatureCollection.features.push(feature)
+        return newFeatureCollection
+      },
 
-        tim: tim,
-        ric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
+      tim: tim,
+      ric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
       payload: {
         tree: {
           x0: 0,
@@ -141,9 +141,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

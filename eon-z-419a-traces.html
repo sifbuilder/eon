@@ -39,7 +39,7 @@ async function anitem (__mapper) {
 
       halo: 'pacer',
       payload: {
-        
+
         geofold: {
           type: 'Feature',
           geometry: {
@@ -56,14 +56,14 @@ async function anitem (__mapper) {
             coordinates: [0, 0, 0],
           },
           properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
-        },        
-        
+        },
+
         tim: tim,
-        
+
         ric: {
-          gid: 'nat', 
-          cid: 'nat', 
-          fid: 'pointTrace'
+          gid: 'nat',
+          cid: 'nat',
+          fid: 'pointTrace',
         },
 
         geodrift: {
@@ -75,9 +75,9 @@ async function anitem (__mapper) {
             lens: [0, 1, Infinity],
           },
         },
-        
+
         boform: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
-        
+
         pacer: {
           halo: 'ent',
           itemsort: 'anigram',
@@ -85,27 +85,20 @@ async function anitem (__mapper) {
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
 
           geonode: function (ani, props) {
-            
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-            
               // stace is ani's transformed geonode
               stace = mstace.getLocus([null, null, null], ani)
-              
             } else if (props.key === 'auto') { // AUTO
-            
               stace = mstace.getLocus([null, null, null], ani)
-              
             } else if (props.key === 'event') { // EVENT
-            
-                if (crayder.grabbed() !== undefined) {
-                  let grabbed = crayder.grabbed()
-                  let x = grabbed[0]
-                  let y = grabbed[1]
-                  let z = 0
-                  stace = {x, y, z }
-                }
-              
+              if (crayder.grabbed() !== undefined) {
+                let grabbed = crayder.grabbed()
+                let x = grabbed[0]
+                let y = grabbed[1]
+                let z = 0
+                stace = {x, y, z }
+              }
             }
 
             let coordinates = stace
@@ -118,9 +111,7 @@ async function anitem (__mapper) {
               properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
             }
             return res
-          },          
-          
-          
+          },
 
         },
       },
@@ -241,27 +232,20 @@ async function anitem (__mapper) {
           initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, aad: 0,
 
           geonode: function (ani, props) {
-            
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-            
               // stace is ani's transformed geonode
               stace = mstace.getLocus([null, null, null], ani)
-              
             } else if (props.key === 'auto') { // AUTO
-            
               stace = mstace.getLocus([null, null, null], ani)
-              
             } else if (props.key === 'event') { // EVENT
-            
-                if (crayder.grabbed() !== undefined) {
-                  let grabbed = crayder.grabbed()
-                  let x = grabbed[0]
-                  let y = grabbed[1]
-                  let z = 0
-                  stace = {x, y, z }
-                }
-              
+              if (crayder.grabbed() !== undefined) {
+                let grabbed = crayder.grabbed()
+                let x = grabbed[0]
+                let y = grabbed[1]
+                let z = 0
+                stace = {x, y, z }
+              }
             }
 
             let coordinates = stace
@@ -294,13 +278,13 @@ async function anitem (__mapper) {
           },
           properties: {},
         }),
-        
+
         geonode: {
           type: 'Feature',
           geometry: {type: 'Point', coordinates: [0, 0]},
           properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
         },
-            
+
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'natAni2'},
 
@@ -330,61 +314,53 @@ async function anitem (__mapper) {
 
       halo: 'pacer',
       payload: {
-        
+
         geofold: {
-                type: 'Feature',
-                geometry: {
-                  type: 'LineString',
-                  coordinates: null,
-                },
-                properties: {},
-              },
-        
+          type: 'Feature',
+          geometry: {
+            type: 'LineString',
+            coordinates: null,
+          },
+          properties: {},
+        },
+
         tim,
         ric: {gid: 'traces', cid: 'traces', fid: 'traceAni2'},
         boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
         pacer: { // aad for trace
-          halo: 'ent',        
+          halo: 'ent',
           itemsort: 'anigram',
           base: 'geo',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
 
-          
-            stace: function (ani, props) {
-              let stace
-              if (props.key === 'init') { // INIT
-                stace = {x: 0, y: 0, z: 0 }
-              } else if (props.key === 'auto') { // AUTO
-                stace = mstace.getLocus(ani.payload.pacer.stace, ani) // AUTO
-              } else if (props.key === 'event') { // EVENT
-                stace = {x: 0, y: 0, z: 0 }
-              }
-              return stace
-            },          
-          
+          stace: function (ani, props) {
+            let stace
+            if (props.key === 'init') { // INIT
+              stace = {x: 0, y: 0, z: 0 }
+            } else if (props.key === 'auto') { // AUTO
+              stace = mstace.getLocus(ani.payload.pacer.stace, ani) // AUTO
+            } else if (props.key === 'event') { // EVENT
+              stace = {x: 0, y: 0, z: 0 }
+            }
+            return stace
+          },
+
           geonode: function (ani, props) {
-            
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-            
               // stace is ani's transformed geonode
               stace = mstace.getLocus([null, null, null], ani)
-              
             } else if (props.key === 'auto') { // AUTO
-            
               stace = mstace.getLocus([null, null, null], ani)
-              
             } else if (props.key === 'event') { // EVENT
-            
-                if (crayder.grabbed() !== undefined) {
-                  let grabbed = crayder.grabbed()
-                  let x = grabbed[0]
-                  let y = grabbed[1]
-                  let z = 0
-                  stace = {x, y, z }
-                }
-              
+              if (crayder.grabbed() !== undefined) {
+                let grabbed = crayder.grabbed()
+                let x = grabbed[0]
+                let y = grabbed[1]
+                let z = 0
+                stace = {x, y, z }
+              }
             }
 
             let coordinates = stace
@@ -398,8 +374,7 @@ async function anitem (__mapper) {
             }
             return res
           },
-          
-          
+
         },
       },
     }

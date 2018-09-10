@@ -54,16 +54,16 @@ async function anitem (__mapper) {
     let aniLine = {
 
       halo: 'ent',
-        geofold: {
-          type: 'Feature',
-          geometry: {
-            type: 'LineString',
-            coordinates: []},
-          properties: {},
-        },
-        tim: tim,
-        ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
+      geofold: {
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: []},
+        properties: {},
+      },
+      tim: tim,
+      ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
       payload: {
       },
 
@@ -73,7 +73,7 @@ async function anitem (__mapper) {
     let traceline = { // SUB-MARKS line trace
 
       halo: 'pacer',
-        geofold: null,
+      geofold: null,
 
       payload: {
         pacer: { // aad for trace
@@ -119,11 +119,11 @@ async function anitem (__mapper) {
 
       halo: 'fourier',
 
-        geofold: p => transformsFC,
+      geofold: p => transformsFC,
 
-        tim: tim,
-        ric: { gid: 'fourier', cid: 'fourier', fid: 'fourier'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.095, 'co': 0.092, 'cp': 0.99},
+      tim: tim,
+      ric: { gid: 'fourier', cid: 'fourier', fid: 'fourier'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.095, 'co': 0.092, 'cp': 0.99},
 
       payload: { // payload in fourierForm
         fourier: {
@@ -146,9 +146,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

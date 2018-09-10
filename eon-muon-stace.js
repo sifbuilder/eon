@@ -39,7 +39,6 @@
 
     // ..................... isValidStace
     let getTranspots = function (stace, ani) {
-      
       let mstore = __mapper('muonStore') // sync
 
       let payload = ani.payload
@@ -83,100 +82,73 @@
         let parentani = mstore.findAnigramFromUid(parentuid)
         console.assert(parentani !== undefined, ` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)
 
-        let geofold = parentani.geofold 
+        let geofold = parentani.geofold
         let geonode = parentani.geonode
         let locationsPerDax = []
 
-
         // identify positions per stace dax
-        
+
         for (let i = 0; i < stace.length; i++) { // if stace undefined assumed dim 3
-        
           let v1 = stace[i] || {}
-          
-          // a stace dax may refer to multiple positions 
-          
+
+          // a stace dax may refer to multiple positions
+
           let coords = []
 
-          
-          
           // if pos, idx refers to the position in the parent geofold coordinates
-          
-          
+
           if (v1.hasOwnProperty('pos')) {
+            let idx = Math.floor(v1.pos)
 
-              let idx = Math.floor(v1.pos)
-              
-              // mod refers to the transformation
-              
-              if (v1.hasOwnProperty('mod')) { // geoform, conform, ereform, proform`
+            // mod refers to the transformation
 
-                // geofold transfomed are in the geofold.properties
-                
-                coords = mgeoj.getCoords(geofold.properties[v1.mod].geometry)
+            if (v1.hasOwnProperty('mod')) { // geoform, conform, ereform, proform`
+              // geofold transfomed are in the geofold.properties
 
-              } else {
+              coords = mgeoj.getCoords(geofold.properties[v1.mod].geometry)
+            } else {
+              // if no mod, positions are the goefold geometry, after transforms
 
-                // if no mod, positions are the goefold geometry, after transforms
-              
-                coords = mgeoj.getCoords(geofold.geometry)
+              coords = mgeoj.getCoords(geofold.geometry)
+            }
 
-              }
+            // move idx to the coords domain
 
-              // move idx to the coords domain
-              
-              idx = (idx + coords.length) % coords.length
-              
-              // if pos, the locations per dax are the i projection of the idx coords 
-              
-              locationsPerDax[i] = Array.of(coords[idx][i])
+            idx = (idx + coords.length) % coords.length
 
-          
-          
-          // if not pos, idx refers to the position in the parent geonode coordinates              
-              
+            // if pos, the locations per dax are the i projection of the idx coords
+
+            locationsPerDax[i] = Array.of(coords[idx][i])
+
+          // if not pos, idx refers to the position in the parent geonode coordinates
           } else {
-      
+            // locations refer to the geonode or the stace locations
 
-              // locations refer to the geonode or the stace locations
-            
-              if (v1.hasOwnProperty('mod')) { // geoform, conform, ereform, proform`
+            if (v1.hasOwnProperty('mod')) { // geoform, conform, ereform, proform`
+              // get the mod on the geonode properties
+              console.assert(geonode.properties[v1.mod].geometry !== undefined)
+              coords = geonode.properties[v1.mod].geometry.coordinates
+            } else {
+              if (geonode) {
+                // get the geonode coordinates
 
-                // get the mod on the geonode properties
-                console.assert(geonode.properties[v1.mod].geometry !== undefined)
-                coords = geonode.properties[v1.mod].geometry.coordinates
-
+                console.assert(geonode.geometry !== undefined, `${geonode} geometry undefined`)
+                coords = geonode.geometry.coordinates
               } else {
+                // assume stace is location
 
-                if (geonode) {
-
-                  // get the geonode coordinates
-             
-                  console.assert(geonode.geometry !== undefined, `${geonode} geometry undefined`)
-                  coords = geonode.geometry.coordinates
-                  
-                } else {
-                  
-                  // assume stace is location
-                
-                  coords = stace
-                  
-                  
-                }
-
+                coords = stace
               }
+            }
 
-              locationsPerDax[i] = Array.of(coords[i])
-
+            locationsPerDax[i] = Array.of(coords[i])
           }
         }
-
 
         if (locationsPerDax.length > 0) {
           locations = mlacer.slide(locationsPerDax) // [300, 200]
         }
       }
-
 
       return locations
     }

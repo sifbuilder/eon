@@ -64,28 +64,28 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: function (p) {
-          let graticule = p.payload.graticule
+      geofold: function (p) {
+        let graticule = p.payload.graticule
 
-          let verts = mgraticule.gvertices(graticule) // Feature.LineString
-          let vertices = verts.geometry.coordinates
+        let verts = mgraticule.gvertices(graticule) // Feature.LineString
+        let vertices = verts.geometry.coordinates
 
-          let faces = mgraticule.gfaces(graticule)	// faces
+        let faces = mgraticule.gfaces(graticule)	// faces
 
-          let gj = {type: 'MultiPoint', coordinates: []}
-          gj.coordinates = vertices
+        let gj = {type: 'MultiPoint', coordinates: []}
+        gj.coordinates = vertices
 
-          return gj
-        },
+        return gj
+      },
 
-        tim,
-        ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
-        boform: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
-        geodrift: {
-          conform: conform,
+      tim,
+      ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
+      boform: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
+      geodrift: {
+        conform: conform,
 
-          proform: proform,
-        },
+        proform: proform,
+      },
       payload: {
         graticule: frame,
 
@@ -96,9 +96,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

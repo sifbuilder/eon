@@ -41,45 +41,45 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        tim: tim,
-        ric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
+      tim: tim,
+      ric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
 
-        geofold: function (p) {
-          return mnat.natFeature(p.payload.geoform)
+      geofold: function (p) {
+        return mnat.natFeature(p.payload.geoform)
+      },
+
+      geonode: {
+        'type': 'Feature',
+        'geometry': null,
+      },
+
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ [[[-100, 100]]], 0, 0],
+          scale: 1,
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, 12],
+          anod: 1, // geonode
         },
+      },
 
-        geonode: {
-          'type': 'Feature',
-          'geometry': null,
+      boform: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
+
+      geoform: {
+        'x': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
         },
-
-        geodrift: {
-          proform: {
-            projection: 'uniwen',
-            translate: [ [[[-100, 100]]], 0, 0],
-            scale: 1,
-            rotate: [ 0, 0, 0 ],
-            lens: [0, 1, 12],
-            anod: 1, // geonode
-          },
+        'y': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
         },
-
-        boform: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
-
-        geoform: {
-          'x': {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
-          },
-          'y': {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
-          },
-          'z': {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
-          },
+        'z': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
         },
+      },
       payload: {
       },
     }
@@ -236,11 +236,10 @@ async function anitem (__mapper) {
 
       halo: 'core',
 
+      geofold: null,
 
-        geofold: null,
-
-        tim: tim,
-        ric: {gid: 'core', cid: 'core', fid: 'core'},
+      tim: tim,
+      ric: {gid: 'core', cid: 'core', fid: 'core'},
 
       payload: {
       },

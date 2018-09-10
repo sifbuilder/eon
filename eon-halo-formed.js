@@ -62,11 +62,11 @@
 
         let newAnigram = {
           halo: anigram.halo, // inherit halo
-            geofold: feature, // inherit geofold
-            geonode: anigram.geonode,
-            ric: feature.properties.ric, // hoist ric
-            id: feature.properties.uid, // hoist uid
-            uid: feature.properties.uid, // hoist uid
+          geofold: feature, // inherit geofold
+          geonode: anigram.geonode,
+          ric: feature.properties.ric, // hoist ric
+          id: feature.properties.uid, // hoist uid
+          uid: feature.properties.uid, // hoist uid
           payload: { // payload is lost in m.animation before rendering
           },
           avatars: anigram.avatars, // inherit avatars

@@ -31,54 +31,54 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: anitem => {
-          let payload = anitem.payload,
-            ric = anitem.ric,
-            faces = payload.faces(payload.polyhedron) // payload.faces
+      geofold: anitem => {
+        let payload = anitem.payload,
+          ric = anitem.ric,
+          faces = payload.faces(payload.polyhedron) // payload.faces
 
-          let json = {type: 'FeatureCollection', features: []}
+        let json = {type: 'FeatureCollection', features: []}
 
-          for (let i = 0, l = faces.length; i < l; i++) {
-            let face = faces[i] // face cornersx position
+        for (let i = 0, l = faces.length; i < l; i++) {
+          let face = faces[i] // face cornersx position
 
-            let geometry = {type: 'Polygon', coordinates: []}
-            geometry.coordinates = Array.of(face) // eg [-1, 1, 1]
+          let geometry = {type: 'Polygon', coordinates: []}
+          geometry.coordinates = Array.of(face) // eg [-1, 1, 1]
 
-            let _ric = {}
-            _ric.gid = ric.gid
-            _ric.cid = ric.cid
-            _ric.fid = ric.cid + i
+          let _ric = {}
+          _ric.gid = ric.gid
+          _ric.cid = ric.cid
+          _ric.fid = ric.cid + i
 
-            let feature = {type: 'Feature', geometry: {}, properties: {}}
+          let feature = {type: 'Feature', geometry: {}, properties: {}}
 
-            feature.geometry = geometry
+          feature.geometry = geometry
 
-            feature.properties.ric = _ric
-            feature.properties.sort = 'form'
-            feature.properties.boform = face.boform
+          feature.properties.ric = _ric
+          feature.properties.sort = 'form'
+          feature.properties.boform = face.boform
 
-            json.features.push(feature)
-          }
+          json.features.push(feature)
+        }
 
-          return json
+        return json
+      },
+
+      tim: tim,
+      ric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
+      boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+
+      geodrift: {
+        proform: {
+
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [ 0, 0, 0 ],
+          scale: 100,
+          rotate: [0, [[[0, 0 * 360]]], 0],
+          lens: [0, 1, 2000 ],
+
         },
-
-        tim: tim,
-        ric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
-        boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
-
-        geodrift: {
-          proform: {
-
-            projection: 'uniwen',
-            prerotate: [[[ cwen.rotation ]]],
-            translate: [ 0, 0, 0 ],
-            scale: 100,
-            rotate: [0, [[[0, 0 * 360]]], 0],
-            lens: [0, 1, 2000 ],
-
-          },
-        },
+      },
       payload: {
         // dihedral angle: 116.56°
         polyhedron: {
@@ -143,9 +143,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

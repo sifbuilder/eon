@@ -98,61 +98,61 @@ async function anitem (__mapper) {
 
       halo: 'formed',
 
-        geofold: ani => {
-          let anigram = ani, // anigram
-            halo = ani.halo, // halo
-            geofold = ani.geofold, // geofold
-            payload = ani.payload // payload
+      geofold: ani => {
+        let anigram = ani, // anigram
+          halo = ani.halo, // halo
+          geofold = ani.geofold, // geofold
+          payload = ani.payload // payload
 
-          let geoData = geoData1 // geoData
-          let unitElapsed = ani.tim.unitElapsed // unit time elapsed
-          let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
-          let nbt = Math.ceil(nb1 * t)
-          let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
-          let coords = csi(t).geometry.coordinates
+        let geoData = geoData1 // geoData
+        let unitElapsed = ani.tim.unitElapsed // unit time elapsed
+        let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
+        let nbt = Math.ceil(nb1 * t)
+        let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
+        let coords = csi(t).geometry.coordinates
 
-          let ngj = {
+        let ngj = {
+          type: 'Feature',
+          geometry: { type: 'Polygon', coordinates: [] },
+          properties: {
+            boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.8, 'co': 0.01, 'cp': 0.99},
+          },
+        }
+
+        if (geoData.geometry.type === 'LineString') ngj.geometry.coordinates = Array.of(coords)
+        else if (geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = coords
+        else if (geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = coords
+
+        let rings = ngj.geometry.coordinates // rings in Polygon
+        let newFeatureCollection = {type: 'FeatureCollection', features: []}
+
+        for (let i = 0; i < rings.length; i++) {
+          let ring = rings[i]
+          let feature = {
             type: 'Feature',
-            geometry: { type: 'Polygon', coordinates: [] },
-            properties: {
-              boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.8, 'co': 0.01, 'cp': 0.99},
-            },
+            geometry: { type: 'Polygon', coordinates: [ring]},
+            properties: {},
+          }
+          if (i < rings.length - 1) { // first
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 1}
+          } else {
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.1, 'cp': 1}
           }
 
-          if (geoData.geometry.type === 'LineString') ngj.geometry.coordinates = Array.of(coords)
-          else if (geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = coords
-          else if (geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = coords
+          newFeatureCollection.features.push(feature)
+        }
 
-          let rings = ngj.geometry.coordinates // rings in Polygon
-          let newFeatureCollection = {type: 'FeatureCollection', features: []}
+        newFeatureCollection.features = Array.of(ngj)
+        if (payload.proform) {
+          let proformion = mprofier.proformion(anigram)
+          newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
+        }
 
-          for (let i = 0; i < rings.length; i++) {
-            let ring = rings[i]
-            let feature = {
-              type: 'Feature',
-              geometry: { type: 'Polygon', coordinates: [ring]},
-              properties: {},
-            }
-            if (i < rings.length - 1) { // first
-              feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 1}
-            } else {
-              feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.1, 'cp': 1}
-            }
-
-            newFeatureCollection.features.push(feature)
-          }
-
-          newFeatureCollection.features = Array.of(ngj)
-          if (payload.proform) {
-            let proformion = mprofier.proformion(anigram)
-            newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
-          }
-
-          return newFeatureCollection
-        },
-        tim: tim,
-        ric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
+        return newFeatureCollection
+      },
+      tim: tim,
+      ric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
       payload: {
         tf: t => t,
       },
@@ -163,61 +163,61 @@ async function anitem (__mapper) {
 
       halo: 'formed',
 
-        geofold: ani => {
-          let anigram = ani, // anigram
-            halo = ani.halo, // halo
-            geofold = ani.geofold, // geofold
-            payload = ani.payload // payload
+      geofold: ani => {
+        let anigram = ani, // anigram
+          halo = ani.halo, // halo
+          geofold = ani.geofold, // geofold
+          payload = ani.payload // payload
 
-          let geoData = geoData2 // geoData
-          let unitElapsed = ani.tim.unitElapsed // unit time elapsed
-          let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
-          let nbt = Math.ceil(nb2 * t)
-          let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
-          let coords = csi(t).geometry.coordinates
+        let geoData = geoData2 // geoData
+        let unitElapsed = ani.tim.unitElapsed // unit time elapsed
+        let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
+        let nbt = Math.ceil(nb2 * t)
+        let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
+        let coords = csi(t).geometry.coordinates
 
-          let ngj = {
+        let ngj = {
+          type: 'Feature',
+          geometry: { type: 'Polygon', coordinates: [] },
+          properties: {
+            boform: { 'csx': 0, 'cf': 666, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 0.9},
+          },
+        }
+
+        if (geoData.geometry.type === 'LineString') ngj.geometry.coordinates = Array.of(coords)
+        else if (geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = coords
+        else if (geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = coords
+
+        let rings = ngj.geometry.coordinates // rings in Polygon
+        let newFeatureCollection = {type: 'FeatureCollection', features: []}
+
+        for (let i = 0; i < rings.length; i++) {
+          let ring = rings[i]
+          let feature = {
             type: 'Feature',
-            geometry: { type: 'Polygon', coordinates: [] },
-            properties: {
-              boform: { 'csx': 0, 'cf': 666, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 0.9},
-            },
+            geometry: { type: 'Polygon', coordinates: [ring]},
+            properties: {},
+          }
+          if (i < rings.length - 1) { // first
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 1}
+          } else {
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.1, 'cp': 1}
           }
 
-          if (geoData.geometry.type === 'LineString') ngj.geometry.coordinates = Array.of(coords)
-          else if (geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = coords
-          else if (geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = coords
+          newFeatureCollection.features.push(feature)
+        }
 
-          let rings = ngj.geometry.coordinates // rings in Polygon
-          let newFeatureCollection = {type: 'FeatureCollection', features: []}
+        newFeatureCollection.features = Array.of(ngj)
+        if (payload.proform) {
+          let proformion = mprofier.proformion(anigram)
+          newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
+        }
 
-          for (let i = 0; i < rings.length; i++) {
-            let ring = rings[i]
-            let feature = {
-              type: 'Feature',
-              geometry: { type: 'Polygon', coordinates: [ring]},
-              properties: {},
-            }
-            if (i < rings.length - 1) { // first
-              feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 1}
-            } else {
-              feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.1, 'cp': 1}
-            }
-
-            newFeatureCollection.features.push(feature)
-          }
-
-          newFeatureCollection.features = Array.of(ngj)
-          if (payload.proform) {
-            let proformion = mprofier.proformion(anigram)
-            newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
-          }
-
-          return newFeatureCollection
-        },
-        tim: tim,
-        ric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
+        return newFeatureCollection
+      },
+      tim: tim,
+      ric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
       payload: {
         tf: t => t,
       },
@@ -228,61 +228,61 @@ async function anitem (__mapper) {
 
       halo: 'formed',
 
-        geofold: ani => {
-          let anigram = ani, // anigram
-            halo = ani.halo, // halo
-            geofold = ani.geofold, // geofold
-            payload = ani.payload // payload
+      geofold: ani => {
+        let anigram = ani, // anigram
+          halo = ani.halo, // halo
+          geofold = ani.geofold, // geofold
+          payload = ani.payload // payload
 
-          let geoData = geoData3 // geoData
-          let unitElapsed = ani.tim.unitElapsed // unit time elapsed
-          let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
-          let nbt = Math.ceil(nb3 * t)
-          let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
-          let coords = csi(t).geometry.coordinates
+        let geoData = geoData3 // geoData
+        let unitElapsed = ani.tim.unitElapsed // unit time elapsed
+        let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
+        let nbt = Math.ceil(nb3 * t)
+        let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
+        let coords = csi(t).geometry.coordinates
 
-          let ngj = {
+        let ngj = {
+          type: 'Feature',
+          geometry: { type: 'Polygon', coordinates: [] },
+          properties: {
+            boform: { 'csx': 0, 'cf': 666, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 0.9},
+          },
+        }
+
+        if (geoData.geometry.type === 'LineString') ngj.geometry.coordinates = Array.of(coords)
+        else if (geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = coords
+        else if (geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = coords
+
+        let rings = ngj.geometry.coordinates // rings in Polygon
+        let newFeatureCollection = {type: 'FeatureCollection', features: []}
+
+        for (let i = 0; i < rings.length; i++) {
+          let ring = rings[i]
+          let feature = {
             type: 'Feature',
-            geometry: { type: 'Polygon', coordinates: [] },
-            properties: {
-              boform: { 'csx': 0, 'cf': 666, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 0.9},
-            },
+            geometry: { type: 'Polygon', coordinates: [ring]},
+            properties: {},
+          }
+          if (i < rings.length - 1) { // first
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 1}
+          } else {
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.1, 'cp': 1}
           }
 
-          if (geoData.geometry.type === 'LineString') ngj.geometry.coordinates = Array.of(coords)
-          else if (geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = coords
-          else if (geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = coords
+          newFeatureCollection.features.push(feature)
+        }
 
-          let rings = ngj.geometry.coordinates // rings in Polygon
-          let newFeatureCollection = {type: 'FeatureCollection', features: []}
+        newFeatureCollection.features = Array.of(ngj)
+        if (payload.proform) {
+          let proformion = mprofier.proformion(anigram)
+          newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
+        }
 
-          for (let i = 0; i < rings.length; i++) {
-            let ring = rings[i]
-            let feature = {
-              type: 'Feature',
-              geometry: { type: 'Polygon', coordinates: [ring]},
-              properties: {},
-            }
-            if (i < rings.length - 1) { // first
-              feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 1}
-            } else {
-              feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.1, 'cp': 1}
-            }
-
-            newFeatureCollection.features.push(feature)
-          }
-
-          newFeatureCollection.features = Array.of(ngj)
-          if (payload.proform) {
-            let proformion = mprofier.proformion(anigram)
-            newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
-          }
-
-          return newFeatureCollection
-        },
-        tim: tim,
-        ric: { gid: 'ani', cid: 'ani', fid: 'ani3'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
+        return newFeatureCollection
+      },
+      tim: tim,
+      ric: { gid: 'ani', cid: 'ani', fid: 'ani3'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
       payload: {
         tf: t => t,
       },
@@ -293,61 +293,61 @@ async function anitem (__mapper) {
 
       halo: 'formed',
 
-        geofold: ani => {
-          let anigram = ani, // anigram
-            halo = ani.halo, // halo
-            geofold = ani.geofold, // geofold
-            payload = ani.payload // payload
+      geofold: ani => {
+        let anigram = ani, // anigram
+          halo = ani.halo, // halo
+          geofold = ani.geofold, // geofold
+          payload = ani.payload // payload
 
-          let geoData = geoData4 // geoData
-          let unitElapsed = ani.tim.unitElapsed // unit time elapsed
-          let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
-          let nbt = Math.ceil(nb4 * t)
-          let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
-          let coords = csi(t).geometry.coordinates
+        let geoData = geoData4 // geoData
+        let unitElapsed = ani.tim.unitElapsed // unit time elapsed
+        let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
+        let nbt = Math.ceil(nb4 * t)
+        let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
+        let coords = csi(t).geometry.coordinates
 
-          let ngj = {
+        let ngj = {
+          type: 'Feature',
+          geometry: { type: 'Polygon', coordinates: [] },
+          properties: {
+            boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.7, 'co': 0.01, 'cp': 0.9},
+          },
+        }
+
+        if (geoData.geometry.type === 'LineString') ngj.geometry.coordinates = Array.of(coords)
+        else if (geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = coords
+        else if (geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = coords
+
+        let rings = ngj.geometry.coordinates // rings in Polygon
+        let newFeatureCollection = {type: 'FeatureCollection', features: []}
+
+        for (let i = 0; i < rings.length; i++) {
+          let ring = rings[i]
+          let feature = {
             type: 'Feature',
-            geometry: { type: 'Polygon', coordinates: [] },
-            properties: {
-              boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.7, 'co': 0.01, 'cp': 0.9},
-            },
+            geometry: { type: 'Polygon', coordinates: [ring]},
+            properties: {},
+          }
+          if (i < rings.length - 1) { // first
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.01, 'cp': 1}
+          } else {
+            feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.01, 'cp': 1}
           }
 
-          if (geoData.geometry.type === 'LineString') ngj.geometry.coordinates = Array.of(coords)
-          else if (geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = coords
-          else if (geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = coords
+          newFeatureCollection.features.push(feature)
+        }
 
-          let rings = ngj.geometry.coordinates // rings in Polygon
-          let newFeatureCollection = {type: 'FeatureCollection', features: []}
+        newFeatureCollection.features = Array.of(ngj)
+        if (payload.proform) {
+          let proformion = mprofier.proformion(anigram)
+          newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
+        }
 
-          for (let i = 0; i < rings.length; i++) {
-            let ring = rings[i]
-            let feature = {
-              type: 'Feature',
-              geometry: { type: 'Polygon', coordinates: [ring]},
-              properties: {},
-            }
-            if (i < rings.length - 1) { // first
-              feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.01, 'cp': 1}
-            } else {
-              feature.properties.boform = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.01, 'cp': 1}
-            }
-
-            newFeatureCollection.features.push(feature)
-          }
-
-          newFeatureCollection.features = Array.of(ngj)
-          if (payload.proform) {
-            let proformion = mprofier.proformion(anigram)
-            newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
-          }
-
-          return newFeatureCollection
-        },
-        tim: tim,
-        ric: { gid: 'ani', cid: 'ani', fid: 'ani4'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.0072, 'cp': 0.7},
+        return newFeatureCollection
+      },
+      tim: tim,
+      ric: { gid: 'ani', cid: 'ani', fid: 'ani4'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.0072, 'cp': 0.7},
       payload: {
         tf: t => t,
       },
@@ -357,9 +357,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

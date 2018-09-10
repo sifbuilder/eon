@@ -32,12 +32,10 @@
 
     let width = rrenderport.width(), height = rrenderport.height()
 
-    
-    // ............................. gramm    
+    // ............................. gramm
     let gramm = function (anitem, newAnigrams = []) {
-      
       let mstore = __mapper('muonStore') // sync
-    
+
       let payload = anitem.payload, // payload
         geofold = geofold, // geofold
         ric = ric, // ric
@@ -90,7 +88,7 @@
         newAnigram.ric = _ric // identify each fuel nat
         newAnigram.payload.proform = _proform // proform of each fuel nat
 
-        let avaAnigrams = hnat.gramm(newAnigram)  // async
+        let avaAnigrams = hnat.gramm(newAnigram) // async
         newAnigrams = [...newAnigrams, ...avaAnigrams]
       }
 

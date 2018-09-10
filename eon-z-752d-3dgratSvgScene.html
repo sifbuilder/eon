@@ -70,17 +70,17 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
-        tim: tim,
-        ric: {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
+      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+      tim: tim,
+      ric: {'gid': 'gratiform', 'cid': 'gratiform', 'fid': 'gratiform'},
 
-        boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
+      boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
 
-        geodrift: {
-          conform: conform,
+      geodrift: {
+        conform: conform,
 
-          proform: proform,
-        },
+        proform: proform,
+      },
 
       payload: {
         graticule: {
@@ -95,9 +95,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

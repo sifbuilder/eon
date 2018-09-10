@@ -56,9 +56,9 @@ async function anitem (__mapper) {
       let traceLine = { // SUB-MARKS line trace
 
         halo: 'pacer',
-          geofold: null,
-          ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-          boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+        geofold: null,
+        ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
+        boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
         payload: {
           pacer: { // aad for trace
@@ -113,34 +113,32 @@ async function anitem (__mapper) {
 
         halo: 'ent',
 
+        geofold: a => ({
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
 
-          geofold: a => ({
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
+            coordinates: Complex({re: 0, im: 0})
+              .add(a.payload.fractal.coef(a)) // set on zcoef = (rad, ang)
+              .toVector(),
 
-              coordinates: Complex({re: 0, im: 0})
-                .add(a.payload.fractal.coef(a)) // set on zcoef = (rad, ang)
-                .toVector(),
-
-            },
-            properties: {
-              pointRadius: a.payload.fractal.rad,
-              geonode: {
-                type: 'Feature',
-                geometry: {type: 'Point', coordinates: [0, 0]},
-                properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
-              },
-            },
-          }),
-
-          tim: {'td': cyclet * _LEVEL, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-          ric: {'gid': _NAME, 'cid': _NAME, 'fid': _NAME},
-          boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
-          geodrift: {
-            proform: { projection: 'uniwen', scale: 1, translate: [ -0, 0 ], rotate: [ 0, 0 ] }, // identity
           },
+          properties: {
+            pointRadius: a.payload.fractal.rad,
+            geonode: {
+              type: 'Feature',
+              geometry: {type: 'Point', coordinates: [0, 0]},
+              properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
+            },
+          },
+        }),
 
+        tim: {'td': cyclet * _LEVEL, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+        ric: {'gid': _NAME, 'cid': _NAME, 'fid': _NAME},
+        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
+        geodrift: {
+          proform: { projection: 'uniwen', scale: 1, translate: [ -0, 0 ], rotate: [ 0, 0 ] }, // identity
+        },
 
         payload: {
           fractal: {}, // set coef

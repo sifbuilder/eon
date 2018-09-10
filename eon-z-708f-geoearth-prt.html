@@ -32,18 +32,18 @@ async function anitem (__mapper) {
   let ani = function () {
     let tim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
-    // .................. 
+    // ..................
     let proformEarth = {
 
       projection: prtOrthographic,
       // prerotate: [[[ prtOrthographic.rotation ]]],
       prerotate: [[[ cversor
-          .projection({projection: prtOrthographic})
-          .rotation
+        .projection({projection: prtOrthographic})
+        .rotation,
       ]]],
       translate: [0, 0, 0],
       scale: 100,
-      rotate: [ [[[0,360]]], 0, 0 ],
+      rotate: [ [[[0, 360]]], 0, 0 ],
 
     }
 
@@ -51,20 +51,20 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: () => {
-          return Object.assign({},
-            topojson.feature(
-              dworldTopo110m.data(),
-              dworldTopo110m.data().objects.land
-            )
+      geofold: () => {
+        return Object.assign({},
+          topojson.feature(
+            dworldTopo110m.data(),
+            dworldTopo110m.data().objects.land
           )
-        },
-        tim,
-        geodrift: {
-          proform: proformEarth,
-        },
-        ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
-        boform: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
+        )
+      },
+      tim,
+      geodrift: {
+        proform: proformEarth,
+      },
+      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
+      boform: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
       payload: {
       },
 
@@ -74,9 +74,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1},
       },

@@ -37,8 +37,7 @@
       console.assert(Array.isArray(anitem) === false)
 
       let newAni = mprops.clone(anitem)
-    
-      
+
       // aninode
 
       let geonode = mprops.v(anitem.geonode, anitem)
@@ -66,9 +65,9 @@
               let properties = feature.properties || {}
               let prtion = mprofier.formion(prt, anitem)
               let gjobj = mgeoj.deprop(feature)
-              
+
               console.assert(gjobj.geometry.coordinates !== null)
-              
+
               let node = mproj3ct(gjobj, prtion)
               node.properties = properties
               node.properties[bach] = node

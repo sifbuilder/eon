@@ -69,29 +69,29 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
-        tim,
+      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+      tim,
 
-        geodrift: {
-          proform: {
+      geodrift: {
+        proform: {
 
-            projection: 'cox',
+          projection: 'cox',
 
-            prerotate: [[[ cversor.rotation ]]],
-            scale: [100],
-            translate: [ 0, 0 ],
-            rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
-            step: [[[0, 0, 1.1, 1.1, 0, 0]]],
+          prerotate: [[[ cversor.rotation ]]],
+          scale: [100],
+          translate: [ 0, 0 ],
+          rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
+          step: [[[0, 0, 1.1, 1.1, 0, 0]]],
 
-            prtlat: [[[1, 1]]],
-            prtlagr: [[[0.5, 0.5]]],
-            prtrad: [[[2.0, 2.0]]],
+          prtlat: [[[1, 1]]],
+          prtlagr: [[[0.5, 0.5]]],
+          prtrad: [[[2.0, 2.0]]],
 
-          },
         },
+      },
 
-        ric: {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
-        boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+      ric: {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
+      boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
       payload: {
         graticule,
 
@@ -104,34 +104,34 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: () => {
-          return Object.assign({},
-            topojson.feature(
-              dworldTopo110m.data(),
-              dworldTopo110m.data().objects.land
-            )
+      geofold: () => {
+        return Object.assign({},
+          topojson.feature(
+            dworldTopo110m.data(),
+            dworldTopo110m.data().objects.land
           )
+        )
+      },
+      tim: tim,
+      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
+      boform: { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+
+      geodrift: {
+        proform: {
+
+          prtlat: [[[1, 1]]],
+          prtlagr: [[[0.5, 0.5]]],
+          prtrad: [[[2.0, 2.0]]],
+
+          projection: 'cox',
+          prerotate: [[[ cversor.rotation ]]],
+          scale: [100],
+          translate: [ 0, 0 ],
+          rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
+          step: [[[0, 0, 1.1, 1.1, 0, 0]]],
+
         },
-        tim: tim,
-        ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
-        boform: { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
-
-        geodrift: {
-          proform: {
-
-            prtlat: [[[1, 1]]],
-            prtlagr: [[[0.5, 0.5]]],
-            prtrad: [[[2.0, 2.0]]],
-
-            projection: 'cox',
-            prerotate: [[[ cversor.rotation ]]],
-            scale: [100],
-            translate: [ 0, 0 ],
-            rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
-            step: [[[0, 0, 1.1, 1.1, 0, 0]]],
-
-          },
-        },
+      },
       payload: {
         cox: {
           prtlat: [[[1, 1]]],
@@ -139,7 +139,6 @@ async function anitem (__mapper) {
           prtrad: [[[2.0, 2.0]]],
         },
 
-        
       },
 
     }

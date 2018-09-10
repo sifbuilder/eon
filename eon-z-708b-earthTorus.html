@@ -180,24 +180,23 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-
-        geofold: p => {
-          let geometry = Object.assign({},
-            topojson.mesh(
-              dworldTopo110m.data(),
-              dworldTopo110m.data().objects.land
-            )
+      geofold: p => {
+        let geometry = Object.assign({},
+          topojson.mesh(
+            dworldTopo110m.data(),
+            dworldTopo110m.data().objects.land
           )
-          return { type: 'Feature', geometry: geometry, properties: {} }
-        },
+        )
+        return { type: 'Feature', geometry: geometry, properties: {} }
+      },
 
-        tim: tim,
-        ric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
-        boform: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
-        geodrift: {
-          conform: { projection: 'natform', geoform: formTorus },
-          proform: proformEarth,
-        },
+      tim: tim,
+      ric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
+      boform: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
+      geodrift: {
+        conform: { projection: 'natform', geoform: formTorus },
+        proform: proformEarth,
+      },
       payload: {
       },
 
@@ -207,43 +206,43 @@ async function anitem (__mapper) {
     let cubeAni = {
 
       halo: 'ent',
-        geofold: anitem => {
-          let payload = anitem.payload,
-            ric = anitem.ric
+      geofold: anitem => {
+        let payload = anitem.payload,
+          ric = anitem.ric
 
-          let json = {type: 'FeatureCollection', features: []}
-          let points = payload.points // payload.points
-          let faces = payload.faces // payload.faces
-          for (let i = 0, l = faces.length; i < l; i++) {
-            let face = faces[i] // face pointsx position
-            let geometry = {type: 'Polygon', coordinates: []}
-            geometry.coordinates = face.pointsx.map(k => points[k]) // eg [-1, 1, 1]
-              .map(mgeom.normalize) // eg. [0.5773, -0.577, 0.5773]
-              .map(mgeom.spherical) // eg. [-0.7853, 0.6154]
-              .map(mgeom.to_degrees)
-            geometry.coordinates = Array.of(geometry.coordinates)
-            let feature = {type: 'Feature', geometry: {}, properties: {}}
-            feature.properties.ric = ric
-            feature.properties.ric.cid = 'face'
-            feature.properties.ric.fid = i // face.name
-            feature.properties.sort = 'form'
-            feature.geometry = geometry
-            feature.properties.boform = face.boform
-            json.features.push(feature)
-          }
+        let json = {type: 'FeatureCollection', features: []}
+        let points = payload.points // payload.points
+        let faces = payload.faces // payload.faces
+        for (let i = 0, l = faces.length; i < l; i++) {
+          let face = faces[i] // face pointsx position
+          let geometry = {type: 'Polygon', coordinates: []}
+          geometry.coordinates = face.pointsx.map(k => points[k]) // eg [-1, 1, 1]
+            .map(mgeom.normalize) // eg. [0.5773, -0.577, 0.5773]
+            .map(mgeom.spherical) // eg. [-0.7853, 0.6154]
+            .map(mgeom.to_degrees)
+          geometry.coordinates = Array.of(geometry.coordinates)
+          let feature = {type: 'Feature', geometry: {}, properties: {}}
+          feature.properties.ric = ric
+          feature.properties.ric.cid = 'face'
+          feature.properties.ric.fid = i // face.name
+          feature.properties.sort = 'form'
+          feature.geometry = geometry
+          feature.properties.boform = face.boform
+          json.features.push(feature)
+        }
 
-          return json
-        },
+        return json
+      },
 
-        tim: tim,
-        ric: {gid: 'cubeAni', cid: 'cubeAni', fid: 'cubeAni'},
-        boform: { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
+      tim: tim,
+      ric: {gid: 'cubeAni', cid: 'cubeAni', fid: 'cubeAni'},
+      boform: { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
 
-        geodrift: {
-          conform: { projection: 'natform', geoform: formSphere },
+      geodrift: {
+        conform: { projection: 'natform', geoform: formSphere },
 
-          proform: proformEarth,
-        },
+        proform: proformEarth,
+      },
       payload: {
         points: [
           [-1, -1, 1], // 0
@@ -290,18 +289,18 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: anitem => mgraticule.vhMultiLine(anitem.payload.graticule),
-        tim: tim,
-        ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticubeAni'},
-        boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
+      geofold: anitem => mgraticule.vhMultiLine(anitem.payload.graticule),
+      tim: tim,
+      ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticubeAni'},
+      boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
-        geodrift: {
-          conform: { projection: 'natform', geoform: formGratiCube },
+      geodrift: {
+        conform: { projection: 'natform', geoform: formGratiCube },
 
-          proform: proformEarth,
-        },
+        proform: proformEarth,
+      },
       payload: {
-        graticule: { extent: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] } 
+        graticule: { extent: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
       },
 
     }
@@ -310,18 +309,18 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: p => mgraticule.vhMultiLine(p.payload.graticule), // hMultiLine
-        tim: tim,
-        ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticircAni'},
-        boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
+      geofold: p => mgraticule.vhMultiLine(p.payload.graticule), // hMultiLine
+      tim: tim,
+      ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticircAni'},
+      boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
-        geodrift: {
-          conform: { projection: 'natform', geoform: formSphere },
+      geodrift: {
+        conform: { projection: 'natform', geoform: formSphere },
 
-          proform: proformEarth,
-        },
+        proform: proformEarth,
+      },
       payload: {
-        graticule: { frame: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] } 
+        graticule: { frame: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
       },
 
     }
@@ -329,14 +328,14 @@ async function anitem (__mapper) {
     let torusAni1 = {
 
       halo: 'ent',
-        geofold: p => mnat.natFeature(p.payload.geoform),
-        tim,
-        ric: {gid: 'q', cid: 'q', fid: 'q1'},
-        geodrift: {
-          proform: proformTorus,
-        },
-        boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
-          'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
+      geofold: p => mnat.natFeature(p.payload.geoform),
+      tim,
+      ric: {gid: 'q', cid: 'q', fid: 'q1'},
+      geodrift: {
+        proform: proformTorus,
+      },
+      boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+        'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
       payload: {
         geoform: formTorus,
       },
@@ -345,9 +344,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

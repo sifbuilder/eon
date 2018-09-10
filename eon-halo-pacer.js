@@ -142,15 +142,13 @@
       }
 
       // count: eg: {init:4, auto:1, event:3}
-      
+
       if (Object.keys(count).length > 0) { // on pace count, eg {init: 6, auto: 1}
-      
         // for each key in count
-        
+
         for (let counter = 0; counter < Object.keys(count).length; counter++) {
-          
           // key is the sort of count { init, auto, event }
-          
+
           let key = Object.keys(count)[counter]
 
           // qitems is the number of items to be paced
@@ -165,12 +163,9 @@
 
             let newItem = mprops.clone(anitem) // INIT NEWITEM
 
-
-
             // if opt.add  type is LineString and geometry adds coords
 
             if (aad) { //  if AAD
-            
               // the paced ric is defined dynamically in the pacer or inherited from the anitem.payload
 
               let ric = (anitem.payload.pacer.ric !== undefined)
@@ -182,42 +177,35 @@
 
               let preani = mstore.findAnigramFromUid(uid)
               if (preani !== undefined) {
-                
                 // if exists, newItem builds from precursor
 
                 newItem = preani
 
                 // if (base !== undefined) { // base: {geoform, conform, ereform, proform}
 
-                  // console.assert(newItem.geofold.properties[base] !== undefined)
-                  // newItem.geofold.geometry = newItem.geofold.properties[base].geometry
+                // console.assert(newItem.geofold.properties[base] !== undefined)
+                // newItem.geofold.geometry = newItem.geofold.properties[base].geometry
 
                 // }
-                
+
                 // if NO precursor, build from payload and pacer
                 // payload may carry all info of newItem but new halo and pace count
                 // properties in pacer override those in payload
-                
               } else {
                 newItem.halo = anitem.halo
                 newItem.payload = mprops.clone(anitem.payload)
 
                 // if functional pacer.geofold, override geofold
-                
+
                 if (anitem.payload.pacer.geofold !== undefined) {
                   console.assert(typeof anitem.payload.pacer.geofold === 'function')
                   newItem.geofold = anitem.payload.pacer.geofold(anitem)
                 }
-              }            
-            
-
+              }
 
               let situs = anitem.payload.pacer.stace(anitem, props)
-              if (situs && typeof situs === 'object') situs = Object.values(situs)            
-              
-            
-            
-            
+              if (situs && typeof situs === 'object') situs = Object.values(situs)
+
               let coords = newItem.geofold.geometry.coordinates
 
               if (coords && coords.length > 0) {
@@ -233,38 +221,25 @@
               let newItemsInCount = hent.gramm(newItem) // h.ent newItem
               newItems = [...newItems, ...newItemsInCount] // add new items
 
-              
-              
-              
-              
               // NOT pacer.AAD if not pacer.add, pacer generates anitems
             } else { //  if NOT AAD
               // geofold is Feature
-              
+
               // complete newItem definition
-              
+
               let ownProps = Object.getOwnPropertyNames(pacer)
               for (let prop of ownProps) {
-                
-                
-                if (prop === 'halo') {  // 
-                
+                if (prop === 'halo') { //
                   newItem.halo = mprops.v(pacer.halo, anitem, props)
-                  
                 } else {
-                  
                   if (newItem[prop] !== undefined) {
-                    
                     newItem[prop] = mprops.v(pacer[prop], anitem, props)
-                    
                   }
-                
                 }
-              
               }
- 
-              let halo = __mapper( __mapper('xs').ceonize(newItem.halo, 'halo'))
-              
+
+              let halo = __mapper(__mapper('xs').ceonize(newItem.halo, 'halo'))
+
               // let newItemsInCount = hent.gramm(newItem)
               let newItemsInCount = halo.gramm(newItem)
               newItems = [...newItems, ...newItemsInCount] // add items

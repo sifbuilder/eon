@@ -319,7 +319,7 @@
             geometry: {
               type: gj.type,
               coordinates: gj.coordinates},
-            properties: {}
+            properties: {},
           })
         }
       } else {

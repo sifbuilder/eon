@@ -25,27 +25,27 @@ async function anitem (__mapper) {
     let anima = {
 
       halo: 'ent',
-        geofold: p => mnat.natFeature(p.payload.geoform),
+      geofold: p => mnat.natFeature(p.payload.geoform),
 
-        tim: tim,
-        ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
+      tim: tim,
+      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
 
-        geoform: {
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 2, 'pa6': 0, 'pb7': -1,
+      geoform: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+        'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 2, 'pa6': 0, 'pb7': -1,
+      },
+      geodrift: {
+        proform: {
+
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          scale: 1,
+          translate: { x: 0, y: 0, z: 0 },
+          rotate: [ 0, 0, 0 ],
+
         },
-        geodrift: {
-          proform: {
-
-            projection: 'uniwen',
-            prerotate: [[[ cwen.rotation ]]],
-            scale: 1,
-            translate: { x: 0, y: 0, z: 0 },
-            rotate: [ 0, 0, 0 ],
-
-          },
-        },
+      },
       payload: {
       },
     }
@@ -53,28 +53,28 @@ async function anitem (__mapper) {
     let animatter = {
 
       halo: 'ent',
-        geofold: p => mnat.natFeature(p.payload.geoform),
+      geofold: p => mnat.natFeature(p.payload.geoform),
 
-        tim: tim,
-        ric: {gid: 'animatter', cid: 'animatter', fid: 'animatter'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.09, 'cp': 0.7},
+      tim: tim,
+      ric: {gid: 'animatter', cid: 'animatter', fid: 'animatter'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.09, 'cp': 0.7},
 
-        geoform: {
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 20, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+      geoform: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+        'ra2': 20, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+      },
+      geodrift: {
+        proform: {
+
+          projection: d3geo.geoOrthographic(),
+          prerotate: [[[ cwen.rotation ]]],
+          scale: 90,
+          translate: [ 0, 0, 0 ],
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+
         },
-        geodrift: {
-          proform: {
-
-            projection: d3geo.geoOrthographic(),
-            prerotate: [[[ cwen.rotation ]]],
-            scale: 90,
-            translate: [ 0, 0, 0 ],
-            rotate: [ 0, 0, 0 ],
-            lens: [0, 1, Infinity],
-
-          },
-        },
+      },
       payload: {
       },
     }
@@ -83,9 +83,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

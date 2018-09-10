@@ -49,24 +49,24 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: a => mnat.natFeature(a.payload.geoform),
+      geofold: a => mnat.natFeature(a.payload.geoform),
 
-        tim,
-        ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
-        geodrift: {
-          proform: {
-            projection: 'uniwen',
-            translate: [ [ 70, 80 ], [[[ natStace ]]] ],
-            scale: 1,
-            rotate: [ 0, 0, 0 ],
-            lens: [0, 1, Infinity],
-            control: 'wen',
+      tim,
+      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ [ 70, 80 ], [[[ natStace ]]] ],
+          scale: 1,
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+          control: 'wen',
 
-          },
         },
-        boform: natBoform,
+      },
+      boform: natBoform,
 
-        geoform: natForm,
+      geoform: natForm,
 
       payload: {
       },
@@ -77,10 +77,10 @@ async function anitem (__mapper) {
     let tracelineNat = {
 
       halo: 'pacer',
-        geofold: null,
-        tim,
-        ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-        boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+      geofold: null,
+      tim,
+      ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
+      boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       payload: {
         pacer: { // aad for trace
@@ -182,9 +182,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

@@ -42,41 +42,41 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: d => ({
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: Complex({re: 0, im: 0})
-              .add(
-                d.payload.zenform[0] * Math.cos(d.payload.zenform[1]),
-                d.payload.zenform[0] * Math.sin(d.payload.zenform[1])
-              )
-              .toVector(),
-          },
-          properties: {
-            pointRadius: 6,
-            geonode: {
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: [0, 0],
-              },
-              properties: {
-                orgen: [0, 0],
-                velin: [0, 0],
-                velang: [0, 0],
-                prevous: [0, 0],
-                geodelta: [0, 0],
-              },
+      geofold: d => ({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: Complex({re: 0, im: 0})
+            .add(
+              d.payload.zenform[0] * Math.cos(d.payload.zenform[1]),
+              d.payload.zenform[0] * Math.sin(d.payload.zenform[1])
+            )
+            .toVector(),
+        },
+        properties: {
+          pointRadius: 6,
+          geonode: {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [0, 0],
+            },
+            properties: {
+              orgen: [0, 0],
+              velin: [0, 0],
+              velang: [0, 0],
+              prevous: [0, 0],
+              geodelta: [0, 0],
             },
           },
-        }),
-        tim,
-        ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
-        boform: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
-        geodrift: {
-          proform: proform,
         },
+      }),
+      tim,
+      ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
+      boform: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
+      geodrift: {
+        proform: proform,
+      },
 
       payload: {
         zenform: [ [[[0, 100]]], [[[0, Math.PI]]] ],
@@ -88,9 +88,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

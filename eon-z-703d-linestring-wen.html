@@ -17,33 +17,33 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: (p) => ({
-          type: 'Feature',
-          geometry: {
-            type: 'LineString',
-            coordinates: [
-              [0 + 0, 0 + 0, 0 + 0],
-              [0 + 100, 0 + 100, 0],
-            ],
-          },
-          'properties': {},
-        }),
-
-        tim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
-        ric: { gid: 'ani', cid: 'ani', fid: 'ani' },
-        boform: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.1, 0.2]]], 'cp': [[[0.9, 0.9]]]},
-
-        geodrift: {
-          proform: {
-
-            projection: 'uniwen',
-            scale: [ 1, 1, 1],
-            translate: [ 0, 0, 0 ],
-            prerotate: [[[ cwen.rotation ]]],
-            rotate: [ 0, 0, 0 ],
-
-          },
+      geofold: (p) => ({
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: [
+            [0 + 0, 0 + 0, 0 + 0],
+            [0 + 100, 0 + 100, 0],
+          ],
         },
+        'properties': {},
+      }),
+
+      tim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
+      ric: { gid: 'ani', cid: 'ani', fid: 'ani' },
+      boform: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.1, 0.2]]], 'cp': [[[0.9, 0.9]]]},
+
+      geodrift: {
+        proform: {
+
+          projection: 'uniwen',
+          scale: [ 1, 1, 1],
+          translate: [ 0, 0, 0 ],
+          prerotate: [[[ cwen.rotation ]]],
+          rotate: [ 0, 0, 0 ],
+
+        },
+      },
       payload: {
       },
     }
@@ -52,9 +52,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

@@ -31,38 +31,38 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: a => ({
-          type: 'Feature',
-          geometry: {
+      geofold: a => ({
+        type: 'Feature',
+        geometry: {
 
-            type: 'LineString', // type: 'Point', //
-            coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
+          type: 'LineString', // type: 'Point', //
+          coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
 
-          },
-          properties: {
-            geonode: {
-              type: 'Feature',
-              geometry: {type: 'Point', coordinates: [0, 0]},
-              properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
-            },
-          },
-        }),
-
-        tim: tim,
-        ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
-
-        geodrift: {
-          proform: {
-            projection: 'uniwen',
-            translate: [ [ 70, 80 ], [[[ natStace ]]] ],
-            scale: 1,
-            rotate: [ 0, 0, 0 ],
-            lens: [0, 1, Infinity],
-
+        },
+        properties: {
+          geonode: {
+            type: 'Feature',
+            geometry: {type: 'Point', coordinates: [0, 0]},
+            properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
           },
         },
+      }),
 
-        boform: natBoform,
+      tim: tim,
+      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ [ 70, 80 ], [[[ natStace ]]] ],
+          scale: 1,
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+
+        },
+      },
+
+      boform: natBoform,
 
       payload: {
       },
@@ -73,17 +73,17 @@ async function anitem (__mapper) {
     let traceline = {
 
       halo: 'pacer',
-        geofold: null,
+      geofold: null,
 
-        tim: tim,
+      tim: tim,
 
-        ric: {
-          gid: 'traces',
-          cid: 'traces',
-          fid: 'traces',
-        },
+      ric: {
+        gid: 'traces',
+        cid: 'traces',
+        fid: 'traces',
+      },
 
-        boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+      boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
       payload: {
 
         pacer: { // aad for trace
@@ -151,9 +151,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

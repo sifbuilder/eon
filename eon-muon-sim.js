@@ -69,7 +69,6 @@
         let payload = aniItem.payload
 
         if (aniItem.geonode) { // if simmable  ...
-        
           // the geonode ports info of the simnode
           let geonode = mgeonode.init(aniItem.geonode)
 
@@ -114,7 +113,6 @@
           }
 
           simNodes.push(simNode)
-          
         }
       }
 
@@ -133,7 +131,6 @@
           let updItem = aniItems[i] // each anitem
 
           if (updItem.geonode) {
-            
             let geonode = mgeonode.init(updItem.geonode)
             geonode.properties.geodelta[0] = simNode.x - geonode.geometry.coordinates[0]
             geonode.properties.geodelta[1] = simNode.y - geonode.geometry.coordinates[1]
@@ -152,8 +149,7 @@
             geonode.geometry.coordinates[2] = simNode.z
 
             updItem.geonode = geonode
-
-          } 
+          }
 
           updItems.push(updItem)
         }

@@ -18,10 +18,9 @@ async function anitem (__mapper) {
     __mapper('xs').p('natform'),
     __mapper('xs').b('@tensorflow/tfjs'),
   ])
-  
+
   // .................. animas
   let ani = function () {
-  
     const vars = [ // Step 1. variables - initialize random
       tf.variable(tf.scalar(Math.random())), // vars[0]: a
       tf.variable(tf.scalar(Math.random())), // vars[1]: b
@@ -148,17 +147,17 @@ async function anitem (__mapper) {
     let natAni = {
 
       halo: 'ent',
-        geofold: p => {
-          let tfvars = vars.map(d => d.dataSync()[0])
-          let q = { natform: {y: { e1: tfvars } } }
-          return mnat.natFeature(p.payload.natform(q.natform))
-        },
-        tim: tim,
-        ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
-        geodrift: {
-          proform: proform,
-        },
-        boform: { 'csx': 0, 'cf': 111, 'co': 0.09, 'cs': 888, 'cw': 1.9, 'cp': [[[0.7, 0.9]]]},
+      geofold: p => {
+        let tfvars = vars.map(d => d.dataSync()[0])
+        let q = { natform: {y: { e1: tfvars } } }
+        return mnat.natFeature(p.payload.natform(q.natform))
+      },
+      tim: tim,
+      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      geodrift: {
+        proform: proform,
+      },
+      boform: { 'csx': 0, 'cf': 111, 'co': 0.09, 'cs': 888, 'cw': 1.9, 'cp': [[[0.7, 0.9]]]},
       payload: {
         natform: natform,
       },
@@ -168,9 +167,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

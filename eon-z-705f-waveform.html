@@ -148,20 +148,19 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: p => mfibonat.interlinked(p.payload),
+      geofold: p => mfibonat.interlinked(p.payload),
 
-        tim,
-        ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'waveAni'},
-        boform: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.1, 0.1]]], 'cp': 0.9 },
+      tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'waveAni'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.1, 0.1]]], 'cp': 0.9 },
 
-
-        geodrift: {
-          conform: {
-            projection: 'natform',
-            geoform: waveForm,
-          },
-          proform: waveProform,
+      geodrift: {
+        conform: {
+          projection: 'natform',
+          geoform: waveForm,
         },
+        proform: waveProform,
+      },
       payload: {
 
         fibonat: {
@@ -183,16 +182,16 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-        geofold: p => mfibonat.interlinked(p.payload),
+      geofold: p => mfibonat.interlinked(p.payload),
 
-        tim,
-        ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'waveAni2'},
-        boform: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.1, 0.1]]], 'cp': 0.9 },
-        geodrift: {
-          conform: { projection: 'natform', geoform: waveForm },
+      tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'waveAni2'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.1, 0.1]]], 'cp': 0.9 },
+      geodrift: {
+        conform: { projection: 'natform', geoform: waveForm },
 
-          proform: waveProform2,
-        },
+        proform: waveProform2,
+      },
       payload: {
 
         fibonat: {
@@ -215,14 +214,13 @@ async function anitem (__mapper) {
 
       geofold: p => mgraticule.vhMultiLine(p.payload.graticule), // hMultiLine
 
+      tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereAni'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.01, 0.9]]], 'cp': 0.9 },
 
-        tim,
-        ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereAni'},
-        boform: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.01, 0.9]]], 'cp': 0.9 },
+      conform: { projection: 'natform', geoform: sphereForm },
 
-        conform: { projection: 'natform', geoform: sphereForm },
-
-        proform: sphereProform,
+      proform: sphereProform,
 
       payload: {
         graticule: sphereFrame,
@@ -235,8 +233,8 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       geofold: null,
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
