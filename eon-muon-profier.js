@@ -70,8 +70,8 @@
       let projname
 
       let payload = anigram.payload,
-        geofold = payload.geofold,
-        geonode = payload.geonode
+        geofold = anigram.geofold,
+        geonode = anigram.geonode
 
       let translation, rotation
 

@@ -148,7 +148,6 @@ async function anitem (__mapper) {
     let natAni = {
 
       halo: 'ent',
-      payload: {
         geofold: p => {
           let tfvars = vars.map(d => d.dataSync()[0])
           let q = { natform: {y: { e1: tfvars } } }
@@ -160,6 +159,7 @@ async function anitem (__mapper) {
           proform: proform,
         },
         boform: { 'csx': 0, 'cf': 111, 'co': 0.09, 'cs': 888, 'cw': 1.9, 'cp': [[[0.7, 0.9]]]},
+      payload: {
         natform: natform,
       },
     }
@@ -168,10 +168,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

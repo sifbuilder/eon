@@ -161,7 +161,6 @@ async function anitem (__mapper) {
     // ............................. natAniRed
     let natAniRed = {
       halo: 'ent',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'qred'},
@@ -178,13 +177,13 @@ async function anitem (__mapper) {
           },
         },
         boform: boformRed,
+      payload: {
         geoform: conformRed,
       },
     }
     // ............................. natAniBlue
     let natAniBlue = {
       halo: 'ent',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'qblue'},
@@ -201,6 +200,7 @@ async function anitem (__mapper) {
           },
         },
         boform: boformBlue,
+      payload: {
         geoform: conformBlue,
       },
     }
@@ -208,10 +208,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

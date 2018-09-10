@@ -22,7 +22,7 @@
       console.assert(anitem.payload.geoform !== undefined, 'geoform is undefined')
 
       anitem.halo = 'ent'
-      anitem.payload.geofold = mnat.natFeature(anitem.payload.geoform)
+      anitem.geofold = mnat.natFeature(anitem.payload.geoform)
 
       return hent.gramm(anitem)
     }

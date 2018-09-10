@@ -63,7 +63,6 @@ async function anitem (__mapper) {
     // .................. natAni
     let natAni = {
       halo: 'nat',
-      payload: {
         geofold: null,
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
@@ -71,13 +70,13 @@ async function anitem (__mapper) {
         geodrift: {        
           proform: proform,
         }
+      payload: {
         geoform: formNat,
       },
     }
     // .................. circAni
     let circAni = {
       halo: 'nat',
-      payload: {
         geofold: null,
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'circ'},
@@ -85,6 +84,7 @@ async function anitem (__mapper) {
         geodrift: {        
           proform: proform,
         }
+      payload: {
         geoform: formCirc,
       },
 
@@ -94,10 +94,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

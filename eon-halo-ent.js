@@ -41,26 +41,26 @@
       
       // aninode
 
-      let geonode = mprops.v(anitem.payload.geonode, anitem)
+      let geonode = mprops.v(anitem.geonode, anitem)
 
-      if (geonode && anitem.payload.geodrift) {
-        for (let [bach, prt] of Object.entries(anitem.payload.geodrift)) {
+      if (geonode && anitem.geodrift) {
+        for (let [bach, prt] of Object.entries(anitem.geodrift)) {
           let properties = geonode.properties || {}
           let node = mproj3ct(mgeoj.deprop(geonode), mprofier.formion(prt, anitem))
           node.properties = properties
           node.properties[bach] = node
 
-          newAni.payload.geonode = node
+          newAni.geonode = node
         }
       }
 
       // anifold
 
-      let geofold = mprops.v(anitem.payload.geofold, anitem)
+      let geofold = mprops.v(anitem.geofold, anitem)
       let gjcollection = mgeoj.featurecollect(geofold)
 
-      if (geofold && anitem.payload.geodrift) {
-        for (let [bach, prt] of Object.entries(anitem.payload.geodrift)) {
+      if (geofold && anitem.geodrift) {
+        for (let [bach, prt] of Object.entries(anitem.geodrift)) {
           gjcollection.features = gjcollection.features.map(
             feature => {
               let properties = feature.properties || {}
@@ -79,7 +79,7 @@
         }
       }
 
-      newAni.payload.geofold = gjcollection
+      newAni.geofold = gjcollection
 
       let newAnitems = haloFormed.gramm(newAni)
       return newAnitems

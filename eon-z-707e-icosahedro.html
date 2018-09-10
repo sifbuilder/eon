@@ -31,10 +31,9 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
-        geofold: p => {
-          let payload = p.payload,
-            ric = payload.ric,
+        geofold: anitem => {
+          let payload = anitem.payload,
+            ric = anitem.ric,
             points = payload.points,
             faces = payload.faces
 
@@ -81,6 +80,7 @@ async function anitem (__mapper) {
 
           },
         },
+      payload: {
         points: [
           [0, 90],
           [0, -90],
@@ -125,10 +125,9 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: p => {
           let payload = p.payload,
-            ric = payload.ric,
+            ric = ric,
             points = payload.points({C0: (1 + Math.sqrt(5)) / 4}),
             faces = payload.faces()
 
@@ -178,6 +177,7 @@ async function anitem (__mapper) {
           },
         },
 
+      payload: {
         points: p => {
           return [
 
@@ -230,10 +230,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

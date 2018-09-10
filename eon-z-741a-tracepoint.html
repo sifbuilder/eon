@@ -49,7 +49,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: a => mnat.natFeature(a.payload.geoform),
 
         tim,
@@ -69,6 +68,7 @@ async function anitem (__mapper) {
 
         geoform: natForm,
 
+      payload: {
       },
 
     }
@@ -77,12 +77,12 @@ async function anitem (__mapper) {
     let tracelineNat = {
 
       halo: 'pacer',
-      payload: {
         geofold: null,
         tim,
         ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
         boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
+      payload: {
         pacer: { // aad for trace
           stace: {x: { pos: 0 }, y: { pos: 0 }, z: { pos: 0 }},
 
@@ -100,11 +100,11 @@ async function anitem (__mapper) {
               }
 
               // get preexisting trace ani
-              let preani = mstore.findAnigramFromUid(ani.payload.uid)
+              let preani = mstore.findAnigramFromUid(ani.uid)
               let base = ani.payload.pacer.pace || 'geo'
 
               if (preani !== undefined) {
-                if (preani.payload.geofold) geofold = preani.payload.geofold
+                if (preani.geofold) geofold = preani.geofold
 
                 if (base === 'geo') {
                   if (geofold.properties.geoform) {
@@ -148,12 +148,12 @@ async function anitem (__mapper) {
                 tim: tim,
                 ric: {
 
-                  gid: ani.payload.ric.gid,
-                  cid: ani.payload.ric.cid,
-                  fid: ani.payload.ric.fid, //  + props.counter,
+                  gid: ani.ric.gid,
+                  cid: ani.ric.cid,
+                  fid: ani.ric.fid, //  + props.counter,
 
                 },
-                uid: mric.getuid(ani.payload.ric),
+                uid: mric.getuid(ani.ric),
                 stace: stacer(ani, props),
                 geodrift: {
                   proform: {
@@ -182,10 +182,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

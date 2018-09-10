@@ -26,7 +26,7 @@ locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
  
 ### getTranspots 
 `getTranspots(stace, payload)` 
-**get stace locations in @payload.ric** 
+**get stace locations in @ric** 
 ##### parameters 
  **stace** ,  may be passed as param or as payload attribute 
     * `{x:0, y:0, z:0}`, position object 

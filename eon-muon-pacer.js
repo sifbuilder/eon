@@ -21,13 +21,13 @@
 
     // ....................... pacer
     let pacer = function (payload, newItems = []) {
-      let boform = payload.boform, // boform
-        ric = payload.ric, // ric
-        tim = payload.tim, // tim
+      let boform = boform, // boform
+        ric = ric, // ric
+        tim = tim, // tim
         proform = payload.proform, // proform
         conform = payload.conform, // conform
-        uid = payload.uid, // uid
-        parentuid = payload.parentuid, // parentuid
+        uid = uid, // uid
+        parentuid = parentuid, // parentuid
         inited = payload.inited, // inited
         gelded = payload.gelded // gelded
 

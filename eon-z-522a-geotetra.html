@@ -83,7 +83,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
         tim,
@@ -91,11 +90,12 @@ async function anitem (__mapper) {
         geodrift: {
           proform,
         },
-        graticule,
 
         ric: {gid: 'geograt', cid: 'geograt', fid: 'geograt'},
 
         boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 0.9, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+      payload: {
+        graticule,
 
       },
     }
@@ -105,7 +105,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: () => {
           return Object.assign({},
             topojson.feature(
@@ -121,6 +120,7 @@ async function anitem (__mapper) {
         },
         ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
         boform: { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+      payload: {
 
       },
 
@@ -130,7 +130,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: {
           type: 'Feature',
           geometry: {
@@ -145,6 +144,7 @@ async function anitem (__mapper) {
         },
         ric: {'gid': 'geosphere', 'cid': 'geosphere', 'fid': 'geosphere'},
         boform: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
+      payload: {
       },
 
     }
@@ -153,10 +153,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1},
       },
 

@@ -77,7 +77,6 @@ async function anitem (__mapper) {
 
       halo: 'formed',
 
-      payload: { // payload in polyForm
 
         geofold: ani => {
           let anigram = ani, // anigram
@@ -85,7 +84,7 @@ async function anitem (__mapper) {
             geofold = ani.geofold, // geofold
             payload = ani.payload // payload
 
-          let unitTime = ani.payload.tim.unitTime // unit time elapsed
+          let unitTime = ani.tim.unitTime // unit time elapsed
           let t = ani.payload.tf(unitTime) || unitTime // time function
 
           let nbt = Math.ceil(nb * t)
@@ -145,6 +144,7 @@ async function anitem (__mapper) {
         tim: tim,
         ric: { gid: 'trace', cid: 'trace', fid: 'trace'},
         boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
+      payload: { // payload in polyForm
         tf: t => t,
 
       },
@@ -154,10 +154,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

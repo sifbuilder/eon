@@ -37,7 +37,7 @@
     ])
 
     const getgj = ani => {
-      let gj = mprops.v(ani.payload.geofold, ani)
+      let gj = mprops.v(ani.geofold, ani)
       gj.properties = gj.properties || {} // geofold properties
       gj.properties.geoformed = mgeoj.deprop(gj)
       // gj.properties.geonode = gj.properties.geonode || {}
@@ -51,23 +51,23 @@
 
       console.assert(gjcollection.type === 'FeatureCollection')
       gjcollection = mgeoj.zorder(gjcollection) // order features in collection
-      gjcollection = mric.enric(anigram.payload.ric, anigram, gjcollection) // ric to feature or collection
+      gjcollection = mric.enric(anigram.ric, anigram, gjcollection) // ric to feature or collection
 
       let newAnigrams = gjcollection.features.map((feature, i) => {
         feature = mboform.boformer(anigram, feature)
 
-        feature.properties.tim = anigram.payload.tim // tim in geofold
+        feature.properties.tim = anigram.tim // tim in geofold
         feature.properties.vim = anigram.payload.vim // vim in geofold to render
         feature.properties.sort = feature.properties.sort || 'feature' // svg sort
 
         let newAnigram = {
           halo: anigram.halo, // inherit halo
-          payload: { // payload is lost in m.animation before rendering
             geofold: feature, // inherit geofold
-            geonode: anigram.payload.geonode,
+            geonode: anigram.geonode,
             ric: feature.properties.ric, // hoist ric
             id: feature.properties.uid, // hoist uid
             uid: feature.properties.uid, // hoist uid
+          payload: { // payload is lost in m.animation before rendering
           },
           avatars: anigram.avatars, // inherit avatars
         }

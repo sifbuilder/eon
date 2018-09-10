@@ -56,11 +56,11 @@ async function anitem (__mapper) {
       let traceLine = { // SUB-MARKS line trace
 
         halo: 'pacer',
-        payload: {
           geofold: null,
           ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
           boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
+        payload: {
           pacer: { // aad for trace
             stace: {
               x: { pos: 0 },
@@ -72,10 +72,10 @@ async function anitem (__mapper) {
               let r = mstace.getLocus(this.stace, a) // situs
               return r
             },
-            fidder: a => a.payload.ric.fid,
+            fidder: a => a.ric.fid,
 
             geojsor: function (a, i) {
-              let ric = a.payload.ric // ric
+              let ric = a.ric // ric
               let uid = mric.getuid(ric)
               let gj = {
                 halo: 'ent',
@@ -113,7 +113,6 @@ async function anitem (__mapper) {
 
         halo: 'ent',
 
-        payload: {
 
           geofold: a => ({
             type: 'Feature',
@@ -138,12 +137,13 @@ async function anitem (__mapper) {
           tim: {'td': cyclet * _LEVEL, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
           ric: {'gid': _NAME, 'cid': _NAME, 'fid': _NAME},
           boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
-
-          fractal: {}, // set coef
-
           geodrift: {
             proform: { projection: 'uniwen', scale: 1, translate: [ -0, 0 ], rotate: [ 0, 0 ] }, // identity
           },
+
+
+        payload: {
+          fractal: {}, // set coef
 
         },
       }
@@ -157,7 +157,7 @@ async function anitem (__mapper) {
       for (let level = 0; level < _LEVEL; level++) { // for each cycloid level
         anis[level] = mprops.cloneObj(anis[level - 1] || fractalForm) // anis h.nat
 
-        anis[level].payload.ric = {gid: 'nat', cid: _NAME + level, fid: _NAME + level} // id
+        anis[level].ric = {gid: 'nat', cid: _NAME + level, fid: _NAME + level} // id
 
         // -------------- ans(level) ------------------
         anis[level].payload.fractal.an = [] // [0..._LEVEL)
@@ -185,7 +185,7 @@ async function anitem (__mapper) {
         }
 
         anis[level].payload.fractal.rad = radOnLevel(level) // rad(level)
-        anis[level].payload.boform.cf = _CF(level) // boform
+        anis[level].boform.cf = _CF(level) // boform
         if (level === _LEVEL - 1) { // add image as avatar to root nat
           anis[level].avatars = []
 

@@ -49,9 +49,9 @@
     // .................. gramm
     async function gramm (anigram, newAnigrams = []) {
       let halo = anigram.halo,
-        payload = anigram.payload
+        payload = anigram.payload,
 
-      payload.geofold = _geofold(anigram) // geofold
+        geofold = _geofold(anigram) // geofold
 
       let newAnigram = {
         halo,

@@ -27,20 +27,12 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: p => mfibonat.catesians(p.payload),
 
         tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
 
         ric: {gid: 'grat', cid: 'grat', fid: 'fiboForm'},
         boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.03, 'cp': 0.9 },
-
-        fibonat: {
-          samples: [[[50, 50]]],
-          offsetstep: [[[0, 20]]],
-          dotsInSegment: 1,
-          goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
-        },
 
         geodrift: {
           proform: {
@@ -53,6 +45,15 @@ async function anitem (__mapper) {
           },
         },
 
+      payload: {
+
+        fibonat: {
+          samples: [[[50, 50]]],
+          offsetstep: [[[0, 20]]],
+          dotsInSegment: 1,
+          goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
+        },
+      
         graticule: [ [ [ -180, 180, 90, 5], [ -180, 180, 30, 5] ] ],
 
       },
@@ -62,10 +63,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

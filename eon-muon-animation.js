@@ -97,7 +97,7 @@
           // return anigrams
         })
         .then(() => {
-          let featurecollection = { type: 'FeatureCollection', features: mstore.anigrams().map(d => d.payload.geofold) }
+          let featurecollection = { type: 'FeatureCollection', features: mstore.anigrams().map(d => d.geofold) }
           return featurecollection
         })
         // .catch(e => { console.log(e) })
@@ -115,17 +115,17 @@
       state.animas = mprops.a(mstore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
-        anima.payload.tim = mtim.timing(anima.payload.tim, elapsed) // set time
+        anima.tim = mtim.timing(anima.tim, elapsed) // set time
 
-        if (elapsed > anima.payload.tim.limit + anima.payload.tim.msStart) {
+        if (elapsed > anima.tim.limit + anima.tim.msStart) {
           anima.payload.delled = 1 // crop by time
         }
       }
 
       // ............................. @STOP
-      let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.payload.tim.limit + item.payload.tim.msStart), 0)
+      let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.tim.limit + item.tim.msStart), 0)
 
-      let nostop = state.animas.reduce((pre, item) => (pre || item.payload.tim.nostop), false)
+      let nostop = state.animas.reduce((pre, item) => (pre || item.tim.nostop), false)
 
       if (!nostop && (isNaN(maxlimit) ||
             (maxlimit > 0 && elapsed > maxlimit) || // stop if spired

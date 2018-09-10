@@ -32,8 +32,8 @@
         .then(snapped => manitem.functorpayload(snapped))
         .then(anigram => {
           let payload = anigram.payload, // payload
-            ric = payload.ric, // ric
-            uid = payload.uid, // uid
+            ric = ric, // ric
+            uid = uid, // uid
             axis = payload.axis // axis
 
           let range = axis.range || [0, 1],
@@ -49,7 +49,7 @@
           let _scale = (scaleType) ? d3scale[scaleType]() : d3scale['scaleTime']()
 
           let newAnigram = mprops.clone(anigram) // clone
-          newAnigram.payload.geofold.properties = {
+          newAnigram.geofold.properties = {
             sort: 'axis',
             ric: ric,
             uid: uid,

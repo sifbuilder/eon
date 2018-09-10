@@ -177,7 +177,6 @@ async function anitem (__mapper) {
     // ............................. hyperAni
     let hyperAni = {
       halo: 'ent',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -192,6 +191,7 @@ async function anitem (__mapper) {
           },
         },
         boform: boformHyper,
+      payload: {
         geoform: conformHyper,
       },
     }
@@ -199,7 +199,6 @@ async function anitem (__mapper) {
     // ............................. sphereAni
     let sphereAni = {
       halo: 'ent',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q2'},
@@ -214,6 +213,7 @@ async function anitem (__mapper) {
           },
         },
         boform: boformSphere,
+      payload: {
         geoform: conformSphere,
       },
     }
@@ -221,7 +221,6 @@ async function anitem (__mapper) {
     // ............................. sphereAni
     let lineAni = {
       halo: 'ent',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q4'},
@@ -236,6 +235,7 @@ async function anitem (__mapper) {
           },
         },
         boform: boformSphere,
+      payload: {
         geoform: conformLine,
       },
     }
@@ -243,7 +243,6 @@ async function anitem (__mapper) {
     // ............................. torusAni
     let torusAni = {
       halo: 'ent',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q3'},
@@ -258,6 +257,7 @@ async function anitem (__mapper) {
           },
         },
         boform: boformTorus,
+      payload: {
         geoform: conformTorus,
       },
     }
@@ -266,10 +266,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

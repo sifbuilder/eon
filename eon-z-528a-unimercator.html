@@ -35,7 +35,6 @@ async function anitem (__mapper) {
     let geoearth = {
 
       halo: 'ent',
-      payload: {
         geofold: p => {
           let geometry = Object.assign({},
             topojson.mesh(
@@ -52,6 +51,7 @@ async function anitem (__mapper) {
         geodrift: {
           proform: proform,
         },
+      payload: {
       },
 
     }

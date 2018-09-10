@@ -110,19 +110,18 @@ async function anitem (__mapper) {
     // .................. natAni1dax
     let natAni1dax = {
       halo: 'ent',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat1'},        
         geodrift: {
           proform: proform1dax,
         boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
+      payload: {
         geoform: conform1dax,
       },
     }
     let natAni2dax = {
       halo: 'ent',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat2'},        
@@ -130,12 +129,12 @@ async function anitem (__mapper) {
           proform: proform2dax,
         },
         boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
+      payload: {
         geoform: conform2dax,
       },
     }
     let natAni3dax = {
       halo: 'ent',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat3'},        
@@ -143,12 +142,12 @@ async function anitem (__mapper) {
           proform: proform3dax,,
         },
         boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
+      payload: {
         geoform: conform3dax,
       },
     }
     let natAni4dax = {
       halo: 'ent',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat4'},        
@@ -156,6 +155,7 @@ async function anitem (__mapper) {
           proform: proform4dax,,
         },
         boform: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
+      payload: {
         geoform: conform4dax,
       },
     }
@@ -164,10 +164,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

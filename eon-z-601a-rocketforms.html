@@ -24,7 +24,6 @@ async function anitem (__mapper) {
     let natform = {
 
       halo: 'ent',
-      payload: {
         geofold: p => {
           let r = mnat.natFeature(p.payload.geoform)
           return r
@@ -37,6 +36,7 @@ async function anitem (__mapper) {
         geodrift: {
           proform: { projection: 'uniwen', translate: [0, 0, 0], scale: 1, rotate: [0, 0, 0], lens: [0, 1, Infinity] },
         },
+      payload: {
         geoform: {
 
           'm1': [[[-8, -4, -2, -7.66]]],
@@ -64,10 +64,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

@@ -104,7 +104,6 @@ async function anitem (__mapper) {
     let treeAni = {
 
       halo: 'formed',
-      payload: {
 
         geofold: ani => {
           let payload = ani.payload // payload
@@ -136,6 +135,7 @@ async function anitem (__mapper) {
         tim: tim,
         ric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
         boform: {'csx': 0, 'cf': 555, 'cs': [[[333, 888]]], 'cw': 1.3, 'co': 0.72, 'cp': 0.999},
+      payload: {
         tree: {
           x0: 100,
           y0: -100,
@@ -157,11 +157,11 @@ async function anitem (__mapper) {
     let natAni = {
 
       halo: 'pacer',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
+      payload: {
         pacer: {
 
           itemsort: 'anima',
@@ -181,7 +181,7 @@ async function anitem (__mapper) {
               //
               // get preexisting trace ani
               //
-              let preani = mstore.findAnigramFromUid(ani.payload.uid)
+              let preani = mstore.findAnigramFromUid(ani.uid)
               //
               // if there is a preani with a geofold ...
               if (preani !== undefined) {
@@ -237,12 +237,12 @@ async function anitem (__mapper) {
                 tim: tim,
                 ric: {
 
-                  gid: ani.payload.ric.gid,
-                  cid: ani.payload.ric.cid,
-                  fid: ani.payload.ric.fid + props.counter,
+                  gid: ani.ric.gid,
+                  cid: ani.ric.cid,
+                  fid: ani.ric.fid + props.counter,
 
                 },
-                uid: mric.getuid(ani.payload.ric),
+                uid: mric.getuid(ani.ric),
                 stace: stacer(ani, props),
                 geodrift: {
                   proform: {
@@ -273,10 +273,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

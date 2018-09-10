@@ -32,7 +32,6 @@ async function anitem (__mapper) {
     // ............................. axisBottom
     let axis1 = {
       halo: 'axis',
-      payload: {
         geofold: p => ({
           type: 'Feature',
           geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [1, 0, 0] ] },
@@ -46,6 +45,7 @@ async function anitem (__mapper) {
           proform: proform,
         },
 
+      payload: {
         axis: {
           label: 'space',
           rotate: 0,
@@ -62,7 +62,6 @@ async function anitem (__mapper) {
     // ............................. axisLeft
     let axis2 = {
       halo: 'ent',
-      payload: {
         geofold: p => ({
           type: 'Feature',
           geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 100, 0] ] },
@@ -74,6 +73,7 @@ async function anitem (__mapper) {
         geodrift: {
           proform: proform,
         },
+      payload: {
         axis: {
           label: 'space',
           rotate: 0,
@@ -90,7 +90,6 @@ async function anitem (__mapper) {
     // ............................. axisLeft
     let axis3 = {
       halo: 'axis',
-      payload: {
         geofold: p => ({
           type: 'Feature',
           geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 0, 1] ] },
@@ -102,6 +101,7 @@ async function anitem (__mapper) {
         geodrift: {
           proform: proform,
         },
+      payload: {
         axis: {
           label: 'space',
           rotate: 45,
@@ -120,10 +120,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

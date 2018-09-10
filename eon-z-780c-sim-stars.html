@@ -37,11 +37,11 @@ async function anitem (__mapper) {
     let natAni = {
 
       halo: 'pacer',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
+      payload: {
         pacer: {
 
           itemsort: 'anima',
@@ -61,7 +61,7 @@ async function anitem (__mapper) {
               //
               // get preexisting trace ani
               //
-              let preani = mstore.findAnigramFromUid(ani.payload.uid)
+              let preani = mstore.findAnigramFromUid(ani.uid)
               //
               // if there is a preani with a geofold ...
               if (preani !== undefined) {
@@ -117,12 +117,12 @@ async function anitem (__mapper) {
                 tim: tim,
                 ric: {
 
-                  gid: ani.payload.ric.gid,
-                  cid: ani.payload.ric.cid,
-                  fid: ani.payload.ric.fid + props.counter,
+                  gid: ani.ric.gid,
+                  cid: ani.ric.cid,
+                  fid: ani.ric.fid + props.counter,
 
                 },
-                uid: mric.getuid(ani.payload.ric),
+                uid: mric.getuid(ani.ric),
                 stace: stacer(ani, props),
 
                 geodrift: {

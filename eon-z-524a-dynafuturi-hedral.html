@@ -81,7 +81,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: anitem => mgraticule.vhMultiLine(anitem.payload.graticule),
         tim: tim,
         ric: {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
@@ -96,6 +95,7 @@ async function anitem (__mapper) {
             [	[-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ],
 
         },
+      payload: {
 
       },
 
@@ -106,7 +106,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: p => {
           let geometry = Object.assign({},
             topojson.mesh(
@@ -123,6 +122,7 @@ async function anitem (__mapper) {
         geodrift: {
           conform: proform,
         },
+      payload: {
       },
     }
 
@@ -131,7 +131,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: {
           type: 'Feature',
           geometry: {
@@ -146,6 +145,7 @@ async function anitem (__mapper) {
         geodrift: {
           proform: proform,
         },
+      payload: {
       },
 
     }
@@ -154,7 +154,6 @@ async function anitem (__mapper) {
     let text = {
 
       halo: 'textform',
-      payload: {
         geofold: null,
 
         tim: tim,
@@ -168,6 +167,7 @@ async function anitem (__mapper) {
           },
         },
 
+      payload: {
         textform: {
           string: 'nine realms unified by the world tree yggdrasil.',
           style: {

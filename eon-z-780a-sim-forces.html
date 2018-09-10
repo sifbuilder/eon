@@ -81,30 +81,30 @@ async function anitem (__mapper) {
       let nbr = 6
       for (let i = 0; i < nbr; i++) {
         let ani = mprops.cloneObj(natAni) // clone of model anima
-        ani.payload.ric.gid = 'nat'
-        ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
-        ani.payload.ric.fid = 'item' + i // identify
+        ani.ric.gid = 'nat'
+        ani.ric.cid = (i % 2) ? 'orange' : 'gold'
+        ani.ric.fid = 'item' + i // identify
 
-        let uid = mric.getuid(ani.payload.ric)
-        ani.payload.uid = uid
+        let uid = mric.getuid(ani.ric)
+        ani.uid = uid
 
-        ani.payload.boform.cf = (i % 2) ? 777 : 333
-        ani.payload.boform.cs = (i % 2) ? 777 : 333
+        ani.boform.cf = (i % 2) ? 777 : 333
+        ani.boform.cs = (i % 2) ? 777 : 333
 
-        let preani = mstore.getAnima(ani.payload.ric)
+        let preani = mstore.getAnima(ani.ric)
 
         if (preani) {
           ani = preani
         } else { // create anima
           ani.halo = 'ent' // create halo
 
-          ani.payload.geofold = { // will create anigram
+          ani.geofold = { // will create anigram
             type: 'Feature',
             geometry: {type: 'Point', coordinates: [ 3 * i, 0, 0]},
             properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
           }
 
-          ani.payload.geonode.properties.orgen = [0, 0, 0 ]
+          ani.geonode.properties.orgen = [0, 0, 0 ]
         }
         animas.push(ani)
       }
@@ -128,32 +128,10 @@ async function anitem (__mapper) {
 
       halo: isolation,
 
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
 
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
-
-        pacer: {
-          initN: 2, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 15 / 1400,
-
-          fidder: (payload, i) => 'item' + i,
-
-          initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
-          eventSitus: d => ({x: crayder.event().x, y: crayder.event().y, z: 0 }),
-          autoSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
-
-          geojsor: () => {
-            let ani = {}
-            ani.halo = 'ent'
-
-            ani.payload = {
-              geofold: {type: 'Feature', geometry: {type: 'Point', coordinates: null}, properties: {}},
-            }
-            return ani
-          },
-
-        },
 
         geonode: {
           type: 'Feature',
@@ -200,6 +178,28 @@ async function anitem (__mapper) {
             'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
           },
         },
+      payload: {
+        pacer: {
+          initN: 2, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 15 / 1400,
+
+          fidder: (payload, i) => 'item' + i,
+
+          initSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
+          eventSitus: d => ({x: crayder.event().x, y: crayder.event().y, z: 0 }),
+          autoSitus: d => ({x: width / 2, y: height / 2, z: 0 }),
+
+          geojsor: () => {
+            let ani = {}
+            ani.halo = 'ent'
+
+            ani.payload = {
+              geofold: {type: 'Feature', geometry: {type: 'Point', coordinates: null}, properties: {}},
+            }
+            return ani
+          },
+
+        },
+
       },
     }
 
@@ -274,7 +274,7 @@ async function anitem (__mapper) {
           'iterations': 1, // d => params.iterations,
           'nodes': nodes,
           'src': d3_force,
-          'links': nodes.filter(d => (d.payload.ric.gid === 'link' || d.payload.ric.gid === 'tern')),
+          'links': nodes.filter(d => (d.ric.gid === 'link' || d.ric.gid === 'tern')),
         }
 
         let field = {
@@ -355,7 +355,7 @@ async function anitem (__mapper) {
 
         let forceParams = {
           type: 'sphere',
-          filter: d => d.payload.ric.gid === 'animaRed',
+          filter: d => d.ric.gid === 'animaRed',
           rad: rad,
           dim: 3,
           src: d3_force,
@@ -410,7 +410,7 @@ async function anitem (__mapper) {
 
         let forceParams = {
           type: 'cube',
-          filter: d => d.payload.ric.gid === 'animaRed',
+          filter: d => d.ric.gid === 'animaRed',
           edge: edge,
           src: d3_force,
           nodes: nodes,
@@ -446,7 +446,7 @@ async function anitem (__mapper) {
           strength: strength,
           radius: d => 9,
           filter: function (d) {
-            return d.payload.ric.gid === 'nat'
+            return d.ric.gid === 'nat'
           },
           src: d3_force,
           nodes: nodes,
@@ -479,7 +479,7 @@ async function anitem (__mapper) {
         let forceParams = {
           type: 'manybody', // f.manybody
           strength: strength,
-          filter: d => d.payload.ric.gid === 'nat',
+          filter: d => d.ric.gid === 'nat',
           src: d3_force, // d3
           nodes: nodes,
         }
@@ -530,7 +530,7 @@ async function anitem (__mapper) {
         let forceParams = {
           type: 'gravity',
           gravity: gravity,
-          filter: d => true, // d => d.payload.ric.gid === 'nat',
+          filter: d => true, // d => d.ric.gid === 'nat',
           src: d3_force,
           nodes: nodes,
         }
@@ -562,7 +562,7 @@ async function anitem (__mapper) {
         let forceParams = {
           type: 'manyBody',
           strength: charge,
-          filter: d => d.payload.ric.gid === 'nat',
+          filter: d => d.ric.gid === 'nat',
           dim: 3,
           src: d3_force,
           nodes: nodes,
@@ -600,7 +600,7 @@ async function anitem (__mapper) {
           'type': 'x', // f.x
           'position': 200,
           'strength': d => attractionCtt,
-          filter: d => d.payload.ric.gid === 'nat',
+          filter: d => d.ric.gid === 'nat',
           src: d3_force,
           'nodes': nodes,
         }
@@ -633,7 +633,7 @@ async function anitem (__mapper) {
           'type': 'y',
           'position': 200,
           'strength': d => attractionCtt,
-          filter: d => d.payload.ric.gid === 'nat',
+          filter: d => d.ric.gid === 'nat',
           src: d3_force,
           'nodes': nodes,
         }
@@ -665,7 +665,7 @@ async function anitem (__mapper) {
           'type': 'z',
           'position': 200,
           'strength': d => attractionCtt,
-          filter: d => d.payload.ric.gid === 'nat',
+          filter: d => d.ric.gid === 'nat',
           src: d3_force,
           'nodes': nodes,
         }
@@ -693,7 +693,7 @@ async function anitem (__mapper) {
           'type': 'center', // f.center
           'center': center,
           'strength': d => attractionCtt,
-          'filter': d => d.payload.ric.cid === 'orange',
+          'filter': d => d.ric.cid === 'orange',
           'src': d3_force,
           'nodes': nodes,
         }
@@ -716,7 +716,7 @@ async function anitem (__mapper) {
           'type': 'center', // f.center
           'center': center,
           'strength': d => attractionCtt,
-          'filter': d => d.payload.ric.cid === 'gold',
+          'filter': d => d.ric.cid === 'gold',
           'src': d3_force,
           'nodes': nodes,
         }

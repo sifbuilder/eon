@@ -26,9 +26,9 @@ async function anitem (__mapper) {
 
     const tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
-    let facesGeofold = p => {
-      let payload = p.payload,
-        ric = payload.ric,
+    let facesGeofold = anitem => {
+      let payload = anitem.payload,
+        ric = anitem.ric,
         faces = mprops.v(payload.faces) // payload.faces
 
       let json = {type: 'FeatureCollection', features: []}
@@ -63,7 +63,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
 
         geofold: facesGeofold,
         tim: tim,
@@ -83,6 +82,7 @@ async function anitem (__mapper) {
           },
         },
 
+      payload: {
         faces: function () { // icosahedronFaces
           let faces = [],
             s = 36,
@@ -117,11 +117,10 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
 
-        geofold: p => {
-          let payload = p.payload,
-            ric = payload.ric,
+        geofold: anitem => {
+          let payload = anitem.payload,
+            ric = anitem.ric,
             points = payload.points,
             faces = payload.faces
 
@@ -168,6 +167,7 @@ async function anitem (__mapper) {
           },
         },
 
+      payload: {
         points: [
           [0, 90],
           [0, -90],
@@ -211,10 +211,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

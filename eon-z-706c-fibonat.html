@@ -94,7 +94,6 @@ async function anitem (__mapper) {
     let fiboAni = {
 
       halo: 'ent',
-      payload: {
 
         geofold: p => mfibonat.catesians(p.payload),
 
@@ -103,6 +102,11 @@ async function anitem (__mapper) {
         ric: {gid: 'grat', cid: 'grat', fid: 'fiboAni'},
         boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 1.9, 'co': 0.6, 'cp': 0.9 },
 
+        geodrift: {
+          proform: fiboProform,
+        },
+      payload: {
+
         fibonat: {
           samples: [[[50, 50]]],
           offsetstep: [[[0, 20]]],
@@ -110,9 +114,6 @@ async function anitem (__mapper) {
           goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
         },
 
-        geodrift: {
-          proform: fiboProform,
-        },
         graticule: fiboFrame,
 
       },
@@ -122,7 +123,6 @@ async function anitem (__mapper) {
     let sphereAni = {
 
       halo: 'ent',
-      payload: {
 
         geofold: p => mgraticule.vhMultiLine(p.payload.graticule), // hMultiLine
 
@@ -137,6 +137,7 @@ async function anitem (__mapper) {
           },
           proform: sphereProform,
         },
+      payload: {
         graticule: sphereFrame,
 
       },
@@ -146,10 +147,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

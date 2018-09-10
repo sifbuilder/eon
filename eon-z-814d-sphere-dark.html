@@ -160,7 +160,6 @@ async function anitem (__mapper) {
     let lightAniDark = {
 
       halo: 'ent',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform, {h: 1}),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -169,6 +168,7 @@ async function anitem (__mapper) {
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[444, 444, 444]]], 'cw': [[[0.99, 0.99, 0.99]]], 'cp': [[[0.49, 0.49]]]},
+      payload: {
         geoform: conformLight,
       },
     }
@@ -206,7 +206,6 @@ async function anitem (__mapper) {
     let lightAniFront = {
 
       halo: 'ent',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform, {h: 1}),
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q2'},
@@ -223,6 +222,7 @@ async function anitem (__mapper) {
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[555, 555, 555]]], 'cw': [[[2.99, 2.99, 2.99]]], 'cp': [[[0.99, 0.99]]]},
+      payload: {
         geoform: conformLight,
       },
     }
@@ -230,7 +230,6 @@ async function anitem (__mapper) {
     let sphereAni = {
 
       halo: 'ent',
-      payload: {
 
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim: tim,
@@ -248,6 +247,7 @@ async function anitem (__mapper) {
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[666, 666, 666]]], 'cw': [[[0.79, 0.79, 0.79]]], 'cp': [[[0.99, 0.99]]]},
+      payload: {
         geoform: conformSphere,
       },
     }
@@ -256,7 +256,6 @@ async function anitem (__mapper) {
     let mazeAni = {
 
       halo: 'ent',
-      payload: {
         geofold: p => {
           let res = mnat.natFeature(p.payload.geoform)
           console.log('res', res)
@@ -269,6 +268,7 @@ async function anitem (__mapper) {
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[666, 666, 666]]], 'cw': [[[0.79, 0.79, 0.79]]], 'cp': [[[0.99, 0.99]]]},
+      payload: {
         geoform: conformSphere,
       },
     }
@@ -277,7 +277,6 @@ async function anitem (__mapper) {
     let topoAni = {
 
       halo: 'ent',
-      payload: {
         geofold: p => {
           let res = Object.assign({},
             topojson.feature(
@@ -295,6 +294,7 @@ async function anitem (__mapper) {
         },
         boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[666, 666, 666]]], 'cw': [[[0.79, 0.79, 0.79]]], 'cp': [[[0.99, 0.99]]]},
+      payload: {
         geoform: conformSphere,
       },
     }
@@ -303,10 +303,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1},
       },
 

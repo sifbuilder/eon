@@ -31,11 +31,10 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
-        geofold: p => {
-          let payload = p.payload,
+        geofold: anitem => {
+          let payload = anitem.payload,
 
-            ric = payload.ric,
+            ric = anitem.ric,
 
             faces = payload.faces(payload.polyhedron) // payload.faces
 
@@ -82,6 +81,7 @@ async function anitem (__mapper) {
 
           },
         },
+      payload: {
         // dihedral angle: 138.189685° = pi - arccos(√5/3)
         // C0 = 0.809016994374947424102293417183 = (1 + sqrt(5)) / 4
         polyhedron: {
@@ -133,10 +133,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

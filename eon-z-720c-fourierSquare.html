@@ -80,7 +80,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: {
           type: 'Feature',
           geometry: {
@@ -91,6 +90,7 @@ async function anitem (__mapper) {
         tim: tim,
         ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
         boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      payload: {
       },
 
     }
@@ -100,16 +100,16 @@ async function anitem (__mapper) {
     let traceline = {
 
       halo: 'pacer',
-      payload: {
         ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
         boform: {'csx': 0, 'cf': [[[111, 222, 111]]], 'cs': 666, 'cw': 0.99, 'co': 0.04, 'cp': 0.99},
 
+      payload: {
         pacer: { // aad for trace
           initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
           autoSitus: d => mstace.getLocus(this.stace, d.payload), // situs
-          fidder: d => d.payload.ric.fid,
+          fidder: d => d.ric.fid,
           geojsor: function (d, i) {
-            let ric = d.payload.ric // ric
+            let ric = d.ric // ric
             let uid = mric.getuid(ric)
 
             let gj = {
@@ -147,11 +147,11 @@ async function anitem (__mapper) {
     let fourierForm = {
 
       halo: 'fourier',
-      payload: { // FOURIER TRANSFORM in payload.fourier.transforms
         geofold: p => transformsFC,
         tim: tim,
         ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
         boform: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99}, // circle
+      payload: { // FOURIER TRANSFORM in payload.fourier.transforms
         fourier: {
 
           dotboform: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
@@ -168,10 +168,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

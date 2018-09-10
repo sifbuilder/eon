@@ -28,7 +28,6 @@ async function anitem (__mapper) {
     let pointform = {
 
       halo: 'pacer',
-      payload: {
         geofold: null,
 
         tim: tim,
@@ -46,6 +45,7 @@ async function anitem (__mapper) {
           },
         },
 
+      payload: {
         pacer: {
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
 
@@ -64,7 +64,7 @@ async function anitem (__mapper) {
               //
               // get preexisting trace ani
               //
-              let preani = mstore.findAnigramFromUid(ani.payload.uid)
+              let preani = mstore.findAnigramFromUid(ani.uid)
               // if there is a preani with a geofold ...
               if (preani !== undefined) {
                 // if preani has a geofold ...
@@ -98,7 +98,7 @@ async function anitem (__mapper) {
             }
 
             let riccer = function (ani, props) {
-              let newric = mprops.clone(ani.payload.ric) // clone ric
+              let newric = mprops.clone(ani.ric) // clone ric
               newric.gid = newric.gid
               newric.cid = newric.cid
               newric.fid = newric.fid + props.counter
@@ -133,12 +133,12 @@ async function anitem (__mapper) {
                 tim: tim,
                 ric: {
 
-                  gid: ani.payload.ric.gid,
-                  cid: ani.payload.ric.cid,
-                  fid: ani.payload.ric.fid + props.counter,
+                  gid: ani.ric.gid,
+                  cid: ani.ric.cid,
+                  fid: ani.ric.fid + props.counter,
 
                 },
-                uid: mric.getuid(ani.payload.ric),
+                uid: mric.getuid(ani.ric),
                 stace: stacer(ani, props),
 
                 geodrift: {
@@ -183,8 +183,8 @@ async function anitem (__mapper) {
 
           fidder: anitem => 'item' +
 					mstore.anigrams()
-					  .filter(ani => ani.payload.ric.gid === anitem.payload.ric.gid &&
-												ani.payload.ric.cid === anitem.payload.ric.cid)
+					  .filter(ani => ani.ric.gid === anitem.ric.gid &&
+												ani.ric.cid === anitem.ric.cid)
 					  .length,
 
           geofolder: () => ({
@@ -199,10 +199,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1, ray: 1},
       },
 

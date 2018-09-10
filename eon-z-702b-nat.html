@@ -53,7 +53,6 @@ async function anitem (__mapper) {
     let natform = {
 
       halo: 'ent',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
 
         tim: tim,
@@ -70,6 +69,7 @@ async function anitem (__mapper) {
             lens: [ 0, 1, Infinity ],
           },
         },
+      payload: {
 
         geoform: conform,
       },
@@ -80,10 +80,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

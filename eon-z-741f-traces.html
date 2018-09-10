@@ -70,7 +70,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
 
         tim,
@@ -85,6 +84,7 @@ async function anitem (__mapper) {
           properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null},
         },
 
+      payload: {
       },
     }
 
@@ -92,9 +92,9 @@ async function anitem (__mapper) {
     let traceline = {
 
       halo: 'pacer',
-      payload: {
         ric: {gid: 'trace', cid: 'trace', fid: 'traceline'},
         boform: traceBoform,
+      payload: {
 
         pacer: { // aad for trace
           stace: {x: { pos: 0 }, y: { pos: 0 }, z: { pos: 0 }},
@@ -112,7 +112,7 @@ async function anitem (__mapper) {
               }
 
               // get preexisting trace ani
-              let preani = mstore.findAnigramFromUid(ani.payload.uid)
+              let preani = mstore.findAnigramFromUid(ani.uid)
               let base = ani.payload.pacer.pace || 'geo'
 
               if (preani !== undefined) {
@@ -164,12 +164,12 @@ async function anitem (__mapper) {
                 tim: tim,
                 ric: {
 
-                  gid: ani.payload.ric.gid,
-                  cid: ani.payload.ric.cid,
-                  fid: ani.payload.ric.fid, //  + props.counter,
+                  gid: ani.ric.gid,
+                  cid: ani.ric.cid,
+                  fid: ani.ric.fid, //  + props.counter,
 
                 },
-                uid: mric.getuid(ani.payload.ric),
+                uid: mric.getuid(ani.ric),
                 stace: stacer(ani, props),
 
                 proform: {
@@ -198,7 +198,6 @@ async function anitem (__mapper) {
 
       halo: 'pacer',
 
-      payload: {
 
         tim,
         ric: {gid: 'trace', cid: 'trace', fid: 'traceform'},
@@ -231,6 +230,7 @@ async function anitem (__mapper) {
           },
         },
 
+      payload: {
         pacer: {
           initN: 0, eventN: 0, autoN: 1, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, aad: 1,
 
@@ -241,7 +241,7 @@ async function anitem (__mapper) {
               properties: {},
             }
 
-            let ric = ani.payload.ric
+            let ric = ani.ric
             let uid = mric.getuid(ric)
 
             let anitem = mstore.findAnigramFromUid(uid)
@@ -263,10 +263,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

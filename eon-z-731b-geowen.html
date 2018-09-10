@@ -31,7 +31,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: () => {
           let gj = Object.assign({},
             topojson.feature(
@@ -57,6 +56,7 @@ async function anitem (__mapper) {
 
           },
         },
+      payload: {
       },
 
     }
@@ -66,7 +66,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
         tim: tim,
         ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt1'},
@@ -90,6 +89,7 @@ async function anitem (__mapper) {
             [-90, 90, 22.5, 22.5] ] ],
 
         },
+      payload: {
       },
     }
 
@@ -98,7 +98,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
 
         geofold: {
           type: 'Feature',
@@ -119,6 +118,7 @@ async function anitem (__mapper) {
 
           },
         },
+      payload: {
       },
 
     }
@@ -128,7 +128,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
 
         geofold: () => {
           let gj = Object.assign({},
@@ -154,6 +153,7 @@ async function anitem (__mapper) {
 
           },
         },
+      payload: {
       },
 
     }
@@ -163,7 +163,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
         tim: tim,
         ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt2'},
@@ -185,6 +184,7 @@ async function anitem (__mapper) {
             [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ],
 
         },
+      payload: {
       },
     }
 
@@ -193,7 +193,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: {
           type: 'Feature',
           geometry: {type: 'Sphere'},
@@ -214,6 +213,7 @@ async function anitem (__mapper) {
 
           },
         },
+      payload: {
       },
 
     }
@@ -222,10 +222,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

@@ -30,12 +30,11 @@ async function anitem (__mapper) {
     let facesAni = {
 
       halo: 'ent',
-      payload: {
 
-        geofold: p => {
-          let payload = p.payload,
+        geofold: anitem => {
+          let payload = anitem.payload,
 
-            ric = payload.ric,
+            ric = anitem.ric,
 
             faces = payload.faces(payload.breakage) // payload.faces
 
@@ -82,6 +81,7 @@ async function anitem (__mapper) {
 
           },
         },
+      payload: {
 
         breakage: {
           s: 36,
@@ -142,10 +142,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

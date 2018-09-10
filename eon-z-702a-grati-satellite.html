@@ -40,7 +40,6 @@ async function anitem (__mapper) {
 
     let g1 = {
       halo: 'ent',
-      payload: {
         geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
         tim: tim,
         ric: { gid: 'grat', cid: 'grat', fid: 'g1'},
@@ -59,6 +58,7 @@ async function anitem (__mapper) {
             lens: [ 0, 1, Infinity ],
           },
         },
+      payload: {
         graticule: {
           frame: [ [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ],
             [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ] ],
@@ -68,7 +68,6 @@ async function anitem (__mapper) {
 
     let g2 = {
       halo: 'ent',
-      payload: {
         geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
         tim: tim,
         ric: { gid: 'grat', cid: 'grat', fid: 'g2'},
@@ -84,6 +83,7 @@ async function anitem (__mapper) {
             lens: [ 0, 1, Infinity ],
           },
         },
+      payload: {
         graticule: {
           frame: [ [ [-180, 180, 180, 30], [-0, 180, 360, 30] ],
             [ [-180, 180, 180, 30], [-0, 180, 360, 30] ] ],
@@ -93,7 +93,6 @@ async function anitem (__mapper) {
 
     let g3 = {
       halo: 'ent',
-      payload: {
         geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
         tim: tim,
         ric: { gid: 'grat', cid: 'grat', fid: 'g3'},
@@ -109,6 +108,7 @@ async function anitem (__mapper) {
             lens: [ 0, 1, Infinity ],
           },
         },
+      payload: {
         graticule: {
           frame: [ [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ],
             [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ] ],
@@ -120,10 +120,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

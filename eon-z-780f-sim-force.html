@@ -41,7 +41,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
 
@@ -81,6 +80,7 @@ async function anitem (__mapper) {
             'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
           },
         },
+      payload: {
       },
     }
 
@@ -99,7 +99,7 @@ async function anitem (__mapper) {
         let forceParams = {
           type: 'energy',
           filter: function (d) {
-            return d.payload.ric.gid === 'ani'
+            return d.ric.gid === 'ani'
           },
           src: d3_force,
           nodes: nodes,
@@ -128,7 +128,7 @@ async function anitem (__mapper) {
           filter: d => true,
           dim: 3,
           filter: function (d) {
-            return d.payload.ric.gid === 'ani'
+            return d.ric.gid === 'ani'
           },
           src: d3_force,
           nodes: nodes,
@@ -161,7 +161,7 @@ async function anitem (__mapper) {
           strength: strength,
           radius: d => 90,
           filter: function (d) {
-            return d.payload.ric.gid === 'ani'
+            return d.ric.gid === 'ani'
           },
           src: d3_force,
           nodes: nodes,
@@ -236,13 +236,13 @@ async function anitem (__mapper) {
 
       halo: 'core',
 
-      payload: {
 
         geofold: null,
 
         tim: tim,
         ric: {gid: 'core', cid: 'core', fid: 'core'},
 
+      payload: {
       },
 
     }

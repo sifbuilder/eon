@@ -31,7 +31,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: a => ({
           type: 'Feature',
           geometry: {
@@ -65,6 +64,7 @@ async function anitem (__mapper) {
 
         boform: natBoform,
 
+      payload: {
       },
 
     }
@@ -73,7 +73,6 @@ async function anitem (__mapper) {
     let traceline = {
 
       halo: 'pacer',
-      payload: {
         geofold: null,
 
         tim: tim,
@@ -85,6 +84,7 @@ async function anitem (__mapper) {
         },
 
         boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+      payload: {
 
         pacer: { // aad for trace
 
@@ -120,13 +120,13 @@ async function anitem (__mapper) {
           tim: tim,
           ric: function (ani, props) {
             return {
-              gid: ani.payload.ric.gid,
-              cid: ani.payload.ric.cid,
-              fid: ani.payload.ric.fid, //  + props.counter,
+              gid: ani.ric.gid,
+              cid: ani.ric.cid,
+              fid: ani.ric.fid, //  + props.counter,
             }
           },
           uid: function (ani, props) {
-            return mric.getuid(ani.payload.ric)
+            return mric.getuid(ani.ric)
           },
 
           geodrift: {
@@ -151,10 +151,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

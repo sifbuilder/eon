@@ -77,8 +77,8 @@
 
       let halo = anitem.halo,
         payload = anitem.payload,
-        ric = payload.ric,
-        tim = payload.tim
+        ric = anitem.ric,
+        tim = anitem.tim
 
       let pacer = payload.pacer || {}, // pacer
         mousesignal = pacer.mousesignal || 0, // mousesignal
@@ -175,7 +175,7 @@
 
               let ric = (anitem.payload.pacer.ric !== undefined)
                 ? anitem.payload.pacer.ric(anitem, props)
-                : anitem.payload.ric
+                : anitem.ric
               let uid = mric.getuid(ric)
 
               // check if precursor of newAnitem already exists
@@ -189,8 +189,8 @@
 
                 // if (base !== undefined) { // base: {geoform, conform, ereform, proform}
 
-                  // console.assert(newItem.payload.geofold.properties[base] !== undefined)
-                  // newItem.payload.geofold.geometry = newItem.payload.geofold.properties[base].geometry
+                  // console.assert(newItem.geofold.properties[base] !== undefined)
+                  // newItem.geofold.geometry = newItem.geofold.properties[base].geometry
 
                 // }
                 
@@ -202,11 +202,11 @@
                 newItem.halo = anitem.halo
                 newItem.payload = mprops.clone(anitem.payload)
 
-                // if functional pacer.geofold, override payload.geofold
+                // if functional pacer.geofold, override geofold
                 
                 if (anitem.payload.pacer.geofold !== undefined) {
                   console.assert(typeof anitem.payload.pacer.geofold === 'function')
-                  newItem.payload.geofold = anitem.payload.pacer.geofold(anitem)
+                  newItem.geofold = anitem.payload.pacer.geofold(anitem)
                 }
               }            
             
@@ -218,7 +218,7 @@
             
             
             
-              let coords = newItem.payload.geofold.geometry.coordinates
+              let coords = newItem.geofold.geometry.coordinates
 
               if (coords && coords.length > 0) {
                 let presitus = coords[coords.length - 1] // last point in paced string
@@ -228,7 +228,7 @@
                 coords = Array.of(situs) // coords start with first situs
               }
 
-              newItem.payload.geofold.geometry.coordinates = coords // upd coords
+              newItem.geofold.geometry.coordinates = coords // upd coords
 
               let newItemsInCount = hent.gramm(newItem) // h.ent newItem
               newItems = [...newItems, ...newItemsInCount] // add new items
@@ -253,9 +253,9 @@
                   
                 } else {
                   
-                  if (newItem.payload[prop] !== undefined) {
+                  if (newItem[prop] !== undefined) {
                     
-                    newItem.payload[prop] = mprops.v(pacer[prop], anitem, props)
+                    newItem[prop] = mprops.v(pacer[prop], anitem, props)
                     
                   }
                 
@@ -280,8 +280,8 @@
     function ween (anitem, newItems = []) {
       let halo = anitem.halo,
         payload = anitem.payload,
-        ric = payload.ric,
-        tim = payload.tim
+        ric = anitem.ric,
+        tim = anitem.tim
 
       let pacer = payload.pacer || {}, // pacer
         mousesignal = pacer.mousesignal || 0, // mousesignal

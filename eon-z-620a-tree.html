@@ -89,7 +89,6 @@ async function anitem (__mapper) {
 
       halo: 'formed',
 
-      payload: {
         geofold: ani => {
           let payload = ani.payload // payload
 
@@ -120,6 +119,7 @@ async function anitem (__mapper) {
         tim: tim,
         ric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
         boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
+      payload: {
         tree: {
           x0: 0,
           y0: -100,
@@ -141,10 +141,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

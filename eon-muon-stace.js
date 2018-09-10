@@ -78,13 +78,13 @@
 
       // else, eg. if stace undefined, get stace from parent
       } else {
-        let parentuid = payload.parentuid
+        let parentuid = parentuid
         console.assert(parentuid !== undefined, ` * error: mstace.getTranspots:parentuid ${parentuid} in payload ${payload}`)
         let parentani = mstore.findAnigramFromUid(parentuid)
         console.assert(parentani !== undefined, ` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)
 
-        let geofold = parentani.payload.geofold 
-        let geonode = parentani.payload.geonode
+        let geofold = parentani.geofold 
+        let geonode = parentani.geonode
         let locationsPerDax = []
 
 
@@ -186,8 +186,8 @@
 
     // ........................ getSiti         situs: Arary.of(ani.x, .y, .z)
     let getSiti = function (anima, siti = []) {
-      if (anima && anima.payload.geonode) {
-        siti = Array.of(anima.payload.geonode.geometry.coordinates)
+      if (anima && anima.geonode) {
+        siti = Array.of(anima.geonode.geometry.coordinates)
       }
 
       return siti

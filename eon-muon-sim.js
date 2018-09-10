@@ -68,10 +68,10 @@
         let aniItem = aniItems[i]
         let payload = aniItem.payload
 
-        if (aniItem.payload.geonode) { // if simmable  ...
+        if (aniItem.geonode) { // if simmable  ...
         
           // the geonode ports info of the simnode
-          let geonode = mgeonode.init(aniItem.payload.geonode)
+          let geonode = mgeonode.init(aniItem.geonode)
 
           // the simnode location is in the geonode geometry
           let nodeGeometry = geonode.geometry
@@ -103,9 +103,9 @@
           simNode.payload = payload // anitem payload to simnode
 
           if (payload.id !== undefined) {
-            simNode.id = payload.id // simnode id from payload.geofold.payload.id
+            simNode.id = payload.id // simnode id from geofold.payload.id
           } else {
-            simNode.id = payload.uid
+            simNode.id = simNode.uid
           }
 
           if (payload.link) {
@@ -132,9 +132,9 @@
 
           let updItem = aniItems[i] // each anitem
 
-          if (updItem.payload.geonode) {
+          if (updItem.geonode) {
             
-            let geonode = mgeonode.init(updItem.payload.geonode)
+            let geonode = mgeonode.init(updItem.geonode)
             geonode.properties.geodelta[0] = simNode.x - geonode.geometry.coordinates[0]
             geonode.properties.geodelta[1] = simNode.y - geonode.geometry.coordinates[1]
             geonode.properties.geodelta[2] = simNode.z - geonode.geometry.coordinates[2]
@@ -151,7 +151,7 @@
             geonode.geometry.coordinates[1] = simNode.y
             geonode.geometry.coordinates[2] = simNode.z
 
-            updItem.payload.geonode = geonode
+            updItem.geonode = geonode
 
           } 
 
@@ -159,7 +159,7 @@
         }
       }
 
-      // md: aftersim payload.geonode (s)
+      // md: aftersim geonode (s)
       // md:     coordinates
       // md:     properties.{geodelta, prevous, velin}
 

@@ -60,7 +60,6 @@ async function anitem (__mapper) {
 
       halo: 'ent',
 
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
 
         tim,
@@ -102,6 +101,7 @@ async function anitem (__mapper) {
           },
 
         },
+      payload: {
       },
     }
 
@@ -109,7 +109,6 @@ async function anitem (__mapper) {
     let tracelineSphere = {
 
       halo: 'pacer',
-      payload: {
         tim,
         ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
         boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
@@ -122,9 +121,9 @@ async function anitem (__mapper) {
             let r = mstace.getLocus(this.stace, a.payload) // situs
             return r
           },
-          fidder: a => a.payload.ric.fid,
+          fidder: a => a.ric.fid,
           geojsor: function (a, i) {
-            let ric = a.payload.ric // ric
+            let ric = a.ric // ric
             let uid = mric.getuid(ric)
             let gj = {
               halo: 'ent',
@@ -145,16 +144,17 @@ async function anitem (__mapper) {
             return newItem
           },
         },
+      payload: {
       },
     }
     // .................. sceneAni
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

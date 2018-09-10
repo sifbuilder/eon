@@ -78,7 +78,6 @@ async function anitem (__mapper) {
     let nat = {
 
       halo: 'nat',
-      payload: {
         geofold: null,
         ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
         tim,
@@ -86,6 +85,7 @@ async function anitem (__mapper) {
         geodrift: {
           proform,
         },
+      payload: {
         geoform: form,
       },
 
@@ -94,7 +94,6 @@ async function anitem (__mapper) {
     let natFlat = {
 
       halo: 'nat',
-      payload: {
         geofold: null,
         ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natFlat'},
         tim,
@@ -102,6 +101,7 @@ async function anitem (__mapper) {
         geodrift: {
           proform: proformFlat,
         },
+      payload: {
         geoform: form,
       },
 
@@ -110,11 +110,11 @@ async function anitem (__mapper) {
     let fuelnat = {
 
       halo: 'fuel',
-      payload: {
         geofold: p => mnat.natFeature(p.payload.geoform),
         tim,
         ric: {'gid': 'fuel', 'cid': 'fuel'},
         boform: boformFuel,
+      payload: {
         geoform: formFuel,
         fuel: {
           ra2: 3,
@@ -131,10 +131,10 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      payload: {
         geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
