@@ -8,6 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
+// md: tf: t => t
+// md: tf: t => 2 * (t - 2 * Math.max(0, t - 0.5)),
+// md: tf: t => 1 - 4 * (t - 0.5)* (t - 0.5),
+// md: tf: t => 1,
+// md: tf: t => Math.sin(Math.PI * t / 2)
+// md: tf: t => Math.pow(t, 2)  
+  
   async function muonTim (__mapper = {}) {
     let d3scale = await __mapper('xs').b('d3-scale')
 

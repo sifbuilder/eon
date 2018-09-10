@@ -7,6 +7,11 @@
       : (factory((global.muonLacer = global.muonLacer || {})))
 }(this, function (exports) {
   'use strict'
+  
+// md: # eon-muon-lacer 
+// md: **cells interlinked within cells interlinked** 
+// md: # license 
+// md: MIT
 
   async function muonLacer (__mapper = {}) {
     let [

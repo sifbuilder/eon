@@ -100,8 +100,8 @@
       // }
 
       // if mouse grabbed, enable event count, pacer.eventN
+// console.log(' ------------- grabbed', crayder.grabbed() )      
       if (crayder.grabbed()) { //
-console.log(' ------------- grabbed', crayder.grabbed() )      
         count.event = Math.floor(pacer.eventN) //  if in state or was event
       }
 
@@ -166,6 +166,7 @@ console.log(' ------------- grabbed', crayder.grabbed() )
             // if opt.add  type is LineString and geometry adds coords
 
             if (aad) { //  if AAD
+            
               // the paced ric is defined dynamically in the pacer or inherited from the anitem.payload
 
               let ric = (anitem.payload.pacer.ric !== undefined)
@@ -176,6 +177,7 @@ console.log(' ------------- grabbed', crayder.grabbed() )
 
               let preani = mstore.findAnigramFromUid(uid)
               if (preani !== undefined) {
+                
                 // if exists, newItem builds from precursor
 
                 newItem = preani

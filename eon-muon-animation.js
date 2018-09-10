@@ -51,20 +51,11 @@
     // .................. getweens
     function getweens (animas, elapsed) {
       return sequence(animas, anima => mstore.ween(anima))
-      // sequence(animas, anima => mstore.ween(anima))
-      // then(sequenced => {
-      // return mstore.animasLive()
-      // })
-      // return mstore.animasLive()
     }
 
     // .................. getgramms
     function getgramms (animas, elapsed) {
       return sequence(animas, anima => mstore.gramm(anima)) // store anigrams
-      // .then(sequenced => {
-      // return mstore.anigrams()
-      // })
-      // return mstore.anigrams() // get anigrams from store
     }
 
     // .................. animate
@@ -83,8 +74,6 @@
       let featurecollectionPromise = Promise.resolve(state.animas)
         .then(animas => {
           getweens(animas, elapsed)
-          // .then(weened => mstore.animasLive())
-          // return weened
         })
         .then(animas => {
           let simmed = getsims(mstore.animasLive())
@@ -92,15 +81,11 @@
         })
         .then(anisimmed => {
           return getgramms(anisimmed)
-          // let anigrams = getgramms(anisimmed)
-          // if (1 && 1) console.log('anigrams', anigrams)
-          // return anigrams
         })
         .then(() => {
           let featurecollection = { type: 'FeatureCollection', features: mstore.anigrams().map(d => d.geofold) }
           return featurecollection
         })
-        // .catch(e => { console.log(e) })
 
       return featurecollectionPromise
     }

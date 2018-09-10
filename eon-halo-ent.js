@@ -37,7 +37,7 @@
       console.assert(Array.isArray(anitem) === false)
 
       let newAni = mprops.clone(anitem)
-
+      
       // aninode
 
       let geonode = mprops.v(anitem.geonode, anitem)

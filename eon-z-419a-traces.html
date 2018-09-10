@@ -98,10 +98,12 @@ if (props.key === 'event') {
             }
             return ric  
           },
-          geonode: function (ani, props) {
+
+        
+
+          geofold: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              // stace is ani's transformed geonode
               stace = mstace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
               stace = mstace.getLocus([null, null, null], ani)
@@ -111,10 +113,9 @@ if (props.key === 'event') {
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
-                stace = {x, y, z }
+                stace = [x, y, z]
               }
             }
-
             let coordinates = stace
             let res = {
               type: 'Feature',
@@ -126,7 +127,7 @@ if (props.key === 'event') {
             }
             return res
           },
-
+      
         },
       },
     }

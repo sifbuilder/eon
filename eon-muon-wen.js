@@ -9,6 +9,16 @@
 }(this, function (exports) {
   'use strict'
 
+   
+// md: # eon-muon-wen 
+// md: **wen functions** 
+// md: ref.: https://github.com/wenliang-developer 
+// md: ref.: https://codepen.io/wenliang-developer/pen/gMwvXR 
+// md: ref.: https://github.com/wenliang-developer/web-developer-site 
+// md: # license 
+// md: MIT 
+ 
+
   async function muonWen (__mapper = {}) {
     function clip (n, m, M) { return n < M ? n > m ? n : m : M }
     function comeCloser (n, goal, factor, limit) {
