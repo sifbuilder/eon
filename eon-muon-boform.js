@@ -106,9 +106,19 @@
       return json
     }
 
+    // boform definition
+    
+    let getdefault = function( ) {
+      
+      let res = { 'csx': 0, 'cf': 500, 'co': 1, 'cs': 500, 'cw': 1, 'cp': 1 }
+ 
+      return res
+    }
+    
     // .................. enty
     function enty () { return enty }
     enty.boformer = boformer
+    enty.getdefault = getdefault
 
     return enty
   }

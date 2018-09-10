@@ -4,11 +4,8 @@ const http = require('http')
 
 const puppeteer = require('puppeteer')
 
-
-
 let args = process.argv
 let [cmd, scp, ...opts] = args
-
 
 let dirname = path.dirname(require.main.filename)
 
@@ -23,7 +20,6 @@ let htmlpattern = new RegExp('^(eon.*)\.html$', 'i')
 const isDirectory = d => fs.lstatSync(d).isDirectory()
 const isFile = d => fs.lstatSync(d).isFile()
 let indir = './'
-
 
 let view = opts[0] || '.*'
 let thiseonpattern = new RegExp(`^eon-z-${view}.*\.html$`, 'i')
@@ -73,30 +69,35 @@ async function lightanimas (browser, fls, opts) {
 
     const page = await browser.newPage()
     page.setViewport({
-        width: 600,
-        height: 400
+      width: 600,
+      height: 400,
     }) // Viewport
-    
-    if (tracing) await page.tracing.start({
-      path: tracingpath,
-      screenshots: true,
-    })    
-    
+
+    if (tracing) {
+      await page.tracing.start({
+        path: tracingpath,
+        screenshots: true,
+      })
+    }
+
     await page.goto(`file:///${inpathname}`, {
-        waitUntil: 'domcontentloaded'
+      waitUntil: 'domcontentloaded',
     })
-    // await page.waitForSelector('#viewframe')
+    await page.waitForSelector('#viewframe')
     await waitInPromise(delay)(page.content())
 
-
-    page.on("pageerror", function(err) {
-        theTempValue = err.toString();
-        console.log("Page error: " + theTempValue)
+    page.on('pageerror', function (err) {
+      let theTempValue = err.toString()
+      console.log('Page error: ' + theTempValue)
     })
-    page.on("error", function (err) {
-        theTempValue = err.toString();
-        console.log("Error: " + theTempValue)
+    page.on('error', function (err) {
+      let theTempValue = err.toString()
+      console.log('Error: ' + theTempValue)
     })
+    page.on('console', msg => {
+      for (let i = 0; i < msg.args.length; ++i) { console.log(`${i}: ${msg.args[i]}`) }
+    })
+    await page.evaluate(() => console.log(`url is ${location.href}`))
 
     let opts = Object.assign({}, options)
 
@@ -109,33 +110,23 @@ async function lightanimas (browser, fls, opts) {
 }
 
 async function run (fls, opts) {
-
   const winwidth = 1200
   const winheight = 1200
   const browser = await puppeteer.launch({
     headless: false,
     devtools: true, // open DevTools when window launches
     args: ['--remote-debugging-port=9222',
-            `--window-size=${ winwidth },${ winheight }`,  // Window size
-            // '--show-fps-counter',
-            '--trace-to-console',
-    ]
+      `--window-size=${winwidth},${winheight}`, // Window size
+      // '--show-fps-counter',
+      '--trace-to-console',
+    ],
   })
 
-
-const allPages = await browser.pages();
-
+  await browser.pages()
 
   await lightanimas(browser, fls, opts)
-
 
   if (closebrowser) await browser.close()
 }
 
 run(files, options)
-
-
-
-
-
-

@@ -176,6 +176,13 @@
           .filter(d => (d.ric.gid === anima.ric.gid &&
                     d.ric.cid === anima.ric.cid)).length
 
+    enty.anigramsInClassHowMany = anigram =>
+      (anigram === undefined)
+        ? 0
+        : enty.anigrams()
+          .filter(d => (d.ric.gid === anigram.ric.gid &&
+                    d.ric.cid === anigram.ric.cid)).length
+
     enty.findIndexFromRic = (ric, list) =>
       list.findIndex(d =>
         d.ric.gid === ric.gid &&

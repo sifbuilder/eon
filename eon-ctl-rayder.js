@@ -126,7 +126,8 @@
     }
 
     // ............................. mouseUpListener
-    function mouseUpListener (e) {
+    function mouseUpListener (event) {
+console.log(' -----------  mouseUpListener' , event)      
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
@@ -135,16 +136,19 @@
     // ............................. subscribe
     let subscribe = function (listener, domNode, sensor) {
       if (typeof listener !== 'function') throw new Error('Listener to be function')
-      domNode.node().addEventListener(sensor, listener) // mounseUp, mouseUpListener
+        
+      // listener: {mousedown, mousemove, mouseup}
+      
+      domNode.node().addEventListener(sensor, listener) 
     }
 
     // ............................. controlrayder
     let control = function (domNode) {
       enty.domNode(domNode)
 
+      subscribe(mouseUpListener, state.domNode, 'mouseup')
       subscribe(mouseDownListener, state.domNode, 'mousedown')
       subscribe(mouseMoveListener, state.domNode, 'mousemove')
-      subscribe(mouseUpListener, state.domNode, 'mouseup')
 
       subscribe(touchStartListener, state.domNode, 'touchstart')
       subscribe(touchMoveListener, state.domNode, 'touchmove')

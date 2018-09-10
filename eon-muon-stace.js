@@ -38,13 +38,12 @@
     }
 
     // ..................... isValidStace
-    let getTranspots = function (stace, ani) {
+    let getTranspots = function (stace, anitem) {
       let mstore = __mapper('muonStore') // sync
 
-      let payload = ani.payload
-      console.assert(payload !== undefined, ani, ' payload undefined')
+      let payload = anitem.payload
+      console.assert(payload !== undefined, anitem, ' payload undefined')
       let locations = []
-      let valid = 0
 
       // if object, convert stace to array
 
@@ -60,24 +59,22 @@
         stace = stace.map(d => typeof d === 'function' ? d() : d) // eval
       }
 
-      if (typeof stace === undefined || stace === null) {
+      if (stace === undefined || stace === null) {
         stace = [null, null, null]
       }
 
       // if stace is simple array, spot is stace
 
       if (mprops.isPureArray(stace)) { // [x,y,z] numbers
-        valid = 1
         locations = Array.of(stace)
 
       // if stace is a multiarray, get stace interadding per dax
       } else if (mprops.isPureMultiArray(stace)) { // dax sum [[a1,a2,a3],[b1,b2]]
-        valid = 1
         locations = mprops.interadd(stace)
 
       // else, eg. if stace undefined, get stace from parent
       } else {
-        let parentuid = parentuid
+        let parentuid = anitem.parentuid
         console.assert(parentuid !== undefined, ` * error: mstace.getTranspots:parentuid ${parentuid} in payload ${payload}`)
         let parentani = mstore.findAnigramFromUid(parentuid)
         console.assert(parentani !== undefined, ` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)
@@ -154,9 +151,9 @@
     }
 
     // ........................ getTranspot
-    let getTranspot = (stace, ani) => getTranspots(stace, ani)[0]
+    let getTranspot = (stace, anitem) => getTranspots(stace, anitem)[0]
 
-    // ........................ getSiti         situs: Arary.of(ani.x, .y, .z)
+    // ........................ getSiti         situs: Arary.of(anitem.x, .y, .z)
     let getSiti = function (anima, siti = []) {
       if (anima && anima.geonode) {
         siti = Array.of(anima.geonode.geometry.coordinates)
@@ -254,12 +251,12 @@
     }
 
     // ........................ getLoci
-    let getLoci = function (stace, ani) {
+    let getLoci = function (stace, anitem) {
       let locations = [] // default locations _e_
 
-      let situs = getSitus(ani) // anima    .x,.y,.z - root and sim
+      let situs = getSitus(anitem) // anima    .x,.y,.z - root and sim
 
-      let spots = getTranspots(stace, ani) // ani  stace x || x.pos || x.ref
+      let spots = getTranspots(stace, anitem) // anitem  stace x || x.pos || x.ref
 
       if (situs && spots && spots.length > 0) { // if situs and spots
         locations = spots.map(spot => spot.map((d, i) => d + situs[i])) // transpose spots by situs
@@ -273,11 +270,12 @@
     }
 
     // ........................ getLocus
-    let getLocus = (stace, ani) => getLoci(stace, ani)[0]
+    let getLocus = (stace, anitem) => getLoci(stace, anitem)[0]
 
     // ........................ enty
     function enty () { return enty }
 
+    enty.getLocsInDim = getLocsInDim //  getLocsInDim
     enty.getPosInDim = getPosInDim //  getPosInDim
 
     enty.getSiti = getSiti //
@@ -285,9 +283,6 @@
 
     enty.getLoci = getLoci //  locations
     enty.getLocus = getLocus //  location
-
-    // enty.getLocifion = getLocifion //  projection
-    // enty.getLocifier = getLocifier //  projector
 
     enty.getTranspot = getTranspot //  getTranspot
     enty.getTranspots = getTranspots //  getTranspots

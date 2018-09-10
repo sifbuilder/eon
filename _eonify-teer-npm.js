@@ -1,7 +1,7 @@
 
 // md: publish eons
 // md: node _eonify-teer-npm { eons, all, eonclass }
-// nd: create npm project in eons_dist and npm publish
+// md: create npm project in eons_dist and npm publish
 
 const fs = require('fs')
 const path = require('path')

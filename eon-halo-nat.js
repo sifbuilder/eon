@@ -12,11 +12,32 @@
     let [
       mnat,
       hent,
+      muonBoform,
     ] = await Promise.all([
       __mapper('xs').m('nat'),
       __mapper('xs').h('ent'),
+      __mapper('xs').m('boform'),
     ])
 
+    
+    // boform definition
+    
+    let getboform = function( geoform ) {
+      
+      let res = {}
+      let ref = muonBoform.getdefault()
+      
+      if (geoform === undefined) {
+        res = ref
+      } else {
+        
+        let { ...ref } = geoform
+        res = ref
+        
+      }
+      return res
+    }    
+    
     // .................... gramm
     let gramm = function (anitem) {
       console.assert(anitem.payload.geoform !== undefined, 'geoform is undefined')

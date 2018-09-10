@@ -94,13 +94,14 @@
       //
       // if mouse up reset the controls on svg
       //
-      if (crayder.mouse() && crayder.mouse().type === 'mouseup') {
-        cwen.reset(rsvg.svg())
-        cversor.reset(rsvg.svg())
-      }
+      // if (crayder.mouse() && crayder.mouse().type === 'mouseup') {
+        // cwen.reset(rsvg.svg())
+        // cversor.reset(rsvg.svg())
+      // }
 
       // if mouse grabbed, enable event count, pacer.eventN
       if (crayder.grabbed()) { //
+console.log(' ------------- grabbed', crayder.grabbed() )      
         count.event = Math.floor(pacer.eventN) //  if in state or was event
       }
 
@@ -142,7 +143,6 @@
       }
 
       // count: eg: {init:4, auto:1, event:3}
-
       if (Object.keys(count).length > 0) { // on pace count, eg {init: 6, auto: 1}
         // for each key in count
 
@@ -172,7 +172,6 @@
                 ? anitem.payload.pacer.ric(anitem, props)
                 : anitem.ric
               let uid = mric.getuid(ric)
-
               // check if precursor of newAnitem already exists
 
               let preani = mstore.findAnigramFromUid(uid)
@@ -221,26 +220,26 @@
               let newItemsInCount = hent.gramm(newItem) // h.ent newItem
               newItems = [...newItems, ...newItemsInCount] // add new items
 
-              // NOT pacer.AAD if not pacer.add, pacer generates anitems
+              
             } else { //  if NOT AAD
+
+              // NOT pacer.AAD if not pacer.add, pacer generates anitems
               // geofold is Feature
 
               // complete newItem definition
 
               let ownProps = Object.getOwnPropertyNames(pacer)
               for (let prop of ownProps) {
-                if (prop === 'halo') { //
-                  newItem.halo = mprops.v(pacer.halo, anitem, props)
-                } else {
-                  if (newItem[prop] !== undefined) {
-                    newItem[prop] = mprops.v(pacer[prop], anitem, props)
-                  }
+                
+                if (newItem[prop] !== undefined) {
+                  let newpropval = mprops.v(pacer[prop], anitem, props)
+                  newItem[prop] = newpropval
                 }
+
               }
 
               let halo = __mapper(__mapper('xs').ceonize(newItem.halo, 'halo'))
 
-              // let newItemsInCount = hent.gramm(newItem)
               let newItemsInCount = halo.gramm(newItem)
               newItems = [...newItems, ...newItemsInCount] // add items
             }
