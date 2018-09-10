@@ -117,6 +117,7 @@
       let halo = anitem.halo
       if (typeof (halo) === 'object') {
         halo = await Promise.resolve(halo)
+   
       } else {
         // halo = __mapper(__mapper('xs').ceonize(halo, 'halo'))
         halo = await __mapper('xs').h(halo)
@@ -133,16 +134,38 @@
     }
 
     // .................. gramm
-    function gramm (anitem) {
-      return manitem.snapani(anitem)
-        .then(snapped => manitem.functorize(snapped))
-        .then(anigram => (typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
-          .then(halo => Promise.resolve(halo.gramm(anigram))
-            .then(newItems => {
-              _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
-              newItems.forEach(newItem => {
-                let avatars = gavatars(newItem)
+    // function gramm (anitem) {
+      // return manitem.snapani(anitem)
+        // .then(snapped => manitem.functorize(snapped))
+        // .then(anigram => (typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
+          // .then(halo => Promise.resolve(halo.gramm(anigram))
+            // .then(newItems => {
+              // _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
+              // newItems.forEach(newItem => {
+                // let avatars = gavatars(newItem)
 
+                // avatars.forEach(avatar => {
+                  // avatar.tim = anigram.tim // tim from anigram
+                  // avatar.uid = mric.getuid(avatar) // uid from avatar
+                  // avatar.parentuid = newItem.uid // parentuid from newItem
+
+                  // gramm(avatar)
+                // })
+              // })
+            // })
+          // )
+        // )
+    // }
+    async function gramm (anitem) {
+      let snapped = await manitem.snapani(anitem)
+      let anigram = await manitem.functorize(snapped)
+      let halo = await (typeof (anitem.halo) === 'object') 
+        ? anitem.halo 
+        : __mapper(__mapper(__mapper('xs').ceonize(anigram.halo, 'halo')))  // expected in __mapper
+      let newItems = await halo.gramm(anigram)
+      _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
+      newItems.forEach(newItem => {
+                let avatars = gavatars(newItem)
                 avatars.forEach(avatar => {
                   avatar.tim = anigram.tim // tim from anigram
                   avatar.uid = mric.getuid(avatar) // uid from avatar
@@ -151,11 +174,7 @@
                   gramm(avatar)
                 })
               })
-            })
-          )
-        )
     }
-
     // .................. enty
     let enty = {}
 

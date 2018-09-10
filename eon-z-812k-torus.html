@@ -109,12 +109,12 @@ async function anitem (__mapper) {
     let lightAni = {
 
       halo: 'ent',
+      geofold: p => mnat.natFeature(p.payload.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q1'},
       geodrift: {
         proform: {
           projection: 'uniwen',
-          geofold: p => mnat.natFeature(p.payload.geoform),
           scale: [ 0.1, 0.1 ],
           prerotate: [[[ cwen.rotation ]]],
           translate: [ [0, 0, 0] ],

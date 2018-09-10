@@ -1,3 +1,6 @@
+
+// node _eonify-teer-view eonpattern
+
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
@@ -85,7 +88,7 @@ async function lightanimas (browser, fls, opts) {
     })
     await page.waitForSelector('#viewframe')
     await waitInPromise(delay)(page.content())
-
+    
     page.on('pageerror', function (err) {
       let theTempValue = err.toString()
       console.log('Page error: ' + theTempValue)
@@ -111,7 +114,10 @@ async function lightanimas (browser, fls, opts) {
 
 async function run (fls, opts) {
   const winwidth = 1200
-  const winheight = 1200
+  const winheight = 900
+
+
+  
   const browser = await puppeteer.launch({
     headless: false,
     devtools: true, // open DevTools when window launches

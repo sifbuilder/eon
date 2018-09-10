@@ -17,15 +17,13 @@
   // .................. anitem
   async function anitem (__mapper) {
     let [
+      haloEnt,
+      haloScene,
       mnat,
-      cwen,
-      mgraticule,
-      pnatform,
     ] = await Promise.all([
+      __mapper('xs').h('ent'),
+      __mapper('xs').h('scene'),
       __mapper('xs').m('nat'),
-      __mapper('xs').c('wen'),
-      __mapper('xs').m('graticule'),
-      __mapper('xs').p('natform'),
     ])
 
     let ani = function () {
@@ -36,19 +34,16 @@
       let natform = {
 
         halo: 'ent',
+        geofold: p =>  mnat.natFeature(p.payload.geoform),
+
+        tim: tim,
+        ric: {gid: 'nat', cid: 'nat', fid: 'natform'},
+        boform: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
+
+        geodrift: {
+          proform: { projection: 'uniwen', translate: [0, 0, 0], scale: 1, rotate: [0, 0, 0], lens: [0, 1, Infinity] },
+        },
         payload: {
-          geofold: p => {
-            let r = mnat.natFeature(p.payload.geoform)
-            return r
-          },
-
-          tim: tim,
-          ric: {gid: 'nat', cid: 'nat', fid: 'natform'},
-          boform: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
-
-          geodrift: {
-            proform: { projection: 'uniwen', translate: [0, 0, 0], scale: 1, rotate: [0, 0, 0], lens: [0, 1, Infinity] },
-          },
           geoform: {
 
             'm1': [[[-8, -4, -2, -7.66]]],
@@ -76,10 +71,10 @@
       let sceneAni = {
 
         halo: 'scene',
+        geofold: null,
+        tim: tim,
+        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         payload: {
-          geofold: null,
-          tim: tim,
-          ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
           context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
         },
 
