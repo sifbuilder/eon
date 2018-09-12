@@ -9,7 +9,7 @@ async function anitem (__mapper) {
     rrenderport,
     mgeoj,
     mproj3ct,
-    mprofier,
+    muonProfier,
     mstace,
     mric,
     msvg,
@@ -71,7 +71,7 @@ async function anitem (__mapper) {
       lens: [0, 1, Infinity],
     }
 
-    let project = mprofier.uniweon(proform)
+    let project = muonProfier.uniweon(proform)
     let geoData = mproj3ct(gjdata, project)
 
     // .................. polyForm
@@ -135,7 +135,7 @@ async function anitem (__mapper) {
         let geodata = newFeatureCollection
 
         if (payload.proform) {
-          let proformion = mprofier.proformion(anigram)
+          let proformion = muonProfier.proformion(anigram)
           newFeatureCollection = mproj3ct(geodata, proformion)
         }
 

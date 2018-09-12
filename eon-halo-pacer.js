@@ -53,7 +53,7 @@
       haloEoform,
       mstace,
       mprops,
-      mprofier,
+      muonProfier,
       mproj3ct,
     ] = await Promise.all([
       __mapper('xs').m('ric'),

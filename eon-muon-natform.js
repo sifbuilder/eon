@@ -182,7 +182,7 @@
       glmatrix,
       mprops,
       mgraticule,
-      mprofier,
+      muonProfier,
       mproj3ct,
       d3scale,
       d3array,

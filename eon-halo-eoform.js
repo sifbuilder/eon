@@ -18,7 +18,7 @@
   async function haloEoform (__mapper = {}) {
     let [
       mgeoj,
-      mprofier,
+      muonProfier,
       mproj3ct,
       mprops,
       haloFormed,
@@ -43,11 +43,11 @@
       let geonode = mprops.v(anitem.geonode, anitem)
 
       if (geonode && anitem.geodrift) {
-        for (let [bach, prt] of Object.entries(anitem.geodrift)) {
+        for (let [drift, prt] of Object.entries(anitem.geodrift)) {
           let properties = geonode.properties || {}
-          let node = mproj3ct(mgeoj.deprop(geonode), mprofier.formion(prt, anitem))
+          let node = mproj3ct(mgeoj.deprop(geonode), muonProfier.formion(prt, anitem))
           node.properties = properties
-          node.properties[bach] = node
+          node.properties[drift] = node
 
           newAni.geonode = node
         }
@@ -59,18 +59,18 @@
       let gjcollection = mgeoj.featurecollect(geofold)
 
       if (geofold && anitem.geodrift) {
-        for (let [bach, prt] of Object.entries(anitem.geodrift)) {
+        for (let [drift, prt] of Object.entries(anitem.geodrift)) {
           gjcollection.features = gjcollection.features.map(
             feature => {
               let properties = feature.properties || {}
-              let prtion = mprofier.formion(prt, anitem)
+              let prtion = muonProfier.formion(prt, anitem)
               let gjobj = mgeoj.deprop(feature)
 
               console.assert(gjobj.geometry.coordinates !== null)
 
               let node = mproj3ct(gjobj, prtion)
               node.properties = properties
-              node.properties[bach] = node
+              node.properties[drift] = node
 
               return node
             }

@@ -9,7 +9,7 @@ async function anitem (__mapper) {
     rrenderport,
     mgeoj,
     mproj3ct,
-    mprofier,
+    muonProfier,
     mstace,
     mric,
     msvg,
@@ -90,10 +90,10 @@ async function anitem (__mapper) {
       lens: [0, 1, Infinity],
     }
 
-    let geoData1 = mproj3ct(gjdata1, mprofier.uniweon(proform1))
-    let geoData2 = mproj3ct(gjdata2, mprofier.uniweon(proform2))
-    let geoData3 = mproj3ct(gjdata3, mprofier.uniweon(proform3))
-    let geoData4 = mproj3ct(gjdata4, mprofier.uniweon(proform4))
+    let geoData1 = mproj3ct(gjdata1, muonProfier.uniweon(proform1))
+    let geoData2 = mproj3ct(gjdata2, muonProfier.uniweon(proform2))
+    let geoData3 = mproj3ct(gjdata3, muonProfier.uniweon(proform3))
+    let geoData4 = mproj3ct(gjdata4, muonProfier.uniweon(proform4))
 
     // .................. lichtAni1
     let lichtAni1 = {
@@ -146,7 +146,7 @@ async function anitem (__mapper) {
 
         newFeatureCollection.features = Array.of(ngj)
         if (payload.proform) {
-          let proformion = mprofier.proformion(anigram)
+          let proformion = muonProfier.proformion(anigram)
           newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
         }
 
@@ -211,7 +211,7 @@ async function anitem (__mapper) {
 
         newFeatureCollection.features = Array.of(ngj)
         if (payload.proform) {
-          let proformion = mprofier.proformion(anigram)
+          let proformion = muonProfier.proformion(anigram)
           newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
         }
 
@@ -276,7 +276,7 @@ async function anitem (__mapper) {
 
         newFeatureCollection.features = Array.of(ngj)
         if (payload.proform) {
-          let proformion = mprofier.proformion(anigram)
+          let proformion = muonProfier.proformion(anigram)
           newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
         }
 
@@ -341,7 +341,7 @@ async function anitem (__mapper) {
 
         newFeatureCollection.features = Array.of(ngj)
         if (payload.proform) {
-          let proformion = mprofier.proformion(anigram)
+          let proformion = muonProfier.proformion(anigram)
           newFeatureCollection = mproj3ct(newFeatureCollection, proformion)
         }
 

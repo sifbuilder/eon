@@ -8,7 +8,7 @@ async function anitem (__mapper) {
   let [
     mfourier,
     mproj3ct,
-    mprofier,
+    muonProfier,
     mgeoj,
     msvg,
     haloEoform,
@@ -55,7 +55,7 @@ async function anitem (__mapper) {
 
     let proform = (lat, lon) => ({projection: 'uniwen', translate: [ lat, lon ], scale: [1, 1], rotate: [ 0, 0 ], lens: [0, 1, Infinity]})
 
-    let geoData = i => mproj3ct(data, mprofier.uniweon(proform(-250 + i * 60 + i * i * 16, 0)))
+    let geoData = i => mproj3ct(data, muonProfier.uniweon(proform(-250 + i * 60 + i * i * 16, 0)))
 
     let nb = mgeoj.getCoordsLength(data)
     let csi = (i, t) => mgeoj.getCoordsInRange(geoData(i), Math.ceil(nb * t))

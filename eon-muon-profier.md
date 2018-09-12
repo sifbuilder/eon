@@ -28,11 +28,11 @@ build geo projections
  if `@projdef.control:versor` apply versor control rotation 
  
 ### projer_ 
-use: `mprofier.projer_(prodef, anigram)(gj) 
+use: `muonProfier.projer_(prodef, anigram)(gj) 
 *get formion projector on gj* 
  
 ### conformer_ 
-use: `mprofier.conformer_ (anigram)` 
+use: `muonProfier.conformer_ (anigram)` 
 **get formion projector** 
 assumes `projection != undefined` 
 ``` 
@@ -43,7 +43,7 @@ assumes `projection != undefined`
 ``` 
  
 ### proformion 
-call `mprofier.proformion (anigram)` 
+call `muonProfier.proformion (anigram)` 
 calls `formion(anigram.payload.proform, anigram)` 
 **get proform projection from projdef** 
  
