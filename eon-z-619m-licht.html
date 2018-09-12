@@ -1,40 +1,9 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.s
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = await xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
     rrenderport,
@@ -45,6 +14,7 @@ async function zindex (__mapper) {
     mric,
     msvg,
     dlicht5,
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').r('renderport'),
     __mapper('xs').m('geoj'),
@@ -54,12 +24,13 @@ async function zindex (__mapper) {
     __mapper('xs').m('ric'),
     __mapper('xs').m('svg'),
     __mapper('xs').d('licht5'),
+    __mapper('xs').h('scene'),    
   ])
 
   let mstore = __mapper('xs').m('store')
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     // .................. pics
     let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -128,6 +99,7 @@ async function zindex (__mapper) {
     let lichtAni1 = {
 
       halo: 'formed',
+
       geofold: ani => {
         let anigram = ani, // anigram
           halo = ani.halo, // halo
@@ -135,7 +107,7 @@ async function zindex (__mapper) {
           payload = ani.payload // payload
 
         let geoData = geoData1 // geoData
-        let unitElapsed = ani.payload.tim.unitElapsed // unit time elapsed
+        let unitElapsed = ani.tim.unitElapsed // unit time elapsed
         let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
         let nbt = Math.ceil(nb1 * t)
         let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
@@ -180,10 +152,10 @@ async function zindex (__mapper) {
 
         return newFeatureCollection
       },
+      tim: tim,
+      ric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
       payload: {
-        tim: tim,
-        ric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
         tf: t => t,
       },
     }
@@ -192,6 +164,7 @@ async function zindex (__mapper) {
     let lichtAni2 = {
 
       halo: 'formed',
+
       geofold: ani => {
         let anigram = ani, // anigram
           halo = ani.halo, // halo
@@ -199,7 +172,7 @@ async function zindex (__mapper) {
           payload = ani.payload // payload
 
         let geoData = geoData2 // geoData
-        let unitElapsed = ani.payload.tim.unitElapsed // unit time elapsed
+        let unitElapsed = ani.tim.unitElapsed // unit time elapsed
         let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
         let nbt = Math.ceil(nb2 * t)
         let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
@@ -244,10 +217,10 @@ async function zindex (__mapper) {
 
         return newFeatureCollection
       },
+      tim: tim,
+      ric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
       payload: {
-        tim: tim,
-        ric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
         tf: t => t,
       },
     }
@@ -256,6 +229,7 @@ async function zindex (__mapper) {
     let lichtAni3 = {
 
       halo: 'formed',
+
       geofold: ani => {
         let anigram = ani, // anigram
           halo = ani.halo, // halo
@@ -263,7 +237,7 @@ async function zindex (__mapper) {
           payload = ani.payload // payload
 
         let geoData = geoData3 // geoData
-        let unitElapsed = ani.payload.tim.unitElapsed // unit time elapsed
+        let unitElapsed = ani.tim.unitElapsed // unit time elapsed
         let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
         let nbt = Math.ceil(nb3 * t)
         let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
@@ -308,10 +282,10 @@ async function zindex (__mapper) {
 
         return newFeatureCollection
       },
+      tim: tim,
+      ric: { gid: 'ani', cid: 'ani', fid: 'ani3'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
       payload: {
-        tim: tim,
-        ric: { gid: 'ani', cid: 'ani', fid: 'ani3'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
         tf: t => t,
       },
     }
@@ -320,6 +294,7 @@ async function zindex (__mapper) {
     let lichtAni4 = {
 
       halo: 'formed',
+
       geofold: ani => {
         let anigram = ani, // anigram
           halo = ani.halo, // halo
@@ -327,7 +302,7 @@ async function zindex (__mapper) {
           payload = ani.payload // payload
 
         let geoData = geoData4 // geoData
-        let unitElapsed = ani.payload.tim.unitElapsed // unit time elapsed
+        let unitElapsed = ani.tim.unitElapsed // unit time elapsed
         let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
         let nbt = Math.ceil(nb4 * t)
         let csi = t => mgeoj.getCoordsInRange(geoData, nbt)
@@ -372,10 +347,10 @@ async function zindex (__mapper) {
 
         return newFeatureCollection
       },
+      tim: tim,
+      ric: { gid: 'ani', cid: 'ani', fid: 'ani4'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.0072, 'cp': 0.7},
       payload: {
-        tim: tim,
-        ric: { gid: 'ani', cid: 'ani', fid: 'ani4'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.0072, 'cp': 0.7},
         tf: t => t,
       },
     }
@@ -385,9 +360,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -408,7 +383,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

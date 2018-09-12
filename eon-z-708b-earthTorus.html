@@ -1,41 +1,9 @@
-<!DOCTYPE html>
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.s
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
     mgeom,
@@ -43,18 +11,23 @@ async function zindex (__mapper) {
     mgraticule,
     topojson,
     dworldTopo110m,
-    mnat,
+    muonNatform,
+    prtNatform,
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('geom'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('graticule'),
     __mapper('xs').b('topojson'),
     __mapper('xs').d('worldTopo110m'),
-    __mapper('xs').m('nat'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').p('natform'),
+    __mapper('xs').h('scene'),    
   ])
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
+    // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
       sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh,
@@ -207,7 +180,7 @@ async function zindex (__mapper) {
     // ............................. earthAni
     let earthAni = {
 
-      halo: 'ent',
+      halo: 'eoform',
 
       geofold: p => {
         let geometry = Object.assign({},
@@ -219,13 +192,14 @@ async function zindex (__mapper) {
         return { type: 'Feature', geometry: geometry, properties: {} }
       },
 
-      payload: {
-
-        tim: tim,
-        ric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
-        boform: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
-        conform: { projection: 'natform', form: formTorus },
+      tim: tim,
+      ric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
+      boform: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
+      geodrift: {
+        conform: { projection: 'natform', geoform: formTorus },
         proform: proformEarth,
+      },
+      payload: {
       },
 
     }
@@ -233,10 +207,10 @@ async function zindex (__mapper) {
     // .............................  cubeAni
     let cubeAni = {
 
-      halo: 'ent',
-      geofold: (p) => {
-        let payload = p.payload,
-          ric = payload.ric
+      halo: 'eoform',
+      geofold: anitem => {
+        let payload = anitem.payload,
+          ric = anitem.ric
 
         let json = {type: 'FeatureCollection', features: []}
         let points = payload.points // payload.points
@@ -262,15 +236,16 @@ async function zindex (__mapper) {
         return json
       },
 
-      payload: {
-        tim: tim,
-        ric: {gid: 'cubeAni', cid: 'cubeAni', fid: 'cubeAni'},
-        boform: { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
+      tim: tim,
+      ric: {gid: 'cubeAni', cid: 'cubeAni', fid: 'cubeAni'},
+      boform: { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
 
-        conform: { projection: 'natform', form: formSphere },
+      geodrift: {
+        conform: { projection: 'natform', geoform: formSphere },
 
         proform: proformEarth,
-
+      },
+      payload: {
         points: [
           [-1, -1, 1], // 0
           [ 1, -1, 1], // 1
@@ -314,52 +289,57 @@ async function zindex (__mapper) {
     // .............................  graticubeAni
     let graticubeAni = {
 
-      halo: 'ent',
+      halo: 'eoform',
 
       geofold: anitem => mgraticule.vhMultiLine(anitem.payload.graticule),
+      tim: tim,
+      ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticubeAni'},
+      boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
-      payload: {
-        tim: tim,
-        ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticubeAni'},
-        boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
-
-        conform: { projection: 'natform', form: formGratiCube },
+      geodrift: {
+        conform: { projection: 'natform', geoform: formGratiCube },
 
         proform: proformEarth,
-
-        graticule: { extent: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] } },
+      },
+      payload: {
+        graticule: { extent: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
+      },
 
     }
     // .............................  graticircAni
     let graticircAni = {
 
-      halo: 'ent',
+      halo: 'eoform',
+
       geofold: p => mgraticule.vhMultiLine(p.payload.graticule), // hMultiLine
+      tim: tim,
+      ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticircAni'},
+      boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
-      payload: {
-        tim: tim,
-        ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticircAni'},
-        boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
-
-        conform: { projection: 'natform', form: formSphere },
+      geodrift: {
+        conform: { projection: 'natform', geoform: formSphere },
 
         proform: proformEarth,
-
-        graticule: { frame: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] } },
+      },
+      payload: {
+        graticule: { frame: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
+      },
 
     }
     // ............................. torusAni1
     let torusAni1 = {
 
-      halo: 'ent',
-      geofold: p => mnat.natFeature(p.payload.form), // geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
-      payload: {
-        tim,
-        ric: {gid: 'q', cid: 'q', fid: 'q1'},
+      halo: 'eoform',
+      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      tim,
+      ric: {gid: 'q', cid: 'q', fid: 'q1'},
+      geodrift: {
         proform: proformTorus,
-        boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
-          'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-        form: formTorus,
+      },
+      boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+        'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
+      payload: {
+        geoform: formTorus,
       },
     }
     // .................. sceneAni
@@ -367,9 +347,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -377,11 +357,11 @@ async function zindex (__mapper) {
 
     // ............................. animas
     let animas = [
-      earthAni, // h.ent p.natform g.uniwen
-      // torusAni1, // h.ent p.natform g.uniwen
-      // cubeAni, // h.ent g.uniwen
-      // graticubeAni, // h.ent
-      // graticircAni, // h.ent
+      earthAni, // h.eoform p.natform g.uniwen
+      // torusAni1, // h.eoform p.natform g.uniwen
+      // cubeAni, // h.eoform g.uniwen
+      // graticubeAni, // h.eoform
+      // graticircAni, // h.eoform
       sceneAni, // h.scene
     ]
 
@@ -389,7 +369,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

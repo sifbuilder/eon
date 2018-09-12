@@ -1,0 +1,839 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  let [
+    mprops,
+    mforces,
+    muonNatform,
+    d3Force3d,
+    rrenderport,
+    crayder,
+    mric,
+    haloEoform,
+    haloNatform,
+    haloScene,    
+  ] = await Promise.all([
+    __mapper('xs').m('props'),
+    __mapper('xs').m('forces'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').b('d3-force-3d'),
+    __mapper('xs').r('renderport'),
+    __mapper('xs').c('rayder'),
+    __mapper('xs').m('ric'),
+    __mapper('xs').h('eoform'),
+    __mapper('xs').h('natform'),
+    __mapper('xs').h('scene'),    
+  ])
+
+  let [
+    forceVoid,
+    forceEnergy,
+    // forceViscosity,
+    // forceManybody,
+    // forceCharge,
+    // forceCube,
+    // forceCollide,
+    forceCenter,
+    // forceX,
+    // forceY,
+    // forceZ,
+  ] = await Promise.all([
+    __mapper('xs').f('void'),
+    __mapper('xs').f('energy'),
+    // __mapper('xs').f('viscosity'),
+    // __mapper('xs').f('manybody'),
+    // __mapper('xs').f('charge'),
+    // __mapper('xs').f('cube'),
+    // __mapper('xs').f('collide'),
+    __mapper('xs').f('center'),
+    // __mapper('xs').f('x'),
+    // __mapper('xs').f('y'),
+    // __mapper('xs').f('z'),
+  ])
+
+  let mstore = __mapper('muonStore')
+  // .................. animas
+  let ani = function () {
+    let width = rrenderport.width(),
+      height = rrenderport.height()
+
+    let d3_force = d3Force3d
+
+    // isolation ween
+    let haloIsolation_ween = anima => { // WEEN
+      let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+
+      const perimeter = 12, length = 30
+      const getId = (col, row) => `${col},${row}`
+
+      let nodes = [], links = []
+      for (let colIdx = 0; colIdx < perimeter; colIdx++) {
+        for (let rowIdx = 0; rowIdx < length; rowIdx++) {
+          const id = getId(colIdx, rowIdx)
+          nodes.push({id})
+
+          if (rowIdx > 0) { // Link vertically
+            links.push({ source: getId(colIdx, rowIdx - 1), target: id })
+          }
+
+          links.push({ source: getId((colIdx || perimeter) - 1, rowIdx), target: id }) // Link horizontally
+        }
+      }
+      let r = { nodes, links }
+
+      let nbr = anima.payload.pacer.initN // 6
+
+      for (let i = 0; i < nbr; i++) {
+        let ani = mprops.cloneObj(natAni) // clone of model anima
+        ani.ric.gid = 'nat'
+        ani.ric.cid = (i % 2) ? 'orange' : 'gold'
+        ani.ric.fid = 'item' + i // identify
+
+        let uid = mric.getuid(ani.ric)
+        ani.uid = uid
+
+        ani.boform.cf = (i % 2) ? 777 : 666
+        ani.boform.cs = (i % 2) ? 777 : 666
+
+        let preani = mstore.getAnima(ani.ric)
+
+        if (preani) {
+          ani = preani
+        } else { // create anima
+          ani.halo = 'natform' // create halo
+
+          let x0 = -200 + 60 * Math.random()
+          let y0 = 100 + 60 * Math.random()
+          let z0 = 0
+
+          let x1 = x0 + 10 + 1 * (0.5 - Math.random())
+          let y1 = y0 - 10 + 1 * (0.5 - Math.random())
+          let z1 = 0
+
+          ani.geofold = { // will create anigram
+            type: 'Feature',
+            geometry: {
+              type: 'LineString',
+              coordinates: [ [x0, y0, z0], [x1, y1, z1] ]},
+            properties: {
+              orgen: [0, 0, 0 ],
+            },
+          }
+        }
+        animas.push(ani)
+      }
+
+      mstore.apply({type: 'UPDANIMA', animas: animas}) // live
+      return animas
+    }
+
+    let haloIsolation_gramm = anima => [] // GRAMM))
+
+    let isolation = {
+      ween: anima => haloIsolation_ween(anima),
+      gramm: anima => haloIsolation_gramm(anima),
+    }
+
+    // ............................. pics
+    let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    // ............................. natAni
+    let natAni = {
+
+      halo: isolation,
+
+      geofold: p => muonNatform.natFeature(p.payload.form),
+      tim: tim,
+      ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          translate:
+              [0, 0, 0],
+          // [ [ [[[100, 400]]], 200 ],
+          // [[[ {
+          // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
+          // 'ra2': 30,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
+
+          // } ]]] ],
+          scale: 1,
+          rotate: [ 0, 0, [[[0, 0]]] ],
+          lens: [0, 1, 12],
+          anod: 1, // geonode
+        },
+      },
+      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[777, 777]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.9, 0.9]]]},
+
+      payload: {
+        pacer: {
+          initN: 8, eventN: 6, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, span: 1 / 100,
+
+          riccer: function (ani, props) {
+            let newric = mprops.clone(ani.ric) // clone ric
+            newric.gid = newric.gid
+            newric.cid = newric.cid
+            newric.fid = newric.fid + props.counter
+            return newric
+          },
+
+          stacer: function (ani, props) {
+            let stace
+            if (props.key === 'init') {
+              let a = 2 * Math.PI * Math.random()
+              stace = {x: 20 * Math.cos(a), y: 20 * Math.sin(a), z: 0 } // INIT
+            } else if (props.key === 'auto') {
+              stace = {x: crayder.event().x, y: crayder.event().y, z: 0 } // AUTO
+            } else if (props.key === 'event') {
+              stace = {x: 0, y: 0, z: 0 } // EVENT
+            }
+            return stace
+          },
+
+          geofolder: p => muonNatform.natFeature(p.payload.form),
+
+          form: {
+
+            'x': {
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+              'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
+            },
+            'y': {
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+              'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
+            },
+            'z': {
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+              'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
+            },
+          },
+        },
+
+      },
+    }
+
+    // ............................. force_energy
+    let force_energy = { // aniForce
+      properties: {
+        alpha: 1,
+        alphaMin: 0.001,
+        alphaDecay: 0,
+        alphaTarget: 0,
+      },
+
+      field: function field (params = {}) {
+        let nodes = params.nodes
+
+        let forceParams = {
+          type: 'energy',
+          filter: d => true,
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let field = {
+          key: 'energy',
+          force: mforces.force_(forceParams),
+        }
+
+        return Array.of(field)
+      },
+    }
+
+    // ............................. force_viscosity
+    let force_viscosity = {
+      properties: {
+        velocityDecay: 0.0002,
+      },
+
+      field: function (params = {}) { // field.field
+        let nodes = params.nodes // nodes
+
+        let forceParams = {
+          type: 'void',
+          filter: d => true,
+          dim: 3,
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let field = {
+          key: 'viscosity',
+          force: mforces.force_(forceParams),
+        }
+
+        return Array.of(field)
+      },
+    }
+
+    // ............................. field_link
+    let field_link = {
+      'properties': {},
+      'field': function field (params = {}) {
+        let nodes = params.nodes
+        let forces = []
+
+        let forceParams = {
+          'filter': d => true,
+          'type': 'linkForce',
+          'strength': 1, // d => params.strength,
+          'id': d => d.uid, // d => params.uid,
+          'distance': d => 100, // d => params.distance,
+          'distances': [d => 100], // d => params.distance,
+          'iterations': 1, // d => params.iterations,
+          'nodes': nodes,
+          'src': d3_force,
+          'links': nodes.filter(d => (d.ric.gid === 'link' || d.ric.gid === 'tern')),
+        }
+
+        let field = {
+          'key': 'forceLink',
+          'force': mforces.force_(forceParams),
+        }
+
+        forces.push(field)
+
+        return forces
+      },
+    }
+
+    // ............................. forceSphere
+    let forceSphere = function (params) {
+      let nodes = params.nodes
+
+      let rad = params.rad
+
+      function force () {
+        for (let i = 0; i < nodes.length; ++i) {
+          let node = nodes[i]
+
+          // https://www.cs.unc.edu/~rademach/xroads-RT/RTarticle.html
+          // The directions of the reflected and refracted rays are given by the following formulas.
+          // For a ray with direction V, and a surface with normal N (the normal is just the direction perpendicular to the surface - pointing directly away from it), the reflected ray direction Rl is given by
+          // c1 = -dot_product( N, V )
+          // Rl = V + (2 * N * c1 )
+          // Note that since V, N, and Rl are vectors with x, y, and z components, the arithmetic on them is performed per-component. The refracted ray direction Rr is given by
+          // n1 = index of refraction of original medium
+          // n2 = index of refraction of new medium
+          // n = n1 / n2
+          // c2 = sqrt( 1 - n2 * (1 - c12) )
+          // Rr = (n * V) + (n * c1 - c2) * N
+
+          let m = rad
+          let V = [node.vx, node.vy, node.vz]
+          let N = [node.x / rad, node.y / rad, node.z / rad]
+          let c1 = -(
+            node.vx * node.x / rad +
+                node.vy * node.y / rad +
+                node.vz * node.z / rad)
+          let R1 = [
+            node.vx + 2 * (node.x / rad) * c1,
+            node.vy + 2 * (node.y / rad) * c1,
+            node.vz + 2 * (node.z / rad) * c1,
+          ]
+
+          let r2 = (node.x + node.vx) * (node.x + node.vx) +
+                (node.y + node.vy) * (node.y + node.vy) +
+                (node.z + node.vz) * (node.z + node.vz)
+          let rad2 = rad * rad
+          if (r2 > rad2) {
+            node.vx = R1[0] // *= -1;
+            node.vy = R1[1] // *= -1  ;
+            node.vz = R1[2] // *= -1
+          }
+        }
+      }
+
+      function initialize () {
+        if (!nodes) return
+      }
+
+      return force
+    }
+
+    let force_sphere = {
+      'properties': {
+        rad: 290,
+      },
+
+      'field': params => {
+        let nodes = params.nodes
+        let forces = []
+
+        let rad = params.properties.rad
+
+        let forceParams = {
+          type: 'sphere',
+          filter: d => d.ric.gid === 'animaRed',
+          rad: rad,
+          dim: 3,
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let field = {
+          'key': 'sphere',
+          'force': forceSphere(forceParams),
+
+        }
+        forces.push(field)
+        return forces
+      },
+    }
+
+    // ............................. forceCube
+    let forceCube = function forceCube (params) {
+      let nodes = params.nodes
+      let edge = params.edge
+
+      function force () {
+        for (let i = 0; i < nodes.length; ++i) {
+          let node = nodes[i]
+
+          if (node.x < -edge) node.vx = Math.abs(node.vx) // node.vx *= -1
+          if (node.x > edge) node.vx = -Math.abs(node.vx) // node.vx *= -1
+          if (node.y < -edge) node.vy = Math.abs(node.vy) // node.vy *= -1
+          if (node.y > edge) node.vy = -Math.abs(node.vy) // node.vy *= -1
+          if (node.z < -edge) node.vz = Math.abs(node.vz) // node.vy *= -1
+          if (node.z > edge) node.vz = -Math.abs(node.vz) // node.vy *= -1
+        }
+      }
+
+      function initialize () {
+        if (!nodes) return
+      }
+
+      return force
+    }
+
+    let force_cube = {
+      'properties': {
+        edge: 200,
+      },
+
+      'field': params => {
+        let nodes = params.nodes
+        let forces = []
+
+        let edge = params.properties.edge
+
+        let forceParams = {
+          type: 'cube',
+          filter: d => d.ric.gid === 'animaRed',
+          edge: edge,
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let field = {
+          'key': 'cube',
+          'force': forceCube(forceParams),
+
+        }
+        forces.push(field)
+        return forces
+      },
+    }
+
+    // ............................. force_collide
+    let force_collide = {
+
+      properties: {
+
+        strength: 0.03,
+
+      },
+
+      field: params => {
+        let nodes = params.nodes
+        let forces = []
+
+        let strength = params.properties.strength
+
+        let forceParams = {
+          type: 'collide',
+          strength: strength,
+          radius: d => 9,
+          filter: function (d) {
+            return d.ric.gid === 'nat'
+          },
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let force = mforces.force_(forceParams)
+        let field = {key: 'collide', force: force}
+
+        forces.push(field)
+        return forces
+      },
+    }
+
+    // ............................. force_manybody
+    let force_manybody = { // aniForce
+
+      properties: {
+        strength: -1.9,
+        theta: 0.9,
+        distanceMin: 0,
+        distanceMax: Infinity,
+      },
+
+      field: params => {
+        let nodes = params.nodes
+        let strength = params.properties.strength
+
+        let forces = []
+
+        let forceParams = {
+          type: 'manybody', // f.manybody
+          strength: strength,
+          filter: d => d.ric.gid === 'nat',
+          src: d3_force, // d3
+          nodes: nodes,
+        }
+
+        let force = mforces.force_(forceParams)
+        let field = {'key': 'charge', 'force': force}
+
+        forces.push(field)
+        return forces
+      },
+    }
+
+    // ............................. forceGravity
+    let forceGravity = function (params) { // force
+      let nodes = params.nodes
+
+      let newNodes = []
+
+      let gravity = params.gravity
+
+      function force () { // d3force builtin (vs muon d3force)
+        for (let i = 0; i < nodes.length; ++i) {
+          let node = nodes[i]
+          node.vy += gravity // node.vx += 0.001 * Math.random()
+        }
+      }
+
+      function initialize () {
+        if (!nodes) return
+      }
+
+      return force
+    }
+
+    let force_gravity = { // aniForce:{properties, field}
+
+      properties: {
+        gravity: -0.1,
+      },
+
+      field: params => { // force.field
+        let forces = []
+        let nodes = params.nodes // params: elapsed, nodes, properties.gravity
+
+        let gravity = params.properties.gravity // params.properties
+
+        let forceParams = {
+          type: 'gravity',
+          gravity: gravity,
+          filter: d => true, // d => d.ric.gid === 'nat',
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let force = forceGravity(forceParams)
+
+        let field = {
+          key: 'gravity',
+          force: force,
+        }
+
+        forces.push(field)
+        return forces
+      },
+    }
+
+    // ............................. forceWind
+    let forceWind = function (params) { // force
+      let nodes = params.nodes
+
+      let newNodes = []
+
+      let wind = params.wind
+
+      function force () { // d3force builtin (vs muon d3force)
+        for (let i = 0; i < nodes.length; ++i) {
+          let node = nodes[i]
+          node.vx += wind[0] // node.vx += 0.001 * Math.random()
+          node.vy += wind[1] // node.vx += 0.001 * Math.random()
+        }
+      }
+
+      function initialize () {
+        if (!nodes) return
+      }
+
+      return force
+    }
+
+    let force_wind = { // aniForce:{properties, field}
+
+      properties: {
+        wind: [0.088, -0.075],
+      },
+
+      field: params => { // force.field
+        let forces = []
+        let nodes = params.nodes // params: elapsed, nodes, properties.wind
+
+        let wind = params.properties.wind // params.properties
+
+        let forceParams = {
+          type: 'wind',
+          wind: wind,
+          filter: d => true, // d => d.ric.gid === 'nat',
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let force = forceWind(forceParams)
+
+        let field = {
+          key: 'wind',
+          force: force,
+        }
+
+        forces.push(field)
+        return forces
+      },
+    }
+    // ............................. force_charge
+    let force_charge = {
+      'properties': {
+        'charge': -0.85,
+      },
+
+      'field': params => {
+        let forces = []
+
+        let nodes = params.nodes
+        let charge = params.properties.charge
+
+        let forceParams = {
+          type: 'manyBody',
+          strength: charge,
+          filter: d => d.ric.gid === 'nat',
+          dim: 3,
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let field = {
+          'key': 'charge',
+          'force': d => {
+            return mforces.force_(forceParams)
+          },
+
+        }
+        forces.push(field)
+        return forces
+      },
+    }
+
+    // ............................. force_X
+    let force_X = {
+
+      properties: {
+
+        attractionCtt: 0.9,
+
+      },
+
+      field: params => { // force.field
+        let forces = []
+
+        let attractionCtt = params.properties.attractionCtt
+
+        let nodes = params.nodes
+
+        let forceParams = {
+          type: 'x', // f.x
+          position: 10,
+          strength: d => attractionCtt,
+          filter: d => d.ric.gid === 'nat',
+          src: d3_force,
+          'nodes': nodes,
+        }
+
+        let force = mforces.force_(forceParams)
+        let field = {'key': 'x_center', 'force': force}
+
+        forces.push(field)
+        return forces
+      },
+    }
+
+    // ............................. force_Y
+    let force_Y = {
+
+      properties: {
+
+        attractionCtt: 0.7,
+
+      },
+
+      field: function field (params = {}) {
+        let nodes = params.nodes
+        let forces = []
+
+        let attractionCtt = params.properties.attractionCtt
+
+        let forceParams = {
+          type: 'y',
+          position: 10,
+          strength: d => attractionCtt,
+          filter: function (d) {
+            return d.ric.gid === 'nat'
+          },
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let force = mforces.force_(forceParams)
+        let field = {key: 'y_center', force: force}
+
+        forces.push(field)
+        return forces
+      },
+    }
+    // ............................. force_Z
+    let force_Z = {
+
+      properties: {
+
+        attractionCtt: 0.9,
+
+      },
+
+      field: function field (params = {}) {
+        let forces = []
+
+        let attractionCtt = params.properties.attractionCtt
+
+        let nodes = params.nodes
+
+        let forceParams = {
+          'type': 'z',
+          'position': 200,
+          'strength': d => attractionCtt,
+          filter: d => d.ric.gid === 'nat',
+          src: d3_force,
+          'nodes': nodes,
+        }
+
+        let force = mforces.force_(forceParams)
+        let field = {'key': 'z_center', 'force': force}
+
+        forces.push(field)
+        return forces
+      },
+    }
+    // ............................. force_center_orange
+    let force_center_orange = {
+
+      properties: {
+        attractionCtt: 0.25,
+        center: {x: 10, y: 10, z: 10},
+      },
+
+      field: params => {
+        let forces = []
+        let nodes = params.nodes
+
+        let attractionCtt = params.properties.attractionCtt
+        let center = params.properties.center
+
+        let strength = attractionCtt
+
+        let forceParams = {
+          type: 'center', // f.center
+          center: center,
+          strength: d => attractionCtt,
+          filter: d => true, // filter: d => d.ric.cid === 'orange',
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let force = mforces.force_(forceParams)
+
+        let field = {
+          key: 'center_orange',
+          force: force,
+        }
+
+        forces.push(field)
+        return forces
+      },
+    }
+    // ............................. force_center_gold
+    let force_center_gold = {
+      properties: {
+        attractionCtt: 0.0025,
+        center: {x: 200, y: 200, z: 200},
+      },
+      field: function (params = {}) {
+        let attractionCtt = params.properties.attractionCtt
+        let center = params.properties.center
+        let strength = attractionCtt
+        let nodes = params.nodes
+
+        let forceParams = {
+          'type': 'center', // f.center
+          'center': center,
+          'strength': d => attractionCtt,
+          'filter': d => d.ric.cid === 'gold',
+          'src': d3_force,
+          'nodes': nodes,
+        }
+        let force = {'key': 'center_golde', 'force': mforces.force_(forceParams)}
+        return Array.of(force)
+      },
+    }
+
+    // .................. natAni forces
+    natAni.payload.forces = {
+      force_energy,
+      force_viscosity,
+      // force_manybody,
+      // force_gravity,
+      force_wind,
+      // force_charge,
+      // force_cube,
+      // force_sphere
+      // force_collide,
+    // force_X,
+    // force_Y,
+    // force_Z,
+    // force_center_orange,
+    // force_center_gold
+    }
+
+    // .................. animas
+    let animas = [
+
+      natAni, // h.isolation
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

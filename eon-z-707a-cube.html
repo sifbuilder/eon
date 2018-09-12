@@ -1,49 +1,22 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map xs
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas})
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   let [
     cwen,
     mgeom,
+    prtNatform,
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').m('geom'),
+    __mapper('xs').p('natform'),
+    __mapper('xs').h('scene'),    
   ])
 
-  let animas = function () {
+  let ani = function () {
   // .................. pics
 
     const tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
@@ -68,11 +41,11 @@ async function zindex (__mapper) {
     // .................. cubeAni anima
     let cubeAni = {
 
-      halo: 'ent',
+      halo: 'eoform',
 
-      geofold: p => {
-        let payload = p.payload
-        let ric = payload.ric
+      geofold: anitem => {
+        let payload = anitem.payload
+        let ric = anitem.ric
 
         let gj = {type: 'FeatureCollection', features: []}
 
@@ -105,13 +78,15 @@ async function zindex (__mapper) {
         return gj
       },
 
-      payload: {
+      tim: tim,
+      ric: {'gid': 'cubeAni', 'cid': 'cubeAni', 'fid': 'cubeAni'},
+      boform: { 'csx': 0, 'cf': 111, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
 
-        tim: tim,
-        ric: {'gid': 'cubeAni', 'cid': 'cubeAni', 'fid': 'cubeAni'},
-        boform: { 'csx': 0, 'cf': 111, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
-
-        conform: { projection: 'natform', form: cubeForm },
+      geodrift: {
+        conform: {
+          projection: 'natform',
+          geoform: cubeForm,
+        },
 
         proform: {
 
@@ -122,6 +97,8 @@ async function zindex (__mapper) {
           lens: [0, 1, Infinity], // [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 400 ], // [0,1], // [1,0]
           prerotate: [[[ cwen.rotation ]]],
         },
+      },
+      payload: {
 
         points: [
           [(-1), (-1), (1)], // 0
@@ -169,9 +146,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -179,7 +156,7 @@ async function zindex (__mapper) {
 
     let animas = [
 
-      cubeAni, // h.ent
+      cubeAni, // h.eoform
       sceneAni, // h.scene
 
     ]
@@ -187,7 +164,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

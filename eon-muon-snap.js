@@ -11,17 +11,15 @@
   async function muonSnap (__mapper = {}) {
     let [
       mprops,
-      mnat,
+      muonNatform,
       mlacer,
       mgeoj,
-      // d3,
       d3scale,
     ] = await Promise.all([
       __mapper('xs').m('props'),
-      __mapper('xs').m('nat'),
+      __mapper('xs').m('natform'),
       __mapper('xs').m('lacer'),
       __mapper('xs').m('geoj'),
-      // __mapper('xs').b('d3'),
       __mapper('xs').b('d3-scale'),
     ])
 
@@ -102,7 +100,7 @@
                                       g === 1) { // assume nat on object
         let ws
 
-        let feature = mnat.natFeature(v) // async
+        let feature = muonNatform.natFeature(v) // async
         if (!mgeoj.isValid(feature)) console.error('gj not valid', v, feature)
         let geometry = feature.geometry
         let natRing

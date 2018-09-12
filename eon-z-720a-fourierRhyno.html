@@ -1,40 +1,9 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.s
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
     mfourier,
@@ -42,22 +11,33 @@ async function zindex (__mapper) {
     mprofier,
     mgeoj,
     drhyno,
+    muonStace,
+    haloEoform,
+    haloPacer,
+    haloFourier,
+    haloScene,    
   ] = await Promise.all([
     __mapper('xs').m('fourier'),
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
     __mapper('xs').m('geoj'),
     __mapper('xs').d('rhyno'),
+    __mapper('xs').m('stace'),
+    __mapper('xs').h('eoform'),
+    __mapper('xs').h('pacer'),
+    __mapper('xs').h('fourier'),
+    __mapper('xs').h('scene'),    
   ])
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     // .................. pics
     let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     // md:   data from m.animas('shapes').rhyno unframed
     // md:   defined as (closed) LineString gemetry.coordinates
     // md:   mfourier.transformedCoefs(tfeature)
+
     let svgdata = JSON.parse(drhyno.data())
     let data = {
       type: 'Feature',
@@ -84,7 +64,7 @@ async function zindex (__mapper) {
     // ............................. aniLine
     let aniLine = {
 
-      halo: 'ent',
+      halo: 'eoform',
       geofold: {
         type: 'Feature',
         geometry: {
@@ -92,11 +72,10 @@ async function zindex (__mapper) {
           coordinates: []},
         properties: {},
       },
-      payload: {
-        tim: tim,
-        ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
-      },
+      tim: tim,
+      ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
+      payload: {},
 
     }
 
@@ -104,41 +83,76 @@ async function zindex (__mapper) {
     let traceline = { // SUB-MARKS line trace
 
       halo: 'pacer',
-      geofold: null,
+
+      geofold: {
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: null,
+        },
+        properties: {},
+      },
+      geonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {},
+      },
+
+      tim,
+      ric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
+      boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+
       payload: {
-
         pacer: { // aad for trace
-          tim,
-          ric: {gid: 'trace', cid: 'trace', fid: 'trace'},
-          boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.9, 'cp': 0.99},
+          halo: 'eoform',
+          itemsort: 'anigram',
+          base: 'geo',
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
 
-        
-          stace: {x: { pos: 0 }, y: { pos: 0 }, z: 0}, //
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
-
-          geojsor: function (ani, props) {
-            let ric = ani.payload.pacer.ric // ric
-            let uid = mric.getuid(ric)
-
-            let gj = {
-              halo: 'ent',
-              geofold: {
-                type: 'Feature',
-                geometry: { type: 'LineString', coordinates: null },
-                properties: { doc: 'pacer' },
-              },
-              payload: {
-                uid: uid, id: uid, ric: ric,
-                proform: this.proform,
-              },
+          stace: function (ani, props) {
+            let stace
+            if (props.key === 'init') { // INIT
+              stace = {x: 0, y: 0, z: 0 }
+            } else if (props.key === 'auto') { // AUTO
+              stace = muonStace.getLocus(ani.payload.pacer.stace, ani) // AUTO
+            } else if (props.key === 'event') { // EVENT
+              stace = {x: 0, y: 0, z: 0 }
             }
-            let newItem = mstore.findAnigramFromUid(uid) || gj
-            if (newItem.geofold.properties.formEreformed) {
-              newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
-            }
-
-            return newItem
+            return stace
           },
+
+          geonode: function (ani, props) {
+            let stace = [0, 0, 0]
+            if (props.key === 'init') { // INIT
+              // stace is ani's transformed geonode
+              stace = muonStace.getLocus([null, null, null], ani)
+            } else if (props.key === 'auto') { // AUTO
+              stace = muonStace.getLocus([null, null, null], ani)
+            } else if (props.key === 'event') { // EVENT
+              if (crayder.grabbed() !== undefined) {
+                let grabbed = crayder.grabbed()
+                let x = grabbed[0]
+                let y = grabbed[1]
+                let z = 0
+                stace = {x, y, z }
+              }
+            }
+
+            let coordinates = stace
+            let res = {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: coordinates,
+              },
+              properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+            }
+            return res
+          },
+
         },
       },
     }
@@ -147,14 +161,14 @@ async function zindex (__mapper) {
     let fourierForm = {
 
       halo: 'fourier',
+
       geofold: p => transformsFC,
 
+      tim: tim,
+      ric: { gid: 'fourier', cid: 'fourier', fid: 'fourier'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.095, 'co': 0.092, 'cp': 0.99},
+
       payload: { // payload in fourierForm
-
-        tim: tim,
-        ric: { gid: 'fourier', cid: 'fourier', fid: 'fourier'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.095, 'co': 0.092, 'cp': 0.99},
-
         fourier: {
           transforms: transforms,
           interval: [0.0, 0.99],
@@ -176,9 +190,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -195,7 +209,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

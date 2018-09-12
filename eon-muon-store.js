@@ -8,6 +8,66 @@
 }(this, function (exports) {
   'use strict'
 
+ 
+// md: # eon-muon-store 
+// md: **manage anitems store** 
+// md: ## refs 
+// md: * `https://bl.ocks.org/mbostock/6081914 transitions` 
+// md: * `https://github.com/d3/d3-ease#easeElasticOut` 
+// md: 
+// md: 
+// md: ## methods 
+// md: * [apply](#apply) - adds, replace, delete anitems 
+// md:  @action: {UPDANIMA, UPDANIGRAM} 
+// md: * [ween](#ween) - process anitem through halo.ween 
+// md:   @anitem 
+// md: * [gramm](#gramm) - process anitem through halo.gramm 
+// md:   manage anitem's time 
+// md:   process anitem with anitem's halo.gramm 
+// md:   process anitem.avatars 
+// md: * animasInGroupHowMany 
+// md:   @anima 
+// md:   return live animas in group `anima.payload.rid.gid` 
+// md: * animasInClassHowMany 
+// md:   @anima 
+// md:   return live animas in class `anima.payload.rid.cid` 
+// md: * findIndexFromRic 
+// md:   @ric 
+// md:   @list 
+// md:   get anitem in @list by @ric {gid, cid, fid} 
+// md: * findIndex 
+// md:   @anitem 
+// md:   @list 
+// md:   get anitem in @list by @anitem.ric {gid, cid, fid} 
+// md: * findByUid 
+// md:   @anitem 
+// md:   @list 
+// md:   get anitem in @list by mric.getuid(@anitem) 
+// md: * findFromUid 
+// md:   @uid 
+// md:   @list 
+// md:   get anitem in @list by @uid 
+// md: * findIndexAnigramFromUid 
+// md: * findAnigramFromUid 
+// md: * findAnimaFromUid 
+// md: * born 
+// md: * unborn 
+// md: * getAnimaByUID 
+// md: * animas 
+// md: * anigrams 
+// md: * animasAll 
+// md: * animasLive 
+// md: * token 
+// md: * getNid 
+// md: * getAnigramIdx 
+// md: * getAnigram 
+// md: * getAnimaIdx 
+// md: * getAnima 
+// md: 
+// md: 
+// md: # license 
+// md: MIT  
+  
   async function muonStore (__mapper) {
     let [
       mtim,
@@ -41,8 +101,8 @@
         for (let i = 0; i < updAnimas.length; i++) {
           let updAnima = mprops.o(updAnimas[i]) // each new anima
 
-          let uid = (updAnima.payload.uid !== undefined) // uid
-            ? updAnima.payload.uid
+          let uid = (updAnima.uid !== undefined) // uid
+            ? updAnima.uid
             : mric.getuid(updAnima)
 
           let index = enty.findFromUid(uid, state.animas)
@@ -53,11 +113,11 @@
               state.animas[index] = updAnima // replace
             }
           } else { // new anima
-            updAnima.payload.tim = mtim.timing(updAnima.payload.tim, elapsed) // set tim elapsed
-            updAnima.payload.uid = uid // set uid if new anima
+            updAnima.tim = mtim.timing(updAnima.tim, elapsed) // set tim elapsed
+            updAnima.uid = uid // set uid if new anima
             updAnima.payload.nid = enty.getNid() // node id in animas collection
 
-            state.aniset[updAnima.payload.uid] = updAnima // set new anima by uid
+            state.aniset[updAnima.uid] = updAnima // set new anima by uid
             state.animas[state.animas.length] = updAnima // register new anima
           }
         }
@@ -76,8 +136,8 @@
               newItem = newItem[0]
             }
 
-            let uid = newItem.payload.uid
-            let index = enty.findFromUid(uid, state.anigrams) // find index from d.payload.uid
+            let uid = newItem.uid
+            let index = enty.findFromUid(uid, state.anigrams) // find index from d.uid
             if (index === -1) index = state.anigrams.length // add holder if new
             state.anigrams[index] = newItem // replace anigram
           }
@@ -91,9 +151,9 @@
     const getavatars = items => {
       items.forEach(item => {
         sequence(gavatars(item), avatar => {
-          avatar.payload.uid = mric.getuid(avatar)
-          avatar.payload.tim = item.payload.tim
-          avatar.payload.parentuid = item.payload.uid
+          avatar.uid = mric.getuid(avatar)
+          avatar.tim = item.tim
+          avatar.parentuid = item.uid
           gramm(avatar)
         })
       })
@@ -114,31 +174,40 @@
 
     // .................. ween
     async function ween (anitem) { // ok trace
-      let halo
-      if (typeof (anitem.halo) === 'object') {
-        halo = await Promise.resolve(anitem.halo)
+      let halo = anitem.halo
+      if (typeof (halo) === 'object') {
+        halo = await Promise.resolve(halo)
+   
       } else {
-        halo = await __mapper('xs').h(anitem.halo)
+        // halo = __mapper(__mapper('xs').ceonize(halo, 'halo'))
+        halo = await __mapper('xs').h(halo)
       }
-      await halo.ween(anitem) // UPDANIMA in halo
+
+      let anigram = anitem
+      // let snapped = await manitem.snapani(anitem)
+      // let anigram = await manitem.functorize(snapped)
+
+      let newItems = await halo.ween(anigram)
+
+      return newItems
+      // _apply({type: 'UPDANIMA', animas: newItems})  // UPDANIMA for sim
     }
 
-    // .................. gramm
-    function gramm (anitem) {
+    // .................. grammDyn
+    function grammDyn (anitem) {
       return manitem.snapani(anitem)
-        .then(geofunctored => manitem.functorpayload(geofunctored))
-        .then(snapped => manitem.functorgeofold(snapped))
+        .then(snapped => manitem.functorize(snapped))
         .then(anigram => (typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
-          .then(halo => halo.gramm(anigram) // )
+          .then(halo => Promise.resolve(halo.gramm(anigram))
             .then(newItems => {
-              _apply({type: 'UPDANIGRAM', anigrams: newItems})
+              _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
               newItems.forEach(newItem => {
                 let avatars = gavatars(newItem)
 
                 avatars.forEach(avatar => {
-                  avatar.payload.tim = anigram.payload.tim // tim from anigram
-                  avatar.payload.uid = mric.getuid(avatar) // uid from avatar
-                  avatar.payload.parentuid = newItem.payload.uid // parentuid from newItem
+                  avatar.tim = anigram.tim // tim from anigram
+                  avatar.uid = mric.getuid(avatar) // uid from avatar
+                  avatar.parentuid = newItem.uid // parentuid from newItem
 
                   gramm(avatar)
                 })
@@ -147,7 +216,25 @@
           )
         )
     }
+    async function gramm (anitem) {
+      let snapped = await manitem.snapani(anitem)
+      let anigram = await manitem.functorize(snapped)
+      let halo = (typeof (anitem.halo) === 'object') 
+        ? anitem.halo 
+        : __mapper(__mapper(__mapper('xs').ceonize(anigram.halo, 'halo')))  // expected in __mapper
+      let newItems = await halo.gramm(anigram)
+      _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
+      newItems.forEach(newItem => {
+                let avatars = gavatars(newItem)
+                avatars.forEach(avatar => {
+                  avatar.tim = anigram.tim // tim from anigram
+                  avatar.uid = mric.getuid(avatar) // uid from avatar
+                  avatar.parentuid = newItem.uid // parentuid from newItem
 
+                  gramm(avatar)
+                })
+              })
+    }
     // .................. enty
     let enty = {}
 
@@ -159,35 +246,42 @@
       (anima === undefined)
         ? 0
         : enty.animasLive()
-          .filter(d => d.payload.ric.gid === anima.payload.ric.gid).length
+          .filter(d => d.ric.gid === anima.ric.gid).length
 
     enty.animasInClassHowMany = anima =>
       (anima === undefined)
         ? 0
         : enty.animasLive()
-          .filter(d => (d.payload.ric.gid === anima.payload.ric.gid &&
-                    d.payload.ric.cid === anima.payload.ric.cid)).length
+          .filter(d => (d.ric.gid === anima.ric.gid &&
+                    d.ric.cid === anima.ric.cid)).length
+
+    enty.anigramsInClassHowMany = anigram =>
+      (anigram === undefined)
+        ? 0
+        : enty.anigrams()
+          .filter(d => (d.ric.gid === anigram.ric.gid &&
+                    d.ric.cid === anigram.ric.cid)).length
 
     enty.findIndexFromRic = (ric, list) =>
       list.findIndex(d =>
-        d.payload.ric.gid === ric.gid &&
-                d.payload.ric.cid === ric.cid &&
-                d.payload.ric.fid === ric.fid
+        d.ric.gid === ric.gid &&
+                d.ric.cid === ric.cid &&
+                d.ric.fid === ric.fid
       )
 
     enty.findIndex = (item, list) =>
       enty.findIndexFromRic(item.ric, list)
 
     enty.findByUid = (item, list) => enty.findFromUid(mric.getuid(item), list)
-    enty.findFromUid = (uid, list) => list.findIndex(d => d.payload.uid === uid)
+    enty.findFromUid = (uid, list) => list.findIndex(d => d.uid === uid)
 
-    enty.findIndexAnigramFromUid = uid => enty.anigrams().findIndex(d => d.payload.uid === uid)
-    enty.findAnigramFromUid = uid => state.anigrams.find(d => d.payload.uid === uid)
-    enty.findAnimaFromUid = uid => state.animas.find(d => d.payload.uid === uid)
+    enty.findIndexAnigramFromUid = uid => enty.anigrams().findIndex(d => d.uid === uid)
+    enty.findAnigramFromUid = uid => state.anigrams.find(d => d.uid === uid)
+    enty.findAnimaFromUid = uid => state.animas.find(d => d.uid === uid)
 
-    enty.born = d => d.payload.tim !== undefined && d.payload.tim.unitElapsed !== undefined && d.payload.tim.unitElapsed > epsilon
-    enty.unborn = d => d.payload.tim === undefined && d.payload.tim.elapsed === undefined && d.payload.tim.unitElapsed === undefined && d.payload.tim.unitElapsed < epsilon
-    enty.getAnimaByUID = uid => state.animas.find(d => d.payload.uid === uid)
+    enty.born = d => d.tim !== undefined && d.tim.unitElapsed !== undefined && d.tim.unitElapsed > epsilon
+    enty.unborn = d => d.tim === undefined && d.tim.elapsed === undefined && d.tim.unitElapsed === undefined && d.tim.unitElapsed < epsilon
+    enty.getAnimaByUID = uid => state.animas.find(d => d.uid === uid)
 
     enty.animas = () => state.animas
     enty.anigrams = () => state.anigrams

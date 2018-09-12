@@ -9,6 +9,35 @@
   'use strict'
 
   async function renderSvg (__mapper = {}) {
+    // # eon-render-svg
+    // **render svg**
+
+    // The viewport is the visible area of the SVG image
+    // Default units are pixels
+    // `<svg width="600" height="400"></svg>`
+    // The svg [viewBox](http://tutorials.jenkov.com/svg/svg-viewport-view-box.html) attribute is used to redefine the viewport coordinates
+    // two first coordinates define user coordinates of upper left corner
+    // two last coordinates define user coordinates of lower right corner
+    // `<svg width="600" height="400" viewBox="0 0 50 20" >`
+    // ref: [Margin Convention](https://bl.ocks.org/mbostock/3019563)
+    // ## methods
+    // * ### svg
+    // * ### svgelems
+    // call `svgelems(payload, data, idfn)`
+    // * ### render
+    // call `render(elapsed, featurecollection, maxlimit)`
+    // gets anima.geofold's from m.animation
+  // @elapsed
+  // @featurecollection
+  // @maxlimit
+
+  // axes
+  // d.properties.axis: cf, co, cp, cs, csx, cw, d3axis, domain, label, orient, range, rotate, scale, scaleType, tickFormat, tickPadding, tickSize,
+  // d.properties.axis.style :  font-family, font-size, text-anchor
+
+    // # license
+    // MIT
+
     let [
       rrenderport, // cameraProjer
       d3,
@@ -31,10 +60,13 @@
       background: background,
     } // Viewport
 
-    let svglayer = d3.select('.viewframe')
+    // let svglayer = d3.select('.viewframe')
+    let svglayer = d3.select('body')
       .append('svg')
-      .attr('id', 'svglayer')
-      .attr('class', 'svglayer')
+      // .attr('id', 'svglayer')
+      .attr('id', 'viewframe')
+      // .attr('class', 'svglayer')
+      .attr('class', 'viewframe')
       .style('position', 'absolute')
       .attr('width', state.width)
       .attr('height', state.height)
@@ -126,9 +158,9 @@
       let svg = _svg()
 
       let cameraProjer = rrenderport.cameraProjer()
-      let prjdef = rrenderport.prjdef()
-      let prj = puniwen(prjdef)
-      cameraProjer = prj
+      let prtdef = rrenderport.prtdef()
+      let prt = puniwen(prtdef)
+      cameraProjer = prt
 
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
         .key(function (d) { return d.properties.ric.gid })
@@ -146,7 +178,6 @@
           /*  ................. TEXTS ................. */
           let texts = fitems
             .filter(d => d.properties.sort === 'text')
-
           if (texts.length > 0) {
             svgelems('svg:g.' + gid + '/text.' + cid, texts, d => d.uid)
               .text(d => d.properties.string)
@@ -279,7 +310,8 @@
 
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
-            .filter(d => d.properties.sort === 'feature'
+            .filter(d => d.properties.sort === 'feature' ||
+              d.properties.sort === 'form'
             )
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
             .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled

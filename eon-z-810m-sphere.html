@@ -1,53 +1,22 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.s
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
-    mprops,
     cwen,
-    mnat,
+    muonNatform,
+    haloScene,    
   ] = await Promise.all([
-    __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
-    __mapper('xs').m('nat'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').h('scene'),    
   ])
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
@@ -81,41 +50,62 @@ async function zindex (__mapper) {
     // ............................. pics
     let tim = {'td': 12600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
 
-    let conform = {
+    let conform1 = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         c: [],
         e: [ cost, 1, 1, cost ],
-        // 'fn0': (e,c) => c[0] * cos(e[0]) * c[3] * cos(e[3])
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         c: [],
-        e: [ sint, 1, 1, cost ],
-        // 'fn0': (e,c) => c[0] * sin(e[0]) * c[3] * cos(e[3])
-
+        e: [ 1, sint, 1, cost ],
       },
-
       'z': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
         c: [],
-        e: [ 1, 1, 1, sint ], // 1 * sin(v)
-        // 'fn0': (e,c) => c[3] * sin(e[3])
+        e: [ 1, 1, 1, sint ],
       },
-
       'r': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
-        c: [], // [1, 1, [0,1], 1],
-        e: [ 1, 1, 1, cost ], // 1 * sin(v)
-        // 'fn0': (e,c) => c[3] * cos(e[3])
+        c: [],
+        e: [ 1, 1, 1, cost ],
+      },
+
+    }
+
+    let conform2 = {
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c) => c[0] * cos(e[0]) * c[3] * cos(e[3]),
+      },
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c) => c[1] * sin(e[1]) * c[3] * cos(e[3]),
+      },
+      'z': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
+        'dom3': [-90, 90],
+        'fn0': (e, c) => c[3] * sin(e[3]),
+      },
+      'r': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
+        'dom3': [-90, 90],
+        'fn0': (e, c) => c[3] * cos(e[3]),
       },
 
     }
@@ -124,28 +114,54 @@ async function zindex (__mapper) {
       'cs': [[[666, 333, 666]]], 'cw': [[[0.7, 0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]}
 
     // ............................. natAni
-    let natAni = {
+    let natAni1 = {
 
-      halo: 'ent',
+      halo: 'eoform',
 
-      geofold: p => mnat.natFeature(p.payload.form), // geofold: p => mnat.closeFeature(mnat.natFeature(p.payload.form)),
-      payload: {
-        tim,
+      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      tim,
 
-        ric: {gid: 'q', cid: 'q', fid: 'q'},
-
+      ric: {gid: 'q', cid: 'q', fid: 'q1'},
+      geodrift: {
         proform: {
           projection: 'uniwen',
           scale: [ 1, 1],
           prerotate: [[[ cwen.rotation ]]],
-          translate: [ 0, 0, 0 ],
+          translate: [ -10, 0, 0 ],
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
         },
+      },
+      boform: boform,
 
-        boform: boform,
+      payload: {
+        geoform: conform1,
 
-        form: conform,
+      },
+
+    }
+    let natAni2 = {
+
+      halo: 'eoform',
+
+      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      tim,
+
+      ric: {gid: 'q', cid: 'q', fid: 'q2'},
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          scale: [ 1, 1],
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [ 10, 0, 0 ],
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity ],
+        },
+      },
+      boform: boform,
+
+      payload: {
+        geoform: conform2,
 
       },
 
@@ -155,9 +171,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -167,7 +183,8 @@ async function zindex (__mapper) {
     let animas = [
 
       sceneAni, // h.scene
-      natAni, // h.nat
+      natAni1, // h.natform
+      natAni2, // h.natform
 
     ]
 
@@ -175,7 +192,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

@@ -1,55 +1,30 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.s
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
     mprops,
     cwen,
     msnap,
     mlacer,
+    haloEoform,
+    haloNatform,
+    haloScene,    
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('snap'),
     __mapper('xs').m('lacer'),
+    __mapper('xs').h('eoform'),
+    __mapper('xs').h('natform'),
+    __mapper('xs').h('scene'),    
   ])
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     // .................. pics
     let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
     let boform = { csx: 0, cf: 777, cs: 222, cw: 1.7, co: 0.7, cp: 0.5}
@@ -62,80 +37,103 @@ async function zindex (__mapper) {
     let proform = {projection: 'uniwen', scale: 1, translate: [ 0 - 300, 100 ], rotate: [ 0, 0 ],
       control: 'wen' }
 
-    /*******************************************
- *    @animas
- */
+    // .................. animas
     let p1 = {
-      halo: 'ent',
+      halo: 'eoform',
       geofold,
-      payload: {tim,
-        boform,
-        ric: {gid: 'p', cid: 'p', fid: 'p1'},
+      tim,
+      boform,
+      ric: {gid: 'p', cid: 'p', fid: 'p1'},
+      geodrift: {
         proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ 100 - 300, 125 ]]], 100 - 200, 0 ],
-          control: 'wen' }},
+        },
+      },
+      payload: {
+      },
     }
 
     let p2 = {
-      halo: 'ent',
+      halo: 'eoform',
+      tim,
       geofold,
-      payload: {tim,
-        boform,
-        ric: {gid: 'p', cid: 'p', fid: 'p2'},
+      boform,
+      ric: {gid: 'p', cid: 'p', fid: 'p2'},
+      geodrift: {
         proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [[[ () => [ [[[150 - 300, 175 - 200]]], 100, 0] ]]],
-          control: 'wen' }},
+        },
+      },
+      payload: {
+      },
     }
 
     let p3 = {
-      halo: 'ent',
+      halo: 'eoform',
+      tim,
       geofold,
-      payload: {tim,
-        boform,
-        ric: {gid: 'p', cid: 'p', fid: 'p3'},
+      boform,
+      ric: {gid: 'p', cid: 'p', fid: 'p3'},
+      geodrift: {
         proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ t => (() => 175 - 300)() ]]], 100 - 200 ],
-          control: 'wen' }},
+        },
+      },
+      payload: {
+      },
     }
 
     let p4 = {
-      halo: 'ent',
+      halo: 'eoform',
+      tim,
       geofold,
-      payload: {tim,
-        boform,
-        ric: {gid: 'p', cid: 'p', fid: 'p4'},
+      boform,
+      ric: {gid: 'p', cid: 'p', fid: 'p4'},
+      geodrift: {
         proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ 200 - 300, 225 - 300 ]]], 100 - 200, 0 ],
-          control: 'wen' }},
+        },
+      },
+      payload: {
+      },
     }
 
     let p5 = {
-      halo: 'ent',
+      halo: 'eoform',
+      tim,
       geofold,
-      payload: {tim,
-        boform,
-        ric: {gid: 'p', cid: 'p', fid: 'p5'},
+      boform,
+      ric: {gid: 'p', cid: 'p', fid: 'p5'},
+      geodrift: {
         proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: {x: [[[250 - 300, 275 - 300]]], y: 100 - 200 },
-          control: 'wen' }},
+        },
+      },
+      payload: {
+      },
     }
 
     let p6 = {
-      halo: 'ent',
+      halo: 'eoform',
+      tim,
       geofold,
-      payload: {tim,
-        boform,
-        ric: {gid: 'p', cid: 'p', fid: 'p6'},
+      boform,
+      ric: {gid: 'p', cid: 'p', fid: 'p6'},
+      geodrift: {
         proform: {
           projection: 'uniwen',
           translate: [[[ () => {
             let geo = {'type': 'LineString', 'coordinates': [ [300 - 300, 100, 0], [325 - 300, 100, 0], [300 - 300, 100 - 200, 0] ]}
             return mprops.ta(mlacer.unslide(geo.coordinates)) // dimensional triple array
           } ]]],
-          control: 'wen' },
-      }}
+        },
+      },
+      payload: {
+      },
+    }
 
     let p7 = {
-      halo: 'ent',
+      halo: 'eoform',
+      tim,
       geofold,
-      payload: {tim,
-        boform,
-        ric: {gid: 'p', cid: 'p', fid: 'p7'},
+      boform,
+      ric: {gid: 'p', cid: 'p', fid: 'p7'},
+      geodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0, 0 ],
@@ -151,16 +149,19 @@ async function zindex (__mapper) {
 
             },
           } ]]],
-          control: 'wen',
         },
-      }}
+      },
+      payload: {
+      },
+    }
 
     let p8 = {
-      halo: 'ent',
+      halo: 'eoform',
+      tim,
       geofold,
-      payload: {tim,
-        boform,
-        ric: {'gid': 'p', 'cid': 'p', 'fid': 'p8'},
+      boform,
+      ric: {'gid': 'p', 'cid': 'p', 'fid': 'p8'},
+      geodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0, 0 ],
@@ -175,16 +176,19 @@ async function zindex (__mapper) {
 
           } ]]],
           ],
-          control: 'wen',
         },
-      }}
+      },
+      payload: {
+      },
+    }
 
     let p10 = { // NOK
-      halo: 'ent',
+      halo: 'eoform',
+      tim,
       geofold,
-      payload: {tim,
-        boform,
-        ric: {'gid': 'p', 'cid': 'p', 'fid': 'p10'},
+      boform,
+      ric: {'gid': 'p', 'cid': 'p', 'fid': 'p10'},
+      geodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0, 0 ],
@@ -211,16 +215,19 @@ async function zindex (__mapper) {
             } ]]],
 
           ],
-          control: 'wen',
         },
-      }}
+      },
+      payload: {
+      },
+    }
 
     let p11 = {
-      halo: 'ent',
+      halo: 'eoform',
+      tim,
       geofold,
-      payload: {tim,
-        boform,
-        ric: {'gid': 'p', 'cid': 'p', 'fid': 'p11'},
+      boform,
+      ric: {'gid': 'p', 'cid': 'p', 'fid': 'p11'},
+      geodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0, 0 ],
@@ -229,16 +236,19 @@ async function zindex (__mapper) {
             'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
           } ]]],
-          control: 'wen',
         },
-      }}
+      },
+      payload: {
+      },
+    }
 
     let p12 = {
-      halo: 'ent',
+      halo: 'eoform',
+      tim,
       geofold,
-      payload: {tim,
-        boform,
-        ric: {'gid': 'p', 'cid': 'p', 'fid': 'p12'},
+      boform,
+      ric: {'gid': 'p', 'cid': 'p', 'fid': 'p12'},
+      geodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0, 0 ],
@@ -255,16 +265,19 @@ async function zindex (__mapper) {
               return [ 100 + as.x, 100 + as.y ]
             }
           } ]]],
-          control: 'wen',
         },
-	 }}
+      },
+      payload: {
+      },
+    }
 
     let p13 = {
-      halo: 'ent',
+      halo: 'eoform',
+      tim,
       geofold,
-      payload: {tim,
-        boform,
-        ric: {'gid': 'p', 'cid': 'p', 'fid': 'p13'},
+      boform,
+      ric: {'gid': 'p', 'cid': 'p', 'fid': 'p13'},
+      geodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0 ],
@@ -297,16 +310,19 @@ async function zindex (__mapper) {
             } ]]],
 
           ],
-          control: 'wen',
         },
-      }}
+      },
+      payload: {
+      },
+    }
 
     let p15 = {
-      halo: 'ent',
+      halo: 'eoform',
+      tim,
       geofold,
-      payload: {tim,
-        boform,
-        ric: {'gid': 'p', 'cid': 'p', 'fid': 'p15'},
+      boform,
+      ric: {'gid': 'p', 'cid': 'p', 'fid': 'p15'},
+      geodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0 ],
@@ -316,16 +332,19 @@ async function zindex (__mapper) {
             'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
 
           } ]]],
-          control: 'wen',
         },
-      }}
+      },
+      payload: {
+      },
+    }
 
     let p16 = {
-      halo: 'ent',
+      halo: 'eoform',
+      tim,
       geofold,
-      payload: {tim,
-        boform,
-        ric: {'gid': 'p', 'cid': 'p', 'fid': 'p16'},
+      boform,
+      ric: {'gid': 'p', 'cid': 'p', 'fid': 'p16'},
+      geodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0 ],
@@ -337,6 +356,8 @@ async function zindex (__mapper) {
           } ]]],
           control: 'wen',
         },
+      },
+      payload: {
         stace: [[[ {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
           'ra2': 100, 'v0': 0, 'v1': 1, 'w4': 90, 'seg5': 360, 'pa6': 0, 'pb7': -1,
@@ -346,22 +367,22 @@ async function zindex (__mapper) {
       }}
 
     let animas = [
-    // p1, // h.ent g.uniwen
-    // p2, // h.ent g.uniwen
-    // p3, // h.ent g.uniwen
-    // p4, // h.ent g.uniwen
-    // p5, // h.ent g.uniwen
-    // p6, // h.ent g.uniwen
-      p7, // h.ent g.uniwen
-    // p8, // h.ent g.uniwen
+    // p1, // h.eoform g.uniwen
+    // p2, // h.eoform g.uniwen
+    // p3, // h.eoform g.uniwen
+    // p4, // h.eoform g.uniwen
+    // p5, // h.eoform g.uniwen
+    // p6, // h.eoform g.uniwen
+      p7, // h.eoform g.uniwen
+    // p8, // h.eoform g.uniwen
 
-    // p10, // h.ent g.uniwen
-    // p11, // h.ent g.uniwen
-    // p12, // h.ent g.uniwen
-    // p13, // h.ent g.uniwen
+    // p10, // h.eoform g.uniwen
+    // p11, // h.eoform g.uniwen
+    // p12, // h.eoform g.uniwen
+    // p13, // h.eoform g.uniwen
 
-    // p15, // h.ent g.uniwen
-    // p16, // h.ent g.uniwen
+    // p15, // h.eoform g.uniwen
+    // p16, // h.eoform g.uniwen
 
     ]
 
@@ -369,7 +390,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

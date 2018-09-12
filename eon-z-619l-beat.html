@@ -1,40 +1,9 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.s
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = await xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
     rrenderport,
@@ -45,6 +14,7 @@ async function zindex (__mapper) {
     mric,
     msvg,
     dbeat,
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').r('renderport'),
     __mapper('xs').m('geoj'),
@@ -54,12 +24,13 @@ async function zindex (__mapper) {
     __mapper('xs').m('ric'),
     __mapper('xs').m('svg'),
     __mapper('xs').d('beat'),
+    __mapper('xs').h('scene'),    
   ])
 
   let mstore = __mapper('xs').m('store')
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     // .................. pics
     let tim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => t}
 
@@ -114,7 +85,7 @@ async function zindex (__mapper) {
           geofold = ani.geofold, // geofold
           payload = ani.payload // payload
 
-        let unitTime = ani.payload.tim.unitTime // unit time elapsed
+        let unitTime = ani.tim.unitTime // unit time elapsed
         let t = ani.payload.tf(unitTime) || unitTime // time function
 
         let nbt = Math.ceil(nb * t)
@@ -171,11 +142,10 @@ async function zindex (__mapper) {
         return newFeatureCollection
       },
 
+      tim: tim,
+      ric: { gid: 'trace', cid: 'trace', fid: 'trace'},
+      boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
       payload: { // payload in polyForm
-
-        tim: tim,
-        ric: { gid: 'trace', cid: 'trace', fid: 'trace'},
-        boform: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
         tf: t => t,
 
       },
@@ -186,9 +156,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -206,7 +176,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

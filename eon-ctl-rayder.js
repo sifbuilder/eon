@@ -8,6 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
+// # eon-control-rayder
+// ** **
+// ### refs
+// * https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
+// # license
+// MIT
+
   async function ctlRayder (__mapper) {
     let [
       d3,
@@ -55,7 +62,7 @@
 
         state.pointer.x = t[0]
         state.pointer.y = t[1]
-        
+     
       } else if (event.type === 'touchmove') {
         let touch = event.changedTouches[0]
 
@@ -105,9 +112,11 @@
     // ............................. mouseMoveListener
     function mouseMoveListener (event) {
       if (!state.grabbed) return
+    
 
       let e = event
       let pos = getPos(e) //  d3.mouse(this)
+      
       let dx = xsign * (pos[1] - state.grabbed[1]),
         dy = ysign * (state.grabbed[0] - pos[0])
 
@@ -115,17 +124,13 @@
         if (dx * dx + dy * dy < state.moveSpan) return
         state.moved = true // moved
       }
-
+      
+      state.grabbed = pos
       state.lastMoveTime = Date.now()
     }
 
     // ............................. mouseUpListener
-    function mouseUpListener (e) {
-     
-      
-      if (1 && 1) console.log(' **************************** mouseUpListener', state, e)
-
-
+    function mouseUpListener (event) {
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
@@ -133,23 +138,25 @@
 
     // ............................. subscribe
     let subscribe = function (listener, domNode, sensor) {
-      if (1 && 1) console.log('sensor', sensor)
-
       if (typeof listener !== 'function') throw new Error('Listener to be function')
-      domNode.node().addEventListener(sensor, listener) // mounseUp, mouseUpListener
+        
+      // listener: {mousedown, mousemove, mouseup}
+      
+      domNode.node().addEventListener(sensor, listener) 
     }
 
     // ............................. controlrayder
     let control = function (domNode) {
+if (1 && 1) console.log('c.rayder.control' )      
       enty.domNode(domNode)
 
+      subscribe(mouseUpListener, state.domNode, 'mouseup')
       subscribe(mouseDownListener, state.domNode, 'mousedown')
       subscribe(mouseMoveListener, state.domNode, 'mousemove')
-      subscribe(mouseUpListener,   state.domNode, 'mouseup')
 
-      subscribe(touchStartListener, state.domNode, 'touchstart')
-      subscribe(touchMoveListener, state.domNode, 'touchmove')
-      subscribe(touchEndListener, state.domNode, 'touchend')
+      // subscribe(touchStartListener, state.domNode, 'touchstart')
+      // subscribe(touchMoveListener, state.domNode, 'touchmove')
+      // subscribe(touchEndListener, state.domNode, 'touchend')
     }
 
     // ............................. enty
@@ -166,15 +173,15 @@
     enty.control = control
     enty.event = _ => _ !== undefined ? (state.event = _, enty) : state.event
 
-    enty.mouseDown = _ => (_ !== undefined) ? (state.mouseDown = _, enty) : state.mouseDown
-    enty.mouseDownShared = _ => (_ !== undefined) ? (state.mouseDownShared = _, enty) : state.mouseDownShared
-    enty.mouseMove = _ => (_ !== undefined) ? (state.mouseMove = _, enty) : state.mouseMove
-    enty.mouseUp = _ => (_ !== undefined) ? (state.mouseUp = _, enty) : state.mouseUp
+    // enty.mouseDown = _ => (_ !== undefined) ? (state.mouseDown = _, enty) : state.mouseDown
+    // enty.mouseDownShared = _ => (_ !== undefined) ? (state.mouseDownShared = _, enty) : state.mouseDownShared
+    // enty.mouseMove = _ => (_ !== undefined) ? (state.mouseMove = _, enty) : state.mouseMove
+    // enty.mouseUp = _ => (_ !== undefined) ? (state.mouseUp = _, enty) : state.mouseUp
 
-    enty.touchStart = _ => (_ !== undefined) ? (state.touchStart = _, enty) : state.touchStart
-    enty.touchStartShared = _ => (_ !== undefined) ? (state.touchStartShared = _, enty) : state.touchStartShared
-    enty.touchMove = _ => (_ !== undefined) ? (state.touchMove = _, enty) : state.touchMove
-    enty.touchEnd = _ => (_ !== undefined) ? (state.touchEnd = _, enty) : state.touchEnd
+    // enty.touchStart = _ => (_ !== undefined) ? (state.touchStart = _, enty) : state.touchStart
+    // enty.touchStartShared = _ => (_ !== undefined) ? (state.touchStartShared = _, enty) : state.touchStartShared
+    // enty.touchMove = _ => (_ !== undefined) ? (state.touchMove = _, enty) : state.touchMove
+    // enty.touchEnd = _ => (_ !== undefined) ? (state.touchEnd = _, enty) : state.touchEnd
 
     return enty
   }

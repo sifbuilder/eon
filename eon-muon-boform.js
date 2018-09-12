@@ -73,15 +73,15 @@
     let boformer = function (anigram, json) {
       if (json !== undefined && json !== null) {
         if (json.type === undefined) {
-        } else if (typeof anigram.payload.boform !== 'object') {
+        } else if (typeof anigram.boform !== 'object') {
         } else if (json.type === 'Feature') { // Feature
           let feature = json
 
           let boform = {}, featureStyle = {}
           if (feature.properties !== undefined && feature.properties.boform !== undefined) {
             boform = feature.properties.boform
-          } else if (anigram.payload.boform) {
-            boform = anigram.payload.boform
+          } else if (anigram.boform) {
+            boform = anigram.boform
           } else {
           }
 
@@ -106,9 +106,19 @@
       return json
     }
 
+    // boform definition
+    
+    let getdefault = function( ) {
+      
+      let res = { 'csx': 0, 'cf': 500, 'co': 1, 'cs': 500, 'cw': 1, 'cp': 1 }
+ 
+      return res
+    }
+    
     // .................. enty
     function enty () { return enty }
     enty.boformer = boformer
+    enty.getdefault = getdefault
 
     return enty
   }

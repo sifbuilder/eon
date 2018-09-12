@@ -1,0 +1,125 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    mprops,
+    cwen,
+    muonNatform,
+    haloNatform,
+    haloScene,
+  ] = await Promise.all([
+    __mapper('xs').m('props'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').h('natform'),
+    __mapper('xs').h('scene'),
+  ])
+
+  // .................. animas
+  let ani = function () {
+    // .................. pics
+    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    let formCirc = {
+
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
+      },
+
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
+      },
+
+    }
+
+    let formNat = {
+
+      'x': {
+        'm1': [[[2, 6, 6]]], 'm2': [[[2, 6, 6]]], 'n1': [[[0.3, 2, 2]]], 'n2': [[[-3, 2, 2]]], 'n3': [[[8, 0, 0]]], 'a': [[[8, 2, 3]]], 'b': [[[8, 1, 1]]], // tri
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
+      },
+
+      'y': {
+        'm1': [[[2, 6, 6]]], 'm2': [[[2, 6, 6]]], 'n1': [[[0.3, 2, 2]]], 'n2': [[[-3, 2, 2]]], 'n3': [[[8, 0, 0]]], 'a': [[[8, 2, 3]]], 'b': [[[8, 1, 1]]], // tri
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
+      },
+
+    }
+
+    let proform = {
+      'projection': 'uniwen',
+      'translate': [ [[[-100, 100]]], [[[-100, 100]]] ], // [[[ stace ]]] ],
+      'scale': 1,
+      'rotate': [ 0, 0, [[[0, 0]]] ],
+      'lens': [0, 1, 12],
+    }
+    let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+
+    let boformCirc = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[444, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.9, 0.9]]]}
+
+    // ............................. animas
+    let nat = {
+
+      halo: 'natform',
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      boform: boform,
+      geodrift: {
+        proform: proform,
+      },
+      payload: {
+        geoform: formNat,
+      },
+
+    }
+    let circ = {
+
+      halo: 'natform',
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'nat', cid: 'nat', fid: 'formCirc'},
+      boform: boformCirc,
+      geodrift: {
+        proform: proform,
+      },
+      payload: {
+        geoform: formCirc,
+      },
+
+    }
+
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // ............................. animas
+    let animas = [
+      sceneAni, // h.scene
+      nat, // h.natform
+      circ, // h.natform
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

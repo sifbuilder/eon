@@ -1,57 +1,32 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.s
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
     mprops,
     mstace,
-    mnat,
+    muonNatform,
     mric,
+    haloEoform,
+    haloNatform,
+    haloScene,    
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('stace'),
-    __mapper('xs').m('nat'),
+    __mapper('xs').m('natform'),
     __mapper('xs').m('ric'),
+    __mapper('xs').h('eoform'),
+    __mapper('xs').h('natform'),
+    __mapper('xs').h('scene'),    
   ])
 
   let mstore = __mapper('muonStore')
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     // .................. pics
 
     let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
@@ -104,28 +79,28 @@ async function zindex (__mapper) {
       let nbr = 2
       for (let i = 0; i < nbr; i++) {
         let ani = mprops.cloneObj(natAni) // clone of model anima
-        ani.payload.ric.gid = 'nat'
-        ani.payload.ric.cid = (i % 2) ? 'orange' : 'gold'
-        ani.payload.ric.fid = 'item' + i // identify
+        ani.ric.gid = 'nat'
+        ani.ric.cid = (i % 2) ? 'orange' : 'gold'
+        ani.ric.fid = 'item' + i // identify
 
-        let uid = mric.getuid(ani.payload.ric)
-        ani.payload.uid = uid
-        ani.payload.boform.cf = (i % 2) ? 777 : 333
-        ani.payload.boform.cs = (i % 2) ? 777 : 333
+        let uid = mric.getuid(ani.ric)
+        ani.uid = uid
+        ani.boform.cf = (i % 2) ? 777 : 333
+        ani.boform.cs = (i % 2) ? 777 : 333
 
-        let preani = mstore.getAnima(ani.payload.ric)
+        let preani = mstore.getAnima(ani.ric)
 
         if (preani) {
           ani = preani
         } else { // create anima
-          ani.halo = 'ent' // halo ENT
+          ani.halo = 'natform' // halo ENT
 
           ani.geofold = { // will create anigram
             type: 'Feature',
             geometry: {type: 'Point', coordinates: [i * 10, 0, 0]}, // sparation
           }
 
-          ani.payload.geonode.properties.orgen = [0, 0, 0 ]
+          ani.geonode.properties.orgen = [0, 0, 0 ]
         }
         newAnimas.push(ani)
       }
@@ -142,39 +117,40 @@ async function zindex (__mapper) {
     // ............................. natAni
     let natAni = {
 
-      halo: haloIsolationHalo, // 'ent',
+      halo: haloIsolationHalo, // 'eoform',
 
-      geofold: p => mnat.natFeature(p.payload.form),
+      geofold: p => muonNatform.natFeature(p.payload.geoform),
 
-      payload: {
+      tim,
+      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-        tim,
-        ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      geonode: {
+        type: 'Feature',
+        geometry: {type: 'Point', coordinates: [0, 0, 0]},
+        properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
+      },
 
-        geonode: {
-          type: 'Feature',
-          geometry: {type: 'Point', coordinates: [0, 0, 0]},
-          properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
-        },
-
+      geodrift: {
         proform: {
           projection: 'uniwen',
           translate:
-        [
-          [ [[[0, 100]]], 0, 100 ],
-          [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
-            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          } ]]],
-        ],
+          [
+            [ [[[0, 100]]], 0, 100 ],
+            [[[ {
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
+              'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+            } ]]],
+          ],
           scale: 1,
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
         },
+      },
 
-        boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
-        form: {
+      payload: {
+        geoform: {
 
           'x': {
             'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
@@ -198,9 +174,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -217,7 +193,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

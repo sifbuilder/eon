@@ -1,55 +1,26 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map xs
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas})
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   let [
     mgraticule,
     cwen,
     topojson,
     dworldTopo110m,
     punimercator,
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').b('topojson'),
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').p('unimercator'),
+    __mapper('xs').h('scene'),    
   ])
 
-  let animas = function () {
+  let ani = function () {
   // .................. pics
     let tim = {'td': 32200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -65,7 +36,7 @@ async function zindex (__mapper) {
     // .................. geoearth
     let geoearth = {
 
-      halo: 'ent',
+      halo: 'eoform',
       geofold: p => {
         let geometry = Object.assign({},
           topojson.mesh(
@@ -75,12 +46,14 @@ async function zindex (__mapper) {
         )
         return { type: 'Feature', geometry: geometry, properties: {} }
       },
-      payload: {
-        tim: tim,
-        ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
-        boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.9, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+      tim: tim,
+      ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
+      boform: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.9, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
 
+      geodrift: {
         proform: proform,
+      },
+      payload: {
       },
 
     }
@@ -88,7 +61,7 @@ async function zindex (__mapper) {
     // .................. animas
     let animas = [
 
-      geoearth, // h.ent g.unimercator
+      geoearth, // h.eoform g.unimercator
 
     ]
 
@@ -96,7 +69,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

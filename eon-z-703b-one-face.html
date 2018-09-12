@@ -1,0 +1,130 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    cwen,
+    mprops,
+    puniwen,
+    haloScene,
+  ] = await Promise.all([
+    __mapper('xs').c('wen'),
+    __mapper('xs').m('props'),
+    __mapper('xs').p('uniwen'),
+    __mapper('xs').h('scene'),    
+  ])
+
+  // .................. animas
+  let ani = function () {
+    // .................. pics
+    let tim = {'td': 9200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    let proformFaces = {
+
+      projection: puniwen(),
+      center: [ 0, 0 ],
+      translate: [ 180 - 180, 200 - 200 ],
+      scale: 90,
+      rotate: [ [0, 1, 12], [[[ cwen.rotation ]]] ],
+      lens: [0, 1, 4], // [1,0] // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //
+
+    }
+
+    let geoformFaces = ani => { // geofold creates geojson featurecollection
+      let payload = ani.payload // payload
+
+      let faces = mprops.v(payload.faces) // payload.faces
+      let json = {type: 'FeatureCollection', features: []}
+
+      // for (let i = 0, l = faces.length; i < l; i++) {
+      // let face = faces[i] // face cornersx position
+      for (let i = 0, l = 40; i < l; i++) {
+        let face = faces[0] // face cornersx position
+
+        let geometry = {type: 'Polygon', coordinates: []}
+        geometry.coordinates = Array.of(face.vertices) // eg [-1, 1, 1]
+
+        let properties = {}
+        // properties.boform = face.boform || boform
+        properties.boform = {'csx': 0, 'cf': 333 + 10 * i, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
+        properties.name = 'orange' + '_' + i
+
+        let feature = {type: 'Feature', geometry: {}, properties: {}}
+        feature.geometry = geometry
+        feature.properties = properties
+
+        json.features.push(feature)
+      }
+      return json
+    }
+    // .................. aniOneFace
+    let aniOneFace = {
+
+      halo: 'eoform',
+
+      geofold: geoformFaces, // geofold,
+      tim: tim,
+      ric: {'gid': 'faces', 'cid': 'face', 'fid': 'face'},
+      boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+
+      geodrift: {
+        proform: proformFaces,
+      },
+      payload: {
+        faces: [
+          {
+            vertices: [
+              [-1, -1, 1],
+              [ 1, -1, 1],
+              [ 1, 1, 1],
+              [ -1, 1, 1],
+              [-1, -1, 1],
+            ],
+            boform: {'csx': 0, 'cf': 333, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
+          },
+
+          {
+            vertices: [
+              [-1, -1, -1],
+              [ 1, -1, -1],
+              [ 1, 1, -1],
+              [-1, 1, -1],
+              [-1, -1, -1],
+            ],
+            boform: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
+          },
+        ],
+
+      },
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+      aniOneFace, // h.eoform g.uniwen
+      sceneAni, // h.scene
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

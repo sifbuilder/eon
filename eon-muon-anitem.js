@@ -23,31 +23,39 @@
     function snapani (ani, t) {
       let r = Promise.resolve()
       if (ani !== undefined) {
-        t = t || ani.payload.tim.unitTime
+        t = t || ani.tim.unitTime
         r = Promise.resolve(msnap.snap(ani, t))
       }
       return r
     }
 
     // ............................. functorize
-    let functorize = function (ani, t) {
-      let anigram = ani
+    let functorize = function (anitem, t) {
+      let newAnitem = mprops.clone(anitem)
 
-      console.assert(anigram !== undefined)
-      anigram.geofold = functor((anigram.geofold), anigram) // geofold
+      console.assert(anitem !== undefined)
+      console.assert(anitem.payload !== undefined, anitem.uid + ' payload undefined')
+      console.assert(anitem.geofold !== undefined, anitem.uid + ' geofold undefined')
 
-      if (anigram.payload === undefined) anigram.payload = {}
-      anigram.payload.conform = functor(anigram.payload.conform, anigram) // conform
-      anigram.payload.proform = functor(anigram.payload.proform, anigram) // proform
+      if (newAnitem.payload === undefined) newAnitem.payload = {}
+      if (newAnitem.geodrift === undefined) newAnitem.geodrift = {}
 
-      return {
-
-        halo: anigram.halo, // halo
-        geofold: anigram.geofold, // geofold
-        payload: anigram.payload, // payload
-        avatars: anigram.avatars, // avatars
-
+      let geodrift = anitem.geodrift || {}
+      if (geodrift.ereform !== undefined) {
+        let ereform = functor(geodrift.ereform, anitem) // ereform
+        newAnitem.geodrift.ereform = ereform
+      } else if (geodrift.conform !== undefined) {
+        let conform = functor(geodrift.conform, anitem) // conform
+        newAnitem.geodrift.conform = conform
+      } else if (geodrift.proform !== undefined) {
+        let proform = functor(geodrift.proform, anitem) // proform
+        newAnitem.geodrift.proform = proform
       }
+      if (anitem.geofold !== undefined) {
+        newAnitem.geofold = functor(anitem.geofold, anitem) // geofold
+      }
+
+      return newAnitem
     }
 
     // ............................. functorgeofold
@@ -55,7 +63,7 @@
       let newAnitem = mprops.clone(anitem)
 
       console.assert(anitem !== undefined)
-      console.assert(anitem.geofold !== undefined, anitem.payload.uid + ' geofold undefined')
+      console.assert(anitem.geofold !== undefined, anitem.uid + ' geofold undefined')
 
       let geofold = functor((anitem.geofold), anitem) // geofold
 
@@ -69,17 +77,17 @@
       let newAnitem = mprops.clone(anitem)
 
       console.assert(anitem !== undefined)
-      console.assert(anitem.payload !== undefined, anitem.payload.uid + ' payload undefined')
+      console.assert(anitem.payload !== undefined, anitem.uid + ' payload undefined')
 
-      if (anitem.payload.ereform !== undefined) {
-        let ereform = functor(anitem.payload.ereform, anitem) // ereform
-        newAnitem.payload.ereform = ereform
-      } else if (anitem.payload.conform !== undefined) {
-        let conform = functor(anitem.payload.conform, anitem) // conform
-        newAnitem.payload.conform = conform
-      } else if (anitem.payload.proform !== undefined) {
-        let proform = functor(anitem.payload.proform, anitem) // proform
-        newAnitem.payload.proform = proform
+      if (anitem.geodrift.ereform !== undefined) {
+        let ereform = functor(anitem.geodrift.ereform, anitem) // ereform
+        newAnitem.geodrift.ereform = ereform
+      } else if (anitem.geodrift.conform !== undefined) {
+        let conform = functor(anitem.geodrift.conform, anitem) // conform
+        newAnitem.geodrift.conform = conform
+      } else if (anitem.geodrift.proform !== undefined) {
+        let proform = functor(anitem.geodrift.proform, anitem) // proform
+        newAnitem.geodrift.proform = proform
       }
 
       return newAnitem

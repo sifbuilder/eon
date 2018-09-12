@@ -1,4 +1,4 @@
-# eon-muon-nat
+# eon-muon-natform
 **returns nat mesh**
 
 ref: isSame: http://adripofjavascript.com/blog/drips/object-equality-in-javascript.html
@@ -20,14 +20,14 @@ natNform
 
 natVertex
   called by g.natVertex.pointStream to build nat conform point stream
-  calls m.nat.radorm
+  calls m.natform.radorm
   
 natprojection
   returns d3 geo nat projection
   calls p.nat
   breaks circularity m.profier(.natfion --> p.natform)
-      -p.nat(.natprofion -> .pointStream -> m.nat.natVertex)
-      -m.nat(.natFeature -> m.profier.formion_)
+      -p.nat(.natprofion -> .pointStream -> m.natform.natVertex)
+      -m.nat(.natFeature -> m.profier.formion)
 
 conforms
 `   

@@ -9,7 +9,7 @@
   'use strict'
 
   async function haloTiles (__mapper = {}) {
-    let hent = await __mapper('xs').h('ent'),
+    let haloEoform = await __mapper('xs').h('eoform'),
       mprops = await __mapper('xs').m('props'),
       mgraticule = await __mapper('xs').m('graticule')
 
@@ -26,7 +26,7 @@
     function getTiles (anigram, newItems = []) {
       let geofold = anigram.geofold, // geofold
         payload = anigram.payload, // payload
-        ric = payload.ric // ric
+        ric = ric // ric
 
       let gj = mprops.v(geofold, anigram) // get geofold
       gj.properties = gj.properties || {} // recall genode
@@ -48,9 +48,9 @@
         let _ric = {gid, cid, fid}
 
         let newItem = Object.assign({}, anigram)
-        newItem.halo = 'ent'
+        newItem.halo = 'natform'
         newItem.payload = Object.assign({}, anigram.payload)
-        newItem.payload.ric = _ric
+        newItem.ric = _ric
 
         newItem.geofold = {type: 'Polygon', coordinates: []}
 
@@ -66,7 +66,7 @@
 
     // .................... gramm
     function gramm (anigram) {
-      return Promise.all(getTiles(anigram).map(ani => hent.gramm(ani)))
+      return Promise.all(getTiles(anigram).map(ani => haloEoform.gramm(ani)))
     }
 
     // .................... enty

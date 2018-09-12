@@ -51,24 +51,16 @@
     // .................. getweens
     function getweens (animas, elapsed) {
       return sequence(animas, anima => mstore.ween(anima))
-      // sequence(animas, anima => mstore.ween(anima))
-      // then(sequenced => {
-      // return mstore.animasLive()
-      // })
-      // return mstore.animasLive()
     }
 
     // .................. getgramms
     function getgramms (animas, elapsed) {
       return sequence(animas, anima => mstore.gramm(anima)) // store anigrams
-      // .then(sequenced => {
-      // return mstore.anigrams()
-      // })
-      // return mstore.anigrams() // get anigrams from store
     }
 
     // .................. animate
     async function animate (time) {
+      
       if (time !== undefined) {
         animier(time)
       } else {
@@ -76,31 +68,52 @@
           state.animationStop = ctimer.subscribe(animier)
         }
       }
+      
     }
 
     // .................. collect
     async function collect (animas, elapsed) {
       let featurecollectionPromise = Promise.resolve(state.animas)
         .then(animas => {
+          
+          // md: get animas from halo.ween
+          // md: animas reside in the store
+          
           getweens(animas, elapsed)
-          // .then(weened => mstore.animasLive())
-          // return weened
+          
+          
         })
         .then(animas => {
-          let simmed = getsims(mstore.animasLive())
-          return simmed
+
+          // md: animas are subject to fields
+          // md: fields are d3.forces and act upon nodes or anisims 
+          // md: the field nodes correlate with the animas geonodes
+        
+          return getsims(mstore.animasLive())
+
         })
         .then(anisimmed => {
+          
+          // md: animas reveal anigrams at any point in time
+          // md: anigrams reside in a different section of the store 
+          
           return getgramms(anisimmed)
-          // let anigrams = getgramms(anisimmed)
-          // if (1 && 1) console.log('anigrams', anigrams)
-          // return anigrams
+          
         })
         .then(() => {
-          let featurecollection = { type: 'FeatureCollection', features: mstore.anigrams().map(d => d.geofold) }
+          
+          // md: only feature collection can be rendered
+          // md: and that is the feature collection of the existing anigrams
+          // md: all the information to render an anigram must be in its geofold
+          
+          
+          let featurecollection = { 
+            type: 'FeatureCollection', 
+            features: mstore.anigrams().map(d => d.geofold) 
+          }
           return featurecollection
+          
         })
-        .catch(e => { console.log(e) })
 
       return featurecollectionPromise
     }
@@ -115,17 +128,17 @@
       state.animas = mprops.a(mstore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
-        anima.payload.tim = mtim.timing(anima.payload.tim, elapsed) // set time
+        anima.tim = mtim.timing(anima.tim, elapsed) // set time
 
-        if (elapsed > anima.payload.tim.limit + anima.payload.tim.msStart) {
+        if (elapsed > anima.tim.limit + anima.tim.msStart) {
           anima.payload.delled = 1 // crop by time
         }
       }
 
       // ............................. @STOP
-      let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.payload.tim.limit + item.payload.tim.msStart), 0)
+      let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.tim.limit + item.tim.msStart), 0)
 
-      let nostop = state.animas.reduce((pre, item) => (pre || item.payload.tim.nostop), false)
+      let nostop = state.animas.reduce((pre, item) => (pre || item.tim.nostop), false)
 
       if (!nostop && (isNaN(maxlimit) ||
             (maxlimit > 0 && elapsed > maxlimit) || // stop if spired
@@ -134,11 +147,17 @@
       }
 
       // ............................. @WEEN SIM GRAMM RENDER
+      // md: from the anigrams, collect the feature collection to be rendered
+      
       let featurecollectionPromise = collect(state.animas, elapsed)
+      
+      // md: then render by sort the features in the collection
+      
       featurecollectionPromise
         .then(featurecollection => {
           rsvg.render(featurecollection)
         })
+        
     }
 
     // ............................. enty

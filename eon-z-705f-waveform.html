@@ -1,0 +1,262 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  let [
+    mgraticule,
+    cwen,
+    mfibonat,
+    d3,
+    prtNatform,
+    haloScene,
+  ] = await Promise.all([
+    __mapper('xs').m('graticule'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').m('fibonat'),
+    __mapper('xs').b('d3'),
+    __mapper('xs').p('natform'),
+    __mapper('xs').h('scene'),    
+  ])
+
+  let ani = function () {
+  // .................. pics
+    const radians = Math.PI / 180, degrees = 180 / Math.PI,
+      sin = Math.sin, cos = Math.cos,
+      sqrt2 = Math.sqrt(2)
+
+    const tim = {'td': 32000, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    let waveForm = {
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c, d) => c[0] * cos(e[0]) * c[2] * cos(e[2]),
+      },
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c, d) => c[1] * sin(e[0]) * c[2] * cos(e[2]),
+      },
+      'z': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c, d) => c[3] * sin(e[3]),
+
+      },
+    }
+
+    let stace = {
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c, d) => c[0] * cos(e[0]) * c[2] * cos(e[2]),
+      },
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c, d) => c[1] * sin(e[0]) * c[2] * cos(e[2]),
+      },
+      'z': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c, d) => c[3] * sin(e[3]),
+
+      },
+    }
+
+    const waveProform = {
+      projection: 'uniwen',
+      prerotate: [[[ cwen.rotation ]]],
+      translate: [0, 0, 0],
+      scale: 1,
+      rotate: [ 90, [[[0, 6, -6, 6, -6, 6]]], [[[0, 160 * 360]]] ], // dyn
+      lens: [ 0, 1, Infinity ],
+    }
+    const waveProform2 = {
+      projection: 'uniwen',
+      prerotate: [[[ cwen.rotation ]]],
+      translate: [0, 0, 0],
+      scale: 0.99,
+      rotate: [ 90, [[[0, -6, 6, -6, 6, -6]]], [[[0, -160 * 360]]] ], // dyn
+      lens: [ 0, 1, Infinity ],
+    }
+
+    const sphereProform = {
+      projection: 'uniwen',
+      prerotate: [[[ cwen.rotation ]]],
+      translate: [0, 0, 0],
+      scale: 1,
+      rotate: [ 0, 0, 0],
+      lens: [ 0, 1, Infinity ],
+    }
+
+    const waveFrame = [ [ [ -180, 180, 90, 5], [ -180, 180, 30, 5] ] ]
+
+    const sphereFrame = [ [ [ -180, 180, 45, 5], [ -180, 180, 45, 5] ] ]
+
+    let sphereForm = {
+      'x': {
+        'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+
+        'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c, d) => c[0] * cos(e[0]) * c[2] * cos(e[2]),
+
+      },
+      'y': {
+        'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+
+        'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c, d) => c[1] * sin(e[0]) * c[2] * cos(e[2]),
+      },
+      'z': {
+        'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+
+        'ra2': 180 / sqrt2, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c, d) => c[3] * sin(e[3]),
+
+      },
+      'r': {
+        'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+
+        'ra2': 180 / sqrt2, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c, d) => c[2] * cos(e[2]),
+
+      },
+
+    }
+
+    // .................. waveForm anima
+    let waveAni = {
+
+      halo: 'eoform',
+
+      geofold: p => mfibonat.interlinked(p.payload),
+
+      tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'waveAni'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.1, 0.1]]], 'cp': 0.9 },
+
+      geodrift: {
+        conform: {
+          projection: 'natform',
+          geoform: waveForm,
+        },
+        proform: waveProform,
+      },
+      payload: {
+
+        fibonat: {
+          samples: [[[120, 120]]],
+          offsetstep: [[[3, 3]]], // ani
+          xprecision: 3,
+          yprecision: [[[0.1, 0.1]]],
+          goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
+        },
+
+        graticule: waveFrame,
+
+      },
+
+    }
+
+    // .................. waveForm anima
+    let waveAni2 = {
+
+      halo: 'eoform',
+
+      geofold: p => mfibonat.interlinked(p.payload),
+
+      tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'waveAni2'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.1, 0.1]]], 'cp': 0.9 },
+      geodrift: {
+        conform: { projection: 'natform', geoform: waveForm },
+
+        proform: waveProform2,
+      },
+      payload: {
+
+        fibonat: {
+          samples: [[[120, 120]]],
+          offsetstep: [[[3, 3]]], // ani
+          xprecision: 3,
+          yprecision: [[[0.1, 0.1]]],
+          goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
+        },
+
+        graticule: waveFrame,
+
+      },
+
+    }
+    // .................. sphereForm anima
+    let sphereAni = {
+
+      halo: 'eoform',
+
+      geofold: p => mgraticule.vhMultiLine(p.payload.graticule), // hMultiLine
+
+      tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereAni'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.01, 0.9]]], 'cp': 0.9 },
+
+      conform: { projection: 'natform', geoform: sphereForm },
+
+      proform: sphereProform,
+
+      payload: {
+        graticule: sphereFrame,
+
+      },
+
+    }
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+
+      // sphereAni, // h.eoform
+      waveAni, // h.eoform
+      waveAni2, // h.eoform
+      sceneAni, // h.scene
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

@@ -1,51 +1,26 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.s
+// # eon-z-855a-text
+// ** **
 
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
+// # license
+// MIT
 
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
-  // .................. eons
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. animas
   let [
-    mprops,
-    cwen,
+    haloTextform,    
+    haloScene,    
   ] = await Promise.all([
-    __mapper('xs').m('props'),
-    __mapper('xs').c('wen'),
+    __mapper('xs').h('textform'),    
+    __mapper('xs').h('scene'),    
   ])
 
-  // .................. animas
-  let animas = function () {
+  
+  let ani = function () {
     // .................. pics
     let tim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
 
@@ -53,22 +28,25 @@ async function zindex (__mapper) {
     let textAni = {
 
       halo: 'textform',
+
       geofold: null,
-      payload: {
 
-        tim: tim,
-        ric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
-        boform: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+      tim: tim,
+      ric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
+      boform: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
+      geodrift: {
         proform: {
           projection: 'uniwen',
-          translate: [ 0, 0 ],
+          translate: [ -250, 0 ],
         },
+      },
 
+      payload: {
         textform: {
           string: 'sif who made the Norse people’s crops grow',
           style: {
-            rotate: [[[ 0, 1 ]]],
+            rotate: [[[ 0, -1 ]]],
             'font-size': [[[10, 60]]],
             'font-family': 'BankFuturistic',
             'text-anchor': 'center',
@@ -84,9 +62,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -104,7 +82,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

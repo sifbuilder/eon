@@ -8,6 +8,49 @@
 }(this, function (exports) {
   'use strict'
 
+// md: # eon-muon-stace 
+// md: **manage location of aniItems** 
+// md: 
+// md: ## methods 
+// md: getPosInDim  getPosesInDim m.liner _e_ 
+// md: 
+// md: ### getSiti 
+// md: 
+// md: ### getSitus , or ani geonode 
+// md:             ani position in the coords system 
+// md:             in geonode.geometry 
+// md:             sim forces act on the ani geonodes 
+// md: 
+// md: ### getLoci 
+// md: 
+// md: ### getLocus , locus and transpots 
+// md: 
+// md: ### getLocifion 
+// md: get the uniwen projection with translate to anigram location 
+// md: getLocus 
+// md: 
+// md: ### getLocifier 
+// md: locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]] 
+// md: 
+// md: ### getTranspot 
+// md: 
+// md: ### getTranspots 
+// md: `getTranspots(stace, payload)` 
+// md: **get stace locations in @ric** 
+// md: ##### parameters 
+// md:  **stace** ,  may be passed as param or as payload attribute 
+// md:     * `{x:0, y:0, z:0}`, position object 
+// md:     * `[300,200,0]`,  pure array 
+// md:     * `[a1,a2,a3], [b1,b2]]`,  pure multi array, add by dax 
+// md:     * `[[[ {nat} ]]]`, nat form 
+// md:     * `[{gen,ere,pro}]`,  parent node position, nodeGeoformed, nodeEreformed or nodeProformed 
+// md:     * `[{pos:0}, a2]`,  if pos, parent form position 
+// md: 
+// md: if stace.<dax>.pos and no transformation property 
+// md:       get spot from `parentani.geofold.geometry.coordinates` 
+// md: **payload**, to get parent coords if spot is relative to parent geometry 
+ 
+  
   async function muonStace (__mapper = {}) {
     let [
       mprops,
@@ -38,13 +81,12 @@
     }
 
     // ..................... isValidStace
-    let getTranspots = function (stace, ani) {
+    let getTranspots = function (stace, anitem) {
       let mstore = __mapper('muonStore') // sync
 
-      let payload = ani.payload
-      console.assert(payload !== undefined, ani, ' payload undefined')
+      let payload = anitem.payload
+      console.assert(payload !== undefined, anitem, ' payload undefined')
       let locations = []
-      let valid = 0
 
       // if object, convert stace to array
 
@@ -60,88 +102,83 @@
         stace = stace.map(d => typeof d === 'function' ? d() : d) // eval
       }
 
-      if (typeof stace === undefined || stace === null) {
+      if (stace === undefined || stace === null) {
         stace = [null, null, null]
       }
 
       // if stace is simple array, spot is stace
 
       if (mprops.isPureArray(stace)) { // [x,y,z] numbers
-        valid = 1
         locations = Array.of(stace)
 
       // if stace is a multiarray, get stace interadding per dax
       } else if (mprops.isPureMultiArray(stace)) { // dax sum [[a1,a2,a3],[b1,b2]]
-        valid = 1
         locations = mprops.interadd(stace)
 
       // else, eg. if stace undefined, get stace from parent
       } else {
-        let parentuid = payload.parentuid
+        let parentuid = anitem.parentuid
         console.assert(parentuid !== undefined, ` * error: mstace.getTranspots:parentuid ${parentuid} in payload ${payload}`)
         let parentani = mstore.findAnigramFromUid(parentuid)
         console.assert(parentani !== undefined, ` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)
 
-        let formGeoformed = parentani.geofold.properties.formGeoformed
-        let formEreformed = parentani.geofold.properties.formEreformed
-        let formProformed = parentani.geofold.properties.formProformed
-        
-        let nodeGeoformed = parentani.geofold.properties.nodeGeoformed || {geometry: {}}
-        let nodeEreformed = parentani.geofold.properties.nodeEreformed || {geometry: {}}
-        let nodeProformed = parentani.geofold.properties.nodeProformed || {geometry: {}}
-
+        let geofold = parentani.geofold
+        let geonode = parentani.geonode
         let locationsPerDax = []
+
+        // identify positions per stace dax
 
         for (let i = 0; i < stace.length; i++) { // if stace undefined assumed dim 3
           let v1 = stace[i] || {}
 
-          // if stace dax has position, define through parent geometry
+          // a stace dax may refer to multiple positions
+
+          let coords = []
+
+          // if pos, idx refers to the position in the parent geofold coordinates
 
           if (v1.hasOwnProperty('pos')) {
             let idx = Math.floor(v1.pos)
-            let coords = []
-            if (v1.hasOwnProperty('geo')) {
-              
-              coords = mgeoj.getCoords(formGeoformed.geometry)
-              
-            } else if (v1.hasOwnProperty('ere')) {
-              
-              coords = mgeoj.getCoords(formEreformed.geometry)
-              
-            } else if (v1.hasOwnProperty('pro')) {
-              
-              coords = mgeoj.getCoords(formProformed.geometry)
-              
-            } else { // if pos look into geometry
-            
-              coords = mgeoj.getCoords(parentani.geofold.geometry)
-              
+
+            // mod refers to the transformation
+
+            if (v1.hasOwnProperty('mod')) { // geoform, conform, ereform, proform`
+              // geofold transfomed are in the geofold.properties
+
+              coords = mgeoj.getCoords(geofold.properties[v1.mod].geometry)
+            } else {
+              // if no mod, positions are the goefold geometry, after transforms
+
+              coords = mgeoj.getCoords(geofold.geometry)
             }
 
+            // move idx to the coords domain
+
             idx = (idx + coords.length) % coords.length
+
+            // if pos, the locations per dax are the i projection of the idx coords
+
             locationsPerDax[i] = Array.of(coords[idx][i])
 
-            // if stace is not defined ... refer to parent geonode position
-            
+          // if not pos, idx refers to the position in the parent geonode coordinates
           } else {
-            
-            let coords = []
-            if (v1.hasOwnProperty('geo')) { // GEO
-            
-              coords = nodeGeoformed.geometry.coordinates
-              
-            } else if (v1.hasOwnProperty('ere')) { // ERE
-            
-              coords = nodeEreformed.geometry.coordinates
-              
-            } else if (v1.hasOwnProperty('pro')) { // PRO
-            
-              coords = nodeProformed.geometry.coordinates
-              
-            } else { // if pos look into geometry
-            
-              coords = nodeGeoformed.geometry.coordinates
-              
+            // locations refer to the geonode or the stace locations
+
+            if (v1.hasOwnProperty('mod')) { // geoform, conform, ereform, proform`
+              // get the mod on the geonode properties
+              console.assert(geonode.properties[v1.mod].geometry !== undefined)
+              coords = geonode.properties[v1.mod].geometry.coordinates
+            } else {
+              if (geonode) {
+                // get the geonode coordinates
+
+                console.assert(geonode.geometry !== undefined, `${geonode} geometry undefined`)
+                coords = geonode.geometry.coordinates
+              } else {
+                // assume stace is location
+
+                coords = stace
+              }
             }
 
             locationsPerDax[i] = Array.of(coords[i])
@@ -157,12 +194,12 @@
     }
 
     // ........................ getTranspot
-    let getTranspot = (stace, ani) => getTranspots(stace, ani)[0]
+    let getTranspot = (stace, anitem) => getTranspots(stace, anitem)[0]
 
-    // ........................ getSiti         situs: Arary.of(ani.x, .y, .z)
+    // ........................ getSiti         situs: Arary.of(anitem.x, .y, .z)
     let getSiti = function (anima, siti = []) {
-      if (anima && anima.geofold && anima.geofold.properties.geonode) {
-        siti = Array.of(anima.geofold.properties.geonode.geometry.coordinates)
+      if (anima && anima.geonode) {
+        siti = Array.of(anima.geonode.geometry.coordinates)
       }
 
       return siti
@@ -257,12 +294,12 @@
     }
 
     // ........................ getLoci
-    let getLoci = function (stace, ani) {
+    let getLoci = function (stace, anitem) {
       let locations = [] // default locations _e_
 
-      let situs = getSitus(ani) // anima    .x,.y,.z - root and sim
+      let situs = getSitus(anitem) // anima    .x,.y,.z - root and sim
 
-      let spots = getTranspots(stace, ani) // ani  stace x || x.pos || x.ref
+      let spots = getTranspots(stace, anitem) // anitem  stace x || x.pos || x.ref
 
       if (situs && spots && spots.length > 0) { // if situs and spots
         locations = spots.map(spot => spot.map((d, i) => d + situs[i])) // transpose spots by situs
@@ -276,11 +313,12 @@
     }
 
     // ........................ getLocus
-    let getLocus = (stace, ani) => getLoci(stace, ani)[0]
+    let getLocus = (stace, anitem) => getLoci(stace, anitem)[0]
 
     // ........................ enty
     function enty () { return enty }
 
+    enty.getLocsInDim = getLocsInDim //  getLocsInDim
     enty.getPosInDim = getPosInDim //  getPosInDim
 
     enty.getSiti = getSiti //
@@ -288,9 +326,6 @@
 
     enty.getLoci = getLoci //  locations
     enty.getLocus = getLocus //  location
-
-    // enty.getLocifion = getLocifion //  projection
-    // enty.getLocifier = getLocifier //  projector
 
     enty.getTranspot = getTranspot //  getTranspot
     enty.getTranspots = getTranspots //  getTranspots

@@ -1,6 +1,6 @@
-# eon-halo-nat 
-**expose nat form** 
-h.ent with  anima.geofold : `mnat.natFeature(p.payload.form)` 
+# eon-halo-natform 
+**expose natform** 
+h.eoform with  anima.geofold : `muonNatform.natFeature(p.payload.form)` 
  
 # license 
 MIT 

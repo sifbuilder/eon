@@ -1,55 +1,30 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.s
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
-    mnat,
+    muonNatform,
     mprops,
     cwen,
     mgraticule,
+    haloEoform,
+    haloNatform,
+    haloScene,    
   ] = await Promise.all([
-    __mapper('xs').m('nat'),
+    __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('graticule'),
+    __mapper('xs').h('eoform'),
+    __mapper('xs').h('natform'),
+    __mapper('xs').h('scene'),    
   ])
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     // .................. pics
     let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -94,7 +69,7 @@ async function zindex (__mapper) {
     // .................. natAni
     let natAni = {
 
-      halo: 'ent',
+      halo: 'eoform',
 
       geofold: function (p) {
         let graticule = p.payload.graticule
@@ -104,7 +79,7 @@ async function zindex (__mapper) {
         let faces = mgraticule.gfaces(graticule)	// faces
 
         let gj = {type: 'Polygon', coordinates: []}
- 			for (let i = 0; i < faces.length; i++) {
+        for (let i = 0; i < faces.length; i++) {
           let face = faces[i]
           let facering = [vertices[face[0]], vertices[face[1]], vertices[face[2]] ]
           facering = [...facering, facering[0]]
@@ -113,17 +88,15 @@ async function zindex (__mapper) {
 
         return gj
       },
-
-      payload: {
-
-        tim,
-        ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
-        boform: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
-
+      tim,
+      ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
+      boform: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
+      geodrift: {
         conform: conform,
 
         proform: proform,
-
+      },
+      payload: {
         graticule: frame,
 
       },
@@ -134,9 +107,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -145,7 +118,7 @@ async function zindex (__mapper) {
     // .................. animas
     let animas = [
 
-      natAni, // h.ent g.uniwen
+      natAni, // h.eoform g.uniwen
       sceneAni, // h.scene
     ]
 
@@ -153,7 +126,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

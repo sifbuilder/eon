@@ -1,54 +1,27 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // z.require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   let [
     mgraticule,
     cwen,
     d3Force3d,
     rrenderport,
+    prtNatform,
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').r('renderport'),
+    __mapper('xs').p('natform'),
+    __mapper('xs').h('scene'),    
   ])
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     let sin = Math.sin, cos = Math.cos
 
     // .................. pics
@@ -62,23 +35,22 @@ async function zindex (__mapper) {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          a * cos(r) * c * cos(u),
-
+        'fn0': (e, c, dax) =>
+          c[0] * cos(e[0]) * c[2] * cos(e[2]),
       },
       'y': {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          b * sin(s) * c * cos(u),
+        'fn0': (e, c, dax) =>
+          c[1] * sin(e[1]) * c[2] * cos(e[2]),
       },
       'z': {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          b * sin(v) * c * cos(s),
+        'fn0': (e, c, dax) =>
+          c[1] * sin(e[2]) * c[2] * cos(e[1]),
 
       },
       'r': {
@@ -87,8 +59,8 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          c * cos(u),
+        'fn0': (e, c, dax) =>
+          c[2] * cos(e[2]),
 
       },
     }
@@ -136,29 +108,29 @@ async function zindex (__mapper) {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          a * cos(r) * c * cos(u),
+        'fn0': (e, c, dax) =>
+          c[0] * cos(e[0]) * c[2] * cos(c[2]),
       },
       'y': {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          b * sin(s) * c * cos(u),
+        'fn0': (e, c, dax) =>
+          c[1] * sin(e[1]) * c[2] * cos(e[2]),
       },
       'z': {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          d * sin(v),
+        'fn0': (e, c, dax) =>
+          c[2] * sin(e[3]),
       },
       'r': {
         'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // booster
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          d * sin(v),
+        'fn0': (e, c, dax) =>
+          c[3] * sin(e[3]),
       },
     }
 
@@ -167,42 +139,42 @@ async function zindex (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          a * cos(r) *
-              c * cos(u),
+        'fn0': (e, c, dax) =>
+          c[0] * cos(e[0]) * c[2] * cos(e[2]),
 
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          b * sin(r) *
-              c * cos(u),
+        'fn0': (e, c, dax) =>
+          c[1] * sin(e[0]) * c[2] * cos(e[2]),
       },
       'z': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 180, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        'fn0': (r, s, u = 0, v = 0, a, b, c = 1, d = 1) =>
-          d * sin(v),
+        'fn0': (e, c, dax) =>
+          c[3] * sin(e[3]),
 
       },
     }
     // -------------------------------  gratform1
     let gratform1 = {
 
-      halo: 'ent',
+      halo: 'eoform',
 
       geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
-      payload: {
+      tim: tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform1'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
 
-        tim: tim,
-        ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform1'},
-        boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
-
-        conform: { projection: 'natform', form: formGrat1 },
+      geodrift: {
+        conform: {
+          projection: 'natform',
+          geoform: formGrat1,
+        },
 
         proform: {
           projection: 'uniwen',
@@ -212,7 +184,9 @@ async function zindex (__mapper) {
           rotate: [ 0, 0, 0],
           lens: [ 0, 1, Infinity ],
         },
+      },
 
+      payload: {
         graticule: {
 
           frame: [ [ [ [[[-1, -1, -180, -180, -180]]], [[[1, 1, 180, 180, 180]]], [[[15, 15]]], 1],
@@ -227,17 +201,19 @@ async function zindex (__mapper) {
     // -------------------------------  gratform2
     let gratform2 = {
 
-      halo: 'ent',
+      halo: 'eoform',
 
       geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
-      payload: {
+      tim: tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform2'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
 
-        tim: tim,
-        ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform2'},
-        boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
-
-        conform: { projection: 'natform', form: formGrat2 },
+      geodrift: {
+        conform: {
+          projection: 'natform',
+          geoform: formGrat2,
+        },
 
         proform: {
           projection: 'uniwen',
@@ -247,7 +223,9 @@ async function zindex (__mapper) {
           rotate: [ 0, 0, 0],
           lens: [ 0, 1, Infinity ],
         },
+      },
 
+      payload: {
         graticule: {
 
           frame: [ [ [ [[[-1, -1, -180, -180, -180]]], [[[1, 1, 180, 180, 180]]], [[[15, 15]]], 1],
@@ -260,20 +238,19 @@ async function zindex (__mapper) {
     // -------------------------------  circform1
     let circform1 = {
 
-      halo: 'ent',
+      halo: 'eoform',
 
       geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
-      payload: {
+      tim: tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform1'},
+      boform: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.1, 'cp': 0.9 },
 
-        tim: tim,
-        ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform1'},
-        boform: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.1, 'cp': 0.9 },
-
+      geodrift: {
         conform: {
 
           projection: 'natform',
-          form: formCirc,
+          geoform: formCirc,
 
         },
 
@@ -285,7 +262,9 @@ async function zindex (__mapper) {
           'rotate': [ 0, 0, 0],
           'lens': [ 0, 1, Infinity ],
         },
+      },
 
+      payload: {
         graticule: {
 
           frame: [ [ [ -180, 180, 15, 1], [ -180, 180, 15, 1] ] ],
@@ -296,17 +275,19 @@ async function zindex (__mapper) {
     // -------------------------------  circform1
     let circform2 = {
 
-      halo: 'ent',
+      halo: 'eoform',
 
       geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
 
-      payload: {
+      tim: tim,
+      ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform2'},
+      boform: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.1, 'cp': 0.9 },
 
-        tim: tim,
-        ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform2'},
-        boform: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.1, 'cp': 0.9 },
-
-        conform: { projection: 'natform', form: formCirc },
+      geodrift: {
+        conform: {
+          projection: 'natform',
+          geoform: formCirc,
+        },
 
         proform: {
           projection: 'uniwen',
@@ -316,7 +297,9 @@ async function zindex (__mapper) {
           rotate: [ 0, 0, 0],
           lens: [ 0, 1, Infinity ],
         },
+      },
 
+      payload: {
         graticule: {
 
           frame: [ [ [ -180, 180, 15, 1], [ -180, 180, 15, 1] ] ],
@@ -331,9 +314,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -342,10 +325,10 @@ async function zindex (__mapper) {
     // .................. animas
     let animas = [
 
-      gratform1, // h.ent
-      gratform2, // h.ent
-      circform1, // h.ent
-      circform2, // h.ent
+      gratform1, // h.eoform
+      gratform2, // h.eoform
+      circform1, // h.eoform
+      circform2, // h.eoform
       sceneAni, // h.scene
 
     ]
@@ -354,7 +337,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

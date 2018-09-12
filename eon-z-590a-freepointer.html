@@ -1,0 +1,136 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    mprops,
+    cwen,
+    mric,
+    crayder,
+    haloPacer,
+    haloScene,
+  ] = await Promise.all([
+    __mapper('xs').m('props'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').m('ric'),
+    __mapper('xs').c('rayder'),
+    __mapper('xs').h('pacer'),
+    __mapper('xs').h('scene'),    
+  ])
+
+  let muonStore = __mapper('muonStore')
+
+  // .................. animas
+  let ani = function () {
+    // .................. pics
+    let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    // .................. pointAni
+    let pointAni = {
+
+      halo: 'pacer',
+      geofold: null,
+
+      tim: tim,
+      ric: {gid: 'nat', cid: 'nat', fid: 'pointAni'},
+      boform: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
+
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          translate: [0, 0, 0],
+          scale: 1,
+          rotate: [0, 0, 0],
+          lens: [0, 1, Infinity],
+        },
+      },
+
+      payload: {
+        pacer: {
+          itemsort: 'anigram',
+          base: 'geoform',
+          initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
+          aad: 0,
+
+          halo: (ani, props) => 'eoform',
+          ric: function (ani, props) {
+            let counter = props.counter || 0
+
+            let fidsuffix = ''
+            if (props.key === 'event') {
+              let hm = muonStore.anigramsInClassHowMany(ani)
+              let pacecount = hm + 1
+              fidsuffix = `_${hm}`
+            }
+
+            let ric = {
+              gid: 'nat',
+              cid: 'nat',
+              fid: `pointTrace${fidsuffix}`,
+            }
+            return ric
+          },
+
+          geofold: function (ani, props) {
+            let stace = [0, 0, 0]
+            if (props.key === 'init') { // INIT
+              stace = mstace.getLocus([null, null, null], ani)
+            } else if (props.key === 'auto') { // AUTO
+              stace = mstace.getLocus([null, null, null], ani)
+            } else if (props.key === 'event') { // EVENT
+              if (crayder.grabbed() !== undefined) {
+                let grabbed = crayder.grabbed()
+                let x = grabbed[0]
+                let y = grabbed[1]
+                let z = 0
+                stace = [x, y, z]
+              }
+            }
+            let coordinates = stace
+            let res = {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: coordinates,
+              },
+              properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+            }
+            return res
+          },
+
+        },
+      },
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1, ray: 1},
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+
+      pointAni, // h.pacer
+      sceneAni, // h.scene
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>
+

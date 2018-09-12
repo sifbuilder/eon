@@ -1,0 +1,119 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    cwen,
+    haloNatform,
+  ] = await Promise.all([
+    __mapper('xs').c('wen'),
+    __mapper('xs').h('natform'),
+  ])
+
+  // .................. animas
+  let ani = function () {
+    // .................. pics
+    let tim = {td: 36800, t0: 0, t1: 1000, t2: 1, t3: 1}
+    let formCirc = {
+      x: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 2, 'b': 1, // circ
+        'ra2': 60, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+      },
+      y: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 2, 'b': 1, // circ
+        'ra2': 60, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+      },
+    }
+
+    let formNat = {
+      x: {
+        'm1': 2, 'm2': 2, 'n1': 0.3, 'n2': -3, 'n3': 8, 'a': 8, 'b': 8, // egg
+        'ra2': 60, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
+      },
+      y: {
+        'm1': 2, 'm2': 2, 'n1': 0.3, 'n2': -3, 'n3': 8, 'a': 8, 'b': 8, // egg
+        'ra2': 60, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
+      },
+    }
+
+    let stace = {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
+      'ra2': 30, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+    }
+
+    let boformNat = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+
+    let boformCirc = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.39, 0.39]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+
+    let proform = {
+
+      projection: 'uniwen',
+      prerotate: [[[ cwen.rotation ]]],
+      translate: [ [0, 0, 0], [[[ stace ]]] ],
+      scale: 1,
+      rotate: [ 0, 0, 60 ],
+      lens: [0, 1, 12],
+
+    }
+
+    // ............................. animas
+    let nat = {
+      halo: 'natform',
+      geofold: null,
+      tim,
+      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      boform: boformNat,
+      geodrift: {
+        proform,
+      },
+      payload: {
+        geoform: formNat,
+      },
+    }
+
+    let circ = {
+      halo: 'natform',
+      geofold: null,
+      tim,
+      ric: {gid: 'nat', cid: 'nat', fid: 'formCirc'},
+      boform: boformCirc,
+      geodrift: {
+        proform,
+      },
+      payload: {
+        geoform: formCirc,
+      },
+
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // ............................. animas
+    let animas = [
+      sceneAni, // h.scene
+      nat, // h.natform
+      circ, // h.natform
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

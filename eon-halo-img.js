@@ -35,7 +35,7 @@
         payload,
       }
 
-      newAnigrams = [...newAnigrams, ...__mapper('xs').h('ent').gramm(newAnigram)]
+      newAnigrams = [...newAnigrams, ...__mapper('xs').h('eoform').gramm(newAnigram)]
       return newAnigrams
     }
 

@@ -9,19 +9,16 @@
   'use strict'
 
   async function haloCore (__mapper = {}) {
-    let manitem = await __mapper('xs').m('anitem')
-
     // ....................... ween
-    let ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, Array.of(anima)) : []
+    let ween = anitem => (anitem.payload.inited !== 1) ? (anitem.payload.inited = anitem.payload.gelded = 1, Array.of(anitem)) : []
 
     // ....................... gramm
-    let gramm = anitem => manitem.snapani(anitem)
-      .then(snapped => manitem.functorgeofold(snapped))
-      .then(snapped => manitem.functorpayload(snapped))
+    let gramm = anitem => Array.of(anitem)
 
-    let haloCore = {}
-    haloCore.ween = anima => ween(anima)
-    haloCore.gramm = anima => gramm(anima)
+    let haloCore = {
+      ween: anitem => ween(anitem),
+      gramm: anitem => gramm(anitem),
+    }
 
     // ....................... enty
     let enty = haloCore

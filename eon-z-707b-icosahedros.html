@@ -1,0 +1,238 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  let [
+    mprops,
+    cwen,
+    mgeom,
+    d3,
+    haloScene,
+  ] = await Promise.all([
+    __mapper('xs').m('props'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').m('geom'),
+    __mapper('xs').b('d3'),
+    __mapper('xs').h('scene'),    
+  ])
+
+  let ani = function () {
+  // .................. pics
+
+    let epsilon = 1e-6, epsilon2 = epsilon * epsilon, asin = Math.asin
+    let atan = Math.atan, abs = Math.abs
+    let pi = Math.PI, degrees = 180 / pi, asin1_3 = Math.asin(1 / 3)
+    let theta = atan(0.5) * degrees
+
+    const tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
+
+    let facesGeofold = anitem => {
+      let payload = anitem.payload,
+        ric = anitem.ric,
+        faces = mprops.v(payload.faces) // payload.faces
+
+      let json = {type: 'FeatureCollection', features: []}
+
+      for (let i = 0, l = faces.length; i < l; i++) {
+        let face = faces[i] // face cornersx position
+
+        let geometry = {type: 'Polygon', coordinates: []}
+        geometry.coordinates = Array.of(face) // eg [-1, 1, 1]
+
+        let _ric = {}
+        _ric.gid = ric.gid
+        _ric.cid = ric.cid
+        _ric.fid = ric.cid + i
+
+        let feature = {type: 'Feature', geometry: {}, properties: {}}
+
+        feature.geometry = geometry
+
+        feature.properties.ric = _ric
+        feature.properties.sort = 'form'
+        feature.properties.boform = face.boform
+
+        json.features.push(feature)
+      }
+
+      return json
+    }
+
+    // .................. facesAni
+    let facesAni = {
+
+      halo: 'eoform',
+
+      geofold: facesGeofold,
+      tim: tim,
+      ric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
+      boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+
+      geodrift: {
+        proform: {
+
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [ 100, 0 ],
+          scale: 100,
+          rotate: [0, [[[0, 3 * 360]]], 0],
+          lens: [0, 1, [[[2, 2]]] ],
+
+        },
+      },
+
+      payload: {
+        faces: function () { // icosahedronFaces
+          let faces = [],
+            s = 36,
+            y = Math.atan2(1, 2) * 180 / Math.PI
+          for (let x = 0; x < 360; x += 2 * s) {
+            faces.push(
+              [[x + 0 * s, -90],
+                [x + 0 * s, -y],
+                [x + 2 * s, -y],
+                [x + 0 * s, -90]],
+              [[x + 1 * s, y],
+                [x + 2 * s, -y],
+                [x + 0 * s, -y],
+                [x + 1 * s, y]],
+              [[x + 1 * s, y],
+                [x + 0 * s, -y],
+                [x - 1 * s, y],
+                [x + 1 * s, y]],
+              [[x + 1 * s, y],
+                [x - 1 * s, y],
+                [x - 1 * s, 90],
+                [x + 1 * s, y]]
+            )
+          }
+          return faces.map(face => face.map(mprops.cartesian))
+        },
+      },
+    }
+
+    // .................. dotsAni
+    let dotsAni = {
+
+      halo: 'eoform',
+
+      geofold: anitem => {
+        let payload = anitem.payload,
+          ric = anitem.ric,
+          points = payload.points,
+          faces = payload.faces
+
+        let json = {type: 'FeatureCollection', features: []}
+
+        for (let i = 0, l = faces.length; i < l; i++) {
+          let face = faces[i] // face cornersx position
+
+          let geometry = {type: 'Polygon', coordinates: []}
+          geometry.coordinates = Array.of(face.cornersx.map(k => points[k])) // eg [-1, 1, 1]
+
+          let _ric = {}
+          _ric.gid = ric.gid
+          _ric.cid = ric.cid
+          _ric.fid = ric.cid + i
+
+          let feature = {type: 'Feature', geometry: {}, properties: {}}
+
+          feature.geometry = geometry
+          feature.properties.ric = _ric
+          feature.properties.sort = 'form'
+          feature.properties.boform = face.boform
+
+          json.features.push(feature)
+        }
+
+        return json
+      },
+
+      tim: tim,
+      ric: {gid: 'dotsAni', cid: 'dotsAni', fid: 'dotsAni'},
+      boform: {'csx': 0, 'cf': [[[111, 222, 111, 222, 111, 222, 111]]], 'cs': 777, 'cw': 0.2, 'co': 0.9, 'cp': 0.9},
+
+      geodrift: {
+        proform: {
+
+          projection: 'uniwen',
+          prerotate: [[[ cwen.rotation ]]],
+          translate: [ -100, 0],
+          scale: 100,
+          rotate: [0, [[[0, 3 * 360]]], 0],
+          lens: [0, 1, Infinity],
+
+        },
+      },
+
+      payload: {
+        points: [
+          [0, 90],
+          [0, -90],
+        ]
+          .concat(d3.range(10).map(function (i) {
+            let theta = Math.atan(0.5) * 180 / Math.PI
+            let phi = ((i * 36) + 180) % 360 - 180
+            return [phi, i & 1 ? theta : -theta]
+          }))
+          .map(mgeom.cartesian),
+
+        faces: [
+
+          {cornersx: [ 0, 3, 11, 0]},
+          {cornersx: [ 0, 5, 3, 0]},
+          {cornersx: [ 0, 7, 5, 0]},
+          {cornersx: [ 0, 9, 7, 0]},
+          {cornersx: [ 0, 11, 9, 0]}, // North
+          {cornersx: [ 2, 11, 3, 2]},
+          {cornersx: [ 3, 4, 2, 3]},
+          {cornersx: [ 4, 3, 5, 4]},
+          {cornersx: [ 5, 6, 4, 5]},
+          {cornersx: [ 6, 5, 7, 6]},
+          {cornersx: [ 7, 8, 6, 7]},
+          {cornersx: [ 8, 7, 9, 8]},
+          {cornersx: [ 9, 10, 8, 9]},
+          {cornersx: [10, 9, 11, 10]},
+          {cornersx: [11, 2, 10, 11]}, // Equator
+          {cornersx: [ 1, 2, 4, 1]},
+          {cornersx: [ 1, 4, 6, 1]},
+          {cornersx: [ 1, 6, 8, 1]},
+          {cornersx: [ 1, 8, 10, 1]},
+          {cornersx: [ 1, 10, 2, 1]}, // South
+
+        ],
+
+      },
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+
+      facesAni, // h.eoform
+      dotsAni, // h.eoform
+      sceneAni, // h.scene
+
+    ]
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

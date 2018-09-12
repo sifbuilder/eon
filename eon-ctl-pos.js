@@ -10,10 +10,12 @@
 
   async function ctlPos (__mapper) {
     let [
-      d3selection,
+      d3,
     ] = await Promise.all([
-      __mapper('xs').b('d3-selection'),
+      __mapper('xs').b('d3'),
     ])
+
+    let d3selection = d3
 
     let cameraProjer // projection camera
 

@@ -24,6 +24,7 @@
 
     let d3drag = d3
     let d3selection = d3
+    let getPos = rrenderport.getPos // event position
 
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)
@@ -31,25 +32,42 @@
 
     function stopMomentum () { cancelAnimationFrame(state.timer); state.timer = null }
 
+    // .................. rebase
     function rebase () {
       state.rotInDrag_radians = [0, 0, 0] // reset to default rotation
     }
 
-    let inits = {
-      decay: 0.95,
-      mult: 2e-3, // rotInDrag_radians factor
-      rotInit_radians: [0, 0, 0],
-      timeSpan: 200,
-      epsilon: 1e-3,
+    // ....................... dragControl
+    let dragControl = {
+      dragstarted,
+      dragged,
+      dragended,
+
     }
 
-    let getPos = rrenderport.getPos // event position
-    let xsign = 1 //  1 if x goes left to right
-    let ysign = -1 // 1 if y goes up down
+    // .................. start drag control
+    let control = elem => elem.call(d3drag.drag().on('start', dragControl.dragstarted).on('drag', dragControl.dragged).on('end', dragControl.dragended))
 
+    // .................. stop drag control
+    let reset = elem => elem.call(d3drag.drag().on('start', null).on('drag', null).on('end', null))
+
+    // .................. inits
+    let inits = {
+      decay: 0.95,
+      mult_radians: 2e-3, // rotInDrag_radians factor
+      rotInit_radians: [0, 0, 0],
+      timeSpan: 200,
+      moveSpan: 16,
+    }
+
+    let epsilon = 1e-3
+
+    let xsign = -1 //  up/down
+    let ysign = -1 // left/right
+
+    // .................. state
     let state = {
 
-      // projection: null, // __mapper('xs').p('uniwen'), // _e_tbd
       projection: () => d3geo.geoOrthographic()
         .rotate([0, 0])
         .translate([0, 0])
@@ -57,90 +75,97 @@
 
       rotAccum_radians: [0, 0, 0],
       rotInDrag_radians: [0, 0, 0], // rotInDrag_radians in radians
+      rotVel_radians: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
+      vel_radians: [0, 0, 0], // from dragEnd to momemtum
 
       grabbed: false,
       moved: false,
-      rotVel: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
 
-      vel: [0, 0, 0],
-      moveSpan: 16,
-      autoRot: false,
       lastMoveTime: null,
       timer: null,
-      rotMatrix: null,
-      cPos: null, // current position
-      pPos: null, // previous position
 
+      s0: null, // previous position
+      s1: null, // previous position
+      s2: null, // current position
     }
 
-    // .................. start drag control
-    let control = elem => elem.call(d3drag.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended))
-
-    // .................. stop drag control
-    let reset = elem => elem.call(d3drag.drag().on('start', null).on('drag', null).on('end', null))
-
     // .................. dragstarted listener
-    let dragstarted = function () {
+    function dragstarted () {
+      // s: screen  state.s0, state.s1, state.s2,
+      // g: geographic
+      // c: cartesian
+      // q: quaternion
+      // dP: delta present - rotAccum
+      // dQ: delta current - rotInDrag
+
       let e = d3selection.event
 
       if (state.grabbed) return // drag ongoing
 
       stopMomentum()
-
       state.moved = false // not moved yet
 
-      state.grabbed = getPos(e) // mouse position
+      state.grabbed = getPos(e)
 
-      state.p0 = state.grabbed // initial position in geometric space
+      state.s2 = state.grabbed // present
+      state.s1 = state.s2 // current
+      state.s0 = state.s1 // current
 
-      let projection = state.projection()
-      console.assert(projection.invert !== undefined)
-      console.assert(projection.rotate !== undefined)
+      state.rotAccum_radians =
+            mgeom.add(
+              state.rotAccum_radians,
+              state.rotInDrag_radians) // rotation
 
-      state.pPos = state.p0 // previous position
-      state.cPos = state.pPos // current position
-
-      state.rotAccum_radians = mgeom.add(state.rotAccum_radians, state.rotInDrag_radians) // rotation
-      rebase()
+      rebase() // rebase rotInDrag
     }
 
     // .................. dragged  listener
-    let dragged = function () {
+    function dragged () {
       if (!state.grabbed) return
 
       let e = d3selection.event
-      let pos = getPos(e) //  d3.mouse(this)
 
-      let dx = xsign * (pos[1] - state.grabbed[1]),
-        dy = ysign * (state.grabbed[0] - pos[0])
+      state.s1 = state.s2
+      state.s2 = getPos(e)
 
+      let sdq = [ // qurrent
+        xsign * (state.s2[1] - state.s1[1]),
+        ysign * (state.s1[0] - state.s2[0]),
+      ]
+
+      let sdp = [ // present
+        xsign * (state.s2[1] - state.s0[1]),
+        ysign * (state.s0[0] - state.s2[0]),
+      ]
+
+      let sdist = sdp[0] * sdp[0] + sdp[1] * sdp[1]
       if (!state.moved) {
-        if (dx * dx + dy * dy < state.moveSpan) return
+        if (sdist < inits.moveSpan) return
         state.moved = true // moved
-        state.autoRot = false
         state.rotInDrag_radians = inits.rotInit_radians
         rebase()
       }
+
       state.lastMoveTime = Date.now()
-      state.pPos = state.cPos
-      state.cPos = pos
-      state.rotInDrag_radians = [
-        state.rotVel[0] + dx * inits.mult,
-        state.rotVel[1] + dy * inits.mult,
-        state.rotVel[2] + 0,
+
+      let r2 = [
+        state.rotVel_radians[0] + sdp[0] * inits.mult_radians,
+        state.rotVel_radians[1] + sdp[1] * inits.mult_radians,
       ]
+
+      state.rotInDrag_radians = r2
     }
 
-    // .................. dragended  listener
-    let dragended = function () {
+    // .................. dragended
+    function dragended () {
       if (!state.grabbed) return
       state.grabbed = false
       if (!state.moved) return
 
-      state.vel = [ // velocity
+      state.vel_radians = [ // velocity
 
-        xsign * (state.cPos[1] - state.pPos[1]) * inits.mult,
-        ysign * (state.cPos[0] - state.pPos[0]) * inits.mult,
+        xsign * (state.s2[1] - state.s1[1]) * inits.mult_radians,
+        ysign * (state.s2[0] - state.s1[0]) * inits.mult_radians,
 
       ]
 
@@ -149,20 +174,26 @@
 
     // .................. momentum
     function momentum () {
-      if (Math.abs(state.vel[0]) < inits.epsilon && Math.abs(state.vel[1]) < inits.epsilon) return
-      state.vel[0] *= inits.decay
-      state.vel[1] *= inits.decay
+      if (Math.abs(state.vel_radians[0]) < epsilon && Math.abs(state.vel_radians[1]) < epsilon) return
 
-      state.rotInDrag_radians[0] += state.vel[0]
-      state.rotInDrag_radians[1] -= state.vel[1]
+      state.vel_radians[0] *= inits.decay
+      state.vel_radians[1] *= inits.decay
+
+      state.rotInDrag_radians[0] += state.vel_radians[0]
+      state.rotInDrag_radians[1] -= state.vel_radians[1]
 
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
 
     // .................. enty
     let enty = function (p = {}) {
-      state.rotAccum_radians = mgeom.to_radians(p.rotInit) || inits.rotInit_radians
+      let rotInit_degrees = p.rotInit
+      let rotInit_radians = mgeom.to_radians(rotInit_degrees)
+
+      state.rotAccum_radians = rotInit_radians || inits.rotInit_radians
+
       state.timer = requestAnimationFrame(tick)
+
       return enty
     }
 
@@ -173,8 +204,22 @@
     enty.control = control
     enty.reset = reset
 
-    enty.projection = _ => _ !== undefined ? (state.projection = _, enty) : state.projection
-    enty.rotation = () => mgeom.add(state.rotAccum_radians, state.rotInDrag_radians).map(mgeom.to_degrees)
+    enty.projection = _ => {
+      if (_ !== undefined) {
+        state.projection = _
+        return enty
+      } else {
+        return state.projection
+      }
+    }
+
+    enty.rotation = () => {
+      let res = mgeom.add(
+        state.rotAccum_radians,
+        state.rotInDrag_radians)
+        .map(mgeom.to_degrees)
+      return res
+    }
 
     return enty
   }

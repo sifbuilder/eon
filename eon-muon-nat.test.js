@@ -10,8 +10,8 @@ __mapper({'xs': xs.xs(__mapper)}) // PROXIES
 const muonGraticule = require('./muon-graticule.js')
 const muonProfier = require('./muon-profier.js')
 const muonProj3ct = require('./muon-proj3ct.js')
-const muonNat = require('./muon-nat.js')
-let mnat = muonNat.muonNat(__mapper)
+const muonNatform = require('./muon-natform.js')
+let muonNatform = muonNatform.muonNatform(__mapper)
 
 test('natNform', () => {
   let form = {'m1': 4, 'm2': 4, 'n1': 4, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1}
@@ -27,7 +27,7 @@ test('natNform', () => {
   nformed.x.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => a * cos(q) * c * cos(u)
   nformed.y.fn0 = (q, s, u, v, a, b, c = 1, d = 1) => b * sin(q) * c * cos(u)
 
-  let result = mnat.natNform(form)
+  let result = muonNatform.natNform(form)
 
   expect(JSON.stringify(result)).toBe(JSON.stringify(nformed))
 })

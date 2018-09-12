@@ -1,77 +1,30 @@
-<!-- <!DOCTYPE html> -->
-<!-- <meta charset="utf-8"> -->
-<!-- <title>animas</title> -->
-<body style="cursor:crosshair"></body>
-<!-- <div id="viewframe" class="viewframe"></div> -->
-
-<!-- <script src="eon-x-d3-require.js"></script> -->
-<!-- <script src="eon-x-mapper.js"></script> -->
-<!-- <script src="eon-x-s.js"></script> -->
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  const origin = 'https://sifbuilder.github.io/eon/'
-
-  const viewframe = document.createElement('div')
-  viewframe.id = 'viewframe'
-  viewframe.className = 'viewframe'
-  document.getElementsByTagName('body')[0].appendChild(viewframe)
-
-  let __mapper = await fetch(`${origin}eon-x-mapper.js`)
-    .then(response => response.text())
-    .then(string => {
-      Function(string)()
-      return (Function('return this')().xMapper.xMapper())
-    })
-
-  let xD3Require = await fetch(`${origin}eon-x-d3-require.js`)
-    .then(response => response.text())
-    .then(string => {
-      Function(string)()
-      return (Function('return this')().xD3Require)
-    })
-
-  let xD3Rexsquire = await fetch(`${origin}eon-x-s.js`)
-    .then(response => response.text())
-    .then(string => {
-      Function(string)()
-      return (Function('return this')().xs)
-    })
-
-  await __mapper({'xD3Require': xD3Require}) // z.require
-  await __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = await xanimas.animas() // get animas
-
-  await muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  await muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
     cwen,
     mprops,
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').m('props'),
+    __mapper('xs').h('scene'),    
   ])
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     // .................. pics
     let tim = {'td': 9200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     // .................. wenPolygon anima
     let wenPolygon = {
 
-      halo: 'ent',
+      halo: 'eoform',
+
       geofold: (p) => {
         let points = [
             [-1, -1, 1], // 0
@@ -131,11 +84,11 @@ async function zindex (__mapper) {
 
         return gj
       },
-      payload: {
-        tim: tim,
-        ric: {gid: 'wenPolygon', cid: 'wenPolygon', fid: 'wenPolygon'},
-        boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      tim: tim,
+      ric: {gid: 'wenPolygon', cid: 'wenPolygon', fid: 'wenPolygon'},
+      boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
+      geodrift: {
         proform: {
 
           projection: 'uniwen',
@@ -147,6 +100,8 @@ async function zindex (__mapper) {
 
         },
       },
+      payload: {
+      },
 
     }
 
@@ -155,9 +110,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -166,14 +121,14 @@ async function zindex (__mapper) {
     // .................. animas
     let animas = [
 
-      wenPolygon, // h.ent mgeom.uniwen
+      wenPolygon, // h.eoform mgeom.uniwen
       sceneAni, // h.scene
     ]
     return animas
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

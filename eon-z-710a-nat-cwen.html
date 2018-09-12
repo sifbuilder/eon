@@ -1,51 +1,22 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.s
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
     mprops,
     cwen,
+    haloScene,    
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
+    __mapper('xs').h('scene'),    
   ])
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     // .................. pics
     let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -69,19 +40,20 @@ async function zindex (__mapper) {
     // -------------------------------  nat
     let nat = {
 
-      halo: 'nat',
+      halo: 'natform',
+
       geofold: null,
+      tim,
 
-      payload: {
-        tim,
-
-        ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
-
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
+      geodrift: {
         proform: proformNat,
+      },
 
-        boform: { 'csx': 0, 'cf': [[[888, 555, 111]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      boform: { 'csx': 0, 'cf': [[[888, 555, 111]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      payload: {
 
-        form: {'m1': [[[4, 3.93]]], 'm2': [[[4, 3.93]]], 'n1': 2, 'n2': 2, 'n3': [[[2, 1]]], 'a': [[[2, 3]]], 'b': 1},
+        geoform: {'m1': [[[4, 3.93]]], 'm2': [[[4, 3.93]]], 'n1': 2, 'n2': 2, 'n3': [[[2, 1]]], 'a': [[[2, 3]]], 'b': 1},
 
       },
 
@@ -89,19 +61,20 @@ async function zindex (__mapper) {
     // -------------------------------  circ
     let circ = {
 
-      halo: 'nat',
+      halo: 'natform',
+
       geofold: null,
+      tim,
+
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'circ'},
+      geodrift: {
+        proform: proformCirc,
+      },
+
+      boform: { 'csx': 0, 'cf': [[[222, 222, 444]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
       payload: {
-        tim,
-
-        ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'circ'},
-
-        proform: proformCirc,
-
-        boform: { 'csx': 0, 'cf': [[[222, 222, 444]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
-
-        form: {'m1': [[[4, 4]]], 'm2': [[[4, 4]]], 'n1': 4, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1},
+        geoform: {'m1': [[[4, 4]]], 'm2': [[[4, 4]]], 'n1': 4, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1},
 
       },
 
@@ -112,9 +85,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -122,8 +95,8 @@ async function zindex (__mapper) {
 
     // .................. animas
     let animas = [
-      nat, // h.ent g.uniwen
-      circ, // h.ent g.uniwen
+      nat, // h.eoform g.uniwen
+      circ, // h.eoform g.uniwen
       sceneAni, // h.scene
     ]
 
@@ -131,7 +104,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

@@ -1,119 +1,91 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.s
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
-    mnat,
+    muonNatform,
     mprops,
     cwen,
+    prtNatform,
+    tf,
   ] = await Promise.all([
-    __mapper('xs').m('nat'),
+    __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
+    __mapper('xs').p('natform'),
+    __mapper('xs').b('@tensorflow/tfjs'),
   ])
 
-  // ===================================================
-  const vars = [ // Step 1. variables - initialize random
-    tf.variable(tf.scalar(Math.random())), // vars[0]: a
-    tf.variable(tf.scalar(Math.random())), // vars[1]: b
-    tf.variable(tf.scalar(Math.random())), // vars[2]: c
-  ]
+  // .................. animas
+  let ani = function () {
+    const vars = [ // Step 1. variables - initialize random
+      tf.variable(tf.scalar(Math.random())), // vars[0]: a
+      tf.variable(tf.scalar(Math.random())), // vars[1]: b
+      tf.variable(tf.scalar(Math.random())), // vars[2]: c
+    ]
 
-  const learningRate = 0.01 // Step 2. Optimizer : optimize output :: minimize loss
-  const optimizer = tf.train.sgd(learningRate) // gradient descent optimizer
+    const learningRate = 0.01 // Step 2. Optimizer : optimize output :: minimize loss
+    const optimizer = tf.train.sgd(learningRate) // gradient descent optimizer
 
-  function predict (input) { // Step 3. output predicted from input on variables
-    return tf.tidy(() => { // y = a * x ^ 2 + b * x + c // [c,b,a]
-      const x = tf.scalar(input)
-      const ax2 = vars[0].mul(x.square())
-      const bx = vars[1].mul(x)
-      const y = ax2.add(bx).add(vars[2])
-      return y
-    })
-  }
-
-  function loss (prediction, actual) { // loss function: outputs to predicts
-    const error = tf.scalar(actual).sub(prediction).square()
-    return error
-  }
-
-  async function train (xs, ys, numIterations, done) { // training plan
-    let currentIteration = 0
-
-    for (let iter = 0; iter < numIterations; iter++) {
-      for (let i = 0; i < xs.length; i++) {
-        optimizer.minimize(() => { // minimize loss on gradient descent
-          const pred = predict(xs[i]) // output predicted for input   xs[i]
-          const predLoss = loss(pred, ys[i]) // loss from output to predicted
-          return predLoss // as tf.Scalar
-        })
-      }
-      console.log(' ............  train iteration', iter, vars.map(d => d.dataSync()[0]))
-      await tf.nextFrame() // -------------------- frame
+    function predict (input) { // Step 3. output predicted from input on variables
+      return tf.tidy(() => { // y = a * x ^ 2 + b * x + c // [c,b,a]
+        const x = tf.scalar(input)
+        const ax2 = vars[0].mul(x.square())
+        const bx = vars[1].mul(x)
+        const y = ax2.add(bx).add(vars[2])
+        return y
+      })
     }
 
-    done()
-  }
+    function loss (prediction, actual) { // loss function: outputs to predicts
+      const error = tf.scalar(actual).sub(prediction).square()
+      return error
+    }
 
-  function test (xs, ys) {
-    tf.tidy(() => {
-      const predictedYs = xs.map(predict) // predict on learnt vars
-      console.log('Expected', ys) //
-      console.log('Got', predictedYs.map(p => p.dataSync()[0])) // from tensor
+    async function train (xs, ys, numIterations, done) { // training plan
+      let currentIteration = 0
+
+      for (let iter = 0; iter < numIterations; iter++) {
+        for (let i = 0; i < xs.length; i++) {
+          optimizer.minimize(() => { // minimize loss on gradient descent
+            const pred = predict(xs[i]) // output predicted for input   xs[i]
+            const predLoss = loss(pred, ys[i]) // loss from output to predicted
+            return predLoss // as tf.Scalar
+          })
+        }
+        console.log(' ............  train iteration', iter, vars.map(d => d.dataSync()[0]))
+        await tf.nextFrame() // -------------------- frame
+      }
+
+      done()
+    }
+
+    function test (xs, ys) {
+      tf.tidy(() => {
+        const predictedYs = xs.map(predict) // predict on learnt vars
+        console.log('Expected', ys) //
+        console.log('Got', predictedYs.map(p => p.dataSync()[0])) // from tensor
+      })
+    }
+
+    const data = {
+      xs: [0, 1, 2, 3],
+      ys: [0 * 1.1, 5.9, 16.8, 33.9],
+    }
+
+    console.log('Before training: using random coefficients')
+    test(data.xs, data.ys) // Before training
+
+    train(data.xs, data.ys, 50, () => { // Train
+      let tsvars = vars.map(d => d.dataSync()[0])
+      console.log(`After training: a=${tsvars[0]}, b=${tsvars[1]}, c=${tsvars[2]}`)
+      test(data.xs, data.ys)
     })
-  }
+    // ===================================================
 
-  const data = {
-    xs: [0, 1, 2, 3],
-    ys: [0 * 1.1, 5.9, 16.8, 33.9],
-  }
-
-  console.log('Before training: using random coefficients')
-  test(data.xs, data.ys) // Before training
-
-  train(data.xs, data.ys, 50, () => { // Train
-    let tsvars = vars.map(d => d.dataSync()[0])
-    console.log(`After training: a=${tsvars[0]}, b=${tsvars[1]}, c=${tsvars[2]}`)
-    test(data.xs, data.ys)
-  })
-  // ===================================================
-
-  // .................. animas
-  let animas = function () {
     // .................. pics
     let tim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1}
 
@@ -174,17 +146,19 @@ async function zindex (__mapper) {
     // .................. natAni
     let natAni = {
 
-      halo: 'ent',
+      halo: 'eoform',
       geofold: p => {
         let tfvars = vars.map(d => d.dataSync()[0])
         let q = { natform: {y: { e1: tfvars } } }
-        return mnat.natFeature(p.payload.natform(q.natform))
+        return muonNatform.natFeature(p.payload.natform(q.natform))
       },
-      payload: {
-        tim: tim,
-        ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      tim: tim,
+      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      geodrift: {
         proform: proform,
-        boform: { 'csx': 0, 'cf': 111, 'co': 0.09, 'cs': 888, 'cw': 1.9, 'cp': [[[0.7, 0.9]]]},
+      },
+      boform: { 'csx': 0, 'cf': 111, 'co': 0.09, 'cs': 888, 'cw': 1.9, 'cp': [[[0.7, 0.9]]]},
+      payload: {
         natform: natform,
       },
     }
@@ -194,9 +168,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -205,7 +179,7 @@ async function zindex (__mapper) {
     // .................. animas
     let animas = [
 
-      natAni, // h.ent g.uniwen
+      natAni, // h.eoform g.uniwen
       sceneAni, // h.scene
     ]
 
@@ -213,7 +187,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

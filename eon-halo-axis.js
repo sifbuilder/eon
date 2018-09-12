@@ -14,14 +14,14 @@
       d3axis,
       d3scale,
       d3format,
-      hent,
+      haloEoform,
       manitem,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').b('d3-axis'),
       __mapper('xs').b('d3-scale'),
       __mapper('xs').b('d3-format'),
-      __mapper('xs').h('ent'),
+      __mapper('xs').h('eoform'),
       __mapper('xs').m('anitem'),
     ])
 
@@ -32,8 +32,8 @@
         .then(snapped => manitem.functorpayload(snapped))
         .then(anigram => {
           let payload = anigram.payload, // payload
-            ric = payload.ric, // ric
-            uid = payload.uid, // uid
+            ric = ric, // ric
+            uid = uid, // uid
             axis = payload.axis // axis
 
           let range = axis.range || [0, 1],
@@ -69,7 +69,7 @@
             }),
           }
           delete newAnigram.payload.axis
-          return hent.gramm(newAnigram)
+          return haloEoform.gramm(newAnigram)
         })
     }
 

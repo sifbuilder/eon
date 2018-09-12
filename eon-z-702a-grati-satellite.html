@@ -1,51 +1,24 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // z.require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.x proxy
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
     mgraticule,
     cwen,
+    prtNatform,
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
+    __mapper('xs').p('natform'),
+    __mapper('xs').h('scene'),    
   ])
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     // .................. pics
     let tim = {'td': 22800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -68,21 +41,26 @@ async function zindex (__mapper) {
     }
 
     let g1 = {
-      halo: 'ent',
+      halo: 'eoform',
       geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
-      payload: {
-        tim: tim,
-        ric: { gid: 'grat', cid: 'grat', fid: 'g1'},
-        boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
-        conform: { projection: 'natform', form: form },
+      tim: tim,
+      ric: { gid: 'grat', cid: 'grat', fid: 'g1'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
+      geodrift: {
+        conform: {
+          projection: 'natform',
+          geoform: form,
+        },
         proform: {
           projection: 'uniwen',
           prerotate: [[[ cwen.rotation ]]],
           translate: [ -150, 0],
-          scale: 100,
+          scale: 1,
           rotate: [0, 0, 0],
           lens: [ 0, 1, Infinity ],
         },
+      },
+      payload: {
         graticule: {
           frame: [ [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ],
             [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ] ],
@@ -91,13 +69,13 @@ async function zindex (__mapper) {
     }
 
     let g2 = {
-      halo: 'ent',
+      halo: 'eoform',
       geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
-      payload: {
-        tim: tim,
-        ric: { gid: 'grat', cid: 'grat', fid: 'g2'},
-        boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
-        conform: { projection: 'natform', form: form },
+      tim: tim,
+      ric: { gid: 'grat', cid: 'grat', fid: 'g2'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
+      geodrift: {
+        conform: { projection: 'natform', geoform: form },
         proform: {
           projection: 'uniwen',
           prerotate: [[[ cwen.rotation ]]],
@@ -106,6 +84,8 @@ async function zindex (__mapper) {
           rotate: [0, 0, 0],
           lens: [ 0, 1, Infinity ],
         },
+      },
+      payload: {
         graticule: {
           frame: [ [ [-180, 180, 180, 30], [-0, 180, 360, 30] ],
             [ [-180, 180, 180, 30], [-0, 180, 360, 30] ] ],
@@ -114,13 +94,13 @@ async function zindex (__mapper) {
     }
 
     let g3 = {
-      halo: 'ent',
+      halo: 'eoform',
       geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
-      payload: {
-        tim: tim,
-        ric: { gid: 'grat', cid: 'grat', fid: 'g3'},
-        boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
-        conform: { projection: 'natform', form: form },
+      tim: tim,
+      ric: { gid: 'grat', cid: 'grat', fid: 'g3'},
+      boform: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
+      geodrift: {
+        conform: { projection: 'natform', geoform: form },
         proform: {
           projection: 'uniwen',
           prerotate: [[[ cwen.rotation ]]],
@@ -129,6 +109,8 @@ async function zindex (__mapper) {
           rotate: [0, 0, 0],
           lens: [ 0, 1, Infinity ],
         },
+      },
+      payload: {
         graticule: {
           frame: [ [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ],
             [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ] ],
@@ -141,9 +123,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -152,9 +134,9 @@ async function zindex (__mapper) {
     // .................. animas
     let animas = [
 
-      g1, // h.ent
-      g2, // h.ent
-      g3, // h.ent
+      g1, // h.eoform
+      g2, // h.eoform
+      g3, // h.eoform
       sceneAni, // h.scene
 
     ]
@@ -163,7 +145,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

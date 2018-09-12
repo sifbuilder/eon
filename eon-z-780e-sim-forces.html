@@ -1,0 +1,330 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  let [
+    mprops,
+    mforces,
+    muonNatform,
+    d3Force3d,
+    rrenderport,
+    crayder,
+    mric,
+    haloEoform,
+    haloNatform,
+    haloScene,    
+  ] = await Promise.all([
+    __mapper('xs').m('props'),
+    __mapper('xs').m('forces'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').b('d3-force-3d'),
+    __mapper('xs').r('renderport'),
+    __mapper('xs').c('rayder'),
+    __mapper('xs').m('ric'),
+    __mapper('xs').h('eoform'),
+    __mapper('xs').h('natform'),
+    __mapper('xs').h('scene'),    
+  ])
+
+  let [
+    forceVoid,
+    forceEnergy,
+    forceCollide,
+  ] = await Promise.all([
+    __mapper('xs').f('void'),
+    __mapper('xs').f('energy'),
+    __mapper('xs').f('collide'),
+  ])
+
+  let mstore = __mapper('muonStore')
+  let d3_force = d3Force3d
+
+  // .................. animas
+  let ani = function () {
+    // .................... pics
+    let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    // .................... natAni1
+    let natAni1 = {
+
+      halo: 'eoform',
+
+      tim: tim,
+      ric: {gid: 'ani', cid: 'ani', fid: 'ani1'},
+
+      // geofold: p => muonNatform.natFeature(p.payload.geoform),
+
+      geofold: {
+        type: 'Feature',
+        geometry: {type: 'Point', coordinates: [0, 0, 0]},
+        properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
+      },
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          translate: [-10, 0, 0],
+          scale: 1,
+          rotate: [ 0, 0, [[[0, 0]]] ],
+          lens: [0, 1, 12],
+          anod: 1, // geonode
+        },
+      },
+
+      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+      geoform: {
+        'x': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
+        },
+        'y': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
+        },
+        'z': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
+        },
+      },
+      payload: {
+      },
+    }
+
+    // .................... natAni2
+    let natAni2 = {
+
+      halo: 'eoform',
+
+      tim: tim,
+      ric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
+
+      geofold: function (p) {
+        return muonNatform.natFeature(p.payload.geoform)
+      },
+
+      // geofold: p => muonNatform.natFeature(p.payload.geoform),
+
+      // geofold: {
+      // type: 'Feature',
+      // geometry: {type: 'Point', coordinates: [0, 0, 0]},
+      // properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
+      // },
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          translate: [+10, 0, 0],
+          scale: 1,
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, 12],
+          anod: 1, // geonode
+        },
+      },
+
+      boform: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
+
+      geoform: {
+        'x': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
+        },
+        'y': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
+        },
+        'z': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
+        },
+      },
+      payload: {
+      },
+    }
+
+    // ............................. force_energy
+    let force_energy = { // aniForce
+      properties: {
+        alpha: 1,
+        alphaMin: 0.001,
+        alphaDecay: 0,
+        alphaTarget: 0,
+      },
+
+      field: function field (params = {}) {
+        let nodes = params.nodes
+
+        let forceParams = {
+          type: 'energy',
+          filter: function (d) {
+            return d.ric.gid === 'ani'
+          },
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let field = {
+          key: 'energy',
+          force: mforces.force_(forceParams),
+        }
+
+        return Array.of(field)
+      },
+    }
+
+    // ............................. force_viscosity
+    let force_viscosity = {
+      properties: {
+        velocityDecay: 0.0002,
+      },
+
+      field: function (params = {}) { // field.field
+        let nodes = params.nodes // nodes
+
+        let forceParams = {
+          type: 'void',
+          filter: d => true,
+          dim: 3,
+          filter: function (d) {
+            return d.ric.gid === 'ani'
+          },
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let field = {
+          key: 'viscosity',
+          force: mforces.force_(forceParams),
+        }
+
+        return Array.of(field)
+      },
+    }
+
+    // ............................. force_collide
+    let force_collide = {
+
+      properties: {
+        strength: 0.03,
+      },
+
+      field: params => {
+        let nodes = params.nodes
+        let forces = []
+
+        let strength = params.properties.strength
+
+        let forceParams = {
+          type: 'collide',
+          strength: strength,
+          radius: d => 90,
+          filter: function (d) {
+            return d.ric.gid === 'ani'
+          },
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let force = mforces.force_(forceParams)
+        let field = {key: 'collide', force: force}
+
+        forces.push(field)
+        return forces
+      },
+    }
+
+    // ............................. forceGravity
+    let forceGravity = function (params) { // force
+      let nodes = params.nodes
+      let newNodes = []
+
+      let gravity = params.gravity
+
+      function force () { // d3force builtin (vs muon d3force)
+        for (let i = 0; i < nodes.length; ++i) {
+          let node = nodes[i]
+          node.vy += gravity // node.vx += 0.001 * Math.random()
+        }
+      }
+
+      function initialize () {
+        if (!nodes) return
+      }
+
+      return force
+    }
+
+    let force_gravity = { // aniForce:{properties, field}
+
+      properties: {
+
+        gravity: -0.02,
+
+      },
+
+      field: params => { // force.field
+        let forces = []
+
+        // params: elapsed, nodes, properties.gravity
+
+        let nodes = params.nodes
+        let gravity = params.properties.gravity // params.properties
+
+        let forceParams = {
+          type: 'gravity',
+          gravity: gravity,
+          filter: d => true,
+          src: d3_force,
+          nodes: nodes,
+        }
+
+        let force = forceGravity(forceParams)
+
+        let field = {
+          key: 'gravity',
+          force: force,
+        }
+
+        forces.push(field)
+        return forces
+      },
+    }
+    // .................... fieldAni
+    let fieldAni = {
+
+      halo: 'core',
+
+      geofold: null,
+
+      tim: tim,
+      ric: {gid: 'core', cid: 'core', fid: 'core'},
+
+      payload: {
+      },
+
+    }
+
+    fieldAni.payload.forces = {
+      force_energy,
+      force_viscosity,
+      // force_collide,
+      force_gravity,
+    }
+
+    // .................. animas
+    let animas = [
+
+      natAni1, // h.eoform
+      natAni2, // h.eoform
+      fieldAni, // h.core
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

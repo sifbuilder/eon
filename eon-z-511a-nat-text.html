@@ -1,0 +1,199 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    muonNatform,
+    mprops,
+    cwen,
+    haloTextform,
+    haloEoform,
+    haloScene,
+  ] = await Promise.all([
+    __mapper('xs').m('natform'),
+    __mapper('xs').m('props'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').h('textform'),
+    __mapper('xs').h('eoform'),
+    __mapper('xs').h('scene'),
+  ])
+
+  // .................. animas
+  let ani = function () {
+    // .................. pics
+    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let formCirc = {
+
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+
+      },
+
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+
+      },
+
+    }
+
+    let formNat = {
+
+      'x': {
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': 360,
+
+      },
+
+      'y': {
+        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': 360,
+
+      },
+
+    }
+
+    let stace = {
+      'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+      'ra2': 100, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+
+    }
+
+    let proform = {
+      projection: 'uniwen',
+      prerotate: [[[ cwen.rotation ]]],
+      translate: [ [0, 0, 0], [[[ stace ]]] ],
+      scale: 1,
+      rotate: [ 0, 0 ],
+      lens: [0, 1, Infinity],
+
+    }
+    let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+
+    // .................. text
+    let textAni = {
+
+      halo: 'textform',
+      geofold: null,
+
+      tim: tim,
+      ric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
+      boform: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ -100, 0 ],
+        },
+      },
+
+      payload: {
+        textform: {
+          string: 'laws are valid only if rulers believe in them',
+          style: {
+            rotate: [[[ 0, 1 ]]],
+            'font-size': [[[10, 60]]],
+            'font-family': 'BankFuturistic',
+            'text-anchor': 'center',
+
+          },
+        },
+
+      },
+    }
+
+    // .................. natAni
+    let natAni = {
+
+      halo: 'eoform',
+
+      geofold: p => muonNatform.natFeature(p.payload.geoform),
+
+      tim: tim,
+      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+
+      geodrift: {
+        proform: proform,
+      },
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+      },
+
+      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+      payload: {
+        geoform: formNat,
+
+      },
+
+    }
+
+    // .................. circAni
+    let circAni = {
+
+      halo: 'eoform',
+
+      geofold: p => muonNatform.natFeature(p.payload.geoform),
+
+      tim,
+
+      ric: {gid: 'nat', cid: 'nat', fid: 'circ'},
+
+      geodrift: {
+        proform,
+      },
+      geonode: {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
+        properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+      },
+
+      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+      uid: null,
+      parentuid: null,
+      payload: {
+        inited: 0,
+
+        gelded: 1,
+
+        geoform: formCirc,
+      },
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+
+      natAni, // h.eoform
+      circAni, // h.eoform
+      textAni, // h.text
+      sceneAni, // h.scene
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

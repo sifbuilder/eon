@@ -33,31 +33,31 @@
 
       let parent = anigram.payload.parent
 
-      let ric = anigram.payload.ric
-      ric.halo = anigram.payload.ric.halo
+      let ric = anigram.ric
+      ric.halo = anigram.ric.halo
 
-      if (anigram.payload.ric.gid === undefined) { // no  gid  in anigram
+      if (anigram.ric.gid === undefined) { // no  gid  in anigram
         ric.gid = (parent.ric.gid || 'gid') + '_' + idx // set gid by position
       } else {
-        ric.gid = anigram.payload.ric.gid // gid defined in anigram
+        ric.gid = anigram.ric.gid // gid defined in anigram
       }
 
-      if (anigram.payload.ric.cid === undefined) { // no  cid  in anigram
+      if (anigram.ric.cid === undefined) { // no  cid  in anigram
         ric.cid = parent.ric.cid + '_' + '_' + idx // cid from parent and index - larms
       } else {
-        ric.cid = anigram.payload.ric.cid // cid set in anigram
+        ric.cid = anigram.ric.cid // cid set in anigram
       }
 
       let itemsInClass = __mapper('muonStore').anigrams().filter(d => d.ric.gid === ric.gid && d.ric.cid === ric.cid).length
 
-      if (anigram.payload.ric.fid === undefined) { // no fid in anigram
+      if (anigram.ric.fid === undefined) { // no fid in anigram
         ric.fid = ric.cid + '_' + idx + itemsInClass
-      } else if (typeof anigram.payload.ric.fid === 'function') {
-        ric.fid = anigram.payload.ric.fid() // fid - allow for random
+      } else if (typeof anigram.ric.fid === 'function') {
+        ric.fid = anigram.ric.fid() // fid - allow for random
       } else if (idx > 0) { // fid defined but multiple subanigrams in form
-        ric.fid = anigram.payload.ric.fid + '_' + '_' + idx // fid for multi position
+        ric.fid = anigram.ric.fid + '_' + '_' + idx // fid for multi position
       } else {
-        ric.fid = anigram.payload.ric.fid // fid - diff by pos
+        ric.fid = anigram.ric.fid // fid - diff by pos
       }
 
       return ric
@@ -135,8 +135,8 @@
           uid = ric.gid + '_' + ric.cid + '_' + ric.fid
         } else if (params.ric !== undefined) {
           uid = getuid(params.ric)
-        } else if (params.payload !== undefined && params.payload.ric !== undefined) {
-          uid = getuid(params.payload.ric)
+        } else if (params.payload !== undefined && params.ric !== undefined) {
+          uid = getuid(params.ric)
         } else if (params.properties !== undefined && params.properties.ric !== undefined) {
           uid = getuid(params.properties.ric)
         }

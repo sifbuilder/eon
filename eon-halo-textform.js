@@ -7,12 +7,28 @@
       : (factory((global.haloTextform = global.haloTextform || {})))
 }(this, function (exports) {
   'use strict'
+  
+// md: # eon-halo-textform 
+// md: process text anitems 
+// md: ## functions 
+// md: * [_geofold](#_geofold) - uploads payload text form to geofold properties 
+// md: 
+// md: 
+// md: ## methods 
+// md: * [ween](#ween) - process anima 
+// md: * [gramm](#gramm) - process anigram 
+// md:  buils the newitem geoform and pass it to h.eoform 
+// md: 
+// md: # license 
+// md: MIT
 
   async function haloTextform (__mapper = {}) {
     let [
-      hent,
+      mprops,
+      haloEoform,
     ] = await Promise.all([
-      __mapper('xs').h('ent'),
+      __mapper('xs').m('props'),
+      __mapper('xs').h('eoform'),
     ])
 
     // .................. _geofold
@@ -21,7 +37,10 @@
 
       return {
         type: 'Feature',
-        geometry: { type: 'Point', coordinates: [0, 0] },
+        geometry: { 
+          type: 'Point', 
+          coordinates: [0, 0] 
+        },
         properties: {
           sort: 'text',
           string: textform.string || '',
@@ -48,29 +67,26 @@
 
     // .................. gramm
     async function gramm (anigram, newAnigrams = []) {
-      let halo = anigram.halo,
-        payload = anigram.payload,
-        geofold = _geofold(anigram) // geofold
 
-      let newAnigram = {
-        halo,
-        geofold,
-        payload,
-      }
+      let newitem = mprops.clone(anigram)
+        
+      newitem.geofold = _geofold(anigram)
+      newitem.geonode = _geofold(anigram)
 
-      return hent.gramm(newAnigram)
+      return haloEoform.gramm(newitem)
     }
 
     // .................. ween
     let ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
     // .................. halo
-    let haloEon = {}
-    haloEon.ween = anima => ween(anima)
-    haloEon.gramm = anima => gramm(anima)
+    let halo = {
+      ween: anima => ween(anima),
+      gramm: anima => gramm(anima),
+    }
 
     // .................. enty
-    let enty = haloEon
+    let enty = halo
     return enty
   }
 

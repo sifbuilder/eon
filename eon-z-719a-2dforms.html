@@ -1,49 +1,24 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time:undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.s
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
-    mnat,
+    muonNatform,
+    haloEoform,
+    haloNatform,
+    haloScene,    
   ] = await Promise.all([
-    __mapper('xs').m('nat'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').h('eoform'),
+    __mapper('xs').h('natform'),
+    __mapper('xs').h('scene'),    
   ])
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     // .................. pics
 
     let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
@@ -94,99 +69,122 @@ async function zindex (__mapper) {
  *    @animas
  */
     let p1 = {
-      halo: 'ent',
-      geofold: p => mnat.natFeature(f1),
-      payload: {tim,
+      halo: 'eoform',
+        geofold: p => muonNatform.natFeature(f1),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p1'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [150 - 300, 100 - 200, 0],
-          control: 'wen' }},
-    }
-    let p2 = {
-      halo: 'ent',
-      geofold: p => mnat.natFeature(f2),
+        geodrift: {
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [150 - 300, 100 - 200, 0] }
+        },
       payload: {tim,
+      },
+    },
+    let p2 = {
+      halo: 'eoform',
+        tim,
+        geofold: p => muonNatform.natFeature(f2),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p2'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [250 - 300, 100 - 200, 0],
-          control: 'wen' }},
-    }
+        geodrift: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [250 - 300, 100 - 200, 0] }
+        },
+      payload: {
+      },
+    },
     let p3 = {
-      halo: 'ent',
-      geofold: p => mnat.natFeature(f3),
-      payload: {tim,
+      halo: 'eoform',
+        tim,
+        geofold: p => muonNatform.natFeature(f3),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p3'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [350 - 300, 100 - 200, 0],
-          control: 'wen' }},
-    }
+        geodrift: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [350 - 300, 100 - 200, 0] }
+        },
+      payload: {
+      },
+    },
     let p4 = {
-      halo: 'ent',
-      geofold: p => mnat.natFeature(f4),
-      payload: {tim,
+      halo: 'eoform',
+        tim,
+        geofold: p => muonNatform.natFeature(f4),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p4'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [450 - 300, 100 - 200, 0],
-          control: 'wen' }},
-    }
+        geodrift: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [450 - 300, 100 - 200, 0] }
+        },
+      payload: {
+      },
+    },
     let p5 = {
-      halo: 'ent',
-      geofold: p => mnat.natFeature(f5),
-      payload: {tim,
+      halo: 'eoform',
+        tim,
+        geofold: p => muonNatform.natFeature(f5),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p5'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [150 - 300, 300 - 200, 0],
-          control: 'wen' }},
-    }
+        geodrift: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [150 - 300, 300 - 200, 0] }
+        },
+      payload: {
+      },
+    },
     let p6 = {
-      halo: 'ent',
-      geofold: p => mnat.natFeature(f6),
-      payload: {tim,
+      halo: 'eoform',
+        tim,
+        geofold: p => muonNatform.natFeature(f6),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p6'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [250 - 300, 300 - 200, 0],
-          control: 'wen' }},
-    }
+        geodrift: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [250 - 300, 300 - 200, 0] }
+        },
+      payload: {
+      },
+    },
     let p7 = {
-      halo: 'ent',
-      geofold: p => mnat.natFeature(f7),
-      payload: {tim,
+      halo: 'eoform',
+        tim,
+        geofold: p => muonNatform.natFeature(f7),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p7'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [350 - 300, 300 - 200, 0],
-          control: 'wen' }},
-    }
+        geodrift: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [350 - 300, 300 - 200, 0] }
+        },
+      payload: {
+      },
+    },
     let p8 = {
-      halo: 'ent',
-      geofold: p => mnat.natFeature(f8),
-      payload: {tim,
+      halo: 'eoform',
+        tim,
+        geofold: p => muonNatform.natFeature(f8),
         boform,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p8'},
-        proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [450 - 300, 300 - 200, 0],
-          control: 'wen' }},
-    }
+        geodrift: {        
+          proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [450 - 300, 300 - 200, 0] }
+        },
+      payload: {
+      },
+    },
 
     // .................. sceneAni
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
-      payload: {
+        geofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
     }
     let animas = [
-      p1, // h.ent g.uniwen
-      p2, // h.ent g.uniwen
-      p3, // h.ent g.uniwen
-      p4, // h.ent g.uniwen
-      p5, // h.ent g.uniwen
-      p6, // h.ent g.uniwen
-      p7, // h.ent g.uniwen
-      p8, // h.ent g.uniwen
+      p1, // h.eoform g.uniwen
+      p2, // h.eoform g.uniwen
+      p3, // h.eoform g.uniwen
+      p4, // h.eoform g.uniwen
+      p5, // h.eoform g.uniwen
+      p6, // h.eoform g.uniwen
+      p7, // h.eoform g.uniwen
+      p8, // h.eoform g.uniwen
 
       sceneAni, // h.scene
 
@@ -196,7 +194,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

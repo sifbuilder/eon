@@ -20,15 +20,15 @@
     let pi = Math.PI, degrees = 180 / pi
 
     let polyhedral = function (proform = {}) {
-      let {faciaRotation, geoRotation, prjRaw, faces, tree} = proform
+      let {faciaRotation, geoRotation, prtRaw, faces, tree} = proform
 
       let faceProjection = function (face) {
-        let prj = d3geo.geoProjection(prjRaw)
+        let prt = d3geo.geoProjection(prtRaw)
         let c = d3geo.geoCentroid({type: 'MultiPoint', coordinates: face})
         let rotate = geoRotation(c)
         let translate = [0, 0, 0]
         let scale = 1 // convention
-        return prj.scale(scale).translate(translate).rotate(rotate)
+        return prt.scale(scale).translate(translate).rotate(rotate)
       }
 
       faces = faces.map(function (face) {

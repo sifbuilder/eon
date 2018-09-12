@@ -7,6 +7,61 @@
       : (factory((global.muonGeoj = global.muonGeoj || {})))
 }(this, function (exports) {
   'use strict'
+  
+// md: eon-muon-geoj 
+// md: **process geojson streams** 
+// md: ## references 
+// md: [Maarten’s Block geo to square tiles](https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6) 
+// md: [geojson-normalize](https://github.com/mapbox/geojson-normalize/blob/master/index.js) 
+// md: ## functions 
+// md: ## methods 
+// md: * ### trim 
+// md: **flatten gj** 
+// md: ref: https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6 
+// md: * ### tclip 
+// md: * ### complexify 
+// md: turns strings of coordinates into arrays of comples numbers 
+// md: @gj 
+// md: * ### deprop 
+// md: reomove properties from gj object 
+// md: * ### snip 
+// md: return function to get dots within form range [pa6,pb7] 
+// md: @form 
+// md: * ### largestPoly 
+// md: return the lagest polity on gj 
+// md: @gj: MultiPolygon 
+// md: * ### lineStringFromStream 
+// md: * ### polygonFromStream 
+// md: * ### multLineStringFromStreamArray 
+// md: * ### featurecollect 
+// md: transform to FeatureCollection 
+// md: @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection} 
+// md: called by halo to carry ric, sort as properties 
+// md: * ### featurize 
+// md: transform to array of gj.Features 
+// md: @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection} 
+// md: * ### ntime 
+// md: convert geometry to feature and add interval to properties 
+// md: @gj 
+// md: @interval 
+// md: * ### zorder 
+// md: @gj FeatureCollection 
+// md: * ### centroid 
+// md: get ring's centroid 
+// md: @ring 
+// md: called by zorder 
+// md: * ### getCoords 
+// md: get array of coordinates from gj (eg. parent anigram) 
+// md: * ### getCoordsLength 
+// md: get number of coordinates in gj 
+// md: * ### getCoordsInRange 
+// md: get first nb coordinates 
+// md: * ### isValid 
+// md: check if gj is valid geojson type 
+// md: @gj 
+// md: @type 
+// md: # license 
+// md: MIT
 
   async function muonGeoj (__mapper = {}) {
     let [
@@ -297,30 +352,30 @@
 
     // ...................... featurize
     let featurize = function (gj_) {
-
       let features = []
       let gj = gj_
       if (gj && gj.type) {
         let type = gj.type
 
         if (type === 'Feature') {
-            features = Array.of(gj)
+          features = Array.of(gj)
         } else if (type === 'FeatureCollection') {
-            features = gj.features
+          features = gj.features
         } else if (type === 'GeometryCollection') {
-            features = gj.map(d => ({
+          features = gj.map(d => ({
             type: 'Feature',
             geometry: {
-            type: d.type,
-            coordinates: d.coordinates},
+              type: d.type,
+              coordinates: d.coordinates},
             properties: {}}))
         } else {
-            features = Array.of({
+          features = Array.of({
             type: 'Feature',
             geometry: {
-            type: gj.type,
-            coordinates: gj.coordinates},
-            properties: {geonode: {}}})
+              type: gj.type,
+              coordinates: gj.coordinates},
+            properties: {},
+          })
         }
       } else {
         console.log('m.geoj.featurize not supported geojson ', gj)
@@ -334,7 +389,7 @@
       let features = featurize(gj)
       return ({type: 'FeatureCollection', features: features})
     }
-    
+
     // ...................... deprop
     let deprop = function (gj) {
       let gj2 = Object.assign({}, gj)

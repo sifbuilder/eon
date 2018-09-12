@@ -1,55 +1,30 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>animas</title>
-<head >
-
-  <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    div#fps,svg { position: fixed; top:0; left:0; color: white; }
-  </style>
-
-</head>
-<body style="cursor:crosshair"></body>
-<div id="viewframe" class="viewframe"></div>
-
-<script src="eon-x-d3-require.js"></script>
-<script src="eon-x-mapper.js"></script>
-<script src="eon-x-s.js"></script>
-
+<script src="eon-x-eonify.js"></script>
 <script>
+window.xEonify.eon({anitem, time: undefined})
 
-;(async function eon () {
-  let __mapper = xMapper.xMapper() // init mapper
-  __mapper({'xD3Require': xD3Require}) // map require
-  __mapper({'xs': xs.xs(__mapper)}) // map x.s
-
-  let muonStore = await __mapper('xs').m('store') // map store
-  let muonAnimation = await __mapper('xs').m('animation') // map animation
-
-  let xanimas = await zindex(__mapper)
-  let animas = xanimas.animas() // get animas
-
-  muonStore.apply({type: 'UPDANIMA', animas: animas}) // upd animas
-  muonAnimation.animate() // animate
-})()
-
-// .................. zindex
-async function zindex (__mapper) {
+// .................. anitem
+async function anitem (__mapper) {
   // .................. eons
   let [
     mstace,
-    mnat,
+    muonNatform,
     mric,
+    haloEoform,
+    haloNatform,
+    haloScene,    
   ] = await Promise.all([
     __mapper('xs').m('stace'),
-    __mapper('xs').m('nat'),
+    __mapper('xs').m('natform'),
     __mapper('xs').m('ric'),
+    __mapper('xs').h('eoform'),
+    __mapper('xs').h('natform'),
+    __mapper('xs').h('scene'),    
   ])
 
   let mstore = __mapper('muonStore')
 
   // .................. animas
-  let animas = function () {
+  let ani = function () {
     // .................. pics
 
     let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
@@ -90,14 +65,14 @@ async function zindex (__mapper) {
     let pointerAni = {
 
       halo: 'pacer',
+
       geofold: null,
 
-      payload: {
+      tim: tim,
+      ric: {gid: 'pacer', cid: 'pacer', fid: 'pacer'},
+      boform: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
-        tim: tim,
-        ric: {gid: 'pacer', cid: 'pacer', fid: 'pacer'},
-        boform: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
-
+      geodrift: {
         proform: {
           projection: 'uniwen',
           translate: [ 0, 0, 0],
@@ -105,18 +80,20 @@ async function zindex (__mapper) {
           rotate: [0, 0, 0],
           lens: [0, 1, Infinity],
         },
+      },
 
-        geonode: {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [0, 0, 0],
-          },
-          properties: {
-            orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
-          },
+      geonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
         },
+        properties: {
+          orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+        },
+      },
 
+      payload: {
         pacer: {
           initN: 10, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 15 / 1400,
 
@@ -126,7 +103,7 @@ async function zindex (__mapper) {
             autoSitus: d => mstace.getLocus(d),
           },
 
-          riccer: function (ani) { return ani.payload.ric },
+          riccer: function (ani) { return ani.ric },
 
           geofolder: () => ({
             type: 'Feature',
@@ -144,9 +121,9 @@ async function zindex (__mapper) {
 
       halo: 'scene',
       geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
-        tim: tim,
-        ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
@@ -154,7 +131,7 @@ async function zindex (__mapper) {
     // ............................. animas
     let animas = [
 
-      pointerAni, // h.nat
+      pointerAni, // h.natform
       sceneAni, // h.scene
     ]
 
@@ -162,7 +139,7 @@ async function zindex (__mapper) {
   }
 
   let enty = () => {}
-  enty.animas = animas
+  enty.ani = ani
   return enty
 }
 </script>

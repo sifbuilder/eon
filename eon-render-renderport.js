@@ -16,7 +16,7 @@
       width = viewWidth - margin.left - margin.right,
       height = viewHeight - margin.top - margin.bottom
 
-    let prjdef = {
+    let prtdef = {
       projection: 'uniwen',
       prerotate: [0, 0, 0],
       translate: [width / 2, height / 2, 0],
@@ -26,9 +26,9 @@
     }
 
     // ............................. cameraProjer
-    const cameraProjer = function (p = prjdef) {
-      let prj = __mapper('prjUniwen')
-      return prj(p)
+    const cameraProjer = function (p = prtdef) {
+      let prt = __mapper('prtUniwen')
+      return prt(p)
     }
 
     // ............................. xydirs
@@ -80,7 +80,7 @@
     enty.xydirs = xydirs
     enty.cameraProjer = cameraProjer
     enty.getPos = getPos
-    enty.prjdef = () => prjdef
+    enty.prtdef = () => prtdef
     return enty
   }
 
