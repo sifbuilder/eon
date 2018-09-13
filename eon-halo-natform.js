@@ -21,6 +21,8 @@
       muonNatform,
       haloEoform,
       muonBoform,
+      muonTim,
+      muonRic,
       muonGeonode,
       muonProfier,
       prtUniwen,
@@ -29,12 +31,48 @@
       __mapper('xs').m('natform'),
       __mapper('xs').h('eoform'),
       __mapper('xs').m('boform'),
+      __mapper('xs').m('tim'),
+      __mapper('xs').m('ric'),
       __mapper('xs').m('geonode'),
       __mapper('xs').m('profier'),
       __mapper('xs').p('uniwen'),
       __mapper('xs').m('proj3ct'),      
     ])
 
+    
+    // tim definition
+    
+    let gettim = function( tim ) {
+      
+      let res = {}
+      let ref = muonTim.getdefault()
+      
+      if (tim === undefined) {
+        res = ref
+      } else {
+        let { ...ref } = tim  // overwrite default values from tim 
+        res = ref
+      }
+      return res
+      
+    }    
+    
+    // ric definition
+    
+    let getric = function( ric ) {
+      
+      let res = {}
+      let ref = muonRic.getdefault()
+      
+      if (ric === undefined) {
+        res = ref
+      } else {
+        let { ...ref } = ric
+        res = ref
+      }
+      return res
+      
+    }    
     
     // boform definition
     
@@ -94,8 +132,12 @@
       }
       anitem.geofold = mproj3ct(anitem.geofold, muonProfier.formion(prt, anitem))
 
-      if (anitem.boform === undefined) anitem.boform = getboform(anitem.payload.geoform)
-            
+      anitem.tim = gettim(anitem.tim)
+
+      anitem.ric = gettim(anitem.ric)
+        
+      if (anitem.boform === undefined) anitem.boform = getboform(anitem.payload.geoform)        
+     
       
       return haloEoform.gramm(anitem)
     }

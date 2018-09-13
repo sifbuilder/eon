@@ -148,12 +148,20 @@
 
       return uid
     }
-
+    // ric definition
+    
+    let getdefault = function( ) {
+      
+      let res = { gid: 'g', cid: 'c', fid: 'f' }
+ 
+      return res
+    }
     // ............................. enty
     let enty = {}
     enty.getAnigramRic = getAnigramRic // build ric from anigram, i
     enty.getuid = getuid
     enty.enric = enric
+    enty.getdefault = getdefault
 
     return enty
   }

@@ -103,11 +103,19 @@
 
       return tim
     }
-
+    
+    // tim definition
+    
+    let getdefault = function( ) {
+      
+      let res = { 'td': 9600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1 }
+ 
+      return res
+    }
     // .................. enty
     let enty = {}
     enty.timing = timing
-
+    enty.getdefault = getdefault
     return enty
   }
 
