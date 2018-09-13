@@ -7,35 +7,43 @@ const http = require('http')
 
 const puppeteer = require('puppeteer')
 
-let args = process.argv
-let [cmd, scp, ...opts] = args
-
-let dirname = path.dirname(require.main.filename)
-
 const waitInPromise = delay => arg =>
   Number.isFinite(delay) && delay > 0
     ? new Promise(resolve => setTimeout(() => resolve(arg), delay))
     : Promise.resolve(arg)
 
-const viewPort = { width: 900, height: 600 }
-
-let htmlpattern = new RegExp('^(eon.*)\.html$', 'i')
 const isDirectory = d => fs.lstatSync(d).isDirectory()
 const isFile = d => fs.lstatSync(d).isFile()
-let indir = './'
 
-let view = opts[0] || '.*'
-let thiseonpattern = new RegExp(`^eon-z-${view}.*\.html$`, 'i')
 
-let closebrowser = 0
-let tracing = 0
-let tracingpath = './___trace.json'
+// fs
 
-let files = fs.readdirSync(indir)
-  .filter(file => isFile(file))
-  .filter(d => thiseonpattern.test(d))
+let filename = __filename // full path name of the current module
+let prgname = path.basename(filename) // file name of current module
+let dirname = path.dirname(require.main.filename) // __dirname
 
-let indirpath = (__dirname + '/').replace(/\\/g, '/') // z-indexes
+
+// args
+    
+let args = process.argv
+let [cmd, scp, ...opts] = args
+
+
+let action = 'help' // {[help] pattern}
+let toviewpattern = new RegExp(`^eon-z-___none___.*\.html$`, 'i') // none pattern
+if (opts.length === 0) {
+  action = 'help'
+} else if (opts.length === 1 && opts[0] !== 'help') {
+  action = 'view'
+  let codepattern = '.*'  // default to all
+  if (opts[0] === '.') {
+    codepattern = '.*'
+  } else {
+    codepattern = opts[0]
+  }
+  toviewpattern = new RegExp(`^eon-z-${codepattern}.*\.html$`, 'i') // view pattern
+}
+
 
 const options = {
   fullPage: false,
@@ -46,6 +54,20 @@ const options = {
     height: 400,
   },
 }
+
+
+let viewPort = { width: 900, height: 600 }
+let indir = './'
+let indirpath = (dirname + '/').replace(/\\/g, '/') // z-indexes
+let closebrowser = 0
+let tracing = 0
+let tracingpath = './___trace.json'
+
+let files = fs.readdirSync(indir) // to view
+  .filter(file => isFile(file))
+  .filter(d => toviewpattern.test(d))
+
+
 
 async function lightanimas (browser, fls, opts) {
   const variations = fls
@@ -116,8 +138,6 @@ async function run (fls, opts) {
   const winwidth = 1200
   const winheight = 900
 
-
-  
   const browser = await puppeteer.launch({
     headless: false,
     devtools: true, // open DevTools when window launches
@@ -135,4 +155,12 @@ async function run (fls, opts) {
   if (closebrowser) await browser.close()
 }
 
-run(files, options)
+if (action === 'help') {
+  console.log(`node ${prgname} {[help], viewpattern} on eon-z- files`)
+} else if (action === 'view') {
+    console.log(`view ${viewpattern} eon files`)
+    run(files, options)
+} else {
+  console.log(`node ${prgname} {[help], viewpattern} on eon-z- files`)
+}
+

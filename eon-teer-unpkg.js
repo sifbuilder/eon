@@ -28,8 +28,8 @@ let dirname = path.dirname(require.main.filename) // __dirname
 
 let args = process.argv
 let [cmd, scp, ...opts] = args
-// action: {[help] deoploy, browse}
-let action = (opts[0] !== undefined) ? opts[0] : 'help'
+
+let action = (opts[0] !== undefined) ? opts[0] : 'help' // {[help] deoploy, browse}
 
 // will publish
 

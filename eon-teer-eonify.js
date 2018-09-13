@@ -11,7 +11,7 @@ const path = require('path')
 const http = require('http')
 const { spawn } = require('child_process')
 const { exec } = require('child_process')
-var npm = require('npm')
+const npm = require('npm')
 const util = require('util')
 const execFile = util.promisify(require('child_process').execFile)
 
