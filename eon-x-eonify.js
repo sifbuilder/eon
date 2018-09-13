@@ -289,8 +289,8 @@
 
     __mapper({'xs': xEonify.xs(__mapper)}) // map xs
 
-    let muonStore = await __mapper('xs').m('store') // map store
-    let muonAnimation = await __mapper('xs').m('animation') // map animation
+    await __mapper('xs').m('store') // map store
+    await __mapper('xs').m('animation') // map animation
 
     console.assert(typeof anitem === 'function' ||
       typeof anitem === 'string') // anitem is function or string

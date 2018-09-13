@@ -8,7 +8,7 @@ const path = require('path')
 const http = require('http')
 const { spawn } = require('child_process')
 const { exec } = require('child_process')
-var npm = require('npm')
+const npm = require('npm')
 
 const waitInPromise = delay => arg =>
   Number.isFinite(delay) && delay > 0
@@ -24,51 +24,53 @@ let filename = __filename // full path name of the current module
 let prgname = path.basename(filename) // file name of current module
 let dirname = path.dirname(require.main.filename) // __dirname
 
+// package version
+let xVersion = require('./eon-x-version.js')
+let xversion = xVersion.xVersion().version()
+let packver = (xversion) || '0.0.1-rc2'
+
+console.log(`package version ${packver}`)
+
 // args
 
 let args = process.argv
 let [cmd, scp, ...opts] = args
 
-let action = (opts[0] !== undefined) ? opts[0] : 'help' // {[help] deoploy, browse}
-
-// will publish
-
-let dopublish = 0 // default to no publish
-if (opts.length < 2) {
-  // dopublish is 0
-} else {
-  if (opts[1] === 'publish') dopublish = 1
-}
-
-// package version
-let xVersion = require('./eon-x-version.js')
-let xversion = xVersion.xVersion().version()
-let packver = (xversion) ? xversion : '0.0.1-rc2'
-
-// set scope
-
+// action.scope
+let action = 'help'
 let scope = 'eons' // default to root
+let dopublish = 0
+
 if (opts.length === 0) {
-  console.log(`node _eonify-teer-npm eons [publish]
-node _eonify-teer-npm eonitems [publish]
-`)
-  dopublish = 0
-  scope = 'eons'
+
+  // action help
+
 } else if (opts.length === 1) {
-  if (opts[0] === 'publish') {
+  if (opts[0] === 'help') {
+
+    // action help
+
+  } else if (opts[0] === 'eons') {
+    action = 'unpkg'
+    scope = 'eons'
+    dopublish = 0
+  } else if (opts[0] === 'eonitems') {
+    action = 'unpkg'
     scope = 'eonitems' // cover all eons in scope
-    dopublish = 1
+    dopublish = 0
   } else {
+    action = 'unpkg'
     scope = opts[0] // filter eonitems
     dopublish = 0
   }
 } else if (opts.length === 2) {
+  action = 'unpkg'
   scope = opts[0] // filter eonitems
   dopublish = (opts[1] === 'publish') ? 1 : 0
 }
 
-console.log(`scope ${scope}`)
-console.log(`dopublish ${dopublish}`)
+// console.log(`scope ${scope}`)
+// console.log(`dopublish ${dopublish}`)
 
 // md: getReadhtml
 // md: get eons html page
@@ -78,10 +80,8 @@ function getReadhtml (inDir, root) {
   let outText = ''
 
   let indexpattern = new RegExp('^' + 'eon-z' + '.*' + '.*(.html)', 'i')
-  let eonpattern = new RegExp('^' + 'eon' + '.*' + '.*(.js)', 'i')
-  let testpattern = new RegExp('(.*)\.test\.(.*)$', 'i') //  test
-  let mdpattern = new RegExp('(.*)\.md\.(.*)$', 'i') //  md
-  let zpattern = new RegExp('^' + 'eon-z' + '.*' + '.*(.js)', 'i')
+  let testpattern = new RegExp('(.*).test.(.*)$', 'i') //  test
+  let mdpattern = new RegExp('(.*).md.(.*)$', 'i') //  md
 
   let newLine = '\n'
   let endOfLine = '  '
@@ -100,15 +100,12 @@ function getReadhtml (inDir, root) {
   for (let i = 0; i < indexfiles.length; i++) {
     let fileName = indexfiles[i]
 
-    let regex2 = new RegExp('^(((eon-z-)?(((?!-).)*)-(.*))\.(html))', 'i')
+    let regex2 = new RegExp('^(((eon-z-)?(((?!-).)*)-(.*)).(html))', 'i')
     let parts = fileName.match(regex2)
 
     let fullname = parts[0]
-    let part = parts[1]
     let name = parts[2]
     let code = parts[4]
-
-    let type = parts[6]
 
     let preline = `${code}` //
     let bodyline = `[${name}](${root}${fullname})` //
@@ -227,26 +224,20 @@ function getPackobj (fullName, name, ver, desc = '', ncdfolder = './') {
 
 // indir
 
-const htmlpattern = new RegExp('^(eon.*)\.html$', 'i')
 const eonpattern = new RegExp('^' + 'eon' + '.*' + '.*(.html|js)', 'i')
-const eonifypattern = new RegExp('^' + 'eonify' + '.*' + '.*(.html|js)', 'i')
-const testpattern = new RegExp('(.*)\.test\.(.*)$', 'i')
+const testpattern = new RegExp('(.*).test.(.*)$', 'i')
 const mdpattern = /\/\/.?md:(.*)/mg // // md (global multiline)
 const imgpattern = new RegExp('(.*)(.jpg)$', 'i')
-const zpattern = new RegExp('(.*)(.html)$', 'i')
 
 let indir = './'
 let fromfile = ''
 
 let infiles = []
-
 if (scope === 'eons') { // eonify is root
   // md: if scope is eons, get root
-
   infiles = [ 'eons' ] // if not all eons in param opts then publish eons
 } else if (scope === 'eonitems') {
   // md: if scope is eonitems, cover all eons items
-
   infiles = fs.readdirSync(indir)
     .filter(file => isFile(file))
     .filter(d => eonpattern.test(d))
@@ -255,9 +246,7 @@ if (scope === 'eons') { // eonify is root
     .filter(d => !imgpattern.test(d))
 } else {
   // md: if scope is pattern, select eons
-
   const eonitemspattern = new RegExp('^' + '.*' + scope + '.*(.html|js)', 'i')
-
   infiles = fs.readdirSync(indir)
     .filter(file => isFile(file))
     .filter(d => eonitemspattern.test(d))
@@ -265,12 +254,7 @@ if (scope === 'eons') { // eonify is root
     .filter(d => !mdpattern.test(d))
     .filter(d => !imgpattern.test(d))
 }
-
-let indirpath = (dirname + '/').replace(/\\/g, '/') // z-indexes
-let infilename = 'eon-z-722e-fractals10.html'
-let inpathname = `${indirpath}${infilename}`
-
-if (1 && 1) console.log('infiles', infiles)
+console.log('infiles', infiles)
 
 // outdir
 
@@ -280,140 +264,140 @@ let outpathname = `${outdirpath}${outfilename}`
 let outext = '.png'
 
 let outdirname = 'eons_dist'
-let outdir = `${dirname}/./${outdirname}/`
+let outdir = `${dirname}/../${outdirname}/` // eg. eons/../eons_dist
 fs.existsSync(outdir) || fs.mkdirSync(outdir); console.log('create dist folder ', outdir) // CREATE
-
-let tofile = 'NOFILE'
-let outtext = 'NOTEXT'
-
 
 // promise
 
-let enpkg = function () {
+let unpkg = function () {
   let promises = infiles.map(fileName => {
     Promise.resolve(fileName)
       .then(fileName => {
-        if (1 && 1) console.log('out root dir', outdir)
+        console.log('out root dir', outdir)
 
-        let regex2 = new RegExp('^(((eon-)?(((?!-).)*)-(.*))\.(html|js))', 'i')
+        let regex2 = new RegExp('^(((eon-)?(((?!-).)*)-(.*)).(html|js))', 'i')
+
         let parts = fileName.match(regex2) || []
         let fullName = parts[0]
-        let name = parts[1]
         let rootname = parts[2] || 'eons' // ----------------
-        let label = parts[3]
-        let ext = parts[4]
-
-        if (1 && 1) console.log('fileName:', fileName)
-        if (1 && 1) console.log('rootname:', rootname)
-
         let pckfolder = `${outdir}${rootname}/` // pckfolder
 
-        if (1 && 1) console.log('dist dir:', pckfolder)
-        if (!fs.existsSync(pckfolder)) {
-          fs.mkdirSync(pckfolder) // create dist folder
-          // if (1 && 1) console.log('create dist folder ', pckfolder)
+        function createPckDir (pckfolder) {
+          console.log('dist dir:', pckfolder)
+          if (!fs.existsSync(pckfolder)) {
+            fs.mkdirSync(pckfolder) // create dist folder
+            console.log('create dist folder ', pckfolder)
+          }
         }
-
-        let outfiile = 'NOFILE'
-        let fromfile = 'NOFILE'
+        createPckDir(pckfolder)
 
         // md: README
+        function createReadme (pckfolder, fullName, rootname) {
+          let mdtext = getMdtext(fullName) // place README
+          let mdfilename = rootname + '.md'
+          let outfile = 'README.md'
+          let fromfile = `${indir}${mdfilename}`
+          let tofile = `${pckfolder}${outfile}`
 
-        let mdtext = getMdtext(fullName) // place README
-        let mdfilename = rootname + '.md'
-        outfile = 'README.md'
-        fromfile = `${indir}${mdfilename}`
-        tofile = `${pckfolder}${outfile}`
+          if (fs.existsSync(tofile)) {
+            fs.unlinkSync(tofile, (err) => {
+              if (err) throw err
+            })
+            console.log(`successfully deleted ${tofile}`)
+          }
 
-        if (fs.existsSync(tofile)) {
-          fs.unlinkSync(tofile, (err) => {
-            if (err) throw err
-          })
-          console.log(`successfully deleted ${tofile}`)
+          if (fs.existsSync(fromfile)) {
+            console.log('copy file to file ', fromfile, tofile)
+            fs.copyFileSync(fromfile, tofile)
+          } else {
+            console.log('copy text to file ', tofile)
+            fs.writeFileSync(tofile, mdtext)
+          }
         }
-
-        if (fs.existsSync(fromfile)) {
-          if (1 && 1) console.log('copy file to file ', fromfile, tofile)
-          fs.copyFileSync(fromfile, tofile)
-        } else {
-          if (1 && 1) console.log('copy text to file ', tofile)
-          fs.writeFileSync(tofile, mdtext)
-        }
+        createReadme(pckfolder, fullName, rootname)
 
         // md: LICENSE
         // md: add license file to dist folder
-
-        contextfilename = 'LICENSE' // place LICENSE
-        outfile = 'LICENSE'
-        fromfile = `${indir}${contextfilename}`
-        tofile = `${pckfolder}${outfile}`
-        if (fs.existsSync(fromfile)) {
-          if (1 && 1) console.log('copy file to file ', fromfile, tofile)
-          fs.copyFileSync(fromfile, tofile)
-        } else {
-          if (1 && 1) console.log('file does not exsist ')
+        function createLicense (pckfolder) {
+          let fromfilename = 'LICENSE' // place LICENSE
+          let outfile = 'LICENSE'
+          let fromfile = `${indir}${fromfilename}`
+          let tofile = `${pckfolder}${outfile}`
+          if (fs.existsSync(fromfile)) {
+            console.log('copy file to file ', fromfile, tofile)
+            fs.copyFileSync(fromfile, tofile)
+          } else {
+            console.log('file does not exsist ')
+          }
         }
+        createLicense(pckfolder)
 
         // md: PACKAGE
         // md: add package.json file to dist folder
-
-        contextfilename = 'package.json' // place PACKAGE.json
-        outfile = 'package.json'
-        let packagetext = getPackobj(fullName, rootname, packver, `${rootname}`, './')
-        tofile = `${pckfolder}${outfile}`
-        fs.writeFileSync(tofile, packagetext)
+        function createPackage (pckfolder, fullName, rootname, packver) {
+          let outfile = 'package.json'
+          let packagetext = getPackobj(fullName, rootname, packver, `${rootname}`, './')
+          let tofile = `${pckfolder}${outfile}`
+          fs.writeFileSync(tofile, packagetext)
+        }
+        createPackage(pckfolder, fullName, rootname, packver)
 
         // md: EONFILE
+        function createEonfile (pckfolder, fileName, fullName) {
+          if (fileName === 'eons') { // if root
+            console.log('build eons file')
 
-        if (fileName === 'eons') { // if root
-          console.log('build eons file')
+            let fromtext = getReadhtml(indir)
 
-          fromtext = getReadhtml(indir)
+            let outfile = `${fileName}.html`
 
-          outfile = `${fileName}.html`
+            let ncdfolder = '.' // versus build, dist
+            let pckdistfolder = `${pckfolder}${ncdfolder}/`
+            fs.existsSync(pckdistfolder) || fs.mkdirSync(pckdistfolder)
+            console.log('create pck dist folder ', pckdistfolder)
 
-          let ncdfolder = '.' // versus build, dist
-          let pckdistfolder = `${pckfolder}${ncdfolder}/`
-          fs.existsSync(pckdistfolder) || fs.mkdirSync(pckdistfolder)
-          console.log('create pck dist folder ', pckdistfolder)
-
-          tofile = `${pckdistfolder}${outfile}`
-          if (fs.existsSync(fromfile)) {
-            if (1 && 1) console.log('copy text to file ', fromtext, tofile)
-            fs.writeFileSync(tofile, fromtext)
+            let tofile = `${pckdistfolder}${outfile}`
+            if (fs.existsSync(fromfile)) {
+              console.log('copy text to file ', fromtext, tofile)
+              fs.writeFileSync(tofile, fromtext)
+            } else {
+              console.log(`no eon file ${fromfile} in dist `)
+            }
           } else {
-            if (1 && 1) console.log(`no eon file ${fromfile} in dist `)
-          }
-        } else {
-          fromfile = `${indir}${fullName}` // place EON as fullName in build
-          outfile = fullName // "index.js" //
+            let fromfile = `${indir}${fullName}` // place EON as fullName in build
+            let outfile = fullName // "index.js" //
 
-          let ncdfolder = '.' // versus build, dist
-          let pckdistfolder = `${pckfolder}${ncdfolder}/`
-          fs.existsSync(pckdistfolder) || fs.mkdirSync(pckdistfolder)
-          console.log('create pck dist folder ', pckdistfolder)
+            let ncdfolder = '.' // versus build, dist
+            let pckdistfolder = `${pckfolder}${ncdfolder}/`
+            fs.existsSync(pckdistfolder) || fs.mkdirSync(pckdistfolder)
+            console.log('create pck dist folder ', pckdistfolder)
 
-          tofile = `${pckdistfolder}${outfile}`
-          if (fs.existsSync(fromfile)) {
-            if (1 && 1) console.log('copy file to file ', fromfile, tofile)
-            fs.copyFileSync(fromfile, tofile)
-          } else {
-            if (1 && 1) console.log(`no eon file ${fromfile} in dist `)
+            let tofile = `${pckdistfolder}${outfile}`
+            if (fs.existsSync(fromfile)) {
+              console.log('copy file to file ', fromfile, tofile)
+              fs.copyFileSync(fromfile, tofile)
+            } else {
+              console.log(`no eon file ${fromfile} in dist `)
+            }
           }
         }
+        createEonfile(pckfolder, fileName, fullName)
 
         // md: NPM PUBLISH
-
-        if (dopublish === 1) {
-          console.log(`publish ${pckfolder}`)
-          let child = exec('npm publish',
-            {cwd: `${pckfolder}`},
-            function (error, stdout, stderr) {
-              console.log('stdout: ' + stdout)
-              console.log('stderr: ' + stderr)
-              if (error !== null) { console.log('exec error: ' + error) }
-            })
+        function npmPublish (pckfolder) {
+          console.log(`could publish ${pckfolder}`)
+          if (dopublish === 1) {
+            console.log(`publish ${pckfolder}`)
+            exec('npm publish',
+              {cwd: `${pckfolder}`},
+              function (error, stdout, stderr) {
+                console.log('stdout: ' + stdout)
+                console.log('stderr: ' + stderr)
+                if (error !== null) { console.log('exec error: ' + error) }
+              })
+          }
         }
+        npmPublish(pckfolder)
       })
   })
   Promise.all(promises)
@@ -424,6 +408,7 @@ if (action === 'unpkg') {
   unpkg()
 } else if (action === 'help') {
   console.log(`node ${prgname} {[help], eons, eonitems, pattern} [publish]`)
+  console.log(`eg. node ${prgname} eon-muon-animation [publish]`)
 } else {
   console.log(`node ${prgname} {[help], eons, eonitems, pattern} [publish]`)
 }

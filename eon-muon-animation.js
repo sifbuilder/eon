@@ -60,7 +60,6 @@
 
     // .................. animate
     async function animate (time) {
-      
       if (time !== undefined) {
         animier(time)
       } else {
@@ -68,51 +67,40 @@
           state.animationStop = ctimer.subscribe(animier)
         }
       }
-      
     }
 
     // .................. collect
     async function collect (animas, elapsed) {
       let featurecollectionPromise = Promise.resolve(state.animas)
         .then(animas => {
-          
           // md: get animas from halo.ween
           // md: animas reside in the store
-          
+
           getweens(animas, elapsed)
-          
-          
         })
         .then(animas => {
-
           // md: animas are subject to fields
-          // md: fields are d3.forces and act upon nodes or anisims 
+          // md: fields are d3.forces and act upon nodes or anisims
           // md: the field nodes correlate with the animas geonodes
-        
-          return getsims(mstore.animasLive())
 
+          return getsims(mstore.animasLive())
         })
         .then(anisimmed => {
-          
           // md: animas reveal anigrams at any point in time
-          // md: anigrams reside in a different section of the store 
-          
+          // md: anigrams reside in a different section of the store
+
           return getgramms(anisimmed)
-          
         })
         .then(() => {
-          
           // md: only feature collection can be rendered
           // md: and that is the feature collection of the existing anigrams
           // md: all the information to render an anigram must be in its geofold
-          
-          
-          let featurecollection = { 
-            type: 'FeatureCollection', 
-            features: mstore.anigrams().map(d => d.geofold) 
+
+          let featurecollection = {
+            type: 'FeatureCollection',
+            features: mstore.anigrams().map(d => d.geofold),
           }
           return featurecollection
-          
         })
 
       return featurecollectionPromise
@@ -120,7 +108,7 @@
 
     // ............................. ANIMIER
     function animier (elapsed) {
-      console.log(` ................................... animation ${elapsed} ${state.animas.length}`)
+      if (1 && 0) console.log(` ................ animation ${elapsed} ${state.animas.length}`)
       mstore = __mapper('muonStore') // store with state from __mapper
       state.animas = mstore.animasLive()
 
@@ -148,20 +136,19 @@
 
       // ............................. @WEEN SIM GRAMM RENDER
       // md: from the anigrams, collect the feature collection to be rendered
-      
+
       let featurecollectionPromise = collect(state.animas, elapsed)
-      
+
       // md: then render by sort the features in the collection
-      
+
       featurecollectionPromise
         .then(featurecollection => {
           rsvg.render(featurecollection)
         })
-        
     }
 
     // ............................. enty
-    function enty () {}
+    let enty = {}
     enty.animate = animate
     enty.animationStop = () => state.animationStop
     return enty
