@@ -100,8 +100,10 @@
       }
 
       // if mouse grabbed, enable event count, pacer.eventN
-      if (crayder.grabbed()) { //
+      let grabbed = crayder.grabbed()
+      if (grabbed !== false) { //
         count.event = Math.floor(pacer.eventN) //  if in state or was event
+        count.grabbed = grabbed
       }
 
       // init, pacer.initN
@@ -208,6 +210,22 @@
 
               let coords = newItem.geofold.geometry.coordinates
 
+                // if (base === 'geoform') {
+                  // if (geofold.properties.geoform) {
+                    // coords = newItem.geofold.properties.geoform.geometry.coordinates
+                  // }
+                // } else if (base === 'ereform') {
+                  // if (geofold.properties.ereform) {
+                    // coords = newItem.geofold.properties.ereform.geometry.coordinates
+                  // }
+                // } else if (base === 'proform') {
+                  // if (geofold.properties.proform) {
+                    // coords = newItem.geofold.properties.proform.geometry.coordinates
+                  // }
+                // }
+              
+              
+              
               if (coords && coords.length > 0) {
                 let presitus = coords[coords.length - 1] // last point in paced string
 

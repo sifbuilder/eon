@@ -158,7 +158,7 @@ async function run (fls, opts) {
 if (action === 'help') {
   console.log(`node ${prgname} {[help], viewpattern} on eon-z- files`)
 } else if (action === 'view') {
-    console.log(`view ${viewpattern} eon files`)
+    console.log(`view ${toviewpattern} eon files`)
     run(files, options)
 } else {
   console.log(`node ${prgname} {[help], viewpattern} on eon-z- files`)

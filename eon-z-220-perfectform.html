@@ -1,0 +1,115 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    muonAnimas,
+    haloNatform,
+    haloEoform,
+    haloScene,
+  ] = await Promise.all([
+    __mapper('xs').m('animas'),
+    __mapper('xs').h('natform'),
+    __mapper('xs').h('eoform'),
+    __mapper('xs').h('scene'),
+  ])
+
+  // .................. animas
+  let ani = function () {
+    // .................. pics
+    let tim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
+    let ric = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
+
+    let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+
+
+    // ............................. natAni
+    let natAni1 = {
+      halo: 'natform',
+      tim: tim,
+      ric: {gid: 'g', cid: 'c', fid: 'f1'},
+      payload: {
+        geoform: {
+            "m1":[[[4,4]]],"m2":[[[2,2]]],"n1":[[[2,2]]],"n2":[[[2,2]]],"n3":[[[2,2]]],"a":[[[4,4]]],"b":[[[-1,-1]]],
+            "v0": 0, "v1": 1,
+            "ra2": 120,
+            "w4": [[[360,0]]],
+            "seg5": 360,
+            "pa6":0,"pb7":-1,
+            "tx": 0, "ty": 0,
+            'csx': 0, 'cf': [[[333, 888, 333]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]
+          }
+      },
+    }
+
+    let natAni2 = {
+      halo: 'natform',
+      tim: tim,
+      ric: {gid: 'g', cid: 'c', fid: 'f2'},
+      payload: {
+        geoform: {
+            "m1":-900,"m2":-900,"n1":2,"n2":2,"n3":1,"a":1,"b":6,
+            "v0": 0, "v1": 1,
+            "ra2": 120,
+            "w4": [[[360,0]]],
+            "seg5": 360,
+            "pa6":0,"pb7":-1,
+            "tx": 0, "ty": 0,
+            'csx': 0, 'cf': [[[333, 888, 333]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]
+          }
+      },
+    }
+
+
+    let natAni3 = {
+      halo: 'natform',
+      tim: tim,
+      ric: {gid: 'g', cid: 'c', fid: 'f3'},
+      payload: {
+        geoform: {
+            "m1":[[[4,4]]],"m2":[[[4,4]]],"n1":[[[2,2]]],"n2":[[[2,2]]],"n3":[[[2,2]]],"a":[[[4,4]]],"b":[[[-1,-1]]],
+            "v0": 0, "v1": 1,
+            "ra2": 120,
+            "w4": [[[360,0]]],
+            "seg5": 360,
+            "pa6":0,"pb7":-1,
+            "tx": 0, "ty": 0,
+            'csx': 0, 'cf': [[[333, 888, 333]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]
+          }
+      },
+    }
+
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
+
+    }
+
+    // ............................. animas
+    let animas = [
+      natAni1, // h.natform
+      natAni2, // h.natform
+      natAni3, // h.natform
+      sceneAni, // h.scene
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

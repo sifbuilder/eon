@@ -46,12 +46,10 @@
       
       let res = {}
       let ref = muonTim.getdefault()
-      
       if (tim === undefined) {
         res = ref
       } else {
-        let { ...ref } = tim  // overwrite default values from tim 
-        res = ref
+        res = Object.assign({ ...ref }, tim)
       }
       return res
       
@@ -63,12 +61,10 @@
       
       let res = {}
       let ref = muonRic.getdefault()
-      
       if (ric === undefined) {
         res = ref
       } else {
-        let { ...ref } = ric
-        res = ref
+        res = Object.assign({ ...ref }, ric)
       }
       return res
       
@@ -119,7 +115,7 @@
       console.assert(anitem.payload.geoform !== undefined, 'geoform is undefined')
 
       anitem.halo = 'natform'
-      anitem.geofold = muonNatform.natFeature(anitem.payload.geoform)
+
 
       let translate = gettranslate(anitem.payload.geoform)
      
@@ -130,13 +126,11 @@
         rotate: [ 0, 0 ],
         lens: [0, 1, Infinity],        
       }
-      anitem.geofold = mproj3ct(anitem.geofold, muonProfier.formion(prt, anitem))
 
-      anitem.tim = gettim(anitem.tim)
-
-      anitem.ric = gettim(anitem.ric)
-        
-      if (anitem.boform === undefined) anitem.boform = getboform(anitem.payload.geoform)        
+      anitem.geofold = muonNatform.natFeature(anitem.payload.geoform)
+      anitem.geofold = mproj3ct(anitem.geofold, muonProfier.formion(prt, anitem)) // geofold
+   
+      if (anitem.boform === undefined) anitem.boform = getboform(anitem.payload.geoform)        // geoform
      
       
       return haloEoform.gramm(anitem)

@@ -62,7 +62,8 @@ async function anitem (__mapper) {
 
     let d3_force = d3Force3d
 
-    // isolation ween
+    // isolation halo ween
+    
     let haloIsolation_ween = anima => { // WEEN
       let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
 
@@ -87,6 +88,7 @@ async function anitem (__mapper) {
       let nbr = anima.payload.pacer.initN // 6
 
       for (let i = 0; i < nbr; i++) {
+      
         let ani = mprops.cloneObj(natAni) // clone of model anima
         ani.ric.gid = 'nat'
         ani.ric.cid = (i % 2) ? 'orange' : 'gold'
@@ -101,8 +103,11 @@ async function anitem (__mapper) {
         let preani = mstore.getAnima(ani.ric)
 
         if (preani) {
+        
           ani = preani
+          
         } else { // create anima
+        
           ani.halo = 'natform' // create halo
 
           let x0 = -200 + 60 * Math.random()
@@ -144,10 +149,10 @@ async function anitem (__mapper) {
     let natAni = {
 
       halo: isolation,
-
-      geofold: p => muonNatform.natFeature(p.payload.form),
       tim: tim,
       ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
+
+      geofold: p => muonNatform.natFeature(p.payload.geoform),
       geodrift: {
         proform: {
           projection: 'uniwen',
@@ -168,10 +173,30 @@ async function anitem (__mapper) {
       boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[777, 777]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.9, 0.9]]]},
 
       payload: {
+    
+        geofold: p => muonNatform.natFeature(p.payload.form),
+
+        geoform: {
+
+          'x': {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
+          },
+          'y': {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
+          },
+          'z': {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
+          },
+        },
+      
+      
         pacer: {
           initN: 8, eventN: 6, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, span: 1 / 100,
 
-          riccer: function (ani, props) {
+          ric: function (ani, props) {
             let newric = mprops.clone(ani.ric) // clone ric
             newric.gid = newric.gid
             newric.cid = newric.cid
@@ -179,7 +204,7 @@ async function anitem (__mapper) {
             return newric
           },
 
-          stacer: function (ani, props) {
+          stace: function (ani, props) {
             let stace
             if (props.key === 'init') {
               let a = 2 * Math.PI * Math.random()
@@ -192,23 +217,6 @@ async function anitem (__mapper) {
             return stace
           },
 
-          geofolder: p => muonNatform.natFeature(p.payload.form),
-
-          form: {
-
-            'x': {
-              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-              'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
-            },
-            'y': {
-              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-              'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
-            },
-            'z': {
-              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-              'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
-            },
-          },
         },
 
       },
@@ -805,7 +813,7 @@ async function anitem (__mapper) {
     }
 
     // .................. natAni forces
-    natAni.payload.forces = {
+    natAni.payload.__forces = {
       force_energy,
       force_viscosity,
       // force_manybody,

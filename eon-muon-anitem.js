@@ -34,8 +34,6 @@
       let newAnitem = mprops.clone(anitem)
 
       console.assert(anitem !== undefined)
-      console.assert(anitem.payload !== undefined, anitem.uid + ' payload undefined')
-      console.assert(anitem.geofold !== undefined, anitem.uid + ' geofold undefined')
 
       if (newAnitem.payload === undefined) newAnitem.payload = {}
       if (newAnitem.geodrift === undefined) newAnitem.geodrift = {}

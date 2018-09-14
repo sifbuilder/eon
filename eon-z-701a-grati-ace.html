@@ -8,11 +8,13 @@ async function anitem (__mapper) {
     mgraticule,
     cwen,
     prtNatform,
+    haloEoform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').p('natform'),
+    __mapper('xs').h('eoform'),
     __mapper('xs').h('scene'),    
   ])
 
@@ -20,7 +22,7 @@ async function anitem (__mapper) {
   // .................. pics
     let tim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    let form = {
+    let geoform = {
       'x': {
         'm1': -8, // [[[-8, -4, -2, -7.66]]],
         'm2': -3.5, // [[[-3.5, -3.3, -3, -3.73 ]]],
@@ -70,7 +72,7 @@ async function anitem (__mapper) {
       geodrift: {
         conform: {
           projection: 'natform',
-          geoform: form,
+          geoform: geoform,
         },
 
         proform: {

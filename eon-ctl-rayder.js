@@ -105,7 +105,7 @@
       let e = event
       state.moved = false // not moved yet
       let pos = getPos(e) // mouse position
-
+console.log('pos', pos)
       state.grabbed = pos
     }
 
@@ -164,7 +164,10 @@ if (1 && 1) console.log('c.rayder.control' )
 
     enty.domNode = _ => (_ !== undefined) ? (state.domNode = _, enty) : state.domNode
 
-    enty.grabbed = () => state.grabbed
+    enty.grabbed = () => {
+console.log('state.grabbed', state.grabbed)      
+        return state.grabbed
+    }
 
     enty.mouse = () => state.mouse
     enty.touch = () => state.touch

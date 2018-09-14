@@ -1,0 +1,154 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    haloScene,
+    cwen,
+    muonNatform,
+    mstace,
+    crayder,
+    haloEoform,
+    haloNatform,
+    haloPacer,
+    haloTextform,
+    prtUniwen,
+  ] = await Promise.all([
+    __mapper('xs').h('scene'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').m('stace'),
+    __mapper('xs').c('rayder'),
+    __mapper('xs').h('eoform'),
+    __mapper('xs').h('natform'),
+    __mapper('xs').h('pacer'),
+    __mapper('xs').h('textform'),
+    __mapper('xs').p('uniwen'),
+  ])
+  let muonStore = __mapper('muonStore')
+
+  // .................. animas
+  let ani = function () {
+    // .................. pics
+    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+
+    // ............................. natAni
+    let geoLined = {
+
+          halo: 'pacer',
+
+          tim,
+          ric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
+          
+          geofold: {
+            type: 'Feature',
+            geometry: {
+              type: 'LineString',
+              coordinates: [],
+            },
+            properties: {},
+          },
+          geonode: {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [0, 0, 0],
+            },
+            properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]
+            },
+          },
+          geodrift: {
+            proform: {
+              projection: 'uniwen',
+              translate: [ -100, 0 ],
+            },
+          },          
+
+          boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+
+          payload: {
+            pacer: { // aad for trace
+              halo: 'eoform',
+              itemsort: 'anigram',
+              base: 'geoform',
+              initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
+
+              stace: function (ani, props) {
+                let stace
+                if (props.key === 'init') { // INIT
+                  stace = {x: 0, y: 0, z: 0 }
+                } else if (props.key === 'auto') { // AUTO
+                  stace = mstace.getLocus(ani.payload.pacer.stace, ani) // AUTO
+                } else if (props.key === 'event') { // EVENT
+                  stace = {x: 0, y: 0, z: 0 }
+                }
+                return stace
+              },
+
+              geonode: function (ani, props) {
+                let stace = [0, 0, 0]
+                if (props.key === 'init') { // INIT
+                  // stace is ani's transformed geonode
+                  stace = mstace.getLocus([null, null, null], ani)
+                } else if (props.key === 'auto') { // AUTO
+                  stace = mstace.getLocus([null, null, null], ani)
+                } else if (props.key === 'event') { // EVENT
+                  if (crayder.grabbed() !== undefined) {
+                    let grabbed = crayder.grabbed()
+                    let x = grabbed[0]
+                    let y = grabbed[1]
+                    let z = 0
+                    stace = {x, y, z }
+                  }
+                }
+
+                let coordinates = stace
+                let res = {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: coordinates,
+                  },
+                  properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+                }
+                return res
+              },
+
+            },
+          }
+        }
+
+
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
+        context: {svg: 1, versor: 0, wen: 0, webgl: 0, bck: 1, ray: 1},
+      },
+
+    }
+
+
+    // .................. animas
+    let animas = [
+      geoLined, // h.pacer
+      sceneAni, // h.scene
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

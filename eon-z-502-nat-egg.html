@@ -8,9 +8,11 @@ async function anitem (__mapper) {
   let [
     cwen,
     haloNatform,
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').h('natform'),
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
