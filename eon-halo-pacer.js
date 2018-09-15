@@ -210,19 +210,19 @@
 
               let coords = newItem.geofold.geometry.coordinates
 
-                // if (base === 'geoform') {
-                  // if (geofold.properties.geoform) {
-                    // coords = newItem.geofold.properties.geoform.geometry.coordinates
-                  // }
-                // } else if (base === 'ereform') {
-                  // if (geofold.properties.ereform) {
-                    // coords = newItem.geofold.properties.ereform.geometry.coordinates
-                  // }
-                // } else if (base === 'proform') {
-                  // if (geofold.properties.proform) {
-                    // coords = newItem.geofold.properties.proform.geometry.coordinates
-                  // }
-                // }
+                if (base === 'conform') {
+                  if (geofold.properties.conform) {
+                    coords = newItem.geofold.properties.conform.geometry.coordinates
+                  }
+                } else if (base === 'ereform') {
+                  if (geofold.properties.ereform) {
+                    coords = newItem.geofold.properties.ereform.geometry.coordinates
+                  }
+                } else if (base === 'proform') {
+                  if (geofold.properties.proform) {
+                    coords = newItem.geofold.properties.proform.geometry.coordinates
+                  }
+                }
               
               
               

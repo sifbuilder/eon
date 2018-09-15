@@ -147,7 +147,6 @@ console.log('pos', pos)
 
     // ............................. controlrayder
     let control = function (domNode) {
-if (1 && 1) console.log('c.rayder.control' )      
       enty.domNode(domNode)
 
       subscribe(mouseUpListener, state.domNode, 'mouseup')
@@ -165,7 +164,6 @@ if (1 && 1) console.log('c.rayder.control' )
     enty.domNode = _ => (_ !== undefined) ? (state.domNode = _, enty) : state.domNode
 
     enty.grabbed = () => {
-console.log('state.grabbed', state.grabbed)      
         return state.grabbed
     }
 
