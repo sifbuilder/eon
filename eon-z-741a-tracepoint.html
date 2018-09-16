@@ -132,8 +132,8 @@ async function anitem (__mapper) {
             } else if (props.key === 'auto') { // AUTO
               stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'event') { // EVENT
-              if (crayder.grabbed() !== undefined) {
-                let grabbed = crayder.grabbed()
+              if (ctlRayder.grabbed() !== undefined) {
+                let grabbed = ctlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0

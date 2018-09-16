@@ -47,7 +47,7 @@
     let [
       muonRic,
       mgeom,
-      crayder,
+      ctlRayder,
       cwen,
       cversor,
       haloEoform,
@@ -94,13 +94,13 @@
       //
       // if mouse up reset the controls on svg
       //
-      if (crayder.mouse() && crayder.mouse().type === 'mouseup') {
+      if (ctlRayder.mouse() && ctlRayder.mouse().type === 'mouseup') {
         cwen.reset(rsvg.svg())
         cversor.reset(rsvg.svg())
       }
 
       // if mouse grabbed, enable event count, pacer.eventN
-      let grabbed = crayder.grabbed()
+      let grabbed = ctlRayder.grabbed()
       if (grabbed !== false) { //
         count.event = Math.floor(pacer.eventN) //  if in state or was event
         count.grabbed = grabbed

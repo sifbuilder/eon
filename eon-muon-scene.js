@@ -15,7 +15,7 @@
       cversor,
       ckey,
       ctimer,
-      crayder,
+      ctlRayder,
     ] = await Promise.all([
       __mapper('xs').r('svg'),
       __mapper('xs').c('wen'),
@@ -62,7 +62,7 @@
       if (p.ray && p.ray !== state.ray) {
         state.ray = 1
         let svg = rsvg.svg()
-        crayder.control(svg)
+        ctlRayder.control(svg)
       }
 
       // ............................. key control animation
