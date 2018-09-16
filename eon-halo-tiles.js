@@ -9,28 +9,30 @@
   'use strict'
 
   async function haloTiles (__mapper = {}) {
-    let haloEoform = await __mapper('xs').h('eoform'),
-      mprops = await __mapper('xs').m('props'),
-      muonGraticule = await __mapper('xs').m('graticule')
+    let [
+      mprops,
+      muonGraticule,
+      haloFormed,
+      haloNatform,
+      haloEoform,
+    ] = await Promise.all([
+      __mapper('xs').m('props'),
+      __mapper('xs').m('graticule'),
+      __mapper('xs').h('formed'),
+      __mapper('xs').h('natform'),
+      __mapper('xs').h('eoform'),
 
-    // .................. sequence
-    function sequence (items, fromitem) {
-      function chain (items, index) {
-        return (index === items.length)
-          ? Promise.resolve()
-          : Promise.resolve(fromitem(items[index])).then(() => chain(items, index + 1))
-      }
-      return chain(items, 0)
-    }
+    ])    
+
 
     function getTiles (anigram, newItems = []) {
       let geofold = anigram.geofold, // geofold
-        payload = anigram.payload, // payload
-        ric = ric // ric
+        geonode = anigram.geonode, // geonode
+        ric = anigram.ric, // ric
+        payload = anigram.payload // payload
 
       let gj = mprops.v(geofold, anigram) // get geofold
       gj.properties = gj.properties || {} // recall genode
-      gj.properties.geonode = gj.properties.geonode || {}
 
       let graticule = payload.graticule
 
