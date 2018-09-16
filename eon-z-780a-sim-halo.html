@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     haloScene,    
   ] = await Promise.all([
     __mapper('xs').m('props'),
-    __mapper('xs').m('forces'),
+    __mapper('xs').m('geoforces'),
     __mapper('xs').m('natform'),
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').r('renderport'),
@@ -711,7 +711,7 @@ console.log('d', d)
     }
 
     // .................. natAni forces
-    natAni.payload.forces = {
+    natAni.geoforces = {
       force_energy,
       force_viscosity,
       // force_manybody,

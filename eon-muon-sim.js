@@ -177,11 +177,11 @@
       for (let i = 0; i < aniItems.length; i++) {
         let aniItem = aniItems[i] // each anima or anigram
 
-        if (aniItem.payload.forces !== undefined) { // forces in aniItem
-          let forces = mprops.fa(aniItem.payload.forces)
+        if (aniItem.geoforces !== undefined) { // forces in aniItem
+          let forces = mprops.fa(aniItem.geoforces)
 
           for (let j = 0; j < forces.length; j++) { // for each force in aniItem
-            let aniForce = forces[j] // aniForce in anima.payload.forces eg. force_gravity
+            let aniForce = forces[j] // aniForce in anima.geoforces eg. force_gravity
             let cttes = simConstants(sim, aniForce.properties)
 
             sim
