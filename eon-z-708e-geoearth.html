@@ -6,15 +6,16 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    mgeom,
+    muonGeom,
     muonGraticule,
     topojson,
     dworldTopo110m,
     muonNatform,
-    cwen,
-    cversor,
+    ctlWen,
+    ctlVersor,
     d3geo,
     d3geoprojection,
+    haloEoform,    
     haloScene,    
   ] = await Promise.all([
     __mapper('xs').m('geom'),
@@ -26,6 +27,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('versor'),
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-geo-projection'),
+    __mapper('xs').h('eoform'),    
     __mapper('xs').h('scene'),    
   ])
   // .................. animas
@@ -47,7 +49,7 @@ async function anitem (__mapper) {
 
       projection: frontProjection,
       prerotate: [[[ function (t) {
-        let rot = cversor
+        let rot = ctlVersor
           .projection({projection: frontProjection}) // versor projection
           .rotation()
         return rot

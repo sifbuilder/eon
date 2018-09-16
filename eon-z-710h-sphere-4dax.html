@@ -8,7 +8,7 @@ async function anitem (__mapper) {
   let [
     muonNatform,
     mprops,
-    cwen,
+    ctlWen,
     haloEofrom,    
     haloScene,    
   ] = await Promise.all([
@@ -62,7 +62,7 @@ async function anitem (__mapper) {
 
       projection: 'uniwen',
       scale: [1, 1],
-      prerotate: [[[ cwen.rotation ]]],
+      prerotate: [[[ ctlWen.rotation ]]],
       translate: [ [0, 0, 0] ],
       rotate: [ 0, 0, 0 ],
       lens: [0, 1, Infinity],

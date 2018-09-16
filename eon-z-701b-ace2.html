@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   let [
     muonGraticule,
-    cwen,
+    ctlWen,
     muonNatform,
     prjUnwen,
     prtNatform,
@@ -82,7 +82,7 @@ async function anitem (__mapper) {
       geodrift: {
         proform: {
           'projection': 'uniwen',
-          'prerotate': [[[ cwen.rotation ]]],
+          'prerotate': [[[ ctlWen.rotation ]]],
           'translate': [0, 0],
           'scale': 3,
           'rotate': [ 0, 0, 0],
@@ -115,7 +115,7 @@ async function anitem (__mapper) {
 
         proform: {
           projection: 'uniwen',
-          prerotate: [[[ cwen.rotation ]]],
+          prerotate: [[[ ctlWen.rotation ]]],
           translate: [0, 0],
           scale: 3,
           rotate: [ 0, 0, 0],

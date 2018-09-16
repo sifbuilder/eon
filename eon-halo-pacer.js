@@ -46,10 +46,10 @@
   async function haloPacer (__mapper = {}) {
     let [
       muonRic,
-      mgeom,
+      muonGeom,
       ctlRayder,
-      cwen,
-      cversor,
+      ctlWen,
+      ctlVersor,
       haloEoform,
       muonStace,
       mprops,
@@ -95,8 +95,8 @@
       // if mouse up reset the controls on svg
       //
       if (ctlRayder.mouse() && ctlRayder.mouse().type === 'mouseup') {
-        cwen.reset(rsvg.svg())
-        cversor.reset(rsvg.svg())
+        ctlWen.reset(rsvg.svg())
+        ctlVersor.reset(rsvg.svg())
       }
 
       // if mouse grabbed, enable event count, pacer.eventN

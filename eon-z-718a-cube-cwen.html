@@ -7,7 +7,7 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     mprops,
-    cwen,
+    ctlWen,
     haloEoform,
     haloNatform,
     haloScene,    
@@ -29,7 +29,7 @@ async function anitem (__mapper) {
       rotMatrix,
       stars = []
 
-    cwen = cwen({rotInit})
+    ctlWen = ctlWen({rotInit})
 
     // .................. aniCube anima
     let aniCube = {
@@ -73,7 +73,7 @@ async function anitem (__mapper) {
           scale: 100,
           rotate: [-5, 50, 0],
           lens: [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 4 ],
-          prerotate: [[[ cwen.rotation ]]],
+          prerotate: [[[ ctlWen.rotation ]]],
         },
       },
       payload: {

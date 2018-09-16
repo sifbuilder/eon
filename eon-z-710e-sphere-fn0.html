@@ -8,7 +8,7 @@ async function anitem (__mapper) {
   let [
     muonNatform,
     mprops,
-    cwen,
+    ctlWen,
     haloScene,    
   ] = await Promise.all([
     __mapper('xs').m('natform'),
@@ -81,7 +81,7 @@ async function anitem (__mapper) {
       // projection:  d3.geoOrthographic(),
       // scale: 100,
 
-      prerotate: [[[ cwen.rotation ]]],
+      prerotate: [[[ ctlWen.rotation ]]],
       translate: [ [0, 0, 0] ],
       // rotate: [ [[[90 + 0, 90 + 0, 90 + 1 * 360, 90 + 1 * 360]]], 0, 0 ],
       rotate: [ 0, 0, 0 ],

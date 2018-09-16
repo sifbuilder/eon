@@ -14,7 +14,7 @@
       d3,
       rrenderport,
       mversor,
-      mgeom,
+      muonGeom,
       d3geo,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
@@ -122,7 +122,7 @@
 
       state.s2 = getPos(e) // current
       let inveGeo2 = state.projection.invert(state.s2)
-      state.c2 = mgeom.cartesian(inveGeo2)
+      state.c2 = muonGeom.cartesian(inveGeo2)
       state.r2_degrees = inits.rotInit_radians
       state.q2 = mversor(state.r2_degrees) // quaternion of initial rotation
 
@@ -134,7 +134,7 @@
 
       // rot at the start of new drag
       state.rotAccum_degrees =
-            mgeom.add(
+            muonGeom.add(
               [0, 0, 0],
               [0, 0, 0]
               // state.rotAccum_degrees, //
@@ -156,7 +156,7 @@
         .invert(state.s2)
 
       state.c1 = state.c2
-      state.c2 = mgeom.cartesian(state.c2Rads)
+      state.c2 = muonGeom.cartesian(state.c2Rads)
 
       state.qd1 = mversor.delta(state.c1, state.c2)
       state.vel_degrees = mversor.rotation(state.qd1)
@@ -214,7 +214,7 @@
     // .................. enty
     let enty = function (p = {}) {
       let rotInit_degrees = p.rotInit
-      let rotInit_radians = mgeom.to_radians(rotInit_degrees)
+      let rotInit_radians = muonGeom.to_radians(rotInit_degrees)
 
       state.rotAccum_degrees = rotInit_degrees || inits.rotInit_degrees
 
@@ -240,13 +240,13 @@
     }
 
     enty.rotation = () => {
-      let res = mgeom.add(
+      let res = muonGeom.add(
         state.rotAccum_degrees,
         state.rotInDrag_degrees)
       return res
     }
-    // enty.rotation = () => mgeom.add(state.rotAccum_radians, state.rotInDrag_radians)
-    // .map(mgeom.to_degrees)
+    // enty.rotation = () => muonGeom.add(state.rotAccum_radians, state.rotInDrag_radians)
+    // .map(muonGeom.to_degrees)
 
     return enty
   }

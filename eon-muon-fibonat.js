@@ -19,7 +19,7 @@
   async function muonFibonat (__mapper = {}) {
     let [
       mprops,
-      mgeom,
+      muonGeom,
       d3scale,
       d3array,
     ] = await Promise.all([
@@ -63,8 +63,8 @@
               z = Math.sin(phi) * r
             return ([x, y, z]) // eg. [-0.63, -0.5, 0.58]
           })
-          .map(mgeom.spherical) // eg. [-0.7853, 0.6154]
-          .map(mgeom.to_degrees) // eg. [-141.93, 35.80]
+          .map(muonGeom.spherical) // eg. [-0.7853, 0.6154]
+          .map(muonGeom.to_degrees) // eg. [-141.93, 35.80]
 
         let string = []
 

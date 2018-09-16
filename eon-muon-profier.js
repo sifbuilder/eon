@@ -14,9 +14,9 @@
       mwen,
       muonStace,
       muonProj3ct,
-      mgeom,
-      cwen,
-      cversor,
+      muonGeom,
+      ctlWen,
+      ctlVersor,
       puniwen,
     ] = await Promise.all([
       __mapper('xs').m('props'),
@@ -87,7 +87,7 @@
         } else if (Array.isArray(projdef.translate)) {
           let _trans = []
           for (let k = 0; k < projdef.translate.length; k++) {
-            _trans = mgeom.add(_trans, projdef.translate[k])
+            _trans = muonGeom.add(_trans, projdef.translate[k])
           }
           translation = _trans
         } else if (typeof projdef.translate === 'object' && mprops.isPosition(projdef.translate)) {
@@ -99,7 +99,7 @@
         if (projdef.anod && geonode) {
           if (geonode.geometry && geonode.geometry.coordinates !== undefined) {
             let nodetranslate = geonode.geometry.coordinates // geonode coords
-            translation = mgeom.add(translation, nodetranslate)
+            translation = muonGeom.add(translation, nodetranslate)
           }
         }
       }
@@ -113,13 +113,13 @@
         } else { // if multi rotates
           let _rot = []
           for (let k = 0; k < projrot.length; k++) {
-            _rot = mgeom.add(_rot, projrot[k])
+            _rot = muonGeom.add(_rot, projrot[k])
           }
           projrot = _rot
         }
-        rot = mgeom.add(rot, projrot)
-        let control = (projdef.control === 'wen') ? cwen
-          : (projdef.control === 'versor') ? cversor
+        rot = muonGeom.add(rot, projrot)
+        let control = (projdef.control === 'wen') ? ctlWen
+          : (projdef.control === 'versor') ? ctlVersor
             : undefined
 
         if (control !== undefined) {
@@ -127,12 +127,12 @@
             .projection(projection) // invert on projection
             .rotation() // rotation from control wen
 
-          if (controlRotation) rot = mgeom.add(rot, controlRotation)
+          if (controlRotation) rot = muonGeom.add(rot, controlRotation)
         }
 
         let prerotate = projdef.prerotate
 
-        if (prerotate) rot = mgeom.add(rot, prerotate) // ADD prerotate
+        if (prerotate) rot = muonGeom.add(rot, prerotate) // ADD prerotate
 
         let dims = projrot.length // planar or spherical geometry
         if (dims == 2) rot = mwen.cross([ Math.sqrt(rot[0]), 0, 0], [0, Math.sqrt(rot[1]), 0]) // planar rot

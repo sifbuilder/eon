@@ -13,7 +13,7 @@
     let [
       d3,
       d3geo,
-      mgeom,
+      muonGeom,
       rrenderport,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
@@ -112,7 +112,7 @@
       state.s0 = state.s1 // current
 
       state.rotAccum_radians =
-            mgeom.add(
+            muonGeom.add(
               state.rotAccum_radians,
               state.rotInDrag_radians) // rotation
 
@@ -188,7 +188,7 @@
     // .................. enty
     let enty = function (p = {}) {
       let rotInit_degrees = p.rotInit
-      let rotInit_radians = mgeom.to_radians(rotInit_degrees)
+      let rotInit_radians = muonGeom.to_radians(rotInit_degrees)
 
       state.rotAccum_radians = rotInit_radians || inits.rotInit_radians
 
@@ -214,10 +214,10 @@
     }
 
     enty.rotation = () => {
-      let res = mgeom.add(
+      let res = muonGeom.add(
         state.rotAccum_radians,
         state.rotInDrag_radians)
-        .map(mgeom.to_degrees)
+        .map(muonGeom.to_degrees)
       return res
     }
 

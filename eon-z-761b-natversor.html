@@ -8,7 +8,7 @@ async function anitem (__mapper) {
   let [
     muonNatform,
     mprops,
-    cversor,
+    ctlVersor,
     d3geo,
     haloEoform,
     haloNatform,
@@ -45,7 +45,7 @@ async function anitem (__mapper) {
         proform: {
 
           projection: 'uniwen',
-          prerotate: [[[ cversor.rotation ]]],
+          prerotate: [[[ ctlVersor.rotation ]]],
           scale: 1,
           translate: { x: 0, y: 0, z: 0 },
           rotate: [ 0, 0, 0 ],
@@ -68,7 +68,7 @@ async function anitem (__mapper) {
         proform: {
 
           projection: d3geo.geoOrthographic(),
-          prerotate: [[[ cversor.rotation ]]],
+          prerotate: [[[ ctlVersor.rotation ]]],
           scale: 90,
           translate: [ 0, 0, 0 ],
           rotate: [ 0, 0, 0 ],

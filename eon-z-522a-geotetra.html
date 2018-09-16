@@ -7,13 +7,13 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     mprops,
-    mgeom,
+    muonGeom,
     muonGraticule,
     topojson,
     dworldTopo110m,
     muonNatform,
-    cwen,
-    cversor,
+    ctlWen,
+    ctlVersor,
     d3geo,
     d3geoprojection,
     prtTetra,
@@ -72,7 +72,7 @@ async function anitem (__mapper) {
     let proform = {
 
       projection: 'tetra',
-      prerotate: [[[ cversor.rotation ]]],
+      prerotate: [[[ ctlVersor.rotation ]]],
       scale: 50,
       center: [ 0, 0, 0 ],
       translate: [0, 0, 0],

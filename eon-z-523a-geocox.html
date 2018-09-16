@@ -7,13 +7,13 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     mprops,
-    mgeom,
+    muonGeom,
     muonGraticule,
     topojson,
     dworldTopo110m,
     muonNatform,
-    cwen,
-    cversor,
+    ctlWen,
+    ctlVersor,
     d3geo,
     d3geoprojection,
     prtCox,
@@ -81,7 +81,7 @@ async function anitem (__mapper) {
 
           projection: 'cox',
 
-          prerotate: [[[ cversor.rotation ]]],
+          prerotate: [[[ ctlVersor.rotation ]]],
           scale: [100],
           translate: [ 0, 0 ],
           rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],
@@ -128,7 +128,7 @@ async function anitem (__mapper) {
           prtrad: [[[2.0, 2.0]]],
 
           projection: 'cox',
-          prerotate: [[[ cversor.rotation ]]],
+          prerotate: [[[ ctlVersor.rotation ]]],
           scale: [100],
           translate: [ 0, 0 ],
           rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],

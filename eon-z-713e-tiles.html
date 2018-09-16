@@ -8,7 +8,7 @@ async function anitem (__mapper) {
   let [
     muonNatform,
     mprops,
-    cwen,
+    ctlWen,
     muonGraticule,
     haloEoform,
     haloNatform,
@@ -59,7 +59,7 @@ async function anitem (__mapper) {
 
     let proform = {
       projection: 'uniwen',
-      prerotate: [[[ cwen.rotation ]]],
+      prerotate: [[[ ctlWen.rotation ]]],
       translate: [0, 0, 0],
       scale: 1,
       rotate: [ 90, 0, 0],

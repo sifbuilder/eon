@@ -5,8 +5,8 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__mapper) {
   let [
-    cwen,
-    mgeom,
+    ctlWen,
+    muonGeom,
     prtNatform,
     haloScene,
   ] = await Promise.all([
@@ -55,9 +55,9 @@ async function anitem (__mapper) {
           let face = faces[i] // face pointsx position
           let geometry = {type: 'Polygon', coordinates: []}
           geometry.coordinates = face.pointsx.map(k => points[k]) // eg [-1, 1, 1]
-            .map(mgeom.normalize) // eg. [0.5773, -0.577, 0.5773]
-            .map(mgeom.spherical) // eg. [-0.7853, 0.6154]
-            .map(mgeom.to_degrees)
+            .map(muonGeom.normalize) // eg. [0.5773, -0.577, 0.5773]
+            .map(muonGeom.spherical) // eg. [-0.7853, 0.6154]
+            .map(muonGeom.to_degrees)
           geometry.coordinates = Array.of(geometry.coordinates)
 
           let _ric = {}
@@ -95,7 +95,7 @@ async function anitem (__mapper) {
           scale: 1,
           rotate: [-5, 50, 0],
           lens: [0, 1, Infinity], // [ [[[0, 0, 1, 1, 1, 0]]], [[[0, 0, 1, 1, 1, 0]]], 400 ], // [0,1], // [1,0]
-          prerotate: [[[ cwen.rotation ]]],
+          prerotate: [[[ ctlWen.rotation ]]],
         },
       },
       payload: {

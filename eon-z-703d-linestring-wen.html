@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    cwen,
+    ctlWen,
     haloEoform,
     haloScene,
   ] = await Promise.all([
@@ -43,7 +43,7 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           scale: [ 1, 1, 1],
           translate: [ 0, 0, 0 ],
-          prerotate: [[[ cwen.rotation ]]],
+          prerotate: [[[ ctlWen.rotation ]]],
           rotate: [ 0, 0, 0 ],
 
         },

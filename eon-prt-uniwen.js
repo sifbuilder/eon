@@ -11,9 +11,9 @@
 
   async function prtUniwen (__mapper = {}) {
     let [
-      mgeom,
+      muonGeom,
       mwen,
-      cwen,
+      ctlWen,
       d3geo,
       mprops,
     ] = await Promise.all([
@@ -40,14 +40,14 @@
     state.lens = init.lens
 
     let wenRotation = function (rot) {
-      let rox = mwen.matrix(rot !== undefined ? mgeom.to_radians(rot) : cwen.rotation())
+      let rox = mwen.matrix(rot !== undefined ? muonGeom.to_radians(rot) : ctlWen.rotation())
       return function (x, y, z = 0) {
         return mwen.rotateMatrix([x, y, z], rox)
       }
     }
 
     let wenRotInverse = function (rot) {
-      let rox = mwen.matrix(rot !== undefined ? mgeom.to_radians(rot) : cwen.rotation())
+      let rox = mwen.matrix(rot !== undefined ? muonGeom.to_radians(rot) : ctlWen.rotation())
       let invrox = mwen.transpose33(rox)
       return function (x, y, z = 0) {
         return mwen.rotateMatrix([x, y, z], invrox)
@@ -106,7 +106,7 @@
         rot = rotate
       } else { // assume multiple translates
         for (let k = 0; k < rotate.length; k++) {
-          rot = mgeom.add(rot, rotate[k])
+          rot = muonGeom.add(rot, rotate[k])
         }
       }
       c = wenRotation(rot)(...c) // rotate
@@ -119,7 +119,7 @@
       } else { // assume multiple translates
         let trans = []
         for (let k = 0; k < translate.length; k++) {
-          trans = mgeom.add(trans, translate[k])
+          trans = muonGeom.add(trans, translate[k])
         }
       }
 

@@ -11,8 +11,8 @@
   async function muonScene (__mapper = {}) {
     let [
       rsvg,
-      cwen,
-      cversor,
+      ctlWen,
+      ctlVersor,
       ckey,
       ctimer,
       ctlRayder,
@@ -48,13 +48,13 @@
       if (p.svg && p.wen && p.wen !== state.scene.wen) {
         state.scene.wen = 1
         let svg = rsvg.svg()
-        cwen.control(svg)
+        ctlWen.control(svg)
       }
 
       if (p.svg && p.versor && p.versor !== state.scene.versor) {
         state.scene.versor = 1
         let svg = rsvg.svg()
-        cversor.control(svg)
+        ctlVersor.control(svg)
       }
 
       // ............................. ray control animation
@@ -87,7 +87,7 @@
         if (ckey !== undefined) {
           let controltimerUpArrowAlt = () => { // UP ARROW
             console.log('controltimerUpArrowAlt')
-            cwen.control(rsvg.svg()) // SVG WEN
+            ctlWen.control(rsvg.svg()) // SVG WEN
           }
           ckey.subscribe(controltimerUpArrowAlt, 'upArrowAlt')
         }

@@ -7,7 +7,7 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     mprops,
-    cwen,
+    ctlWen,
     haloScene,    
   ] = await Promise.all([
     __mapper('xs').m('props'),
@@ -25,7 +25,7 @@ async function anitem (__mapper) {
 
     let proform = {
       projection: 'uniwen',
-      prerotate: [[[ cwen.rotation ]]],
+      prerotate: [[[ ctlWen.rotation ]]],
       translate: [ [0, 0, 0] ],
       scale: 1,
       rotate: [ 0, 0, 0 ],

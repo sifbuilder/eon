@@ -21,7 +21,7 @@
 
   async function geoFuturi (__mapper = {}) {
     let [
-      mgeom,
+      muonGeom,
       mpolyhedral,
       d3,
     ] = await Promise.all([
@@ -61,9 +61,9 @@
         [ 1, -1, -1], // 4  // 5
         [ 1, 1, -1], // 7  // 6
         [-1, 1, -1], // 6  // 7
-      ].map(mgeom.normalize)
-        .map(mgeom.spherical)
-        .map(mgeom.to_degrees)
+      ].map(muonGeom.normalize)
+        .map(muonGeom.spherical)
+        .map(muonGeom.to_degrees)
 
       vertices = d3selection.merge([
         vertices,

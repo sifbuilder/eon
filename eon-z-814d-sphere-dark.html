@@ -6,13 +6,13 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    mgeom,
+    muonGeom,
     muonGraticule,
     topojson,
     dworldTopo110m,
     muonNatform,
-    cwen,
-    cversor,
+    ctlWen,
+    ctlVersor,
     d3geo,
     d3geoprojection,
     haloEoform,    
@@ -152,7 +152,7 @@ async function anitem (__mapper) {
     let proformDark = {
       projection: darkProjection,
       prerotate: [[[ t => {
-        let rot = cversor
+        let rot = ctlVersor
           .projection({projection: darkProjection}) // versor projection
           .rotation()
         return [180 + rot[0], -rot[1], -rot[2]]
@@ -194,7 +194,7 @@ async function anitem (__mapper) {
 
       projection: frontProjection,
       prerotate: [[[ function (t) {
-        let rot = cversor
+        let rot = ctlVersor
           .projection({projection: frontProjection}) // versor projection
           .rotation()
         return rot
@@ -218,7 +218,7 @@ async function anitem (__mapper) {
         // proform: {
         // projection: 'uniwen',
         // scale: [ 1, 1 ],
-        // prerotate: [[[ cwen.rotation ]]],
+        // prerotate: [[[ ctlWen.rotation ]]],
         // translate: [ [0, 0, 0] ],
         // rotate: [ 0,0,0 ], // rotate: [ [[[90, 92, 87]]], [[[9, 6, 9]]], [[[0, 360]]] ],
         // lens: [0, 1, Infinity ],
@@ -243,7 +243,7 @@ async function anitem (__mapper) {
         proform: {
           projection: 'uniwen',
           scale: [ 1, 1 ],
-          prerotate: [[[ cwen.rotation ]]],
+          prerotate: [[[ ctlWen.rotation ]]],
           translate: [ [0, 0, 0] ],
           rotate: [ [[[90, 92, 87]]], [[[9, 6, 9]]], [[[0, 360]]] ], // rotate: [ 90, 0, 0 ],
           lens: [0, 1, Infinity ],

@@ -6,12 +6,13 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    mgeom,
-    cwen,
+    muonGeom,
+    ctlWen,
     muonGraticule,
     topojson,
     dworldTopo110m,
     prtNatform,
+    haloEoform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('geom'),
@@ -20,6 +21,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('topojson'),
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').p('natform'),
+    __mapper('xs').h('eoform'),    
     __mapper('xs').h('scene'),    
   ])
 
@@ -89,7 +91,7 @@ async function anitem (__mapper) {
     let proform = {
 
       projection: 'uniwen',
-      prerotate: [[[ cwen.rotation ]]],
+      prerotate: [[[ ctlWen.rotation ]]],
       translate: [ 0, 0],
       scale: 1,
       rotate: [-5, 50, 45 ], // [-5,50,0], //
@@ -100,7 +102,7 @@ async function anitem (__mapper) {
     let proformCube = {
 
       projection: 'uniwen',
-      prerotate: [[[ cwen.rotation ]]],
+      prerotate: [[[ ctlWen.rotation ]]],
       translate: [ 0, 0],
       scale: 1,
       rotate: [-5, 50, 45 ], // [-5,50,0], //
@@ -111,7 +113,7 @@ async function anitem (__mapper) {
     let proformEarth = {
 
       projection: 'uniwen',
-      prerotate: [[[ cwen.rotation ]]],
+      prerotate: [[[ ctlWen.rotation ]]],
       translate: [ 0, 0],
       scale: 1,
       rotate: [-5, 50, 0 ], // [-5,50,0], //
@@ -163,9 +165,9 @@ async function anitem (__mapper) {
           let face = faces[i] // face pointsx position
           let geometry = {type: 'Polygon', coordinates: []}
           geometry.coordinates = face.pointsx.map(k => points[k]) // eg [-1, 1, 1]
-            .map(mgeom.normalize) // eg. [0.5773, -0.577, 0.5773]
-            .map(mgeom.spherical) // eg. [-0.7853, 0.6154]
-            .map(mgeom.to_degrees)
+            .map(muonGeom.normalize) // eg. [0.5773, -0.577, 0.5773]
+            .map(muonGeom.spherical) // eg. [-0.7853, 0.6154]
+            .map(muonGeom.to_degrees)
           geometry.coordinates = Array.of(geometry.coordinates)
           let feature = {type: 'Feature', geometry: {}, properties: {}}
           feature.properties.ric = ric

@@ -7,9 +7,9 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     mprops,
-    cwen,
+    ctlWen,
     muonNatform,
-    mgeom,
+    muonGeom,
     muonGraticule,
     topojson,
     dworldTopo110m,
@@ -65,9 +65,9 @@ async function anitem (__mapper) {
         [ 1, -1, -1], // 4  // 5
         [ 1, 1, -1], // 7  // 6
         [-1, 1, -1], // 6  // 7
-      ].map(mgeom.normalize) // eg. [0.5773, -0.577, 0.5773]
-        .map(mgeom.spherical) // eg. [-0.7853, 0.6154]
-        .map(mgeom.to_degrees),
+      ].map(muonGeom.normalize) // eg. [0.5773, -0.577, 0.5773]
+        .map(muonGeom.spherical) // eg. [-0.7853, 0.6154]
+        .map(muonGeom.to_degrees),
 
       'faces': [
         [1, 0, 3, 2, 1], // N

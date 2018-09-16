@@ -13,7 +13,7 @@
       rrenderport,
       manitem,
       mquad,
-      mgeom,
+      muonGeom,
       muonGeoj,
       haloNatform,
       d3Polygon,
@@ -54,7 +54,7 @@
         if (!muonGeoj.isValid(geometry)) { console.error('h.eoform:gj not valid', geometry) }
         polygon = muonGeoj.getCoords(geometry) // outer ring
       } else {
-        polygon = mgeom.extentPolygon([[0, 0], [width, height]]) // viewport
+        polygon = muonGeom.extentPolygon([[0, 0], [width, height]]) // viewport
       }
 
       let foundcandies = mquad.candysearch(ra2, polygon, candidates, sample) // candies

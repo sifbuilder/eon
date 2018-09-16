@@ -7,8 +7,8 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     mprops,
-    cwen,
-    cversor,
+    ctlWen,
+    ctlVersor,
     Complex,
     muonRic,
     mstore,
@@ -96,7 +96,7 @@ async function anitem (__mapper) {
                   proform: { // proform in the geographic domain
                     projection: 'orthographic',
                     scale: 90,
-                    prerotate: [[[ cversor.rotation ]]],
+                    prerotate: [[[ ctlVersor.rotation ]]],
                     translate: [0, 0],
                     rotate: [ 0, 0 ],
                   },
