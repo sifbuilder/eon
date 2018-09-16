@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   let [
     mprops,
-    mforces,
+    muonGeoforces,
     muonNatform,
     d3Force3d,
     rrenderport,
@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     haloScene,    
   ] = await Promise.all([
     __mapper('xs').m('props'),
-    __mapper('xs').m('forces'),
+    __mapper('xs').m('geoforces'),
     __mapper('xs').m('natform'),
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').r('renderport'),
@@ -243,7 +243,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'energy',
-          force: mforces.force_(forceParams),
+          force: muonGeoforces.force_(forceParams),
         }
 
         return Array.of(field)
@@ -269,7 +269,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'viscosity',
-          force: mforces.force_(forceParams),
+          force: muonGeoforces.force_(forceParams),
         }
 
         return Array.of(field)
@@ -298,7 +298,7 @@ async function anitem (__mapper) {
 
         let field = {
           'key': 'forceLink',
-          'force': mforces.force_(forceParams),
+          'force': muonGeoforces.force_(forceParams),
         }
 
         forces.push(field)
@@ -471,7 +471,7 @@ async function anitem (__mapper) {
           nodes: nodes,
         }
 
-        let force = mforces.force_(forceParams)
+        let force = muonGeoforces.force_(forceParams)
         let field = {key: 'collide', force: force}
 
         forces.push(field)
@@ -503,7 +503,7 @@ async function anitem (__mapper) {
           nodes: nodes,
         }
 
-        let force = mforces.force_(forceParams)
+        let force = muonGeoforces.force_(forceParams)
         let field = {'key': 'charge', 'force': force}
 
         forces.push(field)
@@ -643,7 +643,7 @@ async function anitem (__mapper) {
         let field = {
           'key': 'charge',
           'force': d => {
-            return mforces.force_(forceParams)
+            return muonGeoforces.force_(forceParams)
           },
 
         }
@@ -677,7 +677,7 @@ async function anitem (__mapper) {
           'nodes': nodes,
         }
 
-        let force = mforces.force_(forceParams)
+        let force = muonGeoforces.force_(forceParams)
         let field = {'key': 'x_center', 'force': force}
 
         forces.push(field)
@@ -711,7 +711,7 @@ async function anitem (__mapper) {
           nodes: nodes,
         }
 
-        let force = mforces.force_(forceParams)
+        let force = muonGeoforces.force_(forceParams)
         let field = {key: 'y_center', force: force}
 
         forces.push(field)
@@ -743,7 +743,7 @@ async function anitem (__mapper) {
           'nodes': nodes,
         }
 
-        let force = mforces.force_(forceParams)
+        let force = muonGeoforces.force_(forceParams)
         let field = {'key': 'z_center', 'force': force}
 
         forces.push(field)
@@ -776,7 +776,7 @@ async function anitem (__mapper) {
           nodes: nodes,
         }
 
-        let force = mforces.force_(forceParams)
+        let force = muonGeoforces.force_(forceParams)
 
         let field = {
           key: 'center_orange',
@@ -807,7 +807,7 @@ async function anitem (__mapper) {
           'src': d3_force,
           'nodes': nodes,
         }
-        let force = {'key': 'center_golde', 'force': mforces.force_(forceParams)}
+        let force = {'key': 'center_golde', 'force': muonGeoforces.force_(forceParams)}
         return Array.of(force)
       },
     }

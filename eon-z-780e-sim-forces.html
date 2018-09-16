@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   let [
     mprops,
-    mforces,
+    muonGeoforces,
     muonNatform,
     d3Force3d,
     rrenderport,
@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     haloScene,    
   ] = await Promise.all([
     __mapper('xs').m('props'),
-    __mapper('xs').m('forces'),
+    __mapper('xs').m('geoforces'),
     __mapper('xs').m('natform'),
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').r('renderport'),
@@ -165,7 +165,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'energy',
-          force: mforces.force_(forceParams),
+          force: muonGeoforces.force_(forceParams),
         }
 
         return Array.of(field)
@@ -194,7 +194,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'viscosity',
-          force: mforces.force_(forceParams),
+          force: muonGeoforces.force_(forceParams),
         }
 
         return Array.of(field)
@@ -225,7 +225,7 @@ async function anitem (__mapper) {
           nodes: nodes,
         }
 
-        let force = mforces.force_(forceParams)
+        let force = muonGeoforces.force_(forceParams)
         let field = {key: 'collide', force: force}
 
         forces.push(field)

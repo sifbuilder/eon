@@ -1,14 +1,14 @@
 /***********
-   *    @muonForces
+   *    @muonGeoforces
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonForces = global.muonForces || {})))
+      : (factory((global.muonGeoforces = global.muonGeoforces || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonForces (__mapper = {}) {
+  async function muonGeoforces (__mapper = {}) {
     // ...................... isolate
     let isolate = function (sys) { // filter, force, nodes, sys, type
       let nodes = sys.nodes
@@ -48,5 +48,5 @@
     return enty
   }
 
-  exports.muonForces = muonForces
+  exports.muonGeoforces = muonGeoforces
 }))
