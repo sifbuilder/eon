@@ -77,7 +77,7 @@
     }
 
     // .................. ween
-    let ween = anima => (anima.inited !== 1) ? (anima.inited = anima.payload.gelded = 1, [anima]) : []
+    let ween = anima => (anima.inited !== 1) ? (anima.inited = anima.gelded = 1, [anima]) : []
 
     // .................. halo
     let halo = {

@@ -85,6 +85,7 @@
 
     // ............................. gramm
     let gramm = anitem => {
+console.log('gramm aniform', anitem)            
       let newItem = enent(anitem)
       let newAnitems = haloFormed.gramm(newItem)
       return newAnitems
@@ -92,10 +93,10 @@
 
     // ............................. ween
     let ween = anitem => {
-console.log('aniform', anitem.payload.aniform)      
+console.log('ween aniform', anitem)      
       if (anitem.inited !== 1) {
         anitem.inited = 1
-        anitem.payload.gelded = 1
+        anitem.gelded = 1
         return mprops.v(anitem)
       } else {
         return []

@@ -84,7 +84,7 @@
     // ............................. ween
     let ween = anitem => {
       if (anitem.inited !== 1) {
-        anitem.inited = anitem.payload.gelded = 1
+        anitem.inited = anitem.gelded = 1
 
         return [anitem]
       } else {

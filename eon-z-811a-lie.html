@@ -10,11 +10,13 @@ async function anitem (__mapper) {
     cwen,
     muonNatform,
     haloScene,    
+    haloEoform,    
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
     __mapper('xs').h('scene'),    
+    __mapper('xs').h('eoform'),    
   ])
 
   // .................. animas
@@ -293,8 +295,8 @@ async function anitem (__mapper) {
       sceneAni, // h.scene
       sphereAni, // h.natform
       hyperAni, // h.natform
-      torusAni, // h.natform
-      lineAni, // h.natform
+      // torusAni, // h.natform
+      // lineAni, // h.natform
 
     ]
 
