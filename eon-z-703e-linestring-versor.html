@@ -7,9 +7,11 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     cwen,
+    haloEoform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').c('versor'),
+    __mapper('xs').h('eoform'),    
     __mapper('xs').h('scene'),    
   ])
 

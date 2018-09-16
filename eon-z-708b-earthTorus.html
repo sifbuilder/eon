@@ -8,7 +8,7 @@ async function anitem (__mapper) {
   let [
     mgeom,
     cwen,
-    mgraticule,
+    muonGraticule,
     topojson,
     dworldTopo110m,
     muonNatform,
@@ -291,7 +291,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: anitem => mgraticule.vhMultiLine(anitem.payload.graticule),
+      geofold: anitem => muonGraticule.vhMultiLine(anitem.payload.graticule),
       tim: tim,
       ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticubeAni'},
       boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
@@ -311,7 +311,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule), // hMultiLine
+      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule), // hMultiLine
       tim: tim,
       ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticircAni'},
       boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},

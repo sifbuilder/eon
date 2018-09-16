@@ -9,7 +9,7 @@ async function anitem (__mapper) {
     muonNatform,
     mprops,
     cwen,
-    mgraticule,
+    muonGraticule,
     haloEoform,
     haloNatform,
     haloScene,    
@@ -73,10 +73,10 @@ async function anitem (__mapper) {
       geofold: function (p) {
         let graticule = p.payload.graticule
 
-        let verts = mgraticule.gvertices(graticule) // Feature.LineString
+        let verts = muonGraticule.gvertices(graticule) // Feature.LineString
         let vertices = verts.geometry.coordinates
 
-        let faces = mgraticule.gfaces(graticule)	// faces
+        let faces = muonGraticule.gfaces(graticule)	// faces
 
         let gj = {type: 'MultiPoint', coordinates: []}
         gj.coordinates = vertices

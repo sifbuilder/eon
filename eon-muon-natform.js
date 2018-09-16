@@ -181,7 +181,7 @@
     let [
       glmatrix,
       mprops,
-      mgraticule,
+      muonGraticule,
       muonProfier,
       mproj3ct,
       d3scale,
@@ -357,11 +357,11 @@
 
         let _geofn
         if (props.h) {
-          _geofn = mgraticule.hMultiLine
+          _geofn = muonGraticule.hMultiLine
         } else if (props.v) {
-          _geofn = mgraticule.vMultiLine
+          _geofn = muonGraticule.vMultiLine
         } else {
-          _geofn = mgraticule.vhMultiLine
+          _geofn = muonGraticule.vhMultiLine
         }
 
         let geometry
@@ -381,7 +381,7 @@
           let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
 
           geometry = _geofn(graticule).geometry
-          // geometry = mgraticule.hMultiLine(graticule).geometry
+          // geometry = muonGraticule.hMultiLine(graticule).geometry
         } else { // ___ 2d
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y

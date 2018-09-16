@@ -8,7 +8,7 @@ async function anitem (__mapper) {
   let [
     mprops,
     mgeom,
-    mgraticule,
+    muonGraticule,
     topojson,
     dworldTopo110m,
     muonNatform,
@@ -17,6 +17,7 @@ async function anitem (__mapper) {
     d3geo,
     d3geoprojection,
     prtCox,
+    haloEoform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
@@ -30,6 +31,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-geo-projection'),
     __mapper('xs').p('cox'),
+    __mapper('xs').h('eoform'),    
     __mapper('xs').h('scene'),    
   ])
 
@@ -71,7 +73,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule),
       tim,
 
       geodrift: {

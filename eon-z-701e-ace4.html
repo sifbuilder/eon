@@ -5,16 +5,18 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__mapper) {
   let [
-    mgraticule,
+    muonGraticule,
     cwen,
     rrenderport,
     prtNatform,
+    haloEoform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').r('renderport'),
     __mapper('xs').p('natform'),
+    __mapper('xs').h('eoform'),    
     __mapper('xs').h('scene'),    
   ])
 
@@ -118,7 +120,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule),
 
       tim: tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform1'},
@@ -157,7 +159,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule),
 
       tim: tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform'},

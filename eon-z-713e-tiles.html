@@ -9,7 +9,7 @@ async function anitem (__mapper) {
     muonNatform,
     mprops,
     cwen,
-    mgraticule,
+    muonGraticule,
     haloEoform,
     haloNatform,
     haloScene,    
@@ -71,7 +71,7 @@ async function anitem (__mapper) {
 
       halo: 'tiles',
 
-      geofold: p => mgraticule.vhMultiLine(p.payload.graticule),
+      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule),
 
       tim,
       ric: {gid: 'ani', cid: 'ani', fid: 'ani'},

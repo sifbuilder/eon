@@ -6,13 +6,14 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   let [
     muonNatform,
-    mgraticule,
+    muonGraticule,
     topojson,
     dworldTopo110m,
     d3geo,
     d3geoprojection,
     geoFuturi,
     cwen,
+    haloEoform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('natform'),
@@ -23,6 +24,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-geo-projection'),
     __mapper('xs').g('futuri'),
     __mapper('xs').c('wen'),
+    __mapper('xs').h('eoform'),    
     __mapper('xs').h('scene'),    
   ])
 

@@ -11,7 +11,7 @@
   async function haloTiles (__mapper = {}) {
     let haloEoform = await __mapper('xs').h('eoform'),
       mprops = await __mapper('xs').m('props'),
-      mgraticule = await __mapper('xs').m('graticule')
+      muonGraticule = await __mapper('xs').m('graticule')
 
     // .................. sequence
     function sequence (items, fromitem) {
@@ -36,9 +36,9 @@
 
       let range = (anigram.range !== undefined) ? anigram.range : null
       let tile = (anigram.tile !== undefined) ? anigram.tile : null
-      let verts = mgraticule.gvertices(graticule) // Feature.LineString
+      let verts = muonGraticule.gvertices(graticule) // Feature.LineString
       let vertices = verts.geometry.coordinates
-      let faces = mgraticule.gfaces(graticule) // faces
+      let faces = muonGraticule.gfaces(graticule) // faces
 
       for (let i = 0; i < faces.length; i++) { // single ring polygon
         let idx = i

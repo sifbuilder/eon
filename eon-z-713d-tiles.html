@@ -9,7 +9,7 @@ async function anitem (__mapper) {
     muonNatform,
     mprops,
     cwen,
-    mgraticule,
+    muonGraticule,
     haloEoform,
     haloNatform,
     haloScene,    
@@ -74,7 +74,7 @@ async function anitem (__mapper) {
       geofold: function (p) {
         let graticule = p.payload.graticule
 
-        let vhMultiLine = mgraticule.vhMultiLine(graticule)
+        let vhMultiLine = muonGraticule.vhMultiLine(graticule)
         return vhMultiLine
       },
 

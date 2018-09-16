@@ -66,7 +66,7 @@
     }
 
     // .................. gramm
-    async function gramm (anigram, newAnigrams = []) {
+    function gramm (anigram, newAnigrams = []) {
 
       let newitem = mprops.clone(anigram)
         

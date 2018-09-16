@@ -391,7 +391,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'LineString', coordinates: coords},
-        properties: {mgraticule: 'equator'},
+        properties: {muonGraticule: 'equator'},
       }
       if (!mgeoj.isValid(gj)) console.error('gj not valid')
 
@@ -409,7 +409,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: coords},
-        properties: {mgraticule: 'vhMultiLine'},
+        properties: {muonGraticule: 'vhMultiLine'},
       }
       if (!mgeoj.isValid(gj)) console.error('gj not valid')
 
@@ -427,7 +427,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: coords},
-        properties: {mgraticule: 'vhMultiLine'},
+        properties: {muonGraticule: 'vhMultiLine'},
       }
       if (!mgeoj.isValid(gj)) console.error('gj not valid')
 
@@ -445,7 +445,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: coords},
-        properties: {mgraticule: 'vhMultiLine'},
+        properties: {muonGraticule: 'vhMultiLine'},
       }
       if (!mgeoj.isValid(gj)) console.error('gj not valid')
 
@@ -486,7 +486,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: lines},
-        properties: {mgraticule: 'vhMultiLine'},
+        properties: {muonGraticule: 'vhMultiLine'},
       }
       if (!mgeoj.isValid(gj)) console.error('gj not valid')
 
