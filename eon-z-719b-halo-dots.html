@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     d3Force3d,
     rrenderport,
     crayder,
-    mric,
+    muonRic,
     haloEoform,
     haloNatform,
     haloScene,    
@@ -45,7 +45,7 @@ async function anitem (__mapper) {
         ani.ric.cid = 'nat'
         ani.ric.fid = 'item' + i // identify
 
-        let uid = mric.getuid(ani.ric)
+        let uid = muonRic.getuid(ani.ric)
         ani.uid = uid
 
         let preani = mstore.getAnima(ani.ric)

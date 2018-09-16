@@ -7,7 +7,7 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     muonGraticule,
-    mgeoj,
+    muonGeoj,
     topojson,
     dworldTopo110m,
     d3geo,
@@ -44,7 +44,7 @@ async function anitem (__mapper) {
             dworldTopo110m.data().objects.land
           )
         )
-        gj = mgeoj.trim(gj)
+        gj = muonGeoj.trim(gj)
         return gj
       },
 
@@ -141,7 +141,7 @@ async function anitem (__mapper) {
           )
         )
 
-        return mgeoj.trim(gj)
+        return muonGeoj.trim(gj)
       },
       tim: tim,
       ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geoearth2'},

@@ -14,7 +14,7 @@
       manitem,
       mquad,
       mgeom,
-      mgeoj,
+      muonGeoj,
       haloNatform,
       d3Polygon,
     ] = await Promise.all([
@@ -51,8 +51,8 @@
 
       if (parentAnigram) {
         let geometry = parentAnigram.geofold.geometry
-        if (!mgeoj.isValid(geometry)) { console.error('h.eoform:gj not valid', geometry) }
-        polygon = mgeoj.getCoords(geometry) // outer ring
+        if (!muonGeoj.isValid(geometry)) { console.error('h.eoform:gj not valid', geometry) }
+        polygon = muonGeoj.getCoords(geometry) // outer ring
       } else {
         polygon = mgeom.extentPolygon([[0, 0], [width, height]]) // viewport
       }

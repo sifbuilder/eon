@@ -16,7 +16,7 @@
   // md: m.fourier : fourier transform
   async function muonFourier (__mapper = {}) {
     let [
-      mgeoj,
+      muonGeoj,
       lcomplex,
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
@@ -122,7 +122,7 @@
     // md:    transformedCoefs(geojson)
     // md:    return geojson
     let transformedCoefs = function (gj) {
-      let gjc = mgeoj.complexify(gj)
+      let gjc = muonGeoj.complexify(gj)
       return fourierTransform(gjc)
     }
 

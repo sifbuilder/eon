@@ -17,9 +17,9 @@
 
   async function haloEoform (__mapper = {}) {
     let [
-      mgeoj,
+      muonGeoj,
       muonProfier,
-      mproj3ct,
+      muonProj3ct,
       mprops,
       haloFormed,
     ] = await Promise.all([
@@ -45,7 +45,7 @@
       if (geonode && anitem.geodrift) {
         for (let [drift, prt] of Object.entries(anitem.geodrift)) {
           let properties = geonode.properties || {}
-          let node = mproj3ct(mgeoj.deprop(geonode), muonProfier.formion(prt, anitem))
+          let node = muonProj3ct(muonGeoj.deprop(geonode), muonProfier.formion(prt, anitem))
           node.properties = properties
           node.properties[drift] = node
 
@@ -56,7 +56,7 @@
       // anifold
 
       let geofold = mprops.v(anitem.geofold, anitem)
-      let gjcollection = mgeoj.featurecollect(geofold)
+      let gjcollection = muonGeoj.featurecollect(geofold)
 
       if (geofold && anitem.geodrift) {
         for (let [drift, prt] of Object.entries(anitem.geodrift)) {
@@ -64,11 +64,11 @@
             feature => {
               let properties = feature.properties || {}
               let prtion = muonProfier.formion(prt, anitem)
-              let gjobj = mgeoj.deprop(feature)
+              let gjobj = muonGeoj.deprop(feature)
 
               console.assert(gjobj.geometry.coordinates !== null)
 
-              let node = mproj3ct(gjobj, prtion)
+              let node = muonProj3ct(gjobj, prtion)
               node.properties = properties
               node.properties[drift] = node
 

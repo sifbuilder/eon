@@ -42,7 +42,7 @@
       rrenderport, // cameraProjer
       d3,
       puniwen,
-      mproj3ct,
+      muonProj3ct,
     ] = await Promise.all([
       __mapper('xs').r('renderport'),
       __mapper('xs').b('d3'),
@@ -193,7 +193,7 @@
 
                 let item = d
                 let geometry = item.geometry
-                let projgeo = mproj3ct.project(geometry, cameraProjer)
+                let projgeo = muonProj3ct.project(geometry, cameraProjer)
 
                 let translate = projgeo.coordinates
                 let rotate = item.properties.style['rotate']
@@ -239,7 +239,7 @@
               .attr('transform', d => { // eg. "translate(21,20) rotate(15)")
                 let item = d
                 let geometry = item.geometry
-                let projgeo = mproj3ct.project(geometry, cameraProjer)
+                let projgeo = muonProj3ct.project(geometry, cameraProjer)
 
                 let translate = projgeo.coordinates
                 let rotate = item.properties.attr.rotate || 0
@@ -281,7 +281,7 @@
                   let item = d
                   let geometry = item.geometry
 
-                  // let projgeo = mproj3ct.project(geometry, cameraProjer)
+                  // let projgeo = muonProj3ct.project(geometry, cameraProjer)
 
                   let geocoords = geometry.coordinates
                   let geooringin = geocoords[0]

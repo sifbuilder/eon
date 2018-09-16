@@ -7,9 +7,11 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     dlicht5,
+    haloFormed,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').d('licht5'),
+    __mapper('xs').h('formed'),    
     __mapper('xs').h('scene'),    
   ])
 

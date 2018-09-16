@@ -42,7 +42,7 @@
 // md: * findByUid 
 // md:   @anitem 
 // md:   @list 
-// md:   get anitem in @list by mric.getuid(@anitem) 
+// md:   get anitem in @list by muonRic.getuid(@anitem) 
 // md: * findFromUid 
 // md:   @uid 
 // md:   @list 
@@ -71,7 +71,7 @@
   async function muonStore (__mapper) {
     let [
       mtim,
-      mric,
+      muonRic,
       manitem,
       mprops,
     ] = await Promise.all([
@@ -103,7 +103,7 @@
 
           let uid = (updAnima.uid !== undefined) // uid
             ? updAnima.uid
-            : mric.getuid(updAnima)
+            : muonRic.getuid(updAnima)
 
           let index = enty.findFromUid(uid, state.animas)
           if (index !== -1) { // anima exists
@@ -151,7 +151,7 @@
     const getavatars = items => {
       items.forEach(item => {
         sequence(gavatars(item), avatar => {
-          avatar.uid = mric.getuid(avatar)
+          avatar.uid = muonRic.getuid(avatar)
           avatar.tim = item.tim
           avatar.parentuid = item.uid
           gramm(avatar)
@@ -226,7 +226,7 @@
 
                 avatars.forEach(avatar => {
                   avatar.tim = anigram.tim // tim from anigram
-                  avatar.uid = mric.getuid(avatar) // uid from avatar
+                  avatar.uid = muonRic.getuid(avatar) // uid from avatar
                   avatar.parentuid = newItem.uid // parentuid from newItem
 
                   gramm(avatar)
@@ -249,7 +249,7 @@ console.log('m.store', newItems)
                 let avatars = gavatars(newItem)
                 avatars.forEach(avatar => {
                   avatar.tim = anigram.tim // tim from anigram
-                  avatar.uid = mric.getuid(avatar) // uid from avatar
+                  avatar.uid = muonRic.getuid(avatar) // uid from avatar
                   avatar.parentuid = newItem.uid // parentuid from newItem
 
                   gramm(avatar)
@@ -293,7 +293,7 @@ console.log('m.store', newItems)
     enty.findIndex = (item, list) =>
       enty.findIndexFromRic(item.ric, list)
 
-    enty.findByUid = (item, list) => enty.findFromUid(mric.getuid(item), list)
+    enty.findByUid = (item, list) => enty.findFromUid(muonRic.getuid(item), list)
     enty.findFromUid = (uid, list) => list.findIndex(d => d.uid === uid)
 
     enty.findIndexAnigramFromUid = uid => enty.anigrams().findIndex(d => d.uid === uid)

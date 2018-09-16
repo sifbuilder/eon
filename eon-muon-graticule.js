@@ -113,7 +113,7 @@
   
   async function muonGraticule (__mapper = {}) {
     let [
-      mgeoj,
+      muonGeoj,
       d3array,
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
@@ -359,7 +359,7 @@
 
       // meridians
       let mms = { type: 'MultiLineString', coordinates: mmLines }
-      if (!mgeoj.isValid(mms)) { console.error('mms not valid') }
+      if (!muonGeoj.isValid(mms)) { console.error('mms not valid') }
 
       // include equator
       let bigpar = (params.bigpar !== undefined) ? params.bigpar : 1
@@ -376,7 +376,7 @@
 
       // parallels
       let pps = { type: 'MultiLineString', coordinates: ppLines }
-      if (!mgeoj.isValid(pps)) { console.error('pps not valid') }
+      if (!muonGeoj.isValid(pps)) { console.error('pps not valid') }
 
       let ret = {mms, pps}
       return ret
@@ -393,7 +393,7 @@
         geometry: {type: 'LineString', coordinates: coords},
         properties: {muonGraticule: 'equator'},
       }
-      if (!mgeoj.isValid(gj)) console.error('gj not valid')
+      if (!muonGeoj.isValid(gj)) console.error('gj not valid')
 
       return gj
     }
@@ -411,7 +411,7 @@
         geometry: {type: 'MultiLineString', coordinates: coords},
         properties: {muonGraticule: 'vhMultiLine'},
       }
-      if (!mgeoj.isValid(gj)) console.error('gj not valid')
+      if (!muonGeoj.isValid(gj)) console.error('gj not valid')
 
       return gj
     }
@@ -429,7 +429,7 @@
         geometry: {type: 'MultiLineString', coordinates: coords},
         properties: {muonGraticule: 'vhMultiLine'},
       }
-      if (!mgeoj.isValid(gj)) console.error('gj not valid')
+      if (!muonGeoj.isValid(gj)) console.error('gj not valid')
 
       return gj
     }
@@ -447,7 +447,7 @@
         geometry: {type: 'MultiLineString', coordinates: coords},
         properties: {muonGraticule: 'vhMultiLine'},
       }
-      if (!mgeoj.isValid(gj)) console.error('gj not valid')
+      if (!muonGeoj.isValid(gj)) console.error('gj not valid')
 
       return gj
     }
@@ -488,7 +488,7 @@
         geometry: {type: 'MultiLineString', coordinates: lines},
         properties: {muonGraticule: 'vhMultiLine'},
       }
-      if (!mgeoj.isValid(gj)) console.error('gj not valid')
+      if (!muonGeoj.isValid(gj)) console.error('gj not valid')
 
       return gj
     }

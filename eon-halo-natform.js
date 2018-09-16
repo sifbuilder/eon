@@ -26,7 +26,7 @@
       muonGeonode,
       muonProfier,
       prtUniwen,
-      mproj3ct,      
+      muonProj3ct,      
     ] = await Promise.all([
       __mapper('xs').m('natform'),
       __mapper('xs').h('eoform'),
@@ -128,7 +128,7 @@
       }
 
       anitem.geofold = muonNatform.natFeature(anitem.payload.geoform)
-      anitem.geofold = mproj3ct(anitem.geofold, muonProfier.formion(prt, anitem)) // geofold
+      anitem.geofold = muonProj3ct(anitem.geofold, muonProfier.formion(prt, anitem)) // geofold
    
       if (anitem.boform === undefined) anitem.boform = getboform(anitem.payload.geoform)        // geoform
      

@@ -9,7 +9,7 @@ async function anitem (__mapper) {
     haloScene,
     cwen,
     muonNatform,
-    mstace,
+    muonStace,
     crayder,
     haloEoform,
     haloNatform,
@@ -97,9 +97,9 @@ async function anitem (__mapper) {
                 let stace = [0, 0, 0]
                 if (props.key === 'init') { // INIT
                   // stace is ani's transformed geonode
-                  stace = mstace.getLocus([null, null, null], ani)
+                  stace = muonStace.getLocus([null, null, null], ani)
                 } else if (props.key === 'auto') { // AUTO
-                  stace = mstace.getLocus([null, null, null], ani)
+                  stace = muonStace.getLocus([null, null, null], ani)
                 } else if (props.key === 'event') { // EVENT
                   if (crayder.grabbed() !== undefined) {
                     let grabbed = crayder.grabbed()

@@ -25,7 +25,7 @@
   async function haloFourier (__mapper = {}) {
     let [
       mprops,
-      mric,
+      muonRic,
       Complex,
       haloEoform,
     ] = await Promise.all([
@@ -105,7 +105,7 @@
           //  del item if outside time period (ric.delled = 1)
           
           let _ric = {gid, cid, fid} // is DELLED ?
-          let _uid = mric.getuid(_ric) // uid
+          let _uid = muonRic.getuid(_ric) // uid
 
           
           //  each newItem is cloned from the h.fourier anigram
@@ -167,7 +167,7 @@
 
               // md: del item outside time period (ric.delled = 1)
               let _ric = {gid, cid, fid} // is DELLED ?
-              let uid = mric.getuid(_ric) // uid
+              let uid = muonRic.getuid(_ric) // uid
               rayline.ric = _ric
               rayline.delled = tNotInPeriod
               
@@ -204,7 +204,7 @@
               //  traceline ric
               
               traceline.ric = riccer(newItem)
-              traceline.uid = mric.getuid(traceline.ric)
+              traceline.uid = muonRic.getuid(traceline.ric)
 
               newItem.avatars = {traceline: traceline}
             }

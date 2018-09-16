@@ -10,9 +10,9 @@ async function anitem (__mapper) {
     cwen,
     cversor,
     Complex,
-    mric,
+    muonRic,
     mstore,
-    mstace,
+    muonStace,
     haloEoform,
     haloNatform,
     haloScene,    
@@ -75,14 +75,14 @@ async function anitem (__mapper) {
             },
             initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
             autoSitus: function (a) {
-              let r = mstace.getLocus(this.stace, a) // situs
+              let r = muonStace.getLocus(this.stace, a) // situs
               return r
             },
             fidder: a => a.ric.fid,
 
             geojsor: function (a, i) {
               let ric = a.ric // ric
-              let uid = mric.getuid(ric)
+              let uid = muonRic.getuid(ric)
               let gj = {
                 halo: 'eoform',
                 geofold: {

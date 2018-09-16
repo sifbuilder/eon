@@ -7,9 +7,9 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     mfourier,
-    mproj3ct,
+    muonProj3ct,
     muonProfier,
-    mgeoj,
+    muonGeoj,
     drhyno,
     muonStace,
     haloEoform,
@@ -55,10 +55,10 @@ async function anitem (__mapper) {
       lens: [0, 1, Infinity],
     }
 
-    let geoData = mproj3ct(data, muonProfier.uniweon(proform))
+    let geoData = muonProj3ct(data, muonProfier.uniweon(proform))
 
     let transforms = mfourier.transformedCoefs(geoData)
-    transforms = mgeoj.ntime(transforms, [0, 1])
+    transforms = muonGeoj.ntime(transforms, [0, 1])
     let transformsFC = { type: 'FeatureCollection', features: transforms }
 
     // ............................. aniLine

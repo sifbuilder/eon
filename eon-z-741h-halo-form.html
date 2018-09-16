@@ -7,9 +7,9 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     mprops,
-    mstace,
+    muonStace,
     muonNatform,
-    mric,
+    muonRic,
     haloEoform,
     haloNatform,
     haloScene,    
@@ -83,7 +83,7 @@ async function anitem (__mapper) {
         ani.ric.cid = (i % 2) ? 'orange' : 'gold'
         ani.ric.fid = 'item' + i // identify
 
-        let uid = mric.getuid(ani.ric)
+        let uid = muonRic.getuid(ani.ric)
         ani.uid = uid
         ani.boform.cf = (i % 2) ? 777 : 333
         ani.boform.cs = (i % 2) ? 777 : 333

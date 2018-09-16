@@ -13,8 +13,8 @@
 
   // xpects `a.geofold` to be `geojson.FeatureCollection`
   // or the feature collection
-  // order the collection on z dax, `mgeoj.zorder(gjcollection)`
-  // identify to features on index, `mric.enric(ric, anigram, gjcollection)`
+  // order the collection on z dax, `muonGeoj.zorder(gjcollection)`
+  // identify to features on index, `muonRic.enric(ric, anigram, gjcollection)`
 
   // hen for each feature,
   // boform, decoding style properties
@@ -25,9 +25,9 @@
 
   async function haloFormed (__mapper = {}) {
     let [
-      mric,
+      muonRic,
       mboform,
-      mgeoj,
+      muonGeoj,
       mprops,
     ] = await Promise.all([
       __mapper('xs').m('ric'),
@@ -39,7 +39,7 @@
     const getgj = ani => {
       let gj = mprops.v(ani.geofold, ani)
       gj.properties = gj.properties || {} // geofold properties
-      gj.properties.geoformed = mgeoj.deprop(gj)
+      gj.properties.geoformed = muonGeoj.deprop(gj)
       // gj.properties.geonode = gj.properties.geonode || {}
       // gj.properties.nodeGeoformed = gj.properties.geonode
       return gj
@@ -48,11 +48,11 @@
     // ............................. gramm
     function haloing (anigram) {
       let gj = getgj(anigram)
-      let gjcollection = mgeoj.featurecollect(gj)
+      let gjcollection = muonGeoj.featurecollect(gj)
 
       console.assert(gjcollection.type === 'FeatureCollection')
-      gjcollection = mgeoj.zorder(gjcollection) // order features in collection
-      gjcollection = mric.enric(anigram.ric, anigram, gjcollection) // ric to feature or collection
+      gjcollection = muonGeoj.zorder(gjcollection) // order features in collection
+      gjcollection = muonRic.enric(anigram.ric, anigram, gjcollection) // ric to feature or collection
 
       let newAnigrams = gjcollection.features.map((feature, i) => {
         feature = mboform.boformer(anigram, feature)

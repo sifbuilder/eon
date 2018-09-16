@@ -7,13 +7,14 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     rrenderport,
-    mgeoj,
-    mproj3ct,
+    muonGeoj,
+    muonProj3ct,
     muonProfier,
-    mstace,
-    mric,
-    msvg,
+    muonStace,
+    muonRic,
+    muonSvg,
     dbeat,
+    haloEoform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').r('renderport'),
@@ -24,6 +25,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('ric'),
     __mapper('xs').m('svg'),
     __mapper('xs').d('beat'),
+    __mapper('xs').h('eoform'),    
     __mapper('xs').h('scene'),    
   ])
 
@@ -59,9 +61,9 @@ async function anitem (__mapper) {
       stop = 0.9,
       step = 0.091
 
-    let gjdata = msvg.castels(svgdata, {start: start, stop: stop, step: step})
+    let gjdata = muonSvg.castels(svgdata, {start: start, stop: stop, step: step})
 
-    let nb = mgeoj.getCoordsLength(gjdata) // will show (nb * t) dots,  eg. 894
+    let nb = muonGeoj.getCoordsLength(gjdata) // will show (nb * t) dots,  eg. 894
 
     let proform = {
       projection: 'uniwen',
@@ -72,7 +74,7 @@ async function anitem (__mapper) {
     }
 
     let project = muonProfier.uniweon(proform)
-    let geoData = mproj3ct(gjdata, project)
+    let geoData = muonProj3ct(gjdata, project)
 
     // .................. polyForm
     let polyForm = {
@@ -91,7 +93,7 @@ async function anitem (__mapper) {
         let nbt = Math.ceil(nb * t)
         let startingpoint = nbt
 
-        let csi = t => (geometry, coords, startingin) => mgeoj.getCoordsInRange(geometry, coords, startingin)
+        let csi = t => (geometry, coords, startingin) => muonGeoj.getCoordsInRange(geometry, coords, startingin)
         let pointsatatime = 1200
 
         // let geo = csi(t)(geoData.geometry, nbt)  // time dependent many from beginning
@@ -106,7 +108,7 @@ async function anitem (__mapper) {
           },
         }
 
-        // md: a single line generates a LineString from mproj3ct(geoData)
+        // md: a single line generates a LineString from muonProj3ct(geoData)
         if (geoData.geometry.type === 'LineString') ngj.geometry.coordinates = Array.of(tcoords)
         else if (geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = tcoords
         else if (geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = tcoords
@@ -136,7 +138,7 @@ async function anitem (__mapper) {
 
         if (payload.proform) {
           let proformion = muonProfier.proformion(anigram)
-          newFeatureCollection = mproj3ct(geodata, proformion)
+          newFeatureCollection = muonProj3ct(geodata, proformion)
         }
 
         return newFeatureCollection

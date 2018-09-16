@@ -8,9 +8,9 @@ async function anitem (__mapper) {
   let [
     mprops,
     mfourier,
-    mproj3ct,
+    muonProj3ct,
     muonProfier,
-    mgeoj,
+    muonGeoj,
     haloEoform,
     haloPacer,
     haloFourier, 
@@ -51,7 +51,7 @@ async function anitem (__mapper) {
       ],
     ]
     let gjdata = { type: 'MultiLineString', coordinates: basicSquare }
-    let nb = mgeoj.getCoordsLength(gjdata) // 894
+    let nb = muonGeoj.getCoordsLength(gjdata) // 894
 
     let proform = {
       projection: 'uniwen',
@@ -61,11 +61,11 @@ async function anitem (__mapper) {
       lens: [0, 1, Infinity],
     }
 
-    let geoData = mproj3ct(gjdata, muonProfier.uniweon(proform))
-    geoData = mgeoj.getCoordsInRange(geoData, nb) // MultiLineString
+    let geoData = muonProj3ct(gjdata, muonProfier.uniweon(proform))
+    geoData = muonGeoj.getCoordsInRange(geoData, nb) // MultiLineString
 
     let transforms = mfourier.transformedCoefs(mprops.clone(geoData))
-    transforms = mgeoj.ntime(transforms, [0, 1])
+    transforms = muonGeoj.ntime(transforms, [0, 1])
 
     let transformsFC = { type: 'FeatureCollection', features: transforms }
 
@@ -73,7 +73,7 @@ async function anitem (__mapper) {
     let aniDots = {
 
       halo: 'eoform',
-      geofold: {type: 'Feature', properties: {pointRadius: 1}, geometry: { type: 'MultiPoint', coordinates: mgeoj.getCoords(geoData) } },
+      geofold: {type: 'Feature', properties: {pointRadius: 1}, geometry: { type: 'MultiPoint', coordinates: muonGeoj.getCoords(geoData) } },
       payload: {
         tim: tim,
         ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniDots'},

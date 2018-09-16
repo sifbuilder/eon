@@ -13,7 +13,7 @@
       mprops,
       muonNatform,
       mlacer,
-      mgeoj,
+      muonGeoj,
       d3scale,
     ] = await Promise.all([
       __mapper('xs').m('props'),
@@ -101,7 +101,7 @@
         let ws
 
         let feature = muonNatform.natFeature(v) // async
-        if (!mgeoj.isValid(feature)) console.error('gj not valid', v, feature)
+        if (!muonGeoj.isValid(feature)) console.error('gj not valid', v, feature)
         let geometry = feature.geometry
         let natRing
         if (geometry.type === 'LineString') {

@@ -9,8 +9,8 @@ async function anitem (__mapper) {
     mprops,
     cwen,
     muonNatform,
-    mric,
-    mstace,
+    muonRic,
+    muonStace,
     haloEoform,
     haloNatform,
     haloScene,    
@@ -132,7 +132,7 @@ async function anitem (__mapper) {
             if (props.key === 'init') { // INIT
               stace = {x: 0, y: 0, z: 0 }
             } else if (props.key === 'auto') { // AUTO
-              stace = mstace.getLocus(ani.payload.pacer.stace, ani) // AUTO
+              stace = muonStace.getLocus(ani.payload.pacer.stace, ani) // AUTO
             } else if (props.key === 'event') { // EVENT
               stace = {x: 0, y: 0, z: 0 }
             }
@@ -143,9 +143,9 @@ async function anitem (__mapper) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               // stace is ani's transformed geonode
-              stace = mstace.getLocus([null, null, null], ani)
+              stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
-              stace = mstace.getLocus([null, null, null], ani)
+              stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'event') { // EVENT
               if (crayder.grabbed() !== undefined) {
                 let grabbed = crayder.grabbed()
@@ -219,7 +219,7 @@ async function anitem (__mapper) {
             }
 
             let ric = ani.ric
-            let uid = mric.getuid(ric)
+            let uid = muonRic.getuid(ric)
 
             let anitem = mstore.findAnigramFromUid(uid)
             if (anitem !== undefined && anitem.geofold !== undefined) {

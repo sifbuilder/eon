@@ -8,7 +8,7 @@ async function anitem (__mapper) {
   let [
     mprops,
     cwen,
-    mric,
+    muonRic,
     crayder,
     haloPacer,
     haloScene,
@@ -79,9 +79,9 @@ async function anitem (__mapper) {
           geofold: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              stace = mstace.getLocus([null, null, null], ani)
+              stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
-              stace = mstace.getLocus([null, null, null], ani)
+              stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'event') { // EVENT
               if (crayder.grabbed() !== undefined) {
                 let grabbed = crayder.grabbed()

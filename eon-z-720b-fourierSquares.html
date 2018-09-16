@@ -7,10 +7,10 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     mfourier,
-    mproj3ct,
+    muonProj3ct,
     muonProfier,
-    mgeoj,
-    msvg,
+    muonGeoj,
+    muonSvg,
     haloEoform,
     haloNatform,
     haloScene,    
@@ -41,7 +41,7 @@ async function anitem (__mapper) {
            C 100.00,0.00 200.00,0.00 300.00,0.00 Z`, // LineString
       }, // path
     }
-    let data = msvg.castels(svgdata, {start: 0, stop: 0.9, step: 1 / 3}) // MultiLineString
+    let data = muonSvg.castels(svgdata, {start: 0, stop: 0.9, step: 1 / 3}) // MultiLineString
 
     let basicSquare = [
       [
@@ -55,10 +55,10 @@ async function anitem (__mapper) {
 
     let proform = (lat, lon) => ({projection: 'uniwen', translate: [ lat, lon ], scale: [1, 1], rotate: [ 0, 0 ], lens: [0, 1, Infinity]})
 
-    let geoData = i => mproj3ct(data, muonProfier.uniweon(proform(-250 + i * 60 + i * i * 16, 0)))
+    let geoData = i => muonProj3ct(data, muonProfier.uniweon(proform(-250 + i * 60 + i * i * 16, 0)))
 
-    let nb = mgeoj.getCoordsLength(data)
-    let csi = (i, t) => mgeoj.getCoordsInRange(geoData(i), Math.ceil(nb * t))
+    let nb = muonGeoj.getCoordsLength(data)
+    let csi = (i, t) => muonGeoj.getCoordsInRange(geoData(i), Math.ceil(nb * t))
 
     // .................. aniDotted anima
     let aniDotted = i => ({
@@ -135,7 +135,7 @@ async function anitem (__mapper) {
 
           geojsor: function (d, i) {
             let ric = d.ric // ric
-            let uid = mric.getuid(ric)
+            let uid = muonRic.getuid(ric)
 
             let gj = {
 
@@ -171,7 +171,7 @@ async function anitem (__mapper) {
       geofold: p => {
         let cs = csi(i, (1 + i) / 4)
         let transforms = mfourier.transformedCoefs(cs)
-        transforms = mgeoj.ntime(transforms, [0, 1])
+        transforms = muonGeoj.ntime(transforms, [0, 1])
         return { type: 'FeatureCollection', features: transforms }
       },
 

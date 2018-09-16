@@ -12,8 +12,8 @@
     let [
       mprops,
       mwen,
-      mstace,
-      mproj3ct,
+      muonStace,
+      muonProj3ct,
       mgeom,
       cwen,
       cversor,
@@ -93,7 +93,7 @@
         } else if (typeof projdef.translate === 'object' && mprops.isPosition(projdef.translate)) {
           translation = Object.values(projdef.translate)
         } else if (typeof projdef.translate === 'object') {
-          translation = mstace.getTranspot(projdef.translate, anigram) // get transpot - anigram
+          translation = muonStace.getTranspot(projdef.translate, anigram) // get transpot - anigram
         }
 
         if (projdef.anod && geonode) {
@@ -157,7 +157,7 @@
 
     // ............................. projer_
     function projer_ (prodef, anigram) { // projer_ is fenrir if no prodef
-      return json => mproj3ct.project(json, formion(prodef))
+      return json => muonProj3ct.project(json, formion(prodef))
     }
 
     // ............................. uniweon

@@ -183,7 +183,7 @@
       mprops,
       muonGraticule,
       muonProfier,
-      mproj3ct,
+      muonProj3ct,
       d3scale,
       d3array,
       d3geo,
@@ -424,7 +424,7 @@
         let projDef = { projection: 'natform', geoform: nformed }
         let projection = natprojection(projDef)
 
-        let feature = mproj3ct(gj, projection)
+        let feature = muonProj3ct(gj, projection)
         cache.geoform = projDef.geoform
         cache.feature = feature
         return feature

@@ -55,7 +55,7 @@
     let [
       mprops,
       mlacer,
-      mgeoj,
+      muonGeoj,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('lacer'),
@@ -118,9 +118,9 @@
       // else, eg. if stace undefined, get stace from parent
       } else {
         let parentuid = anitem.parentuid
-        console.assert(parentuid !== undefined, ` * error: mstace.getTranspots:parentuid ${parentuid} in payload ${payload}`)
+        console.assert(parentuid !== undefined, ` * error: muonStace.getTranspots:parentuid ${parentuid} in payload ${payload}`)
         let parentani = mstore.findAnigramFromUid(parentuid)
-        console.assert(parentani !== undefined, ` * error: mstace.getTranspots:parentani of ${parentuid}: ${parentani}`)
+        console.assert(parentani !== undefined, ` * error: muonStace.getTranspots:parentani of ${parentuid}: ${parentani}`)
 
         let geofold = parentani.geofold
         let geonode = parentani.geonode
@@ -145,11 +145,11 @@
             if (v1.hasOwnProperty('mod')) { // geoform, conform, ereform, proform`
               // geofold transfomed are in the geofold.properties
 
-              coords = mgeoj.getCoords(geofold.properties[v1.mod].geometry)
+              coords = muonGeoj.getCoords(geofold.properties[v1.mod].geometry)
             } else {
               // if no mod, positions are the goefold geometry, after transforms
 
-              coords = mgeoj.getCoords(geofold.geometry)
+              coords = muonGeoj.getCoords(geofold.geometry)
             }
 
             // move idx to the coords domain

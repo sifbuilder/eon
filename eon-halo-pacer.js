@@ -32,7 +32,7 @@
   // `@a.p.pacer.initSitus`  : situs for init items
   // `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, ani)`
   // usage: `payload.pacer.autoSitus(anigram)`
-  // autositus in zindex: `function(a) {return mstace.getLocus(this.stace, ani) }` gets `ani.p.pacer.stance`
+  // autositus in zindex: `function(a) {return muonStace.getLocus(this.stace, ani) }` gets `ani.p.pacer.stance`
   // auto time is `a.p.tim.unitPassed - a.p.pacer.outed`
   // `@a.p.pacer.eventSitus` : situs for event items
   // `count` new items to pacer from init, auto and event
@@ -45,16 +45,16 @@
 
   async function haloPacer (__mapper = {}) {
     let [
-      mric,
+      muonRic,
       mgeom,
       crayder,
       cwen,
       cversor,
       haloEoform,
-      mstace,
+      muonStace,
       mprops,
       muonProfier,
-      mproj3ct,
+      muonProj3ct,
     ] = await Promise.all([
       __mapper('xs').m('ric'),
       __mapper('xs').m('geom'),
@@ -178,7 +178,7 @@
               let ric = (anitem.payload.pacer.ric !== undefined)
                 ? anitem.payload.pacer.ric(anitem, props)
                 : anitem.ric
-              let uid = mric.getuid(ric)
+              let uid = muonRic.getuid(ric)
               // check if precursor of newAnitem already exists
 
               let preani = mstore.findAnigramFromUid(uid)
