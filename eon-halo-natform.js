@@ -137,7 +137,7 @@
     }
 
     // .................... ween
-    let ween = anitem => (anitem.payload.inited !== 1) ? (anitem.payload.inited = anitem.payload.gelded = 1, [anitem]) : []
+    let ween = anitem => (anitem.inited !== 1) ? (anitem.inited = anitem.payload.gelded = 1, [anitem]) : []
 
     // .................... halo
     let haloNatform = {}

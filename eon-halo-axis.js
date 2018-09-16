@@ -76,7 +76,7 @@
     // ............................. enty
 
     let haloAxis = {}
-    haloAxis.ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = 1, [anima]) : []
+    haloAxis.ween = anima => (anima.inited !== 1) ? (anima.inited = 1, [anima]) : []
     haloAxis.gramm = anima => gramm(anima)
 
     let enty = haloAxis

@@ -10,7 +10,7 @@
 
   async function haloCore (__mapper = {}) {
     // ....................... ween
-    let ween = anitem => (anitem.payload.inited !== 1) ? (anitem.payload.inited = anitem.payload.gelded = 1, Array.of(anitem)) : []
+    let ween = anitem => (anitem.inited !== 1) ? (anitem.inited = anitem.payload.gelded = 1, Array.of(anitem)) : []
 
     // ....................... gramm
     let gramm = anitem => Array.of(anitem)

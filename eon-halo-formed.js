@@ -46,8 +46,7 @@
     }
 
     // ............................. gramm
-    function gramm (anigram) {
-      
+    function haloing (anigram) {
       let gj = getgj(anigram)
       let gjcollection = mgeoj.featurecollect(gj)
 
@@ -69,7 +68,7 @@
           ric: feature.properties.ric, // hoist ric
           id: feature.properties.uid, // hoist uid
           uid: feature.properties.uid, // hoist uid
-          payload: {},// payload is lost in m.animation before rendering
+          payload: {}, // payload is lost in m.animation before rendering
           avatars: anigram.avatars, // inherit avatars
         }
 
@@ -80,7 +79,18 @@
     }
 
     // ............................. ween
-    let ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+    let gramm = anitem => haloing(anitem)
+
+    // ............................. ween
+    let ween = anitem => {
+      if (anitem.inited !== 1) {
+        anitem.inited = anitem.payload.gelded = 1
+
+        return [anitem]
+      } else {
+        return []
+      }
+    }
 
     // ............................. halo
     let haloFormed = {}

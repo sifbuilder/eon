@@ -67,8 +67,7 @@ async function anitem (__mapper) {
     
     // h.isolation
     let haloIsolation_ween = anima => { // WEEN
-      let animas = (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
-console.log('haloIsolation_ween', anima)
+      let animas = (anima.inited !== 1) ? (anima.inited = anima.payload.gelded = 1, [anima]) : []
       const perimeter = 12, length = 30
       const getId = (col, row) => `${col},${row}`
 
@@ -118,7 +117,6 @@ console.log('haloIsolation_ween', anima)
         }
         animas.push(ani)
       }
-console.log('animas', animas)
       mstore.apply({type: 'UPDANIMA', animas: animas}) // live
       return animas
     }

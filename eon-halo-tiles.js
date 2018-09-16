@@ -70,7 +70,7 @@
     }
 
     // .................... enty
-    let haloNat_ween = anima => (anima.payload.inited !== 1) ? (anima.payload.inited = anima.payload.gelded = 1, [anima]) : []
+    let haloNat_ween = anima => (anima.inited !== 1) ? (anima.inited = anima.payload.gelded = 1, [anima]) : []
     let haloNat_gramm = anima => gramm(anima)
 
     let haloTiles = {}

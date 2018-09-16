@@ -107,7 +107,7 @@
 
           let index = enty.findFromUid(uid, state.animas)
           if (index !== -1) { // anima exists
-            if (updAnima.payload.delled === 1) {
+            if (updAnima.delled === 1) {
               state.animas.splice(index, 1) // delete anima
             } else {
               state.animas[index] = updAnima // replace
@@ -115,7 +115,7 @@
           } else { // new anima
             updAnima.tim = mtim.timing(updAnima.tim, elapsed) // set tim elapsed
             updAnima.uid = uid // set uid if new anima
-            updAnima.payload.nid = enty.getNid() // node id in animas collection
+            updAnima.nid = enty.getNid() // node id in animas collection
 
             state.aniset[updAnima.uid] = updAnima // set new anima by uid
             state.animas[state.animas.length] = updAnima // register new anima
@@ -172,14 +172,13 @@
       return chain(items, 0)
     }
 
-    // .................. ween
-    async function ween (anitem) { // ok trace
+    // .................. weenDyn
+    async function weenDyn (anitem) { // ok trace
       let halo = anitem.halo
       if (typeof (halo) === 'object') {
         halo = await Promise.resolve(halo)
    
       } else {
-        // halo = __mapper(__mapper('xs').ceonize(halo, 'halo'))
         halo = await __mapper('xs').h(halo)
       }
 
@@ -187,7 +186,28 @@
       // let snapped = await manitem.snapani(anitem)
       // let anigram = await manitem.functorize(snapped)
 
-      let newItems = await halo.ween(anigram)
+      let newItems = halo.ween(anigram)
+
+      return newItems
+      // _apply({type: 'UPDANIMA', animas: newItems})  // UPDANIMA for sim
+    }
+
+
+    // .................. ween
+    function ween (anitem) { // ok trace
+      let halo = anitem.halo
+      if (typeof (halo) === 'object') {
+        // halo = halo
+   
+      } else {
+        halo = __mapper(__mapper('xs').ceonize(halo, 'halo'))
+      }
+
+      let anigram = anitem
+      // let snapped = await manitem.snapani(anitem)
+      // let anigram = await manitem.functorize(snapped)
+
+      let newItems = halo.ween(anigram)
 
       return newItems
       // _apply({type: 'UPDANIMA', animas: newItems})  // UPDANIMA for sim
@@ -216,13 +236,14 @@
           )
         )
     }
-    async function gramm (anitem) {
-      let snapped = await manitem.snapani(anitem)
-      let anigram = await manitem.functorize(snapped)
+    function gramm (anitem) {
+      let snapped = manitem.snapani(anitem)
+      let anigram = manitem.functorize(snapped)
       let halo = (typeof (anitem.halo) === 'object') 
         ? anitem.halo 
         : __mapper(__mapper(__mapper('xs').ceonize(anigram.halo, 'halo')))  // expected in __mapper
-      let newItems = await halo.gramm(anigram)
+      let newItems = mprops.a(halo.gramm(anigram))
+console.log('m.store', newItems) 
       _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
       newItems.forEach(newItem => {
                 let avatars = gavatars(newItem)

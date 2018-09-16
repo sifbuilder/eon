@@ -72,7 +72,7 @@
     let rsvg = __mapper('renderSvg')
 
     // ............................. pacer
-    async function pacer (anitem) {
+    function pacer (anitem) {
       let newItems = []
 
       let halo = anitem.halo,
@@ -122,8 +122,8 @@
       ) {
         count.auto = Math.floor(pacer.autoN) // count AUTO
 
-        // set payload.inited: the anitem has started the pacer
-        anitem.payload.inited = 1 //  inited
+        // set inited: the anitem has started the pacer
+        anitem.inited = 1 //  inited
 
         // set pacer.outed: item was outed at tim.unitPassed time
 
@@ -133,6 +133,7 @@
         // save anitem to preserve inited and outed
 
         let anitems = Array.of(anitem)
+   
         if (itemsort === 'anigram') {
 
           // anigrams do not change state
@@ -164,8 +165,12 @@
 
             let newItem = mprops.clone(anitem) // INIT NEWITEM
 
+            
+            
             // if opt.add  type is LineString and geometry adds coords
 
+            
+            
             if (aad) { //  if AAD
             
               // the paced ric is defined dynamically in the pacer or inherited from the anitem.payload
@@ -242,6 +247,8 @@
               
             } else { //  if NOT AAD
 
+            
+            
               // NOT pacer.AAD if not pacer.add, pacer generates anitems
               // geofold is Feature
 
@@ -258,9 +265,18 @@
               }
 
               let halo = __mapper(__mapper('xs').ceonize(newItem.halo, 'halo'))
-
-              let newItemsInCount = halo.gramm(newItem)
-              newItems = [...newItems, ...newItemsInCount] // add items
+              if (itemsort === 'anima') {
+                let newItemsInCount = mprops.a(halo.ween(newItem))
+                newItems = [...newItems, ...newItemsInCount] // add items
+              } else {
+                let newItemsInCount = halo.gramm(newItem)
+                newItems = [...newItems, ...newItemsInCount] // add items
+                
+              }
+              
+              
+              
+              
             }
           }
         }

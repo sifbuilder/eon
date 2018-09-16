@@ -111,11 +111,7 @@ async function anitem (__mapper) {
             } else if (props.key === 'auto') { // AUTO
               stace = mstace.getLocus([null, null, null], ani)
             } else if (props.key === 'event') { // EVENT
-                let grabbed = props.count.grabbed
-                let x = grabbed[0]
-                let y = grabbed[1]
-                let z = 0
-                stace = [x, y, z]
+                stace = props.count.grabbed
             }
             let coordinates = stace
             let res = {

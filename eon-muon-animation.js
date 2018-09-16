@@ -70,7 +70,7 @@
     }
 
     // .................. collect
-    async function collect (animas, elapsed) {
+    async function collectDyn (animas, elapsed) {
       let featurecollectionPromise = Promise.resolve(state.animas)
         .then(animas => {
           // md: get animas from halo.ween
@@ -106,6 +106,18 @@
       return featurecollectionPromise
     }
 
+   // .................. collect
+    function collect (animas, elapsed) {
+      getweens(state.animas, elapsed)
+      let anisimmed = getsims(mstore.animasLive())
+      anisimmed.map( ani => mstore.gramm(ani))
+      let featurecollection = {
+        type: 'FeatureCollection',
+        features: mstore.anigrams().map(d => d.geofold),
+      }
+      return featurecollection
+    }
+
     // ............................. ANIMIER
     function animier (elapsed) {
       if (1 && 0) console.log(` ................ animation ${elapsed} ${state.animas.length}`)
@@ -119,7 +131,7 @@
         anima.tim = mtim.timing(anima.tim, elapsed) // set time
 
         if (elapsed > anima.tim.limit + anima.tim.msStart) {
-          anima.payload.delled = 1 // crop by time
+          anima.delled = 1 // crop by time
         }
       }
 
@@ -137,14 +149,16 @@
       // ............................. @WEEN SIM GRAMM RENDER
       // md: from the anigrams, collect the feature collection to be rendered
 
-      let featurecollectionPromise = collect(state.animas, elapsed)
-
+      // let featurecollectionPromise = collect(state.animas, elapsed)
+      let featurecollection = collect(state.animas, elapsed)
+      rsvg.render(featurecollection)
+        
       // md: then render by sort the features in the collection
 
-      featurecollectionPromise
-        .then(featurecollection => {
-          rsvg.render(featurecollection)
-        })
+      // featurecollectionPromise
+        // .then(featurecollection => {
+          // rsvg.render(featurecollection)
+        // })
     }
 
     // ............................. enty

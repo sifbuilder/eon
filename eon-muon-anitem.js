@@ -20,11 +20,20 @@
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d
 
     // ............................. snapani
-    function snapani (ani, t) {
+    function snapaniDyn (ani, t) {
       let r = Promise.resolve()
       if (ani !== undefined) {
         t = t || ani.tim.unitTime
         r = Promise.resolve(msnap.snap(ani, t))
+      }
+      return r
+    }
+
+    function snapani (ani, t) {
+      let r 
+      if (ani !== undefined) {
+        t = t || ani.tim.unitTime
+        r = msnap.snap(ani, t)
       }
       return r
     }

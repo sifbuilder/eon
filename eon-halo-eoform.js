@@ -37,7 +37,7 @@
       console.assert(Array.isArray(anitem) === false)
 
       let newAni = mprops.clone(anitem)
-      
+
       // aninode
 
       let geonode = mprops.v(anitem.geonode, anitem)
@@ -79,16 +79,28 @@
       }
 
       newAni.geofold = gjcollection
+      return newAni
 
-      let newAnitems = haloFormed.gramm(newAni)
-      return newAnitems
     }
 
     // ............................. gramm
-    let gramm = anitem => enent(anitem)
+    let gramm = anitem => {
+      let newItem = enent(anitem)
+      let newAnitems = haloFormed.gramm(newItem)
+      return newAnitems
+    }
 
     // ............................. ween
-    let ween = anitem => (anitem.payload.inited !== 1) ? (anitem.payload.inited = anitem.payload.gelded = 1, [anitem]) : []
+    let ween = anitem => {
+console.log('aniform', anitem.payload.aniform)      
+      if (anitem.inited !== 1) {
+        anitem.inited = 1
+        anitem.payload.gelded = 1
+        return mprops.v(anitem)
+      } else {
+        return []
+      }
+    }
 
     // ............................. halo
     let haloEoform = {}

@@ -104,7 +104,7 @@
           
           //  del item if outside time period (ric.delled = 1)
           
-          let _ric = {gid, cid, fid, delled: tNotInPeriod} // is DELLED ?
+          let _ric = {gid, cid, fid} // is DELLED ?
           let _uid = mric.getuid(_ric) // uid
 
           
@@ -113,7 +113,8 @@
           let newItem = mprops.cloneObj(anigram)
 
           newItem.halo = 'natform' // halo.eoform
-
+          newItem.delled = tNotInPeriod
+          
           newItem.geofold = {
             type: 'Feature', // tfeature
             geometry: { type: 'Point', coordinates: [] },
@@ -165,9 +166,11 @@
               let fid = fidder(rayline.ric.fid, j, i)
 
               // md: del item outside time period (ric.delled = 1)
-              let _ric = {gid, cid, fid, delled: tNotInPeriod} // is DELLED ?
+              let _ric = {gid, cid, fid} // is DELLED ?
               let uid = mric.getuid(_ric) // uid
               rayline.ric = _ric
+              rayline.delled = tNotInPeriod
+              
               // newItem.avatars = {rayline: rayline} // ADD RAYLINE
             }
           }
@@ -237,7 +240,7 @@
 
     }
     // .................... ween
-    let ween = anitem => (anitem.payload.inited !== 1) ? (anitem.payload.inited = anitem.payload.gelded = 1, [anitem]) : []
+    let ween = anitem => (anitem.inited !== 1) ? (anitem.inited = anitem.payload.gelded = 1, [anitem]) : []
     
     // .................... halo
     let halo = {
