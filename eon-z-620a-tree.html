@@ -7,11 +7,11 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     dlicht5,
-    haloFormed,
+    haloLeaform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').d('licht5'),
-    __mapper('xs').h('formed'),    
+    __mapper('xs').h('leaform'),    
     __mapper('xs').h('scene'),    
   ])
 
@@ -91,7 +91,7 @@ async function anitem (__mapper) {
     // .................. treeAni
     let treeAni = {
 
-      halo: 'formed',
+      halo: 'leaform',
 
       geofold: ani => {
         let payload = ani.payload // payload
@@ -158,7 +158,7 @@ async function anitem (__mapper) {
     let animas = [
 
       sceneAni, // h.scene
-      treeAni, // h.formed
+      treeAni, // h.leaform
 
     ]
 

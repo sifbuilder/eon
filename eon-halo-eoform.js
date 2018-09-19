@@ -12,7 +12,7 @@
   // md: **process h.eoform animas**
   // md: Feature Collect gj. for each feature
   // md: geoform, conform, ereform and proform anigrams
-  // md: then pass the FeatureCollection to h.formed
+  // md: then pass the FeatureCollection to h.leaform
   // md: define `geonode` if undefined
 
   async function haloEoform (__mapper = {}) {
@@ -21,13 +21,13 @@
       muonProfier,
       muonProj3ct,
       mprops,
-      haloFormed,
+      haloLeaform,
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
       __mapper('xs').m('props'),
-      __mapper('xs').h('formed'),
+      __mapper('xs').h('leaform'),
 
     ])
 
@@ -87,7 +87,7 @@
     let gramm = anitem => {
 console.log('gramm aniform', anitem)            
       let newItem = enent(anitem)
-      let newAnitems = haloFormed.gramm(newItem)
+      let newAnitems = haloLeaform.gramm(newItem)
       return newAnitems
     }
 

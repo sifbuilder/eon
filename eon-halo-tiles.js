@@ -12,13 +12,13 @@
     let [
       mprops,
       muonGraticule,
-      haloFormed,
+      haloLeaform,
       haloNatform,
       haloEoform,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('graticule'),
-      __mapper('xs').h('formed'),
+      __mapper('xs').h('leaform'),
       __mapper('xs').h('natform'),
       __mapper('xs').h('eoform'),
 
