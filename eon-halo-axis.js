@@ -26,11 +26,8 @@
     ])
 
     // ............................. gramm
-    async function gramm (anitem) {
-      return manitem.snapani(anitem)
-        .then(snapped => manitem.functorgeofold(snapped))
-        .then(snapped => manitem.functorpayload(snapped))
-        .then(anigram => {
+    function gramm (anitem) {
+
           let payload = anigram.payload, // payload
             ric = ric, // ric
             uid = uid, // uid
@@ -70,11 +67,10 @@
           }
           delete newAnigram.payload.axis
           return haloEoform.gramm(newAnigram)
-        })
+
     }
 
     // ............................. enty
-
     let haloAxis = {}
     haloAxis.ween = anima => (anima.inited !== 1) ? (anima.inited = 1, [anima]) : []
     haloAxis.gramm = anima => gramm(anima)
