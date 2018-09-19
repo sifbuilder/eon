@@ -63,9 +63,7 @@
     // let svglayer = d3.select('.viewframe')
     let svglayer = d3.select('body')
       .append('svg')
-      // .attr('id', 'svglayer')
       .attr('id', 'viewframe')
-      // .attr('class', 'svglayer')
       .attr('class', 'viewframe')
       .style('position', 'absolute')
       .attr('width', state.width)
@@ -168,7 +166,8 @@
         .entries(features) // features
 
       for (let i in gitems) { // DOTS (seg5===0) each group gid
-        let gid = gitems[i].key, citems = gitems[i].values
+        let gid = gitems[i].key, 
+          citems = gitems[i].values
 
         for (let j in citems) { // each class cid
           let cid = citems[j].key // cid

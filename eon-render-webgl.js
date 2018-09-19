@@ -34,7 +34,7 @@
     state.context = state.domElem.getContext('webgl')
 
     /* canvas */
-    d3.select('.viewframe')
+    d3.select('body')
       .append(() => d3.select(state.domElem)
         .attr('id', 'canvas')
         .attr('class', 'overlay')
@@ -172,7 +172,9 @@
 
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
-            .filter(d => d.properties.sort === 'feature' || d.properties.sort === undefined) // default
+            .filter(d => d.properties.sort === 'feature' || 
+              d.properties.sort === 'form'
+            )
 
           if (features.length > 0) {
             for (let k in features) { // DOTS (seg5===0) each group gid

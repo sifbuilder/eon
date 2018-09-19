@@ -44,8 +44,9 @@
         ric = anigram.ric, // ric
         tim = anigram.tim, // tim
         parentuid = anigram.parentuid, // parentuid
-        geochrom = anigram.geochrom,  // geochrom
-        payload = anigram.payload, // payload
+        geochrom = anigram.geochrom  // geochrom
+        
+      let payload = anigram.payload, // payload
         fourier = payload.fourier // fourier
 
       let path = fourier.path,

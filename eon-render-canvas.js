@@ -20,27 +20,27 @@
     
     let radians = Math.PI / 180
 
-    let state = {}
-    state.width = r.width(),
-    state.height = r.height()
+    let state = {
+      width: rrenderport.width(),
+      height: rrenderport.height()
+    }
 
-    let canvas = null
-    canvas =
-          d3.select('.viewframe')
-            .append('canvas')
-            .attr('id', 'canvas')
-            .attr('class', 'canvas')
-            .attr('width', state.width)
-            .attr('height', state.height)
-            .style('position', 'absolute')
-            .style('top', 0)
-            .style('left', 0)
-            .style('border', '1px solid lightgray')
-            .style('position', 'absolute; top:0px; left:0px; z-index:1')
-            .attr('pointer-events', 'none')
-            .attr('overflow', 'visible')
+    let canvas = d3.select('body')
+        .append('canvas')
+        .attr('id', 'canvas')
+        .attr('class', 'canvas')
+        .style('position', 'absolute')
+        .attr('width', state.width)
+        .attr('height', state.height)
+        .style('top', 0)
+        .style('left', 0)
+        .style('border', '1px solid lightgray')
+        .style('position', 'absolute; top:0px; left:0px; z-index:1')
+        .attr('pointer-events', 'none')
+        .attr('overflow', 'visible')
 
-    /* render */
+        
+    // ............................. render
     let render = function (elapsed, featurecollection, maxlimit) {
       let features = featurecollection.features
         .filter(
@@ -67,11 +67,15 @@
         for (let j in citems) { // each class cid
           let cid = citems[j].key // cid
           let fitems = citems[j].values // fitems
-          let now = fitems.slice(-1)[0]
+          let current = fitems.slice(-1)[0]
 
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
-            .filter(d => d.properties.sort === 'feature' || d.properties.sort === undefined) // default
+            .filter(d => d.properties.sort === 'feature' || 
+              d.properties.sort === 'form'
+            )
+            .filter((d, i) => (d.properties.delled !== 1)) // not delled
+            .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
 
           if (features.length > 0) {
             for (let k in features) { // DOTS (seg5===0) each group gid
