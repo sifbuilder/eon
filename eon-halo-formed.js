@@ -17,7 +17,7 @@
   // identify to features on index, `muonRic.enric(ric, anigram, gjcollection)`
 
   // hen for each feature,
-  // boform, decoding style properties
+  // geochrom, decoding style properties
   // set sort. `feature.properties.sort` will determine rendering. default to feature
   // inherit avatars
 
@@ -26,12 +26,12 @@
   async function haloFormed (__mapper = {}) {
     let [
       muonRic,
-      mboform,
+      mgeochrom,
       muonGeoj,
       mprops,
     ] = await Promise.all([
       __mapper('xs').m('ric'),
-      __mapper('xs').m('boform'),
+      __mapper('xs').m('geochrom'),
       __mapper('xs').m('geoj'),
       __mapper('xs').m('props'),
     ])
@@ -55,7 +55,7 @@
       gjcollection = muonRic.enric(anigram.ric, anigram, gjcollection) // ric to feature or collection
 
       let newAnigrams = gjcollection.features.map((feature, i) => {
-        feature = mboform.boformer(anigram, feature)
+        feature = mgeochrom.geochromer(anigram, feature)
 
         feature.properties.tim = anigram.tim // tim in geofold
         feature.properties.vim = anigram.payload.vim // vim in geofold to render

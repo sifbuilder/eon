@@ -18,7 +18,7 @@
   // payload.fourier.maglast pencil radio
   // payload.fourier.interval [0,1] delete anigrams outside
   // payload.fourier.tolerance 1 remove sinusoids below
-  // payload.fourier.dotboform style of pencil dot
+  // payload.fourier.dotgeochrom style of pencil dot
   // payload.fourier.avatars.traceline  form trace
   // payload.fourier.avatars.line  sinusoid ray
 
@@ -44,7 +44,7 @@
         ric = anigram.ric, // ric
         tim = anigram.tim, // tim
         parentuid = anigram.parentuid, // parentuid
-        boform = anigram.boform,  // boform
+        geochrom = anigram.geochrom,  // geochrom
         payload = anigram.payload, // payload
         fourier = payload.fourier // fourier
 
@@ -213,7 +213,7 @@
           newItem.tim = tim // tim
           newItem.ric = _ric // ric
           newItem.uid = _uid // uid
-          newItem.boform = boform // boform
+          newItem.geochrom = geochrom // geochrom
 
           newItem.geofold.geometry.coordinates = [xn[i], yn[i]]
           newItem.geonode.geometry.coordinates = [xn[i], yn[i]]

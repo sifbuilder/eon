@@ -46,9 +46,9 @@ async function anitem (__mapper) {
       'ra2': 30, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
     }
 
-    let boformNat = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+    let geochromNat = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
-    let boformCirc = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.39, 0.39]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+    let geochromCirc = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.39, 0.39]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
     let proform = {
 
@@ -67,7 +67,7 @@ async function anitem (__mapper) {
       geofold: null,
       tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
-      boform: boformNat,
+      geochrom: geochromNat,
       geodrift: {
         proform,
       },
@@ -81,7 +81,7 @@ async function anitem (__mapper) {
       geofold: null,
       tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'formCirc'},
-      boform: boformCirc,
+      geochrom: geochromCirc,
       geodrift: {
         proform,
       },

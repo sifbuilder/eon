@@ -50,8 +50,8 @@ async function anitem (__mapper) {
         geometry.coordinates = Array.of(face.vertices) // eg [-1, 1, 1]
 
         let properties = {}
-        // properties.boform = face.boform || boform
-        properties.boform = {'csx': 0, 'cf': 333 + 10 * i, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
+        // properties.geochrom = face.geochrom || geochrom
+        properties.geochrom = {'csx': 0, 'cf': 333 + 10 * i, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
         properties.name = 'orange' + '_' + i
 
         let feature = {type: 'Feature', geometry: {}, properties: {}}
@@ -70,7 +70,7 @@ async function anitem (__mapper) {
       geofold: geoformFaces, // geofold,
       tim: tim,
       ric: {'gid': 'faces', 'cid': 'face', 'fid': 'face'},
-      boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      geochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
       geodrift: {
         proform: proformFaces,
@@ -85,7 +85,7 @@ async function anitem (__mapper) {
               [ -1, 1, 1],
               [-1, -1, 1],
             ],
-            boform: {'csx': 0, 'cf': 333, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
+            geochrom: {'csx': 0, 'cf': 333, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
           },
 
           {
@@ -96,7 +96,7 @@ async function anitem (__mapper) {
               [-1, 1, -1],
               [-1, -1, -1],
             ],
-            boform: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
+            geochrom: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
           },
         ],
 

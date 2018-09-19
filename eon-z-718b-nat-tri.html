@@ -68,9 +68,9 @@ async function anitem (__mapper) {
       'rotate': [ 0, 0, [[[0, 0]]] ],
       'lens': [0, 1, 12],
     }
-    let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+    let geochrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
-    let boformCirc = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[444, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.9, 0.9]]]}
+    let geochromCirc = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[444, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.9, 0.9]]]}
 
     /*******************************************
  *    @animas
@@ -82,7 +82,7 @@ async function anitem (__mapper) {
         geofold: null,      
         tim: tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
-        boform: boform,
+        geochrom: geochrom,
         geodrift: {        
           proform: proform,
         }
@@ -97,7 +97,7 @@ async function anitem (__mapper) {
         geofold: null,
         tim: tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'formCirc'},
-        boform: boformCirc,
+        geochrom: geochromCirc,
         geodrift: {        
           proform: proform,
         }

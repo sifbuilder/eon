@@ -48,7 +48,7 @@ async function anitem (__mapper) {
       'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
     }
 
-    let natBoform = { 'csx': 0, 'cf': [[[222, 444, 275]]], 'co': [[[0.59, 0.59]]], 'cs': [[[444, 444]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+    let natGeochrom = { 'csx': 0, 'cf': [[[222, 444, 275]]], 'co': [[[0.59, 0.59]]], 'cs': [[[444, 444]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
     // ............................. halo
 
@@ -85,8 +85,8 @@ async function anitem (__mapper) {
 
         let uid = muonRic.getuid(ani.ric)
         ani.uid = uid
-        ani.boform.cf = (i % 2) ? 777 : 333
-        ani.boform.cs = (i % 2) ? 777 : 333
+        ani.geochrom.cf = (i % 2) ? 777 : 333
+        ani.geochrom.cs = (i % 2) ? 777 : 333
 
         let preani = mstore.getAnima(ani.ric)
 
@@ -147,7 +147,7 @@ async function anitem (__mapper) {
         },
       },
 
-      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      geochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
       payload: {
         geoform: {

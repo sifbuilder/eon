@@ -71,7 +71,7 @@ async function anitem (__mapper) {
         },
         tim: tim,
         ric: {gid: 'ani', cid: 'ani', fid: 'aniDotted' + i},
-        boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.5, 'co': 0.9, 'cp': 0.999},
+        geochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.5, 'co': 0.9, 'cp': 0.999},
       },
     })
 
@@ -87,7 +87,7 @@ async function anitem (__mapper) {
       pointRadius: 3,
       tim: tim,
       ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniLine' + i},
-      boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.3, 'co': 0.009, 'cp': 0.999},
+      geochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.3, 'co': 0.009, 'cp': 0.999},
       payload: {
       },
 
@@ -100,7 +100,7 @@ async function anitem (__mapper) {
       geofold: {type: 'Feature', geometry: {type: 'LineString', coordinates: []}, properties: {}},
       tim: tim,
       ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniRay' + i},
-      boform: {'csx': 0, 'cf': 555, 'cs': 444, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      geochrom: {'csx': 0, 'cf': 555, 'cs': 444, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
       payload: {
       },
 
@@ -115,7 +115,7 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniTrace' + i},
-      boform: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      geochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
       payload: {
       },
 
@@ -127,7 +127,7 @@ async function anitem (__mapper) {
       halo: 'pacer',
       geofold: null,
       ric: {gid: 'traces', cid: 'traces', fid: 'traces' + i},
-      boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+      geochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       payload: {
         pacer: { // geoaad for trace
@@ -177,7 +177,7 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier' + i},
-      boform: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99},
+      geochrom: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99},
       payload: { // FOURIER TRANSFORM in payload.fourier.transform
         fourier: {
           interval: [ 0.0, 1.0 ], tolerance: 0.33,

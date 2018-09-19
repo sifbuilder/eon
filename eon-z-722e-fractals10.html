@@ -64,7 +64,7 @@ async function anitem (__mapper) {
         halo: 'pacer',
         geofold: null,
         ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-        boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+        geochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
         payload: {
           pacer: { // geoaad for trace
@@ -141,7 +141,7 @@ async function anitem (__mapper) {
 
         tim: {'td': cyclet * _LEVEL, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
         ric: {'gid': _NAME, 'cid': _NAME, 'fid': _NAME},
-        boform: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
+        geochrom: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
         geodrift: {
           proform: { projection: 'uniwen', scale: 1, translate: [ -0, 0 ], rotate: [ 0, 0 ] }, // identity
         },
@@ -189,7 +189,7 @@ async function anitem (__mapper) {
         }
 
         anis[level].payload.fractal.rad = radOnLevel(level) // rad(level)
-        anis[level].boform.cf = _CF(level) // boform
+        anis[level].geochrom.cf = _CF(level) // geochrom
         if (level === _LEVEL - 1) { // add image as avatar to root nat
           anis[level].avatars = []
 

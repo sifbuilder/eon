@@ -97,8 +97,8 @@ async function anitem (__mapper) {
         let uid = muonRic.getuid(ani.ric)
         ani.uid = uid
 
-        ani.boform.cf = (i % 2) ? 777 : 666
-        ani.boform.cs = (i % 2) ? 777 : 666
+        ani.geochrom.cf = (i % 2) ? 777 : 666
+        ani.geochrom.cs = (i % 2) ? 777 : 666
 
         let preani = mstore.getAnima(ani.ric)
 
@@ -170,7 +170,7 @@ async function anitem (__mapper) {
           anod: 1, // geonode
         },
       },
-      boform: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[777, 777]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.9, 0.9]]]},
+      geochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[777, 777]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.9, 0.9]]]},
 
       payload: {
     

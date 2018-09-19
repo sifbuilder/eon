@@ -1,0 +1,219 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    haloScene,
+    ctlWen,
+    muonNatform,
+    muonStace,
+    ctlRayder,
+    haloEoform,
+    haloNatform,
+    haloPacer,
+    haloTextform,
+    prtUniwen,
+  ] = await Promise.all([
+    __mapper('xs').h('scene'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').m('stace'),
+    __mapper('xs').c('rayder'),
+    __mapper('xs').h('eoform'),
+    __mapper('xs').h('natform'),
+    __mapper('xs').h('pacer'),
+    __mapper('xs').h('textform'),
+    __mapper('xs').p('uniwen'),
+  ])
+  let muonStore = __mapper('muonStore')
+
+  // .................. animas
+  let ani = function () {
+    // .................. pics
+    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+
+    // ....................... natFormed
+    let natFormed = {
+
+      halo: 'eoform',
+
+      // md: geonode reflects the geometry of the form
+      // md: updated by transforms
+      // md: relative to geonode
+      // md: as geonode, properties keep transformed views
+      geofold: p => muonNatform.natFeature(p.payload.geoform),
+
+      tim: tim,
+      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
+      geochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          prerotate: [[[ ctlWen.rotation ]]],
+          translate: [ [ 70, 80 ], [[[ {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
+            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          } ]]] ], //
+          scale: 1,
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+        },
+      },
+      // md: geonode is reference to geofold
+      // md: updated by sim forces
+      // md: as geofold, properties keep transformed views
+      geonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        // md: orgen, velin, prevous needed in force fields
+        properties: {
+          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+        },
+      },
+      payload: {
+        geoform: {
+          'x': {
+            'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
+            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 24, 'w4': 0, 'pa6': 0, 'pb7': 360,
+          },
+          'y': {
+            'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
+            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 24, 'w4': 0, 'pa6': 0, 'pb7': 360,
+          },
+        },
+
+      },
+
+    }
+
+    // ....................... traceNat
+    let traceNat = {
+
+      halo: 'pacer',
+
+      tim: tim,
+
+      ric: {
+        gid: 'nattrace',
+        cid: 'nattrace',
+        fid: 'traceNat', //  + props.counter,
+      },
+
+      geofold: p => muonNatform.natFeature(p.payload.geoform),
+
+      geonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+      },
+
+      geodrift: {
+        proform: {
+          projection: 'uniwen',
+          translate: [0, 0, 0],
+          scale: 1,
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+          anod: 1, // geonode
+        },
+      },
+
+      geochrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
+      
+      payload: {
+
+        geoform: {
+          'x': {
+            'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+            'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
+          },
+          'y': {
+            'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+            'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
+          },
+        },
+
+        pacer: {
+          halo: 'eoform',
+          geosort: 'anigram',
+          // base: 'geoform',
+          initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, geoaad: 0,
+
+          geonode: function (ani, props) {
+            let stace = [0, 0, 0]
+            if (props.key === 'init') { // INIT
+              // stace is ani's transformed geonode
+              stace = muonStace.getLocus([null, null, null], ani)
+            } else if (props.key === 'auto') { // AUTO
+              stace = muonStace.getLocus([null, null, null], ani)
+            } else if (props.key === 'event') { // EVENT
+              if (ctlRayder.grabbed() !== undefined) {
+                let grabbed = ctlRayder.grabbed()
+                let x = grabbed[0]
+                let y = grabbed[1]
+                let z = 0
+                stace = {x, y, z }
+              }
+            }
+
+            let coordinates = stace
+            let res = {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: coordinates,
+              },
+              properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+            }
+            return res
+          },
+
+        },
+      },
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      halo: 'scene',
+      geofold: null,
+      tim: tim,
+      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      payload: {
+        context: {svg: 1, versor: 0, wen: 0, webgl: 0, bck: 1, ray: 1},
+      },
+
+    }
+
+    // ....................... animapi
+    natFormed.avatars = {
+
+      traceNat, // h.pacer
+
+    }
+
+
+    // .................. animas
+    let animas = [
+      natFormed, // h.pacer
+      sceneAni, // h.scene
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

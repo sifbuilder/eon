@@ -20,7 +20,7 @@
     let [
       muonNatform,
       haloEoform,
-      muonBoform,
+      muonGeochrom,
       muonTim,
       muonRic,
       muonGeonode,
@@ -30,7 +30,7 @@
     ] = await Promise.all([
       __mapper('xs').m('natform'),
       __mapper('xs').h('eoform'),
-      __mapper('xs').m('boform'),
+      __mapper('xs').m('geochrom'),
       __mapper('xs').m('tim'),
       __mapper('xs').m('ric'),
       __mapper('xs').m('geonode'),
@@ -70,12 +70,12 @@
       
     }    
     
-    // boform definition
+    // geochrom definition
     
-    let getboform = function( geoform ) {
+    let getgeochrom = function( geoform ) {
       
       let res = {}
-      let ref = muonBoform.getdefault()
+      let ref = muonGeochrom.getdefault()
       
       if (geoform === undefined) {
         res = ref
@@ -130,7 +130,7 @@
       anitem.geofold = muonNatform.natFeature(anitem.payload.geoform)
       anitem.geofold = muonProj3ct(anitem.geofold, muonProfier.formion(prt, anitem)) // geofold
    
-      if (anitem.boform === undefined) anitem.boform = getboform(anitem.payload.geoform)        // geoform
+      if (anitem.geochrom === undefined) anitem.geochrom = getgeochrom(anitem.payload.geoform)        // geoform
      
       
       return haloEoform.gramm(anitem)

@@ -52,7 +52,7 @@ async function anitem (__mapper) {
 
         feature.properties.ric = _ric
         feature.properties.sort = 'form'
-        feature.properties.boform = face.boform
+        feature.properties.geochrom = face.geochrom
 
         json.features.push(feature)
       }
@@ -68,7 +68,7 @@ async function anitem (__mapper) {
       geofold: facesGeofold,
       tim: tim,
       ric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
-      boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      geochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
       geodrift: {
         proform: {
@@ -142,7 +142,7 @@ async function anitem (__mapper) {
           feature.geometry = geometry
           feature.properties.ric = _ric
           feature.properties.sort = 'form'
-          feature.properties.boform = face.boform
+          feature.properties.geochrom = face.geochrom
 
           json.features.push(feature)
         }
@@ -152,7 +152,7 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {gid: 'dotsAni', cid: 'dotsAni', fid: 'dotsAni'},
-      boform: {'csx': 0, 'cf': [[[111, 222, 111, 222, 111, 222, 111]]], 'cs': 777, 'cw': 0.2, 'co': 0.9, 'cp': 0.9},
+      geochrom: {'csx': 0, 'cf': [[[111, 222, 111, 222, 111, 222, 111]]], 'cs': 777, 'cw': 0.2, 'co': 0.9, 'cp': 0.9},
 
       geodrift: {
         proform: {

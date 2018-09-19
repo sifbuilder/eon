@@ -117,7 +117,7 @@
         }
         json.features = features
       } else {
-        console.log('m.boform.boformer nothing done')
+        console.log('m.geochrom.geochromer nothing done')
       }
 
       return json

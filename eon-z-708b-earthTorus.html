@@ -196,7 +196,7 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
-      boform: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
+      geochrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
       geodrift: {
         conform: { projection: 'natform', geoform: formTorus },
         proform: proformEarth,
@@ -231,7 +231,7 @@ async function anitem (__mapper) {
           feature.properties.ric.fid = i // face.name
           feature.properties.sort = 'form'
           feature.geometry = geometry
-          feature.properties.boform = face.boform
+          feature.properties.geochrom = face.geochrom
           json.features.push(feature)
         }
 
@@ -240,7 +240,7 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {gid: 'cubeAni', cid: 'cubeAni', fid: 'cubeAni'},
-      boform: { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
+      geochrom: { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
 
       geodrift: {
         conform: { projection: 'natform', geoform: formSphere },
@@ -262,27 +262,27 @@ async function anitem (__mapper) {
           {
             pointsx: [0, 1, 2, 3, 0],
             name: 'front',
-            boform: { cf: 222, cs: 355, co: [[[0.7, 0.7]]], cp: 1 }},
+            geochrom: { cf: 222, cs: 355, co: [[[0.7, 0.7]]], cp: 1 }},
           {
             pointsx: [4, 5, 6, 7, 4],
             name: 'back',
-            boform: { cf: 888, cs: 455, co: [[[0.7, 0.7]]], cp: 1 }},
+            geochrom: { cf: 888, cs: 455, co: [[[0.7, 0.7]]], cp: 1 }},
           {
             pointsx: [1, 4, 7, 2, 1],
             name: 'right',
-            boform: { cf: 444, cs: 555, co: [[[0.7, 0.7]]], cp: 1 }},
+            geochrom: { cf: 444, cs: 555, co: [[[0.7, 0.7]]], cp: 1 }},
           {
             pointsx: [5, 0, 3, 6, 5],
             name: 'left',
-            boform: { cf: 555, cs: 655, co: [[[0.7, 0.7]]], cp: 1 }},
+            geochrom: { cf: 555, cs: 655, co: [[[0.7, 0.7]]], cp: 1 }},
           {
             pointsx: [3, 2, 7, 6, 3],
             name: 'bottom',
-            boform: { cf: 666, cs: 755, co: [[[0.7, 0.7]]], cp: 1 }},
+            geochrom: { cf: 666, cs: 755, co: [[[0.7, 0.7]]], cp: 1 }},
           {
             pointsx: [5, 4, 1, 0, 5],
             name: 'top',
-            boform: { cf: 777, cs: 855, co: [[[0.7, 0.7]]], cp: 1 }},
+            geochrom: { cf: 777, cs: 855, co: [[[0.7, 0.7]]], cp: 1 }},
 
         ],
 
@@ -296,7 +296,7 @@ async function anitem (__mapper) {
       geofold: anitem => muonGraticule.vhMultiLine(anitem.payload.graticule),
       tim: tim,
       ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticubeAni'},
-      boform: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
+      geochrom: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
       geodrift: {
         conform: { projection: 'natform', geoform: formGratiCube },
@@ -316,7 +316,7 @@ async function anitem (__mapper) {
       geofold: p => muonGraticule.vhMultiLine(p.payload.graticule), // hMultiLine
       tim: tim,
       ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticircAni'},
-      boform: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
+      geochrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
       geodrift: {
         conform: { projection: 'natform', geoform: formSphere },
@@ -338,7 +338,7 @@ async function anitem (__mapper) {
       geodrift: {
         proform: proformTorus,
       },
-      boform: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+      geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
       payload: {
         geoform: formTorus,

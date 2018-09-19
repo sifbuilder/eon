@@ -35,7 +35,7 @@ async function anitem (__mapper) {
         ]
 
         let ric = p.ric
-        let boform = p.boform
+        let geochrom = p.geochrom
 
         let geometry = {type: 'Polygon', coordinates: []}
 
@@ -47,7 +47,7 @@ async function anitem (__mapper) {
 
         feature.properties.sort = 'form'
         feature.geometry = geometry
-        feature.properties.boform = boform
+        feature.properties.geochrom = geochrom
 
         let gj = {type: 'FeatureCollection', features: []}
         gj.features.push(feature)
@@ -56,7 +56,7 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {'gid': 'idPolygon', 'cid': 'idPolygon', 'fid': 'idPolygon'},
-      boform: {'csx': 0, 'cf': [[[666, 777, 666, 777, 666, 777, 666]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      geochrom: {'csx': 0, 'cf': [[[666, 777, 666, 777, 666, 777, 666]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
       geodrift: {
         proform: {
 
@@ -88,7 +88,7 @@ async function anitem (__mapper) {
         ]
 
         let ric = p.ric
-        let boform = p.boform
+        let geochrom = p.geochrom
 
         let geometry = {type: 'Polygon', coordinates: []}
 
@@ -100,7 +100,7 @@ async function anitem (__mapper) {
 
         feature.properties.sort = 'form'
         feature.geometry = geometry
-        feature.properties.boform = boform
+        feature.properties.geochrom = geochrom
 
         let gj = {type: 'FeatureCollection', features: []}
         gj.features.push(feature)
@@ -108,7 +108,7 @@ async function anitem (__mapper) {
       },
       tim: tim,
       ric: {'gid': 'wenPolygon', 'cid': 'wenPolygon', 'fid': 'wenPolygon'},
-      boform: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      geochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
       geodrift: {
         proform: {
