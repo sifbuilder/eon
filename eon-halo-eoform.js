@@ -85,7 +85,6 @@
 
     // ............................. gramm
     let gramm = anitem => {
-console.log('gramm aniform', anitem)            
       let newItem = enent(anitem)
       let newAnitems = haloLeaform.gramm(newItem)
       return newAnitems
@@ -93,7 +92,6 @@ console.log('gramm aniform', anitem)
 
     // ............................. ween
     let ween = anitem => {
-console.log('ween aniform', anitem)      
       if (anitem.inited !== 1) {
         anitem.inited = 1
         anitem.gelded = 1

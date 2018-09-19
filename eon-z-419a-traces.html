@@ -81,7 +81,7 @@ async function anitem (__mapper) {
       payload: {
         pacer: {
           geosort: 'anigram',
-          base: 'geoform',
+          geobase: 'geoform',
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
           geoaad: 0,
 
@@ -245,7 +245,7 @@ async function anitem (__mapper) {
         pacer: {
           halo: 'eoform',
           geosort: 'anigram',
-          // base: 'geoform',
+          // geobase: 'geoform',
           initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, geoaad: 0,
 
           geonode: function (ani, props) {
@@ -354,7 +354,7 @@ async function anitem (__mapper) {
         pacer: { // geoaad for trace
           halo: 'eoform',
           geosort: 'anigram',
-          base: 'geoform',
+          geobase: 'geoform',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, geoaad: 1,
 
           stace: function (ani, props) {
