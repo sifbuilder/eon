@@ -34,7 +34,7 @@
 
     // ............................. gramm
     let gramm = function (anitem, newAnigrams = []) {
-      let mstore = __mapper('muonStore') // sync
+      let muonStore = __mapper('muonStore') // sync
 
       let payload = anitem.payload, // payload
         geofold = geofold, // geofold
@@ -47,7 +47,7 @@
         sample = fuel.sample
 
       let polygon
-      let parentAnigram = mstore.findAnigramFromUid(parentuid)
+      let parentAnigram = muonStore.findAnigramFromUid(parentuid)
 
       if (parentAnigram) {
         let geometry = parentAnigram.geofold.geometry

@@ -12,7 +12,7 @@
   async function muonAnimation (__mapper) {
     let [
       mprops,
-      mstore,
+      muonStore,
       msim,
       mtim,
       rsvg,
@@ -35,7 +35,7 @@
     const getsims = (animas, elapsed) => {
       let sim = msim.sim() // simulation on animas
       msim.simulate(sim, animas, elapsed) // stored
-      return mstore.animasLive()
+      return muonStore.animasLive()
     }
 
     // .................. sequence
@@ -50,12 +50,12 @@
 
     // .................. getweens
     function getweens (animas, elapsed) {
-      return sequence(animas, anima => mstore.ween(anima))
+      return sequence(animas, anima => muonStore.ween(anima))
     }
 
     // .................. getgramms
     function getgramms (animas, elapsed) {
-      return sequence(animas, anima => mstore.gramm(anima)) // store anigrams
+      return sequence(animas, anima => muonStore.gramm(anima)) // store anigrams
     }
 
     // .................. animate
@@ -83,7 +83,7 @@
           // md: fields are d3.forces and act upon nodes or anisims
           // md: the field nodes correlate with the animas geonodes
 
-          return getsims(mstore.animasLive())
+          return getsims(muonStore.animasLive())
         })
         .then(anisimmed => {
           // md: animas reveal anigrams at any point in time
@@ -98,7 +98,7 @@
 
           let featurecollection = {
             type: 'FeatureCollection',
-            features: mstore.anigrams().map(d => d.geofold),
+            features: muonStore.anigrams().map(d => d.geofold),
           }
           return featurecollection
         })
@@ -109,11 +109,11 @@
    // .................. collect
     function collect (animas, elapsed) {
       getweens(state.animas, elapsed)
-      let anisimmed = getsims(mstore.animasLive())
-      anisimmed.map( ani => mstore.gramm(ani))
+      let anisimmed = getsims(muonStore.animasLive())
+      anisimmed.map( ani => muonStore.gramm(ani))
       let featurecollection = {
         type: 'FeatureCollection',
-        features: mstore.anigrams().map(d => d.geofold),
+        features: muonStore.anigrams().map(d => d.geofold),
       }
       return featurecollection
     }
@@ -121,11 +121,11 @@
     // ............................. ANIMIER
     function animier (elapsed) {
       if (1 && 0) console.log(` ................ animation ${elapsed} ${state.animas.length}`)
-      mstore = __mapper('muonStore') // store with state from __mapper
-      state.animas = mstore.animasLive()
+      muonStore = __mapper('muonStore') // store with state from __mapper
+      state.animas = muonStore.animasLive()
 
       // ............................. TIME
-      state.animas = mprops.a(mstore.animasLive())
+      state.animas = mprops.a(muonStore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
         anima.tim = mtim.timing(anima.tim, elapsed) // set time

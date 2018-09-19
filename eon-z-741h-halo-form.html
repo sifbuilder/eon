@@ -23,7 +23,7 @@ async function anitem (__mapper) {
     __mapper('xs').h('scene'),    
   ])
 
-  let mstore = __mapper('muonStore')
+  let muonStore = __mapper('muonStore')
 
   // .................. animas
   let ani = function () {
@@ -88,7 +88,7 @@ async function anitem (__mapper) {
         ani.geochrom.cf = (i % 2) ? 777 : 333
         ani.geochrom.cs = (i % 2) ? 777 : 333
 
-        let preani = mstore.getAnima(ani.ric)
+        let preani = muonStore.getAnima(ani.ric)
 
         if (preani) {
           ani = preani

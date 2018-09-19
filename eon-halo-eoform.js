@@ -85,6 +85,8 @@
 
     // ............................. gramm
     let gramm = anitem => {
+      if (1 && 1) console.log('eoform.gramm', anitem)
+
       let newItem = enent(anitem)
       let newAnitems = haloLeaform.gramm(newItem)
       return newAnitems
@@ -92,6 +94,7 @@
 
     // ............................. ween
     let ween = anitem => {
+      if (1 && 1) console.log('eoform.ween', anitem)      
       if (anitem.inited !== 1) {
         anitem.inited = 1
         anitem.gelded = 1

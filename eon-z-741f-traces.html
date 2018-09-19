@@ -25,7 +25,7 @@ async function anitem (__mapper) {
     __mapper('xs').h('scene'),    
   ])
 
-  let mstore = __mapper('muonStore')
+  let muonStore = __mapper('muonStore')
 
   // .................. animas
   let ani = function () {
@@ -221,7 +221,7 @@ async function anitem (__mapper) {
             let ric = ani.ric
             let uid = muonRic.getuid(ric)
 
-            let anitem = mstore.findAnigramFromUid(uid)
+            let anitem = muonStore.findAnigramFromUid(uid)
             if (anitem !== undefined && anitem.geofold !== undefined) {
               geofold = anitem.geofold
 

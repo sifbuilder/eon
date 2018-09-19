@@ -54,7 +54,7 @@ async function anitem (__mapper) {
     // __mapper('xs').f('z'),
   ])
 
-  let mstore = __mapper('muonStore')
+  let muonStore = __mapper('muonStore')
   // .................. animas
   let ani = function () {
     let width = rrenderport.width(),
@@ -100,7 +100,7 @@ async function anitem (__mapper) {
         ani.geochrom.cf = (i % 2) ? 777 : 333
         ani.geochrom.cs = (i % 2) ? 777 : 333
 
-        let preani = mstore.getAnima(ani.ric)
+        let preani = muonStore.getAnima(ani.ric)
 
         if (preani) {
           ani = preani
@@ -117,7 +117,7 @@ async function anitem (__mapper) {
         }
         animas.push(ani)
       }
-      mstore.apply({type: 'UPDANIMA', animas: animas}) // live
+      muonStore.apply({type: 'UPDANIMA', animas: animas}) // live
       return animas
     }
 

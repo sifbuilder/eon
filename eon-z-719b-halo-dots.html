@@ -28,7 +28,7 @@ async function anitem (__mapper) {
     __mapper('xs').h('scene'),    
   ])
 
-  let mstore = __mapper('muonStore')
+  let muonStore = __mapper('muonStore')
   // .................. animas
   let ani = function () {
     let width = rrenderport.width(),
@@ -48,7 +48,7 @@ async function anitem (__mapper) {
         let uid = muonRic.getuid(ani.ric)
         ani.uid = uid
 
-        let preani = mstore.getAnima(ani.ric)
+        let preani = muonStore.getAnima(ani.ric)
 
         if (preani) {
           ani = preani
@@ -69,7 +69,7 @@ async function anitem (__mapper) {
         animas.push(ani)
       }
 
-      mstore.apply({type: 'UPDANIMA', animas: animas}) // live
+      muonStore.apply({type: 'UPDANIMA', animas: animas}) // live
       return animas
     }
 

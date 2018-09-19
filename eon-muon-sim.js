@@ -11,7 +11,7 @@
   async function muonSim (__mapper = {}) {
     let [
       mprops,
-      mstore,
+      muonStore,
       mgeonode,
       d3,
       d3Force3d,
@@ -194,7 +194,7 @@
                 if (aniForce.ticked !== undefined) aniForce.ticked
 
                 aniSims = restoreNodes(aniNodes, aniItems) // > aniNodes
-                mstore.apply({type: 'UPDATEANIMAS', caller: 'simulation', animas: aniSims})
+                muonStore.apply({type: 'UPDATEANIMAS', caller: 'simulation', animas: aniSims})
               })
 
             if (aniForce.field !== undefined) { // field forces

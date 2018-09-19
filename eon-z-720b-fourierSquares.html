@@ -152,7 +152,7 @@ async function anitem (__mapper) {
 
             }
 
-            let newItem = mstore.findAnigramFromUid(uid) || gj
+            let newItem = muonStore.findAnigramFromUid(uid) || gj
             if (newItem.geofold.properties.formEreformed) {
               newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
             }

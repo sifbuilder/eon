@@ -82,7 +82,7 @@
 
     // ..................... isValidStace
     let getTranspots = function (stace, anitem) {
-      let mstore = __mapper('muonStore') // sync
+      let muonStore = __mapper('muonStore') // sync
 
       let payload = anitem.payload
       console.assert(payload !== undefined, anitem, ' payload undefined')
@@ -119,7 +119,7 @@
       } else {
         let parentuid = anitem.parentuid
         console.assert(parentuid !== undefined, ` * error: muonStace.getTranspots:parentuid ${parentuid} in payload ${payload}`)
-        let parentani = mstore.findAnigramFromUid(parentuid)
+        let parentani = muonStore.findAnigramFromUid(parentuid)
         console.assert(parentani !== undefined, ` * error: muonStace.getTranspots:parentani of ${parentuid}: ${parentani}`)
 
         let geofold = parentani.geofold

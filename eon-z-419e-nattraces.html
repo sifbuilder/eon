@@ -36,74 +36,18 @@ async function anitem (__mapper) {
     let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
 
-    // ....................... natLeaform
-    let natLeaform = {
 
-      halo: 'eoform',
-
-      // md: geonode reflects the geometry of the form
-      // md: updated by transforms
-      // md: relative to geonode
-      // md: as geonode, properties keep transformed views
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
-
-      tim: tim,
-      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
-      geochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
-      geodrift: {
-        proform: {
-          projection: 'uniwen',
-          prerotate: [[[ ctlWen.rotation ]]],
-          translate: [ [ 70, 80 ], [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
-            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          } ]]] ], //
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
-        },
-      },
-      // md: geonode is reference to geofold
-      // md: updated by sim forces
-      // md: as geofold, properties keep transformed views
-      geonode: {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
-        // md: orgen, velin, prevous needed in force fields
-        properties: {
-          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
-        },
-      },
-      payload: {
-        geoform: {
-          'x': {
-            'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 24, 'w4': 0, 'pa6': 0, 'pb7': 360,
-          },
-          'y': {
-            'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 24, 'w4': 0, 'pa6': 0, 'pb7': 360,
-          },
-        },
-
-      },
-
-    }
-
-    // ....................... traceNat
-    let traceNat = {
+    // ....................... pacerNat
+    let pacerNat = {
 
       halo: 'pacer',
 
       tim: tim,
 
       ric: {
-        gid: 'nattrace',
-        cid: 'nattrace',
-        fid: 'traceNat', //  + props.counter,
+        gid: 'natpace',
+        cid: 'natpace',
+        fid: 'natpace', //  + props.counter,
       },
 
       geofold: p => muonNatform.natFeature(p.payload.geoform),
@@ -144,19 +88,29 @@ async function anitem (__mapper) {
         },
 
         pacer: {
+        
+          initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, 
+        
           halo: 'eoform',
-          geosort: 'anigram',
-          // geobase: 'geoform',
-          initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, geoaad: 0,
-
+          
+          geosort: 'anima',
+          geobase: '',
+          geoaad: 0,
+          
           geonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
+            
               // stace is ani's transformed geonode
-              stace = muonStace.getLocus([null, null, null], ani)
+              // stace = muonStace.getLocus([null, null, null], ani)
+              stace = [0,0,0]
+              
             } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus([null, null, null], ani)
+            
+              stace = [0,0,0]
+              
             } else if (props.key === 'event') { // EVENT
+            
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
                 let x = grabbed[0]
@@ -195,18 +149,11 @@ async function anitem (__mapper) {
 
     }
 
-    // ....................... animapi
-    natLeaform.avatars = {
-
-      traceNat, // h.pacer
-
-    }
-
 
     // .................. animas
     let animas = [
-      natLeaform, // h.pacer
-      sceneAni, // h.scene
+      pacerNat, // h.pacer
+      // sceneAni, // h.scene
     ]
 
     return animas
