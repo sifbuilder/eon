@@ -52,10 +52,10 @@ async function anitem (__mapper) {
 
       payload: {
         pacer: {
-          itemsort: 'anigram',
+          geosort: 'anigram',
           base: 'geoform',
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
-          aad: 0,
+          geoaad: 0,
 
           halo: (ani, props) => 'eoform',
           ric: function (ani, props) {

@@ -1,6 +1,21 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-window.xEonify.eon({anitem, time: undefined})
+xEonify.eon({anitem, time: undefined})
+
+// G:\Dropbox\dBox\e\c\d3borg\01e1bf56883f5c57c99dde16e13b699e
+// https://twitter.com/sifbuilder/status/782573717096390656
+// d3borg/01e1bf56883f5c57c99dde16e13b699e
+
+// var nodeItems = __mapper("nodes").items()
+// var alphaDecay = 0
+// var velocityDecay = 5e-4
+// var radiusfn = d => d.radius + 1
+// var strength = 0.01
+// var iterations = 1
+// var containerfn = d => __mapper("forcecontainer")(d, nodeItems)
+// var retainerfn = d => __mapper("forceretainer")(d, nodeItems)
+
+
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -29,14 +44,50 @@ async function anitem (__mapper) {
     __mapper('xs').p('uniwen'),
   ])
   let muonStore = __mapper('muonStore')
-
+  
   // .................. animas
   let ani = function () {
     // .................. pics
-    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let tim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
 
-    // .................. pointTrace
-    let pointTrace = {
+    let boform = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+
+
+    // ............................. solarAni
+    let solarAni = {
+      halo: 'natform',
+      geofold: null,
+
+      tim,
+      ric: {gid: 'nat', cid: 'nat', fid: 'solar'},
+      boform: boform,
+      geodrift: {
+        proform:  {
+          'projection': 'uniwen',
+          'translate': [ [[[-100, 100]]], [[[-100, 100]]] ], // [[[ stace ]]] ],
+          'scale': 1,
+          'rotate': [ 180, 180 ],
+          'lens': [0, 1, Infinity],
+        },
+      },      
+      payload: {
+        geoform: {
+						"m1":4.718177045786351,"m2":19.396126213759022,"n1":15.313427387158098,"n2":10.738988564746812,"n3":15.119538381452617,"b":7.059625076609466,"a":-13.981619631491435,
+						"tx":0,
+						"ty":0,
+						"rot":0,
+						"rad":45,
+						"segs":720,
+						"pta": 0, 
+						"ptb": -1,	
+						"v0":0,"v1":1,
+						"cf":522,"cs":422,
+						},
+      },
+    }
+
+    // ............................. planetAni
+    let planetAni = {
 
       halo: 'pacer',
 
@@ -61,9 +112,9 @@ async function anitem (__mapper) {
       tim: tim,
 
       ric: {
-        gid: 'nat',
-        cid: 'nat',
-        fid: 'pointTrace',
+        gid: 'planet',
+        cid: 'planet',
+        fid: 'planet',
       },
 
       geodrift: {
@@ -79,13 +130,27 @@ async function anitem (__mapper) {
       boform: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
       payload: {
+        
+        geoform: {
+						"m1":-144,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,
+						"tx":0,
+						"ty":0,
+						"rot":-0,
+						"rad":1,
+						"seg5": [[[3,180]]],
+						"cf":522, "cs":222,
+						"v0":0,"v1":-1,
+				},        
+        
+        
         pacer: {
-          geosort: 'anigram',
+          
+          geosort: 'anima',
           base: 'geoform',
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
           geoaad: 0,
 
-          halo: (ani, props) => 'eoform',
+          halo: (ani, props) => 'natform',
           ric: function (ani, props) {
             let counter = props.counter || 0
 
@@ -97,21 +162,21 @@ async function anitem (__mapper) {
             }
 
             let ric = {
-              gid: 'nat',
-              cid: 'nat',
+              gid: 'planet',
+              cid: 'planet',
               fid: `pointTrace${fidsuffix}`,
             }
             return ric
           },
-
-          geofold: function (ani, props) {
+          geoform: null,
+          geonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
               stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'event') { // EVENT
-                stace = props.count.grabbed
+              stace = props.count.grabbed
             }
             let coordinates = stace
             let res = {
@@ -124,12 +189,24 @@ async function anitem (__mapper) {
             }
             return res
           },
-
+          payload: {
+            
+            geoform: {
+                "m1":-144,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,
+                "tx":0,
+                "ty":0,
+                "rot":-0,
+                "rad":1,
+                "seg5": [[[3,180]]],
+                "cf":522, "cs":222,
+                "v0":0,"v1":-1,
+            },   
+          }              
         },
       },
     }
 
- 
+
     // .................. sceneAni
     let sceneAni = {
 
@@ -143,11 +220,12 @@ async function anitem (__mapper) {
 
     }
 
-
-    // .................. animas
+    // ............................. animas
     let animas = [
-      pointTrace, // h.pacer
-      sceneAni, // h.scene
+      // solarAni, // h.natform
+      planetAni, // h.natform
+      // sceneAni, // h.scene
+
     ]
 
     return animas

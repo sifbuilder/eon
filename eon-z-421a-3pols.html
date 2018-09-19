@@ -48,7 +48,7 @@ async function anitem (__mapper) {
       projection: prtOrthographic,
       // prerotate: [[[ prtOrthographic.rotation ]]],
       prerotate: [[[ ctlVersor
-        .projection({projection: prtOrthographic})
+        .projection( {projection: prtOrthographic } )
         .rotation,
       ]]],
       translate: [0, 0, 0],

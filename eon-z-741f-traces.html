@@ -121,11 +121,11 @@ async function anitem (__mapper) {
       boform: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       payload: {
-        pacer: { // aad for trace
+        pacer: { // geoaad for trace
           halo: 'eoform',
-          itemsort: 'anigram',
+          geosort: 'anigram',
           base: 'geo',
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, aad: 1,
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, geoaad: 1,
 
           stace: function (ani, props) {
             let stace
@@ -209,7 +209,7 @@ async function anitem (__mapper) {
 
       payload: {
         pacer: {
-          initN: 0, eventN: 0, autoN: 1, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, aad: 1,
+          initN: 0, eventN: 0, autoN: 1, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, geoaad: 1,
 
           geofolder: function (ani, prob) {
             let geofold = {

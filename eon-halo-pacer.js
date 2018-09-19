@@ -22,7 +22,7 @@
   // ani.pacer.outtimed
   // ani.pacer.maxN
   // ani.pacer.span
-  // ani.pacer.aad: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
+  // ani.pacer.geoaad: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
   // ani.pacer.type: {LineString}
   // ani.pacer.base: {geo, ere, pro}
 
@@ -72,7 +72,7 @@
     let rsvg = __mapper('renderSvg')
 
     // ............................. pacer
-    function pacer (anitem) {
+    function halopacer (anitem) {
       let newItems = []
 
       let halo = anitem.halo,
@@ -83,8 +83,8 @@
       let pacer = payload.pacer || {}, // pacer
         mousesignal = pacer.mousesignal || 0, // mousesignal
         span = pacer.span || 0, // span between paceitems
-        aad = pacer.aad || 0, // aad paceitem to previous anitem
-        itemsort = pacer.itemsort || 'anigram', // paceitem sort
+        geoaad = pacer.geoaad || 0, // geoaad paceitem to previous anitem
+        geosort = pacer.geosort || 'anigram', // paceitem sort
         geoType = pacer.type || 'LineString', //
         base = pacer.base || 'geoform' //
 
@@ -134,11 +134,11 @@
 
         let anitems = Array.of(anitem)
    
-        if (itemsort === 'anigram') {
+        if (geosort === 'anigram') {
 
           // anigrams do not change state
 
-        } else if (itemsort === 'anima') {
+        } else if (geosort === 'anima') {
           // save anima .......... to persist inited and outed
           mstore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: anitems})
         }
@@ -171,7 +171,7 @@
 
             
             
-            if (aad) { //  if AAD
+            if (geoaad) { //  if AAD
             
               // the paced ric is defined dynamically in the pacer or inherited from the anitem.payload
 
@@ -265,7 +265,7 @@
               }
 
               let halo = __mapper(__mapper('xs').ceonize(newItem.halo, 'halo'))
-              if (itemsort === 'anima') {
+              if (geosort === 'anima') {
                 let newItemsInCount = mprops.a(halo.ween(newItem))
                 newItems = [...newItems, ...newItemsInCount] // add items
               } else {
@@ -286,30 +286,40 @@
     }
 
     // ............................. ween
-    function ween (anitem, newItems = []) {
-      let halo = anitem.halo,
-        payload = anitem.payload,
-        ric = anitem.ric,
-        tim = anitem.tim
+    function ween (anitem) {
 
-      let pacer = payload.pacer || {}, // pacer
-        mousesignal = pacer.mousesignal || 0, // mousesignal
-        span = pacer.span || 0, // span between items
-        aad = pacer.aad || 0, // aad item to previous item
-        item = pacer.item || 'anigram' // pace items
 
-      if (item === 'anigram') {
+      if (anitem.payload.pacer.geosort === 'anima') {
+        let halo = anitem.halo,
+          payload = anitem.payload,
+          ric = anitem.ric,
+          tim = anitem.tim
 
+        let pacer = payload.pacer || {}, // pacer
+          mousesignal = pacer.mousesignal || 0, // mousesignal
+          span = pacer.span || 0, // span between items
+          geoaad = pacer.geoaad || 0, // geoaad item to previous item
+          geosort = pacer.geosort || 'anigram' // pace items
+          
+          return halopacer(anitem)
+        
       } else {
-
+        return anitem
       }
 
-      return newItems
     }
 
     // ............................. gramm
     function gramm (anitem) {
-      return pacer(anitem)
+      
+      if (anitem.payload.pacer.geosort === 'anima') {
+        
+          return Array.of(anitem)
+
+      } else {
+
+          return halopacer(anitem)
+      }
     }
 
     let halo = {
