@@ -1,18 +1,18 @@
 /***********
- *    @haloImgform
+ *    @eohalImgform
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloImgform = global.haloImgform || {})))
+      : (factory((global.eohalImgform = global.eohalImgform || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function haloImgform (__mapper = {}) {
+  async function eohalImgform (__mapper = {}) {
     let [
-      haloTurnform,
+      eohalTurnform,
     ] = await Promise.all([
-      __mapper('xs').h('turnform'),
+      __mapper('xs').e('turnform'),
     ])
 
     let _geofold = p => ({ // eofold
@@ -30,18 +30,18 @@
     })
 
     let gramm = function gramm (anigram, newAnigrams = []) {
-      let halo = anigram.halo, // halo
+      let eohal = anigram.eohal, // eohal
         eoload = anigram.eoload // eoload
 
       let eofold = _geofold(anigram) // eofold
 
       let newAnigram = {
-        halo,
+        eohal,
         eofold,
         eoload,
       }
 
-      newAnigrams = [...newAnigrams, ...__mapper('haloTurnform').gramm(newAnigram)]
+      newAnigrams = [...newAnigrams, ...__mapper('eohalTurnform').gramm(newAnigram)]
       return newAnigrams
     }
 
@@ -53,5 +53,5 @@
     return enty
   }
 
-  exports.haloImgform = haloImgform
+  exports.eohalImgform = eohalImgform
 }))

@@ -7,12 +7,12 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     ctlWen,
-    haloTurnform,
-    haloScene,
+    eohalTurnform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -23,7 +23,7 @@ async function anitem (__mapper) {
     // .................. idPolygon anima
     let idPolygon = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: (p) => {
         let coordinaes = [
@@ -76,7 +76,7 @@ async function anitem (__mapper) {
     // .................. wenPolygon anima
     let wenPolygon = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: (p) => {
         let coordinaes = [
@@ -130,7 +130,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

@@ -1,14 +1,14 @@
 /**********************
- *    @haloLeaform
+ *    @eohalLeaform
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloLeaform = global.haloLeaform || {})))
+      : (factory((global.eohalLeaform = global.eohalLeaform || {})))
 }(this, function (exports) {
   'use strict'
 
-  // eon-halo-leaform
+  // eon-eohal-leaform
   // *process h.leaform anigrams**
 
   // xpects `a.eofold` to be `geojson.FeatureCollection`
@@ -23,7 +23,7 @@
 
   // then pass the collection back to `m.animation` for rendering
 
-  async function haloLeaform (__mapper = {}) {
+  async function eohalLeaform (__mapper = {}) {
     let [
       muonEoric,
       muonEochrom,
@@ -46,7 +46,7 @@
     }
 
     // ............................. gramm
-    function haloing (anigram) {
+    function eohaling (anigram) {
       let gj = getgj(anigram)
       let gjcollection = muonGeoj.featurecollect(gj)
 
@@ -62,7 +62,7 @@
         feature.properties.sort = feature.properties.sort || 'feature' // svg sort
 
         let newAnigram = {
-          halo: anigram.halo, // inherit halo
+          eohal: anigram.eohal, // inherit eohal
           eofold: feature, // inherit eofold
           eonode: anigram.eonode,
           eoric: feature.properties.eoric, // hoist eoric
@@ -79,7 +79,7 @@
     }
 
     // ............................. ween
-    let gramm = anitem => haloing(anitem)
+    let gramm = anitem => eohaling(anitem)
 
     // ............................. ween
     let ween = anitem => {
@@ -91,15 +91,15 @@
       }
     }
 
-    // ............................. halo
-    let haloLeaform = {}
-    haloLeaform.ween = anima => ween(anima)
-    haloLeaform.gramm = anima => gramm(anima)
+    // ............................. eohal
+    let eohalLeaform = {}
+    eohalLeaform.ween = anima => ween(anima)
+    eohalLeaform.gramm = anima => gramm(anima)
 
     // ............................. enty
-    let enty = haloLeaform
+    let enty = eohalLeaform
     return enty
   }
 
-  exports.haloLeaform = haloLeaform
+  exports.eohalLeaform = eohalLeaform
 }))

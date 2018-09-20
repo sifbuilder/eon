@@ -7,12 +7,12 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     dlicht5,
-    haloLeaform,
-    haloScene,
+    eohalLeaform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').d('licht5'),
-    __mapper('xs').h('leaform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('leaform'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -91,7 +91,7 @@ async function anitem (__mapper) {
     // .................. treeAni
     let treeAni = {
 
-      halo: 'leaform',
+      eohal: 'leaform',
 
       eofold: ani => {
         let eoload = ani.eoload // eoload
@@ -144,7 +144,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

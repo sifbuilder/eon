@@ -1,14 +1,14 @@
 /****************************
- *      @haloNatform
+ *      @eohalNatform
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloNatform = global.haloNatform || {})))
+      : (factory((global.eohalNatform = global.eohalNatform || {})))
 }(this, function (exports) {
   'use strict'
 
-// md: # eon-halo-natform 
+// md: # eon-eohal-natform 
 // md: **expose natform** 
 // md: h.turnform with  anima.eofold : `muonNatform.natFeature(p.eoload.form)` 
 // md: 
@@ -16,10 +16,10 @@
 // md: MIT 
   
   
-  async function haloNatform (__mapper = {}) {
+  async function eohalNatform (__mapper = {}) {
     let [
       muonNatform,
-      haloTurnform,
+      eohalTurnform,
       muonEochrom,
       muonEotim,
       muonEoric,
@@ -29,7 +29,7 @@
       muonProj3ct,      
     ] = await Promise.all([
       __mapper('xs').m('natform'),
-      __mapper('xs').h('turnform'),
+      __mapper('xs').e('turnform'),
       __mapper('xs').m('eochrom'),
       __mapper('xs').m('eotim'),
       __mapper('xs').m('eoric'),
@@ -114,7 +114,7 @@
       
       console.assert(anitem.eoform !== undefined, 'eoform is undefined')
 
-      anitem.halo = 'natform'
+      anitem.eohal = 'natform'
 
 
       let translate = gettranslate(anitem.eoform)
@@ -133,21 +133,21 @@
       if (anitem.eochrom === undefined) anitem.eochrom = getgeochrom(anitem.eoform)        // eoform
      
       
-      return haloTurnform.gramm(anitem)
+      return eohalTurnform.gramm(anitem)
     }
 
     // .................... ween
     let ween = anitem => (anitem.inited !== 1) ? (anitem.inited = anitem.gelded = 1, [anitem]) : []
 
-    // .................... halo
-    let haloNatform = {}
-    haloNatform.ween = anitem => ween(anitem)
-    haloNatform.gramm = anitem => gramm(anitem)
+    // .................... eohal
+    let eohalNatform = {}
+    eohalNatform.ween = anitem => ween(anitem)
+    eohalNatform.gramm = anitem => gramm(anitem)
 
     // .................... enty
-    let enty = haloNatform
+    let enty = eohalNatform
     return enty
   }
 
-  exports.haloNatform = haloNatform
+  exports.eohalNatform = eohalNatform
 }))

@@ -11,20 +11,20 @@ async function anitem (__mapper) {
     muonProj3ct,
     muonProfier,
     muonGeoj,
-    haloTurnform,
-    haloPacer,
-    haloFourier,
-    haloScene,
+    eohalTurnform,
+    eohalPacer,
+    eohalFourier,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('fourier'),
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
     __mapper('xs').m('geoj'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('pacer'),
-    __mapper('xs').h('fourier'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('pacer'),
+    __mapper('xs').e('fourier'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -72,7 +72,7 @@ async function anitem (__mapper) {
     // md:     @aniDots anima
     let aniDots = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
       eofold: {type: 'Feature', properties: {pointRadius: 1}, geometry: { type: 'MultiPoint', coordinates: muonGeoj.getCoords(geoData) } },
       eoload: {
         eotim: eotim,
@@ -86,7 +86,7 @@ async function anitem (__mapper) {
     // md:       form.eoload.fourier.avatars.rayline
     let aniRay = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: {
         type: 'Feature',
@@ -107,7 +107,7 @@ async function anitem (__mapper) {
     // md:       eoload.pacer.geojsor
     let traceline = {
 
-      halo: 'pacer',
+      eohal: 'pacer',
 
       eofold: {
         type: 'Feature',
@@ -132,7 +132,7 @@ async function anitem (__mapper) {
 
       eoload: {
         pacer: { // geoaad for trace
-          halo: 'turnform',
+          eohal: 'turnform',
           geosort: 'anigram',
           geobase: 'geo',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, geoaad: 1,
@@ -187,7 +187,7 @@ async function anitem (__mapper) {
     // md:       eoload.fourier.avatars.rayline  sinusoid ray
     let fourierForm = {
 
-      halo: 'fourier',
+      eohal: 'fourier',
       eofold: p => transformsFC,
       eotim: eotim,
       eoric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
@@ -208,7 +208,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

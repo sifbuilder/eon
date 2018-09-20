@@ -7,12 +7,12 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     ctlWen,
-    haloNatform,
-    haloScene,
+    eohalNatform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
-    __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -63,7 +63,7 @@ async function anitem (__mapper) {
 
     // ............................. animas
     let nat = {
-      halo: 'natform',
+      eohal: 'natform',
       eofold: null,
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
@@ -77,7 +77,7 @@ async function anitem (__mapper) {
     }
 
     let circ = {
-      halo: 'natform',
+      eohal: 'natform',
       eofold: null,
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'formCirc'},
@@ -94,7 +94,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

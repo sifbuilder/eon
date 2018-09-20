@@ -13,8 +13,8 @@ async function anitem (__mapper) {
     dworldTopo110m,
     muonNatform,
     prtNatform,
-    haloTurnform,
-    haloScene,
+    eohalTurnform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('geom'),
     __mapper('xs').c('wen'),
@@ -23,8 +23,8 @@ async function anitem (__mapper) {
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').m('natform'),
     __mapper('xs').p('natform'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -182,7 +182,7 @@ async function anitem (__mapper) {
     // ............................. earthAni
     let earthAni = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: p => {
         let geometry = Object.assign({},
@@ -209,7 +209,7 @@ async function anitem (__mapper) {
     // .............................  cubeAni
     let cubeAni = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
       eofold: anitem => {
         let eoload = anitem.eoload,
           eoric = anitem.eoric
@@ -291,7 +291,7 @@ async function anitem (__mapper) {
     // .............................  graticubeAni
     let graticubeAni = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: anitem => muonGraticule.vhMultiLine(anitem.geoframe),
       eotim: eotim,
@@ -311,7 +311,7 @@ async function anitem (__mapper) {
     // .............................  graticircAni
     let graticircAni = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
       eotim: eotim,
@@ -331,7 +331,7 @@ async function anitem (__mapper) {
     // ............................. torusAni1
     let torusAni1 = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
       eofold: p => muonNatform.natFeature(p.eoform),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -347,7 +347,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

@@ -13,7 +13,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -102,7 +102,7 @@ async function anitem (__mapper) {
     // ............................. natAni
     let natAni = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: p => muonNatform.natFeature(p.eoform),
       eotim,
@@ -129,7 +129,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

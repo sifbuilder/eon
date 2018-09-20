@@ -9,7 +9,7 @@
   'use strict'
 
   async function muonEoric (__mapper = {}) {
-    // eoric.halo: anima type
+    // eoric.eohal: anima type
     // eoric.gid: group id
     // eoric.cid: class id
     // eoric.fid: form id
@@ -34,7 +34,7 @@
       let parent = anigram.eoload.parent
 
       let eoric = anigram.eoric
-      eoric.halo = anigram.eoric.halo
+      eoric.eohal = anigram.eoric.eohal
 
       if (anigram.eoric.gid === undefined) { // no  gid  in anigram
         eoric.gid = (parent.eoric.gid || 'gid') + '_' + idx // set gid by position

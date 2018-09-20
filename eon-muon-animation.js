@@ -73,7 +73,7 @@
     async function collectDyn (animas, elapsed) {
       let featurecollectionPromise = Promise.resolve(state.animas)
         .then(animas => {
-          // md: get animas from halo.ween
+          // md: get animas from eohal.ween
           // md: animas reside in the store
 
           getweens(animas, elapsed)

@@ -13,9 +13,9 @@ async function anitem (__mapper) {
     muonEoric,
     muonStore,
     muonStace,
-    haloTurnform,
-    haloNatform,
-    haloScene,
+    eohalTurnform,
+    eohalNatform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
@@ -24,9 +24,9 @@ async function anitem (__mapper) {
     __mapper('xs').m('eoric'),
     __mapper('xs').m('store'),
     __mapper('xs').m('stace'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -61,7 +61,7 @@ async function anitem (__mapper) {
       // .................. traceLine
       let traceLine = { // SUB-MARKS line trace
 
-        halo: 'pacer',
+        eohal: 'pacer',
         eofold: null,
         eoric: {gid: 'traces', cid: 'traces', fid: 'traces'},
         eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
@@ -84,7 +84,7 @@ async function anitem (__mapper) {
               let eoric = a.eoric // eoric
               let uid = muonEoric.getuid(eoric)
               let gj = {
-                halo: 'turnform',
+                eohal: 'turnform',
                 eofold: {
                   type: 'Feature',
                   geometry: { type: 'LineString', coordinates: null },
@@ -117,7 +117,7 @@ async function anitem (__mapper) {
 
       let fractalForm = {
 
-        halo: 'turnform',
+        eohal: 'turnform',
 
         eofold: a => ({
           type: 'Feature',

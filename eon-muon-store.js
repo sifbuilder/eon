@@ -18,11 +18,11 @@
   // md: ## methods
   // md: * [apply](#apply) - adds, replace, delete anitems
   // md:  @action: {UPDANIMA, UPDANIGRAM}
-  // md: * [ween](#ween) - process anitem through halo.ween
+  // md: * [ween](#ween) - process anitem through eohal.ween
   // md:   @anitem
-  // md: * [gramm](#gramm) - process anitem through halo.gramm
+  // md: * [gramm](#gramm) - process anitem through eohal.gramm
   // md:   manage anitem's time
-  // md:   process anitem with anitem's halo.gramm
+  // md:   process anitem with anitem's eohal.gramm
   // md:   process anitem.avatars
   // md: * animasInGroupHowMany
   // md:   @anima
@@ -173,18 +173,18 @@
 
     // .................. weenDyn
     async function weenDyn (anitem) { // ok trace
-      let halo = anitem.halo
-      if (typeof (halo) === 'object') {
-        halo = await Promise.resolve(halo)
+      let eohal = anitem.eohal
+      if (typeof (eohal) === 'object') {
+        eohal = await Promise.resolve(eohal)
       } else {
-        halo = await __mapper('xs').h(halo)
+        eohal = await __mapper('xs').e(eohal)
       }
 
       let anigram = anitem
       // let snapped = await manitem.snapani(anitem)
       // let anigram = await manitem.functorize(snapped)
 
-      let newItems = halo.ween(anigram)
+      let newItems = eohal.ween(anigram)
 
       return newItems
       // _apply({type: 'UPDANIMA', animas: newItems})  // UPDANIMA for sim
@@ -192,19 +192,19 @@
 
     // .................. ween
     function ween (anitem) { // ok trace
-      let halo = anitem.halo
-      if (typeof (halo) === 'object') {
-        // halo = halo
+      let eohal = anitem.eohal
+      if (typeof (eohal) === 'object') {
+        // eohal = eohal
 
       } else {
-        halo = __mapper(__mapper('xs').ceonize(halo, 'halo'))
+        eohal = __mapper(__mapper('xs').ceonize(eohal, 'eohal'))
       }
 
       let anigram = anitem
       // let snapped = await manitem.snapani(anitem)
       // let anigram = await manitem.functorize(snapped)
 
-      let newItems = halo.ween(anigram)
+      let newItems = eohal.ween(anigram)
 
       return newItems
       // _apply({type: 'UPDANIMA', animas: newItems})  // UPDANIMA for sim
@@ -214,8 +214,8 @@
     function grammDyn (anitem) {
       return manitem.snapani(anitem)
         .then(snapped => manitem.functorize(snapped))
-        .then(anigram => (typeof (anitem.halo) === 'object') ? Promise.resolve(anitem.halo) : __mapper('xs').h(anigram.halo)
-          .then(halo => Promise.resolve(halo.gramm(anigram))
+        .then(anigram => (typeof (anitem.eohal) === 'object') ? Promise.resolve(anitem.eohal) : __mapper('xs').e(anigram.eohal)
+          .then(eohal => Promise.resolve(eohal.gramm(anigram))
             .then(newItems => {
               _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
               newItems.forEach(newItem => {
@@ -236,10 +236,10 @@
     function gramm (anitem) {
       let snapped = manitem.snapani(anitem)
       let anigram = manitem.functorize(snapped)
-      let halo = (typeof (anitem.halo) === 'object')
-        ? anitem.halo
-        : __mapper(__mapper(__mapper('xs').ceonize(anigram.halo, 'halo'))) // expected in __mapper
-      let newItems = muonProps.a(halo.gramm(anigram))
+      let eohal = (typeof (anitem.eohal) === 'object')
+        ? anitem.eohal
+        : __mapper(__mapper(__mapper('xs').ceonize(anigram.eohal, 'eohal'))) // expected in __mapper
+      let newItems = muonProps.a(eohal.gramm(anigram))
       console.log('m.store', newItems)
       _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
       newItems.forEach(newItem => {

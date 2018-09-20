@@ -6,26 +6,26 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    haloScene,
+    eohalScene,
     ctlWen,
     muonNatform,
     muonStace,
     ctlRayder,
-    haloTurnform,
-    haloNatform,
-    haloPacer,
-    haloTextform,
+    eohalTurnform,
+    eohalNatform,
+    eohalPacer,
+    eohalTextform,
     prtUniwen,
   ] = await Promise.all([
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('scene'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('stace'),
     __mapper('xs').c('rayder'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('natform'),
-    __mapper('xs').h('pacer'),
-    __mapper('xs').h('textform'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('pacer'),
+    __mapper('xs').e('textform'),
     __mapper('xs').p('uniwen'),
   ])
   let muonStore = __mapper('muonStore')
@@ -38,7 +38,7 @@ async function anitem (__mapper) {
     // ....................... pacerNat
     let pacerNat = {
 
-      halo: 'pacer',
+      eohal: 'pacer',
 
       eotim: eotim,
 
@@ -89,7 +89,7 @@ async function anitem (__mapper) {
 
           initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0,
 
-          halo: 'natform',
+          eohal: 'natform',
 
           geosort: 'anima',
           geobase: '',
@@ -136,7 +136,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

@@ -1,26 +1,26 @@
 /****************************
- *      @haloTileform
+ *      @eohalTileform
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloTileform = global.haloTileform || {})))
+      : (factory((global.eohalTileform = global.eohalTileform || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function haloTileform (__mapper = {}) {
+  async function eohalTileform (__mapper = {}) {
     let [
       muonProps,
       muonGraticule,
-      haloLeaform,
-      haloNatform,
-      haloTurnform,
+      eohalLeaform,
+      eohalNatform,
+      eohalTurnform,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('graticule'),
-      __mapper('xs').h('leaform'),
-      __mapper('xs').h('natform'),
-      __mapper('xs').h('turnform'),
+      __mapper('xs').e('leaform'),
+      __mapper('xs').e('natform'),
+      __mapper('xs').e('turnform'),
 
     ])
 
@@ -48,7 +48,7 @@
         let face = faces[i]
 
         let newItem = muonProps.clone(anigram)
-        newItem.halo = 'natform'
+        newItem.eohal = 'natform'
         newItem.eofold = {type: 'Polygon', coordinates: []}
 
         let facering = [vertices[face[0]], vertices[face[1]], vertices[face[2]]]
@@ -67,21 +67,21 @@
 
     // .................... gramm
     function gramm (anigram) {
-      return Promise.all(getTiles(anigram).map(ani => haloTurnform.gramm(ani)))
+      return Promise.all(getTiles(anigram).map(ani => eohalTurnform.gramm(ani)))
     }
 
     // .................... enty
-    let haloNat_ween = anima => ween(anima)
-    let haloNat_gramm = anima => gramm(anima)
+    let eohalNat_ween = anima => ween(anima)
+    let eohalNat_gramm = anima => gramm(anima)
 
-    let haloTileform = {}
-    haloTileform.ween = anima => haloNat_ween(anima)
-    haloTileform.gramm = anima => haloNat_gramm(anima)
+    let eohalTileform = {}
+    eohalTileform.ween = anima => eohalNat_ween(anima)
+    eohalTileform.gramm = anima => eohalNat_gramm(anima)
 
-    let enty = haloTileform
+    let enty = eohalTileform
 
     return enty
   }
 
-  exports.haloTileform = haloTileform
+  exports.eohalTileform = eohalTileform
 }))

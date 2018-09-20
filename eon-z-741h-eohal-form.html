@@ -10,17 +10,17 @@ async function anitem (__mapper) {
     muonStace,
     muonNatform,
     muonEoric,
-    haloTurnform,
-    haloNatform,
-    haloScene,
+    eohalTurnform,
+    eohalNatform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('stace'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('eoric'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('scene'),
   ])
 
   let muonStore = __mapper('muonStore')
@@ -50,9 +50,9 @@ async function anitem (__mapper) {
 
     let natGeochrom = { 'csx': 0, 'cf': [[[222, 444, 275]]], 'co': [[[0.59, 0.59]]], 'cs': [[[444, 444]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
-    // ............................. halo
+    // ............................. eohal
 
-    let haloIsolation_ween = anima => { // WEEN
+    let eohalIsolation_ween = anima => { // WEEN
       let newAnimas = []
       let animas = (anima.inited !== 1) ? (anima.inited = anima.gelded = 1, [anima]) : []
 
@@ -93,7 +93,7 @@ async function anitem (__mapper) {
         if (preani) {
           ani = preani
         } else { // create anima
-          ani.halo = 'natform' // halo ENT
+          ani.eohal = 'natform' // eohal ENT
 
           ani.eofold = { // will create anigram
             type: 'Feature',
@@ -108,16 +108,16 @@ async function anitem (__mapper) {
       return newAnimas
     }
 
-    let haloIsolation_gramm = anima => [] // GRAMM))
+    let eohalIsolation_gramm = anima => [] // GRAMM))
 
-    let haloIsolationHalo = {}
-    haloIsolationHalo.ween = anima => haloIsolation_ween(anima)
-    haloIsolationHalo.gramm = anima => haloIsolation_gramm(anima)
+    let eohalIsolationHalo = {}
+    eohalIsolationHalo.ween = anima => eohalIsolation_ween(anima)
+    eohalIsolationHalo.gramm = anima => eohalIsolation_gramm(anima)
 
     // ............................. natAni
     let natAni = {
 
-      halo: haloIsolationHalo, // 'turnform',
+      eohal: eohalIsolationHalo, // 'turnform',
 
       eofold: p => muonNatform.natFeature(p.eoform),
 
@@ -172,7 +172,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
@@ -185,7 +185,7 @@ async function anitem (__mapper) {
     // ............................. animas
     let animas = [
 
-      natAni, // h.haloIsolationHalo
+      natAni, // h.eohalIsolationHalo
       sceneAni, // h.scene
     ]
 

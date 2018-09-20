@@ -22,9 +22,9 @@
   let geoTetra = function geoTetra (__mapper = {}) {
     let mpolyhedral = __mapper('xs').m('polyhedral')
 
-    let renderport = __mapper('renderRenderport'),
-      width = renderport.width(),
-      height = renderport.height(),
+    let portview = __mapper('renderPortview'),
+      width = portview.width(),
+      height = portview.height(),
       scaleProj = Math.min(width / 2, height) / Math.PI
 
     let epsilon = 1e-6, epsilon2 = epsilon * epsilon, asin = Math.asin

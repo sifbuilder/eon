@@ -9,23 +9,23 @@ async function anitem (__mapper) {
     muonGeoforces,
     muonNatform,
     d3Force3d,
-    rrenderport,
+    renderPortview,
     ctlRayder,
     muonEoric,
-    haloTurnform,
-    haloNatform,
-    haloScene,
+    eohalTurnform,
+    eohalNatform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('geoforces'),
     __mapper('xs').m('natform'),
     __mapper('xs').b('d3-force-3d'),
-    __mapper('xs').r('renderport'),
+    __mapper('xs').r('portview'),
     __mapper('xs').c('rayder'),
     __mapper('xs').m('eoric'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('scene'),
   ])
 
   let [
@@ -49,7 +49,7 @@ async function anitem (__mapper) {
     // .................... natAni1
     let natAni1 = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani1'},
@@ -95,7 +95,7 @@ async function anitem (__mapper) {
     // .................... natAni2
     let natAni2 = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
@@ -292,7 +292,7 @@ async function anitem (__mapper) {
     // .................... fieldAni
     let fieldAni = {
 
-      halo: 'core',
+      eohal: 'core',
 
       eofold: null,
 

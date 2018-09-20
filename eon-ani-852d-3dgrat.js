@@ -17,12 +17,12 @@
   // .................. anitem
   async function anitem (__mapper) {
     let [
-      haloTurnform,
-      haloScene,
+      eohalTurnform,
+      eohalScene,
       muonNatform,
     ] = await Promise.all([
-      __mapper('xs').h('turnform'),
-      __mapper('xs').h('scene'),
+      __mapper('xs').e('turnform'),
+      __mapper('xs').e('scene'),
       __mapper('xs').m('natform'),
     ])
 
@@ -33,7 +33,7 @@
       // .................. gratiform
       let natform = {
 
-        halo: 'turnform',
+        eohal: 'turnform',
         eofold: p => muonNatform.natFeature(p.eoform),
 
         eotim: eotim,
@@ -70,7 +70,7 @@
       // .................. sceneAni
       let sceneAni = {
 
-        halo: 'scene',
+        eohal: 'scene',
         eofold: null,
         eotim: eotim,
         eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

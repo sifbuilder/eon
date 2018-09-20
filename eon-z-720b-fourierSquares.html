@@ -11,18 +11,18 @@ async function anitem (__mapper) {
     muonProfier,
     muonGeoj,
     muonSvg,
-    haloTurnform,
-    haloNatform,
-    haloScene,
+    eohalTurnform,
+    eohalNatform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('fourier'),
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
     __mapper('xs').m('geoj'),
     __mapper('xs').m('svg'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -62,7 +62,7 @@ async function anitem (__mapper) {
 
     // .................. aniDotted anima
     let aniDotted = i => ({
-      halo: 'turnform',
+      eohal: 'turnform',
       eoload: {
         eofold: p => {
           let cs = csi(i, (1 + i) / 4)
@@ -78,7 +78,7 @@ async function anitem (__mapper) {
     // .................. animas
     let aniLine = i => ({
 
-      halo: 'turnform',
+      eohal: 'turnform',
       eofold: p => {
         let cs = csi(i, (1 + i) / 4)
         cs.geometry.type = 'LineString' // switch to LineString
@@ -96,7 +96,7 @@ async function anitem (__mapper) {
     // .................. aniRay avatar - form.eoload.fourier.avatars.rayline
     let aniRay = i => ({
 
-      halo: 'turnform',
+      eohal: 'turnform',
       eofold: {type: 'Feature', geometry: {type: 'LineString', coordinates: []}, properties: {}},
       eotim: eotim,
       eoric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniRay' + i},
@@ -109,7 +109,7 @@ async function anitem (__mapper) {
     // .................. aniTrace avatar - form.eoload.fourier.avatars.trace
     let aniTrace = i => ({
 
-      halo: 'turnform',
+      eohal: 'turnform',
       eofold: {
         type: 'Feature', geometry: {type: 'MultiPoint', coordinates: []}, properties: {}},
 
@@ -124,7 +124,7 @@ async function anitem (__mapper) {
     // .................. traceline avatar - eoload.pacer.geojsor
     let traceline = i => ({
 
-      halo: 'pacer',
+      eohal: 'pacer',
       eofold: null,
       eoric: {gid: 'traces', cid: 'traces', fid: 'traces' + i},
       eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
@@ -139,7 +139,7 @@ async function anitem (__mapper) {
 
             let gj = {
 
-              halo: 'turnform',
+              eohal: 'turnform',
               eoload: {
                 eofold: {
                   type: 'Feature',
@@ -167,7 +167,7 @@ async function anitem (__mapper) {
     // .................. fourierForm h.fourier
     let fourierForm = i => ({
 
-      halo: 'fourier',
+      eohal: 'fourier',
       eofold: p => {
         let cs = csi(i, (1 + i) / 4)
         let transforms = mfourier.transformedCoefs(cs)
@@ -209,7 +209,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

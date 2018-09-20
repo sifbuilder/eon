@@ -1,10 +1,10 @@
 /****************************
- *      @haloFourier
+ *      @eohalFourier
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloFourier = global.haloFourier || {})))
+      : (factory((global.eohalFourier = global.eohalFourier || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -22,23 +22,23 @@
   // eoload.fourier.avatars.traceline  form trace
   // eoload.fourier.avatars.line  sinusoid ray
 
-  async function haloFourier (__mapper = {}) {
+  async function eohalFourier (__mapper = {}) {
     let [
       muonProps,
       muonEoric,
       Complex,
-      haloTurnform,
+      eohalTurnform,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('eoric'),
       __mapper('xs').l('complex'),
-      __mapper('xs').h('turnform'),
+      __mapper('xs').e('turnform'),
     ])
 
     // ............................. gramm
     let gramm = function (ani, newAnigrams = []) {
       let anigram = ani,
-        halo = anigram.halo, // halo
+        eohal = anigram.eohal, // eohal
         eofold = anigram.eofold, // eofold
         eoric = anigram.eoric, // eoric
         eotim = anigram.eotim, // eotim
@@ -108,7 +108,7 @@
 
           let newItem = muonProps.cloneObj(anigram)
 
-          newItem.halo = 'natform' // halo.turnform
+          newItem.eohal = 'natform' // eohal.turnform
           newItem.delled = tNotInPeriod
 
           newItem.eofold = {
@@ -224,7 +224,7 @@
         anitems = [...anitems, ...iAnitems]
       }
 
-      let anigramLists = anitems.map(ani => haloTurnform.gramm(ani))
+      let anigramLists = anitems.map(ani => eohalTurnform.gramm(ani))
       let anigrams = anigramLists.reduce((p, q) => Array.isArray(q) ? [...p, ...q] : [...p, q], [])
 
       return anigrams
@@ -232,15 +232,15 @@
     // .................... ween
     let ween = anitem => (anitem.inited !== 1) ? (anitem.inited = anitem.gelded = 1, [anitem]) : []
 
-    // .................... halo
-    let halo = {
+    // .................... eohal
+    let eohal = {
       ween: anitem => ween(anitem),
       gramm: anitem => gramm(anitem),
     }
 
-    let enty = halo
+    let enty = eohal
     return enty
   }
 
-  exports.haloFourier = haloFourier
+  exports.eohalFourier = eohalFourier
 }))

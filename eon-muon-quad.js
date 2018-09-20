@@ -18,10 +18,10 @@
   // function muonQuad(x0,y0,x1,y1) { // ( x0= 0, y0= 0, x1= 100, y1= 100) {
   async function muonQuad (__mapper) {
     let [
-      rrenderport,
+      renderPortview,
       d3,
     ] = await Promise.all([
-      __mapper('xs').r('renderport'),
+      __mapper('xs').r('portview'),
       __mapper('xs').b('d3'),
     ])
 
@@ -29,7 +29,7 @@
     let d3Random = d3
     let d3Polygon = d3
 
-    let width = rrenderport.width(), height = rrenderport.height()
+    let width = renderPortview.width(), height = renderPortview.height()
 
     let x0 = 0, y0 = 0, x1 = width, y1 = height
     let extent = [[x0 - 1, y0 - 1], [x1 + 1, y1 + 1]]

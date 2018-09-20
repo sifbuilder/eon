@@ -8,18 +8,18 @@ async function anitem (__mapper) {
     muonGraticule,
     ctlWen,
     d3Force3d,
-    rrenderport,
+    renderPortview,
     prtNatform,
-    haloTurnform,
-    haloScene,
+    eohalTurnform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').b('d3-force-3d'),
-    __mapper('xs').r('renderport'),
+    __mapper('xs').r('portview'),
     __mapper('xs').p('natform'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -164,7 +164,7 @@ async function anitem (__mapper) {
     // -------------------------------  gratform1
     let gratform1 = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
@@ -203,7 +203,7 @@ async function anitem (__mapper) {
     // -------------------------------  gratform2
     let gratform2 = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
@@ -240,7 +240,7 @@ async function anitem (__mapper) {
     // -------------------------------  circform1
     let circform1 = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
@@ -277,7 +277,7 @@ async function anitem (__mapper) {
     // -------------------------------  circform1
     let circform2 = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
@@ -314,7 +314,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

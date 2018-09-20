@@ -1,14 +1,14 @@
 /**********************
- *    @haloPacer
+ *    @eohalPacer
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloPacer = global.haloPacer || {})))
+      : (factory((global.eohalPacer = global.eohalPacer || {})))
 }(this, function (exports) {
   'use strict'
 
-  // # eon-halo-pacer
+  // # eon-eohal-pacer
   // **create new items at init, on auto or upon event**
 
   // ### functions
@@ -43,14 +43,14 @@
   // ## license
   // MIT
 
-  async function haloPacer (__mapper = {}) {
+  async function eohalPacer (__mapper = {}) {
     let [
       muonEoric,
       muonGeom,
       ctlRayder,
       ctlWen,
       ctlVersor,
-      haloTurnform,
+      eohalTurnform,
       muonStace,
       muonProps,
       muonProfier,
@@ -61,7 +61,7 @@
       __mapper('xs').c('rayder'),
       __mapper('xs').c('wen'),
       __mapper('xs').c('versor'),
-      __mapper('xs').h('turnform'),
+      __mapper('xs').e('turnform'),
       __mapper('xs').m('stace'),
       __mapper('xs').m('props'),
       __mapper('xs').m('profier'),
@@ -72,10 +72,10 @@
     let rsvg = __mapper('renderSvg')
 
     // ............................. pacer
-    function haloing (anitem) {
+    function eohaling (anitem) {
       let newItems = []
 
-      let halo = anitem.halo,
+      let eohal = anitem.eohal,
         eoload = anitem.eoload,
         eoric = anitem.eoric,
         eotim = anitem.eotim
@@ -221,18 +221,18 @@
               }
             }
 
-            let halo = __mapper(__mapper('xs').ceonize(newItem.halo, 'halo'))
+            let eohal = __mapper(__mapper('xs').ceonize(newItem.eohal, 'eohal'))
 
             if (geosort === 'anima') {
 
-              let newItemsInCount = halo.ween(newItem)
+              let newItemsInCount = eohal.ween(newItem)
               newItemsInCount = muonProps.a(newItemsInCount)
               newItems = [...newItems, ...newItemsInCount] // add items
               muonStore.apply({type: 'UPDANIMA', animas: newItems}) // store           
 console.log(' ----------- newItem', newItem)
             } else {
 
-              let newItemsInCount = muonProps.a(halo.gramm(newItem))
+              let newItemsInCount = muonProps.a(eohal.gramm(newItem))
               newItems = [...newItems, ...newItemsInCount] // add items
 
             }
@@ -245,7 +245,7 @@ console.log(' ----------- newItem', newItem)
     // ............................. ween
     function ween (anitem) {
       if (anitem.eoload.pacer.geosort === 'anima') {
-        return haloing(anitem)
+        return eohaling(anitem)
       } else {
         return Array.of(anitem)
       }
@@ -256,20 +256,20 @@ console.log(' ----------- newItem', newItem)
       if (anitem.eoload.pacer.geosort === 'anima') {
         return Array.of(anitem)
       } else {
-        return haloing(anitem)
+        return eohaling(anitem)
       }
     }
 
-    let halo = {
+    let eohal = {
       ween: anitem => ween(anitem),
       gramm: anitem => gramm(anitem),
     }
 
     // ....................... enty
-    let enty = halo
+    let enty = eohal
 
     return enty
   }
 
-  exports.haloPacer = haloPacer
+  exports.eohalPacer = eohalPacer
 }))

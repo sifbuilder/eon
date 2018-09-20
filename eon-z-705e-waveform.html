@@ -10,14 +10,14 @@ async function anitem (__mapper) {
     mfibonat,
     d3,
     prtNatform,
-    haloScene,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('fibonat'),
     __mapper('xs').b('d3'),
     __mapper('xs').p('natform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('scene'),
   ])
 
   let ani = function () {
@@ -118,7 +118,7 @@ async function anitem (__mapper) {
     // .................. waveForm anima
     let waveAni = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: p => mfibonat.interlinked(p.eoload),
 
@@ -152,7 +152,7 @@ async function anitem (__mapper) {
     // .................. sphereForm anima
     let sphereAni = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
 
@@ -174,7 +174,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

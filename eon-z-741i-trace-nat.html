@@ -9,16 +9,16 @@ async function anitem (__mapper) {
     muonStace,
     muonNatform,
     muonEoric,
-    haloTurnform,
-    haloNatform,
-    haloScene,
+    eohalTurnform,
+    eohalNatform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('stace'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('eoric'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('scene'),
   ])
 
   let muonStore = __mapper('muonStore')
@@ -64,7 +64,7 @@ async function anitem (__mapper) {
     // ............................. pointerAni
     let pointerAni = {
 
-      halo: 'pacer',
+      eohal: 'pacer',
 
       eofold: null,
 
@@ -119,7 +119,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

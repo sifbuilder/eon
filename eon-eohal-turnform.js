@@ -1,38 +1,38 @@
 /**********************
- *    @haloTurnform
+ *    @eohalTurnform
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloTurnform = global.haloTurnform || {})))
+      : (factory((global.eohalTurnform = global.eohalTurnform || {})))
 }(this, function (exports) {
   'use strict'
 
-  // md: # eon-halo-natform
+  // md: # eon-eohal-natform
   // md: **process h.turnform animas**
   // md: Feature Collect gj. for each feature
   // md: eoform, conform, ereform and proform anigrams
   // md: then pass the FeatureCollection to h.leaform
   // md: define `eonode` if undefined
 
-  async function haloTurnform (__mapper = {}) {
+  async function eohalTurnform (__mapper = {}) {
     let [
       muonGeoj,
       muonProfier,
       muonProj3ct,
       muonProps,
-      haloLeaform,
+      eohalLeaform,
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
       __mapper('xs').m('props'),
-      __mapper('xs').h('leaform'),
+      __mapper('xs').e('leaform'),
 
     ])
 
-    // ............................. haloing
-    function haloing (anitem) {
+    // ............................. eohaling
+    function eohaling (anitem) {
       console.assert(typeof anitem === 'object')
       console.assert(Array.isArray(anitem) === false)
 
@@ -83,8 +83,8 @@
 
     // ............................. gramm
     let gramm = anitem => {
-      let newItem = haloing(anitem)
-      let newAnitems = haloLeaform.gramm(newItem)
+      let newItem = eohaling(anitem)
+      let newAnitems = eohalLeaform.gramm(newItem)
       return newAnitems
     }
 
@@ -98,15 +98,15 @@
       }
     }
 
-    // ............................. halo
-    let haloTurnform = {}
-    haloTurnform.ween = anitem => ween(anitem)
-    haloTurnform.gramm = anitem => gramm(anitem)
+    // ............................. eohal
+    let eohalTurnform = {}
+    eohalTurnform.ween = anitem => ween(anitem)
+    eohalTurnform.gramm = anitem => gramm(anitem)
 
     // ............................. enty
-    let enty = haloTurnform
+    let enty = eohalTurnform
     return enty
   }
 
-  exports.haloTurnform = haloTurnform
+  exports.eohalTurnform = eohalTurnform
 }))

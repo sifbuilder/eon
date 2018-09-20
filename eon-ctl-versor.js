@@ -12,13 +12,13 @@
   async function ctlVersor (__mapper = {}) {
     let [
       d3,
-      rrenderport,
+      renderPortview,
       mversor,
       muonGeom,
       d3geo,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
-      __mapper('xs').r('renderport'),
+      __mapper('xs').r('portview'),
       __mapper('xs').m('versor'),
       __mapper('xs').m('geom'),
       __mapper('xs').b('d3-geo'),
@@ -26,7 +26,7 @@
 
     let d3drag = d3
     let d3selection = d3
-    let getPos = rrenderport.getPos // event position
+    let getPos = renderPortview.getPos // event position
 
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)

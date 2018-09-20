@@ -39,12 +39,12 @@
     // MIT
 
     let [
-      rrenderport, // cameraProjer
+      renderPortview, // cameraProjer
       d3,
       puniwen,
       muonProj3ct,
     ] = await Promise.all([
-      __mapper('xs').r('renderport'),
+      __mapper('xs').r('portview'),
       __mapper('xs').b('d3'),
       __mapper('xs').p('uniwen'),
       __mapper('xs').m('proj3ct'),
@@ -155,8 +155,8 @@
 
       let svg = _svg()
 
-      let cameraProjer = rrenderport.cameraProjer()
-      let prtdef = rrenderport.prtdef()
+      let cameraProjer = renderPortview.cameraProjer()
+      let prtdef = renderPortview.prtdef()
       let prt = puniwen(prtdef)
       cameraProjer = prt
 

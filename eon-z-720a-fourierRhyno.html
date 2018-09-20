@@ -12,10 +12,10 @@ async function anitem (__mapper) {
     muonGeoj,
     drhyno,
     muonStace,
-    haloTurnform,
-    haloPacer,
-    haloFourier,
-    haloScene,
+    eohalTurnform,
+    eohalPacer,
+    eohalFourier,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('fourier'),
     __mapper('xs').m('proj3ct'),
@@ -23,10 +23,10 @@ async function anitem (__mapper) {
     __mapper('xs').m('geoj'),
     __mapper('xs').d('rhyno'),
     __mapper('xs').m('stace'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('pacer'),
-    __mapper('xs').h('fourier'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('pacer'),
+    __mapper('xs').e('fourier'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -64,7 +64,7 @@ async function anitem (__mapper) {
     // ............................. aniLine
     let aniLine = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
       eofold: {
         type: 'Feature',
         geometry: {
@@ -82,7 +82,7 @@ async function anitem (__mapper) {
     // ............................. traceline
     let traceline = { // SUB-MARKS line trace
 
-      halo: 'pacer',
+      eohal: 'pacer',
 
       eofold: {
         type: 'Feature',
@@ -107,7 +107,7 @@ async function anitem (__mapper) {
 
       eoload: {
         pacer: { // geoaad for trace
-          halo: 'turnform',
+          eohal: 'turnform',
           geosort: 'anigram',
           geobase: 'geo',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, geoaad: 1,
@@ -160,7 +160,7 @@ async function anitem (__mapper) {
     // .................. fourierForm
     let fourierForm = {
 
-      halo: 'fourier',
+      eohal: 'fourier',
 
       eofold: p => transformsFC,
 
@@ -188,7 +188,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

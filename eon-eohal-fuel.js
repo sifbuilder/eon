@@ -1,36 +1,36 @@
 /***********
- *    @haloFuel
+ *    @eohalFuel
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloFuel = global.haloFuel || {})))
+      : (factory((global.eohalFuel = global.eohalFuel || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function haloFuel (__mapper = {}) {
+  async function eohalFuel (__mapper = {}) {
     let [
-      rrenderport,
+      renderPortview,
       manitem,
       mquad,
       muonGeom,
       muonGeoj,
-      haloNatform,
+      eohalNatform,
       d3Polygon,
     ] = await Promise.all([
-      __mapper('xs').r('renderport'),
+      __mapper('xs').r('portview'),
       __mapper('xs').m('anitem'),
       __mapper('xs').m('quad'),
       __mapper('xs').m('geom'),
       __mapper('xs').m('geoj'),
-      __mapper('xs').h('natform'),
+      __mapper('xs').e('natform'),
       __mapper('xs').b('d3-polygon'),
     ])
 
     let state = {}
     state.items = [] // fuel particles
 
-    let width = rrenderport.width(), height = rrenderport.height()
+    let width = renderPortview.width(), height = renderPortview.height()
 
     // ............................. gramm
     let gramm = function (anitem, newAnigrams = []) {
@@ -82,13 +82,13 @@
           'translate': remainCandies[i], // translate each candy to candy location
         }
         let newAnigram = {} // new anigram per fuel nat
-        newAnigram.halo = 'natform'
+        newAnigram.eohal = 'natform'
         newAnigram.eofold = eofold
         newAnigram.eoload = eoload
         newAnigram.eoric = _ric // identify each fuel nat
         newAnigram.eoload.proform = _proform // proform of each fuel nat
 
-        let avaAnigrams = haloNatform.gramm(newAnigram) // async
+        let avaAnigrams = eohalNatform.gramm(newAnigram) // async
         newAnigrams = [...newAnigrams, ...avaAnigrams]
       }
 
@@ -96,13 +96,13 @@
     }
 
     // .................... enty
-    let haloFuel = {}
-    haloFuel.ween = anima => (anima.inited !== 1) ? (anima.inited = 1, [anima]) : []
-    haloFuel.gramm = anima => gramm(anima)
+    let eohalFuel = {}
+    eohalFuel.ween = anima => (anima.inited !== 1) ? (anima.inited = 1, [anima]) : []
+    eohalFuel.gramm = anima => gramm(anima)
 
-    let enty = haloFuel
+    let enty = eohalFuel
     return enty
   }
 
-  exports.haloFuel = haloFuel
+  exports.eohalFuel = eohalFuel
 }))

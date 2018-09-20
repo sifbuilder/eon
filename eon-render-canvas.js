@@ -10,18 +10,18 @@
 
   async function renderCanvas (__mapper = {}) {
     let [
-      rrenderport, // cameraProjer
+      renderPortview, // cameraProjer
       d3,
     ] = await Promise.all([
-      __mapper('xs').r('renderport'),
+      __mapper('xs').r('portview'),
       __mapper('xs').b('d3'),
     ])
 
     let radians = Math.PI / 180
 
     let state = {
-      width: rrenderport.width(),
-      height: rrenderport.height(),
+      width: renderPortview.width(),
+      height: renderPortview.height(),
     }
 
     let canvas = d3.select('body')

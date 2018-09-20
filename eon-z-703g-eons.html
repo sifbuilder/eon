@@ -5,9 +5,9 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__mapper) {
   let [
-    haloScene,
+    eohalScene,
   ] = await Promise.all([
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('scene'),
   ])
 
   let ani = function () {
@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

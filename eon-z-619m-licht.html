@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    rrenderport,
+    renderPortview,
     muonGeoj,
     muonProj3ct,
     muonProfier,
@@ -14,10 +14,10 @@ async function anitem (__mapper) {
     muonEoric,
     muonSvg,
     dlicht5,
-    haloLeaform,
-    haloScene,
+    eohalLeaform,
+    eohalScene,
   ] = await Promise.all([
-    __mapper('xs').r('renderport'),
+    __mapper('xs').r('portview'),
     __mapper('xs').m('geoj'),
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
@@ -25,8 +25,8 @@ async function anitem (__mapper) {
     __mapper('xs').m('eoric'),
     __mapper('xs').m('svg'),
     __mapper('xs').d('licht5'),
-    __mapper('xs').h('leaform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('leaform'),
+    __mapper('xs').e('scene'),
   ])
 
   let muonStore = __mapper('xs').m('store')
@@ -40,7 +40,7 @@ async function anitem (__mapper) {
     let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
     let x0 = extent[0], y0 = extent[1], x1 = extent[2], y1 = extent[3]
 
-    let width = rrenderport.width(), height = rrenderport.height()
+    let width = renderPortview.width(), height = renderPortview.height()
 
     let r0 = width / (x1 - x0)
     let r1 = height / (y1 - y0)
@@ -100,11 +100,11 @@ async function anitem (__mapper) {
     // .................. lichtAni1
     let lichtAni1 = {
 
-      halo: 'leaform',
+      eohal: 'leaform',
 
       eofold: ani => {
         let anigram = ani, // anigram
-          halo = ani.halo, // halo
+          eohal = ani.eohal, // eohal
           eofold = ani.eofold, // eofold
           eoload = ani.eoload // eoload
 
@@ -165,11 +165,11 @@ async function anitem (__mapper) {
     // .................. lichtAni2
     let lichtAni2 = {
 
-      halo: 'leaform',
+      eohal: 'leaform',
 
       eofold: ani => {
         let anigram = ani, // anigram
-          halo = ani.halo, // halo
+          eohal = ani.eohal, // eohal
           eofold = ani.eofold, // eofold
           eoload = ani.eoload // eoload
 
@@ -230,11 +230,11 @@ async function anitem (__mapper) {
     // .................. lichtAni3
     let lichtAni3 = {
 
-      halo: 'leaform',
+      eohal: 'leaform',
 
       eofold: ani => {
         let anigram = ani, // anigram
-          halo = ani.halo, // halo
+          eohal = ani.eohal, // eohal
           eofold = ani.eofold, // eofold
           eoload = ani.eoload // eoload
 
@@ -295,11 +295,11 @@ async function anitem (__mapper) {
     // .................. lichtAni3
     let lichtAni4 = {
 
-      halo: 'leaform',
+      eohal: 'leaform',
 
       eofold: ani => {
         let anigram = ani, // anigram
-          halo = ani.halo, // halo
+          eohal = ani.eohal, // eohal
           eofold = ani.eofold, // eofold
           eoload = ani.eoload // eoload
 
@@ -360,7 +360,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

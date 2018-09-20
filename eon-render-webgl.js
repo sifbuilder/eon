@@ -10,12 +10,12 @@
 
   async function renderWebgl (__mapper = {}) {
     let [
-      rrenderport, // cameraProjer
+      renderPortview, // cameraProjer
       d3,
       three,
       threeTrackballcontrols,
     ] = await Promise.all([
-      __mapper('xs').r('renderport'),
+      __mapper('xs').r('portview'),
       __mapper('xs').b('d3'),
       __mapper('xs').b('three'),
       __mapper('xs').b('three-trackballcontrols'),
@@ -26,8 +26,8 @@
     let state = {}
     state.width = r.width(),
     state.height = r.height()
-    state.renderport = new THREE.WebGLRenderer({antialias: true})
-    state.domElem = state.renderport.domElement // canvas
+    state.portview = new THREE.WebGLRenderer({antialias: true})
+    state.domElem = state.portview.domElement // canvas
     state.domElem.innerHTML = '' // Wipe DOM
     state.domElem.style.display = 'block'
     state.context = state.domElem.getContext('webgl')
@@ -104,7 +104,7 @@
 
     function resizeCanvas () {
       if (state.width && state.height) {
-        state.renderport.setSize(state.width, state.height)
+        state.portview.setSize(state.width, state.height)
         state.camera.aspect = state.width / state.height
         state.camera.updateProjectionMatrix()
       }
@@ -306,7 +306,7 @@
 
       state.controls.update() // Frame cycle
 
-      state.renderport.render(state.scene, state.camera)
+      state.portview.render(state.scene, state.camera)
     }
 
     // ............................. enty

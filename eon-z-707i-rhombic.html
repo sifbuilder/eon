@@ -9,14 +9,14 @@ async function anitem (__mapper) {
     muonProps,
     ctlWen,
     muonNatform,
-    haloTurnform,
-    haloScene,
+    eohalTurnform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -33,7 +33,7 @@ async function anitem (__mapper) {
     // .................. facesAni anima
     let facesAni = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: anitem => {
         let eoload = anitem.eoload,
@@ -136,7 +136,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

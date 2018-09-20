@@ -1,14 +1,14 @@
 /***********
- *    @haloTextform
+ *    @eohalTextform
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloTextform = global.haloTextform || {})))
+      : (factory((global.eohalTextform = global.eohalTextform || {})))
 }(this, function (exports) {
   'use strict'
 
-  // md: # eon-halo-textform
+  // md: # eon-eohal-textform
   // md: process text anitems
   // md: ## functions
   // md: * [_geofold](#_geofold) - uploads eoload text form to eofold properties
@@ -22,13 +22,13 @@
   // md: # license
   // md: MIT
 
-  async function haloTextform (__mapper = {}) {
+  async function eohalTextform (__mapper = {}) {
     let [
       muonProps,
-      haloTurnform,
+      eohalTurnform,
     ] = await Promise.all([
       __mapper('xs').m('props'),
-      __mapper('xs').h('turnform'),
+      __mapper('xs').e('turnform'),
     ])
 
     // .................. _geofold
@@ -72,22 +72,22 @@
       newitem.eofold = _geofold(anigram)
       newitem.eonode = _geofold(anigram)
 
-      return haloTurnform.gramm(newitem)
+      return eohalTurnform.gramm(newitem)
     }
 
     // .................. ween
     let ween = anima => (anima.inited !== 1) ? (anima.inited = anima.gelded = 1, [anima]) : []
 
-    // .................. halo
-    let halo = {
+    // .................. eohal
+    let eohal = {
       ween: anima => ween(anima),
       gramm: anima => gramm(anima),
     }
 
     // .................. enty
-    let enty = halo
+    let enty = eohal
     return enty
   }
 
-  exports.haloTextform = haloTextform
+  exports.eohalTextform = eohalTextform
 }))

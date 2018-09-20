@@ -19,11 +19,11 @@
     let [
       d3,
       rsvg,
-      rrenderport,
+      renderPortview,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
       __mapper('xs').r('svg'),
-      __mapper('xs').r('renderport'),
+      __mapper('xs').r('portview'),
     ])
 
     let d3selection = d3
@@ -37,7 +37,7 @@
     let touch = {}
     let domNode = rsvg.svg()
 
-    let getPos = rrenderport.getPos // event position
+    let getPos = renderPortview.getPos // event position
     let xsign = 1 //  1 if x goes left to right
     let ysign = -1 // 1 if y goes up down
 
@@ -50,7 +50,7 @@
 
     state.grabbed = false
 
-    let cameraProjer = rrenderport.cameraProjer()
+    let cameraProjer = renderPortview.cameraProjer()
 
     // ............................. projector
     function projector (event) {

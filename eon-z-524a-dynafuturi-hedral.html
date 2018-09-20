@@ -14,8 +14,8 @@ async function anitem (__mapper) {
     topojson,
     dworldTopo110m,
     prtHedrals,
-    haloTurnform,
-    haloScene,
+    eohalTurnform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
@@ -25,8 +25,8 @@ async function anitem (__mapper) {
     __mapper('xs').b('topojson'),
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').p('hedrals'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -83,7 +83,7 @@ async function anitem (__mapper) {
     // ............................. geograt
     let geograt = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: anitem => muonGraticule.vhMultiLine(anitem.geoframe),
       eotim: eotim,
@@ -108,7 +108,7 @@ async function anitem (__mapper) {
     // ............................. geoearth
     let geoearth = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: p => {
         let geometry = Object.assign({},
@@ -133,7 +133,7 @@ async function anitem (__mapper) {
     // -------------------------------  geoearth
     let geoshpere = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: {
         type: 'Feature',
@@ -157,7 +157,7 @@ async function anitem (__mapper) {
     // -------------------------------  text
     let text = {
 
-      halo: 'textform',
+      eohal: 'textform',
       eofold: null,
 
       eotim: eotim,

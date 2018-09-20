@@ -9,32 +9,32 @@ async function anitem (__mapper) {
     muonGeoforces,
     muonNatform,
     d3Force3d,
-    rrenderport,
+    renderPortview,
     ctlRayder,
     muonEoric,
-    haloTurnform,
-    haloNatform,
-    haloScene,
+    eohalTurnform,
+    eohalNatform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('geoforces'),
     __mapper('xs').m('natform'),
     __mapper('xs').b('d3-force-3d'),
-    __mapper('xs').r('renderport'),
+    __mapper('xs').r('portview'),
     __mapper('xs').c('rayder'),
     __mapper('xs').m('eoric'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('scene'),
   ])
 
   let muonStore = __mapper('muonStore')
   // .................. animas
   let ani = function () {
-    let width = rrenderport.width(),
-      height = rrenderport.height()
+    let width = renderPortview.width(),
+      height = renderPortview.height()
 
-    let haloIsolation_ween = anima => { // halo WEEN
+    let eohalIsolation_ween = anima => { // eohal WEEN
       let animas = (anima.inited !== 1) ? (anima.inited = anima.gelded = 1, [anima]) : []
 
       let nbr = 12
@@ -53,7 +53,7 @@ async function anitem (__mapper) {
         if (preani) {
           ani = preani
         } else { // create anima
-          ani.halo = 'natform' // create halo
+          ani.eohal = 'natform' // create eohal
 
           ani.eofold = { // will create anigram
             type: 'Feature',
@@ -73,11 +73,11 @@ async function anitem (__mapper) {
       return animas
     }
 
-    let haloIsolation_gramm = anima => [] // halo GRAMM))
+    let eohalIsolation_gramm = anima => [] // eohal GRAMM))
 
     let isolation = {
-      ween: anima => haloIsolation_ween(anima),
-      gramm: anima => haloIsolation_gramm(anima),
+      ween: anima => eohalIsolation_ween(anima),
+      gramm: anima => eohalIsolation_gramm(anima),
     }
 
     // .................... pics
@@ -86,7 +86,7 @@ async function anitem (__mapper) {
     // .................... natAni
     let natAni = {
 
-      halo: isolation, // halo defines ween and gramm behavior
+      eohal: isolation, // eohal defines ween and gramm behavior
 
       eofold: p => muonNatform.natFeature(p.eoform),
 

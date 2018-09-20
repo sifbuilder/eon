@@ -9,32 +9,32 @@ async function anitem (__mapper) {
     muonGeoforces,
     muonNatform,
     d3Force3d,
-    rrenderport,
+    renderPortview,
     ctlRayder,
     muonEoric,
-    haloPacer,
-    haloTurnform,
-    haloNatform,
-    haloScene,
+    eohalPacer,
+    eohalTurnform,
+    eohalNatform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('geoforces'),
     __mapper('xs').m('natform'),
     __mapper('xs').b('d3-force-3d'),
-    __mapper('xs').r('renderport'),
+    __mapper('xs').r('portview'),
     __mapper('xs').c('rayder'),
     __mapper('xs').m('eoric'),
-    __mapper('xs').h('pacer'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('pacer'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('scene'),
   ])
 
   let muonStore = __mapper('muonStore')
   // .................. animas
   let ani = function () {
-    let width = rrenderport.width(),
-      height = rrenderport.height()
+    let width = renderPortview.width(),
+      height = renderPortview.height()
 
     // .................... pics
     let eotim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
@@ -42,7 +42,7 @@ async function anitem (__mapper) {
     // .................... natAni
     let natAni = {
 
-      halo: 'pacer',
+      eohal: 'pacer',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
@@ -50,7 +50,7 @@ async function anitem (__mapper) {
       eoload: {
         pacer: {
 
-          halo: 'pacer',
+          eohal: 'pacer',
 
           eofold: {
             type: 'Feature',
@@ -97,7 +97,7 @@ async function anitem (__mapper) {
               initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
               geoaad: 0,
 
-              halo: (ani, props) => 'turnform',
+              eohal: (ani, props) => 'turnform',
               eoric: function (ani, props) {
                 let counter = props.counter || 0
 

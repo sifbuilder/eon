@@ -7,14 +7,14 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     ctlWen,
-    haloTurnform,
-    haloNatform,
-    haloScene,
+    eohalTurnform,
+    eohalNatform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -37,7 +37,7 @@ async function anitem (__mapper) {
 
     // ............................. axisBottom
     let axis1 = {
-      halo: 'axis',
+      eohal: 'axis',
       eofold: p => ({
         type: 'Feature',
         geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [1, 0, 0] ] },
@@ -67,7 +67,7 @@ async function anitem (__mapper) {
     }
     // ............................. axisLeft
     let axis2 = {
-      halo: 'turnform',
+      eohal: 'turnform',
       eofold: p => ({
         type: 'Feature',
         geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 100, 0] ] },
@@ -95,7 +95,7 @@ async function anitem (__mapper) {
     }
     // ............................. axisLeft
     let axis3 = {
-      halo: 'axis',
+      eohal: 'axis',
       eofold: p => ({
         type: 'Feature',
         geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 0, 1] ] },
@@ -125,7 +125,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

@@ -1,27 +1,27 @@
 /****************************
- *    @haloAxis
+ *    @eohalAxis
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloAxis = global.haloAxis || {})))
+      : (factory((global.eohalAxis = global.eohalAxis || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function haloAxis (__mapper = {}) {
+  async function eohalAxis (__mapper = {}) {
     let [
       muonProps,
       d3axis,
       d3scale,
       d3format,
-      haloTurnform,
+      eohalTurnform,
       manitem,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').b('d3-axis'),
       __mapper('xs').b('d3-scale'),
       __mapper('xs').b('d3-format'),
-      __mapper('xs').h('turnform'),
+      __mapper('xs').e('turnform'),
       __mapper('xs').m('anitem'),
     ])
 
@@ -65,18 +65,18 @@
         }),
       }
       delete newAnigram.eoload.axis
-      return haloTurnform.gramm(newAnigram)
+      return eohalTurnform.gramm(newAnigram)
     }
 
     // ............................. enty
-    let haloAxis = {}
-    haloAxis.ween = anima => (anima.inited !== 1) ? (anima.inited = 1, [anima]) : []
-    haloAxis.gramm = anima => gramm(anima)
+    let eohalAxis = {}
+    eohalAxis.ween = anima => (anima.inited !== 1) ? (anima.inited = 1, [anima]) : []
+    eohalAxis.gramm = anima => gramm(anima)
 
-    let enty = haloAxis
+    let enty = eohalAxis
 
     return enty
   }
 
-  exports.haloAxis = haloAxis
+  exports.eohalAxis = eohalAxis
 }))

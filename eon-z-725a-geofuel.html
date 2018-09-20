@@ -7,14 +7,14 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     muonNatform,
-    haloTurnform,
-    haloNatform,
-    haloScene,
+    eohalTurnform,
+    eohalNatform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('natform'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -83,7 +83,7 @@ async function anitem (__mapper) {
     // .................. animas
     let nat = {
 
-      halo: 'natform',
+      eohal: 'natform',
       eofold: null,
       eoric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
       eotim,
@@ -99,7 +99,7 @@ async function anitem (__mapper) {
 
     let natFlat = {
 
-      halo: 'natform',
+      eohal: 'natform',
       eofold: null,
       eoric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natFlat'},
       eotim,
@@ -115,7 +115,7 @@ async function anitem (__mapper) {
 
     let fuelnat = {
 
-      halo: 'fuel',
+      eohal: 'fuel',
       eofold: p => muonNatform.natFeature(p.eoform),
       eotim,
       eoric: {'gid': 'fuel', 'cid': 'fuel'},
@@ -136,7 +136,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

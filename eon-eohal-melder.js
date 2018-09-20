@@ -1,21 +1,21 @@
 /**********************
- *    @haloMelder
+ *    @eohalMelder
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloMelder = global.haloMelder || {})))
+      : (factory((global.eohalMelder = global.eohalMelder || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function haloMelder (__mapper = {}) {
+  async function eohalMelder (__mapper = {}) {
     let [
       muonEoric,
       muonGeom,
       ctlRayder,
       ctlWen,
       ctlVersor,
-      haloTurnform,
+      eohalTurnform,
       muonStace,
       muonProps,
       muonProfier,
@@ -26,7 +26,7 @@
       __mapper('xs').c('rayder'),
       __mapper('xs').c('wen'),
       __mapper('xs').c('versor'),
-      __mapper('xs').h('turnform'),
+      __mapper('xs').e('turnform'),
       __mapper('xs').m('stace'),
       __mapper('xs').m('props'),
       __mapper('xs').m('profier'),
@@ -37,10 +37,10 @@
     let rsvg = __mapper('renderSvg')
 
     // ............................. melder
-    function halomelder (anitem) {
+    function eohalmelder (anitem) {
       let newItems = []
 
-      let halo = anitem.halo,
+      let eohal = anitem.eohal,
         eoload = anitem.eoload,
         eoric = anitem.eoric,
         eotim = anitem.eotim
@@ -189,10 +189,10 @@
               // }
 
               // if NO precursor, build from eoload and melder
-              // eoload may carry all info of newItem but new halo and pace count
+              // eoload may carry all info of newItem but new eohal and pace count
               // properties in melder override those in eoload
             } else {
-              newItem.halo = anitem.halo
+              newItem.eohal = anitem.eohal
               newItem.eoload = muonProps.clone(anitem.eoload)
 
               // if functional melder.eofold, override eofold
@@ -232,7 +232,7 @@
 
             newItem.eofold.geometry.coordinates = coords // upd coords
 
-            let newItemsInCount = haloTurnform.gramm(newItem) // h.turnform newItem
+            let newItemsInCount = eohalTurnform.gramm(newItem) // h.turnform newItem
             newItems = [...newItems, ...newItemsInCount] // add new items
           }
         }
@@ -246,7 +246,7 @@
       if (1 && 1) console.log(' h.melder.ween', anitem)
 
       if (anitem.eoload.melder.geosort === 'anima') {
-        return halomelder(anitem)
+        return eohalmelder(anitem)
       } else {
         return Array.of(anitem)
       }
@@ -257,20 +257,20 @@
       if (anitem.eoload.melder.geosort === 'anima') {
         return Array.of(anitem)
       } else {
-        return halomelder(anitem)
+        return eohalmelder(anitem)
       }
     }
 
-    let halo = {
+    let eohal = {
       ween: anitem => ween(anitem),
       gramm: anitem => gramm(anitem),
     }
 
     // ....................... enty
-    let enty = halo
+    let enty = eohal
 
     return enty
   }
 
-  exports.haloMelder = haloMelder
+  exports.eohalMelder = eohalMelder
 }))

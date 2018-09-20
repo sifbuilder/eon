@@ -14,17 +14,17 @@
       d3,
       d3geo,
       muonGeom,
-      rrenderport,
+      renderPortview,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
       __mapper('xs').b('d3-geo'),
       __mapper('xs').m('geom'),
-      __mapper('xs').r('renderport'),
+      __mapper('xs').r('portview'),
     ])
 
     let d3drag = d3
     let d3selection = d3
-    let getPos = rrenderport.getPos // event position
+    let getPos = renderPortview.getPos // event position
 
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)

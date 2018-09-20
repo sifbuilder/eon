@@ -9,16 +9,16 @@ async function anitem (__mapper) {
     muonNatform,
     muonProps,
     ctlWen,
-    haloTextform,
-    haloTurnform,
-    haloScene,
+    eohalTextform,
+    eohalTurnform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
-    __mapper('xs').h('textform'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('scene'),
+    __mapper('xs').e('textform'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -77,7 +77,7 @@ async function anitem (__mapper) {
     // .................. text
     let textAni = {
 
-      halo: 'textform',
+      eohal: 'textform',
       eofold: null,
 
       eotim: eotim,
@@ -109,7 +109,7 @@ async function anitem (__mapper) {
     // .................. natAni
     let natAni = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: p => muonNatform.natFeature(p.eoform),
 
@@ -137,7 +137,7 @@ async function anitem (__mapper) {
     // .................. circAni
     let circAni = {
 
-      halo: 'turnform',
+      eohal: 'turnform',
 
       eofold: p => muonNatform.natFeature(p.eoform),
 
@@ -170,7 +170,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},

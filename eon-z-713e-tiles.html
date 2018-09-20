@@ -10,19 +10,19 @@ async function anitem (__mapper) {
     muonProps,
     ctlWen,
     muonGraticule,
-    haloNatform,
-    haloTurnform,
-    haloScene,
-    haloTiles,
+    eohalNatform,
+    eohalTurnform,
+    eohalScene,
+    eohalTiles,
   ] = await Promise.all([
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('graticule'),
-    __mapper('xs').h('natform'),
-    __mapper('xs').h('turnform'),
-    __mapper('xs').h('scene'),
-    __mapper('xs').h('tiles'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('scene'),
+    __mapper('xs').e('tiles'),
   ])
 
   // .................. animas
@@ -71,7 +71,7 @@ async function anitem (__mapper) {
     // .................. natAni
     let natAni = {
 
-      halo: 'tileform',
+      eohal: 'tileform',
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
@@ -94,7 +94,7 @@ async function anitem (__mapper) {
     // .................. sceneAni
     let sceneAni = {
 
-      halo: 'scene',
+      eohal: 'scene',
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
