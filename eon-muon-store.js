@@ -72,7 +72,7 @@
       muonEotim,
       muonEoric,
       manitem,
-      mprops,
+      muonProps,
     ] = await Promise.all([
       __mapper('xs').m('eotim'),
       __mapper('xs').m('eoric'),
@@ -94,11 +94,11 @@
     // .................. apply
     function _apply (action = {}) {
       if (action.type === 'UPDANIMA') { // .................. UPDANIMA
-        let updAnimas = mprops.fa(action.animas) // get new animas as array
+        let updAnimas = muonProps.fa(action.animas) // get new animas as array
         let elapsed = action.elapsed || 0
 
         for (let i = 0; i < updAnimas.length; i++) {
-          let updAnima = mprops.o(updAnimas[i]) // each new anima
+          let updAnima = muonProps.o(updAnimas[i]) // each new anima
 
           let uid = (updAnima.uid !== undefined) // uid
             ? updAnima.uid
@@ -125,7 +125,7 @@
       }
 
       if (action.type === 'UPDANIGRAM') { // .................. UPDANIGRAM
-        let newAnigrams = mprops.fa(action.anigrams)
+        let newAnigrams = muonProps.fa(action.anigrams)
 
         for (let i = 0; i < newAnigrams.length; i++) {
           if (newAnigrams[i] !== undefined) {
@@ -239,7 +239,7 @@
       let halo = (typeof (anitem.halo) === 'object')
         ? anitem.halo
         : __mapper(__mapper(__mapper('xs').ceonize(anigram.halo, 'halo'))) // expected in __mapper
-      let newItems = mprops.a(halo.gramm(anigram))
+      let newItems = muonProps.a(halo.gramm(anigram))
       console.log('m.store', newItems)
       _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
       newItems.forEach(newItem => {

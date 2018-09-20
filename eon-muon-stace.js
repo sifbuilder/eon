@@ -52,7 +52,7 @@
 
   async function muonStace (__mapper = {}) {
     let [
-      mprops,
+      muonProps,
       mlacer,
       muonGeoj,
     ] = await Promise.all([
@@ -107,12 +107,12 @@
 
       // if stace is simple array, spot is stace
 
-      if (mprops.isPureArray(stace)) { // [x,y,z] numbers
+      if (muonProps.isPureArray(stace)) { // [x,y,z] numbers
         locations = Array.of(stace)
 
       // if stace is a multiarray, get stace interadding per dax
-      } else if (mprops.isPureMultiArray(stace)) { // dax sum [[a1,a2,a3],[b1,b2]]
-        locations = mprops.interadd(stace)
+      } else if (muonProps.isPureMultiArray(stace)) { // dax sum [[a1,a2,a3],[b1,b2]]
+        locations = muonProps.interadd(stace)
 
       // else, eg. if stace undefined, get stace from parent
       } else {
@@ -253,7 +253,7 @@
         if (parentCoordsDim.length > 0) {
           locations = []
           if (typeof staceDim.pos === 'number') { // number
-            let pos = mprops.posInStream(staceDim.pos, parentCoordsDim)
+            let pos = muonProps.posInStream(staceDim.pos, parentCoordsDim)
 
             let idx = Math.floor(pos)
 

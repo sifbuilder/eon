@@ -28,7 +28,7 @@
       muonEoric,
       muonEochrom,
       muonGeoj,
-      mprops,
+      muonProps,
     ] = await Promise.all([
       __mapper('xs').m('eoric'),
       __mapper('xs').m('eochrom'),
@@ -37,7 +37,7 @@
     ])
 
     const getgj = ani => {
-      let gj = mprops.v(ani.eofold, ani)
+      let gj = muonProps.v(ani.eofold, ani)
       gj.properties = gj.properties || {} // eofold properties
       gj.properties.geoformed = muonGeoj.deprop(gj)
       // gj.properties.eonode = gj.properties.eonode || {}
@@ -85,7 +85,7 @@
     let ween = anitem => {
       if (anitem.inited !== undefined) {
         anitem.inited = 1
-        return mprops.a(anitem)
+        return muonProps.a(anitem)
       } else {
         return []
       }

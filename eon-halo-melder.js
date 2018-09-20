@@ -17,7 +17,7 @@
       ctlVersor,
       haloTurnform,
       muonStace,
-      mprops,
+      muonProps,
       muonProfier,
       muonProj3ct,
     ] = await Promise.all([
@@ -169,9 +169,9 @@
             let newItem
 
             if (anitem.eoload.melder.geosort === 'anima') {
-              newItem = mprops.clone(anima) // anima
+              newItem = muonProps.clone(anima) // anima
             } else {
-              newItem = mprops.clone(anigram) // anigram
+              newItem = muonProps.clone(anigram) // anigram
             }
 
             // if opt.add  type is LineString and geometry adds coords
@@ -193,7 +193,7 @@
               // properties in melder override those in eoload
             } else {
               newItem.halo = anitem.halo
-              newItem.eoload = mprops.clone(anitem.eoload)
+              newItem.eoload = muonProps.clone(anitem.eoload)
 
               // if functional melder.eofold, override eofold
 

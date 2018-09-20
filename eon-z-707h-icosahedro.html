@@ -5,7 +5,7 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__mapper) {
   let [
-    mprops,
+    muonProps,
     ctlWen,
     muonGeom,
     d3,
@@ -137,7 +137,7 @@ async function anitem (__mapper) {
 
           return faces
             .map(face => face.map(v => vertices[v]))
-            // .map(face => face.map(mprops.cartesian))
+            // .map(face => face.map(muonProps.cartesian))
             .map(face => [ ...face, face[0] ])
         },
       },

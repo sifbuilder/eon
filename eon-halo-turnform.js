@@ -20,7 +20,7 @@
       muonGeoj,
       muonProfier,
       muonProj3ct,
-      mprops,
+      muonProps,
       haloLeaform,
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
@@ -36,11 +36,11 @@
       console.assert(typeof anitem === 'object')
       console.assert(Array.isArray(anitem) === false)
 
-      let newAni = mprops.clone(anitem)
+      let newAni = muonProps.clone(anitem)
 
       // aninode
 
-      let eonode = mprops.v(anitem.eonode, anitem)
+      let eonode = muonProps.v(anitem.eonode, anitem)
 
       if (eonode && anitem.eodrift) {
         for (let [drift, prt] of Object.entries(anitem.eodrift)) {
@@ -54,7 +54,7 @@
 
       // anifold
 
-      let eofold = mprops.v(anitem.eofold, anitem)
+      let eofold = muonProps.v(anitem.eofold, anitem)
       let gjcollection = muonGeoj.featurecollect(eofold)
 
       if (eofold && anitem.eodrift) {
@@ -92,7 +92,7 @@
     let ween = anitem => {
       if (anitem.inited === undefined) {
         anitem.inited = 1
-        return mprops.v(anitem)
+        return muonProps.v(anitem)
       } else {
         return []
       }

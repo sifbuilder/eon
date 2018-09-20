@@ -11,7 +11,7 @@
   async function linkform (__mapper = {}) {
     let [
       muonEoric,
-      mprops,
+      muonProps,
     ] = await Promise.all([
       __mapper('xs').m('eoric'),
       __mapper('xs').m('props'),

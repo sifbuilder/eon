@@ -10,7 +10,7 @@
 
   async function haloAxis (__mapper = {}) {
     let [
-      mprops,
+      muonProps,
       d3axis,
       d3scale,
       d3format,
@@ -44,7 +44,7 @@
 
       let _scale = (scaleType) ? d3scale[scaleType]() : d3scale['scaleTime']()
 
-      let newAnigram = mprops.clone(anigram) // clone
+      let newAnigram = muonProps.clone(anigram) // clone
       newAnigram.eofold.properties = {
         sort: 'axis',
         eoric: eoric,

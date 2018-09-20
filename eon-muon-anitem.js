@@ -11,7 +11,7 @@
   async function muonAnitem (__mapper = {}) {
     let [
       msnap,
-      mprops,
+      muonProps,
     ] = await Promise.all([
       __mapper('xs').m('snap'),
       __mapper('xs').m('props'),
@@ -40,7 +40,7 @@
 
     // ............................. functorize
     let functorize = function (anitem, t) {
-      let newAnitem = mprops.clone(anitem)
+      let newAnitem = muonProps.clone(anitem)
 
       console.assert(anitem !== undefined)
 
@@ -67,7 +67,7 @@
 
     // ............................. functorgeofold
     let functorgeofold = function (anitem, t) {
-      let newAnitem = mprops.clone(anitem)
+      let newAnitem = muonProps.clone(anitem)
 
       console.assert(anitem !== undefined)
       console.assert(anitem.eofold !== undefined, anitem.uid + ' eofold undefined')
@@ -81,7 +81,7 @@
 
     // ............................. functorpayload
     let functorpayload = function (anitem, t) {
-      let newAnitem = mprops.clone(anitem)
+      let newAnitem = muonProps.clone(anitem)
 
       console.assert(anitem !== undefined)
       console.assert(anitem.eoload !== undefined, anitem.uid + ' eoload undefined')

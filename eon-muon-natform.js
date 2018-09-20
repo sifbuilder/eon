@@ -180,7 +180,7 @@
   async function muonNatform (__mapper = {}) {
     let [
       glmatrix,
-      mprops,
+      muonProps,
       muonGraticule,
       muonProfier,
       muonProj3ct,
@@ -349,7 +349,7 @@
     let natFeature = function (form, props = {}) {
       let feature
 
-      if (mprops.isSame(form, cache.form)) {
+      if (muonProps.isSame(form, cache.form)) {
         feature = cache.feature
         return feature
       } else {
@@ -456,7 +456,7 @@
       const {m1, m2, n1, n2, n3, a, b, v0, v1, seg5} = form
       const bform = {m1, m2, n1, n2, n3, a, b, v0, v1, seg5}
 
-      if (mprops.isSame(bform, cache.bform)) {
+      if (muonProps.isSame(bform, cache.bform)) {
         pts = cache.points
       } else {
         const angUnit = tau / seg5 // dots per period

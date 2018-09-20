@@ -18,7 +18,7 @@
 
   async function muonFibonat (__mapper = {}) {
     let [
-      mprops,
+      muonProps,
       muonGeom,
       d3scale,
       d3array,
@@ -156,10 +156,10 @@
       for (let i = 0; i < dots.length - 2; i++) { // -2
         lines.push(
 
-          mprops.interlink(
+          muonProps.interlink(
             [
-              mprops.arywinclosed(dots[i][0], dots[i + 1][0], xprecision),
-              mprops.arywinclosed(dots[i][1], dots[i + 1][1], yprecision),
+              muonProps.arywinclosed(dots[i][0], dots[i + 1][0], xprecision),
+              muonProps.arywinclosed(dots[i][1], dots[i + 1][1], yprecision),
             ]
           )
         )

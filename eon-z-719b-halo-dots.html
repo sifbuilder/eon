@@ -5,7 +5,7 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__mapper) {
   let [
-    mprops,
+    muonProps,
     muonGeoforces,
     muonNatform,
     d3Force3d,
@@ -40,7 +40,7 @@ async function anitem (__mapper) {
       let nbr = 12
 
       for (let i = 0; i < nbr; i++) {
-        let ani = mprops.cloneObj(natAni) // clone of model anima
+        let ani = muonProps.cloneObj(natAni) // clone of model anima
         ani.eoric.gid = 'nat'
         ani.eoric.cid = 'nat'
         ani.eoric.fid = 'item' + i // identify

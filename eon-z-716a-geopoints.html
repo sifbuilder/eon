@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    mprops,
+    muonProps,
     ctlWen,
     msnap,
     mlacer,
@@ -119,7 +119,7 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           translate: [[[ () => {
             let geo = {'type': 'LineString', 'coordinates': [ [300 - 300, 100, 0], [325 - 300, 100, 0], [300 - 300, 100 - 200, 0] ]}
-            return mprops.ta(mlacer.unslide(geo.coordinates)) // dimensional triple array
+            return muonProps.ta(mlacer.unslide(geo.coordinates)) // dimensional triple array
           } ]]],
         },
       },

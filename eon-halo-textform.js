@@ -24,7 +24,7 @@
 
   async function haloTextform (__mapper = {}) {
     let [
-      mprops,
+      muonProps,
       haloTurnform,
     ] = await Promise.all([
       __mapper('xs').m('props'),
@@ -67,7 +67,7 @@
 
     // .................. gramm
     function gramm (anigram, newAnigrams = []) {
-      let newitem = mprops.clone(anigram)
+      let newitem = muonProps.clone(anigram)
 
       newitem.eofold = _geofold(anigram)
       newitem.eonode = _geofold(anigram)

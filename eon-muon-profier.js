@@ -10,7 +10,7 @@
 
   async function muonProfier (__mapper = {}) {
     let [
-      mprops,
+      muonProps,
       mwen,
       muonStace,
       muonProj3ct,
@@ -56,7 +56,7 @@
             console.assert(typeof prt === 'function', `prt ${prt} in ${projdef} is not a function`)
             geoproj = prt(projdef)
           }
-        } else if (mprops.isFunction(projdef.projection)) { // if is projection
+        } else if (muonProps.isFunction(projdef.projection)) { // if is projection
           geoproj = projdef.projection // props passed to projection _
         }
       }
@@ -82,7 +82,7 @@
       projection = getPrt(projdef)
 
       if (projdef.translate) { // TRANSLATE proj method
-        if (mprops.isPureArray(projdef.translate)) {
+        if (muonProps.isPureArray(projdef.translate)) {
           translation = projdef.translate
         } else if (Array.isArray(projdef.translate)) {
           let _trans = []
@@ -90,7 +90,7 @@
             _trans = muonGeom.add(_trans, projdef.translate[k])
           }
           translation = _trans
-        } else if (typeof projdef.translate === 'object' && mprops.isPosition(projdef.translate)) {
+        } else if (typeof projdef.translate === 'object' && muonProps.isPosition(projdef.translate)) {
           translation = Object.values(projdef.translate)
         } else if (typeof projdef.translate === 'object') {
           translation = muonStace.getTranspot(projdef.translate, anigram) // get transpot - anigram
@@ -108,7 +108,7 @@
         let rot = [0, 0] // projection.rotate()
 
         let projrot = projdef.rotate || [0, 0, 0] // default to 3d
-        if (mprops.isPureArray(projrot)) {
+        if (muonProps.isPureArray(projrot)) {
           projrot = projrot
         } else { // if multi rotates
           let _rot = []
@@ -147,7 +147,7 @@
           projection.rotate(rotation)
         } else if (key === 'translate') { // translate translation
           projection.translate(translation)
-        } else if (mprops.isFunction(projection[key]) && value !== null) {
+        } else if (muonProps.isFunction(projection[key]) && value !== null) {
           projection[key](value)
         }
       }

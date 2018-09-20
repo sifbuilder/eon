@@ -11,7 +11,7 @@
 
   async function muonAnimation (__mapper) {
     let [
-      mprops,
+      muonProps,
       muonStore,
       msim,
       muonEotim,
@@ -125,7 +125,7 @@
       state.animas = muonStore.animasLive()
 
       // ............................. TIME
-      state.animas = mprops.a(muonStore.animasLive())
+      state.animas = muonProps.a(muonStore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
         anima.eotim = muonEotim.timing(anima.eotim, elapsed) // set time

@@ -15,7 +15,7 @@
       mwen,
       ctlWen,
       d3geo,
-      mprops,
+      muonProps,
     ] = await Promise.all([
       __mapper('xs').m('geom'),
       __mapper('xs').m('wen'),
@@ -74,7 +74,7 @@
 
       let c = [x, y, z]
 
-      if (mprops.isPureArray(translate)) {
+      if (muonProps.isPureArray(translate)) {
         c = c.map((d, i) => d - (translate[i] || 0)) // inverse translate
       } else { // assume multiple translates
         for (let k = 0; k < translate.length; k++) {
@@ -102,7 +102,7 @@
 
       let c = [x, y, z]
       let rot = []
-      if (mprops.isPureArray(rotate)) {
+      if (muonProps.isPureArray(rotate)) {
         rot = rotate
       } else { // assume multiple translates
         for (let k = 0; k < rotate.length; k++) {
@@ -114,7 +114,7 @@
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
       c = mwen.projection(c, lens[2], scale) // project
 
-      if (mprops.isPureArray(translate)) {
+      if (muonProps.isPureArray(translate)) {
         c = c.map((d, i) => d + (translate[i] || 0)) // translate
       } else { // assume multiple translates
         let trans = []

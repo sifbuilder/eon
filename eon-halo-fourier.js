@@ -24,7 +24,7 @@
 
   async function haloFourier (__mapper = {}) {
     let [
-      mprops,
+      muonProps,
       muonEoric,
       Complex,
       haloTurnform,
@@ -106,7 +106,7 @@
 
           //  each newItem is cloned from the h.fourier anigram
 
-          let newItem = mprops.cloneObj(anigram)
+          let newItem = muonProps.cloneObj(anigram)
 
           newItem.halo = 'natform' // halo.turnform
           newItem.delled = tNotInPeriod
@@ -150,7 +150,7 @@
             // to all cycloids, add __RAY__ avatar
 
             if (i > 0) { // add ray avatar
-              let rayline = mprops.cloneObj(eoload.fourier.avatars.rayline) // rayline line
+              let rayline = muonProps.cloneObj(eoload.fourier.avatars.rayline) // rayline line
               rayline.eofold.geometry.coordinates = [
                 [acci.re / N, acci.im / N], // from this cycloid
                 [xn[i - 1], yn[i - 1]], // to prevous cycloid
@@ -184,7 +184,7 @@
             // init PACER clonned from fourier avatar
             // traceline
 
-            let traceline = mprops.cloneObj(eoload.fourier.avatars.traceline)
+            let traceline = muonProps.cloneObj(eoload.fourier.avatars.traceline)
             console.assert(traceline !== undefined, 'traceline undefined')
             if (traceline) { // if pacer avatar
               // md: no add segments ourside time period (pacer.autoN = 0)

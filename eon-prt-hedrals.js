@@ -10,7 +10,7 @@
 
   async function prtHedrals (__mapper = {}) {
     let [
-      mprops,
+      muonProps,
       mpolyhedral,
       d3,
     ] = await Promise.all([
@@ -28,7 +28,7 @@
 
       if (!p.prtRaw) p.prtRaw = d3.geoGnomonicRaw // prtRaw
 
-      p.tree = mprops.objxx('tree', 'trees', 'treeidx', p) // tree
+      p.tree = muonProps.objxx('tree', 'trees', 'treeidx', p) // tree
 
       if (!p.tree) p.tree = [-1]									// root
 
@@ -42,7 +42,7 @@
           }) // eg. [-45, 35], [-135, 35], [135, 35], [45, 354], [-45, 35]
         })
       } else { // assume faces as degreed spherical polygons
-        faces = mprops.v(faces)
+        faces = muonProps.v(faces)
       }
 
       p.faces = faces

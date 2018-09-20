@@ -66,7 +66,7 @@
   async function muonGeoj (__mapper = {}) {
     let [
       d3polygon,
-      mprops,
+      muonProps,
       lcomplex,
     ] = await Promise.all([
       __mapper('xs').b('d3-polygon'),
@@ -211,15 +211,15 @@
       return function (gj) {
         let c = gj.coordinates
         for (let i = 0; i < c.length; i++) {
-          let braid = mprops.unslide(c[i])
+          let braid = muonProps.unslide(c[i])
 
           for (let j = 0; j < braid.length; j++) {
             let pa6 = (form[dims[j]] || {}).pa6
             let pb7 = (form[dims[j]] || {}).pb7
 
-            braids[j] = mprops.streamRange(braid[j], pa6, pb7)
+            braids[j] = muonProps.streamRange(braid[j], pa6, pb7)
           }
-          let coordinates = mprops.slide(braids) // join dim threads
+          let coordinates = muonProps.slide(braids) // join dim threads
           gj.coordinates = Array.of(coordinates)
         }
 

@@ -10,7 +10,7 @@
 
   async function muonSim (__mapper = {}) {
     let [
-      mprops,
+      muonProps,
       muonStore,
       mgeonode,
       d3,
@@ -75,7 +75,7 @@
           // the simnode location is in the eonode geometry
           let nodeGeometry = eonode.geometry
 
-          let simNode = mprops.clone(aniItem)
+          let simNode = muonProps.clone(aniItem)
           simNode.x = nodeGeometry.coordinates[0] // eonode location to simnode
           simNode.y = nodeGeometry.coordinates[1]
           simNode.z = nodeGeometry.coordinates[2]
@@ -178,7 +178,7 @@
         let aniItem = aniItems[i] // each anima or anigram
 
         if (aniItem.geoforces !== undefined) { // forces in aniItem
-          let forces = mprops.fa(aniItem.geoforces)
+          let forces = muonProps.fa(aniItem.geoforces)
 
           for (let j = 0; j < forces.length; j++) { // for each force in aniItem
             let aniForce = forces[j] // aniForce in anima.geoforces eg. force_gravity

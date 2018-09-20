@@ -11,7 +11,7 @@
 
   async function muonAnimas (__mapper) {
     let [
-      mprops,
+      muonProps,
       muonStore,
       msim,
       muonEotim,

@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    mprops,
+    muonProps,
     mfourier,
     muonProj3ct,
     muonProfier,
@@ -64,7 +64,7 @@ async function anitem (__mapper) {
     let geoData = muonProj3ct(gjdata, muonProfier.uniweon(proform))
     geoData = muonGeoj.getCoordsInRange(geoData, nb) // MultiLineString
 
-    let transforms = mfourier.transformedCoefs(mprops.clone(geoData))
+    let transforms = mfourier.transformedCoefs(muonProps.clone(geoData))
     transforms = muonGeoj.ntime(transforms, [0, 1])
 
     let transformsFC = { type: 'FeatureCollection', features: transforms }

@@ -52,7 +52,7 @@
       ctlVersor,
       haloTurnform,
       muonStace,
-      mprops,
+      muonProps,
       muonProfier,
       muonProj3ct,
     ] = await Promise.all([
@@ -199,11 +199,11 @@
 
             if (anitem.eoload.pacer.geosort === 'anima') {
 
-              newItem = mprops.clone(anima) // anima
+              newItem = muonProps.clone(anima) // anima
 
             } else {
 
-              newItem = mprops.clone(anigram) // anigram
+              newItem = muonProps.clone(anigram) // anigram
 
             }
             delete newItem.eoload
@@ -216,7 +216,7 @@
             let ownProps = Object.getOwnPropertyNames(pacer)
             for (let prop of ownProps) {
               if (newItem[prop] !== undefined) {
-                let newpropval = mprops.v(pacer[prop], anitem, props)
+                let newpropval = muonProps.v(pacer[prop], anitem, props)
                 newItem[prop] = newpropval
               }
             }
@@ -226,13 +226,13 @@
             if (geosort === 'anima') {
 
               let newItemsInCount = halo.ween(newItem)
-              newItemsInCount = mprops.a(newItemsInCount)
+              newItemsInCount = muonProps.a(newItemsInCount)
               newItems = [...newItems, ...newItemsInCount] // add items
               muonStore.apply({type: 'UPDANIMA', animas: newItems}) // store           
 console.log(' ----------- newItem', newItem)
             } else {
 
-              let newItemsInCount = mprops.a(halo.gramm(newItem))
+              let newItemsInCount = muonProps.a(halo.gramm(newItem))
               newItems = [...newItems, ...newItemsInCount] // add items
 
             }

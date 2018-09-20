@@ -10,7 +10,7 @@
 
   async function haloTileform (__mapper = {}) {
     let [
-      mprops,
+      muonProps,
       muonGraticule,
       haloLeaform,
       haloNatform,
@@ -33,7 +33,7 @@
         eonode = anigram.eonode, // eonode
         eoload = anigram.eoload // eoload
 
-      let gj = mprops.v(eofold, anigram) // get eofold
+      let gj = muonProps.v(eofold, anigram) // get eofold
       gj.properties = gj.properties || {} // recall genode
 
       let graticule = eoload.graticule
@@ -47,7 +47,7 @@
       for (let i = 0; i < faces.length; i++) { // single ring polygon
         let face = faces[i]
 
-        let newItem = mprops.clone(anigram)
+        let newItem = muonProps.clone(anigram)
         newItem.halo = 'natform'
         newItem.eofold = {type: 'Polygon', coordinates: []}
 

@@ -7,7 +7,7 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     ctlWen,
-    mprops,
+    muonProps,
     puniwen,
     haloTurnform,
     haloScene,
@@ -38,7 +38,7 @@ async function anitem (__mapper) {
     let geoformFaces = ani => { // eofold creates geojson featurecollection
       let eoload = ani.eoload // eoload
 
-      let faces = mprops.v(eoload.faces) // eoload.faces
+      let faces = muonProps.v(eoload.faces) // eoload.faces
       let json = {type: 'FeatureCollection', features: []}
 
       // for (let i = 0, l = faces.length; i < l; i++) {
