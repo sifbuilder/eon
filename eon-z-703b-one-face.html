@@ -36,9 +36,9 @@ async function anitem (__mapper) {
     }
 
     let geoformFaces = ani => { // eofold creates geojson featurecollection
-      let payload = ani.payload // payload
+      let eoload = ani.eoload // eoload
 
-      let faces = mprops.v(payload.faces) // payload.faces
+      let faces = mprops.v(eoload.faces) // eoload.faces
       let json = {type: 'FeatureCollection', features: []}
 
       // for (let i = 0, l = faces.length; i < l; i++) {
@@ -75,7 +75,7 @@ async function anitem (__mapper) {
       eodrift: {
         proform: proformFaces,
       },
-      payload: {
+      eoload: {
         faces: [
           {
             vertices: [
@@ -110,7 +110,7 @@ async function anitem (__mapper) {
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      payload: {
+      eoload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

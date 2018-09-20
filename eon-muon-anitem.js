@@ -44,7 +44,7 @@
 
       console.assert(anitem !== undefined)
 
-      if (newAnitem.payload === undefined) newAnitem.payload = {}
+      if (newAnitem.eoload === undefined) newAnitem.eoload = {}
       if (newAnitem.eodrift === undefined) newAnitem.eodrift = {}
 
       let eodrift = anitem.eodrift || {}
@@ -84,7 +84,7 @@
       let newAnitem = mprops.clone(anitem)
 
       console.assert(anitem !== undefined)
-      console.assert(anitem.payload !== undefined, anitem.uid + ' payload undefined')
+      console.assert(anitem.eoload !== undefined, anitem.uid + ' eoload undefined')
 
       if (anitem.eodrift.ereform !== undefined) {
         let ereform = functor(anitem.eodrift.ereform, anitem) // ereform

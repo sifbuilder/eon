@@ -29,9 +29,9 @@ async function anitem (__mapper) {
     const eotim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
     let facesGeofold = anitem => {
-      let payload = anitem.payload,
+      let eoload = anitem.eoload,
         eoric = anitem.eoric,
-        faces = mprops.v(payload.faces) // payload.faces
+        faces = mprops.v(eoload.faces) // eoload.faces
 
       let json = {type: 'FeatureCollection', features: []}
 
@@ -83,7 +83,7 @@ async function anitem (__mapper) {
         },
       },
 
-      payload: {
+      eoload: {
         faces: function () { // icosahedronFaces
           let faces = [],
             s = 36,
@@ -119,10 +119,10 @@ async function anitem (__mapper) {
       halo: 'turnform',
 
       eofold: anitem => {
-        let payload = anitem.payload,
+        let eoload = anitem.eoload,
           eoric = anitem.eoric,
-          points = payload.points,
-          faces = payload.faces
+          points = eoload.points,
+          faces = eoload.faces
 
         let json = {type: 'FeatureCollection', features: []}
 
@@ -167,7 +167,7 @@ async function anitem (__mapper) {
         },
       },
 
-      payload: {
+      eoload: {
         points: [
           [0, 90],
           [0, -90],
@@ -214,7 +214,7 @@ async function anitem (__mapper) {
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      payload: {
+      eoload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

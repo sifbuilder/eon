@@ -66,7 +66,7 @@ async function anitem (__mapper) {
         eoric: {gid: 'traces', cid: 'traces', fid: 'traces'},
         eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
-        payload: {
+        eoload: {
           pacer: { // geoaad for trace
             stace: {
               x: { pos: 0 },
@@ -90,7 +90,7 @@ async function anitem (__mapper) {
                   geometry: { type: 'LineString', coordinates: null },
                   properties: { doc: 'pacer' },
                 },
-                payload: {
+                eoload: {
                   uid: uid, id: uid, eoric: eoric,
                   // proform: this.proform
                   proform: { // proform in the geographic domain
@@ -125,12 +125,12 @@ async function anitem (__mapper) {
             type: 'Point',
 
             coordinates: Complex({re: 0, im: 0})
-              .add(a.payload.fractal.coef(a)) // set on zcoef = (rad, ang)
+              .add(a.eoload.fractal.coef(a)) // set on zcoef = (rad, ang)
               .toVector(),
 
           },
           properties: {
-            pointRadius: a.payload.fractal.rad,
+            pointRadius: a.eoload.fractal.rad,
             eonode: {
               type: 'Feature',
               geometry: {type: 'Point', coordinates: [0, 0]},
@@ -146,7 +146,7 @@ async function anitem (__mapper) {
           proform: { projection: 'uniwen', scale: 1, translate: [ -0, 0 ], rotate: [ 0, 0 ] }, // identity
         },
 
-        payload: {
+        eoload: {
           fractal: {}, // set coef
 
         },
@@ -164,7 +164,7 @@ async function anitem (__mapper) {
         anis[level].eoric = {gid: 'nat', cid: _NAME + level, fid: _NAME + level} // id
 
         // -------------- ans(level) ------------------
-        anis[level].payload.fractal.an = [] // [0..._LEVEL)
+        anis[level].eoload.fractal.an = [] // [0..._LEVEL)
 
         for (let j = 0; j < level; j++) {
           let ang
@@ -177,18 +177,18 @@ async function anitem (__mapper) {
           }
 
           let rad = radOnLevel(j)
-          anis[level].payload.fractal.an[j] = {rad, ang}
+          anis[level].eoload.fractal.an[j] = {rad, ang}
         }
 
-        anis[level].payload.fractal.coef = d => { // fractal coef(level)
-          let z = d.payload.fractal.an.reduce((p, q) => {
+        anis[level].eoload.fractal.coef = d => { // fractal coef(level)
+          let z = d.eoload.fractal.an.reduce((p, q) => {
             let aj = zcoef(q.rad, q.ang) // zcoef from amplitude and phase
             return p.add(aj)
           }, Complex({re: 0, im: 0}))
           return z
         }
 
-        anis[level].payload.fractal.rad = radOnLevel(level) // rad(level)
+        anis[level].eoload.fractal.rad = radOnLevel(level) // rad(level)
         anis[level].eochrom.cf = _CF(level) // eochrom
         if (level === _LEVEL - 1) { // add image as avatar to root nat
           anis[level].avatars = []

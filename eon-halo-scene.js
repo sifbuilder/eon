@@ -17,7 +17,7 @@
 
     // .................... ween
     function ween (anima, newAnimas = []) {
-      let p = anima.payload.context
+      let p = anima.eoload.context
       mscene.scenify(p)
       newAnimas = Array.of(anima)
       return newAnimas

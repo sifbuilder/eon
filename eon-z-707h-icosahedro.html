@@ -36,9 +36,9 @@ async function anitem (__mapper) {
       halo: 'turnform',
 
       eofold: anitem => {
-        let payload = anitem.payload,
+        let eoload = anitem.eoload,
           eoric = anitem.eoric,
-          faces = payload.faces(payload.polyhedron) // payload.faces
+          faces = eoload.faces(eoload.polyhedron) // eoload.faces
 
         let json = {type: 'FeatureCollection', features: []}
 
@@ -83,7 +83,7 @@ async function anitem (__mapper) {
 
         },
       },
-      payload: {
+      eoload: {
         // dihedral angle: 116.56°
         polyhedron: {
           C0: 0.809016994374947424102293417183, // = (1 + sqrt(5)) / 4
@@ -150,7 +150,7 @@ async function anitem (__mapper) {
       eofold: null,
       eotim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      payload: {
+      eoload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

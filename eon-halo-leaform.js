@@ -58,7 +58,7 @@
         feature = muonEochrom.geochromer(anigram, feature)
 
         feature.properties.eotim = anigram.eotim // eotim in eofold
-        feature.properties.vim = anigram.payload.vim // vim in eofold to render
+        feature.properties.vim = anigram.eoload.vim // vim in eofold to render
         feature.properties.sort = feature.properties.sort || 'feature' // svg sort
 
         let newAnigram = {
@@ -68,7 +68,7 @@
           eoric: feature.properties.eoric, // hoist eoric
           id: feature.properties.uid, // hoist uid
           uid: feature.properties.uid, // hoist uid
-          payload: {}, // payload is lost in m.animation before rendering
+          eoload: {}, // eoload is lost in m.animation before rendering
           avatars: anigram.avatars, // inherit avatars
         }
 

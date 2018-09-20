@@ -31,15 +31,15 @@
 
     let degrees = 180 / Math.PI
 
-    let cache = {} // payload, string
+    let cache = {} // eoload, string
     cache.string = []
 
     // .................. stream
-    let stream = function (payload = {}) {
-      let randomize = payload.randomize || false
-      let samples = payload.samples || 50
-      let dotsInSegment = payload.dotsInSegment || 12
-      let offsetstep = payload.offsetstep || 2
+    let stream = function (eoload = {}) {
+      let randomize = eoload.randomize || false
+      let samples = eoload.samples || 50
+      let dotsInSegment = eoload.dotsInSegment || 12
+      let offsetstep = eoload.offsetstep || 2
       let goldenangle = Math.PI * (3.0 - Math.sqrt(5.0))
 
       let string = []
@@ -101,10 +101,10 @@
     }
 
     // .................. catesians
-    let catesians = function (payload = {}) {
-      const samples = payload.fibonat.samples,
-        offsetstep = payload.fibonat.offsetstep,
-        goldenangle = payload.fibonat.goldenangle
+    let catesians = function (eoload = {}) {
+      const samples = eoload.fibonat.samples,
+        offsetstep = eoload.fibonat.offsetstep,
+        goldenangle = eoload.fibonat.goldenangle
 
       let rnd = 1.0
 
@@ -130,12 +130,12 @@
     }
 
     // .................. interlinked
-    let interlinked = function (payload = {}) {
-      const samples = payload.fibonat.samples,
-        offsetstep = payload.fibonat.offsetstep,
-        xprecision = payload.fibonat.xprecision,
-        yprecision = payload.fibonat.yprecision,
-        goldenangle = payload.fibonat.goldenangle
+    let interlinked = function (eoload = {}) {
+      const samples = eoload.fibonat.samples,
+        offsetstep = eoload.fibonat.offsetstep,
+        xprecision = eoload.fibonat.xprecision,
+        yprecision = eoload.fibonat.yprecision,
+        goldenangle = eoload.fibonat.goldenangle
 
       const offset = offsetstep / samples
 

@@ -41,11 +41,11 @@
       let newItems = []
 
       let halo = anitem.halo,
-        payload = anitem.payload,
+        eoload = anitem.eoload,
         eoric = anitem.eoric,
         eotim = anitem.eotim
 
-      let melder = payload.melder || {}, // melder
+      let melder = eoload.melder || {}, // melder
         mousesignal = melder.mousesignal || 0, // mousesignal
         span = melder.span || 0, // span between paceitems
         geoaad = melder.geoaad || 0, // geoaad paceitem to previous anitem
@@ -56,8 +56,8 @@
       let uidAnima = muonEoric.getuid(eoric)
       let uidAnigram = muonEoric.getuid(eoric)
       let uidParent = anitem.parentuid
-      let ricPreitem = (anitem.payload.melder.eoric !== undefined)
-        ? anitem.payload.melder.eoric(anitem)
+      let ricPreitem = (anitem.eoload.melder.eoric !== undefined)
+        ? anitem.eoload.melder.eoric(anitem)
         : anitem.eoric
       let uidPreitem = muonEoric.getuid(ricPreitem)
 
@@ -131,11 +131,11 @@
 
         // set inited: the anitem has started the melder
 
-        paceanima.payload.melder.inited = 1 //  inited
+        paceanima.eoload.melder.inited = 1 //  inited
 
         // set melder.outed: item was outed at eotim.unitPassed time
 
-        paceanima.payload.melder.outed = eotim.unitPassed // updated with anima
+        paceanima.eoload.melder.outed = eotim.unitPassed // updated with anima
 
         // if in auto mode, pace on each cycle
         // save anitem to preserve inited and outed
@@ -168,7 +168,7 @@
 
             let newItem
 
-            if (anitem.payload.melder.geosort === 'anima') {
+            if (anitem.eoload.melder.geosort === 'anima') {
               newItem = mprops.clone(anima) // anima
             } else {
               newItem = mprops.clone(anigram) // anigram
@@ -188,22 +188,22 @@
 
               // }
 
-              // if NO precursor, build from payload and melder
-              // payload may carry all info of newItem but new halo and pace count
-              // properties in melder override those in payload
+              // if NO precursor, build from eoload and melder
+              // eoload may carry all info of newItem but new halo and pace count
+              // properties in melder override those in eoload
             } else {
               newItem.halo = anitem.halo
-              newItem.payload = mprops.clone(anitem.payload)
+              newItem.eoload = mprops.clone(anitem.eoload)
 
               // if functional melder.eofold, override eofold
 
-              if (anitem.payload.melder.eofold !== undefined) {
-                console.assert(typeof anitem.payload.melder.eofold === 'function')
-                newItem.eofold = anitem.payload.melder.eofold(anitem)
+              if (anitem.eoload.melder.eofold !== undefined) {
+                console.assert(typeof anitem.eoload.melder.eofold === 'function')
+                newItem.eofold = anitem.eoload.melder.eofold(anitem)
               }
             }
 
-            let situs = anitem.payload.melder.stace(anitem, props)
+            let situs = anitem.eoload.melder.stace(anitem, props)
             if (situs && typeof situs === 'object') situs = Object.values(situs)
 
             let coords = newItem.eofold.geometry.coordinates
@@ -245,7 +245,7 @@
     function ween (anitem) {
       if (1 && 1) console.log(' h.melder.ween', anitem)
 
-      if (anitem.payload.melder.geosort === 'anima') {
+      if (anitem.eoload.melder.geosort === 'anima') {
         return halomelder(anitem)
       } else {
         return Array.of(anitem)
@@ -254,7 +254,7 @@
 
     // ............................. gramm
     function gramm (anitem) {
-      if (anitem.payload.melder.geosort === 'anima') {
+      if (anitem.eoload.melder.geosort === 'anima') {
         return Array.of(anitem)
       } else {
         return halomelder(anitem)

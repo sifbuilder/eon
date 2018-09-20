@@ -43,7 +43,7 @@
         eodrift: {
           proform: { projection: 'uniwen', translate: [0, 0, 0], scale: 1, rotate: [0, 0, 0], lens: [0, 1, Infinity] },
         },
-        payload: {
+        eoload: {
           eoform: {
 
             'm1': [[[-8, -4, -2, -7.66]]],
@@ -74,7 +74,7 @@
         eofold: null,
         eotim: eotim,
         eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-        payload: {
+        eoload: {
           context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
         },
 

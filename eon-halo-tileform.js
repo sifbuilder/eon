@@ -31,12 +31,12 @@
       let eoric = anigram.eoric, // eoric
         eofold = anigram.eofold, // eofold
         eonode = anigram.eonode, // eonode
-        payload = anigram.payload // payload
+        eoload = anigram.eoload // eoload
 
       let gj = mprops.v(eofold, anigram) // get eofold
       gj.properties = gj.properties || {} // recall genode
 
-      let graticule = payload.graticule
+      let graticule = eoload.graticule
 
       let range = (anigram.range !== undefined) ? anigram.range : null
       let tile = (anigram.tile !== undefined) ? anigram.tile : null

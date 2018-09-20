@@ -31,7 +31,7 @@
       // 1 gid,       fid
       // 2 cid,       fid
 
-      let parent = anigram.payload.parent
+      let parent = anigram.eoload.parent
 
       let eoric = anigram.eoric
       eoric.halo = anigram.eoric.halo
@@ -135,7 +135,7 @@
           uid = eoric.gid + '_' + eoric.cid + '_' + eoric.fid
         } else if (params.eoric !== undefined) {
           uid = getuid(params.eoric)
-        } else if (params.payload !== undefined && params.eoric !== undefined) {
+        } else if (params.eoload !== undefined && params.eoric !== undefined) {
           uid = getuid(params.eoric)
         } else if (params.properties !== undefined && params.properties.eoric !== undefined) {
           uid = getuid(params.properties.eoric)

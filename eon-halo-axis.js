@@ -27,10 +27,10 @@
 
     // ............................. gramm
     function gramm (anitem) {
-      let payload = anigram.payload, // payload
+      let eoload = anigram.eoload, // eoload
         eoric = eoric, // eoric
         uid = uid, // uid
-        axis = payload.axis // axis
+        axis = eoload.axis // axis
 
       let range = axis.range || [0, 1],
         domain = axis.domain || [0, 1],
@@ -64,7 +64,7 @@
           },
         }),
       }
-      delete newAnigram.payload.axis
+      delete newAnigram.eoload.axis
       return haloTurnform.gramm(newAnigram)
     }
 

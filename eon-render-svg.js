@@ -23,7 +23,7 @@
     // ## methods
     // * ### svg
     // * ### svgelems
-    // call `svgelems(payload, data, idfn)`
+    // call `svgelems(eoload, data, idfn)`
     // * ### render
     // call `render(elapsed, featurecollection, maxlimit)`
     // gets anima.eofold's from m.animation

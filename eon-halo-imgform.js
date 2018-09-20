@@ -21,24 +21,24 @@
       properties: {
         sort: 'img',
         attr: {
-          'width': p.payload.img.style.width,
-          'height': p.payload.img.style.height,
-          'rotate': p.payload.img.style.rotate,
-          'xlink:href': p.payload.img.url,
+          'width': p.eoload.img.style.width,
+          'height': p.eoload.img.style.height,
+          'rotate': p.eoload.img.style.rotate,
+          'xlink:href': p.eoload.img.url,
         },
       },
     })
 
     let gramm = function gramm (anigram, newAnigrams = []) {
       let halo = anigram.halo, // halo
-        payload = anigram.payload // payload
+        eoload = anigram.eoload // eoload
 
       let eofold = _geofold(anigram) // eofold
 
       let newAnigram = {
         halo,
         eofold,
-        payload,
+        eoload,
       }
 
       newAnigrams = [...newAnigrams, ...__mapper('haloTurnform').gramm(newAnigram)]

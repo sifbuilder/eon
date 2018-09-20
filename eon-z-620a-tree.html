@@ -94,7 +94,7 @@ async function anitem (__mapper) {
       halo: 'leaform',
 
       eofold: ani => {
-        let payload = ani.payload // payload
+        let eoload = ani.eoload // eoload
 
         let newFeatureCollection = {type: 'FeatureCollection', features: []}
         let feature = {
@@ -103,15 +103,15 @@ async function anitem (__mapper) {
           properties: {},
         }
 
-        const maxDepth = payload.tree.maxDepth,
-          trunkWidth = payload.tree.trunkWidth,
-          branchColor = payload.tree.branchColor,
-          length = payload.tree.length0,
-          angle = payload.tree.angle0,
-          x0 = payload.tree.x0,
-          y0 = payload.tree.y0,
-          branchShrinkage = payload.tree.branchShrinkage,
-          maxAngleDelta = payload.tree.maxAngleDelta
+        const maxDepth = eoload.tree.maxDepth,
+          trunkWidth = eoload.tree.trunkWidth,
+          branchColor = eoload.tree.branchColor,
+          length = eoload.tree.length0,
+          angle = eoload.tree.angle0,
+          x0 = eoload.tree.x0,
+          y0 = eoload.tree.y0,
+          branchShrinkage = eoload.tree.branchShrinkage,
+          maxAngleDelta = eoload.tree.maxAngleDelta
 
         let tree = buildTree(x0, y0, length, angle, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage)
         feature.geometry.coordinates = tree
@@ -123,7 +123,7 @@ async function anitem (__mapper) {
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
-      payload: {
+      eoload: {
         tree: {
           x0: 0,
           y0: -100,
@@ -148,7 +148,7 @@ async function anitem (__mapper) {
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      payload: {
+      eoload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

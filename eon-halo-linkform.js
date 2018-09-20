@@ -23,8 +23,8 @@
     function breed (anima) {
       let newItems = []
 
-      let fromAnima = muonStore.findAnimaFromUid(avatar.payload.from)
-      let toAnima = muonStore.findAnimaFromUid(avatar.payload.to)
+      let fromAnima = muonStore.findAnimaFromUid(avatar.eoload.from)
+      let toAnima = muonStore.findAnimaFromUid(avatar.eoload.to)
 
       let form = {
         source: {x: fromAnima.x, y: fromAnima.y},

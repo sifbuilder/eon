@@ -74,10 +74,10 @@ async function anitem (__mapper) {
         let anigram = ani, // anigram
           halo = ani.halo, // halo
           eofold = ani.eofold, // eofold
-          payload = ani.payload // payload
+          eoload = ani.eoload // eoload
 
         let unitElapsed = ani.eotim.unitElapsed // unit time elapsed
-        let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
+        let t = ani.eoload.tf(unitElapsed) || unitElapsed // time function
 
         let nbt = Math.ceil(nb * t)
         let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
@@ -120,7 +120,7 @@ async function anitem (__mapper) {
 
         let geodata = newFeatureCollection
 
-        if (payload.proform) {
+        if (eoload.proform) {
           let proformion = muonProfier.proformion(anigram)
           newFeatureCollection = muonProj3ct(geodata, proformion)
         }
@@ -131,7 +131,7 @@ async function anitem (__mapper) {
       eotim: eotim,
       eoric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
-      payload: { // payload in polyForm
+      eoload: { // eoload in polyForm
         tf: t => t,
 
       },
@@ -144,7 +144,7 @@ async function anitem (__mapper) {
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      payload: {
+      eoload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

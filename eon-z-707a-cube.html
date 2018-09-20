@@ -44,13 +44,13 @@ async function anitem (__mapper) {
       halo: 'turnform',
 
       eofold: anitem => {
-        let payload = anitem.payload
+        let eoload = anitem.eoload
         let eoric = anitem.eoric
 
         let gj = {type: 'FeatureCollection', features: []}
 
-        let points = payload.points // payload.points
-        let faces = payload.faces // payload.faces
+        let points = eoload.points // eoload.points
+        let faces = eoload.faces // eoload.faces
         for (let i = 0, l = faces.length; i < l; i++) {
           let face = faces[i] // face pointsx position
           let geometry = {type: 'Polygon', coordinates: []}
@@ -98,7 +98,7 @@ async function anitem (__mapper) {
           prerotate: [[[ ctlWen.rotation ]]],
         },
       },
-      payload: {
+      eoload: {
 
         points: [
           [(-1), (-1), (1)], // 0
@@ -148,7 +148,7 @@ async function anitem (__mapper) {
       eofold: null,
       eotim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      payload: {
+      eoload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

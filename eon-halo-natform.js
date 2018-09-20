@@ -10,7 +10,7 @@
 
 // md: # eon-halo-natform 
 // md: **expose natform** 
-// md: h.turnform with  anima.eofold : `muonNatform.natFeature(p.payload.form)` 
+// md: h.turnform with  anima.eofold : `muonNatform.natFeature(p.eoload.form)` 
 // md: 
 // md: # license 
 // md: MIT 

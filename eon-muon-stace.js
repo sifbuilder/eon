@@ -35,10 +35,10 @@
   // md: ### getTranspot
   // md:
   // md: ### getTranspots
-  // md: `getTranspots(stace, payload)`
+  // md: `getTranspots(stace, eoload)`
   // md: **get stace locations in @eoric**
   // md: ##### parameters
-  // md:  **stace** ,  may be passed as param or as payload attribute
+  // md:  **stace** ,  may be passed as param or as eoload attribute
   // md:     * `{x:0, y:0, z:0}`, position object
   // md:     * `[300,200,0]`,  pure array
   // md:     * `[a1,a2,a3], [b1,b2]]`,  pure multi array, add by dax
@@ -48,7 +48,7 @@
   // md:
   // md: if stace.<dax>.pos and no transformation property
   // md:       get spot from `parentani.eofold.geometry.coordinates`
-  // md: **payload**, to get parent coords if spot is relative to parent geometry
+  // md: **eoload**, to get parent coords if spot is relative to parent geometry
 
   async function muonStace (__mapper = {}) {
     let [
@@ -83,8 +83,8 @@
     let getTranspots = function (stace, anitem) {
       let muonStore = __mapper('muonStore') // sync
 
-      let payload = anitem.payload
-      console.assert(payload !== undefined, anitem, ' payload undefined')
+      let eoload = anitem.eoload
+      console.assert(eoload !== undefined, anitem, ' eoload undefined')
       let locations = []
 
       // if object, convert stace to array
@@ -117,7 +117,7 @@
       // else, eg. if stace undefined, get stace from parent
       } else {
         let parentuid = anitem.parentuid
-        console.assert(parentuid !== undefined, ` * error: muonStace.getTranspots:parentuid ${parentuid} in payload ${payload}`)
+        console.assert(parentuid !== undefined, ` * error: muonStace.getTranspots:parentuid ${parentuid} in eoload ${eoload}`)
         let parentani = muonStore.findAnigramFromUid(parentuid)
         console.assert(parentani !== undefined, ` * error: muonStace.getTranspots:parentani of ${parentuid}: ${parentani}`)
 

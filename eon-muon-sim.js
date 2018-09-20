@@ -66,7 +66,7 @@
 
       for (let i = 0, n = aniItems.length; i < n; ++i) {
         let aniItem = aniItems[i]
-        let payload = aniItem.payload
+        let eoload = aniItem.eoload
 
         if (aniItem.eonode) { // if simmable  ...
           // the eonode ports info of the simnode
@@ -100,24 +100,24 @@
           if (isNaN(simNode.vx)) simNode.vx = 0 // velocity defs
           if (nDim > 1 && isNaN(simNode.vy)) simNode.vy = 0
           if (nDim > 2 && isNaN(simNode.vz)) simNode.vz = 0
-          simNode.payload = payload // anitem payload to simnode
+          simNode.eoload = eoload // anitem eoload to simnode
 
-          if (payload && payload.id !== undefined) { // link nodes
-            simNode.id = payload.id // simnode id from eofold.payload.id
+          if (eoload && eoload.id !== undefined) { // link nodes
+            simNode.id = eoload.id // simnode id from eofold.eoload.id
           } else {
             simNode.id = simNode.uid
           }
 
-          if (payload && payload.link) {  // links
-            simNode.source = payload.link.source
-            simNode.target = payload.link.target
+          if (eoload && eoload.link) {  // links
+            simNode.source = eoload.link.source
+            simNode.target = eoload.link.target
           }
 
           simNodes.push(simNode)
         }
       }
 
-      // md: simnodes: {x,y,z}, {vx,vy,vz}, payload, index
+      // md: simnodes: {x,y,z}, {vx,vy,vz}, eoload, index
       return simNodes
     }
 

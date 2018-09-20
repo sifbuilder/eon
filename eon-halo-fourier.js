@@ -10,17 +10,17 @@
 
   // ## h.fourier
   // h.fourier anigrams per frequency cycloid
-  // cycloids in payload.fourier.transforms resulting from m.fourier.complexify
+  // cycloids in eoload.fourier.transforms resulting from m.fourier.complexify
   // anigrams turned to h.turnform
 
   // ### h.fourier.gramm
-  // payload.fourier.transforms, gj featurized, complexified, ntimed
-  // payload.fourier.maglast pencil radio
-  // payload.fourier.interval [0,1] delete anigrams outside
-  // payload.fourier.tolerance 1 remove sinusoids below
-  // payload.fourier.dotgeochrom style of pencil dot
-  // payload.fourier.avatars.traceline  form trace
-  // payload.fourier.avatars.line  sinusoid ray
+  // eoload.fourier.transforms, gj featurized, complexified, ntimed
+  // eoload.fourier.maglast pencil radio
+  // eoload.fourier.interval [0,1] delete anigrams outside
+  // eoload.fourier.tolerance 1 remove sinusoids below
+  // eoload.fourier.dotgeochrom style of pencil dot
+  // eoload.fourier.avatars.traceline  form trace
+  // eoload.fourier.avatars.line  sinusoid ray
 
   async function haloFourier (__mapper = {}) {
     let [
@@ -45,8 +45,8 @@
         parentuid = anigram.parentuid, // parentuid
         eochrom = anigram.eochrom // eochrom
 
-      let payload = anigram.payload, // payload
-        fourier = payload.fourier // fourier
+      let eoload = anigram.eoload, // eoload
+        fourier = eoload.fourier // fourier
 
       let path = fourier.path,
         transforms = fourier.transforms,
@@ -115,7 +115,7 @@
             type: 'Feature', // tfeature
             geometry: { type: 'Point', coordinates: [] },
             properties: {
-              pointRadius: 1, // d.payload.fourier.rad,
+              pointRadius: 1, // d.eoload.fourier.rad,
 
             },
           }
@@ -150,7 +150,7 @@
             // to all cycloids, add __RAY__ avatar
 
             if (i > 0) { // add ray avatar
-              let rayline = mprops.cloneObj(payload.fourier.avatars.rayline) // rayline line
+              let rayline = mprops.cloneObj(eoload.fourier.avatars.rayline) // rayline line
               rayline.eofold.geometry.coordinates = [
                 [acci.re / N, acci.im / N], // from this cycloid
                 [xn[i - 1], yn[i - 1]], // to prevous cycloid
@@ -176,7 +176,7 @@
           // if last sinusoid, then add __TRACE__ avatar
 
           if (i === M) {
-            let riccer = payload.fourier.riccer || function (ani) { return ani.payload.fourier.avatars.traceline.eoric }
+            let riccer = eoload.fourier.riccer || function (ani) { return ani.eoload.fourier.avatars.traceline.eoric }
 
             // PENCIL radio magnitude of last
             newItem.eofold.properties.pointRadius = maglast
@@ -184,13 +184,13 @@
             // init PACER clonned from fourier avatar
             // traceline
 
-            let traceline = mprops.cloneObj(payload.fourier.avatars.traceline)
+            let traceline = mprops.cloneObj(eoload.fourier.avatars.traceline)
             console.assert(traceline !== undefined, 'traceline undefined')
             if (traceline) { // if pacer avatar
               // md: no add segments ourside time period (pacer.autoN = 0)
               // add no segments ourside period
 
-              if (tNotInPeriod) traceline.payload.pacer.autoN = 0
+              if (tNotInPeriod) traceline.eoload.pacer.autoN = 0
 
               //  traceline eoric
 

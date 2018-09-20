@@ -78,7 +78,7 @@ async function anitem (__mapper) {
 
       eochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
-      payload: {
+      eoload: {
         pacer: {
           geosort: 'anigram',
           geobase: 'eoform',
@@ -187,7 +187,7 @@ async function anitem (__mapper) {
         },
       },
 
-      payload: {
+      eoload: {
       },
 
     }
@@ -240,7 +240,7 @@ async function anitem (__mapper) {
         },
       },
 
-      payload: {
+      eoload: {
         pacer: {
           halo: 'turnform',
           geosort: 'anigram',
@@ -319,7 +319,7 @@ async function anitem (__mapper) {
 
       eochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]],
       },
-      payload: {},
+      eoload: {},
 
     }
 
@@ -349,7 +349,7 @@ async function anitem (__mapper) {
       eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
       eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
-      payload: {
+      eoload: {
         pacer: { // geoaad for trace
           halo: 'turnform',
           geosort: 'anigram',
@@ -361,7 +361,7 @@ async function anitem (__mapper) {
             if (props.key === 'init') { // INIT
               stace = {x: 0, y: 0, z: 0 }
             } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus(ani.payload.pacer.stace, ani) // AUTO
+              stace = muonStace.getLocus(ani.eoload.pacer.stace, ani) // AUTO
             } else if (props.key === 'event') { // EVENT
               stace = {x: 0, y: 0, z: 0 }
             }
@@ -424,7 +424,7 @@ async function anitem (__mapper) {
           translate: [ -250, 0 ],
         },
       },
-      payload: {
+      eoload: {
 
         textform: {
           string: 'i like that almost ...',
@@ -446,7 +446,7 @@ async function anitem (__mapper) {
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      payload: {
+      eoload: {
         context: {svg: 1, versor: 0, wen: 0, webgl: 0, bck: 1, ray: 1},
       },
 

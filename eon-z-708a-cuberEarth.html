@@ -148,7 +148,7 @@ async function anitem (__mapper) {
         },
         proform: proform,
       },
-      payload: {
+      eoload: {
       },
 
     }
@@ -159,12 +159,12 @@ async function anitem (__mapper) {
       halo: 'turnform',
 
       eofold: anitem => {
-        let payload = anitem.payload,
+        let eoload = anitem.eoload,
           eoric = anitem.eoric
 
         let json = {type: 'FeatureCollection', features: []}
-        let points = payload.points // payload.points
-        let faces = payload.faces // payload.faces
+        let points = eoload.points // eoload.points
+        let faces = eoload.faces // eoload.faces
         for (let i = 0, l = faces.length; i < l; i++) {
           let face = faces[i] // face pointsx position
           let geometry = {type: 'Polygon', coordinates: []}
@@ -195,7 +195,7 @@ async function anitem (__mapper) {
         proform: proform,
       },
 
-      payload: {
+      eoload: {
         points: [
           [-1, -1, 1], // 0
           [ 1, -1, 1], // 1
@@ -252,7 +252,7 @@ async function anitem (__mapper) {
         proform: proform,
       },
         geoframe: { extent: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] } },
-      payload: {
+      eoload: {
 
     }
     // .............................  graticircAni
@@ -271,7 +271,7 @@ async function anitem (__mapper) {
         proform: proform,
       },
         geoframe: { frame: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] } },
-      payload: {
+      eoload: {
 
     }
 
@@ -282,7 +282,7 @@ async function anitem (__mapper) {
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      payload: {
+      eoload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

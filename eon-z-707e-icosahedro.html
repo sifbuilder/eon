@@ -34,10 +34,10 @@ async function anitem (__mapper) {
       halo: 'turnform',
 
       eofold: anitem => {
-        let payload = anitem.payload,
+        let eoload = anitem.eoload,
           eoric = anitem.eoric,
-          points = payload.points,
-          faces = payload.faces
+          points = eoload.points,
+          faces = eoload.faces
 
         let json = {type: 'FeatureCollection', features: []}
 
@@ -82,7 +82,7 @@ async function anitem (__mapper) {
 
         },
       },
-      payload: {
+      eoload: {
         points: [
           [0, 90],
           [0, -90],
@@ -128,10 +128,10 @@ async function anitem (__mapper) {
       halo: 'turnform',
 
       eofold: p => {
-        let payload = p.payload,
+        let eoload = p.eoload,
           eoric = eoric,
-          points = payload.points({C0: (1 + Math.sqrt(5)) / 4}),
-          faces = payload.faces()
+          points = eoload.points({C0: (1 + Math.sqrt(5)) / 4}),
+          faces = eoload.faces()
 
         let json = {type: 'FeatureCollection', features: []}
 
@@ -179,7 +179,7 @@ async function anitem (__mapper) {
         },
       },
 
-      payload: {
+      eoload: {
         points: p => {
           return [
 
@@ -235,7 +235,7 @@ async function anitem (__mapper) {
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      payload: {
+      eoload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

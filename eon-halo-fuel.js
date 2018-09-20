@@ -36,12 +36,12 @@
     let gramm = function (anitem, newAnigrams = []) {
       let muonStore = __mapper('muonStore') // sync
 
-      let payload = anitem.payload, // payload
+      let eoload = anitem.eoload, // eoload
         eofold = eofold, // eofold
         eoric = eoric, // eoric
         parentuid = parentuid // parentuid
 
-      let fuel = payload.fuel,
+      let fuel = eoload.fuel,
         ra2 = fuel.ra2,
         candidates = fuel.candidates,
         sample = fuel.sample
@@ -84,9 +84,9 @@
         let newAnigram = {} // new anigram per fuel nat
         newAnigram.halo = 'natform'
         newAnigram.eofold = eofold
-        newAnigram.payload = payload
+        newAnigram.eoload = eoload
         newAnigram.eoric = _ric // identify each fuel nat
-        newAnigram.payload.proform = _proform // proform of each fuel nat
+        newAnigram.eoload.proform = _proform // proform of each fuel nat
 
         let avaAnigrams = haloNatform.gramm(newAnigram) // async
         newAnigrams = [...newAnigrams, ...avaAnigrams]

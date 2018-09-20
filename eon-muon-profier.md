@@ -38,13 +38,13 @@ assumes `projection != undefined`
 ``` 
  projection: { 
   projection: 'natform', 
-  form: anigram.payload.conform 
+  form: anigram.eoload.conform 
  } 
 ``` 
  
 ### proformion 
 call `muonProfier.proformion (anigram)` 
-calls `formion(anigram.payload.proform, anigram)` 
+calls `formion(anigram.eoload.proform, anigram)` 
 **get proform projection from projdef** 
  
 ### proformer 

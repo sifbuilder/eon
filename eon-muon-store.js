@@ -26,10 +26,10 @@
   // md:   process anitem.avatars
   // md: * animasInGroupHowMany
   // md:   @anima
-  // md:   return live animas in group `anima.payload.rid.gid`
+  // md:   return live animas in group `anima.eoload.rid.gid`
   // md: * animasInClassHowMany
   // md:   @anima
-  // md:   return live animas in class `anima.payload.rid.cid`
+  // md:   return live animas in class `anima.eoload.rid.cid`
   // md: * findIndexFromRic
   // md:   @eoric
   // md:   @list

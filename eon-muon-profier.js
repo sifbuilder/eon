@@ -69,7 +69,7 @@
       let projection
       let projname
 
-      let payload = anigram.payload,
+      let eoload = anigram.eoload,
         eofold = anigram.eofold,
         eonode = anigram.eonode
 

@@ -31,7 +31,7 @@
   // * ##### gramm
   // `@a.p.pacer.initSitus`  : situs for init items
   // `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, ani)`
-  // usage: `payload.pacer.autoSitus(anigram)`
+  // usage: `eoload.pacer.autoSitus(anigram)`
   // autositus in zindex: `function(a) {return muonStace.getLocus(this.stace, ani) }` gets `ani.p.pacer.stance`
   // auto time is `a.p.eotim.unitPassed - a.p.pacer.outed`
   // `@a.p.pacer.eventSitus` : situs for event items
@@ -76,11 +76,11 @@
       let newItems = []
 
       let halo = anitem.halo,
-        payload = anitem.payload,
+        eoload = anitem.eoload,
         eoric = anitem.eoric,
         eotim = anitem.eotim
 
-      let pacer = payload.pacer || {}, // pacer
+      let pacer = eoload.pacer || {}, // pacer
         mousesignal = pacer.mousesignal || 0, // mousesignal
         span = pacer.span || 0, // span between paceitems
         geoaad = pacer.geoaad || 0, // geoaad paceitem to previous anitem
@@ -91,8 +91,8 @@
       let uidAnima = muonEoric.getuid(eoric)
       let uidAnigram = muonEoric.getuid(eoric)
       let uidParent = anitem.parentuid
-      let ricPreitem = (anitem.payload.pacer.eoric !== undefined)
-        ? anitem.payload.pacer.eoric(anitem)
+      let ricPreitem = (anitem.eoload.pacer.eoric !== undefined)
+        ? anitem.eoload.pacer.eoric(anitem)
         : anitem.eoric
       let uidPreitem = muonEoric.getuid(ricPreitem)
 
@@ -157,11 +157,11 @@
 
         // set inited: the anitem has started the pacer
 
-        paceanima.payload.pacer.inited = 1 //  inited
+        paceanima.eoload.pacer.inited = 1 //  inited
 
         // set pacer.outed: item was outed at eotim.unitPassed time
 
-        paceanima.payload.pacer.outed = eotim.unitPassed // updated with anima
+        paceanima.eoload.pacer.outed = eotim.unitPassed // updated with anima
 
         // if in auto mode, pace on each cycle
         // save anitem to preserve inited and outed
@@ -197,7 +197,7 @@
 
             let newItem
 
-            if (anitem.payload.pacer.geosort === 'anima') {
+            if (anitem.eoload.pacer.geosort === 'anima') {
 
               newItem = mprops.clone(anima) // anima
 
@@ -206,7 +206,7 @@
               newItem = mprops.clone(anigram) // anigram
 
             }
-            delete newItem.payload
+            delete newItem.eoload
 
             // NOT pacer.AAD if not pacer.add, pacer generates anitems
             // eofold is Feature
@@ -244,7 +244,7 @@ console.log(' ----------- newItem', newItem)
 
     // ............................. ween
     function ween (anitem) {
-      if (anitem.payload.pacer.geosort === 'anima') {
+      if (anitem.eoload.pacer.geosort === 'anima') {
         return haloing(anitem)
       } else {
         return Array.of(anitem)
@@ -253,7 +253,7 @@ console.log(' ----------- newItem', newItem)
 
     // ............................. gramm
     function gramm (anitem) {
-      if (anitem.payload.pacer.geosort === 'anima') {
+      if (anitem.eoload.pacer.geosort === 'anima') {
         return Array.of(anitem)
       } else {
         return haloing(anitem)

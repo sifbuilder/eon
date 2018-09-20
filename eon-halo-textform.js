@@ -11,7 +11,7 @@
   // md: # eon-halo-textform
   // md: process text anitems
   // md: ## functions
-  // md: * [_geofold](#_geofold) - uploads payload text form to eofold properties
+  // md: * [_geofold](#_geofold) - uploads eoload text form to eofold properties
   // md:
   // md:
   // md: ## methods
@@ -33,7 +33,7 @@
 
     // .................. _geofold
     let _geofold = function (ani) { // eofold
-      let textform = ani.payload.textform // needs text
+      let textform = ani.eoload.textform // needs text
 
       return {
         type: 'Feature',

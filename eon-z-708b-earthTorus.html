@@ -201,7 +201,7 @@ async function anitem (__mapper) {
         conform: { projection: 'natform', eoform: formTorus },
         proform: proformEarth,
       },
-      payload: {
+      eoload: {
       },
 
     }
@@ -211,12 +211,12 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
       eofold: anitem => {
-        let payload = anitem.payload,
+        let eoload = anitem.eoload,
           eoric = anitem.eoric
 
         let json = {type: 'FeatureCollection', features: []}
-        let points = payload.points // payload.points
-        let faces = payload.faces // payload.faces
+        let points = eoload.points // eoload.points
+        let faces = eoload.faces // eoload.faces
         for (let i = 0, l = faces.length; i < l; i++) {
           let face = faces[i] // face pointsx position
           let geometry = {type: 'Polygon', coordinates: []}
@@ -247,7 +247,7 @@ async function anitem (__mapper) {
 
         proform: proformEarth,
       },
-      payload: {
+      eoload: {
         points: [
           [-1, -1, 1], // 0
           [ 1, -1, 1], // 1
@@ -304,7 +304,7 @@ async function anitem (__mapper) {
         proform: proformEarth,
       },
       geoframe: { extent: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
-      payload: {
+      eoload: {
       },
 
     }
@@ -324,7 +324,7 @@ async function anitem (__mapper) {
         proform: proformEarth,
       },
       geoframe: { frame: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
-      payload: {
+      eoload: {
       },
 
     }
@@ -341,7 +341,7 @@ async function anitem (__mapper) {
       eochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
       eoform: formTorus,
-      payload: {
+      eoload: {
       },
     }
     // .................. sceneAni
@@ -351,7 +351,7 @@ async function anitem (__mapper) {
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      payload: {
+      eoload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

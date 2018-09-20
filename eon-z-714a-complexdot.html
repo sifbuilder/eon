@@ -54,8 +54,8 @@ async function anitem (__mapper) {
           type: 'Point',
           coordinates: Complex({re: 0, im: 0})
             .add(
-              d.payload.zenform[0] * Math.cos(d.payload.zenform[1]),
-              d.payload.zenform[0] * Math.sin(d.payload.zenform[1])
+              d.eoload.zenform[0] * Math.cos(d.eoload.zenform[1]),
+              d.eoload.zenform[0] * Math.sin(d.eoload.zenform[1])
             )
             .toVector(),
         },
@@ -84,7 +84,7 @@ async function anitem (__mapper) {
         proform: proform,
       },
 
-      payload: {
+      eoload: {
         zenform: [ [[[0, 100]]], [[[0, Math.PI]]] ],
 
       },
@@ -97,7 +97,7 @@ async function anitem (__mapper) {
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      payload: {
+      eoload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 

@@ -112,7 +112,7 @@ async function anitem (__mapper) {
       halo: 'leaform',
 
       eofold: ani => {
-        let payload = ani.payload // payload
+        let eoload = ani.eoload // eoload
 
         let newFeatureCollection = {type: 'FeatureCollection', features: []}
         let feature = {
@@ -121,15 +121,15 @@ async function anitem (__mapper) {
           properties: {},
         }
 
-        const maxDepth = payload.tree.maxDepth,
-          trunkWidth = payload.tree.trunkWidth,
-          branchColor = `rgb(${payload.tree.branchColor[0]}, ${payload.tree.branchColor[1]}, ${payload.tree.branchColor[2]})`,
-          length = payload.tree.length0,
-          angle = payload.tree.angle0,
-          x0 = payload.tree.x0,
-          y0 = payload.tree.y0,
-          branchShrinkage = payload.tree.branchShrinkage,
-          maxAngleDelta = payload.tree.maxAngleDelta
+        const maxDepth = eoload.tree.maxDepth,
+          trunkWidth = eoload.tree.trunkWidth,
+          branchColor = `rgb(${eoload.tree.branchColor[0]}, ${eoload.tree.branchColor[1]}, ${eoload.tree.branchColor[2]})`,
+          length = eoload.tree.length0,
+          angle = eoload.tree.angle0,
+          x0 = eoload.tree.x0,
+          y0 = eoload.tree.y0,
+          branchShrinkage = eoload.tree.branchShrinkage,
+          maxAngleDelta = eoload.tree.maxAngleDelta
 
         let tree = buildTree(x0, y0, length, angle, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage)
         feature.geometry.coordinates = tree
@@ -141,7 +141,7 @@ async function anitem (__mapper) {
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
       eochrom: {'csx': 0, 'cf': 555, 'cs': [[[333, 888]]], 'cw': 1.3, 'co': 0.72, 'cp': 0.999},
-      payload: {
+      eoload: {
         tree: {
           x0: 100,
           y0: -100,
@@ -185,7 +185,7 @@ async function anitem (__mapper) {
       eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
       eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
-      payload: {
+      eoload: {
         pacer: { // geoaad for trace
           halo: 'turnform',
           geosort: 'anigram',
@@ -197,7 +197,7 @@ async function anitem (__mapper) {
             if (props.key === 'init') { // INIT
               stace = {x: 0, y: 0, z: 0 }
             } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus(ani.payload.pacer.stace, ani) // AUTO
+              stace = muonStace.getLocus(ani.eoload.pacer.stace, ani) // AUTO
             } else if (props.key === 'event') { // EVENT
               stace = {x: 0, y: 0, z: 0 }
             }
@@ -244,7 +244,7 @@ async function anitem (__mapper) {
       eofold: null,
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      payload: {
+      eoload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },
 
