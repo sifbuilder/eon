@@ -77,18 +77,18 @@ async function anitem (__mapper) {
 
     }
 
-    let geochrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+    let eochrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]}
     let geochromFuel = { 'csx': 0, 'cf': [[[777, 777]]], 'co': [[[0.9, 0.9]]], 'cs': [[[777, 777]]], 'cw': [[[0.1, 0.1]]], 'cp': [[[0.99, 0.99]]]}
 
     // .................. animas
     let nat = {
 
       halo: 'natform',
-      geofold: null,
+      eofold: null,
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
       tim,
-      geochrom,
-      geodrift: {
+      eochrom,
+      eodrift: {
         proform,
       },
       geoform: form,
@@ -100,11 +100,11 @@ async function anitem (__mapper) {
     let natFlat = {
 
       halo: 'natform',
-      geofold: null,
+      eofold: null,
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natFlat'},
       tim,
-      geochrom,
-      geodrift: {
+      eochrom,
+      eodrift: {
         proform: proformFlat,
       },
       geoform: form,
@@ -116,10 +116,10 @@ async function anitem (__mapper) {
     let fuelnat = {
 
       halo: 'fuel',
-      geofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {'gid': 'fuel', 'cid': 'fuel'},
-      geochrom: geochromFuel,
+      eochrom: geochromFuel,
       geoform: formFuel,
       payload: {
         fuel: {
@@ -137,7 +137,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

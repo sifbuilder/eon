@@ -1,14 +1,14 @@
 /***********
- *    @muonGeochrom
+ *    @muonEochrom
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonGeochrom = global.muonGeochrom || {})))
+      : (factory((global.muonEochrom = global.muonEochrom || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonGeochrom (__mapper = {}) {
+  async function muonEochrom (__mapper = {}) {
     let [
       d3interpolate,
       d3scale,
@@ -54,38 +54,38 @@
     let kolor = (v, d = 0) => color(d)(v / 1000)
 
     // .................. getStyle - process style attributes
-    let getStyle = function (geochrom) {
+    let getStyle = function (eochrom) {
       let style = {}
-      if (geochrom !== undefined) {
-        if (geochrom.csx === undefined) geochrom.csx = 0
+      if (eochrom !== undefined) {
+        if (eochrom.csx === undefined) eochrom.csx = 0
 
-        if (geochrom.cf !== undefined && geochrom.csx !== undefined) style['fill'] = kolor(geochrom.cf, geochrom.csx)
-        if (geochrom.cf !== undefined && geochrom.csx !== undefined) style['stroke'] = kolor(geochrom.cs, geochrom.csx)
-        if (geochrom.co !== undefined) style['fill-opacity'] = geochrom.co
-        if (geochrom.cw !== undefined) style['stroke-width'] = geochrom.cw
-        if (geochrom.cp !== undefined) style['stroke-opacity'] = geochrom.cp
+        if (eochrom.cf !== undefined && eochrom.csx !== undefined) style['fill'] = kolor(eochrom.cf, eochrom.csx)
+        if (eochrom.cf !== undefined && eochrom.csx !== undefined) style['stroke'] = kolor(eochrom.cs, eochrom.csx)
+        if (eochrom.co !== undefined) style['fill-opacity'] = eochrom.co
+        if (eochrom.cw !== undefined) style['stroke-width'] = eochrom.cw
+        if (eochrom.cp !== undefined) style['stroke-opacity'] = eochrom.cp
       }
 
       return style
     }
 
-    // .................. @m.geochrom.geochromer(anigram, json)
+    // .................. @m.eochrom.geochromer(anigram, json)
     let geochromer = function (anigram, json) {
       if (json !== undefined && json !== null) {
         if (json.type === undefined) {
-        } else if (typeof anigram.geochrom !== 'object') {
+        } else if (typeof anigram.eochrom !== 'object') {
         } else if (json.type === 'Feature') { // Feature
           let feature = json
 
-          let geochrom = {}, featureStyle = {}
-          if (feature.properties !== undefined && feature.properties.geochrom !== undefined) {
-            geochrom = feature.properties.geochrom
-          } else if (anigram.geochrom) {
-            geochrom = anigram.geochrom
+          let eochrom = {}, featureStyle = {}
+          if (feature.properties !== undefined && feature.properties.eochrom !== undefined) {
+            eochrom = feature.properties.eochrom
+          } else if (anigram.eochrom) {
+            eochrom = anigram.eochrom
           } else {
           }
 
-          let jsonStyle = getStyle(geochrom)
+          let jsonStyle = getStyle(eochrom)
 
           if (feature.properties !== undefined && feature.properties.style !== undefined) {
             featureStyle = feature.properties.style
@@ -99,14 +99,14 @@
             feature = geochromer(anigram, feature)
           }
         } else {
-          console.log('m.geochrom.geochromer nothing done')
+          console.log('m.eochrom.geochromer nothing done')
         }
       }
 
       return json
     }
 
-    // geochrom definition
+    // eochrom definition
 
     let getdefault = function () {
       let res = { 'csx': 0, 'cf': 500, 'co': 1, 'cs': 500, 'cw': 1, 'cp': 1 }
@@ -122,5 +122,5 @@
     return enty
   }
 
-  exports.muonGeochrom = muonGeochrom
+  exports.muonEochrom = muonEochrom
 }))

@@ -56,11 +56,11 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.geoform),
       tim: tim,
       ric: {'gid': 'geoani', 'cid': 'geoani', 'fid': 'geoani'},
-      geochrom: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.5, 0.5]]]},
+      eodrift: {
         proform: proform,
       },
       geoform: form,
@@ -75,7 +75,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

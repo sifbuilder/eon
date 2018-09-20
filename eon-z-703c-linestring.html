@@ -19,7 +19,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: (p) => ({
+      eofold: (p) => ({
         'type': 'Feature',
         'geometry': {
           'type': 'LineString',
@@ -36,8 +36,8 @@ async function anitem (__mapper) {
 
       tim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
       ric: { gid: 'ani', cid: 'ani', fid: 'ani' },
-      geochrom: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.1, 0.2]]], 'cp': [[[0.9, 0.9]]]},
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.1, 0.2]]], 'cp': [[[0.9, 0.9]]]},
+      eodrift: {
         proform: {
 
           projection: 'uniwen',
@@ -56,7 +56,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

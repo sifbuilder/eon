@@ -73,13 +73,13 @@ async function anitem (__mapper) {
 
       halo: 'tileform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
+      eofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
       tim,
       ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
-      geochrom: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
+      eochrom: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
 
-      geodrift: {
+      eodrift: {
         conform: conform,
 
         proform: proform,
@@ -95,7 +95,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

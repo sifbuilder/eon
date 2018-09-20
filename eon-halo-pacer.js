@@ -209,7 +209,7 @@
             delete newItem.payload
 
             // NOT pacer.AAD if not pacer.add, pacer generates anitems
-            // geofold is Feature
+            // eofold is Feature
 
             // complete newItem definition
 

@@ -85,8 +85,8 @@ async function anitem (__mapper) {
 
         let uid = muonRic.getuid(ani.ric)
         ani.uid = uid
-        ani.geochrom.cf = (i % 2) ? 777 : 333
-        ani.geochrom.cs = (i % 2) ? 777 : 333
+        ani.eochrom.cf = (i % 2) ? 777 : 333
+        ani.eochrom.cs = (i % 2) ? 777 : 333
 
         let preani = muonStore.getAnima(ani.ric)
 
@@ -95,12 +95,12 @@ async function anitem (__mapper) {
         } else { // create anima
           ani.halo = 'natform' // halo ENT
 
-          ani.geofold = { // will create anigram
+          ani.eofold = { // will create anigram
             type: 'Feature',
             geometry: {type: 'Point', coordinates: [i * 10, 0, 0]}, // sparation
           }
 
-          ani.geonode.properties.orgen = [0, 0, 0 ]
+          ani.eonode.properties.orgen = [0, 0, 0 ]
         }
         newAnimas.push(ani)
       }
@@ -119,18 +119,18 @@ async function anitem (__mapper) {
 
       halo: haloIsolationHalo, // 'turnform',
 
-      geofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.geoform),
 
       tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      geonode: {
+      eonode: {
         type: 'Feature',
         geometry: {type: 'Point', coordinates: [0, 0, 0]},
         properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
       },
 
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           translate:
@@ -147,7 +147,7 @@ async function anitem (__mapper) {
         },
       },
 
-      geochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      eochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
       geoform: {
 
@@ -173,7 +173,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

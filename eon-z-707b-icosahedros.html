@@ -52,7 +52,7 @@ async function anitem (__mapper) {
 
         feature.properties.ric = _ric
         feature.properties.sort = 'form'
-        feature.properties.geochrom = face.geochrom
+        feature.properties.eochrom = face.eochrom
 
         json.features.push(feature)
       }
@@ -65,12 +65,12 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: facesGeofold,
+      eofold: facesGeofold,
       tim: tim,
       ric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
-      geochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      eochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
-      geodrift: {
+      eodrift: {
         proform: {
 
           projection: 'uniwen',
@@ -118,7 +118,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: anitem => {
+      eofold: anitem => {
         let payload = anitem.payload,
           ric = anitem.ric,
           points = payload.points,
@@ -142,7 +142,7 @@ async function anitem (__mapper) {
           feature.geometry = geometry
           feature.properties.ric = _ric
           feature.properties.sort = 'form'
-          feature.properties.geochrom = face.geochrom
+          feature.properties.eochrom = face.eochrom
 
           json.features.push(feature)
         }
@@ -152,9 +152,9 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {gid: 'dotsAni', cid: 'dotsAni', fid: 'dotsAni'},
-      geochrom: {'csx': 0, 'cf': [[[111, 222, 111, 222, 111, 222, 111]]], 'cs': 777, 'cw': 0.2, 'co': 0.9, 'cp': 0.9},
+      eochrom: {'csx': 0, 'cf': [[[111, 222, 111, 222, 111, 222, 111]]], 'cs': 777, 'cw': 0.2, 'co': 0.9, 'cp': 0.9},
 
-      geodrift: {
+      eodrift: {
         proform: {
 
           projection: 'uniwen',
@@ -211,7 +211,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

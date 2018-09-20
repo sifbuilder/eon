@@ -102,10 +102,10 @@ async function anitem (__mapper) {
 
       halo: 'leaform',
 
-      geofold: ani => {
+      eofold: ani => {
         let anigram = ani, // anigram
           halo = ani.halo, // halo
-          geofold = ani.geofold, // geofold
+          eofold = ani.eofold, // eofold
           payload = ani.payload // payload
 
         let geoData = geoData1 // geoData
@@ -119,7 +119,7 @@ async function anitem (__mapper) {
           type: 'Feature',
           geometry: { type: 'Polygon', coordinates: [] },
           properties: {
-            geochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.8, 'co': 0.01, 'cp': 0.99},
+            eochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.8, 'co': 0.01, 'cp': 0.99},
           },
         }
 
@@ -138,9 +138,9 @@ async function anitem (__mapper) {
             properties: {},
           }
           if (i < rings.length - 1) { // first
-            feature.properties.geochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 1}
+            feature.properties.eochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 1}
           } else {
-            feature.properties.geochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.1, 'cp': 1}
+            feature.properties.eochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.1, 'cp': 1}
           }
 
           newFeatureCollection.features.push(feature)
@@ -156,7 +156,7 @@ async function anitem (__mapper) {
       },
       tim: tim,
       ric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
-      geochrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
+      eochrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
       payload: {
         tf: t => t,
       },
@@ -167,10 +167,10 @@ async function anitem (__mapper) {
 
       halo: 'leaform',
 
-      geofold: ani => {
+      eofold: ani => {
         let anigram = ani, // anigram
           halo = ani.halo, // halo
-          geofold = ani.geofold, // geofold
+          eofold = ani.eofold, // eofold
           payload = ani.payload // payload
 
         let geoData = geoData2 // geoData
@@ -184,7 +184,7 @@ async function anitem (__mapper) {
           type: 'Feature',
           geometry: { type: 'Polygon', coordinates: [] },
           properties: {
-            geochrom: { 'csx': 0, 'cf': 666, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 0.9},
+            eochrom: { 'csx': 0, 'cf': 666, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 0.9},
           },
         }
 
@@ -203,9 +203,9 @@ async function anitem (__mapper) {
             properties: {},
           }
           if (i < rings.length - 1) { // first
-            feature.properties.geochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 1}
+            feature.properties.eochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 1}
           } else {
-            feature.properties.geochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.1, 'cp': 1}
+            feature.properties.eochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.1, 'cp': 1}
           }
 
           newFeatureCollection.features.push(feature)
@@ -221,7 +221,7 @@ async function anitem (__mapper) {
       },
       tim: tim,
       ric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
-      geochrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
+      eochrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
       payload: {
         tf: t => t,
       },
@@ -232,10 +232,10 @@ async function anitem (__mapper) {
 
       halo: 'leaform',
 
-      geofold: ani => {
+      eofold: ani => {
         let anigram = ani, // anigram
           halo = ani.halo, // halo
-          geofold = ani.geofold, // geofold
+          eofold = ani.eofold, // eofold
           payload = ani.payload // payload
 
         let geoData = geoData3 // geoData
@@ -249,7 +249,7 @@ async function anitem (__mapper) {
           type: 'Feature',
           geometry: { type: 'Polygon', coordinates: [] },
           properties: {
-            geochrom: { 'csx': 0, 'cf': 666, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 0.9},
+            eochrom: { 'csx': 0, 'cf': 666, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 0.9},
           },
         }
 
@@ -268,9 +268,9 @@ async function anitem (__mapper) {
             properties: {},
           }
           if (i < rings.length - 1) { // first
-            feature.properties.geochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 1}
+            feature.properties.eochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 1, 'cp': 1}
           } else {
-            feature.properties.geochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.1, 'cp': 1}
+            feature.properties.eochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.1, 'cp': 1}
           }
 
           newFeatureCollection.features.push(feature)
@@ -286,7 +286,7 @@ async function anitem (__mapper) {
       },
       tim: tim,
       ric: { gid: 'ani', cid: 'ani', fid: 'ani3'},
-      geochrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
+      eochrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
       payload: {
         tf: t => t,
       },
@@ -297,10 +297,10 @@ async function anitem (__mapper) {
 
       halo: 'leaform',
 
-      geofold: ani => {
+      eofold: ani => {
         let anigram = ani, // anigram
           halo = ani.halo, // halo
-          geofold = ani.geofold, // geofold
+          eofold = ani.eofold, // eofold
           payload = ani.payload // payload
 
         let geoData = geoData4 // geoData
@@ -314,7 +314,7 @@ async function anitem (__mapper) {
           type: 'Feature',
           geometry: { type: 'Polygon', coordinates: [] },
           properties: {
-            geochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.7, 'co': 0.01, 'cp': 0.9},
+            eochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.7, 'co': 0.01, 'cp': 0.9},
           },
         }
 
@@ -333,9 +333,9 @@ async function anitem (__mapper) {
             properties: {},
           }
           if (i < rings.length - 1) { // first
-            feature.properties.geochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.01, 'cp': 1}
+            feature.properties.eochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.01, 'cp': 1}
           } else {
-            feature.properties.geochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.01, 'cp': 1}
+            feature.properties.eochrom = { 'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.8, 'co': 0.01, 'cp': 1}
           }
 
           newFeatureCollection.features.push(feature)
@@ -351,7 +351,7 @@ async function anitem (__mapper) {
       },
       tim: tim,
       ric: { gid: 'ani', cid: 'ani', fid: 'ani4'},
-      geochrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.0072, 'cp': 0.7},
+      eochrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.0072, 'cp': 0.7},
       payload: {
         tf: t => t,
       },
@@ -361,7 +361,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

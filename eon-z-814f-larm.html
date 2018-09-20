@@ -112,7 +112,7 @@ async function anitem (__mapper) {
 
     }
 
-    let geochrom = { 'csx': 1, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+    let eochrom = { 'csx': 1, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
       'cs': [[[666, 333, 666]]], 'cw': [[[1.3, 1.3, 1.3]]], 'cp': [[[0.99, 0.99]]]}
 
     // ............................. natAni
@@ -120,11 +120,11 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.geoform),
       tim,
 
       ric: {gid: 'q', cid: 'q', fid: 'q'},
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           scale: [ [[[1, 1]]], [[[1, 1]]] ],
@@ -137,7 +137,7 @@ async function anitem (__mapper) {
         },
       },
 
-      geochrom: geochrom,
+      eochrom: eochrom,
 
       geoform: conform,
       payload: {
@@ -149,7 +149,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

@@ -64,7 +64,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: () => {
+      eofold: () => {
         return Object.assign({},
           topojson.feature(
             dworldTopo110m.data(),
@@ -73,11 +73,11 @@ async function anitem (__mapper) {
         )
       },
       tim,
-      geodrift: {
+      eodrift: {
         proform: proformEarth,
       },
       ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
-      geochrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
+      eochrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
       payload: {
       },
 
@@ -87,7 +87,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

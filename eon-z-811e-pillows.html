@@ -162,10 +162,10 @@ async function anitem (__mapper) {
     // ............................. natAniRed
     let natAniRed = {
       halo: 'turnform',
-      geofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'qred'},
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           scale: [ 0.2, 0.2 ],
@@ -177,7 +177,7 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity ],
         },
       },
-      geochrom: geochromRed,
+      eochrom: geochromRed,
       geoform: conformRed,
       payload: {
       },
@@ -185,10 +185,10 @@ async function anitem (__mapper) {
     // ............................. natAniBlue
     let natAniBlue = {
       halo: 'turnform',
-      geofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'qblue'},
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           scale: [ [[[1, 1]]], [[[1, 1]]] ],
@@ -200,7 +200,7 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity ],
         },
       },
-      geochrom: geochromBlue,
+      eochrom: geochromBlue,
       geoform: conformBlue,
       payload: {
       },
@@ -209,7 +209,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

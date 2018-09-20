@@ -147,17 +147,17 @@ async function anitem (__mapper) {
     let natAni = {
 
       halo: 'turnform',
-      geofold: p => {
+      eofold: p => {
         let tfvars = vars.map(d => d.dataSync()[0])
         let q = { natform: {y: { e1: tfvars } } }
         return muonNatform.natFeature(p.payload.natform(q.natform))
       },
       tim: tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
-      geodrift: {
+      eodrift: {
         proform: proform,
       },
-      geochrom: { 'csx': 0, 'cf': 111, 'co': 0.09, 'cs': 888, 'cw': 1.9, 'cp': [[[0.7, 0.9]]]},
+      eochrom: { 'csx': 0, 'cf': 111, 'co': 0.09, 'cs': 888, 'cw': 1.9, 'cp': [[[0.7, 0.9]]]},
       payload: {
         natform: natform,
       },
@@ -167,7 +167,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

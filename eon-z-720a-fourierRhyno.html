@@ -65,7 +65,7 @@ async function anitem (__mapper) {
     let aniLine = {
 
       halo: 'turnform',
-      geofold: {
+      eofold: {
         type: 'Feature',
         geometry: {
           type: 'LineString',
@@ -74,7 +74,7 @@ async function anitem (__mapper) {
       },
       tim: tim,
       ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
-      geochrom: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
+      eochrom: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
       payload: {},
 
     }
@@ -84,7 +84,7 @@ async function anitem (__mapper) {
 
       halo: 'pacer',
 
-      geofold: {
+      eofold: {
         type: 'Feature',
         geometry: {
           type: 'LineString',
@@ -92,7 +92,7 @@ async function anitem (__mapper) {
         },
         properties: {},
       },
-      geonode: {
+      eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -103,7 +103,7 @@ async function anitem (__mapper) {
 
       tim,
       ric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
-      geochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+      eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       payload: {
         pacer: { // geoaad for trace
@@ -124,10 +124,10 @@ async function anitem (__mapper) {
             return stace
           },
 
-          geonode: function (ani, props) {
+          eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              // stace is ani's transformed geonode
+              // stace is ani's transformed eonode
               stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
               stace = muonStace.getLocus([null, null, null], ani)
@@ -162,11 +162,11 @@ async function anitem (__mapper) {
 
       halo: 'fourier',
 
-      geofold: p => transformsFC,
+      eofold: p => transformsFC,
 
       tim: tim,
       ric: { gid: 'fourier', cid: 'fourier', fid: 'fourier'},
-      geochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.095, 'co': 0.092, 'cp': 0.99},
+      eochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.095, 'co': 0.092, 'cp': 0.99},
 
       payload: { // payload in fourierForm
         fourier: {
@@ -189,7 +189,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

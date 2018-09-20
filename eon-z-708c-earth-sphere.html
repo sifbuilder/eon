@@ -126,7 +126,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: () => {
+      eofold: () => {
         return Object.assign({},
           topojson.feature(
             dworldTopo110m.data(),
@@ -137,8 +137,8 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
-      geochrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
+      eodrift: {
         conform: {
           projection: 'natform',
           geoform: formSphere,
@@ -154,7 +154,7 @@ async function anitem (__mapper) {
     let cubeAni = {
 
       halo: 'turnform',
-      geofold: anitem => {
+      eofold: anitem => {
         let payload = anitem.payload,
           ric = anitem.ric
 
@@ -175,7 +175,7 @@ async function anitem (__mapper) {
           feature.properties.ric.fid = i // face.name
           feature.properties.sort = 'form'
           feature.geometry = geometry
-          feature.properties.geochrom = face.geochrom
+          feature.properties.eochrom = face.eochrom
           json.features.push(feature)
         }
 
@@ -184,9 +184,9 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {gid: 'cubeAni', cid: 'cubeAni', fid: 'cubeAni'},
-      geochrom: { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
+      eochrom: { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
 
-      geodrift: {
+      eodrift: {
         conform: {
           projection: 'natform',
           geoform: formSphere,
@@ -209,27 +209,27 @@ async function anitem (__mapper) {
           {
             pointsx: [0, 1, 2, 3, 0],
             name: 'front',
-            geochrom: { cf: 222, cs: 355, co: [[[0.7, 0.7]]], cp: 1 }},
+            eochrom: { cf: 222, cs: 355, co: [[[0.7, 0.7]]], cp: 1 }},
           {
             pointsx: [4, 5, 6, 7, 4],
             name: 'back',
-            geochrom: { cf: 888, cs: 455, co: [[[0.7, 0.7]]], cp: 1 }},
+            eochrom: { cf: 888, cs: 455, co: [[[0.7, 0.7]]], cp: 1 }},
           {
             pointsx: [1, 4, 7, 2, 1],
             name: 'right',
-            geochrom: { cf: 444, cs: 555, co: [[[0.7, 0.7]]], cp: 1 }},
+            eochrom: { cf: 444, cs: 555, co: [[[0.7, 0.7]]], cp: 1 }},
           {
             pointsx: [5, 0, 3, 6, 5],
             name: 'left',
-            geochrom: { cf: 555, cs: 655, co: [[[0.7, 0.7]]], cp: 1 }},
+            eochrom: { cf: 555, cs: 655, co: [[[0.7, 0.7]]], cp: 1 }},
           {
             pointsx: [3, 2, 7, 6, 3],
             name: 'bottom',
-            geochrom: { cf: 666, cs: 755, co: [[[0.7, 0.7]]], cp: 1 }},
+            eochrom: { cf: 666, cs: 755, co: [[[0.7, 0.7]]], cp: 1 }},
           {
             pointsx: [5, 4, 1, 0, 5],
             name: 'top',
-            geochrom: { cf: 777, cs: 855, co: [[[0.7, 0.7]]], cp: 1 }},
+            eochrom: { cf: 777, cs: 855, co: [[[0.7, 0.7]]], cp: 1 }},
 
         ],
 
@@ -240,12 +240,12 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: anitem => muonGraticule.vhMultiLine(anitem.geoframe),
+      eofold: anitem => muonGraticule.vhMultiLine(anitem.geoframe),
       tim: tim,
       ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticubeAni'},
-      geochrom: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
+      eochrom: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
-      geodrift: {
+      eodrift: {
         conform: { projection: 'natform', geoform: formGratiCube },
 
         proform: proform,
@@ -259,12 +259,12 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
+      eofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
       tim: tim,
       ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticircAni'},
-      geochrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
+      eochrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
-      geodrift: {
+      eodrift: {
         conform: { projection: 'natform', geoform: formSphere },
 
         proform: proform,
@@ -279,7 +279,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

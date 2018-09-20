@@ -70,8 +70,8 @@
       let projname
 
       let payload = anigram.payload,
-        geofold = anigram.geofold,
-        geonode = anigram.geonode
+        eofold = anigram.eofold,
+        eonode = anigram.eonode
 
       let translation, rotation
 
@@ -96,9 +96,9 @@
           translation = muonStace.getTranspot(projdef.translate, anigram) // get transpot - anigram
         }
 
-        if (projdef.anod && geonode) {
-          if (geonode.geometry && geonode.geometry.coordinates !== undefined) {
-            let nodetranslate = geonode.geometry.coordinates // geonode coords
+        if (projdef.anod && eonode) {
+          if (eonode.geometry && eonode.geometry.coordinates !== undefined) {
+            let nodetranslate = eonode.geometry.coordinates // eonode coords
             translation = muonGeom.add(translation, nodetranslate)
           }
         }

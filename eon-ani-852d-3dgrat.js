@@ -34,13 +34,13 @@
       let natform = {
 
         halo: 'turnform',
-        geofold: p => muonNatform.natFeature(p.geoform),
+        eofold: p => muonNatform.natFeature(p.geoform),
 
         tim: tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'natform'},
-        geochrom: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
+        eochrom: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
 
-        geodrift: {
+        eodrift: {
           proform: { projection: 'uniwen', translate: [0, 0, 0], scale: 1, rotate: [0, 0, 0], lens: [0, 1, Infinity] },
         },
         payload: {
@@ -71,7 +71,7 @@
       let sceneAni = {
 
         halo: 'scene',
-        geofold: null,
+        eofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         payload: {

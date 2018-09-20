@@ -67,7 +67,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: () => {
+      eofold: () => {
         return Object.assign({},
           topojson.feature(
             dworldTopo110m.data(),
@@ -77,11 +77,11 @@ async function anitem (__mapper) {
       },
 
       tim,
-      geodrift: {
+      eodrift: {
         proform: proformDark,
       },
       ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthDark'},
-      geochrom: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+      eochrom: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
       payload: {
       },
 
@@ -121,7 +121,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: () => {
+      eofold: () => {
         return Object.assign({},
           topojson.feature(
             dworldTopo110m.data(),
@@ -132,11 +132,11 @@ async function anitem (__mapper) {
 
       tim,
 
-      geodrift: {
+      eodrift: {
         proform: proformFront,
       },
       ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthFront'},
-      geochrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
+      eochrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
       payload: {
       },
 
@@ -147,15 +147,15 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
+      eofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
       tim,
 
-      geodrift: {
+      eodrift: {
         proform: proformFront,
       },
       ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
-      geochrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9},
+      eochrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9},
 
       payload: {
         graticule: {
@@ -173,7 +173,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

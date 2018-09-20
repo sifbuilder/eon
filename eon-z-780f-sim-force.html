@@ -50,27 +50,27 @@ async function anitem (__mapper) {
       tim: tim,
       ric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
 
-      geofold: function (p) {
+      eofold: function (p) {
         return muonNatform.natFeature(p.geoform)
       },
 
-      geonode: {
+      eonode: {
         'type': 'Feature',
         'geometry': null,
       },
 
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           translate: [ [[[-100, 100]]], 0, 0],
           scale: 1,
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, 12],
-          anod: 1, // geonode
+          anod: 1, // eonode
         },
       },
 
-      geochrom: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
+      eochrom: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
 
       geoform: {
         'x': {
@@ -243,7 +243,7 @@ async function anitem (__mapper) {
 
       halo: 'core',
 
-      geofold: null,
+      eofold: null,
 
       tim: tim,
       ric: {gid: 'core', cid: 'core', fid: 'core'},

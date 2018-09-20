@@ -45,21 +45,21 @@
       console.assert(anitem !== undefined)
 
       if (newAnitem.payload === undefined) newAnitem.payload = {}
-      if (newAnitem.geodrift === undefined) newAnitem.geodrift = {}
+      if (newAnitem.eodrift === undefined) newAnitem.eodrift = {}
 
-      let geodrift = anitem.geodrift || {}
-      if (geodrift.ereform !== undefined) {
-        let ereform = functor(geodrift.ereform, anitem) // ereform
-        newAnitem.geodrift.ereform = ereform
-      } else if (geodrift.conform !== undefined) {
-        let conform = functor(geodrift.conform, anitem) // conform
-        newAnitem.geodrift.conform = conform
-      } else if (geodrift.proform !== undefined) {
-        let proform = functor(geodrift.proform, anitem) // proform
-        newAnitem.geodrift.proform = proform
+      let eodrift = anitem.eodrift || {}
+      if (eodrift.ereform !== undefined) {
+        let ereform = functor(eodrift.ereform, anitem) // ereform
+        newAnitem.eodrift.ereform = ereform
+      } else if (eodrift.conform !== undefined) {
+        let conform = functor(eodrift.conform, anitem) // conform
+        newAnitem.eodrift.conform = conform
+      } else if (eodrift.proform !== undefined) {
+        let proform = functor(eodrift.proform, anitem) // proform
+        newAnitem.eodrift.proform = proform
       }
-      if (anitem.geofold !== undefined) {
-        newAnitem.geofold = functor(anitem.geofold, anitem) // geofold
+      if (anitem.eofold !== undefined) {
+        newAnitem.eofold = functor(anitem.eofold, anitem) // eofold
       }
 
       return newAnitem
@@ -70,11 +70,11 @@
       let newAnitem = mprops.clone(anitem)
 
       console.assert(anitem !== undefined)
-      console.assert(anitem.geofold !== undefined, anitem.uid + ' geofold undefined')
+      console.assert(anitem.eofold !== undefined, anitem.uid + ' eofold undefined')
 
-      let geofold = functor((anitem.geofold), anitem) // geofold
+      let eofold = functor((anitem.eofold), anitem) // eofold
 
-      newAnitem.geofold = geofold
+      newAnitem.eofold = eofold
 
       return newAnitem
     }
@@ -86,15 +86,15 @@
       console.assert(anitem !== undefined)
       console.assert(anitem.payload !== undefined, anitem.uid + ' payload undefined')
 
-      if (anitem.geodrift.ereform !== undefined) {
-        let ereform = functor(anitem.geodrift.ereform, anitem) // ereform
-        newAnitem.geodrift.ereform = ereform
-      } else if (anitem.geodrift.conform !== undefined) {
-        let conform = functor(anitem.geodrift.conform, anitem) // conform
-        newAnitem.geodrift.conform = conform
-      } else if (anitem.geodrift.proform !== undefined) {
-        let proform = functor(anitem.geodrift.proform, anitem) // proform
-        newAnitem.geodrift.proform = proform
+      if (anitem.eodrift.ereform !== undefined) {
+        let ereform = functor(anitem.eodrift.ereform, anitem) // ereform
+        newAnitem.eodrift.ereform = ereform
+      } else if (anitem.eodrift.conform !== undefined) {
+        let conform = functor(anitem.eodrift.conform, anitem) // conform
+        newAnitem.eodrift.conform = conform
+      } else if (anitem.eodrift.proform !== undefined) {
+        let proform = functor(anitem.eodrift.proform, anitem) // proform
+        newAnitem.eodrift.proform = proform
       }
 
       return newAnitem

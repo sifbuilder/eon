@@ -164,13 +164,13 @@ async function anitem (__mapper) {
     let lightAniDark = {
 
       halo: 'turnform',
-      geofold: p => muonNatform.natFeature(p.geoform, {h: 1}),
+      eofold: p => muonNatform.natFeature(p.geoform, {h: 1}),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q1'},
-      geodrift: {
+      eodrift: {
         proform: proformDark,
       },
-      geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+      eochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[444, 444, 444]]], 'cw': [[[0.99, 0.99, 0.99]]], 'cp': [[[0.49, 0.49]]]},
       geoform: conformLight,
       payload: {
@@ -210,10 +210,10 @@ async function anitem (__mapper) {
     let lightAniFront = {
 
       halo: 'turnform',
-      geofold: p => muonNatform.natFeature(p.geoform, {h: 1}),
+      eofold: p => muonNatform.natFeature(p.geoform, {h: 1}),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q2'},
-      geodrift: {
+      eodrift: {
         proform: proformFront,
         // proform: {
         // projection: 'uniwen',
@@ -224,7 +224,7 @@ async function anitem (__mapper) {
         // lens: [0, 1, Infinity ],
         // },
       },
-      geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+      eochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[555, 555, 555]]], 'cw': [[[2.99, 2.99, 2.99]]], 'cp': [[[0.99, 0.99]]]},
       geoform: conformLight,
       payload: {
@@ -235,10 +235,10 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.geoform),
       tim: tim,
       ric: {gid: 'q', cid: 'q', fid: 'q0'},
-      geodrift: {
+      eodrift: {
 
         proform: {
           projection: 'uniwen',
@@ -249,7 +249,7 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity ],
         },
       },
-      geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+      eochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[666, 666, 666]]], 'cw': [[[0.79, 0.79, 0.79]]], 'cp': [[[0.99, 0.99]]]},
       geoform: conformSphere,
       payload: {
@@ -260,17 +260,17 @@ async function anitem (__mapper) {
     let mazeAni = {
 
       halo: 'turnform',
-      geofold: p => {
+      eofold: p => {
         let res = muonNatform.natFeature(p.geoform)
         console.log('res', res)
         return res
       },
       tim: tim,
       ric: {gid: 'q', cid: 'q', fid: 'q3'},
-      geodrift: {
+      eodrift: {
         proform: proformFront,
       },
-      geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+      eochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[666, 666, 666]]], 'cw': [[[0.79, 0.79, 0.79]]], 'cp': [[[0.99, 0.99]]]},
       geoform: conformSphere,
       payload: {
@@ -281,7 +281,7 @@ async function anitem (__mapper) {
     let topoAni = {
 
       halo: 'turnform',
-      geofold: p => {
+      eofold: p => {
         let res = Object.assign({},
           topojson.feature(
             dworldTopo110m.data(),
@@ -293,10 +293,10 @@ async function anitem (__mapper) {
       },
       tim: tim,
       ric: {gid: 'q', cid: 'q', fid: 'q4'},
-      geodrift: {
+      eodrift: {
         proform: proformFront,
       },
-      geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+      eochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[666, 666, 666]]], 'cw': [[[0.79, 0.79, 0.79]]], 'cp': [[[0.99, 0.99]]]},
       geoform: conformSphere,
       payload: {
@@ -307,7 +307,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

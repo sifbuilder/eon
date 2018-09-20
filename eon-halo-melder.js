@@ -183,8 +183,8 @@
 
               // if (base !== undefined) { // geobase: {geoform, conform, ereform, proform}
 
-              // console.assert(newItem.geofold.properties[base] !== undefined)
-              // newItem.geofold.geometry = newItem.geofold.properties[base].geometry
+              // console.assert(newItem.eofold.properties[base] !== undefined)
+              // newItem.eofold.geometry = newItem.eofold.properties[base].geometry
 
               // }
 
@@ -195,30 +195,30 @@
               newItem.halo = anitem.halo
               newItem.payload = mprops.clone(anitem.payload)
 
-              // if functional melder.geofold, override geofold
+              // if functional melder.eofold, override eofold
 
-              if (anitem.payload.melder.geofold !== undefined) {
-                console.assert(typeof anitem.payload.melder.geofold === 'function')
-                newItem.geofold = anitem.payload.melder.geofold(anitem)
+              if (anitem.payload.melder.eofold !== undefined) {
+                console.assert(typeof anitem.payload.melder.eofold === 'function')
+                newItem.eofold = anitem.payload.melder.eofold(anitem)
               }
             }
 
             let situs = anitem.payload.melder.stace(anitem, props)
             if (situs && typeof situs === 'object') situs = Object.values(situs)
 
-            let coords = newItem.geofold.geometry.coordinates
+            let coords = newItem.eofold.geometry.coordinates
 
             if (base === 'conform') {
-              if (geofold.properties.conform) {
-                coords = newItem.geofold.properties.conform.geometry.coordinates
+              if (eofold.properties.conform) {
+                coords = newItem.eofold.properties.conform.geometry.coordinates
               }
             } else if (base === 'ereform') {
-              if (geofold.properties.ereform) {
-                coords = newItem.geofold.properties.ereform.geometry.coordinates
+              if (eofold.properties.ereform) {
+                coords = newItem.eofold.properties.ereform.geometry.coordinates
               }
             } else if (base === 'proform') {
-              if (geofold.properties.proform) {
-                coords = newItem.geofold.properties.proform.geometry.coordinates
+              if (eofold.properties.proform) {
+                coords = newItem.eofold.properties.proform.geometry.coordinates
               }
             }
 
@@ -230,7 +230,7 @@
               coords = Array.of(situs) // coords start with first situs
             }
 
-            newItem.geofold.geometry.coordinates = coords // upd coords
+            newItem.eofold.geometry.coordinates = coords // upd coords
 
             let newItemsInCount = haloTurnform.gramm(newItem) // h.turnform newItem
             newItems = [...newItems, ...newItemsInCount] // add new items

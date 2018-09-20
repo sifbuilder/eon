@@ -33,7 +33,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: anitem => {
+      eofold: anitem => {
         let payload = anitem.payload,
           ric = anitem.ric,
           points = payload.points,
@@ -58,7 +58,7 @@ async function anitem (__mapper) {
           feature.geometry = geometry
           feature.properties.ric = _ric
           feature.properties.sort = 'form'
-          feature.properties.geochrom = face.geochrom
+          feature.properties.eochrom = face.eochrom
 
           json.features.push(feature)
         }
@@ -68,9 +68,9 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {gid: 'ani', cid: 'ani', fid: 'ani1'},
-      geochrom: {'csx': 0, 'cf': [[[111, 222, 111, 222, 111, 222, 111]]], 'cs': 777, 'cw': 0.2, 'co': 0.9, 'cp': 0.9},
+      eochrom: {'csx': 0, 'cf': [[[111, 222, 111, 222, 111, 222, 111]]], 'cs': 777, 'cw': 0.2, 'co': 0.9, 'cp': 0.9},
 
-      geodrift: {
+      eodrift: {
         proform: {
 
           projection: 'uniwen',
@@ -127,7 +127,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => {
+      eofold: p => {
         let payload = p.payload,
           ric = ric,
           points = payload.points({C0: (1 + Math.sqrt(5)) / 4}),
@@ -154,7 +154,7 @@ async function anitem (__mapper) {
           feature.geometry = geometry
           feature.properties.ric = _ric
           feature.properties.sort = 'form'
-          feature.properties.geochrom = face.geochrom
+          feature.properties.eochrom = face.eochrom
 
           json.features.push(feature)
         }
@@ -164,9 +164,9 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
-      geochrom: {'csx': 0, 'cf': [[[111, 222, 111, 222, 111, 222, 111]]], 'cs': 777, 'cw': 0.2, 'co': 0.9, 'cp': 0.9},
+      eochrom: {'csx': 0, 'cf': [[[111, 222, 111, 222, 111, 222, 111]]], 'cs': 777, 'cw': 0.2, 'co': 0.9, 'cp': 0.9},
 
-      geodrift: {
+      eodrift: {
         proform: {
 
           projection: 'uniwen',
@@ -232,7 +232,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

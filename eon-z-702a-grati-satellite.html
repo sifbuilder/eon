@@ -44,11 +44,11 @@ async function anitem (__mapper) {
 
     let g1 = {
       halo: 'turnform',
-      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
+      eofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: { gid: 'grat', cid: 'grat', fid: 'g1'},
-      geochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
+      eodrift: {
         conform: {
           projection: 'natform',
           geoform: form,
@@ -72,11 +72,11 @@ async function anitem (__mapper) {
 
     let g2 = {
       halo: 'turnform',
-      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
+      eofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: { gid: 'grat', cid: 'grat', fid: 'g2'},
-      geochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
+      eodrift: {
         conform: { projection: 'natform', geoform: form },
         proform: {
           projection: 'uniwen',
@@ -97,11 +97,11 @@ async function anitem (__mapper) {
 
     let g3 = {
       halo: 'turnform',
-      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
+      eofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: { gid: 'grat', cid: 'grat', fid: 'g3'},
-      geochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
+      eodrift: {
         conform: { projection: 'natform', geoform: form },
         proform: {
           projection: 'uniwen',
@@ -124,7 +124,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

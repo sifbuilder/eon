@@ -22,8 +22,8 @@ async function anitem (__mapper) {
     // .................. pics
 
     let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-    let geochrom = { csx: 0, cf: 777, cs: 222, cw: 1.7, co: 0.7, cp: 0.5}
-    let geofold = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0]}, properties: {pointRadius: 6}}
+    let eochrom = { csx: 0, cf: 777, cs: 222, cw: 1.7, co: 0.7, cp: 0.5}
+    let eofold = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0]}, properties: {pointRadius: 6}}
 
     let translate = {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
@@ -70,10 +70,10 @@ async function anitem (__mapper) {
  */
     let p1 = {
       halo: 'turnform',
-        geofold: p => muonNatform.natFeature(f1),
-        geochrom,
+        eofold: p => muonNatform.natFeature(f1),
+        eochrom,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p1'},
-        geodrift: {
+        eodrift: {
           proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [150 - 300, 100 - 200, 0] }
         },
       payload: {tim,
@@ -82,10 +82,10 @@ async function anitem (__mapper) {
     let p2 = {
       halo: 'turnform',
         tim,
-        geofold: p => muonNatform.natFeature(f2),
-        geochrom,
+        eofold: p => muonNatform.natFeature(f2),
+        eochrom,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p2'},
-        geodrift: {        
+        eodrift: {        
           proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [250 - 300, 100 - 200, 0] }
         },
       payload: {
@@ -94,10 +94,10 @@ async function anitem (__mapper) {
     let p3 = {
       halo: 'turnform',
         tim,
-        geofold: p => muonNatform.natFeature(f3),
-        geochrom,
+        eofold: p => muonNatform.natFeature(f3),
+        eochrom,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p3'},
-        geodrift: {        
+        eodrift: {        
           proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [350 - 300, 100 - 200, 0] }
         },
       payload: {
@@ -106,10 +106,10 @@ async function anitem (__mapper) {
     let p4 = {
       halo: 'turnform',
         tim,
-        geofold: p => muonNatform.natFeature(f4),
-        geochrom,
+        eofold: p => muonNatform.natFeature(f4),
+        eochrom,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p4'},
-        geodrift: {        
+        eodrift: {        
           proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [450 - 300, 100 - 200, 0] }
         },
       payload: {
@@ -118,10 +118,10 @@ async function anitem (__mapper) {
     let p5 = {
       halo: 'turnform',
         tim,
-        geofold: p => muonNatform.natFeature(f5),
-        geochrom,
+        eofold: p => muonNatform.natFeature(f5),
+        eochrom,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p5'},
-        geodrift: {        
+        eodrift: {        
           proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [150 - 300, 300 - 200, 0] }
         },
       payload: {
@@ -130,10 +130,10 @@ async function anitem (__mapper) {
     let p6 = {
       halo: 'turnform',
         tim,
-        geofold: p => muonNatform.natFeature(f6),
-        geochrom,
+        eofold: p => muonNatform.natFeature(f6),
+        eochrom,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p6'},
-        geodrift: {        
+        eodrift: {        
           proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [250 - 300, 300 - 200, 0] }
         },
       payload: {
@@ -142,10 +142,10 @@ async function anitem (__mapper) {
     let p7 = {
       halo: 'turnform',
         tim,
-        geofold: p => muonNatform.natFeature(f7),
-        geochrom,
+        eofold: p => muonNatform.natFeature(f7),
+        eochrom,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p7'},
-        geodrift: {        
+        eodrift: {        
           proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [350 - 300, 300 - 200, 0] }
         },
       payload: {
@@ -154,10 +154,10 @@ async function anitem (__mapper) {
     let p8 = {
       halo: 'turnform',
         tim,
-        geofold: p => muonNatform.natFeature(f8),
-        geochrom,
+        eofold: p => muonNatform.natFeature(f8),
+        eochrom,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p8'},
-        geodrift: {        
+        eodrift: {        
           proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [450 - 300, 300 - 200, 0] }
         },
       payload: {
@@ -168,7 +168,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-        geofold: null,
+        eofold: null,
         tim: tim,
         ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

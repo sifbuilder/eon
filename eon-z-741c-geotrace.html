@@ -37,7 +37,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: a => ({
+      eofold: a => ({
         type: 'Feature',
         geometry: {
 
@@ -46,7 +46,7 @@ async function anitem (__mapper) {
 
         },
         properties: {
-          geonode: {
+          eonode: {
             type: 'Feature',
             geometry: {type: 'Point', coordinates: [0, 0]},
             properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
@@ -57,7 +57,7 @@ async function anitem (__mapper) {
       tim: tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           translate: [ [ 70, 80 ], [[[ natStace ]]] ],
@@ -68,7 +68,7 @@ async function anitem (__mapper) {
         },
       },
 
-      geochrom: natGeochrom,
+      eochrom: natGeochrom,
 
       payload: {
       },
@@ -80,7 +80,7 @@ async function anitem (__mapper) {
 
       halo: 'pacer',
 
-      geofold: {
+      eofold: {
         type: 'Feature',
         geometry: {
           type: 'LineString',
@@ -88,7 +88,7 @@ async function anitem (__mapper) {
         },
         properties: {},
       },
-      geonode: {
+      eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -99,7 +99,7 @@ async function anitem (__mapper) {
 
       tim,
       ric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
-      geochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+      eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       payload: {
         pacer: { // geoaad for trace
@@ -120,10 +120,10 @@ async function anitem (__mapper) {
             return stace
           },
 
-          geonode: function (ani, props) {
+          eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              // stace is ani's transformed geonode
+              // stace is ani's transformed eonode
               stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
               stace = muonStace.getLocus([null, null, null], ani)
@@ -157,7 +157,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

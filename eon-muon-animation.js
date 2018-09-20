@@ -94,11 +94,11 @@
         .then(() => {
           // md: only feature collection can be rendered
           // md: and that is the feature collection of the existing anigrams
-          // md: all the information to render an anigram must be in its geofold
+          // md: all the information to render an anigram must be in its eofold
 
           let featurecollection = {
             type: 'FeatureCollection',
-            features: muonStore.anigrams().map(d => d.geofold),
+            features: muonStore.anigrams().map(d => d.eofold),
           }
           return featurecollection
         })
@@ -113,7 +113,7 @@
       anisimmed.map(ani => muonStore.gramm(ani))
       let featurecollection = {
         type: 'FeatureCollection',
-        features: muonStore.anigrams().map(d => d.geofold),
+        features: muonStore.anigrams().map(d => d.eofold),
       }
       return featurecollection
     }

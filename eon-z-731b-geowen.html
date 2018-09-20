@@ -37,7 +37,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: () => {
+      eofold: () => {
         let gj = Object.assign({},
           topojson.feature(
             dworldTopo110m.data(),
@@ -50,8 +50,8 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geoearth1'},
-      geochrom: { 'csx': 0, 'cf': [[[555, 555, 555, 555, 555, 555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': [[[555, 555, 555, 555, 555, 555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+      eodrift: {
         proform: {
 
           projection: d3geo.geoOrthographic(),
@@ -72,11 +72,11 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
+      eofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt1'},
-      geochrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+      eodrift: {
         proform: {
 
           projection: d3geo.geoOrthographic(),
@@ -104,15 +104,15 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: {
+      eofold: {
         type: 'Feature',
         geometry: {type: 'Sphere'},
         properties: {},
       },
       tim: tim,
       ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geosphere1'},
-      geochrom: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
+      eodrift: {
         proform: {
 
           projection: d3geo.geoOrthographic(),
@@ -133,7 +133,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: () => {
+      eofold: () => {
         let gj = Object.assign({},
           topojson.feature(
             dworldTopo110m.data(),
@@ -145,8 +145,8 @@ async function anitem (__mapper) {
       },
       tim: tim,
       ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geoearth2'},
-      geochrom: { 'csx': 0, 'cf': [[[555, 555, 555, 555, 555, 555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': [[[555, 555, 555, 555, 555, 555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+      eodrift: {
         proform: {
 
           projection: d3geo.geoMercator(),
@@ -167,11 +167,11 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
+      eofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt2'},
-      geochrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+      eodrift: {
         proform: {
 
           projection: d3geo.geoMercator(),
@@ -197,7 +197,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: {
+      eofold: {
         type: 'Feature',
         geometry: {type: 'Sphere'},
         properties: {},
@@ -205,8 +205,8 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geosphere2'},
-      geochrom: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
+      eodrift: {
         proform: {
 
           projection: d3geo.geoMercator(),
@@ -226,7 +226,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

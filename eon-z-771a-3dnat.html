@@ -23,8 +23,8 @@ async function anitem (__mapper) {
   let ani = function () {
     // .................. pics
     let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-    let geochrom = { csx: 0, cf: 777, cs: 222, cw: 1.7, co: 0.7, cp: 0.5}
-    let geofold = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0]}, properties: {pointRadius: 6}}
+    let eochrom = { csx: 0, cf: 777, cs: 222, cw: 1.7, co: 0.7, cp: 0.5}
+    let eofold = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0]}, properties: {pointRadius: 6}}
 
     let translate = {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
@@ -39,11 +39,11 @@ async function anitem (__mapper) {
     let p3 = {
       halo: 'turnform',
       tim,
-      geochrom,
-      geofold: p => muonNatform.natFeature(f3),
+      eochrom,
+      eofold: p => muonNatform.natFeature(f3),
       ric: {gid: 'p', cid: 'p', fid: 'p3'},
 
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           prerotate: ctlWen.rotation(),
@@ -61,7 +61,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

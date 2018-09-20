@@ -45,7 +45,7 @@
       let _scale = (scaleType) ? d3scale[scaleType]() : d3scale['scaleTime']()
 
       let newAnigram = mprops.clone(anigram) // clone
-      newAnigram.geofold.properties = {
+      newAnigram.eofold.properties = {
         sort: 'axis',
         ric: ric,
         uid: uid,

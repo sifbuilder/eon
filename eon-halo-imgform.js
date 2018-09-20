@@ -15,7 +15,7 @@
       __mapper('xs').h('turnform'),
     ])
 
-    let _geofold = p => ({ // geofold
+    let _geofold = p => ({ // eofold
       type: 'Feature',
       geometry: { type: 'Point', coordinates: [0, 0] },
       properties: {
@@ -33,11 +33,11 @@
       let halo = anigram.halo, // halo
         payload = anigram.payload // payload
 
-      let geofold = _geofold(anigram) // geofold
+      let eofold = _geofold(anigram) // eofold
 
       let newAnigram = {
         halo,
-        geofold,
+        eofold,
         payload,
       }
 

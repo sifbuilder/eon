@@ -34,13 +34,13 @@ async function anitem (__mapper) {
     let pointAni = {
 
       halo: 'pacer',
-      geofold: null,
+      eofold: null,
 
       tim: tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'pointAni'},
-      geochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
+      eochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           translate: [0, 0, 0],
@@ -76,7 +76,7 @@ async function anitem (__mapper) {
             return ric
           },
 
-          geofold: function (ani, props) {
+          eofold: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               stace = muonStace.getLocus([null, null, null], ani)
@@ -111,7 +111,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

@@ -33,21 +33,21 @@ async function anitem (__mapper) {
 
     }
 
-    let geochrom = { 'csx': 0, 'cf': [[[444, 999]]], 'cs': [[[444, 999]]], 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]}
+    let eochrom = { 'csx': 0, 'cf': [[[444, 999]]], 'cs': [[[444, 999]]], 'cw': [[[0.7, 0.7]]], 'co': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]}
 
     // ............................. axisBottom
     let axis1 = {
       halo: 'axis',
-      geofold: p => ({
+      eofold: p => ({
         type: 'Feature',
         geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [1, 0, 0] ] },
         properties: {},
       }),
       tim: tim,
       ric: {gid: 'ax', cid: 'ax', fid: 'x1'},
-      geochrom: geochrom,
+      eochrom: eochrom,
 
-      geodrift: {
+      eodrift: {
         proform: proform,
       },
 
@@ -68,15 +68,15 @@ async function anitem (__mapper) {
     // ............................. axisLeft
     let axis2 = {
       halo: 'turnform',
-      geofold: p => ({
+      eofold: p => ({
         type: 'Feature',
         geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 100, 0] ] },
         properties: {},
       }),
       tim: tim,
       ric: {gid: 'ax', cid: 'ax', fid: 'x2'},
-      geochrom: geochrom,
-      geodrift: {
+      eochrom: eochrom,
+      eodrift: {
         proform: proform,
       },
       payload: {
@@ -96,15 +96,15 @@ async function anitem (__mapper) {
     // ............................. axisLeft
     let axis3 = {
       halo: 'axis',
-      geofold: p => ({
+      eofold: p => ({
         type: 'Feature',
         geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 0, 1] ] },
         properties: {},
       }),
       tim: tim,
       ric: {gid: 'ax', cid: 'ax', fid: 'x3'},
-      geochrom: geochrom,
-      geodrift: {
+      eochrom: eochrom,
+      eodrift: {
         proform: proform,
       },
       payload: {
@@ -126,7 +126,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

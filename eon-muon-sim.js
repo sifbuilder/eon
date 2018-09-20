@@ -18,7 +18,7 @@
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('store'),
-      __mapper('xs').m('geonode'),
+      __mapper('xs').m('eonode'),
       __mapper('xs').b('d3'),
       __mapper('xs').b('d3-force-3d'),
     ])
@@ -68,15 +68,15 @@
         let aniItem = aniItems[i]
         let payload = aniItem.payload
 
-        if (aniItem.geonode) { // if simmable  ...
-          // the geonode ports info of the simnode
-          let geonode = mgeonode.init(aniItem.geonode)
+        if (aniItem.eonode) { // if simmable  ...
+          // the eonode ports info of the simnode
+          let eonode = mgeonode.init(aniItem.eonode)
 
-          // the simnode location is in the geonode geometry
-          let nodeGeometry = geonode.geometry
+          // the simnode location is in the eonode geometry
+          let nodeGeometry = eonode.geometry
 
           let simNode = mprops.clone(aniItem)
-          simNode.x = nodeGeometry.coordinates[0] // geonode location to simnode
+          simNode.x = nodeGeometry.coordinates[0] // eonode location to simnode
           simNode.y = nodeGeometry.coordinates[1]
           simNode.z = nodeGeometry.coordinates[2]
 
@@ -84,16 +84,16 @@
           if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1) simNode.y = 0
           if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2) simNode.z = 0
 
-          // the simnode status is in the geonode properties
-          let properties = geonode.properties
+          // the simnode status is in the eonode properties
+          let properties = eonode.properties
           if (properties.anchor) { // fix situs
             simNode.fx = simNode.x
             simNode.fy = simNode.y
             simNode.fz = simNode.z
           }
 
-          // the simnode velocity is in the geonode properties velin
-          simNode.vx = properties.velin[0] // geonode velocity to simnode
+          // the simnode velocity is in the eonode properties velin
+          simNode.vx = properties.velin[0] // eonode velocity to simnode
           simNode.vy = properties.velin[1]
           simNode.vz = properties.velin[2]
 
@@ -103,7 +103,7 @@
           simNode.payload = payload // anitem payload to simnode
 
           if (payload && payload.id !== undefined) { // link nodes
-            simNode.id = payload.id // simnode id from geofold.payload.id
+            simNode.id = payload.id // simnode id from eofold.payload.id
           } else {
             simNode.id = simNode.uid
           }
@@ -131,32 +131,32 @@
 
           let updItem = aniItems[i] // each anitem
 
-          if (updItem.geonode) {
-            let geonode = mgeonode.init(updItem.geonode)
-            geonode.properties.geodelta[0] = simNode.x - geonode.geometry.coordinates[0]
-            geonode.properties.geodelta[1] = simNode.y - geonode.geometry.coordinates[1]
-            geonode.properties.geodelta[2] = simNode.z - geonode.geometry.coordinates[2]
+          if (updItem.eonode) {
+            let eonode = mgeonode.init(updItem.eonode)
+            eonode.properties.geodelta[0] = simNode.x - eonode.geometry.coordinates[0]
+            eonode.properties.geodelta[1] = simNode.y - eonode.geometry.coordinates[1]
+            eonode.properties.geodelta[2] = simNode.z - eonode.geometry.coordinates[2]
 
-            geonode.properties.velin[0] = simNode.vx // linear velocities
-            geonode.properties.velin[1] = simNode.vy
-            geonode.properties.velin[2] = simNode.vz
+            eonode.properties.velin[0] = simNode.vx // linear velocities
+            eonode.properties.velin[1] = simNode.vy
+            eonode.properties.velin[2] = simNode.vz
 
-            geonode.properties.prevous[0] = geonode.geometry.coordinates[0] // previous location
-            geonode.properties.prevous[1] = geonode.geometry.coordinates[1]
-            geonode.properties.prevous[2] = geonode.geometry.coordinates[2]
+            eonode.properties.prevous[0] = eonode.geometry.coordinates[0] // previous location
+            eonode.properties.prevous[1] = eonode.geometry.coordinates[1]
+            eonode.properties.prevous[2] = eonode.geometry.coordinates[2]
 
-            geonode.geometry.coordinates[0] = simNode.x // after sim location
-            geonode.geometry.coordinates[1] = simNode.y
-            geonode.geometry.coordinates[2] = simNode.z
+            eonode.geometry.coordinates[0] = simNode.x // after sim location
+            eonode.geometry.coordinates[1] = simNode.y
+            eonode.geometry.coordinates[2] = simNode.z
 
-            updItem.geonode = geonode
+            updItem.eonode = eonode
           }
 
           updItems.push(updItem)
         }
       }
 
-      // md: aftersim geonode (s)
+      // md: aftersim eonode (s)
       // md:     coordinates
       // md:     properties.{geodelta, prevous, velin}
 

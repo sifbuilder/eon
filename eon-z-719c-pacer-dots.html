@@ -43,7 +43,7 @@ async function anitem (__mapper) {
     let natAni = {
 
       halo: 'pacer',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
@@ -52,7 +52,7 @@ async function anitem (__mapper) {
 
           halo: 'pacer',
 
-          geofold: {
+          eofold: {
             type: 'Feature',
             geometry: {
               type: 'Point',
@@ -61,7 +61,7 @@ async function anitem (__mapper) {
             properties: {},
           },
 
-          geonode: {
+          eonode: {
             type: 'Feature',
             geometry: {
               type: 'Point',
@@ -78,7 +78,7 @@ async function anitem (__mapper) {
             fid: 'pointTrace',
           },
 
-          geodrift: {
+          eodrift: {
             proform: {
               projection: 'uniwen',
               translate: [0, 0, 0],
@@ -88,7 +88,7 @@ async function anitem (__mapper) {
             },
           },
 
-          geochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
+          eochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
           payload: {
             pacer: {
@@ -116,7 +116,7 @@ async function anitem (__mapper) {
                 return ric
               },
 
-              geofold: function (ani, props) {
+              eofold: function (ani, props) {
                 let stace = [0, 0, 0]
                 if (props.key === 'init') { // INIT
                   stace = muonStace.getLocus([null, null, null], ani)

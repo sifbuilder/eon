@@ -29,11 +29,11 @@
       let newItems = []
 
       let ric = anigram.ric, // ric
-        geofold = anigram.geofold, // geofold
-        geonode = anigram.geonode, // geonode
+        eofold = anigram.eofold, // eofold
+        eonode = anigram.eonode, // eonode
         payload = anigram.payload // payload
 
-      let gj = mprops.v(geofold, anigram) // get geofold
+      let gj = mprops.v(eofold, anigram) // get eofold
       gj.properties = gj.properties || {} // recall genode
 
       let graticule = payload.graticule
@@ -49,10 +49,10 @@
 
         let newItem = mprops.clone(anigram)
         newItem.halo = 'natform'
-        newItem.geofold = {type: 'Polygon', coordinates: []}
+        newItem.eofold = {type: 'Polygon', coordinates: []}
 
         let facering = [vertices[face[0]], vertices[face[1]], vertices[face[2]]]
-        newItem.geofold.coordinates = Array.of([...facering, facering[0]])
+        newItem.eofold.coordinates = Array.of([...facering, facering[0]])
 
         newItems.push(newItem)
       }

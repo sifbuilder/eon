@@ -181,10 +181,10 @@ async function anitem (__mapper) {
     // ............................. hyperAni
     let hyperAni = {
       halo: 'turnform',
-      geofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q1'},
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
@@ -194,7 +194,7 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity ],
         },
       },
-      geochrom: geochromHyper,
+      eochrom: geochromHyper,
       geoform: conformHyper,
       payload: {
       },
@@ -203,10 +203,10 @@ async function anitem (__mapper) {
     // ............................. sphereAni
     let sphereAni = {
       halo: 'turnform',
-      geofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q2'},
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
@@ -216,7 +216,7 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity ],
         },
       },
-      geochrom: geochromSphere,
+      eochrom: geochromSphere,
       geoform: conformSphere,
       payload: {
       },
@@ -225,10 +225,10 @@ async function anitem (__mapper) {
     // ............................. sphereAni
     let lineAni = {
       halo: 'turnform',
-      geofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q4'},
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
@@ -238,7 +238,7 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity ],
         },
       },
-      geochrom: geochromSphere,
+      eochrom: geochromSphere,
       geoform: conformLine,
       payload: {
       },
@@ -247,10 +247,10 @@ async function anitem (__mapper) {
     // ............................. torusAni
     let torusAni = {
       halo: 'turnform',
-      geofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q3'},
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           scale: [ [[[0.1, 0.1]]], [[[0.1, 0.1]]] ],
@@ -260,7 +260,7 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity ],
         },
       },
-      geochrom: geochromTorus,
+      eochrom: geochromTorus,
       geoform: conformTorus,
       payload: {
       },
@@ -270,7 +270,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

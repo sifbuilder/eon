@@ -62,9 +62,9 @@ async function anitem (__mapper) {
       let traceLine = { // SUB-MARKS line trace
 
         halo: 'pacer',
-        geofold: null,
+        eofold: null,
         ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-        geochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+        eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
         payload: {
           pacer: { // geoaad for trace
@@ -85,7 +85,7 @@ async function anitem (__mapper) {
               let uid = muonRic.getuid(ric)
               let gj = {
                 halo: 'turnform',
-                geofold: {
+                eofold: {
                   type: 'Feature',
                   geometry: { type: 'LineString', coordinates: null },
                   properties: { doc: 'pacer' },
@@ -103,8 +103,8 @@ async function anitem (__mapper) {
                 },
               }
               let newItem = muonStore.findAnigramFromUid(uid) || gj
-              if (newItem.geofold.properties.formEreformed) {
-                newItem.geofold.geometry = newItem.geofold.properties.formEreformed.geometry
+              if (newItem.eofold.properties.formEreformed) {
+                newItem.eofold.geometry = newItem.eofold.properties.formEreformed.geometry
               }
               return newItem
             },
@@ -112,14 +112,14 @@ async function anitem (__mapper) {
         },
       }
 
-      // md: sinus location in fractalForm.geofold.geometry.coordinates
+      // md: sinus location in fractalForm.eofold.geometry.coordinates
       // md:   adding the lower fractal coeficients
 
       let fractalForm = {
 
         halo: 'turnform',
 
-        geofold: a => ({
+        eofold: a => ({
           type: 'Feature',
           geometry: {
             type: 'Point',
@@ -131,7 +131,7 @@ async function anitem (__mapper) {
           },
           properties: {
             pointRadius: a.payload.fractal.rad,
-            geonode: {
+            eonode: {
               type: 'Feature',
               geometry: {type: 'Point', coordinates: [0, 0]},
               properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
@@ -141,8 +141,8 @@ async function anitem (__mapper) {
 
         tim: {'td': cyclet * _LEVEL, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
         ric: {'gid': _NAME, 'cid': _NAME, 'fid': _NAME},
-        geochrom: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
-        geodrift: {
+        eochrom: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
+        eodrift: {
           proform: { projection: 'uniwen', scale: 1, translate: [ -0, 0 ], rotate: [ 0, 0 ] }, // identity
         },
 
@@ -189,7 +189,7 @@ async function anitem (__mapper) {
         }
 
         anis[level].payload.fractal.rad = radOnLevel(level) // rad(level)
-        anis[level].geochrom.cf = _CF(level) // geochrom
+        anis[level].eochrom.cf = _CF(level) // eochrom
         if (level === _LEVEL - 1) { // add image as avatar to root nat
           anis[level].avatars = []
 

@@ -39,11 +39,11 @@
     let gramm = function (ani, newAnigrams = []) {
       let anigram = ani,
         halo = anigram.halo, // halo
-        geofold = anigram.geofold, // geofold
+        eofold = anigram.eofold, // eofold
         ric = anigram.ric, // ric
         tim = anigram.tim, // tim
         parentuid = anigram.parentuid, // parentuid
-        geochrom = anigram.geochrom // geochrom
+        eochrom = anigram.eochrom // eochrom
 
       let payload = anigram.payload, // payload
         fourier = payload.fourier // fourier
@@ -54,7 +54,7 @@
         interval = fourier.interval || [0, 1], // fourier.period
         tolerance = fourier.tolerance || 0.5
 
-      transforms = geofold.features
+      transforms = eofold.features
 
       // md:   time in period is (t - t0) / (t1 - t0), with t unit time
 
@@ -111,7 +111,7 @@
           newItem.halo = 'natform' // halo.turnform
           newItem.delled = tNotInPeriod
 
-          newItem.geofold = {
+          newItem.eofold = {
             type: 'Feature', // tfeature
             geometry: { type: 'Point', coordinates: [] },
             properties: {
@@ -120,10 +120,10 @@
             },
           }
 
-          newItem.geonode = {
+          newItem.eonode = {
             type: 'Feature',
             geometry: { type: 'Point', coordinates: [0, 0] },
-            properties: { // geofold coindices with geonode
+            properties: { // eofold coindices with eonode
               orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0],
             },
           }
@@ -145,13 +145,13 @@
             xn[i] = transformSorted[i].re
             yn[i] = transformSorted[i].im
             magn[i] = Math.sqrt(xn[i] * xn[i] + yn[i] * yn[i]) // amplitude of frequency
-            newItem.geofold.properties.pointRadius = magn[i] / N // sinusoid amplitude
+            newItem.eofold.properties.pointRadius = magn[i] / N // sinusoid amplitude
 
             // to all cycloids, add __RAY__ avatar
 
             if (i > 0) { // add ray avatar
               let rayline = mprops.cloneObj(payload.fourier.avatars.rayline) // rayline line
-              rayline.geofold.geometry.coordinates = [
+              rayline.eofold.geometry.coordinates = [
                 [acci.re / N, acci.im / N], // from this cycloid
                 [xn[i - 1], yn[i - 1]], // to prevous cycloid
               ]
@@ -179,7 +179,7 @@
             let riccer = payload.fourier.riccer || function (ani) { return ani.payload.fourier.avatars.traceline.ric }
 
             // PENCIL radio magnitude of last
-            newItem.geofold.properties.pointRadius = maglast
+            newItem.eofold.properties.pointRadius = maglast
 
             // init PACER clonned from fourier avatar
             // traceline
@@ -204,11 +204,11 @@
           newItem.tim = tim // tim
           newItem.ric = _ric // ric
           newItem.uid = _uid // uid
-          newItem.geochrom = geochrom // geochrom
+          newItem.eochrom = eochrom // eochrom
 
-          newItem.geofold.geometry.coordinates = [xn[i], yn[i]]
-          newItem.geonode.geometry.coordinates = [xn[i], yn[i]]
-          newItem.geonode.properties.orgen = [xn[i], yn[i]]
+          newItem.eofold.geometry.coordinates = [xn[i], yn[i]]
+          newItem.eonode.geometry.coordinates = [xn[i], yn[i]]
+          newItem.eonode.properties.orgen = [xn[i], yn[i]]
 
           iAnitems[i] = newItem
         }
@@ -216,9 +216,9 @@
         // md:   each point/circle anigram has radius of next sinusoid amplitude
 
         for (let i = 0; i < iAnitems.length - 1; i++) { //  for each anitem
-          let pointRadius = iAnitems[i].geofold.properties.pointRadius
-          let nextPointRadius = iAnitems[i + 1].geofold.properties.pointRadius
-          iAnitems[i].geofold.properties.pointRadius = nextPointRadius
+          let pointRadius = iAnitems[i].eofold.properties.pointRadius
+          let nextPointRadius = iAnitems[i + 1].eofold.properties.pointRadius
+          iAnitems[i].eofold.properties.pointRadius = nextPointRadius
         }
 
         anitems = [...anitems, ...iAnitems]

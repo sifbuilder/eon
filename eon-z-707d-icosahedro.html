@@ -33,7 +33,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: anitem => {
+      eofold: anitem => {
         let payload = anitem.payload,
 
           ric = anitem.ric,
@@ -59,7 +59,7 @@ async function anitem (__mapper) {
 
           feature.properties.ric = _ric
           feature.properties.sort = 'form'
-          feature.properties.geochrom = face.geochrom
+          feature.properties.eochrom = face.eochrom
 
           json.features.push(feature)
         }
@@ -69,9 +69,9 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
-      geochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      eochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
-      geodrift: {
+      eodrift: {
         proform: {
 
           projection: 'uniwen',
@@ -144,7 +144,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

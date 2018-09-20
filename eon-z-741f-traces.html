@@ -76,15 +76,15 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.geoform),
 
       tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
-      geochrom: natGeochrom,
+      eochrom: natGeochrom,
       proform: natProform,
       geoform: natForm,
 
-      geonode: {
+      eonode: {
         type: 'Feature',
         geometry: { type: 'Point', coordinates: [0, 0, 0] },
         properties: {orgen: null, velin: null, velang: null, prevous: null, geodelta: null},
@@ -99,7 +99,7 @@ async function anitem (__mapper) {
 
       halo: 'pacer',
 
-      geofold: {
+      eofold: {
         type: 'Feature',
         geometry: {
           type: 'LineString',
@@ -107,7 +107,7 @@ async function anitem (__mapper) {
         },
         properties: {},
       },
-      geonode: {
+      eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -118,7 +118,7 @@ async function anitem (__mapper) {
 
       tim,
       ric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
-      geochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+      eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       payload: {
         pacer: { // geoaad for trace
@@ -139,10 +139,10 @@ async function anitem (__mapper) {
             return stace
           },
 
-          geonode: function (ani, props) {
+          eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              // stace is ani's transformed geonode
+              // stace is ani's transformed eonode
               stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
               stace = muonStace.getLocus([null, null, null], ani)
@@ -178,7 +178,7 @@ async function anitem (__mapper) {
 
       tim,
       ric: {gid: 'trace', cid: 'trace', fid: 'traceform'},
-      geochrom: traceGeochrom,
+      eochrom: traceGeochrom,
 
       form: {
         x: {
@@ -191,7 +191,7 @@ async function anitem (__mapper) {
         },
       },
 
-      geodrift: {
+      eodrift: {
         proform: {
 
           projection: 'uniwen',
@@ -212,7 +212,7 @@ async function anitem (__mapper) {
           initN: 0, eventN: 0, autoN: 1, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, geoaad: 1,
 
           geofolder: function (ani, prob) {
-            let geofold = {
+            let eofold = {
               type: 'Feature',
               geometry: { type: 'LineString', coordinates: null },
               properties: {},
@@ -222,15 +222,15 @@ async function anitem (__mapper) {
             let uid = muonRic.getuid(ric)
 
             let anitem = muonStore.findAnigramFromUid(uid)
-            if (anitem !== undefined && anitem.geofold !== undefined) {
-              geofold = anitem.geofold
+            if (anitem !== undefined && anitem.eofold !== undefined) {
+              eofold = anitem.eofold
 
-              if (geofold.properties.formGeoformed) { // revert geometry to geoformed
-                geofold.geometry = geofold.properties.formGeoformed.geometry
+              if (eofold.properties.formGeoformed) { // revert geometry to geoformed
+                eofold.geometry = eofold.properties.formGeoformed.geometry
               }
             }
 
-            return geofold
+            return eofold
           },
 
         },
@@ -240,7 +240,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

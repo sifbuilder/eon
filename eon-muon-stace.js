@@ -16,9 +16,9 @@
   // md:
   // md: ### getSiti
   // md:
-  // md: ### getSitus , or ani geonode
+  // md: ### getSitus , or ani eonode
   // md:             ani position in the coords system
-  // md:             in geonode.geometry
+  // md:             in eonode.geometry
   // md:             sim forces act on the ani geonodes
   // md:
   // md: ### getLoci
@@ -47,7 +47,7 @@
   // md:     * `[{pos:0}, a2]`,  if pos, parent form position
   // md:
   // md: if stace.<dax>.pos and no transformation property
-  // md:       get spot from `parentani.geofold.geometry.coordinates`
+  // md:       get spot from `parentani.eofold.geometry.coordinates`
   // md: **payload**, to get parent coords if spot is relative to parent geometry
 
   async function muonStace (__mapper = {}) {
@@ -121,8 +121,8 @@
         let parentani = muonStore.findAnigramFromUid(parentuid)
         console.assert(parentani !== undefined, ` * error: muonStace.getTranspots:parentani of ${parentuid}: ${parentani}`)
 
-        let geofold = parentani.geofold
-        let geonode = parentani.geonode
+        let eofold = parentani.eofold
+        let eonode = parentani.eonode
         let locationsPerDax = []
 
         // identify positions per stace dax
@@ -134,7 +134,7 @@
 
           let coords = []
 
-          // if pos, idx refers to the position in the parent geofold coordinates
+          // if pos, idx refers to the position in the parent eofold coordinates
 
           if (v1.hasOwnProperty('pos')) {
             let idx = Math.floor(v1.pos)
@@ -142,13 +142,13 @@
             // mod refers to the transformation
 
             if (v1.hasOwnProperty('mod')) { // geoform, conform, ereform, proform`
-              // geofold transfomed are in the geofold.properties
+              // eofold transfomed are in the eofold.properties
 
-              coords = muonGeoj.getCoords(geofold.properties[v1.mod].geometry)
+              coords = muonGeoj.getCoords(eofold.properties[v1.mod].geometry)
             } else {
               // if no mod, positions are the goefold geometry, after transforms
 
-              coords = muonGeoj.getCoords(geofold.geometry)
+              coords = muonGeoj.getCoords(eofold.geometry)
             }
 
             // move idx to the coords domain
@@ -159,20 +159,20 @@
 
             locationsPerDax[i] = Array.of(coords[idx][i])
 
-          // if not pos, idx refers to the position in the parent geonode coordinates
+          // if not pos, idx refers to the position in the parent eonode coordinates
           } else {
-            // locations refer to the geonode or the stace locations
+            // locations refer to the eonode or the stace locations
 
             if (v1.hasOwnProperty('mod')) { // geoform, conform, ereform, proform`
-              // get the mod on the geonode properties
-              console.assert(geonode.properties[v1.mod].geometry !== undefined)
-              coords = geonode.properties[v1.mod].geometry.coordinates
+              // get the mod on the eonode properties
+              console.assert(eonode.properties[v1.mod].geometry !== undefined)
+              coords = eonode.properties[v1.mod].geometry.coordinates
             } else {
-              if (geonode) {
-                // get the geonode coordinates
+              if (eonode) {
+                // get the eonode coordinates
 
-                console.assert(geonode.geometry !== undefined, `${geonode} geometry undefined`)
-                coords = geonode.geometry.coordinates
+                console.assert(eonode.geometry !== undefined, `${eonode} geometry undefined`)
+                coords = eonode.geometry.coordinates
               } else {
                 // assume stace is location
 
@@ -197,8 +197,8 @@
 
     // ........................ getSiti         situs: Arary.of(anitem.x, .y, .z)
     let getSiti = function (anima, siti = []) {
-      if (anima && anima.geonode) {
-        siti = Array.of(anima.geonode.geometry.coordinates)
+      if (anima && anima.eonode) {
+        siti = Array.of(anima.eonode.geometry.coordinates)
       }
 
       return siti

@@ -166,13 +166,13 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
+      eofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
       tim: tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform1'},
-      geochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
+      eochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
 
-      geodrift: {
+      eodrift: {
         conform: {
           projection: 'natform',
           geoform: formGrat1,
@@ -205,13 +205,13 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
+      eofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
       tim: tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform2'},
-      geochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
+      eochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
 
-      geodrift: {
+      eodrift: {
         conform: {
           projection: 'natform',
           geoform: formGrat2,
@@ -242,13 +242,13 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
+      eofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
       tim: tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform1'},
-      geochrom: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.1, 'cp': 0.9 },
+      eochrom: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.1, 'cp': 0.9 },
 
-      geodrift: {
+      eodrift: {
         conform: {
 
           projection: 'natform',
@@ -279,13 +279,13 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
+      eofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
       tim: tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform2'},
-      geochrom: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.1, 'cp': 0.9 },
+      eochrom: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.1, 'cp': 0.9 },
 
-      geodrift: {
+      eodrift: {
         conform: {
           projection: 'natform',
           geoform: formCirc,
@@ -315,7 +315,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

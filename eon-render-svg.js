@@ -26,7 +26,7 @@
     // call `svgelems(payload, data, idfn)`
     // * ### render
     // call `render(elapsed, featurecollection, maxlimit)`
-    // gets anima.geofold's from m.animation
+    // gets anima.eofold's from m.animation
   // @elapsed
   // @featurecollection
   // @maxlimit

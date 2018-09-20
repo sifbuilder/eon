@@ -71,7 +71,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: function (p) {
+      eofold: function (p) {
         let graticule = p.geoframe
 
         let verts = muonGraticule.gvertices(graticule) // Feature.LineString
@@ -90,8 +90,8 @@ async function anitem (__mapper) {
       },
       tim,
       ric: {gid: 'ani', cid: 'ani', fid: 'ani'},
-      geochrom: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
+      eodrift: {
         conform: conform,
 
         proform: proform,
@@ -106,7 +106,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

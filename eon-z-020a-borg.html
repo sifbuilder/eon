@@ -48,17 +48,17 @@ async function anitem (__mapper) {
     // .................. pics
     let tim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
 
-    let geochrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+    let eochrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
     // ............................. solarAni
     let solarAni = {
       halo: 'natform',
-      geofold: null,
+      eofold: null,
 
       tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'solar'},
-      geochrom: geochrom,
-      geodrift: {
+      eochrom: eochrom,
+      eodrift: {
         proform: {
           'projection': 'uniwen',
           'translate': [ [[[-100, 100]]], [[[-100, 100]]] ], // [[[ stace ]]] ],
@@ -88,7 +88,7 @@ async function anitem (__mapper) {
 
       halo: 'pacer',
 
-      geofold: {
+      eofold: {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -97,7 +97,7 @@ async function anitem (__mapper) {
         properties: {},
       },
 
-      geonode: {
+      eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -114,7 +114,7 @@ async function anitem (__mapper) {
         fid: 'planet',
       },
 
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           translate: [0, 0, 0],
@@ -124,7 +124,7 @@ async function anitem (__mapper) {
         },
       },
 
-      geochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
+      eochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
       geoform: {
         'm1': -144, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
@@ -163,7 +163,7 @@ async function anitem (__mapper) {
             }
             return ric
           },
-          geonode: function (ani, props) {
+          eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               stace = muonStace.getLocus([null, null, null], ani)
@@ -204,7 +204,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

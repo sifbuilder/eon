@@ -13,7 +13,7 @@
   // md: Feature Collect gj. for each feature
   // md: geoform, conform, ereform and proform anigrams
   // md: then pass the FeatureCollection to h.leaform
-  // md: define `geonode` if undefined
+  // md: define `eonode` if undefined
 
   async function haloTurnform (__mapper = {}) {
     let [
@@ -40,25 +40,25 @@
 
       // aninode
 
-      let geonode = mprops.v(anitem.geonode, anitem)
+      let eonode = mprops.v(anitem.eonode, anitem)
 
-      if (geonode && anitem.geodrift) {
-        for (let [drift, prt] of Object.entries(anitem.geodrift)) {
-          let properties = geonode.properties || {}
-          let node = muonProj3ct(muonGeoj.deprop(geonode), muonProfier.formion(prt, anitem))
+      if (eonode && anitem.eodrift) {
+        for (let [drift, prt] of Object.entries(anitem.eodrift)) {
+          let properties = eonode.properties || {}
+          let node = muonProj3ct(muonGeoj.deprop(eonode), muonProfier.formion(prt, anitem))
           node.properties = properties
           node.properties[drift] = node
-          newAni.geonode = node
+          newAni.eonode = node
         }
       }
 
       // anifold
 
-      let geofold = mprops.v(anitem.geofold, anitem)
-      let gjcollection = muonGeoj.featurecollect(geofold)
+      let eofold = mprops.v(anitem.eofold, anitem)
+      let gjcollection = muonGeoj.featurecollect(eofold)
 
-      if (geofold && anitem.geodrift) {
-        for (let [drift, prt] of Object.entries(anitem.geodrift)) {
+      if (eofold && anitem.eodrift) {
+        for (let [drift, prt] of Object.entries(anitem.eodrift)) {
           gjcollection.features = gjcollection.features.map(
             feature => {
               let properties = feature.properties || {}
@@ -77,7 +77,7 @@
         }
       }
 
-      newAni.geofold = gjcollection
+      newAni.eofold = gjcollection
       return newAni
     }
 

@@ -35,7 +35,7 @@ async function anitem (__mapper) {
 
     }
 
-    let geoformFaces = ani => { // geofold creates geojson featurecollection
+    let geoformFaces = ani => { // eofold creates geojson featurecollection
       let payload = ani.payload // payload
 
       let faces = mprops.v(payload.faces) // payload.faces
@@ -50,8 +50,8 @@ async function anitem (__mapper) {
         geometry.coordinates = Array.of(face.vertices) // eg [-1, 1, 1]
 
         let properties = {}
-        // properties.geochrom = face.geochrom || geochrom
-        properties.geochrom = {'csx': 0, 'cf': 333 + 10 * i, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
+        // properties.eochrom = face.eochrom || eochrom
+        properties.eochrom = {'csx': 0, 'cf': 333 + 10 * i, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
         properties.name = 'orange' + '_' + i
 
         let feature = {type: 'Feature', geometry: {}, properties: {}}
@@ -67,12 +67,12 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: geoformFaces, // geofold,
+      eofold: geoformFaces, // eofold,
       tim: tim,
       ric: {'gid': 'faces', 'cid': 'face', 'fid': 'face'},
-      geochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      eochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
-      geodrift: {
+      eodrift: {
         proform: proformFaces,
       },
       payload: {
@@ -85,7 +85,7 @@ async function anitem (__mapper) {
               [ -1, 1, 1],
               [-1, -1, 1],
             ],
-            geochrom: {'csx': 0, 'cf': 333, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
+            eochrom: {'csx': 0, 'cf': 333, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
           },
 
           {
@@ -96,7 +96,7 @@ async function anitem (__mapper) {
               [-1, 1, -1],
               [-1, -1, -1],
             ],
-            geochrom: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
+            eochrom: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
           },
         ],
 
@@ -107,7 +107,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

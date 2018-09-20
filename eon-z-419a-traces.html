@@ -40,7 +40,7 @@ async function anitem (__mapper) {
 
       halo: 'pacer',
 
-      geofold: {
+      eofold: {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -49,7 +49,7 @@ async function anitem (__mapper) {
         properties: {},
       },
 
-      geonode: {
+      eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -66,7 +66,7 @@ async function anitem (__mapper) {
         fid: 'pointTrace',
       },
 
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           translate: [0, 0, 0],
@@ -76,7 +76,7 @@ async function anitem (__mapper) {
         },
       },
 
-      geochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
+      eochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
       payload: {
         pacer: {
@@ -104,7 +104,7 @@ async function anitem (__mapper) {
             return ric
           },
 
-          geofold: function (ani, props) {
+          eofold: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               stace = muonStace.getLocus([null, null, null], ani)
@@ -140,16 +140,16 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      // md: geonode reflects the geometry of the form
+      // md: eonode reflects the geometry of the form
       // md: updated by transforms
-      // md: relative to geonode
-      // md: as geonode, properties keep transformed views
-      geofold: p => muonNatform.natFeature(p.geoform),
+      // md: relative to eonode
+      // md: as eonode, properties keep transformed views
+      eofold: p => muonNatform.natFeature(p.geoform),
 
       tim: tim,
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
-      geochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
-      geodrift: {
+      eochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      eodrift: {
         proform: {
           projection: 'uniwen',
           prerotate: [[[ ctlWen.rotation ]]],
@@ -162,10 +162,10 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity],
         },
       },
-      // md: geonode is reference to geofold
+      // md: eonode is reference to eofold
       // md: updated by sim forces
-      // md: as geofold, properties keep transformed views
-      geonode: {
+      // md: as eofold, properties keep transformed views
+      eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -205,9 +205,9 @@ async function anitem (__mapper) {
         fid: 'traceNat', //  + props.counter,
       },
 
-      geofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.geoform),
 
-      geonode: {
+      eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -216,18 +216,18 @@ async function anitem (__mapper) {
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
 
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           translate: [0, 0, 0],
           scale: 1,
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
-          anod: 1, // geonode
+          anod: 1, // eonode
         },
       },
 
-      geochrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
+      eochrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
 
       geoform: {
         'x': {
@@ -247,10 +247,10 @@ async function anitem (__mapper) {
           // geobase: 'geoform',
           initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, geoaad: 0,
 
-          geonode: function (ani, props) {
+          eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              // stace is ani's transformed geonode
+              // stace is ani's transformed eonode
               stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
               stace = muonStace.getLocus([null, null, null], ani)
@@ -283,7 +283,7 @@ async function anitem (__mapper) {
     let natLined = {
 
       halo: 'turnform',
-      geofold: a => ({
+      eofold: a => ({
         type: 'Feature',
         geometry: {
 
@@ -294,7 +294,7 @@ async function anitem (__mapper) {
         properties: {},
       }),
 
-      geonode: {
+      eonode: {
         type: 'Feature',
         geometry: {type: 'Point', coordinates: [0, 0]},
         properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
@@ -303,7 +303,7 @@ async function anitem (__mapper) {
       tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'natLined'},
 
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           translate: [ [ -170, 80 ], [[[ {
@@ -317,7 +317,7 @@ async function anitem (__mapper) {
         },
       },
 
-      geochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]],
+      eochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]],
       },
       payload: {},
 
@@ -328,7 +328,7 @@ async function anitem (__mapper) {
 
       halo: 'pacer',
 
-      geofold: {
+      eofold: {
         type: 'Feature',
         geometry: {
           type: 'LineString',
@@ -336,7 +336,7 @@ async function anitem (__mapper) {
         },
         properties: {},
       },
-      geonode: {
+      eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -347,7 +347,7 @@ async function anitem (__mapper) {
 
       tim,
       ric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
-      geochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+      eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       payload: {
         pacer: { // geoaad for trace
@@ -368,10 +368,10 @@ async function anitem (__mapper) {
             return stace
           },
 
-          geonode: function (ani, props) {
+          eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              // stace is ani's transformed geonode
+              // stace is ani's transformed eonode
               stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
               stace = muonStace.getLocus([null, null, null], ani)
@@ -404,8 +404,8 @@ async function anitem (__mapper) {
     let textAni = {
 
       halo: 'textform',
-      geofold: null,
-      geonode: {
+      eofold: null,
+      eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -416,9 +416,9 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {gid: 'text', cid: 'text', fid: 'text'},
-      geochrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+      eochrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           translate: [ -250, 0 ],
@@ -443,7 +443,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

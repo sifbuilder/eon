@@ -27,8 +27,8 @@ async function anitem (__mapper) {
   let ani = function () {
     // .................. pics
     let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-    let geochrom = { csx: 0, cf: 777, cs: 222, cw: 1.7, co: 0.7, cp: 0.5}
-    let geofold = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0]}, properties: {pointRadius: 6}}
+    let eochrom = { csx: 0, cf: 777, cs: 222, cw: 1.7, co: 0.7, cp: 0.5}
+    let eofold = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0]}, properties: {pointRadius: 6}}
 
     let translate = {'m1': 4,
       'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
@@ -40,11 +40,11 @@ async function anitem (__mapper) {
     // .................. animas
     let p1 = {
       halo: 'turnform',
-      geofold,
+      eofold,
       tim,
-      geochrom,
+      eochrom,
       ric: {gid: 'p', cid: 'p', fid: 'p1'},
-      geodrift: {
+      eodrift: {
         proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ 100 - 300, 125 ]]], 100 - 200, 0 ],
         },
       },
@@ -55,10 +55,10 @@ async function anitem (__mapper) {
     let p2 = {
       halo: 'turnform',
       tim,
-      geofold,
-      geochrom,
+      eofold,
+      eochrom,
       ric: {gid: 'p', cid: 'p', fid: 'p2'},
-      geodrift: {
+      eodrift: {
         proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [[[ () => [ [[[150 - 300, 175 - 200]]], 100, 0] ]]],
         },
       },
@@ -69,10 +69,10 @@ async function anitem (__mapper) {
     let p3 = {
       halo: 'turnform',
       tim,
-      geofold,
-      geochrom,
+      eofold,
+      eochrom,
       ric: {gid: 'p', cid: 'p', fid: 'p3'},
-      geodrift: {
+      eodrift: {
         proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ t => (() => 175 - 300)() ]]], 100 - 200 ],
         },
       },
@@ -83,10 +83,10 @@ async function anitem (__mapper) {
     let p4 = {
       halo: 'turnform',
       tim,
-      geofold,
-      geochrom,
+      eofold,
+      eochrom,
       ric: {gid: 'p', cid: 'p', fid: 'p4'},
-      geodrift: {
+      eodrift: {
         proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [ [[[ 200 - 300, 225 - 300 ]]], 100 - 200, 0 ],
         },
       },
@@ -97,10 +97,10 @@ async function anitem (__mapper) {
     let p5 = {
       halo: 'turnform',
       tim,
-      geofold,
-      geochrom,
+      eofold,
+      eochrom,
       ric: {gid: 'p', cid: 'p', fid: 'p5'},
-      geodrift: {
+      eodrift: {
         proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: {x: [[[250 - 300, 275 - 300]]], y: 100 - 200 },
         },
       },
@@ -111,10 +111,10 @@ async function anitem (__mapper) {
     let p6 = {
       halo: 'turnform',
       tim,
-      geofold,
-      geochrom,
+      eofold,
+      eochrom,
       ric: {gid: 'p', cid: 'p', fid: 'p6'},
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           translate: [[[ () => {
@@ -130,10 +130,10 @@ async function anitem (__mapper) {
     let p7 = {
       halo: 'turnform',
       tim,
-      geofold,
-      geochrom,
+      eofold,
+      eochrom,
       ric: {gid: 'p', cid: 'p', fid: 'p7'},
-      geodrift: {
+      eodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0, 0 ],
@@ -158,10 +158,10 @@ async function anitem (__mapper) {
     let p8 = {
       halo: 'turnform',
       tim,
-      geofold,
-      geochrom,
+      eofold,
+      eochrom,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p8'},
-      geodrift: {
+      eodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0, 0 ],
@@ -185,10 +185,10 @@ async function anitem (__mapper) {
     let p10 = { // NOK
       halo: 'turnform',
       tim,
-      geofold,
-      geochrom,
+      eofold,
+      eochrom,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p10'},
-      geodrift: {
+      eodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0, 0 ],
@@ -224,10 +224,10 @@ async function anitem (__mapper) {
     let p11 = {
       halo: 'turnform',
       tim,
-      geofold,
-      geochrom,
+      eofold,
+      eochrom,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p11'},
-      geodrift: {
+      eodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0, 0 ],
@@ -245,10 +245,10 @@ async function anitem (__mapper) {
     let p12 = {
       halo: 'turnform',
       tim,
-      geofold,
-      geochrom,
+      eofold,
+      eochrom,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p12'},
-      geodrift: {
+      eodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0, 0 ],
@@ -274,10 +274,10 @@ async function anitem (__mapper) {
     let p13 = {
       halo: 'turnform',
       tim,
-      geofold,
-      geochrom,
+      eofold,
+      eochrom,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p13'},
-      geodrift: {
+      eodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0 ],
@@ -319,10 +319,10 @@ async function anitem (__mapper) {
     let p15 = {
       halo: 'turnform',
       tim,
-      geofold,
-      geochrom,
+      eofold,
+      eochrom,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p15'},
-      geodrift: {
+      eodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0 ],
@@ -341,10 +341,10 @@ async function anitem (__mapper) {
     let p16 = {
       halo: 'turnform',
       tim,
-      geofold,
-      geochrom,
+      eofold,
+      eochrom,
       ric: {'gid': 'p', 'cid': 'p', 'fid': 'p16'},
-      geodrift: {
+      eodrift: {
         proform: {projection: 'uniwen',
           scale: 1,
           rotate: [ 0, 0 ],

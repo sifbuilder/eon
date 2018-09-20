@@ -22,16 +22,16 @@ async function anitem (__mapper) {
     // .................. pics
     let tim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
 
-    let geochrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
+    let eochrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
     // ............................. natAni
     let natAni = {
       halo: 'natform',
-      geofold: null,
+      eofold: null,
 
       tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
-      geochrom: geochrom,
+      eochrom: eochrom,
       geoform: Object.assign(
         muonAnimas.animas.drop2,
         {
@@ -47,7 +47,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

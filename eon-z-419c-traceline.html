@@ -40,7 +40,7 @@ async function anitem (__mapper) {
 
       halo: 'pacer',
 
-      geofold: {
+      eofold: {
         type: 'Feature',
         geometry: {
           type: 'LineString',
@@ -48,7 +48,7 @@ async function anitem (__mapper) {
         },
         properties: {},
       },
-      geonode: {
+      eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -61,7 +61,7 @@ async function anitem (__mapper) {
 
       tim,
       ric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
-      geochrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+      eochrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       payload: {
 
@@ -74,15 +74,15 @@ async function anitem (__mapper) {
           stace: function (ani, props) {
             let stace
             if (props.key === 'init') { // INIT
-              stace = ani.geonode.geometry.coordinates // geonode
+              stace = ani.eonode.geometry.coordinates // eonode
             } else if (props.key === 'auto') { // AUTO
-              stace = ani.geofold.geometry.coordinates // geofold
+              stace = ani.eofold.geometry.coordinates // eofold
             } else if (props.key === 'event') { // EVENT
-              stace = ani.geonode.geometry.coordinates
+              stace = ani.eonode.geometry.coordinates
             }
             return stace
           },
-          geofold: function (ani, props) {
+          eofold: function (ani, props) {
             return {
               type: 'Feature',
               geometry: {
@@ -92,10 +92,10 @@ async function anitem (__mapper) {
               properties: {},
             }
           },
-          geonode: function (ani, props) {
+          eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              // stace is ani's transformed geonode
+              // stace is ani's transformed eonode
               stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
               stace = muonStace.getLocus([null, null, null], ani)
@@ -129,7 +129,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

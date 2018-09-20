@@ -11,7 +11,7 @@
   // md: # eon-halo-textform
   // md: process text anitems
   // md: ## functions
-  // md: * [_geofold](#_geofold) - uploads payload text form to geofold properties
+  // md: * [_geofold](#_geofold) - uploads payload text form to eofold properties
   // md:
   // md:
   // md: ## methods
@@ -32,7 +32,7 @@
     ])
 
     // .................. _geofold
-    let _geofold = function (ani) { // geofold
+    let _geofold = function (ani) { // eofold
       let textform = ani.payload.textform // needs text
 
       return {
@@ -69,8 +69,8 @@
     function gramm (anigram, newAnigrams = []) {
       let newitem = mprops.clone(anigram)
 
-      newitem.geofold = _geofold(anigram)
-      newitem.geonode = _geofold(anigram)
+      newitem.eofold = _geofold(anigram)
+      newitem.eonode = _geofold(anigram)
 
       return haloTurnform.gramm(newitem)
     }

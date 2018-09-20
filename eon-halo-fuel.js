@@ -37,7 +37,7 @@
       let muonStore = __mapper('muonStore') // sync
 
       let payload = anitem.payload, // payload
-        geofold = geofold, // geofold
+        eofold = eofold, // eofold
         ric = ric, // ric
         parentuid = parentuid // parentuid
 
@@ -50,7 +50,7 @@
       let parentAnigram = muonStore.findAnigramFromUid(parentuid)
 
       if (parentAnigram) {
-        let geometry = parentAnigram.geofold.geometry
+        let geometry = parentAnigram.eofold.geometry
         if (!muonGeoj.isValid(geometry)) { console.error('h.turnform:gj not valid', geometry) }
         polygon = muonGeoj.getCoords(geometry) // outer ring
       } else {
@@ -83,7 +83,7 @@
         }
         let newAnigram = {} // new anigram per fuel nat
         newAnigram.halo = 'natform'
-        newAnigram.geofold = geofold
+        newAnigram.eofold = eofold
         newAnigram.payload = payload
         newAnigram.ric = _ric // identify each fuel nat
         newAnigram.payload.proform = _proform // proform of each fuel nat

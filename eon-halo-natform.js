@@ -10,7 +10,7 @@
 
 // md: # eon-halo-natform 
 // md: **expose natform** 
-// md: h.turnform with  anima.geofold : `muonNatform.natFeature(p.payload.form)` 
+// md: h.turnform with  anima.eofold : `muonNatform.natFeature(p.payload.form)` 
 // md: 
 // md: # license 
 // md: MIT 
@@ -20,20 +20,20 @@
     let [
       muonNatform,
       haloTurnform,
-      muonGeochrom,
+      muonEochrom,
       muonTim,
       muonRic,
-      muonGeonode,
+      muonEonode,
       muonProfier,
       prtUniwen,
       muonProj3ct,      
     ] = await Promise.all([
       __mapper('xs').m('natform'),
       __mapper('xs').h('turnform'),
-      __mapper('xs').m('geochrom'),
+      __mapper('xs').m('eochrom'),
       __mapper('xs').m('tim'),
       __mapper('xs').m('ric'),
-      __mapper('xs').m('geonode'),
+      __mapper('xs').m('eonode'),
       __mapper('xs').m('profier'),
       __mapper('xs').p('uniwen'),
       __mapper('xs').m('proj3ct'),      
@@ -70,12 +70,12 @@
       
     }    
     
-    // geochrom definition
+    // eochrom definition
     
     let getgeochrom = function( geoform ) {
       
       let res = {}
-      let ref = muonGeochrom.getdefault()
+      let ref = muonEochrom.getdefault()
       
       if (geoform === undefined) {
         res = ref
@@ -88,7 +88,7 @@
       return res
     }    
     
-    // geonode definition
+    // eonode definition
     
     let gettranslate = function( geoform ) {
       
@@ -127,10 +127,10 @@
         lens: [0, 1, Infinity],        
       }
 
-      anitem.geofold = muonNatform.natFeature(anitem.geoform)
-      anitem.geofold = muonProj3ct(anitem.geofold, muonProfier.formion(prt, anitem)) // geofold
+      anitem.eofold = muonNatform.natFeature(anitem.geoform)
+      anitem.eofold = muonProj3ct(anitem.eofold, muonProfier.formion(prt, anitem)) // eofold
    
-      if (anitem.geochrom === undefined) anitem.geochrom = getgeochrom(anitem.geoform)        // geoform
+      if (anitem.eochrom === undefined) anitem.eochrom = getgeochrom(anitem.geoform)        // geoform
      
       
       return haloTurnform.gramm(anitem)

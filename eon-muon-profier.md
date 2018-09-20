@@ -15,7 +15,7 @@ build geo projections
  * if a position, `object` translate to position 
  * if other `object`, process as `stace.spot` 
  
- if `@projdef.anod == 1` add `geofold.properties.geonode.geometry.coordinates` to translate 
+ if `@projdef.anod == 1` add `eofold.properties.eonode.geometry.coordinates` to translate 
  
  if `@projdef.rotate != undefined` 
  * if is pure array, apply rotation 

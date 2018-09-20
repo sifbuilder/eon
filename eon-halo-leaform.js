@@ -11,13 +11,13 @@
   // eon-halo-leaform
   // *process h.leaform anigrams**
 
-  // xpects `a.geofold` to be `geojson.FeatureCollection`
+  // xpects `a.eofold` to be `geojson.FeatureCollection`
   // or the feature collection
   // order the collection on z dax, `muonGeoj.zorder(gjcollection)`
   // identify to features on index, `muonRic.enric(ric, anigram, gjcollection)`
 
   // hen for each feature,
-  // geochrom, decoding style properties
+  // eochrom, decoding style properties
   // set sort. `feature.properties.sort` will determine rendering. default to feature
   // inherit avatars
 
@@ -26,22 +26,22 @@
   async function haloLeaform (__mapper = {}) {
     let [
       muonRic,
-      muonGeochrom,
+      muonEochrom,
       muonGeoj,
       mprops,
     ] = await Promise.all([
       __mapper('xs').m('ric'),
-      __mapper('xs').m('geochrom'),
+      __mapper('xs').m('eochrom'),
       __mapper('xs').m('geoj'),
       __mapper('xs').m('props'),
     ])
 
     const getgj = ani => {
-      let gj = mprops.v(ani.geofold, ani)
-      gj.properties = gj.properties || {} // geofold properties
+      let gj = mprops.v(ani.eofold, ani)
+      gj.properties = gj.properties || {} // eofold properties
       gj.properties.geoformed = muonGeoj.deprop(gj)
-      // gj.properties.geonode = gj.properties.geonode || {}
-      // gj.properties.nodeGeoformed = gj.properties.geonode
+      // gj.properties.eonode = gj.properties.eonode || {}
+      // gj.properties.nodeGeoformed = gj.properties.eonode
       return gj
     }
 
@@ -55,16 +55,16 @@
       gjcollection = muonRic.enric(anigram.ric, anigram, gjcollection) // ric to feature or collection
 
       let newAnigrams = gjcollection.features.map((feature, i) => {
-        feature = muonGeochrom.geochromer(anigram, feature)
+        feature = muonEochrom.geochromer(anigram, feature)
 
-        feature.properties.tim = anigram.tim // tim in geofold
-        feature.properties.vim = anigram.payload.vim // vim in geofold to render
+        feature.properties.tim = anigram.tim // tim in eofold
+        feature.properties.vim = anigram.payload.vim // vim in eofold to render
         feature.properties.sort = feature.properties.sort || 'feature' // svg sort
 
         let newAnigram = {
           halo: anigram.halo, // inherit halo
-          geofold: feature, // inherit geofold
-          geonode: anigram.geonode,
+          eofold: feature, // inherit eofold
+          eonode: anigram.eonode,
           ric: feature.properties.ric, // hoist ric
           id: feature.properties.uid, // hoist uid
           uid: feature.properties.uid, // hoist uid

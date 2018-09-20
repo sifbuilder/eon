@@ -85,12 +85,12 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: anitem => muonGraticule.vhMultiLine(anitem.geoframe),
+      eofold: anitem => muonGraticule.vhMultiLine(anitem.geoframe),
       tim: tim,
       ric: {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
-      geochrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
+      eochrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
-      geodrift: {
+      eodrift: {
         proform: proform,
       },
       graticule: {
@@ -110,7 +110,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: p => {
+      eofold: p => {
         let geometry = Object.assign({},
           topojson.mesh(
             dworldTopo110m.data(),
@@ -121,9 +121,9 @@ async function anitem (__mapper) {
       },
       tim: tim,
       ric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
-      geochrom: { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
+      eochrom: { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
 
-      geodrift: {
+      eodrift: {
         conform: proform,
       },
       payload: {
@@ -135,7 +135,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: {
+      eofold: {
         type: 'Feature',
         geometry: {
           type: 'Sphere',
@@ -144,9 +144,9 @@ async function anitem (__mapper) {
       },
       tim: tim,
       ric: {'gid': 'geoshpere', 'cid': 'geoshpere', 'fid': 'geoshpere'},
-      geochrom: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
+      eochrom: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
 
-      geodrift: {
+      eodrift: {
         proform: proform,
       },
       payload: {
@@ -158,13 +158,13 @@ async function anitem (__mapper) {
     let text = {
 
       halo: 'textform',
-      geofold: null,
+      eofold: null,
 
       tim: tim,
       ric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
-      geochrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+      eochrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
-      geodrift: {
+      eodrift: {
         proform: {
           projection: 'uniwen',
           translate: [ -250, 0 ],

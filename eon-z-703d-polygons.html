@@ -25,7 +25,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: (p) => {
+      eofold: (p) => {
         let coordinaes = [
           [-1, -1, 1],
           [ 1, -1, 1],
@@ -35,7 +35,7 @@ async function anitem (__mapper) {
         ]
 
         let ric = p.ric
-        let geochrom = p.geochrom
+        let eochrom = p.eochrom
 
         let geometry = {type: 'Polygon', coordinates: []}
 
@@ -47,7 +47,7 @@ async function anitem (__mapper) {
 
         feature.properties.sort = 'form'
         feature.geometry = geometry
-        feature.properties.geochrom = geochrom
+        feature.properties.eochrom = eochrom
 
         let gj = {type: 'FeatureCollection', features: []}
         gj.features.push(feature)
@@ -56,8 +56,8 @@ async function anitem (__mapper) {
 
       tim: tim,
       ric: {'gid': 'idPolygon', 'cid': 'idPolygon', 'fid': 'idPolygon'},
-      geochrom: {'csx': 0, 'cf': [[[666, 777, 666, 777, 666, 777, 666]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
-      geodrift: {
+      eochrom: {'csx': 0, 'cf': [[[666, 777, 666, 777, 666, 777, 666]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      eodrift: {
         proform: {
 
           projection: 'uniwen',
@@ -78,7 +78,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
 
-      geofold: (p) => {
+      eofold: (p) => {
         let coordinaes = [
           [-1, -1, 1],
           [ 1, -1, 1],
@@ -88,7 +88,7 @@ async function anitem (__mapper) {
         ]
 
         let ric = p.ric
-        let geochrom = p.geochrom
+        let eochrom = p.eochrom
 
         let geometry = {type: 'Polygon', coordinates: []}
 
@@ -100,7 +100,7 @@ async function anitem (__mapper) {
 
         feature.properties.sort = 'form'
         feature.geometry = geometry
-        feature.properties.geochrom = geochrom
+        feature.properties.eochrom = eochrom
 
         let gj = {type: 'FeatureCollection', features: []}
         gj.features.push(feature)
@@ -108,9 +108,9 @@ async function anitem (__mapper) {
       },
       tim: tim,
       ric: {'gid': 'wenPolygon', 'cid': 'wenPolygon', 'fid': 'wenPolygon'},
-      geochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      eochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
-      geodrift: {
+      eodrift: {
         proform: {
 
           projection: 'uniwen',
@@ -131,7 +131,7 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       halo: 'scene',
-      geofold: null,
+      eofold: null,
       tim: tim,
       ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {

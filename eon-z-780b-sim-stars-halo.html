@@ -96,8 +96,8 @@ async function anitem (__mapper) {
         let uid = muonRic.getuid(ani.ric)
         ani.uid = uid
 
-        ani.geochrom.cf = (i % 2) ? 777 : 666
-        ani.geochrom.cs = (i % 2) ? 777 : 666
+        ani.eochrom.cf = (i % 2) ? 777 : 666
+        ani.eochrom.cs = (i % 2) ? 777 : 666
 
         let preani = muonStore.getAnima(ani.ric)
 
@@ -114,7 +114,7 @@ async function anitem (__mapper) {
           let y1 = y0 - 10 + 1 * (0.5 - Math.random())
           let z1 = 0
 
-          ani.geofold = { // will create anigram
+          ani.eofold = { // will create anigram
             type: 'Feature',
             geometry: {
               type: 'LineString',
@@ -148,8 +148,8 @@ async function anitem (__mapper) {
       tim: tim,
       ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
-      geofold: p => muonNatform.natFeature(p.geoform),
-      geodrift: {
+      eofold: p => muonNatform.natFeature(p.geoform),
+      eodrift: {
         proform: {
           projection: 'uniwen',
           translate:
@@ -163,10 +163,10 @@ async function anitem (__mapper) {
           scale: 1,
           rotate: [ 0, 0, [[[0, 0]]] ],
           lens: [0, 1, 12],
-          anod: 1, // geonode
+          anod: 1, // eonode
         },
       },
-      geochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[777, 777]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.9, 0.9]]]},
+      eochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[777, 777]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.9, 0.9]]]},
 
       geoform: {
 
@@ -186,7 +186,7 @@ async function anitem (__mapper) {
 
       payload: {
 
-        geofold: p => muonNatform.natFeature(p.payload.form),
+        eofold: p => muonNatform.natFeature(p.payload.form),
 
         pacer: {
           initN: 8, eventN: 6, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, span: 1 / 100,

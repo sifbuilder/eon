@@ -404,7 +404,7 @@
           geometry: geometry,
           properties: {
             doc: 'nat',
-            geonode: {
+            eonode: {
               type: 'Feature',
               geometry: {
                 type: 'Point',
