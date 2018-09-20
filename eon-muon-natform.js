@@ -421,11 +421,11 @@
           },
         }
 
-        let projDef = { projection: 'natform', geoform: nformed }
+        let projDef = { projection: 'natform', eoform: nformed }
         let projection = natprojection(projDef)
 
         let feature = muonProj3ct(gj, projection)
-        cache.geoform = projDef.geoform
+        cache.eoform = projDef.eoform
         cache.feature = feature
         return feature
       }
@@ -556,7 +556,7 @@
 
     // ............................. pointStream
     let pointStream = function (prtdef) {
-      let natPoint = natVertex(prtdef.geoform) // m.natform.natVertex (a,b,c) => [a,b,c]
+      let natPoint = natVertex(prtdef.eoform) // m.natform.natVertex (a,b,c) => [a,b,c]
       return function (lambda, phi, radio = 1) { this.stream.point(...natPoint(lambda, phi, radio)) }
     }
 

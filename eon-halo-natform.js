@@ -22,7 +22,7 @@
       haloTurnform,
       muonEochrom,
       muonTim,
-      muonRic,
+      muonEoric,
       muonEonode,
       muonProfier,
       prtUniwen,
@@ -32,7 +32,7 @@
       __mapper('xs').h('turnform'),
       __mapper('xs').m('eochrom'),
       __mapper('xs').m('tim'),
-      __mapper('xs').m('ric'),
+      __mapper('xs').m('eoric'),
       __mapper('xs').m('eonode'),
       __mapper('xs').m('profier'),
       __mapper('xs').p('uniwen'),
@@ -55,16 +55,16 @@
       
     }    
     
-    // ric definition
+    // eoric definition
     
-    let getric = function( ric ) {
+    let getric = function( eoric ) {
       
       let res = {}
-      let ref = muonRic.getdefault()
-      if (ric === undefined) {
+      let ref = muonEoric.getdefault()
+      if (eoric === undefined) {
         res = ref
       } else {
-        res = Object.assign({ ...ref }, ric)
+        res = Object.assign({ ...ref }, eoric)
       }
       return res
       
@@ -72,16 +72,16 @@
     
     // eochrom definition
     
-    let getgeochrom = function( geoform ) {
+    let getgeochrom = function( eoform ) {
       
       let res = {}
       let ref = muonEochrom.getdefault()
       
-      if (geoform === undefined) {
+      if (eoform === undefined) {
         res = ref
       } else {
         
-        let { ...ref } = geoform
+        let { ...ref } = eoform
         res = ref
         
       }
@@ -90,20 +90,20 @@
     
     // eonode definition
     
-    let gettranslate = function( geoform ) {
+    let gettranslate = function( eoform ) {
       
       let res = {}
       let translate = []
       
         
-        if (geoform.tx !== undefined ) {
-          translate[0] = geoform.tx || 0
+        if (eoform.tx !== undefined ) {
+          translate[0] = eoform.tx || 0
         }
-        if (geoform.ty !== undefined ) {
-          translate[1] = geoform.ty || 0
+        if (eoform.ty !== undefined ) {
+          translate[1] = eoform.ty || 0
         }
-        if (geoform.tz !== undefined ) {
-          translate[2] = geoform.tz
+        if (eoform.tz !== undefined ) {
+          translate[2] = eoform.tz
         }
 
         return translate
@@ -112,12 +112,12 @@
     // .................... gramm
     let gramm = function (anitem) {
       
-      console.assert(anitem.geoform !== undefined, 'geoform is undefined')
+      console.assert(anitem.eoform !== undefined, 'eoform is undefined')
 
       anitem.halo = 'natform'
 
 
-      let translate = gettranslate(anitem.geoform)
+      let translate = gettranslate(anitem.eoform)
      
       let prt = {
         projection: 'uniwen',
@@ -127,10 +127,10 @@
         lens: [0, 1, Infinity],        
       }
 
-      anitem.eofold = muonNatform.natFeature(anitem.geoform)
+      anitem.eofold = muonNatform.natFeature(anitem.eoform)
       anitem.eofold = muonProj3ct(anitem.eofold, muonProfier.formion(prt, anitem)) // eofold
    
-      if (anitem.eochrom === undefined) anitem.eochrom = getgeochrom(anitem.geoform)        // geoform
+      if (anitem.eochrom === undefined) anitem.eochrom = getgeochrom(anitem.eoform)        // eoform
      
       
       return haloTurnform.gramm(anitem)

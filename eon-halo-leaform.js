@@ -14,7 +14,7 @@
   // xpects `a.eofold` to be `geojson.FeatureCollection`
   // or the feature collection
   // order the collection on z dax, `muonGeoj.zorder(gjcollection)`
-  // identify to features on index, `muonRic.enric(ric, anigram, gjcollection)`
+  // identify to features on index, `muonEoric.enric(eoric, anigram, gjcollection)`
 
   // hen for each feature,
   // eochrom, decoding style properties
@@ -25,12 +25,12 @@
 
   async function haloLeaform (__mapper = {}) {
     let [
-      muonRic,
+      muonEoric,
       muonEochrom,
       muonGeoj,
       mprops,
     ] = await Promise.all([
-      __mapper('xs').m('ric'),
+      __mapper('xs').m('eoric'),
       __mapper('xs').m('eochrom'),
       __mapper('xs').m('geoj'),
       __mapper('xs').m('props'),
@@ -52,7 +52,7 @@
 
       console.assert(gjcollection.type === 'FeatureCollection')
       gjcollection = muonGeoj.zorder(gjcollection) // order features in collection
-      gjcollection = muonRic.enric(anigram.ric, anigram, gjcollection) // ric to feature or collection
+      gjcollection = muonEoric.enric(anigram.eoric, anigram, gjcollection) // eoric to feature or collection
 
       let newAnigrams = gjcollection.features.map((feature, i) => {
         feature = muonEochrom.geochromer(anigram, feature)
@@ -65,7 +65,7 @@
           halo: anigram.halo, // inherit halo
           eofold: feature, // inherit eofold
           eonode: anigram.eonode,
-          ric: feature.properties.ric, // hoist ric
+          eoric: feature.properties.eoric, // hoist eoric
           id: feature.properties.uid, // hoist uid
           uid: feature.properties.uid, // hoist uid
           payload: {}, // payload is lost in m.animation before rendering

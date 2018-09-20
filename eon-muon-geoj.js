@@ -36,7 +36,7 @@
   // md: * ### featurecollect
   // md: transform to FeatureCollection
   // md: @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}
-  // md: called by halo to carry ric, sort as properties
+  // md: called by halo to carry eoric, sort as properties
   // md: * ### featurize
   // md: transform to array of gj.Features
   // md: @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}

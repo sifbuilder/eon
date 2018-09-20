@@ -126,17 +126,17 @@ async function anitem (__mapper) {
 
       halo: 'natform',
 
-      eofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.eoform),
       tim,
 
-      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
       eodrift: {
         proform: proform,
       },
       eochrom: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
 
       payload: {
-        geoform: conform,
+        eoform: conform,
 
       },
 
@@ -148,7 +148,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

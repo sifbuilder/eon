@@ -8,7 +8,7 @@ async function anitem (__mapper) {
   let [
     mprops,
     ctlWen,
-    muonRic,
+    muonEoric,
     ctlRayder,
     haloPacer,
     haloScene,
@@ -16,7 +16,7 @@ async function anitem (__mapper) {
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
-    __mapper('xs').m('ric'),
+    __mapper('xs').m('eoric'),
     __mapper('xs').c('rayder'),
     __mapper('xs').h('pacer'),
     __mapper('xs').h('scene'),
@@ -37,7 +37,7 @@ async function anitem (__mapper) {
       eofold: null,
 
       tim: tim,
-      ric: {gid: 'nat', cid: 'nat', fid: 'pointAni'},
+      eoric: {gid: 'nat', cid: 'nat', fid: 'pointAni'},
       eochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
       eodrift: {
@@ -53,12 +53,12 @@ async function anitem (__mapper) {
       payload: {
         pacer: {
           geosort: 'anigram',
-          geobase: 'geoform',
+          geobase: 'eoform',
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
           geoaad: 0,
 
           halo: (ani, props) => 'turnform',
-          ric: function (ani, props) {
+          eoric: function (ani, props) {
             let counter = props.counter || 0
 
             let fidsuffix = ''
@@ -68,12 +68,12 @@ async function anitem (__mapper) {
               fidsuffix = `_${hm}`
             }
 
-            let ric = {
+            let eoric = {
               gid: 'nat',
               cid: 'nat',
               fid: `pointTrace${fidsuffix}`,
             }
-            return ric
+            return eoric
           },
 
           eofold: function (ani, props) {
@@ -113,7 +113,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1, ray: 1},
       },

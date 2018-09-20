@@ -25,12 +25,12 @@
   async function haloFourier (__mapper = {}) {
     let [
       mprops,
-      muonRic,
+      muonEoric,
       Complex,
       haloTurnform,
     ] = await Promise.all([
       __mapper('xs').m('props'),
-      __mapper('xs').m('ric'),
+      __mapper('xs').m('eoric'),
       __mapper('xs').l('complex'),
       __mapper('xs').h('turnform'),
     ])
@@ -40,7 +40,7 @@
       let anigram = ani,
         halo = anigram.halo, // halo
         eofold = anigram.eofold, // eofold
-        ric = anigram.ric, // ric
+        eoric = anigram.eoric, // eoric
         tim = anigram.tim, // tim
         parentuid = anigram.parentuid, // parentuid
         eochrom = anigram.eochrom // eochrom
@@ -95,14 +95,14 @@
         //  for EACH sinusoid, generate a new anitem
 
         for (let i = 0; i <= M; i++) {
-          let gid = ric.gid // from ava ric
-          let cid = ric.cid
-          let fid = fidder(ric.fid, j, i)
+          let gid = eoric.gid // from ava eoric
+          let cid = eoric.cid
+          let fid = fidder(eoric.fid, j, i)
 
-          //  del item if outside time period (ric.delled = 1)
+          //  del item if outside time period (eoric.delled = 1)
 
           let _ric = {gid, cid, fid} // is DELLED ?
-          let _uid = muonRic.getuid(_ric) // uid
+          let _uid = muonEoric.getuid(_ric) // uid
 
           //  each newItem is cloned from the h.fourier anigram
 
@@ -156,14 +156,14 @@
                 [xn[i - 1], yn[i - 1]], // to prevous cycloid
               ]
 
-              let gid = rayline.ric.gid // from ava ric
-              let cid = rayline.ric.cid
-              let fid = fidder(rayline.ric.fid, j, i)
+              let gid = rayline.eoric.gid // from ava eoric
+              let cid = rayline.eoric.cid
+              let fid = fidder(rayline.eoric.fid, j, i)
 
-              // md: del item outside time period (ric.delled = 1)
+              // md: del item outside time period (eoric.delled = 1)
               let _ric = {gid, cid, fid} // is DELLED ?
-              let uid = muonRic.getuid(_ric) // uid
-              rayline.ric = _ric
+              let uid = muonEoric.getuid(_ric) // uid
+              rayline.eoric = _ric
               rayline.delled = tNotInPeriod
 
               // newItem.avatars = {rayline: rayline} // ADD RAYLINE
@@ -176,7 +176,7 @@
           // if last sinusoid, then add __TRACE__ avatar
 
           if (i === M) {
-            let riccer = payload.fourier.riccer || function (ani) { return ani.payload.fourier.avatars.traceline.ric }
+            let riccer = payload.fourier.riccer || function (ani) { return ani.payload.fourier.avatars.traceline.eoric }
 
             // PENCIL radio magnitude of last
             newItem.eofold.properties.pointRadius = maglast
@@ -192,17 +192,17 @@
 
               if (tNotInPeriod) traceline.payload.pacer.autoN = 0
 
-              //  traceline ric
+              //  traceline eoric
 
-              traceline.ric = riccer(newItem)
-              traceline.uid = muonRic.getuid(traceline.ric)
+              traceline.eoric = riccer(newItem)
+              traceline.uid = muonEoric.getuid(traceline.eoric)
 
               newItem.avatars = {traceline: traceline}
             }
           }
 
           newItem.tim = tim // tim
-          newItem.ric = _ric // ric
+          newItem.eoric = _ric // eoric
           newItem.uid = _uid // uid
           newItem.eochrom = eochrom // eochrom
 

@@ -10,10 +10,10 @@
 
   async function linkform (__mapper = {}) {
     let [
-      muonRic,
+      muonEoric,
       mprops,
     ] = await Promise.all([
-      __mapper('xs').m('ric'),
+      __mapper('xs').m('eoric'),
       __mapper('xs').m('props'),
     ])
 
@@ -34,8 +34,8 @@
       }
 
       let linkItem = {}
-      let ric = avatar.ric
-      linkItem.ric = ric
+      let eoric = avatar.eoric
+      linkItem.eoric = eoric
       linkItem.sort = 'curve'
       linkItem.tim = avatar.tim
       let lf 	= linkItem.pic.form.lf || 0

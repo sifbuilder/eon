@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     d3Force3d,
     rrenderport,
     ctlRayder,
-    muonRic,
+    muonEoric,
     haloTurnform,
     haloNatform,
     haloScene,
@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').r('renderport'),
     __mapper('xs').c('rayder'),
-    __mapper('xs').m('ric'),
+    __mapper('xs').m('eoric'),
     __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
     __mapper('xs').h('scene'),
@@ -41,14 +41,14 @@ async function anitem (__mapper) {
 
       for (let i = 0; i < nbr; i++) {
         let ani = mprops.cloneObj(natAni) // clone of model anima
-        ani.ric.gid = 'nat'
-        ani.ric.cid = 'nat'
-        ani.ric.fid = 'item' + i // identify
+        ani.eoric.gid = 'nat'
+        ani.eoric.cid = 'nat'
+        ani.eoric.fid = 'item' + i // identify
 
-        let uid = muonRic.getuid(ani.ric)
+        let uid = muonEoric.getuid(ani.eoric)
         ani.uid = uid
 
-        let preani = muonStore.getAnima(ani.ric)
+        let preani = muonStore.getAnima(ani.eoric)
 
         if (preani) {
           ani = preani
@@ -88,10 +88,10 @@ async function anitem (__mapper) {
 
       halo: isolation, // halo defines ween and gramm behavior
 
-      eofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.eoform),
 
       tim: tim,
-      ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
+      eoric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
       eonode: {
         type: 'Feature',
@@ -113,7 +113,7 @@ async function anitem (__mapper) {
       },
       eochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
-      geoform: {
+      eoform: {
 
         'x': {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle

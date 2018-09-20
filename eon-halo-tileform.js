@@ -28,7 +28,7 @@
     function getTiles (anigram) {
       let newItems = []
 
-      let ric = anigram.ric, // ric
+      let eoric = anigram.eoric, // eoric
         eofold = anigram.eofold, // eofold
         eonode = anigram.eonode, // eonode
         payload = anigram.payload // payload

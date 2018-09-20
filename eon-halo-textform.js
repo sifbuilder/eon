@@ -17,7 +17,7 @@
   // md: ## methods
   // md: * [ween](#ween) - process anima
   // md: * [gramm](#gramm) - process anigram
-  // md:  buils the newitem geoform and pass it to h.turnform
+  // md:  buils the newitem eoform and pass it to h.turnform
   // md:
   // md: # license
   // md: MIT

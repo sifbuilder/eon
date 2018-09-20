@@ -153,9 +153,9 @@ async function anitem (__mapper) {
     // ............................. hyperAni
     let hyperAni = {
       halo: 'turnform',
-      eofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.eoform),
       tim,
-      ric: {gid: 'q', cid: 'q', fid: 'q1'},
+      eoric: {gid: 'q', cid: 'q', fid: 'q1'},
       proform: {
         projection: 'uniwen',
         scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
@@ -165,7 +165,7 @@ async function anitem (__mapper) {
         lens: [0, 1, Infinity ],
       },
       eochrom: geochromHyper,
-      geoform: conformHyper,
+      eoform: conformHyper,
       payload: {
       },
     }
@@ -173,9 +173,9 @@ async function anitem (__mapper) {
     // ............................. sphereAni
     let sphereAni = {
       halo: 'turnform',
-      eofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.eoform),
       tim,
-      ric: {gid: 'q', cid: 'q', fid: 'q2'},
+      eoric: {gid: 'q', cid: 'q', fid: 'q2'},
       eodrift: {
         proform: {
           projection: 'uniwen',
@@ -187,7 +187,7 @@ async function anitem (__mapper) {
         },
       },
       eochrom: geochromSphere,
-      geoform: conformSphere,
+      eoform: conformSphere,
       payload: {
       },
     }
@@ -195,9 +195,9 @@ async function anitem (__mapper) {
     // ............................. torusAni
     let torusAni = {
       halo: 'turnform',
-      eofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.eoform),
       tim,
-      ric: {gid: 'q', cid: 'q', fid: 'q3'},
+      eoric: {gid: 'q', cid: 'q', fid: 'q3'},
       eodrift: {
         proform: {
           projection: 'uniwen',
@@ -209,7 +209,7 @@ async function anitem (__mapper) {
         },
       },
       eochrom: geochromTorus,
-      geoform: conformTorus,
+      eoform: conformTorus,
       payload: {
       },
     }
@@ -220,7 +220,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

@@ -8,14 +8,14 @@ async function anitem (__mapper) {
   let [
     muonStace,
     muonNatform,
-    muonRic,
+    muonEoric,
     haloTurnform,
     haloNatform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('stace'),
     __mapper('xs').m('natform'),
-    __mapper('xs').m('ric'),
+    __mapper('xs').m('eoric'),
     __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
     __mapper('xs').h('scene'),
@@ -69,7 +69,7 @@ async function anitem (__mapper) {
       eofold: null,
 
       tim: tim,
-      ric: {gid: 'pacer', cid: 'pacer', fid: 'pacer'},
+      eoric: {gid: 'pacer', cid: 'pacer', fid: 'pacer'},
       eochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
       eodrift: {
@@ -103,7 +103,7 @@ async function anitem (__mapper) {
             autoSitus: d => muonStace.getLocus(d),
           },
 
-          riccer: function (ani) { return ani.ric },
+          riccer: function (ani) { return ani.eoric },
 
           geofolder: () => ({
             type: 'Feature',
@@ -122,7 +122,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

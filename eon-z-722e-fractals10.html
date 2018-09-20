@@ -10,7 +10,7 @@ async function anitem (__mapper) {
     ctlWen,
     ctlVersor,
     Complex,
-    muonRic,
+    muonEoric,
     muonStore,
     muonStace,
     haloTurnform,
@@ -21,7 +21,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').c('versor'),
     __mapper('xs').l('complex'),
-    __mapper('xs').m('ric'),
+    __mapper('xs').m('eoric'),
     __mapper('xs').m('store'),
     __mapper('xs').m('stace'),
     __mapper('xs').h('turnform'),
@@ -63,7 +63,7 @@ async function anitem (__mapper) {
 
         halo: 'pacer',
         eofold: null,
-        ric: {gid: 'traces', cid: 'traces', fid: 'traces'},
+        eoric: {gid: 'traces', cid: 'traces', fid: 'traces'},
         eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
         payload: {
@@ -78,11 +78,11 @@ async function anitem (__mapper) {
               let r = muonStace.getLocus(this.stace, a) // situs
               return r
             },
-            fidder: a => a.ric.fid,
+            fidder: a => a.eoric.fid,
 
             geojsor: function (a, i) {
-              let ric = a.ric // ric
-              let uid = muonRic.getuid(ric)
+              let eoric = a.eoric // eoric
+              let uid = muonEoric.getuid(eoric)
               let gj = {
                 halo: 'turnform',
                 eofold: {
@@ -91,7 +91,7 @@ async function anitem (__mapper) {
                   properties: { doc: 'pacer' },
                 },
                 payload: {
-                  uid: uid, id: uid, ric: ric,
+                  uid: uid, id: uid, eoric: eoric,
                   // proform: this.proform
                   proform: { // proform in the geographic domain
                     projection: 'orthographic',
@@ -140,7 +140,7 @@ async function anitem (__mapper) {
         }),
 
         tim: {'td': cyclet * _LEVEL, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-        ric: {'gid': _NAME, 'cid': _NAME, 'fid': _NAME},
+        eoric: {'gid': _NAME, 'cid': _NAME, 'fid': _NAME},
         eochrom: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
         eodrift: {
           proform: { projection: 'uniwen', scale: 1, translate: [ -0, 0 ], rotate: [ 0, 0 ] }, // identity
@@ -161,7 +161,7 @@ async function anitem (__mapper) {
       for (let level = 0; level < _LEVEL; level++) { // for each cycloid level
         anis[level] = mprops.cloneObj(anis[level - 1] || fractalForm) // anis h.natform
 
-        anis[level].ric = {gid: 'nat', cid: _NAME + level, fid: _NAME + level} // id
+        anis[level].eoric = {gid: 'nat', cid: _NAME + level, fid: _NAME + level} // id
 
         // -------------- ans(level) ------------------
         anis[level].payload.fractal.an = [] // [0..._LEVEL)

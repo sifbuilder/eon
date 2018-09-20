@@ -36,7 +36,7 @@ async function anitem (__mapper) {
       eofold: anitem => {
         let payload = anitem.payload,
 
-          ric = anitem.ric,
+          eoric = anitem.eoric,
 
           faces = payload.faces(payload.breakage) // payload.faces
 
@@ -49,15 +49,15 @@ async function anitem (__mapper) {
           geometry.coordinates = Array.of(face) // eg [-1, 1, 1]
 
           let _ric = {}
-          _ric.gid = ric.gid
-          _ric.cid = ric.cid
-          _ric.fid = ric.cid + i
+          _ric.gid = eoric.gid
+          _ric.cid = eoric.cid
+          _ric.fid = eoric.cid + i
 
           let feature = {type: 'Feature', geometry: {}, properties: {}}
 
           feature.geometry = geometry
 
-          feature.properties.ric = _ric
+          feature.properties.eoric = _ric
           feature.properties.sort = 'form'
           feature.properties.eochrom = face.eochrom
 
@@ -68,7 +68,7 @@ async function anitem (__mapper) {
       },
 
       tim: tim,
-      ric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
+      eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
       eochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
       eodrift: {
@@ -146,7 +146,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

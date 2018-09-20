@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     d3Force3d,
     rrenderport,
     ctlRayder,
-    muonRic,
+    muonEoric,
     haloTurnform,
     haloNatform,
     haloScene,
@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').r('renderport'),
     __mapper('xs').c('rayder'),
-    __mapper('xs').m('ric'),
+    __mapper('xs').m('eoric'),
     __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
     __mapper('xs').h('scene'),
@@ -89,17 +89,17 @@ async function anitem (__mapper) {
 
       for (let i = 0; i < nbr; i++) {
         let ani = mprops.cloneObj(natAni) // clone of model anima
-        ani.ric.gid = 'nat'
-        ani.ric.cid = (i % 2) ? 'orange' : 'gold'
-        ani.ric.fid = 'item' + i // identify
+        ani.eoric.gid = 'nat'
+        ani.eoric.cid = (i % 2) ? 'orange' : 'gold'
+        ani.eoric.fid = 'item' + i // identify
 
-        let uid = muonRic.getuid(ani.ric)
+        let uid = muonEoric.getuid(ani.eoric)
         ani.uid = uid
 
         ani.eochrom.cf = (i % 2) ? 777 : 666
         ani.eochrom.cs = (i % 2) ? 777 : 666
 
-        let preani = muonStore.getAnima(ani.ric)
+        let preani = muonStore.getAnima(ani.eoric)
 
         if (preani) {
           ani = preani
@@ -146,9 +146,9 @@ async function anitem (__mapper) {
 
       halo: isolation,
       tim: tim,
-      ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
+      eoric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
-      eofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.eoform),
       eodrift: {
         proform: {
           projection: 'uniwen',
@@ -168,7 +168,7 @@ async function anitem (__mapper) {
       },
       eochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[777, 777]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.9, 0.9]]]},
 
-      geoform: {
+      eoform: {
 
         'x': {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
@@ -191,8 +191,8 @@ async function anitem (__mapper) {
         pacer: {
           initN: 8, eventN: 6, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, span: 1 / 100,
 
-          ric: function (ani, props) {
-            let newric = mprops.clone(ani.ric) // clone ric
+          eoric: function (ani, props) {
+            let newric = mprops.clone(ani.eoric) // clone eoric
             newric.gid = newric.gid
             newric.cid = newric.cid
             newric.fid = newric.fid + props.counter
@@ -288,7 +288,7 @@ async function anitem (__mapper) {
           'iterations': 1, // d => params.iterations,
           'nodes': nodes,
           'src': d3_force,
-          'links': nodes.filter(d => (d.ric.gid === 'link' || d.ric.gid === 'tern')),
+          'links': nodes.filter(d => (d.eoric.gid === 'link' || d.eoric.gid === 'tern')),
         }
 
         let field = {
@@ -369,7 +369,7 @@ async function anitem (__mapper) {
 
         let forceParams = {
           type: 'sphere',
-          filter: d => d.ric.gid === 'animaRed',
+          filter: d => d.eoric.gid === 'animaRed',
           rad: rad,
           dim: 3,
           src: d3_force,
@@ -424,7 +424,7 @@ async function anitem (__mapper) {
 
         let forceParams = {
           type: 'cube',
-          filter: d => d.ric.gid === 'animaRed',
+          filter: d => d.eoric.gid === 'animaRed',
           edge: edge,
           src: d3_force,
           nodes: nodes,
@@ -460,7 +460,7 @@ async function anitem (__mapper) {
           strength: strength,
           radius: d => 9,
           filter: function (d) {
-            return d.ric.gid === 'nat'
+            return d.eoric.gid === 'nat'
           },
           src: d3_force,
           nodes: nodes,
@@ -493,7 +493,7 @@ async function anitem (__mapper) {
         let forceParams = {
           type: 'manybody', // f.manybody
           strength: strength,
-          filter: d => d.ric.gid === 'nat',
+          filter: d => d.eoric.gid === 'nat',
           src: d3_force, // d3
           nodes: nodes,
         }
@@ -543,7 +543,7 @@ async function anitem (__mapper) {
         let forceParams = {
           type: 'gravity',
           gravity: gravity,
-          filter: d => true, // d => d.ric.gid === 'nat',
+          filter: d => true, // d => d.eoric.gid === 'nat',
           src: d3_force,
           nodes: nodes,
         }
@@ -598,7 +598,7 @@ async function anitem (__mapper) {
         let forceParams = {
           type: 'wind',
           wind: wind,
-          filter: d => true, // d => d.ric.gid === 'nat',
+          filter: d => true, // d => d.eoric.gid === 'nat',
           src: d3_force,
           nodes: nodes,
         }
@@ -629,7 +629,7 @@ async function anitem (__mapper) {
         let forceParams = {
           type: 'manyBody',
           strength: charge,
-          filter: d => d.ric.gid === 'nat',
+          filter: d => d.eoric.gid === 'nat',
           dim: 3,
           src: d3_force,
           nodes: nodes,
@@ -667,7 +667,7 @@ async function anitem (__mapper) {
           type: 'x', // f.x
           position: 10,
           strength: d => attractionCtt,
-          filter: d => d.ric.gid === 'nat',
+          filter: d => d.eoric.gid === 'nat',
           src: d3_force,
           'nodes': nodes,
         }
@@ -700,7 +700,7 @@ async function anitem (__mapper) {
           position: 10,
           strength: d => attractionCtt,
           filter: function (d) {
-            return d.ric.gid === 'nat'
+            return d.eoric.gid === 'nat'
           },
           src: d3_force,
           nodes: nodes,
@@ -733,7 +733,7 @@ async function anitem (__mapper) {
           'type': 'z',
           'position': 200,
           'strength': d => attractionCtt,
-          filter: d => d.ric.gid === 'nat',
+          filter: d => d.eoric.gid === 'nat',
           src: d3_force,
           'nodes': nodes,
         }
@@ -766,7 +766,7 @@ async function anitem (__mapper) {
           type: 'center', // f.center
           center: center,
           strength: d => attractionCtt,
-          filter: d => true, // filter: d => d.ric.cid === 'orange',
+          filter: d => true, // filter: d => d.eoric.cid === 'orange',
           src: d3_force,
           nodes: nodes,
         }
@@ -798,7 +798,7 @@ async function anitem (__mapper) {
           'type': 'center', // f.center
           'center': center,
           'strength': d => attractionCtt,
-          'filter': d => d.ric.cid === 'gold',
+          'filter': d => d.eoric.cid === 'gold',
           'src': d3_force,
           'nodes': nodes,
         }

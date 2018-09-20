@@ -31,17 +31,17 @@
   // md:   @anima
   // md:   return live animas in class `anima.payload.rid.cid`
   // md: * findIndexFromRic
-  // md:   @ric
+  // md:   @eoric
   // md:   @list
-  // md:   get anitem in @list by @ric {gid, cid, fid}
+  // md:   get anitem in @list by @eoric {gid, cid, fid}
   // md: * findIndex
   // md:   @anitem
   // md:   @list
-  // md:   get anitem in @list by @anitem.ric {gid, cid, fid}
+  // md:   get anitem in @list by @anitem.eoric {gid, cid, fid}
   // md: * findByUid
   // md:   @anitem
   // md:   @list
-  // md:   get anitem in @list by muonRic.getuid(@anitem)
+  // md:   get anitem in @list by muonEoric.getuid(@anitem)
   // md: * findFromUid
   // md:   @uid
   // md:   @list
@@ -70,12 +70,12 @@
   async function muonStore (__mapper) {
     let [
       mtim,
-      muonRic,
+      muonEoric,
       manitem,
       mprops,
     ] = await Promise.all([
       __mapper('xs').m('tim'),
-      __mapper('xs').m('ric'),
+      __mapper('xs').m('eoric'),
       __mapper('xs').m('anitem'),
       __mapper('xs').m('props'),
     ])
@@ -102,7 +102,7 @@
 
           let uid = (updAnima.uid !== undefined) // uid
             ? updAnima.uid
-            : muonRic.getuid(updAnima)
+            : muonEoric.getuid(updAnima)
 
           let index = enty.findFromUid(uid, state.animas)
           if (index !== -1) { // anima exists
@@ -150,7 +150,7 @@
     const getavatars = items => {
       items.forEach(item => {
         sequence(gavatars(item), avatar => {
-          avatar.uid = muonRic.getuid(avatar)
+          avatar.uid = muonEoric.getuid(avatar)
           avatar.tim = item.tim
           avatar.parentuid = item.uid
           gramm(avatar)
@@ -223,7 +223,7 @@
 
                 avatars.forEach(avatar => {
                   avatar.tim = anigram.tim // tim from anigram
-                  avatar.uid = muonRic.getuid(avatar) // uid from avatar
+                  avatar.uid = muonEoric.getuid(avatar) // uid from avatar
                   avatar.parentuid = newItem.uid // parentuid from newItem
 
                   gramm(avatar)
@@ -246,7 +246,7 @@
         let avatars = gavatars(newItem)
         avatars.forEach(avatar => {
           avatar.tim = anigram.tim // tim from anigram
-          avatar.uid = muonRic.getuid(avatar) // uid from avatar
+          avatar.uid = muonEoric.getuid(avatar) // uid from avatar
           avatar.parentuid = newItem.uid // parentuid from newItem
 
           gramm(avatar)
@@ -264,33 +264,33 @@
       (anima === undefined)
         ? 0
         : enty.animasLive()
-          .filter(d => d.ric.gid === anima.ric.gid).length
+          .filter(d => d.eoric.gid === anima.eoric.gid).length
 
     enty.animasInClassHowMany = anima =>
       (anima === undefined)
         ? 0
         : enty.animasLive()
-          .filter(d => (d.ric.gid === anima.ric.gid &&
-                    d.ric.cid === anima.ric.cid)).length
+          .filter(d => (d.eoric.gid === anima.eoric.gid &&
+                    d.eoric.cid === anima.eoric.cid)).length
 
     enty.anigramsInClassHowMany = anigram =>
       (anigram === undefined)
         ? 0
         : enty.anigrams()
-          .filter(d => (d.ric.gid === anigram.ric.gid &&
-                    d.ric.cid === anigram.ric.cid)).length
+          .filter(d => (d.eoric.gid === anigram.eoric.gid &&
+                    d.eoric.cid === anigram.eoric.cid)).length
 
-    enty.findIndexFromRic = (ric, list) =>
+    enty.findIndexFromRic = (eoric, list) =>
       list.findIndex(d =>
-        d.ric.gid === ric.gid &&
-                d.ric.cid === ric.cid &&
-                d.ric.fid === ric.fid
+        d.eoric.gid === eoric.gid &&
+                d.eoric.cid === eoric.cid &&
+                d.eoric.fid === eoric.fid
       )
 
     enty.findIndex = (item, list) =>
-      enty.findIndexFromRic(item.ric, list)
+      enty.findIndexFromRic(item.eoric, list)
 
-    enty.findByUid = (item, list) => enty.findFromUid(muonRic.getuid(item), list)
+    enty.findByUid = (item, list) => enty.findFromUid(muonEoric.getuid(item), list)
     enty.findFromUid = (uid, list) => list.findIndex(d => d.uid === uid)
 
     enty.findIndexAnigramFromUid = uid => enty.anigrams().findIndex(d => d.uid === uid)
@@ -308,11 +308,11 @@
     enty.token = () => state.animas.length + 1
     enty.getNid = () => state.animas.length + 1
 
-    enty.getAnigramIdx = ric => enty.findIndexFromRic(ric, state.anigrams)
-    enty.getAnigram = ric => state.anigrams[enty.getAnigramIdx(ric)] || null
+    enty.getAnigramIdx = eoric => enty.findIndexFromRic(eoric, state.anigrams)
+    enty.getAnigram = eoric => state.anigrams[enty.getAnigramIdx(eoric)] || null
 
-    enty.getAnimaIdx = ric => enty.findIndexFromRic(ric, state.animas)
-    enty.getAnima = ric => state.animas[enty.getAnimaIdx(ric)] || null
+    enty.getAnimaIdx = eoric => enty.findIndexFromRic(eoric, state.animas)
+    enty.getAnima = eoric => state.animas[enty.getAnimaIdx(eoric)] || null
 
     return enty
   }

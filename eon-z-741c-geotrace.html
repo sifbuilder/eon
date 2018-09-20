@@ -7,13 +7,13 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     muonStace,
-    muonRic,
+    muonEoric,
     haloTurnform,
     haloNatform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('stace'),
-    __mapper('xs').m('ric'),
+    __mapper('xs').m('eoric'),
     __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
     __mapper('xs').h('scene'),
@@ -55,7 +55,7 @@ async function anitem (__mapper) {
       }),
 
       tim: tim,
-      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
       eodrift: {
         proform: {
@@ -98,7 +98,7 @@ async function anitem (__mapper) {
       },
 
       tim,
-      ric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
+      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
       eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       payload: {
@@ -159,7 +159,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

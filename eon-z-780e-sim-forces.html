@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     d3Force3d,
     rrenderport,
     ctlRayder,
-    muonRic,
+    muonEoric,
     haloTurnform,
     haloNatform,
     haloScene,
@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').r('renderport'),
     __mapper('xs').c('rayder'),
-    __mapper('xs').m('ric'),
+    __mapper('xs').m('eoric'),
     __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
     __mapper('xs').h('scene'),
@@ -52,9 +52,9 @@ async function anitem (__mapper) {
       halo: 'turnform',
 
       tim: tim,
-      ric: {gid: 'ani', cid: 'ani', fid: 'ani1'},
+      eoric: {gid: 'ani', cid: 'ani', fid: 'ani1'},
 
-      // eofold: p => muonNatform.natFeature(p.geoform),
+      // eofold: p => muonNatform.natFeature(p.eoform),
 
       eofold: {
         type: 'Feature',
@@ -74,7 +74,7 @@ async function anitem (__mapper) {
 
       eochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
-      geoform: {
+      eoform: {
         'x': {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
           'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
@@ -98,13 +98,13 @@ async function anitem (__mapper) {
       halo: 'turnform',
 
       tim: tim,
-      ric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
+      eoric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
 
       eofold: function (p) {
-        return muonNatform.natFeature(p.geoform)
+        return muonNatform.natFeature(p.eoform)
       },
 
-      // eofold: p => muonNatform.natFeature(p.geoform),
+      // eofold: p => muonNatform.natFeature(p.eoform),
 
       // eofold: {
       // type: 'Feature',
@@ -124,7 +124,7 @@ async function anitem (__mapper) {
 
       eochrom: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
 
-      geoform: {
+      eoform: {
         'x': {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
           'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
@@ -157,7 +157,7 @@ async function anitem (__mapper) {
         let forceParams = {
           type: 'energy',
           filter: function (d) {
-            return d.ric.gid === 'ani'
+            return d.eoric.gid === 'ani'
           },
           src: d3_force,
           nodes: nodes,
@@ -186,7 +186,7 @@ async function anitem (__mapper) {
           filter: d => true,
           dim: 3,
           filter: function (d) {
-            return d.ric.gid === 'ani'
+            return d.eoric.gid === 'ani'
           },
           src: d3_force,
           nodes: nodes,
@@ -219,7 +219,7 @@ async function anitem (__mapper) {
           strength: strength,
           radius: d => 90,
           filter: function (d) {
-            return d.ric.gid === 'ani'
+            return d.eoric.gid === 'ani'
           },
           src: d3_force,
           nodes: nodes,
@@ -297,7 +297,7 @@ async function anitem (__mapper) {
       eofold: null,
 
       tim: tim,
-      ric: {gid: 'core', cid: 'core', fid: 'core'},
+      eoric: {gid: 'core', cid: 'core', fid: 'core'},
 
       payload: {
       },

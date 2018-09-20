@@ -10,7 +10,7 @@
 
   async function haloMelder (__mapper = {}) {
     let [
-      muonRic,
+      muonEoric,
       muonGeom,
       ctlRayder,
       ctlWen,
@@ -21,7 +21,7 @@
       muonProfier,
       muonProj3ct,
     ] = await Promise.all([
-      __mapper('xs').m('ric'),
+      __mapper('xs').m('eoric'),
       __mapper('xs').m('geom'),
       __mapper('xs').c('rayder'),
       __mapper('xs').c('wen'),
@@ -42,7 +42,7 @@
 
       let halo = anitem.halo,
         payload = anitem.payload,
-        ric = anitem.ric,
+        eoric = anitem.eoric,
         tim = anitem.tim
 
       let melder = payload.melder || {}, // melder
@@ -51,15 +51,15 @@
         geoaad = melder.geoaad || 0, // geoaad paceitem to previous anitem
         geosort = melder.geosort || 'anigram', // paceitem sort
         geoType = melder.geotype || 'LineString', //
-        base = melder.geobase || 'geoform' //
+        base = melder.geobase || 'eoform' //
 
-      let uidAnima = muonRic.getuid(ric)
-      let uidAnigram = muonRic.getuid(ric)
+      let uidAnima = muonEoric.getuid(eoric)
+      let uidAnigram = muonEoric.getuid(eoric)
       let uidParent = anitem.parentuid
-      let ricPreitem = (anitem.payload.melder.ric !== undefined)
-        ? anitem.payload.melder.ric(anitem)
-        : anitem.ric
-      let uidPreitem = muonRic.getuid(ricPreitem)
+      let ricPreitem = (anitem.payload.melder.eoric !== undefined)
+        ? anitem.payload.melder.eoric(anitem)
+        : anitem.eoric
+      let uidPreitem = muonEoric.getuid(ricPreitem)
 
       let animas = muonStore.animas()
       let anigrams = muonStore.anigrams()
@@ -181,7 +181,7 @@
 
               newItem = preAnima
 
-              // if (base !== undefined) { // geobase: {geoform, conform, ereform, proform}
+              // if (base !== undefined) { // geobase: {eoform, conform, ereform, proform}
 
               // console.assert(newItem.eofold.properties[base] !== undefined)
               // newItem.eofold.geometry = newItem.eofold.properties[base].geometry

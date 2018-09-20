@@ -162,9 +162,9 @@ async function anitem (__mapper) {
     // ............................. natAniRed
     let natAniRed = {
       halo: 'turnform',
-      eofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.eoform),
       tim,
-      ric: {gid: 'q', cid: 'q', fid: 'qred'},
+      eoric: {gid: 'q', cid: 'q', fid: 'qred'},
       eodrift: {
         proform: {
           projection: 'uniwen',
@@ -178,16 +178,16 @@ async function anitem (__mapper) {
         },
       },
       eochrom: geochromRed,
-      geoform: conformRed,
+      eoform: conformRed,
       payload: {
       },
     }
     // ............................. natAniBlue
     let natAniBlue = {
       halo: 'turnform',
-      eofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.eoform),
       tim,
-      ric: {gid: 'q', cid: 'q', fid: 'qblue'},
+      eoric: {gid: 'q', cid: 'q', fid: 'qblue'},
       eodrift: {
         proform: {
           projection: 'uniwen',
@@ -201,7 +201,7 @@ async function anitem (__mapper) {
         },
       },
       eochrom: geochromBlue,
-      geoform: conformBlue,
+      eoform: conformBlue,
       payload: {
       },
     }
@@ -211,7 +211,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

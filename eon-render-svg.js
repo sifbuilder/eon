@@ -150,7 +150,7 @@
         )
         .filter(
           d => d.properties !== undefined && // req properties
-            d.properties.ric !== undefined // req ric
+            d.properties.eoric !== undefined // req eoric
         )
 
       let svg = _svg()
@@ -161,8 +161,8 @@
       cameraProjer = prt
 
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
-        .key(function (d) { return d.properties.ric.gid })
-        .key(function (d) { return d.properties.ric.cid })
+        .key(function (d) { return d.properties.eoric.gid })
+        .key(function (d) { return d.properties.eoric.cid })
         .entries(features) // features
 
 console.log('gitems', gitems)        
@@ -265,7 +265,7 @@ console.log('gitems', gitems)
           let axes = fitems
             .filter(d => d.properties.sort === 'axis') // __ axis __
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
-            .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
+            .filter((d, i) => (d.properties.eoric.delled !== 1)) // not delled
 
           if (axes.length > 0) {
             for (let k = 0; k < axes.length; k++) {
@@ -315,7 +315,7 @@ console.log('gitems', gitems)
               d.properties.sort === 'form'
             )
             .filter((d, i) => (d.properties.delled !== 1)) // not delled
-            .filter((d, i) => (d.properties.ric.delled !== 1)) // not delled
+            .filter((d, i) => (d.properties.eoric.delled !== 1)) // not delled
 
           if (features.length > 0) { // _e_
             svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.uid) // elems

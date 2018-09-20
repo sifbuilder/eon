@@ -56,7 +56,7 @@ async function anitem (__mapper) {
       eofold: null,
 
       tim,
-      ric: {gid: 'nat', cid: 'nat', fid: 'solar'},
+      eoric: {gid: 'nat', cid: 'nat', fid: 'solar'},
       eochrom: eochrom,
       eodrift: {
         proform: {
@@ -67,7 +67,7 @@ async function anitem (__mapper) {
           'lens': [0, 1, Infinity],
         },
       },
-      geoform: {
+      eoform: {
         'm1': 4.718177045786351, 'm2': 19.396126213759022, 'n1': 15.313427387158098, 'n2': 10.738988564746812, 'n3': 15.119538381452617, 'b': 7.059625076609466, 'a': -13.981619631491435,
         'tx': 0,
         'ty': 0,
@@ -108,7 +108,7 @@ async function anitem (__mapper) {
 
       tim: tim,
 
-      ric: {
+      eoric: {
         gid: 'planet',
         cid: 'planet',
         fid: 'planet',
@@ -126,7 +126,7 @@ async function anitem (__mapper) {
 
       eochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
-      geoform: {
+      eoform: {
         'm1': -144, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
         'tx': 0,
         'ty': 0,
@@ -141,12 +141,12 @@ async function anitem (__mapper) {
         pacer: {
 
           geosort: 'anima',
-          geobase: 'geoform',
+          geobase: 'eoform',
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
           geoaad: 0,
 
           halo: (ani, props) => 'natform',
-          ric: function (ani, props) {
+          eoric: function (ani, props) {
             let counter = props.counter || 0
 
             let fidsuffix = ''
@@ -156,12 +156,12 @@ async function anitem (__mapper) {
               fidsuffix = `_${hm}`
             }
 
-            let ric = {
+            let eoric = {
               gid: 'planet',
               cid: 'planet',
               fid: `pointTrace${fidsuffix}`,
             }
-            return ric
+            return eoric
           },
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
@@ -184,7 +184,7 @@ async function anitem (__mapper) {
             return res
           },
 
-          geoform: {
+          eoform: {
             'm1': -144, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
             'tx': 0,
             'ty': 0,
@@ -206,7 +206,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 0, webgl: 0, bck: 1, ray: 1},
       },

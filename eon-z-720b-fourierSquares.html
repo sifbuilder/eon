@@ -70,7 +70,7 @@ async function anitem (__mapper) {
           return cs
         },
         tim: tim,
-        ric: {gid: 'ani', cid: 'ani', fid: 'aniDotted' + i},
+        eoric: {gid: 'ani', cid: 'ani', fid: 'aniDotted' + i},
         eochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.5, 'co': 0.9, 'cp': 0.999},
       },
     })
@@ -86,7 +86,7 @@ async function anitem (__mapper) {
       },
       pointRadius: 3,
       tim: tim,
-      ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniLine' + i},
+      eoric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniLine' + i},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.3, 'co': 0.009, 'cp': 0.999},
       payload: {
       },
@@ -99,7 +99,7 @@ async function anitem (__mapper) {
       halo: 'turnform',
       eofold: {type: 'Feature', geometry: {type: 'LineString', coordinates: []}, properties: {}},
       tim: tim,
-      ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniRay' + i},
+      eoric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniRay' + i},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 444, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
       payload: {
       },
@@ -114,7 +114,7 @@ async function anitem (__mapper) {
         type: 'Feature', geometry: {type: 'MultiPoint', coordinates: []}, properties: {}},
 
       tim: tim,
-      ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniTrace' + i},
+      eoric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniTrace' + i},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
       payload: {
       },
@@ -126,7 +126,7 @@ async function anitem (__mapper) {
 
       halo: 'pacer',
       eofold: null,
-      ric: {gid: 'traces', cid: 'traces', fid: 'traces' + i},
+      eoric: {gid: 'traces', cid: 'traces', fid: 'traces' + i},
       eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       payload: {
@@ -134,8 +134,8 @@ async function anitem (__mapper) {
           initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, span: 0, geoaad: 1,
 
           geojsor: function (d, i) {
-            let ric = d.ric // ric
-            let uid = muonRic.getuid(ric)
+            let eoric = d.eoric // eoric
+            let uid = muonEoric.getuid(eoric)
 
             let gj = {
 
@@ -146,7 +146,7 @@ async function anitem (__mapper) {
                   geometry: { type: 'LineString', coordinates: null },
                   properties: { doc: 'pacer' },
                 },
-                uid: uid, id: uid, ric: ric,
+                uid: uid, id: uid, eoric: eoric,
                 proform: this.proform,
               },
 
@@ -176,7 +176,7 @@ async function anitem (__mapper) {
       },
 
       tim: tim,
-      ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier' + i},
+      eoric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier' + i},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99},
       payload: { // FOURIER TRANSFORM in payload.fourier.transform
         fourier: {
@@ -212,7 +212,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

@@ -11,7 +11,7 @@
   // md: # eon-halo-natform
   // md: **process h.turnform animas**
   // md: Feature Collect gj. for each feature
-  // md: geoform, conform, ereform and proform anigrams
+  // md: eoform, conform, ereform and proform anigrams
   // md: then pass the FeatureCollection to h.leaform
   // md: define `eonode` if undefined
 

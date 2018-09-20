@@ -36,7 +36,7 @@
   // md:
   // md: ### getTranspots
   // md: `getTranspots(stace, payload)`
-  // md: **get stace locations in @ric**
+  // md: **get stace locations in @eoric**
   // md: ##### parameters
   // md:  **stace** ,  may be passed as param or as payload attribute
   // md:     * `{x:0, y:0, z:0}`, position object
@@ -141,7 +141,7 @@
 
             // mod refers to the transformation
 
-            if (v1.hasOwnProperty('mod')) { // geoform, conform, ereform, proform`
+            if (v1.hasOwnProperty('mod')) { // eoform, conform, ereform, proform`
               // eofold transfomed are in the eofold.properties
 
               coords = muonGeoj.getCoords(eofold.properties[v1.mod].geometry)
@@ -163,7 +163,7 @@
           } else {
             // locations refer to the eonode or the stace locations
 
-            if (v1.hasOwnProperty('mod')) { // geoform, conform, ereform, proform`
+            if (v1.hasOwnProperty('mod')) { // eoform, conform, ereform, proform`
               // get the mod on the eonode properties
               console.assert(eonode.properties[v1.mod].geometry !== undefined)
               coords = eonode.properties[v1.mod].geometry.coordinates

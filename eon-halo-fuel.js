@@ -38,7 +38,7 @@
 
       let payload = anitem.payload, // payload
         eofold = eofold, // eofold
-        ric = ric, // ric
+        eoric = eoric, // eoric
         parentuid = parentuid // parentuid
 
       let fuel = payload.fuel,
@@ -72,9 +72,9 @@
 
       for (let i = 0; i < remainCandies.length; i++) { // for each candy ...
         let idx = i
-        let gid = ric.gid // from ava ric
-        let cid = ric.cid
-        let fid = (ric.fid === undefined) ? ric.cid + '_' + idx : ric.fid
+        let gid = eoric.gid // from ava eoric
+        let cid = eoric.cid
+        let fid = (eoric.fid === undefined) ? eoric.cid + '_' + idx : eoric.fid
         let _ric = {gid, cid, fid}
 
         let _proform = { // proform each candy
@@ -85,7 +85,7 @@
         newAnigram.halo = 'natform'
         newAnigram.eofold = eofold
         newAnigram.payload = payload
-        newAnigram.ric = _ric // identify each fuel nat
+        newAnigram.eoric = _ric // identify each fuel nat
         newAnigram.payload.proform = _proform // proform of each fuel nat
 
         let avaAnigrams = haloNatform.gramm(newAnigram) // async

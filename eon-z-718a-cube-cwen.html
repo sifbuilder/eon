@@ -38,7 +38,7 @@ async function anitem (__mapper) {
 
       eofold: p => {
         let payload = p.payload
-        let ric = ric
+        let eoric = eoric
 
         let json = {type: 'FeatureCollection', features: []}
 
@@ -54,7 +54,7 @@ async function anitem (__mapper) {
 
           let feature = {type: 'Feature', geometry: {}, properties: {}}
 
-          feature.properties.ric = {gid: ric.gid, cid: 'face', fid: i}
+          feature.properties.eoric = {gid: eoric.gid, cid: 'face', fid: i}
           feature.properties.sort = 'form'
           feature.geometry = geometry
           feature.properties.eochrom = face.eochrom
@@ -64,7 +64,7 @@ async function anitem (__mapper) {
         return json // FeatureCollection.features[i].geometry.coordinates[i]::[-1, -1, 1]
       },
       tim: tim,
-      ric: {'gid': 'aniCube', 'cid': 'aniCube', 'fid': 'aniCube'},
+      eoric: {'gid': 'aniCube', 'cid': 'aniCube', 'fid': 'aniCube'},
       eochrom: { 'csx': 0, 'cf': 111, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
       eodrift: {
         proform: {
@@ -125,7 +125,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

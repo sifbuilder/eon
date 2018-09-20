@@ -28,7 +28,7 @@
     // ............................. gramm
     function gramm (anitem) {
       let payload = anigram.payload, // payload
-        ric = ric, // ric
+        eoric = eoric, // eoric
         uid = uid, // uid
         axis = payload.axis // axis
 
@@ -47,7 +47,7 @@
       let newAnigram = mprops.clone(anigram) // clone
       newAnigram.eofold.properties = {
         sort: 'axis',
-        ric: ric,
+        eoric: eoric,
         uid: uid,
         axis: Object.assign(axis, {
           scale: _scale.domain(domain).range(range),

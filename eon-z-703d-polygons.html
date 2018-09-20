@@ -34,7 +34,7 @@ async function anitem (__mapper) {
           [-1, -1, 1],
         ]
 
-        let ric = p.ric
+        let eoric = p.eoric
         let eochrom = p.eochrom
 
         let geometry = {type: 'Polygon', coordinates: []}
@@ -42,8 +42,8 @@ async function anitem (__mapper) {
         geometry.coordinates = Array.of(coordinaes) // eg [-1, 1, 1]
 
         let feature = {type: 'Feature', geometry: {}, properties: {}}
-        let _ric = {gid: ric.gid, cid: ric.cid, fid: 'orange'}
-        feature.properties.ric = _ric
+        let _ric = {gid: eoric.gid, cid: eoric.cid, fid: 'orange'}
+        feature.properties.eoric = _ric
 
         feature.properties.sort = 'form'
         feature.geometry = geometry
@@ -55,7 +55,7 @@ async function anitem (__mapper) {
       },
 
       tim: tim,
-      ric: {'gid': 'idPolygon', 'cid': 'idPolygon', 'fid': 'idPolygon'},
+      eoric: {'gid': 'idPolygon', 'cid': 'idPolygon', 'fid': 'idPolygon'},
       eochrom: {'csx': 0, 'cf': [[[666, 777, 666, 777, 666, 777, 666]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
       eodrift: {
         proform: {
@@ -87,7 +87,7 @@ async function anitem (__mapper) {
           [-1, -1, 1],
         ]
 
-        let ric = p.ric
+        let eoric = p.eoric
         let eochrom = p.eochrom
 
         let geometry = {type: 'Polygon', coordinates: []}
@@ -95,8 +95,8 @@ async function anitem (__mapper) {
         geometry.coordinates = Array.of(coordinaes) // eg [-1, 1, 1]
 
         let feature = {type: 'Feature', geometry: {}, properties: {}}
-        let _ric = {gid: ric.gid, cid: ric.cid, fid: 'red'}
-        feature.properties.ric = _ric
+        let _ric = {gid: eoric.gid, cid: eoric.cid, fid: 'red'}
+        feature.properties.eoric = _ric
 
         feature.properties.sort = 'form'
         feature.geometry = geometry
@@ -107,7 +107,7 @@ async function anitem (__mapper) {
         return gj
       },
       tim: tim,
-      ric: {'gid': 'wenPolygon', 'cid': 'wenPolygon', 'fid': 'wenPolygon'},
+      eoric: {'gid': 'wenPolygon', 'cid': 'wenPolygon', 'fid': 'wenPolygon'},
       eochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
       eodrift: {
@@ -133,7 +133,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

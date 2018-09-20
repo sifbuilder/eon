@@ -31,13 +31,13 @@ async function anitem (__mapper) {
     let anima = {
 
       halo: 'turnform',
-      eofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.eoform),
 
       tim: tim,
-      ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
 
-      geoform: {
+      eoform: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
         'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 2, 'pa6': 0, 'pb7': -1,
       },
@@ -59,10 +59,10 @@ async function anitem (__mapper) {
     let animatter = {
 
       halo: 'turnform',
-      eofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.eoform),
 
       tim: tim,
-      ric: {gid: 'animatter', cid: 'animatter', fid: 'animatter'},
+      eoric: {gid: 'animatter', cid: 'animatter', fid: 'animatter'},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.09, 'cp': 0.7},
       eodrift: {
         proform: {
@@ -77,7 +77,7 @@ async function anitem (__mapper) {
         },
       },
 
-      geoform: {
+      eoform: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
         'ra2': 20, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
       },
@@ -92,7 +92,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1},
       },

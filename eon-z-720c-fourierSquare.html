@@ -76,7 +76,7 @@ async function anitem (__mapper) {
       eofold: {type: 'Feature', properties: {pointRadius: 1}, geometry: { type: 'MultiPoint', coordinates: muonGeoj.getCoords(geoData) } },
       payload: {
         tim: tim,
-        ric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniDots'},
+        eoric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniDots'},
         eochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.5, 'co': 0.999, 'cp': 0.999},
       },
 
@@ -96,7 +96,7 @@ async function anitem (__mapper) {
         properties: {},
       },
       tim: tim,
-      ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
+      eoric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
       payload: {
       },
@@ -127,7 +127,7 @@ async function anitem (__mapper) {
       },
 
       tim,
-      ric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
+      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
       eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       payload: {
@@ -190,7 +190,7 @@ async function anitem (__mapper) {
       halo: 'fourier',
       eofold: p => transformsFC,
       tim: tim,
-      ric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
+      eoric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99}, // circle
       payload: { // FOURIER TRANSFORM in payload.fourier.transforms
         fourier: {
@@ -211,7 +211,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

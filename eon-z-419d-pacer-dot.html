@@ -60,7 +60,7 @@ async function anitem (__mapper) {
 
       tim: tim,
 
-      ric: {
+      eoric: {
         gid: 'nat',
         cid: 'nat',
         fid: 'pointTrace',
@@ -81,12 +81,12 @@ async function anitem (__mapper) {
       payload: {
         pacer: {
           geosort: 'anigram',
-          geobase: 'geoform',
+          geobase: 'eoform',
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
           geoaad: 0,
 
           halo: (ani, props) => 'turnform',
-          ric: function (ani, props) {
+          eoric: function (ani, props) {
             let counter = props.counter || 0
 
             let fidsuffix = ''
@@ -96,12 +96,12 @@ async function anitem (__mapper) {
               fidsuffix = `_${hm}`
             }
 
-            let ric = {
+            let eoric = {
               gid: 'nat',
               cid: 'nat',
               fid: `pointTrace${fidsuffix}`,
             }
-            return ric
+            return eoric
           },
 
           eofold: function (ani, props) {
@@ -135,7 +135,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 0, webgl: 0, bck: 1, ray: 1},
       },

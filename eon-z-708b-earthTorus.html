@@ -195,10 +195,10 @@ async function anitem (__mapper) {
       },
 
       tim: tim,
-      ric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
+      eoric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
       eochrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
       eodrift: {
-        conform: { projection: 'natform', geoform: formTorus },
+        conform: { projection: 'natform', eoform: formTorus },
         proform: proformEarth,
       },
       payload: {
@@ -212,7 +212,7 @@ async function anitem (__mapper) {
       halo: 'turnform',
       eofold: anitem => {
         let payload = anitem.payload,
-          ric = anitem.ric
+          eoric = anitem.eoric
 
         let json = {type: 'FeatureCollection', features: []}
         let points = payload.points // payload.points
@@ -226,9 +226,9 @@ async function anitem (__mapper) {
             .map(muonGeom.to_degrees)
           geometry.coordinates = Array.of(geometry.coordinates)
           let feature = {type: 'Feature', geometry: {}, properties: {}}
-          feature.properties.ric = ric
-          feature.properties.ric.cid = 'face'
-          feature.properties.ric.fid = i // face.name
+          feature.properties.eoric = eoric
+          feature.properties.eoric.cid = 'face'
+          feature.properties.eoric.fid = i // face.name
           feature.properties.sort = 'form'
           feature.geometry = geometry
           feature.properties.eochrom = face.eochrom
@@ -239,11 +239,11 @@ async function anitem (__mapper) {
       },
 
       tim: tim,
-      ric: {gid: 'cubeAni', cid: 'cubeAni', fid: 'cubeAni'},
+      eoric: {gid: 'cubeAni', cid: 'cubeAni', fid: 'cubeAni'},
       eochrom: { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
 
       eodrift: {
-        conform: { projection: 'natform', geoform: formSphere },
+        conform: { projection: 'natform', eoform: formSphere },
 
         proform: proformEarth,
       },
@@ -295,11 +295,11 @@ async function anitem (__mapper) {
 
       eofold: anitem => muonGraticule.vhMultiLine(anitem.geoframe),
       tim: tim,
-      ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticubeAni'},
+      eoric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticubeAni'},
       eochrom: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
       eodrift: {
-        conform: { projection: 'natform', geoform: formGratiCube },
+        conform: { projection: 'natform', eoform: formGratiCube },
 
         proform: proformEarth,
       },
@@ -315,11 +315,11 @@ async function anitem (__mapper) {
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
       tim: tim,
-      ric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticircAni'},
+      eoric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticircAni'},
       eochrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
       eodrift: {
-        conform: { projection: 'natform', geoform: formSphere },
+        conform: { projection: 'natform', eoform: formSphere },
 
         proform: proformEarth,
       },
@@ -332,15 +332,15 @@ async function anitem (__mapper) {
     let torusAni1 = {
 
       halo: 'turnform',
-      eofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.eoform),
       tim,
-      ric: {gid: 'q', cid: 'q', fid: 'q1'},
+      eoric: {gid: 'q', cid: 'q', fid: 'q1'},
       eodrift: {
         proform: proformTorus,
       },
       eochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-      geoform: formTorus,
+      eoform: formTorus,
       payload: {
       },
     }
@@ -350,7 +350,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
       },

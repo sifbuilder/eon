@@ -144,7 +144,7 @@
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
-            d.properties.ric !== undefined // req ric
+            d.properties.eoric !== undefined // req eoric
         )
 
       /* clean canvas */
@@ -154,8 +154,8 @@
 
       /* items to add to scene */
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
-        .key(function (d) { return d.properties.ric.gid })
-        .key(function (d) { return d.properties.ric.cid })
+        .key(function (d) { return d.properties.eoric.gid })
+        .key(function (d) { return d.properties.eoric.cid })
         .entries(features)
 
       for (let i in gitems) { // DOTS (seg5===0) each group gid

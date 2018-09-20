@@ -60,7 +60,7 @@ async function anitem (__mapper) {
 
       tim: tim,
 
-      ric: {
+      eoric: {
         gid: 'nat',
         cid: 'nat',
         fid: 'pointTrace',
@@ -81,12 +81,12 @@ async function anitem (__mapper) {
       payload: {
         pacer: {
           geosort: 'anigram',
-          geobase: 'geoform',
+          geobase: 'eoform',
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
           geoaad: 0,
 
           halo: (ani, props) => 'turnform',
-          ric: function (ani, props) {
+          eoric: function (ani, props) {
             let counter = props.counter || 0
 
             let fidsuffix = ''
@@ -96,12 +96,12 @@ async function anitem (__mapper) {
               fidsuffix = `_${hm}`
             }
 
-            let ric = {
+            let eoric = {
               gid: 'nat',
               cid: 'nat',
               fid: `pointTrace${fidsuffix}`,
             }
-            return ric
+            return eoric
           },
 
           eofold: function (ani, props) {
@@ -144,10 +144,10 @@ async function anitem (__mapper) {
       // md: updated by transforms
       // md: relative to eonode
       // md: as eonode, properties keep transformed views
-      eofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.eoform),
 
       tim: tim,
-      ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
+      eoric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
       eochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
       eodrift: {
         proform: {
@@ -176,7 +176,7 @@ async function anitem (__mapper) {
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
-      geoform: {
+      eoform: {
         'x': {
           'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
           'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 24, 'w4': 0, 'pa6': 0, 'pb7': 360,
@@ -199,13 +199,13 @@ async function anitem (__mapper) {
 
       tim: tim,
 
-      ric: {
+      eoric: {
         gid: 'nattrace',
         cid: 'nattrace',
         fid: 'traceNat', //  + props.counter,
       },
 
-      eofold: p => muonNatform.natFeature(p.geoform),
+      eofold: p => muonNatform.natFeature(p.eoform),
 
       eonode: {
         type: 'Feature',
@@ -229,7 +229,7 @@ async function anitem (__mapper) {
 
       eochrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
 
-      geoform: {
+      eoform: {
         'x': {
           'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
           'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
@@ -244,7 +244,7 @@ async function anitem (__mapper) {
         pacer: {
           halo: 'turnform',
           geosort: 'anigram',
-          // geobase: 'geoform',
+          // geobase: 'eoform',
           initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, geoaad: 0,
 
           eonode: function (ani, props) {
@@ -301,7 +301,7 @@ async function anitem (__mapper) {
       },
 
       tim,
-      ric: {gid: 'nat', cid: 'nat', fid: 'natLined'},
+      eoric: {gid: 'nat', cid: 'nat', fid: 'natLined'},
 
       eodrift: {
         proform: {
@@ -346,14 +346,14 @@ async function anitem (__mapper) {
       },
 
       tim,
-      ric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
+      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
       eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       payload: {
         pacer: { // geoaad for trace
           halo: 'turnform',
           geosort: 'anigram',
-          geobase: 'geoform',
+          geobase: 'eoform',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, geoaad: 1,
 
           stace: function (ani, props) {
@@ -415,7 +415,7 @@ async function anitem (__mapper) {
       },
 
       tim: tim,
-      ric: {gid: 'text', cid: 'text', fid: 'text'},
+      eoric: {gid: 'text', cid: 'text', fid: 'text'},
       eochrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
       eodrift: {
@@ -445,7 +445,7 @@ async function anitem (__mapper) {
       halo: 'scene',
       eofold: null,
       tim: tim,
-      ric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 0, webgl: 0, bck: 1, ray: 1},
       },
