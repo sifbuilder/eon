@@ -83,10 +83,9 @@
 
     // ............................. ween
     let ween = anitem => {
-      if (anitem.inited !== 1) {
-        anitem.inited = anitem.gelded = 1
-
-        return [anitem]
+      if (anitem.inited !== undefined) {
+        anitem.inited = 1
+        return mprops.a(anitem)
       } else {
         return []
       }

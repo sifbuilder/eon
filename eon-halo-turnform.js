@@ -31,8 +31,8 @@
 
     ])
 
-    // ............................. enent
-    function enent (anitem) {
+    // ............................. haloing
+    function haloing (anitem) {
       console.assert(typeof anitem === 'object')
       console.assert(Array.isArray(anitem) === false)
 
@@ -48,7 +48,6 @@
           let node = muonProj3ct(muonGeoj.deprop(geonode), muonProfier.formion(prt, anitem))
           node.properties = properties
           node.properties[drift] = node
-
           newAni.geonode = node
         }
       }
@@ -84,19 +83,15 @@
 
     // ............................. gramm
     let gramm = anitem => {
-      if (1 && 1) console.log('turnform.gramm', anitem)
-
-      let newItem = enent(anitem)
+      let newItem = haloing(anitem)
       let newAnitems = haloLeaform.gramm(newItem)
       return newAnitems
     }
 
     // ............................. ween
     let ween = anitem => {
-      if (1 && 1) console.log('turnform.ween', anitem)
-      if (anitem.inited !== 1) {
+      if (anitem.inited === undefined) {
         anitem.inited = 1
-        anitem.gelded = 1
         return mprops.v(anitem)
       } else {
         return []

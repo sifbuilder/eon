@@ -102,13 +102,13 @@
           if (nDim > 2 && isNaN(simNode.vz)) simNode.vz = 0
           simNode.payload = payload // anitem payload to simnode
 
-          if (payload.id !== undefined) {
+          if (payload && payload.id !== undefined) { // link nodes
             simNode.id = payload.id // simnode id from geofold.payload.id
           } else {
             simNode.id = simNode.uid
           }
 
-          if (payload.link) {
+          if (payload && payload.link) {  // links
             simNode.source = payload.link.source
             simNode.target = payload.link.target
           }

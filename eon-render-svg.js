@@ -165,6 +165,8 @@
         .key(function (d) { return d.properties.ric.cid })
         .entries(features) // features
 
+console.log('gitems', gitems)        
+        
       for (let i in gitems) { // DOTS (seg5===0) each group gid
         let gid = gitems[i].key,
           citems = gitems[i].values
