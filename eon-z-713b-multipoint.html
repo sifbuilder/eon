@@ -71,7 +71,7 @@ async function anitem (__mapper) {
       eohal: 'turnform',
 
       eofold: function (p) {
-        let graticule = p.geoframe
+        let graticule = p.eoframe
 
         let verts = muonGraticule.gvertices(graticule) // Feature.LineString
         let vertices = verts.geometry.coordinates
