@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').m('fibonat'),
     __mapper('xs').p('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   let ani = function () {
@@ -64,7 +64,7 @@ async function anitem (__mapper) {
     // .................. fiboForm anima
     let wireAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => {
         let payload = p.payload || {}
@@ -136,7 +136,7 @@ async function anitem (__mapper) {
 
     let sphereAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
@@ -149,7 +149,7 @@ async function anitem (__mapper) {
 
         proform: wireProform,
       },
-        geoframe: wireFrame,
+      geoframe: wireFrame,
       payload: {
 
       },
@@ -169,9 +169,9 @@ async function anitem (__mapper) {
 
     let animas = [
 
-      wireAni, // h.eoform
+      wireAni, // h.turnform
       sceneAni, // h.scene
-      sphereAni, // h.eoform
+      sphereAni, // h.turnform
 
     ]
     return animas

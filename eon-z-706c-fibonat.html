@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('fibonat'),
     __mapper('xs').b('d3'),
     __mapper('xs').p('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   let ani = function () {
@@ -95,7 +95,7 @@ async function anitem (__mapper) {
     // .................. fiboAni
     let fiboAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => mfibonat.catesians(p.payload),
 
@@ -124,7 +124,7 @@ async function anitem (__mapper) {
     // .................. sphereAni anima
     let sphereAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
 
@@ -139,7 +139,7 @@ async function anitem (__mapper) {
         },
         proform: sphereProform,
       },
-        geoframe: sphereFrame,
+      geoframe: sphereFrame,
       payload: {
 
       },
@@ -160,8 +160,8 @@ async function anitem (__mapper) {
 
     let animas = [
 
-      fiboAni, // h.eoform
-      sphereAni, // h.eoform
+      fiboAni, // h.turnform
+      sphereAni, // h.turnform
       sceneAni, // h.scene
 
     ]

@@ -7,28 +7,28 @@
       : (factory((global.haloTextform = global.haloTextform || {})))
 }(this, function (exports) {
   'use strict'
-  
-// md: # eon-halo-textform 
-// md: process text anitems 
-// md: ## functions 
-// md: * [_geofold](#_geofold) - uploads payload text form to geofold properties 
-// md: 
-// md: 
-// md: ## methods 
-// md: * [ween](#ween) - process anima 
-// md: * [gramm](#gramm) - process anigram 
-// md:  buils the newitem geoform and pass it to h.eoform 
-// md: 
-// md: # license 
-// md: MIT
+
+  // md: # eon-halo-textform
+  // md: process text anitems
+  // md: ## functions
+  // md: * [_geofold](#_geofold) - uploads payload text form to geofold properties
+  // md:
+  // md:
+  // md: ## methods
+  // md: * [ween](#ween) - process anima
+  // md: * [gramm](#gramm) - process anigram
+  // md:  buils the newitem geoform and pass it to h.turnform
+  // md:
+  // md: # license
+  // md: MIT
 
   async function haloTextform (__mapper = {}) {
     let [
       mprops,
-      haloEoform,
+      haloTurnform,
     ] = await Promise.all([
       __mapper('xs').m('props'),
-      __mapper('xs').h('eoform'),
+      __mapper('xs').h('turnform'),
     ])
 
     // .................. _geofold
@@ -37,9 +37,9 @@
 
       return {
         type: 'Feature',
-        geometry: { 
-          type: 'Point', 
-          coordinates: [0, 0] 
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0],
         },
         properties: {
           sort: 'text',
@@ -67,13 +67,12 @@
 
     // .................. gramm
     function gramm (anigram, newAnigrams = []) {
-
       let newitem = mprops.clone(anigram)
-        
+
       newitem.geofold = _geofold(anigram)
       newitem.geonode = _geofold(anigram)
 
-      return haloEoform.gramm(newitem)
+      return haloTurnform.gramm(newitem)
     }
 
     // .................. ween

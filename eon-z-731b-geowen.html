@@ -12,9 +12,9 @@ async function anitem (__mapper) {
     dworldTopo110m,
     d3geo,
     ctlWen,
-    haloEoform,
+    haloTurnform,
     haloNatform,
-    haloScene,    
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').m('geoj'),
@@ -22,9 +22,9 @@ async function anitem (__mapper) {
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').b('d3-geo'),
     __mapper('xs').c('wen'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
@@ -35,7 +35,7 @@ async function anitem (__mapper) {
     // .................. geoearth1
     let geoearth1 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: () => {
         let gj = Object.assign({},
@@ -70,7 +70,7 @@ async function anitem (__mapper) {
     // .................. geograt1
     let geograt1 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
@@ -102,7 +102,7 @@ async function anitem (__mapper) {
     // .................. geosphere1
     let geosphere1 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: {
         type: 'Feature',
@@ -131,7 +131,7 @@ async function anitem (__mapper) {
     // .................. geoearth2
     let geoearth2 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: () => {
         let gj = Object.assign({},
@@ -165,7 +165,7 @@ async function anitem (__mapper) {
     // .................. geograt2
     let geograt2 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
@@ -195,7 +195,7 @@ async function anitem (__mapper) {
     // .................. geosphere2
     let geosphere2 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: {
         type: 'Feature',
@@ -237,12 +237,12 @@ async function anitem (__mapper) {
 
     let animas = [
       sceneAni, // h.scene
-      geoearth1, // h.eoform g.orthographic
-      geograt1, // h.eoform
-      geosphere1, // h.eoform
-      geoearth2, // h.eoform g.mercator
-      geograt2, // h.eoform
-      geosphere2, // h.eoform
+      geoearth1, // h.turnform g.orthographic
+      geograt1, // h.turnform
+      geosphere1, // h.turnform
+      geoearth2, // h.turnform g.mercator
+      geograt2, // h.turnform
+      geosphere2, // h.turnform
     ]
 
     return animas

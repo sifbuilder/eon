@@ -9,14 +9,14 @@ async function anitem (__mapper) {
     mprops,
     ctlWen,
     muonNatform,
-    haloEoform,    
+    haloTurnform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
-    __mapper('xs').h('eoform'),    
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('turnform'),
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
@@ -129,7 +129,7 @@ async function anitem (__mapper) {
     // ............................. torusAni1
     let torusAni1 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -146,7 +146,7 @@ async function anitem (__mapper) {
       },
       geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.0009, 0.00099]]], 'cp': [[[0.0099, 0.0099]]]},
-        geoform: conformTorus1,
+      geoform: conformTorus1,
       payload: {
       },
     }
@@ -154,7 +154,7 @@ async function anitem (__mapper) {
     // ............................. torusAni2 yellow
     let torusAni2 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q2'},
@@ -171,7 +171,7 @@ async function anitem (__mapper) {
       },
       geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[999, 999, 999]]], 'cw': [[[3.9, 3.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9]]], 'cp': [[[0.99, 0.99]]]},
-        geoform: conformTorus2,
+      geoform: conformTorus2,
       payload: {
       },
     }
@@ -179,7 +179,7 @@ async function anitem (__mapper) {
     // ............................. torusAni2 red
     let torusAni3 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
       payload: {
         tim,
         ric: {gid: 'q', cid: 'q', fid: 'q3'},
@@ -218,9 +218,9 @@ async function anitem (__mapper) {
     let animas = [
 
       sceneAni, // h.scene
-      // torusAni1, // h.eoform
-      torusAni2, // h.eoform
-      torusAni3, // h.eoform
+      // torusAni1, // h.turnform
+      torusAni2, // h.turnform
+      torusAni3, // h.turnform
 
     ]
 

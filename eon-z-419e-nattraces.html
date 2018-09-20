@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     muonNatform,
     muonStace,
     ctlRayder,
-    haloEoform,
+    haloTurnform,
     haloNatform,
     haloPacer,
     haloTextform,
@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('natform'),
     __mapper('xs').m('stace'),
     __mapper('xs').c('rayder'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
     __mapper('xs').h('pacer'),
     __mapper('xs').h('textform'),
@@ -34,8 +34,6 @@ async function anitem (__mapper) {
   let ani = function () {
     // .................. pics
     let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-
-
 
     // ....................... pacerNat
     let pacerNat = {
@@ -73,44 +71,38 @@ async function anitem (__mapper) {
       },
 
       geochrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
-      
 
-        geoform: {
-          'x': {
-            'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-            'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
-          },
-          'y': {
-            'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-            'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
-          },
+      geoform: {
+        'x': {
+          'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+          'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
+        'y': {
+          'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+          'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
+        },
+      },
 
       payload: {
         pacer: {
-        
-          initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, 
-        
-          halo: 'eoform',
-          
+
+          initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0,
+
+          halo: 'turnform',
+
           geosort: 'anima',
           geobase: '',
           geoaad: 0,
-          
+
           geonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-            
               // stace is ani's transformed geonode
               // stace = muonStace.getLocus([null, null, null], ani)
-              stace = [0,0,0]
-              
+              stace = [0, 0, 0]
             } else if (props.key === 'auto') { // AUTO
-            
-              stace = [0,0,0]
-              
+              stace = [0, 0, 0]
             } else if (props.key === 'event') { // EVENT
-            
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
                 let x = grabbed[0]
@@ -148,7 +140,6 @@ async function anitem (__mapper) {
       },
 
     }
-
 
     // .................. animas
     let animas = [

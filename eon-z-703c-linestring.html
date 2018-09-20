@@ -10,14 +10,14 @@ async function anitem (__mapper) {
     haloScene,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
   let ani = function () {
     let aniForm = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: (p) => ({
         'type': 'Feature',
@@ -67,7 +67,7 @@ async function anitem (__mapper) {
 
     // .................. animas
     let animas = [
-      aniForm, // h.eoform
+      aniForm, // h.turnform
       sceneAni, // h.scene
     ]
 

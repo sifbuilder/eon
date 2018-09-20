@@ -14,21 +14,20 @@
       muonGraticule,
       haloLeaform,
       haloNatform,
-      haloEoform,
+      haloTurnform,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('graticule'),
       __mapper('xs').h('leaform'),
       __mapper('xs').h('natform'),
-      __mapper('xs').h('eoform'),
+      __mapper('xs').h('turnform'),
 
-    ])    
+    ])
 
-    // .................... getTiles    
+    // .................... getTiles
     function getTiles (anigram) {
-      
       let newItems = []
-      
+
       let ric = anigram.ric, // ric
         geofold = anigram.geofold, // geofold
         geonode = anigram.geonode, // geonode
@@ -68,7 +67,7 @@
 
     // .................... gramm
     function gramm (anigram) {
-      return Promise.all(getTiles(anigram).map(ani => haloEoform.gramm(ani)))
+      return Promise.all(getTiles(anigram).map(ani => haloTurnform.gramm(ani)))
     }
 
     // .................... enty
@@ -86,4 +85,3 @@
 
   exports.haloTileform = haloTileform
 }))
-

@@ -15,8 +15,6 @@ xEonify.eon({anitem, time: undefined})
 // var containerfn = d => __mapper("forcecontainer")(d, nodeItems)
 // var retainerfn = d => __mapper("forceretainer")(d, nodeItems)
 
-
-
 // .................. anitem
 async function anitem (__mapper) {
   // .................. eons
@@ -26,7 +24,7 @@ async function anitem (__mapper) {
     muonNatform,
     muonStace,
     ctlRayder,
-    haloEoform,
+    haloTurnform,
     haloNatform,
     haloPacer,
     haloTextform,
@@ -37,21 +35,20 @@ async function anitem (__mapper) {
     __mapper('xs').m('natform'),
     __mapper('xs').m('stace'),
     __mapper('xs').c('rayder'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
     __mapper('xs').h('pacer'),
     __mapper('xs').h('textform'),
     __mapper('xs').p('uniwen'),
   ])
   let muonStore = __mapper('muonStore')
-  
+
   // .................. animas
   let ani = function () {
     // .................. pics
     let tim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
 
     let geochrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
-
 
     // ............................. solarAni
     let solarAni = {
@@ -62,26 +59,26 @@ async function anitem (__mapper) {
       ric: {gid: 'nat', cid: 'nat', fid: 'solar'},
       geochrom: geochrom,
       geodrift: {
-        proform:  {
+        proform: {
           'projection': 'uniwen',
           'translate': [ [[[-100, 100]]], [[[-100, 100]]] ], // [[[ stace ]]] ],
           'scale': 1,
           'rotate': [ 180, 180 ],
           'lens': [0, 1, Infinity],
         },
-      },      
-        geoform: {
-						"m1":4.718177045786351,"m2":19.396126213759022,"n1":15.313427387158098,"n2":10.738988564746812,"n3":15.119538381452617,"b":7.059625076609466,"a":-13.981619631491435,
-						"tx":0,
-						"ty":0,
-						"rot":0,
-						"rad":45,
-						"segs":720,
-						"pta": 0, 
-						"ptb": -1,	
-						"v0":0,"v1":1,
-						"cf":522,"cs":422,
-						},
+      },
+      geoform: {
+        'm1': 4.718177045786351, 'm2': 19.396126213759022, 'n1': 15.313427387158098, 'n2': 10.738988564746812, 'n3': 15.119538381452617, 'b': 7.059625076609466, 'a': -13.981619631491435,
+        'tx': 0,
+        'ty': 0,
+        'rot': 0,
+        'rad': 45,
+        'segs': 720,
+        'pta': 0,
+        'ptb': -1,
+        'v0': 0, 'v1': 1,
+        'cf': 522, 'cs': 422,
+      },
       payload: {
       },
     }
@@ -129,22 +126,20 @@ async function anitem (__mapper) {
 
       geochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
-        
-        geoform: {
-						"m1":-144,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,
-						"tx":0,
-						"ty":0,
-						"rot":-0,
-						"rad":1,
-						"seg5": [[[3,180]]],
-						"cf":522, "cs":222,
-						"v0":0,"v1":-1,
-				},        
-        
-        
+      geoform: {
+        'm1': -144, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+        'tx': 0,
+        'ty': 0,
+        'rot': -0,
+        'rad': 1,
+        'seg5': [[[3, 180]]],
+        'cf': 522, 'cs': 222,
+        'v0': 0, 'v1': -1,
+      },
+
       payload: {
         pacer: {
-          
+
           geosort: 'anima',
           geobase: 'geoform',
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
@@ -188,23 +183,22 @@ async function anitem (__mapper) {
             }
             return res
           },
-            
-            geoform: {
-                "m1":-144,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,
-                "tx":0,
-                "ty":0,
-                "rot":-0,
-                "rad":1,
-                "seg5": [[[3,180]]],
-                "cf":522, "cs":222,
-                "v0":0,"v1":-1,
-            },   
+
+          geoform: {
+            'm1': -144, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+            'tx': 0,
+            'ty': 0,
+            'rot': -0,
+            'rad': 1,
+            'seg5': [[[3, 180]]],
+            'cf': 522, 'cs': 222,
+            'v0': 0, 'v1': -1,
+          },
           payload: {
-          }              
+          },
         },
       },
     }
-
 
     // .................. sceneAni
     let sceneAni = {

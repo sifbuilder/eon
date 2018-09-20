@@ -13,9 +13,9 @@ async function anitem (__mapper) {
     ctlRayder,
     muonRic,
     haloPacer,
-    haloEoform,
+    haloTurnform,
     haloNatform,
-    haloScene,    
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('geoforces'),
@@ -25,9 +25,9 @@ async function anitem (__mapper) {
     __mapper('xs').c('rayder'),
     __mapper('xs').m('ric'),
     __mapper('xs').h('pacer'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   let muonStore = __mapper('muonStore')
@@ -97,7 +97,7 @@ async function anitem (__mapper) {
               initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
               geoaad: 0,
 
-              halo: (ani, props) => 'eoform',
+              halo: (ani, props) => 'turnform',
               ric: function (ani, props) {
                 let counter = props.counter || 0
 

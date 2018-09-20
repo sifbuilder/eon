@@ -9,13 +9,13 @@ async function anitem (__mapper) {
     mprops,
     ctlWen,
     muonNatform,
-    haloEoform,    
-    haloScene,    
+    haloTurnform,
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
-    __mapper('xs').h('eoform'),    
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('scene'),
   ])
 
@@ -190,7 +190,7 @@ async function anitem (__mapper) {
 
     // ............................. hyperAni
     let hyperAni = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -205,14 +205,14 @@ async function anitem (__mapper) {
         },
       },
       geochrom: geochromHyper,
-        geoform: conformHyper,
+      geoform: conformHyper,
       payload: {
       },
     }
 
     // ............................. sphereAni1
     let sphereAni1 = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q21'},
@@ -227,14 +227,14 @@ async function anitem (__mapper) {
         },
       },
       geochrom: geochromSphere,
-        geoform: conformSphere,
+      geoform: conformSphere,
       payload: {
       },
     }
 
     // ............................. sphereAni2
     let sphereAni2 = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q22'},
@@ -249,14 +249,14 @@ async function anitem (__mapper) {
         },
       },
       geochrom: geochromSphere,
-        geoform: conformSphere,
+      geoform: conformSphere,
       payload: {
       },
     }
 
     // ............................. sphereAni1
     let lineAni = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q4'},
@@ -271,14 +271,14 @@ async function anitem (__mapper) {
         },
       },
       geochrom: geochromLine,
-        geoform: conformLine,
+      geoform: conformLine,
       payload: {
       },
     }
 
     // ............................. torusAni1
     let torusAni1 = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q31'},
@@ -293,14 +293,14 @@ async function anitem (__mapper) {
         },
       },
       geochrom: geochromTorus,
-        geoform: conformTorus,
+      geoform: conformTorus,
       payload: {
       },
     }
 
     // ............................. torusAni1
     let torusAni2 = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q32'},
@@ -315,7 +315,7 @@ async function anitem (__mapper) {
         },
       },
       geochrom: geochromTorus,
-        geoform: conformTorus,
+      geoform: conformTorus,
       payload: {
       },
     }

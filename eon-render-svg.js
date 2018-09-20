@@ -166,7 +166,7 @@
         .entries(features) // features
 
       for (let i in gitems) { // DOTS (seg5===0) each group gid
-        let gid = gitems[i].key, 
+        let gid = gitems[i].key,
           citems = gitems[i].values
 
         for (let j in citems) { // each class cid

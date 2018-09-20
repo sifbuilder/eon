@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('geom'),
     __mapper('xs').b('d3'),
     __mapper('xs').b('d3-geo'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   let ani = function () {
@@ -33,7 +33,7 @@ async function anitem (__mapper) {
     // .................. facesAni anima
     let facesAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: anitem => {
         let payload = anitem.payload,
@@ -159,7 +159,7 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      facesAni, // h.eoform
+      facesAni, // h.turnform
       sceneAni, // h.scene
 
     ]

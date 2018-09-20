@@ -106,11 +106,11 @@
       return featurecollectionPromise
     }
 
-   // .................. collect
+    // .................. collect
     function collect (animas, elapsed) {
       getweens(state.animas, elapsed)
       let anisimmed = getsims(muonStore.animasLive())
-      anisimmed.map( ani => muonStore.gramm(ani))
+      anisimmed.map(ani => muonStore.gramm(ani))
       let featurecollection = {
         type: 'FeatureCollection',
         features: muonStore.anigrams().map(d => d.geofold),
@@ -152,13 +152,13 @@
       // let featurecollectionPromise = collect(state.animas, elapsed)
       let featurecollection = collect(state.animas, elapsed)
       rsvg.render(featurecollection)
-        
+
       // md: then render by sort the features in the collection
 
       // featurecollectionPromise
-        // .then(featurecollection => {
-          // rsvg.render(featurecollection)
-        // })
+      // .then(featurecollection => {
+      // rsvg.render(featurecollection)
+      // })
     }
 
     // ............................. enty

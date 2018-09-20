@@ -10,14 +10,14 @@ async function anitem (__mapper) {
     mprops,
     ctlWen,
     haloNatform,
-    haloEoform,
+    haloTurnform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').h('natform'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('scene'),
   ])
 
@@ -115,7 +115,7 @@ async function anitem (__mapper) {
 
     // .................. natAni1dax
     let natAni1dax = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
@@ -123,12 +123,12 @@ async function anitem (__mapper) {
         proform: proform1dax,
       },
       geochrom: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
-        geoform: conform1dax,
+      geoform: conform1dax,
       payload: {
       },
     }
     let natAni2dax = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'nat2'},
@@ -136,12 +136,12 @@ async function anitem (__mapper) {
         proform: proform2dax,
       },
       geochrom: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
-        geoform: conform2dax,
+      geoform: conform2dax,
       payload: {
       },
     }
     let natAni3dax = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'nat3'},
@@ -149,12 +149,12 @@ async function anitem (__mapper) {
         proform: proform3dax,
       },
       geochrom: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
-        geoform: conform3dax,
+      geoform: conform3dax,
       payload: {
       },
     }
     let natAni4dax = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'nat4'},
@@ -162,7 +162,7 @@ async function anitem (__mapper) {
         proform: proform4dax,
       },
       geochrom: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
-        geoform: conform4dax,
+      geoform: conform4dax,
       payload: {
       },
     }
@@ -183,10 +183,10 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      natAni1dax, // h.eoform g.uniwen
-      natAni2dax, // h.eoform g.uniwen
-      natAni3dax, // h.eoform g.uniwen
-      natAni4dax, // h.eoform g.uniwen
+      natAni1dax, // h.turnform g.uniwen
+      natAni2dax, // h.turnform g.uniwen
+      natAni3dax, // h.turnform g.uniwen
+      natAni4dax, // h.turnform g.uniwen
       sceneAni, // h.scene
     ]
 

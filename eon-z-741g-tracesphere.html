@@ -9,16 +9,16 @@ async function anitem (__mapper) {
     muonStace,
     muonNatform,
     muonRic,
-    haloEoform,
+    haloTurnform,
     haloNatform,
-    haloScene,    
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('stace'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('ric'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   let muonStore = __mapper('muonStore')
@@ -64,7 +64,7 @@ async function anitem (__mapper) {
     // ............................. sphereAni
     let sphereAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonNatform.natFeature(p.geoform),
 
@@ -114,7 +114,6 @@ async function anitem (__mapper) {
     // ............................. traceLine
     let traceLine = {
 
-
       halo: 'pacer',
 
       geofold: {
@@ -140,7 +139,7 @@ async function anitem (__mapper) {
 
       payload: {
         pacer: { // geoaad for trace
-          halo: 'eoform',
+          halo: 'turnform',
           geosort: 'anigram',
           geobase: 'geo',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, geoaad: 1,

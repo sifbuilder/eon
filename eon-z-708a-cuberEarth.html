@@ -12,7 +12,7 @@ async function anitem (__mapper) {
     topojson,
     dworldTopo110m,
     prtNatform,
-    haloEoform,
+    haloTurnform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('geom'),
@@ -21,7 +21,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('topojson'),
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').p('natform'),
-    __mapper('xs').h('eoform'),    
+    __mapper('xs').h('turnform'),    
     __mapper('xs').h('scene'),    
   ])
 
@@ -125,7 +125,7 @@ async function anitem (__mapper) {
     // ............................. earthAni
     let earthAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => {
         let geometry = Object.assign({},
@@ -156,7 +156,7 @@ async function anitem (__mapper) {
     // .............................  cubeAni
     let cubeAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: anitem => {
         let payload = anitem.payload,
@@ -239,7 +239,7 @@ async function anitem (__mapper) {
     // .............................  graticubeAni
     let graticubeAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: anitem => muonGraticule.vhMultiLine(anitem.geoframe),
       tim: tim,
@@ -258,7 +258,7 @@ async function anitem (__mapper) {
     // .............................  graticircAni
     let graticircAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
       tim: tim,
@@ -290,10 +290,10 @@ async function anitem (__mapper) {
 
     // ............................. animas
     let animas = [
-      earthAni, // h.eoform p.natform g.uniwen
-      // cubeAni, // h.eoform g.uniwen
-      // graticubeAni, // h.eoform
-      // graticircAni, // h.eoform
+      earthAni, // h.turnform p.natform g.uniwen
+      // cubeAni, // h.turnform g.uniwen
+      // graticubeAni, // h.turnform
+      // graticircAni, // h.turnform
       sceneAni, // h.scene
     ]
 

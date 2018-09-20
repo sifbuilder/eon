@@ -14,7 +14,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
@@ -165,7 +165,7 @@ async function anitem (__mapper) {
     // ............................. torusAni1
     let torusAni1 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -182,7 +182,7 @@ async function anitem (__mapper) {
       },
       geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-        geoform: conformTorus1,
+      geoform: conformTorus1,
       payload: {
       },
     }
@@ -190,7 +190,7 @@ async function anitem (__mapper) {
     // ............................. torusAni2
     let torusAni2 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q2'},
@@ -207,7 +207,7 @@ async function anitem (__mapper) {
       },
       geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[999, 999, 999]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-        geoform: conformTorus2,
+      geoform: conformTorus2,
       payload: {
       },
     }
@@ -229,8 +229,8 @@ async function anitem (__mapper) {
     let animas = [
 
       sceneAni, // h.scene
-      torusAni1, // h.eoform
-      // torusAni2, // h.eoform
+      torusAni1, // h.turnform
+      // torusAni2, // h.turnform
 
     ]
 

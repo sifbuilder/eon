@@ -12,9 +12,9 @@ async function anitem (__mapper) {
     rrenderport,
     ctlRayder,
     muonRic,
-    haloEoform,
+    haloTurnform,
     haloNatform,
-    haloScene,    
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('geoforces'),
@@ -23,9 +23,9 @@ async function anitem (__mapper) {
     __mapper('xs').r('renderport'),
     __mapper('xs').c('rayder'),
     __mapper('xs').m('ric'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   let [
@@ -63,7 +63,7 @@ async function anitem (__mapper) {
     let d3_force = d3Force3d
 
     // isolation halo ween
-    
+
     let haloIsolation_ween = anima => { // WEEN
       let animas = (anima.inited !== 1) ? (anima.inited = anima.gelded = 1, [anima]) : []
 
@@ -88,7 +88,6 @@ async function anitem (__mapper) {
       let nbr = anima.payload.pacer.initN // 6
 
       for (let i = 0; i < nbr; i++) {
-      
         let ani = mprops.cloneObj(natAni) // clone of model anima
         ani.ric.gid = 'nat'
         ani.ric.cid = (i % 2) ? 'orange' : 'gold'
@@ -103,11 +102,8 @@ async function anitem (__mapper) {
         let preani = muonStore.getAnima(ani.ric)
 
         if (preani) {
-        
           ani = preani
-          
         } else { // create anima
-        
           ani.halo = 'natform' // create halo
 
           let x0 = -200 + 60 * Math.random()
@@ -172,27 +168,26 @@ async function anitem (__mapper) {
       },
       geochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[777, 777]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.9, 0.9]]]},
 
-        geoform: {
+      geoform: {
 
-          'x': {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
-          },
-          'y': {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
-          },
-          'z': {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
-          },
+        'x': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
-      
+        'y': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
+        },
+        'z': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
+        },
+      },
+
       payload: {
-    
+
         geofold: p => muonNatform.natFeature(p.payload.form),
 
-      
         pacer: {
           initN: 8, eventN: 6, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, span: 1 / 100,
 

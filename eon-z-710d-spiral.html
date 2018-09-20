@@ -9,16 +9,16 @@ async function anitem (__mapper) {
     muonNatform,
     mprops,
     ctlWen,
-    haloNatform,    
-    haloEoform,    
-    haloScene,     
+    haloNatform,
+    haloTurnform,
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
-    __mapper('xs').h('natform'),    
-    __mapper('xs').h('eoform'),    
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('natform'),
+    __mapper('xs').h('turnform'),
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
@@ -116,7 +116,7 @@ async function anitem (__mapper) {
 
       geochrom: { 'csx': 0, 'cf': [[[111, 111, 111]]], 'co': [[[0.09, 0.09]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
 
-        geoform: conform,
+      geoform: conform,
       payload: {
 
       },
@@ -139,7 +139,7 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      natAni, // h.eoform g.uniwen
+      natAni, // h.turnform g.uniwen
       sceneAni, // h.scene
     ]
 

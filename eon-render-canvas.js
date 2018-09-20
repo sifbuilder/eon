@@ -9,37 +9,35 @@
   'use strict'
 
   async function renderCanvas (__mapper = {}) {
-    
     let [
       rrenderport, // cameraProjer
       d3,
     ] = await Promise.all([
       __mapper('xs').r('renderport'),
       __mapper('xs').b('d3'),
-    ])   
-    
+    ])
+
     let radians = Math.PI / 180
 
     let state = {
       width: rrenderport.width(),
-      height: rrenderport.height()
+      height: rrenderport.height(),
     }
 
     let canvas = d3.select('body')
-        .append('canvas')
-        .attr('id', 'canvas')
-        .attr('class', 'canvas')
-        .style('position', 'absolute')
-        .attr('width', state.width)
-        .attr('height', state.height)
-        .style('top', 0)
-        .style('left', 0)
-        .style('border', '1px solid lightgray')
-        .style('position', 'absolute; top:0px; left:0px; z-index:1')
-        .attr('pointer-events', 'none')
-        .attr('overflow', 'visible')
+      .append('canvas')
+      .attr('id', 'canvas')
+      .attr('class', 'canvas')
+      .style('position', 'absolute')
+      .attr('width', state.width)
+      .attr('height', state.height)
+      .style('top', 0)
+      .style('left', 0)
+      .style('border', '1px solid lightgray')
+      .style('position', 'absolute; top:0px; left:0px; z-index:1')
+      .attr('pointer-events', 'none')
+      .attr('overflow', 'visible')
 
-        
     // ............................. render
     let render = function (elapsed, featurecollection, maxlimit) {
       let features = featurecollection.features
@@ -71,7 +69,7 @@
 
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
-            .filter(d => d.properties.sort === 'feature' || 
+            .filter(d => d.properties.sort === 'feature' ||
               d.properties.sort === 'form'
             )
             .filter((d, i) => (d.properties.delled !== 1)) // not delled

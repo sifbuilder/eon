@@ -10,7 +10,7 @@ async function anitem (__mapper) {
     d3Force3d,
     rrenderport,
     prtNatform,
-    haloEoform,
+    haloTurnform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
@@ -18,8 +18,8 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').r('renderport'),
     __mapper('xs').p('natform'),
-    __mapper('xs').h('eoform'),    
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('turnform'),
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
@@ -164,7 +164,7 @@ async function anitem (__mapper) {
     // -------------------------------  gratform1
     let gratform1 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
@@ -188,12 +188,12 @@ async function anitem (__mapper) {
         },
       },
 
-        geoframe: {
+      geoframe: {
 
-          frame: [ [ [ [[[-1, -1, -180, -180, -180]]], [[[1, 1, 180, 180, 180]]], [[[15, 15]]], 1],
-            [ [[[0, -90, -180, -180, -180]]], [[[0, 90, 180, 180, 180]]], [[[15, 15]]], 1] ] ],
+        frame: [ [ [ [[[-1, -1, -180, -180, -180]]], [[[1, 1, 180, 180, 180]]], [[[15, 15]]], 1],
+          [ [[[0, -90, -180, -180, -180]]], [[[0, 90, 180, 180, 180]]], [[[15, 15]]], 1] ] ],
 
-        },
+      },
 
       payload: {
       },
@@ -203,7 +203,7 @@ async function anitem (__mapper) {
     // -------------------------------  gratform2
     let gratform2 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
@@ -227,12 +227,12 @@ async function anitem (__mapper) {
         },
       },
 
-        geoframe: {
+      geoframe: {
 
-          frame: [ [ [ [[[-1, -1, -180, -180, -180]]], [[[1, 1, 180, 180, 180]]], [[[15, 15]]], 1],
-            [ [[[0, -90, -180, -180, -180]]], [[[0, 90, 180, 180, 180]]], [[[15, 15]]], 1] ] ],
+        frame: [ [ [ [[[-1, -1, -180, -180, -180]]], [[[1, 1, 180, 180, 180]]], [[[15, 15]]], 1],
+          [ [[[0, -90, -180, -180, -180]]], [[[0, 90, 180, 180, 180]]], [[[15, 15]]], 1] ] ],
 
-        },
+      },
       payload: {
       },
     }
@@ -240,7 +240,7 @@ async function anitem (__mapper) {
     // -------------------------------  circform1
     let circform1 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
@@ -266,18 +266,18 @@ async function anitem (__mapper) {
         },
       },
 
-        geoframe: {
+      geoframe: {
 
-          frame: [ [ [ -180, 180, 15, 1], [ -180, 180, 15, 1] ] ],
+        frame: [ [ [ -180, 180, 15, 1], [ -180, 180, 15, 1] ] ],
 
-        },
+      },
       payload: {
       },
     }
     // -------------------------------  circform1
     let circform2 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
@@ -301,11 +301,11 @@ async function anitem (__mapper) {
         },
       },
 
-        geoframe: {
+      geoframe: {
 
-          frame: [ [ [ -180, 180, 15, 1], [ -180, 180, 15, 1] ] ],
+        frame: [ [ [ -180, 180, 15, 1], [ -180, 180, 15, 1] ] ],
 
-        },
+      },
       payload: {
 
       },
@@ -327,10 +327,10 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      gratform1, // h.eoform
-      gratform2, // h.eoform
-      circform1, // h.eoform
-      circform2, // h.eoform
+      gratform1, // h.turnform
+      gratform2, // h.turnform
+      circform1, // h.turnform
+      circform2, // h.turnform
       sceneAni, // h.scene
 
     ]

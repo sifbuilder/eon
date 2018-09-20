@@ -9,7 +9,6 @@
   'use strict'
 
   async function renderWebgl (__mapper = {}) {
-    
     let [
       rrenderport, // cameraProjer
       d3,
@@ -20,8 +19,8 @@
       __mapper('xs').b('d3'),
       __mapper('xs').b('three'),
       __mapper('xs').b('three-trackballcontrols'),
-    ])    
-    
+    ])
+
     const radians = Math.PI / 180
 
     let state = {}
@@ -81,30 +80,28 @@
 
     /* camera container */
     // state.camera = new THREE.PerspectiveCamera(45, state.width / state.height, 0.1, 9000) // Setup camera
-      // state.camera.position.x = 0
-      // state.camera.position.y = 0
-      // state.camera.position.z = 500   
-    
+    // state.camera.position.x = 0
+    // state.camera.position.y = 0
+    // state.camera.position.z = 500
+
     state.camera = new THREE.OrthographicCamera(
-        -state.width/2, // window.innerWidth / - 16,
-        state.width/2, // window.innerWidth / 16,
-        state.height/2, // window.innerHeight / 16, 
-        -state.height/2, // window.innerHeight / - 16, 
-        0.1, 
-        9000 );
-        
-        state.camera.position.x = 0
-        state.camera.position.y = 0
-        state.camera.position.z = 900
-    
-    
+      -state.width / 2, // window.innerWidth / - 16,
+      state.width / 2, // window.innerWidth / 16,
+      state.height / 2, // window.innerHeight / 16,
+      -state.height / 2, // window.innerHeight / - 16,
+      0.1,
+      9000)
+
+    state.camera.position.x = 0
+    state.camera.position.y = 0
+    state.camera.position.z = 900
 
     state.camera.rotation.x = 0
     state.camera.rotation.y = 0
     state.camera.rotation.z = 0
     state.camera.distance2nodesFactor = 300
     state.camera.lookAt(new THREE.Vector3(0, 0, 0))
-    
+
     function resizeCanvas () {
       if (state.width && state.height) {
         state.renderport.setSize(state.width, state.height)
@@ -172,7 +169,7 @@
 
           /*  ................. GEOJSON FEATURE ................. */
           let features = fitems
-            .filter(d => d.properties.sort === 'feature' || 
+            .filter(d => d.properties.sort === 'feature' ||
               d.properties.sort === 'form'
             )
 
@@ -195,7 +192,7 @@
                   state.material = new THREE.MeshBasicMaterial({
                     color: state.material_color,
                     transparent: true,
-                    opacity: 0.75
+                    opacity: 0.75,
                   })
 
                   let sphere = new THREE.Mesh(
@@ -211,7 +208,7 @@
                 } else if (geometry.type === 'MultiPolygon') {
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
-                    opacity: style['stroke-opacity']
+                    opacity: style['stroke-opacity'],
                   })
 
                   for (let i = 0; i < geometry.coordinates.length; i++) {
@@ -230,7 +227,7 @@
                 } else if (geometry.type === 'LineString') {
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
-                    opacity: style['stroke-opacity']
+                    opacity: style['stroke-opacity'],
                   })
 
                   let coordinates = Array.of(geometry.coordinates)
@@ -247,7 +244,7 @@
                 } else {
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
-                    opacity: style['stroke-opacity']
+                    opacity: style['stroke-opacity'],
                   })
 
                   let coordinates = geometry.coordinates
@@ -279,7 +276,7 @@
               let material = new THREE.SpriteMaterial({
                 map: map,
                 color: 0xffffff,
-                fog: true
+                fog: true,
               })
               let threeMaterial = new THREE.Sprite(material)
               threeMaterial.scale.set(200, 200, 1)

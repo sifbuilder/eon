@@ -10,11 +10,11 @@
 
   async function haloImgform (__mapper = {}) {
     let [
-      haloEoform,
+      haloTurnform,
     ] = await Promise.all([
-      __mapper('xs').h('eoform'),
+      __mapper('xs').h('turnform'),
     ])
-    
+
     let _geofold = p => ({ // geofold
       type: 'Feature',
       geometry: { type: 'Point', coordinates: [0, 0] },
@@ -41,7 +41,7 @@
         payload,
       }
 
-      newAnigrams = [...newAnigrams, ...__mapper('haloEoform').gramm(newAnigram)]
+      newAnigrams = [...newAnigrams, ...__mapper('haloTurnform').gramm(newAnigram)]
       return newAnigrams
     }
 

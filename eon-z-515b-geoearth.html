@@ -15,7 +15,7 @@ async function anitem (__mapper) {
     ctlVersor,
     d3geo,
     d3geoprojection,
-    haloEoform,
+    haloTurnform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('geom'),
@@ -27,8 +27,8 @@ async function anitem (__mapper) {
     __mapper('xs').c('versor'),
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-geo-projection'),
-    __mapper('xs').h('eoform'),    
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('turnform'),
+    __mapper('xs').h('scene'),
   ])
   // .................. animas
   let ani = function () {
@@ -65,7 +65,7 @@ async function anitem (__mapper) {
 
     let geoearthDark = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: () => {
         return Object.assign({},
@@ -119,7 +119,7 @@ async function anitem (__mapper) {
 
     let geoearthFront = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: () => {
         return Object.assign({},
@@ -145,7 +145,7 @@ async function anitem (__mapper) {
     // .................. graticuleFront
     let graticuleFront = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
@@ -184,8 +184,8 @@ async function anitem (__mapper) {
 
     let animas = [
       geoearthDark,
-      geoearthFront, // h.eoform g.orthographic
-      graticuleFront, // h.eoform
+      geoearthFront, // h.turnform g.orthographic
+      graticuleFront, // h.turnform
       sceneAni, // h.scene
     ]
 

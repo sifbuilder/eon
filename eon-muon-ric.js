@@ -149,11 +149,10 @@
       return uid
     }
     // ric definition
-    
-    let getdefault = function( ) {
-      
+
+    let getdefault = function () {
       let res = { gid: 'g', cid: 'c', fid: 'f' }
- 
+
       return res
     }
     // ............................. enty

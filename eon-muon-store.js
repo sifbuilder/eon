@@ -8,66 +8,65 @@
 }(this, function (exports) {
   'use strict'
 
- 
-// md: # eon-muon-store 
-// md: **manage anitems store** 
-// md: ## refs 
-// md: * `https://bl.ocks.org/mbostock/6081914 transitions` 
-// md: * `https://github.com/d3/d3-ease#easeElasticOut` 
-// md: 
-// md: 
-// md: ## methods 
-// md: * [apply](#apply) - adds, replace, delete anitems 
-// md:  @action: {UPDANIMA, UPDANIGRAM} 
-// md: * [ween](#ween) - process anitem through halo.ween 
-// md:   @anitem 
-// md: * [gramm](#gramm) - process anitem through halo.gramm 
-// md:   manage anitem's time 
-// md:   process anitem with anitem's halo.gramm 
-// md:   process anitem.avatars 
-// md: * animasInGroupHowMany 
-// md:   @anima 
-// md:   return live animas in group `anima.payload.rid.gid` 
-// md: * animasInClassHowMany 
-// md:   @anima 
-// md:   return live animas in class `anima.payload.rid.cid` 
-// md: * findIndexFromRic 
-// md:   @ric 
-// md:   @list 
-// md:   get anitem in @list by @ric {gid, cid, fid} 
-// md: * findIndex 
-// md:   @anitem 
-// md:   @list 
-// md:   get anitem in @list by @anitem.ric {gid, cid, fid} 
-// md: * findByUid 
-// md:   @anitem 
-// md:   @list 
-// md:   get anitem in @list by muonRic.getuid(@anitem) 
-// md: * findFromUid 
-// md:   @uid 
-// md:   @list 
-// md:   get anitem in @list by @uid 
-// md: * findIndexAnigramFromUid 
-// md: * findAnigramFromUid 
-// md: * findAnimaFromUid 
-// md: * born 
-// md: * unborn 
-// md: * getAnimaByUID 
-// md: * animas 
-// md: * anigrams 
-// md: * animasAll 
-// md: * animasLive 
-// md: * token 
-// md: * getNid 
-// md: * getAnigramIdx 
-// md: * getAnigram 
-// md: * getAnimaIdx 
-// md: * getAnima 
-// md: 
-// md: 
-// md: # license 
-// md: MIT  
-  
+  // md: # eon-muon-store
+  // md: **manage anitems store**
+  // md: ## refs
+  // md: * `https://bl.ocks.org/mbostock/6081914 transitions`
+  // md: * `https://github.com/d3/d3-ease#easeElasticOut`
+  // md:
+  // md:
+  // md: ## methods
+  // md: * [apply](#apply) - adds, replace, delete anitems
+  // md:  @action: {UPDANIMA, UPDANIGRAM}
+  // md: * [ween](#ween) - process anitem through halo.ween
+  // md:   @anitem
+  // md: * [gramm](#gramm) - process anitem through halo.gramm
+  // md:   manage anitem's time
+  // md:   process anitem with anitem's halo.gramm
+  // md:   process anitem.avatars
+  // md: * animasInGroupHowMany
+  // md:   @anima
+  // md:   return live animas in group `anima.payload.rid.gid`
+  // md: * animasInClassHowMany
+  // md:   @anima
+  // md:   return live animas in class `anima.payload.rid.cid`
+  // md: * findIndexFromRic
+  // md:   @ric
+  // md:   @list
+  // md:   get anitem in @list by @ric {gid, cid, fid}
+  // md: * findIndex
+  // md:   @anitem
+  // md:   @list
+  // md:   get anitem in @list by @anitem.ric {gid, cid, fid}
+  // md: * findByUid
+  // md:   @anitem
+  // md:   @list
+  // md:   get anitem in @list by muonRic.getuid(@anitem)
+  // md: * findFromUid
+  // md:   @uid
+  // md:   @list
+  // md:   get anitem in @list by @uid
+  // md: * findIndexAnigramFromUid
+  // md: * findAnigramFromUid
+  // md: * findAnimaFromUid
+  // md: * born
+  // md: * unborn
+  // md: * getAnimaByUID
+  // md: * animas
+  // md: * anigrams
+  // md: * animasAll
+  // md: * animasLive
+  // md: * token
+  // md: * getNid
+  // md: * getAnigramIdx
+  // md: * getAnigram
+  // md: * getAnimaIdx
+  // md: * getAnima
+  // md:
+  // md:
+  // md: # license
+  // md: MIT
+
   async function muonStore (__mapper) {
     let [
       mtim,
@@ -177,7 +176,6 @@
       let halo = anitem.halo
       if (typeof (halo) === 'object') {
         halo = await Promise.resolve(halo)
-   
       } else {
         halo = await __mapper('xs').h(halo)
       }
@@ -192,13 +190,12 @@
       // _apply({type: 'UPDANIMA', animas: newItems})  // UPDANIMA for sim
     }
 
-
     // .................. ween
     function ween (anitem) { // ok trace
       let halo = anitem.halo
       if (typeof (halo) === 'object') {
         // halo = halo
-   
+
       } else {
         halo = __mapper(__mapper('xs').ceonize(halo, 'halo'))
       }
@@ -239,22 +236,22 @@
     function gramm (anitem) {
       let snapped = manitem.snapani(anitem)
       let anigram = manitem.functorize(snapped)
-      let halo = (typeof (anitem.halo) === 'object') 
-        ? anitem.halo 
-        : __mapper(__mapper(__mapper('xs').ceonize(anigram.halo, 'halo')))  // expected in __mapper
+      let halo = (typeof (anitem.halo) === 'object')
+        ? anitem.halo
+        : __mapper(__mapper(__mapper('xs').ceonize(anigram.halo, 'halo'))) // expected in __mapper
       let newItems = mprops.a(halo.gramm(anigram))
-console.log('m.store', newItems) 
+      console.log('m.store', newItems)
       _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
       newItems.forEach(newItem => {
-                let avatars = gavatars(newItem)
-                avatars.forEach(avatar => {
-                  avatar.tim = anigram.tim // tim from anigram
-                  avatar.uid = muonRic.getuid(avatar) // uid from avatar
-                  avatar.parentuid = newItem.uid // parentuid from newItem
+        let avatars = gavatars(newItem)
+        avatars.forEach(avatar => {
+          avatar.tim = anigram.tim // tim from anigram
+          avatar.uid = muonRic.getuid(avatar) // uid from avatar
+          avatar.parentuid = newItem.uid // parentuid from newItem
 
-                  gramm(avatar)
-                })
-              })
+          gramm(avatar)
+        })
+      })
     }
     // .................. enty
     let enty = {}

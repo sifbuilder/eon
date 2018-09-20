@@ -14,60 +14,58 @@
       d3axis,
       d3scale,
       d3format,
-      haloEoform,
+      haloTurnform,
       manitem,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').b('d3-axis'),
       __mapper('xs').b('d3-scale'),
       __mapper('xs').b('d3-format'),
-      __mapper('xs').h('eoform'),
+      __mapper('xs').h('turnform'),
       __mapper('xs').m('anitem'),
     ])
 
     // ............................. gramm
     function gramm (anitem) {
+      let payload = anigram.payload, // payload
+        ric = ric, // ric
+        uid = uid, // uid
+        axis = payload.axis // axis
 
-          let payload = anigram.payload, // payload
-            ric = ric, // ric
-            uid = uid, // uid
-            axis = payload.axis // axis
+      let range = axis.range || [0, 1],
+        domain = axis.domain || [0, 1],
+        rotate = axis.rotate || 0,
+        tickSize = axis.tickSize || 2,
+        tickPadding = axis.tickPadding || 20,
+        tickFormat = axis.tickFormat || '',
+        scaleType = axis.scaleType,
+        orient = axis.orient
+      console.assert(orient !== undefined, 'axis orientation undefined')
 
-          let range = axis.range || [0, 1],
-            domain = axis.domain || [0, 1],
-            rotate = axis.rotate || 0,
-            tickSize = axis.tickSize || 2,
-            tickPadding = axis.tickPadding || 20,
-            tickFormat = axis.tickFormat || '',
-            scaleType = axis.scaleType,
-            orient = axis.orient
-          console.assert(orient !== undefined, 'axis orientation undefined')
+      let _scale = (scaleType) ? d3scale[scaleType]() : d3scale['scaleTime']()
 
-          let _scale = (scaleType) ? d3scale[scaleType]() : d3scale['scaleTime']()
-
-          let newAnigram = mprops.clone(anigram) // clone
-          newAnigram.geofold.properties = {
-            sort: 'axis',
-            ric: ric,
-            uid: uid,
-            axis: Object.assign(axis, {
-              scale: _scale.domain(domain).range(range),
-              rotate: rotate,
-              d3axis: d3axis[orient](_scale.domain(domain).range(range))
-                .tickFormat((tickFormat === '') ? '' : d3format.format(tickFormat))
-                .tickSizeOuter(0)
-                .tickSize(tickSize)
-                .tickPadding(tickPadding),
-              style: {
-                'text-anchor': 'middle',
-                'font-size': 12,
-                'font-family': 'sans-serif',
-              },
-            }),
-          }
-          delete newAnigram.payload.axis
-          return haloEoform.gramm(newAnigram)
-
+      let newAnigram = mprops.clone(anigram) // clone
+      newAnigram.geofold.properties = {
+        sort: 'axis',
+        ric: ric,
+        uid: uid,
+        axis: Object.assign(axis, {
+          scale: _scale.domain(domain).range(range),
+          rotate: rotate,
+          d3axis: d3axis[orient](_scale.domain(domain).range(range))
+            .tickFormat((tickFormat === '') ? '' : d3format.format(tickFormat))
+            .tickSizeOuter(0)
+            .tickSize(tickSize)
+            .tickPadding(tickPadding),
+          style: {
+            'text-anchor': 'middle',
+            'font-size': 12,
+            'font-family': 'sans-serif',
+          },
+        }),
+      }
+      delete newAnigram.payload.axis
+      return haloTurnform.gramm(newAnigram)
     }
 
     // ............................. enty

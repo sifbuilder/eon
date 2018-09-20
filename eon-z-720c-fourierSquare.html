@@ -11,20 +11,20 @@ async function anitem (__mapper) {
     muonProj3ct,
     muonProfier,
     muonGeoj,
-    haloEoform,
+    haloTurnform,
     haloPacer,
-    haloFourier, 
-    haloScene,    
+    haloFourier,
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('fourier'),
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
     __mapper('xs').m('geoj'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('pacer'),
-    __mapper('xs').h('fourier'),    
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('fourier'),
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
@@ -72,7 +72,7 @@ async function anitem (__mapper) {
     // md:     @aniDots anima
     let aniDots = {
 
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: {type: 'Feature', properties: {pointRadius: 1}, geometry: { type: 'MultiPoint', coordinates: muonGeoj.getCoords(geoData) } },
       payload: {
         tim: tim,
@@ -86,7 +86,7 @@ async function anitem (__mapper) {
     // md:       form.payload.fourier.avatars.rayline
     let aniRay = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: {
         type: 'Feature',
@@ -107,7 +107,6 @@ async function anitem (__mapper) {
     // md:       payload.pacer.geojsor
     let traceline = {
 
- 
       halo: 'pacer',
 
       geofold: {
@@ -133,7 +132,7 @@ async function anitem (__mapper) {
 
       payload: {
         pacer: { // geoaad for trace
-          halo: 'eoform',
+          halo: 'turnform',
           geosort: 'anigram',
           geobase: 'geo',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, geoaad: 1,
@@ -223,7 +222,7 @@ async function anitem (__mapper) {
     let animas = [
 
       fourierForm, // h.fourier
-      aniDots, // h.eoform
+      aniDots, // h.turnform
       sceneAni, // h.scene
     ]
 

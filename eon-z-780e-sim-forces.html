@@ -12,9 +12,9 @@ async function anitem (__mapper) {
     rrenderport,
     ctlRayder,
     muonRic,
-    haloEoform,
+    haloTurnform,
     haloNatform,
-    haloScene,    
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('geoforces'),
@@ -23,9 +23,9 @@ async function anitem (__mapper) {
     __mapper('xs').r('renderport'),
     __mapper('xs').c('rayder'),
     __mapper('xs').m('ric'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   let [
@@ -49,7 +49,7 @@ async function anitem (__mapper) {
     // .................... natAni1
     let natAni1 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       tim: tim,
       ric: {gid: 'ani', cid: 'ani', fid: 'ani1'},
@@ -95,7 +95,7 @@ async function anitem (__mapper) {
     // .................... natAni2
     let natAni2 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       tim: tim,
       ric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
@@ -314,8 +314,8 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      natAni1, // h.eoform
-      natAni2, // h.eoform
+      natAni1, // h.turnform
+      natAni2, // h.turnform
       fieldAni, // h.core
 
     ]

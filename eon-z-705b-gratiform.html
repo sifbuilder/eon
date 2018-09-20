@@ -13,7 +13,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').p('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   let ani = function () {
@@ -59,7 +59,7 @@ async function anitem (__mapper) {
     // .................. gratiForm anima
     let gratiForm = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
 
@@ -97,7 +97,7 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      gratiForm, // h.eoform
+      gratiForm, // h.turnform
       sceneAni, // h.scene
 
     ]

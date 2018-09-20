@@ -10,7 +10,7 @@
 
 // md: # eon-halo-natform 
 // md: **expose natform** 
-// md: h.eoform with  anima.geofold : `muonNatform.natFeature(p.payload.form)` 
+// md: h.turnform with  anima.geofold : `muonNatform.natFeature(p.payload.form)` 
 // md: 
 // md: # license 
 // md: MIT 
@@ -19,7 +19,7 @@
   async function haloNatform (__mapper = {}) {
     let [
       muonNatform,
-      haloEoform,
+      haloTurnform,
       muonGeochrom,
       muonTim,
       muonRic,
@@ -29,7 +29,7 @@
       muonProj3ct,      
     ] = await Promise.all([
       __mapper('xs').m('natform'),
-      __mapper('xs').h('eoform'),
+      __mapper('xs').h('turnform'),
       __mapper('xs').m('geochrom'),
       __mapper('xs').m('tim'),
       __mapper('xs').m('ric'),
@@ -133,7 +133,7 @@
       if (anitem.geochrom === undefined) anitem.geochrom = getgeochrom(anitem.geoform)        // geoform
      
       
-      return haloEoform.gramm(anitem)
+      return haloTurnform.gramm(anitem)
     }
 
     // .................... ween

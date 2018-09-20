@@ -1,21 +1,21 @@
 /**********************
- *    @haloEoform
+ *    @haloTurnform
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.haloEoform = global.haloEoform || {})))
+      : (factory((global.haloTurnform = global.haloTurnform || {})))
 }(this, function (exports) {
   'use strict'
 
   // md: # eon-halo-natform
-  // md: **process h.eoform animas**
+  // md: **process h.turnform animas**
   // md: Feature Collect gj. for each feature
   // md: geoform, conform, ereform and proform anigrams
   // md: then pass the FeatureCollection to h.leaform
   // md: define `geonode` if undefined
 
-  async function haloEoform (__mapper = {}) {
+  async function haloTurnform (__mapper = {}) {
     let [
       muonGeoj,
       muonProfier,
@@ -80,12 +80,11 @@
 
       newAni.geofold = gjcollection
       return newAni
-
     }
 
     // ............................. gramm
     let gramm = anitem => {
-      if (1 && 1) console.log('eoform.gramm', anitem)
+      if (1 && 1) console.log('turnform.gramm', anitem)
 
       let newItem = enent(anitem)
       let newAnitems = haloLeaform.gramm(newItem)
@@ -94,7 +93,7 @@
 
     // ............................. ween
     let ween = anitem => {
-      if (1 && 1) console.log('eoform.ween', anitem)      
+      if (1 && 1) console.log('turnform.ween', anitem)
       if (anitem.inited !== 1) {
         anitem.inited = 1
         anitem.gelded = 1
@@ -105,14 +104,14 @@
     }
 
     // ............................. halo
-    let haloEoform = {}
-    haloEoform.ween = anitem => ween(anitem)
-    haloEoform.gramm = anitem => gramm(anitem)
+    let haloTurnform = {}
+    haloTurnform.ween = anitem => ween(anitem)
+    haloTurnform.gramm = anitem => gramm(anitem)
 
     // ............................. enty
-    let enty = haloEoform
+    let enty = haloTurnform
     return enty
   }
 
-  exports.haloEoform = haloEoform
+  exports.haloTurnform = haloTurnform
 }))

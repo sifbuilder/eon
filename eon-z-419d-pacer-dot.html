@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     muonNatform,
     muonStace,
     ctlRayder,
-    haloEoform,
+    haloTurnform,
     haloNatform,
     haloPacer,
     haloTextform,
@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('natform'),
     __mapper('xs').m('stace'),
     __mapper('xs').c('rayder'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
     __mapper('xs').h('pacer'),
     __mapper('xs').h('textform'),
@@ -85,7 +85,7 @@ async function anitem (__mapper) {
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
           geoaad: 0,
 
-          halo: (ani, props) => 'eoform',
+          halo: (ani, props) => 'turnform',
           ric: function (ani, props) {
             let counter = props.counter || 0
 
@@ -111,7 +111,7 @@ async function anitem (__mapper) {
             } else if (props.key === 'auto') { // AUTO
               stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'event') { // EVENT
-                stace = props.count.grabbed
+              stace = props.count.grabbed
             }
             let coordinates = stace
             let res = {
@@ -129,7 +129,6 @@ async function anitem (__mapper) {
       },
     }
 
- 
     // .................. sceneAni
     let sceneAni = {
 
@@ -142,7 +141,6 @@ async function anitem (__mapper) {
       },
 
     }
-
 
     // .................. animas
     let animas = [

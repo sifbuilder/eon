@@ -7,15 +7,15 @@ async function anitem (__mapper) {
   let [
     muonGraticule,
     prtNatform,
-    haloEoform,
+    haloTurnform,
     haloNatform,
-    haloScene,   
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').p('natform'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   let ani = function () {
@@ -68,7 +68,7 @@ async function anitem (__mapper) {
 
     // -------------------------------  gratifaces11
     let gratifaces11 = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => {
         let vertices = muonGraticule.gvertices(p.geoframe).geometry.coordinates
         let faces = muonGraticule.gfaces(p.geoframe)
@@ -98,7 +98,7 @@ async function anitem (__mapper) {
     }
     // -------------------------------  gratifaces12
     let gratifaces12 = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => {
         let vertices = muonGraticule.gvertices(p.geoframe).geometry.coordinates
         let faces = muonGraticule.gfaces(p.geoframe)
@@ -125,7 +125,7 @@ async function anitem (__mapper) {
     }
     // -------------------------------  gratifaces11
     let gratilines21 = {
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
@@ -142,7 +142,7 @@ async function anitem (__mapper) {
     }
     // -------------------------------  gratilines22
     let gratilines22 = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines22'},
@@ -171,10 +171,10 @@ async function anitem (__mapper) {
     }
     // -------------------------------  animas
     let animas = [
-      gratifaces11, // h.eoform p.natform
-      gratifaces12, // h.eoform p.natform
-      gratilines21, // h.eoform p.natform
-      gratilines22, // h.eoform p.natform
+      gratifaces11, // h.turnform p.natform
+      gratifaces12, // h.turnform p.natform
+      gratilines21, // h.turnform p.natform
+      gratilines22, // h.turnform p.natform
       sceneAni, // h.context
     ]
 

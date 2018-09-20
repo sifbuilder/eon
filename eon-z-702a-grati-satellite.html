@@ -9,14 +9,14 @@ async function anitem (__mapper) {
     muonGraticule,
     ctlWen,
     prtNatform,
-    haloEoform,
+    haloTurnform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').p('natform'),
-    __mapper('xs').h('eoform'),    
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('turnform'),
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
@@ -43,7 +43,7 @@ async function anitem (__mapper) {
     }
 
     let g1 = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: { gid: 'grat', cid: 'grat', fid: 'g1'},
@@ -62,16 +62,16 @@ async function anitem (__mapper) {
           lens: [ 0, 1, Infinity ],
         },
       },
-        geoframe: {
-          frame: [ [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ],
-            [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ] ],
-        },
+      geoframe: {
+        frame: [ [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ],
+          [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ] ],
+      },
       payload: {
       },
     }
 
     let g2 = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: { gid: 'grat', cid: 'grat', fid: 'g2'},
@@ -87,16 +87,16 @@ async function anitem (__mapper) {
           lens: [ 0, 1, Infinity ],
         },
       },
-        geoframe: {
-          frame: [ [ [-180, 180, 180, 30], [-0, 180, 360, 30] ],
-            [ [-180, 180, 180, 30], [-0, 180, 360, 30] ] ],
-        },
+      geoframe: {
+        frame: [ [ [-180, 180, 180, 30], [-0, 180, 360, 30] ],
+          [ [-180, 180, 180, 30], [-0, 180, 360, 30] ] ],
+      },
       payload: {
       },
     }
 
     let g3 = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: { gid: 'grat', cid: 'grat', fid: 'g3'},
@@ -112,10 +112,10 @@ async function anitem (__mapper) {
           lens: [ 0, 1, Infinity ],
         },
       },
-        geoframe: {
-          frame: [ [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ],
-            [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ] ],
-        },
+      geoframe: {
+        frame: [ [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ],
+          [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ] ],
+      },
       payload: {
       },
     }
@@ -136,9 +136,9 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      g1, // h.eoform
-      g2, // h.eoform
-      g3, // h.eoform
+      g1, // h.turnform
+      g2, // h.turnform
+      g3, // h.turnform
       sceneAni, // h.scene
 
     ]

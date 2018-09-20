@@ -11,18 +11,18 @@ async function anitem (__mapper) {
     muonProfier,
     muonGeoj,
     muonSvg,
-    haloEoform,
+    haloTurnform,
     haloNatform,
-    haloScene,    
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('fourier'),
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
     __mapper('xs').m('geoj'),
     __mapper('xs').m('svg'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
@@ -62,7 +62,7 @@ async function anitem (__mapper) {
 
     // .................. aniDotted anima
     let aniDotted = i => ({
-      halo: 'eoform',
+      halo: 'turnform',
       payload: {
         geofold: p => {
           let cs = csi(i, (1 + i) / 4)
@@ -78,7 +78,7 @@ async function anitem (__mapper) {
     // .................. animas
     let aniLine = i => ({
 
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => {
         let cs = csi(i, (1 + i) / 4)
         cs.geometry.type = 'LineString' // switch to LineString
@@ -96,7 +96,7 @@ async function anitem (__mapper) {
     // .................. aniRay avatar - form.payload.fourier.avatars.rayline
     let aniRay = i => ({
 
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: {type: 'Feature', geometry: {type: 'LineString', coordinates: []}, properties: {}},
       tim: tim,
       ric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniRay' + i},
@@ -109,7 +109,7 @@ async function anitem (__mapper) {
     // .................. aniTrace avatar - form.payload.fourier.avatars.trace
     let aniTrace = i => ({
 
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: {
         type: 'Feature', geometry: {type: 'MultiPoint', coordinates: []}, properties: {}},
 
@@ -139,7 +139,7 @@ async function anitem (__mapper) {
 
             let gj = {
 
-              halo: 'eoform',
+              halo: 'turnform',
               payload: {
                 geofold: {
                   type: 'Feature',
@@ -223,8 +223,8 @@ async function anitem (__mapper) {
     let animas = [
       sceneAni, // h.scene
       ...fourierForms, // h.fourier
-      ...aniDotteds, // h.eoform
-      ...aniLines, // h.eoform
+      ...aniDotteds, // h.turnform
+      ...aniLines, // h.turnform
     ]
 
     return animas

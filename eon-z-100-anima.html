@@ -8,12 +8,12 @@ async function anitem (__mapper) {
   let [
     muonAnimas,
     haloNatform,
-    haloEoform,
+    haloTurnform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('animas'),
     __mapper('xs').h('natform'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('scene'),
   ])
 
@@ -24,7 +24,6 @@ async function anitem (__mapper) {
 
     let geochrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
-
     // ............................. natAni
     let natAni = {
       halo: 'natform',
@@ -33,17 +32,16 @@ async function anitem (__mapper) {
       tim,
       ric: {gid: 'nat', cid: 'nat', fid: 'nat'},
       geochrom: geochrom,
-        geoform: Object.assign(
-            muonAnimas.animas.drop2,
-            {
-              "w4": 0, "ra2":90,
-              "tx": 10, "ty": [[[50,150]]],
-            }
-          ),
+      geoform: Object.assign(
+        muonAnimas.animas.drop2,
+        {
+          'w4': 0, 'ra2': 90,
+          'tx': 10, 'ty': [[[50, 150]]],
+        }
+      ),
       payload: {
       },
     }
-
 
     // .................. sceneAni
     let sceneAni = {

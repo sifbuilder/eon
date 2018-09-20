@@ -15,19 +15,16 @@ const waitInPromise = delay => arg =>
 const isDirectory = d => fs.lstatSync(d).isDirectory()
 const isFile = d => fs.lstatSync(d).isFile()
 
-
 // fs
 
 let filename = __filename // full path name of the current module
 let prgname = path.basename(filename) // file name of current module
 let dirname = path.dirname(require.main.filename) // __dirname
 
-
 // args
-    
+
 let args = process.argv
 let [cmd, scp, ...opts] = args
-
 
 let action = 'help' // {[help] pattern}
 let toviewpattern = new RegExp(`^eon-z-___none___.*\.html$`, 'i') // none pattern
@@ -35,7 +32,7 @@ if (opts.length === 0) {
   action = 'help'
 } else if (opts.length === 1 && opts[0] !== 'help') {
   action = 'view'
-  let codepattern = '.*'  // default to all
+  let codepattern = '.*' // default to all
   if (opts[0] === '.') {
     codepattern = '.*'
   } else {
@@ -43,7 +40,6 @@ if (opts.length === 0) {
   }
   toviewpattern = new RegExp(`^eon-z-${codepattern}.*\.html$`, 'i') // view pattern
 }
-
 
 const options = {
   fullPage: false,
@@ -55,7 +51,6 @@ const options = {
   },
 }
 
-
 let viewPort = { width: 900, height: 600 }
 let indir = './'
 let indirpath = (dirname + '/').replace(/\\/g, '/') // z-indexes
@@ -66,8 +61,6 @@ let tracingpath = './___trace.json'
 let files = fs.readdirSync(indir) // to view
   .filter(file => isFile(file))
   .filter(d => toviewpattern.test(d))
-
-
 
 async function lightanimas (browser, fls, opts) {
   const variations = fls
@@ -110,7 +103,7 @@ async function lightanimas (browser, fls, opts) {
     })
     await page.waitForSelector('#viewframe')
     await waitInPromise(delay)(page.content())
-    
+
     page.on('pageerror', function (err) {
       let theTempValue = err.toString()
       console.log('Page error: ' + theTempValue)
@@ -158,9 +151,8 @@ async function run (fls, opts) {
 if (action === 'help') {
   console.log(`node ${prgname} {[help], viewpattern} on eon-z- files`)
 } else if (action === 'view') {
-    console.log(`view ${toviewpattern} eon files`)
-    run(files, options)
+  console.log(`view ${toviewpattern} eon files`)
+  run(files, options)
 } else {
   console.log(`node ${prgname} {[help], viewpattern} on eon-z- files`)
 }
-

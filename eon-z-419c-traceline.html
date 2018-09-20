@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     muonNatform,
     muonStace,
     ctlRayder,
-    haloEoform,
+    haloTurnform,
     haloNatform,
     haloPacer,
     haloTextform,
@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('natform'),
     __mapper('xs').m('stace'),
     __mapper('xs').c('rayder'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
     __mapper('xs').h('pacer'),
     __mapper('xs').h('textform'),
@@ -35,97 +35,95 @@ async function anitem (__mapper) {
     // .................. pics
     let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-
     // ............................. natAni
     let geoLined = {
 
-          halo: 'pacer',
+      halo: 'pacer',
 
-          geofold: {
-            type: 'Feature',
-            geometry: {
-              type: 'LineString',
-              coordinates: [ [[[0,120]]] , 0, 0],
-            },
-            properties: {},
+      geofold: {
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: [ [[[0, 120]]], 0, 0],
+        },
+        properties: {},
+      },
+      geonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {
+          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+        },
+      },
+
+      tim,
+      ric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
+      geochrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+
+      payload: {
+
+        pacer: { // geoaad for trace
+          halo: 'turnform',
+          geosort: 'anigram',
+          geobase: 'geoform',
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, geoaad: 1,
+
+          stace: function (ani, props) {
+            let stace
+            if (props.key === 'init') { // INIT
+              stace = ani.geonode.geometry.coordinates // geonode
+            } else if (props.key === 'auto') { // AUTO
+              stace = ani.geofold.geometry.coordinates // geofold
+            } else if (props.key === 'event') { // EVENT
+              stace = ani.geonode.geometry.coordinates
+            }
+            return stace
           },
-          geonode: {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [0, 0, 0],
-            },
-            properties: {
-              orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
-            },
-          },
-
-          tim,
-          ric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
-          geochrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
-
-          payload: {
-          
-            pacer: { // geoaad for trace
-              halo: 'eoform',
-              geosort: 'anigram',
-              geobase: 'geoform',
-              initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, geoaad: 1,
-
-              stace: function (ani, props) {
-                let stace
-                if (props.key === 'init') { // INIT
-                  stace = ani.geonode.geometry.coordinates //geonode 
-                } else if (props.key === 'auto') { // AUTO
-                  stace = ani.geofold.geometry.coordinates //geofold 
-                } else if (props.key === 'event') { // EVENT
-                  stace = ani.geonode.geometry.coordinates 
-                }
-                return stace
-              },
           geofold: function (ani, props) {
             return {
-            type: 'Feature',
-            geometry: {
-              type: 'LineString',
-              coordinates: null,
-            },
-            properties: {},
-           }
-          },
-              geonode: function (ani, props) {
-                let stace = [0, 0, 0]
-                if (props.key === 'init') { // INIT
-                  // stace is ani's transformed geonode
-                  stace = muonStace.getLocus([null, null, null], ani)
-                } else if (props.key === 'auto') { // AUTO
-                  stace = muonStace.getLocus([null, null, null], ani)
-                } else if (props.key === 'event') { // EVENT
-                  if (ctlRayder.grabbed() !== undefined) {
-                    let grabbed = ctlRayder.grabbed()
-                    let x = grabbed[0]
-                    let y = grabbed[1]
-                    let z = 0
-                    stace = {x, y, z }
-                  }
-                }
-
-                let coordinates = stace
-                let res = {
-                  type: 'Feature',
-                  geometry: {
-                    type: 'Point',
-                    coordinates: coordinates,
-                  },
-                  properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
-                }
-                return res
+              type: 'Feature',
+              geometry: {
+                type: 'LineString',
+                coordinates: null,
               },
+              properties: {},
+            }
+          },
+          geonode: function (ani, props) {
+            let stace = [0, 0, 0]
+            if (props.key === 'init') { // INIT
+              // stace is ani's transformed geonode
+              stace = muonStace.getLocus([null, null, null], ani)
+            } else if (props.key === 'auto') { // AUTO
+              stace = muonStace.getLocus([null, null, null], ani)
+            } else if (props.key === 'event') { // EVENT
+              if (ctlRayder.grabbed() !== undefined) {
+                let grabbed = ctlRayder.grabbed()
+                let x = grabbed[0]
+                let y = grabbed[1]
+                let z = 0
+                stace = {x, y, z }
+              }
+            }
 
-            },
-          }
-        }
+            let coordinates = stace
+            let res = {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: coordinates,
+              },
+              properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+            }
+            return res
+          },
 
+        },
+      },
+    }
 
     // .................. sceneAni
     let sceneAni = {
@@ -139,7 +137,6 @@ async function anitem (__mapper) {
       },
 
     }
-
 
     // .................. animas
     let animas = [

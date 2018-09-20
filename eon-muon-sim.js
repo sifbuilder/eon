@@ -74,7 +74,7 @@
 
           // the simnode location is in the geonode geometry
           let nodeGeometry = geonode.geometry
-          
+
           let simNode = mprops.clone(aniItem)
           simNode.x = nodeGeometry.coordinates[0] // geonode location to simnode
           simNode.y = nodeGeometry.coordinates[1]

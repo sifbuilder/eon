@@ -13,7 +13,7 @@ async function anitem (__mapper) {
     dworldTopo110m,
     muonNatform,
     prtNatform,
-    haloEoform,
+    haloTurnform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('geom'),
@@ -23,8 +23,8 @@ async function anitem (__mapper) {
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').m('natform'),
     __mapper('xs').p('natform'),
-    __mapper('xs').h('eoform'),    
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('turnform'),
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
@@ -182,7 +182,7 @@ async function anitem (__mapper) {
     // ............................. earthAni
     let earthAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => {
         let geometry = Object.assign({},
@@ -209,7 +209,7 @@ async function anitem (__mapper) {
     // .............................  cubeAni
     let cubeAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: anitem => {
         let payload = anitem.payload,
           ric = anitem.ric
@@ -291,7 +291,7 @@ async function anitem (__mapper) {
     // .............................  graticubeAni
     let graticubeAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: anitem => muonGraticule.vhMultiLine(anitem.geoframe),
       tim: tim,
@@ -303,7 +303,7 @@ async function anitem (__mapper) {
 
         proform: proformEarth,
       },
-        geoframe: { extent: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
+      geoframe: { extent: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
       payload: {
       },
 
@@ -311,7 +311,7 @@ async function anitem (__mapper) {
     // .............................  graticircAni
     let graticircAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
       tim: tim,
@@ -323,7 +323,7 @@ async function anitem (__mapper) {
 
         proform: proformEarth,
       },
-        geoframe: { frame: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
+      geoframe: { frame: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
       payload: {
       },
 
@@ -331,7 +331,7 @@ async function anitem (__mapper) {
     // ............................. torusAni1
     let torusAni1 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -340,7 +340,7 @@ async function anitem (__mapper) {
       },
       geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-        geoform: formTorus,
+      geoform: formTorus,
       payload: {
       },
     }
@@ -359,11 +359,11 @@ async function anitem (__mapper) {
 
     // ............................. animas
     let animas = [
-      earthAni, // h.eoform p.natform g.uniwen
-      // torusAni1, // h.eoform p.natform g.uniwen
-      // cubeAni, // h.eoform g.uniwen
-      // graticubeAni, // h.eoform
-      // graticircAni, // h.eoform
+      earthAni, // h.turnform p.natform g.uniwen
+      // torusAni1, // h.turnform p.natform g.uniwen
+      // cubeAni, // h.turnform g.uniwen
+      // graticubeAni, // h.turnform
+      // graticircAni, // h.turnform
       sceneAni, // h.scene
     ]
 

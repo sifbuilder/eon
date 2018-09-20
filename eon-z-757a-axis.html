@@ -7,14 +7,14 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     ctlWen,
-    haloEoform,
+    haloTurnform,
     haloNatform,
-    haloScene,    
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
@@ -67,7 +67,7 @@ async function anitem (__mapper) {
     }
     // ............................. axisLeft
     let axis2 = {
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: p => ({
         type: 'Feature',
         geometry: { type: 'LineString', coordinates: [ [0, 0, 0], [0, 100, 0] ] },

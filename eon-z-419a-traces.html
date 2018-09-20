@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     muonNatform,
     muonStace,
     ctlRayder,
-    haloEoform,
+    haloTurnform,
     haloNatform,
     haloPacer,
     haloTextform,
@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('natform'),
     __mapper('xs').m('stace'),
     __mapper('xs').c('rayder'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
     __mapper('xs').h('pacer'),
     __mapper('xs').h('textform'),
@@ -85,7 +85,7 @@ async function anitem (__mapper) {
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, span: 0,
           geoaad: 0,
 
-          halo: (ani, props) => 'eoform',
+          halo: (ani, props) => 'turnform',
           ric: function (ani, props) {
             let counter = props.counter || 0
 
@@ -138,7 +138,7 @@ async function anitem (__mapper) {
     // ....................... natLeaform
     let natLeaform = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       // md: geonode reflects the geometry of the form
       // md: updated by transforms
@@ -176,16 +176,16 @@ async function anitem (__mapper) {
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
-        geoform: {
-          'x': {
-            'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 24, 'w4': 0, 'pa6': 0, 'pb7': 360,
-          },
-          'y': {
-            'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 24, 'w4': 0, 'pa6': 0, 'pb7': 360,
-          },
+      geoform: {
+        'x': {
+          'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 24, 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
+        'y': {
+          'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 24, 'w4': 0, 'pa6': 0, 'pb7': 360,
+        },
+      },
 
       payload: {
       },
@@ -228,22 +228,21 @@ async function anitem (__mapper) {
       },
 
       geochrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
-      
 
-        geoform: {
-          'x': {
-            'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-            'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
-          },
-          'y': {
-            'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-            'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
-          },
+      geoform: {
+        'x': {
+          'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+          'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
+        'y': {
+          'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+          'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
+        },
+      },
 
       payload: {
         pacer: {
-          halo: 'eoform',
+          halo: 'turnform',
           geosort: 'anigram',
           // geobase: 'geoform',
           initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, geoaad: 0,
@@ -283,7 +282,7 @@ async function anitem (__mapper) {
     // ............................. natAni
     let natLined = {
 
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: a => ({
         type: 'Feature',
         geometry: {
@@ -352,7 +351,7 @@ async function anitem (__mapper) {
 
       payload: {
         pacer: { // geoaad for trace
-          halo: 'eoform',
+          halo: 'turnform',
           geosort: 'anigram',
           geobase: 'geoform',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, geoaad: 1,
@@ -399,7 +398,7 @@ async function anitem (__mapper) {
           },
 
         },
-      }
+      },
     }
     // .................. textAni
     let textAni = {

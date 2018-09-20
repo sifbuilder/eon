@@ -12,10 +12,10 @@ async function anitem (__mapper) {
     muonGeoj,
     drhyno,
     muonStace,
-    haloEoform,
+    haloTurnform,
     haloPacer,
     haloFourier,
-    haloScene,    
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('fourier'),
     __mapper('xs').m('proj3ct'),
@@ -23,10 +23,10 @@ async function anitem (__mapper) {
     __mapper('xs').m('geoj'),
     __mapper('xs').d('rhyno'),
     __mapper('xs').m('stace'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('pacer'),
     __mapper('xs').h('fourier'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
@@ -64,7 +64,7 @@ async function anitem (__mapper) {
     // ............................. aniLine
     let aniLine = {
 
-      halo: 'eoform',
+      halo: 'turnform',
       geofold: {
         type: 'Feature',
         geometry: {
@@ -107,7 +107,7 @@ async function anitem (__mapper) {
 
       payload: {
         pacer: { // geoaad for trace
-          halo: 'eoform',
+          halo: 'turnform',
           geosort: 'anigram',
           geobase: 'geo',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, geoaad: 1,

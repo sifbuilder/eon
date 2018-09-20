@@ -30,7 +30,7 @@
     }
 
     function snapani (ani, t) {
-      let r 
+      let r
       if (ani !== undefined) {
         t = t || ani.tim.unitTime
         r = msnap.snap(ani, t)

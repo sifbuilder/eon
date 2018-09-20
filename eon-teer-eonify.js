@@ -69,7 +69,7 @@ let filelog = {} // touched files
 
 let api = {}
 
-api.d00 = (p={opt: 'help'}) => {
+api.d00 = (p = {opt: 'help'}) => {
   if (p.opt === 'help') {
     console.log('get Gatsby CLI (https://www.gatsbyjs.org/docs/) ')
     console.log('in http://www.netlifycms.org get the gatsby cms  https://app.netlify.com/start/deploy?repository=https://github.com/AustinGreen/gatsby-starter-netlify-cms&stack=cms')
@@ -81,7 +81,7 @@ api.d00 = (p={opt: 'help'}) => {
   }
 }
 
-api.d01 = (p={opt: 'help'}) => {
+api.d01 = (p = {opt: 'help'}) => {
   if (p.opt === 'help') {
     console.log(`01.- create site container`)
     console.log(`the site will be located in ${sitepath}: rootdirpath/sitename`)
@@ -95,75 +95,75 @@ api.d01 = (p={opt: 'help'}) => {
   }
 }
 
-api.d02 = (p={opt: 'help'}) => {
+api.d02 = (p = {opt: 'help'}) => {
   if (p.opt === 'help') {
   // 02.- site clone to folder under container
   // ${sitepath} : path to the site
   // ${sitepath}/package.json : site mark for pckExists
 
-  let packPath = `${sitepath}/package.json`
-  let pckExists = fs.existsSync(packPath)
-  if (pckExists) {
-    console.log(`2.- folder ${sitepath} already has a npm project`)
-    console.log(`     check ${packPath}`)
-  } else {
-    console.log(`2.- create npm project ${netlifysite} in ${sitepath}`)
-    const { stdout } = exec(`git clone https://github.com/sifbuilder/eonify.git`,
-      {cwd: `${rootdirpath}`}
-    ) // cd to root dir
-    console.log(stdout)
-  }
+    let packPath = `${sitepath}/package.json`
+    let pckExists = fs.existsSync(packPath)
+    if (pckExists) {
+      console.log(`2.- folder ${sitepath} already has a npm project`)
+      console.log(`     check ${packPath}`)
+    } else {
+      console.log(`2.- create npm project ${netlifysite} in ${sitepath}`)
+      const { stdout } = exec(`git clone https://github.com/sifbuilder/eonify.git`,
+        {cwd: `${rootdirpath}`}
+      ) // cd to root dir
+      console.log(stdout)
+    }
   }
 }
 
-api.d03 = (p={opt: 'help'}) => {
+api.d03 = (p = {opt: 'help'}) => {
   if (p.opt === 'help') {
   // 03.- build local site
   //  installMark: `${sitepath}/node_modules`
   //  if not npm installed, yarn site
 
-  let installMark = `${sitepath}/node_modules`
-  if (fs.existsSync(installMark)) {
-    console.log(`3.- config ${installMark} already exist, no yarn`)
-  } else {
-    console.log(`3.- yarn project ${netlifysite} in ${sitepath}`)
-    const { stdout } = exec(`yarn`, // yarn install, yarn start
-      {cwd: `${sitepath}`}
-    ) // cd to root dir
-    console.log(stdout)
-  }
+    let installMark = `${sitepath}/node_modules`
+    if (fs.existsSync(installMark)) {
+      console.log(`3.- config ${installMark} already exist, no yarn`)
+    } else {
+      console.log(`3.- yarn project ${netlifysite} in ${sitepath}`)
+      const { stdout } = exec(`yarn`, // yarn install, yarn start
+        {cwd: `${sitepath}`}
+      ) // cd to root dir
+      console.log(stdout)
+    }
   }
 }
 
-api.d04 = (p={opt: 'help'}) => {
+api.d04 = (p = {opt: 'help'}) => {
   if (p.opt === 'help') {
   // 04.- eon:src_static_admin_eon-page.js
 
-  filelog['fromFile04'] = `${fromsitedir}/_static_admin_index`
-  filelog['toFile04'] = `${sitepath}/static/admin/index.js`
-  filelog['toFile04_bck'] = `${sitepath}/static/admin/index.js.000`
-  if (fs.existsSync(filelog['toFile04'])) {
-    console.log(`04.- admin index file ${filelog['toFile04']} already exists, bck and copy`)
-    fs.copyFileSync(filelog['toFile04'], filelog['toFile04_bck'])
-    fs.copyFileSync(filelog['fromFile04'], filelog['toFile04'])
-  } else {
-    console.log(`04.- create admin index file ${filelog['toFile04']}`)
-    fs.copyFileSync(filelog['fromFile04'], filelog['toFile04'])
-  }
+    filelog['fromFile04'] = `${fromsitedir}/_static_admin_index`
+    filelog['toFile04'] = `${sitepath}/static/admin/index.js`
+    filelog['toFile04_bck'] = `${sitepath}/static/admin/index.js.000`
+    if (fs.existsSync(filelog['toFile04'])) {
+      console.log(`04.- admin index file ${filelog['toFile04']} already exists, bck and copy`)
+      fs.copyFileSync(filelog['toFile04'], filelog['toFile04_bck'])
+      fs.copyFileSync(filelog['fromFile04'], filelog['toFile04'])
+    } else {
+      console.log(`04.- create admin index file ${filelog['toFile04']}`)
+      fs.copyFileSync(filelog['fromFile04'], filelog['toFile04'])
+    }
   }
 }
 
-api.d04a = (p={opt: 'help'}) => {
+api.d04a = (p = {opt: 'help'}) => {
   if (p.opt === 'help') {
   // 04a build to call admin locally
 
-  console.log('npm run build')
-  console.log('npm run serve')
-  console.log('sign up to site - from email notification')
+    console.log('npm run build')
+    console.log('npm run serve')
+    console.log('sign up to site - from email notification')
   }
 }
 
-api.d12 = (p={opt: 'help'}) => {
+api.d12 = (p = {opt: 'help'}) => {
   // 12.- create about page
   let fromFile12 = `${fromsitedir}/src_pages_about_index.md`
   let toFile12 = `${sitepath}/src/pages/about/index.md`
@@ -186,8 +186,7 @@ api.d12 = (p={opt: 'help'}) => {
   }
 }
 
-
-api.d08 = (p={opt: 'help'}) => {
+api.d08 = (p = {opt: 'help'}) => {
   // src/img/eons-logo.svg - upd
   filelog['fromFile08'] = `${fromsitedir}/src_img_eons-logo.svg`
   filelog['toFile08'] = `${sitepath}/src/img/eons-logo.svg`
@@ -206,7 +205,7 @@ api.d08 = (p={opt: 'help'}) => {
   }
 }
 
-api.d09 = (p={opt: 'help'}) => {
+api.d09 = (p = {opt: 'help'}) => {
   // src/img/twitter-icon - create
   filelog['fromFile09'] = `${fromsitedir}/src_img_twitter-icon.svg`
   filelog['toFile09'] = `${sitepath}/src/img/twitter-icon.svg`
@@ -226,7 +225,7 @@ api.d09 = (p={opt: 'help'}) => {
 }
 
 // 10.- src/components/Navbar
-api.d10 = (p={opt: 'help'}) => {
+api.d10 = (p = {opt: 'help'}) => {
   filelog['fromFile10'] = `${fromsitedir}/src_components_Navbar.js`
   filelog['toFile10'] = `${sitepath}/src/components/Navbar.js`
   filelog['toFile10_bck'] = `${sitepath}/src/components/Navbar.js.000`
@@ -244,9 +243,8 @@ api.d10 = (p={opt: 'help'}) => {
   }
 }
 
-
 // 17.- src/pages/index.js
-api.d17 = (p={opt: 'help'}) => {
+api.d17 = (p = {opt: 'help'}) => {
   filelog['fromFile17'] = `${fromsitedir}/src_pages_index.js`
   filelog['toFile17'] = `${sitepath}/src/pages/index.js`
   filelog['toFile17_bck'] = `${sitepath}/src/pages/index.js.000`
@@ -265,7 +263,7 @@ api.d17 = (p={opt: 'help'}) => {
 }
 
 // 18.- src/pages/blog/*
-api.d18 = (p={opt: 'help'}) => {
+api.d18 = (p = {opt: 'help'}) => {
   filelog['fromDir18'] = `${fromsitedir}/src_pages_blog/`
   filelog['toDir18'] = `${sitepath}/src/pages/blog`
   filelog['toDir18_bck'] = `${sitepath}/src/pages/blog.000`
@@ -273,48 +271,42 @@ api.d18 = (p={opt: 'help'}) => {
     console.log(`copy ${filelog['fromDir18']} to ${filelog['toDir18']}`)
   } else {
     if (fs.existsSync(filelog['toDir18'])) {
-      
       console.log(`18.- ${filelog['toDir18']} already exist`)
-      console.log(`18.- copy dir ${filelog['fromDir18']} to ${filelog['toDir18']}`)   
-      
+      console.log(`18.- copy dir ${filelog['fromDir18']} to ${filelog['toDir18']}`)
+
       if (!fs.existsSync(filelog['toDir18_bck'])) {
-        console.log(`rename ${filelog['toDir18']} to ${filelog['toDir18_bck']}`)   
+        console.log(`rename ${filelog['toDir18']} to ${filelog['toDir18_bck']}`)
         fs.renameSync(filelog['toDir18'], filelog['toDir18_bck'])
       }
-      
+
       // let prefiles = fs.readdirSync(filelog['toDir18'])
       // for (let i=0; i<prefiles.length; i++) {
-        // let fileToDelete = `${filelog['toDir18']}/${prefiles[i]}`
-        // console.log(`del: ${fileToDelete}`)   
-        // fs.unlinkSync(fileToDelete);
-      // }    
+      // let fileToDelete = `${filelog['toDir18']}/${prefiles[i]}`
+      // console.log(`del: ${fileToDelete}`)
+      // fs.unlinkSync(fileToDelete);
+      // }
       if (!fs.existsSync(filelog['toDir18'])) {
-        console.log(`create ${filelog['toDir18']}`)   
+        console.log(`create ${filelog['toDir18']}`)
         fs.mkdirSync(filelog['toDir18'])
       }
+    }
 
-    } 
-    
-    // git clean -df 
+    // git clean -df
     // git checkout -- .
 
     let fromfiles = fs.readdirSync(filelog['fromDir18'])
-    for (let i=0; i<fromfiles.length; i++) {
-      
+    for (let i = 0; i < fromfiles.length; i++) {
       let fromFileToCopy = `${filelog['fromDir18']}/${fromfiles[i]}`
       let toFileToCopy = `${filelog['toDir18']}/${fromfiles[i]}`
-      console.log(` copy: ${fromFileToCopy} to: ${toFileToCopy}`)   
-      
+      console.log(` copy: ${fromFileToCopy} to: ${toFileToCopy}`)
+
       fs.copyFileSync(fromFileToCopy, toFileToCopy)
-    
     }
-    
   }
 }
 
-
 // 19.- src/pages/blog/*
-api.d19 = (p={opt: 'help'}) => {
+api.d19 = (p = {opt: 'help'}) => {
   filelog['fromDir19'] = `${fromsitedir}/static_img/`
   filelog['toDir19'] = `${sitepath}/static/img`
   filelog['toDir19_bck'] = `${sitepath}/static/img.000`
@@ -322,41 +314,35 @@ api.d19 = (p={opt: 'help'}) => {
     console.log(`copy ${filelog['fromDir19']} to ${filelog['toDir19']}`)
   } else {
     if (fs.existsSync(filelog['toDir19'])) {
-      
       console.log(`19.- ${filelog['toDir19']} already exist`)
-      console.log(`19.- copy dir ${filelog['fromDir19']} to ${filelog['toDir19']}`)   
-      
-      console.log(`rename ${filelog['toDir19']} to ${filelog['toDir19_bck']}`)   
+      console.log(`19.- copy dir ${filelog['fromDir19']} to ${filelog['toDir19']}`)
+
+      console.log(`rename ${filelog['toDir19']} to ${filelog['toDir19_bck']}`)
       fs.renameSync(filelog['toDir19'], filelog['toDir19_bck'])
-      
+
       // let prefiles = fs.readdirSync(filelog['toDir19'])
       // for (let i=0; i<prefiles.length; i++) {
-        // let fileToDelete = `${filelog['toDir19']}/${prefiles[i]}`
-        // console.log(`del: ${fileToDelete}`)   
-        // fs.unlinkSync(fileToDelete);
-      // }      
-      console.log(`create ${filelog['toDir19']}`)   
+      // let fileToDelete = `${filelog['toDir19']}/${prefiles[i]}`
+      // console.log(`del: ${fileToDelete}`)
+      // fs.unlinkSync(fileToDelete);
+      // }
+      console.log(`create ${filelog['toDir19']}`)
       fs.mkdirSync(filelog['toDir19'])
+    }
 
-    } 
-    
-    // git clean -df 
+    // git clean -df
     // git checkout -- .
 
     let fromfiles = fs.readdirSync(filelog['fromDir19'])
-    for (let i=0; i<fromfiles.length; i++) {
-      
+    for (let i = 0; i < fromfiles.length; i++) {
       let fromFileToCopy = `${filelog['fromDir19']}/${fromfiles[i]}`
       let toFileToCopy = `${filelog['toDir19']}/${fromfiles[i]}`
-      console.log(` copy: ${fromFileToCopy} to: ${toFileToCopy}`)   
-      
+      console.log(` copy: ${fromFileToCopy} to: ${toFileToCopy}`)
+
       fs.copyFileSync(fromFileToCopy, toFileToCopy)
-    
     }
-    
   }
 }
-
 
 // 05.- eon:src_templates_eon-page.js
 api.d05 = (opt = 'help') => {
@@ -468,39 +454,15 @@ if (action === 'help') {
     api[action]({opt: 'help'})
     console.log('filelog: ', filelog)
   }
-  
 } else if (action === 'browse') {
   browse()
-  
 } else if (api[action] !== undefined) {
-
   if (api[action] !== undefined) {
-    
     if (option === 'help') {
-      
       api[action]({opt: 'help'})
-      
     } else {
       api[action]({opt: 'do'})
       console.log('filelog: ', filelog)
-      
     }
-    
-  }  
-  
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

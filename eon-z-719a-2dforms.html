@@ -7,12 +7,12 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     muonNatform,
-    haloEoform,
+    haloTurnform,
     haloNatform,
     haloScene,    
   ] = await Promise.all([
     __mapper('xs').m('natform'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
     __mapper('xs').h('scene'),    
   ])
@@ -69,7 +69,7 @@ async function anitem (__mapper) {
  *    @animas
  */
     let p1 = {
-      halo: 'eoform',
+      halo: 'turnform',
         geofold: p => muonNatform.natFeature(f1),
         geochrom,
         ric: {'gid': 'p', 'cid': 'p', 'fid': 'p1'},
@@ -80,7 +80,7 @@ async function anitem (__mapper) {
       },
     },
     let p2 = {
-      halo: 'eoform',
+      halo: 'turnform',
         tim,
         geofold: p => muonNatform.natFeature(f2),
         geochrom,
@@ -92,7 +92,7 @@ async function anitem (__mapper) {
       },
     },
     let p3 = {
-      halo: 'eoform',
+      halo: 'turnform',
         tim,
         geofold: p => muonNatform.natFeature(f3),
         geochrom,
@@ -104,7 +104,7 @@ async function anitem (__mapper) {
       },
     },
     let p4 = {
-      halo: 'eoform',
+      halo: 'turnform',
         tim,
         geofold: p => muonNatform.natFeature(f4),
         geochrom,
@@ -116,7 +116,7 @@ async function anitem (__mapper) {
       },
     },
     let p5 = {
-      halo: 'eoform',
+      halo: 'turnform',
         tim,
         geofold: p => muonNatform.natFeature(f5),
         geochrom,
@@ -128,7 +128,7 @@ async function anitem (__mapper) {
       },
     },
     let p6 = {
-      halo: 'eoform',
+      halo: 'turnform',
         tim,
         geofold: p => muonNatform.natFeature(f6),
         geochrom,
@@ -140,7 +140,7 @@ async function anitem (__mapper) {
       },
     },
     let p7 = {
-      halo: 'eoform',
+      halo: 'turnform',
         tim,
         geofold: p => muonNatform.natFeature(f7),
         geochrom,
@@ -152,7 +152,7 @@ async function anitem (__mapper) {
       },
     },
     let p8 = {
-      halo: 'eoform',
+      halo: 'turnform',
         tim,
         geofold: p => muonNatform.natFeature(f8),
         geochrom,
@@ -177,14 +177,14 @@ async function anitem (__mapper) {
 
     }
     let animas = [
-      p1, // h.eoform g.uniwen
-      p2, // h.eoform g.uniwen
-      p3, // h.eoform g.uniwen
-      p4, // h.eoform g.uniwen
-      p5, // h.eoform g.uniwen
-      p6, // h.eoform g.uniwen
-      p7, // h.eoform g.uniwen
-      p8, // h.eoform g.uniwen
+      p1, // h.turnform g.uniwen
+      p2, // h.turnform g.uniwen
+      p3, // h.turnform g.uniwen
+      p4, // h.turnform g.uniwen
+      p5, // h.turnform g.uniwen
+      p6, // h.turnform g.uniwen
+      p7, // h.turnform g.uniwen
+      p8, // h.turnform g.uniwen
 
       sceneAni, // h.scene
 

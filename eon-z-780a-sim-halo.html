@@ -12,9 +12,9 @@ async function anitem (__mapper) {
     rrenderport,
     ctlRayder,
     muonRic,
-    haloEoform,
+    haloTurnform,
     haloNatform,
-    haloScene,    
+    haloScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('geoforces'),
@@ -23,9 +23,9 @@ async function anitem (__mapper) {
     __mapper('xs').r('renderport'),
     __mapper('xs').c('rayder'),
     __mapper('xs').m('ric'),
-    __mapper('xs').h('eoform'),
+    __mapper('xs').h('turnform'),
     __mapper('xs').h('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   let [
@@ -62,9 +62,6 @@ async function anitem (__mapper) {
 
     let d3_force = d3Force3d
 
-    
-    
-    
     // h.isolation
     let haloIsolation_ween = anima => { // WEEN
       let animas = (anima.inited !== 1) ? (anima.inited = anima.gelded = 1, [anima]) : []
@@ -134,7 +131,7 @@ async function anitem (__mapper) {
     // .................... natAni
     let natAni = {
 
-      halo: isolation,  
+      halo: isolation,
 
       tim: tim,
       ric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
@@ -165,23 +162,21 @@ async function anitem (__mapper) {
 
       geochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
-        geoform: {
+      geoform: {
 
-          'x': {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
-          },
-          'y': {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
-          },
-          'z': {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
-          },
+        'x': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
         },
-      
-
+        'y': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
+        },
+        'z': {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
+        },
+      },
 
       payload: {
       },
@@ -430,7 +425,7 @@ async function anitem (__mapper) {
           strength: strength,
           radius: d => 9,
           filter: function (d) {
-console.log('d', d)          
+            console.log('d', d)
             return d.ric.gid === 'nat'
           },
           src: d3_force,

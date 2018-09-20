@@ -8,12 +8,12 @@
 }(this, function (exports) {
   'use strict'
 
-// # eon-control-rayder
-// ** **
-// ### refs
-// * https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
-// # license
-// MIT
+  // # eon-control-rayder
+  // ** **
+  // ### refs
+  // * https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
+  // # license
+  // MIT
 
   async function ctlRayder (__mapper) {
     let [
@@ -62,7 +62,6 @@
 
         state.pointer.x = t[0]
         state.pointer.y = t[1]
-     
       } else if (event.type === 'touchmove') {
         let touch = event.changedTouches[0]
 
@@ -105,18 +104,17 @@
       let e = event
       state.moved = false // not moved yet
       let pos = getPos(e) // mouse position
-console.log('pos', pos)
+      console.log('pos', pos)
       state.grabbed = pos
     }
 
     // ............................. mouseMoveListener
     function mouseMoveListener (event) {
       if (!state.grabbed) return
-    
 
       let e = event
       let pos = getPos(e) //  d3.mouse(this)
-      
+
       let dx = xsign * (pos[1] - state.grabbed[1]),
         dy = ysign * (state.grabbed[0] - pos[0])
 
@@ -124,7 +122,7 @@ console.log('pos', pos)
         if (dx * dx + dy * dy < state.moveSpan) return
         state.moved = true // moved
       }
-      
+
       state.grabbed = pos
       state.lastMoveTime = Date.now()
     }
@@ -139,10 +137,10 @@ console.log('pos', pos)
     // ............................. subscribe
     let subscribe = function (listener, domNode, sensor) {
       if (typeof listener !== 'function') throw new Error('Listener to be function')
-        
+
       // listener: {mousedown, mousemove, mouseup}
-      
-      domNode.node().addEventListener(sensor, listener) 
+
+      domNode.node().addEventListener(sensor, listener)
     }
 
     // ............................. controlrayder
@@ -164,7 +162,7 @@ console.log('pos', pos)
     enty.domNode = _ => (_ !== undefined) ? (state.domNode = _, enty) : state.domNode
 
     enty.grabbed = () => {
-        return state.grabbed
+      return state.grabbed
     }
 
     enty.mouse = () => state.mouse

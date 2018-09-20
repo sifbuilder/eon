@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('fibonat'),
     __mapper('xs').b('d3'),
     __mapper('xs').p('natform'),
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('scene'),
   ])
 
   let ani = function () {
@@ -148,7 +148,7 @@ async function anitem (__mapper) {
     // .................. waveForm anima
     let waveAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => mfibonat.interlinked(p.payload),
 
@@ -163,7 +163,7 @@ async function anitem (__mapper) {
         },
         proform: waveProform,
       },
-        geoframe: waveFrame,
+      geoframe: waveFrame,
       payload: {
 
         fibonat: {
@@ -174,7 +174,6 @@ async function anitem (__mapper) {
           goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
         },
 
-
       },
 
     }
@@ -182,7 +181,7 @@ async function anitem (__mapper) {
     // .................. waveForm anima
     let waveAni2 = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => mfibonat.interlinked(p.payload),
 
@@ -194,7 +193,7 @@ async function anitem (__mapper) {
 
         proform: waveProform2,
       },
-        geoframe: waveFrame,
+      geoframe: waveFrame,
       payload: {
 
         fibonat: {
@@ -205,14 +204,13 @@ async function anitem (__mapper) {
           goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
         },
 
-
       },
 
     }
     // .................. sphereForm anima
     let sphereAni = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
 
@@ -224,7 +222,7 @@ async function anitem (__mapper) {
 
       proform: sphereProform,
 
-        geoframe: sphereFrame,
+      geoframe: sphereFrame,
       payload: {
 
       },
@@ -246,9 +244,9 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      // sphereAni, // h.eoform
-      waveAni, // h.eoform
-      waveAni2, // h.eoform
+      // sphereAni, // h.turnform
+      waveAni, // h.turnform
+      waveAni2, // h.turnform
       sceneAni, // h.scene
     ]
 

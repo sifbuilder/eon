@@ -9,11 +9,9 @@
   'use strict'
 
   let muonGeonode = function muonGeonode (__mapper = {}) {
-    
     // geonode definition
-    
-    let getdefault = function( ) {
-      
+
+    let getdefault = function () {
       let res = {
         type: 'Feature',
         geometry: {
@@ -28,13 +26,12 @@
           geodelta: [0, 0, 0],
         },
       }
- 
+
       return res
     }
-    
-    // ....................... init 
+
+    // ....................... init
     let init = function (node = {}) {
-      
       let geonode = getdefault()
 
       if (node.geometry) geonode.geometry = node.geometry
@@ -47,7 +44,7 @@
     let enty = function () {}
     enty.init = init // build geonode
     enty.getdefault = getdefault
-    
+
     return enty
   }
 

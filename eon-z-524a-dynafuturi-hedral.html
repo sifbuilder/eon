@@ -14,7 +14,7 @@ async function anitem (__mapper) {
     topojson,
     dworldTopo110m,
     prtHedrals,
-    haloEoform,
+    haloTurnform,
     haloScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
@@ -25,8 +25,8 @@ async function anitem (__mapper) {
     __mapper('xs').b('topojson'),
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').p('hedrals'),
-    __mapper('xs').h('eoform'),    
-    __mapper('xs').h('scene'),    
+    __mapper('xs').h('turnform'),
+    __mapper('xs').h('scene'),
   ])
 
   // .................. animas
@@ -83,7 +83,7 @@ async function anitem (__mapper) {
     // ............................. geograt
     let geograt = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: anitem => muonGraticule.vhMultiLine(anitem.geoframe),
       tim: tim,
@@ -108,7 +108,7 @@ async function anitem (__mapper) {
     // ............................. geoearth
     let geoearth = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: p => {
         let geometry = Object.assign({},
@@ -133,7 +133,7 @@ async function anitem (__mapper) {
     // -------------------------------  geoearth
     let geoshpere = {
 
-      halo: 'eoform',
+      halo: 'turnform',
 
       geofold: {
         type: 'Feature',
@@ -188,9 +188,9 @@ async function anitem (__mapper) {
 
     // ............................. animas
     let animas = [
-      geograt, // h.eoform g.hedrals
-      geoearth, // h.eoform g.hedrals
-      geoshpere, // h.eoform g.hedrals
+      geograt, // h.turnform g.hedrals
+      geoearth, // h.turnform g.hedrals
+      geoshpere, // h.turnform g.hedrals
 
       text, // h.text
     ]
