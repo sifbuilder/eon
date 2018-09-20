@@ -31,7 +31,7 @@ async function anitem (__mapper) {
 
   // .................. animas
   let ani = function () {
-    let tim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let proform = {
 
@@ -86,7 +86,7 @@ async function anitem (__mapper) {
       halo: 'turnform',
 
       eofold: anitem => muonGraticule.vhMultiLine(anitem.geoframe),
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
       eochrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
@@ -119,7 +119,7 @@ async function anitem (__mapper) {
         )
         return { type: 'Feature', geometry: geometry, properties: {} }
       },
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
       eochrom: { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
 
@@ -142,7 +142,7 @@ async function anitem (__mapper) {
         },
         properties: {},
       },
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'geoshpere', 'cid': 'geoshpere', 'fid': 'geoshpere'},
       eochrom: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
 
@@ -160,7 +160,7 @@ async function anitem (__mapper) {
       halo: 'textform',
       eofold: null,
 
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
       eochrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 

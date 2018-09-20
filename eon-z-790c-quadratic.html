@@ -87,7 +87,7 @@ async function anitem (__mapper) {
     // ===================================================
 
     // .................. pics
-    let tim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1}
+    let eotim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1}
 
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
@@ -152,7 +152,7 @@ async function anitem (__mapper) {
         let q = { natform: {y: { e1: tfvars } } }
         return muonNatform.natFeature(p.payload.natform(q.natform))
       },
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
       eodrift: {
         proform: proform,
@@ -168,7 +168,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

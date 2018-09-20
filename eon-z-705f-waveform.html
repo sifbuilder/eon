@@ -26,7 +26,7 @@ async function anitem (__mapper) {
       sin = Math.sin, cos = Math.cos,
       sqrt2 = Math.sqrt(2)
 
-    const tim = {'td': 32000, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    const eotim = {'td': 32000, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let waveForm = {
       'x': {
@@ -152,7 +152,7 @@ async function anitem (__mapper) {
 
       eofold: p => mfibonat.interlinked(p.payload),
 
-      tim,
+      eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'waveAni'},
       eochrom: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.1, 0.1]]], 'cp': 0.9 },
 
@@ -185,7 +185,7 @@ async function anitem (__mapper) {
 
       eofold: p => mfibonat.interlinked(p.payload),
 
-      tim,
+      eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'waveAni2'},
       eochrom: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.1, 0.1]]], 'cp': 0.9 },
       eodrift: {
@@ -214,7 +214,7 @@ async function anitem (__mapper) {
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
 
-      tim,
+      eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereAni'},
       eochrom: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.01, 0.9]]], 'cp': 0.9 },
 
@@ -233,7 +233,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

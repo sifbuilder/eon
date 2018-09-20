@@ -33,7 +33,7 @@ async function anitem (__mapper) {
   // .................. animas
   let ani = function () {
     // .................. pics
-    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     // .................. pointTrace
     let pointTrace = {
@@ -58,7 +58,7 @@ async function anitem (__mapper) {
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
 
-      tim: tim,
+      eotim: eotim,
 
       eoric: {
         gid: 'nat',
@@ -146,7 +146,7 @@ async function anitem (__mapper) {
       // md: as eonode, properties keep transformed views
       eofold: p => muonNatform.natFeature(p.eoform),
 
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
       eochrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
       eodrift: {
@@ -197,7 +197,7 @@ async function anitem (__mapper) {
 
       halo: 'pacer',
 
-      tim: tim,
+      eotim: eotim,
 
       eoric: {
         gid: 'nattrace',
@@ -300,7 +300,7 @@ async function anitem (__mapper) {
         properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
       },
 
-      tim,
+      eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natLined'},
 
       eodrift: {
@@ -345,7 +345,7 @@ async function anitem (__mapper) {
         properties: {},
       },
 
-      tim,
+      eotim,
       eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
       eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
@@ -414,7 +414,7 @@ async function anitem (__mapper) {
         properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
       },
 
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'text', cid: 'text', fid: 'text'},
       eochrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
@@ -444,7 +444,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 0, webgl: 0, bck: 1, ray: 1},

@@ -24,7 +24,7 @@ async function anitem (__mapper) {
       sin = Math.sin, cos = Math.cos,
       sqrt2 = Math.sqrt(2)
 
-    let tim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let formNat = {
       'x': {
@@ -110,7 +110,7 @@ async function anitem (__mapper) {
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
 
-      tim,
+      eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratiAni'},
       eochrom: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.01, 0.01]]], 'cp': 0.9 },
 
@@ -135,7 +135,7 @@ async function anitem (__mapper) {
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
 
-      tim,
+      eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereAni'},
       eochrom: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.01, 0.9]]], 'cp': 0.9 },
 
@@ -158,7 +158,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

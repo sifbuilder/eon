@@ -24,7 +24,7 @@ async function anitem (__mapper) {
   // .................. animas
   let ani = function () {
     // .................. pics
-    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
@@ -117,7 +117,7 @@ async function anitem (__mapper) {
     let natAni1dax = {
       halo: 'turnform',
       eofold: p => muonNatform.natFeature(p.eoform),
-      tim,
+      eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
       eodrift: {
         proform: proform1dax,
@@ -130,7 +130,7 @@ async function anitem (__mapper) {
     let natAni2dax = {
       halo: 'turnform',
       eofold: p => muonNatform.natFeature(p.eoform),
-      tim,
+      eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat2'},
       eodrift: {
         proform: proform2dax,
@@ -143,7 +143,7 @@ async function anitem (__mapper) {
     let natAni3dax = {
       halo: 'turnform',
       eofold: p => muonNatform.natFeature(p.eoform),
-      tim,
+      eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat3'},
       eodrift: {
         proform: proform3dax,
@@ -156,7 +156,7 @@ async function anitem (__mapper) {
     let natAni4dax = {
       halo: 'turnform',
       eofold: p => muonNatform.natFeature(p.eoform),
-      tim,
+      eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat4'},
       eodrift: {
         proform: proform4dax,
@@ -172,7 +172,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

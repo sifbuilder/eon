@@ -69,12 +69,12 @@
 
   async function muonStore (__mapper) {
     let [
-      mtim,
+      muonEotim,
       muonEoric,
       manitem,
       mprops,
     ] = await Promise.all([
-      __mapper('xs').m('tim'),
+      __mapper('xs').m('eotim'),
       __mapper('xs').m('eoric'),
       __mapper('xs').m('anitem'),
       __mapper('xs').m('props'),
@@ -112,7 +112,7 @@
               state.animas[index] = updAnima // replace
             }
           } else { // new anima
-            updAnima.tim = mtim.timing(updAnima.tim, elapsed) // set tim elapsed
+            updAnima.eotim = muonEotim.timing(updAnima.eotim, elapsed) // set eotim elapsed
             updAnima.uid = uid // set uid if new anima
             updAnima.nid = enty.getNid() // node id in animas collection
 
@@ -151,7 +151,7 @@
       items.forEach(item => {
         sequence(gavatars(item), avatar => {
           avatar.uid = muonEoric.getuid(avatar)
-          avatar.tim = item.tim
+          avatar.eotim = item.eotim
           avatar.parentuid = item.uid
           gramm(avatar)
         })
@@ -222,7 +222,7 @@
                 let avatars = gavatars(newItem)
 
                 avatars.forEach(avatar => {
-                  avatar.tim = anigram.tim // tim from anigram
+                  avatar.eotim = anigram.eotim // eotim from anigram
                   avatar.uid = muonEoric.getuid(avatar) // uid from avatar
                   avatar.parentuid = newItem.uid // parentuid from newItem
 
@@ -245,7 +245,7 @@
       newItems.forEach(newItem => {
         let avatars = gavatars(newItem)
         avatars.forEach(avatar => {
-          avatar.tim = anigram.tim // tim from anigram
+          avatar.eotim = anigram.eotim // eotim from anigram
           avatar.uid = muonEoric.getuid(avatar) // uid from avatar
           avatar.parentuid = newItem.uid // parentuid from newItem
 
@@ -297,8 +297,8 @@
     enty.findAnigramFromUid = uid => state.anigrams.find(d => d.uid === uid)
     enty.findAnimaFromUid = uid => state.animas.find(d => d.uid === uid)
 
-    enty.born = d => d.tim !== undefined && d.tim.unitElapsed !== undefined && d.tim.unitElapsed > epsilon
-    enty.unborn = d => d.tim === undefined && d.tim.elapsed === undefined && d.tim.unitElapsed === undefined && d.tim.unitElapsed < epsilon
+    enty.born = d => d.eotim !== undefined && d.eotim.unitElapsed !== undefined && d.eotim.unitElapsed > epsilon
+    enty.unborn = d => d.eotim === undefined && d.eotim.elapsed === undefined && d.eotim.unitElapsed === undefined && d.eotim.unitElapsed < epsilon
     enty.getAnimaByUID = uid => state.animas.find(d => d.uid === uid)
 
     enty.animas = () => state.animas

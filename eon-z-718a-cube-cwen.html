@@ -22,7 +22,7 @@ async function anitem (__mapper) {
   // .................. animas
   let ani = function () {
     // .................. pics
-    let tim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 19800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let rotInit = [0, 45, 0],
       rotation = [0, 0, 0],
@@ -63,7 +63,7 @@ async function anitem (__mapper) {
 
         return json // FeatureCollection.features[i].geometry.coordinates[i]::[-1, -1, 1]
       },
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'aniCube', 'cid': 'aniCube', 'fid': 'aniCube'},
       eochrom: { 'csx': 0, 'cf': 111, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
       eodrift: {
@@ -124,7 +124,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

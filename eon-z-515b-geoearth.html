@@ -32,7 +32,7 @@ async function anitem (__mapper) {
   ])
   // .................. animas
   let ani = function () {
-    let tim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
+    let eotim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
     // .................. geoearthDark  DARK
     let pDark = function () {
@@ -76,7 +76,7 @@ async function anitem (__mapper) {
         )
       },
 
-      tim,
+      eotim,
       eodrift: {
         proform: proformDark,
       },
@@ -130,7 +130,7 @@ async function anitem (__mapper) {
         )
       },
 
-      tim,
+      eotim,
 
       eodrift: {
         proform: proformFront,
@@ -149,7 +149,7 @@ async function anitem (__mapper) {
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
-      tim,
+      eotim,
 
       eodrift: {
         proform: proformFront,
@@ -174,7 +174,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1, key: 1},

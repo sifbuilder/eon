@@ -23,7 +23,7 @@ async function anitem (__mapper) {
   let ani = function () {
   // .................. pics
 
-    const tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    const eotim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     const radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos,
@@ -99,7 +99,7 @@ async function anitem (__mapper) {
 
       eofold: p => mfibonat.catesians(p.payload),
 
-      tim: tim,
+      eotim: eotim,
 
       eoric: {gid: 'grat', cid: 'grat', fid: 'fiboAni'},
       eochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 1.9, 'co': 0.6, 'cp': 0.9 },
@@ -128,7 +128,7 @@ async function anitem (__mapper) {
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
 
-      tim,
+      eotim,
       eoric: {gid: 'grat', cid: 'grat', fid: 'sphereAni'},
       eochrom: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[0.6, 0.6]]], 'co': [[[0.01, 0.9]]], 'cp': 0.9 },
 
@@ -150,7 +150,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+      eotim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

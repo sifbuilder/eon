@@ -19,7 +19,7 @@
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
 
-          let unitPassed = node.tim.unitPassed
+          let unitPassed = node.eotim.unitPassed
 
           if (unitPassed === undefined) console.log(' unitPassed undefined')
 

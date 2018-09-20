@@ -37,14 +37,14 @@ async function anitem (__mapper) {
       height = rrenderport.height()
 
     // .................... pics
-    let tim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     // .................... natAni
     let natAni = {
 
       halo: 'pacer',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
       payload: {
@@ -70,7 +70,7 @@ async function anitem (__mapper) {
             properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
           },
 
-          tim: tim,
+          eotim: eotim,
 
           eoric: {
             gid: 'nat',

@@ -41,7 +41,7 @@
         halo = anigram.halo, // halo
         eofold = anigram.eofold, // eofold
         eoric = anigram.eoric, // eoric
-        tim = anigram.tim, // tim
+        eotim = anigram.eotim, // eotim
         parentuid = anigram.parentuid, // parentuid
         eochrom = anigram.eochrom // eochrom
 
@@ -58,7 +58,7 @@
 
       // md:   time in period is (t - t0) / (t1 - t0), with t unit time
 
-      let t = tim.unitTime // time % period; i,[0,vertices] => t,[0,T]
+      let t = eotim.unitTime // time % period; i,[0,vertices] => t,[0,T]
       let t0 = interval[0],
         t1 = interval[1],
         period = t1 - t0,
@@ -201,7 +201,7 @@
             }
           }
 
-          newItem.tim = tim // tim
+          newItem.eotim = eotim // eotim
           newItem.eoric = _ric // eoric
           newItem.uid = _uid // uid
           newItem.eochrom = eochrom // eochrom

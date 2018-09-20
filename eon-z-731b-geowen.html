@@ -30,7 +30,7 @@ async function anitem (__mapper) {
   // .................. animas
   let ani = function () {
     // .................. pics
-    let tim = {'td': 36800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 36800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     // .................. geoearth1
     let geoearth1 = {
@@ -48,7 +48,7 @@ async function anitem (__mapper) {
         return gj
       },
 
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geoearth1'},
       eochrom: { 'csx': 0, 'cf': [[[555, 555, 555, 555, 555, 555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
       eodrift: {
@@ -73,7 +73,7 @@ async function anitem (__mapper) {
       halo: 'turnform',
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe),
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt1'},
       eochrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
       eodrift: {
@@ -109,7 +109,7 @@ async function anitem (__mapper) {
         geometry: {type: 'Sphere'},
         properties: {},
       },
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geosphere1'},
       eochrom: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
       eodrift: {
@@ -143,7 +143,7 @@ async function anitem (__mapper) {
 
         return muonGeoj.trim(gj)
       },
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geoearth2'},
       eochrom: { 'csx': 0, 'cf': [[[555, 555, 555, 555, 555, 555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
       eodrift: {
@@ -168,7 +168,7 @@ async function anitem (__mapper) {
       halo: 'turnform',
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe),
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt2'},
       eochrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
       eodrift: {
@@ -203,7 +203,7 @@ async function anitem (__mapper) {
         properties: {},
       },
 
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geosphere2'},
       eochrom: { 'csx': 0, 'cf': 444, 'cs': 333, 'cw': 0.9, 'co': 0.04, 'cp': 0.9},
       eodrift: {
@@ -227,7 +227,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

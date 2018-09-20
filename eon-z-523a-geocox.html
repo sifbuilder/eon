@@ -38,7 +38,7 @@ async function anitem (__mapper) {
   // .................. animas
   let ani = function () {
     // .................. pics
-    let tim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
     const sqrt2 = Math.sqrt(2)
 
     let form = {
@@ -74,7 +74,7 @@ async function anitem (__mapper) {
       halo: 'turnform',
 
       eofold: p => muonGraticule.vhMultiLine(p.geoframe),
-      tim,
+      eotim,
 
       eodrift: {
         proform: {
@@ -116,7 +116,7 @@ async function anitem (__mapper) {
           )
         )
       },
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
       eochrom: { 'csx': 0, 'cf': [[[555, 333, 555, 333, 555, 333, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
 

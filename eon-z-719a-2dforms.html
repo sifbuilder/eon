@@ -21,7 +21,7 @@ async function anitem (__mapper) {
   let ani = function () {
     // .................. pics
 
-    let tim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
     let eochrom = { csx: 0, cf: 777, cs: 222, cw: 1.7, co: 0.7, cp: 0.5}
     let eofold = {type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0]}, properties: {pointRadius: 6}}
 
@@ -76,12 +76,12 @@ async function anitem (__mapper) {
         eodrift: {
           proform: {projection: 'uniwen', scale: 1, rotate: [ 0, 0, 0 ], translate: [150 - 300, 100 - 200, 0] }
         },
-      payload: {tim,
+      payload: {eotim,
       },
     },
     let p2 = {
       halo: 'turnform',
-        tim,
+        eotim,
         eofold: p => muonNatform.natFeature(f2),
         eochrom,
         eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p2'},
@@ -93,7 +93,7 @@ async function anitem (__mapper) {
     },
     let p3 = {
       halo: 'turnform',
-        tim,
+        eotim,
         eofold: p => muonNatform.natFeature(f3),
         eochrom,
         eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p3'},
@@ -105,7 +105,7 @@ async function anitem (__mapper) {
     },
     let p4 = {
       halo: 'turnform',
-        tim,
+        eotim,
         eofold: p => muonNatform.natFeature(f4),
         eochrom,
         eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p4'},
@@ -117,7 +117,7 @@ async function anitem (__mapper) {
     },
     let p5 = {
       halo: 'turnform',
-        tim,
+        eotim,
         eofold: p => muonNatform.natFeature(f5),
         eochrom,
         eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p5'},
@@ -129,7 +129,7 @@ async function anitem (__mapper) {
     },
     let p6 = {
       halo: 'turnform',
-        tim,
+        eotim,
         eofold: p => muonNatform.natFeature(f6),
         eochrom,
         eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p6'},
@@ -141,7 +141,7 @@ async function anitem (__mapper) {
     },
     let p7 = {
       halo: 'turnform',
-        tim,
+        eotim,
         eofold: p => muonNatform.natFeature(f7),
         eochrom,
         eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p7'},
@@ -153,7 +153,7 @@ async function anitem (__mapper) {
     },
     let p8 = {
       halo: 'turnform',
-        tim,
+        eotim,
         eofold: p => muonNatform.natFeature(f8),
         eochrom,
         eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p8'},
@@ -169,7 +169,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
         eofold: null,
-        tim: tim,
+        eotim: eotim,
         eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

@@ -32,7 +32,7 @@ async function anitem (__mapper) {
   // .................. animas
   let ani = function () {
     // .................. pics
-    let tim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     // md:   data from m.animas('shapes').rhyno unframed
     // md:   defined as (closed) LineString gemetry.coordinates
@@ -72,7 +72,7 @@ async function anitem (__mapper) {
           coordinates: []},
         properties: {},
       },
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
       payload: {},
@@ -101,7 +101,7 @@ async function anitem (__mapper) {
         properties: {},
       },
 
-      tim,
+      eotim,
       eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
       eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
@@ -164,7 +164,7 @@ async function anitem (__mapper) {
 
       eofold: p => transformsFC,
 
-      tim: tim,
+      eotim: eotim,
       eoric: { gid: 'fourier', cid: 'fourier', fid: 'fourier'},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.095, 'co': 0.092, 'cp': 0.99},
 
@@ -190,7 +190,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

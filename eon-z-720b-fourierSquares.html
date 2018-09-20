@@ -28,7 +28,7 @@ async function anitem (__mapper) {
   // .................. animas
   let ani = function () {
     // .................. pics
-    let tim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     // md:     data is svg MCZ...MCZ
     let svgdata = {
@@ -69,7 +69,7 @@ async function anitem (__mapper) {
           cs.geometry.type = 'MultiPoint' // switch to MultiPoint
           return cs
         },
-        tim: tim,
+        eotim: eotim,
         eoric: {gid: 'ani', cid: 'ani', fid: 'aniDotted' + i},
         eochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.5, 'co': 0.9, 'cp': 0.999},
       },
@@ -85,7 +85,7 @@ async function anitem (__mapper) {
         return cs
       },
       pointRadius: 3,
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'ani', 'cid': 'ani', 'fid': 'aniLine' + i},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.3, 'co': 0.009, 'cp': 0.999},
       payload: {
@@ -98,7 +98,7 @@ async function anitem (__mapper) {
 
       halo: 'turnform',
       eofold: {type: 'Feature', geometry: {type: 'LineString', coordinates: []}, properties: {}},
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniRay' + i},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 444, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
       payload: {
@@ -113,7 +113,7 @@ async function anitem (__mapper) {
       eofold: {
         type: 'Feature', geometry: {type: 'MultiPoint', coordinates: []}, properties: {}},
 
-      tim: tim,
+      eotim: eotim,
       eoric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniTrace' + i},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
       payload: {
@@ -175,7 +175,7 @@ async function anitem (__mapper) {
         return { type: 'FeatureCollection', features: transforms }
       },
 
-      tim: tim,
+      eotim: eotim,
       eoric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier' + i},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99},
       payload: { // FOURIER TRANSFORM in payload.fourier.transform
@@ -211,7 +211,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

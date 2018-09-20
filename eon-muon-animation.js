@@ -14,14 +14,14 @@
       mprops,
       muonStore,
       msim,
-      mtim,
+      muonEotim,
       rsvg,
       ctimer,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('store'),
       __mapper('xs').m('sim'),
-      __mapper('xs').m('tim'),
+      __mapper('xs').m('eotim'),
       __mapper('xs').r('svg'),
       __mapper('xs').c('timer'),
     ]
@@ -128,17 +128,17 @@
       state.animas = mprops.a(muonStore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
-        anima.tim = mtim.timing(anima.tim, elapsed) // set time
+        anima.eotim = muonEotim.timing(anima.eotim, elapsed) // set time
 
-        if (elapsed > anima.tim.limit + anima.tim.msStart) {
+        if (elapsed > anima.eotim.limit + anima.eotim.msStart) {
           anima.delled = 1 // crop by time
         }
       }
 
       // ............................. @STOP
-      let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.tim.limit + item.tim.msStart), 0)
+      let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.eotim.limit + item.eotim.msStart), 0)
 
-      let nostop = state.animas.reduce((pre, item) => (pre || item.tim.nostop), false)
+      let nostop = state.animas.reduce((pre, item) => (pre || item.eotim.nostop), false)
 
       if (!nostop && (isNaN(maxlimit) ||
             (maxlimit > 0 && elapsed > maxlimit) || // stop if spired

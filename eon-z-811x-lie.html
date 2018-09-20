@@ -52,7 +52,7 @@ async function anitem (__mapper) {
     let exp = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
 
     // ............................. pics
-    let tim = {'td': 18600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
+    let eotim = {'td': 18600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
 
     let conformLine = {
       'x': {
@@ -192,7 +192,7 @@ async function anitem (__mapper) {
     let hyperAni = {
       halo: 'turnform',
       eofold: p => muonNatform.natFeature(p.eoform),
-      tim,
+      eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
       eodrift: {
         proform: {
@@ -214,7 +214,7 @@ async function anitem (__mapper) {
     let sphereAni1 = {
       halo: 'turnform',
       eofold: p => muonNatform.natFeature(p.eoform),
-      tim,
+      eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q21'},
       eodrift: {
         proform: {
@@ -236,7 +236,7 @@ async function anitem (__mapper) {
     let sphereAni2 = {
       halo: 'turnform',
       eofold: p => muonNatform.natFeature(p.eoform),
-      tim,
+      eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q22'},
       eodrift: {
         proform: {
@@ -258,7 +258,7 @@ async function anitem (__mapper) {
     let lineAni = {
       halo: 'turnform',
       eofold: p => muonNatform.natFeature(p.eoform),
-      tim,
+      eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q4'},
       eodrift: {
         proform: {
@@ -280,7 +280,7 @@ async function anitem (__mapper) {
     let torusAni1 = {
       halo: 'turnform',
       eofold: p => muonNatform.natFeature(p.eoform),
-      tim,
+      eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q31'},
       eodrift: {
         proform: {
@@ -302,7 +302,7 @@ async function anitem (__mapper) {
     let torusAni2 = {
       halo: 'turnform',
       eofold: p => muonNatform.natFeature(p.eoform),
-      tim,
+      eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q32'},
       eodrift: {
         proform: {
@@ -325,7 +325,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

@@ -20,7 +20,7 @@ async function anitem (__mapper) {
   // .................. animas
   let ani = function () {
     // .................. pics
-    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
     let formFuel = {
 
       'x': {
@@ -86,7 +86,7 @@ async function anitem (__mapper) {
       halo: 'natform',
       eofold: null,
       eoric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
-      tim,
+      eotim,
       eochrom,
       eodrift: {
         proform,
@@ -102,7 +102,7 @@ async function anitem (__mapper) {
       halo: 'natform',
       eofold: null,
       eoric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natFlat'},
-      tim,
+      eotim,
       eochrom,
       eodrift: {
         proform: proformFlat,
@@ -117,7 +117,7 @@ async function anitem (__mapper) {
 
       halo: 'fuel',
       eofold: p => muonNatform.natFeature(p.eoform),
-      tim,
+      eotim,
       eoric: {'gid': 'fuel', 'cid': 'fuel'},
       eochrom: geochromFuel,
       eoform: formFuel,
@@ -138,7 +138,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

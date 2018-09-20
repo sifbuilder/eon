@@ -34,7 +34,7 @@ async function anitem (__mapper) {
   // .................. animas
   let ani = function () {
     // .................. pics
-    let tim = {'td': 43800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 43800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let svgdata = dlicht5.data()
     let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
@@ -76,7 +76,7 @@ async function anitem (__mapper) {
           eofold = ani.eofold, // eofold
           payload = ani.payload // payload
 
-        let unitElapsed = ani.tim.unitElapsed // unit time elapsed
+        let unitElapsed = ani.eotim.unitElapsed // unit time elapsed
         let t = ani.payload.tf(unitElapsed) || unitElapsed // time function
 
         let nbt = Math.ceil(nb * t)
@@ -128,7 +128,7 @@ async function anitem (__mapper) {
         return newFeatureCollection
       },
 
-      tim: tim,
+      eotim: eotim,
       eoric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier'},
       eochrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.72, 'cp': 0.7},
       payload: { // payload in polyForm
@@ -142,7 +142,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

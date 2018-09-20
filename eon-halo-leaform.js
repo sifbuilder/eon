@@ -57,7 +57,7 @@
       let newAnigrams = gjcollection.features.map((feature, i) => {
         feature = muonEochrom.geochromer(anigram, feature)
 
-        feature.properties.tim = anigram.tim // tim in eofold
+        feature.properties.eotim = anigram.eotim // eotim in eofold
         feature.properties.vim = anigram.payload.vim // vim in eofold to render
         feature.properties.sort = feature.properties.sort || 'feature' // svg sort
 

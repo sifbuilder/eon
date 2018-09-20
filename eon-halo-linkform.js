@@ -37,7 +37,7 @@
       let eoric = avatar.eoric
       linkItem.eoric = eoric
       linkItem.sort = 'curve'
-      linkItem.tim = avatar.tim
+      linkItem.eotim = avatar.eotim
       let lf 	= linkItem.pic.form.lf || 0
 
       linkItem.stream = props.lib.diagonalp(form, lf)

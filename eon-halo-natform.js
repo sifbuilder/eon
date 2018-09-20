@@ -21,7 +21,7 @@
       muonNatform,
       haloTurnform,
       muonEochrom,
-      muonTim,
+      muonEotim,
       muonEoric,
       muonEonode,
       muonProfier,
@@ -31,7 +31,7 @@
       __mapper('xs').m('natform'),
       __mapper('xs').h('turnform'),
       __mapper('xs').m('eochrom'),
-      __mapper('xs').m('tim'),
+      __mapper('xs').m('eotim'),
       __mapper('xs').m('eoric'),
       __mapper('xs').m('eonode'),
       __mapper('xs').m('profier'),
@@ -40,16 +40,16 @@
     ])
 
     
-    // tim definition
+    // eotim definition
     
-    let gettim = function( tim ) {
+    let gettim = function( eotim ) {
       
       let res = {}
-      let ref = muonTim.getdefault()
-      if (tim === undefined) {
+      let ref = muonEotim.getdefault()
+      if (eotim === undefined) {
         res = ref
       } else {
-        res = Object.assign({ ...ref }, tim)
+        res = Object.assign({ ...ref }, eotim)
       }
       return res
       

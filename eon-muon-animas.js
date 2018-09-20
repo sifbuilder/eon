@@ -14,14 +14,14 @@
       mprops,
       muonStore,
       msim,
-      mtim,
+      muonEotim,
       rsvg,
       ctimer,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('store'),
       __mapper('xs').m('sim'),
-      __mapper('xs').m('tim'),
+      __mapper('xs').m('eotim'),
       __mapper('xs').r('svg'),
       __mapper('xs').c('timer'),
     ]

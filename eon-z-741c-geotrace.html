@@ -23,7 +23,7 @@ async function anitem (__mapper) {
   let ani = function () {
     // .................. pics
 
-    let tim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let natStace = {
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // ellipse
@@ -54,7 +54,7 @@ async function anitem (__mapper) {
         },
       }),
 
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
       eodrift: {
@@ -97,7 +97,7 @@ async function anitem (__mapper) {
         properties: {},
       },
 
-      tim,
+      eotim,
       eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
       eochrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
@@ -158,7 +158,7 @@ async function anitem (__mapper) {
 
       halo: 'scene',
       eofold: null,
-      tim: tim,
+      eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       payload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

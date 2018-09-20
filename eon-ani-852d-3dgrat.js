@@ -28,7 +28,7 @@
 
     let ani = function () {
       // .................. pics
-      let tim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
+      let eotim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
 
       // .................. gratiform
       let natform = {
@@ -36,7 +36,7 @@
         halo: 'turnform',
         eofold: p => muonNatform.natFeature(p.eoform),
 
-        tim: tim,
+        eotim: eotim,
         eoric: {gid: 'nat', cid: 'nat', fid: 'natform'},
         eochrom: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
 
@@ -72,7 +72,7 @@
 
         halo: 'scene',
         eofold: null,
-        tim: tim,
+        eotim: eotim,
         eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
         payload: {
           context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},

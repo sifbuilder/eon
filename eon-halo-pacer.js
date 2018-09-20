@@ -33,7 +33,7 @@
   // `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, ani)`
   // usage: `payload.pacer.autoSitus(anigram)`
   // autositus in zindex: `function(a) {return muonStace.getLocus(this.stace, ani) }` gets `ani.p.pacer.stance`
-  // auto time is `a.p.tim.unitPassed - a.p.pacer.outed`
+  // auto time is `a.p.eotim.unitPassed - a.p.pacer.outed`
   // `@a.p.pacer.eventSitus` : situs for event items
   // `count` new items to pacer from init, auto and event
 
@@ -78,7 +78,7 @@
       let halo = anitem.halo,
         payload = anitem.payload,
         eoric = anitem.eoric,
-        tim = anitem.tim
+        eotim = anitem.eotim
 
       let pacer = payload.pacer || {}, // pacer
         mousesignal = pacer.mousesignal || 0, // mousesignal
@@ -138,13 +138,13 @@
 
       // cycletime since last outed item, relevant if auto
 
-      let cycletime = tim.unitPassed - (pacer.outed || 0)
+      let cycletime = eotim.unitPassed - (pacer.outed || 0)
 
       // if the cycletime is longer than auto pace
       //  and unitPassed is beyong autoT ...
 
       if (cycletime >= pacer.autoP &&
-            tim.unitPassed > (pacer.autoT || 0)
+            eotim.unitPassed > (pacer.autoT || 0)
       ) {
         count.auto = Math.floor(pacer.autoN) // count AUTO
 
@@ -159,9 +159,9 @@
 
         paceanima.payload.pacer.inited = 1 //  inited
 
-        // set pacer.outed: item was outed at tim.unitPassed time
+        // set pacer.outed: item was outed at eotim.unitPassed time
 
-        paceanima.payload.pacer.outed = tim.unitPassed // updated with anima
+        paceanima.payload.pacer.outed = eotim.unitPassed // updated with anima
 
         // if in auto mode, pace on each cycle
         // save anitem to preserve inited and outed
