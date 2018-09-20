@@ -39,14 +39,14 @@
     const getgj = ani => {
       let gj = muonProps.v(ani.eofold, ani)
       gj.properties = gj.properties || {} // eofold properties
-      gj.properties.geoformed = muonGeoj.deprop(gj)
+      // gj.properties.geoformed = muonGeoj.deprop(gj)
       // gj.properties.eonode = gj.properties.eonode || {}
       // gj.properties.nodeGeoformed = gj.properties.eonode
       return gj
     }
 
     // ............................. gramm
-    function eohaling (anigram) {
+    function eohale (anigram) {
       let gj = getgj(anigram)
       let gjcollection = muonGeoj.featurecollect(gj)
 
@@ -58,7 +58,6 @@
         feature = muonEochrom.geochromer(anigram, feature)
 
         feature.properties.eotim = anigram.eotim // eotim in eofold
-        feature.properties.vim = anigram.eoload.vim // vim in eofold to render
         feature.properties.sort = feature.properties.sort || 'feature' // svg sort
 
         let newAnigram = {
@@ -79,12 +78,12 @@
     }
 
     // ............................. ween
-    let gramm = anitem => eohaling(anitem)
+    let gramm = anitem => eohale(anitem)
 
     // ............................. ween
     let ween = anitem => {
-      if (anitem.inited !== undefined) {
-        anitem.inited = 1
+      if (anitem.eoinited !== undefined) {
+        anitem.eoinited = 1
         return muonProps.a(anitem)
       } else {
         return []

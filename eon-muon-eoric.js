@@ -17,8 +17,8 @@
     // aid: anima id
     // nid: number id
     // uid: unique id
-    // delled: is deleted {0,1}
-    // inited: is inited {0,1}
+    // eodelled: is deleted {0,1}
+    // eoinited: is eoinited {0,1}
     // gelded: is gelded {0,1} - no further replication
     // sort: render sort
 
@@ -104,6 +104,9 @@
           _ric.gid = eoric.gid // eoric from param eoric
           _ric.cid = eoric.cid
           _ric.fid = eoric.fid
+          _ric.nid = i
+          
+          feature.properties.uid = getuid(feature.properties.eoric)
 
           if (eoric.fid === undefined) _ric.fid = eoric.cid + (i || '')
           else if (typeof eoric.fid === 'function') _ric.fid = eoric.fid(i, eoric, anigram)
@@ -111,9 +114,6 @@
 
           feature.properties.eoric = _ric
 
-          feature.properties.uid = getuid(feature.properties.eoric)
-          // feature.id = feature.properties.uid
-          feature.properties.nid = i
         }
         json.features = features
       } else {

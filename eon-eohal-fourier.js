@@ -99,7 +99,7 @@
           let cid = eoric.cid
           let fid = fidder(eoric.fid, j, i)
 
-          //  del item if outside time period (eoric.delled = 1)
+          //  del item if outside time period (eoric.eodelled = 1)
 
           let _ric = {gid, cid, fid} // is DELLED ?
           let _uid = muonEoric.getuid(_ric) // uid
@@ -109,7 +109,7 @@
           let newItem = muonProps.cloneObj(anigram)
 
           newItem.eohal = 'natform' // eohal.turnform
-          newItem.delled = tNotInPeriod
+          newItem.eodelled = tNotInPeriod
 
           newItem.eofold = {
             type: 'Feature', // tfeature
@@ -160,11 +160,11 @@
               let cid = rayline.eoric.cid
               let fid = fidder(rayline.eoric.fid, j, i)
 
-              // md: del item outside time period (eoric.delled = 1)
+              // md: del item outside time period (eoric.eodelled = 1)
               let _ric = {gid, cid, fid} // is DELLED ?
               let uid = muonEoric.getuid(_ric) // uid
               rayline.eoric = _ric
-              rayline.delled = tNotInPeriod
+              rayline.eodelled = tNotInPeriod
 
               // newItem.avatars = {rayline: rayline} // ADD RAYLINE
             }
@@ -230,7 +230,7 @@
       return anigrams
     }
     // .................... ween
-    let ween = anitem => (anitem.inited !== 1) ? (anitem.inited = anitem.gelded = 1, [anitem]) : []
+    let ween = anitem => (anitem.eoinited !== 1) ? (anitem.eoinited = anitem.gelded = 1, [anitem]) : []
 
     // .................... eohal
     let eohal = {

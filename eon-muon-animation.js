@@ -131,7 +131,7 @@
         anima.eotim = muonEotim.timing(anima.eotim, elapsed) // set time
 
         if (elapsed > anima.eotim.limit + anima.eotim.msStart) {
-          anima.delled = 1 // crop by time
+          anima.eodelled = 1 // crop by time
         }
       }
 

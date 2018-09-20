@@ -20,7 +20,8 @@
     var state = {}
 
     // ............................. breed
-    function breed (anima) {
+    function eohale (anima) {
+      
       let newItems = []
 
       let fromAnima = muonStore.findAnimaFromUid(avatar.eoload.from)
@@ -34,11 +35,12 @@
       }
 
       let linkItem = {}
+      
       let eoric = avatar.eoric
       linkItem.eoric = eoric
       linkItem.sort = 'curve'
       linkItem.eotim = avatar.eotim
-      let lf 	= linkItem.pic.form.lf || 0
+      let lf 	= linkItem.eoload.link.lf || 0
 
       linkItem.stream = props.lib.diagonalp(form, lf)
 
@@ -54,11 +56,17 @@
       return newItems
     }
 
-    // ....................... ween
-    let ween = anitem => (anitem.inited !== 1) ? (anitem.inited = anitem.gelded = 1, Array.of(anitem)) : []
 
     // ....................... gramm
-    let gramm = anitem => Array.of(anitem)
+    let gramm = anitem => {
+      return Array.of(anitem)
+    }
+
+    // ....................... ween
+    let ween = anitem => {
+      let newItems = eohale(anitem)      
+      return Array.of(newItems)
+    }
 
     // ....................... linkform
     let linkform = {

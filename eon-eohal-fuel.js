@@ -97,7 +97,7 @@
 
     // .................... enty
     let eohalFuel = {}
-    eohalFuel.ween = anima => (anima.inited !== 1) ? (anima.inited = 1, [anima]) : []
+    eohalFuel.ween = anima => (anima.eoinited !== 1) ? (anima.eoinited = 1, [anima]) : []
     eohalFuel.gramm = anima => gramm(anima)
 
     let enty = eohalFuel

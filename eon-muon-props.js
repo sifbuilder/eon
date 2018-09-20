@@ -150,7 +150,7 @@
     props.clone = d => {
       let clone = d
       if (typeof d === 'object') clone = props.cloneObj(d)
-      else if (array.isArray(d)) clone = props.cloneArray(d)
+      else if (Array.isArray(d)) clone = props.cloneArray(d)
       return clone
     }
 

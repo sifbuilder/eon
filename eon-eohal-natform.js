@@ -137,7 +137,7 @@
     }
 
     // .................... ween
-    let ween = anitem => (anitem.inited !== 1) ? (anitem.inited = anitem.gelded = 1, [anitem]) : []
+    let ween = anitem => (anitem.eoinited !== 1) ? (anitem.eoinited = anitem.gelded = 1, [anitem]) : []
 
     // .................... eohal
     let eohalNatform = {}

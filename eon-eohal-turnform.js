@@ -31,8 +31,8 @@
 
     ])
 
-    // ............................. eohaling
-    function eohaling (anitem) {
+    // ............................. eohale
+    function eohale (anitem) {
       console.assert(typeof anitem === 'object')
       console.assert(Array.isArray(anitem) === false)
 
@@ -83,15 +83,15 @@
 
     // ............................. gramm
     let gramm = anitem => {
-      let newItem = eohaling(anitem)
+      let newItem = eohale(anitem)
       let newAnitems = eohalLeaform.gramm(newItem)
       return newAnitems
     }
 
     // ............................. ween
     let ween = anitem => {
-      if (anitem.inited === undefined) {
-        anitem.inited = 1
+      if (anitem.eoinited === undefined) {
+        anitem.eoinited = 1
         return muonProps.v(anitem)
       } else {
         return []

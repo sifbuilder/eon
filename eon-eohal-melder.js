@@ -106,7 +106,7 @@
 
       // init, melder.initN
 
-      if (melder.inited === undefined || melder.inited !== 1) {
+      if (melder.eoinited === undefined || melder.eoinited !== 1) {
         count.init = Math.floor(melder.initN) // count INIT
       }
 
@@ -129,20 +129,20 @@
           paceanima = parentanima // melder in avatar
         }
 
-        // set inited: the anitem has started the melder
+        // set eoinited: the anitem has started the melder
 
-        paceanima.eoload.melder.inited = 1 //  inited
+        paceanima.eoload.melder.eoinited = 1 //  eoinited
 
         // set melder.outed: item was outed at eotim.unitPassed time
 
         paceanima.eoload.melder.outed = eotim.unitPassed // updated with anima
 
         // if in auto mode, pace on each cycle
-        // save anitem to preserve inited and outed
+        // save anitem to preserve eoinited and outed
 
         let animas = Array.of(paceanima)
 
-        // save anima .......... to persist inited and outed
+        // save anima .......... to persist eoinited and outed
 
         muonStore.apply({type: 'UPDANIMA', caller: 'h.melder', animas: animas})
       }

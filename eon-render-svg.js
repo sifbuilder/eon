@@ -165,8 +165,6 @@
         .key(function (d) { return d.properties.eoric.cid })
         .entries(features) // features
 
-console.log('gitems', gitems)        
-        
       for (let i in gitems) { // DOTS (seg5===0) each group gid
         let gid = gitems[i].key,
           citems = gitems[i].values
@@ -230,7 +228,7 @@ console.log('gitems', gitems)
           /*  ................. IMG ................. */
           let imgs = fitems
             .filter(d => d.properties.sort === 'img') // __ imgs __
-            .filter((d, i) => (d.properties.delled !== 1)) // not delled
+            .filter((d, i) => (d.properties.eodelled !== 1)) // not eodelled
 
           if (imgs.length > 0) {
             svgelems('svg:g.' + gid + '/image.' + cid, imgs, d => d.id)
@@ -264,8 +262,8 @@ console.log('gitems', gitems)
           /*  ................. AXES ................. */
           let axes = fitems
             .filter(d => d.properties.sort === 'axis') // __ axis __
-            .filter((d, i) => (d.properties.delled !== 1)) // not delled
-            .filter((d, i) => (d.properties.eoric.delled !== 1)) // not delled
+            .filter((d, i) => (d.properties.eodelled !== 1)) // not eodelled
+            .filter((d, i) => (d.properties.eoric.eodelled !== 1)) // not eodelled
 
           if (axes.length > 0) {
             for (let k = 0; k < axes.length; k++) {
@@ -314,8 +312,8 @@ console.log('gitems', gitems)
             .filter(d => d.properties.sort === 'feature' ||
               d.properties.sort === 'form'
             )
-            .filter((d, i) => (d.properties.delled !== 1)) // not delled
-            .filter((d, i) => (d.properties.eoric.delled !== 1)) // not delled
+            .filter((d, i) => (d.properties.eodelled !== 1)) // not eodelled
+            .filter((d, i) => (d.properties.eoric.eodelled !== 1)) // not eodelled
 
           if (features.length > 0) { // _e_
             svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.uid) // elems

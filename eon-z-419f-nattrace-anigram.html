@@ -1,0 +1,162 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    eohalScene,
+    ctlWen,
+    muonNatform,
+    muonStace,
+    ctlRayder,
+    eohalTurnform,
+    eohalNatform,
+    eohalPacer,
+    eohalTextform,
+    prtUniwen,
+  ] = await Promise.all([
+    __mapper('xs').e('scene'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').m('stace'),
+    __mapper('xs').c('rayder'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('pacer'),
+    __mapper('xs').e('textform'),
+    __mapper('xs').p('uniwen'),
+  ])
+  let muonStore = __mapper('muonStore')
+
+  // .................. animas
+  let ani = function () {
+    // .................. pics
+    let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    // ....................... pacerNat
+    let pacerNat = {
+
+      eohal: 'pacer',
+
+      eotim: eotim,
+
+      eoric: { gid: 'natpace', cid: 'natpace', fid: 'natpace', },
+      
+      eofold:{
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+      },
+      
+      eonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+      },
+
+      eodrift: {
+        proform: {
+          projection: 'uniwen',
+          translate: [0, 0, 0],
+          scale: 1,
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+          anod: 1, // eonode
+        },
+      },
+
+      eochrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
+          eoform: {
+            'x': {
+              'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+              'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
+            },
+            'y': {
+              'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
+              'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
+            },
+          },
+      eoload: {
+        pacer: {
+
+          initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0,
+
+          eohal: 'natform',
+
+          geosort: 'anigram',
+          geobase: '',
+          geoaad: 0,
+          
+          eofold: p => muonNatform.natFeature(p.eoform),
+          
+          eonode: function (ani, props) {
+            let stace = [0, 0, 0]
+            if (props.key === 'init') { // INIT
+              // stace is ani's transformed eonode
+              // stace = muonStace.getLocus([null, null, null], ani)
+              stace = [0, 0, 0]
+            } else if (props.key === 'auto') { // AUTO
+              stace = [0, 0, 0]
+            } else if (props.key === 'event') { // EVENT
+              if (ctlRayder.grabbed() !== undefined) {
+                let grabbed = ctlRayder.grabbed()
+                let x = grabbed[0]
+                let y = grabbed[1]
+                let z = 0
+                stace = {x, y, z }
+              }
+            }
+
+            let coordinates = stace
+            let res = {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: coordinates,
+              },
+              properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+            }
+            return res
+          },
+
+
+
+        },
+      },
+    }
+
+    // .................. sceneAni
+    let sceneAni = {
+
+      eohal: 'scene',
+      eofold: null,
+      eotim: eotim,
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoload: {
+        context: {svg: 1, versor: 0, wen: 0, webgl: 0, bck: 1, ray: 1},
+      },
+
+    }
+
+    // .................. animas
+    let animas = [
+      pacerNat, // h.pacer
+      // sceneAni, // h.scene
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

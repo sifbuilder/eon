@@ -72,8 +72,8 @@
             .filter(d => d.properties.sort === 'feature' ||
               d.properties.sort === 'form'
             )
-            .filter((d, i) => (d.properties.delled !== 1)) // not delled
-            .filter((d, i) => (d.properties.eoric.delled !== 1)) // not delled
+            .filter((d, i) => (d.properties.eodelled !== 1)) // not eodelled
+            .filter((d, i) => (d.properties.eoric.eodelled !== 1)) // not eodelled
 
           if (features.length > 0) {
             for (let k in features) { // DOTS (seg5===0) each group gid

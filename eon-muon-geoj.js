@@ -412,7 +412,6 @@
         if (2 && 2) console.log('** gj is not FeatureCollection')
         return gj
       }
-
       let zordered = features
         .map(d => {
           d.properties = d.properties || {}
@@ -436,7 +435,7 @@
           return d
         })
         .sort((a, b) => a.properties.zorder - b.properties.zorder) // z order
-        .map((d, i) => { d.properties.nid = i; return d }) // sequential ordinal
+        // .map((d, i) => { d.properties.eoric.nid = i; return d }) // sequential ordinal
 
       gj.features = zordered
 

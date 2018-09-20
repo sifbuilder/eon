@@ -76,7 +76,7 @@
     }
 
     // .................. ween
-    let ween = anima => (anima.inited !== 1) ? (anima.inited = anima.gelded = 1, [anima]) : []
+    let ween = anima => (anima.eoinited !== 1) ? (anima.eoinited = anima.gelded = 1, [anima]) : []
 
     // .................. eohal
     let eohal = {

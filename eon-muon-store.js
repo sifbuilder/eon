@@ -106,7 +106,7 @@
 
           let index = enty.findFromUid(uid, state.animas)
           if (index !== -1) { // anima exists
-            if (updAnima.delled === 1) {
+            if (updAnima.eodelled === 1) {
               state.animas.splice(index, 1) // delete anima
             } else {
               state.animas[index] = updAnima // replace
@@ -114,7 +114,7 @@
           } else { // new anima
             updAnima.eotim = muonEotim.timing(updAnima.eotim, elapsed) // set eotim elapsed
             updAnima.uid = uid // set uid if new anima
-            updAnima.nid = enty.getNid() // node id in animas collection
+            updAnima.eoric.nid = enty.getNid() // node id in animas collection
 
             state.aniset[updAnima.uid] = updAnima // set new anima by uid
             state.animas[state.animas.length] = updAnima // register new anima
@@ -303,8 +303,8 @@
 
     enty.animas = () => state.animas
     enty.anigrams = () => state.anigrams
-    enty.animasAll = () => state.animas // animas including delled
-    enty.animasLive = () => state.animas.filter(d => d.delled !== 1 && d.delled !== true)
+    enty.animasAll = () => state.animas // animas including eodelled
+    enty.animasLive = () => state.animas.filter(d => d.eodelled !== 1 && d.eodelled !== true)
     enty.token = () => state.animas.length + 1
     enty.getNid = () => state.animas.length + 1
 

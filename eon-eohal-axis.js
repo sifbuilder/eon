@@ -70,7 +70,7 @@
 
     // ............................. enty
     let eohalAxis = {}
-    eohalAxis.ween = anima => (anima.inited !== 1) ? (anima.inited = 1, [anima]) : []
+    eohalAxis.ween = anima => (anima.eoinited !== 1) ? (anima.eoinited = 1, [anima]) : []
     eohalAxis.gramm = anima => gramm(anima)
 
     let enty = eohalAxis

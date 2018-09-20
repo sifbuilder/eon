@@ -72,7 +72,7 @@
     let rsvg = __mapper('renderSvg')
 
     // ............................. pacer
-    function eohaling (anitem) {
+    function eohale (anitem) {
       let newItems = []
 
       let eohal = anitem.eohal,
@@ -99,12 +99,16 @@
       let animas = muonStore.animas()
       let anigrams = muonStore.anigrams()
 
+      
+      // the anima is the pacer anitem uid
+      
       let anima = muonStore.findAnimaFromUid(uidAnima)
 
       // the anigram is the trace anigram
 
-      let anigram = muonStore.findAnigramFromUid(uidAnigram)
-
+      let anigram = anitem
+      
+      
       // the parent anima
 
       let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
@@ -132,7 +136,7 @@
 
       // init, pacer.initN
 
-      if (pacer.inited === undefined || pacer.inited !== 1) {
+      if (pacer.eoinited === undefined || pacer.eoinited !== 1) {
         count.init = Math.floor(pacer.initN) // count INIT
       }
 
@@ -155,20 +159,20 @@
           paceanima = parentanima // pacer in avatar
         }
 
-        // set inited: the anitem has started the pacer
+        // set eoinited: the anitem has started the pacer
 
-        paceanima.eoload.pacer.inited = 1 //  inited
+        paceanima.eoload.pacer.eoinited = 1 //  eoinited
 
         // set pacer.outed: item was outed at eotim.unitPassed time
 
         paceanima.eoload.pacer.outed = eotim.unitPassed // updated with anima
 
         // if in auto mode, pace on each cycle
-        // save anitem to preserve inited and outed
+        // save anitem to preserve eoinited and outed
 
         let animas = Array.of(paceanima)
 
-        // save anima .......... to persist inited and outed
+        // save anima .......... to persist eoinited and outed
 
         muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: animas})
       }
@@ -206,6 +210,8 @@
               newItem = muonProps.clone(anigram) // anigram
 
             }
+            if (1 && 1) console.log('newItem', newItem)
+
             delete newItem.eoload
 
             // NOT pacer.AAD if not pacer.add, pacer generates anitems
@@ -229,7 +235,6 @@
               newItemsInCount = muonProps.a(newItemsInCount)
               newItems = [...newItems, ...newItemsInCount] // add items
               muonStore.apply({type: 'UPDANIMA', animas: newItems}) // store           
-console.log(' ----------- newItem', newItem)
             } else {
 
               let newItemsInCount = muonProps.a(eohal.gramm(newItem))
@@ -245,7 +250,7 @@ console.log(' ----------- newItem', newItem)
     // ............................. ween
     function ween (anitem) {
       if (anitem.eoload.pacer.geosort === 'anima') {
-        return eohaling(anitem)
+        return eohale(anitem)
       } else {
         return Array.of(anitem)
       }
@@ -256,7 +261,7 @@ console.log(' ----------- newItem', newItem)
       if (anitem.eoload.pacer.geosort === 'anima') {
         return Array.of(anitem)
       } else {
-        return eohaling(anitem)
+        return eohale(anitem)
       }
     }
 
