@@ -130,7 +130,7 @@ async function anitem (__mapper) {
     let torusAni1 = {
 
       halo: 'eoform',
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q1'},
       geodrift: {
@@ -146,8 +146,8 @@ async function anitem (__mapper) {
       },
       geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.0009, 0.00099]]], 'cp': [[[0.0099, 0.0099]]]},
-      payload: {
         geoform: conformTorus1,
+      payload: {
       },
     }
 
@@ -155,7 +155,7 @@ async function anitem (__mapper) {
     let torusAni2 = {
 
       halo: 'eoform',
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q2'},
       geodrift: {
@@ -171,8 +171,8 @@ async function anitem (__mapper) {
       },
       geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[999, 999, 999]]], 'cw': [[[3.9, 3.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9]]], 'cp': [[[0.99, 0.99]]]},
-      payload: {
         geoform: conformTorus2,
+      payload: {
       },
     }
 
@@ -196,7 +196,7 @@ async function anitem (__mapper) {
         },
         geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
           'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-        geofold: p => muonNatform.natFeature(p.payload.geoform),
+        geofold: p => muonNatform.natFeature(p.geoform),
         geoform: conformTorus3,
       },
     }

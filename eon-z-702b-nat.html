@@ -57,7 +57,7 @@ async function anitem (__mapper) {
     let natform = {
 
       halo: 'eoform',
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
 
       tim: tim,
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
@@ -73,9 +73,9 @@ async function anitem (__mapper) {
           lens: [ 0, 1, Infinity ],
         },
       },
-      payload: {
 
         geoform: conform,
+      payload: {
       },
 
     }

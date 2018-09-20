@@ -112,12 +112,12 @@
     // .................... gramm
     let gramm = function (anitem) {
       
-      console.assert(anitem.payload.geoform !== undefined, 'geoform is undefined')
+      console.assert(anitem.geoform !== undefined, 'geoform is undefined')
 
       anitem.halo = 'natform'
 
 
-      let translate = gettranslate(anitem.payload.geoform)
+      let translate = gettranslate(anitem.geoform)
      
       let prt = {
         projection: 'uniwen',
@@ -127,10 +127,10 @@
         lens: [0, 1, Infinity],        
       }
 
-      anitem.geofold = muonNatform.natFeature(anitem.payload.geoform)
+      anitem.geofold = muonNatform.natFeature(anitem.geoform)
       anitem.geofold = muonProj3ct(anitem.geofold, muonProfier.formion(prt, anitem)) // geofold
    
-      if (anitem.geochrom === undefined) anitem.geochrom = getgeochrom(anitem.payload.geoform)        // geoform
+      if (anitem.geochrom === undefined) anitem.geochrom = getgeochrom(anitem.geoform)        // geoform
      
       
       return haloEoform.gramm(anitem)

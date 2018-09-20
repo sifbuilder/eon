@@ -91,8 +91,8 @@ async function anitem (__mapper) {
       geodrift: {
         proform,
       },
-      payload: {
         geoform: form,
+      payload: {
       },
 
     }
@@ -107,8 +107,8 @@ async function anitem (__mapper) {
       geodrift: {
         proform: proformFlat,
       },
-      payload: {
         geoform: form,
+      payload: {
       },
 
     }
@@ -116,12 +116,12 @@ async function anitem (__mapper) {
     let fuelnat = {
 
       halo: 'fuel',
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {'gid': 'fuel', 'cid': 'fuel'},
       geochrom: geochromFuel,
-      payload: {
         geoform: formFuel,
+      payload: {
         fuel: {
           ra2: 3,
           candidates: 5,

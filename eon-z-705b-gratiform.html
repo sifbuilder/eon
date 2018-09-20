@@ -61,7 +61,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule), // hMultiLine
+      geofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
 
       tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratiForm'},

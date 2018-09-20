@@ -162,7 +162,7 @@ async function anitem (__mapper) {
     // ............................. natAniRed
     let natAniRed = {
       halo: 'eoform',
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'qred'},
       geodrift: {
@@ -178,14 +178,14 @@ async function anitem (__mapper) {
         },
       },
       geochrom: geochromRed,
-      payload: {
         geoform: conformRed,
+      payload: {
       },
     }
     // ............................. natAniBlue
     let natAniBlue = {
       halo: 'eoform',
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'qblue'},
       geodrift: {
@@ -201,8 +201,8 @@ async function anitem (__mapper) {
         },
       },
       geochrom: geochromBlue,
-      payload: {
         geoform: conformBlue,
+      payload: {
       },
     }
     // .................. sceneAni

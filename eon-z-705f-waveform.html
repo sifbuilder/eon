@@ -163,6 +163,7 @@ async function anitem (__mapper) {
         },
         proform: waveProform,
       },
+        geoframe: waveFrame,
       payload: {
 
         fibonat: {
@@ -173,7 +174,6 @@ async function anitem (__mapper) {
           goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
         },
 
-        graticule: waveFrame,
 
       },
 
@@ -194,6 +194,7 @@ async function anitem (__mapper) {
 
         proform: waveProform2,
       },
+        geoframe: waveFrame,
       payload: {
 
         fibonat: {
@@ -204,7 +205,6 @@ async function anitem (__mapper) {
           goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
         },
 
-        graticule: waveFrame,
 
       },
 
@@ -214,7 +214,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule), // hMultiLine
+      geofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
 
       tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereAni'},
@@ -224,8 +224,8 @@ async function anitem (__mapper) {
 
       proform: sphereProform,
 
+        geoframe: sphereFrame,
       payload: {
-        graticule: sphereFrame,
 
       },
 

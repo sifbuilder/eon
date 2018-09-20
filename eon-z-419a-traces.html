@@ -144,7 +144,7 @@ async function anitem (__mapper) {
       // md: updated by transforms
       // md: relative to geonode
       // md: as geonode, properties keep transformed views
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
 
       tim: tim,
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
@@ -176,7 +176,6 @@ async function anitem (__mapper) {
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
-      payload: {
         geoform: {
           'x': {
             'm1': 3, 'm2': 3, 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
@@ -188,6 +187,7 @@ async function anitem (__mapper) {
           },
         },
 
+      payload: {
       },
 
     }
@@ -205,7 +205,7 @@ async function anitem (__mapper) {
         fid: 'traceNat', //  + props.counter,
       },
 
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
 
       geonode: {
         type: 'Feature',
@@ -229,7 +229,6 @@ async function anitem (__mapper) {
 
       geochrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
       
-      payload: {
 
         geoform: {
           'x': {
@@ -242,6 +241,7 @@ async function anitem (__mapper) {
           },
         },
 
+      payload: {
         pacer: {
           halo: 'eoform',
           geosort: 'anigram',

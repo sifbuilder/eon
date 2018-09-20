@@ -188,7 +188,7 @@ async function anitem (__mapper) {
     // ............................. hyperAni
     let hyperAni = {
       halo: 'eoform',
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q1'},
       geodrift: {
@@ -202,15 +202,15 @@ async function anitem (__mapper) {
         },
       },
       geochrom: geochromHyper,
-      payload: {
         geoform: conformHyper,
+      payload: {
       },
     }
 
     // ............................. sphereAni
     let sphereAni = {
       halo: 'eoform',
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q2'},
       geodrift: {
@@ -225,15 +225,15 @@ async function anitem (__mapper) {
         },
       },
       geochrom: geochromSphere,
-      payload: {
         geoform: conformSphere,
+      payload: {
       },
     }
 
     // ............................. sphereAni
     let lineAni = {
       halo: 'eoform',
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q4'},
       geodrift: {
@@ -248,15 +248,15 @@ async function anitem (__mapper) {
         },
       },
       geochrom: geochromLine,
-      payload: {
         geoform: conformLine,
+      payload: {
       },
     }
 
     // ............................. torusAni
     let torusAni = {
       halo: 'eoform',
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q3'},
       geodrift: {
@@ -271,8 +271,8 @@ async function anitem (__mapper) {
         },
       },
       geochrom: geochromTorus,
-      payload: {
         geoform: conformTorus,
+      payload: {
       },
     }
 

@@ -102,7 +102,7 @@ async function anitem (__mapper) {
     let sphereAni = {
 
       halo: 'eoform',
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
       tim,
       ric: {gid: 'q', cid: 'q', fid: 'q0'},
       geodrift: {
@@ -117,8 +117,8 @@ async function anitem (__mapper) {
       },
       geochrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[666, 666, 666]]], 'cw': [[[0.99, 0.99, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-      payload: {
         geoform: conformSphere,
+      payload: {
       },
     }
 

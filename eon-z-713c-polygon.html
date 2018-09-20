@@ -72,7 +72,7 @@ async function anitem (__mapper) {
       halo: 'eoform',
 
       geofold: function (p) {
-        let graticule = p.payload.graticule
+        let graticule = p.geoframe
 
         let verts = muonGraticule.gvertices(graticule) // Feature.LineString
         let vertices = verts.geometry.coordinates

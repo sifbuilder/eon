@@ -44,7 +44,7 @@ async function anitem (__mapper) {
 
     let g1 = {
       halo: 'eoform',
-      geofold: p => muonGraticule.vhMultiLine(p.payload.gratiform),
+      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: { gid: 'grat', cid: 'grat', fid: 'g1'},
       geochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
@@ -62,17 +62,17 @@ async function anitem (__mapper) {
           lens: [ 0, 1, Infinity ],
         },
       },
-      payload: {
-        gratiform: {
+        geoframe: {
           frame: [ [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ],
             [ [-180, 180, 15, 15], [-90, [[[0, 90]]], 22.5, 22.5] ] ],
         },
+      payload: {
       },
     }
 
     let g2 = {
       halo: 'eoform',
-      geofold: p => muonGraticule.vhMultiLine(p.payload.gratiform),
+      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: { gid: 'grat', cid: 'grat', fid: 'g2'},
       geochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
@@ -87,17 +87,17 @@ async function anitem (__mapper) {
           lens: [ 0, 1, Infinity ],
         },
       },
-      payload: {
-        gratiform: {
+        geoframe: {
           frame: [ [ [-180, 180, 180, 30], [-0, 180, 360, 30] ],
             [ [-180, 180, 180, 30], [-0, 180, 360, 30] ] ],
         },
+      payload: {
       },
     }
 
     let g3 = {
       halo: 'eoform',
-      geofold: p => muonGraticule.vhMultiLine(p.payload.gratiform),
+      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: { gid: 'grat', cid: 'grat', fid: 'g3'},
       geochrom: { 'csx': 0, 'cf': 666, 'cs': 666, 'cw': 0.9, 'co': 0.3, 'cp': 0.9 },
@@ -112,11 +112,11 @@ async function anitem (__mapper) {
           lens: [ 0, 1, Infinity ],
         },
       },
-      payload: {
-        gratiform: {
+        geoframe: {
           frame: [ [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ],
             [ [-180, 180, 15, 15], [-0, 180, 22.5, 22.5] ] ],
         },
+      payload: {
       },
     }
 

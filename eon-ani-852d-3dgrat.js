@@ -34,7 +34,7 @@
       let natform = {
 
         halo: 'eoform',
-        geofold: p =>  muonNatform.natFeature(p.payload.geoform),
+        geofold: p =>  muonNatform.natFeature(p.geoform),
 
         tim: tim,
         ric: {gid: 'nat', cid: 'nat', fid: 'natform'},

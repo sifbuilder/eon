@@ -63,7 +63,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule),
+      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
       tim: tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratiform'},
@@ -85,13 +85,13 @@ async function anitem (__mapper) {
         },
       },
 
-      payload: {
-        graticule: {
+        geoframe: {
 
           frame: [ [ [ [[[-1, -1, -180]]], [[[1, 1, 180]]], [[[30, 30]]], 1], // x
             [ [[[0, -90, -180]]], [[[0, 90, 180]]], [[[15, 15]]], 1] ] ], // y
 
         },
+      payload: {
       },
     }
     // .................. sceneAni

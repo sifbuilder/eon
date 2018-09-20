@@ -50,7 +50,7 @@ async function anitem (__mapper) {
         fid: 'natpace', //  + props.counter,
       },
 
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
 
       geonode: {
         type: 'Feature',
@@ -74,7 +74,6 @@ async function anitem (__mapper) {
 
       geochrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
       
-      payload: {
 
         geoform: {
           'x': {
@@ -87,6 +86,7 @@ async function anitem (__mapper) {
           },
         },
 
+      payload: {
         pacer: {
         
           initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, span: 0, 

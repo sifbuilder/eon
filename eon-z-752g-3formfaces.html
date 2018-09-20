@@ -70,8 +70,8 @@ async function anitem (__mapper) {
     let gratifaces11 = {
       halo: 'eoform',
       geofold: p => {
-        let vertices = muonGraticule.gvertices(p.payload.graticule).geometry.coordinates
-        let faces = muonGraticule.gfaces(p.payload.graticule)
+        let vertices = muonGraticule.gvertices(p.geoframe).geometry.coordinates
+        let faces = muonGraticule.gfaces(p.geoframe)
         faces = faces.map(face => [...face, face[0]])
         faces = faces.map(face => // faces : points => vertices
           face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
@@ -100,8 +100,8 @@ async function anitem (__mapper) {
     let gratifaces12 = {
       halo: 'eoform',
       geofold: p => {
-        let vertices = muonGraticule.gvertices(p.payload.graticule).geometry.coordinates
-        let faces = muonGraticule.gfaces(p.payload.graticule)
+        let vertices = muonGraticule.gvertices(p.geoframe).geometry.coordinates
+        let faces = muonGraticule.gfaces(p.geoframe)
         faces = faces.map(face => [...face, face[0]])
         faces = faces.map(face => // faces : points => vertices
           face.map(vi => vertices[vi]) // eg. [1, 0, 3, 2, 1]
@@ -127,7 +127,7 @@ async function anitem (__mapper) {
     let gratilines21 = {
       halo: 'eoform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule),
+      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},
       geochrom: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
@@ -143,7 +143,7 @@ async function anitem (__mapper) {
     // -------------------------------  gratilines22
     let gratilines22 = {
       halo: 'eoform',
-      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule),
+      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
       tim: tim,
       ric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines22'},
       geochrom: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},

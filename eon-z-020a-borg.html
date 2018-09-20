@@ -70,7 +70,6 @@ async function anitem (__mapper) {
           'lens': [0, 1, Infinity],
         },
       },      
-      payload: {
         geoform: {
 						"m1":4.718177045786351,"m2":19.396126213759022,"n1":15.313427387158098,"n2":10.738988564746812,"n3":15.119538381452617,"b":7.059625076609466,"a":-13.981619631491435,
 						"tx":0,
@@ -83,6 +82,7 @@ async function anitem (__mapper) {
 						"v0":0,"v1":1,
 						"cf":522,"cs":422,
 						},
+      payload: {
       },
     }
 
@@ -129,7 +129,6 @@ async function anitem (__mapper) {
 
       geochrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
 
-      payload: {
         
         geoform: {
 						"m1":-144,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,
@@ -143,6 +142,7 @@ async function anitem (__mapper) {
 				},        
         
         
+      payload: {
         pacer: {
           
           geosort: 'anima',
@@ -168,7 +168,6 @@ async function anitem (__mapper) {
             }
             return ric
           },
-          geoform: null,
           geonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
@@ -189,7 +188,6 @@ async function anitem (__mapper) {
             }
             return res
           },
-          payload: {
             
             geoform: {
                 "m1":-144,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,
@@ -201,6 +199,7 @@ async function anitem (__mapper) {
                 "cf":522, "cs":222,
                 "v0":0,"v1":-1,
             },   
+          payload: {
           }              
         },
       },

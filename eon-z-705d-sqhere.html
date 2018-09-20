@@ -108,7 +108,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule), // hMultiLine
+      geofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
 
       tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratiAni'},
@@ -122,8 +122,8 @@ async function anitem (__mapper) {
 
         proform: proform,
       },
+        geoframe: frame,
       payload: {
-        graticule: frame,
 
       },
 
@@ -133,7 +133,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule), // hMultiLine
+      geofold: p => muonGraticule.vhMultiLine(p.geoframe), // hMultiLine
 
       tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereAni'},
@@ -147,8 +147,8 @@ async function anitem (__mapper) {
 
         proform: proform,
       },
+        geoframe: gratiSphere,
       payload: {
-        graticule: gratiSphere,
 
       },
 

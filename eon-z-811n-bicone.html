@@ -102,7 +102,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
       tim,
 
       ric: {gid: 'q', cid: 'q', fid: 'q'},
@@ -118,8 +118,8 @@ async function anitem (__mapper) {
       },
       geochrom: geochrom,
 
-      payload: {
         geoform: conform,
+      payload: {
 
       },
 

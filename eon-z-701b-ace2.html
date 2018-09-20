@@ -73,7 +73,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: p => muonNatform.natFeature(p.payload.geoform),
+      geofold: p => muonNatform.natFeature(p.geoform),
 
       tim: tim,
       ric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
@@ -90,8 +90,8 @@ async function anitem (__mapper) {
         },
       },
 
-      payload: {
         geoform: form,
+      payload: {
       },
 
     }
@@ -101,7 +101,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule),
+      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
       tim: tim,
       ric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratform'},

@@ -54,7 +54,7 @@ async function anitem (__mapper) {
       tim: tim,
       ric: {gid: 'ani', cid: 'ani', fid: 'ani1'},
 
-      // geofold: p => muonNatform.natFeature(p.payload.geoform),
+      // geofold: p => muonNatform.natFeature(p.geoform),
 
       geofold: {
         type: 'Feature',
@@ -101,10 +101,10 @@ async function anitem (__mapper) {
       ric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
 
       geofold: function (p) {
-        return muonNatform.natFeature(p.payload.geoform)
+        return muonNatform.natFeature(p.geoform)
       },
 
-      // geofold: p => muonNatform.natFeature(p.payload.geoform),
+      // geofold: p => muonNatform.natFeature(p.geoform),
 
       // geofold: {
       // type: 'Feature',

@@ -138,7 +138,7 @@ async function anitem (__mapper) {
 
       halo: 'eoform',
 
-      geofold: p => muonGraticule.vhMultiLine(p.payload.graticule),
+      geofold: p => muonGraticule.vhMultiLine(p.geoframe),
 
       tim: tim,
       ric: {gid: 'wire', cid: 'wire', fid: 'sphereAni'},
@@ -149,8 +149,8 @@ async function anitem (__mapper) {
 
         proform: wireProform,
       },
+        geoframe: wireFrame,
       payload: {
-        graticule: wireFrame,
 
       },
     }
