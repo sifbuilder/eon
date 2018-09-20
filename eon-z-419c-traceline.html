@@ -14,6 +14,7 @@ async function anitem (__mapper) {
     eohalTurnform,
     eohalNatform,
     eohalPacer,
+    eohalMelder,
     eohalTextform,
     prtUniwen,
   ] = await Promise.all([
@@ -25,6 +26,7 @@ async function anitem (__mapper) {
     __mapper('xs').e('turnform'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('pacer'),
+    __mapper('xs').e('melder'),
     __mapper('xs').e('textform'),
     __mapper('xs').p('uniwen'),
   ])
@@ -38,7 +40,7 @@ async function anitem (__mapper) {
     // ............................. natAni
     let geoLined = {
 
-      eohal: 'pacer',
+      eohal: 'melder',
 
       eofold: {
         type: 'Feature',
@@ -65,11 +67,14 @@ async function anitem (__mapper) {
 
       eoload: {
 
-        pacer: { // geoaad for trace
+        melder: { // geoaad for trace
+        
           eohal: 'turnform',
           geosort: 'anigram',
           geobase: 'eoform',
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, span: 0, geoaad: 1,
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0, 
+          
+          geoaad: 1,
 
           stace: function (ani, props) {
             let stace

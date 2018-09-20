@@ -15,7 +15,7 @@
       muonStore,
       msim,
       muonEotim,
-      rsvg,
+      renderSvg,
       ctimer,
     ] = await Promise.all([
       __mapper('xs').m('props'),

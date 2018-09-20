@@ -21,7 +21,7 @@
   // ani.pacer.autoP
   // ani.pacer.outtimed
   // ani.pacer.maxN
-  // ani.pacer.span
+  // ani.pacer.geospan
   // ani.pacer.geoaad: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
   // ani.pacer.geotype: {LineString}
   // ani.pacer.geobase: {geo, ere, pro}
@@ -69,7 +69,7 @@
     ])
 
     let muonStore = __mapper('muonStore')
-    let rsvg = __mapper('renderSvg')
+    let renderSvg = __mapper('renderSvg')
 
     // ............................. pacer
     function eohale (anitem) {
@@ -82,7 +82,7 @@
 
       let pacer = eoload.pacer || {}, // pacer
         mousesignal = pacer.mousesignal || 0, // mousesignal
-        span = pacer.span || 0, // span between paceitems
+        geospan = pacer.geospan || 0, // geospan between paceitems
         geoaad = pacer.geoaad || 0, // geoaad paceitem to previous anitem
         geosort = pacer.geosort || 'anigram', // paceitem sort
         geoType = pacer.geotype || 'LineString', //
@@ -122,8 +122,8 @@
       // if mouse up reset the controls on svg
 
       // if (ctlRayder.mouse() && ctlRayder.mouse().type === 'mouseup') {
-      // ctlWen.reset(rsvg.svg())
-      // ctlVersor.reset(rsvg.svg())
+      // ctlWen.reset(renderSvg.svg())
+      // ctlVersor.reset(renderSvg.svg())
       // }
 
       // if mouse grabbed, enable event count, pacer.eventN

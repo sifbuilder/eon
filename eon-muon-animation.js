@@ -15,7 +15,7 @@
       muonStore,
       msim,
       muonEotim,
-      rsvg,
+      renderSvg,
       ctimer,
     ] = await Promise.all([
       __mapper('xs').m('props'),
@@ -151,13 +151,13 @@
 
       // let featurecollectionPromise = collect(state.animas, elapsed)
       let featurecollection = collect(state.animas, elapsed)
-      rsvg.render(featurecollection)
+      renderSvg.render(featurecollection)
 
       // md: then render by sort the features in the collection
 
       // featurecollectionPromise
       // .then(featurecollection => {
-      // rsvg.render(featurecollection)
+      // renderSvg.render(featurecollection)
       // })
     }
 

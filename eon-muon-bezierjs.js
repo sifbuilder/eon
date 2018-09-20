@@ -1044,7 +1044,7 @@
         var result = {
           left: this.order === 2 ? new Bezier([q[0], q[3], q[5]]) : new Bezier([q[0], q[4], q[7], q[9]]),
           right: this.order === 2 ? new Bezier([q[5], q[4], q[2]]) : new Bezier([q[9], q[8], q[6], q[3]]),
-          span: q,
+          geospan: q,
         }
 
         // make sure we bind _t1/_t2 information!

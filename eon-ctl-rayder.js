@@ -18,7 +18,7 @@
   async function ctlRayder (__mapper) {
     let [
       d3,
-      rsvg,
+      renderSvg,
       renderPortview,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
@@ -35,7 +35,7 @@
 
     let pointer = mouse
     let touch = {}
-    let domNode = rsvg.svg()
+    let domNode = renderSvg.svg()
 
     let getPos = renderPortview.getPos // event position
     let xsign = 1 //  1 if x goes left to right

@@ -23,8 +23,8 @@
   // md: ```
   // md: * `@argv.horq` number of rows
   // md: * `@argv.verq` number of columns
-  // md: * `@argv.hd`   span between columns
-  // md: * `@argv.vd`   span between rows
+  // md: * `@argv.hd`   geospan between columns
+  // md: * `@argv.vd`   geospan between rows
   // md:
   // md: *ridx
   // md: return `function(idx)` , give [row,column] of sequential index
