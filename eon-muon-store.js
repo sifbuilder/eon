@@ -240,7 +240,6 @@
         ? anitem.eohal
         : __mapper(__mapper(__mapper('xs').ceonize(anigram.eohal, 'eohal'))) // expected in __mapper
       let newItems = muonProps.a(eohal.gramm(anigram))
-      console.log('m.store', newItems)
       _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
       newItems.forEach(newItem => {
         let avatars = gavatars(newItem)

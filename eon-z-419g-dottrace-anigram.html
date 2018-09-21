@@ -10,11 +10,11 @@ async function anitem (__mapper) {
     ctlWen,
     muonNatform,
     muonStace,
-    muonGeoj,
     ctlRayder,
     eohalTurnform,
     eohalNatform,
     eohalPacer,
+    eohalMelder,
     eohalTextform,
     prtUniwen,
   ] = await Promise.all([
@@ -22,11 +22,11 @@ async function anitem (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('stace'),
-    __mapper('xs').m('geoj'),
     __mapper('xs').c('rayder'),
     __mapper('xs').e('turnform'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('pacer'),
+    __mapper('xs').e('melder'),
     __mapper('xs').e('textform'),
     __mapper('xs').p('uniwen'),
   ])
@@ -62,7 +62,7 @@ async function anitem (__mapper) {
       },
       eoform: [ [[[0, 120]]], 0, 0] ,
       eotim: eotim,
-      eoric: {gid: 'g', cid: 'c', fid: 'f'},
+      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
       eochrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eoload: {
@@ -77,8 +77,6 @@ async function anitem (__mapper) {
           geoaad: 1,  // geoaad for trace
 
           eofold: function (ani, props) {
-
-            let preani = muonStore.findAnigramFromUid(ani.uid)  // anigram
             let coords
             if (props.key === 'init') { // INIT
             
@@ -86,26 +84,19 @@ async function anitem (__mapper) {
               
             } else if (props.key === 'auto') { // AUTO
             
-              coords = (preani && preani.eofold.geometry.coordinates) ?
-                    [...preani.eofold.geometry.coordinates, ani.eoform ] :
-                    Array.of( ani.eoform )  // LineString
-
+              coords = ani.eoform // eofold
               
             } else if (props.key === 'event') { // EVENT
             
               coords = ani.eonode.geometry.coordinates
               
             }          
-            
-            let geometry = {
-                type: 'LineString',
-                coordinates: coords,
-            }
-            console.assert(muonGeoj.isValid(geometry))
-
             return {
               type: 'Feature',
-              geometry: geometry,
+              geometry: {
+                type: 'Point',
+                coordinates: coords,
+              },
               properties: {},
             }
           },

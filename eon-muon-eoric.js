@@ -106,13 +106,14 @@
           _ric.fid = eoric.fid
           _ric.nid = i
           
-          feature.properties.uid = getuid(feature.properties.eoric)
+          // feature.properties.uid = getuid(feature.properties.eoric)
 
           if (eoric.fid === undefined) _ric.fid = eoric.cid + (i || '')
           else if (typeof eoric.fid === 'function') _ric.fid = eoric.fid(i, eoric, anigram)
           else _ric.fid = eoric.fid + (i || '')
 
           feature.properties.eoric = _ric
+          feature.properties.uid = getuid(_ric)
 
         }
         json.features = features
@@ -128,6 +129,8 @@
  */
 
     let getuid = function (params) {
+      console.assert(params !== null, 'getuid p null', params)
+      console.assert(params !== undefined, 'getuid p undefined', params)
       let uid
       if (typeof (params) === 'object') {
         if (params.fid !== undefined) {
@@ -142,9 +145,7 @@
         }
       } else if (Array.isArray(params)) {
         uid = params[0] + '_' + params[1] + '_' + params[2]
-      } else {
-        console.log('uid container not supported', params)
-      }
+      } 
 
       return uid
     }

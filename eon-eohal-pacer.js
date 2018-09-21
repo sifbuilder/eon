@@ -45,27 +45,29 @@
 
   async function eohalPacer (__mapper = {}) {
     let [
-      muonEoric,
-      muonGeom,
       ctlRayder,
       ctlWen,
       ctlVersor,
       eohalTurnform,
+      muonEoric,
+      muonGeom,
       muonStace,
       muonProps,
       muonProfier,
       muonProj3ct,
+      muonGeoj,
     ] = await Promise.all([
-      __mapper('xs').m('eoric'),
-      __mapper('xs').m('geom'),
       __mapper('xs').c('rayder'),
       __mapper('xs').c('wen'),
       __mapper('xs').c('versor'),
       __mapper('xs').e('turnform'),
+      __mapper('xs').m('eoric'),
+      __mapper('xs').m('geom'),
       __mapper('xs').m('stace'),
       __mapper('xs').m('props'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
+      __mapper('xs').m('geoj'),
     ])
 
     let muonStore = __mapper('muonStore')
@@ -99,16 +101,16 @@
       let animas = muonStore.animas()
       let anigrams = muonStore.anigrams()
 
-      
+
       // the anima is the pacer anitem uid
-      
+
       let anima = muonStore.findAnimaFromUid(uidAnima)
 
       // the anigram is the trace anigram
 
       let anigram = anitem
-      
-      
+
+
       // the parent anima
 
       let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
@@ -210,7 +212,6 @@
               newItem = muonProps.clone(anigram) // anigram
 
             }
-            if (1 && 1) console.log('newItem', newItem)
 
             delete newItem.eoload
 
@@ -226,18 +227,26 @@
                 newItem[prop] = newpropval
               }
             }
+  
+
+
+            // md: anima is stored
 
             let eohal = __mapper(__mapper('xs').ceonize(newItem.eohal, 'eohal'))
-
             if (geosort === 'anima') {
 
+              // md: eohal.ween
               let newItemsInCount = eohal.ween(newItem)
+
               newItemsInCount = muonProps.a(newItemsInCount)
               newItems = [...newItems, ...newItemsInCount] // add items
-              muonStore.apply({type: 'UPDANIMA', animas: newItems}) // store           
+              muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: newItems})
+
             } else {
 
+              // md: eohal.gramm
               let newItemsInCount = muonProps.a(eohal.gramm(newItem))
+
               newItems = [...newItems, ...newItemsInCount] // add items
 
             }

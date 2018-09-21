@@ -67,7 +67,7 @@
     let [
       d3polygon,
       muonProps,
-      lcomplex,
+      Complex,
     ] = await Promise.all([
       __mapper('xs').b('d3-polygon'),
       __mapper('xs').m('props'),
@@ -85,8 +85,6 @@
       Feature: 'feature',
       FeatureCollection: 'featurecollection',
     }
-
-    let Complex = lcomplex
 
     // ...................... complexifyObjectType
     var complexifyObjectType = {
@@ -586,6 +584,33 @@
       return ngj
     }
 
+
+    // ............................. gjAppend
+    let gjAppend = function (gj1, gj2) {
+      
+      let gj = Object.assign(gj1)
+      
+      let coords
+      let coords1 = gj1.geometry.coordinates
+      let coords2 = gj2.geometry.coordinates
+      
+      // assume gj1 is LineString, coords1 is null or array of coords arrays
+      // assume gj2 is Point, coords2 is coords array
+      
+      if (coords1 && coords1.length > 0) {
+
+        coords = [ ...coords1, coords2 ]
+        
+      } else {
+        
+        coords = Array.of( [coords2] )
+        
+      }      
+      
+      gj.geometry.coordinates = coords
+      return gj
+    }      
+    
     // ............................. isValid
     let isValid = function (gj, type) {
       let valid = true
@@ -742,6 +767,7 @@
     enty.getCoordsLength = getCoordsLength
     enty.getCoordsInRange = getCoordsInRange
     enty.isValid = isValid
+    enty.gjAppend = gjAppend
 
     return enty
   }
