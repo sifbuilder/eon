@@ -35,7 +35,7 @@ async function anitem (__mapper) {
 
     let geoformFaces = ani => { // eofold creates featurecollection
       let eoload = ani.eoload, // eoload
-        eochrom = ani.eochrom // eochrom
+        eocrom = ani.eocrom // eocrom
 
       let faces = muonProps.v(eoload.faces) // eoload.faces
 
@@ -48,7 +48,7 @@ async function anitem (__mapper) {
         geometry.coordinates = Array.of(face.vertices) // eg [-1, 1, 1]
 
         let properties = {}
-        properties.eochrom = face.eochrom || eochrom
+        properties.eocrom = face.eocrom || eocrom
         properties.name = (i === 0) ? 'red' : 'orange'
 
         let feature = {type: 'Feature', geometry: {}, properties: {}}
@@ -67,7 +67,7 @@ async function anitem (__mapper) {
       eofold: geoformFaces, // eofold,
       eotim: eotim,
       eoric: {'gid': 'faces', 'cid': 'face', 'fid': 'face'},
-      eochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      eocrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
       eodrift: {
         proform: proformFaces,
@@ -82,7 +82,7 @@ async function anitem (__mapper) {
               [ -1, 1, 1],
               [-1, -1, 1],
             ],
-            eochrom: {'csx': 0, 'cf': 333, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
+            eocrom: {'csx': 0, 'cf': 333, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
           },
 
           {
@@ -93,7 +93,7 @@ async function anitem (__mapper) {
               [-1, 1, -1],
               [-1, -1, -1],
             ],
-            eochrom: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
+            eocrom: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
           },
         ],
 

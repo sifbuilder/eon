@@ -57,7 +57,7 @@ async function anitem (__mapper) {
           feature.properties.eoric = {gid: eoric.gid, cid: 'face', fid: i}
           feature.properties.sort = 'form'
           feature.geometry = geometry
-          feature.properties.eochrom = face.eochrom
+          feature.properties.eocrom = face.eocrom
           json.features.push(feature)
         }
 
@@ -65,7 +65,7 @@ async function anitem (__mapper) {
       },
       eotim: eotim,
       eoric: {'gid': 'aniCube', 'cid': 'aniCube', 'fid': 'aniCube'},
-      eochrom: { 'csx': 0, 'cf': 111, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
+      eocrom: { 'csx': 0, 'cf': 111, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
       eodrift: {
         proform: {
           projection: 'uniwen',
@@ -92,27 +92,27 @@ async function anitem (__mapper) {
           {
             pointsx: [0, 1, 2, 3, 0],
             name: 'front',
-            eochrom: { cf: 222, cs: 355, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
+            eocrom: { cf: 222, cs: 355, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
           {
             pointsx: [4, 5, 6, 7, 4],
             name: 'back',
-            eochrom: { cf: 888, cs: 455, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
+            eocrom: { cf: 888, cs: 455, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
           {
             pointsx: [1, 4, 7, 2, 1],
             name: 'right',
-            eochrom: { cf: 444, cs: 555, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
+            eocrom: { cf: 444, cs: 555, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
           {
             pointsx: [5, 0, 3, 6, 5],
             name: 'left',
-            eochrom: { cf: 555, cs: 655, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
+            eocrom: { cf: 555, cs: 655, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
           {
             pointsx: [3, 2, 7, 6, 3],
             name: 'bottom',
-            eochrom: { cf: 666, cs: 755, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
+            eocrom: { cf: 666, cs: 755, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
           {
             pointsx: [5, 4, 1, 0, 5],
             name: 'top',
-            eochrom: { cf: 777, cs: 855, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
+            eocrom: { cf: 777, cs: 855, co: [[[0.2, 0.09, 0.9, 0.2]]], cp: 1 }},
 
         ],
 

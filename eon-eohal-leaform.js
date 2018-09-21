@@ -17,7 +17,7 @@
   // identify to features on index, `muonEoric.enric(eoric, anigram, gjcollection)`
 
   // hen for each feature,
-  // eochrom, decoding style properties
+  // eocrom, decoding style properties
   // set sort. `feature.properties.sort` will determine rendering. default to feature
   // inherit avatars
 
@@ -31,7 +31,7 @@
       muonProps,
     ] = await Promise.all([
       __mapper('xs').m('eoric'),
-      __mapper('xs').m('eochrom'),
+      __mapper('xs').m('eocrom'),
       __mapper('xs').m('geoj'),
       __mapper('xs').m('props'),
     ])

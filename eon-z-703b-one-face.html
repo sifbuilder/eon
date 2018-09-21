@@ -50,8 +50,8 @@ async function anitem (__mapper) {
         geometry.coordinates = Array.of(face.vertices) // eg [-1, 1, 1]
 
         let properties = {}
-        // properties.eochrom = face.eochrom || eochrom
-        properties.eochrom = {'csx': 0, 'cf': 333 + 10 * i, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
+        // properties.eocrom = face.eocrom || eocrom
+        properties.eocrom = {'csx': 0, 'cf': 333 + 10 * i, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999}
         properties.name = 'orange' + '_' + i
 
         let feature = {type: 'Feature', geometry: {}, properties: {}}
@@ -70,7 +70,7 @@ async function anitem (__mapper) {
       eofold: geoformFaces, // eofold,
       eotim: eotim,
       eoric: {'gid': 'faces', 'cid': 'face', 'fid': 'face'},
-      eochrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      eocrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
       eodrift: {
         proform: proformFaces,
@@ -85,7 +85,7 @@ async function anitem (__mapper) {
               [ -1, 1, 1],
               [-1, -1, 1],
             ],
-            eochrom: {'csx': 0, 'cf': 333, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
+            eocrom: {'csx': 0, 'cf': 333, 'cs': 688, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
           },
 
           {
@@ -96,7 +96,7 @@ async function anitem (__mapper) {
               [-1, 1, -1],
               [-1, -1, -1],
             ],
-            eochrom: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
+            eocrom: {'csx': 0, 'cf': 777, 'cs': 833, 'cw': 0.7, 'co': [[[0.999, 0.999]]], 'cp': 0.999},
           },
         ],
 

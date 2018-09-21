@@ -118,7 +118,7 @@
         }
         json.features = features
       } else {
-        console.log('m.eochrom.geochromer nothing done')
+        console.log('m.eocrom.geochromer nothing done')
       }
 
       return json

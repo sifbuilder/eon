@@ -54,38 +54,38 @@
     let kolor = (v, d = 0) => color(d)(v / 1000)
 
     // .................. getStyle - process style attributes
-    let getStyle = function (eochrom) {
+    let getStyle = function (eocrom) {
       let style = {}
-      if (eochrom !== undefined) {
-        if (eochrom.csx === undefined) eochrom.csx = 0
+      if (eocrom !== undefined) {
+        if (eocrom.csx === undefined) eocrom.csx = 0
 
-        if (eochrom.cf !== undefined && eochrom.csx !== undefined) style['fill'] = kolor(eochrom.cf, eochrom.csx)
-        if (eochrom.cf !== undefined && eochrom.csx !== undefined) style['stroke'] = kolor(eochrom.cs, eochrom.csx)
-        if (eochrom.co !== undefined) style['fill-opacity'] = eochrom.co
-        if (eochrom.cw !== undefined) style['stroke-width'] = eochrom.cw
-        if (eochrom.cp !== undefined) style['stroke-opacity'] = eochrom.cp
+        if (eocrom.cf !== undefined && eocrom.csx !== undefined) style['fill'] = kolor(eocrom.cf, eocrom.csx)
+        if (eocrom.cf !== undefined && eocrom.csx !== undefined) style['stroke'] = kolor(eocrom.cs, eocrom.csx)
+        if (eocrom.co !== undefined) style['fill-opacity'] = eocrom.co
+        if (eocrom.cw !== undefined) style['stroke-width'] = eocrom.cw
+        if (eocrom.cp !== undefined) style['stroke-opacity'] = eocrom.cp
       }
 
       return style
     }
 
-    // .................. @m.eochrom.geochromer(anigram, json)
+    // .................. @m.eocrom.geochromer(anigram, json)
     let geochromer = function (anigram, json) {
       if (json !== undefined && json !== null) {
         if (json.type === undefined) {
-        } else if (typeof anigram.eochrom !== 'object') {
+        } else if (typeof anigram.eocrom !== 'object') {
         } else if (json.type === 'Feature') { // Feature
           let feature = json
 
-          let eochrom = {}, featureStyle = {}
-          if (feature.properties !== undefined && feature.properties.eochrom !== undefined) {
-            eochrom = feature.properties.eochrom
-          } else if (anigram.eochrom) {
-            eochrom = anigram.eochrom
+          let eocrom = {}, featureStyle = {}
+          if (feature.properties !== undefined && feature.properties.eocrom !== undefined) {
+            eocrom = feature.properties.eocrom
+          } else if (anigram.eocrom) {
+            eocrom = anigram.eocrom
           } else {
           }
 
-          let jsonStyle = getStyle(eochrom)
+          let jsonStyle = getStyle(eocrom)
 
           if (feature.properties !== undefined && feature.properties.style !== undefined) {
             featureStyle = feature.properties.style
@@ -99,14 +99,14 @@
             feature = geochromer(anigram, feature)
           }
         } else {
-          console.log('m.eochrom.geochromer nothing done')
+          console.log('m.eocrom.geochromer nothing done')
         }
       }
 
       return json
     }
 
-    // eochrom definition
+    // eocrom definition
 
     let getdefault = function () {
       let res = { 'csx': 0, 'cf': 500, 'co': 1, 'cs': 500, 'cw': 1, 'cp': 1 }

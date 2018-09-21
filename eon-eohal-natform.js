@@ -30,7 +30,7 @@
     ] = await Promise.all([
       __mapper('xs').m('natform'),
       __mapper('xs').e('turnform'),
-      __mapper('xs').m('eochrom'),
+      __mapper('xs').m('eocrom'),
       __mapper('xs').m('eotim'),
       __mapper('xs').m('eoric'),
       __mapper('xs').m('eonode'),
@@ -70,7 +70,7 @@
       
     }    
     
-    // eochrom definition
+    // eocrom definition
     
     let getgeochrom = function( eoform ) {
       
@@ -130,7 +130,7 @@
       anitem.eofold = muonNatform.natFeature(anitem.eoform)
       anitem.eofold = muonProj3ct(anitem.eofold, muonProfier.formion(prt, anitem)) // eofold
    
-      if (anitem.eochrom === undefined) anitem.eochrom = getgeochrom(anitem.eoform)        // eoform
+      if (anitem.eocrom === undefined) anitem.eocrom = getgeochrom(anitem.eoform)        // eoform
      
       
       return eohalTurnform.gramm(anitem)

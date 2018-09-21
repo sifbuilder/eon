@@ -44,12 +44,12 @@
 
       linkItem.stream = props.lib.diagonalp(form, lf)
 
-      linkItem.csx 	= linkItem.eochrom.csx
-      linkItem.cf 	= linkItem.eochrom.cf
-      linkItem.cs 	= linkItem.eochrom.cs
-      linkItem.cw 	= linkItem.eochrom.cw
-      linkItem.co 	= linkItem.eochrom.co
-      linkItem.cp 	= linkItem.eochrom.cp
+      linkItem.csx 	= linkItem.eocrom.csx
+      linkItem.cf 	= linkItem.eocrom.cf
+      linkItem.cs 	= linkItem.eocrom.cs
+      linkItem.cw 	= linkItem.eocrom.cw
+      linkItem.co 	= linkItem.eocrom.co
+      linkItem.cp 	= linkItem.eocrom.cp
 
       newItems = [...newItems, linkItem]
 

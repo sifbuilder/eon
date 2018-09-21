@@ -104,7 +104,7 @@ async function anitem (__mapper) {
           type: 'Feature',
           geometry: { type: 'Polygon', coordinates: [] },
           properties: {
-            eochrom: { 'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.8, 'co': 0.01, 'cp': 0.9},
+            eocrom: { 'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.8, 'co': 0.01, 'cp': 0.9},
           },
         }
 
@@ -124,9 +124,9 @@ async function anitem (__mapper) {
             properties: {},
           }
           if (i < rings.length - 1) { // first
-            feature.properties.eochrom = { 'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.8, 'co': 0.9, 'cp': 1}
+            feature.properties.eocrom = { 'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.8, 'co': 0.9, 'cp': 1}
           } else {
-            feature.properties.eochrom = { 'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.8, 'co': 0.9, 'cp': 1}
+            feature.properties.eocrom = { 'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.8, 'co': 0.9, 'cp': 1}
           }
 
           newFeatureCollection.features.push(feature)
@@ -146,7 +146,7 @@ async function anitem (__mapper) {
 
       eotim: eotim,
       eoric: { gid: 'trace', cid: 'trace', fid: 'trace'},
-      eochrom: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
+      eocrom: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
       eoload: { // eoload in polyForm
         tf: t => t,
 
