@@ -45,18 +45,18 @@
       console.assert(anitem !== undefined)
 
       if (newAnitem.eoload === undefined) newAnitem.eoload = {}
-      if (newAnitem.eodrift === undefined) newAnitem.eodrift = {}
+      if (newAnitem.eomot === undefined) newAnitem.eomot = {}
 
-      let eodrift = anitem.eodrift || {}
-      if (eodrift.ereform !== undefined) {
-        let ereform = functor(eodrift.ereform, anitem) // ereform
-        newAnitem.eodrift.ereform = ereform
-      } else if (eodrift.conform !== undefined) {
-        let conform = functor(eodrift.conform, anitem) // conform
-        newAnitem.eodrift.conform = conform
-      } else if (eodrift.proform !== undefined) {
-        let proform = functor(eodrift.proform, anitem) // proform
-        newAnitem.eodrift.proform = proform
+      let eomot = anitem.eomot || {}
+      if (eomot.ereform !== undefined) {
+        let ereform = functor(eomot.ereform, anitem) // ereform
+        newAnitem.eomot.ereform = ereform
+      } else if (eomot.conform !== undefined) {
+        let conform = functor(eomot.conform, anitem) // conform
+        newAnitem.eomot.conform = conform
+      } else if (eomot.proform !== undefined) {
+        let proform = functor(eomot.proform, anitem) // proform
+        newAnitem.eomot.proform = proform
       }
       if (anitem.eofold !== undefined) {
         newAnitem.eofold = functor(anitem.eofold, anitem) // eofold
@@ -86,15 +86,15 @@
       console.assert(anitem !== undefined)
       console.assert(anitem.eoload !== undefined, anitem.uid + ' eoload undefined')
 
-      if (anitem.eodrift.ereform !== undefined) {
-        let ereform = functor(anitem.eodrift.ereform, anitem) // ereform
-        newAnitem.eodrift.ereform = ereform
-      } else if (anitem.eodrift.conform !== undefined) {
-        let conform = functor(anitem.eodrift.conform, anitem) // conform
-        newAnitem.eodrift.conform = conform
-      } else if (anitem.eodrift.proform !== undefined) {
-        let proform = functor(anitem.eodrift.proform, anitem) // proform
-        newAnitem.eodrift.proform = proform
+      if (anitem.eomot.ereform !== undefined) {
+        let ereform = functor(anitem.eomot.ereform, anitem) // ereform
+        newAnitem.eomot.ereform = ereform
+      } else if (anitem.eomot.conform !== undefined) {
+        let conform = functor(anitem.eomot.conform, anitem) // conform
+        newAnitem.eomot.conform = conform
+      } else if (anitem.eomot.proform !== undefined) {
+        let proform = functor(anitem.eomot.proform, anitem) // proform
+        newAnitem.eomot.proform = proform
       }
 
       return newAnitem

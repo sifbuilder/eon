@@ -42,8 +42,8 @@
 
       let eonode = muonProps.v(anitem.eonode, anitem)
 
-      if (eonode && anitem.eodrift) {
-        for (let [drift, prt] of Object.entries(anitem.eodrift)) {
+      if (eonode && anitem.eomot) {
+        for (let [drift, prt] of Object.entries(anitem.eomot)) {
           let properties = eonode.properties || {}
           let node = muonProj3ct(muonGeoj.deprop(eonode), muonProfier.formion(prt, anitem))
           node.properties = properties
@@ -57,8 +57,8 @@
       let eofold = muonProps.v(anitem.eofold, anitem)
       let gjcollection = muonGeoj.featurecollect(eofold)
 
-      if (eofold && anitem.eodrift) {
-        for (let [drift, prt] of Object.entries(anitem.eodrift)) {
+      if (eofold && anitem.eomot) {
+        for (let [drift, prt] of Object.entries(anitem.eomot)) {
           gjcollection.features = gjcollection.features.map(
             feature => {
               let properties = feature.properties || {}
