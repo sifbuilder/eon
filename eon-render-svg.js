@@ -178,7 +178,7 @@
           let texts = fitems
             .filter(d => d.properties.sort === 'text')
           if (texts.length > 0) {
-            svgelems('svg:g.' + gid + '/text.' + cid, texts, d => d.uid)
+            svgelems('svg:g.' + gid + '/text.' + cid, texts, d => d.eoric.uid)
               .text(d => d.properties.string)
 
               .attr('x', 0) // translate instead
@@ -268,9 +268,9 @@
           if (axes.length > 0) {
             for (let k = 0; k < axes.length; k++) {
               let axis = axes[k]
-              let uid = axis.properties.uid
+              let uid = axis.properties.eoric.uid
 
-              svgelems('svg:g.' + gid + '/g.' + uid, Array.of(axis), d => d.properties.uid)
+              svgelems('svg:g.' + gid + '/g.' + uid, Array.of(axis), d => d.properties.eoric.uid)
 
                 .data(() => Array.of(axis))
 
@@ -316,7 +316,7 @@
             .filter((d, i) => (d.properties.eoric.eodelled !== 1)) // not eodelled
 
           if (features.length > 0) { // _e_
-            svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.uid) // elems
+            svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.eoric.uid) // elems
               .data(() => features)
               .attr('d', d => { // geojson feature
                 let properties = d.properties || {} // properties

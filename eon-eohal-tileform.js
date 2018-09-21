@@ -10,18 +10,17 @@
 
   async function eohalTileform (__mapper = {}) {
     let [
-      muonProps,
-      muonGraticule,
       eohalLeaform,
       eohalNatform,
       eohalTurnform,
+      muonProps,
+      muonGraticule,
     ] = await Promise.all([
-      __mapper('xs').m('props'),
-      __mapper('xs').m('graticule'),
       __mapper('xs').e('leaform'),
       __mapper('xs').e('natform'),
       __mapper('xs').e('turnform'),
-
+      __mapper('xs').m('props'),
+      __mapper('xs').m('graticule'),
     ])
 
     // .................... getTiles

@@ -70,7 +70,7 @@
       let newAnitem = muonProps.clone(anitem)
 
       console.assert(anitem !== undefined)
-      console.assert(anitem.eofold !== undefined, anitem.uid + ' eofold undefined')
+      console.assert(anitem.eofold !== undefined, anitem.eoric.uid + ' eofold undefined')
 
       let eofold = functor((anitem.eofold), anitem) // eofold
 
@@ -84,7 +84,7 @@
       let newAnitem = muonProps.clone(anitem)
 
       console.assert(anitem !== undefined)
-      console.assert(anitem.eoload !== undefined, anitem.uid + ' eoload undefined')
+      console.assert(anitem.eoload !== undefined, anitem.eoric.uid + ' eoload undefined')
 
       if (anitem.eomot.ereform !== undefined) {
         let ereform = functor(anitem.eomot.ereform, anitem) // ereform

@@ -78,7 +78,7 @@ async function anitem (__mapper) {
 
           eofold: function (ani, props) {
 
-            let preani = muonStore.findAnigramFromUid(ani.uid)  // anigram
+            let preani = muonStore.findAnigramFromUid(ani.eoric.uid)  // anigram
             let coords
             if (props.key === 'init') { // INIT
             

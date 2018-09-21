@@ -94,7 +94,7 @@ async function anitem (__mapper) {
         ani.eoric.fid = 'item' + i // identify
 
         let uid = muonEoric.getuid(ani.eoric)
-        ani.uid = uid
+        ani.eoric.uid = uid
 
         ani.eocrom.cf = (i % 2) ? 777 : 666
         ani.eocrom.cs = (i % 2) ? 777 : 666

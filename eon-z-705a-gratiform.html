@@ -5,15 +5,17 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__mapper) {
   let [
-    muonGraticule,
     ctlWen,
-    prtNatform,
     eohalScene,
+    eohalTurnform,    
+    muonGraticule,
+    prtNatform,
   ] = await Promise.all([
-    __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
-    __mapper('xs').p('natform'),
     __mapper('xs').e('scene'),
+    __mapper('xs').e('turnform'),    
+    __mapper('xs').m('graticule'),
+    __mapper('xs').p('natform'),
   ])
 
   let ani = function () {
@@ -47,7 +49,7 @@ async function anitem (__mapper) {
         'fn0': (e, c, d) => e[2],
 
       },
-      'r': {
+      'w': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
@@ -87,9 +89,7 @@ async function anitem (__mapper) {
         proform: proform,
       },
       eoframe: frame,
-      eoload: {
-
-      },
+      eoload: {},
 
     }
     // .................. sceneAni

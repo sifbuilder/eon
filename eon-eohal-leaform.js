@@ -26,7 +26,7 @@
   async function eohalLeaform (__mapper = {}) {
     let [
       muonEoric,
-      muonEochrom,
+      muonEocrom,
       muonGeoj,
       muonProps,
     ] = await Promise.all([
@@ -55,7 +55,7 @@
       gjcollection = muonEoric.enric(anigram.eoric, anigram, gjcollection) // eoric to feature or collection
 
       let newAnigrams = gjcollection.features.map((feature, i) => {
-        feature = muonEochrom.geochromer(anigram, feature)
+        feature = muonEocrom.geocromer(anigram, feature)
 
         feature.properties.eotim = anigram.eotim // eotim in eofold
         feature.properties.sort = feature.properties.sort || 'feature' // svg sort
@@ -65,8 +65,8 @@
           eofold: feature, // inherit eofold
           eonode: anigram.eonode,
           eoric: feature.properties.eoric, // hoist eoric
-          id: feature.properties.uid, // hoist uid
-          uid: feature.properties.uid, // hoist uid
+          id: feature.properties.eoric.uid, // hoist uid
+          uid: feature.properties.eoric.uid, // hoist uid
           eoload: {}, // eoload is lost in m.animation before rendering
           avatars: anigram.avatars, // inherit avatars
         }

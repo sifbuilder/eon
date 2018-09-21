@@ -42,7 +42,7 @@
         eofold = anigram.eofold, // eofold
         eoric = anigram.eoric, // eoric
         eotim = anigram.eotim, // eotim
-        parentuid = anigram.parentuid, // parentuid
+        parentuid = anigram.eoric.parentuid, // parentuid
         eocrom = anigram.eocrom // eocrom
 
       let eoload = anigram.eoload, // eoload
@@ -203,7 +203,7 @@
 
           newItem.eotim = eotim // eotim
           newItem.eoric = _ric // eoric
-          newItem.uid = _uid // uid
+          newItem.eoric.uid = _uid // uid
           newItem.eocrom = eocrom // eocrom
 
           newItem.eofold.geometry.coordinates = [xn[i], yn[i]]

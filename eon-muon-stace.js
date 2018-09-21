@@ -116,7 +116,7 @@
 
       // else, eg. if stace undefined, get stace from parent
       } else {
-        let parentuid = anitem.parentuid
+        let parentuid = anitem.eoric.parentuid
         console.assert(parentuid !== undefined, ` * error: muonStace.getTranspots:parentuid ${parentuid} in eoload ${eoload}`)
         let parentani = muonStore.findAnigramFromUid(parentuid)
         console.assert(parentani !== undefined, ` * error: muonStace.getTranspots:parentani of ${parentuid}: ${parentani}`)

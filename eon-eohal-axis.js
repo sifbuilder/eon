@@ -28,8 +28,8 @@
     // ............................. gramm
     function gramm (anitem) {
       let eoload = anigram.eoload, // eoload
-        eoric = eoric, // eoric
-        uid = uid, // uid
+        eoric = anigram.eoric, // eoric
+        uid = eoric.uid, // uid
         axis = eoload.axis // axis
 
       let range = axis.range || [0, 1],
@@ -48,7 +48,7 @@
       newAnigram.eofold.properties = {
         sort: 'axis',
         eoric: eoric,
-        uid: uid,
+        // uid: uid,
         axis: Object.assign(axis, {
           scale: _scale.domain(domain).range(range),
           rotate: rotate,

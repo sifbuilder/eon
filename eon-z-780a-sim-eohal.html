@@ -247,7 +247,7 @@ async function anitem (__mapper) {
           'filter': d => true,
           'type': 'linkForce',
           'strength': 1, // d => params.strength,
-          'id': d => d.uid, // d => params.uid,
+          'id': d => d.eoric.uid, // d => params.uid,
           'distance': d => 100, // d => params.distance,
           'distances': [d => 100], // d => params.distance,
           'iterations': 1, // d => params.iterations,

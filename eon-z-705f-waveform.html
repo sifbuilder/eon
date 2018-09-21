@@ -5,19 +5,21 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__mapper) {
   let [
-    muonGraticule,
-    ctlWen,
-    mfibonat,
     d3,
-    prtNatform,
+    ctlWen,
     eohalScene,
+    eohalTurnform,   
+    muonFibonat,
+    muonGraticule,
+    prtNatform,
   ] = await Promise.all([
-    __mapper('xs').m('graticule'),
-    __mapper('xs').c('wen'),
-    __mapper('xs').m('fibonat'),
     __mapper('xs').b('d3'),
-    __mapper('xs').p('natform'),
+    __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
+    __mapper('xs').e('turnform'), 
+    __mapper('xs').m('fibonat'),
+    __mapper('xs').m('graticule'),
+    __mapper('xs').p('natform'),
   ])
 
   let ani = function () {
@@ -150,7 +152,7 @@ async function anitem (__mapper) {
 
       eohal: 'turnform',
 
-      eofold: p => mfibonat.interlinked(p.eoload),
+      eofold: p => muonFibonat.interlinked(p.eoload),
 
       eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'waveAni'},
@@ -183,7 +185,7 @@ async function anitem (__mapper) {
 
       eohal: 'turnform',
 
-      eofold: p => mfibonat.interlinked(p.eoload),
+      eofold: p => muonFibonat.interlinked(p.eoload),
 
       eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'waveAni2'},

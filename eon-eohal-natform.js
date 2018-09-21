@@ -20,7 +20,7 @@
     let [
       muonNatform,
       eohalTurnform,
-      muonEochrom,
+      muonEocrom,
       muonEotim,
       muonEoric,
       muonEonode,
@@ -75,7 +75,7 @@
     let getgeochrom = function( eoform ) {
       
       let res = {}
-      let ref = muonEochrom.getdefault()
+      let ref = muonEocrom.getdefault()
       
       if (eoform === undefined) {
         res = ref

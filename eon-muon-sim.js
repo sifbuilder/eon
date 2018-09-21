@@ -105,7 +105,7 @@
           if (eoload && eoload.id !== undefined) { // link nodes
             simNode.id = eoload.id // simnode id from eofold.eoload.id
           } else {
-            simNode.id = simNode.uid
+            simNode.id = simNode.eoric.uid
           }
 
           if (eoload && eoload.link) {  // links

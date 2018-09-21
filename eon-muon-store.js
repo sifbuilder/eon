@@ -100,8 +100,8 @@
         for (let i = 0; i < updAnimas.length; i++) {
           let updAnima = muonProps.o(updAnimas[i]) // each new anima
 
-          let uid = (updAnima.uid !== undefined) // uid
-            ? updAnima.uid
+          let uid = (updAnima.eoric.uid !== undefined) // uid
+            ? updAnima.eoric.uid
             : muonEoric.getuid(updAnima)
 
           let index = enty.findFromUid(uid, state.animas)
@@ -113,10 +113,10 @@
             }
           } else { // new anima
             updAnima.eotim = muonEotim.timing(updAnima.eotim, elapsed) // set eotim elapsed
-            updAnima.uid = uid // set uid if new anima
+            updAnima.eoric.uid = uid // set uid if new anima
             updAnima.eoric.nid = enty.getNid() // node id in animas collection
 
-            state.aniset[updAnima.uid] = updAnima // set new anima by uid
+            state.aniset[updAnima.eoric.uid] = updAnima // set new anima by uid
             state.animas[state.animas.length] = updAnima // register new anima
           }
         }
@@ -135,7 +135,7 @@
               newItem = newItem[0]
             }
 
-            let uid = newItem.uid
+            let uid = newItem.eoric.uid
             let index = enty.findFromUid(uid, state.anigrams) // find index from d.uid
             if (index === -1) index = state.anigrams.length // add holder if new
             state.anigrams[index] = newItem // replace anigram
@@ -150,9 +150,9 @@
     const getavatars = items => {
       items.forEach(item => {
         sequence(gavatars(item), avatar => {
-          avatar.uid = muonEoric.getuid(avatar)
+          avatar.eoric.uid = muonEoric.getuid(avatar)
           avatar.eotim = item.eotim
-          avatar.parentuid = item.uid
+          avatar.eoric.parentuid = item.eoric.uid
           gramm(avatar)
         })
       })
@@ -223,8 +223,8 @@
 
                 avatars.forEach(avatar => {
                   avatar.eotim = anigram.eotim // eotim from anigram
-                  avatar.uid = muonEoric.getuid(avatar) // uid from avatar
-                  avatar.parentuid = newItem.uid // parentuid from newItem
+                  avatar.eoric.uid = muonEoric.getuid(avatar) // uid from avatar
+                  avatar.eoric.parentuid = newItem.eoric.uid // parentuid from newItem
 
                   gramm(avatar)
                 })
@@ -245,8 +245,8 @@
         let avatars = gavatars(newItem)
         avatars.forEach(avatar => {
           avatar.eotim = anigram.eotim // eotim from anigram
-          avatar.uid = muonEoric.getuid(avatar) // uid from avatar
-          avatar.parentuid = newItem.uid // parentuid from newItem
+          avatar.eoric.uid = muonEoric.getuid(avatar) // uid from avatar
+          avatar.eoric.parentuid = newItem.eoric.uid // parentuid from newItem
 
           gramm(avatar)
         })
@@ -293,12 +293,12 @@
     enty.findFromUid = (uid, list) => list.findIndex(d => d.uid === uid)
 
     enty.findIndexAnigramFromUid = uid => enty.anigrams().findIndex(d => d.uid === uid)
-    enty.findAnigramFromUid = uid => state.anigrams.find(d => d.uid === uid)
-    enty.findAnimaFromUid = uid => state.animas.find(d => d.uid === uid)
+    enty.findAnigramFromUid = uid => state.anigrams.find(d => d.eoric.uid === uid)
+    enty.findAnimaFromUid = uid => state.animas.find(d => d.eoric.uid === uid)
 
     enty.born = d => d.eotim !== undefined && d.eotim.unitElapsed !== undefined && d.eotim.unitElapsed > epsilon
     enty.unborn = d => d.eotim === undefined && d.eotim.elapsed === undefined && d.eotim.unitElapsed === undefined && d.eotim.unitElapsed < epsilon
-    enty.getAnimaByUID = uid => state.animas.find(d => d.uid === uid)
+    enty.getAnimaByUID = uid => state.animas.find(d => d.eoric.uid === uid)
 
     enty.animas = () => state.animas
     enty.anigrams = () => state.anigrams

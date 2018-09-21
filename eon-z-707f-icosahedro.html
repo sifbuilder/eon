@@ -5,18 +5,23 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__mapper) {
   let [
-    muonProps,
-    ctlWen,
-    muonGeom,
     d3,
+    d3geo,
+    ctlWen,
     eohalScene,
+    eohalTurnform,  
+    muonGeom,
+    muonProps,
   ] = await Promise.all([
-    __mapper('xs').m('props'),
-    __mapper('xs').c('wen'),
-    __mapper('xs').m('geom'),
     __mapper('xs').b('d3'),
+    __mapper('xs').b('d3-geo'),
+    __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').m('geom'),
+    __mapper('xs').m('props'),
   ])
+
 
   let ani = function () {
   // .................. pics

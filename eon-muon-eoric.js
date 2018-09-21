@@ -89,7 +89,7 @@
           cid: _ric.cid,
           fid: _ric.fid,
         }
-        properties.uid = getuid(properties.eoric)
+        properties.eoric.uid = getuid(properties.eoric)
 
         // feature.id = properties.uid
         feature.properties = properties
@@ -113,12 +113,12 @@
           else _ric.fid = eoric.fid + (i || '')
 
           feature.properties.eoric = _ric
-          feature.properties.uid = getuid(_ric)
+          feature.properties.eoric.uid = getuid(_ric)
 
         }
         json.features = features
       } else {
-        console.log('m.eocrom.geochromer nothing done')
+        console.log('m.eocrom.geocromer nothing done')
       }
 
       return json

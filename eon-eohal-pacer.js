@@ -92,7 +92,7 @@
 
       let uidAnima = muonEoric.getuid(eoric)
       let uidAnigram = muonEoric.getuid(eoric)
-      let uidParent = anitem.parentuid
+      let uidParent = anitem.eoric.parentuid
       let ricPreitem = (anitem.eoload.pacer.eoric !== undefined)
         ? anitem.eoload.pacer.eoric(anitem)
         : anitem.eoric

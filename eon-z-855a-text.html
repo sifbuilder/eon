@@ -12,11 +12,11 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. animas
   let [
-    eohalTextform,
     eohalScene,
+    eohalTextform,
   ] = await Promise.all([
-    __mapper('xs').e('textform'),
     __mapper('xs').e('scene'),
+    __mapper('xs').e('textform'),
   ])
 
   let ani = function () {

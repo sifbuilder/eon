@@ -1,14 +1,14 @@
 /***********
- *    @muonEochrom
+ *    @muonEocrom
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.muonEochrom = global.muonEochrom || {})))
+      : (factory((global.muonEocrom = global.muonEocrom || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function muonEochrom (__mapper = {}) {
+  async function muonEocrom (__mapper = {}) {
     let [
       d3interpolate,
       d3scale,
@@ -69,8 +69,8 @@
       return style
     }
 
-    // .................. @m.eocrom.geochromer(anigram, json)
-    let geochromer = function (anigram, json) {
+    // .................. @m.eocrom.geocromer(anigram, json)
+    let geocromer = function (anigram, json) {
       if (json !== undefined && json !== null) {
         if (json.type === undefined) {
         } else if (typeof anigram.eocrom !== 'object') {
@@ -96,10 +96,10 @@
         } else if (json.type === 'FeatureCollection') { // FeatureCollection
           for (let i = 0; i < json.features.length; i++) {
             let feature = json.features[i]
-            feature = geochromer(anigram, feature)
+            feature = geocromer(anigram, feature)
           }
         } else {
-          console.log('m.eocrom.geochromer nothing done')
+          console.log('m.eocrom.geocromer nothing done')
         }
       }
 
@@ -116,11 +116,11 @@
 
     // .................. enty
     function enty () { return enty }
-    enty.geochromer = geochromer
+    enty.geocromer = geocromer
     enty.getdefault = getdefault
 
     return enty
   }
 
-  exports.muonEochrom = muonEochrom
+  exports.muonEocrom = muonEocrom
 }))
