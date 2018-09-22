@@ -132,9 +132,16 @@
         count.grabbed = grabbed
       }
 
-      // init, pacer.initN
+      if (1 && 1) console.log('anima', anima)
 
-      if (pacer.eoinited === undefined || pacer.eoinited !== 1) {
+      
+      // md: pacer init (pacer.initN) if anima is not yet eoinited
+
+      if (anima.eoinited === undefined || anima.eoinited[uidAnima] === undefined) {
+        
+        if (1 && 1) console.log('------------- anima.eoinited', anima.eoinited)
+
+        
         count.init = Math.floor(pacer.initN) // count INIT
       }
 
@@ -169,14 +176,14 @@
 
         
         pacerAnima.eoinited = (pacerAnima.eoinited === undefined) ?
-          Array.of(pacerUid) :
-          [...pacerAnima.eoinited, pacerUid]
+          {[pacerUid]: eotim.unitPassed} :
+          Object.assign(pacerAnima.eoinited, {[pacerUid]: eotim.unitPassed})
 
         // md: set pacer.eoouted: item was eoouted at eotim.unitPassed time
         // md: if in auto mode, pace on each cycle
         // md: save anitem to preserve eoinited and eoouted
 
-        pacerAnima.eoouted = (pacerAnima.eoouted !== undefined) ?
+        pacerAnima.eoouted = (pacerAnima.eoouted === undefined) ?
           {pacerUid: eotim.unitPassed} :
           Object.assign(pacerAnima.eoouted, {pacerUid: eotim.unitPassed})
 

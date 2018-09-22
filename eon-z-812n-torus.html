@@ -180,24 +180,24 @@ async function anitem (__mapper) {
     let torusAni3 = {
 
       eohal: 'turnform',
-      eoload: {
-        eotim,
-        eoric: {gid: 'q', cid: 'q', fid: 'q3'},
-        eomot: {
-          proform: {
-            projection: 'uniwen',
-            scale: [ 1, 1, 1 ],
-            prerotate: [[[ ctlWen.rotation ]]],
-            translate: [ [0, 0, 0] ],
-            rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
-            rotate: [ 0, 0, 0 ],
-            lens: [ 0, 1, Infinity ],
-          },
+      eotim,
+      eoric: {gid: 'q', cid: 'q', fid: 'q3'},
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          scale: [ 1, 1, 1 ],
+          prerotate: [[[ ctlWen.rotation ]]],
+          translate: [ [0, 0, 0] ],
+          rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
+          rotate: [ 0, 0, 0 ],
+          lens: [ 0, 1, Infinity ],
         },
-        eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
-          'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-        eofold: p => muonNatform.natFeature(p.eoform),
-        eoform: conformTorus3,
+      },
+      eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+        'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
+      eofold: p => muonNatform.natFeature(p.eoform),
+      eoform: conformTorus3,
+      eoload: {
       },
     }
 
@@ -218,7 +218,7 @@ async function anitem (__mapper) {
     let animas = [
 
       sceneAni, // h.scene
-      // torusAni1, // h.turnform
+      torusAni1, // h.turnform
       torusAni2, // h.turnform
       torusAni3, // h.turnform
 

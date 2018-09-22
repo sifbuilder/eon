@@ -65,7 +65,9 @@
               let prtion = muonProfier.formion(prt, anitem)
               let gjobj = muonGeoj.deprop(feature)
 
-              console.assert(gjobj.geometry.coordinates !== null)
+              if (gjobj.geometry !== null)  {
+                console.assert(gjobj.geometry.coordinates !== null)
+              }
 
               let node = muonProj3ct(gjobj, prtion)
               node.properties = properties
@@ -91,7 +93,6 @@
     // ............................. ween
     let ween = anitem => {
       if (anitem.eoinited === undefined) {
-        anitem.eoinited = 1
         return muonProps.v(anitem)
       } else {
         return []

@@ -6,17 +6,21 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
+    tf,
+    ctlWen,
+    eohalScene,    
+    eohalTurnform,    
     muonNatform,
     muonProps,
-    ctlWen,
     prtNatform,
-    tf,
   ] = await Promise.all([
+    __mapper('xs').b('@tensorflow/tfjs'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').e('scene'),    
+    __mapper('xs').e('turnform'),    
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
-    __mapper('xs').c('wen'),
     __mapper('xs').p('natform'),
-    __mapper('xs').b('@tensorflow/tfjs'),
   ])
 
   // .................. animas

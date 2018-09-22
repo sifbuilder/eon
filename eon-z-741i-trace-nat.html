@@ -6,19 +6,21 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
+    eohalTurnform,
+    eohalNatform,
+    eohalPacer,
+    eohalScene,
     muonStace,
     muonNatform,
     muonEoric,
-    eohalTurnform,
-    eohalNatform,
-    eohalScene,
   ] = await Promise.all([
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('pacer'),
+    __mapper('xs').e('scene'),
     __mapper('xs').m('stace'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('eoric'),
-    __mapper('xs').e('turnform'),
-    __mapper('xs').e('natform'),
-    __mapper('xs').e('scene'),
   ])
 
   let muonStore = __mapper('muonStore')

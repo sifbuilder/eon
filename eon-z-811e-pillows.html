@@ -15,6 +15,7 @@ async function anitem (__mapper) {
     muonNatform,
     muonProps,
   ] = await Promise.all([
+    __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
     __mapper('xs').e('turnform'),
     __mapper('xs').m('natform'),
