@@ -100,6 +100,10 @@
       let animas = muonStore.animas()
       let anigrams = muonStore.anigrams()
 
+      // anima.avatar(pacer)
+      // anima(pacer)
+      // pacer generates animas (geosort:animas) or anigrams (geosort:anigram)
+      
       // the anima is the pacer anitem uid
 
       let anima = muonStore.findAnimaFromUid(uidAnima)
@@ -132,17 +136,18 @@
         count.grabbed = grabbed
       }
 
-      if (1 && 1) console.log('anima', anima)
-
       
       // md: pacer init (pacer.initN) if anima is not yet eoinited
 
       if (anima.eoinited === undefined || anima.eoinited[uidAnima] === undefined) {
         
-        if (1 && 1) console.log('------------- anima.eoinited', anima.eoinited)
-
-        
+        if (1 && 1) console.log('e.pacer eoinited', anima.eoric.uid, anima.eoinited)
         count.init = Math.floor(pacer.initN) // count INIT
+        
+      } else {
+
+        if (1 && 1) console.log('e.pacer eoinited', anima.eoric.uid, anima.eoinited)
+      
       }
 
       // cycletime since last eoouted item, relevant if auto
@@ -152,14 +157,15 @@
       // if the cycletime is longer than auto pace
       //  and unitPassed is beyong autoT ...
 
-      if (cycletime >= pacer.autoP &&
+      if (cycletime >= pacer.autoP && 
             eotim.unitPassed > (pacer.autoT || 0)
       ) {
         count.auto = Math.floor(pacer.autoN) // count AUTO
 
         // md: h.pacer may be anima or avatar
-        // md: if avatar, pacerAnima is avatar parent
-
+        // md: if e(anima):pacer, pacerAnima is anima
+        // md: if e(anima.avatar):pacer, pacerAnima is parentAnima
+        
         let pacerAnima
         if (anima !== undefined) {
           pacerAnima = anima // pacer is anima
@@ -184,22 +190,27 @@
         // md: save anitem to preserve eoinited and eoouted
 
         pacerAnima.eoouted = (pacerAnima.eoouted === undefined) ?
-          {pacerUid: eotim.unitPassed} :
-          Object.assign(pacerAnima.eoouted, {pacerUid: eotim.unitPassed})
+          {[pacerUid]: eotim.unitPassed} :
+          Object.assign(pacerAnima.eoouted, {[pacerUid]: eotim.unitPassed})
 
         let animas = Array.of(pacerAnima)
 
         // md: save anima .......... to persist eoinited and eoouted
 
-        muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: animas})
+        // muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: animas})
       }
 
-      // count: eg: {init:4, auto:1, event:3}
+      
+      // md: eocount: eg: {init:4, auto:1, event:3}
+      // md: eocount.init runs once
+      // md: eocount.auto runs on each cycle
+      // md: eocount.event runs on mouse event
+      
 
       if (Object.keys(count).length > 0) { // on pace count, eg {init: 6, auto: 1}
-        // for each key in count
-
+       
         for (let counter = 0; counter < Object.keys(count).length; counter++) {
+          
           // key is the sort of count { init, auto, event }
 
           let key = Object.keys(count)[counter]
@@ -225,6 +236,8 @@
               newItem = muonProps.clone(anigram) // anigram
             }
 
+            // md: remove eoload from newItem
+            
             delete newItem.eoload
 
             // NOT pacer.AAD if not pacer.add, pacer generates anitems
@@ -233,7 +246,6 @@
             // md: an anima with pacer eohal gets the newItem fulfilled with 
             // md: the calls in the pacer 
             // md: properties in the anima match with functors in the pacer
-
 
 
             let ownProps = Object.getOwnPropertyNames(pacer)
@@ -254,7 +266,9 @@
               newItemsInCount = muonProps.a(newItemsInCount)
               newItems = [...newItems, ...newItemsInCount] // add items
               muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: newItems})
+              
             } else {
+              
               // md: eohal.gramm
               let newItemsInCount = muonProps.a(eohal.gramm(newItem))
 

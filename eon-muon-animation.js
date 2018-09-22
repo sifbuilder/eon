@@ -124,10 +124,13 @@
 
     // ............................. ANIMIER
     function animier (elapsed) {
-      if (0 && 1) console.log(` ................ animation ${elapsed} ${state.animas.length}`)
-      muonStore = __mapper('muonStore') // store with state from __mapper
+      muonStore = __mapper('muonStore')
       state.animas = muonStore.animasLive()
 
+      if (1 && 1) console.log(` ................ animation ${elapsed} ${state.animas.length}`)
+      if (1 && 1) console.log('aniams', state.animas)
+
+        
       // ............................. TIME
       state.animas = muonProps.a(muonStore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {
