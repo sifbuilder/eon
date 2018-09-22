@@ -5,15 +5,17 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__mapper) {
   let [
-    muonGraticule,
     ctlWen,
-    prtNatform,
     eohalScene,
+    eohalTurnform,
+    muonGraticule,
+    prtNatform,
   ] = await Promise.all([
-    __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
-    __mapper('xs').p('natform'),
     __mapper('xs').e('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').m('graticule'),
+    __mapper('xs').p('natform'),
   ])
 
   let ani = function () {

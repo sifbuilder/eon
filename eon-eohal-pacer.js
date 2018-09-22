@@ -93,9 +93,8 @@
       let uidAnima = muonEoric.getuid(eoric)
       let uidAnigram = muonEoric.getuid(eoric)
       let uidParent = anitem.eoric.parentuid
-      let ricPreitem = (anitem.eoload.pacer.eoric !== undefined)
-        ? anitem.eoload.pacer.eoric(anitem)
-        : anitem.eoric
+      
+      let ricPreitem = anitem.eoric
       let uidPreitem = muonEoric.getuid(ricPreitem)
 
       let animas = muonStore.animas()
@@ -194,10 +193,13 @@
           // count, key, qitems, kq
 
           for (let i = 0; i < qitems; i++) {
-            let props = { count: count, key: key, counter: i }
+            let props = { 
+              count: count, 
+              key: key, 
+              counter: i,
+            }
 
             let newItem
-
             if (anitem.eoload.pacer.geosort === 'anima') {
               newItem = muonProps.clone(anima) // anima
             } else {
@@ -209,7 +211,11 @@
             // NOT pacer.AAD if not pacer.add, pacer generates anitems
             // eofold is Feature
 
-            // complete newItem definition
+            // md: an anima with pacer eohal gets the newItem fulfilled with 
+            // md: the calls in the pacer 
+            // md: properties in the anima match with functors in the pacer
+
+
 
             let ownProps = Object.getOwnPropertyNames(pacer)
             for (let prop of ownProps) {

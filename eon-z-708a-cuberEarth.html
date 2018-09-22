@@ -18,8 +18,8 @@ async function anitem (__mapper) {
     __mapper('xs').b('topojson'),
     __mapper('xs').c('wen'),
     __mapper('xs').d('worldTopo110m'),
-    __mapper('xs').e('scene'),    
-    __mapper('xs').e('turnform'),    
+    __mapper('xs').e('scene'),
+    __mapper('xs').e('turnform'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
     __mapper('xs').p('natform'),
@@ -251,10 +251,10 @@ async function anitem (__mapper) {
 
         proform: proform,
       },
-        eoframe: { extent: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] } },
-      eoload: {
-
+      eoframe: { extent: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
+      eoload: {},
     }
+
     // .............................  graticircAni
     let graticircAni = {
 
@@ -267,11 +267,14 @@ async function anitem (__mapper) {
 
       eomot: {
         conform: { projection: 'natform', eoform: formSphere },
-
         proform: proform,
       },
-        eoframe: { frame: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] } },
-      eoload: {
+
+      eoframe: {
+        frame: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ],
+      },
+
+      eoload: {},
 
     }
 
