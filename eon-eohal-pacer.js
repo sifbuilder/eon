@@ -8,40 +8,40 @@
 }(this, function (exports) {
   'use strict'
 
-  // # eon-eohal-pacer
-  // **create new items at init, on auto or upon event**
-
-  // ### functions
-
-  // * ##### _geojsor
-  // usage: `_geojsor(@ani, @prob`
-  // ani.pacer.initN
-  // ani.pacer.eventN
-  // ani.pacer.autoN
-  // ani.pacer.autoP
-  // ani.pacer.outtimed
-  // ani.pacer.maxN
-  // ani.pacer.geospan
-  // ani.pacer.geoaad: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
-  // ani.pacer.geotype: {LineString}
-  // ani.pacer.geobase: {geo, ere, pro}
-
-  // ### methods
-
-  // * ##### gramm
-  // `@a.p.pacer.initSitus`  : situs for init items
-  // `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, ani)`
-  // usage: `eoload.pacer.autoSitus(anigram)`
-  // autositus in zindex: `function(a) {return muonStace.getLocus(this.stace, ani) }` gets `ani.p.pacer.stance`
-  // auto time is `a.p.eotim.unitPassed - a.p.pacer.outed`
-  // `@a.p.pacer.eventSitus` : situs for event items
-  // `count` new items to pacer from init, auto and event
-
-  // `@a.p.pacer.fidder`  : new item `fid` identifier
-  // `@a.p.pacer.geojsor(@anigram, @counter)` : gets new item
-
-  // ## license
-  // MIT
+  // md: # eon-eohal-pacer
+  // md: **create new items at init, on auto or upon event**
+  // md: 
+  // md: ### functions
+  // md: 
+  // md: * ##### _geojsor
+  // md: usage: `_geojsor(@ani, @prob`
+  // md: ani.pacer.initN
+  // md: ani.pacer.eventN
+  // md: ani.pacer.autoN
+  // md: ani.pacer.autoP
+  // md: ani.pacer.outtimed
+  // md: ani.pacer.maxN
+  // md: ani.pacer.geospan
+  // md: ani.pacer.geoaad: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
+  // md: ani.pacer.geotype: {LineString}
+  // md: ani.pacer.geobase: {geo, ere, pro}
+  // md: 
+  // md: ### methods
+  // md: 
+  // md: * ##### gramm
+  // md: `@a.p.pacer.initSitus`  : situs for init items
+  // md: `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, ani)`
+  // md: usage: `eoload.pacer.autoSitus(anigram)`
+  // md: autositus in zindex: `function(a) {return muonStace.getLocus(this.stace, ani) }` gets `ani.p.pacer.stance`
+  // md: auto time is `a.p.eotim.unitPassed - a.p.pacer.eoouted`
+  // md: `@a.p.pacer.eventSitus` : situs for event items
+  // md: `count` new items to pacer from init, auto and event
+  // md: 
+  // md: `@a.p.pacer.fidder`  : new item `fid` identifier
+  // md: `@a.p.pacer.geojsor(@anigram, @counter)` : gets new item
+  // md: 
+  // md: ## license
+  // md: MIT
 
   async function eohalPacer (__mapper = {}) {
     let [
@@ -138,9 +138,9 @@
         count.init = Math.floor(pacer.initN) // count INIT
       }
 
-      // cycletime since last outed item, relevant if auto
+      // cycletime since last eoouted item, relevant if auto
 
-      let cycletime = eotim.unitPassed - (pacer.outed || 0)
+      let cycletime = eotim.unitPassed - (pacer.eoouted || 0)
 
       // if the cycletime is longer than auto pace
       //  and unitPassed is beyong autoT ...
@@ -150,27 +150,39 @@
       ) {
         count.auto = Math.floor(pacer.autoN) // count AUTO
 
-        let paceanima
+        // md: h.pacer may be anima or avatar
+        // md: if avatar, pacerAnima is avatar parent
+
+        let pacerAnima
         if (anima !== undefined) {
-          paceanima = anima // pacer ir nanima
+          pacerAnima = anima // pacer is anima
         } else {
-          paceanima = parentanima // pacer in avatar
+          pacerAnima = parentAnima // pacer in avatar
         }
 
-        // set eoinited: the anitem has started the pacer
+        // md: pacerUid is the pacer anima uid
+        
+        let pacerUid = pacerAnima.eoric.uid
+        
+        // md: if pacer is avatar, each is inited. 
+        // md: eoinited is set per pacer 
 
-        paceanima.eoload.pacer.eoinited = 1 //  eoinited
+        
+        pacerAnima.eoinited = (pacerAnima.eoinited === undefined) ?
+          Array.of(pacerUid) :
+          [...pacerAnima.eoinited, pacerUid]
 
-        // set pacer.outed: item was outed at eotim.unitPassed time
+        // md: set pacer.eoouted: item was eoouted at eotim.unitPassed time
+        // md: if in auto mode, pace on each cycle
+        // md: save anitem to preserve eoinited and eoouted
 
-        paceanima.eoload.pacer.outed = eotim.unitPassed // updated with anima
+        pacerAnima.eoouted = (pacerAnima.eoouted !== undefined) ?
+          {pacerUid: eotim.unitPassed} :
+          Object.assign(pacerAnima.eoouted, {pacerUid: eotim.unitPassed})
 
-        // if in auto mode, pace on each cycle
-        // save anitem to preserve eoinited and outed
+        let animas = Array.of(pacerAnima)
 
-        let animas = Array.of(paceanima)
-
-        // save anima .......... to persist eoinited and outed
+        // md: save anima .......... to persist eoinited and eoouted
 
         muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: animas})
       }

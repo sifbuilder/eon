@@ -47,7 +47,7 @@
 
     // .................. enty
     let enty = function () {}
-    enty.ween = anima => (anima.eoinited !== 1) ? (anima.eoinited = 1, [anima]) : []
+    enty.ween = anima => [anima] : []
     enty.gramm = anima => gramm(anima)
 
     return enty
