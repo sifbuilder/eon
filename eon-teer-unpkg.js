@@ -132,28 +132,28 @@ function getReadhtml (inDir, root) {
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
   <title>eons</title>
-  
-  
+
+
 </head>
 <body>
 
   ${outText}
-  
+
 </body>
 </html>`
 
   return html
 }
 
-// md: getMdtext
+// md: getMdCore
 // md: build the .md text
 // md: @name
 // md: the md depends if the global package (eons)
 // md: or an individual eon is passed
 
-function getMdtext (name) {
+function getMdCore (name) {
   let title, subtitle
   if (name !== undefined) { // eon
     title = `eon ${name}`
@@ -186,6 +186,33 @@ function getMdtext (name) {
   - MIT`
 
   return md
+}
+
+// md: getMdText
+// md: get md text from file
+// md: @name file
+
+function getMdText (file) {
+  let header = ''
+  let newLine = '\n'
+  let endOfLine = '  '
+  let outText = ''
+  let fileName = file
+
+  let fileTxt = fs.readFileSync(fileName, 'utf8')
+  let nameFindPattern = /md:(\{filename\})/mg // filename
+  let nameReplacePattern = /md:\{filename\}/i // ignoring case
+  var nameArr
+  while ((nameArr = nameFindPattern.exec(fileTxt)) !== null) {
+    fileTxt = fileTxt.replace(nameReplacePattern, fileName)
+  }
+  const mdpattern = /\/\/.?md:(.*)/mg // // md (global multiline)
+  var arr
+  while ((arr = mdpattern.exec(fileTxt)) !== null) {
+    outText += arr[1] + endOfLine + newLine
+  }
+
+  return outText
 }
 
 // md: getPackobj
@@ -289,15 +316,25 @@ let unpkg = function () {
             console.log('create dist folder ', pckfolder)
           }
         }
-        createPckDir(pckfolder)
 
         // md: README
         function createReadme (pckfolder, fullName, rootname) {
-          let mdtext = getMdtext(fullName) // place README
+          // md: create text and save README file
+          // md: README text combines md segments
+          // md: mddoc: md documentation in file
+          // md: mdtext: eons shared md text
+
+          let mdtext = getMdCore(fullName) // place README
           let mdfilename = rootname + '.md'
           let outfile = 'README.md'
           let fromfile = `${indir}${mdfilename}`
+          let eonfile = `${indir}${fullName}`
           let tofile = `${pckfolder}${outfile}`
+          let newLine = '\n'
+
+          let mddoc = getMdText(eonfile)
+
+          let outtext = `${mddoc} ${newLine} ${newLine} ${mdtext}`
 
           if (fs.existsSync(tofile)) {
             fs.unlinkSync(tofile, (err) => {
@@ -306,15 +343,14 @@ let unpkg = function () {
             console.log(`successfully deleted ${tofile}`)
           }
 
-          if (fs.existsSync(fromfile)) {
+          if (fs.existsSync(fromfile)) { // if md file
             console.log('copy file to file ', fromfile, tofile)
             fs.copyFileSync(fromfile, tofile)
           } else {
             console.log('copy text to file ', tofile)
-            fs.writeFileSync(tofile, mdtext)
+            fs.writeFileSync(tofile, outtext)
           }
         }
-        createReadme(pckfolder, fullName, rootname)
 
         // md: LICENSE
         // md: add license file to dist folder
@@ -330,7 +366,6 @@ let unpkg = function () {
             console.log('file does not exsist ')
           }
         }
-        createLicense(pckfolder)
 
         // md: PACKAGE
         // md: add package.json file to dist folder
@@ -340,7 +375,6 @@ let unpkg = function () {
           let tofile = `${pckfolder}${outfile}`
           fs.writeFileSync(tofile, packagetext)
         }
-        createPackage(pckfolder, fullName, rootname, packver)
 
         // md: EONFILE
         function createEonfile (pckfolder, fileName, fullName) {
@@ -381,7 +415,36 @@ let unpkg = function () {
             }
           }
         }
-        createEonfile(pckfolder, fileName, fullName)
+
+        // md: unmdEonfile
+        function unmdEonfile (pckfolder, fullName, rootname) {
+          let findPattern = '.*// md: .*(?:\r\n|\n|\r)' // pattern: '// md: '
+          let replacePattern = ''
+          let exp = RegExp(`${findPattern}`, '') // un mg
+
+          let ncdfolder = '.'
+          let pckdistfolder = `${pckfolder}${ncdfolder}/`
+          let eonfile = 'nofile'
+
+          if (fileName === 'eons') {
+            let outfile = `${fileName}.html`
+            eonfile = `${pckdistfolder}${outfile}`
+          } else {
+            let outfile = fullName
+            eonfile = `${pckdistfolder}${outfile}`
+          }
+          console.log('unmd', eonfile)
+          if (fs.existsSync(eonfile)) { // if md file
+            let fileTxt = fs.readFileSync(eonfile, 'utf8')
+
+            var arr
+            while ((arr = exp.exec(fileTxt)) !== null) {
+              let toreplace = arr[0]
+              fileTxt = fileTxt.replace(toreplace, replacePattern)
+            }
+            fs.writeFileSync(eonfile, fileTxt)
+          }
+        }
 
         // md: NPM PUBLISH
         function npmPublish (pckfolder) {
@@ -397,6 +460,13 @@ let unpkg = function () {
               })
           }
         }
+
+        createPckDir(pckfolder)
+        createReadme(pckfolder, fullName, rootname)
+        createLicense(pckfolder)
+        createPackage(pckfolder, fullName, rootname, packver)
+        createEonfile(pckfolder, fileName, fullName)
+        unmdEonfile(pckfolder, fullName, rootname)
         npmPublish(pckfolder)
       })
   })

@@ -105,7 +105,7 @@
           _ric.cid = eoric.cid
           _ric.fid = eoric.fid
           _ric.nid = i
-          
+
           // feature.properties.uid = getuid(feature.properties.eoric)
 
           if (eoric.fid === undefined) _ric.fid = eoric.cid + (i || '')
@@ -114,7 +114,6 @@
 
           feature.properties.eoric = _ric
           feature.properties.eoric.uid = getuid(_ric)
-
         }
         json.features = features
       } else {
@@ -145,7 +144,7 @@
         }
       } else if (Array.isArray(params)) {
         uid = params[0] + '_' + params[1] + '_' + params[2]
-      } 
+      }
 
       return uid
     }

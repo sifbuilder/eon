@@ -108,7 +108,7 @@
             simNode.id = simNode.eoric.uid
           }
 
-          if (eoload && eoload.link) {  // links
+          if (eoload && eoload.link) { // links
             simNode.source = eoload.link.source
             simNode.target = eoload.link.target
           }

@@ -2,19 +2,22 @@
 <script>
 xEonify.eon({anitem, time: undefined})
 
+// md: eon z anima
+// md: render anima from m.animas
+
 // .................. anitem
 async function anitem (__mapper) {
   // .................. eons
   let [
-    muonAnimas,
     eohalNatform,
-    eohalTurnform,
     eohalScene,
+    eohalTurnform,
+    muonAnimas,
   ] = await Promise.all([
-    __mapper('xs').m('animas'),
     __mapper('xs').e('natform'),
-    __mapper('xs').e('turnform'),
     __mapper('xs').e('scene'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').m('animas'),
   ])
 
   // .................. animas

@@ -7,7 +7,7 @@ async function anitem (__mapper) {
   let [
     ctlWen,
     eohalScene,
-    eohalTurnform,  
+    eohalTurnform,
     muonFibonat,
     muonGraticule,
     muonProps,
@@ -15,7 +15,7 @@ async function anitem (__mapper) {
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('turnform'),   
+    __mapper('xs').e('turnform'),
     __mapper('xs').m('fibonat'),
     __mapper('xs').m('graticule'),
     __mapper('xs').m('props'),
@@ -131,7 +131,6 @@ async function anitem (__mapper) {
           yprecision: [[[100, 0.01]]],
           goldenangle: Math.PI * (3.0 - Math.sqrt(5.0)),
         },
-
 
       },
     }

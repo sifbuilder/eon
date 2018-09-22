@@ -14,9 +14,9 @@ async function anitem (__mapper) {
     prtNatform,
     ctlVersor,
     d3geo,
-    d3geoprojection,    
-    eohalTurnform,    
-    eohalScene,    
+    d3geoprojection,
+    eohalTurnform,
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('geom'),
     __mapper('xs').c('wen'),
@@ -26,9 +26,9 @@ async function anitem (__mapper) {
     __mapper('xs').p('natform'),
     __mapper('xs').c('versor'),
     __mapper('xs').b('d3-geo'),
-    __mapper('xs').b('d3-geo-projection'),    
-    __mapper('xs').e('turnform'),    
-    __mapper('xs').e('scene'),    
+    __mapper('xs').b('d3-geo-projection'),
+    __mapper('xs').e('turnform'),
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -36,7 +36,6 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
- 
     let formSphere = {
 
       'x': {
@@ -54,64 +53,60 @@ async function anitem (__mapper) {
 
     }
 
-
-
     // ............................. earthAni
     let earthAni = {
 
       eohal: 'turnform',
 
-        eofold: () => {
-          return Object.assign({},
-            topojson.feature(
-              dworldTopo110m.data(),
-              dworldTopo110m.data().objects.land
-            )
+      eofold: () => {
+        return Object.assign({},
+          topojson.feature(
+            dworldTopo110m.data(),
+            dworldTopo110m.data().objects.land
           )
-        },
+        )
+      },
 
-        eotim: eotim,
-        eoric: {gid: 'earthAni', cid: 'earthAni', fid: 'earthAni'},
-        eocrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
-        eomot: {
-          conform: {
+      eotim: eotim,
+      eoric: {gid: 'earthAni', cid: 'earthAni', fid: 'earthAni'},
+      eocrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
+      eomot: {
+        conform: {
 
-            projection: d3geo.geoOrthographic(),
-            prerotate: [[[ ctlWen.rotation ]]],
-            translate: [0, 0, 0],
-            scale: 100,
-            rotate: [ [[[0, 4 * 180]]], 0, 0 ],
-            transform: function(x,y){
-								this.stream.point( x/1, y/2) 
-						},            
-
+          projection: d3geo.geoOrthographic(),
+          prerotate: [[[ ctlWen.rotation ]]],
+          translate: [0, 0, 0],
+          scale: 100,
+          rotate: [ [[[0, 4 * 180]]], 0, 0 ],
+          transform: function (x, y) {
+            this.stream.point(x / 1, y / 2)
           },
-          proform: {
 
-            projection: 'uniwen',
-            prerotate: [[[ ctlWen.rotation ]]],
-            translate: [ 0, 0, 0],
-            scale: [1,-1],
-            rotate:  [ 0, [[[0, 4 * 180]]], 0 ],
-            lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
-
-          },
         },
+        proform: {
 
+          projection: 'uniwen',
+          prerotate: [[[ ctlWen.rotation ]]],
+          translate: [ 0, 0, 0],
+          scale: [1, -1],
+          rotate: [ 0, [[[0, 4 * 180]]], 0 ],
+          lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
+
+        },
+      },
 
     }
 
- 
     // .................. sceneAni
     let sceneAni = {
 
       eohal: 'scene',
-        eofold: null,
-        eotim: eotim,
-        eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-        eoload: {
-          context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-        },
+      eofold: null,
+      eotim: eotim,
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoload: {
+        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+      },
 
     }
 

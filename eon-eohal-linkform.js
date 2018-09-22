@@ -21,7 +21,6 @@
 
     // ............................. breed
     function eohale (anima) {
-      
       let newItems = []
 
       let fromAnima = muonStore.findAnimaFromUid(avatar.eoload.from)
@@ -35,7 +34,7 @@
       }
 
       let linkItem = {}
-      
+
       let eoric = avatar.eoric
       linkItem.eoric = eoric
       linkItem.sort = 'curve'
@@ -56,7 +55,6 @@
       return newItems
     }
 
-
     // ....................... gramm
     let gramm = anitem => {
       return Array.of(anitem)
@@ -64,7 +62,7 @@
 
     // ....................... ween
     let ween = anitem => {
-      let newItems = eohale(anitem)      
+      let newItems = eohale(anitem)
       return Array.of(newItems)
     }
 

@@ -9,6 +9,10 @@
 }(this, function (exports) {
   'use strict'
 
+  // md: muonAnimation
+  // md: animas, simnodes, anigrams, viewnodes
+  // md: render viewnodes
+
   async function muonAnimation (__mapper) {
     let [
       muonProps,
@@ -120,7 +124,7 @@
 
     // ............................. ANIMIER
     function animier (elapsed) {
-      if (1 && 0) console.log(` ................ animation ${elapsed} ${state.animas.length}`)
+      if (0 && 1) console.log(` ................ animation ${elapsed} ${state.animas.length}`)
       muonStore = __mapper('muonStore') // store with state from __mapper
       state.animas = muonStore.animasLive()
 
