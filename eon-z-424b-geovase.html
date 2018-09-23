@@ -7,7 +7,7 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     d3Geo,
-    d3GeoProjection,    
+    d3GeoProjection,
     topojson,
     ctlVersor,
     ctlWen,
@@ -75,13 +75,13 @@ async function anitem (__mapper) {
       eomot: {
         conform: {
 
-          projection: d3Geo.geoOrthographic(),  // 'base'
+          projection: d3Geo.geoOrthographic(), // 'base'
           prerotate: [[[ ctlWen.rotation ]]],
           translate: [0, 0, 0],
           scale: 100,
           rotate: [ [[[0, 4 * 180]]], 0, 0 ],
           stream: function (x, y) {
-            this.stream.point(x / 1, - y / 4)
+            this.stream.point(x / 1, -y / 4)
           },
 
         },

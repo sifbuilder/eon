@@ -9,14 +9,12 @@
   'use strict'
 
   async function prtBase (__mapper = {}) {
-    
     let [
       d3Geo,
     ] = await Promise.all([
       __mapper('xs').b('d3-geo'),
-    ])    
-    
-    
+    ])
+
     let epsilon = 1e-6
     let radians = Math.PI / 180
     let transform = d3Geo.geoTransform({ point: function (x, y) { this.stream.point(x, y) }})
@@ -165,7 +163,7 @@
       return projection
     }
 
-    // .................. enty    
+    // .................. enty
     let enty = {}
     enty.projection = projection
     return enty

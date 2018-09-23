@@ -65,7 +65,7 @@
               let prtion = muonProfier.formion(prt, anitem)
               let gjobj = muonGeoj.deprop(feature)
 
-              if (gjobj.geometry !== null)  {
+              if (gjobj.geometry !== null) {
                 console.assert(gjobj.geometry.coordinates !== null)
               }
 

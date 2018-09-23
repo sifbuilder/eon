@@ -129,7 +129,6 @@
 
       if (1 && 1) console.log(` ................ animation ${elapsed} ${state.animas.length}`, state.animas)
 
-        
       // ............................. TIME
       state.animas = muonProps.a(muonStore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {

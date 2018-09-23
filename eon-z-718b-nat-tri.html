@@ -1,6 +1,6 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-window.xEonify.eon({anitem, time:undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -10,13 +10,13 @@ async function anitem (__mapper) {
     ctlWen,
     eohalTornasol,
     eohalNatform,
-    eohalScene,    
+    eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('tornasol'),
     __mapper('xs').e('natform'),
-    __mapper('xs').e('scene'),    
+    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -78,11 +78,11 @@ async function anitem (__mapper) {
     let nat = {
 
       eohal: 'natform',
-      eofold: null,      
+      eofold: null,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
       eocrom: eocrom,
-      eomot: {        
+      eomot: {
         proform: proform,
       },
       eoform: formNat,
@@ -97,7 +97,7 @@ async function anitem (__mapper) {
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'formCirc'},
       eocrom: geochromCirc,
-      eomot: {        
+      eomot: {
         proform: proform,
       },
       eoform: formCirc,
@@ -110,9 +110,9 @@ async function anitem (__mapper) {
     let sceneAni = {
 
       eohal: 'scene',
-        eofold: null,
-        eotim: eotim,
-        eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eofold: null,
+      eotim: eotim,
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       eoload: {
         context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1, key: 1},
       },

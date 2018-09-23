@@ -9,6 +9,20 @@
   'use strict'
 
   async function eohalCore (__mapper = {}) {
+    let [
+      muonGeoj,
+      muonProfier,
+      muonProj3ct,
+      muonProps,
+      eohalPetiole,
+    ] = await Promise.all([
+      __mapper('xs').m('geoj'),
+      __mapper('xs').m('profier'),
+      __mapper('xs').m('proj3ct'),
+      __mapper('xs').m('props'),
+      __mapper('xs').e('petiole'),
+    ])
+
     // ....................... ween
     let ween = anitem => Array.of(anitem)
 

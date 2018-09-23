@@ -65,7 +65,7 @@ async function anitem (__mapper) {
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate: [ [[[0,300]]], 0, 0],
+          translate: [ [[[0, 300]]], 0, 0],
           scale: 1,
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
@@ -89,19 +89,19 @@ async function anitem (__mapper) {
 
           // md: the pacer is in the eoload of the hosting anima
           // md: initN: 1, one paced anitem will be generated, then sleep
-        
+
           initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
 
           eohal: 'natform',
 
           // md: geosort: anima, hsoting anima will create pacecount resident animas
-          
+
           geosort: 'anima',
-          
+
           // md: geobase: undefined, base on resulting geofold
-          
+
           geobase: '',
-          
+
           // md: geoadd: 0, geometries will not be accumulated
 
           geoaad: 0,
@@ -111,17 +111,12 @@ async function anitem (__mapper) {
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-            
               // stace is ani's transformed eonode
               // stace = muonStace.getLocus([null, null, null], ani)
               stace = [0, 0, 0]
-              
             } else if (props.key === 'auto') { // AUTO
-            
               stace = [0, 0, 0]
-              
             } else if (props.key === 'event') { // EVENT
-            
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
                 let x = grabbed[0]
@@ -129,7 +124,6 @@ async function anitem (__mapper) {
                 let z = 0
                 stace = {x, y, z }
               }
-              
             }
 
             let coordinates = stace

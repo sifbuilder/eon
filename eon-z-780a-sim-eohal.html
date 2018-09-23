@@ -409,14 +409,13 @@ async function anitem (__mapper) {
     let force_collide = {
 
       properties: {
-
         strength: 0.03,
-
       },
 
       field: params => {
-        let nodes = params.nodes
         let forces = []
+        
+        let nodes = params.nodes
 
         let strength = params.properties.strength
 
@@ -424,16 +423,16 @@ async function anitem (__mapper) {
           type: 'collide',
           strength: strength,
           radius: d => 9,
-          filter: function (d) {
-            console.log('d', d)
-            return d.eoric.gid === 'nat'
-          },
+          filter: d => d.eoric.gid === 'nat',
           src: d3_force,
           nodes: nodes,
         }
 
         let force = muonGeoforces.force_(forceParams)
-        let field = {key: 'collide', force: force}
+        let field = {
+          key: 'collide', 
+          force: force
+        }
 
         forces.push(field)
         return forces
@@ -465,7 +464,10 @@ async function anitem (__mapper) {
         }
 
         let force = muonGeoforces.force_(forceParams)
-        let field = {'key': 'charge', 'force': force}
+        let field = {
+          key: 'charge', 
+          force: force
+        }
 
         forces.push(field)
         return forces

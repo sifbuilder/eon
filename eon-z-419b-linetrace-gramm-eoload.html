@@ -21,7 +21,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('rayder'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('natform'),
-    __mapper('xs').e('scene'),    
+    __mapper('xs').e('scene'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('textform'),
     __mapper('xs').e('tornasol'),
@@ -109,12 +109,12 @@ async function anitem (__mapper) {
 
       eoload: {
         pacer: { // geoaad for trace
-        
+
           eohal: 'tornasol',
           geosort: 'anigram',
           geobase: 'eoform',
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0, 
-          
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
+
           geoaad: 1,
 
           eofold: function (ani, props) {
@@ -127,7 +127,6 @@ async function anitem (__mapper) {
               coords = (preani && preani.eofold.geometry.coordinates)
                 ? [...preani.eofold.geometry.coordinates, point ]
                 : Array.of(point)
-                
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates
             }
@@ -178,7 +177,6 @@ async function anitem (__mapper) {
         },
       },
     }
-
 
     // ....................... animapi
     natLined.avatars = {
