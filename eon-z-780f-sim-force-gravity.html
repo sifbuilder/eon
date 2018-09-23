@@ -15,7 +15,7 @@ async function anitem (__mapper) {
     forceEnergy,
     forceCollide,
     muonEoric,
-    muonGeoforces,
+    muonEoforces,
     muonNatform,
     muonProps,
     renderPortview,
@@ -30,7 +30,7 @@ async function anitem (__mapper) {
     __mapper('xs').f('energy'),
     __mapper('xs').f('collide'),
     __mapper('xs').m('eoric'),
-    __mapper('xs').m('geoforces'),
+    __mapper('xs').m('eoforces'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').r('portview'),
@@ -57,8 +57,8 @@ async function anitem (__mapper) {
       },
 
       eonode: {
-        'type': 'Feature',
-        'geometry': null,
+        type: 'Feature',
+        geometry: null,
       },
 
       eomot: {
@@ -88,8 +88,7 @@ async function anitem (__mapper) {
           'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
         },
       },
-      eoload: {
-      },
+      eoload: {},
     }
 
     // ............................. force_energy
@@ -116,7 +115,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'energy',
-          force: muonGeoforces.force_(forceParams),
+          force: muonEoforces.force_(forceParams),
         }
 
         return Array.of(field)
@@ -145,7 +144,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'viscosity',
-          force: muonGeoforces.force_(forceParams),
+          force: muonEoforces.force_(forceParams),
         }
 
         return Array.of(field)
@@ -176,7 +175,7 @@ async function anitem (__mapper) {
           nodes: nodes,
         }
 
-        let force = muonGeoforces.force_(forceParams)
+        let force = muonEoforces.force_(forceParams)
         let field = {key: 'collide', force: force}
 
         forces.push(field)
@@ -244,18 +243,14 @@ async function anitem (__mapper) {
     let fieldAni = {
 
       eohal: 'core',
-
       eofold: null,
-
       eotim: eotim,
       eoric: {gid: 'core', cid: 'core', fid: 'core'},
-
-      eoload: {
-      },
+      eoload: {},
 
     }
 
-    fieldAni.geoforces = {
+    fieldAni.eoforces = {
       force_energy,
       force_viscosity,
       force_gravity,

@@ -56,11 +56,9 @@
       return cttes
     }
 
-    /* **************************
- *        //md: initNodes
- *        //md:   @aniItems
- *        //md:   @nMim
- */
+    // md: initNodes
+    // md:   @aniItems
+    // md:   @nMim
     function initNodes (aniItems, nDim) {
       let simNodes = []
 
@@ -124,7 +122,7 @@
     // ............................. restoreNodes
     function restoreNodes (simNodes, aniItems) {
       let updItems = []
-
+if (1 && 1) console.log('simNodes', simNodes)
       if (simNodes.length > 0) {
         for (let i = 0; i < simNodes.length; ++i) {
           let simNode = simNodes[i]
@@ -160,6 +158,7 @@
       // md:     coordinates
       // md:     properties.{geodelta, prevous, velin}
 
+
       return updItems
     }
 
@@ -167,6 +166,7 @@
     let simulate = function (sim, aniItems = [], elapsed = 0, dim = 3) {
       let aniSims = []
       let numDims = 3
+if (1 && 1) console.log(' *** sim', aniItems.length, aniItems)
 
       let aniNodes = initNodes(aniItems, dim) // < aniNodes
       sim
@@ -177,11 +177,11 @@
       for (let i = 0; i < aniItems.length; i++) {
         let aniItem = aniItems[i] // each anima or anigram
 
-        if (aniItem.geoforces !== undefined) { // forces in aniItem
-          let forces = muonProps.fa(aniItem.geoforces)
+        if (aniItem.eoforces !== undefined) { // forces in aniItem
+          let forces = muonProps.fa(aniItem.eoforces)
 
           for (let j = 0; j < forces.length; j++) { // for each force in aniItem
-            let aniForce = forces[j] // aniForce in anima.geoforces eg. force_gravity
+            let aniForce = forces[j] // aniForce in anima.eoforces eg. force_gravity
             let cttes = simConstants(sim, aniForce.properties)
 
             sim

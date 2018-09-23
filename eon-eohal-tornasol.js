@@ -85,6 +85,8 @@
 
     // ............................. gramm
     let gramm = anitem => {
+      if (1 && 1) console.log('gramm', anitem)
+
       let newItem = eohale(anitem)
       let newAnitems = eohalPetiole.gramm(newItem)
       return newAnitems
@@ -92,7 +94,8 @@
 
     // ............................. ween
     let ween = anitem => {
-      if (anitem.eoinited === undefined) {
+      // if (anitem.eoinited === undefined) {
+      if (!anitem.eogelded) {
         return muonProps.v(anitem)
       } else {
         return []

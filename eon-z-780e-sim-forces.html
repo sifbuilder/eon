@@ -12,7 +12,7 @@ async function anitem (__mapper) {
     eohalScene,
     eohalTornasol,
     muonProps,
-    muonGeoforces,
+    muonEoforces,
     muonNatform,
     muonEoric,
     renderPortview,
@@ -24,7 +24,7 @@ async function anitem (__mapper) {
     __mapper('xs').e('scene'),
     __mapper('xs').e('tornasol'),
     __mapper('xs').m('props'),
-    __mapper('xs').m('geoforces'),
+    __mapper('xs').m('eoforces'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('eoric'),
     __mapper('xs').r('portview'),
@@ -168,7 +168,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'energy',
-          force: muonGeoforces.force_(forceParams),
+          force: muonEoforces.force_(forceParams),
         }
 
         return Array.of(field)
@@ -197,7 +197,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'viscosity',
-          force: muonGeoforces.force_(forceParams),
+          force: muonEoforces.force_(forceParams),
         }
 
         return Array.of(field)
@@ -228,7 +228,7 @@ async function anitem (__mapper) {
           nodes: nodes,
         }
 
-        let force = muonGeoforces.force_(forceParams)
+        let force = muonEoforces.force_(forceParams)
         let field = {key: 'collide', force: force}
 
         forces.push(field)
@@ -307,7 +307,7 @@ async function anitem (__mapper) {
 
     }
 
-    fieldAni.geoforces = {
+    fieldAni.eoforces = {
       force_energy,
       force_viscosity,
       // force_collide,

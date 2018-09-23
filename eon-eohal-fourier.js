@@ -230,7 +230,7 @@
       return anigrams
     }
     // .................... ween
-    let ween = anitem => (anitem.eoinited !== 1) ? (anitem.eoinited = anitem.gelded = 1, [anitem]) : []
+    let ween = anitem => (anitem.eoinited !== 1) ? (anitem.eoinited = anitem.eogelded = 1, [anitem]) : []
 
     // .................... eohal
     let eohal = {

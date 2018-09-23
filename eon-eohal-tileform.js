@@ -61,7 +61,7 @@
 
     // .................... ween
     function ween (anima) {
-      return (anima.eoinited !== 1) ? (anima.eoinited = anima.gelded = 1, [anima]) : []
+      return (anima.eoinited !== 1) ? (anima.eoinited = anima.eogelded = 1, [anima]) : []
     }
 
     // .................... gramm

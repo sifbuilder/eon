@@ -1,4 +1,4 @@
-/******************************************
+  /******************************************
   *       @muonAnimation
   *
   **/
@@ -15,19 +15,19 @@
 
   async function muonAnimation (__mapper) {
     let [
-      muonProps,
-      muonStore,
-      msim,
+      ctlTimer,
       muonEotim,
+      muonSim,
+      muonStore,
+      muonProps,
       renderSvg,
-      ctimer,
     ] = await Promise.all([
-      __mapper('xs').m('props'),
-      __mapper('xs').m('store'),
-      __mapper('xs').m('sim'),
-      __mapper('xs').m('eotim'),
-      __mapper('xs').r('svg'),
       __mapper('xs').c('timer'),
+      __mapper('xs').m('eotim'),
+      __mapper('xs').m('sim'),
+      __mapper('xs').m('store'),
+      __mapper('xs').m('props'),
+      __mapper('xs').r('svg'),
     ]
     )
 
@@ -37,8 +37,8 @@
 
     // .................. getsims
     const getsims = (animas, elapsed) => {
-      let sim = msim.sim() // simulation on animas
-      msim.simulate(sim, animas, elapsed) // stored
+      let sim = muonSim.sim() // simulation on animas
+      muonSim.simulate(sim, animas, elapsed) // stored
       return muonStore.animasLive()
     }
 
@@ -68,7 +68,7 @@
         animier(time)
       } else {
         if (state.animationStop === undefined) {
-          state.animationStop = ctimer.subscribe(animier)
+          state.animationStop = ctlTimer.subscribe(animier)
         }
       }
     }
@@ -113,8 +113,15 @@
     // .................. collect
     function collect (animas, elapsed) {
       getweens(state.animas, elapsed)
-      let anisimmed = getsims(muonStore.animasLive())
+      
+      let animasLive = muonStore.animasLive()
+      if (1 && 1) console.log('animasLive', animasLive.length, animasLive)
+
+      let anisimmed = getsims(animasLive)
+      if (1 && 1) console.log('anisimmed', anisimmed.length, anisimmed)
+      
       anisimmed.map(ani => muonStore.gramm(ani))
+      
       let featurecollection = {
         type: 'FeatureCollection',
         features: muonStore.anigrams().map(d => d.eofold),

@@ -14,7 +14,7 @@
       ctlWen,
       ctlVersor,
       ckey,
-      ctimer,
+      ctlTimer,
       ctlRayder,
     ] = await Promise.all([
       __mapper('xs').r('svg'),
@@ -74,10 +74,10 @@
           let controltimerLeftArrowAlt = () => { // LEFT ARROW
             if (manimation.animationStop !== undefined) {
               console.log('controltimerLeftArrowAlt')
-              if (ctimer.started()) {
-                ctimer.stop()
+              if (ctlTimer.started()) {
+                ctlTimer.stop()
               } else {
-                ctimer.resume()
+                ctlTimer.resume()
               }
             }
           }
@@ -94,10 +94,10 @@
 
         let controltimerRightArrowAlt = () => { // RIGHT ARROW
           if (manimation.animationStop !== undefined) {
-            if (ctimer.started()) {
-              ctimer.stop()
+            if (ctlTimer.started()) {
+              ctlTimer.stop()
             } else {
-              ctimer.resume()
+              ctlTimer.resume()
             }
           }
         }

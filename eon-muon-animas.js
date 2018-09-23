@@ -13,10 +13,10 @@
     let [
       muonProps,
       muonStore,
-      msim,
+      muonSim,
       muonEotim,
       renderSvg,
-      ctimer,
+      ctlTimer,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('store'),

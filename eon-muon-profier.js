@@ -206,8 +206,6 @@
           projection.translate(translation)
         } else {
           if (muonProps.isFunction(projection[key]) && value !== null) {
-            if (1 && 1) console.log('this', key, value)
-
             projection[key](value)
           }
         }

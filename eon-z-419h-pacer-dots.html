@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   let [
     muonProps,
-    muonGeoforces,
+    muonEoforces,
     muonNatform,
     d3Force3d,
     renderPortview,
@@ -18,7 +18,7 @@ async function anitem (__mapper) {
     eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
-    __mapper('xs').m('geoforces'),
+    __mapper('xs').m('eoforces'),
     __mapper('xs').m('natform'),
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').r('portview'),

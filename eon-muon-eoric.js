@@ -19,7 +19,7 @@
     // uid: unique id
     // eodelled: is deleted {0,1}
     // eoinited: is eoinited {0,1}
-    // gelded: is gelded {0,1} - no further replication
+    // eogelded: is eogelded {0,1} - no further replication
     // sort: render sort
 
     /***************************

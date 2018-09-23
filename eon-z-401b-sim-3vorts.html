@@ -38,7 +38,7 @@ async function anitem (__mapper) {
     // forceGravity,
     // forceCharge,
     // forceCube,
-    forceCollide,
+    // forceCollide,
     forceLink,
     // forceX,
     // forceY,
@@ -51,7 +51,7 @@ async function anitem (__mapper) {
     // __mapper('xs').f('gravity'),
     // __mapper('xs').f('charge'),
     // __mapper('xs').f('cube'),
-    __mapper('xs').f('collide'),
+    // __mapper('xs').f('collide'),
     __mapper('xs').f('link'),
     // __mapper('xs').f('x'),
     // __mapper('xs').f('y'),
@@ -62,262 +62,169 @@ async function anitem (__mapper) {
   let d3_force = d3Force3d
 
 
-var data = {
-  "nodes": [
-    {
-      "x": 169,
-      "y": 110
-    },
-    // {
-      // "x": 193,
-      // "y": 64
-    // },
-    // {
-      // "x": 442,
-      // "y": 365
-    // },
-    // {
-      // "x": 467,
-      // "y": 314
-    // },
-    // {
-      // "x": 477,
-      // "y": 248
-    // },
-    // {
-      // "x": 425,
-      // "y": 207
-    // },
-    // {
-      // "x": 402,
-      // "y": 155
-    // },
-    // {
-      // "x": 369,
-      // "y": 196
-    // },
-    // {
-      // "x": 350,
-      // "y": 148
-    // },
-    // {
-      // "x": 539,
-      // "y": 222
-    // },
-    // {
-      // "x": 594,
-      // "y": 235
-    // },
-    // {
-      // "x": 582,
-      // "y": 185
-    // },
-    // {
-      // "x": 633,
-      // "y": 200
-    // }
-  ],
-  "links": [
-    {
-      "source": 0,
-      "target": 1
-    },
-    // {
-      // "source": 1,
-      // "target": 2
-    // },
-    // {
-      // "source": 2,
-      // "target": 0
-    // },
-    // {
-      // "source": 1,
-      // "target": 3
-    // },
-    // {
-      // "source": 3,
-      // "target": 2
-    // },
-    // {
-      // "source": 3,
-      // "target": 4
-    // },
-    // {
-      // "source": 4,
-      // "target": 5
-    // },
-    // {
-      // "source": 5,
-      // "target": 6
-    // },
-    // {
-      // "source": 5,
-      // "target": 7
-    // },
-    // {
-      // "source": 6,
-      // "target": 7
-    // },
-    // {
-      // "source": 6,
-      // "target": 8
-    // },
-    // {
-      // "source": 7,
-      // "target": 8
-    // },
-    // {
-      // "source": 9,
-      // "target": 4
-    // },
-    // {
-      // "source": 9,
-      // "target": 11
-    // },
-    // {
-      // "source": 9,
-      // "target": 10
-    // },
-    // {
-      // "source": 10,
-      // "target": 11
-    // },
-    // {
-      // "source": 11,
-      // "target": 12
-    // },
-    // {
-      // "source": 12,
-      // "target": 10
-    // }
-  ]
-}
+    // ............................. natVorts _e_
+    let geograph = function (form) {
+			let geo = form.geo.geometry.coordinates[0]
+
+			let nodes = []
+			let links = []
+			let r = {nodes, links}
+
+			// -------------- center
+			nodes[0] = {														// node 0 in form position
+							"id":0,
+							"group":0,
+							"x": form.x,
+							"y": form.y,
+			}
+
+			// -------------- radial
+			for (let i=1; i < geo.length; i++) {
+					let v = geo[i-1]
+					nodes[i] = {												// node i per form dot
+						"id":i,
+						"group":1,
+						"x": form.x, // v[0],
+						"y": form.y, // v[1],
+					}
+					links.push( [ 0, (i)%geo.length] )	// link from center to dot
+			}
+
+			// -------------- peripheral
+			for (let i=0; i < geo.length; i++) {				// 0-12
+					let v = geo[i]
+
+					let i0 = 1 + i % (geo.length - 1)				// 1-12,1 :: 2-12,2
+					let i1 = 1 + (i+1) % (geo.length - 1)
+
+					links.push( [  i0, i1 ] )	// link from dot to next
+			}
+
+			r.nodes = nodes
+			r.links = links
+
+			return r
+
+    }
 
 
     // ............................. eohale
     let eohale = anima => {
-          
-      if (!anima.eogelded) {    
-          if (1 && 1) console.log('eohale', anima)
 
-          let animas = []
-          let nodes = []
-          let links = []
-
-          for (var i = 0; i < data.nodes.length; i++) {
-
-            let node = {
-                x: data.nodes[i].x,
-                y: data.nodes[i].y,
-                z: 0
-            }
-            nodes.push(node)
-
-            let ani = muonProps.cloneObj(anima)
-            ani.eohal = "tornasol"
-            ani.eoric.gid = 'node'
-            ani.eoric.cid = 'node'
-            ani.eoric.fid = 'node' + i // identify
-            ani.eoric.uid = muonEoric.getuid(ani.eoric)
-            ani.eonode.geometry.coordinates = Object.values(node)
-
-            animas.push(ani)
-            
-          }
-          // for (var i = 0; i < data.links.length; i++) {
-
-            // let link = {
-                // target:nodes[data.links[i].target],
-                // source:nodes[data.links[i].source]
-            // }
-
-            // links.push(link)
-
-            // let line = {}
-            // line.userData = {
-              // source: data.links[i].source,
-              // target: data.links[i].target,
-            // }
-          // }
+    // ani.geo()
+    // ani.eoframe
+    // geometry: topojson.mesh(topology, topology.objects[topologyObj])
+    // halo ween tornasol anima
+    // produce geograph
+    // produce eonodes from geograph.nodes
+    // produce eolinks from geograph.links
+    // apply forces to eonode and eolink animas
 
 
-          // md: org anima is becomes gelded after halo ween
-          // md: org anima is becomes delled after halo ween
-          
-          updanima = muonProps.cloneObj(anima)
-          updanima.eogelded = 1
-          updanima.eodelled = 1
-          animas.push(updanima)
+      let eofold = muonProps.v(anima.eofold(anima))
+      let geo = eofold.geometry
 
-          // for (let i=0; i<animas.length; i++) {
-            // if (1 && 1) console.log('z animas', animas[i].eoric, animas[i].eonode.geometry.coordinates,)
-          // }
+      let nodes = [], links = []
+			let r = {nodes, links}
+      
+			// nodes[0] = {						// node 0 in form position
+							// "id":0,
+							// "group":0,
+							// "x": form.x,
+							// "y": form.y,
+			// }
+			
+			// for (let i=1; i < geo.length; i++) {  // -------------- radial
+					// let v = geo[i-1]
+					// nodes[i] = {												// node i per form dot
+						// "id":i,
+						// "group":1,
+						// "x": form.x, // v[0],
+						// "y": form.y, // v[1],
+					// }
+					// links.push( [ 0, (i)%geo.length] )	// link from center to dot
+			// }
+			
+			// for (let i=0; i < geo.length; i++) {		// -------------- peripheral		
+					// let v = geo[i]    // 0-12
 
-          muonStore.apply({
-              type: 'UPDANIMA', 
-              caller: 'h.ineohal', 
-              animas: animas,
-          })
-          return animas
-      }
+					// let i0 = 1 + i % (geo.length - 1)				// 1-12,1 :: 2-12,2
+					// let i1 = 1 + (i+1) % (geo.length - 1)
+					
+					// links.push( [  i0, i1 ] )	// link from dot to next
+			// }				
+
+			// r.nodes = nodes
+			// r.links = links      
+      
+      
+      let animas = Array.of((anima)
+      muonStore.apply({type: 'UPDANIMA', animas: animas}) // live
+      return animas
     }
 
     let eohal_ween = anitem => eohale(anitem)
     let eohal_gramm = anitem => anitem
 
     let ineohal = {
-      ween: anitem => eohal_ween(anitem),
-      gramm: anitem => eohal_gramm(anitem),
+      ween: anima => eohal_ween(anima),
+      gramm: anima => eohal_gramm(anima),
     }
+
 
   // .................. animas
   let ani = function () {
     // .................... pics
     let eotim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    // .................... natVort
-    let natVort = {
+
+
+    // .................... natVorts
+    let natVorts = {
 
       eohal: ineohal,
 
       eotim: eotim,
       eoric: {gid: 'g', cid: 'g', fid: 'g'},
 
-      eofold: {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
-        properties: {},
+      eofold: function (ani) {
+
+        let feature = muonNatform.natFeature(ani.eoform)
+        return feature
       },
-      
+
       eonode: {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
-        properties: {
-          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
-        },
+        geometry: null,
       },
 
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate: [0, 0, 0],
+          translate: [ [[[-100, 100]]], 0, 0],
           scale: 1,
-          rotate: [ 0, 0, [[[0, 0]]] ],
+          rotate: [ 0, 0, 0 ],
           lens: [0, 1, 12],
-          anod: 1, // eofold eonod
+          anod: 1, // eonode
         },
       },
 
-
       eocrom: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
 
-      eoform: {},
+      eoform: {
+        x: {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        },
+        y: {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        },
+        z: {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        },
+      },
       eoload: {},
     }
 
@@ -336,6 +243,7 @@ var data = {
         let forceParams = {
           type: 'energy',
           filter: function (d) {
+            console.log('d', d)
             return d.eoric.gid === 'ani'
           },
           src: d3_force,
@@ -368,7 +276,7 @@ var data = {
           type: 'collide',
           strength: strength,
           radius: d => 90,
-          filter: d => d.eoric.gid === 'node',
+          filter: d => d.eoric.gid === 'ani',
           src: d3_force,
           nodes: nodes,
         }
@@ -394,10 +302,6 @@ var data = {
       function force () { // d3force builtin (vs muon d3force)
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-
-          if (1 && 1) console.log('forceGravity', node)
-
-          
           node.vy += gravity // node.vx += 0.001 * Math.random()
         }
       }
@@ -428,7 +332,7 @@ var data = {
         let forceParams = {
           type: 'gravity',
           gravity: gravity,
-          filter: d => d.eoric.gid === 'node',
+          filter: d => true,
           src: d3_force,
           nodes: nodes,
         }
@@ -499,7 +403,7 @@ var data = {
         let forceParams = {
           type: 'manybody', // f.manybody
           strength: strength,
-          filter: d => d.eoric.gid === 'node',
+          filter: d => d.eoric.gid === 'nat',
           src: d3_force, // d3
           nodes: nodes,
         }
@@ -549,27 +453,30 @@ var data = {
     let fieldAni = {
 
       eohal: 'core',
-      eotim: eotim,
-      eoric: {gid: 'field', cid: 'field', fid: 'field'},
+
       eofold: null,
-      eoload: {},
+
+      eotim: eotim,
+      eoric: {gid: 'core', cid: 'core', fid: 'core'},
+
+      eoload: {
+      },
 
     }
 
     fieldAni.eoforces = {
       // force_energy,
       // force_viscosity,
-      // force_manybody,
-      force_gravity,
-      // force_collide,
-      // force_link,
+      force_manybody,
+      // force_gravity,
+      force_link,
     }
 
     // .................. animas
     let animas = [
 
+      natVorts, // h.tornasol
       fieldAni, // h.core
-      natVort, // h.tornasol
 
     ]
 

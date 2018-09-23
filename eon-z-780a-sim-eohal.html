@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   let [
     muonProps,
-    muonGeoforces,
+    muonEoforces,
     muonNatform,
     d3Force3d,
     renderPortview,
@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
-    __mapper('xs').m('geoforces'),
+    __mapper('xs').m('eoforces'),
     __mapper('xs').m('natform'),
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').r('portview'),
@@ -64,7 +64,7 @@ async function anitem (__mapper) {
 
     // h.isolation
     let eohalIsolation_ween = anima => { // WEEN
-      let animas = (anima.eoinited !== 1) ? (anima.eoinited = anima.gelded = 1, [anima]) : []
+      let animas = (anima.eoinited !== 1) ? (anima.eoinited = anima.eogelded = 1, [anima]) : []
       const perimeter = 12, length = 30
       const getId = (col, row) => `${col},${row}`
 
@@ -203,7 +203,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'energy',
-          force: muonGeoforces.force_(forceParams),
+          force: muonEoforces.force_(forceParams),
         }
 
         return Array.of(field)
@@ -229,7 +229,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'viscosity',
-          force: muonGeoforces.force_(forceParams),
+          force: muonEoforces.force_(forceParams),
         }
 
         return Array.of(field)
@@ -258,7 +258,7 @@ async function anitem (__mapper) {
 
         let field = {
           'key': 'forceLink',
-          'force': muonGeoforces.force_(forceParams),
+          'force': muonEoforces.force_(forceParams),
         }
 
         forces.push(field)
@@ -428,7 +428,7 @@ async function anitem (__mapper) {
           nodes: nodes,
         }
 
-        let force = muonGeoforces.force_(forceParams)
+        let force = muonEoforces.force_(forceParams)
         let field = {
           key: 'collide', 
           force: force
@@ -463,7 +463,7 @@ async function anitem (__mapper) {
           nodes: nodes,
         }
 
-        let force = muonGeoforces.force_(forceParams)
+        let force = muonEoforces.force_(forceParams)
         let field = {
           key: 'charge', 
           force: force
@@ -553,7 +553,7 @@ async function anitem (__mapper) {
         let field = {
           'key': 'charge',
           'force': d => {
-            return muonGeoforces.force_(forceParams)
+            return muonEoforces.force_(forceParams)
           },
 
         }
@@ -587,7 +587,7 @@ async function anitem (__mapper) {
           'nodes': nodes,
         }
 
-        let force = muonGeoforces.force_(forceParams)
+        let force = muonEoforces.force_(forceParams)
         let field = {'key': 'x_center', 'force': force}
 
         forces.push(field)
@@ -620,7 +620,7 @@ async function anitem (__mapper) {
           'nodes': nodes,
         }
 
-        let force = muonGeoforces.force_(forceParams)
+        let force = muonEoforces.force_(forceParams)
         let field = {'key': 'y_center', 'force': force}
 
         forces.push(field)
@@ -652,7 +652,7 @@ async function anitem (__mapper) {
           'nodes': nodes,
         }
 
-        let force = muonGeoforces.force_(forceParams)
+        let force = muonEoforces.force_(forceParams)
         let field = {'key': 'z_center', 'force': force}
 
         forces.push(field)
@@ -679,7 +679,7 @@ async function anitem (__mapper) {
           'src': d3_force,
           'nodes': nodes,
         }
-        let force = {'key': 'center_orange', 'force': muonGeoforces.force_(forceParams)}
+        let force = {'key': 'center_orange', 'force': muonEoforces.force_(forceParams)}
         return Array.of(force)
       },
     }
@@ -702,13 +702,13 @@ async function anitem (__mapper) {
           'src': d3_force,
           'nodes': nodes,
         }
-        let force = {'key': 'center_golde', 'force': muonGeoforces.force_(forceParams)}
+        let force = {'key': 'center_golde', 'force': muonEoforces.force_(forceParams)}
         return Array.of(force)
       },
     }
 
     // .................. natAni forces
-    natAni.geoforces = {
+    natAni.eoforces = {
       force_energy,
       force_viscosity,
       // force_manybody,
