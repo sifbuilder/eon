@@ -9,7 +9,7 @@ async function anitem (__mapper) {
     muonGraticule,
     muonGeoj,
     topojson,
-    dworldTopo110m,
+    datWorldTopo110m,
     d3geo,
     ctlWen,
     eohalTurnform,
@@ -40,8 +40,8 @@ async function anitem (__mapper) {
       eofold: () => {
         let gj = Object.assign({},
           topojson.feature(
-            dworldTopo110m.data(),
-            dworldTopo110m.data().objects.land
+            datWorldTopo110m.data(),
+            datWorldTopo110m.data().objects.land
           )
         )
         gj = muonGeoj.trim(gj)
@@ -136,8 +136,8 @@ async function anitem (__mapper) {
       eofold: () => {
         let gj = Object.assign({},
           topojson.feature(
-            dworldTopo110m.data(),
-            dworldTopo110m.data().objects.land
+            datWorldTopo110m.data(),
+            datWorldTopo110m.data().objects.land
           )
         )
 

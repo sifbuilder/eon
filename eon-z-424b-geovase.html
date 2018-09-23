@@ -6,29 +6,31 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    muonGeom,
-    ctlWen,
-    muonGraticule,
+    d3Geo,
+    d3GeoProjection,    
     topojson,
-    datWorldTopo110m,
-    prtNatform,
     ctlVersor,
-    d3geo,
-    d3geoprojection,
+    ctlWen,
+    datWorldTopo110m,
     eohalTurnform,
     eohalScene,
+    muonGeom,
+    muonGraticule,
+    prtBase,
+    prtNatform,
   ] = await Promise.all([
-    __mapper('xs').m('geom'),
-    __mapper('xs').c('wen'),
-    __mapper('xs').m('graticule'),
-    __mapper('xs').b('topojson'),
-    __mapper('xs').d('worldTopo110m'),
-    __mapper('xs').p('natform'),
-    __mapper('xs').c('versor'),
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-geo-projection'),
+    __mapper('xs').b('topojson'),
+    __mapper('xs').c('versor'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').d('worldTopo110m'),
     __mapper('xs').e('turnform'),
     __mapper('xs').e('scene'),
+    __mapper('xs').m('geom'),
+    __mapper('xs').m('graticule'),
+    __mapper('xs').p('base'),
+    __mapper('xs').p('natform'),
   ])
 
   // .................. animas
@@ -73,13 +75,13 @@ async function anitem (__mapper) {
       eomot: {
         conform: {
 
-          projection: d3geo.geoOrthographic(),
+          projection: d3Geo.geoOrthographic(),  // 'base'
           prerotate: [[[ ctlWen.rotation ]]],
           translate: [0, 0, 0],
           scale: 100,
           rotate: [ [[[0, 4 * 180]]], 0, 0 ],
-          transform: function (x, y) {
-            this.stream.point(x / 1, y / 2)
+          stream: function (x, y) {
+            this.stream.point(x / 1, - y / 4)
           },
 
         },
@@ -89,8 +91,8 @@ async function anitem (__mapper) {
           prerotate: [[[ ctlWen.rotation ]]],
           translate: [ 0, 0, 0],
           scale: [1, -1],
-          rotate: [ 0, [[[ 4 * 180, 0]]], 0 ],
-          lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
+          rotate: [ 0, [[[ 0, 4 * 180]]], 0 ],
+          lens: [0, 1, Infinity],
 
         },
       },

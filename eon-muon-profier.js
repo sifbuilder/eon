@@ -8,24 +8,80 @@
 }(this, function (exports) {
   'use strict'
 
+// md: # eon-muon-profier
+// md: build geo projections
+// md:
+// md: ## functions
+// md: * ### getPrt
+// md:
+// md: ## methods
+// md: * ### formion
+// md: `formion (projdef, anigram)`
+// md: **get projection from projdef and apply projection properties**
+// md: if `@projdef` or `@projdef.projection` are not defined, assume `p.uniwen` identity
+// md: if `@projdef.translate != undefined`
+// md: * if pure array, translate to position
+// md: * if non-pure array, add translate positions
+// md: * if a position, `object` translate to position
+// md: * if other `object`, process as `stace.spot`
+// md:
+// md: if `@projdef.anod == 1` add `eofold.properties.eonode.geometry.coordinates` to translate
+// md:
+// md: if `@projdef.rotate != undefined`
+// md: * if is pure array, apply rotation
+// md: * if is 2d, apply z rotation
+// md: * if non-pure array, add multi-rotations
+// md:
+// md: if `@projdef.prerotation [[[ control:wen ]]]` apply wen control rotation
+// md: if `@projdef.prerotation [[[ control:versor ]]]` apply versor control rotation
+// md: if `@projdef.control:wen` apply wen control rotation
+// md: if `@projdef.control:versor` apply versor control rotation
+// md:
+// md: ### projer_
+// md: use: `muonProfier.projer_(prodef, anigram)(gj)
+// md: *get formion projector on gj*
+// md:
+// md: ### conformer_
+// md: use: `muonProfier.conformer_ (anigram)`
+// md: **get formion projector**
+// md: assumes `projection != undefined`
+// md: ```
+// md: projection: {
+// md: projection: 'natform',
+// md: form: anigram.eoload.conform
+// md: }
+// md: ```
+// md:
+// md: ### proformion
+// md: call `muonProfier.proformion (anigram)`
+// md: calls `formion(anigram.eoload.proform, anigram)`
+// md: **get proform projection from projdef**
+// md:
+// md: ### proformer
+// md:
+// md:
+// md: ### ereformion
+// md: ### ereformer
+
+
   async function muonProfier (__mapper = {}) {
     let [
+      ctlWen,
+      ctlVersor,
       muonProps,
       mwen,
       muonStace,
       muonProj3ct,
       muonGeom,
-      ctlWen,
-      ctlVersor,
       puniwen,
     ] = await Promise.all([
+      __mapper('xs').c('wen'),
+      __mapper('xs').c('versor'),
       __mapper('xs').m('props'),
       __mapper('xs').m('wen'),
       __mapper('xs').m('stace'),
       __mapper('xs').m('proj3ct'),
       __mapper('xs').m('geom'),
-      __mapper('xs').c('wen'),
-      __mapper('xs').c('versor'),
       __mapper('xs').p('uniwen'),
 
     ])
@@ -53,11 +109,14 @@
             let ceon = __mapper('xs').ceonize(prtItem, 'prt')
             let prt = __mapper(ceon)
 
-            console.assert(typeof prt === 'function', `prt ${prt} in ${projdef} is not a function`)
+            console.assert(typeof prt === 'function', `prt ${prt} in ${projdef} from __mapper is not a function`)
             geoproj = prt(projdef)
           }
+
         } else if (muonProps.isFunction(projdef.projection)) { // if is projection
+
           geoproj = projdef.projection // props passed to projection _
+
         }
       }
 
@@ -141,14 +200,28 @@
       }
 
       for (let [key, value] of Object.entries(projdef)) { // object
+
         if (key === 'projection') { // bypass projection
+
         } else if (key === 'control') { // bypass control
+
         } else if (key === 'rotate') { // rotate rotation
+
           projection.rotate(rotation)
+
         } else if (key === 'translate') { // translate translation
+
           projection.translate(translation)
-        } else if (muonProps.isFunction(projection[key]) && value !== null) {
-          projection[key](value)
+
+        } else {
+
+          if (muonProps.isFunction(projection[key]) && value !== null) {
+if (1 && 1) console.log('this', key, value)
+
+            projection[key](value)
+
+          }
+
         }
       }
 

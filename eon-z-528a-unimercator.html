@@ -7,7 +7,7 @@ async function anitem (__mapper) {
   let [
     topojson,
     ctlWen,
-    dworldTopo110m,
+    datWorldTopo110m,
     muonGraticule,
     eohalScene,
     eohalTurnform,
@@ -42,8 +42,8 @@ async function anitem (__mapper) {
       eofold: p => {
         let geometry = Object.assign({},
           topojson.mesh(
-            dworldTopo110m.data(),
-            dworldTopo110m.data().objects.land
+            datWorldTopo110m.data(),
+            datWorldTopo110m.data().objects.land
           )
         )
         return { type: 'Feature', geometry: geometry, properties: {} }
