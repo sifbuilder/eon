@@ -10,7 +10,7 @@ async function anitem (__mapper) {
     datWorldTopo110m,
     muonGraticule,
     eohalScene,
-    eohalTurnform,
+    eohalTornasol,
     prtUnimercator,
   ] = await Promise.all([
     __mapper('xs').b('topojson'),
@@ -18,7 +18,7 @@ async function anitem (__mapper) {
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').m('graticule'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('turnform'),
+    __mapper('xs').e('tornasol'),
     __mapper('xs').p('unimercator'),
   ])
 
@@ -38,7 +38,7 @@ async function anitem (__mapper) {
     // .................. geoearth
     let geoearth = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eofold: p => {
         let geometry = Object.assign({},
           topojson.mesh(
@@ -62,7 +62,7 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      geoearth, // h.turnform g.unimercator
+      geoearth, // h.tornasol g.unimercator
 
     ]
 

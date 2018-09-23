@@ -12,7 +12,7 @@ async function anitem (__mapper) {
     eohalScene,
     eohalPacer,
     eohalTextform,
-    eohalTurnform,
+    eohalTornasol,
     muonGeoj,
     muonNatform,
     muonStace,
@@ -24,7 +24,7 @@ async function anitem (__mapper) {
     __mapper('xs').e('scene'),    
     __mapper('xs').e('pacer'),
     __mapper('xs').e('textform'),
-    __mapper('xs').e('turnform'),
+    __mapper('xs').e('tornasol'),
     __mapper('xs').m('geoj'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('stace'),
@@ -40,7 +40,7 @@ async function anitem (__mapper) {
     // ............................. natAni
     let natLined = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eofold: a => ({
         type: 'Feature',
         geometry: {
@@ -110,7 +110,7 @@ async function anitem (__mapper) {
       eoload: {
         pacer: { // geoaad for trace
         
-          eohal: 'turnform',
+          eohal: 'tornasol',
           geosort: 'anigram',
           geobase: 'eoform',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0, 

@@ -10,9 +10,9 @@
 
   async function eohalImgform (__mapper = {}) {
     let [
-      eohalTurnform,
+      eohalTornasol,
     ] = await Promise.all([
-      __mapper('xs').e('turnform'),
+      __mapper('xs').e('tornasol'),
     ])
 
     let _geofold = p => ({ // eofold
@@ -41,7 +41,7 @@
         eoload,
       }
 
-      newAnigrams = [...newAnigrams, ...__mapper('eohalTurnform').gramm(newAnigram)]
+      newAnigrams = [...newAnigrams, ...__mapper('eohalTornasol').gramm(newAnigram)]
       return newAnigrams
     }
 

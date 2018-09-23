@@ -1,33 +1,33 @@
 /**********************
- *    @eohalTurnform
+ *    @eohalTornasol
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalTurnform = global.eohalTurnform || {})))
+      : (factory((global.eohalTornasol = global.eohalTornasol || {})))
 }(this, function (exports) {
   'use strict'
 
   // md: # eon-eohal-natform
-  // md: **process h.turnform animas**
+  // md: **process h.tornasol animas**
   // md: Feature Collect gj. for each feature
   // md: eoform, conform, ereform and proform anigrams
-  // md: then pass the FeatureCollection to h.leaform
+  // md: then pass the FeatureCollection to h.petiole
   // md: define `eonode` if undefined
 
-  async function eohalTurnform (__mapper = {}) {
+  async function eohalTornasol (__mapper = {}) {
     let [
       muonGeoj,
       muonProfier,
       muonProj3ct,
       muonProps,
-      eohalLeaform,
+      eohalPetiole,
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
       __mapper('xs').m('props'),
-      __mapper('xs').e('leaform'),
+      __mapper('xs').e('petiole'),
 
     ])
 
@@ -86,7 +86,7 @@
     // ............................. gramm
     let gramm = anitem => {
       let newItem = eohale(anitem)
-      let newAnitems = eohalLeaform.gramm(newItem)
+      let newAnitems = eohalPetiole.gramm(newItem)
       return newAnitems
     }
 
@@ -100,14 +100,14 @@
     }
 
     // ............................. eohal
-    let eohalTurnform = {}
-    eohalTurnform.ween = anitem => ween(anitem)
-    eohalTurnform.gramm = anitem => gramm(anitem)
+    let eohalTornasol = {}
+    eohalTornasol.ween = anitem => ween(anitem)
+    eohalTornasol.gramm = anitem => gramm(anitem)
 
     // ............................. enty
-    let enty = eohalTurnform
+    let enty = eohalTornasol
     return enty
   }
 
-  exports.eohalTurnform = eohalTurnform
+  exports.eohalTornasol = eohalTornasol
 }))

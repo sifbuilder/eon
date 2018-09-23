@@ -14,14 +14,14 @@
       d3axis,
       d3scale,
       d3format,
-      eohalTurnform,
+      eohalTornasol,
       manitem,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').b('d3-axis'),
       __mapper('xs').b('d3-scale'),
       __mapper('xs').b('d3-format'),
-      __mapper('xs').e('turnform'),
+      __mapper('xs').e('tornasol'),
       __mapper('xs').m('anitem'),
     ])
 
@@ -65,7 +65,7 @@
         }),
       }
       delete newAnigram.eoload.axis
-      return eohalTurnform.gramm(newAnigram)
+      return eohalTornasol.gramm(newAnigram)
     }
 
     // ............................. enty

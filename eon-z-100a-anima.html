@@ -11,12 +11,12 @@ async function anitem (__mapper) {
   let [
     eohalNatform,
     eohalScene,
-    eohalTurnform,
+    eohalTornasol,
     muonAnimas,
   ] = await Promise.all([
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('turnform'),
+    __mapper('xs').e('tornasol'),
     __mapper('xs').m('animas'),
   ])
 

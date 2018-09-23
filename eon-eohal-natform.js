@@ -10,7 +10,7 @@
 
 // md: # eon-eohal-natform 
 // md: **expose natform** 
-// md: h.turnform with  anima.eofold : `muonNatform.natFeature(p.eoload.form)` 
+// md: h.tornasol with  anima.eofold : `muonNatform.natFeature(p.eoload.form)` 
 // md: 
 // md: # license 
 // md: MIT 
@@ -19,7 +19,7 @@
   async function eohalNatform (__mapper = {}) {
     let [
       muonNatform,
-      eohalTurnform,
+      eohalTornasol,
       muonEocrom,
       muonEotim,
       muonEoric,
@@ -29,7 +29,7 @@
       muonProj3ct,      
     ] = await Promise.all([
       __mapper('xs').m('natform'),
-      __mapper('xs').e('turnform'),
+      __mapper('xs').e('tornasol'),
       __mapper('xs').m('eocrom'),
       __mapper('xs').m('eotim'),
       __mapper('xs').m('eoric'),
@@ -133,7 +133,7 @@
       if (anitem.eocrom === undefined) anitem.eocrom = getgeochrom(anitem.eoform)        // eoform
      
       
-      return eohalTurnform.gramm(anitem)
+      return eohalTornasol.gramm(anitem)
     }
 
     // .................... ween

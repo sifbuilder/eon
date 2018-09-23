@@ -8,12 +8,12 @@ async function anitem (__mapper) {
   let [
     ctlWen,
     eohalScene,
-    eohalTurnform,
+    eohalTornasol,
     muonProps,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('turnform'),
+    __mapper('xs').e('tornasol'),
     __mapper('xs').m('props'),
   ])
 
@@ -25,7 +25,7 @@ async function anitem (__mapper) {
     // .................. wenPolygon anima
     let wenPolygon = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
 
       eofold: (p) => {
         let points = [
@@ -122,7 +122,7 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      wenPolygon, // h.turnform muonGeom.uniwen
+      wenPolygon, // h.tornasol muonGeom.uniwen
       sceneAni, // h.scene
     ]
     return animas

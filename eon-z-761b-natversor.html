@@ -10,7 +10,7 @@ async function anitem (__mapper) {
     muonProps,
     ctlVersor,
     d3geo,
-    eohalTurnform,
+    eohalTornasol,
     eohalNatform,
     eohalScene,
   ] = await Promise.all([
@@ -18,7 +18,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('props'),
     __mapper('xs').c('versor'),
     __mapper('xs').b('d3-geo'),
-    __mapper('xs').e('turnform'),
+    __mapper('xs').e('tornasol'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
   ])
@@ -30,7 +30,7 @@ async function anitem (__mapper) {
 
     let anima = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eofold: p => muonNatform.natFeature(p.eoform),
 
       eotim: eotim,
@@ -58,7 +58,7 @@ async function anitem (__mapper) {
 
     let animatter = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eofold: p => muonNatform.natFeature(p.eoform),
 
       eotim: eotim,
@@ -102,8 +102,8 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      anima, // h.turnform
-      animatter, // h.turnform
+      anima, // h.tornasol
+      animatter, // h.tornasol
       sceneAni, // h.scene
 
     ]

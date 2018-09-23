@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     muonProj3ct,
     muonProfier,
     muonGeoj,
-    eohalTurnform,
+    eohalTornasol,
     eohalPacer,
     eohalFourier,
     eohalScene,
@@ -21,7 +21,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
     __mapper('xs').m('geoj'),
-    __mapper('xs').e('turnform'),
+    __mapper('xs').e('tornasol'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('fourier'),
     __mapper('xs').e('scene'),
@@ -72,7 +72,7 @@ async function anitem (__mapper) {
     // md:     @aniDots anima
     let aniDots = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eofold: {type: 'Feature', properties: {pointRadius: 1}, geometry: { type: 'MultiPoint', coordinates: muonGeoj.getCoords(geoData) } },
       eoload: {
         eotim: eotim,
@@ -86,7 +86,7 @@ async function anitem (__mapper) {
     // md:       form.eoload.fourier.avatars.rayline
     let aniRay = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
 
       eofold: {
         type: 'Feature',
@@ -132,7 +132,7 @@ async function anitem (__mapper) {
 
       eoload: {
         pacer: { // geoaad for trace
-          eohal: 'turnform',
+          eohal: 'tornasol',
           geosort: 'anigram',
           geobase: 'geo',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0, geoaad: 1,
@@ -222,7 +222,7 @@ async function anitem (__mapper) {
     let animas = [
 
       fourierForm, // h.fourier
-      aniDots, // h.turnform
+      aniDots, // h.tornasol
       sceneAni, // h.scene
     ]
 

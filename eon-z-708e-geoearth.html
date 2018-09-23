@@ -15,7 +15,7 @@ async function anitem (__mapper) {
     ctlVersor,
     d3geo,
     d3geoprojection,
-    eohalTurnform,
+    eohalTornasol,
     eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('geom'),
@@ -27,7 +27,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('versor'),
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-geo-projection'),
-    __mapper('xs').e('turnform'),
+    __mapper('xs').e('tornasol'),
     __mapper('xs').e('scene'),
   ])
   // .................. animas
@@ -62,7 +62,7 @@ async function anitem (__mapper) {
 
     let geoearth = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
 
       eofold: () => {
         return Object.assign({},
@@ -97,7 +97,7 @@ async function anitem (__mapper) {
     }
 
     let animas = [
-      geoearth, // h.turnform g.orthographic
+      geoearth, // h.tornasol g.orthographic
       sceneAni, // h.scene
     ]
 

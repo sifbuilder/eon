@@ -7,12 +7,12 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     muonNatform,
-    eohalTurnform,
+    eohalTornasol,
     eohalNatform,
     eohalScene,    
   ] = await Promise.all([
     __mapper('xs').m('natform'),
-    __mapper('xs').e('turnform'),
+    __mapper('xs').e('tornasol'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),    
   ])
@@ -69,7 +69,7 @@ async function anitem (__mapper) {
  *    @animas
  */
     let p1 = {
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eofold: p => muonNatform.natFeature(f1),
       eocrom,
       eoric: {'gid': 'p', 'cid': 'p', 'fid': 'p1'},
@@ -80,7 +80,7 @@ async function anitem (__mapper) {
       },
     }
     let p2 = {
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eotim,
       eofold: p => muonNatform.natFeature(f2),
       eocrom,
@@ -92,7 +92,7 @@ async function anitem (__mapper) {
       },
     }
     let p3 = {
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eotim,
       eofold: p => muonNatform.natFeature(f3),
       eocrom,
@@ -104,7 +104,7 @@ async function anitem (__mapper) {
       },
     }
     let p4 = {
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eotim,
       eofold: p => muonNatform.natFeature(f4),
       eocrom,
@@ -116,7 +116,7 @@ async function anitem (__mapper) {
       },
     }
     let p5 = {
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eotim,
       eofold: p => muonNatform.natFeature(f5),
       eocrom,
@@ -128,7 +128,7 @@ async function anitem (__mapper) {
       },
     }
     let p6 = {
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eotim,
       eofold: p => muonNatform.natFeature(f6),
       eocrom,
@@ -140,7 +140,7 @@ async function anitem (__mapper) {
       },
     }
     let p7 = {
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eotim,
       eofold: p => muonNatform.natFeature(f7),
       eocrom,
@@ -152,7 +152,7 @@ async function anitem (__mapper) {
       },
     }
     let p8 = {
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eotim,
       eofold: p => muonNatform.natFeature(f8),
       eocrom,
@@ -177,14 +177,14 @@ async function anitem (__mapper) {
 
     }
     let animas = [
-      p1, // h.turnform g.uniwen
-      p2, // h.turnform g.uniwen
-      p3, // h.turnform g.uniwen
-      p4, // h.turnform g.uniwen
-      p5, // h.turnform g.uniwen
-      p6, // h.turnform g.uniwen
-      p7, // h.turnform g.uniwen
-      p8, // h.turnform g.uniwen
+      p1, // h.tornasol g.uniwen
+      p2, // h.tornasol g.uniwen
+      p3, // h.tornasol g.uniwen
+      p4, // h.tornasol g.uniwen
+      p5, // h.tornasol g.uniwen
+      p6, // h.tornasol g.uniwen
+      p7, // h.tornasol g.uniwen
+      p8, // h.tornasol g.uniwen
 
       sceneAni, // h.scene
 

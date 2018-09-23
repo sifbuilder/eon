@@ -11,7 +11,7 @@
   // ## h.fourier
   // h.fourier anigrams per frequency cycloid
   // cycloids in eoload.fourier.transforms resulting from m.fourier.complexify
-  // anigrams turned to h.turnform
+  // anigrams turned to h.tornasol
 
   // ### h.fourier.gramm
   // eoload.fourier.transforms, gj featurized, complexified, ntimed
@@ -27,12 +27,12 @@
       muonProps,
       muonEoric,
       Complex,
-      eohalTurnform,
+      eohalTornasol,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').m('eoric'),
       __mapper('xs').l('complex'),
-      __mapper('xs').e('turnform'),
+      __mapper('xs').e('tornasol'),
     ])
 
     // ............................. gramm
@@ -108,7 +108,7 @@
 
           let newItem = muonProps.cloneObj(anigram)
 
-          newItem.eohal = 'natform' // eohal.turnform
+          newItem.eohal = 'natform' // eohal.tornasol
           newItem.eodelled = tNotInPeriod
 
           newItem.eofold = {
@@ -224,7 +224,7 @@
         anitems = [...anitems, ...iAnitems]
       }
 
-      let anigramLists = anitems.map(ani => eohalTurnform.gramm(ani))
+      let anigramLists = anitems.map(ani => eohalTornasol.gramm(ani))
       let anigrams = anigramLists.reduce((p, q) => Array.isArray(q) ? [...p, ...q] : [...p, q], [])
 
       return anigrams

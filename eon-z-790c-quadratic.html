@@ -9,7 +9,7 @@ async function anitem (__mapper) {
     tf,
     ctlWen,
     eohalScene,    
-    eohalTurnform,    
+    eohalTornasol,    
     muonNatform,
     muonProps,
     prtNatform,
@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('@tensorflow/tfjs'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),    
-    __mapper('xs').e('turnform'),    
+    __mapper('xs').e('tornasol'),    
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').p('natform'),
@@ -150,7 +150,7 @@ async function anitem (__mapper) {
     // .................. natAni
     let natAni = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eofold: p => {
         let tfvars = vars.map(d => d.dataSync()[0])
         let q = { natform: {y: { e1: tfvars } } }
@@ -183,7 +183,7 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      natAni, // h.turnform g.uniwen
+      natAni, // h.tornasol g.uniwen
       sceneAni, // h.scene
     ]
 

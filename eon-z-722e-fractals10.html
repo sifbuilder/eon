@@ -13,7 +13,7 @@ async function anitem (__mapper) {
     muonEoric,
     muonStore,
     muonStace,
-    eohalTurnform,
+    eohalTornasol,
     eohalNatform,
     eohalScene,
   ] = await Promise.all([
@@ -24,7 +24,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('eoric'),
     __mapper('xs').m('store'),
     __mapper('xs').m('stace'),
-    __mapper('xs').e('turnform'),
+    __mapper('xs').e('tornasol'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
   ])
@@ -84,7 +84,7 @@ async function anitem (__mapper) {
               let eoric = a.eoric // eoric
               let uid = muonEoric.getuid(eoric)
               let gj = {
-                eohal: 'turnform',
+                eohal: 'tornasol',
                 eofold: {
                   type: 'Feature',
                   geometry: { type: 'LineString', coordinates: null },
@@ -117,7 +117,7 @@ async function anitem (__mapper) {
 
       let fractalForm = {
 
-        eohal: 'turnform',
+        eohal: 'tornasol',
 
         eofold: a => ({
           type: 'Feature',

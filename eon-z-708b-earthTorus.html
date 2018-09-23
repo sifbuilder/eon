@@ -10,7 +10,7 @@ async function anitem (__mapper) {
     ctlWen,
     datWorldTopo110m,
     eohalScene,
-    eohalTurnform,
+    eohalTornasol,
     muonGeom,
     muonGraticule,
     muonNatform,
@@ -20,7 +20,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('turnform'),
+    __mapper('xs').e('tornasol'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
     __mapper('xs').m('natform'),
@@ -182,7 +182,7 @@ async function anitem (__mapper) {
     // ............................. earthAni
     let earthAni = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
 
       eofold: p => {
         let geometry = Object.assign({},
@@ -209,7 +209,7 @@ async function anitem (__mapper) {
     // .............................  cubeAni
     let cubeAni = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eofold: anitem => {
         let eoload = anitem.eoload,
           eoric = anitem.eoric
@@ -291,7 +291,7 @@ async function anitem (__mapper) {
     // .............................  graticubeAni
     let graticubeAni = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
 
       eofold: anitem => muonGraticule.vhMultiLine(anitem.eoframe),
       eotim: eotim,
@@ -311,7 +311,7 @@ async function anitem (__mapper) {
     // .............................  graticircAni
     let graticircAni = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
 
       eofold: p => muonGraticule.vhMultiLine(p.eoframe), // hMultiLine
       eotim: eotim,
@@ -331,7 +331,7 @@ async function anitem (__mapper) {
     // ............................. torusAni1
     let torusAni1 = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
       eofold: p => muonNatform.natFeature(p.eoform),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -359,11 +359,11 @@ async function anitem (__mapper) {
 
     // ............................. animas
     let animas = [
-      earthAni, // h.turnform p.natform g.uniwen
-      // torusAni1, // h.turnform p.natform g.uniwen
-      // cubeAni, // h.turnform g.uniwen
-      // graticubeAni, // h.turnform
-      // graticircAni, // h.turnform
+      earthAni, // h.tornasol p.natform g.uniwen
+      // torusAni1, // h.tornasol p.natform g.uniwen
+      // cubeAni, // h.tornasol g.uniwen
+      // graticubeAni, // h.tornasol
+      // graticircAni, // h.tornasol
       sceneAni, // h.scene
     ]
 

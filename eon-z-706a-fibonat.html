@@ -8,14 +8,14 @@ async function anitem (__mapper) {
     d3,
     ctlWen,
     eohalScene,
-    eohalTurnform,
+    eohalTornasol,
     muonFibonat,
     muonGraticule,
   ] = await Promise.all([
     __mapper('xs').b('d3'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('turnform'),
+    __mapper('xs').e('tornasol'),
     __mapper('xs').m('fibonat'),
     __mapper('xs').m('graticule'),
   ])
@@ -29,7 +29,7 @@ async function anitem (__mapper) {
 
     let fiboForm = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
 
       eofold: p => muonFibonat.catesians(p.eoload),
 
@@ -77,7 +77,7 @@ async function anitem (__mapper) {
 
     let animas = [
 
-      fiboForm, // h.turnform
+      fiboForm, // h.tornasol
       sceneAni, // h.scene
 
     ]

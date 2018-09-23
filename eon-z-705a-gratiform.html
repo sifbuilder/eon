@@ -7,13 +7,13 @@ async function anitem (__mapper) {
   let [
     ctlWen,
     eohalScene,
-    eohalTurnform,
+    eohalTornasol,
     muonGraticule,
     prtNatform,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('turnform'),
+    __mapper('xs').e('tornasol'),
     __mapper('xs').m('graticule'),
     __mapper('xs').p('natform'),
   ])
@@ -72,7 +72,7 @@ async function anitem (__mapper) {
     // .................. gratiForm anima
     let gratiForm = {
 
-      eohal: 'turnform',
+      eohal: 'tornasol',
 
       eofold: p => muonGraticule.vhMultiLine(p.eoframe),
 
@@ -108,7 +108,7 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      gratiForm, // h.turnform
+      gratiForm, // h.tornasol
       sceneAni, // h.scene
     ]
 
