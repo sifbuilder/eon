@@ -57,30 +57,145 @@ async function anitem (__mapper) {
     // __mapper('xs').f('y'),
     // __mapper('xs').f('z'),
   ])
-  
+
   let muonStore = __mapper('muonStore')
   let d3_force = d3Force3d
+
+
+    // ............................. natVorts _e_
+    let geograph = function (form) {
+			let geo = form.geo.geometry.coordinates[0]
+
+			let nodes = []
+			let links = []
+			let r = {nodes, links}
+
+			// -------------- center
+			nodes[0] = {														// node 0 in form position
+							"id":0,
+							"group":0,
+							"x": form.x,
+							"y": form.y,
+			}
+
+			// -------------- radial
+			for (let i=1; i < geo.length; i++) {
+					let v = geo[i-1]
+					nodes[i] = {												// node i per form dot
+						"id":i,
+						"group":1,
+						"x": form.x, // v[0],
+						"y": form.y, // v[1],
+					}
+					links.push( [ 0, (i)%geo.length] )	// link from center to dot
+			}
+
+			// -------------- peripheral
+			for (let i=0; i < geo.length; i++) {				// 0-12
+					let v = geo[i]
+
+					let i0 = 1 + i % (geo.length - 1)				// 1-12,1 :: 2-12,2
+					let i1 = 1 + (i+1) % (geo.length - 1)
+
+					links.push( [  i0, i1 ] )	// link from dot to next
+			}
+
+			r.nodes = nodes
+			r.links = links
+
+			return r
+
+    }
+
+
+    // ............................. eohale
+    let eohale = anima => {
+
+    // ani.geo()
+    // ani.eoframe
+    // geometry: topojson.mesh(topology, topology.objects[topologyObj])
+    // halo ween tornasol anima
+    // produce geograph
+    // produce eonodes from geograph.nodes
+    // produce eolinks from geograph.links
+    // apply forces to eonode and eolink animas
+
+
+      let eofold = muonProps.v(anima.eofold(anima))
+      let geo = eofold.geometry
+
+      let nodes = [], links = []
+			let r = {nodes, links}
+      
+			// nodes[0] = {						// node 0 in form position
+							// "id":0,
+							// "group":0,
+							// "x": form.x,
+							// "y": form.y,
+			// }
+			
+			// for (let i=1; i < geo.length; i++) {  // -------------- radial
+					// let v = geo[i-1]
+					// nodes[i] = {												// node i per form dot
+						// "id":i,
+						// "group":1,
+						// "x": form.x, // v[0],
+						// "y": form.y, // v[1],
+					// }
+					// links.push( [ 0, (i)%geo.length] )	// link from center to dot
+			// }
+			
+			// for (let i=0; i < geo.length; i++) {		// -------------- peripheral		
+					// let v = geo[i]    // 0-12
+
+					// let i0 = 1 + i % (geo.length - 1)				// 1-12,1 :: 2-12,2
+					// let i1 = 1 + (i+1) % (geo.length - 1)
+					
+					// links.push( [  i0, i1 ] )	// link from dot to next
+			// }				
+
+			// r.nodes = nodes
+			// r.links = links      
+      
+      
+      let animas = Array.of((anima)
+      muonStore.apply({type: 'UPDANIMA', animas: animas}) // live
+      return animas
+    }
+
+    let eohal_ween = anitem => eohale(anitem)
+    let eohal_gramm = anitem => anitem
+
+    let ineohal = {
+      ween: anima => eohal_ween(anima),
+      gramm: anima => eohal_gramm(anima),
+    }
+
 
   // .................. animas
   let ani = function () {
     // .................... pics
     let eotim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    // .................... natAni2
-    let natAni2 = {
 
-      eohal: 'tornasol',
+
+    // .................... natVorts
+    let natVorts = {
+
+      eohal: ineohal,
 
       eotim: eotim,
-      eoric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
+      eoric: {gid: 'g', cid: 'g', fid: 'g'},
 
-      eofold: function (p) {
-        return muonNatform.natFeature(p.eoform)
+      eofold: function (ani) {
+
+        let feature = muonNatform.natFeature(ani.eoform)
+        return feature
       },
 
       eonode: {
-        'type': 'Feature',
-        'geometry': null,
+        type: 'Feature',
+        geometry: null,
       },
 
       eomot: {
@@ -97,21 +212,20 @@ async function anitem (__mapper) {
       eocrom: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
 
       eoform: {
-        'x': {
+        x: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
-          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': -1,
         },
-        'y': {
+        y: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
-          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': -1,
         },
-        'z': {
+        z: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
-          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
+          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': -1,
         },
       },
-      eoload: {
-      },
+      eoload: {},
     }
 
     // ............................. force_energy
@@ -169,7 +283,7 @@ async function anitem (__mapper) {
 
         let force = muonGeoforces.force_(forceParams)
         let field = {
-          key: 'collide', 
+          key: 'collide',
           force: force
         }
 
@@ -281,9 +395,9 @@ async function anitem (__mapper) {
 
       field: params => {
         let forces = []
-        
+
         let nodes = params.nodes
-        
+
         let strength = params.properties.strength
 
         let forceParams = {
@@ -296,7 +410,7 @@ async function anitem (__mapper) {
 
         let force = muonGeoforces.force_(forceParams)
         let field = {
-            key: 'charge', 
+            key: 'charge',
             force: force
         }
 
@@ -361,7 +475,7 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      natAni2, // h.tornasol
+      natVorts, // h.tornasol
       fieldAni, // h.core
 
     ]
