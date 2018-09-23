@@ -37,19 +37,14 @@ async function anitem (__mapper) {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': -1,
-        'dom3': [-180, 180],
-
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': -1,
-        'dom3': [-180, 180],
       },
       'z': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': -1,
-        'dom3': [-180, 180],
-
       },
 
     }
@@ -58,7 +53,7 @@ async function anitem (__mapper) {
     
 			eohal: "turnform",
 			eotim: eotim,
-			eoric: {gid:"geograticule", cid:"geograticule", fid:"geograticule",},
+			eoric: {gid:"g", cid:"g", fid:"g",},
 			eocrom: {"csx":0,"cf":555,"cs":888,"cw":0.7,"co":0.5,"cp":0.9,},
       eofold: p => muonNatform.natFeature(p.eoform),
 			eomot: {
