@@ -14,56 +14,6 @@
   // md: * `https://bl.ocks.org/mbostock/6081914 transitions`
   // md: * `https://github.com/d3/d3-ease#easeElasticOut`
   // md:
-  // md:
-  // md: ## methods
-  // md: * [apply](#apply) - adds, replace, delete anitems
-  // md:  @action: {UPDANIMA, UPDANIGRAM}
-  // md: * [ween](#ween) - process anitem through eohal.ween
-  // md:   @anitem
-  // md: * [gramm](#gramm) - process anitem through eohal.gramm
-  // md:   manage anitem's time
-  // md:   process anitem with anitem's eohal.gramm
-  // md:   process anitem.avatars
-  // md: * animasInGroupHowMany
-  // md:   @anima
-  // md:   return live animas in group `anima.eoload.rid.gid`
-  // md: * animasInClassHowMany
-  // md:   @anima
-  // md:   return live animas in class `anima.eoload.rid.cid`
-  // md: * findIndexFromRic
-  // md:   @eoric
-  // md:   @list
-  // md:   get anitem in @list by @eoric {gid, cid, fid}
-  // md: * findIndex
-  // md:   @anitem
-  // md:   @list
-  // md:   get anitem in @list by @anitem.eoric {gid, cid, fid}
-  // md: * findByUid
-  // md:   @anitem
-  // md:   @list
-  // md:   get anitem in @list by muonEoric.getuid(@anitem)
-  // md: * findFromUid
-  // md:   @uid
-  // md:   @list
-  // md:   get anitem in @list by @uid
-  // md: * findIndexAnigramFromUid
-  // md: * findAnigramFromUid
-  // md: * findAnimaFromUid
-  // md: * born
-  // md: * unborn
-  // md: * getAnimaByUID
-  // md: * animas
-  // md: * anigrams
-  // md: * animasAll
-  // md: * animasLive
-  // md: * token
-  // md: * getNid
-  // md: * getAnigramIdx
-  // md: * getAnigram
-  // md: * getAnimaIdx
-  // md: * getAnima
-  // md:
-  // md:
   // md: # license
   // md: MIT
 
@@ -96,7 +46,7 @@
       if (action.type === 'UPDANIMA') { // .................. UPDANIMA
         let updAnimas = muonProps.fa(action.animas) // get new animas as array
         let elapsed = action.elapsed || 0
-  
+
         for (let i = 0; i < updAnimas.length; i++) {
           let updAnima = muonProps.o(updAnimas[i]) // each new anima
 
@@ -104,20 +54,18 @@
             ? updAnima.eoric.uid
             : muonEoric.getuid(updAnima)
 
-          let index = enty.findFromUid(uid, state.animas)
-          if (index !== -1) { // anima exists
+          let anima = state.animas[uid]
+
+          if (anima !== undefined) { // anima exists
             if (updAnima.eodelled === 1) {
-              state.animas.splice(index, 1) // delete anima
+              delete state.animas[uid] // delete anima
             } else {
-              state.animas[index] = updAnima // replace
+              state.animas[uid] = updAnima // replace
             }
           } else { // new anima
             updAnima.eotim = muonEotim.timing(updAnima.eotim, elapsed) // set eotim elapsed
             updAnima.eoric.uid = uid // set uid if new anima
-            updAnima.eoric.nid = enty.getNid() // node id in animas collection
-
-            state.aniset[updAnima.eoric.uid] = updAnima // set new anima by uid
-            state.animas[state.animas.length] = updAnima // register new anima
+            state.animas[updAnima.eoric.uid] = updAnima // set new anima by uid
           }
         }
 
@@ -136,9 +84,7 @@
             }
 
             let uid = newItem.eoric.uid
-            let index = enty.findFromUid(uid, state.anigrams) // find index from d.uid
-            if (index === -1) index = state.anigrams.length // add holder if new
-            state.anigrams[index] = newItem // replace anigram
+            state.anigrams[uid] = newItem // replace anigram
           }
         }
 
@@ -181,13 +127,9 @@
       }
 
       let anigram = anitem
-      // let snapped = await manitem.snapani(anitem)
-      // let anigram = await manitem.functorize(snapped)
-
       let newItems = eohal.ween(anigram)
 
       return newItems
-      // _apply({type: 'UPDANIMA', animas: newItems})  // UPDANIMA for sim
     }
 
     // .................. ween
@@ -195,19 +137,14 @@
       let eohal = anitem.eohal
       if (typeof (eohal) === 'object') {
         // eohal = eohal
-
       } else {
         eohal = __mapper(__mapper('xs').ceonize(eohal, 'eohal'))
       }
 
       let anigram = anitem
-      // let snapped = await manitem.snapani(anitem)
-      // let anigram = await manitem.functorize(snapped)
-
       let newItems = eohal.ween(anigram)
 
       return newItems
-      // _apply({type: 'UPDANIMA', animas: newItems})  // UPDANIMA for sim
     }
 
     // .................. grammDyn
@@ -259,6 +196,12 @@
     enty.gramm = gramm
     enty.ween = ween
 
+    enty.anigrams = () => Object.values(state.anigrams)
+    enty.animasAll = () => Object.values(state.animas) // animas including eodelled
+    enty.animasLive = () => Object.values(state.animas).filter(d => d.eodelled !== 1)
+    enty.animas = Object.values(enty.animasLive)
+
+    
     enty.animasInGroupHowMany = anima =>
       (anima === undefined)
         ? 0
@@ -279,40 +222,11 @@
           .filter(d => (d.eoric.gid === anigram.eoric.gid &&
                     d.eoric.cid === anigram.eoric.cid)).length
 
-    enty.findIndexFromRic = (eoric, list) =>
-      list.findIndex(d =>
-        d.eoric.gid === eoric.gid &&
-                d.eoric.cid === eoric.cid &&
-                d.eoric.fid === eoric.fid
-      )
 
-    enty.findIndex = (item, list) => enty.findIndexFromRic(item.eoric, list)
 
-    enty.findByUid = (item, list) => enty.findFromUid(muonEoric.getuid(item), list)
-    enty.findFromUid = (uid, list) => list.findIndex(d => d.eoric.uid === uid)
-
-    enty.findIndexAnigramFromUid = uid => enty.anigrams().findIndex(d => d.eoric.uid === uid)
-    enty.findAnigramFromUid = uid => state.anigrams.find(d => d.eoric.uid === uid)
-    enty.findAnimaFromUid = uid => state.animas.find(d => d.eoric.uid === uid)
-
-    enty.born = d => d.eotim !== undefined && d.eotim.unitElapsed !== undefined && d.eotim.unitElapsed > epsilon
-    enty.unborn = d => d.eotim === undefined && d.eotim.elapsed === undefined && d.eotim.unitElapsed === undefined && d.eotim.unitElapsed < epsilon
-    enty.getAnimaByUID = uid => state.animas.find(d => d.eoric.uid === uid)
-
-    enty.anigrams = () => state.anigrams
-    
-    enty.animasAll = () => state.animas // animas including eodelled
-    enty.animasLive = () => state.animas.filter(d => d.eodelled !== 1)
-    enty.animas = enty.animasLive
-    
-    enty.token = () => state.animas.length + 1
-    enty.getNid = () => state.animas.length + 1
-
-    enty.getAnigramIdx = eoric => enty.findIndexFromRic(eoric, state.anigrams)
-    enty.getAnigram = eoric => state.anigrams[enty.getAnigramIdx(eoric)] || null
-
-    enty.getAnimaIdx = eoric => enty.findIndexFromRic(eoric, state.animas)
-    enty.getAnima = eoric => state.animas[enty.getAnimaIdx(eoric)] || null
+    enty.findFromUid = (uid, list) => list[uid]
+    enty.findAnigramFromUid = uid => state.anigrams[uid]
+    enty.findAnimaFromUid = uid => state.animas[uid]
 
     return enty
   }
