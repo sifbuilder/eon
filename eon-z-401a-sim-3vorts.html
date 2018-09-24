@@ -63,17 +63,16 @@ async function anitem (__mapper) {
   let muonStore = __mapper('muonStore')
   let d3_force = d3Force3d
 
-
-var data = {
-  "nodes": [
-    {
-      "x": 169,
-      "y": 110
-    },
-    {
-      "x": 193,
-      "y": 64
-    },
+  var data = {
+    'nodes': [
+      {
+        'x': 169,
+        'y': 110,
+      },
+      {
+        'x': 193,
+        'y': 64,
+      },
     // {
       // "x": 442,
       // "y": 365
@@ -118,12 +117,12 @@ var data = {
       // "x": 633,
       // "y": 200
     // }
-  ],
-  "links": [
-    {
-      "source": 0,
-      "target": 1
-    },
+    ],
+    'links': [
+      {
+        'source': 0,
+        'target': 1,
+      },
     // {
       // "source": 1,
       // "target": 2
@@ -192,105 +191,96 @@ var data = {
       // "source": 12,
       // "target": 10
     // }
-  ]
-}
+    ],
+  }
 
-    // ............................. nuid
-      let nuid = i => {
-        let eoric = { gid: 'node', cid: 'node', fid: 'node' + i, }
-        eoric.uid = muonEoric.getuid(eoric)
-        return eoric
+  // ............................. nuid
+  let nuid = i => {
+    let eoric = { gid: 'node', cid: 'node', fid: 'node' + i }
+    eoric.uid = muonEoric.getuid(eoric)
+    return eoric
+  }
+
+  // ............................. luid
+  let luid = i => {
+    let eoric = { gid: 'link', cid: 'link', fid: 'link' + i }
+    eoric.uid = muonEoric.getuid(eoric)
+    return eoric
+  }
+
+  // ............................. eohale
+  let eohale = anima => {
+    if (!anima.eogelded) {
+      let animas = []
+      let nodes = []
+      let links = []
+
+      for (var i = 0; i < data.nodes.length; i++) {
+        let node = {
+          x: data.nodes[i].x,
+          y: data.nodes[i].y,
+          z: 0,
+        }
+        nodes.push(node)
+
+        let ani = muonProps.cloneObj(anima)
+        ani.eohal = 'tornasol'
+        ani.eoric = nuid(i)
+        ani.eonode.geometry.coordinates = Object.values(node)
+        ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
+
+        animas.push(ani)
       }
-      
-    // ............................. luid
-      let luid = i => {
-        let eoric = { gid: 'link', cid: 'link', fid: 'link' + i, }
-        eoric.uid = muonEoric.getuid(eoric)
-        return eoric
+      for (var i = 0; i < data.links.length; i++) {
+        let nidfrom = data.links[i].source
+        let nidto = data.links[i].target
+
+        let line = {}
+        line.userData = {
+          source: data.links[i].source,
+          target: data.links[i].target,
+        }
+
+        let ani = muonProps.cloneObj(anima)
+        ani.eohal = 'linkform'
+        ani.eoric = luid(i)
+        ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
+        ani.eoload = {}
+        ani.eoload.link = {
+          source: nuid(nidfrom).uid,
+          target: nuid(nidto).uid,
+        }
+
+        animas.push(ani)
       }
 
+      // md: org anima is becomes gelded after halo ween
+      // md: org anima is becomes delled after halo ween
 
-    // ............................. eohale
-    let eohale = anima => {
+      updanima = muonProps.cloneObj(anima)
+      updanima.eogelded = 1
+      updanima.eodelled = 1
+      animas.push(updanima)
 
-      if (!anima.eogelded) {
+      muonStore.apply({
+        type: 'UPDANIMA',
+        caller: 'h.ineohal',
+        animas: animas,
+      })
 
-          let animas = []
-          let nodes = []
-          let links = []
+      if (1 && 1) console.log('animas', animas)
 
-          for (var i = 0; i < data.nodes.length; i++) {
-
-            let node = {
-                x: data.nodes[i].x,
-                y: data.nodes[i].y,
-                z: 0
-            }
-            nodes.push(node)
-
-            let ani = muonProps.cloneObj(anima)
-            ani.eohal = "tornasol"
-            ani.eoric = nuid(i)
-            ani.eonode.geometry.coordinates = Object.values(node)
-            ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
-
-            animas.push(ani)
-
-          }
-          for (var i = 0; i < data.links.length; i++) {
-
-            let nidfrom = data.links[i].source
-            let nidto = data.links[i].target
-          
-            let line = {}
-            line.userData = {
-              source: data.links[i].source,
-              target: data.links[i].target,
-            }
-
-            let ani = muonProps.cloneObj(anima)
-            ani.eohal = "linkform"
-            ani.eoric = luid(i)
-            ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
-            ani.eoload = {}
-            ani.eoload.link = {
-              source: nuid(nidfrom).uid,
-              target: nuid(nidto).uid,
-            }
-
-            animas.push(ani)
-
-
-          }
-
-
-          // md: org anima is becomes gelded after halo ween
-          // md: org anima is becomes delled after halo ween
-
-          updanima = muonProps.cloneObj(anima)
-          updanima.eogelded = 1
-          updanima.eodelled = 1
-          animas.push(updanima)
-
-          muonStore.apply({
-              type: 'UPDANIMA',
-              caller: 'h.ineohal',
-              animas: animas,
-          })
-          
-          if (1 && 1) console.log('animas', animas)
-
-          return animas
-      }
+      return animas
     }
+  }
 
-    let eohal_ween = anitem => eohale(anitem)
-    let eohal_gramm = anitem => anitem
+  let eohal_ween = anitem => eohale(anitem)
+  let eohal_gramm = anitem => anitem
 
-    let ineohal = {
-      ween: anitem => eohal_ween(anitem),
-      gramm: anitem => eohal_gramm(anitem),
-    }
+  let ineohal = {
+    ween: anitem => eohal_ween(anitem),
+    gramm: anitem => eohal_gramm(anitem),
+  }
 
   // .................. animas
   let ani = function () {
@@ -335,7 +325,6 @@ var data = {
           anod: 1, // eofold eonod
         },
       },
-
 
       eocrom: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
 
@@ -398,7 +387,7 @@ var data = {
         let force = muonEoforces.force_(forceParams)
         let field = {
           key: 'collide',
-          force: force
+          force: force,
         }
 
         forces.push(field)
@@ -418,7 +407,6 @@ var data = {
           let node = nodes[i]
 
           node.vy += gravity // node.vx += 0.001 * Math.random()
-          
         }
       }
 
@@ -465,39 +453,39 @@ var data = {
       },
     }
 
-     // .................... field_link
+    // .................... field_link
     let force_link = {
-			properties: {
-							strength: 0.075 ,
-			},
+      properties: {
+        strength: 0.075,
+      },
 
-			field: params => {
-				let forces = []
+      field: params => {
+        let forces = []
 
-				let nodes = params.nodes
+        let nodes = params.nodes
 
-				let strength = params.properties.strength
+        let strength = params.properties.strength
 
-				let forceParams =  {
-					filter: d => true,
-					type: "link",											// key in plugin forces
-					strength: d => strength ,
-					id: d => d.eoric.uid ,
-					nodes: nodes,
-					links: nodes.filter(d => (d.eoric.gid === "link")),
-					src: d3_force
-				}
+        let forceParams = {
+          filter: d => true,
+          type: 'link',											// key in plugin forces
+          strength: d => strength,
+          id: d => d.eoric.uid,
+          nodes: nodes,
+          links: nodes.filter(d => (d.eoric.gid === 'link')),
+          src: d3_force,
+        }
 
         let force = muonEoforces.force_(forceParams)
-				let field = 	{
-					key: "link",
-					force: force
-				}
+        let field = 	{
+          key: 'link',
+          force: force,
+        }
 
-				forces.push(field)
-				return forces
-			}
-		}
+        forces.push(field)
+        return forces
+      },
+    }
 
     // ............................. force_manybody
     let force_manybody = { // aniForce
@@ -526,8 +514,8 @@ var data = {
 
         let force = muonEoforces.force_(forceParams)
         let field = {
-            key: 'charge',
-            force: force
+          key: 'charge',
+          force: force,
         }
 
         forces.push(field)
@@ -563,7 +551,6 @@ var data = {
         return Array.of(field)
       },
     }
-
 
     // .................... fieldAni
     let fieldAni = {

@@ -197,7 +197,6 @@
     enty.animasLive = () => Object.values(state.animas).filter(d => d.eodelled !== 1)
     enty.animas = () => Object.values(enty.animasLive)
 
-    
     enty.animasInGroupHowMany = anima =>
       (anima === undefined)
         ? 0
@@ -217,8 +216,6 @@
         : enty.anigrams()
           .filter(d => (d.eoric.gid === anigram.eoric.gid &&
                     d.eoric.cid === anigram.eoric.cid)).length
-
-
 
     enty.findFromUid = (uid, list) => list[uid]
     enty.findAnigramFromUid = uid => state.anigrams[uid]

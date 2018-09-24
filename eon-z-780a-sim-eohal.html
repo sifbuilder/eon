@@ -414,7 +414,7 @@ async function anitem (__mapper) {
 
       field: params => {
         let forces = []
-        
+
         let nodes = params.nodes
 
         let strength = params.properties.strength
@@ -430,8 +430,8 @@ async function anitem (__mapper) {
 
         let force = muonEoforces.force_(forceParams)
         let field = {
-          key: 'collide', 
-          force: force
+          key: 'collide',
+          force: force,
         }
 
         forces.push(field)
@@ -465,8 +465,8 @@ async function anitem (__mapper) {
 
         let force = muonEoforces.force_(forceParams)
         let field = {
-          key: 'charge', 
-          force: force
+          key: 'charge',
+          force: force,
         }
 
         forces.push(field)

@@ -1,4 +1,4 @@
-  /******************************************
+/******************************************
   *       @muonAnimation
   *
   **/
@@ -113,13 +113,13 @@
     // .................. collect
     function collect (animas, elapsed) {
       getweens(state.animas, elapsed)
-      
+
       let animasLive = muonStore.animasLive()
 
       let anisimmed = getsims(animasLive)
-      
+
       anisimmed.map(ani => muonStore.gramm(ani))
-      
+
       let featurecollection = {
         type: 'FeatureCollection',
         features: muonStore.anigrams().map(d => d.eofold),

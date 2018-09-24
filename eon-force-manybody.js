@@ -12,7 +12,7 @@
   // .................. force
     let force = function (params) {
       let d3_force = __mapper('d3Force3d')
-      
+
       let strength = params.strength || (() => 0.1)
       let theta = params.theta || (() => 0.9)
 

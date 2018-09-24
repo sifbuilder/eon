@@ -345,7 +345,6 @@
       return nformed
     }
 
-
     // ............................. natFeature
     let natFeature = function (form, props = {}) {
       let feature

@@ -104,7 +104,7 @@
           if (nDim > 2 && isNaN(simNode.vz)) simNode.vz = 0
           simNode.eoload = eoload // anitem eoload to simnode
 
-          simNode.id = simNode.eoric.uid  // simnod.id anitem.eoric.uid
+          simNode.id = simNode.eoric.uid // simnod.id anitem.eoric.uid
 
           if (eoload && eoload.link) { // links
             simNode.source = eoload.link.source
@@ -132,42 +132,39 @@
         for (let i = 0; i < simnodes.length; ++i) {
           let simNode = simnodes[i]
 
-            let updItem
-            for (let j=0; j<anitems.length; j++) {
+          let updItem
+          for (let j = 0; j < anitems.length; j++) {
+            let anitem = anitems[j]
+            if (simNode.eoric.uid === anitem.eoric.uid) {
+              updItem = anitems[j]
 
-                let anitem = anitems[j]
-                if (simNode.eoric.uid === anitem.eoric.uid) {
-                  updItem = anitems[j]
-                  
-                  break
-                }
+              break
             }
+          }
 
-            if (updItem !== undefined) {
-              console.assert(updItem.eonode !== undefined)
+          if (updItem !== undefined) {
+            console.assert(updItem.eonode !== undefined)
 
-              let eonode = muonEonode.init(updItem.eonode)
-              eonode.properties.geodelta[0] = simNode.x - eonode.geometry.coordinates[0]
-              eonode.properties.geodelta[1] = simNode.y - eonode.geometry.coordinates[1]
-              eonode.properties.geodelta[2] = simNode.z - eonode.geometry.coordinates[2]
+            let eonode = muonEonode.init(updItem.eonode)
+            eonode.properties.geodelta[0] = simNode.x - eonode.geometry.coordinates[0]
+            eonode.properties.geodelta[1] = simNode.y - eonode.geometry.coordinates[1]
+            eonode.properties.geodelta[2] = simNode.z - eonode.geometry.coordinates[2]
 
-              eonode.properties.velin[0] = simNode.vx // linear velocities
-              eonode.properties.velin[1] = simNode.vy
-              eonode.properties.velin[2] = simNode.vz
+            eonode.properties.velin[0] = simNode.vx // linear velocities
+            eonode.properties.velin[1] = simNode.vy
+            eonode.properties.velin[2] = simNode.vz
 
-              eonode.properties.prevous[0] = eonode.geometry.coordinates[0] // previous location
-              eonode.properties.prevous[1] = eonode.geometry.coordinates[1]
-              eonode.properties.prevous[2] = eonode.geometry.coordinates[2]
+            eonode.properties.prevous[0] = eonode.geometry.coordinates[0] // previous location
+            eonode.properties.prevous[1] = eonode.geometry.coordinates[1]
+            eonode.properties.prevous[2] = eonode.geometry.coordinates[2]
 
-              eonode.geometry.coordinates[0] = simNode.x // after sim location
-              eonode.geometry.coordinates[1] = simNode.y
-              eonode.geometry.coordinates[2] = simNode.z
-              updItem.eonode = eonode
+            eonode.geometry.coordinates[0] = simNode.x // after sim location
+            eonode.geometry.coordinates[1] = simNode.y
+            eonode.geometry.coordinates[2] = simNode.z
+            updItem.eonode = eonode
 
-              updItems.push(updItem)
-
-            }
-
+            updItems.push(updItem)
+          }
         }
       }
 

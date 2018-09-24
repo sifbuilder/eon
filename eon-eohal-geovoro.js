@@ -39,7 +39,7 @@ async function eohalGeovoro(__mapper = {}) {
     // ............................. eohal
 	let eohale = function eohale(anitem) {
 		
-		let newAnima = .............................
+		let newAnima = {}
 		
 		newAnima.sort = "geojson"						// SORT
 		
