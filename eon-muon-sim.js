@@ -10,17 +10,17 @@
 
   async function muonSim (__mapper = {}) {
     let [
-      muonProps,
-      muonStore,
-      mgeonode,
       d3,
       d3Force3d,
+      muonEonode,
+      muonStore,
+      muonProps,
     ] = await Promise.all([
-      __mapper('xs').m('props'),
-      __mapper('xs').m('store'),
-      __mapper('xs').m('eonode'),
       __mapper('xs').b('d3'),
       __mapper('xs').b('d3-force-3d'),
+      __mapper('xs').m('eonode'),
+      __mapper('xs').m('store'),
+      __mapper('xs').m('props'),
     ])
 
     let _geonode = {
@@ -45,7 +45,7 @@
     // https://bl.ocks.org/frogcat/a06132f64b7164c1b1993c49dcd9178f
     // https://www.nist.gov/sites/default/files/documents/2017/05/09/d3rave_poster.pdf
 
-    // ------------------------- simConstants
+    // ............................. simConstants
     function simConstants (sim, fieldProps = {}) {
       let cttes = {}
       cttes.alpha = (fieldProps.alpha !== undefined) ? fieldProps.alpha : sim.alpha()
@@ -57,18 +57,22 @@
     }
 
     // md: initNodes
-    // md:   @aniItems
-    // md:   @nMim
-    function initNodes (aniItems, nDim) {
-      let simNodes = []
+    // md: out of the anitems, select the simnodes visible to the force field
+    // md: the force acts on the geonode. filter out anitems without eonode
+    // md: synchronize between the aintem.eonode and the simnode
+    // md: simnodes: {x,y,z}, {vx,vy,vz}, eoload, index
+    // md:   @anitems: anitems
+    // md:   @nDim:   dimensions of the field
+    function initNodes (anitems, nDim = 3) {
+      let simnodes = []
 
-      for (let i = 0, n = aniItems.length; i < n; ++i) {
-        let aniItem = aniItems[i]
+      for (let i = 0, n = anitems.length; i < n; ++i) {
+        let aniItem = anitems[i]
         let eoload = aniItem.eoload
 
-        if (aniItem.eonode) { // if simmable  ...
+        if (aniItem.eonode !== undefined) { // if simmable  ...
           // the eonode ports info of the simnode
-          let eonode = mgeonode.init(aniItem.eonode)
+          let eonode = muonEonode.init(aniItem.eonode)
 
           // the simnode location is in the eonode geometry
           let nodeGeometry = eonode.geometry
@@ -78,6 +82,8 @@
           simNode.y = nodeGeometry.coordinates[1]
           simNode.z = nodeGeometry.coordinates[2]
 
+if (1 && 1) console.log('simnode', aniItem.eoric.uid, nodeGeometry.coordinates[0], nodeGeometry.coordinates[1], nodeGeometry.coordinates[2])          
+          
           if (simNode.x === undefined || isNaN(simNode.x)) simNode.x = 0 // location defs
           if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1) simNode.y = 0
           if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2) simNode.z = 0
@@ -111,71 +117,85 @@
             simNode.target = eoload.link.target
           }
 
-          simNodes.push(simNode)
+          simnodes.push(simNode)
         }
       }
 
-      // md: simnodes: {x,y,z}, {vx,vy,vz}, eoload, index
-      return simNodes
+      return simnodes
     }
 
-    // ............................. restoreNodes
-    function restoreNodes (simNodes, aniItems) {
+    // md: restoreNodes
+    // md:   @simnodes: simnodes following the field effect
+    // md:   @anitems: rebuild anitems with the corresponding simnodes
+    // md:   call in simulate, then update animas in store
+    // md:    aftersim eonode (s)
+    // md:     coordinates
+    // md:     properties.{geodelta, prevous, velin}
+
+    function restoreNodes (simnodes, anitems) {
       let updItems = []
-if (1 && 1) console.log('simNodes', simNodes)
-      if (simNodes.length > 0) {
-        for (let i = 0; i < simNodes.length; ++i) {
-          let simNode = simNodes[i]
+      if (simnodes.length > 0) {
+        for (let i = 0; i < simnodes.length; ++i) {
+          let simNode = simnodes[i]
 
-          let updItem = aniItems[i] // each anitem
+            let updItem
+            for (let j=0; j<anitems.length; j++) {
 
-          if (updItem.eonode) {
-            let eonode = mgeonode.init(updItem.eonode)
-            eonode.properties.geodelta[0] = simNode.x - eonode.geometry.coordinates[0]
-            eonode.properties.geodelta[1] = simNode.y - eonode.geometry.coordinates[1]
-            eonode.properties.geodelta[2] = simNode.z - eonode.geometry.coordinates[2]
+                let anitem = anitems[j]
+                if (simNode.eoric.uid === anitem.eoric.uid) {
+                  updItem = anitems[j]
+                  
+                  break
+                }
+            }
 
-            eonode.properties.velin[0] = simNode.vx // linear velocities
-            eonode.properties.velin[1] = simNode.vy
-            eonode.properties.velin[2] = simNode.vz
+            if (updItem !== undefined) {
+              console.assert(updItem.eonode !== undefined)
 
-            eonode.properties.prevous[0] = eonode.geometry.coordinates[0] // previous location
-            eonode.properties.prevous[1] = eonode.geometry.coordinates[1]
-            eonode.properties.prevous[2] = eonode.geometry.coordinates[2]
+              let eonode = muonEonode.init(updItem.eonode)
+              eonode.properties.geodelta[0] = simNode.x - eonode.geometry.coordinates[0]
+              eonode.properties.geodelta[1] = simNode.y - eonode.geometry.coordinates[1]
+              eonode.properties.geodelta[2] = simNode.z - eonode.geometry.coordinates[2]
 
-            eonode.geometry.coordinates[0] = simNode.x // after sim location
-            eonode.geometry.coordinates[1] = simNode.y
-            eonode.geometry.coordinates[2] = simNode.z
+              eonode.properties.velin[0] = simNode.vx // linear velocities
+              eonode.properties.velin[1] = simNode.vy
+              eonode.properties.velin[2] = simNode.vz
 
-            updItem.eonode = eonode
-          }
+              eonode.properties.prevous[0] = eonode.geometry.coordinates[0] // previous location
+              eonode.properties.prevous[1] = eonode.geometry.coordinates[1]
+              eonode.properties.prevous[2] = eonode.geometry.coordinates[2]
 
-          updItems.push(updItem)
+              eonode.geometry.coordinates[0] = simNode.x // after sim location
+              eonode.geometry.coordinates[1] = simNode.y
+              eonode.geometry.coordinates[2] = simNode.z
+              updItem.eonode = eonode
+
+if (1 && 1) console.log('eonode', updItem.eoric.uid, simNode.x, simNode.y, simNode.z)
+
+
+              updItems.push(updItem)
+
+            }
+
         }
       }
-
-      // md: aftersim eonode (s)
-      // md:     coordinates
-      // md:     properties.{geodelta, prevous, velin}
-
 
       return updItems
     }
 
     // ............................. simulate
-    let simulate = function (sim, aniItems = [], elapsed = 0, dim = 3) {
+    let simulate = function (sim, anitems = [], elapsed = 0, dim = 3) {
       let aniSims = []
       let numDims = 3
-if (1 && 1) console.log(' *** sim', aniItems.length, aniItems)
 
-      let aniNodes = initNodes(aniItems, dim) // < aniNodes
+      let aniNodes = initNodes(anitems, dim) // < aniNodes
       sim
         .stop()
         .numDimensions(numDims)
         .nodes(aniNodes)
 
-      for (let i = 0; i < aniItems.length; i++) {
-        let aniItem = aniItems[i] // each anima or anigram
+      for (let i = 0; i < anitems.length; i++) {
+        let aniItem = anitems[i] // each anima or anigram
 
         if (aniItem.eoforces !== undefined) { // forces in aniItem
           let forces = muonProps.fa(aniItem.eoforces)
@@ -193,8 +213,8 @@ if (1 && 1) console.log(' *** sim', aniItems.length, aniItems)
               .on('tick', () => {
                 if (aniForce.ticked !== undefined) aniForce.ticked
 
-                aniSims = restoreNodes(aniNodes, aniItems) // > aniNodes
-                muonStore.apply({type: 'UPDATEANIMAS', caller: 'simulation', animas: aniSims})
+                aniSims = restoreNodes(aniNodes, anitems) // > aniNodes
+                muonStore.apply({type: 'UPDANIMA', caller: 'simulation', animas: aniSims})
               })
 
             if (aniForce.field !== undefined) { // field forces

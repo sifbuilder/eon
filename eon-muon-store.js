@@ -96,8 +96,7 @@
       if (action.type === 'UPDANIMA') { // .................. UPDANIMA
         let updAnimas = muonProps.fa(action.animas) // get new animas as array
         let elapsed = action.elapsed || 0
-if (1 && 1) console.log('UPDANIMA', updAnimas)
-
+  
         for (let i = 0; i < updAnimas.length; i++) {
           let updAnima = muonProps.o(updAnimas[i]) // each new anima
 
@@ -287,8 +286,7 @@ if (1 && 1) console.log('UPDANIMA', updAnimas)
                 d.eoric.fid === eoric.fid
       )
 
-    enty.findIndex = (item, list) =>
-      enty.findIndexFromRic(item.eoric, list)
+    enty.findIndex = (item, list) => enty.findIndexFromRic(item.eoric, list)
 
     enty.findByUid = (item, list) => enty.findFromUid(muonEoric.getuid(item), list)
     enty.findFromUid = (uid, list) => list.findIndex(d => d.eoric.uid === uid)
@@ -301,10 +299,12 @@ if (1 && 1) console.log('UPDANIMA', updAnimas)
     enty.unborn = d => d.eotim === undefined && d.eotim.elapsed === undefined && d.eotim.unitElapsed === undefined && d.eotim.unitElapsed < epsilon
     enty.getAnimaByUID = uid => state.animas.find(d => d.eoric.uid === uid)
 
-    enty.animas = () => state.animas
     enty.anigrams = () => state.anigrams
+    
     enty.animasAll = () => state.animas // animas including eodelled
     enty.animasLive = () => state.animas.filter(d => d.eodelled !== 1)
+    enty.animas = enty.animasLive
+    
     enty.token = () => state.animas.length + 1
     enty.getNid = () => state.animas.length + 1
 
