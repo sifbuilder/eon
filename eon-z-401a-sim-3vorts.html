@@ -8,6 +8,7 @@ async function anitem (__mapper) {
     d3Force3d,
     ctlRayder,
     eohalCore,
+    eohalLinkform,
     eohalNatform,
     eohalScene,
     eohalTornasol,
@@ -20,6 +21,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').c('rayder'),
     __mapper('xs').e('core'),
+    __mapper('xs').e('linkform'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
     __mapper('xs').e('tornasol'),
@@ -68,10 +70,10 @@ var data = {
       "x": 169,
       "y": 110
     },
-    // {
-      // "x": 193,
-      // "y": 64
-    // },
+    {
+      "x": 193,
+      "y": 64
+    },
     // {
       // "x": 442,
       // "y": 365
@@ -193,12 +195,25 @@ var data = {
   ]
 }
 
+    // ............................. nuid
+      let nuid = i => {
+        let eoric = { gid: 'node', cid: 'node', fid: 'node' + i, }
+        eoric.uid = muonEoric.getuid(eoric)
+        return eoric
+      }
+      
+    // ............................. luid
+      let luid = i => {
+        let eoric = { gid: 'link', cid: 'link', fid: 'link' + i, }
+        eoric.uid = muonEoric.getuid(eoric)
+        return eoric
+      }
+
 
     // ............................. eohale
     let eohale = anima => {
-          
-      if (!anima.eogelded) {    
-          if (1 && 1) console.log('eohale', anima)
+
+      if (!anima.eogelded) {
 
           let animas = []
           let nodes = []
@@ -215,49 +230,56 @@ var data = {
 
             let ani = muonProps.cloneObj(anima)
             ani.eohal = "tornasol"
-            ani.eoric.gid = 'node'
-            ani.eoric.cid = 'node'
-            ani.eoric.fid = 'node' + i // identify
-            ani.eoric.uid = muonEoric.getuid(ani.eoric)
+            ani.eoric = nuid(i)
             ani.eonode.geometry.coordinates = Object.values(node)
+            ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
 
             animas.push(ani)
-            
+
           }
-          // for (var i = 0; i < data.links.length; i++) {
+          for (var i = 0; i < data.links.length; i++) {
 
-            // let link = {
-                // target:nodes[data.links[i].target],
-                // source:nodes[data.links[i].source]
-            // }
+            let nidfrom = data.links[i].source
+            let nidto = data.links[i].target
+          
+            let line = {}
+            line.userData = {
+              source: data.links[i].source,
+              target: data.links[i].target,
+            }
 
-            // links.push(link)
+            let ani = muonProps.cloneObj(anima)
+            ani.eohal = "linkform"
+            ani.eoric = luid(i)
+            ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
+            ani.eoload = {}
+            ani.eoload.link = {
+              source: nuid(nidfrom).uid,
+              target: nuid(nidto).uid,
+            }
 
-            // let line = {}
-            // line.userData = {
-              // source: data.links[i].source,
-              // target: data.links[i].target,
-            // }
-          // }
+            animas.push(ani)
+
+
+          }
 
 
           // md: org anima is becomes gelded after halo ween
           // md: org anima is becomes delled after halo ween
-          
+
           updanima = muonProps.cloneObj(anima)
           updanima.eogelded = 1
           updanima.eodelled = 1
           animas.push(updanima)
 
-          // for (let i=0; i<animas.length; i++) {
-            // if (1 && 1) console.log('z animas', animas[i].eoric, animas[i].eonode.geometry.coordinates,)
-          // }
-
           muonStore.apply({
-              type: 'UPDANIMA', 
-              caller: 'h.ineohal', 
+              type: 'UPDANIMA',
+              caller: 'h.ineohal',
               animas: animas,
           })
+          
+          if (1 && 1) console.log('animas', animas)
+
           return animas
       }
     }
@@ -291,7 +313,7 @@ var data = {
         },
         properties: {},
       },
-      
+
       eonode: {
         type: 'Feature',
         geometry: {
@@ -395,10 +417,8 @@ var data = {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
 
-          if (1 && 1) console.log('forceGravity', node)
-
-          
           node.vy += gravity // node.vx += 0.001 * Math.random()
+          
         }
       }
 
@@ -448,7 +468,7 @@ var data = {
      // .................... field_link
     let force_link = {
 			properties: {
-							strength: 100.75 ,
+							strength: 0.075 ,
 			},
 
 			field: params => {
@@ -462,7 +482,7 @@ var data = {
 					filter: d => true,
 					type: "link",											// key in plugin forces
 					strength: d => strength ,
-					id: d => d.uid ,
+					id: d => d.eoric.uid ,
 					nodes: nodes,
 					links: nodes.filter(d => (d.eoric.gid === "link")),
 					src: d3_force
@@ -562,7 +582,7 @@ var data = {
       // force_manybody,
       force_gravity,
       // force_collide,
-      // force_link,
+      force_link,
     }
 
     // .................. animas

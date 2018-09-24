@@ -115,10 +115,8 @@
       getweens(state.animas, elapsed)
       
       let animasLive = muonStore.animasLive()
-      if (1 && 1) console.log('animasLive', animasLive.length, animasLive)
 
       let anisimmed = getsims(animasLive)
-      if (1 && 1) console.log('anisimmed', anisimmed.length, anisimmed)
       
       anisimmed.map(ani => muonStore.gramm(ani))
       

@@ -82,8 +82,6 @@
           simNode.y = nodeGeometry.coordinates[1]
           simNode.z = nodeGeometry.coordinates[2]
 
-if (1 && 1) console.log('simnode', aniItem.eoric.uid, nodeGeometry.coordinates[0], nodeGeometry.coordinates[1], nodeGeometry.coordinates[2])          
-          
           if (simNode.x === undefined || isNaN(simNode.x)) simNode.x = 0 // location defs
           if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1) simNode.y = 0
           if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2) simNode.z = 0
@@ -106,11 +104,7 @@ if (1 && 1) console.log('simnode', aniItem.eoric.uid, nodeGeometry.coordinates[0
           if (nDim > 2 && isNaN(simNode.vz)) simNode.vz = 0
           simNode.eoload = eoload // anitem eoload to simnode
 
-          if (eoload && eoload.id !== undefined) { // link nodes
-            simNode.id = eoload.id // simnode id from eofold.eoload.id
-          } else {
-            simNode.id = simNode.eoric.uid
-          }
+          simNode.id = simNode.eoric.uid  // simnod.id anitem.eoric.uid
 
           if (eoload && eoload.link) { // links
             simNode.source = eoload.link.source
@@ -169,9 +163,6 @@ if (1 && 1) console.log('simnode', aniItem.eoric.uid, nodeGeometry.coordinates[0
               eonode.geometry.coordinates[1] = simNode.y
               eonode.geometry.coordinates[2] = simNode.z
               updItem.eonode = eonode
-
-if (1 && 1) console.log('eonode', updItem.eoric.uid, simNode.x, simNode.y, simNode.z)
-
 
               updItems.push(updItem)
 

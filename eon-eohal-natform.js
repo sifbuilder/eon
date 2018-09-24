@@ -128,16 +128,24 @@
       }
 
       anitem.eofold = muonNatform.natFeature(anitem.eoform)
-      anitem.eofold = muonProj3ct(anitem.eofold, muonProfier.formion(prt, anitem)) // eofold
+      anitem.eofold = muonProj3ct(anitem.eofold, muonProfier.formion(prt, anitem))
    
-      if (anitem.eocrom === undefined) anitem.eocrom = getgeochrom(anitem.eoform)        // eoform
+      if (anitem.eocrom === undefined) anitem.eocrom = getgeochrom(anitem.eoform) 
      
       
       return eohalTornasol.gramm(anitem)
     }
 
     // .................... ween
-    let ween = anitem => (anitem.eoinited !== 1) ? (anitem.eoinited = anitem.eogelded = 1, [anitem]) : []
+    let ween = anitem => {
+      if (anitem.eoinited !== 1) {
+        anitem.eoinited = 1
+        anitem.eogelded = 1
+        return Array.of(anitem)
+      } else {
+        return []
+      }
+    }
 
     // .................... eohal
     let eohalNatform = {}

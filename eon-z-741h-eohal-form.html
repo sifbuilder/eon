@@ -88,7 +88,7 @@ async function anitem (__mapper) {
         ani.eocrom.cf = (i % 2) ? 777 : 333
         ani.eocrom.cs = (i % 2) ? 777 : 333
 
-        let preani = muonStore.getAnima(ani.eoric)
+        let preani = muonStore.animas()[ani.eoric.ric]
 
         if (preani) {
           ani = preani

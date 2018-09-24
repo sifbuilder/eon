@@ -10,9 +10,6 @@
 
   // md: # eon-muon-store
   // md: **manage anitems store**
-  // md: ## refs
-  // md: * `https://bl.ocks.org/mbostock/6081914 transitions`
-  // md: * `https://github.com/d3/d3-ease#easeElasticOut`
   // md:
   // md: # license
   // md: MIT
@@ -37,8 +34,7 @@
 
     let state = {
       animas: [], // animas array
-      aniset: {}, // animas by uid
-      anigrams: [], // behavior - anigrams may have avatars
+      anigrams: [], // anigrams
     }
 
     // .................. apply
@@ -199,7 +195,7 @@
     enty.anigrams = () => Object.values(state.anigrams)
     enty.animasAll = () => Object.values(state.animas) // animas including eodelled
     enty.animasLive = () => Object.values(state.animas).filter(d => d.eodelled !== 1)
-    enty.animas = Object.values(enty.animasLive)
+    enty.animas = () => Object.values(enty.animasLive)
 
     
     enty.animasInGroupHowMany = anima =>
