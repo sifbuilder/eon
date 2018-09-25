@@ -100,6 +100,7 @@ async function lightanimas (browser, fls, opts) {
 
     await page.goto(`file:///${inpathname}`, {
       waitUntil: 'domcontentloaded',
+      timeout: 50000, // extend 30000
     })
     await page.waitForSelector('#viewframe')
     await waitInPromise(delay)(page.content())
