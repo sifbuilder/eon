@@ -21,6 +21,8 @@
       muonStore,
       muonProps,
       renderSvg,
+      renderWebgl,
+      renderCanvas,
     ] = await Promise.all([
       __mapper('xs').c('timer'),
       __mapper('xs').m('eotim'),
@@ -28,6 +30,8 @@
       __mapper('xs').m('store'),
       __mapper('xs').m('props'),
       __mapper('xs').r('svg'),
+      __mapper('xs').r('webgl'),
+      __mapper('xs').r('canvas'),
     ]
     )
 
@@ -35,14 +39,14 @@
     state.animas = [] // global animas
     state.promise = null
 
-    // .................. getsims
+    // md: getsims
     const getsims = (animas, elapsed) => {
       let sim = muonSim.sim() // simulation on animas
       muonSim.simulate(sim, animas, elapsed) // stored
       return muonStore.animasLive()
     }
 
-    // .................. sequence
+    // md: sequence
     function sequence (items, fromitem) {
       function chain (items, index) {
         return (index === items.length)
@@ -52,17 +56,17 @@
       return chain(items, 0)
     }
 
-    // .................. getweens
+    // md: getweens
     function getweens (animas, elapsed) {
       return sequence(animas, anima => muonStore.ween(anima))
     }
 
-    // .................. getgramms
+    // md: getgramms
     function getgramms (animas, elapsed) {
       return sequence(animas, anima => muonStore.gramm(anima)) // store anigrams
     }
 
-    // .................. animate
+    // md: async animate
     async function animate (time) {
       if (time !== undefined) {
         animier(time)
@@ -73,7 +77,7 @@
       }
     }
 
-    // .................. collect
+    // md: async collectDyn
     async function collectDyn (animas, elapsed) {
       let featurecollectionPromise = Promise.resolve(state.animas)
         .then(animas => {
@@ -110,7 +114,7 @@
       return featurecollectionPromise
     }
 
-    // .................. collect
+    // md: collect
     function collect (animas, elapsed) {
       getweens(state.animas, elapsed)
 
@@ -127,14 +131,14 @@
       return featurecollection
     }
 
-    // ............................. ANIMIER
+    // md: ANIMIER
     function animier (elapsed) {
       muonStore = __mapper('muonStore')
       state.animas = muonStore.animasLive()
 
       if (1 && 1) console.log(` ................ animation ${elapsed} ${state.animas.length}`, state.animas)
 
-      // ............................. TIME
+      // md: TIME
       state.animas = muonProps.a(muonStore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
@@ -145,7 +149,7 @@
         }
       }
 
-      // ............................. @STOP
+      // md: @STOP
       let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.eotim.limit + item.eotim.msStart), 0)
 
       let nostop = state.animas.reduce((pre, item) => (pre || item.eotim.nostop), false)
@@ -156,19 +160,16 @@
         state.animationStop()
       }
 
-      // ............................. @WEEN SIM GRAMM RENDER
+      // md: @WEEN SIM GRAMM RENDER
       // md: from the anigrams, collect the feature collection to be rendered
 
-      // let featurecollectionPromise = collect(state.animas, elapsed)
+      // md: let featurecollectionPromise = collect(state.animas, elapsed)
       let featurecollection = collect(state.animas, elapsed)
+      
+      // md: then render by sort the features in the collection
       renderSvg.render(featurecollection)
 
-      // md: then render by sort the features in the collection
 
-      // featurecollectionPromise
-      // .then(featurecollection => {
-      // renderSvg.render(featurecollection)
-      // })
     }
 
     // ............................. enty

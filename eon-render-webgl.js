@@ -10,17 +10,21 @@
 
   async function renderWebgl (__mapper = {}) {
     let [
-      renderPortview, // cameraProjer
       d3,
       three,
-      threeTrackballcontrols,
+      renderPortview,
     ] = await Promise.all([
-      __mapper('xs').r('portview'),
       __mapper('xs').b('d3'),
       __mapper('xs').b('three'),
+      __mapper('xs').r('portview'),
+    ])
+    
+    let [
+      threeTrackballcontrols,
+    ] = await Promise.all([
       __mapper('xs').b('three-trackballcontrols'),
     ])
-
+    
     const radians = Math.PI / 180
 
     let state = {}
@@ -141,6 +145,9 @@
  *        @render
  */
     let render = function (elapsed, featurecollection, maxlimit) {
+
+if (1 && 1) console.log('featurecollection', featurecollection)    
+      
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
@@ -157,6 +164,9 @@
         .key(function (d) { return d.properties.eoric.gid })
         .key(function (d) { return d.properties.eoric.cid })
         .entries(features)
+
+if (1 && 1) console.log('gitems', gitems)
+
 
       for (let i in gitems) { // DOTS (seg5===0) each group gid
         let gid = gitems[i].key,

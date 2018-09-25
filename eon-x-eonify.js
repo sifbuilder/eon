@@ -172,9 +172,7 @@
       if (e[n] !== undefined && typeof e[n] === 'function') {
         // n is eon with e[n] async constructor eg. async function muonNatform
         // n is ani with e[n] async constructor eg. async function anitem
-
         // e[n](m) is promise
-
         return e[n](m)
       } else if (typeof e === 'object') {
         // n is d3Scale (e[n] is undefined)
@@ -201,11 +199,12 @@
 
     // ............................. getFeon
     async function getFeon (part) { // d3Froce3d, ./d3-force-3d.js
-      return xD3Require.require(...a(part[1])) // get eon
-        .then(eon => {
-          return getCell(eon, part[0], __mapper) // eon to cell
-        })
-        .then(cell => mapCell(cell, part[0], __mapper)) // map cell
+
+      let eon = await xD3Require.require(...a(part[1]))
+      let cell = await getCell(eon, part[0], __mapper) // eon to cell
+      let feon = await mapCell(cell, part[0], __mapper) // map cell
+      return feon
+    
     }
 
     // ............................. getXeon

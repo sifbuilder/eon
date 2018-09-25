@@ -9,31 +9,31 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    muonGeom,
-    muonGraticule,
-    topojson,
-    datWorldTopo110m,
-    muonNatform,
-    ctlWen,
-    ctlVersor,
     d3geo,
     d3geoprojection,
-    prtOrthographic,
+    topojson,
+    ctlVersor,
+    ctlWen,
+    datWorldTopo110m,
     eohalTornasol,
     eohalScene,
+    muonGeom,
+    muonGraticule,
+    muonNatform,
+    prtOrthographic,
   ] = await Promise.all([
-    __mapper('xs').m('geom'),
-    __mapper('xs').m('graticule'),
-    __mapper('xs').b('topojson'),
-    __mapper('xs').d('worldTopo110m'),
-    __mapper('xs').m('natform'),
-    __mapper('xs').c('wen'),
-    __mapper('xs').c('versor'),
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-geo-projection'),
-    __mapper('xs').p('orthographic'),
+    __mapper('xs').b('topojson'),
+    __mapper('xs').c('versor'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').d('worldTopo110m'),
     __mapper('xs').e('tornasol'),
     __mapper('xs').e('scene'),
+    __mapper('xs').m('geom'),
+    __mapper('xs').m('graticule'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').p('orthographic'),
   ])
   // .................. animas
   let ani = function () {
@@ -124,7 +124,6 @@ async function anitem (__mapper) {
           scale: [100],
           translate: [ 0, 0 ],
           rotate: [ -0.78, 0.61, 0 ],
-          step: [[[0, 0, 1.1, 1.1, 0, 0]]],
 
         },
       },
@@ -144,13 +143,13 @@ async function anitem (__mapper) {
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       eoload: {
-        context: {svg: 0, versor: 1, wen: 0, webgl: 0, bck: 1},
+        context: {svg: 0, versor: 1, wen: 0, webgl: 1, bck: 1},
       },
 
     }
 
     let animas = [
-      // geoearth, //
+      geoearth, //
       geograt, //
 
       sceneAni, // h.scene
