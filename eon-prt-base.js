@@ -19,6 +19,9 @@
     let radians = Math.PI / 180
     let transform = d3Geo.geoTransform({ point: function (x, y) { this.stream.point(x, y) }})
 
+    // https://medium.com/@dtipson/creating-an-es6ish-compose-in-javascript-ac580b95104a    
+    const compose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)))    
+    
     // ............................. fitExtent
     let fitExtent = function fitExtent (projection, extent, object) {
       var w = extent[1][0] - extent[0][0],
@@ -59,11 +62,12 @@
     }
 
     // ............................. projection
+    // let projection = function (p1, p2) {
     let projection = function (p1, p2) {
       var cache,
         cacheStream
 
-      let proj1 = p1
+      let proj1 = p1 = d3Geo.geoOrthographic()
       let	proj1Point
 
       let proj2 = p2
@@ -73,12 +77,12 @@
       let pointStream = {point: function (x, y) { point = [x, y] }}
 
       function projection (coordinates) {
-        var x = coordinates[0], y = coordinates[1]
+        let x = coordinates[0], y = coordinates[1]
         return		proj1Point.point(x, y)
       }
 
       projection.invert = function (coordinates) {
-        var k = proj1.scale(),
+        let k = proj1.scale(),
           t = proj1.translate(),
           x = (coordinates[0] - t[0]) / k,
           y = (coordinates[1] - t[1]) / k
@@ -96,7 +100,6 @@
 
       projection.stream = function (s) {
         let streams = []
-
         streams.push(transform.stream(proj1.stream(s)))
         return multiplex(streams)
       }

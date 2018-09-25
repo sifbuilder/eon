@@ -6,29 +6,31 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    muonGeom,
-    ctlWen,
-    muonGraticule,
+    d3Geo,
+    d3GeoProjection,
     topojson,
-    datWorldTopo110m,
-    prtNatform,
     ctlVersor,
-    d3geo,
-    d3geoprojection,
-    eohalTornasol,
+    ctlWen,
+    datWorldTopo110m,
     eohalScene,
+    eohalTornasol,
+    muonGeom,
+    muonGraticule,
+    prtNatform,
+    prtBase,
   ] = await Promise.all([
-    __mapper('xs').m('geom'),
-    __mapper('xs').c('wen'),
-    __mapper('xs').m('graticule'),
-    __mapper('xs').b('topojson'),
-    __mapper('xs').d('worldTopo110m'),
-    __mapper('xs').p('natform'),
-    __mapper('xs').c('versor'),
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-geo-projection'),
-    __mapper('xs').e('tornasol'),
+    __mapper('xs').b('topojson'),
+    __mapper('xs').c('versor'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').d('worldTopo110m'),
     __mapper('xs').e('scene'),
+    __mapper('xs').e('tornasol'),
+    __mapper('xs').m('geom'),
+    __mapper('xs').m('graticule'),
+    __mapper('xs').p('natform'),
+    __mapper('xs').p('base'),
   ])
 
   // .................. animas
@@ -73,30 +75,54 @@ async function anitem (__mapper) {
       eomot: {
         conform: {
 
-          projection: d3geo.geoOrthographic(),
+          projection: prtBase
+            .projection(d3Geo.geoOrthographic())				
+            .transform(function (x, y) {
+                this.stream.point(x / 1, y / 4)
+              }),
           prerotate: [[[ ctlWen.rotation ]]],
           translate: [0, 0, 0],
           scale: 100,
-          rotate: [ [[[0, 4 * 180]]], 0, 0 ],
-          transform: function (x, y) {
-            this.stream.point(x / 1, y / 2)
-          },
+          rotate: [ 0, 0, -180 ],
 
         },
-        proform: {
+        // proform: {
 
-          projection: 'uniwen',
-          prerotate: [[[ ctlWen.rotation ]]],
-          translate: [ 0, 0, 0],
-          scale: [1, -1],
-          rotate: [ 0, [[[ 4 * 180, 0]]], 0 ],
-          lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
+          // projection: 'uniwen',
+          // prerotate: [[[ ctlWen.rotation ]]],
+          // translate: [ 0, 0, 0],
+          // scale: [1, -1, 1],
+          // rotate: [ 0, [[[ 4 * 180, 0]]], 0 ],
+          // lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
 
-        },
+        // },
       },
 
     }
+    let geoGraticule = {
 
+      eohal: 'tornasol',
+      eotim: eotim,
+      eoric: {gid: 'g', cid: 'g', fid: 'g2' },
+      eocrom: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.7, 'co': 0.005, 'cp': 0.9},
+
+      eofold: p => muonGraticule.vhMultiLine(p.eoframe),
+      eomot: {
+        proform: {
+          projection: d3Geo.geoOrthographic(),
+          scale: 100,
+          translate: [ 0, 0 ],
+          prerotate: [[[ ctlWen.rotation ]]],
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity ],
+        },
+      },
+      eoframe: {
+        frame: [ [ [ -180, 180, 15, 15], [ -20, 90, 15, 15] ] ],
+      },
+      eoform: null,
+      eoload: {},
+    }
     // .................. sceneAni
     let sceneAni = {
 
@@ -113,6 +139,7 @@ async function anitem (__mapper) {
     // ............................. animas
     let animas = [
       earthAni,
+      geoGraticule,
       sceneAni,
     ]
 
