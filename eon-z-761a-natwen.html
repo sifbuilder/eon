@@ -10,7 +10,7 @@ async function anitem (__mapper) {
     muonProps,
     ctlWen,
     d3geo,
-    eohalTornasol,
+    eohalSol,
     eohalNatform,
     eohalScene,
   ] = await Promise.all([
@@ -18,7 +18,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').b('d3-geo'),
-    __mapper('xs').e('tornasol'),
+    __mapper('xs').e('sol'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
   ])
@@ -30,7 +30,7 @@ async function anitem (__mapper) {
 
     let anima = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
       eofold: p => muonNatform.natFeature(p.eoform),
 
       eotim: eotim,
@@ -58,7 +58,7 @@ async function anitem (__mapper) {
 
     let animatter = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
       eofold: p => muonNatform.natFeature(p.eoform),
 
       eotim: eotim,
@@ -101,8 +101,8 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      anima, // h.tornasol
-      animatter, // h.tornasol
+      anima, // h.sol
+      animatter, // h.sol
       sceneAni, // h.scene
 
     ]

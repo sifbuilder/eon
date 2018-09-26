@@ -12,13 +12,13 @@
     let [
       eohalPetiole,
       eohalNatform,
-      eohalTornasol,
+      eohalSol,
       muonProps,
       muonGraticule,
     ] = await Promise.all([
       __mapper('xs').e('petiole'),
       __mapper('xs').e('natform'),
-      __mapper('xs').e('tornasol'),
+      __mapper('xs').e('sol'),
       __mapper('xs').m('props'),
       __mapper('xs').m('graticule'),
     ])
@@ -66,7 +66,7 @@
 
     // .................... gramm
     function gramm (anigram) {
-      return Promise.all(getTiles(anigram).map(ani => eohalTornasol.gramm(ani)))
+      return Promise.all(getTiles(anigram).map(ani => eohalSol.gramm(ani)))
     }
 
     // .................... enty

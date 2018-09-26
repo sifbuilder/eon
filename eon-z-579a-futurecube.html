@@ -13,7 +13,7 @@ async function anitem (__mapper) {
     d3geoprojection,
     geoFuturi,
     ctlWen,
-    eohalTornasol,
+    eohalSol,
     eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('natform'),
@@ -24,7 +24,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-geo-projection'),
     __mapper('xs').g('futuri'),
     __mapper('xs').c('wen'),
-    __mapper('xs').e('tornasol'),
+    __mapper('xs').e('sol'),
     __mapper('xs').e('scene'),
   ])
 
@@ -63,7 +63,7 @@ async function anitem (__mapper) {
 
     let geograt = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
       eofold: () => {
         return Object.assign({},
           topojson.feature(
@@ -87,7 +87,7 @@ async function anitem (__mapper) {
 
     let geoearth = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
       eofold: () => {
         return Object.assign({},
           topojson.feature(
@@ -112,7 +112,7 @@ async function anitem (__mapper) {
 
     let geosphere = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
       eofold: { type: 'Sphere'},
       eotim: eotim,
       eoric: {gid: 'geosphere', cid: 'geosphere', fid: 'geosphere' },
@@ -126,9 +126,9 @@ async function anitem (__mapper) {
     }
 
     let animas = [
-      geograt, // h.tornasol g.futuri
-      geoearth, // h.tornasol g.futuri
-      geosphere, // h.tornasol  g.futuri
+      geograt, // h.sol g.futuri
+      geoearth, // h.sol g.futuri
+      geosphere, // h.sol  g.futuri
     ]
 
     return animas

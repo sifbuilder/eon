@@ -10,14 +10,19 @@
 
   async function eohalImgform (__mapper = {}) {
     let [
-      eohalTornasol,
+      eohalSol,
+      muonProps,
     ] = await Promise.all([
-      __mapper('xs').e('tornasol'),
+      __mapper('xs').e('sol'),
+      __mapper('xs').m('props'),
     ])
 
-    let _geofold = p => ({ // eofold
+    let _eofold = p => ({ // eofold
       type: 'Feature',
-      geometry: { type: 'Point', coordinates: [0, 0] },
+      geometry: { 
+        type: 'Point', 
+        coordinates: [0, 0] 
+      },
       properties: {
         sort: 'img',
         attr: {
@@ -29,27 +34,34 @@
       },
     })
 
-    let gramm = function gramm (anigram, newAnigrams = []) {
+    // .................. eohale
+    let eohale = function (anigram, newAnigrams = []) {
       let eohal = anigram.eohal, // eohal
         eoload = anigram.eoload // eoload
 
-      let eofold = _geofold(anigram) // eofold
-
-      let newAnigram = {
-        eohal,
-        eofold,
-        eoload,
-      }
-
-      newAnigrams = [...newAnigrams, ...__mapper('eohalTornasol').gramm(newAnigram)]
+      let newAnigram = muonProps.clone(anigram)
+      newAnigrams = [...newAnigrams, ...__mapper('eohalSol').gramm(newAnigram)]
       return newAnigrams
     }
+    // ............................. ween
+    let gramm = anitem => eohale(anitem)
 
+    // ............................. ween
+    let ween = anitem => {
+      if (anitem.eoinited !== undefined) {
+        anitem.eoinited = 1
+        return muonProps.a(anitem)
+      } else {
+        return []
+      }
+    }
+    // ............................. eohalImgform
+    let eohalImgform = {}    
+    eohalImgform.ween = anima => Array.of(anima)
+    eohalImgform.gramm = anima => eohale(anima)
+    
     // .................. enty
-    let enty = function () {}
-    enty.ween = anima => [anima]
-    enty.gramm = anima => gramm(anima)
-
+    let enty = eohalImgform
     return enty
   }
 

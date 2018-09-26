@@ -17,7 +17,7 @@
   //... ## methods
   //... * [ween](#ween) - process anima
   //... * [gramm](#gramm) - process anigram
-  //...  buils the newitem eoform and pass it to h.tornasol
+  //...  buils the newitem eoform and pass it to h.sol
   //...
   //... # license
   //... MIT
@@ -25,10 +25,10 @@
   async function eohalTextform (__mapper = {}) {
     let [
       muonProps,
-      eohalTornasol,
+      eohalSol,
     ] = await Promise.all([
       __mapper('xs').m('props'),
-      __mapper('xs').e('tornasol'),
+      __mapper('xs').e('sol'),
     ])
 
     // .................. _geofold
@@ -72,7 +72,7 @@
       newitem.eofold = _geofold(anigram)
       newitem.eonode = _geofold(anigram)
 
-      return eohalTornasol.gramm(newitem)
+      return eohalSol.gramm(newitem)
     }
 
     // .................. ween

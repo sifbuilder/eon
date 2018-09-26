@@ -1,7 +1,5 @@
 
-//... publish eons to npm and unpkg
-//... node _eonify-teer-npm { eons, all, eonclass }
-//... create npm project in eons_dist and npm publish
+//... create md readme
 
 const fs = require('fs')
 const path = require('path')
@@ -51,20 +49,20 @@ if (opts.length === 0) {
     // action help
 
   } else if (opts[0] === 'eons') {
-    action = 'unpkg'
+    action = 'mdee'
     scope = 'eons'
     dopublish = 0
   } else if (opts[0] === 'eonitems') {
-    action = 'unpkg'
+    action = 'mdee'
     scope = 'eonitems' // cover all eons in scope
     dopublish = 0
   } else {
-    action = 'unpkg'
+    action = 'mdee'
     scope = opts[0] // filter eonitems
     dopublish = 0
   }
 } else if (opts.length === 2) {
-  action = 'unpkg'
+  action = 'mdee'
   scope = opts[0] // filter eonitems
   dopublish = (opts[1] === 'publish') ? 1 : 0
 }
@@ -200,8 +198,8 @@ function getMdText (file) {
   let fileName = file
 
   let fileTxt = fs.readFileSync(fileName, 'utf8')
-  let nameFindPattern = /... (\{filename\})/mg // filename
-  let nameReplacePattern = /... \{filename\}/i // ignoring case
+  let nameFindPattern = /...(\{filename\})/mg // filename
+  let nameReplacePattern = /...\{filename\}/i // ignoring case
   var nameArr
   while ((nameArr = nameFindPattern.exec(fileTxt)) !== null) {
     fileTxt = fileTxt.replace(nameReplacePattern, fileName)
@@ -215,45 +213,12 @@ function getMdText (file) {
   return outText
 }
 
-//... getPackobj
-//... build the package.json text
-//... @fullName
-//... @name
-//... @ver         version
-//... @desc        description
-//... @ncdfolder   package folder
-
-function getPackobj (fullName, name, ver, desc = '', ncdfolder = './') {
-  let unpkg = (fullName !== undefined) ? `${ncdfolder}${fullName}` : `${ncdfolder}`
-
-  if (fullName === undefined) fullName = 'eons.html'
-
-  let pkg = {
-    name: `${name}`,
-    version: `${ver}`,
-    description: `${desc}`,
-    author: {
-      name: 'sifbuilder@gmail.com',
-    },
-    license: 'MIT',
-    repository: {
-      type: 'git',
-      url: `github.com/sifbuilder/eons.git`,
-    },
-    unpkg: `${unpkg}`,
-    files: [
-      `${ncdfolder}`,
-    ],
-    main: `${fullName}`,
-  }
-  return JSON.stringify(pkg, 0, 2)
-}
 
 // indir
 
 const eonpattern = new RegExp('^' + 'eon' + '.*' + '.*(.html|js)', 'i')
 const testpattern = new RegExp('(.*).test.(.*)$', 'i')
-const mdpattern = /\/\/... (.*)/mg // // md (global multiline)
+const mdpattern = /\/\/...(.*)/mg // // md (global multiline)
 const imgpattern = new RegExp('(.*)(.jpg)$', 'i')
 
 let indir = './'
@@ -296,7 +261,7 @@ fs.existsSync(outdir) || fs.mkdirSync(outdir); console.log('create dist folder '
 
 // promise
 
-let unpkg = function () {
+let mdee = function () {
   let promises = infiles.map(fileName => {
     Promise.resolve(fileName)
       .then(fileName => {
@@ -352,130 +317,18 @@ let unpkg = function () {
           }
         }
 
-        //... LICENSE
-        //... add license file to dist folder
-        function createLicense (pckfolder) {
-          let fromfilename = 'LICENSE' // place LICENSE
-          let outfile = 'LICENSE'
-          let fromfile = `${indir}${fromfilename}`
-          let tofile = `${pckfolder}${outfile}`
-          if (fs.existsSync(fromfile)) {
-            console.log('copy file to file ', fromfile, tofile)
-            fs.copyFileSync(fromfile, tofile)
-          } else {
-            console.log('file does not exsist ')
-          }
-        }
-
-        //... PACKAGE
-        //... add package.json file to dist folder
-        function createPackage (pckfolder, fullName, rootname, packver) {
-          let outfile = 'package.json'
-          let packagetext = getPackobj(fullName, rootname, packver, `${rootname}`, './')
-          let tofile = `${pckfolder}${outfile}`
-          fs.writeFileSync(tofile, packagetext)
-        }
-
-        //... EONFILE
-        function createEonfile (pckfolder, fileName, fullName) {
-          if (fileName === 'eons') { // if root
-            console.log('build eons file')
-
-            let fromtext = getReadhtml(indir)
-
-            let outfile = `${fileName}.html`
-
-            let ncdfolder = '.' // versus build, dist
-            let pckdistfolder = `${pckfolder}${ncdfolder}/`
-            fs.existsSync(pckdistfolder) || fs.mkdirSync(pckdistfolder)
-            console.log('create pck dist folder ', pckdistfolder)
-
-            let tofile = `${pckdistfolder}${outfile}`
-            if (fs.existsSync(fromfile)) {
-              console.log('copy text to file ', fromtext, tofile)
-              fs.writeFileSync(tofile, fromtext)
-            } else {
-              console.log(`no eon file ${fromfile} in dist `)
-            }
-          } else {
-            let fromfile = `${indir}${fullName}` // place EON as fullName in build
-            let outfile = fullName // "index.js" //
-
-            let ncdfolder = '.' // versus build, dist
-            let pckdistfolder = `${pckfolder}${ncdfolder}/`
-            fs.existsSync(pckdistfolder) || fs.mkdirSync(pckdistfolder)
-            console.log('create pck dist folder ', pckdistfolder)
-
-            let tofile = `${pckdistfolder}${outfile}`
-            if (fs.existsSync(fromfile)) {
-              console.log('copy file to file ', fromfile, tofile)
-              fs.copyFileSync(fromfile, tofile)
-            } else {
-              console.log(`no eon file ${fromfile} in dist `)
-            }
-          }
-        }
-
-        //... unmdEonfile
-        function unmdEonfile (pckfolder, fullName, rootname) {
-          let findPattern = '.*//... .*(?:\r\n|\n|\r)' // pattern: '//... '
-          let replacePattern = ''
-          let exp = RegExp(`${findPattern}`, '') // un mg
-
-          let ncdfolder = '.'
-          let pckdistfolder = `${pckfolder}${ncdfolder}/`
-          let eonfile = 'nofile'
-
-          if (fileName === 'eons') {
-            let outfile = `${fileName}.html`
-            eonfile = `${pckdistfolder}${outfile}`
-          } else {
-            let outfile = fullName
-            eonfile = `${pckdistfolder}${outfile}`
-          }
-          console.log('unmd', eonfile)
-          if (fs.existsSync(eonfile)) { // if md file
-            let fileTxt = fs.readFileSync(eonfile, 'utf8')
-
-            var arr
-            while ((arr = exp.exec(fileTxt)) !== null) {
-              let toreplace = arr[0]
-              fileTxt = fileTxt.replace(toreplace, replacePattern)
-            }
-            fs.writeFileSync(eonfile, fileTxt)
-          }
-        }
-
-        //... NPM PUBLISH
-        function npmPublish (pckfolder) {
-          console.log(`could publish ${pckfolder}`)
-          if (dopublish === 1) {
-            console.log(`publish ${pckfolder}`)
-            exec('npm publish',
-              {cwd: `${pckfolder}`},
-              function (error, stdout, stderr) {
-                console.log('stdout: ' + stdout)
-                console.log('stderr: ' + stderr)
-                if (error !== null) { console.log('exec error: ' + error) }
-              })
-          }
-        }
 
         createPckDir(pckfolder)
         createReadme(pckfolder, fullName, rootname)
-        createLicense(pckfolder)
-        createPackage(pckfolder, fullName, rootname, packver)
-        createEonfile(pckfolder, fileName, fullName)
-        unmdEonfile(pckfolder, fullName, rootname)
-        npmPublish(pckfolder)
+
       })
   })
   Promise.all(promises)
     .then(() => { console.log('done') })
 }
 
-if (action === 'unpkg') {
-  unpkg()
+if (action === 'mdee') {
+  mdee()
 } else if (action === 'help') {
   console.log(`node ${prgname} {[help], eons, eonitems, pattern} [publish]`)
   console.log(`eg. node ${prgname} eon-muon-animation [publish]`)

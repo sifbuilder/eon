@@ -7,7 +7,7 @@ async function anitem (__mapper) {
   let [
     ctlWen,
     eohalScene,
-    eohalTornasol,
+    eohalSol,
     muonFibonat,
     muonGraticule,
     muonProps,
@@ -15,7 +15,7 @@ async function anitem (__mapper) {
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('tornasol'),
+    __mapper('xs').e('sol'),
     __mapper('xs').m('fibonat'),
     __mapper('xs').m('graticule'),
     __mapper('xs').m('props'),
@@ -66,7 +66,7 @@ async function anitem (__mapper) {
     // .................. fiboForm anima
     let wireAni = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
 
       eofold: p => {
         let eoload = p.eoload || {}
@@ -137,7 +137,7 @@ async function anitem (__mapper) {
 
     let sphereAni = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
 
       eofold: p => muonGraticule.vhMultiLine(p.eoframe),
 
@@ -171,8 +171,8 @@ async function anitem (__mapper) {
     let animas = [
 
       sceneAni, // h.scene
-      wireAni, // h.tornasol
-      sphereAni, // h.tornasol
+      wireAni, // h.sol
+      sphereAni, // h.sol
 
     ]
     return animas

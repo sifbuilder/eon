@@ -12,7 +12,7 @@ async function anitem (__mapper) {
     ctlVersor,
     ctlWen,
     datWorldTopo110m,
-    eohalTornasol,
+    eohalSol,
     eohalScene,
     muonGeom,
     muonGraticule,
@@ -25,7 +25,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('versor'),
     __mapper('xs').c('wen'),
     __mapper('xs').d('worldTopo110m'),
-    __mapper('xs').e('tornasol'),
+    __mapper('xs').e('sol'),
     __mapper('xs').e('scene'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
@@ -58,7 +58,7 @@ async function anitem (__mapper) {
     // ............................. earthAni
     let earthAni = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
 
       eofold: () => {
         return Object.assign({},

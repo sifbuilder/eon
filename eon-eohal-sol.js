@@ -1,21 +1,21 @@
 /**********************
- *    @eohalTornasol
+ *    @eohalSol
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalTornasol = global.eohalTornasol || {})))
+      : (factory((global.eohalSol = global.eohalSol || {})))
 }(this, function (exports) {
   'use strict'
 
   //... # eon-eohal-natform
-  //... **process h.tornasol animas**
+  //... **process h.sol animas**
   //... Feature Collect gj. for each feature
   //... eoform, conform, ereform and proform anigrams
   //... then pass the FeatureCollection to h.petiole
   //... define `eonode` if undefined
 
-  async function eohalTornasol (__mapper = {}) {
+  async function eohalSol (__mapper = {}) {
     let [
       muonGeoj,
       muonProfier,
@@ -100,14 +100,14 @@
     }
 
     // ............................. eohal
-    let eohalTornasol = {}
-    eohalTornasol.ween = anitem => ween(anitem)
-    eohalTornasol.gramm = anitem => gramm(anitem)
+    let eohalSol = {}
+    eohalSol.ween = anitem => ween(anitem)
+    eohalSol.gramm = anitem => gramm(anitem)
 
     // ............................. enty
-    let enty = eohalTornasol
+    let enty = eohalSol
     return enty
   }
 
-  exports.eohalTornasol = eohalTornasol
+  exports.eohalSol = eohalSol
 }))

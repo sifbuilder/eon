@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     d3geo,
     d3geoprojection,
     prtCox,
-    eohalTornasol,
+    eohalSol,
     eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
@@ -31,7 +31,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-geo-projection'),
     __mapper('xs').p('cox'),
-    __mapper('xs').e('tornasol'),
+    __mapper('xs').e('sol'),
     __mapper('xs').e('scene'),
   ])
 
@@ -71,7 +71,7 @@ async function anitem (__mapper) {
     // ............................. geograt
     let geograt = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
 
       eofold: p => muonGraticule.vhMultiLine(p.eoframe),
       eotim,
@@ -104,7 +104,7 @@ async function anitem (__mapper) {
     // ............................. geoearth
     let geoearth = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
 
       eofold: () => {
         return Object.assign({},
@@ -147,8 +147,8 @@ async function anitem (__mapper) {
 
     // ............................. animas
     let animas = [
-      geograt, // h.tornasol g.cox
-      geoearth, // h.tornasol g.cox
+      geograt, // h.sol g.cox
+      geoearth, // h.sol g.cox
 
     ]
 

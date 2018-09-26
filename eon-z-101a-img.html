@@ -9,11 +9,13 @@ xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
+    eohalImgform,
     eohalNatform,
     eohalScene,
     eohalSol,
     muonAnimas,
   ] = await Promise.all([
+    __mapper('xs').e('imgform'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
     __mapper('xs').e('sol'),
@@ -29,20 +31,45 @@ async function anitem (__mapper) {
 
     // ............................. natAni
     let natAni = {
-      eohal: 'natform',
-      eofold: null,
+      eohal: 'imgform',
+      eofold: p => ({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [ 0, 0 ]
+        },
+        properties: {
+          sort: 'img',
+          attr: {
+            'width': p.eoload.img.style.width,
+            'height': p.eoload.img.style.height,
+            'rotate': p.eoload.img.style.rotate,
+            'xlink:href': p.eoload.img.url,
+          },          
+          'xlink:href': p.eoload.img.url,
+          style: p.eoload.img.style
+        }
+      }),
 
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
       eocrom: eocrom,
-      eoform: Object.assign(
-        muonAnimas.animas.drop2,
-        {
-          'w4': 0, 'ra2': 90,
-          'tx': 10, 'ty': [[[50, 150]]],
-        }
-      ),
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ -230, 140 ],
+        },
+      },
       eoload: {
+        img: {
+          url: 'eon-z-img-triangulation.jpg',
+          style: {
+            width: 400,
+            height: 300,
+            rotate: 0
+          }
+        }
       },
     }
 
@@ -62,7 +89,7 @@ async function anitem (__mapper) {
     // ............................. animas
     let animas = [
       natAni, // h.natform
-      sceneAni, // h.scene
+      // sceneAni, // h.scene
 
     ]
 

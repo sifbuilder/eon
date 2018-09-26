@@ -11,12 +11,12 @@
   async function eohalLinkform (__mapper = {}) {
     let [
       eohalPetiole,
-      eohalTornasol,
+      eohalSol,
       muonEoric,
       muonProps,
     ] = await Promise.all([
       __mapper('xs').e('petiole'),
-      __mapper('xs').e('tornasol'),
+      __mapper('xs').e('sol'),
       __mapper('xs').m('eoric'),
       __mapper('xs').m('props'),
     ])
@@ -106,7 +106,7 @@
       }
 
       let newItem = muonProps.clone(anitem)
-      newItem.eohal = 'tornasol'
+      newItem.eohal = 'sol'
       newItem.eofold = eofold
       newItem.eonode = eonode
 
@@ -116,7 +116,7 @@
     // ....................... gramm
     let gramm = anitem => {
       let newgramms = eohale(anitem)
-      let newItems = eohalTornasol.gramm(newgramms)
+      let newItems = eohalSol.gramm(newgramms)
       return newItems
     }
 

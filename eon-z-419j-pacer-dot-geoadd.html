@@ -12,7 +12,7 @@ async function anitem (__mapper) {
     eohalScene,
     eohalPacer,
     eohalTextform,
-    eohalTornasol,
+    eohalSol,
     muonGeoj,
     muonNatform,
     muonStace,
@@ -24,7 +24,7 @@ async function anitem (__mapper) {
     __mapper('xs').e('scene'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('textform'),
-    __mapper('xs').e('tornasol'),
+    __mapper('xs').e('sol'),
     __mapper('xs').m('geoj'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('stace'),
@@ -40,7 +40,7 @@ async function anitem (__mapper) {
     // ............................. natAni
     let natLined = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
       
       eofold: a => ({
         type: 'Feature',
@@ -117,7 +117,7 @@ async function anitem (__mapper) {
           geosort: 'anigram',
           geobase: 'eoform',
 
-          eohal: 'tornasol',
+          eohal: 'sol',
           
           eofold: function (ani, props) {
             let preani = muonStore.findAnigramFromUid(ani.eoric.uid)

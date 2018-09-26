@@ -90,7 +90,7 @@
       }
     }
 
-    // ............................. eohal
+    // ............................. eohalPetiole
     let eohalPetiole = {}
     eohalPetiole.ween = anima => ween(anima)
     eohalPetiole.gramm = anima => gramm(anima)

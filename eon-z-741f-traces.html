@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     muonNatform,
     muonEoric,
     muonStace,
-    eohalTornasol,
+    eohalSol,
     eohalNatform,
     eohalScene,
   ] = await Promise.all([
@@ -20,7 +20,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('natform'),
     __mapper('xs').m('eoric'),
     __mapper('xs').m('stace'),
-    __mapper('xs').e('tornasol'),
+    __mapper('xs').e('sol'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
   ])
@@ -74,7 +74,7 @@ async function anitem (__mapper) {
     // ....................... natAnitem anima
     let natAnitem = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
 
       eofold: p => muonNatform.natFeature(p.eoform),
 
@@ -122,7 +122,7 @@ async function anitem (__mapper) {
 
       eoload: {
         pacer: { // geoaad for trace
-          eohal: 'tornasol',
+          eohal: 'sol',
           geosort: 'anigram',
           geobase: 'geo',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0, geoaad: 1,

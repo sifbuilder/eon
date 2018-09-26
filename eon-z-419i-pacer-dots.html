@@ -13,7 +13,7 @@ async function anitem (__mapper) {
     ctlRayder,
     muonEoric,
     eohalPacer,
-    eohalTornasol,
+    eohalSol,
     eohalNatform,
     eohalScene,
   ] = await Promise.all([
@@ -25,7 +25,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('rayder'),
     __mapper('xs').m('eoric'),
     __mapper('xs').e('pacer'),
-    __mapper('xs').e('tornasol'),
+    __mapper('xs').e('sol'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
   ])
@@ -97,7 +97,7 @@ async function anitem (__mapper) {
               initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
               geoaad: 0,
 
-              eohal: (ani, props) => 'tornasol',
+              eohal: (ani, props) => 'sol',
               eoric: function (ani, props) {
                 let counter = props.counter || 0
 

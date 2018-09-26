@@ -6,28 +6,28 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    eohalScene,
-    ctlWen,
-    muonNatform,
-    muonStace,
-    muonGeoj,
     ctlRayder,
-    eohalTornasol,
+    ctlWen,
     eohalNatform,
+    eohalScene,
     eohalPacer,
     eohalTextform,
+    eohalSol,
+    muonGeoj,
+    muonNatform,
+    muonStace,
     prtUniwen,
   ] = await Promise.all([
-    __mapper('xs').e('scene'),
-    __mapper('xs').c('wen'),
-    __mapper('xs').m('natform'),
-    __mapper('xs').m('stace'),
-    __mapper('xs').m('geoj'),
     __mapper('xs').c('rayder'),
-    __mapper('xs').e('tornasol'),
+    __mapper('xs').c('wen'),
     __mapper('xs').e('natform'),
+    __mapper('xs').e('scene'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('textform'),
+    __mapper('xs').e('sol'),
+    __mapper('xs').m('geoj'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').m('stace'),
     __mapper('xs').p('uniwen'),
   ])
   let muonStore = __mapper('muonStore')
@@ -35,10 +35,55 @@ async function anitem (__mapper) {
   // .................. animas
   let ani = function () {
     // .................. pics
-    let eotim = {'td': 1800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     // ............................. natAni
-    let geoLined = {
+    let natLined = {
+
+      eohal: 'sol',
+      
+      eofold: a => ({
+        type: 'Feature',
+        geometry: {
+
+          type: 'LineString', // type: 'Point', //
+          coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
+
+        },
+        properties: {},
+      }),
+
+      eonode: {
+        type: 'Feature',
+        geometry: {type: 'Point', coordinates: [0, 0]},
+        properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
+      },
+
+      eotim,
+      eoric: {gid: 'nat', cid: 'nat', fid: 'natLined'},
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ [ -170, 80 ], [[[ {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2,
+            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          } ]]] ],
+          scale: 1,
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+
+        },
+      },
+
+      eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]],
+      },
+      eoload: {},
+
+    }
+
+    // ............................. traceLine
+    let traceLine = {
 
       eohal: 'pacer',
 
@@ -56,39 +101,45 @@ async function anitem (__mapper) {
           type: 'Point',
           coordinates: [0, 0, 0],
         },
-        properties: {
-          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
-        },
+        properties: {},
       },
-      eoform: [ [[[0, 120]]], 0, 0],
-      eotim: eotim,
-      eoric: {gid: 'g', cid: 'c', fid: 'f'},
-      eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+
+      eotim,
+      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
+      eocrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eoload: {
-
-        pacer: {
-
-          eohal: 'tornasol',
-          geosort: 'anigram',
-          geobase: '',
+        pacer: { // geoaad for trace
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
 
-          geoaad: 1, // geoaad for trace
+          geoaad: 1,
 
+          geosort: 'anigram',
+          geobase: 'eoform',
+
+          eohal: 'sol',
+          
           eofold: function (ani, props) {
-            let preani = muonStore.findAnigramFromUid(ani.eoric.uid) // anigram
+            let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
             let coords
             if (props.key === 'init') { // INIT
+            
               coords = ani.eonode.geometry.coordinates // eonode
+              
             } else if (props.key === 'auto') { // AUTO
+            
+              let point = muonStace.getLocus([null, null, null], ani)
               coords = (preani && preani.eofold.geometry.coordinates)
-                ? [...preani.eofold.geometry.coordinates, ani.eoform ]
-                : Array.of(ani.eoform) // LineString
+                ? [...preani.eofold.geometry.coordinates, point ]
+                : Array.of(point)
+                
             } else if (props.key === 'event') { // EVENT
+            
               coords = ani.eonode.geometry.coordinates
+              
             }
 
+            console.assert(coords !== undefined && coords !== null)
             let geometry = {
               type: 'LineString',
               coordinates: coords,
@@ -101,14 +152,14 @@ async function anitem (__mapper) {
               properties: {},
             }
           },
+
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               // stace is ani's transformed eonode
-
-              stace = [0, 0, 0]
+              stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
-              stace = [0, 0, 0]
+              stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
@@ -135,23 +186,16 @@ async function anitem (__mapper) {
       },
     }
 
-    // .................. sceneAni
-    let sceneAni = {
+    // ....................... animapi
+    natLined.avatars = {
 
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 0, webgl: 0, bck: 1, ray: 1},
-      },
+      traceLine, // h.pacer
 
     }
 
     // .................. animas
     let animas = [
-      geoLined, // h.pacer
-      sceneAni, // h.scene
+      natLined, // h.pacer
     ]
 
     return animas

@@ -12,7 +12,7 @@ async function anitem (__mapper) {
     datWorldTopo110m,
     d3geo,
     ctlWen,
-    eohalTornasol,
+    eohalSol,
     eohalNatform,
     eohalScene,
   ] = await Promise.all([
@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').b('d3-geo'),
     __mapper('xs').c('wen'),
-    __mapper('xs').e('tornasol'),
+    __mapper('xs').e('sol'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
   ])
@@ -35,7 +35,7 @@ async function anitem (__mapper) {
     // .................. geoearth1
     let geoearth1 = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
 
       eofold: () => {
         let gj = Object.assign({},
@@ -70,7 +70,7 @@ async function anitem (__mapper) {
     // .................. geograt1
     let geograt1 = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
 
       eofold: p => muonGraticule.vhMultiLine(p.eoframe),
       eotim: eotim,
@@ -102,7 +102,7 @@ async function anitem (__mapper) {
     // .................. geosphere1
     let geosphere1 = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
 
       eofold: {
         type: 'Feature',
@@ -131,7 +131,7 @@ async function anitem (__mapper) {
     // .................. geoearth2
     let geoearth2 = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
 
       eofold: () => {
         let gj = Object.assign({},
@@ -165,7 +165,7 @@ async function anitem (__mapper) {
     // .................. geograt2
     let geograt2 = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
 
       eofold: p => muonGraticule.vhMultiLine(p.eoframe),
       eotim: eotim,
@@ -194,7 +194,7 @@ async function anitem (__mapper) {
     // .................. geosphere2
     let geosphere2 = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
 
       eofold: {
         type: 'Feature',
@@ -236,12 +236,12 @@ async function anitem (__mapper) {
 
     let animas = [
       sceneAni, // h.scene
-      geoearth1, // h.tornasol g.orthographic
-      geograt1, // h.tornasol
-      geosphere1, // h.tornasol
-      geoearth2, // h.tornasol g.mercator
-      geograt2, // h.tornasol
-      geosphere2, // h.tornasol
+      geoearth1, // h.sol g.orthographic
+      geograt1, // h.sol
+      geosphere1, // h.sol
+      geoearth2, // h.sol g.mercator
+      geograt2, // h.sol
+      geosphere2, // h.sol
     ]
 
     return animas

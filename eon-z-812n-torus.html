@@ -8,13 +8,13 @@ async function anitem (__mapper) {
   let [
     ctlWen,
     eohalScene,
-    eohalTornasol,
+    eohalSol,
     muonNatform,
     muonProps,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('tornasol'),
+    __mapper('xs').e('sol'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
   ])
@@ -129,7 +129,7 @@ async function anitem (__mapper) {
     // ............................. torusAni1
     let torusAni1 = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
       eofold: p => muonNatform.natFeature(p.eoform),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -154,7 +154,7 @@ async function anitem (__mapper) {
     // ............................. torusAni2 yellow
     let torusAni2 = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
       eofold: p => muonNatform.natFeature(p.eoform),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q2'},
@@ -179,7 +179,7 @@ async function anitem (__mapper) {
     // ............................. torusAni2 red
     let torusAni3 = {
 
-      eohal: 'tornasol',
+      eohal: 'sol',
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q3'},
       eomot: {
@@ -218,9 +218,9 @@ async function anitem (__mapper) {
     let animas = [
 
       sceneAni, // h.scene
-      torusAni1, // h.tornasol
-      torusAni2, // h.tornasol
-      torusAni3, // h.tornasol
+      torusAni1, // h.sol
+      torusAni2, // h.sol
+      torusAni3, // h.sol
 
     ]
 
