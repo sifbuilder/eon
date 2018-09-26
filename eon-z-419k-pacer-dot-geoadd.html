@@ -38,49 +38,49 @@ async function anitem (__mapper) {
     let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     // ............................. natAni
-    let natLined = {
+    // let natLined = {
 
-      eohal: 'tornasol',
+      // eohal: 'tornasol',
       
-      eofold: a => ({
-        type: 'Feature',
-        geometry: {
+      // eofold: a => ({
+        // type: 'Feature',
+        // geometry: {
 
-          type: 'LineString', // type: 'Point', //
-          coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
+          // type: 'LineString', // type: 'Point', //
+          // coordinates: [], // coordinates: [0,0] //
 
-        },
-        properties: {},
-      }),
+        // },
+        // properties: {},
+      // }),
 
-      eonode: {
-        type: 'Feature',
-        geometry: {type: 'Point', coordinates: [0, 0]},
-        properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
-      },
+      // eonode: {
+        // type: 'Feature',
+        // geometry: {type: 'Point', coordinates: [0, 0]},
+        // properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
+      // },
 
-      eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'natLined'},
+      // eotim,
+      // eoric: {gid: 'nat', cid: 'nat', fid: 'natLined'},
 
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          translate: [ [ -170, 80 ], [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2,
-            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          } ]]] ],
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
+      // eomot: {
+        // proform: {
+          // projection: 'uniwen',
+          // translate: [ [ -170, 80 ], [[[ {
+            // 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2,
+            // 'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          // } ]]] ],
+          // scale: 1,
+          // rotate: [ 0, 0, 0 ],
+          // lens: [0, 1, Infinity],
 
-        },
-      },
+        // },
+      // },
 
-      eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]],
-      },
-      eoload: {},
+      // eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]],
+      // },
+      // eoload: {},
 
-    }
+    // }
 
     // ............................. traceLine
     let traceLine = {
@@ -101,7 +101,13 @@ async function anitem (__mapper) {
           type: 'Point',
           coordinates: [0, 0, 0],
         },
-        properties: {},
+        properties: {
+                orgen: null, 
+                velin: [0, 0, 0], 
+                velang: [0, 0, 0], 
+                prevous: null, 
+                geodelta: null
+              },
       },
 
       eotim,
@@ -111,13 +117,11 @@ async function anitem (__mapper) {
       eoload: {
         pacer: { // geoaad for trace
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
-
           geoaad: 1,
-
           geosort: 'anigram',
           geobase: 'eoform',
 
-          eohal: 'tornasol',
+          eohal: (ani, props) => 'tornasol',
           
           eofold: function (ani, props) {
             let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
@@ -154,30 +158,40 @@ async function anitem (__mapper) {
           },
 
           eonode: function (ani, props) {
-            let stace = [0, 0, 0]
+            let coords = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              // stace is ani's transformed eonode
-              stace = muonStace.getLocus([null, null, null], ani)
+            
+              // coords is ani's transformed eonode
+              coords = muonStace.getLocus([null, null, null], ani)
+              
             } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus([null, null, null], ani)
+            
+              coords = muonStace.getLocus([null, null, null], ani)
+              
             } else if (props.key === 'event') { // EVENT
+            
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
-                stace = {x, y, z }
+                coords = {x, y, z }
               }
             }
 
-            let coordinates = stace
             let res = {
               type: 'Feature',
               geometry: {
                 type: 'Point',
-                coordinates: coordinates,
+                coordinates: coords,
               },
-              properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+              properties: {
+                orgen: null, 
+                velin: [0, 0, 0], 
+                velang: [0, 0, 0], 
+                prevous: null, 
+                geodelta: null
+              },
             }
             return res
           },
@@ -186,16 +200,10 @@ async function anitem (__mapper) {
       },
     }
 
-    // ....................... animapi
-    natLined.avatars = {
-
-      traceLine, // h.pacer
-
-    }
 
     // .................. animas
     let animas = [
-      natLined, // h.pacer
+      traceLine, // h.pacer
     ]
 
     return animas

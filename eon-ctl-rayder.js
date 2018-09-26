@@ -8,12 +8,12 @@
 }(this, function (exports) {
   'use strict'
 
-  // # eon-control-rayder
-  // ** **
-  // ### refs
-  // * https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
-  // # license
-  // MIT
+  //... # eon-control-rayder
+  //... ** **
+  //... ### refs
+  //... * https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
+  //... # license
+  //... MIT
 
   async function ctlRayder (__mapper) {
     let [
@@ -104,6 +104,7 @@
       let e = event
       state.moved = false // not moved yet
       let pos = getPos(e) // mouse position
+      console.log('pos', pos)
       state.grabbed = pos
     }
 
@@ -144,15 +145,16 @@
 
     // ............................. controlrayder
     let control = function (domNode) {
+
       enty.domNode(domNode)
 
-      subscribe(mouseUpListener, state.domNode, 'mouseup')
       subscribe(mouseDownListener, state.domNode, 'mousedown')
       subscribe(mouseMoveListener, state.domNode, 'mousemove')
+      subscribe(mouseUpListener, state.domNode, 'mouseup')
 
-      // subscribe(touchStartListener, state.domNode, 'touchstart')
-      // subscribe(touchMoveListener, state.domNode, 'touchmove')
-      // subscribe(touchEndListener, state.domNode, 'touchend')
+      subscribe(touchStartListener, state.domNode, 'touchstart')
+      subscribe(touchMoveListener, state.domNode, 'touchmove')
+      subscribe(touchEndListener, state.domNode, 'touchend')
     }
 
     // ............................. enty
@@ -166,20 +168,20 @@
 
     enty.mouse = () => state.mouse
     enty.touch = () => state.touch
-    enty.pointer = () => state.pointer //
+    enty.pointer = () => state.pointer
 
     enty.control = control
     enty.event = _ => _ !== undefined ? (state.event = _, enty) : state.event
 
-    // enty.mouseDown = _ => (_ !== undefined) ? (state.mouseDown = _, enty) : state.mouseDown
-    // enty.mouseDownShared = _ => (_ !== undefined) ? (state.mouseDownShared = _, enty) : state.mouseDownShared
-    // enty.mouseMove = _ => (_ !== undefined) ? (state.mouseMove = _, enty) : state.mouseMove
-    // enty.mouseUp = _ => (_ !== undefined) ? (state.mouseUp = _, enty) : state.mouseUp
+    enty.mouseDown = _ => (_ !== undefined) ? (state.mouseDown = _, enty) : state.mouseDown
+    enty.mouseDownShared = _ => (_ !== undefined) ? (state.mouseDownShared = _, enty) : state.mouseDownShared
+    enty.mouseMove = _ => (_ !== undefined) ? (state.mouseMove = _, enty) : state.mouseMove
+    enty.mouseUp = _ => (_ !== undefined) ? (state.mouseUp = _, enty) : state.mouseUp
 
-    // enty.touchStart = _ => (_ !== undefined) ? (state.touchStart = _, enty) : state.touchStart
-    // enty.touchStartShared = _ => (_ !== undefined) ? (state.touchStartShared = _, enty) : state.touchStartShared
-    // enty.touchMove = _ => (_ !== undefined) ? (state.touchMove = _, enty) : state.touchMove
-    // enty.touchEnd = _ => (_ !== undefined) ? (state.touchEnd = _, enty) : state.touchEnd
+    enty.touchStart = _ => (_ !== undefined) ? (state.touchStart = _, enty) : state.touchStart
+    enty.touchStartShared = _ => (_ !== undefined) ? (state.touchStartShared = _, enty) : state.touchStartShared
+    enty.touchMove = _ => (_ !== undefined) ? (state.touchMove = _, enty) : state.touchMove
+    enty.touchEnd = _ => (_ !== undefined) ? (state.touchEnd = _, enty) : state.touchEnd
 
     return enty
   }

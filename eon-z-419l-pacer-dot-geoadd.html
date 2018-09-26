@@ -47,7 +47,7 @@ async function anitem (__mapper) {
         geometry: {
 
           type: 'LineString', // type: 'Point', //
-          coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
+          coordinates: [], // coordinates: [0,0] //
 
         },
         properties: {},
@@ -110,7 +110,7 @@ async function anitem (__mapper) {
 
       eoload: {
         pacer: { // geoaad for trace
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
+          initN: 0, eventN: 1, autoN: 0, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
 
           geoaad: 1,
 
@@ -120,7 +120,6 @@ async function anitem (__mapper) {
           eohal: 'tornasol',
           
           eofold: function (ani, props) {
-            let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
             let coords
             if (props.key === 'init') { // INIT
             
@@ -128,14 +127,25 @@ async function anitem (__mapper) {
               
             } else if (props.key === 'auto') { // AUTO
             
+              let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+              if (1 && 1) console.log('ani', ani.eoric.uid)
+
               let point = muonStace.getLocus([null, null, null], ani)
+              
               coords = (preani && preani.eofold.geometry.coordinates)
                 ? [...preani.eofold.geometry.coordinates, point ]
                 : Array.of(point)
                 
             } else if (props.key === 'event') { // EVENT
-            
-              coords = ani.eonode.geometry.coordinates
+                          if (1 && 1) console.log('ani', ani.eoric.uid)
+              let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+              if (1 && 1) console.log('ani', ani.eoric.uid)
+
+              let point = props.count.grabbed
+              
+              coords = (preani && preani.eofold.geometry.coordinates)
+                ? [...preani.eofold.geometry.coordinates, point ]
+                : Array.of(point) 
               
             }
 

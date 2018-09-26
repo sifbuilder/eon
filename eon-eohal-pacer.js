@@ -73,18 +73,23 @@
     let muonStore = __mapper('muonStore')
     let renderSvg = __mapper('renderSvg')
 
+    let state = {}
+    
     // ............................. pacer
     function eohale (anitem) {
       let newItems = []
 
-      let eohal = anitem.eohal,
+    let epsilon = 1e-3
+
+    
+    let eohal = anitem.eohal,
         eoload = anitem.eoload,
         eoric = anitem.eoric,
         eotim = anitem.eotim
 
       let pacer = eoload.pacer || {}, // pacer
         mousesignal = pacer.mousesignal || 0, // mousesignal
-        geospan = pacer.geospan || 0, // geospan between paceitems
+        geospan = pacer.geospan || epsilon, // geospan between paceitems
         geoaad = pacer.geoaad || 0, // geoaad paceitem to previous anitem
         geosort = pacer.geosort || 'anigram', // paceitem sort
         geoType = pacer.geotype || 'LineString', //
@@ -136,27 +141,37 @@
       let count = {}
 
       //... if mouse grabbed, enable event count, pacer.eventN
-
       let grabbed = ctlRayder.grabbed()
-      if (grabbed !== false) { //
+
+      //... check distance to previous location
+      let dist = state.grabbed === undefined ?
+        Infinity :
+        muonGeom.distance3d(state.grabbed, grabbed)
+
+      if (grabbed && dist > geospan) { //
+        state.grabbed = grabbed
         count.event = Math.floor(pacer.eventN) // if in state or was event
-        count.grabbed = grabbed
+        count.grabbed = state.grabbed
       }
 
       //... pacer init (pacer.initN) if anima is not yet eoinited
 
       if (pacerAnima.eoinited === undefined || pacerAnima.eoinited[uidAnima] === undefined) {
         count.init = Math.floor(pacer.initN) // count INIT
+        
       } else {
+        
         // eonited
+        
       }
 
       // cycletime since last eoouted item, relevant if auto
 
       let cycletime = eotim.unitPassed - (pacer.eoouted || 0)
 
-      // if the cycletime is longer than auto pace
-      //  and unitPassed is beyong autoT ...
+      //... if the cycletime is longer than auto pace
+      //...  and unitPassed is beyong autoT ...
+      //...  then process autoT
 
       if (cycletime >= pacer.autoP &&
             eotim.unitPassed > (pacer.autoT || 0)
@@ -182,11 +197,6 @@
           ? {[pacerUid]: eotim.unitPassed}
           : Object.assign(pacerAnima.eoouted, {[pacerUid]: eotim.unitPassed})
 
-        let animas = Array.of(pacerAnima)
-
-        //... save anima .......... to persist eoinited and eoouted
-
-        // muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: animas})
       }
 
       //... eocount: eg: {init:4, auto:1, event:3}
@@ -244,6 +254,7 @@
 
             let eohal = __mapper(__mapper('xs').ceonize(newItem.eohal, 'eohal'))
             if (geosort === 'anima') {
+              
               //... eohal.ween
               let newItemsInCount = eohal.ween(newItem)
 
@@ -251,6 +262,7 @@
               newItems = [...newItems, ...newItemsInCount] // add items
               muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: newItems})
             } else {
+              
               //... eohal.gramm
               let newItemsInCount = muonProps.a(eohal.gramm(newItem))
 
@@ -287,7 +299,8 @@
 
     // ....................... enty
     let enty = eohal
-
+    enty.grabbed = _ => _ !== undefined ? state.grabbed = _ : state.grabbed
+    
     return enty
   }
 
