@@ -21,8 +21,8 @@
       muonStore,
       muonProps,
       renderSvg,
-      renderWebgl,
-      renderCanvas,
+      // renderWebgl,
+      // renderCanvas,
     ] = await Promise.all([
       __mapper('xs').c('timer'),
       __mapper('xs').m('eotim'),
@@ -30,8 +30,8 @@
       __mapper('xs').m('store'),
       __mapper('xs').m('props'),
       __mapper('xs').r('svg'),
-      __mapper('xs').r('webgl'),
-      __mapper('xs').r('canvas'),
+      // __mapper('xs').r('webgl'),
+      // __mapper('xs').r('canvas'),
     ]
     )
 

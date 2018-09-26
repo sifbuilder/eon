@@ -148,7 +148,7 @@
       if (pacerAnima.eoinited === undefined || pacerAnima.eoinited[uidAnima] === undefined) {
         count.init = Math.floor(pacer.initN) // count INIT
       } else {
-        if (1 && 1) console.log('e.pacer eoinited', pacerAnima.eoric.uid, pacerAnima.eoinited)
+        // eonited
       }
 
       // cycletime since last eoouted item, relevant if auto
@@ -225,8 +225,8 @@
 
             delete newItem.eoload
 
-            // NOT pacer.AAD if not pacer.add, pacer generates anitems
-            // eofold is Feature
+            // md: NOT pacer.AAD if not pacer.add, pacer generates anitems
+            // md: eofold is Feature
 
             // md: an anima with pacer eohal gets the newItem fulfilled with
             // md: the calls in the pacer

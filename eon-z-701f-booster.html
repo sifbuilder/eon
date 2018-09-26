@@ -166,16 +166,16 @@ async function anitem (__mapper) {
 
     }
 
-    let geochromLine = { 'csx': 0, 'cf': [[[ 777, 777, 777]]], 'co': [[[0.02, 0.001, 0.001, 0.001]]],
+    let eocromLine = { 'csx': 0, 'cf': [[[ 777, 777, 777]]], 'co': [[[0.02, 0.001, 0.001, 0.001]]],
       'cs': [[[888, 888, 888]]], 'cw': [[[1.99, 0.99, 0.99, 0.99]]], 'cp': [[[0.99, 0.2, 0.2, 0.9]]]}
 
-    let geochromSphere = { 'csx': 0, 'cf': [[[ 777, 777, 777]]], 'co': [[[0.02, 0.001, 0.001, 0.001]]],
+    let eocromSphere = { 'csx': 0, 'cf': [[[ 777, 777, 777]]], 'co': [[[0.02, 0.001, 0.001, 0.001]]],
       'cs': [[[888, 888, 888]]], 'cw': [[[1.99, 0.99, 0.99, 0.99]]], 'cp': [[[0.99, 0.2, 0.2, 0.9]]]}
 
-    let geochromHyper = { 'csx': 0, 'cf': [[[ 777, 777, 777]]], 'co': [[[0.001, 0.02, 0.001, 0.001]]],
+    let eocromHyper = { 'csx': 0, 'cf': [[[ 777, 777, 777]]], 'co': [[[0.001, 0.02, 0.001, 0.001]]],
       'cs': [[[222, 666, 666]]], 'cw': [[[0.99, 1.99, 0.99, 0.99]]], 'cp': [[[0.01, 0.99, 0.2, 0.9]]]}
 
-    let geochromTorus = { 'csx': 0, 'cf': [[[ 777, 777, 777]]], 'co': [[[0.001, 0.001, 0.02, 0.001]]],
+    let eocromTorus = { 'csx': 0, 'cf': [[[ 777, 777, 777]]], 'co': [[[0.001, 0.001, 0.02, 0.001]]],
       'cs': [[[222, 444, 444]]], 'cw': [[[0.99, 0.99, 1.99, 0.99]]], 'cp': [[[0.01, 0.01, 0.99, 0.9]]]}
 
     // ............................. hyperAni
@@ -194,7 +194,7 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity ],
         },
       },
-      eocrom: geochromHyper,
+      eocrom: eocromHyper,
       eoform: conformHyper,
       eoload: {
       },
@@ -216,7 +216,7 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity ],
         },
       },
-      eocrom: geochromSphere,
+      eocrom: eocromSphere,
       eoform: conformSphere,
       eoload: {
       },
@@ -238,7 +238,7 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity ],
         },
       },
-      eocrom: geochromSphere,
+      eocrom: eocromSphere,
       eoform: conformLine,
       eoload: {
       },
@@ -260,7 +260,7 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity ],
         },
       },
-      eocrom: geochromTorus,
+      eocrom: eocromTorus,
       eoform: conformTorus,
       eoload: {
       },

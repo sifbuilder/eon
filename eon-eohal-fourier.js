@@ -8,19 +8,19 @@
 }(this, function (exports) {
   'use strict'
 
-  // ## h.fourier
-  // h.fourier anigrams per frequency cycloid
-  // cycloids in eoload.fourier.transforms resulting from m.fourier.complexify
-  // anigrams turned to h.tornasol
-
-  // ### h.fourier.gramm
-  // eoload.fourier.transforms, gj featurized, complexified, ntimed
-  // eoload.fourier.maglast pencil radio
-  // eoload.fourier.interval [0,1] delete anigrams outside
-  // eoload.fourier.tolerance 1 remove sinusoids below
-  // eoload.fourier.dotgeochrom style of pencil dot
-  // eoload.fourier.avatars.traceline  form trace
-  // eoload.fourier.avatars.line  sinusoid ray
+  // md: ## h.fourier
+  // md: h.fourier anigrams per frequency cycloid
+  // md: cycloids in eoload.fourier.transforms resulting from m.fourier.complexify
+  // md: anigrams turned to h.tornasol
+  // md:  
+  // md: ### h.fourier.gramm
+  // md: eoload.fourier.transforms, gj featurized, complexified, ntimed
+  // md: eoload.fourier.maglast pencil radio
+  // md: eoload.fourier.interval [0,1] delete anigrams outside
+  // md: eoload.fourier.tolerance 1 remove sinusoids below
+  // md: eoload.fourier.doteocrom style of pencil dot
+  // md: eoload.fourier.avatars.traceline  form trace
+  // md: eoload.fourier.avatars.line  sinusoid ray
 
   async function eohalFourier (__mapper = {}) {
     let [
@@ -35,8 +35,8 @@
       __mapper('xs').e('tornasol'),
     ])
 
-    // ............................. gramm
-    let gramm = function (ani, newAnigrams = []) {
+    // ............................. eohale
+    let eohale = function (ani, newAnigrams = []) {
       let anigram = ani,
         eohal = anigram.eohal, // eohal
         eofold = anigram.eofold, // eofold
@@ -56,7 +56,7 @@
 
       transforms = eofold.features
 
-      // md:   time in period is (t - t0) / (t1 - t0), with t unit time
+      // md: time in period is (t - t0) / (t1 - t0), with t unit time
 
       let t = eotim.unitTime // time % period; i,[0,vertices] => t,[0,T]
       let t0 = interval[0],
@@ -102,7 +102,7 @@
           //  del item if outside time period (eoric.eodelled = 1)
 
           let _ric = {gid, cid, fid} // is DELLED ?
-          let _uid = muonEoric.getuid(_ric) // uid
+          _ric.uid = muonEoric.getuid(_ric) // uid
 
           //  each newItem is cloned from the h.fourier anigram
 
@@ -203,7 +203,7 @@
 
           newItem.eotim = eotim // eotim
           newItem.eoric = _ric // eoric
-          newItem.eoric.uid = _uid // uid
+          // newItem.eoric.uid = _uid // uid
           newItem.eocrom = eocrom // eocrom
 
           newItem.eofold.geometry.coordinates = [xn[i], yn[i]]
@@ -229,6 +229,9 @@
 
       return anigrams
     }
+    
+    // .................... gramm
+    let gramm = eohale
     // .................... ween
     let ween = anitem => (anitem.eoinited !== 1) ? (anitem.eoinited = anitem.eogelded = 1, [anitem]) : []
 

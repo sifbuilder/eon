@@ -6,27 +6,27 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    mfourier,
-    muonProj3ct,
-    muonProfier,
-    muonGeoj,
-    drhyno,
-    muonStace,
+    datRhyno,
     eohalTornasol,
     eohalPacer,
     eohalFourier,
     eohalScene,
+    muonFourier,
+    muonGeoj,
+    muonProj3ct,
+    muonProfier,
+    muonStace,
   ] = await Promise.all([
-    __mapper('xs').m('fourier'),
-    __mapper('xs').m('proj3ct'),
-    __mapper('xs').m('profier'),
-    __mapper('xs').m('geoj'),
     __mapper('xs').d('rhyno'),
-    __mapper('xs').m('stace'),
     __mapper('xs').e('tornasol'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('fourier'),
     __mapper('xs').e('scene'),
+    __mapper('xs').m('fourier'),
+    __mapper('xs').m('geoj'),
+    __mapper('xs').m('proj3ct'),
+    __mapper('xs').m('profier'),
+    __mapper('xs').m('stace'),
   ])
 
   // .................. animas
@@ -36,9 +36,9 @@ async function anitem (__mapper) {
 
     // md:   data from m.animas('shapes').rhyno unframed
     // md:   defined as (closed) LineString gemetry.coordinates
-    // md:   mfourier.transformedCoefs(tfeature)
+    // md:   muonFourier.transformedCoefs(tfeature)
 
-    let svgdata = JSON.parse(drhyno.data())
+    let svgdata = JSON.parse(datRhyno.data())
     let data = {
       type: 'Feature',
       geometry: {
@@ -57,9 +57,12 @@ async function anitem (__mapper) {
 
     let geoData = muonProj3ct(data, muonProfier.uniweon(proform))
 
-    let transforms = mfourier.transformedCoefs(geoData)
+    let transforms = muonFourier.transformedCoefs(geoData)
     transforms = muonGeoj.ntime(transforms, [0, 1])
-    let transformsFC = { type: 'FeatureCollection', features: transforms }
+    let transformsFC = { 
+      type: 'FeatureCollection', 
+      features: transforms 
+    }
 
     // ............................. aniLine
     let aniLine = {
@@ -73,8 +76,8 @@ async function anitem (__mapper) {
         properties: {},
       },
       eotim: eotim,
-      eoric: {'gid': 'pol', 'cid': 'pol', 'fid': 'pol'},
-      eocrom: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
+      eoric: { gid: 'pol', cid: 'pol', fid: 'pol'},
+      eocrom: { 'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
       eoload: {},
 
     }
@@ -112,17 +115,34 @@ async function anitem (__mapper) {
           geobase: 'geo',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0, geoaad: 1,
 
-          stace: function (ani, props) {
-            let stace
+          eofold: function (ani, props) {
+            let preani = muonStore.findAnigramFromUid(ani.eoric.uid) // anigram
+            let coords
             if (props.key === 'init') { // INIT
-              stace = {x: 0, y: 0, z: 0 }
+              coords = ani.eonode.geometry.coordinates // eonode
             } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus(ani.eoload.pacer.stace, ani) // AUTO
+              let point = muonStace.getLocus([null, null, null], ani)
+              coords = (preani && preani.eofold.geometry.coordinates)
+                ? [...preani.eofold.geometry.coordinates, point ]
+                : Array.of(point)
             } else if (props.key === 'event') { // EVENT
-              stace = {x: 0, y: 0, z: 0 }
+              coords = ani.eonode.geometry.coordinates
             }
-            return stace
+
+            console.assert(coords !== undefined && coords !== null)
+            let geometry = {
+              type: 'LineString',
+              coordinates: coords,
+            }
+            console.assert(muonGeoj.isValid(geometry))
+
+            return {
+              type: 'Feature',
+              geometry: geometry,
+              properties: {},
+            }
           },
+
 
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
@@ -173,9 +193,12 @@ async function anitem (__mapper) {
           transforms: transforms,
           interval: [0.0, 0.99],
           tolerance: 0.1, // 0.1
-          dotgeochrom: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
+          
+          doteocrom: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
 
-          //  fourier avatars are defined by name
+          
+          // md: h.fourier avatars are defined by name
+          
           avatars: {
             traceline: traceline,
             rayline: aniLine,

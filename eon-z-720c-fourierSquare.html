@@ -7,7 +7,7 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     muonProps,
-    mfourier,
+    muonFourier,
     muonProj3ct,
     muonProfier,
     muonGeoj,
@@ -64,7 +64,7 @@ async function anitem (__mapper) {
     let geoData = muonProj3ct(gjdata, muonProfier.uniweon(proform))
     geoData = muonGeoj.getCoordsInRange(geoData, nb) // MultiLineString
 
-    let transforms = mfourier.transformedCoefs(muonProps.clone(geoData))
+    let transforms = muonFourier.transformedCoefs(muonProps.clone(geoData))
     transforms = muonGeoj.ntime(transforms, [0, 1])
 
     let transformsFC = { type: 'FeatureCollection', features: transforms }
@@ -195,7 +195,7 @@ async function anitem (__mapper) {
       eoload: { // FOURIER TRANSFORM in eoload.fourier.transforms
         fourier: {
 
-          dotgeochrom: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
+          doteocrom: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
           avatars: {
             traceline: traceline, // trace
             rayline: aniRay, // ray

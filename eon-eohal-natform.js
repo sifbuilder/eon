@@ -72,7 +72,7 @@
     
     // eocrom definition
     
-    let getgeochrom = function( eoform ) {
+    let geteocrom = function( eoform ) {
       
       let res = {}
       let ref = muonEocrom.getdefault()
@@ -130,7 +130,7 @@
       anitem.eofold = muonNatform.natFeature(anitem.eoform)
       anitem.eofold = muonProj3ct(anitem.eofold, muonProfier.formion(prt, anitem))
    
-      if (anitem.eocrom === undefined) anitem.eocrom = getgeochrom(anitem.eoform) 
+      if (anitem.eocrom === undefined) anitem.eocrom = geteocrom(anitem.eoform) 
      
       
       return eohalTornasol.gramm(anitem)

@@ -83,7 +83,7 @@ async function anitem (__mapper) {
           geosort: 'anigram',
           geobase: 'eoform',
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
-          geoaad: 0,
+          geoaad: 1,
 
           eohal: (ani, props) => 'tornasol',
           eoric: function (ani, props) {
@@ -112,6 +112,9 @@ async function anitem (__mapper) {
               stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'event') { // EVENT
               stace = props.count.grabbed
+              
+if (1 && 1) console.log('dot', stace)
+
             }
             let coordinates = stace
             let res = {

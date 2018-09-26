@@ -99,7 +99,7 @@ async function anitem (__mapper) {
         ani.eocrom.cf = (i % 2) ? 777 : 666
         ani.eocrom.cs = (i % 2) ? 777 : 666
 
-        let preani = muonStore.getAnima(ani.eoric)
+        let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
 
         if (preani) {
           ani = preani

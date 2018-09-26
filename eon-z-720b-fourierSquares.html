@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    mfourier,
+    muonFourier,
     muonProj3ct,
     muonProfier,
     muonGeoj,
@@ -135,7 +135,7 @@ async function anitem (__mapper) {
 
           geojsor: function (d, i) {
             let eoric = d.eoric // eoric
-            let uid = muonEoric.getuid(eoric)
+            eoric.uid = muonEoric.getuid(eoric)
 
             let gj = {
 
@@ -170,7 +170,7 @@ async function anitem (__mapper) {
       eohal: 'fourier',
       eofold: p => {
         let cs = csi(i, (1 + i) / 4)
-        let transforms = mfourier.transformedCoefs(cs)
+        let transforms = muonFourier.transformedCoefs(cs)
         transforms = muonGeoj.ntime(transforms, [0, 1])
         return { type: 'FeatureCollection', features: transforms }
       },
@@ -223,8 +223,8 @@ async function anitem (__mapper) {
     let animas = [
       sceneAni, // h.scene
       ...fourierForms, // h.fourier
-      ...aniDotteds, // h.tornasol
-      ...aniLines, // h.tornasol
+      // ...aniDotteds, // h.tornasol
+      // ...aniLines, // h.tornasol
     ]
 
     return animas

@@ -104,7 +104,6 @@
       let e = event
       state.moved = false // not moved yet
       let pos = getPos(e) // mouse position
-      console.log('pos', pos)
       state.grabbed = pos
     }
 
