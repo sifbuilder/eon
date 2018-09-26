@@ -8,107 +8,107 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # eon-muon-graticule
-  // md: **process graticule objects**
-  // md:
-  // md: ## references
-  // md: [D3.js](https://github.com/d3) by [Mike Bostock](https://en.wikipedia.org/wiki/Mike_Bostock)
-  // md: [d3-geo/graticule.js](http://ci.testling.com/substack/minimist)
-  // md:
-  // md: ## functions
-  // md: *tidx
-  // md: return `function(column, row)` that gives the sequential index of [column,row]
-  // md: ``` js
-  // md: tidx (horq, verq, hd = 1, vd = 1)
-  // md: ```
-  // md: * `@argv.horq` number of rows
-  // md: * `@argv.verq` number of columns
-  // md: * `@argv.hd`   geospan between columns
-  // md: * `@argv.vd`   geospan between rows
-  // md:
-  // md: *ridx
-  // md: return `function(idx)` , give [row,column] of sequential index
-  // md:
-  // md: *oneface
-  // md:    a,b,c coord-vertices in [xn, yn] space give face verts indices
-  // md:
-  // md: *bifaces
-  // md: (i,h) in [xn,yn[]
-  // md: vertices to ...
-  // md: inPolygons to filter coords if in pols
-  // md: mersCoords to get vert coords
-  // md:
-  // md: *gratiparams
-  // md: use:
-  // md: ```
-  // md: let {X0, X1, DX, PX, x0, x1, dx, px,
-  // md:    Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
-  // md: ```
-  // md: lattice.[ Xx, Yy ]
-  // md: lattice specifies x and y discrete with same major and minor
-  // md: frame.[ [X,Y], [x,y] ]   X:[X0,X1,DX,PX]
-  // md: frame defineds x and y major and minor discretes
-  // md: frame.[ [ Xx, Yy ] ]    Xx:[X0,X1,DX,PX]
-  // md: [ Xx, Yy ]
-  // md: if type not specified assume lattice
-  // md:
-  // md: *arywinopen
-  // md: call `arywinopen(x0,x1,dx)`
-  // md: return array of elements in [x0,x1] with pass dx
-  // md:
-  // md: *arywinclose
-  // md: as arywinopen closing the array
-  // md:
-  // md: *symgraticuleY
-  // md: return function of dot to arywinclose array
-  // md:
-  // md: *symgraticuleX
-  // md: return function of dot to arywinclose array
-  // md: open range interval [x0,x1)
-  // md:
-  // md: *asymgraticuleY
-  // md: return function of dot to arywinclose array
-  // md:
-  // md: *asymgraticuleX
-  // md: return function of dot to arywinclose array
-  // md: open range interval [x0,x1)
-  // md:
-  // md: ## methods
-  // md: *grarr
-  // md: return `{mms, pps}`  of meridians and parallels
-  // md:    on symetrical  discretes with symgraticuleX and symgraticuleY
-  // md:    mms and pps are gj.MultiLineString geometries
-  // md:
-  // md: *equator
-  // md: return Feature.LineString coordinates: equator
-  // md: equator: [ [ [-180, 180, 360, 1], [-90, 90, 360, 1] ] ]
-  // md:
-  // md: *vhMultiLine
-  // md: return Feature.MultiLineString.coordinates: [...mersCoords,...parsCoords]
-  // md:
-  // md: *vMultiLine
-  // md: return Feature.MultiLineString.coordinates: mersCoords
-  // md:
-  // md: *hMultiLine
-  // md: return Feature.MultiLineString.coordinates: parsCoords
-  // md:
-  // md: *dedges
-  // md: get grarr
-  // md:
-  // md: *gvertices
-  // md: call `gvertices(params)`
-  // md: get mersq sym mers and parsq sym pars from grarr
-  // md: takes vertices from meridians with step being the y precision (dy/py)
-  // md: mers[i].length may be 5, while parsq: 3
-  // md:
-  // md: *gfaces
-  // md:
-  // md:
-  // md: *equator
-  // md:
-  // md:
-  // md: # license
-  // md: MIT
+  //... # eon-muon-graticule
+  //... **process graticule objects**
+  //...
+  //... ## references
+  //... [D3.js](https://github.com/d3) by [Mike Bostock](https://en.wikipedia.org/wiki/Mike_Bostock)
+  //... [d3-geo/graticule.js](http://ci.testling.com/substack/minimist)
+  //...
+  //... ## functions
+  //... *tidx
+  //... return `function(column, row)` that gives the sequential index of [column,row]
+  //... ``` js
+  //... tidx (horq, verq, hd = 1, vd = 1)
+  //... ```
+  //... * `@argv.horq` number of rows
+  //... * `@argv.verq` number of columns
+  //... * `@argv.hd`   geospan between columns
+  //... * `@argv.vd`   geospan between rows
+  //...
+  //... *ridx
+  //... return `function(idx)` , give [row,column] of sequential index
+  //...
+  //... *oneface
+  //...    a,b,c coord-vertices in [xn, yn] space give face verts indices
+  //...
+  //... *bifaces
+  //... (i,h) in [xn,yn[]
+  //... vertices to ...
+  //... inPolygons to filter coords if in pols
+  //... mersCoords to get vert coords
+  //...
+  //... *gratiparams
+  //... use:
+  //... ```
+  //... let {X0, X1, DX, PX, x0, x1, dx, px,
+  //...    Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
+  //... ```
+  //... lattice.[ Xx, Yy ]
+  //... lattice specifies x and y discrete with same major and minor
+  //... frame.[ [X,Y], [x,y] ]   X:[X0,X1,DX,PX]
+  //... frame defineds x and y major and minor discretes
+  //... frame.[ [ Xx, Yy ] ]    Xx:[X0,X1,DX,PX]
+  //... [ Xx, Yy ]
+  //... if type not specified assume lattice
+  //...
+  //... *arywinopen
+  //... call `arywinopen(x0,x1,dx)`
+  //... return array of elements in [x0,x1] with pass dx
+  //...
+  //... *arywinclose
+  //... as arywinopen closing the array
+  //...
+  //... *symgraticuleY
+  //... return function of dot to arywinclose array
+  //...
+  //... *symgraticuleX
+  //... return function of dot to arywinclose array
+  //... open range interval [x0,x1)
+  //...
+  //... *asymgraticuleY
+  //... return function of dot to arywinclose array
+  //...
+  //... *asymgraticuleX
+  //... return function of dot to arywinclose array
+  //... open range interval [x0,x1)
+  //...
+  //... ## methods
+  //... *grarr
+  //... return `{mms, pps}`  of meridians and parallels
+  //...    on symetrical  discretes with symgraticuleX and symgraticuleY
+  //...    mms and pps are gj.MultiLineString geometries
+  //...
+  //... *equator
+  //... return Feature.LineString coordinates: equator
+  //... equator: [ [ [-180, 180, 360, 1], [-90, 90, 360, 1] ] ]
+  //...
+  //... *vhMultiLine
+  //... return Feature.MultiLineString.coordinates: [...mersCoords,...parsCoords]
+  //...
+  //... *vMultiLine
+  //... return Feature.MultiLineString.coordinates: mersCoords
+  //...
+  //... *hMultiLine
+  //... return Feature.MultiLineString.coordinates: parsCoords
+  //...
+  //... *dedges
+  //... get grarr
+  //...
+  //... *gvertices
+  //... call `gvertices(params)`
+  //... get mersq sym mers and parsq sym pars from grarr
+  //... takes vertices from meridians with step being the y precision (dy/py)
+  //... mers[i].length may be 5, while parsq: 3
+  //...
+  //... *gfaces
+  //...
+  //...
+  //... *equator
+  //...
+  //...
+  //... # license
+  //... MIT
 
   async function muonGraticule (__mapper = {}) {
     let [

@@ -8,12 +8,12 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # eon-eohal-natform
-  // md: **process h.tornasol animas**
-  // md: Feature Collect gj. for each feature
-  // md: eoform, conform, ereform and proform anigrams
-  // md: then pass the FeatureCollection to h.petiole
-  // md: define `eonode` if undefined
+  //... # eon-eohal-natform
+  //... **process h.tornasol animas**
+  //... Feature Collect gj. for each feature
+  //... eoform, conform, ereform and proform anigrams
+  //... then pass the FeatureCollection to h.petiole
+  //... define `eonode` if undefined
 
   async function eohalTornasol (__mapper = {}) {
     let [

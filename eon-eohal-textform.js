@@ -8,19 +8,19 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # eon-eohal-textform
-  // md: process text anitems
-  // md: ## functions
-  // md: * [_geofold](#_geofold) - uploads eoload text form to eofold properties
-  // md:
-  // md:
-  // md: ## methods
-  // md: * [ween](#ween) - process anima
-  // md: * [gramm](#gramm) - process anigram
-  // md:  buils the newitem eoform and pass it to h.tornasol
-  // md:
-  // md: # license
-  // md: MIT
+  //... # eon-eohal-textform
+  //... process text anitems
+  //... ## functions
+  //... * [_geofold](#_geofold) - uploads eoload text form to eofold properties
+  //...
+  //...
+  //... ## methods
+  //... * [ween](#ween) - process anima
+  //... * [gramm](#gramm) - process anigram
+  //...  buils the newitem eoform and pass it to h.tornasol
+  //...
+  //... # license
+  //... MIT
 
   async function eohalTextform (__mapper = {}) {
     let [

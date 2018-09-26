@@ -56,13 +56,13 @@
       return cttes
     }
 
-    // md: initNodes
-    // md: out of the anitems, select the simnodes visible to the force field
-    // md: the force acts on the geonode. filter out anitems without eonode
-    // md: synchronize between the aintem.eonode and the simnode
-    // md: simnodes: {x,y,z}, {vx,vy,vz}, eoload, index
-    // md:   @anitems: anitems
-    // md:   @nDim:   dimensions of the field
+    //... initNodes
+    //... out of the anitems, select the simnodes visible to the force field
+    //... the force acts on the geonode. filter out anitems without eonode
+    //... synchronize between the aintem.eonode and the simnode
+    //... simnodes: {x,y,z}, {vx,vy,vz}, eoload, index
+    //...   @anitems: anitems
+    //...   @nDim:   dimensions of the field
     function initNodes (anitems, nDim = 3) {
       let simnodes = []
 
@@ -118,13 +118,13 @@
       return simnodes
     }
 
-    // md: restoreNodes
-    // md:   @simnodes: simnodes following the field effect
-    // md:   @anitems: rebuild anitems with the corresponding simnodes
-    // md:   call in simulate, then update animas in store
-    // md:    aftersim eonode (s)
-    // md:     coordinates
-    // md:     properties.{geodelta, prevous, velin}
+    //... restoreNodes
+    //...   @simnodes: simnodes following the field effect
+    //...   @anitems: rebuild anitems with the corresponding simnodes
+    //...   call in simulate, then update animas in store
+    //...    aftersim eonode (s)
+    //...     coordinates
+    //...     properties.{geodelta, prevous, velin}
 
     function restoreNodes (simnodes, anitems) {
       let updItems = []

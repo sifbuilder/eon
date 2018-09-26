@@ -108,7 +108,7 @@ async function anitem (__mapper) {
           },
         }
 
-        // md: a single line generates a LineString from muonProj3ct(geoData)
+        //... a single line generates a LineString from muonProj3ct(geoData)
         if (geoData.geometry.type === 'LineString') ngj.geometry.coordinates = Array.of(tcoords)
         else if (geoData.geometry.type === 'MultiLineString') ngj.geometry.coordinates = tcoords
         else if (geoData.geometry.type === 'Polygon') ngj.geometry.coordinates = tcoords

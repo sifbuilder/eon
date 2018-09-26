@@ -8,19 +8,19 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: ## h.fourier
-  // md: h.fourier anigrams per frequency cycloid
-  // md: cycloids in eoload.fourier.transforms resulting from m.fourier.complexify
-  // md: anigrams turned to h.tornasol
-  // md:  
-  // md: ### h.fourier.gramm
-  // md: eoload.fourier.transforms, gj featurized, complexified, ntimed
-  // md: eoload.fourier.maglast pencil radio
-  // md: eoload.fourier.interval [0,1] delete anigrams outside
-  // md: eoload.fourier.tolerance 1 remove sinusoids below
-  // md: eoload.fourier.doteocrom style of pencil dot
-  // md: eoload.fourier.avatars.traceline  form trace
-  // md: eoload.fourier.avatars.line  sinusoid ray
+  //... ## h.fourier
+  //... h.fourier anigrams per frequency cycloid
+  //... cycloids in eoload.fourier.transforms resulting from m.fourier.complexify
+  //... anigrams turned to h.tornasol
+  //...  
+  //... ### h.fourier.gramm
+  //... eoload.fourier.transforms, gj featurized, complexified, ntimed
+  //... eoload.fourier.maglast pencil radio
+  //... eoload.fourier.interval [0,1] delete anigrams outside
+  //... eoload.fourier.tolerance 1 remove sinusoids below
+  //... eoload.fourier.doteocrom style of pencil dot
+  //... eoload.fourier.avatars.traceline  form trace
+  //... eoload.fourier.avatars.line  sinusoid ray
 
   async function eohalFourier (__mapper = {}) {
     let [
@@ -56,7 +56,7 @@
 
       transforms = eofold.features
 
-      // md: time in period is (t - t0) / (t1 - t0), with t unit time
+      //... time in period is (t - t0) / (t1 - t0), with t unit time
 
       let t = eotim.unitTime // time % period; i,[0,vertices] => t,[0,T]
       let t0 = interval[0],
@@ -66,11 +66,11 @@
         tInPeriod = (t < interval[0] || t > interval[1]) ? 0 : 1, // time in of interval
         tNotInPeriod = (t < interval[0] || t > interval[1]) ? 1 : 0 // time out of interval
 
-      // md:   fidder(j,i) per feature and sinusoid
+      //...   fidder(j,i) per feature and sinusoid
 
       let fidder = (d, i, j) => d + '_' + i + '_' + j
 
-      // md:   features are rendered simultaneously on time period
+      //...   features are rendered simultaneously on time period
 
       let anitems = []
       for (let j = 0; j < transforms.length; j++) { // FOR EACH FEATURE in time
@@ -134,8 +134,8 @@
           if (i < M) {
             if (transformSorted[i].w >= nyquist) transformSorted[i].w -= N // nyquist
 
-            // md:   sinusoid is Sum( Xi * e^i2[pi]w[i]n/N )
-            // md:   The sinusoid's frequency is w cycles per N samples
+            //...   sinusoid is Sum( Xi * e^i2[pi]w[i]n/N )
+            //...   The sinusoid's frequency is w cycles per N samples
 
             let phasei = Complex(0, 2 * Math.PI * transformSorted[i].w * tRelToPeriod)
             let unitRooti = phasei.exp() // complex sinusoidal component e^i2[pi]w[i]n/N
@@ -160,7 +160,7 @@
               let cid = rayline.eoric.cid
               let fid = fidder(rayline.eoric.fid, j, i)
 
-              // md: del item outside time period (eoric.eodelled = 1)
+              //... del item outside time period (eoric.eodelled = 1)
               let _ric = {gid, cid, fid} // is DELLED ?
               let uid = muonEoric.getuid(_ric) // uid
               rayline.eoric = _ric
@@ -187,7 +187,7 @@
             let traceline = muonProps.cloneObj(eoload.fourier.avatars.traceline)
             console.assert(traceline !== undefined, 'traceline undefined')
             if (traceline) { // if pacer avatar
-              // md: no add segments ourside time period (pacer.autoN = 0)
+              //... no add segments ourside time period (pacer.autoN = 0)
               // add no segments ourside period
 
               if (tNotInPeriod) traceline.eoload.pacer.autoN = 0
@@ -213,7 +213,7 @@
           iAnitems[i] = newItem
         }
 
-        // md:   each point/circle anigram has radius of next sinusoid amplitude
+        //...   each point/circle anigram has radius of next sinusoid amplitude
 
         for (let i = 0; i < iAnitems.length - 1; i++) { //  for each anitem
           let pointRadius = iAnitems[i].eofold.properties.pointRadius

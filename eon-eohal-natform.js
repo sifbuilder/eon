@@ -8,12 +8,12 @@
 }(this, function (exports) {
   'use strict'
 
-// md: # eon-eohal-natform 
-// md: **expose natform** 
-// md: h.tornasol with  anima.eofold : `muonNatform.natFeature(p.eoload.form)` 
-// md: 
-// md: # license 
-// md: MIT 
+//... # eon-eohal-natform 
+//... **expose natform** 
+//... h.tornasol with  anima.eofold : `muonNatform.natFeature(p.eoload.form)` 
+//... 
+//... # license 
+//... MIT 
   
   
   async function eohalNatform (__mapper = {}) {

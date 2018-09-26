@@ -8,174 +8,174 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # eon-muon-natform
-  // md: **returns nat mesh**
-  // md:
-  // md: ref: isSame: http://adripofjavascript.com/blog/drips/object-equality-in-javascript.html
-  // md:
-  // md: ### properties
-  // md:
-  // md: ### methods
-  // md: natFeature
-  // md: `coordinates = Array.of(__mapper("xs").m("nat").natFeature(p.form))`
-  // md:
-  // md: rador
-  // md: seg5 unit circle rador
-  // md:
-  // md: radorm
-  // md: called by p.natform
-  // md:
-  // md: natNform
-  // md: compleate form for natform
-  // md:
-  // md: natVertex
-  // md:    called by g.natVertex.pointStream to build nat conform point stream
-  // md:    calls m.natform.radorm
-  // md:
-  // md: natprojection
-  // md: returns d3 geo nat projection
-  // md: calls p.nat
-  // md: breaks circularity m.profier(.natfion --> p.natform)
-  // md:    -p.natform(.natprofion -> .pointStream -> m.natform.natVertex)
-  // md:    -m.natform(.natFeature -> m.profier.formion)
-  // md:
-  // md: conforms
-  // md: `
-  // md: net
-  // md: 'fn0': (e,c) => c[0] * e[0] * c[3] * cos(e[3])
-  // md: 'fn0': (e, c) => (1 / Math.exp(Math.abs(e[1] / 2))) * cos(9 * e[1]),
-  // md: 'fn0': (e,c) => c[0] * e[0] * c[3] * sin(e[3])
-  // md: 'fn0': (e,c) => 1
-  // md:
-  // md: sphere
-  // md: 'fn0': (e,c) => c[0] * cos(e[0]) * c[3] * cos(e[3])
-  // md: 'fn0': (e,c) => c[0] * sin(e[0]) * c[3] * cos(e[3])
-  // md: 'fn0': (e,c) => c[3] * sin(e[3])
-  // md: 'fn0': (e,c) => c[3] * cos(e[3])
-  // md:
-  // md: sphere
-  // md: [-180, 180] => c[0] * cos(e[0]) * c[2] * cos(e[3])
-  // md: [-180, 180] => c[1] * sin(e[0]) * c[2] * cos(e[3])
-  // md: [-180, 180] =>          c[3] * sin(e[2])
-  // md: [-180, 180] =>          c[3] * cos(e[2])
-  // md:
-  // md: hyperbole
-  // md: [-180, 180] => e[0] * c[2] * cos(e[3])
-  // md: [-180, 180] => e[1] * e[1] * e[1] * c[2] * cos(e[3])
-  // md: [-180, 180] =>        c[3] * sin(e[2])
-  // md:
-  // md: flat reticule
-  // md: [-180, 180] => e[0]
-  // md: [-180, 180] => 0
-  // md: [-180, 180] => e[2]
-  // md:
-  // md: rectantular parabole
-  // md: [-180, 180] => e[0]
-  // md: [-180, 180] => e[0] * e[0]
-  // md: [-180, 180] => e[2]
-  // md:
-  // md: envelop parabole
-  // md: [-180, 180] => e[0]  * cos(e[3])
-  // md: [-180, 180] => e[0] * e[0]
-  // md: [-180, 180] => sin(e[3])
-  // md:
-  // md: parabole
-  // md: [-180, 180] => e[0]     * cos(e[3])
-  // md: [-180, 180] => e[0] * e[0]
-  // md: [-180, 180] => e[0]     * sin(e[3])
-  // md:
-  // md: spiral
-  // md: [-180, 180] => e[0]     * cos(e[3])
-  // md: [-180, 180] => e[3]
-  // md: [-180, 180] => e[0]     * sin(e[3])
-  // md:
-  // md: papiro
-  // md: [-180, 180] => e[0]     * cos(e[3])
-  // md: [-180, 180] => sin( 10 * e[3])
-  // md: [-180, 180] => e[0]     * sin(e[3])
-  // md:
-  // md: cup
-  // md: [-180, 180] => cos(e[0])       * c[2] * ( cos(e[2]))
-  // md: [-180, 180] => sin(e[0])       * c[2] * ( cos(e[2]))
-  // md: [-180, 180] => e[2] * e[2]
-  // md:
-  // md: lace
-  // md: [-180, 180] => cos(e[0])       * c[2] * (  cos(e[2]))
-  // md: [-180, 180] => sin(e[0])       * c[2] * ( cos(e[2]))
-  // md: [-180, 180] => e[2]
-  // md:
-  // md: plane
-  // md: [-180, 180] => e[1] * e[1] * sin(e[2])
-  // md: [-180, 180] => sin(e[0])       * c[2] * ( cos(e[2]))
-  // md: [-180, 180] => e[2]
-  // md:
-  // md: cone 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'c[0]': 1, 'c[1]': 1,  // circ
-  // md: [-180, 180] => e[0]     * cos(e[3])
-  // md: [-180, 180] => e[0]
-  // md: [-180, 180] => e[0]     * sin(e[3])
-  // md:
-  // md: form "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"c[0]":1,"c[1]":1,  // drop
-  // md: [-180, 180] => sqrt(c[0] * sin(e[0]))    * cos(e[3])
-  // md: [-180, 180] => c[0] * sin(e[0])
-  // md: [-180, 180] => sqrt(c[0])     * sin(e[3])
-  // md:
-  // md: bolt "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"c[0]":1,"c[1]":1,  // drop
-  // md: [-180, 180] => sqrt(c[0])     *  cos(e[3])
-  // md: [-180, 180] =>      c[0]  * sin(e[0])
-  // md: [-180, 180] => sqrt(c[0])     * sin(e[3])
-  // md:
-  // md: vel "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"c[0]":1,"c[1]":1,  // drop
-  // md: [-180, 180] => sqrt(c[0] * sin(e[0]))     *  cos(e[3])
-  // md: [-180, 180] =>      c[0]  * sin(e[0])
-  // md: [-180, 180] => sqrt(c[0] * sin(e[0]))     * sin(e[3])
-  // md:
-  // md: spil
-  // md: [-180, 180] => - e[3],
-  // md: [-180, 180] =>  e[3] * cos(e[0]),
-  // md: [-180, 180] => sin(e[0]) - 1,
-  // md: [-180, 180] =>  1 - sin(e[0])
-  // md:
-  // md: flat infinite
-  // md: [-180, 180] => - 1 - sin(e[0]),
-  // md: [-180, 180] =>  1 - sin(e[0]) * cos(e[0]),
-  // md: [-180, 180] => sin(e[0]) - 1,
-  // md: [-180, 180] =>  1 - sin(e[0])
-  // md:
-  // md: cone
-  // md: [-180, 180] => - (1 - sin(e[0]))
-  // md: [-180, 180] =>   (1 - sin(e[0])) * cos(e[3]),
-  // md: [-180, 180] => (1 - sin(e[0])) * sin(e[3]),
-  // md: [-180, 180] =>  1 - sin(e[0])
-  // md:
-  // md: flat drop
-  // md: [-180, 180] => (sin(e[0]) -1),
-  // md: [-180, 180] => - (sin(e[0]) -1) * cos(e[0]),
-  // md: [-180, 180] => (sin(e[0]) - 1),
-  // md: [-180, 180] => (sin(e[0]) - 1),
-  // md:
-  // md: vol drop fn
-  // md: [-180, 180] => (sin(q) - 1),
-  // md: [-180, 180] => - (sin(q) - 1) * cos(q) * cos(v),
-  // md: [-180, 180] => - (sin(q) - 1) * cos(q) * sin(v),
-  // md: [-180, 180] => (sin(q) - 1),
-  // md:
-  // md: vol drop nat
-  // md: [-180, 180] => a * cos(q) * c * cos(v),    // drop
-  // md: [-180, 180] ==> b * sin(q) * c * cos(v),  // drop
-  // md: [-90, 90] => d * sin(u),  // circ
-  // md: [-90, 90] => v,   // circ
-  // md:
-  // md: vol drop nat
-  // md: [-180, 180] => a * cos(q),    // drop
-  // md: [-180, 180] == > b * sin(q) *  cos(v),  // drop
-  // md: [-90, 90] => b * sin(q) *  sin(v),  // drop
-  // md: [-90, 90] => v,   // drop
-  // md:
-  // md: `
-  // md:
-  // md:
-  // md: # license
-  // md: MIT
+  //... # eon-muon-natform
+  //... **returns nat mesh**
+  //...
+  //... ref: isSame: http://adripofjavascript.com/blog/drips/object-equality-in-javascript.html
+  //...
+  //... ### properties
+  //...
+  //... ### methods
+  //... natFeature
+  //... `coordinates = Array.of(__mapper("xs").m("nat").natFeature(p.form))`
+  //...
+  //... rador
+  //... seg5 unit circle rador
+  //...
+  //... radorm
+  //... called by p.natform
+  //...
+  //... natNform
+  //... compleate form for natform
+  //...
+  //... natVertex
+  //...    called by g.natVertex.pointStream to build nat conform point stream
+  //...    calls m.natform.radorm
+  //...
+  //... natprojection
+  //... returns d3 geo nat projection
+  //... calls p.nat
+  //... breaks circularity m.profier(.natfion --> p.natform)
+  //...    -p.natform(.natprofion -> .pointStream -> m.natform.natVertex)
+  //...    -m.natform(.natFeature -> m.profier.formion)
+  //...
+  //... conforms
+  //... `
+  //... net
+  //... 'fn0': (e,c) => c[0] * e[0] * c[3] * cos(e[3])
+  //... 'fn0': (e, c) => (1 / Math.exp(Math.abs(e[1] / 2))) * cos(9 * e[1]),
+  //... 'fn0': (e,c) => c[0] * e[0] * c[3] * sin(e[3])
+  //... 'fn0': (e,c) => 1
+  //...
+  //... sphere
+  //... 'fn0': (e,c) => c[0] * cos(e[0]) * c[3] * cos(e[3])
+  //... 'fn0': (e,c) => c[0] * sin(e[0]) * c[3] * cos(e[3])
+  //... 'fn0': (e,c) => c[3] * sin(e[3])
+  //... 'fn0': (e,c) => c[3] * cos(e[3])
+  //...
+  //... sphere
+  //... [-180, 180] => c[0] * cos(e[0]) * c[2] * cos(e[3])
+  //... [-180, 180] => c[1] * sin(e[0]) * c[2] * cos(e[3])
+  //... [-180, 180] =>          c[3] * sin(e[2])
+  //... [-180, 180] =>          c[3] * cos(e[2])
+  //...
+  //... hyperbole
+  //... [-180, 180] => e[0] * c[2] * cos(e[3])
+  //... [-180, 180] => e[1] * e[1] * e[1] * c[2] * cos(e[3])
+  //... [-180, 180] =>        c[3] * sin(e[2])
+  //...
+  //... flat reticule
+  //... [-180, 180] => e[0]
+  //... [-180, 180] => 0
+  //... [-180, 180] => e[2]
+  //...
+  //... rectantular parabole
+  //... [-180, 180] => e[0]
+  //... [-180, 180] => e[0] * e[0]
+  //... [-180, 180] => e[2]
+  //...
+  //... envelop parabole
+  //... [-180, 180] => e[0]  * cos(e[3])
+  //... [-180, 180] => e[0] * e[0]
+  //... [-180, 180] => sin(e[3])
+  //...
+  //... parabole
+  //... [-180, 180] => e[0]     * cos(e[3])
+  //... [-180, 180] => e[0] * e[0]
+  //... [-180, 180] => e[0]     * sin(e[3])
+  //...
+  //... spiral
+  //... [-180, 180] => e[0]     * cos(e[3])
+  //... [-180, 180] => e[3]
+  //... [-180, 180] => e[0]     * sin(e[3])
+  //...
+  //... papiro
+  //... [-180, 180] => e[0]     * cos(e[3])
+  //... [-180, 180] => sin( 10 * e[3])
+  //... [-180, 180] => e[0]     * sin(e[3])
+  //...
+  //... cup
+  //... [-180, 180] => cos(e[0])       * c[2] * ( cos(e[2]))
+  //... [-180, 180] => sin(e[0])       * c[2] * ( cos(e[2]))
+  //... [-180, 180] => e[2] * e[2]
+  //...
+  //... lace
+  //... [-180, 180] => cos(e[0])       * c[2] * (  cos(e[2]))
+  //... [-180, 180] => sin(e[0])       * c[2] * ( cos(e[2]))
+  //... [-180, 180] => e[2]
+  //...
+  //... plane
+  //... [-180, 180] => e[1] * e[1] * sin(e[2])
+  //... [-180, 180] => sin(e[0])       * c[2] * ( cos(e[2]))
+  //... [-180, 180] => e[2]
+  //...
+  //... cone 'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'c[0]': 1, 'c[1]': 1,  // circ
+  //... [-180, 180] => e[0]     * cos(e[3])
+  //... [-180, 180] => e[0]
+  //... [-180, 180] => e[0]     * sin(e[3])
+  //...
+  //... form "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"c[0]":1,"c[1]":1,  // drop
+  //... [-180, 180] => sqrt(c[0] * sin(e[0]))    * cos(e[3])
+  //... [-180, 180] => c[0] * sin(e[0])
+  //... [-180, 180] => sqrt(c[0])     * sin(e[3])
+  //...
+  //... bolt "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"c[0]":1,"c[1]":1,  // drop
+  //... [-180, 180] => sqrt(c[0])     *  cos(e[3])
+  //... [-180, 180] =>      c[0]  * sin(e[0])
+  //... [-180, 180] => sqrt(c[0])     * sin(e[3])
+  //...
+  //... vel "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"c[0]":1,"c[1]":1,  // drop
+  //... [-180, 180] => sqrt(c[0] * sin(e[0]))     *  cos(e[3])
+  //... [-180, 180] =>      c[0]  * sin(e[0])
+  //... [-180, 180] => sqrt(c[0] * sin(e[0]))     * sin(e[3])
+  //...
+  //... spil
+  //... [-180, 180] => - e[3],
+  //... [-180, 180] =>  e[3] * cos(e[0]),
+  //... [-180, 180] => sin(e[0]) - 1,
+  //... [-180, 180] =>  1 - sin(e[0])
+  //...
+  //... flat infinite
+  //... [-180, 180] => - 1 - sin(e[0]),
+  //... [-180, 180] =>  1 - sin(e[0]) * cos(e[0]),
+  //... [-180, 180] => sin(e[0]) - 1,
+  //... [-180, 180] =>  1 - sin(e[0])
+  //...
+  //... cone
+  //... [-180, 180] => - (1 - sin(e[0]))
+  //... [-180, 180] =>   (1 - sin(e[0])) * cos(e[3]),
+  //... [-180, 180] => (1 - sin(e[0])) * sin(e[3]),
+  //... [-180, 180] =>  1 - sin(e[0])
+  //...
+  //... flat drop
+  //... [-180, 180] => (sin(e[0]) -1),
+  //... [-180, 180] => - (sin(e[0]) -1) * cos(e[0]),
+  //... [-180, 180] => (sin(e[0]) - 1),
+  //... [-180, 180] => (sin(e[0]) - 1),
+  //...
+  //... vol drop fn
+  //... [-180, 180] => (sin(q) - 1),
+  //... [-180, 180] => - (sin(q) - 1) * cos(q) * cos(v),
+  //... [-180, 180] => - (sin(q) - 1) * cos(q) * sin(v),
+  //... [-180, 180] => (sin(q) - 1),
+  //...
+  //... vol drop nat
+  //... [-180, 180] => a * cos(q) * c * cos(v),    // drop
+  //... [-180, 180] ==> b * sin(q) * c * cos(v),  // drop
+  //... [-90, 90] => d * sin(u),  // circ
+  //... [-90, 90] => v,   // circ
+  //...
+  //... vol drop nat
+  //... [-180, 180] => a * cos(q),    // drop
+  //... [-180, 180] == > b * sin(q) *  cos(v),  // drop
+  //... [-90, 90] => b * sin(q) *  sin(v),  // drop
+  //... [-90, 90] => v,   // drop
+  //...
+  //... `
+  //...
+  //...
+  //... # license
+  //... MIT
 
   async function muonNatform (__mapper = {}) {
     let [

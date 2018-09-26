@@ -8,11 +8,11 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # eon-muon-store
-  // md: **manage anitems store**
-  // md:
-  // md: # license
-  // md: MIT
+  //... # eon-muon-store
+  //... **manage anitems store**
+  //...
+  //... # license
+  //... MIT
 
   async function muonStore (__mapper) {
     let [

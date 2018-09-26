@@ -142,10 +142,10 @@ async function anitem (__mapper) {
 
       eohal: 'tornasol',
 
-      // md: eonode reflects the geometry of the form
-      // md: updated by transforms
-      // md: relative to eonode
-      // md: as eonode, properties keep transformed views
+      //... eonode reflects the geometry of the form
+      //... updated by transforms
+      //... relative to eonode
+      //... as eonode, properties keep transformed views
       eofold: p => muonNatform.natFeature(p.eoform),
 
       eotim: eotim,
@@ -164,16 +164,16 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity],
         },
       },
-      // md: eonode is reference to eofold
-      // md: updated by sim forces
-      // md: as eofold, properties keep transformed views
+      //... eonode is reference to eofold
+      //... updated by sim forces
+      //... as eofold, properties keep transformed views
       eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
           coordinates: [0, 0, 0],
         },
-        // md: orgen, velin, prevous needed in force fields
+        //... orgen, velin, prevous needed in force fields
         properties: {
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },

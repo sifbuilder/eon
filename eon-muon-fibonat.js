@@ -8,13 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # eon-muon-fibonat
-  // md: ref: Spreading points on a disc and on a sphere
-  // md: [Marmakoide's Blog](http://blog.marmakoide.org/)
-  // md: ref: Fibonacci sphere quasi-random radome
-  // md: [Philippe Rivière’s Block](https://bl.ocks.org/fil/955da86d6a935b26d3599ca5e344fb38)
-  // md: # license
-  // md: MIT
+  //... # eon-muon-fibonat
+  //... ref: Spreading points on a disc and on a sphere
+  //... [Marmakoide's Blog](http://blog.marmakoide.org/)
+  //... ref: Fibonacci sphere quasi-random radome
+  //... [Philippe Rivière’s Block](https://bl.ocks.org/fil/955da86d6a935b26d3599ca5e344fb38)
+  //... # license
+  //... MIT
 
   async function muonFibonat (__mapper = {}) {
     let [

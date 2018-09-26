@@ -1,7 +1,7 @@
 
-// md: publish eons to npm and unpkg
-// md: node _eonify-teer-npm { eons, all, eonclass }
-// md: create npm project in eons_dist and npm publish
+//... publish eons to npm and unpkg
+//... node _eonify-teer-npm { eons, all, eonclass }
+//... create npm project in eons_dist and npm publish
 
 const fs = require('fs')
 const path = require('path')
@@ -81,10 +81,10 @@ let fromfile = ''
 
 let infiles = []
 if (scope === 'eons') { // eonify is root
-  // md: if scope is eons, get root
+  //... if scope is eons, get root
   infiles = [ 'eons' ] // if not all eons in param opts then publish eons
 } else if (scope === 'eonitems') {
-  // md: if scope is eonitems, cover all eons items
+  //... if scope is eonitems, cover all eons items
   infiles = fs.readdirSync(indir)
     .filter(file => isFile(file))
     .filter(d => eonpattern.test(d))
@@ -92,7 +92,7 @@ if (scope === 'eons') { // eonify is root
     .filter(d => !mdpattern.test(d))
     .filter(d => !imgpattern.test(d))
 } else {
-  // md: if scope is pattern, select eons
+  //... if scope is pattern, select eons
   const eonitemspattern = new RegExp('^' + '.*' + scope + '.*(.html|js)', 'i')
   infiles = fs.readdirSync(indir)
     .filter(file => isFile(file))
@@ -129,9 +129,9 @@ let uncom = function () {
         let rootname = parts[2] || 'eons' // ----------------
         let pckfolder = `${outdir}${rootname}/` // pckfolder
 
-        // md: uncomment
+        //... uncomment
         function uncomment (pckfolder, fullName, rootname) {
-          // md: uncommnet fullName file
+          //... uncommnet fullName file
 
           let findPattern = '.*(0|1) \&\& (0|1).*(\r\n|\n|\r)' // pattern: (0|1) && (0|1)
           let replacePattern = '' // pattern: (0|1) && (0|1)

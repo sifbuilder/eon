@@ -8,60 +8,60 @@
 }(this, function (exports) {
   'use strict'
 
-  // md: # eon-muon-profier
-  // md: build geo projections
-  // md:
-  // md: ## functions
-  // md: * ### getPrt
-  // md:
-  // md: ## methods
-  // md: * ### formion
-  // md: `formion (projdef, anigram)`
-  // md: **get projection from projdef and apply projection properties**
-  // md: if `@projdef` or `@projdef.projection` are not defined, assume `p.uniwen` identity
-  // md: if `@projdef.translate != undefined`
-  // md: * if pure array, translate to position
-  // md: * if non-pure array, add translate positions
-  // md: * if a position, `object` translate to position
-  // md: * if other `object`, process as `stace.spot`
-  // md:
-  // md: if `@projdef.anod == 1` add `eofold.properties.eonode.geometry.coordinates` to translate
-  // md:
-  // md: if `@projdef.rotate != undefined`
-  // md: * if is pure array, apply rotation
-  // md: * if is 2d, apply z rotation
-  // md: * if non-pure array, add multi-rotations
-  // md:
-  // md: if `@projdef.prerotation [[[ control:wen ]]]` apply wen control rotation
-  // md: if `@projdef.prerotation [[[ control:versor ]]]` apply versor control rotation
-  // md: if `@projdef.control:wen` apply wen control rotation
-  // md: if `@projdef.control:versor` apply versor control rotation
-  // md:
-  // md: ### projer_
-  // md: use: `muonProfier.projer_(prodef, anigram)(gj)
-  // md: *get formion projector on gj*
-  // md:
-  // md: ### conformer_
-  // md: use: `muonProfier.conformer_ (anigram)`
-  // md: **get formion projector**
-  // md: assumes `projection != undefined`
-  // md: ```
-  // md: projection: {
-  // md: projection: 'natform',
-  // md: form: anigram.eoload.conform
-  // md: }
-  // md: ```
-  // md:
-  // md: ### proformion
-  // md: call `muonProfier.proformion (anigram)`
-  // md: calls `formion(anigram.eoload.proform, anigram)`
-  // md: **get proform projection from projdef**
-  // md:
-  // md: ### proformer
-  // md:
-  // md:
-  // md: ### ereformion
-  // md: ### ereformer
+  //... # eon-muon-profier
+  //... build geo projections
+  //...
+  //... ## functions
+  //... * ### getPrt
+  //...
+  //... ## methods
+  //... * ### formion
+  //... `formion (projdef, anigram)`
+  //... **get projection from projdef and apply projection properties**
+  //... if `@projdef` or `@projdef.projection` are not defined, assume `p.uniwen` identity
+  //... if `@projdef.translate != undefined`
+  //... * if pure array, translate to position
+  //... * if non-pure array, add translate positions
+  //... * if a position, `object` translate to position
+  //... * if other `object`, process as `stace.spot`
+  //...
+  //... if `@projdef.anod == 1` add `eofold.properties.eonode.geometry.coordinates` to translate
+  //...
+  //... if `@projdef.rotate != undefined`
+  //... * if is pure array, apply rotation
+  //... * if is 2d, apply z rotation
+  //... * if non-pure array, add multi-rotations
+  //...
+  //... if `@projdef.prerotation [[[ control:wen ]]]` apply wen control rotation
+  //... if `@projdef.prerotation [[[ control:versor ]]]` apply versor control rotation
+  //... if `@projdef.control:wen` apply wen control rotation
+  //... if `@projdef.control:versor` apply versor control rotation
+  //...
+  //... ### projer_
+  //... use: `muonProfier.projer_(prodef, anigram)(gj)
+  //... *get formion projector on gj*
+  //...
+  //... ### conformer_
+  //... use: `muonProfier.conformer_ (anigram)`
+  //... **get formion projector**
+  //... assumes `projection != undefined`
+  //... ```
+  //... projection: {
+  //... projection: 'natform',
+  //... form: anigram.eoload.conform
+  //... }
+  //... ```
+  //...
+  //... ### proformion
+  //... call `muonProfier.proformion (anigram)`
+  //... calls `formion(anigram.eoload.proform, anigram)`
+  //... **get proform projection from projdef**
+  //...
+  //... ### proformer
+  //...
+  //...
+  //... ### ereformion
+  //... ### ereformer
 
   async function muonProfier (__mapper = {}) {
     let [
