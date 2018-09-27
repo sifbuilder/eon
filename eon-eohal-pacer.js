@@ -46,54 +46,39 @@
   async function eohalPacer (__mapper = {}) {
     let [
       ctlRayder,
-      ctlWen,
-      ctlVersor,
-      eohalSol,
       muonEoric,
       muonGeom,
-      muonStace,
       muonProps,
-      muonProfier,
-      muonProj3ct,
       muonGeoj,
     ] = await Promise.all([
       __mapper('xs').c('rayder'),
-      __mapper('xs').c('wen'),
-      __mapper('xs').c('versor'),
-      __mapper('xs').e('sol'),
       __mapper('xs').m('eoric'),
       __mapper('xs').m('geom'),
-      __mapper('xs').m('stace'),
       __mapper('xs').m('props'),
-      __mapper('xs').m('profier'),
-      __mapper('xs').m('proj3ct'),
       __mapper('xs').m('geoj'),
     ])
 
     let muonStore = __mapper('muonStore')
-    let renderSvg = __mapper('renderSvg')
 
     let state = {}
-    
+
     // ............................. pacer
     function eohale (anitem) {
       let newItems = []
 
-    let epsilon = 1e-3
+      let epsilon = 1e-3
 
-    
-    let eohal = anitem.eohal,
+      let eohal = anitem.eohal,
         eoload = anitem.eoload,
         eoric = anitem.eoric,
         eotim = anitem.eotim
 
-      let pacer = eoload.pacer || {}, // pacer
-        mousesignal = pacer.mousesignal || 0, // mousesignal
-        geospan = pacer.geospan || epsilon, // geospan between paceitems
-        geoaad = pacer.geoaad || 0, // geoaad paceitem to previous anitem
-        geosort = pacer.geosort || 'anigram', // paceitem sort
-        geoType = pacer.geotype || 'LineString', //
-        base = pacer.geobase || 'eoform' //
+      let pacer = eoload.pacer || {},
+        geospan = pacer.geospan || epsilon,
+        geoaad = pacer.geoaad || 0,
+        geosort = pacer.geosort || 'anigram',
+        geotype = pacer.geotype || 'LineString',
+        geobase = pacer.geobase || 'eoform'
 
       let uidAnima = muonEoric.getuid(eoric)
       let uidAnigram = muonEoric.getuid(eoric)
@@ -109,29 +94,21 @@
       // anima(pacer)
       // pacer generates animas (geosort:animas) or anigrams (geosort:anigram)
 
-      // the anigram is the trace anigram
 
       let anigram = anitem
-
-      // the parent anima
-
       let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
-
       let preAnima = uidPreitem ? muonStore.findAnimaFromUid(uidPreitem) : null
-
-      //... the anima is the pacer anitem uid
-
       let anima = muonStore.findAnimaFromUid(uidAnima)
-
-      //... h.pacer may be anima or avatar
-      //... if e(anima):pacer, pacerAnima is anima
-      //... if e(anima.avatar):pacer, pacerAnima is parentAnima
 
       let pacerAnima
       if (anima !== undefined) {
+        
         pacerAnima = anima // pacer is anima
+        
       } else {
+        
         pacerAnima = parentAnima // pacer in avatar
+        
       }
 
       //... anima has pacer in eoload or in avatar
@@ -144,9 +121,9 @@
       let grabbed = ctlRayder.grabbed()
 
       //... check distance to previous location
-      let dist = state.grabbed === undefined ?
-        Infinity :
-        muonGeom.distance3d(state.grabbed, grabbed)
+      let dist = state.grabbed === undefined
+        ? Infinity
+        : muonGeom.distance3d(state.grabbed, grabbed)
 
       if (grabbed && dist > geospan) { //
         state.grabbed = grabbed
@@ -158,11 +135,10 @@
 
       if (pacerAnima.eoinited === undefined || pacerAnima.eoinited[uidAnima] === undefined) {
         count.init = Math.floor(pacer.initN) // count INIT
-        
       } else {
-        
+
         // eonited
-        
+
       }
 
       // cycletime since last eoouted item, relevant if auto
@@ -196,16 +172,19 @@
         pacerAnima.eoouted = (pacerAnima.eoouted === undefined)
           ? {[pacerUid]: eotim.unitPassed}
           : Object.assign(pacerAnima.eoouted, {[pacerUid]: eotim.unitPassed})
-
       }
 
-      //... eocount: eg: {init:4, auto:1, event:3}
-      //... eocount.init runs once
-      //... eocount.auto runs on each cycle
-      //... eocount.event runs on mouse event
+      
+      //... eocount
+      //...   eg: {init:4, auto:1, event:3}
+      //...   init runs once
+      //...   auto runs on each cycle
+      //...   event runs on mouse event
 
+      
       if (Object.keys(count).length > 0) { // on pace count, eg {init: 6, auto: 1}
         for (let counter = 0; counter < Object.keys(count).length; counter++) {
+          
           // key is the sort of count { init, auto, event }
 
           let key = Object.keys(count)[counter]
@@ -225,22 +204,29 @@
             }
 
             let newItem
+            
             if (anitem.eoload.pacer.geosort === 'anima') {
+              
               newItem = muonProps.clone(pacerAnima) // anima
+              
             } else {
+              
               newItem = muonProps.clone(anigram) // anigram
+              
             }
 
+            
             //... remove eoload from newItem
 
             delete newItem.eoload
 
-            //... NOT pacer.AAD if not pacer.add, pacer generates anitems
-            //... eofold is Feature
+            
+            //... parentuid is the anima uid
 
-            //... an anima with pacer eohal gets the newItem fulfilled with
-            //... the calls in the pacer
-            //... properties in the anima match with functors in the pacer
+            newItem.eoric.parentuid = uidAnima
+            if (1 && 1) console.log('uidAnima', uidAnima)
+
+            //... override newItem propeties with pacer functors
 
             let ownProps = Object.getOwnPropertyNames(pacer)
             for (let prop of ownProps) {
@@ -249,6 +235,8 @@
                 newItem[prop] = newpropval
               }
             }
+            if (1 && 1) console.log('newItem', newItem)
+
 
             //... anima is stored
 
@@ -261,6 +249,7 @@
               newItemsInCount = muonProps.a(newItemsInCount)
               newItems = [...newItems, ...newItemsInCount] // add items
               muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: newItems})
+              
             } else {
               
               //... eohal.gramm
@@ -300,7 +289,7 @@
     // ....................... enty
     let enty = eohal
     enty.grabbed = _ => _ !== undefined ? state.grabbed = _ : state.grabbed
-    
+
     return enty
   }
 

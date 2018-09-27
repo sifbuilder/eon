@@ -6,26 +6,26 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    eohalScene,
-    ctlWen,
-    muonNatform,
-    muonStace,
     ctlRayder,
-    eohalSol,
+    ctlWen,
+    eohalScene,
     eohalNatform,
+    eohalSol,
     eohalPacer,
     eohalTextform,
+    muonNatform,
+    muonStace,
     prtUniwen,
   ] = await Promise.all([
-    __mapper('xs').e('scene'),
-    __mapper('xs').c('wen'),
-    __mapper('xs').m('natform'),
-    __mapper('xs').m('stace'),
     __mapper('xs').c('rayder'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').e('scene'),
     __mapper('xs').e('natform'),
+    __mapper('xs').e('sol'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('textform'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').m('stace'),
     __mapper('xs').p('uniwen'),
   ])
   let muonStore = __mapper('muonStore')
@@ -35,14 +35,13 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    // ....................... pacerNat
-    let pacerNat = {
+    // ............................. natAni
+    let aniPaced = {
 
       eohal: 'pacer',
-
       eotim: eotim,
-
-      eoric: { gid: 'natpace', cid: 'natpace', fid: 'natpace' },
+      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
+      eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eofold: {
         type: 'Feature',
@@ -52,28 +51,17 @@ async function anitem (__mapper) {
         },
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
-
+      
       eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [0, 0, 0],
+          coordinates: [ 0, 0, 0],
         },
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
 
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          translate: [0, 0, 0],
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
-          anod: 1, // eonode
-        },
-      },
 
-      eocrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
       eoform: {
         'x': {
           'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
@@ -84,24 +72,43 @@ async function anitem (__mapper) {
           'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
       },
+
       eoload: {
+
         pacer: {
 
-          initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
-
-          eohal: 'natform',
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
 
           geosort: 'anigram',
-          geobase: '',
-          geoaad: 0,
+          geobase: 'eoform',
+          geoaad: 1, // geoaad for trace
 
-          eofold: p => muonNatform.natFeature(p.eoform),
-
+          eohal: 'natform',
+          
+          eofold: function (ani, props) {
+            let coords
+            if (props.key === 'init') { // INIT
+              coords = ani.eonode.geometry.coordinates // eonode
+            } else if (props.key === 'auto') { // AUTO
+              coords = ani.eoform // eofold
+            } else if (props.key === 'event') { // EVENT
+              coords = ani.eonode.geometry.coordinates
+            }
+            return {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: coords,
+              },
+              properties: {},
+            }
+          },
+          
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               // stace is ani's transformed eonode
-              // stace = muonStace.getLocus([null, null, null], ani)
+
               stace = [0, 0, 0]
             } else if (props.key === 'auto') { // AUTO
               stace = [0, 0, 0]
@@ -127,6 +134,17 @@ async function anitem (__mapper) {
             return res
           },
 
+          eomot: {
+            proform: {
+              projection: 'uniwen',
+              translate: [ [[[20,200]]], 0, 0],
+              scale: 1,
+              rotate: [0, 0, 0],
+              lens: [0, 1, Infinity],
+            },
+          },          
+          
+          
         },
       },
     }
@@ -146,8 +164,8 @@ async function anitem (__mapper) {
 
     // .................. animas
     let animas = [
-      pacerNat, // h.pacer
-      // sceneAni, // h.scene
+      aniPaced, // h.pacer
+      sceneAni, // h.scene
     ]
 
     return animas
