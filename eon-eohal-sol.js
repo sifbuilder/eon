@@ -12,7 +12,7 @@
   //... **process h.sol animas**
   //... Feature Collect gj. for each feature
   //... eoform, conform, ereform and proform anigrams
-  //... then pass the FeatureCollection to h.petiole
+  //... then pass the FeatureCollection to h.mars
   //... define `eonode` if undefined
 
   async function eohalSol (__mapper = {}) {
@@ -21,13 +21,13 @@
       muonProfier,
       muonProj3ct,
       muonProps,
-      eohalPetiole,
+      eohalMars,
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
       __mapper('xs').m('props'),
-      __mapper('xs').e('petiole'),
+      __mapper('xs').e('mars'),
 
     ])
 
@@ -86,7 +86,7 @@
     // ............................. gramm
     let gramm = anitem => {
       let newItem = eohale(anitem)
-      let newAnitems = eohalPetiole.gramm(newItem)
+      let newAnitems = eohalMars.gramm(newItem)
       return newAnitems
     }
 

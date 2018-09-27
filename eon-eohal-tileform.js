@@ -10,13 +10,13 @@
 
   async function eohalTileform (__mapper = {}) {
     let [
-      eohalPetiole,
+      eohalMars,
       eohalNatform,
       eohalSol,
       muonProps,
       muonGraticule,
     ] = await Promise.all([
-      __mapper('xs').e('petiole'),
+      __mapper('xs').e('mars'),
       __mapper('xs').e('natform'),
       __mapper('xs').e('sol'),
       __mapper('xs').m('props'),

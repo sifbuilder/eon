@@ -1,15 +1,15 @@
 /**********************
- *    @eohalPetiole
+ *    @eohalMars
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.eohalPetiole = global.eohalPetiole || {})))
+      : (factory((global.eohalMars = global.eohalMars || {})))
 }(this, function (exports) {
   'use strict'
 
-  // eon-eohal-petiole
-  // *process h.petiole anigrams**
+  // eon-eohal-mars
+  // *process h.mars anigrams**
 
   // xpects `a.eofold` to be `geojson.FeatureCollection`
   // or the feature collection
@@ -23,7 +23,7 @@
 
   // then pass the collection back to `m.animation` for rendering
 
-  async function eohalPetiole (__mapper = {}) {
+  async function eohalMars (__mapper = {}) {
     let [
       muonEoric,
       muonEocrom,
@@ -90,15 +90,15 @@
       }
     }
 
-    // ............................. eohalPetiole
-    let eohalPetiole = {}
-    eohalPetiole.ween = anima => ween(anima)
-    eohalPetiole.gramm = anima => gramm(anima)
+    // ............................. eohalMars
+    let eohalMars = {}
+    eohalMars.ween = anima => ween(anima)
+    eohalMars.gramm = anima => gramm(anima)
 
     // ............................. enty
-    let enty = eohalPetiole
+    let enty = eohalMars
     return enty
   }
 
-  exports.eohalPetiole = eohalPetiole
+  exports.eohalMars = eohalMars
 }))

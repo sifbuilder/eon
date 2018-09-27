@@ -10,12 +10,12 @@
 
   async function eohalLinkform (__mapper = {}) {
     let [
-      eohalPetiole,
+      eohalMars,
       eohalSol,
       muonEoric,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').e('petiole'),
+      __mapper('xs').e('mars'),
       __mapper('xs').e('sol'),
       __mapper('xs').m('eoric'),
       __mapper('xs').m('props'),
