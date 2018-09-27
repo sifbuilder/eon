@@ -13,12 +13,14 @@ async function anitem (__mapper) {
     eohalNatform,
     eohalScene,
     eohalSol,
+    eohalPacer,
     muonAnimas,
   ] = await Promise.all([
     __mapper('xs').e('imgform'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
     __mapper('xs').e('sol'),
+    __mapper('xs').e('pacer'),
     __mapper('xs').m('animas'),
   ])
 
@@ -38,7 +40,7 @@ async function anitem (__mapper) {
         type: 'Feature',
         geometry: {
           type: 'LineString',
-          coordinates: null,
+          coordinates: [],
         },
         properties: {},
       },
@@ -213,8 +215,8 @@ async function anitem (__mapper) {
 
     // ............................. animas
     let animas = [
-      natAni, // h.natform
       geoLined, // h.pacer
+      natAni, // h.natform
       sceneAni, // h.scene
 
     ]

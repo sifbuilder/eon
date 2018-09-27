@@ -103,24 +103,24 @@ async function anitem (__mapper) {
           },
           
           eonode: function (ani, props) {
-            let stace = [0, 0, 0]
+            let coords = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              // stace is ani's transformed eonode
+              // coords is ani's transformed eonode
 
-              stace = [0, 0, 0]
+              coords = [0, 0, 0]
             } else if (props.key === 'auto') { // AUTO
-              stace = [0, 0, 0]
+              coords = [0, 0, 0]
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
-                stace = {x, y, z }
+                coords = {x, y, z }
               }
             }
 
-            let coordinates = stace
+            let coordinates = coords
             let res = {
               type: 'Feature',
               geometry: {

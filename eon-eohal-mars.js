@@ -8,20 +8,20 @@
 }(this, function (exports) {
   'use strict'
 
-  //... eon-eohal-mars
-  //... *process h.mars anigrams**
-  //...
-  //... xpects `a.eofold` to be `geojson.FeatureCollection`
-  //... or the feature collection
-  //... order the collection on z dax, `muonGeoj.zorder(gjcollection)`
-  //... identify to features on index, `muonEoric.enric(eoric, anigram, gjcollection)`
-  //...
-  //... hen for each feature,
-  //... eocrom, decoding style properties
-  //... set sort. `feature.properties.sort` will determine rendering. default to feature
-  //... inherit avatars
-  //...
-  //... then pass the collection back to `m.animation` for rendering
+  // eon-eohal-mars
+  // *process h.mars anigrams**
+
+  // xpects `a.eofold` to be `geojson.FeatureCollection`
+  // or the feature collection
+  // order the collection on z dax, `muonGeoj.zorder(gjcollection)`
+  // identify to features on index, `muonEoric.enric(eoric, anigram, gjcollection)`
+
+  // hen for each feature,
+  // eocrom, decoding style properties
+  // set sort. `feature.properties.sort` will determine rendering. default to feature
+  // inherit avatars
+
+  // then pass the collection back to `m.animation` for rendering
 
   async function eohalMars (__mapper = {}) {
     let [
@@ -36,54 +36,49 @@
       __mapper('xs').m('props'),
     ])
 
+    const getgj = ani => {
+      let gj = muonProps.v(ani.eofold, ani)
+      gj.properties = gj.properties || {} // eofold properties
+      // gj.properties.geoformed = muonGeoj.deprop(gj)
+      // gj.properties.eonode = gj.properties.eonode || {}
+      // gj.properties.nodeGeoformed = gj.properties.eonode
+      return gj
+    }
+
     // ............................. gramm
     function eohale (anigram) {
-      
-      let eofold = anigram.eofold
-      let gjcollection = muonGeoj.featurecollect(eofold)
+      let gj = getgj(anigram)
+      let gjcollection = muonGeoj.featurecollect(gj)
 
       console.assert(gjcollection.type === 'FeatureCollection')
-      
-      //... z-order features in the gj collection
-      
-      gjcollection = muonGeoj.zorder(gjcollection) 
-      
-      //... eoric collection
-      
-      gjcollection = muonEoric.enric(anigram.eoric, anigram, gjcollection)
+      gjcollection = muonGeoj.zorder(gjcollection) // order features in collection
+      gjcollection = muonEoric.enric(anigram.eoric, anigram, gjcollection) // eoric to feature or collection
 
       let newAnigrams = gjcollection.features.map((feature, i) => {
         feature = muonEocrom.geocromer(anigram, feature)
 
-        //... eotim feature in eofold
-        feature.properties.eotim = anigram.eotim 
-        
-        //... define render sort
-        feature.properties.sort = feature.properties.sort || 'feature'
+        feature.properties.eotim = anigram.eotim // eotim in eofold
+        feature.properties.sort = feature.properties.sort || 'feature' // svg sort
 
         let newAnigram = {
-          eohal: anigram.eohal,
+          eohal: anigram.eohal, // inherit eohal
+          eofold: feature, // inherit eofold
           eonode: anigram.eonode,
-          
-          eofold: feature,
-          eoric: feature.properties.eoric,
-          
-          eoload: {},
-          
-          avatars: anigram.avatars,
+          eoric: feature.properties.eoric, // hoist eoric
+          id: feature.properties.eoric.uid, // hoist uid
+          uid: feature.properties.eoric.uid, // hoist uid
+          eoload: {}, // eoload is lost in m.animation before rendering
+          avatars: anigram.avatars, // inherit avatars
         }
 
-        return newAnigram // per feature
+        return newAnigram
       })
 
-      return newAnigrams // new anigrams are stored by m.animation
+      return newAnigrams //    new anigrams are stored by m.animation
     }
 
-    // ............................. gramm
-    let gramm = anitem => {
-      let newAnitems = eohale(anitem)
-      return newAnitems
-    }
+    // ............................. ween
+    let gramm = anitem => eohale(anitem)
 
     // ............................. ween
     let ween = anitem => {
