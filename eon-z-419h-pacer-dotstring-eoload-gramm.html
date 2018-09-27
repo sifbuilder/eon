@@ -6,26 +6,28 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    ctlRayder,
-    ctlWen,
     eohalScene,
-    eohalNatform,
-    eohalSol,
-    eohalPacer,
-    eohalTextform,
+    ctlWen,
     muonNatform,
     muonStace,
+    muonGeoj,
+    ctlRayder,
+    eohalSol,
+    eohalNatform,
+    eohalPacer,
+    eohalTextform,
     prtUniwen,
   ] = await Promise.all([
-    __mapper('xs').c('rayder'),
-    __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('natform'),
-    __mapper('xs').e('sol'),
-    __mapper('xs').e('pacer'),
-    __mapper('xs').e('textform'),
+    __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('stace'),
+    __mapper('xs').m('geoj'),
+    __mapper('xs').c('rayder'),
+    __mapper('xs').e('sol'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('pacer'),
+    __mapper('xs').e('textform'),
     __mapper('xs').p('uniwen'),
   ])
   let muonStore = __mapper('muonStore')
@@ -33,16 +35,14 @@ async function anitem (__mapper) {
   // .................. animas
   let ani = function () {
     // .................. pics
-    let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 18800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    // ............................. natAni
+    //... geoLined is ani h.pacer
     let geoLined = {
 
       eohal: 'pacer',
-      eotim: eotim,
-      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
-      eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
+    //... eofold is LineString
       eofold: {
         type: 'Feature',
         geometry: {
@@ -52,6 +52,7 @@ async function anitem (__mapper) {
         properties: {},
       },
       
+    //... eonode has the sim properties
       eonode: {
         type: 'Feature',
         geometry: {
@@ -63,21 +64,27 @@ async function anitem (__mapper) {
         },
       },
       
+      //... the eofold changes form with eofom
+      
       eoform: [ [[[0, 120]]], 0, 0],
+      eotim: eotim,
+      eoric: {gid: 'g', cid: 'c', fid: 'f'},
+      eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eoload: {
 
         pacer: {
-
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
+        
+          initN: 0, eventN: 1, autoN: 0, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
 
           geosort: 'anigram',
-          geobase: 'eoform',
+          geobase: '',
           geoaad: 1, // geoaad for trace
 
           eohal: 'sol',
-          
+
           eofold: function (ani, props) {
+            let preani = muonStore.findAnigramFromUid(ani.eoric.uid) // anigram
             let coords
             if (props.key === 'init') { // INIT
             
@@ -85,42 +92,63 @@ async function anitem (__mapper) {
               
             } else if (props.key === 'auto') { // AUTO
             
-              coords = ani.eoform // eofold
-              
+              coords = (preani && preani.eofold.geometry.coordinates)
+                ? [...preani.eofold.geometry.coordinates, ani.eoform ]
+                : Array.of(ani.eoform) // LineString
+                
             } else if (props.key === 'event') { // EVENT
-            
-              coords = ani.eonode.geometry.coordinates
+
+              if (ctlRayder.grabbed() !== undefined) {
+              
+                let grabbed = props.count.grabbed
+                let x = grabbed[0]
+                let y = grabbed[1]
+                let z = 0
+                let point = [ x, y, z ]
+
+                coords = (preani && preani.eofold.geometry.coordinates)
+                  ? [...preani.eofold.geometry.coordinates, point ]
+                  : Array.of( point ) // LineString
+                
+                
+                if (1 && 1) console.log('coords', coords)
+
+              }
+              
               
             }
+
+            let geometry = {
+              type: 'LineString',
+              coordinates: coords,
+            }
+            console.assert(muonGeoj.isValid(geometry))
+
             return {
               type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: coords,
-              },
+              geometry: geometry,
               properties: {},
             }
           },
-          
           eonode: function (ani, props) {
-            let stace = [0, 0, 0]
+            let coords = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              // stace is ani's transformed eonode
+              // coords is ani's transformed eonode
 
-              stace = [0, 0, 0]
+              coords = [0, 0, 0]
             } else if (props.key === 'auto') { // AUTO
-              stace = [0, 0, 0]
+              coords = [0, 0, 0]
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
-                stace = {x, y, z }
+                coords = {x, y, z }
               }
             }
 
-            let coordinates = stace
+            let coordinates = coords
             let res = {
               type: 'Feature',
               geometry: {
