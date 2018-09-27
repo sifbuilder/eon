@@ -14,6 +14,7 @@
   //... tf: t => 1,
   //... tf: t => Math.sin(Math.PI * t / 2)
   //... tf: t => Math.pow(t, 2)
+  //... tf: t => (1 / Math.PI) * (Math.PI / 2 ) + Math.arcsin(t, 2)
 
   async function muonEotim (__mapper = {}) {
     let d3scale = await __mapper('xs').b('d3-scale')

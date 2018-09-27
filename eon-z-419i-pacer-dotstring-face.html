@@ -1,35 +1,43 @@
 <script src="eon-x-eonify.js"></script>
 <script>
-xEonify.eon({anitem, time: undefined})
-
-//... eon z anima
-//... render anima from m.animas
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
   // .................. eons
   let [
-    eohalImgform,
-    eohalNatform,
+    ctlRayder,
+    ctlWen,
     eohalScene,
     eohalSol,
+    eohalNatform,
     eohalPacer,
-    muonAnimas,
+    eohalImgform,
+    muonNatform,
+    muonStace,
+    muonGeoj,
+    prtUniwen,
   ] = await Promise.all([
-    __mapper('xs').e('imgform'),
-    __mapper('xs').e('natform'),
+    __mapper('xs').c('rayder'),
+    __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
     __mapper('xs').e('sol'),
+    __mapper('xs').e('natform'),
     __mapper('xs').e('pacer'),
-    __mapper('xs').m('animas'),
+    __mapper('xs').e('imgform'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').m('stace'),
+    __mapper('xs').m('geoj'),
+    __mapper('xs').p('uniwen'),
   ])
+  
+  let muonStore = __mapper('muonStore')
 
   // .................. animas
   let ani = function () {
-    
     // .................. pics
-    let eotim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
-    
+    let eotim = {'td': 998800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
     //... geoLined is ani h.pacer
     let geoLined = {
 
@@ -40,7 +48,7 @@ async function anitem (__mapper) {
         type: 'Feature',
         geometry: {
           type: 'LineString',
-          coordinates: [],
+          coordinates: null,
         },
         properties: {},
       },
@@ -156,8 +164,8 @@ async function anitem (__mapper) {
         },
       },
     }
-    // ............................. natAni
-    let natAni = {
+    // ............................. imgAni
+    let imgAni = {
       eohal: 'imgform',
       eofold: p => ({
         type: 'Feature',
@@ -199,7 +207,6 @@ async function anitem (__mapper) {
         }
       },
     }
-
     // .................. sceneAni
     let sceneAni = {
 
@@ -208,17 +215,16 @@ async function anitem (__mapper) {
       eotim: eotim,
       eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
       eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
+        context: {svg: 1, versor: 0, wen: 0, webgl: 0, bck: 1, ray: 1},
       },
 
     }
 
-    // ............................. animas
+    // .................. animas
     let animas = [
       geoLined, // h.pacer
-      natAni, // h.natform
       sceneAni, // h.scene
-
+      imgAni, // h.imgform
     ]
 
     return animas

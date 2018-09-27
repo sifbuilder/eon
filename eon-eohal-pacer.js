@@ -235,8 +235,6 @@
                 newItem[prop] = newpropval
               }
             }
-            if (1 && 1) console.log('newItem', newItem)
-
 
             //... anima is stored
 

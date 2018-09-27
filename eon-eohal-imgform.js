@@ -19,9 +19,9 @@
 
     let _eofold = p => ({ // eofold
       type: 'Feature',
-      geometry: { 
-        type: 'Point', 
-        coordinates: [0, 0] 
+      geometry: {
+        type: 'Point',
+        coordinates: [0, 0]
       },
       properties: {
         sort: 'img',
@@ -56,10 +56,10 @@
       }
     }
     // ............................. eohalImgform
-    let eohalImgform = {}    
+    let eohalImgform = {}
     eohalImgform.ween = anima => Array.of(anima)
     eohalImgform.gramm = anima => eohale(anima)
-    
+
     // .................. enty
     let enty = eohalImgform
     return enty
