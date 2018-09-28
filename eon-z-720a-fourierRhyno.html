@@ -29,16 +29,16 @@ async function anitem (__mapper) {
     __mapper('xs').m('stace'),
   ])
 
+  
   // .................. animas
   let ani = function () {
     // .................. pics
     let eotim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    //...   data from m.animas('shapes').rhyno unframed
-    //...   defined as (closed) LineString gemetry.coordinates
-    //...   muonFourier.transformedCoefs(tfeature)
-
+    //...  ## rhyno data from m.animas('shapes').rhyno
     let svgdata = JSON.parse(datRhyno.data())
+    
+    //...  define data as LineString
     let data = {
       type: 'Feature',
       geometry: {
@@ -54,20 +54,33 @@ async function anitem (__mapper) {
       rotate: [ 0, 0 ],
       lens: [0, 1, Infinity],
     }
-
-    let geoData = muonProj3ct(data, muonProfier.uniweon(proform))
-
+    
+    //...  apply uniwen projection with inverse y scale
+    
+    // let geoData = muonProj3ct(data, muonProfier.uniweon(proform))
+    let geoData = muonProj3ct(data, muonProfier.formion(proform, ani))
+ 
+    //...  get transforms from m.fourier applied on data
+    
     let transforms = muonFourier.transformedCoefs(geoData)
+    
+    //...  data to be spanned along [0, 1] interval
+
     transforms = muonGeoj.ntime(transforms, [0, 1])
     let transformsFC = { 
       type: 'FeatureCollection', 
       features: transforms 
     }
 
-    // ............................. aniLine
-    let aniLine = {
+
+    //... rayline LineString
+    
+    let rayline = {
 
       eohal: 'sol',
+      eotim: eotim,
+      eoric: { gid: 'pol', cid: 'pol', fid: 'pol'},
+      
       eofold: {
         type: 'Feature',
         geometry: {
@@ -75,17 +88,19 @@ async function anitem (__mapper) {
           coordinates: []},
         properties: {},
       },
-      eotim: eotim,
-      eoric: { gid: 'pol', cid: 'pol', fid: 'pol'},
+      
       eocrom: { 'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
       eoload: {},
 
     }
 
-    // ............................. traceline
-    let traceline = { // SUB-MARKS line trace
+    //... traceline LineString trace
+    
+    let traceline = {
 
       eohal: 'pacer',
+      eotim: eotim,
+      eoric: {gid: 'ava', cid: 'ava', fid: 'traceline'},
 
       eofold: {
         type: 'Feature',
@@ -95,6 +110,7 @@ async function anitem (__mapper) {
         },
         properties: {},
       },
+      
       eonode: {
         type: 'Feature',
         geometry: {
@@ -104,29 +120,38 @@ async function anitem (__mapper) {
         properties: {},
       },
 
-      eotim,
-      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
       eocrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eoload: {
         pacer: { // geoaad for trace
+         
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0, 
+          
+          geoaad: 1,
+
+          geosort: 'anima',
+          geobase: 'eoform',
+
           eohal: 'sol',
-          geosort: 'anigram',
-          geobase: 'geo',
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0, geoaad: 1,
 
           eofold: function (ani, props) {
-            let preani = muonStore.findAnigramFromUid(ani.eoric.uid) // anigram
+            let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
             let coords
             if (props.key === 'init') { // INIT
+            
               coords = ani.eonode.geometry.coordinates // eonode
+              
             } else if (props.key === 'auto') { // AUTO
+            
               let point = muonStace.getLocus([null, null, null], ani)
               coords = (preani && preani.eofold.geometry.coordinates)
                 ? [...preani.eofold.geometry.coordinates, point ]
                 : Array.of(point)
+                
             } else if (props.key === 'event') { // EVENT
+            
               coords = ani.eonode.geometry.coordinates
+              
             }
 
             console.assert(coords !== undefined && coords !== null)
@@ -142,7 +167,6 @@ async function anitem (__mapper) {
               properties: {},
             }
           },
-
 
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
@@ -177,37 +201,41 @@ async function anitem (__mapper) {
       },
     }
 
-    // .................. fourierForm
-    let fourierForm = {
+    //... fourierAni
+    //...  h.fourier
+    //...  avatars traceline, rayline
+    let fourierAni = {
 
       eohal: 'fourier',
-
-      eofold: p => transformsFC,
-
       eotim: eotim,
       eoric: { gid: 'fourier', cid: 'fourier', fid: 'fourier'},
+
+      eofold: p => transformsFC,
+      
       eocrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.095, 'co': 0.092, 'cp': 0.99},
 
-      eoload: { // eoload in fourierForm
+      eoload: {
         fourier: {
+          
+          geosort: 'anima',
+          
           transforms: transforms,
           interval: [0.0, 0.99],
           tolerance: 0.1, // 0.1
           
           doteocrom: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
 
-          
-          //... h.fourier avatars are defined by name
+          //... fourierAni.eoload.fourier avatars are defined by name: traceline, rayline
           
           avatars: {
+            
             traceline: traceline,
-            rayline: aniLine,
+            // rayline: rayline,
 
           },
         },
       },
     }
-
     // .................. sceneAni
     let sceneAni = {
 
@@ -224,7 +252,7 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      fourierForm, // h.fourier
+      fourierAni, // h.fourier
       sceneAni, // h.scene
     ]
 

@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  //... # eon-eohal-pacer
   //... **create new items at init, on auto or upon event**
   //...
   //... ### functions
@@ -39,9 +38,7 @@
   //...
   //... `@a.p.pacer.fidder`  : new item `fid` identifier
   //... `@a.p.pacer.geojsor(@anigram, @counter)` : gets new item
-  //...
-  //... ## license
-  //... MIT
+
 
   async function eohalPacer (__mapper = {}) {
     let [
@@ -82,7 +79,7 @@
 
       let uidAnima = muonEoric.getuid(eoric)
       let uidAnigram = muonEoric.getuid(eoric)
-      let uidParent = anitem.eoric.parentuid
+      let uidParent = anitem.eoric.pid
 
       let ricPreitem = anitem.eoric
       let uidPreitem = muonEoric.getuid(ricPreitem)
@@ -221,9 +218,9 @@
             delete newItem.eoload
 
             
-            //... parentuid is the anima uid
+            //... pid is the anima uid
 
-            newItem.eoric.parentuid = uidAnima
+            newItem.eoric.pid = uidAnima
             if (1 && 1) console.log('uidAnima', uidAnima)
 
             //... override newItem propeties with pacer functors
@@ -264,18 +261,26 @@
     // ............................. ween
     function ween (anitem) {
       if (anitem.eoload.pacer.geosort === 'anima') {
+        
         return eohale(anitem)
+        
       } else {
+        
         return Array.of(anitem)
+        
       }
     }
 
     // ............................. gramm
     function gramm (anitem) {
       if (anitem.eoload.pacer.geosort === 'anima') {
+        
         return Array.of(anitem)
+        
       } else {
+        
         return eohale(anitem)
+        
       }
     }
 

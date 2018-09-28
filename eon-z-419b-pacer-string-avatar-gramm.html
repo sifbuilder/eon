@@ -37,55 +37,12 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    // ............................. natAni
-    let natLined = {
-
-      eohal: 'sol',
-      
-      eofold: a => ({
-        type: 'Feature',
-        geometry: {
-
-          type: 'LineString', // type: 'Point', //
-          coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
-
-        },
-        properties: {},
-      }),
-
-      eonode: {
-        type: 'Feature',
-        geometry: {type: 'Point', coordinates: [0, 0]},
-        properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
-      },
-
-      eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'natLined'},
-
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          translate: [ [ -170, 80 ], [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2,
-            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          } ]]] ],
-          scale: 1,
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
-
-        },
-      },
-
-      eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]],
-      },
-      eoload: {},
-
-    }
-
-    // ............................. traceLine
-    let traceLine = {
+    // ............................. traceline
+    let traceline = {
 
       eohal: 'pacer',
+      eotim: eotim,
+      eoric: {gid: 'ava', cid: 'ava', fid: 'traceline'},
 
       eofold: {
         type: 'Feature',
@@ -104,12 +61,11 @@ async function anitem (__mapper) {
         properties: {},
       },
 
-      eotim,
-      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
       eocrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eoload: {
         pacer: { // geoaad for trace
+        
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
 
           geoaad: 1,
@@ -186,12 +142,56 @@ async function anitem (__mapper) {
       },
     }
 
-    // ....................... animapi
-    natLined.avatars = {
+    // ............................. natLined
+    let natLined = {
 
-      traceLine, // h.pacer
+      eohal: 'sol',
+      eotim,
+      eoric: {gid: 'nat', cid: 'nat', fid: 'natLined'},
+      
+      eofold: a => ({
+        type: 'Feature',
+        geometry: {
 
+          type: 'LineString', // type: 'Point', //
+          coordinates: [ [0, 0], [50, 50] ], // coordinates: [0,0] //
+
+        },
+        properties: {},
+      }),
+
+      eonode: {
+        type: 'Feature',
+        geometry: {type: 'Point', coordinates: [0, 0]},
+        properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
+      },
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ [ 0, 0 ], [[[ {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2,
+            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          } ]]] ],
+          scale: 1,
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+
+        },
+      },
+
+      eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]],
+      },
+      
+      eoload: {},
+
+      avatars: {
+
+        traceline, // h.pacer
+
+      }
     }
+
 
     // .................. animas
     let animas = [

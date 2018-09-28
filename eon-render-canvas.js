@@ -10,7 +10,7 @@
 
   async function renderCanvas (__mapper = {}) {
     let [
-      renderPortview, // cameraProjer
+      renderPortview, // viewScreenPrt
       d3,
     ] = await Promise.all([
       __mapper('xs').r('portview'),

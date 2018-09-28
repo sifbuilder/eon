@@ -39,7 +39,7 @@
     //... MIT
 
     let [
-      renderPortview, // cameraProjer
+      renderPortview, // viewScreenPrt
       d3,
       puniwen,
       muonProj3ct,
@@ -155,10 +155,10 @@
 
       let svg = _svg()
 
-      let cameraProjer = renderPortview.cameraProjer()
+      let viewScreenPrt = renderPortview.viewScreenPrt()
       let prtdef = renderPortview.prtdef()
       let prt = puniwen(prtdef)
-      cameraProjer = prt
+      viewScreenPrt = prt
 
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
         .key(function (d) { return d.properties.eoric.gid })
@@ -192,7 +192,7 @@
 
                 let item = d
                 let geometry = item.geometry
-                let projgeo = muonProj3ct.project(geometry, cameraProjer)
+                let projgeo = muonProj3ct.project(geometry, viewScreenPrt)
 
                 let translate = projgeo.coordinates
                 let rotate = item.properties.style['rotate']
@@ -231,14 +231,14 @@
             .filter((d, i) => (d.properties.eodelled !== 1)) // not eodelled
 
           if (imgs.length > 0) {
-            svgelems('svg:g.' + gid + '/image.' + cid, imgs, d => d.id)
+            svgelems('svg:g.' + gid + '/image.' + cid, imgs, d => d.eoric.uid)
 
               .data(() => imgs)
 
               .attr('transform', d => { // eg. "translate(21,20) rotate(15)")
                 let item = d
                 let geometry = item.geometry
-                let projgeo = muonProj3ct.project(geometry, cameraProjer)
+                let projgeo = muonProj3ct.project(geometry, viewScreenPrt)
 
                 let translate = projgeo.coordinates
                 let rotate = item.properties.attr.rotate || 0
@@ -280,7 +280,7 @@
                   let item = d
                   let geometry = item.geometry
 
-                  // let projgeo = muonProj3ct.project(geometry, cameraProjer)
+                  // let projgeo = muonProj3ct.project(geometry, viewScreenPrt)
 
                   let geocoords = geometry.coordinates
                   let geooringin = geocoords[0]
@@ -323,7 +323,7 @@
                 console.assert(properties.style !== undefined, `style is undefined in ${d}`)
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
-                let geoPath = d3.geoPath(cameraProjer) // path on view projection
+                let geoPath = d3.geoPath(viewScreenPrt) // path on view projection
                 let path = (pointRadius !== undefined) // geoPath
                   ? geoPath.pointRadius(pointRadius)
                   : geoPath

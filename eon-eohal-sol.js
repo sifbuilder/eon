@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  //... # eon-eohal-natform
   //... **process h.sol animas**
   //... Feature Collect gj. for each feature
   //... eoform, conform, ereform and proform anigrams
@@ -43,11 +42,11 @@
       let eonode = muonProps.v(anitem.eonode, anitem)
 
       if (eonode && anitem.eomot) {
-        for (let [drift, prt] of Object.entries(anitem.eomot)) {
+        for (let [mot, prt] of Object.entries(anitem.eomot)) {
           let properties = eonode.properties || {}
           let node = muonProj3ct(muonGeoj.deprop(eonode), muonProfier.formion(prt, anitem))
           node.properties = properties
-          node.properties[drift] = node
+          node.properties[mot] = node
           newAni.eonode = node
         }
       }
@@ -58,7 +57,7 @@
       let gjcollection = muonGeoj.featurecollect(eofold)
 
       if (eofold && anitem.eomot) {
-        for (let [drift, prt] of Object.entries(anitem.eomot)) {
+        for (let [mot, prt] of Object.entries(anitem.eomot)) {
           gjcollection.features = gjcollection.features.map(
             feature => {
               let properties = feature.properties || {}
@@ -71,7 +70,7 @@
 
               let node = muonProj3ct(gjobj, prtion)
               node.properties = properties
-              node.properties[drift] = node
+              node.properties[mot] = node
 
               return node
             }

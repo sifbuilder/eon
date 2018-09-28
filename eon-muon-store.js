@@ -94,7 +94,7 @@
         sequence(gavatars(item), avatar => {
           avatar.eoric.uid = muonEoric.getuid(avatar)
           avatar.eotim = item.eotim
-          avatar.eoric.parentuid = item.eoric.uid
+          avatar.eoric.pid = item.eoric.uid
           gramm(avatar)
         })
       })
@@ -157,7 +157,7 @@
                 avatars.forEach(avatar => {
                   avatar.eotim = anigram.eotim // eotim from anigram
                   avatar.eoric.uid = muonEoric.getuid(avatar) // uid from avatar
-                  avatar.eoric.parentuid = newItem.eoric.uid // parentuid from newItem
+                  avatar.eoric.pid = newItem.eoric.uid // pid from newItem
 
                   gramm(avatar)
                 })
@@ -179,7 +179,7 @@
         avatars.forEach(avatar => {
           avatar.eotim = anigram.eotim // eotim from anigram
           avatar.eoric.uid = muonEoric.getuid(avatar) // uid from avatar
-          avatar.eoric.parentuid = newItem.eoric.uid // parentuid from newItem
+          avatar.eoric.pid = newItem.eoric.uid // pid from newItem
 
           gramm(avatar)
         })
@@ -195,7 +195,7 @@
     enty.anigrams = () => Object.values(state.anigrams)
     enty.animasAll = () => Object.values(state.animas) // animas including eodelled
     enty.animasLive = () => Object.values(state.animas).filter(d => d.eodelled !== 1)
-    enty.animas = () => Object.values(enty.animasLive)
+    enty.animas = enty.animasLive
 
     enty.animasInGroupHowMany = anima =>
       (anima === undefined)

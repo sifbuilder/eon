@@ -22,9 +22,7 @@
     // eogelded: is eogelded {0,1} - no further replication
     // sort: render sort
 
-    /***************************
- *        @getAnigramRic
- */
+    //... @getAnigramRic
     let getAnigramRic = function getAnigramRic (anigram, idx = 0) {
       // single item in subgroup manged by position
       // 0 gid, cid,  fid
@@ -62,11 +60,10 @@
 
       return eoric
     }
-    /* **************************
- *        @enric
- *        ani.eoric => ani.feature.pros.eoric => feature.id => ani.uid
- */
-
+    
+    //... @enric
+    //... ani.eoric => ani.feature.pros.eoric => feature.id => ani.uid
+    
     let enric = function (eoric = {}, anigram, json) {
       if (json.type === undefined) {
         console.log('type undefined')
@@ -122,44 +119,61 @@
 
       return json
     }
-    /* **************************
- *        @getuid
- *        ani.eoric => ani.feature.pros.eoric => feature.id => ani.uid
- */
-
+    
+    //... @getuid
+    //... ani.eoric => ani.feature.pros.eoric => feature.id => ani.uid
+    
     let getuid = function (params) {
       console.assert(params !== null, 'getuid p null', params)
       console.assert(params !== undefined, 'getuid p undefined', params)
       let uid
       if (typeof (params) === 'object') {
         if (params.fid !== undefined) {
+          
           let eoric = params
-          uid = eoric.gid + '_' + eoric.cid + '_' + eoric.fid
+          uid = enty.uider(eoric.gid, eoric.cid, eoric.fid)
+          
         } else if (params.eoric !== undefined) {
+          
           uid = getuid(params.eoric)
+          
         } else if (params.eoload !== undefined && params.eoric !== undefined) {
+          
           uid = getuid(params.eoric)
+          
         } else if (params.properties !== undefined && params.properties.eoric !== undefined) {
+          
           uid = getuid(params.properties.eoric)
+          
         }
       } else if (Array.isArray(params)) {
-        uid = params[0] + '_' + params[1] + '_' + params[2]
+        
+        uid = enty.uider(params)
+        
       }
 
       return uid
     }
-    // eoric definition
 
+    
+    //... getdefault
     let getdefault = function () {
       let res = { gid: 'g', cid: 'c', fid: 'f' }
 
       return res
     }
+
+    
+    //... uider
+    let uider = (...args) => args.reduce( (p,q) => p ? p + '_' + q : q, null)
+    
     // ............................. enty
     let enty = {}
     enty.getAnigramRic = getAnigramRic // build eoric from anigram, i
     enty.getuid = getuid
     enty.enric = enric
+    enty.uider = uider
+    
     enty.getdefault = getdefault
 
     return enty

@@ -145,13 +145,13 @@ function getReadhtml (inDir, root) {
   return html
 }
 
-//... getMdCore
+//... getMdHead
 //... build the .md text
 //... @name
 //... the md depends if the global package (eons)
 //... or an individual eon is passed
 
-function getMdCore (name) {
+function getMdHead (name) {
   let title, subtitle
   if (name !== undefined) { // eon
     title = `eon ${name}`
@@ -163,21 +163,28 @@ function getMdCore (name) {
 
   let md = `# ${title}
 
-  ## ${subtitle}
+`
 
-  ## a story by
+  return md
+}
 
-    sifbuilder
+//... getMdFooter
+//... build the .md text
+//... @name
+//... the md depends if the global package (eons)
+//... or an individual eon is passed
 
-  based on an original idea by
+function getMdFooter (name) {
+  let title, subtitle
+  if (name !== undefined) { // eon
+    title = `eon ${name}`
+    subtitle = `an imagine of **space-time manifolds**`
+  } else { // eons -
+    title = `eons`
+    subtitle = `imagining **space-time manifolds**`
+  }
 
-  - [x] [Mike Bostock] (https://github.com/d3) and
-  - [x] [Ricardo Cabello] (https://threejs.org/)
-
-  with influences from among others
-
-  - [x] [Vasco Asturiano] (https://bl.ocks.org/vasturiano)
-  - [x] [Philippe Rivière] (https://bl.ocks.org/fil)
+  let md = `
 
   # License
 
@@ -185,7 +192,6 @@ function getMdCore (name) {
 
   return md
 }
-
 //... getMdText
 //... get md text from file
 //... @name file
@@ -260,7 +266,6 @@ let outdir = `${dirname}/../${outdirname}/` // eg. eons/../eons_dist
 fs.existsSync(outdir) || fs.mkdirSync(outdir); console.log('create dist folder ', outdir) // CREATE
 
 // promise
-
 let mdee = function () {
   let promises = infiles.map(fileName => {
     Promise.resolve(fileName)
@@ -289,7 +294,8 @@ let mdee = function () {
           //... mddoc: md documentation in file
           //... mdtext: eons shared md text
 
-          let mdtext = getMdCore(fullName) // place README
+          let mdHead = getMdHead(fullName)
+          let mdFooter = getMdFooter(fullName)
           let mdfilename = rootname + '.md'
           let outfile = 'README.md'
           let fromfile = `${indir}${mdfilename}`
@@ -299,7 +305,7 @@ let mdee = function () {
 
           let mddoc = getMdText(eonfile)
 
-          let outtext = `${mddoc} ${newLine} ${newLine} ${mdtext}`
+          let outtext = ` ${mdHead} ${newLine} ${mddoc} ${newLine} ${newLine} ${mdFooter}`
 
           if (fs.existsSync(tofile)) {
             fs.unlinkSync(tofile, (err) => {

@@ -17,7 +17,7 @@
 
     let d3selection = d3
 
-    let cameraProjer // projection camera
+    let viewScreenPrt // projection camera
 
     function prevent (e) {}
 
@@ -97,7 +97,7 @@
         // origin = d3.mouse(parent),
         // var action = {ox: origin[0], oy: origin[1]}
 
-        t = cameraProjer.invert(d3selection.mouse(parent))
+        t = viewScreenPrt.invert(d3selection.mouse(parent))
       var action = {ox: t[0], oy: t[1]}
 
       createPostipElem()

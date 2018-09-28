@@ -50,12 +50,12 @@
 
     state.grabbed = false
 
-    let cameraProjer = renderPortview.cameraProjer()
+    let viewScreenPrt = renderPortview.viewScreenPrt()
 
     // ............................. projector
     function projector (event) {
       if (event.type === 'mousemove') {
-        let t = cameraProjer.invert([event.x, event.y])
+        let t = viewScreenPrt.invert([event.x, event.y])
 
         state.mouse.x = t[0]
         state.mouse.y = t[1]
@@ -65,7 +65,7 @@
       } else if (event.type === 'touchmove') {
         let touch = event.changedTouches[0]
 
-        let t = cameraProjer.invert([touch.clientX, touch.clientY])
+        let t = viewScreenPrt.invert([touch.clientX, touch.clientY])
 
         state.mouse.x = t[0]
         state.mouse.y = t[1]

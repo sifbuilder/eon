@@ -39,7 +39,7 @@
       let eoload = anitem.eoload, // eoload
         eofold = eofold, // eofold
         eoric = eoric, // eoric
-        parentuid = parentuid // parentuid
+        pid = pid // pid
 
       let fuel = eoload.fuel,
         ra2 = fuel.ra2,
@@ -47,7 +47,7 @@
         sample = fuel.sample
 
       let polygon
-      let parentAnigram = muonStore.findAnigramFromUid(parentuid)
+      let parentAnigram = muonStore.findAnigramFromUid(pid)
 
       if (parentAnigram) {
         let geometry = parentAnigram.eofold.geometry

@@ -65,7 +65,7 @@
           eofold: feature, // inherit eofold
           eonode: anigram.eonode,
           eoric: feature.properties.eoric, // hoist eoric
-          id: feature.properties.eoric.uid, // hoist uid
+          // id: feature.properties.eoric.uid, // hoist uid
           uid: feature.properties.eoric.uid, // hoist uid
           eoload: {}, // eoload is lost in m.animation before rendering
           avatars: anigram.avatars, // inherit avatars

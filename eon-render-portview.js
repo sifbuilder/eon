@@ -25,16 +25,16 @@
       lens: [0, 1, Infinity],
     }
 
-    // ............................. cameraProjer
-    const cameraProjer = function (p = prtdef) {
+    // ............................. viewScreenPrt
+    const viewScreenPrt = function (p = prtdef) {
       let prt = __mapper('prtUniwen')
       return prt(p)
     }
 
     // ............................. xydirs
     const xydirs = function () {
-      let orig = enty.cameraProjer().invert([0, 0])
-      let xyvector = enty.cameraProjer().invert([1, 1])
+      let orig = enty.viewScreenPrt().invert([0, 0])
+      let xyvector = enty.viewScreenPrt().invert([1, 1])
 
       let dirs = []
       dirs[0] = Math.sign(xyvector[0] - orig[0])
@@ -46,7 +46,7 @@
     // ............................. getPos
     const getPos = function (signal) {
       let pos
-      let projer = enty.cameraProjer()
+      let projer = enty.viewScreenPrt()
 
       if (Array.isArray(signal)) { // coordinates
         pos = [signal[0], signal[1]]
@@ -78,7 +78,7 @@
     enty.scaleView = () => scaleView
 
     enty.xydirs = xydirs
-    enty.cameraProjer = cameraProjer
+    enty.viewScreenPrt = viewScreenPrt
     enty.getPos = getPos
     enty.prtdef = () => prtdef
     return enty

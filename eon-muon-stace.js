@@ -115,12 +115,12 @@
         locations = muonProps.interadd(stace)
 
       // else, eg. if stace undefined, get stace from parent
-      } else if (anitem.eoric.parentuid !== undefined) {
+      } else if (anitem.eoric.pid !== undefined) {
         
-        let parentuid = anitem.eoric.parentuid
-        console.assert(parentuid, ` * error: muonStace.getTranspots:parentuid ${parentuid} in eoload ${eoload}`)
-        let parentani = muonStore.findAnigramFromUid(parentuid)
-        console.assert(parentani !== undefined, ` * error: muonStace.getTranspots:parentani of ${parentuid}: ${parentani}`)
+        let pid = anitem.eoric.pid
+        console.assert(pid, ` * error: muonStace.getTranspots:pid ${pid} in eoload ${eoload}`)
+        let parentani = muonStore.findAnigramFromUid(pid)
+        console.assert(parentani !== undefined, ` * error: muonStace.getTranspots:parentani of ${pid}: ${parentani}`)
 
         let eofold = parentani.eofold
         let eonode = parentani.eonode
