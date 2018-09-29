@@ -23,11 +23,34 @@
       __mapper('xs').e('mars'),
     ])
 
+    // ....................... eohale    
+    let eohale = function (anitem) {  
+    
+      return anitem
+    
+    }
+    
     // ....................... ween
-    let ween = anitem => Array.of(anitem)
+    let ween = anitem => {
+      
+      let newItem = eohale(anitem)
+      
+      let newItems = muonProps.a(newItem)
+      
+      return newItems
+      
+    }
 
     // ....................... gramm
-    let gramm = anitem => Array.of(anitem)
+    let gramm = anitem => {
+      
+      let newItem = eohale(anitem)
+      
+      let newItems = muonProps.a(newItem)
+      
+      return newItems
+      
+    }
 
     let eohalCore = {
       ween: anitem => ween(anitem),

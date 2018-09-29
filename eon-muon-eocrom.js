@@ -82,7 +82,6 @@
             eocrom = feature.properties.eocrom
           } else if (anigram.eocrom) {
             eocrom = anigram.eocrom
-          } else {
           }
 
           let jsonStyle = getStyle(eocrom)
@@ -93,7 +92,8 @@
 
           if (feature.properties === undefined) feature.properties = {}
           feature.properties.style = Object.assign(jsonStyle, featureStyle)
-        } else if (json.type === 'FeatureCollection') { // FeatureCollection
+          
+        } else if (json.type === 'FeatureCollection') {
           for (let i = 0; i < json.features.length; i++) {
             let feature = json.features[i]
             feature = geocromer(anigram, feature)

@@ -8,12 +8,12 @@
 }(this, function (exports) {
   'use strict'
 
-  //... # eon-muon-profier
-  //... build geo projections
+  //... **build geo projections**
   //...
   //... ## functions
   //... * ### getPrt
-  //...
+  //...  
+  //...  
   //... ## methods
   //... * ### formion
   //... `formion (projdef, anigram)`
@@ -25,7 +25,7 @@
   //... * if a position, `object` translate to position
   //... * if other `object`, process as `stace.spot`
   //...
-  //... if `@projdef.anod == 1` add `eofold.properties.eonode.geometry.coordinates` to translate
+  //... **geoanod**: if `@projdef.geoanod : 1` add `eonode.geometry.coordinates` to prt.translate
   //...
   //... if `@projdef.rotate != undefined`
   //... * if is pure array, apply rotation
@@ -37,31 +37,10 @@
   //... if `@projdef.control:wen` apply wen control rotation
   //... if `@projdef.control:versor` apply versor control rotation
   //...
-  //... ### projer_
+  //... * ### projer_
   //... use: `muonProfier.projer_(prodef, anigram)(gj)
   //... *get formion projector on gj*
-  //...
-  //... ### conformer_
-  //... use: `muonProfier.conformer_ (anigram)`
-  //... **get formion projector**
-  //... assumes `projection != undefined`
-  //... ```
-  //... projection: {
-  //... projection: 'natform',
-  //... form: anigram.eoload.conform
-  //... }
-  //... ```
-  //...
-  //... ### proformion
-  //... call `muonProfier.proformion (anigram)`
-  //... calls `formion(anigram.eoload.proform, anigram)`
-  //... **get proform projection from projdef**
-  //...
-  //... ### proformer
-  //...
-  //...
-  //... ### ereformion
-  //... ### ereformer
+
 
   async function muonProfier (__mapper = {}) {
     let [
@@ -121,6 +100,7 @@
 
     // ............................. formion
     function formion (projdef, anigram = {}) {
+          if (1 && 1) console.log(' ***************************  ', anigram.eoric.uid)      
       let projection
       let projname
 
@@ -151,7 +131,9 @@
           translation = muonStace.getTranspot(projdef.translate, anigram) // get transpot - anigram
         }
 
-        if (projdef.anod && eonode) {
+        if (projdef.geoanod && eonode) {
+
+
           if (eonode.geometry && eonode.geometry.coordinates !== undefined) {
             let nodetranslate = eonode.geometry.coordinates // eonode coords
             translation = muonGeom.add(translation, nodetranslate)
@@ -226,7 +208,6 @@
     let enty = function () {}
     enty.formion = formion
     enty.projer_ = projer_
-
     enty.uniweon = uniweon
 
     return enty

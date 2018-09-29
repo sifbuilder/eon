@@ -402,14 +402,10 @@
 
     // ...................... zorder
     let zorder = function (gj) {
-      if (2 && 2 && !isValid(gj)) { console.log('** m.geoj.zorder:gj not valid', gj) }
+      console.assert(isValid(gj), `m.geoj.zorder:gj not valid  ${gj}`)
+      console.assert(gj.type === 'FeatureCollection', `gj is not FeatureCollection`)
 
-      let features = []
-      if (gj.type === 'FeatureCollection') features = gj.features
-      else {
-        if (2 && 2) console.log('** gj is not FeatureCollection')
-        return gj
-      }
+      let features = gj.features
       let zordered = features
         .map(d => {
           d.properties = d.properties || {}

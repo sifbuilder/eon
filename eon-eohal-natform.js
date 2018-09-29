@@ -8,35 +8,33 @@
 }(this, function (exports) {
   'use strict'
 
-//... # eon-eohal-natform 
 //... **expose natform** 
-//... h.sol with  anima.eofold : `muonNatform.natFeature(p.eoload.form)` 
-//... 
-//... # license 
-//... MIT 
-  
-  
+//... transparent to animas, parses anigrams
+//... get natFeature geojson and uniwen project by nat [tx, ty, tz]  
+//... complete eocrom definition  
+
+
   async function eohalNatform (__mapper = {}) {
     let [
-      muonNatform,
       eohalSol,
+      muonNatform,
       muonEocrom,
-      muonEotim,
-      muonEoric,
       muonEonode,
+      muonEoric,
+      muonEotim,
       muonProfier,
-      prtUniwen,
       muonProj3ct,      
+      prtUniwen,
     ] = await Promise.all([
-      __mapper('xs').m('natform'),
       __mapper('xs').e('sol'),
+      __mapper('xs').m('natform'),
       __mapper('xs').m('eocrom'),
-      __mapper('xs').m('eotim'),
-      __mapper('xs').m('eoric'),
       __mapper('xs').m('eonode'),
+      __mapper('xs').m('eoric'),
+      __mapper('xs').m('eotim'),
       __mapper('xs').m('profier'),
-      __mapper('xs').p('uniwen'),
       __mapper('xs').m('proj3ct'),      
+      __mapper('xs').p('uniwen'),
     ])
 
     
@@ -80,10 +78,8 @@
       if (eoform === undefined) {
         res = ref
       } else {
-        
         let { ...ref } = eoform
         res = ref
-        
       }
       return res
     }    
@@ -128,6 +124,7 @@
       }
 
       anitem.eofold = muonNatform.natFeature(anitem.eoform)
+      
       anitem.eofold = muonProj3ct(anitem.eofold, muonProfier.formion(prt, anitem))
    
       if (anitem.eocrom === undefined) anitem.eocrom = geteocrom(anitem.eoform) 
@@ -138,13 +135,7 @@
 
     // .................... ween
     let ween = anitem => {
-      if (anitem.eoinited !== 1) {
-        anitem.eoinited = 1
-        anitem.eogelded = 1
-        return Array.of(anitem)
-      } else {
-        return []
-      }
+        return anitem
     }
 
     // .................... eohal

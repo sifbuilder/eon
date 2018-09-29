@@ -9,24 +9,24 @@
   'use strict'
 
   //... **process h.sol animas**
-  //... Feature Collect gj. for each feature
+  //... transparent to animas, applies to anigrams
   //... eoform, conform, ereform and proform anigrams
-  //... then pass the FeatureCollection to h.mars
-  //... define `eonode` if undefined
+  //... parse result through h.mars.gramm
+
 
   async function eohalSol (__mapper = {}) {
     let [
+      eohalMars,
       muonGeoj,
       muonProfier,
       muonProj3ct,
       muonProps,
-      eohalMars,
     ] = await Promise.all([
+      __mapper('xs').e('mars'),
       __mapper('xs').m('geoj'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
       __mapper('xs').m('props'),
-      __mapper('xs').e('mars'),
 
     ])
 
@@ -44,9 +44,18 @@
       if (eonode && anitem.eomot) {
         for (let [mot, prt] of Object.entries(anitem.eomot)) {
           let properties = eonode.properties || {}
-          let node = muonProj3ct(muonGeoj.deprop(eonode), muonProfier.formion(prt, anitem))
+
+          let prtion = muonProfier.formion(prt, anitem)
+          let gjobj = muonGeoj.deprop(eonode)
+
+          if (gjobj.geometry !== null) {
+            console.assert(gjobj.geometry.coordinates !== null)
+          }
+
+          let node = muonProj3ct(gjobj, prtion)
           node.properties = properties
           node.properties[mot] = node
+          
           newAni.eonode = node
         }
       }
@@ -61,6 +70,7 @@
           gjcollection.features = gjcollection.features.map(
             feature => {
               let properties = feature.properties || {}
+
               let prtion = muonProfier.formion(prt, anitem)
               let gjobj = muonGeoj.deprop(feature)
 
@@ -82,21 +92,28 @@
       return newAni
     }
 
-    // ............................. gramm
-    let gramm = anitem => {
-      let newItem = eohale(anitem)
-      let newAnitems = eohalMars.gramm(newItem)
-      return newAnitems
-    }
-
     // ............................. ween
     let ween = anitem => {
-      if (!anitem.eogelded) {
-        return muonProps.v(anitem)
-      } else {
-        return []
-      }
+
+      let newitems = []
+
+      newitems = muonProps.v(anitem)
+
+      return newitems
+
     }
+
+    // ............................. gramm
+    let gramm = anitem => {
+
+      let newItem = eohale(anitem)
+
+      let newAnitems = eohalMars.gramm(newItem)
+
+      return newAnitems
+
+    }
+
 
     // ............................. eohal
     let eohalSol = {}

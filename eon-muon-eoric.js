@@ -22,7 +22,7 @@
     // eogelded: is eogelded {0,1} - no further replication
     // sort: render sort
 
-    //... @getAnigramRic
+    // ... @getAnigramRic
     let getAnigramRic = function getAnigramRic (anigram, idx = 0) {
       // single item in subgroup manged by position
       // 0 gid, cid,  fid
@@ -60,16 +60,17 @@
 
       return eoric
     }
-    
-    //... @enric
-    //... ani.eoric => ani.feature.pros.eoric => feature.id => ani.uid
-    
+
+    // ... @enric
+    // ... ani.eoric => ani.feature.pros.eoric => feature.id => ani.uid
+
     let enric = function (eoric = {}, anigram, json) {
-      if (json.type === undefined) {
-        console.log('type undefined')
-      } else if (typeof eoric !== 'object') {
-        console.log('eoric is not an object')
-      } else if (json.type === 'Feature') {
+
+      console.assert(typeof eoric === 'object', `eoric is not an object`)
+      console.assert(json.type !== undefined, `type undefined`)
+      console.assert(json.type === 'FeatureCollection' || json.type === 'Feature', `type non sopported`)
+
+      if (json.type === 'Feature') {
         let _ric = JSON.parse(JSON.stringify(eoric))
         _ric.gid = eoric.gid // eoric from param eoric
         _ric.cid = eoric.cid
@@ -78,6 +79,7 @@
         let feature = json
         let properties = feature.properties || {}
 
+        // set fid
         if (eoric.fid === undefined) _ric.fid = eoric.cid // inherit cid
         else if (typeof eoric.fid === 'function') _ric.fid = eoric.fid(eoric, anigram)
         else _ric.fid = eoric.fid
@@ -88,11 +90,12 @@
         }
         properties.eoric.uid = getuid(properties.eoric)
 
-        // feature.id = properties.uid
         feature.properties = properties
 
         json = feature
+
       } else if (json.type === 'FeatureCollection') {
+
         let features = json.features // feature in FeatureCollection
         for (let i = 0; i < features.length; i++) {
           let feature = features[i] // this feature
@@ -103,8 +106,6 @@
           _ric.fid = eoric.fid
           _ric.nid = i
 
-          // feature.properties.uid = getuid(feature.properties.eoric)
-
           if (eoric.fid === undefined) _ric.fid = eoric.cid + (i || '')
           else if (typeof eoric.fid === 'function') _ric.fid = eoric.fid(i, eoric, anigram)
           else _ric.fid = eoric.fid + (i || '')
@@ -113,67 +114,53 @@
           feature.properties.eoric.uid = getuid(_ric)
         }
         json.features = features
-      } else {
-        console.log('m.eocrom.geocromer nothing done')
       }
 
       return json
     }
-    
-    //... @getuid
-    //... ani.eoric => ani.feature.pros.eoric => feature.id => ani.uid
-    
+
+    // ... @getuid
+    // ... ani.eoric => ani.feature.pros.eoric => feature.id => ani.uid
+
     let getuid = function (params) {
       console.assert(params !== null, 'getuid p null', params)
       console.assert(params !== undefined, 'getuid p undefined', params)
       let uid
       if (typeof (params) === 'object') {
         if (params.fid !== undefined) {
-          
           let eoric = params
           uid = enty.uider(eoric.gid, eoric.cid, eoric.fid)
-          
         } else if (params.eoric !== undefined) {
-          
           uid = getuid(params.eoric)
-          
         } else if (params.eoload !== undefined && params.eoric !== undefined) {
-          
           uid = getuid(params.eoric)
-          
         } else if (params.properties !== undefined && params.properties.eoric !== undefined) {
-          
           uid = getuid(params.properties.eoric)
-          
         }
       } else if (Array.isArray(params)) {
-        
         uid = enty.uider(params)
-        
       }
 
       return uid
     }
 
-    
-    //... getdefault
+    // ... getdefault
     let getdefault = function () {
       let res = { gid: 'g', cid: 'c', fid: 'f' }
 
       return res
     }
 
-    
-    //... uider
-    let uider = (...args) => args.reduce( (p,q) => p ? p + '_' + q : q, null)
-    
+    // ... uider
+    let uider = (...args) => args.reduce((p, q) => p ? p + '_' + q : q, null)
+
     // ............................. enty
     let enty = {}
     enty.getAnigramRic = getAnigramRic // build eoric from anigram, i
     enty.getuid = getuid
     enty.enric = enric
     enty.uider = uider
-    
+
     enty.getdefault = getdefault
 
     return enty

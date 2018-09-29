@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  //... # eon-eohal-textform
   //... process text anitems
   //... ## functions
   //... * [_geofold](#_geofold) - uploads eoload text form to eofold properties
@@ -66,22 +65,30 @@
     }
 
     // .................. gramm
-    function gramm (anigram, newAnigrams = []) {
-      let newitem = muonProps.clone(anigram)
+    function gramm (anitem) {
+      let newitem = muonProps.clone(anitem)
 
-      newitem.eofold = _geofold(anigram)
-      newitem.eonode = _geofold(anigram)
+      newitem.eofold = _geofold(anitem)
+      newitem.eonode = _geofold(anitem)
 
       return eohalSol.gramm(newitem)
     }
 
     // .................. ween
-    let ween = anima => (anima.eoinited !== 1) ? (anima.eoinited = anima.eogelded = 1, [anima]) : []
+    let ween = anitem => {
+      let newitems = []
+      if (anitem.eoinited !== 1) {
+        anitem.eoinited = 1
+        anitem.eogelded = 1
+        newitems = Array.of(anitem)
+      }
+      return newitems
+    }
 
     // .................. eohal
     let eohal = {
-      ween: anima => ween(anima),
-      gramm: anima => gramm(anima),
+      ween: anitem => ween(anitem),
+      gramm: anitem => gramm(anitem),
     }
 
     // .................. enty

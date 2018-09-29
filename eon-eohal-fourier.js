@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  // ... ## h.fourier
+
   // ... h.fourier anigrams per frequency cycloid
   // ... cycloids in eoload.fourier.transforms resulting from m.fourier.complexify
   // ... anigrams turned to h.sol

@@ -81,7 +81,8 @@
 
     // ..................... isValidStace
     let getTranspots = function (stace, anitem) {
-      let muonStore = __mapper('muonStore') // sync
+      
+      let muonStore = __mapper('muonStore') // call in function to get current state
 
       let eoload = anitem.eoload
       console.assert(eoload !== undefined, anitem, ' eoload undefined')
@@ -122,8 +123,6 @@
         let parentani = muonStore.findAnigramFromUid(pid)
         console.assert(parentani !== undefined, ` * error: muonStace.getTranspots:parentani of ${pid}: ${parentani}`)
 
-        let eofold = parentani.eofold
-        let eonode = parentani.eonode
         let locationsPerDax = []
 
         // identify positions per stace dax
@@ -145,11 +144,11 @@
             if (v1.hasOwnProperty('mod')) { // eoform, conform, ereform, proform`
               // eofold transfomed are in the eofold.properties
 
-              coords = muonGeoj.getCoords(eofold.properties[v1.mod].geometry)
+              coords = muonGeoj.getCoords(parentani.eofold.properties[v1.mod].geometry)
             } else {
               // if no mod, positions are the goefold geometry, after transforms
 
-              coords = muonGeoj.getCoords(eofold.geometry)
+              coords = muonGeoj.getCoords(parentani.eofold.geometry)
             }
 
             // move idx to the coords domain
@@ -166,14 +165,16 @@
 
             if (v1.hasOwnProperty('mod')) { // eoform, conform, ereform, proform`
               // get the mod on the eonode properties
-              console.assert(eonode.properties[v1.mod].geometry !== undefined)
-              coords = eonode.properties[v1.mod].geometry.coordinates
+              console.assert(parentani.eonode.properties[v1.mod].geometry !== undefined)
+              coords = parentani.eonode.properties[v1.mod].geometry.coordinates
             } else {
-              if (eonode) {
-                // get the eonode coordinates
+              if (parentani.eonode) {
+                // get the parentani.eonode coordinates
 
-                console.assert(eonode.geometry !== undefined, `${eonode} geometry undefined`)
-                coords = eonode.geometry.coordinates
+                console.assert(parentani.eonode.geometry !== undefined, `${parentani.eonode} geometry undefined`)
+                coords = parentani.eonode.geometry.coordinates
+if (1 && 1) console.log('stace parentani', parentani.eoric.uid, parentani.eonode.geometry.coordinates)
+if (1 && 1) console.log('stace anitem', anitem.eoric.uid, coords)
               } else {
                 // assume stace is location
 
@@ -302,11 +303,17 @@
       let spots = getTranspots(stace, anitem) // anitem  stace x || x.pos || x.ref
 
       if (situs && spots && spots.length > 0) { // if situs and spots
+      
         locations = spots.map(spot => spot.map((d, i) => d + situs[i])) // transpose spots by situs
+        
       } else if (situs) { // if situs
+      
         locations = Array.of(situs) // siti
+        
       } else if (spots && spots.length > 0) { // if spots
+      
         locations = spots // locations
+        
       }
 
       return locations
