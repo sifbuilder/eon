@@ -501,7 +501,7 @@
     let getCoordsLength = gj => getCoords(gj).length
 
     // ...................... getCoordsInRange
-    //  nb: numver of coords, firstCoord: start coord
+    //  nb: number of coords, firstCoord: start coord
     let getCoordsInRange = function (gj, toaddCoords, firstCoord = 0, ngj = {type: null, coordinates: [] }) {
       let pointerInCoords = 0 // pointer to current coord at beginning of line
       let addedCoords = 0 // added coords
@@ -534,13 +534,13 @@
           let line = lines[i]
           let linelength = line.length // number of coords in line
 
-          // toaddCoords: coords to add
-          // firstCoord: first coord to start adding in gj coords system
-          // remainingCoords: coords to be added when processing line i
-          // firstCoordInLine: first coordinate of line i in abs gj coords system
-          // addedCoords: number of coords added before line i
-          // tmpstart: first coord in line coords system
-          // tmpend: last coord in line coords system
+          //md: toaddCoords: coords to add
+          //md: firstCoord: first coord to start adding in gj coords system
+          //md: remainingCoords: coords to be added when processing line i
+          //md: firstCoordInLine: first coordinate of line i in abs gj coords system
+          //md: addedCoords: number of coords added before line i
+          //md: tmpstart: first coord in line coords system
+          //md: tmpend: last coord in line coords system
 
           let remainingCoords = toaddCoords - addedCoords
           let tmpstart = (firstCoord + addedCoords) - firstCoordInLine
@@ -736,6 +736,30 @@
       return ret
     }
 
+    let extrapol = function (gj1, gj2) {
+      
+      console.assert(isValid(gj1))
+      // isFeature, isLineString
+      console.assert(isValid(gj2))
+      // isFeature, isPoint
+      
+      let linedots = gj1.geometry.coordinates
+      let delta = gj2.geometry.coordinates
+      let linecoords = linedots.map(
+          p => p.map( (d,i) => d + delta[i]))
+      
+      let eofold = {
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: linecoords,
+        },              
+      }
+      
+      return eofold
+      
+    }
+    
     // ............................. enty
     let enty = function () {}
 
@@ -758,6 +782,7 @@
     enty.getCoordsInRange = getCoordsInRange
     enty.isValid = isValid
     enty.gjAppend = gjAppend
+    enty.extrapol = extrapol
 
     return enty
   }

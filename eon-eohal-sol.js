@@ -35,12 +35,19 @@
       console.assert(typeof anitem === 'object')
       console.assert(Array.isArray(anitem) === false)
 
-      let newAni = muonProps.clone(anitem)
 
-      // aninode
+      let newAni = muonProps.clone(anitem)  // newAni
 
-      let eonode = muonProps.v(anitem.eonode, anitem)
+      
+      
+if (1 && 1) console.log(`${anitem.eoric.uid} eonode ${anitem.eonode.geometry.coordinates}`)
+  
+if (anitem.eoric.uid === 'nat_nat_tracenat') {
+if (1 && 1) console.log(`${newAni.eoric.uid} eonode ${newAni.eonode.geometry.coordinates}`)
 
+}
+
+      let eonode = muonProps.v(anitem.eonode, anitem) // newAni.eonode
       if (eonode && anitem.eomot) {
         for (let [mot, prt] of Object.entries(anitem.eomot)) {
           let properties = eonode.properties || {}
@@ -54,15 +61,16 @@
 
           let node = muonProj3ct(gjobj, prtion)
           node.properties = properties
-          node.properties[mot] = node
-          
+          node.properties[mot] = muonGeoj.deprop(node) // save [prt] pure node
+
           newAni.eonode = node
         }
       }
 
-      // anifold
+if (1 && 1) console.log(`${newAni.eoric.uid} eonode ${newAni.eonode.geometry.coordinates}`)
 
-      let eofold = muonProps.v(anitem.eofold, anitem)
+
+      let eofold = muonProps.v(anitem.eofold, anitem) // newAni.eofold
       let gjcollection = muonGeoj.featurecollect(eofold)
 
       if (eofold && anitem.eomot) {
@@ -87,8 +95,13 @@
           )
         }
       }
-
       newAni.eofold = gjcollection
+
+if (1 && 1) console.log(`${newAni.eoric.uid} eonode ${newAni.eonode.geometry.coordinates}`)
+
+
+
+
       return newAni
     }
 

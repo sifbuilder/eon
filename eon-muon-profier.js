@@ -100,7 +100,6 @@
 
     // ............................. formion
     function formion (projdef, anigram = {}) {
-          if (1 && 1) console.log(' ***************************  ', anigram.eoric.uid)      
       let projection
       let projname
 

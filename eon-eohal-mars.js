@@ -42,15 +42,21 @@
 
     // ............................. eohale
     function eohale (anitem) {
+      let newAnigrams = []
 
       let eofold = muonProps.v(anitem.eofold, anitem)
       let gjcollection = muonGeoj.featurecollect(eofold)
 
       console.assert(gjcollection.type === 'FeatureCollection')
+      
       gjcollection = muonGeoj.zorder(gjcollection)
+      
       gjcollection = muonEoric.enric(anitem.eoric, anitem, gjcollection)
 
-      let newAnigrams = gjcollection.features.map((feature, i) => {
+      for (let i=0; i< gjcollection.features.length; i++) {
+        
+        let feature = gjcollection.features[i]
+        
         feature = muonEocrom.geocromer(anitem, feature)
 
         feature.properties.eotim = anitem.eotim
@@ -65,8 +71,9 @@
           avatars: anitem.avatars,
         }
 
-        return newAnigram
-      })
+        newAnigrams.push(newAnigram)
+        
+      }
 
       return newAnigrams
     }

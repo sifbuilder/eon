@@ -123,7 +123,7 @@
 
           if (anima !== undefined) {
 
-            pacedAnitem = anima // pacer is anima
+            pacedAnitem = anima // anima is pacer
 
           } else {
 
@@ -132,7 +132,11 @@
           }
       } else {
         
-            pacedAnitem = anigram // pacer is anigram
+if (1 && 1) console.log(` pacedAnitem -------------- `)
+            
+        
+            pacedAnitem = anigram // anigram is pacer
+
             
       }
       
@@ -221,6 +225,7 @@
             //...     if anigrams , newitem is anigram
             //... remove eoload from newItem
             //... pid is the anima uid
+            //...
             //... then override newItem propeties with pacer functors
 
             let newItem
@@ -233,6 +238,8 @@
               newItem = muonProps.clone(anigram) // anigram
 
             }
+if (1 && 1) console.log(`${newItem.eoric.uid} ${newItem}`)
+            
             delete newItem.eoload
             newItem.eoric.pid = uidAnima
             let ownProps = Object.getOwnPropertyNames(pacer)
