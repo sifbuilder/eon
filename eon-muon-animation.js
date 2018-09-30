@@ -16,6 +16,7 @@
   async function muonAnimation (__mapper) {
     let [
       ctlTimer,
+      muonAnitem,      
       muonEotim,
       muonSim,
       muonStore,
@@ -25,6 +26,7 @@
       // renderCanvas,
     ] = await Promise.all([
       __mapper('xs').c('timer'),
+      __mapper('xs').m('anitem'),      
       __mapper('xs').m('eotim'),
       __mapper('xs').m('sim'),
       __mapper('xs').m('store'),
@@ -42,7 +44,8 @@
     //... getsims
     const getsims = (animas, elapsed) => {
       let sim = muonSim.sim() // simulation on animas
-      muonSim.simulate(sim, animas, elapsed) // stored
+      let aninodes = animas.map(anitem => muonAnitem.snapani(anitem))
+      muonSim.simulate(sim, aninodes, elapsed) // stored
       return muonStore.animasLive()
     }
 
@@ -120,8 +123,9 @@
 
       let animasLive = muonStore.animasLive()
 
-      let anisimmed = getsims(animasLive)
+      let anisimmed = getsims(animasLive, elapsed)
 
+      // _e_ double snapi tbf
       anisimmed.map(ani => muonStore.gramm(ani))
 
       let featurecollection = {

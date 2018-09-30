@@ -188,6 +188,13 @@
       state.grabbed = false
       if (!state.moved) return
 
+      // state.vel_degrees = [ // velocity
+
+        // xsign * (state.q2[1] - state.q1[1]) * inits.mult_degrees,
+        // ysign * (state.q2[0] - state.q1[0]) * inits.mult_degrees,
+
+      // ]
+      
       state.timer = requestAnimationFrame(momentum)
     }
 
@@ -245,8 +252,6 @@
         state.rotInDrag_degrees)
       return res
     }
-    // enty.rotation = () => muonGeom.add(state.rotAccum_radians, state.rotInDrag_radians)
-    // .map(muonGeom.to_degrees)
 
     return enty
   }

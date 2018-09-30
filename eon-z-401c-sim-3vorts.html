@@ -119,6 +119,10 @@ async function anitem (__mapper) {
 [31 +   13, 30 + -131, 0],  // 41
 [31 +   24, 30 + -109, 0],  // 42
 [31 +   40, 30 + -61, 0],   // 43
+
+[31 +  -31, 30 +    36, 0],  // 44
+[31 +  -32, 30 +    7, 0],  // 45
+
     ],
     'links': [
 // [0,1],
@@ -129,7 +133,6 @@ async function anitem (__mapper) {
 // [0,7],
 // [0,34],
 // [1,2],
-// [1,7],
 // [1,10],
 // [1,11],
 // [1,12],
@@ -157,10 +160,7 @@ async function anitem (__mapper) {
 [6,7],
 [6,15],
 [7,8],
-[7,10],
 [7,15],
-[8,9],
-[8,10],
 [8,15],
 [8,16],
 [9,10],
@@ -181,10 +181,8 @@ async function anitem (__mapper) {
 [14,34],
 [15,16],
 [15,18],
-[16,9],
 [16,17],
 [16,18],
-[16,19],
 [16,25],
 [17,18],
 [17,24],
@@ -193,7 +191,6 @@ async function anitem (__mapper) {
 [19,20],
 [19,22],
 [19,23],
-[19,25],
 [19,27],
 [20,21],
 [20,23],
@@ -248,6 +245,23 @@ async function anitem (__mapper) {
 [41,42],
 [42,43],
 
+// [0,8],
+// [0,44],
+// [1,9],
+// [1,44],
+
+[8,44],
+[8,45],
+[9,44],
+[9,45],
+[16,45],
+[19,45],
+[25,45],
+[27,45],
+[44,45],
+
+
+
     ],
   }
 
@@ -284,7 +298,7 @@ async function anitem (__mapper) {
         ani.eohal = 'sol'
         ani.eoric = nuid(i)
         ani.eonode.geometry.coordinates = Object.values(node)
-        ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
+        ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': [[[665,444]]], 'cw': 0.9, 'cp': 0.8 }
 
         animas.push(ani)
       }
@@ -301,7 +315,7 @@ async function anitem (__mapper) {
         let ani = muonProps.cloneObj(anima)
         ani.eohal = 'linkform'
         ani.eoric = luid(i)
-        ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
+        ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': [[[665,444]]], 'cw': 0.9, 'cp': 0.8 }
         ani.eoload = {}
         ani.eoload.link = {
           source: nuid(nidfrom).uid,
@@ -316,7 +330,7 @@ async function anitem (__mapper) {
 
       updanima = muonProps.cloneObj(anima)
       updanima.eogelded = 1
-      updanima.eodelled = 1
+      updanima.eodelled = 0
       animas.push(updanima)
 
       muonStore.apply({
@@ -324,8 +338,6 @@ async function anitem (__mapper) {
         caller: 'h.ineohal',
         animas: animas,
       })
-
-      if (1 && 1) console.log('animas', animas)
 
       return animas
     }
@@ -379,10 +391,11 @@ async function anitem (__mapper) {
           prerotate: [[[ ctlWen.rotation ]]],          
           translate: [0, 0, 0],
           scale: 1,
-          rotate: [ 0, [[[0, 180]]], 0 ],
+          rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
           geoanod: 1, // eofold eonod
         },
+        
       },
 
       eocrom: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
@@ -515,7 +528,7 @@ async function anitem (__mapper) {
     // .................... field_link
     let force_link = {
       properties: {
-        strength: 0.001,
+        strength: [[[ 0.001, 0.05, 0.001 ]]], // 0.001, // 
       },
 
       field: params => {
@@ -626,7 +639,7 @@ async function anitem (__mapper) {
       // force_energy,
       // force_viscosity,
       // force_manybody,
-      force_gravity,
+      // force_gravity,
       // force_collide,
       force_link,
     }
@@ -634,8 +647,8 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      natVort, // h.sol
       fieldAni, // h.core
+      natVort, // h.sol
 
     ]
 

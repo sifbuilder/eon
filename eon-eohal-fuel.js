@@ -11,7 +11,7 @@
   async function eohalFuel (__mapper = {}) {
     let [
       renderPortview,
-      manitem,
+      muonAnitem,
       mquad,
       muonGeom,
       muonGeoj,

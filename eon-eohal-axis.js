@@ -15,7 +15,7 @@
       d3scale,
       d3format,
       eohalSol,
-      manitem,
+      muonAnitem,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').b('d3-axis'),

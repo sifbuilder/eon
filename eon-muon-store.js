@@ -18,7 +18,7 @@
     let [
       muonEotim,
       muonEoric,
-      manitem,
+      muonAnitem,
       muonProps,
     ] = await Promise.all([
       __mapper('xs').m('eotim'),
@@ -145,8 +145,8 @@
 
     // .................. grammDyn
     function grammDyn (anitem) {
-      return manitem.snapani(anitem)
-        .then(snapped => manitem.functorize(snapped))
+      return muonAnitem.snapani(anitem)
+        .then(snapped => muonAnitem.functorize(snapped))
         .then(anigram => (typeof (anitem.eohal) === 'object') ? Promise.resolve(anitem.eohal) : __mapper('xs').e(anigram.eohal)
           .then(eohal => Promise.resolve(eohal.gramm(anigram))
             .then(newItems => {
@@ -167,8 +167,8 @@
         )
     }
     function gramm (anitem) {
-      let snapped = manitem.snapani(anitem)
-      let anigram = manitem.functorize(snapped)
+      let snapped = muonAnitem.snapani(anitem)
+      let anigram = muonAnitem.functorize(snapped)
       let eohal = (typeof (anitem.eohal) === 'object')
         ? anitem.eohal
         : __mapper(__mapper(__mapper('xs').ceonize(anigram.eohal, 'eohal'))) // expected in __mapper

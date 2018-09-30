@@ -38,14 +38,6 @@
 
       let newAni = muonProps.clone(anitem)  // newAni
 
-      
-      
-if (1 && 1) console.log(`${anitem.eoric.uid} eonode ${anitem.eonode.geometry.coordinates}`)
-  
-if (anitem.eoric.uid === 'nat_nat_tracenat') {
-if (1 && 1) console.log(`${newAni.eoric.uid} eonode ${newAni.eonode.geometry.coordinates}`)
-
-}
 
       let eonode = muonProps.v(anitem.eonode, anitem) // newAni.eonode
       if (eonode && anitem.eomot) {
@@ -67,7 +59,6 @@ if (1 && 1) console.log(`${newAni.eoric.uid} eonode ${newAni.eonode.geometry.coo
         }
       }
 
-if (1 && 1) console.log(`${newAni.eoric.uid} eonode ${newAni.eonode.geometry.coordinates}`)
 
 
       let eofold = muonProps.v(anitem.eofold, anitem) // newAni.eofold
@@ -96,9 +87,6 @@ if (1 && 1) console.log(`${newAni.eoric.uid} eonode ${newAni.eonode.geometry.coo
         }
       }
       newAni.eofold = gjcollection
-
-if (1 && 1) console.log(`${newAni.eoric.uid} eonode ${newAni.eonode.geometry.coordinates}`)
-
 
 
 
