@@ -8,11 +8,10 @@
 }(this, function (exports) {
   'use strict'
 
-  //... **process h.sol animas**
-  //... transparent to animas, applies to anigrams
-  //... eoform, conform, ereform and proform anigrams
-  //... parse result through h.mars.gramm
-
+  // ... **process h.sol animas**
+  // ... transparent to animas, applies to anigrams
+  // ... eoform, conform, ereform and proform anigrams
+  // ... parse result through h.mars.gramm
 
   async function eohalSol (__mapper = {}) {
     let [
@@ -35,9 +34,7 @@
       console.assert(typeof anitem === 'object')
       console.assert(Array.isArray(anitem) === false)
 
-
-      let newAni = muonProps.clone(anitem)  // newAni
-
+      let newAni = muonProps.clone(anitem) // newAni
 
       let eonode = muonProps.v(anitem.eonode, anitem) // newAni.eonode
       if (eonode && anitem.eomot) {
@@ -58,8 +55,6 @@
           newAni.eonode = node
         }
       }
-
-
 
       let eofold = muonProps.v(anitem.eofold, anitem) // newAni.eofold
       let gjcollection = muonGeoj.featurecollect(eofold)
@@ -88,33 +83,26 @@
       }
       newAni.eofold = gjcollection
 
-
-
       return newAni
     }
 
     // ............................. ween
     let ween = anitem => {
-
       let newitems = []
 
       newitems = muonProps.v(anitem)
 
       return newitems
-
     }
 
     // ............................. gramm
     let gramm = anitem => {
-
       let newItem = eohale(anitem)
 
       let newAnitems = eohalMars.gramm(newItem)
 
       return newAnitems
-
     }
-
 
     // ............................. eohal
     let eohalSol = {}

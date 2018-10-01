@@ -9,21 +9,21 @@
 }(this, function (exports) {
   'use strict'
 
-  //... # md:{filename}
-  //... **returns mouse move coordinates in the unit square space**
-  //... called by r.webgl
-  //... r.webgl sets renderer.domElement and gets mouse
-  //... mouse on camera is then used to get ray intersection on items on canvas
-  //... ### getters/setters
-  //... domNode
-  //... ### getters
-  //... mouse
-  //... ### methods
-  //... control
-  //... usage: `control(domnode)`
-  //...
-  //... # license
-  //... MIT
+  // ... # md:{filename}
+  // ... **returns mouse move coordinates in the unit square space**
+  // ... called by r.webgl
+  // ... r.webgl sets renderer.domElement and gets mouse
+  // ... mouse on camera is then used to get ray intersection on items on canvas
+  // ... ### getters/setters
+  // ... domNode
+  // ... ### getters
+  // ... mouse
+  // ... ### methods
+  // ... control
+  // ... usage: `control(domnode)`
+  // ...
+  // ... # license
+  // ... MIT
 
   async function controlRaycaster (__mapper = {}) {
     let mouse = {

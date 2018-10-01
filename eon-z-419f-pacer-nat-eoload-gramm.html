@@ -51,7 +51,7 @@ async function anitem (__mapper) {
         },
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
-      
+
       eonode: {
         type: 'Feature',
         geometry: {
@@ -60,7 +60,6 @@ async function anitem (__mapper) {
         },
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
-
 
       eoform: {
         'x': {
@@ -84,7 +83,7 @@ async function anitem (__mapper) {
           geoaad: 1, // geoaad for trace
 
           eohal: 'natform',
-          
+
           eofold: function (ani, props) {
             let coords
             if (props.key === 'init') { // INIT
@@ -103,7 +102,7 @@ async function anitem (__mapper) {
               properties: {},
             }
           },
-          
+
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
@@ -137,14 +136,13 @@ async function anitem (__mapper) {
           eomot: {
             proform: {
               projection: 'uniwen',
-              translate: [ [[[20,200]]], 0, 0],
+              translate: [ [[[20, 200]]], 0, 0],
               scale: 1,
               rotate: [0, 0, 0],
               lens: [0, 1, Infinity],
             },
-          },          
-          
-          
+          },
+
         },
       },
     }

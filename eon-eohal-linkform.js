@@ -76,56 +76,54 @@
 
     // ............................. breed
     function eohale (anitem) {
-
       let newItems = []
 
-        let fromAnima = muonStore.findAnimaFromUid(anitem.eoload.link.source)
-        let toAnima = muonStore.findAnimaFromUid(anitem.eoload.link.target)
+      let fromAnima = muonStore.findAnimaFromUid(anitem.eoload.link.source)
+      let toAnima = muonStore.findAnimaFromUid(anitem.eoload.link.target)
 
-        if (fromAnima !== undefined && fromAnima !== undefined) {
-        
-          console.assert(fromAnima !== undefined, 'h.linkform fromAnima undefined')
-          console.assert(toAnima !== undefined, 'h.linkform toAnima undefined')
-          
-          let p0 = fromAnima.eonode.geometry.coordinates
-          let p1 = toAnima.eonode.geometry.coordinates
-          let lineStrnig = [ p0, p1 ]
+      if (fromAnima !== undefined && fromAnima !== undefined) {
+        console.assert(fromAnima !== undefined, 'h.linkform fromAnima undefined')
+        console.assert(toAnima !== undefined, 'h.linkform toAnima undefined')
 
-          // let lf 	= linkItem.eoload.link.lf || 0
-          // linkItem.stream = diagonalp(form, lf)
-          let eofold = {
-            type: 'Feature',
-            geometry: {
-              type: 'LineString',
-              coordinates: lineStrnig,
-            },
-            properties: {},
-          }
+        let p0 = fromAnima.eonode.geometry.coordinates
+        let p1 = toAnima.eonode.geometry.coordinates
+        let lineStrnig = [ p0, p1 ]
 
-          let eonode = {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [0, 0, 0],
-            },
-            properties: {},
-          }
-
-          let newItem = muonProps.clone(anitem)
-          newItem.eohal = 'sol'
-          newItem.eofold = eofold
-          newItem.eonode = eonode
-
-          newItems.push(newItem)
+        // let lf 	= linkItem.eoload.link.lf || 0
+        // linkItem.stream = diagonalp(form, lf)
+        let eofold = {
+          type: 'Feature',
+          geometry: {
+            type: 'LineString',
+            coordinates: lineStrnig,
+          },
+          properties: {},
         }
-        
+
+        let eonode = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0, 0],
+          },
+          properties: {},
+        }
+
+        let newItem = muonProps.clone(anitem)
+        newItem.eohal = 'sol'
+        newItem.eofold = eofold
+        newItem.eonode = eonode
+
+        newItems.push(newItem)
+      }
+
       return newItems
     }
 
     // ....................... gramm
     let gramm = anitem => {
       let newgramms = muonProps.a(eohale(anitem))
-      let newItems = newgramms.reduce( (p,q) => [...p, ...muonProps.a(eohalSol.gramm(q))], [])
+      let newItems = newgramms.reduce((p, q) => [...p, ...muonProps.a(eohalSol.gramm(q))], [])
       return newItems
     }
 

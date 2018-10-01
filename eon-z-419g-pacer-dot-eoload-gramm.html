@@ -51,7 +51,7 @@ async function anitem (__mapper) {
         },
         properties: {},
       },
-      
+
       eonode: {
         type: 'Feature',
         geometry: {
@@ -62,7 +62,7 @@ async function anitem (__mapper) {
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
-      
+
       eoform: [ [[[0, 120]]], 0, 0],
 
       eoload: {
@@ -76,21 +76,15 @@ async function anitem (__mapper) {
           geoaad: 1, // geoaad for trace
 
           eohal: 'sol',
-          
+
           eofold: function (ani, props) {
             let coords
             if (props.key === 'init') { // INIT
-            
               coords = ani.eonode.geometry.coordinates // eonode
-              
             } else if (props.key === 'auto') { // AUTO
-            
               coords = ani.eoform // eofold
-              
             } else if (props.key === 'event') { // EVENT
-            
               coords = ani.eonode.geometry.coordinates
-              
             }
             return {
               type: 'Feature',
@@ -101,7 +95,7 @@ async function anitem (__mapper) {
               properties: {},
             }
           },
-          
+
           eonode: function (ani, props) {
             let coords = [0, 0, 0]
             if (props.key === 'init') { // INIT

@@ -76,10 +76,10 @@ async function anitem (__mapper) {
         conform: {
 
           projection: prtBase
-            .projection(d3Geo.geoOrthographic())				
+            .projection(d3Geo.geoOrthographic())
             .transform(function (x, y) {
-                this.stream.point(x / 1, y / 4)
-              }),
+              this.stream.point(x / 1, y / 4)
+            }),
           prerotate: [[[ ctlWen.rotation ]]],
           translate: [0, 0, 0],
           scale: 100,
@@ -88,12 +88,12 @@ async function anitem (__mapper) {
         },
         // proform: {
 
-          // projection: 'uniwen',
-          // prerotate: [[[ ctlWen.rotation ]]],
-          // translate: [ 0, 0, 0],
-          // scale: [1, -1, 1],
-          // rotate: [ 0, [[[ 4 * 180, 0]]], 0 ],
-          // lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
+        // projection: 'uniwen',
+        // prerotate: [[[ ctlWen.rotation ]]],
+        // translate: [ 0, 0, 0],
+        // scale: [1, -1, 1],
+        // rotate: [ 0, [[[ 4 * 180, 0]]], 0 ],
+        // lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
 
         // },
       },

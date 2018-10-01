@@ -8,40 +8,39 @@
 }(this, function (exports) {
   'use strict'
 
-  //... **create new items at init, on auto or upon event**
-  //... the pacer works on animas or anigrams depending on pacer.geosort
-  //... anigrams are gramm-eohalled with the paced halo and returned
-  //... animas are ween-eohalled with the paced halo and saved to the store
-  //...
-  //... ### functions
-  //...
-  //... * ##### _geojsor
-  //... usage: `_geojsor(@ani, @prob`
-  //... ani.pacer.initN
-  //... ani.pacer.eventN
-  //... ani.pacer.autoN
-  //... ani.pacer.autoP
-  //... ani.pacer.outtimed
-  //... ani.pacer.maxN
-  //... ani.pacer.geospan
-  //... ani.pacer.geoaad: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
-  //... ani.pacer.geotype: {LineString}
-  //... ani.pacer.geobase: {geo, ere, pro}
-  //...
-  //... ### methods
-  //...
-  //... * ##### gramm
-  //... `@a.p.pacer.initSitus`  : situs for init items
-  //... `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, ani)`
-  //... usage: `eoload.pacer.autoSitus(anigram)`
-  //... autositus in zindex: `function(a) {return muonStace.getLocus(this.stace, ani) }` gets `ani.p.pacer.stance`
-  //... auto time is `a.p.eotim.unitPassed - a.p.pacer.eoouted`
-  //... `@a.p.pacer.eventSitus` : situs for event items
-  //... `count` new items to pacer from init, auto and event
-  //...
-  //... `@a.p.pacer.fidder`  : new item `fid` identifier
-  //... `@a.p.pacer.geojsor(@anigram, @counter)` : gets new item
-
+  // ... **create new items at init, on auto or upon event**
+  // ... the pacer works on animas or anigrams depending on pacer.geosort
+  // ... anigrams are gramm-eohalled with the paced halo and returned
+  // ... animas are ween-eohalled with the paced halo and saved to the store
+  // ...
+  // ... ### functions
+  // ...
+  // ... * ##### _geojsor
+  // ... usage: `_geojsor(@ani, @prob`
+  // ... ani.pacer.initN
+  // ... ani.pacer.eventN
+  // ... ani.pacer.autoN
+  // ... ani.pacer.autoP
+  // ... ani.pacer.outtimed
+  // ... ani.pacer.maxN
+  // ... ani.pacer.geospan
+  // ... ani.pacer.geoaad: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
+  // ... ani.pacer.geotype: {LineString}
+  // ... ani.pacer.geobase: {geo, ere, pro}
+  // ...
+  // ... ### methods
+  // ...
+  // ... * ##### gramm
+  // ... `@a.p.pacer.initSitus`  : situs for init items
+  // ... `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, ani)`
+  // ... usage: `eoload.pacer.autoSitus(anigram)`
+  // ... autositus in zindex: `function(a) {return muonStace.getLocus(this.stace, ani) }` gets `ani.p.pacer.stance`
+  // ... auto time is `a.p.eotim.unitPassed - a.p.pacer.eoouted`
+  // ... `@a.p.pacer.eventSitus` : situs for event items
+  // ... `count` new items to pacer from init, auto and event
+  // ...
+  // ... `@a.p.pacer.fidder`  : new item `fid` identifier
+  // ... `@a.p.pacer.geojsor(@anigram, @counter)` : gets new item
 
   async function eohalPacer (__mapper = {}) {
     let [
@@ -64,7 +63,6 @@
 
     // ............................. pacer
     function eohale (anitem) {
-
       let newItems = []
 
       let epsilon = 1e-3
@@ -74,12 +72,12 @@
         eotim = anitem.eotim,
         eoload = anitem.eoload
 
-      //... default pacer properties:
-      //... geospan: epsilon  - span between two paceitems
-      //... geoaad:       0   - add paceitems to preanitem
-      //... geosort: anigram  - generated paceitem {anigram, anima}
-      //... geotype: LineString  - type of geojson geometry
-      //... geobase: eoform   - geoform in change of model projections
+      // ... default pacer properties:
+      // ... geospan: epsilon  - span between two paceitems
+      // ... geoaad:       0   - add paceitems to preanitem
+      // ... geosort: anigram  - generated paceitem {anigram, anima}
+      // ... geotype: LineString  - type of geojson geometry
+      // ... geobase: eoform   - geoform in change of model projections
 
       let pacer = eoload.pacer || {},
         geospan = pacer.geospan || epsilon,
@@ -98,18 +96,18 @@
       let animas = muonStore.animas()
       let anigrams = muonStore.anigrams()
 
-      //... pace models:
-      //...   1 anima paces animas
-      //...   2 anima has avatar that paces anigrams
-      //...   3 anima paces anigrams
-      //...   4 halo creates anima with pacer
-      //...   5 halo creates anigram with pacer
-      //...   6 animas has avatar that has avatar that is pacer
+      // ... pace models:
+      // ...   1 anima paces animas
+      // ...   2 anima has avatar that paces anigrams
+      // ...   3 anima paces anigrams
+      // ...   4 halo creates anima with pacer
+      // ...   5 halo creates anigram with pacer
+      // ...   6 animas has avatar that has avatar that is pacer
 
-      //...    h.fourier creates anima
+      // ...    h.fourier creates anima
 
-      //... anitem and parentitem may be anima
-      //... or anigram, eg. anima.avatar(nat).avatar(pacedline)
+      // ... anitem and parentitem may be anima
+      // ... or anigram, eg. anima.avatar(nat).avatar(pacedline)
 
       let anigram = anitem
       let preAnima = uidPreitem ? muonStore.findAnimaFromUid(uidPreitem) : null
@@ -121,36 +119,23 @@
       let pacedAnitem
 
       if (geosort === 'anima') {
-
-          if (parentAnima !== undefined) {
-
-            pacedAnitem = parentAnima
-
-          } else {
-
-            pacedAnitem = anima
-
-          }
+        if (parentAnima !== undefined) {
+          pacedAnitem = parentAnima
+        } else {
+          pacedAnitem = anima
+        }
       } else {
-
-          if (parentAnigram !== undefined) {
-
-            pacedAnitem = parentAnigram
-
-          } else {
-
-            pacedAnitem = anigram
-
-          }
-
+        if (parentAnigram !== undefined) {
+          pacedAnitem = parentAnigram
+        } else {
+          pacedAnitem = anigram
+        }
       }
 
-
-      //... anima has pacer in eoload or in avatar
-      //... count: key:items pairs to be generated by pacer
-      //... if mouse grabbed, enable event count, pacer.eventN
-      //... check distance to previous location
-
+      // ... anima has pacer in eoload or in avatar
+      // ... count: key:items pairs to be generated by pacer
+      // ... if mouse grabbed, enable event count, pacer.eventN
+      // ... check distance to previous location
 
       let count = {}
       let grabbed = ctlRayder.grabbed()
@@ -165,22 +150,21 @@
         count.grabbed = state.grabbed
       }
 
-      //... if not eoinited enable pacer init (pacer.initN), else ignore
+      // ... if not eoinited enable pacer init (pacer.initN), else ignore
 
       if (pacedAnitem.eoinited === undefined || pacedAnitem.eoinited[uidAnima] === undefined) {
         count.init = Math.floor(pacer.initN) // count INIT
       }
 
-      //... cycletime since last eoouted item, relevant if auto
-      //... if the cycletime is longer than auto pace
-      //...  and unitPassed is beyong autoT ...
-      //...  then process autoT
-      //... pacerUid is the pacer anima uid
-      //... if pacer is avatar, each is inited.
-      //... eoinited is set per pacer to eotim.unitPassed
-      //... set pacer.eoouted: item was eoouted at eotim.unitPassed time
-      //... if in auto mode, pace on each cycle
-
+      // ... cycletime since last eoouted item, relevant if auto
+      // ... if the cycletime is longer than auto pace
+      // ...  and unitPassed is beyong autoT ...
+      // ...  then process autoT
+      // ... pacerUid is the pacer anima uid
+      // ... if pacer is avatar, each is inited.
+      // ... eoinited is set per pacer to eotim.unitPassed
+      // ... set pacer.eoouted: item was eoouted at eotim.unitPassed time
+      // ... if in auto mode, pace on each cycle
 
       let cycletime = eotim.unitPassed - (pacer.eoouted || 0)
       if (cycletime >= pacer.autoP &&
@@ -199,22 +183,19 @@
           : Object.assign(pacedAnitem.eoouted, {[pacerUid]: eotim.unitPassed})
       }
 
-
-      //... eocount
-      //...   eg: {init:4, auto:1, event:3}
-      //...   init runs once
-      //...   auto runs on each cycle
-      //...   event runs on mouse event
-
+      // ... eocount
+      // ...   eg: {init:4, auto:1, event:3}
+      // ...   init runs once
+      // ...   auto runs on each cycle
+      // ...   event runs on mouse event
 
       if (Object.keys(count).length > 0) {
         for (let counter = 0; counter < Object.keys(count).length; counter++) {
-
-          //... if count items to pace
-          //... for each type of pace count, eg {init: 6, auto: 1}
-          //...    key is the sort of count { init, auto, event }
-          //...    qitems is the number of items to be paced
-          //... generate qitems items of type key, eg. 6 (at init, on auto, when event)
+          // ... if count items to pace
+          // ... for each type of pace count, eg {init: 6, auto: 1}
+          // ...    key is the sort of count { init, auto, event }
+          // ...    qitems is the number of items to be paced
+          // ... generate qitems items of type key, eg. 6 (at init, on auto, when event)
 
           let key = Object.keys(count)[counter]
           let qitems = count[key]
@@ -225,25 +206,21 @@
               counter: i,
             }
 
-            //... for each count newitem ...
-            //...   if pacer to pace animas , newitem is pacedAnitem
-            //...     if anigrams , newitem is anigram
-            //... remove eoload from newItem
-            //... pid is the anima uid
-            //...
-            //... then override newItem propeties with pacer functors
+            // ... for each count newitem ...
+            // ...   if pacer to pace animas , newitem is pacedAnitem
+            // ...     if anigrams , newitem is anigram
+            // ... remove eoload from newItem
+            // ... pid is the anima uid
+            // ...
+            // ... then override newItem propeties with pacer functors
 
             let newItem
             if (anitem.eoload.pacer.geosort === 'anima') {
-
               newItem = muonProps.clone(pacedAnitem) // anima
-
             } else {
-
               newItem = muonProps.clone(anigram) // anigram
-
             }
-if (1 && 1) console.log(`${newItem.eoric.uid} ${newItem}`)
+            if (1 && 1) console.log(`${newItem.eoric.uid} ${newItem}`)
 
             delete newItem.eoload
             newItem.eoric.pid = uidAnima
@@ -255,20 +232,16 @@ if (1 && 1) console.log(`${newItem.eoric.uid} ${newItem}`)
               }
             }
 
-            //... define newitem eohal
-            //... if paced anima, eohal.ween the newitem, then store
-            //... if paced anigram, eohal.gramm the newitem, then return
+            // ... define newitem eohal
+            // ... if paced anima, eohal.ween the newitem, then store
+            // ... if paced anigram, eohal.gramm the newitem, then return
 
             let eohal = __mapper(__mapper('xs').ceonize(newItem.eohal, 'eohal'))
             let newItemsInCount
             if (geosort === 'anima') {
-
               newItemsInCount = eohal.ween(newItem)
-
             } else {
-
               newItemsInCount = eohal.gramm(newItem)
-
             }
             newItemsInCount = muonProps.a(newItemsInCount)
             newItems = [...newItems, ...newItemsInCount]
@@ -276,7 +249,6 @@ if (1 && 1) console.log(`${newItem.eoric.uid} ${newItem}`)
             if (geosort === 'anima') {
               muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: newItems})
             }
-
           }
         }
       }
@@ -286,26 +258,18 @@ if (1 && 1) console.log(`${newItem.eoric.uid} ${newItem}`)
     // ............................. ween
     function ween (anitem) {
       if (anitem.eoload.pacer.geosort === 'anima') {
-
         return eohale(anitem)
-
       } else {
-
         return Array.of(anitem)
-
       }
     }
 
     // ............................. gramm
     function gramm (anitem) {
       if (anitem.eoload.pacer.geosort === 'anima') {
-
         return Array.of(anitem)
-
       } else {
-
         return eohale(anitem)
-
       }
     }
 

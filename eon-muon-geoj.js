@@ -8,60 +8,60 @@
 }(this, function (exports) {
   'use strict'
 
-  //... eon-muon-geoj
-  //... **process geojson streams**
-  //... ## references
-  //... [Maarten’s Block geo to square tiles](https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6)
-  //... [geojson-normalize](https://github.com/mapbox/geojson-normalize/blob/master/index.js)
-  //... ## functions
-  //... ## methods
-  //... * ### trim
-  //... **flatten gj**
-  //... ref: https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6
-  //... * ### tclip
-  //... * ### complexify
-  //... turns strings of coordinates into arrays of comples numbers
-  //... @gj
-  //... * ### deprop
-  //... reomove properties from gj object
-  //... * ### snip
-  //... return function to get dots within form range [pa6,pb7]
-  //... @form
-  //... * ### largestPoly
-  //... return the lagest polity on gj
-  //... @gj: MultiPolygon
-  //... * ### lineStringFromStream
-  //... * ### polygonFromStream
-  //... * ### multLineStringFromStreamArray
-  //... * ### featurecollect
-  //... transform to FeatureCollection
-  //... @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}
-  //... called by eohal to carry eoric, sort as properties
-  //... * ### featurize
-  //... transform to array of gj.Features
-  //... @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}
-  //... * ### ntime
-  //... convert geometry to feature and add interval to properties
-  //... @gj
-  //... @interval
-  //... * ### zorder
-  //... @gj FeatureCollection
-  //... * ### centroid
-  //... get ring's centroid
-  //... @ring
-  //... called by zorder
-  //... * ### getCoords
-  //... get array of coordinates from gj (eg. parent anigram)
-  //... * ### getCoordsLength
-  //... get number of coordinates in gj
-  //... * ### getCoordsInRange
-  //... get first nb coordinates
-  //... * ### isValid
-  //... check if gj is valid geojson type
-  //... @gj
-  //... @type
-  //... # license
-  //... MIT
+  // ... eon-muon-geoj
+  // ... **process geojson streams**
+  // ... ## references
+  // ... [Maarten’s Block geo to square tiles](https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6)
+  // ... [geojson-normalize](https://github.com/mapbox/geojson-normalize/blob/master/index.js)
+  // ... ## functions
+  // ... ## methods
+  // ... * ### trim
+  // ... **flatten gj**
+  // ... ref: https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6
+  // ... * ### tclip
+  // ... * ### complexify
+  // ... turns strings of coordinates into arrays of comples numbers
+  // ... @gj
+  // ... * ### deprop
+  // ... reomove properties from gj object
+  // ... * ### snip
+  // ... return function to get dots within form range [pa6,pb7]
+  // ... @form
+  // ... * ### largestPoly
+  // ... return the lagest polity on gj
+  // ... @gj: MultiPolygon
+  // ... * ### lineStringFromStream
+  // ... * ### polygonFromStream
+  // ... * ### multLineStringFromStreamArray
+  // ... * ### featurecollect
+  // ... transform to FeatureCollection
+  // ... @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}
+  // ... called by eohal to carry eoric, sort as properties
+  // ... * ### featurize
+  // ... transform to array of gj.Features
+  // ... @gj  {gj.FeatureCollection, gj.Feature, gj.GeometryCollection}
+  // ... * ### ntime
+  // ... convert geometry to feature and add interval to properties
+  // ... @gj
+  // ... @interval
+  // ... * ### zorder
+  // ... @gj FeatureCollection
+  // ... * ### centroid
+  // ... get ring's centroid
+  // ... @ring
+  // ... called by zorder
+  // ... * ### getCoords
+  // ... get array of coordinates from gj (eg. parent anigram)
+  // ... * ### getCoordsLength
+  // ... get number of coordinates in gj
+  // ... * ### getCoordsInRange
+  // ... get first nb coordinates
+  // ... * ### isValid
+  // ... check if gj is valid geojson type
+  // ... @gj
+  // ... @type
+  // ... # license
+  // ... MIT
 
   async function muonGeoj (__mapper = {}) {
     let [
@@ -534,13 +534,13 @@
           let line = lines[i]
           let linelength = line.length // number of coords in line
 
-          //md: toaddCoords: coords to add
-          //md: firstCoord: first coord to start adding in gj coords system
-          //md: remainingCoords: coords to be added when processing line i
-          //md: firstCoordInLine: first coordinate of line i in abs gj coords system
-          //md: addedCoords: number of coords added before line i
-          //md: tmpstart: first coord in line coords system
-          //md: tmpend: last coord in line coords system
+          // md: toaddCoords: coords to add
+          // md: firstCoord: first coord to start adding in gj coords system
+          // md: remainingCoords: coords to be added when processing line i
+          // md: firstCoordInLine: first coordinate of line i in abs gj coords system
+          // md: addedCoords: number of coords added before line i
+          // md: tmpstart: first coord in line coords system
+          // md: tmpend: last coord in line coords system
 
           let remainingCoords = toaddCoords - addedCoords
           let tmpstart = (firstCoord + addedCoords) - firstCoordInLine
@@ -737,42 +737,39 @@
     }
 
     let extrapol = function (gj1, gj2) {
-      
       console.assert(isValid(gj1))
       // isFeature, isLineString
       console.assert(isValid(gj2))
       // isFeature, isPoint
-      
+
       let linedots = gj1.geometry.coordinates
       let delta = gj2.geometry.coordinates
       let linecoords = linedots.map(
-          p => p.map( (d,i) => d + delta[i]))
-      
+        p => p.map((d, i) => d + delta[i]))
+
       let eofold = {
         type: 'Feature',
         geometry: {
           type: 'LineString',
           coordinates: linecoords,
-        },              
+        },
       }
-      
+
       return eofold
-      
     }
-    
+
     let geotrim = function (coord = []) {
       console.assert(Array.isArray(coord))
-      let res = coord.reduce( (p,q) => (!isNaN(q)) ? [...p, q] : p,[])
+      let res = coord.reduce((p, q) => (!isNaN(q)) ? [...p, q] : p, [])
       return res
     }
 
-    
     let isValidCoord = function (coord = []) {
       console.assert(Array.isArray(coord))
-      let res = coord.reduce( (p,q) => p && isNaN(q), true)
+      let res = coord.reduce((p, q) => p && isNaN(q), true)
       return res
     }
-    
+
     // ............................. enty
     let enty = function () {}
 

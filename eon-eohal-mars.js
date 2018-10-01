@@ -8,24 +8,23 @@
 }(this, function (exports) {
   'use strict'
 
-  //... *process h.mars anigrams**
-  //...
-  //... is transparent to animas and prepares anigrams to be rendered
-  //...
-  //... ani.eofold is a functor that returns a geojson
-  //... the geojson is then converted to a FeatureCollection
-  //... the features are z-ordered by centroid of their geometry
-  //... the renderer takes a featurecollection
-  //... info is passed in each feature.properties:
-  //...   geometry in geofold
-  //...   id in eoric, functor fid
-  //...   style in eocrom
-  //...   tim
-  //...   sort will define how the feature will be rendered
-  //... lose eoload
-  //... maintain eohal, eonode, avatar
-  //... the new anigrams are saved in m.animation and passed to renderer
-
+  // ... *process h.mars anigrams**
+  // ...
+  // ... is transparent to animas and prepares anigrams to be rendered
+  // ...
+  // ... ani.eofold is a functor that returns a geojson
+  // ... the geojson is then converted to a FeatureCollection
+  // ... the features are z-ordered by centroid of their geometry
+  // ... the renderer takes a featurecollection
+  // ... info is passed in each feature.properties:
+  // ...   geometry in geofold
+  // ...   id in eoric, functor fid
+  // ...   style in eocrom
+  // ...   tim
+  // ...   sort will define how the feature will be rendered
+  // ... lose eoload
+  // ... maintain eohal, eonode, avatar
+  // ... the new anigrams are saved in m.animation and passed to renderer
 
   async function eohalMars (__mapper = {}) {
     let [
@@ -48,15 +47,14 @@
       let gjcollection = muonGeoj.featurecollect(eofold)
 
       console.assert(gjcollection.type === 'FeatureCollection')
-      
+
       gjcollection = muonGeoj.zorder(gjcollection)
-      
+
       gjcollection = muonEoric.enric(anitem.eoric, anitem, gjcollection)
 
-      for (let i=0; i< gjcollection.features.length; i++) {
-        
+      for (let i = 0; i < gjcollection.features.length; i++) {
         let feature = gjcollection.features[i]
-        
+
         feature = muonEocrom.geocromer(anitem, feature)
 
         feature.properties.eotim = anitem.eotim
@@ -72,34 +70,28 @@
         }
 
         newAnigrams.push(newAnigram)
-        
       }
 
       return newAnigrams
     }
 
-
     // ............................. ween
     let ween = anitem => {
-
       let newitems = []
 
       newitems = muonProps.a(anitem)
 
       return newitems
-
     }
 
     // ............................. gramm
 
     let gramm = anitem => {
-
       let newitems = []
 
       newitems = eohale(anitem)
 
       return newitems
-
     }
 
     // ............................. eohalMars

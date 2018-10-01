@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   // ... h.fourier anigrams per frequency cycloid
   // ... cycloids in eoload.fourier.transforms resulting from m.fourier.complexify
   // ... anigrams turned to h.sol
@@ -206,11 +205,9 @@
               traceline.eoric.uid = muonEoric.getuid(traceline.eoric)
 
               newItem.avatars = {
-                traceline: traceline
+                traceline: traceline,
               }
-if (1 && 1) console.log('h.fourier newItem', newItem)
-
-
+              if (1 && 1) console.log('h.fourier newItem', newItem)
             }
           }
 
@@ -236,7 +233,6 @@ if (1 && 1) console.log('h.fourier newItem', newItem)
       }
 
       return newItems
-
     }
 
     // ............................. ween
@@ -246,14 +242,11 @@ if (1 && 1) console.log('h.fourier newItem', newItem)
 
         let anilists = newItems.map(ani => eohalSol.ween(ani))
         let anis = anilists.reduce((p, q) => Array.isArray(q) ? [...p, ...q] : [...p, q], [])
-if (1 && 1) console.log('anis', anis)
+        if (1 && 1) console.log('anis', anis)
 
         return anis
-
       } else {
-
         return Array.of(anitem)
-
       }
     }
 
@@ -261,21 +254,18 @@ if (1 && 1) console.log('anis', anis)
     function gramm (anitem) {
       let newAnigrams = []
       if (anitem.eoload.fourier.geosort === 'anima') {
-
         newAnigrams = Array.of(anitem)
-
       } else {
-
         let newItems = eohale(anitem)
         let anilists = newItems.map(ani => eohalSol.gramm(ani))
 
-        for (let i=0; i<anilists.length; i++) {
-            let anilist = anilists[i]
-            if (Array.isArray(anilist)) {
-              newAnigrams = [...newAnigrams, ...anilist]
-            } else {
-              newAnigrams = [...newAnigrams, anilist]
-            }
+        for (let i = 0; i < anilists.length; i++) {
+          let anilist = anilists[i]
+          if (Array.isArray(anilist)) {
+            newAnigrams = [...newAnigrams, ...anilist]
+          } else {
+            newAnigrams = [...newAnigrams, anilist]
+          }
         }
 
         return newAnigrams

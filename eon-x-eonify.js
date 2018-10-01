@@ -199,12 +199,10 @@
 
     // ............................. getFeon
     async function getFeon (part) { // d3Froce3d, ./d3-force-3d.js
-
       let eon = await xD3Require.require(...a(part[1]))
       let cell = await getCell(eon, part[0], __mapper) // eon to cell
       let feon = await mapCell(cell, part[0], __mapper) // map cell
       return feon
-    
     }
 
     // ............................. getXeon

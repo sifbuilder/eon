@@ -92,7 +92,6 @@
 
           if (feature.properties === undefined) feature.properties = {}
           feature.properties.style = Object.assign(jsonStyle, featureStyle)
-          
         } else if (json.type === 'FeatureCollection') {
           for (let i = 0; i < json.features.length; i++) {
             let feature = json.features[i]

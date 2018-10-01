@@ -19,9 +19,9 @@
     let radians = Math.PI / 180
     let transform = d3Geo.geoTransform({ point: function (x, y) { this.stream.point(x, y) }})
 
-    // https://medium.com/@dtipson/creating-an-es6ish-compose-in-javascript-ac580b95104a    
-    const compose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)))    
-    
+    // https://medium.com/@dtipson/creating-an-es6ish-compose-in-javascript-ac580b95104a
+    const compose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)))
+
     // ............................. fitExtent
     let fitExtent = function fitExtent (projection, extent, object) {
       var w = extent[1][0] - extent[0][0],

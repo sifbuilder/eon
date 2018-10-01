@@ -37,12 +37,12 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {'td': 18800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    //... geoLined is ani h.pacer
+    // ... geoLined is ani h.pacer
     let geoLined = {
 
       eohal: 'pacer',
 
-    //... eofold is LineString
+      // ... eofold is LineString
       eofold: {
         type: 'Feature',
         geometry: {
@@ -51,8 +51,8 @@ async function anitem (__mapper) {
         },
         properties: {},
       },
-      
-    //... eonode has the sim properties
+
+      // ... eonode has the sim properties
       eonode: {
         type: 'Feature',
         geometry: {
@@ -63,9 +63,9 @@ async function anitem (__mapper) {
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
-      
-      //... the eofold changes form with eofom
-      
+
+      // ... the eofold changes form with eofom
+
       eoform: [ [[[0, 120]]], 0, 0],
       eotim: eotim,
       eoric: {gid: 'g', cid: 'c', fid: 'f'},
@@ -74,7 +74,7 @@ async function anitem (__mapper) {
       eoload: {
 
         pacer: {
-        
+
           initN: 0, eventN: 1, autoN: 0, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
 
           geosort: 'anigram',
@@ -87,19 +87,13 @@ async function anitem (__mapper) {
             let preani = muonStore.findAnigramFromUid(ani.eoric.uid) // anigram
             let coords
             if (props.key === 'init') { // INIT
-            
               coords = ani.eonode.geometry.coordinates // eonode
-              
             } else if (props.key === 'auto') { // AUTO
-            
               coords = (preani && preani.eofold.geometry.coordinates)
                 ? [...preani.eofold.geometry.coordinates, ani.eoform ]
                 : Array.of(ani.eoform) // LineString
-                
             } else if (props.key === 'event') { // EVENT
-
               if (ctlRayder.grabbed() !== undefined) {
-              
                 let grabbed = props.count.grabbed
                 let x = grabbed[0]
                 let y = grabbed[1]
@@ -108,14 +102,10 @@ async function anitem (__mapper) {
 
                 coords = (preani && preani.eofold.geometry.coordinates)
                   ? [...preani.eofold.geometry.coordinates, point ]
-                  : Array.of( point ) // LineString
-                
-                
-                if (1 && 1) console.log('coords', coords)
+                  : Array.of(point) // LineString
 
+                if (1 && 1) console.log('coords', coords)
               }
-              
-              
             }
 
             let geometry = {

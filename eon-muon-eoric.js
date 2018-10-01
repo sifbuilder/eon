@@ -65,7 +65,6 @@
     // ... ani.eoric => ani.feature.pros.eoric => feature.id => ani.uid
 
     let enric = function (eoric = {}, anigram, json) {
-
       console.assert(typeof eoric === 'object', `eoric is not an object`)
       console.assert(json.type !== undefined, `type undefined`)
       console.assert(json.type === 'FeatureCollection' || json.type === 'Feature', `type non sopported`)
@@ -93,9 +92,7 @@
         feature.properties = properties
 
         json = feature
-
       } else if (json.type === 'FeatureCollection') {
-
         let features = json.features // feature in FeatureCollection
         for (let i = 0; i < features.length; i++) {
           let feature = features[i] // this feature

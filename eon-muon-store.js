@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  //... **manage anitems store**
+  // ... **manage anitems store**
 
   async function muonStore (__mapper) {
     let [

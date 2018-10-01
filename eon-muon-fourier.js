@@ -13,7 +13,7 @@
   // (C) 2018 Andrew Pritchard (MIT License)
   // https://www.youtube.com/watch?v=2hfoX51f6sg
 
-  //... m.fourier : fourier transform
+  // ... m.fourier : fourier transform
   async function muonFourier (__mapper = {}) {
     let [
       muonGeoj,
@@ -118,9 +118,9 @@
       return ret
     }
 
-    //... m.fourier.transformedCoefs : get fourier transform coefficients
-    //...    transformedCoefs(geojson)
-    //...    return geojson
+    // ... m.fourier.transformedCoefs : get fourier transform coefficients
+    // ...    transformedCoefs(geojson)
+    // ...    return geojson
     let transformedCoefs = function (gj) {
       let gjc = muonGeoj.complexify(gj)
       return fourierTransform(gjc)

@@ -123,9 +123,7 @@
       state.s2 = state.grabbed // present
       state.s1 = state.s2 // present first
       state.s0 = state.s1 // current
-      
-      
-      
+
       let inveGeo2 = state.projection.invert(state.s2)
       state.c2 = muonGeom.cartesian(inveGeo2)
       state.r2_degrees = inits.rotInit_radians
@@ -153,8 +151,8 @@
       if (!state.grabbed) return
 
       let e = d3selection.event
-      
-      state.s1 = state.s2      
+
+      state.s1 = state.s2
       state.s2 = getPos(e)
 
       state.c2Rads = state.projection
@@ -165,9 +163,9 @@
       state.c1 = state.c2
       state.c2 = muonGeom.cartesian(state.c2Rads)
 
-      state.qd1 = muonVersor.delta(state.c1, state.c2)  // c2-c1
-      state.qd2 = muonVersor.delta(state.c0, state.c2)  // c1-c0
-      
+      state.qd1 = muonVersor.delta(state.c1, state.c2) // c2-c1
+      state.qd2 = muonVersor.delta(state.c0, state.c2) // c1-c0
+
       let sd = [
         xsign * (state.s2[1] - state.s1[1]),
         ysign * (state.s1[0] - state.s2[0]),
@@ -192,11 +190,10 @@
       state.grabbed = false
       if (!state.moved) return
 
-      state.vel_degrees = muonVersor.rotation(state.qd1)  // vel c2-c1
-      
+      state.vel_degrees = muonVersor.rotation(state.qd1) // vel c2-c1
+
       if (1 && 1) console.log('vel_degrees', state.vel_degrees)
 
-      
       state.timer = requestAnimationFrame(momentum)
     }
 

@@ -8,47 +8,47 @@
 }(this, function (exports) {
   'use strict'
 
-  //... # eon-muon-stace
-  //... **manage location of aniItems**
-  //...
-  //... ## methods
-  //... getPosInDim  getPosesInDim m.liner _e_
-  //...
-  //... ### getSiti
-  //...
-  //... ### getSitus , or ani eonode
-  //...             ani position in the coords system
-  //...             in eonode.geometry
-  //...             sim forces act on the ani geonodes
-  //...
-  //... ### getLoci
-  //...
-  //... ### getLocus , locus and transpots
-  //...
-  //... ### getLocifion
-  //... get the uniwen projection with translate to anigram location
-  //... getLocus
-  //...
-  //... ### getLocifier
-  //... locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
-  //...
-  //... ### getTranspot
-  //...
-  //... ### getTranspots
-  //... `getTranspots(stace, eoload)`
-  //... **get stace locations in @eoric**
-  //... ##### parameters
-  //...  **stace** ,  may be passed as param or as eoload attribute
-  //...     * `{x:0, y:0, z:0}`, position object
-  //...     * `[300,200,0]`,  pure array
-  //...     * `[a1,a2,a3], [b1,b2]]`,  pure multi array, add by dax
-  //...     * `[[[ {nat} ]]]`, nat form
-  //...     * `[{gen,ere,pro}]`,  parent node position, nodeGeoformed, nodeEreformed or nodeProformed
-  //...     * `[{pos:0}, a2]`,  if pos, parent form position
-  //...
-  //... if stace.<dax>.pos and no transformation property
-  //...       get spot from `parentani.eofold.geometry.coordinates`
-  //... **eoload**, to get parent coords if spot is relative to parent geometry
+  // ... # eon-muon-stace
+  // ... **manage location of aniItems**
+  // ...
+  // ... ## methods
+  // ... getPosInDim  getPosesInDim m.liner _e_
+  // ...
+  // ... ### getSiti
+  // ...
+  // ... ### getSitus , or ani eonode
+  // ...             ani position in the coords system
+  // ...             in eonode.geometry
+  // ...             sim forces act on the ani geonodes
+  // ...
+  // ... ### getLoci
+  // ...
+  // ... ### getLocus , locus and transpots
+  // ...
+  // ... ### getLocifion
+  // ... get the uniwen projection with translate to anigram location
+  // ... getLocus
+  // ...
+  // ... ### getLocifier
+  // ... locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
+  // ...
+  // ... ### getTranspot
+  // ...
+  // ... ### getTranspots
+  // ... `getTranspots(stace, eoload)`
+  // ... **get stace locations in @eoric**
+  // ... ##### parameters
+  // ...  **stace** ,  may be passed as param or as eoload attribute
+  // ...     * `{x:0, y:0, z:0}`, position object
+  // ...     * `[300,200,0]`,  pure array
+  // ...     * `[a1,a2,a3], [b1,b2]]`,  pure multi array, add by dax
+  // ...     * `[[[ {nat} ]]]`, nat form
+  // ...     * `[{gen,ere,pro}]`,  parent node position, nodeGeoformed, nodeEreformed or nodeProformed
+  // ...     * `[{pos:0}, a2]`,  if pos, parent form position
+  // ...
+  // ... if stace.<dax>.pos and no transformation property
+  // ...       get spot from `parentani.eofold.geometry.coordinates`
+  // ... **eoload**, to get parent coords if spot is relative to parent geometry
 
   async function muonStace (__mapper = {}) {
     let [
@@ -81,7 +81,6 @@
 
     // ..................... isValidStace
     let getTranspots = function (stace, anitem) {
-      
       let muonStore = __mapper('muonStore') // call in function to get current state
 
       let eoload = anitem.eoload
@@ -117,7 +116,6 @@
 
       // else, eg. if stace undefined, get stace from parent
       } else if (anitem.eoric.pid !== undefined) {
-        
         let pid = anitem.eoric.pid
         console.assert(pid, ` * error: muonStace.getTranspots:pid ${pid} in eoload ${eoload}`)
         let parentani = muonStore.findAnigramFromUid(pid)
@@ -173,8 +171,8 @@
 
                 console.assert(parentani.eonode.geometry !== undefined, `${parentani.eonode} geometry undefined`)
                 coords = parentani.eonode.geometry.coordinates
-// if (1 && 1) console.log('stace parentani', parentani.eoric.uid, parentani.eonode.geometry.coordinates)
-if (1 && 1) console.log('stace anitem', anitem.eoric.uid, coords)
+                // if (1 && 1) console.log('stace parentani', parentani.eoric.uid, parentani.eonode.geometry.coordinates)
+                if (1 && 1) console.log('stace anitem', anitem.eoric.uid, coords)
               } else {
                 // assume stace is location
 
@@ -303,17 +301,11 @@ if (1 && 1) console.log('stace anitem', anitem.eoric.uid, coords)
       let spots = getTranspots(stace, anitem) // anitem  stace x || x.pos || x.ref
 
       if (situs && spots && spots.length > 0) { // if situs and spots
-      
         locations = spots.map(spot => spot.map((d, i) => d + situs[i])) // transpose spots by situs
-        
       } else if (situs) { // if situs
-      
         locations = Array.of(situs) // siti
-        
       } else if (spots && spots.length > 0) { // if spots
-      
         locations = spots // locations
-        
       }
 
       return locations

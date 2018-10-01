@@ -36,7 +36,7 @@ async function anitem (__mapper) {
   let ani = function () {
     let eotim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
-    // .................. pics    
+    // .................. pics
     let pi = Math.PI,
       radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
@@ -66,7 +66,7 @@ async function anitem (__mapper) {
 
       },
     }
-      
+
     let conformTangerine = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
@@ -95,17 +95,17 @@ async function anitem (__mapper) {
         fn0: (e, c, d) => d.c[3] * sin(e[2] * (1 + epsilon * sin(e[0]))),
       },
 
-    }    
-    
+    }
+
     let proform = {
-          projection: 'uniwen',
-          scale: [ 1, 1 ],
-          prerotate: [[[ ctlWen.rotation ]]],
-          translate: [ [0, 0, 0] ],
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity ],
-        }
-    
+      projection: 'uniwen',
+      scale: [ 1, 1 ],
+      prerotate: [[[ ctlWen.rotation ]]],
+      translate: [ [0, 0, 0] ],
+      rotate: [ 0, 0, 0 ],
+      lens: [0, 1, Infinity ],
+    }
+
     // .................. geoearthDark  DARK
     let pDark = function () {
       let forward = (x, y) => d3geo.geoOrthographicRaw(-x, -y)
@@ -204,11 +204,10 @@ async function anitem (__mapper) {
         )
       },
 
-
       eomot: {
         proform: proformFront,
       },
-      
+
       eocrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
       eoload: {},
 
@@ -242,16 +241,16 @@ async function anitem (__mapper) {
       eohal: 'sol',
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q3'},
-      
+
       eofold: p => muonGraticule.vhMultiLine(p.eoform),
-      
-      eomot: {     
+
+      eomot: {
         proform: proform,
       },
-      
+
       eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[333, 333, 333]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-        
+
       eoframe: {
 
         frame: [ [ [-180, 180, 45, 45],
@@ -259,7 +258,7 @@ async function anitem (__mapper) {
         [ [-180, 180, 45, 45],
           [-90, 90, 22.5, 22.5] ] ],
 
-      },        
+      },
       eoform: conformTangerine,
       eoload: {},
     }
@@ -270,20 +269,20 @@ async function anitem (__mapper) {
       eohal: 'sol',
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q2'},
-      
+
       eofold: p => muonNatform.natFeature(p.eoform),
-      
+
       eomot: {
         // conform: {
-          // projection: 'natform',
-          // eoform: formCube,
-        // },        
+        // projection: 'natform',
+        // eoform: formCube,
+        // },
         proform: proform,
       },
-      
+
       eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[333, 333, 333]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-        
+
       eoform: conformTangerine,
       eoload: {},
     }
@@ -313,7 +312,7 @@ async function anitem (__mapper) {
         },
         proform: proform,
       },
-      
+
       eoload: {},
 
     }
@@ -334,8 +333,8 @@ async function anitem (__mapper) {
       geoearthDark,
       geoearthFront, // h.sol g.orthographic
       graticuleFront, // h.sol
-      // tangerineAni, // 
-      // earthAni, // 
+      // tangerineAni, //
+      // earthAni, //
       sceneAni, // h.scene
     ]
 
