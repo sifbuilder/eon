@@ -175,7 +175,6 @@
     let simulate = function (sim, anitems = [], elapsed = 0, dim = 3) {
       let aniSims = []
       let numDims = 3
-if (1 && 1) console.log('anitems', anitems)
 
       let aniNodes = initNodes(anitems, dim) // < aniNodes
       sim

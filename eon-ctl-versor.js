@@ -12,16 +12,16 @@
   async function ctlVersor (__mapper = {}) {
     let [
       d3,
-      renderPortview,
-      mversor,
-      muonGeom,
       d3geo,
+      muonGeom,
+      muonVersor,
+      renderPortview,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
-      __mapper('xs').r('portview'),
-      __mapper('xs').m('versor'),
-      __mapper('xs').m('geom'),
       __mapper('xs').b('d3-geo'),
+      __mapper('xs').m('geom'),
+      __mapper('xs').m('versor'),
+      __mapper('xs').r('portview'),
     ])
 
     let d3drag = d3
@@ -39,7 +39,7 @@
       state.rotInDrag_radians = [0, 0, 0] // reset to default rotation
     }
 
-    // ....................... dragControl
+    // .................. dragControl
     let dragControl = {
       dragstarted,
       dragged,
@@ -120,24 +120,28 @@
       state.moved = false // not moved yet
       state.grabbed = getPos(e)
 
-      state.s2 = getPos(e) // current
+      state.s2 = state.grabbed // present
+      state.s1 = state.s2 // present first
+      state.s0 = state.s1 // current
+      
+      
+      
       let inveGeo2 = state.projection.invert(state.s2)
       state.c2 = muonGeom.cartesian(inveGeo2)
       state.r2_degrees = inits.rotInit_radians
-      state.q2 = mversor(state.r2_degrees) // quaternion of initial rotation
+      state.q2 = muonVersor(state.r2_degrees) // quaternion of initial rotation
 
-      state.s1 = state.s2 // present first
       state.c0 = state.c2
       state.c1 = state.c2
       state.r1_degrees = state.r2_degrees
       state.q1 = state.q2
+      state.q0 = state.q1
 
       // rot at the start of new drag
       state.rotAccum_degrees =
             muonGeom.add(
-              [0, 0, 0],
+              state.rotAccum_degrees, //
               [0, 0, 0]
-              // state.rotAccum_degrees, //
               // state.rotInDrag_degrees // at end of last drag
             )
 
@@ -149,22 +153,21 @@
       if (!state.grabbed) return
 
       let e = d3selection.event
+      
+      state.s1 = state.s2      
       state.s2 = getPos(e)
 
       state.c2Rads = state.projection
         .rotate(state.r1_degrees)
         .invert(state.s2)
 
+      state.c0 = state.c0
       state.c1 = state.c2
       state.c2 = muonGeom.cartesian(state.c2Rads)
 
-      state.qd1 = mversor.delta(state.c1, state.c2)
-      state.vel_degrees = mversor.rotation(state.qd1)
-      if (1 && 1) console.log('vel_degrees', state.vel_degrees)
-
-      state.qd2 = mversor.delta(state.c0, state.c2) // q(c0 to c0)
-      let rotInDrag_degrees = mversor.rotation(state.qd2)
-
+      state.qd1 = muonVersor.delta(state.c1, state.c2)  // c2-c1
+      state.qd2 = muonVersor.delta(state.c0, state.c2)  // c1-c0
+      
       let sd = [
         xsign * (state.s2[1] - state.s1[1]),
         ysign * (state.s1[0] - state.s2[0]),
@@ -178,6 +181,7 @@
         rebase()
       }
 
+      let rotInDrag_degrees = muonVersor.rotation(state.qd2)
       state.rotInDrag_degrees = rotInDrag_degrees
       state.lastMoveTime = Date.now()
     }
@@ -188,12 +192,10 @@
       state.grabbed = false
       if (!state.moved) return
 
-      // state.vel_degrees = [ // velocity
+      state.vel_degrees = muonVersor.rotation(state.qd1)  // vel c2-c1
+      
+      if (1 && 1) console.log('vel_degrees', state.vel_degrees)
 
-        // xsign * (state.q2[1] - state.q1[1]) * inits.mult_degrees,
-        // ysign * (state.q2[0] - state.q1[0]) * inits.mult_degrees,
-
-      // ]
       
       state.timer = requestAnimationFrame(momentum)
     }
@@ -206,7 +208,7 @@
       // state.qd2[2],
       // state.qd2[3],
       // ]
-      // let rotInDrag_degrees = mversor.rotation(state.qd2)
+      // let rotInDrag_degrees = muonVersor.rotation(state.qd2)
       // state.rotInDrag_degrees = rotInDrag_degrees
 
       state.vel_degrees[0] *= inits.decay

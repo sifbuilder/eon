@@ -3,7 +3,7 @@
 window.xEonify.eon({anitem, time: undefined})
 
 
-  
+
 //... (\r\n){1,}
 //... \r\n
 
@@ -306,12 +306,6 @@ async function anitem (__mapper) {
         let nidfrom = data.links[i][0]
         let nidto = data.links[i][1]
 
-        let line = {}
-        line.userData = {
-          source: data.links[i][0],
-          target: data.links[i][1],
-        }
-
         let ani = muonProps.cloneObj(anima)
         ani.eohal = 'linkform'
         ani.eoric = luid(i)
@@ -385,17 +379,17 @@ async function anitem (__mapper) {
       },
 
       eomot: {
-       
+
         proform: {
           projection: 'uniwen',
-          prerotate: [[[ ctlWen.rotation ]]],          
+          prerotate: [[[ ctlWen.rotation ]]],
           translate: [0, 0, 0],
           scale: 1,
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
           geoanod: 1, // eofold eonod
         },
-        
+
       },
 
       eocrom: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
@@ -528,7 +522,7 @@ async function anitem (__mapper) {
     // .................... field_link
     let force_link = {
       properties: {
-        strength: [[[ 0.001, 0.05, 0.001 ]]], // 0.001, // 
+        strength: [[[ 0.001, 0.05, 0.001 ]]], // 0.001, //
       },
 
       field: params => {
@@ -643,6 +637,10 @@ async function anitem (__mapper) {
       // force_collide,
       force_link,
     }
+
+    // natVort.eoforces = {
+      // force_link,
+    // }
 
     // .................. animas
     let animas = [

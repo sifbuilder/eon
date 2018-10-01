@@ -34,7 +34,7 @@
 
     // .................. rebase
     function rebase () {
-      state.rotInDrag_radians = [0, 0, 0] // reset to default rotation
+      state.rotInDrag_degrees = [0, 0, 0] // reset to default rotation
     }
 
     // ....................... dragControl
@@ -54,8 +54,9 @@
     // .................. inits
     let inits = {
       decay: 0.95,
-      mult_radians: 2e-3, // rotInDrag_radians factor
-      rotInit_radians: [0, 0, 0],
+      
+      mult_degrees: 120e-3, // rotInDrag_degrees factor
+      rotInit_degrees: [0, 0, 0],
       timeSpan: 200,
       moveSpan: 16,
     }
@@ -73,10 +74,10 @@
         .translate([0, 0])
         .scale(1),
 
-      rotAccum_radians: [0, 0, 0],
-      rotInDrag_radians: [0, 0, 0], // rotInDrag_radians in radians
-      rotVel_radians: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
-      vel_radians: [0, 0, 0], // from dragEnd to momemtum
+      rotAccum_degrees: [0, 0, 0],
+      rotInDrag_degrees: [0, 0, 0], // rotInDrag_degrees in radians
+      rotVel_degrees: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
+      vel_degrees: [0, 0, 0], // from dragEnd to momemtum
 
       grabbed: false,
       moved: false,
@@ -103,18 +104,18 @@
       if (state.grabbed) return // drag ongoing
 
       stopMomentum()
+      
       state.moved = false // not moved yet
-
       state.grabbed = getPos(e)
 
       state.s2 = state.grabbed // present
       state.s1 = state.s2 // current
       state.s0 = state.s1 // current
 
-      state.rotAccum_radians =
+      state.rotAccum_degrees =
             muonGeom.add(
-              state.rotAccum_radians,
-              state.rotInDrag_radians) // rotation
+              state.rotAccum_degrees,
+              state.rotInDrag_degrees) // rotation
 
       rebase() // rebase rotInDrag
     }
@@ -142,18 +143,18 @@
       if (!state.moved) {
         if (sdist < inits.moveSpan) return
         state.moved = true // moved
-        state.rotInDrag_radians = inits.rotInit_radians
+        state.rotInDrag_degrees = inits.rotInit_degrees
         rebase()
       }
 
       state.lastMoveTime = Date.now()
 
       let r2 = [
-        state.rotVel_radians[0] + sdp[0] * inits.mult_radians,
-        state.rotVel_radians[1] + sdp[1] * inits.mult_radians,
+        state.rotVel_degrees[0] + sdp[0] * inits.mult_degrees,
+        state.rotVel_degrees[1] + sdp[1] * inits.mult_degrees,
       ]
 
-      state.rotInDrag_radians = r2
+      state.rotInDrag_degrees = r2
     }
 
     // .................. dragended
@@ -162,25 +163,27 @@
       state.grabbed = false
       if (!state.moved) return
 
-      state.vel_radians = [ // velocity
+      state.vel_degrees = [ // vel s2-s1
 
-        xsign * (state.s2[1] - state.s1[1]) * inits.mult_radians,
-        ysign * (state.s2[0] - state.s1[0]) * inits.mult_radians,
+        xsign * (state.s2[1] - state.s1[1]) * inits.mult_degrees,
+        ysign * (state.s2[0] - state.s1[0]) * inits.mult_degrees,
 
       ]
 
+    
+      if (1 && 1) console.log('vel_degrees', state.vel_degrees)      
       state.timer = requestAnimationFrame(momentum)
     }
 
     // .................. momentum
     function momentum () {
-      if (Math.abs(state.vel_radians[0]) < epsilon && Math.abs(state.vel_radians[1]) < epsilon) return
+      if (Math.abs(state.vel_degrees[0]) < epsilon && Math.abs(state.vel_degrees[1]) < epsilon) return
 
-      state.vel_radians[0] *= inits.decay
-      state.vel_radians[1] *= inits.decay
+      state.vel_degrees[0] *= inits.decay
+      state.vel_degrees[1] *= inits.decay
 
-      state.rotInDrag_radians[0] += state.vel_radians[0]
-      state.rotInDrag_radians[1] -= state.vel_radians[1]
+      state.rotInDrag_degrees[0] += state.vel_degrees[0]
+      state.rotInDrag_degrees[1] -= state.vel_degrees[1]
 
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
@@ -188,9 +191,9 @@
     // .................. enty
     let enty = function (p = {}) {
       let rotInit_degrees = p.rotInit
-      let rotInit_radians = muonGeom.to_radians(rotInit_degrees)
+      let rotInit_degrees = muonGeom.to_degrees(rotInit_degrees)
 
-      state.rotAccum_radians = rotInit_radians || inits.rotInit_radians
+      state.rotAccum_degrees = rotInit_degrees || inits.rotInit_degrees
 
       state.timer = requestAnimationFrame(tick)
 
@@ -215,9 +218,8 @@
 
     enty.rotation = () => {
       let res = muonGeom.add(
-        state.rotAccum_radians,
-        state.rotInDrag_radians)
-        .map(muonGeom.to_degrees)
+        state.rotAccum_degrees,
+        state.rotInDrag_degrees)
       return res
     }
 
