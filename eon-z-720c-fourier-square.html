@@ -6,25 +6,25 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
+    eohalSol,
+    eohalPacer,
+    eohalFourier,
+    eohalScene,
     muonProps,
     muonFourier,
     muonProj3ct,
     muonProfier,
     muonGeoj,
-    eohalSol,
-    eohalPacer,
-    eohalFourier,
-    eohalScene,
   ] = await Promise.all([
+    __mapper('xs').e('sol'),
+    __mapper('xs').e('pacer'),
+    __mapper('xs').e('fourier'),
+    __mapper('xs').e('scene'),
     __mapper('xs').m('props'),
     __mapper('xs').m('fourier'),
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
     __mapper('xs').m('geoj'),
-    __mapper('xs').e('sol'),
-    __mapper('xs').e('pacer'),
-    __mapper('xs').e('fourier'),
-    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -108,6 +108,8 @@ async function anitem (__mapper) {
     let traceline = {
 
       eohal: 'pacer',
+      eotim,
+      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
 
       eofold: {
         type: 'Feature',
@@ -126,8 +128,6 @@ async function anitem (__mapper) {
         properties: {},
       },
 
-      eotim,
-      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
       eocrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eoload: {

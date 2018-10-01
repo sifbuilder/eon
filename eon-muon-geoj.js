@@ -760,9 +760,24 @@
       
     }
     
+    let geotrim = function (coord = []) {
+      console.assert(Array.isArray(coord))
+      let res = coord.reduce( (p,q) => (!isNaN(q)) ? [...p, q] : p,[])
+      return res
+    }
+
+    
+    let isValidCoord = function (coord = []) {
+      console.assert(Array.isArray(coord))
+      let res = coord.reduce( (p,q) => p && isNaN(q), true)
+      return res
+    }
+    
     // ............................. enty
     let enty = function () {}
 
+    enty.isValidCoord = isValidCoord
+    enty.geotrim = geotrim
     enty.trim = trim
     enty.tclip = tclip
     enty.complexify = complexify

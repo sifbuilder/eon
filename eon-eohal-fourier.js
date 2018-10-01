@@ -52,7 +52,7 @@
         interval = fourier.interval || [0, 1], // fourier.period
         tolerance = fourier.tolerance || 0.5,
         geosort = fourier.geosort || 'anigram'
-        
+
       // ... time in period is (t - t0) / (t1 - t0), with t unit time
 
       let t = eotim.unitTime // time % period; i,[0,vertices] => t,[0,T]
@@ -205,7 +205,12 @@
               traceline.eoric = riccer(newItem)
               traceline.eoric.uid = muonEoric.getuid(traceline.eoric)
 
-              newItem.avatars = {traceline: traceline}
+              newItem.avatars = {
+                traceline: traceline
+              }
+if (1 && 1) console.log('h.fourier newItem', newItem)
+
+
             }
           }
 
@@ -231,38 +236,49 @@
       }
 
       return newItems
-      
+
     }
 
     // ............................. ween
     function ween (anitem) {
       if (anitem.eoload.fourier.geosort === 'anima') {
         let newItems = eohale(anitem)
-        
+
         let anilists = newItems.map(ani => eohalSol.ween(ani))
         let anis = anilists.reduce((p, q) => Array.isArray(q) ? [...p, ...q] : [...p, q], [])
 if (1 && 1) console.log('anis', anis)
-        
+
         return anis
-          
+
       } else {
-        
+
         return Array.of(anitem)
-        
+
       }
     }
 
     // ............................. gramm
     function gramm (anitem) {
+      let newAnigrams = []
       if (anitem.eoload.fourier.geosort === 'anima') {
-        return Array.of(anitem)
+
+        newAnigrams = Array.of(anitem)
+
       } else {
+
         let newItems = eohale(anitem)
-          
         let anilists = newItems.map(ani => eohalSol.gramm(ani))
-        let anis = anilists.reduce((p, q) => Array.isArray(q) ? [...p, ...q] : [...p, q], [])
-        
-        return anis
+
+        for (let i=0; i<anilists.length; i++) {
+            let anilist = anilists[i]
+            if (Array.isArray(anilist)) {
+              newAnigrams = [...newAnigrams, ...anilist]
+            } else {
+              newAnigrams = [...newAnigrams, anilist]
+            }
+        }
+
+        return newAnigrams
       }
     }
     // .................... eohal

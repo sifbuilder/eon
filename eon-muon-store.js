@@ -8,22 +8,18 @@
 }(this, function (exports) {
   'use strict'
 
-  //... # eon-muon-store
   //... **manage anitems store**
-  //...
-  //... # license
-  //... MIT
 
   async function muonStore (__mapper) {
     let [
-      muonEotim,
-      muonEoric,
       muonAnitem,
+      muonEoric,
+      muonEotim,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').m('eotim'),
-      __mapper('xs').m('eoric'),
       __mapper('xs').m('anitem'),
+      __mapper('xs').m('eoric'),
+      __mapper('xs').m('eotim'),
       __mapper('xs').m('props'),
     ])
       .catch(function (err) {

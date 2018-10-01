@@ -238,12 +238,15 @@ async function anitem (__mapper) {
 
       eoload: {
         pacer: {
-          eohal: 'sol',
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60,
+          
+          geoaad: 1,   // geoaad for trace
+
           geosort: 'anigram',
           geobase: 'viewform',
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60,
           geospan: 0,
-          geoaad: 1,   // geoaad for trace
+
+          eohal: 'sol',
 
           eofold: function (ani, props) {
             let preani = muonStore.findAnigramFromUid(ani.eoric.uid) // anigram
@@ -265,7 +268,6 @@ async function anitem (__mapper) {
 
             }
 
-
             console.assert(coords !== undefined && coords !== null)
             let geometry = {
               type: 'LineString',
@@ -280,6 +282,34 @@ async function anitem (__mapper) {
             }
           },
 
+          eonode: function (ani, props) {
+            let stace = [0, 0, 0]
+            if (props.key === 'init') { // INIT
+              // stace is ani's transformed eonode
+              stace = muonStace.getLocus([null, null, null], ani)
+            } else if (props.key === 'auto') { // AUTO
+              stace = muonStace.getLocus([null, null, null], ani)
+            } else if (props.key === 'event') { // EVENT
+              if (ctlRayder.grabbed() !== undefined) {
+                let grabbed = ctlRayder.grabbed()
+                let x = grabbed[0]
+                let y = grabbed[1]
+                let z = 0
+                stace = {x, y, z }
+              }
+            }
+
+            let coordinates = stace
+            let res = {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: coordinates,
+              },
+              properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+            }
+            return res
+          },
 
 
         },
