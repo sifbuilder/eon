@@ -9,9 +9,9 @@
 }(this, function (exports) {
   'use strict'
 
-  // ... muonAnimation
-  // ... animas, simnodes, anigrams, viewnodes
-  // ... render viewnodes
+  //... muonAnimation
+  //... animas, simnodes, anigrams, viewnodes
+  //... render viewnodes
 
   async function muonAnimation (__mapper) {
     let [
@@ -41,7 +41,7 @@
     state.animas = [] // global animas
     state.promise = null
 
-    // ... getsims
+    //... getsims
     const getsims = (animas, elapsed) => {
       let sim = muonSim.sim() // simulation on animas
       let aninodes = animas.map(anitem => muonAnitem.snapani(anitem))
@@ -49,7 +49,7 @@
       return muonStore.animasLive()
     }
 
-    // ... sequence
+    //... sequence
     function sequence (items, fromitem) {
       function chain (items, index) {
         return (index === items.length)
@@ -59,17 +59,17 @@
       return chain(items, 0)
     }
 
-    // ... getweens
+    //... getweens
     function getweens (animas, elapsed) {
       return sequence(animas, anima => muonStore.ween(anima))
     }
 
-    // ... getgramms
+    //... getgramms
     function getgramms (animas, elapsed) {
       return sequence(animas, anima => muonStore.gramm(anima)) // store anigrams
     }
 
-    // ... async animate
+    //... async animate
     async function animate (time) {
       if (time !== undefined) {
         animier(time)
@@ -80,32 +80,32 @@
       }
     }
 
-    // ... async collectDyn
+    //... async collectDyn
     async function collectDyn (animas, elapsed) {
       let featurecollectionPromise = Promise.resolve(state.animas)
         .then(animas => {
-          // ... get animas from eohal.ween
-          // ... animas reside in the store
+          //... get animas from eohal.ween
+          //... animas reside in the store
 
           getweens(animas, elapsed)
         })
         .then(animas => {
-          // ... animas are subject to fields
-          // ... fields are d3.forces and act upon nodes or anisims
-          // ... the field nodes correlate with the animas geonodes
+          //... animas are subject to fields
+          //... fields are d3.forces and act upon nodes or anisims
+          //... the field nodes correlate with the animas geonodes
 
           return getsims(muonStore.animasLive())
         })
         .then(anisimmed => {
-          // ... animas reveal anigrams at any point in time
-          // ... anigrams reside in a different section of the store
+          //... animas reveal anigrams at any point in time
+          //... anigrams reside in a different section of the store
 
           return getgramms(anisimmed)
         })
         .then(() => {
-          // ... only feature collection can be rendered
-          // ... and that is the feature collection of the existing anigrams
-          // ... all the information to render an anigram must be in its eofold
+          //... only feature collection can be rendered
+          //... and that is the feature collection of the existing anigrams
+          //... all the information to render an anigram must be in its eofold
 
           let featurecollection = {
             type: 'FeatureCollection',
@@ -117,7 +117,7 @@
       return featurecollectionPromise
     }
 
-    // ... collect
+    //... collect
     function collect (animas, elapsed) {
       getweens(state.animas, elapsed)
 
@@ -135,14 +135,14 @@
       return featurecollection
     }
 
-    // ... ANIMIER
+    //... ANIMIER
     function animier (elapsed) {
       muonStore = __mapper('muonStore')
       state.animas = muonStore.animasLive()
 
       if (1 && 1) console.log(` ******************* animation ${elapsed} ${state.animas.length}`, state.animas)
 
-      // ... TIME
+      //... TIME
       state.animas = muonProps.a(muonStore.animasLive())
       for (let i = 0; i < state.animas.length; i++) {
         let anima = state.animas[i]
@@ -153,7 +153,7 @@
         }
       }
 
-      // ... @STOP
+      //... @STOP
       let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.eotim.limit + item.eotim.msStart), 0)
 
       let nostop = state.animas.reduce((pre, item) => (pre || item.eotim.nostop), false)
@@ -164,13 +164,13 @@
         state.animationStop()
       }
 
-      // ... @WEEN SIM GRAMM RENDER
-      // ... from the anigrams, collect the feature collection to be rendered
+      //... @WEEN SIM GRAMM RENDER
+      //... from the anigrams, collect the feature collection to be rendered
 
-      // ... let featurecollectionPromise = collect(state.animas, elapsed)
+      //... let featurecollectionPromise = collect(state.animas, elapsed)
       let featurecollection = collect(state.animas, elapsed)
 
-      // ... then render by sort the features in the collection
+      //... then render by sort the features in the collection
       renderSvg.render(featurecollection)
     }
 

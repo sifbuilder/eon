@@ -8,13 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
-  // ... # eon-muon-proj3ct
-  // ... ** **
-  // ... https://d3js.org/d3-geo-projection/
-  // ... Copyright 2017 Mike Bostock.
-  // ... proj3ct(gj, projection)
-  // ... # license
-  // ... MIT
+  //... # eon-muon-proj3ct
+  //... ** **
+  //... https://d3js.org/d3-geo-projection/
+  //... Copyright 2017 Mike Bostock.
+  //... proj3ct(gj, projection)
+  //... # license
+  //... MIT
 
   async function muonProj3ct (__mapper = {}) {
     let [

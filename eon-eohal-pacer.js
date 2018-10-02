@@ -103,9 +103,9 @@
       //...   4 halo creates anima with pacer
       //...   5 halo creates anigram with pacer
       //...   6 animas has avatar that has avatar that is pacer
-
+      //...   
       //...    h.fourier creates anima
-
+      //...     
       //... anitem and parentitem may be anima
       //... or anigram, eg. anima.avatar(nat).avatar(pacedline)
 
@@ -131,6 +131,7 @@
         
         //... when avatars, paced are anigrams. pacedAnitem is parent if exists
         //... parentAnigram ref. z.720z rhyno
+        
         if (parentAnigram) {
           pacedAnitem = parentAnigram
         } else {
@@ -190,7 +191,7 @@
           : Object.assign(pacedAnitem.eoouted, {[pacerUid]: eotim.unitPassed})
       }
 
-      //... eocount
+      //... COUNT items
       //...   eg: {init:4, auto:1, event:3}
       //...   init runs once
       //...   auto runs on each cycle
@@ -198,6 +199,7 @@
 
       if (Object.keys(count).length > 0) {
         for (let counter = 0; counter < Object.keys(count).length; counter++) {
+          
           //... if count items to pace
           //... for each type of pace count, eg {init: 6, auto: 1}
           //...    key is the sort of count { init, auto, event }
@@ -218,7 +220,7 @@
             //...     if anigrams , newitem is anigram
             //... remove eoload from newItem
             //... pid is the anima uid
-            // ...
+            //...
             //... then override newItem propeties with pacer functors
 
             let newItem
@@ -227,7 +229,7 @@
             } else {
               newItem = muonProps.clone(anigram) // anigram
             }
-            if (1 && 1) console.log(`${newItem.eoric.uid} ${newItem}`)
+if (1 && 1) console.log(' ---- newItem', newItem)
 
             delete newItem.eoload
             newItem.eoric.pid = uidAnima
@@ -244,6 +246,7 @@
             //... if paced anigram, eohal.gramm the newitem, then return
 
             let eohal = __mapper(__mapper('xs').ceonize(newItem.eohal, 'eohal'))
+            
             let newItemsInCount
             if (geosort === 'anima') {
               newItemsInCount = eohal.ween(newItem)

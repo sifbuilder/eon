@@ -42,10 +42,10 @@ async function anitem (__mapper) {
 
       eohal: 'sol',
 
-      // ... eonode reflects the geometry of the form
-      // ... updated by transforms
-      // ... relative to eonode
-      // ... as eonode, properties keep transformed views
+      //... eonode reflects the geometry of the form
+      //... updated by transforms
+      //... relative to eonode
+      //... as eonode, properties keep transformed views
       eofold: p => muonNatform.natFeature(p.eoform),
 
       eotim: eotim,
@@ -65,16 +65,16 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity],
         },
       },
-      // ... eonode is reference to eofold
-      // ... updated by sim forces
-      // ... as eofold, properties keep transformed views
+      //... eonode is reference to eofold
+      //... updated by sim forces
+      //... as eofold, properties keep transformed views
       eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
           coordinates: [0, 0, 0],
         },
-        // ... orgen, velin, prevous needed in force fields
+        //... orgen, velin, prevous needed in force fields
         properties: {
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
@@ -159,8 +159,8 @@ async function anitem (__mapper) {
             return eofold
           },
 
-          // ... traceNat eonode is set to motted aniNat eonode
-          // ... traceLine eonode coords get traceNat eonode
+          //... traceNat eonode is set to motted aniNat eonode
+          //... traceLine eonode coords get traceNat eonode
 
           eonode: function (ani, props) {
             let coords = [0, 0, 0]
@@ -315,15 +315,15 @@ async function anitem (__mapper) {
     // ....................... aniNat
     aniNat.avatars = {
 
-      // ... aniNat is a h.sol anima
-      // ... it is proform-projected
-      // ... viewform is then the result of proform
-      // ... carries traceNat as avatar
+      //... aniNat is a h.sol anima
+      //... it is proform-projected
+      //... viewform is then the result of proform
+      //... carries traceNat as avatar
 
-      // ... traceNat is a h.pacer avatar
-      // ... as avatar, arrives as anigram to the sol cycle
-      // ... does not specify position or motion
-      // ... its location relies on aniNat eonode
+      //... traceNat is a h.pacer avatar
+      //... as avatar, arrives as anigram to the sol cycle
+      //... does not specify position or motion
+      //... its location relies on aniNat eonode
 
       traceNat, // h.pacer
 

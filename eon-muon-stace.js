@@ -8,47 +8,47 @@
 }(this, function (exports) {
   'use strict'
 
-  // ... # eon-muon-stace
-  // ... **manage location of aniItems**
+  //... # eon-muon-stace
+  //... **manage location of aniItems**
   // ...
-  // ... ## methods
-  // ... getPosInDim  getPosesInDim m.liner _e_
+  //... ## methods
+  //... getPosInDim  getPosesInDim m.liner _e_
   // ...
-  // ... ### getSiti
+  //... ### getSiti
   // ...
-  // ... ### getSitus , or ani eonode
-  // ...             ani position in the coords system
-  // ...             in eonode.geometry
-  // ...             sim forces act on the ani geonodes
+  //... ### getSitus , or ani eonode
+  //...             ani position in the coords system
+  //...             in eonode.geometry
+  //...             sim forces act on the ani geonodes
   // ...
-  // ... ### getLoci
+  //... ### getLoci
   // ...
-  // ... ### getLocus , locus and transpots
+  //... ### getLocus , locus and transpots
   // ...
-  // ... ### getLocifion
-  // ... get the uniwen projection with translate to anigram location
-  // ... getLocus
+  //... ### getLocifion
+  //... get the uniwen projection with translate to anigram location
+  //... getLocus
   // ...
-  // ... ### getLocifier
-  // ... locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
+  //... ### getLocifier
+  //... locifier(p): [x, y, z] => [x+p[0], y+p[1], z+p[2]]
   // ...
-  // ... ### getTranspot
+  //... ### getTranspot
   // ...
-  // ... ### getTranspots
-  // ... `getTranspots(stace, eoload)`
-  // ... **get stace locations in @eoric**
-  // ... ##### parameters
-  // ...  **stace** ,  may be passed as param or as eoload attribute
-  // ...     * `{x:0, y:0, z:0}`, position object
-  // ...     * `[300,200,0]`,  pure array
-  // ...     * `[a1,a2,a3], [b1,b2]]`,  pure multi array, add by dax
-  // ...     * `[[[ {nat} ]]]`, nat form
-  // ...     * `[{gen,ere,pro}]`,  parent node position, nodeGeoformed, nodeEreformed or nodeProformed
-  // ...     * `[{pos:0}, a2]`,  if pos, parent form position
+  //... ### getTranspots
+  //... `getTranspots(stace, eoload)`
+  //... **get stace locations in @eoric**
+  //... ##### parameters
+  //...  **stace** ,  may be passed as param or as eoload attribute
+  //...     * `{x:0, y:0, z:0}`, position object
+  //...     * `[300,200,0]`,  pure array
+  //...     * `[a1,a2,a3], [b1,b2]]`,  pure multi array, add by dax
+  //...     * `[[[ {nat} ]]]`, nat form
+  //...     * `[{gen,ere,pro}]`,  parent node position, nodeGeoformed, nodeEreformed or nodeProformed
+  //...     * `[{pos:0}, a2]`,  if pos, parent form position
   // ...
-  // ... if stace.<dax>.pos and no transformation property
-  // ...       get spot from `parentani.eofold.geometry.coordinates`
-  // ... **eoload**, to get parent coords if spot is relative to parent geometry
+  //... if stace.<dax>.pos and no transformation property
+  //...       get spot from `parentani.eofold.geometry.coordinates`
+  //... **eoload**, to get parent coords if spot is relative to parent geometry
 
   async function muonStace (__mapper = {}) {
     let [
