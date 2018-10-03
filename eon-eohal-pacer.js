@@ -229,7 +229,6 @@
             } else {
               newItem = muonProps.clone(anigram) // anigram
             }
-if (1 && 1) console.log(' ---- newItem', newItem)
 
             delete newItem.eoload
             newItem.eoric.pid = uidAnima

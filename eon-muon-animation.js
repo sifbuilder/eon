@@ -140,7 +140,7 @@
       muonStore = __mapper('muonStore')
       state.animas = muonStore.animasLive()
 
-      if (1 && 1) console.log(` ******************* animation ${elapsed} ${state.animas.length}`, state.animas)
+      if (0 && 1) console.log(` ******************* animation ${elapsed} ${state.animas.length}`, state.animas)
 
       //... TIME
       state.animas = muonProps.a(muonStore.animasLive())

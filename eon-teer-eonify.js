@@ -1,9 +1,9 @@
 
-// https://eonify.netlify.com/
-// https://github.com/sifbuilder/eonify
-
-// https://github.com/sifbuilder/eons
-// https://sifbuilder.github.io/eons/
+//... **maintains eonify netlify site**
+//... https://eonify.netlify.com/
+//... https://github.com/sifbuilder/eonify
+//... https://github.com/sifbuilder/eons
+//... https://sifbuilder.github.io/eons/
 
 const fs = require('fs')
 const path = require('path')
@@ -26,7 +26,7 @@ const isFile = d => fs.lstatSync(d).isFile()
 
 let args = process.argv
 let [cmd, scp, ...opts] = args
-// action: {[help] deoploy, browse}
+
 let action = (opts[0] !== undefined) ? opts[0] : 'help'
 let option = 'none'
 if (opts[1] !== undefined) option = opts[1]
@@ -49,10 +49,10 @@ let netlifysite = 'eonify' // site folder
 let rootdirpath = `${dirname}/../`
 let sitepath = `${rootdirpath}${netlifysite}` // eg. ./../eonify
 
-const htmlpattern = new RegExp('^(eon.*)\.html$', 'i')
+const htmlpattern = new RegExp('^(eon.*).html$', 'i')
 const eonpattern = new RegExp('^' + 'eon' + '.*' + '.*(.html|js)', 'i')
 const eonifypattern = new RegExp('^' + 'eonify' + '.*' + '.*(.html|js)', 'i')
-const testpattern = new RegExp('(.*)\.test\.(.*)$', 'i')
+const testpattern = new RegExp('(.*).test.(.*)$', 'i')
 const mdpattern = /\/\/.?md:(.*)/mg // // md (global multiline)
 const imgpattern = new RegExp('(.*)(.jpg)$', 'i')
 const zpattern = new RegExp('(.*)(.html)$', 'i')
@@ -163,34 +163,53 @@ api.d04a = (p = {opt: 'help'}) => {
   }
 }
 
-api.d12 = (p = {opt: 'help'}) => {
-  // 12.- create about page
-  let fromFile12 = `${fromsitedir}/src_pages_about_index.md`
-  let toFile12 = `${sitepath}/src/pages/about/index.md`
-  let toFile12_bck = `${sitepath}/src/pages/about/index.md.000`
+api.d6 = (p = {opt: 'help'}) => {
+  // 06.- create about page
+  let fromFile06 = `${fromsitedir}/src_pages_about_index.md`
+  let toFile06 = `${sitepath}/src/pages/about/index.md`
+  let toFile06_bck = `${sitepath}/src/pages/about/index.md.000`
 
   if (p.opt === 'help') {
-    console.log(`show ${fromFile12} to ${toFile12}`)
+    console.log(`show ${fromFile06} to ${toFile06}`)
   } else {
-    filelog['fromFile12'] = `${fromFile12}`
-    filelog['toFile12'] = `${toFile12}`
-    filelog['toFile12_bck'] = `${toFile12_bck}`
-    if (fs.existsSync(filelog['toFile12'])) {
-      console.log(`12.- ${filelog['toFile12']} already exist`)
-      if (!fs.existsSync(filelog['toFile12_bck'])) fs.copyFileSync(filelog['toFile12'], filelog['toFile12_bck'])
-      fs.copyFileSync(filelog['fromFile12'], filelog['toFile12'])
+    filelog['fromFile06'] = `${fromFile06}`
+    filelog['toFile06'] = `${toFile06}`
+    filelog['toFile06_bck'] = `${toFile06_bck}`
+    if (fs.existsSync(filelog['toFile06'])) {
+      console.log(`06.- ${filelog['toFile06']} already exist`)
+      if (!fs.existsSync(filelog['toFile06_bck'])) fs.copyFileSync(filelog['toFile06'], filelog['toFile06_bck'])
+      fs.copyFileSync(filelog['fromFile06'], filelog['toFile06'])
     } else {
-      console.log(`12.- copy file ${filelog['fromFile12']} to ${filelog['toFile12']}`)
-      fs.copyFileSync(filelog['fromFile12'], filelog['toFile12'])
+      console.log(`06.- copy file ${filelog['fromFile06']} to ${filelog['toFile06']}`)
+      fs.copyFileSync(filelog['fromFile06'], filelog['toFile06'])
+    }
+  }
+}
+
+api.d07 = (p = {opt: 'help'}) => {
+  // src/img/eons-logo.svg - upd
+  filelog['fromFile07'] = `${fromsitedir}/src_img_eons-logo.svg`
+  filelog['toFile07'] = `${sitepath}/src/img/eons-logo.svg`
+  filelog['toFile07_bck'] = `${sitepath}/src/img/eons-logo.svg.000`
+  if (p.opt === 'help') {
+    console.log(`copy ${filelog['fromFile07']} to ${filelog['toFile07']}`)
+  } else {
+    if (fs.existsSync(filelog['toFile07'])) {
+      console.log(`07.- ${filelog['toFile07']} already exist`)
+      if (!fs.existsSync(filelog['toFile07_bck'])) fs.copyFileSync(filelog['toFile07'], filelog['toFile07_bck'])
+      fs.copyFileSync(filelog['fromFile07'], filelog['toFile07'])
+    } else {
+      console.log(`07.- copy file ${filelog['fromFile07']} to ${filelog['toFile07']}`)
+      fs.copyFileSync(filelog['fromFile07'], filelog['toFile07'])
     }
   }
 }
 
 api.d08 = (p = {opt: 'help'}) => {
-  // src/img/eons-logo.svg - upd
-  filelog['fromFile08'] = `${fromsitedir}/src_img_eons-logo.svg`
-  filelog['toFile08'] = `${sitepath}/src/img/eons-logo.svg`
-  filelog['toFile08_bck'] = `${sitepath}/src/img/eons-logo.svg.000`
+  // src/img/twitter-icon - create
+  filelog['fromFile08'] = `${fromsitedir}/src_img_twitter-icon.svg`
+  filelog['toFile08'] = `${sitepath}/src/img/twitter-icon.svg`
+  filelog['toFile08_bck'] = `${sitepath}/src/img/twitter-icon.svg.000`
   if (p.opt === 'help') {
     console.log(`copy ${filelog['fromFile08']} to ${filelog['toFile08']}`)
   } else {
@@ -205,11 +224,11 @@ api.d08 = (p = {opt: 'help'}) => {
   }
 }
 
+// 09.- src/components/Navbar
 api.d09 = (p = {opt: 'help'}) => {
-  // src/img/twitter-icon - create
-  filelog['fromFile09'] = `${fromsitedir}/src_img_twitter-icon.svg`
-  filelog['toFile09'] = `${sitepath}/src/img/twitter-icon.svg`
-  filelog['toFile09_bck'] = `${sitepath}/src/img/twitter-icon.svg.000`
+  filelog['fromFile09'] = `${fromsitedir}/src_components_Navbar.js`
+  filelog['toFile09'] = `${sitepath}/src/components/Navbar.js`
+  filelog['toFile09_bck'] = `${sitepath}/src/components/Navbar.js.000`
   if (p.opt === 'help') {
     console.log(`copy ${filelog['fromFile09']} to ${filelog['toFile09']}`)
   } else {
@@ -224,11 +243,11 @@ api.d09 = (p = {opt: 'help'}) => {
   }
 }
 
-// 10.- src/components/Navbar
+// 10.- src/pages/index.js
 api.d10 = (p = {opt: 'help'}) => {
-  filelog['fromFile10'] = `${fromsitedir}/src_components_Navbar.js`
-  filelog['toFile10'] = `${sitepath}/src/components/Navbar.js`
-  filelog['toFile10_bck'] = `${sitepath}/src/components/Navbar.js.000`
+  filelog['fromFile10'] = `${fromsitedir}/src_pages_index.js`
+  filelog['toFile10'] = `${sitepath}/src/pages/index.js`
+  filelog['toFile10_bck'] = `${sitepath}/src/pages/index.js.000`
   if (p.opt === 'help') {
     console.log(`copy ${filelog['fromFile10']} to ${filelog['toFile10']}`)
   } else {
@@ -243,61 +262,42 @@ api.d10 = (p = {opt: 'help'}) => {
   }
 }
 
-// 17.- src/pages/index.js
-api.d17 = (p = {opt: 'help'}) => {
-  filelog['fromFile17'] = `${fromsitedir}/src_pages_index.js`
-  filelog['toFile17'] = `${sitepath}/src/pages/index.js`
-  filelog['toFile17_bck'] = `${sitepath}/src/pages/index.js.000`
+// 11.- src/pages/blog/*
+api.d11 = (p = {opt: 'help'}) => {
+  filelog['fromDir11'] = `${fromsitedir}/src_pages_blog/`
+  filelog['toDir11'] = `${sitepath}/src/pages/blog`
+  filelog['toDir11_bck'] = `${sitepath}/src/pages/blog.000`
   if (p.opt === 'help') {
-    console.log(`copy ${filelog['fromFile17']} to ${filelog['toFile17']}`)
+    console.log(`copy ${filelog['fromDir11']} to ${filelog['toDir11']}`)
   } else {
-    if (fs.existsSync(filelog['toFile17'])) {
-      console.log(`17.- ${filelog['toFile17']} already exist`)
-      if (!fs.existsSync(filelog['toFile17_bck'])) fs.copyFileSync(filelog['toFile17'], filelog['toFile17_bck'])
-      fs.copyFileSync(filelog['fromFile17'], filelog['toFile17'])
-    } else {
-      console.log(`17.- copy file ${filelog['fromFile17']} to ${filelog['toFile17']}`)
-      fs.copyFileSync(filelog['fromFile17'], filelog['toFile17'])
-    }
-  }
-}
+    if (fs.existsSync(filelog['toDir11'])) {
+      console.log(`11.- ${filelog['toDir11']} already exist`)
+      console.log(`11.- copy dir ${filelog['fromDir11']} to ${filelog['toDir11']}`)
 
-// 18.- src/pages/blog/*
-api.d18 = (p = {opt: 'help'}) => {
-  filelog['fromDir18'] = `${fromsitedir}/src_pages_blog/`
-  filelog['toDir18'] = `${sitepath}/src/pages/blog`
-  filelog['toDir18_bck'] = `${sitepath}/src/pages/blog.000`
-  if (p.opt === 'help') {
-    console.log(`copy ${filelog['fromDir18']} to ${filelog['toDir18']}`)
-  } else {
-    if (fs.existsSync(filelog['toDir18'])) {
-      console.log(`18.- ${filelog['toDir18']} already exist`)
-      console.log(`18.- copy dir ${filelog['fromDir18']} to ${filelog['toDir18']}`)
-
-      if (!fs.existsSync(filelog['toDir18_bck'])) {
-        console.log(`rename ${filelog['toDir18']} to ${filelog['toDir18_bck']}`)
-        fs.renameSync(filelog['toDir18'], filelog['toDir18_bck'])
+      if (!fs.existsSync(filelog['toDir11_bck'])) {
+        console.log(`rename ${filelog['toDir11']} to ${filelog['toDir11_bck']}`)
+        fs.renameSync(filelog['toDir11'], filelog['toDir11_bck'])
       }
 
-      // let prefiles = fs.readdirSync(filelog['toDir18'])
+      // let prefiles = fs.readdirSync(filelog['toDir11'])
       // for (let i=0; i<prefiles.length; i++) {
-      // let fileToDelete = `${filelog['toDir18']}/${prefiles[i]}`
+      // let fileToDelete = `${filelog['toDir11']}/${prefiles[i]}`
       // console.log(`del: ${fileToDelete}`)
       // fs.unlinkSync(fileToDelete);
       // }
-      if (!fs.existsSync(filelog['toDir18'])) {
-        console.log(`create ${filelog['toDir18']}`)
-        fs.mkdirSync(filelog['toDir18'])
+      if (!fs.existsSync(filelog['toDir11'])) {
+        console.log(`create ${filelog['toDir11']}`)
+        fs.mkdirSync(filelog['toDir11'])
       }
     }
 
     // git clean -df
     // git checkout -- .
 
-    let fromfiles = fs.readdirSync(filelog['fromDir18'])
+    let fromfiles = fs.readdirSync(filelog['fromDir11'])
     for (let i = 0; i < fromfiles.length; i++) {
-      let fromFileToCopy = `${filelog['fromDir18']}/${fromfiles[i]}`
-      let toFileToCopy = `${filelog['toDir18']}/${fromfiles[i]}`
+      let fromFileToCopy = `${filelog['fromDir11']}/${fromfiles[i]}`
+      let toFileToCopy = `${filelog['toDir11']}/${fromfiles[i]}`
       console.log(` copy: ${fromFileToCopy} to: ${toFileToCopy}`)
 
       fs.copyFileSync(fromFileToCopy, toFileToCopy)
@@ -305,38 +305,38 @@ api.d18 = (p = {opt: 'help'}) => {
   }
 }
 
-// 19.- src/pages/blog/*
-api.d19 = (p = {opt: 'help'}) => {
-  filelog['fromDir19'] = `${fromsitedir}/static_img/`
-  filelog['toDir19'] = `${sitepath}/static/img`
-  filelog['toDir19_bck'] = `${sitepath}/static/img.000`
+// 12.- src/pages/static_img/
+api.d12 = (p = {opt: 'help'}) => {
+  filelog['fromDir12'] = `${fromsitedir}/static_img/`
+  filelog['toDir12'] = `${sitepath}/static/img`
+  filelog['toDir12_bck'] = `${sitepath}/static/img.000`
   if (p.opt === 'help') {
-    console.log(`copy ${filelog['fromDir19']} to ${filelog['toDir19']}`)
+    console.log(`copy ${filelog['fromDir12']} to ${filelog['toDir12']}`)
   } else {
-    if (fs.existsSync(filelog['toDir19'])) {
-      console.log(`19.- ${filelog['toDir19']} already exist`)
-      console.log(`19.- copy dir ${filelog['fromDir19']} to ${filelog['toDir19']}`)
+    if (fs.existsSync(filelog['toDir12'])) {
+      console.log(`12.- ${filelog['toDir12']} already exist`)
+      console.log(`12.- copy dir ${filelog['fromDir12']} to ${filelog['toDir12']}`)
 
-      console.log(`rename ${filelog['toDir19']} to ${filelog['toDir19_bck']}`)
-      fs.renameSync(filelog['toDir19'], filelog['toDir19_bck'])
+      console.log(`rename ${filelog['toDir12']} to ${filelog['toDir12_bck']}`)
+      fs.renameSync(filelog['toDir12'], filelog['toDir12_bck'])
 
-      // let prefiles = fs.readdirSync(filelog['toDir19'])
+      // let prefiles = fs.readdirSync(filelog['toDir12'])
       // for (let i=0; i<prefiles.length; i++) {
-      // let fileToDelete = `${filelog['toDir19']}/${prefiles[i]}`
+      // let fileToDelete = `${filelog['toDir12']}/${prefiles[i]}`
       // console.log(`del: ${fileToDelete}`)
       // fs.unlinkSync(fileToDelete);
       // }
-      console.log(`create ${filelog['toDir19']}`)
-      fs.mkdirSync(filelog['toDir19'])
+      console.log(`create ${filelog['toDir12']}`)
+      fs.mkdirSync(filelog['toDir12'])
     }
 
     // git clean -df
     // git checkout -- .
 
-    let fromfiles = fs.readdirSync(filelog['fromDir19'])
+    let fromfiles = fs.readdirSync(filelog['fromDir12'])
     for (let i = 0; i < fromfiles.length; i++) {
-      let fromFileToCopy = `${filelog['fromDir19']}/${fromfiles[i]}`
-      let toFileToCopy = `${filelog['toDir19']}/${fromfiles[i]}`
+      let fromFileToCopy = `${filelog['fromDir12']}/${fromfiles[i]}`
+      let toFileToCopy = `${filelog['toDir12']}/${fromfiles[i]}`
       console.log(` copy: ${fromFileToCopy} to: ${toFileToCopy}`)
 
       fs.copyFileSync(fromFileToCopy, toFileToCopy)
@@ -344,34 +344,34 @@ api.d19 = (p = {opt: 'help'}) => {
   }
 }
 
-// 05.- eon:src_templates_eon-page.js
-api.d05 = (opt = 'help') => {
-  filelog['fromFile05'] = `${fromsitedir}/src_templates_eon-page.js`
-  filelog['toFile05'] = `${sitepath}/src/templates/eon-page.js`
-  filelog['toFile05_bck'] = `${sitepath}/src/templates/eon-page.js.000`
-  if (fs.existsSync(filelog['toFile05'])) {
-    console.log(`05.- ${filelog['toFile05']} already exist`)
-    if (!fs.existsSync(filelog['toFile05_bck'])) fs.copyFileSync(filelog['toFile05'], filelog['toFile05_bck'])
-    fs.copyFileSync(filelog['fromFile05'], filelog['toFile05'])
+// 13.- eon:src_templates_eon-page.js
+api.d13 = (opt = 'help') => {
+  filelog['fromFile13'] = `${fromsitedir}/src_templates_eon-page.js`
+  filelog['toFile13'] = `${sitepath}/src/templates/eon-page.js`
+  filelog['toFile13_bck'] = `${sitepath}/src/templates/eon-page.js.000`
+  if (fs.existsSync(filelog['toFile13'])) {
+    console.log(`13.- ${filelog['toFile13']} already exist`)
+    if (!fs.existsSync(filelog['toFile13_bck'])) fs.copyFileSync(filelog['toFile13'], filelog['toFile13_bck'])
+    fs.copyFileSync(filelog['fromFile13'], filelog['toFile13'])
   } else {
-    console.log(`05.- copy file ${filelog['fromFile05']} to ${filelog['toFile05']}`)
-    fs.copyFileSync(filelog['fromFile05'], filelog['toFile05'])
+    console.log(`13.- copy file ${filelog['fromFile13']} to ${filelog['toFile13']}`)
+    fs.copyFileSync(filelog['fromFile13'], filelog['toFile13'])
   }
 }
 
-api.d06 = (opt = 'help') => {
-  // 06.- eon:src_cms_preview-templates_EonPagePreview.js
+api.d14 = (opt = 'help') => {
+  // 14.- eon:src_cms_preview-templates_EonPagePreview.js
 
-  filelog['fromFile06'] = `${fromsitedir}/src_cms_preview-templates_EonPagePreview.js`
-  filelog['toFile06'] = `${sitepath}/src/cms/preview-templates/EonPagePreview.js`
-  filelog['toFile06_bck'] = `${sitepath}/src/cms/preview-templates/EonPagePreview.js.000`
-  if (fs.existsSync(filelog['toFile06'])) {
-    console.log(`06.- ${filelog['toFile06']} already exist`)
-    if (!fs.existsSync(filelog['toFile06_bck'])) fs.copyFileSync(filelog['toFile06'], filelog['toFile06_bck'])
-    fs.copyFileSync(filelog['fromFile06'], filelog['toFile06'])
+  filelog['fromFile14'] = `${fromsitedir}/src_cms_preview-templates_EonPagePreview.js`
+  filelog['toFile14'] = `${sitepath}/src/cms/preview-templates/EonPagePreview.js`
+  filelog['toFile14_bck'] = `${sitepath}/src/cms/preview-templates/EonPagePreview.js.000`
+  if (fs.existsSync(filelog['toFile14'])) {
+    console.log(`14.- ${filelog['toFile14']} already exist`)
+    if (!fs.existsSync(filelog['toFile14_bck'])) fs.copyFileSync(filelog['toFile14'], filelog['toFile14_bck'])
+    fs.copyFileSync(filelog['fromFile14'], filelog['toFile14'])
   } else {
-    console.log(`06.- copy file ${filelog['fromFile06']} to ${filelog['toFile06']}`)
-    fs.copyFileSync(filelog['fromFile06'], filelog['toFile06'])
+    console.log(`14.- copy file ${filelog['fromFile14']} to ${filelog['toFile14']}`)
+    fs.copyFileSync(filelog['fromFile14'], filelog['toFile14'])
   }
 }
 
@@ -444,12 +444,23 @@ function browse () {
   }
 }
 
-function isFunction (functionToCheck) {
-  return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]'
-}
-
 if (action === 'help') {
   console.log(`node ${prgname} {[help], browse, action} [help]`)
+  console.log(`project info from ${fromsitedir}`)
+  console.log(`browse: launch server: cd ${sitepath}; npm start develop`)
+  console.log(`action {[help] deploy, browse}`)
+  console.log(`d02 create npm project`)
+  console.log(`d03 yarn project`)
+  console.log(`d04 create admin index`)
+  console.log(`d06 create about page`)
+  console.log(`d07 site logo`)
+  console.log(`d08 twitter logo`)
+  console.log(`d09 navbar`)
+  console.log(`d10 index.js`)
+  console.log(`d11 blog/*`)
+  console.log(`d12 static_img/`)
+  console.log(`d13 eon-page.js`)
+  console.log(`d14 help`)
   if (api[action] !== undefined) {
     api[action]({opt: 'help'})
     console.log('filelog: ', filelog)
