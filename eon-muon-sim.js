@@ -205,6 +205,10 @@
                 muonStore.apply({type: 'UPDANIMA', caller: 'simulation', animas: aniSims})
               })
 
+            
+            //... field method in force
+            //... field gets nodes and force.properties
+              
             if (aniForce.field !== undefined) { // field forces
               let aniCompForces = aniForce.field({ // mamy to share properties
                 elapsed: elapsed, // elapsed

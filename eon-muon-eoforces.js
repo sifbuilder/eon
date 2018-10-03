@@ -30,7 +30,6 @@
     function force (params) {
       let f = __mapper('xs').ceonize(params.type, 'force')
 
-      // let force = await __mapper('xs').f(params.type)
       let fforce = __mapper(f)
 
       let sys = {
@@ -39,7 +38,17 @@
         force: (fforce) ? fforce.force(params) : params.force,
       }
       let force = isolate(sys)
-      return force
+      
+      console.assert(params.key || params.type !== null)
+      
+      let field = 	{
+          key: params.key || params.type,
+          force: force,
+      }
+
+      
+      // return force
+      return field
     }
 
     // ...................... enty
