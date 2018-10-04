@@ -184,8 +184,8 @@ async function anitem (__mapper) {
 
     // ............................. forceGravity
     let forceGravity = function (params) { // force
-    if (1 && 1) console.log('forceGravity params', params)
 
+      console.assert(params.key !== undefined)
       let nodes = params.nodes
       let newNodes = []
 
@@ -194,6 +194,7 @@ async function anitem (__mapper) {
       function force () { // d3force builtin (vs muon d3force)
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
+
           node.vy += gravity // node.vx += 0.001 * Math.random()
         }
       }
@@ -202,46 +203,37 @@ async function anitem (__mapper) {
         if (!nodes) return
       }
 
-      return force
+      let field = {
+        key: params.key,
+        force: force,
+      }
+      return field
     }
 
     let force_gravity = { // aniForce:{properties, field}
-
       properties: {
-
-        gravity: -0.01,
-
+        gravity: -0.5,
       },
 
       field: params => { // force.field
         let forces = []
 
-        // params: elapsed, nodes, properties.gravity
         let nodes = params.nodes
         let gravity = params.properties.gravity
         let key = params.properties.key || 'gravity'
 
         let forceParams = {
           type: 'gravity',
-          gravity: gravity,
-          filter: d => true,
           src: d3_force,
           nodes: nodes,
+          gravity: gravity,
+          filter: d => true,
+          id: d => d.eoric.uid,          
           key: key,            
         }
+        
         let force = forceGravity(forceParams)
-
-
-        
         forces.push(force)
-        // let field = {
-          // key: 'gravity',
-          // force: force,
-        // }
-        // forces.push(field)
-        
-
-        
         return forces
       },
     }
@@ -249,16 +241,16 @@ async function anitem (__mapper) {
     let fieldAni = {
 
       eohal: 'core',
-      eofold: null,
       eotim: eotim,
       eoric: {gid: 'core', cid: 'core', fid: 'core'},
+      eofold: null,
       eoload: {},
 
     }
 
     fieldAni.eoforces = {
-      force_energy,
-      force_viscosity,
+      // force_energy,
+      // force_viscosity,
       force_gravity,
     }
 

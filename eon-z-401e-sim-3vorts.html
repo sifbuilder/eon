@@ -310,7 +310,7 @@ async function anitem (__mapper) {
         }
 
         animas.push(fieldAni)
-        
+
         for (var i = 0; i < data.nodes.length; i++) {
           let node = {
             x: data.nodes[i][0],
@@ -336,7 +336,7 @@ async function anitem (__mapper) {
             source: data.links[i][0],
             target: data.links[i][1],
           }
-          
+
           let dist = muonGeom.distance(
             data.nodes[data.links[i][0]][0],
             data.nodes[data.links[i][0]][1],
@@ -347,7 +347,7 @@ async function anitem (__mapper) {
           let linkForce = dist * linkForcePar
           if (1 && 1) console.log('linkForce', linkForce)
 
-          
+
           let ani = muonProps.cloneObj(anima)
           ani.eohal = 'linkform'
           ani.eoric = luid(i)
@@ -358,7 +358,7 @@ async function anitem (__mapper) {
             target: nuid(nidto).uid,
           }
 
-          
+
           // let forceLink = muonProps.clone(force_link)
           // forceLink.properties.key = ani.eoric.uid
           // forceLink.properties.strength = linkForce
@@ -367,7 +367,7 @@ async function anitem (__mapper) {
           // }
 
 
-          
+
           animas.push(ani)
         }
 
@@ -463,20 +463,20 @@ async function anitem (__mapper) {
           src: d3_force,
           nodes: nodes,
           filter: d => d.eoric.gid === 'ani',
-          key: 'energy',           
+          key: 'energy',
         }
 
         let force = muonEoforces.force(forceParams)
-        
+
         // let field = {
           // key: 'energy',
           // force: muonEoforces.force(forceParams),
         // }
         // return Array.of(field)
-        
+
         forces.push(force)
-        return forces        
-     
+        return forces
+
 
       },
     }
@@ -490,7 +490,7 @@ async function anitem (__mapper) {
 
       field: params => {
         let forces = []
-        
+
         let nodes = params.nodes
 
         let strength = params.properties.strength
@@ -502,28 +502,22 @@ async function anitem (__mapper) {
           strength: strength,
           radius: d => 90,
           filter: d => d.eoric.gid === 'node',
-          key: 'collide',            
+          key: 'collide',
         }
 
         let force = muonEoforces.force(forceParams)
-        
-        // let field = {
-          // key: 'collide',
-          // force: force,
-        // }
-        // forces.push(field)
-        // return forces
-        
         forces.push(force)
-        return forces         
+        return forces
       },
     }
 
     // ............................. forceGravity
+    //... muonSim receives field.key key.force objects
+    //... the field object is built in muonEoforces.force
+    //... or in the force object    
     let forceGravity = function (params) { // force
-    
+
       console.assert(params.key !== undefined)
-    
       let nodes = params.nodes
       let newNodes = []
 
@@ -540,17 +534,12 @@ async function anitem (__mapper) {
       function initialize () {
         if (!nodes) return
       }
-      
-      
-      //... muonSim receives field.key key.force objects
-      //... the field object is built in muonEoforces.force
-      //... or in the force object 
+
       let field = {
         key: params.key,
         force: force,
       }
       return field
-      // return force
     }
 
     let force_gravity = { // aniForce:{properties, field}
@@ -558,10 +547,8 @@ async function anitem (__mapper) {
         gravity: -0.7,
       },
 
-      field: params => { // force.field
+      field: params => { // elapsed, nodes, properties.gravity
         let forces = []
-
-        // params: elapsed, nodes, properties.gravity
 
         let nodes = params.nodes
         let gravity = params.properties.gravity // params.properties
@@ -572,21 +559,12 @@ async function anitem (__mapper) {
           nodes: nodes,
           gravity: gravity,
           filter: d => d.eoric.gid === 'node',
-          id: d => d.eoric.uid,          
+          id: d => d.eoric.uid,
           key: 'gravity',
         }
 
         let force = forceGravity(forceParams)
-
-        // let field = {
-          // key: 'gravity',
-          // force: force,
-        // }
-        // forces.push(field)
         forces.push(force)
-        
-        
-        
         return forces
       },
     }
@@ -615,16 +593,10 @@ async function anitem (__mapper) {
           filter: d => true,
           id: d => d.eoric.uid,
           links: nodes.filter(d => (d.eoric.gid === 'link')),
-          key: key,          
+          key: key,
         }
 
         let force = muonEoforces.force(forceParams)
-        
-        // let field = 	{
-          // key: 'link',
-          // force: force,
-        // }
-        // forces.push(field)
         forces.push(force)
         return forces
       },
@@ -652,21 +624,13 @@ async function anitem (__mapper) {
           nodes: nodes,
           strength: strength,
           filter: d => d.eoric.gid === 'node',
-          key: 'charge',           
+          key: 'charge',
         }
 
         let force = muonEoforces.force(forceParams)
-        
-        // let field = {
-          // key: 'charge',
-          // force: force,
-        // }
-        // forces.push(field)
-        // return forces
-        
         forces.push(force)
-        return forces        
-        
+        return forces
+
       },
     }
 
@@ -689,38 +653,31 @@ async function anitem (__mapper) {
         }
 
         let force = muonEoforces.force(forceParams)
-                
-        // let field = {
-          // key: 'viscosity',
-          // force: muonEoforces.force(forceParams),
-        // }
-        // return Array.of(field)
-        
         forces.push(force)
-        return forces        
-        
+        return forces
+
       },
     }
 
     // .................... fieldAni
-    // let fieldAni = {
+    let fieldAni = {
 
-      // eohal: 'core',
-      // eotim: eotim,
-      // eoric: {gid: 'field', cid: 'field', fid: 'field'},
-      // eofold: null,
-      // eoload: {},
+      eohal: 'core',
+      eotim: eotim,
+      eoric: {gid: 'field', cid: 'field', fid: 'field'},
+      eofold: null,
+      eoload: {},
 
-    // }
+    }
 
-    // natVort.eoforces = {
-      // force_energy,
-      // force_viscosity,
-      // force_manybody,
-      // force_gravity,
-      // force_collide,
-      // force_link,
-    // }
+    natVort.eoforces = {
+      force_energy,
+      force_viscosity,
+      force_manybody,
+      force_gravity,
+      force_collide,
+      force_link,
+    }
 
     // .................. animas
     let animas = [

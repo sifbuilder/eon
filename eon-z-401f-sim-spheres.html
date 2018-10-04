@@ -58,7 +58,7 @@ async function anitem (__mapper) {
     __mapper('xs').f('energy'),
     // __mapper('xs').f('viscosity'),
     __mapper('xs').f('manybody'),
-    __mapper('xs').f('gravity'),
+    // __mapper('xs').f('gravity'),
     // __mapper('xs').f('charge'),
     // __mapper('xs').f('cube'),
     __mapper('xs').f('collide'),
@@ -276,6 +276,7 @@ async function anitem (__mapper) {
 
     // ............................. forceGravity
     let forceGravity = function (params) { // force
+    
       let nodes = params.nodes
       let newNodes = []
 
@@ -293,7 +294,11 @@ async function anitem (__mapper) {
         if (!nodes) return
       }
 
-      return force
+      let field = {
+        key: params.key,
+        force: force,
+      }
+      return field
     }
 
     let force_gravity = { // aniForce:{properties, field}
@@ -323,13 +328,6 @@ async function anitem (__mapper) {
         }
 
         let force = forceGravity(forceParams)
-
-        // let field = {
-          // key: 'gravity',
-          // force: force,
-        // }
-
-        // forces.push(field)
         forces.push(force)
         return forces
       },
@@ -442,14 +440,14 @@ async function anitem (__mapper) {
       },
     }
     
-    pacerNat.eoforces = {
-      force_energy,
-      force_viscosity,
-      force_manybody,
-      force_gravity,
-      force_collide,
-      force_link,
-    }
+    // pacerNat.eoforces = {
+      // force_energy,
+      // force_viscosity,
+      // force_manybody,
+      // force_gravity,
+      // force_collide,
+      // force_link,
+    // }
     
     // .................. sceneAni
     let sceneAni = {
