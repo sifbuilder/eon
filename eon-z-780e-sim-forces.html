@@ -168,7 +168,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'energy',
-          force: muonEoforces.force_(forceParams),
+          force: muonEoforces.force(forceParams),
         }
 
         return Array.of(field)
@@ -197,7 +197,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'viscosity',
-          force: muonEoforces.force_(forceParams),
+          force: muonEoforces.force(forceParams),
         }
 
         return Array.of(field)
@@ -228,7 +228,7 @@ async function anitem (__mapper) {
           nodes: nodes,
         }
 
-        let force = muonEoforces.force_(forceParams)
+        let force = muonEoforces.force(forceParams)
         let field = {key: 'collide', force: force}
 
         forces.push(field)

@@ -431,7 +431,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'energy',
-          force: muonEoforces.force_(forceParams),
+          force: muonEoforces.force(forceParams),
         }
 
         return Array.of(field)
@@ -460,7 +460,7 @@ async function anitem (__mapper) {
           nodes: nodes,
         }
 
-        let force = muonEoforces.force_(forceParams)
+        let force = muonEoforces.force(forceParams)
         let field = {
           key: 'collide',
           force: force,
@@ -552,7 +552,7 @@ async function anitem (__mapper) {
           src: d3_force,
         }
 
-        let force = muonEoforces.force_(forceParams)
+        let force = muonEoforces.force(forceParams)
         let field = 	{
           key: 'link',
           force: force,
@@ -588,7 +588,7 @@ async function anitem (__mapper) {
           nodes: nodes,
         }
 
-        let force = muonEoforces.force_(forceParams)
+        let force = muonEoforces.force(forceParams)
         let field = {
           key: 'charge',
           force: force,
@@ -621,7 +621,7 @@ async function anitem (__mapper) {
 
         let field = {
           key: 'viscosity',
-          force: muonEoforces.force_(forceParams),
+          force: muonEoforces.force(forceParams),
         }
 
         return Array.of(field)

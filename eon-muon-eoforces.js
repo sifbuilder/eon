@@ -11,6 +11,8 @@
   async function muonEoforces (__mapper = {}) {
     // ...................... isolate
     let isolate = function (sys) { // filter, force, nodes, sys, type
+    if (1 && 1) console.log(' ------- sys', sys)
+
       let nodes = sys.nodes
       let force = sys.force
       let filter = sys.filter
@@ -38,22 +40,22 @@
         force: (fforce) ? fforce.force(params) : params.force,
       }
       let force = isolate(sys)
+
+
       
+      // return force
       console.assert(params.key || params.type !== null)
-      
       let field = 	{
           key: params.key || params.type,
           force: force,
       }
-
-      
-      // return force
       return field
+
     }
 
     // ...................... enty
     let enty = () => {}
-    enty.force_ = force
+    enty.force = force
     return enty
   }
 

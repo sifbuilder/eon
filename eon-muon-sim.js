@@ -217,6 +217,8 @@
               })
 
               for (let k = 0; k < aniCompForces.length; k++) {
+                if (1 && 1) console.log('aniCompForces', aniCompForces)
+
                 let forceName = aniCompForces[k].key
                 let forceFunction = aniCompForces[k].force
                 sim.force(forceName, forceFunction) // muon or builtin force
