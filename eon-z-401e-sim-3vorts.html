@@ -467,16 +467,8 @@ async function anitem (__mapper) {
         }
 
         let force = muonEoforces.force(forceParams)
-
-        // let field = {
-          // key: 'energy',
-          // force: muonEoforces.force(forceParams),
-        // }
-        // return Array.of(field)
-
         forces.push(force)
         return forces
-
 
       },
     }
@@ -526,7 +518,6 @@ async function anitem (__mapper) {
       function force () { // d3force builtin (vs muon d3force)
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-
           node.vy += gravity // node.vx += 0.001 * Math.random()
         }
       }
