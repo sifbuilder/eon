@@ -209,8 +209,10 @@
             //... field method in force
             //... field gets nodes and force.properties
               
-            if (aniForce.field !== undefined) { // field forces
-              let aniCompForces = aniForce.field({ // mamy to share properties
+            if (aniForce.field !== undefined) {
+              
+              let aniCompForces = aniForce.field({
+                
                 elapsed: elapsed, // elapsed
                 nodes: aniNodes, // aniNodes
                 properties: aniForce.properties, // snapped properties

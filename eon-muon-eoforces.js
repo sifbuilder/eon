@@ -9,9 +9,10 @@
   'use strict'
 
   async function muonEoforces (__mapper = {}) {
+    
     // ...................... isolate
     let isolate = function (sys) { // filter, force, nodes, sys, type
-    if (1 && 1) console.log(' ------- sys', sys)
+    if (1 && 1) console.log(' ------- isolate', sys)
 
       let nodes = sys.nodes
       let force = sys.force

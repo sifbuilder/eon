@@ -511,6 +511,9 @@ async function anitem (__mapper) {
 
     // ............................. forceGravity
     let forceGravity = function (params) { // force
+    
+      console.assert(params.key !== undefined)
+    
       let nodes = params.nodes
       let newNodes = []
 
@@ -527,16 +530,22 @@ async function anitem (__mapper) {
       function initialize () {
         if (!nodes) return
       }
-
-      return force
+      
+      
+      //... muonSim receives field.key key.force objects
+      //... the field object is built in muonEoforces.force
+      //... or in the force object 
+      let field = {
+        key: params.key,
+        force: force,
+      }
+      return field
+      // return force
     }
 
     let force_gravity = { // aniForce:{properties, field}
-
       properties: {
-
         gravity: -0.7,
-
       },
 
       field: params => { // force.field
@@ -549,21 +558,25 @@ async function anitem (__mapper) {
 
         let forceParams = {
           type: 'gravity',
-          gravity: gravity,
-          filter: d => d.eoric.gid === 'node',
           src: d3_force,
           nodes: nodes,
+          gravity: gravity,
+          filter: d => d.eoric.gid === 'node',
+          id: d => d.eoric.uid,          
           key: 'gravity',
         }
 
         let force = forceGravity(forceParams)
 
-        let field = {
-          key: 'gravity',
-          force: force,
-        }
-
-        forces.push(field)
+        // let field = {
+          // key: 'gravity',
+          // force: force,
+        // }
+        // forces.push(field)
+        forces.push(force)
+        
+        
+        
         return forces
       },
     }
@@ -596,12 +609,15 @@ async function anitem (__mapper) {
         }
 
         let force = muonEoforces.force(forceParams)
+        
         // let field = 	{
           // key: 'link',
           // force: force,
         // }
         // forces.push(field)
         forces.push(force)
+        
+        
         return forces
       },
     }
