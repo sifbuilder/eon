@@ -86,22 +86,17 @@
       return newAni
     }
 
-    // ............................. ween
-    let ween = anitem => {
-      let newitems = []
-
-      newitems = muonProps.v(anitem)
-
-      return newitems
-    }
-
     // ............................. gramm
     let gramm = anitem => {
       let newItem = eohale(anitem)
-
       let newAnitems = eohalMars.gramm(newItem)
-
       return newAnitems
+    }
+
+    // ............................. ween
+    let ween = anitem => {
+      let newitems = muonProps.v(anitem)
+      return newitems
     }
 
     // ............................. eohal

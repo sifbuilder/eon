@@ -199,19 +199,40 @@
         : enty.animasLive()
           .filter(d => d.eoric.gid === anima.eoric.gid).length
 
-    enty.animasInClassHowMany = anima =>
-      (anima === undefined)
-        ? 0
-        : enty.animasLive()
-          .filter(d => (d.eoric.gid === anima.eoric.gid &&
-                    d.eoric.cid === anima.eoric.cid)).length
 
-    enty.anigramsInClassHowMany = anigram =>
-      (anigram === undefined)
-        ? 0
-        : enty.anigrams()
-          .filter(d => (d.eoric.gid === anigram.eoric.gid &&
-                    d.eoric.cid === anigram.eoric.cid)).length
+    enty.animasInClassHowMany = item => {
+      let eoric
+      let qmany = 0
+      if (item.eoric !== undefined) {
+        eoric = item.eoric
+      } else {
+        eoric = item
+      }
+      if (eoric !== undefined) {
+        let anitems = enty.animas()
+        qmany = anitems
+          .filter(d => (d.gid === eoric.gid &&
+                    d.cid === eoric.cid)).length
+      }
+      return qmany
+    }
+
+    enty.anigramsInClassHowMany = item => {
+      let eoric
+      let qmany = 0
+      if (item.eoric !== undefined) {
+        eoric = item.eoric
+      } else {
+        eoric = item
+      }
+      if (eoric !== undefined) {
+        let anitems = enty.anigrams()
+        qmany = anitems
+          .filter(d => (d.gid === eoric.gid &&
+                    d.cid === eoric.cid)).length
+      }
+      return qmany
+    }
 
     enty.findFromUid = (uid, list) => list[uid]
     enty.findAnigramFromUid = uid => state.anigrams[uid]

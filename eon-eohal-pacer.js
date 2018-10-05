@@ -160,8 +160,16 @@
 
       //... if not eoinited enable pacer init (pacer.initN), else ignore
 
-      if (pacedAnitem.eoinited === undefined || pacedAnitem.eoinited[uidAnima] === undefined) {
-        count.init = Math.floor(pacer.initN) // count INIT
+      if (anima.eoinited === undefined || anima.eoinited[uidAnima] === undefined) {
+        if (eotim.unitPassed >= (pacer.initT || 0))  {
+          count.init = Math.floor(pacer.initN) // count INIT
+        
+          let pacerUid = anima.eoric.uid
+          
+          anima.eoinited = (anima.eoinited === undefined)
+            ? {[pacerUid]: eotim.unitPassed}
+            : Object.assign(anima.eoinited, {[pacerUid]: eotim.unitPassed})
+        }
       }
 
       //... cycletime since last eoouted item, relevant if auto
@@ -174,23 +182,29 @@
       //... set pacer.eoouted: item was eoouted at eotim.unitPassed time
       //... if in auto mode, pace on each cycle
 
-      let cycletime = eotim.unitPassed - (pacer.eoouted || 0)
-      if (cycletime >= pacer.autoP &&
-            eotim.unitPassed > (pacer.autoT || 0)
-      ) {
-        count.auto = Math.floor(pacer.autoN) //       AUTO
+      let cycletime = eotim.unitPassed - (anima.eoouted || 0)
+      
+      
+      if (eotim.unitPassed >= (pacer.autoT||0)) {
+         if (cycletime > (pacer.autoP || 0)) {
+        
+            count.auto = Math.floor(pacer.autoN)  //    AUTO
 
-        let pacerUid = pacedAnitem.eoric.uid
+            
+            let pacerUid = anima.eoric.uid
 
-        pacedAnitem.eoinited = (pacedAnitem.eoinited === undefined)
-          ? {[pacerUid]: eotim.unitPassed}
-          : Object.assign(pacedAnitem.eoinited, {[pacerUid]: eotim.unitPassed})
 
-        pacedAnitem.eoouted = (pacedAnitem.eoouted === undefined)
-          ? {[pacerUid]: eotim.unitPassed}
-          : Object.assign(pacedAnitem.eoouted, {[pacerUid]: eotim.unitPassed})
+            anima.eoouted = (anima.eoouted === undefined)
+              ? {[pacerUid]: eotim.unitPassed}
+              : Object.assign(anima.eoouted, {[pacerUid]: eotim.unitPassed})
+if (1 && 1) console.log('eoouted', anima.eoouted)
+
+
+         }          
       }
 
+      newItems.push(anima)  // 
+      
       //... COUNT items
       //...   eg: {init:4, auto:1, event:3}
       //...   init runs once
@@ -249,6 +263,7 @@
             let newItemsInCount
             if (geosort === 'anima') {
               newItemsInCount = eohal.ween(newItem)
+
             } else {
               newItemsInCount = eohal.gramm(newItem)
             }
@@ -261,6 +276,8 @@
           }
         }
       }
+      if (1 && 1) console.log('newItems', newItems)
+
       return newItems
     }
 

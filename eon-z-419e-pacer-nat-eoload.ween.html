@@ -43,10 +43,8 @@ async function anitem (__mapper) {
     let pacerNat = {
 
       eohal: 'pacer',
-
       eotim: eotim,
-
-      eoric: { gid: 'natpace', cid: 'natpace', fid: 'natpace' },
+      eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
 
       eofold: {
         type: 'Feature',
@@ -69,7 +67,7 @@ async function anitem (__mapper) {
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate: [ [[[0, 300]]], 0, 0], // mot
+          translate: [ [[[0, 250]]], 0, 0], // mot
           scale: 1,
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
@@ -78,12 +76,13 @@ async function anitem (__mapper) {
       },
 
       eocrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
+      
       eoform: {
-        'x': {
+        x: {
           'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
           'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
-        'y': {
+        y: {
           'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
           'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
@@ -99,12 +98,12 @@ async function anitem (__mapper) {
           //... geobase: undefined, base on resulting geofold
           //... geoadd: 0, geometries will not be accumulated
 
-          initN: 2, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
-          eohal: 'natform',
+          initN: 2, eventN: 0, autoN: 1, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
           geosort: 'anima',
           geobase: '',
           geoaad: 0,
 
+          eohal: 'sol',
 
           eoric: function (ani, props) {
             let autocount = props.counter

@@ -359,8 +359,8 @@ api.d13 = (opt = 'help') => {
   }
 }
 
+// 14.- eon:src_cms_preview-templates_EonPagePreview.js
 api.d14 = (opt = 'help') => {
-  // 14.- eon:src_cms_preview-templates_EonPagePreview.js
 
   filelog['fromFile14'] = `${fromsitedir}/src_cms_preview-templates_EonPagePreview.js`
   filelog['toFile14'] = `${sitepath}/src/cms/preview-templates/EonPagePreview.js`
@@ -375,28 +375,28 @@ api.d14 = (opt = 'help') => {
   }
 }
 
-api.d07 = (opt = 'help') => {
-  // eon:src_cms_cms.js - upd - import from eon template
+// eon:src_cms_cms.js - upd - import from eon template
+api.d15 = (opt = 'help') => {
 
-  filelog['fromFile07'] = `${fromsitedir}/src_cms_cms.js`
-  filelog['toFile07'] = `${sitepath}/src/cms/cms.js`
-  filelog['toFile07_bck'] = `${sitepath}/src/cms/cms.js.000`
-  if (fs.existsSync(filelog['toFile07'])) {
-    console.log(`07.- ${filelog['toFile07']} already exist`)
-    if (!fs.existsSync(filelog['toFile07_bck'])) fs.copyFileSync(filelog['toFile07'], filelog['toFile07_bck'])
-    fs.copyFileSync(filelog['fromFile07'], filelog['toFile07'])
+  filelog['fromFile15'] = `${fromsitedir}/src_cms_cms.js`
+  filelog['toFile15'] = `${sitepath}/src/cms/cms.js`
+  filelog['toFile15_bck'] = `${sitepath}/src/cms/cms.js.000`
+  if (fs.existsSync(filelog['toFile15'])) {
+    console.log(`15.- ${filelog['toFile15']} already exist`)
+    if (!fs.existsSync(filelog['toFile15_bck'])) fs.copyFileSync(filelog['toFile15'], filelog['toFile15_bck'])
+    fs.copyFileSync(filelog['fromFile15'], filelog['toFile15'])
   } else {
-    console.log(`07.- copy file ${filelog['fromFile07']} to ${filelog['toFile07']}`)
-    fs.copyFileSync(filelog['fromFile07'], filelog['toFile07'])
+    console.log(`15.- copy file ${filelog['fromFile15']} to ${filelog['toFile15']}`)
+    fs.copyFileSync(filelog['fromFile15'], filelog['toFile15'])
   }
 }
 
-api.d11 = (opt = 'help') => {
+api.d16 = (opt = 'help') => {
   // create tiles component
   console.log(`should create tiles component src/components/Eontiles.js`)
 }
 
-api.d13 = () => {
+api.d17 = () => {
   // create eons folder
   console.log(`create eons folder`)
   let eonsfolder = `${sitepath}/src/pages/eons`
@@ -408,27 +408,28 @@ api.d13 = () => {
   }
 }
 
-api.d14 = (opt = 'help') => {
+api.d18 = (opt = 'help') => {
   // create eons page
   console.log(`src/pages/eons/index.md`)
-  filelog['fromFile14'] = `${fromsitedir}/src_pages_eons_index.md`
-  filelog['toFile14'] = `${sitepath}/src/pages/eons/index.md`
-  filelog['toFile14_bck'] = `${sitepath}/src/pages/eons/index.md.000`
-  if (fs.existsSync(filelog['toFile14'])) {
-    console.log(`14.- ${filelog['toFile14']} already exist`)
-    if (!fs.existsSync(filelog['toFile14_bck'])) fs.copyFileSync(filelog['toFile14'], filelog['toFile14_bck'])
-    fs.copyFileSync(filelog['fromFile14'], filelog['toFile14'])
+  filelog['fromFile18'] = `${fromsitedir}/src_pages_eons_index.md`
+  filelog['toFile18'] = `${sitepath}/src/pages/eons/index.md`
+  filelog['toFile18_bck'] = `${sitepath}/src/pages/eons/index.md.000`
+  if (fs.existsSync(filelog['toFile18'])) {
+    console.log(`18.- ${filelog['toFile18']} already exist`)
+    if (!fs.existsSync(filelog['toFile18_bck'])) fs.copyFileSync(filelog['toFile18'], filelog['toFile18_bck'])
+    fs.copyFileSync(filelog['fromFile18'], filelog['toFile18'])
   } else {
-    console.log(`14.- copy file ${filelog['fromFile14']} to ${filelog['toFile14']}`)
-    fs.copyFileSync(filelog['fromFile14'], filelog['toFile14'])
+    console.log(`18.- copy file ${filelog['fromFile18']} to ${filelog['toFile18']}`)
+    fs.copyFileSync(filelog['fromFile18'], filelog['toFile18'])
   }
 }
 
-api.d15 = (opt = 'help') => {
+api.d19 = (opt = 'help') => {
   // create tiles
   //  create node _eonify-teer-pngs.js
   console.log(`generate  public/img/*`)
 }
+
 
 function browse () {
   let packPath = `${sitepath}/package.json`
@@ -459,8 +460,9 @@ if (action === 'help') {
   console.log(`d10 index.js`)
   console.log(`d11 blog/*`)
   console.log(`d12 static_img/`)
-  console.log(`d13 eon-page.js`)
-  console.log(`d14 help`)
+  console.log(`d13 eons folder`)
+  console.log(`d14 eon-page.js`)
+  console.log(`d15 help`)
   if (api[action] !== undefined) {
     api[action]({opt: 'help'})
     console.log('filelog: ', filelog)

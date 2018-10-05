@@ -105,8 +105,8 @@
         return translate
     }   
     
-    // .................... gramm
-    let gramm = function (anitem) {
+    // .................... eohale
+    let eohale = function (anitem) {
       
       console.assert(anitem.eoform !== undefined, 'eoform is undefined')
 
@@ -133,6 +133,10 @@
       return eohalSol.gramm(anitem)
     }
 
+    // .................... gramm
+    let gramm = anitem => {
+        return eohale(anitem)
+    }
     // .................... ween
     let ween = anitem => {
         return anitem

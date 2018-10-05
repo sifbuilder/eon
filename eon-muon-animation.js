@@ -128,9 +128,12 @@
       // _e_ double snapi tbf
       anisimmed.map(ani => muonStore.gramm(ani))
 
+      let anigrams = muonStore.anigrams()
+      if (1 && 1) console.log('anigrams', anigrams)
+
       let featurecollection = {
         type: 'FeatureCollection',
-        features: muonStore.anigrams().map(d => d.eofold),
+        features: anigrams.map(d => d.eofold),
       }
       return featurecollection
     }
@@ -140,7 +143,7 @@
       muonStore = __mapper('muonStore')
       state.animas = muonStore.animasLive()
 
-      if (0 && 1) console.log(` ******************* animation ${elapsed} ${state.animas.length}`, state.animas)
+      if (1 && 1) console.log(` ******************* animation ${elapsed} ${state.animas.length}`, state.animas)
 
       //... TIME
       state.animas = muonProps.a(muonStore.animasLive())

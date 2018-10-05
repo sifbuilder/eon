@@ -12,9 +12,8 @@
     
     // ...................... isolate
     let isolate = function (sys) { // filter, force, nodes, sys, type
-    if (1 && 1) console.log(' ------- isolate', sys)
 
-      let nodes = sys.nodes
+      let nodes = sys.nodes || []
       let force = sys.force
       let filter = sys.filter
 
