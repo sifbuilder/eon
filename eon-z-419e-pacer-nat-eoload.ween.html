@@ -92,13 +92,8 @@ async function anitem (__mapper) {
 
         pacer: {
 
-          //... the pacer is in the eoload of the hosting anima
-          //... initN: 1, one paced anitem will be generated, then sleep
-          //... geosort: anima, hsoting anima will create pacecount resident animas
-          //... geobase: undefined, base on resulting geofold
-          //... geoadd: 0, geometries will not be accumulated
 
-          initN: 2, eventN: 0, autoN: 1, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
+          initN: 2, eventN: 0, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
           geosort: 'anima',
           geobase: '',
           geoaad: 0,
@@ -106,9 +101,26 @@ async function anitem (__mapper) {
           eohal: 'sol',
 
           eoric: function (ani, props) {
-            let autocount = props.counter
-            let eoric = muonProps.clone(ani.eoric)
-            eoric.fid = eoric.fic + '_' + autocount
+          
+              let eoric = muonProps.clone(ani.eoric)
+              eoric.gid = 'paced'
+              eoric.cid = 'paced'
+          
+             if (props.key === 'init') { // INIT
+                let q = muonStore.animasInClassHowMany(eoric)
+                let nextq = q + props.counter
+                eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)             
+             } else if (props.key === 'auto') { // AUTO
+                let q = muonStore.animasInClassHowMany(eoric)
+                let nextq = q + props.counter
+                eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)             
+             } else if (props.key === 'event') { // EVENT
+                let q = muonStore.animasInClassHowMany(eoric)
+                let nextq = q + props.counter
+                eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+             }
+
+            
             eoric.uid = muonEoric.getuid(eoric)
             return eoric
           },
@@ -124,10 +136,14 @@ async function anitem (__mapper) {
             if (props.key === 'init') { // INIT
 
               let autocount = props.counter
-              stace = [0, 100 * autocount, 0]
+              let C1 = 50
+              let C2 = 2
+              stace = [0, Math.pow(-1, autocount) * C1 * Math.max(1, autocount % C2), 0]
+              if (1 && 1) console.log('stace', stace)
+
             } else if (props.key === 'auto') { // AUTO
 
-              stace = [0, 0, 0]
+              stace = [ 0 + 20 * Math.random(), 0 + 20 * Math.random(), 0]
 
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {

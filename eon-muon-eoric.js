@@ -126,7 +126,7 @@
       if (typeof (params) === 'object') {
         if (params.fid !== undefined) {
           let eoric = params
-          uid = enty.uider(eoric.gid, eoric.cid, eoric.fid)
+          uid = enty.idify(eoric.gid, eoric.cid, eoric.fid)
         } else if (params.eoric !== undefined) {
           uid = getuid(params.eoric)
         } else if (params.eoload !== undefined && params.eoric !== undefined) {
@@ -135,7 +135,7 @@
           uid = getuid(params.properties.eoric)
         }
       } else if (Array.isArray(params)) {
-        uid = enty.uider(params)
+        uid = enty.idify(params)
       }
 
       return uid
@@ -148,15 +148,15 @@
       return res
     }
 
-    //... uider
-    let uider = (...args) => args.reduce((p, q) => p ? p + '_' + q : q, null)
+    //... idify
+    let idify = (...args) => args.reduce((p, q) => p ? p + '_' + q : q, null)
 
     // ............................. enty
     let enty = {}
     enty.getAnigramRic = getAnigramRic // build eoric from anigram, i
     enty.getuid = getuid
     enty.enric = enric
-    enty.uider = uider
+    enty.idify = idify
 
     enty.getdefault = getdefault
 

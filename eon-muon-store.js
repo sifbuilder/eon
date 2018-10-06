@@ -211,8 +211,8 @@
       if (eoric !== undefined) {
         let anitems = enty.animas()
         qmany = anitems
-          .filter(d => (d.gid === eoric.gid &&
-                    d.cid === eoric.cid)).length
+          .filter(d => (d.eoric.gid === eoric.gid &&
+                    d.eoric.cid === eoric.cid)).length
       }
       return qmany
     }

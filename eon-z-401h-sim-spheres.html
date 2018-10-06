@@ -143,7 +143,7 @@ async function anitem (__mapper) {
             eoric.cid = 'paced'
 
             let q = muonStore.animasInClassHowMany(eoric)
-            let nextq = q + 1 // vs. props.counter
+            let nextq = q + props.counter
             
             eoric.fid = eoric.fid + '_' + props.key + '_' + nextq
             eoric.uid = muonEoric.getuid(eoric)

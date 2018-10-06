@@ -95,8 +95,8 @@
         for (let i = 0; i <= M; i++) {
           let gid = eoric.gid, // from ava eoric
             cid = eoric.cid,
-            fid = muonEoric.uider(eoric.fid, j, i),
-            uid = muonEoric.uider(gid, cid, fid)
+            fid = muonEoric.idify(eoric.fid, j, i),
+            uid = muonEoric.idify(gid, cid, fid)
           let _ric = {gid, cid, fid, uid} // is DELLED ?
 
           //...  each newItem is cloned from the h.fourier anigram
@@ -162,7 +162,7 @@
 
               let gid = rayline.eoric.gid // from ava eoric
               let cid = rayline.eoric.cid
-              let fid = muonEoric.uider(rayline.eoric.fid, j, i)
+              let fid = muonEoric.idify(rayline.eoric.fid, j, i)
 
               //... del item outside time period (eoric.eodelled = 1)
 

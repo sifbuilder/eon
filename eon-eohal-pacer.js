@@ -112,7 +112,8 @@
       let anigram = anitem
       let preAnima = uidPreitem ? muonStore.findAnimaFromUid(uidPreitem) : null
       let anima = muonStore.findAnimaFromUid(uidAnima)
-
+      let pacerUid = anima.eoric.uid
+            
       let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
       let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
 
@@ -163,8 +164,6 @@
       if (anima.eoinited === undefined || anima.eoinited[uidAnima] === undefined) {
         if (eotim.unitPassed >= (pacer.initT || 0))  {
           count.init = Math.floor(pacer.initN) // count INIT
-        
-          let pacerUid = anima.eoric.uid
           
           anima.eoinited = (anima.eoinited === undefined)
             ? {[pacerUid]: eotim.unitPassed}
@@ -182,22 +181,30 @@
       //... set pacer.eoouted: item was eoouted at eotim.unitPassed time
       //... if in auto mode, pace on each cycle
 
-      let cycletime = eotim.unitPassed - (anima.eoouted || 0)
+      let eoouted = (anima.eoouted && anima.eoouted[pacerUid]) ? anima.eoouted[pacerUid] : 0
+      let cycletime = eotim.unitPassed - eoouted
       
       
-      if (eotim.unitPassed >= (pacer.autoT||0)) {
-         if (cycletime > (pacer.autoP || 0)) {
+      let autoT = pacer.autoT || 0
+      let autoP = pacer.autoP || 0
+      let autoN = pacer.autoN
+
+if (1 && 1) console.log('auto', eotim.unitPassed, autoT, cycletime, autoP)
+      
+      
+      if (eotim.unitPassed >= autoT) {
+         if (cycletime > autoP) {
         
-            count.auto = Math.floor(pacer.autoN)  //    AUTO
+            count.auto = Math.floor(autoN)  //    AUTO
 
             
-            let pacerUid = anima.eoric.uid
+
 
 
             anima.eoouted = (anima.eoouted === undefined)
               ? {[pacerUid]: eotim.unitPassed}
               : Object.assign(anima.eoouted, {[pacerUid]: eotim.unitPassed})
-if (1 && 1) console.log('eoouted', anima.eoouted)
+if (1 && 1) console.log(' ******* eoouted', anima.eoouted)
 
 
          }          
