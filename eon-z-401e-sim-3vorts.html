@@ -551,7 +551,7 @@ async function anitem (__mapper) {
     // .................... field_link
     let force_link = {
       properties: {
-        strength: 0.001,
+        strength: 1,
       },
 
       field: params => {
@@ -649,11 +649,11 @@ async function anitem (__mapper) {
     }
 
     natVort.eoforces = {
-      force_energy,
-      force_viscosity,
-      force_manybody,
-      force_gravity,
-      force_collide,
+      // force_energy,
+      // force_viscosity,
+      // force_manybody,
+      // force_gravity,
+      // force_collide,
       force_link,
     }
 

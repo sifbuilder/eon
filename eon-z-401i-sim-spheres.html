@@ -89,7 +89,7 @@ async function anitem (__mapper) {
         },
       },
 
-      eocrom: { 'csx': 0, 'cf': 777, 'co': 0.3, 'cs': [[[777, 222]]], 'cw': [[[0.4,1.2]]], 'cp': 1},
+      eocrom: { 'csx': 0, 'cf': 777, 'co': 0.3, 'cs': [[[777, 222]]], 'cw': [[[0.4, 1.2]]], 'cp': 1},
 
       eoform: {
         x: {
@@ -267,7 +267,6 @@ async function anitem (__mapper) {
 
       field: params => { // force.field
         let forceParams = Object.assign({}, params, params.properties)
-
         let force = forceGravity(forceParams)
         return Array.of(force)
       },

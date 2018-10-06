@@ -210,7 +210,7 @@ function getMdText (file) {
   while ((nameArr = nameFindPattern.exec(fileTxt)) !== null) {
     fileTxt = fileTxt.replace(nameReplacePattern, fileName)
   }
-  const mdpattern = /\/\/... (.*)/mg // // md (global multiline)
+  const mdpattern = /\/\/ ... (.*)/mg // // ... (global multiline)
   var arr
   while ((arr = mdpattern.exec(fileTxt)) !== null) {
     outText += arr[1] + endOfLine + newLine
@@ -223,7 +223,7 @@ function getMdText (file) {
 
 const eonpattern = new RegExp('^' + 'eon' + '.*' + '.*(.html|js)', 'i')
 const testpattern = new RegExp('(.*).test.(.*)$', 'i')
-const mdpattern = /\/\/...(.*)/mg // // md (global multiline)
+const mdpattern = /\/\/ ...(.*)/mg // // ... (global multiline)
 const imgpattern = new RegExp('(.*)(.jpg)$', 'i')
 
 let indir = './'

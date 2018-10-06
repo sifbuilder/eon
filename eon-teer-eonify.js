@@ -53,7 +53,7 @@ const htmlpattern = new RegExp('^(eon.*).html$', 'i')
 const eonpattern = new RegExp('^' + 'eon' + '.*' + '.*(.html|js)', 'i')
 const eonifypattern = new RegExp('^' + 'eonify' + '.*' + '.*(.html|js)', 'i')
 const testpattern = new RegExp('(.*).test.(.*)$', 'i')
-const mdpattern = /\/\/.?md:(.*)/mg // // md (global multiline)
+const mdpattern = /\/\/ ...:(.*)/mg // // md (global multiline)
 const imgpattern = new RegExp('(.*)(.jpg)$', 'i')
 const zpattern = new RegExp('(.*)(.html)$', 'i')
 
