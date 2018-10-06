@@ -16,7 +16,7 @@ async function anitem (__mapper) {
     eohalLinkform,
     eohalNatform,
     eohalScene,
-    eohalSol,
+    eohalMars,
     muonEoric,
     muonEoforces,
     muonNatform,
@@ -31,7 +31,7 @@ async function anitem (__mapper) {
     __mapper('xs').e('linkform'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').m('eoric'),
     __mapper('xs').m('eoforces'),
     __mapper('xs').m('natform'),
@@ -297,7 +297,7 @@ async function anitem (__mapper) {
         nodes.push(node)
 
         let ani = muonProps.cloneObj(anima)
-        ani.eohal = 'sol'
+        ani.eohal = 'mars'
         ani.eoric = nuid(i)
         ani.eonode.geometry.coordinates = Object.values(node)
         ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
@@ -651,7 +651,7 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      natVort, // h.sol
+      natVort, // h.mars
       fieldAni, // h.core
 
     ]

@@ -11,7 +11,7 @@
   async function eohalGeovoro (__mapper = {}) {
     let [
       d3,
-      eohalMars,
+      eohalSol,
       muonDelaunay,
       muonGeoj,
       muonProfier,
@@ -19,7 +19,7 @@
       muonProps,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
-      __mapper('xs').e('mars'),
+      __mapper('xs').e('sol'),
       __mapper('xs').m('delaynay'),
       __mapper('xs').m('geoj'),
       __mapper('xs').m('profier'),
@@ -85,7 +85,7 @@
     // ............................. gramm
     let gramm = anitem => {
       let newItem = eohale(anitem)
-      let newAnitems = eohalMars.gramm(newItem)
+      let newAnitems = eohalSol.gramm(newItem)
       return newAnitems
     }
 

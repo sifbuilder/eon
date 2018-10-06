@@ -12,7 +12,7 @@ async function anitem (__mapper) {
     eohalScene,
     eohalPacer,
     eohalTextform,
-    eohalSol,
+    eohalMars,
     muonGeoj,
     muonNatform,
     muonStace,
@@ -24,7 +24,7 @@ async function anitem (__mapper) {
     __mapper('xs').e('scene'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('textform'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').m('geoj'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('stace'),
@@ -40,7 +40,7 @@ async function anitem (__mapper) {
     // ....................... aniNat
     let aniNat = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       // ... eonode reflects the geometry of the form
       // ... updated by transforms
@@ -136,7 +136,7 @@ async function anitem (__mapper) {
 
       eoload: {
         pacer: {
-          eohal: 'sol',
+          eohal: 'mars',
           geosort: 'anigram',
           geobase: 'viewform',
           initN: 1, eventN: 0, autoN: 0, autoP: 0, outtimed: 0, maxN: 60,
@@ -232,7 +232,7 @@ async function anitem (__mapper) {
           geobase: 'viewform',
           geospan: 0,
 
-          eohal: 'sol',
+          eohal: 'mars',
 
           eofold: function (ani, props) {
             let preani = muonStore.findAnigramFromUid(ani.eoric.uid) // anigram
@@ -315,13 +315,13 @@ async function anitem (__mapper) {
     // ....................... aniNat
     aniNat.avatars = {
 
-      // ... aniNat is a h.sol anima
+      // ... aniNat is a h.mars anima
       // ... it is proform-projected
       // ... viewform is then the result of proform
       // ... carries traceNat as avatar
 
       // ... traceNat is a h.pacer avatar
-      // ... as avatar, arrives as anigram to the sol cycle
+      // ... as avatar, arrives as anigram to the mars cycle
       // ... does not specify position or motion
       // ... its location relies on aniNat eonode
 

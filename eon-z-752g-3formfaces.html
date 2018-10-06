@@ -7,13 +7,13 @@ async function anitem (__mapper) {
   let [
     muonGraticule,
     prtNatform,
-    eohalSol,
+    eohalMars,
     eohalNatform,
     eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').p('natform'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
   ])
@@ -68,7 +68,7 @@ async function anitem (__mapper) {
 
     // -------------------------------  gratifaces11
     let gratifaces11 = {
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: p => {
         let vertices = muonGraticule.gvertices(p.eoframe).geometry.coordinates
         let faces = muonGraticule.gfaces(p.eoframe)
@@ -98,7 +98,7 @@ async function anitem (__mapper) {
     }
     // -------------------------------  gratifaces12
     let gratifaces12 = {
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: p => {
         let vertices = muonGraticule.gvertices(p.eoframe).geometry.coordinates
         let faces = muonGraticule.gfaces(p.eoframe)
@@ -125,7 +125,7 @@ async function anitem (__mapper) {
     }
     // -------------------------------  gratifaces11
     let gratilines21 = {
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: p => muonGraticule.vhMultiLine(p.eoframe),
       eotim: eotim,
@@ -142,7 +142,7 @@ async function anitem (__mapper) {
     }
     // -------------------------------  gratilines22
     let gratilines22 = {
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: p => muonGraticule.vhMultiLine(p.eoframe),
       eotim: eotim,
       eoric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines22'},
@@ -171,10 +171,10 @@ async function anitem (__mapper) {
     }
     // -------------------------------  animas
     let animas = [
-      gratifaces11, // h.sol p.natform
-      gratifaces12, // h.sol p.natform
-      gratilines21, // h.sol p.natform
-      gratilines22, // h.sol p.natform
+      gratifaces11, // h.mars p.natform
+      gratifaces12, // h.mars p.natform
+      gratilines21, // h.mars p.natform
+      gratilines22, // h.mars p.natform
       sceneAni, // h.context
     ]
 

@@ -10,7 +10,7 @@
 
   // ... h.fourier anigrams per frequency cycloid
   // ... cycloids in eoload.fourier.transforms resulting from m.fourier.complexify
-  // ... anigrams turned to h.sol
+  // ... anigrams turned to h.mars
   // ...
   // ... ### h.fourier.gramm
   // ... eoload.fourier.transforms, gj featurized, complexified, ntimed
@@ -23,12 +23,12 @@
 
   async function eohalFourier (__mapper = {}) {
     let [
-      eohalSol,
+      eohalMars,
       Complex,
       muonEoric,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').e('sol'),
+      __mapper('xs').e('mars'),
       __mapper('xs').l('complex'),
       __mapper('xs').m('eoric'),
       __mapper('xs').m('props'),
@@ -102,7 +102,7 @@
           // ...  each newItem is cloned from the h.fourier anigram
 
           let newItem = muonProps.cloneObj(anigram)
-          newItem.eohal = 'sol'
+          newItem.eohal = 'mars'
 
           // ...  del newitem if outside time period (eoric.eodelled = 1)
 
@@ -240,7 +240,7 @@
       if (anitem.eoload.fourier.geosort === 'anima') {
         let newItems = eohale(anitem)
 
-        let anilists = newItems.map(ani => eohalSol.ween(ani))
+        let anilists = newItems.map(ani => eohalMars.ween(ani))
         let anis = anilists.reduce((p, q) => Array.isArray(q) ? [...p, ...q] : [...p, q], [])
         if (1 && 1) console.log('anis', anis)
 
@@ -257,7 +257,7 @@
         newAnigrams = Array.of(anitem)
       } else {
         let newItems = eohale(anitem)
-        let anilists = newItems.map(ani => eohalSol.gramm(ani))
+        let anilists = newItems.map(ani => eohalMars.gramm(ani))
 
         for (let i = 0; i < anilists.length; i++) {
           let anilist = anilists[i]

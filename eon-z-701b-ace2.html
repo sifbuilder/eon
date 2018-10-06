@@ -10,7 +10,7 @@ async function anitem (__mapper) {
     muonNatform,
     prjUnwen,
     prtNatform,
-    eohalSol,
+    eohalMars,
     eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
@@ -18,7 +18,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('natform'),
     __mapper('xs').p('uniwen'),
     __mapper('xs').p('natform'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('scene'),
   ])
 
@@ -71,7 +71,7 @@ async function anitem (__mapper) {
     // .................. natform
     let natform = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: p => muonNatform.natFeature(p.eoform),
 
@@ -99,7 +99,7 @@ async function anitem (__mapper) {
     // .................. gratform
     let gratform = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: p => muonGraticule.vhMultiLine(p.eoframe),
 
@@ -150,7 +150,7 @@ async function anitem (__mapper) {
     let animas = [
 
       sceneAni, // h.scene
-      natform, // h.sol
+      natform, // h.mars
       gratform, // h.scene
 
     ]

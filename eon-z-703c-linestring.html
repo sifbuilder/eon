@@ -8,12 +8,12 @@ async function anitem (__mapper) {
   let [
     ctlWen,
     eohalScene,
-    eohalSol,
+    eohalMars,
     prtUniwen,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').p('uniwen'),
   ])
 
@@ -21,7 +21,7 @@ async function anitem (__mapper) {
   let ani = function () {
     let aniForm = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: (p) => ({
         'type': 'Feature',
@@ -71,7 +71,7 @@ async function anitem (__mapper) {
 
     // .................. animas
     let animas = [
-      aniForm, // h.sol
+      aniForm, // h.mars
       sceneAni, // h.scene
     ]
 

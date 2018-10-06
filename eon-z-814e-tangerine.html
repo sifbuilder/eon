@@ -8,13 +8,13 @@ async function anitem (__mapper) {
   let [
     ctlWen,
     eohalScene,
-    eohalSol,
+    eohalMars,
     muonNatform,
     muonProps,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
   ])
@@ -183,7 +183,7 @@ async function anitem (__mapper) {
     // ............................. tangerineAni
     let tangerineAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q2'},
 
@@ -211,7 +211,7 @@ async function anitem (__mapper) {
     // ............................. lightSphereAni
     let lightSphereAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: p => muonNatform.natFeature(p.eoform, {h: 1}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -236,7 +236,7 @@ async function anitem (__mapper) {
     // ............................. lightTangerineAni
     let lightTangerineAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: p => muonNatform.natFeature(p.eoform, {h: 1}),
       eotim,
       eoric: {gid: 'g', cid: 'g', fid: 'g1'},
@@ -262,7 +262,7 @@ async function anitem (__mapper) {
     // ............................. sphereAni
     let sphereAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: p => muonNatform.natFeature(p.eoform),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q0'},
@@ -301,10 +301,10 @@ async function anitem (__mapper) {
     let animas = [
 
       sceneAni, // h.scene
-      // sphereAni, // h.sol
-      // lightSphereAni, // h.sol
-      lightTangerineAni, // h.sol
-      tangerineAni, // h.sol
+      // sphereAni, // h.mars
+      // lightSphereAni, // h.mars
+      lightTangerineAni, // h.mars
+      tangerineAni, // h.mars
 
     ]
 

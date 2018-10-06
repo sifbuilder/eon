@@ -14,7 +14,7 @@ async function anitem (__mapper) {
     muonEoric,
     muonSvg,
     dbeat,
-    eohalSol,
+    eohalMars,
     eohalScene,
   ] = await Promise.all([
     __mapper('xs').r('portview'),
@@ -25,7 +25,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('eoric'),
     __mapper('xs').m('svg'),
     __mapper('xs').d('beat'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('scene'),
   ])
 
@@ -79,7 +79,7 @@ async function anitem (__mapper) {
     // .................. polyForm
     let polyForm = {
 
-      eohal: 'mars',
+      eohal: 'sol',
 
       eofold: ani => {
         let anigram = ani, // anigram
@@ -169,7 +169,7 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      polyForm, // h.mars
+      polyForm, // h.sol
       sceneAni, // h.scene
 
     ]

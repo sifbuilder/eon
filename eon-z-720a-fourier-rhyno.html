@@ -7,7 +7,7 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     datRhyno,
-    eohalSol,
+    eohalMars,
     eohalPacer,
     eohalFourier,
     eohalScene,
@@ -18,7 +18,7 @@ async function anitem (__mapper) {
     muonStace,
   ] = await Promise.all([
     __mapper('xs').d('rhyno'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('fourier'),
     __mapper('xs').e('scene'),
@@ -73,7 +73,7 @@ async function anitem (__mapper) {
 
     let rayline = {
 
-      eohal: 'sol',
+      eohal: 'mars',
       eotim: eotim,
       eoric: { gid: 'pol', cid: 'pol', fid: 'pol'},
 
@@ -129,7 +129,7 @@ async function anitem (__mapper) {
           geobase: 'viewform',
           geospan: 0,
 
-          eohal: 'sol',
+          eohal: 'mars',
 
           eofold: function (ani, props) {
             let preani = muonStore.findAnigramFromUid(ani.eoric.uid)

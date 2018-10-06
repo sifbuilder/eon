@@ -8,12 +8,12 @@ async function anitem (__mapper) {
   let [
     ctlWen,
     muonProps,
-    eohalSol,
+    eohalMars,
     eohalScene,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').m('props'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('scene'),
   ])
 
@@ -63,7 +63,7 @@ async function anitem (__mapper) {
     // .................. aniTwoFaces
     let aniTwoFaces = {
 
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: geoformFaces, // eofold,
       eotim: eotim,
       eoric: {'gid': 'faces', 'cid': 'face', 'fid': 'face'},
@@ -115,7 +115,7 @@ async function anitem (__mapper) {
 
     // .................. animas
     let animas = [
-      aniTwoFaces, // h.sol g.uniwen
+      aniTwoFaces, // h.mars g.uniwen
       sceneAni, // h.scene
     ]
 

@@ -10,7 +10,7 @@ async function anitem (__mapper) {
     ctlWen,
     datWorldTopo110m,
     eohalScene,
-    eohalSol,
+    eohalMars,
     muonGeom,
     muonGraticule,
     prtNatform,
@@ -19,7 +19,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
     __mapper('xs').p('natform'),
@@ -125,7 +125,7 @@ async function anitem (__mapper) {
     // ............................. earthAni
     let earthAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: p => {
         let geometry = Object.assign({},
@@ -156,7 +156,7 @@ async function anitem (__mapper) {
     // .............................  cubeAni
     let cubeAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: anitem => {
         let eoload = anitem.eoload,
@@ -239,7 +239,7 @@ async function anitem (__mapper) {
     // .............................  graticubeAni
     let graticubeAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: anitem => muonGraticule.vhMultiLine(anitem.eoframe),
       eotim: eotim,
@@ -258,7 +258,7 @@ async function anitem (__mapper) {
     // .............................  graticircAni
     let graticircAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: p => muonGraticule.vhMultiLine(p.eoframe), // hMultiLine
       eotim: eotim,
@@ -293,10 +293,10 @@ async function anitem (__mapper) {
 
     // ............................. animas
     let animas = [
-      earthAni, // h.sol p.natform g.uniwen
-      // cubeAni, // h.sol g.uniwen
-      // graticubeAni, // h.sol
-      // graticircAni, // h.sol
+      earthAni, // h.mars p.natform g.uniwen
+      // cubeAni, // h.mars g.uniwen
+      // graticubeAni, // h.mars
+      // graticircAni, // h.mars
       sceneAni, // h.scene
     ]
 

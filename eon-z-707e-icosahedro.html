@@ -9,7 +9,7 @@ async function anitem (__mapper) {
     d3geo,
     ctlWen,
     eohalScene,
-    eohalSol,
+    eohalMars,
     muonGeom,
     muonProps,
   ] = await Promise.all([
@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-geo'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('props'),
   ])
@@ -35,7 +35,7 @@ async function anitem (__mapper) {
     // .................. dotsAni
     let dotsAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: anitem => {
         let eoload = anitem.eoload,
@@ -129,7 +129,7 @@ async function anitem (__mapper) {
     // .................. vertsAni
     let vertsAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: p => {
         let eoload = p.eoload,
@@ -248,8 +248,8 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      dotsAni, // h.sol
-      vertsAni, // h.sol
+      dotsAni, // h.mars
+      vertsAni, // h.mars
       sceneAni, // h.scene
 
     ]

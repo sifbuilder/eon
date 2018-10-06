@@ -16,7 +16,7 @@
 
   async function eohalNatform (__mapper = {}) {
     let [
-      eohalSol,
+      eohalMars,
       muonNatform,
       muonEocrom,
       muonEonode,
@@ -26,7 +26,7 @@
       muonProj3ct,      
       prtUniwen,
     ] = await Promise.all([
-      __mapper('xs').e('sol'),
+      __mapper('xs').e('mars'),
       __mapper('xs').m('natform'),
       __mapper('xs').m('eocrom'),
       __mapper('xs').m('eonode'),
@@ -130,7 +130,7 @@
       if (anitem.eocrom === undefined) anitem.eocrom = geteocrom(anitem.eoform) 
      
       
-      return eohalSol.gramm(anitem)
+      return eohalMars.gramm(anitem)
     }
 
     // .................... gramm

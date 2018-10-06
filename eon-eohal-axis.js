@@ -14,14 +14,14 @@
       d3axis,
       d3scale,
       d3format,
-      eohalSol,
+      eohalMars,
       muonAnitem,
     ] = await Promise.all([
       __mapper('xs').m('props'),
       __mapper('xs').b('d3-axis'),
       __mapper('xs').b('d3-scale'),
       __mapper('xs').b('d3-format'),
-      __mapper('xs').e('sol'),
+      __mapper('xs').e('mars'),
       __mapper('xs').m('anitem'),
     ])
 
@@ -65,7 +65,7 @@
         }),
       }
       delete newAnigram.eoload.axis
-      return eohalSol.gramm(newAnigram)
+      return eohalMars.gramm(newAnigram)
     }
 
     // ............................. enty

@@ -8,7 +8,7 @@ async function anitem (__mapper) {
     d3,
     ctlWen,
     eohalScene,
-    eohalSol,
+    eohalMars,
     muonFibonat,
     muonGraticule,
     prtNatform,
@@ -16,7 +16,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').m('fibonat'),
     __mapper('xs').m('graticule'),
     __mapper('xs').p('natform'),
@@ -120,7 +120,7 @@ async function anitem (__mapper) {
     // .................. waveForm anima
     let waveAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: p => muonFibonat.interlinked(p.eoload),
 
@@ -153,7 +153,7 @@ async function anitem (__mapper) {
     // .................. sphereForm anima
     let sphereAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: p => muonGraticule.vhMultiLine(p.eoframe), // hMultiLine
 
@@ -188,8 +188,8 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      sphereAni, // h.sol
-      waveAni, // h.sol
+      sphereAni, // h.mars
+      waveAni, // h.mars
       sceneAni, // h.scene
     ]
 

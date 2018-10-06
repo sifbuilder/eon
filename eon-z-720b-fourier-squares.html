@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     muonProfier,
     muonGeoj,
     muonSvg,
-    eohalSol,
+    eohalMars,
     eohalNatform,
     eohalScene,
   ] = await Promise.all([
@@ -20,7 +20,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('profier'),
     __mapper('xs').m('geoj'),
     __mapper('xs').m('svg'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
   ])
@@ -62,7 +62,7 @@ async function anitem (__mapper) {
 
     // .................. aniDotted anima
     let aniDotted = i => ({
-      eohal: 'sol',
+      eohal: 'mars',
       eoload: {
         eofold: p => {
           let cs = csi(i, (1 + i) / 4)
@@ -78,7 +78,7 @@ async function anitem (__mapper) {
     // .................. animas
     let aniLine = i => ({
 
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: p => {
         let cs = csi(i, (1 + i) / 4)
         cs.geometry.type = 'LineString' // switch to LineString
@@ -96,7 +96,7 @@ async function anitem (__mapper) {
     // .................. aniRay avatar - form.eoload.fourier.avatars.rayline
     let aniRay = i => ({
 
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: {type: 'Feature', geometry: {type: 'LineString', coordinates: []}, properties: {}},
       eotim: eotim,
       eoric: {'gid': 'pol', 'cid': 'pol', 'fid': 'aniRay' + i},
@@ -109,7 +109,7 @@ async function anitem (__mapper) {
     // .................. aniTrace avatar - form.eoload.fourier.avatars.trace
     let aniTrace = i => ({
 
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: {
         type: 'Feature', geometry: {type: 'MultiPoint', coordinates: []}, properties: {}},
 
@@ -139,7 +139,7 @@ async function anitem (__mapper) {
 
             let gj = {
 
-              eohal: 'sol',
+              eohal: 'mars',
               eoload: {
                 eofold: {
                   type: 'Feature',
@@ -223,8 +223,8 @@ async function anitem (__mapper) {
     let animas = [
       sceneAni, // h.scene
       ...fourierForms, // h.fourier
-      // ...aniDotteds, // h.sol
-      // ...aniLines, // h.sol
+      // ...aniDotteds, // h.mars
+      // ...aniLines, // h.mars
     ]
 
     return animas

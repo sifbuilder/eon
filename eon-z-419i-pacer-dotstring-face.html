@@ -9,7 +9,7 @@ async function anitem (__mapper) {
     ctlRayder,
     ctlWen,
     eohalScene,
-    eohalSol,
+    eohalMars,
     eohalNatform,
     eohalPacer,
     eohalImgform,
@@ -21,7 +21,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('rayder'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('imgform'),
@@ -82,7 +82,7 @@ async function anitem (__mapper) {
           geobase: '',
           geoaad: 1, // geoaad for trace
 
-          eohal: 'sol',
+          eohal: 'mars',
 
           eofold: function (ani, props) {
             let preani = muonStore.findAnigramFromUid(ani.eoric.uid) // anigram

@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     d3geo,
     d3geoprojection,
     prtTetra,
-    eohalSol,
+    eohalMars,
     eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('props'),
@@ -31,7 +31,7 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-geo-projection'),
     __mapper('xs').p('tetra'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('scene'),
   ])
 
@@ -85,7 +85,7 @@ async function anitem (__mapper) {
     // .............................  geograt
     let geograt = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: p => muonGraticule.vhMultiLine(p.eoframe),
 
@@ -107,7 +107,7 @@ async function anitem (__mapper) {
     // .............................  geoearth
     let geoearth = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: () => {
         return Object.assign({},
@@ -132,7 +132,7 @@ async function anitem (__mapper) {
     // .............................  geosphere
     let geosphere = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: {
         type: 'Feature',
@@ -170,9 +170,9 @@ async function anitem (__mapper) {
     let animas = [
 
       sceneAni, // h.scene
-      geograt, // h.sol
-      geoearth, // h.sol
-      geosphere, // h.sol
+      geograt, // h.mars
+      geoearth, // h.mars
+      geosphere, // h.mars
 
     ]
 

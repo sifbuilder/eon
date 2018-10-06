@@ -12,7 +12,7 @@ async function anitem (__mapper) {
     ctlWen,
     ctlVersor,
     datWorldTopo110m,
-    eohalSol,
+    eohalMars,
     eohalScene,
     muonGeom,
     muonGraticule,
@@ -25,7 +25,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').c('versor'),
     __mapper('xs').d('worldTopo110m'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('scene'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
@@ -137,7 +137,7 @@ async function anitem (__mapper) {
 
     let geoearthDark = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: () => {
         return Object.assign({},
@@ -191,7 +191,7 @@ async function anitem (__mapper) {
 
     let geoearthFront = {
 
-      eohal: 'sol',
+      eohal: 'mars',
       eotim,
       eoric: {gid: 'geo', cid: 'geo', fid: 'geoearthFront'},
 
@@ -216,7 +216,7 @@ async function anitem (__mapper) {
     // .................. graticuleFront
     let graticuleFront = {
 
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: p => muonGraticule.vhMultiLine(p.eoframe),
       eotim: eotim,
       eomot: {
@@ -238,7 +238,7 @@ async function anitem (__mapper) {
     // ............................. tangerineAni
     let tangerineAni3 = {
 
-      eohal: 'sol',
+      eohal: 'mars',
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q3'},
 
@@ -266,7 +266,7 @@ async function anitem (__mapper) {
     // ............................. tangerineAni
     let tangerineAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q2'},
 
@@ -285,7 +285,7 @@ async function anitem (__mapper) {
     // ............................. earthAni
     let earthAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
       eotim: eotim,
       eoric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
 

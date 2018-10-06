@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    eohalSol,
+    eohalMars,
     eohalPacer,
     eohalFourier,
     eohalScene,
@@ -16,7 +16,7 @@ async function anitem (__mapper) {
     muonProfier,
     muonGeoj,
   ] = await Promise.all([
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('fourier'),
     __mapper('xs').e('scene'),
@@ -72,7 +72,7 @@ async function anitem (__mapper) {
     // ...     @aniDots anima
     let aniDots = {
 
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: {type: 'Feature', properties: {pointRadius: 1}, geometry: { type: 'MultiPoint', coordinates: muonGeoj.getCoords(geoData) } },
       eoload: {
         eotim: eotim,
@@ -86,7 +86,7 @@ async function anitem (__mapper) {
     // ...       form.eoload.fourier.avatars.rayline
     let aniRay = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: {
         type: 'Feature',
@@ -132,7 +132,7 @@ async function anitem (__mapper) {
 
       eoload: {
         pacer: { // geoaad for trace
-          eohal: 'sol',
+          eohal: 'mars',
           geosort: 'anigram',
           geobase: 'geo',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0, geoaad: 1,
@@ -222,7 +222,7 @@ async function anitem (__mapper) {
     let animas = [
 
       fourierForm, // h.fourier
-      aniDots, // h.sol
+      aniDots, // h.mars
       sceneAni, // h.scene
     ]
 

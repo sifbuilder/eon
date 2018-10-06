@@ -12,7 +12,7 @@ async function anitem (__mapper) {
     ctlWen,
     ctlVersor,
     datWorldTopo110m,
-    eohalSol,
+    eohalMars,
     eohalScene,
     muonGeom,
     muonGraticule,
@@ -24,7 +24,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').c('versor'),
     __mapper('xs').d('worldTopo110m'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('scene'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
@@ -65,7 +65,7 @@ async function anitem (__mapper) {
 
     let geoearthDark = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: () => {
         return Object.assign({},
@@ -119,7 +119,7 @@ async function anitem (__mapper) {
 
     let geoearthFront = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: () => {
         return Object.assign({},
@@ -145,7 +145,7 @@ async function anitem (__mapper) {
     // .................. graticuleFront
     let graticuleFront = {
 
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: p => muonGraticule.vhMultiLine(p.eoframe),
       eotim: eotim,
       eomot: {
@@ -179,8 +179,8 @@ async function anitem (__mapper) {
 
     let animas = [
       geoearthDark,
-      geoearthFront, // h.sol g.orthographic
-      graticuleFront, // h.sol
+      geoearthFront, // h.mars g.orthographic
+      graticuleFront, // h.mars
       sceneAni, // h.scene
     ]
 

@@ -9,7 +9,7 @@ async function anitem (__mapper) {
     ctlWen,
     eohalNatform,
     eohalScene,
-    eohalSol,
+    eohalMars,
     muonGraticule,
     muonNatform,
     muonProps,
@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').m('graticule'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
@@ -69,7 +69,7 @@ async function anitem (__mapper) {
     // .................. natAni
     let natAni = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: function (p) {
         let graticule = p.eoframe
@@ -118,7 +118,7 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      natAni, // h.sol g.uniwen
+      natAni, // h.mars g.uniwen
       sceneAni, // h.scene
     ]
 

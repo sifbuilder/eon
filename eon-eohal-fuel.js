@@ -51,7 +51,7 @@
 
       if (parentAnigram) {
         let geometry = parentAnigram.eofold.geometry
-        if (!muonGeoj.isValid(geometry)) { console.error('h.sol:gj not valid', geometry) }
+        if (!muonGeoj.isValid(geometry)) { console.error('h.mars:gj not valid', geometry) }
         polygon = muonGeoj.getCoords(geometry) // outer ring
       } else {
         polygon = muonGeom.extentPolygon([[0, 0], [width, height]]) // viewport

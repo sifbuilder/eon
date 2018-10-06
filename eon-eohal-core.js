@@ -14,13 +14,13 @@
       muonProfier,
       muonProj3ct,
       muonProps,
-      eohalMars,
+      eohalSol,
     ] = await Promise.all([
       __mapper('xs').m('geoj'),
       __mapper('xs').m('profier'),
       __mapper('xs').m('proj3ct'),
       __mapper('xs').m('props'),
-      __mapper('xs').e('mars'),
+      __mapper('xs').e('sol'),
     ])
 
     // ....................... eohale

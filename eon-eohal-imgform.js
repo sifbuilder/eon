@@ -10,10 +10,10 @@
 
   async function eohalImgform (__mapper = {}) {
     let [
-      eohalSol,
+      eohalMars,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').e('sol'),
+      __mapper('xs').e('mars'),
       __mapper('xs').m('props'),
     ])
 
@@ -40,7 +40,7 @@
         eoload = anigram.eoload // eoload
 
       let newAnigram = muonProps.clone(anigram)
-      newAnigrams = [...newAnigrams, ...__mapper('eohalSol').gramm(newAnigram)]
+      newAnigrams = [...newAnigrams, ...__mapper('eohalMars').gramm(newAnigram)]
       return newAnigrams
     }
     // ............................. ween

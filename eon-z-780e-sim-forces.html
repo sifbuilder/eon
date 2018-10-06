@@ -10,7 +10,7 @@ async function anitem (__mapper) {
     eohalCore,
     eohalNatform,
     eohalScene,
-    eohalSol,
+    eohalMars,
     muonProps,
     muonEoforces,
     muonNatform,
@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     __mapper('xs').e('core'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').m('props'),
     __mapper('xs').m('eoforces'),
     __mapper('xs').m('natform'),
@@ -52,7 +52,7 @@ async function anitem (__mapper) {
     // .................... natAni1
     let natAni1 = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani1'},
@@ -98,7 +98,7 @@ async function anitem (__mapper) {
     // .................... natAni2
     let natAni2 = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
@@ -317,8 +317,8 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      natAni1, // h.sol
-      natAni2, // h.sol
+      natAni1, // h.mars
+      natAni2, // h.mars
       fieldAni, // h.core
 
     ]

@@ -8,96 +8,101 @@
 }(this, function (exports) {
   'use strict'
 
-  // ... *process h.mars anigrams**
-  // ...
-  // ... is transparent to animas and prepares anigrams to be rendered
-  // ...
-  // ... ani.eofold is a functor that returns a geojson
-  // ... the geojson is then converted to a FeatureCollection
-  // ... the features are z-ordered by centroid of their geometry
-  // ... the renderer takes a featurecollection
-  // ... info is passed in each feature.properties:
-  // ...   geometry in geofold
-  // ...   id in eoric, functor fid
-  // ...   style in eocrom
-  // ...   tim
-  // ...   sort will define how the feature will be rendered
-  // ... lose eoload
-  // ... maintain eohal, eonode, avatar
-  // ... the new anigrams are saved in m.animation and passed to renderer
+  // ... **process h.mars animas**
+  // ... transparent to animas, applies to anigrams
+  // ... eoform, conform, ereform and proform anigrams
+  // ... parse result through h.sol.gramm
 
   async function eohalMars (__mapper = {}) {
     let [
-      muonEoric,
-      muonEocrom,
+      eohalSol,
       muonGeoj,
+      muonProfier,
+      muonProj3ct,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').m('eoric'),
-      __mapper('xs').m('eocrom'),
+      __mapper('xs').e('sol'),
       __mapper('xs').m('geoj'),
+      __mapper('xs').m('profier'),
+      __mapper('xs').m('proj3ct'),
       __mapper('xs').m('props'),
+
     ])
 
     // ............................. eohale
     function eohale (anitem) {
-      let newAnigrams = []
+      console.assert(typeof anitem === 'object')
+      console.assert(Array.isArray(anitem) === false)
 
-      let eofold = muonProps.v(anitem.eofold, anitem)
-      let gjcollection = muonGeoj.featurecollect(eofold)
+      let newAni = muonProps.clone(anitem) // newAni
 
-      console.assert(gjcollection.type === 'FeatureCollection')
+      let eonode = muonProps.v(anitem.eonode, anitem) // newAni.eonode
+      if (eonode && anitem.eomot) {
+        for (let [mot, prt] of Object.entries(anitem.eomot)) {
+          let properties = eonode.properties || {}
 
-      gjcollection = muonGeoj.zorder(gjcollection)
+          let prtion = muonProfier.formion(prt, anitem)
+          let gjobj = muonGeoj.deprop(eonode)
 
-      gjcollection = muonEoric.enric(anitem.eoric, anitem, gjcollection)
+          if (gjobj.geometry !== null) {
+            console.assert(gjobj.geometry.coordinates !== null)
+          }
 
-      for (let i = 0; i < gjcollection.features.length; i++) {
-        let feature = gjcollection.features[i]
+          let node = muonProj3ct(gjobj, prtion)
+          node.properties = properties
+          node.properties[mot] = muonGeoj.deprop(node) // save [prt] pure node
 
-        feature = muonEocrom.geocromer(anitem, feature)
-
-        feature.properties.eotim = anitem.eotim
-        feature.properties.sort = feature.properties.sort || 'feature'
-
-        let newAnigram = {
-          eohal: anitem.eohal,
-          eofold: feature,
-          eonode: anitem.eonode,
-          eoric: feature.properties.eoric,
-          eoload: {},
-          avatars: anitem.avatars,
+          newAni.eonode = node
         }
-
-        newAnigrams.push(newAnigram)
       }
 
-      return newAnigrams
+      let eofold = muonProps.v(anitem.eofold, anitem) // newAni.eofold
+      let gjcollection = muonGeoj.featurecollect(eofold)
+
+      if (eofold && anitem.eomot) {
+        for (let [mot, prt] of Object.entries(anitem.eomot)) {
+          gjcollection.features = gjcollection.features.map(
+            feature => {
+              let properties = feature.properties || {}
+
+              let prtion = muonProfier.formion(prt, anitem)
+              let gjobj = muonGeoj.deprop(feature)
+
+              if (gjobj.geometry !== null) {
+                console.assert(gjobj.geometry.coordinates !== null)
+              }
+
+              let node = muonProj3ct(gjobj, prtion)
+              node.properties = properties
+              node.properties[mot] = node
+
+              return node
+            }
+          )
+        }
+      }
+      newAni.eofold = gjcollection
+
+      return newAni
+    }
+
+    // ............................. gramm
+    let gramm = anitem => {
+      let newItem = eohale(anitem)
+      let newAnitems = eohalSol.gramm(newItem)
+      return newAnitems
     }
 
     // ............................. ween
     let ween = anitem => {
-      let newitems = []
-
-      newitems = muonProps.a(anitem)
-
+      let newitems = muonProps.v(anitem)
       return newitems
     }
 
-    // ............................. gramm
-
-    let gramm = anitem => {
-      let newitems = []
-
-      newitems = eohale(anitem)
-
-      return newitems
-    }
-
-    // ............................. eohalMars
+    // ............................. eohal
     let eohalMars = {}
-    eohalMars.ween = anima => ween(anima)
-    eohalMars.gramm = anima => gramm(anima)
+    eohalMars.ween = anitem => ween(anitem)
+    eohalMars.gramm = anitem => gramm(anitem)
 
     // ............................. enty
     let enty = eohalMars

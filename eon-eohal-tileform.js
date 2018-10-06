@@ -10,15 +10,15 @@
 
   async function eohalTileform (__mapper = {}) {
     let [
-      eohalMars,
-      eohalNatform,
       eohalSol,
+      eohalNatform,
+      eohalMars,
       muonProps,
       muonGraticule,
     ] = await Promise.all([
-      __mapper('xs').e('mars'),
-      __mapper('xs').e('natform'),
       __mapper('xs').e('sol'),
+      __mapper('xs').e('natform'),
+      __mapper('xs').e('mars'),
       __mapper('xs').m('props'),
       __mapper('xs').m('graticule'),
     ])
@@ -66,7 +66,7 @@
 
     // .................... gramm
     function gramm (anigram) {
-      return Promise.all(getTiles(anigram).map(ani => eohalSol.gramm(ani)))
+      return Promise.all(getTiles(anigram).map(ani => eohalMars.gramm(ani)))
     }
 
     // .................... enty

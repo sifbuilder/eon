@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     datWorldTopo110m,
     eohalScene,
     eohalTextform,
-    eohalSol,
+    eohalMars,
     muonNatform,
     muonGeom,
     muonGraticule,
@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').e('scene'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('textform'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('geom'),
@@ -85,7 +85,7 @@ async function anitem (__mapper) {
     // ............................. geograt
     let geograt = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: anitem => muonGraticule.vhMultiLine(anitem.eoframe),
       eotim: eotim,
@@ -110,7 +110,7 @@ async function anitem (__mapper) {
     // ............................. geoearth
     let geoearth = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: p => {
         let geometry = Object.assign({},
@@ -135,7 +135,7 @@ async function anitem (__mapper) {
     // -------------------------------  geoearth
     let geoshpere = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: {
         type: 'Feature',
@@ -190,9 +190,9 @@ async function anitem (__mapper) {
 
     // ............................. animas
     let animas = [
-      geograt, // h.sol g.hedrals
-      geoearth, // h.sol g.hedrals
-      geoshpere, // h.sol g.hedrals
+      geograt, // h.mars g.hedrals
+      geoearth, // h.mars g.hedrals
+      geoshpere, // h.mars g.hedrals
 
       text, // h.text
     ]

@@ -7,11 +7,11 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     ctlWen,
-    eohalSol,
+    eohalMars,
     eohalScene,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('scene'),
   ])
 
@@ -23,7 +23,7 @@ async function anitem (__mapper) {
     // .................. idPolygon anima
     let idPolygon = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: (p) => {
         let coordinaes = [
@@ -76,7 +76,7 @@ async function anitem (__mapper) {
     // .................. wenPolygon anima
     let wenPolygon = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: (p) => {
         let coordinaes = [
@@ -142,8 +142,8 @@ async function anitem (__mapper) {
 
     // .................. animas
     let animas = [
-      idPolygon, // h.sol muonGeom.uniwen
-      wenPolygon, // h.sol muonGeom.uniwen
+      idPolygon, // h.mars muonGeom.uniwen
+      wenPolygon, // h.mars muonGeom.uniwen
       sceneAni, // h.scene
     ]
     return animas

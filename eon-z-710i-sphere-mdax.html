@@ -10,14 +10,14 @@ async function anitem (__mapper) {
     muonProps,
     ctlWen,
     eohalNatform,
-    eohalSol,
+    eohalMars,
     eohalScene,
   ] = await Promise.all([
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('natform'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('scene'),
   ])
 
@@ -115,7 +115,7 @@ async function anitem (__mapper) {
 
     // .................. natAni1dax
     let natAni1dax = {
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: p => muonNatform.natFeature(p.eoform),
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
@@ -128,7 +128,7 @@ async function anitem (__mapper) {
       },
     }
     let natAni2dax = {
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: p => muonNatform.natFeature(p.eoform),
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat2'},
@@ -141,7 +141,7 @@ async function anitem (__mapper) {
       },
     }
     let natAni3dax = {
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: p => muonNatform.natFeature(p.eoform),
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat3'},
@@ -154,7 +154,7 @@ async function anitem (__mapper) {
       },
     }
     let natAni4dax = {
-      eohal: 'sol',
+      eohal: 'mars',
       eofold: p => muonNatform.natFeature(p.eoform),
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat4'},
@@ -183,10 +183,10 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      natAni1dax, // h.sol g.uniwen
-      natAni2dax, // h.sol g.uniwen
-      natAni3dax, // h.sol g.uniwen
-      natAni4dax, // h.sol g.uniwen
+      natAni1dax, // h.mars g.uniwen
+      natAni2dax, // h.mars g.uniwen
+      natAni3dax, // h.mars g.uniwen
+      natAni4dax, // h.mars g.uniwen
       sceneAni, // h.scene
     ]
 

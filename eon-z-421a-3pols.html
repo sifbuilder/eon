@@ -15,7 +15,7 @@ async function anitem (__mapper) {
     ctlVersor,
     ctlWen,
     datWorldTopo110m,
-    eohalSol,
+    eohalMars,
     eohalScene,
     muonGeom,
     muonGraticule,
@@ -28,7 +28,7 @@ async function anitem (__mapper) {
     __mapper('xs').c('versor'),
     __mapper('xs').c('wen'),
     __mapper('xs').d('worldTopo110m'),
-    __mapper('xs').e('sol'),
+    __mapper('xs').e('mars'),
     __mapper('xs').e('scene'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
@@ -87,7 +87,7 @@ async function anitem (__mapper) {
 
     let geoearth = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: () => {
         return Object.assign({},
@@ -111,7 +111,7 @@ async function anitem (__mapper) {
     // ............................. geograt
     let geograt = {
 
-      eohal: 'sol',
+      eohal: 'mars',
 
       eofold: p => muonGraticule.vhMultiLine(p.eoframe),
       eotim,
