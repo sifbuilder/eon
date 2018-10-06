@@ -44,8 +44,12 @@
     // ... getsims
     const getsims = (animas, elapsed) => {
       let sim = muonSim.sim() // simulation on animas
-      let aninodes = animas.map(anitem => muonAnitem.snapani(anitem))
+
+      // let aninodes = animas.map(anitem => muonAnitem.snapani(anitem))
+      let aninodes = animas
+
       muonSim.simulate(sim, aninodes, elapsed) // stored
+
       return muonStore.animasLive()
     }
 
@@ -121,15 +125,15 @@
     function collect (animas, elapsed) {
       getweens(state.animas, elapsed)
 
-      let animasLive = muonStore.animasLive()
+      let animasLive = muonStore.animas()
 
+      // _e_ getsims snapani for force properties - tbf
       let anisimmed = getsims(animasLive, elapsed)
 
-      // _e_ double snapi tbf
+      // _e_ double snapani in getsims - tbf
       anisimmed.map(ani => muonStore.gramm(ani))
 
       let anigrams = muonStore.anigrams()
-      if (1 && 1) console.log('anigrams', anigrams)
 
       let featurecollection = {
         type: 'FeatureCollection',
@@ -143,7 +147,7 @@
       muonStore = __mapper('muonStore')
       state.animas = muonStore.animasLive()
 
-      if (1 && 1) console.log(` ******************* animation ${elapsed} ${state.animas.length}`, state.animas)
+      if (0 && 1) console.log(` ******************* animation ${elapsed} ${state.animas.length}`, state.animas)
 
       // ... TIME
       state.animas = muonProps.a(muonStore.animasLive())
@@ -170,7 +174,7 @@
       // ... @WEEN SIM GRAMM RENDER
       // ... from the anigrams, collect the feature collection to be rendered
 
-      // ... let featurecollectionPromise = collect(state.animas, elapsed)
+      // ... let featurecollectionPromise = ____ collect(state.animas, elapsed) ____
       let featurecollection = collect(state.animas, elapsed)
 
       // ... then render by sort the features in the collection

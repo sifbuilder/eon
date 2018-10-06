@@ -4,7 +4,6 @@ window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
-  // .................. eons
   let [
     d3Geo,
     d3Force3d,
@@ -15,6 +14,7 @@ async function anitem (__mapper) {
     eohalMars,
     eohalPacer,
     eohalTextform,
+    muonAnitem,
     muonEoforces,
     muonEoric,
     muonGraticule,
@@ -32,6 +32,7 @@ async function anitem (__mapper) {
     __mapper('xs').e('mars'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('textform'),
+    __mapper('xs').m('anitem'),
     __mapper('xs').m('eoforces'),
     __mapper('xs').m('eoric'),
     __mapper('xs').m('graticule'),
@@ -40,10 +41,8 @@ async function anitem (__mapper) {
     __mapper('xs').m('stace'),
     __mapper('xs').p('uniwen'),
   ])
-
   let muonStore = __mapper('muonStore')
   let d3_force = d3Force3d
-
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -51,7 +50,7 @@ async function anitem (__mapper) {
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
       sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh
 
-    let eotim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     // ....................... pacerNat
     let pacerNat = {
@@ -81,28 +80,28 @@ async function anitem (__mapper) {
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate: [ [[[0, 200]]], 0, 0],
+          translate: [ 0, 0, 0], // mot
           scale: 1,
-          rotate: [ [[[0, 60]]], [[[0, 60]]], [[[0, 60]]] ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          rotate: [ 0, -200, 0 ],
+
           lens: [0, 1, Infinity],
-          geoanod: 1,
+          geoanod: 1, // eonode
         },
       },
 
-      eocrom: { 'csx': 0, 'cf': 777, 'co': 0.1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
+      eocrom: { 'csx': 0, 'cf': 777, 'co': 0.3, 'cs': [[[777, 222]]], 'cw': [[[0.4,1.2]]], 'cp': 1},
 
       eoform: {
         x: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': [[[12, 148]]], 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[9, 9]]], 'pa6': 0, 'pb7': -1,
+          'ra2': [[[3, 64]]], 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[24, 24]]], 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
           c: [ 1, 1, [[[1, 1]]], [[[1, 1]]]],
           'fn0': (e, c, d) => c[0] * (d.c[2] + d.c[3] * cos(e[0])) * c[2] * cos(e[3]) * sin(e[3]),
         },
         y: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': [[[12, 148]]], 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[9, 9]]], 'pa6': 0, 'pb7': -1,
+          'ra2': [[[3, 64]]], 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[24, 24]]], 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
           c: [ 1, 1, [[[1, 1]]], [[[1, 1]]]],
           'fn0': (e, c, d) => c[1] * (d.c[2] + d.c[3] * cos(e[0])) * c[2] * sin(e[3]) * sin(e[3]),
@@ -110,7 +109,7 @@ async function anitem (__mapper) {
         },
         z: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': 12, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[9, 9]]], 'pa6': 0, 'pb7': -1,
+          'ra2': [[[3, 64]]], 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[24, 24]]], 'pa6': 0, 'pb7': -1,
           'dom3': [ -90, 90 ],
           c: [ 1, 1, 1, [[[1, 1]]] ],
           'fn0': (e, c, d) => d.c[3] * c[3] * sin(e[0]) * sin(e[3]),
@@ -128,19 +127,30 @@ async function anitem (__mapper) {
 
         pacer: {
 
-          initN: 0, eventN: 0, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
+          initN: 1, eventN: 0, autoN: 1, autoP: 0.18, outtimed: 0, maxN: 60, geospan: 0,
           geosort: 'anima',
           geobase: 'viewform',
           geoaad: 0,
 
-          eohal: 'mars',
+          eohal: 'natform',
 
           eoric: function (ani, props) {
             let eoric = muonProps.clone(ani.eoric)
-            let q = muonStore.animasInClassHowMany(eoric)
-            let nextq = q + props.counter
 
-            eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+            if (props.key === 'init') { // INIT
+              let q = muonStore.animasInClassHowMany(eoric)
+              let nextq = q + props.counter
+              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+            } else if (props.key === 'auto') { // AUTO
+              let q = muonStore.animasInClassHowMany(eoric)
+              let nextq = q + props.counter
+              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+            } else if (props.key === 'event') { // EVENT
+              let q = muonStore.animasInClassHowMany(eoric)
+              let nextq = q + props.counter
+              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+            }
+
             eoric.uid = muonEoric.getuid(eoric)
             return eoric
           },
@@ -150,32 +160,40 @@ async function anitem (__mapper) {
             return neweofold
           },
 
+          eocrom: function (ani, props) {
+            let neweocrom = ani.eocrom
+            return neweocrom
+          },
+
           eonode: function (ani, props) {
-            let coords = [0, 0, 0]
+            let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               let autocount = props.counter
-
-              let ridx = muonGraticule.ridx(4, 6, 1, 1)
-
-              let k = [40 + 20 * Math.random(), 40 + 20 * Math.random()]
-              let d = [-140, -40]
-
-              coords = [d[0] + k[0] * ridx(autocount)[0],
-                d[1] + k[1] * ridx(autocount)[1],
+              let C1 = -150
+              let C2 = 2
+              stace = [
+                0 + (0.5 - Math.random()) * 500,
+                Math.pow(-1, autocount) * C1 * Math.max(1, autocount % C2),
                 0]
             } else if (props.key === 'auto') { // AUTO
-              coords = [0, 0, 0]
+              let autocount = props.counter
+              let C1 = -150
+              let C2 = 2
+              stace = [
+                0 + (0.5 - Math.random()) * 200,
+                Math.pow(-1, autocount) * C1 * Math.max(1, autocount % C2),
+                0]
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
-                coords = {x, y, z }
+                stace = {x, y, z }
               }
             }
 
-            let coordinates = coords
+            let coordinates = stace
             let res = {
               type: 'Feature',
               geometry: {
@@ -191,12 +209,16 @@ async function anitem (__mapper) {
             let forces = {}
 
             let forceGravity = muonProps.clone(force_gravity)
-
             forceGravity.properties.key = ani.eoric.uid
-            forceGravity.properties.gravity = 0.1
+            forceGravity.properties.gravity = d => {
+              let gravity = 0
+              let r = d.eoform.x.ra2 // x.ra2
+              console.assert(r !== Number.NaN)
+              if (r > 36) gravity = 1.9
+              return gravity
+            }
 
-            forceGravity.properties.filter = d => true
-
+            forceGravity.properties.filter = d => d.eoric.cid === 'paced'
             forces.forceGravity = forceGravity
             return forces
           },
@@ -205,70 +227,19 @@ async function anitem (__mapper) {
       },
     }
 
-    // ............................. force_energy
-    let force_energy = { // aniForce
-      properties: {
-        alpha: 1,
-        alphaMin: 0.001,
-        alphaDecay: 0,
-        alphaTarget: 0,
-      },
-
-      field: function field (params = {}) {
-        let forces = []
-        let nodes = params.nodes
-
-        let forceParams = {
-          type: 'energy',
-          filter: d => d.eoric.gid === 'ani',
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let force = muonEoforces.force(forceParams)
-        forces.push(force)
-        return forces
-      },
-    }
-
-    // ............................. force_collide
-    let force_collide = {
-
-      properties: {
-        strength: 0.03,
-      },
-
-      field: params => {
-        let nodes = params.nodes
-        let forces = []
-
-        let strength = params.properties.strength
-
-        let forceParams = {
-          type: 'collide',
-          src: d3_force,
-          nodes: nodes,
-          strength: strength,
-          radius: d => 90,
-          filter: d => d.eoric.gid === 'node',
-          key: 'collide',
-        }
-
-        let force = muonEoforces.force(forceParams)
-        forces.push(force)
-        return forces
-      },
-    }
-
     // ............................. forceGravity
     let forceGravity = function (params) { // force
-      let nodes = params.nodes
-      let gravity = params.gravity
+      let nodes = params.nodes // animas
+      let gravity = typeof params.gravity === 'function'
+        ? d => params.gravity(d)
+        : d => params.gravity
 
       function force () { // d3force builtin (vs muon d3force)
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-          node.vy += gravity // node.vx += 0.001 * Math.random()
+
+          let nodegramm = muonAnitem.snapani(node)
+          node.vy += gravity(nodegramm)
         }
       }
 
@@ -288,122 +259,54 @@ async function anitem (__mapper) {
       properties: {
         type: 'gravity',
         src: d3_force,
-
         gravity: -0.9,
-
         filter: d => true,
         id: d => d.eoric.uid,
         key: 'gravity',
       },
 
       field: params => { // force.field
-        let forces = []
-
-        let nodes = params.nodes
         let forceParams = Object.assign({}, params, params.properties)
 
         let force = forceGravity(forceParams)
-        forces.push(force)
-        return forces
+        return Array.of(force)
       },
     }
+    // ............................. natAni
+    let natAni1 = {
+      eohal: 'natform',
+      eofold: null,
 
-    // .................... field_link
-    let force_link = {
-      properties: {
-        strength: 0.001,
+      eotim,
+      eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ 0, -160, 0], // mot
+          scale: 1,
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+        },
       },
 
-      field: params => {
-        let forces = []
+      eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[777, 777]]], 'cw': [[[0.99, 0.99]]], 'cp': [[[0.9, 0.9]]]},
+      eoform: {
 
-        let nodes = params.nodes
-        let strength = params.strength || params.properties.strength
-        let filter = d => true
-        let id = d => d.eoric.uid
-        let links = params.properties.links || nodes.filter(d => (d.eoric.gid === 'link'))
-        let key = params.properties.key || 'link'
+        'x': {
+          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+          'ra2': 400, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          'dom3': [ -180, 180 ],
+        },
+        'y': {
+          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+          'ra2': 12, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          'dom3': [ -180, 180 ],
+        },
 
-        let forceParams = {
-          type: 'link',		// key in plugin forces
-          src: d3_force,
-          nodes: nodes,
-          strength: d => strength,
-          filter: d => true,
-          id: d => d.eoric.uid,
-          links: nodes.filter(d => (d.eoric.gid === 'link')),
-          key: key,
-        }
-
-        let force = muonEoforces.force(forceParams)
-        forces.push(field)
-        return forces
-      },
-    }
-
-    // ............................. force_manybody
-    let force_manybody = { // aniForce
-
-      properties: {
-        strength: -1.9,
-        theta: 0.9,
-        distanceMin: 0,
-        distanceMax: Infinity,
       },
 
-      field: params => {
-        let forces = []
-
-        let nodes = params.nodes
-
-        let strength = params.properties.strength
-
-        let forceParams = {
-          type: 'manybody', // f.manybody
-          strength: strength,
-          filter: d => d.eoric.gid === 'node',
-          src: d3_force, // d3
-          nodes: nodes,
-        }
-
-        let force = muonEoforces.force(forceParams)
-        let field = {
-          key: 'charge',
-          force: force,
-        }
-
-        forces.push(field)
-        return forces
-      },
-    }
-
-    // ............................. force_viscosity
-    let force_viscosity = {
-      properties: {
-        velocityDecay: 0.0002,
-      },
-
-      field: function (params = {}) { // field.field
-        let nodes = params.nodes // nodes
-
-        let forceParams = {
-          type: 'void',
-          filter: d => true,
-          dim: 3,
-          filter: function (d) {
-            return d.eoric.gid === 'ani'
-          },
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let field = {
-          key: 'viscosity',
-          force: muonEoforces.force(forceParams),
-        }
-
-        return Array.of(field)
-      },
+      eoload: {},
     }
 
     // .................. sceneAni
@@ -422,7 +325,8 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
       pacerNat, // h.pacer
-      //  sceneAni, // h.scene
+      natAni1,
+      sceneAni, // h.scene
     ]
 
     return animas

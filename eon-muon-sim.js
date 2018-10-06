@@ -12,12 +12,14 @@
     let [
       d3,
       d3Force3d,
+      muonAnitem,
       muonEonode,
       muonStore,
       muonProps,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
       __mapper('xs').b('d3-force-3d'),
+      __mapper('xs').m('anitem'),
       __mapper('xs').m('eonode'),
       __mapper('xs').m('store'),
       __mapper('xs').m('props'),
@@ -183,6 +185,7 @@
         .nodes(aniNodes)
 
       for (let i = 0; i < anitems.length; i++) {
+        // let aniItem =  muonAnitem.snapani(anitems[i]) // each anima or anigram
         let aniItem = anitems[i] // each anima or anigram
 
         if (aniItem.eoforces !== undefined) { // forces in aniItem
@@ -202,6 +205,7 @@
                 if (aniForce.ticked !== undefined) aniForce.ticked
 
                 aniSims = restoreNodes(aniNodes, anitems) // > aniNodes
+
                 muonStore.apply({type: 'UPDANIMA', caller: 'simulation', animas: aniSims})
               })
 
@@ -212,8 +216,9 @@
               let aniCompForces = aniForce.field({
 
                 elapsed: elapsed, // elapsed
-                nodes: aniNodes, // aniNodes
+                nodes: aniNodes.map(d => d), // aniNodes
                 properties: aniForce.properties, // snapped properties
+
               })
 
               for (let k = 0; k < aniCompForces.length; k++) {

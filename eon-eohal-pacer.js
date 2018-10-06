@@ -45,23 +45,29 @@
   async function eohalPacer (__mapper = {}) {
     let [
       ctlRayder,
+      muonAnitem,
       muonEoric,
+      muonEotim,
       muonGeom,
-      muonProps,
       muonGeoj,
+      muonProps,
     ] = await Promise.all([
       __mapper('xs').c('rayder'),
+      __mapper('xs').m('anitem'),
       __mapper('xs').m('eoric'),
+      __mapper('xs').m('eotim'),
       __mapper('xs').m('geom'),
-      __mapper('xs').m('props'),
       __mapper('xs').m('geoj'),
+      __mapper('xs').m('props'),
     ])
 
     let muonStore = __mapper('muonStore')
 
     let state = {}
 
-    // ............................. pacer
+    // ... pacer
+    // ... @anitem : anima
+
     function eohale (anitem) {
       let newItems = []
 
@@ -109,7 +115,8 @@
       // ... anitem and parentitem may be anima
       // ... or anigram, eg. anima.avatar(nat).avatar(pacedline)
 
-      let anigram = anitem
+      let anigram = muonAnitem.snapani(anitem)
+
       let preAnima = uidPreitem ? muonStore.findAnimaFromUid(uidPreitem) : null
       let anima = muonStore.findAnimaFromUid(uidAnima)
       let pacerUid = anima.eoric.uid
@@ -185,8 +192,6 @@
       let autoP = pacer.autoP || 0
       let autoN = pacer.autoN
 
-      if (1 && 1) console.log('auto', eotim.unitPassed, autoT, cycletime, autoP)
-
       if (eotim.unitPassed >= autoT) {
         if (cycletime > autoP) {
           count.auto = Math.floor(autoN) //    AUTO
@@ -194,7 +199,6 @@
           anima.eoouted = (anima.eoouted === undefined)
             ? {[pacerUid]: eotim.unitPassed}
             : Object.assign(anima.eoouted, {[pacerUid]: eotim.unitPassed})
-          if (1 && 1) console.log(' ******* eoouted', anima.eoouted)
         }
       }
 
@@ -238,12 +242,16 @@
               newItem = muonProps.clone(anigram) // anigram
             }
 
+            let elapsed = newItem.eotim.elapsed
+            newItem.eotim.t0 = newItem.eotim.unitTime * (newItem.eotim.t1 - newItem.eotim.t0)
+            newItem.eotim = muonEotim.timing(newItem.eotim, elapsed)
+
             delete newItem.eoload
             // newItem.eoric.pid = uidAnima
             let ownProps = Object.getOwnPropertyNames(pacer)
             for (let prop of ownProps) {
               if (newItem[prop] !== undefined) {
-                let newpropval = muonProps.v(pacer[prop], anitem, props)
+                let newpropval = muonProps.v(pacer[prop], anigram, props)
                 newItem[prop] = newpropval
               }
             }
@@ -262,14 +270,12 @@
             }
             newItemsInCount = muonProps.a(newItemsInCount)
             newItems = [...newItems, ...newItemsInCount]
-      if (1 && 1) console.log('newItems', newItems)
             if (geosort === 'anima') {
               muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: newItems})
             }
           }
         }
       }
-
 
       return newItems
     }

@@ -116,7 +116,7 @@ async function anitem (__mapper) {
           eoric: function (ani, props) {
             let autocount = props.counter
             let eoric = muonProps.clone(ani.eoric)
-            eoric.fid = eoric.fic + '_' + autocount
+            eoric.fid = muonEoric.idify(eoric.fic, autocount)
             eoric.uid = muonEoric.getuid(eoric)
             return eoric
           },
