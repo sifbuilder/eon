@@ -9,7 +9,7 @@
 }(this, function (exports) {
   'use strict'
 
-  //... ** **
+  // ... ** **
 
   // .................. anitem
   async function anitem (__mapper) {

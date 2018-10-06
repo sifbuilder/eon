@@ -1,5 +1,5 @@
 
-//... create md readme
+// ... create md readme
 
 const fs = require('fs')
 const path = require('path')
@@ -70,8 +70,8 @@ if (opts.length === 0) {
 // console.log(`scope ${scope}`)
 // console.log(`dopublish ${dopublish}`)
 
-//... getReadhtml
-//... get eons html page
+// ... getReadhtml
+// ... get eons html page
 
 function getReadhtml (inDir, root) {
   root = root !== undefined ? root : 'https://sifbuilder.github.io/eon/'
@@ -145,11 +145,11 @@ function getReadhtml (inDir, root) {
   return html
 }
 
-//... getMdHead
-//... build the .md text
-//... @name
-//... the md depends if the global package (eons)
-//... or an individual eon is passed
+// ... getMdHead
+// ... build the .md text
+// ... @name
+// ... the md depends if the global package (eons)
+// ... or an individual eon is passed
 
 function getMdHead (name) {
   let title, subtitle
@@ -168,11 +168,11 @@ function getMdHead (name) {
   return md
 }
 
-//... getMdFooter
-//... build the .md text
-//... @name
-//... the md depends if the global package (eons)
-//... or an individual eon is passed
+// ... getMdFooter
+// ... build the .md text
+// ... @name
+// ... the md depends if the global package (eons)
+// ... or an individual eon is passed
 
 function getMdFooter (name) {
   let title, subtitle
@@ -192,9 +192,9 @@ function getMdFooter (name) {
 
   return md
 }
-//... getMdText
-//... get md text from file
-//... @name file
+// ... getMdText
+// ... get md text from file
+// ... @name file
 
 function getMdText (file) {
   let header = ''
@@ -231,10 +231,10 @@ let fromfile = ''
 
 let infiles = []
 if (scope === 'eons') { // eonify is root
-  //... if scope is eons, get root
+  // ... if scope is eons, get root
   infiles = [ 'eons' ] // if not all eons in param opts then publish eons
 } else if (scope === 'eonitems') {
-  //... if scope is eonitems, cover all eons items
+  // ... if scope is eonitems, cover all eons items
   infiles = fs.readdirSync(indir)
     .filter(file => isFile(file))
     .filter(d => eonpattern.test(d))
@@ -242,7 +242,7 @@ if (scope === 'eons') { // eonify is root
     .filter(d => !mdpattern.test(d))
     .filter(d => !imgpattern.test(d))
 } else {
-  //... if scope is pattern, select eons
+  // ... if scope is pattern, select eons
   const eonitemspattern = new RegExp('^' + '.*' + scope + '.*(.html|js)', 'i')
   infiles = fs.readdirSync(indir)
     .filter(file => isFile(file))
@@ -286,12 +286,12 @@ let mdee = function () {
           }
         }
 
-        //... README
+        // ... README
         function createReadme (pckfolder, fullName, rootname) {
-          //... create text and save README file
-          //... README text combines md segments
-          //... mddoc: md documentation in file
-          //... mdtext: eons shared md text
+          // ... create text and save README file
+          // ... README text combines md segments
+          // ... mddoc: md documentation in file
+          // ... mdtext: eons shared md text
 
           let mdHead = getMdHead(fullName)
           let mdFooter = getMdFooter(fullName)

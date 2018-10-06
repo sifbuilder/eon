@@ -184,7 +184,6 @@ async function anitem (__mapper) {
 
     // ............................. forceGravity
     let forceGravity = function (params) { // force
-
       console.assert(params.key !== undefined)
       let nodes = params.nodes
       let newNodes = []
@@ -228,10 +227,10 @@ async function anitem (__mapper) {
           nodes: nodes,
           gravity: gravity,
           filter: d => true,
-          id: d => d.eoric.uid,          
-          key: key,            
+          id: d => d.eoric.uid,
+          key: key,
         }
-        
+
         let force = forceGravity(forceParams)
         forces.push(force)
         return forces

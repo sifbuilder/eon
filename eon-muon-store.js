@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  //... **manage anitems store**
+  // ... **manage anitems store**
 
   async function muonStore (__mapper) {
     let [
@@ -198,7 +198,6 @@
         ? 0
         : enty.animasLive()
           .filter(d => d.eoric.gid === anima.eoric.gid).length
-
 
     enty.animasInClassHowMany = item => {
       let eoric

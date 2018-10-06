@@ -36,10 +36,10 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    //...  ## rhyno data from m.animas('shapes').rhyno
+    // ...  ## rhyno data from m.animas('shapes').rhyno
     let svgdata = JSON.parse(datRhyno.data())
 
-    //...  define data as LineString
+    // ...  define data as LineString
     let data = {
       type: 'Feature',
       geometry: {
@@ -56,10 +56,10 @@ async function anitem (__mapper) {
       lens: [0, 1, Infinity],
     }
 
-    //...  get geoData from uniwen projection with inverse y-scale
-    //...  the get the data features (transforms)
-    //...  span data along [0, 1] interval
-    //...  and create FeatureCollection with trasform features
+    // ...  get geoData from uniwen projection with inverse y-scale
+    // ...  the get the data features (transforms)
+    // ...  span data along [0, 1] interval
+    // ...  and create FeatureCollection with trasform features
 
     let geoData = muonProj3ct(data, muonProfier.formion(proform, ani))
     let transforms = muonFourier.transformedCoefs(geoData)
@@ -69,7 +69,7 @@ async function anitem (__mapper) {
       features: transforms,
     }
 
-    //... rayline LineString
+    // ... rayline LineString
 
     let rayline = {
 
@@ -90,7 +90,7 @@ async function anitem (__mapper) {
 
     }
 
-    //... traceline LineString trace
+    // ... traceline LineString trace
 
     let traceline = {
 
@@ -139,7 +139,7 @@ async function anitem (__mapper) {
             } else if (props.key === 'auto') { // AUTO
               let point = muonStace.getLocus([null, null, null], ani)
 
-              //... geotrim to fix [num, num, NaN]
+              // ... geotrim to fix [num, num, NaN]
 
               point = muonGeoj.geotrim(point)
 
@@ -197,11 +197,11 @@ async function anitem (__mapper) {
       },
     }
 
-    //... fourierAni carries the transforms in the eofold
-    //...  h.fourier
-    //...  bears traceline and rayline avatars
-    //...  the rayline is a LineString between each two transforms
-    //...  the traceline is a paced LineString on the last transform
+    // ... fourierAni carries the transforms in the eofold
+    // ...  h.fourier
+    // ...  bears traceline and rayline avatars
+    // ...  the rayline is a LineString between each two transforms
+    // ...  the traceline is a paced LineString on the last transform
 
     let fourierAni = {
 
@@ -224,7 +224,7 @@ async function anitem (__mapper) {
 
           doteocrom: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
 
-          //... fourierAni.eoload.fourier avatars are defined by name: traceline, rayline
+          // ... fourierAni.eoload.fourier avatars are defined by name: traceline, rayline
 
           avatars: {
 

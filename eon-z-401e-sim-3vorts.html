@@ -2,8 +2,8 @@
 <script>
 window.xEonify.eon({anitem, time: undefined})
 
-//... (\r\n){1,}
-//... \r\n
+// ... (\r\n){1,}
+// ... \r\n
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -146,7 +146,7 @@ async function anitem (__mapper) {
       // [0, 7],
       // [0, 34],
       // [1, 2],
-      
+
       // [1, 10],  // [1,7],
       // [1, 11],
       // [1, 12],
@@ -341,12 +341,11 @@ async function anitem (__mapper) {
             data.nodes[data.links[i][0]][0],
             data.nodes[data.links[i][0]][1],
             data.nodes[data.links[i][1]][0],
-            data.nodes[data.links[i][1]][1],
-            )
+            data.nodes[data.links[i][1]][1]
+          )
           let linkForcePar = 0.01
           let linkForce = dist * linkForcePar
           if (1 && 1) console.log('linkForce', linkForce)
-
 
           let ani = muonProps.cloneObj(anima)
           ani.eohal = 'linkform'
@@ -358,12 +357,11 @@ async function anitem (__mapper) {
             target: nuid(nidto).uid,
           }
 
-
           animas.push(ani)
         }
 
-        //... org anima is becomes gelded after halo ween
-        //... org anima is becomes delled after halo ween
+        // ... org anima is becomes gelded after halo ween
+        // ... org anima is becomes delled after halo ween
 
         updanima = muonProps.cloneObj(anima)
         updanima.eogelded = 1
@@ -425,7 +423,7 @@ async function anitem (__mapper) {
           prerotate: [[[ ctlWen.rotation ]]],
           translate: [0, 0, 0],
           scale: 1,
-          rotate: [ [[[0,360]]], [[[0,360]]], 0 ],
+          rotate: [ [[[0, 360]]], [[[0, 360]]], 0 ],
           lens: [0, 1, Infinity],
           geoanod: 1,
         },
@@ -461,7 +459,6 @@ async function anitem (__mapper) {
         let force = muonEoforces.force(forceParams)
         forces.push(force)
         return forces
-
       },
     }
 
@@ -496,11 +493,10 @@ async function anitem (__mapper) {
     }
 
     // ............................. forceGravity
-    //... muonSim receives field.key key.force objects
-    //... the field object is built in muonEoforces.force
-    //... or in the force object    
+    // ... muonSim receives field.key key.force objects
+    // ... the field object is built in muonEoforces.force
+    // ... or in the force object
     let forceGravity = function (params) { // force
-
       console.assert(params.key !== undefined)
       let nodes = params.nodes
       let newNodes = []
@@ -613,7 +609,6 @@ async function anitem (__mapper) {
         let force = muonEoforces.force(forceParams)
         forces.push(force)
         return forces
-
       },
     }
 
@@ -639,7 +634,6 @@ async function anitem (__mapper) {
         let force = muonEoforces.force(forceParams)
         forces.push(force)
         return forces
-
       },
     }
 

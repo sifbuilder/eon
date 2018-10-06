@@ -41,7 +41,6 @@ async function anitem (__mapper) {
     __mapper('xs').p('uniwen'),
   ])
 
-
   let muonStore = __mapper('muonStore')
   let d3_force = d3Force3d
 
@@ -82,9 +81,9 @@ async function anitem (__mapper) {
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate: [ [[[0,200]]], 0, 0],
+          translate: [ [[[0, 200]]], 0, 0],
           scale: 1,
-          rotate: [ [[[0,60]]], [[[0,60]]], [[[0,60]]] ],
+          rotate: [ [[[0, 60]]], [[[0, 60]]], [[[0, 60]]] ],
           prerotate: [[[ ctlWen.rotation ]]],
           lens: [0, 1, Infinity],
           geoanod: 1,
@@ -96,14 +95,14 @@ async function anitem (__mapper) {
       eoform: {
         x: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': [[[12,148]]], 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[9, 9]]], 'pa6': 0, 'pb7': -1,
+          'ra2': [[[12, 148]]], 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[9, 9]]], 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
           c: [ 1, 1, [[[1, 1]]], [[[1, 1]]]],
           'fn0': (e, c, d) => c[0] * (d.c[2] + d.c[3] * cos(e[0])) * c[2] * cos(e[3]) * sin(e[3]),
         },
         y: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': [[[12,148]]], 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[9, 9]]], 'pa6': 0, 'pb7': -1,
+          'ra2': [[[12, 148]]], 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[9, 9]]], 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
           c: [ 1, 1, [[[1, 1]]], [[[1, 1]]]],
           'fn0': (e, c, d) => c[1] * (d.c[2] + d.c[3] * cos(e[0])) * c[2] * sin(e[3]) * sin(e[3]),
@@ -129,36 +128,31 @@ async function anitem (__mapper) {
 
         pacer: {
 
-          initN: 0, eventN: 0, autoN: 1, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
+          initN: 0, eventN: 0, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
           geosort: 'anima',
           geobase: 'viewform',
           geoaad: 0,
 
           eohal: 'natform',
-          
+
           eoric: function (ani, props) {
-
             let eoric = muonProps.clone(ani.eoric)
-            eoric.gid = 'paced'
-            eoric.cid = 'paced'
-
             let q = muonStore.animasInClassHowMany(eoric)
             let nextq = q + props.counter
-            
-            eoric.fid = eoric.fid + '_' + props.key + '_' + nextq
+
+            eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
             eoric.uid = muonEoric.getuid(eoric)
             return eoric
           },
 
           eofold: function (ani, props) {
-              let neweofold = muonNatform.natFeature(ani.eoform)
-              return neweofold
+            let neweofold = muonNatform.natFeature(ani.eoform)
+            return neweofold
           },
 
           eonode: function (ani, props) {
             let coords = [0, 0, 0]
             if (props.key === 'init') { // INIT
-
               let autocount = props.counter
 
               let ridx = muonGraticule.ridx(4, 6, 1, 1)
@@ -167,13 +161,10 @@ async function anitem (__mapper) {
               let d = [-140, -40]
 
               coords = [d[0] + k[0] * ridx(autocount)[0],
-                        d[1] + k[1] * ridx(autocount)[1],
-                        0]
-
+                d[1] + k[1] * ridx(autocount)[1],
+                0]
             } else if (props.key === 'auto') { // AUTO
-
               coords = [0, 0, 0]
-
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
@@ -197,18 +188,16 @@ async function anitem (__mapper) {
           },
 
           eoforces: function (ani, props) {
-            
             let forces = {}
-            
+
             let forceGravity = muonProps.clone(force_gravity)
             forceGravity.properties.key = ani.eoric.uid
             forceGravity.properties.gravity = 0.1
             forceGravity.properties.filter = d => d.eoric.gid === 'paced'
-            
+
             forces.forceGravity = forceGravity
             return forces
           },
-
 
         },
       },
@@ -271,7 +260,6 @@ async function anitem (__mapper) {
 
     // ............................. forceGravity
     let forceGravity = function (params) { // force
-
       let nodes = params.nodes
       let gravity = params.gravity
 
@@ -419,7 +407,6 @@ async function anitem (__mapper) {
         return Array.of(field)
       },
     }
-
 
     // .................. sceneAni
     let sceneAni = {

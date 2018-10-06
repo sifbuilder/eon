@@ -8,38 +8,38 @@
 }(this, function (exports) {
   'use strict'
 
-  //... **build geo projections**
+  // ... **build geo projections**
   // ...
-  //... ## functions
-  //... * ### getPrt
+  // ... ## functions
+  // ... * ### getPrt
   // ...
   // ...
-  //... ## methods
-  //... * ### formion
-  //... `formion (projdef, anigram)`
-  //... **get projection from projdef and apply projection properties**
-  //... if `@projdef` or `@projdef.projection` are not defined, assume `p.uniwen` identity
-  //... if `@projdef.translate != undefined`
-  //... * if pure array, translate to position
-  //... * if non-pure array, add translate positions
-  //... * if a position, `object` translate to position
-  //... * if other `object`, process as `stace.spot`
+  // ... ## methods
+  // ... * ### formion
+  // ... `formion (projdef, anigram)`
+  // ... **get projection from projdef and apply projection properties**
+  // ... if `@projdef` or `@projdef.projection` are not defined, assume `p.uniwen` identity
+  // ... if `@projdef.translate != undefined`
+  // ... * if pure array, translate to position
+  // ... * if non-pure array, add translate positions
+  // ... * if a position, `object` translate to position
+  // ... * if other `object`, process as `stace.spot`
   // ...
-  //... **geoanod**: if `@projdef.geoanod : 1` add `eonode.geometry.coordinates` to prt.translate
+  // ... **geoanod**: if `@projdef.geoanod : 1` add `eonode.geometry.coordinates` to prt.translate
   // ...
-  //... if `@projdef.rotate != undefined`
-  //... * if is pure array, apply rotation
-  //... * if is 2d, apply z rotation
-  //... * if non-pure array, add multi-rotations
+  // ... if `@projdef.rotate != undefined`
+  // ... * if is pure array, apply rotation
+  // ... * if is 2d, apply z rotation
+  // ... * if non-pure array, add multi-rotations
   // ...
-  //... if `@projdef.prerotation [[[ control:wen ]]]` apply wen control rotation
-  //... if `@projdef.prerotation [[[ control:versor ]]]` apply versor control rotation
-  //... if `@projdef.control:wen` apply wen control rotation
-  //... if `@projdef.control:versor` apply versor control rotation
+  // ... if `@projdef.prerotation [[[ control:wen ]]]` apply wen control rotation
+  // ... if `@projdef.prerotation [[[ control:versor ]]]` apply versor control rotation
+  // ... if `@projdef.control:wen` apply wen control rotation
+  // ... if `@projdef.control:versor` apply versor control rotation
   // ...
-  //... * ### projer_
-  //... use: `muonProfier.projer_(prodef, anigram)(gj)
-  //... *get formion projector on gj*
+  // ... * ### projer_
+  // ... use: `muonProfier.projer_(prodef, anigram)(gj)
+  // ... *get formion projector on gj*
 
   async function muonProfier (__mapper = {}) {
     let [

@@ -73,7 +73,7 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           translate: [ 0, 0, 0], // mot
           scale: 1,
-          rotate: [ [[[0,60]]], [[[0,60]]], [[[0,60]]] ],
+          rotate: [ [[[0, 60]]], [[[0, 60]]], [[[0, 60]]] ],
           prerotate: [[[ ctlWen.rotation ]]],
           lens: [0, 1, Infinity],
           geoanod: 1, // eonode
@@ -81,19 +81,19 @@ async function anitem (__mapper) {
       },
 
       eocrom: { 'csx': 0, 'cf': 777, 'co': 0.1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
-      
+
       eoform: {
         'x': {
           'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
           'ra2': 24, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 10, 'pa6': 0, 'pb7': -1,
-          },
+        },
         'y': {
           'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
           'ra2': 24, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 10, 'pa6': 0, 'pb7': -1,
-          },
+        },
         'z': {
           'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 24 , 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 10, 'pa6': 0, 'pb7': -1,
+          'ra2': 24, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 10, 'pa6': 0, 'pb7': -1,
         },
       },
 
@@ -101,18 +101,17 @@ async function anitem (__mapper) {
 
         pacer: {
 
-          //... the pacer is in the eoload of the hosting anima
-          //... initN: 1, one paced anitem will be generated, then sleep
-          //... geosort: anima, hsoting anima will create pacecount resident animas
-          //... geobase: undefined, base on resulting geofold
-          //... geoadd: 0, geometries will not be accumulated
+          // ... the pacer is in the eoload of the hosting anima
+          // ... initN: 1, one paced anitem will be generated, then sleep
+          // ... geosort: anima, hsoting anima will create pacecount resident animas
+          // ... geobase: undefined, base on resulting geofold
+          // ... geoadd: 0, geometries will not be accumulated
 
           initN: 24, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
           eohal: 'natform',
           geosort: 'anima',
           geobase: '',
           geoaad: 0,
-
 
           eoric: function (ani, props) {
             let autocount = props.counter
@@ -122,33 +121,26 @@ async function anitem (__mapper) {
             return eoric
           },
 
-
           eofold: function (ani, props) {
-              let neweofold = muonNatform.natFeature(ani.eoform)
-              return neweofold
+            let neweofold = muonNatform.natFeature(ani.eoform)
+            return neweofold
           },
 
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-
               let autocount = props.counter
-              
+
               let ridx = muonGraticule.ridx(4, 6, 1, 1)
-              
+
               let k = [40, 40]
               let d = [-140, -40]
-              
-              stace = [d[0] + k[0] * ridx(autocount)[0], 
-                        d[1] + k[1] * ridx(autocount)[1], 
-                        0]
-              
-              
-              
+
+              stace = [d[0] + k[0] * ridx(autocount)[0],
+                d[1] + k[1] * ridx(autocount)[1],
+                0]
             } else if (props.key === 'auto') { // AUTO
-
               stace = [0, 0, 0]
-
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()

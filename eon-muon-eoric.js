@@ -9,20 +9,20 @@
   'use strict'
 
   async function muonEoric (__mapper = {}) {
-    //... eoric.eohal: anima type
-    //... eoric.gid: group id
-    //... eoric.cid: class id
-    //... eoric.fid: form id
-    //... 
-    //... aid: anima id
-    //... nid: number id
-    //... uid: unique id
-    //... eodelled: is deleted {0,1}
-    //... eoinited: is eoinited {0,1}
-    //... eogelded: is eogelded {0,1} - no further replication
-    //... sort: render sort
+    // ... eoric.eohal: anima type
+    // ... eoric.gid: group id
+    // ... eoric.cid: class id
+    // ... eoric.fid: form id
+    // ...
+    // ... aid: anima id
+    // ... nid: number id
+    // ... uid: unique id
+    // ... eodelled: is deleted {0,1}
+    // ... eoinited: is eoinited {0,1}
+    // ... eogelded: is eogelded {0,1} - no further replication
+    // ... sort: render sort
 
-    //... @getAnigramRic
+    // ... @getAnigramRic
     let getAnigramRic = function getAnigramRic (anigram, idx = 0) {
       // single item in subgroup manged by position
       // 0 gid, cid,  fid
@@ -61,8 +61,8 @@
       return eoric
     }
 
-    //... @enric
-    //... ani.eoric => ani.feature.pros.eoric => feature.id => ani.uid
+    // ... @enric
+    // ... ani.eoric => ani.feature.pros.eoric => feature.id => ani.uid
 
     let enric = function (eoric = {}, anigram, json) {
       console.assert(typeof eoric === 'object', `eoric is not an object`)
@@ -116,8 +116,8 @@
       return json
     }
 
-    //... @getuid
-    //... ani.eoric => ani.feature.pros.eoric => feature.id => ani.uid
+    // ... @getuid
+    // ... ani.eoric => ani.feature.pros.eoric => feature.id => ani.uid
 
     let getuid = function (params) {
       console.assert(params !== null, 'getuid p null', params)
@@ -141,14 +141,14 @@
       return uid
     }
 
-    //... getdefault
+    // ... getdefault
     let getdefault = function () {
       let res = { gid: 'g', cid: 'c', fid: 'f' }
 
       return res
     }
 
-    //... idify
+    // ... idify
     let idify = (...args) => args.reduce((p, q) => p ? p + '_' + q : q, null)
 
     // ............................. enty

@@ -8,10 +8,10 @@
 }(this, function (exports) {
   'use strict'
 
-  //... **process h.sol animas**
-  //... transparent to animas, applies to anigrams
-  //... eoform, conform, ereform and proform anigrams
-  //... parse result through h.mars.gramm
+  // ... **process h.sol animas**
+  // ... transparent to animas, applies to anigrams
+  // ... eoform, conform, ereform and proform anigrams
+  // ... parse result through h.mars.gramm
 
   async function eohalSol (__mapper = {}) {
     let [

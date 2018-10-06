@@ -1,9 +1,9 @@
 
-//... **maintains eonify netlify site**
-//... https://eonify.netlify.com/
-//... https://github.com/sifbuilder/eonify
-//... https://github.com/sifbuilder/eons
-//... https://sifbuilder.github.io/eons/
+// ... **maintains eonify netlify site**
+// ... https://eonify.netlify.com/
+// ... https://github.com/sifbuilder/eonify
+// ... https://github.com/sifbuilder/eons
+// ... https://sifbuilder.github.io/eons/
 
 const fs = require('fs')
 const path = require('path')
@@ -361,7 +361,6 @@ api.d13 = (opt = 'help') => {
 
 // 14.- eon:src_cms_preview-templates_EonPagePreview.js
 api.d14 = (opt = 'help') => {
-
   filelog['fromFile14'] = `${fromsitedir}/src_cms_preview-templates_EonPagePreview.js`
   filelog['toFile14'] = `${sitepath}/src/cms/preview-templates/EonPagePreview.js`
   filelog['toFile14_bck'] = `${sitepath}/src/cms/preview-templates/EonPagePreview.js.000`
@@ -377,7 +376,6 @@ api.d14 = (opt = 'help') => {
 
 // eon:src_cms_cms.js - upd - import from eon template
 api.d15 = (opt = 'help') => {
-
   filelog['fromFile15'] = `${fromsitedir}/src_cms_cms.js`
   filelog['toFile15'] = `${sitepath}/src/cms/cms.js`
   filelog['toFile15_bck'] = `${sitepath}/src/cms/cms.js.000`
@@ -429,7 +427,6 @@ api.d19 = (opt = 'help') => {
   //  create node _eonify-teer-pngs.js
   console.log(`generate  public/img/*`)
 }
-
 
 function browse () {
   let packPath = `${sitepath}/package.json`

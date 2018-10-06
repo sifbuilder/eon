@@ -2,8 +2,8 @@
 <script>
 window.xEonify.eon({anitem, time: undefined})
 
-//... (\r\n){1,}
-//... \r\n
+// ... (\r\n){1,}
+// ... \r\n
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -73,7 +73,7 @@ async function anitem (__mapper) {
   let d3_force = d3Force3d
 
   let width = renderPortview.width(), height = renderPortview.height()
-    
+
   // ............................. nuid
   let nuid = i => {
     let eoric = { gid: 'node', cid: 'node', fid: 'node' + i }
@@ -86,7 +86,6 @@ async function anitem (__mapper) {
     // .................... pics
     let eotim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, tf: t => (1 / Math.PI) * ((Math.PI / 2) + Math.arcsin(-1 + 2 * t))}
 
-
     // ............................. eohale
     let eohale = anima => {
       if (!anima.eogelded) {
@@ -94,27 +93,24 @@ async function anitem (__mapper) {
 
         let count = 200
 
-        for (var i = 0; i <  count; i++) {
-
+        for (var i = 0; i < count; i++) {
           let ani = muonProps.cloneObj(anima)
           ani.eohal = 'sol'
           ani.eoric = nuid(i)
           ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.9, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
-          
-          if ( i < count / 2) {
+
+          if (i < count / 2) {
             ani.eocrom.cf = 999
-            
+
             let eoric = { gid: 'red', cid: 'link', fid: 'link' + i }
             eoric.uid = muonEoric.getuid(eoric)
             ani.eoric = eoric
-    
           } else {
             ani.eocrom.cf = 333
-            
+
             let eoric = { gid: 'gold', cid: 'link', fid: 'link' + i }
             eoric.uid = muonEoric.getuid(eoric)
             ani.eoric = eoric
-            
           }
 
           ani.eonode = {
@@ -122,22 +118,20 @@ async function anitem (__mapper) {
             geometry: {
               type: 'Point',
               coordinates: [
-                2 * (0.5 - Math.random()) * width, 
-                2 * (0.5 - Math.random()) * height, 
+                2 * (0.5 - Math.random()) * width,
+                2 * (0.5 - Math.random()) * height,
                 0],
             },
             properties: {
               orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
             },
           }
-      
+
           animas.push(ani)
         }
-        
 
-
-        //... org anima is becomes gelded after halo ween
-        //... org anima is becomes delled after halo ween
+        // ... org anima is becomes gelded after halo ween
+        // ... org anima is becomes delled after halo ween
 
         updanima = muonProps.cloneObj(anima)
         updanima.eogelded = 1
@@ -199,7 +193,7 @@ async function anitem (__mapper) {
           prerotate: [[[ ctlWen.rotation ]]],
           translate: [0, 0, 0],
           scale: 1,
-          rotate: [ [[[0,360]]], [[[0,360]]], 0 ],
+          rotate: [ [[[0, 360]]], [[[0, 360]]], 0 ],
           lens: [0, 1, Infinity],
           geoanod: 1,
         },
@@ -207,24 +201,24 @@ async function anitem (__mapper) {
       },
 
       eocrom: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
-      
+
       eoform: {
         x: {
-          "m1":7.28,"m2":0.67,"n1":10.19,"n2":14.4,"n3":-7.48,"a":5.38,"b":4.45,	// heart
-          "v0":0, "v1":1,
-          "ra2": 12,
-          "w4": 90,
-          "seg5": 60,
-          "pa6":0,"pb7":-1,
+          'm1': 7.28, 'm2': 0.67, 'n1': 10.19, 'n2': 14.4, 'n3': -7.48, 'a': 5.38, 'b': 4.45,	// heart
+          'v0': 0, 'v1': 1,
+          'ra2': 12,
+          'w4': 90,
+          'seg5': 60,
+          'pa6': 0, 'pb7': -1,
         },
         y: {
-          "m1":7.28,"m2":0.67,"n1":10.19,"n2":14.4,"n3":-7.48,"a":5.38,"b":4.45,	// heart
-          "v0":0,"v1":1,
-          "ra2": 12,
-          "w4": 90,
-          "seg5": 60,
-          "pa6":0,"pb7":-1,
-        }
+          'm1': 7.28, 'm2': 0.67, 'n1': 10.19, 'n2': 14.4, 'n3': -7.48, 'a': 5.38, 'b': 4.45,	// heart
+          'v0': 0, 'v1': 1,
+          'ra2': 12,
+          'w4': 90,
+          'seg5': 60,
+          'pa6': 0, 'pb7': -1,
+        },
       },
       eoload: {},
     }
@@ -379,8 +373,8 @@ async function anitem (__mapper) {
 
         let force = muonEoforces.force(forceParams)
         // let field = 	{
-          // key: 'link',
-          // force: force,
+        // key: 'link',
+        // force: force,
         // }
         // forces.push(field)
         forces.push(force)
@@ -456,21 +450,21 @@ async function anitem (__mapper) {
     // .................... fieldAni
     // let fieldAni = {
 
-      // eohal: 'core',
-      // eotim: eotim,
-      // eoric: {gid: 'field', cid: 'field', fid: 'field'},
-      // eofold: null,
-      // eoload: {},
+    // eohal: 'core',
+    // eotim: eotim,
+    // eoric: {gid: 'field', cid: 'field', fid: 'field'},
+    // eofold: null,
+    // eoload: {},
 
     // }
 
     // nodeAni.eoforces = {
-      // force_energy,
-      // force_viscosity,
-      // force_manybody,
-      // force_gravity,
-      // force_collide,
-      // force_link,
+    // force_energy,
+    // force_viscosity,
+    // force_manybody,
+    // force_gravity,
+    // force_collide,
+    // force_link,
     // }
 
     // .................. animas

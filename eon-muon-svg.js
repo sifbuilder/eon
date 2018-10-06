@@ -37,12 +37,12 @@
     }
 
     // .................. castels
-    //... m.svg.castels(svgdata, frame={start:0, stop:0.90, step:0.33} )
-    //...  svgdata: cubic beziers: MC...CZ
-    //...  frame.start: bezier interaval beginning
-    //...  frame.stop: bezier interval end
-    //...  frame.step: space between points
-    //...    eg: castels(svg, {start:0, stop:0.90, step:0.33}) will return 3 curve points in bezier
+    // ... m.svg.castels(svgdata, frame={start:0, stop:0.90, step:0.33} )
+    // ...  svgdata: cubic beziers: MC...CZ
+    // ...  frame.start: bezier interaval beginning
+    // ...  frame.stop: bezier interval end
+    // ...  frame.step: space between points
+    // ...    eg: castels(svg, {start:0, stop:0.90, step:0.33}) will return 3 curve points in bezier
 
     let castels = function (svgdata, frame = {start: 0, stop: 0.90, step: 0.33}) {
       let gj = {

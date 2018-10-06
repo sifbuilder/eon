@@ -9,10 +9,8 @@
   'use strict'
 
   async function muonEoforces (__mapper = {}) {
-    
     // ...................... isolate
     let isolate = function (sys) { // filter, force, nodes, sys, type
-
       let nodes = sys.nodes || []
       let force = sys.force
       let filter = sys.filter
@@ -41,16 +39,13 @@
       }
       let force = isolate(sys)
 
-
-      
       // return force
       console.assert(params.key || params.type !== null)
       let field = 	{
-          key: params.key || params.type,
-          force: force,
+        key: params.key || params.type,
+        force: force,
       }
       return field
-
     }
 
     // ...................... enty

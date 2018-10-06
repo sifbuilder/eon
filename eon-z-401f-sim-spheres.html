@@ -7,7 +7,7 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     d3Geo,
-    d3Force3d,  
+    d3Force3d,
     ctlRayder,
     ctlWen,
     eohalNatform,
@@ -24,7 +24,7 @@ async function anitem (__mapper) {
     prtUniwen,
   ] = await Promise.all([
     __mapper('xs').b('d3-geo'),
-    __mapper('xs').b('d3-force-3d'),  
+    __mapper('xs').b('d3-force-3d'),
     __mapper('xs').c('rayder'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('natform'),
@@ -67,7 +67,7 @@ async function anitem (__mapper) {
     // __mapper('xs').f('y'),
     // __mapper('xs').f('z'),
   ])
-  
+
   let muonStore = __mapper('muonStore')
   let d3_force = d3Force3d
 
@@ -76,8 +76,8 @@ async function anitem (__mapper) {
     // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
-      sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh    
-    
+      sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh
+
     let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     // ....................... pacerNat
@@ -110,7 +110,7 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           translate: [ 0, 0, 0], // mot
           scale: 1,
-          rotate: [ [[[0,60]]], [[[0,60]]], [[[0,60]]] ],
+          rotate: [ [[[0, 60]]], [[[0, 60]]], [[[0, 60]]] ],
           prerotate: [[[ ctlWen.rotation ]]],
           lens: [0, 1, Infinity],
           geoanod: 1, // eonode
@@ -118,7 +118,7 @@ async function anitem (__mapper) {
       },
 
       eocrom: { 'csx': 0, 'cf': 777, 'co': 0.1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
-      
+
       eoform: {
         x: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
@@ -153,11 +153,11 @@ async function anitem (__mapper) {
 
         pacer: {
 
-          //... the pacer is in the eoload of the hosting anima
-          //... initN: 1, one paced anitem will be generated, then sleep
-          //... geosort: anima, hsoting anima will create pacecount resident animas
-          //... geobase: undefined, base on resulting geofold
-          //... geoadd: 0, geometries will not be accumulated
+          // ... the pacer is in the eoload of the hosting anima
+          // ... initN: 1, one paced anitem will be generated, then sleep
+          // ... geosort: anima, hsoting anima will create pacecount resident animas
+          // ... geobase: undefined, base on resulting geofold
+          // ... geoadd: 0, geometries will not be accumulated
 
           initN: 24, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
           eohal: 'natform',
@@ -176,31 +176,25 @@ async function anitem (__mapper) {
           },
 
           eofold: function (ani, props) {
-              let neweofold = muonNatform.natFeature(ani.eoform)
-              return neweofold
+            let neweofold = muonNatform.natFeature(ani.eoform)
+            return neweofold
           },
 
           eonode: function (ani, props) {
             let coords = [0, 0, 0]
             if (props.key === 'init') { // INIT
-
               let autocount = props.counter
-              
+
               let ridx = muonGraticule.ridx(4, 6, 1, 1)
-              
+
               let k = [40 + 20 * Math.random(), 40 + 20 * Math.random()]
               let d = [-140, -40]
-              
-              coords = [d[0] + k[0] * ridx(autocount)[0], 
-                        d[1] + k[1] * ridx(autocount)[1], 
-                        0]
-              
-              
-              
+
+              coords = [d[0] + k[0] * ridx(autocount)[0],
+                d[1] + k[1] * ridx(autocount)[1],
+                0]
             } else if (props.key === 'auto') { // AUTO
-
               coords = [0, 0, 0]
-
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
@@ -292,7 +286,6 @@ async function anitem (__mapper) {
 
     // ............................. forceGravity
     let forceGravity = function (params) { // force
-    
       let nodes = params.nodes
       let gravity = params.gravity
 
@@ -332,8 +325,8 @@ async function anitem (__mapper) {
           nodes: nodes,
           gravity: gravity,
           filter: d => d.eoric.gid === 'paced',
-          id: d => d.eoric.uid,          
-          key: key,     
+          id: d => d.eoric.uid,
+          key: key,
         }
 
         let force = forceGravity(forceParams)
@@ -366,20 +359,18 @@ async function anitem (__mapper) {
           filter: d => true,
           id: d => d.eoric.uid,
           links: nodes.filter(d => (d.eoric.gid === 'link')),
-          key: key,          
+          key: key,
         }
 
         let force = muonEoforces.force(forceParams)
-        
+
         let field = 	{
           key: 'link',
           force: force,
         }
         forces.push(field)
         // forces.push(force)
-        
-        
-        
+
         return forces
       },
     }
@@ -448,7 +439,7 @@ async function anitem (__mapper) {
         return Array.of(field)
       },
     }
-    
+
     pacerNat.eoforces = {
       // force_energy,
       // force_viscosity,
@@ -457,14 +448,13 @@ async function anitem (__mapper) {
       // force_collide,
       // force_link,
     }
-    
+
     // fieldAni.eoforces = {
-      // force_energy,
-      // force_viscosity,
-      // force_gravity,
+    // force_energy,
+    // force_viscosity,
+    // force_gravity,
     // }
 
-    
     // .................. sceneAni
     let sceneAni = {
 

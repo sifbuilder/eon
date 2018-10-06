@@ -8,18 +8,18 @@
 }(this, function (exports) {
   'use strict'
 
-  //... process text anitems
-  //... ## functions
-  //... * [_geofold](#_geofold) - uploads eoload text form to eofold properties
+  // ... process text anitems
+  // ... ## functions
+  // ... * [_geofold](#_geofold) - uploads eoload text form to eofold properties
   // ...
   // ...
-  //... ## methods
-  //... * [ween](#ween) - process anima
-  //... * [gramm](#gramm) - process anigram
-  //...  buils the newitem eoform and pass it to h.sol
+  // ... ## methods
+  // ... * [ween](#ween) - process anima
+  // ... * [gramm](#gramm) - process anigram
+  // ...  buils the newitem eoform and pass it to h.sol
   // ...
-  //... # license
-  //... MIT
+  // ... # license
+  // ... MIT
 
   async function eohalTextform (__mapper = {}) {
     let [

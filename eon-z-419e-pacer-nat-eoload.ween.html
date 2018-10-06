@@ -76,22 +76,21 @@ async function anitem (__mapper) {
       },
 
       eocrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
-      
+
       eoform: {
         x: {
           'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-          'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
+          'ra2': [[[6,60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
         y: {
           'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
-          'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
+          'ra2': [[[6,60]]], 'v0': 0, 'v1': 1, 'seg5': 36, 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
       },
 
       eoload: {
 
         pacer: {
-
 
           initN: 2, eventN: 0, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
           geosort: 'anima',
@@ -101,50 +100,41 @@ async function anitem (__mapper) {
           eohal: 'sol',
 
           eoric: function (ani, props) {
-          
-              let eoric = muonProps.clone(ani.eoric)
-              eoric.gid = 'paced'
-              eoric.cid = 'paced'
-          
-             if (props.key === 'init') { // INIT
-                let q = muonStore.animasInClassHowMany(eoric)
-                let nextq = q + props.counter
-                eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)             
-             } else if (props.key === 'auto') { // AUTO
-                let q = muonStore.animasInClassHowMany(eoric)
-                let nextq = q + props.counter
-                eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)             
-             } else if (props.key === 'event') { // EVENT
-                let q = muonStore.animasInClassHowMany(eoric)
-                let nextq = q + props.counter
-                eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
-             }
+            let eoric = muonProps.clone(ani.eoric)
 
-            
+            if (props.key === 'init') { // INIT
+              let q = muonStore.animasInClassHowMany(eoric)
+              let nextq = q + props.counter
+              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+            } else if (props.key === 'auto') { // AUTO
+              let q = muonStore.animasInClassHowMany(eoric)
+              let nextq = q + props.counter
+              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+            } else if (props.key === 'event') { // EVENT
+              let q = muonStore.animasInClassHowMany(eoric)
+              let nextq = q + props.counter
+              eoric.fid = muonEoric.idify(eoric.fid, props.key, nextq)
+            }
+
             eoric.uid = muonEoric.getuid(eoric)
             return eoric
           },
 
-
           eofold: function (ani, props) {
-              let neweofold = muonNatform.natFeature(ani.eoform)
-              return neweofold
+            let neweofold = ani => muonNatform.natFeature(ani.eoform)
+            return neweofold
           },
 
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-
               let autocount = props.counter
               let C1 = 50
               let C2 = 2
               stace = [0, Math.pow(-1, autocount) * C1 * Math.max(1, autocount % C2), 0]
               if (1 && 1) console.log('stace', stace)
-
             } else if (props.key === 'auto') { // AUTO
-
               stace = [ 0 + 20 * Math.random(), 0 + 20 * Math.random(), 0]
-
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
