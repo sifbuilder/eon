@@ -16,8 +16,10 @@ async function anitem (__mapper) {
     eohalMars,
     muonGeom,
     muonGraticule,
+    muonNatform,
     prtNatform,
     prtBase,
+    prtOrthographic,
   ] = await Promise.all([
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-geo-projection'),
@@ -29,8 +31,10 @@ async function anitem (__mapper) {
     __mapper('xs').e('mars'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
+    __mapper('xs').m('natform'),
     __mapper('xs').p('natform'),
     __mapper('xs').p('base'),
+    __mapper('xs').p('orthographic'),
   ])
   // .................. animas
   let ani = function () {
@@ -121,7 +125,7 @@ async function anitem (__mapper) {
         },
         proform: {
 
-          projection: d3geo.geoOrthographic(),
+          projection: d3Geo.geoOrthographic(),
           prerotate: [[[ ctlVersor.rotation ]]],
           scale: [100],
           translate: [ 0, 0 ],

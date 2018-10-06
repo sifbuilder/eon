@@ -170,8 +170,6 @@
 
       ]
 
-    
-      if (1 && 1) console.log('vel_degrees', state.vel_degrees)      
       state.timer = requestAnimationFrame(momentum)
     }
 
@@ -190,8 +188,7 @@
 
     // .................. enty
     let enty = function (p = {}) {
-      let rotInit_degrees = p.rotInit
-      let rotInit_degrees = muonGeom.to_degrees(rotInit_degrees)
+      let rotInit_degrees = p.rotInit || rotInit_degrees
 
       state.rotAccum_degrees = rotInit_degrees || inits.rotInit_degrees
 

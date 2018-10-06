@@ -48,7 +48,7 @@ async function anitem (__mapper) {
         let uid = muonEoric.getuid(ani.eoric)
         ani.eoric.uid = uid
 
-        let preani = muonStore.getAnima(ani.eoric)
+        let preani = muonStore.findAnimaFromUid(ani.eoric.uid)
 
         if (preani) {
           ani = preani
