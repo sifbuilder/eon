@@ -171,8 +171,6 @@
 
                 console.assert(parentani.eonode.geometry !== undefined, `${parentani.eonode} geometry undefined`)
                 coords = parentani.eonode.geometry.coordinates
-                // if (1 && 1) console.log('stace parentani', parentani.eoric.uid, parentani.eonode.geometry.coordinates)
-                if (1 && 1) console.log('stace anitem', anitem.eoric.uid, coords)
               } else {
                 // assume stace is location
 

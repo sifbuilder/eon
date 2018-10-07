@@ -37,10 +37,12 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {'td': 1800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    // ... geoLined is ani h.pacer
-    let geoLined = {
+    // ... liner is ani h.pacer
+    let liner = {
 
       eohal: 'pacer',
+      eotim: eotim,
+      eoric: {gid: 'g', cid: 'c', fid: 'f'},
 
       // ... eofold is LineString
       eofold: {
@@ -67,21 +69,19 @@ async function anitem (__mapper) {
       // ... the eofold changes form with eofom
 
       eoform: [ [[[0, 120]]], 0, 0],
-      eotim: eotim,
-      eoric: {gid: 'g', cid: 'c', fid: 'f'},
       eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eoload: {
-
         pacer: {
 
-          eohal: 'mars',
-          geosort: 'anigram',
-          geobase: '',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
 
+          geosort: 'anigram',
+          geobase: '',
           geoaad: 1, // geoaad for trace
 
+          eohal: 'mars',
+          
           eofold: function (ani, props) {
             let preani = muonStore.findAnigramFromUid(ani.eoric.uid) // anigram
             let coords
@@ -156,7 +156,7 @@ async function anitem (__mapper) {
 
     // .................. animas
     let animas = [
-      geoLined, // h.pacer
+      liner, // h.pacer
       sceneAni, // h.scene
     ]
 

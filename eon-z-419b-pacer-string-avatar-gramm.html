@@ -37,12 +37,12 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    // ............................. traceline
-    let traceline = {
+    // ............................. avaline
+    let avaline = {
 
       eohal: 'pacer',
       eotim: eotim,
-      eoric: {gid: 'ava', cid: 'ava', fid: 'traceline'},
+      eoric: {gid: 'ava', cid: 'ava', fid: 'avaline'},
 
       eofold: {
         type: 'Feature',
@@ -68,10 +68,9 @@ async function anitem (__mapper) {
 
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
 
-          geoaad: 1,
-
           geosort: 'anigram',
-          geobase: 'eoform',
+          geobase: 'viewform',
+          geoaad: 1,
 
           eohal: 'mars',
 
@@ -181,7 +180,7 @@ async function anitem (__mapper) {
 
       avatars: {
 
-        traceline, // h.pacer
+        avaline, // h.pacer
 
       },
     }
