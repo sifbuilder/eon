@@ -96,8 +96,9 @@
           let gid = eoric.gid, // from ava eoric
             cid = eoric.cid,
             fid = muonEoric.idify(eoric.fid, j, i),
-            uid = muonEoric.idify(gid, cid, fid)
-          let _ric = {gid, cid, fid, uid} // is DELLED ?
+            uid = muonEoric.idify(gid, cid, fid),
+            pid = eoric.uid
+          let _ric = {gid, cid, fid, uid, pid} // is DELLED ?
 
           // ...  each newItem is cloned from the h.fourier anigram
 

@@ -40,7 +40,7 @@ async function anitem (__mapper) {
 
       eohal: 'pacer',
       eotim: eotim,
-      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
+      eoric: {gid: 'pacer', cid: 'pacer', fid: 'pacer'},
       eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eofold: {
@@ -79,7 +79,7 @@ async function anitem (__mapper) {
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
 
           geosort: 'anigram',
-          geobase: 'eoform',
+          geobase: 'viewform',
           geoaad: 1, // geoaad for trace
 
           eohal: 'natform',
@@ -106,8 +106,6 @@ async function anitem (__mapper) {
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              // stace is ani's transformed eonode
-
               stace = [0, 0, 0]
             } else if (props.key === 'auto') { // AUTO
               stace = [0, 0, 0]

@@ -42,16 +42,25 @@ async function anitem (__mapper) {
     let pacerAni = {
 
       eohal: 'mars',
-
-      // ... eonode reflects the geometry of the form
-      // ... updated by transforms
-      // ... relative to eonode
-      // ... as eonode, properties keep transformed views
-      eofold: p => muonNatform.natFeature(p.eoform),
-
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+
+      eofold: p => muonNatform.natFeature(p.eoform),
+      
+      eonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        // ... orgen, velin, prevous needed in force fields
+        properties: {
+          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+        },
+      },
+
       eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.29, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -65,20 +74,7 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity],
         },
       },
-      // ... eonode is reference to eofold
-      // ... updated by sim forces
-      // ... as eofold, properties keep transformed views
-      eonode: {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
-        // ... orgen, velin, prevous needed in force fields
-        properties: {
-          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
-        },
-      },
+      
       eoform: {
         'x': {
           'm1': [[[3,6]]], 'm2': [[[3,6]]], 'n1': 1, 'n2': 1.2, 'n3': 1.2, 'a': 1, 'b': 1, // reaulau
@@ -94,24 +90,24 @@ async function anitem (__mapper) {
 
     }
 
-    // ....................... pacedNat
-    let pacedNat = {
+    // ....................... pacerAvatar
+    let pacerAvatar = {
 
       eohal: 'pacer',
 
       eotim: eotim,
 
       eoric: {
-        gid: 'nattrace',
-        cid: 'nattrace',
-        fid: 'pacedNat',
+        gid: 'nat',
+        cid: 'nat',
+        fid: 'pacerNat',
       },
 
       eofold: p => muonNatform.natFeature(p.eoform),
 
       eonode: {
         type: 'Feature',
-        geometry: {
+          geometry: {
           type: 'Point',
           coordinates: [0, 0, 0],
         },
@@ -125,7 +121,7 @@ async function anitem (__mapper) {
           scale: 1,
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
-          geoanod: 1, // eonode
+          geoanod: 1, // add eonode to projection
         },
       },
 
@@ -144,15 +140,17 @@ async function anitem (__mapper) {
 
       eoload: {
         pacer: {
-          eohal: 'mars',
+        
+          initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
+
+          geoaad: 0,
           geosort: 'anigram',
           geobase: 'viewform',
-          initN: 1, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0, geoaad: 0,
 
+          eohal: 'mars',
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-              // stace is ani's transformed eonode
               stace = muonStace.getLocus([null, null, null], ani)
             } else if (props.key === 'auto') { // AUTO
               stace = muonStace.getLocus([null, null, null], ani)
@@ -173,7 +171,7 @@ async function anitem (__mapper) {
                 type: 'Point',
                 coordinates: coordinates,
               },
-              properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+              properties: {orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
             }
             return res
           },
@@ -185,7 +183,7 @@ async function anitem (__mapper) {
     // ....................... animapi
     pacerAni.avatars = {
 
-      pacedNat, // h.pacer
+      pacerAvatar, // h.pacer
 
     }
     // ....................... animapi

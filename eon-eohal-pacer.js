@@ -65,10 +65,28 @@
 
     let state = {}
 
+    let ancestor = function(anitem) {
+      let uidParent = anitem.eoric.pid
+      
+      
+      // there can be an anima without anigram
+      let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
+      let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
+      
+      if (!parentAnigram && !parentAnima) return null 
+      
+      let anima = parentAnima || ancestor(parentAnigram)
+      
+      return anima
+    }
+    
     // ... pacer
     // ... @anitem : anima
 
     function eohale (anitem) {
+      
+      if (1 && 1) console.log(' _________ anitem', anitem.eoric.uid, anitem)      
+      
       let newItems = []
 
       let epsilon = 1e-3
@@ -115,7 +133,8 @@
       // ... anitem and parentitem may be anima
       // ... or anigram, eg. anima.avatar(nat).avatar(pacedline)
 
-      let anigram = muonAnitem.snapani(anitem)
+      // let anigram = muonAnitem.snapani(anitem)
+      let anigram = anitem
       let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
       let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
 
@@ -123,66 +142,62 @@
       let anima = muonStore.findAnimaFromUid(uidAnima)
 
       
-      // ... pacerUid is the key for eoinited and eoouted
+      // ... hostUid is the key for eoinited and eoouted
       // ... if avatar, only parent anima is defined
-      // ... pacerUid is then parent anima uid
+      // ... hostUid is then parent anima uid
 
       // ... 720a rhyno trace avatar of nat avatar
-      // ...    anima and parent anima are undefined
-      // ...    the source is parentAnigram
-      // ...    parentAnigram is nat, anigram is trace
+      // ...    host: ancestor anima
+      // ...    pacer: pacer_pacer_pacer      
       
-      // ... 419l ani has avatar h.pacer h.nat
+      // ... 401i _pacer(_nat anima)
+      // ...    host: pacer_pacer_pacer
+      // ...    pacer: pacer_pacer_pacer
+      
+      // ... 401f _pacer(_nat anima)
+      // ...    host: pacer_pacer_pacer
+      // ...    pacer: pacer_pacer_pacer
+      
+      // ... 419l  sol with avatar pacer of nat anigrams
+      // ...    _sol.avatar(_pacer(_nat anigram))
       // ...    anima is undefined
       // ...    parent anima is pacer
       // ...    the source is anigram
       // ...    parentAnigram is nat, anigram is trace
       
       
-      
-      let pacerUid, pacerAnima  // pacer
-      if (anima !== undefined) {
+      let hostUid, hostAnima  // host - is ancestor anima
         
-        pacerAnima = anima
-        pacerUid = anima.eoric.uid
+      hostAnima = ancestor(anitem)
         
-      } else if (parentAnima !== undefined) {
-        
-        pacerAnima = parentAnima
-        pacerUid = parentAnima.eoric.uid
-        
-      } 
-      
-      // ... pacedAnitem is the base for the new pacedAnitems
-      // ... nat avatar
-      // ... when avatars, paced are anigrams. pacedAnitem is parent if exists
-      // ... parentAnigram ref. z.720z rhyno
+      hostUid = hostAnima.eoric.uid
 
-      let pacedUid, pacedAnitem // paced
+      let pacerUid, pacerAnitem // paced
       if (geosort === 'anima') {
         
         if (parentAnima) {
-          pacedAnitem = parentAnima
+          
+          pacerAnitem = parentAnima
+          
         } else {
-          pacedAnitem = anima
+          
+          pacerAnitem = anima
+          
         }
         
       } else {
 
-        if (parentAnigram) {
-          pacedAnitem = parentAnigram
-        } else {
-          pacedAnitem = anigram
-        }
+          pacerAnitem = anigram
+          
       }
-      pacedUid = pacedAnitem.eoric.uid
+      pacerUid = pacerAnitem.eoric.uid
       
-      console.assert(pacerAnima !== undefined)
-      console.assert(pacedAnitem !== undefined)
+      console.assert(hostAnima !== undefined)
+      console.assert(pacerAnitem !== undefined)
       
 
-if (1 && 1) console.log('pacer', pacerUid, pacerAnima)
-if (1 && 1) console.log('paced', pacedUid, pacedAnitem)
+if (1 && 1) console.log('host', hostUid, hostAnima)
+if (1 && 1) console.log('pacer', pacerUid, pacerAnitem)
 
       
       // ... anima has pacer in eoload or in avatar
@@ -205,13 +220,13 @@ if (1 && 1) console.log('paced', pacedUid, pacedAnitem)
 
       // ... if not eoinited enable pacer init (pacer.initN), else ignore
 
-      if (pacerAnima.eoinited === undefined || pacerAnima.eoinited[uidAnima] === undefined) {
+      if (hostAnima.eoinited === undefined || hostAnima.eoinited[pacerUid] === undefined) {
         if (eotim.unitPassed >= (pacer.initT || 0)) {
           count.init = Math.floor(pacer.initN) // count INIT
 
-          pacerAnima.eoinited = (pacerAnima.eoinited === undefined)
+          hostAnima.eoinited = (hostAnima.eoinited === undefined)
             ? {[pacerUid]: eotim.unitPassed}
-            : Object.assign(pacerAnima.eoinited, {[pacerUid]: eotim.unitPassed})
+            : Object.assign(hostAnima.eoinited, {[pacerUid]: eotim.unitPassed})
         }
       }
 
@@ -219,13 +234,15 @@ if (1 && 1) console.log('paced', pacedUid, pacedAnitem)
       // ... if the cycletime is longer than auto pace
       // ...  and unitPassed is beyong autoT ...
       // ...  then process autoT
-      // ... pacerUid is the pacer anima uid
+      // ... pacerUid is the paced anitem uid
       // ... if pacer is avatar, each is inited.
       // ... eoinited is set per pacer to eotim.unitPassed
       // ... set pacer.eoouted: item was eoouted at eotim.unitPassed time
       // ... if in auto mode, pace on each cycle
 
-      let eoouted = (pacerAnima.eoouted && pacerAnima.eoouted[pacerUid]) ? pacerAnima.eoouted[pacerUid] : 0
+      let eoouted = (hostAnima.eoouted && hostAnima.eoouted[pacerUid]) 
+        ? hostAnima.eoouted[pacerUid] 
+        : 0
       let cycletime = eotim.unitPassed - eoouted
 
       let autoT = pacer.autoT || 0
@@ -236,13 +253,13 @@ if (1 && 1) console.log('paced', pacedUid, pacedAnitem)
         if (cycletime > autoP) {
           count.auto = Math.floor(autoN) //    AUTO
 
-          pacerAnima.eoouted = (pacerAnima.eoouted === undefined)
+          hostAnima.eoouted = (hostAnima.eoouted === undefined)
             ? {[pacerUid]: eotim.unitPassed}
-            : Object.assign(pacerAnima.eoouted, {[pacerUid]: eotim.unitPassed})
+            : Object.assign(hostAnima.eoouted, {[pacerUid]: eotim.unitPassed})
         }
       }
 
-      newItems.push(pacerAnima) //
+      newItems.push(hostAnima) // host anima updated with pacer output
 
       // ... COUNT items
       // ...   eg: {init:4, auto:1, event:3}
@@ -252,6 +269,7 @@ if (1 && 1) console.log('paced', pacedUid, pacedAnitem)
 
       if (Object.keys(count).length > 0) {
         for (let counter = 0; counter < Object.keys(count).length; counter++) {
+          
           // ... if count items to pace
           // ... for each type of pace count, eg {init: 6, auto: 1}
           // ...    key is the sort of count { init, auto, event }
@@ -268,19 +286,14 @@ if (1 && 1) console.log('paced', pacedUid, pacedAnitem)
             }
 
             // ... for each count newitem ...
-            // ...   if pacer to pace animas , newitem is pacedAnitem
+            // ...   if pacer to pace animas , newitem is pacerAnitem
             // ...     if anigrams , newitem is anigram
             // ... remove eoload from newItem
             // ... pid is the anima uid
             // ...
             // ... then override newItem propeties with pacer functors
 
-            let newItem
-            if (anitem.eoload.pacer.geosort === 'anima') {
-              newItem = muonProps.clone(pacedAnitem) // anima
-            } else {
-              newItem = muonProps.clone(pacedAnitem) // anigram
-            }
+            let newItem = muonProps.clone(pacerAnitem) // anigram
 
             let elapsed = newItem.eotim.elapsed
             newItem.eotim.t0 = newItem.eotim.unitTime * (newItem.eotim.t1 - newItem.eotim.t0)
@@ -304,12 +317,14 @@ if (1 && 1) console.log('paced', pacedUid, pacedAnitem)
 
             let eohal = __mapper(__mapper('xs').ceonize(newItem.eohal, 'eohal'))
 
+            
             let newItemsInCount
             if (geosort === 'anima') {
               newItemsInCount = eohal.ween(newItem)
             } else {
               newItemsInCount = eohal.gramm(newItem)
             }
+            
             newItemsInCount = muonProps.a(newItemsInCount)
             newItems = [...newItems, ...newItemsInCount]
             if (geosort === 'anima') {
