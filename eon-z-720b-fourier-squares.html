@@ -6,23 +6,25 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
+    eohalFourier,
+    eohalMars,
+    eohalNatform,
+    eohalScene,
     muonFourier,
     muonProj3ct,
     muonProfier,
     muonGeoj,
     muonSvg,
-    eohalMars,
-    eohalNatform,
-    eohalScene,
   ] = await Promise.all([
+    __mapper('xs').e('fourier'),
+    __mapper('xs').e('mars'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('scene'),
     __mapper('xs').m('fourier'),
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
     __mapper('xs').m('geoj'),
     __mapper('xs').m('svg'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').e('natform'),
-    __mapper('xs').e('scene'),
   ])
 
   // .................. animas
@@ -53,12 +55,34 @@ async function anitem (__mapper) {
     ] // MultiLineString
     data.geometry.coordinates = basicSquare
 
-    let proform = (lat, lon) => ({projection: 'uniwen', translate: [ lat, lon ], scale: [1, 1], rotate: [ 0, 0 ], lens: [0, 1, Infinity]})
+    let proformfn = (lat, lon) => ({
+        projection: 'uniwen',
+        translate: [ lat, lon ],
+        scale: [1, 1],
+        rotate: [ 0, 0, 0 ],
+        lens: [0, 1, Infinity]
+    })
 
-    let geoData = i => muonProj3ct(data, muonProfier.uniweon(proform(-250 + i * 60 + i * i * 16, 0)))
+    let C0 = -250
+    let C1 = 60
+    let C2 = 16
+    let prt = i => proformfn(
+          C0 + C1 * i + C2 * i * i,
+          0,
+    )
+    let getGeoData = i => muonProj3ct(data, muonProfier.uniweon(prt(i)))
 
-    let nb = muonGeoj.getCoordsLength(data)
-    let csi = (i, t) => muonGeoj.getCoordsInRange(geoData(i), Math.ceil(nb * t))
+    let cl = muonGeoj.getCoordsLength
+    let cr = muonGeoj.getCoordsInRange
+    let csi = (i, t) => {
+      let geodatai = getGeoData(i)
+
+      console.assert(muonGeoj.isValid(geodatai))
+
+      let lengthi = Math.ceil(cl(data) * t)
+      let res = cr(geodatai, lengthi)
+      return res
+    }
 
     // .................. aniDotted anima
     let aniDotted = i => ({
@@ -124,40 +148,102 @@ async function anitem (__mapper) {
     // .................. traceline avatar - eoload.pacer.geojsor
     let traceline = i => ({
 
+
       eohal: 'pacer',
-      eofold: null,
-      eoric: {gid: 'traces', cid: 'traces', fid: 'traces' + i},
+      eotim: eotim,
+      eoric: {gid: 'ava', cid: 'ava', fid: 'traceline' + i},
+
+      eofold: {
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: null,
+        },
+        properties: {},
+      },
+
+      eonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {},
+      },
+
       eocrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eoload: {
         pacer: { // geoaad for trace
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, geospan: 0, geoaad: 1,
 
-          geojsor: function (d, i) {
-            let eoric = d.eoric // eoric
-            eoric.uid = muonEoric.getuid(eoric)
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60,
 
-            let gj = {
+          geoaad: 1,
 
-              eohal: 'mars',
-              eoload: {
-                eofold: {
-                  type: 'Feature',
-                  geometry: { type: 'LineString', coordinates: null },
-                  properties: { doc: 'pacer' },
-                },
-                uid: uid, id: uid, eoric: eoric,
-                proform: this.proform,
+          geosort: 'anigram',
+          geobase: 'viewform',
+          geospan: 0,
+
+          eohal: 'mars',
+
+          eofold: function (ani, props) {
+            let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+            let coords
+            if (props.key === 'init') { // INIT
+              coords = ani.eonode.geometry.coordinates
+            } else if (props.key === 'auto') { // AUTO
+              let point = muonStace.getLocus([null, null, null], ani)
+
+              // ... geotrim to fix [num, num, NaN]
+
+              point = muonGeoj.geotrim(point)
+
+              coords = (preani && preani.eofold.geometry.coordinates)
+                ? [...preani.eofold.geometry.coordinates, point ]
+                : Array.of(point)
+            } else if (props.key === 'event') { // EVENT
+              coords = ani.eonode.geometry.coordinates
+            }
+
+            console.assert(coords !== undefined && coords !== null)
+            let geometry = {
+              type: 'LineString',
+              coordinates: coords,
+            }
+            console.assert(muonGeoj.isValid(geometry))
+
+            return {
+              type: 'Feature',
+              geometry: geometry,
+              properties: {},
+            }
+          },
+
+          eonode: function (ani, props) {
+            let stace = [0, 0, 0]
+            if (props.key === 'init') { // INIT
+              stace = muonStace.getLocus([null, null, null], ani)
+            } else if (props.key === 'auto') { // AUTO
+            } else if (props.key === 'event') { // EVENT
+              if (ctlRayder.grabbed() !== undefined) {
+                let grabbed = ctlRayder.grabbed()
+                let x = grabbed[0]
+                let y = grabbed[1]
+                let z = 0
+                stace = {x, y, z }
+              }
+            }
+
+            let coordinates = stace
+            let res = {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: coordinates,
               },
-
+              properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
             }
-
-            let newItem = muonStore.findAnigramFromUid(uid) || gj
-            if (newItem.eofold.properties.formEreformed) {
-              newItem.eofold.geometry = newItem.eofold.properties.formEreformed.geometry
-            }
-
-            return newItem
+            return res
           },
 
         },
@@ -168,43 +254,60 @@ async function anitem (__mapper) {
     let fourierForm = i => ({
 
       eohal: 'fourier',
-      eofold: p => {
-        let cs = csi(i, (1 + i) / 4)
-        let transforms = muonFourier.transformedCoefs(cs)
-        transforms = muonGeoj.ntime(transforms, [0, 1])
-        return { type: 'FeatureCollection', features: transforms }
-      },
-
       eotim: eotim,
       eoric: { gid: 'fouriers', cid: 'fouriers', fid: 'fourier' + i},
+
+      eofold: p => {
+        let cs = csi(i, (1 + i) / 4)
+
+        let transforms = muonFourier.transformedCoefs(cs)
+        transforms = muonGeoj.ntime(transforms, [0, 1])
+
+        return {
+          type: 'FeatureCollection',
+          features: transforms
+        }
+
+      },
+
       eocrom: {'csx': 0, 'cf': 555, 'cs': 3333, 'cw': 0.5, 'co': 0.012, 'cp': 0.99},
+
       eoload: { // FOURIER TRANSFORM in eoload.fourier.transform
         fourier: {
-          interval: [ 0.0, 1.0 ], tolerance: 0.33,
+
+          geosort: 'anigram',
+
+          transforms: muonGeoj.ntime(muonFourier.transformedCoefs(csi(i, (1 + i) / 4)), [0, 1]),
+
+          interval: [ 0.0, 1.0 ],
+          tolerance: 0.33,
 
         },
       },
     })
 
+    // .................. fourier
     let aniDotteds = []
     let aniLines = []
-    let aniRays = []
+    let raylines = []
     let aniTraces = []
-    let fourierPacers = []
+    let tracelines = []
     let fourierForms = []
 
     for (let i = 0; i < 4; i++) {
+
       aniDotteds[i] = aniDotted(i)
       aniLines[i] = aniLine(i)
-      aniRays[i] = aniRay(i)
+      raylines[i] = aniRay(i)
       aniTraces[i] = aniTrace(i)
-      fourierPacers[i] = traceline(i)
-      fourierForms[i] = fourierForm(i)
+      tracelines[i] = traceline(i)
 
+      fourierForms[i] = fourierForm(i)
       fourierForms[i].eoload.fourier.avatars = {
-        traceline: fourierPacers[i], // traceline
-        rayline: aniRays[i], // rayline
+        traceline: tracelines[i], // traceline
+        rayline: raylines[i], // rayline
       }
+
     }
     // .................. sceneAni
     let sceneAni = {
@@ -221,10 +324,12 @@ async function anitem (__mapper) {
 
     // .................. animas
     let animas = [
-      sceneAni, // h.scene
+
       ...fourierForms, // h.fourier
       // ...aniDotteds, // h.mars
       // ...aniLines, // h.mars
+      sceneAni, // h.scene
+
     ]
 
     return animas
