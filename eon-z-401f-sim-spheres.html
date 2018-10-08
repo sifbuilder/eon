@@ -160,11 +160,11 @@ async function anitem (__mapper) {
           // ... geoadd: 0, geometries will not be accumulated
 
           initN: 24, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
-          eohal: 'natform',
           geosort: 'anima',
-          geobase: '',
+          geobase: 'viewform',
           geoaad: 0,
 
+          eohal: 'natform',
           eoric: function (ani, props) {
             let autocount = props.counter
             let eoric = muonProps.clone(ani.eoric)
