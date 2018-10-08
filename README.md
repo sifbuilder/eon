@@ -31,6 +31,7 @@
 419i - [eon-z-419i-pacer-dotstring-face](https://sifbuilder.github.io/eon/eon-z-419i-pacer-dotstring-face.html)   
 419j - [eon-z-419j-pacer-avatar-nat](https://sifbuilder.github.io/eon/eon-z-419j-pacer-avatar-nat.html)   
 419k - [eon-z-419k-pacer-anima-nat](https://sifbuilder.github.io/eon/eon-z-419k-pacer-anima-nat.html)   
+419l - [eon-z-419l-pacer-avatar-nat](https://sifbuilder.github.io/eon/eon-z-419l-pacer-avatar-nat.html)   
 420a - [eon-z-420a-geoproj](https://sifbuilder.github.io/eon/eon-z-420a-geoproj.html)   
 421a - [eon-z-421a-3pols](https://sifbuilder.github.io/eon/eon-z-421a-3pols.html)   
 423a - [eon-z-423a-geopols](https://sifbuilder.github.io/eon/eon-z-423a-geopols.html)   
@@ -143,7 +144,6 @@
 780d - [eon-z-780d-sim-stars-tree](https://sifbuilder.github.io/eon/eon-z-780d-sim-stars-tree.html)   
 780e - [eon-z-780e-sim-forces](https://sifbuilder.github.io/eon/eon-z-780e-sim-forces.html)   
 780f - [eon-z-780f-sim-force-gravity](https://sifbuilder.github.io/eon/eon-z-780f-sim-force-gravity.html)   
-790c - [eon-z-790c-quadratic](https://sifbuilder.github.io/eon/eon-z-790c-quadratic.html)   
 810m - [eon-z-810m-sphere](https://sifbuilder.github.io/eon/eon-z-810m-sphere.html)   
 811a - [eon-z-811a-lie](https://sifbuilder.github.io/eon/eon-z-811a-lie.html)   
 811e - [eon-z-811e-pillows](https://sifbuilder.github.io/eon/eon-z-811e-pillows.html)   
@@ -199,6 +199,7 @@
 855a - [eon-z-855a-text](https://sifbuilder.github.io/eon/eon-z-855a-text.html)   
 990a - [eon-z-990a-ts](https://sifbuilder.github.io/eon/eon-z-990a-ts.html)   
 990b - [eon-z-990b-ts](https://sifbuilder.github.io/eon/eon-z-990b-ts.html)   
+990c - [eon-z-990c-quadratic](https://sifbuilder.github.io/eon/eon-z-990c-quadratic.html)   
 990d - [eon-z-990d-ts-pose](https://sifbuilder.github.io/eon/eon-z-990d-ts-pose.html)   
 
 
