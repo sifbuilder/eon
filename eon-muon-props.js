@@ -138,6 +138,24 @@
     props.arywinclosed = (x0, x1, dx) => [x0, ...props.arywinopen(x0, x1, dx), x1]
 
     /***************************
+   *        @matrixes
+   */
+    // .................. tidx
+    props.tidx = function (horq, verq, hd = 1, vd = 1) { // tidx(6,4,1,1)
+      return function (col, row) { // ridx([3,5]) => 17
+        let ret = (row * hd) * (horq * vd) + col
+        return ret
+      }
+    }
+
+    // .................. ridx
+    props.ridx = function (horq, verq, hd = 1, vd = 1) { // ridx(6,4,1,1)
+      return function (idx) { // ridx(3) => [0,2], ridx(17) => [3,5]
+        let ret = [Math.floor(((idx / hd) / vd) / horq), idx % horq]
+        return ret
+      }
+    }
+    /***************************
    *        @complex
    */
     props.zcoef = (rad, ang) => Complex({ re: rad * Math.cos(ang), im: rad * Math.sin(ang) })

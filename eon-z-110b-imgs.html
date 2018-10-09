@@ -29,9 +29,6 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
 
-    let width = 600
-    let height = 400
-    
     // width, height
     // m x n  rows, columns
     // {p: [xi,yi], v: [dx, dy]}
@@ -88,14 +85,12 @@ async function anitem (__mapper) {
     let quad = extent => (i,q) => tile (i,q, extent)
     
     
-    let extent = [ [-300,-200], [300,200] ]
-    let c0  = quad(extent)(0, 4)
-    
-    console.log(' -------- p', quad([ [-300,-200], [300,200] ])(0, 1).p  )
-    console.log(' -------- v', quad([ [-300,-200], [300,200] ])(0, 1).v  )
+    let extent = [ [-270,-200], [270,200] ]
+    console.log(' -------- p', quad(extent)(0, 4).p  )
+    console.log(' -------- v', quad(extent)(0, 4).v  )
     
     // ............................. natAni
-    let natAni = (i=0,n=1) => ({
+    let natAni = (i=0,n=1,img='') => ({
       eohal: 'imgform',
       eofold: p => ({
         type: 'Feature',
@@ -117,7 +112,7 @@ async function anitem (__mapper) {
       }),
 
       eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      eoric: {gid: 'nat', cid: 'nat', fid: 'nat'+ '_' + i},
       eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
       eomot: {
@@ -128,7 +123,7 @@ async function anitem (__mapper) {
       },
       eoload: {
         img: {
-          url: 'eon-z-img-triangulation.jpg',
+          url: img,
           style: {
             width:  quad(extent)(i, n).v[0], // 400,
             height: quad(extent)(i, n).v[1], // 300,
@@ -140,7 +135,11 @@ async function anitem (__mapper) {
 
     // ............................. animas
     let animas = [
-      natAni(), // h.natform
+      // natAni(0,4,'market01.jpg'),
+      natAni(0,4,'market01.jpg'),
+      natAni(1,4,'market02.jpg'),
+      natAni(2,4,'market03.jpg'),
+      natAni(3,4,'market04.jpg'),
 
     ]
 
