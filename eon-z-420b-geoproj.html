@@ -82,12 +82,35 @@ async function anitem (__mapper) {
 
     }
 
+    let geoearth = {
+
+      eohal: 'mars',
+
+      eofold: () => {
+        return Object.assign({},
+          topojson.feature(
+            datWorldTopo110m.data(),
+            datWorldTopo110m.data().objects.land
+          )
+        )
+      },
+      eotim,
+      eomot: {
+        conform: eoform,
+        proform: proformEarth,
+      },
+      eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
+      eocrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
+      eoload: {
+      },
+
+    }
     // ............................. geograt
-    let geograt = i => ({
+    let geograt = {
 
       eohal: 'mars',
       eotim: eotim,
-      eoric: {gid: 'geograt', cid: 'geograt', fid: 'geograt' + '_' + i},
+      eoric: {gid: 'geograt', cid: 'geograt', fid: 'geograt'},
 
       eofold: p => muonNatform.natFeature(p.eoform),
 
@@ -96,9 +119,9 @@ async function anitem (__mapper) {
 
           projection: 'uniwen',
           prerotate: [[[ ctlVersor.rotation ]]],
-          scale: 1 + Math.random(),
-          translate: [ 0 + 30 * i, 0 + 30 * i ],
-          rotate: [ 0, 0, [[[0, - (2 + Math.random()) * 360]]] ],
+          scale: [[[1,0.1,1]]],
+          translate: [ 0, 0 ],
+          rotate: [ 0, 0, [[[0, -2 * 360]]] ],
 
         },
         proform: {
@@ -112,13 +135,13 @@ async function anitem (__mapper) {
         },
       },
 
-      eocrom: { 'csx': 0, 'cf': 222 + 100 * i, 'cs': 666 + 100 * i, 'cw': 0.9, 'co': [[[0.005, 0.005]]], 'cp': [[[0.9, 0.9]]]},
+      eocrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.9, 'co': [[[0.95, 0.05]]], 'cp': [[[0.9, 0.9]]]},
 
       eoform: eoform,
       eoframe: eoframe,
       eoload: {},
 
-    })
+    }
     // .................. sceneAni
     let sceneAni = {
 
@@ -131,12 +154,12 @@ async function anitem (__mapper) {
       },
 
     }
-  
-    let geograts = Array.from([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,117,18,19]).map(i=>geograt(i))
-    
+
     let animas = [
-      ... geograts,
-      sceneAni,
+      // geoearth, //
+      geograt, //
+
+      sceneAni, // h.scene
     ]
 
     return animas

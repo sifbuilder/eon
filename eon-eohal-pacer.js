@@ -259,8 +259,14 @@
         }
       }
 
-      newItems.push(hostAnima) // host anima updated with pacer output
-
+      if (geosort === 'anima') {  
+        // z.419b ani.ava(pacer) 
+        // update host anima      
+        muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: Array.of(hostAnima)})
+      } else {
+        // newItems.push(hostAnima) // host anima updated with pacer output // _e_tbc
+      }
+      
       // ... COUNT items
       // ...   eg: {init:4, auto:1, event:3}
       // ...   init runs once
@@ -348,10 +354,16 @@
 
     // ............................. gramm
     function gramm (anitem) {
+      if (1 && 1) console.log('h.pacer gramm', anitem)
+
       if (anitem.eoload.pacer.geosort === 'anima') {
-        return Array.of(anitem)
+        let newitems = Array.of(anitem)
+        return newitems
       } else {
-        return eohale(anitem)
+        let newitems = eohale(anitem)
+        if (1 && 1) console.log('h.pacer new gramms', newitems)
+
+        return newitems
       }
     }
 
