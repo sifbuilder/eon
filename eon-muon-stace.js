@@ -79,9 +79,11 @@
       return range
     }
 
-    // ..................... isValidStace
+    // ... getTranspots
+    // ... call store to get current state
     let getTranspots = function (stace, anitem) {
-      let muonStore = __mapper('muonStore') // call in function to get current state
+      
+      let muonStore = __mapper('muonStore') 
 
       let eoload = anitem.eoload
       console.assert(eoload !== undefined, anitem, ' eoload undefined')
@@ -186,6 +188,7 @@
           locations = mlacer.slide(locationsPerDax) // [300, 200]
         }
       }
+if (1 && 1) console.log('stace locations', locations)
 
       return locations
     }

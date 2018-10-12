@@ -354,15 +354,11 @@
 
     // ............................. gramm
     function gramm (anitem) {
-      if (1 && 1) console.log('h.pacer gramm', anitem)
-
       if (anitem.eoload.pacer.geosort === 'anima') {
         let newitems = Array.of(anitem)
         return newitems
       } else {
         let newitems = eohale(anitem)
-        if (1 && 1) console.log('h.pacer new gramms', newitems)
-
         return newitems
       }
     }
