@@ -6,28 +6,44 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    muonProps,
     ctlWen,
     ctlVersor,
-    Complex,
-    muonEoric,
-    muonStore,
-    muonStace,
+    datRhyno,
     eohalMars,
     eohalNatform,
+    eohalPacer,
+    eohalFourier,
     eohalScene,
+    Complex,
+    muonEoric,
+    muonFourier,
+    muonGeoj,
+    muonProj3ct,
+    muonProfier,
+    muonProps,
+    muonStace,
+    muonSvg,
   ] = await Promise.all([
-    __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').c('versor'),
-    __mapper('xs').l('complex'),
-    __mapper('xs').m('eoric'),
-    __mapper('xs').m('store'),
-    __mapper('xs').m('stace'),
+    __mapper('xs').d('rhyno'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('natform'),
+    __mapper('xs').e('pacer'),
+    __mapper('xs').e('fourier'),
     __mapper('xs').e('scene'),
+    __mapper('xs').l('complex'),
+    __mapper('xs').m('eoric'),
+    __mapper('xs').m('fourier'),
+    __mapper('xs').m('geoj'),
+    __mapper('xs').m('proj3ct'),
+    __mapper('xs').m('profier'),
+    __mapper('xs').m('props'),
+    __mapper('xs').m('stace'),
+    __mapper('xs').m('svg'),
   ])
+
+  let muonStore = __mapper('muonStore')
 
   // .................. animas
   let ani = function () {
@@ -35,6 +51,236 @@ async function anitem (__mapper) {
 
     const pi = Math.PI, pi2 = 2 * pi,
       turn = 2 * Math.PI // 360
+
+    let eotim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+
+
+
+
+    // ...     data is svg MCZ...MCZ
+    let svgdata = {
+      width: '2.77778in', height: '3.45833in',
+      viewBox: '0 0 300 300',
+      path: {
+        id: 'mbn',
+        fill: 'none', stroke: 'black', 'strokeWidth': '1',
+        d: `M 0.00,0.00
+           C 100.00,0.00 200.00,0.00 300.00,0.00 Z`, // LineString
+      }, // path
+    }
+    let data = muonSvg.castels(svgdata, {start: 0, stop: 0.9, step: 1 / 3}) // MultiLineString
+
+    let basicSquare = [
+      [
+        [0, 0], [0, 25], [0, 50], [0, 75],
+        [0, 100], [25, 100], [50, 100], [75, 100],
+        [100, 100], [100, 75], [100, 50], [100, 25],
+        [100, 0], [75, 0], [50, 0], [25, 0], [0, 0],
+      ],
+    ] // MultiLineString
+    data.geometry.coordinates = basicSquare
+
+    let proform = {
+      projection: 'uniwen',
+      translate: [ -100, 100 ],
+      scale: [1, -1],
+      rotate: [ 0, 0 ],
+      lens: [0, 1, Infinity],
+    }
+
+    let proform2 = { // proform in the geographic domain
+      projection: 'orthographic',
+      scale: 90,
+      prerotate: [[[ ctlVersor.rotation ]]],
+      translate: [0, 0],
+      rotate: [ 0, 0 ],
+    }
+
+    // ...  get geoData from uniwen projection with inverse y-scale
+    // ...  the get the data features (transforms)
+    // ...  span data along [0, 1] interval
+    // ...  and create FeatureCollection with trasform features
+
+    let geoData = muonProj3ct(data, muonProfier.formion(proform, ani))
+    let transforms = muonFourier.transformedCoefs(geoData)
+    transforms = muonGeoj.ntime(transforms, [0, 1])
+
+    if (1 && 1) console.log('transforms', transforms)
+
+    // ... rayline LineString
+
+    let rayline = i => ({
+
+      eohal: 'mars',
+      eotim: eotim,
+      eoric: { gid: 'pol', cid: 'pol', fid: 'pol'},
+
+      eofold: {
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: []},
+        properties: {},
+      },
+
+      eocrom: { 'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
+      eoload: {},
+
+    })
+
+    // ... traceline LineString trace
+
+    let traceline = i => ({
+
+      eohal: 'pacer',
+      eotim: eotim,
+      eoric: {gid: 'ava', cid: 'ava', fid: 'traceline'},
+
+      eofold: {
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: null,
+        },
+        properties: {},
+      },
+
+      eonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {},
+      },
+
+      eocrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+
+      eoload: {
+        pacer: { // geoaad for trace
+
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60,
+
+          geoaad: 1,
+          geospan: 0,
+
+          geosort: 'anigram',
+          geobase: 'viewform',
+
+          eohal: 'mars',
+
+          eofold: function (ani, props) {
+            let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+            let coords
+            if (props.key === 'init') { // INIT
+              coords = ani.eonode.geometry.coordinates
+            } else if (props.key === 'auto') { // AUTO
+            
+              // ... ani is the LineString avatar of 
+              // ... Point avatar
+              // ... the location is got from ani parentani
+            
+              let point = muonStace.getLocus([{pos:0}, {pos:0}], ani)
+              point = muonGeoj.geotrim(point)
+              
+              point = muonGeoj.geotrim(point)
+
+              coords = (preani && preani.eofold.geometry.coordinates)
+                ? [...preani.eofold.geometry.coordinates, point ]
+                : Array.of(point)
+            } else if (props.key === 'event') { // EVENT
+              coords = ani.eonode.geometry.coordinates
+            }
+
+            console.assert(coords !== undefined && coords !== null)
+            let geometry = {
+              type: 'LineString',
+              coordinates: coords,
+            }
+            console.assert(muonGeoj.isValid(geometry))
+
+            return {
+              type: 'Feature',
+              geometry: geometry,
+              properties: {},
+            }
+          },
+
+          eonode: function (ani, props) {
+            let stace = [0, 0, 0]
+            if (props.key === 'init') { // INIT
+              stace = muonStace.getLocus([null, null, null], ani)
+            } else if (props.key === 'auto') { // AUTO
+            } else if (props.key === 'event') { // EVENT
+              if (ctlRayder.grabbed() !== undefined) {
+                let grabbed = ctlRayder.grabbed()
+                let x = grabbed[0]
+                let y = grabbed[1]
+                let z = 0
+                stace = {x, y, z }
+              }
+            }
+
+            let coordinates = stace
+            let res = {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: coordinates,
+              },
+              properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
+            }
+            return res
+          },
+
+        },
+      },
+    })
+
+    // ... fourierAni carries the transforms in the eofold
+    // ...  h.fourier
+    // ...  bears traceline and rayline avatars
+    // ...  the rayline is a LineString between each two transforms
+    // ...  the traceline is a paced LineString on the last transform
+
+    let fourierAni = i => ({
+
+      eohal: 'fourier',
+      eotim: eotim,
+      eoric: { gid: 'fourier', cid: 'fourier', fid: 'fourier'},
+
+      eofold: p => ({
+        type: 'FeatureCollection',
+        features: transforms,
+      }),
+
+      eocrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.095, 'co': 0.092, 'cp': 0.99},
+
+      eoload: {
+        fourier: {
+
+          geosort: 'anigram',
+
+          transforms: transforms,
+          interval: [0.0, 0.99],
+          tolerance: 0.1, // 0.1
+
+          doteocrom: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
+
+          // ... fourierAni.eoload.fourier avatars are defined by name: traceline, rayline
+
+          avatars: {
+
+            traceline: traceline(i),
+            rayline: rayline(i),
+
+          },
+        },
+      },
+    })
+
+
 
     let getForm = function (params = {}) {
       let _NAME = params.name || 'anis'
@@ -45,7 +291,6 @@ async function anitem (__mapper) {
       _SIDES = params.sides || 5,
       _RAD = params.rad || 90,
       PHASED = params.anginit || 0 // 0 internal, 180 extenal
-
       const cyclet = _LEVEL * _LEVEL * 1000
 
       const x0 = -150,
@@ -58,62 +303,28 @@ async function anitem (__mapper) {
 
       const signexp = d => Math.pow(-1, d)
 
-      // .................. traceLine
-      let traceLine = { // SUB-MARKS line trace
 
-        eohal: 'pacer',
-        eofold: null,
-        eoric: {gid: 'traces', cid: 'traces', fid: 'traces'},
-        eocrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
+      let newanis = []
+      newanis.push(fourierAni(1))
+      return newanis
+    }
 
-        eoload: {
-          pacer: { // geoaad for trace
-            stace: {
-              x: { pos: 0 },
-              y: { pos: 0 },
-              z: 0,
-            },
-            initN: 0, eventN: 0, autoN: 1, autoP: 0, outtimed: 0, maxN: 60, geospan: 0, geoaad: 1,
-            autoSitus: function (a) {
-              let r = muonStace.getLocus(this.stace, a) // situs
-              return r
-            },
-            fidder: a => a.eoric.fid,
+    let params = {depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2}
+    let newanimas = getForm(params)
 
-            geojsor: function (a, i) {
-              let eoric = a.eoric // eoric
-              let uid = muonEoric.getuid(eoric)
-              let gj = {
-                eohal: 'mars',
-                eofold: {
-                  type: 'Feature',
-                  geometry: { type: 'LineString', coordinates: null },
-                  properties: { doc: 'pacer' },
-                },
-                eoload: {
-                  uid: uid, id: uid, eoric: eoric,
-                  // proform: this.proform
-                  proform: { // proform in the geographic domain
-                    projection: 'orthographic',
-                    scale: 90,
-                    prerotate: [[[ ctlVersor.rotation ]]],
-                    translate: [0, 0],
-                    rotate: [ 0, 0 ],
-                  },
-                },
-              }
-              let newItem = muonStore.findAnigramFromUid(uid) || gj
-              if (newItem.eofold.properties.formEreformed) {
-                newItem.eofold.geometry = newItem.eofold.properties.formEreformed.geometry
-              }
-              return newItem
-            },
-          },
-        },
-      }
 
-      // ... sinus location in fractalForm.eofold.geometry.coordinates
-      // ...   adding the lower fractal coeficients
+
+    let getanis = function (params = {}) {
+      let anis = []
+      let _NAME = params.name || 'anis'
+      _ROW = params.row || 2,
+      _COL = params.col || 2,
+      _LEVEL = params.depth || 2,
+      _CF = params.cf || (d => 222 * 1), // cfonlevel
+      _SIDES = params.sides || 5,
+      _RAD = params.rad || 90,
+      PHASED = params.anginit || 0 // 0 internal, 180 extenal
+      const cyclet = _LEVEL * _LEVEL * 1000
 
       let fractalForm = {
 
@@ -152,55 +363,51 @@ async function anitem (__mapper) {
         },
       }
 
-      // .................. create anis
-      let anis = [] // initialize animas
+
 
       let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d)) // amplitude of sinus (level)
       let zcoef = (rad, ang) => Complex({re: rad * Math.cos(ang), im: rad * Math.sin(ang)}) // complex number
 
-      for (let level = 0; level < _LEVEL; level++) { // for each cycloid level
-        anis[level] = muonProps.cloneObj(anis[level - 1] || fractalForm) // anis h.natform
+      for (let level = 0; level < _LEVEL; level++) {
+        anis[level] = muonProps.cloneObj(anis[level - 1] || fractalForm)
 
         anis[level].eoric = {gid: 'nat', cid: _NAME + level, fid: _NAME + level} // id
 
-        // -------------- ans(level) ------------------
         anis[level].eoload.fractal.an = [] // [0..._LEVEL)
 
         for (let j = 0; j < level; j++) {
           let ang
-          if (0) {
-            ang = (j === 0) ? [[[ 0, turn ]]] : [[[ 0, (1) ** (j) * (_SIDES - 1) ** (j) * turn ]]]
-          } else if (0) {
-            ang = (j === 0) ? [[[ 0, turn ]]] : [[[ 0, (-1) ** (j) * (_SIDES - 1) ** (j) * turn ]]]
-          } else {
-            ang = (j === 0) ? [[[ 0, turn ]]] : [[[ 0, (1 - _SIDES) ** (j) * turn ]]] // frequency
-          }
-
+          ang = (j === 0) ? [[[ 0, turn ]]] : [[[ 0, (1 - _SIDES) ** (j) * turn ]]]
           let rad = radOnLevel(j)
           anis[level].eoload.fractal.an[j] = {rad, ang}
         }
 
-        anis[level].eoload.fractal.coef = d => { // fractal coef(level)
+        anis[level].eoload.fractal.coef = d => {
           let z = d.eoload.fractal.an.reduce((p, q) => {
-            let aj = zcoef(q.rad, q.ang) // zcoef from amplitude and phase
+            let aj = zcoef(q.rad, q.ang)
             return p.add(aj)
           }, Complex({re: 0, im: 0}))
           return z
         }
 
-        anis[level].eoload.fractal.rad = radOnLevel(level) // rad(level)
+        anis[level].eoload.fractal.rad = radOnLevel(level)
         anis[level].eocrom.cf = _CF(level) // eocrom
-        if (level === _LEVEL - 1) { // add image as avatar to root nat
-          anis[level].avatars = []
-
-          anis[level].avatars.push(traceLine) // push traceLine avatar to last cycloid
+        if (level === _LEVEL - 1) {
+          anis[level].avatars = {traceline: traceline(0)}
         }
+
       }
 
       return anis
     }
+    let otheranis = getanis(params)
 
-    animas = getForm({depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2})
+
+    // .................. animas
+    let animas = [
+
+      ...otheranis, // h.fourier
+    ]
 
     return animas
   }
