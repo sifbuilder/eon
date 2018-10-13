@@ -54,10 +54,6 @@ async function anitem (__mapper) {
 
     let eotim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-
-
-
-
     // ...     data is svg MCZ...MCZ
     let svgdata = {
       width: '2.77778in', height: '3.45833in',
@@ -176,14 +172,13 @@ async function anitem (__mapper) {
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates
             } else if (props.key === 'auto') { // AUTO
-            
-              // ... ani is the LineString avatar of 
+              // ... ani is the LineString avatar of
               // ... Point avatar
               // ... the location is got from ani parentani
-            
-              let point = muonStace.getLocus([{pos:0}, {pos:0}], ani)
+
+              let point = muonStace.getLocus([{pos: 0}, {pos: 0}], ani)
               point = muonGeoj.geotrim(point)
-              
+
               point = muonGeoj.geotrim(point)
 
               coords = (preani && preani.eofold.geometry.coordinates)
@@ -238,80 +233,9 @@ async function anitem (__mapper) {
       },
     })
 
-    // ... fourierAni carries the transforms in the eofold
-    // ...  h.fourier
-    // ...  bears traceline and rayline avatars
-    // ...  the rayline is a LineString between each two transforms
-    // ...  the traceline is a paced LineString on the last transform
 
-    let fourierAni = i => ({
-
-      eohal: 'fourier',
-      eotim: eotim,
-      eoric: { gid: 'fourier', cid: 'fourier', fid: 'fourier'},
-
-      eofold: p => ({
-        type: 'FeatureCollection',
-        features: transforms,
-      }),
-
-      eocrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.095, 'co': 0.092, 'cp': 0.99},
-
-      eoload: {
-        fourier: {
-
-          geosort: 'anigram',
-
-          transforms: transforms,
-          interval: [0.0, 0.99],
-          tolerance: 0.1, // 0.1
-
-          doteocrom: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
-
-          // ... fourierAni.eoload.fourier avatars are defined by name: traceline, rayline
-
-          avatars: {
-
-            traceline: traceline(i),
-            rayline: rayline(i),
-
-          },
-        },
-      },
-    })
-
-
-
-    let getForm = function (params = {}) {
-      let _NAME = params.name || 'anis'
-      _ROW = params.row || 2,
-      _COL = params.col || 2,
-      _LEVEL = params.depth || 2,
-      _CF = params.cf || (d => 222 * 1), // cfonlevel
-      _SIDES = params.sides || 5,
-      _RAD = params.rad || 90,
-      PHASED = params.anginit || 0 // 0 internal, 180 extenal
-      const cyclet = _LEVEL * _LEVEL * 1000
-
-      const x0 = -150,
-        dx = 150,
-        y0 = -100,
-        dy = 100
-
-      let x = x0 + (_COL - 1) * dx,
-        y = y0 + (_ROW - 1) * dy
-
-      const signexp = d => Math.pow(-1, d)
-
-
-      let newanis = []
-      newanis.push(fourierAni(1))
-      return newanis
-    }
 
     let params = {depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2}
-    let newanimas = getForm(params)
-
 
 
     let getanis = function (params = {}) {
@@ -363,8 +287,6 @@ async function anitem (__mapper) {
         },
       }
 
-
-
       let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d)) // amplitude of sinus (level)
       let zcoef = (rad, ang) => Complex({re: rad * Math.cos(ang), im: rad * Math.sin(ang)}) // complex number
 
@@ -395,13 +317,11 @@ async function anitem (__mapper) {
         if (level === _LEVEL - 1) {
           anis[level].avatars = {traceline: traceline(0)}
         }
-
       }
 
       return anis
     }
     let otheranis = getanis(params)
-
 
     // .................. animas
     let animas = [
