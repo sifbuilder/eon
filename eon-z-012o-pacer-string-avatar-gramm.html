@@ -114,9 +114,6 @@ async function anitem (__mapper) {
     let dy =  ry * (y1 - y0) / 2
     let gjdata = muonSvg.castels(svgdata, {start: 0, stop: 0.9, step: 0.41})
     
-    if (1 && 1) console.log('gjdata', gjdata.geometry.coordinates[0])
-
-    
     let invgjdata = muonProps.clone(gjdata) // Multiline - first line
     invgjdata.geometry.coordinates[0] = [...gjdata.geometry.coordinates[0]].reverse()
     
@@ -185,17 +182,6 @@ async function anitem (__mapper) {
               coords = ani.eonode.geometry.coordinates // eonode
               
             } else if (props.key === 'auto') { // AUTO
-            
-            
-              // let point = muonStace.getLocus([null, null, null], ani)
-              
-              // let uidParent = ani.eoric.pid
-              // let parentAnima = muonStore.findAnimaFromUid(uidParent)              
-              // let point = muonStace.getLocus({pos:0, pos:0, pos:0}, parentAnima)
-              
-              // avatar trace red - reverse generation of trace
-              // let point = muonAnitem.snapani([[[ geoData.geometry.coordinates ]]], 1 - ani.eotim.unitTime)
-              if (1 && 1) console.log('unitTime', ani.eotim.unitTime)
 
               let point = muonAnitem.snapani([[[ invgeoData.geometry.coordinates ]]], ani.eotim.unitTime)
               
@@ -204,8 +190,6 @@ async function anitem (__mapper) {
                 ? [...preani.eofold.geometry.coordinates, point ]
                 : Array.of(point)
                 
-                if (1 && 1) console.log('coords', coords)
-
             } else if (props.key === 'event') { // EVENT
             
               coords = ani.eonode.geometry.coordinates

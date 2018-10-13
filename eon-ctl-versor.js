@@ -36,7 +36,7 @@
 
     // .................. rebase
     function rebase () {
-      state.rotInDrag_radians = [0, 0, 0] // reset to default rotation
+      state.rotInDrag_degrees = [0, 0, 0] // reset to default rotation
     }
 
     // .................. dragControl
@@ -56,8 +56,6 @@
     // .................. inits
     let inits = {
       decay: 0.85,
-      mult_radians: 2e-3, // rotInDrag_radians factor
-      rotInit_radians: [0, 0, 0],
 
       mult_degrees: 2e-5, // rotInDrag_rads factor
       rotInit_degrees: [0, 0, 0],
@@ -79,14 +77,9 @@
         .translate([0, 0])
         .scale(1),
 
-      rotAccum_radians: [0, 0, 0],
-      rotInDrag_radians: [0, 0, 0], // rotInDrag_radians in radians
-      rotVel_radians: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
-      vel_radians: [0, 0, 0], // from dragEnd to momemtum
-
+      rotInitial_degrees: [0, 0, 0],
       rotAccum_degrees: [0, 0, 0],
       rotInDrag_degrees: [0, 0, 0],
-      rotInitial_degrees: [0, 0, 0],
       rotVel_degrees: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
       vel_degrees: [0, 0, 0],
 
@@ -96,13 +89,14 @@
       lastMoveTime: null,
       timer: null,
 
-      c0: null, // Mouse cartesian position invprojected
-      r0_degrees: null, // Projection rotation as Euler angles at start
-      q0: null, // Quaternion. Projection rotation
-      p0: null, // Mouse position (spher)
-      dtc: null, // Distance initial dot to center untransformed
+      s0: null, // initial position
       s1: null, // previous position
       s2: null, // current position
+
+      c0: null, // Mouse cartesian position invprojected
+      q0: null, // Quaternion. Projection rotation
+      p0: null, // Mouse position (spher)
+      dtc: null // Distance initial dot to center untransformed
     }
 
     // .................. dragstarted listener
@@ -126,7 +120,7 @@
 
       let inveGeo2 = state.projection.invert(state.s2)
       state.c2 = muonGeom.cartesian(inveGeo2)
-      state.r2_degrees = inits.rotInit_radians
+      state.r2_degrees = inits.rotInit_degrees
       state.q2 = muonVersor(state.r2_degrees) // quaternion of initial rotation
 
       state.c0 = state.c2
@@ -138,10 +132,12 @@
       // rot at the start of new drag
       state.rotAccum_degrees =
             muonGeom.add(
-              state.rotAccum_degrees, //
-              [0, 0, 0]
-              // state.rotInDrag_degrees // at end of last drag
+              state.rotAccum_degrees,
+              // [0, 0, 0]
+              state.rotInDrag_degrees // at end of last drag
             )
+
+
 
       rebase() // rebase rotInDrag
     }
@@ -163,24 +159,31 @@
       state.c1 = state.c2
       state.c2 = muonGeom.cartesian(state.c2Rads)
 
-      state.qd1 = muonVersor.delta(state.c1, state.c2) // c2-c1
-      state.qd2 = muonVersor.delta(state.c0, state.c2) // c1-c0
-
-      let sd = [
+      let sd12 = [ // qurrent
         xsign * (state.s2[1] - state.s1[1]),
         ysign * (state.s1[0] - state.s2[0]),
       ]
 
+      let sd02 = [ // present
+        xsign * (state.s2[1] - state.s0[1]),
+        ysign * (state.s0[0] - state.s2[0]),
+      ]
+
+      let sdist = sd02[0] * sd02[0] + sd02[1] * sd02[1]
       if (!state.moved) {
-        let sdist = sd[0] * sd[0] + sd[1] * sd[1]
         if (sdist < inits.moveSpan) return
         state.moved = true // moved
         state.rotInDrag_degrees = inits.rotInit_degrees
         rebase()
       }
 
-      let rotInDrag_degrees = muonVersor.rotation(state.qd2)
+      // muonVersor - delta - rotation
+      state.qd02 = muonVersor.delta(state.c0, state.c2) // c1-c0
+      let rotInDrag_degrees = muonVersor.rotation(state.qd02)
       state.rotInDrag_degrees = rotInDrag_degrees
+
+// if (1 && 1) console.log('dragged qd02', state.qd02)
+
       state.lastMoveTime = Date.now()
     }
 
@@ -190,37 +193,41 @@
       state.grabbed = false
       if (!state.moved) return
 
-      state.vel_degrees = muonVersor.rotation(state.qd1) // vel c2-c1
+      let cd12 = [
+        state.c2[1] - state.c1[1],
+        state.c2[0] - state.c1[0]
+      ]
+      let msd12 = [
+        xsign * cd12[0] * inits.mult_degrees,
+        ysign * cd12[1] * inits.mult_degrees,
+      ]
 
-      if (1 && 1) console.log('vel_degrees', state.vel_degrees)
+      let qd01 = muonVersor.delta(state.c1, state.c2) // c2-c1
+      state.vel_degrees = muonVersor.rotation(qd01) // vel c2-c1
 
-      state.timer = requestAnimationFrame(momentum)
+      if (1 && 1) console.log('dragged qd01', state.qd01)
+      // if (1 && 1) console.log('vel_degrees', state.vel_degrees)
+
+      // state.timer = requestAnimationFrame(momentum)
     }
 
     // .................. momentum
     function momentum () {
-      // state.qd2 = [
-      // state.qd2[0] *= inits.decay,
-      // state.qd2[1],
-      // state.qd2[2],
-      // state.qd2[3],
-      // ]
-      // let rotInDrag_degrees = muonVersor.rotation(state.qd2)
-      // state.rotInDrag_degrees = rotInDrag_degrees
+      if (Math.abs(state.vel_degrees[0]) < epsilon &&
+        Math.abs(state.vel_degrees[1]) < epsilon) return
 
       state.vel_degrees[0] *= inits.decay
       state.vel_degrees[1] *= inits.decay
 
-      state.rotInDrag_degrees[0] += state.vel_degrees[0]
-      state.rotInDrag_degrees[1] += state.vel_degrees[1]
+      state.rotInDrag_degrees[0] = state.rotInDrag_degrees[0] + state.vel_degrees[0]
+      state.rotInDrag_degrees[1] = state.rotInDrag_degrees[1] + state.vel_degrees[1]
 
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
 
     // .................. enty
     let enty = function (p = {}) {
-      let rotInit_degrees = p.rotInit
-      let rotInit_radians = muonGeom.to_radians(rotInit_degrees)
+      let rotInit_degrees = p.rotInit || inits.rotInit_degrees
 
       state.rotAccum_degrees = rotInit_degrees || inits.rotInit_degrees
 

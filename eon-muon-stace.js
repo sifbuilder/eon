@@ -188,7 +188,6 @@
           locations = mlacer.slide(locationsPerDax) // [300, 200]
         }
       }
-if (1 && 1) console.log('stace locations', locations)
 
       return locations
     }

@@ -208,7 +208,6 @@
               newItem.avatars = {
                 traceline: traceline,
               }
-              if (1 && 1) console.log('h.fourier newItem', newItem)
             }
           }
 
@@ -238,12 +237,12 @@
 
     // ............................. ween
     function ween (anitem) {
+      console.assert(anitem.eoload.fourier !== undefined, `anitem.eoload.fourier undefined ${anitem}`)
       if (anitem.eoload.fourier.geosort === 'anima') {
         let newItems = eohale(anitem)
 
         let anilists = newItems.map(ani => eohalMars.ween(ani))
         let anis = anilists.reduce((p, q) => Array.isArray(q) ? [...p, ...q] : [...p, q], [])
-        if (1 && 1) console.log('anis', anis)
 
         return anis
       } else {
@@ -254,6 +253,7 @@
     // ............................. gramm
     function gramm (anitem) {
       let newAnigrams = []
+      console.assert(anitem.eoload.fourier !== undefined, `anitem.eoload.fourier undefined ${anitem}`)
       if (anitem.eoload.fourier.geosort === 'anima') {
         newAnigrams = Array.of(anitem)
       } else {

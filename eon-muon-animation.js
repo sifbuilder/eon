@@ -147,7 +147,7 @@
       muonStore = __mapper('muonStore')
       state.animas = muonStore.animasLive()
 
-      if (1 && 1) console.log(` ******************* animation ${elapsed} ${state.animas.length}`, state.animas)
+      if (0 && 1) console.log(` ******************* animation ${elapsed} ${state.animas.length}`, state.animas)
 
       // ... TIME
       state.animas = muonProps.a(muonStore.animasLive())
@@ -164,7 +164,6 @@
       let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.eotim.limit + item.eotim.msStart), 0)
 
       let nostop = state.animas.reduce((pre, item) => (pre || item.eotim.nostop), 0)
-if (1 && 1) console.log('nostop', nostop)
 
       if (!nostop && (isNaN(maxlimit) ||
             (maxlimit > 0 && elapsed > maxlimit) || // stop if spired

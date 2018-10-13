@@ -34,7 +34,7 @@
 
     // .................. rebase
     function rebase () {
-      state.rotInDrag_degrees = [0, 0, 0] // reset to default rotation
+      state.rotInDrag_s_degrees = [0, 0, 0] // reset to default rotation
     }
 
     // ....................... dragControl
@@ -54,8 +54,8 @@
     // .................. inits
     let inits = {
       decay: 0.95,
-      
-      mult_degrees: 120e-3, // rotInDrag_degrees factor
+
+      mult_degrees: 1e-1, // rotInDrag_s_degrees factor
       rotInit_degrees: [0, 0, 0],
       timeSpan: 200,
       moveSpan: 16,
@@ -65,6 +65,7 @@
 
     let xsign = -1 //  up/down
     let ysign = -1 // left/right
+    let zsign = 1
 
     // .................. state
     let state = {
@@ -74,10 +75,19 @@
         .translate([0, 0])
         .scale(1),
 
-      rotAccum_degrees: [0, 0, 0],
-      rotInDrag_degrees: [0, 0, 0], // rotInDrag_degrees in radians
-      rotVel_degrees: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
-      vel_degrees: [0, 0, 0], // from dragEnd to momemtum
+      // screen  
+        
+      rotAccum_s_degrees: [0, 0, 0],
+      rotInDrag_s_degrees: [0, 0, 0], // rotInDrag_s_degrees in radians
+      rotVel_s_degrees: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
+      vel_s_degrees: [0, 0, 0], // from dragEnd to momemtum
+
+      // cartesian
+      
+      rotAccum_c_degrees: [0, 0, 0],
+      rotInDrag_c_degrees: [0, 0, 0], // rotInDrag_c_degrees in radians
+      rotVel_c_degrees: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
+      vel_c_degrees: [0, 0, 0], // from dragEnd to momemtum
 
       grabbed: false,
       moved: false,
@@ -88,35 +98,49 @@
       s0: null, // previous position
       s1: null, // previous position
       s2: null, // current position
+
+      c0: null, // previous position
+      c1: null, // previous position
+      c2: null, // current position
     }
 
     // .................. dragstarted listener
     function dragstarted () {
-      // s: screen  state.s0, state.s1, state.s2,
-      // g: geographic
-      // c: cartesian
-      // q: quaternion
-      // dP: delta present - rotAccum
-      // dQ: delta current - rotInDrag
 
       let e = d3selection.event
-
       if (state.grabbed) return // drag ongoing
-
       stopMomentum()
-      
       state.moved = false // not moved yet
       state.grabbed = getPos(e)
 
+      // screen coordinates 
+      
       state.s2 = state.grabbed // present
       state.s1 = state.s2 // current
       state.s0 = state.s1 // current
-
-      state.rotAccum_degrees =
+      
+      // screen rotation accumulation 
+      
+      state.rotAccum_s_degrees =
             muonGeom.add(
-              state.rotAccum_degrees,
-              state.rotInDrag_degrees) // rotation
+              state.rotAccum_s_degrees,
+              state.rotInDrag_s_degrees) // rotation
 
+
+      // cartesian coordinates 
+
+      state.c2 = muonGeom.cartesian(state.s2)
+      state.c1 = state.c2
+      state.c0 = state.c2      
+      
+      // cartesian rotation accumulation 
+      
+      state.rotAccum_c_degrees =
+            muonGeom.add(
+              state.rotAccum_c_degrees,
+              state.rotInDrag_c_degrees) // rotation             
+      
+              
       rebase() // rebase rotInDrag
     }
 
@@ -126,35 +150,75 @@
 
       let e = d3selection.event
 
+      // screen
+      
       state.s1 = state.s2
       state.s2 = getPos(e)
-
-      let sdq = [ // qurrent
-        xsign * (state.s2[1] - state.s1[1]),
+      
+      let sd12 = [ // qurrent  // invert
+        xsign * (state.s2[1] - state.s1[1]), 
         ysign * (state.s1[0] - state.s2[0]),
       ]
 
-      let sdp = [ // present
+      let sd02 = [ // present  // invert
         xsign * (state.s2[1] - state.s0[1]),
         ysign * (state.s0[0] - state.s2[0]),
       ]
 
-      let sdist = sdp[0] * sdp[0] + sdp[1] * sdp[1]
+      let sdist = sd02[0] * sd02[0] + sd02[1] * sd02[1]
       if (!state.moved) {
         if (sdist < inits.moveSpan) return
         state.moved = true // moved
-        state.rotInDrag_degrees = inits.rotInit_degrees
+        state.rotInDrag_s_degrees = inits.rotInit_degrees
         rebase()
       }
 
-      state.lastMoveTime = Date.now()
+      let rotInDrag_s_degrees = [
+        state.rotVel_s_degrees[0] + sd02[0] * inits.mult_degrees,
+        state.rotVel_s_degrees[1] + sd02[1] * inits.mult_degrees,
+      ]
+      state.rotInDrag_s_degrees = rotInDrag_s_degrees
 
-      let r2 = [
-        state.rotVel_degrees[0] + sdp[0] * inits.mult_degrees,
-        state.rotVel_degrees[1] + sdp[1] * inits.mult_degrees,
+      
+      // cartesian
+
+      state.c0 = state.c0
+      state.c1 = state.c2
+      state.c2 = muonGeom.cartesian(state.s2)      
+
+
+      let cd12 = [ // qurrent
+
+        xsign * (state.c2[1] - state.c1[1]),  // invert
+        ysign * (state.c1[0] - state.c2[0]),
+        
+        zsign * (state.c1[2] - state.c2[2]),
       ]
 
-      state.rotInDrag_degrees = r2
+      let cd02 = [ // present
+        xsign * (state.c2[1] - state.c0[1]),   // invert
+        ysign * (state.c0[0] - state.c2[0]),
+
+        zsign * (state.c0[2] - state.c2[2]),
+      ]
+
+      let cdist = cd02[0] * cd02[0] + cd02[1] * cd02[1]
+      if (!state.moved) {
+        if (cdist < inits.moveSpan) return
+        state.moved = true // moved
+        state.rotInDrag_c_degrees = inits.rotInit_degrees
+        rebase()
+      }
+
+      let rotInDrag_c_degrees = [
+        state.rotVel_c_degrees[0] + cd02[0] * inits.mult_degrees,
+        state.rotVel_c_degrees[1] + cd02[1] * inits.mult_degrees,
+        state.rotVel_c_degrees[2] + cd02[2] * inits.mult_degrees,
+      ]
+      state.rotInDrag_c_degrees = rotInDrag_c_degrees
+      
+      
+      state.lastMoveTime = Date.now()
     }
 
     // .................. dragended
@@ -163,26 +227,66 @@
       state.grabbed = false
       if (!state.moved) return
 
-      state.vel_degrees = [ // vel s2-s1
 
-        xsign * (state.s2[1] - state.s1[1]) * inits.mult_degrees,
-        ysign * (state.s2[0] - state.s1[0]) * inits.mult_degrees,
-
+      // screen
+      
+      let sd12 = [
+        state.s2[1] - state.s1[1],
+        state.s2[0] - state.s1[0]
       ]
+      let msd12 = [
+        xsign * sd12[0] * inits.mult_degrees,
+        ysign * sd12[1] * inits.mult_degrees,
+      ]
+      state.vel_s_degrees = msd12
 
+if (1 && 1) console.log('msd12', msd12)
+
+      // cartesian delta and modified cartesian delta
+
+      let cd12 = [
+        state.c2[0] - state.c1[0],
+        state.c2[1] - state.c1[1],
+        state.c2[2] - state.c1[2],
+      ]
+      let mcd12 = [
+        xsign * cd12[0] * inits.mult_degrees,
+        ysign * cd12[1] * inits.mult_degrees,
+        zsign * cd12[2] * inits.mult_degrees,
+      ]        
+      state.vel_c_degrees = mcd12
+
+
+if (1 && 1) console.log('mcd12', mcd12)
+  
       state.timer = requestAnimationFrame(momentum)
     }
 
     // .................. momentum
     function momentum () {
-      if (Math.abs(state.vel_degrees[0]) < epsilon && Math.abs(state.vel_degrees[1]) < epsilon) return
+      // screen
+      if (Math.abs(state.vel_s_degrees[0]) < epsilon &&
+        Math.abs(state.vel_s_degrees[1]) < epsilon) return
+      
+      state.vel_s_degrees[0] *= inits.decay
+      state.vel_s_degrees[1] *= inits.decay
 
-      state.vel_degrees[0] *= inits.decay
-      state.vel_degrees[1] *= inits.decay
+      state.rotInDrag_s_degrees[0] += state.vel_s_degrees[0]
+      state.rotInDrag_s_degrees[1] -= state.vel_s_degrees[1]
 
-      state.rotInDrag_degrees[0] += state.vel_degrees[0]
-      state.rotInDrag_degrees[1] -= state.vel_degrees[1]
+      // cartesian
+      if (Math.abs(state.vel_c_degrees[0]) < epsilon &&
+        Math.abs(state.vel_c_degrees[1]) < epsilon) return
+        
+      state.vel_c_degrees[0] = state.vel_c_degrees[0] * inits.decay
+      state.vel_c_degrees[1] = state.vel_c_degrees[1] * inits.decay
+      state.vel_c_degrees[2] = state.vel_c_degrees[2] * inits.decay
 
+      state.rotInDrag_c_degrees[0] = state.rotInDrag_c_degrees[0] + state.vel_c_degrees[0]
+      state.rotInDrag_c_degrees[1] = state.rotInDrag_c_degrees[1] + state.vel_c_degrees[1]
+      state.rotInDrag_c_degrees[2] = state.rotInDrag_c_degrees[2] + state.vel_c_degrees[2]
+
+      
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
 
@@ -190,7 +294,11 @@
     let enty = function (p = {}) {
       let rotInit_degrees = p.rotInit || rotInit_degrees
 
-      state.rotAccum_degrees = rotInit_degrees || inits.rotInit_degrees
+      // screen
+      state.rotAccum_s_degrees = rotInit_degrees || inits.rotInit_degrees
+      
+      // cartesian
+      state.rotAccum_c_degrees = rotInit_degrees || inits.rotInit_degrees
 
       state.timer = requestAnimationFrame(tick)
 
@@ -214,10 +322,9 @@
     }
 
     enty.rotation = () => {
-      let res = muonGeom.add(
-        state.rotAccum_degrees,
-        state.rotInDrag_degrees)
-      return res
+      let res_s = muonGeom.add(state.rotAccum_s_degrees,state.rotInDrag_s_degrees)
+      let res_c = muonGeom.add(state.rotAccum_c_degrees,state.rotInDrag_c_degrees)
+      return res_s
     }
 
     return enty
