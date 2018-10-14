@@ -175,8 +175,6 @@
       // ... let featurecollectionPromise = ____ collect(state.animas, elapsed) ____
       let featurecollection = collect(state.animas, elapsed)
 
-      if (1 && 1) console.log('featurecollection', featurecollection)
-
       // ... then render by sort the features in the collection
       renderSvg.render(featurecollection)
       // renderWebgl.render(featurecollection)
