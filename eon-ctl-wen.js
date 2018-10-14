@@ -59,6 +59,10 @@
       rotInit_degrees: [0, 0, 0],
       timeSpan: 200,
       moveSpan: 16,
+      
+      mult_degrees_c: 100,
+      
+      
     }
 
     let epsilon = 1e-3
@@ -189,20 +193,19 @@
 
       let cd12 = [ // qurrent
 
-        xsign * (state.c2[1] - state.c1[1]),  // invert
-        ysign * (state.c1[0] - state.c2[0]),
+        state.c2[0] - state.c1[0],
+        state.c2[1] - state.c1[1],
+        state.c2[2] - state.c1[2],
         
-        zsign * (state.c1[2] - state.c2[2]),
       ]
 
       let cd02 = [ // present
-        xsign * (state.c2[1] - state.c0[1]),   // invert
-        ysign * (state.c0[0] - state.c2[0]),
-
-        zsign * (state.c0[2] - state.c2[2]),
+        state.c2[0] - state.c0[0],
+        state.c2[1] - state.c0[1],
+        state.c2[2] - state.c0[2],
       ]
 
-      let cdist = cd02[0] * cd02[0] + cd02[1] * cd02[1]
+      let cdist = cd02[0] * cd02[0] + cd02[1] * cd02[1] + cd02[2] * cd02[2]
       if (!state.moved) {
         if (cdist < inits.moveSpan) return
         state.moved = true // moved
@@ -211,9 +214,9 @@
       }
 
       let rotInDrag_c_degrees = [
-        state.rotVel_c_degrees[0] + cd02[0] * inits.mult_degrees,
-        state.rotVel_c_degrees[1] + cd02[1] * inits.mult_degrees,
-        state.rotVel_c_degrees[2] + cd02[2] * inits.mult_degrees,
+        state.rotVel_c_degrees[0] + cd02[0] * inits.mult_degrees_c,
+        state.rotVel_c_degrees[1] + cd02[1] * inits.mult_degrees_c,
+        state.rotVel_c_degrees[2] + cd02[2] * inits.mult_degrees_c,
       ]
       state.rotInDrag_c_degrees = rotInDrag_c_degrees
       
@@ -259,7 +262,7 @@ if (1 && 1) console.log('msd12', msd12)
 
 if (1 && 1) console.log('mcd12', mcd12)
   
-      state.timer = requestAnimationFrame(momentum)
+      // state.timer = requestAnimationFrame(momentum)
     }
 
     // .................. momentum
@@ -324,9 +327,10 @@ if (1 && 1) console.log('mcd12', mcd12)
     enty.rotation = () => {
       let res_s = muonGeom.add(state.rotAccum_s_degrees,state.rotInDrag_s_degrees)
       let res_c = muonGeom.add(state.rotAccum_c_degrees,state.rotInDrag_c_degrees)
-      if (1 && 1) console.log('res_s', res_s)
+      let res = res_c
+      if (1 && 1) console.log('res', res)
 
-      return res_s
+      return res
     }
 
     return enty

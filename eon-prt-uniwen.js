@@ -40,14 +40,18 @@
     state.lens = init.lens
 
     let wenRotation = function (rot) {
-      let rox = muonWen.matrix(rot !== undefined ? muonGeom.to_radians(rot) : ctlWen.rotation())
+      let rox = muonWen.matrix(rot !== undefined 
+        ? muonGeom.to_radians(rot) 
+        : ctlWen.rotation())
       return function (x, y, z = 0) {
         return muonWen.rotateMatrix([x, y, z], rox)
       }
     }
 
     let wenRotInverse = function (rot) {
-      let rox = muonWen.matrix(rot !== undefined ? muonGeom.to_radians(rot) : ctlWen.rotation())
+      let rox = muonWen.matrix(rot !== undefined 
+        ? muonGeom.to_radians(rot) 
+        : ctlWen.rotation())
       let invrox = muonWen.transpose33(rox)
       return function (x, y, z = 0) {
         return muonWen.rotateMatrix([x, y, z], invrox)

@@ -55,26 +55,55 @@ async function anitem (__mapper) {
 
     }
 
-    let eoform = {
+    let eoform1 = {
       'x': {
-        'm1': 4, 'm2': 4, 'n1': [[[100, 100]]], 'n2': [[[100, 100]]], 'n3': [[[100, 100]]], 'a': 1, 'b': 1,
-        // "m1":4,"m2":4,"n1":1,"n2":1,"n3":1,"a":1,"b":1, 		// circle
-        'm1': 5, 'm2': 5, 'n1': 2, 'n2': 7, 'n3': 7, 'a': 1, 'b': 1, // round star
+        'm1': 4, 'm2': 4, 'n1': [[[1, 100, 1]]], 'n2': [[[100, 100]]], 'n3': [[[100, 100]]], 'a': 1, 'b': 1,
         'ra2': 40,
         'v0': 0, 'v1': 1,
-        'w4': 0, // [[[190, 190 + 0 * 270]]], // [[[0,-360,0]]],
+        'w4': 0,
         'seg5': 360, 'pa6': 0, 'pb7': -1,
       },
       'y': {
-        'm1': 4, 'm2': 4, 'n1': [[[100, 100]]], 'n2': [[[100, 100]]], 'n3': [[[100, 100]]], 'a': 1, 'b': 1, 		// star
-        // "m1":4,"m2":4,"n1":1,"n2":1,"n3":1,"a":1,"b":1, 		// circle
-        'm1': 5, 'm2': 5, 'n1': 2, 'n2': 7, 'n3': 7, 'a': 1, 'b': 1, // round star
+        'm1': 4, 'm2': 4, 'n1': [[[1, 100, 1]]], 'n2': [[[100, 100]]], 'n3': [[[100, 100]]], 'a': 1, 'b': 1, 		// star
         'ra2': 40,
         'v0': 0, 'v1': 1,
-        'w4': 0, // [[[180, 180 + 1 * 60]]], // [[[0,-360,0]]],
+        'w4': 0,
         'seg5': 360, 'pa6': 0, 'pb7': -1,
       },
     }
+    let eoform2 = {
+      'x': {
+        "m1":4,"m2":4,"n1":1,"n2":1,"n3":1,"a":1,"b":1, 		// circle
+        'ra2': 40,
+        'v0': 0, 'v1': 1,
+        'w4': 0,
+        'seg5': 360, 'pa6': 0, 'pb7': -1,
+      },
+      'y': {
+        "m1":4,"m2":4,"n1":1,"n2":1,"n3":1,"a":1,"b":1, 		// circle
+        'ra2': 40,
+        'v0': 0, 'v1': 1,
+        'w4': 0,
+        'seg5': 360, 'pa6': 0, 'pb7': -1,
+      },
+    }
+    let eoform3 = {
+      'x': {
+        'm1': 5, 'm2': 5, 'n1': 2, 'n2': 7, 'n3': 7, 'a': 1, 'b': 1, // round star
+        'ra2': 40,
+        'v0': 0, 'v1': 1,
+        'w4': 0,
+        'seg5': 360, 'pa6': 0, 'pb7': -1,
+      },
+      'y': {
+        'm1': 5, 'm2': 5, 'n1': 2, 'n2': 7, 'n3': 7, 'a': 1, 'b': 1, // round star
+        'ra2': 40,
+        'v0': 0, 'v1': 1,
+        'w4': 0,
+        'seg5': 360, 'pa6': 0, 'pb7': -1,
+      },
+    }
+    let eoforms = [eoform1, eoform2, eoform3]
 
     let eoframe = {
 
@@ -92,11 +121,11 @@ async function anitem (__mapper) {
       eofold: p => muonNatform.natFeature(p.eoform),
 
       eomot: {
-        eoform: {
+        ereform: {
 
           projection: 'uniwen',
           prerotate: [[[ ctlVersor.rotation ]]],
-          scale: 1 + Math.random(),
+          scale: 0.01 + 0.5 * Math.random(),
           translate: [ 0 + 30 * i, 0 + 30 * i ],
           rotate: [ 0, 0, [[[0, - (2 + Math.random()) * 360]]] ],
 
@@ -105,16 +134,16 @@ async function anitem (__mapper) {
 
           projection: d3Geo.geoOrthographic(),
           prerotate: [[[ ctlVersor.rotation ]]],
-          scale: [100],
+          scale: [180],
           translate: [ 0, 0 ],
           rotate: [ [[[0, -2 * 360]]], 0, 0 ],
 
         },
       },
 
-      eocrom: { 'csx': 0, 'cf': 222 + 100 * i, 'cs': 666 + 100 * i, 'cw': 0.9, 'co': [[[0.005, 0.005]]], 'cp': [[[0.9, 0.9]]]},
+      eocrom: { 'csx': 0, 'cf': 666 + 100 * i, 'cs': 666 + 100 * i, 'cw': 0.9, 'co': 0.2 * Math.random(), 'cp': [[[0.9, 0.9]]]},
 
-      eoform: eoform,
+      eoform: eoforms[Math.floor(i % 3)],
       eoframe: eoframe,
       eoload: {},
 
@@ -132,7 +161,7 @@ async function anitem (__mapper) {
 
     }
   
-    let geograts = Array.from([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,117,18,19]).map(i=>geograt(i))
+    let geograts = Array.from([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]).map(i=>geograt(i))
     
     let animas = [
       ... geograts,
