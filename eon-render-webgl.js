@@ -11,11 +11,13 @@
   async function renderWebgl (__mapper = {}) {
     let [
       d3,
-      three,
+      THREE,
+      ctlRaycaster,
       renderPortview,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
       __mapper('xs').b('three'),
+      __mapper('xs').c('raycaster'),
       __mapper('xs').r('portview'),
     ])
 
@@ -28,44 +30,40 @@
     const radians = Math.PI / 180
 
     let state = {}
-    state.width = r.width(),
-    state.height = r.height()
+    state.width = renderPortview.width(),
+    state.height = renderPortview.height()
     state.portview = new THREE.WebGLRenderer({antialias: true})
     state.domElem = state.portview.domElement // canvas
     state.domElem.innerHTML = '' // Wipe DOM
     state.domElem.style.display = 'block'
     state.context = state.domElem.getContext('webgl')
 
-    /* canvas */
-    d3.select('body')
+    
+    d3.select('body') /* canvas */
       .append(() => d3.select(state.domElem)
         .attr('id', 'canvas')
         .attr('class', 'overlay')
         .style('position', 'absolute; top:0px; left:0px; z-index:1')
         .node()
       )
-
-    /* navInfo */
-    state.navInfo = document.createElement('div') // Add nav info section
+    
+    state.navInfo = document.createElement('div') /* navInfo */ // Add nav info section
     state.navInfo.classList.add('graph-nav-info')
     state.navInfo.innerHTML = 'if key ALT/right to switch animation'
     document.body.appendChild(state.navInfo) // state.domElem.appendChild(navInfo);
-
-    /* tooltip */
-    state.toolTipElem = document.createElement('div') // Setup tooltip
+    
+    state.toolTipElem = document.createElement('div') /* tooltip */ // Setup tooltip
     state.toolTipElem.classList.add('graph-tooltip')
     document.body.appendChild(state.toolTipElem) // state.domElem.appendChild(state.toolTipElem);
-
-    /* raycaster */
-    state.mouse = new THREE.Vector2()
+    
+    state.mouse = new THREE.Vector2() /* raycaster */
     state.mouse.x = -2 // Initialize off canvas
     state.mouse.y = -2
-    state.mouse = __mapper('xs').c('raycaster').mouse()
-    state.toolTipElem.style.top = (state.mouse.y - 40) + 'px' // Move tooltip
-    state.toolTipElem.style.left = (state.mouse.x - 20) + 'px'
+    // state.mouse = ctlRaycaster.mouse()
+    // state.toolTipElem.style.top = (state.mouse.y - 40) + 'px' // Move tooltip
+    // state.toolTipElem.style.left = (state.mouse.x - 20) + 'px'
 
-    /* cameraPropsSet */
-    let cameraPropsSet = (camera, cameraProps) => {
+    let cameraPropsSet = (camera, cameraProps) => { /* cameraPropsSet */
       if (cameraProps !== undefined) {
         if (cameraProps.rotate !== undefined) {
           if (cameraProps.rotate[0] !== undefined) camera.rotation.x = cameraProps.rotate[0] * radians
@@ -78,15 +76,14 @@
           if (cameraProps.position[2] !== undefined) camera.position.z = cameraProps.position[2]
         }
       }
-
       return camera
     }
 
-    /* camera container */
-    // state.camera = new THREE.PerspectiveCamera(45, state.width / state.height, 0.1, 9000) // Setup camera
-    // state.camera.position.x = 0
-    // state.camera.position.y = 0
-    // state.camera.position.z = 500
+    // /* camera container */
+    state.camera = new THREE.PerspectiveCamera(45, state.width / state.height, 0.1, 9000) // Setup camera
+    state.camera.position.x = 0
+    state.camera.position.y = 0
+    state.camera.position.z = 500
 
     state.camera = new THREE.OrthographicCamera(
       -state.width / 2, // window.innerWidth / - 16,
@@ -121,30 +118,30 @@
     let light = new THREE.DirectionalLight(0xe4eef9, 0.7)
     light.position.set(12, 12, 8)
 
-    /* controls */
-    __mapper('controlRaycaster').control(state.domElem) // state.domNode
 
     state.raycaster = new THREE.Raycaster() // Capture mouse coords on move
 
-    state.controls = new TrackballControls(state.camera, state.domElem) // Add camera interaction
-    state.controls.rotateSpeed = 1.0
-    state.controls.zoomSpeed = 1.2
-    state.controls.panSpeed = 0.8
-    state.controls.noZoom = false
-    state.controls.noPan = false
-    state.controls.staticMoving = true
-    state.controls.dynamicDampingFactor = 0.3
-    state.controls.keys = [ 65, 83, 68 ]
+    // /* controls */
+    // __mapper('controlRaycaster').control(state.domElem) // state.domNode
+
+    // state.controls = new TrackballControls(state.camera, state.domElem) // Add camera interaction
+    // state.controls.rotateSpeed = 1.0
+    // state.controls.zoomSpeed = 1.2
+    // state.controls.panSpeed = 0.8
+    // state.controls.noZoom = false
+    // state.controls.noPan = false
+    // state.controls.staticMoving = true
+    // state.controls.dynamicDampingFactor = 0.3
+    // state.controls.keys = [ 65, 83, 68 ]
 
     let denser = point => {
       if (!Array.isArray(point)) console.log('point ', point, ' is not cartesian')
       return new THREE.Vector3(...point)
     }
 
-    /***************************
- *        @render
- */
-    let render = function (elapsed, featurecollection, maxlimit) {
+    // ............................. render
+    
+    let render = function (featurecollection, maxlimit) {
       if (1 && 1) console.log('featurecollection', featurecollection)
 
       let features = featurecollection.features
@@ -153,7 +150,8 @@
             d.properties.eoric !== undefined // req eoric
         )
 
-      /* clean canvas */
+      
+      console.assert(state.scene !== undefined) /* clean canvas */
       while (state.scene.children.length > 0) {
         state.scene.remove(state.scene.children[0]) // clear the scene
       }
@@ -163,8 +161,6 @@
         .key(function (d) { return d.properties.eoric.gid })
         .key(function (d) { return d.properties.eoric.cid })
         .entries(features)
-
-      if (1 && 1) console.log('gitems', gitems)
 
       for (let i in gitems) { // DOTS (seg5===0) each group gid
         let gid = gitems[i].key,
@@ -312,7 +308,7 @@
         state.toolTipElem.innerHTML = intersects.length ? intersects[0].object.index || '_e_' : '_e_'
       }
 
-      state.controls.update() // Frame cycle
+      // state.controls.update() // Frame cycle
 
       state.portview.render(state.scene, state.camera)
     }

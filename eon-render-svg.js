@@ -39,15 +39,15 @@
     // ... MIT
 
     let [
-      renderPortview, // viewScreenPrt
       d3,
-      puniwen,
       muonProj3ct,
+      puniwen,
+      renderPortview, // viewScreenPrt
     ] = await Promise.all([
-      __mapper('xs').r('portview'),
       __mapper('xs').b('d3'),
-      __mapper('xs').p('uniwen'),
       __mapper('xs').m('proj3ct'),
+      __mapper('xs').p('uniwen'),
+      __mapper('xs').r('portview'),
     ])
 
     let width = 600,
@@ -345,11 +345,9 @@
 
     // ............................. enty
     let enty = function enty () {}
-
     enty.svg = _svg
     enty.svgelems = svgelems
     enty.render = render
-
     return enty
   }
 

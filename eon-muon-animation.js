@@ -22,8 +22,7 @@
       muonStore,
       muonProps,
       renderSvg,
-      // renderWebgl,
-      // renderCanvas,
+      renderWebgl,
     ] = await Promise.all([
       __mapper('xs').c('timer'),
       __mapper('xs').m('anitem'),
@@ -32,8 +31,7 @@
       __mapper('xs').m('store'),
       __mapper('xs').m('props'),
       __mapper('xs').r('svg'),
-      // __mapper('xs').r('webgl'),
-      // __mapper('xs').r('canvas'),
+      __mapper('xs').r('webgl'),
     ]
     )
 
@@ -177,8 +175,11 @@
       // ... let featurecollectionPromise = ____ collect(state.animas, elapsed) ____
       let featurecollection = collect(state.animas, elapsed)
 
+      if (1 && 1) console.log('featurecollection', featurecollection)
+
       // ... then render by sort the features in the collection
       renderSvg.render(featurecollection)
+      // renderWebgl.render(featurecollection)
     }
 
     // ............................. enty
