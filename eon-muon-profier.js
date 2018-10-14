@@ -46,7 +46,7 @@
       ctlWen,
       ctlVersor,
       muonProps,
-      mwen,
+      muonWen,
       muonStace,
       muonProj3ct,
       muonGeom,
@@ -168,7 +168,7 @@
         if (prerotate) rot = muonGeom.add(rot, prerotate) // ADD prerotate
 
         let dims = projrot.length // planar or spherical geometry
-        if (dims == 2) rot = mwen.cross([ Math.sqrt(rot[0]), 0, 0], [0, Math.sqrt(rot[1]), 0]) // planar rot
+        if (dims == 2) rot = muonWen.cross([ Math.sqrt(rot[0]), 0, 0], [0, Math.sqrt(rot[1]), 0]) // planar rot
 
         rotation = rot
       }

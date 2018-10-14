@@ -324,6 +324,8 @@ if (1 && 1) console.log('mcd12', mcd12)
     enty.rotation = () => {
       let res_s = muonGeom.add(state.rotAccum_s_degrees,state.rotInDrag_s_degrees)
       let res_c = muonGeom.add(state.rotAccum_c_degrees,state.rotInDrag_c_degrees)
+      if (1 && 1) console.log('res_s', res_s)
+
       return res_s
     }
 

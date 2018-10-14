@@ -40,10 +40,21 @@
     ])
 
     // ............................. eohale
-    function eohale (anitem) {
+    function eohale (inani) {
       let newAnigrams = []
 
+      
+            let ani = {}
+            let ownProps = Object.getOwnPropertyNames(inani)
+            for (let prop of ownProps) {
+              let newpropval = muonProps.v(inani[prop], inani)
+              ani[prop] = newpropval
+            }
+      
+      let anitem = ani  // inani
+      
       let eofold = muonProps.v(anitem.eofold, anitem)
+      
       let gjcollection = muonGeoj.featurecollect(eofold)
 
       console.assert(gjcollection.type === 'FeatureCollection')

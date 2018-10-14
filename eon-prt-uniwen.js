@@ -11,17 +11,17 @@
 
   async function prtUniwen (__mapper = {}) {
     let [
-      muonGeom,
-      mwen,
-      ctlWen,
       d3geo,
+      ctlWen,
+      muonGeom,
       muonProps,
+      muonWen,
     ] = await Promise.all([
-      __mapper('xs').m('geom'),
-      __mapper('xs').m('wen'),
-      __mapper('xs').c('wen'),
       __mapper('xs').b('d3-geo'),
+      __mapper('xs').c('wen'),
+      __mapper('xs').m('geom'),
       __mapper('xs').m('props'),
+      __mapper('xs').m('wen'),
     ])
 
     const init = {}
@@ -40,17 +40,17 @@
     state.lens = init.lens
 
     let wenRotation = function (rot) {
-      let rox = mwen.matrix(rot !== undefined ? muonGeom.to_radians(rot) : ctlWen.rotation())
+      let rox = muonWen.matrix(rot !== undefined ? muonGeom.to_radians(rot) : ctlWen.rotation())
       return function (x, y, z = 0) {
-        return mwen.rotateMatrix([x, y, z], rox)
+        return muonWen.rotateMatrix([x, y, z], rox)
       }
     }
 
     let wenRotInverse = function (rot) {
-      let rox = mwen.matrix(rot !== undefined ? muonGeom.to_radians(rot) : ctlWen.rotation())
-      let invrox = mwen.transpose33(rox)
+      let rox = muonWen.matrix(rot !== undefined ? muonGeom.to_radians(rot) : ctlWen.rotation())
+      let invrox = muonWen.transpose33(rox)
       return function (x, y, z = 0) {
-        return mwen.rotateMatrix([x, y, z], invrox)
+        return muonWen.rotateMatrix([x, y, z], invrox)
       }
     }
 
@@ -109,10 +109,11 @@
           rot = muonGeom.add(rot, rotate[k])
         }
       }
+
       c = wenRotation(rot)(...c) // rotate
 
       c = [ c[0], c[1], (c[2] * lens[1]) + lens[0] ] // focus
-      c = mwen.projection(c, lens[2], scale) // project
+      c = muonWen.projection(c, lens[2], scale) // project
 
       if (muonProps.isPureArray(translate)) {
         c = c.map((d, i) => d + (translate[i] || 0)) // translate
