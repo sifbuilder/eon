@@ -27,7 +27,7 @@ let args = process.argv
 let [cmd, scp, ...opts] = args
 
 let action = 'help' // {[help] pattern}
-let toviewpattern = new RegExp(`^eon-z-___none___.*\.html$`, 'i') // none pattern
+let inscopepattern = new RegExp(`^eon-z-___none___.*\.html$`, 'i') // none pattern
 if (opts.length === 0) {
   action = 'help'
 } else if (opts.length === 1 && opts[0] !== 'help') {
@@ -38,7 +38,7 @@ if (opts.length === 0) {
   } else {
     codepattern = opts[0]
   }
-  toviewpattern = new RegExp(`^eon-z-${codepattern}.*\.html$`, 'i') // view pattern
+  inscopepattern = new RegExp(`^eon-z-${codepattern}.*\.html$`, 'i') // view pattern
 }
 
 const options = {
@@ -60,7 +60,7 @@ let tracingpath = './___trace.json'
 
 let files = fs.readdirSync(indir) // to view
   .filter(file => isFile(file))
-  .filter(d => toviewpattern.test(d))
+  .filter(d => inscopepattern.test(d))
 
 async function lightanimas (browser, fls, opts) {
   const variations = fls
@@ -152,7 +152,7 @@ async function run (fls, opts) {
 if (action === 'help') {
   console.log(`node ${prgname} {[help], viewpattern} on eon-z- files`)
 } else if (action === 'view') {
-  console.log(`view ${toviewpattern} eon files`)
+  console.log(`view ${inscopepattern} eon files`)
   run(files, options)
 } else {
   console.log(`node ${prgname} {[help], viewpattern} on eon-z- files`)
