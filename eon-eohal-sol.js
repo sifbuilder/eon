@@ -70,23 +70,10 @@
         feature.properties.sort = feature.properties.sort || 'feature'
         newfeatues.push(feature)
 
-        let newAnigram = {
-          eohal: anitem.eohal,
-          eofold: feature,
-          eonode: anitem.eonode,
-          eoric: feature.properties.eoric,
-          eoload: {},
-          avatars: anitem.avatars,
-        }
-
-        newAnigrams.push(newAnigram)
       }
-      // return newAnigrams
-if (1 && 1) console.log('newAnigrams', newAnigrams)
 
       newcollection.features = newfeatues
       anitem.eofold = newcollection
-      if (1 && 1) console.log('anitem', anitem)
 
       return Array.of(anitem)
     }

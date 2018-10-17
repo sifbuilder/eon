@@ -17,6 +17,19 @@
       __mapper('xs').b('d3-scale'),
     ])
 
+    function shadeRGBColor (color) {
+      let  p = 255,
+        R = color[0],
+        G = color[1],
+        B = color[2]
+      return (
+        'rgb(' +
+            (Math.round((t - R) * p) + R) + ',' +
+            (Math.round((t - G) * p) + G) + ',' +
+            (Math.round((t - B) * p) + B) + ')'
+      )
+    }
+    
     // .................. color
     function color (d = 0) {
       let colors = {}
@@ -25,13 +38,14 @@
         ambar: d3scale.scaleLinear().domain([0, 0.50, 1]).range(['black', '#FF2400', '#f8a413']), // balck   scarlet ambar
         redblue: d3scale.scaleLinear().domain([0, 0.33, 0.66, 1]).range(['wheat', 'red', 'blue', 'wheat' ]),
         snow: d3scale.scaleLinear().domain([0, 0.33, 0.66, 1]).range(['#3e2707', '#8e5e0b', '#f8a413', '#E1E7E4']), // brown orange ambar ice
+        browngreen: d3scale.scaleLinear().domain([0, 1]).range(['brown', 'green']), // 18
         bos: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Wheat']), // ex 0
         wheat: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['black', 'Wheat', '#FF2400']), // 1
         red: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['#FF2400', 'Yellow']), // 2
         ry: d3scale.scaleLinear().domain([0, 1]).range(['red', 'yellow']), // 3
         bar: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Yellow']), // 4
         lab: d3interpolate.interpolateLab('#FF2400', 'yellow'), // 5
-        hsl: d3interpolate.interpolateLab('brown', 'steelblue'), // 6
+        hsl: d3interpolate.interpolateLab('umber', 'steelblue'), // 6
         rbl: d3interpolate.interpolateLab('red', 'blue'), // 7
         plasma: d3interpolate.interpolatePlasma, // 8
         cool: d3interpolate.interpolateCool, // 9
@@ -43,6 +57,7 @@
         rainbow: d3interpolate.interpolateRainbow, // 15
         bluered: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'red' ]),
         blueblack: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'black' ]), // "red",])  // 0
+        
       }
 
       colors.color = colors.scales.bos
@@ -71,9 +86,12 @@
 
     // .................. @m.eocrom.geocromer(anigram, json)
     let geocromer = function (anigram, json) {
+      
       if (json !== undefined && json !== null) {
         if (json.type === undefined) {
+          
         } else if (typeof anigram.eocrom !== 'object') {
+          
         } else if (json.type === 'Feature') { // Feature
           let feature = json
 
@@ -92,15 +110,21 @@
 
           if (feature.properties === undefined) feature.properties = {}
           feature.properties.style = Object.assign(jsonStyle, featureStyle)
+          
         } else if (json.type === 'FeatureCollection') {
+          
           for (let i = 0; i < json.features.length; i++) {
             let feature = json.features[i]
             feature = geocromer(anigram, feature)
           }
+          
         } else {
+          
           console.log('m.eocrom.geocromer nothing done')
+          
         }
       }
+
 
       return json
     }

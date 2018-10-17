@@ -96,7 +96,8 @@
         let features = json.features // feature in FeatureCollection
         for (let i = 0; i < features.length; i++) {
           let feature = features[i] // this feature
-
+          console.assert(feature !== undefined, `feature undefined ${json}`)
+          
           let _ric = JSON.parse(JSON.stringify(eoric))
           _ric.gid = eoric.gid // eoric from param eoric
           _ric.cid = eoric.cid
@@ -107,6 +108,7 @@
           else if (typeof eoric.fid === 'function') _ric.fid = eoric.fid(i, eoric, anigram)
           else _ric.fid = eoric.fid + (i || '')
 
+          console.assert(feature.properties !== undefined, `feature.properties undefined ${feature}`)
           feature.properties.eoric = _ric
           feature.properties.eoric.uid = getuid(_ric)
         }
