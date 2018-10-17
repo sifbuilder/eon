@@ -135,7 +135,12 @@
 
       let featurecollection = {
         type: 'FeatureCollection',
-        features: anigrams.map(d => d.eofold),
+        features: anigrams.reduce( (p,q,i) =>
+              q.eofold.type === 'Feature'
+              ? [...p, q.eofold]   // Feature
+              : [...p, ...q.eofold.features]  // FeatureCollection
+        ,[])
+
       }
       return featurecollection
     }
@@ -144,8 +149,10 @@
     function animier (elapsed) {
       muonStore = __mapper('muonStore')
       state.animas = muonStore.animasLive()
+      state.anigrams = muonStore.anigrams()
 
-      if (0 && 1) console.log(` ******************* animation ${elapsed} ${state.animas.length}`, state.animas)
+      if (1 && 1) console.log(` ******************* animas ${elapsed} ${state.animas.length}`, state.animas)
+      if (1 && 1) console.log(` ******************* anigrams ${elapsed} ${state.animas.length}`, state.anigrams)
 
       // ... TIME
       state.animas = muonProps.a(muonStore.animasLive())

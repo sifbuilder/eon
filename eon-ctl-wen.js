@@ -267,28 +267,27 @@ if (1 && 1) console.log('dragended', state.vel_c_degrees)
     // .................. momentum
     function momentum () {
       // screen
-      // if (Math.abs(state.vel_s_degrees[0]) < epsilon &&
-        // Math.abs(state.vel_s_degrees[1]) < epsilon) return
+      if (Math.abs(state.vel_s_degrees[0]) < epsilon &&
+        Math.abs(state.vel_s_degrees[1]) < epsilon) return
       
-      // state.vel_s_degrees[0] *= inits.decay
-      // state.vel_s_degrees[1] *= inits.decay
+      state.vel_s_degrees[0] *= inits.decay
+      state.vel_s_degrees[1] *= inits.decay
 
-      // state.rotInDrag_s_degrees[0] += state.vel_s_degrees[0]
-      // state.rotInDrag_s_degrees[1] -= state.vel_s_degrees[1]
+      state.rotInDrag_s_degrees[0] += state.vel_s_degrees[0]
+      state.rotInDrag_s_degrees[1] -= state.vel_s_degrees[1]
 
       // cartesian
-      if (Math.abs(state.vel_c_degrees[0]) < epsilon &&
-        Math.abs(state.vel_c_degrees[1]) < epsilon) return
+      // if (Math.abs(state.vel_c_degrees[0]) < epsilon &&
+        // Math.abs(state.vel_c_degrees[1]) < epsilon) return
 
         
-      state.vel_c_degrees[0] = state.vel_c_degrees[0] * inits.decay
-      state.vel_c_degrees[1] = state.vel_c_degrees[1] * inits.decay
-      state.vel_c_degrees[2] = state.vel_c_degrees[2] * inits.decay
+      // state.vel_c_degrees[0] = state.vel_c_degrees[0] * inits.decay
+      // state.vel_c_degrees[1] = state.vel_c_degrees[1] * inits.decay
+      // state.vel_c_degrees[2] = state.vel_c_degrees[2] * inits.decay
       
-if (1 && 1) console.log('momentum', state.vel_c_degrees)
-      state.rotInDrag_c_degrees[0] = state.rotInDrag_c_degrees[0] - state.vel_c_degrees[0]
-      state.rotInDrag_c_degrees[1] = state.rotInDrag_c_degrees[1] - state.vel_c_degrees[1]
-      state.rotInDrag_c_degrees[2] = state.rotInDrag_c_degrees[2] - state.vel_c_degrees[2]
+      // state.rotInDrag_c_degrees[0] = state.rotInDrag_c_degrees[0] - state.vel_c_degrees[0]
+      // state.rotInDrag_c_degrees[1] = state.rotInDrag_c_degrees[1] - state.vel_c_degrees[1]
+      // state.rotInDrag_c_degrees[2] = state.rotInDrag_c_degrees[2] - state.vel_c_degrees[2]
 
       
       if (state.timer) state.timer = requestAnimationFrame(momentum)
@@ -301,8 +300,6 @@ if (1 && 1) console.log('momentum', state.vel_c_degrees)
       // screen
       state.rotAccum_s_degrees = rotInit_degrees || inits.rotInit_degrees
       
-      // cartesian
-      state.rotAccum_c_degrees = rotInit_degrees || inits.rotInit_degrees
 
       state.timer = requestAnimationFrame(tick)
 
@@ -327,8 +324,7 @@ if (1 && 1) console.log('momentum', state.vel_c_degrees)
 
     enty.rotation = () => {
       let res_s = muonGeom.add(state.rotAccum_s_degrees,state.rotInDrag_s_degrees)
-      let res_c = muonGeom.add(state.rotAccum_c_degrees,state.rotInDrag_c_degrees)
-      let res = res_c
+      let res = res_s
       return res
     }
 

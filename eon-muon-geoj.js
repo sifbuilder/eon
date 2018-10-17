@@ -348,44 +348,47 @@
       return tfeatures
     }
 
-    // ...................... featurize
-    let featurize = function (gj_) {
-      let features = []
-      let gj = gj_
+
+
+    // ...................... featurecollect
+    function featurecollect (gj) {
+      let res = {type: 'FeatureCollection', features: []}
+      console.assert(gj && gj.type, `geojson not defined`)
+      
       if (gj && gj.type) {
         let type = gj.type
 
-        if (type === 'Feature') {
-          features = Array.of(gj)
-        } else if (type === 'FeatureCollection') {
-          features = gj.features
+        if (type === 'FeatureCollection') {
+          
+          res = gj
+          
+        } else if (type === 'Feature') {
+          
+          res.features = Array.of(gj)
+          
         } else if (type === 'GeometryCollection') {
-          features = gj.map(d => ({
+          
+          let features = gj.map(d => ({
             type: 'Feature',
             geometry: {
               type: d.type,
               coordinates: d.coordinates},
             properties: {}}))
+          res.features = features     
+            
         } else {
-          features = Array.of({
+          
+          let features = Array.of({
             type: 'Feature',
             geometry: {
               type: gj.type,
               coordinates: gj.coordinates},
             properties: {},
           })
+          res.features = features     
         }
-      } else {
-        console.log('m.geoj.featurize not supported geojson ', gj)
-      }
-
-      return features
-    }
-
-    // ...................... featurecollect
-    function featurecollect (gj) {
-      let features = featurize(gj)
-      return ({type: 'FeatureCollection', features: features})
+      } 
+      return res
     }
 
     // ...................... deprop
@@ -401,13 +404,11 @@
     }
 
     // ...................... zorder
-    let zorder = function (gj) {
-      console.assert(isValid(gj), `m.geoj.zorder:gj not valid  ${gj}`)
-      console.assert(gj.type === 'FeatureCollection', `gj is not FeatureCollection`)
+    let zorder = function (features) {
 
-      let features = gj.features
       let zordered = features
         .map(d => {
+          console.assert(isValid(d), `m.geoj.zorder:gj not valid  ${d}`)
           d.properties = d.properties || {}
           if (d.properties.zorder === undefined) { // if zorder undefined
             if (d.geometry && d.geometry.coordinates && d.geometry.coordinates.length > 0) {
@@ -431,9 +432,8 @@
         .sort((a, b) => a.properties.zorder - b.properties.zorder) // z order
         // .map((d, i) => { d.properties.eoric.nid = i; return d }) // sequential ordinal
 
-      gj.features = zordered
 
-      return gj
+      return zordered
     }
 
     // ...................... centroid
@@ -785,7 +785,6 @@
     enty.polygonFromStream = polygonFromStream
     enty.multLineStringFromStreamArray = multLineStringFromStreamArray
     enty.featurecollect = featurecollect
-    enty.featurize = featurize
     enty.ntime = ntime
     enty.zorder = zorder
     enty.centroid = centroid

@@ -43,33 +43,32 @@
     function eohale (inani) {
       let newAnigrams = []
 
+      let anitem = {}  
       
-            let ani = {}
-            let ownProps = Object.getOwnPropertyNames(inani)
-            for (let prop of ownProps) {
-              let newpropval = muonProps.v(inani[prop], inani)
-              ani[prop] = newpropval
-            }
-      
-      let anitem = ani  // inani
-      
-      let eofold = muonProps.v(anitem.eofold, anitem)
-      
-      let gjcollection = muonGeoj.featurecollect(eofold)
+      let ownProps = Object.getOwnPropertyNames(inani)
+      for (let prop of ownProps) {
+        let newpropval = muonProps.v(inani[prop], inani)
+        anitem[prop] = newpropval // functorize anitem
+      }
 
+      let eofold = anitem.eofold
+
+      let gjcollection = muonGeoj.featurecollect(eofold)
       console.assert(gjcollection.type === 'FeatureCollection')
 
-      gjcollection = muonGeoj.zorder(gjcollection)
-
+      gjcollection.features = muonGeoj.zorder(gjcollection.features)
+      
       gjcollection = muonEoric.enric(anitem.eoric, anitem, gjcollection)
 
+      let newcollection = {type: 'FeatureCollection', features: []}
+
+      let newfeatues = []
       for (let i = 0; i < gjcollection.features.length; i++) {
         let feature = gjcollection.features[i]
-
         feature = muonEocrom.geocromer(anitem, feature)
-
         feature.properties.eotim = anitem.eotim
         feature.properties.sort = feature.properties.sort || 'feature'
+        newfeatues.push(feature)
 
         let newAnigram = {
           eohal: anitem.eohal,
@@ -82,8 +81,14 @@
 
         newAnigrams.push(newAnigram)
       }
+      // return newAnigrams
+if (1 && 1) console.log('newAnigrams', newAnigrams)
 
-      return newAnigrams
+      newcollection.features = newfeatues
+      anitem.eofold = newcollection
+      if (1 && 1) console.log('anitem', anitem)
+
+      return Array.of(anitem)
     }
 
     // ............................. ween

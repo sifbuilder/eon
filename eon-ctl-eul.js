@@ -1,15 +1,15 @@
 /*******************************************
-   *    @ctlWen
+   *    @ctlEul
    *
    */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.ctlWen = global.ctlWen || {})))
+      : (factory((global.ctlEul = global.ctlEul || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function ctlWen (__mapper = {}) {
+  async function ctlEul (__mapper = {}) {
     let [
       d3,
       d3geo,
@@ -335,5 +335,5 @@ if (1 && 1) console.log('momentum', state.vel_c_degrees)
     return enty
   }
 
-  exports.ctlWen = ctlWen
+  exports.ctlEul = ctlEul
 }))
