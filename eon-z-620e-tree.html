@@ -240,8 +240,186 @@ async function anitem (__mapper) {
 
       eoload: {
         tree: {
-          x0: -0,
+          x0: -140,
           y0: -160,
+          grounit0: 2, // 60,
+          angle0: Math.PI / 2,
+
+          directions: [-2, 2],
+          maxDepth: 8,
+          depth: [[[0, 12]]],
+          trunkWidth: 12,
+          branchColor: [101, 67, 33],
+          branchShrinkage: 0.9,
+          maxAngleDelta: Math.PI / 2,
+          delay: 10,
+
+        },
+      },
+    }
+
+
+
+    // .................. treeAni2
+    let treeAni2 = {
+
+      eohal: 'mars',
+
+      eofold: ani => {
+
+        let eoload = ani.eoload
+        let eocrom = ani.eocrom
+
+        let feature = {
+          type: 'Feature',
+          geometry: { type: 'MultiLineString', coordinates: [] },
+          properties: {},
+        }
+
+
+        const maxDepth = eoload.tree.maxDepth,
+          depth = eoload.tree.depth,
+          trunkWidth = eoload.tree.trunkWidth,
+          branchColor = eoload.tree.branchColor,
+          grounit = eoload.tree.grounit0,
+          angle = eoload.tree.angle0,
+          x0 = eoload.tree.x0,
+          y0 = eoload.tree.y0,
+          branchShrinkage = eoload.tree.branchShrinkage,
+          maxAngleDelta = eoload.tree.maxAngleDelta,
+          directions = eoload.tree.directions
+
+
+        let uidPreitem = ani.eoric.uid
+        let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
+        let tree
+        if (preAnigram) {
+
+          tree = preAnigram.eofold
+
+        } else {
+
+          let x1 = x0
+          let y1 = y0
+          let x2 = x1 + grounit * Math.cos(angle)
+          let y2 = y1 + grounit * Math.sin(angle)
+          let stemFeature = {
+            type: 'Feature',
+            geometry: {
+              type: 'MultiLineString',
+              coordinates: Array.of([ [x1, y1], [x2, y2] ]) // MultiLineString
+            }
+          }
+          tree = {
+            type: 'FeatureCollection',
+            features: Array.of(stemFeature),
+            properties: ani.eoload.eocrom,
+          }
+
+        }
+        let newtree = buildTree(tree, {grounit, angle, depth, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage, directions, eocrom})
+
+        return newtree
+
+      },
+
+      eotim: eotim,
+      eoric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
+      eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
+
+      eoload: {
+        tree: {
+          x0: 0,
+          y0: -80,
+          grounit0: 2, // 60,
+          angle0: Math.PI / 2,
+
+          directions: [-2, 2],
+          maxDepth: 8,
+          depth: [[[0, 12]]],
+          trunkWidth: 12,
+          branchColor: [101, 67, 33],
+          branchShrinkage: 0.9,
+          maxAngleDelta: Math.PI / 2,
+          delay: 10,
+
+        },
+      },
+    }
+
+
+
+    // .................. treeAni3
+    let treeAni3 = {
+
+      eohal: 'mars',
+
+      eofold: ani => {
+
+        let eoload = ani.eoload
+        let eocrom = ani.eocrom
+
+        let feature = {
+          type: 'Feature',
+          geometry: { type: 'MultiLineString', coordinates: [] },
+          properties: {},
+        }
+
+
+        const maxDepth = eoload.tree.maxDepth,
+          depth = eoload.tree.depth,
+          trunkWidth = eoload.tree.trunkWidth,
+          branchColor = eoload.tree.branchColor,
+          grounit = eoload.tree.grounit0,
+          angle = eoload.tree.angle0,
+          x0 = eoload.tree.x0,
+          y0 = eoload.tree.y0,
+          branchShrinkage = eoload.tree.branchShrinkage,
+          maxAngleDelta = eoload.tree.maxAngleDelta,
+          directions = eoload.tree.directions
+
+
+        let uidPreitem = ani.eoric.uid
+        let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
+        let tree
+        if (preAnigram) {
+
+          tree = preAnigram.eofold
+
+        } else {
+
+          let x1 = x0
+          let y1 = y0
+          let x2 = x1 + grounit * Math.cos(angle)
+          let y2 = y1 + grounit * Math.sin(angle)
+          let stemFeature = {
+            type: 'Feature',
+            geometry: {
+              type: 'MultiLineString',
+              coordinates: Array.of([ [x1, y1], [x2, y2] ]) // MultiLineString
+            }
+          }
+          tree = {
+            type: 'FeatureCollection',
+            features: Array.of(stemFeature),
+            properties: ani.eoload.eocrom,
+          }
+
+        }
+        let newtree = buildTree(tree, {grounit, angle, depth, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage, directions, eocrom})
+
+        return newtree
+
+      },
+
+      eotim: eotim,
+      eoric: { gid: 'ani', cid: 'ani', fid: 'ani3'},
+      eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
+
+      eoload: {
+        tree: {
+          x0: 100,
+          y0: -20,
           grounit0: 2, // 60,
           angle0: Math.PI / 2,
 
@@ -277,6 +455,8 @@ async function anitem (__mapper) {
 
       sceneAni, // h.scene
       treeAni1, // h.mars
+      treeAni2, // h.mars
+      treeAni3, // h.mars
 
     ]
 

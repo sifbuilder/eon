@@ -38,7 +38,7 @@
         ambar: d3scale.scaleLinear().domain([0, 0.50, 1]).range(['black', '#FF2400', '#f8a413']), // balck   scarlet ambar
         redblue: d3scale.scaleLinear().domain([0, 0.33, 0.66, 1]).range(['wheat', 'red', 'blue', 'wheat' ]),
         snow: d3scale.scaleLinear().domain([0, 0.33, 0.66, 1]).range(['#3e2707', '#8e5e0b', '#f8a413', '#E1E7E4']), // brown orange ambar ice
-        browngreen: d3scale.scaleLinear().domain([0, 1]).range(['brown', 'green']), // 18
+        browngreen: d3scale.scaleLinear().domain([0, 0.2, 0.5, 0.7, 1]).range(['#380100', '#381500', '#382600', '#383f00', '#389700', '#389700']), // 3
         bos: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Wheat']), // ex 0
         wheat: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['black', 'Wheat', '#FF2400']), // 1
         red: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['#FF2400', 'Yellow']), // 2

@@ -24,23 +24,6 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    function shadeRGBColor (color, percent) {
-      var f = color.split(','),
-        t = percent < 0 ? 0 : 255,
-        p = percent < 0 ? percent * -1 : percent,
-        R = parseInt(f[0].slice(4)),
-        G = parseInt(f[1]),
-        B = parseInt(f[2])
-      return (
-        'rgb(' +
-            (Math.round((t - R) * p) + R) +
-            ',' +
-            (Math.round((t - G) * p) + G) +
-            ',' +
-            (Math.round((t - B) * p) + B) +
-            ')'
-      )
-    }
 
     // .................. buildBranch - from branch end build new branch
     const buildBranch = (length, angle, depth, maxDepth, branchWidth, branchColor, maxAngleDelta, branchShrinkage, tree, directions) => {
@@ -48,7 +31,6 @@ async function anitem (__mapper) {
       let step = Math.floor(depth)
       let newTree = []
 
-      
 
       let newDepth = Math.floor(depth - 1)   // depth: 2, 1, 0 , newDepth: 1, 0
       if (newDepth <= 0) { return tree }
@@ -62,7 +44,6 @@ async function anitem (__mapper) {
 
           newTree.push(branch)
          
-          
           
         } else if (step >= branchLength) {
 

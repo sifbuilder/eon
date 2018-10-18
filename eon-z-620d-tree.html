@@ -46,19 +46,20 @@ async function anitem (__mapper) {
 
       let newFeatures = treeFeatures  // tree egns to newTree gens
       let newAngle = angle
-
+      
       for (let i=0; i<qFeatures; i++) {
 
         let feature = treeFeatures[i]
 
-        if (step < qFeatures) {
+        if (step < qFeatures) { 
+
         } else if (step >= qFeatures) {
 
           let linesInFeature = feature.geometry.coordinates  // pre-gen linesInFeature
 
           let linesInNewFeature = []
 
-          for (let j=0; j<linesInFeature.length; j++) { // each line is a branch in feature (stem generation)
+          for (let j=0; j<linesInFeature.length; j++) {
 
             let lineInFeature = linesInFeature[j]
             for (let k=0; k<directions.length; k++) {
@@ -85,13 +86,12 @@ async function anitem (__mapper) {
 
             }
 
-
           }
 
           let neweocrom = {
             csx: 3,
             cf: 555,
-            cs: eocrom.cs + 100 * i,
+            cs: eocrom.cs + 130 * i,
             cw: eocrom.cw * Math.pow(branchShrinkage, i),
             co: 0.0072,
             cp: 0.99,
@@ -111,55 +111,9 @@ async function anitem (__mapper) {
           newFeatures = [...treeFeatures, newFeature]
 
 
-        } // split
-      } // gen
-
-        if (step < newFeatures.length) {
-
-          let feature = newFeatures[step]
-
-          let i = step
-          let linesInFeature = feature.geometry.coordinates  // pre-gen linesInFeature
-          let linesInNewFeature = []
-
-          for (let j=0; j<linesInFeature.length; j++) {
-
-            let lineInFeature = linesInFeature[j]
-
-              let direction = 0.1
-
-
-              let nodesInLine = lineInFeature.length
-              console.assert(nodesInLine >= 2, `error in line ${lineInFeature}`)
-  
-              let x0 = lineInFeature[nodesInLine - 2][0]
-              let y0 = lineInFeature[nodesInLine - 2][1]     
-     
-              let x1 = lineInFeature[nodesInLine - 1][0]
-              let y1 = lineInFeature[nodesInLine - 1][1]
-
-              let inang = Math.atan2(y1-y0, x1-x0)
-              let maxAngleDelta = Math.PI / 6
-
-              let dirAngle = inang + maxAngleDelta * (Math.random() * 0.5 * direction)
-
-              let dirLength = grounit * (Math.pow(branchShrinkage,i) + Math.random() * Math.pow((1.0 - branchShrinkage),i))
-
-
-              const x2 = x1 + dirLength * Math.cos(dirAngle)
-              const y2 = y1 + dirLength * Math.sin(dirAngle)
-
-              linesInFeature[j] = [...lineInFeature, [x2, y2]]
-
-
-          }
-
-
-          newFeatures[step] = feature
-          newFeatures[step].geometry.coordinates = linesInFeature
-
         }
-
+      }
+        
 
 
       let newTree = {
@@ -209,6 +163,7 @@ async function anitem (__mapper) {
           tree = preAnigram.eofold
 
         } else {
+if (1 && 1) console.log('angle', angle)
 
           let x1 = x0
           let y1 = y0
@@ -236,18 +191,18 @@ async function anitem (__mapper) {
 
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
-      eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
+      eocrom: {csx: 3, cf: 555, cs: 222, cw: 6.9, co: 0.0072, cp: 0.7},
 
       eoload: {
         tree: {
           x0: -0,
           y0: -160,
-          grounit0: 2, // 60,
+          grounit0: 60,
           angle0: Math.PI / 2,
 
           directions: [-2, 2],
           maxDepth: 8,
-          depth: [[[0, 12]]],
+          depth: [[[0, 8]]],
           trunkWidth: 12,
           branchColor: [101, 67, 33],
           branchShrinkage: 0.9,
