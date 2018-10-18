@@ -43,8 +43,6 @@
 
   async function muonProfier (__mapper = {}) {
     let [
-      ctlWen,
-      ctlVersor,
       muonProps,
       muonWen,
       muonStace,
@@ -52,8 +50,6 @@
       muonGeom,
       puniwen,
     ] = await Promise.all([
-      __mapper('xs').c('wen'),
-      __mapper('xs').c('versor'),
       __mapper('xs').m('props'),
       __mapper('xs').m('wen'),
       __mapper('xs').m('stace'),
@@ -68,7 +64,6 @@
       console.assert(!Array.isArray(projdef))
 
       let geoproj = puniwen() // default to p.uniwen
-
       console.assert(projdef !== undefined, 'm.profier.formion projdef undefined')
 
       if (projdef === undefined) {
@@ -76,7 +71,7 @@
       } else if (typeof projdef === 'function') {
         geoproj = projdef
       } else if (typeof projdef === 'object') {
-        if (typeof projdef.projection === 'string') {
+        if (typeof projdef.projection === 'string') { // if string
           let prtItem = projdef.projection
           let prt = __mapper(prtItem) // try eg. uniwen
 
@@ -89,7 +84,7 @@
             console.assert(typeof prt === 'function', `prt ${prt} in ${projdef} from __mapper is not a function`)
             geoproj = prt(projdef)
           }
-        } else if (muonProps.isFunction(projdef.projection)) { // if is projection
+        } else if (muonProps.isFunction(projdef.projection)) { // if projection
           geoproj = projdef.projection // props passed to projection _
         }
       }
@@ -151,9 +146,7 @@
           projrot = _rot
         }
         rot = muonGeom.add(rot, projrot)
-        let control = (projdef.control === 'wen') ? ctlWen
-          : (projdef.control === 'versor') ? ctlVersor
-            : undefined
+        let control = projdef.control
 
         if (control !== undefined) {
           let controlRotation = control

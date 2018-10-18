@@ -12,13 +12,11 @@
   async function prtUniwen (__mapper = {}) {
     let [
       d3geo,
-      ctlWen,
       muonGeom,
       muonProps,
       muonWen,
     ] = await Promise.all([
       __mapper('xs').b('d3-geo'),
-      __mapper('xs').c('wen'),
       __mapper('xs').m('geom'),
       __mapper('xs').m('props'),
       __mapper('xs').m('wen'),
@@ -40,18 +38,17 @@
     state.lens = init.lens
 
     let wenRotation = function (rot) {
-      let rox = muonWen.matrix(rot !== undefined 
-        ? muonGeom.to_radians(rot) 
-        : ctlWen.rotation())
+      console.assert(rot !== undefined, `p.uniwen.wenRotation rot undefined`)
+
+      let rox = muonWen.matrix(muonGeom.to_radians(rot))
       return function (x, y, z = 0) {
         return muonWen.rotateMatrix([x, y, z], rox)
       }
     }
 
     let wenRotInverse = function (rot) {
-      let rox = muonWen.matrix(rot !== undefined 
-        ? muonGeom.to_radians(rot) 
-        : ctlWen.rotation())
+      console.assert(rot !== undefined, `p.uniwen.wenRotation rot undefined`)
+      let rox = muonWen.matrix(muonGeom.to_radians(rot))
       let invrox = muonWen.transpose33(rox)
       return function (x, y, z = 0) {
         return muonWen.rotateMatrix([x, y, z], invrox)
