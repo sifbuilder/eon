@@ -324,6 +324,7 @@ if (1 && 1) console.log('dragended', state.vel_c_degrees)
 
     enty.rotation = () => {
       let res_s = muonGeom.add(state.rotAccum_s_degrees,state.rotInDrag_s_degrees)
+      let res_c = muonGeom.add(state.rotAccum_c_degrees,state.rotInDrag_c_degrees)      
       let res = res_s
       return res
     }

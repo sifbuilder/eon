@@ -6,17 +6,19 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    muonGraticule,
-    muonNatform,
+    ctlEul,
     ctlWen,
     eohalMars,
     eohalScene,
+    muonGraticule,
+    muonNatform,
   ] = await Promise.all([
-    __mapper('xs').m('graticule'),
-    __mapper('xs').m('natform'),
+    __mapper('xs').c('eul'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('scene'),
+    __mapper('xs').m('graticule'),
+    __mapper('xs').m('natform'),
   ])
 
   // .................. animas
@@ -65,7 +67,7 @@ async function anitem (__mapper) {
       eomot: {
         proform: {
           projection: 'uniwen',
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctlEul.rotation ]]],
           translate: [-20, 20],
           scale: 1,
           rotate: [0, 0, 0],

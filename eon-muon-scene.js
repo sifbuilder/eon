@@ -10,19 +10,21 @@
 
   async function muonScene (__mapper = {}) {
     let [
-      renderSvg,
+      ctlEul,
       ctlWen,
       ctlVersor,
       ckey,
       ctlTimer,
       ctlRayder,
+      renderSvg,
     ] = await Promise.all([
-      __mapper('xs').r('svg'),
+      __mapper('xs').c('eul'),
       __mapper('xs').c('wen'),
       __mapper('xs').c('versor'),
       __mapper('xs').c('key'),
       __mapper('xs').c('timer'),
       __mapper('xs').c('rayder'),
+      __mapper('xs').r('svg'),
     ])
 
     let manimation = __mapper('muonAnimation')
@@ -51,11 +53,17 @@
         ctlWen.control(svg)
       }
 
-      if (p.svg && p.versor && p.versor !== state.scene.versor) {
-        state.scene.versor = 1
-        let svg = renderSvg.svg()
-        ctlVersor.control(svg)
-      }
+      // if (p.svg && p.versor && p.versor !== state.scene.versor) {
+        // state.scene.versor = 1
+        // let svg = renderSvg.svg()
+        // ctlVersor.control(svg)
+      // }
+
+      // if (p.svg && p.eul && p.eul !== state.scene.eul) {
+        // state.scene.eul = 1
+        // let svg = renderSvg.svg()
+        // ctlVersor.control(svg)
+      // }
 
       // ............................. ray control animation
       // if ray, add ray controls to svg
