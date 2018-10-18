@@ -48,10 +48,18 @@
     }
 
     // .................. start drag control
-    let control = elem => elem.call(d3drag.drag().on('start', dragControl.dragstarted).on('drag', dragControl.dragged).on('end', dragControl.dragended))
+    let control = elem => elem.call(d3drag.drag()
+      .on('start.versor', dragControl.dragstarted)
+      .on('drag.versor', dragControl.dragged)
+      .on('end.versor', dragControl.dragended)
+    )
 
     // .................. stop drag control
-    let reset = elem => elem.call(d3drag.drag().on('start', null).on('drag', null).on('end', null))
+    let reset = elem => elem.call(d3drag.drag()
+      .on('start.versor', null)
+      .on('drag.versor', null)
+      .on('end.versor', null)
+    )
 
     // .................. inits
     let inits = {
@@ -182,8 +190,6 @@
       let rotInDrag_degrees = muonVersor.rotation(state.qd02)
       state.rotInDrag_degrees = rotInDrag_degrees
 
-// if (1 && 1) console.log('dragged qd02', state.qd02)
-
       state.lastMoveTime = Date.now()
     }
 
@@ -208,7 +214,7 @@
       if (1 && 1) console.log('dragged qd01', state.qd01)
       // if (1 && 1) console.log('vel_degrees', state.vel_degrees)
 
-      // state.timer = requestAnimationFrame(momentum)
+      state.timer = requestAnimationFrame(momentum)
     }
 
     // .................. momentum

@@ -2,6 +2,7 @@
 
 **time space manyfolds**   
 
+012o - [eon-z-012o-pacer-string-avatar-gramm](https://sifbuilder.github.io/eon/eon-z-012o-pacer-string-avatar-gramm.html)   
 020a - [eon-z-020a-borg](https://sifbuilder.github.io/eon/eon-z-020a-borg.html)   
 100a - [eon-z-100a-anima](https://sifbuilder.github.io/eon/eon-z-100a-anima.html)   
 105a - [eon-z-105a-nat](https://sifbuilder.github.io/eon/eon-z-105a-nat.html)   
@@ -33,7 +34,6 @@
 419j - [eon-z-419j-pacer-avatar-nat](https://sifbuilder.github.io/eon/eon-z-419j-pacer-avatar-nat.html)   
 419k - [eon-z-419k-pacer-anima-nat](https://sifbuilder.github.io/eon/eon-z-419k-pacer-anima-nat.html)   
 419l - [eon-z-419l-pacer-avatar-nat](https://sifbuilder.github.io/eon/eon-z-419l-pacer-avatar-nat.html)   
-419m - [eon-z-419m-pacer-string-avatar-gramm](https://sifbuilder.github.io/eon/eon-z-419m-pacer-string-avatar-gramm.html)   
 419n - [eon-z-419n-pacer-string-avatar-gramm](https://sifbuilder.github.io/eon/eon-z-419n-pacer-string-avatar-gramm.html)   
 420a - [eon-z-420a-geoproj](https://sifbuilder.github.io/eon/eon-z-420a-geoproj.html)   
 420b - [eon-z-420b-geoproj](https://sifbuilder.github.io/eon/eon-z-420b-geoproj.html)   
@@ -59,6 +59,11 @@
 619m - [eon-z-619m-licht](https://sifbuilder.github.io/eon/eon-z-619m-licht.html)   
 619n - [eon-z-619n-handy](https://sifbuilder.github.io/eon/eon-z-619n-handy.html)   
 620a - [eon-z-620a-tree](https://sifbuilder.github.io/eon/eon-z-620a-tree.html)   
+620b - [eon-z-620b-tree](https://sifbuilder.github.io/eon/eon-z-620b-tree.html)   
+620c - [eon-z-620c-tree](https://sifbuilder.github.io/eon/eon-z-620c-tree.html)   
+620d - [eon-z-620d-tree](https://sifbuilder.github.io/eon/eon-z-620d-tree.html)   
+620e - [eon-z-620e-tree](https://sifbuilder.github.io/eon/eon-z-620e-tree.html)   
+621a - [eon-z-621a-trees](https://sifbuilder.github.io/eon/eon-z-621a-trees.html)   
 701a - [eon-z-701a-grati-ace](https://sifbuilder.github.io/eon/eon-z-701a-grati-ace.html)   
 701b - [eon-z-701b-ace2](https://sifbuilder.github.io/eon/eon-z-701b-ace2.html)   
 701d - [eon-z-701d-ace3](https://sifbuilder.github.io/eon/eon-z-701d-ace3.html)   
@@ -112,6 +117,7 @@
 711b - [eon-z-711b-quadric](https://sifbuilder.github.io/eon/eon-z-711b-quadric.html)   
 711c - [eon-z-711c-drop](https://sifbuilder.github.io/eon/eon-z-711c-drop.html)   
 711d - [eon-z-711d-barrel](https://sifbuilder.github.io/eon/eon-z-711d-barrel.html)   
+711e - [eon-z-711e-barrel](https://sifbuilder.github.io/eon/eon-z-711e-barrel.html)   
 712a - [eon-z-712a-nat-wen](https://sifbuilder.github.io/eon/eon-z-712a-nat-wen.html)   
 712b - [eon-z-712b-polygons](https://sifbuilder.github.io/eon/eon-z-712b-polygons.html)   
 713a - [eon-z-713a-multiline](https://sifbuilder.github.io/eon/eon-z-713a-multiline.html)   
@@ -173,7 +179,7 @@
 811y - [eon-z-811y-lie](https://sifbuilder.github.io/eon/eon-z-811y-lie.html)   
 811z - [eon-z-811z-eliptic](https://sifbuilder.github.io/eon/eon-z-811z-eliptic.html)   
 812a - [eon-z-812a-torus](https://sifbuilder.github.io/eon/eon-z-812a-torus.html)   
-812b - [eon-z-812b-torus](https://sifbuilder.github.io/eon/eon-z-812b-torus.html)   
+812b - [eon-z-812b-torus-origami](https://sifbuilder.github.io/eon/eon-z-812b-torus-origami.html)   
 812c - [eon-z-812c-torus-spiral](https://sifbuilder.github.io/eon/eon-z-812c-torus-spiral.html)   
 812d - [eon-z-812d-torus](https://sifbuilder.github.io/eon/eon-z-812d-torus.html)   
 812e - [eon-z-812e-torus](https://sifbuilder.github.io/eon/eon-z-812e-torus.html)   
@@ -188,6 +194,9 @@
 812n - [eon-z-812n-torus](https://sifbuilder.github.io/eon/eon-z-812n-torus.html)   
 812p - [eon-z-812p-cylisphere](https://sifbuilder.github.io/eon/eon-z-812p-cylisphere.html)   
 812q - [eon-z-812q-spiral](https://sifbuilder.github.io/eon/eon-z-812q-spiral.html)   
+812r - [eon-z-812r-movement](https://sifbuilder.github.io/eon/eon-z-812r-movement.html)   
+812s - [eon-z-812s-torus-origami](https://sifbuilder.github.io/eon/eon-z-812s-torus-origami.html)   
+812t - [eon-z-812t-torus-origami](https://sifbuilder.github.io/eon/eon-z-812t-torus-origami.html)   
 813a - [eon-z-813a-klein](https://sifbuilder.github.io/eon/eon-z-813a-klein.html)   
 813b - [eon-z-813b-klein](https://sifbuilder.github.io/eon/eon-z-813b-klein.html)   
 813c - [eon-z-813c-klein](https://sifbuilder.github.io/eon/eon-z-813c-klein.html)   
@@ -209,6 +218,7 @@
 
 
 ani - [eon-ani-852d-3dgrat](https://sifbuilder.github.io/eon/eon-ani-852d-3dgrat.js)   
+ctl - [eon-ctl-eul](https://sifbuilder.github.io/eon/eon-ctl-eul.js)   
 ctl - [eon-ctl-key](https://sifbuilder.github.io/eon/eon-ctl-key.js)   
 ctl - [eon-ctl-pos](https://sifbuilder.github.io/eon/eon-ctl-pos.js)   
 ctl - [eon-ctl-raycaster](https://sifbuilder.github.io/eon/eon-ctl-raycaster.js)   

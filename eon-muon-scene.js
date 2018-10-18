@@ -47,23 +47,6 @@
 
     // .................. scene
     let scenify = function (p) {
-      if (p.svg && p.wen && p.wen !== state.scene.wen) {
-        state.scene.wen = 1
-        let svg = renderSvg.svg()
-        ctlWen.control(svg)
-      }
-
-      // if (p.svg && p.versor && p.versor !== state.scene.versor) {
-        // state.scene.versor = 1
-        // let svg = renderSvg.svg()
-        // ctlVersor.control(svg)
-      // }
-
-      // if (p.svg && p.eul && p.eul !== state.scene.eul) {
-        // state.scene.eul = 1
-        // let svg = renderSvg.svg()
-        // ctlVersor.control(svg)
-      // }
 
       // ............................. ray control animation
       // if ray, add ray controls to svg

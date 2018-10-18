@@ -47,10 +47,18 @@
     }
 
     // .................. start drag control
-    let control = elem => elem.call(d3drag.drag().on('start', dragControl.dragstarted).on('drag', dragControl.dragged).on('end', dragControl.dragended))
+    let control = elem => elem.call(d3drag.drag()
+        .on('start.wen', dragControl.dragstarted)
+        .on('drag.wen', dragControl.dragged)
+        .on('end.wen', dragControl.dragended)
+    )
 
     // .................. stop drag control
-    let reset = elem => elem.call(d3drag.drag().on('start', null).on('drag', null).on('end', null))
+    let reset = elem => elem.call(d3drag.drag()
+        .on('start.wen', null)
+        .on('drag.wen', null)
+        .on('end.wen', null)
+    )
 
     // .................. inits
     let inits = {
@@ -62,7 +70,6 @@
       moveSpan: 16,
       
       mult_degrees_c: 90,
-      
       
     }
 
@@ -111,6 +118,7 @@
 
     // .................. dragstarted listener
     function dragstarted () {
+
 
       let e = d3selection.event
       if (state.grabbed) return // drag ongoing
@@ -259,7 +267,6 @@
       ]        
       
       state.vel_c_degrees = mcd12
-if (1 && 1) console.log('dragended', state.vel_c_degrees)
   
       state.timer = requestAnimationFrame(momentum)
     }

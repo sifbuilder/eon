@@ -47,10 +47,18 @@
     }
 
     // .................. start drag control
-    let control = elem => elem.call(d3drag.drag().on('start', dragControl.dragstarted).on('drag', dragControl.dragged).on('end', dragControl.dragended))
+    let control = elem => elem.call(d3drag.drag()
+      .on('start.eul', dragControl.dragstarted)
+      .on('drag.eul', dragControl.dragged)
+      .on('end.eul', dragControl.dragended)
+    )
 
     // .................. stop drag control
-    let reset = elem => elem.call(d3drag.drag().on('start', null).on('drag', null).on('end', null))
+    let reset = elem => elem.call(d3drag.drag()
+      .on('start.eul', null)
+      .on('drag.eul', null)
+      .on('end.eul', null)
+    )
 
     // .................. inits
     let inits = {
@@ -62,7 +70,6 @@
       moveSpan: 16,
       
       mult_degrees_c: 90,
-      
       
     }
 
