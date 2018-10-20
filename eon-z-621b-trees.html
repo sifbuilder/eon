@@ -10,11 +10,13 @@ async function anitem (__mapper) {
     eohalMars,
     eohalSol,
     eohalScene,
+    muonProps,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('sol'),
     __mapper('xs').e('scene'),
+    __mapper('xs').m('props'),
   ])
 
   let muonStore = __mapper('muonStore')
@@ -24,178 +26,143 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
+    let getNewFeature = function (feature, props, i) {
+
+      let { growunit, baseangle, depth, maxDepth, branchWidt, branchColor, maxAngleDelta, directions, eocrom, shrinkage, colordelta, subgrow, subgrowunit, subdirections, subangfact, subShrinkage } = props
+
+      let linesInNewFeature = []
+
+      let linesInFeature = feature.geometry.coordinates
+      for (let j = 0; j < linesInFeature.length; j++) {
+        let lineInFeature = linesInFeature[j]
+
+        for (let k = 0; k < directions.length; k++) { // split
+          let direction = directions[k]
+
+          let nodesInLine = lineInFeature.length
+          console.assert(nodesInLine >= 2, `error in line ${lineInFeature}`)
+
+          let x1 = lineInFeature[nodesInLine - 1][0]
+          let y1 = lineInFeature[nodesInLine - 1][1]
+
+          let inang = baseangle
+
+          let dirAngle = inang + maxAngleDelta * Math.random() * direction
+          let dirLength = growunit * (Math.pow(shrinkage, i) + Math.random() * Math.pow((1.0 - shrinkage), i))
+
+          const x2 = x1 + dirLength * Math.cos(dirAngle)
+          const y2 = y1 + dirLength * Math.sin(dirAngle)
+
+          let lineInNewFeature = [ [x1, y1], [x2, y2] ]
+          linesInNewFeature.push(lineInNewFeature)
+        }
+      }
+
+      let neweocrom = muonProps.clone(eocrom) // eocrom //
+      neweocrom.cs = eocrom.cs + colordelta * i
+      neweocrom.cw = eocrom.cw * Math.pow(shrinkage, i)
+
+      let newFeature = {
+        type: 'Feature',
+        geometry: {
+          type: 'MultiLineString',
+          coordinates: linesInNewFeature,
+        },
+        properties: {
+          eocrom: neweocrom,
+        },
+      }
+
+      return newFeature
+    }
+
+    let updFeature = function (feature, props, i) {
+      let { growunit, baseangle, depth, maxDepth, branchWidt, branchColor, maxAngleDelta, directions, eocrom, shrinkage, colordelta, subgrow, subgrowunit, subdirections, subangfact, subShrinkage } = props
+
+      let linesInFeature = muonProps.clone(feature.geometry.coordinates)
+      let linesInNewFeature = []
+
+      for (let j = 0; j < linesInFeature.length; j++) {
+        let lineInFeature = linesInFeature[j]
+
+        for (let k = 0; k < subdirections.length; k++) { // split
+          let direction = subdirections[k]
+
+          let nodesInLine = lineInFeature.length
+          console.assert(nodesInLine >= 2, `error in line ${lineInFeature}`)
+
+          let x0 = lineInFeature[nodesInLine - 2][0]
+          let y0 = lineInFeature[nodesInLine - 2][1]
+
+          let x1 = lineInFeature[nodesInLine - 1][0]
+          let y1 = lineInFeature[nodesInLine - 1][1]
+
+          let inang = Math.atan2(y1 - y0, x1 - x0)
+          let maxAngleDelta = Math.PI / subangfact
+
+          let dirAngle = inang + maxAngleDelta * Math.random() * direction
+
+          let dirLength = subgrowunit * (Math.pow(subShrinkage, i) + Math.random() * Math.pow((1.0 - subShrinkage), i))
+
+          const x2 = x1 + dirLength * Math.cos(dirAngle)
+          const y2 = y1 + dirLength * Math.sin(dirAngle)
+
+          let updlines = [...lineInFeature, [x2, y2]]
+
+          linesInFeature[j] = updlines
+        }
+      }
+      let updfeature = muonProps.clone(feature)
+      updfeature.geometry.coordinates = linesInFeature
+      return updfeature
+    }
 
     // .................. buildBranch - from branch end build new branch
-    const buildTree = (tree, props={}) => {
+    const buildTree = (tree, props) => {
+      let { growunit, baseangle, depth, maxDepth, branchWidt, branchColor, maxAngleDelta, directions, eocrom, shrinkage, colordelta, subgrow, subgrowunit, subdirections, subangfact, subShrinkage } = props
 
-      let growunit = props.growunit,
-      baseangle = props.baseangle,
-      depth = props.depth,
-      maxDepth = props.maxDepth,
-      branchWidth = props.branchWidth,
-      branchColor = props.branchColor,
-      maxAngleDelta = props.maxAngleDelta,
-      branchShrinkage = props.branchShrinkage,
-      directions = props.directions,
-      eocrom = props.eocrom,
-      subgrow = props.subgrow,  
-      subgrowunit = props.subgrowunit
-      
-      let secangfact = 6 // 
-
-      let step = Math.floor(depth)  // growth orbital
+      let step = Math.floor(depth) // growth orbital
 
       let treeFeatures = tree.features
       let qFeatures = treeFeatures.length
 
-      let newFeatures = treeFeatures  // tree gens to newTree gens
+      let newFeatures = treeFeatures // tree gens to newTree gens
 
-      for (let i=0; i<qFeatures; i++) { // each gen :: feature
+      for (let i = 0; i < qFeatures; i++) { // each gen :: feature
+        if (step >= qFeatures) { // if ste is in or above generation
+          let feature = treeFeatures[i]
 
-        let feature = treeFeatures[i]
+          let newFeature = getNewFeature(feature, props, i)
 
-        if (step >= qFeatures) {  // if ste is in or above generation
-
-          let linesInFeature = feature.geometry.coordinates  // pre-gen linesInFeature
-
-          let linesInNewFeature = []
-
-          for (let j=0; j<linesInFeature.length; j++) { // each line is a branch in feature
-
-            let lineInFeature = linesInFeature[j]
-            
-            for (let k=0; k<directions.length; k++) { // split
-
-              let direction = directions[k]
-
-              // ent >
-
-              let nodesInLine = lineInFeature.length
-              let x1 = lineInFeature[nodesInLine - 1][0]
-              let y1 = lineInFeature[nodesInLine - 1][1]
-
-              let dirAngle = baseangle + maxAngleDelta * (Math.random() * 0.5 * direction)
-              let dirLength = growunit * (Math.pow(branchShrinkage,i) + Math.random() * Math.pow((1.0 - branchShrinkage),i))
-
-              const x2 = x1 + dirLength * Math.cos(dirAngle)
-              const y2 = y1 + dirLength * Math.sin(dirAngle)
-
-              let lineInNewFeature = [ [x1, y1] , [x2, y2] ]
-              linesInNewFeature.push(lineInNewFeature)
-              
-              // ent <
-
-            }
-
-          }
-
-          let neweocrom = {
-            csx: 3,
-            cf: 555,
-            cs: eocrom.cs + 100 * i,
-            cw: eocrom.cw * Math.pow(branchShrinkage, i),
-            co: 0.0072,
-            cp: 0.99,
-          }
-
-          let newFeature = {
-            type: 'Feature',
-            geometry: {
-              type: "MultiLineString",
-              coordinates: linesInNewFeature,
-            },
-            properties: {
-              eocrom: neweocrom
-            }
-          }
-
-          
           newFeatures = [...treeFeatures, newFeature]
-
-
         } // split
       } // gen
 
       if (subgrow === 1 && step < newFeatures.length) {
-
         let feature = newFeatures[step]
 
-        let i = step
-        let linesInFeature = feature.geometry.coordinates  // pre-gen linesInFeature
-        let linesInNewFeature = []
+        let updfeature = updFeature(feature, props, step)
 
-        for (let j=0; j<linesInFeature.length; j++) {
-
-          let lineInFeature = linesInFeature[j]
-
-          let directions = [0.1]
-
-          for (let k=0; k<directions.length; k++) { // split
-          
-            let direction = directions[k]
-
-            // ent >
-            let nodesInLine = lineInFeature.length
-            console.assert(nodesInLine >= 2, `error in line ${lineInFeature}`)
-
-            let x0 = lineInFeature[nodesInLine - 2][0]
-            let y0 = lineInFeature[nodesInLine - 2][1]     
-   
-            let x1 = lineInFeature[nodesInLine - 1][0]
-            let y1 = lineInFeature[nodesInLine - 1][1]
-
-            let inang = Math.atan2(y1-y0, x1-x0)
-            let maxAngleDelta = Math.PI / secangfact
-
-            let dirAngle = inang + maxAngleDelta * (Math.random() * 0.5 * direction)
-
-            let dirLength = subgrowunit * (Math.pow(branchShrinkage,i) + Math.random() * Math.pow((1.0 - branchShrinkage),i))
-
-
-            const x2 = x1 + dirLength * Math.cos(dirAngle)
-            const y2 = y1 + dirLength * Math.sin(dirAngle)
-
-            let updfeature = [...lineInFeature, [x2, y2]]
-            
-            linesInFeature[j] = updfeature
-            // ent <
-            
-          }
-
-        }
-
-
-        newFeatures[step] = feature
-        newFeatures[step].geometry.coordinates = linesInFeature
-
+        newFeatures[step] = updfeature
       }
 
-
-
       let newTree = {
-            type: 'FeatureCollection',
-            features: newFeatures
-          }
+        type: 'FeatureCollection',
+        features: newFeatures,
+      }
       return newTree
-
     }
-
 
     // .................. treeAni1
     let treeAni1 = {
 
       eohal: 'mars',
+      eotim: eotim,
+      eoric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
 
       eofold: ani => {
-
         let eoload = ani.eoload
         let eocrom = ani.eocrom
-
-        let feature = {
-          type: 'Feature',
-          geometry: { type: 'MultiLineString', coordinates: [] },
-          properties: {},
-        }
 
         const props = eoload.tree.props,
           x0 = eoload.tree.x0,
@@ -209,65 +176,60 @@ async function anitem (__mapper) {
         let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
         let tree
         if (preAnigram) {
-
           tree = preAnigram.eofold
-
         } else {
-
-        
           // ent >
           let x1 = x0
           let y1 = y0
           let x2 = x1 + growunit * Math.cos(baseangle)
           let y2 = y1 + growunit * Math.sin(baseangle)
+          let linesInFeature = Array.of([ [x1, y1], [x2, y2] ])
           let stemFeature = {
             type: 'Feature',
             geometry: {
               type: 'MultiLineString',
-              coordinates: Array.of([ [x1, y1], [x2, y2] ])
-            }
+              coordinates: linesInFeature,
+            },
+            properties: {},
           }
           // ent <
-          
-          
+
+          let features = Array.of(stemFeature)
           tree = {
             type: 'FeatureCollection',
-            features: Array.of(stemFeature),
-            properties: ani.eoload.eocrom,
+            features: features,
+            properties: {},
           }
-
         }
-        let newtree = buildTree(tree, props, eocrom)
+        let newtree = buildTree(tree, props)
 
         return newtree
-
       },
 
-      eotim: eotim,
-      eoric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
       eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
 
       eoload: {
         tree: {
-          x0: 0,
-          y0: -100,
-          
+          x0: 0, y0: -100,
+
           props: {
-            depth: [[[0, 12]]], // depth iter
-            
-            growunit: 2, // rate of feature growth in tick
             baseangle: Math.PI / 2, // start angle
-            maxAngleDelta: Math.PI / 2, // max abs ang delta
-            directions: [-2, 2], // deviations
+
+            depth: [[[0, 12]]], // depth iter
+
             growunit: 2, // rate of feature growth in tick
-            
-            
+            maxAngleDelta: Math.PI / 2, // max abs ang delta
+            directions: [ -1, 1 ], // deviations
+
             trunkWidth: 12, // initial ent size
-            branchShrinkage: 0.9, // size shrink
-            
+            shrinkage: 0.9, // size shrink
+            colordelta: 100, // color delta between gens
+
             subgrow: 1, // inside growth
             subgrowunit: 2, // rate of feature growth in tick
-            secangfact: 6, // width of secondary deviation
+            subangfact: 6, // width of secondary deviation
+            subdirections: [0.1], // direction in stems
+            subShrinkage: 0.9, // size shrink
 
             branchColor: [101, 67, 33], // --
             maxDepth: 8, // --
@@ -276,7 +238,6 @@ async function anitem (__mapper) {
         },
       },
     }
-
 
     // .................. sceneAni
     let sceneAni = {
