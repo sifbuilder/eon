@@ -21,8 +21,8 @@
       muonSim,
       muonStore,
       muonProps,
-      renderSvg,
-      // renderWebgl,
+      // renderSvg,
+      renderWebgl,
     ] = await Promise.all([
       __mapper('xs').c('timer'),
       __mapper('xs').m('anitem'),
@@ -30,8 +30,8 @@
       __mapper('xs').m('sim'),
       __mapper('xs').m('store'),
       __mapper('xs').m('props'),
-      __mapper('xs').r('svg'),
-      // __mapper('xs').r('webgl'),
+      // __mapper('xs').r('svg'),
+      __mapper('xs').r('webgl'),
     ]
     )
 
@@ -183,8 +183,8 @@
       let featurecollection = collect(state.animas, elapsed)
 
       // ... then render by sort the features in the collection
-      renderSvg.render(featurecollection)
-      // renderWebgl.render(featurecollection)
+      // renderSvg.render(featurecollection)
+      renderWebgl.render(featurecollection)
     }
 
     // ............................. enty

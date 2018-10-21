@@ -21,14 +21,14 @@
       __mapper('xs').r('portview'),
     ])
 
-    // let [
-      // TrackballControls,
-    // ] = await Promise.all([
-      // __mapper('xs').b('three-trackballcontrols'),
-    // ])
+    let [
+      TrackballControls,
+    ] = await Promise.all([
+      __mapper('xs').c('trackballcontrols'),
+    ])
     
 // https://unpkg.com/three@0.97.0/examples/js/controls/TrackballControls.js    
-if (1 && 1) console.log(' -------------- TrackballControls', THREE.TrackballControls)
+if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
   
     const radians = Math.PI / 180
 
@@ -127,15 +127,15 @@ if (1 && 1) console.log(' -------------- TrackballControls', THREE.TrackballCont
     // /* controls */
     // __mapper('controlRaycaster').control(state.domElem) // state.domNode
 
-    // state.controls = new TrackballControls(state.camera, state.domElem) // Add camera interaction
-    // state.controls.rotateSpeed = 1.0
-    // state.controls.zoomSpeed = 1.2
-    // state.controls.panSpeed = 0.8
-    // state.controls.noZoom = false
-    // state.controls.noPan = false
-    // state.controls.staticMoving = true
-    // state.controls.dynamicDampingFactor = 0.3
-    // state.controls.keys = [ 65, 83, 68 ]
+    state.controls = new TrackballControls(state.camera, state.domElem) // Add camera interaction
+    state.controls.rotateSpeed = 1.0
+    state.controls.zoomSpeed = 1.2
+    state.controls.panSpeed = 0.8
+    state.controls.noZoom = false
+    state.controls.noPan = false
+    state.controls.staticMoving = true
+    state.controls.dynamicDampingFactor = 0.3
+    state.controls.keys = [ 65, 83, 68 ]
 
     let denser = point => {
       if (!Array.isArray(point)) console.log('point ', point, ' is not cartesian')
@@ -335,7 +335,7 @@ if (1 && 1) console.log(' -------------- TrackballControls', THREE.TrackballCont
         state.toolTipElem.innerHTML = intersects.length ? intersects[0].object.index || '_e_' : '_e_'
       }
 
-      // state.controls.update() // Frame cycle
+      state.controls.update() // Frame cycle
 
 
       state.portview.render(state.scene, state.camera)
