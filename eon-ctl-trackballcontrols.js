@@ -1,18 +1,38 @@
+/**********************
+ *    @ctlTrackballcontrols
+ */
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.ctlTrackballcontrols = global.ctlTrackballcontrols || {})))
+}(this, function (exports) {
+  'use strict'
+
+  async function ctlTrackballcontrols (__mapper) {
+    
+    let [
+      muonEventDispatcher,
+      muonQuaternion,
+      muonVector2,
+      muonVector3,
+    ] = await Promise.all([
+      __mapper('xs').m('eventDispatcher'),
+      __mapper('xs').m('quaternion'),
+      __mapper('xs').m('vector2'),
+      __mapper('xs').m('vector3'),
+
+    ]
+    )    
+    
 /**
  * @author Eberhard Graether / http://egraether.com/
  * @author Mark Lundin 	/ http://mark-lundin.com
  * @author Simone Manini / http://daron1337.github.io
  * @author Luca Antiga 	/ http://lantiga.github.io
-
- ** three-trackballcontrols module
- ** @author Jon Lim / http://jonlim.ca
  */
 
-var THREE = window.THREE || require('three');
 
-var TrackballControls;
-// module.exports = TrackballControls = function ( object, domElement ) {
-TrackballControls = function ( object, domElement ) {
+let TrackballControls = function ( object, domElement ) {
 
 	var _this = this;
 	var STATE = { NONE: - 1, ROTATE: 0, ZOOM: 1, PAN: 2, TOUCH_ROTATE: 3, TOUCH_ZOOM_PAN: 4 };
@@ -40,49 +60,36 @@ TrackballControls = function ( object, domElement ) {
 	this.minDistance = 0;
 	this.maxDistance = Infinity;
 
-	/**
-	 * `KeyboardEvent.keyCode` values which should trigger the different 
-	 * interaction states. Each element can be a single code or an array
-	 * of codes. All elements are required.
-	 */
 	this.keys = [ 65 /*A*/, 83 /*S*/, 68 /*D*/ ];
 
 	// internals
 
-	this.target = new THREE.Vector3();
+	this.target = new muonVector3();
 
 	var EPS = 0.000001;
 
-	var lastPosition = new THREE.Vector3();
+	var lastPosition = new muonVector3();
 
 	var _state = STATE.NONE,
-	_prevState = STATE.NONE,
+		_prevState = STATE.NONE,
 
-	_eye = new THREE.Vector3(),
+		_eye = new muonVector3(),
 
-	_movePrev = new THREE.Vector2(),
-	_moveCurr = new THREE.Vector2(),
+		_movePrev = new muonVector2(),
+		_moveCurr = new muonVector2(),
 
-	_lastAxis = new THREE.Vector3(),
-	_lastAngle = 0,
+		_lastAxis = new muonVector3(),
+		_lastAngle = 0,
 
-	_zoomStart = new THREE.Vector2(),
-	_zoomEnd = new THREE.Vector2(),
+		_zoomStart = new muonVector2(),
+		_zoomEnd = new muonVector2(),
 
-	_touchZoomDistanceStart = 0,
-	_touchZoomDistanceEnd = 0,
+		_touchZoomDistanceStart = 0,
+		_touchZoomDistanceEnd = 0,
 
-	_panStart = new THREE.Vector2(),
-	_panEnd = new THREE.Vector2();
+		_panStart = new muonVector2(),
+		_panEnd = new muonVector2();
 
-  
-  // added _e_
-  
-  this.lastPosition = lastPosition
-  this._movePrev = lastPosition
-  this._moveCurr = _moveCurr
-  
-  
 	// for reset
 
 	this.target0 = this.target.clone();
@@ -121,19 +128,9 @@ TrackballControls = function ( object, domElement ) {
 
 	};
 
-	this.handleEvent = function ( event ) {
-
-		if ( typeof this[ event.type ] == 'function' ) {
-
-			this[ event.type ]( event );
-
-		}
-
-	};
-
 	var getMouseOnScreen = ( function () {
 
-		var vector = new THREE.Vector2();
+		var vector = new muonVector2();
 
 		return function getMouseOnScreen( pageX, pageY ) {
 
@@ -150,7 +147,7 @@ TrackballControls = function ( object, domElement ) {
 
 	var getMouseOnCircle = ( function () {
 
-		var vector = new THREE.Vector2();
+		var vector = new muonVector2();
 
 		return function getMouseOnCircle( pageX, pageY ) {
 
@@ -165,14 +162,14 @@ TrackballControls = function ( object, domElement ) {
 
 	}() );
 
-	this.rotateCamera = ( function() {
+	this.rotateCamera = ( function () {
 
-		var axis = new THREE.Vector3(),
-			quaternion = new THREE.Quaternion(),
-			eyeDirection = new THREE.Vector3(),
-			objectUpDirection = new THREE.Vector3(),
-			objectSidewaysDirection = new THREE.Vector3(),
-			moveDirection = new THREE.Vector3(),
+		var axis = new muonVector3(),
+			quaternion = new muonQuaternion(),
+			eyeDirection = new muonVector3(),
+			objectUpDirection = new muonVector3(),
+			objectSidewaysDirection = new muonVector3(),
+			moveDirection = new muonVector3(),
 			angle;
 
 		return function rotateCamera() {
@@ -255,11 +252,11 @@ TrackballControls = function ( object, domElement ) {
 
 	};
 
-	this.panCamera = ( function() {
+	this.panCamera = ( function () {
 
-		var mouseChange = new THREE.Vector2(),
-			objectUp = new THREE.Vector3(),
-			pan = new THREE.Vector3();
+		var mouseChange = new muonVector2(),
+			objectUp = new muonVector3(),
+			pan = new muonVector3();
 
 		return function panCamera() {
 
@@ -370,25 +367,6 @@ TrackballControls = function ( object, domElement ) {
 
 	};
 
-	// helpers
-
-	/**
-	 * Checks if the pressed key is any of the configured modifier keys for
-	 * a specified behavior.
-	 * 
-	 * @param {number | number[]} keys 
-	 * @param {number} key 
-	 * 
-	 * @returns {boolean} `true` if `keys` contains or equals `key`
-	 */
-	function containsKey(keys, key) {
-		if (Array.isArray(keys)) {
-			return keys.indexOf(key) !== -1;
-		} else {
-			return keys === key;
-		}
-	}
-
 	// listeners
 
 	function keydown( event ) {
@@ -403,15 +381,15 @@ TrackballControls = function ( object, domElement ) {
 
 			return;
 
-		} else if ( containsKey( _this.keys[ STATE.ROTATE ], event.keyCode ) && ! _this.noRotate ) {
+		} else if ( event.keyCode === _this.keys[ STATE.ROTATE ] && ! _this.noRotate ) {
 
 			_state = STATE.ROTATE;
 
-		} else if ( containsKey( _this.keys[ STATE.ZOOM ], event.keyCode ) && ! _this.noZoom ) {
+		} else if ( event.keyCode === _this.keys[ STATE.ZOOM ] && ! _this.noZoom ) {
 
 			_state = STATE.ZOOM;
 
-		} else if ( containsKey( _this.keys[ STATE.PAN ], event.keyCode ) && ! _this.noPan ) {
+		} else if ( event.keyCode === _this.keys[ STATE.PAN ] && ! _this.noPan ) {
 
 			_state = STATE.PAN;
 
@@ -509,6 +487,8 @@ TrackballControls = function ( object, domElement ) {
 
 		if ( _this.enabled === false ) return;
 
+		if ( _this.noZoom === true ) return;
+
 		event.preventDefault();
 		event.stopPropagation();
 
@@ -539,6 +519,8 @@ TrackballControls = function ( object, domElement ) {
 	function touchstart( event ) {
 
 		if ( _this.enabled === false ) return;
+		
+		event.preventDefault();
 
 		switch ( event.touches.length ) {
 
@@ -624,7 +606,7 @@ TrackballControls = function ( object, domElement ) {
 
 	}
 
-	this.dispose = function() {
+	this.dispose = function () {
 
 		this.domElement.removeEventListener( 'contextmenu', contextmenu, false );
 		this.domElement.removeEventListener( 'mousedown', mousedown, false );
@@ -660,6 +642,14 @@ TrackballControls = function ( object, domElement ) {
 
 };
 
-function preventEvent( event ) { event.preventDefault(); }
+TrackballControls.prototype = Object.create( muonEventDispatcher.prototype );
+TrackballControls.prototype.constructor = TrackballControls;
 
-TrackballControls.prototype = Object.create( THREE.EventDispatcher.prototype );
+    // ....................... enty
+    let enty = TrackballControls
+    return enty
+
+  }
+
+  exports.ctlTrackballcontrols = ctlTrackballcontrols
+}))

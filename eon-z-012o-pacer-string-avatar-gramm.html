@@ -175,6 +175,8 @@ async function anitem (__mapper) {
 
           eofold: function (ani, props) {
             let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+            if (1 && 1) console.log('preani', preani)
+
             let coords
             if (props.key === 'init') { // INIT
             
@@ -185,9 +187,20 @@ async function anitem (__mapper) {
               let point = muonAnitem.snapani([[[ invgeoData.geometry.coordinates ]]], ani.eotim.unitTime)
               
               point = muonGeoj.geotrim(point)
-              coords = (preani && preani.eofold.geometry.coordinates)
-                ? [...preani.eofold.geometry.coordinates, point ]
-                : Array.of(point)
+              if (preani) {
+                if (preani.eofold.type === 'FeatureCollection') {
+                  let feature = preani.eofold.features[0]
+                  coords = (feature.geometry.coordinates)
+                    ? [...feature.geometry.coordinates, point ]
+                    : Array.of(point)                
+                
+                } else if (preani.eofold.type === 'Feature') {
+                  let feature = preani.eofold
+                  coords = (feature.geometry.coordinates)
+                    ? [...feature.geometry.coordinates, point ]
+                    : Array.of(point)   
+                }
+              }
                 
             } else if (props.key === 'event') { // EVENT
             
@@ -195,7 +208,7 @@ async function anitem (__mapper) {
               
             }
 
-            console.assert(coords !== undefined && coords !== null)
+            console.assert(coords !== undefined && coords !== null, `eofold coords undefined`)
             let geometry = {
               type: 'LineString',
               coordinates: coords,

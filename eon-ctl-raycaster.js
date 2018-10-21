@@ -89,7 +89,6 @@
     // ............................. enty
     let enty = () => enty
 
-    // enty.domNode = _ => (_ !== undefined) ? (state.domNode = _, enty) : state.domNode
     enty.domNode = function (_) {
       if (_ !== undefined) {
         state.domNode = _

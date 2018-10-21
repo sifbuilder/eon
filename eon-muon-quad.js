@@ -18,10 +18,8 @@
   // function muonQuad(x0,y0,x1,y1) { // ( x0= 0, y0= 0, x1= 100, y1= 100) {
   async function muonQuad (__mapper) {
     let [
-      renderPortview,
       d3,
     ] = await Promise.all([
-      __mapper('xs').r('portview'),
       __mapper('xs').b('d3'),
     ])
 

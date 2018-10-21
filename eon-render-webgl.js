@@ -22,11 +22,14 @@
     ])
 
     // let [
-    // threeTrackballcontrols,
+      // TrackballControls,
     // ] = await Promise.all([
-    // __mapper('xs').b('three-trackballcontrols'),
+      // __mapper('xs').b('three-trackballcontrols'),
     // ])
-
+    
+// https://unpkg.com/three@0.97.0/examples/js/controls/TrackballControls.js    
+if (1 && 1) console.log(' -------------- TrackballControls', THREE.TrackballControls)
+  
     const radians = Math.PI / 180
 
     let state = {}
@@ -187,7 +190,9 @@
               let geometry = feature.geometry // rings in MultiPolygon, MultiLineString
 
               if (geometry !== undefined && geometry !== null) {			// geometry may be null
-                if (geometry.type === 'Point') {
+              
+              
+                if (geometry.type === 'Point') {  // Points
                   let node = item
 
                   state.material_color = style.fill
@@ -209,7 +214,28 @@
                   sphere.position.z = node.z || node.geometry.coordinates[2] || 0
 
                   state.scene.add(sphere)
-                } else if (geometry.type === 'MultiPolygon') {
+                  
+                } else if (geometry.type === 'Polygon') {  // Polygon
+                  let threeMaterial = new THREE.LineBasicMaterial({
+                    color: style.stroke,
+                    opacity: style['stroke-opacity'],
+                  })
+
+                  for (let i = 0; i < geometry.coordinates.length; i++) {
+                    let line = geometry.coordinates[i]
+
+                    let threeGeometry = new THREE.Geometry()
+
+                    d3.pairs(line.map(denser), function (a, b) {
+                      threeGeometry.vertices.push(a, b)
+                    })
+                    let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+                    if (object) state.scene.add(object)
+ 
+
+                  }
+                  
+                } else if (geometry.type === 'MultiPolygon') {  // MultiPolygon
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
                     opacity: style['stroke-opacity'],
@@ -228,7 +254,8 @@
                       if (object) state.scene.add(object)
                     })
                   }
-                } else if (geometry.type === 'LineString') {
+                  
+                } else if (geometry.type === 'LineString') {  // LineString
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
                     opacity: style['stroke-opacity'],
@@ -309,6 +336,7 @@
       }
 
       // state.controls.update() // Frame cycle
+
 
       state.portview.render(state.scene, state.camera)
     }
