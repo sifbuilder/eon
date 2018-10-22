@@ -10,24 +10,26 @@ async function anitem (__mapper) {
     ctlWen,
     ctlVersor,
     eohalMars,
-    // eohalScene,
+    eohalScene,
     muonProps,
-    // renderSvg,    
+    renderSvg,    
+    // renderWebgl,    
   ] = await Promise.all([
     __mapper('xs').c('eul'),
     __mapper('xs').c('wen'),
     __mapper('xs').c('versor'),
     __mapper('xs').e('mars'),
-    // __mapper('xs').e('scene'),
+    __mapper('xs').e('scene'),
     __mapper('xs').m('props'),
-    // __mapper('xs').r('svg'),    
+    __mapper('xs').r('svg'),    
+    // __mapper('xs').r('webgl'),    
   ])
 
   // .................. animas
   let ani = function () {
     
     
-    // let ctl = ctlWen().control(renderSvg.svg())
+    let ctl = ctlWen().control(renderSvg.svg())
     
     // .................. pics
     let eotim = {'td': 9200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
@@ -36,7 +38,7 @@ async function anitem (__mapper) {
 
       projection: 'uniwen',
       translate: [ 180 - 300, 200 - 200 ],
-      // prerotate: [[[ ctl.rotation ]]],
+      prerotate: [[[ ctl.rotation ]]],
       scale: 90,
       rotate: [ 0, 0, 0 ],
       lens: [0, 1, 12],
@@ -126,7 +128,7 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
       aniTwoFaces, // h.mars g.uniwen
-      // sceneAni, // h.scene
+      sceneAni, // h.scene
     ]
 
     return animas

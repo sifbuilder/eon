@@ -11,16 +11,21 @@ async function anitem (__mapper) {
     eohalMars,
     muonNatform,
     muonProps,
+    renderSvg,     
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
+    __mapper('xs').r('svg'),        
   ])
 
   // .................. animas
   let ani = function () {
+  
+    let ctl = ctlWen().control(renderSvg.svg())
+      
     // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
@@ -108,7 +113,7 @@ async function anitem (__mapper) {
         proform: {
           projection: 'uniwen',
           scale: [ 0.1, 0.1 ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           translate: [0, 0, 0],
           rotate: [ [0, 0, 0] ],
           // rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
