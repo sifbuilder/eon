@@ -12,24 +12,27 @@ async function anitem (__mapper) {
     d3,
     ctlWen,
     eohalNatform,
-    eohalScene,
     eohalMars,
     muonAnimas,
     muonGraticule,
     muonNatform,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').b('d3'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('natform'),
-    __mapper('xs').e('scene'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('animas'),
     __mapper('xs').m('graticule'),
     __mapper('xs').m('natform'),
+    __mapper('xs').r('svg'), 
   ])
 
   // .................. animas
   let ani = function () {
+        
+    let ctl = ctlWen().control(renderSvg.svg())
+    
     // .................. pics
     let eotim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
 
@@ -61,7 +64,7 @@ async function anitem (__mapper) {
           projection: 'uniwen', // d3.geoOrthographic(),
           scale: 1,
           translate: [ -100, 0 ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
         },
@@ -84,7 +87,7 @@ async function anitem (__mapper) {
           projection: d3.geoOrthographic(),
           scale: 100,
           translate: [ 100, 0 ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
         },
@@ -96,24 +99,12 @@ async function anitem (__mapper) {
       eoload: {},
     }
 
-    // .................. sceneAni
-    let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
-    }
 
     // ............................. animas
     let animas = [
       geoGraticule1, //
       geoGraticule2, //
-      sceneAni, // h.scene
+
 
     ]
 

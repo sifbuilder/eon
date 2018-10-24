@@ -6,28 +6,32 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
+    ctlWen,
     muonNatform,
     muonProps,
-    ctlWen,
     muonGraticule,
     lcomplex,
     eohalMars,
     eohalNatform,
-    eohalScene,
+    renderSvg,  
   ] = await Promise.all([
+    __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
-    __mapper('xs').c('wen'),
+    __mapper('xs').m('graticule'),
     __mapper('xs').l('complex'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('natform'),
-    __mapper('xs').e('scene'),
+    __mapper('xs').r('svg'), 
   ])
 
   let Complex = __mapper('libComplex')
 
   // .................. animas
   let ani = function () {
+        
+    let ctl = ctlWen().control(renderSvg.svg())
+    
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -36,7 +40,7 @@ async function anitem (__mapper) {
 
     let proform = {
       projection: 'uniwen',
-      prerotate: [[[ ctlWen.rotation ]]],
+      prerotate: [[[ ctl.rotation ]]],
       translate: [0, 0, 0],
       scale: 1,
       rotate: [ 0, [[[0, 360]]], 0 ],
@@ -90,24 +94,12 @@ async function anitem (__mapper) {
       },
     }
 
-    // .................. sceneAni
-    let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
-    }
 
     // .................. animas
     let animas = [
 
       natAni, // h.mars g.uniwen
-      sceneAni, // h.scene
+
     ]
 
     return animas

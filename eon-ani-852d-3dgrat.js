@@ -15,13 +15,13 @@
   async function anitem (__mapper) {
     let [
       eohalMars,
-      eohalScene,
       muonNatform,
-    ] = await Promise.all([
+    renderSvg,  
+  ] = await Promise.all([
       __mapper('xs').e('mars'),
-      __mapper('xs').e('scene'),
       __mapper('xs').m('natform'),
-    ])
+    __mapper('xs').r('svg'), 
+  ])
 
     let ani = function () {
       // .................. pics
@@ -64,24 +64,10 @@
 
       }
 
-      // .................. sceneAni
-      let sceneAni = {
-
-        eohal: 'scene',
-        eofold: null,
-        eotim: eotim,
-        eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-        eoload: {
-          context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-        },
-
-      }
-
       // .................. animaset
       let animas = [
 
         natform, // h.mars p.natform
-        sceneAni, // h.scene
 
       ]
 

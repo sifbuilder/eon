@@ -8,7 +8,6 @@ async function anitem (__mapper) {
   let [
     dlicht5,
     eohalMars,
-    eohalScene,
     muonGeoj,
     muonProj3ct,
     muonProfier,
@@ -16,10 +15,10 @@ async function anitem (__mapper) {
     muonEoric,
     muonSvg,
     renderPortview,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').d('licht5'),
     __mapper('xs').e('mars'),
-    __mapper('xs').e('scene'),
     __mapper('xs').m('geoj'),
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
@@ -27,6 +26,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('eoric'),
     __mapper('xs').m('svg'),
     __mapper('xs').r('portview'),
+    __mapper('xs').r('svg'), 
   ])
 
   let muonStore = __mapper('xs').m('store')

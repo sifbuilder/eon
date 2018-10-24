@@ -14,7 +14,7 @@ async function anitem (__mapper) {
     ctlWen,
     eohalMars,
     eohalNatform,
-    eohalScene,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').m('geoj'),
@@ -24,15 +24,17 @@ async function anitem (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('natform'),
-    __mapper('xs').e('scene'),
+    __mapper('xs').r('svg'), 
   ])
 
   // .................. animas
   let ani = function () {
+        
+    let ctl = ctlWen().control(renderSvg.svg())
+    
     // .................. pics
     let eotim = {'td': 36800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-
-    // .................. geoearth1
+    
     let geoearth1 = {
 
       eohal: 'mars',
@@ -58,7 +60,7 @@ async function anitem (__mapper) {
           scale: 100,
           translate: [ 150 - 300, 250 - 200 ],
           rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
 
         },
       },
@@ -83,7 +85,7 @@ async function anitem (__mapper) {
           scale: 100,
           translate: [ 150 - 300, 250 - 200 ],
           rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
 
         },
       },
@@ -119,7 +121,7 @@ async function anitem (__mapper) {
           scale: 100,
           translate: [ 150 - 300, 250 - 200 ],
           rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
 
         },
       },
@@ -153,7 +155,7 @@ async function anitem (__mapper) {
           scale: 30,
           translate: [ 400 - 300, 250 - 200 ],
           rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
 
         },
       },
@@ -178,7 +180,7 @@ async function anitem (__mapper) {
           scale: 30,
           translate: [ 400 - 300, 250 - 200 ],
           rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
 
         },
       },
@@ -212,7 +214,7 @@ async function anitem (__mapper) {
           scale: 30,
           translate: [ 400 - 300, 250 - 200 ],
           rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
 
         },
       },
@@ -221,21 +223,9 @@ async function anitem (__mapper) {
 
     }
 
-    // .................. sceneAni
-    let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
-    }
 
     let animas = [
-      sceneAni, // h.scene
+
       geoearth1, // h.mars g.orthographic
       geograt1, // h.mars
       geosphere1, // h.mars

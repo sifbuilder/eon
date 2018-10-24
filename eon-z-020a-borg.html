@@ -19,7 +19,6 @@ xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    eohalScene,
     ctlWen,
     muonNatform,
     muonStace,
@@ -29,8 +28,8 @@ async function anitem (__mapper) {
     eohalPacer,
     eohalTextform,
     prtUniwen,
+    renderSvg,  
   ] = await Promise.all([
-    __mapper('xs').e('scene'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('stace'),
@@ -40,7 +39,9 @@ async function anitem (__mapper) {
     __mapper('xs').e('pacer'),
     __mapper('xs').e('textform'),
     __mapper('xs').p('uniwen'),
+    __mapper('xs').r('svg'), 
   ])
+  
   let muonStore = __mapper('muonStore')
 
   // .................. animas
@@ -200,24 +201,12 @@ async function anitem (__mapper) {
       },
     }
 
-    // .................. sceneAni
-    let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 0, webgl: 0, bck: 1, ray: 1},
-      },
-
-    }
 
     // ............................. animas
     let animas = [
       solarAni, // h.natform
       planetAni, // h.natform
-      sceneAni, // h.scene
+
 
     ]
 

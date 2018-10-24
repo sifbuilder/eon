@@ -15,7 +15,7 @@ async function anitem (__mapper) {
     muonSvg,
     dlicht5,
     eohalSol,
-    eohalScene,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').r('portview'),
     __mapper('xs').m('geoj'),
@@ -26,7 +26,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('svg'),
     __mapper('xs').d('licht5'),
     __mapper('xs').e('sol'),
-    __mapper('xs').e('scene'),
+    __mapper('xs').r('svg'), 
   ])
 
   let muonStore = __mapper('xs').m('store')
@@ -357,23 +357,10 @@ async function anitem (__mapper) {
       },
     }
 
-    // .................. sceneAni
-    let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
-    }
 
     // .................. animas
     let animas = [
 
-      sceneAni, // h.scene
       lichtAni1, // h.sol
       lichtAni2, // h.sol
       lichtAni3, // h.sol

@@ -14,7 +14,7 @@ async function anitem (__mapper) {
     muonEoric,
     eohalMars,
     eohalNatform,
-    eohalScene,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('eoforces'),
@@ -25,8 +25,9 @@ async function anitem (__mapper) {
     __mapper('xs').m('eoric'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('natform'),
-    __mapper('xs').e('scene'),
+    __mapper('xs').r('svg'), 
   ])
+
 
   let muonStore = __mapper('muonStore')
   // .................. animas

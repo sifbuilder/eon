@@ -52,14 +52,34 @@ let files = fs.readdirSync(indir) // to view
   .filter(file => isFile(file))
   .filter(d => inscopeexp.test(d))
 
-// pattern
+// where  
 let scopeexp = new RegExp('^(((eon-)?(((?!-).)*)-(.*)).(html|js))', 'i')
 
-let searchpattern = '.*(0|1) \&\& (0|1).*(\r\n|\n|\r)'
-let searchexp = RegExp(`${searchpattern}`, 'g')
-let replacepattern = ''
 
+// pattern
+let cpsearchpattern = ` let sceneAni = {
+
+      eohal: 'scene',
+      eofold: null,
+      eotim: eotim,
+      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
+      eoload: {
+        context: {svg: 0, versor: 1, wen: 0, webgl: 1, bck: 1},
+      },
+
+    }`
+
+// https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
+
+let searchpattern = escapeRegExp(cpsearchpattern) // .split(/\r?\n/) // .map(d=> `${d}(\r\n|\n|\r)`)
 if (1 && 1) console.log('searchpattern', searchpattern)
+
+let searchexp = RegExp(`${searchpattern}`, 'm')
+let replacepattern = ''
 
 
 // options
@@ -89,8 +109,10 @@ async function run (infiles, opts) {
           if (fs.existsSync(eonfile)) { // if md file
             let fileTxt = fs.readFileSync(eonfile, 'utf8')
 
-            var arr
+            let arr
             while ((arr = searchexp.exec(fileTxt)) !== null) {
+              if (1 && 1) console.log('arr', arr)
+
               let toreplace = arr[0]
               fileTxt = fileTxt.replace(toreplace, replacepattern)
             }

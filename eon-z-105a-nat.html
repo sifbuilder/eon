@@ -11,19 +11,22 @@ async function anitem (__mapper) {
   let [
     ctlWen,
     eohalNatform,
-    eohalScene,
     eohalMars,
     muonAnimas,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('natform'),
-    __mapper('xs').e('scene'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('animas'),
+    __mapper('xs').r('svg'), 
   ])
 
   // .................. animas
   let ani = function () {
+        
+    let ctl = ctlWen().control(renderSvg.svg())
+    
     // .................. pics
     let eotim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
 
@@ -43,7 +46,7 @@ async function anitem (__mapper) {
           translate: [ -200, 0, 0], // mot
           scale: 1,
           rotate: [ [[[0, 90]]], [[[0, 90]]], [[[0, 90]]] ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           lens: [0, 1, Infinity],
           geoanod: 1, // eonode
         },
@@ -82,7 +85,7 @@ async function anitem (__mapper) {
           translate: [ 0, 0, 0], // mot
           scale: 1,
           rotate: [ [[[0, 90]]], [[[0, 90]]], [[[0, 90]]] ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           lens: [0, 1, Infinity],
           geoanod: 1, // eonode
         },
@@ -126,7 +129,7 @@ async function anitem (__mapper) {
           translate: [ 200, 0, 0], // mot
           scale: 1,
           rotate: [ [[[0, 90]]], [[[0, 90]]], [[[0, 90]]] ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           lens: [0, 1, Infinity],
           geoanod: 1, // eonode
         },
@@ -151,25 +154,13 @@ async function anitem (__mapper) {
       eoload: {},
     }
 
-    // .................. sceneAni
-    let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
-    }
 
     // ............................. animas
     let animas = [
       natAni1, // h.natform
       natAni2, // h.natform
       natAni3, // h.natform
-      sceneAni, // h.scene
+
 
     ]
 

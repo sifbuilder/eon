@@ -13,11 +13,11 @@ async function anitem (__mapper) {
     ctlVersor,
     datWorldTopo110m,
     eohalMars,
-    eohalScene,
     muonGeom,
     muonGraticule,
     muonNatform,
     prtNatform,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').b('topojson'),
     __mapper('xs').b('d3-geo'),
@@ -26,17 +26,21 @@ async function anitem (__mapper) {
     __mapper('xs').c('versor'),
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').e('mars'),
-    __mapper('xs').e('scene'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
     __mapper('xs').m('natform'),
     __mapper('xs').p('natform'),
+    __mapper('xs').r('svg'), 
   ])
+  
   // .................. animas
   let ani = function () {
+        
+    let ctl = ctlWen().control(renderSvg.svg())
+    
+    // .................. pics
     let eotim = {'td': 100800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
-    // .................. pics
     let pi = Math.PI,
       radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
@@ -100,7 +104,7 @@ async function anitem (__mapper) {
     let proform = {
       projection: 'uniwen',
       scale: [ 1, 1 ],
-      prerotate: [[[ ctlWen.rotation ]]],
+      prerotate: [[[ ctl.rotation ]]],
       translate: [ [0, 0, 0] ],
       rotate: [ 0, 0, 0 ],
       lens: [0, 1, Infinity ],
@@ -316,18 +320,7 @@ async function anitem (__mapper) {
       eoload: {},
 
     }
-    // .................. sceneAni
-    let sceneAni = {
 
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1, key: 1},
-      },
-
-    }
 
     let animas = [
       geoearthDark,
@@ -335,7 +328,7 @@ async function anitem (__mapper) {
       graticuleFront, // h.mars
       // tangerineAni, //
       // earthAni, //
-      sceneAni, // h.scene
+
     ]
 
     return animas

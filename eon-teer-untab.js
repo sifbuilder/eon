@@ -54,13 +54,9 @@ let files = fs.readdirSync(indir) // to view
 
 // pattern
 let scopeexp = new RegExp('^(((eon-)?(((?!-).)*)-(.*)).(html|js))', 'i')
-
-let searchpattern = '.*(0|1) \&\& (0|1).*(\r\n|\n|\r)'
+let searchpattern = `(?<!\s)[ \t]{2,}`
 let searchexp = RegExp(`${searchpattern}`, 'g')
 let replacepattern = ''
-
-if (1 && 1) console.log('searchpattern', searchpattern)
-
 
 // options
 const options = {}

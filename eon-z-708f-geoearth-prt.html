@@ -17,7 +17,7 @@ async function anitem (__mapper) {
     d3geoprojection,
     prtOrthographic,
     eohalMars,
-    eohalScene,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
@@ -30,8 +30,9 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-geo-projection'),
     __mapper('xs').p('orthographic'),
     __mapper('xs').e('mars'),
-    __mapper('xs').e('scene'),
+    __mapper('xs').r('svg'), 
   ])
+  
   // .................. animas
   let ani = function () {
     let eotim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
@@ -74,23 +75,10 @@ async function anitem (__mapper) {
 
     }
 
-    // .................. sceneAni
-    let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 1, wen: 0, webgl: 0, bck: 1},
-      },
-
-    }
 
     let animas = [
       geoearth, // h.mars g.orthographic
 
-      sceneAni, // h.scene
     ]
 
     return animas

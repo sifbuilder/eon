@@ -10,17 +10,20 @@ async function anitem (__mapper) {
     ctlWen,
     muonNatform,
     eohalMars,
-    eohalScene,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
     __mapper('xs').e('mars'),
-    __mapper('xs').e('scene'),
+    __mapper('xs').r('svg'), 
   ])
 
   // .................. animas
   let ani = function () {
+        
+    let ctl = ctlWen().control(renderSvg.svg())
+    
     // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
@@ -188,7 +191,7 @@ async function anitem (__mapper) {
         proform: {
           projection: 'uniwen',
           scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           translate: [ 0, 0, 0 ],
           rotate: [ -75, 0, 0 ],
           lens: [0, 1, Infinity ],
@@ -210,7 +213,7 @@ async function anitem (__mapper) {
         proform: {
           projection: 'uniwen',
           scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           translate: [ 0, 0, 0 ],
           rotate: [ -75, 0, 0 ],
           lens: [0, 1, Infinity ],
@@ -232,7 +235,7 @@ async function anitem (__mapper) {
         proform: {
           projection: 'uniwen',
           scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           translate: [ 0, 0, 0 ],
           rotate: [ -75, 0, 0 ],
           lens: [0, 1, Infinity ],
@@ -254,7 +257,7 @@ async function anitem (__mapper) {
         proform: {
           projection: 'uniwen',
           scale: [ [[[0.1, 0.1]]], [[[0.1, 0.1]]] ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           translate: [ 0, 0, 0 ],
           rotate: [ -75, 0, 0 ],
           lens: [0, 1, Infinity ],
@@ -266,23 +269,9 @@ async function anitem (__mapper) {
       },
     }
 
-    // .................. sceneAni
-    let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
-    }
-
     // ............................. animas
     let animas = [
 
-      sceneAni, // h.scene
       // sphereAni, // h.natform
       // hyperAni, // h.natform
       // torusAni, // h.natform

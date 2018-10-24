@@ -15,13 +15,13 @@ async function anitem (__mapper) {
     eohalCore,
     eohalLinkform,
     eohalNatform,
-    eohalScene,
     eohalMars,
     muonEoric,
     muonEoforces,
     muonNatform,
     muonProps,
     renderPortview,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-force-3d'),
@@ -30,13 +30,13 @@ async function anitem (__mapper) {
     __mapper('xs').e('core'),
     __mapper('xs').e('linkform'),
     __mapper('xs').e('natform'),
-    __mapper('xs').e('scene'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('eoric'),
     __mapper('xs').m('eoforces'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').r('portview'),
+    __mapper('xs').r('svg'), 
   ])
 
   let [

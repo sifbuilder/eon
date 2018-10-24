@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     prjUnwen,
     prtNatform,
     eohalMars,
-    eohalScene,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
@@ -19,11 +19,15 @@ async function anitem (__mapper) {
     __mapper('xs').p('uniwen'),
     __mapper('xs').p('natform'),
     __mapper('xs').e('mars'),
-    __mapper('xs').e('scene'),
+    __mapper('xs').r('svg'), 
   ])
 
+  // .................. animas
   let ani = function () {
-  // .................. pics
+        
+    let ctl = ctlWen().control(renderSvg.svg())
+    
+    // .................. pics
     let eotim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
     let form = {
@@ -82,7 +86,7 @@ async function anitem (__mapper) {
       eomot: {
         proform: {
           'projection': 'uniwen',
-          'prerotate': [[[ ctlWen.rotation ]]],
+          'prerotate': [[[ ctl.rotation ]]],
           'translate': [0, 0],
           'scale': 3,
           'rotate': [ 0, 0, 0],
@@ -115,7 +119,7 @@ async function anitem (__mapper) {
 
         proform: {
           projection: 'uniwen',
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           translate: [0, 0],
           scale: 3,
           rotate: [ 0, 0, 0],
@@ -134,22 +138,10 @@ async function anitem (__mapper) {
       },
 
     }
-    // .................. sceneAni
-    let sceneAni = {
 
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
-    }
     // .................. animaApi
     let animas = [
 
-      sceneAni, // h.scene
       natform, // h.mars
       gratform, // h.scene
 

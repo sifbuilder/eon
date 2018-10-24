@@ -10,25 +10,25 @@ async function anitem (__mapper) {
     eohalMars,
     eohalPacer,
     eohalFourier,
-    eohalScene,
     muonFourier,
     muonGeoj,
     muonProj3ct,
     muonProfier,
     muonStace,
     muonSvg,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').d('rhyno'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('fourier'),
-    __mapper('xs').e('scene'),
     __mapper('xs').m('fourier'),
     __mapper('xs').m('geoj'),
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
     __mapper('xs').m('stace'),
     __mapper('xs').m('svg'),
+    __mapper('xs').r('svg'), 
   ])
 
   let muonStore = __mapper('muonStore')
@@ -246,24 +246,13 @@ async function anitem (__mapper) {
         },
       },
     }
-    // .................. sceneAni
-    let sceneAni = {
 
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
-    }
 
     // .................. animas
     let animas = [
 
       fourierAni, // h.fourier
-      sceneAni, // h.scene
+
     ]
 
     return animas

@@ -12,7 +12,6 @@ async function anitem (__mapper) {
     ctlVersor,
     ctlWen,
     datWorldTopo110m,
-    eohalScene,
     eohalMars,
     muonGeom,
     muonGraticule,
@@ -20,6 +19,7 @@ async function anitem (__mapper) {
     prtNatform,
     prtBase,
     prtOrthographic,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-geo-projection'),
@@ -27,7 +27,6 @@ async function anitem (__mapper) {
     __mapper('xs').c('versor'),
     __mapper('xs').c('wen'),
     __mapper('xs').d('worldTopo110m'),
-    __mapper('xs').e('scene'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
@@ -35,9 +34,15 @@ async function anitem (__mapper) {
     __mapper('xs').p('natform'),
     __mapper('xs').p('base'),
     __mapper('xs').p('orthographic'),
+    __mapper('xs').r('svg'), 
   ])
+  
   // .................. animas
   let ani = function () {
+        
+    let ctl = ctlVersor().control(renderSvg.svg())
+    
+    // .................. pics
     let eotim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
     // ..................
@@ -45,7 +50,7 @@ async function anitem (__mapper) {
 
       projection: prtOrthographic,
       prerotate: [[[ prtOrthographic.rotation ]]],
-      prerotate: [[[ ctlVersor
+      prerotate: [[[ ctl
         .projection({projection: prtOrthographic })
         .rotation,
       ]]],
@@ -124,7 +129,7 @@ async function anitem (__mapper) {
         ereform: {
 
           projection: 'uniwen',
-          prerotate: [[[ ctlVersor.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           scale: 0.01 + 0.5 * Math.random(),
           translate: [ 0 + 30 * i, 0 + 30 * i ],
           rotate: [ 0, 0, [[[0, - (2 + Math.random()) * 360]]] ],
@@ -133,7 +138,7 @@ async function anitem (__mapper) {
         proform: {
 
           projection: d3Geo.geoOrthographic(),
-          prerotate: [[[ ctlVersor.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           scale: [180],
           translate: [ 0, 0 ],
           rotate: [ [[[0, -2 * 360]]], 0, 0 ],
@@ -148,24 +153,13 @@ async function anitem (__mapper) {
       eoload: {},
 
     })
-    // .................. sceneAni
-    let sceneAni = {
 
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 0, versor: 1, wen: 0, webgl: 0, bck: 1},
-      },
-
-    }
   
     let geograts = Array.from([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]).map(i=>geograt(i))
     
     let animas = [
       ... geograts,
-      sceneAni,
+
     ]
 
     return animas

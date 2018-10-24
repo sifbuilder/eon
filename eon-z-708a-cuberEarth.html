@@ -9,20 +9,20 @@ async function anitem (__mapper) {
     topojson,
     ctlWen,
     datWorldTopo110m,
-    eohalScene,
     eohalMars,
     muonGeom,
     muonGraticule,
     prtNatform,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').b('topojson'),
     __mapper('xs').c('wen'),
     __mapper('xs').d('worldTopo110m'),
-    __mapper('xs').e('scene'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
     __mapper('xs').p('natform'),
+    __mapper('xs').r('svg'), 
   ])
 
   // .................. animas
@@ -126,6 +126,8 @@ async function anitem (__mapper) {
     let earthAni = {
 
       eohal: 'mars',
+      eotim: eotim,
+      eoric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
 
       eofold: p => {
         let geometry = Object.assign({},
@@ -137,8 +139,6 @@ async function anitem (__mapper) {
         return { type: 'Feature', geometry: geometry, properties: {} }
       },
 
-      eotim: eotim,
-      eoric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
       eocrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
 
       eomot: {
@@ -148,8 +148,7 @@ async function anitem (__mapper) {
         },
         proform: proform,
       },
-      eoload: {
-      },
+      eoload: {},
 
     }
 
@@ -278,18 +277,6 @@ async function anitem (__mapper) {
 
     }
 
-    // .................. sceneAni
-    let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
-    }
 
     // ............................. animas
     let animas = [
@@ -297,7 +284,6 @@ async function anitem (__mapper) {
       // cubeAni, // h.mars g.uniwen
       // graticubeAni, // h.mars
       // graticircAni, // h.mars
-      sceneAni, // h.scene
     ]
 
     return animas

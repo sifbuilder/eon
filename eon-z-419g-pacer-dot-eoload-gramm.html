@@ -8,7 +8,6 @@ async function anitem (__mapper) {
   let [
     ctlRayder,
     ctlWen,
-    eohalScene,
     eohalNatform,
     eohalMars,
     eohalPacer,
@@ -16,10 +15,10 @@ async function anitem (__mapper) {
     muonNatform,
     muonStace,
     prtUniwen,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').c('rayder'),
     __mapper('xs').c('wen'),
-    __mapper('xs').e('scene'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('pacer'),
@@ -27,7 +26,9 @@ async function anitem (__mapper) {
     __mapper('xs').m('natform'),
     __mapper('xs').m('stace'),
     __mapper('xs').p('uniwen'),
+    __mapper('xs').r('svg'), 
   ])
+  
   let muonStore = __mapper('muonStore')
 
   // .................. animas
@@ -130,23 +131,10 @@ async function anitem (__mapper) {
       },
     }
 
-    // .................. sceneAni
-    let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 0, webgl: 0, bck: 1, ray: 1},
-      },
-
-    }
-
     // .................. animas
     let animas = [
       geoLined, // h.pacer
-      sceneAni, // h.scene
+
     ]
 
     return animas

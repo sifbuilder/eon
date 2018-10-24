@@ -8,18 +8,18 @@ async function anitem (__mapper) {
     d3,
     d3geo,
     ctlWen,
-    eohalScene,
     eohalMars,
     muonGeom,
     muonProps,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').b('d3'),
     __mapper('xs').b('d3-geo'),
     __mapper('xs').c('wen'),
-    __mapper('xs').e('scene'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('props'),
+    __mapper('xs').r('svg'), 
   ])
 
   let ani = function () {
@@ -145,24 +145,11 @@ async function anitem (__mapper) {
       },
     }
 
-    // .................. sceneAni
-    let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
-    }
-
     // .................. animas
     let animas = [
 
       facesAni, // h.mars
-      sceneAni, // h.scene
+
 
     ]
     return animas

@@ -11,17 +11,17 @@ async function anitem (__mapper) {
   let [
     eohalImgform,
     eohalNatform,
-    eohalScene,
     eohalMars,
     muonAnimas,
     muonProps,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').e('imgform'),
     __mapper('xs').e('natform'),
-    __mapper('xs').e('scene'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('animas'),
     __mapper('xs').m('props'),
+    __mapper('xs').r('svg'), 
   ])
 
   // .................. animas
@@ -86,8 +86,8 @@ async function anitem (__mapper) {
     
     
     let extent = [ [-270,-200], [270,200] ]
-    console.log(' -------- p', quad(extent)(0, 4).p  )
-    console.log(' -------- v', quad(extent)(0, 4).v  )
+    if (1 && 1) console.log(' -------- p', quad(extent)(0, 4).p  )
+    if (1 && 1) console.log(' -------- v', quad(extent)(0, 4).v  )
     
     // ............................. natAni
     let natAni = (i=0,n=1,img='') => ({

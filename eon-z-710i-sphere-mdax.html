@@ -11,18 +11,21 @@ async function anitem (__mapper) {
     ctlWen,
     eohalNatform,
     eohalMars,
-    eohalScene,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('mars'),
-    __mapper('xs').e('scene'),
+    __mapper('xs').r('svg'), 
   ])
 
   // .................. animas
   let ani = function () {
+        
+    let ctl = ctlWen().control(renderSvg.svg())
+    
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -82,7 +85,7 @@ async function anitem (__mapper) {
     let proform1dax = {
       projection: 'uniwen',
       scale: [1, 1],
-      prerotate: [[[ ctlWen.rotation ]]],
+      prerotate: [[[ ctl.rotation ]]],
       translate: [ +100, +100, 0],
       rotate: [ 0, 0, 0 ],
       lens: [0, 1, Infinity],
@@ -91,7 +94,7 @@ async function anitem (__mapper) {
     let proform2dax = {
       projection: 'uniwen',
       scale: [1, 1],
-      prerotate: [[[ ctlWen.rotation ]]],
+      prerotate: [[[ ctl.rotation ]]],
       translate: [ +100, -100, 0 ],
       rotate: [ 0, 0, 0 ],
       lens: [0, 1, Infinity],
@@ -99,7 +102,7 @@ async function anitem (__mapper) {
     let proform3dax = {
       projection: 'uniwen',
       scale: [1, 1],
-      prerotate: [[[ ctlWen.rotation ]]],
+      prerotate: [[[ ctl.rotation ]]],
       translate: [ -100, +100, 0 ],
       rotate: [ 0, 0, 0 ],
       lens: [0, 1, Infinity],
@@ -107,7 +110,7 @@ async function anitem (__mapper) {
     let proform4dax = {
       projection: 'uniwen',
       scale: [1, 1],
-      prerotate: [[[ ctlWen.rotation ]]],
+      prerotate: [[[ ctl.rotation ]]],
       translate: [ -100, -100, 0 ],
       rotate: [ 0, 0, 0 ],
       lens: [0, 1, Infinity],
@@ -187,7 +190,7 @@ async function anitem (__mapper) {
       natAni2dax, // h.mars g.uniwen
       natAni3dax, // h.mars g.uniwen
       natAni4dax, // h.mars g.uniwen
-      sceneAni, // h.scene
+
     ]
 
     return animas

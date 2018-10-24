@@ -13,7 +13,7 @@ async function anitem (__mapper) {
     muonStace,
     eohalMars,
     eohalNatform,
-    eohalScene,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
@@ -22,13 +22,16 @@ async function anitem (__mapper) {
     __mapper('xs').m('stace'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('natform'),
-    __mapper('xs').e('scene'),
+    __mapper('xs').r('svg'), 
   ])
 
   let muonStore = __mapper('muonStore')
 
   // .................. animas
   let ani = function () {
+        
+    let ctl = ctlWen().control(renderSvg.svg())
+    
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -58,7 +61,7 @@ async function anitem (__mapper) {
 
     let natProform = {
       'projection': 'uniwen',
-      'prerotate': [[[ ctlWen.rotation ]]],
+      'prerotate': [[[ ctl.rotation ]]],
 
       'translate': [ [ -0, -0 ], [[[ natStace ]]] ], //
       'scale': 1,
@@ -195,7 +198,7 @@ async function anitem (__mapper) {
         proform: {
 
           projection: 'uniwen',
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           scale: 1,
           translate: {
             x: { pos: [[[0, 0]]] },
@@ -236,18 +239,6 @@ async function anitem (__mapper) {
         },
       },
     }
-    // .................. sceneAni
-    let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
-    }
 
     // ....................... animaApi
     natAnitem.avatars = {
@@ -257,7 +248,7 @@ async function anitem (__mapper) {
     }
 
     let animas = [
-      sceneAni, // h.scene
+
       natAnitem, // h.natform
 
     ]

@@ -7,23 +7,27 @@ async function anitem (__mapper) {
   let [
     d3,
     ctlWen,
-    eohalScene,
     eohalMars,
     muonGraticule,
     muonFibonat,
     prtNatform,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').b('d3'),
     __mapper('xs').c('wen'),
-    __mapper('xs').e('scene'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('graticule'),
     __mapper('xs').m('fibonat'),
     __mapper('xs').p('natform'),
+    __mapper('xs').r('svg'), 
   ])
 
+  // .................. animas
   let ani = function () {
-  // .................. pics
+        
+    let ctl = ctlWen().control(renderSvg.svg())
+    
+    // .................. pics
 
     const eotim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -33,7 +37,7 @@ async function anitem (__mapper) {
 
     const fiboProform = {
       projection: 'uniwen',
-      prerotate: [[[ ctlWen.rotation ]]],
+      prerotate: [[[ ctl.rotation ]]],
       translate: [0, 0, 0],
       scale: 100,
       rotate: [ 0, 0, 0],
@@ -41,7 +45,7 @@ async function anitem (__mapper) {
     }
     const sphereProform = {
       projection: 'uniwen',
-      prerotate: [[[ ctlWen.rotation ]]],
+      prerotate: [[[ ctl.rotation ]]],
       translate: [0, 0, 0],
       scale: 1,
       rotate: [ 0, 0, 0],
@@ -146,24 +150,13 @@ async function anitem (__mapper) {
       },
 
     }
-    // .................. sceneAni
-    let sceneAni = {
 
-      eohal: 'scene',
-      eofold: null,
-      eotim: {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
-    }
 
     let animas = [
 
       fiboAni, // h.mars
       sphereAni, // h.mars
-      sceneAni, // h.scene
+
 
     ]
     return animas

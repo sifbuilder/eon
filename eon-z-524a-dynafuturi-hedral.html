@@ -9,7 +9,6 @@ async function anitem (__mapper) {
     topojson,
     ctlWen,
     datWorldTopo110m,
-    eohalScene,
     eohalTextform,
     eohalMars,
     muonNatform,
@@ -17,11 +16,11 @@ async function anitem (__mapper) {
     muonGraticule,
     muonProps,
     prtHedrals,
+    renderSvg,  
   ] = await Promise.all([
     __mapper('xs').b('topojson'),
     __mapper('xs').c('wen'),
     __mapper('xs').d('worldTopo110m'),
-    __mapper('xs').e('scene'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('textform'),
     __mapper('xs').m('natform'),
@@ -29,7 +28,9 @@ async function anitem (__mapper) {
     __mapper('xs').m('graticule'),
     __mapper('xs').m('props'),
     __mapper('xs').p('hedrals'),
+    __mapper('xs').r('svg'), 
   ])
+
 
   // .................. animas
   let ani = function () {

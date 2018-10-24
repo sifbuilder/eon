@@ -11,7 +11,6 @@ async function anitem (__mapper) {
     eohalSol,
     eohalNatform,
     eohalPacer,
-    eohalScene,
     eohalMars,
     muonEoric,
     muonEoforces,
@@ -26,7 +25,6 @@ async function anitem (__mapper) {
     __mapper('xs').e('sol'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('pacer'),
-    __mapper('xs').e('scene'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('eoric'),
     __mapper('xs').m('eoforces'),
@@ -169,6 +167,8 @@ async function anitem (__mapper) {
     let paceLine = {
 
       eohal: 'pacer',
+      eotim,
+      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
 
       eofold: {
         type: 'Feature',
@@ -187,8 +187,6 @@ async function anitem (__mapper) {
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
 
-      eotim,
-      eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
       eocrom: {'csx': 0, 'cf': 444, 'cs': 666, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eoload: {
@@ -243,24 +241,12 @@ async function anitem (__mapper) {
       },
     }
 
-    // .................. sceneAni
-    let sceneAni = {
 
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
-    }
     // .................. animas
     let animas = [
 
       paceLine, // h.pacer
       treeAni, // h.sol
-      sceneAni, // h.scene
     ]
 
     return animas
