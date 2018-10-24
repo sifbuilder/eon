@@ -11,12 +11,16 @@ async function anitem (__mapper) {
     eohalMars,
     muonNatform,
     muonProps,
+    renderSvg,  
+    renderWebgl,       
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('scene'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
+    __mapper('xs').r('svg'), 
+    __mapper('xs').r('webgl'),     
   ])
 
   // .................. animas
@@ -134,27 +138,12 @@ async function anitem (__mapper) {
       eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[333, 333, 333]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
       eoform: conformLight,
-      eoload: {
-      },
-    }
-
-    // .................. sceneAni
-    let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 1, versor: 0, wen: 1, webgl: 0, bck: 1},
-      },
-
+      eoload: {},
     }
 
     // ............................. animas
     let animas = [
 
-      sceneAni, // h.scene
       lightAni, // h.mars
 
     ]

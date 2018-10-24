@@ -184,6 +184,7 @@ if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
             for (let k in features) { // DOTS (seg5===0) each group gid
               let item = features[k] // feature
 
+
               let feature = item // .feature
               let style = item.properties.style
 
@@ -192,7 +193,8 @@ if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
               if (geometry !== undefined && geometry !== null) {			// geometry may be null
               
               
-                if (geometry.type === 'Point') {  // Points
+                if (0) {
+                } else if (geometry.type === 'Point') {  // Points
                   let node = item
 
                   state.material_color = style.fill
@@ -236,6 +238,9 @@ if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
                   }
                   
                 } else if (geometry.type === 'MultiPolygon') {  // MultiPolygon
+                
+if (1 && 1) console.log(' ********* MultiPolygon', geometry)
+  
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
                     opacity: style['stroke-opacity'],
@@ -255,7 +260,28 @@ if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
                     })
                   }
                   
+                } else if (geometry.type === 'MultiLineString') {  // MultiLineString
+                if (1 && 1) console.log(' ********* MultiLineString', geometry)
+                  let threeMaterial = new THREE.LineBasicMaterial({
+                    color: style.stroke,
+                    opacity: style['stroke-opacity'],
+                  })
+
+                  // let coordinates = Array.of(geometry.coordinates)
+                  let coordinates = geometry.coordinates
+
+                  let threeGeometry = new THREE.Geometry()
+
+                  coordinates.forEach(function (line) {
+                    d3.pairs(line.map(denser), function (a, b) {
+                      threeGeometry.vertices.push(a, b)
+                    })
+                    let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+                    if (object) state.scene.add(object)
+                  })
+                 
                 } else if (geometry.type === 'LineString') {  // LineString
+                
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
                     opacity: style['stroke-opacity'],
@@ -272,7 +298,9 @@ if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
                     let object = new THREE.LineSegments(threeGeometry, threeMaterial)
                     if (object) state.scene.add(object)
                   })
+                
                 } else {
+                  
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
                     opacity: style['stroke-opacity'],
