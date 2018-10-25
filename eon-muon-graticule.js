@@ -523,16 +523,16 @@
 
           let verts = []
 
-          verts[0] = vertices[index(i0, j0)] = mersCoords[i0][j0p] // [0,0] [0,0]
-          verts[1] = vertices[index(i0, j1)] = mersCoords[i0][j1p] // [0,1] [0,1]
-          verts[2] = vertices[index(i1, j0)] = mersCoords[i1][j0p] // [1,0] [1,0]
-          verts[3] = vertices[index(i1, j1)] = mersCoords[i1][j1p] // [1,1] [1,1]
+          vertices[index(i0, j0)] = verts[0] = mersCoords[i0][j0p] // [0,0] [0,0]
+          vertices[index(i0, j1)] = verts[1] = mersCoords[i0][j1p] // [0,1] [0,1]
+          vertices[index(i1, j0)] = verts[2] = mersCoords[i1][j0p] // [1,0] [1,0]
+          vertices[index(i1, j1)] = verts[3] = mersCoords[i1][j1p] // [1,1] [1,1]
         }
       }
 
       return { // return vertices
         type: 'Feature',
-        geometry: {type: 'LineString', coordinates: vertices},
+        geometry: {type: 'MultiPoint', coordinates: vertices},
         properties: {},
       }
     }

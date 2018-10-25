@@ -26,10 +26,9 @@
     ] = await Promise.all([
       __mapper('xs').c('trackballcontrols'),
     ])
-    
-// https://unpkg.com/three@0.97.0/examples/js/controls/TrackballControls.js    
-if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
-  
+
+// https://unpkg.com/three@0.97.0/examples/js/controls/TrackballControls.js
+
     const radians = Math.PI / 180
 
     let state = {}
@@ -41,7 +40,7 @@ if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
     state.domElem.style.display = 'block'
     state.context = state.domElem.getContext('webgl')
 
-    
+
     d3.select('body') /* canvas */
       .append(() => d3.select(state.domElem)
         .attr('id', 'canvas')
@@ -49,16 +48,16 @@ if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
         .style('position', 'absolute; top:0px; left:0px; z-index:1')
         .node()
       )
-    
+
     state.navInfo = document.createElement('div') /* navInfo */ // Add nav info section
     state.navInfo.classList.add('graph-nav-info')
     state.navInfo.innerHTML = 'if key ALT/right to switch animation'
     document.body.appendChild(state.navInfo) // state.domElem.appendChild(navInfo);
-    
+
     state.toolTipElem = document.createElement('div') /* tooltip */ // Setup tooltip
     state.toolTipElem.classList.add('graph-tooltip')
     document.body.appendChild(state.toolTipElem) // state.domElem.appendChild(state.toolTipElem);
-    
+
     state.mouse = new THREE.Vector2() /* raycaster */
     state.mouse.x = -2 // Initialize off canvas
     state.mouse.y = -2
@@ -138,14 +137,13 @@ if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
     state.controls.keys = [ 65, 83, 68 ]
 
     let denser = point => {
-      if (!Array.isArray(point)) console.log('point ', point, ' is not cartesian')
+      console.assert(Array.isArray(point), `point ${point} is not cartesian`)
       return new THREE.Vector3(...point)
     }
 
     // ............................. render
-    
+
     let render = function (featurecollection, maxlimit) {
-      if (1 && 1) console.log('featurecollection', featurecollection)
 
       let features = featurecollection.features
         .filter(
@@ -153,7 +151,7 @@ if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
             d.properties.eoric !== undefined // req eoric
         )
 
-      
+
       console.assert(state.scene !== undefined) /* clean canvas */
       while (state.scene.children.length > 0) {
         state.scene.remove(state.scene.children[0]) // clear the scene
@@ -191,10 +189,84 @@ if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
               let geometry = feature.geometry // rings in MultiPolygon, MultiLineString
 
               if (geometry !== undefined && geometry !== null) {			// geometry may be null
-              
-              
+
+
                 if (0) {
-                } else if (geometry.type === 'Point') {  // Points
+                } else if (geometry.type === 'MultiPoint') {  // Points
+
+                  // MultiPoint may support various THREE object
+
+                  if (0) {
+                  } else if ( feature.properties.eoMultiPolygon == 1) {
+                      let vertices = feature.geometry.coordinates
+
+                      let faces = feature.properties.faces.map(face=> new THREE.Face3(...face))
+                      
+
+                    	let	geo = new THREE.Geometry()
+                      geo.vertices = vertices.map(v => (Array.isArray(v)) ? {x:v[0],y:v[1],z:v[2]} : v)
+                      geo.faces = faces
+                      geo.computeFaceNormals()
+
+
+                      let object =  new THREE.Mesh(
+                          geo, // geometry,
+                          new THREE.LineBasicMaterial({	// LineBasicMaterial // MeshPhongMaterial solic
+                            color: style.fill,
+                            opacity: style['fill-opacity'],
+
+                          })
+                        )
+                      object.children.forEach(function(e) {
+                        e.geometry.vertices=vertices
+                        e.geometry.verticesNeedUpdate=true
+                        e.geometry.computeFaceNormals()
+                      })
+                      
+                      for (let i=0; i<vertices.length; i++) {
+                          var particle_geom = new THREE.Geometry()
+                          let vertex = vertices[i]
+                          if (Array.isArray(vertex)) vertex = {
+                            x: vertex[0],
+                            y: vertex[1], 
+                            z: vertex[2],
+                          }
+                          particle_geom.vertices.push(new THREE.Vector3(vertex.x, vertex.y, vertex.z))
+                          var particle_material = new THREE.PointsMaterial({size: 19})
+                          var particle = new THREE.Points(particle_geom, particle_material)
+
+                          object.add(particle)
+                      }
+                      state.scene.add(object)
+                  } else {
+
+                    let vertices = geometry.coordinates
+                    for (let i=0; i<vertices.length; i++) {
+
+                      let vertex = vertices[i]
+
+                      state.material_color = style.fill
+                      state.geometry = new THREE.SphereGeometry(5, 32, 32)
+                      state.wireframe = new THREE.WireframeGeometry(state.geometry)
+                      state.material = new THREE.MeshBasicMaterial({
+                        color: state.material_color,
+                        transparent: true,
+                        opacity: 0.75,
+                      })
+
+                      let sphere = new THREE.Mesh(
+                        state.wireframe,
+                        state.material
+                      )
+
+                      sphere.position.x = vertex[0]
+                      sphere.position.y = vertex[1] || 0
+                      sphere.position.z = vertex[2] || 0
+
+                      state.scene.add(sphere)
+                    }
+                  }
+                } else if (geometry.type === 'Point') {  // Point
                   let node = item
 
                   state.material_color = style.fill
@@ -216,7 +288,7 @@ if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
                   sphere.position.z = node.z || node.geometry.coordinates[2] || 0
 
                   state.scene.add(sphere)
-                  
+
                 } else if (geometry.type === 'Polygon') {  // Polygon
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
@@ -233,14 +305,12 @@ if (1 && 1) console.log(' -------------- TrackballControls', TrackballControls)
                     })
                     let object = new THREE.LineSegments(threeGeometry, threeMaterial)
                     if (object) state.scene.add(object)
- 
+
 
                   }
-                  
+
                 } else if (geometry.type === 'MultiPolygon') {  // MultiPolygon
-                
-if (1 && 1) console.log(' ********* MultiPolygon', geometry)
-  
+
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
                     opacity: style['stroke-opacity'],
@@ -259,9 +329,8 @@ if (1 && 1) console.log(' ********* MultiPolygon', geometry)
                       if (object) state.scene.add(object)
                     })
                   }
-                  
+
                 } else if (geometry.type === 'MultiLineString') {  // MultiLineString
-                if (1 && 1) console.log(' ********* MultiLineString', geometry)
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
                     opacity: style['stroke-opacity'],
@@ -279,9 +348,9 @@ if (1 && 1) console.log(' ********* MultiPolygon', geometry)
                     let object = new THREE.LineSegments(threeGeometry, threeMaterial)
                     if (object) state.scene.add(object)
                   })
-                 
+
                 } else if (geometry.type === 'LineString') {  // LineString
-                
+
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
                     opacity: style['stroke-opacity'],
@@ -298,9 +367,9 @@ if (1 && 1) console.log(' ********* MultiPolygon', geometry)
                     let object = new THREE.LineSegments(threeGeometry, threeMaterial)
                     if (object) state.scene.add(object)
                   })
-                
+
                 } else {
-                  
+
                   let threeMaterial = new THREE.LineBasicMaterial({
                     color: style.stroke,
                     opacity: style['stroke-opacity'],

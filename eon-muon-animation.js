@@ -177,12 +177,9 @@
       // ... @WEEN SIM GRAMM RENDER
       // ... from the anigrams, collect the feature collection to be rendered
 
-      // ... let featurecollectionPromise = ____ collect(state.animas, elapsed) ____
       let featurecollection = collect(state.animas, elapsed)
 
       // ... then render by sort the features in the collection
-      // renderSvg.render(featurecollection)
-      // renderWebgl.render(featurecollection)
       renderRenderer.render(featurecollection)
     }
 

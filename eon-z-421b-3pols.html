@@ -16,7 +16,6 @@ async function anitem (__mapper) {
     ctlWen,
     datWorldTopo110m,
     eohalMars,
-    muonGeoj,
     muonGeom,
     muonGraticule,
     muonNatform,
@@ -32,7 +31,6 @@ async function anitem (__mapper) {
     __mapper('xs').c('wen'),
     __mapper('xs').d('worldTopo110m'),
     __mapper('xs').e('mars'),
-    __mapper('xs').m('geoj'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
     __mapper('xs').m('natform'),
@@ -43,9 +41,9 @@ async function anitem (__mapper) {
   ])
   // .................. animas
   let ani = function () {
-
+        
     // let ctl = ctlVersor().control(renderSvg.svg())
-
+    
     // .................. pics
     let eotim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
@@ -78,7 +76,7 @@ async function anitem (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, 		// circle
         'v0': 0, 'v1': 1,
         'ra2': 160,
-        'w4': 90, // [[[60, 60 + 1 * 360]]], // [[[0,-360,0]]],
+        'w4': 0, // [[[60, 60 + 1 * 360]]], // [[[0,-360,0]]],
         'seg5': 360, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
       },
@@ -130,42 +128,7 @@ async function anitem (__mapper) {
           eoform: eoform,
         },
       },
-      eocrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 0.21, 'cp': 0.9},
-      eoload: {},
-
-    }
-    // ............................. geofaces
-    let geofaces = {
-
-      eohal: 'mars',
-
-      eofold: p => {
-        let gvertsFeature = muonGraticule.gvertices(p.eoframe)
-        let gfaces = muonGraticule.gfaces(p.eoframe)
-
-      let res = gvertsFeature
-      
-      res.properties.eoMultiPolygon = !0
-      res.properties.faces = gfaces
-
-  
-      return res
-
-      },
-      eotim,
-
-      eomot: {
-        // ereform: proformEarth,
-        conform: {
-          projection: 'natform',
-          eoform: eoform,
-        },
-      },
-
-      eoric: {'gid': 'geofaces', 'cid': 'geofaces', 'fid': 'geofaces'},
-      eocrom: { 'csx': 0, 'cf': [[[222, 222]]], 'cs': 666, 'cw': [[[0.3,2.3]]], 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
-
-      eoframe: eoframe,
+      eocrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
       eoload: {},
 
     }
@@ -202,7 +165,6 @@ async function anitem (__mapper) {
 
     let animas = [
       geoearth, //
-      geofaces, //
       geograt, //
 
     ]
