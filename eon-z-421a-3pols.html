@@ -143,13 +143,12 @@ async function anitem (__mapper) {
         let gvertsFeature = muonGraticule.gvertices(p.eoframe)
         let gfaces = muonGraticule.gfaces(p.eoframe)
 
-      let res = gvertsFeature
-      
-      res.properties.eoMultiPolygon = !0
-      res.properties.faces = gfaces
-
-  
-      return res
+        let res = gvertsFeature
+        
+        res.properties.eoMultiPolygon = !0
+        res.properties.faces = gfaces
+    
+        return res
 
       },
       eotim,
@@ -162,7 +161,7 @@ async function anitem (__mapper) {
         },
       },
 
-      eoric: {'gid': 'geofaces', 'cid': 'geofaces', 'fid': 'geofaces'},
+      eoric: {gid: 'geofaces', cid: 'geofaces', fid: 'geofaces'},
       eocrom: { 'csx': 0, 'cf': [[[222, 222]]], 'cs': 666, 'cw': [[[0.3,2.3]]], 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
 
       eoframe: eoframe,
@@ -176,8 +175,6 @@ async function anitem (__mapper) {
 
       eofold: p => {
         let vhmls = muonGraticule.vhMultiLine(p.eoframe)
-        
-        
         
         return vhmls
       },
@@ -198,7 +195,12 @@ async function anitem (__mapper) {
       eoload: {},
 
     }
+    // ............................. camera
+    let camera = {
 
+      eohal: 'camera',
+      
+    }
 
     let animas = [
       geoearth, //

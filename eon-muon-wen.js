@@ -36,7 +36,8 @@
       let h = Array.isArray(s) ? s : Array.of(s)
       let f0 = (h[0] || 1) / (1 - p[2] / d)
       let f1 = (h[1] || h[0]) / (1 - p[2] / d)
-      return [p[0] * f0, p[1] * f1, p[2]]
+      let f2 = h[2] || 1    // _e_
+      return [p[0] * f0, p[1] * f1, p[2] * f2]
     }
     function rotateX (p, a) {
       let d = Math.sqrt(p[2] * p[2] + p[1] * p[1]),

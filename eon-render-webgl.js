@@ -21,24 +21,28 @@
       __mapper('xs').r('portview'),
     ])
 
+
+    // https://unpkg.com/three@0.97.0/examples/js/controls/TrackballControls.js
     let [
       TrackballControls,
     ] = await Promise.all([
       __mapper('xs').c('trackballcontrols'),
     ])
 
-// https://unpkg.com/three@0.97.0/examples/js/controls/TrackballControls.js
 
+    let to3point = v => (Array.isArray(v)) ? {x:v[0],y:v[1],z:v[2]} : v
     const radians = Math.PI / 180
 
     let state = {}
-    state.width = renderPortview.width(),
-    state.height = renderPortview.height()
-    state.portview = new THREE.WebGLRenderer({antialias: true})
-    state.domElem = state.portview.domElement // canvas
+
+
+    state.renderer = new THREE.WebGLRenderer({antialias: true}) /* renderer */
+    state.domElem = state.renderer.domElement // canvas
     state.domElem.innerHTML = '' // Wipe DOM
     state.domElem.style.display = 'block'
     state.context = state.domElem.getContext('webgl')
+    state.width = renderPortview.width(),
+    state.height = renderPortview.height()
 
 
     d3.select('body') /* canvas */
@@ -81,7 +85,7 @@
       return camera
     }
 
-    // /* camera container */
+    /* CAMERA */
     state.camera = new THREE.PerspectiveCamera(45, state.width / state.height, 0.1, 9000) // Setup camera
     state.camera.position.x = 0
     state.camera.position.y = 0
@@ -107,15 +111,17 @@
 
     function resizeCanvas () {
       if (state.width && state.height) {
-        state.portview.setSize(state.width, state.height)
+        state.renderer.setSize(state.width, state.height)
         state.camera.aspect = state.width / state.height
         state.camera.updateProjectionMatrix()
       }
     }
     resizeCanvas()
 
-    /* scene */
+    /* SCENE */
     state.scene = new THREE.Scene() // Setup scene
+
+    /* LIGNTS */
     state.scene.add(new THREE.AmbientLight(0x333333))
     let light = new THREE.DirectionalLight(0xe4eef9, 0.7)
     light.position.set(12, 12, 8)
@@ -141,7 +147,7 @@
       return new THREE.Vector3(...point)
     }
 
-    // ............................. render
+    // ............................. RENDER
 
     let render = function (featurecollection, maxlimit) {
 
@@ -154,35 +160,73 @@
 
       console.assert(state.scene !== undefined) /* clean canvas */
       while (state.scene.children.length > 0) {
-        state.scene.remove(state.scene.children[0]) // clear the scene
+        state.scene.remove(state.scene.children[0]) // remove object from scene
       }
 
-      /* items to add to scene */
-      let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
-        .key(function (d) { return d.properties.eoric.gid })
-        .key(function (d) { return d.properties.eoric.cid })
-        .entries(features)
 
-      for (let i in gitems) { // DOTS (seg5===0) each group gid
-        let gid = gitems[i].key,
-          citems = gitems[i].values
-
-        for (let j in citems) { // each class cid
-          let cid = citems[j].key // cid
-          let fitems = citems[j].values // fitems
-          let now = fitems.slice(-1)[0]
-
-          /*  ................. GEOJSON FEATURE ................. */
-          let features = fitems
-            .filter(d => d.properties.sort === 'feature' ||
-              d.properties.sort === 'form'
-            )
-
-          if (features.length > 0) {
-            for (let k in features) { // DOTS (seg5===0) each group gid
-              let item = features[k] // feature
+          // let scene = new THREE.Secne()
+          // let aspect = window.innerWidth / window.innerHeight
+          // let camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000)
+          // let renderer = new THREE.WebGLRender()
+          // renderer.setSize(window.innerWidth , window.innerHeight)
+          // document.body.appendChild(renderer.domElement)
+          // let geometry = new THREE.BoxGeometry(1,1,1)
+          // let material = new THREE.Mesh(egometry, material)
+          // scene.add (mesh)
+          // camera.position.z = 5
+          // let render = function() {
+            // requestAnimationGrame(render)
+            // renderer.render(scene, camera)
+          //}
 
 
+
+
+          function renderMultiPoint (items=[]) {
+            if (items.length === 0) return
+
+            for (let k in items) { // DOTS (seg5===0) each group gid
+              let item = items[k] // feature
+
+              let feature = item // .feature
+              let style = item.properties.style
+
+              let geometry = feature.geometry // rings in MultiPolygon, MultiLineString
+
+              let vertices = geometry.coordinates
+              for (let i=0; i<vertices.length; i++) {
+
+                let vertex = vertices[i]
+
+                state.material_color = style.fill
+                state.geometry = new THREE.SphereGeometry(5, 32, 32)
+                state.wireframe = new THREE.WireframeGeometry(state.geometry)
+                state.material = new THREE.MeshBasicMaterial({
+                  color: state.material_color,
+                  transparent: true,
+                  opacity: 0.75,
+                })
+
+                let sphere = new THREE.Mesh(
+                  state.wireframe,
+                  state.material
+                )
+
+                sphere.position.x = vertex[0]
+                sphere.position.y = vertex[1] || 0
+                sphere.position.z = vertex[2] || 0
+
+                state.scene.add(sphere)
+              }
+
+            }
+          }
+
+          function renderEomultipolygons (items=[]) {
+            if (items.length === 0) return
+
+            for (let k in items) { // DOTS (seg5===0) each group gid
+              let item = items[k] // feature
               let feature = item // .feature
               let style = item.properties.style
 
@@ -190,213 +234,188 @@
 
               if (geometry !== undefined && geometry !== null) {			// geometry may be null
 
+                let vertices = feature.geometry.coordinates
+                let faces = feature.properties.faces.map(face=> new THREE.Face3(...face))
 
-                if (0) {
-                } else if (geometry.type === 'MultiPoint') {  // Points
-
-                  // MultiPoint may support various THREE object
-
-                  if (0) {
-                  } else if ( feature.properties.eoMultiPolygon == 1) {
-                      let vertices = feature.geometry.coordinates
-
-                      let faces = feature.properties.faces.map(face=> new THREE.Face3(...face))
-                      
-
-                    	let	geo = new THREE.Geometry()
-                      geo.vertices = vertices.map(v => (Array.isArray(v)) ? {x:v[0],y:v[1],z:v[2]} : v)
-                      geo.faces = faces
-                      geo.computeFaceNormals()
+                let	geo = new THREE.Geometry()
+                geo.vertices = vertices.map(to3point)
+                geo.faces = faces
+                geo.computeFaceNormals()
 
 
-                      let object =  new THREE.Mesh(
-                          geo, // geometry,
-                          new THREE.LineBasicMaterial({	// LineBasicMaterial // MeshPhongMaterial solic
-                            color: style.fill,
-                            opacity: style['fill-opacity'],
+                let object =  new THREE.Mesh(
+                    geo, // geometry,
+                    new THREE.LineBasicMaterial({	// LineBasicMaterial // MeshPhongMaterial solic
+                      color: style.fill,
+                      opacity: style['fill-opacity'],
 
-                          })
-                        )
-                      object.children.forEach(function(e) {
-                        e.geometry.vertices=vertices
-                        e.geometry.verticesNeedUpdate=true
-                        e.geometry.computeFaceNormals()
-                      })
-                      
-                      for (let i=0; i<vertices.length; i++) {
-                          var particle_geom = new THREE.Geometry()
-                          let vertex = vertices[i]
-                          if (Array.isArray(vertex)) vertex = {
-                            x: vertex[0],
-                            y: vertex[1], 
-                            z: vertex[2],
-                          }
-                          particle_geom.vertices.push(new THREE.Vector3(vertex.x, vertex.y, vertex.z))
-                          var particle_material = new THREE.PointsMaterial({size: 19})
-                          var particle = new THREE.Points(particle_geom, particle_material)
-
-                          object.add(particle)
-                      }
-                      state.scene.add(object)
-                  } else {
-
-                    let vertices = geometry.coordinates
-                    for (let i=0; i<vertices.length; i++) {
-
-                      let vertex = vertices[i]
-
-                      state.material_color = style.fill
-                      state.geometry = new THREE.SphereGeometry(5, 32, 32)
-                      state.wireframe = new THREE.WireframeGeometry(state.geometry)
-                      state.material = new THREE.MeshBasicMaterial({
-                        color: state.material_color,
-                        transparent: true,
-                        opacity: 0.75,
-                      })
-
-                      let sphere = new THREE.Mesh(
-                        state.wireframe,
-                        state.material
-                      )
-
-                      sphere.position.x = vertex[0]
-                      sphere.position.y = vertex[1] || 0
-                      sphere.position.z = vertex[2] || 0
-
-                      state.scene.add(sphere)
-                    }
-                  }
-                } else if (geometry.type === 'Point') {  // Point
-                  let node = item
-
-                  state.material_color = style.fill
-                  state.geometry = new THREE.SphereGeometry(5, 32, 32)
-                  state.wireframe = new THREE.WireframeGeometry(state.geometry)
-                  state.material = new THREE.MeshBasicMaterial({
-                    color: state.material_color,
-                    transparent: true,
-                    opacity: 0.75,
-                  })
-
-                  let sphere = new THREE.Mesh(
-                    state.wireframe,
-                    state.material
+                    })
                   )
+                object.children.forEach(function(e) {
+                  e.geometry.vertices=vertices
+                  e.geometry.verticesNeedUpdate=true
+                  e.geometry.computeFaceNormals()
+                })
 
-                  sphere.position.x = node.x || node.geometry.coordinates[0]
-                  sphere.position.y = node.y || node.geometry.coordinates[1] || 0
-                  sphere.position.z = node.z || node.geometry.coordinates[2] || 0
+                for (let i=0; i<vertices.length; i++) {
+                    var particle_geom = new THREE.Geometry()
+                    let vertex = vertices[i]
+                    if (Array.isArray(vertex)) vertex = {
+                      x: vertex[0],
+                      y: vertex[1],
+                      z: vertex[2],
+                    }
+                    particle_geom.vertices.push(new THREE.Vector3(vertex.x, vertex.y, vertex.z))
+                    var particle_material = new THREE.PointsMaterial({size: 19})
+                    var particle = new THREE.Points(particle_geom, particle_material)
 
-                  state.scene.add(sphere)
-
-                } else if (geometry.type === 'Polygon') {  // Polygon
-                  let threeMaterial = new THREE.LineBasicMaterial({
-                    color: style.stroke,
-                    opacity: style['stroke-opacity'],
-                  })
-
-                  for (let i = 0; i < geometry.coordinates.length; i++) {
-                    let line = geometry.coordinates[i]
-
-                    let threeGeometry = new THREE.Geometry()
-
-                    d3.pairs(line.map(denser), function (a, b) {
-                      threeGeometry.vertices.push(a, b)
-                    })
-                    let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-                    if (object) state.scene.add(object)
-
-
-                  }
-
-                } else if (geometry.type === 'MultiPolygon') {  // MultiPolygon
-
-                  let threeMaterial = new THREE.LineBasicMaterial({
-                    color: style.stroke,
-                    opacity: style['stroke-opacity'],
-                  })
-
-                  for (let i = 0; i < geometry.coordinates.length; i++) {
-                    let coordinates = geometry.coordinates[i]
-
-                    let threeGeometry = new THREE.Geometry()
-
-                    coordinates.forEach(function (line) {
-                      d3.pairs(line.map(denser), function (a, b) {
-                        threeGeometry.vertices.push(a, b)
-                      })
-                      let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-                      if (object) state.scene.add(object)
-                    })
-                  }
-
-                } else if (geometry.type === 'MultiLineString') {  // MultiLineString
-                  let threeMaterial = new THREE.LineBasicMaterial({
-                    color: style.stroke,
-                    opacity: style['stroke-opacity'],
-                  })
-
-                  // let coordinates = Array.of(geometry.coordinates)
-                  let coordinates = geometry.coordinates
-
-                  let threeGeometry = new THREE.Geometry()
-
-                  coordinates.forEach(function (line) {
-                    d3.pairs(line.map(denser), function (a, b) {
-                      threeGeometry.vertices.push(a, b)
-                    })
-                    let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-                    if (object) state.scene.add(object)
-                  })
-
-                } else if (geometry.type === 'LineString') {  // LineString
-
-                  let threeMaterial = new THREE.LineBasicMaterial({
-                    color: style.stroke,
-                    opacity: style['stroke-opacity'],
-                  })
-
-                  let coordinates = Array.of(geometry.coordinates)
-
-                  let threeGeometry = new THREE.Geometry()
-
-                  coordinates.forEach(function (line) {
-                    d3.pairs(line.map(denser), function (a, b) {
-                      threeGeometry.vertices.push(a, b)
-                    })
-                    let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-                    if (object) state.scene.add(object)
-                  })
-
-                } else {
-
-                  let threeMaterial = new THREE.LineBasicMaterial({
-                    color: style.stroke,
-                    opacity: style['stroke-opacity'],
-                  })
-
-                  let coordinates = geometry.coordinates
-
-                  let threeGeometry = new THREE.Geometry()
-
-                  coordinates.forEach(function (line) {
-                    d3.pairs(line.map(denser), function (a, b) {
-                      threeGeometry.vertices.push(a, b)
-                    })
-                    let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-                    if (object) state.scene.add(object)
-                  })
+                    object.add(particle)
                 }
+                state.scene.add(object)
+              } // geometry is not null
+            } // forEach feature
+          }
+
+
+          function renderMultiLineString (items=[]) {
+            if (items.length === 0) return
+            for (let k in items) { // DOTS (seg5===0) each group gid
+              let item = items[k] // feature
+              let feature = item // .feature
+              let style = feature.properties.style
+              let geometry = feature.geometry
+              let coordinates = geometry.coordinates
+
+              let threeMaterial = new THREE.LineBasicMaterial({
+                color: style.stroke,
+                opacity: style['stroke-opacity'],
+              })
+
+              let threeGeometry = new THREE.Geometry()
+
+              coordinates.forEach(function (line) {
+                d3.pairs(line.map(denser), function (a, b) {
+                  threeGeometry.vertices.push(a, b)
+                })
+                let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+                if (object) state.scene.add(object)
+              })
+            }
+          }
+
+          function renderLineString (items=[]) {
+            if (items.length === 0) return
+            for (let k in items) { // DOTS (seg5===0) each group gid
+              let item = items[k] // feature
+              let feature = item // .feature
+              let style = feature.properties.style
+              let geometry = feature.geometry
+              let coordinates = Array.of(geometry.coordinates)
+
+              let threeMaterial = new THREE.LineBasicMaterial({
+                color: style.stroke,
+                opacity: style['stroke-opacity'],
+              })
+
+              let threeGeometry = new THREE.Geometry()
+
+              coordinates.forEach(function (line) {
+                d3.pairs(line.map(denser), function (a, b) {
+                  threeGeometry.vertices.push(a, b)
+                })
+                let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+                if (object) state.scene.add(object)
+              })
+            }
+          }
+
+          function renderPoint (items=[]) {
+            if (items.length === 0) return
+            for (let k in items) { // DOTS (seg5===0) each group gid
+              let item = items[k] // feature
+              let feature = item // .feature
+              let style = feature.properties.style
+              let geometry = feature.geometry
+              let coordinates = geometry.coordinates
+
+              let threeMaterial = new THREE.LineBasicMaterial({
+                color: style.stroke,
+                opacity: style['stroke-opacity'],
+              })
+
+              let threeGeometry = new THREE.Geometry()
+
+              coordinates.forEach(function (line) {
+                d3.pairs(line.map(denser), function (a, b) {
+                  threeGeometry.vertices.push(a, b)
+                })
+                let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+                if (object) state.scene.add(object)
+              })
+            }
+          }
+
+          function renderPolygon (items=[]) {
+            if (items.length === 0) return
+            for (let k in items) { // DOTS (seg5===0) each group gid
+              let item = items[k] // feature
+              let feature = item // .feature
+              let style = feature.properties.style
+              let geometry = feature.geometry
+              let coordinates = geometry.coordinates
+
+              let threeMaterial = new THREE.LineBasicMaterial({
+                color: style.stroke,
+                opacity: style['stroke-opacity'],
+              })
+
+              let threeGeometry = new THREE.Geometry()
+
+              coordinates.forEach(function (line) {
+                d3.pairs(line.map(denser), function (a, b) {
+                  threeGeometry.vertices.push(a, b)
+                })
+                let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+                if (object) state.scene.add(object)
+              })
+            }
+          }
+
+          function renderMultiPolygon (items=[]) {
+            if (items.length === 0) return
+            for (let k in items) { // DOTS (seg5===0) each group gid
+              let item = items[k] // feature
+              let feature = item // .feature
+              let style = feature.properties.style
+              let geometry = feature.geometry
+              let coordinates = geometry.coordinates
+
+              let threeMaterial = new THREE.LineBasicMaterial({
+                color: style.stroke,
+                opacity: style['stroke-opacity'],
+              })
+
+              let threeGeometry = new THREE.Geometry()
+
+              for (let i = 0; i < geometry.coordinates.length; i++) {
+                let polygon = geometry.coordinates[i]
+                polygon.forEach(function (line) { // each coordinate in polygon
+                  d3.pairs(line.map(denser), function (a, b) {
+                    threeGeometry.vertices.push(a, b)
+                  })
+                  let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+                  if (object) state.scene.add(object)
+                })
               }
             }
           }
 
-          /*  ................. IMG ................. */
-          let imgs = fitems.filter(d => d.properties.sort === 'img')
 
-          if (imgs.length > 0) {
-            for (let k in imgs) {
-              let img = imgs[k]
+          function renderImg (items=[]) {
+            if (items.length === 0) return
+            for (let k in items) { // DOTS (seg5===0) each group gid
+              let item = items[k] // feature
+              let img = item
 
               let href = img.properties['xlink:href']
 
@@ -413,15 +432,62 @@
             }
           }
 
-          /*  ................. 3LINK ................. */
-          let threelinks = fitems.filter(d => d.properties.sort === 'threelink')
-
-          if (threelinks.length > 0) {
-            for (let k in threelinks) {
-              let link = threelinks[k]
+          function renderThreeLink (items=[]) {
+            if (items.length === 0) return
+            for (let k in items) { // DOTS (seg5===0) each group gid
+              let item = items[k] // feature
+              let link = item
               state.scene.add(link._line = link.line)
             }
           }
+
+
+          let EOMULTIPOLYGON = d =>
+            (d.properties.sort === 'feature' || d.properties.sort === 'form')
+            && d.geometry.type === 'MultiPoint' // properties.faces
+            && d.properties.eoMultiPolygon == 1
+
+          let MULTIPOINT = d =>
+            (d.properties.sort === 'feature' || d.properties.sort === 'form')
+            && d.geometry.type === 'MultiPoint'
+            && d.properties.eoMultiPolygon !== 1
+
+          let MULTILINESTRING = d =>
+            (d.properties.sort === 'feature' || d.properties.sort === 'form')
+            && d.geometry.type === 'MultiLineString'
+
+          let IMG = d =>
+            d.properties.sort === 'img'
+
+          let THREELINKK = d =>
+            d.properties.sort === 'threelink'
+
+
+
+
+
+      /* items to add to scene */
+
+      let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
+        .key(function (d) { return d.properties.eoric.gid })
+        .key(function (d) { return d.properties.eoric.cid })
+        .entries(features)
+
+
+      for (let i in gitems) { // DOTS (seg5===0) each group gid
+        let gid = gitems[i].key,
+          citems = gitems[i].values
+
+        for (let j in citems) { // forEach CLASS by cid
+          let cid = citems[j].key // cid
+          let fitems = citems[j].values // fitems
+          let now = fitems.slice(-1)[0]
+
+          renderEomultipolygons(fitems.filter(EOMULTIPOLYGON))
+          renderMultiPoint(fitems.filter(MULTIPOINT))
+          renderMultiLineString(fitems.filter(MULTILINESTRING))
+
+
         } // citems
       } // gitems
 
@@ -432,10 +498,10 @@
         state.toolTipElem.innerHTML = intersects.length ? intersects[0].object.index || '_e_' : '_e_'
       }
 
-      state.controls.update() // Frame cycle
+      state.controls.update() // UPDATE SCENE by CONTROL
 
-
-      state.portview.render(state.scene, state.camera)
+      // RENDERER  SCENE  CAMERA
+      state.renderer.render(state.scene, state.camera)
     }
 
     // ............................. enty
