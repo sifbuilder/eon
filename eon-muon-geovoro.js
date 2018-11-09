@@ -17,32 +17,17 @@
 
   // ref: https://visionscarto.net/the-state-of-d3-voronoi
 
-  var radians = Math.PI / 180
-
-  const color = t => d3.hsl(280 + (40 * t), 0.18, 0.4)
-  const line = d3.line()
-
-  let x = function (d) {
-    if (typeof d === 'object' && 'type' in d) {
-      return d3.geoCentroid(d)[0]
-    }
-    if (0 in d) return d[0]
-  }
-  let y = function (d) {
-    if (typeof d === 'object' && 'type' in d) {
-      return d3.geoCentroid(d)[1]
-    }
-    if (0 in d) return d[1]
-  }
 
   // ............................. muonGeovoro
   async function muonGeovoro (__mapper = {}) {
     let [
       d3,
       muonDelaunay,
+      muonGeom,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
-      __mapper('xs').m('delaynay'),
+      __mapper('xs').m('delaunay'),
+      __mapper('xs').m('geom'),
     ])
 
     var state = Object.assign({})
@@ -50,6 +35,25 @@
     let voronoi = d3.voronoi
     let FindDelaunayTriangulation = muonDelaunay.FindDelaunayTriangulation
 
+    var radians = Math.PI / 180
+
+    const color = t => d3.hsl(280 + (40 * t), 0.18, 0.4)
+    const line = d3.line()
+
+    let x = function (d) {
+      if (typeof d === 'object' && 'type' in d) {
+        return d3.geoCentroid(d)[0]
+      }
+      if (0 in d) return d[0]
+    }
+    let y = function (d) {
+      if (typeof d === 'object' && 'type' in d) {
+        return d3.geoCentroid(d)[1]
+      }
+      if (0 in d) return d[1]
+    }
+  
+    
     // ............................. voro
     var voro = function voro () {}			// entApi
 
@@ -68,7 +72,7 @@
       })
       voro.pos = pos
       voro.sites = sites
-      voro.DelaunayTriang = FindDelaunayTriangulation(pos.map(__mapper('pluginProjection').cartesian))
+      voro.DelaunayTriang = FindDelaunayTriangulation(pos.map(muonGeom.cartesian))
 
       return voro
     }
@@ -131,7 +135,7 @@
           t.spherical = t.verts.map(function (v) {
             return voro.DelaunayTriang.positions[v]
           })
-            .map(__mapper('pluginProjection').spherical)
+            .map(muonGeom.spherical)
 
           // correct winding order
           if (t.ccdsq < 0) {
@@ -152,7 +156,7 @@
                 return voro.sites[i]
               }),
               area: t.vol, // steradians
-              circumcenter: __mapper('pluginProjection').spherical(t.ccdir),
+              circumcenter: muonGeom.spherical(t.ccdir),
               // ccdsq is *not* the geodesic distance
               /* circumradius: (2-t.ccdsq) * 53 */
             },

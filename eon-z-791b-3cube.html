@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     eohalMars,
     muonGeom,
     muonProps,
-    // renderSvg,
+    muonGeovoro,
     renderWebgl,
   ] = await Promise.all([
     __mapper('xs').b('d3'),
@@ -20,10 +20,11 @@ async function anitem (__mapper) {
     __mapper('xs').e('mars'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('props'),
-    // __mapper('xs').r('svg'),
+    __mapper('xs').m('geovoro'),
     __mapper('xs').r('webgl'),
   ])
 
+  
   let ani = function () {
   // .................. pics
 
@@ -34,6 +35,7 @@ async function anitem (__mapper) {
 
     const eotim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
+    
     // .................. facesAni anima
     let facesAni = {
 
@@ -42,9 +44,10 @@ async function anitem (__mapper) {
       eofold: anitem => {
         let eoload = anitem.eoload,
           eoric = anitem.eoric,
-          C0 = eoload.C0,
           vertices = eoload.vertices(eoload.pars),
           faces = eoload.faces(eoload.pars)
+          
+          faces = faces.reduce( (p,q) => [...p, ...muonGeom.convextriang(q)], [])
 
           
         let json = {  // Feature
@@ -136,7 +139,6 @@ async function anitem (__mapper) {
     let animas = [
 
       facesAni, // h.mars
-
 
     ]
     return animas

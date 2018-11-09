@@ -310,6 +310,27 @@
       -2.2175964844211e-7,
     ]
 
+    enty.convextriang = a => {
+
+      let faces = []
+
+      if (a.length === 0) {
+        faces = []
+      } else {
+        let vertices = a
+        let qverts = vertices.length
+        if (qverts <= 3) {
+          faces.push(a)
+        } else {
+          let face = [vertices[0],vertices[1],vertices[2]]
+          vertices.splice(1, 1)
+          faces = [face, ...enty.convextriang(vertices)]
+        }
+      }
+      return faces
+    }
+    
+    
     return enty
   }
 

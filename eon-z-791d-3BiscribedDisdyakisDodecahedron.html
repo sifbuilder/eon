@@ -1,0 +1,220 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  let [
+    d3,
+    d3geo,
+    ctlWen,
+    eohalMars,
+    muonGeom,
+    muonProps,
+    // renderSvg,
+    renderWebgl,
+  ] = await Promise.all([
+    __mapper('xs').b('d3'),
+    __mapper('xs').b('d3-geo'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').e('mars'),
+    __mapper('xs').m('geom'),
+    __mapper('xs').m('props'),
+    // __mapper('xs').r('svg'),
+    __mapper('xs').r('webgl'),
+  ])
+
+  let ani = function () {
+  // .................. pics
+
+    let epsilon = 1e-6, epsilon2 = epsilon * epsilon, asin = Math.asin
+    let atan = Math.atan, abs = Math.abs
+    let pi = Math.PI, degrees = 180 / pi, asin1_3 = Math.asin(1 / 3)
+    let sqrt = Math.sqrt
+    let theta = atan(0.5) * degrees
+
+    const eotim = {'td': 18800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => t }
+
+    // .................. facesAni anima
+    let facesAni = {
+
+      eohal: 'mars',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload,
+          eoric = anitem.eoric,
+          vertices = eoload.vertices(eoload.pars),
+          faces = eoload.faces(eoload.pars)
+
+
+        let json = {  // Feature
+          type: 'Feature',
+          geometry: {
+            type: 'MultiPoint',
+            coordinates: vertices,
+          },
+          properties: {
+            sort: 'form',
+            eoMultiPolygon: 1,
+            faces: faces
+          },
+        }
+
+
+        return json
+      },
+
+      eotim: eotim,
+      eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
+      eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+
+      eomot: {
+        proform: {
+
+          projection: 'uniwen',
+          translate: [ 0, 0, 0 ],
+          scale: [100,100,100],
+          rotate: [[[[0,6, 0]]], [[[0,2 * 360]]], [[[0,6, 0]]]],
+          lens: [0, 1, Infinity ],
+
+        },
+      },
+      eoload: {
+          /*
+            Dave McCooey
+            dmccooey@mac.com
+
+            Biscribed Disdyakis Dodecahedron with radius = 1
+
+            (24) SHORT EDGE = sqrt(6 * (3 - sqrt(6))) / 3
+            (24) MEDIUM EDGE = sqrt(2 - sqrt(2))
+            (24) LONG EDGE = sqrt(6 * (3 - sqrt(3))) / 3
+            RADIUS = 1
+            INRADIUS = sqrt(1633*(441 + 194*sqrt(2) + 144*sqrt(3) + 130*sqrt(6)))/1633
+              = 1 / sqrt(9 - 2 * sqrt(2) - 2 * sqrt(6))
+            VOLUME = 4 * sqrt(6) / 3
+            SHORT EDGE ANGLE = acos(-(539+600*sqrt(2)+176*sqrt(3)-204*sqrt(6))/1633)
+              = 136.916340787932126275849683362 degrees
+            MEDIUM EDGE ANGLE = acos(-(343-212*sqrt(2)+112*sqrt(3)+464*sqrt(6))/1633)
+              = 147.270951511286007556257225508 degrees
+            LONG EDGE ANGLE = acos(-(149+384*sqrt(2)-18*sqrt(3)+392*sqrt(6))/1633)
+              = 173.0732800130535776353432050648 degrees
+
+            EULER CHARACTERISTIC:          2
+            ROTATION SYMMETRIES:          24
+            MIRROR ROTATION SYMMETRIES:   24
+            ROTATION AXES:                13 (3[4] + 4[3] + 6[2])
+            MIRROR PLANES:                 9
+            INVERTIBLE:                  YES
+            SYMMETRY CLASSIFICATION:  Full Octahedral (Oh)
+            TOPOLOGICALLY SELF-DUAL:      NO
+
+            C0 = sqrt(3) / 3 // 0.577350269189625764509148780502,
+            C1 = sqrt(2) / 2 // 0.7071067811865475244008443621048,
+          */
+        pars: {
+          C0: [[[sqrt(3) / 3, sqrt(3) / 1, sqrt(3) / 3]]],
+          C1: [[[sqrt(2) / 6, sqrt(2) / 2, sqrt(2) / 6]]] ,
+        },
+
+        vertices: pars =>
+
+          [[0.0,0.0,1.0],
+          [0.0,0.0,-1.0],
+          [1.0,0.0,0.0],
+          [-1.0,0.0,0.0],
+          [0.0,1.0,0.0],
+          [0.0,-1.0,0.0],
+          [pars.C1,0.0,pars.C1],
+          [pars.C1,0.0,-pars.C1],
+          [-pars.C1,0.0,pars.C1],
+          [-pars.C1,0.0,-pars.C1],
+          [pars.C1,pars.C1,0.0],
+          [pars.C1,-pars.C1,0.0],
+          [-pars.C1,pars.C1,0.0],
+          [-pars.C1,-pars.C1,0.0],
+          [0.0,pars.C1,pars.C1],
+          [0.0,pars.C1,-pars.C1],
+          [0.0,-pars.C1,pars.C1],
+          [0.0,-pars.C1,-pars.C1],
+          [pars.C0,pars.C0,pars.C0],
+          [pars.C0,pars.C0,-pars.C0],
+          [pars.C0,-pars.C0,pars.C0],
+          [pars.C0,-pars.C0,-pars.C0],
+          [-pars.C0,pars.C0,pars.C0],
+          [-pars.C0,pars.C0,-pars.C0],
+          [-pars.C0,-pars.C0,pars.C0],
+          [-pars.C0,-pars.C0,-pars.C0]]
+
+        ,
+
+        faces:  pars =>
+
+        [[0,6,18],
+          [0,18,14],
+          [0,14,22],
+          [0,22,8],
+          [0,8,24],
+          [0,24,16],
+          [0,16,20],
+          [0,20,6],
+          [1,7,21],
+          [1,21,17],
+          [1,17,25],
+          [1,25,9],
+          [1,9,23],
+          [1,23,15],
+          [1,15,19],
+          [1,19,7],
+          [2,6,20],
+          [2,20,11],
+          [2,11,21],
+          [2,21,7],
+          [2,7,19],
+          [2,19,10],
+          [2,10,18],
+          [2,18,6],
+          [3,8,22],
+          [3,22,12],
+          [3,12,23],
+          [3,23,9],
+          [3,9,25],
+          [3,25,13],
+          [3,13,24],
+          [3,24,8],
+          [4,10,19],
+          [4,19,15],
+          [4,15,23],
+          [4,23,12],
+          [4,12,22],
+          [4,22,14],
+          [4,14,18],
+          [4,18,10],
+          [5,11,20],
+          [5,20,16],
+          [5,16,24],
+          [5,24,13],
+          [5,13,25],
+          [5,25,17],
+          [5,17,21],
+          [5,21,11]]
+
+        ,
+      },
+    }
+
+    // .................. animas
+    let animas = [
+
+      facesAni, // h.mars
+
+
+    ]
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>
