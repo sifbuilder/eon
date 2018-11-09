@@ -40,9 +40,10 @@ async function anitem (__mapper) {
       eohal: 'mars',
 
       eofold: anitem => {
-
         let eoload = anitem.eoload,
           eoric = anitem.eoric,
+          C0 = eoload.C0,
+          // vertices = eoload.vertices(C0).map(p => (p.map(c => c * 100))),
           vertices = eoload.vertices(eoload.pars),
           faces = eoload.faces(eoload.pars)
 
@@ -65,7 +66,7 @@ async function anitem (__mapper) {
 
       eotim: eotim,
       eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
-      eocrom: {'csx': 0, 'cf': [[[999, 444, 555]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      eocrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
       eomot: {
         proform: {
@@ -73,57 +74,58 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           translate: [ 0, 0, 0 ],
           scale: [100,100,100],
-          rotate: [0, [[[0,360]]], 0],
+          rotate: [0, 0, 0],
           lens: [0, 1, Infinity ],
 
         },
       },
       eoload: {
-        
+        // dihedral angle: 116.56°
         pars: {
-          C0: 0.809016994374947424102293417183, // dihedral angle: 116.56° (1+sqrt(5))/4
-          },
+          C0: 0.809016994374947424102293417183, // = (1 + sqrt(5)) / 4
+        },
 
-          vertices: pars =>  [
+        vertices: pars => [
 
-              [ 0.5, 0.0, pars.C0],
-              [ 0.5, 0.0, -pars.C0],
-              [-0.5, 0.0, pars.C0],
-              [-0.5, 0.0, -pars.C0],
-              [ pars.C0, 0.5, 0.0],
-              [ pars.C0, -0.5, 0.0],
-              [ -pars.C0, 0.5, 0.0],
-              [ -pars.C0, -0.5, 0.0],
-              [ 0.0, pars.C0, 0.5],
-              [ 0.0, pars.C0, -0.5],
-              [ 0.0, -pars.C0, 0.5],
-              [ 0.0, -pars.C0, -0.5],
+          [ 0.5, 0.0, pars.C0],
+          [ 0.5, 0.0, -pars.C0],
+          [-0.5, 0.0, pars.C0],
+          [-0.5, 0.0, -pars.C0],
+          [ pars.C0, 0.5, 0.0],
+          [ pars.C0, -0.5, 0.0],
+          [ -pars.C0, 0.5, 0.0],
+          [ -pars.C0, -0.5, 0.0],
+          [ 0.0, pars.C0, 0.5],
+          [ 0.0, pars.C0, -0.5],
+          [ 0.0, -pars.C0, 0.5],
+          [ 0.0, -pars.C0, -0.5],
 
-          ],
+        ],
 
-          faces: pars =>  [
-              [ 0, 2, 10 ],
-              [ 0, 10, 5 ],
-              [ 0, 5, 4 ],
-              [ 0, 4, 8 ],
-              [ 0, 8, 2 ],
-              [ 3, 1, 11 ],
-              [ 3, 11, 7 ],
-              [ 3, 7, 6 ],
-              [ 3, 6, 9 ],
-              [ 3, 9, 1 ],
-              [ 2, 6, 7 ],
-              [ 2, 7, 10 ],
-              [ 10, 7, 11 ],
-              [ 10, 11, 5 ],
-              [ 5, 11, 1 ],
-              [ 5, 1, 4 ],
-              [ 4, 1, 9 ],
-              [ 4, 9, 8 ],
-              [ 8, 9, 6 ],
-              [ 8, 6, 2 ],
-          ],
- 
+        faces:  pars => [
+
+          [ 0, 2, 10 ],
+          [ 0, 10, 5 ],
+          [ 0, 5, 4 ],
+          [ 0, 4, 8 ],
+          [ 0, 8, 2 ],
+          [ 3, 1, 11 ],
+          [ 3, 11, 7 ],
+          [ 3, 7, 6 ],
+          [ 3, 6, 9 ],
+          [ 3, 9, 1 ],
+          [ 2, 6, 7 ],
+          [ 2, 7, 10 ],
+          [ 10, 7, 11 ],
+          [ 10, 11, 5 ],
+          [ 5, 11, 1 ],
+          [ 5, 1, 4 ],
+          [ 4, 1, 9 ],
+          [ 4, 9, 8 ],
+          [ 8, 9, 6 ],
+          [ 8, 6, 2 ],
+
+        ],
       },
     }
 
@@ -137,7 +139,7 @@ async function anitem (__mapper) {
     return animas
   }
 
-  let enty = {}
+  let enty = () => {}
   enty.ani = ani
   return enty
 }

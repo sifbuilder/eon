@@ -29,12 +29,10 @@
       __mapper('xs').c('trackballcontrols'),
     ])
 
-
-    let to3point = v => (Array.isArray(v)) ? {x:v[0],y:v[1],z:v[2]} : v
+    const to3point = v => (Array.isArray(v)) ? {x:v[0],y:v[1],z:v[2]} : v
     const radians = Math.PI / 180
 
     let state = {}
-
 
     state.renderer = new THREE.WebGLRenderer({antialias: true}) /* renderer */
     state.domElem = state.renderer.domElement // canvas
@@ -43,7 +41,6 @@
     state.context = state.domElem.getContext('webgl')
     state.width = renderPortview.width(),
     state.height = renderPortview.height()
-
 
     d3.select('body') /* canvas */
       .append(() => d3.select(state.domElem)
@@ -86,10 +83,10 @@
     }
 
     /* CAMERA */
-    state.camera = new THREE.PerspectiveCamera(45, state.width / state.height, 0.1, 9000) // Setup camera
-    state.camera.position.x = 0
-    state.camera.position.y = 0
-    state.camera.position.z = 500
+    // state.camera = new THREE.PerspectiveCamera(45, state.width / state.height, 0.1, 9000)
+    // state.camera.position.x = 0
+    // state.camera.position.y = 0
+    // state.camera.position.z = 500
 
     state.camera = new THREE.OrthographicCamera(
       -state.width / 2, // window.innerWidth / - 16,
@@ -121,15 +118,16 @@
     /* SCENE */
     state.scene = new THREE.Scene() // Setup scene
 
-    /* LIGNTS */
-    state.scene.add(new THREE.AmbientLight(0x333333))
-    let light = new THREE.DirectionalLight(0xe4eef9, 0.7)
-    light.position.set(12, 12, 8)
+    /* LIGHTS */
+    // let light = new THREE.AmbientLight(0x333333)
+    // let light = new THREE.DirectionalLight(0xe4eef9, 0.7)
+    // light.position.set(12, 12, 8)
+    // state.scene.add(light)
 
 
     state.raycaster = new THREE.Raycaster() // Capture mouse coords on move
 
-    // /* controls */
+    /* controls */
     // __mapper('controlRaycaster').control(state.domElem) // state.domNode
 
     state.controls = new TrackballControls(state.camera, state.domElem) // Add camera interaction
@@ -147,82 +145,49 @@
       return new THREE.Vector3(...point)
     }
 
-    // ............................. RENDER
+    // .................. multiPointToScene
+    function multiPointToScene (items=[]) {
+      if (items.length === 0) return
 
-    let render = function (featurecollection, maxlimit) {
+      for (let k in items) { // DOTS (seg5===0) each group gid
+        let item = items[k] // feature
 
-      let features = featurecollection.features
-        .filter(
-          d => d.properties !== undefined && // req properties
-            d.properties.eoric !== undefined // req eoric
-        )
+        let feature = item // .feature
+        let style = item.properties.style
 
+        let geometry = feature.geometry // rings in MultiPolygon, MultiLineString
 
-      console.assert(state.scene !== undefined) /* clean canvas */
-      while (state.scene.children.length > 0) {
-        state.scene.remove(state.scene.children[0]) // remove object from scene
+        let vertices = geometry.coordinates
+        for (let i=0; i<vertices.length; i++) {
+
+          let vertex = vertices[i]
+
+          state.material_color = style.fill
+          state.geometry = new THREE.SphereGeometry(5, 32, 32)
+          state.wireframe = new THREE.WireframeGeometry(state.geometry)
+          state.material = new THREE.MeshBasicMaterial({
+            color: state.material_color,
+            transparent: true,
+            opacity: 0.75,
+          })
+
+          let sphere = new THREE.Mesh(
+            state.wireframe,
+            state.material
+          )
+
+          sphere.position.x = vertex[0]
+          sphere.position.y = vertex[1] || 0
+          sphere.position.z = vertex[2] || 0
+
+          state.scene.add(sphere)
+        }
+
       }
-
-
-          // let scene = new THREE.Secne()
-          // let aspect = window.innerWidth / window.innerHeight
-          // let camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000)
-          // let renderer = new THREE.WebGLRender()
-          // renderer.setSize(window.innerWidth , window.innerHeight)
-          // document.body.appendChild(renderer.domElement)
-          // let geometry = new THREE.BoxGeometry(1,1,1)
-          // let material = new THREE.Mesh(egometry, material)
-          // scene.add (mesh)
-          // camera.position.z = 5
-          // let render = function() {
-            // requestAnimationGrame(render)
-            // renderer.render(scene, camera)
-          //}
-
-
-
-
-          function renderMultiPoint (items=[]) {
-            if (items.length === 0) return
-
-            for (let k in items) { // DOTS (seg5===0) each group gid
-              let item = items[k] // feature
-
-              let feature = item // .feature
-              let style = item.properties.style
-
-              let geometry = feature.geometry // rings in MultiPolygon, MultiLineString
-
-              let vertices = geometry.coordinates
-              for (let i=0; i<vertices.length; i++) {
-
-                let vertex = vertices[i]
-
-                state.material_color = style.fill
-                state.geometry = new THREE.SphereGeometry(5, 32, 32)
-                state.wireframe = new THREE.WireframeGeometry(state.geometry)
-                state.material = new THREE.MeshBasicMaterial({
-                  color: state.material_color,
-                  transparent: true,
-                  opacity: 0.75,
-                })
-
-                let sphere = new THREE.Mesh(
-                  state.wireframe,
-                  state.material
-                )
-
-                sphere.position.x = vertex[0]
-                sphere.position.y = vertex[1] || 0
-                sphere.position.z = vertex[2] || 0
-
-                state.scene.add(sphere)
-              }
-
-            }
-          }
-
-          function renderEomultipolygons (items=[]) {
+    }
+    
+    // .................. eoMultipolygonsToScene
+          function eoMultipolygonsToScene (items=[]) {
             if (items.length === 0) return
 
             for (let k in items) { // DOTS (seg5===0) each group gid
@@ -230,54 +195,62 @@
               let feature = item // .feature
               let style = item.properties.style
 
-              let geometry = feature.geometry // rings in MultiPolygon, MultiLineString
 
-              if (geometry !== undefined && geometry !== null) {			// geometry may be null
+              if (feature.geometry !== undefined && feature.geometry !== null) {			// geometry may be null
 
                 let vertices = feature.geometry.coordinates
                 let faces = feature.properties.faces.map(face=> new THREE.Face3(...face))
 
-                let	geo = new THREE.Geometry()
-                geo.vertices = vertices.map(to3point)
-                geo.faces = faces
-                geo.computeFaceNormals()
-
+                let	threeGeometry = new THREE.Geometry()
+                threeGeometry.vertices = vertices.map(to3point)
+                threeGeometry.faces = faces
+                threeGeometry.computeFaceNormals()
 
                 let object =  new THREE.Mesh(
-                    geo, // geometry,
-                    new THREE.LineBasicMaterial({	// LineBasicMaterial // MeshPhongMaterial solic
-                      color: style.fill,
-                      opacity: style['fill-opacity'],
+                    threeGeometry, // geometry,
+                    // new THREE.LineBasicMaterial({
+                    new THREE.MeshPhongMaterial({
+                      // color: 0x0033ff, 
+                      color: style.fill,                      
+                      // specular: 0x555555, 
+                      shininess: 30
+
+                      // opacity: style['fill-opacity'],
 
                     })
-                  )
-                object.children.forEach(function(e) {
-                  e.geometry.vertices=vertices
-                  e.geometry.verticesNeedUpdate=true
-                  e.geometry.computeFaceNormals()
-                })
+                )
+                // object.children.forEach(function(e) {
+                  // e.geometry.vertices=vertices
+                  // e.geometry.verticesNeedUpdate=true
+                  // e.geometry.computeFaceNormals()
+                // })
 
                 for (let i=0; i<vertices.length; i++) {
                     var particle_geom = new THREE.Geometry()
-                    let vertex = vertices[i]
-                    if (Array.isArray(vertex)) vertex = {
-                      x: vertex[0],
-                      y: vertex[1],
-                      z: vertex[2],
-                    }
+                    let vertex = threeGeometry.vertices[i]
                     particle_geom.vertices.push(new THREE.Vector3(vertex.x, vertex.y, vertex.z))
-                    var particle_material = new THREE.PointsMaterial({size: 19})
+                    var particle_material = new THREE.PointsMaterial({size: 1})
                     var particle = new THREE.Points(particle_geom, particle_material)
 
                     object.add(particle)
                 }
+                
+                
+                let light1 = new THREE.AmbientLight(0x333333, 0.9)
+                light1.position.set(200, 200, 200)
+                state.scene.add(light1)
+                    
+                var light = new THREE.DirectionalLight( 0xe4eef9, 0.7 )
+                light.position.set( 200, 200, 200 ).normalize()
+                state.scene.add(light)
+                
                 state.scene.add(object)
-              } // geometry is not null
-            } // forEach feature
+              }
+            }
           }
 
-
-          function renderMultiLineString (items=[]) {
+    // .................. multiLineStringToScene
+          function multiLineStringToScene (items=[]) {
             if (items.length === 0) return
             for (let k in items) { // DOTS (seg5===0) each group gid
               let item = items[k] // feature
@@ -303,7 +276,8 @@
             }
           }
 
-          function renderLineString (items=[]) {
+    // .................. lineStringToScene          
+          function lineStringToScene (items=[]) {
             if (items.length === 0) return
             for (let k in items) { // DOTS (seg5===0) each group gid
               let item = items[k] // feature
@@ -329,7 +303,8 @@
             }
           }
 
-          function renderPoint (items=[]) {
+    // .................. pointToScene           
+          function pointToScene (items=[]) {
             if (items.length === 0) return
             for (let k in items) { // DOTS (seg5===0) each group gid
               let item = items[k] // feature
@@ -355,7 +330,8 @@
             }
           }
 
-          function renderPolygon (items=[]) {
+    // .................. polygonToScene                 
+          function polygonToScene (items=[]) {
             if (items.length === 0) return
             for (let k in items) { // DOTS (seg5===0) each group gid
               let item = items[k] // feature
@@ -381,7 +357,8 @@
             }
           }
 
-          function renderMultiPolygon (items=[]) {
+    // .................. multiPolygonToScene              
+          function multiPolygonToScene (items=[]) {
             if (items.length === 0) return
             for (let k in items) { // DOTS (seg5===0) each group gid
               let item = items[k] // feature
@@ -410,8 +387,8 @@
             }
           }
 
-
-          function renderImg (items=[]) {
+    // .................. imgToScene   
+          function imgToScene (items=[]) {
             if (items.length === 0) return
             for (let k in items) { // DOTS (seg5===0) each group gid
               let item = items[k] // feature
@@ -431,8 +408,9 @@
               state.scene.add(threeMaterial)
             }
           }
-
-          function renderThreeLink (items=[]) {
+          
+    // .................. threeLinkToScene   
+          function threeLinkToScene (items=[]) {
             if (items.length === 0) return
             for (let k in items) { // DOTS (seg5===0) each group gid
               let item = items[k] // feature
@@ -441,39 +419,55 @@
             }
           }
 
+          
 
-          let EOMULTIPOLYGON = d =>
-            (d.properties.sort === 'feature' || d.properties.sort === 'form')
-            && d.geometry.type === 'MultiPoint' // properties.faces
-            && d.properties.eoMultiPolygon == 1
+      /* object PATTERNS */
+      
+      let EOMULTIPOLYGON = d =>
+        (d.properties.sort === 'feature' || d.properties.sort === 'form')
+        && d.geometry.type === 'MultiPoint' // properties.faces
+        && d.properties.eoMultiPolygon == 1
 
-          let MULTIPOINT = d =>
-            (d.properties.sort === 'feature' || d.properties.sort === 'form')
-            && d.geometry.type === 'MultiPoint'
-            && d.properties.eoMultiPolygon !== 1
+      let MULTIPOINT = d =>
+        (d.properties.sort === 'feature' || d.properties.sort === 'form')
+        && d.geometry.type === 'MultiPoint'
+        && d.properties.eoMultiPolygon !== 1
 
-          let MULTILINESTRING = d =>
-            (d.properties.sort === 'feature' || d.properties.sort === 'form')
-            && d.geometry.type === 'MultiLineString'
+      let MULTILINESTRING = d =>
+        (d.properties.sort === 'feature' || d.properties.sort === 'form')
+        && d.geometry.type === 'MultiLineString'
 
-          let IMG = d =>
-            d.properties.sort === 'img'
+      let IMG = d =>
+        d.properties.sort === 'img'
 
-          let THREELINKK = d =>
-            d.properties.sort === 'threelink'
-
-
+      let THREELINKK = d =>
+        d.properties.sort === 'threelink'
 
 
 
-      /* items to add to scene */
+    // ............................. RENDER
+
+    let render = function (featurecollection, maxlimit) {
+
+      let features = featurecollection.features
+        .filter(
+          d => d.properties !== undefined && // req properties
+            d.properties.eoric !== undefined // req eoric
+        )
+
+      console.assert(state.scene !== undefined) /* clean canvas */
+      while (state.scene.children.length > 0) {
+        state.scene.remove(state.scene.children[0]) // remove object from scene
+      }
+      
+      /* objects TO SCENE */
 
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
         .key(function (d) { return d.properties.eoric.gid })
         .key(function (d) { return d.properties.eoric.cid })
         .entries(features)
 
-
+ 
       for (let i in gitems) { // DOTS (seg5===0) each group gid
         let gid = gitems[i].key,
           citems = gitems[i].values
@@ -483,10 +477,9 @@
           let fitems = citems[j].values // fitems
           let now = fitems.slice(-1)[0]
 
-          renderEomultipolygons(fitems.filter(EOMULTIPOLYGON))
-          renderMultiPoint(fitems.filter(MULTIPOINT))
-          renderMultiLineString(fitems.filter(MULTILINESTRING))
-
+          eoMultipolygonsToScene(fitems.filter(EOMULTIPOLYGON))
+          multiPointToScene(fitems.filter(MULTIPOINT))
+          multiLineStringToScene(fitems.filter(MULTILINESTRING))
 
         } // citems
       } // gitems
