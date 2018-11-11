@@ -83,6 +83,10 @@
 
       return style
     }
+    
+    
+    // .................. getColor
+    let getColor = (v,s=0) => kolor(v, s)
 
     // .................. @m.eocrom.geocromer(anigram, json)
     let geocromer = function (anigram, json) {
@@ -141,6 +145,7 @@
     function enty () { return enty }
     enty.geocromer = geocromer
     enty.getdefault = getdefault
+    enty.getColor = getColor
 
     return enty
   }

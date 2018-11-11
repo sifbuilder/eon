@@ -12,19 +12,22 @@ async function anitem (__mapper) {
     eohalMars,
     muonGeom,
     muonProps,
+    muonGeovoro,
     renderPortview,
     renderWebgl,
   ] = await Promise.all([
     __mapper('xs').b('d3'),
     __mapper('xs').b('d3-geo'),
-      __mapper('xs').b('three'), 
+      __mapper('xs').b('three'),    
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('props'),
+    __mapper('xs').m('geovoro'),
     __mapper('xs').r('portview'),    
     __mapper('xs').r('webgl'),
   ])
+
 
   let ani = function () {
   // .................. pics
@@ -32,20 +35,22 @@ async function anitem (__mapper) {
     let epsilon = 1e-6, epsilon2 = epsilon * epsilon, asin = Math.asin
     let atan = Math.atan, abs = Math.abs
     let pi = Math.PI, degrees = 180 / pi, asin1_3 = Math.asin(1 / 3)
-    let sqrt = Math.sqrt
     let theta = atan(0.5) * degrees
 
-    const eotim = {'td': 18800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => t }
+    const eotim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
+
 
     // .................. facesAni anima
     let facesAni = {
 
+      eotim: eotim,
+      eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
       eohal: 'mars',
 
       eofold: anitem => {
         let eoload = anitem.eoload
-        let json = {  // Feature
-          type: 'Feature', 
+        let json = {
+          type: 'Feature',
           geometry: {
             type: 'MultiPoint',
             coordinates: eoload.vertices(eoload.pars),
@@ -58,26 +63,33 @@ async function anitem (__mapper) {
           },
         }
 
-
         return json
       },
 
-      eotim: eotim,
-      eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
       eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
       eomot: {
         proform: {
 
           projection: 'uniwen',
-          translate: [ 0, 0, 0 ],
-          scale: [100,100,100],
-          rotate: [[[[0,6, 0]]], [[[0,2 * 360]]], [[[0,6, 0]]]],
+          translate: [ 
+            0, 
+            0, 
+            0 
+          ],
+          
+          scale: [
+            100,
+            100,
+            100,
+          ],
+          
+          rotate: [ [[[0,9,0]]], [[[0,2 * 360]]], [[[0,9,0]]] ],
           lens: [0, 1, Infinity ],
 
         },
       },
-      eoload: {
+     eoload: {
           /*
             Dave McCooey
             dmccooey@mac.com
@@ -608,44 +620,128 @@ async function anitem (__mapper) {
 [161,89,137,209],
 [161,209,177,233],
 [161,233,185,125],
-[161,125,53,89]]
+[161,125,53,89]],
 
-        ,
         lights: pars => 
         [
-          {
-            type: 'AmbientLight',
-            color: 0xffffff,
-            intensity: 0.9,
-            position: [200, 200, 200],
-          },
-          {
-            type: 'DirectionalLight',
-            color: 0xe4eef9,
-            intensity: 0.7,
-            position: [200, 200, 200],
-            normalize: 1
-          },
-        ]        
+          // {
+            // type: 'AmbientLight',
+            // name: 'AmbientLight',
+            // color: 0xeeeeee,
+            // intensity: 0.9,
+            // position: [110, 110, 110],
+          // },
+          // {
+            // type: 'DirectionalLight',
+            // name: 'DirectionalLight',
+            // color: 0xe4eef9,
+            // intensity: 0.7,
+            // position: [0, 0, 120],
+            // normalize: 1,
+            // castShadow: 1,
+          // },
+          // {
+            // type: 'PointLight',
+            // color: 0xe4eef9,
+            // intensity: 0.7,
+            // position: [0, 0, 120],
+            // normalize: 1,
+            // castShadow: 1,
+          // },
+          // {
+            // type: 'SpotLight',
+            // color: 0xe4eef9,
+            // intensity: 0.7,
+            // position: [0, 0, 120],
+            // normalize: 1,
+            // castShadow: 1,
+          // },          
+
+        ]
+
       },
     }
 
 
+
     // .................. cameraOrthoAni anima
-    let cameraOrthoAni = {
+    let lightHemisphereAni = {
 
       eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'camera'}, 
+      eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'}, 
       eohal: 'sol',
 
       eofold: anitem => {
         let eoload = anitem.eoload
         let json = {  // Feature
           type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [0,0,0],
-          },
+          geometry: { type: 'Point', coordinates: [0,0,0], },
+          properties: anitem.eoload.light,
+        }
+
+
+        return json
+      },
+      eoload: {
+        light: {
+            sort: 'light',            
+            type: 'HemisphereLight',
+            name: 'HemisphereLight',
+            skyColor: [[[222,999]]],
+            groundColor: 111,
+            intensity: 0.01,
+            position: [0, 0, 200],
+        }
+      }
+      
+     
+    }
+
+    // .................. spotLight anima
+    let spotLight = {
+
+      eotim: eotim,
+      eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'}, 
+      eohal: 'sol',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload
+        let json = {  // Feature
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0,0,0], },
+          properties: anitem.eoload.light,
+        }
+
+
+        return json
+      },
+      eoload: {
+        light: {
+            sort: 'light',            
+            type: 'SpotLight',
+            name: 'spotLight',
+            color: [[[222,777]]], // 0xe4eef9,
+            intensity: 0.9,
+            position: [-200, 200, 200],
+            normalize: 1,
+            castShadow: 1,
+        }
+      }
+      
+     
+    }    
+    // .................. cameraOrthoAni anima
+    let cameraOrthoAni = {
+
+      eotim: eotim,
+      eoric: {gid: 'camera', cid: 'camera', fid: 'cameraOrthoAni'}, 
+      eohal: 'sol',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload
+        let json = {  // Feature
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0,0,0], },
           properties: {
             sort: 'camera',
             type: 'OrthographicCamera', 
@@ -669,11 +765,153 @@ async function anitem (__mapper) {
       },
      
     }
+
+    // .................. cameraOrthoAni anima
+    let cameraOrthoHelper = {
+
+      eotim: eotim,
+      eoric: {gid: 'camera', cid: 'camera', fid: 'cameraOrthoHelper'}, 
+      eohal: 'sol',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload
+        let json = {  // Feature
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0,0,0], },
+          properties: {
+            sort: 'cameraHelper',
+            type: 'OrthographicCamera', 
+            name: 'Orthographic', 
+            left: -renderPortview.width()/2, 
+            right: renderPortview.width()/2, 
+            top: renderPortview.height()/2, 
+            bottom: -renderPortview.height()/2, 
+            near: -200, 
+            far: 200,
+            
+            position: [-200, 0, 200],
+            rotation: [0,0,0],
+            distance2nodesFactor: 300,
+            lookAt: [0,0,0],
+          },
+        }
+
+
+        return json
+      },
+     
+    }
+
+    // .................. cameraPersAni anima
+    let cameraPersAni = {
+
+      eotim: eotim,
+      eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'}, 
+      eohal: 'sol',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload
+        let json = {  // Feature
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0,0,0], },
+          properties: {
+            sort: 'camera',
+            type: 'PerspectiveCamera', 
+            name: 'Perspective', 
+            fov: 100,  // field of view
+            aspect: renderPortview.width()/renderPortview.height(), 
+            near: 0.001, 
+            far: 300,
+            
+            position: [0,0, 200 ],
+            rotation: [0,0,0],
+            distance2nodesFactor: 100,
+            lookAt: [0,0,0],
+          },
+        }
+
+
+        return json
+      },
+     
+    }
+    // .................. cameraPersHelper anima
+    let cameraPersHelper = {
+
+      eotim: eotim,
+      eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersHelper'}, 
+      eohal: 'sol',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload
+        let json = {  // Feature
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0,0,0], },
+          properties: anitem.eoload.camera,
+        }
+
+
+        return json
+      },
+      eoload: {
+        camera: {
+            sort: 'cameraHelper',
+            type: 'PerspectiveCamera', 
+            name: 'cameraPersHelper', 
+            
+            fov: 90,  // field of view
+            aspect: renderPortview.width()/renderPortview.height(), 
+            near: -100, 
+            far: 100,
+            
+            position: [200, 200, 200],
+            rotation: [0,0,0],
+            // distance2nodesFactor: 300,
+            lookAt: [0,0,0],
+          }
+      }
+    }
+   // .................. gridHelper anima
+    let gridHelper = {
+
+      eotim: eotim,
+      eoric: {gid: 'camera', cid: 'camera', fid: 'gridHelper'}, 
+      eohal: 'sol',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload
+        let json = {  // Feature
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0,0,0], },
+          properties: {
+            sort: 'gridHelper',
+            type: 'GridHelper', 
+            name: 'gridHelper', 
+            isToUpdate: 0, 
+            
+            size: 200,  // field of view
+            divisions: 5,
+            
+            position: [0, -100, 0 ],
+          },
+        }
+
+
+        return json
+      },
+     
+    }    
     // .................. animas
     let animas = [
 
       facesAni, // h.mars
-      cameraOrthoAni, // h.sol
+      cameraPersAni, // h.sol
+      // cameraPersHelper, // h.sol
+      // cameraOrthoAni, // h.sol
+      // cameraOrthoHelper, // h.sol
+      gridHelper, // h.sol
+      lightHemisphereAni, // h.sol
+      spotLight, // h.sol
 
     ]
     return animas

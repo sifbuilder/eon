@@ -13,14 +13,16 @@
       d3,
       THREE,
       ctlRaycaster,
-      renderPortview,
       TrackballControls, // https://unpkg.com/three@0.97.0/examples/js/controls/TrackballControls.js
+      muonEocrom,
+      renderPortview,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
       __mapper('xs').b('three'),
       __mapper('xs').c('raycaster'),
-      __mapper('xs').r('portview'),
       __mapper('xs').c('trackballcontrols'),
+      __mapper('xs').m('eocrom'),
+      __mapper('xs').r('portview'),
 
     ])
 
@@ -35,7 +37,11 @@
     let state = {}
 
     state.cameras = {}
-    
+    state.lights = {}
+    state.cameraHelpers = {}
+    state.gridHelpers = {}
+    state.lightHelpers = {}
+
     // .................. getCamera
     let getCamera = function (pars, stat) {
       let camera
@@ -48,9 +54,9 @@
         let defs = { fov: 50, zoom: 1, near: 0.1, far: 2000, focus: 10, aspect: 1, view: null, filmGauge: 35, filmOffset: 0}
 
         let {fov, zoom, near, far, focus, aspect, view, filmGauge, filmOffset } = Object.assign(defs, cameraItem)
-        
-        // if (stat.cameras[camerauid] === undefined) {
-        if (stat.camera === undefined) {
+
+        if (stat.cameras[camerauid] === undefined) {
+        // if (stat.camera === undefined) {
           camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
           if (cameraItem.position !== undefined) {
             camera.position.x = cameraItem.position[0]
@@ -63,18 +69,16 @@
             camera.rotation.z = cameraItem.rotation[2]
           }
         } else {
-          // camera = stat.cameras[camerauid]
-          camera = stat.camera
+          camera = stat.cameras[camerauid]
+          // camera = stat.camera
         }
-
-        
       } else if (type === 'OrthographicCamera') {
         let defs = { near: 0.1, far: 2000, zoom: 1, view: null }
 
         let {left, right, top, bottom, near, far} = Object.assign(defs, cameraItem)
 
-        // if (stat.cameras[camerauid] === undefined) {
-        if (stat.camera === undefined) {
+        if (stat.cameras[camerauid] === undefined) {
+        // if (stat.camera === undefined) {
           camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far)
           if (cameraItem.position !== undefined) {
             camera.position.x = cameraItem.position[0]
@@ -93,64 +97,114 @@
             camera.lookAt(new THREE.Vector3(...cameraItem.lookAt))
           }
         } else {
-          // camera = stat.cameras[camerauid]
-          camera = stat.camera
+          camera = stat.cameras[camerauid]
+          // camera = stat.camera
         }
-        
-        
       }
 
       return camera
     }
 
     // .................. getLight
-    let getLight = function (pars) {
+    let getLight = function (pars, stat) {
       let light
-      let lightItem = pars
-      let type = lightItem.type
+      let item = pars
+      let type = item.type
+      let name = item.name
 
       if (type === 'AmbientLight') {
         // color is added to the color of objects material
-        let {color, intensity} = lightItem
-        light = new THREE[type](color, intensity)
+        let {color, intensity} = item
 
-        if (lightItem.position !== undefined) {
-          light.position.set(...lightItem.position)
+        if (stat.lights[name] === undefined) {
+          light = new THREE[type](color, intensity)
+        } else {
+          light = stat.lights[name]
         }
 
+        if (item.position !== undefined) {
+          light.position.set(...item.position)
+        }
       } else if (type === 'DirectionalLight') {
         // remote light source. rays run parallel eg. sun
-        let {color, intensity} = lightItem
-        light = new THREE[type](color, intensity)
-
-        if (lightItem.position !== undefined) {
-          light.position.set(...lightItem.position)
+        let {color, intensity} = item
+        
+        if (stat.lights[name] === undefined) {
+          light = new THREE[type](color, intensity)
+        } else {
+          light = stat.lights[name]
+        }
+        
+        if (item.position !== undefined) {
+          light.position.set(...item.position)
         }
         if (typeof light.target === 'function') light.target(object)
-        if (lightItem.castShadow === 1) light.castShadow = 1
-
-
-      } else if (type === 'SpotLight') {
+        if (item.castShadow === 1) light.castShadow = true
+        // target object
+      
+      
+      
+      } else if (type === 'SpotLight') {  // SpotLight
         // cone light effect
-        light = new THREE[type]()
-        if (lightItem.position !== undefined) {
-          light.position.set(...lightItem.position)
-        }
-      } else if (type === 'RectAreaLight') {
-        light = new THREE[type]()
-        if (lightItem.position !== undefined) {
-          light.position.set(...lightItem.position)
-        }
-      } else if (type === 'PointLight') {
-        // From a point emanates light in all directions        
-        light = new THREE[type]()
-        let helper = new THREE.PointLightHelper(light, 0.1)
+        let {color } = item
+        if (0) {
+        } else {
+          color = muonEocrom.getColor(color)
+          color = 0xe4eef9
 
-      } else if (type === 'HemisphereLight') {
-        let {skyColor, groundColor, intensity} = lightItem
-        light = new THREE[type](skyColor, groundColor, intensity)
-        if (lightItem.position !== undefined) {
-          light.position.set(...lightItem.position)
+        }
+        
+        if (stat.lights[name] === undefined) {
+          light = new THREE[type](color)
+        } else {
+          light = stat.lights[name]
+        }
+        if (item.position !== undefined) {
+          light.position.set(...item.position)
+        }
+        if (item.castShadow !== undefined) {
+          light.castShadow = true
+        }        
+        // lookAt object
+        
+      } else if (type === 'RectAreaLight') {  // RectAreaLight
+        if (stat.lights[name] === undefined) {
+          light = new THREE[type]()
+        } else {
+          light = stat.lights[name]
+        }
+        if (item.position !== undefined) {
+          light.position.set(...item.position)
+        }
+      } else if (type === 'PointLight') { // HemisphereLight
+        // From a point emanates light in all directions
+        if (stat.lights[name] === undefined) {
+          light = new THREE.PointLightHelper(light, 0.1)
+        } else {
+          light = stat.lights[name]
+        }
+        
+      } else if (type === 'HemisphereLight') {    // HemisphereLight
+        let {skyColor, groundColor, intensity} = item
+        if (0) {
+        } else {
+          skyColor = muonEocrom.getColor(skyColor)
+          groundColor = muonEocrom.getColor(groundColor)
+          intensity = (intensity !== undefined) ? intensity : 1.0
+        }
+          
+        if (stat.lights[name] === undefined) {
+          light = new THREE[type](skyColor, groundColor, intensity)
+        } else {
+
+          light = stat.lights[name]
+          light.color = new THREE.Color(skyColor) // 0xff0000 "rgb(255, 0, 0)"
+          light.groundColor = new THREE.Color(groundColor) // 0xff0000 "rgb(255, 0, 0)"
+
+        }
+        
+        if (item.position !== undefined) {
+          light.position.set(...item.position)
         }
       } else {
         console.assert(1 === 0, `light type ${type} not supported`)
@@ -213,26 +267,70 @@
     }
 
     // .................. threeCameras
+    function threeGridHelpers (items = []) {
+      if (items.length === 0) return
+      for (let k in items) { // DOTS (seg5===0) each group gid
+        let item = items[k] // feature
+
+        let {size, divisions, position } = item.properties
+        let uid = item.properties.eoric.uid
+
+        if (state.gridHelpers[uid] === undefined) {
+          state.gridHelpers[uid] = new THREE.GridHelper(size, divisions)
+          if (position) state.gridHelpers[uid].position.set(...position)
+        }
+      }
+    }
+
+    // .................. threeLights
+    function threeLights (items = []) {
+      if (items.length === 0) return
+      for (let k in items) {
+        let item = items[k].properties
+
+        let {color, intensity} = item
+        let name = item.name
+
+        state.lights[name] = getLight(item, state)
+      }
+    }
+    // .................. threeCameras
     function threeCameras (items = []) {
       if (items.length === 0) return
       let camera
       for (let k in items) { // DOTS (seg5===0) each group gid
         let item = items[k] // feature
-        
+
         let camaraProps = item.properties
         let camerauid = camaraProps.eoric.uid
         let iscontrol = camaraProps.iscontrol
-        
-        
-        // camera = getCamera(camaraProps, state)
-        
-        // state.cameras[camerauid] = camera
-  
-        // if (state.camera === undefined) {
-          // camera = getCamera(camaraProps, state)
-          // state.camera = camera
-          state.camera = getCamera(camaraProps, state)
-        // }
+
+        state.cameras[camerauid] = getCamera(camaraProps, state)
+        state.camera = getCamera(camaraProps, state)
+      }
+    }
+    // .................. threeCameraHelpers
+    function threeCameraHelpers (items = []) {
+      if (items.length === 0) return
+
+      for (let k in items) { // DOTS (seg5===0) each group gid
+        let item = items[k] // feature
+
+        let camaraProps = item.properties
+        let camerauid = camaraProps.eoric.uid
+        let iscontrol = camaraProps.iscontrol
+
+        let camera = getCamera(camaraProps, state)
+        state.cameras[camerauid] = camera
+        state.camera = camera
+        let cameraHelper
+        if (state.cameraHelpers[camerauid] === undefined) {
+          cameraHelper = new THREE.CameraHelper(camera)
+        } else {
+          cameraHelper = state.cameraHelpers[camerauid]
+        }
+
+        state.cameraHelpers[camerauid] = cameraHelper
       }
     }
 
@@ -258,37 +356,37 @@
 
           let object = new THREE.Mesh(
             threeGeometry, // geometry,
-            // new THREE.LineBasicMaterial({
-            new THREE.MeshPhongMaterial({
-              // color: 0x0033ff,
-              color: style.fill,
-              // specular: 0x555555,
-              shininess: 30,
 
+            new THREE.MeshPhongMaterial({ // new THREE.LineBasicMaterial({
+
+              color: style.fill, // color: 0x0033ff,
+              shininess: 50,
+
+              // specular: 0x555555,
               // opacity: style['fill-opacity'],
 
             })
           )
 
+          let dotsize = 0.01
           for (let i = 0; i < vertices.length; i++) {
             var particle_geom = new THREE.Geometry()
             let vertex = threeGeometry.vertices[i]
             particle_geom.vertices.push(new THREE.Vector3(vertex.x, vertex.y, vertex.z))
-            var particle_material = new THREE.PointsMaterial({size: 1})
+            var particle_material = new THREE.PointsMaterial({size: dotsize})
             var particle = new THREE.Points(particle_geom, particle_material)
 
-            object.add(particle)
+            // object.add(particle)
           }
           state.scene.add(object)
 
           for (let j = 0; j < lights.length; j++) {
-            let lightItem = lights[j]
+            let item = lights[j]
+            let name = item.name
 
-            let threeLight = getLight(lightItem)
-            state.scene.add(threeLight)
-let pointLightHelper = new THREE.PointLightHelper(threeLight)
-state.scene.add(pointLightHelper)
-            
+            let threeLight = getLight(item, state)
+            state.lights[name] = threeLight
+            // state.scene.add(threeLight)
           }
         }
       }
@@ -504,29 +602,60 @@ state.scene.add(pointLightHelper)
     }
 
     /* object PATTERNS */
+    let patterns = [
+      {
+        name: 'THREEGRIDHELPER',
+        filter: d =>
+          (d.properties.sort === 'gridHelper'),
+        retriever: threeGridHelpers,
+      }, {
+        name: 'THREELIGHT',
+        filter: d =>
+          (d.properties.sort === 'light'),
+        retriever: threeLights,
+      }, {
+        name: 'THREECAMERAHELPER',
+        filter: d =>
+          (d.properties.sort === 'cameraHelper'),
+        retriever: threeCameraHelpers,
+      }, {
+        name: 'THREECAMERA',
+        filter: d =>
+          (d.properties.sort === 'camera'),
+        retriever: threeCameras,
+      }, {
+        name: 'EOMULTIPOLYGON',
+        filter: d =>
+          (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
+            d.geometry.type === 'MultiPoint' && // properties.faces
+            d.properties.eoMultiPolygon == 1,
+        retriever: eoMultipolygonsToScene,
+      }, {
+        name: 'MULTIPOINT',
+        filter: d =>
+          (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
+            d.geometry.type === 'MultiPoint' &&
+            d.properties.eoMultiPolygon !== 1,
+        retriever: multiPointToScene,
+      }, {
+        name: 'MULTILINESTRING',
+        filter: d =>
+          (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
+              d.geometry.type === 'MultiLineString',
+        retriever: multiLineStringToScene,
+      }, {
+        name: 'IMG',
+        filter: d =>
+          d.properties.sort === 'img',
+        retriever: undefined,
+      }, {
+        name: 'THREELINK',
+        filter: d =>
+          d.properties.sort === 'threelink',
+        retriever: undefined,
+      },
 
-    let THREECAMERA = d =>
-      (d.properties.sort === 'camera')
-
-    let EOMULTIPOLYGON = d =>
-      (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
-        d.geometry.type === 'MultiPoint' && // properties.faces
-        d.properties.eoMultiPolygon == 1
-
-    let MULTIPOINT = d =>
-      (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
-        d.geometry.type === 'MultiPoint' &&
-        d.properties.eoMultiPolygon !== 1
-
-    let MULTILINESTRING = d =>
-      (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
-        d.geometry.type === 'MultiLineString'
-
-    let IMG = d =>
-      d.properties.sort === 'img'
-
-    let THREELINKK = d =>
-      d.properties.sort === 'threelink'
+    ]
 
     // ............................. RENDER
 
@@ -558,26 +687,23 @@ state.scene.add(pointLightHelper)
           let fitems = citems[j].values // fitems
           let now = fitems.slice(-1)[0]
 
-          threeCameras(fitems.filter(THREECAMERA))
-          eoMultipolygonsToScene(fitems.filter(EOMULTIPOLYGON))
-          multiPointToScene(fitems.filter(MULTIPOINT))
-          multiLineStringToScene(fitems.filter(MULTILINESTRING))
+          for (let k = 0; k < patterns.length; k++) {
+            let pattern = patterns[k]
+            if (pattern.retriever && pattern.filter) {
+              pattern.retriever(fitems.filter(pattern.filter))
+            }
+          }
         } // citems
       } // gitems
 
-      // let cams = Object.entries(state.cameras)
-        // .filter(entry => entry[1]
-      // if (1 && 1) console.log('cames', cams)
-      
-      
-      // if (state.cameras && Object.keys(state.cameras).length > 0) {
-      if (state.camera !== undefined) {
-        // let cameras = Object.values(state.cameras)
-        // let camera = cameras[cameras.length -1]
-        let camera = state.camera
+      if (state.cameras && Object.keys(state.cameras).length > 0) {
+      // if (state.camera !== undefined) {
+        let cameras = Object.values(state.cameras)
+        let camera = cameras[cameras.length - 1]
+        // let camera = state.camera
         let threeRenderer = state.threeRenderer
         let domElem = state.domElem
-        
+
         if (state.domElem === undefined) {
           let domElem = state.threeRenderer.domElement // canvas
           domElem.innerHTML = '' // Wipe DOM
@@ -590,26 +716,23 @@ state.scene.add(pointLightHelper)
         if (state.viewControls === undefined) {
           state.viewControls = getViewControls({camera, domElem})
         }
-        
-        // if (state.cameraHelper === undefined) {
-          // state.cameraHelper = new THREE.CameraHelper(state.camera)
-          // state.cameraHelper = new THREE.CameraHelper(state.camera)
-// var camera = new THREE.PerspectiveCamera( 75, 600 / 400, -100, 100 );          
-  // state.cameraHelper = new THREE.CameraHelper(camera)
-// }
-        // if (state.gridHelper === undefined) {
-          // state.gridHelper = new THREE.GridHelper(10, 1)
-          // state.gridHelper.position.set(0, 0, 0)
-        // }
 
         resizeCanvas({threeRenderer, camera})
         state.viewControls.update() // UPDATE SCENE by CONTROL
-    
-        
+
         if (state.scene) {
           let scene = state.scene
-          // state.scene.add(state.cameraHelper)
-          // state.scene.add(state.gridHelper)
+
+          for (let k in state.lights) {
+            state.scene.add(state.lights[k])
+          }
+          for (let helper in state.cameraHelpers) {
+            state.scene.add(state.cameraHelpers[helper])
+          }
+          for (let helper in state.gridHelpers) {
+            state.scene.add(state.gridHelpers[helper])
+          }
+
           state.threeRenderer.render(scene, camera)
         }
       }
