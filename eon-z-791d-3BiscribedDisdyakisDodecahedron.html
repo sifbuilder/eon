@@ -7,6 +7,7 @@ async function anitem (__mapper) {
   let [
     d3,
     d3geo,
+      THREE,    
     ctlWen,
     eohalMars,
     muonGeom,
@@ -16,6 +17,7 @@ async function anitem (__mapper) {
   ] = await Promise.all([
     __mapper('xs').b('d3'),
     __mapper('xs').b('d3-geo'),
+      __mapper('xs').b('three'), 
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('geom'),
@@ -41,22 +43,18 @@ async function anitem (__mapper) {
       eohal: 'mars',
 
       eofold: anitem => {
-        let eoload = anitem.eoload,
-          eoric = anitem.eoric,
-          vertices = eoload.vertices(eoload.pars),
-          faces = eoload.faces(eoload.pars)
-
-
+        let eoload = anitem.eoload
         let json = {  // Feature
-          type: 'Feature',
+          type: 'Feature', 
           geometry: {
             type: 'MultiPoint',
-            coordinates: vertices,
+            coordinates: eoload.vertices(eoload.pars),
           },
           properties: {
             sort: 'form',
             eoMultiPolygon: 1,
-            faces: faces
+            faces: eoload.faces(eoload.pars).reduce( (p,q) => [...p, ...muonGeom.convextriang(q)], []),
+            lights: eoload.lights(eoload.pars)
           },
         }
 
@@ -86,31 +84,6 @@ async function anitem (__mapper) {
 
             Biscribed Disdyakis Dodecahedron with radius = 1
 
-            (24) SHORT EDGE = sqrt(6 * (3 - sqrt(6))) / 3
-            (24) MEDIUM EDGE = sqrt(2 - sqrt(2))
-            (24) LONG EDGE = sqrt(6 * (3 - sqrt(3))) / 3
-            RADIUS = 1
-            INRADIUS = sqrt(1633*(441 + 194*sqrt(2) + 144*sqrt(3) + 130*sqrt(6)))/1633
-              = 1 / sqrt(9 - 2 * sqrt(2) - 2 * sqrt(6))
-            VOLUME = 4 * sqrt(6) / 3
-            SHORT EDGE ANGLE = acos(-(539+600*sqrt(2)+176*sqrt(3)-204*sqrt(6))/1633)
-              = 136.916340787932126275849683362 degrees
-            MEDIUM EDGE ANGLE = acos(-(343-212*sqrt(2)+112*sqrt(3)+464*sqrt(6))/1633)
-              = 147.270951511286007556257225508 degrees
-            LONG EDGE ANGLE = acos(-(149+384*sqrt(2)-18*sqrt(3)+392*sqrt(6))/1633)
-              = 173.0732800130535776353432050648 degrees
-
-            EULER CHARACTERISTIC:          2
-            ROTATION SYMMETRIES:          24
-            MIRROR ROTATION SYMMETRIES:   24
-            ROTATION AXES:                13 (3[4] + 4[3] + 6[2])
-            MIRROR PLANES:                 9
-            INVERTIBLE:                  YES
-            SYMMETRY CLASSIFICATION:  Full Octahedral (Oh)
-            TOPOLOGICALLY SELF-DUAL:      NO
-
-            C0 = sqrt(3) / 3 // 0.577350269189625764509148780502,
-            C1 = sqrt(2) / 2 // 0.7071067811865475244008443621048,
           */
         pars: {
           C0: [[[sqrt(3) / 3, sqrt(3) / 1, sqrt(3) / 3]]],
@@ -200,6 +173,22 @@ async function anitem (__mapper) {
           [5,21,11]]
 
         ,
+        lights: pars => 
+        [
+          {
+            type: 'AmbientLight',
+            color: 0xffffff,
+            intensity: 0.9,
+            position: [200, 200, 200],
+          },
+          {
+            type: 'DirectionalLight',
+            color: 0xe4eef9,
+            intensity: 0.7,
+            position: [200, 200, 200],
+            normalize: 1
+          },
+        ]        
       },
     }
 

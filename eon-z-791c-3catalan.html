@@ -42,21 +42,17 @@ async function anitem (__mapper) {
 
       eofold: anitem => {
         let eoload = anitem.eoload,
-          eoric = anitem.eoric,
-          vertices = eoload.vertices(eoload.pars),
-          faces = eoload.faces(eoload.pars)
-
-          
         let json = {  // Feature
           type: 'Feature', 
           geometry: {
             type: 'MultiPoint',
-            coordinates: vertices,
+            coordinates: eoload.vertices(eoload.pars),
           },
           properties: {
             sort: 'form',
             eoMultiPolygon: 1,
-            faces: faces
+            faces: eoload.faces(eoload.pars).reduce( (p,q) => [...p, ...muonGeom.convextriang(q)], []),
+            lights: eoload.lights(eoload.pars)
           },
         }
 
@@ -159,6 +155,23 @@ async function anitem (__mapper) {
         [5,9,8]]
 
         ,
+        
+        lights: pars => 
+        [
+          {
+            light: THREE.AmbientLight,
+            color: 0xffffff,
+            intensity: 0.9,
+            position: [200, 200, 200],
+          },
+          {
+            light: THREE.DirectionalLight,
+            color: 0xe4eef9,
+            intensity: 0.7,
+            position: [200, 200, 200],
+            normalize: 1
+          },
+        ]        
       },
     }
 
