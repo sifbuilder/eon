@@ -8,102 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-  // ... **process graticule objects**
-  // ...
-  // ... ## references
-  // ... [D3.js](https://github.com/d3) by [Mike Bostock](https://en.wikipedia.org/wiki/Mike_Bostock)
-  // ... [d3-geo/graticule.js](http://ci.testling.com/substack/minimist)
-  // ...
-  // ... ## functions
-  // ... *tidx
-  // ... return `function(column, row)` that gives the sequential index of [column,row]
-  // ... ``` js
-  // ... tidx (horq, verq, hd = 1, vd = 1)
-  // ... ```
-  // ... * `@argv.horq` number of rows
-  // ... * `@argv.verq` number of columns
-  // ... * `@argv.hd`   geospan between columns
-  // ... * `@argv.vd`   geospan between rows
-  // ...
-  // ... *ridx
-  // ... return `function(idx)` , give [row,column] of sequential index
-  // ...
-  // ... *oneface
-  // ...    a,b,c coord-vertices in [xn, yn] space give face verts indices
-  // ...
-  // ... *bifaces
-  // ... (i,h) in [xn,yn[]
-  // ... vertices to ...
-  // ... inPolygons to filter coords if in pols
-  // ... mersCoords to get vert coords
-  // ...
-  // ... *gratiparams
-  // ... use:
-  // ... ```
-  // ... let {X0, X1, DX, PX, x0, x1, dx, px,
-  // ...    Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
-  // ... ```
-  // ... lattice.[ Xx, Yy ]
-  // ... lattice specifies x and y discrete with same major and minor
-  // ... frame.[ [X,Y], [x,y] ]   X:[X0,X1,DX,PX]
-  // ... frame defineds x and y major and minor discretes
-  // ... frame.[ [ Xx, Yy ] ]    Xx:[X0,X1,DX,PX]
-  // ... [ Xx, Yy ]
-  // ... if type not specified assume lattice
-  // ...
-  // ... *arywinopen
-  // ... call `arywinopen(x0,x1,dx)`
-  // ... return array of elements in [x0,x1] with pass dx
-  // ...
-  // ... *arywinclose
-  // ... as arywinopen closing the array
-  // ...
-  // ... *symgraticuleY
-  // ... return function of dot to arywinclose array
-  // ...
-  // ... *symgraticuleX
-  // ... return function of dot to arywinclose array
-  // ... open range interval [x0,x1)
-  // ...
-  // ... *asymgraticuleY
-  // ... return function of dot to arywinclose array
-  // ...
-  // ... *asymgraticuleX
-  // ... return function of dot to arywinclose array
-  // ... open range interval [x0,x1)
-  // ...
-  // ... ## methods
-  // ... *grarr
-  // ... return `{mms, pps}`  of meridians and parallels
-  // ...    on symetrical  discretes with symgraticuleX and symgraticuleY
-  // ...    mms and pps are gj.MultiLineString geometries
-  // ...
-  // ... *equator
-  // ... return Feature.LineString coordinates: equator
-  // ... equator: [ [ [-180, 180, 360, 1], [-90, 90, 360, 1] ] ]
-  // ...
-  // ... *vhMultiLine
-  // ... return Feature.MultiLineString.coordinates: [...mersCoords,...parsCoords]
-  // ...
-  // ... *vMultiLine
-  // ... return Feature.MultiLineString.coordinates: mersCoords
-  // ...
-  // ... *hMultiLine
-  // ... return Feature.MultiLineString.coordinates: parsCoords
-  // ...
-  // ... *dedges
-  // ... get grarr
-  // ...
-  // ... *gvertices
-  // ... call `gvertices(params)`
-  // ... get mersq sym mers and parsq sym pars from grarr
-  // ... takes vertices from meridians with step being the y precision (dy/py)
-  // ... mers[i].length may be 5, while parsq: 3
-  // ...
-  // ... *gfaces
-  // ...
-  // ...
-  // ... *equator
 
   async function muonGraticule (__mapper = {}) {
     let [
@@ -163,7 +67,8 @@
     // .................. ridx
     let ridx = function (horq, verq, hd = 1, vd = 1) { // ridx(6,4,1,1)
       return function (idx) { // ridx(3) => [0,2], ridx(17) => [3,5]
-        let ret = [Math.floor(((idx / hd) / vd) / horq), idx % horq]
+        // let ret = [Math.floor(((idx / hd) / vd) / horq), idx % horq]
+        let ret = [ idx % horq , Math.floor(((idx / hd) / vd) / horq) ]
         return ret
       }
     }
@@ -187,6 +92,28 @@
       let f2 = oneface([i0, j0], [i1, j1], [i0, j1], xn, yn)
 
       return [f1, f2]
+    }
+
+    // .................. quads
+    let quads = function (i, j, xn, yn) {
+      // if (1 && 1) console.log('quads', i,j,' : ', xn,yn)
+
+      let indexer = tidx(xn, yn)
+
+      let i0 = i
+      let i1 = (i + 1) % xn // _e_
+      let j0 = j
+      let j1 = (j + 1)
+
+      let v0 = indexer(i0, j0)
+      let v1 = indexer(i1, j0)
+      let v2 = indexer(i1, j1)
+      let v3 = indexer(i0, j1)
+
+      
+      let f = [ v0, v1, v2, v3 ]
+
+      return [f ]
     }
 
     // .................. gratiparams
@@ -487,8 +414,8 @@
       return gj
     }
 
-    // .................. gvertices
-    let gvertices = function (params = {}) {
+    // .................. gMultiPoint
+    let gVertices = function (params = {}) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates // with y delta, precision
       let parsCoords = g.pps.coordinates // with x delta, precision
@@ -530,6 +457,13 @@
         }
       }
 
+      return vertices
+    }
+
+    // .................. gMultiPoint
+    let gMultiPoint = function (params = {}) {
+      let vertices = gVertices(params)
+
       return { // return vertices
         type: 'Feature',
         geometry: {type: 'MultiPoint', coordinates: vertices},
@@ -545,7 +479,7 @@
 
       let mersq = mersCoords.length // 12 x 7
       let parsq = parsCoords.length //  7 x 13
-      let index = tidx(mersq, parsq) // 12, 7
+      // let index = tidx(mersq, parsq) // 12, 7
 
       let m0 = 0 // 0
       let mn = mersq // 12
@@ -563,6 +497,38 @@
           let j1 = (j + 1) // % (parsq) // parabolic
 
           let fs = bifaces(i, j, mersq, parsq, mersCoords, inPolygons)
+          fs.forEach(f => faces.push(f))
+        }
+      }
+
+      return faces
+    }
+    // .................. qfaces
+    let qfaces = function (params, range = null, tile = null, inPolygons = []) {
+      let g = grarr(params)
+      let mersCoords = g.mms.coordinates
+      let parsCoords = g.pps.coordinates
+
+      let mersq = mersCoords.length // 12 x 7
+      let parsq = parsCoords.length //  7 x 13
+      // let index = tidx(mersq, parsq) // 12, 7
+
+      let m0 = 0 // 0
+      let mn = mersq // 12
+      let p0 = 0 // 0
+      let pn = parsq // 6
+
+      let faces = []
+      for (let i = m0; i < mn; i++) { // meridians    0 - 11
+        // for (let j = p0; j < pn - 1; j++) { // exclude upper segement
+        for (let j = p0; j < mersCoords[i].length - 1; j++) { // exclude upper segement
+          let i0 = i
+          let i1 = (i + 1) % mersq // mer 12 is mer 0
+
+          let j0 = j
+          let j1 = (j + 1) // % (parsq) // parabolic
+
+          let fs = quads(i, j, mersq, parsq, mersCoords, inPolygons)
           fs.forEach(f => faces.push(f))
         }
       }
@@ -602,7 +568,9 @@
     enty.dedges = dedges
 
     enty.gfaces = gfaces
-    enty.gvertices = gvertices
+    enty.qfaces = qfaces
+    enty.gMultiPoint = gMultiPoint
+    enty.gVertices = gVertices
     enty.equator = equator
 
     return enty

@@ -39,7 +39,7 @@
 
       let range = (anigram.range !== undefined) ? anigram.range : null
       let tile = (anigram.tile !== undefined) ? anigram.tile : null
-      let verts = muonGraticule.gvertices(graticule) // Feature.LineString
+      let verts = muonGraticule.gMultiPoint(graticule) // Feature.LineString
       let vertices = verts.geometry.coordinates
       let faces = muonGraticule.gfaces(graticule) // faces
 

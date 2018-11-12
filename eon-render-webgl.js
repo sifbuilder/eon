@@ -128,22 +128,22 @@
       } else if (type === 'DirectionalLight') {
         // remote light source. rays run parallel eg. sun
         let {color, intensity} = item
-        
+
         if (stat.lights[name] === undefined) {
           light = new THREE[type](color, intensity)
         } else {
           light = stat.lights[name]
         }
-        
+
         if (item.position !== undefined) {
           light.position.set(...item.position)
         }
         if (typeof light.target === 'function') light.target(object)
         if (item.castShadow === 1) light.castShadow = true
         // target object
-      
-      
-      
+
+
+
       } else if (type === 'SpotLight') {  // SpotLight
         // cone light effect
         let {color } = item
@@ -153,7 +153,7 @@
           color = 0xe4eef9
 
         }
-        
+
         if (stat.lights[name] === undefined) {
           light = new THREE[type](color)
         } else {
@@ -164,9 +164,9 @@
         }
         if (item.castShadow !== undefined) {
           light.castShadow = true
-        }        
+        }
         // lookAt object
-        
+
       } else if (type === 'RectAreaLight') {  // RectAreaLight
         if (stat.lights[name] === undefined) {
           light = new THREE[type]()
@@ -183,7 +183,7 @@
         } else {
           light = stat.lights[name]
         }
-        
+
       } else if (type === 'HemisphereLight') {    // HemisphereLight
         let {skyColor, groundColor, intensity} = item
         if (0) {
@@ -192,7 +192,7 @@
           groundColor = muonEocrom.getColor(groundColor)
           intensity = (intensity !== undefined) ? intensity : 1.0
         }
-          
+
         if (stat.lights[name] === undefined) {
           light = new THREE[type](skyColor, groundColor, intensity)
         } else {
@@ -202,7 +202,7 @@
           light.groundColor = new THREE.Color(groundColor) // 0xff0000 "rgb(255, 0, 0)"
 
         }
-        
+
         if (item.position !== undefined) {
           light.position.set(...item.position)
         }
@@ -370,13 +370,14 @@
 
           let dotsize = 0.01
           for (let i = 0; i < vertices.length; i++) {
-            var particle_geom = new THREE.Geometry()
+
             let vertex = threeGeometry.vertices[i]
+
+            var particle_geom = new THREE.Geometry()
             particle_geom.vertices.push(new THREE.Vector3(vertex.x, vertex.y, vertex.z))
             var particle_material = new THREE.PointsMaterial({size: dotsize})
             var particle = new THREE.Points(particle_geom, particle_material)
 
-            // object.add(particle)
           }
           state.scene.add(object)
 
@@ -386,8 +387,8 @@
 
             let threeLight = getLight(item, state)
             state.lights[name] = threeLight
-            // state.scene.add(threeLight)
           }
+
         }
       }
     }
@@ -405,28 +406,20 @@
         let geometry = feature.geometry // rings in MultiPolygon, MultiLineString
 
         let vertices = geometry.coordinates
+        let dotsize = 12
         for (let i = 0; i < vertices.length; i++) {
-          let vertex = vertices[i]
 
-          state.material_color = style.fill
-          state.geometry = new THREE.SphereGeometry(5, 32, 32)
-          state.wireframe = new THREE.WireframeGeometry(state.geometry)
-          state.material = new THREE.MeshBasicMaterial({
-            color: state.material_color,
-            transparent: true,
-            opacity: 0.75,
-          })
-
-          let sphere = new THREE.Mesh(
-            state.wireframe,
-            state.material
-          )
-
-          sphere.position.x = vertex[0]
-          sphere.position.y = vertex[1] || 0
-          sphere.position.z = vertex[2] || 0
-
-          state.scene.add(sphere)
+          if (i === 0 || i === 4 || i === 8 || i === 11) {
+            let particle_geom = new THREE.Geometry()
+            particle_geom.vertices.push(new THREE.Vector3(...vertices[i].map(to3point)))
+            let particle_material = new THREE.PointsMaterial({
+                color: 0x88ff88,
+                size: dotsize,
+            })
+            
+            let particle = new THREE.Points(particle_geom, particle_material)
+            state.scene.add(particle)
+          }
         }
       }
     }

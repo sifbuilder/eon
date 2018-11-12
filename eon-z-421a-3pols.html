@@ -140,7 +140,7 @@ async function anitem (__mapper) {
       eohal: 'mars',
 
       eofold: p => {
-        let gvertsFeature = muonGraticule.gvertices(p.eoframe)
+        let gvertsFeature = muonGraticule.gMultiPoint(p.eoframe)
         let gfaces = muonGraticule.gfaces(p.eoframe)
 
         let res = gvertsFeature
