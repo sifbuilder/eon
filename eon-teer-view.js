@@ -28,9 +28,10 @@ let [cmd, scp, ...opts] = args
 
 let action = 'help' // {[help] pattern}
 let inscopepattern = new RegExp(`^eon-z-___none___.*\.html$`, 'i') // none pattern
-if (opts.length === 0) {
-  action = 'help'
-} else if (opts.length === 1 && opts[0] !== 'help') {
+
+if (opts.length === 0) {    // action: help
+  action = 'help' 
+} else if (opts.length === 1 && opts[0] !== 'help') {   // action:view
   action = 'view'
   let codepattern = '.*' // default to all
   if (opts[0] === '.') {
@@ -62,10 +63,11 @@ let files = fs.readdirSync(indir) // to view
   .filter(file => isFile(file))
   .filter(d => inscopepattern.test(d))
 
-async function lightanimas (browser, fls, opts) {
+    // .................. viewitems  
+async function viewitems (browser, fls, opts) {
   const variations = fls
 
-  async function lightNext (current) {
+  async function viewnext (current) {
     if (current >= variations.length) {
       return
     }
@@ -122,13 +124,15 @@ async function lightanimas (browser, fls, opts) {
 
     if (tracing) await page.tracing.stop()
 
-    await lightNext(current + 1)
+    await viewnext(current + 1)
   }
 
-  return lightNext(0)
+  return viewnext(0)
 }
 
-async function run (fls, opts) {
+
+    // .................. view  
+async function view (fls, opts) {
   const winwidth = 1200
   const winheight = 900
 
@@ -137,23 +141,21 @@ async function run (fls, opts) {
     devtools: true, // open DevTools when window launches
     args: ['--remote-debugging-port=9222',
       `--window-size=${winwidth},${winheight}`, // Window size
-      // '--show-fps-counter',
       '--trace-to-console',
     ],
   })
 
   await browser.pages()
-
-  await lightanimas(browser, fls, opts)
-
+  await viewitems(browser, fls, opts)
   if (closebrowser) await browser.close()
+    
 }
 
 if (action === 'help') {
   console.log(`node ${prgname} {[help], viewpattern} on eon-z- files`)
 } else if (action === 'view') {
   console.log(`view ${inscopepattern} eon files`)
-  run(files, options)
+  view(files, options)
 } else {
   console.log(`node ${prgname} {[help], viewpattern} on eon-z- files`)
 }

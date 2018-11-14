@@ -56,7 +56,6 @@
         let {fov, zoom, near, far, focus, aspect, view, filmGauge, filmOffset } = Object.assign(defs, cameraItem)
 
         if (stat.cameras[camerauid] === undefined) {
-        // if (stat.camera === undefined) {
           camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
           if (cameraItem.position !== undefined) {
             camera.position.x = cameraItem.position[0]
@@ -70,7 +69,6 @@
           }
         } else {
           camera = stat.cameras[camerauid]
-          // camera = stat.camera
         }
       } else if (type === 'OrthographicCamera') {
         let defs = { near: 0.1, far: 2000, zoom: 1, view: null }
@@ -78,7 +76,6 @@
         let {left, right, top, bottom, near, far} = Object.assign(defs, cameraItem)
 
         if (stat.cameras[camerauid] === undefined) {
-        // if (stat.camera === undefined) {
           camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far)
           if (cameraItem.position !== undefined) {
             camera.position.x = cameraItem.position[0]
@@ -98,9 +95,22 @@
           }
         } else {
           camera = stat.cameras[camerauid]
-          // camera = stat.camera
         }
+
       }
+        
+        if (cameraItem.vellin !== undefined) {
+          camera.position.x += cameraItem.vellin[0]
+          camera.position.y += cameraItem.vellin[1]
+          camera.position.z += cameraItem.vellin[2]
+        }
+        if (cameraItem.velang !== undefined) {
+          camera.rotation.x += cameraItem.velang[0]
+          camera.rotation.y += cameraItem.velang[1]
+          camera.rotation.z += cameraItem.velang[2]
+        }
+            
+        camera.updateProjectionMatrix()        
 
       return camera
     }

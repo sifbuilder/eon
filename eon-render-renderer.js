@@ -18,7 +18,7 @@
       let renderWebgl = __mapper("renderWebgl")
       let renderCanvas = __mapper("renderCanvas")
       
-      console.assert(renderSvg || renderWebgl || renderCanvas, `renderer not defined`)
+      // console.assert(renderSvg || renderWebgl || renderCanvas, `renderer not defined`)
       
       if (renderSvg) renderSvg.render(featurecollection)
       if (renderWebgl) renderWebgl.render(featurecollection)
