@@ -23,7 +23,7 @@ async function anitem (__mapper) {
     muonNatform,
     muonProps,
     renderPortview,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-force-3d'),
@@ -40,7 +40,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').r('portview'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   let [
@@ -268,7 +268,7 @@ async function anitem (__mapper) {
       },
     }
 
-   // ............................. forceGravity
+    // ............................. forceGravity
     let forceGravity = function (params) { // force
       let nodes = params.nodes // animas
       let gravity = typeof params.gravity === 'function'
@@ -381,8 +381,6 @@ async function anitem (__mapper) {
         return Array.of(force)
       },
     }
-
-
 
     // ............................. forceSphere
     let forceSphere = function (params) {
@@ -575,7 +573,7 @@ async function anitem (__mapper) {
         let force = muonEoforces.force(forceParams)
         return Array.of(force)
       },
-    }   
+    }
 
     // ............................. force_Z
     let force_Z = {
@@ -607,33 +605,33 @@ async function anitem (__mapper) {
         attractionCtt: 0.0025,
         center: {x: 100, y: 100, z: 100},
         strength: 0.0025,
-        
+
         src: d3_force,
         id: d => d.eoric.uid,
         filter: d => d.eoric.cid === 'orange',
         type: 'center',
-        key: 'center_orange',        
-        
+        key: 'center_orange',
+
       },
       field: params => { // force.field
         let forceParams = Object.assign({}, params, params.properties)
         let force = muonEoforces.force(forceParams)
         return Array.of(force)
       },
-      
+
     }
     let force_center_gold = {
       properties: {
         attractionCtt: 0.0025,
         center: {x: 100, y: 100, z: 100},
         strength: 0.0025,
-        
+
         src: d3_force,
         id: d => d.eoric.uid,
         filter: d => d.eoric.cid === 'gold',
         type: 'center',
-        key: 'center_gold',        
-        
+        key: 'center_gold',
+
       },
       field: params => { // force.field
         let forceParams = Object.assign({}, params, params.properties)
@@ -641,8 +639,7 @@ async function anitem (__mapper) {
         return Array.of(force)
       },
     }
-    
-    
+
     // .................. animas
     let animas = [
 

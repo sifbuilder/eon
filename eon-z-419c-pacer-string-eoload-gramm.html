@@ -16,7 +16,7 @@ async function anitem (__mapper) {
     eohalPacer,
     eohalTextform,
     prtUniwen,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
@@ -28,10 +28,9 @@ async function anitem (__mapper) {
     __mapper('xs').e('pacer'),
     __mapper('xs').e('textform'),
     __mapper('xs').p('uniwen'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
-  
   let muonStore = __mapper('muonStore')
 
   // .................. animas
@@ -83,7 +82,7 @@ async function anitem (__mapper) {
           geoaad: 1, // geoaad for trace
 
           eohal: 'mars',
-          
+
           eofold: function (ani, props) {
             let preani = muonStore.findAnigramFromUid(ani.eoric.uid) // anigram
             let coords
@@ -142,7 +141,6 @@ async function anitem (__mapper) {
         },
       },
     }
-
 
     // .................. animas
     let animas = [

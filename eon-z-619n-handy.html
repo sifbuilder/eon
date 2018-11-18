@@ -15,7 +15,7 @@ async function anitem (__mapper) {
     muonSvg,
     dlicht5,
     eohalMars,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').r('portview'),
     __mapper('xs').m('geoj'),
@@ -26,7 +26,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('svg'),
     __mapper('xs').d('licht5'),
     __mapper('xs').e('mars'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   let muonStore = __mapper('xs').m('store')
@@ -89,8 +89,8 @@ async function anitem (__mapper) {
              293.82,232.45 289.10,238.23 284.00,244.67
              276.43,249.39 267.78,251.78 257.56,252.12
              243.43,251.35 235.00,248.35 228.48,245.22
-             228.31,245.13 240.00,233.38 240.00,233.38 Z`
-      }
+             228.31,245.13 240.00,233.38 240.00,233.38 Z`,
+      },
     }
     let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
 
@@ -103,18 +103,17 @@ async function anitem (__mapper) {
     let rx = Math.sign(r0) * Math.min(Math.abs(r0), Math.abs(r1))
     let ry = -Math.sign(r1) * Math.min(Math.abs(r0), Math.abs(r1))
 
-    let dx =  - rx * (x1 - x0) / 2 // - 600 + (878 - 0) / 2 : - 160
-    let dy =  - ry * (y1 - y0) / 2 // 400 + (549 - 0) / 2 : 675
+    let dx = -rx * (x1 - x0) / 2 // - 600 + (878 - 0) / 2 : - 160
+    let dy = -ry * (y1 - y0) / 2 // 400 + (549 - 0) / 2 : 675
 
     let gjdata = muonSvg.castels(svgdata, {start: 0, stop: 0.9, step: 0.091})
-
 
     let nb = muonGeoj.getCoordsLength(gjdata) // show (nb * t) dots,  eg. 894
 
     let proform = {
       projection: 'uniwen',
       translate: [dx, dy, 0],
-      scale: [rx , ry],
+      scale: [rx, ry],
       rotate: [ 0, 0, 0 ],
       lens: [0, 1, Infinity],
     }
@@ -194,12 +193,10 @@ async function anitem (__mapper) {
       },
     }
 
-
     // .................. animas
     let animas = [
 
       polyForm, // h.sol
-
 
     ]
 

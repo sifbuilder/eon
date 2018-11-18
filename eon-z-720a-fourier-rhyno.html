@@ -15,7 +15,7 @@ async function anitem (__mapper) {
     muonProj3ct,
     muonProfier,
     muonStace,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').d('rhyno'),
     __mapper('xs').e('mars'),
@@ -26,9 +26,8 @@ async function anitem (__mapper) {
     __mapper('xs').m('proj3ct'),
     __mapper('xs').m('profier'),
     __mapper('xs').m('stace'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
-
 
   let muonStore = __mapper('muonStore')
 
@@ -65,7 +64,6 @@ async function anitem (__mapper) {
     let geoData = muonProj3ct(data, muonProfier.formion(proform, ani))
     let transforms = muonFourier.transformedCoefs(geoData)
     transforms = muonGeoj.ntime(transforms, [0, 1])
-
 
     // ... rayline LineString
 
@@ -234,7 +232,6 @@ async function anitem (__mapper) {
         },
       },
     }
-
 
     // .................. animas
     let animas = [

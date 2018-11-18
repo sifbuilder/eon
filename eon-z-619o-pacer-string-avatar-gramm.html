@@ -46,9 +46,8 @@ async function anitem (__mapper) {
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlWen().control(renderSvg.svg())
-    
+
     // .................. pics
     let eotim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
 
@@ -103,8 +102,8 @@ async function anitem (__mapper) {
              314.27,230.03 307.47,228.34 297.47,230.25
              293.93,232.62 288.73,238.09 284.11,244.83
              269.02,252.60 259.44,252.62 240.50,249.44
-             238.07,248.92 229.21,244.81 228.83,244.78 Z`
-      }
+             238.07,248.92 229.21,244.81 228.83,244.78 Z`,
+      },
     }
     let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
     let x0 = extent[0], y0 = extent[1], x1 = extent[2], y1 = extent[3]
@@ -113,8 +112,8 @@ async function anitem (__mapper) {
     let r1 = height / (y1 - y0)
     let rx = Math.sign(r0) * Math.min(Math.abs(r0), Math.abs(r1))
     let ry = Math.sign(r1) * Math.min(Math.abs(r0), Math.abs(r1))
-    let dx =  rx * (x1 - x0) / 2
-    let dy =  ry * (y1 - y0) / 2
+    let dx = rx * (x1 - x0) / 2
+    let dy = ry * (y1 - y0) / 2
     let gjdata = muonSvg.castels(svgdata, {start: 0, stop: 0.9, step: 0.41})
 
     let invgjdata = muonProps.clone(gjdata) // Multiline - first line
@@ -122,20 +121,17 @@ async function anitem (__mapper) {
 
     let nb = muonGeoj.getCoordsLength(gjdata)
 
-
     let prt = {
-          projection: 'uniwen',
-          translate: [ -200, 100, 0],
-          scale: [0.3, -0.3],
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
+      projection: 'uniwen',
+      translate: [ -200, 100, 0],
+      scale: [0.3, -0.3],
+      rotate: [ 0, 0, 0 ],
+      lens: [0, 1, Infinity],
 
-        }
+    }
     let prtion = muonProfier.formion(prt)
     let geoData = muonProj3ct(gjdata, prtion)
     let invgeoData = muonProj3ct(invgjdata, prtion)
-
-
 
     // ............................. avaline
     let avaline = {
@@ -161,7 +157,7 @@ async function anitem (__mapper) {
         properties: {},
       },
 
-      eocrom: {'csx': 0, 'cf': 444, 'cs': [[[222,888]]], 'cw': 1.25, 'co': 0.12, 'cp': 0.99},
+      eocrom: {'csx': 0, 'cf': 444, 'cs': [[[222, 888]]], 'cw': 1.25, 'co': 0.12, 'cp': 0.99},
 
       eoload: {
         pacer: { // geoaad for trace
@@ -181,11 +177,8 @@ async function anitem (__mapper) {
 
             let coords
             if (props.key === 'init') { // INIT
-
               coords = ani.eonode.geometry.coordinates // eonode
-
             } else if (props.key === 'auto') { // AUTO
-
               let point = muonAnitem.snapani([[[ invgeoData.geometry.coordinates ]]], ani.eotim.unitTime)
 
               point = muonGeoj.geotrim(point)
@@ -195,7 +188,6 @@ async function anitem (__mapper) {
                   coords = (feature.geometry.coordinates)
                     ? [...feature.geometry.coordinates, point ]
                     : Array.of(point)
-
                 } else if (preani.eofold.type === 'Feature') {
                   let feature = preani.eofold
                   coords = (feature.geometry.coordinates)
@@ -203,11 +195,8 @@ async function anitem (__mapper) {
                     : Array.of(point)
                 }
               }
-
             } else if (props.key === 'event') { // EVENT
-
               coords = ani.eonode.geometry.coordinates
-
             }
 
             console.assert(coords !== undefined && coords !== null, `eofold coords undefined`)
@@ -336,7 +325,7 @@ async function anitem (__mapper) {
       eomot: {
         eoform: {
           projection: 'uniwen',
-          translate: [131 , -27] ,
+          translate: [131, -27],
           scale: 1,
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
@@ -344,7 +333,7 @@ async function anitem (__mapper) {
         },
         proform: {
           projection: 'uniwen',
-          translate: [[[ geoData.geometry.coordinates.slice().reverse() ]]],  //
+          translate: [[[ geoData.geometry.coordinates.slice().reverse() ]]], //
           scale: 1,
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
@@ -366,7 +355,6 @@ async function anitem (__mapper) {
 
       },
     }
-
 
     // .................. animas
     let animas = [

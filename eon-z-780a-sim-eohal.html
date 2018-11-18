@@ -163,18 +163,17 @@ async function anitem (__mapper) {
       eoload: {},
     }
 
-
     // ............................. force_collide
     let force_collide = {
 
       properties: {
         strength: 0.03,
-        
+
         src: d3_force,
         id: d => d.eoric.uid,
         filter: d => d.eoric.gid === 'nat',
         type: 'collide',
-        key: 'collide'        
+        key: 'collide',
       },
 
       field: params => { // force.field
@@ -183,7 +182,6 @@ async function anitem (__mapper) {
         return Array.of(force)
       },
     }
-
 
     // .................. natAni forces
     natAni.eoforces = {

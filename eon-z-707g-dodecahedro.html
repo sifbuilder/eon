@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     eohalMars,
     muonGeom,
     muonProps,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').b('d3'),
     __mapper('xs').b('d3-geo'),
@@ -19,14 +19,13 @@ async function anitem (__mapper) {
     __mapper('xs').e('mars'),
     __mapper('xs').m('geom'),
     __mapper('xs').m('props'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlWen().control(renderSvg.svg())
-    
+
     // .................. pics
 
     let epsilon = 1e-6, epsilon2 = epsilon * epsilon, asin = Math.asin
@@ -159,7 +158,6 @@ async function anitem (__mapper) {
     let animas = [
 
       facesAni, // h.mars
-
 
     ]
     return animas

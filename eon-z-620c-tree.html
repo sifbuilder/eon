@@ -9,12 +9,12 @@ async function anitem (__mapper) {
     ctlWen,
     eohalMars,
     eohalSol,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('sol'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   let muonStore = __mapper('muonStore')
@@ -24,45 +24,39 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-
     // .................. buildBranch - from branch end build new branch
-    const buildTree = (tree, props={}) => {
-
+    const buildTree = (tree, props = {}) => {
       let grounit = props.grounit,
-      angle = props.angle,
-      depth = props.depth,
-      maxDepth = props.maxDepth,
-      branchWidth = props.branchWidth,
-      branchColor = props.branchColor,
-      maxAngleDelta = props.maxAngleDelta,
-      branchShrinkage = props.branchShrinkage,
-      directions = props.directions,
-      eocrom = props.eocrom
+        angle = props.angle,
+        depth = props.depth,
+        maxDepth = props.maxDepth,
+        branchWidth = props.branchWidth,
+        branchColor = props.branchColor,
+        maxAngleDelta = props.maxAngleDelta,
+        branchShrinkage = props.branchShrinkage,
+        directions = props.directions,
+        eocrom = props.eocrom
 
-      let step = Math.floor(depth)  // growth orbital
+      let step = Math.floor(depth) // growth orbital
 
       let treeFeatures = tree.features
       let qFeatures = treeFeatures.length
 
-      let newFeatures = treeFeatures  // tree egns to newTree gens
+      let newFeatures = treeFeatures // tree egns to newTree gens
       let newAngle = angle
 
-      for (let i=0; i<qFeatures; i++) {
-
+      for (let i = 0; i < qFeatures; i++) {
         let feature = treeFeatures[i]
 
         if (step < qFeatures) {
         } else if (step >= qFeatures) {
-
-          let linesInFeature = feature.geometry.coordinates  // pre-gen linesInFeature
+          let linesInFeature = feature.geometry.coordinates // pre-gen linesInFeature
 
           let linesInNewFeature = []
 
-          for (let j=0; j<linesInFeature.length; j++) { // each line is a branch in feature (stem generation)
-
+          for (let j = 0; j < linesInFeature.length; j++) { // each line is a branch in feature (stem generation)
             let lineInFeature = linesInFeature[j]
-            for (let k=0; k<directions.length; k++) {
-
+            for (let k = 0; k < directions.length; k++) {
               let direction = directions[k]
 
               // let newAngle = angle + maxAngleDelta * (Math.random() * 0.5)
@@ -72,20 +66,15 @@ async function anitem (__mapper) {
               let x1 = lineInFeature[nodesInLine - 1][0]
               let y1 = lineInFeature[nodesInLine - 1][1]
 
-
               let dirAngle = angle + maxAngleDelta * (Math.random() * 0.5 * direction)
-              let dirLength = grounit * (Math.pow(branchShrinkage,i) + Math.random() * Math.pow((1.0 - branchShrinkage),i))
-
+              let dirLength = grounit * (Math.pow(branchShrinkage, i) + Math.random() * Math.pow((1.0 - branchShrinkage), i))
 
               const x2 = x1 + dirLength * Math.cos(dirAngle)
               const y2 = y1 + dirLength * Math.sin(dirAngle)
 
-              let lineInNewFeature = [ [x1, y1] , [x2, y2] ]
+              let lineInNewFeature = [ [x1, y1], [x2, y2] ]
               linesInNewFeature.push(lineInNewFeature)
-
             }
-
-
           }
 
           let neweocrom = {
@@ -100,76 +89,62 @@ async function anitem (__mapper) {
           let newFeature = {
             type: 'Feature',
             geometry: {
-              type: "MultiLineString",
+              type: 'MultiLineString',
               coordinates: linesInNewFeature,
             },
             properties: {
-              eocrom: neweocrom
-            }
+              eocrom: neweocrom,
+            },
           }
 
           newFeatures = [...treeFeatures, newFeature]
-
-
         } // split
       } // gen
 
-        if (step < newFeatures.length) {
+      if (step < newFeatures.length) {
+        let feature = newFeatures[step]
 
-          let feature = newFeatures[step]
+        let i = step
+        let linesInFeature = feature.geometry.coordinates // pre-gen linesInFeature
+        let linesInNewFeature = []
 
-          let i = step
-          let linesInFeature = feature.geometry.coordinates  // pre-gen linesInFeature
-          let linesInNewFeature = []
+        for (let j = 0; j < linesInFeature.length; j++) {
+          let lineInFeature = linesInFeature[j]
 
-          for (let j=0; j<linesInFeature.length; j++) {
+          let direction = 0.1
 
-            let lineInFeature = linesInFeature[j]
+          let nodesInLine = lineInFeature.length
+          console.assert(nodesInLine >= 2, `error in line ${lineInFeature}`)
 
-              let direction = 0.1
+          let x0 = lineInFeature[nodesInLine - 2][0]
+          let y0 = lineInFeature[nodesInLine - 2][1]
 
+          let x1 = lineInFeature[nodesInLine - 1][0]
+          let y1 = lineInFeature[nodesInLine - 1][1]
 
-              let nodesInLine = lineInFeature.length
-              console.assert(nodesInLine >= 2, `error in line ${lineInFeature}`)
-  
-              let x0 = lineInFeature[nodesInLine - 2][0]
-              let y0 = lineInFeature[nodesInLine - 2][1]     
-     
-              let x1 = lineInFeature[nodesInLine - 1][0]
-              let y1 = lineInFeature[nodesInLine - 1][1]
+          let inang = Math.atan2(y1 - y0, x1 - x0)
+          let maxAngleDelta = Math.PI / 6
 
-              let inang = Math.atan2(y1-y0, x1-x0)
-              let maxAngleDelta = Math.PI / 6
+          let dirAngle = inang + maxAngleDelta * (Math.random() * 0.5 * direction)
 
-              let dirAngle = inang + maxAngleDelta * (Math.random() * 0.5 * direction)
+          let dirLength = grounit * (Math.pow(branchShrinkage, i) + Math.random() * Math.pow((1.0 - branchShrinkage), i))
 
-              let dirLength = grounit * (Math.pow(branchShrinkage,i) + Math.random() * Math.pow((1.0 - branchShrinkage),i))
+          const x2 = x1 + dirLength * Math.cos(dirAngle)
+          const y2 = y1 + dirLength * Math.sin(dirAngle)
 
-
-              const x2 = x1 + dirLength * Math.cos(dirAngle)
-              const y2 = y1 + dirLength * Math.sin(dirAngle)
-
-              linesInFeature[j] = [...lineInFeature, [x2, y2]]
-
-
-          }
-
-
-          newFeatures[step] = feature
-          newFeatures[step].geometry.coordinates = linesInFeature
-
+          linesInFeature[j] = [...lineInFeature, [x2, y2]]
         }
 
-
+        newFeatures[step] = feature
+        newFeatures[step].geometry.coordinates = linesInFeature
+      }
 
       let newTree = {
-            type: 'FeatureCollection',
-            features: newFeatures
-          }
+        type: 'FeatureCollection',
+        features: newFeatures,
+      }
       return newTree
-
     }
-
 
     // .................. treeAni1
     let treeAni1 = {
@@ -177,7 +152,6 @@ async function anitem (__mapper) {
       eohal: 'mars',
 
       eofold: ani => {
-
         let eoload = ani.eoload
         let eocrom = ani.eocrom
 
@@ -186,7 +160,6 @@ async function anitem (__mapper) {
           geometry: { type: 'MultiLineString', coordinates: [] },
           properties: {},
         }
-
 
         const maxDepth = eoload.tree.maxDepth,
           depth = eoload.tree.depth,
@@ -200,16 +173,12 @@ async function anitem (__mapper) {
           maxAngleDelta = eoload.tree.maxAngleDelta,
           directions = eoload.tree.directions
 
-
         let uidPreitem = ani.eoric.uid
         let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
         let tree
         if (preAnigram) {
-
           tree = preAnigram.eofold
-
         } else {
-
           let x1 = x0
           let y1 = y0
           let x2 = x1 + grounit * Math.cos(angle)
@@ -218,20 +187,18 @@ async function anitem (__mapper) {
             type: 'Feature',
             geometry: {
               type: 'MultiLineString',
-              coordinates: Array.of([ [x1, y1], [x2, y2] ]) // MultiLineString
-            }
+              coordinates: Array.of([ [x1, y1], [x2, y2] ]), // MultiLineString
+            },
           }
           tree = {
             type: 'FeatureCollection',
             features: Array.of(stemFeature),
             properties: ani.eoload.eocrom,
           }
-
         }
         let newtree = buildTree(tree, {grounit, angle, depth, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage, directions, eocrom})
 
         return newtree
-
       },
 
       eotim: eotim,
@@ -257,7 +224,6 @@ async function anitem (__mapper) {
         },
       },
     }
-
 
     // .................. animas
     let animas = [

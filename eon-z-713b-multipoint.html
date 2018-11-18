@@ -13,7 +13,7 @@ async function anitem (__mapper) {
     muonNatform,
     muonProps,
     muonGraticule,
-    prtNatform,    
+    prtNatform,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').m('graticule'),
-    __mapper('xs').p('natform'),    
+    __mapper('xs').p('natform'),
   ])
 
   // .................. animas
@@ -81,8 +81,8 @@ async function anitem (__mapper) {
         let faces = muonGraticule.gfaces(graticule)	// faces
 
         let gj = {
-            type: 'MultiPoint', 
-            coordinates: vertices
+          type: 'MultiPoint',
+          coordinates: vertices,
         }
 
         return gj
@@ -92,7 +92,7 @@ async function anitem (__mapper) {
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani'},
       eocrom: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
       eomot: {
-        conform: { projection: 'natform', eoform: conform, },        
+        conform: { projection: 'natform', eoform: conform },
         proform: proform,
       },
       eoframe: frame,

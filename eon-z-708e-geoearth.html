@@ -16,7 +16,7 @@ async function anitem (__mapper) {
     d3geo,
     d3geoprojection,
     eohalMars,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
@@ -28,17 +28,15 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-geo-projection'),
     __mapper('xs').e('mars'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
-  
+
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlVersor().control(renderSvg.svg())
-    
+
     // .................. pics
     let eotim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
-
 
     let pFront = function (x, y) {
       let forward = (x, y) => d3geo.geoOrthographicRaw(x, -y)
@@ -86,7 +84,6 @@ async function anitem (__mapper) {
       },
 
     }
-
 
     let animas = [
       geoearth, // h.mars g.orthographic

@@ -10,21 +10,20 @@ async function anitem (__mapper) {
     renderPortview,
     prtNatform,
     eohalMars,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').r('portview'),
     __mapper('xs').p('natform'),
     __mapper('xs').e('mars'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlWen().control(renderSvg.svg())
-    
+
     // .................. pics
     let sin = Math.sin, cos = Math.cos
 
@@ -191,13 +190,11 @@ async function anitem (__mapper) {
 
     }
 
-
     // .................. animas
     let animas = [
 
       gratform1, // h.mars
       circform, // h.mars
-
 
     ]
 

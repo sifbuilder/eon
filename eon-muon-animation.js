@@ -31,9 +31,8 @@
     ]
     )
 
-  let muonStore = __mapper('xs').m('store')
-  
-  
+    let muonStore = __mapper('xs').m('store')
+
     let state = {}
     state.animas = [] // global animas
     state.promise = null
@@ -134,11 +133,11 @@
 
       let featurecollection = {
         type: 'FeatureCollection',
-        features: anigrams.reduce( (p,q,i) =>
-              q.eofold.type === 'Feature'
-              ? [...p, q.eofold]   // Feature
-              : [...p, ...q.eofold.features]  // FeatureCollection
-        ,[])
+        features: anigrams.reduce((p, q, i) =>
+          q.eofold.type === 'Feature'
+            ? [...p, q.eofold] // Feature
+            : [...p, ...q.eofold.features] // FeatureCollection
+          , []),
 
       }
       return featurecollection
@@ -168,9 +167,9 @@
       // let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.eotim.limit + item.eotim.msStart), 0)
       // let nostop = state.animas.reduce((pre, item) => (pre || item.eotim.nostop), 0)
       // if (!nostop && (isNaN(maxlimit) ||
-            // (maxlimit > 0 && elapsed > maxlimit) || // stop if spired
-            // (elapsed > maxlimit))) { // stop if anigrams spired
-        // state.animationStop()
+      // (maxlimit > 0 && elapsed > maxlimit) || // stop if spired
+      // (elapsed > maxlimit))) { // stop if anigrams spired
+      // state.animationStop()
       // }
 
       // ... @WEEN SIM GRAMM RENDER

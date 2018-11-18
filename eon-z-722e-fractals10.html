@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     muonProps,
     muonStace,
     muonSvg,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').c('versor'),
@@ -40,16 +40,15 @@ async function anitem (__mapper) {
     __mapper('xs').m('props'),
     __mapper('xs').m('stace'),
     __mapper('xs').m('svg'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   let muonStore = __mapper('muonStore')
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlVersor().control(renderSvg.svg())
-    
+
     // .................. pics
 
     const pi = Math.PI, pi2 = 2 * pi,
@@ -236,10 +235,7 @@ async function anitem (__mapper) {
       },
     })
 
-
-
     let params = {depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2}
-
 
     let getanis = function (params = {}) {
       let anis = []

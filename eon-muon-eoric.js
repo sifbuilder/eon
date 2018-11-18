@@ -97,7 +97,7 @@
         for (let i = 0; i < features.length; i++) {
           let feature = features[i] // this feature
           console.assert(feature !== undefined, `feature undefined ${json}`)
-          
+
           let _ric = JSON.parse(JSON.stringify(eoric))
           _ric.gid = eoric.gid // eoric from param eoric
           _ric.cid = eoric.cid

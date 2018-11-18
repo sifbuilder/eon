@@ -35,7 +35,7 @@
     // .................. rebase
     function rebase () {
       state.rotInDrag_s_degrees = [0, 0, 0]
-      state.rotInDrag_c_degrees = [0, 0, 0] 
+      state.rotInDrag_c_degrees = [0, 0, 0]
     }
 
     // ....................... dragControl
@@ -49,9 +49,9 @@
     // .................. start drag control
     let control = elem => {
       elem.call(d3drag.drag()
-      .on('start.wen', dragControl.dragstarted)
-      .on('drag.wen', dragControl.dragged)
-      .on('end.wen', dragControl.dragended)
+        .on('start.wen', dragControl.dragstarted)
+        .on('drag.wen', dragControl.dragged)
+        .on('end.wen', dragControl.dragended)
       )
       return enty
     }
@@ -59,16 +59,16 @@
     // .................. stop drag control
     let reset = elem => {
       elem.call(d3drag.drag()
-      .on('start.wen', null)
-      .on('drag.wen', null)
-      .on('end.wen', null)
+        .on('start.wen', null)
+        .on('drag.wen', null)
+        .on('end.wen', null)
       )
       return enty
     }
 
     // .................. inits
     let inits = {
-      
+
       decay: 0.95,
       mult_degrees_s: 1e-1, // rotInDrag_s_degrees factor
       mult_degrees_c: 90,
@@ -130,7 +130,6 @@
             muonGeom.add(
               state.rotAccum_s_degrees,
               state.rotInDrag_s_degrees) // rotation
-
 
       rebase() // rebase rotInDrag
     }
@@ -206,13 +205,11 @@
       state.rotInDrag_s_degrees[0] += state.vel_s_degrees[0]
       state.rotInDrag_s_degrees[1] -= state.vel_s_degrees[1]
 
-
       if (state.timer) state.timer = requestAnimationFrame(momentum)
     }
 
     // .................. enty
     let enty = function (p = {}) {
-      
       state.decay = p.decay || inits.decay
       state.moveSpan = p.moveSpan || inits.moveSpan
       state.mult_degrees_s = p.mult_degrees_s || inits.mult_degrees_s

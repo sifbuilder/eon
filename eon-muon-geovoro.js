@@ -17,7 +17,6 @@
 
   // ref: https://visionscarto.net/the-state-of-d3-voronoi
 
-
   // ............................. muonGeovoro
   async function muonGeovoro (__mapper = {}) {
     let [
@@ -52,8 +51,7 @@
       }
       if (0 in d) return d[1]
     }
-  
-    
+
     // ............................. voro
     var voro = function voro () {}			// entApi
 

@@ -29,9 +29,9 @@ let [cmd, scp, ...opts] = args
 let action = 'help' // {[help] pattern}
 let inscopepattern = new RegExp(`^eon-z-___none___.*\.html$`, 'i') // none pattern
 
-if (opts.length === 0) {    // action: help
-  action = 'help' 
-} else if (opts.length === 1 && opts[0] !== 'help') {   // action:view
+if (opts.length === 0) { // action: help
+  action = 'help'
+} else if (opts.length === 1 && opts[0] !== 'help') { // action:view
   action = 'view'
   let codepattern = '.*' // default to all
   if (opts[0] === '.') {
@@ -63,7 +63,7 @@ let files = fs.readdirSync(indir) // to view
   .filter(file => isFile(file))
   .filter(d => inscopepattern.test(d))
 
-    // .................. viewitems  
+// .................. viewitems
 async function viewitems (browser, fls, opts) {
   const variations = fls
 
@@ -130,8 +130,7 @@ async function viewitems (browser, fls, opts) {
   return viewnext(0)
 }
 
-
-    // .................. view  
+// .................. view
 async function view (fls, opts) {
   const winwidth = 1200
   const winheight = 900
@@ -148,7 +147,6 @@ async function view (fls, opts) {
   await browser.pages()
   await viewitems(browser, fls, opts)
   if (closebrowser) await browser.close()
-    
 }
 
 if (action === 'help') {

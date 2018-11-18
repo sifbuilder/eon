@@ -52,9 +52,8 @@ let files = fs.readdirSync(indir) // to view
   .filter(file => isFile(file))
   .filter(d => inscopeexp.test(d))
 
-// where  
+// where
 let scopeexp = new RegExp('^(((eon-)?(((?!-).)*)-(.*)).(html|js))', 'i')
-
 
 // pattern
 let cpsearchpattern = ` let sceneAni = {
@@ -70,17 +69,15 @@ let cpsearchpattern = ` let sceneAni = {
     }`
 
 // https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
-function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+function escapeRegExp (string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
 }
-
 
 let searchpattern = escapeRegExp(cpsearchpattern) // .split(/\r?\n/) // .map(d=> `${d}(\r\n|\n|\r)`)
 if (1 && 1) console.log('searchpattern', searchpattern)
 
 let searchexp = RegExp(`${searchpattern}`, 'm')
 let replacepattern = ''
-
 
 // options
 const options = {}
@@ -94,8 +91,6 @@ async function run (infiles, opts) {
   let promises = infiles.map(fileName => {
     Promise.resolve(fileName)
       .then(fileName => {
-
-
         let parts = fileName.match(scopeexp) || []
         let fullName = parts[0]
         let rootname = parts[2] || 'eons' // ----------------
@@ -103,7 +98,6 @@ async function run (infiles, opts) {
 
         // ... apply
         function apply (pckfolder, fullName, rootname) {
-
           let eonfile = `${indir}${fullName}`
 
           if (fs.existsSync(eonfile)) { // if md file

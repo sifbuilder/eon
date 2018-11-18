@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     muonNatform,
     muonProps,
     renderPortview,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-force-3d'),
@@ -38,7 +38,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').r('portview'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   let [
@@ -390,8 +390,7 @@ async function anitem (__mapper) {
       eoload: {},
     }
 
-
-  // ............................. forceGravity
+    // ............................. forceGravity
     let forceGravity = function (params) { // force
       let nodes = params.nodes // animas
       let gravity = typeof params.gravity === 'function'
@@ -438,15 +437,15 @@ async function anitem (__mapper) {
     // .................... field_link
     let force_link = {
       properties: {
-        
+
         strength: 1,
-        
+
         src: d3_force,
         id: d => d.eoric.uid,
         type: 'link',
         key: 'link',
         filter: d => true,
-        
+
       },
 
       field: params => {
@@ -454,7 +453,7 @@ async function anitem (__mapper) {
         params.properties.links = links
 
         let forceParams = Object.assign({}, params, params.properties)
-        
+
         let force = muonEoforces.force(forceParams)
         return Array.of(force)
       },

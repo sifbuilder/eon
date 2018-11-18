@@ -9,41 +9,39 @@
   'use strict'
 
   async function muonSoma (__mapper = {}) {
+    let [
+      muonProps,
+    ] = await Promise.all([
+      __mapper('xs').m('props'),
+    ])
 
-  let [
-    muonProps,
-  ] = await Promise.all([
-    __mapper('xs').m('props'),
-  ])  
-  
-  let muonStore = __mapper('muonStore')
-      // soma: {
-            // eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
-            // x0: -40, y0: -100,
+    let muonStore = __mapper('muonStore')
+    // soma: {
+    // eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
+    // x0: -40, y0: -100,
 
-            // growthDir: [[[1 * Math.PI / 2 ,  1 * Math.PI / 2 ]]],
+    // growthDir: [[[1 * Math.PI / 2 ,  1 * Math.PI / 2 ]]],
 
-            // depth: [[[0, 9]]], // [[[0, 12]]], // depth iter
+    // depth: [[[0, 9]]], // [[[0, 12]]], // depth iter
 
-            // growunit: 2, // rate of feature growth in tick
-            // maxSpreadAngle: 1 * Math.PI / 2, // max abs ang delta
-            // mitoDirections: [ -1.1, 0.1, 0.9 ], // [ -1.1, 0.9 ], // deviations
+    // growunit: 2, // rate of feature growth in tick
+    // maxSpreadAngle: 1 * Math.PI / 2, // max abs ang delta
+    // mitoDirections: [ -1.1, 0.1, 0.9 ], // [ -1.1, 0.9 ], // deviations
 
-            // shrinkage: 0.7, // 0.9, // size shrink
-            // colordelta: 160, // 100, // color delta between gens
+    // shrinkage: 0.7, // 0.9, // size shrink
+    // colordelta: 160, // 100, // color delta between gens
 
-            // subgrow: 1, // inside growth
-            // subgrowunit: 0.3, // rate of feature growth in tick
-            // subSpreadAngle: Math.PI / 6, // width of secondary deviation
-            // subMitoDirs: [0.1], // direction in stems
-            // subShrinkage: 0.9, // size shrink
-            // subgrowrate: (i,q) => 8 * (q - Math.abs(i - (q /2))) / q
+    // subgrow: 1, // inside growth
+    // subgrowunit: 0.3, // rate of feature growth in tick
+    // subSpreadAngle: Math.PI / 6, // width of secondary deviation
+    // subMitoDirs: [0.1], // direction in stems
+    // subShrinkage: 0.9, // size shrink
+    // subgrowrate: (i,q) => 8 * (q - Math.abs(i - (q /2))) / q
 
-        // } 
+    // }
 
     // .................. mitoSoma
     let mitoSoma = function (feature, props, i) {
-
       let { growunit, growthDir, depth, maxDepth, branchWidt, branchColor, maxSpreadAngle, mitoDirections, eocrom, shrinkage, colordelta, subgrow, subgrowunit, subMitoDirs, subSpreadAngle, subShrinkage } = props
 
       let linesInNewFeature = []
@@ -91,10 +89,10 @@
 
       return newMito
     }
-    
+
     // .................. growSoma
     let growSoma = function (feature, props, i) {
-      let { growunit, growthDir, depth, maxDepth, branchWidt, branchColor, maxSpreadAngle, mitoDirections, 
+      let { growunit, growthDir, depth, maxDepth, branchWidt, branchColor, maxSpreadAngle, mitoDirections,
         eocrom, shrinkage, colordelta, subgrow, subgrowunit, subMitoDirs, subSpreadAngle, subShrinkage, subgrowrate } = props
 
       let somasInMito = muonProps.clone(feature.geometry.coordinates)
@@ -119,8 +117,8 @@
 
           let dirAngle = inang + subSpreadAngle * Math.random() * direction
 
-          let dist = subgrowrate(j,qsomas)  
-          
+          let dist = subgrowrate(j, qsomas)
+
           let dirLength = dist * subgrowunit * (Math.pow(subShrinkage, i) + Math.random() * Math.pow((1.0 - subShrinkage), i))
 
           const x2 = x1 + dirLength * Math.cos(dirAngle)
@@ -135,11 +133,11 @@
       updfeature.geometry.coordinates = somasInMito
       return updfeature
     }
-    
+
     // .................. neoSoma
-    let neoSoma = function (props={}) {
+    let neoSoma = function (props = {}) {
       let {x0, y0, growunit, growthDir, eocrom} = props
-    
+
       let x1 = x0
       let y1 = y0
       let x2 = x1 + growunit * Math.cos(growthDir)
@@ -163,11 +161,11 @@
       }
       return soma
     }
-    
+
     // .................. devSoma
     const devSoma = (soma, props) => {
-      let { growunit, growthDir, depth, maxDepth, branchWidt, branchColor, maxSpreadAngle, mitoDirections, 
-      eocrom, shrinkage, colordelta, subgrow, subgrowunit, subMitoDirs, subSpreadAngle, subShrinkage } = props
+      let { growunit, growthDir, depth, maxDepth, branchWidt, branchColor, maxSpreadAngle, mitoDirections,
+        eocrom, shrinkage, colordelta, subgrow, subgrowunit, subMitoDirs, subSpreadAngle, subShrinkage } = props
 
       let step = Math.floor(depth) // growth orbital
 
@@ -203,37 +201,32 @@
 
     // .................. somafold
     let somafold = ani => {
-        let eoload = ani.eoload
+      let eoload = ani.eoload
 
-        const props = eoload.soma,
-          x0 = props.x0,
-          y0 = props.y0,
-          growunit = props.growunit,
-          growthDir = props.growthDir
-          
-        let eocrom = props.eocrom || ani.eocrom
-        props.eocrom = eocrom
+      const props = eoload.soma,
+        x0 = props.x0,
+        y0 = props.y0,
+        growunit = props.growunit,
+        growthDir = props.growthDir
 
-        let uidPreitem = ani.eoric.uid
-        let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
-        let soma
-        if (preAnigram ) {
-          
-          soma = preAnigram.eofold
-          
-        } else {
+      let eocrom = props.eocrom || ani.eocrom
+      props.eocrom = eocrom
 
-          soma = neoSoma({x0, y0, growunit, growthDir, eocrom})
-
-        }
-
-
-        return devSoma(soma, props)
+      let uidPreitem = ani.eoric.uid
+      let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
+      let soma
+      if (preAnigram) {
+        soma = preAnigram.eofold
+      } else {
+        soma = neoSoma({x0, y0, growunit, growthDir, eocrom})
       }
 
-     // .................. somaAni
-    let somaAni =  {
-    
+      return devSoma(soma, props)
+    }
+
+    // .................. somaAni
+    let somaAni = {
+
       eohal: 'mars',
       eotim: {'td': 6800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
@@ -243,16 +236,16 @@
       eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
       eoload: {},
     }
-   
+
     // .................. soma
-    let soma = (i,p) => {
+    let soma = (i, p) => {
       let ani = muonProps.clone(somaAni)
       ani.eoload.soma = p
-      ani.eoric.fid = 'ani'+i
+      ani.eoric.fid = 'ani' + i
 
       return ani
     }
-  
+
     // ............................. enty
     let enty = {}
 

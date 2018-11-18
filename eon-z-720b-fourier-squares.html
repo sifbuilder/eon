@@ -16,7 +16,7 @@ async function anitem (__mapper) {
     muonProfier,
     muonStace,
     muonSvg,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').d('rhyno'),
     __mapper('xs').e('mars'),
@@ -28,7 +28,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('profier'),
     __mapper('xs').m('stace'),
     __mapper('xs').m('svg'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   let muonStore = __mapper('muonStore')
@@ -61,26 +61,22 @@ async function anitem (__mapper) {
     ] // MultiLineString
     data.geometry.coordinates = basicSquare
 
-
     let proformfn = (lat, lon) => ({
-        projection: 'uniwen',
-        translate: [ lat, lon ],
-        scale: [1, 1],
-        rotate: [ 0, 0, 0 ],
-        lens: [0, 1, Infinity]
+      projection: 'uniwen',
+      translate: [ lat, lon ],
+      scale: [1, 1],
+      rotate: [ 0, 0, 0 ],
+      lens: [0, 1, Infinity],
     })
 
     let C0 = -250
     let C1 = 60
     let C2 = 16
     let prt = i => proformfn(
-          C0 + C1 * i + C2 * i * i,
-          0,
-    )    
-    
-    
-    
-    
+      C0 + C1 * i + C2 * i * i,
+      0
+    )
+
     // ...  get geoData from uniwen projection with inverse y-scale
     // ...  the get the data features (transforms)
     // ...  span data along [0, 1] interval
@@ -88,8 +84,7 @@ async function anitem (__mapper) {
 
     let getGeoData = i => muonProj3ct(data, muonProfier.uniweon(prt(i)))
     let geoData = getGeoData(1)
-    
-    
+
     let cl = muonGeoj.getCoordsLength
     let cr = muonGeoj.getCoordsInRange
     let csi = (i, t) => {
@@ -100,10 +95,8 @@ async function anitem (__mapper) {
       return res
     }
 
-    
     let transforms = muonFourier.transformedCoefs(geoData)
     transforms = muonGeoj.ntime(transforms, [0, 1])
-
 
     // ... rayline LineString
 
@@ -232,7 +225,7 @@ async function anitem (__mapper) {
     })
 
     // .................. aniDotted anima
-    let aniDotted = (i,q) => ({
+    let aniDotted = (i, q) => ({
       eohal: 'mars',
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'aniDotted' + i},
@@ -243,15 +236,15 @@ async function anitem (__mapper) {
       },
       eocrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.5, 'co': 0.9, 'cp': 0.999},
       eoload: {},
-    })    
-    
+    })
+
     // ... fourierAni carries the transforms in the eofold
     // ...  h.fourier
     // ...  bears traceline and rayline avatars
     // ...  the rayline is a LineString between each two transforms
     // ...  the traceline is a paced LineString on the last transform
 
-    let fourierAni = (i,q=4) => ({
+    let fourierAni = (i, q = 4) => ({
 
       eohal: 'fourier',
       eotim: eotim,
@@ -261,7 +254,7 @@ async function anitem (__mapper) {
         let transforms = muonGeoj.ntime(muonFourier.transformedCoefs(csi(i, (1 + i) / q)), [0, 1])
         return {
           type: 'FeatureCollection',
-          features: transforms
+          features: transforms,
         }
       },
 
@@ -289,21 +282,20 @@ async function anitem (__mapper) {
         },
       },
     })
-    
+
     let QFORMS = 4
     let fourierAnis = []
     let aniDotteds = []
     for (let i = 0; i < QFORMS; i++) {
-        fourierAnis.push(fourierAni(i, QFORMS))
-        aniDotteds.push(aniDotted(i,QFORMS ))
+      fourierAnis.push(fourierAni(i, QFORMS))
+      aniDotteds.push(aniDotted(i, QFORMS))
     }
-
 
     // .................. animas
     let animas = [
 
       ...fourierAnis, // h.fourier
-      ...aniDotteds, // h.mars      
+      ...aniDotteds, // h.mars
 
     ]
 

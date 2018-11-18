@@ -16,12 +16,12 @@
     let [
       eohalMars,
       muonNatform,
-    renderSvg,  
-  ] = await Promise.all([
+      renderSvg,
+    ] = await Promise.all([
       __mapper('xs').e('mars'),
       __mapper('xs').m('natform'),
-    __mapper('xs').r('svg'), 
-  ])
+      __mapper('xs').r('svg'),
+    ])
 
     let ani = function () {
       // .................. pics

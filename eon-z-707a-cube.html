@@ -13,7 +13,7 @@ async function anitem (__mapper) {
     muonGraticule,
     muonProps,
     prtNatform,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('eul'),
     __mapper('xs').c('wen'),
@@ -23,15 +23,13 @@ async function anitem (__mapper) {
     __mapper('xs').m('graticule'),
     __mapper('xs').m('props'),
     __mapper('xs').p('natform'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
-
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlEul().control(renderSvg.svg())
-    
+
     // .................. pics
 
     const eotim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
@@ -155,7 +153,6 @@ async function anitem (__mapper) {
 
       },
     }
-
 
     let animas = [
 

@@ -23,8 +23,8 @@
       __mapper('xs').m('props'),
     ])
 
-  let muonStore = __mapper('xs').m('store')
-  
+    let muonStore = __mapper('xs').m('store')
+
     let _geonode = {
       type: 'Feature',
       geometry: {

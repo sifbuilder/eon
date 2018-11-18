@@ -10,20 +10,19 @@ async function anitem (__mapper) {
     ctlWen,
     prtNatform,
     eohalMars,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').m('graticule'),
     __mapper('xs').c('wen'),
     __mapper('xs').p('natform'),
     __mapper('xs').e('mars'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlWen().control(renderSvg.svg())
-    
+
     // .................. pics
     let eotim = {'td': 22800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -123,14 +122,12 @@ async function anitem (__mapper) {
       },
     }
 
-
     // .................. animas
     let animas = [
 
       g1, // h.mars
       g2, // h.mars
       g3, // h.mars
-
 
     ]
 

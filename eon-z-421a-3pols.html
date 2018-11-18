@@ -43,7 +43,6 @@ async function anitem (__mapper) {
   ])
   // .................. animas
   let ani = function () {
-
     // let ctl = ctlVersor().control(renderSvg.svg())
 
     // .................. pics
@@ -55,8 +54,8 @@ async function anitem (__mapper) {
       projection: prtOrthographic,
       // prerotate: [[[ prtOrthographic.rotation ]]],
       // prerotate: [[[ ctlVersor
-        // .projection({projection: prtOrthographic })
-        // .rotation,
+      // .projection({projection: prtOrthographic })
+      // .rotation,
       // ]]],
       translate: [0, 0, 0],
       scale: 100,
@@ -144,12 +143,11 @@ async function anitem (__mapper) {
         let gfaces = muonGraticule.gfaces(p.eoframe)
 
         let res = gvertsFeature
-        
+
         res.properties.eoMultiPolygon = !0
         res.properties.faces = gfaces
-    
-        return res
 
+        return res
       },
       eotim,
 
@@ -162,7 +160,7 @@ async function anitem (__mapper) {
       },
 
       eoric: {gid: 'geofaces', cid: 'geofaces', fid: 'geofaces'},
-      eocrom: { 'csx': 0, 'cf': [[[222, 222]]], 'cs': 666, 'cw': [[[0.3,2.3]]], 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+      eocrom: { 'csx': 0, 'cf': [[[222, 222]]], 'cs': 666, 'cw': [[[0.3, 2.3]]], 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
 
       eoframe: eoframe,
       eoload: {},
@@ -175,7 +173,7 @@ async function anitem (__mapper) {
 
       eofold: p => {
         let vhmls = muonGraticule.vhMultiLine(p.eoframe)
-        
+
         return vhmls
       },
       eotim,
@@ -189,7 +187,7 @@ async function anitem (__mapper) {
       },
 
       eoric: {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
-      eocrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': [[[0.3,2.3]]], 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+      eocrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': [[[0.3, 2.3]]], 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
 
       eoframe: eoframe,
       eoload: {},
@@ -199,7 +197,7 @@ async function anitem (__mapper) {
     let camera = {
 
       eohal: 'camera',
-      
+
     }
 
     let animas = [

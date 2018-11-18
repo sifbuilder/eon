@@ -10,21 +10,20 @@ async function anitem (__mapper) {
     muonFibonat,
     muonGraticule,
     prtNatform,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('fibonat'),
     __mapper('xs').m('graticule'),
     __mapper('xs').p('natform'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlWen().control(renderSvg.svg())
-    
+
     // .................. pics
     const radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos,

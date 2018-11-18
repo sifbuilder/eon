@@ -13,7 +13,7 @@ async function anitem (__mapper) {
     muonGeom,
     muonGraticule,
     prtNatform,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').b('topojson'),
     __mapper('xs').c('wen'),
@@ -22,7 +22,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
     __mapper('xs').p('natform'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
@@ -276,7 +276,6 @@ async function anitem (__mapper) {
       eoload: {},
 
     }
-
 
     // ............................. animas
     let animas = [

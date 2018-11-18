@@ -82,8 +82,7 @@
     // ... getTranspots
     // ... call store to get current state
     let getTranspots = function (stace, anitem) {
-      
-      let muonStore = __mapper('muonStore') 
+      let muonStore = __mapper('muonStore')
 
       let eoload = anitem.eoload
       console.assert(eoload !== undefined, anitem, ' eoload undefined')

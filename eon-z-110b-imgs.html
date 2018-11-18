@@ -14,14 +14,14 @@ async function anitem (__mapper) {
     eohalMars,
     muonAnimas,
     muonProps,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').e('imgform'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('animas'),
     __mapper('xs').m('props'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
@@ -33,64 +33,59 @@ async function anitem (__mapper) {
     // m x n  rows, columns
     // {p: [xi,yi], v: [dx, dy]}
     // if q = 4 => m:2, n:2
-    let tile = (i=1, q=1, extent=[ [-1,-1], [1,1]] ) => {
-      let p=[], v=[]
+    let tile = (i = 1, q = 1, extent = [ [-1, -1], [1, 1]]) => {
+      let p = [], v = []
       let res = {
-        p: [0,0],
-        v: [1,1],
+        p: [0, 0],
+        v: [1, 1],
       }
       let w = extent[1][0] - extent[0][0]
       let h = extent[1][1] - extent[0][1]
       let dx = extent[0][0]
       let dy = extent[0][1]
-      
+
       let m, n
       if (q === 1) {
-      
-        m=1, n=1
+        m = 1, n = 1
         let wi = w / m
         let hi = h / n
-        
-        let xy = muonProps.ridx(2,2)(i)
 
-        
-        let p = [ 
-          dx + xy[0] * wi, 
-          - (dy + xy[1] * hi) // invert y translate
+        let xy = muonProps.ridx(2, 2)(i)
+
+        let p = [
+          dx + xy[0] * wi,
+          -(dy + xy[1] * hi), // invert y translate
         ]
         let v = [wi, hi]
-        
+
         res = {p, v}
-        
       } else if (q === 4) {
-
-        m=2, n=2
+        m = 2, n = 2
         let wi = w / m
         let hi = h / n
-        
-        let xy = muonProps.ridx(2,2)(i)
-        
-        let p = [ 
-          dx + xy[0] * wi, 
-          - (dy + xy[1] * hi)
+
+        let xy = muonProps.ridx(2, 2)(i)
+
+        let p = [
+          dx + xy[0] * wi,
+          -(dy + xy[1] * hi),
         ]
         let v = [wi, hi]
-        
+
         res = {p, v}
       }
-      
+
       return res
     }
-    
-    let quad = extent => (i,q) => tile (i,q, extent)
-    
-    
-    let extent = [ [-270,-200], [270,200] ]
-    if (1 && 1) console.log(' -------- p', quad(extent)(0, 4).p  )
-    if (1 && 1) console.log(' -------- v', quad(extent)(0, 4).v  )
-    
+
+    let quad = extent => (i, q) => tile(i, q, extent)
+
+    let extent = [ [-270, -200], [270, 200] ]
+    if (1 && 1) console.log(' -------- p', quad(extent)(0, 4).p)
+    if (1 && 1) console.log(' -------- v', quad(extent)(0, 4).v)
+
     // ............................. natAni
-    let natAni = (i=0,n=1,img='') => ({
+    let natAni = (i = 0, n = 1, img = '') => ({
       eohal: 'imgform',
       eofold: p => ({
         type: 'Feature',
@@ -112,20 +107,20 @@ async function anitem (__mapper) {
       }),
 
       eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'nat'+ '_' + i},
+      eoric: {gid: 'nat', cid: 'nat', fid: 'nat' + '_' + i},
       eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate: quad(extent)(i, n).p // [ -230, 140 ],
+          translate: quad(extent)(i, n).p, // [ -230, 140 ],
         },
       },
       eoload: {
         img: {
           url: img,
           style: {
-            width:  quad(extent)(i, n).v[0], // 400,
+            width: quad(extent)(i, n).v[0], // 400,
             height: quad(extent)(i, n).v[1], // 300,
             rotate: 0,
           },
@@ -136,10 +131,10 @@ async function anitem (__mapper) {
     // ............................. animas
     let animas = [
       // natAni(0,4,'market01.jpg'),
-      natAni(0,4,'market01.jpg'),
-      natAni(1,4,'market02.jpg'),
-      natAni(2,4,'market03.jpg'),
-      natAni(3,4,'market04.jpg'),
+      natAni(0, 4, 'market01.jpg'),
+      natAni(1, 4, 'market02.jpg'),
+      natAni(2, 4, 'market03.jpg'),
+      natAni(3, 4, 'market04.jpg'),
 
     ]
 

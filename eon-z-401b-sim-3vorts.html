@@ -18,7 +18,7 @@ async function anitem (__mapper) {
     muonNatform,
     muonProps,
     renderPortview,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').c('rayder'),
@@ -33,7 +33,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').r('portview'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   let [
@@ -379,8 +379,8 @@ async function anitem (__mapper) {
         return Array.of(force)
       },
     }
-    
-   // ............................. forceGravity
+
+    // ............................. forceGravity
     let forceGravity = function (params) { // force
       let nodes = params.nodes // animas
       let gravity = typeof params.gravity === 'function'
@@ -443,7 +443,7 @@ async function anitem (__mapper) {
         params.properties.links = links
 
         let forceParams = Object.assign({}, params, params.properties)
-        
+
         let force = muonEoforces.force(forceParams)
         return Array.of(force)
       },
@@ -492,7 +492,7 @@ async function anitem (__mapper) {
         return Array.of(force)
       },
     }
-    
+
     // .................... fieldAni
     let fieldAni = {
 

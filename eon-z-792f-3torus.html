@@ -5,9 +5,9 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__mapper) {
   let [
-        d3,
+    d3,
     d3geo,
-      THREE,
+    THREE,
     d3Force3d,
     ctlWen,
     eohalMars,
@@ -15,11 +15,11 @@ async function anitem (__mapper) {
     muonGeom,
     prtNatform,
     renderPortview,
-        renderWebgl,
+    renderWebgl,
   ] = await Promise.all([
     __mapper('xs').b('d3'),
     __mapper('xs').b('d3-geo'),
-      __mapper('xs').b('three'),
+    __mapper('xs').b('three'),
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
@@ -27,12 +27,11 @@ async function anitem (__mapper) {
     __mapper('xs').m('geom'),
     __mapper('xs').p('natform'),
     __mapper('xs').r('portview'),
-        __mapper('xs').r('webgl'),
+    __mapper('xs').r('webgl'),
   ])
 
   // .................. animas
   let ani = function () {
-
     // .................. pics
     let pi = Math.PI, halfpi = Math.PI / 2,
       radians = Math.PI / 180, degrees = 180 / Math.PI,
@@ -67,9 +66,7 @@ async function anitem (__mapper) {
     let sinht = [0, infact1, 0, +infact3, 0, infact5, 0, +infact7, 0, infact9]
     let exp = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
 
-
     const eotim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
-
 
     let formCirc = {
       'x': {
@@ -108,11 +105,9 @@ async function anitem (__mapper) {
       eoric: {gid: 'formAni', cid: 'formAni', fid: 'formAni'},
 
       eofold: p => {
-
-
         let vertices = muonGraticule.gVertices(p.eoframe)
-        let quads =  muonGraticule.qfaces(p.eoframe)
-        let faces = quads.reduce( (p,q) => [...p, ...muonGeom.convextriang(q)], [])
+        let quads = muonGraticule.qfaces(p.eoframe)
+        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
 
         let featureMultiPoint = {
 
@@ -125,17 +120,15 @@ async function anitem (__mapper) {
             sort: 'form',
             eoMultiPolygon: 1,
             faces: faces,
-          }
+          },
         }
 
         return featureMultiPoint
-
       },
-
 
       eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
-     eomot: {
+      eomot: {
 
         conform: {
           projection: 'natform',
@@ -145,51 +138,49 @@ async function anitem (__mapper) {
         proform: {
           projection: 'uniwen',
           translate: [0, 0, 0],
-          scale: [0.1,0.1,0.1],
-          rotate: [ [[[0,3 * 120, 3 * 120]]], [[[0,3 * 260, 4 * 260]]], [[[0,3 * 220, 5 * 220]]]], // [ 0, 0, 0 ],
+          scale: [0.1, 0.1, 0.1],
+          rotate: [ [[[0, 3 * 120, 3 * 120]]], [[[0, 3 * 260, 4 * 260]]], [[[0, 3 * 220, 5 * 220]]]], // [ 0, 0, 0 ],
           lens: [ 0, 1, Infinity ],
         },
       },
 
       eoframe: {
 
-        frame: [ [ [ -180, 180, 12, 12], [ [[[-30,-180,-180]]], [[[30,180,180]]], 12, 12] ] ],
+        frame: [ [ [ -180, 180, 12, 12], [ [[[-30, -180, -180]]], [[[30, 180, 180]]], 12, 12] ] ],
 
       },
       eoload: {},
     }
 
-
     // .................. cameraPersAni anima
     let cameraPersAni = {
 
       eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'}, 
+      eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
       eohal: 'sol',
 
       eofold: anitem => {
         let eoload = anitem.eoload
-        let json = {  // Feature
+        let json = { // Feature
           type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0,0,0], },
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
           properties: {
             sort: 'camera',
-            type: 'PerspectiveCamera', 
-            name: 'Perspective', 
-            fov: 60,  // field of view s the field of view. angle in degrees.
-            aspect: renderPortview.width()/renderPortview.height(), 
-            near: 0.001, 
+            type: 'PerspectiveCamera',
+            name: 'Perspective',
+            fov: 60, // field of view s the field of view. angle in degrees.
+            aspect: renderPortview.width() / renderPortview.height(),
+            near: 0.001,
             far: 1600,
-            
-            position: [0,0, 400 ],
+
+            position: [0, 0, 400 ],
             rotation: [0, 0, 0 ],
-            
-            
-            vellin: [0,0, 0 ],
-            velang: [0,0, 0 ],            
-            
+
+            vellin: [0, 0, 0 ],
+            velang: [0, 0, 0 ],
+
             distance2nodesFactor: 100,
-            lookAt: [0,0,0],
+            lookAt: [0, 0, 0],
           },
         }
         return json
@@ -199,99 +190,93 @@ async function anitem (__mapper) {
     let lightHemisphereAni = {
 
       eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'}, 
+      eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
       eohal: 'sol',
 
       eofold: anitem => {
         let eoload = anitem.eoload
-        let json = {  // Feature
+        let json = { // Feature
           type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0,0,0], },
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
           properties: anitem.eoload.light,
         }
-
 
         return json
       },
       eoload: {
         light: {
-            sort: 'light',            
-            type: 'HemisphereLight',
-            name: 'HemisphereLight',
-            skyColor: [[[111,999]]],
-            groundColor: [[[999,111]]],
-            intensity: 0.4,
-            position: [0, 0, 0],
-        }
-      }
-      
-     
+          sort: 'light',
+          type: 'HemisphereLight',
+          name: 'HemisphereLight',
+          skyColor: [[[111, 999]]],
+          groundColor: [[[999, 111]]],
+          intensity: 0.4,
+          position: [0, 0, 0],
+        },
+      },
+
     }
 
     // .................. spotLight anima
     let spotLight = {
 
       eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'}, 
+      eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
       eohal: 'sol',
 
       eofold: anitem => {
         let eoload = anitem.eoload
-        let json = {  // Feature
+        let json = { // Feature
           type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0,0,0], },
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
           properties: anitem.eoload.light,
         }
         return json
       },
       eoload: {
         light: {
-            sort: 'light',            
-            type: 'SpotLight',
-            name: 'spotLight',
-            color: [[[222,777]]], // 0xe4eef9,
-            intensity: 0.99,
-            position: [-100, 100, 100],
-            normalize: 1,
-            castShadow: 1,
-        }
-      }
-      
-     
-    }    
+          sort: 'light',
+          type: 'SpotLight',
+          name: 'spotLight',
+          color: [[[222, 777]]], // 0xe4eef9,
+          intensity: 0.99,
+          position: [-100, 100, 100],
+          normalize: 1,
+          castShadow: 1,
+        },
+      },
 
+    }
 
-
-   // .................. gridHelper anima
+    // .................. gridHelper anima
     let gridHelper = {
 
       eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'gridHelper'}, 
+      eoric: {gid: 'camera', cid: 'camera', fid: 'gridHelper'},
       eohal: 'sol',
 
       eofold: anitem => {
         let eoload = anitem.eoload
-        let json = {  // Feature
+        let json = { // Feature
           type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0,0,0], },
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
           properties: {
             sort: 'gridHelper',
-            type: 'GridHelper', 
-            name: 'gridHelper', 
-            isToUpdate: 0, 
-            
-            size: 200,  // field of view
+            type: 'GridHelper',
+            name: 'gridHelper',
+            isToUpdate: 0,
+
+            size: 200, // field of view
             divisions: 5,
-            
+
             position: [0, 0, 0 ],
           },
         }
 
-
         return json
       },
-     
-    }    
+
+    }
     // .................. animas
     let animas = [
 

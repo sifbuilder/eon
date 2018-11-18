@@ -13,7 +13,7 @@ async function anitem (__mapper) {
     lcomplex,
     eohalMars,
     eohalNatform,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').m('natform'),
@@ -22,16 +22,15 @@ async function anitem (__mapper) {
     __mapper('xs').l('complex'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('natform'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   let Complex = __mapper('libComplex')
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlWen().control(renderSvg.svg())
-    
+
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -93,7 +92,6 @@ async function anitem (__mapper) {
 
       },
     }
-
 
     // .................. animas
     let animas = [

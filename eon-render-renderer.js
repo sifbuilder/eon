@@ -9,17 +9,14 @@
   'use strict'
 
   async function renderRenderer (__mapper = {}) {
-
-
     // ............................. render
     const render = function (featurecollection) {
-      
-      let renderSvg = __mapper("renderSvg")
-      let renderWebgl = __mapper("renderWebgl")
-      let renderCanvas = __mapper("renderCanvas")
-      
+      let renderSvg = __mapper('renderSvg')
+      let renderWebgl = __mapper('renderWebgl')
+      let renderCanvas = __mapper('renderCanvas')
+
       // console.assert(renderSvg || renderWebgl || renderCanvas, `renderer not defined`)
-      
+
       if (renderSvg) renderSvg.render(featurecollection)
       if (renderWebgl) renderWebgl.render(featurecollection)
       if (renderCanvas) renderCanvas.render(featurecollection)

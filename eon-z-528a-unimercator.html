@@ -11,7 +11,7 @@ async function anitem (__mapper) {
     muonGraticule,
     eohalMars,
     prtUnimercator,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').b('topojson'),
     __mapper('xs').c('wen'),
@@ -19,7 +19,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('graticule'),
     __mapper('xs').e('mars'),
     __mapper('xs').p('unimercator'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   let ani = function () {

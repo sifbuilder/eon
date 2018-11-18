@@ -47,7 +47,6 @@
 
     // .................. scene
     let scenify = function (p) {
-
       // ............................. ray control animation
       // if ray, add ray controls to svg
       if (p.ray && p.ray !== state.ray) {

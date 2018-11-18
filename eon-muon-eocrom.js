@@ -18,7 +18,7 @@
     ])
 
     function shadeRGBColor (color) {
-      let  p = 255,
+      let p = 255,
         R = color[0],
         G = color[1],
         B = color[2]
@@ -29,7 +29,7 @@
             (Math.round((t - B) * p) + B) + ')'
       )
     }
-    
+
     // .................. color
     function color (d = 0) {
       let colors = {}
@@ -57,7 +57,7 @@
         rainbow: d3interpolate.interpolateRainbow, // 15
         bluered: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'red' ]),
         blueblack: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'black' ]), // "red",])  // 0
-        
+
       }
 
       colors.color = colors.scales.bos
@@ -83,19 +83,17 @@
 
       return style
     }
-    
-    
+
     // .................. getColor
-    let getColor = (v,s=0) => kolor(v, s)
+    let getColor = (v, s = 0) => kolor(v, s)
 
     // .................. @m.eocrom.geocromer(anigram, json)
     let geocromer = function (anigram, json) {
-      
       if (json !== undefined && json !== null) {
         if (json.type === undefined) {
-          
+
         } else if (typeof anigram.eocrom !== 'object') {
-          
+
         } else if (json.type === 'Feature') { // Feature
           let feature = json
 
@@ -114,21 +112,15 @@
 
           if (feature.properties === undefined) feature.properties = {}
           feature.properties.style = Object.assign(jsonStyle, featureStyle)
-          
         } else if (json.type === 'FeatureCollection') {
-          
           for (let i = 0; i < json.features.length; i++) {
             let feature = json.features[i]
             feature = geocromer(anigram, feature)
           }
-          
         } else {
-          
           console.log('m.eocrom.geocromer nothing done')
-          
         }
       }
-
 
       return json
     }

@@ -8,12 +8,9 @@
 }(this, function (exports) {
   'use strict'
 
-
   // ... ** **
   // ... ### refs
   // ... * https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
-
-
 
   async function ctlRayder (__mapper) {
     let [

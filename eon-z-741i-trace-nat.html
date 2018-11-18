@@ -12,7 +12,7 @@ async function anitem (__mapper) {
     muonStace,
     muonNatform,
     muonEoric,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').e('mars'),
     __mapper('xs').e('natform'),
@@ -20,7 +20,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('stace'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('eoric'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   let muonStore = __mapper('muonStore')
@@ -117,7 +117,6 @@ async function anitem (__mapper) {
         },
       },
     }
-
 
     // ............................. animas
     let animas = [

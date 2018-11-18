@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   async function muonGraticule (__mapper = {}) {
     let [
       muonGeoj,
@@ -68,7 +67,7 @@
     let ridx = function (horq, verq, hd = 1, vd = 1) { // ridx(6,4,1,1)
       return function (idx) { // ridx(3) => [0,2], ridx(17) => [3,5]
         // let ret = [Math.floor(((idx / hd) / vd) / horq), idx % horq]
-        let ret = [ idx % horq , Math.floor(((idx / hd) / vd) / horq) ]
+        let ret = [ idx % horq, Math.floor(((idx / hd) / vd) / horq) ]
         return ret
       }
     }
@@ -110,7 +109,6 @@
       let v2 = indexer(i1, j1)
       let v3 = indexer(i0, j1)
 
-      
       let f = [ v0, v1, v2, v3 ]
 
       return [f ]

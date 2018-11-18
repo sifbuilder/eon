@@ -11,21 +11,20 @@ async function anitem (__mapper) {
     eohalMars,
     muonGraticule,
     muonNatform,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('eul'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('graticule'),
     __mapper('xs').m('natform'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlWen().control(renderSvg.svg())
-    
+
     // .................. pics
     let eotim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -64,7 +63,7 @@ async function anitem (__mapper) {
       eohal: 'mars',
       eotim: eotim,
       eoric: {'gid': 'nat', 'cid': 'nat', 'fid': 'natform'},
-      
+
       eofold: p => muonNatform.natFeature(p.eoform),
 
       eomot: {
@@ -84,12 +83,10 @@ async function anitem (__mapper) {
 
     }
 
-
     // .................. animas
     let animas = [
 
       natform, // h.mars
-
 
     ]
 

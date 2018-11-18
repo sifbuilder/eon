@@ -104,7 +104,7 @@
       c0: null, // Mouse cartesian position invprojected
       q0: null, // Quaternion. Projection rotation
       p0: null, // Mouse position (spher)
-      dtc: null // Distance initial dot to center untransformed
+      dtc: null, // Distance initial dot to center untransformed
     }
 
     // .................. dragstarted listener
@@ -144,8 +144,6 @@
               // [0, 0, 0]
               state.rotInDrag_degrees // at end of last drag
             )
-
-
 
       rebase() // rebase rotInDrag
     }
@@ -201,7 +199,7 @@
 
       let cd12 = [
         state.c2[1] - state.c1[1],
-        state.c2[0] - state.c1[0]
+        state.c2[0] - state.c1[0],
       ]
       let msd12 = [
         xsign * cd12[0] * inits.mult_degrees,

@@ -9,12 +9,12 @@ async function anitem (__mapper) {
     ctlWen,
     eohalMars,
     eohalSol,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('sol'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   let muonStore = __mapper('muonStore')
@@ -24,29 +24,22 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {'td': 3800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-
     // .................. buildBranch - from branch end build new branch
     const buildBranch = (length, angle, depth, maxDepth, branchWidth, branchColor, maxAngleDelta, branchShrinkage, tree, directions) => {
-
       let step = Math.floor(depth)
       let newTree = []
 
-
-      let newDepth = Math.floor(depth - 1)   // depth: 2, 1, 0 , newDepth: 1, 0
+      let newDepth = Math.floor(depth - 1) // depth: 2, 1, 0 , newDepth: 1, 0
       if (newDepth <= 0) { return tree }
       let newBranchWidth = branchWidth * branchShrinkage
-      let newBranchColor = shadeRGBColor(branchColor, 0.1)    
-      
-      for (let i=0; i<tree.length; i++) {
+      let newBranchColor = shadeRGBColor(branchColor, 0.1)
+
+      for (let i = 0; i < tree.length; i++) {
         let branch = tree[i]
         let branchLength = branch.length
         if (step <= branchLength) {
-
           newTree.push(branch)
-         
-          
         } else if (step >= branchLength) {
-
           let newAngle = angle + maxAngleDelta * (Math.random() * 0.5)
           let newLength = length * (branchShrinkage + Math.random() * (1.0 - branchShrinkage))
 
@@ -62,23 +55,19 @@ async function anitem (__mapper) {
               const x2 = x1 + dirLength * Math.cos(dirAngle)
               const y2 = y1 + dirLength * Math.sin(dirAngle)
 
-              let newbranch = [...branch , [x2, y2] ]
+              let newbranch = [...branch, [x2, y2] ]
               return newbranch
-
             })
 
           newTree = [...newTree, ...newStems]
-
         }
       }
 
       return newTree
-
     }
 
     // .................. buildTree - from tree init to leaves
     const buildTree = (x0, y0, length, angle, depth, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage, tree, directions) => {
-
       if (tree === undefined || tree.length === 0) {
         let x1 = x0
         let y1 = y0
@@ -97,7 +86,6 @@ async function anitem (__mapper) {
       eohal: 'mars',
 
       eofold: ani => {
-
         let eoload = ani.eoload
 
         let feature = {
@@ -123,17 +111,13 @@ async function anitem (__mapper) {
           maxAngleDelta = eoload.tree.maxAngleDelta,
           directions = eoload.tree.directions
 
-
         let tree = buildTree(x0, y0, length, angle, depth, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage, preTree, directions)
 
-
         feature.geometry.coordinates = tree
-
 
         let newFeatureCollection = {type: 'FeatureCollection', features: []}
         newFeatureCollection.features.push(feature)
         return newFeatureCollection
-
       },
 
       eotim: eotim,
@@ -166,7 +150,6 @@ async function anitem (__mapper) {
       eohal: 'mars',
 
       eofold: ani => {
-
         let eoload = ani.eoload
 
         let feature = {
@@ -192,18 +175,13 @@ async function anitem (__mapper) {
           maxAngleDelta = eoload.tree.maxAngleDelta,
           directions = eoload.tree.directions
 
-
-
         let tree = buildTree(x0, y0, length, angle, depth, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage, preTree, directions)
 
-
         feature.geometry.coordinates = tree
-
 
         let newFeatureCollection = {type: 'FeatureCollection', features: []}
         newFeatureCollection.features.push(feature)
         return newFeatureCollection
-
       },
 
       eotim: eotim,
@@ -236,7 +214,6 @@ async function anitem (__mapper) {
       eohal: 'mars',
 
       eofold: ani => {
-
         let eoload = ani.eoload
 
         let feature = {
@@ -262,18 +239,13 @@ async function anitem (__mapper) {
           maxAngleDelta = eoload.tree.maxAngleDelta,
           directions = eoload.tree.directions
 
-
-
         let tree = buildTree(x0, y0, length, angle, depth, maxDepth, trunkWidth, branchColor, maxAngleDelta, branchShrinkage, preTree, directions)
 
-
         feature.geometry.coordinates = tree
-
 
         let newFeatureCollection = {type: 'FeatureCollection', features: []}
         newFeatureCollection.features.push(feature)
         return newFeatureCollection
-
       },
 
       eotim: eotim,
@@ -298,8 +270,7 @@ async function anitem (__mapper) {
 
         },
       },
-    }    
-
+    }
 
     // .................. animas
     let animas = [

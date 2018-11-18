@@ -11,21 +11,20 @@ async function anitem (__mapper) {
     ctlWen,
     eohalMars,
     eohalNatform,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('natform'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlWen().control(renderSvg.svg())
-    
+
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
@@ -57,7 +56,7 @@ async function anitem (__mapper) {
 
     let conform = {
 
-     'x': {
+      'x': {
         'm1': [[[-8, -4, -2, -7.66]]],
         'm2': [[[-3.5, -3.3, -3, -3.73 ]]],
         'n1': [[[16.24, 16.24, 16.24, 16.24]]],
@@ -68,12 +67,11 @@ async function anitem (__mapper) {
 
         // 'm1': 6,'m2': 6,'n1': 60,'n2': 100,'n3': 30,'a': 1,'b': 1,
 
-
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 72, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180], // r.form.circ [-1.57, 1.57]
 
         // form
-        c1: [1, 1], e1: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8] // a * cos(q)
+        c1: [1, 1], e1: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // a * cos(q)
         // c4:[1, 0], e4:[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],  // 1 * id(v)
 
       },
@@ -87,15 +85,14 @@ async function anitem (__mapper) {
         'a': [[[9, 9, 9, 8.98]]],
         'b': [[[0.2, 0.2, 0.2, 0.19]]],
 
-        // 'm1': 2,'m2': 2,'n1': 1,'n2': 1,'n3': 1,'a': 1,'b': 1,	
-
+        // 'm1': 2,'m2': 2,'n1': 1,'n2': 1,'n3': 1,'a': 1,'b': 1,
 
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 72, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
 
         // form
         c1: [1, 0], e1: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(q)
-        c4: [1, 0], e4: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8] // 1 * cos(v)
+        c4: [1, 0], e4: [1, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8], // 1 * cos(v)
 
       },
 
@@ -110,14 +107,13 @@ async function anitem (__mapper) {
 
         // 'm1': 2,'m2': 2,'n1': 1,'n2': 1,'n3': 1,'a': 1,'b': 1,
 
-
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 72, 'pa6': 0, 'pb7': -1,
 
         'dom3': [-180, 180],
 
         // form
         c1: [1, 0], e1: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(q)
-        c4: [1, 0], e4: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9] // 1 * sin(v)
+        c4: [1, 0], e4: [0, 1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9], // 1 * sin(v)
 
       },
 
@@ -139,8 +135,8 @@ async function anitem (__mapper) {
 
         // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => c * cos(u),
         // 'fn0': (q,s, u=0,v=0, a,b, c=1,d=1) => d,
-        'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => v
-      }
+        'fn0': (q, s, u = 0, v = 0, a, b, c = 1, d = 1) => v,
+      },
 
     }
 
@@ -179,7 +175,6 @@ async function anitem (__mapper) {
       eoload: {},
 
     }
-
 
     // .................. animas
     let animas = [

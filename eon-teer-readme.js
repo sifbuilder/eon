@@ -39,8 +39,8 @@ let erebody = ''
 // | :---: | :---: | :---: | :---: | :---: | :---: | :---: |${newLine}
 // `
 
-let row = q => n => Math.floor(n/q)
-let col = q => n => n%q
+let row = q => n => Math.floor(n / q)
+let col = q => n => n % q
 // if (1 && 1) console.log('qzs', qzs)
 // if (1 && 1) console.log(` 2 row: ${row(7)( 2)}, cols: ${col(7)( 2)}` )
 // if (1 && 1) console.log(`12 row: ${row(7)(12)}, cols: ${col(7)(12)}` )
@@ -57,28 +57,22 @@ for (let i = 0; i < qzs; i++) {
   let name = parts[2]
   let code = parts[4]
   let type = parts[6]
-  
-// if (1 && 1) console.log('parts', parts)
 
-  
+  // if (1 && 1) console.log('parts', parts)
+
   let preline = `${code}` //
   // let bodyline = `[${name}](${root}${fullname})` //
   let bodyline = `` //
   let mdfullname = `${name}.md`
   let imgfullname = `${name}.png`
-  
 
   if (fs.existsSync(imgfullname)) {
-    
     bodyline += `| [<img src="${imgfullname}" width="100px;"/><br /><sub><b>${name}</b></sub>](${root}${fullname}) |`
-    
   } else {
-    
     bodyline += `| [<b>${name}</b>](${root}${fullname}) |`
-    
   }
-if (1 && 1) console.log('bodyline', bodyline)
-  
+  if (1 && 1) console.log('bodyline', bodyline)
+
   let line = `${preline} - ${bodyline} `
 
   body += `${line}${endOfLine}${newLine}`

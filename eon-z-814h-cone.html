@@ -13,21 +13,19 @@ async function anitem (__mapper) {
     eohalMars,
     muonNatform,
     muonProps,
-    renderSvg,       
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
-    __mapper('xs').r('svg'),     
+    __mapper('xs').r('svg'),
   ])
 
-  ctlWen.control(renderSvg.svg())  
-  
+  ctlWen.control(renderSvg.svg())
 
   // .................. animas
   let ani = function () {
-  
     // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
@@ -209,7 +207,6 @@ async function anitem (__mapper) {
       eoform: conformBlue,
       eoload: {},
     }
-
 
     // ............................. animas
     let animas = [

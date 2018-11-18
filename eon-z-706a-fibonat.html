@@ -10,21 +10,20 @@ async function anitem (__mapper) {
     eohalMars,
     muonFibonat,
     muonGraticule,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').b('d3'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('fibonat'),
     __mapper('xs').m('graticule'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlWen().control(renderSvg.svg())
-    
+
     // .................. pics
 
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
@@ -67,11 +66,9 @@ async function anitem (__mapper) {
 
     }
 
-
     let animas = [
 
       fiboForm, // h.mars
-
 
     ]
     return animas

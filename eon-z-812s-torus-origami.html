@@ -21,9 +21,8 @@ async function anitem (__mapper) {
 
   // .................. animas
   let ani = function () {
-    
-     let ctl = ctlWen().control(renderSvg.svg())
-    
+    let ctl = ctlWen().control(renderSvg.svg())
+
     // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
@@ -58,7 +57,7 @@ async function anitem (__mapper) {
     let exp = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
 
     // ............................. pics
-    let eotim = {'td': 18600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, }
+    let eotim = {'td': 18600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1 }
 
     let conformLight = {
       'x': {
@@ -79,13 +78,13 @@ async function anitem (__mapper) {
 
       z: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[64, 64,  64]]], 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[64, 64, 64]]], 'pa6': 0, 'pb7': -1,
         'dom3': [ -180, 180 ],
         c: [ 1, 1, 1, 5 ],
         fn0: (e, c, d) => {
-          let r = Math.floor(d.c[1])   
-          return d.c[3] * c[0] * e[0] * c[3] * sin(e[0]) * cos(e[1]) 
-        }
+          let r = Math.floor(d.c[1])
+          return d.c[3] * c[0] * e[0] * c[3] * sin(e[0]) * cos(e[1])
+        },
       },
 
       w: {
@@ -95,7 +94,7 @@ async function anitem (__mapper) {
           return c[3] * cos(e[2])
           // return e[3]
           // return 1
-        }
+        },
       },
 
     }
@@ -116,10 +115,10 @@ async function anitem (__mapper) {
           rotate: [ [0, 0, 0] ],
           // rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
           // rotate: [
-            // [[[ 0,  0, 36, -64, -64, -64]]],
-            // [[[36, 36, 36, 36, 36, 36]]],
-            // [[[ 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]],
-          // ],          
+          // [[[ 0,  0, 36, -64, -64, -64]]],
+          // [[[36, 36, 36, 36, 36, 36]]],
+          // [[[ 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]],
+          // ],
           lens: [0, 1, Infinity ],
         },
       },
@@ -129,7 +128,6 @@ async function anitem (__mapper) {
       eoload: {
       },
     }
-
 
     // ............................. animas
     let animas = [

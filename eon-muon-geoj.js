@@ -348,36 +348,27 @@
       return tfeatures
     }
 
-
-
     // ...................... featurecollect
     function featurecollect (gj) {
       let res = {type: 'FeatureCollection', features: []}
       console.assert(gj && gj.type, `geojson not defined`)
-      
+
       if (gj && gj.type) {
         let type = gj.type
 
         if (type === 'FeatureCollection') {
-          
           res = gj
-          
         } else if (type === 'Feature') {
-          
           res.features = Array.of(gj)
-          
         } else if (type === 'GeometryCollection') {
-          
           let features = gj.map(d => ({
             type: 'Feature',
             geometry: {
               type: d.type,
               coordinates: d.coordinates},
             properties: {}}))
-          res.features = features     
-            
+          res.features = features
         } else {
-          
           let features = Array.of({
             type: 'Feature',
             geometry: {
@@ -385,9 +376,9 @@
               coordinates: gj.coordinates},
             properties: {},
           })
-          res.features = features     
+          res.features = features
         }
-      } 
+      }
       return res
     }
 
@@ -405,7 +396,6 @@
 
     // ...................... zorder
     let zorder = function (features) {
-
       let zordered = features
         .map(d => {
           console.assert(isValid(d), `m.geoj.zorder:gj not valid  ${d}`)
@@ -431,7 +421,6 @@
         })
         .sort((a, b) => a.properties.zorder - b.properties.zorder) // z order
         // .map((d, i) => { d.properties.eoric.nid = i; return d }) // sequential ordinal
-
 
       return zordered
     }

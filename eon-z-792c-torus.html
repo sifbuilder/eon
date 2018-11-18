@@ -5,9 +5,9 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__mapper) {
   let [
-        d3,
+    d3,
     d3geo,
-      THREE,
+    THREE,
     d3Force3d,
     ctlWen,
     eohalMars,
@@ -15,11 +15,11 @@ async function anitem (__mapper) {
     muonGeom,
     prtNatform,
     renderPortview,
-        renderWebgl,
+    renderWebgl,
   ] = await Promise.all([
     __mapper('xs').b('d3'),
     __mapper('xs').b('d3-geo'),
-      __mapper('xs').b('three'),
+    __mapper('xs').b('three'),
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
@@ -27,12 +27,11 @@ async function anitem (__mapper) {
     __mapper('xs').m('geom'),
     __mapper('xs').p('natform'),
     __mapper('xs').r('portview'),
-        __mapper('xs').r('webgl'),
+    __mapper('xs').r('webgl'),
   ])
 
   // .................. animas
   let ani = function () {
-
     // .................. pics
     let pi = Math.PI, halfpi = Math.PI / 2,
       radians = Math.PI / 180, degrees = 180 / Math.PI,
@@ -112,13 +111,11 @@ async function anitem (__mapper) {
 
       eotim: eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform1'},
-      
+
       eofold: p => {
-
-
         let vertices = muonGraticule.gVertices(p.eoframe)
-        let quads =  muonGraticule.qfaces(p.eoframe)
-        let faces = quads.reduce( (p,q) => [...p, ...muonGeom.convextriang(q)], [])
+        let quads = muonGraticule.qfaces(p.eoframe)
+        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
 
         let featureMultiPoint = {
 
@@ -131,11 +128,10 @@ async function anitem (__mapper) {
             sort: 'form',
             eoMultiPolygon: 1,
             faces: faces,
-          }
+          },
         }
 
         return featureMultiPoint
-
       },
 
       eocrom: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.9, 'co': 0.1, 'cp': 0.9 },
@@ -151,7 +147,7 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           translate: [0, 0, 0],
           scale: 1,
-          rotate: [ [[[0,360]]], [[[0,360]]], [[[0,360]]]], // [ 0, 0, 0 ],
+          rotate: [ [[[0, 360]]], [[[0, 360]]], [[[0, 360]]]], // [ 0, 0, 0 ],
           lens: [ 0, 1, Infinity ],
         },
       },
@@ -164,7 +160,6 @@ async function anitem (__mapper) {
       eoload: {},
     }
 
-
     // .................. cameraPersAni anima
     let cameraPersAni = {
 
@@ -174,31 +169,30 @@ async function anitem (__mapper) {
 
       eofold: anitem => {
         let eoload = anitem.eoload
-        let json = {  // Feature
+        let json = { // Feature
           type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0,0,0], },
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
           properties: {
             sort: 'camera',
             type: 'PerspectiveCamera',
             name: 'Perspective',
-            fov: 100,  // field of view
-            aspect: renderPortview.width()/renderPortview.height(),
+            fov: 100, // field of view
+            aspect: renderPortview.width() / renderPortview.height(),
             near: -900,
             far: 900,
 
-            position: [0,0, 2900 ],
-            rotation: [0,0,0],
+            position: [0, 0, 2900 ],
+            rotation: [0, 0, 0],
             distance2nodesFactor: 100,
-            lookAt: [0,0,0],
+            lookAt: [0, 0, 0],
           },
         }
-
 
         return json
       },
 
     }
-   // .................. gridHelper anima
+    // .................. gridHelper anima
     let gridHelper = {
 
       eotim: eotim,
@@ -207,22 +201,21 @@ async function anitem (__mapper) {
 
       eofold: anitem => {
         let eoload = anitem.eoload
-        let json = {  // Feature
+        let json = { // Feature
           type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0,0,0], },
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
           properties: {
             sort: 'gridHelper',
             type: 'GridHelper',
             name: 'gridHelper',
             isToUpdate: 0,
 
-            size: 200,  // field of view
+            size: 200, // field of view
             divisions: 5,
 
             position: [0, -300, 0 ],
           },
         }
-
 
         return json
       },
@@ -238,29 +231,27 @@ async function anitem (__mapper) {
 
       eofold: anitem => {
         let eoload = anitem.eoload
-        let json = {  // Feature
+        let json = { // Feature
           type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0,0,0], },
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
           properties: anitem.eoload.light,
         }
-
 
         return json
       },
       eoload: {
         light: {
-            sort: 'light',
-            type: 'SpotLight',
-            name: 'spotLight',
-            color: [[[222,777]]], // 0xe4eef9,
-            intensity: 0.9,
-            position: [-1400, 1400, 1400],
-            normalize: 1,
-            castShadow: 1,
-        }
-      }
+          sort: 'light',
+          type: 'SpotLight',
+          name: 'spotLight',
+          color: [[[222, 777]]], // 0xe4eef9,
+          intensity: 0.9,
+          position: [-1400, 1400, 1400],
+          normalize: 1,
+          castShadow: 1,
+        },
+      },
     }
-
 
     // .................. cameraOrthoAni anima
     let ambientLight = {
@@ -271,9 +262,9 @@ async function anitem (__mapper) {
 
       eofold: anitem => {
         let eoload = anitem.eoload
-        let json = {  // Feature
+        let json = { // Feature
           type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0,0,0], },
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
           properties: anitem.eoload.light,
         }
 
@@ -281,15 +272,14 @@ async function anitem (__mapper) {
       },
       eoload: {
         light: {
-            sort: 'light',
-            type: 'AmbientLight',
-            name: 'AmbientLight',
-            color: 0xeeeeee,
-            intensity: 0.9,
-            position: [1400, 1400, 1400],
-        }
-      }
-
+          sort: 'light',
+          type: 'AmbientLight',
+          name: 'AmbientLight',
+          color: 0xeeeeee,
+          intensity: 0.9,
+          position: [1400, 1400, 1400],
+        },
+      },
 
     }
 
@@ -298,7 +288,7 @@ async function anitem (__mapper) {
       cameraPersAni, // h.sol
       circform1, // h.mars
       gridHelper, // h.sol
-       ambientLight, // h.sol
+      ambientLight, // h.sol
       spotLight, // h.sol
 
     ]

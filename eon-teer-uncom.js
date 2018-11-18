@@ -61,7 +61,6 @@ let replacepattern = ''
 
 if (1 && 1) console.log('searchpattern', searchpattern)
 
-
 // options
 const options = {}
 options.doit = doit
@@ -74,8 +73,6 @@ async function run (infiles, opts) {
   let promises = infiles.map(fileName => {
     Promise.resolve(fileName)
       .then(fileName => {
-
-
         let parts = fileName.match(scopeexp) || []
         let fullName = parts[0]
         let rootname = parts[2] || 'eons' // ----------------
@@ -83,7 +80,6 @@ async function run (infiles, opts) {
 
         // ... apply
         function apply (pckfolder, fullName, rootname) {
-
           let eonfile = `${indir}${fullName}`
 
           if (fs.existsSync(eonfile)) { // if md file

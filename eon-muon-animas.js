@@ -10,7 +10,6 @@
   'use strict'
 
   async function muonAnimas (__mapper) {
-
     let animas = {}
 
     animas.asterisk = {

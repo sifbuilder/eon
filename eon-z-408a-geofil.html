@@ -16,7 +16,7 @@ async function anitem (__mapper) {
     muonAnimas,
     muonGraticule,
     muonNatform,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').b('d3'),
     __mapper('xs').c('wen'),
@@ -25,14 +25,13 @@ async function anitem (__mapper) {
     __mapper('xs').m('animas'),
     __mapper('xs').m('graticule'),
     __mapper('xs').m('natform'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlWen().control(renderSvg.svg())
-    
+
     // .................. pics
     let eotim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
 
@@ -99,12 +98,10 @@ async function anitem (__mapper) {
       eoload: {},
     }
 
-
     // ............................. animas
     let animas = [
       geoGraticule1, //
       geoGraticule2, //
-
 
     ]
 

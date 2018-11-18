@@ -9,19 +9,18 @@ async function anitem (__mapper) {
     ctlWen,
     eohalMars,
     prtUniwen,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').p('uniwen'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlWen().control(renderSvg.svg())
-    
+
     // .................. pics
     let aniForm = {
 
@@ -59,7 +58,6 @@ async function anitem (__mapper) {
       eoload: {
       },
     }
-
 
     // .................. animas
     let animas = [

@@ -8,32 +8,31 @@ async function anitem (__mapper) {
   let [
     ctlWen,
     eohalNatform,
-    renderSvg,      
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('natform'),
-    __mapper('xs').r('svg'),     
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlWen().control(renderSvg.svg())
-    
+
     // .................. pics
     let eotim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
-    let formCirc ={
-        'm1': 4.718177045786351, 'm2': 19.396126213759022, 'n1': 15.313427387158098, 'n2': 10.738988564746812, 'n3': 15.119538381452617, 'b': 7.059625076609466, 'a': -13.981619631491435,
-        'tx': 0,
-        'ty': 0,
-        'rot': 0,
-        'rad': 45,
-        'segs': 720,
-        'pta': 0,
-        'ptb': -1,
-        'v0': 0, 'v1': 1,
-        'cf': 522, 'cs': 422,
-      }
+    let formCirc = {
+      'm1': 4.718177045786351, 'm2': 19.396126213759022, 'n1': 15.313427387158098, 'n2': 10.738988564746812, 'n3': 15.119538381452617, 'b': 7.059625076609466, 'a': -13.981619631491435,
+      'tx': 0,
+      'ty': 0,
+      'rot': 0,
+      'rad': 45,
+      'segs': 720,
+      'pta': 0,
+      'ptb': -1,
+      'v0': 0, 'v1': 1,
+      'cf': 522, 'cs': 422,
+    }
 
     let formNat = {
       x: {
@@ -93,7 +92,6 @@ async function anitem (__mapper) {
       eoload: {},
 
     }
-
 
     // ............................. animas
     let animas = [

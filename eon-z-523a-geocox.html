@@ -18,7 +18,7 @@ async function anitem (__mapper) {
     d3geoprojection,
     prtCox,
     eohalMars,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').m('props'),
     __mapper('xs').m('geom'),
@@ -32,14 +32,13 @@ async function anitem (__mapper) {
     __mapper('xs').b('d3-geo-projection'),
     __mapper('xs').p('cox'),
     __mapper('xs').e('mars'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlVersor().control(renderSvg.svg())
-    
+
     // .................. pics
     let eotim = {'td': 18200, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
     const sqrt2 = Math.sqrt(2)

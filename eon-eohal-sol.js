@@ -43,8 +43,8 @@
     function eohale (inani) {
       let newAnigrams = []
 
-      let anitem = {}  
-      
+      let anitem = {}
+
       let ownProps = Object.getOwnPropertyNames(inani)
       for (let prop of ownProps) {
         let newpropval = muonProps.v(inani[prop], inani)
@@ -57,7 +57,7 @@
       console.assert(gjcollection.type === 'FeatureCollection')
 
       gjcollection.features = muonGeoj.zorder(gjcollection.features)
-      
+
       gjcollection = muonEoric.enric(anitem.eoric, anitem, gjcollection)
 
       let newcollection = {type: 'FeatureCollection', features: []}
@@ -69,7 +69,6 @@
         feature.properties.eotim = anitem.eotim
         feature.properties.sort = feature.properties.sort || 'feature'
         newfeatues.push(feature)
-
       }
 
       newcollection.features = newfeatues

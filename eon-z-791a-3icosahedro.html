@@ -47,8 +47,8 @@ async function anitem (__mapper) {
           vertices = eoload.vertices(eoload.pars),
           faces = eoload.faces(eoload.pars)
 
-        let json = {  // Feature
-          type: 'Feature', 
+        let json = { // Feature
+          type: 'Feature',
           geometry: {
             type: 'MultiPoint',
             coordinates: vertices,
@@ -56,10 +56,9 @@ async function anitem (__mapper) {
           properties: {
             sort: 'form',
             eoMultiPolygon: 1,
-            faces: faces
+            faces: faces,
           },
         }
-
 
         return json
       },
@@ -73,7 +72,7 @@ async function anitem (__mapper) {
 
           projection: 'uniwen',
           translate: [ 0, 0, 0 ],
-          scale: [100,100,100],
+          scale: [100, 100, 100],
           rotate: [0, 0, 0],
           lens: [0, 1, Infinity ],
 
@@ -102,7 +101,7 @@ async function anitem (__mapper) {
 
         ],
 
-        faces:  pars => [
+        faces: pars => [
 
           [ 0, 2, 10 ],
           [ 0, 10, 5 ],
@@ -133,7 +132,6 @@ async function anitem (__mapper) {
     let animas = [
 
       facesAni, // h.mars
-
 
     ]
     return animas
