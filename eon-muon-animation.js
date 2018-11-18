@@ -19,7 +19,6 @@
       muonAnitem,
       muonEotim,
       muonSim,
-      muonStore,
       muonProps,
       renderRenderer,
     ] = await Promise.all([
@@ -27,12 +26,14 @@
       __mapper('xs').m('anitem'),
       __mapper('xs').m('eotim'),
       __mapper('xs').m('sim'),
-      __mapper('xs').m('store'),
       __mapper('xs').m('props'),
       __mapper('xs').r('renderer'),
     ]
     )
 
+  let muonStore = __mapper('xs').m('store')
+  
+  
     let state = {}
     state.animas = [] // global animas
     state.promise = null

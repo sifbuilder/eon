@@ -129,6 +129,7 @@
    
       if (anitem.eocrom === undefined) anitem.eocrom = geteocrom(anitem.eoform) 
      
+if (1 && 1) console.log(' ------------- ', anitem)
       
       return eohalMars.gramm(anitem)
     }

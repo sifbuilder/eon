@@ -10,14 +10,12 @@ async function anitem (__mapper) {
   // .................. eons
   let [
     eohalNatform,
-    eohalMars,
     muonAnimas,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').e('natform'),
-    __mapper('xs').e('mars'),
     __mapper('xs').m('animas'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
 
   // .................. animas
@@ -30,7 +28,7 @@ async function anitem (__mapper) {
     // ............................. natAni
     let natAni = {
       eohal: 'natform',
-      eofold: null,
+      eofold: ani => {},
 
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
@@ -42,6 +40,17 @@ async function anitem (__mapper) {
           'tx': 10, 'ty': [[[50, 150]]],
         }
       ),
+      eomot: {
+        proform: {
+
+          projection: 'uniwen',
+          translate: [0, 0, 0],
+          scale: 1,
+          rotate: [ 0, 0, 90 ],
+          lens: [0, 1, Infinity],
+
+        },
+      },
       eoload: {},
     }
 

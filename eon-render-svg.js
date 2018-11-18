@@ -314,7 +314,7 @@
             )
             .filter((d, i) => (d.properties.eodelled !== 1)) // not eodelled
             .filter((d, i) => (d.properties.eoric.eodelled !== 1)) // not eodelled
-
+            
           if (features.length > 0) { // _e_
             svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.eoric.uid) // elems
               .data(() => features)
@@ -329,6 +329,7 @@
                   : geoPath
 
                 let ret = path(d)
+
                 return ret
               })
 

@@ -10,22 +10,6 @@
   'use strict'
 
   async function muonAnimas (__mapper) {
-    let [
-      muonProps,
-      muonStore,
-      muonSim,
-      muonEotim,
-      renderSvg,
-      ctlTimer,
-    ] = await Promise.all([
-      __mapper('xs').m('props'),
-      __mapper('xs').m('store'),
-      __mapper('xs').m('sim'),
-      __mapper('xs').m('eotim'),
-      __mapper('xs').r('svg'),
-      __mapper('xs').c('timer'),
-    ]
-    )
 
     let animas = {}
 

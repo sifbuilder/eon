@@ -14,17 +14,17 @@
       d3Force3d,
       muonAnitem,
       muonEonode,
-      muonStore,
       muonProps,
     ] = await Promise.all([
       __mapper('xs').b('d3'),
       __mapper('xs').b('d3-force-3d'),
       __mapper('xs').m('anitem'),
       __mapper('xs').m('eonode'),
-      __mapper('xs').m('store'),
       __mapper('xs').m('props'),
     ])
 
+  let muonStore = __mapper('xs').m('store')
+  
     let _geonode = {
       type: 'Feature',
       geometry: {
