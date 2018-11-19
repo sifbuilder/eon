@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    ctlRayder,
+    // ctlRayder,
     ctlWen,
     eohalNatform,
     eohalPacer,
@@ -24,7 +24,7 @@ async function anitem (__mapper) {
     renderPortview,
     renderSvg,
   ] = await Promise.all([
-    __mapper('xs').c('rayder'),
+    // __mapper('xs').c('rayder'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('pacer'),
@@ -176,7 +176,6 @@ async function anitem (__mapper) {
           eohal: 'mars',
 
           eofold: function (ani, props) {
-            let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
             let coords
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates // eonode
@@ -185,10 +184,23 @@ async function anitem (__mapper) {
               let parentAnima = muonStore.findAnimaFromUid(uidParent)
               let point = muonStace.getLocus({pos: 0, pos: 0, pos: 0}, parentAnima)
               point = muonGeoj.geotrim(point)
-
-              coords = (preani && preani.eofold.geometry.coordinates)
-                ? [...preani.eofold.geometry.coordinates, point ]
-                : Array.of(point)
+ 
+              let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+              if (preani) {
+                let gj = preani.eofold
+                console.assert(gj !== undefined && gj.type !== undefined , `gj undefined ${gj}`)
+                let feature = gj  // type === 'Feature'
+                if (gj.type === 'FeatureCollection') {
+                  console.assert(gj.features.length === 1)
+                  feature = gj.features[0]
+                } 
+                coords = [...feature.geometry.coordinates, point ]
+                
+              } else {
+              
+                coords = Array.of(point)
+              }
+              
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates
             }

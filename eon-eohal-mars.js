@@ -33,7 +33,7 @@
     function eohale (anitem) {
       console.assert(typeof anitem === 'object')
       console.assert(Array.isArray(anitem) === false)
-
+if (1 && 1) console.log('anitem', anitem)
       let newAni = muonProps.clone(anitem) // newAni
 
       let eonode = muonProps.v(anitem.eonode, anitem) // newAni.eonode
@@ -81,6 +81,8 @@
           )
         }
       }
+if (1 && 1) console.log('gjcollection', gjcollection)
+      
       newAni.eofold = gjcollection
 
       return newAni

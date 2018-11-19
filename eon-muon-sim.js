@@ -66,6 +66,7 @@
     // ...   @anitems: anitems
     // ...   @nDim:   dimensions of the field
     function initNodes (anitems, nDim = 3) {
+ if (1 && 1) console.log('anitems', anitems)
       let simnodes = []
 
       for (let i = 0, n = anitems.length; i < n; ++i) {
@@ -169,6 +170,7 @@
           }
         }
       }
+if (1 && 1) console.log('updItems', updItems)
 
       return updItems
     }
