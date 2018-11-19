@@ -1,0 +1,81 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+xEonify.eon({anitem, time: undefined})
+
+// ... eon z anima
+// ... render anima from m.animas
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    ctlWen,
+    eohalNatform,
+    eohalMars,
+    muonAnimas,
+    muonNatform,
+    renderSvg,
+  ] = await Promise.all([
+    __mapper('xs').c('wen'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('mars'),
+    __mapper('xs').m('animas'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').r('svg'),
+  ])
+
+  // .................. animas
+  let ani = function () {
+    let ctl = ctlWen().control(renderSvg.svg())
+
+    // .................. pics
+    let eotim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
+
+    let eocrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[777, 777]]], 'cw': [[[0.99, 0.99]]], 'cp': [[[0.9, 0.9]]]}
+
+    // ............................. natAni
+    let natAni2 = {
+      eohal: 'mars',
+      eofold: p => ({
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: [ [0,0,0], [100,100,100]],
+        },
+        properties: {}
+      }),
+
+      eotim,
+      eoric: {gid: 'nat', cid: 'nat', fid: 'nat2'},
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ 0, 0, 0], // mot
+          scale: 1,
+          rotate: [ [[[0, 90]]], [[[0, 90]]], [[[0, 90]]] ],
+          prerotate: [[[ ctl.rotation ]]],
+          lens: [0, 1, Infinity],
+          geoanod: 1, // eonode
+        },
+      },
+
+      eocrom: eocrom,
+
+
+      eoload: {},
+    }
+    // ............................. animas
+    let animas = [
+      natAni2, // h.mars
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

@@ -133,11 +133,13 @@
 
       let featurecollection = {
         type: 'FeatureCollection',
-        features: anigrams.reduce((p, q, i) =>
-          q.eofold.type === 'Feature'
-            ? [...p, q.eofold] // Feature
-            : [...p, ...q.eofold.features] // FeatureCollection
-          , []),
+        features: anigrams
+          .filter(p => p.eofold !== null)
+          .reduce((p, q, i) =>
+            q.eofold.type === 'Feature'
+              ? [...p, q.eofold] // Feature
+              : [...p, ...q.eofold.features] // FeatureCollection
+            , []),
 
       }
       return featurecollection

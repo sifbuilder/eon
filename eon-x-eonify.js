@@ -291,7 +291,10 @@
 
     console.assert(typeof anitem === 'function' ||
       typeof anitem === 'string') // anitem is function or string
-
+      
+let muonStore = __mapper('xs').m('store')
+if (1 && 1) console.log('muonStore', muonStore)
+    
     __mapper('xs').a(anitem) // proxy ani.anitem
       .then(animas => __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas})) // store animas
       .then(() => __mapper('muonAnimation').animate(time)) // animate

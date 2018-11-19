@@ -86,9 +86,6 @@ async function anitem (__mapper) {
     let extent = [ [-300, -200], [300, 200] ]
     let c0 = quad(extent)(0, 4)
 
-    console.log(' -------- p', quad([ [-300, -200], [300, 200] ])(0, 1).p)
-    console.log(' -------- v', quad([ [-300, -200], [300, 200] ])(0, 1).v)
-
     // ............................. natAni
     let natAni = (i = 0, n = 1) => ({
       eohal: 'imgform',
@@ -123,7 +120,7 @@ async function anitem (__mapper) {
       },
       eoload: {
         img: {
-          url: 'eon-z-img-triangulation.jpg',
+          url: 'eon-z-110a-img.jpg',
           style: {
             width: quad(extent)(i, n).v[0], // 400,
             height: quad(extent)(i, n).v[1], // 300,
