@@ -2,18 +2,27 @@
 <script>
 window.xEonify.eon({anitem, time: undefined})
 
+//... **spheres** 
+//... muonNatform.natFeature(p.eoform)
+//... muonGraticule.vhMultiLine(p.eoframe)
+
+
 // .................. anitem
 async function anitem (__mapper) {
   // .................. eons
   let [
     ctlWen,
     eohalMars,
+    muonGraticule,
     muonNatform,
+    prtNatform,
     renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
+    __mapper('xs').m('graticule'),
     __mapper('xs').m('natform'),
+    __mapper('xs').p('natform'),    
     __mapper('xs').r('svg'),
   ])
 
@@ -57,28 +66,28 @@ async function anitem (__mapper) {
     let conform1 = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         c: [],
         e: [ cost, 1, 1, cost ],
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         c: [],
         e: [ 1, sint, 1, cost ],
       },
       'z': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
         c: [],
         e: [ 1, 1, 1, sint ],
       },
       'r': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
         c: [],
         e: [ 1, 1, 1, cost ],
@@ -89,25 +98,25 @@ async function anitem (__mapper) {
     let conform2 = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (e, c) => c[0] * cos(e[0]) * c[3] * cos(e[3]),
       },
       'y': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (e, c) => c[1] * sin(e[1]) * c[3] * cos(e[3]),
       },
       'z': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
         'fn0': (e, c) => c[3] * sin(e[3]),
       },
       'r': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
         'fn0': (e, c) => c[3] * cos(e[3]),
       },
@@ -131,7 +140,7 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           scale: [ 1, 1],
           prerotate: [[[ ctl.rotation ]]],
-          translate: [ -10, 0, 0 ],
+          translate: [ -120, 0, 0 ],
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
         },
@@ -139,35 +148,35 @@ async function anitem (__mapper) {
       eocrom: eocrom,
 
       eoform: conform1,
-      eoload: {
-
-      },
+      eoload: {},
 
     }
     let natAni2 = {
 
       eohal: 'mars',
-
-      eofold: p => muonNatform.natFeature(p.eoform),
+      eoric: {gid: 'q', cid: 'q', fid: 'q2'},
       eotim,
 
-      eoric: {gid: 'q', cid: 'q', fid: 'q2'},
+      eofold: p => muonGraticule.vhMultiLine(p.eoframe),
+
       eomot: {
+        conform: {
+          projection: 'natform',
+          eoform: conform2,
+        },    
         proform: {
           projection: 'uniwen',
-          scale: [ 1, 1],
+          scale: [ 1, 1, 1],
           prerotate: [[[ ctl.rotation ]]],
-          translate: [ 10, 0, 0 ],
+          translate: [ 120, 0, 0 ],
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
         },
       },
       eocrom: eocrom,
 
-      eoform: conform2,
-      eoload: {
-
-      },
+      eoframe: [ [ [ -180, 180, 30, 30], [ -90, 90, 30, 30] ] ],      
+      eoload: {},
 
     }
 
