@@ -46,9 +46,8 @@
     let getCamera = function (pars, stat) {
       let camera
       let cameraItem = pars
-      let type = cameraItem.type
+      let type = cameraItem.type || 'PerspectiveCamera'
       let camerauid = cameraItem.eoric.uid
-      let iscontrol = cameraItem.iscontrol
 
       if (type === 'PerspectiveCamera') {
         let defs = { fov: 50, zoom: 1, near: 0.1, far: 2000, focus: 10, aspect: 1, view: null, filmGauge: 35, filmOffset: 0}
@@ -118,12 +117,12 @@
     let getLight = function (pars, stat) {
       let light
       let item = pars
-      let type = item.type
+      let type = item.type || 'AmbientLight'
       let name = item.name
 
       if (type === 'AmbientLight') {
         // color is added to the color of objects material
-        let {color, intensity} = item
+        let {color = 0xffffff, intensity = 1} = item
 
         if (stat.lights[name] === undefined) {
           light = new THREE[type](color, intensity)
@@ -285,31 +284,62 @@
 
     // .................. threeLights
     function threeLights (items = []) {
-      if (items.length === 0) return
-      for (let k in items) {
-        let item = items[k].properties
+      if (items.length === 0) { // add default light
+          let lights = Object.getOwnPropertyNames(state.lights)
+          if (lights.length === 0) {
 
-        let {color, intensity} = item
-        let name = item.name
-
-        state.lights[name] = getLight(item, state)
+            let item = {
+                  name: 'default' 
+            }
+            let name = item.name
+            state.lights[name] = getLight(item, state)
+          }
+      } else {      
+      
+        // deafult light may be created for any gid.cid class
+        // delete if a light is defined in another class
+        if (state.lights['default' ] !== undefined) delete state.lights['default']
+    
+        for (let k in items) {
+          let item = items[k].properties
+          let name = item.name
+          state.lights[name] = getLight(item, state)
+        }
       }
     }
     // .................. threeCameras
     function threeCameras (items = []) {
-      if (items.length === 0) return
-      let camera
-      for (let k in items) { // DOTS (seg5===0) each group gid
-        let item = items[k] // feature
+      
+      if (items.length === 0) { // add default camera
 
-        let camaraProps = item.properties
-        let camerauid = camaraProps.eoric.uid
-        let iscontrol = camaraProps.iscontrol
+        let cameras = Object.getOwnPropertyNames(state.cameras)
+        if (cameras.length === 0) {
+          let cameraProps = {eoric: { uid: 'default'} }
+          let camerauid = cameraProps.eoric.uid
+          state.cameras[camerauid] = getCamera( cameraProps, state)
+        }
+      } else {
+        
+        // deafult camera may be created for any gid.cid class
+        // delete if a camera is defined in another class
+        if (state.cameras['default' ] !== undefined) delete state.cameras['default']
+        
+        let camera
+        for (let k in items) { // DOTS (seg5===0) each group gid
+          let item = items[k] // feature
 
-        state.cameras[camerauid] = getCamera(camaraProps, state)
-        state.camera = getCamera(camaraProps, state)
+          let camaraProps = item.properties
+          let camerauid = camaraProps.eoric.uid
+          let iscontrol = camaraProps.iscontrol
+
+          state.cameras[camerauid] = getCamera(camaraProps, state)
+        }
       }
+      
+if (1 && 1) console.log('cameras', state.cameras)
+      
     }
+    
     // .................. threeCameraHelpers
     function threeCameraHelpers (items = []) {
       if (items.length === 0) return
@@ -593,6 +623,7 @@ if (1 && 1) console.log('******', items)
     }
 
     /* object PATTERNS */
+    
     let patterns = [
       {
         name: 'THREEGRIDHELPER',
@@ -648,7 +679,7 @@ if (1 && 1) console.log('******', items)
 
     ]
 
-    // ............................. RENDER
+    // ............................. render
 
     let render = function (featurecollection, maxlimit) {
       let features = featurecollection.features
@@ -668,24 +699,30 @@ if (1 && 1) console.log('******', items)
         .key(function (d) { return d.properties.eoric.gid })
         .key(function (d) { return d.properties.eoric.cid })
         .entries(features)
+if (1 && 1) console.log('gitems', gitems)
 
-      for (let i in gitems) { // DOTS (seg5===0) each group gid
-        let gid = gitems[i].key,
-          citems = gitems[i].values
+                  for (let k = 0; k < patterns.length; k++) {
+                  let pattern = patterns[k]
 
-        for (let j in citems) { // forEach CLASS by cid
-          let cid = citems[j].key // cid
-          let fitems = citems[j].values // fitems
-          let now = fitems.slice(-1)[0]
+  
+            for (let i in gitems) { // DOTS (seg5===0) each group gid
+              let gid = gitems[i].key,
+                citems = gitems[i].values
+              for (let j in citems) { // forEach CLASS by cid
+                let cid = citems[j].key // cid
+                let fitems = citems[j].values // fitems
+                let now = fitems.slice(-1)[0]
 
-          for (let k = 0; k < patterns.length; k++) {
-            let pattern = patterns[k]
-            if (pattern.retriever && pattern.filter) {
-              pattern.retriever(fitems.filter(pattern.filter))
-            }
-          }
-        } // citems
-      } // gitems
+                  if (pattern.retriever && pattern.filter) {
+                    pattern.retriever(fitems.filter(pattern.filter))
+                  }
+              } // citems
+            } // gitems
+
+            
+                }
+
+if (1 && 1) console.log('state', state)
 
       if (state.cameras && Object.keys(state.cameras).length > 0) {
       // if (state.camera !== undefined) {
