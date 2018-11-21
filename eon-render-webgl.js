@@ -285,21 +285,19 @@
     // .................. threeLights
     function threeLights (items = []) {
       if (items.length === 0) { // add default light
-          let lights = Object.getOwnPropertyNames(state.lights)
-          if (lights.length === 0) {
-
-            let item = {
-                  name: 'default' 
-            }
-            let name = item.name
-            state.lights[name] = getLight(item, state)
+        let lights = Object.getOwnPropertyNames(state.lights)
+        if (lights.length === 0) {
+          let item = {
+            name: 'default',
           }
-      } else {      
-      
+          let name = item.name
+          state.lights[name] = getLight(item, state)
+        }
+      } else {
         // deafult light may be created for any gid.cid class
         // delete if a light is defined in another class
         if (state.lights['default' ] !== undefined) delete state.lights['default']
-    
+
         for (let k in items) {
           let item = items[k].properties
           let name = item.name
@@ -309,21 +307,18 @@
     }
     // .................. threeCameras
     function threeCameras (items = []) {
-      
       if (items.length === 0) { // add default camera
-
         let cameras = Object.getOwnPropertyNames(state.cameras)
         if (cameras.length === 0) {
           let cameraProps = {eoric: { uid: 'default'} }
           let camerauid = cameraProps.eoric.uid
-          state.cameras[camerauid] = getCamera( cameraProps, state)
+          state.cameras[camerauid] = getCamera(cameraProps, state)
         }
       } else {
-        
         // deafult camera may be created for any gid.cid class
         // delete if a camera is defined in another class
         if (state.cameras['default' ] !== undefined) delete state.cameras['default']
-        
+
         let camera
         for (let k in items) { // DOTS (seg5===0) each group gid
           let item = items[k] // feature
@@ -335,11 +330,8 @@
           state.cameras[camerauid] = getCamera(camaraProps, state)
         }
       }
-      
-if (1 && 1) console.log('cameras', state.cameras)
-      
     }
-    
+
     // .................. threeCameraHelpers
     function threeCameraHelpers (items = []) {
       if (items.length === 0) return
@@ -368,7 +360,7 @@ if (1 && 1) console.log('cameras', state.cameras)
     // .................. eoMultipolygonsToScene
     function eoMultipolygonsToScene (items = []) {
       if (items.length === 0) return
-if (1 && 1) console.log('******', items)
+      if (1 && 1) console.log('******', items)
 
       for (let k in items) { // DOTS (seg5===0) each group gid
         let item = items[k]
@@ -425,7 +417,6 @@ if (1 && 1) console.log('******', items)
     // .................. multiPointToScene
     function multiPointToScene (items = []) {
       if (items.length === 0) return
-
       for (let k in items) { // DOTS (seg5===0) each group gid
         let item = items[k] // feature
 
@@ -437,17 +428,15 @@ if (1 && 1) console.log('******', items)
         let vertices = geometry.coordinates
         let dotsize = 12
         for (let i = 0; i < vertices.length; i++) {
-          if (i === 0 || i === 4 || i === 8 || i === 11) {
-            let particle_geom = new THREE.Geometry()
-            particle_geom.vertices.push(new THREE.Vector3(...vertices[i].map(to3point)))
-            let particle_material = new THREE.PointsMaterial({
-              color: 0x88ff88,
-              size: dotsize,
-            })
+          let particle_geom = new THREE.Geometry()
+          particle_geom.vertices.push(new THREE.Vector3(...vertices[i].map(to3point)))
+          let particle_material = new THREE.PointsMaterial({
+            color: 0x88ff88,
+            size: dotsize,
+          })
 
-            let particle = new THREE.Points(particle_geom, particle_material)
-            state.scene.add(particle)
-          }
+          let particle = new THREE.Points(particle_geom, particle_material)
+          state.scene.add(particle)
         }
       }
     }
@@ -623,7 +612,7 @@ if (1 && 1) console.log('******', items)
     }
 
     /* object PATTERNS */
-    
+
     let patterns = [
       {
         name: 'THREEGRIDHELPER',
@@ -699,30 +688,24 @@ if (1 && 1) console.log('******', items)
         .key(function (d) { return d.properties.eoric.gid })
         .key(function (d) { return d.properties.eoric.cid })
         .entries(features)
-if (1 && 1) console.log('gitems', gitems)
 
-                  for (let k = 0; k < patterns.length; k++) {
-                  let pattern = patterns[k]
+      for (let k = 0; k < patterns.length; k++) {
+        let pattern = patterns[k]
 
-  
-            for (let i in gitems) { // DOTS (seg5===0) each group gid
-              let gid = gitems[i].key,
-                citems = gitems[i].values
-              for (let j in citems) { // forEach CLASS by cid
-                let cid = citems[j].key // cid
-                let fitems = citems[j].values // fitems
-                let now = fitems.slice(-1)[0]
+        for (let i in gitems) { // DOTS (seg5===0) each group gid
+          let gid = gitems[i].key,
+            citems = gitems[i].values
+          for (let j in citems) { // forEach CLASS by cid
+            let cid = citems[j].key // cid
+            let fitems = citems[j].values // fitems
+            let now = fitems.slice(-1)[0]
 
-                  if (pattern.retriever && pattern.filter) {
-                    pattern.retriever(fitems.filter(pattern.filter))
-                  }
-              } // citems
-            } // gitems
-
-            
-                }
-
-if (1 && 1) console.log('state', state)
+            if (pattern.retriever && pattern.filter) {
+              pattern.retriever(fitems.filter(pattern.filter))
+            }
+          } // citems
+        } // gitems
+      }
 
       if (state.cameras && Object.keys(state.cameras).length > 0) {
       // if (state.camera !== undefined) {

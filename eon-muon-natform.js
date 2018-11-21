@@ -180,23 +180,24 @@
   async function muonNatform (__mapper = {}) {
     let [
       glmatrix,
-      muonProps,
-      muonGraticule,
-      muonProfier,
-      muonProj3ct,
       d3scale,
       d3array,
       d3geo,
+      muonProps,
+      muonGeom,
+      muonGraticule,
+      muonProfier,
+      muonProj3ct,
     ] = await Promise.all([
       __mapper('xs').b('gl-matrix'),
-      __mapper('xs').m('props'),
-      __mapper('xs').m('graticule'),
-      __mapper('xs').m('profier'),
-      __mapper('xs').m('proj3ct'),
       __mapper('xs').b('d3-scale'),
       __mapper('xs').b('d3-array'),
       __mapper('xs').b('d3-geo'),
-
+      __mapper('xs').m('props'),
+      __mapper('xs').m('geom'),
+      __mapper('xs').m('graticule'),
+      __mapper('xs').m('profier'),
+      __mapper('xs').m('proj3ct'),
     ])
     let cache = {} // feature, form
 
@@ -346,6 +347,110 @@
     }
 
     // ............................. natFeature
+    let natMultiPolygon = function (form, props = {}) {
+      let feature
+
+      if (muonProps.isSame(form, cache.form)) {
+        feature = cache.feature
+        return feature
+      } else {
+        let nformed = natNform(form) // NFORM
+
+        // let _geofn
+        // if (props.h) {
+          // _geofn = muonGraticule.hMultiLine
+        // } else if (props.v) {
+          // _geofn = muonGraticule.vMultiLine
+        // } else {
+          // _geofn = muonGraticule.vhMultiLine
+        // }
+
+        let geometry, graticule, vertices
+        let dx, dy, sx, sy
+
+        // if (Object.keys(nformed).length > 2 ) { // ___ 3d
+        if (nformed.z !== undefined) { // ___ 3d
+          dx = 360 / nformed.x.seg5 // x
+          dy = 360 / nformed.z.seg5 // ____ z ___
+
+          sx = dx
+          sy = dy
+
+          let xdomain = form.x.dom3 || [-180, 180]
+          let ydomain = form.z.dom3 || [-90, 90] // ____ z ___
+
+          graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
+
+          vertices = muonGraticule.gVertices(graticule)
+          
+          // geometry = _geofn(graticule).geometry
+          // geometry = muonGraticule.hMultiLine(graticule).geometry
+        } else { // ___ 2d
+          dx = 360 / nformed.x.seg5 // x
+          dy = 360 / nformed.y.seg5 // y
+          sx = 360
+          sy = 360
+
+          let xdomain = nformed.x.dom3 || [-180, 180]
+          let ydomain = nformed.y.dom3 || [-180, 180]
+
+          graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // _e_ x, y
+          // geometry = _geofn(graticule).geometry // geometry.type: MultiLineString
+
+          vertices = muonGraticule.gVertices(graticule)
+          
+          vertices  = vertices[1].slice(0, -1)
+
+          vertices = Array.of(vertices)
+        }
+
+let quads = muonGraticule.qfaces(graticule)
+let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+// if (1 && 1) console.log('geometry', geometry)
+
+
+        let gj = {
+          type: 'Feature',
+          geometry: {
+            type: 'MultiPoint',
+            coordinates: vertices,
+          },
+          properties: {
+            doc: 'natform',
+            sort: 'form',
+            eoMultiPolygon: 1,
+            eonode: {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: [0, 0, 0],
+              },
+              properties: {
+                orgen: [0, 0, 0],
+                velin: [0, 0, 0],
+                velang: [0, 0, 0],
+                prevous: [0, 0, 0],
+                geodelta: [0, 0, 0],
+              },
+            },
+            faces: faces,
+          },
+        }
+
+        let projDef = { projection: 'natform', eoform: nformed }
+        let projection = natprojection(projDef)
+
+        let feature = muonProj3ct(gj, projection)
+        cache.eoform = projDef.eoform
+        cache.feature = feature
+        
+        if (1 && 1) console.log('feature', feature)
+
+        return feature
+      }
+    }
+
+    // ............................. natFeature
     let natFeature = function (form, props = {}) {
       let feature
 
@@ -364,7 +469,7 @@
           _geofn = muonGraticule.vhMultiLine
         }
 
-        let geometry
+        let geometry, graticule
         let dx, dy, sx, sy
 
         // if (Object.keys(nformed).length > 2 ) { // ___ 3d
@@ -378,7 +483,7 @@
           let xdomain = form.x.dom3 || [-180, 180]
           let ydomain = form.z.dom3 || [-90, 90] // ____ z ___
 
-          let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
+          graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
 
           geometry = _geofn(graticule).geometry
           // geometry = muonGraticule.hMultiLine(graticule).geometry
@@ -391,7 +496,7 @@
           let xdomain = nformed.x.dom3 || [-180, 180]
           let ydomain = nformed.y.dom3 || [-180, 180]
 
-          let graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // _e_ x, y
+          graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // _e_ x, y
           geometry = _geofn(graticule).geometry // geometry.type: MultiLineString
 
           let p = geometry.coordinates[1].slice(0, -1)
@@ -399,11 +504,16 @@
           geometry.coordinates = Array.of(p)
         }
 
+// let quads = muonGraticule.qfaces(graticule)
+// let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+// if (1 && 1) console.log('geometry', geometry)
+
+
         let gj = {
           type: 'Feature',
           geometry: geometry,
           properties: {
-            doc: 'nat',
+            doc: 'natform',
             eonode: {
               type: 'Feature',
               geometry: {
@@ -430,7 +540,6 @@
         return feature
       }
     }
-
     // ............................. closeFeature
     let closeFeature = function (feature) {
       let newFeature = Object.assign({}, feature)
@@ -572,6 +681,7 @@
     let enty = function () {}
 
     enty.natFeature = natFeature
+    enty.natMultiPolygon = natMultiPolygon
     enty.natNform = natNform
     enty.closeFeature = closeFeature
     enty.natVertex = natVertex

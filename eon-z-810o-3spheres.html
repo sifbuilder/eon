@@ -13,6 +13,7 @@ async function anitem (__mapper) {
   let [
     ctlWen,
     eohalMars,
+    muonGeom,
     muonGraticule,
     muonNatform,
     prtNatform,
@@ -22,6 +23,7 @@ async function anitem (__mapper) {
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
+    __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
     __mapper('xs').m('natform'),
     __mapper('xs').p('natform'),
@@ -135,14 +137,14 @@ async function anitem (__mapper) {
 
       eohal: 'mars',
 
-      eofold: p => muonNatform.natFeature(p.eoform),
+      eofold: p => muonNatform.natMultiPolygon(p.eoform),
       eotim,
 
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
       eomot: {
         proform: {
           projection: 'uniwen',
-          scale: [ 1, 1],
+          scale: [ 1, 1, 1],
           translate: [ -120, 0, 0 ],
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
@@ -160,7 +162,27 @@ async function anitem (__mapper) {
       eoric: {gid: 'q', cid: 'q', fid: 'q2'},
       eotim,
 
-      eofold: p => muonGraticule.vhMultiLine(p.eoframe),
+      eofold: p => {
+        let vertices = muonGraticule.gVertices(p.eoframe)
+        let quads = muonGraticule.qfaces(p.eoframe)
+        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+
+        let featureMultiPoint = {
+
+          type: 'Feature',
+          geometry: {
+            type: 'MultiPoint',
+            coordinates: vertices,
+          },
+          properties: {
+            sort: 'form',
+            eoMultiPolygon: 1,
+            faces: faces,
+          },
+        }
+
+        return featureMultiPoint
+      },
 
       eomot: {
         conform: {
@@ -189,8 +211,8 @@ async function anitem (__mapper) {
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
       eohal: 'sol',
 
-      eofold: anitem => {
-        let eoload = anitem.eoload
+      eofold: ani => {
+        let eoload = ani.eoload
         let json = { // Feature
           type: 'Feature',
           geometry: { type: 'Point', coordinates: [0, 0, 0] },
@@ -221,7 +243,7 @@ async function anitem (__mapper) {
     // ............................. animas
     let animas = [
      cameraPersAni, // h.sol
-      natAni1, // h.natform
+      // natAni1, // h.natform
       natAni2, // h.natform
 
     ]
