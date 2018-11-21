@@ -687,6 +687,7 @@
         .key(function (d) { return d.properties.eoric.gid })
         .key(function (d) { return d.properties.eoric.cid })
         .entries(features)
+if (1 && 1) console.log('gitems', gitems)
 
       for (let k = 0; k < patterns.length; k++) {
         let pattern = patterns[k]
