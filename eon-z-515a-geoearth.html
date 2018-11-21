@@ -55,9 +55,12 @@ async function anitem (__mapper) {
 
       projection: darkProjection,
       prerotate: [[[ t => {
-        let rot = ctl
+        // let rot = ctl
+          // .projection({projection: darkProjection}) // versor projection
+          // .rotation()
+        let rot = ctlVersor
           .projection({projection: darkProjection}) // versor projection
-          .rotation()
+          .rotation()          
         let res = [180 + rot[0], -rot[1], -rot[2]]
         return res
       }]]],
@@ -108,9 +111,12 @@ async function anitem (__mapper) {
 
       projection: frontProjection,
       prerotate: [[[ function (t) {
-        let rot = ctl
+        // let rot = ctl
+          // .projection({projection: frontProjection}) // versor projection
+          // .rotation()
+        let rot = ctlVersor
           .projection({projection: frontProjection}) // versor projection
-          .rotation()
+          .rotation()          
         return rot
       } ]]],
 
@@ -166,8 +172,6 @@ async function anitem (__mapper) {
 
       },
       eoload: {},
-
-    }
 
     }
 

@@ -143,7 +143,6 @@ async function anitem (__mapper) {
         proform: {
           projection: 'uniwen',
           scale: [ 1, 1],
-          // prerotate: [[[ ctl.rotation ]]],
           translate: [ -120, 0, 0 ],
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
@@ -153,8 +152,8 @@ async function anitem (__mapper) {
 
       eoform: conform1,
       eoload: {},
-
     }
+    
     let natAni2 = {
 
       eohal: 'mars',
@@ -171,7 +170,6 @@ async function anitem (__mapper) {
         proform: {
           projection: 'uniwen',
           scale: [ 1, 1, 1],
-          // prerotate: [[[ ctl.rotation ]]],
           translate: [ 120, 0, 0 ],
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
@@ -217,6 +215,8 @@ async function anitem (__mapper) {
         }
         return json
       },
+      eoload: {},
+
     }
     // ............................. animas
     let animas = [
