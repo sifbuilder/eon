@@ -2,14 +2,15 @@
 
 **time space manyfolds**   
 
-012o - | [<b>eon-z-012o-pacer-string-avatar-gramm</b>](https://sifbuilder.github.io/eons/eon-z-012o-pacer-string-avatar-gramm.html) |   
 020a - | [<b>eon-z-020a-borg</b>](https://sifbuilder.github.io/eons/eon-z-020a-borg.html) |   
+020b - | [<b>eon-z-020b-borg</b>](https://sifbuilder.github.io/eons/eon-z-020b-borg.html) |   
 100a - | [<b>eon-z-100a-anima</b>](https://sifbuilder.github.io/eons/eon-z-100a-anima.html) |   
 105a - | [<b>eon-z-105a-nat</b>](https://sifbuilder.github.io/eons/eon-z-105a-nat.html) |   
 105b - | [<b>eon-z-105b-nat</b>](https://sifbuilder.github.io/eons/eon-z-105b-nat.html) |   
+105c - | [<b>eon-z-105c-allies</b>](https://sifbuilder.github.io/eons/eon-z-105c-allies.html) |   
 110a - | [<b>eon-z-110a-img</b>](https://sifbuilder.github.io/eons/eon-z-110a-img.html) |   
 110b - | [<b>eon-z-110b-imgs</b>](https://sifbuilder.github.io/eons/eon-z-110b-imgs.html) |   
-220a - | [<b>eon-z-220a-perfectform</b>](https://sifbuilder.github.io/eons/eon-z-220a-perfectform.html) |   
+220a - | [<b>eon-z-220a-perfectforms</b>](https://sifbuilder.github.io/eons/eon-z-220a-perfectforms.html) |   
 275a - | [<b>eon-z-275a-sim-allies</b>](https://sifbuilder.github.io/eons/eon-z-275a-sim-allies.html) |   
 401a - | [<b>eon-z-401a-sim-3vorts</b>](https://sifbuilder.github.io/eons/eon-z-401a-sim-3vorts.html) |   
 401b - | [<b>eon-z-401b-sim-3vorts</b>](https://sifbuilder.github.io/eons/eon-z-401b-sim-3vorts.html) |   
@@ -20,6 +21,8 @@
 401g - | [<b>eon-z-401g-sim-spheres</b>](https://sifbuilder.github.io/eons/eon-z-401g-sim-spheres.html) |   
 401h - | [<b>eon-z-401h-sim-spheres</b>](https://sifbuilder.github.io/eons/eon-z-401h-sim-spheres.html) |   
 401i - | [<b>eon-z-401i-sim-spheres</b>](https://sifbuilder.github.io/eons/eon-z-401i-sim-spheres.html) |   
+401j - | [<b>eon-z-401j-3sim-spheres</b>](https://sifbuilder.github.io/eons/eon-z-401j-3sim-spheres.html) |   
+401k - | [<b>eon-z-401k-3sim-upsphere</b>](https://sifbuilder.github.io/eons/eon-z-401k-3sim-upsphere.html) |   
 408a - | [<b>eon-z-408a-geofil</b>](https://sifbuilder.github.io/eons/eon-z-408a-geofil.html) |   
 408b - | [<b>eon-z-408b-geofil</b>](https://sifbuilder.github.io/eons/eon-z-408b-geofil.html) |   
 419a - | [<b>eon-z-419a-pacer-traces</b>](https://sifbuilder.github.io/eons/eon-z-419a-pacer-traces.html) |   
@@ -34,10 +37,12 @@
 419j - | [<b>eon-z-419j-pacer-avatar-nat</b>](https://sifbuilder.github.io/eons/eon-z-419j-pacer-avatar-nat.html) |   
 419k - | [<b>eon-z-419k-pacer-anima-nat</b>](https://sifbuilder.github.io/eons/eon-z-419k-pacer-anima-nat.html) |   
 419l - | [<b>eon-z-419l-pacer-avatar-nat</b>](https://sifbuilder.github.io/eons/eon-z-419l-pacer-avatar-nat.html) |   
+419m - | [<b>eon-z-419m-pacer-string-avatar-gramm</b>](https://sifbuilder.github.io/eons/eon-z-419m-pacer-string-avatar-gramm.html) |   
 419n - | [<b>eon-z-419n-pacer-string-avatar-gramm</b>](https://sifbuilder.github.io/eons/eon-z-419n-pacer-string-avatar-gramm.html) |   
 420a - | [<b>eon-z-420a-geoproj</b>](https://sifbuilder.github.io/eons/eon-z-420a-geoproj.html) |   
 420b - | [<b>eon-z-420b-geoproj</b>](https://sifbuilder.github.io/eons/eon-z-420b-geoproj.html) |   
 421a - | [<b>eon-z-421a-3pols</b>](https://sifbuilder.github.io/eons/eon-z-421a-3pols.html) |   
+421b - | [<b>eon-z-421b-3pols</b>](https://sifbuilder.github.io/eons/eon-z-421b-3pols.html) |   
 423a - | [<b>eon-z-423a-geopols</b>](https://sifbuilder.github.io/eons/eon-z-423a-geopols.html) |   
 424a - | [<b>eon-z-424a-geovase</b>](https://sifbuilder.github.io/eons/eon-z-424a-geovase.html) |   
 424b - | [<b>eon-z-424b-geovase</b>](https://sifbuilder.github.io/eons/eon-z-424b-geovase.html) |   
@@ -67,6 +72,7 @@
 621b - | [<b>eon-z-621b-trees</b>](https://sifbuilder.github.io/eons/eon-z-621b-trees.html) |   
 621c - | [<b>eon-z-621c-tree</b>](https://sifbuilder.github.io/eons/eon-z-621c-tree.html) |   
 621d - | [<b>eon-z-621d-trees</b>](https://sifbuilder.github.io/eons/eon-z-621d-trees.html) |   
+621e - | [<b>eon-z-621e-tree</b>](https://sifbuilder.github.io/eons/eon-z-621e-tree.html) |   
 701a - | [<b>eon-z-701a-grati-ace</b>](https://sifbuilder.github.io/eons/eon-z-701a-grati-ace.html) |   
 701b - | [<b>eon-z-701b-ace2</b>](https://sifbuilder.github.io/eons/eon-z-701b-ace2.html) |   
 701d - | [<b>eon-z-701d-ace3</b>](https://sifbuilder.github.io/eons/eon-z-701d-ace3.html) |   
@@ -102,6 +108,7 @@
 707g - | [<b>eon-z-707g-dodecahedro</b>](https://sifbuilder.github.io/eons/eon-z-707g-dodecahedro.html) |   
 707h - | [<b>eon-z-707h-icosahedro</b>](https://sifbuilder.github.io/eons/eon-z-707h-icosahedro.html) |   
 707i - | [<b>eon-z-707i-rhombic</b>](https://sifbuilder.github.io/eons/eon-z-707i-rhombic.html) |   
+707j - | [<b>eon-z-707j-3icosahedro</b>](https://sifbuilder.github.io/eons/eon-z-707j-3icosahedro.html) |   
 708a - | [<b>eon-z-708a-cuberEarth</b>](https://sifbuilder.github.io/eons/eon-z-708a-cuberEarth.html) |   
 708b - | [<b>eon-z-708b-earthTorus</b>](https://sifbuilder.github.io/eons/eon-z-708b-earthTorus.html) |   
 708c - | [<b>eon-z-708c-earth-sphere</b>](https://sifbuilder.github.io/eons/eon-z-708c-earth-sphere.html) |   
@@ -158,7 +165,26 @@
 780d - | [<b>eon-z-780d-sim-stars-tree</b>](https://sifbuilder.github.io/eons/eon-z-780d-sim-stars-tree.html) |   
 780e - | [<b>eon-z-780e-sim-forces</b>](https://sifbuilder.github.io/eons/eon-z-780e-sim-forces.html) |   
 780f - | [<b>eon-z-780f-sim-force-gravity</b>](https://sifbuilder.github.io/eons/eon-z-780f-sim-force-gravity.html) |   
-810m - | [<b>eon-z-810m-sphere</b>](https://sifbuilder.github.io/eons/eon-z-810m-sphere.html) |   
+791a - | [<b>eon-z-791a-3icosahedro</b>](https://sifbuilder.github.io/eons/eon-z-791a-3icosahedro.html) |   
+791b - | [<b>eon-z-791b-3cube-pers</b>](https://sifbuilder.github.io/eons/eon-z-791b-3cube-pers.html) |   
+791c - | [<b>eon-z-791c-3catalan</b>](https://sifbuilder.github.io/eons/eon-z-791c-3catalan.html) |   
+791d - | [<b>eon-z-791d-3BiscribedDisdyakisDodecahedron</b>](https://sifbuilder.github.io/eons/eon-z-791d-3BiscribedDisdyakisDodecahedron.html) |   
+791e - | [<b>eon-z-791e-3GeodesicRT4</b>](https://sifbuilder.github.io/eons/eon-z-791e-3GeodesicRT4.html) |   
+791f - | [<b>eon-z-791f-GreatDitrigonalDodecacronicHexecontahedron</b>](https://sifbuilder.github.io/eons/eon-z-791f-GreatDitrigonalDodecacronicHexecontahedron.html) |   
+791g - | [<b>eon-z-791g-3cube-ortho</b>](https://sifbuilder.github.io/eons/eon-z-791g-3cube-ortho.html) |   
+791h - | [<b>eon-z-791h-ChamferedTruncatedIcosahedron</b>](https://sifbuilder.github.io/eons/eon-z-791h-ChamferedTruncatedIcosahedron.html) |   
+792a - | [<b>eon-z-792a-3octa</b>](https://sifbuilder.github.io/eons/eon-z-792a-3octa.html) |   
+792b - | [<b>eon-z-792b-3torus-twist</b>](https://sifbuilder.github.io/eons/eon-z-792b-3torus-twist.html) |   
+792c - | [<b>eon-z-792c-3sphere</b>](https://sifbuilder.github.io/eons/eon-z-792c-3sphere.html) |   
+792d - | [<b>eon-z-792d-3form</b>](https://sifbuilder.github.io/eons/eon-z-792d-3form.html) |   
+792e - | [<b>eon-z-792e-3borromeo</b>](https://sifbuilder.github.io/eons/eon-z-792e-3borromeo.html) |   
+792f - | [<b>eon-z-792f-3torus</b>](https://sifbuilder.github.io/eons/eon-z-792f-3torus.html) |   
+792g - | [<b>eon-z-792g-3torus</b>](https://sifbuilder.github.io/eons/eon-z-792g-3torus.html) |   
+792h - | [<b>eon-z-792h-3squaesphere</b>](https://sifbuilder.github.io/eons/eon-z-792h-3squaesphere.html) |   
+792ih - | [<b>eon-z-792ih-3upsphere</b>](https://sifbuilder.github.io/eons/eon-z-792ih-3upsphere.html) |   
+810m - | [<b>eon-z-810m-spheres</b>](https://sifbuilder.github.io/eons/eon-z-810m-spheres.html) |   
+810n - | [<b>eon-z-810n-3spheres</b>](https://sifbuilder.github.io/eons/eon-z-810n-3spheres.html) |   
+810o - | [<b>eon-z-810o-3spheres</b>](https://sifbuilder.github.io/eons/eon-z-810o-3spheres.html) |   
 811a - | [<b>eon-z-811a-lie</b>](https://sifbuilder.github.io/eons/eon-z-811a-lie.html) |   
 811e - | [<b>eon-z-811e-pillows</b>](https://sifbuilder.github.io/eons/eon-z-811e-pillows.html) |   
 811g - | [<b>eon-z-811g-exponential</b>](https://sifbuilder.github.io/eons/eon-z-811g-exponential.html) |   
@@ -211,6 +237,7 @@
 814d - | [<b>eon-z-814d-sphere-dark</b>](https://sifbuilder.github.io/eons/eon-z-814d-sphere-dark.html) |   
 814e - | [<b>eon-z-814e-tangerine</b>](https://sifbuilder.github.io/eons/eon-z-814e-tangerine.html) |   
 814f - | [<b>eon-z-814f-larm</b>](https://sifbuilder.github.io/eons/eon-z-814f-larm.html) |   
+814g - | [<b>eon-z-814g-3tangerine</b>](https://sifbuilder.github.io/eons/eon-z-814g-3tangerine.html) |   
 814h - | [<b>eon-z-814h-cone</b>](https://sifbuilder.github.io/eons/eon-z-814h-cone.html) |   
 815a - | [<b>eon-z-815a-reenter</b>](https://sifbuilder.github.io/eons/eon-z-815a-reenter.html) |   
 852d - | [<b>eon-z-852d-3dgrat</b>](https://sifbuilder.github.io/eons/eon-z-852d-3dgrat.html) |   
@@ -281,13 +308,13 @@ geo - [eon-geo-hedrals](https://sifbuilder.github.io/eons/eon-geo-hedrals.js)
 geo - [eon-geo-myriad](https://sifbuilder.github.io/eons/eon-geo-myriad.js)   
 geo - [eon-geo-tetra](https://sifbuilder.github.io/eons/eon-geo-tetra.js)   
 lib - [eon-lib-complex](https://sifbuilder.github.io/eons/eon-lib-complex.js)   
-muon - [eon-muon-animas](https://sifbuilder.github.io/eons/eon-muon-animas.js)   
 muon - [eon-muon-animation](https://sifbuilder.github.io/eons/eon-muon-animation.js)   
 muon - [eon-muon-anitem](https://sifbuilder.github.io/eons/eon-muon-anitem.js)   
 muon - [eon-muon-bezierjs](https://sifbuilder.github.io/eons/eon-muon-bezierjs.js)   
 muon - [eon-muon-delaunay](https://sifbuilder.github.io/eons/eon-muon-delaunay.js)   
 muon - [eon-muon-eocrom](https://sifbuilder.github.io/eons/eon-muon-eocrom.js)   
 muon - [eon-muon-eoforces](https://sifbuilder.github.io/eons/eon-muon-eoforces.js)   
+muon - [eon-muon-eon-z-](https://sifbuilder.github.io/eons/eon-muon-eon-z-.js)   
 muon - [eon-muon-eonode](https://sifbuilder.github.io/eons/eon-muon-eonode.js)   
 muon - [eon-muon-eoric](https://sifbuilder.github.io/eons/eon-muon-eoric.js)   
 muon - [eon-muon-eotim](https://sifbuilder.github.io/eons/eon-muon-eotim.js)   
@@ -336,16 +363,22 @@ render - [eon-render-portview](https://sifbuilder.github.io/eons/eon-render-port
 render - [eon-render-renderer](https://sifbuilder.github.io/eons/eon-render-renderer.js)   
 render - [eon-render-svg](https://sifbuilder.github.io/eons/eon-render-svg.js)   
 render - [eon-render-webgl](https://sifbuilder.github.io/eons/eon-render-webgl.js)   
+teer - [eon-teer-cprm](https://sifbuilder.github.io/eons/eon-teer-cprm.js)   
 teer - [eon-teer-eonify](https://sifbuilder.github.io/eons/eon-teer-eonify.js)   
 teer - [eon-teer-pngs](https://sifbuilder.github.io/eons/eon-teer-pngs.js)   
 teer - [eon-teer-readme](https://sifbuilder.github.io/eons/eon-teer-readme.js)   
 teer - [eon-teer-renam](https://sifbuilder.github.io/eons/eon-teer-renam.js)   
 teer - [eon-teer-uncom](https://sifbuilder.github.io/eons/eon-teer-uncom.js)   
 teer - [eon-teer-unpkg](https://sifbuilder.github.io/eons/eon-teer-unpkg.js)   
+teer - [eon-teer-untab](https://sifbuilder.github.io/eons/eon-teer-untab.js)   
 teer - [eon-teer-view](https://sifbuilder.github.io/eons/eon-teer-view.js)   
 x - [eon-x-eonify](https://sifbuilder.github.io/eons/eon-x-eonify.js)   
 x - [eon-x-version](https://sifbuilder.github.io/eons/eon-x-version.js)   
+z - [eon-z-620a-tree](https://sifbuilder.github.io/eons/eon-z-620a-tree.js)   
 z - [eon-z-812b-torus-origami](https://sifbuilder.github.io/eons/eon-z-812b-torus-origami.js)   
+z - [eon-z-a01a](https://sifbuilder.github.io/eons/eon-z-a01a.js)   
+z - [eon-z-a03a](https://sifbuilder.github.io/eons/eon-z-a03a.js)   
+z - [eon-z-a04a](https://sifbuilder.github.io/eons/eon-z-a04a.js)   
 
 # license  
 MIT  
