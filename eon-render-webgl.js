@@ -360,7 +360,6 @@
     // .................. eoMultipolygonsToScene
     function eoMultipolygonsToScene (items = []) {
       if (items.length === 0) return
-      if (1 && 1) console.log('******', items)
 
       for (let k in items) { // DOTS (seg5===0) each group gid
         let item = items[k]

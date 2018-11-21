@@ -169,7 +169,6 @@
           }
         }
       }
-if (1 && 1) console.log('updItems', updItems)
 
       return updItems
     }

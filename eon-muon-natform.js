@@ -444,8 +444,6 @@ let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
         cache.eoform = projDef.eoform
         cache.feature = feature
         
-        if (1 && 1) console.log('feature', feature)
-
         return feature
       }
     }
