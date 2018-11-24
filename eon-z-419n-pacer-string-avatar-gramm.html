@@ -184,9 +184,12 @@ async function anitem (__mapper) {
               let parentAnima = muonStore.findAnimaFromUid(uidParent)
               let point = muonStace.getLocus({pos: 0, pos: 0, pos: 0}, parentAnima)
               point = muonGeoj.geotrim(point)
+if (1 && 1) console.log('point', point)
  
               let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+
               if (preani) {
+              if (1 && 1) console.log('preani', preani)
                 let gj = preani.eofold
                 console.assert(gj !== undefined && gj.type !== undefined , `gj undefined ${gj}`)
                 let feature = gj  // type === 'Feature'
@@ -222,10 +225,15 @@ async function anitem (__mapper) {
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
+            
               stace = muonStace.getLocus([null, null, null], ani)
+              
             } else if (props.key === 'auto') { // AUTO
+            
               stace = muonStace.getLocus([null, null, null], ani)
+              
             } else if (props.key === 'event') { // EVENT
+            
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
                 let x = grabbed[0]

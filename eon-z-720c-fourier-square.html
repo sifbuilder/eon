@@ -6,7 +6,6 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    datRhyno,
     eohalMars,
     eohalPacer,
     eohalFourier,
@@ -16,9 +15,9 @@ async function anitem (__mapper) {
     muonProfier,
     muonStace,
     muonSvg,
+    renderPortview,    
     renderSvg,
   ] = await Promise.all([
-    __mapper('xs').d('rhyno'),
     __mapper('xs').e('mars'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('fourier'),
@@ -28,6 +27,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('profier'),
     __mapper('xs').m('stace'),
     __mapper('xs').m('svg'),
+    __mapper('xs').r('portview'),    
     __mapper('xs').r('svg'),
   ])
 
@@ -141,31 +141,40 @@ async function anitem (__mapper) {
           eohal: 'mars',
 
           eofold: function (ani, props) {
-            let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
             let coords
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates
             } else if (props.key === 'auto') { // AUTO
               let point = muonStace.getLocus([null, null, null], ani)
 
-              // ... geotrim to fix [num, num, NaN]
+              point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
 
-              point = muonGeoj.geotrim(point)
-
-              coords = (preani && preani.eofold.geometry.coordinates)
-                ? [...preani.eofold.geometry.coordinates, point ]
-                : Array.of(point)
+              let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+              if (preani) {
+                if (preani.eofold.type === 'FeatureCollection') {
+                  let feature = preani.eofold.features[0]
+                  coords = (feature.geometry.coordinates)
+                    ? [...feature.geometry.coordinates, point ]
+                    : Array.of(point)
+                } else if (preani.eofold.type === 'Feature') {
+                  let feature = preani.eofold
+                  coords = (feature.geometry.coordinates)
+                    ? [...feature.geometry.coordinates, point ]
+                    : Array.of(point)
+                }
+              }
+                
+                
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates
             }
 
-            console.assert(coords !== undefined && coords !== null)
+            console.assert(coords !== undefined && coords !== null, `coords ${coords} undefined `)
             let geometry = {
               type: 'LineString',
               coordinates: coords,
             }
-            console.assert(muonGeoj.isValid(geometry))
-
+            console.assert(muonGeoj.isValid(geometry), `geo ${geometry} not valid `)
             return {
               type: 'Feature',
               geometry: geometry,
@@ -230,7 +239,7 @@ async function anitem (__mapper) {
 
           transforms: transforms,
           interval: [0.0, 0.99],
-          tolerance: 0.1, // 0.1
+          tolerance: 0.1,
 
           doteocrom: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
 

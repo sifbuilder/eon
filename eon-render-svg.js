@@ -42,7 +42,7 @@
       d3,
       muonProj3ct,
       puniwen,
-      renderPortview, // viewScreenPrt
+      renderPortview, // viewScreenPrt - _e_ to be defined in z.
     ] = await Promise.all([
       __mapper('xs').b('d3'),
       __mapper('xs').m('proj3ct'),
@@ -70,15 +70,11 @@
       .attr('height', state.height)
       .style('top', 0)
       .style('left', 0)
+      .style('fill', 'transparent')      
+      // .attr('pointer-events', 'none')
+      // .attr('overflow', 'visible')      
       .style('background-color', state.background) // background
 
-    let svgElem = svglayer.append('rect')
-      .attr('id', 'svg')
-      .attr('class', 'svg')
-      .style('fill', 'transparent')
-      .attr('pointer-events', 'none')
-      .attr('overflow', 'visible')
-      .style('background-color', state.background) // background
 
     // ............................. svg
     let _svg = () => d3.select('#viewframe')
