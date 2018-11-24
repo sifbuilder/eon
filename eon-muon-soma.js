@@ -98,10 +98,11 @@
       let somasInMito = muonProps.clone(feature.geometry.coordinates)
 
       let qsomas = somasInMito.length
-      for (let j = 0; j < somasInMito.length; j++) {
+      for (let j = 0; j < qsomas; j++) {
         let somaInMito = somasInMito[j]
 
-        for (let k = 0; k < subMitoDirs.length; k++) { // split
+        let splits =  subMitoDirs.length
+        for (let k = 0; k < splits; k++) { // split
           let direction = subMitoDirs[k]
 
           let nodesInLine = somaInMito.length
@@ -115,11 +116,24 @@
 
           let inang = Math.atan2(y1 - y0, x1 - x0)
 
-          let dirAngle = inang + subSpreadAngle * Math.random() * direction
+          let kangle = subSpreadAngle
+          if (Array.isArray(subSpreadAngle)) {
+            let angpos = k % splits
+            kangle = subSpreadAngle[angpos]
+          } 
+
+          let strightness = 0.5
+          let dirAngle = inang + strightness * Math.random() * kangle * direction  // _e_
 
           let dist = subgrowrate(j, qsomas)
 
-          let dirLength = dist * subgrowunit * (Math.pow(subShrinkage, i) + Math.random() * Math.pow((1.0 - subShrinkage), i))
+          let ksubgrowth = subgrowunit
+          if (Array.isArray(subgrowunit)) {
+            let lenpos = k % splits
+            ksubgrowth = subgrowunit[lenpos]
+          } 
+          
+          let dirLength = dist * ksubgrowth * (Math.pow(subShrinkage, i) + Math.random() * Math.pow((1.0 - subShrinkage), i))
 
           const x2 = x1 + dirLength * Math.cos(dirAngle)
           const y2 = y1 + dirLength * Math.sin(dirAngle)
@@ -187,7 +201,7 @@
       if (subgrow === 1 && step < newMitos.length) {
         let feature = newMitos[step]
 
-        let updfeature = growSoma(feature, props, step)
+        let updfeature = growSoma(feature, props, step) // grow soma
 
         newMitos[step] = updfeature
       }
@@ -216,12 +230,12 @@
       let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
       let soma
       if (preAnigram) {
-        soma = preAnigram.eofold
+        soma = preAnigram.eofold  // take preani
       } else {
-        soma = neoSoma({x0, y0, growunit, growthDir, eocrom})
+        soma = neoSoma({x0, y0, growunit, growthDir, eocrom}) // neo soma
       }
 
-      return devSoma(soma, props)
+      return devSoma(soma, props) // devsoma
     }
 
     // .................. somaAni
@@ -239,9 +253,9 @@
 
     // .................. soma
     let soma = (i, p) => {
-      let ani = muonProps.clone(somaAni)
-      ani.eoload.soma = p
-      ani.eoric.fid = 'ani' + i
+      let ani = muonProps.clone(somaAni)  // soma ani
+      ani.eoload.soma = p // soma eoload
+      ani.eoric.fid = 'ani' + i // i soma fid
 
       return ani
     }
