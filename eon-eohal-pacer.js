@@ -193,7 +193,8 @@
       // ... check distance to previous location
 
       let count = {}
-      let grabbed = ctlRayder.grabbed()
+      let grabbed 
+      grabbed = ctlRayder.grabbed()
 
       let dist = state.grabbed === undefined
         ? Infinity
