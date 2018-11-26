@@ -447,7 +447,7 @@
         } else if (gj.type == 'FeatureCollection') {
           for (let feature_num = 0; feature_num < gj.features.length; feature_num++) {
             let feature = gj.features[feature_num]
-            getCoords(feature, coords)
+            coords = getCoords(feature, coords)
           }
         } else if (gj.type == 'GeometryCollection') {
           for (let geom_num = 0; geom_num < gj.coords.length; geom_num++) {

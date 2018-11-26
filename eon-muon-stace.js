@@ -143,11 +143,11 @@
             if (v1.hasOwnProperty('mod')) { // eoform, conform, ereform, proform`
               // eofold transfomed are in the eofold.properties
 
-              coords = muonGeoj.getCoords(parentani.eofold.properties[v1.mod].geometry)
+              coords = muonGeoj.getCoords(parentani.eofold.properties[v1.mod])
             } else {
               // if no mod, positions are the goefold geometry, after transforms
 
-              coords = muonGeoj.getCoords(parentani.eofold.geometry)
+              coords = muonGeoj.getCoords(parentani.eofold)
             }
 
             // move idx to the coords domain

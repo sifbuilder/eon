@@ -178,7 +178,6 @@ async function anitem (__mapper) {
               // ... the location is got from ani parentani
 
               let point = muonStace.getLocus([{pos: 0}, {pos: 0}], ani)
-              point = muonGeoj.geotrim(point)
 
               point = muonGeoj.geotrim(point)
 
@@ -201,12 +200,12 @@ async function anitem (__mapper) {
               coords = ani.eonode.geometry.coordinates
             }
 
-            console.assert(coords !== undefined && coords !== null)
+            console.assert(coords !== undefined && coords !== null, `pacer eofold coords undefined`)
             let geometry = {
               type: 'LineString',
               coordinates: coords,
             }
-            console.assert(muonGeoj.isValid(geometry))
+            console.assert(muonGeoj.isValid(geometry), `pacer eofold geojson not valid`)
 
             return {
               type: 'Feature',
@@ -219,7 +218,9 @@ async function anitem (__mapper) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               stace = muonStace.getLocus([null, null, null], ani)
+              
             } else if (props.key === 'auto') { // AUTO
+            
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
@@ -248,7 +249,7 @@ async function anitem (__mapper) {
 
     let params = {depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2}
 
-    let getanis = function (params = {}) {
+    let getanis = function (params = {}) {  // getanis
       let anis = []
       let _NAME = params.name || 'anis'
       _ROW = params.row || 2,
@@ -297,12 +298,17 @@ async function anitem (__mapper) {
         },
       }
 
-      let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d)) // amplitude of sinus (level)
-      let zcoef = (rad, ang) => Complex({re: rad * Math.cos(ang), im: rad * Math.sin(ang)}) // complex number
+       // amplitude of sinus (level)
+      let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d))
+      
+      // complex number
+      let zcoef = (rad, ang) => Complex({re: rad * Math.cos(ang), im: rad * Math.sin(ang)}) 
 
+      // for each cycloid: anis or fractal
       for (let level = 0; level < _LEVEL; level++) {
         anis[level] = muonProps.cloneObj(anis[level - 1] || fractalForm)
 
+        // 
         anis[level].eoric = {gid: 'nat', cid: _NAME + level, fid: _NAME + level} // id
 
         anis[level].eoload.fractal.an = [] // [0..._LEVEL)
@@ -325,7 +331,10 @@ async function anitem (__mapper) {
         anis[level].eoload.fractal.rad = radOnLevel(level)
         anis[level].eocrom.cf = _CF(level) // eocrom
         if (level === _LEVEL - 1) {
+          
+          // add trace line to last-level cycloid 
           anis[level].avatars = {traceline: traceline(0)}
+          
         }
       }
 
