@@ -84,14 +84,29 @@ async function anitem (__mapper) {
           eohal: 'mars',
 
           eofold: function (ani, props) {
-            let preani = muonStore.findAnigramFromUid(ani.eoric.uid) // anigram
             let coords
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates // eonode
             } else if (props.key === 'auto') { // AUTO
-              coords = (preani && preani.eofold.geometry.coordinates)
-                ? [...preani.eofold.geometry.coordinates, ani.eoform ]
-                : Array.of(ani.eoform) // LineString
+              let point = muonStace.getLocus([null, null, null], ani)
+
+              point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
+
+              let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+              if (preani) {
+                if (preani.eofold.type === 'FeatureCollection') {
+                  let feature = preani.eofold.features[0]
+                  coords = (feature.geometry.coordinates)
+                    ? [...feature.geometry.coordinates, point ]
+                    : Array.of(point)
+                } else if (preani.eofold.type === 'Feature') {
+                  let feature = preani.eofold
+                  coords = (feature.geometry.coordinates)
+                    ? [...feature.geometry.coordinates, point ]
+                    : Array.of(point)
+                }
+              }
+                
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates
             }
