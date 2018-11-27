@@ -413,6 +413,7 @@
       }
     }
 
+
     // .................. multiPointToScene
     function multiPointToScene (items = []) {
       if (items.length === 0) return
@@ -420,12 +421,14 @@
         let item = items[k] // feature
 
         let feature = item // .feature
+        if (1 && 1) console.log('feature', feature)
+
         let style = item.properties.style
 
         let geometry = feature.geometry // rings in MultiPolygon, MultiLineString
 
         let vertices = geometry.coordinates
-        let dotsize = 12
+        let dotsize = item.properties.pointRadius ||  12
         for (let i = 0; i < vertices.length; i++) {
           let particle_geom = new THREE.Geometry()
           particle_geom.vertices.push(new THREE.Vector3(...vertices[i].map(to3point)))
@@ -493,33 +496,38 @@
         })
       }
     }
-
     // .................. pointToScene
-    function pointToScene (items = []) {
+    function pointToScene (items) {
       if (items.length === 0) return
-      for (let k in items) { // DOTS (seg5===0) each group gid
-        let item = items[k] // feature
-        let feature = item // .feature
-        let style = feature.properties.style
-        let geometry = feature.geometry
-        let coordinates = geometry.coordinates
+      for (let k in items) { // point
+        let item = items[k] // .feature
 
-        let threeMaterial = new THREE.LineBasicMaterial({
-          color: style.stroke,
-          opacity: style['stroke-opacity'],
+        let style = item.properties.style
+        let dotsize = item.properties.pointRadius ||  12
+
+        let geometry = item.geometry // rings in MultiPolygon, MultiLineString
+
+        let vertex = geometry.coordinates
+        vertex[2] = vertex[2] !== undefined ? vertex[2] : 0 // _e_
+        let pointThree = to3point(vertex)
+
+        let particle_geom = new THREE.Geometry()
+        particle_geom.vertices.push(pointThree)
+        
+        let particle_material = new THREE.PointsMaterial({
+          color: style.fill, // 0x88ff88,
+          size: dotsize,
+          sizeAttenuation: false,
+          transparent: true 
         })
 
-        let threeGeometry = new THREE.Geometry()
+        let particle = new THREE.Points(particle_geom, particle_material)
+        if (1 && 1) console.log('particle', particle)
 
-        coordinates.forEach(function (line) {
-          d3.pairs(line.map(denser), function (a, b) {
-            threeGeometry.vertices.push(a, b)
-          })
-          let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-          if (object) state.scene.add(object)
-        })
+        state.scene.add(particle)
       }
     }
+
 
     // .................. polygonToScene
     function polygonToScene (items = []) {
@@ -648,11 +656,24 @@
             d.properties.eoMultiPolygon !== 1,
         retriever: multiPointToScene,
       }, {
+        name: 'POINT',
+        filter: d =>
+          (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
+            d.geometry.type === 'Point' &&
+            d.properties.eoMultiPolygon !== 1,
+        retriever: pointToScene,
+      }, {
         name: 'MULTILINESTRING',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
               d.geometry.type === 'MultiLineString',
         retriever: multiLineStringToScene,
+      }, {
+        name: 'LINESTRING',
+        filter: d =>
+          (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
+              d.geometry.type === 'LineString',
+        retriever: lineStringToScene,
       }, {
         name: 'IMG',
         filter: d =>
@@ -701,7 +722,12 @@ if (1 && 1) console.log('gitems', gitems)
             let now = fitems.slice(-1)[0]
 
             if (pattern.retriever && pattern.filter) {
-              pattern.retriever(fitems.filter(pattern.filter))
+              let itemsInPattern = fitems.filter(pattern.filter)
+       if (1 && 1) console.log('pattern', pattern.name, itemsInPattern.length)
+
+              if (itemsInPattern.length > 0) {
+                pattern.retriever(itemsInPattern)
+              }
             }
           } // citems
         } // gitems

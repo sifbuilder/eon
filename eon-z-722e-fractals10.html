@@ -22,7 +22,10 @@ async function anitem (__mapper) {
     muonProps,
     muonStace,
     muonSvg,
-    renderSvg,
+    prtOrthographic,    
+    // renderSvg,
+    renderPortview,    
+    renderWebgl,    
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').c('versor'),
@@ -40,14 +43,17 @@ async function anitem (__mapper) {
     __mapper('xs').m('props'),
     __mapper('xs').m('stace'),
     __mapper('xs').m('svg'),
-    __mapper('xs').r('svg'),
+    __mapper('xs').p('orthographic'),    
+    // __mapper('xs').r('svg'),
+    __mapper('xs').r('portview'),    
+    __mapper('xs').r('webgl'),    
   ])
 
   let muonStore = __mapper('muonStore')
 
   // .................. animas
   let ani = function () {
-    let ctl = ctlVersor().control(renderSvg.svg())
+    // let ctl = ctlVersor().control(renderSvg.svg())
 
     // .................. pics
 
@@ -88,11 +94,16 @@ async function anitem (__mapper) {
     }
 
     let proform2 = { // proform in the geographic domain
-      projection: 'orthographic',
-      scale: 90,
-      prerotate: [[[ ctl.rotation ]]],
-      translate: [0, 0],
-      rotate: [ 0, 0 ],
+      projection: prtOrthographic,
+      // prerotate: [[[ prtOrthographic.rotation ]]],
+      // prerotate: [[[ ctlVersor
+      // .projection({projection: prtOrthographic })
+      // .rotation,
+      // ]]],
+      translate: [0, 0, 0],
+      scale: 100,
+      rotate: [ [[[0, 360]]], 0, 0 ],
+
     }
 
     // ...  get geoData from uniwen projection with inverse y-scale
@@ -100,7 +111,7 @@ async function anitem (__mapper) {
     // ...  span data along [0, 1] interval
     // ...  and create FeatureCollection with trasform features
 
-    let geoData = muonProj3ct(data, muonProfier.formion(proform, ani))
+    let geoData = muonProj3ct(data, muonProfier.formion(proform2, ani))
     let transforms = muonFourier.transformedCoefs(geoData)
     transforms = muonGeoj.ntime(transforms, [0, 1])
 
@@ -247,7 +258,7 @@ async function anitem (__mapper) {
       },
     })
 
-    let params = {depth: 3, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2}
+    let params = {depth: 6, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2}
 
     let getanis = function (params = {}) {  // getanis
       let anis = []
@@ -265,25 +276,29 @@ async function anitem (__mapper) {
 
         eohal: 'mars',
 
-        eofold: a => ({
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
+        eofold: a => {
 
-            coordinates: Complex({re: 0, im: 0})
-              .add(a.eoload.fractal.coef(a)) // set on zcoef = (rad, ang)
-              .toVector(),
+          let res = {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
 
-          },
-          properties: {
-            pointRadius: a.eoload.fractal.rad,
-            eonode: {
-              type: 'Feature',
-              geometry: {type: 'Point', coordinates: [0, 0]},
-              properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
+              coordinates: Complex({re: 0, im: 0})
+                .add(a.eoload.fractal.coef(a)) // set on zcoef = (rad, ang)
+                .toVector(),
+
             },
-          },
-        }),
+            properties: {
+              pointRadius: a.eoload.fractal.rad,
+              eonode: {
+                type: 'Feature',
+                geometry: {type: 'Point', coordinates: [0, 0]},
+                properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
+              },
+            },
+          }
+          return res
+        },
 
         eotim: {'td': cyclet * _LEVEL, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
         eoric: {'gid': _NAME, 'cid': _NAME, 'fid': _NAME},
@@ -341,11 +356,109 @@ async function anitem (__mapper) {
       return anis
     }
     let otheranis = getanis(params)
+    // .................. cameraOrthoAni anima
+    let lightHemisphereAni = {
 
+      eotim: eotim,
+      eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
+      eohal: 'sol',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload
+        let json = { // Feature
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: anitem.eoload.light,
+        }
+
+        return json
+      },
+      eoload: {
+        light: {
+          sort: 'light',
+          type: 'HemisphereLight',
+          name: 'HemisphereLight',
+          skyColor: [[[111, 999]]],
+          groundColor: [[[999, 111]]],
+          intensity: 0.2,
+          position: [0, 0, 0],
+        },
+      },
+
+    }
+
+    // .................. spotLight anima
+    let spotLight = {
+
+      eotim: eotim,
+      eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
+      eohal: 'sol',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload
+        let json = { // Feature
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: anitem.eoload.light,
+        }
+        return json
+      },
+      eoload: {
+        light: {
+          sort: 'light',
+          type: 'SpotLight',
+          name: 'spotLight',
+          color: [[[222, 777]]], // 0xe4eef9,
+          intensity: 0.99,
+          position: [-100, 100, 100],
+          normalize: 1,
+          castShadow: 1,
+        },
+      },
+
+    }
+
+    // .................. cameraPersAni anima
+    let cameraPersAni = {
+
+      eotim: eotim,
+      eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
+      eohal: 'sol',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload
+        let json = { // Feature
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: {
+            sort: 'camera',
+            type: 'PerspectiveCamera',
+            name: 'Perspective',
+            fov: 60, // field of view s the field of view. angle in degrees.
+            aspect: renderPortview.width() / renderPortview.height(),
+            near: 0.001,
+            far: 600,
+
+            position: [0, 0, 200 ],
+            rotation: [0, 0, 0 ],
+
+            vellin: [0, 0, 0 ],
+            velang: [1, 1, 1 ],
+
+            distance2nodesFactor: 100,
+            lookAt: [0, 0, 0],
+          },
+        }
+        return json
+      },
+    }
     // .................. animas
     let animas = [
 
       ...otheranis, // h.fourier
+      cameraPersAni, // h.sol
+      lightHemisphereAni, // h.sol
+      spotLight, // h.sol      
     ]
 
     return animas

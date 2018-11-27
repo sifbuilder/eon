@@ -36,7 +36,6 @@
 
     // ............................. eohale
     let eohale = function (ani) {
-      if (1 && 1) console.log('h.fourier ani', ani)
 
       let anigram = ani,
         eoric = anigram.eoric, // eoric
@@ -231,7 +230,7 @@
 
         newItems = [...newItems, ...iAnitems]
       }
-
+ 
       return newItems
     }
 

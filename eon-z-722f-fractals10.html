@@ -4,60 +4,64 @@ window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__mapper) {
+  // .................. eons
   let [
-    d3,
-    d3geo,
-    THREE,
     ctlWen,
+    ctlVersor,
+    datRhyno,
     eohalMars,
+    eohalNatform,
     eohalPacer,
     eohalFourier,
+    Complex,
+    muonEoric,
     muonFourier,
-    muonGeoj,    
-    muonGeom,
-    muonProps,
-    muonGeovoro,
+    muonGeoj,
+    muonProj3ct,
     muonProfier,
-    muonProj3ct,    
-    muonStace,    
-    muonSvg,    
-    renderPortview,
-    renderWebgl,
+    muonProps,
+    muonStace,
+    muonSvg,
+    prtOrthographic,    
+    renderSvg,
+    renderPortview,    
+    // renderWebgl,    
   ] = await Promise.all([
-    __mapper('xs').b('d3'),
-    __mapper('xs').b('d3-geo'),
-    __mapper('xs').b('three'),
     __mapper('xs').c('wen'),
+    __mapper('xs').c('versor'),
+    __mapper('xs').d('rhyno'),
     __mapper('xs').e('mars'),
+    __mapper('xs').e('natform'),
     __mapper('xs').e('pacer'),
     __mapper('xs').e('fourier'),
-    __mapper('xs').m('fourier'),  
-    __mapper('xs').m('geoj'),    
-    __mapper('xs').m('geom'),
+    __mapper('xs').l('complex'),
+    __mapper('xs').m('eoric'),
+    __mapper('xs').m('fourier'),
+    __mapper('xs').m('geoj'),
+    __mapper('xs').m('proj3ct'),
+    __mapper('xs').m('profier'),
     __mapper('xs').m('props'),
-    __mapper('xs').m('geovoro'),
-    __mapper('xs').m('profier'),    
-    __mapper('xs').m('proj3ct'),    
-    __mapper('xs').m('stace'),    
-    __mapper('xs').m('svg'),    
-    __mapper('xs').r('portview'),
-    __mapper('xs').r('webgl'),
+    __mapper('xs').m('stace'),
+    __mapper('xs').m('svg'),
+    __mapper('xs').p('orthographic'),    
+    __mapper('xs').r('svg'),
+    __mapper('xs').r('portview'),    
+    // __mapper('xs').r('webgl'),    
   ])
 
+  let muonStore = __mapper('muonStore')
 
-  let muonStore = __mapper('muonStore')  
-  
+  // .................. animas
   let ani = function () {
-  // .................. pics
+    // let ctl = ctlVersor().control(renderSvg.svg())
 
-    let epsilon = 1e-6, epsilon2 = epsilon * epsilon, asin = Math.asin
-    let atan = Math.atan, abs = Math.abs
-    let pi = Math.PI, degrees = 180 / pi, asin1_3 = Math.asin(1 / 3)
-    let theta = atan(0.5) * degrees
+    // .................. pics
 
-    const eotim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
+    const pi = Math.PI, pi2 = 2 * pi,
+      turn = 2 * Math.PI // 360
 
- 
+    let eotim = {'td': 63800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
     // ...     data is svg MCZ...MCZ
     let svgdata = {
       width: '2.77778in', height: '3.45833in',
@@ -73,11 +77,10 @@ async function anitem (__mapper) {
 
     let basicSquare = [
       [
-        [0, 0.50], [0, 0.75],
-        [0, 1.00], [0.25, 1.00], [0.50, 1.00], [0.75, 1.00],
-        [1.00, 1.00], [1.00, 0.75], [1.00, 0.50], [1.00, 0.25],
-        [1.00, 0], [0.75, 0], [0.50, 0], [0.25, 0],
-        [0, 0], [0, 0.25], 
+        [0, 0], [0, 25], [0, 50], [0, 75],
+        [0, 100], [25, 100], [50, 100], [75, 100],
+        [100, 100], [100, 75], [100, 50], [100, 25],
+        [100, 0], [75, 0], [50, 0], [25, 0], [0, 0],
       ],
     ] // MultiLineString
     data.geometry.coordinates = basicSquare
@@ -85,9 +88,22 @@ async function anitem (__mapper) {
     let proform = {
       projection: 'uniwen',
       translate: [ -100, 100 ],
-      scale: [100, -100],
+      scale: [1, -1],
       rotate: [ 0, 0 ],
       lens: [0, 1, Infinity],
+    }
+
+    let proform2 = { // proform in the geographic domain
+      projection: prtOrthographic,
+      // prerotate: [[[ prtOrthographic.rotation ]]],
+      // prerotate: [[[ ctlVersor
+      // .projection({projection: prtOrthographic })
+      // .rotation,
+      // ]]],
+      translate: [0, 0, 0],
+      scale: 100,
+      rotate: [ [[[0, 360]]], 0, 0 ],
+
     }
 
     // ...  get geoData from uniwen projection with inverse y-scale
@@ -95,13 +111,15 @@ async function anitem (__mapper) {
     // ...  span data along [0, 1] interval
     // ...  and create FeatureCollection with trasform features
 
-    let geoData = muonProj3ct(data, muonProfier.formion(proform, ani))
+    let geoData = muonProj3ct(data, muonProfier.formion(proform2, ani))
     let transforms = muonFourier.transformedCoefs(geoData)
     transforms = muonGeoj.ntime(transforms, [0, 1])
 
+    if (1 && 1) console.log('transforms', transforms)
+
     // ... rayline LineString
 
-    let rayline = {
+    let rayline = i => ({
 
       eohal: 'mars',
       eotim: eotim,
@@ -118,11 +136,11 @@ async function anitem (__mapper) {
       eocrom: { 'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.99, 'co': 1, 'cp': 1},
       eoload: {},
 
-    }
+    })
 
     // ... traceline LineString trace
 
-    let traceline = {
+    let traceline = i => ({
 
       eohal: 'pacer',
       eotim: eotim,
@@ -166,9 +184,13 @@ async function anitem (__mapper) {
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates
             } else if (props.key === 'auto') { // AUTO
-              let point = muonStace.getLocus([null, null, null], ani)
+              // ... ani is the LineString avatar of
+              // ... Point avatar
+              // ... the location is got from ani parentani
 
-              point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
+              let point = muonStace.getLocus([{pos: 0}, {pos: 0}], ani)
+
+              point = muonGeoj.geotrim(point)
 
               let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
               if (preani) {
@@ -185,17 +207,17 @@ async function anitem (__mapper) {
                 }
               }
                 
-                
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates
             }
 
-            console.assert(coords !== undefined && coords !== null, `coords ${coords} undefined `)
+            console.assert(coords !== undefined && coords !== null, `pacer eofold coords undefined`)
             let geometry = {
               type: 'LineString',
               coordinates: coords,
             }
-            console.assert(muonGeoj.isValid(geometry), `geo ${geometry} not valid `)
+            console.assert(muonGeoj.isValid(geometry), `pacer eofold geojson not valid`)
+
             return {
               type: 'Feature',
               geometry: geometry,
@@ -207,7 +229,9 @@ async function anitem (__mapper) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               stace = muonStace.getLocus([null, null, null], ani)
+              
             } else if (props.key === 'auto') { // AUTO
+            
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
@@ -232,49 +256,106 @@ async function anitem (__mapper) {
 
         },
       },
-    }
+    })
 
-    // ... fourierAni carries the transforms in the eofold
-    // ...  h.fourier
-    // ...  bears traceline and rayline avatars
-    // ...  the rayline is a LineString between each two transforms
-    // ...  the traceline is a paced LineString on the last transform
+    let params = {depth: 6, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2}
 
-    let fourierAni = {
+    let getanis = function (params = {}) {  // getanis
+      let anis = []
+      let _NAME = params.name || 'anis'
+      _ROW = params.row || 2,
+      _COL = params.col || 2,
+      _LEVEL = params.depth || 2,
+      _CF = params.cf || (d => 222 * 1), // cfonlevel
+      _SIDES = params.sides || 5,
+      _RAD = params.rad || 90,
+      PHASED = params.anginit || 0 // 0 internal, 180 extenal
+      const cyclet = _LEVEL * _LEVEL * 1000
 
-      eohal: 'fourier',
-      eotim: eotim,
-      eoric: { gid: 'fourier', cid: 'fourier', fid: 'fourier'},
+      let fractalForm = {
 
-      eofold: p => ({
-        type: 'FeatureCollection',
-        features: transforms,
-      }),
+        eohal: 'mars',
 
-      eocrom: {'csx': 0, 'cf': 555, 'cs': 999, 'cw': 0.95, 'co': 0.92, 'cp': 0.99},
+        eofold: a => {
 
-      eoload: {
-        fourier: {
+          let res = {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
 
-          geosort: 'anigram',
+              coordinates: Complex({re: 0, im: 0})
+                .add(a.eoload.fractal.coef(a)) // set on zcoef = (rad, ang)
+                .toVector(),
 
-          transforms: transforms,
-          interval: [0.0, 0.99],
-          tolerance: 0.1,
-
-          doteocrom: {'csx': 0, 'cf': 888, 'cs': 999, 'cw': 0.9, 'co': 0.01, 'cp': 0.7},
-
-          // ... fourierAni.eoload.fourier avatars are defined by name: traceline, rayline
-
-          avatars: {
-
-            traceline: traceline,
-            rayline: rayline,
-
-          },
+            },
+            properties: {
+              pointRadius: a.eoload.fractal.rad,
+              eonode: {
+                type: 'Feature',
+                geometry: {type: 'Point', coordinates: [0, 0]},
+                properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
+              },
+            },
+          }
+          return res
         },
-      },
+
+        eotim: {'td': cyclet * _LEVEL, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
+        eoric: {'gid': _NAME, 'cid': _NAME, 'fid': _NAME},
+        eocrom: {'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.9, 'co': 0.2, 'cp': 0.7},
+        eomot: {
+          proform: { projection: 'uniwen', scale: 1, translate: [ -0, 0 ], rotate: [ 0, 0 ] }, // identity
+        },
+
+        eoload: {
+          fractal: {}, // set coef
+
+        },
+      }
+
+       // amplitude of sinus (level)
+      let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d))
+      
+      // complex number
+      let zcoef = (rad, ang) => Complex({re: rad * Math.cos(ang), im: rad * Math.sin(ang)}) 
+
+      // for each cycloid: anis or fractal
+      for (let level = 0; level < _LEVEL; level++) {
+        anis[level] = muonProps.cloneObj(anis[level - 1] || fractalForm)
+
+        // 
+        anis[level].eoric = {gid: 'nat', cid: _NAME + level, fid: _NAME + level} // id
+
+        anis[level].eoload.fractal.an = [] // [0..._LEVEL)
+
+        for (let j = 0; j < level; j++) {
+          let ang
+          ang = (j === 0) ? [[[ 0, turn ]]] : [[[ 0, (1 - _SIDES) ** (j) * turn ]]]
+          let rad = radOnLevel(j)
+          anis[level].eoload.fractal.an[j] = {rad, ang}
+        }
+
+        anis[level].eoload.fractal.coef = d => {
+          let z = d.eoload.fractal.an.reduce((p, q) => {
+            let aj = zcoef(q.rad, q.ang)
+            return p.add(aj)
+          }, Complex({re: 0, im: 0}))
+          return z
+        }
+
+        anis[level].eoload.fractal.rad = radOnLevel(level)
+        anis[level].eocrom.cf = _CF(level) // eocrom
+        if (level === _LEVEL - 1) {
+          
+          // add trace line to last-level cycloid 
+          anis[level].avatars = {traceline: traceline(0)}
+          
+        }
+      }
+
+      return anis
     }
+    let otheranis = getanis(params)
     // .................. cameraOrthoAni anima
     let lightHemisphereAni = {
 
@@ -371,202 +452,15 @@ async function anitem (__mapper) {
         return json
       },
     }
-    // .................. cameraPersHelper anima
-    let cameraPersHelper = {
-
-      eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersHelper'},
-      eohal: 'sol',
-
-      eofold: anitem => {
-        let eoload = anitem.eoload
-        let json = { // Feature
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: anitem.eoload.camera,
-        }
-        return json
-      },
-      eoload: {
-        camera: {
-          sort: 'cameraHelper',
-          type: 'PerspectiveCamera',
-          name: 'cameraPersHelper',
-
-          fov: 20, // field of view
-          aspect: renderPortview.width() / renderPortview.height(),
-          near: 0.001,
-          far: 600,
-
-          position: [0, 0, 100],
-          rotation: [0, 0, 0],
-          // distance2nodesFactor: 300,
-          // lookAt: [0,0,0],
-        },
-      },
-    }
-    // .................. gridHelper anima
-    let gridHelper = {
-
-      eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'gridHelper'},
-      eohal: 'sol',
-
-      eofold: anitem => {
-        let eoload = anitem.eoload
-        let json = { // Feature
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: {
-            sort: 'gridHelper',
-            type: 'GridHelper',
-            name: 'gridHelper',
-            isToUpdate: 0,
-
-            size: 200, // field of view
-            divisions: 5,
-
-            position: [0, 0, 0 ],
-          },
-        }
-
-        return json
-      },
-
-    }
-    
-    // .................. facesAni anima
-    let facesAni = {
-
-      eotim: eotim,
-      eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
-      eohal: 'mars',
-
-      eofold: anitem => {
-        let eoload = anitem.eoload
-        let json = {
-          type: 'Feature',
-          geometry: {
-            type: 'MultiPoint',
-            coordinates: eoload.vertices(eoload.pars),
-          },
-          properties: {
-            sort: 'form',
-            eoMultiPolygon: 1,
-            faces: eoload.faces(eoload.pars).reduce((p, q) => [...p, ...muonGeom.convextriang(q)], []),
-            lights: eoload.lights(eoload.pars),
-          },
-        }
-
-        return json
-      },
-
-      eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
-
-      eomot: {
-        proform: {
-
-          projection: 'uniwen',
-          translate: [
-            0,
-            0,
-            0,
-          ],
-
-          scale: [
-            100,
-            100,
-            100,
-          ],
-
-          // rotate: [ [[[0,9,0]]], [[[0,360]]], [[[0,9,0]]] ],
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity ],
-
-        },
-      },
-      eoload: {
-        /*
-            Dave McCooey
-            dmccooey@mac.com
-
-            Cube
-          */
-        pars: {
-
-        },
-
-        vertices: pars =>
-
-          [[0.5, 0.5, 0.5],
-            [0.5, 0.5, -0.5],
-            [0.5, -0.5, 0.5],
-            [0.5, -0.5, -0.5],
-            [-0.5, 0.5, 0.5],
-            [-0.5, 0.5, -0.5],
-            [-0.5, -0.5, 0.5],
-            [-0.5, -0.5, -0.5]],
-
-        faces: pars =>
-          [[0, 1, 5, 4],
-            [0, 4, 6, 2],
-            [0, 2, 3, 1],
-            [7, 3, 2, 6],
-            [7, 6, 4, 5],
-            [7, 5, 1, 3]],
-
-        lights: pars =>
-          [
-          // {
-            // type: 'AmbientLight',
-            // name: 'AmbientLight',
-            // color: 0xeeeeee,
-            // intensity: 0.9,
-            // position: [110, 110, 110],
-          // },
-          // {
-            // type: 'DirectionalLight',
-            // name: 'DirectionalLight',
-            // color: 0xe4eef9,
-            // intensity: 0.7,
-            // position: [0, 0, 120],
-            // normalize: 1,
-            // castShadow: 1,
-          // },
-          // {
-            // type: 'PointLight',
-            // color: 0xe4eef9,
-            // intensity: 0.7,
-            // position: [0, 0, 120],
-            // normalize: 1,
-            // castShadow: 1,
-          // },
-          // {
-            // type: 'SpotLight',
-            // color: 0xe4eef9,
-            // intensity: 0.7,
-            // position: [0, 0, 120],
-            // normalize: 1,
-            // castShadow: 1,
-          // },
-
-          ],
-
-      },
-    }
-    
-    
     // .................. animas
     let animas = [
-      // facesAni, // h.mars
-      fourierAni, // h.mars
-      cameraPersAni, // h.sol
-      // cameraPersHelper, // h.sol
-      // gridHelper, // h.sol
-      lightHemisphereAni, // h.sol
-      spotLight, // h.sol
 
+      ...otheranis, // h.fourier
+      cameraPersAni, // h.sol
+      lightHemisphereAni, // h.sol
+      spotLight, // h.sol      
     ]
+
     return animas
   }
 
