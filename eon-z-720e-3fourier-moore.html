@@ -107,6 +107,26 @@ async function anitem (__mapper) {
     let transforms = muonFourier.transformedCoefs(geoData)
     transforms = muonGeoj.ntime(transforms, [0, 1])
 
+    
+    // ... cycloid LineString
+    
+        let cycloid = {
+          eohal: 'mars',
+          eofold: p => muonNatform.natFeature(p.eoform),
+          eotim: eotim,
+          eoric: {gid: 'g', cid: 'c', fid: 'f1'},
+          eocrom: {'csx': 0, 'cf': 999, 'cs': 333, 'cw': [[[0.6,0.3]]], 'co': 0.0099, 'cp': [[[0.999, 0.3]]]},
+
+          eoform: {
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+              'ra2': 30, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+              'dom3': [ -180, 180 ],
+          },
+          eoload: {},
+        }      
+          
+    
+    
     // ... rayline LineString
 
     let rayline = {
@@ -203,7 +223,6 @@ async function anitem (__mapper) {
               type: 'LineString',
               coordinates: coords,
             }
-            console.assert(muonGeoj.isValid(geometry), `geo ${geometry} not valid `)
             return {
               type: 'Feature',
               geometry: geometry,
@@ -278,6 +297,7 @@ async function anitem (__mapper) {
 
             traceline: traceline,
             rayline: rayline,
+            cycloid: cycloid,
 
           },
         },
@@ -443,130 +463,9 @@ async function anitem (__mapper) {
 
     }
     
-    // .................. facesAni anima
-    let facesAni = {
 
-      eotim: eotim,
-      eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
-      eohal: 'mars',
-
-      eofold: anitem => {
-        let eoload = anitem.eoload
-        let json = {
-          type: 'Feature',
-          geometry: {
-            type: 'MultiPoint',
-            coordinates: eoload.vertices(eoload.pars),
-          },
-          properties: {
-            sort: 'form',
-            eoMultiPolygon: 1,
-            faces: eoload.faces(eoload.pars).reduce((p, q) => [...p, ...muonGeom.convextriang(q)], []),
-            lights: eoload.lights(eoload.pars),
-          },
-        }
-
-        return json
-      },
-
-      eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
-
-      eomot: {
-        proform: {
-
-          projection: 'uniwen',
-          translate: [
-            0,
-            0,
-            0,
-          ],
-
-          scale: [
-            100,
-            100,
-            100,
-          ],
-
-          // rotate: [ [[[0,9,0]]], [[[0,360]]], [[[0,9,0]]] ],
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity ],
-
-        },
-      },
-      eoload: {
-        /*
-            Dave McCooey
-            dmccooey@mac.com
-
-            Cube
-          */
-        pars: {
-
-        },
-
-        vertices: pars =>
-
-          [[0.5, 0.5, 0.5],
-            [0.5, 0.5, -0.5],
-            [0.5, -0.5, 0.5],
-            [0.5, -0.5, -0.5],
-            [-0.5, 0.5, 0.5],
-            [-0.5, 0.5, -0.5],
-            [-0.5, -0.5, 0.5],
-            [-0.5, -0.5, -0.5]],
-
-        faces: pars =>
-          [[0, 1, 5, 4],
-            [0, 4, 6, 2],
-            [0, 2, 3, 1],
-            [7, 3, 2, 6],
-            [7, 6, 4, 5],
-            [7, 5, 1, 3]],
-
-        lights: pars =>
-          [
-          // {
-            // type: 'AmbientLight',
-            // name: 'AmbientLight',
-            // color: 0xeeeeee,
-            // intensity: 0.9,
-            // position: [110, 110, 110],
-          // },
-          // {
-            // type: 'DirectionalLight',
-            // name: 'DirectionalLight',
-            // color: 0xe4eef9,
-            // intensity: 0.7,
-            // position: [0, 0, 120],
-            // normalize: 1,
-            // castShadow: 1,
-          // },
-          // {
-            // type: 'PointLight',
-            // color: 0xe4eef9,
-            // intensity: 0.7,
-            // position: [0, 0, 120],
-            // normalize: 1,
-            // castShadow: 1,
-          // },
-          // {
-            // type: 'SpotLight',
-            // color: 0xe4eef9,
-            // intensity: 0.7,
-            // position: [0, 0, 120],
-            // normalize: 1,
-            // castShadow: 1,
-          // },
-
-          ],
-
-      },
-    }
-    
-    
     // .................. animas
     let animas = [
-      // facesAni, // h.mars
       fourierAni, // h.mars
       cameraPersAni, // h.sol
       // cameraPersHelper, // h.sol

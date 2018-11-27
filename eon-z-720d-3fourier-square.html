@@ -17,6 +17,7 @@ async function anitem (__mapper) {
     muonGeom,
     muonProps,
     muonGeovoro,
+    muonNatform,
     muonProfier,
     muonProj3ct,    
     muonStace,    
@@ -36,6 +37,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('geom'),
     __mapper('xs').m('props'),
     __mapper('xs').m('geovoro'),
+    __mapper('xs').m('natform'),
     __mapper('xs').m('profier'),    
     __mapper('xs').m('proj3ct'),    
     __mapper('xs').m('stace'),    
@@ -84,7 +86,7 @@ async function anitem (__mapper) {
 
     let proform = {
       projection: 'uniwen',
-      translate: [ -100, 100 ],
+      translate: [ -50, 50 ],
       scale: [100, -100],
       rotate: [ 0, 0 ],
       lens: [0, 1, Infinity],
@@ -554,8 +556,7 @@ async function anitem (__mapper) {
 
       },
     }
-    
-    
+
     // .................. animas
     let animas = [
       // facesAni, // h.mars

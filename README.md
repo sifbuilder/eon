@@ -43,9 +43,9 @@
 420b - | [<b>eon-z-420b-geoproj</b>](https://sifbuilder.github.io/eons/eon-z-420b-geoproj.html) |   
 421a - | [<b>eon-z-421a-3pols</b>](https://sifbuilder.github.io/eons/eon-z-421a-3pols.html) |   
 421b - | [<b>eon-z-421b-3pols</b>](https://sifbuilder.github.io/eons/eon-z-421b-3pols.html) |   
+422a - | [<b>eon-z-422a-geovase</b>](https://sifbuilder.github.io/eons/eon-z-422a-geovase.html) |   
+422b - | [<b>eon-z-422b-geovase</b>](https://sifbuilder.github.io/eons/eon-z-422b-geovase.html) |   
 423a - | [<b>eon-z-423a-geopols</b>](https://sifbuilder.github.io/eons/eon-z-423a-geopols.html) |   
-424a - | [<b>eon-z-424a-geovase</b>](https://sifbuilder.github.io/eons/eon-z-424a-geovase.html) |   
-424b - | [<b>eon-z-424b-geovase</b>](https://sifbuilder.github.io/eons/eon-z-424b-geovase.html) |   
 502a - | [<b>eon-z-502a-nat-egg</b>](https://sifbuilder.github.io/eons/eon-z-502a-nat-egg.html) |   
 503a - | [<b>eon-z-503a-nat-tri</b>](https://sifbuilder.github.io/eons/eon-z-503a-nat-tri.html) |   
 511a - | [<b>eon-z-511a-nat-text</b>](https://sifbuilder.github.io/eons/eon-z-511a-nat-text.html) |   
@@ -144,7 +144,11 @@
 720a - | [<b>eon-z-720a-fourier-rhyno</b>](https://sifbuilder.github.io/eons/eon-z-720a-fourier-rhyno.html) |   
 720b - | [<b>eon-z-720b-fourier-squares</b>](https://sifbuilder.github.io/eons/eon-z-720b-fourier-squares.html) |   
 720c - | [<b>eon-z-720c-fourier-square</b>](https://sifbuilder.github.io/eons/eon-z-720c-fourier-square.html) |   
+720d - | [<b>eon-z-720d-3fourier-square</b>](https://sifbuilder.github.io/eons/eon-z-720d-3fourier-square.html) |   
+720e - | [<b>eon-z-720e-3fourier-moore</b>](https://sifbuilder.github.io/eons/eon-z-720e-3fourier-moore.html) |   
 722e - | [<b>eon-z-722e-fractals10</b>](https://sifbuilder.github.io/eons/eon-z-722e-fractals10.html) |   
+722f - | [<b>eon-z-722f-fractals10</b>](https://sifbuilder.github.io/eons/eon-z-722f-fractals10.html) |   
+722g - | [<b>eon-z-722g-lindenmayer</b>](https://sifbuilder.github.io/eons/eon-z-722g-lindenmayer.html) |   
 725a - | [<b>eon-z-725a-geofuel</b>](https://sifbuilder.github.io/eons/eon-z-725a-geofuel.html) |   
 731b - | [<b>eon-z-731b-geowen</b>](https://sifbuilder.github.io/eons/eon-z-731b-geowen.html) |   
 741a - | [<b>eon-z-741a-tracepoint</b>](https://sifbuilder.github.io/eons/eon-z-741a-tracepoint.html) |   
@@ -327,6 +331,7 @@ muon - [eon-muon-geovoro](https://sifbuilder.github.io/eons/eon-muon-geovoro.js)
 muon - [eon-muon-graticule](https://sifbuilder.github.io/eons/eon-muon-graticule.js)   
 muon - [eon-muon-kruskal](https://sifbuilder.github.io/eons/eon-muon-kruskal.js)   
 muon - [eon-muon-lacer](https://sifbuilder.github.io/eons/eon-muon-lacer.js)   
+muon - [eon-muon-lindenmayer](https://sifbuilder.github.io/eons/eon-muon-lindenmayer.js)   
 muon - [eon-muon-math](https://sifbuilder.github.io/eons/eon-muon-math.js)   
 muon - [eon-muon-natform](https://sifbuilder.github.io/eons/eon-muon-natform.js)   
 muon - [eon-muon-newton](https://sifbuilder.github.io/eons/eon-muon-newton.js)   
@@ -365,6 +370,7 @@ render - [eon-render-svg](https://sifbuilder.github.io/eons/eon-render-svg.js)
 render - [eon-render-webgl](https://sifbuilder.github.io/eons/eon-render-webgl.js)   
 teer - [eon-teer-cprm](https://sifbuilder.github.io/eons/eon-teer-cprm.js)   
 teer - [eon-teer-eonify](https://sifbuilder.github.io/eons/eon-teer-eonify.js)   
+teer - [eon-teer-eons](https://sifbuilder.github.io/eons/eon-teer-eons.js)   
 teer - [eon-teer-pngs](https://sifbuilder.github.io/eons/eon-teer-pngs.js)   
 teer - [eon-teer-readme](https://sifbuilder.github.io/eons/eon-teer-readme.js)   
 teer - [eon-teer-renam](https://sifbuilder.github.io/eons/eon-teer-renam.js)   
@@ -376,9 +382,8 @@ x - [eon-x-eonify](https://sifbuilder.github.io/eons/eon-x-eonify.js)
 x - [eon-x-version](https://sifbuilder.github.io/eons/eon-x-version.js)   
 z - [eon-z-620a-tree](https://sifbuilder.github.io/eons/eon-z-620a-tree.js)   
 z - [eon-z-812b-torus-origami](https://sifbuilder.github.io/eons/eon-z-812b-torus-origami.js)   
-z - [eon-z-a01a](https://sifbuilder.github.io/eons/eon-z-a01a.js)   
-z - [eon-z-a03a](https://sifbuilder.github.io/eons/eon-z-a03a.js)   
-z - [eon-z-a04a](https://sifbuilder.github.io/eons/eon-z-a04a.js)   
+z - [eon-z-814g](https://sifbuilder.github.io/eons/eon-z-814g.js)   
+z - [eon-z-j03a](https://sifbuilder.github.io/eons/eon-z-j03a.js)   
 
 # license  
 MIT  

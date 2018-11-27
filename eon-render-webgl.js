@@ -421,7 +421,6 @@
         let item = items[k] // feature
 
         let feature = item // .feature
-        if (1 && 1) console.log('feature', feature)
 
         let style = item.properties.style
 
@@ -455,6 +454,7 @@
 
         let threeMaterial = new THREE.LineBasicMaterial({
           color: style.stroke,
+          linewidth: style['stroke-opacity'],
           opacity: style['stroke-opacity'],
         })
 
@@ -487,12 +487,12 @@
 
         let threeGeometry = new THREE.Geometry()
 
-        coordinates.forEach(function (line) {
-          d3.pairs(line.map(denser), function (a, b) {
-            threeGeometry.vertices.push(a, b)
-          })
-          let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-          if (object) state.scene.add(object)
+        coordinates.forEach(function (line=[]) {
+            d3.pairs(line.map(denser), function (a, b) {
+              threeGeometry.vertices.push(a, b)
+            })
+            let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+            if (object) state.scene.add(object)
         })
       }
     }
@@ -518,11 +518,10 @@
           color: style.fill, // 0x88ff88,
           size: dotsize,
           sizeAttenuation: false,
-          transparent: true 
+          transparent: true,
         })
 
         let particle = new THREE.Points(particle_geom, particle_material)
-        if (1 && 1) console.log('particle', particle)
 
         state.scene.add(particle)
       }
@@ -708,7 +707,6 @@
         .key(function (d) { return d.properties.eoric.gid })
         .key(function (d) { return d.properties.eoric.cid })
         .entries(features)
-if (1 && 1) console.log('gitems', gitems)
 
       for (let k = 0; k < patterns.length; k++) {
         let pattern = patterns[k]
@@ -723,7 +721,6 @@ if (1 && 1) console.log('gitems', gitems)
 
             if (pattern.retriever && pattern.filter) {
               let itemsInPattern = fitems.filter(pattern.filter)
-       if (1 && 1) console.log('pattern', pattern.name, itemsInPattern.length)
 
               if (itemsInPattern.length > 0) {
                 pattern.retriever(itemsInPattern)

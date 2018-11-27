@@ -75,7 +75,7 @@
         if (eocrom.csx === undefined) eocrom.csx = 0
 
         if (eocrom.cf !== undefined && eocrom.csx !== undefined) style['fill'] = kolor(eocrom.cf, eocrom.csx)
-        if (eocrom.cf !== undefined && eocrom.csx !== undefined) style['stroke'] = kolor(eocrom.cs, eocrom.csx)
+        if (eocrom.cs !== undefined && eocrom.csx !== undefined) style['stroke'] = kolor(eocrom.cs, eocrom.csx)
         if (eocrom.co !== undefined) style['fill-opacity'] = eocrom.co
         if (eocrom.cw !== undefined) style['stroke-width'] = eocrom.cw
         if (eocrom.cp !== undefined) style['stroke-opacity'] = eocrom.cp
