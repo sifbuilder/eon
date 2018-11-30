@@ -36,7 +36,7 @@ const state = {
   user: 'sifbuilder', // gh user
   repo: 'eons', // gh repo
   branch: 'master', // gh branch
-  hostUrl: 'https://github.com/', //
+  hostUrl: 'github.com/', //
   folder: 'blob', //
   
   indexpattern: new RegExp(`^eon-z.*.html`, 'i'), // z.eons
@@ -122,7 +122,9 @@ if (1 && 1) console.log('zfiles', zfiles)
     let col = coler(qcols)
     let rooturl = `${contentUrl}${user}/${repo}/${branch}/`
     let rootMediaUrl = `${contentUrl}${user}/${repo}/${folder}/${branch}/`
-    let rootRepoUrl = `${hostUrl}${user}/${repo}/`
+    let rootRepoUrl = `https://${hostUrl}${user}/${repo}/`
+      rootMediaUrl = `https://${user}.${hostUrl}/${repo}/`
+      rootRepoUrl = `https://${user}.${hostUrl}/${repo}/`
       
     for (let i = 0; i < zfiles.length; i++) {
       let fileName = zfiles[i]
