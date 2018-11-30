@@ -109,7 +109,7 @@ if (action === 'help') {
   console.log(`node ${prgname} {[help], inscopeexp} [doit]`)
 } else if (action === UNCOMMENT) {
   console.log(`do ${inscopeexp} eon files ${files}`)
-  run(files, options)
+  doAction(files, options)
 } else {
   console.log(`node ${prgname} {[help], inscopeexp} on eon- files`)
 }

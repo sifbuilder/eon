@@ -27,7 +27,6 @@ let dirname = path.dirname(require.main.filename) // __dirname
 // state
 
 const state = {
-  inDir: './',
   outDir: './',
   outFile: 'README.md',
   outText: '',
@@ -40,13 +39,14 @@ const state = {
   hostUrl: 'https://github.com/', //
   folder: 'blob', //
   
-  indexpattern: new RegExp('^' + 'eon-z' + '.*' + '.*(.html)', 'i'), // z.eons
+  indexpattern: new RegExp(`^eon-z.*.html`, 'i'), // z.eons
   eonpattern: new RegExp('^' + 'eon' + '.*' + '.*(.js)', 'i'), // eons
   testpattern: new RegExp('(.*).test.(.*)$', 'i'), //  test
   mdpattern: new RegExp('(.*).md.(.*)$', 'i'), //  md
   zpattern: new RegExp('^' + 'eon-z' + '.*' + '.*(.js)', 'i'),
   
-  partsPattern: new RegExp('^((((eon-z-)?(((?!-).)*))-(.*))\.(html))', 'i'),
+  // partsPattern: new RegExp('^((((eon-z-)(?!-).*)([-]?(?!-).*))\.(html))', 'i'),
+  partsPattern: new RegExp('^((eon-z-)([^-.]*))[-]?(.*).html$', 'i'),
 
   newLine: '\n',
   endOfLine: '  ',
@@ -62,6 +62,10 @@ const state = {
   gifext: `gif`,
   eonext: `html`,
   
+  inScopePattern: new RegExp(`^eon-z-___none___.*.*$`, 'i'), // none pattern
+  inScopeExt: 'html',
+  inDir: './',
+  indirpath: (dirname + '/').replace(/\\/g, '/'), // z-indexes    
 }
 
 // args
@@ -79,6 +83,17 @@ if (opts.length === 0) { // action: help
 } else { // action:doAction
   action = 'doAction'
   let codepattern = '.*' // default to all
+  if (opts[0] === '.') {
+    codepattern = '.*' // include all
+  } else {
+    codepattern = opts[0]
+  }
+
+  if (opts[0] !== undefined) {
+      let pattern = opts[0] // set src ext
+      state.inScopePattern = new RegExp(`^eon-z-.*${pattern}.*\.${state.inScopeExt}$`, 'i')
+  }
+  
   if (opts[1] !== undefined) state.where = opts[1] // where to look for
 }
 
@@ -87,7 +102,7 @@ function doAction (stat = {}) { // return outText
 
     let outText = ''
 
-    let { qcols, partsPattern, outdirpath, tileimg, tileext, tileview, notile, where, contentUrl, user, repo, branch, hostUrl, folder, endOfLine, newLine, gifext, inDir, indexpattern, testpattern, mdpattern, } = stat
+    let { qcols, partsPattern, outdirpath, tileimg, tileext, tileview, notile, where, contentUrl, user, repo, branch, hostUrl, folder, endOfLine, newLine, gifext, inDir, indexpattern, testpattern, mdpattern, inScopePattern, } = stat
     
     let erebody = ''
     let body = ''
@@ -98,9 +113,11 @@ function doAction (stat = {}) { // return outText
 
     let zfiles = fs.readdirSync(inDir) // index files in inDir
       .filter(d => indexpattern.test(d))
+      .filter(d => inScopePattern.test(d))
       .filter(d => !testpattern.test(d))
       .filter(d => !mdpattern.test(d))
 
+if (1 && 1) console.log('zfiles', zfiles)
 
     let col = coler(qcols)
     let rooturl = `${contentUrl}${user}/${repo}/${branch}/`
@@ -113,18 +130,16 @@ function doAction (stat = {}) { // return outText
 
       let parts = fileName.match(partsPattern)
       let fullname = parts[0] // eon
-      let part = parts[1]
-      let rootAndName = parts[2]
-      let root = parts[3] // thumb, gif
-      let code = parts[5] // outText
-      let type = parts[7]
-if (1 && 1) console.log('parts', parts)
+      let prefixAndCode = parts[1]
+      let prefix = parts[2]
+      let code = parts[3] // thumb, gif
+      let name = parts[4] // thumb, gif
 
-      let outThumbnailFile = `${root}-${tileimg}.${tileext}` // thumbnail
+      let outThumbnailFile = `${prefixAndCode}-${tileimg}.${tileext}` // thumbnail
       let outThumbnailPath = `${outdirpath}${outThumbnailFile}`
       let outThumbnailUrl = `${rootMediaUrl}${outThumbnailFile}`
       
-      let outGifFile = `${root}.${gifext}`  // gif
+      let outGifFile = `${prefixAndCode}.${gifext}`  // gif
       let outGifPath = `${outdirpath}${outGifFile}`
       let outGifUrl = `${rootMediaUrl}${outGifFile}`
 
@@ -137,6 +152,7 @@ if (1 && 1) console.log('parts', parts)
 
 
       if (existsFile(outThumbnailPath)) { // fork on local thumbnail check
+      
         if (existsFile(outGifPath)) { // if gif -> link to gif
           outText += `[![${code}](${outThumbnailUri})](${outGifUri})`  // -> gif
         } else {
@@ -166,12 +182,12 @@ if (1 && 1) console.log('parts', parts)
 
 
 if (action === 'doAction') {
-    console.log(`doAction ${state.inScopePattern} eon files`)
+    console.log(`doAction ${state.where} eon files`)
     let outPath = `${state.outDir}${state.outFile}`
     let outText = doAction(state)
     fs.writeFileSync(outPath, outText)
 } else if (action === 'debug') {
-    console.log(`doAction ${state.inScopePattern} eon files`)
+    console.log(`doAction ${state.where} eon files`)
     let outPath = `${state.outDir}${state.outFile}`
     let outText = doAction(state)
     if (1 && 1) console.log('outText', outPath, outText)

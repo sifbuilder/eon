@@ -52,7 +52,7 @@ const state = {
   imgtypes: ['preview'], // ['thumbnail'], // ['preview', 'thumbnail'],
   inScopeExt: 'html', // {html | gif} src file
   inScopePattern: new RegExp(`^eon-z-___none___.*.*$`, 'i'), // none pattern
-  indir: './',
+  inDir: './',
   indirpath: (dirname + '/').replace(/\\/g, '/'), // z-indexes
   tracing: 0,
   tracingpath: './___trace.json',
@@ -80,7 +80,7 @@ if (opts.length === 0) { // action: help
   state.inScopePattern = new RegExp(`^eon-z-${codepattern}.*\.${state.inScopeExt}$`, 'i')
 }
 
-let files = fs.readdirSync(state.indir) // to doAction
+let files = fs.readdirSync(state.inDir) // to doAction
   .filter(file => isFile(file))
   .filter(d => state.inScopePattern.test(d))
 
@@ -174,7 +174,7 @@ if (action === 'doAction') {
   console.log(`doAction ${state.inScopePattern} eon files`)
   doAction(files, state)
 } else {
-  console.log(`node ${prgname} {[pattern], [ext]}
+  console.log(`node ${prgname} {[pattern (eg: 070)], [ext: {html|gif}]}
       generate preview.png [600x400] and thumbnail.png [230x120]
       from eon-z-...{pattern}...{ext}, where ext in {html, gif, mov}
       eg. node eon-teer-pngs 714 html`)

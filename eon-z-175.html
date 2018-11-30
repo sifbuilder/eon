@@ -1,0 +1,68 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// ... # license
+// ... MIT
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. animas
+  let [
+    eohalTextform,
+    renderSvg,
+  ] = await Promise.all([
+    __mapper('xs').e('textform'),
+    __mapper('xs').r('svg'),
+  ])
+
+  let ani = function () {
+    // .................. pics
+    let eotim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
+
+    // .................. textAni
+    let textAni = {
+
+      eohal: 'textform',
+
+      eofold: null,
+
+      eotim: eotim,
+      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
+      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ -175, 0 ],
+        },
+      },
+
+      eoload: {
+        textform: {
+          string: 'eon-z-175',
+          style: {
+            rotate: [[[ 0, -1 ]]],
+            'font-size': [[[60, 60]]],
+            'font-family': 'BankFuturistic',
+            'text-anchor': 'center',
+          },
+        },
+      },
+    }
+
+    // .................. animas
+    let animas = [
+
+      textAni, // h.text
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>
