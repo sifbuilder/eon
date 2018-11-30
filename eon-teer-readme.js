@@ -117,8 +117,6 @@ function doAction (stat = {}) { // return outText
       .filter(d => !testpattern.test(d))
       .filter(d => !mdpattern.test(d))
 
-if (1 && 1) console.log('zfiles', zfiles)
-
     let col = coler(qcols)
     let rooturl = `${contentUrl}${user}/${repo}/${branch}/`
     let rootMediaUrl = `${contentUrl}${user}/${repo}/${folder}/${branch}/`
