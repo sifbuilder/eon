@@ -43,9 +43,9 @@ if (opts.length === 0) { // action: help
 }
 
 const options = {
-  headless: false,  // puppeteer.launch
-  devtools: false,  // puppeteer.launch
-  debuggingPort: 9222,  // puppeteer.launch
+  headless: false, // puppeteer.launch
+  devtools: false, // puppeteer.launch
+  debuggingPort: 9222, // puppeteer.launch
   window: { // puppeteer.launch
     width: 1200,
     height: 900,
@@ -59,13 +59,12 @@ const options = {
   },
   viewPort: { // page.setViewport
     width: 600,
-    height: 400
+    height: 400,
   },
-  delay: 3000,  // waitInPromise
-  timeout: 50000,  // page.goto
+  delay: 3000, // waitInPromise
+  timeout: 50000, // page.goto
   pageSelector: '#viewframe', // page.waitForSelector
 }
-
 
 let indir = './'
 let indirpath = (dirname + '/').replace(/\\/g, '/') // z-indexes
@@ -77,17 +76,15 @@ let files = fs.readdirSync(indir) // to actView
   .filter(file => isFile(file))
   .filter(d => inscopepattern.test(d))
 
-  
 // .................. actUponItems
 async function actUponItems (browser, fls, opts) {
-
-  async function actUponNext (current) {  // n+1
+  async function actUponNext (current) { // n+1
     if (current >= fls.length) { return }
 
     let infileName = fls[current]
     let inpathname = `${indirpath}${infileName}`
     console.log(`ani:  ${current}, ${infileName}`)
-    
+
     // ------
     let regex2 = new RegExp('^((eon-z)-(.*)-(.*))\.(html)', 'i')
     let parts = infileName.match(regex2)
@@ -97,7 +94,7 @@ async function actUponItems (browser, fls, opts) {
     let name = parts[3]
     let type = parts[4]
     // ------
-    
+
     const page = await browser.newPage()
     page.setViewport(opts.viewPort) // viewport
 
@@ -110,7 +107,7 @@ async function actUponItems (browser, fls, opts) {
 
     await page.goto(`file:///${inpathname}`, {
       waitUntil: 'domcontentloaded',
-      timeout: opts.timeout,  // timeout
+      timeout: opts.timeout, // timeout
     })
     await page.waitForSelector(opts.pageSelector)
     await waitInPromise(opts.delay)(page.content())
@@ -130,7 +127,7 @@ async function actUponItems (browser, fls, opts) {
 
     if (tracing) await page.tracing.stop()
     // ------
-  
+
     await actUponNext(current + 1)
   }
 
@@ -139,7 +136,6 @@ async function actUponItems (browser, fls, opts) {
 
 // .................. actView
 async function actView (fls, opts) {
-
   const browser = await puppeteer.launch({
     headless: opts.headless,
     devtools: opts.devtools, // open DevTools when window launches
@@ -150,7 +146,7 @@ async function actView (fls, opts) {
   })
 
   await browser.pages()
-  await actUponItems(browser, fls, opts)  // actUponItems
+  await actUponItems(browser, fls, opts) // actUponItems
   if (closebrowser) await browser.close()
 }
 

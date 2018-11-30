@@ -1,186 +1,193 @@
+// node <program>
+
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
+
+const puppeteer = require('puppeteer')
+
+const waitInPromise = delay => arg =>
+  Number.isFinite(delay) && delay > 0
+    ? new Promise(resolve => setTimeout(() => resolve(arg), delay))
+    : Promise.resolve(arg)
 
 const isDirectory = d => fs.lstatSync(d).isDirectory()
 const isFile = d => fs.lstatSync(d).isFile()
 const existsFile = d => fs.existsSync(d)
 
-let inDir = './'
-let files = fs.readdirSync(inDir)
+const rower = q => n => Math.floor(n / q)
+const coler = q => n => n % q
 
-let outDir = './'
-let outFile = 'README.md'
-let outText = ''
-let outPath = `${outDir}${outFile}`
-console.log(`::${outPath}`)
+// fs
 
-let root = 'https://sifbuilder.github.io/eons/'
+let filename = __filename // full path name of the current module
+let prgname = path.basename(filename) // file name of current module
+let dirname = path.dirname(require.main.filename) // __dirname
 
-let indexpattern = new RegExp('^' + 'eon-z' + '.*' + '.*(.html)', 'i')
-let eonpattern = new RegExp('^' + 'eon' + '.*' + '.*(.js)', 'i')
-let testpattern = new RegExp('(.*)\.test\.(.*)$', 'i') //  test
-let mdpattern = new RegExp('(.*)\.md\.(.*)$', 'i') //  md
-let zpattern = new RegExp('^' + 'eon-z' + '.*' + '.*(.js)', 'i')
+// state
 
-let newLine = '\n'
-let endOfLine = '  '
-let header = `# eons ${newLine}${newLine}**time space manyfolds** ${endOfLine}${newLine}${newLine}`
-let footer = `${newLine}# license${endOfLine}${newLine}MIT${endOfLine}`
-
-outText += `${header}`
-
-let body = ''
-let zfiles = fs.readdirSync(inDir) // index files in inDir
-  .filter(d => indexpattern.test(d))
-  .filter(d => !testpattern.test(d))
-  .filter(d => !mdpattern.test(d))
-
-let qzs = zfiles.length
-let itemsinrow = 7
-let erebody = ''
-// | [<img src="https://avatars2.githubusercontent.com/u/4060187?v=4" width="100px;"/><br /><sub><b>Jared Palmer</b></sub>](http://jaredpalmer.com)| :---: | :---: | :---: | :---: | :---: | :---: |${newLine}
-// | :---: | :---: | :---: | :---: | :---: | :---: | :---: |${newLine}
-// `
-
-let rower = q => n => Math.floor(n / q)
-let coler = q => n => n % q
-let qcols = 3
-let col = coler(qcols)
-
-for (let i = 0; i < qzs; i++) {
-  let fileName = zfiles[i]
-  let icol = col(i)
-
-  let regex2 = new RegExp('^((((eon-z-)?(((?!-).)*))-(.*))\.(html))', 'i')
-  let parts = fileName.match(regex2)
-
-  let fullname = parts[0]
-  let part = parts[1]
-  let name = parts[2]
-  let root = parts[3]
-  let code = parts[5]
-  let type = parts[7]
-
-  let ithumbnailpath = `${root}-thumbnail.png`
-
-  let typeuri = 'local' // 'remote'
-  let outdirpath = (__dirname + '/').replace(/\\/g, '/')
-  let typeimg = `thumbnail`
-  let outext = `png`
+const state = {
+  inDir: './',
+  outDir: './',
+  outFile: 'README.md',
+  outText: '',
+  where: 'local',
+  qcols: 3, // number of thumbnails per row
+  contentUrl: 'https://raw.githubusercontent.com/', // rsc host
+  user: 'sifbuilder', // gh user
+  repo: 'eons', // gh repo
+  branch: 'master', // gh branch
+  hostUrl: 'https://github.com/', //
+  folder: 'blob', //
   
-  let outThumbnailFile = `${root}-${typeimg}.${outext}`  // preview, thumbnail
-  let outThumbnailPath = `${outdirpath}${outThumbnailFile}`
+  indexpattern: new RegExp('^' + 'eon-z' + '.*' + '.*(.html)', 'i'), // z.eons
+  eonpattern: new RegExp('^' + 'eon' + '.*' + '.*(.js)', 'i'), // eons
+  testpattern: new RegExp('(.*).test.(.*)$', 'i'), //  test
+  mdpattern: new RegExp('(.*).md.(.*)$', 'i'), //  md
+  zpattern: new RegExp('^' + 'eon-z' + '.*' + '.*(.js)', 'i'),
   
-  let rooturl = `https://raw.githubusercontent.com/sifbuilder/eons/master/`
-  let outThumbnailUrl = `${rooturl}${outThumbnailFile}`
-if (1 && 1) console.log('outThumbnailUrl', outThumbnailUrl)
+  partsPattern: new RegExp('^((((eon-z-)?(((?!-).)*))-(.*))\.(html))', 'i'),
 
+  newLine: '\n',
+  endOfLine: '  ',
   
-  let outEonFile
-  let outEonUrl = `${rooturl}${fullname}`
-if (1 && 1) console.log('outEonUrl', outEonUrl)
-
-  let outGifPath = `${outdirpath}${root}.gif` 
-  let rootGifUrl = `https://github.com/sifbuilder/eons/blob/master/`
-  let outGifFile = `${root}.gif` 
-  let outGifUrl = `${rootGifUrl}${outGifFile}`
-if (1 && 1) console.log('outGifUrl', outGifUrl)
-
+  outdirpath: (__dirname + '/').replace(/\\/g, '/'),
+  tileimg: `thumbnail`,
+  tileext: `png`,
+  notile: 'notile.png',
+  tileview: {
+    width: 230,
+    height: 120,
+  },
+  gifext: `gif`,
+  eonext: `html`,
   
-  
-  let thumbnailUri = (typeuri === 'local') ? outThumbnailPath : outThumbnailPath
+}
 
-  let preline = `${code}` //
-  let bodyline = ``
-  let mdfullname = `${name}.md`
-  let imgfullname = `${name}.png`
+// args
 
- // if (icol === 0 ) { // begin row
-    // outText += `| `
-    if (existsFile(outThumbnailPath)) {
-      if (existsFile(outGifPath)) {
-          outText += `[![${code}](${thumbnailUri})](${outGifUrl})`
-      } else {
-         outText += `[![${code}](${thumbnailUri})](${root}${fullname})`
+let args = process.argv
+let [cmd, scp, ...opts] = args
+
+let action = 'help' // {[help] pattern}
+if (opts.length === 0) { // action: help
+  action = 'help'
+} else if (opts.length >= 1 && opts[0] === 'help') { // help
+  action = 'help'
+} else if (opts.length >= 1 && opts[0] === 'debug') { // debug
+  action = 'debug'
+} else { // action:doAction
+  action = 'doAction'
+  let codepattern = '.*' // default to all
+  if (opts[1] !== undefined) state.where = opts[1] // where to look for
+}
+
+
+function doAction (stat = {}) { // return outText
+
+    let outText = ''
+
+    let { qcols, partsPattern, outdirpath, tileimg, tileext, tileview, notile, where, contentUrl, user, repo, branch, hostUrl, folder, endOfLine, newLine, gifext, inDir, indexpattern, testpattern, mdpattern, } = stat
+    
+    let erebody = ''
+    let body = ''
+    let header = `# eons ${newLine}${newLine}**time space manyfolds** ${endOfLine}${newLine}${newLine}`
+    let footer = `${newLine}# license${endOfLine}${newLine}MIT${endOfLine}`
+
+    outText += `${header}`
+
+    let zfiles = fs.readdirSync(inDir) // index files in inDir
+      .filter(d => indexpattern.test(d))
+      .filter(d => !testpattern.test(d))
+      .filter(d => !mdpattern.test(d))
+
+
+    let col = coler(qcols)
+    let rooturl = `${contentUrl}${user}/${repo}/${branch}/`
+    let rootMediaUrl = `${contentUrl}${user}/${repo}/${folder}/${branch}/`
+    let rootRepoUrl = `${hostUrl}${user}/${repo}/`
+      
+    for (let i = 0; i < zfiles.length; i++) {
+      let fileName = zfiles[i]
+      let icol = col(i)
+
+      let parts = fileName.match(partsPattern)
+      let fullname = parts[0] // eon
+      let part = parts[1]
+      let rootAndName = parts[2]
+      let root = parts[3] // thumb, gif
+      let code = parts[5] // outText
+      let type = parts[7]
+if (1 && 1) console.log('parts', parts)
+
+      let outThumbnailFile = `${root}-${tileimg}.${tileext}` // thumbnail
+      let outThumbnailPath = `${outdirpath}${outThumbnailFile}`
+      let outThumbnailUrl = `${rootMediaUrl}${outThumbnailFile}`
+      
+      let outGifFile = `${root}.${gifext}`  // gif
+      let outGifPath = `${outdirpath}${outGifFile}`
+      let outGifUrl = `${rootMediaUrl}${outGifFile}`
+
+      let outEonPath = `${outdirpath}${fullname}` // eon
+      let outEonUrl = `${rootRepoUrl}${fullname}`
+
+      let outThumbnailUri = (where === 'local') ? outThumbnailPath : outThumbnailUrl
+      let outGifUri = (where === 'local') ? outGifPath : outGifUrl
+      let outEonUri = (where === 'local') ? outEonPath : outEonUrl
+
+
+      if (existsFile(outThumbnailPath)) { // fork on local thumbnail check
+        if (existsFile(outGifPath)) { // if gif -> link to gif
+          outText += `[![${code}](${outThumbnailUri})](${outGifUri})`  // -> gif
+        } else {
+          outText += `[![${code}](${outThumbnailUri})](${outEonUri})` // -> eon
+        }
+      } else {  // if no local thumbnail, show empty img tile frame _e_
+        
+        if (existsFile(outGifPath)) { 
+          outText += `[<img src="${notile}" width="230px;" height="120px;"/>](${outGifUri})`  // -> gif
+        } else {
+          outText += `[<img src="${notile}" width="${tileview.width}px;" height="${tileview.height}px;"/>](${outEonUri})` // -> eon
+        }
+        
       }
-    } else {
-      // outText += code
-      outText +=  `[<img src="${imgfullname}" width="230px;" height="120px;"/>](${root}${fullname})`
 
+      if (icol === qcols - 1) { // end row
+        outText += `${endOfLine}${newLine}`
+      }
     }
-    // outText += `| `
-  // } else if (icol < qcols - 1  ) { // in row
-    // if (existsFile(outThumbnailPath)) {
-      // if (existsFile(outGifPath)) {
-          // outText += `[![${code}](${thumbnailUri})](${outGifUrl})`
-      // } else {
-         // outText += `[![${code}](${thumbnailUri})](${root}${fullname})`
-      // }
-    // } else {
-      // outText += code
-      // outText +=  `[<img src="${imgfullname}" width="230px;" height="120px;"/>](${root}${fullname})`
-    // }
-    // outText += ` |`
- // } else if  (icol === qcols -1  ){ // end row
-  if  (icol === qcols -1  ){ // end row
-    // if (existsFile(outThumbnailPath)) {
-      // if (existsFile(outGifPath)) {
-          // outText += `[![${code}](${thumbnailUri})](${outGifUrl})`
-      // } else {
-         // outText += `[![${code}](${thumbnailUri})](${root}${fullname})`
-      // }
-    // } else {
-      // outText += code
-      // outText +=  `[<img src="${imgfullname}" width="230px;" height="120px;"/>](${root}${fullname})`
+    outText += `${erebody}${body}${newLine}${newLine}`
+    outText += ``
+    outText += `${footer}`
 
-    // }
-    // outText += ` |`
-    outText += `${endOfLine}${newLine}`
- }
-
-
-  // let imgfullname = `${name}.png`
-  // if (fs.existsSync(imgfullname)) {
-    // bodyline += `| [<img src="${imgfullname}" width="100px;"/><br /><sub><b>${name}</b></sub>](${root}${fullname}) |`
-  // } else {
-    // bodyline += `| [<b>${name}</b>](${root}${fullname}) |`
-  // }
-  // if (1 && 1) console.log('bodyline', bodyline)
-  // let line = `${preline} - ${bodyline} `
-  // body += `${line}${endOfLine}${newLine}`
+    return outText
 }
-outText += `${erebody}${body}${newLine}${newLine}`
 
-let eontext = ''
-let eonfiles = fs.readdirSync(inDir) // eonfiles in inDir
-  .filter(d => eonpattern.test(d))
-  .filter(d => !testpattern.test(d))
-  .filter(d => !mdpattern.test(d))
 
-for (let i = 0; i < eonfiles.length; i++) {
-  let fileName = eonfiles[i]
 
-  let regex2 = new RegExp('^(((eon-)?(((?!-).)*)-(.*))\.(js))', 'i')
-  let parts = fileName.match(regex2)
-  let fullname = parts[0]
-  let name = parts[2]
-  let code = parts[4]
-
-  let preline = `${code}` //
-  let bodyline = `[${name}](${root}${fullname})` //
-
-  let mdfullname = `${name}.md` // mdfile
-  if (fs.existsSync(mdfullname)) { // eon has mdfile
-    preline = `**[${preline}](${root}${mdfullname})**`
-  }
-  let line = `${preline} - ${bodyline} `
-
-  eontext += `${line}${endOfLine}${newLine}`
+if (action === 'doAction') {
+    console.log(`doAction ${state.inScopePattern} eon files`)
+    let outPath = `${state.outDir}${state.outFile}`
+    let outText = doAction(state)
+    fs.writeFileSync(outPath, outText)
+} else if (action === 'debug') {
+    console.log(`doAction ${state.inScopePattern} eon files`)
+    let outPath = `${state.outDir}${state.outFile}`
+    let outText = doAction(state)
+    if (1 && 1) console.log('outText', outPath, outText)
+} else if (action === 'help') {
+  console.log(`node ${prgname} {[help], [debug], [do]}
+      generate README.md file
+      takes files
+      create matrix of thumbnail tiles
+      each tile points in precedence to:
+        - tweet (from .json)
+        - gif anima (.gif)
+        - eon (.html)
+  `)
 }
-outText += `` // `${eontext}`
 
-outText += `${footer}`
-if (0 && 1) console.log('outText', outText)
 
-fs.writeFileSync(outPath, outText)
+
+
+
