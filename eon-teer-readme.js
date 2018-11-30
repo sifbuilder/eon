@@ -43,6 +43,7 @@ const state = {
   eonpattern: new RegExp('^' + 'eon' + '.*' + '.*(.js)', 'i'), // eons
   testpattern: new RegExp('(.*).test.(.*)$', 'i'), //  test
   mdpattern: new RegExp('(.*).md.(.*)$', 'i'), //  md
+  tspattern: new RegExp('(.*).ts.(.*)$', 'i'), //  ts
   zpattern: new RegExp('^' + 'eon-z' + '.*' + '.*(.js)', 'i'),
   
   // partsPattern: new RegExp('^((((eon-z-)(?!-).*)([-]?(?!-).*))\.(html))', 'i'),
@@ -102,7 +103,7 @@ function doAction (stat = {}) { // return outText
 
     let outText = ''
 
-    let { qcols, partsPattern, outdirpath, tileimg, tileext, tileview, notile, where, contentUrl, user, repo, branch, hostUrl, folder, endOfLine, newLine, gifext, inDir, indexpattern, testpattern, mdpattern, inScopePattern, } = stat
+    let { qcols, partsPattern, outdirpath, tileimg, tileext, tileview, notile, where, contentUrl, user, repo, branch, hostUrl, folder, endOfLine, newLine, gifext, inDir, indexpattern, testpattern, tspattern, mdpattern, inScopePattern, } = stat
     
     let erebody = ''
     let body = ''
@@ -116,6 +117,7 @@ function doAction (stat = {}) { // return outText
       .filter(d => inScopePattern.test(d))
       .filter(d => !testpattern.test(d))
       .filter(d => !mdpattern.test(d))
+      .filter(d => !tspattern.test(d))
 
     let col = coler(qcols)
     let rooturl = `${contentUrl}${user}/${repo}/${branch}/`
