@@ -2,6 +2,10 @@ const fs = require('fs')
 const path = require('path')
 const http = require('http')
 
+const isDirectory = d => fs.lstatSync(d).isDirectory()
+const isFile = d => fs.lstatSync(d).isFile()
+const existsFile = d => fs.existsSync(d)
+
 let inDir = './'
 let files = fs.readdirSync(inDir)
 
@@ -39,43 +43,112 @@ let erebody = ''
 // | :---: | :---: | :---: | :---: | :---: | :---: | :---: |${newLine}
 // `
 
-let row = q => n => Math.floor(n / q)
-let col = q => n => n % q
-// if (1 && 1) console.log('qzs', qzs)
-// if (1 && 1) console.log(` 2 row: ${row(7)( 2)}, cols: ${col(7)( 2)}` )
-// if (1 && 1) console.log(`12 row: ${row(7)(12)}, cols: ${col(7)(12)}` )
-// if (1 && 1) console.log(`20 row: ${row(7)(20)}, cols: ${col(7)(20)}` )
+let rower = q => n => Math.floor(n / q)
+let coler = q => n => n % q
+let qcols = 3
+let col = coler(qcols)
 
 for (let i = 0; i < qzs; i++) {
   let fileName = zfiles[i]
+  let icol = col(i)
 
-  let regex2 = new RegExp('^(((eon-z-)?(((?!-).)*)-(.*))\.(html))', 'i')
+  let regex2 = new RegExp('^((((eon-z-)?(((?!-).)*))-(.*))\.(html))', 'i')
   let parts = fileName.match(regex2)
 
   let fullname = parts[0]
   let part = parts[1]
   let name = parts[2]
-  let code = parts[4]
-  let type = parts[6]
+  let root = parts[3]
+  let code = parts[5]
+  let type = parts[7]
 
-  // if (1 && 1) console.log('parts', parts)
+  let ithumbnailpath = `${root}-thumbnail.png`
+
+  let typeuri = 'local' // 'remote'
+  let outdirpath = (__dirname + '/').replace(/\\/g, '/')
+  let typeimg = `thumbnail`
+  let outext = `png`
+  
+  let outThumbnailFile = `${root}-${typeimg}.${outext}`  // preview, thumbnail
+  let outThumbnailPath = `${outdirpath}${outThumbnailFile}`
+  
+  let rooturl = `https://raw.githubusercontent.com/sifbuilder/eons/master/`
+  let outThumbnailUrl = `${rooturl}${outThumbnailFile}`
+if (1 && 1) console.log('outThumbnailUrl', outThumbnailUrl)
+
+  
+  let outEonFile
+  let outEonUrl = `${rooturl}${fullname}`
+if (1 && 1) console.log('outEonUrl', outEonUrl)
+
+  let outGifPath = `${outdirpath}${root}.gif` 
+  let rootGifUrl = `https://github.com/sifbuilder/eons/blob/master/`
+  let outGifFile = `${root}.gif` 
+  let outGifUrl = `${rootGifUrl}${outGifFile}`
+if (1 && 1) console.log('outGifUrl', outGifUrl)
+
+  
+  
+  let thumbnailUri = (typeuri === 'local') ? outThumbnailPath : outThumbnailPath
 
   let preline = `${code}` //
-  // let bodyline = `[${name}](${root}${fullname})` //
-  let bodyline = `` //
+  let bodyline = ``
   let mdfullname = `${name}.md`
   let imgfullname = `${name}.png`
 
-  if (fs.existsSync(imgfullname)) {
-    bodyline += `| [<img src="${imgfullname}" width="100px;"/><br /><sub><b>${name}</b></sub>](${root}${fullname}) |`
-  } else {
-    bodyline += `| [<b>${name}</b>](${root}${fullname}) |`
-  }
-  if (1 && 1) console.log('bodyline', bodyline)
+ // if (icol === 0 ) { // begin row
+    // outText += `| `
+    if (existsFile(outThumbnailPath)) {
+      if (existsFile(outGifPath)) {
+          outText += `[![${code}](${thumbnailUri})](${outGifUrl})`
+      } else {
+         outText += `[![${code}](${thumbnailUri})](${root}${fullname})`
+      }
+    } else {
+      // outText += code
+      outText +=  `[<img src="${imgfullname}" width="230px;" height="120px;"/>](${root}${fullname})`
 
-  let line = `${preline} - ${bodyline} `
+    }
+    // outText += `| `
+  // } else if (icol < qcols - 1  ) { // in row
+    // if (existsFile(outThumbnailPath)) {
+      // if (existsFile(outGifPath)) {
+          // outText += `[![${code}](${thumbnailUri})](${outGifUrl})`
+      // } else {
+         // outText += `[![${code}](${thumbnailUri})](${root}${fullname})`
+      // }
+    // } else {
+      // outText += code
+      // outText +=  `[<img src="${imgfullname}" width="230px;" height="120px;"/>](${root}${fullname})`
+    // }
+    // outText += ` |`
+ // } else if  (icol === qcols -1  ){ // end row
+  if  (icol === qcols -1  ){ // end row
+    // if (existsFile(outThumbnailPath)) {
+      // if (existsFile(outGifPath)) {
+          // outText += `[![${code}](${thumbnailUri})](${outGifUrl})`
+      // } else {
+         // outText += `[![${code}](${thumbnailUri})](${root}${fullname})`
+      // }
+    // } else {
+      // outText += code
+      // outText +=  `[<img src="${imgfullname}" width="230px;" height="120px;"/>](${root}${fullname})`
 
-  body += `${line}${endOfLine}${newLine}`
+    // }
+    // outText += ` |`
+    outText += `${endOfLine}${newLine}`
+ }
+
+
+  // let imgfullname = `${name}.png`
+  // if (fs.existsSync(imgfullname)) {
+    // bodyline += `| [<img src="${imgfullname}" width="100px;"/><br /><sub><b>${name}</b></sub>](${root}${fullname}) |`
+  // } else {
+    // bodyline += `| [<b>${name}</b>](${root}${fullname}) |`
+  // }
+  // if (1 && 1) console.log('bodyline', bodyline)
+  // let line = `${preline} - ${bodyline} `
+  // body += `${line}${endOfLine}${newLine}`
 }
 outText += `${erebody}${body}${newLine}${newLine}`
 
@@ -105,7 +178,7 @@ for (let i = 0; i < eonfiles.length; i++) {
 
   eontext += `${line}${endOfLine}${newLine}`
 }
-outText += `${eontext}`
+outText += `` // `${eontext}`
 
 outText += `${footer}`
 if (0 && 1) console.log('outText', outText)
