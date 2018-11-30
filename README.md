@@ -123,7 +123,7 @@
 [![814c](https://sifbuilder.github.com//eons/eon-z-814c-thumbnail.png)](https://sifbuilder.github.com//eons/eon-z-814c-sphere-i.html)[![814d](https://sifbuilder.github.com//eons/eon-z-814d-thumbnail.png)](https://sifbuilder.github.com//eons/eon-z-814d-sphere-dark.html)[![814e](https://sifbuilder.github.com//eons/eon-z-814e-thumbnail.png)](https://sifbuilder.github.com//eons/eon-z-814e-tangerine.html)  
 [![814f](https://sifbuilder.github.com//eons/eon-z-814f-thumbnail.png)](https://sifbuilder.github.com//eons/eon-z-814f-larm.html)[![814g](https://sifbuilder.github.com//eons/eon-z-814g-thumbnail.png)](https://sifbuilder.github.com//eons/eon-z-814g.gif)[<img src="notile.png" width="230px;" height="120px;"/>](https://sifbuilder.github.com//eons/eon-z-814h-cone.html)  
 [![815a](https://sifbuilder.github.com//eons/eon-z-815a-thumbnail.png)](https://sifbuilder.github.com//eons/eon-z-815a.gif)[![852d](https://sifbuilder.github.com//eons/eon-z-852d-thumbnail.png)](https://sifbuilder.github.com//eons/eon-z-852d.gif)[![855a](https://sifbuilder.github.com//eons/eon-z-855a-thumbnail.png)](https://sifbuilder.github.com//eons/eon-z-855a-text.html)  
-[<img src="notile.png" width="230px;" height="120px;"/>](https://sifbuilder.github.com//eons/eon-z-990c-quadratic.html)
+
 
 
 # license  
