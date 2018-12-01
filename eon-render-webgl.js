@@ -385,21 +385,10 @@
               color: style.fill, // color: 0x0033ff,
               shininess: 50,
 
-              // specular: 0x555555,
-              // opacity: style['fill-opacity'],
-
             })
           )
 
-          let dotsize = 0.01
-          for (let i = 0; i < vertices.length; i++) {
-            let vertex = threeGeometry.vertices[i]
 
-            var particle_geom = new THREE.Geometry()
-            particle_geom.vertices.push(new THREE.Vector3(vertex.x, vertex.y, vertex.z))
-            var particle_material = new THREE.PointsMaterial({size: dotsize})
-            var particle = new THREE.Points(particle_geom, particle_material)
-          }
           state.scene.add(object)
 
           for (let j = 0; j < lights.length; j++) {
@@ -426,14 +415,18 @@
 
         let geometry = feature.geometry // rings in MultiPolygon, MultiLineString
 
+        let dotSizeDefault = 0.1
+        let dotColorDefault = 0x88ff88
         let vertices = geometry.coordinates
-        let dotsize = item.properties.pointRadius ||  12
+        let dotSize = item.properties.pointRadius ||  dotSizeDefault
+        let dotColor = item.properties.pointColor ||  dotColorDefault
+        
         for (let i = 0; i < vertices.length; i++) {
           let particle_geom = new THREE.Geometry()
           particle_geom.vertices.push(new THREE.Vector3(...vertices[i].map(to3point)))
           let particle_material = new THREE.PointsMaterial({
-            color: 0x88ff88,
-            size: dotsize,
+            color: dotColor,
+            size: dotSize,
           })
 
           let particle = new THREE.Points(particle_geom, particle_material)
@@ -503,7 +496,7 @@
         let item = items[k] // .feature
 
         let style = item.properties.style
-        let dotsize = item.properties.pointRadius ||  12
+        let dotSize = item.properties.pointRadius ||  12
 
         let geometry = item.geometry // rings in MultiPolygon, MultiLineString
 
@@ -516,7 +509,7 @@
         
         let particle_material = new THREE.PointsMaterial({
           color: style.fill, // 0x88ff88,
-          size: dotsize,
+          size: dotSize,
           sizeAttenuation: false,
           transparent: true,
         })

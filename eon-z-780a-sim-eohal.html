@@ -2,123 +2,148 @@
 <script>
 window.xEonify.eon({anitem, time: undefined})
 
+// ... (\r\n){1,}
+// ... \r\n
+
 // .................. anitem
 async function anitem (__mapper) {
   let [
-    muonProps,
-    muonEoforces,
-    muonNatform,
+    d3Geo,
     d3Force3d,
-    renderPortview,
-    ctlRayder,
-    muonEoric,
-    eohalMars,
+    ctlWen,
+    eohalCore,
+    eohalLinkform,
     eohalNatform,
+    eohalMars,
+    muonAntiem,
+    muonEoric,
+    muonEoforces,
+    muonGeom,
+    muonNatform,
+    muonProps,
+    renderPortview,
+    renderSvg,
   ] = await Promise.all([
-    __mapper('xs').m('props'),
-    __mapper('xs').m('eoforces'),
-    __mapper('xs').m('natform'),
+    __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-force-3d'),
-    __mapper('xs').r('portview'),
-    __mapper('xs').c('rayder'),
-    __mapper('xs').m('eoric'),
-    __mapper('xs').e('mars'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').e('core'),
+    __mapper('xs').e('linkform'),
     __mapper('xs').e('natform'),
-  ])
-
-  let [
-    forceVoid,
-    forceEnergy,
-    forceCollide,
-  ] = await Promise.all([
-    __mapper('xs').f('void'),
-    __mapper('xs').f('energy'),
-    __mapper('xs').f('collide'),
+    __mapper('xs').e('mars'),
+    __mapper('xs').m('anitem'),
+    __mapper('xs').m('eoric'),
+    __mapper('xs').m('eoforces'),
+    __mapper('xs').m('geom'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').m('props'),
+    __mapper('xs').r('portview'),
+    __mapper('xs').r('svg'),
   ])
 
   let muonStore = __mapper('muonStore')
+  let d3_force = d3Force3d
+
+  let width = renderPortview.width(), height = renderPortview.height()
+
+  // ............................. nuid
+  let nuid = i => {
+    let eoric = { gid: 'node', cid: 'node', fid: 'node' + i }
+    eoric.uid = muonEoric.getuid(eoric)
+    return eoric
+  }
+
   // .................. animas
   let ani = function () {
-    let width = renderPortview.width(),
-      height = renderPortview.height()
-
-    let d3_force = d3Force3d
-
-    // h.isolation
-    let eohalIsolation_ween = anima => { // WEEN
-      let animas = (anima.eoinited !== 1) ? (anima.eoinited = anima.eogelded = 1, [anima]) : []
-      const perimeter = 12, length = 30
-      const getId = (col, row) => `${col},${row}`
-
-      let nodes = [], links = []
-      for (let colIdx = 0; colIdx < perimeter; colIdx++) {
-        for (let rowIdx = 0; rowIdx < length; rowIdx++) {
-          const id = getId(colIdx, rowIdx)
-          nodes.push({id})
-
-          if (rowIdx > 0) { // Link vertically
-            links.push({ source: getId(colIdx, rowIdx - 1), target: id })
-          }
-
-          // Link horizontally
-          links.push({ source: getId((colIdx || perimeter) - 1, rowIdx), target: id })
-        }
-      }
-      let r = { nodes, links }
-
-      let nbr = 6
-      for (let i = 0; i < nbr; i++) {
-        let ani = muonProps.cloneObj(natAni) // clone of model anima
-        ani.eoric.gid = 'nat'
-        ani.eoric.cid = (i % 2) ? 'orange' : 'gold'
-        ani.eoric.fid = 'item' + i // identify
-
-        let uid = muonEoric.getuid(ani.eoric)
-        ani.uid = uid
-
-        ani.eocrom.cf = (i % 2) ? 777 : 333
-        ani.eocrom.cs = (i % 2) ? 777 : 333
-
-        let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
-
-        if (preani) {
-          ani = preani
-        } else { // create anima
-          ani.eohal = 'natform' // create eohal
-
-          ani.eofold = { // will create anigram
-            type: 'Feature',
-            geometry: {type: 'Point', coordinates: [ 3 * i, 0, 0]},
-            properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
-          }
-
-          ani.eonode.properties.orgen = [0, 0, 0 ]
-        }
-        animas.push(ani)
-      }
-      muonStore.apply({type: 'UPDANIMA', animas: animas}) // live
-      return animas
-    }
-
-    let eohalIsolation_gramm = anima => [] // GRAMM))
-
-    let isolation = {
-      ween: anima => eohalIsolation_ween(anima),
-      gramm: anima => eohalIsolation_gramm(anima),
-    }
-
     // .................... pics
-    let eotim = {'td': 52800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, tf: t => (1 / Math.PI) * ((Math.PI / 2) + Math.arcsin(-1 + 2 * t))}
 
-    // .................... natAni
-    let natAni = {
+    // ............................. eohale
+    let eohale = anima => {
+      if (!anima.eogelded) {
+        let animas = []
 
-      eohal: isolation,
+        let count = 2 // 200
+
+        for (var i = 0; i < count; i++) {
+          let ani = muonProps.cloneObj(anima)
+          ani.eohal = 'mars'
+          ani.eoric = nuid(i)
+          ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.9, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
+
+          if (i < count / 2) {
+            ani.eocrom.cf = 999
+
+            let eoric = { gid: 'red', cid: 'link', fid: 'link' + i }
+            eoric.uid = muonEoric.getuid(eoric)
+            ani.eoric = eoric
+          } else {
+            ani.eocrom.cf = 333
+
+            let eoric = { gid: 'gold', cid: 'link', fid: 'link' + i }
+            eoric.uid = muonEoric.getuid(eoric)
+            ani.eoric = eoric
+          }
+
+          ani.eonode = {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [
+                0, // 2 * (0.5 - Math.random()) * width,
+                0, // 2 * (0.5 - Math.random()) * height,
+                0],
+            },
+            properties: {
+              orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+            },
+          }
+
+          animas.push(ani)
+        }
+
+        // ... org anima is becomes gelded after halo ween
+        // ... org anima is becomes delled after halo ween
+
+        updanima = muonProps.cloneObj(anima)
+        updanima.eogelded = 1
+        updanima.eodelled = 1
+        animas.push(updanima)
+
+        muonStore.apply({
+          type: 'UPDANIMA',
+          caller: 'h.ineohal',
+          animas: animas,
+        })
+
+        return animas
+      }
+    }
+
+    let eohal_ween = anitem => eohale(anitem)
+    let eohal_gramm = anitem => anitem
+
+    let ineohal = {
+      ween: anitem => eohal_ween(anitem),
+      gramm: anitem => eohal_gramm(anitem),
+    }
+
+    // .................... nodeAni
+    let nodeAni = {
+
+      eohal: ineohal,
 
       eotim: eotim,
-      eoric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
+      eoric: {gid: 'g', cid: 'g', fid: 'g'},
 
-      eofold: p => muonNatform.natFeature(p.eoform),
+      eofold: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {},
+      },
 
       eonode: {
         type: 'Feature',
@@ -132,66 +157,205 @@ async function anitem (__mapper) {
       },
 
       eomot: {
+
         proform: {
           projection: 'uniwen',
+          prerotate: [[[ ctlWen.rotation ]]],
           translate: [0, 0, 0],
           scale: 1,
-          rotate: [ 0, 0, [[[0, 0]]] ],
-          lens: [0, 1, 12],
-          geoanod: 1, // eonode
+          rotate: [ [[[0, 360]]], [[[0, 360]]], 0 ],
+          lens: [0, 1, Infinity],
+          geoanod: 1,
         },
+
       },
 
-      eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.49, 0.49]]], 'cs': [[[666, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      eocrom: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
 
       eoform: {
-
-        'x': {
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
+        x: {
+          'm1': 7.28, 'm2': 0.67, 'n1': 10.19, 'n2': 14.4, 'n3': -7.48, 'a': 5.38, 'b': 4.45,	// heart
+          'v0': 0, 'v1': 1,
+          'ra2': 12,
+          'w4': 90,
+          'seg5': 60,
+          'pa6': 0, 'pb7': -1,
         },
-        'y': {
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
-        },
-        'z': {
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': [[[90, 90 - 0 * 360]]], 'pa6': 0, 'pb7': 360,
+        y: {
+          'm1': 7.28, 'm2': 0.67, 'n1': 10.19, 'n2': 14.4, 'n3': -7.48, 'a': 5.38, 'b': 4.45,	// heart
+          'v0': 0, 'v1': 1,
+          'ra2': 12,
+          'w4': 90,
+          'seg5': 60,
+          'pa6': 0, 'pb7': -1,
         },
       },
-
       eoload: {},
     }
 
-    // ............................. force_collide
-    let force_collide = {
 
+    // ............................. forceGravity
+    let forceGravity = function (params) { // force
+      let nodes = params.nodes
+      let gravity = params.gravity
+
+      function force () { // d3force builtin (vs muon d3force)
+        for (let i = 0; i < nodes.length; ++i) {
+          let node = nodes[i]
+          node.vy += gravity // node.vx += 0.001 * Math.random()
+        }
+      }
+
+      function initialize () {
+        if (!nodes) return
+      }
+
+      let field = {
+        key: params.key,
+        force: force,
+      }
+      return field
+    }
+
+    let force_gravity = { // aniForce:{properties, field}
       properties: {
-        strength: 0.03,
-
-        src: d3_force,
-        id: d => d.eoric.uid,
-        filter: d => d.eoric.gid === 'nat',
-        type: 'collide',
-        key: 'collide',
+        gravity: -0.9,
       },
 
       field: params => { // force.field
-        let forceParams = Object.assign({}, params, params.properties)
-        let force = muonEoforces.force(forceParams)
-        return Array.of(force)
+        let forces = []
+
+        let nodes = params.nodes
+        let gravity = params.gravity || params.properties.gravity
+        let key = params.properties.key || 'gravity'
+
+        let forceParams = {
+          type: 'gravity',
+          src: d3_force,
+          nodes: nodes,
+          gravity: gravity,
+          filter: d => d.eoric.gid === 'paced',
+          id: d => d.eoric.uid,
+          key: key,
+        }
+
+        let force = forceGravity(forceParams)
+        forces.push(force)
+        return forces
       },
     }
 
-    // .................. natAni forces
-    natAni.eoforces = {
-      force_collide,
+    // ............................. forceCollide
+    let forceCollide = function (params) { // force
+      
+      let props = params.properties.payload || [] 
+      let f = __mapper('xs').ceonize(params.type, 'force')
+      let fforce , ffforce
+      
+      let force = d3Force3d[f]
+      force = force(...props) 
+
+      if (params.strength !== undefined) force = force.strength(params.strength)
+
+      let field = {
+        key: params.key,
+        force: force,
+      }
+      return field
     }
+
+    let force_collide = {
+
+      properties: {
+        payload: [  // passed to force in m.eoforces
+          10,  // radius () => 10
+        ],
+        strength: 0.3,  // strength
+        type: 'collide',
+        src: d3_force,
+        filter: d => true, // d.eoric.gid === 'paced',
+        id: d => d.eoric.uid,
+        key: 'collide',
+      },
+
+      field: params => { // force.field {elapsed, nodes, properties}
+      
+        let forces = []
+        let forceParams = Object.assign({}, params, params.properties)
+        let force = forceCollide(forceParams) // muonEoforces.force(forceParams)
+        forces.push(force)
+        return forces
+      },
+    }
+    // ............................. forceManyBody
+    let forceManyBody = function (params) { // force
+      
+      let props = params.properties.payload || [] 
+      let f = __mapper('xs').ceonize(params.type, 'force')
+      let fforce , ffforce
+      
+      let force = d3Force3d[f]
+      force = force(...props) 
+
+      if (params.strength !== undefined) force = force.strength(params.strength)
+      if (params.distanceMin !== undefined) force = force.distanceMin(params.distanceMin)
+      if (params.distanceMax !== undefined) force = force.distanceMax(params.distanceMax)
+      if (params.theta !== undefined) force = force.theta(params.theta)
+
+      let field = {
+        key: params.key,
+        force: force,
+      }
+      return field
+    }
+
+
+    let force_manybody = { // aniForce
+
+      properties: {
+        strength: 16.9,
+        distanceMin: 1,
+        distanceMax: 124,
+        theta: 1.0,
+
+        src: d3_force,
+        id: d => d.eoric.uid,
+        filter: d => true, // d.eoric.gid === 'node',
+        type: 'manyBody',
+        key: 'manyBody',
+
+      },
+
+      field: params => { // force.field
+        let forces = []
+        let forceParams = Object.assign({}, params, params.properties)
+        let force = forceManyBody(forceParams)
+        forces.push(force)
+        return forces
+      },
+    }
+    // .................... fieldAni
+    let fieldAni = {
+
+      eohal: 'core',
+      eotim: eotim,
+      eoric: {gid: 'field', cid: 'field', fid: 'field'},
+      eofold: null,
+      eoload: {},
+
+    }
+    fieldAni.eoforces = {
+      force_gravity,
+      force_collide,
+      force_manybody,
+    }
+
 
     // .................. animas
     let animas = [
 
-      natAni, // h.isolation
+      nodeAni, // h.mars
+      fieldAni, // h.core
 
     ]
 

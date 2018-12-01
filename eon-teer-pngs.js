@@ -93,15 +93,13 @@ async function actScreenShots (browser, fls, opts) {
     let inFullPath = `${state.indirpath}${inFileName}`
 
     // ------
-    let filePartsPatter = new RegExp(`^(((eon-z)-(.*))[-]?(.*))\.(${state.inScopeExt})`, 'i') // gif|html
-    let parts = inFileName.match(filePartsPatter)
+    let filePartsPattern = new RegExp(`^((eon-z-)([^-.]*))[-]?(.*).${state.inScopeExt}$`, 'i')
+    let parts = inFileName.match(filePartsPattern)
     let fullname = parts[0]
-    let rootAndName = parts[1]
-    let root = parts[2]
-    let prefix = parts[3]
-    let code = parts[4]
-    let name = parts[5]
-    let type = parts[6]
+    let prefixAndCode = parts[1]
+    let prefix = parts[2]
+    let code = parts[3]
+    let name = parts[4]
 
     // ------ show
 
@@ -118,7 +116,7 @@ async function actScreenShots (browser, fls, opts) {
     viewPort = opts.viewPort[typeimg]
     console.assert(viewPort !== undefined, `viewPort size undefined`)
     await pageSrc.setViewport(viewPort) // viewport
-    outfile = `${prefix}-${code}-${typeimg}.${opts.outext}` // preview, thumbnail
+    outfile = `${prefixAndCode}-${typeimg}.${opts.outext}` // preview, thumbnail
     outpathname = `${opts.outdirpath}${outfile}`
     itemOpts = Object.assign({}, opts)
     itemOpts.path = outpathname
@@ -133,7 +131,7 @@ async function actScreenShots (browser, fls, opts) {
     typeimg = 'thumbnail'
     viewPort = opts.viewPort[typeimg]
     await pagePreview.setViewport(viewPort) // viewport
-    outfile = `${prefix}-${code}-${typeimg}.${opts.outext}` // preview, thumbnail
+    outfile = `${prefixAndCode}-${typeimg}.${opts.outext}` // preview, thumbnail
     outpathname = `${opts.outdirpath}${outfile}`
     itemOpts = Object.assign({}, opts)
     itemOpts.path = outpathname

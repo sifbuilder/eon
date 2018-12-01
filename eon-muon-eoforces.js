@@ -9,6 +9,15 @@
   'use strict'
 
   async function muonEoforces (__mapper = {}) {
+    
+    let [
+      d3Force3d,
+    ] = await Promise.all([
+      __mapper('xs').b('d3-force-3d'),
+    ])
+
+    let d3_force = d3Force3d    
+    
     // ...................... isolate
     let isolate = function (sys) { // filter, force, nodes, sys, type
       let nodes = sys.nodes || []
@@ -28,24 +37,47 @@
 
     // ...................... force
     function force (params) {
+      if (1 && 1) console.log('m.eoforces force', params)
+      let props = params.properties.payload || [] 
+    
       let f = __mapper('xs').ceonize(params.type, 'force')
 
-      let fforce = __mapper(f)
+      let fforce , ffforce
+      
+      if (params.force !== undefined) { // force is passed from z.eon
+        ffforce = params.force
+        ffforce = fforce(...props)
+        
+      } else {
+        if (__mapper(f)) {  // force is registered in mapper
+            fforce  = __mapper(f)
+            ffforce = fforce(...props)
+            
+        } else if (d3Force3d[f] !== undefined) { // force is taken from physics
+          fforce =  {
+            key: params.key,
+            force: d3Force3d[f],
+          }
+          ffforce = fforce.force(...props)
+        }
+      }
+      
+   
+      console.assert(ffforce !== null, `force ${f} not found`)
 
       let sys = {
         nodes: params.nodes,
         filter: params.filter,
-        force: (fforce) ? fforce.force(params) : params.force,
+        force: ffforce,
       }
       let force = isolate(sys)
-
-      // return force
       console.assert(params.key || params.type !== null)
       let field = 	{
         key: params.key || params.type,
         force: force,
       }
-      return field
+      return field // return force
+      
     }
 
     // ...................... enty

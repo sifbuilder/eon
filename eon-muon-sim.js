@@ -83,6 +83,8 @@
           simNode.x = nodeGeometry.coordinates[0] // eonode location to simnode
           simNode.y = nodeGeometry.coordinates[1]
           simNode.z = nodeGeometry.coordinates[2]
+          
+          simNode.radius = 1 // _e_
 
           if (simNode.x === undefined || isNaN(simNode.x)) simNode.x = 0 // location defs
           if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1) simNode.y = 0
@@ -213,6 +215,7 @@
             // ... field gets nodes and force.properties
 
             if (aniForce.field !== undefined) {
+              
               let aniCompForces = aniForce.field({
 
                 elapsed: elapsed, // elapsed

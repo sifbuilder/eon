@@ -47,7 +47,7 @@ const state = {
   zpattern: new RegExp('^' + 'eon-z' + '.*' + '.*(.js)', 'i'),
   
   // partsPattern: new RegExp('^((((eon-z-)(?!-).*)([-]?(?!-).*))\.(html))', 'i'),
-  partsPattern: new RegExp('^((eon-z-)([^-.]*))[-]?(.*).html$', 'i'),
+  partsPattern: new RegExp(`^((eon-z-)([^-.]*))[-]?(.*).html$`, 'i'),
 
   newLine: '\n',
   endOfLine: '  ',
