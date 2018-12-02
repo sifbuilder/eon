@@ -214,22 +214,16 @@
             // ... field method in force
             // ... field gets nodes and force.properties
 
-            if (aniForce.field !== undefined) {
-              
-              let aniCompForces = aniForce.field({
+              let aniCompForce = aniForce.field({
 
-                elapsed: elapsed, // elapsed
-                nodes: aniNodes.map(d => d), // aniNodes
-                properties: aniForce.properties, // snapped properties
+              elapsed: elapsed, // elapsed
+              nodes: aniNodes.map(d => d), // aniNodes
+              properties: aniForce.properties, // snapped properties
 
-              })
+            })
 
-              for (let k = 0; k < aniCompForces.length; k++) {
-                let forceName = aniCompForces[k].key
-                let forceFunction = aniCompForces[k].force
-                sim.force(forceName, forceFunction) // muon or builtin force
-              }
-            }
+            let { key, force } = aniCompForce
+            sim.force(key, force) // muon or builtin force
           }
         }
       }
