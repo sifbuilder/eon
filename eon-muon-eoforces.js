@@ -71,6 +71,7 @@
         force: ffforce,
       }
       let force = isolate(sys)
+      
       console.assert(params.key || params.type !== null)
       let field = 	{
         key: params.key || params.type,
@@ -83,6 +84,7 @@
     // ...................... enty
     let enty = () => {}
     enty.force = force
+    enty.isolate = isolate
     return enty
   }
 

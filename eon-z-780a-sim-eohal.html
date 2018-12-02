@@ -63,7 +63,7 @@ async function anitem (__mapper) {
       if (!anima.eogelded) {
         let animas = []
 
-        let count = 2 // 200
+        let count = 200
 
         for (var i = 0; i < count; i++) {
           let ani = muonProps.cloneObj(anima)
@@ -74,13 +74,13 @@ async function anitem (__mapper) {
           if (i < count / 2) {
             ani.eocrom.cf = 999
 
-            let eoric = { gid: 'red', cid: 'link', fid: 'link' + i }
+            let eoric = { gid: 'red', cid: 'c', fid: 'f' + i }
             eoric.uid = muonEoric.getuid(eoric)
             ani.eoric = eoric
           } else {
             ani.eocrom.cf = 333
 
-            let eoric = { gid: 'gold', cid: 'link', fid: 'link' + i }
+            let eoric = { gid: 'gold', cid: 'c', fid: 'f' + i }
             eoric.uid = muonEoric.getuid(eoric)
             ani.eoric = eoric
           }
@@ -90,9 +90,10 @@ async function anitem (__mapper) {
             geometry: {
               type: 'Point',
               coordinates: [
-                0, // 2 * (0.5 - Math.random()) * width,
-                0, // 2 * (0.5 - Math.random()) * height,
-                0],
+                2 * (0.5 - Math.random()) * width,
+                2 * (0.5 - Math.random()) * height,
+                0
+              ],
             },
             properties: {
               orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
@@ -247,13 +248,13 @@ async function anitem (__mapper) {
 
     // ............................. forceCollide
     let forceCollide = function (params) { // force
-      
-      let props = params.properties.payload || [] 
+
+      let props = params.properties.payload || []
       let f = __mapper('xs').ceonize(params.type, 'force')
       let fforce , ffforce
-      
+
       let force = d3Force3d[f]
-      force = force(...props) 
+      force = force(...props)
 
       if (params.strength !== undefined) force = force.strength(params.strength)
 
@@ -279,7 +280,7 @@ async function anitem (__mapper) {
       },
 
       field: params => { // force.field {elapsed, nodes, properties}
-      
+
         let forces = []
         let forceParams = Object.assign({}, params, params.properties)
         let force = forceCollide(forceParams) // muonEoforces.force(forceParams)
@@ -289,13 +290,13 @@ async function anitem (__mapper) {
     }
     // ............................. forceManyBody
     let forceManyBody = function (params) { // force
-      
-      let props = params.properties.payload || [] 
+
+      let props = params.properties.payload || []
       let f = __mapper('xs').ceonize(params.type, 'force')
       let fforce , ffforce
-      
+
       let force = d3Force3d[f]
-      force = force(...props) 
+      force = force(...props)
 
       if (params.strength !== undefined) force = force.strength(params.strength)
       if (params.distanceMin !== undefined) force = force.distanceMin(params.distanceMin)
@@ -334,6 +335,151 @@ async function anitem (__mapper) {
         return forces
       },
     }
+    // ............................. forceCenterGold
+    let forceCenterGold = function (params) { // force
+
+      let props = params.properties.payload || []
+      let f = __mapper('xs').ceonize(params.type, 'force')
+      let fforce , ffforce
+
+      let force = d3Force3d[f]
+      force = force(...props)
+
+      if (params.x !== undefined) force = force.x(params.x)
+      if (params.y !== undefined) force = force.y(params.y)
+      if (params.z !== undefined) force = force.z(params.z)
+
+      let field = {
+        key: params.key,
+        force: force,
+      }
+      return field
+    }
+
+
+    let force_centerGold = { // aniForce
+
+      properties: {
+        payload: [
+          100,  // x
+          0,    // y
+          0,    // z
+        ],
+        src: d3_force,
+        id: d => d.eoric.uid,
+        filter: d => d.eoric.gid === 'gold',
+        type: 'center',
+        key: 'center_gold',
+
+      },
+
+      field: params => { // force.field
+        let forces = []
+        let forceParams = Object.assign({}, params, params.properties)
+        let force = forceManyBody(forceParams)
+        forces.push(force)
+        return forces
+      },
+    }
+   // ............................. forceCenterRed
+    let forceCenterRed = function (params) { // force
+
+      let props = params.properties.payload || []
+      let f = __mapper('xs').ceonize(params.type, 'force')
+      let fforce , ffforce
+
+      let force = d3Force3d[f]
+      force = force(...props)
+
+      if (params.x !== undefined) force = force.x(params.x)
+      if (params.y !== undefined) force = force.y(params.y)
+      if (params.z !== undefined) force = force.z(params.z)
+
+      let field = {
+        key: params.key,
+        force: force,
+      }
+      return field
+    }
+
+
+    let force_centerRed = { // aniForce
+
+      properties: {
+        payload: [
+          -100,  // x
+          0,    // y
+          0,    // z
+        ],
+        src: d3_force,
+        id: d => d.eoric.uid,
+        filter: d => d.eoric.gid === 'red',
+        type: 'center',
+        key: 'center_red',
+
+      },
+
+      field: params => { // force.field
+        let forces = []
+        let forceParams = Object.assign({}, params, params.properties)
+        let force = forceManyBody(forceParams)
+        forces.push(force)
+        return forces
+      },
+    }
+   // ............................. forceXRed
+    let forceXRed = function (params) { // force
+
+      let props = params.properties.payload || []
+      let f = __mapper('xs').ceonize(params.type, 'force')
+      let fforce , ffforce
+
+      let force = d3Force3d[f]
+      force = force(...props)
+
+      if (params.x !== undefined) force = force.x(params.x)
+      if (params.strength !== undefined) force = force.strength(params.strength)
+
+
+      let sys = {
+        nodes: params.nodes,
+        filter: params.filter,
+        force: force,
+      }
+      force = muonEoforces.isolate(sys)
+
+      let field = {
+        key: params.key,
+        force: force,
+      }
+      return field
+    }
+
+
+    let force_xRed = { // aniForce
+
+      properties: {
+        payload: [
+          -100,  // x
+        ],
+        x: -100,
+        strength: 1,
+        src: d3_force,
+        id: d => d.eoric.uid,
+        filter: d => d.eoric.gid === 'red',
+        type: 'x',
+        key: 'x_red',
+
+      },
+
+      field: params => { // force.field
+        let forces = []
+        let forceParams = Object.assign({}, params, params.properties)
+        let force = forceXRed(forceParams)
+        forces.push(force)
+        return forces
+      },
+    }
     // .................... fieldAni
     let fieldAni = {
 
@@ -345,9 +491,12 @@ async function anitem (__mapper) {
 
     }
     fieldAni.eoforces = {
-      force_gravity,
-      force_collide,
-      force_manybody,
+      // force_gravity,
+      // force_collide,
+      // force_manybody,
+      // force_centerGold,
+      // force_centerRed,
+      force_xRed,
     }
 
 
