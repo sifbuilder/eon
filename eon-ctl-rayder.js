@@ -34,7 +34,7 @@
     let pointer = mouse
     let touch = {}
     // let domNode = renderSvg.svg()
-    let domNode 
+    let domNode
 
     let getPos = renderPortview.getPos // event position
     let xsign = 1 //  1 if x goes left to right

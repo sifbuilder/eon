@@ -34,7 +34,6 @@ async function anitem (__mapper) {
 
   // .................. animas
   let ani = function () {
-
     // .................. pics
     let pi = Math.PI,
       radians = Math.PI / 180, degrees = 180 / Math.PI,
@@ -222,8 +221,7 @@ async function anitem (__mapper) {
       eoform: conformTangerine,
       eoload: {},
     }
-    
-    
+
     let natAni2 = {
 
       eohal: 'mars',
@@ -236,7 +234,7 @@ async function anitem (__mapper) {
         conform: {
           projection: 'natform',
           eoform: conformTangerine,
-        },    
+        },
         proform: {
           projection: 'uniwen',
           scale: [ 1, 1 ],
@@ -250,8 +248,8 @@ async function anitem (__mapper) {
         },
       },
       eocrom: {'csx': 0, 'cf': 999, 'cs': 444, 'cw': 1.33, 'co': 0.999, 'cp': 0.999},
-      // eoframe: [ [ [ -180, 180, 30, 30], [ -90, 90, 30, 30] ] ],   
-      eoframe: [ [ [ [[[-180, 180]]], [[[-180, 180 + 360]]], 930, 6],[ -90, 90, 30, 6] ] ],      
+      // eoframe: [ [ [ -180, 180, 30, 30], [ -90, 90, 30, 30] ] ],
+      eoframe: [ [ [ [[[-180, 180]]], [[[-180, 180 + 360]]], 930, 6], [ -90, 90, 30, 6] ] ],
       eoload: {},
 
     }
@@ -364,7 +362,7 @@ async function anitem (__mapper) {
       eoload: {},
 
     }
-   // .................. cameraOrthoAni anima
+    // .................. cameraOrthoAni anima
     let lightHemisphereAni = {
 
       eotim: eotim,
@@ -425,11 +423,11 @@ async function anitem (__mapper) {
       },
 
     }
-    
+
     // ............................. animas
     let animas = [
 
-         cameraPersAni, // h.sol
+      cameraPersAni, // h.sol
       // sphereAni, // h.mars
       // lightSphereAni, // h.mars
       // lightTangerineAni, // h.mars

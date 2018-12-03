@@ -32,11 +32,11 @@ async function anitem (__mapper) {
     // __mapper('xs').r('svg'),
   ])
 
-    // ... **3 sim**
-    // ... proform geoanod
-    
-    let muonStore = __mapper('muonStore')
-    let d3_force = d3Force3d
+  // ... **3 sim**
+  // ... proform geoanod
+
+  let muonStore = __mapper('muonStore')
+  let d3_force = d3Force3d
 
   // .................. animas
   let ani = function () {
@@ -206,8 +206,7 @@ async function anitem (__mapper) {
 
     }
 
-
-   // ............................. force_energy
+    // ............................. force_energy
     let force_energy = { // aniForce
       properties: {
         alpha: 1,
@@ -425,10 +424,6 @@ async function anitem (__mapper) {
       },
     }
 
-
-
-
-
     // ............................. circform1
     let circform1 = {
 
@@ -436,7 +431,7 @@ async function anitem (__mapper) {
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'circform1'},
 
-          geobase: '',
+      geobase: '',
 
       eofold: p => {
         let vertices = muonGraticule.gVertices(p.eoframe)

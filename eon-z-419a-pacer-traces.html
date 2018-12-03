@@ -365,9 +365,8 @@ async function anitem (__mapper) {
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates // eonode
             } else if (props.key === 'auto') { // AUTO
-            
               let point = muonStace.getLocus([null, null, null], ani)
-              
+
               point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
 
               let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
@@ -384,7 +383,6 @@ async function anitem (__mapper) {
                     : Array.of(point)
                 }
               }
-                
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates
             }

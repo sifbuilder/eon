@@ -173,16 +173,14 @@ async function anitem (__mapper) {
           eohal: 'mars',
 
           eofold: function (ani, props) {
-
             let coords
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates // eonode
-              
             } else if (props.key === 'auto') { // AUTO
               let point = muonAnitem.snapani([[[ invgeoData.geometry.coordinates ]]], ani.eotim.unitTime)
 
               point = muonGeoj.geotrim(point)
-              
+
               let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
               if (preani) {
                 if (preani.eofold.type === 'FeatureCollection') {
@@ -197,7 +195,6 @@ async function anitem (__mapper) {
                     : Array.of(point)
                 }
               }
-
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates
             }

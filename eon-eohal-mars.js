@@ -80,7 +80,7 @@
           )
         }
       }
-      
+
       newAni.eofold = gjcollection
 
       return newAni

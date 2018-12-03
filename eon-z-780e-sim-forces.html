@@ -15,7 +15,7 @@ async function anitem (__mapper) {
     muonNatform,
     muonEoric,
     renderPortview,
-    renderSvg,    
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').c('rayder'),
@@ -55,7 +55,7 @@ async function anitem (__mapper) {
       eonode: {
         type: 'Feature',
         geometry: null,
-      },      
+      },
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -102,7 +102,7 @@ async function anitem (__mapper) {
         type: 'Feature',
         geometry: null,
       },
-      
+
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -226,7 +226,6 @@ async function anitem (__mapper) {
 
     // ............................. forceGravity
     let forceGravity = function (params) { // force
-
       let nodes = params.nodes
       let properties = params.properties || {}
       let payload = params.properties.payload || {}
@@ -240,7 +239,7 @@ async function anitem (__mapper) {
 
       let fName = __mapper('xs').ceonize(type, 'force')
 
-      let gravity = opts.gravity  // gravity
+      let gravity = opts.gravity // gravity
 
       let fforce = function force (...args) { // d3force builtin (vs muon d3force)
         for (let i = 0; i < nodes.length; ++i) {
@@ -248,7 +247,7 @@ async function anitem (__mapper) {
           node.vy += gravity // node.vx += 0.001 * Math.random()
         }
       }
-      fforce.initialize = () => {}  // initialize
+      fforce.initialize = () => {} // initialize
 
       let sys = {
         nodes: nodes,
@@ -284,13 +283,13 @@ async function anitem (__mapper) {
           type: 'gravity',
           src: d3_force,
           nodes: nodes,
-          payload: {  // passed to force in m.eoforces
+          payload: { // passed to force in m.eoforces
             args: [],
             opts: {
-              gravity: gravity,  // gravity
+              gravity: gravity, // gravity
             },
           },
-          filter: d => true, 
+          filter: d => true,
           id: d => d.eoric.uid,
           key: key,
         }

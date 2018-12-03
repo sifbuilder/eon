@@ -388,7 +388,6 @@
             })
           )
 
-
           state.scene.add(object)
 
           for (let j = 0; j < lights.length; j++) {
@@ -401,7 +400,6 @@
         }
       }
     }
-
 
     // .................. multiPointToScene
     function multiPointToScene (items = []) {
@@ -418,9 +416,9 @@
         let dotSizeDefault = 0.1
         let dotColorDefault = 0x88ff88
         let vertices = geometry.coordinates
-        let dotSize = item.properties.pointRadius ||  dotSizeDefault
-        let dotColor = item.properties.pointColor ||  dotColorDefault
-        
+        let dotSize = item.properties.pointRadius || dotSizeDefault
+        let dotColor = item.properties.pointColor || dotColorDefault
+
         for (let i = 0; i < vertices.length; i++) {
           let particle_geom = new THREE.Geometry()
           particle_geom.vertices.push(new THREE.Vector3(...vertices[i].map(to3point)))
@@ -480,12 +478,12 @@
 
         let threeGeometry = new THREE.Geometry()
 
-        coordinates.forEach(function (line=[]) {
-            d3.pairs(line.map(denser), function (a, b) {
-              threeGeometry.vertices.push(a, b)
-            })
-            let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-            if (object) state.scene.add(object)
+        coordinates.forEach(function (line = []) {
+          d3.pairs(line.map(denser), function (a, b) {
+            threeGeometry.vertices.push(a, b)
+          })
+          let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+          if (object) state.scene.add(object)
         })
       }
     }
@@ -496,7 +494,7 @@
         let item = items[k] // .feature
 
         let style = item.properties.style
-        let dotSize = item.properties.pointRadius ||  12
+        let dotSize = item.properties.pointRadius || 12
 
         let geometry = item.geometry // rings in MultiPolygon, MultiLineString
 
@@ -506,7 +504,7 @@
 
         let particle_geom = new THREE.Geometry()
         particle_geom.vertices.push(pointThree)
-        
+
         let particle_material = new THREE.PointsMaterial({
           color: style.fill, // 0x88ff88,
           size: dotSize,
@@ -519,7 +517,6 @@
         state.scene.add(particle)
       }
     }
-
 
     // .................. polygonToScene
     function polygonToScene (items = []) {

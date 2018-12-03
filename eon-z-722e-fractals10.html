@@ -22,10 +22,10 @@ async function anitem (__mapper) {
     muonProps,
     muonStace,
     muonSvg,
-    prtOrthographic,    
+    prtOrthographic,
     // renderSvg,
-    renderPortview,    
-    renderWebgl,    
+    renderPortview,
+    renderWebgl,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').c('versor'),
@@ -43,10 +43,10 @@ async function anitem (__mapper) {
     __mapper('xs').m('props'),
     __mapper('xs').m('stace'),
     __mapper('xs').m('svg'),
-    __mapper('xs').p('orthographic'),    
+    __mapper('xs').p('orthographic'),
     // __mapper('xs').r('svg'),
-    __mapper('xs').r('portview'),    
-    __mapper('xs').r('webgl'),    
+    __mapper('xs').r('portview'),
+    __mapper('xs').r('webgl'),
   ])
 
   let muonStore = __mapper('muonStore')
@@ -206,7 +206,6 @@ async function anitem (__mapper) {
                     : Array.of(point)
                 }
               }
-                
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates
             }
@@ -229,9 +228,8 @@ async function anitem (__mapper) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               stace = muonStace.getLocus([null, null, null], ani)
-              
             } else if (props.key === 'auto') { // AUTO
-            
+
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
@@ -260,7 +258,7 @@ async function anitem (__mapper) {
 
     let params = {depth: 6, rad: 30, sides: 6, wbase: 1, anginit: 180, name: 'as12', row: 1, col: 2}
 
-    let getanis = function (params = {}) {  // getanis
+    let getanis = function (params = {}) { // getanis
       let anis = []
       let _NAME = params.name || 'anis'
       _ROW = params.row || 2,
@@ -277,7 +275,6 @@ async function anitem (__mapper) {
         eohal: 'mars',
 
         eofold: a => {
-
           let res = {
             type: 'Feature',
             geometry: {
@@ -313,17 +310,17 @@ async function anitem (__mapper) {
         },
       }
 
-       // amplitude of sinus (level)
+      // amplitude of sinus (level)
       let radOnLevel = d => (d === 0) ? _RAD : _RAD / (Math.pow(2, d))
-      
+
       // complex number
-      let zcoef = (rad, ang) => Complex({re: rad * Math.cos(ang), im: rad * Math.sin(ang)}) 
+      let zcoef = (rad, ang) => Complex({re: rad * Math.cos(ang), im: rad * Math.sin(ang)})
 
       // for each cycloid: anis or fractal
       for (let level = 0; level < _LEVEL; level++) {
         anis[level] = muonProps.cloneObj(anis[level - 1] || fractalForm)
 
-        // 
+        //
         anis[level].eoric = {gid: 'nat', cid: _NAME + level, fid: _NAME + level} // id
 
         anis[level].eoload.fractal.an = [] // [0..._LEVEL)
@@ -346,10 +343,8 @@ async function anitem (__mapper) {
         anis[level].eoload.fractal.rad = radOnLevel(level)
         anis[level].eocrom.cf = _CF(level) // eocrom
         if (level === _LEVEL - 1) {
-          
-          // add trace line to last-level cycloid 
+          // add trace line to last-level cycloid
           anis[level].avatars = {traceline: traceline(0)}
-          
         }
       }
 
@@ -458,7 +453,7 @@ async function anitem (__mapper) {
       ...otheranis, // h.fourier
       cameraPersAni, // h.sol
       lightHemisphereAni, // h.sol
-      spotLight, // h.sol      
+      spotLight, // h.sol
     ]
 
     return animas

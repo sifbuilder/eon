@@ -38,10 +38,6 @@
 
     // ............................. eohale
     let eohale = function (ani) {
-
-
-
-
       let anigram = ani,
         eoric = anigram.eoric, // eoric
         eotim = anigram.eotim, // eotim
@@ -71,25 +67,21 @@
 
       // ...   features are rendered simultaneously on time period
 
+      let natAni1 = {
+        eohal: 'mars',
+        eofold: p => muonNatform.natFeature(p.eoform),
+        eotim: eotim,
+        eoric: {gid: 'g', cid: 'c', fid: 'f1'},
+        eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.0099, 'cp': 0.999},
 
+        eoform: {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 30, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          'dom3': [ -180, 180 ],
+        },
+        eoload: {},
+      }
 
-        let natAni1 = {
-          eohal: 'mars',
-          eofold: p => muonNatform.natFeature(p.eoform),
-          eotim: eotim,
-          eoric: {gid: 'g', cid: 'c', fid: 'f1'},
-          eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.0099, 'cp': 0.999},
-
-          eoform: {
-              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-              'ra2': 30, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-              'dom3': [ -180, 180 ],
-          },
-          eoload: {},
-        }      
-      
-      
-      
       let newItems = []
       for (let j = 0; j < transforms.length; j++) {
         // ... FOR EACH FEATURE in time
@@ -155,7 +147,7 @@
           }
 
           newItem.avatars = {}
-            
+
           // ... for each cycloid < M (nyquist frequency)
           // ...     beyond nyquist w frequency is aliased by -N
 
@@ -253,33 +245,31 @@
         for (let i = 0; i < iAnitems.length - 1; i++) { //  for each anitem
           let nextPointRadius = iAnitems[i + 1].eofold.properties.pointRadius // _e_
           iAnitems[i].eofold.properties.pointRadius = nextPointRadius
-          
+
           let cycloid = muonProps.cloneObj(natAni1)
-              let gid = cycloid.eoric.gid // from ava eoric
-              let cid = cycloid.eoric.cid
-              let fid = muonEoric.idify(cycloid.eoric.fid, i)
-              let _ric = {gid, cid, fid} // is DELLED ?
-              _ric.uid = muonEoric.getuid(_ric) // uid
-              cycloid.eoric = _ric
-              cycloid.eoform.ra2 = iAnitems[i].eofold.properties.pointRadius
+          let gid = cycloid.eoric.gid // from ava eoric
+          let cid = cycloid.eoric.cid
+          let fid = muonEoric.idify(cycloid.eoric.fid, i)
+          let _ric = {gid, cid, fid} // is DELLED ?
+          _ric.uid = muonEoric.getuid(_ric) // uid
+          cycloid.eoric = _ric
+          cycloid.eoform.ra2 = iAnitems[i].eofold.properties.pointRadius
 
-            let delta = iAnitems[i].eofold.geometry.coordinates
-            let eomot = {
-              proform: {
+          let delta = iAnitems[i].eofold.geometry.coordinates
+          let eomot = {
+            proform: {
 
-                projection: 'uniwen',
-                translate: delta,
-                scale: [ 1, 1, 1, ],
-                rotate: [ 0, 0, 0 ],
-                lens: [0, 1, Infinity ],
+              projection: 'uniwen',
+              translate: delta,
+              scale: [ 1, 1, 1 ],
+              rotate: [ 0, 0, 0 ],
+              lens: [0, 1, Infinity ],
 
-              },
-            }             
-            cycloid.eomot = eomot
-             
-             
-            iAnitems[i].avatars.cycloid = cycloid
-            
+            },
+          }
+          cycloid.eomot = eomot
+
+          iAnitems[i].avatars.cycloid = cycloid
         }
 
         newItems = [...newItems, ...iAnitems]

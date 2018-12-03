@@ -23,29 +23,27 @@ async function anitem (__mapper) {
   let ani = function () {
     let ctl = ctlWen().control(renderSvg.svg())
 
-    
     // .................. pics
     let aniForm = {
 
       eohal: 'mars',
 
-      eofold: p => { 
-      
+      eofold: p => {
         let moore = muonLindenmayer.fractalize({
-            axiom: 'AFA+F+AFA',
-            steps: 5,
-            rules: {
-                A: '-BF+AFA+FB-',
-                B: '+AF-BFB-FA+',
-            }
+          axiom: 'AFA+F+AFA',
+          steps: 5,
+          rules: {
+            A: '-BF+AFA+FB-',
+            B: '+AF-BFB-FA+',
+          },
         })
 
         let points = muonLindenmayer.curve({
-            fractal: moore,
-            side: 16,
-            angle: Math.PI/2,
+          fractal: moore,
+          side: 16,
+          angle: Math.PI / 2,
         })
-      
+
         let res = {
           type: 'Feature',
           geometry: {

@@ -88,66 +88,56 @@ if (opts.length === 0) { // action: help
   if (opts[1] !== undefined) state.codepattern = opts[1] // in scope
 }
 
-
 function doAction (stat = {}) { // return outText
+  let outText = ''
 
-    let outText = ''
+  let { qcols, partsPattern, outdirpath, tileimg, tileext, tileview, notile, where, contentUrl, user, repo, branch, hostUrl, folder, endOfLine, newLine, gifext, inDir, indexpattern, testpattern, mdpattern, gifpattern, coreZfile, toreplace, outDir} = stat
 
-    let { qcols, partsPattern, outdirpath, tileimg, tileext, tileview, notile, where, contentUrl, user, repo, branch, hostUrl, folder, endOfLine, newLine, gifext, inDir, indexpattern, testpattern, mdpattern, gifpattern, coreZfile, toreplace, outDir} = stat
+  let infiles = fs.readdirSync(inDir) // index files in inDir
+    .filter(d => gifpattern.test(d))
+    .filter(d => !testpattern.test(d))
+    .filter(d => !mdpattern.test(d))
 
-    let infiles = fs.readdirSync(inDir) // index files in inDir
-      .filter(d => gifpattern.test(d))
-      .filter(d => !testpattern.test(d))
-      .filter(d => !mdpattern.test(d))
+  for (let i = 0; i < infiles.length; i++) {
+    let fileName = infiles[i]
 
+    let parts = fileName.match(partsPattern)
+    let fullname = parts[0] // full name
+    let part = parts[1] // full name
+    let rootAndName = parts[2] // rootAndName
+    let root = parts[3] // rootAndName
+    let code = parts[5] // code
+    let ext = parts[8] // ext
 
-    for (let i = 0; i < infiles.length; i++) {
-      let fileName = infiles[i]
+    let zPattern = new RegExp(`^${rootAndName}.*.html`, 'i') // z.eons
 
-      let parts = fileName.match(partsPattern)
-      let fullname = parts[0] // full name
-      let part = parts[1] // full name
-      let rootAndName = parts[2] // rootAndName
-      let root = parts[3] // rootAndName
-      let code = parts[5] // code
-      let ext = parts[8] // ext
-
-      let zPattern = new RegExp(`^${rootAndName}.*.html`, 'i') // z.eons
-
-      let zfiles = fs.readdirSync(inDir) // index files in inDir
+    let zfiles = fs.readdirSync(inDir) // index files in inDir
       .filter(d => zPattern.test(d))
       .filter(d => !testpattern.test(d))
 
-      if (zfiles.length === 0) {  // if z eon not exists
-          let newZfileName = `${rootAndName}.html`
+    if (zfiles.length === 0) { // if z eon not exists
+      let newZfileName = `${rootAndName}.html`
 
-          if (fs.existsSync(coreZfile)) { // if md file
-            let fileTxt = fs.readFileSync(coreZfile, 'utf8')
-            let replacepattern = rootAndName
-            fileTxt = fileTxt.replace(toreplace, replacepattern)
-            let outFilePath = `${outDir}${rootAndName}.html`
+      if (fs.existsSync(coreZfile)) { // if md file
+        let fileTxt = fs.readFileSync(coreZfile, 'utf8')
+        let replacepattern = rootAndName
+        fileTxt = fileTxt.replace(toreplace, replacepattern)
+        let outFilePath = `${outDir}${rootAndName}.html`
 
-              fs.writeFileSync(outFilePath, fileTxt)
-
-          }
+        fs.writeFileSync(outFilePath, fileTxt)
       }
-
     }
+  }
 
-    return outText
+  return outText
 }
 
 if (action === 'doAction') {
-    doAction(state)
+  doAction(state)
 } else if (action === 'debug') {
-    console.log(`doAction`)
+  console.log(`doAction`)
 } else if (action === 'help') {
   console.log(`node ${prgname} {[help], [debug], [do]}
       generate core eons for orphan gifs
   `)
 }
-
-
-
-
-

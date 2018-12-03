@@ -7,7 +7,7 @@ async function anitem (__mapper) {
   let [
     d3,
     d3geo,
-    THREE,    
+    THREE,
     ctlWen,
     eohalMars,
     muonGeom,
@@ -17,7 +17,7 @@ async function anitem (__mapper) {
   ] = await Promise.all([
     __mapper('xs').b('d3'),
     __mapper('xs').b('d3-geo'),
-    __mapper('xs').b('three'),    
+    __mapper('xs').b('three'),
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('geom'),
@@ -44,8 +44,8 @@ async function anitem (__mapper) {
 
       eofold: anitem => {
         let eoload = anitem.eoload
-        let json = {  // Feature
-          type: 'Feature', 
+        let json = { // Feature
+          type: 'Feature',
           geometry: {
             type: 'MultiPoint',
             coordinates: eoload.vertices(eoload.pars),
@@ -53,11 +53,10 @@ async function anitem (__mapper) {
           properties: {
             sort: 'form',
             eoMultiPolygon: 1,
-            faces: eoload.faces(eoload.pars).reduce( (p,q) => [...p, ...muonGeom.convextriang(q)], []),
-            lights: eoload.lights(eoload.pars)
+            faces: eoload.faces(eoload.pars).reduce((p, q) => [...p, ...muonGeom.convextriang(q)], []),
+            lights: eoload.lights(eoload.pars),
           },
         }
-
 
         return json
       },
@@ -71,17 +70,17 @@ async function anitem (__mapper) {
 
           projection: 'uniwen',
           translate: [ 0, 0, 0 ],
-          scale: [30,30,30],
-          rotate: [[[[0,6, 0]]], [[[0,360]]], [[[0,6, 0]]]],
+          scale: [30, 30, 30],
+          rotate: [[[[0, 6, 0]]], [[[0, 360]]], [[[0, 6, 0]]]],
           lens: [0, 1, Infinity ],
 
         },
       },
       eoload: {
-          /*
+        /*
             Dave McCooey
-            dmccooey@mac.com             
-             
+            dmccooey@mac.com
+
             Tetrakis Hexahedron
 
             (24) SHORT EDGE = 9 * sqrt(2) / 8
@@ -101,79 +100,73 @@ async function anitem (__mapper) {
             INVERTIBLE:                  YES
             SYMMETRY CLASSIFICATION:  Full Octahedral (Oh)
             TOPOLOGICALLY SELF-DUAL:      NO
-            
+
             C0 = 3 * sqrt(2) / 4
-            C1 = 9 * sqrt(2) / 8            
+            C1 = 9 * sqrt(2) / 8
           */
         pars: {
           C0: [[[3 * sqrt(2) / 4, 4 * sqrt(2) / 4, 3 * sqrt(2) / 4]]], // 1.06066017177982128660126654316,
-          C1: [[[9 * sqrt(2) / 8, 9 * sqrt(2) / 8, 9 * sqrt(2) / 8]]]  , // 1.59099025766973192990189981474
+          C1: [[[9 * sqrt(2) / 8, 9 * sqrt(2) / 8, 9 * sqrt(2) / 8]]], // 1.59099025766973192990189981474
         },
 
-        vertices: pars => 
+        vertices: pars =>
 
-          [[0.0,0.0,pars.C1],
-          [0.0,0.0,-pars.C1],
-          [pars.C1,0.0,0.0],
-          [-pars.C1,0.0,0.0],
-          [0.0,pars.C1,0.0],
-          [0.0,-pars.C1,0.0],
-          [pars.C0,pars.C0,pars.C0],
-          [pars.C0,pars.C0,-pars.C0],
-          [pars.C0,-pars.C0,pars.C0],
-          [pars.C0,-pars.C0,-pars.C0],
-          [-pars.C0,pars.C0,pars.C0],
-          [-pars.C0,pars.C0,-pars.C0],
-          [-pars.C0,-pars.C0,pars.C0],
-          [-pars.C0,-pars.C0,-pars.C0]]
+          [[0.0, 0.0, pars.C1],
+            [0.0, 0.0, -pars.C1],
+            [pars.C1, 0.0, 0.0],
+            [-pars.C1, 0.0, 0.0],
+            [0.0, pars.C1, 0.0],
+            [0.0, -pars.C1, 0.0],
+            [pars.C0, pars.C0, pars.C0],
+            [pars.C0, pars.C0, -pars.C0],
+            [pars.C0, -pars.C0, pars.C0],
+            [pars.C0, -pars.C0, -pars.C0],
+            [-pars.C0, pars.C0, pars.C0],
+            [-pars.C0, pars.C0, -pars.C0],
+            [-pars.C0, -pars.C0, pars.C0],
+            [-pars.C0, -pars.C0, -pars.C0]],
+        faces: pars =>
 
-        ,
-
-        faces:  pars => 
-
-        [[0,6,10],
-        [0,10,12],
-        [0,12,8],
-        [0,8,6],
-        [1,7,9],
-        [1,9,13],
-        [1,13,11],
-        [1,11,7],
-        [2,6,8],
-        [2,8,9],
-        [2,9,7],
-        [2,7,6],
-        [3,10,11],
-        [3,11,13],
-        [3,13,12],
-        [3,12,10],
-        [4,6,7],
-        [4,7,11],
-        [4,11,10],
-        [4,10,6],
-        [5,8,12],
-        [5,12,13],
-        [5,13,9],
-        [5,9,8]]
-
-        ,
-        
-        lights: pars => 
-        [
-          {
-            light: THREE.AmbientLight,
-            color: 0xffffff,
-            intensity: 0.9,
-            position: [200, 200, 200],
-          },
-          {
-            light: THREE.DirectionalLight,
-            color: 0xe4eef9,
-            intensity: 0.7,
-            position: [200, 200, 200],
-            normalize: 1
-          },
-        ]        
+          [[0, 6, 10],
+            [0, 10, 12],
+            [0, 12, 8],
+            [0, 8, 6],
+            [1, 7, 9],
+            [1, 9, 13],
+            [1, 13, 11],
+            [1, 11, 7],
+            [2, 6, 8],
+            [2, 8, 9],
+            [2, 9, 7],
+            [2, 7, 6],
+            [3, 10, 11],
+            [3, 11, 13],
+            [3, 13, 12],
+            [3, 12, 10],
+            [4, 6, 7],
+            [4, 7, 11],
+            [4, 11, 10],
+            [4, 10, 6],
+            [5, 8, 12],
+            [5, 12, 13],
+            [5, 13, 9],
+            [5, 9, 8]],
+        lights: pars =>
+          [
+            {
+              light: THREE.AmbientLight,
+              color: 0xffffff,
+              intensity: 0.9,
+              position: [200, 200, 200],
+            },
+            {
+              light: THREE.DirectionalLight,
+              color: 0xe4eef9,
+              intensity: 0.7,
+              position: [200, 200, 200],
+              normalize: 1,
+            },
+          ],
       },
     }
     // .................. cameraOrthoAni anima

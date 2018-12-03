@@ -16,7 +16,7 @@ async function anitem (__mapper) {
     muonGeom,
     muonGraticule,
     muonNatform,
-    renderSvg,  
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').b('d3-geo'),
     __mapper('xs').b('d3-geo-projection'),
@@ -28,14 +28,13 @@ async function anitem (__mapper) {
     __mapper('xs').m('geom'),
     __mapper('xs').m('graticule'),
     __mapper('xs').m('natform'),
-    __mapper('xs').r('svg'), 
+    __mapper('xs').r('svg'),
   ])
-  
+
   // .................. animas
   let ani = function () {
-        
     let ctl = ctlVersor().control(renderSvg.svg())
-    
+
     // .................. pics
     let eotim = {'td': 10800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
@@ -56,11 +55,11 @@ async function anitem (__mapper) {
       projection: darkProjection,
       prerotate: [[[ t => {
         // let rot = ctl
-          // .projection({projection: darkProjection}) // versor projection
-          // .rotation()
+        // .projection({projection: darkProjection}) // versor projection
+        // .rotation()
         let rot = ctlVersor
           .projection({projection: darkProjection}) // versor projection
-          .rotation()          
+          .rotation()
         let res = [180 + rot[0], -rot[1], -rot[2]]
         return res
       }]]],
@@ -112,11 +111,11 @@ async function anitem (__mapper) {
       projection: frontProjection,
       prerotate: [[[ function (t) {
         // let rot = ctl
-          // .projection({projection: frontProjection}) // versor projection
-          // .rotation()
+        // .projection({projection: frontProjection}) // versor projection
+        // .rotation()
         let rot = ctlVersor
           .projection({projection: frontProjection}) // versor projection
-          .rotation()          
+          .rotation()
         return rot
       } ]]],
 

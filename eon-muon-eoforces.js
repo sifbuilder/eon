@@ -9,7 +9,6 @@
   'use strict'
 
   async function muonEoforces (__mapper = {}) {
-
     let [
       d3Force3d,
     ] = await Promise.all([
@@ -37,31 +36,27 @@
 
     // ...................... force
     function force (params) {
-        
       let nodes = params.nodes
       let fforce = params.force
       let properties = params.properties || {}
       let payload = params.properties.payload || {}
-      
+
       let args = payload.args || []
       let opts = payload.opts || {}
-      
+
       let key = properties.key
       let type = properties.type
       let filter = properties.filter
 
       let fName = __mapper('xs').ceonize(type, 'force')
 
-      
       if (fforce !== undefined) { // force is passed from z.eon
-          //
+        //
 
-      } else if (__mapper(fName)) {  // force is registered in mapper
-          fforce  = __mapper(fName)
-
+      } else if (__mapper(fName)) { // force is registered in mapper
+        fforce = __mapper(fName)
       } else if (d3Force3d[fName] !== undefined) { // force is taken from physics
-          fforce = d3Force3d[fName]
-
+        fforce = d3Force3d[fName]
       }
       fforce = fforce(...args)
       for (var kee in opts) {
@@ -76,16 +71,15 @@
         filter: filter,
         force: fforce,
       }
-      
+
       let ffforce = isolate(sys)
       console.assert(key || type !== null)
       let field = 	{
         key: key || type,
         force: ffforce,
       }
-      
-      return field // return force
 
+      return field // return force
     }
 
     // ...................... enty

@@ -15,7 +15,7 @@ async function anitem (__mapper) {
     muonProfier,
     muonStace,
     muonSvg,
-    renderPortview,    
+    renderPortview,
     renderSvg,
   ] = await Promise.all([
     __mapper('xs').e('mars'),
@@ -27,7 +27,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('profier'),
     __mapper('xs').m('stace'),
     __mapper('xs').m('svg'),
-    __mapper('xs').r('portview'),    
+    __mapper('xs').r('portview'),
     __mapper('xs').r('svg'),
   ])
 
@@ -144,7 +144,6 @@ async function anitem (__mapper) {
             let coords
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates
-              
             } else if (props.key === 'auto') { // AUTO
               let point = muonStace.getLocus([null, null, null], ani)
 
@@ -164,8 +163,6 @@ async function anitem (__mapper) {
                     : Array.of(point)
                 }
               }
-                
-                
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates
             }

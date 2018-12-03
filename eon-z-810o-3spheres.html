@@ -2,10 +2,9 @@
 <script>
 window.xEonify.eon({anitem, time: undefined})
 
-//... **spheres** 
-//... muonNatform.natFeature(p.eoform)
-//... muonGraticule.vhMultiLine(p.eoframe)
-
+// ... **spheres**
+// ... muonNatform.natFeature(p.eoform)
+// ... muonGraticule.vhMultiLine(p.eoframe)
 
 // .................. anitem
 async function anitem (__mapper) {
@@ -18,7 +17,7 @@ async function anitem (__mapper) {
     muonNatform,
     prtNatform,
     renderPortview,
-    renderWebgl,  
+    renderWebgl,
     // renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
@@ -27,7 +26,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('graticule'),
     __mapper('xs').m('natform'),
     __mapper('xs').p('natform'),
-        __mapper('xs').r('portview'),
+    __mapper('xs').r('portview'),
     __mapper('xs').r('webgl'),
     // __mapper('xs').r('svg'),
   ])
@@ -155,7 +154,7 @@ async function anitem (__mapper) {
       eoform: conform1,
       eoload: {},
     }
-    
+
     let natAni2 = {
 
       eohal: 'mars',
@@ -188,7 +187,7 @@ async function anitem (__mapper) {
         conform: {
           projection: 'natform',
           eoform: conform2,
-        },    
+        },
         proform: {
           projection: 'uniwen',
           scale: [ 1, 1, 1],
@@ -199,7 +198,7 @@ async function anitem (__mapper) {
       },
       eocrom: eocrom,
 
-      eoframe: [ [ [ -180, 180, 30, 30], [ -90, 90, 30, 30] ] ],      
+      eoframe: [ [ [ -180, 180, 30, 30], [ -90, 90, 30, 30] ] ],
       eoload: {},
 
     }
@@ -242,7 +241,7 @@ async function anitem (__mapper) {
     }
     // ............................. animas
     let animas = [
-     cameraPersAni, // h.sol
+      cameraPersAni, // h.sol
       natAni1, // h.natform
       natAni2, // h.natform
 

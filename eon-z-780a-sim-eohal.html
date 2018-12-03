@@ -94,7 +94,7 @@ async function anitem (__mapper) {
               coordinates: [
                 2 * (0.5 - Math.random()) * width,
                 2 * (0.5 - Math.random()) * height,
-                0
+                0,
               ],
             },
             properties: {
@@ -196,10 +196,8 @@ async function anitem (__mapper) {
       eoload: {},
     }
 
-
     // ............................. forceGravity
     let forceGravity = function (params) { // force
-
       let nodes = params.nodes
       let properties = params.properties || {}
       let payload = params.properties.payload || {}
@@ -213,7 +211,7 @@ async function anitem (__mapper) {
 
       let fName = __mapper('xs').ceonize(type, 'force')
 
-      let gravity = opts.gravity  // gravity
+      let gravity = opts.gravity // gravity
 
       let fforce = function force (...args) { // d3force builtin (vs muon d3force)
         for (let i = 0; i < nodes.length; ++i) {
@@ -221,7 +219,7 @@ async function anitem (__mapper) {
           node.vy += gravity // node.vx += 0.001 * Math.random()
         }
       }
-      fforce.initialize = () => {}  // initialize
+      fforce.initialize = () => {} // initialize
 
       let sys = {
         nodes: nodes,
@@ -257,10 +255,10 @@ async function anitem (__mapper) {
           type: 'gravity',
           src: d3_force,
           nodes: nodes,
-          payload: {  // passed to force in m.eoforces
+          payload: { // passed to force in m.eoforces
             args: [],
             opts: {
-              gravity: gravity,  // gravity
+              gravity: gravity, // gravity
             },
           },
           filter: d => d.eoric.gid === 'paced',
@@ -280,11 +278,11 @@ async function anitem (__mapper) {
       properties: {
         payload: {
           args: [
-            10,  // radius () => 10
+            10, // radius () => 10
           ],
           opts: {
-            strength: 0.3,  // strength
-          }
+            strength: 0.3, // strength
+          },
         },
         type: 'collide',
         src: d3_force,
@@ -309,9 +307,8 @@ async function anitem (__mapper) {
             distanceMin: 1,
             distanceMax: 124,
             theta: 1.0,
-          }
+          },
         },
-
 
         src: d3_force,
         id: d => d.eoric.uid,
@@ -330,9 +327,9 @@ async function anitem (__mapper) {
       properties: {
         payload: {
           args: [
-            60,  // x
-            0,    // y
-            0,    // z
+            60, // x
+            0, // y
+            0, // z
           ],
         },
         src: d3_force,
@@ -346,16 +343,16 @@ async function anitem (__mapper) {
       field: params => muonEoforces.force(params),
     }
 
-   // ............................. forceCenterRed
+    // ............................. forceCenterRed
 
     let force_centerRed = { // aniForce
 
       properties: {
         payload: {
           args: [
-            -60,  // x
-            0,    // y
-            0,    // z
+            -60, // x
+            0, // y
+            0, // z
           ],
         },
         src: d3_force,
@@ -368,14 +365,14 @@ async function anitem (__mapper) {
 
       field: params => muonEoforces.force(params),
     }
-   // ............................. forceXGold
+    // ............................. forceXGold
 
     let force_xGold = { // aniForce
 
       properties: {
         payload: {
           args: [
-            60,  // x
+            60, // x
           ],
           opts: {
             x: 60,
@@ -392,14 +389,14 @@ async function anitem (__mapper) {
       field: params => muonEoforces.force(params),
 
     }
-   // ............................. forceXRed
+    // ............................. forceXRed
 
     let force_xRed = { // aniForce
 
       properties: {
         payload: {
           args: [
-            -60,  // x
+            -60, // x
           ],
           opts: {
             x: -60,
@@ -416,15 +413,14 @@ async function anitem (__mapper) {
       field: params => muonEoforces.force(params),
     }
 
-
-   // ............................. forceYGold
+    // ............................. forceYGold
 
     let force_yGold = { // aniForce
 
       properties: {
         payload: {
           args: [
-            60,  // y
+            60, // y
           ],
           opts: {
             y: 60,
@@ -441,14 +437,14 @@ async function anitem (__mapper) {
       field: params => muonEoforces.force(params),
     }
 
-   // ............................. forceYRed
+    // ............................. forceYRed
 
     let force_yRed = { // aniForce
 
       properties: {
         payload: {
           args: [
-            -60,  // y
+            -60, // y
           ],
           opts: {
             y: -60,
@@ -465,14 +461,14 @@ async function anitem (__mapper) {
       field: params => muonEoforces.force(params),
     }
 
-   // ............................. forceZGold
+    // ............................. forceZGold
 
     let force_zGold = { // aniForce
 
       properties: {
         payload: {
           args: [
-            60,  // z
+            60, // z
           ],
           opts: {
             z: 60,
@@ -489,14 +485,14 @@ async function anitem (__mapper) {
       field: params => muonEoforces.force(params),
     }
 
-   // ............................. forceZRed
+    // ............................. forceZRed
 
     let force_zRed = { // aniForce
 
       properties: {
         payload: {
           args: [
-            -60,  // z
+            -60, // z
           ],
           opts: {
             z: -60,
@@ -537,7 +533,6 @@ async function anitem (__mapper) {
       force_zGold,
       force_zRed,
     }
-
 
     // .................. animas
     let animas = [

@@ -70,11 +70,10 @@
       .attr('height', state.height)
       .style('top', 0)
       .style('left', 0)
-      .style('fill', 'transparent')      
+      .style('fill', 'transparent')
       // .attr('pointer-events', 'none')
-      // .attr('overflow', 'visible')      
+      // .attr('overflow', 'visible')
       .style('background-color', state.background) // background
-
 
     // ............................. svg
     let _svg = () => d3.select('#viewframe')

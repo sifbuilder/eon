@@ -193,7 +193,7 @@
       // ... check distance to previous location
 
       let count = {}
-      let grabbed 
+      let grabbed
       grabbed = ctlRayder.grabbed()
 
       let dist = state.grabbed === undefined
@@ -246,7 +246,7 @@
             : Object.assign(hostAnima.eoouted, {[pacerUid]: eotim.unitPassed})
         }
       }
-if (1 && 1) console.log(' ********* ')
+      if (1 && 1) console.log(' ********* ')
 
       if (geosort === 'anima') {
         // z.419b ani.ava(pacer)

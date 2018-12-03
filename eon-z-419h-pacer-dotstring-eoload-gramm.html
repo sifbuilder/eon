@@ -90,9 +90,9 @@ async function anitem (__mapper) {
               coords = ani.eonode.geometry.coordinates // eonode
             } else if (props.key === 'auto') { // AUTO
               let point = ani.eoform
-            
+
               point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
-              
+
               let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
               if (preani) {
                 if (preani.eofold.type === 'FeatureCollection') {
@@ -107,7 +107,6 @@ async function anitem (__mapper) {
                     : Array.of(point)
                 }
               }
-                
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = props.count.grabbed

@@ -358,11 +358,11 @@
 
         // let _geofn
         // if (props.h) {
-          // _geofn = muonGraticule.hMultiLine
+        // _geofn = muonGraticule.hMultiLine
         // } else if (props.v) {
-          // _geofn = muonGraticule.vMultiLine
+        // _geofn = muonGraticule.vMultiLine
         // } else {
-          // _geofn = muonGraticule.vhMultiLine
+        // _geofn = muonGraticule.vhMultiLine
         // }
 
         let geometry, graticule, vertices
@@ -382,7 +382,7 @@
           graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
 
           vertices = muonGraticule.gVertices(graticule)
-          
+
           // geometry = _geofn(graticule).geometry
           // geometry = muonGraticule.hMultiLine(graticule).geometry
         } else { // ___ 2d
@@ -398,16 +398,15 @@
           // geometry = _geofn(graticule).geometry // geometry.type: MultiLineString
 
           vertices = muonGraticule.gVertices(graticule)
-          
-          vertices  = vertices[1].slice(0, -1)
+
+          vertices = vertices[1].slice(0, -1)
 
           vertices = Array.of(vertices)
         }
 
-let quads = muonGraticule.qfaces(graticule)
-let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
-// if (1 && 1) console.log('geometry', geometry)
-
+        let quads = muonGraticule.qfaces(graticule)
+        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+        // if (1 && 1) console.log('geometry', geometry)
 
         let gj = {
           type: 'Feature',
@@ -443,7 +442,7 @@ let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
         let feature = muonProj3ct(gj, projection)
         cache.eoform = projDef.eoform
         cache.feature = feature
-        
+
         return feature
       }
     }
@@ -502,10 +501,9 @@ let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
           geometry.coordinates = Array.of(p)
         }
 
-// let quads = muonGraticule.qfaces(graticule)
-// let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
-// if (1 && 1) console.log('geometry', geometry)
-
+        // let quads = muonGraticule.qfaces(graticule)
+        // let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+        // if (1 && 1) console.log('geometry', geometry)
 
         let gj = {
           type: 'Feature',
