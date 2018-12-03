@@ -18,6 +18,7 @@ async function anitem (__mapper) {
     muonProps,
     muonStace,
     renderPortview,
+    renderSvg,
   ] = await Promise.all([
     __mapper('xs').b('d3-force-3d'),
     __mapper('xs').c('rayder'),
@@ -32,6 +33,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('props'),
     __mapper('xs').m('stace'),
     __mapper('xs').r('portview'),
+    __mapper('xs').r('svg'),
   ])
 
   let muonStore = __mapper('muonStore')
@@ -191,30 +193,34 @@ async function anitem (__mapper) {
 
       eoload: {
         pacer: { // geoaad for trace
+        
+          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
+
           eohal: 'mars',
           geosort: 'anigram',
           geobase: 'geo',
-          initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0, geoaad: 1,
+          geoaad: 1,
 
-          stace: function (ani, props) {
-            let stace
-            if (props.key === 'init') { // INIT
-              stace = {x: 0, y: 0, z: 0 }
-            } else if (props.key === 'auto') { // AUTO
-              stace = muonStace.getLocus(ani.eoload.pacer.stace, ani) // AUTO
-            } else if (props.key === 'event') { // EVENT
-              stace = {x: 0, y: 0, z: 0 }
-            }
-            return stace
+          eofold: {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [0, 0, 0],
+            },
+            properties: {orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
           },
-
+          
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
               // stace is ani's transformed eonode
               stace = muonStace.getLocus([null, null, null], ani)
+              if (1 && 1) console.log('stace', stace, ani)
+
             } else if (props.key === 'auto') { // AUTO
+            
               stace = muonStace.getLocus([null, null, null], ani)
+              
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()

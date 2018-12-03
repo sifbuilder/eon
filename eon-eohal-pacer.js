@@ -246,6 +246,7 @@
             : Object.assign(hostAnima.eoouted, {[pacerUid]: eotim.unitPassed})
         }
       }
+if (1 && 1) console.log(' ********* ')
 
       if (geosort === 'anima') {
         // z.419b ani.ava(pacer)

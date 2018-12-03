@@ -48,10 +48,9 @@ async function anitem (__mapper) {
     let natAni2 = {
 
       eohal: 'mars',
-
-      eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
 
+      eotim: eotim,
       eofold: function (p) {
         return muonNatform.natFeature(p.eoform)
       },
@@ -184,59 +183,79 @@ async function anitem (__mapper) {
 
     // ............................. forceGravity
     let forceGravity = function (params) { // force
-      console.assert(params.key !== undefined)
+
       let nodes = params.nodes
-      let newNodes = []
+      let properties = params.properties || {}
+      let payload = params.properties.payload || {}
 
-      let gravity = params.gravity
+      let args = payload.args || []
+      let opts = payload.opts || {}
 
-      function force () { // d3force builtin (vs muon d3force)
+      let key = properties.key
+      let type = properties.type
+      let filter = properties.filter
+
+      let fName = __mapper('xs').ceonize(type, 'force')
+
+      let gravity = opts.gravity  // gravity
+
+      let fforce = function force (...args) { // d3force builtin (vs muon d3force)
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-
           node.vy += gravity // node.vx += 0.001 * Math.random()
         }
       }
+      fforce.initialize = () => {}  // initialize
 
-      function initialize () {
-        if (!nodes) return
+      let sys = {
+        nodes: nodes,
+        filter: filter,
+        force: fforce,
       }
 
-      let field = {
-        key: params.key,
-        force: force,
+      let ffforce = muonEoforces.isolate(sys)
+      console.assert(key || type !== null)
+      let field = 	{
+        key: key || type,
+        force: ffforce,
       }
-      return field
+
+      return field // return force
     }
 
     let force_gravity = { // aniForce:{properties, field}
+
       properties: {
-        gravity: -0.5,
+        gravity: -0.075,
+
       },
 
       field: params => { // force.field
         let forces = []
 
         let nodes = params.nodes
-        let gravity = params.properties.gravity
+        let gravity = params.gravity || params.properties.gravity
         let key = params.properties.key || 'gravity'
 
-        let forceParams = {
+        let properties = {
           type: 'gravity',
           src: d3_force,
           nodes: nodes,
-          gravity: gravity,
+          payload: {  // passed to force in m.eoforces
+            args: [],
+            opts: {
+              gravity: gravity,  // gravity
+            },
+          },
           filter: d => true,
           id: d => d.eoric.uid,
           key: key,
         }
 
-        let force = forceGravity(forceParams)
-        forces.push(force)
-        return forces
+        params.properties = properties
+        return forceGravity(params)
       },
     }
-
     // .................... fieldAni
     let fieldAni = {
 

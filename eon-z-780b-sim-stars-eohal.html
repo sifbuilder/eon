@@ -5,52 +5,30 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__mapper) {
   let [
+    d3Force3d,
+    eohalMars,
+    eohalNatform,
     muonProps,
     muonEoforces,
     muonNatform,
-    d3Force3d,
-    renderPortview,
-    ctlRayder,
+    // ctlRayder,
     muonEoric,
-    eohalMars,
-    eohalNatform,
+    renderPortview,
+    renderSvg,    
   ] = await Promise.all([
+    __mapper('xs').b('d3-force-3d'),
+    __mapper('xs').e('mars'),
+    __mapper('xs').e('natform'),
     __mapper('xs').m('props'),
     __mapper('xs').m('eoforces'),
     __mapper('xs').m('natform'),
-    __mapper('xs').b('d3-force-3d'),
-    __mapper('xs').r('portview'),
-    __mapper('xs').c('rayder'),
+    // __mapper('xs').c('rayder'),
     __mapper('xs').m('eoric'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').e('natform'),
+    __mapper('xs').r('portview'),
+    __mapper('xs').r('svg'),    
   ])
 
-  let [
-    forceVoid,
-    forceEnergy,
-    // forceViscosity,
-    // forceManybody,
-    // forceCharge,
-    // forceCube,
-    // forceCollide,
-    forceCenter,
-    // forceX,
-    // forceY,
-    // forceZ,
-  ] = await Promise.all([
-    __mapper('xs').f('void'),
-    __mapper('xs').f('energy'),
-    // __mapper('xs').f('viscosity'),
-    // __mapper('xs').f('manybody'),
-    // __mapper('xs').f('charge'),
-    // __mapper('xs').f('cube'),
-    // __mapper('xs').f('collide'),
-    __mapper('xs').f('center'),
-    // __mapper('xs').f('x'),
-    // __mapper('xs').f('y'),
-    // __mapper('xs').f('z'),
-  ])
+
 
   let muonStore = __mapper('muonStore')
   // .................. animas
@@ -131,7 +109,7 @@ async function anitem (__mapper) {
 
     let eohalIsolation_gramm = anima => [] // GRAMM))
 
-    let isolation = {
+    let eohalIsolation = {
       ween: anima => eohalIsolation_ween(anima),
       gramm: anima => eohalIsolation_gramm(anima),
     }
@@ -142,7 +120,7 @@ async function anitem (__mapper) {
     // ............................. natAni
     let natAni = {
 
-      eohal: isolation,
+      eohal: 'mars', //  eohalIsolation,
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
@@ -150,14 +128,7 @@ async function anitem (__mapper) {
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate:
-              [0, 0, 0],
-          // [ [ [[[100, 400]]], 200 ],
-          // [[[ {
-          // 'm1': 4,'m2': 4,'n1': 2,'n2': 2,'n3': 2,'a': 4,'b': 2, // circle
-          // 'ra2': 30,'v0': 0,'v1': 1,'w4': 0,'seg5': 360,'pa6': 0,'pb7': -1,
-
-          // } ]]] ],
+          translate: [0, 0, 0],
           scale: 1,
           rotate: [ 0, 0, [[[0, 0]]] ],
           lens: [0, 1, 12],
@@ -168,15 +139,15 @@ async function anitem (__mapper) {
 
       eoform: {
 
-        'x': {
+        x: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
           'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
-        'y': {
+        y: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
           'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
-        'z': {
+        z: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
           'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
@@ -215,613 +186,6 @@ async function anitem (__mapper) {
       },
     }
 
-    // ............................. force_energy
-    let force_energy = { // aniForce
-      properties: {
-        alpha: 1,
-        alphaMin: 0.001,
-        alphaDecay: 0,
-        alphaTarget: 0,
-      },
-
-      field: function field (params = {}) {
-        let nodes = params.nodes
-
-        let forceParams = {
-          type: 'energy',
-          filter: d => true,
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let field = {
-          key: 'energy',
-          force: muonEoforces.force(forceParams),
-        }
-
-        return Array.of(field)
-      },
-    }
-
-    // ............................. force_viscosity
-    let force_viscosity = {
-      properties: {
-        velocityDecay: 0.0002,
-      },
-
-      field: function (params = {}) { // field.field
-        let nodes = params.nodes // nodes
-
-        let forceParams = {
-          type: 'void',
-          filter: d => true,
-          dim: 3,
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let field = {
-          key: 'viscosity',
-          force: muonEoforces.force(forceParams),
-        }
-
-        return Array.of(field)
-      },
-    }
-
-    // ............................. field_link
-    let field_link = {
-      'properties': {},
-      'field': function field (params = {}) {
-        let nodes = params.nodes
-        let forces = []
-
-        let forceParams = {
-          'filter': d => true,
-          'type': 'linkForce',
-          'strength': 1, // d => params.strength,
-          'id': d => d.uid, // d => params.uid,
-          'distance': d => 100, // d => params.distance,
-          'distances': [d => 100], // d => params.distance,
-          'iterations': 1, // d => params.iterations,
-          'nodes': nodes,
-          'src': d3_force,
-          'links': nodes.filter(d => (d.eoric.gid === 'link' || d.eoric.gid === 'tern')),
-        }
-
-        let field = {
-          'key': 'forceLink',
-          'force': muonEoforces.force(forceParams),
-        }
-
-        forces.push(field)
-
-        return forces
-      },
-    }
-
-    // ............................. forceSphere
-    let forceSphere = function (params) {
-      let nodes = params.nodes
-
-      let rad = params.rad
-
-      function force () {
-        for (let i = 0; i < nodes.length; ++i) {
-          let node = nodes[i]
-
-          // https://www.cs.unc.edu/~rademach/xroads-RT/RTarticle.html
-          // The directions of the reflected and refracted rays are given by the following formulas.
-          // For a ray with direction V, and a surface with normal N (the normal is just the direction perpendicular to the surface - pointing directly away from it), the reflected ray direction Rl is given by
-          // c1 = -dot_product( N, V )
-          // Rl = V + (2 * N * c1 )
-          // Note that since V, N, and Rl are vectors with x, y, and z components, the arithmetic on them is performed per-component. The refracted ray direction Rr is given by
-          // n1 = index of refraction of original medium
-          // n2 = index of refraction of new medium
-          // n = n1 / n2
-          // c2 = sqrt( 1 - n2 * (1 - c12) )
-          // Rr = (n * V) + (n * c1 - c2) * N
-
-          let m = rad
-          let V = [node.vx, node.vy, node.vz]
-          let N = [node.x / rad, node.y / rad, node.z / rad]
-          let c1 = -(
-            node.vx * node.x / rad +
-                node.vy * node.y / rad +
-                node.vz * node.z / rad)
-          let R1 = [
-            node.vx + 2 * (node.x / rad) * c1,
-            node.vy + 2 * (node.y / rad) * c1,
-            node.vz + 2 * (node.z / rad) * c1,
-          ]
-
-          let r2 = (node.x + node.vx) * (node.x + node.vx) +
-                (node.y + node.vy) * (node.y + node.vy) +
-                (node.z + node.vz) * (node.z + node.vz)
-          let rad2 = rad * rad
-          if (r2 > rad2) {
-            node.vx = R1[0] // *= -1;
-            node.vy = R1[1] // *= -1  ;
-            node.vz = R1[2] // *= -1
-          }
-        }
-      }
-
-      function initialize () {
-        if (!nodes) return
-      }
-
-      return force
-    }
-
-    let force_sphere = {
-      'properties': {
-        rad: 290,
-      },
-
-      'field': params => {
-        let nodes = params.nodes
-        let forces = []
-
-        let rad = params.properties.rad
-
-        let forceParams = {
-          type: 'sphere',
-          filter: d => d.eoric.gid === 'animaRed',
-          rad: rad,
-          dim: 3,
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let field = {
-          'key': 'sphere',
-          'force': forceSphere(forceParams),
-
-        }
-        forces.push(field)
-        return forces
-      },
-    }
-
-    // ............................. forceCube
-    let forceCube = function forceCube (params) {
-      let nodes = params.nodes
-      let edge = params.edge
-
-      function force () {
-        for (let i = 0; i < nodes.length; ++i) {
-          let node = nodes[i]
-
-          if (node.x < -edge) node.vx = Math.abs(node.vx) // node.vx *= -1
-          if (node.x > edge) node.vx = -Math.abs(node.vx) // node.vx *= -1
-          if (node.y < -edge) node.vy = Math.abs(node.vy) // node.vy *= -1
-          if (node.y > edge) node.vy = -Math.abs(node.vy) // node.vy *= -1
-          if (node.z < -edge) node.vz = Math.abs(node.vz) // node.vy *= -1
-          if (node.z > edge) node.vz = -Math.abs(node.vz) // node.vy *= -1
-        }
-      }
-
-      function initialize () {
-        if (!nodes) return
-      }
-
-      return force
-    }
-
-    let force_cube = {
-      'properties': {
-        edge: 200,
-      },
-
-      'field': params => {
-        let nodes = params.nodes
-        let forces = []
-
-        let edge = params.properties.edge
-
-        let forceParams = {
-          type: 'cube',
-          filter: d => d.eoric.gid === 'animaRed',
-          edge: edge,
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let field = {
-          'key': 'cube',
-          'force': forceCube(forceParams),
-
-        }
-        forces.push(field)
-        return forces
-      },
-    }
-
-    // ............................. force_collide
-    let force_collide = {
-
-      properties: {
-
-        strength: 0.03,
-
-      },
-
-      field: params => {
-        let nodes = params.nodes
-        let forces = []
-
-        let strength = params.properties.strength
-
-        let forceParams = {
-          type: 'collide',
-          strength: strength,
-          radius: d => 9,
-          filter: function (d) {
-            return d.eoric.gid === 'nat'
-          },
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let force = muonEoforces.force(forceParams)
-        let field = {key: 'collide', force: force}
-
-        forces.push(field)
-        return forces
-      },
-    }
-
-    // ............................. force_manybody
-    let force_manybody = { // aniForce
-
-      properties: {
-        strength: -1.9,
-        theta: 0.9,
-        distanceMin: 0,
-        distanceMax: Infinity,
-      },
-
-      field: params => {
-        let nodes = params.nodes
-        let strength = params.properties.strength
-
-        let forces = []
-
-        let forceParams = {
-          type: 'manybody', // f.manybody
-          strength: strength,
-          filter: d => d.eoric.gid === 'nat',
-          src: d3_force, // d3
-          nodes: nodes,
-        }
-
-        let force = muonEoforces.force(forceParams)
-        let field = {'key': 'charge', 'force': force}
-
-        forces.push(field)
-        return forces
-      },
-    }
-
-    // ............................. forceGravity
-    let forceGravity = function (params) { // force
-      let nodes = params.nodes
-
-      let newNodes = []
-
-      let gravity = params.gravity
-
-      function force () { // d3force builtin (vs muon d3force)
-        for (let i = 0; i < nodes.length; ++i) {
-          let node = nodes[i]
-          node.vy += gravity // node.vx += 0.001 * Math.random()
-        }
-      }
-
-      function initialize () {
-        if (!nodes) return
-      }
-
-      return force
-    }
-
-    let force_gravity = { // aniForce:{properties, field}
-
-      properties: {
-        gravity: -0.1,
-      },
-
-      field: params => { // force.field
-        let forces = []
-        let nodes = params.nodes // params: elapsed, nodes, properties.gravity
-
-        let gravity = params.properties.gravity // params.properties
-
-        let forceParams = {
-          type: 'gravity',
-          gravity: gravity,
-          filter: d => true, // d => d.eoric.gid === 'nat',
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let force = forceGravity(forceParams)
-
-        let field = {
-          key: 'gravity',
-          force: force,
-        }
-
-        forces.push(field)
-        return forces
-      },
-    }
-
-    // ............................. forceWind
-    let forceWind = function (params) { // force
-      let nodes = params.nodes
-
-      let newNodes = []
-
-      let wind = params.wind
-
-      function force () { // d3force builtin (vs muon d3force)
-        for (let i = 0; i < nodes.length; ++i) {
-          let node = nodes[i]
-          node.vx += wind[0] // node.vx += 0.001 * Math.random()
-          node.vy += wind[1] // node.vx += 0.001 * Math.random()
-        }
-      }
-
-      function initialize () {
-        if (!nodes) return
-      }
-
-      return force
-    }
-
-    let force_wind = { // aniForce:{properties, field}
-
-      properties: {
-        wind: [0.088, -0.075],
-      },
-
-      field: params => { // force.field
-        let forces = []
-        let nodes = params.nodes // params: elapsed, nodes, properties.wind
-
-        let wind = params.properties.wind // params.properties
-
-        let forceParams = {
-          type: 'wind',
-          wind: wind,
-          filter: d => true, // d => d.eoric.gid === 'nat',
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let force = forceWind(forceParams)
-
-        let field = {
-          key: 'wind',
-          force: force,
-        }
-
-        forces.push(field)
-        return forces
-      },
-    }
-    // ............................. force_charge
-    let force_charge = {
-      'properties': {
-        'charge': -0.85,
-      },
-
-      'field': params => {
-        let forces = []
-
-        let nodes = params.nodes
-        let charge = params.properties.charge
-
-        let forceParams = {
-          type: 'manyBody',
-          strength: charge,
-          filter: d => d.eoric.gid === 'nat',
-          dim: 3,
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let field = {
-          'key': 'charge',
-          'force': d => {
-            return muonEoforces.force(forceParams)
-          },
-
-        }
-        forces.push(field)
-        return forces
-      },
-    }
-
-    // ............................. force_X
-    let force_X = {
-
-      properties: {
-
-        attractionCtt: 0.9,
-
-      },
-
-      field: params => { // force.field
-        let forces = []
-
-        let attractionCtt = params.properties.attractionCtt
-
-        let nodes = params.nodes
-
-        let forceParams = {
-          type: 'x', // f.x
-          position: 10,
-          strength: d => attractionCtt,
-          filter: d => d.eoric.gid === 'nat',
-          src: d3_force,
-          'nodes': nodes,
-        }
-
-        let force = muonEoforces.force(forceParams)
-        let field = {'key': 'x_center', 'force': force}
-
-        forces.push(field)
-        return forces
-      },
-    }
-
-    // ............................. force_Y
-    let force_Y = {
-
-      properties: {
-
-        attractionCtt: 0.7,
-
-      },
-
-      field: function field (params = {}) {
-        let nodes = params.nodes
-        let forces = []
-
-        let attractionCtt = params.properties.attractionCtt
-
-        let forceParams = {
-          type: 'y',
-          position: 10,
-          strength: d => attractionCtt,
-          filter: function (d) {
-            return d.eoric.gid === 'nat'
-          },
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let force = muonEoforces.force(forceParams)
-        let field = {key: 'y_center', force: force}
-
-        forces.push(field)
-        return forces
-      },
-    }
-    // ............................. force_Z
-    let force_Z = {
-
-      properties: {
-
-        attractionCtt: 0.9,
-
-      },
-
-      field: function field (params = {}) {
-        let forces = []
-
-        let attractionCtt = params.properties.attractionCtt
-
-        let nodes = params.nodes
-
-        let forceParams = {
-          'type': 'z',
-          'position': 200,
-          'strength': d => attractionCtt,
-          filter: d => d.eoric.gid === 'nat',
-          src: d3_force,
-          'nodes': nodes,
-        }
-
-        let force = muonEoforces.force(forceParams)
-        let field = {'key': 'z_center', 'force': force}
-
-        forces.push(field)
-        return forces
-      },
-    }
-    // ............................. force_center_orange
-    let force_center_orange = {
-
-      properties: {
-        attractionCtt: 0.25,
-        center: {x: 10, y: 10, z: 10},
-      },
-
-      field: params => {
-        let forces = []
-        let nodes = params.nodes
-
-        let attractionCtt = params.properties.attractionCtt
-        let center = params.properties.center
-
-        let strength = attractionCtt
-
-        let forceParams = {
-          type: 'center', // f.center
-          center: center,
-          strength: d => attractionCtt,
-          filter: d => true, // filter: d => d.eoric.cid === 'orange',
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let force = muonEoforces.force(forceParams)
-
-        let field = {
-          key: 'center_orange',
-          force: force,
-        }
-
-        forces.push(field)
-        return forces
-      },
-    }
-    // ............................. force_center_gold
-    let force_center_gold = {
-      properties: {
-        attractionCtt: 0.0025,
-        center: {x: 200, y: 200, z: 200},
-      },
-      field: function (params = {}) {
-        let attractionCtt = params.properties.attractionCtt
-        let center = params.properties.center
-        let strength = attractionCtt
-        let nodes = params.nodes
-
-        let forceParams = {
-          'type': 'center', // f.center
-          'center': center,
-          'strength': d => attractionCtt,
-          'filter': d => d.eoric.cid === 'gold',
-          'src': d3_force,
-          'nodes': nodes,
-        }
-        let force = {'key': 'center_golde', 'force': muonEoforces.force(forceParams)}
-        return Array.of(force)
-      },
-    }
-
-    // .................. natAni forces
-    natAni.eoload.__forces = {
-      force_energy,
-      force_viscosity,
-      // force_manybody,
-      // force_gravity,
-      force_wind,
-      // force_charge,
-      // force_cube,
-      // force_sphere
-      // force_collide,
-    // force_X,
-    // force_Y,
-    // force_Z,
-    // force_center_orange,
-    // force_center_gold
-    }
 
     // .................. animas
     let animas = [

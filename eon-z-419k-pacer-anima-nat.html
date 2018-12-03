@@ -110,6 +110,7 @@ async function anitem (__mapper) {
           // ... geoadd: 0, geometries will not be accumulated
 
           initN: 24, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
+          
           eohal: 'natform',
           geosort: 'anima',
           geobase: '',
@@ -141,8 +142,10 @@ async function anitem (__mapper) {
               stace = [d[0] + k[0] * ridx(autocount)[0],
                 d[1] + k[1] * ridx(autocount)[1],
                 0]
+                
             } else if (props.key === 'auto') { // AUTO
               stace = [0, 0, 0]
+              
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
