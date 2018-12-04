@@ -28,31 +28,34 @@ async function anitem (__mapper) {
 
       eohal: 'mars',
 
-      eofold: p => {
-        let moore = muonLindenmayer.fractalize({
+      eofold: ani => {
+
+        let hilbert = {  //Hilbert curve
           axiom: 'AFA+F+AFA',
           steps: 5,
           rules: {
             A: '-BF+AFA+FB-',
             B: '+AF-BFB-FA+',
           },
-        })
+          pars: {
+            side: 12,
+            angle: 90,
+            start: [0,-400],
+          }
+        }
 
-        let points = muonLindenmayer.curve({
-          fractal: moore,
-          side: 16,
-          angle: Math.PI / 2,
-        })
+        let geo = muonLindenmayer.linden(hilbert)
 
-        let res = {
+        let geoData = {
           type: 'Feature',
           geometry: {
-            type: 'LineString',
-            coordinates: points,
+            type: 'MultiLineString',
+            coordinates: geo,
           },
           properties: {},
         }
-        return res
+        return geoData
+        
       },
 
       eotim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },

@@ -46,7 +46,6 @@ const state = {
   tspattern: new RegExp('(.*).ts.(.*)$', 'i'), //  ts
   zpattern: new RegExp('^' + 'eon-z' + '.*' + '.*(.js)', 'i'),
 
-  // partsPattern: new RegExp('^((((eon-z-)(?!-).*)([-]?(?!-).*))\.(html))', 'i'),
   partsPattern: new RegExp(`^((eon-z-)([^-.]*))[-]?(.*).html$`, 'i'),
 
   newLine: '\n',
@@ -98,14 +97,14 @@ if (opts.length === 0) { // action: help
   }
 
   if (opts[0] !== undefined) {
-      let pattern = opts[0] // set src ext
-      state.inScopePattern = new RegExp(`^eon-z-.*${pattern}.*\.${state.inScopeExt}$`, 'i')
+    let pattern = opts[0] // set src ext
+    state.inScopePattern = new RegExp(`^eon-z-.*${pattern}.*\.${state.inScopeExt}$`, 'i')
   }
 
   if (opts[1] !== undefined) state.where = opts[1] // where to look for
 }
 
-function getUri(p={}) {
+function getUri (p = {}) {
   let {where, prefix, type, code, ext, name, outdirpath, rootMediaUrl} = p
   let file = ''
   file = (name !== undefined) ? `${prefix}${code}-${name}.${ext}` : `${prefix}${code}.${ext}`
@@ -114,7 +113,7 @@ function getUri(p={}) {
   let uri = (where === 'local') ? path : url
   return uri
 }
-function getThumbnailUri(p={}) {
+function getThumbnailUri (p = {}) {
   let pars = Object.assign({}, p)
   pars.prefix = 'eon-z-'
   pars.ext = 'png'
@@ -122,16 +121,15 @@ function getThumbnailUri(p={}) {
   return getUri(pars)
 }
 
-function getGifUri(p={}) {
+function getGifUri (p = {}) {
   let pars = Object.assign({}, p)
   pars.prefix = 'eon-z-'
   pars.ext = 'gif'
   pars.type = ''
   return getUri(pars)
 }
-function getEonUri(p={}) {
-  let {where, prefix, type, code, ext, name, outdirpath, rootMediaUrl} = p
-  let ext = 'html'
+function getEonUri (p = {}) {
+  let {where, prefix, type, code, ext = 'html', name, outdirpath, rootMediaUrl} = p
   let file = `${prefix}${code}-${name}.${ext}`
   let path = `${outdirpath}${file}`
   let url = `${rootMediaUrl}${file}`
@@ -139,94 +137,89 @@ function getEonUri(p={}) {
   return uri
 }
 
-
 function doAction (stat = {}) { // return outText
+  let outText = ''
 
-    let outText = ''
+  let { qcols, partsPattern, outdirpath, tileimg, tileext, tileview, notile, where, contentUrl, user, repo, branch, hostUrl, folder, endOfLine, newLine, gifext, inDir, indexpattern, testpattern, tspattern, mdpattern, inScopePattern, previewimg, previewext, prefix, previewview} = stat
 
-    let { qcols, partsPattern, outdirpath, tileimg, tileext, tileview, notile, where, contentUrl, user, repo, branch, hostUrl, folder, endOfLine, newLine, gifext, inDir, indexpattern, testpattern, tspattern, mdpattern, inScopePattern, previewimg, previewext, prefix, previewview} = stat
+  let erebody = ''
+  let body = ''
+  let header = `# eons ${newLine}${newLine}**time space manyfolds** ${endOfLine}${newLine}${newLine}`
+  let footer = `${newLine}# license${endOfLine}${newLine}MIT${endOfLine}`
 
-    let erebody = ''
-    let body = ''
-    let header = `# eons ${newLine}${newLine}**time space manyfolds** ${endOfLine}${newLine}${newLine}`
-    let footer = `${newLine}# license${endOfLine}${newLine}MIT${endOfLine}`
+  outText += `${header}`
 
-    outText += `${header}`
+  let zfiles = fs.readdirSync(inDir) // index files in inDir
+    .filter(d => indexpattern.test(d))
+    .filter(d => inScopePattern.test(d))
+    .filter(d => !testpattern.test(d))
+    .filter(d => !mdpattern.test(d))
+    .filter(d => !tspattern.test(d))
 
-    let zfiles = fs.readdirSync(inDir) // index files in inDir
-      .filter(d => indexpattern.test(d))
-      .filter(d => inScopePattern.test(d))
-      .filter(d => !testpattern.test(d))
-      .filter(d => !mdpattern.test(d))
-      .filter(d => !tspattern.test(d))
+  let col = coler(qcols)
+  let rooturl = `${contentUrl}${user}/${repo}/${branch}/`
+  let rootMediaUrl = `${contentUrl}${user}/${repo}/${folder}/${branch}/`
+  let rootRepoUrl = `https://${hostUrl}${user}/${repo}/`
+  rootMediaUrl = `https://${user}.${hostUrl}/${repo}/`
+  rootRepoUrl = `https://${user}.${hostUrl}/${repo}/`
 
-    let col = coler(qcols)
-    let rooturl = `${contentUrl}${user}/${repo}/${branch}/`
-    let rootMediaUrl = `${contentUrl}${user}/${repo}/${folder}/${branch}/`
-    let rootRepoUrl = `https://${hostUrl}${user}/${repo}/`
-      rootMediaUrl = `https://${user}.${hostUrl}/${repo}/`
-      rootRepoUrl = `https://${user}.${hostUrl}/${repo}/`
+  function getPreviewUri (p = {}) {
+    let outdirpath = p.outdirpath
+    let rootMediaUrl = p.rootMediaUrl
+    let where = p.where
+    let code = p.code
+    let ext = 'png'
+    let type = 'preview'
+    let file = 'eon-z-'
+    file = file.concat(code, '-', type, '.', ext)
+    let path = outdirpath.concat(file)
+    let url = rootMediaUrl.concat(file)
+    let uri = (where === 'local') ? path : url
+    return uri
+  }
 
-function getPreviewUri(p={}) {
-  let outdirpath = p.outdirpath
-  let rootMediaUrl = p.rootMediaUrl
-  let where = p.where
-  let code = p.code
-  let ext = 'png'
-  let type = 'preview'
-  let file = 'eon-z-'
-  file = file.concat(code, '-', type, '.', ext)
-  let path = outdirpath.concat(file)
-  let url = rootMediaUrl.concat(file)
-  let uri = (where === 'local') ? path : url
-  return uri
-}
+  for (let i = 0; i < zfiles.length; i++) {
+    let fileName = zfiles[i]
+    let icol = col(i)
 
-    for (let i = 0; i < zfiles.length; i++) {
-      let fileName = zfiles[i]
-      let icol = col(i)
+    let parts = fileName.match(partsPattern)
+    let fullname = parts[0] // eon
+    let prefixAndCode = parts[1]
+    let prefix = parts[2]
+    let code = parts[3] // thumb, gif
+    let name = parts[4] // thumb, gif
 
-      let parts = fileName.match(partsPattern)
-      let fullname = parts[0] // eon
-      let prefixAndCode = parts[1]
-      let prefix = parts[2]
-      let code = parts[3] // thumb, gif
-      let name = parts[4] // thumb, gif
+    let p = {
+      where: where,
+      prefix: prefix,
+      code: code,
+      type: undefined,
+      outdirpath: outdirpath,
+      rootMediaUrl: rootMediaUrl,
+    }
 
+    let outThumbnailPath = getUri(Object.assign({}, p, {name: 'thumbnail', type: 'thumbnail', ext: 'png', where: 'local'}))
+    let outThumbnailUri = getUri(Object.assign({}, p, {name: 'thumbnail', type: 'thumbnail', ext: 'png'}))
+    let outPreviewUri = getUri(Object.assign({}, p, {name: 'preview', type: 'preview', ext: 'png'}))
+    let outGifPath = getUri(Object.assign({}, p, {type: 'gif', ext: 'gif', where: 'local'}))
+    let outGifUri = getUri(Object.assign({}, p, {type: 'gif', ext: 'gif'}))
+    let outEonUri = getUri(Object.assign({}, p, {type: 'zeon', name: name, ext: 'html'}))
 
-      let p = {
-          where: where,
-          prefix: prefix,
-          code: code,
-          type: undefined,
-          outdirpath: outdirpath,
-          rootMediaUrl: rootMediaUrl,
-      }
+    let targetUri
+    if (existsFile(outGifPath)) {
+      targetUri = outGifUri
+    } else {
+      targetUri = outEonUri
+    }
 
-      let outThumbnailPath = getUri(Object.assign({},p,{name:'thumbnail', type:'thumbnail', ext:'png', where:'local'}))
-      let outThumbnailUri = getUri(Object.assign({},p,{name:'thumbnail', type:'thumbnail', ext:'png'}))
-      let outPreviewUri = getUri(Object.assign({},p,{name:'preview', type:'preview', ext:'png'}))
-      let outGifPath = getUri(Object.assign({},p,{type:'gif', ext:'gif', where:'local'}))
-      let outGifUri = getUri(Object.assign({},p,{type:'gif', ext:'gif'}))
-      let outEonUri = getUri(Object.assign({},p,{type:'zeon', name:name, ext:'html'}))
+    let srcUri
+    if (existsFile(outThumbnailPath)) {
+      srcUri = outThumbnailUri
+    } else {
+      srcUri = notile
+    }
 
-
-      let targetUri
-      if (existsFile(outGifPath)) {
-        targetUri = outGifUri
-      } else {
-        targetUri = outEonUri
-      }
-
-      let srcUri
-      if (existsFile(outThumbnailPath)) {
-        srcUri = outThumbnailUri
-      } else {
-        srcUri = notile
-      }
-
-
-        let t = `onmouseover="(function(that){
+    let t = `onmouseover="(function(that){
               that.width='${previewview.width}'
               that.height='${previewview.height}'
                   let outdirpath = that.outdirpath 
@@ -250,37 +243,32 @@ function getPreviewUri(p={}) {
               that.src='${srcUri}'
             })(this);"`
 
-
-
-          outText +=  `[<img id="${i}" alt="${code}"
+    outText += `[<img id="${i}" alt="${code}"
           code="${code}" where="${where}" ext="png" type="preview" prefix="eon-z-"  outdirpath="${outdirpath}"  rootMediaUrl="${rootMediaUrl}"
           src="${srcUri}"
           width="${tileview.width}px;" height="${tileview.height}px;"/>](${targetUri})`
 
-
-      if (icol === qcols - 1) { // end row
-        outText += `${endOfLine}${newLine}`
-      }
+    if (icol === qcols - 1) { // end row
+      outText += `${endOfLine}${newLine}`
     }
-    outText += `${erebody}${body}${newLine}${newLine}`
-    outText += ``
-    outText += `${footer}`
+  }
+  outText += `${erebody}${body}${newLine}${newLine}`
+  outText += ``
+  outText += `${footer}`
 
-    return outText
+  return outText
 }
 
-
-
 if (action === 'doAction') {
-    console.log(`doAction ${state.where} eon files`)
-    let outPath = `${state.outDir}${state.outFile}`
-    let outText = doAction(state)
-    fs.writeFileSync(outPath, outText)
+  console.log(`doAction ${state.where} eon files`)
+  let outPath = `${state.outDir}${state.outFile}`
+  let outText = doAction(state)
+  fs.writeFileSync(outPath, outText)
 } else if (action === 'debug') {
-    console.log(`doAction ${state.where} eon files`)
-    let outPath = `${state.outDir}${state.outFile}`
-    let outText = doAction(state)
-    if (1 && 1) console.log('outText', outPath, outText)
+  console.log(`doAction ${state.where} eon files`)
+  let outPath = `${state.outDir}${state.outFile}`
+  let outText = doAction(state)
+  if (1 && 1) console.log('outText', outPath, outText)
 } else if (action === 'help') {
   console.log(`node ${prgname} {[help], [debug], [do]}
       generate README.md file
@@ -292,8 +280,3 @@ if (action === 'doAction') {
         - eon (.html)
   `)
 }
-
-
-
-
-

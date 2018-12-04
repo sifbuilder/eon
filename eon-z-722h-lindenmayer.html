@@ -1,0 +1,115 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    ctlWen,
+    eohalMars,
+    muonGeoj,
+    muonLindenmayer,
+    prtUniwen,
+    renderSvg,
+  ] = await Promise.all([
+    __mapper('xs').c('wen'),
+    __mapper('xs').e('mars'),
+    __mapper('xs').m('geoj'),
+    __mapper('xs').m('lindenmayer'),
+    __mapper('xs').p('uniwen'),
+    __mapper('xs').r('svg'),
+  ])
+
+  // .................. animas
+  let ani = function () {
+    let ctl = ctlWen().control(renderSvg.svg())
+
+    let aniForm = {
+
+      eotim: { td: 9200, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
+      eoric: { gid: 'ani', cid: 'ani', fid: 'ani' },
+      eohal: 'mars',
+
+      eofold: ani => {
+
+        let hilbert = {  //Hilbert curve
+          axiom: 'AFA+F+AFA',
+          steps: 5,
+          rules: {
+            A: '-BF+AFA+FB-',
+            B: '+AF-BFB-FA+',
+          },
+          pars: {
+            side: 260,
+            angle: 90,
+            start: [0,-400],
+          }
+        }
+
+        
+        let curve = hilbert
+        let geo = muonLindenmayer.linden(curve)
+
+        let geoData = {
+          type: 'Feature',
+          geometry: {
+            type: 'MultiLineString',
+            coordinates: geo,
+          },
+          properties: {},
+        }
+        // return geoData
+
+        let coords = muonGeoj.getCoords(geoData)
+        let nb = coords.length
+        let unitElapsed = ani.eotim.unitElapsed // unit time elapsed
+        let tf = d => d
+        let t = tf(unitElapsed)
+
+        let nbt = Math.ceil(nb * t)
+        let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
+        coords = csi(t).geometry.coordinates
+
+        let ngj = {
+          type: 'Feature',
+          geometry: { type: 'MultiLineString', coordinates: [] },
+          properties: {
+            eocrom: { 'csx': 0, 'cf': 666, 'cs': 888, 'cw': 0.8, 'co': 0.1, 'cp': 0.9},
+          },
+        }
+        // if (1 && 1) console.log('coords', coords)
+
+        console.assert(geoData.geometry.type === 'MultiLineString')
+        ngj.geometry.coordinates = coords
+
+
+        return ngj
+      },
+
+      eocrom: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.1, 0.2]]], 'cp': [[[0.9, 0.9]]]},
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          scale: 1,
+          translate: {'x': 0, 'y': 0 },
+          prerotate: [[[ ctl.rotation ]]],
+          rotate: [ 30, -30, 0 ],
+        },
+      },
+      eoload: {
+      },
+    }
+
+    // .................. animas
+    let animas = [
+      aniForm, // h.mars
+    ]
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

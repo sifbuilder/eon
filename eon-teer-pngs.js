@@ -24,7 +24,7 @@ let dirname = path.dirname(require.main.filename) // __dirname
 // state
 
 const state = {
-  closebrowser: true,
+  closebrowser: false,
   headless: true, // puppeteer.launch
   devtools: false, // puppeteer.launch
   debuggingPort: 9222, // puppeteer.launch
@@ -43,7 +43,7 @@ const state = {
       height: 120,
     },
   },
-  delay: 7000, // waitInPromise
+  delay: 9000, // waitInPromise
   timeout: 50000, // page.goto
   pageSelector: '#viewframe', // page.waitForSelector
   outext: 'png',
@@ -120,7 +120,6 @@ async function actScreenShots (browser, fls, opts) {
     outpathname = `${opts.outdirpath}${outfile}`
     itemOpts = Object.assign({}, opts)
     itemOpts.path = outpathname
-    console.log('screenshot: ', inFullPath, outpathname)
     await pageSrc.screenshot(itemOpts)
 
     // ------ show preview
