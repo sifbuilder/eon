@@ -29,8 +29,7 @@ async function anitem (__mapper) {
       eohal: 'mars',
 
       eofold: ani => {
-
-        let hilbert = {  //Hilbert curve
+        let hilbert = { // Hilbert curve
           axiom: 'AFA+F+AFA',
           steps: 5,
           rules: {
@@ -40,8 +39,8 @@ async function anitem (__mapper) {
           pars: {
             side: 12,
             angle: 90,
-            start: [0,-400],
-          }
+            start: [0, -400],
+          },
         }
 
         let geo = muonLindenmayer.linden(hilbert)
@@ -55,7 +54,6 @@ async function anitem (__mapper) {
           properties: {},
         }
         return geoData
-        
       },
 
       eotim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },

@@ -759,20 +759,17 @@
       return res
     }
 
+    let timeSeg = function (geoData, ut, tf = d => d) {
+      let coords = getCoords(geoData)
+      let nb = coords.length
+      let unitElapsed = ut
+      let t = tf(unitElapsed)
 
-    let timeSeg = function (geoData, ut, tf = d=>d) {
-
-        let coords = getCoords(geoData)
-        let nb = coords.length
-        let unitElapsed = ut
-        let t = tf(unitElapsed)
-
-        let nbt = Math.ceil(nb * t)
-        let ngj =  getCoordsInRange(geoData, nbt)
-        return ngj
+      let nbt = Math.ceil(nb * t)
+      let ngj = getCoordsInRange(geoData, nbt)
+      return ngj
     }
-    
-    
+
     // ............................. enty
     let enty = function () {}
 
