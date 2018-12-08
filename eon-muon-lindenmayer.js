@@ -64,29 +64,46 @@
     }
 
     let forward = function (stat) {
-        let {side, pointstart, angunit, level, lineslifo, angles} = stat
+        let {side, pointstart, angunit, level, lineslifo, angles, randomizeStep, randomizeAngle} = stat
 
-
+      let fkr = 1.0
+      let r = 0.5 - Math.random()
+      if (Math.abs(r) < 0.5 * randomizeStep / 100) {
+        fkr = r
+      }       
+      
         let pos = lineslifo[level].length - 1
         console.assert(pos >=0 , `line not initalized`)
         let dot = lineslifo[level][pos]
 
         let angle = angles[level]
         let newdot = [
-          dot[0] + side * Math.cos(angle),
-          dot[1] + side * Math.sin(angle)]
+          dot[0] + side * Math.cos(angle) * fkr,
+          dot[1] + side * Math.sin(angle) * fkr
+        ]
         return newdot
     }
 
     let right = function (stat) {
-      let {side, angunit, level, lineslifo, angles} = stat
-      let newang = angles[level] - angunit
+      let {side, angunit, level, lineslifo, angles, randomizeStep, randomizeAngle} = stat
+      let fkr = 1.0
+      let r = 0.5 - Math.random()
+      if (Math.abs(r) < 0.5 * randomizeAngle / 100) {
+        fkr = r
+      }
+      let newang = angles[level] - angunit * fkr
       return newang
     }
 
     let left = function (stat) {
-        let {side, angunit, level, lineslifo, angles} = stat
-      let newang = angles[level] + angunit
+        let {side, angunit, level, lineslifo, angles, randomizeStep, randomizeAngle} = stat
+      let fkr = 1.0
+      let r = 0.5 - Math.random()
+      if (Math.abs(r) < 0.5 * randomizeAngle / 100) {
+        fkr = r
+      }        
+      let newang = angles[level] + angunit * fkr
+
       return newang
     }
 
@@ -101,22 +118,24 @@
       // randomize angle: % randomize angle.
       
     let curve = (lindenmayer) => {
-      let anglestart
-      if (lindenmayer.mayer.anglestart !== undefined) {
-          anglestart = lindenmayer.mayer.anglestart
+      let angstart
+      if (lindenmayer.mayer.angstart !== undefined) {
+          angstart = lindenmayer.mayer.angstart
       } else {
-          anglestart = lindenmayer.mayer.angle
+          angstart = lindenmayer.mayer.angle
       }
-      anglestart *= Math.PI / 180
+      angstart *= Math.PI / 180
       let angunit = lindenmayer.mayer.angle * Math.PI / 180
       let pointstart = lindenmayer.mayer.start || [0,0]
       let side = lindenmayer.mayer.side
       let fractal = lindenmayer.fractal
 
+      let randomizeStep = lindenmayer.mayer.randomizeStep || 0
+      let randomizeAngle = lindenmayer.mayer.randomizeAngle || 0
 
       // let lineslifo = Array.of([ pointstart ])
       let lineslifo = Array.of([  ])
-      let angles = Array.of( anglestart )
+      let angles = Array.of( angstart )
       
       let lines = Array.of([  ])
       let level = 0
@@ -126,7 +145,7 @@
       let items = []  // item: status, level, count, line
 
 
-      let stat = {side, pointstart, angunit, level, angles, lineslifo}
+      let stat = {side, pointstart, angstart, randomizeStep, randomizeAngle, angunit, level, angles, lineslifo}
 
       for (let ch of fractal) { // char in array
 
@@ -147,21 +166,21 @@
           
         } else if (ch === 'F' || ch === 'f') {
 
-        
           if (stat.lineslifo[stat.level].length === 0) {
             if (stat.level === 0) { 
-            
                 let dot = pointstart
                 stat.lineslifo[stat.level][0] = dot // initialize line            
-            
             } else {
-              
                 let dot = stat.lineslifo[stat.level -1 ][stat.lineslifo[stat.level -1 ].length -1]
                 stat.lineslifo[stat.level][0] = dot // initialize line
-                
             }
           }
-
+          if (stat.lineslifo[stat.level].length === 0) {
+            if (stat.angles.length === 0) {
+              stat.angles.push(angstart)
+            }
+          }
+          
           let newdot = forward(stat)
           stat.lineslifo[stat.level].push(newdot) // add dot to line
 
@@ -185,7 +204,7 @@
               firstPoint = lastPointInLine
             }            
             if (newangle !== undefined) {
-              newangle = anglestart
+              newangle = angstart
             } else {
               newangle = angleInLevel
             }
@@ -202,9 +221,6 @@
                let lastOpenLine = openlines[openlines.length -1]
                lines[lastOpenLine] = stat.lineslifo[stat.level]
           
-
-
-
         } else if (ch === ']') {
 
             lines.push(stat.lineslifo[stat.lineslifo.length -1])  // _e_
@@ -215,8 +231,6 @@
 
             openlines.splice(-1,1)
             
-            // if (1 && 1) console.log(']  :', stat.level, counter, openlines)
-
            
         }
       }
