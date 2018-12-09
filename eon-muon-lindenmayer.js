@@ -43,13 +43,10 @@
       }
       steps = steps - 1
       if (steps <= 0) {
-      // let output = '[+OF--PF[---MF--NF]+]++[+OF--PF[---MF--NF]+]++[+OF--PF[---MF--NF]+]++[+OF--PF[---MF--NF]+]++[+OF--PF[---MF--NF]+]'
-      // let output =    '[+OFO-O-OPFO[O-O-O-OMOFO--ONF]+]O++O[+OF--PF[---MF--NF]+]'
 
         lindenmayer.fractal = output
 
         cache.linden = linden
-        // if (1 && 1) console.log('lindenmayer', lindenmayer.fractal)
 
         return lindenmayer
       }
