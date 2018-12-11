@@ -167,7 +167,9 @@
       let anigram = muonAnitem.functorize(snapped)
       let eohal = (typeof (anitem.eohal) === 'object')
         ? anitem.eohal
-        : __mapper(__mapper(__mapper('xs').ceonize(anigram.eohal, 'eohal'))) // expected in __mapper
+        // : __mapper(__mapper(__mapper('xs').ceonize(anigram.eohal, 'eohal'))) // expected in __mapper
+        : __mapper(__mapper('xs').ceonize(anigram.eohal, 'eohal')) // expected in __mapper
+      console.assert(eohal !== null, `eohal ${__mapper('xs').ceonize(anigram.eohal, 'eohal')} not found`)
       let newItems = muonProps.a(eohal.gramm(anigram))
       _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
       newItems.forEach(newItem => {

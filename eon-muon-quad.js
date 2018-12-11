@@ -19,8 +19,14 @@
   async function muonQuad (__mapper) {
     let [
       d3,
+    renderPortview,
+    renderSvg,
+      
     ] = await Promise.all([
       __mapper('xs').b('d3'),
+    __mapper('xs').r('portview'),
+    __mapper('xs').r('svg'),
+      
     ])
 
     let d3Quadtree = d3
@@ -128,9 +134,22 @@
     // quad.candysearch = function(ra2=10, polygon = null, candidates = 10, sample = 10) {
     let candysearch = function (ra2 = 10, polygon = null, candidates = 10, sample = 10) {
       let mols = []
+      let coords = polygon  // stream of coordinates
       for (let i = 0; i < sample; i++) {
+        
         let extent = quad.extent()
         let x0 = extent[0][0], y0 = extent[0][1], x1 = extent[1][0], y1 = extent[1][1]
+        if (polygon !== null) {
+          let xcoords = coords.map(d => d[0])
+          let ycoords = coords.map(d => d[1])
+          x0 = Math.min(...xcoords)
+          y0 = Math.min(...ycoords)
+          x1 = Math.max(...xcoords)
+          y1 = Math.max(...ycoords)
+
+        }
+        
+        
         let range = Math.max(x1 - x0, y1 - y0)
         let angle = Math.random() * Math.PI * 2
         let radius = Math.random() * range

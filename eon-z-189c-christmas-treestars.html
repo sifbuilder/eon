@@ -1,0 +1,154 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    ctlRayder,
+    ctlWen,
+    eohalFuel,
+    eohalNatform,
+    eohalPacer,
+    eohalTextform,
+    eohalMars,
+    muonGeoj,
+    muonNatform,
+    muonStace,
+    prtUniwen,
+    renderSvg,
+  ] = await Promise.all([
+    __mapper('xs').c('rayder'),
+    __mapper('xs').c('wen'),
+    __mapper('xs').e('fuel'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('pacer'),
+    __mapper('xs').e('textform'),
+    __mapper('xs').e('mars'),
+    __mapper('xs').m('geoj'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').m('stace'),
+    __mapper('xs').p('uniwen'),
+    __mapper('xs').r('svg'),
+  ])
+
+  let muonStore = __mapper('muonStore')
+
+  // .................. animas
+  let ani = function () {
+    // .................. pics
+    let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+
+    
+    // ....................... natTree
+    let natTree = {
+
+      eohal: 'mars',
+      eotim: eotim,
+      eoric: {gid: 'nat', cid: 'nat', fid: 'natTree'},
+
+      eofold: p => muonNatform.natFeature(p.eoform),
+      eonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {
+          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+        },
+      },
+      eoform: {
+        x: {
+          "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
+          'ra2': 90, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        },
+        y: {
+          "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
+          'ra2': 90, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        },
+      },
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ 0,0 ], //
+          scale: [1, 1.5, 1],
+          rotate: [ 0, 0, 30 ],
+          lens: [0, 1, Infinity],
+        },
+      },
+      eocrom: { 'csx': 0, 'cf': [[[100,300]]], 'co': [[[0.29, 0.29]]], 'cs': [[[333, 333]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+
+      eoload: {
+      
+      },
+
+    }
+    
+    // ....................... natStar
+    let natStar = {
+
+      eohal: 'fuel', // 'mars',
+      eotim: eotim,
+      eoric: {gid: 'nat', cid: 'nat', fid: 'natStar'},
+
+      eofold: p => muonNatform.natFeature(p.eoform),
+      eonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {
+          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+        },
+      },
+      eoform: {
+        x: {
+          "m1":5,"m2":5,"n1":30,"n2":100,"n3":100,"a":1,"b":1,
+          'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        },
+        y: {
+          "m1":5,"m2":5,"n1":30,"n2":100,"n3":100,"a":1,"b":1,
+          'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+        },
+      },
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ 0,0 ], //
+          scale: [1, 1, 1],
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity],
+        },
+      },
+      eocrom: { 'csx': 0, 'cf': [[[600,990, 600,990, 600,990]]], 'co': [[[0.99, 0.99]]], 'cs': [[[100, 100]]], 'cw': [[[0.2, 0.2]]], 'cp': [[[0.7, 0.9]]]},
+
+      eoload: {
+        fuel: {
+          f:2, sam:12,
+          ra2: 6,
+          candidates: 8,
+          sample: 8,
+        }
+      },
+
+    }
+
+    natTree.avatars = {natStar}
+
+    // .................. animas
+    let animas = [
+      natTree,
+      // natStar,
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

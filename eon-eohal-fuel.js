@@ -10,22 +10,22 @@
 
   async function eohalFuel (__mapper = {}) {
     let [
-      renderPortview,
-      muonAnitem,
-      mquad,
+      d3Polygon,
+      eohalNatform,
+      muonQuad,
       muonGeom,
       muonGeoj,
-      eohalNatform,
-      d3Polygon,
+      renderPortview,
     ] = await Promise.all([
-      __mapper('xs').r('portview'),
-      __mapper('xs').m('anitem'),
+      __mapper('xs').b('d3-polygon'),
+      __mapper('xs').e('natform'),
       __mapper('xs').m('quad'),
       __mapper('xs').m('geom'),
       __mapper('xs').m('geoj'),
-      __mapper('xs').e('natform'),
-      __mapper('xs').b('d3-polygon'),
+      __mapper('xs').r('portview'),
     ])
+
+    let muonStore = __mapper('muonStore') // sync
 
     let state = {}
     state.items = [] // fuel particles
@@ -34,12 +34,11 @@
 
     // ............................. gramm
     let gramm = function (anitem, newAnigrams = []) {
-      let muonStore = __mapper('muonStore') // sync
 
       let eoload = anitem.eoload, // eoload
-        eofold = eofold, // eofold
-        eoric = eoric, // eoric
-        pid = pid // pid
+        eofold = anitem.eofold, // eofold
+        eoric = anitem.eoric, // eoric
+        pid = eoric.pid // pid
 
       let fuel = eoload.fuel,
         ra2 = fuel.ra2,
@@ -50,14 +49,15 @@
       let parentAnigram = muonStore.findAnigramFromUid(pid)
 
       if (parentAnigram) {
-        let geometry = parentAnigram.eofold.geometry
-        if (!muonGeoj.isValid(geometry)) { console.error('h.mars:gj not valid', geometry) }
-        polygon = muonGeoj.getCoords(geometry) // outer ring
+        let gj = parentAnigram.eofold
+        console.assert(muonGeoj.isValid(gj))
+        polygon = muonGeoj.getPolygon(gj) // outer ring
       } else {
         polygon = muonGeom.extentPolygon([[0, 0], [width, height]]) // viewport
       }
+if (0 && 1) console.log('polygon', polygon)
 
-      let foundcandies = mquad.candysearch(ra2, polygon, candidates, sample) // candies
+      let foundcandies = muonQuad.candysearch(ra2, polygon, candidates, sample) // candies
 
       let remainCandies = []
       if (fuel.f === 3) { // 3 - old and new all time _e_
@@ -78,8 +78,8 @@
         let _ric = {gid, cid, fid}
 
         let _proform = { // proform each candy
-          'projection': 'uniwen',
-          'translate': remainCandies[i], // translate each candy to candy location
+          projection: 'uniwen',
+          translate: remainCandies[i], // translate each candy to candy location
         }
         let newAnigram = {} // new anigram per fuel nat
         newAnigram.eohal = 'natform'

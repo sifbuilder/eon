@@ -486,6 +486,48 @@
       return coords
     }
 
+    // ...................... getPolygon
+    let getPolygon = function (gj, coords = []) {
+      if (gj === undefined) {
+      } else {
+        if (gj.type == 'Feature') {
+          let geometry = gj.geometry
+          if (geometry !== null) coords = getPolygon(geometry, coords)
+        } else if (gj.type == 'FeatureCollection') {
+          // get first feature
+            let feature = gj.features[0]
+            coords = getCoords(feature, coords)
+        } else if (gj.type == 'GeometryCollection') {
+            let geometry = gj.geometries[0]
+            coords = getPolygon(geometry, coords)
+        } else if (gj.type === 'Point') {
+          coords = null
+        } else if (gj.type === 'LineString') {
+          let points = gj.coordinates
+          let qpoints = points.length
+          if (linpoints[0] !== points[qpoints -1]) points.push(line[0])
+          coords = points
+        } else if (gj.type === 'MultiPoint') {
+          let points = gj.coordinates
+          let qpoints = points.length
+          if (linpoints[0] !== points[qpoints -1]) points.push(line[0])
+          coords = points
+        } else if (gj.type === 'Polygon') {
+          coords = gj.coordinates
+        } else if (gj.type === 'MultiLineString') {
+          let points = gj.coordinates[0]
+          let qpoints = points.length
+          if (linpoints[0] !== points[qpoints -1]) points.push(line[0])
+          coords = points
+        } else if (gj.type === 'MultiPolygon') {
+          coords = gj.coordinates[0][0]
+        } else {
+          throw new Error('gj type not identified.')
+        }
+      }
+
+      return coords
+    }
     // ...................... getCoordsLength
     let getCoordsLength = gj => getCoords(gj).length
 
@@ -773,6 +815,7 @@
     // ............................. enty
     let enty = function () {}
 
+    enty.getPolygon = getPolygon
     enty.isValidCoord = isValidCoord
     enty.geotrim = geotrim
     enty.trim = trim
