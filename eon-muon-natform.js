@@ -484,9 +484,11 @@
 
           geometry = _geofn(graticule).geometry
           // geometry = muonGraticule.hMultiLine(graticule).geometry
+          
         } else { // ___ 2d
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y
+          
           sx = 360
           sy = 360
 
@@ -498,12 +500,20 @@
 
           let p = geometry.coordinates[1].slice(0, -1)
 
+          
+          // eg:  0: [-180, 0]
+          //      1: [-120, 0]
+          //      2: [-60, 0]
+          //      3: [0, 0]
+          //      4: [60, 0]
+          //      5: [120, 0]
+
+          if (p[0] !== p[p.length-1]) p.push(p[0])  // _e_ close polygon
           geometry.coordinates = Array.of(p)
         }
 
         // let quads = muonGraticule.qfaces(graticule)
         // let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
-        // if (1 && 1) console.log('geometry', geometry)
 
         let gj = {
           type: 'Feature',

@@ -62,11 +62,11 @@ async function anitem (__mapper) {
       eoform: {
         x: {
           "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
-          'ra2': 90, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+          'ra2': 90, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': -1,
         },
         y: {
           "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
-          'ra2': 90, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+          'ra2': 90, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': -1,
         },
       },
       eomot: {
@@ -114,23 +114,15 @@ async function anitem (__mapper) {
           'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         },
       },
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          translate: [ 0,0 ], //
-          scale: [1, 1, 1],
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
-        },
-      },
+
       eocrom: { 'csx': 0, 'cf': [[[600,990, 600,990, 600,990]]], 'co': [[[0.99, 0.99]]], 'cs': [[[100, 100]]], 'cw': [[[0.2, 0.2]]], 'cp': [[[0.7, 0.9]]]},
 
       eoload: {
         fuel: {
-          f:2, sam:12,
-          ra2: 6,
-          candidates: 8,
-          sample: 8,
+          f: 2,  // which items are showed: 2: just those new
+          ra2: 6, // 
+          candidates: 8,  
+          sample: 18,  
         }
       },
 

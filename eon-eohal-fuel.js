@@ -12,16 +12,18 @@
     let [
       d3Polygon,
       eohalNatform,
-      muonQuad,
-      muonGeom,
+      muonEoric,
       muonGeoj,
+      muonGeom,
+      muonQuad,
       renderPortview,
     ] = await Promise.all([
       __mapper('xs').b('d3-polygon'),
       __mapper('xs').e('natform'),
-      __mapper('xs').m('quad'),
-      __mapper('xs').m('geom'),
+      __mapper('xs').m('eoric'),
       __mapper('xs').m('geoj'),
+      __mapper('xs').m('geom'),
+      __mapper('xs').m('quad'),
       __mapper('xs').r('portview'),
     ])
 
@@ -55,9 +57,9 @@
       } else {
         polygon = muonGeom.extentPolygon([[0, 0], [width, height]]) // viewport
       }
-if (0 && 1) console.log('polygon', polygon)
 
       let foundcandies = muonQuad.candysearch(ra2, polygon, candidates, sample) // candies
+if (1 && 1) console.log('foundcandies', foundcandies.length)
 
       let remainCandies = []
       if (fuel.f === 3) { // 3 - old and new all time _e_
@@ -70,23 +72,37 @@ if (0 && 1) console.log('polygon', polygon)
         remainCandies = [...remainCandies, ...foundcandies]
       }
 
-      for (let i = 0; i < remainCandies.length; i++) { // for each candy ...
-        let idx = i
-        let gid = eoric.gid // from ava eoric
-        let cid = eoric.cid
-        let fid = (eoric.fid === undefined) ? eoric.cid + '_' + idx : eoric.fid
-        let _ric = {gid, cid, fid}
 
-        let _proform = { // proform each candy
-          projection: 'uniwen',
-          translate: remainCandies[i], // translate each candy to candy location
-        }
+      for (let i = 0; i < remainCandies.length; i++) { // for each candy ...
+
+          let gid = eoric.gid, // from ava eoric
+            cid = eoric.cid,
+            fid = muonEoric.idify(eoric.fid, i),
+            uid = muonEoric.idify(gid, cid, fid),
+            pid = eoric.uid
+          let _ric = {gid, cid, fid, uid, pid} // is DELLED ?
+
+        let eomot = {
+          proform: {
+            projection: 'uniwen',
+            translate: remainCandies[i], //
+            scale: [1, 1, 1],
+            rotate: [ 0, 0, 0 ],
+            lens: [0, 1, Infinity],
+          },
+      }
+
+
         let newAnigram = {} // new anigram per fuel nat
         newAnigram.eohal = 'natform'
-        newAnigram.eofold = eofold
-        newAnigram.eoload = eoload
+        newAnigram.eofold = anitem.eofold
+        newAnigram.eonode = anitem.eonode
+        newAnigram.eoform = anitem.eoform
+        newAnigram.eocrom = anitem.eocrom
+        newAnigram.eoload = anitem.eoload
         newAnigram.eoric = _ric // identify each fuel nat
-        newAnigram.eoload.proform = _proform // proform of each fuel nat
+
+        newAnigram.eomot = eomot // proform of each fuel nat
 
         let avaAnigrams = eohalNatform.gramm(newAnigram) // async
         newAnigrams = [...newAnigrams, ...avaAnigrams]

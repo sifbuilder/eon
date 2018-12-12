@@ -161,14 +161,19 @@
         py = PY
 
         rp = {X0, X1, DX, PX, x0, x1, dx, px, Y0, Y1, DY, PY, y0, y1, dy, py}
+        
       } else if (params.frame !== undefined) { // frame
-        // frame: [ [X_extent, Y_extent] , [x_extent, y_extent] ]
+      
+        // frame: [ [X_extent, Y_extent] , 
+        //          [x_extent, y_extent] ]
 
         let graticule = params.frame // major, minor
 
         if (graticule.length === 2) {
-        // eg. [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ],
-        // [  [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ]
+        // eg. [ [ [-180, 180, 45, 45], 
+        //         [-90, 90, 22.5, 22.5] ],
+        //       [ [-180, 180, 45, 45], 
+        //          [-90, 90, 22.5, 22.5] ] ]
 
           X_extent = graticule[0][0]
           Y_extent = graticule[0][1]

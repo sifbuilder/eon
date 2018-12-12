@@ -43,12 +43,23 @@ async function anitem (__mapper) {
     let natStar = {
 
       eohal: 'mars',
-
-      eofold: p => muonNatform.natFeature(p.eoform),
-
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      
       eocrom: { 'csx': 0, 'cf': [[[999, 999, 999]]], 'co': [[[0.99, 0.99]]], 'cs': [[[999, 999]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      
+      eofold: p => muonNatform.natFeature(p.eoform),
+      eonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {
+          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+        },
+      },
+
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -68,16 +79,6 @@ async function anitem (__mapper) {
           scale: 1,
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
-        },
-      },
-      eonode: {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
-        properties: {
-          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
       eoform: {

@@ -43,22 +43,10 @@ async function anitem (__mapper) {
     let natTree = {
 
       eohal: 'mars',
-
-      eofold: p => muonNatform.natFeature(p.eoform),
-
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
-      eocrom: { 'csx': 0, 'cf': [[[100,300]]], 'co': [[[0.29, 0.29]]], 'cs': [[[333, 333]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          prerotate: [[[ ctlWen.rotation ]]],
-          translate: [ 0,0 ], //
-          scale: [1, 1.5, 1],
-          rotate: [ 0, 0, 30 ],
-          lens: [0, 1, Infinity],
-        },
-      },
+
+      eofold: p => muonNatform.natFeature(p.eoform),
       eonode: {
         type: 'Feature',
         geometry: {
@@ -69,6 +57,18 @@ async function anitem (__mapper) {
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          prerotate: [[[ ctlWen.rotation ]]],
+          translate: [ 0,0 ], //
+          scale: [1, 1.5, 1],
+          rotate: [ 0, 0, 30 ],
+          lens: [0, 1, Infinity],
+        },
+      },
+      eocrom: { 'csx': 0, 'cf': [[[100,300]]], 'co': [[[0.29, 0.29]]], 'cs': [[[333, 333]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
       eoform: {
         x: {
           "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,

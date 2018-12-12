@@ -12,13 +12,13 @@ async function anitem (__mapper) {
     ctlWen,
     eohalNatform,
     eohalMars,
-    muonAnimas,
+    muonNatform,
     renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('natform'),
     __mapper('xs').e('mars'),
-    __mapper('xs').m('animas'),
+    __mapper('xs').m('natform'),
     __mapper('xs').r('svg'),
   ])
 
@@ -33,131 +33,58 @@ async function anitem (__mapper) {
 
     // ............................. natAni
     let natAni1 = {
-      eohal: 'natform',
-      eofold: null,
-
+    
+      eohal: 'mars',
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
 
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          translate: [ -200, 0, 0], // mot
-          scale: 1,
-          rotate: [ [[[0, 90]]], [[[0, 90]]], [[[0, 90]]] ],
-          prerotate: [[[ ctl.rotation ]]],
-          lens: [0, 1, Infinity],
-          geoanod: 1, // eonode
+      
+      eofold: p => muonNatform.natFeature(p.eoform),
+      eonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {
+          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
-
-      eocrom: eocrom,
-      eoform: {
-
-        'x': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          'dom3': [ -180, 180 ],
-        },
-        'y': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          'dom3': [ -180, 180 ],
-        },
-
-      },
-
-      eoload: {},
-    }
-
-    // ............................. natAni
-    let natAni2 = {
-      eohal: 'natform',
-      eofold: null,
-
-      eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'nat2'},
-
+      
       eomot: {
         proform: {
           projection: 'uniwen',
           translate: [ 0, 0, 0], // mot
           scale: 1,
-          rotate: [ [[[0, 90]]], [[[0, 90]]], [[[0, 90]]] ],
+          rotate: [ 0,0,0 ],
           prerotate: [[[ ctl.rotation ]]],
           lens: [0, 1, Infinity],
           geoanod: 1, // eonode
         },
       },
 
-      eocrom: eocrom,
       eoform: {
 
         'x': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 120 * Math.sqrt(2), 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
           'dom3': [ -180, 180 ],
         },
         'y': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 120 * Math.sqrt(2), 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          'dom3': [ -180, 180 ],
-        },
-        'z': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
           'dom3': [ -180, 180 ],
         },
 
-      },
-
-      eoload: {},
-    }
-
-    // ............................. natAni
-    let natAni3 = {
-      eohal: 'natform',
-      eofold: null,
-
-      eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'nat3'},
-
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          translate: [ 200, 0, 0], // mot
-          scale: 1,
-          rotate: [ [[[0, 90]]], [[[0, 90]]], [[[0, 90]]] ],
-          prerotate: [[[ ctl.rotation ]]],
-          lens: [0, 1, Infinity],
-          geoanod: 1, // eonode
-        },
       },
 
       eocrom: eocrom,
-      eoform: {
-
-        'x': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          'dom3': [ -180, 180 ],
-        },
-        'y': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          'dom3': [ -180, 180 ],
-        },
-
-      },
-
       eoload: {},
     }
 
     // ............................. animas
     let animas = [
-      natAni1, // h.natform
-      natAni2, // h.natform
-      natAni3, // h.natform
+      natAni1, // h.mars
 
     ]
 
