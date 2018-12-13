@@ -495,12 +495,18 @@
           let xdomain = nformed.x.dom3 || [-180, 180]
           let ydomain = nformed.y.dom3 || [-180, 180]
 
-          graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // _e_ x, y
+          let frame = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
+          
+          graticule = {
+              frame: frame,
+              dist: 1,  // asym
+              border: 1,  // open
+          } // _e_ x, y
+
           geometry = _geofn(graticule).geometry // geometry.type: MultiLineString
 
-          let p = geometry.coordinates[1].slice(0, -1)
+          let p = geometry.coordinates[1] // .slice(0, -1)  // graticule.symgraticuleX arywinopen
 
-          
           // eg:  0: [-180, 0]
           //      1: [-120, 0]
           //      2: [-60, 0]
@@ -508,7 +514,7 @@
           //      4: [60, 0]
           //      5: [120, 0]
 
-          if (p[0] !== p[p.length-1]) p.push(p[0])  // _e_ close polygon
+          if (p[0] !== p[p.length-1]) p.push(p[0])  // _e_ 105c close polygon
           geometry.coordinates = Array.of(p)
         }
 

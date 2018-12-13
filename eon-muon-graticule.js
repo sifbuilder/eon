@@ -17,9 +17,13 @@
       __mapper('xs').b('d3-array'),
     ])
 
+    let d3Range = d3array.range
+
     const acos = Math.acos, asin = Math.asin, atan2 = Math.atan2, cos = Math.cos,
       max = Math.max, min = Math.min, PI = Math.PI, sin = Math.sin, sqrt = Math.sqrt,
       radians = PI / 180, degrees = 180 / PI, eps = 1e-5
+
+    const epsilon = 1e-5
 
     // http://adripofjavascript.com/blog/drips/object-equality-in-javascript.html
     let isSame = function (a, b) {
@@ -161,18 +165,18 @@
         py = PY
 
         rp = {X0, X1, DX, PX, x0, x1, dx, px, Y0, Y1, DY, PY, y0, y1, dy, py}
-        
+
       } else if (params.frame !== undefined) { // frame
-      
-        // frame: [ [X_extent, Y_extent] , 
+
+        // frame: [ [X_extent, Y_extent] ,
         //          [x_extent, y_extent] ]
 
         let graticule = params.frame // major, minor
 
         if (graticule.length === 2) {
-        // eg. [ [ [-180, 180, 45, 45], 
+        // eg. [ [ [-180, 180, 45, 45],
         //         [-90, 90, 22.5, 22.5] ],
-        //       [ [-180, 180, 45, 45], 
+        //       [ [-180, 180, 45, 45],
         //          [-90, 90, 22.5, 22.5] ] ]
 
           X_extent = graticule[0][0]
@@ -218,42 +222,42 @@
     }
 
     // .................. arywinopen
-    let arywinopen = (x0, x1, dx) => {
-      let epsilon = 1e-5
-      let xx = []
-      let mx = Math.max(Math.abs(x0), Math.abs(x1)) - epsilon
-      let mt = Math.ceil(mx / dx)
-      for (let i = -mt; i < mt; i++) { if (x0 < i * dx && i * dx < x1) { xx.push(i * dx) } }
-      return xx
+    let arywinopen = (d0, d1, dd) => {  // _e_
+      let res = []
+      let md = Math.max(Math.abs(d0), Math.abs(d1)) - epsilon
+      let mt = Math.ceil(md / dd)
+      for (let i = -mt; i < mt; i++) { if (d0 < i * dd && i * dd < d1) { res.push(i * dd) } }
+      return res
     }
 
     // .................. arywinclosed
-    let arywinclosed = (x0, x1, dx) => [x0, ...arywinopen(x0, x1, dx), x1]
+    let arywinclosed = (d0, d1, dd) => [d0, ...arywinopen(d0, d1, dd), d1]
 
-    // .................. symgraticuleX
-    function symgraticuleX (y0, y1, dy) {
-      let y = arywinclosed(y0, y1, dy) // sym win
-      return _ => y.map(y => [_, y])
-    }
 
-    // .................. symgraticuleY
-    function symgraticuleY (x0, x1, dx) {
-      let x = arywinclosed(x0, x1, dx) // sym win
-      return _ => x.map(x => [x, _])
-    }
-
-    // .................. asymgraticuleX
-    function asymgraticuleX (y0, y1, dy) {
-      let d3Range = d3array.range
-      let y = d3Range(y0, y1 - eps, dy).concat(y1) // [y0,y1) ,y1]
-      return _ => y.map(y => [_, y])
-    }
-
-    // .................. asymgraticuleY
-    function asymgraticuleY (x0, x1, dx) {
-      let d3Range = d3array.range
-      let x = d3Range(x0, x1 - eps, dx).concat(x1) // [x0,x1) ,x1]
-      return _ => x.map(x => [x, _])
+    function grt(d0, d1, dd, c=0, f=0, p=0) { // def: x, sym, closed
+      // ...[d0,d1,dd] : ...[x0,x1,dx], ...[y0,y1,dy] 
+      // sym: origin in the center. delta towards the extremes
+      // asym: interval from left to right border
+      // open: from left to right border
+      // closed: set left border as right extreme
+      // c: 0: x,       1: y
+      // f: 0: sym,     1: asym
+      // p: 0: closed,  1: open
+      let res
+      if (f === 0 && p === 0) { // sym closed
+        let d = arywinclosed(d0, d1, dd)
+        res = c === 0 ? _ => d.map(d => [_, d]) : _ => d.map(d => [d, _]) // x | y
+      } else if (f === 0 && p === 1) { // sym open
+        let d = arywinopen(d0, d1, dd)
+        res = c === 0 ? _ => d.map(d => [_, d]) : _ => d.map(d => [d, _]) // x | y
+      } else if (f === 1 && p === 0) { // asym closed
+        let d = d3Range(d0, d1 - eps, dd).concat(d1) // [y0,y1) ,y1]
+        res = c === 0 ? _ => d.map(d => [_, d]) : _ => d.map(d => [d, _]) // x | y
+      } else if (f === 1 && p === 1) { // asym open
+        let d = d3Range(d0, d1 - eps, dd)
+        res = c === 0 ? _ => d.map(d => [_, d]) : _ => d.map(d => [d, _]) // x | y
+      }
+      return res
     }
 
     // .................. grarr
@@ -261,12 +265,13 @@
       let d3Range = d3array.range
       let {X0, X1, DX, PX, x0, x1, dx, px,
         Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
+      let {dist, border} = params
 
       // get circles from point in sphere and step
-      let X = symgraticuleX(Y0, Y1, PY), // get X(Y) by PY
-        Y = symgraticuleY(X0, X1, PX), // get Y(X) by PX
-        x = symgraticuleX(y0, y1, py), // get x(y) by py
-        y = symgraticuleY(x0, x1, px) // get y(x) by px
+      let X = grt(Y0, Y1, PY, 1, dist, border), // get X(Y) by PY
+          Y = grt(X0, X1, PX, 1, dist, border), // get Y(X) by PX
+          x = grt(y0, y1, py, 0, dist, border), // get x(y) by py
+          y = grt(x0, x1, px, 0, dist, border) // get y(x) by px
 
       // include first meridian
       let bigmer = (params.bigmer !== undefined) ? params.bigmer : 1
@@ -351,7 +356,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: coords},
-        properties: {muonGraticule: 'vhMultiLine'},
+        properties: {muonGraticule: 'vMultiLine'},
       }
       if (!muonGeoj.isValid(gj)) console.error('gj not valid')
 
@@ -369,7 +374,7 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: coords},
-        properties: {muonGraticule: 'vhMultiLine'},
+        properties: {muonGraticule: 'hMultiLine'},
       }
       if (!muonGeoj.isValid(gj)) console.error('gj not valid')
 

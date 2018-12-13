@@ -1,0 +1,98 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+xEonify.eon({anitem, time: undefined})
+
+// ... eon z anima
+// ... render anima from m.animas
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    ctlWen,
+    eohalNatform,
+    eohalMars,
+    muonNatform,
+    renderSvg,
+  ] = await Promise.all([
+    __mapper('xs').c('wen'),
+    __mapper('xs').e('natform'),
+    __mapper('xs').e('mars'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').r('svg'),
+  ])
+
+  // .................. animas
+  let ani = function () {
+    let ctl = ctlWen().control(renderSvg.svg())
+
+    // .................. pics
+    let eotim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
+
+    let eocrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[777, 777]]], 'cw': [[[0.99, 0.99]]], 'cp': [[[0.9, 0.9]]]}
+
+    // ............................. natAni
+    let natAni1 = {
+    
+      eohal: 'mars',
+      eotim,
+      eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
+
+      
+      eofold: p => muonNatform.natFeature(p.eoform),
+      eonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {
+          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+        },
+      },
+      
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ 0, 0, 0], // mot
+          scale: 1,
+          rotate: [ 0,0,-90 ],  // rot -90 anticlock-wise
+          prerotate: [[[ ctl.rotation ]]],
+          lens: [0, 1, Infinity],
+          geoanod: 1, // eonode
+        },
+      },
+
+      eoform: {
+
+        'x': {
+          "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
+          'dom3': [ -180, 180 ],
+        },
+        'y': {
+          "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
+          'dom3': [ -180, 180 ],
+        },
+
+      },
+
+      eocrom: eocrom,
+      eoload: {},
+    }
+
+    // ............................. animas
+    let animas = [
+      natAni1, // h.mars
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

@@ -133,6 +133,7 @@
     // ra2: non overlap area
     // quad.candysearch = function(ra2=10, polygon = null, candidates = 10, sample = 10) {
     let candysearch = function (ra2 = 10, polygon = null, candidates = 10, sample = 10) {
+      
       let mols = []
       let coords = polygon  // stream of coordinates
       let extent = quad.extent()
