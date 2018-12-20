@@ -132,7 +132,7 @@
     // seach best free non-overlaping spot in polygon with population
     // ra2: non overlap area
     // quad.candysearch = function(ra2=10, polygon = null, candidates = 10, sample = 10) {
-    let candysearch = function (ra2 = 10, polygon = null, candidates = 10, sample = 10) {
+    let candysearch = function (ra2 = 10, polygon = null, qcandidates = 10, qsample = 10) {
       
       let mols = []
       let coords = polygon  // stream of coordinates
@@ -150,11 +150,11 @@
       let c0 = [(x0 + x1) / 2, (y0 + y1) / 2] // center of extent
 
       let range = Math.max(x1 - x0, y1 - y0)
-      let xr = (x1 - x0) / 2
-      let yr = (y1 - y0) / 2
+      let xr = (x1 - x0)
+      let yr = (y1 - y0)
 
 
-      for (let i = 0; i < sample; i++) {
+      for (let i = 0; i < qcandidates; i++) {
 
         let xd = x0 + Math.random() * xr 
         let yd = y0 + Math.random() * yr
@@ -166,7 +166,7 @@
         let dx, dy = 0
         let p = null
 
-        for (let j = 0; j < candidates; ++j) {
+        for (let j = 0; j < qsample; ++j) {
           let isin = (polygon !== null) ? d3Polygon.polygonContains(polygon, c) : true
           if (isin) {
             p = c
@@ -189,12 +189,53 @@
       }
       return mols
     }
+    // ........................ geosearch
+    // seach best free non-overlaping spot in polygon with population
+    // ra2: non overlap area
+    // quad.geosearch = function(ra2=10, polygon = null, candidates = 10, sample = 10) {
+    let geosearch = function (ra2 = 10, polygon = null, qcandidates = 10, qsample = 10) {
+      
+      let mols = []
+      let coords = polygon  // stream of coordinates
+      let extent = quad.extent()
+      let x0 = extent[0][0], y0 = extent[0][1], x1 = extent[1][0], y1 = extent[1][1]
 
+      if (polygon !== null) {
+        let xcoords = coords.map(d => d[0])
+        let ycoords = coords.map(d => d[1])
+        x0 = Math.min(...xcoords)
+        y0 = Math.min(...ycoords)
+        x1 = Math.max(...xcoords)
+        y1 = Math.max(...ycoords)
+      }
+      let c0 = [(x0 + x1) / 2, (y0 + y1) / 2] // center of extent
+
+      let range = Math.max(x1 - x0, y1 - y0)
+      let xr = (x1 - x0)
+      let yr = (y1 - y0)
+
+      for (let i = 0; i < qcandidates; i++) {
+
+        let xd = x0 + Math.random() * xr 
+        let yd = y0 + Math.random() * yr
+        let c = [c0[0] + xd, c0[1] + yd]
+
+          let isin = (polygon !== null) ? d3Polygon.polygonContains(polygon, c) : true
+          if (isin) {
+              mols.push(c) // return selected point
+          }
+        
+        if (mols.length >= qsample) break
+          
+      }
+      return mols
+    }
     // ....................... enty
     let enty = () => {}
     enty.findmany = findmany
     enty.diagonalv = diagonalv
     enty.candysearch = candysearch
+    enty.geosearch = geosearch
     enty.candidates = _ => (arguments.length) ? (candidates = _, quad) : candidates
     enty.rds = _ => (arguments.length) ? (rds = _, quad) : rds // radius
 

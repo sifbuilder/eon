@@ -59,33 +59,35 @@
       height: height,
       background: background,
     } // Viewport
-
-    // let svglayer = d3.select('.viewframe')
     let svglayer = d3.select('body')
       .append('svg')
       .attr('id', 'viewframe')
       .attr('class', 'viewframe')
-      .style('position', 'absolute')
       .attr('width', state.width)
       .attr('height', state.height)
+      .style('position', 'absolute')
       .style('top', 0)
       .style('left', 0)
       .style('fill', 'transparent')
+      .style('background-color', state.background) // background
       // .attr('pointer-events', 'none')
       // .attr('overflow', 'visible')
-      .style('background-color', state.background) // background
 
+      
     // ............................. svg
     let _svg = () => d3.select('#viewframe')
 
+    
     // ............................. elems
     let svgelems = function (idfyer, data = ['data'], idfn = null) {
+      
       if (d3.select('.muon-style-block').empty()) {
         d3.select('head').append('style').attr('class', 'muon-style-block')
           .html('')
       }
 
-      if (idfyer == null) { // if null return the layer
+      if (idfyer === null) { // if null return the layer
+
         let svgLayer = d3.select('body').selectAll('svg').data(['svg'])
           .enter()
           .append('svg')
@@ -95,10 +97,11 @@
           .attr('height', state.height)
           .style('border', '1px solid lightgray')
         return svgLayer
-      }
-
-      // manage the dom elements
-      else if (typeof (idfyer) === 'string') { // 'svg:g.links/path.link', data, idfn}
+        
+        
+      } else if (typeof (idfyer) === 'string') { // 'svg:g.links/path.link', data, idfn}
+        // manage the dom elements
+      
         let parts = idfyer.split('/')
         let layerpart = (parts[0]) ? parts[0] : 'svg'
         let elemspart = (parts[1]) ? parts[1] : null
@@ -153,7 +156,8 @@
       let viewScreenPrt = renderPortview.viewScreenPrt()
       let prtdef = renderPortview.prtdef()
       let prt = puniwen(prtdef)
-      viewScreenPrt = prt
+      
+      viewScreenPrt = prt // view screen projection
 
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
         .key(function (d) { return d.properties.eoric.gid })

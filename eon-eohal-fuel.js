@@ -13,6 +13,7 @@
       d3Polygon,
       eohalNatform,
       muonEoric,
+      muonFuel,
       muonGeoj,
       muonGeom,
       muonQuad,
@@ -21,6 +22,7 @@
       __mapper('xs').b('d3-polygon'),
       __mapper('xs').e('natform'),
       __mapper('xs').m('eoric'),
+      __mapper('xs').m('fuel'),
       __mapper('xs').m('geoj'),
       __mapper('xs').m('geom'),
       __mapper('xs').m('quad'),
@@ -34,6 +36,7 @@
 
     let width = renderPortview.width(), height = renderPortview.height()
 
+
     // ............................. gramm
     let gramm = function (anitem, newAnigrams = []) {
 
@@ -42,36 +45,7 @@
         eoric = anitem.eoric, // eoric
         pid = eoric.pid // pid
 
-      let fuel = eoload.fuel,
-        ra2 = fuel.ra2,
-        candidates = fuel.candidates,
-        sample = fuel.sample
-
-      let polygon
-      let parentAnigram = muonStore.findAnigramFromUid(pid)
-
-      if (parentAnigram) {
-        let gj = parentAnigram.eofold
-        console.assert(muonGeoj.isValid(gj))
-        polygon = muonGeoj.getPolygon(gj) // outer ring
-      } else {
-        polygon = muonGeom.extentPolygon([[0, 0], [width, height]]) // viewport
-      }
-
-      let foundcandies = muonQuad.candysearch(ra2, polygon, candidates, sample) // candies
-if (1 && 1) console.log('foundcandies', foundcandies.length)
-
-      let remainCandies = []
-      if (fuel.f === 3) { // 3 - old and new all time _e_
-        remainCandies = state.items
-        remainCandies = [...remainCandies, ...foundcandies]
-      } else if (fuel.f === 2) { // 2 - just new     _e_
-        remainCandies = foundcandies
-      } else { //  1 - old and new in polygon
-        remainCandies = state.items.filter(c => d3Polygon.polygonContains(polygon, c))
-        remainCandies = [...remainCandies, ...foundcandies]
-      }
-
+      let remainCandies = muonFuel.getCandyCooords(anitem)
 
       for (let i = 0; i < remainCandies.length; i++) { // for each candy ...
 

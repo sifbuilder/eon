@@ -62,11 +62,13 @@ async function anitem (__mapper) {
       eoform: {
         x: {
           "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
-          'ra2': 90, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': -1,
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
+          'dom3': [ -180, 180 ],
         },
         y: {
           "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
-          'ra2': 90, 'v0': 0, 'v1': 1, 'seg5': 6, 'w4': 0, 'pa6': 0, 'pb7': -1,
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
+          'dom3': [ -180, 180 ],
         },
       },
       eomot: {
@@ -107,11 +109,11 @@ async function anitem (__mapper) {
       eoform: {
         x: {
           "m1":5,"m2":5,"n1":30,"n2":100,"n3":100,"a":1,"b":1,
-          'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+          'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': 15, 'w4': 0, 'pa6': 0, 'pb7': -1,
         },
         y: {
           "m1":5,"m2":5,"n1":30,"n2":100,"n3":100,"a":1,"b":1,
-          'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
+          'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': 15, 'w4': 0, 'pa6': 0, 'pb7': -1,
         },
       },
 
@@ -121,8 +123,8 @@ async function anitem (__mapper) {
         fuel: {
           f: 2,  // which items are showed: 2: just those new
           ra2: 6, // 
-          candidates: 8,  
-          sample: 18,  
+          candidates: 18,  // try candidates
+          sample: 8,  // to get sample
         }
       },
 

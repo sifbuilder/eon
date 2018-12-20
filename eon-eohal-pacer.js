@@ -244,9 +244,9 @@
           hostAnima.eoouted = (hostAnima.eoouted === undefined)
             ? {[pacerUid]: eotim.unitPassed}
             : Object.assign(hostAnima.eoouted, {[pacerUid]: eotim.unitPassed})
+            
         }
       }
-      if (1 && 1) console.log(' ********* ')
 
       if (geosort === 'anima') {
         // z.419b ani.ava(pacer)
@@ -300,8 +300,10 @@
             let ownProps = Object.getOwnPropertyNames(pacer)
             for (let prop of ownProps) {
               if (newItem[prop] !== undefined) {
+                
                 let newpropval = muonProps.v(pacer[prop], anigram, props)
                 newItem[prop] = newpropval
+                
               }
             }
 
