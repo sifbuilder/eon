@@ -6,116 +6,188 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__mapper) {
   // .................. eons
   let [
-    // ctlRayder,
     ctlWen,
-    eohalFuel,
-    eohalNatform,
-    eohalPacer,
-    eohalTextform,
     eohalMars,
-    muonEoric,
-    muonFuel,
-    muonGeoj,
-    muonGraticule,
     muonNatform,
     muonProps,
-    muonStace,
-    prtUniwen,
+      muonGeom,
+      muonGraticule,
+      muonProfier,
+      muonProj3ct,
     renderSvg,
   ] = await Promise.all([
-    // __mapper('xs').c('rayder'),
     __mapper('xs').c('wen'),
-    __mapper('xs').e('fuel'),
-    __mapper('xs').e('natform'),
-    __mapper('xs').e('pacer'),
-    __mapper('xs').e('textform'),
     __mapper('xs').e('mars'),
-    __mapper('xs').m('eoric'),
-    __mapper('xs').m('fuel'),
-    __mapper('xs').m('geoj'),
-    __mapper('xs').m('graticule'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
-    __mapper('xs').m('stace'),
-    __mapper('xs').p('uniwen'),
+      __mapper('xs').m('geom'),
+      __mapper('xs').m('graticule'),
+      __mapper('xs').m('profier'),
+      __mapper('xs').m('proj3ct'),
     __mapper('xs').r('svg'),
   ])
 
-  let muonStore = __mapper('muonStore')
-
   // .................. animas
   let ani = function () {
+    let ctl = ctlWen().control(renderSvg.svg())
+
     // .................. pics
-    let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let radians = Math.PI / 180, degrees = 180 / Math.PI,
+      sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
 
-    
-    // ....................... natSpiral
-    let natSpiral = {
+    let fact = n => n - 1 > 0 ? n * fact(n - 1) : n
+    let fact0 = 1,
+      fact1 = 1,
+      fact2 = 2,
+      fact3 = 6,
+      fact4 = 24,
+      fact5 = 120,
+      fact6 = 720,
+      fact7 = 5040,
+      fact8 = 40320,
+      fact9 = 362880
+    let infact0 = 1 / fact0,
+      infact1 = 1 / fact1,
+      infact2 = 1 / fact2,
+      infact3 = 1 / fact3,
+      infact4 = 1 / fact4,
+      infact5 = 1 / fact5,
+      infact6 = 1 / fact6,
+      infact7 = 1 / fact7,
+      infact8 = 1 / fact8,
+      infact9 = 1 / fact9
 
-      eohal: 'mars',
-      eotim: eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'natSpiral'},
+    let sinp = [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8]
+    let cosp = [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9]
+    let exp = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
 
-      eofold: ani => {
-      
-        
-      
-        let line = {
-          type: 'Feature',
-          geometry: {
-            type: 'LineString',
-            coordinates: [ [0,0], [100, 100]  ],
-          },
-          properties: {},
+    // ............................. pics
+    let eotim = {'td': 12600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
+
+    let conform = {
+      x: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c) => {
+          let a = 6 // a: frequency
+          let h = 90 // h: height
+          let r = 90 // r: radius
+          let x = e[0]
+          let y = e[1]
+          let z = e[2]
+          let w = e[3]
+          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360          
+          let res = cos(x) * cos(4 * y) 
+          // let res = ( (h - z) / h ) * r * cos( a * z )
+
+          return res
+        },
+      },
+      y: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        'fn0': (e, c, dax) => {
+          let a = 6 // a: frequency
+          let h = 90 // h: height
+          let r = 90 // r: radius
+          let x = e[0]
+          let y = e[1]
+          let z = e[2]
+          let w = e[3]
+          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360          
+          let res = sin(y) * cos(4 * y)
+          // let res = ( (h - z) / h ) * r * sin( a * z )
           
-        }
-        return line
-      
-      },
-      eonode: {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
+          return res
         },
-        properties: {
-          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
-        },
-      },
-      eoform: {
-        x: {
-          "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
-          'dom3': [ -180, 180 ],
-        },
-        y: {
-          "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
-          'dom3': [ -180, 180 ],
-        },
-      },
-      eomot: {
-        proform: {
-          projection: 'uniwen',
-          translate: [ 0,0 ], //
-          scale: [1, 1, 1],
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
-        },
-      },
-      eocrom: { 'csx': 0, 'cf': [[[100,300]]], 'co': [[[0.29, 0.29]]], 'cs': [[[333, 333]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
-      eoload: {
-      
+      },
+
+      z: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
+        'dom3': [0, 90],
+        c: [ [[[94, 104]]], 1, 1, 1] ,        
+        'fn0': (e, c, dax) => {
+          let a = 6 // a: frequency
+          let h = 90 // h: height
+          let r = 90 // r: radius
+          let x = e[0]  // dom:[-180, 180] : [-1.57, 1.57]
+          let y = e[1]  // dom:[-180, 180] : [-1.57, 1.57]
+          let z = e[2]
+          let w = e[3]    // [0, 3.14] : [0, 2 * 1.57] 
+          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360
+          let s = dax.c[0]
+          
+          // let res = 0.001 * x * s + cos(s * z)
+          
+          let res = z + x * d / 4
+          
+          return res
+        },
+      },
+
+      w: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
+        'dom3': [0, 90],
+        'fn0': (e, c, dax) => {
+          return e[2]
+        },
+
       },
 
     }
 
+    // let eocrom = { 'csx': 1, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+    let eocrom = { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+      'cs': [[[666, 333, 666]]], 'cw': [[[0.7, 0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]}
+
+    // ............................. natAni
+    let natAni = {
+
+      eohal: 'mars',
+
+      eofold: ani => {
+        let gratiprops = {
+          ret: 0, // horizontal geodesics
+          dist: 0,  // symetric distribution of geodesics around the origin
+          border: 0, // closed line 
+        }
+        let form = muonNatform.natFeature(ani.eoform, gratiprops)
 
 
-    // .................. animas
+        return form
+      },
+      eotim,
+
+      eoric: {gid: 'q', cid: 'q', fid: 'q'},
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          scale: [ 1, 1 ],
+          prerotate: [[[ ctlWen.rotation ]]],
+          translate: [ [0, 60, 0] ],
+          rotate: [ 90, 0, 0 ],
+          lens: [0, 1, Infinity ],
+        },
+      },
+      eocrom: eocrom,
+
+      eoform: conform,
+      eoload: {
+
+      },
+
+    }
+
+    // ............................. animas
     let animas = [
-      natSpiral,
+
+      natAni, // h.natform
+
     ]
 
     return animas

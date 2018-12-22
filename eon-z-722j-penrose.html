@@ -33,8 +33,8 @@ async function anitem (__mapper) {
 
       eofold: ani => {
         let gj = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer)
-        return muonGeoj.timeSeg(gj, ani.eotim.unitElapsed)
-        // return gj
+        let tgj = muonGeoj.timeSeg(gj, ani.eotim.unitElapsed)
+        return tgj
       },
 
       eocrom: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.1, 0.2]]], 'cp': [[[0.9, 0.9]]]},
@@ -42,7 +42,7 @@ async function anitem (__mapper) {
         proform: {
           projection: 'uniwen',
           scale: 1,
-          translate: {'x': 0, 'y': 0 },
+          translate: {x: 0, y: 0 },
           prerotate: [[[ ctl.rotation ]]],
           rotate: [ 0, 0, 0 ],
         },

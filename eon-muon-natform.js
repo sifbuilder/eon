@@ -253,7 +253,7 @@
         return ret
       }
 
-    let isunpar = formDax => formDax.e === undefined && formDax.c === undefined
+    let isunpar = formDax => formDax.e === undefined && formDax.c === undefined // unparametrized dax function
 
     let fndefaults = [
       (e, c) => c[0] * cos(e[0]) * xc(c[2]) * cos(xe(e[2])),
@@ -278,7 +278,7 @@
     // ............................. natNform
     let natNform = function (form, nformed = {}) {
       let defs = {'v0': 0, 'v1': 1, 'ra2': 120, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1} // defs
-
+  
       if (form && typeof form === 'object' && // {nat}
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
         nformed.x = Object.assign({}, defs, form)
@@ -289,14 +289,14 @@
 
         nformed.y = Object.assign({}, defs, form.y)
 
-        if (form.z !== undefined && form.r !== undefined) { // {x,y,z,r}
+        if (form.z !== undefined && form.w !== undefined) { // {x,y,z,w}
           nformed.z = Object.assign({}, defs, form.z)
 
-          nformed.r = form.r
-        } else if (form.z !== undefined && form.r === undefined) { // {x,y,z}
+          nformed.w = form.w
+        } else if (form.z !== undefined && form.w === undefined) { // {x,y,z}
           nformed.z = Object.assign({}, defs, form.z)
 
-          nformed.r = Object.assign({}, defs)
+          nformed.w = Object.assign({}, defs)
         }
       } else if (form && typeof form === 'object' && // form:{x:obj}
             (form.x !== undefined && form.y === undefined)) {
@@ -304,24 +304,24 @@
 
         nformed.y = Object.assign({}, defs, (form.y || form.x))
 
-        if (form.z !== undefined && form.r !== undefined) { // {x,y,z,r}
+        if (form.z !== undefined && form.w !== undefined) { // {x,y,z,w}
           nformed.z = form.z
-          nformed.r = form.r
-        } else if (form.z !== undefined && form.r === undefined) { // {x,y,z}
+          nformed.w = form.w
+        } else if (form.z !== undefined && form.w === undefined) { // {x,y,z}
           nformed.z = Object.assign({}, defs, form.z)
 
-          nformed.r = Object.assign({}, defs, form.z)
+          nformed.w = Object.assign({}, defs, form.z)
         }
       } else if (form && Array.isArray(form)) { // [x,y]
         nformed.x = form[0]
         nformed.y = form[1] || Object.assign({}, defs, form[0])
 
-        if (form[2] !== undefined && form[3] !== undefined) { // [x,y,z,r]
+        if (form[2] !== undefined && form[3] !== undefined) { // [x,y,z,w]
           nformed.z = form[2]
-          nformed.r = form[3]
+          nformed.w = form[3]
         } else if (form[2] !== undefined && form[3] === undefined) { // [x,y,z]
           nformed.z = Object.assign({}, defs, form[2])
-          nformed.r = Object.assign({}, defs, form[2])
+          nformed.w = Object.assign({}, defs, form[2])
         }
       }
 
@@ -333,6 +333,7 @@
         if (formDax.dom3 === undefined) formDax.dom3 = domdefaults[i] // dom3 --- axis domain
 
         if (formDax.fn0 === undefined) { // fn0 not defined
+
           if (isunpar(formDax)) { // cs and es not defined
             formDax.fn0 = fndefaults[i] // fn0 defauls to sphere
           } else { // some cs and es defined
@@ -356,19 +357,10 @@
       } else {
         let nformed = natNform(form) // NFORM
 
-        // let _geofn
-        // if (props.h) {
-        // _geofn = muonGraticule.hMultiLine
-        // } else if (props.v) {
-        // _geofn = muonGraticule.vMultiLine
-        // } else {
-        // _geofn = muonGraticule.vhMultiLine
-        // }
 
         let geometry, graticule, vertices
         let dx, dy, sx, sy
 
-        // if (Object.keys(nformed).length > 2 ) { // ___ 3d
         if (nformed.z !== undefined) { // ___ 3d
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.z.seg5 // ____ z ___
@@ -383,8 +375,6 @@
 
           vertices = muonGraticule.gVertices(graticule)
 
-          // geometry = _geofn(graticule).geometry
-          // geometry = muonGraticule.hMultiLine(graticule).geometry
         } else { // ___ 2d
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y
@@ -406,7 +396,6 @@
 
         let quads = muonGraticule.qfaces(graticule)
         let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
-        // if (1 && 1) console.log('geometry', geometry)
 
         let gj = {
           type: 'Feature',
@@ -457,20 +446,25 @@
       } else {
         let nformed = natNform(form) // NFORM
 
-        let _geofn
-        if (props.h) {
+        let _geofn = muonGraticule.vhMultiLine  // default to reticule
+        if (props.ret === 0) {
           _geofn = muonGraticule.hMultiLine
-        } else if (props.v) {
+        } else if (props.ret === 1) {
           _geofn = muonGraticule.vMultiLine
-        } else {
+        } else if (props.ret === 2) {
           _geofn = muonGraticule.vhMultiLine
         }
+        let dist = (props.dist !== undefined) ? props.dist : 0  // sym
+        let border = (props.border !== undefined) ? props.border : 0  // is open
 
+        
+        
         let geometry, graticule
         let dx, dy, sx, sy
 
         // if (Object.keys(nformed).length > 2 ) { // ___ 3d
         if (nformed.z !== undefined) { // ___ 3d
+
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.z.seg5 // ____ z ___
 
@@ -480,7 +474,13 @@
           let xdomain = form.x.dom3 || [-180, 180]
           let ydomain = form.z.dom3 || [-90, 90] // ____ z ___
 
-          graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
+          let frame = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
+          
+          graticule = {
+            frame: frame,
+              dist: dist,  // sym
+              border: border,  // closed            
+          } // x, y
 
           geometry = _geofn(graticule).geometry
           // geometry = muonGraticule.hMultiLine(graticule).geometry
@@ -499,8 +499,8 @@
           
           graticule = {
               frame: frame,
-              dist: 1,  // asym
-              border: 1,  // open
+              dist: dist,  // sym
+              border: border,  // closed
           } // _e_ x, y
 
           geometry = _geofn(graticule).geometry // geometry.type: MultiLineString

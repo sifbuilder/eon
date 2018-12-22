@@ -49,6 +49,7 @@
       __mapper('xs').p('uniwen'),
       __mapper('xs').r('portview'),
     ])
+if (1 && 1) console.log(' ******************** svg')
 
     let width = 600,
       height = 400,
@@ -58,7 +59,9 @@
       width: width,
       height: height,
       background: background,
-    } // Viewport
+    } 
+    
+    // Viewport
     let svglayer = d3.select('body')
       .append('svg')
       .attr('id', 'viewframe')

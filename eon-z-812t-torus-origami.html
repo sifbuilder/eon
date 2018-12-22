@@ -58,7 +58,7 @@ async function anitem (__mapper) {
     let exp = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
 
     // ............................. pics
-    let eotim = {'td': 18600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1 }
+    let eotim = {'td': 12600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1 }
 
     let conformLight = {
       x: {
@@ -81,7 +81,7 @@ async function anitem (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[64, 64, 64]]], 'pa6': 0, 'pb7': -1,
         'dom3': [ [[[-180, -180, -180]]], [[[180, 180, 180]]] ],
-        c: [ 1, 1, [[[0, 2, 2]]], [[[2 * pi, 2 * pi, 2 * pi]]] ],
+        c: [ 1, 1, [[[0, 0, 2, 2]]], [[[2 * pi, 2 * pi, 2 * pi]]] ],
         fn0: (e, c, d) => {
           let r = Math.floor(d.c[2])
           return d.c[3] * c[3] * sin(e[0]) * cos(d.c[2] * e[3]) // Math.pow(Math.abs(cos(e[3])), 0)
@@ -109,18 +109,18 @@ async function anitem (__mapper) {
           scale: [ 0.1, 0.1 ],
           prerotate: [[[ ctl.rotation ]]],
           translate: [ [0, 0, 0] ],
-          rotate: [ [90, 0, 0] ],
+          // rotate: [ [90, 0, 0] ],
           // rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
-          // rotate: [
-          // [[[ 0,  0, 36, -64, -64, -64]]],
-          // [[[36, 36, 36, 36, 36, 36]]],
-          // [[[ 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]],
-          // ],
+          rotate: [
+          [[[ 0, 72,  90, 120,  160, 180]]],
+          [[[ 0, 60, 96, 136, 186, 180]]],
+          [[[ 0,  0,   12,  60, 120, 180]]],
+          ],
           lens: [0, 1, Infinity ],
         },
       },
       eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
-        'cs': [[[333, 333, 333]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
+        'cs': [[[666, 999, 666]]], 'cw': [[[1.29, 0.99, 1.29]]], 'cp': [[[0.99, 0.99]]]},
       eoform: conformLight,
       eoload: {},
     }

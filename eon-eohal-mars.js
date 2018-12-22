@@ -33,6 +33,7 @@
     function eohale (anitem) {
       console.assert(typeof anitem === 'object')
       console.assert(Array.isArray(anitem) === false)
+
       let newAni = muonProps.clone(anitem) // newAni
 
       let eonode = muonProps.v(anitem.eonode, anitem) // newAni.eonode

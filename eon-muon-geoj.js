@@ -533,6 +533,7 @@
 
     // ...................... getCoordsInRange
     //  nb: number of coords, firstCoord: start coord
+    //  ngj: is expected geometry - tbd Feature, FeatureCollection
     let getCoordsInRange = function (gj, toaddCoords, firstCoord = 0, ngj = {type: null, coordinates: [] }) {
       let pointerInCoords = 0 // pointer to current coord at beginning of line
       let addedCoords = 0 // added coords
@@ -557,6 +558,7 @@
             break
           }
         }
+        
       } else if ((gj.type === 'MultiLineString')) {
         let lines = gj.coordinates
         let numboflinesingj = lines.length
@@ -591,9 +593,9 @@
           firstCoordInLine = firstCoordInLine + linelength
         }
 
-        // if (1 && 1) console.log('ngj', JSON.stringify(ngj.coordinates[ngj.coordinates.length - 1].slice(-3)))
       } else if ((gj.type === 'MultiPoint')) {
         ngj.coordinates = gj.coordinates.slice(0, toaddCoords)
+        
       } else if ((gj.type === 'LineString')) {
         let line = gj.coordinates // coords in line
         let linelength = line.length // number of coords in line
@@ -604,8 +606,10 @@
         let tmpLine = line.slice(startInLine, startInLine + remainingCoords)
         ngj.coordinates = tmpLine
         addedCoords += tmpLine.length
+        
       } else if ((gj.type === 'Feature')) {
         ngj.geometry = getCoordsInRange(gj.geometry, toaddCoords, firstCoord)
+        
       }
 
       return ngj
@@ -801,14 +805,14 @@
       return res
     }
 
-    let timeSeg = function (geoData, ut, tf = d => d) {
+    let timeSeg = function (geoData, ut, tf = d => d, firstcoord = 0) {
       let coords = getCoords(geoData)
       let nb = coords.length
       let unitElapsed = ut
       let t = tf(unitElapsed)
 
       let nbt = Math.ceil(nb * t)
-      let ngj = getCoordsInRange(geoData, nbt)
+      let ngj = getCoordsInRange(geoData, nbt, firstcoord)
       return ngj
     }
 
