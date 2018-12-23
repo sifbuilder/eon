@@ -66,10 +66,7 @@ async function anitem (__mapper) {
         proform: {
           projection: 'uniwen',
           prerotate: [[[ ctl.rotation ]]],
-          translate: [ [ 70, 80 ], [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2, // circle
-            'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          } ]]] ], //
+          translate: [ 0, 0, 0], //
           scale: [ 1, 1 ],
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
@@ -151,8 +148,7 @@ async function anitem (__mapper) {
               
             } else if (props.key === 'auto') { // AUTO
             
-              stace = muonStace.getLocus([null, null, null], ani)
-if (1 && 1) console.log('stace', stace)
+              stace = muonStace.getLocus([{pos: 10}, {pos: 10}, {pos: 0}], ani)
               
             } else if (props.key === 'event') { // EVENT
             

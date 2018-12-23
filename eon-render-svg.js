@@ -59,8 +59,8 @@ if (1 && 1) console.log(' ******************** svg')
       width: width,
       height: height,
       background: background,
-    } 
-    
+    }
+
     // Viewport
     let svglayer = d3.select('body')
       .append('svg')
@@ -76,14 +76,14 @@ if (1 && 1) console.log(' ******************** svg')
       // .attr('pointer-events', 'none')
       // .attr('overflow', 'visible')
 
-      
+
     // ............................. svg
     let _svg = () => d3.select('#viewframe')
 
-    
+
     // ............................. elems
     let svgelems = function (idfyer, data = ['data'], idfn = null) {
-      
+
       if (d3.select('.muon-style-block').empty()) {
         d3.select('head').append('style').attr('class', 'muon-style-block')
           .html('')
@@ -100,11 +100,11 @@ if (1 && 1) console.log(' ******************** svg')
           .attr('height', state.height)
           .style('border', '1px solid lightgray')
         return svgLayer
-        
-        
+
+
       } else if (typeof (idfyer) === 'string') { // 'svg:g.links/path.link', data, idfn}
         // manage the dom elements
-      
+
         let parts = idfyer.split('/')
         let layerpart = (parts[0]) ? parts[0] : 'svg'
         let elemspart = (parts[1]) ? parts[1] : null
@@ -159,7 +159,7 @@ if (1 && 1) console.log(' ******************** svg')
       let viewScreenPrt = renderPortview.viewScreenPrt()
       let prtdef = renderPortview.prtdef()
       let prt = puniwen(prtdef)
-      
+
       viewScreenPrt = prt // view screen projection
 
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
@@ -179,6 +179,9 @@ if (1 && 1) console.log(' ******************** svg')
           /*  ................. TEXTS ................. */
           let texts = fitems
             .filter(d => d.properties.sort === 'text')
+
+
+
           if (texts.length > 0) {
             svgelems('svg:g.' + gid + '/text.' + cid, texts, d => d.eoric.uid)
               .text(d => d.properties.string)
@@ -341,6 +344,8 @@ if (1 && 1) console.log(' ******************** svg')
               .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
               .style('stroke-width', d => d.properties.style['stroke-width'])
           }
+          
+          
           /*  ................. END SVG FORMS ................. */
         }
       }

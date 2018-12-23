@@ -1,0 +1,306 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    ctlWen,
+    eohalMars,
+    muonNatform,
+    muonProps,
+      muonGeoj,
+      muonGeom,
+      muonGraticule,
+      muonProfier,
+      muonProj3ct,
+    renderSvg,
+  ] = await Promise.all([
+    __mapper('xs').c('wen'),
+    __mapper('xs').e('mars'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').m('props'),
+      __mapper('xs').m('geoj'),
+      __mapper('xs').m('geom'),
+      __mapper('xs').m('graticule'),
+      __mapper('xs').m('profier'),
+      __mapper('xs').m('proj3ct'),
+    __mapper('xs').r('svg'),
+  ])
+
+  let muonStore = __mapper('muonStore')
+  // .................. animas
+  let ani = function () {
+    let ctl = ctlWen().control(renderSvg.svg())
+
+    // .................. pics
+    let radians = Math.PI / 180, degrees = 180 / Math.PI,
+      sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
+
+    let fact = n => n - 1 > 0 ? n * fact(n - 1) : n
+    let fact0 = 1,
+      fact1 = 1,
+      fact2 = 2,
+      fact3 = 6,
+      fact4 = 24,
+      fact5 = 120,
+      fact6 = 720,
+      fact7 = 5040,
+      fact8 = 40320,
+      fact9 = 362880
+    let infact0 = 1 / fact0,
+      infact1 = 1 / fact1,
+      infact2 = 1 / fact2,
+      infact3 = 1 / fact3,
+      infact4 = 1 / fact4,
+      infact5 = 1 / fact5,
+      infact6 = 1 / fact6,
+      infact7 = 1 / fact7,
+      infact8 = 1 / fact8,
+      infact9 = 1 / fact9
+
+    let sinp = [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8]
+    let cosp = [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9]
+    let exp = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
+
+    // ............................. pics
+    let eotim = {'td': 12600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
+
+    let conform = {
+      x: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        c: [ [[[1,1]]], [[[1,1]]], [[[0,90]]], 1 ],         
+        'fn0': (e, c, dax) => {
+          let a = 4 // a: frequency
+          let h = 90 // h: height
+          let r = 90 // r: radius
+          let x = e[0]
+          let y = e[1]
+          let z = e[2]
+          let w = e[3]
+          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360
+          
+          let levels = 3
+          let m = 1
+          if (z === 0) {
+            let i = levels
+            m = 1 / i
+          } else {
+            for (let i=1; i<levels; i++) {  // 1
+                if (z === (Math.PI / 2) / i) {
+                  m = 1 / i
+                  break
+                }
+            }
+          }
+          
+          let res = m * Math.sqrt((Math.PI + x)) * cos( x) *  sin(x) 
+
+          return res
+        },
+      },
+      y: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
+        'dom3': [-180, 180],
+        c: [ [[[1,1]]], [[[1,1]]], [[[0,90]]], 1 ],     
+        'fn0': (e, c, dax) => {
+          let a = 4 // a: frequency
+          let h = 90 // h: height
+          let r = 90 // r: radius
+          let x = e[0]
+          let y = e[1]
+          let z = e[2]
+          let w = e[3]
+          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360
+          
+          let levels = 3
+          let m = 1
+          if (z === 0) {
+            let i = levels
+            m = 1 / i
+          } else {
+            for (let i=1; i<levels; i++) {  // 1
+                if (z === (Math.PI / 2) / i) {
+                  m = 1 / i
+      // if (1 && 1) console.log('m', i, m)
+
+                  break
+                }
+            }
+          }
+          
+          if (1 && 1) console.log('z', z)
+          // if (1 && 1) console.log('z', y, z, w)
+          
+          let res =  m * Math.sqrt((Math.PI + y)) * sin(y) * sin(y)
+
+          return res
+        },
+
+      },
+
+      z: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,  // segs: double cycles
+        'dom3': [0, 180],
+        c: [ [[[1,1]]],  1, 1, 1] , // 37.5   radians * 225 / 6    2:2/3, 4:2/2, 
+        'fn0': (e, c, dax) => {
+          let a = 4 // a: frequency   360/90
+          let h = 90 // h: height
+          let r = 90 // r: radius
+          let x = e[0]  // dom:[-180, 180] : [-1.57, 1.57]
+          let y = e[1]  // dom:[-180, 180] : [-1.57, 1.57]
+          let z = e[2]
+          let w = e[3]    // [0, 3.14] : [0, 2 * 1.57]
+          // let d = radians * 360 / 6 // 0.157  , z.seg5: 36, xy.dom: 360
+          // if (1 && 1) console.log('c0', dax.c[0])          
+            
+          let seg5 = dax.seg5
+          
+          let res = z + 0.5 * (x + y) / seg5
+          return res
+        },
+      },
+
+      w: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+        'dom3': [0, 360],
+        c: [ 1, 1, 1, 1 ],             
+        'fn0': (e, c, dax) => {
+
+
+          return e[3]
+        },
+
+      },
+
+    }
+
+    // let eocrom = { 'csx': 1, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+    let eocrom = { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+      'cs': [[[666, 333, 666]]], 'cw': [[[0.7, 0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]}
+
+    // ............................. natAni
+    let natAni = {
+
+      eohal: 'mars',
+      eotim,
+      eoric: {gid: 'q', cid: 'q', fid: 'q'},
+
+      eofold: ani => {
+        let gratiprops = {
+          ret: 0, // horizontal geodesics
+          dist: 0,  // symetric distribution of geodesics around the origin
+          border: 0, // closed line
+        }
+
+        let gj = muonNatform.natFeature(ani.eoform, gratiprops)
+            let coords = muonGeoj.getCoords(gj)        
+            let nb = coords.length
+            let unitElapsed = ani.eotim.unitElapsed
+            let t = unitElapsed
+            let nbt = Math.ceil(nb * t)
+
+        let firstcoord = 0
+            
+            
+        let newFeatures = [gj]
+        
+        let inc = 0
+        let pars = 0
+        
+        if (inc === 1 || pars === 1) {
+          
+          
+          if (preani === undefined) {
+
+              let tgj = gj
+              tgj.geometry= muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
+              tgj.properties = tgj.properties === undefined ? {} : tgj.properties
+              tgj.properties.eocrom = ani.eocrom
+              tgj.properties.lastcoord = nbt
+
+              newFeatures = [tgj]
+              
+          }
+
+        } 
+        
+        if (inc === 1) {
+          
+          let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+          
+          if (preani !== undefined) {
+  
+            let features = preani.eofold.features
+
+            let lastFeature = features[features.length - 1]
+            let lastFeatureProps = lastFeature.properties
+            let lastcoord = lastFeatureProps.lastcoord
+            let prefeatures = preani.eofold.features.map(muonGeoj.deprop)  // _e_
+            
+            if (lastcoord !== undefined) {
+            
+              firstcoord = 0 // lastcoord
+
+              if (1 && 1) console.log('newcoods', nbt, firstcoord)
+            }
+            
+            let tgj = gj
+            tgj.geometry= muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
+            tgj.properties = tgj.properties === undefined ? {} : tgj.properties
+            tgj.properties.eocrom = ani.eocrom
+            tgj.properties.eocrom.cs = 300 + 700 * unitElapsed
+            tgj.properties.lastcoord = nbt
+         
+            
+            newFeatures = [ tgj] // newFeatures = [...prefeatures, tgj]
+          }
+
+        }
+
+
+        let gfeats = {
+          type: 'FeatureCollection',
+          features: newFeatures
+        }
+        return gfeats
+      },
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          scale: [ 0.5, 0.5 ],
+          prerotate: [[[ ctlWen.rotation ]]],
+          translate: [ [0, 60, 0] ],
+          rotate: [ 90, 0, 0 ],
+          lens: [0, 1, Infinity ],
+        },
+      },
+      eocrom: eocrom,
+
+      eoform: conform,
+      eoload: {},
+
+    }
+
+    // ............................. animas
+    let animas = [
+
+      natAni, // h.natform
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

@@ -10,7 +10,6 @@ async function anitem (__mapper) {
     eohalMars,
     muonNatform,
     muonProps,
-      muonGeoj,
       muonGeom,
       muonGraticule,
       muonProfier,
@@ -21,7 +20,6 @@ async function anitem (__mapper) {
     __mapper('xs').e('mars'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
-      __mapper('xs').m('geoj'),
       __mapper('xs').m('geom'),
       __mapper('xs').m('graticule'),
       __mapper('xs').m('profier'),
@@ -29,7 +27,6 @@ async function anitem (__mapper) {
     __mapper('xs').r('svg'),
   ])
 
-  let muonStore = __mapper('muonStore')
   // .................. animas
   let ani = function () {
     let ctl = ctlWen().control(renderSvg.svg())
@@ -72,17 +69,17 @@ async function anitem (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c: [ [[[1,1]]], [[[0,1]]], 1, 1 ],        
-        'fn0': (e, c, dax) => {
-          let a = 4 // a: frequency
+        'fn0': (e, c) => {
+          let a = 6 // a: frequency
           let h = 90 // h: height
           let r = 90 // r: radius
           let x = e[0]
           let y = e[1]
           let z = e[2]
           let w = e[3]
-          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360
-          let res = cos(x) * cos(dax.c[0] * x) * dax.c[1]
+          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360          
+          let res = cos(x) * cos(4 * y) 
+          // let res = ( (h - z) / h ) * r * cos( a * z )
 
           return res
         },
@@ -91,21 +88,18 @@ async function anitem (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c: [ [[[1,1]]], [[[0,1]]], 1, 1 ],           
         'fn0': (e, c, dax) => {
-          let a = 4 // a: frequency
+          let a = 6 // a: frequency
           let h = 90 // h: height
           let r = 90 // r: radius
           let x = e[0]
           let y = e[1]
           let z = e[2]
           let w = e[3]
-          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360
+          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360          
+          let res = sin(y) * cos(4 * y)
+          // let res = ( (h - z) / h ) * r * sin( a * z )
           
-          if (1 && 1) console.log('e', e[0], e[1], e[2], e[3])
-
-          let res = sin(y) * cos(dax.c[0] * y) * dax.c[1]
-
           return res
         },
 
@@ -113,40 +107,41 @@ async function anitem (__mapper) {
 
       z: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 90],
-        c: [ 0.66,  1, 1, 1] , // 37.5   radians * 225 / 6    2/3
+        c: [ [[[94, 104]]], 1, 1, 1] ,        
         'fn0': (e, c, dax) => {
-          let a = 4 // a: frequency
+          let a = 6 // a: frequency
           let h = 90 // h: height
           let r = 90 // r: radius
           let x = e[0]  // dom:[-180, 180] : [-1.57, 1.57]
           let y = e[1]  // dom:[-180, 180] : [-1.57, 1.57]
           let z = e[2]
-          let w = e[3]    // [0, 3.14] : [0, 2 * 1.57]
-          // let d = radians * 360 / 6 // 0.157  , z.seg5: 36, xy.dom: 360
-          let res = z + x * dax.c[0] / a
+          let w = e[3]    // [0, 3.14] : [0, 2 * 1.57] 
+          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360
+          let s = dax.c[0]
+          
+          // let res = 0.001 * x * s + cos(s * z)
+          
+          let res = z + x * d / 4
+          
           return res
         },
       },
 
       w: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-        'dom3': [0, 360],
-        c: [ 1, 1, 1, 1 ],             
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
+        'dom3': [0, 90],
         'fn0': (e, c, dax) => {
-
-if (1 && 1) console.log('w e', e)
-
-          return e[3]
+          return e[2]
         },
 
       },
 
     }
 
-    // let eocrom = { 'csx': 1, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+
     let eocrom = { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
       'cs': [[[666, 333, 666]]], 'cw': [[[0.7, 0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]}
 
@@ -154,89 +149,21 @@ if (1 && 1) console.log('w e', e)
     let natAni = {
 
       eohal: 'mars',
-      eotim,
-      eoric: {gid: 'q', cid: 'q', fid: 'q'},
 
       eofold: ani => {
         let gratiprops = {
           ret: 0, // horizontal geodesics
           dist: 0,  // symetric distribution of geodesics around the origin
-          border: 0, // closed line
+          border: 0, // closed line 
         }
-
-        let gj = muonNatform.natFeature(ani.eoform, gratiprops)
-            let coords = muonGeoj.getCoords(gj)        
-            let nb = coords.length
-            let unitElapsed = ani.eotim.unitElapsed
-            let t = unitElapsed
-            let nbt = Math.ceil(nb * t)
-
-        let firstcoord = 0
-            
-            
-        let newFeatures = [gj]
-        
-        let inc = 0
-        let pars = 0
-        
-        if (inc === 1 || pars === 1) {
-          
-          
-          if (preani === undefined) {
-
-              let tgj = gj
-              tgj.geometry= muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
-              tgj.properties = tgj.properties === undefined ? {} : tgj.properties
-              tgj.properties.eocrom = ani.eocrom
-              tgj.properties.lastcoord = nbt
-
-              newFeatures = [tgj]
-              
-          }
-
-        } 
-        
-        if (inc === 1) {
-          
-          let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
-          
-          if (preani !== undefined) {
-  
-            let features = preani.eofold.features
-
-            let lastFeature = features[features.length - 1]
-            let lastFeatureProps = lastFeature.properties
-            let lastcoord = lastFeatureProps.lastcoord
-            let prefeatures = preani.eofold.features.map(muonGeoj.deprop)  // _e_
-            
-            if (lastcoord !== undefined) {
-            
-              firstcoord = 0 // lastcoord
-
-              if (1 && 1) console.log('newcoods', nbt, firstcoord)
-            }
-            
-            let tgj = gj
-            tgj.geometry= muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
-            tgj.properties = tgj.properties === undefined ? {} : tgj.properties
-            tgj.properties.eocrom = ani.eocrom
-            tgj.properties.eocrom.cs = 300 + 700 * unitElapsed
-            tgj.properties.lastcoord = nbt
-         
-            
-            newFeatures = [ tgj] // newFeatures = [...prefeatures, tgj]
-          }
-
-        }
+        let form = muonNatform.natFeature(ani.eoform, gratiprops)
 
 
-        let gfeats = {
-          type: 'FeatureCollection',
-          features: newFeatures
-        }
-        return gfeats
+        return form
       },
+      eotim,
 
+      eoric: {gid: 'q', cid: 'q', fid: 'q'},
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -250,7 +177,9 @@ if (1 && 1) console.log('w e', e)
       eocrom: eocrom,
 
       eoform: conform,
-      eoload: {},
+      eoload: {
+
+      },
 
     }
 

@@ -14,6 +14,7 @@ async function anitem (__mapper) {
     eohalMars,
     eohalFuel,
     muonEoric,
+    muonFuel,
     muonGeoj,
     muonLindenmayer,
     muonNatform,
@@ -30,6 +31,7 @@ async function anitem (__mapper) {
     __mapper('xs').e('mars'),
     __mapper('xs').e('fuel'),
     __mapper('xs').m('eoric'),
+    __mapper('xs').m('fuel'),
     __mapper('xs').m('geoj'),
     __mapper('xs').m('lindenmayer'),
     __mapper('xs').m('natform'),
@@ -55,42 +57,158 @@ async function anitem (__mapper) {
     // ....................... natBall
     let natBall = {
 
-      eohal: 'fuel', // 'mars',
+ 
+      eohal: 'pacer',
       eotim: eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'natBall'},
+      eoric: { gid: 'pacer', cid: 'pacer', fid: 'paceball' },
 
-      eofold: p => muonNatform.natFeature(p.eoform),
+      eofold: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
+      },
+
       eonode: {
         type: 'Feature',
         geometry: {
           type: 'Point',
           coordinates: [0, 0, 0],
         },
-        properties: {
-          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+        properties: {orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
+      },
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ 0, 0, 0], // mot
+          scale: 1,
+          rotate: [ 0,0,0 ],
+          lens: [0, 1, Infinity],
+          geoanod: 1, // eonode          
         },
       },
+
+      eocrom: { 'csx': 1, 'cf': 777, 'co': 0.1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
+
       eoform: {
         x: {
-          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,
+          "m1":4, "m2":4, "n1":4, "n2":2, "n3":2, "a":1, "b":1,
           'ra2': 2, 'v0': 0, 'v1': 1, 'seg5': 15, 'w4': 0, 'pa6': 0, 'pb7': -1,
+          'dom3': [-180, 180],
         },
         y: {
-          "m1":4,"m2":4,"n1":2,"n2":2,"n3":2,"a":1,"b":1,
+          "m1":4, "m2":4, "n1":4, "n2":2, "n3":2, "a":1, "b":1,
           'ra2': 2, 'v0': 0, 'v1': 1, 'seg5': 15, 'w4': 0, 'pa6': 0, 'pb7': -1,
+          'dom3': [-180, 180],
         },
       },
 
-      eocrom: { 'csx': 1, 'cf': [[[600,990, 600,990, 600,990]]], 'co': [[[0.99, 0.99]]], 'cs': [[[100, 100]]], 'cw': [[[0.2, 0.2]]], 'cp': [[[0.7, 0.9]]]},
-
       eoload: {
-        fuel: {
-          f: 2,  // which items are showed: 2: just those new
-          ra2: 2, // 
-          candidates: 180,  // try candidates
-          sample: 120,  // to get sample
-        }
+
+        pacer: {
+
+          initN: 0, eventN: 0, autoN: 12, autoP: 0.0001, outtimed: 0, maxN: 60, geospan: 0,
+          geosort: 'anigram', // anigram if avatar
+          geobase: 'viewform',
+          geoaad: 0,
+
+          eohal: 'natform', // takes form from eoform
+          eoric: function (ani, props) {
+            let eoric = muonProps.clone(ani.eoric)
+            eoric.gid = 'paced'
+            eoric.cid = 'paceball'
+            eoric.fid = muonEoric.idify(eoric.fid, props.counter)
+            eoric.uid = muonEoric.getuid(eoric)
+            return eoric
+          },
+
+          eofold: function (ani, props) {
+            let neweofold = muonNatform.natFeature(ani.eoform)
+
+            return neweofold
+          },
+
+          eonode: function (ani, props) {
+            let coords
+            if (props.key === 'init') { // INIT
+            
+              let autocount = props.counter
+              
+              let rows = 4
+              let cols = 6
+              let hstep = 1
+              let vstep = 1
+
+              let ridx = muonGraticule.ridx(rows, cols, hstep, vstep)
+              let matrixCoord = ridx(autocount)
+
+              let dRadX = 20
+              let dRadY = 20
+              let dLenX = 2 * dRadX
+              let dLenY = 2 * dRadY
+              let dCenter = [-140, -40]
+              
+              
+              let delta = [
+                dLenX + dRadX * Math.random(), 
+                dLenY + dRadY * Math.random()
+              ]
+              
+              coords = [
+                dCenter[0] + delta[0] * matrixCoord[0],
+                dCenter[1] + delta[1] * matrixCoord[1],
+                0]
+                
+            } else if (props.key === 'auto') { // AUTO
+                let autocount = props.counter
+                
+                let fuel = {
+                    ra2: 6,
+                    candidates: 6,
+                    sample: 1,
+                    fueltype: 2
+                }
+                
+              let candycoords = muonFuel.getCandyCooords(ani, fuel)
+
+              if (candycoords !== undefined && candycoords.length > 0) {
+
+                coords = [ ...candycoords[0], 0 ]
+              }
+              
+            } else if (props.key === 'event') { // EVENT
+            
+              if (ctlRayder.grabbed() !== undefined) {
+                let grabbed = ctlRayder.grabbed()
+                let x = grabbed[0]
+                let y = grabbed[1]
+                let z = 0
+                coords = {x, y, z }
+              }
+            }
+
+            let res
+            
+            if (coords !== undefined) {
+              let coordinates = coords
+              res = {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: coordinates,
+                },
+                properties: {orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0]},
+              }
+            }
+            return res
+          },
+
+        },
       },
+
 
     }    
     
@@ -112,12 +230,12 @@ async function anitem (__mapper) {
         return gj
       },
 
-      eocrom: { 'csx': 9, 'cf': [[[444, 666]]], 'cs': [[[766,766]]], 'cw': [[[0.3, 0.3]]], 'co': [[[0.01, 0.01]]], 'cp': [[[0.99, 0.99]]]},
+      eocrom: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': [[[766,766]]], 'cw': [[[0.2, 0.2]]], 'co': [[[0.01, 0.01]]], 'cp': [[[0.99, 0.99]]]},
       eomot: {
         proform: {
           projection: 'uniwen',
-          scale: [2.7, 2.7],
-          translate: {x: 0, y: 180 },
+          scale: [0.7, 0.7],
+          translate: {x: 0, y: 0 },
           prerotate: [[[ ctl.rotation ]]],
           rotate: [ 0, 0, 0 ],
         },
@@ -129,7 +247,7 @@ async function anitem (__mapper) {
           { // tree
             linden: {
               axiom: 'X',
-              steps: 6,
+              steps: [[[8,8, 8]]],
               rules: {
                 X: '[+FX][FX][-FX]',
                 F: 'FF',
@@ -203,7 +321,7 @@ async function anitem (__mapper) {
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eocrom: { 'csx': 0, 'cf': [[[999, 999, 999]]], 'co': [[[0.69, 0.69]]], 'cs': [[[999, 999]]], 'cw': [[[1.9, 3.9]]], 'cp': [[[0.7, 0.9]]]},
+      eocrom: { 'csx': 0, 'cf': [[[999, 999, 999]]], 'co': [[[0.19, 0.19]]], 'cs': [[[999, 999]]], 'cw': [[[1.9, 3.9]]], 'cp': [[[0.7, 0.9]]]},
 
       eofold: p => muonNatform.natFeature(p.eoform),
       eonode: {
@@ -340,7 +458,7 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity ],
         },
       },
-      eocrom: { 'csx': 1, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+      eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
       'cs': [[[666, 333, 666]]], 'cw': [[[0.7, 0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
 
       eoform: {
@@ -490,11 +608,11 @@ async function anitem (__mapper) {
       eocrom: { 'csx': 0, 'cf': 777, 'co': 1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
 
       eoform: {
-        'x': {
+        x: {
           'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
           'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
-        'y': {
+        y: {
           'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
           'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': [[[360, 360]]], 'w4': 0, 'pa6': 0, 'pb7': 360,
         },
@@ -598,7 +716,7 @@ async function anitem (__mapper) {
 
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'texta'},
-      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.99, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
       eomot: {
         proform: {
@@ -630,7 +748,7 @@ async function anitem (__mapper) {
 
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textb'},
-      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.99, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
       eomot: {
         proform: {
