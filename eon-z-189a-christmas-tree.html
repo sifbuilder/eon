@@ -112,7 +112,7 @@ async function anitem (__mapper) {
         return gj
       },
 
-      eocrom: { 'csx': 9, 'cf': [[[444, 666]]], 'cs': [[[766,766]]], 'cw': [[[0.3, 0.3]]], 'co': [[[0.01, 0.01]]], 'cp': [[[0.99, 0.99]]]},
+      eocrom: { 'csx': 9, 'cf': [[[444, 666, 444]]], 'cs': [[[766,766]]], 'cw': [[[1.9, 1.9]]], 'co': [[[0.01, 0.01]]], 'cp': [[[0.29, 0.29]]]},
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -203,7 +203,7 @@ async function anitem (__mapper) {
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eocrom: { 'csx': 0, 'cf': [[[999, 999, 999]]], 'co': [[[0.69, 0.69]]], 'cs': [[[999, 999]]], 'cw': [[[1.9, 3.9]]], 'cp': [[[0.7, 0.9]]]},
+      eocrom: { 'csx': 0, 'cf': [[[999, 999, 999]]], 'co': [[[0.69, 0.69]]], 'cs': [[[999, 999]]], 'cw': [[[1.9, 3.9, 1.9, ]]], 'cp': [[[0.7, 0.9, 0.2]]]},
 
       eofold: p => muonNatform.natFeature(p.eoform),
       eonode: {
@@ -341,7 +341,7 @@ async function anitem (__mapper) {
         },
       },
       eocrom: { 'csx': 1, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
-      'cs': [[[666, 333, 666]]], 'cw': [[[0.7, 0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
+      'cs': [[[666, 333, 666]]], 'cw': [[[1.7, 1.7, 1.7]]], 'cp': [[[0.9, 0.9]]]},
 
       eoform: {
         x: {
@@ -541,7 +541,7 @@ async function anitem (__mapper) {
 
             } else if (props.key === 'auto') { // AUTO
 
-              let sep = 20
+              let sep = Math.floor(10 * (1 + Math.random()))
               let counter = props.counter
               let locus = ani.eoload.stace.auto.locus
 
@@ -598,12 +598,12 @@ async function anitem (__mapper) {
 
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'texta'},
-      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.99, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+      eocrom: { 'csx': 0, 'cf': [[[888, 666, 888]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.99, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate: [ -175, 0 ],
+          translate: [ -175, 30 ],
         },
       },
 
@@ -611,7 +611,7 @@ async function anitem (__mapper) {
         textform: {
           string: 'Merry',
           style: {
-            rotate: [[[ 0, -1 ]]],
+            rotate: [[[ 0, 0 ]]],
             'font-size': [[[40, 40]]],
             'font-family': 'BankFuturistic',
             'text-anchor': 'center',
@@ -630,12 +630,12 @@ async function anitem (__mapper) {
 
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textb'},
-      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.99, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+      eocrom: { 'csx': 0, 'cf': [[[888, 666, 888]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.99, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate: [ 75, 0 ],
+          translate: [ 75, 30 ],
         },
       },
 
@@ -643,7 +643,7 @@ async function anitem (__mapper) {
         textform: {
           string: 'Christmas',
           style: {
-            rotate: [[[ 0, -1 ]]],
+            rotate: [[[ 0, 0 ]]],
             'font-size': [[[40, 40]]],
             'font-family': 'BankFuturistic',
             'text-anchor': 'center',
@@ -653,6 +653,71 @@ async function anitem (__mapper) {
 
       },
     }    
+    
+  // .................. textAniC
+    let textAniC = {
+
+      eohal: 'textform',
+
+      eofold: null,
+
+      eotim: eotim,
+      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textc'},
+      eocrom: { 'csx': 0, 'cf': [[[666, 888, 666]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.99, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ -220, -50 ],
+        },
+      },
+
+      eoload: {
+        textform: {
+          string: 'Happy',
+          style: {
+            rotate: [[[ 0, 0 ]]],
+            'font-size': [[[40, 40]]],
+            'font-family': 'BankFuturistic',
+            'text-anchor': 'center',
+
+          },
+        },
+
+      },
+    }
+  // .................. textAniD
+    let textAniD = {
+
+      eohal: 'textform',
+
+      eofold: null,
+
+      eotim: eotim,
+      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textd'},
+      eocrom: { 'csx': 0, 'cf': [[[666, 888, 666]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.99, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ 120, -50 ],
+        },
+      },
+
+      eoload: {
+        textform: {
+          string: '2019',
+          style: {
+            rotate: [[[ 0, 0 ]]],
+            'font-size': [[[40, 40]]],
+            'font-family': 'BankFuturistic',
+            'text-anchor': 'center',
+
+          },
+        },
+
+      },
+    }        
     // .................. animas
     let animas = [
       natTriang,
@@ -661,6 +726,8 @@ async function anitem (__mapper) {
       natSpiral,
       textAniA,
       textAniB,
+      textAniC,
+      textAniD,
     ]
 
     return animas
