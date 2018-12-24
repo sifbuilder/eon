@@ -93,7 +93,7 @@ async function anitem (__mapper) {
 
       eohal: 'pacer',
       eotim: eotim,
-      eoric: { gid: 'nat', cid: 'nat', fid: 'pacerNat', },
+      eoric: { gid: 'nat', cid: 'nat', fid: 'pacerNat' },
 
       eofold: p => muonNatform.natFeature(p.eoform),
 
@@ -143,15 +143,10 @@ async function anitem (__mapper) {
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-            
               stace = muonStace.getLocus([null, null, null], ani)
-              
             } else if (props.key === 'auto') { // AUTO
-            
               stace = muonStace.getLocus([{pos: 10}, {pos: 10}, {pos: 0}], ani)
-              
             } else if (props.key === 'event') { // EVENT
-            
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
                 let x = grabbed[0]
@@ -159,7 +154,6 @@ async function anitem (__mapper) {
                 let z = 0
                 stace = {x, y, z }
               }
-              
             }
 
             let coordinates = stace

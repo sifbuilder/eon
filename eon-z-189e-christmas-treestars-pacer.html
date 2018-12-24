@@ -10,20 +10,20 @@ async function anitem (__mapper) {
     eohalMars,
     muonNatform,
     muonProps,
-      muonGeom,
-      muonGraticule,
-      muonProfier,
-      muonProj3ct,
+    muonGeom,
+    muonGraticule,
+    muonProfier,
+    muonProj3ct,
     renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('natform'),
     __mapper('xs').m('props'),
-      __mapper('xs').m('geom'),
-      __mapper('xs').m('graticule'),
-      __mapper('xs').m('profier'),
-      __mapper('xs').m('proj3ct'),
+    __mapper('xs').m('geom'),
+    __mapper('xs').m('graticule'),
+    __mapper('xs').m('profier'),
+    __mapper('xs').m('proj3ct'),
     __mapper('xs').r('svg'),
   ])
 
@@ -77,8 +77,8 @@ async function anitem (__mapper) {
           let y = e[1]
           let z = e[2]
           let w = e[3]
-          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360          
-          let res = cos(x) * cos(4 * y) 
+          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360
+          let res = cos(x) * cos(4 * y)
           // let res = ( (h - z) / h ) * r * cos( a * z )
 
           return res
@@ -96,10 +96,10 @@ async function anitem (__mapper) {
           let y = e[1]
           let z = e[2]
           let w = e[3]
-          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360          
+          let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360
           let res = sin(y) * cos(4 * y)
           // let res = ( (h - z) / h ) * r * sin( a * z )
-          
+
           return res
         },
 
@@ -109,22 +109,22 @@ async function anitem (__mapper) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 90],
-        c: [ [[[94, 104]]], 1, 1, 1] ,        
+        c: [ [[[94, 104]]], 1, 1, 1],
         'fn0': (e, c, dax) => {
           let a = 6 // a: frequency
           let h = 90 // h: height
           let r = 90 // r: radius
-          let x = e[0]  // dom:[-180, 180] : [-1.57, 1.57]
-          let y = e[1]  // dom:[-180, 180] : [-1.57, 1.57]
+          let x = e[0] // dom:[-180, 180] : [-1.57, 1.57]
+          let y = e[1] // dom:[-180, 180] : [-1.57, 1.57]
           let z = e[2]
-          let w = e[3]    // [0, 3.14] : [0, 2 * 1.57] 
+          let w = e[3] // [0, 3.14] : [0, 2 * 1.57]
           let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360
           let s = dax.c[0]
-          
+
           // let res = 0.001 * x * s + cos(s * z)
-          
+
           let res = z + x * d / 4
-          
+
           return res
         },
       },
@@ -153,11 +153,10 @@ async function anitem (__mapper) {
       eofold: ani => {
         let gratiprops = {
           ret: 0, // horizontal geodesics
-          dist: 0,  // symetric distribution of geodesics around the origin
-          border: 0, // closed line 
+          dist: 0, // symetric distribution of geodesics around the origin
+          border: 0, // closed line
         }
         let form = muonNatform.natFeature(ani.eoform, gratiprops)
-
 
         return form
       },

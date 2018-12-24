@@ -184,7 +184,7 @@ async function anitem (__mapper) {
             let coords = [0, 0, 0]
             if (props.key === 'init') { // INIT
               let autocount = props.counter
-              
+
               let rows = 4
               let cols = 6
               let hstep = 1
@@ -198,13 +198,12 @@ async function anitem (__mapper) {
               let dLenX = 2 * dRadX
               let dLenY = 2 * dRadY
               let dCenter = [-140, -40]
-              
-              
+
               let delta = [
-                dLenX + dRadX * Math.random(), 
-                dLenY + dRadY * Math.random()
+                dLenX + dRadX * Math.random(),
+                dLenY + dRadY * Math.random(),
               ]
-              
+
               coords = [
                 dCenter[0] + delta[0] * matrixCoord[0],
                 dCenter[1] + delta[1] * matrixCoord[1],

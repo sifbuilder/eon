@@ -244,7 +244,6 @@
           hostAnima.eoouted = (hostAnima.eoouted === undefined)
             ? {[pacerUid]: eotim.unitPassed}
             : Object.assign(hostAnima.eoouted, {[pacerUid]: eotim.unitPassed})
-            
         }
       }
 
@@ -300,10 +299,8 @@
             let ownProps = Object.getOwnPropertyNames(pacer)
             for (let prop of ownProps) {
               if (newItem[prop] !== undefined) {
-                
                 let newpropval = muonProps.v(pacer[prop], anigram, props)
                 newItem[prop] = newpropval
-                
               }
             }
 

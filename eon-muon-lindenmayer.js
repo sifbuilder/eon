@@ -43,7 +43,6 @@
       }
       steps = steps - 1
       if (steps <= 0) {
-
         lindenmayer.fractal = output
 
         cache.linden = linden

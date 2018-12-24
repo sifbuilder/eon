@@ -48,7 +48,6 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
 
-    
     // ....................... natTree
     let natTree = {
 
@@ -69,12 +68,12 @@ async function anitem (__mapper) {
       },
       eoform: {
         x: {
-          "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
+          'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
           'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
           'dom3': [ -180, 180 ],
         },
         y: {
-          "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
+          'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
           'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
           'dom3': [ -180, 180 ],
         },
@@ -82,20 +81,19 @@ async function anitem (__mapper) {
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate: [ 0,0 ], //
+          translate: [ 0, 0 ], //
           scale: [1, 1.5, 1],
           rotate: [ 0, 0, 30 ],
           lens: [0, 1, Infinity],
         },
       },
-      eocrom: { 'csx': 0, 'cf': [[[100,300]]], 'co': [[[0.29, 0.29]]], 'cs': [[[333, 333]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      eocrom: { 'csx': 0, 'cf': [[[100, 300]]], 'co': [[[0.29, 0.29]]], 'cs': [[[333, 333]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
       eoload: {
-      
+
       },
 
     }
-
 
     // ....................... natStar
     let natStar = {
@@ -127,9 +125,9 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           translate: [ 0, 0, 0], // mot
           scale: 1,
-          rotate: [ 0,0,0 ],
+          rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
-          geoanod: 1, // eonode          
+          geoanod: 1, // eonode
         },
       },
 
@@ -137,12 +135,12 @@ async function anitem (__mapper) {
 
       eoform: {
         x: {
-          "m1":5,"m2":5,"n1":30,"n2":100,"n3":100,"a":1,"b":1,
+          'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
           'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': 15, 'w4': 0, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
         },
         y: {
-          "m1":5,"m2":5,"n1":30,"n2":100,"n3":100,"a":1,"b":1,
+          'm1': 5, 'm2': 5, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
           'ra2': 6, 'v0': 0, 'v1': 1, 'seg5': 15, 'w4': 0, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
         },
@@ -176,9 +174,8 @@ async function anitem (__mapper) {
           eonode: function (ani, props) {
             let coords
             if (props.key === 'init') { // INIT
-            
               let autocount = props.counter
-              
+
               let rows = 4
               let cols = 6
               let hstep = 1
@@ -192,37 +189,32 @@ async function anitem (__mapper) {
               let dLenX = 2 * dRadX
               let dLenY = 2 * dRadY
               let dCenter = [-140, -40]
-              
-              
+
               let delta = [
-                dLenX + dRadX * Math.random(), 
-                dLenY + dRadY * Math.random()
+                dLenX + dRadX * Math.random(),
+                dLenY + dRadY * Math.random(),
               ]
-              
+
               coords = [
                 dCenter[0] + delta[0] * matrixCoord[0],
                 dCenter[1] + delta[1] * matrixCoord[1],
                 0]
-                
             } else if (props.key === 'auto') { // AUTO
-                let autocount = props.counter
-                
-                let fuel = {
-                    ra2: 6,
-                    candidates: 6,
-                    sample: 1,
-                    fueltype: 2
-                }
-                
+              let autocount = props.counter
+
+              let fuel = {
+                ra2: 6,
+                candidates: 6,
+                sample: 1,
+                fueltype: 2,
+              }
+
               let candycoords = muonFuel.getCandyCooords(ani, fuel)
 
               if (candycoords !== undefined && candycoords.length > 0) {
-
                 coords = [ ...candycoords[0], 0 ]
               }
-              
             } else if (props.key === 'event') { // EVENT
-            
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
                 let x = grabbed[0]
@@ -233,7 +225,7 @@ async function anitem (__mapper) {
             }
 
             let res
-            
+
             if (coords !== undefined) {
               let coordinates = coords
               res = {
@@ -252,9 +244,9 @@ async function anitem (__mapper) {
       },
 
     }
-    
+
     natTree.avatars = {
-      natStar
+      natStar,
     }
 
     // .................. animas

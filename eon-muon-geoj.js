@@ -495,29 +495,29 @@
           if (geometry !== null) coords = getPolygon(geometry, coords)
         } else if (gj.type == 'FeatureCollection') {
           // get first feature
-            let feature = gj.features[0]
-            coords = getCoords(feature, coords)
+          let feature = gj.features[0]
+          coords = getCoords(feature, coords)
         } else if (gj.type == 'GeometryCollection') {
-            let geometry = gj.geometries[0]
-            coords = getPolygon(geometry, coords)
+          let geometry = gj.geometries[0]
+          coords = getPolygon(geometry, coords)
         } else if (gj.type === 'Point') {
           coords = null
         } else if (gj.type === 'LineString') {
           let points = gj.coordinates
           let qpoints = points.length
-          if (linpoints[0] !== points[qpoints -1]) points.push(line[0])
+          if (linpoints[0] !== points[qpoints - 1]) points.push(line[0])
           coords = points
         } else if (gj.type === 'MultiPoint') {
           let points = gj.coordinates
           let qpoints = points.length
-          if (linpoints[0] !== points[qpoints -1]) points.push(line[0])
+          if (linpoints[0] !== points[qpoints - 1]) points.push(line[0])
           coords = points
         } else if (gj.type === 'Polygon') {
           coords = gj.coordinates
         } else if (gj.type === 'MultiLineString') {
           let points = gj.coordinates[0]
           let qpoints = points.length
-          if (linpoints[0] !== points[qpoints -1]) points.push(line[0])
+          if (linpoints[0] !== points[qpoints - 1]) points.push(line[0])
           coords = points
         } else if (gj.type === 'MultiPolygon') {
           coords = gj.coordinates[0][0]
@@ -558,7 +558,6 @@
             break
           }
         }
-        
       } else if ((gj.type === 'MultiLineString')) {
         let lines = gj.coordinates
         let numboflinesingj = lines.length
@@ -592,10 +591,8 @@
           pointerInCoords += tmpLine.length
           firstCoordInLine = firstCoordInLine + linelength
         }
-
       } else if ((gj.type === 'MultiPoint')) {
         ngj.coordinates = gj.coordinates.slice(0, toaddCoords)
-        
       } else if ((gj.type === 'LineString')) {
         let line = gj.coordinates // coords in line
         let linelength = line.length // number of coords in line
@@ -606,10 +603,8 @@
         let tmpLine = line.slice(startInLine, startInLine + remainingCoords)
         ngj.coordinates = tmpLine
         addedCoords += tmpLine.length
-        
       } else if ((gj.type === 'Feature')) {
         ngj.geometry = getCoordsInRange(gj.geometry, toaddCoords, firstCoord)
-        
       }
 
       return ngj

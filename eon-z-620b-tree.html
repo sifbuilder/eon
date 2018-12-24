@@ -97,15 +97,13 @@ async function anitem (__mapper) {
         let uidPreitem = ani.eoric.uid
         let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
         let preGeoj = preAnigram ? preAnigram.eofold : feature // geo Feature.MultiLineString
-        
-        let preTree 
+
+        let preTree
         if (preGeoj.type === 'FeatureCollection') {
           preTree = preGeoj.features[0].geometry.coordinates
         } else {
           preTree = preGeoj.geometry.coordinates
-        
         }
-        
 
         const maxDepth = eoload.tree.maxDepth,
           depth = eoload.tree.depth,
@@ -169,13 +167,12 @@ async function anitem (__mapper) {
         let uidPreitem = ani.eoric.uid
         let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
         let preGeoj = preAnigram ? preAnigram.eofold : feature // geo Feature.MultiLineString
-        
-        let preTree 
+
+        let preTree
         if (preGeoj.type === 'FeatureCollection') {
           preTree = preGeoj.features[0].geometry.coordinates
         } else {
           preTree = preGeoj.geometry.coordinates
-        
         }
 
         const maxDepth = eoload.tree.maxDepth,
@@ -240,13 +237,12 @@ async function anitem (__mapper) {
         let uidPreitem = ani.eoric.uid
         let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
         let preGeoj = preAnigram ? preAnigram.eofold : feature // geo Feature.MultiLineString
-        
-        let preTree 
+
+        let preTree
         if (preGeoj.type === 'FeatureCollection') {
           preTree = preGeoj.features[0].geometry.coordinates
         } else {
           preTree = preGeoj.geometry.coordinates
-        
         }
 
         const maxDepth = eoload.tree.maxDepth,

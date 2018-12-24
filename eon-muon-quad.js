@@ -19,13 +19,13 @@
   async function muonQuad (__mapper) {
     let [
       d3,
-    renderPortview,
-    renderSvg,
+      renderPortview,
+      renderSvg,
 
     ] = await Promise.all([
       __mapper('xs').b('d3'),
-    __mapper('xs').r('portview'),
-    __mapper('xs').r('svg'),
+      __mapper('xs').r('portview'),
+      __mapper('xs').r('svg'),
 
     ])
 
@@ -133,9 +133,8 @@
     // ra2: non overlap area
     // quad.candysearch = function(ra2=10, polygon = null, candidates = 10, sample = 10) {
     let candysearch = function (ra2 = 10, polygon = null, qcandidates = 10, qsample = 10) {
-      
       let mols = []
-      let coords = polygon  // stream of coordinates
+      let coords = polygon // stream of coordinates
       let extent = quad.extent()
       let x0 = extent[0][0], y0 = extent[0][1], x1 = extent[1][0], y1 = extent[1][1]
 
@@ -153,10 +152,8 @@
       let xr = (x1 - x0)
       let yr = (y1 - y0)
 
-
       for (let i = 0; i < qcandidates; i++) {
-
-        let xd = x0 + Math.random() * xr 
+        let xd = x0 + Math.random() * xr
         let yd = y0 + Math.random() * yr
         let c = [c0[0] + xd, c0[1] + yd]
 
@@ -194,9 +191,8 @@
     // ra2: non overlap area
     // quad.geosearch = function(ra2=10, polygon = null, candidates = 10, sample = 10) {
     let geosearch = function (ra2 = 10, polygon = null, qcandidates = 10, qsample = 10) {
-      
       let mols = []
-      let coords = polygon  // stream of coordinates
+      let coords = polygon // stream of coordinates
       let extent = quad.extent()
       let x0 = extent[0][0], y0 = extent[0][1], x1 = extent[1][0], y1 = extent[1][1]
 
@@ -215,18 +211,16 @@
       let yr = (y1 - y0)
 
       for (let i = 0; i < qcandidates; i++) {
-
-        let xd = x0 + Math.random() * xr 
+        let xd = x0 + Math.random() * xr
         let yd = y0 + Math.random() * yr
         let c = [c0[0] + xd, c0[1] + yd]
 
-          let isin = (polygon !== null) ? d3Polygon.polygonContains(polygon, c) : true
-          if (isin) {
-              mols.push(c) // return selected point
-          }
-        
+        let isin = (polygon !== null) ? d3Polygon.polygonContains(polygon, c) : true
+        if (isin) {
+          mols.push(c) // return selected point
+        }
+
         if (mols.length >= qsample) break
-          
       }
       return mols
     }

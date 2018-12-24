@@ -45,7 +45,6 @@ async function anitem (__mapper) {
 
   // .................. animas
   let ani = function () {
-
     let ctl = ctlWen().control(renderSvg.svg())
 
     // .................. pics
@@ -57,7 +56,6 @@ async function anitem (__mapper) {
     // ....................... natBall
     let natBall = {
 
- 
       eohal: 'pacer',
       eotim: eotim,
       eoric: { gid: 'pacer', cid: 'pacer', fid: 'paceball' },
@@ -85,9 +83,9 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           translate: [ 0, 0, 0], // mot
           scale: 1,
-          rotate: [ 0,0,0 ],
+          rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
-          geoanod: 1, // eonode          
+          geoanod: 1, // eonode
         },
       },
 
@@ -95,12 +93,12 @@ async function anitem (__mapper) {
 
       eoform: {
         x: {
-          "m1":4, "m2":4, "n1":4, "n2":2, "n3":2, "a":1, "b":1,
+          'm1': 4, 'm2': 4, 'n1': 4, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
           'ra2': 2, 'v0': 0, 'v1': 1, 'seg5': 15, 'w4': 0, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
         },
         y: {
-          "m1":4, "m2":4, "n1":4, "n2":2, "n3":2, "a":1, "b":1,
+          'm1': 4, 'm2': 4, 'n1': 4, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
           'ra2': 2, 'v0': 0, 'v1': 1, 'seg5': 15, 'w4': 0, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
         },
@@ -134,9 +132,8 @@ async function anitem (__mapper) {
           eonode: function (ani, props) {
             let coords
             if (props.key === 'init') { // INIT
-            
               let autocount = props.counter
-              
+
               let rows = 4
               let cols = 6
               let hstep = 1
@@ -150,37 +147,32 @@ async function anitem (__mapper) {
               let dLenX = 2 * dRadX
               let dLenY = 2 * dRadY
               let dCenter = [-140, -40]
-              
-              
+
               let delta = [
-                dLenX + dRadX * Math.random(), 
-                dLenY + dRadY * Math.random()
+                dLenX + dRadX * Math.random(),
+                dLenY + dRadY * Math.random(),
               ]
-              
+
               coords = [
                 dCenter[0] + delta[0] * matrixCoord[0],
                 dCenter[1] + delta[1] * matrixCoord[1],
                 0]
-                
             } else if (props.key === 'auto') { // AUTO
-                let autocount = props.counter
-                
-                let fuel = {
-                    ra2: 6,
-                    candidates: 6,
-                    sample: 1,
-                    fueltype: 2
-                }
-                
+              let autocount = props.counter
+
+              let fuel = {
+                ra2: 6,
+                candidates: 6,
+                sample: 1,
+                fueltype: 2,
+              }
+
               let candycoords = muonFuel.getCandyCooords(ani, fuel)
 
               if (candycoords !== undefined && candycoords.length > 0) {
-
                 coords = [ ...candycoords[0], 0 ]
               }
-              
             } else if (props.key === 'event') { // EVENT
-            
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
                 let x = grabbed[0]
@@ -191,7 +183,7 @@ async function anitem (__mapper) {
             }
 
             let res
-            
+
             if (coords !== undefined) {
               let coordinates = coords
               res = {
@@ -209,9 +201,7 @@ async function anitem (__mapper) {
         },
       },
 
-
-    }    
-    
+    }
 
     // ....................... natLintree
     let natLintree = {
@@ -230,7 +220,7 @@ async function anitem (__mapper) {
         return gj
       },
 
-      eocrom: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': [[[766,766]]], 'cw': [[[0.2, 0.2]]], 'co': [[[0.01, 0.01]]], 'cp': [[[0.99, 0.99]]]},
+      eocrom: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': [[[766, 766]]], 'cw': [[[0.2, 0.2]]], 'co': [[[0.01, 0.01]]], 'cp': [[[0.99, 0.99]]]},
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -247,7 +237,7 @@ async function anitem (__mapper) {
           { // tree
             linden: {
               axiom: 'X',
-              steps: [[[8,8, 8]]],
+              steps: [[[8, 8, 8]]],
               rules: {
                 X: '[+FX][FX][-FX]',
                 F: 'FF',
@@ -257,7 +247,7 @@ async function anitem (__mapper) {
               side: [[[1, 1, 1]]],
               // angle: [[[120,90,90,60,60,60,60,60,30,15,15,15]]],
               // angle: [[[20,120]]],
-              angle: [[[120,120,120]]],
+              angle: [[[120, 120, 120]]],
 
               angstart: 90,
               start: [0, -90],
@@ -299,14 +289,14 @@ async function anitem (__mapper) {
           lens: [0, 1, Infinity],
         },
       },
-      eocrom: { 'csx': 0, 'cf': [[[100,300]]], 'co': [[[0.29, 0.29]]], 'cs': [[[333, 333]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
+      eocrom: { 'csx': 0, 'cf': [[[100, 300]]], 'co': [[[0.29, 0.29]]], 'cs': [[[333, 333]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
       eoform: {
         x: {
-          "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
+          'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
           'ra2': 90, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         },
         y: {
-          "m1":3,"m2":3,"n1":100,"n2":200,"n3":200,"a":1,"b":1,
+          'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
           'ra2': 90, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         },
       },
@@ -347,11 +337,11 @@ async function anitem (__mapper) {
       },
       eoform: {
         x: {
-          "m1":6,"m2":6,"n1":30,"n2":100,"n3":100,"a":1,"b":1,
+          'm1': 6, 'm2': 6, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
           'ra2': 36, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         },
         y: {
-          "m1":6,"m2":6,"n1":30,"n2":100,"n3":100,"a":1,"b":1,
+          'm1': 6, 'm2': 6, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
           'ra2': 36, 'v0': 0, 'v1': 1, 'seg5': 360, 'w4': 0, 'pa6': 0, 'pb7': -1,
         },
       },
@@ -359,7 +349,6 @@ async function anitem (__mapper) {
       eoload: {},
 
     }
-
 
     // ............................. natSpiral
     let natSpiral = {
@@ -371,19 +360,18 @@ async function anitem (__mapper) {
       eofold: ani => {
         let gratiprops = {
           ret: 0, // horizontal geodesics
-          dist: 0,  // symetric distribution of geodesics around the origin
+          dist: 0, // symetric distribution of geodesics around the origin
           border: 0, // closed line
         }
 
         let gj = muonNatform.natFeature(ani.eoform, gratiprops)
-            let coords = muonGeoj.getCoords(gj)
-            let nb = coords.length
-            let unitElapsed = ani.eotim.unitElapsed
-            let t = unitElapsed
-            let nbt = Math.ceil(nb * t)
+        let coords = muonGeoj.getCoords(gj)
+        let nb = coords.length
+        let unitElapsed = ani.eotim.unitElapsed
+        let t = unitElapsed
+        let nbt = Math.ceil(nb * t)
 
         let firstcoord = 0
-
 
         let newFeatures = [gj]
 
@@ -391,59 +379,48 @@ async function anitem (__mapper) {
         let pars = 0
 
         if (inc === 1 || pars === 1) {
-
-
           if (preani === undefined) {
+            let tgj = gj
+            tgj.geometry = muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
+            tgj.properties = tgj.properties === undefined ? {} : tgj.properties
+            tgj.properties.eocrom = ani.eocrom
+            tgj.properties.lastcoord = nbt
 
-              let tgj = gj
-              tgj.geometry= muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
-              tgj.properties = tgj.properties === undefined ? {} : tgj.properties
-              tgj.properties.eocrom = ani.eocrom
-              tgj.properties.lastcoord = nbt
-
-              newFeatures = [tgj]
-
+            newFeatures = [tgj]
           }
-
         }
 
         if (inc === 1) {
-
           let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
 
           if (preani !== undefined) {
-
             let features = preani.eofold.features
 
             let lastFeature = features[features.length - 1]
             let lastFeatureProps = lastFeature.properties
             let lastcoord = lastFeatureProps.lastcoord
-            let prefeatures = preani.eofold.features.map(muonGeoj.deprop)  // _e_
+            let prefeatures = preani.eofold.features.map(muonGeoj.deprop) // _e_
 
             if (lastcoord !== undefined) {
-
               firstcoord = 0 // lastcoord
 
               if (1 && 1) console.log('newcoods', nbt, firstcoord)
             }
 
             let tgj = gj
-            tgj.geometry= muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
+            tgj.geometry = muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
             tgj.properties = tgj.properties === undefined ? {} : tgj.properties
             tgj.properties.eocrom = ani.eocrom
             tgj.properties.eocrom.cs = 300 + 700 * unitElapsed
             tgj.properties.lastcoord = nbt
 
-
             newFeatures = [ tgj] // newFeatures = [...prefeatures, tgj]
           }
-
         }
-
 
         let gfeats = {
           type: 'FeatureCollection',
-          features: newFeatures
+          features: newFeatures,
         }
         return gfeats
       },
@@ -459,14 +436,14 @@ async function anitem (__mapper) {
         },
       },
       eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
-      'cs': [[[666, 333, 666]]], 'cw': [[[0.7, 0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
+        'cs': [[[666, 333, 666]]], 'cw': [[[0.7, 0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
 
       eoform: {
         x: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
           'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
-          c: [ [[[1,1]]], [[[1,1]]], [[[0,90]]], 1 ],
+          c: [ [[[1, 1]]], [[[1, 1]]], [[[0, 90]]], 1 ],
           'fn0': (e, c, dax) => {
             let a = 4 // a: frequency
             let h = 90 // h: height
@@ -483,15 +460,15 @@ async function anitem (__mapper) {
               let i = levels
               m = 1 / i
             } else {
-              for (let i=1; i<levels; i++) {  // 1
-                  if (z === (Math.PI / 2) / i) {
-                    m = 1 / i
-                    break
-                  }
+              for (let i = 1; i < levels; i++) { // 1
+                if (z === (Math.PI / 2) / i) {
+                  m = 1 / i
+                  break
+                }
               }
             }
 
-            let res = m * Math.sqrt((Math.PI + x)) * cos( x) *  sin(x)
+            let res = m * Math.sqrt((Math.PI + x)) * cos(x) * sin(x)
 
             return res
           },
@@ -500,7 +477,7 @@ async function anitem (__mapper) {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
           'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
           'dom3': [-180, 180],
-          c: [ [[[1,1]]], [[[1,1]]], [[[0,90]]], 1 ],
+          c: [ [[[1, 1]]], [[[1, 1]]], [[[0, 90]]], 1 ],
           'fn0': (e, c, dax) => {
             let a = 4 // a: frequency
             let h = 90 // h: height
@@ -517,17 +494,17 @@ async function anitem (__mapper) {
               let i = levels
               m = 1 / i
             } else {
-              for (let i=1; i<levels; i++) {  // 1
-                  if (z === (Math.PI / 2) / i) {
-                    m = 1 / i
-        // if (1 && 1) console.log('m', i, m)
+              for (let i = 1; i < levels; i++) { // 1
+                if (z === (Math.PI / 2) / i) {
+                  m = 1 / i
+                  // if (1 && 1) console.log('m', i, m)
 
-                    break
-                  }
+                  break
+                }
               }
             }
 
-            let res =  m * Math.sqrt((Math.PI + y)) * sin(y) * sin(y)
+            let res = m * Math.sqrt((Math.PI + y)) * sin(y) * sin(y)
 
             return res
           },
@@ -536,17 +513,17 @@ async function anitem (__mapper) {
 
         z: {
           'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,  // segs: double cycles
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1, // segs: double cycles
           'dom3': [0, 180],
-          c: [ [[[1,1]]],  1, 1, 1] , // 37.5   radians * 225 / 6    2:2/3, 4:2/2,
+          c: [ [[[1, 1]]], 1, 1, 1], // 37.5   radians * 225 / 6    2:2/3, 4:2/2,
           'fn0': (e, c, dax) => {
             let a = 4 // a: frequency   360/90
             let h = 90 // h: height
             let r = 90 // r: radius
-            let x = e[0]  // dom:[-180, 180] : [-1.57, 1.57]
-            let y = e[1]  // dom:[-180, 180] : [-1.57, 1.57]
+            let x = e[0] // dom:[-180, 180] : [-1.57, 1.57]
+            let y = e[1] // dom:[-180, 180] : [-1.57, 1.57]
             let z = e[2]
-            let w = e[3]    // [0, 3.14] : [0, 2 * 1.57]
+            let w = e[3] // [0, 3.14] : [0, 2 * 1.57]
             // let d = radians * 360 / 6 // 0.157  , z.seg5: 36, xy.dom: 360
             // if (1 && 1) console.log('c0', dax.c[0])
 
@@ -563,8 +540,6 @@ async function anitem (__mapper) {
           'dom3': [0, 360],
           c: [ 1, 1, 1, 1 ],
           'fn0': (e, c, dax) => {
-
-
             return e[3]
           },
 
@@ -575,13 +550,12 @@ async function anitem (__mapper) {
 
     }
 
-
     // ....................... aviStar
     let aviStar = {
 
       eohal: 'pacer',
       eotim: eotim,
-      eoric: { gid: 'nat', cid: 'nat', fid: 'pacerNat', },
+      eoric: { gid: 'nat', cid: 'nat', fid: 'pacerNat' },
 
       eofold: p => muonNatform.natFeature(p.eoform),
 
@@ -651,26 +625,20 @@ async function anitem (__mapper) {
           },
 
           eonode: function (ani, props) {
-
             let stace = [0, 0, 0]
             if (props.key === 'init') { // INIT
-
               stace = muonStace.getLocus([null, null, null], ani)
-
             } else if (props.key === 'auto') { // AUTO
-
               let sep = 20
               let counter = props.counter
               let locus = ani.eoload.stace.auto.locus
 
-                locus[0].pos = locus[0].pos + counter * sep
-                locus[1].pos = locus[1].pos + counter * sep
-                locus[2].pos = locus[2].pos
+              locus[0].pos = locus[0].pos + counter * sep
+              locus[1].pos = locus[1].pos + counter * sep
+              locus[2].pos = locus[2].pos
 
-              stace = muonStace.getLocus( locus, ani)
-
+              stace = muonStace.getLocus(locus, ani)
             } else if (props.key === 'event') { // EVENT
-
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
                 let x = grabbed[0]
@@ -678,7 +646,6 @@ async function anitem (__mapper) {
                 let z = 0
                 stace = {x, y, z }
               }
-
             }
 
             let coordinates = stace
@@ -696,8 +663,8 @@ async function anitem (__mapper) {
         },
         stace: {
           auto: {
-            locus: [ {pos: [[[10,360]]] }, {pos: [[[10,360]]]}, {pos: 0} ],
-          }
+            locus: [ {pos: [[[10, 360]]] }, {pos: [[[10, 360]]]}, {pos: 0} ],
+          },
         },
       },
     }
@@ -707,7 +674,7 @@ async function anitem (__mapper) {
       aviStar, // h.pacer
 
     }
-  // .................. textAniA
+    // .................. textAniA
     let textAniA = {
 
       eohal: 'textform',
@@ -739,7 +706,7 @@ async function anitem (__mapper) {
 
       },
     }
-  // .................. textAniB
+    // .................. textAniB
     let textAniB = {
 
       eohal: 'textform',
@@ -770,7 +737,7 @@ async function anitem (__mapper) {
         },
 
       },
-    }    
+    }
     // .................. animas
     let animas = [
       natTriang,

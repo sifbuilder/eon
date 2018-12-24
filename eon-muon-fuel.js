@@ -35,7 +35,7 @@
     let width = renderPortview.width(), height = renderPortview.height()
 
     // ............................. getCandyCooords
-    let getCandyCooords = function(anitem, fuelprops={}) {
+    let getCandyCooords = function (anitem, fuelprops = {}) {
       let eoload = anitem.eoload, // eoload
         eofold = anitem.eofold, // eofold
         eoric = anitem.eoric, // eoric
@@ -43,7 +43,7 @@
 
       console.assert(pid !== undefined, `pid in ${anitem.eoric} is undefined`)
 
-      let fuel = eoload.fuel || fuelprops,  // or pass fuel props as arg
+      let fuel = eoload.fuel || fuelprops, // or pass fuel props as arg
         ra2 = fuel.ra2,
         candidates = fuel.candidates,
         sample = fuel.sample,

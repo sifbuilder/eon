@@ -50,7 +50,6 @@
       __mapper('xs').r('portview'),
     ])
 
-
     let width = 600,
       height = 400,
       background = 'black'
@@ -64,39 +63,30 @@
     // ............................. svg
     let _svg = () => d3.select('#viewframe')
 
-
     if (d3.select('#viewframe').empty()) {
-      
-      
       let svglayer = d3.select('body')
         .append('svg')
-          .attr('id', 'viewframe')  // Viewport
-          .attr('class', 'viewframe')
-          .attr('width', state.width)
-          .attr('height', state.height)
-          .style('position', 'absolute')
-          .style('top', 0)
-          .style('left', 0)
-          .style('fill', 'transparent')
-          .style('background-color', state.background) // background
-          // .attr('pointer-events', 'none')
-          // .attr('overflow', 'visible')
-
-      
-      
+        .attr('id', 'viewframe') // Viewport
+        .attr('class', 'viewframe')
+        .attr('width', state.width)
+        .attr('height', state.height)
+        .style('position', 'absolute')
+        .style('top', 0)
+        .style('left', 0)
+        .style('fill', 'transparent')
+        .style('background-color', state.background) // background
+      // .attr('pointer-events', 'none')
+      // .attr('overflow', 'visible')
     }
-
 
     // ............................. elems
     let svgelems = function (idfyer, data = ['data'], idfn = null) {
-
       if (d3.select('.muon-style-block').empty()) {
         d3.select('head').append('style').attr('class', 'muon-style-block')
           .html('')
       }
 
       if (idfyer === null) { // if null return the layer
-
         let svgLayer = d3.select('body').selectAll('svg').data(['svg'])
           .enter()
           .append('svg')
@@ -106,8 +96,6 @@
           .attr('height', state.height)
           .style('border', '1px solid lightgray')
         return svgLayer
-
-
       } else if (typeof (idfyer) === 'string') { // 'svg:g.links/path.link', data, idfn}
         // manage the dom elements
 
@@ -185,8 +173,6 @@
           /*  ................. TEXTS ................. */
           let texts = fitems
             .filter(d => d.properties.sort === 'text')
-
-
 
           if (texts.length > 0) {
             svgelems('svg:g.' + gid + '/text.' + cid, texts, d => d.eoric.uid)
@@ -350,8 +336,7 @@
               .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
               .style('stroke-width', d => d.properties.style['stroke-width'])
           }
-          
-          
+
           /*  ................. END SVG FORMS ................. */
         }
       }

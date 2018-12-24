@@ -36,10 +36,8 @@
 
     let width = renderPortview.width(), height = renderPortview.height()
 
-
     // ............................. gramm
     let gramm = function (anitem, newAnigrams = []) {
-
       let eoload = anitem.eoload, // eoload
         eofold = anitem.eofold, // eofold
         eoric = anitem.eoric, // eoric
@@ -48,13 +46,12 @@
       let remainCandies = muonFuel.getCandyCooords(anitem)
 
       for (let i = 0; i < remainCandies.length; i++) { // for each candy ...
-
-          let gid = eoric.gid, // from ava eoric
-            cid = eoric.cid,
-            fid = muonEoric.idify(eoric.fid, i),
-            uid = muonEoric.idify(gid, cid, fid),
-            pid = eoric.uid
-          let _ric = {gid, cid, fid, uid, pid} // is DELLED ?
+        let gid = eoric.gid, // from ava eoric
+          cid = eoric.cid,
+          fid = muonEoric.idify(eoric.fid, i),
+          uid = muonEoric.idify(gid, cid, fid),
+          pid = eoric.uid
+        let _ric = {gid, cid, fid, uid, pid} // is DELLED ?
 
         let eomot = {
           proform: {
@@ -64,8 +61,7 @@
             rotate: [ 0, 0, 0 ],
             lens: [0, 1, Infinity],
           },
-      }
-
+        }
 
         let newAnigram = {} // new anigram per fuel nat
         newAnigram.eohal = 'natform'

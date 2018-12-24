@@ -165,9 +165,7 @@
         py = PY
 
         rp = {X0, X1, DX, PX, x0, x1, dx, px, Y0, Y1, DY, PY, y0, y1, dy, py}
-
       } else if (params.frame !== undefined) { // frame
-
         // frame: [ [X_extent, Y_extent] ,
         //          [x_extent, y_extent] ]
 
@@ -222,7 +220,7 @@
     }
 
     // .................. arywinopen
-    let arywinopen = (d0, d1, dd) => {  // _e_
+    let arywinopen = (d0, d1, dd) => { // _e_
       let res = []
       let md = Math.max(Math.abs(d0), Math.abs(d1)) - epsilon
       let mt = Math.ceil(md / dd)
@@ -233,9 +231,8 @@
     // .................. arywinclosed
     let arywinclosed = (d0, d1, dd) => [d0, ...arywinopen(d0, d1, dd), d1]
 
-
-    function grt(d0, d1, dd, c=0, f=0, p=0) { // def: x, sym, closed
-      // ...[d0,d1,dd] : ...[x0,x1,dx], ...[y0,y1,dy] 
+    function grt (d0, d1, dd, c = 0, f = 0, p = 0) { // def: x, sym, closed
+      // ...[d0,d1,dd] : ...[x0,x1,dx], ...[y0,y1,dy]
       // sym: origin in the center. delta towards the extremes
       // asym: interval from left to right border
       // open: from left to right border
@@ -269,9 +266,9 @@
 
       // get circles from point in sphere and step
       let X = grt(Y0, Y1, PY, 1, dist, border), // get X(Y) by PY
-          Y = grt(X0, X1, PX, 1, dist, border), // get Y(X) by PX
-          x = grt(y0, y1, py, 0, dist, border), // get x(y) by py
-          y = grt(x0, x1, px, 0, dist, border) // get y(x) by px
+        Y = grt(X0, X1, PX, 1, dist, border), // get Y(X) by PX
+        x = grt(y0, y1, py, 0, dist, border), // get x(y) by py
+        y = grt(x0, x1, px, 0, dist, border) // get y(x) by px
 
       // include first meridian
       let bigmer = (params.bigmer !== undefined) ? params.bigmer : 1
