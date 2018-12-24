@@ -49,7 +49,7 @@
       __mapper('xs').p('uniwen'),
       __mapper('xs').r('portview'),
     ])
-if (1 && 1) console.log(' ******************** svg')
+
 
     let width = 600,
       height = 400,
@@ -61,24 +61,30 @@ if (1 && 1) console.log(' ******************** svg')
       background: background,
     }
 
-    // Viewport
-    let svglayer = d3.select('body')
-      .append('svg')
-      .attr('id', 'viewframe')
-      .attr('class', 'viewframe')
-      .attr('width', state.width)
-      .attr('height', state.height)
-      .style('position', 'absolute')
-      .style('top', 0)
-      .style('left', 0)
-      .style('fill', 'transparent')
-      .style('background-color', state.background) // background
-      // .attr('pointer-events', 'none')
-      // .attr('overflow', 'visible')
-
-
     // ............................. svg
     let _svg = () => d3.select('#viewframe')
+
+
+    if (d3.select('#viewframe').empty()) {
+      
+      
+      let svglayer = d3.select('body')
+        .append('svg')
+          .attr('id', 'viewframe')  // Viewport
+          .attr('class', 'viewframe')
+          .attr('width', state.width)
+          .attr('height', state.height)
+          .style('position', 'absolute')
+          .style('top', 0)
+          .style('left', 0)
+          .style('fill', 'transparent')
+          .style('background-color', state.background) // background
+          // .attr('pointer-events', 'none')
+          // .attr('overflow', 'visible')
+
+      
+      
+    }
 
 
     // ............................. elems
