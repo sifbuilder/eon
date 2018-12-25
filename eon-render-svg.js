@@ -58,6 +58,8 @@
       width: width,
       height: height,
       background: background,
+      // .attr('pointer-events', 'none')
+      // .attr('overflow', 'visible')      
     }
 
     // ............................. svg
@@ -75,8 +77,18 @@
         .style('left', 0)
         .style('fill', 'transparent')
         .style('background-color', state.background) // background
-      // .attr('pointer-events', 'none')
-      // .attr('overflow', 'visible')
+
+    }
+
+    let resetsvg = function() {
+
+      if (! d3.select('#viewframe').empty()) {
+        let svglayer = d3.select('#viewframe')
+          .attr('width', state.width)
+          .attr('height', state.height)
+          .style('background-color', state.background) // background
+      }
+
     }
 
     // ............................. elems
@@ -347,6 +359,7 @@
     enty.svg = _svg
     enty.svgelems = svgelems
     enty.render = render
+    enty.setBckColor = _ => _ === undefined ? state : (state.background = _, resetsvg(), state)
     return enty
   }
 

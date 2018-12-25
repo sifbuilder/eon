@@ -133,9 +133,6 @@ async function anitem (__mapper) {
             }
           }
 
-          if (1 && 1) console.log('z', z)
-          // if (1 && 1) console.log('z', y, z, w)
-
           let res = m * Math.sqrt((Math.PI + y)) * sin(y) * sin(y)
 
           return res
@@ -157,11 +154,10 @@ async function anitem (__mapper) {
           let z = e[2]
           let w = e[3] // [0, 3.14] : [0, 2 * 1.57]
           // let d = radians * 360 / 6 // 0.157  , z.seg5: 36, xy.dom: 360
-          // if (1 && 1) console.log('c0', dax.c[0])
 
-          let seg5 = dax.seg5
+          let levels = dax.seg5
 
-          let res = z + 0.5 * (x + y) / seg5
+          let res = z + 0.5 * (x + y) / levels
           return res
         },
       },
@@ -236,8 +232,6 @@ async function anitem (__mapper) {
 
             if (lastcoord !== undefined) {
               firstcoord = 0 // lastcoord
-
-              if (1 && 1) console.log('newcoods', nbt, firstcoord)
             }
 
             let tgj = gj
