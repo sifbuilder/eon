@@ -58,7 +58,7 @@
         bluered: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'red' ]),  // 20
         blueblack: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'black' ]), // 21
         redblack: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['Black', '#FF2400',  'Steelblue' ]), // 22
-
+        redblack: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['Black', 'Yellow',  'White' ]), // 23
       }
 
       colors.color = colors.scales.bos

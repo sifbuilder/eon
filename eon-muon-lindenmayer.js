@@ -143,14 +143,11 @@
         if (ch === '+') {
           let newangle = right(stat)
           stat.angles[stat.level] = newangle
-          // if (1 && 1) console.log('+  :', stat.level, counter, stat.angles)
         } else if (ch === '-') {
           let newangle = left(stat)
 
           stat.angles[stat.level] = newangle
-          // if (1 && 1) console.log('-  :', stat.level, counter, stat.angles)
         } else if (ch === 'O') {
-          // if (1 && 1) console.log('------ O')
 
         } else if (ch === 'F' || ch === 'f') {
           if (stat.lineslifo[stat.level].length === 0) {
@@ -173,7 +170,7 @@
 
           let lastOpenLine = openlines[openlines.length - 1]
           lines[lastOpenLine] = stat.lineslifo[stat.level]
-          // if (1 && 1) console.log('F  :', stat.level, counter, lines[lastOpenLine])
+          
         } else if (ch === '[') {
           let lineInLevel = stat.lineslifo[stat.level]
           let pointsInLine = lineInLevel.length
@@ -198,7 +195,6 @@
           stat.lineslifo[stat.level] = newline
           stat.angles[stat.level] = newangle // inherit angleCum
 
-          // if (1 && 1) console.log('[  :', stat.level, counter, openlines)
           counter = counter + 1
           openlines.push(counter)
           let lastOpenLine = openlines[openlines.length - 1]
@@ -219,6 +215,7 @@
 
     // ............................. fractal
     let linden = (lindenmayer) => {
+      
       let fractal = fractalize(lindenmayer).fractal
 
       let mayer = lindenmayer.mayer
