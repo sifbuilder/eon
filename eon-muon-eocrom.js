@@ -42,7 +42,7 @@
         bos: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Wheat']), // 4 ex. 0
         wheat: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['black', 'Wheat', '#FF2400']), // 5
         red: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['#FF2400', 'Yellow']), // 6
-        ry: d3scale.scaleLinear().domain([0, 1]).range(['red', 'yellow']), // 7
+        ry: d3scale.scaleLinear().domain([0, 1]).range(['red', 'gold']), // 7
         bar: d3scale.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Yellow']), // 8
         lab: d3interpolate.interpolateLab('#FF2400', 'yellow'), // 9
         hsl: d3interpolate.interpolateLab('amber', 'steelblue'), // 10

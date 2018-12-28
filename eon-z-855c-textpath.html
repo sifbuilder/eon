@@ -26,7 +26,7 @@ async function anitem (__mapper) {
   ])
 
   ctlWen.control(renderSvg.svg())
-  
+
   let ani = function () {
     // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
@@ -34,15 +34,15 @@ async function anitem (__mapper) {
     let cosh = Math.cosh,
       sinh = Math.sinh
     let epsilon = 1e-5
-    
-    let eotim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
-    
 
-    let conformRed = {
+    let eotim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
+
+
+    let conform0 = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
-        'dom3': [ [[[0,90]]], [[[2 * 360, 2 * 360 + 90]]] ],
+        'dom3': [ [[[0,120]]], [[[7 * 360, 7 * 360 + 120]]] ],
 
         'fn0': (e,c) => e[0]
       },
@@ -51,27 +51,63 @@ async function anitem (__mapper) {
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 360],
 
-        'fn0': (e,c) => sin(e[0])
+        'fn0': (e,c) => 0.5 * sin(e[0])
 
       }
     }
-    
-    let eocromRed = { 'csx': 1, 'cf': [[[ 333, 333, 333]]], 'co': [[[0.069, 0.06, 0.069]]],
-      'cs': [[[333, 333, 333]]], 'cw': [[[1.3, 1.3, 1.3]]], 'cp': [[[0.99, 0.99]]]}
 
-    // ............................. natAniRed
-    let natAniRed = {
+    let conform1 = {
+      x: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+        'dom3': [ [[[0,120]]], [[[5 * 360, 5 * 360 + 120]]] ],
+
+        'fn0': (e,c) => e[0]
+      },
+      y: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+        'dom3': [0, 360],
+
+        'fn0': (e,c) => 0.4 * sin(45 + e[0])
+
+      }
+    }
+
+    let conform2 = {
+      x: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+        'dom3': [ [[[0,120]]], [[[5 * 360, 5 * 360 + 120]]] ],
+
+        'fn0': (e,c) => e[0]
+      },
+      y: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+        'dom3': [0, 360],
+
+        'fn0': (e,c) => 0.6 * sin(90 + e[0])
+
+      }
+    }
+
+    let eocrom = { 'csx': 7, 'cf': [[[ 999, 999, 999]]], 'co': [[[0.9, 0.9, 0.9]]],
+      'cs': [[[999, 999, 999]]], 'cw': [[[0.1, 0.1, 0.1]]], 'cp': [[[0.99, 0.99]]]}
+
+    // ............................. textAni0
+    let textAni0 = {
       eohal: 'textform',
       eotim,
-      eoric: {gid: 'q', cid: 'q', fid: 'qred'},
+      eoric: {gid: 'txtg', cid: 'txtc0', fid: 'txtf0'},
       eofold: ani => {
         let gratiprops = {
           ret: 0, // horizontal geodesics
           dist: 1, // asymetric distribution of geodesics around the origin
           border: 0, // open line
-        }        
-        
-        let res = muonNatform.natFeature(ani.eoform, gratiprops)  // Feature.LineString
+        }
+
+        let res = muonNatform.natFeature(ani.eoform, gratiprops) // Feature.LineString
 
         return res
       },
@@ -80,35 +116,129 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           scale: [ 0.2, 0.2 ],
           prerotate: [[[ ctlWen.rotation ]]],
-          translate: [ -200,0,0 ],
+          translate: [ -250,100,0 ],
           rotate: [0, 0, 0],
           lens: [0, 1, Infinity ],
         },
       },
-      eocrom: eocromRed,
-      eoform: conformRed,
+      eocrom: eocrom,
+      eoform: conform0,
       eoload: {
         textform: {
-          string: 'sif mother of the obscure ullr',
+          string: "sif's   thick   wondrous  golden   hair",
           style: {
             rotate: [[[ 0, 0 ]]],
             'font-size': [[[24, 24]]],
             'font-family': 'BankFuturistic',
             'text-anchor': 'center',
-
           },
         },
 
       },
-    }    
-    
-    
+    }
+
+    // ............................. textAni1
+    let textAni1 = {
+      eohal: 'textform',
+      eotim,
+      eoric: {gid: 'txtg', cid: 'txtc1', fid: 'txtf1'},
+      eofold: ani => {
+        let gratiprops = {
+          ret: 0, // horizontal geodesics
+          dist: 1, // asymetric distribution of geodesics around the origin
+          border: 0, // open line
+        }
+
+        let res = muonNatform.natFeature(ani.eoform, gratiprops) // Feature.LineString
+
+        return res
+      },
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          scale: [ 0.2, 0.2 ],
+          prerotate: [[[ ctlWen.rotation ]]],
+          translate: [ -250,0,0 ],
+          rotate: [0, 0, 0],
+          lens: [0, 1, Infinity ],
+        },
+      },
+      eocrom: eocrom,
+      eoform: conform1,
+      eoload: {
+        textform: {
+          string: "thor's   loving   wife  and   goddess  of the  harvest",
+          style: {
+            rotate: [[[ 0, 0 ]]],
+            'font-size': [[[24, 24]]],
+            'font-family': 'BankFuturistic',
+            'text-anchor': 'center',
+          },
+        },
+
+      },
+    }
+
+
+    // ............................. textAni2
+    let textAni2 = {
+      eohal: 'textform',
+      eotim,
+      eoric: {gid: 'txtg', cid: 'txtc2', fid: 'txtf2'},
+      eofold: ani => {
+        let gratiprops = {
+          ret: 0, // horizontal geodesics
+          dist: 1, // asymetric distribution of geodesics around the origin
+          border: 0, // open line
+        }
+
+        let res = muonNatform.natFeature(ani.eoform, gratiprops) // Feature.LineString
+
+        return res
+      },
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          scale: [ 0.2, 0.2 ],
+          prerotate: [[[ ctlWen.rotation ]]],
+          translate: [ -250,-100,0 ],
+          rotate: [0, 0, 0],
+          lens: [0, 1, Infinity ],
+        },
+      },
+      eocrom: eocrom,
+      eoform: conform2,
+      eoload: {
+        textform: {
+          string: 'who   made   the   norse  people’s   crops   grow',
+          style: {
+            rotate: [[[ 0, 0 ]]],
+            'font-size': [[[24, 24]]],
+            'font-family': 'BankFuturistic',
+            'text-anchor': 'center',
+          },
+        },
+
+      },
+    }
     // .................. textAniA
     let textAniA = {
 
       eohal: 'textform',
 
-      eofold: null,
+      eofold: ani => {
+
+
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          }
+        }
+
+        return res
+      },
 
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'ca', 'fid': 'fa'},
@@ -129,7 +259,6 @@ async function anitem (__mapper) {
             'font-size': [[[24, 24]]],
             'font-family': 'BankFuturistic',
             'text-anchor': 'center',
-
           },
         },
 
@@ -138,7 +267,9 @@ async function anitem (__mapper) {
     // .................. animas
     let animas = [
 
-      natAniRed, // h.textform
+      textAni0, // h.textform
+      textAni1, // h.textform
+      textAni2, // h.textform
       // textAniA, // h.textform
 
     ]

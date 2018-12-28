@@ -240,17 +240,25 @@
           /*  ................. TEXTS ................. */
           let texts = fitems
             .filter(d => d.properties.sort === 'text')
-if (1 && 1) console.log('texts', texts)
 
-
-          let textsWithPath =  texts  // with path
-            .filter(d => d.properties.textpath !== undefined)
-
+            
+          // unpathed texts are geofolded by geojson Feature.Point  
           let textsWithOutPath =  texts // without path
-            .filter(d => d.properties.textpath === undefined)
+            .filter(d => 
+                  d.properties.textpath === undefined
+                  || (d.type === 'Feature' && d.geometry.type === 'Point')
+              )
 
 
-          // defs paths  
+          // pathed texts are geofolded by geojson Feature.LineString
+          let textsWithPath =  texts // without path
+            .filter(d => 
+                  d.properties.textpath === undefined
+                  || (d.type === 'Feature' && d.geometry.type === 'LineString')
+                  || (d.type === 'Feature' && d.geometry.type === 'Polygon')
+              )
+
+          // text support paths are added to defs
             
           for (let tx=0; tx<textsWithPath.length; tx++) {
             let text = textsWithPath[tx]
@@ -266,28 +274,23 @@ if (1 && 1) console.log('texts', texts)
                   ? geoPath.pointRadius(pointRadius)
                   : geoPath
 
+                // the svg path comes from geoPath of geojson geofold  
                 let textpath = path(text)
              
-if (1 && 1) console.log('textpath', textpath)
-             
-            // if (props.textpath !== undefined) {
-
               let gidpath = 'paths' + gid
               let cidpath = 'paths' + cid
-              // let textpath = props.textpath
               let fs = [uid]
               let pathid = `textpath${uid}`
               svgelems('defs:g.' + gidpath + '/path.' + cidpath, fs, d => uid)
                 .data(() => fs)
                 .attr('d', textpath)
                 .attr('id', pathid)
-
-            // }
-
           }
 
-          if (textsWithPath.length > 0) {  // with path
-if (1 && 1) console.log('textsWithPath', textsWithPath)
+          // 
+          // pathed text
+          // 
+          if (textsWithPath.length > 0) {  // text with textpath
 
             svgelems('svg:g.' + gid + '/text.' + cid, textsWithPath, d => d.properties.eoric.uid)
               .attr('x', 0) // translate instead
@@ -312,7 +315,7 @@ if (1 && 1) console.log('textsWithPath', textsWithPath)
               .style('lengthAdjust', d => d.properties.style['lengthAdjust'])
 
               .style('font-size', d => d.properties.style['font-size'])
-              .style('font-family', d => d.properties.style['font-family'])
+              .style('font-family', 'arial') // d => d.properties.style['font-family'])
 
               .style('fill', d => d.properties.style.fill)
               .style('stroke', d => d.properties.style.stroke)
@@ -324,7 +327,8 @@ if (1 && 1) console.log('textsWithPath', textsWithPath)
 
 
 
-            // string path
+            // string path is added to the text element
+            // the textpath id is defs#textpath${d.properties.eoric.uid}
             svgelems(`text.${cid}/textPath`, textsWithPath, d => d.properties.eoric.uid)
               .attr('class', d => `${d.properties.eoric.cid}`)
               .attr("xlink:href", d => `#textpath${d.properties.eoric.uid}`)
@@ -333,18 +337,19 @@ if (1 && 1) console.log('textsWithPath', textsWithPath)
           }
 
 
-
-
-
-          if (textsWithOutPath.length > 0) {  // without path
-if (1 && 1) console.log('textsWithOutPath', textsWithOutPath)
+          // 
+          // unpathed text
+          // 
+          if (textsWithOutPath.length > 0) {  // text without path
+          
             svgelems('svg:g.' + gid + '/text.' + cid, textsWithOutPath, d => d.properties.eoric.uid)
               .text(d => d.properties.string)
 
               .attr('x', 0) // translate instead
               .attr('y', 0) // translate instead
 
-              .attr('transform', d => { // eg. "translate(21,20) rotate(15)") scale(sx, sy) skew (skew)
+              .attr('transform', d => { 
+              // eg. "translate(21,20) rotate(15)") scale(sx, sy) skew (skew)
 
                 let item = d
                 let geometry = item.geometry
@@ -353,14 +358,7 @@ if (1 && 1) console.log('textsWithOutPath', textsWithOutPath)
                 let translate = projgeo.coordinates
                 let rotate = item.properties.style['rotate']
 
-                let r = 'translate(' +
-                    translate[0] +
-                    ',' +
-                    translate[1] +
-                    ')' +
-                    ' rotate(' +
-                    (rotate || 0) +
-                    ' )'
+                let r = 'translate(' + translate[0] + ',' + translate[1] + ')' + ' rotate(' + (rotate || 0) + ' )'
                 return r
               })
 
@@ -401,14 +399,7 @@ if (1 && 1) console.log('textsWithOutPath', textsWithOutPath)
                 let translate = projgeo.coordinates
                 let rotate = item.properties.attr.rotate || 0
 
-                let r = 'translate(' +
-                    translate[0] +
-                    ',' +
-                    translate[1] +
-                    ')' +
-                    ' rotate(' +
-                    (rotate || 0) +
-                    ' )'
+                let r = 'translate(' + translate[0] + ',' + translate[1] + ')' + ' rotate(' + (rotate || 0) + ' )'
                 return r
               })
 

@@ -37,10 +37,12 @@
       let textform = ani.eoload.textform // needs text
 
       let eofold = ani.eofold
-      if (1 && 1) console.log('eofold', eofold)
 
       let res
-      if (eofold === undefined) {
+      if (eofold === undefined
+        || (eofold.type === 'Feature' && eofold.geometry.type === 'Point')
+        || eofold.type === 'Point'
+        ) {
 
         res = {
           type: 'Feature',
@@ -59,7 +61,9 @@
               'font-size': textform.style['font-size'],
               'font-family': textform.style['font-family'],
               'text-anchor': textform.style['text-anchor'],
-
+              'fill-opacity': textform.style['fill-opacity'],
+              'stroke-opacity': textform.style['stroke-opacity'],
+              
               'width': textform.style.width,
               'height': textform.style.height,
 
@@ -75,7 +79,8 @@
 
 
       } else if ( eofold.type === 'Feature'
-          && eofold.geometry.type === 'LineString') {
+          && (eofold.geometry.type === 'LineString')
+        ) {
 
         res = eofold
 
@@ -86,9 +91,14 @@
 
               'rotate': textform.style['rotate'],
               'font-size': textform.style['font-size'],
+              
+              
+              // sans-serif, karla, BankFuturistic, arial, Helvetica
               'font-family': textform.style['font-family'],
               'text-anchor': textform.style['text-anchor'],
-
+              'fill-opacity': textform.style['fill-opacity'],
+              'stroke-opacity': textform.style['stroke-opacity'],
+              
               'width': textform.style.width,
               'height': textform.style.height,
 
@@ -104,6 +114,8 @@
           })
 
 
+      } else {
+        console.log('text support not supported')
       }
 
 
