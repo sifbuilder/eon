@@ -59,7 +59,7 @@
       height: height,
       background: background,
       // .attr('pointer-events', 'none')
-      // .attr('overflow', 'visible')      
+      // .attr('overflow', 'visible')
     }
 
     // ............................. svg
@@ -68,16 +68,16 @@
     if (d3.select('#viewframe').empty()) {
       let svglayer = d3.select('body')
         .append('svg')
-        .attr('id', 'viewframe') // Viewport
-        .attr('class', 'viewframe')
-        .attr('width', state.width)
-        .attr('height', state.height)
-        .style('position', 'absolute')
-        .style('top', 0)
-        .style('left', 0)
-        .style('fill', 'transparent')
-        .style('background-color', state.background) // background
-
+          .attr('id', 'viewframe') // Viewport
+          .attr('class', 'viewframe')
+          .attr('width', state.width)
+          .attr('height', state.height)
+          .style('position', 'absolute')
+          .style('top', 0)
+          .style('left', 0)
+          .style('fill', 'transparent')
+          .style('background-color', state.background) // background
+        .append('defs')
     }
 
     let resetsvg = function() {
@@ -93,12 +93,16 @@
 
     // ............................. elems
     let svgelems = function (idfyer, data = ['data'], idfn = null) {
+
+      if (0 && 1) console.log('idfyer', idfyer)
+
       if (d3.select('.muon-style-block').empty()) {
         d3.select('head').append('style').attr('class', 'muon-style-block')
           .html('')
       }
 
       if (idfyer === null) { // if null return the layer
+
         let svgLayer = d3.select('body').selectAll('svg').data(['svg'])
           .enter()
           .append('svg')
@@ -108,40 +112,91 @@
           .attr('height', state.height)
           .style('border', '1px solid lightgray')
         return svgLayer
-      } else if (typeof (idfyer) === 'string') { // 'svg:g.links/path.link', data, idfn}
+
+      } else if (typeof (idfyer) === 'string') {
         // manage the dom elements
+        // eg. 'svg:g.links/path.link', data, idfn}
+        // eg. 'svg:g.text/text.text', [{}], d=>d.uid}
+        // eg. 'text.cid2/textPath.cid3', [1], d=>3}
 
         let parts = idfyer.split('/')
         let layerpart = (parts[0]) ? parts[0] : 'svg'
         let elemspart = (parts[1]) ? parts[1] : null
 
         let layerparts = layerpart.split(':')
-        let parentcls = (layerparts[0]) ? layerparts[0] : 'svg'
-        let group = (layerparts[1]) ? layerparts[1] : 'group'
+        let parentLayer = (layerparts[0]) ? layerparts[0] : 'svg'
+        // let group = (layerparts[1]) ? layerparts[1] : 'group'
+        let group = layerparts[1]
 
-        let groupparts = group.split('.')
-        let groupref = (groupparts[0]) ? groupparts[0] : 'g'
-        let layercls = (groupparts[1]) ? groupparts[1] : 'layer'
+        let layer, elemcls, elemtyp
+        if (group !== undefined) {
 
-        let elemsparts = (elemspart) ? elemspart.split('.') : null
-        let elemtype = (elemsparts && elemsparts[0]) ? elemsparts[0] : 'circle'
-        let elemcls = (elemsparts && elemsparts[1]) ? elemsparts[1] : 'elems'
+          let groupparts = group.split('.')
+          let groupref = (groupparts[0]) ? groupparts[0] : 'g'
+          let layercls = (groupparts[1]) ? groupparts[1] : 'layer'
 
-        let layerMark = d3.select(parentcls).selectAll('.' + layercls).data([layercls])
-        let layer = layerMark.enter().append('g')
-          .merge(layerMark)
-          .attr('class', layercls)
+          let elemsparts = (elemspart) ? elemspart.split('.') : null
+          elemtyp = (elemsparts && elemsparts[0]) ? elemsparts[0] : 'circle'
+          elemcls = (elemsparts && elemsparts[1]) ? elemsparts[1] : 'elems'
+
+          let layerMark = d3.select(parentLayer).selectAll('.' + layercls).data([layercls])
+          layer = layerMark.enter().append('g')
+            .merge(layerMark)
+            .attr('class', layercls)
+
+        } else if (group === undefined) {
+
+          let group = parentLayer
+          let groupparts = group.split('.')
+          let groupref = (groupparts[0]) ? groupparts[0] : 'g'
+          let layercls = (groupparts[1]) ? groupparts[1] : 'layer'
+
+          let elemsparts = (elemspart) ? elemspart.split('.') : null
+          elemtyp = (elemsparts && elemsparts[0]) ? elemsparts[0] : 'circle'
+          elemcls = (elemsparts && elemsparts[1]) ? elemsparts[1] : undefined
+
+          let layerMark
+          if (layercls !== undefined) {
+            layerMark = d3.select(parentLayer).selectAll('.' + layercls).data([layercls])
+          } else {
+            layerMark = d3.select(parentLayer)
+          }
+
+          layer = layerMark
+
+        }
+
+        // parentLayer:layertyp.layercls/elemtyp.elemcls
+        // layer is layertyp or parentLayer
 
         if (elemspart === null) {
+
           return layer
+
         } else {
+
           console.assert(Array.isArray(data), `data ${data} is not an array`)
-          let elemsupd = layer.selectAll('.' + elemcls)
+          // let elemsupd = layer.selectAll('.' + elemcls)
+            // .data(data)
+
+          // if (elemtyp === 'textPath')   elemsupd = layer
+
+          let elemsupd
+
+          if (elemcls !== undefined) {
+            elemsupd = layer.selectAll('.' + elemcls)
             .data(data)
+          } else {
+            elemsupd = layer
+            .data(data)
+          }
+
+
           let elems = elemsupd
-            .enter().append(elemtype)
+            .enter().append(elemtyp)
             .merge(elemsupd)
             .attr('class', elemcls)
+
           let elemsExit = elemsupd.exit().remove()
 
           return elems
@@ -185,19 +240,111 @@
           /*  ................. TEXTS ................. */
           let texts = fitems
             .filter(d => d.properties.sort === 'text')
+if (1 && 1) console.log('texts', texts)
 
-          if (texts.length > 0) {
-            svgelems('svg:g.' + gid + '/text.' + cid, texts, d => d.eoric.uid)
+
+          let textsWithPath =  texts  // with path
+            .filter(d => d.properties.textpath !== undefined)
+
+          let textsWithOutPath =  texts // without path
+            .filter(d => d.properties.textpath === undefined)
+
+
+          // defs paths  
+            
+          for (let tx=0; tx<textsWithPath.length; tx++) {
+            let text = textsWithPath[tx]
+            let props = text.properties
+            let gid = props.eoric.gid
+            let cid = props.eoric.cid
+            let uid = props.eoric.uid
+
+             let properties = text.properties || {} 
+             let pointRadius = properties.pointRadius || 2.5
+                let geoPath = d3.geoPath(viewScreenPrt) // path on view projection
+                let path = (pointRadius !== undefined) // geoPath
+                  ? geoPath.pointRadius(pointRadius)
+                  : geoPath
+
+                let textpath = path(text)
+             
+if (1 && 1) console.log('textpath', textpath)
+             
+            // if (props.textpath !== undefined) {
+
+              let gidpath = 'paths' + gid
+              let cidpath = 'paths' + cid
+              // let textpath = props.textpath
+              let fs = [uid]
+              let pathid = `textpath${uid}`
+              svgelems('defs:g.' + gidpath + '/path.' + cidpath, fs, d => uid)
+                .data(() => fs)
+                .attr('d', textpath)
+                .attr('id', pathid)
+
+            // }
+
+          }
+
+          if (textsWithPath.length > 0) {  // with path
+if (1 && 1) console.log('textsWithPath', textsWithPath)
+
+            svgelems('svg:g.' + gid + '/text.' + cid, textsWithPath, d => d.properties.eoric.uid)
+              .attr('x', 0) // translate instead
+              .attr('y', 0) // translate instead
+
+              .attr('transform', d => { // eg. "translate(21,20) rotate(15)") scale(sx, sy) skew (skew)
+
+                let item = d
+                let geometry = item.geometry
+                let projgeo = muonProj3ct.project(geometry, viewScreenPrt)
+
+                let translate = [0,0] // projgeo.coordinates
+                let rotate = item.properties.style['rotate']
+
+                let r = 'translate(' + translate[0] + ',' + translate[1] + ')' + ' rotate(' + (rotate || 0) + ' )'
+                return r
+              })
+
+              .style('dx', d => d.properties.style['dx'])
+              .style('dy', d => d.properties.style['dy'])
+              .style('textLength', d => d.properties.style['textLength'])
+              .style('lengthAdjust', d => d.properties.style['lengthAdjust'])
+
+              .style('font-size', d => d.properties.style['font-size'])
+              .style('font-family', d => d.properties.style['font-family'])
+
+              .style('fill', d => d.properties.style.fill)
+              .style('stroke', d => d.properties.style.stroke)
+
+              .style('fill-opacity', d => d.properties.style['fill-opacity'])
+              .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
+              .style('stroke-width', d => d.properties.style['stroke-width'])
+              .style('text-anchor', d => d.properties.style['text-anchor'])
+
+
+
+            // string path
+            svgelems(`text.${cid}/textPath`, textsWithPath, d => d.properties.eoric.uid)
+              .attr('class', d => `${d.properties.eoric.cid}`)
+              .attr("xlink:href", d => `#textpath${d.properties.eoric.uid}`)
+              .text( d => d.properties.string )
+
+          }
+
+
+
+
+
+          if (textsWithOutPath.length > 0) {  // without path
+if (1 && 1) console.log('textsWithOutPath', textsWithOutPath)
+            svgelems('svg:g.' + gid + '/text.' + cid, textsWithOutPath, d => d.properties.eoric.uid)
               .text(d => d.properties.string)
 
               .attr('x', 0) // translate instead
-              .attr('y', 0) //
+              .attr('y', 0) // translate instead
 
-              .attr('transform', d => { // eg. "translate(21,20) rotate(15)")
-                // translate tx, ty
-                // rotate cx, cy
-                // scale sx, sy
-                // skew skew
+              .attr('transform', d => { // eg. "translate(21,20) rotate(15)") scale(sx, sy) skew (skew)
 
                 let item = d
                 let geometry = item.geometry
@@ -218,7 +365,7 @@
               })
 
               .style('dx', d => d.properties.style['dx'])
-              .style('dy', d => d.properties.style['dx'])
+              .style('dy', d => d.properties.style['dy'])
               .style('textLength', d => d.properties.style['textLength'])
               .style('lengthAdjust', d => d.properties.style['lengthAdjust'])
 
@@ -232,6 +379,8 @@
               .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
               .style('stroke-width', d => d.properties.style['stroke-width'])
               .style('text-anchor', d => d.properties.style['text-anchor'])
+
+
           }
 
           /*  ................. IMG ................. */
@@ -240,7 +389,7 @@
             .filter((d, i) => (d.properties.eodelled !== 1)) // not eodelled
 
           if (imgs.length > 0) {
-            svgelems('svg:g.' + gid + '/image.' + cid, imgs, d => d.eoric.uid)
+            svgelems('svg:g.' + gid + '/image.' + cid, imgs, d => d.properties.eoric.uid)
 
               .data(() => imgs)
 
@@ -325,7 +474,7 @@
             .filter((d, i) => (d.properties.eoric.eodelled !== 1)) // not eodelled
 
           if (features.length > 0) { // _e_
-            svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.eoric.uid) // elems
+            svgelems('svg:g.' + gid + '/path.' + cid, features, d => d.properties.eoric.uid) // elems
               .data(() => features)
               .attr('d', d => { // geojson feature
                 let properties = d.properties || {} // properties
@@ -348,6 +497,8 @@
               .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
               .style('stroke-width', d => d.properties.style['stroke-width'])
           }
+
+
 
           /*  ................. END SVG FORMS ................. */
         }

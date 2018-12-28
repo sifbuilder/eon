@@ -346,7 +346,7 @@
       return nformed
     }
 
-    // ............................. natFeature
+    // ............................. natMultiPolygon
     let natMultiPolygon = function (form, props = {}) {
       let feature
 
@@ -454,6 +454,8 @@
         let dist = (props.dist !== undefined) ? props.dist : 0 // sym
         let border = (props.border !== undefined) ? props.border : 0 // is open
 
+        
+        
         let geometry, graticule
         let dx, dy, sx, sy
 
@@ -472,8 +474,8 @@
 
           graticule = {
             frame: frame,
-            dist: dist, // sym
-            border: border, // closed
+            dist: dist,
+            border: border,
           } // x, y
 
           geometry = _geofn(graticule).geometry
@@ -492,8 +494,8 @@
 
           graticule = {
             frame: frame,
-            dist: dist, // sym
-            border: border, // closed
+            dist: dist,
+            border: border,
           } // _e_ x, y
 
           geometry = _geofn(graticule).geometry // geometry.type: MultiLineString
@@ -507,7 +509,8 @@
           //      4: [60, 0]
           //      5: [120, 0]
 
-          if (p[0] !== p[p.length - 1]) p.push(p[0]) // _e_ 105c close polygon
+          // if (p[0] !== p[p.length - 1]) p.push(p[0]) // _e_ 105c close polygon
+          // rely on border passed to graticule
           geometry.coordinates = Array.of(p)
         }
 

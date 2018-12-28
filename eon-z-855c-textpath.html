@@ -1,0 +1,153 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// ... ** **
+// ... # license
+// ... MIT
+
+// .................. anitem
+async function anitem (__mapper) {
+  // .................. eons
+  let [
+    ctlWen,
+    eohalMars,
+    eohalTextform,
+    muonNatform,
+    muonProps,
+    renderSvg,
+  ] = await Promise.all([
+    __mapper('xs').c('wen'),
+    __mapper('xs').e('mars'),
+    __mapper('xs').e('textform'),
+    __mapper('xs').m('natform'),
+    __mapper('xs').m('props'),
+    __mapper('xs').r('svg'),
+  ])
+
+  ctlWen.control(renderSvg.svg())
+  
+  let ani = function () {
+    // .................. pics
+    let radians = Math.PI / 180, degrees = 180 / Math.PI,
+      sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
+    let cosh = Math.cosh,
+      sinh = Math.sinh
+    let epsilon = 1e-5
+    
+    let eotim = {'td': 9800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
+    
+
+    let conformRed = {
+      x: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+        'dom3': [ [[[0,90]]], [[[2 * 360, 2 * 360 + 90]]] ],
+
+        'fn0': (e,c) => e[0]
+      },
+      y: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+        'dom3': [0, 360],
+
+        'fn0': (e,c) => sin(e[0])
+
+      }
+    }
+    
+    let eocromRed = { 'csx': 1, 'cf': [[[ 333, 333, 333]]], 'co': [[[0.069, 0.06, 0.069]]],
+      'cs': [[[333, 333, 333]]], 'cw': [[[1.3, 1.3, 1.3]]], 'cp': [[[0.99, 0.99]]]}
+
+    // ............................. natAniRed
+    let natAniRed = {
+      eohal: 'textform',
+      eotim,
+      eoric: {gid: 'q', cid: 'q', fid: 'qred'},
+      eofold: ani => {
+        let gratiprops = {
+          ret: 0, // horizontal geodesics
+          dist: 1, // asymetric distribution of geodesics around the origin
+          border: 0, // open line
+        }        
+        
+        let res = muonNatform.natFeature(ani.eoform, gratiprops)  // Feature.LineString
+
+        return res
+      },
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          scale: [ 0.2, 0.2 ],
+          prerotate: [[[ ctlWen.rotation ]]],
+          translate: [ -200,0,0 ],
+          rotate: [0, 0, 0],
+          lens: [0, 1, Infinity ],
+        },
+      },
+      eocrom: eocromRed,
+      eoform: conformRed,
+      eoload: {
+        textform: {
+          string: 'sif mother of the obscure ullr',
+          style: {
+            rotate: [[[ 0, 0 ]]],
+            'font-size': [[[24, 24]]],
+            'font-family': 'BankFuturistic',
+            'text-anchor': 'center',
+
+          },
+        },
+
+      },
+    }    
+    
+    
+    // .................. textAniA
+    let textAniA = {
+
+      eohal: 'textform',
+
+      eofold: null,
+
+      eotim: eotim,
+      eoric: {'gid': 'text', 'cid': 'ca', 'fid': 'fa'},
+      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ -250, -60 ],
+        },
+      },
+
+      eoload: {
+        textform: {
+          string: 'sif mother of the obscure ullr',
+          style: {
+            rotate: [[[ 0, 0 ]]],
+            'font-size': [[[24, 24]]],
+            'font-family': 'BankFuturistic',
+            'text-anchor': 'center',
+
+          },
+        },
+
+      },
+    }
+    // .................. animas
+    let animas = [
+
+      natAniRed, // h.textform
+      // textAniA, // h.textform
+
+    ]
+
+    return animas
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

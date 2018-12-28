@@ -32,36 +32,82 @@
 
     // .................. _geofold
     let _geofold = function (ani) { // eofold
+
+
       let textform = ani.eoload.textform // needs text
 
-      return {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0],
-        },
-        properties: {
-          sort: 'text',
-          string: textform.string || '',
-          style: {
+      let eofold = ani.eofold
+      if (1 && 1) console.log('eofold', eofold)
 
-            'rotate': textform.style['rotate'],
-            'font-size': textform.style['font-size'],
-            'font-family': textform.style['font-family'],
-            'text-anchor': textform.style['text-anchor'],
+      let res
+      if (eofold === undefined) {
 
-            'width': textform.style.width,
-            'height': textform.style.height,
+        res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          }
+        }
 
-            'dx': textform.style.dx,
-            'dy': textform.style.dy,
+        res.properties = Object.assign({}, {
+            sort: 'text',
+            string: textform.string || '',
+            style: {
 
-            'textLength': textform.style.textLength,
-            'lengthAdjust': textform.style.lengthAdjust,
+              'rotate': textform.style['rotate'],
+              'font-size': textform.style['font-size'],
+              'font-family': textform.style['font-family'],
+              'text-anchor': textform.style['text-anchor'],
 
-          },
-        },
+              'width': textform.style.width,
+              'height': textform.style.height,
+
+              'dx': textform.style.dx,
+              'dy': textform.style.dy,
+
+              'textLength': textform.style.textLength,
+              'lengthAdjust': textform.style.lengthAdjust,
+
+            },
+            textpath: textform.textpath,
+          })
+
+
+      } else if ( eofold.type === 'Feature'
+          && eofold.geometry.type === 'LineString') {
+
+        res = eofold
+
+        res.properties = Object.assign({}, res.properties ,{
+            sort: 'text',
+            string: textform.string || '',
+            style: {
+
+              'rotate': textform.style['rotate'],
+              'font-size': textform.style['font-size'],
+              'font-family': textform.style['font-family'],
+              'text-anchor': textform.style['text-anchor'],
+
+              'width': textform.style.width,
+              'height': textform.style.height,
+
+              'dx': textform.style.dx,
+              'dy': textform.style.dy,
+
+              'textLength': textform.style.textLength,
+              'lengthAdjust': textform.style.lengthAdjust,
+
+            },
+            textpath: {test: 'test'} // textform.textpath,
+
+          })
+
+
       }
+
+
+      return res
     }
 
     // .................. gramm
