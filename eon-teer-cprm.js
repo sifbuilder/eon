@@ -56,17 +56,7 @@ let files = fs.readdirSync(indir) // to view
 let scopeexp = new RegExp('^(((eon-)?(((?!-).)*)-(.*)).(html|js))', 'i')
 
 // pattern
-let cpsearchpattern = ` let sceneAni = {
-
-      eohal: 'scene',
-      eofold: null,
-      eotim: eotim,
-      eoric: {gid: 'scene', cid: 'scene', fid: 'scene'},
-      eoload: {
-        context: {svg: 0, versor: 1, wen: 0, webgl: 1, bck: 1},
-      },
-
-    }`
+let cpsearchpattern = `       eofold: null,`
 
 // https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
 function escapeRegExp (string) {
@@ -74,10 +64,21 @@ function escapeRegExp (string) {
 }
 
 let searchpattern = escapeRegExp(cpsearchpattern) // .split(/\r?\n/) // .map(d=> `${d}(\r\n|\n|\r)`)
-if (1 && 1) console.log('searchpattern', searchpattern)
 
 let searchexp = RegExp(`${searchpattern}`, 'm')
-let replacepattern = ''
+let replacepattern = `     eofold: ani => {
+
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          }
+        }
+
+        return res
+      },
+`
 
 // options
 const options = {}

@@ -17,6 +17,8 @@
 
     let cache = {}
 
+    let chn = (ch='F',n=1) => ch.repeat(Math.floor(n))
+    
     // lindenmayer
     // http://bl.ocks.org/nitaku/e0f1b570161875b27fc9
     // ### compute a Lindenmayer system given an axiom, a number of steps and rules ###
@@ -29,17 +31,30 @@
       }
 
       let linden = lindenmayer.linden
-      let axiom = linden.axiom
-      let rules = linden.rules
+      let axiom = muonProps.value(linden.axiom)
+      let rules = muonProps.value(linden.rules)
       let steps = linden.steps
+      let feet = linden.feet || 1 // feet (moves) for each F in rule
+
+
+
       let output = ''
 
       for (let ch of axiom) { // char in array
+
+        let rule = ch
         if (rules.hasOwnProperty(ch)) {
-          output += rules[ch]
-        } else {
-          output += ch
+          rule = rules[ch]
         }
+
+        let newrule = rule
+        if (rule === 'F') {
+              newrule = rule.replace(/^f|F$/, chn(rule,feet),"g")
+        } else if (rule === 'f') {
+              newrule = rule.replace(/^f|F$/, chn(rule,feet),"g")
+        }
+
+        output += newrule
       }
       steps = steps - 1
       if (steps <= 0) {
@@ -170,7 +185,7 @@
 
           let lastOpenLine = openlines[openlines.length - 1]
           lines[lastOpenLine] = stat.lineslifo[stat.level]
-          
+
         } else if (ch === '[') {
           let lineInLevel = stat.lineslifo[stat.level]
           let pointsInLine = lineInLevel.length
@@ -215,7 +230,7 @@
 
     // ............................. fractal
     let linden = (lindenmayer) => {
-      
+
       let fractal = fractalize(lindenmayer).fractal
 
       let mayer = lindenmayer.mayer

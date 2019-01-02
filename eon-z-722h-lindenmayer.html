@@ -32,22 +32,9 @@ async function anitem (__mapper) {
       eohal: 'mars',
 
       eofold: ani => {
-        let hilbert = { // Hilbert curve
-          axiom: 'AFA+F+AFA',
-          steps: 5,
-          rules: {
-            A: '-BF+AFA+FB-',
-            B: '+AF-BFB-FA+',
-          },
-          pars: {
-            side: 260,
-            angle: 90,
-            start: [0, -400],
-          },
-        }
 
-        let curve = hilbert
-        let geo = muonLindenmayer.linden(curve)
+
+        let geo = muonLindenmayer.linden(ani.eoload.lindenmayer)
 
         let geoData = {
           type: 'Feature',
@@ -76,7 +63,6 @@ async function anitem (__mapper) {
             eocrom: { 'csx': 0, 'cf': 666, 'cs': 888, 'cw': 0.8, 'co': 0.1, 'cp': 0.9},
           },
         }
-        // if (1 && 1) console.log('coords', coords)
 
         console.assert(geoData.geometry.type === 'MultiLineString')
         ngj.geometry.coordinates = coords
@@ -95,6 +81,23 @@ async function anitem (__mapper) {
         },
       },
       eoload: {
+        lindenmayer: { // 
+          linden: {
+            axiom: 'AFA+F+AFA',
+            steps: 4,
+            feet: 1,
+            rules: {
+              A: '-BF+AFA+FB-',
+              B: '+AF-BFB-FA+',
+            },
+          },
+          mayer: {
+            side: 6,
+            angle: 90,
+            start: [0, -100],
+          },
+        },      
+      
       },
     }
 

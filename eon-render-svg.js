@@ -241,25 +241,20 @@
           let texts = fitems
             .filter(d => d.properties.sort === 'text')
 
-            
-          // unpathed texts are geofolded by geojson Feature.Point  
-          let textsWithOutPath =  texts // without path
-            .filter(d => 
-                  d.properties.textpath === undefined
-                  || (d.type === 'Feature' && d.geometry.type === 'Point')
-              )
-
-
-          // pathed texts are geofolded by geojson Feature.LineString
+          //
+          // pathed texts
+          //  
+  
+           // pathed texts are geofolded by geojson Feature.LineString
           let textsWithPath =  texts // without path
-            .filter(d => 
-                  d.properties.textpath === undefined
-                  || (d.type === 'Feature' && d.geometry.type === 'LineString')
-                  || (d.type === 'Feature' && d.geometry.type === 'Polygon')
-              )
+            .filter(d =>
+              d.properties.textpath === undefined
+              || (d.type === 'Feature' && d.geometry.type === 'LineString') // Feature.LineString
+              || (d.type === 'Feature' && d.geometry.type === 'Polygon')  // Feature.Polygon
+            )
 
           // text support paths are added to defs
-            
+
           for (let tx=0; tx<textsWithPath.length; tx++) {
             let text = textsWithPath[tx]
             let props = text.properties
@@ -267,16 +262,16 @@
             let cid = props.eoric.cid
             let uid = props.eoric.uid
 
-             let properties = text.properties || {} 
+             let properties = text.properties || {}
              let pointRadius = properties.pointRadius || 2.5
                 let geoPath = d3.geoPath(viewScreenPrt) // path on view projection
                 let path = (pointRadius !== undefined) // geoPath
                   ? geoPath.pointRadius(pointRadius)
                   : geoPath
 
-                // the svg path comes from geoPath of geojson geofold  
+                // the svg path comes from geoPath of geojson geofold
                 let textpath = path(text)
-             
+
               let gidpath = 'paths' + gid
               let cidpath = 'paths' + cid
               let fs = [uid]
@@ -287,9 +282,7 @@
                 .attr('id', pathid)
           }
 
-          // 
-          // pathed text
-          // 
+
           if (textsWithPath.length > 0) {  // text with textpath
 
             svgelems('svg:g.' + gid + '/text.' + cid, textsWithPath, d => d.properties.eoric.uid)
@@ -337,18 +330,26 @@
           }
 
 
-          // 
-          // unpathed text
-          // 
+          //
+          // unpathed texts
+          //
+
+          // unpathed texts are geofolded by geojson Feature.Point
+          let textsWithOutPath =  texts // without path
+            .filter(d => (d.type === 'Feature' && d.geometry.type === 'Point')  // Feature.Point
+              )
+
+
+
           if (textsWithOutPath.length > 0) {  // text without path
-          
+
             svgelems('svg:g.' + gid + '/text.' + cid, textsWithOutPath, d => d.properties.eoric.uid)
               .text(d => d.properties.string)
 
               .attr('x', 0) // translate instead
               .attr('y', 0) // translate instead
 
-              .attr('transform', d => { 
+              .attr('transform', d => {
               // eg. "translate(21,20) rotate(15)") scale(sx, sy) skew (skew)
 
                 let item = d

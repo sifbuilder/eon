@@ -165,7 +165,7 @@ async function anitem (__mapper) {
       eohal: 'mars',
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qgold'},
-      eofold: p => muonNatform.natFeature(p.eoform),
+      eofold: ani => muonNatform.natFeature(ani.eoform),
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -187,7 +187,7 @@ async function anitem (__mapper) {
     // ............................. natAniBlue
     let natAniBlue = {
       eohal: 'mars',
-      eofold: p => muonNatform.natFeature(p.eoform),
+      eofold: ani => muonNatform.natFeature(ani.eoform),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qblue'},
       eomot: {

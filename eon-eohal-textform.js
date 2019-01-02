@@ -74,7 +74,6 @@
               'lengthAdjust': textform.style.lengthAdjust,
 
             },
-            textpath: textform.textpath,
           })
 
 
@@ -109,7 +108,6 @@
               'lengthAdjust': textform.style.lengthAdjust,
 
             },
-            textpath: {test: 'test'} // textform.textpath,
 
           })
 

@@ -8,69 +8,73 @@ async function anitem (__mapper) {
   let [
     ctlWen,
     eohalMars,
+    muonGeoj,
     muonLindenmayer,
     prtUniwen,
     renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
+    __mapper('xs').m('geoj'),
     __mapper('xs').m('lindenmayer'),
     __mapper('xs').p('uniwen'),
     __mapper('xs').r('svg'),
   ])
 
+
   // .................. animas
   let ani = function () {
     let ctl = ctlWen().control(renderSvg.svg())
-
+    let chn = (ch='F',n=1) => ch.repeat(n)
+    
+    
     // .................. pics
     let aniForm = {
 
       eohal: 'mars',
-
-      eofold: ani => {
-        let hilbert = { // Hilbert curve
-          axiom: 'AFA+F+AFA',
-          steps: 5,
-          rules: {
-            A: '-BF+AFA+FB-',
-            B: '+AF-BFB-FA+',
-          },
-          pars: {
-            side: 12,
-            angle: 90,
-            start: [0, -400],
-          },
-        }
-
-        let geo = muonLindenmayer.linden(hilbert)
-
-        let geoData = {
-          type: 'Feature',
-          geometry: {
-            type: 'MultiLineString',
-            coordinates: geo,
-          },
-          properties: {},
-        }
-        return geoData
-      },
-
       eotim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani' },
+      
+      eofold: ani => {
+        let gj = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer)
+        let res
+        res = muonGeoj.timeSeg(gj, ani.eotim.unitElapsed)
+        res = gj
+        return res
+      },
+
+
       eocrom: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.1, 0.2]]], 'cp': [[[0.9, 0.9]]]},
       eomot: {
         proform: {
 
           projection: 'uniwen',
-          scale: 1.0,
-          translate: {'x': 0, 'y': 0 },
+          scale: 1,
+          translate: {'x': -275, 'y': -100 },
           prerotate: [[[ ctl.rotation ]]],
           rotate: [ 0, 0, 0 ],
 
         },
       },
       eoload: {
+        lindenmayer: { // 
+          linden: {
+            axiom: 'AFA+F+AFA',
+            steps: 2,
+            feet: 8,
+            rules: {
+              A: '-BF+AFA+FB-',
+              B: '+AF-BFB-FA+',
+            },
+          },
+          mayer: {
+            side: 1,
+            angle: 36,
+            anglestart: 0,
+            start: [0, 0],
+          },
+        },      
+      
       },
     }
 

@@ -443,15 +443,20 @@
       } else {
         let nformed = natNform(form) // NFORM
 
+        // default to reticule
         let _geofn = muonGraticule.vhMultiLine // default to reticule
-        if (props.ret === 0) {
+        if (props.ret === 0) { // horizontal geodesics
           _geofn = muonGraticule.hMultiLine
         } else if (props.ret === 1) {
           _geofn = muonGraticule.vMultiLine
         } else if (props.ret === 2) {
           _geofn = muonGraticule.vhMultiLine
         }
+        
+        // // asymetric distribution of geodesics around the origin
         let dist = (props.dist !== undefined) ? props.dist : 0 // sym
+        
+        // open line
         let border = (props.border !== undefined) ? props.border : 0 // is open
 
         
