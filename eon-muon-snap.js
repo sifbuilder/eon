@@ -139,7 +139,7 @@
           muonProps.isQuasiPureArray(v) && // => [[a1,b1],[a2,b1'],[a3,b2]]
           g === 1) { // [][] dosnap qualifier
           
-          let ws = muonLacer.unslide(v).filter(d => d.length > 0).map(d => snap(d, t, 1))
+          let ws = muonLacer.slide(v).filter(d => d.length > 0).map(d => snap(d, t, 1)) // _e_
           return ws
           
       } else {

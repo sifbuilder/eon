@@ -17,8 +17,8 @@
 
     let cache = {}
 
-    let chn = (ch='F',n=1) => ch.repeat(Math.floor(n))
-    
+    let chn = (ch = 'F', n = 1) => ch.repeat(Math.floor(n))
+
     // lindenmayer
     // http://bl.ocks.org/nitaku/e0f1b570161875b27fc9
     // ### compute a Lindenmayer system given an axiom, a number of steps and rules ###
@@ -34,30 +34,33 @@
       let axiom = muonProps.value(linden.axiom)
       let rules = muonProps.value(linden.rules)
       let steps = linden.steps
-      let feet = linden.feet || 1 // feet (moves) for each F in rule
-
-
+      let feet = linden.feet // feet (moves) for each F in rule
+if (1 && 1) console.log('steps', steps)
 
       let output = ''
 
       for (let ch of axiom) { // char in array
-
         let rule = ch
-        if (rules.hasOwnProperty(ch)) {
-          rule = rules[ch]
+        
+        if (steps > 0) {  // apply rules if in step
+          if (rules.hasOwnProperty(ch)) {
+            rule = rules[ch]
+          }
         }
-
-        let newrule = rule
-        if (rule === 'F') {
-              newrule = rule.replace(/^f|F$/, chn(rule,feet),"g")
-        } else if (rule === 'f') {
-              newrule = rule.replace(/^f|F$/, chn(rule,feet),"g")
+        
+        let newrule = rule 
+        if (steps !== undefined && steps > 0) { // footify
+          if (rule === 'F') {
+            newrule = rule.replace(/^f|F$/, chn(rule, feet), 'g')
+          } else if (rule === 'f') {
+            newrule = rule.replace(/^f|F$/, chn(rule, feet), 'g')
+          }
         }
 
         output += newrule
       }
       steps = steps - 1
-      if (steps <= 0) {
+      if (steps <= 0) { // steppify
         lindenmayer.fractal = output
 
         cache.linden = linden
@@ -72,7 +75,15 @@
     }
 
     let forward = function (stat) {
-      let {side, pointstart, angunit, level, lineslifo, angles, randomizeStep, randomizeAngle} = stat
+      let {side,
+        pointstart,
+        angunit,
+        level,
+        lineslifo,
+        angles,
+        randomizeStep,
+        randomizeAngle,
+      } = stat
 
       let fkr = 1.0
       let r = 0.5 - Math.random()
@@ -123,7 +134,10 @@
     // []   save/restore position
     // |    make a (180 degree) U-turn.
     // randomize step: % randomize step
-    // randomize angle: % randomize angle.
+    // randomize angle: % randomize angle
+    // 
+    // the curve adds the start charater
+    // if steps is 0, cords is Ffs plus 1
 
     let curve = (lindenmayer) => {
       let angstart
@@ -185,7 +199,6 @@
 
           let lastOpenLine = openlines[openlines.length - 1]
           lines[lastOpenLine] = stat.lineslifo[stat.level]
-
         } else if (ch === '[') {
           let lineInLevel = stat.lineslifo[stat.level]
           let pointsInLine = lineInLevel.length
@@ -230,8 +243,11 @@
 
     // ............................. fractal
     let linden = (lindenmayer) => {
-
+      
       let fractal = fractalize(lindenmayer).fractal
+if (1 && 1) console.log('axiom', lindenmayer.linden.axiom)
+if (1 && 1) console.log('rules', lindenmayer.linden.rules)
+if (1 && 1) console.log('fractal',fractal)
 
       let mayer = lindenmayer.mayer
       let geo = curve({
