@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  // ... # eon-muon-lacer
+
   // ... **cells interlinked within cells interlinked**
   // ... # license
   // ... MIT

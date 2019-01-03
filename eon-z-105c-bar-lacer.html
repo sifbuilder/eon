@@ -31,19 +31,25 @@ async function anitem (__mapper) {
     // .................. pics
     let eotim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
 
-    let eocrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[777, 777]]], 'cw': [[[0.99, 0.99]]], 'cp': [[[0.9, 0.9]]]}
+    let eocrom = { 'csx': 0, 'cf': 888, 'co': 0.19, 'cs': 777, 'cw': 0.99, 'cp': 0.9}
 
     // ............................. natAni
     let natAni2 = {
       eohal: 'mars',
-      eofold: p => ({
-        type: 'Feature',
-        geometry: {
-          type: 'LineString',
-          coordinates: [ [0, 0, 0], [100, 100, 100]],
-        },
-        properties: {},
-      }),
+      eofold: ani => {
+
+        let coors = ani.eoload.coors
+
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'LineString',
+            coordinates: coors
+          },
+          properties: {},
+        }
+        return res
+      },
 
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat2'},
@@ -53,7 +59,7 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           translate: [ 0, 0, 0], // mot
           scale: 1,
-          rotate: [ [[[0, 90]]], [[[0, 90]]], [[[0, 90]]] ],
+          rotate: [ 0, 0, 0 ],
           prerotate: [[[ ctl.rotation ]]],
           lens: [0, 1, Infinity],
           geoanod: 1, // eonode
@@ -62,7 +68,16 @@ async function anitem (__mapper) {
 
       eocrom: eocrom,
 
-      eoload: {},
+      eoload: {
+      
+        coors: [[[
+            [ 
+              [ [0, 0, 0], [100, 100, 100] ],
+              [ [20, 20, 20], [300, 300, 300] ]
+            ]
+        ]]]
+        
+      },
     }
     // ............................. animas
     let animas = [

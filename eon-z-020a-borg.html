@@ -68,7 +68,19 @@ async function anitem (__mapper) {
     // ............................. animas
     let solarAni = {
       eohal: 'natform', // 'pacer'
-      eofold: null,
+     eofold: ani => {
+
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          }
+        }
+
+        return res
+      },
+
       eonode: {
         type: 'Feature',
         geometry: {
@@ -89,7 +101,19 @@ async function anitem (__mapper) {
 
     let planetAni = {
       eohal: 'natform',
-      eofold: null,
+     eofold: ani => {
+
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          }
+        }
+
+        return res
+      },
+
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'planet'},
       eocrom: eocromCirc,

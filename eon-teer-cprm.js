@@ -56,7 +56,7 @@ let files = fs.readdirSync(indir) // to view
 let scopeexp = new RegExp('^(((eon-)?(((?!-).)*)-(.*)).(html|js))', 'i')
 
 // pattern
-let cpsearchpattern = `       eofold: null,`
+let cpsearchpattern = `      eofold: null,`
 
 // https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
 function escapeRegExp (string) {
@@ -128,6 +128,10 @@ async function run (infiles, opts) {
 
 if (action === 'help') {
   console.log(`node ${prgname} {[help], inscopeexp} [doit]`)
+  console.log(` inScopePattern: eg: z-0 filters files on eon-name`)
+  console.log(` toBeReplacePattern: cpsearchpattern`)
+  console.log(` toReplaceWithPattern: replacepattern`)
+  console.log(` replace cpsearchpattern by replacepattern in files in scope`)
 } else if (action === UNCOMMENT) {
   console.log(`do ${inscopeexp} eon files ${files}`)
   run(files, options)

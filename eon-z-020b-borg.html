@@ -68,7 +68,19 @@ async function anitem (__mapper) {
     // ............................. animas
     let nat = {
       eohal: 'natform',
-      eofold: null,
+     eofold: ani => {
+
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          }
+        }
+
+        return res
+      },
+
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
       eocrom: eocromNat,
@@ -81,7 +93,19 @@ async function anitem (__mapper) {
 
     let circ = {
       eohal: 'natform',
-      eofold: null,
+     eofold: ani => {
+
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          }
+        }
+
+        return res
+      },
+
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'formCirc'},
       eocrom: eocromCirc,

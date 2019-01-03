@@ -12,7 +12,7 @@
     let [
       muonProps,
       muonNatform,
-      mlacer,
+      muonLacer,
       muonGeoj,
       d3scale,
     ] = await Promise.all([
@@ -138,8 +138,10 @@
       } else if (muonProps.isArray(v) && // 13 _____ [[a1,a2,a3],[b1,b2]]*
           muonProps.isQuasiPureArray(v) && // => [[a1,b1],[a2,b1'],[a3,b2]]
           g === 1) { // [][] dosnap qualifier
-        let ws = mlacer.unslide(v).filter(d => d.length > 0).map(d => snap(d, t, 1))
-        return ws
+          
+          let ws = muonLacer.unslide(v).filter(d => d.length > 0).map(d => snap(d, t, 1))
+          return ws
+          
       } else {
         return v
       }

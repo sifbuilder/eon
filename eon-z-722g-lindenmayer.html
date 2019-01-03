@@ -9,14 +9,18 @@ async function anitem (__mapper) {
     ctlWen,
     eohalMars,
     muonGeoj,
+    muonLacer,
     muonLindenmayer,
+    muonSnap,
     prtUniwen,
     renderSvg,
   ] = await Promise.all([
     __mapper('xs').c('wen'),
     __mapper('xs').e('mars'),
     __mapper('xs').m('geoj'),
+    __mapper('xs').m('lacer'),
     __mapper('xs').m('lindenmayer'),
+    __mapper('xs').m('snap'),
     __mapper('xs').p('uniwen'),
     __mapper('xs').r('svg'),
   ])
@@ -26,21 +30,38 @@ async function anitem (__mapper) {
   let ani = function () {
     let ctl = ctlWen().control(renderSvg.svg())
     let chn = (ch='F',n=1) => ch.repeat(n)
-    
-    
+
+
     // .................. pics
     let aniForm = {
 
       eohal: 'mars',
       eotim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani' },
-      
+
       eofold: ani => {
-        let gj = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer)
-        let res
-        res = muonGeoj.timeSeg(gj, ani.eotim.unitElapsed)
-        res = gj
-        return res
+        
+        let t =  ani.eotim.unitElapsed
+      
+        let gj1 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer1)
+        let gj2 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer2)
+if (1 && 1) console.log('gj1', gj1)
+
+        let coors1 = gj1.geometry.coordinates[0]
+        let coors2 = gj2.geometry.coordinates[0]
+        // let coors = [[[ [ coors1, coors2 ] ]]]
+
+        // let ws = muonSnap.snap(coors,t,0,ani)
+        let ws = muonLacer.slide([coors1, coors2])
+if (1 && 1) console.log('coors1', coors1)
+if (1 && 1) console.log('coors2', coors2)
+if (1 && 1) console.log('ws', ws)
+
+        // let gj = gj1
+        // gj.geometry.coordinates = coors[0]
+        gj1.geometry.coordinates = ws
+
+        return gj1
       },
 
 
@@ -50,19 +71,19 @@ async function anitem (__mapper) {
 
           projection: 'uniwen',
           scale: 1,
-          translate: {'x': -275, 'y': -100 },
+          translate: {x: -275, y: -100 },
           prerotate: [[[ ctl.rotation ]]],
           rotate: [ 0, 0, 0 ],
 
         },
       },
       eoload: {
-        lindenmayer: { // 
+        lindenmayer1: { //
           linden: {
             axiom: 'AFA+F+AFA',
             steps: 2,
-            feet: 8,
-            rules: {
+            feet: 12,
+            rules: {  // 3x3x12^2
               A: '-BF+AFA+FB-',
               B: '+AF-BFB-FA+',
             },
@@ -73,8 +94,25 @@ async function anitem (__mapper) {
             anglestart: 0,
             start: [0, 0],
           },
-        },      
-      
+        },
+
+        lindenmayer2: { //
+          linden: {
+            axiom: 'AFA+F+AFA',
+            steps: 4,
+            feet: 1,
+            rules: {  // 3x3x1^4
+              A: '-BF+AFA+FB-',
+              B: '+AF-BFB-FA+',
+            },
+          },
+          mayer: {
+            side: 1,
+            angle: 36,
+            anglestart: 0,
+            start: [0, 0],
+          },
+        },
       },
     }
 
