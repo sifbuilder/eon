@@ -11,6 +11,7 @@ async function anitem (__mapper) {
     muonGeoj,
     muonLacer,
     muonLindenmayer,
+    muonProps,
     muonSnap,
     prtUniwen,
     renderSvg,
@@ -20,6 +21,7 @@ async function anitem (__mapper) {
     __mapper('xs').m('geoj'),
     __mapper('xs').m('lacer'),
     __mapper('xs').m('lindenmayer'),
+    __mapper('xs').m('props'),
     __mapper('xs').m('snap'),
     __mapper('xs').p('uniwen'),
     __mapper('xs').r('svg'),
@@ -43,21 +45,25 @@ async function anitem (__mapper) {
         
         let t =  ani.eotim.unitElapsed
       
-        // let gj1 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer1)
+        let gj1 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer1)
         let gj2 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer2)
 
-        // let coors1 = gj1.geometry.coordinates[0]
+        let coors1 = gj1.geometry.coordinates[0]
         let coors2 = gj2.geometry.coordinates[0]
         
-        // let coors = [[[ [ coors1, coors2 ] ]]]  // tripleArray
-        // let ws = muonSnap.snap(coors,t,0,ani)   // LineString
+        let coors = [[[ [ coors1, coors2 ] ]]]  // tripleArray
+        let ws = muonSnap.snap(coors,t,0,ani)   // LineString
         
-// if (1 && 1) console.log('coors1', coors1.length)
-if (1 && 1) console.log('coors2', coors2.length)
-// if (1 && 1) console.log('ws', ws.length)
-
-        // gj1.geometry.coordinates = Array.of(ws)   // Line to MultiLineStrinmg
-        return gj2
+        let gj = {
+          type: 'Feature',
+          geometry: {
+            type: 'MultiLineString',
+            coordinates: [],
+          },
+          properties: {},
+        }
+        gj.geometry.coordinates = Array.of(ws)   // Line to MultiLineStrinmg
+        return gj
         
       },
 
@@ -67,7 +73,8 @@ if (1 && 1) console.log('coors2', coors2.length)
         proform: {
 
           projection: 'uniwen',
-          scale: 1,
+          //          0       1   2     3     4     5
+          scale: [[[0.600,0.660,0.720,0.780,0.860,0.920,0.940]]],
           translate: {x: -275, y: -100 },
           prerotate: [[[ ctl.rotation ]]],
           rotate: [ 0, 0, 0 ],
@@ -78,9 +85,9 @@ if (1 && 1) console.log('coors2', coors2.length)
         lindenmayer1: { //
           linden: {
             axiom: 'AFA+F+AFA',
-            steps: 2,
-            feet: 12,
-            rules: {  // 3x3x12^2
+            loops: 0,
+            feet: 341,
+            rules: {  
               A: '-BF+AFA+FB-',
               B: '+AF-BFB-FA+',
             },
@@ -96,9 +103,9 @@ if (1 && 1) console.log('coors2', coors2.length)
         lindenmayer2: { //
           linden: {
             axiom: 'AFA+F+AFA',
-            steps: 0,
+            loops: 4.999,
             feet: 1,
-            rules: {  // 3x3x1^4
+            rules: {  // coors 4**(loops+1)
               A: '-BF+AFA+FB-',
               B: '+AF-BFB-FA+',
             },

@@ -21,7 +21,7 @@
 
     // lindenmayer
     // http://bl.ocks.org/nitaku/e0f1b570161875b27fc9
-    // ### compute a Lindenmayer system given an axiom, a number of steps and rules ###
+    // ### compute a Lindenmayer system given an axiom, a number of loops and rules ###
     // ............................. fractalize
     let fractalize = (lindenmayer) => {
       cache.lindenmayer = lindenmayer
@@ -33,23 +33,23 @@
       let linden = lindenmayer.linden
       let axiom = muonProps.value(linden.axiom)
       let rules = muonProps.value(linden.rules)
-      let steps = linden.steps
-      let feet = linden.feet // feet (moves) for each F in rule
-if (1 && 1) console.log('steps', steps)
+      let loops = linden.loops !== undefined ? Math.floor(linden.loops) : linden.loops
+      // feet (moves) for each F in rule
+      let feet = linden.feet !== undefined ? Math.floor(linden.feet) : linden.feet
 
       let output = ''
 
       for (let ch of axiom) { // char in array
         let rule = ch
         
-        if (steps > 0) {  // apply rules if in step
+        if (loops > 0) {  // apply rules if in loop
           if (rules.hasOwnProperty(ch)) {
             rule = rules[ch]
           }
         }
         
         let newrule = rule 
-        if (steps !== undefined && steps > 0) { // footify
+        if (feet !== undefined && feet > 0) { // footify
           if (rule === 'F') {
             newrule = rule.replace(/^f|F$/, chn(rule, feet), 'g')
           } else if (rule === 'f') {
@@ -59,8 +59,8 @@ if (1 && 1) console.log('steps', steps)
 
         output += newrule
       }
-      steps = steps - 1
-      if (steps <= 0) { // steppify
+      loops = loops - 1
+      if (loops <= 0) { // looppify
         lindenmayer.fractal = output
 
         cache.linden = linden
@@ -68,7 +68,7 @@ if (1 && 1) console.log('steps', steps)
         return lindenmayer
       }
 
-      linden.steps = steps
+      linden.loops = loops
       linden.axiom = output
 
       return fractalize(lindenmayer)
@@ -133,11 +133,11 @@ if (1 && 1) console.log('steps', steps)
     // G    move forward
     // []   save/restore position
     // |    make a (180 degree) U-turn.
-    // randomize step: % randomize step
+    // randomize loop: % randomize loop
     // randomize angle: % randomize angle
     // 
     // the curve adds the start charater
-    // if steps is 0, cords is Ffs plus 1
+    // if loops is 0, coords is Ffs steps plus 1
 
     let curve = (lindenmayer) => {
       let angstart
@@ -245,9 +245,6 @@ if (1 && 1) console.log('steps', steps)
     let linden = (lindenmayer) => {
       
       let fractal = fractalize(lindenmayer).fractal
-if (1 && 1) console.log('axiom', lindenmayer.linden.axiom)
-if (1 && 1) console.log('rules', lindenmayer.linden.rules)
-if (1 && 1) console.log('fractal',fractal)
 
       let mayer = lindenmayer.mayer
       let geo = curve({

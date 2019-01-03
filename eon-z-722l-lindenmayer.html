@@ -58,7 +58,7 @@ async function anitem (__mapper) {
           { // tree
             linden: {
               axiom: 'FX',
-              steps: 7,
+              loops: 7,
               rules: {
                 X: '[+FX][-FX]',
 
@@ -77,7 +77,7 @@ async function anitem (__mapper) {
           { // sierpinski triangle
             linden: {
               axiom: 'F',
-              steps: 7,
+              loops: 7,
               rules: {
                 F: 'f-F-f',
                 f: 'F+f+F',
@@ -94,7 +94,7 @@ async function anitem (__mapper) {
           { // tree
             linden: {
               axiom: 'F',
-              steps: 7,
+              loops: 7,
               rules: {
                 F1: 'F[+F]F[-F]F',
                 F2: 'F[+F]F',
@@ -111,7 +111,7 @@ async function anitem (__mapper) {
           { // tree
             linden: {
               axiom: 'F',
-              steps: 7,
+              loops: 7,
               rules: {
                 F: 'F[-F]F[+F]F',
               },
@@ -126,7 +126,7 @@ async function anitem (__mapper) {
           { // tree
             linden: {
               axiom: 'X',
-              steps: 7,
+              loops: 7,
               rules: {
                 X: '> F[+X]F[-X]+X',
                 F: 'FF',
@@ -142,7 +142,7 @@ async function anitem (__mapper) {
           { // hilbert
             linden: {
               axiom: 'L',
-              steps: 4,
+              loops: 4,
               rules: {
                 L: '+RF-LFL-FR-',
                 R: '-LF+RFR+FL-',
@@ -158,7 +158,7 @@ async function anitem (__mapper) {
           { // sierpinski tiles
             linden: {
               axiom: 'F-F-F-F',
-              steps: 4,
+              loops: 4,
               rules: {
                 F: 'FF-F+F-F-FF',
               },
@@ -173,7 +173,7 @@ async function anitem (__mapper) {
           { // sierpinski cross
             linden: {
               axiom: 'F-F-F-F',
-              steps: 4,
+              loops: 4,
               rules: {
                 F: 'FF-F-F-F-F-F+F',
               },
@@ -188,7 +188,7 @@ async function anitem (__mapper) {
           { // sierpinski square
             linden: {
               axiom: 'F-F-F-F',
-              steps: 4,
+              loops: 4,
               rules: {
                 F: 'FF-F-F-F-FF',
               },
@@ -203,7 +203,7 @@ async function anitem (__mapper) {
           { // sierpinski triang
             linden: {
               axiom: 'F',
-              steps: 8,
+              loops: 8,
               rules: {
                 F: 'f+F+f',
                 f: 'F-f-F',
@@ -219,7 +219,7 @@ async function anitem (__mapper) {
           { // dragon
             linden: {
               axiom: 'FX',
-              steps: 8,
+              loops: 8,
               rules: {
                 Y: '+FX--FY+',
                 X: '-FX++FY-',
@@ -236,7 +236,7 @@ async function anitem (__mapper) {
           { // grid
             linden: {
               axiom: '-X',
-              steps: 8,
+              loops: 8,
               rules: {
                 Y: '+FX--FY+',
                 X: '-FX++FY-',
@@ -253,7 +253,7 @@ async function anitem (__mapper) {
           { // gosper
             linden: {
               axiom: '-FR',
-              steps: 3,
+              loops: 3,
               rules: {
                 L: 'FLFL-FR-FR+FL+FL-FR-FRFL+FR+FLFLFR-FL+FR+FLFL+FR-FLFR-FR-FL+FL+FRFR-',
                 R: '+FLFL-FR-FR+FL+FLFR+FL-FRFR-FL-FR+FLFRFR-FL-FRFL+FL+FR-FR-FL+FL+FRFR',
@@ -269,7 +269,7 @@ async function anitem (__mapper) {
           { // gosper
             linden: {
               axiom: 'F++F++F++F',
-              steps: 7,
+              loops: 7,
               rules: {
                 F: 'F+F-F',
               },
@@ -284,7 +284,7 @@ async function anitem (__mapper) {
           { // penrose1
             linden: {
               axiom: '+WF--XF---YF--ZF',
-              steps: 0,
+              loops: 0,
               rules: {
                 W: 'YF++ZF----XF[-YF----WF]++',
                 X: '+YF--ZF[---WF--XF]+',
@@ -303,7 +303,7 @@ async function anitem (__mapper) {
           { // plant1
             linden: {
               axiom: 'X',
-              steps: 8,
+              loops: 8,
               rules: {
                 X: 'F[-X]F[-X]+F[X]',
                 F: 'FF',
@@ -320,7 +320,7 @@ async function anitem (__mapper) {
           { // treegrid
             linden: {
               axiom: 'X',
-              steps: 3,
+              loops: 3,
               rules: {
                 X: 'FY[+FY][--FY]FY',
                 F: 'FX[++FX][-FX]FX',
@@ -337,7 +337,7 @@ async function anitem (__mapper) {
           { // sierpinski
             linden: {
               axiom: 'FXF--FF--FF',
-              steps: 6,
+              loops: 6,
               rules: {
                 F: 'FF',
                 X: '--FXF++FXF++FXF--',
@@ -354,7 +354,7 @@ async function anitem (__mapper) {
           { // snake
             linden: {
               axiom: 'FL',
-              steps: 3,
+              loops: 3,
               rules: {
                 L: 'FL-FR--FR+FL++FLFL+FR-',
                 R: '+FL-FRFR--FR-FL++FL+FR',
@@ -371,7 +371,7 @@ async function anitem (__mapper) {
           { // Koch Island.
             linden: {
               axiom: '-F--F--F',
-              steps: 5,
+              loops: 5,
               rules: {
                 F: 'F+F--F+F',
               },
@@ -387,7 +387,7 @@ async function anitem (__mapper) {
           { // tree
             linden: {
               axiom: 'F ',
-              steps: 7,
+              loops: 7,
               rules: {
                 F: 'F[+F][-F]',
               },
@@ -405,7 +405,7 @@ async function anitem (__mapper) {
           { // Lawrence
             linden: {
               axiom: 'W',
-              steps: 7,
+              loops: 7,
               rules: {
                 W: '+++X--F--ZFX+',
                 X: '---W++F++YFW-',
@@ -424,7 +424,7 @@ async function anitem (__mapper) {
           { // Penrose3 double penrose
             linden: {
               axiom: '[N]++[N]++[N]++[N]++[N]',
-              steps: 4,
+              loops: 4,
               rules: {
                 M: 'OF++PF----NF[-OF----MF]++',
                 N: '+OF--PF[---MF--NF]+',
