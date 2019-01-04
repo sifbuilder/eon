@@ -205,9 +205,11 @@ async function anitem (__mapper) {
         let newFeatures = [gj]
 
         let inc = 0
-        let pars = 0
+        let pars = 0  
 
         if (inc === 1 || pars === 1) {
+          let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+          
           if (preani === undefined) {
             let tgj = gj
             tgj.geometry = muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)

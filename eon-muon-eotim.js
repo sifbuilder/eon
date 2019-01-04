@@ -17,98 +17,145 @@
   // ... tf: t => (1 / Math.PI) * ((Math.PI / 2 ) +  Math.arcsin(-1 + 2 * t))
 
   async function muonEotim (__mapper = {}) {
-    let d3scale = await __mapper('xs').b('d3-scale')
+    let [
+      d3scale,
+    ] = await Promise.all([
+      __mapper('xs').b('d3-scale'),
+    ])
 
-    function timing (pTim, pElapsed) {
-      let epsilon = 1e-5
+    let epsilon = 1e-5
+    let scaleLinear = d3scale.scaleLinear
 
-      let scaleLinear = d3scale.scaleLinear
+    function timing (pTim = {}, newElapsed) {
 
       let eotim = Object.assign({}, pTim)
-      let _tim = Object.assign({}, pTim)
+      let _tim = Object.assign({}, pTim)  // 
 
-      if (pElapsed < 0) eotim.msStart = undefined // reset
 
-      let timeunits = eotim.tu || 1000 // eotim.tu: time unit
-      let duration = eotim.td // eotim.td: time duration
-      let t0 = eotim.t0 // eotim.t0: time init/wait
-      let t1 = eotim.t1 // eotim.t1: time limit
-      let step = Math.abs(eotim.t2) || 1 // eotim.t2: time step
-      let period = Math.abs(eotim.t3) || 1 // eotim.t3: time period
-      let window = !!(eotim.tw) // eotim.tw: time window
-      let timeinverse = eotim.inverse || false // eotim.inverse: time direction
-      let common = eotim.common // eotim.common: shared time
-      let msDelta = (eotim.msDelta !== undefined) ? eotim.msDelta : 0 // time (ms) between ticks
+      
+      const {
+        td = 10000, // time duration
+        t0 = 0,   // time init/wait
+        t1 = 1000, //  
+        t2 = 1, 
+        t3 = 1, 
+        tf = t => t, 
+        tu = 1000, // time units
+        tw = 1,  // time window
+        inverse = false,  // time inverse, time direction
+        common = false,  // shared time
+        wasElapsed = 0,  // abs msPassed time (ms). if undefined, wasElapsed is undefined
+        slots = [], // slots
+        
+      } = eotim
+      
+      const {
+        duration = td, 
+        tinit = t0,
+        tend = t1,
+        step = t2, 
+        period = t3, 
+        tfn = tf, 
+        timeunits = tu,
+        timeinverse = inverse,
+        window = tw,
+      } = eotim
 
-      let elapsed = eotim.elapsed = pElapsed // abs msPassed time (ms)
-      let msElapsed = eotim.elapsed // abs msPassed time - life (ms)
-      let msStart = eotim.msStart // abs start time (ms)
-      let msPassed = eotim.msPassed // rel time msPassed - life (ms)
-      let stopped = eotim.stopped // is time stopped
-      let unitElapsed = eotim.unitElapsed // common time elapsed (units)
-      let unitPassed = eotim.unitPassed // rel time msPassed - life (units)
-      let unitStart = eotim.unitStart // ref time start (common or relative) (units)
-      let unitTime = eotim.unitTime // ref time msPassed (common or relative) (units)
-      let unitDelta = (eotim.unitDelta !== undefined) ? eotim.unitDelta : 0 // time (units) between ticks
+      
+      let {
+        msElapsed = wasElapsed,  // abs msPassed time - life (ms)
+        msStart = wasElapsed,   // abs start time (ms)
+        msPassed,  // rel time msPassed - life (ms) 
+        msDelta = 0, // time (ms) between ticks
+        msTick = 0, // time msPassed (ticks)
+        unitTime,  // ref time msPassed (common or relative) (units) 
+        unitElapsed,  // common time elapsed (units) 
+        unitPassed,  // rel time msPassed - life (units) 
+        unitDelta = 0, // time (units) between ticks
+        unitStart, // ref time start (common or relative) (units)
+        stopped = 1, // -- time is stopped
+      } = eotim
 
-      let tp = (eotim.tp !== undefined) ? eotim.tp : t => t
+      
+      
+      if (newElapsed === undefined) {
+        newElapsed = wasElapsed
+      }
 
-      let tick = eotim.tick // time msPassed (ticks)
-
-      let timefactor = duration / timeunits // time factor
-      let wait = eotim.wait = Math.abs(timefactor * t0) // t0 wait
-      let limit = eotim.limit = Math.abs(timefactor * t1) // t1 limit
-      let slots = eotim.slots = [] // slots
-
-      let d = (window === false) ? [eotim.wait, eotim.limit] : [0, duration] // time window
+      if (newElapsed < 0) {
+        msStart = undefined // reset msStart (start in mili-seconds)
+      }      
+      
       if ((Math.sign(t0) === -1) || (Math.sign(t1) === -1)) timeinverse = true // inverse
+
+      console.assert(step > 0)
+      console.assert(period > 0)
+      console.assert(wasElapsed !== undefined)
+      console.assert(newElapsed !== undefined)
+      
+
+      // get the time scale
+      let timefactor = duration / timeunits // time factor
+      let wait = Math.abs(timefactor * t0) // t0 wait
+      let limit = Math.abs(timefactor * t1) // t1 limit
+      let d = (window === false) ? [wait, limit] : [0, duration] // time window
       let r = (timeinverse === false) ? [0, 1] : [1, 0] // time inversion
       let timescale = () => scaleLinear().domain(d).range(r) // timescale: scale of life
+      
+      // time vars in ms units
+      msElapsed = newElapsed // -- abs time wasElapsed (abs, ms)
+      msPassed = newElapsed - msStart // -- relative time msPassed (abs, ms)
+      msDelta = newElapsed - wasElapsed // -- time msPassed (abs, ms) between ticks
+      let msPassedInPeriod = (period > epsilon) ? ((msPassed % (duration / period)) * period) : msPassed
+      let msPassedstep = Math.round(msPassed / step) // msPassedstep
+      let msElapsedInPeriod = (period > epsilon) ? ((msElapsed % (duration / period)) * period) : msElapsed
+      let msElapsedstep = Math.round(msElapsed / step) // msElapsedstep
+      let msTime = (common !== undefined) ? msElapsed : msPassed //  time (ms)
 
-      eotim.msStart = eotim.msStart || elapsed // -- start time (abs, ms)
-      eotim.msElapsed = eotim.elapsed // -- abs time elapsed (abs, ms)
-      eotim.msPassed = eotim.elapsed - eotim.msStart // -- relative time msPassed (abs, ms)
-
-      eotim.msDelta = eotim.elapsed - _tim.elapsed // -- time msPassed (abs, ms) between ticks
-      eotim.stopped = 1 // -- time is stopped
-
-      let elapsedInPeriod = (period > epsilon) ? ((eotim.elapsed % (duration / period)) * period) : elapsed
-      let unitTimeElapsedInPeriod = timescale()(elapsedInPeriod) // abs elapsed time in period (units)
-      let elapsedstep = Math.round(elapsed / step) // elapsedstep
-      if ((wait <= elapsed) && (elapsed <= limit) && (slots.indexOf(elapsedstep) !== null)) {
-        slots.push(elapsedstep)
-        eotim.unitElapsed = unitTimeElapsedInPeriod // TimeElapsedInPeriod (units)
+      if ((wait <= msPassed) && (msPassed <= limit) && (slots.indexOf(msPassedstep) !== null)) {
+        slots.push(msElapsedstep) // pused elapsed _e_ tbc
+        msPassed = msPassedInPeriod // TimePassedInPeriod (units)
+        msElapsed = msElapsedInPeriod // TimePassedInPeriod (units)
       }
-
-      let passedInPeriod = (period > epsilon) ? ((eotim.msPassed % (duration / period)) * period) : eotim.msPassed
-      let unitTimePassedInPeriod = timescale()(passedInPeriod) // rel msPassed time in period (units)
-      let passedstep = Math.round(eotim.msPassed / step) // passedstep
-
-      if ((wait <= eotim.msPassed) && (eotim.msPassed <= limit) && (slots.indexOf(passedstep) !== null)) {
-        slots.push(passedstep)
-        eotim.unitPassed = unitTimePassedInPeriod // TimePassedInPeriod (units)
+      
+      eotim.msElapsed = msElapsed // UPDATE
+      eotim.msPassed = msPassed // UPDATE
+      eotim.msDelta = msDelta // UPDATE
+      eotim.msTime = msTime
+      eotim.slots = slots
+      
+      // time vars in slot units      
+      let newUnitPassed = timescale()(msPassed)
+      unitDelta = newUnitPassed - unitPassed // -- time units between ticks
+      unitPassed = newUnitPassed
+      unitElapsed = timescale()(msElapsed)
+      let isElapsedInPeriod = (period > epsilon) ? ((msElapsed % (duration / period)) * period) : msElapsed
+      let unitElapsedInPeriod = timescale()(isElapsedInPeriod) // abs msElapsed time in period (units)
+      if ((wait <= msElapsed) && (msElapsed <= limit) && (slots.indexOf(msElapsedstep) !== null)) {
+        unitElapsed = unitElapsedInPeriod // TimeElapsedInPeriod (units)
       }
-      eotim.unitDelta = eotim.unitPassed - _tim.unitPassed // -- time units between ticks
-
-      eotim.unitTime = (common !== undefined) ? eotim.unitElapsed : eotim.unitPassed //  time (units)
-
-      eotim.unitTime = tp(eotim.unitTime)
-
-      eotim.msTime = (common !== undefined) ? eotim.msElapsed : eotim.msPassed //  time (ms)
-
-      if (eotim.unitTime !== null) { // do not start yet if no unitTime
-        eotim.stopped = 0 // -- time unstopped
-        eotim.unitStart = eotim.unitStart || eotim.unitTime // -- time started (units)
-        eotim.tick = (eotim.tick === undefined) ? 0 : eotim.tick + 1 // -- time tick
+      unitTime = (common !== undefined) ? unitElapsed : unitPassed //  time (units)
+      
+      
+      if (unitTime !== null) { // do not start yet if no unitTime
+        stopped = 0 // -- time unstopped
+        unitStart = (unitStart !== undefined) ? unitStart : unitTime // -- time started (units)
+        msTick = (msTick === undefined) ? 0 : eotim.msTick + 1 // -- time msTick
       }
+      eotim.unitPassed = unitPassed  // UPDATE
+      eotim.unitTime = tfn(unitTime) // UPDATE
+      eotim.stopped = stopped // UPDATE
+      eotim.unitStart = unitStart // UPDATE
+      eotim.msTick = msTick // UPDATE
 
+      
       return eotim
     }
 
-    // eotim definition
 
+    // ............................. getdefault
     let getdefault = function () {
-      let res = { 'td': 9600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1 }
+      let res = { td: 10000, t0: 0, t1: 1000, t2: 1, t3: 1, tf: t => t }
 
       return res
     }
