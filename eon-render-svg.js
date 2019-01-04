@@ -9,7 +9,7 @@
   'use strict'
 
   async function renderSvg (__mapper = {}) {
-    // ... # eon-render-svg
+
     // ... **render svg**
     // ...
     // ... The viewport is the visible area of the SVG image
@@ -244,11 +244,12 @@
           //
           // pathed texts
           //  
-  
+if (1 && 1) console.log('texts', texts)
+   
            // pathed texts are geofolded by geojson Feature.LineString
           let textsWithPath =  texts // without path
             .filter(d =>
-              d.properties.textpath === undefined
+              d.properties.textpath !== undefined
               || (d.type === 'Feature' && d.geometry.type === 'LineString') // Feature.LineString
               || (d.type === 'Feature' && d.geometry.type === 'Polygon')  // Feature.Polygon
             )

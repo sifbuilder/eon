@@ -106,7 +106,6 @@ async function anitem (__mapper) {
         let pointer = 0 // Math.floor( (qLindenmayers -1) * ani.eotim.unitElapsed)
 
         let gj = muonLindenmayer.lindenmayer(lindenmayers[pointer])
-        // return muonGeoj.timeSeg(gj, ani.eotim.unitElapsed)
         return gj
       },
 
@@ -247,7 +246,7 @@ async function anitem (__mapper) {
       eofold: ani => {
         let natipros = {
           form: ani.eoform,
-          hvg: 0, // horizontal geodesics
+          hvg: 1, // horizontal geodesics
           asyg: 0, // symetric distribution of geodesics around the origin
           closeg: 0, // closed line
         }
@@ -385,8 +384,6 @@ async function anitem (__mapper) {
               for (let i = 1; i < levels; i++) { // 1
                 if (z === (Math.PI / 2) / i) {
                   m = 1 / i
-                  // if (1 && 1) console.log('m', i, m)
-
                   break
                 }
               }
@@ -566,12 +563,19 @@ async function anitem (__mapper) {
     let textAniA = {
 
       eohal: 'textform',
-
-      eofold: null,
-
       eotim: eotim,
-      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'texta'},
-      eocrom: { 'csx': 0, 'cf': [[[888, 666, 888]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.99, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+      eoric: {gid: 'text', cid: 'text', fid: 'texta'},
+
+      eofold: ani => {
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          }
+        }
+        return res
+      },
 
       eomot: {
         proform: {
@@ -579,6 +583,8 @@ async function anitem (__mapper) {
           translate: [ -175, 30 ],
         },
       },
+
+      eocrom: { 'csx': 0, 'cf': [[[888, 666, 888]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.99, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
       eoload: {
         textform: {
@@ -598,11 +604,22 @@ async function anitem (__mapper) {
     let textAniB = {
 
       eohal: 'textform',
-
-      eofold: null,
-
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textb'},
+
+      eofold: ani => {
+
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          }
+        }
+
+        return res
+      },
+
       eocrom: { 'csx': 0, 'cf': [[[888, 666, 888]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.99, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
       eomot: {
@@ -632,7 +649,18 @@ async function anitem (__mapper) {
 
       eohal: 'textform',
 
-      eofold: null,
+      eofold: ani => {
+
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          }
+        }
+
+        return res
+      },
 
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textc'},
@@ -664,7 +692,18 @@ async function anitem (__mapper) {
 
       eohal: 'textform',
 
-      eofold: null,
+      eofold: ani => {
+
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          }
+        }
+
+        return res
+      },
 
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textd'},

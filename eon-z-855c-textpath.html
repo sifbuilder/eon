@@ -100,10 +100,11 @@ async function anitem (__mapper) {
       eohal: 'textform',
       eotim,
       eoric: {gid: 'txtg', cid: 'txtc0', fid: 'txtf0'},
+      
       eofold: ani => {
         let natipros = {
           form: ani.eoform,        
-          hvg: 0, // horizontal geodesics
+          hvg: 1, // horizontal geodesics
           asyg: 1, // asymetric distribution of geodesics around the origin
           closeg: 0, // open line
         }
@@ -146,7 +147,7 @@ async function anitem (__mapper) {
       eofold: ani => {
         let natipros = {
           form: ani.eoform,        
-          hvg: 0, // horizontal geodesics
+          hvg: 1, // horizontal geodesics
           asyg: 1, // asymetric distribution of geodesics around the origin
           closeg: 0, // open line
         }
@@ -190,7 +191,7 @@ async function anitem (__mapper) {
       eofold: ani => {
         let natipros = {
           form: ani.eoform,        
-          hvg: 0, // horizontal geodesics
+          hvg: 1, // horizontal geodesics
           asyg: 1, // asymetric distribution of geodesics around the origin
           closeg: 0, // open line
         }
@@ -266,6 +267,7 @@ async function anitem (__mapper) {
 
       },
     }
+  
     // .................. animas
     let animas = [
 
