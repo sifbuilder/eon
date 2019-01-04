@@ -52,7 +52,7 @@ async function anitem (__mapper) {
 
       eotim: eotim,
       eofold: function (p) {
-        return muonNatform.natFeature(p.eoform)
+        return muonNatform.natFeature({form: p.eoform})
       },
 
       eonode: {

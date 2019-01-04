@@ -69,7 +69,7 @@ async function anitem (__mapper) {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
-        'dom3': [ [[[0,90]]], [[[2 * 360 - epsilon, 2 * 360 - epsilon + 90]]] ],
+        'dom3': [ [[[0,90]]], [[[2 * 360, 2 * 360 + 90]]] ],
 
         'fn0': (e,c) => e[0]
       },
@@ -108,15 +108,13 @@ async function anitem (__mapper) {
         'dom3': [-180, 180],
         c: [],
         e: [ cost, 1, 1, cost ],
-        // 'fn0': (e,c) => c[0] * cos(e[0]) * c[3] * cos(e[3])
       },
       y: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 9, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        // c: [],
-        // e: [ sint, 1, 1, cost ],
-        'fn0': (e, c) => c[0] * sin(e[0]) * c[3] * cos(e[3]),
+        c: [],
+        e: [ sint, 1, 1, cost ],
 
       },
 
@@ -188,19 +186,17 @@ async function anitem (__mapper) {
     // ............................. natAniBlue
     let natAniBlue = {
       eohal: 'mars',
-      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qblue'},
+      
+      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
       eomot: {
         proform: {
           projection: 'uniwen',
-          scale: [ [[[1, 1]]], [[[1, 1]]] ],
+          scale: [ 1, 1 ],
           prerotate: [[[ ctlWen.rotation ]]],
           translate: [ [0, 0, 0] ],
-          rotate: [
-            0,
-            0,
-            0 ],
+          rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
         },
       },
@@ -213,8 +209,8 @@ async function anitem (__mapper) {
     let animas = [
 
       natAniRed, // h.natform
-      // natAniGold, // h.natform
-      // natAniBlue, // h.natform
+      natAniGold, // h.natform
+      natAniBlue, // h.natform
 
     ]
 

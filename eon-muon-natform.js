@@ -17,7 +17,7 @@
   // ...
   // ... ### methods
   // ... natFeature
-  // ... `coordinates = Array.of(__mapper("xs").m("nat").natFeature(p.form))`
+  // ... `coordinates = Array.of(__mapper("xs").m("nat").natFeature({form: p.form}))`
   // ...
   // ... rador
   // ... seg5 unit circle rador

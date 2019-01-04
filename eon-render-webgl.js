@@ -42,12 +42,45 @@
     state.gridHelpers = {}
     state.lightHelpers = {}
 
+    
+    
+
+    // .................. getCamerasDefault
+    let getCamerasDefault = function (stat) {
+      let cameras = {}
+      let pars = {}
+      pars = {
+        aspect: 1.5,
+        distance2nodesFactor: 100,
+        far: 1600,
+        fov: 60,
+        lookAt: [0, 0, 0],
+        name: "Perspective",
+        near: 0.001,
+        position: [0, 0, 600],
+        rotation: [0, 0, 0],
+        sort: "camera",
+        type: "PerspectiveCamera",
+        velang: [0, 0, 0],
+        vellin: [0, 0, 0],       
+      }
+
+      cameras[pars['name']] = getCamera(pars, stat)
+      
+      
+      return cameras
+      
+    }    
+
+
+
     // .................. getCamera
     let getCamera = function (pars, stat) {
       let camera
       let cameraItem = pars
       let type = cameraItem.type || 'PerspectiveCamera'
-      let camerauid = cameraItem.eoric.uid
+      let name = cameraItem.name
+      let camerauid = name
 
       if (type === 'PerspectiveCamera') {
         let defs = { fov: 50, zoom: 1, near: 0.1, far: 2000, focus: 10, aspect: 1, view: null, filmGauge: 35, filmOffset: 0}
@@ -70,7 +103,12 @@
           camera = stat.cameras[camerauid]
         }
       } else if (type === 'OrthographicCamera') {
-        let defs = { near: 0.1, far: 2000, zoom: 1, view: null }
+        let defs = { 
+          near: 0.1, 
+          far: 2000, 
+          zoom: 1, 
+          view: null 
+        }
 
         let {left, right, top, bottom, near, far} = Object.assign(defs, cameraItem)
 
@@ -113,12 +151,47 @@
       return camera
     }
 
+
+
+
+    // .................. getLightsDefault
+    let getLightsDefault = function (stat) {
+      let lights = {}
+      let pars = {}
+      pars = {
+          groundColor: 755.9649032258285,
+          intensity: 0.4,
+          name: "HemisphereLight",
+          position: [0, 0, 0],
+          skyColor: 354,
+          sort: "light",
+          type: "HemisphereLight",
+      }
+
+      lights['HemisphereLight'] = getLight(pars, stat)
+
+      pars = {
+          castShadow: 1,
+          color: 238,
+          intensity: 0.99,
+          name: "spotLight",
+          normalize: 1,
+          position: [-400, 400, 400],
+          sort: "light",
+          type: "SpotLight",
+      }
+      lights['HemisphereLight'] = getLight(pars, stat)
+
+      return lights
+    }
+
     // .................. getLight
     let getLight = function (pars, stat) {
       let light
       let item = pars
       let type = item.type || 'AmbientLight'
       let name = item.name
+
 
       if (type === 'AmbientLight') {
         // color is added to the color of objects material
@@ -210,6 +283,7 @@
         console.assert(1 === 0, `light type ${type} not supported`)
       }
 
+
       return light
     }
 
@@ -284,16 +358,8 @@
 
     // .................. threeLights
     function threeLights (items = []) {
-      if (items.length === 0) { // add default light
-        let lights = Object.getOwnPropertyNames(state.lights)
-        if (lights.length === 0) {
-          let item = {
-            name: 'default',
-          }
-          let name = item.name
-          state.lights[name] = getLight(item, state)
-        }
-      } else {
+      if (items.length > 0) { 
+
         // deafult light may be created for any gid.cid class
         // delete if a light is defined in another class
         if (state.lights['default' ] !== undefined) delete state.lights['default']
@@ -307,14 +373,7 @@
     }
     // .................. threeCameras
     function threeCameras (items = []) {
-      if (items.length === 0) { // add default camera
-        let cameras = Object.getOwnPropertyNames(state.cameras)
-        if (cameras.length === 0) {
-          let cameraProps = {eoric: { uid: 'default'} }
-          let camerauid = cameraProps.eoric.uid
-          state.cameras[camerauid] = getCamera(cameraProps, state)
-        }
-      } else {
+      if (items.length > 0) { // add default camera
         // deafult camera may be created for any gid.cid class
         // delete if a camera is defined in another class
         if (state.cameras['default' ] !== undefined) delete state.cameras['default']
@@ -698,27 +757,65 @@
         .key(function (d) { return d.properties.eoric.cid })
         .entries(features)
 
-      for (let k = 0; k < patterns.length; k++) {
-        let pattern = patterns[k]
+        let patternedItems = patterns.map(d => [])
+
 
         for (let i in gitems) { // DOTS (seg5===0) each group gid
           let gid = gitems[i].key,
             citems = gitems[i].values
+
           for (let j in citems) { // forEach CLASS by cid
             let cid = citems[j].key // cid
+
             let fitems = citems[j].values // fitems
             let now = fitems.slice(-1)[0]
 
-            if (pattern.retriever && pattern.filter) {
-              let itemsInPattern = fitems.filter(pattern.filter)
 
-              if (itemsInPattern.length > 0) {
-                pattern.retriever(itemsInPattern)
-              }
-            }
+      for (let k = 0; k < patterns.length; k++) {
+        let pattern = patterns[k]
+
+
+                if (pattern.retriever && pattern.filter) {
+                  let itemsInPattern = fitems.filter(pattern.filter)
+
+
+                  patternedItems[k] = itemsInPattern.length > 0 ? patternedItems[k].concat(itemsInPattern) : patternedItems[k]
+
+
+                }
+      }
+
           } // citems
         } // gitems
+
+      // group items per pattern
+      for (let k = 0; k < patterns.length; k++) {
+        let pattern = patterns[k]
+
+        if (pattern.retriever && pattern.filter) {
+          pattern.retriever(patternedItems[k])
+        }
       }
+
+
+      if (state.lights === undefined    // set default lights
+        || Object.keys(state.lights).length === 0) {
+
+          let lights = getLightsDefault(state)
+          state.lights = lights
+
+
+      }
+      if (state.cameras === undefined    // set default cameras
+        || Object.keys(state.cameras).length === 0) {
+
+          let cameras = getCamerasDefault(state)
+          state.cameras = cameras
+
+
+      }
+
+
 
       if (state.cameras && Object.keys(state.cameras).length > 0) {
       // if (state.camera !== undefined) {

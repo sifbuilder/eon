@@ -154,7 +154,7 @@ async function anitem (__mapper) {
       eofold: p => {
         let tfvars = vars.map(d => d.dataSync()[0])
         let q = { natform: {y: { e1: tfvars } } }
-        return muonNatform.natFeature(p.eoload.natform(q.natform))
+        return muonNatform.natFeature({form: p.eoload.natform(q.natform)})
       },
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},

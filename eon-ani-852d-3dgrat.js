@@ -31,15 +31,20 @@
       let natform = {
 
         eohal: 'mars',
-        eofold: p => muonNatform.natFeature(p.eoform),
-
         eotim: eotim,
         eoric: {gid: 'nat', cid: 'nat', fid: 'natform'},
-        eocrom: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.09, 0.09]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
+        
+        eofold: ani => muonNatform.natFeature({form: ani.eoform}),
 
         eomot: {
-          proform: { projection: 'uniwen', translate: [0, 0, 0], scale: 1, rotate: [0, 0, 0], lens: [0, 1, Infinity] },
+          proform: { 
+            projection: 'uniwen', 
+            translate: [0, 0, 0], 
+            scale: 1, 
+            rotate: [0, 0, -90], 
+            lens: [0, 1, Infinity] },
         },
+        
         eoform: {
 
           'm1': [[[-8, -4, -2, -7.66]]],
@@ -49,7 +54,7 @@
           'n3': [[[13, 15, 17, 17]]],
           'a': [[[9, 9, 9, 8.98]]],
           'b': [[[0.2, 0.2, 0.2, 0.19]]],
-          'ra2': 240,
+          'ra2': 180,
           'v0': 0,
           'v1': 1,
           'seg5': [[[360, 360]]],
@@ -58,6 +63,8 @@
           'pb7': 360,
 
         },
+
+        eocrom: { 'csx': 0, 'cf': [[[444, 777]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 777]]], 'cw': [[[0.7, 0.7]]], 'cp': [[[0.9, 0.9]]]},
 
         eoload: {},
 

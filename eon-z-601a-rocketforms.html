@@ -29,7 +29,7 @@ async function anitem (__mapper) {
 
       eohal: 'mars',
       eofold: p => {
-        let r = muonNatform.natFeature(p.eoform)
+        let r = muonNatform.natFeature({form: p.eoform})
         return r
       },
 

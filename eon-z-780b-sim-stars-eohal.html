@@ -153,7 +153,7 @@ async function anitem (__mapper) {
 
       eoload: {
 
-        eofold: p => muonNatform.natFeature(p.eoload.form),
+        eofold: ani => muonNatform.natFeature({form: ani.eoload.form}),
 
         pacer: {
           initN: 8, eventN: 6, autoN: 1, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 1 / 100,

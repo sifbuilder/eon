@@ -123,7 +123,7 @@
         lens: [0, 1, Infinity],        
       }
 
-      anitem.eofold = muonNatform.natFeature(anitem.eoform)
+      anitem.eofold = muonNatform.natFeature({form: anitem.eoform})
       
       anitem.eofold = muonProj3ct(anitem.eofold, muonProfier.formion(prt, anitem))
    
