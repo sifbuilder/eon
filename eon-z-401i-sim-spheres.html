@@ -155,7 +155,7 @@ async function anitem (__mapper) {
           },
 
           eofold: function (ani, props) {
-            let neweofold = ani => muonNatform.natFeature(ani.eoform)
+            let neweofold = ani => muonNatform.natFeature({form: ani.eoform})
             return neweofold
           },
 

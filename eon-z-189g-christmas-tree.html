@@ -124,7 +124,7 @@ async function anitem (__mapper) {
           },
 
           eofold: function (ani, props) {
-            let neweofold = muonNatform.natFeature(ani.eoform)
+            let neweofold = muonNatform.natFeature({form: ani.eoform})
 
             return neweofold
           },
@@ -267,7 +267,7 @@ async function anitem (__mapper) {
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eofold: ani => muonNatform.natFeature(ani.eoform),
+      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
       eonode: {
         type: 'Feature',
         geometry: {
@@ -313,7 +313,7 @@ async function anitem (__mapper) {
 
       eocrom: { 'csx': 0, 'cf': [[[999, 999, 999]]], 'co': [[[0.19, 0.19]]], 'cs': [[[999, 999]]], 'cw': [[[1.9, 3.9]]], 'cp': [[[0.7, 0.9]]]},
 
-      eofold: ani => muonNatform.natFeature(ani.eoform),
+      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
       eonode: {
         type: 'Feature',
         geometry: {
@@ -358,13 +358,14 @@ async function anitem (__mapper) {
       eoric: {gid: 'q', cid: 'q', fid: 'q'},
 
       eofold: ani => {
-        let gratiprops = {
-          ret: 0, // horizontal geodesics
-          dist: 0, // symetric distribution of geodesics around the origin
-          border: 0, // closed line
+        let natipros = {
+          form: ani.eoform,
+          hvg: 0, // horizontal geodesics
+          asyg: 0, // symetric distribution of geodesics around the origin
+          closeg: 0, // closed line
         }
 
-        let gj = muonNatform.natFeature(ani.eoform, gratiprops)
+        let gj = muonNatform.natFeature(natipros)
         let coords = muonGeoj.getCoords(gj)
         let nb = coords.length
         let unitElapsed = ani.eotim.unitElapsed
@@ -559,7 +560,7 @@ async function anitem (__mapper) {
       eotim: eotim,
       eoric: { gid: 'nat', cid: 'nat', fid: 'pacerNat' },
 
-      eofold: ani => muonNatform.natFeature(ani.eoform),
+      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
 
       eonode: {
         type: 'Feature',

@@ -96,7 +96,7 @@ async function anitem (__mapper) {
 
       eohal: 'natform',
 
-      eofold: ani => muonNatform.natFeature(ani.eoform),
+      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
       eotim,
 
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},

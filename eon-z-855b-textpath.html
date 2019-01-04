@@ -72,13 +72,14 @@ function getPath1() {
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qred'},
       eofold: ani => {
-        let gratiprops = {
-          ret: 0, // horizontal geodesics
-          dist: 1, // asymetric distribution of geodesics around the origin
-          border: 0, // open line
+        let natipros = {
+          form: ani.eoform,        
+          hvg: 0, // horizontal geodesics
+          asyg: 1, // asymetric distribution of geodesics around the origin
+          closeg: 0, // open line
         }        
         
-        let res = muonNatform.natFeature(ani.eoform, gratiprops)  // Feature.LineString
+        let res = muonNatform.natFeature(natipros)  // Feature.LineString
 
         return res
       },

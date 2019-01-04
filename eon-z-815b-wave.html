@@ -136,13 +136,14 @@ async function anitem (__mapper) {
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qred'},
       eofold: ani => {
-        let gratiprops = {
-          ret: 0, // horizontal geodesics
-          dist: 1, // asymetric distribution of geodesics around the origin
-          border: 0, // open line
+        let natipros = {
+          form: ani.eoform,        
+          hvg: 0, // horizontal geodesics
+          asyg: 1, // asymetric distribution of geodesics around the origin
+          closeg: 0, // open line
         }        
         
-        let res = muonNatform.natFeature(ani.eoform, gratiprops)  // Feature.LineString
+        let res = muonNatform.natFeature(natipros)  // Feature.LineString
 
         return res
       },
@@ -165,7 +166,7 @@ async function anitem (__mapper) {
       eohal: 'mars',
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qgold'},
-      eofold: ani => muonNatform.natFeature(ani.eoform),
+      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -187,7 +188,7 @@ async function anitem (__mapper) {
     // ............................. natAniBlue
     let natAniBlue = {
       eohal: 'mars',
-      eofold: ani => muonNatform.natFeature(ani.eoform),
+      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qblue'},
       eomot: {

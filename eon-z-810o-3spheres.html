@@ -136,7 +136,7 @@ async function anitem (__mapper) {
 
       eohal: 'mars',
 
-      eofold: p => muonNatform.natMultiPolygon(p.eoform),
+      eofold: ani => muonNatform.natMultiPolygon({form: ani.eoform}),
       eotim,
 
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},

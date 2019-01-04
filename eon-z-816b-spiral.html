@@ -187,13 +187,13 @@ async function anitem (__mapper) {
       eoric: {gid: 'q', cid: 'q', fid: 'q'},
 
       eofold: ani => {
-        let gratiprops = {
-          ret: 0, // horizontal geodesics
-          dist: 0, // symetric distribution of geodesics around the origin
-          border: 0, // closed line
+        let natipros = {
+          hvg: 0, // horizontal geodesics
+          asyg: 0, // symetric distribution of geodesics around the origin
+          closeg: 0, // closed line
         }
 
-        let gj = muonNatform.natFeature(ani.eoform, gratiprops)
+        let gj = muonNatform.natFeature(ani.eoform, natipros)
         let coords = muonGeoj.getCoords(gj)
         let nb = coords.length
         let unitElapsed = ani.eotim.unitElapsed

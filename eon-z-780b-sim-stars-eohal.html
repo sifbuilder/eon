@@ -122,7 +122,7 @@ async function anitem (__mapper) {
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'natAni'},
 
-      eofold: ani => muonNatform.natFeature(ani.eoform),
+      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
       eomot: {
         proform: {
           projection: 'uniwen',

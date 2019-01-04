@@ -118,7 +118,7 @@ async function anitem (__mapper) {
     let fuelnat = {
 
       eohal: 'fuel',
-      eofold: ani => muonNatform.natFeature(ani.eoform),
+      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
       eotim,
       eoric: {'gid': 'fuel', 'cid': 'fuel'},
       eocrom: eocromFuel,

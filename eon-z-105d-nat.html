@@ -38,7 +38,7 @@ async function anitem (__mapper) {
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
 
-      eofold: ani => muonNatform.natFeature(ani.eoform),
+      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
       eonode: {
         type: 'Feature',
         geometry: {

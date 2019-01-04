@@ -247,6 +247,8 @@
       } else if (f === 0 && p === 1) { // sym open
         let d = arywinopen(d0, d1, dd)
         res = c === 0 ? _ => d.map(d => [_, d]) : _ => d.map(d => [d, _]) // x | y
+        
+        
       } else if (f === 1 && p === 0) { // asym closed
         let d = d3Range(d0, d1 - eps, dd).concat(d1) // [y0,y1) ,y1]
         res = c === 0 ? _ => d.map(d => [_, d]) : _ => d.map(d => [d, _]) // x | y
@@ -262,13 +264,17 @@
       let d3Range = d3array.range
       let {X0, X1, DX, PX, x0, x1, dx, px,
         Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
-      let {dist, border} = params
+        
+      let {
+        asyg = 0, 
+        closeg = 0
+      } = params
 
       // get circles from point in sphere and step
-      let X = grt(Y0, Y1, PY, 1, dist, border), // get X(Y) by PY
-        Y = grt(X0, X1, PX, 1, dist, border), // get Y(X) by PX
-        x = grt(y0, y1, py, 0, dist, border), // get x(y) by py
-        y = grt(x0, x1, px, 0, dist, border) // get y(x) by px
+      let X = grt(Y0, Y1, PY, 0, asyg, closeg), // get X(Y) by PY
+        Y = grt(X0, X1, PX, 1, asyg, closeg), // get Y(X) by PX
+        x = grt(y0, y1, py, 0, asyg, closeg), // get x(y) by py
+        y = grt(x0, x1, px, 1, asyg, closeg) // get y(x) by px
 
       // include first meridian
       let bigmer = (params.bigmer !== undefined) ? params.bigmer : 1

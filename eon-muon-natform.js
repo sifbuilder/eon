@@ -347,9 +347,14 @@
     }
 
     // ............................. natMultiPolygon
-    let natMultiPolygon = function (form, props = {}) {
+    let natMultiPolygon = function (props = {}) {
       let feature
 
+      const {
+        form = {},  // natiform
+      } = props
+
+      
       if (muonProps.isSame(form, cache.form)) {
         feature = cache.feature
         return feature
@@ -434,9 +439,16 @@
     }
 
     // ............................. natFeature
-    let natFeature = function (form, props = {}) {
+    let natFeature = function (props = {}) {
       let feature
 
+      const {
+        form = {},  // natiform
+        hvg = 0,  // get horizontal, vertical, horizontal+vertical geodesics
+        asyg = 0,  // get asymetryic distribution, origin in extreme (dist)
+        closeg = 0, // get close line (border)
+      } = props
+      
       if (muonProps.isSame(form, cache.form)) {
         feature = cache.feature
         return feature
@@ -445,19 +457,14 @@
 
         // default to reticule
         let _geofn = muonGraticule.vhMultiLine // default to reticule
-        if (props.ret === 0) { // horizontal geodesics
-          _geofn = muonGraticule.hMultiLine
-        } else if (props.ret === 1) {
-          _geofn = muonGraticule.vMultiLine
-        } else if (props.ret === 2) {
+        if (hvg === 0) { 
           _geofn = muonGraticule.vhMultiLine
+        } else if (hvg === 1) {
+          _geofn = muonGraticule.hMultiLine
+        } else if (hvg === 2) {
+          _geofn = muonGraticule.vMultiLine
         }
-        
-        // // asymetric distribution of geodesics around the origin
-        let dist = (props.dist !== undefined) ? props.dist : 0 // sym
-        
-        // open line
-        let border = (props.border !== undefined) ? props.border : 0 // is open
+
 
         
         
@@ -479,8 +486,8 @@
 
           graticule = {
             frame: frame,
-            dist: dist,
-            border: border,
+            asyg: asyg,
+            closeg: closeg,
           } // x, y
 
           geometry = _geofn(graticule).geometry
@@ -499,8 +506,8 @@
 
           graticule = {
             frame: frame,
-            dist: dist,
-            border: border,
+            asyg: asyg,
+            closeg: closeg,
           } // _e_ x, y
 
           geometry = _geofn(graticule).geometry // geometry.type: MultiLineString
