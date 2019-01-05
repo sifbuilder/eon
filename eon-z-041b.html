@@ -25,19 +25,17 @@ async function anitem (__mapper) {
 
       eohal: 'textform',
 
-     eofold: ani => {
-
+      eofold: ani => {
         let res = {
           type: 'Feature',
           geometry: {
             type: 'Point',
             coordinates: [0, 0],
-          }
+          },
         }
 
         return res
       },
-
 
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},

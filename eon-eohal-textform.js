@@ -32,90 +32,80 @@
 
     // .................. _geofold
     let _geofold = function (ani) { // eofold
-
-
       let textform = ani.eoload.textform // needs text
 
       let eofold = ani.eofold
 
       let res
-      if (eofold === undefined
-        || (eofold.type === 'Feature' && eofold.geometry.type === 'Point')
-        || eofold.type === 'Point'
-        ) {
-
+      if (eofold === undefined ||
+        (eofold.type === 'Feature' && eofold.geometry.type === 'Point') ||
+        eofold.type === 'Point'
+      ) {
         res = {
           type: 'Feature',
           geometry: {
             type: 'Point',
             coordinates: [0, 0],
-          }
+          },
         }
 
         res.properties = Object.assign({}, {
-            sort: 'text',
-            string: textform.string || '',
-            style: {
+          sort: 'text',
+          string: textform.string || '',
+          style: {
 
-              'rotate': textform.style['rotate'],
-              'font-size': textform.style['font-size'],
-              'font-family': textform.style['font-family'],
-              'text-anchor': textform.style['text-anchor'],
-              'fill-opacity': textform.style['fill-opacity'],
-              'stroke-opacity': textform.style['stroke-opacity'],
-              
-              'width': textform.style.width,
-              'height': textform.style.height,
+            'rotate': textform.style['rotate'],
+            'font-size': textform.style['font-size'],
+            'font-family': textform.style['font-family'],
+            'text-anchor': textform.style['text-anchor'],
+            'fill-opacity': textform.style['fill-opacity'],
+            'stroke-opacity': textform.style['stroke-opacity'],
 
-              'dx': textform.style.dx,
-              'dy': textform.style.dy,
+            'width': textform.style.width,
+            'height': textform.style.height,
 
-              'textLength': textform.style.textLength,
-              'lengthAdjust': textform.style.lengthAdjust,
+            'dx': textform.style.dx,
+            'dy': textform.style.dy,
 
-            },
-          })
+            'textLength': textform.style.textLength,
+            'lengthAdjust': textform.style.lengthAdjust,
 
-
-      } else if ( eofold.type === 'Feature'
-          && (eofold.geometry.type === 'LineString')
-        ) {
-
+          },
+        })
+      } else if (eofold.type === 'Feature' &&
+          (eofold.geometry.type === 'LineString')
+      ) {
         res = eofold
 
-        res.properties = Object.assign({}, res.properties ,{
-            sort: 'text',
-            string: textform.string || '',
-            style: {
+        res.properties = Object.assign({}, res.properties, {
+          sort: 'text',
+          string: textform.string || '',
+          style: {
 
-              'rotate': textform.style['rotate'],
-              'font-size': textform.style['font-size'],
-              
-              
-              // sans-serif, karla, BankFuturistic, arial, Helvetica
-              'font-family': textform.style['font-family'],
-              'text-anchor': textform.style['text-anchor'],
-              'fill-opacity': textform.style['fill-opacity'],
-              'stroke-opacity': textform.style['stroke-opacity'],
-              
-              'width': textform.style.width,
-              'height': textform.style.height,
+            'rotate': textform.style['rotate'],
+            'font-size': textform.style['font-size'],
 
-              'dx': textform.style.dx,
-              'dy': textform.style.dy,
+            // sans-serif, karla, BankFuturistic, arial, Helvetica
+            'font-family': textform.style['font-family'],
+            'text-anchor': textform.style['text-anchor'],
+            'fill-opacity': textform.style['fill-opacity'],
+            'stroke-opacity': textform.style['stroke-opacity'],
 
-              'textLength': textform.style.textLength,
-              'lengthAdjust': textform.style.lengthAdjust,
+            'width': textform.style.width,
+            'height': textform.style.height,
 
-            },
+            'dx': textform.style.dx,
+            'dy': textform.style.dy,
 
-          })
+            'textLength': textform.style.textLength,
+            'lengthAdjust': textform.style.lengthAdjust,
 
+          },
 
+        })
       } else {
         console.log('text support not supported')
       }
-
 
       return res
     }

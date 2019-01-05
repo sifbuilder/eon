@@ -351,10 +351,9 @@
       let feature
 
       const {
-        form = {},  // natiform
+        form = {}, // natiform
       } = props
 
-      
       if (muonProps.isSame(form, cache.form)) {
         feature = cache.feature
         return feature
@@ -443,12 +442,12 @@
       let feature
 
       const {
-        form = {},  // natiform
-        hvg = 0,  // get horizontal, vertical, horizontal+vertical geodesics
-        asyg = 0,  // get asymetryic distribution, origin in extreme (dist)
+        form = {}, // natiform
+        hvg = 0, // get horizontal, vertical, horizontal+vertical geodesics
+        asyg = 0, // get asymetryic distribution, origin in extreme (dist)
         closeg = 0, // get close line (border)
       } = props
-      
+
       if (muonProps.isSame(form, cache.form)) {
         feature = cache.feature
         return feature
@@ -457,7 +456,7 @@
 
         // default to reticule
         let _geofn = muonGraticule.vhMultiLine // default to reticule
-        if (hvg === 0) { 
+        if (hvg === 0) {
           _geofn = muonGraticule.vhMultiLine
         } else if (hvg === 1) {
           _geofn = muonGraticule.hMultiLine
@@ -465,9 +464,6 @@
           _geofn = muonGraticule.vMultiLine
         }
 
-
-        
-        
         let geometry, graticule
         let dx, dy, sx, sy
 

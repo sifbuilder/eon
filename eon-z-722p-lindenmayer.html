@@ -25,7 +25,7 @@ async function anitem (__mapper) {
   let ani = function () {
     let ctl = ctlWen().control(renderSvg.svg())
     let eotim = { td: 9200, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 }
-    
+
     let aniForm1 = {
 
       eotim: eotim,
@@ -33,7 +33,6 @@ async function anitem (__mapper) {
       eohal: 'mars',
 
       eofold: ani => {
-
         let geo = muonLindenmayer.linden(ani.eoload.lindenmayer)
 
         let geoData = {
@@ -81,7 +80,7 @@ async function anitem (__mapper) {
         },
       },
       eoload: {
-        lindenmayer: { // 
+        lindenmayer: { //
           linden: {
             axiom: 'AFA+F+AFA',
             loops: 3,
@@ -96,8 +95,8 @@ async function anitem (__mapper) {
             angle: 90,
             start: [0, -100],
           },
-        },      
-      
+        },
+
       },
     }
 
@@ -108,7 +107,6 @@ async function anitem (__mapper) {
       eohal: 'mars',
 
       eofold: ani => {
-
         let geo = muonLindenmayer.linden(ani.eoload.lindenmayer)
 
         let geoData = {
@@ -156,7 +154,7 @@ async function anitem (__mapper) {
         },
       },
       eoload: {
-        lindenmayer: { // 
+        lindenmayer: { //
           linden: {
             axiom: 'AFA+F+AFA',
             loops: 4,
@@ -171,8 +169,8 @@ async function anitem (__mapper) {
             angle: 90,
             start: [0, -100],
           },
-        },      
-      
+        },
+
       },
     }
 

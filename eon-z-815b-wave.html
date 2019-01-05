@@ -32,7 +32,7 @@ async function anitem (__mapper) {
     let cosh = Math.cosh,
       sinh = Math.sinh
     let epsilon = 1e-5
-    
+
     let fact = n => n - 1 > 0 ? n * fact(n - 1) : n
     let fact0 = 1,
       fact1 = 1,
@@ -64,21 +64,20 @@ async function anitem (__mapper) {
     // ............................. pics
     let eotim = {'td': 9600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)}
 
-
     let conformRed = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
-        'dom3': [ [[[0,90]]], [[[2 * 360, 2 * 360 + 90]]] ],
+        'dom3': [ [[[0, 90]]], [[[2 * 360, 2 * 360 + 90]]] ],
 
-        'fn0': (e,c) => e[0]
+        'fn0': (e, c) => e[0],
       },
       y: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 360],
 
-        'fn0': (e,c) => sin(e[0])
+        'fn0': (e, c) => sin(e[0]),
 
       },
 
@@ -89,14 +88,14 @@ async function anitem (__mapper) {
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
 
-        'fn0': (e,c) => c[0] * cos(e[0])// circ
+        'fn0': (e, c) => c[0] * cos(e[0]), // circ
       },
       y: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
 
-        'fn0': (e,c) => c[0] * sin(e[0]) // circ
+        'fn0': (e, c) => c[0] * sin(e[0]), // circ
 
       },
 
@@ -135,13 +134,13 @@ async function anitem (__mapper) {
       eoric: {gid: 'q', cid: 'q', fid: 'qred'},
       eofold: ani => {
         let natipros = {
-          form: ani.eoform,        
+          form: ani.eoform,
           hvg: 1, // horizontal geodesics
           asyg: 1, // asymetric distribution of geodesics around the origin
           closeg: 0, // open line
-        }        
-        
-        let res = muonNatform.natFeature(natipros)  // Feature.LineString
+        }
+
+        let res = muonNatform.natFeature(natipros) // Feature.LineString
 
         return res
       },
@@ -150,7 +149,7 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           scale: [ 0.2, 0.2 ],
           prerotate: [[[ ctlWen.rotation ]]],
-          translate: [ -200,0,0 ],
+          translate: [ -200, 0, 0 ],
           rotate: [0, 0, 0],
           lens: [0, 1, Infinity ],
         },
@@ -188,7 +187,7 @@ async function anitem (__mapper) {
       eohal: 'mars',
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qblue'},
-      
+
       eofold: ani => muonNatform.natFeature({form: ani.eoform}),
       eomot: {
         proform: {

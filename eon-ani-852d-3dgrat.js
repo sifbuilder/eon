@@ -33,18 +33,18 @@
         eohal: 'mars',
         eotim: eotim,
         eoric: {gid: 'nat', cid: 'nat', fid: 'natform'},
-        
+
         eofold: ani => muonNatform.natFeature({form: ani.eoform}),
 
         eomot: {
-          proform: { 
-            projection: 'uniwen', 
-            translate: [0, 0, 0], 
-            scale: 1, 
-            rotate: [0, 0, -90], 
+          proform: {
+            projection: 'uniwen',
+            translate: [0, 0, 0],
+            scale: 1,
+            rotate: [0, 0, -90],
             lens: [0, 1, Infinity] },
         },
-        
+
         eoform: {
 
           'm1': [[[-8, -4, -2, -7.66]]],

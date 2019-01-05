@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   // ... **cells interlinked within cells interlinked**
   // ... # license
   // ... MIT

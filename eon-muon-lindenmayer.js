@@ -41,14 +41,14 @@
 
       for (let ch of axiom) { // char in array
         let rule = ch
-        
-        if (loops > 0) {  // apply rules if in loop
+
+        if (loops > 0) { // apply rules if in loop
           if (rules.hasOwnProperty(ch)) {
             rule = rules[ch]
           }
         }
-        
-        let newrule = rule 
+
+        let newrule = rule
         if (feet !== undefined && feet > 0) { // footify
           if (rule === 'F') {
             newrule = rule.replace(/^f|F$/, chn(rule, feet), 'g')
@@ -135,7 +135,7 @@
     // |    make a (180 degree) U-turn.
     // randomize loop: % randomize loop
     // randomize angle: % randomize angle
-    // 
+    //
     // the curve adds the start charater
     // if loops is 0, coords is Ffs steps plus 1
 
@@ -243,7 +243,6 @@
 
     // ............................. fractal
     let linden = (lindenmayer) => {
-      
       let fractal = fractalize(lindenmayer).fractal
 
       let mayer = lindenmayer.mayer

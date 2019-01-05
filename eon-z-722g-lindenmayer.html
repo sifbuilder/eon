@@ -27,12 +27,10 @@ async function anitem (__mapper) {
     __mapper('xs').r('svg'),
   ])
 
-
   // .................. animas
   let ani = function () {
     let ctl = ctlWen().control(renderSvg.svg())
-    let chn = (ch='F',n=1) => ch.repeat(n)
-
+    let chn = (ch = 'F', n = 1) => ch.repeat(n)
 
     // .................. pics
     let aniForm = {
@@ -42,18 +40,17 @@ async function anitem (__mapper) {
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani' },
 
       eofold: ani => {
-        
-        let t =  ani.eotim.unitElapsed
-      
+        let t = ani.eotim.unitElapsed
+
         let gj1 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer1)
         let gj2 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer2)
 
         let coors1 = gj1.geometry.coordinates[0]
         let coors2 = gj2.geometry.coordinates[0]
-        
-        let coors = [[[ [ coors1, coors2 ] ]]]  // tripleArray
-        let ws = muonSnap.snap(coors,t,0,ani)   // LineString
-        
+
+        let coors = [[[ [ coors1, coors2 ] ]]] // tripleArray
+        let ws = muonSnap.snap(coors, t, 0, ani) // LineString
+
         let gj = {
           type: 'Feature',
           geometry: {
@@ -62,11 +59,9 @@ async function anitem (__mapper) {
           },
           properties: {},
         }
-        gj.geometry.coordinates = Array.of(ws)   // Line to MultiLineStrinmg
+        gj.geometry.coordinates = Array.of(ws) // Line to MultiLineStrinmg
         return gj
-        
       },
-
 
       eocrom: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.1, 0.2]]], 'cp': [[[0.9, 0.9]]]},
       eomot: {
@@ -74,7 +69,7 @@ async function anitem (__mapper) {
 
           projection: 'uniwen',
           //          0       1   2     3     4     5
-          scale: [[[0.600,0.660,0.720,0.780,0.860,0.920,0.940]]],
+          scale: [[[0.600, 0.660, 0.720, 0.780, 0.860, 0.920, 0.940]]],
           translate: {x: -275, y: -100 },
           prerotate: [[[ ctl.rotation ]]],
           rotate: [ 0, 0, 0 ],
@@ -87,7 +82,7 @@ async function anitem (__mapper) {
             axiom: 'AFA+F+AFA',
             loops: 0,
             feet: 341,
-            rules: {  
+            rules: {
               A: '-BF+AFA+FB-',
               B: '+AF-BFB-FA+',
             },
@@ -105,7 +100,7 @@ async function anitem (__mapper) {
             axiom: 'AFA+F+AFA',
             loops: 4.999,
             feet: 1,
-            rules: {  // coors 4**(loops+1)
+            rules: { // coors 4**(loops+1)
               A: '-BF+AFA+FB-',
               B: '+AF-BFB-FA+',
             },

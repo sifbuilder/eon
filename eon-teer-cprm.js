@@ -66,8 +66,7 @@ function escapeRegExp (string) {
 let searchpattern = escapeRegExp(cpsearchpattern) // .split(/\r?\n/) // .map(d=> `${d}(\r\n|\n|\r)`)
 
 let searchexp = RegExp(`${searchpattern}`, 'm')
-let replacepattern = `     eofold: ani => {
-
+let replacepattern = `      eofold: ani => {
         let res = {
           type: 'Feature',
           geometry: {
@@ -75,7 +74,6 @@ let replacepattern = `     eofold: ani => {
             coordinates: [0, 0],
           }
         }
-
         return res
       },
 `

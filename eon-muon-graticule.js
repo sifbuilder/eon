@@ -247,8 +247,6 @@
       } else if (f === 0 && p === 1) { // sym open
         let d = arywinopen(d0, d1, dd)
         res = c === 0 ? _ => d.map(d => [_, d]) : _ => d.map(d => [d, _]) // x | y
-        
-        
       } else if (f === 1 && p === 0) { // asym closed
         let d = d3Range(d0, d1 - eps, dd).concat(d1) // [y0,y1) ,y1]
         res = c === 0 ? _ => d.map(d => [_, d]) : _ => d.map(d => [d, _]) // x | y
@@ -264,10 +262,10 @@
       let d3Range = d3array.range
       let {X0, X1, DX, PX, x0, x1, dx, px,
         Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
-        
+
       let {
-        asyg = 0, 
-        closeg = 0
+        asyg = 0,
+        closeg = 0,
       } = params
 
       // get circles from point in sphere and step

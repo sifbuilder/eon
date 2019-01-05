@@ -37,14 +37,13 @@ async function anitem (__mapper) {
     let natAni2 = {
       eohal: 'mars',
       eofold: ani => {
-
         let coors = ani.eoload.coors
 
         let res = {
           type: 'Feature',
           geometry: {
             type: 'LineString',
-            coordinates: coors
+            coordinates: coors,
           },
           properties: {},
         }
@@ -69,14 +68,14 @@ async function anitem (__mapper) {
       eocrom: eocrom,
 
       eoload: {
-      
+
         coors: [[[
-            [ 
-              [ [0, 0, 0], [100, 100, 100] ],
-              [ [20, 20, 20], [300, 300, 300] ]
-            ]
-        ]]]
-        
+          [
+            [ [0, 0, 0], [100, 100, 100] ],
+            [ [20, 20, 20], [300, 300, 300] ],
+          ],
+        ]]],
+
       },
     }
     // ............................. animas

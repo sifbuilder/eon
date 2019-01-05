@@ -193,7 +193,6 @@ async function anitem (__mapper) {
 
     }
 
- 
     // ............................. lightSphereAni
     let lightSphereAni = {
 
@@ -345,9 +344,9 @@ async function anitem (__mapper) {
         let eoload = anitem.eoload
         let json = { // Feature
           type: 'Feature',
-          geometry: { 
-            type: 'Point', 
-            coordinates: [0, 0, 0] 
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0, 0],
           },
           properties: anitem.eoload.light,
         }

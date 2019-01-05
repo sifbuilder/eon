@@ -9,7 +9,6 @@
   'use strict'
 
   async function renderSvg (__mapper = {}) {
-
     // ... **render svg**
     // ...
     // ... The viewport is the visible area of the SVG image
@@ -68,32 +67,29 @@
     if (d3.select('#viewframe').empty()) {
       let svglayer = d3.select('body')
         .append('svg')
-          .attr('id', 'viewframe') // Viewport
-          .attr('class', 'viewframe')
-          .attr('width', state.width)
-          .attr('height', state.height)
-          .style('position', 'absolute')
-          .style('top', 0)
-          .style('left', 0)
-          .style('fill', 'transparent')
-          .style('background-color', state.background) // background
+        .attr('id', 'viewframe') // Viewport
+        .attr('class', 'viewframe')
+        .attr('width', state.width)
+        .attr('height', state.height)
+        .style('position', 'absolute')
+        .style('top', 0)
+        .style('left', 0)
+        .style('fill', 'transparent')
+        .style('background-color', state.background) // background
         .append('defs')
     }
 
-    let resetsvg = function() {
-
-      if (! d3.select('#viewframe').empty()) {
+    let resetsvg = function () {
+      if (!d3.select('#viewframe').empty()) {
         let svglayer = d3.select('#viewframe')
           .attr('width', state.width)
           .attr('height', state.height)
           .style('background-color', state.background) // background
       }
-
     }
 
     // ............................. elems
     let svgelems = function (idfyer, data = ['data'], idfn = null) {
-
       if (0 && 1) console.log('idfyer', idfyer)
 
       if (d3.select('.muon-style-block').empty()) {
@@ -102,7 +98,6 @@
       }
 
       if (idfyer === null) { // if null return the layer
-
         let svgLayer = d3.select('body').selectAll('svg').data(['svg'])
           .enter()
           .append('svg')
@@ -112,7 +107,6 @@
           .attr('height', state.height)
           .style('border', '1px solid lightgray')
         return svgLayer
-
       } else if (typeof (idfyer) === 'string') {
         // manage the dom elements
         // eg. 'svg:g.links/path.link', data, idfn}
@@ -130,7 +124,6 @@
 
         let layer, elemcls, elemtyp
         if (group !== undefined) {
-
           let groupparts = group.split('.')
           let groupref = (groupparts[0]) ? groupparts[0] : 'g'
           let layercls = (groupparts[1]) ? groupparts[1] : 'layer'
@@ -143,9 +136,7 @@
           layer = layerMark.enter().append('g')
             .merge(layerMark)
             .attr('class', layercls)
-
         } else if (group === undefined) {
-
           let group = parentLayer
           let groupparts = group.split('.')
           let groupref = (groupparts[0]) ? groupparts[0] : 'g'
@@ -163,21 +154,17 @@
           }
 
           layer = layerMark
-
         }
 
         // parentLayer:layertyp.layercls/elemtyp.elemcls
         // layer is layertyp or parentLayer
 
         if (elemspart === null) {
-
           return layer
-
         } else {
-
           console.assert(Array.isArray(data), `data ${data} is not an array`)
           // let elemsupd = layer.selectAll('.' + elemcls)
-            // .data(data)
+          // .data(data)
 
           // if (elemtyp === 'textPath')   elemsupd = layer
 
@@ -185,12 +172,11 @@
 
           if (elemcls !== undefined) {
             elemsupd = layer.selectAll('.' + elemcls)
-            .data(data)
+              .data(data)
           } else {
             elemsupd = layer
-            .data(data)
+              .data(data)
           }
-
 
           let elems = elemsupd
             .enter().append(elemtyp)
@@ -243,60 +229,57 @@
 
           //
           // pathed texts
-          //  
-if (1 && 1) console.log('texts', texts)
-   
-           // pathed texts are geofolded by geojson Feature.LineString
-          let textsWithPath =  texts // without path
+          //
+          if (1 && 1) console.log('texts', texts)
+
+          // pathed texts are geofolded by geojson Feature.LineString
+          let textsWithPath = texts // without path
             .filter(d =>
-              d.properties.textpath !== undefined
-              || (d.type === 'Feature' && d.geometry.type === 'LineString') // Feature.LineString
-              || (d.type === 'Feature' && d.geometry.type === 'Polygon')  // Feature.Polygon
+              d.properties.textpath !== undefined ||
+              (d.type === 'Feature' && d.geometry.type === 'LineString') || // Feature.LineString
+              (d.type === 'Feature' && d.geometry.type === 'Polygon') // Feature.Polygon
             )
 
           // text support paths are added to defs
 
-          for (let tx=0; tx<textsWithPath.length; tx++) {
+          for (let tx = 0; tx < textsWithPath.length; tx++) {
             let text = textsWithPath[tx]
             let props = text.properties
             let gid = props.eoric.gid
             let cid = props.eoric.cid
             let uid = props.eoric.uid
 
-             let properties = text.properties || {}
-             let pointRadius = properties.pointRadius || 2.5
-                let geoPath = d3.geoPath(viewScreenPrt) // path on view projection
-                let path = (pointRadius !== undefined) // geoPath
-                  ? geoPath.pointRadius(pointRadius)
-                  : geoPath
+            let properties = text.properties || {}
+            let pointRadius = properties.pointRadius || 2.5
+            let geoPath = d3.geoPath(viewScreenPrt) // path on view projection
+            let path = (pointRadius !== undefined) // geoPath
+              ? geoPath.pointRadius(pointRadius)
+              : geoPath
 
-                // the svg path comes from geoPath of geojson geofold
-                let textpath = path(text)
+            // the svg path comes from geoPath of geojson geofold
+            let textpath = path(text)
 
-              let gidpath = 'paths' + gid
-              let cidpath = 'paths' + cid
-              let fs = [uid]
-              let pathid = `textpath${uid}`
-              svgelems('defs:g.' + gidpath + '/path.' + cidpath, fs, d => uid)
-                .data(() => fs)
-                .attr('d', textpath)
-                .attr('id', pathid)
+            let gidpath = 'paths' + gid
+            let cidpath = 'paths' + cid
+            let fs = [uid]
+            let pathid = `textpath${uid}`
+            svgelems('defs:g.' + gidpath + '/path.' + cidpath, fs, d => uid)
+              .data(() => fs)
+              .attr('d', textpath)
+              .attr('id', pathid)
           }
 
-
-          if (textsWithPath.length > 0) {  // text with textpath
-
+          if (textsWithPath.length > 0) { // text with textpath
             svgelems('svg:g.' + gid + '/text.' + cid, textsWithPath, d => d.properties.eoric.uid)
               .attr('x', 0) // translate instead
               .attr('y', 0) // translate instead
 
               .attr('transform', d => { // eg. "translate(21,20) rotate(15)") scale(sx, sy) skew (skew)
-
                 let item = d
                 let geometry = item.geometry
                 let projgeo = muonProj3ct.project(geometry, viewScreenPrt)
 
-                let translate = [0,0] // projgeo.coordinates
+                let translate = [0, 0] // projgeo.coordinates
                 let rotate = item.properties.style['rotate']
 
                 let r = 'translate(' + translate[0] + ',' + translate[1] + ')' + ' rotate(' + (rotate || 0) + ' )'
@@ -319,31 +302,24 @@ if (1 && 1) console.log('texts', texts)
               .style('stroke-width', d => d.properties.style['stroke-width'])
               .style('text-anchor', d => d.properties.style['text-anchor'])
 
-
-
             // string path is added to the text element
             // the textpath id is defs#textpath${d.properties.eoric.uid}
             svgelems(`text.${cid}/textPath`, textsWithPath, d => d.properties.eoric.uid)
               .attr('class', d => `${d.properties.eoric.cid}`)
-              .attr("xlink:href", d => `#textpath${d.properties.eoric.uid}`)
-              .text( d => d.properties.string )
-
+              .attr('xlink:href', d => `#textpath${d.properties.eoric.uid}`)
+              .text(d => d.properties.string)
           }
-
 
           //
           // unpathed texts
           //
 
           // unpathed texts are geofolded by geojson Feature.Point
-          let textsWithOutPath =  texts // without path
-            .filter(d => (d.type === 'Feature' && d.geometry.type === 'Point')  // Feature.Point
-              )
+          let textsWithOutPath = texts // without path
+            .filter(d => (d.type === 'Feature' && d.geometry.type === 'Point') // Feature.Point
+            )
 
-
-
-          if (textsWithOutPath.length > 0) {  // text without path
-
+          if (textsWithOutPath.length > 0) { // text without path
             svgelems('svg:g.' + gid + '/text.' + cid, textsWithOutPath, d => d.properties.eoric.uid)
               .text(d => d.properties.string)
 
@@ -379,8 +355,6 @@ if (1 && 1) console.log('texts', texts)
               .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
               .style('stroke-width', d => d.properties.style['stroke-width'])
               .style('text-anchor', d => d.properties.style['text-anchor'])
-
-
           }
 
           /*  ................. IMG ................. */
@@ -490,8 +464,6 @@ if (1 && 1) console.log('texts', texts)
               .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
               .style('stroke-width', d => d.properties.style['stroke-width'])
           }
-
-
 
           /*  ................. END SVG FORMS ................. */
         }

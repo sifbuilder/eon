@@ -6,7 +6,6 @@ window.xEonify.eon({anitem, time: undefined})
 // ... # license
 // ... MIT
 
-
 // .................. anitem
 async function anitem (__mapper) {
   // .................. animas
@@ -26,24 +25,21 @@ async function anitem (__mapper) {
     let textAni = {
 
       eohal: 'textform',
+      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
+      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
-     eofold: ani => {
-
+      eofold: ani => {
         let res = {
           type: 'Feature',
           geometry: {
             type: 'Point',
             coordinates: [0, 0],
-          }
+          },
         }
-
         return res
       },
 
-
       eotim: eotim,
-      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
-      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
       eomot: {
         proform: {

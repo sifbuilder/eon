@@ -44,7 +44,7 @@ async function anitem (__mapper) {
   let ani = function () {
     let ctl = ctlWen().control(renderSvg.svg())
     let svgstate = renderSvg.setBckColor('Wheat')
-    
+
     // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
@@ -76,7 +76,6 @@ async function anitem (__mapper) {
     let exp = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
 
     // ............................. pics
-
 
     let conform = {
       x: {
@@ -111,7 +110,7 @@ async function anitem (__mapper) {
           let z = e[2]
           let w = e[3]
           let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360
-          
+
           let res = sin(y) * cos(4 * y)
           // let res = ( (h - z) / h ) * r * sin( a * z )
 
@@ -137,7 +136,7 @@ async function anitem (__mapper) {
 
           let seg5 = dax.seg5
           let cycles = seg5 - 1
-          
+
           let res = z + 0.5 * (x + y) / seg5
 
           return res
@@ -157,21 +156,21 @@ async function anitem (__mapper) {
     }
 
     let eomot = {
-        proform: {
-          projection: 'uniwen',
-          scale: [ 1, 1 ],
-          prerotate: [[[ ctlWen.rotation ]]],
-          translate: [ [0, 0, 0] ],
-          // rotate: [ [[[95, -5, -5, -5, -5, -5]]], [[[2, 2, 2, 2, 2, 2]]], [[[0,0,0,0,0,0]]] ],
-          rotate: [ [[[0, 0, 0, 0, 0, 0]]], [[[0, 0, 0, 0, 0, 0]]], [[[0,0,0,0,0,0]]] ],
-          lens: [0, 1, Infinity ],
-        },
-      }
+      proform: {
+        projection: 'uniwen',
+        scale: [ 1, 1 ],
+        prerotate: [[[ ctlWen.rotation ]]],
+        translate: [ [0, 0, 0] ],
+        // rotate: [ [[[95, -5, -5, -5, -5, -5]]], [[[2, 2, 2, 2, 2, 2]]], [[[0,0,0,0,0,0]]] ],
+        rotate: [ [[[0, 0, 0, 0, 0, 0]]], [[[0, 0, 0, 0, 0, 0]]], [[[0, 0, 0, 0, 0, 0]]] ],
+        lens: [0, 1, Infinity ],
+      },
+    }
     // ............................. natAniA
     let natAniA = {
 
       eohal: 'mars',
-      eotim : {'td': 6600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)},
+      eotim: {'td': 6600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)},
       eoric: {gid: 'q', cid: 'q', fid: 'q'},
 
       eofold: ani => {
@@ -189,19 +188,13 @@ async function anitem (__mapper) {
         let t = unitElapsed
         let nbt = Math.ceil(nb * t)
 
-
         let firstcoord = 0
 
         let newFeatures = [gj]
 
-        
-        
         let inc = 0 // show part from origin to end
-        let pars = 1 // show partial from void to full 
+        let pars = 1 // show partial from void to full
 
-        
-        
-        
         if (inc === 1 || pars === 1) {
           let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
           if (preani !== undefined) {
@@ -251,7 +244,7 @@ async function anitem (__mapper) {
       },
       eomot: eomot,
       eocrom: { 'csx': 22, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
-      'cs': [[[500, 333, 666]]], 'cw': [[[0.7, 0.6, 0.4]]], 'cp': [[[0.99, 0.99]]]},
+        'cs': [[[500, 333, 666]]], 'cw': [[[0.7, 0.6, 0.4]]], 'cp': [[[0.99, 0.99]]]},
 
       eoform: conform,
       eoload: {},
@@ -261,7 +254,7 @@ async function anitem (__mapper) {
     let natAniB = {
 
       eohal: 'mars',
-     eotim : {'td': 6600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)},
+      eotim: {'td': 6600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)},
       eoric: {gid: 'q', cid: 'q2', fid: 'q2'},
 
       eofold: ani => {
@@ -279,16 +272,13 @@ async function anitem (__mapper) {
         let t = unitElapsed
         let nbt = Math.ceil(nb * t)
 
-
         let firstcoord = 0
 
         let newFeatures = [gj]
 
         let inc = 0 // show part from origin to end
-        let pars = 0 // show partial from void to full 
+        let pars = 0 // show partial from void to full
 
-        
-        
         if (inc === 1 || pars === 1) {
           let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
           if (preani !== undefined) {
@@ -338,7 +328,7 @@ async function anitem (__mapper) {
       },
       eomot: eomot,
       eocrom: { 'csx': 21, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.0069, 0.006, 0.0069]]],
-      'cs': [[[999, 999, 999]]], 'cw': [[[0.1, 0.1, 0.1]]], 'cp': [[[0.99, 0.99]]]},
+        'cs': [[[999, 999, 999]]], 'cw': [[[0.1, 0.1, 0.1]]], 'cp': [[[0.99, 0.99]]]},
 
       eoform: conform,
       eoload: {},

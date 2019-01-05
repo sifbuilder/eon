@@ -37,59 +37,58 @@ async function anitem (__mapper) {
 
     let eotim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
 
-
     let conform0 = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
-        'dom3': [ [[[0,120]]], [[[7 * 360, 7 * 360 + 120]]] ],
+        'dom3': [ [[[0, 120]]], [[[7 * 360, 7 * 360 + 120]]] ],
 
-        'fn0': (e,c) => e[0]
+        'fn0': (e, c) => e[0],
       },
       y: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 360],
 
-        'fn0': (e,c) => 0.5 * sin(e[0])
+        'fn0': (e, c) => 0.5 * sin(e[0]),
 
-      }
+      },
     }
 
     let conform1 = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
-        'dom3': [ [[[0,120]]], [[[5 * 360, 5 * 360 + 120]]] ],
+        'dom3': [ [[[0, 120]]], [[[5 * 360, 5 * 360 + 120]]] ],
 
-        'fn0': (e,c) => e[0]
+        'fn0': (e, c) => e[0],
       },
       y: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 360],
 
-        'fn0': (e,c) => 0.4 * sin(45 + e[0])
+        'fn0': (e, c) => 0.4 * sin(45 + e[0]),
 
-      }
+      },
     }
 
     let conform2 = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
-        'dom3': [ [[[0,120]]], [[[5 * 360, 5 * 360 + 120]]] ],
+        'dom3': [ [[[0, 120]]], [[[5 * 360, 5 * 360 + 120]]] ],
 
-        'fn0': (e,c) => e[0]
+        'fn0': (e, c) => e[0],
       },
       y: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 360],
 
-        'fn0': (e,c) => 0.6 * sin(90 + e[0])
+        'fn0': (e, c) => 0.6 * sin(90 + e[0]),
 
-      }
+      },
     }
 
     let eocrom = { 'csx': 7, 'cf': [[[ 999, 999, 999]]], 'co': [[[0.9, 0.9, 0.9]]],
@@ -100,10 +99,10 @@ async function anitem (__mapper) {
       eohal: 'textform',
       eotim,
       eoric: {gid: 'txtg', cid: 'txtc0', fid: 'txtf0'},
-      
+
       eofold: ani => {
         let natipros = {
-          form: ani.eoform,        
+          form: ani.eoform,
           hvg: 1, // horizontal geodesics
           asyg: 1, // asymetric distribution of geodesics around the origin
           closeg: 0, // open line
@@ -118,7 +117,7 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           scale: [ 0.2, 0.2 ],
           prerotate: [[[ ctlWen.rotation ]]],
-          translate: [ -250,130,0 ],
+          translate: [ -250, 130, 0 ],
           rotate: [0, 0, 0],
           lens: [0, 1, Infinity ],
         },
@@ -146,7 +145,7 @@ async function anitem (__mapper) {
       eoric: {gid: 'txtg', cid: 'txtc1', fid: 'txtf1'},
       eofold: ani => {
         let natipros = {
-          form: ani.eoform,        
+          form: ani.eoform,
           hvg: 1, // horizontal geodesics
           asyg: 1, // asymetric distribution of geodesics around the origin
           closeg: 0, // open line
@@ -161,7 +160,7 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           scale: [ 0.2, 0.2 ],
           prerotate: [[[ ctlWen.rotation ]]],
-          translate: [ -250,30,0 ],
+          translate: [ -250, 30, 0 ],
           rotate: [0, 0, 0],
           lens: [0, 1, Infinity ],
         },
@@ -182,7 +181,6 @@ async function anitem (__mapper) {
       },
     }
 
-
     // ............................. textAni2
     let textAni2 = {
       eohal: 'textform',
@@ -190,7 +188,7 @@ async function anitem (__mapper) {
       eoric: {gid: 'txtg', cid: 'txtc2', fid: 'txtf2'},
       eofold: ani => {
         let natipros = {
-          form: ani.eoform,        
+          form: ani.eoform,
           hvg: 1, // horizontal geodesics
           asyg: 1, // asymetric distribution of geodesics around the origin
           closeg: 0, // open line
@@ -205,7 +203,7 @@ async function anitem (__mapper) {
           projection: 'uniwen',
           scale: [ 0.2, 0.2 ],
           prerotate: [[[ ctlWen.rotation ]]],
-          translate: [ -250,-70,0 ],
+          translate: [ -250, -70, 0 ],
           rotate: [0, 0, 0],
           lens: [0, 1, Infinity ],
         },
@@ -231,13 +229,12 @@ async function anitem (__mapper) {
       eohal: 'textform',
 
       eofold: ani => {
-
         let res = {
           type: 'Feature',
           geometry: {
             type: 'Point',
             coordinates: [0, 0],
-          }
+          },
         }
 
         return res
@@ -267,7 +264,7 @@ async function anitem (__mapper) {
 
       },
     }
-  
+
     // .................. animas
     let animas = [
 
