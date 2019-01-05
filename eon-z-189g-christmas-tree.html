@@ -681,11 +681,22 @@ async function anitem (__mapper) {
     let textAniA = {
 
       eohal: 'textform',
-
-      eofold: null,
-
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'texta'},
+
+      eofold: ani => {
+
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          }
+        }
+
+        return res
+      },
+
       eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
 
       eomot: {
@@ -714,7 +725,18 @@ async function anitem (__mapper) {
 
       eohal: 'textform',
 
-      eofold: null,
+      eofold: ani => {
+
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          }
+        }
+
+        return res
+      },
 
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textb'},
