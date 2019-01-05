@@ -114,7 +114,7 @@ async function anitem (__eo) {
               type: 'LineString',
               coordinates: coords,
             }
-            console.assert(muonGeoj.isValid(geometry))
+            console.assert(muonGeoj.isValid(geometry), `gj coords not valid ${geometry.coordinates}`)
 
             return {
               type: 'Feature',
