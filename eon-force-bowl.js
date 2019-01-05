@@ -16,7 +16,7 @@
   * https://bl.ocks.org/fil/18ef9696f217cd242f6fb8ec776dc3e3
   */
 
-  var forceBowl = function (__mapper = {}) {
+  var forceBowl = function (__eo = {}) {
     let constant = x => () => x
 
     // .................. force
@@ -49,7 +49,7 @@
               node.vx = norm * Math.cos(angle2)
               node.vy = norm * Math.sin(angle2)
             } else if (act === 'erase') {
-              __mapper('muonStore').apply({'type': 'DELANIMA', 'caller': 'force limit', 'anima': node})
+              __eo('muonStore').apply({'type': 'DELANIMA', 'caller': 'force limit', 'anima': node})
             }
           } else if (d2 > r * r && dd2 <= r * r) {
             var angle = Math.atan2(dy, dx),

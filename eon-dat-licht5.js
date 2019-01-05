@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var datLicht5 = function (__mapper = {}) {
+  var datLicht5 = function (__eo = {}) {
     let data = {
 
       width: '2.77778in', height: '3.45833in',

@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var forceVoid = function (__mapper = {}) {
+  var forceVoid = function (__eo = {}) {
     // .................. force
     let force = function (params) {
       let nodes = params.nodes

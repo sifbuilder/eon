@@ -10,17 +10,17 @@
 
   // ... **manage anitems store**
 
-  async function muonStore (__mapper) {
+  async function muonStore (__eo) {
     let [
       muonAnitem,
       muonEoric,
       muonEotim,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').m('anitem'),
-      __mapper('xs').m('eoric'),
-      __mapper('xs').m('eotim'),
-      __mapper('xs').m('props'),
+      __eo('xs').m('anitem'),
+      __eo('xs').m('eoric'),
+      __eo('xs').m('eotim'),
+      __eo('xs').m('props'),
     ])
       .catch(function (err) {
         console.log('A m.store promise failed to resolve', err)
@@ -115,7 +115,7 @@
       if (typeof (eohal) === 'object') {
         eohal = await Promise.resolve(eohal)
       } else {
-        eohal = await __mapper('xs').e(eohal)
+        eohal = await __eo('xs').e(eohal)
       }
 
       let anigram = anitem
@@ -130,7 +130,7 @@
       if (typeof (eohal) === 'object') {
         // eohal = eohal
       } else {
-        eohal = __mapper(__mapper('xs').ceonize(eohal, 'eohal'))
+        eohal = __eo(__eo('xs').ceonize(eohal, 'eohal'))
       }
 
       let anigram = anitem
@@ -143,7 +143,7 @@
     function grammDyn (anitem) {
       return muonAnitem.snapani(anitem)
         .then(snapped => muonAnitem.functorize(snapped))
-        .then(anigram => (typeof (anitem.eohal) === 'object') ? Promise.resolve(anitem.eohal) : __mapper('xs').e(anigram.eohal)
+        .then(anigram => (typeof (anitem.eohal) === 'object') ? Promise.resolve(anitem.eohal) : __eo('xs').e(anigram.eohal)
           .then(eohal => Promise.resolve(eohal.gramm(anigram))
             .then(newItems => {
               _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
@@ -167,9 +167,9 @@
       let anigram = muonAnitem.functorize(snapped)
       let eohal = (typeof (anitem.eohal) === 'object')
         ? anitem.eohal
-        // : __mapper(__mapper(__mapper('xs').ceonize(anigram.eohal, 'eohal'))) // expected in __mapper
-        : __mapper(__mapper('xs').ceonize(anigram.eohal, 'eohal')) // expected in __mapper
-      console.assert(eohal !== null, `eohal ${__mapper('xs').ceonize(anigram.eohal, 'eohal')} not found`)
+        // : __eo(__eo(__eo('xs').ceonize(anigram.eohal, 'eohal'))) // expected in __eo
+        : __eo(__eo('xs').ceonize(anigram.eohal, 'eohal')) // expected in __eo
+      console.assert(eohal !== null, `eohal ${__eo('xs').ceonize(anigram.eohal, 'eohal')} not found`)
       let newItems = muonProps.a(eohal.gramm(anigram))
       _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
       newItems.forEach(newItem => {

@@ -9,17 +9,17 @@
 }(this, function (exports) {
   'use strict'
 
-  async function prtUniwen (__mapper = {}) {
+  async function prtUniwen (__eo = {}) {
     let [
       d3geo,
       muonGeom,
       muonProps,
       muonWen,
     ] = await Promise.all([
-      __mapper('xs').b('d3-geo'),
-      __mapper('xs').m('geom'),
-      __mapper('xs').m('props'),
-      __mapper('xs').m('wen'),
+      __eo('xs').b('d3-geo'),
+      __eo('xs').m('geom'),
+      __eo('xs').m('props'),
+      __eo('xs').m('wen'),
     ])
 
     const init = {}

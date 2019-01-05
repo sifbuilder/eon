@@ -16,16 +16,16 @@
   // http://bl.ocks.org/mbostock/4218871 Circle-Polygon Intersection
 
   // function muonQuad(x0,y0,x1,y1) { // ( x0= 0, y0= 0, x1= 100, y1= 100) {
-  async function muonQuad (__mapper) {
+  async function muonQuad (__eo) {
     let [
       d3,
       renderPortview,
       renderSvg,
 
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
-      __mapper('xs').r('portview'),
-      __mapper('xs').r('svg'),
+      __eo('xs').b('d3'),
+      __eo('xs').r('portview'),
+      __eo('xs').r('svg'),
 
     ])
 

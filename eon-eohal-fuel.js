@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function eohalFuel (__mapper = {}) {
+  async function eohalFuel (__eo = {}) {
     let [
       d3Polygon,
       eohalNatform,
@@ -19,17 +19,17 @@
       muonQuad,
       renderPortview,
     ] = await Promise.all([
-      __mapper('xs').b('d3-polygon'),
-      __mapper('xs').e('natform'),
-      __mapper('xs').m('eoric'),
-      __mapper('xs').m('fuel'),
-      __mapper('xs').m('geoj'),
-      __mapper('xs').m('geom'),
-      __mapper('xs').m('quad'),
-      __mapper('xs').r('portview'),
+      __eo('xs').b('d3-polygon'),
+      __eo('xs').e('natform'),
+      __eo('xs').m('eoric'),
+      __eo('xs').m('fuel'),
+      __eo('xs').m('geoj'),
+      __eo('xs').m('geom'),
+      __eo('xs').m('quad'),
+      __eo('xs').r('portview'),
     ])
 
-    let muonStore = __mapper('muonStore') // sync
+    let muonStore = __eo('muonStore') // sync
 
     let state = {}
     state.items = [] // fuel particles

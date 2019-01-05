@@ -12,15 +12,15 @@
   // ... ** **
 
   // .................. anitem
-  async function anitem (__mapper) {
+  async function anitem (__eo) {
     let [
       eohalMars,
       muonNatform,
       renderSvg,
     ] = await Promise.all([
-      __mapper('xs').e('mars'),
-      __mapper('xs').m('natform'),
-      __mapper('xs').r('svg'),
+      __eo('xs').e('mars'),
+      __eo('xs').m('natform'),
+      __eo('xs').r('svg'),
     ])
 
     let ani = function () {

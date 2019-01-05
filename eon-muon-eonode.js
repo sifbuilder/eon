@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonEonode = function muonEonode (__mapper = {}) {
+  let muonEonode = function muonEonode (__eo = {}) {
     // eonode definition
 
     let getdefault = function () {

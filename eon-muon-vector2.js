@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonVector2 (__mapper) {
+  async function muonVector2 (__eo) {
     /**
 	 * @author mrdoob / http://mrdoob.com/
 	 * @author philogb / http://blog.thejit.org/

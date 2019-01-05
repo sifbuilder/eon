@@ -8,11 +8,11 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonGeom (__mapper = {}) {
+  async function muonGeom (__eo = {}) {
     let [
       d3polygon,
     ] = await Promise.all([
-      __mapper('xs').b('d3-polygon'),
+      __eo('xs').b('d3-polygon'),
     ])
 
     let pi = Math.PI,

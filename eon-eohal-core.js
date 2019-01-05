@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function eohalCore (__mapper = {}) {
+  async function eohalCore (__eo = {}) {
     let [
       muonGeoj,
       muonProfier,
@@ -16,11 +16,11 @@
       muonProps,
       eohalSol,
     ] = await Promise.all([
-      __mapper('xs').m('geoj'),
-      __mapper('xs').m('profier'),
-      __mapper('xs').m('proj3ct'),
-      __mapper('xs').m('props'),
-      __mapper('xs').e('sol'),
+      __eo('xs').m('geoj'),
+      __eo('xs').m('profier'),
+      __eo('xs').m('proj3ct'),
+      __eo('xs').m('props'),
+      __eo('xs').e('sol'),
     ])
 
     // ....................... eohale

@@ -9,17 +9,17 @@
 }(this, function (exports) {
   'use strict'
 
-  async function ctlEul (__mapper = {}) {
+  async function ctlEul (__eo = {}) {
     let [
       d3,
       d3geo,
       muonGeom,
       renderPortview,
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
-      __mapper('xs').b('d3-geo'),
-      __mapper('xs').m('geom'),
-      __mapper('xs').r('portview'),
+      __eo('xs').b('d3'),
+      __eo('xs').b('d3-geo'),
+      __eo('xs').m('geom'),
+      __eo('xs').r('portview'),
     ])
 
     let d3drag = d3

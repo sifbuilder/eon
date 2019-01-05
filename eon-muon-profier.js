@@ -41,7 +41,7 @@
   // ... use: `muonProfier.projer_(prodef, anigram)(gj)
   // ... *get formion projector on gj*
 
-  async function muonProfier (__mapper = {}) {
+  async function muonProfier (__eo = {}) {
     let [
       muonProps,
       muonWen,
@@ -50,12 +50,12 @@
       muonGeom,
       puniwen,
     ] = await Promise.all([
-      __mapper('xs').m('props'),
-      __mapper('xs').m('wen'),
-      __mapper('xs').m('stace'),
-      __mapper('xs').m('proj3ct'),
-      __mapper('xs').m('geom'),
-      __mapper('xs').p('uniwen'),
+      __eo('xs').m('props'),
+      __eo('xs').m('wen'),
+      __eo('xs').m('stace'),
+      __eo('xs').m('proj3ct'),
+      __eo('xs').m('geom'),
+      __eo('xs').p('uniwen'),
 
     ])
 
@@ -73,15 +73,15 @@
       } else if (typeof projdef === 'object') {
         if (typeof projdef.projection === 'string') { // if string
           let prtItem = projdef.projection
-          let prt = __mapper(prtItem) // try eg. uniwen
+          let prt = __eo(prtItem) // try eg. uniwen
 
           if (typeof projdef.projection === 'function') {
             geoproj = prt(projdef)
           } else {
-            let ceon = __mapper('xs').ceonize(prtItem, 'prt')
-            let prt = __mapper(ceon)
+            let ceon = __eo('xs').ceonize(prtItem, 'prt')
+            let prt = __eo(ceon)
 
-            console.assert(typeof prt === 'function', `prt ${prt} in ${projdef} from __mapper is not a function`)
+            console.assert(typeof prt === 'function', `prt ${prt} in ${projdef} from __eo is not a function`)
             geoproj = prt(projdef)
           }
         } else if (muonProps.isFunction(projdef.projection)) { // if projection

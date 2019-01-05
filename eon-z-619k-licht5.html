@@ -3,7 +3,7 @@
 window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   // .................. eons
   let [
     dlicht5,
@@ -17,19 +17,19 @@ async function anitem (__mapper) {
     renderPortview,
     renderSvg,
   ] = await Promise.all([
-    __mapper('xs').d('licht5'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').m('geoj'),
-    __mapper('xs').m('proj3ct'),
-    __mapper('xs').m('profier'),
-    __mapper('xs').m('stace'),
-    __mapper('xs').m('eoric'),
-    __mapper('xs').m('svg'),
-    __mapper('xs').r('portview'),
-    __mapper('xs').r('svg'),
+    __eo('xs').d('licht5'),
+    __eo('xs').e('mars'),
+    __eo('xs').m('geoj'),
+    __eo('xs').m('proj3ct'),
+    __eo('xs').m('profier'),
+    __eo('xs').m('stace'),
+    __eo('xs').m('eoric'),
+    __eo('xs').m('svg'),
+    __eo('xs').r('portview'),
+    __eo('xs').r('svg'),
   ])
 
-  let muonStore = __mapper('xs').m('store')
+  let muonStore = __eo('xs').m('store')
 
   // .................. animas
   let ani = function () {

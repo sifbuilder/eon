@@ -12,13 +12,13 @@
   // ... # license
   // ... MIT
 
-  async function muonLacer (__mapper = {}) {
+  async function muonLacer (__eo = {}) {
     let [
       d3scale,
       d3array,
     ] = await Promise.all([
-      __mapper('xs').b('d3-scale'),
-      __mapper('xs').b('d3-array'),
+      __eo('xs').b('d3-scale'),
+      __eo('xs').b('d3-array'),
     ])
 
     // ...................... interlace

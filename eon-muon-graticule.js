@@ -8,13 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonGraticule (__mapper = {}) {
+  async function muonGraticule (__eo = {}) {
     let [
       muonGeoj,
       d3array,
     ] = await Promise.all([
-      __mapper('xs').m('geoj'),
-      __mapper('xs').b('d3-array'),
+      __eo('xs').m('geoj'),
+      __eo('xs').b('d3-array'),
     ])
 
     let d3Range = d3array.range

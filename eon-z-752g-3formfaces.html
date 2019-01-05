@@ -3,7 +3,7 @@
 window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   let [
     muonGraticule,
     prtNatform,
@@ -11,11 +11,11 @@ async function anitem (__mapper) {
     eohalNatform,
     renderSvg,
   ] = await Promise.all([
-    __mapper('xs').m('graticule'),
-    __mapper('xs').p('natform'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').e('natform'),
-    __mapper('xs').r('svg'),
+    __eo('xs').m('graticule'),
+    __eo('xs').p('natform'),
+    __eo('xs').e('mars'),
+    __eo('xs').e('natform'),
+    __eo('xs').r('svg'),
   ])
 
   let ani = function () {

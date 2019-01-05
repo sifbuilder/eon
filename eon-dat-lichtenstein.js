@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var datLichtenstein = function (__mapper = {}) {
+  var datLichtenstein = function (__eo = {}) {
     let data = {
 
       width: '2.33333in', height: '1.75in',

@@ -21,7 +21,7 @@
   // ... eoload.fourier.avatars.traceline  form trace
   // ... eoload.fourier.avatars.line  sinusoid ray
 
-  async function eohalFourier (__mapper = {}) {
+  async function eohalFourier (__eo = {}) {
     let [
       eohalMars,
       Complex,
@@ -29,11 +29,11 @@
       muonNatform,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').e('mars'),
-      __mapper('xs').l('complex'),
-      __mapper('xs').m('eoric'),
-      __mapper('xs').m('natform'),
-      __mapper('xs').m('props'),
+      __eo('xs').e('mars'),
+      __eo('xs').l('complex'),
+      __eo('xs').m('eoric'),
+      __eo('xs').m('natform'),
+      __eo('xs').m('props'),
     ])
 
     // ............................. eohale

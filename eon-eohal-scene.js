@@ -8,11 +8,11 @@
 }(this, function (exports) {
   'use strict'
 
-  async function eohalScene (__mapper = {}) {
+  async function eohalScene (__eo = {}) {
     let [
       mscene,
     ] = await Promise.all([
-      __mapper('xs').m('scene'),
+      __eo('xs').m('scene'),
     ])
 
     // .................... ween

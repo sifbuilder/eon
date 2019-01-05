@@ -3,7 +3,7 @@
 window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   // .................. eons
   let [
     topojson,
@@ -16,15 +16,15 @@ async function anitem (__mapper) {
     prtNatform,
     renderSvg,
   ] = await Promise.all([
-    __mapper('xs').b('topojson'),
-    __mapper('xs').c('wen'),
-    __mapper('xs').d('worldTopo110m'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').m('geom'),
-    __mapper('xs').m('graticule'),
-    __mapper('xs').m('natform'),
-    __mapper('xs').p('natform'),
-    __mapper('xs').r('svg'),
+    __eo('xs').b('topojson'),
+    __eo('xs').c('wen'),
+    __eo('xs').d('worldTopo110m'),
+    __eo('xs').e('mars'),
+    __eo('xs').m('geom'),
+    __eo('xs').m('graticule'),
+    __eo('xs').m('natform'),
+    __eo('xs').p('natform'),
+    __eo('xs').r('svg'),
   ])
 
   // .................. animas

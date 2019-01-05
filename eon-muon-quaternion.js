@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonQuaternion (__mapper) {
+  async function muonQuaternion (__eo) {
     /**
 	 * @author mikael emtinger / http://gomo.se/
 	 * @author alteredq / http://alteredqualia.com/

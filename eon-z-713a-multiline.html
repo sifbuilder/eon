@@ -3,7 +3,7 @@
 window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   // .................. eons
   let [
     muonNatform,
@@ -14,13 +14,13 @@ async function anitem (__mapper) {
     eohalNatform,
     eohalScene,
   ] = await Promise.all([
-    __mapper('xs').m('natform'),
-    __mapper('xs').m('props'),
-    __mapper('xs').c('wen'),
-    __mapper('xs').m('graticule'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').e('natform'),
-    __mapper('xs').e('scene'),
+    __eo('xs').m('natform'),
+    __eo('xs').m('props'),
+    __eo('xs').c('wen'),
+    __eo('xs').m('graticule'),
+    __eo('xs').e('mars'),
+    __eo('xs').e('natform'),
+    __eo('xs').e('scene'),
   ])
 
   // .................. animas

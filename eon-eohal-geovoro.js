@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function eohalGeovoro (__mapper = {}) {
+  async function eohalGeovoro (__eo = {}) {
     let [
       d3,
       eohalSol,
@@ -18,13 +18,13 @@
       muonProj3ct,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
-      __mapper('xs').e('sol'),
-      __mapper('xs').m('delaynay'),
-      __mapper('xs').m('geoj'),
-      __mapper('xs').m('profier'),
-      __mapper('xs').m('proj3ct'),
-      __mapper('xs').m('props'),
+      __eo('xs').b('d3'),
+      __eo('xs').e('sol'),
+      __eo('xs').m('delaynay'),
+      __eo('xs').m('geoj'),
+      __eo('xs').m('profier'),
+      __eo('xs').m('proj3ct'),
+      __eo('xs').m('props'),
     ])
 
     let state = Object.assign({})
@@ -41,28 +41,28 @@
       newAnima.sort = 'geojson'						// SORT
 
       let projectionProps = avatar.pic.projection
-      newAnima.projection = __mapper('proxys').p('projection').getproj(projectionProps)
+      newAnima.projection = __eo('proxys').p('projection').getproj(projectionProps)
       newAnima.geoPath = d3.geoPath().projection(newAnima.projection)		// geopath
 
       // data
-      let spherical = __mapper('pluginProjection').spherical
+      let spherical = __eo('pluginProjection').spherical
       let SAMPLES = Math.floor(avatar.pic.hsamp)
-      let sites = __mapper('pluginProjection').fibonacciSphere(SAMPLES, false).map(spherical)
+      let sites = __eo('pluginProjection').fibonacciSphere(SAMPLES, false).map(spherical)
 
       // geovoro
       let diagram = voronoi(sites)
-      let geovoro = __mapper('pluginGeovoro').data(sites)
+      let geovoro = __eo('pluginGeovoro').data(sites)
       let triangles = geovoro.triangles(sites)
 
       // for each triangle
       for (let i = 0; i < triangles.features.length; i++) {
-        let newAvatar = __mapper('proxys').p('snap').clone(newAnima)
+        let newAvatar = __eo('proxys').p('snap').clone(newAnima)
 
         newAvatar.ric.fid = newAvatar.ric.fid + 'geo' + i
 
         let triangle = triangles.features[i]	// planar coordinates
         const geoCentroid = d3.geoCentroid(triangle)
-        const centroid = __mapper('pluginProjection').cartesian(geoCentroid)
+        const centroid = __eo('pluginProjection').cartesian(geoCentroid)
         newAvatar.depth = centroid[0]		// x
 
         newAvatar.geo = Object.assign({}, triangle)

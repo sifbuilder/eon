@@ -8,14 +8,14 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonSoma (__mapper = {}) {
+  async function muonSoma (__eo = {}) {
     let [
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').m('props'),
+      __eo('xs').m('props'),
     ])
 
-    let muonStore = __mapper('muonStore')
+    let muonStore = __eo('muonStore')
     // soma: {
     // eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
     // x0: -40, y0: -100,

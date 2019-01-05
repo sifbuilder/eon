@@ -8,10 +8,10 @@
 }(this, function (exports) {
   'use strict'
 
-  var forceLink = function forceLink (__mapper = {}) {
+  var forceLink = function forceLink (__eo = {}) {
   // .................. force
     let force = function (params) {
-      let d3_force = __mapper('d3Force3d')
+      let d3_force = __eo('d3Force3d')
       let nodes = params.nodes || []
       let links = params.links || []
       let id = params.id || (d => d.index)

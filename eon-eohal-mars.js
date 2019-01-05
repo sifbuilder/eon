@@ -13,7 +13,7 @@
   // ... eoform, conform, ereform and proform anigrams
   // ... parse result through h.sol.gramm
 
-  async function eohalMars (__mapper = {}) {
+  async function eohalMars (__eo = {}) {
     let [
       eohalSol,
       muonGeoj,
@@ -21,11 +21,11 @@
       muonProj3ct,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').e('sol'),
-      __mapper('xs').m('geoj'),
-      __mapper('xs').m('profier'),
-      __mapper('xs').m('proj3ct'),
-      __mapper('xs').m('props'),
+      __eo('xs').e('sol'),
+      __eo('xs').m('geoj'),
+      __eo('xs').m('profier'),
+      __eo('xs').m('proj3ct'),
+      __eo('xs').m('props'),
 
     ])
 

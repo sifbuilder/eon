@@ -19,10 +19,10 @@
   // forked from Fil's block: Furuti 3 - projection.clipPolygon()
   // LICENSE# Released under the The MIT License.
 
-  let geoMyriad = function geoMyriad (__mapper = {}) {
-    let mkruskal = __mapper('xs').m('kruskal')
+  let geoMyriad = function geoMyriad (__eo = {}) {
+    let mkruskal = __eo('xs').m('kruskal')
 
-    let portview = __mapper('renderPortview'),
+    let portview = __eo('renderPortview'),
       width = portview.width(),
       height = portview.height(),
       scaleProj = Math.min(width / 2, height) / Math.PI

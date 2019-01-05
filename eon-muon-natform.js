@@ -17,7 +17,7 @@
   // ...
   // ... ### methods
   // ... natFeature
-  // ... `coordinates = Array.of(__mapper("xs").m("nat").natFeature({form: p.form}))`
+  // ... `coordinates = Array.of(__eo("xs").m("nat").natFeature({form: p.form}))`
   // ...
   // ... rador
   // ... seg5 unit circle rador
@@ -177,7 +177,7 @@
   // ... # license
   // ... MIT
 
-  async function muonNatform (__mapper = {}) {
+  async function muonNatform (__eo = {}) {
     let [
       glmatrix,
       d3scale,
@@ -189,15 +189,15 @@
       muonProfier,
       muonProj3ct,
     ] = await Promise.all([
-      __mapper('xs').b('gl-matrix'),
-      __mapper('xs').b('d3-scale'),
-      __mapper('xs').b('d3-array'),
-      __mapper('xs').b('d3-geo'),
-      __mapper('xs').m('props'),
-      __mapper('xs').m('geom'),
-      __mapper('xs').m('graticule'),
-      __mapper('xs').m('profier'),
-      __mapper('xs').m('proj3ct'),
+      __eo('xs').b('gl-matrix'),
+      __eo('xs').b('d3-scale'),
+      __eo('xs').b('d3-array'),
+      __eo('xs').b('d3-geo'),
+      __eo('xs').m('props'),
+      __eo('xs').m('geom'),
+      __eo('xs').m('graticule'),
+      __eo('xs').m('profier'),
+      __eo('xs').m('proj3ct'),
     ])
     let cache = {} // feature, form
 

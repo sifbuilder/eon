@@ -8,15 +8,15 @@
 }(this, function (exports) {
   'use strict'
 
-  async function prtHedrals (__mapper = {}) {
+  async function prtHedrals (__eo = {}) {
     let [
       muonProps,
       mpolyhedral,
       d3,
     ] = await Promise.all([
-      __mapper('xs').m('props'),
-      __mapper('xs').m('polyhedral'),
-      __mapper('xs').b('d3'),
+      __eo('xs').m('props'),
+      __eo('xs').m('polyhedral'),
+      __eo('xs').b('d3'),
     ])
 
     const pi = Math.PI, degrees = 180 / pi, radians = pi / 180

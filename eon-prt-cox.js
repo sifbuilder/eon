@@ -19,7 +19,7 @@
   // https://visionscarto.net/cox-conformal-projection
   // http://www.cs.dartmouth.edu/~doug/wallpaper.pdf
 
-  async function prtCox (__mapper = {}) {
+  async function prtCox (__eo = {}) {
     let [
       Complex,
       muonNewton,
@@ -28,12 +28,12 @@
       d3Array,
       muonGeom,
     ] = await Promise.all([
-      __mapper('xs').l('complex'),
-      __mapper('xs').m('newton'),
-      __mapper('xs').b('d3-geo'),
-      __mapper('xs').b('d3-geo-projection'),
-      __mapper('xs').b('d3-array'),
-      __mapper('xs').m('geom'),
+      __eo('xs').l('complex'),
+      __eo('xs').m('newton'),
+      __eo('xs').b('d3-geo'),
+      __eo('xs').b('d3-geo-projection'),
+      __eo('xs').b('d3-array'),
+      __eo('xs').m('geom'),
     ])
 
     let cache = {},

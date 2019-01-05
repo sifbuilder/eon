@@ -8,20 +8,20 @@
 }(this, function (exports) {
   'use strict'
 
-  async function eohalLinkform (__mapper = {}) {
+  async function eohalLinkform (__eo = {}) {
     let [
       eohalSol,
       eohalMars,
       muonEoric,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').e('sol'),
-      __mapper('xs').e('mars'),
-      __mapper('xs').m('eoric'),
-      __mapper('xs').m('props'),
+      __eo('xs').e('sol'),
+      __eo('xs').e('mars'),
+      __eo('xs').m('eoric'),
+      __eo('xs').m('props'),
     ])
 
-    let muonStore = __mapper('muonStore')
+    let muonStore = __eo('muonStore')
     let state = {}
 
     // ........................ diagonalp

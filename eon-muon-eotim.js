@@ -16,11 +16,11 @@
   // ... tf: t => Math.pow(t, 2)
   // ... tf: t => (1 / Math.PI) * ((Math.PI / 2 ) +  Math.arcsin(-1 + 2 * t))
 
-  async function muonEotim (__mapper = {}) {
+  async function muonEotim (__eo = {}) {
     let [
       d3scale,
     ] = await Promise.all([
-      __mapper('xs').b('d3-scale'),
+      __eo('xs').b('d3-scale'),
     ])
 
     let epsilon = 1e-5

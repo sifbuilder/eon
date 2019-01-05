@@ -9,11 +9,11 @@
 }(this, function (exports) {
   'use strict'
 
-  async function ctlTouchEnd (__mapper = {}) {
+  async function ctlTouchEnd (__eo = {}) {
     let [
       d3,
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
+      __eo('xs').b('d3'),
     ])
 
     let d3selection = d3

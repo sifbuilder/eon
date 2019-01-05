@@ -10,10 +10,10 @@
 
   // https://bl.ocks.org/vasturiano/2da88fb89cc75d18b20d8a7776fd6860
 
-  var forceMagnetic = function (__mapper = {}) {
+  var forceMagnetic = function (__eo = {}) {
   // .................. force
     let force = function (params) {
-      let d3_force = __mapper('d3Force3d')
+      let d3_force = __eo('d3Force3d')
 
       let strength = params.strength || (() => 0.1)
 

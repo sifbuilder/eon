@@ -8,13 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
-  async function renderCanvas (__mapper = {}) {
+  async function renderCanvas (__eo = {}) {
     let [
       renderPortview, // viewScreenPrt
       d3,
     ] = await Promise.all([
-      __mapper('xs').r('portview'),
-      __mapper('xs').b('d3'),
+      __eo('xs').r('portview'),
+      __eo('xs').b('d3'),
     ])
 
     let radians = Math.PI / 180

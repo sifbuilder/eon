@@ -8,11 +8,11 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonLindenmayer (__mapper = {}) {
+  async function muonLindenmayer (__eo = {}) {
     let [
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').m('props'),
+      __eo('xs').m('props'),
     ])
 
     let cache = {}

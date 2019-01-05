@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonSnap (__mapper = {}) {
+  async function muonSnap (__eo = {}) {
     let [
       muonProps,
       muonNatform,
@@ -16,11 +16,11 @@
       muonGeoj,
       d3scale,
     ] = await Promise.all([
-      __mapper('xs').m('props'),
-      __mapper('xs').m('natform'),
-      __mapper('xs').m('lacer'),
-      __mapper('xs').m('geoj'),
-      __mapper('xs').b('d3-scale'),
+      __eo('xs').m('props'),
+      __eo('xs').m('natform'),
+      __eo('xs').m('lacer'),
+      __eo('xs').m('geoj'),
+      __eo('xs').b('d3-scale'),
     ])
 
     // .................. snap  value (anima), t (unit time), snap flag, parent

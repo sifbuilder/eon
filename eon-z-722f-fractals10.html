@@ -3,7 +3,7 @@
 window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   // .................. eons
   let [
     ctlWen,
@@ -27,29 +27,29 @@ async function anitem (__mapper) {
     renderPortview,
     // renderWebgl,
   ] = await Promise.all([
-    __mapper('xs').c('wen'),
-    __mapper('xs').c('versor'),
-    __mapper('xs').d('rhyno'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').e('natform'),
-    __mapper('xs').e('pacer'),
-    __mapper('xs').e('fourier'),
-    __mapper('xs').l('complex'),
-    __mapper('xs').m('eoric'),
-    __mapper('xs').m('fourier'),
-    __mapper('xs').m('geoj'),
-    __mapper('xs').m('proj3ct'),
-    __mapper('xs').m('profier'),
-    __mapper('xs').m('props'),
-    __mapper('xs').m('stace'),
-    __mapper('xs').m('svg'),
-    __mapper('xs').p('orthographic'),
-    __mapper('xs').r('svg'),
-    __mapper('xs').r('portview'),
-    // __mapper('xs').r('webgl'),
+    __eo('xs').c('wen'),
+    __eo('xs').c('versor'),
+    __eo('xs').d('rhyno'),
+    __eo('xs').e('mars'),
+    __eo('xs').e('natform'),
+    __eo('xs').e('pacer'),
+    __eo('xs').e('fourier'),
+    __eo('xs').l('complex'),
+    __eo('xs').m('eoric'),
+    __eo('xs').m('fourier'),
+    __eo('xs').m('geoj'),
+    __eo('xs').m('proj3ct'),
+    __eo('xs').m('profier'),
+    __eo('xs').m('props'),
+    __eo('xs').m('stace'),
+    __eo('xs').m('svg'),
+    __eo('xs').p('orthographic'),
+    __eo('xs').r('svg'),
+    __eo('xs').r('portview'),
+    // __eo('xs').r('webgl'),
   ])
 
-  let muonStore = __mapper('muonStore')
+  let muonStore = __eo('muonStore')
 
   // .................. animas
   let ani = function () {

@@ -13,7 +13,7 @@
   // ... animas, simnodes, anigrams, viewnodes
   // ... render viewnodes
 
-  async function muonAnimation (__mapper) {
+  async function muonAnimation (__eo) {
     let [
       ctlTimer,
       muonAnitem,
@@ -22,16 +22,16 @@
       muonProps,
       renderRenderer,
     ] = await Promise.all([
-      __mapper('xs').c('timer'),
-      __mapper('xs').m('anitem'),
-      __mapper('xs').m('eotim'),
-      __mapper('xs').m('sim'),
-      __mapper('xs').m('props'),
-      __mapper('xs').r('renderer'),
+      __eo('xs').c('timer'),
+      __eo('xs').m('anitem'),
+      __eo('xs').m('eotim'),
+      __eo('xs').m('sim'),
+      __eo('xs').m('props'),
+      __eo('xs').r('renderer'),
     ]
     )
 
-    let muonStore = __mapper('xs').m('store')
+    let muonStore = __eo('xs').m('store')
 
     let state = {}
     state.animas = [] // global animas
@@ -147,7 +147,7 @@
 
     // ... ANIMIER
     function animier (elapsed) {
-      muonStore = __mapper('muonStore')
+      muonStore = __eo('muonStore')
       state.animas = muonStore.animasLive()
       state.anigrams = muonStore.anigrams()
 

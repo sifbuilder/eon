@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  let forceCrop = function (__mapper = {}) {
+  let forceCrop = function (__eo = {}) {
     let constant = x => () => x
 
     // .................. force
@@ -30,7 +30,7 @@
           let ys = node.y + r + (node.vy || 0) // south
 
           if (xw < west || xe > east || yn < north || ys > south) {
-            __mapper('muonStore').apply({'type': 'DELANIMA', 'caller': 'force crop', 'anima': node})
+            __eo('muonStore').apply({'type': 'DELANIMA', 'caller': 'force crop', 'anima': node})
           }
         }
       }

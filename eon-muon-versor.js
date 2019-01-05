@@ -12,7 +12,7 @@
   // https://github.com/Fil/versor Version 0.0.3. Copyright 2017 Mike Bostock.
   // ref: http://codepen.io/jorin/pen/YNajXZ
 
-  async function muonVersor (__mapper = {}) {
+  async function muonVersor (__eo = {}) {
     var acos = Math.acos,
       asin = Math.asin,
       atan2 = Math.atan2,

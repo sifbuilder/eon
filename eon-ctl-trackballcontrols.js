@@ -8,17 +8,17 @@
 }(this, function (exports) {
   'use strict'
 
-  async function ctlTrackballcontrols (__mapper) {
+  async function ctlTrackballcontrols (__eo) {
     let [
       muonEventDispatcher,
       muonQuaternion,
       muonVector2,
       muonVector3,
     ] = await Promise.all([
-      __mapper('xs').m('eventDispatcher'),
-      __mapper('xs').m('quaternion'),
-      __mapper('xs').m('vector2'),
-      __mapper('xs').m('vector3'),
+      __eo('xs').m('eventDispatcher'),
+      __eo('xs').m('quaternion'),
+      __eo('xs').m('vector2'),
+      __eo('xs').m('vector3'),
 
     ]
     )

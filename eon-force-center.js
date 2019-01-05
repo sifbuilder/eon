@@ -8,10 +8,10 @@
 }(this, function (exports) {
   'use strict'
 
-  var forceCenter = function forceCenter (__mapper = {}) {
+  var forceCenter = function forceCenter (__eo = {}) {
   // .................. force
     let force = function (params) {
-      let d3_force = __mapper('d3Force3d')
+      let d3_force = __eo('d3Force3d')
       let x = params.center.x || 0
       let y = params.center.y || 0
       let z = params.center.z || 0

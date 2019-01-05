@@ -7,7 +7,7 @@ window.xEonify.eon({anitem, time: undefined})
 // ... muonGraticule.vhMultiLine(p.eoframe)
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   // .................. eons
   let [
     ctlWen,
@@ -19,14 +19,14 @@ async function anitem (__mapper) {
     renderWebgl,
     // renderSvg,
   ] = await Promise.all([
-    __mapper('xs').c('wen'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').m('graticule'),
-    __mapper('xs').m('natform'),
-    __mapper('xs').p('natform'),
-    __mapper('xs').r('portview'),
-    __mapper('xs').r('webgl'),
-    // __mapper('xs').r('svg'),
+    __eo('xs').c('wen'),
+    __eo('xs').e('mars'),
+    __eo('xs').m('graticule'),
+    __eo('xs').m('natform'),
+    __eo('xs').p('natform'),
+    __eo('xs').r('portview'),
+    __eo('xs').r('webgl'),
+    // __eo('xs').r('svg'),
   ])
 
   // .................. animas

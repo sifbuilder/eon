@@ -42,7 +42,7 @@
   // ... `@a.p.pacer.fidder`  : new item `fid` identifier
   // ... `@a.p.pacer.geojsor(@anigram, @counter)` : gets new item
 
-  async function eohalPacer (__mapper = {}) {
+  async function eohalPacer (__eo = {}) {
     let [
       ctlRayder,
       muonAnitem,
@@ -52,16 +52,16 @@
       muonGeoj,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').c('rayder'),
-      __mapper('xs').m('anitem'),
-      __mapper('xs').m('eoric'),
-      __mapper('xs').m('eotim'),
-      __mapper('xs').m('geom'),
-      __mapper('xs').m('geoj'),
-      __mapper('xs').m('props'),
+      __eo('xs').c('rayder'),
+      __eo('xs').m('anitem'),
+      __eo('xs').m('eoric'),
+      __eo('xs').m('eotim'),
+      __eo('xs').m('geom'),
+      __eo('xs').m('geoj'),
+      __eo('xs').m('props'),
     ])
 
-    let muonStore = __mapper('muonStore')
+    let muonStore = __eo('muonStore')
 
     let state = {}
 
@@ -308,7 +308,7 @@
             // ... if paced anima, eohal.ween the newitem, then store
             // ... if paced anigram, eohal.gramm the newitem, then return
 
-            let eohal = __mapper(__mapper('xs').ceonize(newItem.eohal, 'eohal'))
+            let eohal = __eo(__eo('xs').ceonize(newItem.eohal, 'eohal'))
 
             let newItemsInCount
             if (geosort === 'anima') {

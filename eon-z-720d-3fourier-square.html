@@ -3,7 +3,7 @@
 window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   let [
     d3,
     d3geo,
@@ -25,28 +25,28 @@ async function anitem (__mapper) {
     renderPortview,
     renderWebgl,
   ] = await Promise.all([
-    __mapper('xs').b('d3'),
-    __mapper('xs').b('d3-geo'),
-    __mapper('xs').b('three'),
-    __mapper('xs').c('wen'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').e('pacer'),
-    __mapper('xs').e('fourier'),
-    __mapper('xs').m('fourier'),
-    __mapper('xs').m('geoj'),
-    __mapper('xs').m('geom'),
-    __mapper('xs').m('props'),
-    __mapper('xs').m('geovoro'),
-    __mapper('xs').m('natform'),
-    __mapper('xs').m('profier'),
-    __mapper('xs').m('proj3ct'),
-    __mapper('xs').m('stace'),
-    __mapper('xs').m('svg'),
-    __mapper('xs').r('portview'),
-    __mapper('xs').r('webgl'),
+    __eo('xs').b('d3'),
+    __eo('xs').b('d3-geo'),
+    __eo('xs').b('three'),
+    __eo('xs').c('wen'),
+    __eo('xs').e('mars'),
+    __eo('xs').e('pacer'),
+    __eo('xs').e('fourier'),
+    __eo('xs').m('fourier'),
+    __eo('xs').m('geoj'),
+    __eo('xs').m('geom'),
+    __eo('xs').m('props'),
+    __eo('xs').m('geovoro'),
+    __eo('xs').m('natform'),
+    __eo('xs').m('profier'),
+    __eo('xs').m('proj3ct'),
+    __eo('xs').m('stace'),
+    __eo('xs').m('svg'),
+    __eo('xs').r('portview'),
+    __eo('xs').r('webgl'),
   ])
 
-  let muonStore = __mapper('muonStore')
+  let muonStore = __eo('muonStore')
 
   let ani = function () {
   // .................. pics

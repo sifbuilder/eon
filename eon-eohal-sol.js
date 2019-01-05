@@ -26,17 +26,17 @@
   // ... maintain eohal, eonode, avatar
   // ... the new anigrams are saved in m.animation and passed to renderer
 
-  async function eohalSol (__mapper = {}) {
+  async function eohalSol (__eo = {}) {
     let [
       muonEoric,
       muonEocrom,
       muonGeoj,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').m('eoric'),
-      __mapper('xs').m('eocrom'),
-      __mapper('xs').m('geoj'),
-      __mapper('xs').m('props'),
+      __eo('xs').m('eoric'),
+      __eo('xs').m('eocrom'),
+      __eo('xs').m('geoj'),
+      __eo('xs').m('props'),
     ])
 
     // ............................. eohale

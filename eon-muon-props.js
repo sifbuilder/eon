@@ -8,13 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonProps (__mapper = {}) {
+  async function muonProps (__eo = {}) {
     let [
       d3scale,
       d3array,
     ] = await Promise.all([
-      __mapper('xs').b('d3-scale'),
-      __mapper('xs').b('d3-array'),
+      __eo('xs').b('d3-scale'),
+      __eo('xs').b('d3-array'),
     ])
 
     let props = {}

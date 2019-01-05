@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function renderSvg (__mapper = {}) {
+  async function renderSvg (__eo = {}) {
     // ... **render svg**
     // ...
     // ... The viewport is the visible area of the SVG image
@@ -43,10 +43,10 @@
       puniwen,
       renderPortview, // viewScreenPrt - _e_ to be defined in z.
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
-      __mapper('xs').m('proj3ct'),
-      __mapper('xs').p('uniwen'),
-      __mapper('xs').r('portview'),
+      __eo('xs').b('d3'),
+      __eo('xs').m('proj3ct'),
+      __eo('xs').p('uniwen'),
+      __eo('xs').r('portview'),
     ])
 
     let width = 600,

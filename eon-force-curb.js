@@ -8,8 +8,8 @@
 }(this, function (exports) {
   'use strict'
 
-  var forceCurb = function forceCurb (__mapper = {}) {
-    let muonStore = __mapper('muonStore')
+  var forceCurb = function forceCurb (__eo = {}) {
+    let muonStore = __eo('muonStore')
 
     let force = function (params) {
       let nodes = params.nodes

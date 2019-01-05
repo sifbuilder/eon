@@ -8,8 +8,8 @@
 }(this, function (exports) {
   'use strict'
 
-  var forceEnergy = function forceEnergy (__mapper = {}) {
-    let muonStore = __mapper('muonStore')
+  var forceEnergy = function forceEnergy (__eo = {}) {
+    let muonStore = __eo('muonStore')
 
     let force = function (params) {
       let nodes = params.nodes

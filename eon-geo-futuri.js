@@ -19,15 +19,15 @@
   // forked from Fil's block: Furuti 3 - projection.clipPolygon()
   // LICENSE# Released under the The MIT License.
 
-  async function geoFuturi (__mapper = {}) {
+  async function geoFuturi (__eo = {}) {
     let [
       muonGeom,
       mpolyhedral,
       d3,
     ] = await Promise.all([
-      __mapper('xs').m('geom'),
-      __mapper('xs').m('polyhedral'),
-      __mapper('xs').b('d3'),
+      __eo('xs').m('geom'),
+      __eo('xs').m('polyhedral'),
+      __eo('xs').b('d3'),
     ])
 
     let d3selection = d3

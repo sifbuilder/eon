@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function renderWebgl (__mapper = {}) {
+  async function renderWebgl (__eo = {}) {
     let [
       d3,
       THREE,
@@ -17,12 +17,12 @@
       muonEocrom,
       renderPortview,
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
-      __mapper('xs').b('three'),
-      __mapper('xs').c('raycaster'),
-      __mapper('xs').c('trackballcontrols'),
-      __mapper('xs').m('eocrom'),
-      __mapper('xs').r('portview'),
+      __eo('xs').b('d3'),
+      __eo('xs').b('three'),
+      __eo('xs').c('raycaster'),
+      __eo('xs').c('trackballcontrols'),
+      __eo('xs').m('eocrom'),
+      __eo('xs').r('portview'),
 
     ])
 

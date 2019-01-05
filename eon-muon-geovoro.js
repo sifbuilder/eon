@@ -18,15 +18,15 @@
   // ref: https://visionscarto.net/the-state-of-d3-voronoi
 
   // ............................. muonGeovoro
-  async function muonGeovoro (__mapper = {}) {
+  async function muonGeovoro (__eo = {}) {
     let [
       d3,
       muonDelaunay,
       muonGeom,
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
-      __mapper('xs').m('delaunay'),
-      __mapper('xs').m('geom'),
+      __eo('xs').b('d3'),
+      __eo('xs').m('delaunay'),
+      __eo('xs').m('geom'),
     ])
 
     var state = Object.assign({})

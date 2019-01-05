@@ -9,7 +9,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function prtTetra (__mapper = {}) {
+  async function prtTetra (__eo = {}) {
   // Philippe Rivière’s Block 1aafd8fa22b62243290674384c364dd0
   // Cox Projection
   // https://bl.ocks.org/fil/1aafd8fa22b62243290674384c364dd0
@@ -29,14 +29,14 @@
       muonGeom,
       muonMath,
     ] = await Promise.all([
-      __mapper('xs').l('complex'),
-      __mapper('xs').m('polyhedral'),
-      __mapper('xs').m('newton'),
-      __mapper('xs').b('d3-geo'),
-      __mapper('xs').b('d3-geo-projection'),
-      __mapper('xs').b('d3-array'),
-      __mapper('xs').m('geom'),
-      __mapper('xs').m('math'),
+      __eo('xs').l('complex'),
+      __eo('xs').m('polyhedral'),
+      __eo('xs').m('newton'),
+      __eo('xs').b('d3-geo'),
+      __eo('xs').b('d3-geo-projection'),
+      __eo('xs').b('d3-array'),
+      __eo('xs').m('geom'),
+      __eo('xs').m('math'),
     ])
 
     let epsilon = 1e-6,

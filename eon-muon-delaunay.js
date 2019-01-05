@@ -14,7 +14,7 @@
   // const delaunay = Delaunay.from(points);
   // const voronoi = delaunay.voronoi([0, 0, 960, 500]);
 
-  async function muonDelaunay (__mapper = {}) {
+  async function muonDelaunay (__eo = {}) {
     var state = Object.assign({})
 
     //

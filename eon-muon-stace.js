@@ -50,15 +50,15 @@
   // ...       get spot from `parentani.eofold.geometry.coordinates`
   // ... **eoload**, to get parent coords if spot is relative to parent geometry
 
-  async function muonStace (__mapper = {}) {
+  async function muonStace (__eo = {}) {
     let [
       muonProps,
       mlacer,
       muonGeoj,
     ] = await Promise.all([
-      __mapper('xs').m('props'),
-      __mapper('xs').m('lacer'),
-      __mapper('xs').m('geoj'),
+      __eo('xs').m('props'),
+      __eo('xs').m('lacer'),
+      __eo('xs').m('geoj'),
     ])
 
     // ...................... range
@@ -82,7 +82,7 @@
     // ... getTranspots
     // ... call store to get current state
     let getTranspots = function (stace, anitem) {
-      let muonStore = __mapper('muonStore')
+      let muonStore = __eo('muonStore')
 
       let eoload = anitem.eoload
       console.assert(eoload !== undefined, anitem, ' eoload undefined')

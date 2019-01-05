@@ -19,17 +19,17 @@
   // forked from Fil's block: Furuti 3 - projection.clipPolygon()
   // LICENSE# Released under the The MIT License.
 
-  async function prtMyriad (__mapper = {}) {
+  async function prtMyriad (__eo = {}) {
     let [
       mkruskal,
       d3GeoVoronoi,
       d3Array,
       d3Geo,
     ] = await Promise.all([
-      __mapper('xs').m('kruskal'),
-      __mapper('xs').b('d3-geo-voronoi'),
-      __mapper('xs').b('d3-array'),
-      __mapper('xs').b('d3-geo'),
+      __eo('xs').m('kruskal'),
+      __eo('xs').b('d3-geo-voronoi'),
+      __eo('xs').b('d3-array'),
+      __eo('xs').b('d3-geo'),
     ])
 
     let pi = Math.PI,

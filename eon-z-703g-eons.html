@@ -3,11 +3,11 @@
 window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   let [
     renderSvg,
   ] = await Promise.all([
-    __mapper('xs').r('svg'),
+    __eo('xs').r('svg'),
   ])
 
   let ani = function () {

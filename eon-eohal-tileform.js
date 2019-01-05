@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function eohalTileform (__mapper = {}) {
+  async function eohalTileform (__eo = {}) {
     let [
       eohalSol,
       eohalNatform,
@@ -16,11 +16,11 @@
       muonProps,
       muonGraticule,
     ] = await Promise.all([
-      __mapper('xs').e('sol'),
-      __mapper('xs').e('natform'),
-      __mapper('xs').e('mars'),
-      __mapper('xs').m('props'),
-      __mapper('xs').m('graticule'),
+      __eo('xs').e('sol'),
+      __eo('xs').e('natform'),
+      __eo('xs').e('mars'),
+      __eo('xs').m('props'),
+      __eo('xs').m('graticule'),
     ])
 
     // .................... getTiles

@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function renderPortview (__mapper = {}) {
+  async function renderPortview (__eo = {}) {
     let margin = {top: 0, right: 0, bottom: 0, left: 0},
       viewWidth = 600,
       viewHeight = 400,
@@ -27,7 +27,7 @@
 
     // ............................. viewScreenPrt
     const viewScreenPrt = function (p = prtdef) {
-      let prt = __mapper('prtUniwen')
+      let prt = __eo('prtUniwen')
       return prt(p)
     }
 

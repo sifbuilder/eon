@@ -6,7 +6,7 @@ xEonify.eon({anitem, time: undefined})
 // ... render anima from m.animas
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   // .................. eons
   let [
     ctlWen,
@@ -15,11 +15,11 @@ async function anitem (__mapper) {
     muonAnimas,
     renderSvg,
   ] = await Promise.all([
-    __mapper('xs').c('wen'),
-    __mapper('xs').e('natform'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').m('animas'),
-    __mapper('xs').r('svg'),
+    __eo('xs').c('wen'),
+    __eo('xs').e('natform'),
+    __eo('xs').e('mars'),
+    __eo('xs').m('animas'),
+    __eo('xs').r('svg'),
   ])
 
   // .................. animas

@@ -19,9 +19,9 @@ d3.requireFrom = d3Require.requireFrom
 // requireFrom: [Function: requireFrom]
 // }
 
-let __mapper = xMapper.xMapper()
-__mapper({'xs': xs.xs(__mapper)}).xs
-let mpropsPromise = requiredprops.muonProps(__mapper)
+let __eo = xMapper.xMapper()
+__eo({'xs': xs.xs(__eo)}).xs
+let mpropsPromise = requiredprops.muonProps(__eo)
 
 const fetch = require('./script-node-fetch.js')
 global.fetch = fetch

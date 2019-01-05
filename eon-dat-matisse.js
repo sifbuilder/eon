@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var datMatisse = function (__mapper = {}) {
+  var datMatisse = function (__eo = {}) {
     let data = {
 
       width: '2.77778in', height: '3.45833in',

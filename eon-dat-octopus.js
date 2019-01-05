@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var datOctopus = function (__mapper = {}) {
+  var datOctopus = function (__eo = {}) {
     let data = {
 
       'width': '2in', 'height': '2in',

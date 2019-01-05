@@ -9,11 +9,11 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonKruskal (__mapper = {}) {
+  async function muonKruskal (__eo = {}) {
     let [
       d3Array,
     ] = await Promise.all([
-      __mapper('xs').b('d3-array'),
+      __eo('xs').b('d3-array'),
     ])
 
     let kruskal = function (graph, dist) {

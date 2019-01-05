@@ -10,7 +10,7 @@
 
   // copyright mbostock
   // https://github.com/d3/d3-timer/blob/master/src/timer.js
-  async function muonTimer (__mapper = {}) {
+  async function muonTimer (__eo = {}) {
     let frame = 0, // is an animation frame pending?
       timeout = 0, // is a timeout pending?
       interval = 0, // are any timers active?

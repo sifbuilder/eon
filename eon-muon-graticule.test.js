@@ -5,10 +5,10 @@ const xMapper = require('./x-mapper.js')
 const xs = require('./x-s.js')
 const requiredGraticule = require('./muon-graticule.js')
 
-let __mapper = xMapper.xMapper()
-__mapper({'xs': xs.xs(__mapper)}).xs
+let __eo = xMapper.xMapper()
+__eo({'xs': xs.xs(__eo)}).xs
 
-let mGraticule = requiredGraticule.muonGraticule(__mapper)
+let mGraticule = requiredGraticule.muonGraticule(__eo)
 
 test('test tidx', () => {
   let tidxer = mGraticule.tidx(6, 4, 1, 1) // h (mers), v (parals)

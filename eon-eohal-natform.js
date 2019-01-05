@@ -14,7 +14,7 @@
 //... complete eocrom definition  
 
 
-  async function eohalNatform (__mapper = {}) {
+  async function eohalNatform (__eo = {}) {
     let [
       eohalMars,
       muonNatform,
@@ -26,15 +26,15 @@
       muonProj3ct,      
       prtUniwen,
     ] = await Promise.all([
-      __mapper('xs').e('mars'),
-      __mapper('xs').m('natform'),
-      __mapper('xs').m('eocrom'),
-      __mapper('xs').m('eonode'),
-      __mapper('xs').m('eoric'),
-      __mapper('xs').m('eotim'),
-      __mapper('xs').m('profier'),
-      __mapper('xs').m('proj3ct'),      
-      __mapper('xs').p('uniwen'),
+      __eo('xs').e('mars'),
+      __eo('xs').m('natform'),
+      __eo('xs').m('eocrom'),
+      __eo('xs').m('eonode'),
+      __eo('xs').m('eoric'),
+      __eo('xs').m('eotim'),
+      __eo('xs').m('profier'),
+      __eo('xs').m('proj3ct'),      
+      __eo('xs').p('uniwen'),
     ])
 
     

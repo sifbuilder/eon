@@ -21,7 +21,7 @@
   // ... control
   // ... usage: `control(domnode)`
 
-  async function controlRaycaster (__mapper = {}) {
+  async function controlRaycaster (__eo = {}) {
     let mouse = {
       x: -2, // Initialize off canvas
       y: -2,

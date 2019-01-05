@@ -63,15 +63,15 @@
   // ... # license
   // ... MIT
 
-  async function muonGeoj (__mapper = {}) {
+  async function muonGeoj (__eo = {}) {
     let [
       d3polygon,
       muonProps,
       Complex,
     ] = await Promise.all([
-      __mapper('xs').b('d3-polygon'),
-      __mapper('xs').m('props'),
-      __mapper('xs').l('complex'),
+      __eo('xs').b('d3-polygon'),
+      __eo('xs').m('props'),
+      __eo('xs').l('complex'),
     ])
 
     let types = {
@@ -204,7 +204,7 @@
 
     // ...................... snip
     let snip = function (form) {
-      let dims = __mapper('xs').m('anitem').dims()
+      let dims = __eo('xs').m('anitem').dims()
       let braids = []
       return function (gj) {
         let c = gj.coordinates

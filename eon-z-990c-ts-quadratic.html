@@ -3,7 +3,7 @@
 window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   // .................. eons
   let [
     tf,
@@ -14,13 +14,13 @@ async function anitem (__mapper) {
     muonProps,
     prtNatform,
   ] = await Promise.all([
-    __mapper('xs').b('@tensorflow/tfjs'),
-    __mapper('xs').c('wen'),
-    __mapper('xs').e('scene'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').m('natform'),
-    __mapper('xs').m('props'),
-    __mapper('xs').p('natform'),
+    __eo('xs').b('@tensorflow/tfjs'),
+    __eo('xs').c('wen'),
+    __eo('xs').e('scene'),
+    __eo('xs').e('mars'),
+    __eo('xs').m('natform'),
+    __eo('xs').m('props'),
+    __eo('xs').p('natform'),
   ])
 
   // .................. animas

@@ -8,10 +8,10 @@
 }(this, function (exports) {
   'use strict'
 
-  var forceCollide = function (__mapper = {}) {
+  var forceCollide = function (__eo = {}) {
   // .................. force
     let force = function (params) {
-      let d3_force = __mapper('d3Force3d')
+      let d3_force = __eo('d3Force3d')
 
       let strength = params.strength || 1
       let radius = params.radii || 12

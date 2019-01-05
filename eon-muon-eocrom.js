@@ -8,13 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonEocrom (__mapper = {}) {
+  async function muonEocrom (__eo = {}) {
     let [
       d3interpolate,
       d3scale,
     ] = await Promise.all([
-      __mapper('xs').b('d3-interpolate'),
-      __mapper('xs').b('d3-scale'),
+      __eo('xs').b('d3-interpolate'),
+      __eo('xs').b('d3-scale'),
     ])
 
     function shadeRGBColor (color) {

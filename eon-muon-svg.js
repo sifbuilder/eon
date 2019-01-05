@@ -9,13 +9,13 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonSvg (__mapper = {}) {
+  async function muonSvg (__eo = {}) {
     let [
       mbezierjs,
       d3array,
     ] = await Promise.all([
-      __mapper('xs').m('bezierjs'),
-      __mapper('xs').b('d3-array'),
+      __eo('xs').m('bezierjs'),
+      __eo('xs').b('d3-array'),
     ])
 
     let rarray = d => (Array.isArray(d)) ? [ ...d ].reverse() : [d]

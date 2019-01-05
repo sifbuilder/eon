@@ -26,11 +26,11 @@
   // # license
   // MIT
 
-  async function prtNatform (__mapper = {}) {
+  async function prtNatform (__eo = {}) {
     let [
       muonNatform,
     ] = await Promise.all([
-      __mapper('xs').m('natform'),
+      __eo('xs').m('natform'),
     ])
 
     let enty = prtdef => muonNatform.natprojection(prtdef)

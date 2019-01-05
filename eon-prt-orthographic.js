@@ -8,11 +8,11 @@
 }(this, function (exports) {
   'use strict'
 
-  async function prtOrthographic (__mapper = {}) {
+  async function prtOrthographic (__eo = {}) {
     let [
       d3geo,
     ] = await Promise.all([
-      __mapper('xs').b('d3-geo'),
+      __eo('xs').b('d3-geo'),
     ])
 
     let prtRaw = d3geo.geoOrthographicRaw // prtRaw

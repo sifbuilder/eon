@@ -6,14 +6,14 @@ window.xEonify.eon({anitem, time: undefined})
 // ... MIT
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   // .................. animas
   let [
     eohalTextform,
     renderSvg,
   ] = await Promise.all([
-    __mapper('xs').e('textform'),
-    __mapper('xs').r('svg'),
+    __eo('xs').e('textform'),
+    __eo('xs').r('svg'),
   ])
 
   let ani = function () {

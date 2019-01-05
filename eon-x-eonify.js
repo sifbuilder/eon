@@ -142,8 +142,8 @@
 
   define.amd = {}
 
-  let xs = function (__mapper = {}) {
-    const xD3Require = __mapper('xD3Require')
+  let xs = function (__eo = {}) {
+    const xD3Require = __eo('xD3Require')
 
     const capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // wen => Wen
 
@@ -188,28 +188,28 @@
     const a = d => Array.isArray(d) ? d : Array.of(d)
 
     // ............................. getCeonSync
-    const getCeonSync = part => __mapper(part[0])
+    const getCeonSync = part => __eo(part[0])
 
     // ............................. getCeon
     async function getCeon (part) {
       let ceon = part[0]
-      let r = __mapper(ceon)
+      let r = __eo(ceon)
       return r ? Promise.resolve(r) : Promise.reject(r)
     }
 
     // ............................. getFeon
     async function getFeon (part) { // d3Froce3d, ./d3-force-3d.js
       let eon = await xD3Require.require(...a(part[1]))
-      let cell = await getCell(eon, part[0], __mapper) // eon to cell
-      let feon = await mapCell(cell, part[0], __mapper) // map cell
+      let cell = await getCell(eon, part[0], __eo) // eon to cell
+      let feon = await mapCell(cell, part[0], __eo) // map cell
       return feon
     }
 
     // ............................. getXeon
     async function getXeon (part) { // d3Froce3d, d3-force-3d
       return xD3Require.require(...a(part[1])) // get eon
-        .then(eon => getCell(eon, part[0], __mapper)) // eon to cell
-        .then(cell => mapCell(cell, part[0], __mapper)) // map cell
+        .then(eon => getCell(eon, part[0], __eo)) // eon to cell
+        .then(cell => mapCell(cell, part[0], __eo)) // map cell
     }
 
     // ............................. getEon
@@ -218,7 +218,7 @@
 
       if (typeof part[0] === 'function') {
         let [eonfn, pres] = part
-        let x = await eonfn(__mapper)
+        let x = await eonfn(__eo)
         let res = await x[pres]()
         return res
       } else {
@@ -276,27 +276,27 @@
   }
 
   let eon = async function ({anitem, time}) {
-    let __mapper = xEonify.xMapper() // init mapper
+    let __eo = xEonify.xMapper() // init mapper
 
-    __mapper({'xD3Require': {
+    __eo({'xD3Require': {
       require: xEonify.require,
       requireFrom: xEonify.requireFrom,
     },
     }) // map require
 
-    __mapper({'xs': xEonify.xs(__mapper)}) // map xs
+    __eo({'xs': xEonify.xs(__eo)}) // map xs
 
-    await __mapper('xs').m('store') // map store
-    await __mapper('xs').m('animation') // map animation
+    await __eo('xs').m('store') // map store
+    await __eo('xs').m('animation') // map animation
 
     console.assert(typeof anitem === 'function' ||
       typeof anitem === 'string') // anitem is function or string
 
-    let muonStore = __mapper('xs').m('store')
+    let muonStore = __eo('xs').m('store')
 
-    __mapper('xs').a(anitem) // proxy ani.anitem
-      .then(animas => __mapper('muonStore').apply({type: 'UPDANIMA', animas: animas})) // store animas
-      .then(() => __mapper('muonAnimation').animate(time)) // animate
+    __eo('xs').a(anitem) // proxy ani.anitem
+      .then(animas => __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})) // store animas
+      .then(() => __eo('muonAnimation').animate(time)) // animate
   }
 
   exports.eon = eon

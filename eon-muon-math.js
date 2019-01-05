@@ -9,7 +9,7 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonMath = function (__mapper = {}) {
+  let muonMath = function (__eo = {}) {
     // https://github.com/scijs/integrate-adaptive-simpson
 
     // This algorithm adapted from pseudocode in:

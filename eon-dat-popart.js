@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var datPopart = function (__mapper = {}) {
+  var datPopart = function (__eo = {}) {
     let data = {
 
       'width': '2.33333in', 'height': '1.75in',

@@ -9,7 +9,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonAnimas (__mapper) {
+  async function muonAnimas (__eo) {
     let animas = {}
 
     animas.asterisk = {

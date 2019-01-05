@@ -8,11 +8,11 @@
 }(this, function (exports) {
   'use strict'
 
-  async function ctlTimer (__mapper) {
+  async function ctlTimer (__eo) {
     let [
       mtimer,
     ] = await Promise.all([
-      __mapper('xs').m('timer'),
+      __eo('xs').m('timer'),
     ])
 
     let now = performance.now()

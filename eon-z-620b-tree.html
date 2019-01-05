@@ -3,7 +3,7 @@
 window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   // .................. eons
   let [
     ctlWen,
@@ -11,13 +11,13 @@ async function anitem (__mapper) {
     eohalSol,
     renderSvg,
   ] = await Promise.all([
-    __mapper('xs').c('wen'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').e('sol'),
-    __mapper('xs').r('svg'),
+    __eo('xs').c('wen'),
+    __eo('xs').e('mars'),
+    __eo('xs').e('sol'),
+    __eo('xs').r('svg'),
   ])
 
-  let muonStore = __mapper('muonStore')
+  let muonStore = __eo('muonStore')
 
   // .................. animas
   let ani = function () {

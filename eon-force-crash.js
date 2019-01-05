@@ -8,8 +8,8 @@
 }(this, function (exports) {
   'use strict'
 
-  var forceCrash = function (__mapper = {}) {
-    let muonStore = __mapper('muonStore')
+  var forceCrash = function (__eo = {}) {
+    let muonStore = __eo('muonStore')
 
     let constant = x => () => x
 

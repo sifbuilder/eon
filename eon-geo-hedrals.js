@@ -8,9 +8,9 @@
 }(this, function (exports) {
   'use strict'
 
-  let geoHedrals = function geoHedrals (__mapper = {}) {
-    let f = __mapper('props')(),
-      mpolyhedral = __mapper('xs').m('polyhedral')
+  let geoHedrals = function geoHedrals (__eo = {}) {
+    let f = __eo('props')(),
+      mpolyhedral = __eo('xs').m('polyhedral')
 
     const pi = Math.PI, degrees = 180 / pi, radians = pi / 180
 

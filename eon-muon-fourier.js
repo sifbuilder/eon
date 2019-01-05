@@ -14,13 +14,13 @@
   // https://www.youtube.com/watch?v=2hfoX51f6sg
 
   // ... m.fourier : fourier transform
-  async function muonFourier (__mapper = {}) {
+  async function muonFourier (__eo = {}) {
     let [
       muonGeoj,
       lcomplex,
     ] = await Promise.all([
-      __mapper('xs').m('geoj'),
-      __mapper('xs').l('complex'),
+      __eo('xs').m('geoj'),
+      __eo('xs').l('complex'),
     ])
 
     let Complex = lcomplex

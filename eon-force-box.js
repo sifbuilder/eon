@@ -8,8 +8,8 @@
 }(this, function (exports) {
   'use strict'
 
-  var forceBox = function forceBox (__mapper = {}) {
-    let muonStore = __mapper('muonStore')
+  var forceBox = function forceBox (__eo = {}) {
+    let muonStore = __eo('muonStore')
 
     let constant = x => () => x
 

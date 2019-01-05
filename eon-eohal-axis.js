@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function eohalAxis (__mapper = {}) {
+  async function eohalAxis (__eo = {}) {
     let [
       muonProps,
       d3axis,
@@ -17,12 +17,12 @@
       eohalMars,
       muonAnitem,
     ] = await Promise.all([
-      __mapper('xs').m('props'),
-      __mapper('xs').b('d3-axis'),
-      __mapper('xs').b('d3-scale'),
-      __mapper('xs').b('d3-format'),
-      __mapper('xs').e('mars'),
-      __mapper('xs').m('anitem'),
+      __eo('xs').m('props'),
+      __eo('xs').b('d3-axis'),
+      __eo('xs').b('d3-scale'),
+      __eo('xs').b('d3-format'),
+      __eo('xs').e('mars'),
+      __eo('xs').m('anitem'),
     ])
 
     // ............................. gramm

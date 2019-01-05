@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonScene (__mapper = {}) {
+  async function muonScene (__eo = {}) {
     let [
       ctlEul,
       ctlWen,
@@ -18,16 +18,16 @@
       ctlRayder,
       renderSvg,
     ] = await Promise.all([
-      __mapper('xs').c('eul'),
-      __mapper('xs').c('wen'),
-      __mapper('xs').c('versor'),
-      __mapper('xs').c('key'),
-      __mapper('xs').c('timer'),
-      __mapper('xs').c('rayder'),
-      __mapper('xs').r('svg'),
+      __eo('xs').c('eul'),
+      __eo('xs').c('wen'),
+      __eo('xs').c('versor'),
+      __eo('xs').c('key'),
+      __eo('xs').c('timer'),
+      __eo('xs').c('rayder'),
+      __eo('xs').r('svg'),
     ])
 
-    let manimation = __mapper('muonAnimation')
+    let manimation = __eo('muonAnimation')
 
     let state = {}
     state.scene = {

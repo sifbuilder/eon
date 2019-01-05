@@ -3,7 +3,7 @@
 window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   let [
     d3,
     d3geo,
@@ -18,18 +18,18 @@ async function anitem (__mapper) {
     // renderSvg,
     renderWebgl,
   ] = await Promise.all([
-    __mapper('xs').b('d3'),
-    __mapper('xs').b('d3-geo'),
-    __mapper('xs').b('three'),
-    __mapper('xs').b('d3-force-3d'),
-    __mapper('xs').c('wen'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').m('graticule'),
-    __mapper('xs').m('geom'),
-    __mapper('xs').p('natform'),
-    __mapper('xs').r('portview'),
-    // __mapper('xs').r('svg'),
-    __mapper('xs').r('webgl'),
+    __eo('xs').b('d3'),
+    __eo('xs').b('d3-geo'),
+    __eo('xs').b('three'),
+    __eo('xs').b('d3-force-3d'),
+    __eo('xs').c('wen'),
+    __eo('xs').e('mars'),
+    __eo('xs').m('graticule'),
+    __eo('xs').m('geom'),
+    __eo('xs').p('natform'),
+    __eo('xs').r('portview'),
+    // __eo('xs').r('svg'),
+    __eo('xs').r('webgl'),
   ])
 
   // .................. animas

@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonSim (__mapper = {}) {
+  async function muonSim (__eo = {}) {
     let [
       d3,
       d3Force3d,
@@ -17,12 +17,12 @@
       muonProps,
       muonStore,
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
-      __mapper('xs').b('d3-force-3d'),
-      __mapper('xs').m('anitem'),
-      __mapper('xs').m('eonode'),
-      __mapper('xs').m('props'),
-      __mapper('xs').m('store'),
+      __eo('xs').b('d3'),
+      __eo('xs').b('d3-force-3d'),
+      __eo('xs').m('anitem'),
+      __eo('xs').m('eonode'),
+      __eo('xs').m('props'),
+      __eo('xs').m('store'),
     ])
 
     let _geonode = {

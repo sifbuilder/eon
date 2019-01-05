@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 // ... \r\n
 
 // .................. anitem
-async function anitem (__mapper) {
+async function anitem (__eo) {
   let [
     d3Geo,
     d3Force3d,
@@ -24,24 +24,24 @@ async function anitem (__mapper) {
     renderPortview,
     renderSvg,
   ] = await Promise.all([
-    __mapper('xs').b('d3-geo'),
-    __mapper('xs').b('d3-force-3d'),
-    __mapper('xs').c('wen'),
-    __mapper('xs').e('core'),
-    __mapper('xs').e('linkform'),
-    __mapper('xs').e('natform'),
-    __mapper('xs').e('mars'),
-    __mapper('xs').m('anitem'),
-    __mapper('xs').m('eoric'),
-    __mapper('xs').m('eoforces'),
-    __mapper('xs').m('geom'),
-    __mapper('xs').m('natform'),
-    __mapper('xs').m('props'),
-    __mapper('xs').r('portview'),
-    __mapper('xs').r('svg'),
+    __eo('xs').b('d3-geo'),
+    __eo('xs').b('d3-force-3d'),
+    __eo('xs').c('wen'),
+    __eo('xs').e('core'),
+    __eo('xs').e('linkform'),
+    __eo('xs').e('natform'),
+    __eo('xs').e('mars'),
+    __eo('xs').m('anitem'),
+    __eo('xs').m('eoric'),
+    __eo('xs').m('eoforces'),
+    __eo('xs').m('geom'),
+    __eo('xs').m('natform'),
+    __eo('xs').m('props'),
+    __eo('xs').r('portview'),
+    __eo('xs').r('svg'),
   ])
 
-  let muonStore = __mapper('muonStore')
+  let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
 
   let width = renderPortview.width(), height = renderPortview.height()

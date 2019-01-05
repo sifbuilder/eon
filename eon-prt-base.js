@@ -8,11 +8,11 @@
 }(this, function (exports) {
   'use strict'
 
-  async function prtBase (__mapper = {}) {
+  async function prtBase (__eo = {}) {
     let [
       d3Geo,
     ] = await Promise.all([
-      __mapper('xs').b('d3-geo'),
+      __eo('xs').b('d3-geo'),
     ])
 
     let epsilon = 1e-6

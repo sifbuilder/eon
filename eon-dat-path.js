@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var datPath = function (__mapper = {}) {
+  var datPath = function (__eo = {}) {
     let data = {
 
       'width': '2in', 'height': '1.33333in',

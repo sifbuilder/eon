@@ -12,19 +12,19 @@
   // ... ### refs
   // ... * https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
 
-  async function ctlRayder (__mapper) {
+  async function ctlRayder (__eo) {
     let [
       d3,
       // renderSvg,
       renderPortview,
     ] = await Promise.all([
-      __mapper('xs').b('d3'),
-      // __mapper('xs').r('svg'),
-      __mapper('xs').r('portview'),
+      __eo('xs').b('d3'),
+      // __eo('xs').r('svg'),
+      __eo('xs').r('portview'),
     ])
 
     // let d3selection = d3
-    let renderSvg = __mapper('renderSvg')
+    let renderSvg = __eo('renderSvg')
 
     let mouse = {
       x: -2, // Initialize off canvas

@@ -8,11 +8,11 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonEoforces (__mapper = {}) {
+  async function muonEoforces (__eo = {}) {
     let [
       d3Force3d,
     ] = await Promise.all([
-      __mapper('xs').b('d3-force-3d'),
+      __eo('xs').b('d3-force-3d'),
     ])
 
     let d3_force = d3Force3d
@@ -48,13 +48,13 @@
       let type = properties.type
       let filter = properties.filter
 
-      let fName = __mapper('xs').ceonize(type, 'force')
+      let fName = __eo('xs').ceonize(type, 'force')
 
       if (fforce !== undefined) { // force is passed from z.eon
         //
 
-      } else if (__mapper(fName)) { // force is registered in mapper
-        fforce = __mapper(fName)
+      } else if (__eo(fName)) { // force is registered in mapper
+        fforce = __eo(fName)
       } else if (d3Force3d[fName] !== undefined) { // force is taken from physics
         fforce = d3Force3d[fName]
       }

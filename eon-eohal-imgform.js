@@ -8,13 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
-  async function eohalImgform (__mapper = {}) {
+  async function eohalImgform (__eo = {}) {
     let [
       eohalMars,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').e('mars'),
-      __mapper('xs').m('props'),
+      __eo('xs').e('mars'),
+      __eo('xs').m('props'),
     ])
 
     let _eofold = p => ({ // eofold
@@ -40,7 +40,7 @@
         eoload = anigram.eoload // eoload
 
       let newAnigram = muonProps.clone(anigram)
-      newAnigrams = [...newAnigrams, ...__mapper('eohalMars').gramm(newAnigram)]
+      newAnigrams = [...newAnigrams, ...__eo('eohalMars').gramm(newAnigram)]
       return newAnigrams
     }
     // ............................. ween

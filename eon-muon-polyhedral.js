@@ -8,13 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonPolyhedral (__mapper = {}) {
+  async function muonPolyhedral (__eo = {}) {
     let [
       d3geo,
       d3geoprojection,
     ] = await Promise.all([
-      __mapper('xs').b('d3-geo'),
-      __mapper('xs').b('d3-geo-projection'),
+      __eo('xs').b('d3-geo'),
+      __eo('xs').b('d3-geo-projection'),
     ])
 
     let pi = Math.PI, degrees = 180 / pi

@@ -16,11 +16,11 @@
   // ... # license
   // ... MIT
 
-  async function muonProj3ct (__mapper = {}) {
+  async function muonProj3ct (__eo = {}) {
     let [
       d3geo,
     ] = await Promise.all([
-      __mapper('xs').b('d3-geo'),
+      __eo('xs').b('d3-geo'),
     ])
 
     let noop = function () {}

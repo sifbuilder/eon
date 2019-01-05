@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var datPicasso = function (__mapper = {}) {
+  var datPicasso = function (__eo = {}) {
     let data = {
 
       width: '5.01389in', height: '7.23611in',

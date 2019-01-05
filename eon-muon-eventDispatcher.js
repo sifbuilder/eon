@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonEventDispatcher (__mapper) {
+  async function muonEventDispatcher (__eo) {
     /**
 	 * https://github.com/mrdoob/eventdispatcher.js/
 	 */

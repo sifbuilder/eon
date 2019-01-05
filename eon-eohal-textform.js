@@ -21,13 +21,13 @@
   // ... # license
   // ... MIT
 
-  async function eohalTextform (__mapper = {}) {
+  async function eohalTextform (__eo = {}) {
     let [
       muonProps,
       eohalMars,
     ] = await Promise.all([
-      __mapper('xs').m('props'),
-      __mapper('xs').e('mars'),
+      __eo('xs').m('props'),
+      __eo('xs').e('mars'),
     ])
 
     // .................. _geofold

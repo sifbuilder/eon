@@ -16,17 +16,17 @@
   // ... # license
   // ... MIT
 
-  async function muonFibonat (__mapper = {}) {
+  async function muonFibonat (__eo = {}) {
     let [
       muonProps,
       muonGeom,
       d3scale,
       d3array,
     ] = await Promise.all([
-      __mapper('xs').m('props'),
-      __mapper('xs').m('geom'),
-      __mapper('xs').b('d3-scale'),
-      __mapper('xs').b('d3-array'),
+      __eo('xs').m('props'),
+      __eo('xs').m('geom'),
+      __eo('xs').b('d3-scale'),
+      __eo('xs').b('d3-array'),
     ])
 
     let degrees = 180 / Math.PI

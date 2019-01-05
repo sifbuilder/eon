@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  var datLine = function (__mapper = {}) {
+  var datLine = function (__eo = {}) {
     let data = {
 
       width: '2.77778in', height: '3.45833in',

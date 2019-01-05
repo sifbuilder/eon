@@ -8,13 +8,13 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonAnitem (__mapper = {}) {
+  async function muonAnitem (__eo = {}) {
     let [
       msnap,
       muonProps,
     ] = await Promise.all([
-      __mapper('xs').m('snap'),
-      __mapper('xs').m('props'),
+      __eo('xs').m('snap'),
+      __eo('xs').m('props'),
     ])
 
     const functor = (d, ...p) => (typeof d === 'function') ? d(...p) : d

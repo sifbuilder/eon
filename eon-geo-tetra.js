@@ -19,10 +19,10 @@
   // https://bl.ocks.org/fil/d5313cd939947169df5c37e896e5aa38
   // https://bl.ocks.org/fil/e5b449606ca1e3e120cda8d08a7f3351
 
-  let geoTetra = function geoTetra (__mapper = {}) {
-    let mpolyhedral = __mapper('xs').m('polyhedral')
+  let geoTetra = function geoTetra (__eo = {}) {
+    let mpolyhedral = __eo('xs').m('polyhedral')
 
-    let portview = __mapper('renderPortview'),
+    let portview = __eo('renderPortview'),
       width = portview.width(),
       height = portview.height(),
       scaleProj = Math.min(width / 2, height) / Math.PI
@@ -62,7 +62,7 @@
             // https://bl.ocks.org/Fil/1aeff1cfda7188e9fbf037d8e466c95c
             let w1 = 1.4021821053254548
 
-            let G0 = __mapper('xs').m('geom').coefsG0() // G0 coeficients
+            let G0 = __eo('xs').m('geom').coefsG0() // G0 coeficients
 
             let G = Complex(0)
             for (let i = G0.length; i--;) {
@@ -100,7 +100,7 @@
         return ret
       }
 
-      prtRaw.invert = __mapper('xs').m('newton').geoInverse(prtRaw)
+      prtRaw.invert = __eo('xs').m('newton').geoInverse(prtRaw)
 
       return prtRaw
     }

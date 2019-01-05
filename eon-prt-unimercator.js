@@ -11,11 +11,11 @@
 
   // https://d3js.org/d3-geo/ Version 1.9.0. Copyright 2017 Mike Bostock.
 
-  async function prtUnimercator (__mapper = {}) {
+  async function prtUnimercator (__eo = {}) {
     let [
       d3geo,
     ] = await Promise.all([
-      __mapper('xs').b('d3-geo'),
+      __eo('xs').b('d3-geo'),
     ])
 
     let atan = Math.atan,

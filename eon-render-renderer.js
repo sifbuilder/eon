@@ -8,12 +8,12 @@
 }(this, function (exports) {
   'use strict'
 
-  async function renderRenderer (__mapper = {}) {
+  async function renderRenderer (__eo = {}) {
     // ............................. render
     const render = function (featurecollection) {
-      let renderSvg = __mapper('renderSvg')
-      let renderWebgl = __mapper('renderWebgl')
-      let renderCanvas = __mapper('renderCanvas')
+      let renderSvg = __eo('renderSvg')
+      let renderWebgl = __eo('renderWebgl')
+      let renderCanvas = __eo('renderCanvas')
 
       // console.assert(renderSvg || renderWebgl || renderCanvas, `renderer not defined`)
 

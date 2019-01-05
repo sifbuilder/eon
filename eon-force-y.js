@@ -8,10 +8,10 @@
 }(this, function (exports) {
   'use strict'
 
-  let forceY = function (__mapper = {}) {
+  let forceY = function (__eo = {}) {
   // .................. force
     let force = function (params) {
-      let d3_force = __mapper('d3Force3d')
+      let d3_force = __eo('d3Force3d')
 
       let position = params.position || 0
       let strength = params.strength || (() => 0.1)

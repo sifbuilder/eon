@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  async function ctlKey (__mapper) {
+  async function ctlKey (__eo) {
     var keys = []
 
     var currentListeners = []
