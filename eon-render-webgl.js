@@ -172,6 +172,39 @@
       }
       lights['HemisphereLight'] = getLight(pars, stat)
 
+          // {
+            // type: 'AmbientLight',
+            // name: 'AmbientLight',
+            // color: 0xeeeeee,
+            // intensity: 0.9,
+            // position: [110, 110, 110],
+          // },
+          // {
+            // type: 'DirectionalLight',
+            // name: 'DirectionalLight',
+            // color: 0xe4eef9,
+            // intensity: 0.7,
+            // position: [0, 0, 120],
+            // normalize: 1,
+            // castShadow: 1,
+          // },
+          // {
+            // type: 'PointLight',
+            // color: 0xe4eef9,
+            // intensity: 0.7,
+            // position: [0, 0, 120],
+            // normalize: 1,
+            // castShadow: 1,
+          // },
+          // {
+            // type: 'SpotLight',
+            // color: 0xe4eef9,
+            // intensity: 0.7,
+            // position: [0, 0, 120],
+            // normalize: 1,
+            // castShadow: 1,
+          // },
+          
       return lights
     }
 
