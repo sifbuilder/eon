@@ -276,9 +276,12 @@
     }
 
     // ............................. natNform
-    let natNform = function (form, nformed = {}) {
+    let natNform = function (props={}) {
       let defs = {'v0': 0, 'v1': 1, 'ra2': 120, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1} // defs
 
+      let nformed = {}
+      let form = props.form
+      
       if (form && typeof form === 'object' && // {nat}
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
         nformed.x = Object.assign({}, defs, form)
@@ -352,15 +355,18 @@
 
       const {
         form = {}, // natiform
+        hvg = 0, // get horizontal, vertical, horizontal+vertical geodesics
+        asyg = 0, // get asymetryic distribution, origin in extreme (dist)
+        closeg = 0, // get close line (border)
       } = props
-
+      
       if (muonProps.isSame(form, cache.form)) {
         feature = cache.feature
         return feature
       } else {
-        let nformed = natNform(form) // NFORM
-
-        let geometry, graticule, vertices
+        let nformed = natNform({form}) // NFORM
+        
+        let geometry, gratipros, vertices
         let dx, dy, sx, sy
 
         if (nformed.z !== undefined) { // ___ 3d
@@ -373,9 +379,16 @@
           let xdomain = form.x.dom3 || [-180, 180]
           let ydomain = form.z.dom3 || [-90, 90] // ____ z ___
 
-          graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // x, y
+          let frame = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
+          
+          gratipros = {
+            frame: frame,
+            asyg: asyg,
+            closeg: closeg,
+          } // x, y
 
-          vertices = muonGraticule.gVertices(graticule)
+          vertices = muonGraticule.gVertices(gratipros)
+          
         } else { // ___ 2d
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y
@@ -385,17 +398,22 @@
           let xdomain = nformed.x.dom3 || [-180, 180]
           let ydomain = nformed.y.dom3 || [-180, 180]
 
-          graticule = {frame: [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]} // _e_ x, y
-          // geometry = _geofn(graticule).geometry // geometry.type: MultiLineString
+          let frame = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
 
-          vertices = muonGraticule.gVertices(graticule)
+          gratipros = {
+            frame: frame,
+            asyg: asyg,
+            closeg: closeg,
+          } // _e_ x, y
+
+          vertices = muonGraticule.gVertices(gratipros)
 
           vertices = vertices[1].slice(0, -1)
-
           vertices = Array.of(vertices)
+          
         }
 
-        let quads = muonGraticule.qfaces(graticule)
+        let quads = muonGraticule.qfaces(gratipros)
         let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
 
         let gj = {
@@ -452,22 +470,12 @@
         feature = cache.feature
         return feature
       } else {
-        let nformed = natNform(form) // NFORM
+        
+        let nformed = natNform({form: form}) // NFORM
 
-        // default to reticule
-        let _geofn = muonGraticule.vhMultiLine // default to reticule
-        if (hvg === 0) {
-          _geofn = muonGraticule.vhMultiLine
-        } else if (hvg === 1) {
-          _geofn = muonGraticule.hMultiLine
-        } else if (hvg === 2) {
-          _geofn = muonGraticule.vMultiLine
-        }
-
-        let geometry, graticule
+        let geometry, gratipros
         let dx, dy, sx, sy
 
-        // if (Object.keys(nformed).length > 2 ) { // ___ 3d
         if (nformed.z !== undefined) { // ___ 3d
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.z.seg5 // ____ z ___
@@ -480,14 +488,16 @@
 
           let frame = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
 
-          graticule = {
+          gratipros = {
             frame: frame,
+            hvg: hvg,
             asyg: asyg,
             closeg: closeg,
           } // x, y
 
-          geometry = _geofn(graticule).geometry
-          // geometry = muonGraticule.hMultiLine(graticule).geometry
+          geometry = muonGraticule.vhMultiLines(gratipros).geometry 
+          
+          
         } else { // ___ 2d
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y
@@ -500,13 +510,14 @@
 
           let frame = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
 
-          graticule = {
+          gratipros = {
             frame: frame,
+            hvg: hvg,
             asyg: asyg,
             closeg: closeg,
           } // _e_ x, y
 
-          geometry = _geofn(graticule).geometry // geometry.type: MultiLineString
+          geometry = muonGraticule.vhMultiLines(gratipros).geometry // geometry.type: MultiLineString
 
           let p = geometry.coordinates[1] // .slice(0, -1)  // graticule.symgraticuleX arywinopen
 
@@ -553,6 +564,7 @@
         let feature = muonProj3ct(gj, projection)
         cache.eoform = projDef.eoform
         cache.feature = feature
+        
         return feature
       }
     }
@@ -636,7 +648,7 @@
 
     // ............................. natVertex
     let natVertex = function (form) { // getVertex
-      let nformed = natNform(form) // natNform
+      let nformed = natNform({form}) // natNform
 
       let unfeld = Object.values(nformed) // dax values
 

@@ -55,101 +55,92 @@ async function anitem (__eo) {
     let sinp = [1, 0, -infact2, 0, +infact4, 0, -infact6, 0, infact8]
     let cosp = [0, +1, 0, -infact3, 0, +infact5, 0, -infact7, 0, infact9]
 
+
    let conform = {
-    'x': { 
+    'x': {
+      // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
       'm1': -8,'m2': -3.5,'n1': 16.24,'n2': 6,'n3': 13,'a': 9,'b': 0.2,  // craft
 
-        // 'm1': [[[-4      , -2      , -7.66  ,  -8     , ]]],
-        // 'm2': [[[-3.3    , -3      , -3.73  ,  -3.5   , ]]],
-        // 'n1': [[[16.24   , 16.24   , 16.24  ,  16.24  , ]]],
-        // 'n2': [[[6       , 6       , 5.98   ,  6      , ]]],
-        // 'n3': [[[15      , 17      , 17     ,  13     , ]]],
-        // 'a':  [[[9       , 9       , 8.98   ,  9      , ]]],
-        // 'b':  [[[0.2     , 0.2     , 0.19   ,  0.2    , ]]],    
-      
+        'm1': [[[-4      , -2      , -7.66  ,  -8     , ]]],
+        'm2': [[[-3.3    , -3      , -3.73  ,  -3.5   , ]]],
+        'n1': [[[16.24   , 16.24   , 16.24  ,  16.24  , ]]],
+        'n2': [[[6       , 6       , 5.98   ,  6      , ]]],
+        'n3': [[[15      , 17      , 17     ,  13     , ]]],
+        'a':  [[[9       , 9       , 8.98   ,  9      , ]]],
+        'b':  [[[0.2     , 0.2     , 0.19   ,  0.2    , ]]],
+
       'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 94.001,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180],  // r.form.circ [-1.57, 1.57] 
-      'fn0': (e, c, d) => c[0] * cos(e[0]),
-            
+      'dom3': [-180, 180],  // r.form.circ [-1.57, 1.57]
+      'fn0': (e, c, d) => c[0] * cos(e[0]), // 0
+
     },
-    'y': { 
-    
+    'y': {
+
+      // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,   // drop
+              'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
       'm1': -8,'m2': -3.5,'n1': 16.24,'n2': 6,'n3': 13,'a': 9,'b': 0.2,  // craft
-              
-        // 'm1': [[[-4      , -2      , -7.66  ,  -8     , ]]],
-        // 'm2': [[[-3.3    , -3      , -3.73  ,  -3.5   , ]]],
-        // 'n1': [[[16.24   , 16.24   , 16.24  ,  16.24  , ]]],
-        // 'n2': [[[6       , 6       , 5.98   ,  6      , ]]],
-        // 'n3': [[[15      , 17      , 17     ,  13     , ]]],
-        // 'a':  [[[9       , 9       , 8.98   ,  9      , ]]],
-        // 'b':  [[[0.2     , 0.2     , 0.19   ,  0.2    , ]]],               
-              
+
+        'm1': [[[-4      , -2      , -7.66  ,  -8     , ]]],
+        'm2': [[[-3.3    , -3      , -3.73  ,  -3.5   , ]]],
+        'n1': [[[16.24   , 16.24   , 16.24  ,  16.24  , ]]],
+        'n2': [[[6       , 6       , 5.98   ,  6      , ]]],
+        'n3': [[[15      , 17      , 17     ,  13     , ]]],
+        'a':  [[[9       , 9       , 8.98   ,  9      , ]]],
+        'b':  [[[0.2     , 0.2     , 0.19   ,  0.2    , ]]],
+
       'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 94.001,'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],
 
 
-      'fn0': (e, c, d) =>  c[1] * sin(e[0]) *  cos(e[3]),
-            
+      'fn0': (e, c, d) =>  c[1] * sin(e[0]) *  cos(e[3]), // 0,3
+
 
     },
 
-    'z': { 
+    'z': {
+        // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
+      'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1 , // square
       'm1': -8,'m2': -3.5,'n1': 16.24,'n2': 6,'n3': 13,'a': 9,'b': 0.2,  // craft
-        
-        // 'm1': [[[-4      , -2      , -7.66  ,  -8     , ]]],
-        // 'm2': [[[-3.3    , -3      , -3.73  ,  -3.5   , ]]],
-        // 'n1': [[[16.24   , 16.24   , 16.24  ,  16.24  , ]]],
-        // 'n2': [[[6       , 6       , 5.98   ,  6      , ]]],
-        // 'n3': [[[15      , 17      , 17     ,  13     , ]]],
-        // 'a':  [[[9       , 9       , 8.98   ,  9      , ]]],
-        // 'b':  [[[0.2     , 0.2     , 0.19   ,  0.2    , ]]],        
-        
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': [[[24,36]]],'pa6': 0,'pb7': -1,
+
+        'm1': [[[-4      , -2      , -7.66  ,  -8     , ]]],
+        'm2': [[[-3.3    , -3      , -3.73  ,  -3.5   , ]]],
+        'n1': [[[16.24   , 16.24   , 16.24  ,  16.24  , ]]],
+        'n2': [[[6       , 6       , 5.98   ,  6      , ]]],
+        'n3': [[[15      , 17      , 17     ,  13     , ]]],
+        'a':  [[[9       , 9       , 8.98   ,  9      , ]]],
+        'b':  [[[0.2     , 0.2     , 0.19   ,  0.2    , ]]],
+
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 24,'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],
       'dom3': [-90, 90],
 
-      'fn0': (e, c, d) =>  c[1] * sin(e[0]) *  sin(e[3]),
-            
+      'fn0': (e, c, d) =>  c[1] * sin(e[0]) *  sin(e[3]), // 0,3
+
     },
 
-    'r': { 
+    'r': {
+      "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
 
-        // 'm1': [[[-4      , -2      , -7.66  ,  -8     , ]]],
-        // 'm2': [[[-3.3    , -3      , -3.73  ,  -3.5   , ]]],
-        // 'n1': [[[16.24   , 16.24   , 16.24  ,  16.24  , ]]],
-        // 'n2': [[[6       , 6       , 5.98   ,  6      , ]]],
-        // 'n3': [[[15      , 17      , 17     ,  13     , ]]],
-        // 'a':  [[[9       , 9       , 8.98   ,  9      , ]]],
-        // 'b':  [[[0.2     , 0.2     , 0.19   ,  0.2    , ]]],          
-      
-      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': [[[24,36]]],'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180],
-      'dom3': [-90, 90],      
+        'm1': [[[-4      , -2      , -7.66  ,  -8     , ]]],
+        'm2': [[[-3.3    , -3      , -3.73  ,  -3.5   , ]]],
+        'n1': [[[16.24   , 16.24   , 16.24  ,  16.24  , ]]],
+        'n2': [[[6       , 6       , 5.98   ,  6      , ]]],
+        'n3': [[[15      , 17      , 17     ,  13     , ]]],
+        'a':  [[[9       , 9       , 8.98   ,  9      , ]]],
+        'b':  [[[0.2     , 0.2     , 0.19   ,  0.2    , ]]],
 
-      'fn0': (e, c, d) => e[3],            
-            
+      'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 24,'pa6': 0,'pb7': -1,
+      'dom3': [-180, 180],
+      'dom3': [-90, 90],
+
+      'fn0': (e, c, d) => e[3],
+
     },
 
   }
-
-    let proform = {
-
-          projection: 'uniwen',
-          scale: [2, 2],
-          // scale: [1, 1],
-          // scale: [0.5, 0.5],
-
-          // projection:  d3.geoOrthographic(),
-          // scale: 100,
-
-          // prerotate: [[[ ctl.rotation ]]],
-          translate: [ [0, 100, 0] ],
-          // rotate: [ [[[90 + 0, 90 + 0, 90 + 1 * 360, 90 + 1 * 360]]], 0, 0 ],
-          rotate: [ 0, 90, -90 ],
-          lens: [0, 1, Infinity],
-        }
-
 
     // .................. natAni
     let natAni = {
@@ -158,9 +149,32 @@ async function anitem (__eo) {
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eofold: ani => muonNatform.natMultiPolygon({form: ani.eoform, h: 1}),
+      // eofold: ani => muonNatform.natMultiPolygon({form: ani.eoform, h: 1}),
+      eofold: ani => muonNatform.natFeature({form: ani.eoform, h: 1}),
       eomot: {
-        proform: proform,
+        proform: {
+
+          projection: 'uniwen',
+          scale: [ 1, 1, 1],
+          translate: [ 0, 100, 0 ],
+          rotate: [ 0, 0, -90 ], // [ 0, 0, 0 ], // [ 0, [[[0,360]]], -90 ],
+          lens: [0, 1, Infinity ],
+
+
+          projection: 'uniwen',
+
+          // scale: [1, 1],
+          // scale: [0.5, 0.5],
+
+          // projection:  d3.geoOrthographic(),
+          // scale: 100,
+
+          // prerotate: [[[ ctl.rotation ]]],
+          // translate: [ [0, 100, 0] ],
+          // rotate: [ [[[90 + 0, 90 + 0, 90 + 1 * 360, 90 + 1 * 360]]], 0, 0 ],
+          // rotate: [ 0, 90, -90 ],
+          // lens: [0, 1, Infinity],
+        },
       },
       eocrom: { 'csx': 0, 'cf': [[[666, 666, 666]]], 'co': [[[0.9, 0.9]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
 
@@ -189,7 +203,7 @@ async function anitem (__eo) {
             near: 0.001,
             far: 1600,
 
-            position: [0, 0, 600 ],
+            position: [0, 0, 400 ],
             rotation: [0, 0, 0 ],
 
             vellin: [0, 0, 0 ],
@@ -226,8 +240,8 @@ async function anitem (__eo) {
           sort: 'light',
           type: 'HemisphereLight',
           name: 'HemisphereLight',
-          skyColor: [[[111, 999]]],
-          groundColor: [[[999, 111]]],
+          skyColor: [[[999, 999]]],
+          groundColor: [[[999, 999]]],
           intensity: 0.4,
           position: [0, 0, 0],
         },
@@ -242,18 +256,12 @@ async function anitem (__eo) {
       eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
       eohal: 'sol',
 
-      eofold: anitem => {
-        let eoload = anitem.eoload
-        let json = { // Feature
+      eofold: anitem => ({
           type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [0, 0, 0],
-          },
+          geometry: { type: 'Point', coordinates: [0, 0, 0], },
           properties: anitem.eoload.light,
-        }
-        return json
-      },
+        }),
+
       eoload: {
         light: {
           sort: 'light',
@@ -266,14 +274,40 @@ async function anitem (__eo) {
           castShadow: 1,
         },
       },
-
     }
+
+    // .................. AmbientLight anima
+    let ambientLight = {
+
+      eotim: eotim,
+      eoric: {gid: 'camera', cid: 'camera', fid: 'ambientLight'},
+      eohal: 'sol',
+
+      eofold: anitem => ({
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0], },
+          properties: anitem.eoload.light,
+        }),
+
+      eoload: {
+        light: {
+            sort: 'light',
+            type: 'AmbientLight',
+            name: 'AmbientLight',
+            color: 0xeeeeee,
+            intensity: 0.5,
+            position: [110, 110, 110],
+        },
+      },
+    }
+
     // .................. animas
     let animas = [
-      cameraPersAni, // h.sol
+      // cameraPersAni, // h.sol
       natAni, // h.mars g.uniwen
       lightHemisphereAni, // h.sol
       spotLight, // h.sol
+      ambientLight, // h.sol
     ]
 
     return animas

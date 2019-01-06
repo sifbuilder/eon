@@ -119,7 +119,9 @@
     }
 
     // .................. gratiparams
-    let gratiparams = function (params = {}, rp = {}) {
+    let gratiparams = function (params = {}) {
+      let rp = {}
+      
       let X0, X1, DX, PX, x0, x1, dx, px,
         Y0, Y1, DY, PY, y0, y1, dy, py
 
@@ -328,14 +330,28 @@
       return gj
     }
 
-    // .................. vhMultiLine
-    let vhMultiLine = function (params = {}) {
+
+
+    
+    // .................. vhMultiLines
+    let vhMultiLines = function (params = {}) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
       let parsCoords = g.pps.coordinates
 
-      let coords = [].concat(mersCoords).concat(parsCoords)
-
+      const {
+        hvg = 0, // get horizontal, vertical, horizontal+vertical geodesics
+      } = params
+      
+      let coords = []
+      if (hvg === 0) {
+        coords = [].concat(mersCoords).concat(parsCoords)
+      } else if (hvg === 1) {
+        coords = [].concat(mersCoords)
+      } else if (hvg === 2) {
+        coords = [].concat(parsCoords)
+      }
+      
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: coords},
@@ -345,42 +361,61 @@
 
       return gj
     }
+    
+    
+    // .................. vhMultiLine
+    // let vhMultiLine = function (params = {}) {
+      // let g = grarr(params)
+      // let mersCoords = g.mms.coordinates
+      // let parsCoords = g.pps.coordinates
+
+      // let coords = [].concat(mersCoords).concat(parsCoords)
+
+      // let gj = {
+        // type: 'Feature',
+        // geometry: {type: 'MultiLineString', coordinates: coords},
+        // properties: {muonGraticule: 'vhMultiLine'},
+      // }
+      // if (!muonGeoj.isValid(gj)) console.error('gj not valid')
+
+      // return gj
+    // }
 
     // .................. vMultiLine
-    let vMultiLine = function (params = {}) {
-      let g = grarr(params)
-      let mersCoords = g.mms.coordinates
-      let parsCoords = g.pps.coordinates
+    // let vMultiLine = function (params = {}) {
+      // let g = grarr(params)
+      // let mersCoords = g.mms.coordinates
+      // let parsCoords = g.pps.coordinates
 
-      let coords = [].concat(mersCoords)
+      // let coords = [].concat(mersCoords)
 
-      let gj = {
-        type: 'Feature',
-        geometry: {type: 'MultiLineString', coordinates: coords},
-        properties: {muonGraticule: 'vMultiLine'},
-      }
-      if (!muonGeoj.isValid(gj)) console.error('gj not valid')
+      // let gj = {
+        // type: 'Feature',
+        // geometry: {type: 'MultiLineString', coordinates: coords},
+        // properties: {muonGraticule: 'vMultiLine'},
+      // }
+      // if (!muonGeoj.isValid(gj)) console.error('gj not valid')
 
-      return gj
-    }
+      // return gj
+    // }
 
     // .................. hMultiLine
-    let hMultiLine = function (params = {}) {
-      let g = grarr(params)
-      let mersCoords = g.mms.coordinates
-      let parsCoords = g.pps.coordinates
+    // let hMultiLine = function (params = {}) {
+      // let g = grarr(params)
+      // let mersCoords = g.mms.coordinates
+      // let parsCoords = g.pps.coordinates
 
-      let coords = [].concat(parsCoords)
+      // let coords = [].concat(parsCoords)
 
-      let gj = {
-        type: 'Feature',
-        geometry: {type: 'MultiLineString', coordinates: coords},
-        properties: {muonGraticule: 'hMultiLine'},
-      }
-      if (!muonGeoj.isValid(gj)) console.error('gj not valid')
+      // let gj = {
+        // type: 'Feature',
+        // geometry: {type: 'MultiLineString', coordinates: coords},
+        // properties: {muonGraticule: 'hMultiLine'},
+      // }
+      // if (!muonGeoj.isValid(gj)) console.error('gj not valid')
 
-      return gj
-    }
+      // return gj
+    // }
 
     // .................. dedges
     let dedges = function (params) {
@@ -431,7 +466,6 @@
 
       let {X0, X1, DX, PX, x0, x1, dx, px,
         Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
-
       let ry = dy / py // step to precision ratio in meridiam
 
       let mersq = mersCoords.length //  [-90, 90]   [dy,py]
@@ -570,9 +604,10 @@
     enty.gratiparams = gratiparams
     enty.grarr = grarr
 
-    enty.vhMultiLine = vhMultiLine
-    enty.vMultiLine = vMultiLine
-    enty.hMultiLine = hMultiLine
+    enty.vhMultiLines = vhMultiLines
+    // enty.vhMultiLine = vhMultiLine
+    // enty.vMultiLine = vMultiLine
+    // enty.hMultiLine = hMultiLine
 
     enty.dedges = dedges
 

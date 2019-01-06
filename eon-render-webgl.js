@@ -173,6 +173,7 @@
       lights['HemisphereLight'] = getLight(pars, stat)
 
           // {
+            // sort: 'light',
             // type: 'AmbientLight',
             // name: 'AmbientLight',
             // color: 0xeeeeee,
