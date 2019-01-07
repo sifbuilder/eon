@@ -113,8 +113,7 @@ async function anitem (__eo) {
         'b':  [[[0.2     , 0.2     , 0.19   ,  0.2    , ]]],
 
       'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 24,'pa6': 0,'pb7': -1,
-      'dom3': [-180, 180],
-      'dom3': [-90, 90],
+      'dom3': [-180, 180],  // _e_
 
       'fn0': (e, c, d) =>  c[1] * sin(e[0]) *  sin(e[3]), // 0,3
 
@@ -134,7 +133,6 @@ async function anitem (__eo) {
 
       'ra2': 120,'v0': 0,'v1': 1,'w4': 0 ,'seg5': 24,'pa6': 0,'pb7': -1,
       'dom3': [-180, 180],
-      'dom3': [-90, 90],
 
       'fn0': (e, c, d) => e[3],
 
@@ -142,38 +140,24 @@ async function anitem (__eo) {
 
   }
 
-    // .................. natAni
-    let natAni = {
+    // .................. natAniA
+    let natAniA = {
 
       eohal: 'mars',
       eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      eoric: {gid: 'nat', cid: 'nat', fid: 'natA'},
 
-      // eofold: ani => muonNatform.natMultiPolygon({form: ani.eoform, h: 1}),
-      eofold: ani => muonNatform.natFeature({form: ani.eoform, h: 1}),
+      eofold: ani => muonNatform.natMultiPolygon({form: ani.eoform, h: 1}),
+      // eofold: ani => muonNatform.natFeature({form: ani.eoform, h: 1}),
       eomot: {
         proform: {
 
           projection: 'uniwen',
-          scale: [ 1, 1, 1],
-          translate: [ 0, 100, 0 ],
-          rotate: [ 0, 0, -90 ], // [ 0, 0, 0 ], // [ 0, [[[0,360]]], -90 ],
+          scale: [ 4, 4, 4],
+          translate: [ -160, 170, 0 ],
+          rotate: [ 0, [[[0,360]]], -91 ], // [ 0, 0, 0 ], // [ 0, [[[0,360]]], -90 ],
           lens: [0, 1, Infinity ],
 
-
-          projection: 'uniwen',
-
-          // scale: [1, 1],
-          // scale: [0.5, 0.5],
-
-          // projection:  d3.geoOrthographic(),
-          // scale: 100,
-
-          // prerotate: [[[ ctl.rotation ]]],
-          // translate: [ [0, 100, 0] ],
-          // rotate: [ [[[90 + 0, 90 + 0, 90 + 1 * 360, 90 + 1 * 360]]], 0, 0 ],
-          // rotate: [ 0, 90, -90 ],
-          // lens: [0, 1, Infinity],
         },
       },
       eocrom: { 'csx': 0, 'cf': [[[666, 666, 666]]], 'co': [[[0.9, 0.9]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
@@ -182,6 +166,32 @@ async function anitem (__eo) {
       eoload: {},
 
     }
+    // .................. natAniB
+    let natAniB = {
+
+      eohal: 'mars',
+      eotim,
+      eoric: {gid: 'nat', cid: 'nat', fid: 'natB'},
+
+      // eofold: ani => muonNatform.natMultiPolygon({form: ani.eoform, h: 1}),
+      eofold: ani => muonNatform.natFeature({form: ani.eoform, h: 1}),
+      eomot: {
+        proform: {
+
+          projection: 'uniwen',
+          scale: [ 4, 4, 4],
+          translate: [ 160, 170, 0 ],
+          rotate: [ 0, [[[0,360]]], -91 ], // [ 0, 0, 0 ], // [ 0, [[[0,360]]], -90 ],
+          lens: [0, 1, Infinity ],
+
+        },
+      },
+      eocrom: { 'csx': 0, 'cf': [[[666, 666, 666]]], 'co': [[[0.9, 0.9]]], 'cs': [[[888, 888]]], 'cw': [[[1.9, 1.9]]], 'cp': [[[0.7, 0.9]]]},
+
+      eoform: conform,
+      eoload: {},
+
+    }    
     // .................. cameraPersAni anima
     let cameraPersAni = {
 
@@ -304,7 +314,8 @@ async function anitem (__eo) {
     // .................. animas
     let animas = [
       // cameraPersAni, // h.sol
-      natAni, // h.mars g.uniwen
+      natAniA, // h.mars g.uniwen
+      natAniB, // h.mars g.uniwen
       lightHemisphereAni, // h.sol
       spotLight, // h.sol
       ambientLight, // h.sol
