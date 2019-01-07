@@ -71,11 +71,13 @@ async function anitem (__eo) {
     let natAni = {
 
       eohal: 'mars',
+      eotim: eotim,
+      eoric: {gid: 'ani', cid: 'ani', fid: 'ani'},
 
       eofold: function (p) {
         let graticule = p.eoframe
 
-        let verts = muonGraticule.gMultiPoint(graticule) // Feature.LineString
+        let verts = muonGraticule.gjfMultiPoint(graticule) // Feature.LineString
         let vertices = verts.geometry.coordinates
 
         let faces = muonGraticule.gfaces(graticule)	// faces
@@ -88,8 +90,6 @@ async function anitem (__eo) {
         return gj
       },
 
-      eotim: eotim,
-      eoric: {gid: 'ani', cid: 'ani', fid: 'ani'},
       eocrom: { 'csx': 0, 'cf': 222, 'cs': 888, 'cw': 0.9, 'co': 0.99, 'cp': 0.9 },
       eomot: {
         conform: { projection: 'natform', eoform: conform },

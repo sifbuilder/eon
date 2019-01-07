@@ -149,7 +149,7 @@ async function anitem (__eo) {
           name: 'HemisphereLight',
           skyColor: [[[111, 999]]],
           groundColor: [[[999, 111]]],
-          intensity: 0.2,
+          intensity: 0.4,
           position: [0, 0, 0],
         },
       },
@@ -211,8 +211,8 @@ async function anitem (__eo) {
             position: [0, 0, 200 ],
             rotation: [0, 0, 0 ],
 
-            vellin: [0.2, 0.2, 0 ],
-            velang: [1, 1.6, 1 ],
+            vellin: [0.02, 0.02, 0 ],
+            velang: [0.01, 0.016, 0.01 ],
 
             distance2nodesFactor: 100,
             lookAt: [0, 0, 0],
@@ -224,8 +224,8 @@ async function anitem (__eo) {
     // .................. animas
     let animas = [
 
-      facesAni, // h.mars
       cameraPersAni, // h.sol
+      facesAni, // h.mars
       lightHemisphereAni, // h.sol
       spotLight, // h.sol
     ]

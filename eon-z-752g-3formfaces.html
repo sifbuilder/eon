@@ -70,7 +70,7 @@ async function anitem (__eo) {
     let gratifaces11 = {
       eohal: 'mars',
       eofold: p => {
-        let vertices = muonGraticule.gMultiPoint(p.eoframe).geometry.coordinates
+        let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
         let faces = muonGraticule.gfaces(p.eoframe)
         faces = faces.map(face => [...face, face[0]])
         faces = faces.map(face => // faces : points => vertices
@@ -100,7 +100,7 @@ async function anitem (__eo) {
     let gratifaces12 = {
       eohal: 'mars',
       eofold: p => {
-        let vertices = muonGraticule.gMultiPoint(p.eoframe).geometry.coordinates
+        let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
         let faces = muonGraticule.gfaces(p.eoframe)
         faces = faces.map(face => [...face, face[0]])
         faces = faces.map(face => // faces : points => vertices
@@ -127,7 +127,7 @@ async function anitem (__eo) {
     let gratilines21 = {
       eohal: 'mars',
 
-      eofold: p => muonGraticule.vhMultiLines(p.eoframe),
+      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
       eotim: eotim,
       eoric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines21'},
       eocrom: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},
@@ -143,7 +143,7 @@ async function anitem (__eo) {
     // -------------------------------  gratilines22
     let gratilines22 = {
       eohal: 'mars',
-      eofold: p => muonGraticule.vhMultiLines(p.eoframe),
+      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
       eotim: eotim,
       eoric: {'gid': 'gratis', 'cid': 'gratis', 'fid': 'gratilines22'},
       eocrom: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 333, 'cw': 0.9, 'co': [[[0.03, 0.03, 0.03]]], 'cp': [[[0.9, 0.9, 0.9]]]},

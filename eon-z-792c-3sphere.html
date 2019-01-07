@@ -112,7 +112,7 @@ async function anitem (__eo) {
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform1'},
 
       eofold: p => {
-        let vertices = muonGraticule.gVertices(p.eoframe)
+        let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
         let quads = muonGraticule.qfaces(p.eoframe)
         let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
 

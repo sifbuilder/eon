@@ -123,7 +123,7 @@ async function anitem (__eo) {
       eohal: 'mars',
 
       eofold: p => {
-        let gvertsFeature = muonGraticule.gMultiPoint(p.eoframe)
+        let gvertsFeature = muonGraticule.gjfMultiPoint(p.eoframe)
         let gfaces = muonGraticule.gfaces(p.eoframe)
 
         let res = gvertsFeature
@@ -157,7 +157,7 @@ async function anitem (__eo) {
       eohal: 'mars',
 
       eofold: p => {
-        let vhmls = muonGraticule.vhMultiLines(p.eoframe)
+        let vhmls = muonGraticule.gjfMultiLineString(p.eoframe)
 
         return vhmls
       },

@@ -113,7 +113,7 @@ async function anitem (__eo) {
         // [7,4,8,11]
       // ]
 
-        let vertices = muonGraticule.gVertices(p.eoframe)
+        let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
         let quads = muonGraticule.qfaces(p.eoframe)
         let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
 

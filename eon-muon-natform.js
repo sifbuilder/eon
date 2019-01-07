@@ -495,7 +495,7 @@
             closeg: closeg,
           } // x, y
 
-          geometry = muonGraticule.vhMultiLines(gratipros).geometry 
+          geometry = muonGraticule.gjfMultiLineString(gratipros).geometry 
           
           
         } else { // ___ 2d
@@ -517,7 +517,7 @@
             closeg: closeg,
           } // _e_ x, y
 
-          geometry = muonGraticule.vhMultiLines(gratipros).geometry // geometry.type: MultiLineString
+          geometry = muonGraticule.gjfMultiLineString(gratipros).geometry // geometry.type: MultiLineString
 
           let p = geometry.coordinates[1] // .slice(0, -1)  // graticule.symgraticuleX arywinopen
 

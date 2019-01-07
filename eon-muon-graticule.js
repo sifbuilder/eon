@@ -333,8 +333,8 @@
 
 
     
-    // .................. vhMultiLines
-    let vhMultiLines = function (params = {}) {
+    // .................. gjfMultiLineString
+    let gjfMultiLineString = function (params = {}) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
       let parsCoords = g.pps.coordinates
@@ -355,68 +355,13 @@
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: coords},
-        properties: {muonGraticule: 'vhMultiLine'},
+        properties: {},
       }
       if (!muonGeoj.isValid(gj)) console.error('gj not valid')
 
       return gj
     }
     
-    
-    // .................. vhMultiLine
-    // let vhMultiLine = function (params = {}) {
-      // let g = grarr(params)
-      // let mersCoords = g.mms.coordinates
-      // let parsCoords = g.pps.coordinates
-
-      // let coords = [].concat(mersCoords).concat(parsCoords)
-
-      // let gj = {
-        // type: 'Feature',
-        // geometry: {type: 'MultiLineString', coordinates: coords},
-        // properties: {muonGraticule: 'vhMultiLine'},
-      // }
-      // if (!muonGeoj.isValid(gj)) console.error('gj not valid')
-
-      // return gj
-    // }
-
-    // .................. vMultiLine
-    // let vMultiLine = function (params = {}) {
-      // let g = grarr(params)
-      // let mersCoords = g.mms.coordinates
-      // let parsCoords = g.pps.coordinates
-
-      // let coords = [].concat(mersCoords)
-
-      // let gj = {
-        // type: 'Feature',
-        // geometry: {type: 'MultiLineString', coordinates: coords},
-        // properties: {muonGraticule: 'vMultiLine'},
-      // }
-      // if (!muonGeoj.isValid(gj)) console.error('gj not valid')
-
-      // return gj
-    // }
-
-    // .................. hMultiLine
-    // let hMultiLine = function (params = {}) {
-      // let g = grarr(params)
-      // let mersCoords = g.mms.coordinates
-      // let parsCoords = g.pps.coordinates
-
-      // let coords = [].concat(parsCoords)
-
-      // let gj = {
-        // type: 'Feature',
-        // geometry: {type: 'MultiLineString', coordinates: coords},
-        // properties: {muonGraticule: 'hMultiLine'},
-      // }
-      // if (!muonGeoj.isValid(gj)) console.error('gj not valid')
-
-      // return gj
-    // }
-
     // .................. dedges
     let dedges = function (params) {
       let g = grarr(params)
@@ -458,7 +403,7 @@
       return gj
     }
 
-    // .................. gMultiPoint
+    // .................. gVertices
     let gVertices = function (params = {}) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates // with y delta, precision
@@ -503,13 +448,16 @@
       return vertices
     }
 
-    // .................. gMultiPoint
-    let gMultiPoint = function (params = {}) {
+    // .................. gjfMultiPoint
+    let gjfMultiPoint = function (params = {}) {
       let vertices = gVertices(params)
 
       return { // return vertices
         type: 'Feature',
-        geometry: {type: 'MultiPoint', coordinates: vertices},
+        geometry: {
+          type: 'MultiPoint', 
+          coordinates: vertices
+        },
         properties: {},
       }
     }
@@ -604,17 +552,13 @@
     enty.gratiparams = gratiparams
     enty.grarr = grarr
 
-    enty.vhMultiLines = vhMultiLines
-    // enty.vhMultiLine = vhMultiLine
-    // enty.vMultiLine = vMultiLine
-    // enty.hMultiLine = hMultiLine
+    enty.gjfMultiLineString = gjfMultiLineString
 
     enty.dedges = dedges
 
     enty.gfaces = gfaces
     enty.qfaces = qfaces
-    enty.gMultiPoint = gMultiPoint
-    enty.gVertices = gVertices
+    enty.gjfMultiPoint = gjfMultiPoint
     enty.equator = equator
 
     return enty
