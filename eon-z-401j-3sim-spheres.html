@@ -161,9 +161,9 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform1'},
 
-      eofold: p => {
-        let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
-        let quads = muonGraticule.qfaces(p.eoframe)
+      eofold: ani => {
+        let vertices = muonGraticule.gjfMultiPoint(ani.eoload.eoframe).geometry.coordinates
+        let quads = muonGraticule.qfaces(ani.eoload.eoframe)
         let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
 
         let featureMultiPoint = {
@@ -208,12 +208,15 @@ async function anitem (__eo) {
         },
       },
 
-      eoframe: {
 
-        frame: [ [ [ -180, 180, 30, 30], [ -180, 180, 30, 30] ] ],
+      eoload: {
+      
+        eoframe: {
 
+          frame: [ [ [ -180, 180, 30, 30], [ -180, 180, 30, 30] ] ],
+
+        },      
       },
-      eoload: {},
     }
 
     // .................. cameraPersAni anima

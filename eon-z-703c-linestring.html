@@ -25,8 +25,10 @@ async function anitem (__eo) {
     let aniForm = {
 
       eohal: 'mars',
+      eotim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
+      eoric: { gid: 'ani', cid: 'ani', fid: 'ani' },
 
-      eofold: (p) => ({
+      eofold: ani => ({
         'type': 'Feature',
         'geometry': {
           'type': 'LineString',
@@ -41,8 +43,6 @@ async function anitem (__eo) {
         'properties': {},
       }),
 
-      eotim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
-      eoric: { gid: 'ani', cid: 'ani', fid: 'ani' },
       eocrom: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.1, 0.2]]], 'cp': [[[0.9, 0.9]]]},
       eomot: {
         proform: {

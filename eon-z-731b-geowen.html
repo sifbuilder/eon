@@ -72,11 +72,11 @@ async function anitem (__eo) {
     let geograt1 = {
 
       eohal: 'mars',
-
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
       eotim: eotim,
       eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geograt1'},
-      eocrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+
+      eofold: ani => muonGraticule.gjfMultiLineString(ani.eoload.eoframe),
+      
       eomot: {
         proform: {
 
@@ -88,15 +88,18 @@ async function anitem (__eo) {
 
         },
       },
-      eoframe: {
-
-        frame: [ [ [-180, 180, 45, 45],
-          [-90, 90, 22.5, 22.5] ],
-        [ [-180, 180, 45, 45],
-          [-90, 90, 22.5, 22.5] ] ],
-
-      },
+      
+      eocrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.3, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
+      
       eoload: {
+      
+        eoframe: {
+          frame: [ [ [-180, 180, 45, 45],
+            [-90, 90, 22.5, 22.5] ],
+          [ [-180, 180, 45, 45],
+            [-90, 90, 22.5, 22.5] ] ],
+        },
+      
       },
     }
 

@@ -387,7 +387,7 @@
             closeg: closeg,
           } // x, y
 
-          vertices = muonGraticule.gVertices(gratipros)
+          vertices = muonGraticule.gjfMultiPoint(gratipros).geometry.coordinates
           
         } else { // ___ 2d
           dx = 360 / nformed.x.seg5 // x

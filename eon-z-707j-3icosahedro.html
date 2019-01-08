@@ -38,10 +38,11 @@ async function anitem (__eo) {
     let facesAni = {
 
       eohal: 'mars',
+      eotim: eotim,
+      eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
 
       eofold: anitem => {
         let eoload = anitem.eoload,
-          eoric = anitem.eoric,
           vertices = eoload.vertices(eoload.pars),
           faces = eoload.faces(eoload.pars)
 
@@ -61,8 +62,6 @@ async function anitem (__eo) {
         return json
       },
 
-      eotim: eotim,
-      eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
       eocrom: {'csx': 0, 'cf': [[[999, 444, 555]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
       eomot: {
@@ -224,8 +223,8 @@ async function anitem (__eo) {
     // .................. animas
     let animas = [
 
+     facesAni, // h.mars    
       cameraPersAni, // h.sol
-      facesAni, // h.mars
       lightHemisphereAni, // h.sol
       spotLight, // h.sol
     ]

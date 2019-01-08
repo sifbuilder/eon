@@ -77,7 +77,7 @@ async function anitem (__eo) {
       eofold: function (p) {
         let graticule = p.eoframe
 
-        let verts = muonGraticule.gjfMultiPoint(graticule) // Feature.LineString
+        let verts = muonGraticule.gMultiPoint(graticule) // Feature.LineString
         let vertices = verts.geometry.coordinates
 
         let faces = muonGraticule.gfaces(graticule)	// faces

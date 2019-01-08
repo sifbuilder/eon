@@ -149,28 +149,28 @@
       let lights = {}
       let pars = {}
       pars = {
-        groundColor: 755.9649032258285,
-        intensity: 0.4,
-        name: 'HemisphereLight',
-        position: [0, 0, 0],
-        skyColor: 354,
         sort: 'light',
         type: 'HemisphereLight',
+        name: 'HemisphereLight',
+        groundColor: 755.9649032258285,
+        intensity: 0.4,
+        position: [0, 0, 0],
+        skyColor: 354,
       }
 
       lights['HemisphereLight'] = getLight(pars, stat)
 
       pars = {
+        sort: 'light',
+        type: 'SpotLight',
+        name: 'spotLight',
         castShadow: 1,
         color: 238,
         intensity: 0.99,
-        name: 'spotLight',
         normalize: 1,
         position: [-400, 400, 400],
-        sort: 'light',
-        type: 'SpotLight',
       }
-      lights['HemisphereLight'] = getLight(pars, stat)
+      lights['SpotLight'] = getLight(pars, stat)
 
           // {
             // sort: 'light',
