@@ -45,19 +45,22 @@
     // .................. getCamerasDefault
     let getCamerasDefault = function (stat) {
       let cameras = {}
-      let pars = {}
-      pars = {
+      let pars = {
+        sort: 'camera',
+        type: 'PerspectiveCamera',
+        name: 'Perspective',
+        
         aspect: 1.5,
         distance2nodesFactor: 100,
+        
         far: 1600,
         fov: 60,
         lookAt: [0, 0, 0],
-        name: 'Perspective',
         near: 0.001,
+        
         position: [0, 0, 600],
         rotation: [0, 0, 0],
-        sort: 'camera',
-        type: 'PerspectiveCamera',
+        
         velang: [0, 0, 0],
         vellin: [0, 0, 0],
       }
@@ -362,7 +365,7 @@
       return controls
     }
 
-    // .................. threeCameras
+    // .................. threeGridHelpers
     function threeGridHelpers (items = []) {
       if (items.length === 0) return
       for (let k in items) { // DOTS (seg5===0) each group gid
@@ -381,35 +384,30 @@
     // .................. threeLights
     function threeLights (items = []) {
       if (items.length > 0) {
-        // deafult light may be created for any gid.cid class
-        // delete if a light is defined in another class
         if (state.lights['default' ] !== undefined) delete state.lights['default']
 
         for (let k in items) {
           let item = items[k].properties
-          let name = item.name
-          state.lights[name] = getLight(item, state)
+          let lightid = item.name
+          state.lights[lightid] = getLight(item, state)
         }
       }
     }
     // .................. threeCameras
     function threeCameras (items = []) {
       if (items.length > 0) { // add default camera
-        // deafult camera may be created for any gid.cid class
-        // delete if a camera is defined in another class
         if (state.cameras['default' ] !== undefined) delete state.cameras['default']
 
-        let camera
+
         for (let k in items) { // DOTS (seg5===0) each group gid
-          let item = items[k] // feature
-
-          let camaraProps = item.properties
-          let camerauid = camaraProps.eoric.uid
-          let iscontrol = camaraProps.iscontrol
-
-          state.cameras[camerauid] = getCamera(camaraProps, state)
+          let camera = items[k] // feature
+        
+          let pars = camera.properties
+          let camid = pars['name']
+          state.cameras[camid] = getCamera(pars, state)
         }
       }
+      
     }
 
     // .................. threeCameraHelpers
@@ -820,7 +818,9 @@
         Object.keys(state.cameras).length === 0) {
         let cameras = getCamerasDefault(state)
         state.cameras = cameras
+      } else {
       }
+
 
       if (state.cameras && Object.keys(state.cameras).length > 0) {
       // if (state.camera !== undefined) {

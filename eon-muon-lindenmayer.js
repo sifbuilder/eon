@@ -241,8 +241,8 @@
       return lines
     }
 
-    // ............................. fractal
-    let linden = (lindenmayer) => {
+    // ............................. linden
+    let linden = lindenmayer => {
       let fractal = fractalize(lindenmayer).fractal
 
       let mayer = lindenmayer.mayer
@@ -253,8 +253,8 @@
       return geo
     }
 
-    // ............................. fractal
-    let lindenmayer = (lindenmayer) => {
+    // ............................. lindenmayer
+    let lindenmayer = lindenmayer => {
       let geo = linden(lindenmayer)
       let geoData = {
         type: 'Feature',

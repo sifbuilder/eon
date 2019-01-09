@@ -43,6 +43,7 @@ async function anitem (__eo) {
           },
           properties: {},
         }
+        console.assert(geoData.geometry.type === 'MultiLineString')
         return geoData
 
         let coords = muonGeoj.getCoords(geoData)
@@ -63,7 +64,6 @@ async function anitem (__eo) {
           },
         }
 
-        console.assert(geoData.geometry.type === 'MultiLineString')
         ngj.geometry.coordinates = coords
 
         return ngj

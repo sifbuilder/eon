@@ -28,8 +28,7 @@
       __eo('xs').m('sim'),
       __eo('xs').m('props'),
       __eo('xs').r('renderer'),
-    ]
-    )
+    ])
 
     let muonStore = __eo('xs').m('store')
 
@@ -160,19 +159,19 @@
         let anima = state.animas[i]
         anima.eotim = muonEotim.timing(anima.eotim, elapsed) // set time
 
-        if (elapsed > anima.eotim.limit + anima.eotim.msStart) {
+        if (elapsed > anima.eotim.msLimit + anima.eotim.msStart) {
           anima.eodelled = 1 // crop by time
         }
       }
 
       // ... @STOP
-      // let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.eotim.limit + item.eotim.msStart), 0)
-      // let nostop = state.animas.reduce((pre, item) => (pre || item.eotim.nostop), 0)
-      // if (!nostop && (isNaN(maxlimit) ||
-      // (maxlimit > 0 && elapsed > maxlimit) || // stop if spired
-      // (elapsed > maxlimit))) { // stop if anigrams spired
-      // state.animationStop()
-      // }
+      let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.eotim.msLimit + item.eotim.msStart), 0)
+      let nostop = state.animas.reduce((pre, item) => (pre || item.eotim.nostop), 0)
+      if (!nostop && (isNaN(maxlimit) ||
+      (maxlimit > 0 && elapsed > maxlimit) || // stop if spired
+      (elapsed > maxlimit))) { // stop if anigrams spired
+      state.animationStop()
+      }
 
       // ... @WEEN SIM GRAMM RENDER
       // ... from the anigrams, collect the feature collection to be rendered

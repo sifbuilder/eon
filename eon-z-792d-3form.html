@@ -68,41 +68,63 @@ async function anitem (__eo) {
 
     const eotim = {'td': 23800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1}
 
-    let formCirc = {
-      'x': {
+    let formCircA = {
+      x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[4, 15, 24, 15]]], 'pa6': 0, 'pb7': -1,
-        'dom3': [ [[[-180, -180]]], [[[180, 180]]] ],
-        'fn0': (e, c) => c[0] * (10 + 5 * cos(e[0])) * c[2] * cos(e[3]),
-      },
-      'y': {
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[4, 15, 24, 15]]], 'pa6': 0, 'pb7': -1,
-        'dom3': [ [[[-180, -180]]], [[[180, 180]]] ],
-        c: [ 1, 1, [[[10, 10]]], [[[5, 5]]]],
-        'fn0': (e, c, d) => c[1] * (d.c[2] + d.c[3] * cos(e[0])) * c[2] * sin(e[3]),
-      },
-      'z': {
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[4, 15, 24, 15]]], 'pa6': 0, 'pb7': -1,
-        'dom3': [ [[[-0, -30, -60, -360]]], [[[0, 30, 60, 360]]] ],
-        c: [ 1, 1, 1, [[[5, 5]]] ],
-        'fn0': (e, c, d) => d.c[3] * c[3] * sin(e[0]),
-      },
-      'r': {
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[4, 15, 24, 15]]], 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 15, 'pa6': 0, 'pb7': -1,
         'dom3': [ -180, 180 ],
-        'fn0': (e, c) => c[3] * cos(e[2]),
+        c: [ 2, 2, [[[20,20]]], 10 ],        
+        'fn0': (e, c, d) => c[0] * (d.c[2] + d.c[3] * cos(e[0])) * c[2] * cos(e[3]),
+      },
+      y: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 15, 'pa6': 0, 'pb7': -1,
+        'dom3': [ -180, 180 ],
+        c: [ 2, 2, [[[20,20]]], 10 ],   
+        'fn0': (e, c, d) => c[1] * (d.c[2] + d.c[3] * cos(e[1])) * c[2] * sin(e[3]),
+      },
+      z: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 15, 'pa6': 0, 'pb7': -1,
+        'dom3': [ -180, 180 ],
+        c: [ 1, 1, 1, 5 ],
+        'fn0': (e, c, d) => d.c[3] * sin(e[0]),
       },
     }
 
-    // .................. formAni anima
-    let formAni = {
+    let formCircB = {
+      x: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 15, 'pa6': 0, 'pb7': -1,
+        'dom3': [ -180, 180 ],
+        c: [ 2, 2, [[[20,20]]], 3 ],        
+        'fn0': (e, c, d) => c[0] * (d.c[2] + d.c[3] * cos(e[0])) * c[2] * cos(e[3]),
+      },
+      y: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 15, 'pa6': 0, 'pb7': -1,
+        'dom3': [ -180, 180 ],
+        c: [ 2, 2, [[[20,20]]], 3 ],   
+        'fn0': (e, c, d) => c[1] * (d.c[2] + d.c[3] * cos(e[1])) * c[2] * sin(e[3]),
+      },
+      z: {
+        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 15, 'pa6': 0, 'pb7': -1,
+        'dom3': [ -180, 180 ],
+        c: [ 1, 1, 1, 9 ],
+        'fn0': (e, c, d) => d.c[3] * sin(e[1]),
+      },
+    }    
+    let geoframe = [ [ [ -180, 180, 12, 12],
+          [ [[[-180, 0, -180]]], [[[180, 0, 180]]], 12, 12] ] ]
+          // [ -180, 180, 12, 12] ] ]
+    
+    // .................. torusAniA anima
+    let torusAniA = {
 
       eohal: 'mars',
       eotim: eotim,
-      eoric: {gid: 'formAni', cid: 'formAni', fid: 'formAni'},
+      eoric: {gid: 'torus', cid: 'torus', fid: 'torusA'},
 
       eofold: p => {
         let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
@@ -110,7 +132,6 @@ async function anitem (__eo) {
         let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
 
         let featureMultiPoint = {
-
           type: 'Feature',
           geometry: {
             type: 'MultiPoint',
@@ -132,160 +153,77 @@ async function anitem (__eo) {
 
         conform: {
           projection: 'natform',
-          eoform: formCirc,
+          eoform: formCircA,
         },
 
         proform: {
           projection: 'uniwen',
           translate: [0, 0, 0],
           scale: [0.1, 0.1, 0.1],
-          rotate: [ [[[0, 3 * 120, 3 * 120]]], [[[0, 3 * 260, 4 * 260]]], [[[0, 3 * 220, 5 * 220]]]], // [ 0, 0, 0 ],
+          rotate: [ [[[0, 0 * 120, 0 * 120]]], [[[0, 0 * 260, 0 * 260]]], [[[0, 0 * 220, 0 * 220]]]], // [ 0, 0, 0 ],
           lens: [ 0, 1, Infinity ],
         },
       },
 
-      eoframe: {
-
-        frame: [ [ [ -180, 180, 12, 12], [ [[[-30, -180, -180]]], [[[30, 180, 180]]], 12, 12] ] ],
-
-      },
+      eoframe: geoframe,
       eoload: {},
     }
 
-    // .................. cameraPersAni anima
-    let cameraPersAni = {
+    // .................. torusAniB anima
+    let torusAniB = {
 
+      eohal: 'mars',
       eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-      eohal: 'sol',
+      eoric: {gid: 'torus', cid: 'torus', fid: 'torusB'},
 
-      eofold: anitem => {
-        let eoload = anitem.eoload
-        let json = { // Feature
+      eofold: p => {
+        let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
+        let quads = muonGraticule.qfaces(p.eoframe)
+        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+
+        let featureMultiPoint = {
           type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: {
-            sort: 'camera',
-            type: 'PerspectiveCamera',
-            name: 'Perspective',
-            fov: 60, // field of view s the field of view. angle in degrees.
-            aspect: renderPortview.width() / renderPortview.height(),
-            near: 0.001,
-            far: 1600,
-
-            position: [0, 0, 400 ],
-            rotation: [0, 0, 0 ],
-
-            vellin: [0, 0, 0 ],
-            velang: [0, 0, 0 ],
-
-            distance2nodesFactor: 100,
-            lookAt: [0, 0, 0],
+          geometry: {
+            type: 'MultiPoint',
+            coordinates: vertices,
           },
-        }
-        return json
-      },
-    }
-    // .................. cameraOrthoAni anima
-    let lightHemisphereAni = {
-
-      eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
-      eohal: 'sol',
-
-      eofold: anitem => {
-        let eoload = anitem.eoload
-        let json = { // Feature
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: anitem.eoload.light,
-        }
-
-        return json
-      },
-      eoload: {
-        light: {
-          sort: 'light',
-          type: 'HemisphereLight',
-          name: 'HemisphereLight',
-          skyColor: [[[111, 999]]],
-          groundColor: [[[999, 111]]],
-          intensity: 0.4,
-          position: [0, 0, 0],
-        },
-      },
-
-    }
-
-    // .................. spotLight anima
-    let spotLight = {
-
-      eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'spotLight'},
-      eohal: 'sol',
-
-      eofold: anitem => {
-        let eoload = anitem.eoload
-        let json = { // Feature
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: anitem.eoload.light,
-        }
-        return json
-      },
-      eoload: {
-        light: {
-          sort: 'light',
-          type: 'SpotLight',
-          name: 'spotLight',
-          color: [[[222, 777]]], // 0xe4eef9,
-          intensity: 0.99,
-          position: [-100, 100, 100],
-          normalize: 1,
-          castShadow: 1,
-        },
-      },
-
-    }
-
-    // .................. gridHelper anima
-    let gridHelper = {
-
-      eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'gridHelper'},
-      eohal: 'sol',
-
-      eofold: anitem => {
-        let eoload = anitem.eoload
-        let json = { // Feature
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
           properties: {
-            sort: 'gridHelper',
-            type: 'GridHelper',
-            name: 'gridHelper',
-            isToUpdate: 0,
-
-            size: 200, // field of view
-            divisions: 5,
-
-            position: [0, 0, 0 ],
+            sort: 'form',
+            eoMultiPolygon: 1,
+            faces: faces,
           },
         }
 
-        return json
+        return featureMultiPoint
       },
 
+      eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+
+      eomot: {
+
+        conform: {
+          projection: 'natform',
+          eoform: formCircB,
+        },
+
+        proform: {
+          projection: 'uniwen',
+          translate: [0, 0, 0],
+          scale: [0.1, 0.1, 0.1],
+          rotate: [ [[[0, 0 * 120, 0 * 120]]], [[[0, 0 * 260, 0 * 260]]], [[[0, 0 * 220, 0 * 220]]]], // [ 0, 0, 0 ],
+          lens: [ 0, 1, Infinity ],
+        },
+      },
+
+      eoframe: geoframe,
+      eoload: {},
     }
+ 
     // .................. animas
     let animas = [
 
-      formAni, // h.mars
-      cameraPersAni, // h.sol
-      // cameraPersHelper, // h.sol
-      // gridHelper, // h.sol
-      lightHemisphereAni, // h.sol
-      spotLight, // h.sol
+      torusAniA, // h.mars
+      torusAniB, // h.mars
 
     ]
     return animas

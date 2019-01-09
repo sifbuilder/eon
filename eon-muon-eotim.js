@@ -32,7 +32,7 @@
 
       const {
         td = 10000, // time duration
-        t0 = 0, // time init/wait
+        t0 = 0, // time init/msWait
         t1 = 1000, //
         t2 = 1,
         t3 = 1,
@@ -89,9 +89,9 @@
 
       // get the time scale
       let timefactor = duration / timeunits // time factor
-      let wait = Math.abs(timefactor * t0) // t0 wait
-      let limit = Math.abs(timefactor * t1) // t1 limit
-      let d = (window === false) ? [wait, limit] : [0, duration] // time window
+      let msWait = Math.abs(timefactor * t0) // t0 msWait
+      let msLimit = Math.abs(timefactor * t1) // t1 msLimit
+      let d = (window === false) ? [msWait, msLimit] : [0, duration] // time window
       let r = (timeinverse === false) ? [0, 1] : [1, 0] // time inversion
       let timescale = () => scaleLinear().domain(d).range(r) // timescale: scale of life
 
@@ -105,7 +105,7 @@
       let msElapsedstep = Math.round(msElapsed / step) // msElapsedstep
       let msTime = (common !== undefined) ? msElapsed : msPassed //  time (ms)
 
-      if ((wait <= msPassed) && (msPassed <= limit) && (slots.indexOf(msPassedstep) !== null)) {
+      if ((msWait <= msPassed) && (msPassed <= msLimit) && (slots.indexOf(msPassedstep) !== null)) {
         slots.push(msElapsedstep) // pused elapsed _e_ tbc
         msPassed = msPassedInPeriod // TimePassedInPeriod (units)
         msElapsed = msElapsedInPeriod // TimePassedInPeriod (units)
@@ -114,8 +114,11 @@
       eotim.msElapsed = msElapsed // UPDATE
       eotim.msPassed = msPassed // UPDATE
       eotim.msDelta = msDelta // UPDATE
-      eotim.msTime = msTime
-      eotim.slots = slots
+      eotim.msTime = msTime // UPDATE
+      eotim.slots = slots // UPDATE
+      eotim.msLimit = msLimit // UPDATE
+      eotim.msWait = msWait // UPDATE
+      eotim.msStart = msStart // UPDATE
 
       // time vars in slot units
       let newUnitPassed = timescale()(msPassed)
@@ -124,7 +127,7 @@
       unitElapsed = timescale()(msElapsed)
       let isElapsedInPeriod = (period > epsilon) ? ((msElapsed % (duration / period)) * period) : msElapsed
       let unitElapsedInPeriod = timescale()(isElapsedInPeriod) // abs msElapsed time in period (units)
-      if ((wait <= msElapsed) && (msElapsed <= limit) && (slots.indexOf(msElapsedstep) !== null)) {
+      if ((msWait <= msElapsed) && (msElapsed <= msLimit) && (slots.indexOf(msElapsedstep) !== null)) {
         unitElapsed = unitElapsedInPeriod // TimeElapsedInPeriod (units)
       }
       unitTime = (common !== undefined) ? unitElapsed : unitPassed //  time (units)
@@ -134,6 +137,7 @@
         unitStart = (unitStart !== undefined) ? unitStart : unitTime // -- time started (units)
         msTick = (msTick === undefined) ? 0 : eotim.msTick + 1 // -- time msTick
       }
+      eotim.unitElapsed = unitElapsed // UPDATE
       eotim.unitPassed = unitPassed // UPDATE
       eotim.unitTime = tfn(unitTime) // UPDATE
       eotim.stopped = stopped // UPDATE

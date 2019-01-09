@@ -36,16 +36,16 @@ async function anitem (__eo) {
     let aniForm = {
 
       eohal: 'mars',
-      eotim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
+      eotim: { td: 12800, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 0 },
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani' },
 
       eofold: ani => {
         let t = ani.eotim.unitElapsed
 
         let gj1 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer1)
-        let gj2 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer2)
-
         let coors1 = gj1.geometry.coordinates[0]
+        
+        let gj2 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer2)
         let coors2 = gj2.geometry.coordinates[0]
 
         let coors = [[[ [ coors1, coors2 ] ]]] // tripleArray
@@ -60,6 +60,7 @@ async function anitem (__eo) {
           properties: {},
         }
         gj.geometry.coordinates = Array.of(ws) // Line to MultiLineStrinmg
+        
         return gj
       },
 

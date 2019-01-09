@@ -230,8 +230,6 @@
           //
           // pathed texts
           //
-          if (1 && 1) console.log('texts', texts)
-
           // pathed texts are geofolded by geojson Feature.LineString
           let textsWithPath = texts // without path
             .filter(d =>

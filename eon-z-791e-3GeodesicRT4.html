@@ -802,18 +802,42 @@ async function anitem (__eo) {
           type: 'Feature',
           geometry: { type: 'Point', coordinates: [0, 0, 0] },
           properties: {
-            sort: 'camera',
-            type: 'PerspectiveCamera',
-            name: 'Perspective',
-            fov: 100, // field of view
-            aspect: renderPortview.width() / renderPortview.height(),
-            near: 0.001,
-            far: 300,
+            // sort: 'camera',
+            // type: 'PerspectiveCamera',
+            // name: 'Perspective',
+            
+            // aspect: renderPortview.width() / renderPortview.height(),
+            // distance2nodesFactor: 100,
+            
+            // far: 300,
+            // fov: 100, // field of view
+            // lookAt: [0, 0, 0],
+            // near: 0.001,
 
-            position: [0, 0, 200 ],
-            rotation: [0, 0, 0],
-            distance2nodesFactor: 100,
-            lookAt: [0, 0, 0],
+            // position: [0, 0, 200 ],
+            // rotation: [0, 0, 0],
+        
+            // velang: [0, 0, 0],
+            // vellin: [0, 0, 0],
+        sort: 'camera',
+        type: 'PerspectiveCamera',
+        name: 'Perspective',
+        
+        aspect: 1.5,
+        distance2nodesFactor: 100,
+        
+        far: 1600,
+        fov: 60,
+        lookAt: [0, 0, 0],
+        near: 0.001,
+        
+        position: [0, 0, 600],
+        rotation: [0, 0, 0],
+        
+        velang: [0, 0, 0],
+        vellin: [0, 0, 0],            
+            
+            
           },
         }
 
@@ -890,7 +914,7 @@ async function anitem (__eo) {
 
       facesAni, // h.mars
       cameraPersAni, // h.sol
-      // cameraPersHelper, // h.sol
+      cameraPersHelper, // h.sol
       // cameraOrthoAni, // h.sol
       // cameraOrthoHelper, // h.sol
       gridHelper, // h.sol
