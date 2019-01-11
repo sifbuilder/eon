@@ -15,6 +15,7 @@
   // ... tf: t => Math.sin( (Math.PI /2) * t)
   // ... tf: t => Math.pow(t, 2)
   // ... tf: t => (1 / Math.PI) * ((Math.PI / 2 ) +  Math.arcsin(-1 + 2 * t))
+  // ... tf: t => 1 - 4 * (t - 0.5) * (t - 0.5) // return 
 
   async function muonEotim (__eo = {}) {
     let [

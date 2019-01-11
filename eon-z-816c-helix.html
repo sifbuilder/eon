@@ -77,10 +77,13 @@ async function anitem (__eo) {
 
     // ............................. pics
 
+    let eotim = {'td': 16600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, }
+    
+    
     let conform = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
+        'ra2': 60, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (e, c) => {
           let a = 6 // a: frequency
@@ -99,7 +102,7 @@ async function anitem (__eo) {
       },
       y: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
+        'ra2': 60, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (e, c, dax) => {
           let a = 6 // a: frequency
@@ -118,12 +121,11 @@ async function anitem (__eo) {
         },
 
       },
-
       z: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 1, 'pa6': 0, 'pb7': -1,
+        'ra2': 60, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 1, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 180],
-        c: [ [[[94, 104]]], 1, 1, 1],
+
         'fn0': (e, c, dax) => {
           let a = 6 // a: frequency
           let h = 90 // h: height
@@ -137,15 +139,14 @@ async function anitem (__eo) {
           let seg5 = dax.seg5
           let cycles = seg5 - 1
 
-          let res = z + 0.5 * (x + y) / seg5
+          let res = z + ((x + y) / 2) / seg5
 
           return res
         },
       },
-
       w: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
+        'ra2': 60, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 36, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 90],
         'fn0': (e, c, dax) => {
           return e[2]
@@ -158,11 +159,11 @@ async function anitem (__eo) {
     let eomot = {
       proform: {
         projection: 'uniwen',
-        scale: [ 1, 1 ],
+        scale: [ 0.5, 0.5, 0.5 ],
         prerotate: [[[ ctlWen.rotation ]]],
-        translate: [ [0, 0, 0] ],
-        // rotate: [ [[[95, -5, -5, -5, -5, -5]]], [[[2, 2, 2, 2, 2, 2]]], [[[0,0,0,0,0,0]]] ],
-        rotate: [ [[[0, 0, 0, 0, 0, 0]]], [[[0, 0, 0, 0, 0, 0]]], [[[0, 0, 0, 0, 0, 0]]] ],
+        translate: [ 0, 0, 0 ],
+        rotate: [ [[[5, 5, 95, 95]]], [[[0, 0, 0]]], [[[0,0,0]]] ],
+        // rotate: [ [[[0, 0, 0, 0, 0, 0]]], [[[0, 0, 0, 0, 0, 0]]], [[[0, 0, 0, 0, 0, 0]]] ],
         lens: [0, 1, Infinity ],
       },
     }
@@ -170,7 +171,7 @@ async function anitem (__eo) {
     let natAniA = {
 
       eohal: 'mars',
-      eotim: {'td': 6600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)},
+      eotim: eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q'},
 
       eofold: ani => {
@@ -243,7 +244,7 @@ async function anitem (__eo) {
         return gfeats
       },
       eomot: eomot,
-      eocrom: { 'csx': 22, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
+      eocrom: { 'csx': 2, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[500, 333, 666]]], 'cw': [[[0.7, 0.6, 0.4]]], 'cp': [[[0.99, 0.99]]]},
 
       eoform: conform,
@@ -254,7 +255,7 @@ async function anitem (__eo) {
     let natAniB = {
 
       eohal: 'mars',
-      eotim: {'td': 6600, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, nostop: 1, tf: t => 1 - 4 * (t - 0.5) * (t - 0.5)},
+      eotim: eotim,
       eoric: {gid: 'q', cid: 'q2', fid: 'q2'},
 
       eofold: ani => {
