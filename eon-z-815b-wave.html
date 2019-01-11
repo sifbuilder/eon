@@ -22,10 +22,12 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
 
-  ctlWen.control(renderSvg.svg())
 
   // .................. animas
   let ani = function () {
+
+    let ctl = ctlWen().control(renderSvg.svg())  
+    
     // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
@@ -67,14 +69,14 @@ async function anitem (__eo) {
     let conformRed = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
-        'dom3': [ [[[0, 90]]], [[[2 * 360, 2 * 360 + 90]]] ],
+        'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+        'dom3': [ [[[0, 90]]],  [[[1 * 360, 1 * 360 + 90]]] ],
 
         'fn0': (e, c) => e[0],
       },
       y: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 106, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
+        'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 360],
 
         'fn0': (e, c) => sin(e[0]),
@@ -118,7 +120,7 @@ async function anitem (__eo) {
       },
 
     }
-    let eocromRed = { 'csx': 1, 'cf': [[[ 333, 333, 333]]], 'co': [[[0.069, 0.06, 0.069]]],
+    let eocromRed = { 'csx': 1, 'cf': [[[ 333, 333, 333]]], 'co': [[[0.69, 0.69, 0.69]]],
       'cs': [[[333, 333, 333]]], 'cw': [[[1.3, 1.3, 1.3]]], 'cp': [[[0.99, 0.99]]]}
 
     let eocromBlue = { 'csx': 1, 'cf': [[[ 666, 666, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
@@ -133,10 +135,11 @@ async function anitem (__eo) {
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qred'},
       eofold: ani => {
+        
         let natipros = {
           form: ani.eoform,
           hvg: 1, // horizontal geodesics
-          asyg: 1, // asymetric distribution of geodesics around the origin
+          asyg: 0, // asymetric distribution of geodesics around the origin
           closeg: 0, // open line
         }
 
@@ -147,9 +150,9 @@ async function anitem (__eo) {
       eomot: {
         proform: {
           projection: 'uniwen',
-          scale: [ 0.2, 0.2 ],
-          prerotate: [[[ ctlWen.rotation ]]],
-          translate: [ -200, 0, 0 ],
+          scale: [ 1, 1, 1 ],
+          prerotate: [[[ ctl.rotation ]]],
+          translate: [ -250, 0, 0 ],
           rotate: [0, 0, 0],
           lens: [0, 1, Infinity ],
         },

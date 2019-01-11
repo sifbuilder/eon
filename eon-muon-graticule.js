@@ -347,9 +347,9 @@
       if (hvg === 0) {
         coords = [].concat(mersCoords).concat(parsCoords)
       } else if (hvg === 1) {
-        coords = [].concat(mersCoords)
-      } else if (hvg === 2) {
         coords = [].concat(parsCoords)
+      } else if (hvg === 2) {
+        coords = [].concat(mersCoords)
       }
       
       let gj = {
