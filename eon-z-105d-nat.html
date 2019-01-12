@@ -38,7 +38,16 @@ async function anitem (__eo) {
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
 
-      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
+      eofold: ani => {
+        let natipros = {
+          form: ani.eoform,
+          ghv: 1, // horizontal geodesics
+          gsa: 0, // symetric distribution of geodesics around the origin
+          gco: 0, // closed line
+        }      
+        let nat = muonNatform.natFeature(natipros)
+        return nat
+      },
       eonode: {
         type: 'Feature',
         geometry: {
@@ -49,7 +58,6 @@ async function anitem (__eo) {
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
-
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -61,17 +69,15 @@ async function anitem (__eo) {
           geoanod: 1, // eonode
         },
       },
-
       eoform: {
-
-        'x': {
-          'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
+        x: {
+          'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,  // triangle
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': 100,
           'dom3': [ -180, 180 ],
         },
-        'y': {
-          'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
+        y: {
+          'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1, // triangle
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': 100,
           'dom3': [ -180, 180 ],
         },
 

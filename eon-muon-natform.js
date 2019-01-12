@@ -355,9 +355,9 @@
 
       const {
         form = {}, // natiform
-        hvg = 0, // get horizontal, vertical, horizontal+vertical geodesics
-        asyg = 0, // get asymetryic distribution, origin in extreme (dist)
-        closeg = 0, // get close line (border)
+        ghv = 0, // get horizontal, vertical, horizontal+vertical geodesics
+        gsa = 0, // get asymetryic distribution, origin in extreme (dist)
+        gco = 0, // get close line (border)
       } = props
       
       if (muonProps.isSame(form, cache.form)) {
@@ -383,8 +383,8 @@
           
           gratipros = {
             frame: frame,
-            asyg: asyg,
-            closeg: closeg,
+            gsa: gsa,
+            gco: gco,
           } // x, y
 
           vertices = muonGraticule.gjfMultiPoint(gratipros).geometry.coordinates
@@ -402,8 +402,8 @@
 
           gratipros = {
             frame: frame,
-            asyg: asyg,
-            closeg: closeg,
+            gsa: gsa,
+            gco: gco,
           } // _e_ x, y
 
           vertices = muonGraticule.gVertices(gratipros)
@@ -456,14 +456,15 @@
     }
 
     // ............................. natFeature
+    //  frame: [ [ dom3.x, 360, 360/seg5.x ], [dom3.y, 360, 360/seg5.y ] ]
     let natFeature = function (props = {}) {
       let feature
 
       const {
         form = {}, // natiform
-        hvg = 0, // get horizontal, vertical, horizontal+vertical geodesics
-        asyg = 0, // get asymetryic distribution, origin in extreme (dist)
-        closeg = 0, // get close line (border)
+        ghv = 0, // get horizontal, vertical, horizontal+vertical geodesics
+        gsa = 0, // get asymetryic distribution, origin in extreme (dist)
+        gco = 0, // get close line (border)
       } = props
 
       if (muonProps.isSame(form, cache.form)) {
@@ -490,15 +491,16 @@
 
           gratipros = {
             frame: frame,
-            hvg: hvg,
-            asyg: asyg,
-            closeg: closeg,
+            ghv: ghv,
+            gsa: gsa,
+            gco: gco,
           } // x, y
 
           geometry = muonGraticule.gjfMultiLineString(gratipros).geometry 
           
           
         } else { // ___ 2d
+
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y
 
@@ -512,29 +514,18 @@
 
           gratipros = {
             frame: frame,
-            hvg: hvg,
-            asyg: asyg,
-            closeg: closeg,
+            ghv: ghv,
+            gsa: gsa,
+            gco: gco,
           } // _e_ x, y
 
+        console.assert(ghv === 0 || ghv === 1, `2d forms have no meridians`)  
+          
           geometry = muonGraticule.gjfMultiLineString(gratipros).geometry // geometry.type: MultiLineString
-
-          let p = geometry.coordinates[1] // .slice(0, -1)  // graticule.symgraticuleX arywinopen
-
-          // eg:  0: [-180, 0]
-          //      1: [-120, 0]
-          //      2: [-60, 0]
-          //      3: [0, 0]
-          //      4: [60, 0]
-          //      5: [120, 0]
-
-          // if (p[0] !== p[p.length - 1]) p.push(p[0]) // _e_ 105c close polygon
-          // rely on border passed to graticule
+          let p = geometry.coordinates[0]
           geometry.coordinates = Array.of(p)
         }
 
-        // let quads = muonGraticule.qfaces(graticule)
-        // let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
 
         let gj = {
           type: 'Feature',
@@ -710,6 +701,7 @@
 
     enty.natFeature = natFeature
     enty.natMultiPolygon = natMultiPolygon
+    
     enty.natNform = natNform
     enty.closeFeature = closeFeature
     enty.natVertex = natVertex

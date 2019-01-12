@@ -266,15 +266,15 @@
         Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
 
       let {
-        asyg = 0,
-        closeg = 0,
+        gsa = 0,
+        gco = 0,
       } = params
 
       // get circles from point in sphere and step
-      let X = grt(Y0, Y1, PY, 0, asyg, closeg), // get X(Y) by PY
-        Y = grt(X0, X1, PX, 1, asyg, closeg), // get Y(X) by PX
-        x = grt(y0, y1, py, 0, asyg, closeg), // get x(y) by py
-        y = grt(x0, x1, px, 1, asyg, closeg) // get y(x) by px
+      let X = grt(Y0, Y1, PY, 0, gsa, gco), // get X(Y) by PY
+        Y = grt(X0, X1, PX, 1, gsa, gco), // get Y(X) by PX
+        x = grt(y0, y1, py, 0, gsa, gco), // get x(y) by py
+        y = grt(x0, x1, px, 1, gsa, gco) // get y(x) by px
 
       // include first meridian
       let bigmer = (params.bigmer !== undefined) ? params.bigmer : 1
@@ -331,8 +331,6 @@
     }
 
 
-
-    
     // .................. gjfMultiLineString
     let gjfMultiLineString = function (params = {}) {
       let g = grarr(params)
@@ -340,15 +338,15 @@
       let parsCoords = g.pps.coordinates
 
       const {
-        hvg = 0, // get horizontal, vertical, horizontal+vertical geodesics
+        ghv = 0, // get horizontal, vertical, horizontal+vertical geodesics
       } = params
       
       let coords = []
-      if (hvg === 0) {
+      if (ghv === 0) {      // ghv: 0 mers+pars [ [h], [v] ]
         coords = [].concat(mersCoords).concat(parsCoords)
-      } else if (hvg === 1) {
+      } else if (ghv === 1) { // ghv: 1 pars [ [h]  ]
         coords = [].concat(parsCoords)
-      } else if (hvg === 2) {
+      } else if (ghv === 2) { // ghv: 2 mers [ [v]  ]
         coords = [].concat(mersCoords)
       }
       
@@ -463,6 +461,7 @@
     }
 
     // .................. gfaces
+    // ... bifaces
     let gfaces = function (params, range = null, tile = null, inPolygons = []) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
@@ -487,7 +486,7 @@
           let j0 = j
           let j1 = (j + 1) // % (parsq) // parabolic
 
-          let fs = bifaces(i, j, mersq, parsq, mersCoords, inPolygons)
+          let fs = bifaces(i, j, mersq, parsq, mersCoords, inPolygons)  // bifaces
           fs.forEach(f => faces.push(f))
         }
       }
@@ -495,6 +494,7 @@
       return faces
     }
     // .................. qfaces
+    // ... quads    
     let qfaces = function (params, range = null, tile = null, inPolygons = []) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
@@ -519,7 +519,7 @@
           let j0 = j
           let j1 = (j + 1) // % (parsq) // parabolic
 
-          let fs = quads(i, j, mersq, parsq, mersCoords, inPolygons)
+          let fs = quads(i, j, mersq, parsq, mersCoords, inPolygons)  // quads
           fs.forEach(f => faces.push(f))
         }
       }
@@ -545,24 +545,28 @@
     enty.reset = function () {
       cache = cacheGraticule = null
       return enty
-    }
+    } 
 
     enty.tidx = tidx
     enty.ridx = ridx
     enty.gratiparams = gratiparams
     enty.grarr = grarr
 
-    enty.gjfMultiLineString = gjfMultiLineString
-
     enty.dedges = dedges
 
     enty.gfaces = gfaces
     enty.qfaces = qfaces
-    enty.gjfMultiPoint = gjfMultiPoint
     enty.equator = equator
+    
+    enty.gjfMultiLineString = gjfMultiLineString
+    enty.gjfMultiPoint = gjfMultiPoint
 
     return enty
   }
 
+  // ...
+  // ... # license
+  // ... MIT  
+  
   exports.muonGraticule = muonGraticule
 }))
