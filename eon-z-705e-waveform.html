@@ -51,10 +51,6 @@ async function anitem (__eo) {
       lens: [ 0, 1, Infinity ],
     }
 
-    const waveFrame = [ [ [ -180, 180, 90, 5], [ -180, 180, 30, 5] ] ]
-
-    const sphereFrame = [ [ [ -180, 180, 45, 5], [ -180, 180, 45, 5] ] ]
-
     let waveForm = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
@@ -139,7 +135,7 @@ async function anitem (__eo) {
 
         proform: waveProform,
       },
-      eoframe: waveFrame,
+      eoframe: [ [ [ -180, 180, 90, 5], [ -180, 180, 30, 5] ] ],
       eoload: {
 
         fibonat: {
@@ -157,22 +153,24 @@ async function anitem (__eo) {
     let sphereAni = {
 
       eohal: 'mars',
+      eotim: eotim,
+      eoric: {gid: 'grat', cid: 'grat', fid: 'sphereAni'},
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe), // hMultiLine
+      eofold: ani => muonGraticule.gjfMultiLineString({multiframe: ani.eoframe}), // hMultiLine
 
-      eotim,
-      eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereAni'},
       eocrom: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.01, 0.9]]], 'cp': 0.9 },
 
       eomot: {
-        conform: { projection: 'natform', eoform: sphereForm },
-
+        conform: { 
+          projection: 'natform', 
+          eoform: sphereForm 
+        },
         proform: sphereProform,
       },
-      eoframe: sphereFrame,
-      eoload: {
-
-      },
+      eoframe: [ 
+                  [ -180, 180, 45, 45], [ -90, 90, 45, 45]
+                ],
+      eoload: {},
 
     }
 
@@ -180,7 +178,7 @@ async function anitem (__eo) {
     let animas = [
 
       sphereAni, // h.mars
-      waveAni, // h.mars
+      // waveAni, // h.mars
 
     ]
 

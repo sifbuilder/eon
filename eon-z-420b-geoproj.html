@@ -78,7 +78,7 @@ async function anitem (__eo) {
 
     let eoframe = {
 
-      frame: [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ],
+      geoframe: [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ],
 
     }
 
@@ -112,7 +112,7 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {gid: 'geograt', cid: 'geograt', fid: 'geograt'},
 
-      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
+      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
 
       eomot: {
         eoform: {

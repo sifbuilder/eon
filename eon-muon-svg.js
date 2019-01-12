@@ -37,14 +37,14 @@
     }
 
     // .................. castels
-    // ... m.svg.castels(svgdata, frame={start:0, stop:0.90, step:0.33} )
+    // ... m.svg.castels(svgdata, geoframe={start:0, stop:0.90, step:0.33} )
     // ...  svgdata: cubic beziers: MC...CZ
-    // ...  frame.start: bezier interaval beginning
-    // ...  frame.stop: bezier interval end
-    // ...  frame.step: space between points
+    // ...  geoframe.start: bezier interaval beginning
+    // ...  geoframe.stop: bezier interval end
+    // ...  geoframe.step: space between points
     // ...    eg: castels(svg, {start:0, stop:0.90, step:0.33}) will return 3 curve points in bezier
 
-    let castels = function (svgdata, frame = {start: 0, stop: 0.90, step: 0.33}) {
+    let castels = function (svgdata, geoframe = {start: 0, stop: 0.90, step: 0.33}) {
       let gj = {
         type: 'Feature',
         geometry: { type: 'MultiLineString', coordinates: [] },
@@ -52,7 +52,7 @@
       }
 
       let pathdata = []
-      let range = d3range(frame.start, frame.stop, frame.step)
+      let range = d3range(geoframe.start, geoframe.stop, geoframe.step)
 
       let str = svgdata.path.d
       let svgRings = str.trim().split('M').slice(1) // M C Z

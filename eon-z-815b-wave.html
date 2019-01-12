@@ -137,7 +137,7 @@ async function anitem (__eo) {
       eofold: ani => {
         
         let natipros = {
-          form: ani.eoform,
+          eoform: ani.eoform,
           ghv: 1, // horizontal geodesics
           gsa: 0, // asymetric distribution of geodesics around the origin
           gco: 0, // open line
@@ -166,7 +166,7 @@ async function anitem (__eo) {
       eohal: 'mars',
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qgold'},
-      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
+      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -191,7 +191,7 @@ async function anitem (__eo) {
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qblue'},
 
-      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
+      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
       eomot: {
         proform: {
           projection: 'uniwen',

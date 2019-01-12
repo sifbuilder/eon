@@ -69,7 +69,7 @@
 
       let natAni1 = {
         eohal: 'mars',
-        eofold: p => muonNatform.natFeature({form: p.eoform}),
+        eofold: p => muonNatform.natFeature({eoform: p.eoform}),
         eotim: eotim,
         eoric: {gid: 'g', cid: 'c', fid: 'f1'},
         eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.0099, 'cp': 0.999},

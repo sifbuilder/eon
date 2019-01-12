@@ -70,7 +70,7 @@ async function anitem (__eo) {
         },
       },
       eoframe: {
-        frame: [ [ [ -180, 180, 20, 1], [ -90, 90, 20, 1] ] ],
+        geoframe: [ [ [ -180, 180, 20, 1], [ -90, 90, 20, 1] ] ],
       },
       eoform: null,
       eoload: {},
@@ -82,7 +82,7 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {gid: 'g', cid: 'g', fid: 'g1' },
       eocrom: {'csx': 0, 'cf': 555, 'cs': 888, 'cw': 0.7, 'co': 0.5, 'cp': 0.9},
-      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
+      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
       eomot: {
         proform: {
           projection: 'uniwen', // d3.geoOrthographic(),
@@ -117,7 +117,7 @@ async function anitem (__eo) {
         },
       },
       eoframe: {
-        frame: [ [ [ -180, 180, 20, 1], [ -90, 90, 20, 1] ] ],
+        geoframe: [ [ [ -180, 180, 20, 1], [ -90, 90, 20, 1] ] ],
       },
       eoform: null,
       eoload: {},

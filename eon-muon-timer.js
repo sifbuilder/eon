@@ -11,7 +11,7 @@
   // copyright mbostock
   // https://github.com/d3/d3-timer/blob/master/src/timer.js
   async function muonTimer (__eo = {}) {
-    let frame = 0, // is an animation frame pending?
+    let geoframe = 0, // is an animation geoframe pending?
       timeout = 0, // is a timeout pending?
       interval = 0, // are any timers active?
       pokeDelay = 1000, // how frequently we check for clock skew
@@ -39,13 +39,13 @@
 
     let timerFlush = function timerFlush () {
       now() // Get the current time, if not already set.
-      ++frame // Pretend we’ve set an alarm, if we haven’t already.
+      ++geoframe // Pretend we’ve set an alarm, if we haven’t already.
       let t = taskHead, e
       while (t) {
         if ((e = clockNow - t._time) >= 0) t._call.call(null, e)
         t = t._next
       }
-      --frame
+      --geoframe
     }
 
     let Timer = function Timer () {
@@ -93,11 +93,11 @@
 
     function wake () {
       clockNow = (clockLast = clock.now()) + clockSkew
-      frame = timeout = 0
+      geoframe = timeout = 0
       try {
         timerFlush()
       } finally {
-        frame = 0
+        geoframe = 0
         nap()
         clockNow = 0
       }
@@ -124,7 +124,7 @@
     }
 
     function sleep (time) {
-      if (frame) return // Soonest alarm already set, or will be.
+      if (geoframe) return // Soonest alarm already set, or will be.
       if (timeout) timeout = clearTimeout(timeout)
       let delay = time - clockNow
       if (delay > 24) {
@@ -132,7 +132,7 @@
         if (interval) interval = clearInterval(interval)
       } else {
         if (!interval) clockLast = clockNow, interval = setInterval(poke, pokeDelay)
-        frame = 1, setFrame(wake)
+        geoframe = 1, setFrame(wake)
       }
     }
 

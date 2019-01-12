@@ -25,31 +25,6 @@
 
     const epsilon = 1e-5
 
-    // http://adripofjavascript.com/blog/drips/object-equality-in-javascript.html
-    let isSame = function (a, b) {
-      let ret = false
-      if (a !== undefined && b !== undefined) {
-        var aProps = Object.getOwnPropertyNames(a)
-        var bProps = Object.getOwnPropertyNames(b)
-
-        if (aProps.length != bProps.length) {
-          return false
-        }
-
-        for (var i = 0; i < aProps.length; i++) {
-          var propName = aProps[i]
-
-          if (a[propName] !== b[propName]) {
-            return false
-          }
-        }
-
-        ret = true
-      }
-
-      return ret
-    }
-
     let defaultMajor = [ [-180, 180, 90, 2.5], [-90, 90, 360, 2.5] ]
     let defaultMinor = [ [-180, 180, 10, 2.5], [-80, 80, 10, 2.5] ]
 
@@ -78,13 +53,19 @@
 
     // .................. oneface
     let oneface = function (a, b, c, xn, yn) { //  xy,ru,ry
-      let index = tidx(xn, yn)
-      return [ index(a[0], a[1]), index(b[0], b[1]), index(c[0], c[1]) ]
+      let indexer = tidx(xn, yn)
+
+      let v0 = indexer(a[0], a[1])
+      let v1 = indexer(b[0], b[1])
+      let v2 = indexer(c[0], c[1])
+
+      let f = [ v0, v1, v2 ]
+      return f
     }
 
     // .................. bifaces
     let bifaces = function (i, j, xn, yn) {
-      let index = tidx(xn, yn)
+      let indexer = tidx(xn, yn)
 
       let i0 = i
       let i1 = (i + 1) % xn // _e_
@@ -94,13 +75,11 @@
       let f1 = oneface([i0, j0], [i1, j0], [i1, j1], xn, yn)
       let f2 = oneface([i0, j0], [i1, j1], [i0, j1], xn, yn)
 
-      return [f1, f2]
+      return [ f1, f2 ]
     }
 
     // .................. quads
     let quads = function (i, j, xn, yn) {
-      // if (1 && 1) console.log('quads', i,j,' : ', xn,yn)
-
       let indexer = tidx(xn, yn)
 
       let i0 = i
@@ -115,108 +94,111 @@
 
       let f = [ v0, v1, v2, v3 ]
 
-      return [f ]
+      return [ f ]
     }
 
     // .................. gratiparams
+    // ... @params::{}
+    // ... multiframe: frame: [ xa , xb, d, p ]
+    // ...    eg. [ [-180, 180, 55, 1], 
+    // ...          [-90, 90, 2.5, 1] ]
+    // ...
+    // ... geoframe: [ [X, Y, D ,P], [x, y, d ,p] ]
+    // ...      [ [X_extent, Y_extent], [x_extent, y_extent] ]
+    // ... geoframe.length::2 : major and minor extents ([[X,Y],[x,y]])
+    // ...  X,Y,x,y are segments (arrays) [Xa,Xb,Xd,Xp]
+    // ... eg. [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ],
+    // ...       [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ]
+    // ...      ]
+    // ... geoframe.length::1 : minor defaults to major extent ([[X,Y]]])
+    // ...    X and Y are in the same array
+    // ... eg. [ [ [-180, 180, 45, 45],
+    // ...          [-90, 90, 22.5, 22.5] ] ]
+    // ...
+    // ... @params::[] defaults to geoframe
+    // ...    eg.: [
+    // ...            [ [ -180, 180, 45, 6],
+    // ...              [ -180, 180, 45, 6] ]
+    // ...          ]
+    // ...
     let gratiparams = function (params = {}) {
       let rp = {}
-      
+
       let X0, X1, DX, PX, x0, x1, dx, px,
         Y0, Y1, DY, PY, y0, y1, dy, py
 
       let X_extent, Y_extent, x_extent, y_extent
 
-      if (params.lattice !== undefined) { // lattice
-      // lattice: [x_extent, y_extent]
-      // eg. [ [180, 55], [90, 2.5] ]
+      if (params.multiframe !== undefined) { // multiframe
 
-        let lattice = params.lattice
+        let multiframe = params.multiframe
 
-        x_extent = lattice[0] // x major::minor
-        y_extent = lattice[1] // y major::minor
+        X_extent = multiframe[0] // x major
+        x_extent = multiframe[0] // x minor
+        Y_extent = multiframe[1] // y major
+        y_extent = multiframe[1] // y minor
 
-        if (Array.isArray(x_extent[0])) { // eg. [ [ [-40,180], 55], [] ]
-          X1 = x_extent[0][1] // x_extentMajor  eg. 180
-          X0 = x_extent[0][0]
-        } else { // eg. [ [ 180, 55], [] ]
-          X1 = x_extent[0] // x_extentMajor   eg. 180
-          X0 = -X1
+      } else if (params.geoframe !== undefined) { // geoframe
+
+        let geoframe = params.geoframe
+
+        if (geoframe.length === 2) { // [Major, minor] Mxy, mxy
+
+          X_extent = geoframe[0][0]
+          Y_extent = geoframe[0][1]
+          x_extent = geoframe[1][0]
+          y_extent = geoframe[1][1]
+
+        } else if (geoframe.length === 1) { // [Major :: minor] Mx.mx, My.my
+
+          X_extent = geoframe[0][0]
+          Y_extent = geoframe[0][1]
+          x_extent = geoframe[0][0]
+          y_extent = geoframe[0][1]
         }
 
-        x1 = X1 // x_extentMinor   eg. 180
-        x0 = -x1
-        DX = x_extent[1] // x_stepMajor    eg. 90
-        dx = DX // x_stepMinor    eg. 10
-        PX = DX // x_precision    eg. 2.5
-        px = PX
+      } else if (Array.isArray(params)) { // default to geoframe
 
-        if (Array.isArray(y_extent[0])) {
-          Y1 = y_extent[0][1] // x_extentMajor  eg. 180
-          Y0 = y_extent[0][0]
-        } else {
-          Y1 = y_extent[0] // x_extentMajor   eg. 180
-          Y0 = -Y1
+        let geoframe = params
+
+        if (geoframe.length === 2) { // [Major, minor] Mxy, mxy
+
+          X_extent = geoframe[0][0]
+          Y_extent = geoframe[0][1]
+          x_extent = geoframe[1][0]
+          y_extent = geoframe[1][1]
+
+        } else if (geoframe.length === 1) { // [Major :: minor] Mx.mx, My.my
+
+          X_extent = geoframe[0][0]
+          Y_extent = geoframe[0][1]
+          x_extent = geoframe[0][0]
+          y_extent = geoframe[0][1]
         }
 
-        y1 = Y1 // y_extentMinor   eg. 80
-        y0 = -y1
-        DY = y_extent[1] // y_stepMajor   eg. 360
-        dy = DY // y_stepMinor    eg. 10
-        PY = DY // y_precision    eg. 2.5
-        py = PY
-
-        rp = {X0, X1, DX, PX, x0, x1, dx, px, Y0, Y1, DY, PY, y0, y1, dy, py}
-      } else if (params.frame !== undefined) { // frame
-        // frame: [ [X_extent, Y_extent] ,
-        //          [x_extent, y_extent] ]
-
-        let graticule = params.frame // major, minor
-
-        if (graticule.length === 2) {
-        // eg. [ [ [-180, 180, 45, 45],
-        //         [-90, 90, 22.5, 22.5] ],
-        //       [ [-180, 180, 45, 45],
-        //          [-90, 90, 22.5, 22.5] ] ]
-
-          X_extent = graticule[0][0]
-          Y_extent = graticule[0][1]
-          x_extent = graticule[1][0]
-          y_extent = graticule[1][1]
-        } else if (graticule.length === 1) { // major, minor coincide
-        // eg. [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ]
-
-          X_extent = graticule[0][0]
-          Y_extent = graticule[0][1]
-          x_extent = graticule[0][0]
-          y_extent = graticule[0][1]
-        }
-
-        X0 = X_extent[0]
-        X1 = X_extent[1]
-        DX = X_extent[2]
-        PX = X_extent[3]
-
-        x0 = x_extent[0]
-        x1 = x_extent[1]
-        dx = x_extent[2]
-        px = x_extent[3]
-
-        Y0 = Y_extent[0]
-        Y1 = Y_extent[1]
-        DY = Y_extent[2]
-        PY = Y_extent[3]
-
-        y0 = y_extent[0]
-        y1 = y_extent[1]
-        dy = y_extent[2]
-        py = y_extent[3]
-
-        rp = {X0, X1, DX, PX, x0, x1, dx, px, Y0, Y1, DY, PY, y0, y1, dy, py}
-      } else if (Array.isArray(params)) { // default to frame
-        let p = {frame: params} // eg. [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ]
-        rp = gratiparams(p)
       }
+
+      X0 = X_extent[0]
+      X1 = X_extent[1]
+      DX = X_extent[2]
+      PX = X_extent[3]
+
+      x0 = x_extent[0]
+      x1 = x_extent[1]
+      dx = x_extent[2]
+      px = x_extent[3]
+
+      Y0 = Y_extent[0]
+      Y1 = Y_extent[1]
+      DY = Y_extent[2]
+      PY = Y_extent[3]
+
+      y0 = y_extent[0]
+      y1 = y_extent[1]
+      dy = y_extent[2]
+      py = y_extent[3]
+
+      rp = {X0, X1, DX, PX, x0, x1, dx, px, Y0, Y1, DY, PY, y0, y1, dy, py}
 
       return rp
     }
@@ -340,7 +322,7 @@
       const {
         ghv = 0, // get horizontal, vertical, horizontal+vertical geodesics
       } = params
-      
+
       let coords = []
       if (ghv === 0) {      // ghv: 0 mers+pars [ [h], [v] ]
         coords = [].concat(mersCoords).concat(parsCoords)
@@ -349,7 +331,7 @@
       } else if (ghv === 2) { // ghv: 2 mers [ [v]  ]
         coords = [].concat(mersCoords)
       }
-      
+
       let gj = {
         type: 'Feature',
         geometry: {type: 'MultiLineString', coordinates: coords},
@@ -359,7 +341,7 @@
 
       return gj
     }
-    
+
     // .................. dedges
     let dedges = function (params) {
       let g = grarr(params)
@@ -453,7 +435,7 @@
       return { // return vertices
         type: 'Feature',
         geometry: {
-          type: 'MultiPoint', 
+          type: 'MultiPoint',
           coordinates: vertices
         },
         properties: {},
@@ -494,7 +476,7 @@
       return faces
     }
     // .................. qfaces
-    // ... quads    
+    // ... quads
     let qfaces = function (params, range = null, tile = null, inPolygons = []) {
       let g = grarr(params)
       let mersCoords = g.mms.coordinates
@@ -545,7 +527,7 @@
     enty.reset = function () {
       cache = cacheGraticule = null
       return enty
-    } 
+    }
 
     enty.tidx = tidx
     enty.ridx = ridx
@@ -557,7 +539,7 @@
     enty.gfaces = gfaces
     enty.qfaces = qfaces
     enty.equator = equator
-    
+
     enty.gjfMultiLineString = gjfMultiLineString
     enty.gjfMultiPoint = gjfMultiPoint
 
@@ -566,7 +548,7 @@
 
   // ...
   // ... # license
-  // ... MIT  
-  
+  // ... MIT
+
   exports.muonGraticule = muonGraticule
 }))

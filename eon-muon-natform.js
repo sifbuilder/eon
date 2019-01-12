@@ -17,7 +17,7 @@
   // ...
   // ... ### methods
   // ... natFeature
-  // ... `coordinates = Array.of(__eo("xs").m("nat").natFeature({form: p.form}))`
+  // ... `coordinates = Array.of(__eo("xs").m("nat").natFeature({eoform: p.form}))`
   // ...
   // ... rador
   // ... seg5 unit circle rador
@@ -280,7 +280,9 @@
       let defs = {'v0': 0, 'v1': 1, 'ra2': 120, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1} // defs
 
       let nformed = {}
-      let form = props.form
+      
+      console.assert(props.eoform !== undefined, `eoform undefined in ${props}`)
+      let form = props.eoform
       
       if (form && typeof form === 'object' && // {nat}
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
@@ -354,17 +356,17 @@
       let feature
 
       const {
-        form = {}, // natiform
+        eoform = {}, // natiform
         ghv = 0, // get horizontal, vertical, horizontal+vertical geodesics
         gsa = 0, // get asymetryic distribution, origin in extreme (dist)
         gco = 0, // get close line (border)
       } = props
       
-      if (muonProps.isSame(form, cache.form)) {
+      if (muonProps.isSame(eoform, cache.eoform)) {
         feature = cache.feature
         return feature
       } else {
-        let nformed = natNform({form}) // NFORM
+        let nformed = natNform({eoform: eoform}) // NFORM
         
         let geometry, gratipros, vertices
         let dx, dy, sx, sy
@@ -376,13 +378,13 @@
           sx = dx
           sy = dy
 
-          let xdomain = form.x.dom3 || [-180, 180]
-          let ydomain = form.z.dom3 || [-90, 90] // ____ z ___
+          let xdomain = eoform.x.dom3 || [-180, 180]
+          let ydomain = eoform.z.dom3 || [-90, 90] // ____ z ___
 
-          let frame = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
+          let geoframe = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
           
           gratipros = {
-            frame: frame,
+            geoframe: geoframe,
             gsa: gsa,
             gco: gco,
           } // x, y
@@ -398,10 +400,10 @@
           let xdomain = nformed.x.dom3 || [-180, 180]
           let ydomain = nformed.y.dom3 || [-180, 180]
 
-          let frame = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
+          let geoframe = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
 
           gratipros = {
-            frame: frame,
+            geoframe: geoframe,
             gsa: gsa,
             gco: gco,
           } // _e_ x, y
@@ -456,23 +458,23 @@
     }
 
     // ............................. natFeature
-    //  frame: [ [ dom3.x, 360, 360/seg5.x ], [dom3.y, 360, 360/seg5.y ] ]
+    //  geoframe: [ [ dom3.x, 360, 360/seg5.x ], [dom3.y, 360, 360/seg5.y ] ]
     let natFeature = function (props = {}) {
       let feature
 
       const {
-        form = {}, // natiform
+        eoform = {}, // natiform
         ghv = 0, // get horizontal, vertical, horizontal+vertical geodesics
         gsa = 0, // get asymetryic distribution, origin in extreme (dist)
         gco = 0, // get close line (border)
       } = props
 
-      if (muonProps.isSame(form, cache.form)) {
+      if (muonProps.isSame(eoform, cache.eoform)) {
         feature = cache.feature
         return feature
       } else {
         
-        let nformed = natNform({form: form}) // NFORM
+        let nformed = natNform({eoform: eoform}) // NFORM
 
         let geometry, gratipros
         let dx, dy, sx, sy
@@ -484,13 +486,13 @@
           sx = dx
           sy = dy
 
-          let xdomain = form.x.dom3 || [-180, 180]
-          let ydomain = form.z.dom3 || [-90, 90] // ____ z ___
+          let xdomain = eoform.x.dom3 || [-180, 180]
+          let ydomain = eoform.z.dom3 || [-90, 90] // ____ z ___
 
-          let frame = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
+          let geoframe = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
 
           gratipros = {
-            frame: frame,
+            geoframe: geoframe,
             ghv: ghv,
             gsa: gsa,
             gco: gco,
@@ -510,10 +512,10 @@
           let xdomain = nformed.x.dom3 || [-180, 180]
           let ydomain = nformed.y.dom3 || [-180, 180]
 
-          let frame = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
+          let geoframe = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
 
           gratipros = {
-            frame: frame,
+            geoframe: geoframe,
             ghv: ghv,
             gsa: gsa,
             gco: gco,
@@ -638,8 +640,8 @@
     }
 
     // ............................. natVertex
-    let natVertex = function (form) { // getVertex
-      let nformed = natNform({form}) // natNform
+    let natVertex = function (eoform) { // getVertex
+      let nformed = natNform({eoform: eoform}) // natNform
 
       let unfeld = Object.values(nformed) // dax values
 

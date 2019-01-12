@@ -124,7 +124,7 @@ async function anitem (__eo) {
           },
 
           eofold: function (ani, props) {
-            let neweofold = muonNatform.natFeature({form: ani.eoform})
+            let neweofold = muonNatform.natFeature({eoform: ani.eoform})
 
             return neweofold
           },
@@ -267,7 +267,7 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
+      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
       eonode: {
         type: 'Feature',
         geometry: {
@@ -313,7 +313,7 @@ async function anitem (__eo) {
 
       eocrom: { 'csx': 0, 'cf': [[[999, 999, 999]]], 'co': [[[0.19, 0.19]]], 'cs': [[[999, 999]]], 'cw': [[[1.9, 3.9]]], 'cp': [[[0.7, 0.9]]]},
 
-      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
+      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
       eonode: {
         type: 'Feature',
         geometry: {
@@ -359,7 +359,7 @@ async function anitem (__eo) {
 
       eofold: ani => {
         let natipros = {
-          form: ani.eoform,
+          eoform: ani.eoform,
           ghv: 1, // horizontal geodesics
           gsa: 0, // symetric distribution of geodesics around the origin
           gco: 0, // closed line
@@ -560,7 +560,7 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: { gid: 'nat', cid: 'nat', fid: 'pacerNat' },
 
-      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
+      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
 
       eonode: {
         type: 'Feature',

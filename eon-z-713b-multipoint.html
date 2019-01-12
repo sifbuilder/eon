@@ -56,7 +56,7 @@ async function anitem (__eo) {
       },
     }
 
-    let frame = [ [ [ -180, 180, [[[72, 36, 72]]], [[[72, 36, 72]]] ], [ [[[-90, -360]]], [[[90, 360]]], [[[72, 36, 72]]], [[[72, 36, 72]]] ] ] ]
+    let geoframe = [ [ [ -180, 180, [[[72, 36, 72]]], [[[72, 36, 72]]] ], [ [[[-90, -360]]], [[[90, 360]]], [[[72, 36, 72]]], [[[72, 36, 72]]] ] ] ]
 
     let proform = {
       projection: 'uniwen',
@@ -95,7 +95,7 @@ async function anitem (__eo) {
         conform: { projection: 'natform', eoform: conform },
         proform: proform,
       },
-      eoframe: frame,
+      eoframe: geoframe,
       eoload: {},
     }
 

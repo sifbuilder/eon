@@ -170,7 +170,7 @@ async function anitem (__eo) {
 
       eoframe: {
 
-        frame: [ [ [ -180, 180, 12, 12], [ -180, 180, 12, 12] ] ],
+        geoframe: [ [ [ -180, 180, 12, 12], [ -180, 180, 12, 12] ] ],
 
       },
       eoload: {},
@@ -272,42 +272,12 @@ async function anitem (__eo) {
 
     }
 
-    // .................. gridHelper anima
-    let gridHelper = {
 
-      eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'gridHelper'},
-      eohal: 'sol',
-
-      eofold: anitem => {
-        let eoload = anitem.eoload
-        let json = { // Feature
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: {
-            sort: 'gridHelper',
-            type: 'GridHelper',
-            name: 'gridHelper',
-            isToUpdate: 0,
-
-            size: 200, // field of view
-            divisions: 5,
-
-            position: [0, 0, 0 ],
-          },
-        }
-
-        return json
-      },
-
-    }
     // .................. animas
     let animas = [
 
       formAni, // h.mars
       cameraPersAni, // h.sol
-      // cameraPersHelper, // h.sol
-      // gridHelper, // h.sol
       lightHemisphereAni, // h.sol
       spotLight, // h.sol
 

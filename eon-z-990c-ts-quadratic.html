@@ -61,7 +61,7 @@ async function anitem (__eo) {
           })
         }
         console.log(' ............  train iteration', iter, vars.map(d => d.dataSync()[0]))
-        await tf.nextFrame() // -------------------- frame
+        await tf.nextFrame() // -------------------- geoframe
       }
 
       done()
@@ -154,7 +154,7 @@ async function anitem (__eo) {
       eofold: p => {
         let tfvars = vars.map(d => d.dataSync()[0])
         let q = { natform: {y: { e1: tfvars } } }
-        return muonNatform.natFeature({form: p.eoload.natform(q.natform)})
+        return muonNatform.natFeature({eoform: p.eoload.natform(q.natform)})
       },
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},

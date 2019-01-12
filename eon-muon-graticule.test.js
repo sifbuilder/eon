@@ -40,7 +40,7 @@ test('ridx b', () => {
 })
 
 test('gratiparams', () => {
-  let params = { frame: [ [ [-180, 180, 15, 15], [-180, 180, 60, 60] ] ] }
+  let params = { geoframe: [ [ [-180, 180, 15, 15], [-180, 180, 60, 60] ] ] }
   let r = mGraticule.gratiparams(params)
   let o = {DX: 15, DY: 60, PX: 15, PY: 60,
     X0: -180, X1: 180, Y0: -180, Y1: 180,

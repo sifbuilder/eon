@@ -47,7 +47,7 @@ async function anitem (__eo) {
       // ... updated by transforms
       // ... relative to eonode
       // ... as eonode, properties keep transformed views
-      eofold: ani => muonNatform.natFeature({form: ani.eoform}),
+      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
 
       eotim: eotim,
       eoric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
@@ -154,7 +154,7 @@ async function anitem (__eo) {
                 coordinates: muonStace.getLocus([null, null, null], ani),
               },
             }
-            let form = muonNatform.natFeature({form: ani.eoform})
+            let form = muonNatform.natFeature({eoform: ani.eoform})
             let eofold = muonGeoj.extrapol(form, point)
 
             return eofold
