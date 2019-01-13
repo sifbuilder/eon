@@ -197,9 +197,12 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eocrom: { 'csx': 0, 'cf': [[[999, 999, 999]]], 'co': [[[0.69, 0.69]]], 'cs': [[[999, 999]]], 'cw': [[[1.9, 3.9, 1.9 ]]], 'cp': [[[0.7, 0.9, 0.2]]]},
-
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natFeature({
+          eoform: ani.eoform,
+          ghv: 0, // horizontal geodesics
+          gsa: 0, // symetric distribution of geodesics around the origin
+          gco: 0, // closed line
+      }),
       eonode: {
         type: 'Feature',
         geometry: {
@@ -221,6 +224,8 @@ async function anitem (__eo) {
           lens: [0, 1, Infinity],
         },
       },
+      eocrom: { 'csx': 0, 'cf': [[[999, 999, 999]]], 'co': [[[0.69, 0.69]]], 'cs': [[[999, 999]]], 'cw': [[[1.9, 3.9, 1.9 ]]], 'cp': [[[0.7, 0.9, 0.2]]]},
+
       eoform: {
         x: {
           'm1': 6, 'm2': 6, 'n1': 30, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,

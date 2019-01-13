@@ -37,7 +37,7 @@ async function anitem (__eo) {
   let ani = function () {
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
-
+    let eocrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]] }
     // ............................. avaline
     let avaline = {
 
@@ -104,18 +104,20 @@ async function anitem (__eo) {
               coords = ani.eonode.geometry.coordinates
             }
 
-            console.assert(coords !== undefined && coords !== null)
+            console.assert(coords !== undefined && coords !== null, `coords undefined`)
+
             let geometry = {
               type: 'LineString',
               coordinates: coords,
             }
-            console.assert(muonGeoj.isValid(geometry))
+            console.assert(muonGeoj.isValid(geometry), `gj invalid`)
 
-            return {
+            let res = {
               type: 'Feature',
               geometry: geometry,
               properties: {},
             }
+            return res
           },
 
           eonode: function (ani, props) {
@@ -170,7 +172,10 @@ async function anitem (__eo) {
 
       eonode: {
         type: 'Feature',
-        geometry: {type: 'Point', coordinates: [0, 0]},
+        geometry: {
+          type: 'Point', 
+          coordinates: [0, 0]
+        },
         properties: {orgen: [0, 0], velin: [0, 0], velang: [0, 0], prevous: [0, 0], geodelta: [0, 0]},
       },
 
@@ -178,7 +183,7 @@ async function anitem (__eo) {
         proform: {
           projection: 'uniwen',
           translate: [ [ 0, 0 ], [[[ {
-            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 4, 'b': 2,
+            'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
             'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
           } ]]] ],
           scale: 1,
@@ -188,8 +193,7 @@ async function anitem (__eo) {
         },
       },
 
-      eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.029, 0.29]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]],
-      },
+      eocrom: eocrom,
 
       eoload: {},
       avatars: {
@@ -198,10 +202,64 @@ async function anitem (__eo) {
 
       },
     }
+   // ............................. natAni
+    let natAni1 = {
 
+      eohal: 'mars',
+      eotim: eotim,
+      eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
+
+      eofold: ani => {
+        let natipros = {
+          eoform: ani.eoform,
+          ghv: 1, // horizontal geodesics
+          gsa: 0, // symetric distribution of geodesics around the origin
+          gco: 0, // closed line
+        }      
+        let nat = muonNatform.natFeature(natipros)
+        return nat
+      },
+      eonode: {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {
+          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
+        },
+      },
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ 0, 0, 0], // mot
+          scale: 1,
+          rotate: [ 0, 0, -90 ], // rot -90 anticlock-wise
+          lens: [0, 1, Infinity],
+          geoanod: 1, // eonode
+        },
+      },
+      eoform: {
+        x: {
+          'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,  // triangle
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': 100,
+          'dom3': [ -180, 180 ],
+        },
+        y: {
+          'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1, // triangle
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': 100,
+          'dom3': [ -180, 180 ],
+        },
+
+      },
+
+      eocrom: eocrom,
+      eoload: {},
+    }
     // .................. animas
     let animas = [
       aniLine, // h.pacer
+      natAni1,
     ]
 
     return animas

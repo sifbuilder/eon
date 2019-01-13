@@ -2,9 +2,6 @@
 <script>
 xEonify.eon({anitem, time: undefined})
 
-// ... eon z anima
-// ... render anima from m.animas
-
 // .................. anitem
 async function anitem (__eo) {
   // .................. eons
@@ -28,14 +25,13 @@ async function anitem (__eo) {
 
     // .................. pics
     let eotim = {td: 16800, t0: 0, t1: 1000, t2: 1, t3: 1}
-
     let eocrom = { 'csx': 0, 'cf': 888, 'co': 0.19, 'cs': 777, 'cw': 0.99, 'cp': 0.99 }
 
     // ............................. natAni
     let natAni1 = {
 
       eohal: 'mars',
-      eotim,
+      eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
 
       eofold: ani => {

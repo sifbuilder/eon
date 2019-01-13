@@ -324,8 +324,9 @@
       } = params
 
       let coords = []
-      if (ghv === 0) {      // ghv: 0 mers+pars [ [h], [v] ]
-        coords = [].concat(mersCoords).concat(parsCoords)
+      if (ghv === 0) {      // ghv: 0 pars+mers [ [h], [v] ]
+        // coords = [].concat(mersCoords).concat(parsCoords)
+        coords = [].concat(parsCoords).concat(mersCoords)
       } else if (ghv === 1) { // ghv: 1 pars [ [h]  ]
         coords = [].concat(parsCoords)
       } else if (ghv === 2) { // ghv: 2 mers [ [v]  ]

@@ -151,10 +151,10 @@ async function anitem (__eo) {
     let natAni = {
 
       eohal: 'mars',
-      eofold: p => {
+      eofold: ani => {
         let tfvars = vars.map(d => d.dataSync()[0])
         let q = { natform: {y: { e1: tfvars } } }
-        return muonNatform.natFeature({eoform: p.eoload.natform(q.natform)})
+        return muonNatform.natFeature({eoform: ani.eoload.natform(q.natform)})
       },
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},

@@ -502,6 +502,7 @@
           
           
         } else { // ___ 2d
+if (1 && 1) console.log('nformed', nformed)
 
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y
@@ -512,7 +513,9 @@
           let xdomain = nformed.x.dom3 || [-180, 180]
           let ydomain = nformed.y.dom3 || [-180, 180]
 
-          let geoframe = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
+          let geoframe = [ [ 
+                  [...xdomain, sx, dx], [...ydomain, sy, dy] 
+                ] ]
 
           gratipros = {
             geoframe: geoframe,
@@ -524,6 +527,8 @@
         console.assert(ghv === 0 || ghv === 1, `2d forms have no meridians`)  
           
           geometry = muonGraticule.gjfMultiLineString(gratipros).geometry // geometry.type: MultiLineString
+          if (1 && 1) console.log('geometry', geometry)
+
           let p = geometry.coordinates[0]
           geometry.coordinates = Array.of(p)
         }
