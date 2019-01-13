@@ -160,35 +160,35 @@ async function anitem (__eo) {
       eohal: 'mars',
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
-      
+
       eofold: ani => {
         let eoload = ani.eoload
         let eocrom = ani.eocrom
-        
+
         const props = eoload.tree.props,
           x0 = eoload.tree.x0,
           y0 = eoload.tree.y0,
           growunit = eoload.tree.props.growunit,
           baseangle = eoload.tree.props.baseangle
 
-        props.eocrom = eocrom 
+        props.eocrom = eocrom
         // let feature = {
-          // type: 'Feature',
-          // geometry: { type: 'MultiLineString', coordinates: [] },
-          // properties: {},
+        // type: 'Feature',
+        // geometry: { type: 'MultiLineString', coordinates: [] },
+        // properties: {},
         // }
 
         // const maxDepth = eoload.tree.maxDepth,
-          // depth = eoload.tree.depth,
-          // trunkWidth = eoload.tree.trunkWidth,
-          // branchColor = eoload.tree.branchColor,
-          // grounit = eoload.tree.grounit0,
-          // angle = eoload.tree.angle0,
-          // x0 = eoload.tree.x0,
-          // y0 = eoload.tree.y0,
-          // branchShrinkage = eoload.tree.branchShrinkage,
-          // maxAngleDelta = eoload.tree.maxAngleDelta,
-          // directions = eoload.tree.directions
+        // depth = eoload.tree.depth,
+        // trunkWidth = eoload.tree.trunkWidth,
+        // branchColor = eoload.tree.branchColor,
+        // grounit = eoload.tree.grounit0,
+        // angle = eoload.tree.angle0,
+        // x0 = eoload.tree.x0,
+        // y0 = eoload.tree.y0,
+        // branchShrinkage = eoload.tree.branchShrinkage,
+        // maxAngleDelta = eoload.tree.maxAngleDelta,
+        // directions = eoload.tree.directions
 
         let uidPreitem = ani.eoric.uid
         let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
@@ -223,7 +223,6 @@ async function anitem (__eo) {
 
         return newtree
       },
-
 
       eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
 
@@ -253,7 +252,7 @@ async function anitem (__eo) {
             maxDepth: 8, // --
             delay: 10, // --
           },
-          
+
           // grounit0: 2, // 60,
           // angle0: Math.PI / 2,
 
@@ -276,37 +275,36 @@ async function anitem (__eo) {
       eohal: 'mars',
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
-      
+
       eofold: ani => {
         let eoload = ani.eoload
         let eocrom = ani.eocrom
-        
+
         const props = eoload.tree.props,
           x0 = eoload.tree.x0,
           y0 = eoload.tree.y0,
           growunit = eoload.tree.props.growunit,
           baseangle = eoload.tree.props.baseangle
 
-        props.eocrom = eocrom        
-        
-        
+        props.eocrom = eocrom
+
         // let feature = {
-          // type: 'Feature',
-          // geometry: { type: 'MultiLineString', coordinates: [] },
-          // properties: {},
+        // type: 'Feature',
+        // geometry: { type: 'MultiLineString', coordinates: [] },
+        // properties: {},
         // }
 
         // const maxDepth = eoload.tree.maxDepth,
-          // depth = eoload.tree.depth,
-          // trunkWidth = eoload.tree.trunkWidth,
-          // branchColor = eoload.tree.branchColor,
-          // grounit = eoload.tree.grounit0,
-          // angle = eoload.tree.angle0,
-          // x0 = eoload.tree.x0,
-          // y0 = eoload.tree.y0,
-          // branchShrinkage = eoload.tree.branchShrinkage,
-          // maxAngleDelta = eoload.tree.maxAngleDelta,
-          // directions = eoload.tree.directions
+        // depth = eoload.tree.depth,
+        // trunkWidth = eoload.tree.trunkWidth,
+        // branchColor = eoload.tree.branchColor,
+        // grounit = eoload.tree.grounit0,
+        // angle = eoload.tree.angle0,
+        // x0 = eoload.tree.x0,
+        // y0 = eoload.tree.y0,
+        // branchShrinkage = eoload.tree.branchShrinkage,
+        // maxAngleDelta = eoload.tree.maxAngleDelta,
+        // directions = eoload.tree.directions
 
         let uidPreitem = ani.eoric.uid
         let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
@@ -342,14 +340,13 @@ async function anitem (__eo) {
         return newtree
       },
 
-
       eocrom: {csx: 2, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
 
       eoload: {
         tree: {
           x0: 0, y0: -80,
-          
-          props:{
+
+          props: {
             baseangle: Math.PI / 2, // start angle
 
             depth: [[[0, 12]]], // depth iter
@@ -372,8 +369,7 @@ async function anitem (__eo) {
             maxDepth: 8, // --
             delay: 10, // --
           },
-          
-          
+
           // grounit0: 2, // 60,
           // angle0: Math.PI / 2,
 
@@ -396,35 +392,35 @@ async function anitem (__eo) {
       eohal: 'mars',
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani3'},
-      
+
       eofold: ani => {
         let eoload = ani.eoload
         let eocrom = ani.eocrom
-        
+
         const props = eoload.tree.props,
           x0 = eoload.tree.x0,
           y0 = eoload.tree.y0,
           growunit = eoload.tree.props.growunit,
           baseangle = eoload.tree.props.baseangle
 
-        props.eocrom = eocrom 
+        props.eocrom = eocrom
         // let feature = {
-          // type: 'Feature',
-          // geometry: { type: 'MultiLineString', coordinates: [] },
-          // properties: {},
+        // type: 'Feature',
+        // geometry: { type: 'MultiLineString', coordinates: [] },
+        // properties: {},
         // }
 
         // const maxDepth = eoload.tree.maxDepth,
-          // depth = eoload.tree.depth,
-          // trunkWidth = eoload.tree.trunkWidth,
-          // branchColor = eoload.tree.branchColor,
-          // grounit = eoload.tree.grounit0,
-          // angle = eoload.tree.angle0,
-          // x0 = eoload.tree.x0,
-          // y0 = eoload.tree.y0,
-          // branchShrinkage = eoload.tree.branchShrinkage,
-          // maxAngleDelta = eoload.tree.maxAngleDelta,
-          // directions = eoload.tree.directions
+        // depth = eoload.tree.depth,
+        // trunkWidth = eoload.tree.trunkWidth,
+        // branchColor = eoload.tree.branchColor,
+        // grounit = eoload.tree.grounit0,
+        // angle = eoload.tree.angle0,
+        // x0 = eoload.tree.x0,
+        // y0 = eoload.tree.y0,
+        // branchShrinkage = eoload.tree.branchShrinkage,
+        // maxAngleDelta = eoload.tree.maxAngleDelta,
+        // directions = eoload.tree.directions
 
         let uidPreitem = ani.eoric.uid
         let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
@@ -459,7 +455,6 @@ async function anitem (__eo) {
 
         return newtree
       },
-
 
       eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
 
@@ -489,8 +484,7 @@ async function anitem (__eo) {
             maxDepth: 8, // --
             delay: 10, // --
           },
-          
-          
+
           // grounit0: 2, // 60,
           // angle0: Math.PI / 2,
 

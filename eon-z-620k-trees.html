@@ -12,7 +12,7 @@ async function anitem (__eo) {
     muonProps,
     muonSoma,
     renderSvg,
-    
+
     muonGeoj,
     muonLacer,
     muonLindenmayer,
@@ -25,13 +25,13 @@ async function anitem (__eo) {
     __eo('xs').m('props'),
     __eo('xs').m('soma'),
     __eo('xs').r('svg'),
-    
+
     __eo('xs').m('geoj'),
     __eo('xs').m('lacer'),
     __eo('xs').m('lindenmayer'),
     __eo('xs').m('snap'),
     __eo('xs').p('uniwen'),
-    
+
   ])
 
   let muonStore = __eo('muonStore')
@@ -39,8 +39,7 @@ async function anitem (__eo) {
   // .................. animas
   let ani = function () {
     let animas = []
-  
-  
+
     let aniFormA = {
 
       eotim: { td: 24200, t0: 0, t1: 1000, t2: 1, t3: 1, nostop: 1 },
@@ -56,7 +55,7 @@ async function anitem (__eo) {
       eomot: {
         proform: {
           projection: 'uniwen',
-          scale: [0.33,0.33,0.33],
+          scale: [0.33, 0.33, 0.33],
           translate: {x: -150, y: 100 },
 
           rotate: [ 0, 0, 0 ],
@@ -85,9 +84,9 @@ async function anitem (__eo) {
         },
 
       },
-    }  
-  
-      // .................. pics
+    }
+
+    // .................. pics
     let aniForm = {
 
       eohal: 'mars',
@@ -100,8 +99,6 @@ async function anitem (__eo) {
         let gj1 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer1)
         let coors1 = gj1.geometry.coordinates[0]
 
-
-        
         return gj1
       },
 
@@ -139,10 +136,6 @@ async function anitem (__eo) {
       },
     }
 
-
-  
-  
-  
     // .................. somaAni
     let somaAni = {
 
@@ -154,9 +147,8 @@ async function anitem (__eo) {
 
       eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.69},
       eoload: {},
-    }  
-  
-  
+    }
+
     let p = {
       // eocrom: {csx: 2, cf: 555, cs: 111, cw: 2.9, co: 0.0072, cp: 0.99},
       // eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
@@ -185,21 +177,20 @@ async function anitem (__eo) {
     for (let i = 0; i < q; i++) {
       let anii = muonProps.clone(somaAni)
       anii.eoload.soma = p
-        anii.eoload.soma.x0 = 100 // (0.5 - Math.random()) * 300
-        anii.eoload.soma.y0 = -100 // -200 + (Math.random()) * 200
+      anii.eoload.soma.x0 = 100
+      anii.eoload.soma.y0 = -100
       anii.eoric.fid = 'ani' + i
-      
+
       anii.eofold = muonSoma.somafold
 
       treeanis.push(anii)
     }
 
-    
     // .................. animas
-    animas.push(aniFormA)  
+    animas.push(aniFormA)
     animas.push(aniForm)
     animas = animas.concat(treeanis)
-    
+
     return animas
   }
 

@@ -165,13 +165,13 @@ async function anitem (__eo) {
         let eoload = ani.eoload
         let eocrom = ani.eocrom
 
-        const props = eoload.tree.props,
-          x0 = eoload.tree.x0,
-          y0 = eoload.tree.y0,
-          growunit = eoload.tree.props.growunit,
-          baseangle = eoload.tree.props.baseangle
+        const soma = eoload.soma,
+          x0 = eoload.soma.x0,
+          y0 = eoload.soma.y0,
+          growunit = eoload.soma.growunit,
+          baseangle = eoload.soma.baseangle
 
-        props.eocrom = eocrom
+        soma.eocrom = eocrom
 
         let uidPreitem = ani.eoric.uid
         let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
@@ -202,7 +202,7 @@ async function anitem (__eo) {
             properties: {},
           }
         }
-        let newtree = buildTree(tree, props)
+        let newtree = buildTree(tree, soma)
 
         return newtree
       },
@@ -210,32 +210,30 @@ async function anitem (__eo) {
       eocrom: {csx: 3, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
 
       eoload: {
-        tree: {
+
+        soma: {
           x0: 0, y0: -100,
+          baseangle: Math.PI / 2, // start angle
 
-          props: {
-            baseangle: Math.PI / 2, // start angle
+          depth: [[[0, 12]]], // depth iter
 
-            depth: [[[0, 12]]], // depth iter
+          growunit: 2, // rate of feature growth in tick
+          maxAngleDelta: Math.PI / 2, // max abs ang delta
+          directions: [ -1.1, 0.9 ], // deviations
 
-            growunit: 2, // rate of feature growth in tick
-            maxAngleDelta: Math.PI / 2, // max abs ang delta
-            directions: [ -1.1, 0.9 ], // deviations
+          shrinkage: 0.9, // size shrink
+          colordelta: 100, // color delta between gens
 
-            shrinkage: 0.9, // size shrink
-            colordelta: 100, // color delta between gens
+          subgrow: 1, // inside growth
+          subgrowunit: 1.7, // rate of feature growth in tick
+          subangfact: 6, // width of secondary deviation
+          subdirections: [0.1], // direction in stems
+          subShrinkage: 0.9, // size shrink
 
-            subgrow: 1, // inside growth
-            subgrowunit: 1.7, // rate of feature growth in tick
-            subangfact: 6, // width of secondary deviation
-            subdirections: [0.1], // direction in stems
-            subShrinkage: 0.9, // size shrink
-
-            trunkWidth: 12, // initial ent size
-            branchColor: [101, 67, 33], // --
-            maxDepth: 8, // --
-            delay: 10, // --
-          },
+          trunkWidth: 12, // initial ent size
+          branchColor: [101, 67, 33], // --
+          maxDepth: 8, // --
+          delay: 10, // --
         },
       },
     }
@@ -251,13 +249,13 @@ async function anitem (__eo) {
         let eoload = ani.eoload
         let eocrom = ani.eocrom
 
-        const props = eoload.tree.props,
-          x0 = eoload.tree.x0,
-          y0 = eoload.tree.y0,
-          growunit = eoload.tree.props.growunit,
-          baseangle = eoload.tree.props.baseangle
+        const soma = eoload.soma,
+          x0 = eoload.soma.x0,
+          y0 = eoload.soma.y0,
+          growunit = eoload.soma.growunit,
+          baseangle = eoload.soma.baseangle
 
-        props.eocrom = eocrom
+        soma.eocrom = eocrom
 
         let uidPreitem = ani.eoric.uid
         let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
@@ -288,7 +286,7 @@ async function anitem (__eo) {
             properties: {},
           }
         }
-        let newtree = buildTree(tree, props)
+        let newtree = buildTree(tree, soma)
 
         return newtree
       },
@@ -296,32 +294,30 @@ async function anitem (__eo) {
       eocrom: {csx: 2, cf: 555, cs: 111, cw: 6.9, co: 0.0072, cp: 0.99},
 
       eoload: {
-        tree: {
+
+        soma: {
           x0: -20, y0: -100,
+          baseangle: Math.PI / 2, // start angle
 
-          props: {
-            baseangle: Math.PI / 2, // start angle
+          depth: [[[0, 12]]], // depth iter
 
-            depth: [[[0, 12]]], // depth iter
+          growunit: 2, // rate of feature growth in tick
+          maxAngleDelta: Math.PI / 2, // max abs ang delta
+          directions: [ -1, 1 ], // deviations
 
-            growunit: 2, // rate of feature growth in tick
-            maxAngleDelta: Math.PI / 2, // max abs ang delta
-            directions: [ -1, 1 ], // deviations
+          shrinkage: 0.9, // size shrink
+          colordelta: 100, // color delta between gens
 
-            shrinkage: 0.9, // size shrink
-            colordelta: 100, // color delta between gens
+          subgrow: 1, // inside growth
+          subgrowunit: 2, // rate of feature growth in tick
+          subangfact: 6, // width of secondary deviation
+          subdirections: [0.1], // direction in stems
+          subShrinkage: 0.9, // size shrink
 
-            subgrow: 1, // inside growth
-            subgrowunit: 2, // rate of feature growth in tick
-            subangfact: 6, // width of secondary deviation
-            subdirections: [0.1], // direction in stems
-            subShrinkage: 0.9, // size shrink
-
-            trunkWidth: 12, // initial ent size
-            branchColor: [101, 67, 33], // --
-            maxDepth: 8, // --
-            delay: 10, // --
-          },
+          trunkWidth: 12, // initial ent size
+          branchColor: [101, 67, 33], // --
+          maxDepth: 8, // --
+          delay: 10, // --
         },
       },
     }

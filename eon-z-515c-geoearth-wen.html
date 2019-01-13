@@ -74,23 +74,24 @@ async function anitem (__eo) {
     let conformTangerine = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[60, 60]]], 'pa6': 0, 'pb7': -1,
+        'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
         'dom3': [ -180, 180 ],
         c: [ 1, 1, 1, 1],
         fn0: (e, c, d) => cos(e[0]) * cos(e[2]),
       },
       y: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[60, 60]]], 'pa6': 0, 'pb7': -1,
+        'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
         'dom3': [ -180, 180 ],
         c: [ 1, 1, 1, 1],
         fn0: (e, c, d) => sin(e[0]) * cos(e[2]),
       },
       z: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[60, 60]]], 'pa6': 0, 'pb7': -1,
+        'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
-        c: [ [[[18, 18, 6, 6]]], [[[6, 6, 60, 60]]], 1, 1],
+        // c: [ [[[18, 18, 6, 6]]], [[[6, 6, 60, 60]]], 1, 1],
+        c: [ [[[18, 18, 18, 18]]], [[[12, 12, 12, 12]]], 1, 1],
         fn0: (e, c, d) => sin(e[2] + (pi / d.c[0]) * cos(d.c[1] * e[0])),
       },
       w: {
@@ -227,12 +228,12 @@ async function anitem (__eo) {
         proform: proformFront,
       },
       eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
-      eocrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9},
+      eocrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9 },
 
       eoframe: {
 
         geoframe: [ [ [ -180, 180, 30, 30], // x
-          [ -180, 180, 15, 15] ] ], // y
+                      [ -180, 180, 15, 15] ] ], // y
 
       },
       eoload: {},
@@ -291,19 +292,24 @@ async function anitem (__eo) {
 
       eohal: 'mars',
       eotim: eotim,
-      eoric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
+      eoric: { gid: 'earthAni', cid: 'earthAni', fid: 'earthAni' },
 
-      eofold: p => {
+      eofold: ani => {
         let geometry = Object.assign({},
           topojson.mesh(
             datWorldTopo110m.data(),
             datWorldTopo110m.data().objects.land
           )
         )
-        return { type: 'Feature', geometry: geometry, properties: {} }
+        let gj = { 
+          type: 'Feature', 
+          geometry: geometry, 
+          properties: {} 
+        }
+        return gj
       },
 
-      eocrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.69, 'co': 0.09, 'cp': 0.9},
+      eocrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.69, 'co': 0.09, 'cp': 0.9 },
 
       eomot: {
         conform: {
@@ -319,7 +325,7 @@ async function anitem (__eo) {
 
     let animas = [
       tangerineAni, //
-      // earthAni, //
+      earthAni, //
 
     ]
 

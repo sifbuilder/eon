@@ -228,6 +228,7 @@
 
       let uidPreitem = ani.eoric.uid
       let preAnigram = uidPreitem ? muonStore.findAnigramFromUid(uidPreitem) : null
+      
       let soma
       if (preAnigram) {
         soma = preAnigram.eofold // take preani
@@ -264,6 +265,8 @@
     let enty = {}
 
     enty.soma = soma
+    enty.neoSoma = neoSoma
+    enty.devSoma = devSoma
     enty.somafold = somafold
 
     return enty

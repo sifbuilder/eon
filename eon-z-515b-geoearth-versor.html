@@ -6,9 +6,9 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. eons
   let [
-    topojson,
     d3geo,
     d3geoprojection,
+    topojson,
     ctlWen,
     ctlVersor,
     datWorldTopo110m,
@@ -19,9 +19,9 @@ async function anitem (__eo) {
     prtNatform,
     renderSvg,
   ] = await Promise.all([
-    __eo('xs').b('topojson'),
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-geo-projection'),
+    __eo('xs').b('topojson'),
     __eo('xs').c('wen'),
     __eo('xs').c('versor'),
     __eo('xs').d('worldTopo110m'),
@@ -49,19 +49,19 @@ async function anitem (__eo) {
 
     let formCube = {
 
-      'x': {
+      x: {
         'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
         'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
 
       },
-      'y': {
+      y: {
         'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
         'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
 
       },
-      'z': {
+      z: {
         'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
         'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
         'pr8': d => Math.cos(d),
@@ -125,7 +125,7 @@ async function anitem (__eo) {
 
       projection: darkProjection,
       prerotate: [[[ t => {
-        let rot = ctl
+        let rot = ctlVersor
           .projection({projection: darkProjection}) // versor projection
           .rotation()
         let res = [180 + rot[0], -rot[1], -rot[2]]
