@@ -280,10 +280,10 @@
       let defs = {'v0': 0, 'v1': 1, 'ra2': 120, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1} // defs
 
       let nformed = {}
-      
+
       console.assert(props.eoform !== undefined, `eoform undefined in ${props}`)
       let form = props.eoform
-      
+
       if (form && typeof form === 'object' && // {nat}
             (form.x === undefined && form.y === undefined && form.z === undefined)) {
         nformed.x = Object.assign({}, defs, form)
@@ -361,13 +361,13 @@
         gsa = 0, // get asymetryic distribution, origin in extreme (dist)
         gco = 0, // get close line (border)
       } = props
-      
+
       if (muonProps.isSame(eoform, cache.eoform)) {
         feature = cache.feature
         return feature
       } else {
         let nformed = natNform({eoform: eoform}) // NFORM
-        
+
         let geometry, gratipros, vertices
         let dx, dy, sx, sy
 
@@ -382,7 +382,7 @@
           let ydomain = eoform.z.dom3 || [-90, 90] // ____ z ___
 
           let geoframe = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
-          
+
           gratipros = {
             geoframe: geoframe,
             gsa: gsa,
@@ -390,7 +390,7 @@
           } // x, y
 
           vertices = muonGraticule.gjfMultiPoint(gratipros).geometry.coordinates
-          
+
         } else { // ___ 2d
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y
@@ -412,7 +412,7 @@
 
           vertices = vertices[1].slice(0, -1)
           vertices = Array.of(vertices)
-          
+
         }
 
         let quads = muonGraticule.qfaces(gratipros)
@@ -473,7 +473,7 @@
         feature = cache.feature
         return feature
       } else {
-        
+
         let nformed = natNform({eoform: eoform}) // NFORM
 
         let geometry, gratipros
@@ -498,11 +498,10 @@
             gco: gco,
           } // x, y
 
-          geometry = muonGraticule.gjfMultiLineString(gratipros).geometry 
-          
-          
+          geometry = muonGraticule.gjfMultiLineString(gratipros).geometry
+
+
         } else { // ___ 2d
-if (1 && 1) console.log('nformed', nformed)
 
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y
@@ -513,8 +512,8 @@ if (1 && 1) console.log('nformed', nformed)
           let xdomain = nformed.x.dom3 || [-180, 180]
           let ydomain = nformed.y.dom3 || [-180, 180]
 
-          let geoframe = [ [ 
-                  [...xdomain, sx, dx], [...ydomain, sy, dy] 
+          let geoframe = [ [
+                  [...xdomain, sx, dx], [...ydomain, sy, dy]
                 ] ]
 
           gratipros = {
@@ -524,8 +523,9 @@ if (1 && 1) console.log('nformed', nformed)
             gco: gco,
           } // _e_ x, y
 
-        console.assert(ghv === 0 || ghv === 1, `2d forms have no meridians`)  
-          
+
+        console.assert(ghv === 0 || ghv === 1, `2d forms have no meridians`)
+
           geometry = muonGraticule.gjfMultiLineString(gratipros).geometry // geometry.type: MultiLineString
           if (1 && 1) console.log('geometry', geometry)
 
@@ -562,7 +562,7 @@ if (1 && 1) console.log('nformed', nformed)
         let feature = muonProj3ct(gj, projection)
         cache.eoform = projDef.eoform
         cache.feature = feature
-        
+
         return feature
       }
     }
@@ -599,7 +599,7 @@ if (1 && 1) console.log('nformed', nformed)
         let angi = (form.angi) ? form.angi : (i, ang) => (i * ang) - Math.PI
         let abs = (form.abs) ? form.abs : Math.abs
 
-        for (let i = 0; i < seg5; i++) {
+        for (let i = 0; i <= seg5; i++) { // close domain _e_
           let ang = angi(i, angUnit * v1) // [0,360] => [-180,180] // v1
 
           let t1 = m1 * ang / 4
@@ -622,6 +622,7 @@ if (1 && 1) console.log('nformed', nformed)
         let radUnit = 1 / maxRadio //  Math.SQRT1_2 / maxRadio  normalize
         pts = pts.map(d => d * radUnit)
 
+
         cache.bform = bform
         cache.points = pts
       }
@@ -633,26 +634,58 @@ if (1 && 1) console.log('nformed', nformed)
     function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
       let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)
 
-      let s1range = [0, radorPts.length - 1] // [0, seg5]
+      let s1range = [0, radorPts.length - 1] // [0, seg5] eg. [0,6]
 
-      let s2extent = d3array.range(0, radorPts.length - 1) // [0,...,seg5]
+      let s2extent = d3array.range(0, radorPts.length ) // [0,...,seg5]
+
       let s2range = radorPts // mormed form
 
       let s1 = d3scale.scaleLinear().domain(s1extent).range(s1range) // [-1,1] => [0,seg5]
       let s2 = d3scale.scaleLinear().domain(s2extent).range(s2range) // [0,..,seg5] => rador
+
+      let _s1extent = [-180, 180]
+      let _s1range = [0, 6]      
+      let _s2extent = [      
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+        ]      
+      let _s2range = [
+          0.24253562503633297,
+          0.2857142857142857,
+          0.48507125007266594,
+          1,
+          0.4850712500726661,
+          0.28571428571428575,
+          0.24253562503633297,     
+        ]      
+      let _s1 = d3scale.scaleLinear().domain(_s1extent).range(_s1range) // [-1,1] => [0,seg5]
+      let _s2 = d3scale.scaleLinear().domain(_s2extent).range(_s2range) // [0,..,seg5] => rador
+      console.assert(_s1(0) === 3)
+
+      console.assert(_s1(-180) === 0)
+      console.assert(_s2(_s1(-180)) === 0.24253562503633297)
+      console.assert(_s1(0) === 3)
+      console.assert(_s2(_s1(0)) === 1)
+      console.assert(_s1(180) === 6)
+      console.assert(_s2(_s1(180)) === 0.24253562503633297)
 
       return p => s2(s1(p)) //  [0,1) =s1=> [0,seg5) =rador=> [0,1]
     }
 
     // ............................. natVertex
     let natVertex = function (eoform) { // getVertex
+
       let nformed = natNform({eoform: eoform}) // natNform
-
       let unfeld = Object.values(nformed) // dax values
-
       let dominos = unfeld.map(d => d.dom3) // [ [-180,180], [-180,180], [-90,90], [-90,90] ]
 
       let radions = unfeld.map((d, i) => radorm(d, dominos[i])) // radorm
+
 
       let rayscale = unfeld.map((d, i) => p => radions[i](p * degrees)) // rayscale on degres
 
@@ -662,7 +695,10 @@ if (1 && 1) console.log('nformed', nformed)
 
       if (nformed) wd = rotation = unfeld.map(dax => (dax.w4 || 0)) //  yfase
 
+
+      // ............................. vertex
       let vertex = function (lambdaD, phiD = 0, radio = 1) { // spherical degrees
+
         let ppD = [] // pars in degrees
         ppD[0] = lambdaD + wd[0]
         ppD[1] = lambdaD + wd[1]
@@ -708,7 +744,7 @@ if (1 && 1) console.log('nformed', nformed)
 
     enty.natFeature = natFeature
     enty.natMultiPolygon = natMultiPolygon
-    
+
     enty.natNform = natNform
     enty.closeFeature = closeFeature
     enty.natVertex = natVertex

@@ -49,7 +49,7 @@ async function anitem (__eo) {
 
       projection: prtOrthographic,
       prerotate: [[[ prtOrthographic.rotation ]]],
-      prerotate: [[[ ctl
+      prerotate: [[[ ctlVersor
         .projection({projection: prtOrthographic })
         .rotation,
       ]]],

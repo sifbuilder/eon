@@ -119,7 +119,7 @@ async function anitem (__eo) {
 
     },
 
-    'r': {
+    'w': {
       "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
       'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,  // circ
 
@@ -147,8 +147,7 @@ async function anitem (__eo) {
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natA'},
 
-      eofold: ani => muonNatform.natMultiPolygon({eoform: ani.eoform, h: 1}),
-      // eofold: ani => muonNatform.natFeature({eoform: ani.eoform, h: 1}),
+      eofold: ani => muonNatform.natMultiPolygon({eoform: ani.eoform, ghv: 1}),
       eomot: {
         proform: {
 
@@ -173,8 +172,7 @@ async function anitem (__eo) {
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natB'},
 
-      // eofold: ani => muonNatform.natMultiPolygon({eoform: ani.eoform, h: 1}),
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform, h: 1}),
+      eofold: ani => muonNatform.natFeature({eoform: ani.eoform, ghv: 0}),
       eomot: {
         proform: {
 

@@ -51,7 +51,7 @@ async function anitem (__eo) {
 
       projection: frontProjection,
       prerotate: [[[ function (t) {
-        let rot = ctl
+        let rot = ctlVersor
           .projection({projection: frontProjection}) // versor projection
           .rotation()
         return rot
