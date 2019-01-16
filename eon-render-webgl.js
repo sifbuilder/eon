@@ -842,6 +842,7 @@
         if (state.viewControls === undefined) {
           state.viewControls = getViewControls({camera, domElem})
         }
+        if (0 && 1) console.log('state.viewControls', state.viewControls)
 
         resizeCanvas({threeRenderer, camera})
         state.viewControls.update() // UPDATE SCENE by CONTROL

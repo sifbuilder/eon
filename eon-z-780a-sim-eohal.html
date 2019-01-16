@@ -58,7 +58,8 @@ async function anitem (__eo) {
     let ctl = ctlWen().control(renderSvg.svg())
 
     // .................... pics
-    let eotim = {'td': 12800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, tf: t => (1 / Math.PI) * ((Math.PI / 2) + Math.asin(-1 + 2 * t))}
+    let tf = t => (1 / Math.PI) * ((Math.PI / 2) + Math.asin(-1 + 2 * t))
+    let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, tf: t => t}
 
     // ............................. eohale
     let eohale = anima => {
@@ -92,9 +93,9 @@ async function anitem (__eo) {
             geometry: {
               type: 'Point',
               coordinates: [
-                2 * (0.5 - Math.random()) * width,
-                2 * (0.5 - Math.random()) * height,
-                0,
+                2 * (0.5 - Math.random()) * 10, // x,
+                2 * (0.5 - Math.random()) * 10, // y,
+                2 * (0.5 - Math.random()) * 10, // z,,
               ],
             },
             properties: {
@@ -126,7 +127,7 @@ async function anitem (__eo) {
     let eohal_ween = anitem => eohale(anitem)
     let eohal_gramm = anitem => anitem
 
-    let ineohal = {
+    let ineohal = { // ineohal
       ween: anitem => eohal_ween(anitem),
       gramm: anitem => eohal_gramm(anitem),
     }
@@ -135,7 +136,6 @@ async function anitem (__eo) {
     let nodeAni = {
 
       eohal: ineohal,
-
       eotim: eotim,
       eoric: {gid: 'g', cid: 'g', fid: 'g'},
 
@@ -145,7 +145,9 @@ async function anitem (__eo) {
           type: 'Point',
           coordinates: [0, 0, 0],
         },
-        properties: {},
+        properties: {
+           pointRadius: 12,   
+        },
       },
 
       eonode: {
@@ -155,6 +157,7 @@ async function anitem (__eo) {
           coordinates: [0, 0, 0],
         },
         properties: {
+                    pointRadius: 12,   
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
@@ -213,7 +216,7 @@ async function anitem (__eo) {
 
       let gravity = opts.gravity // gravity
 
-      let fforce = function force (...args) { // d3force builtin (vs muon d3force)
+      let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
           node.vy += gravity // node.vx += 0.001 * Math.random()
@@ -285,7 +288,6 @@ async function anitem (__eo) {
           },
         },
         type: 'collide',
-        src: d3_force,
         filter: d => true, // d.eoric.gid === 'paced',
         id: d => d.eoric.uid,
         key: 'collide',
@@ -294,27 +296,55 @@ async function anitem (__eo) {
       field: params => muonEoforces.force(params),
     }
     // ............................. forceManyBody
-
+    // z should yet not be 0
     let force_manybody = { // aniForce
 
       properties: {
 
         payload: {
-          args: [
-          ],
+          args: [],
           opts: {
-            strength: 16.9,
+            strength: -30.900,
             distanceMin: 1,
             distanceMax: 124,
             theta: 1.0,
           },
         },
-
         src: d3_force,
         id: d => d.eoric.uid,
         filter: d => true, // d.eoric.gid === 'node',
         type: 'manyBody',
         key: 'manyBody',
+
+      },
+
+      field: params => muonEoforces.force(params),
+    }
+    // ............................. forceRadial
+    let force_radial = { // aniForce
+
+      properties: {
+
+        payload: {
+          args: [
+            30, // radius, 
+            20, // x, 
+            20, // y, 
+            20, // z
+          ],
+          opts: {
+            strength: -0.10,
+            // radius: 30,
+            // x: 0,
+            // y: 0,
+            // z: 0,
+          },
+        },
+        src: d3_force,
+        id: d => d.eoric.uid,
+        filter: d => true, // d.eoric.gid === 'node',
+        type: 'radial',
+        key: 'radial',
 
       },
 
@@ -372,9 +402,9 @@ async function anitem (__eo) {
       properties: {
         payload: {
           args: [
-            60, // x
+            60, // pass to m.eoforces.force type
           ],
-          opts: {
+          opts: { // apply to m.eoforces.force type if method
             x: 60,
             strength: 1,
           },
@@ -522,15 +552,16 @@ async function anitem (__eo) {
 
     }
     fieldAni.eoforces = {
-      force_gravity,
-      force_collide,
-      force_manybody,
-      force_centerGold,
-      force_centerRed,
-      force_xGold,
-      force_xRed,
-      force_yGold,
-      force_yRed,
+      force_gravity,  // apply gravity to git.paced anitems
+      force_collide,  // repulse, applies to all items
+      force_manybody,  // ?? 
+      force_radial,  // force radially from center of force 
+      force_centerGold, // applies to gid:gold items
+      force_centerRed, // applies to gid:gold items
+      force_xGold, // applies to gid:gold items, align to x:60 (args, opts)
+      force_xRed, // applies to gid:red items, align to x:-60
+      force_yGold, // applies to gid:gold items, align to y:60
+      force_yRed,  // applies to gid:red items, align to y:-60
       force_zGold,
       force_zRed,
     }
