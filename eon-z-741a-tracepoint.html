@@ -6,20 +6,22 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. eons
   let [
+    eohalMars,
+    eohalNatform,
+    eohalPacer,
     muonStace,
     muonNatform,
     muonEoric,
     ctlWen,
-    eohalMars,
-    eohalNatform,
     renderSvg,
   ] = await Promise.all([
+    __eo('xs').e('mars'),
+    __eo('xs').e('natform'),
+    __eo('xs').e('pacer'),
     __eo('xs').m('stace'),
     __eo('xs').m('natform'),
     __eo('xs').m('eoric'),
     __eo('xs').c('wen'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
     __eo('xs').r('svg'),
   ])
 
@@ -64,11 +66,11 @@ async function anitem (__eo) {
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate: [ [ 70, 80 ], [[[ natStace ]]] ],
+          translate: [[[ [ 70, 80 ], natStace ]]],
           scale: 1,
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
-          control: 'wen',
+
 
         },
       },

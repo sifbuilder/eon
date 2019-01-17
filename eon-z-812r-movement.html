@@ -250,9 +250,12 @@ async function anitem (__eo) {
           projection: 'uniwen',
           scale: [ [[[0.5, 0.5]]], [[[0.5, 0.5]]] ],
           prerotate: [[[ ctl.rotation ]]],
-          translate: [ -70, 0, 0 ],
-          rotate: [ -75, 0, [[[0, 133 - 30]]] ],
-          // rotate: rotate,
+          // translate: [ -70, 0, 0 ],
+          translate: [ [ 70, 80, 0 ], [[[ {
+          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+          } ]]] ],          
+          rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
         },
       },
@@ -260,7 +263,7 @@ async function anitem (__eo) {
       eoform: conformSphere,
       eoload: {},
     }
-    // ............................. sphereAni
+    // ............................. sphereAni3a
     let sphereAni3a = {
       eohal: 'mars',
       eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
@@ -282,7 +285,7 @@ async function anitem (__eo) {
       eoload: {},
     }
 
-    // ............................. sphereAni
+    // ............................. sphereAni3b
     let sphereAni3b = {
       eohal: 'mars',
       eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
@@ -304,7 +307,7 @@ async function anitem (__eo) {
       eoload: {},
     }
 
-    // ............................. sphereAni
+    // ............................. lineAni
     let lineAni = {
       eohal: 'mars',
       eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
@@ -313,7 +316,7 @@ async function anitem (__eo) {
       eomot: {
         proform: {
           projection: 'uniwen',
-          scale: [ [[[3, 3]]], [[[3, 3]]] ],
+          scale: [ 3, 3 ],
           prerotate: [[[ ctl.rotation ]]],
           translate: [ 0, 0, 0 ],
           rotate: [ -75, 0, [[[0, 133 - 30]]] ],

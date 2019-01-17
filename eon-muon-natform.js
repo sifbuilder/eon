@@ -527,7 +527,6 @@
         console.assert(ghv === 0 || ghv === 1, `2d forms have no meridians`)
 
           geometry = muonGraticule.gjfMultiLineString(gratipros).geometry // geometry.type: MultiLineString
-          if (1 && 1) console.log('geometry', geometry)
 
           let p = geometry.coordinates[0]
           geometry.coordinates = Array.of(p)

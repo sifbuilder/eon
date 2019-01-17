@@ -218,7 +218,7 @@ async function anitem (__eo) {
 
     let force_gravity = { // aniForce:{properties, field}
       properties: {
-        gravity: -0.9,
+        gravity: -10.9,
       },
 
       field: params => { // force.field
@@ -233,7 +233,7 @@ async function anitem (__eo) {
           src: d3_force,
           nodes: nodes,
           gravity: gravity,
-          filter: d => d.eoric.gid === 'paced',
+          filter: d => true,
           id: d => d.eoric.uid,
           key: key,
         }

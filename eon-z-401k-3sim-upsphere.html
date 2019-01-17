@@ -434,8 +434,8 @@ async function anitem (__eo) {
       geobase: '',
 
       eofold: p => {
-        let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
-        let quads = muonGraticule.qfaces(p.eoframe)
+        let vertices = muonGraticule.gjfMultiPoint(p.eoload.eoframe).geometry.coordinates
+        let quads = muonGraticule.qfaces(p.eoload.eoframe)
         let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
 
         let featureMultiPoint = {
@@ -482,12 +482,15 @@ async function anitem (__eo) {
         },
       },
 
-      eoframe: {
 
-        geoframe: [ [ [ -180, 180, 30, 30], [ -180, 180, 30, 30] ] ],
+      eoload: {
+      
+        eoframe: {
 
+          multiframe: [ [ -180, 180, 30, 30], [ -180, 180, 30, 30] ],
+
+        },      
       },
-      eoload: {},
     }
 
     circform1.eoforces = {
