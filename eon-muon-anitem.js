@@ -10,7 +10,7 @@
 
   async function muonAnitem (__eo = {}) {
     let [
-      msnap,
+      muonSnap,
       muonProps,
     ] = await Promise.all([
       __eo('xs').m('snap'),
@@ -24,7 +24,7 @@
       let r = Promise.resolve()
       if (ani !== undefined) {
         t = t || ani.eotim.unitTime
-        r = Promise.resolve(msnap.snap(ani, t))
+        r = Promise.resolve(muonSnap.snap(ani, t))
       }
       return r
     }
@@ -33,7 +33,7 @@
       let r
       if (ani !== undefined) {
         t = t || ani.eotim.unitTime
-        r = msnap.snap(ani, t)
+        r = muonSnap.snap(ani, t)
       }
       return r
     }

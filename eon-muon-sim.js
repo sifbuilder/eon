@@ -14,14 +14,18 @@
       d3Force3d,
       muonAnitem,
       muonEonode,
+      muonEotim,
       muonProps,
+      muonSnap,
       muonStore,
     ] = await Promise.all([
       __eo('xs').b('d3'),
       __eo('xs').b('d3-force-3d'),
       __eo('xs').m('anitem'),
       __eo('xs').m('eonode'),
+      __eo('xs').m('eotim'),
       __eo('xs').m('props'),
+      __eo('xs').m('snap'),
       __eo('xs').m('store'),
     ])
 
@@ -180,14 +184,15 @@
       let aniSims = []
       let numDims = 3
 
-      let aniNodes = initNodes(anitems, dim) // < aniNodes
+      let aniNodes = initNodes(anitems, dim) // .map(d => muonAnitem.snapani(d, elapsed))
+if (1 && 1) console.log('aniNodes', aniNodes)
+
       sim
         .stop()
         .numDimensions(numDims)
         .nodes(aniNodes)
 
       for (let i = 0; i < anitems.length; i++) {
-        // let aniItem =  muonAnitem.snapani(anitems[i]) // each anima or anigram
         let aniItem = anitems[i] // each anima or anigram
 
         if (aniItem.eoforces !== undefined) { // forces in aniItem
@@ -195,6 +200,12 @@
 
           for (let j = 0; j < forces.length; j++) { // for each force in aniItem
             let aniForce = forces[j] // aniForce in anima.eoforces eg. force_gravity
+
+
+            let tu = aniItem.eotim.unitTime
+            aniForce = muonProps.v(muonSnap.snap(aniForce, tu),aniItem)
+ 
+
             let cttes = simConstants(sim, aniForce.properties)
 
             sim
@@ -208,7 +219,7 @@
 
                 aniSims = restoreNodes(aniNodes, anitems) // > aniNodes
 
-                muonStore.apply({type: 'UPDANIMA', caller: 'simulation', animas: aniSims})
+                muonStore.apply({type: 'UPDANIMA', caller: 'sim', animas: aniSims})
               })
 
             // ... field method in force

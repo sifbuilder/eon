@@ -540,8 +540,8 @@ var manyBody = function() {
   }
 
   function apply(treeNode, x1, arg1, arg2, arg3) {
-    // if (!treeNode.value) return true;
-    if (treeNode.value === undefined) return true;
+    if (!treeNode.value) return true;
+    // if (treeNode.value === undefined) return true;
     var x2 = [arg1, arg2, arg3][nDim-1];
 
     var x = treeNode.x - node.x,
