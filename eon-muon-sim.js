@@ -185,7 +185,6 @@
       let numDims = 3
 
       let aniNodes = initNodes(anitems, dim) // .map(d => muonAnitem.snapani(d, elapsed))
-if (1 && 1) console.log('aniNodes', aniNodes)
 
       sim
         .stop()

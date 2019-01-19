@@ -42,28 +42,28 @@ async function anitem (__eo) {
   ])
 
   let [
-    forceVoid,
-    forceEnergy,
+    // forceVoid,
+    // forceEnergy,
     // forceViscosity,
-    forceManybody,
+    // forceManybody,
     // forceGravity,
     // forceCharge,
     // forceCube,
-    forceCollide,
-    forceLink,
+    // forceCollide,
+    // forceLink,
     // forceX,
     // forceY,
     // forceZ,
   ] = await Promise.all([
-    __eo('xs').f('void'),
-    __eo('xs').f('energy'),
+    // __eo('xs').f('void'),
+    // __eo('xs').f('energy'),
     // __eo('xs').f('viscosity'),
-    __eo('xs').f('manybody'),
+    // __eo('xs').f('manybody'),
     // __eo('xs').f('gravity'),
     // __eo('xs').f('charge'),
     // __eo('xs').f('cube'),
-    __eo('xs').f('collide'),
-    __eo('xs').f('link'),
+    // __eo('xs').f('collide'),
+    // __eo('xs').f('link'),
     // __eo('xs').f('x'),
     // __eo('xs').f('y'),
     // __eo('xs').f('z'),
@@ -378,7 +378,7 @@ async function anitem (__eo) {
           prerotate: [[[ ctlWen.rotation ]]],
           translate: [0, 0, 0],
           scale: 1,
-          rotate: [ 0, [[[0, 180]]], 0 ],
+          rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
           geoanod: 1, // eofold eonod
         },
@@ -390,73 +390,126 @@ async function anitem (__eo) {
       eoload: {},
     }
 
+
     // ............................. forceGravity
     let forceGravity = function (params) { // force
-      let nodes = params.nodes // animas
-      let gravity = typeof params.gravity === 'function'
-        ? d => params.gravity(d)
-        : d => params.gravity
+      let nodes = params.nodes
+      let properties = params.properties || {}
+      let payload = params.properties.payload || {}
 
-      function force () { // d3force builtin (vs muon d3force)
+      let args = payload.args || []
+      let opts = payload.opts || {}
+
+      let key = properties.key
+      let type = properties.type
+      let filter = properties.filter
+
+      let fName = __eo('xs').ceonize(type, 'force')
+
+      let gravity = opts.gravity // gravity
+
+      let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-          let nodegramm = muonAnitem.snapani(node)
-          node.vy += gravity(nodegramm)
+          node.vy += gravity // node.vx += 0.001 * Math.random()
         }
       }
+      fforce.initialize = () => {} // initialize
 
-      function initialize () {
-        if (!nodes) return
+      let sys = {
+        nodes: nodes,
+        filter: filter,
+        force: fforce,
       }
 
-      let field = {
-        key: params.key,
-        force: force,
+      let ffforce = muonEoforces.isolate(sys)
+      console.assert(key || type !== null)
+      let field = 	{
+        key: key || type,
+        force: ffforce,
       }
-      return field
+
+      return field // return force
     }
 
     let force_gravity = { // aniForce:{properties, field}
-
       properties: {
-        type: 'gravity',
-        src: d3_force,
-        gravity: -0.9,
-        filter: d => true,
-        id: d => d.eoric.uid,
-        key: 'gravity',
+        gravity: -0.7,
       },
-
       field: params => { // force.field
-        let forceParams = Object.assign({}, params, params.properties)
-        let force = forceGravity(forceParams)
-        return Array.of(force)
+        let forces = []
+
+        let nodes = params.nodes
+        let gravity = params.gravity || params.properties.gravity
+        let key = params.properties.key || 'gravity'
+
+        let properties = {
+          type: 'gravity',
+          src: d3_force,
+          nodes: nodes,
+          payload: { // passed to force in m.eoforces
+            args: [],
+            opts: {
+              gravity: gravity, // gravity
+            },
+          },
+          filter: d => true,
+          id: d => d.eoric.uid,
+          key: key,
+        }
+
+        params.properties = properties
+        return forceGravity(params)
       },
     }
 
     // .................... field_link
     let force_link = {
+      
       properties: {
-
-        strength: 1,
-
-        src: d3_force,
-        id: d => d.eoric.uid,
+        payload: {
+          args: [],
+          opts: {
+            distance: 30,
+            strength: () => 0.1,
+            id: d => d.index,
+            iterations: 1,
+          },
+        },
         type: 'link',
+        filter: d => d.eoric.gid === 'link', 
         key: 'link',
-        filter: d => true,
-
-      },
-
+      },      
+      
       field: params => {
-        let links = params.nodes.filter(d => (d.eoric.gid === 'link'))
-        params.properties.links = links
+        if (1 && 1) console.log('params', params)
+          params.properties.payload.args = params.nodes.filter(d => (d.eoric.gid === 'link'))
 
-        let forceParams = Object.assign({}, params, params.properties)
-
-        let force = muonEoforces.force(forceParams)
-        return Array.of(force)
+        return muonEoforces.force(params)
       },
+      
+      
+      
+      // properties: {
+
+        // strength: 1,
+        // src: d3_force,
+        // id: d => d.eoric.uid,
+        // type: 'link',
+        // key: 'link',
+        // filter: d => true,
+
+      // },
+
+      // field: params => {
+        // let links = params.nodes.filter(d => (d.eoric.gid === 'link'))
+        // params.properties.links = links
+
+        // let forceParams = Object.assign({}, params, params.properties)
+
+        // let force = muonEoforces.force(forceParams)
+        // return Array.of(force)
+      // },
     }
 
     // .................... fieldAni
@@ -472,7 +525,7 @@ async function anitem (__eo) {
     }
 
     fieldAni.eoforces = {
-      // force_gravity,
+      force_gravity,
       force_link,
     }
 
