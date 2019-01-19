@@ -18,6 +18,7 @@ async function anitem (__eo) {
     muonGraticule,
     muonNatform,
     muonProps,
+    muonSnap,
     muonStace,
     prtUniwen,
     renderSvg,
@@ -35,6 +36,7 @@ async function anitem (__eo) {
     __eo('xs').m('graticule'),
     __eo('xs').m('natform'),
     __eo('xs').m('props'),
+    __eo('xs').m('snap'),
     __eo('xs').m('stace'),
     __eo('xs').p('uniwen'),
     __eo('xs').r('svg'),
@@ -207,11 +209,18 @@ async function anitem (__eo) {
           eoforces: function (ani, props) {
             let forces = {}
 
+
             let forceGravity = muonProps.clone(force_gravity)
-            forceGravity.properties.key = ani.eoric.uid
+            forceGravity.properties.key = d => d.eoric.uid
             forceGravity.properties.gravity = d => {
               let gravity = 0
-              let r = d.eoform.x.ra2 // x.ra2
+            
+              let tue = d.eotim.unitElapsed
+              let tpe = d.eotim.unitPassed
+              let r = muonProps.v(muonSnap.snap(d.eoform.x.ra2, tpe),d)            
+
+              if (1 && 1) console.log('r', d.eoric.uid, d.eotim, r)
+
               console.assert(r !== Number.NaN)
               if (r > 36) gravity = 1.9
               return gravity
@@ -228,52 +237,83 @@ async function anitem (__eo) {
 
     // ............................. forceGravity
     let forceGravity = function (params) { // force
-      let nodes = params.nodes // animas
-      let gravity = typeof params.gravity === 'function'
-        ? d => params.gravity(d)
-        : d => params.gravity
+      let nodes = params.nodes
+      let properties = params.properties || {}
+      let payload = params.properties.payload || {}
 
-      function force () { // d3force builtin (vs muon d3force)
+      let args = payload.args || []
+      let opts = payload.opts || {}
+
+      let key = properties.key
+      let type = properties.type
+      let filter = properties.filter
+
+      let fName = __eo('xs').ceonize(type, 'force')
+
+      let gravity = opts.gravity // gravity
+      console.assert(gravity !== Number.NaN, `gravity ${gravity} is NaN`)
+      
+      let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
+          let g = muonProps.v(gravity,node)
 
-          let nodegramm = muonAnitem.snapani(node)
-          node.vy += gravity(nodegramm)
+
+          node.vy += g
         }
       }
+      fforce.initialize = () => {} // initialize
 
-      function initialize () {
-        if (!nodes) return
+      let sys = {
+        nodes: nodes,
+        filter: filter,
+        force: fforce,
       }
 
-      let field = {
-        key: params.key,
-        force: force,
+      let ffforce = muonEoforces.isolate(sys)
+      console.assert(key || type !== null)
+      let field = 	{
+        key: key || type,
+        force: ffforce,
       }
-      return field
+
+      return field // return force
     }
 
     let force_gravity = { // aniForce:{properties, field}
-
       properties: {
-        type: 'gravity',
-        src: d3_force,
         gravity: -0.9,
-        filter: d => true,
-        id: d => d.eoric.uid,
-        key: 'gravity',
       },
-
       field: params => { // force.field
-        let forceParams = Object.assign({}, params, params.properties)
-        let force = forceGravity(forceParams)
-        return Array.of(force)
+        let forces = []
+
+        let nodes = params.nodes
+        let gravity = params.gravity || params.properties.gravity
+        let key = params.properties.key || 'gravity'
+
+        let properties = {
+          type: 'gravity',
+          src: d3_force,
+          nodes: nodes,
+          payload: { // passed to force in m.eoforces
+            args: [],
+            opts: {
+              gravity: gravity, // gravity
+            },
+          },
+          filter: d => d.eoric.gid === 'paced',
+          id: d => d.eoric.uid,
+          key: key,
+        }
+
+        params.properties = properties
+        return forceGravity(params)
       },
     }
     // ............................. natAni
     let natAni1 = {
       eohal: 'natform',
-      eotim,
+      eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
 
       eofold: null,

@@ -367,14 +367,16 @@ async function anitem (__eo) {
       let type = properties.type
       let filter = properties.filter
 
-      let fName = __eo('xs').ceonize(type, 'force')
-
       let gravity = opts.gravity // gravity
+      console.assert(gravity !== Number.NaN, 'gravity is NaN')
 
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-          node.vy += gravity // node.vx += 0.001 * Math.random()
+          let g = muonProps.v(gravity,node)          
+          console.assert(g !== Number.NaN, `gravity ${g} is NaN`)
+
+          node.vy += g
         }
       }
       fforce.initialize = () => {} // initialize
@@ -699,18 +701,23 @@ async function anitem (__eo) {
           ],
           opts: {
             links: [],
-            id: d => d.eoric.uid,
-            iterations: 1,
+            id: d => d.eoric.uid, // nodeById fn
             strength: () => 1,
-            distance: () => 1,
+            distance: () => 30,
+            iterations: 1,
           },
         },
-        filter: d => true,
+        filter: d => true, // nodes, by id
         type: 'link',
         key: 'link',
       },
 
-      field: params => muonEoforces.force(params),
+      field: params => {
+          let linksfilter = d => (d.eoric.gid === 'link')
+          let links = params.nodes.filter(linksfilter)
+          params.properties.payload.args = Array.of(links) // links
+        return muonEoforces.force(params)
+      },
 
     }
 

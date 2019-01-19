@@ -197,7 +197,6 @@ function find(nodeById, nodeId) {
 }
 
 function link(links) {
-if (1 && 1) console.log('links', links)
   
   var id = index,
       strength = defaultStrength,

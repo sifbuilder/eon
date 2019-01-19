@@ -39,34 +39,6 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
 
-  let [
-    forceVoid,
-    forceEnergy,
-    // forceViscosity,
-    forceManybody,
-    // forceGravity,
-    // forceCharge,
-    // forceCube,
-    forceCollide,
-    forceLink,
-    // forceX,
-    // forceY,
-    // forceZ,
-  ] = await Promise.all([
-    __eo('xs').f('void'),
-    __eo('xs').f('energy'),
-    // __eo('xs').f('viscosity'),
-    __eo('xs').f('manybody'),
-    // __eo('xs').f('gravity'),
-    // __eo('xs').f('charge'),
-    // __eo('xs').f('cube'),
-    __eo('xs').f('collide'),
-    __eo('xs').f('link'),
-    // __eo('xs').f('x'),
-    // __eo('xs').f('y'),
-    // __eo('xs').f('z'),
-  ])
-
   let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
 
@@ -395,35 +367,31 @@ async function anitem (__eo) {
 
     // .................... field_link
     let force_link = {
+
       properties: {
-        strength: 1,
+        payload: {
+          args: [],
+          opts: {
+            distance: 30,
+            strength: () => 0.1,
+            id: d => d.eoric.uid, // nodeById fn
+            iterations: 1,
+          },
+        },
+        type: 'link',
+        filter: d => true, // nodes, by id
+        key: 'link',
       },
 
       field: params => {
-        let forces = []
+          let links = params.nodes.filter(d => (d.eoric.gid === 'link'))
+          if (1 && 1) console.log('links', links)
 
-        let nodes = params.nodes
-        let strength = params.strength || params.properties.strength
-        let filter = d => true
-        let id = d => d.eoric.uid
-        let links = params.properties.links || nodes.filter(d => (d.eoric.gid === 'link'))
-        let key = params.properties.key || 'link'
+          params.properties.payload.args = Array.of(links)
 
-        let forceParams = {
-          type: 'link',		// key in plugin forces
-          src: d3_force,
-          nodes: nodes,
-          strength: d => strength,
-          filter: d => true,
-          id: d => d.eoric.uid,
-          links: nodes.filter(d => (d.eoric.gid === 'link')),
-          key: key,
-        }
-
-        let force = muonEoforces.force(forceParams)
-        forces.push(force)
-        return forces
+        return muonEoforces.force(params)
       },
+
     }
 
     // .................... fieldAni
