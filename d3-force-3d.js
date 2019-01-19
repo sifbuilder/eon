@@ -1,11 +1,11 @@
-// https://github.com/vasturiano/d3-force-3d Version 1.1.0. Copyright 2018 Vasco Asturiano.
+// https://github.com/vasturiano/d3-force-3d v2.0.1 Copyright 2018 Vasco Asturiano
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-binarytree'), require('d3-quadtree'), require('d3-octree'), require('d3-collection'), require('d3-dispatch'), require('d3-timer')) :
-	typeof define === 'function' && define.amd ? define(['exports', 'd3-binarytree', 'd3-quadtree', 'd3-octree', 'd3-collection', 'd3-dispatch', 'd3-timer'], factory) :
-	(factory((global.d3 = global.d3 || {}),global.d3,global.d3,global.d3,global.d3,global.d3,global.d3));
-}(this, (function (exports,d3Binarytree,d3Quadtree,d3Octree,d3Collection,d3Dispatch,d3Timer) { 'use strict';
+typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-binarytree'), require('d3-quadtree'), require('d3-octree'), require('d3-dispatch'), require('d3-timer')) :
+typeof define === 'function' && define.amd ? define(['exports', 'd3-binarytree', 'd3-quadtree', 'd3-octree', 'd3-dispatch', 'd3-timer'], factory) :
+(factory((global.d3 = global.d3 || {}),global.d3,global.d3,global.d3,global.d3,global.d3));
+}(this, (function (exports,d3Binarytree,d3Quadtree,d3Octree,d3Dispatch,d3Timer) { 'use strict';
 
-var center = function(x, y, z) {
+function center(x, y, z) {
   var nodes;
 
   if (x == null) x = 0;
@@ -49,17 +49,17 @@ var center = function(x, y, z) {
   };
 
   return force;
-};
+}
 
-var constant = function(x) {
+function constant(x) {
   return function() {
     return x;
   };
-};
+}
 
-var jiggle = function() {
+function jiggle() {
   return (Math.random() - 0.5) * 1e-6;
-};
+}
 
 function x(d) {
   return d.x + d.vx;
@@ -73,7 +73,7 @@ function z(d) {
   return d.z + d.vz;
 }
 
-var collide = function(radius) {
+function collide(radius) {
   var nodes,
       nDim,
       radii,
@@ -184,7 +184,7 @@ var collide = function(radius) {
   };
 
   return force;
-};
+}
 
 function index(d) {
   return d.index;
@@ -196,7 +196,7 @@ function find(nodeById, nodeId) {
   return node;
 }
 
-var link = function(links) {
+function link(links) {
   var id = index,
       strength = defaultStrength,
       strengths,
@@ -242,7 +242,7 @@ var link = function(links) {
     var i,
         n = nodes.length,
         m = links.length,
-        nodeById = d3Collection.map(nodes, id),
+        nodeById = new Map(nodes.map((d, i) => [id(d, i, nodes), d])),
         link;
 
     for (i = 0, count = new Array(n); i < m; ++i) {
@@ -304,7 +304,7 @@ var link = function(links) {
   };
 
   return force;
-};
+}
 
 var MAX_DIMENSIONS = 3;
 
@@ -320,11 +320,11 @@ function z$1(d) {
   return d.z;
 }
 
-var initialRadius = 10;
-var initialAngleRoll = Math.PI * (3 - Math.sqrt(5));
-var initialAngleYaw = Math.PI / 24; // Sequential
+var initialRadius = 10,
+    initialAngleRoll = Math.PI * (3 - Math.sqrt(5)), // Golden angle
+    initialAngleYaw = Math.PI / 24; // Sequential
 
-var simulation = function(nodes, numDimensions) {
+function simulation(nodes, numDimensions) {
   numDimensions = numDimensions || 2;
 
   var nDim = Math.min(MAX_DIMENSIONS, Math.max(1, Math.round(numDimensions))),
@@ -334,7 +334,7 @@ var simulation = function(nodes, numDimensions) {
       alphaDecay = 1 - Math.pow(alphaMin, 1 / 300),
       alphaTarget = 0,
       velocityDecay = 0.6,
-      forces = d3Collection.map(),
+      forces = new Map(),
       stepper = d3Timer.timer(step),
       event = d3Dispatch.dispatch("tick", "end");
 
@@ -349,33 +349,42 @@ var simulation = function(nodes, numDimensions) {
     }
   }
 
-  function tick() {
+  function tick(iterations) {
     var i, n = nodes.length, node;
 
-    alpha += (alphaTarget - alpha) * alphaDecay;
+    if (iterations === undefined) iterations = 1;
 
-    forces.each(function(force) {
-      force(alpha);
-    });
+    for (var k = 0; k < iterations; ++k) {
+      alpha += (alphaTarget - alpha) * alphaDecay;
 
-    for (i = 0; i < n; ++i) {
-      node = nodes[i];
-      if (node.fx == null) node.x += node.vx *= velocityDecay;
-      else node.x = node.fx, node.vx = 0;
-      if (nDim > 1) {
-        if (node.fy == null) node.y += node.vy *= velocityDecay;
-        else node.y = node.fy, node.vy = 0;
-      }
-      if (nDim > 2) {
-        if (node.fz == null) node.z += node.vz *= velocityDecay;
-        else node.z = node.fz, node.vz = 0;
+      forces.forEach(function (force) {
+        force(alpha);
+      });
+
+      for (i = 0; i < n; ++i) {
+        node = nodes[i];
+        if (node.fx == null) node.x += node.vx *= velocityDecay;
+        else node.x = node.fx, node.vx = 0;
+        if (nDim > 1) {
+          if (node.fy == null) node.y += node.vy *= velocityDecay;
+          else node.y = node.fy, node.vy = 0;
+        }
+        if (nDim > 2) {
+          if (node.fz == null) node.z += node.vz *= velocityDecay;
+          else node.z = node.fz, node.vz = 0;
+        }
       }
     }
+
+    return simulation;
   }
 
   function initializeNodes() {
     for (var i = 0, n = nodes.length, node; i < n; ++i) {
       node = nodes[i], node.index = i;
+      if (!isNaN(node.fx)) node.x = node.fx;
+      if (!isNaN(node.fy)) node.y = node.fy;
+      if (!isNaN(node.fz)) node.z = node.fz;
       if (isNaN(node.x) || (nDim > 1 && isNaN(node.y)) || (nDim > 2 && isNaN(node.z))) {
         var radius = initialRadius * (nDim > 2 ? Math.cbrt(i) : (nDim > 1 ? Math.sqrt(i) : i)),
           rollAngle = i * initialAngleRoll,
@@ -412,12 +421,12 @@ var simulation = function(nodes, numDimensions) {
 
     numDimensions: function(_) {
       return arguments.length
-          ? (nDim = Math.min(MAX_DIMENSIONS, Math.max(1, Math.round(_))), forces.each(initializeForce), simulation)
+          ? (nDim = Math.min(MAX_DIMENSIONS, Math.max(1, Math.round(_))), forces.forEach(initializeForce), simulation)
           : nDim;
     },
 
     nodes: function(_) {
-      return arguments.length ? (nodes = _, initializeNodes(), forces.each(initializeForce), simulation) : nodes;
+      return arguments.length ? (nodes = _, initializeNodes(), forces.forEach(initializeForce), simulation) : nodes;
     },
 
     alpha: function(_) {
@@ -441,7 +450,7 @@ var simulation = function(nodes, numDimensions) {
     },
 
     force: function(name, _) {
-      return arguments.length > 1 ? (_ == null ? forces.remove(name) : forces.set(name, initializeForce(_)), simulation) : forces.get(name);
+      return arguments.length > 1 ? ((_ == null ? forces.delete(name) : forces.set(name, initializeForce(_))), simulation) : forces.get(name);
     },
 
     find: function() {
@@ -478,9 +487,9 @@ var simulation = function(nodes, numDimensions) {
       return arguments.length > 1 ? (event.on(name, _), simulation) : event.on(name);
     }
   };
-};
+}
 
-var manyBody = function() {
+function manyBody() {
   var nodes,
       nDim,
       node,
@@ -541,7 +550,6 @@ var manyBody = function() {
 
   function apply(treeNode, x1, arg1, arg2, arg3) {
     if (!treeNode.value) return true;
-    // if (treeNode.value === undefined) return true;
     var x2 = [arg1, arg2, arg3][nDim-1];
 
     var x = treeNode.x - node.x,
@@ -607,9 +615,9 @@ var manyBody = function() {
   };
 
   return force;
-};
+}
 
-var radial = function(radius, x, y, z) {
+function radial(radius, x, y, z) {
   var nodes,
       nDim,
       strength = constant(0.1),
@@ -673,9 +681,9 @@ var radial = function(radius, x, y, z) {
   };
 
   return force;
-};
+}
 
-var x$2 = function(x) {
+function x$2(x) {
   var strength = constant(0.1),
       nodes,
       strengths,
@@ -713,9 +721,9 @@ var x$2 = function(x) {
   };
 
   return force;
-};
+}
 
-var y$2 = function(y) {
+function y$2(y) {
   var strength = constant(0.1),
       nodes,
       strengths,
@@ -753,9 +761,9 @@ var y$2 = function(y) {
   };
 
   return force;
-};
+}
 
-var z$2 = function(z) {
+function z$2(z) {
   var strength = constant(0.1),
       nodes,
       strengths,
@@ -793,7 +801,7 @@ var z$2 = function(z) {
   };
 
   return force;
-};
+}
 
 exports.forceCenter = center;
 exports.forceCollide = collide;
