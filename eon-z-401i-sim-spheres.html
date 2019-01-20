@@ -216,10 +216,11 @@ async function anitem (__eo) {
               let gravity = 0
             
               let tue = d.eotim.unitElapsed
-              let tpe = d.eotim.unitPassed
-              let r = muonProps.v(muonSnap.snap(d.eoform.x.ra2, tpe),d)            
+              let tup = d.eotim.unitPassed
+              let tud = d.eotim.unitDelta
+              let r = muonProps.v(muonSnap.snap(d.eoform.x.ra2, tup),d)            
 
-              if (1 && 1) console.log('r', d.eoric.uid, d.eotim, r)
+              if (1 && 1) console.log('*', d.eoric.uid, r, tud, d.eotim )
 
               console.assert(r !== Number.NaN)
               if (r > 36) gravity = 1.9
