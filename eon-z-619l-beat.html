@@ -87,8 +87,8 @@ async function anitem (__eo) {
           eofold = ani.eofold, // eofold
           eoload = ani.eoload // eoload
 
-        let unitTime = ani.eotim.unitTime // unit time elapsed
-        let t = ani.eoload.tf(unitTime) || unitTime // time function
+        let unTime = ani.eotim.unTime // unit time elapsed
+        let t = ani.eoload.tf(unTime) || unTime // time function
 
         let nbt = Math.ceil(nb * t)
         let startingpoint = nbt

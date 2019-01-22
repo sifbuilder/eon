@@ -26,125 +26,130 @@
 
     let epsilon = 1e-5
     let scaleLinear = d3scale.scaleLinear
-
-    function timing (pTim = {}, newElapsed) {
-      let eotim = Object.assign({}, pTim)
-      let _tim = Object.assign({}, pTim) //
-
-      const {
-        td = 10000, // time duration
-        t0 = 0, // time init/msWait
-        t1 = 1000, //
-        t2 = 1,
-        t3 = 1,
-        tf = t => t,
-        tu = 1000, // time units
-        tw = 1, // time window
-        inverse = false, // time inverse, time direction
-        common = false, // shared time
-        wasElapsed = 0, // abs msPassed time (ms). if undefined, wasElapsed is undefined
-        slots = [], // slots
-
-      } = eotim
+    
+    let core = {
+        td: 10000, // msDuration
+        tu: 1000, // unUnits
+        t0: 0, // unInit
+        t1: 1000, // unEnd
+        t2: 1, // unStep
+        t3: 1, // unPeriod
+        tf: t => t, // time function
+        tw: 1, // time timeWindow
+        nostop: 0, // time to stop at end
+        inverse: 0, // time direction
+        common: 0, // shared time
+      }    
+    
+    // ............................. timing
+    function timing (pTim = {}, elapsedInMs) {
+      let eotim = Object.assign({}, core, pTim)
 
       const {
-        duration = td,
-        tinit = t0,
-        tend = t1,
-        step = t2,
-        period = t3,
-        tfn = tf,
-        timeunits = tu,
-        timeinverse = inverse,
-        window = tw,
+        td = 10000, // msDuration
+        tu = 1000, // unUnits
+        t0 = 0, // unInit
+        t1 = 1000, // unEnd
+        t2 = 1, // unStep
+        t3 = 1, // unPeriod
+        tf = t => t, // time function
+        tw = 1, // time timeWindow
+        nostop = 0, // time to stop at end
+        inverse = 0, // time direction
+        common = 0, // shared time
       } = eotim
+
+      let
+        msDuration = td,  // 16200
+        unInit = t0,  // 0
+        unEnd = t1,  // 1000
+        unStep = t2,  // 1
+        unPeriod = t3, // 1
+        timeFunction = tf, // t => t
+        unUnits = tu, // 1000
+        timeInverse = inverse,
+        timeWindow = tw,
+        timeCommon = common, 
+        msSlot = [], // msSlot
+        msQuanta = msDuration / unUnits, // ms in time unit
+        msWait = Math.abs(msQuanta * unInit),
+        msLimit = Math.abs(msQuanta * unEnd), // if elapsedInMs > msStart + msLimit => delete anima
+        timeNostop = nostop
+
 
       let {
-        msElapsed = wasElapsed, // abs msPassed time - life (ms)
-        msStart = wasElapsed, // abs start time (ms)
-        msPassed, // rel time msPassed - life (ms)
-        msDelta = 0, // time (ms) between ticks
-        msTick = 0, // time msPassed (ticks)
-        unitTime, // ref time msPassed (common or relative) (units)
-        unitElapsed, // common time elapsed (units)
-        unitPassed, // rel time msPassed - life (units)
-        unitDelta = 0, // time (units) between ticks
-        unitStart, // ref time start (common or relative) (units)
         stopped = 1, // -- time is stopped
+        msElapsed = 0,
+        msTick = 0,
+        msStart
       } = eotim
 
-      if (newElapsed === undefined) {
-        newElapsed = wasElapsed
+      msStart = msStart !== undefined ? msStart : elapsedInMs // abs start time (ms)
+      let msPassed = elapsedInMs - msStart // -- relative time msPassed (abs, ms)
+      let msDelta = elapsedInMs - msElapsed // -- time msPassed (abs, ms) between ticks
+      let msDomain = (timeWindow === 0) ? [msWait, msLimit] : [0, msDuration]
+      let unRange = (timeInverse === 0) ? [0, 1] : [1, 0]
+      let timeScale = () => scaleLinear() // timeScale ms => un
+        .domain(msDomain)  // [msWait, msLimit]
+        .range(unRange)   // [unBegin, unEnd]
+      msElapsed = elapsedInMs // UPDATE msElapsed
+
+          let msPassedInPeriod = (unPeriod > epsilon) ? ((msPassed % (msDuration / unPeriod)) * unPeriod) : msPassed
+          let msPassedstep = Math.round(msPassed / unStep) // msPassedstep
+          let msElapsedInPeriod = (unPeriod > epsilon) ? ((msElapsed % (msDuration / unPeriod)) * unPeriod) : msElapsed
+          let msElapsedstep = Math.round(msElapsed / unStep) // msElapsedstep
+      
+      let msTime = (timeCommon !== undefined) ? msElapsed : msPassed //  time (ms)
+
+
+      if ((msWait <= msPassed) 
+          && (msPassed <= msLimit) 
+          && (msSlot.indexOf(msPassedstep) !== null)) {
+        msSlot.push(msElapsedstep) // pused elapsedInMs _e_ tbc
+        msPassed = msPassedInPeriod // TimePassedInPeriod (uns)
+        msElapsed = msElapsedInPeriod // TimePassedInPeriod (uns)
       }
 
-      if (newElapsed < 0) {
-        msStart = undefined // reset msStart (start in mili-seconds)
-      }
+      msTick =+ 1 // -- time msTick
+      
 
-      if ((Math.sign(t0) === -1) || (Math.sign(t1) === -1)) timeinverse = true // inverse
+      let unStart = timeScale()(msStart)
+      let unPassed = timeScale()(msPassed)
+      let unDelta = timeScale()(msDelta)
+          let isElapsedInPeriod = (unPeriod > epsilon) ? ((msElapsed % (msDuration / unPeriod)) * unPeriod) : msElapsed
+          let unElapsedInPeriod = timeScale()(isElapsedInPeriod) // abs msElapsed time in unPeriod (uns)
 
-      console.assert(step > 0)
-      console.assert(period > 0)
-      console.assert(wasElapsed !== undefined)
-      console.assert(newElapsed !== undefined)
-
-      // get the time scale
-      let timefactor = duration / timeunits // time factor
-      let msWait = Math.abs(timefactor * t0) // t0 msWait
-      let msLimit = Math.abs(timefactor * t1) // t1 msLimit
-      let d = (window === false) ? [msWait, msLimit] : [0, duration] // time window
-      let r = (timeinverse === false) ? [0, 1] : [1, 0] // time inversion
-      let timescale = () => scaleLinear().domain(d).range(r) // timescale: scale of life
-
-      // time vars in ms units
-      msElapsed = newElapsed // -- abs time wasElapsed (abs, ms)
-      msPassed = newElapsed - msStart // -- relative time msPassed (abs, ms)
-      msDelta = newElapsed - wasElapsed // -- time msPassed (abs, ms) between ticks
-      let msPassedInPeriod = (period > epsilon) ? ((msPassed % (duration / period)) * period) : msPassed
-      let msPassedstep = Math.round(msPassed / step) // msPassedstep
-      let msElapsedInPeriod = (period > epsilon) ? ((msElapsed % (duration / period)) * period) : msElapsed
-      let msElapsedstep = Math.round(msElapsed / step) // msElapsedstep
-      let msTime = (common !== undefined) ? msElapsed : msPassed //  time (ms)
-
-      if ((msWait <= msPassed) && (msPassed <= msLimit) && (slots.indexOf(msPassedstep) !== null)) {
-        slots.push(msElapsedstep) // pused elapsed _e_ tbc
-        msPassed = msPassedInPeriod // TimePassedInPeriod (units)
-        msElapsed = msElapsedInPeriod // TimePassedInPeriod (units)
-      }
-
+      let unElapsed = timeScale()(msElapsed)
+        if ((msWait <= msElapsed) 
+          && (msElapsed <= msLimit) 
+          && (msSlot.indexOf(msElapsedstep) !== null)) {
+            unElapsed = unElapsedInPeriod // TimeElapsedInPeriod (uns)
+        }
+      let unTime = (timeCommon !== undefined) ? unElapsed : unPassed //  time (uns)
+        if (unTime !== null) { // do not start yet if no unTime
+          stopped = 0 // -- time unstopped
+          unStart = (unStart !== undefined) ? unStart : unTime // -- time started (uns)
+        }
+      
+if (1 && 1) console.log('msElapsed', msElapsed)
+      
       eotim.msElapsed = msElapsed // UPDATE
       eotim.msPassed = msPassed // UPDATE
       eotim.msDelta = msDelta // UPDATE
       eotim.msTime = msTime // UPDATE
-      eotim.slots = slots // UPDATE
+      eotim.msSlot = msSlot // UPDATE
       eotim.msLimit = msLimit // UPDATE
       eotim.msWait = msWait // UPDATE
       eotim.msStart = msStart // UPDATE
-
-      // time vars in slot units
-      let newUnitPassed = timescale()(msPassed)
-      unitDelta = newUnitPassed - unitPassed // -- time units between ticks
-      unitPassed = newUnitPassed
-      unitElapsed = timescale()(msElapsed)
-      let isElapsedInPeriod = (period > epsilon) ? ((msElapsed % (duration / period)) * period) : msElapsed
-      let unitElapsedInPeriod = timescale()(isElapsedInPeriod) // abs msElapsed time in period (units)
-      if ((msWait <= msElapsed) && (msElapsed <= msLimit) && (slots.indexOf(msElapsedstep) !== null)) {
-        unitElapsed = unitElapsedInPeriod // TimeElapsedInPeriod (units)
-      }
-      unitTime = (common !== undefined) ? unitElapsed : unitPassed //  time (units)
-
-      if (unitTime !== null) { // do not start yet if no unitTime
-        stopped = 0 // -- time unstopped
-        unitStart = (unitStart !== undefined) ? unitStart : unitTime // -- time started (units)
-        msTick = (msTick === undefined) ? 0 : eotim.msTick + 1 // -- time msTick
-      }
-      eotim.unitElapsed = unitElapsed // UPDATE
-      eotim.unitPassed = unitPassed // UPDATE
-      eotim.unitTime = tfn(unitTime) // UPDATE
+      eotim.msTick = msTick // UPDATE      
+      
+      eotim.unElapsed = unElapsed // UPDATE // common time elapsedInMs (uns)
+      eotim.unPassed = unPassed // UPDATE // rel time msPassed - life (uns)
+      eotim.unTime = timeFunction(unTime) // UPDATE // ref time msPassed (common or relative) (uns)
       eotim.stopped = stopped // UPDATE
-      eotim.unitStart = unitStart // UPDATE
-      eotim.msTick = msTick // UPDATE
-
+      eotim.unStart = unStart // UPDATE // ref time start (common or relative) (uns)
+      eotim.unDelta = unDelta // UPDATE // time (uns) between ticks
+     
       return eotim
     }
 

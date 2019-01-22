@@ -177,7 +177,7 @@ async function anitem (__eo) {
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates // eonode
             } else if (props.key === 'auto') { // AUTO
-              let point = muonAnitem.snapani([[[ invgeoData.geometry.coordinates ]]], ani.eotim.unitTime)
+              let point = muonAnitem.snapani([[[ invgeoData.geometry.coordinates ]]], ani.eotim.unTime)
 
               point = muonGeoj.geotrim(point)
 
@@ -258,8 +258,8 @@ async function anitem (__eo) {
           eofold = ani.eofold, // eofold
           eoload = ani.eoload // eoload
 
-        let unitElapsed = ani.eotim.unitElapsed // unit time elapsed
-        let t = ani.eoload.tf(unitElapsed) || unitElapsed // time function
+        let unElapsed = ani.eotim.unElapsed // unit time elapsed
+        let t = ani.eoload.tf(unElapsed) || unElapsed // time function
 
         let nbt = nb - Math.ceil(nb * t)
 

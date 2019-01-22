@@ -76,8 +76,8 @@ async function anitem (__eo) {
           eofold = ani.eofold, // eofold
           eoload = ani.eoload // eoload
 
-        let unitElapsed = ani.eotim.unitElapsed // unit time elapsed
-        let t = ani.eoload.tf(unitElapsed) || unitElapsed // time function
+        let unElapsed = ani.eotim.unElapsed // unit time elapsed
+        let t = ani.eoload.tf(unElapsed) || unElapsed // time function
 
         let nbt = Math.ceil(nb * t)
         let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)

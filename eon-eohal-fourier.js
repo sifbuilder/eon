@@ -54,7 +54,7 @@
 
       // ... time in period is (t - t0) / (t1 - t0), with t unit time
 
-      let t = eotim.unitTime // time % period; i,[0,vertices] => t,[0,T]
+      let t = eotim.unTime // time % period; i,[0,vertices] => t,[0,T]
       let t0 = interval[0],
         t1 = interval[1],
         period = t1 - t0,

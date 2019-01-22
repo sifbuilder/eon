@@ -803,8 +803,8 @@
     let timeSeg = function (geoData, ut, tf = d => d, firstcoord = 0) {
       let coords = getCoords(geoData)
       let nb = coords.length
-      let unitElapsed = ut
-      let t = tf(unitElapsed)
+      let unElapsed = ut
+      let t = tf(unElapsed)
 
       let nbt = Math.ceil(nb * t)
       let ngj = getCoordsInRange(geoData, nbt, firstcoord)

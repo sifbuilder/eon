@@ -34,10 +34,10 @@ async function anitem (__eo) {
       eofold: ani => {
         let lindenmayers = ani.eoload.lindenmayers
         let qLindenmayers = lindenmayers.length
-        let pointer = 0 // Math.floor( (qLindenmayers -1) * ani.eotim.unitElapsed)
+        let pointer = 0 // Math.floor( (qLindenmayers -1) * ani.eotim.unElapsed)
 
         let gj = muonLindenmayer.lindenmayer(lindenmayers[pointer])
-        return muonGeoj.timeSeg(gj, ani.eotim.unitElapsed)
+        return muonGeoj.timeSeg(gj, ani.eotim.unElapsed)
       },
 
       eocrom: { 'csx': 0, 'cf': [[[444, 666]]], 'cs': 900, 'cw': [[[0.9, 0.9]]], 'co': [[[0.1, 0.1]]], 'cp': [[[0.9, 0.9]]]},

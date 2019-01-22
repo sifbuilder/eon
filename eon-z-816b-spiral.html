@@ -197,8 +197,8 @@ async function anitem (__eo) {
         let gj = muonNatform.natFeature(natipros)
         let coords = muonGeoj.getCoords(gj)
         let nb = coords.length
-        let unitElapsed = ani.eotim.unitElapsed
-        let t = unitElapsed
+        let unElapsed = ani.eotim.unElapsed
+        let t = unElapsed
         let nbt = Math.ceil(nb * t)
 
         let firstcoord = 0
@@ -241,7 +241,7 @@ async function anitem (__eo) {
             tgj.geometry = muonGeoj.getCoordsInRange(gj.geometry, nbt, firstcoord)
             tgj.properties = tgj.properties === undefined ? {} : tgj.properties
             tgj.properties.eocrom = ani.eocrom
-            tgj.properties.eocrom.cs = 300 + 700 * unitElapsed
+            tgj.properties.eocrom.cs = 300 + 700 * unElapsed
             tgj.properties.lastcoord = nbt
 
             newFeatures = [ tgj] // newFeatures = [...prefeatures, tgj]

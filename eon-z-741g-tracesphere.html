@@ -6,18 +6,20 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. eons
   let [
+    eohalMars,
+    eohalNatform,
+    eohalPacer,
     muonStace,
     muonNatform,
     muonEoric,
-    eohalMars,
-    eohalNatform,
     renderSvg,
   ] = await Promise.all([
+    __eo('xs').e('mars'),
+    __eo('xs').e('natform'),
+    __eo('xs').e('pacer'),
     __eo('xs').m('stace'),
     __eo('xs').m('natform'),
     __eo('xs').m('eoric'),
-    __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
     __eo('xs').r('svg'),
   ])
 

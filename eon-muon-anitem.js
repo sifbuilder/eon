@@ -23,7 +23,7 @@
     function snapaniDyn (ani, t) {
       let r = Promise.resolve()
       if (ani !== undefined) {
-        t = t || ani.eotim.unitTime
+        t = t || ani.eotim.unTime
         r = Promise.resolve(muonSnap.snap(ani, t))
       }
       return r
@@ -32,7 +32,7 @@
     function snapani (ani, t) {
       let r
       if (ani !== undefined) {
-        t = t || ani.eotim.unitTime
+        t = t || ani.eotim.unTime
         r = muonSnap.snap(ani, t)
       }
       return r

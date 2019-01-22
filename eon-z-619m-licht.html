@@ -109,8 +109,8 @@ async function anitem (__eo) {
           eoload = ani.eoload // eoload
 
         let geoData = geoData1 // geoData
-        let unitElapsed = ani.eotim.unitElapsed // unit time elapsed
-        let t = ani.eoload.tf(unitElapsed) || unitElapsed // time function
+        let unElapsed = ani.eotim.unElapsed // unit time elapsed
+        let t = ani.eoload.tf(unElapsed) || unElapsed // time function
         let nbt = Math.ceil(nb1 * t)
         let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
         let coords = csi(t).geometry.coordinates
@@ -174,8 +174,8 @@ async function anitem (__eo) {
           eoload = ani.eoload // eoload
 
         let geoData = geoData2 // geoData
-        let unitElapsed = ani.eotim.unitElapsed // unit time elapsed
-        let t = ani.eoload.tf(unitElapsed) || unitElapsed // time function
+        let unElapsed = ani.eotim.unElapsed // unit time elapsed
+        let t = ani.eoload.tf(unElapsed) || unElapsed // time function
         let nbt = Math.ceil(nb2 * t)
         let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
         let coords = csi(t).geometry.coordinates
@@ -239,8 +239,8 @@ async function anitem (__eo) {
           eoload = ani.eoload // eoload
 
         let geoData = geoData3 // geoData
-        let unitElapsed = ani.eotim.unitElapsed // unit time elapsed
-        let t = ani.eoload.tf(unitElapsed) || unitElapsed // time function
+        let unElapsed = ani.eotim.unElapsed // unit time elapsed
+        let t = ani.eoload.tf(unElapsed) || unElapsed // time function
         let nbt = Math.ceil(nb3 * t)
         let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
         let coords = csi(t).geometry.coordinates
@@ -304,8 +304,8 @@ async function anitem (__eo) {
           eoload = ani.eoload // eoload
 
         let geoData = geoData4 // geoData
-        let unitElapsed = ani.eotim.unitElapsed // unit time elapsed
-        let t = ani.eoload.tf(unitElapsed) || unitElapsed // time function
+        let unElapsed = ani.eotim.unElapsed // unit time elapsed
+        let t = ani.eoload.tf(unElapsed) || unElapsed // time function
         let nbt = Math.ceil(nb4 * t)
         let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
         let coords = csi(t).geometry.coordinates

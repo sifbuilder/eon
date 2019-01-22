@@ -186,8 +186,8 @@ async function anitem (__eo) {
         let gj = muonNatform.natFeature(natipros)
         let coords = muonGeoj.getCoords(gj)
         let nb = coords.length
-        let unitElapsed = ani.eotim.unitElapsed
-        let t = unitElapsed
+        let unElapsed = ani.eotim.unElapsed
+        let t = unElapsed
         let nbt = Math.ceil(nb * t)
 
         let firstcoord = 0
@@ -231,7 +231,7 @@ async function anitem (__eo) {
             tgj.properties.eocrom = ani.eocrom
             let intercept = 300
             let slope = 700
-            tgj.properties.eocrom.cs = intercept + slope * unitElapsed
+            tgj.properties.eocrom.cs = intercept + slope * unElapsed
             tgj.properties.lastcoord = nbt
 
             newFeatures = [ tgj ] // newFeatures = [...prefeatures, tgj]
@@ -270,8 +270,8 @@ async function anitem (__eo) {
         let gj = muonNatform.natFeature(natipros)
         let coords = muonGeoj.getCoords(gj)
         let nb = coords.length
-        let unitElapsed = ani.eotim.unitElapsed
-        let t = unitElapsed
+        let unElapsed = ani.eotim.unElapsed
+        let t = unElapsed
         let nbt = Math.ceil(nb * t)
 
         let firstcoord = 0
@@ -315,7 +315,7 @@ async function anitem (__eo) {
             tgj.properties.eocrom = ani.eocrom
             let intercept = 300
             let slope = 700
-            tgj.properties.eocrom.cs = intercept + slope * unitElapsed
+            tgj.properties.eocrom.cs = intercept + slope * unElapsed
             tgj.properties.lastcoord = nbt
 
             newFeatures = [ tgj ] // newFeatures = [...prefeatures, tgj]

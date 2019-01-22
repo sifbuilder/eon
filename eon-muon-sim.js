@@ -201,7 +201,7 @@
             let aniForce = forces[j] // aniForce in anima.eoforces eg. force_gravity
 
 
-            let tu = aniItem.eotim.unitTime
+            let tu = aniItem.eotim.unTime
             aniForce = muonProps.v(muonSnap.snap(aniForce, tu),aniItem)
  
 

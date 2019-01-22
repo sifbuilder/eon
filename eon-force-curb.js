@@ -19,11 +19,11 @@
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
 
-          let unitPassed = node.eotim.unitPassed
+          let unPassed = node.eotim.unPassed
 
-          if (unitPassed === undefined) console.log(' unitPassed undefined')
+          if (unPassed === undefined) console.log(' unPassed undefined')
 
-          if (unitPassed > retention) {
+          if (unPassed > retention) {
             muonStore.apply({type: 'DELANIMA', caller: 'force', anima: node})
           }
         }

@@ -51,7 +51,7 @@ async function anitem (__eo) {
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
       sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh
 
-    let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1}
+    let eotim = {'td': 16800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1, } // nostop: 1}
 
     // ....................... pacerNat
     let pacerNat = {
@@ -215,12 +215,10 @@ async function anitem (__eo) {
             forceGravity.properties.gravity = d => {
               let gravity = 0
             
-              let tue = d.eotim.unitElapsed
-              let tup = d.eotim.unitPassed
+              let tue = d.eotim.unElapsed
+              let tup = d.eotim.unPassed
               let tud = d.eotim.unitDelta
               let r = muonProps.v(muonSnap.snap(d.eoform.x.ra2, tup),d)            
-
-              if (1 && 1) console.log('*', d.eoric.uid, r, tud, d.eotim )
 
               console.assert(r !== Number.NaN)
               if (r > 36) gravity = 1.9
@@ -313,32 +311,33 @@ async function anitem (__eo) {
     }
     // ............................. natAni
     let natAni1 = {
-      eohal: 'natform',
+      eohal: 'mars',
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
 
-      eofold: null,
+      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
 
       eomot: {
         proform: {
           projection: 'uniwen',
           translate: [ 0, -160, 0], // mot
-          scale: 1,
+          scale: [1, 1, 1],
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
         },
       },
 
       eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[777, 777]]], 'cw': [[[0.99, 0.99]]], 'cp': [[[0.9, 0.9]]]},
+      
       eoform: {
 
-        'x': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        x: {
+          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, 
           'ra2': 400, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
           'dom3': [ -180, 180 ],
         },
-        'y': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+        y: {
+          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
           'ra2': 12, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
           'dom3': [ -180, 180 ],
         },

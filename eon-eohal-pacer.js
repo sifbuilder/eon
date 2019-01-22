@@ -35,7 +35,7 @@
   // ... `@a.p.pacer.autoSitus`  : situs for auto items, calls `m.stace.getLocus(this.stace, ani)`
   // ... usage: `eoload.pacer.autoSitus(anigram)`
   // ... autositus in zindex: `function(a) {return muonStace.getLocus(this.stace, ani) }` gets `ani.p.pacer.stance`
-  // ... auto time is `a.p.eotim.unitPassed - a.p.pacer.eoouted`
+  // ... auto time is `a.p.eotim.unPassed - a.p.pacer.eoouted`
   // ... `@a.p.pacer.eventSitus` : situs for event items
   // ... `count` new items to pacer from init, auto and event
   // ...
@@ -209,41 +209,42 @@
       // ... if not eoinited enable pacer init (pacer.initN), else ignore
 
       if (hostAnima.eoinited === undefined || hostAnima.eoinited[pacerUid] === undefined) {
-        if (eotim.unitPassed >= (pacer.initT || 0)) {
+        if (eotim.unPassed >= (pacer.initT || 0)) {
           count.init = Math.floor(pacer.initN) // count INIT
 
           hostAnima.eoinited = (hostAnima.eoinited === undefined)
-            ? {[pacerUid]: eotim.unitPassed}
-            : Object.assign(hostAnima.eoinited, {[pacerUid]: eotim.unitPassed})
+            ? {[pacerUid]: eotim.unPassed}
+            : Object.assign(hostAnima.eoinited, {[pacerUid]: eotim.unPassed})
         }
       }
 
       // ... cycletime since last eoouted item, relevant if auto
       // ... if the cycletime is longer than auto pace
-      // ...  and unitPassed is beyong autoT ...
+      // ...  and unPassed is beyong autoT ...
       // ...  then process autoT
       // ... pacerUid is the paced anitem uid
       // ... if pacer is avatar, each is inited.
-      // ... eoinited is set per pacer to eotim.unitPassed
-      // ... set pacer.eoouted: item was eoouted at eotim.unitPassed time
+      // ... eoinited is set per pacer to eotim.unPassed
+      // ... set pacer.eoouted: item was eoouted at eotim.unPassed time
       // ... if in auto mode, pace on each cycle
 
       let eoouted = (hostAnima.eoouted && hostAnima.eoouted[pacerUid])
         ? hostAnima.eoouted[pacerUid]
         : 0
-      let cycletime = eotim.unitPassed - eoouted
+      let cycletime = eotim.unPassed - eoouted
 
       let autoT = pacer.autoT || 0
       let autoP = pacer.autoP || 0
       let autoN = pacer.autoN
 
-      if (eotim.unitPassed >= autoT) {
+
+      if (eotim.unPassed >= autoT) {
         if (cycletime > autoP) {
           count.auto = Math.floor(autoN) //    AUTO
 
           hostAnima.eoouted = (hostAnima.eoouted === undefined)
-            ? {[pacerUid]: eotim.unitPassed}
-            : Object.assign(hostAnima.eoouted, {[pacerUid]: eotim.unitPassed})
+            ? {[pacerUid]: eotim.unPassed}
+            : Object.assign(hostAnima.eoouted, {[pacerUid]: eotim.unPassed})
         }
       }
 
@@ -288,9 +289,21 @@
 
             let newItem = muonProps.clone(pacerAnitem) // anigram
 
-            let elapsed = newItem.eotim.elapsed
-            newItem.eotim.t0 = newItem.eotim.unitTime * (newItem.eotim.t1 - newItem.eotim.t0)
-            newItem.eotim = muonEotim.timing(newItem.eotim, elapsed)
+            
+            let msElapsed = newItem.eotim.msElapsed
+            let msDuration = newItem.eotim.td
+            let unUnits = newItem.eotim.tu 
+            let unInit = newItem.eotim.t0
+            let unEnd = newItem.eotim.t1
+
+            newItem.eotim.t0 = msElapsed * unUnits / msDuration          // unInit
+            // if (1 && 1) console.log('t0', newItem.eoric.uid, newItem.eotim.t0)
+              
+            newItem.eotim = muonEotim.timing(newItem.eotim, msElapsed)  // paced EOTIM
+
+
+            
+            
 
             delete newItem.eoload
             delete newItem.avatars

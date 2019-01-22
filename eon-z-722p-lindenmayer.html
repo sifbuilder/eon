@@ -48,9 +48,9 @@ async function anitem (__eo) {
 
         let coords = muonGeoj.getCoords(geoData)
         let nb = coords.length
-        let unitElapsed = ani.eotim.unitElapsed // unit time elapsed
+        let unElapsed = ani.eotim.unElapsed // unit time elapsed
         let tf = d => d
-        let t = tf(unitElapsed)
+        let t = tf(unElapsed)
 
         let nbt = Math.ceil(nb * t)
         let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
@@ -121,9 +121,9 @@ async function anitem (__eo) {
 
         let coords = muonGeoj.getCoords(geoData)
         let nb = coords.length
-        let unitElapsed = ani.eotim.unitElapsed // unit time elapsed
+        let unElapsed = ani.eotim.unElapsed // unit time elapsed
         let tf = d => d
-        let t = tf(unitElapsed)
+        let t = tf(unElapsed)
 
         let nbt = Math.ceil(nb * t)
         let csi = t => muonGeoj.getCoordsInRange(geoData, nbt)
