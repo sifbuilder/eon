@@ -71,6 +71,7 @@
         timeWindow = tw,
         timeCommon = common, 
         msSlot = [], // msSlot
+        unSlot = [], // unSlot
         msQuanta = msDuration / unUnits, // ms in time unit
         msWait = Math.abs(msQuanta * unInit),
         msLimit = Math.abs(msQuanta * unEnd), // if elapsedInMs > msStart + msLimit => delete anima
@@ -116,27 +117,31 @@
       // }
 
       // msTick =+ 1 // -- time msTick
+      unTick =+ 1 // -- time unTick
       
 
       let unElapsedNew = timeScale()(elapsedInMs)
       unStart = unStart !== undefined ? unStart : unElapsedNew
       let unPassed = unElapsedNew - unStart
       let unDelta = unElapsedNew - unElapsed
-      
-          // let isElapsedInPeriod = (unPeriod > epsilon) ? ((msElapsed % (msDuration / unPeriod)) * unPeriod) : msElapsed
-          // let unElapsedInPeriod = timeScale()(isElapsedInPeriod)
-
       unElapsed = unElapsedNew
-        // if ((msWait <= msElapsed) 
-          // && (msElapsed <= msLimit) 
-          // && (msSlot.indexOf(msElapsedstep) !== null)) {
-            // unElapsed = unElapsedInPeriod // TimeElapsedInPeriod (uns)
-        // }
+      
+          let unPassedInPeriod = (unPeriod > epsilon) ? ((unPassed % (1 / unPeriod)) * unPeriod) : unPassed // _e_
+          let unElapsedstep = Math.round(unPassed / unStep)  // _e_
+          let unElapsedInPeriod = (unPeriod > epsilon) ? ((unElapsed % (1 / unPeriod)) * unPeriod) : unElapsed // _e_
+
+        if ((unStart <= unElapsed) 
+          && (unElapsed <= unEnd) 
+          && (unSlot.indexOf(unElapsedstep) !== null)) {
+            unSlot.push(unElapsedstep) 
+            unPassed = unPassedInPeriod // TimePassedInPeriod (uns)
+            unElapsed = unElapsedInPeriod // TimeElapsedInPeriod (uns)
+        }
       let unTime = (timeCommon !== undefined) ? unElapsed : unPassed //  time (uns)
-        // if (unTime !== null) { // do not start yet if no unTime
-          // stopped = 0 // -- time unstopped
-          // unStart = (unStart !== undefined) ? unStart : unTime // -- time started (uns)
-        // }
+        if (unTime !== null) { // do not start yet if no unTime
+          stopped = 0 // -- time unstopped
+          unStart = (unStart !== undefined) ? unStart : unTime // -- time started (uns)
+        }
       
 
       
@@ -154,7 +159,6 @@
       eotim.unElapsed = unElapsed // UPDATE // common time elapsedInMs (uns)
       eotim.unPassed = unPassed // UPDATE // rel time msPassed - life (uns)
       eotim.unTime = timeFunction(unTime) // UPDATE // ref time msPassed (common or relative) (uns)
-      // eotim.stopped = stopped // UPDATE
       eotim.unStart = unStart // UPDATE // ref time start (common or relative) (uns)
       eotim.unDelta = unDelta // UPDATE // time (uns) between ticks
      
