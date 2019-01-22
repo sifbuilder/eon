@@ -159,18 +159,26 @@
         let anima = state.animas[i]
         anima.eotim = muonEotim.timing(anima.eotim, elapsed) // set time
 
-        if (elapsed > anima.eotim.msLimit + anima.eotim.msStart) {
+        // if (elapsed > anima.eotim.msLimit + anima.eotim.msStart) {
+          // anima.eodelled = 1 // crop by time
+        // }
+       if (anima.eotim.unElapsed > anima.eotim.unEnd) {
           anima.eodelled = 1 // crop by time
         }
       }
 
       // ... @STOP
-      let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.eotim.msLimit + item.eotim.msStart), 0)
+      let maxlimit = state.animas.reduce((pre, item) => Math.max(pre, item.eotim.unEnd), 0)
+      
+      let overtime = state.animas.reduce((pre, item) => (pre && item.eotim.unTime > item.eotim.unEnd), true)
+
       let nostop = state.animas.reduce((pre, item) => (pre || item.eotim.nostop), 0)
       if (!nostop && (isNaN(maxlimit) ||
-      (maxlimit > 0 && elapsed > maxlimit) || // stop if spired
-      (elapsed > maxlimit))) { // stop if anigrams spired
-      state.animationStop()
+      (maxlimit > 0 && overtime) || // stop if spired
+      (overtime))) { // stop if anigrams spired
+      
+        state.animationStop()
+        
       }
 
       // ... @WEEN SIM GRAMM RENDER
