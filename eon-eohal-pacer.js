@@ -296,12 +296,6 @@
 
             newItem.eotim = muonEotim.timing(newItem.eotim, newItem.eotim.msElapsed)  
 
-if (1 && 1) console.log('t0', newItem.eotim)
-              
-
-
-
-            
             
 
             delete newItem.eoload

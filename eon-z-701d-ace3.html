@@ -281,12 +281,11 @@ async function anitem (__eo) {
     let circform2 = {
 
       eohal: 'mars',
-
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
-
       eotim: eotim,
       eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'circform2'},
-      eocrom: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.1, 'cp': 0.9 },
+      
+      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+
 
       eomot: {
         conform: {
@@ -304,14 +303,16 @@ async function anitem (__eo) {
         },
       },
 
+
+      eocrom: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.2, 'co': 0.1, 'cp': 0.9 },
+
       eoframe: {
 
         geoframe: [ [ [ -180, 180, 15, 1], [ -180, 180, 15, 1] ] ],
 
       },
-      eoload: {
-
-      },
+      eoload: {},
+      
     }
 
     // .................. animas
