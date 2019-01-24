@@ -58,6 +58,7 @@
 
       let
         msDuration = td, // 16200
+        msElapsed,
         unInit = t0, // 0
         unEnd = t1, // 1
         unStep = t2, // 1
@@ -73,40 +74,85 @@
         unStart,
       } = eotim
 
-      let msDomain = [0, msDuration]
-      let unRange = (timeInverse === 0) ? [0, 1] : [1, 0]
-      let timeScale = () => scaleLinear() // timeScale ms => un
-        .domain(msDomain) // [msWait, msLimit]
-        .range(unRange) // [unBegin, unEnd]
 
-      let unElapsedNew = timeScale()(elapsedInMs)
-      unStart = unStart !== undefined ? unStart : unElapsedNew
-      let unPassed = unElapsedNew - unStart
-      let unDelta = unElapsedNew - unElapsed
-      unElapsed = unElapsedNew
+      let timeScales = []
 
-      let unPassedInPeriod = (unPeriod > epsilon) ? ((unPassed % (1 / unPeriod)) * unPeriod) : unPassed // _e_
-      let unElapsedstep = Math.round(unPassed / unStep) // _e_
-      let unElapsedInPeriod = (unPeriod > epsilon) ? ((unElapsed % (1 / unPeriod)) * unPeriod) : unElapsed // _e_
+      
+      let msDomain0 = [0, msDuration]
+      let unRange0 = [t0, t1]
+      let timeScale0 = scaleLinear() // timeScale ms => un
+        .domain(msDomain0) // [msWait, msLimit]
+        .range(unRange0) // [unBegin, unEnd]
+      timeScales.push(timeScale0)
 
-      if ((unInit <= unElapsed) &&
-          (unElapsed <= unEnd) &&
-          (unSlot.indexOf(unElapsedstep) !== null)) {
-        unSlot.push(unElapsedstep)
-        unPassed = unPassedInPeriod // TimePassedInPeriod (uns)
-        unElapsed = unElapsedInPeriod // TimeElapsedInPeriod (uns)
-      }
-      let unTime = (timeCommon !== undefined) ? unElapsed : unPassed //  time (uns)
-      if (unTime !== null) { // do not start yet if no unTime
-        unStart = (unStart !== undefined) ? unStart : unTime // -- time started (uns)
-      }
+      
+      // let msDomain1 = [t0, t1]
+      // let unRange1 = [0, 1]
+      // let timeScale1 = scaleLinear()
+        // .domain(msDomain1)
+        // .range(unRange1)
+      // timeScales.push(timeScale1)
 
-      eotim.unEnd = unEnd
-      eotim.unElapsed = unElapsed // UPDATE // common time elapsedInMs (uns)
-      eotim.unPassed = unPassed // UPDATE // rel time msPassed - life (uns)
-      eotim.unTime = timeFunction(unTime) // UPDATE // ref time msPassed (common or relative) (uns)
-      eotim.unStart = unStart // UPDATE // ref time start (common or relative) (uns)
-      eotim.unDelta = unDelta // UPDATE // time (uns) between ticks
+
+      // let msDomain2 = [0, 1]
+      // let unRange2 = [1, 0]
+      // let timeScale2 = scaleLinear()
+        // .domain(msDomain2)
+        // .range(unRange2)
+      // if (timeInverse) timeScales.push(timeScale2)
+
+
+
+
+      // [0, msDuration]  =(timeScale)=>     [0,1]
+
+      //   [0, 1]         =(timeScale)=>     [0,1]
+      //   [0, 1]         =(timeScale)=>     [1,0]   domain inverse
+      //                                             domain translate
+      //                                             domain scale
+      // [0, 1]           =(snap)=>          [v0,v1]
+      
+
+      let timeScale =  timeScales.reduce((prevFn, nextFn) =>
+              (...args) => nextFn(prevFn(...args)), d => d)
+
+              
+      // if (elapsedInMs !== undefined) {
+        msElapsed = elapsedInMs
+
+        let unElapsedNew = timeScale(elapsedInMs)
+        unStart = unStart !== undefined ? unStart : unElapsedNew
+        let unPassed = unElapsedNew - unStart
+        let unDelta = unElapsedNew - unElapsed
+        unElapsed = unElapsedNew
+
+        let unPassedInPeriod = (unPeriod > epsilon) ? ((unPassed % (1 / unPeriod)) * unPeriod) : unPassed // _e_
+        let unElapsedstep = Math.round(unPassed / unStep) // _e_
+        let unElapsedInPeriod = (unPeriod > epsilon) ? ((unElapsed % (1 / unPeriod)) * unPeriod) : unElapsed // _e_
+
+        if ((unInit <= unElapsed) &&
+            (unElapsed <= unEnd) &&
+            (unSlot.indexOf(unElapsedstep) !== null)) {
+          unSlot.push(unElapsedstep)
+          unPassed = unPassedInPeriod // TimePassedInPeriod (uns)
+          unElapsed = unElapsedInPeriod // TimeElapsedInPeriod (uns)
+        }
+        let unTime = unPassed //  time (uns)
+        if (unTime !== null) { // do not start yet if no unTime
+          unStart = (unStart !== undefined) ? unStart : unTime // -- time started (uns)
+        }
+
+
+
+        eotim.msElapsed = msElapsed
+        eotim.unEnd = unEnd
+        eotim.unElapsed = unElapsed // UPDATE // common time elapsedInMs (uns)
+        eotim.unPassed = unPassed // UPDATE // rel time msPassed - life (uns)
+        eotim.unTime = timeFunction(unTime) // UPDATE // ref time msPassed (common or relative) (uns)
+        eotim.unStart = unStart // UPDATE // ref time start (common or relative) (uns)
+        eotim.unDelta = unDelta // UPDATE // time (uns) between ticks        
+      // }        
+
 
       return eotim
     }

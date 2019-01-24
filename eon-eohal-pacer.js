@@ -290,16 +290,15 @@
             let newItem = muonProps.clone(pacerAnitem) // anigram
 
             
-            let msElapsed = newItem.eotim.msElapsed
-            let msDuration = newItem.eotim.td
-            let unUnits = newItem.eotim.tu 
-            let unInit = newItem.eotim.t0
-            let unEnd = newItem.eotim.t1
+            let unElapsed = newItem.eotim.unElapsed
+            newItem.eotim.t0 = unElapsed 
+            newItem.eotim.unStart = unElapsed 
 
-            newItem.eotim.t0 = msElapsed * unUnits / msDuration          // unInit
-            // if (1 && 1) console.log('t0', newItem.eoric.uid, newItem.eotim.t0)
+            newItem.eotim = muonEotim.timing(newItem.eotim, newItem.eotim.msElapsed)  
+
+if (1 && 1) console.log('t0', newItem.eotim)
               
-            newItem.eotim = muonEotim.timing(newItem.eotim, msElapsed)  // paced EOTIM
+
 
 
             
