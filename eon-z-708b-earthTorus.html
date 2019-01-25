@@ -71,93 +71,99 @@ async function anitem (__eo) {
     let formTorus = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 10, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[60, 60]]], 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 20, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c: [ [[[0, 0, 0.5, 1, 1, 1, 1, 1, 1]]], 1, [[[10, 10]]], [[[5, 5]]]], // BEND
-        'fn0': (e, c, d) => c[0] * (d.c[2] + d.c[3] * cos(e[0])) * c[2] * cos(2 * e[2] + 0 * d.c[0] * e[1]), // e[1] + e[2]
+        c: [ 1, 1, 10, 5],
+        // fn0: (e, c, d) => c[0] * (d.c[2] + d.c[3] * cos(e[0])) * c[2] * cos(2 * e[2] + 0 * d.c[0] * e[1]),  // 1
+        fn0: (e, c, d) => {
+          let r = d.c[3]
+          let rx = c[0]
+          let x = e[0]
+          let y = e[1]
+          let z = e[2]
+          let res = r * sin(x)
+          res = cos(x) * cos(z)
+          return res
+        },
+        // 'fn0': (e, c, d) => cos(e[0]) * cos(e[2]),        
       },
 
       y: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 10, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[60, 60]]], 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 20, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c: [ [[[0, 0, 0.5, 1, 1, 1, 1, 1, 1]]], 1, [[[10, 10]]], [[[5, 5]]]], // BEND
-        'fn0': (e, c, d) => c[1] * (d.c[2] + d.c[3] * cos(e[0])) * c[2] * sin(2 * e[2] + 0 * d.c[0] * e[1]), // e[1] + e[2]
-
+        c: [ 1, 1, 10, 5],
+        fn0: (e, c, d) => {
+          let R = d.c[2]
+          let r = d.c[3]
+          let x = e[0]
+          let y = e[1]
+          let z = e[2]          
+          let res = R + r * cos(x) * sin(z)
+          res = sin(x) * cos(z)
+          return res
+        },        
+        // fn0: (e, c, d) => d.c[3] * c[3] * cos(e[0]),
+        // 'fn0': (e, c, d) => sin(e[0]) * cos(e[2]),        
       },
 
       z: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 10, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[60, 60]]], 'pa6': 0, 'pb7': -1,
+        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 20, 'pa6': 0, 'pb7': -1,
         'dom3': [-90, 90],
-        c: [ 1, 1, [[[0, 0.3 * Math.PI]]], [[[5, 5]]] ],
-        'fn0': (e, c, d) => d.c[3] * c[3] * sin(e[0]),
+        c: [ 1, 1, 10, 5],
+        // fn0: (e, c, d) => d.c[3] * c[3] * sin(e[0]),
+        fn0: (e, c, d) => {
+          let R = d.c[2]
+          let r = d.c[3]
+          let x = e[0]
+          let y = e[1]
+          let z = e[2]          
+          let res = R + r * cos(x) * cos(z)
+          res = sin(z)
+          return res
+        },        
+        // 'fn0': (e, c, d) => sin(e[2]),        
       },
 
       w: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 10, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[60, 60]]], 'pa6': 0, 'pb7': -1,
+        'ra2': 10, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 20, 'pa6': 0, 'pb7': -1,
         'dom3': [ -[[[0, 180]]], [[[0, 180]]] ],
-        'fn0': (e, c) => c[3] * cos(e[2]),
+        fn0: (e, c, d) => {
+          let R = d.c[2]
+          let r = d.c[3]
+          let x = e[0]
+          let y = e[1]
+          let z = e[2]             
+          let res = cos(y)
+          return res
+        },        
       },
 
     }
 
-    let formGratiCube = {
+    
+    let proform = {
 
-      x: {
-        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-
-      },
-      y: {
-        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-
-      },
-      z: {
-        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-        'ra2': 120 / Math.sqrt(2), 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-      },
+      projection: 'uniwen',
+      prerotate: [[[ ctl.rotation ]]],
+      translate: [ 0, 0],
+      scale: [1, 1, 1],
+      rotate: [0, 0, 0 ],
+      lens: [0, 1, Infinity],
 
     }
-
-    let formSphere = {
-
-      x: {
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-      },
-      y: {
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-      },
-      z: {
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-        'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-      },
-
-    }
-
-
-    // let  proformTorus =  {
-    // projection: 'uniwen',
-    // scale: [ 1, 1, 1 ],
-    // prerotate: [[[ ctl.rotation ]]],
-    // translate: [ [0, 0, 0] ],
-    // rotate: [ -[[[0, 5, 0]]], [[[10, 30, 10]]], 0 ],
-    // rotate: [ 0, 0, 0 ],
-    // lens: [ 0, 1, Infinity ],
-    // }
+    
 
     let proformTorus = {
 
       projection: 'uniwen',
       prerotate: [[[ ctl.rotation ]]],
       translate: [ 0, 0],
-      scale: 1,
-      rotate: [-5, 50, [[[45, 45]]] ], // [-5,50,0], //
-      lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
+      scale: [0.1,0.1,0.1],
+      rotate: [0, 0, 0 ],
+      lens: [0, 1, Infinity],
 
     }
     
@@ -166,21 +172,12 @@ async function anitem (__eo) {
       projection: 'uniwen',
       prerotate: [[[ ctl.rotation ]]],
       translate: [ 0, 0],
-      scale: 1,
-      rotate: [-5, 50, [[[45, 45]]] ], // [-5,50,0], //
-      lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
+      scale: [0.1,0.1,0.1],
+      rotate: [0, 0, 0 ], // [-5, 50, [[[45, 45]]] ],
+      lens: [0, 1, Infinity],
 
     }
-    // let proformEarth = {
 
-    // projection: 'uniwen',
-    // prerotate: [[[ ctl.rotation ]]],
-    // translate: [ 0, 0],
-    // scale: 1,
-    // rotate: [-5, 50, 0 ], // [-5,50,0], //
-    // lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
-
-    // }
 
     // ............................. earthAni
     let earthAni = {
@@ -204,159 +201,36 @@ async function anitem (__eo) {
           projection: 'natform', 
           eoform: formTorus 
         },
-        proform: proformEarth,
+        proform: proform,
       },
       eocrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
       eoload: {},
 
     }
 
-    // .............................  cubeAni
-    let cubeAni = {
 
-      eohal: 'mars',
-      eofold: anitem => {
-        let eoload = anitem.eoload,
-          eoric = anitem.eoric
-
-        let json = {type: 'FeatureCollection', features: []}
-        let points = eoload.points // eoload.points
-        let faces = eoload.faces // eoload.faces
-        for (let i = 0, l = faces.length; i < l; i++) {
-          let face = faces[i] // face pointsx position
-          let geometry = {type: 'Polygon', coordinates: []}
-          geometry.coordinates = face.pointsx.map(k => points[k]) // eg [-1, 1, 1]
-            .map(muonGeom.normalize) // eg. [0.5773, -0.577, 0.5773]
-            .map(muonGeom.spherical) // eg. [-0.7853, 0.6154]
-            .map(muonGeom.to_degrees)
-          geometry.coordinates = Array.of(geometry.coordinates)
-          let feature = {type: 'Feature', geometry: {}, properties: {}}
-          feature.properties.eoric = eoric
-          feature.properties.eoric.cid = 'face'
-          feature.properties.eoric.fid = i // face.name
-          feature.properties.sort = 'form'
-          feature.geometry = geometry
-          feature.properties.eocrom = face.eocrom
-          json.features.push(feature)
-        }
-
-        return json
-      },
-
-      eotim: eotim,
-      eoric: {gid: 'cubeAni', cid: 'cubeAni', fid: 'cubeAni'},
-      eocrom: { 'csx': 0, 'cf': 333, 'cs': 111, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
-
-      eomot: {
-        conform: { projection: 'natform', eoform: formSphere },
-
-        proform: proformEarth,
-      },
-      eoload: {
-        points: [
-          [-1, -1, 1], // 0
-          [ 1, -1, 1], // 1
-          [ 1, 1, 1], // 2
-          [-1, 1, 1], // 3
-          [ 1, -1, -1], // 4
-          [-1, -1, -1], // 5
-          [-1, 1, -1], // 6
-          [ 1, 1, -1], // 7
-        ],
-        faces: [
-          {
-            pointsx: [0, 1, 2, 3, 0],
-            name: 'front',
-            eocrom: { cf: 222, cs: 355, co: [[[0.7, 0.7]]], cp: 1 }},
-          {
-            pointsx: [4, 5, 6, 7, 4],
-            name: 'back',
-            eocrom: { cf: 888, cs: 455, co: [[[0.7, 0.7]]], cp: 1 }},
-          {
-            pointsx: [1, 4, 7, 2, 1],
-            name: 'right',
-            eocrom: { cf: 444, cs: 555, co: [[[0.7, 0.7]]], cp: 1 }},
-          {
-            pointsx: [5, 0, 3, 6, 5],
-            name: 'left',
-            eocrom: { cf: 555, cs: 655, co: [[[0.7, 0.7]]], cp: 1 }},
-          {
-            pointsx: [3, 2, 7, 6, 3],
-            name: 'bottom',
-            eocrom: { cf: 666, cs: 755, co: [[[0.7, 0.7]]], cp: 1 }},
-          {
-            pointsx: [5, 4, 1, 0, 5],
-            name: 'top',
-            eocrom: { cf: 777, cs: 855, co: [[[0.7, 0.7]]], cp: 1 }},
-
-        ],
-
-      },
-    }
-    // .............................  graticubeAni
-    let graticubeAni = {
-
-      eohal: 'mars',
-
-      eofold: anitem => muonGraticule.gjfMultiLineString(anitem.eoframe),
-      eotim: eotim,
-      eoric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticubeAni'},
-      eocrom: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
-
-      eomot: {
-        conform: { projection: 'natform', eoform: formGratiCube },
-
-        proform: proformEarth,
-      },
-      eoframe: { extent: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
-      eoload: {
-      },
-
-    }
-    // .............................  graticircAni
-    let graticircAni = {
-
-      eohal: 'mars',
-
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe), // hMultiLine
-      eotim: eotim,
-      eoric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticircAni'},
-      eocrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
-
-      eomot: {
-        conform: { projection: 'natform', eoform: formSphere },
-
-        proform: proformEarth,
-      },
-      eoframe: { geoframe: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
-      eoload: {
-      },
-
-    }
     // ............................. torusAni1
     let torusAni1 = {
 
       eohal: 'mars',
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
+      
+      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
       eomot: {
-        proform: proformTorus,
+        proform: proform,
       },
       eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[222, 222, 222]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
       eoform: formTorus,
-      eoload: {
-      },
+      eoload: {},
     }
 
     // ............................. animas
     let animas = [
       earthAni, // h.mars p.natform g.uniwen
-      // torusAni1, // h.mars p.natform g.uniwen
-      // cubeAni, // h.mars g.uniwen
-      // graticubeAni, // h.mars
-      // graticircAni, // h.mars
+      torusAni1, // h.mars p.natform g.uniwen
+
 
     ]
 

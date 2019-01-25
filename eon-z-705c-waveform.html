@@ -145,12 +145,12 @@ async function anitem (__eo) {
     let waveAni = {
 
       eohal: 'mars',
+      eotim,
+      eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'waveAni'},
 
       eofold: p => muonFibonat.interlinked(p.eoload),
 
-      eotim,
-      eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'waveAni'},
-      eocrom: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.1, 0.9]]], 'cp': 0.9 },
+      eocrom: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.1, 0.09]]], 'cp': 0.9 },
 
       eomot: {
         conform: { projection: 'natform', eoform: waveForm },
@@ -175,22 +175,19 @@ async function anitem (__eo) {
     let sphereAni = {
 
       eohal: 'mars',
+      eotim,
+      eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereAni'},
 
       eofold: p => muonGraticule.gjfMultiLineString(p.eoframe), // hMultiLine
 
-      eotim,
-      eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'sphereAni'},
-      eocrom: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.01, 0.9]]], 'cp': 0.9 },
+      eocrom: { 'csx': 0, 'cf': 666, 'cs': [[[555, 777]]], 'cw': [[[1.3, 1.9]]], 'co': [[[0.01, 0.09]]], 'cp': 0.9 },
 
       eomot: {
         conform: { projection: 'natform', eoform: sphereForm },
-
         proform: sphereProform,
       },
       eoframe: sphereFrame,
-      eoload: {
-
-      },
+      eoload: {},
 
     }
 
