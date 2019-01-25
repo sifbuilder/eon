@@ -446,7 +446,10 @@
           },
         }
 
-        let projDef = { projection: 'natform', eoform: nformed }
+        let projDef = { 
+          projection: 'natform', 
+          eoform: nformed 
+        }
         let projection = natprojection(projDef)
 
         let feature = muonProj3ct(gj, projection)

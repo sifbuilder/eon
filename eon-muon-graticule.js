@@ -10,11 +10,13 @@
 
   async function muonGraticule (__eo = {}) {
     let [
-      muonGeoj,
       d3array,
+      muonGeoj,
+      muonGeom,
     ] = await Promise.all([
-      __eo('xs').m('geoj'),
       __eo('xs').b('d3-array'),
+      __eo('xs').m('geoj'),
+      __eo('xs').m('geom'),
     ])
 
     let d3Range = d3array.range
@@ -509,6 +511,49 @@
 
       return faces
     }
+    // .................. gjfMultiPolygon
+
+    let gjfMultiPolygon = function (params, range = null, tile = null, inPolygons = []) {
+
+        let vertices =  gjfMultiPoint(params).geometry.coordinates
+        let quads = qfaces(params)
+        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
+      
+        let gj = {
+          type: 'Feature',
+          geometry: {
+            type: 'MultiPoint',
+            coordinates: vertices,
+          },
+          properties: {
+            doc: 'natform',
+            sort: 'form',
+            eoMultiPolygon: 1,
+            eonode: {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: [0, 0, 0],
+              },
+              properties: {
+                orgen: [0, 0, 0],
+                velin: [0, 0, 0],
+                velang: [0, 0, 0],
+                prevous: [0, 0, 0],
+                geodelta: [0, 0, 0],
+              },
+            },
+            faces: faces,
+          },
+        }
+        
+        
+if (1 && 1) console.log('gj', gj)
+      
+      let res = gj
+      return res
+      
+    }
 
     // .................. _merge
     let _merge = function (major, minor, ret = {}) {
@@ -543,6 +588,7 @@
 
     enty.gjfMultiLineString = gjfMultiLineString
     enty.gjfMultiPoint = gjfMultiPoint
+    enty.gjfMultiPolygon = gjfMultiPolygon
 
     return enty
   }
