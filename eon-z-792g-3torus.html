@@ -68,7 +68,7 @@ async function anitem (__eo) {
 
     const eotim = {'td': 23800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
-    let formCirc = {
+    let natformTorus = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[64, 64]]], 'pa6': 0, 'pb7': -1,
@@ -116,46 +116,7 @@ async function anitem (__eo) {
       },
 
     }
-
-    // .................. formAni anima
-    let formAni = {
-
-      eohal: 'mars',
-      eotim: eotim,
-      eoric: {gid: 'formAni', cid: 'formAni', fid: 'formAni'},
-
-      eofold: p => {
-        let vertices = muonGraticule.gjfMultiPoint(p.eoframe).geometry.coordinates
-        let quads = muonGraticule.qfaces(p.eoframe)
-        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
-
-        let featureMultiPoint = {
-
-          type: 'Feature',
-          geometry: {
-            type: 'MultiPoint',
-            coordinates: vertices,
-          },
-          properties: {
-            sort: 'form',
-            eoMultiPolygon: 1,
-            faces: faces,
-          },
-        }
-
-        return featureMultiPoint
-      },
-
-      eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
-
-      eomot: {
-
-        conform: {
-          projection: 'natform',
-          eoform: formCirc,
-        },
-
-        proform: {
+    let proformTorus = {
           projection: 'uniwen',
           translate: [0, 0, 0],
           scale: [0.1, 0.1, 0.1],
@@ -165,51 +126,41 @@ async function anitem (__eo) {
             [[[0, 0, 30, 180, 360 ]]], //,   0, 0  , 0, 0]]],    //  ]]], //
           ],
           lens: [ 0, 1, Infinity ],
-        },
-      },
-
-      eoframe: {
-
-        geoframe: [ [ [ -180, 180, 12, 12], [ -180, 180, 12, 12] ] ],
-
-      },
-      eoload: {},
-    }
-
-    // .................. cameraPersAni anima
-    let cameraPersAni = {
-
-      eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-      eohal: 'sol',
-
-      eofold: anitem => {
-        let eoload = anitem.eoload
-        let json = { // Feature
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: {
-            sort: 'camera',
-            type: 'PerspectiveCamera',
-            name: 'Perspective',
-            fov: 60, // field of view s the field of view. angle in degrees.
-            aspect: renderPortview.width() / renderPortview.height(),
-            near: 0.001,
-            far: 1600,
-
-            position: [0, 0, 400 ],
-            rotation: [0, 0, 0 ],
-
-            vellin: [0, 0, 0 ],
-            velang: [0, 0, 0 ],
-
-            distance2nodesFactor: 100,
-            lookAt: [0, 0, 0],
-          },
         }
-        return json
+    // .................. torusAni anima
+    let torusAni = {
+
+      eohal: 'mars',
+      eotim: eotim,
+      eoric: {gid: 'torusAni', cid: 'torusAni', fid: 'torusAni'},
+
+      eofold: ani => {
+        res = muonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
+        return res
+      },
+
+      eomot: {
+
+        conform: {
+          projection: 'natform',
+          eoform: natformTorus,
+        },
+
+        proform: proformTorus,
+      },
+
+      eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+
+      eoload: {
+        eoframe: {
+
+          multiframe: [ [ -180, 180, 12, 12], [ -180, 180, 12, 12] ],
+
+        },
+      
       },
     }
+
     // .................. cameraOrthoAni anima
     let lightHemisphereAni = {
 
@@ -272,11 +223,45 @@ async function anitem (__eo) {
 
     }
 
+    // .................. cameraPersAni anima
+    let cameraPersAni = {
+
+      eotim: eotim,
+      eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
+      eohal: 'sol',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload
+        let json = { // Feature
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: {
+            sort: 'camera',
+            type: 'PerspectiveCamera',
+            name: 'Perspective',
+            fov: 60, // field of view s the field of view. angle in degrees.
+            aspect: renderPortview.width() / renderPortview.height(),
+            near: 0.001,
+            far: 1600,
+
+            position: [0, 0, 400 ],
+            rotation: [0, 0, 0 ],
+
+            vellin: [0, 0, 0 ],
+            velang: [0, 0, 0 ],
+
+            distance2nodesFactor: 100,
+            lookAt: [0, 0, 0],
+          },
+        }
+        return json
+      },
+    }
 
     // .................. animas
     let animas = [
 
-      formAni, // h.mars
+      torusAni, // h.mars
       cameraPersAni, // h.sol
       lightHemisphereAni, // h.sol
       spotLight, // h.sol

@@ -458,7 +458,7 @@
 
 
           let meshMaterial = new THREE.MeshBasicMaterial({
-            color: 'blue',
+            color: 'red',
             side: THREE.DoubleSide
           })
 

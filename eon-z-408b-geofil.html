@@ -30,6 +30,13 @@ async function anitem (__eo) {
 
   // .................. animas
   let ani = function () {
+    let ctl
+    try {
+      ctl = ctlWen().control(renderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }
+    
     // .................. pics
     let eotim = {td: 16800, t0: 0, t1: 1, t2: 1, t3: 1}
 
@@ -61,7 +68,7 @@ async function anitem (__eo) {
           projection: 'uniwen', // d3.geoOrthographic(),
           scale: 1,
           translate: [ -100, 0 ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
         },
@@ -84,13 +91,13 @@ async function anitem (__eo) {
           projection: d3.geoOrthographic(),
           scale: 100,
           translate: [ 100, 0 ],
-          prerotate: [[[ ctlWen.rotation ]]],
+          prerotate: [[[ ctl.rotation ]]],
           rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
         },
       },
       eoframe: {
-        geoframe: [ [ [ -180, 180, 20, 1], [ -180, 180, 20, 1] ] ],
+        geoframe: [ [ [ -180, 180, 20, 20], [ -180, 180, 20, 20] ] ],
       },
       eoform: null,
       eoload: {},

@@ -88,24 +88,29 @@ async function anitem (__eo) {
 
     let eoframe = {
 
-      geoframe: [ [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ] ],
+      multiframe: [ [-180, 180, 45, 45], [-90, 90, 22.5, 22.5] ],
 
     }
     // ............................. geoearth
     let geoearth = {
 
       eohal: 'mars',
-      eotim,
+      eotim: eotim,
       eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearth'},
 
       eofold: p => {
-        let geometry = Object.assign({},
+        let gjMultiLineString = Object.assign({},
           topojson.mesh(
             datWorldTopo110m.data(),
             datWorldTopo110m.data().objects.land
           )
         )
-        return { type: 'Feature', geometry: geometry, properties: {} }
+        let res = { 
+          type: 'Feature', 
+          geometry: gjMultiLineString, 
+          properties: {} 
+        }
+        return res
       },
       eomot: {
         conform: {
@@ -117,25 +122,21 @@ async function anitem (__eo) {
       eoload: {},
 
     }
-    // ............................. geofaces
-    let geofaces = {
+    // ............................. geosphere
+    let geosphere = {
 
       eohal: 'mars',
-
-      eofold: p => {
-        let gvertsFeature = muonGraticule.gjfMultiPoint(p.eoframe)
-        let gfaces = muonGraticule.gfaces(p.eoframe)
-
-        let res = gvertsFeature
-
-        res.properties.eoMultiPolygon = !0
-        res.properties.faces = gfaces // 3 eoMultipolygonsToScene
+      eotim: eotim,
+      eoric: {gid: 'geosphere', cid: 'geosphere', fid: 'geosphere'},
+      
+      eofold: ani => {
+        let res
+        res = muonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
         res.properties.pointRadius = 0.1 // 3 multiPointToScene
-        res.properties.pointColor = 0x88ff88 // 3 multiPointToScene
+        res.properties.pointColor = 0x88ff88 // 3 multiPointToScene        
 
         return res
       },
-      eotim,
 
       eomot: {
         conform: {
@@ -144,24 +145,26 @@ async function anitem (__eo) {
         },
       },
 
-      eoric: {gid: 'geofaces', cid: 'geofaces', fid: 'geofaces'},
       eocrom: { 'csx': 0, 'cf': [[[222, 222]]], 'cs': 666, 'cw': [[[0.3, 2.3]]], 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
 
-      eoframe: eoframe,
-      eoload: {},
+      
+      eoload: {
+        eoframe: eoframe,
+      },
 
     }
     // ............................. geograt
     let geograt = {
 
       eohal: 'mars',
+      eotim: eotim,
+      eoric: {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
 
-      eofold: p => {
-        let vhmls = muonGraticule.gjfMultiLineString(p.eoframe)
-
-        return vhmls
+      eofold: ani => {
+        let res
+        res = muonGraticule.gjfMultiLineString(ani.eoload.eoframe)
+        return res
       },
-      eotim,
 
       eomot: {
         conform: {
@@ -170,11 +173,11 @@ async function anitem (__eo) {
         },
       },
 
-      eoric: {'gid': 'geograt', 'cid': 'geograt', 'fid': 'geograt'},
       eocrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': [[[0.3, 2.3]]], 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
-
-      eoframe: eoframe,
-      eoload: {},
+      
+      eoload: {
+        eoframe: eoframe,
+      },
 
     }
 
@@ -335,7 +338,7 @@ async function anitem (__eo) {
 
     let animas = [
       geoearth, //
-      geofaces, //
+      geosphere, //
       geograt, //
       cameraPersAni, // h.sol
       lightHemisphereAni, // h.sol

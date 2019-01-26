@@ -385,7 +385,6 @@ async function anitem (__eo) {
 
       field: params => {
           let links = params.nodes.filter(d => (d.eoric.gid === 'link'))
-          if (1 && 1) console.log('links', links)
 
           params.properties.payload.args = Array.of(links)
 
