@@ -48,7 +48,7 @@ async function anitem (__eo) {
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
       sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh,
       exp = Math.exp
-      
+
     let eotim = {'td': 10800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
     // ..................
@@ -73,7 +73,7 @@ async function anitem (__eo) {
           let z = e[2]
           let res = (R + r * cos(x)) * cos(c0 * z)
           return res
-        },        
+        },
       },
       y: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, 		// circle
@@ -93,7 +93,7 @@ async function anitem (__eo) {
           let res = (R + r * cos(x)) * sin(c0 * z)
           // let res = (R + r * sin(x)) * cos(z)
           return res
-        },        
+        },
       },
       z: {
         // 'm1': [[[2, 2]]], 'm2': [[[2, 2]]], 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, 		// circle
@@ -114,7 +114,7 @@ async function anitem (__eo) {
           let w = e[3]
           let res = r * sin(x) // r * sin(z)
           return res
-        },        
+        },
       },
       w: {
         // 'm1': [[[2, 2]]], 'm2': [[[2, 2]]], 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, 		// circle
@@ -132,7 +132,7 @@ async function anitem (__eo) {
           let z = e[2]
           let res = cos(y)
           return res
-        },        
+        },
       },
     }
 
@@ -140,12 +140,12 @@ async function anitem (__eo) {
 
       projection: 'uniwen',
       translate: [ 0, 30, 0],
-      scale: [ [[[2,2,1,1]]], [[[2,2,1,1]]], [[[2,2,1,1]]]],
-      rotate: [ [[[145,145,135,135,]]], -12, 0 ],
+      scale: [ [[[2, 2, 1, 1]]], [[[2, 2, 1, 1]]], [[[2, 2, 1, 1]]]],
+      rotate: [ [[[145, 145, 135, 135]]], -12, 0 ],
       lens: [0, 1, Infinity],
 
     }
-    
+
     let eoframe = {
 
       multiframe: [ [-180, 180, 20, 20], [-90, 90, 15, 15] ],
@@ -165,10 +165,10 @@ async function anitem (__eo) {
             datWorldTopo110m.data().objects.land
           )
         )
-        let res = { 
-          type: 'Feature', 
-          geometry: gjMultiLineString, 
-          properties: {} 
+        let res = {
+          type: 'Feature',
+          geometry: gjMultiLineString,
+          properties: {},
         }
         return res
       },
@@ -181,12 +181,12 @@ async function anitem (__eo) {
           rotate: [0, 0, 90 ],
           lens: [0, 1, Infinity],
 
-        },        
+        },
         conform: {
           projection: 'natform',
           eoform: eoform,
         },
-        proform: proformTorus,        
+        proform: proformTorus,
       },
       eocrom: { 'csx': 0, 'cf': 999, 'cs': 999, 'cw': 0.9, 'co': 0.21, 'cp': 0.9},
       eoload: {},
@@ -198,12 +198,12 @@ async function anitem (__eo) {
       eohal: 'mars',
       eotim: eotim,
       eoric: {gid: 'geosphere', cid: 'geosphere', fid: 'geosphere'},
-      
+
       eofold: ani => {
         let res
         res = muonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
         res.properties.pointRadius = 0.1 // 3 multiPointToScene
-        res.properties.pointColor = 0x88ff88 // 3 multiPointToScene        
+        res.properties.pointColor = 0x88ff88 // 3 multiPointToScene
 
         return res
       },
@@ -213,12 +213,11 @@ async function anitem (__eo) {
           projection: 'natform',
           eoform: eoform,
         },
-        proform: proformTorus,        
+        proform: proformTorus,
       },
 
       eocrom: { 'csx': 0, 'cf': [[[222, 222]]], 'cs': 666, 'cw': [[[0.3, 2.3]]], 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
 
-      
       eoload: {
         eoframe: eoframe,
       },
@@ -242,11 +241,11 @@ async function anitem (__eo) {
           projection: 'natform',
           eoform: eoform,
         },
-        proform: proformTorus,        
+        proform: proformTorus,
       },
 
       eocrom: { 'csx': 0, 'cf': 555, 'cs': 222, 'cw': 0.01, 'co': 0.05, 'cp': 0.9},
-      
+
       eoload: {
         eoframe: eoframe,
       },
@@ -346,7 +345,6 @@ async function anitem (__eo) {
         return json
       },
     }
-
 
     let animas = [
       geoearth, //

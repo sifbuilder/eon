@@ -9,7 +9,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   // ... **returns nat projection**
   // ... ### functions
   // ... prtdef

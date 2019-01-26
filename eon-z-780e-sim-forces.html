@@ -133,7 +133,6 @@ async function anitem (__eo) {
       eoload: {},
     }
 
-
     // ............................. force_energy
     let forceEnergy = function (params) { // force
       let nodes = params.nodes
@@ -171,9 +170,9 @@ async function anitem (__eo) {
 
       return field // return force
     }
-    
+
     let force_energy = { // aniForce
-    
+
       properties: {
         alpha: 1,
         alphaMin: 0.001,
@@ -184,13 +183,12 @@ async function anitem (__eo) {
         let forces = []
 
         let nodes = params.nodes
-        
+
         let alpha = params.alpha || params.properties.alpha
         let alphaMin = params.alphaMin || params.properties.alphaMin
         let alphaDecay = params.alphaDecay || params.properties.alphaDecay
         let alphaTarget = params.alphaTarget || params.properties.alphaTarget
-        
-        
+
         let key = params.properties.key || 'energy'
 
         let properties = {
@@ -212,8 +210,8 @@ async function anitem (__eo) {
 
         params.properties = properties
         return forceEnergy(params)
-      },    
-    
+      },
+
     }
 
     // ............................. force_viscosity
@@ -253,9 +251,9 @@ async function anitem (__eo) {
 
       return field // return force
     }
-    
+
     let force_viscosity = { // aniForce
-    
+
       properties: {
         velocityDecay: 0.0002,
       },
@@ -263,9 +261,9 @@ async function anitem (__eo) {
         let forces = []
 
         let nodes = params.nodes
-        
+
         let velocityDecay = params.velocityDecay || params.properties.velocityDecay
-        
+
         let key = params.properties.key || 'viscosity'
 
         let properties = {
@@ -285,9 +283,9 @@ async function anitem (__eo) {
 
         params.properties = properties
         return forceViscosity(params)
-      },    
-    
-    }    
+      },
+
+    }
 
     // ............................. force_collide
     let force_collide = {

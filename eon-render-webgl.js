@@ -175,7 +175,7 @@
       }
       lights['SpotLight'] = getLight(pars, stat)
 
-        /*    lights
+      /*    lights
           {
             sort: 'light',
             type: 'AmbientLight',
@@ -400,7 +400,6 @@
       if (items.length > 0) { // add default camera
         if (state.cameras['default' ] !== undefined) delete state.cameras['default']
 
-
         for (let k in items) { // DOTS (seg5===0) each group gid
           let camera = items[k] // feature
 
@@ -409,7 +408,6 @@
           state.cameras[camid] = getCamera(pars, state)
         }
       }
-
     }
 
     // .................. threeCameraHelpers
@@ -439,29 +437,24 @@
 
     // .................. multiPolygonToScene
     function multiPolygonsToScene (items = []) {
-
       if (items.length === 0) return
 
       for (let k in items) { // features of type MultiPolygon
-
         let feature = items[k] // feature of type MultiPolygon
         let style = feature.properties.style
         let geometry = feature.geometry
         let coordinates = geometry.coordinates
 
-
         let lineMaterial = new THREE.MeshBasicMaterial({
           color: style.stroke,
           opacity: style['stroke-opacity'],
-          side: THREE.DoubleSide
+          side: THREE.DoubleSide,
         })
 
-
-          let meshMaterial = new THREE.MeshBasicMaterial({
-            color: 'red',
-            side: THREE.DoubleSide
-          })
-
+        let meshMaterial = new THREE.MeshBasicMaterial({
+          color: 'red',
+          side: THREE.DoubleSide,
+        })
 
         for (let i = 0; i < geometry.coordinates.length; i++) {
         // for (let i = 0; i < 1; i++) {
@@ -470,20 +463,19 @@
           let outring = polygon[0]
           let holerings = polygon.slice(1)
 
-          let threeGeometry = new THREE.Geometry() 
-          
+          let threeGeometry = new THREE.Geometry()
+
           let object, v = '______________mesh'
           if (v === 'mesh') {
             for (let j = 0; j < outring.length; j++) {
               threeGeometry.vertices.push(new THREE.Vector3(...outring[j])) // vertices
               threeGeometry.faces.push(new THREE.Face3(0, j + 1, j)) // faces
-            }            
+            }
             object = new THREE.Mesh(threeGeometry, meshMaterial)
-            
           } else {
             d3.pairs(outring.map(denser), function (a, b) { // container ring
               threeGeometry.vertices.push(a, b) // vertices
-            })            
+            })
             object = new THREE.LineSegments(threeGeometry, lineMaterial)
 
             holerings.forEach(function (ring) { // each hole in polygon
@@ -492,13 +484,9 @@
               })
               let object = new THREE.LineSegments(threeGeometry, lineMaterial)
               if (object) state.scene.add(object)
-            })            
-            
-            
+            })
           }
           if (object) state.scene.add(object)
-
-
         }
       }
     }
@@ -866,7 +854,6 @@
         state.cameras = cameras
       } else {
       }
-
 
       if (state.cameras && Object.keys(state.cameras).length > 0) {
         let cameras = Object.values(state.cameras)

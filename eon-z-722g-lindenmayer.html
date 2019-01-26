@@ -44,7 +44,7 @@ async function anitem (__eo) {
 
         let gj1 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer1)
         let coors1 = gj1.geometry.coordinates[0]
-        
+
         let gj2 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer2)
         let coors2 = gj2.geometry.coordinates[0]
 
@@ -60,7 +60,7 @@ async function anitem (__eo) {
           properties: {},
         }
         gj.geometry.coordinates = Array.of(ws) // Line to MultiLineStrinmg
-        
+
         return gj
       },
 

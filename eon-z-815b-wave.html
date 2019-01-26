@@ -22,12 +22,10 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
 
-
   // .................. animas
   let ani = function () {
+    let ctl = ctlWen().control(renderSvg.svg())
 
-    let ctl = ctlWen().control(renderSvg.svg())  
-    
     // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
@@ -70,7 +68,7 @@ async function anitem (__eo) {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
-        'dom3': [ [[[0, 90]]],  [[[1 * 360, 1 * 360 + 90]]] ],
+        'dom3': [ [[[0, 90]]], [[[1 * 360, 1 * 360 + 90]]] ],
 
         'fn0': (e, c) => e[0],
       },
@@ -135,7 +133,6 @@ async function anitem (__eo) {
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qred'},
       eofold: ani => {
-        
         let natipros = {
           eoform: ani.eoform,
           ghv: 1, // horizontal geodesics

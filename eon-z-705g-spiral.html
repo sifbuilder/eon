@@ -55,19 +55,16 @@ async function anitem (__eo) {
       },
     }
 
-
     const waveProform = {
       projection: 'uniwen',
       prerotate: [[[ ctl.rotation ]]],
       translate: [0, 0, 0],
       scale: 1,
-      rotate: [ 0, [[[-30,-80,-30]]], [[[0, 160 * 360]]] ], // dyn
+      rotate: [ 0, [[[-30, -80, -30]]], [[[0, 160 * 360]]] ], // dyn
       lens: [ 0, 1, Infinity ],
     }
 
-
     const waveFrame = [ [ [ -180, 180, 90, 5], [ -180, 180, 30, 5] ] ]
-
 
     // .................. waveForm anima
     let waveAni = {
@@ -102,13 +99,10 @@ async function anitem (__eo) {
 
     }
 
-
     // .................. animas
     let animas = [
 
-
       waveAni, // h.mars
-
 
     ]
 

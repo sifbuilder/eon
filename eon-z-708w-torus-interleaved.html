@@ -74,7 +74,7 @@ async function anitem (__eo) {
         'ra2': 10, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 40, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         c: [ 1, 1, 10, 5],
-        fn0: (e, c, d) => c[0] * (d.c[2] + d.c[3] * cos(e[0])) * c[2] * cos(2 * e[2] + 1 * d.c[0] * e[1]),  // 1
+        fn0: (e, c, d) => c[0] * (d.c[2] + d.c[3] * cos(e[0])) * c[2] * cos(2 * e[2] + 1 * d.c[0] * e[1]), // 1
       },
 
       y: {
@@ -139,7 +139,6 @@ async function anitem (__eo) {
 
     }
 
-
     // let  proformTorus =  {
     // projection: 'uniwen',
     // scale: [ 1, 1, 1 ],
@@ -160,7 +159,7 @@ async function anitem (__eo) {
       lens: [0, 1, Infinity], // [ [[[0,0,1,1,1,0]]], [[[0,0,1,1,1,0]]] ],  //  [1,0]
 
     }
-    
+
     let proformEarth = {
 
       projection: 'uniwen',
@@ -200,9 +199,9 @@ async function anitem (__eo) {
       },
 
       eomot: {
-        conform: { 
-          projection: 'natform', 
-          eoform: formTorus 
+        conform: {
+          projection: 'natform',
+          eoform: formTorus,
         },
         proform: proformEarth,
       },
@@ -307,11 +306,11 @@ async function anitem (__eo) {
 
         proform: proformEarth,
       },
-      
+
       eocrom: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
-      
+
       eoframe: { multiframe: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
-      
+
       eoload: {},
 
     }
@@ -325,13 +324,13 @@ async function anitem (__eo) {
       eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
 
       eomot: {
-        conform: { 
-          projection: 'natform', 
-          eoform: formSphere 
+        conform: {
+          projection: 'natform',
+          eoform: formSphere,
         },
         proform: proformEarth,
       },
-      
+
       eocrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
       eoframe: { multiframe: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] },
       eoload: {
@@ -344,7 +343,7 @@ async function anitem (__eo) {
       eohal: 'mars',
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
-      
+
       eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
       eomot: {
         proform: proformTorus,

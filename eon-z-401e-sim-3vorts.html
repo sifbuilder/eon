@@ -39,7 +39,6 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
 
-
   let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
 
@@ -427,14 +426,13 @@ async function anitem (__eo) {
       },
 
       field: params => {
-          let linksfilter = d => (d.eoric.gid === 'link')
-          let links = params.nodes.filter(linksfilter)
-          params.properties.payload.args = Array.of(links) // links
+        let linksfilter = d => (d.eoric.gid === 'link')
+        let links = params.nodes.filter(linksfilter)
+        params.properties.payload.args = Array.of(links) // links
         return muonEoforces.force(params)
       },
 
     }
-
 
     // .................... fieldAni
     let fieldAni = {

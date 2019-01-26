@@ -233,7 +233,7 @@ async function anitem (__eo) {
       eoframe: {
 
         geoframe: [ [ [ -180, 180, 30, 30], // x
-                      [ -180, 180, 15, 15] ] ], // y
+          [ -180, 180, 15, 15] ] ], // y
 
       },
       eoload: {},
@@ -301,10 +301,10 @@ async function anitem (__eo) {
             datWorldTopo110m.data().objects.land
           )
         )
-        let gj = { 
-          type: 'Feature', 
-          geometry: geometry, 
-          properties: {} 
+        let gj = {
+          type: 'Feature',
+          geometry: geometry,
+          properties: {},
         }
         return gj
       },

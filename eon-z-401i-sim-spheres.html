@@ -51,7 +51,7 @@ async function anitem (__eo) {
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
       sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh
 
-    let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, } // nostop: 1}
+    let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1 } // nostop: 1}
 
     // ....................... pacerNat
     let pacerNat = {
@@ -209,16 +209,15 @@ async function anitem (__eo) {
           eoforces: function (ani, props) {
             let forces = {}
 
-
             let forceGravity = muonProps.clone(force_gravity)
             forceGravity.properties.key = d => d.eoric.uid
             forceGravity.properties.gravity = d => {
               let gravity = 0
-            
+
               let tue = d.eotim.unElapsed
               let tup = d.eotim.unPassed
               let tud = d.eotim.unitDelta
-              let r = muonProps.v(muonSnap.snap(d.eoform.x.ra2, tup),d)            
+              let r = muonProps.v(muonSnap.snap(d.eoform.x.ra2, tup), d)
 
               console.assert(r !== Number.NaN)
               if (r > 36) gravity = 1.9
@@ -251,12 +250,11 @@ async function anitem (__eo) {
 
       let gravity = opts.gravity // gravity
       console.assert(gravity !== Number.NaN, `gravity ${gravity} is NaN`)
-      
+
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-          let g = muonProps.v(gravity,node)
-
+          let g = muonProps.v(gravity, node)
 
           node.vy += g
         }
@@ -328,11 +326,11 @@ async function anitem (__eo) {
       },
 
       eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[777, 777]]], 'cw': [[[0.99, 0.99]]], 'cp': [[[0.9, 0.9]]]},
-      
+
       eoform: {
 
         x: {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, 
+          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,
           'ra2': 400, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
           'dom3': [ -180, 180 ],
         },

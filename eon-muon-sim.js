@@ -200,10 +200,8 @@
           for (let j = 0; j < forces.length; j++) { // for each force in aniItem
             let aniForce = forces[j] // aniForce in anima.eoforces eg. force_gravity
 
-
             let tu = aniItem.eotim.unTime
-            aniForce = muonProps.v(muonSnap.snap(aniForce, tu),aniItem)
- 
+            aniForce = muonProps.v(muonSnap.snap(aniForce, tu), aniItem)
 
             let cttes = simConstants(sim, aniForce.properties)
 

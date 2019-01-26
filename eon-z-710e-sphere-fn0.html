@@ -6,7 +6,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. eons
   let [
-    d3,  
+    d3,
     muonNatform,
     muonProps,
     ctlWen,
@@ -14,7 +14,7 @@ async function anitem (__eo) {
     eohalMars,
     renderSvg,
   ] = await Promise.all([
-    __eo('xs').b('d3'),  
+    __eo('xs').b('d3'),
     __eo('xs').m('natform'),
     __eo('xs').m('props'),
     __eo('xs').c('wen'),
@@ -35,14 +35,14 @@ async function anitem (__eo) {
 
     let conform = {
       x: {
-      "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
+        'm1': 1, 'm2': 1, 'n1': 0.5, 'n2': 0.5, 'n3': 0.5, 'a': 1, 'b': 1, // drop
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180], // r.form.circ [-1.57, 1.57]
         'fn0': (e, c, d) => c[0] * cos(e[0]) * c[2] * cos(e[3]),
       },
-      
+
       y: {
-      "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,   // drop
+        'm1': 1, 'm2': 1, 'n1': 0.5, 'n2': 0.5, 'n3': 0.5, 'a': 1, 'b': 1, // drop
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 12, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         'fn0': (e, c, d) => c[0] * sin(e[0]) * c[2] * cos(e[3]),

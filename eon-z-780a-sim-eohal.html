@@ -146,7 +146,7 @@ async function anitem (__eo) {
           coordinates: [0, 0, 0],
         },
         properties: {
-           pointRadius: 6,   
+          pointRadius: 6,
         },
       },
 
@@ -157,7 +157,7 @@ async function anitem (__eo) {
           coordinates: [0, 0, 0],
         },
         properties: {
-                    pointRadius: 6,   
+          pointRadius: 6,
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
@@ -236,9 +236,9 @@ async function anitem (__eo) {
 
       return field // return force
     }
-    
+
     let force_energy = { // aniForce
-    
+
       properties: {
         alpha: 1,
         alphaMin: 0.001,
@@ -249,13 +249,12 @@ async function anitem (__eo) {
         let forces = []
 
         let nodes = params.nodes
-        
+
         let alpha = params.alpha || params.properties.alpha
         let alphaMin = params.alphaMin || params.properties.alphaMin
         let alphaDecay = params.alphaDecay || params.properties.alphaDecay
         let alphaTarget = params.alphaTarget || params.properties.alphaTarget
-        
-        
+
         let key = params.properties.key || 'energy'
 
         let properties = {
@@ -277,8 +276,8 @@ async function anitem (__eo) {
 
         params.properties = properties
         return forceEnergy(params)
-      },    
-    
+      },
+
     }
 
     // ............................. force_viscosity
@@ -318,9 +317,9 @@ async function anitem (__eo) {
 
       return field // return force
     }
-    
+
     let force_viscosity = { // aniForce
-    
+
       properties: {
         velocityDecay: 0.0002,
       },
@@ -328,9 +327,9 @@ async function anitem (__eo) {
         let forces = []
 
         let nodes = params.nodes
-        
+
         let velocityDecay = params.velocityDecay || params.properties.velocityDecay
-        
+
         let key = params.properties.key || 'viscosity'
 
         let properties = {
@@ -350,9 +349,9 @@ async function anitem (__eo) {
 
         params.properties = properties
         return forceViscosity(params)
-      },    
-    
-    }    
+      },
+
+    }
 
     // ............................. forceGravity
     let forceGravity = function (params) { // force
@@ -373,7 +372,7 @@ async function anitem (__eo) {
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-          let g = muonProps.v(gravity,node)          
+          let g = muonProps.v(gravity, node)
           console.assert(g !== Number.NaN, `gravity ${g} is NaN`)
 
           node.vy += g
@@ -480,9 +479,9 @@ async function anitem (__eo) {
 
         payload: {
           args: [
-            30, // radius, 
-            20, // x, 
-            20, // y, 
+            30, // radius,
+            20, // x,
+            20, // y,
             20, // z
           ],
           opts: {
@@ -713,9 +712,9 @@ async function anitem (__eo) {
       },
 
       field: params => {
-          let linksfilter = d => (d.eoric.gid === 'link')
-          let links = params.nodes.filter(linksfilter)
-          params.properties.payload.args = Array.of(links) // links
+        let linksfilter = d => (d.eoric.gid === 'link')
+        let links = params.nodes.filter(linksfilter)
+        params.properties.payload.args = Array.of(links) // links
         return muonEoforces.force(params)
       },
 
@@ -734,17 +733,17 @@ async function anitem (__eo) {
     }
     fieldAni.eoforces = {
       // force_energy,
-      // force_viscosity,    
-      force_gravity,  // apply gravity to git.paced anitems
-      force_collide,  // repulse, applies to all items
-      force_manybody,  // 
-      force_radial,  // force radially from center of force 
+      // force_viscosity,
+      force_gravity, // apply gravity to git.paced anitems
+      force_collide, // repulse, applies to all items
+      force_manybody, //
+      force_radial, // force radially from center of force
       force_centerGold, // applies to gid:gold items
       force_centerRed, // applies to gid:gold items
       force_xGold, // applies to gid:gold items, align to x:60 (args, opts)
       force_xRed, // applies to gid:red items, align to x:-60
       force_yGold, // applies to gid:gold items, align to y:60
-      force_yRed,  // applies to gid:red items, align to y:-60
+      force_yRed, // applies to gid:red items, align to y:-60
       force_zGold,
       force_zRed,
     }

@@ -102,7 +102,7 @@
     // .................. gratiparams
     // ... @params::{}
     // ... multiframe: frame: [ xa , xb, d, p ]
-    // ...    eg. [ [-180, 180, 55, 1], 
+    // ...    eg. [ [-180, 180, 55, 1],
     // ...          [-90, 90, 2.5, 1] ]
     // ...
     // ... geoframe: [ [X, Y, D ,P], [x, y, d ,p] ]
@@ -132,52 +132,40 @@
       let X_extent, Y_extent, x_extent, y_extent
 
       if (params.multiframe !== undefined) { // multiframe
-
         let multiframe = params.multiframe
 
         X_extent = multiframe[0] // x major
         x_extent = multiframe[0] // x minor
         Y_extent = multiframe[1] // y major
         y_extent = multiframe[1] // y minor
-
       } else if (params.geoframe !== undefined) { // geoframe
-
         let geoframe = params.geoframe
 
         if (geoframe.length === 2) { // [Major, minor] Mxy, mxy
-
           X_extent = geoframe[0][0]
           Y_extent = geoframe[0][1]
           x_extent = geoframe[1][0]
           y_extent = geoframe[1][1]
-
         } else if (geoframe.length === 1) { // [Major :: minor] Mx.mx, My.my
-
           X_extent = geoframe[0][0]
           Y_extent = geoframe[0][1]
           x_extent = geoframe[0][0]
           y_extent = geoframe[0][1]
         }
-
       } else if (Array.isArray(params)) { // default to geoframe
-
         let geoframe = params
 
         if (geoframe.length === 2) { // [Major, minor] Mxy, mxy
-
           X_extent = geoframe[0][0]
           Y_extent = geoframe[0][1]
           x_extent = geoframe[1][0]
           y_extent = geoframe[1][1]
-
         } else if (geoframe.length === 1) { // [Major :: minor] Mx.mx, My.my
-
           X_extent = geoframe[0][0]
           Y_extent = geoframe[0][1]
           x_extent = geoframe[0][0]
           y_extent = geoframe[0][1]
         }
-
       }
 
       X0 = X_extent[0]
@@ -314,7 +302,6 @@
       return gj
     }
 
-
     // .................. gjfMultiLineString
     let gjfMultiLineString = function (params = {}) {
       let g = grarr(params)
@@ -326,7 +313,7 @@
       } = params
 
       let coords = []
-      if (ghv === 0) {      // ghv: 0 pars+mers [ [h], [v] ]
+      if (ghv === 0) { // ghv: 0 pars+mers [ [h], [v] ]
         // coords = [].concat(mersCoords).concat(parsCoords)
         coords = [].concat(parsCoords).concat(mersCoords)
       } else if (ghv === 1) { // ghv: 1 pars [ [h]  ]
@@ -439,7 +426,7 @@
         type: 'Feature',
         geometry: {
           type: 'MultiPoint',
-          coordinates: vertices
+          coordinates: vertices,
         },
         properties: {},
       }
@@ -471,7 +458,7 @@
           let j0 = j
           let j1 = (j + 1) // % (parsq) // parabolic
 
-          let fs = bifaces(i, j, mersq, parsq, mersCoords, inPolygons)  // bifaces
+          let fs = bifaces(i, j, mersq, parsq, mersCoords, inPolygons) // bifaces
           fs.forEach(f => faces.push(f))
         }
       }
@@ -504,7 +491,7 @@
           let j0 = j
           let j1 = (j + 1) // % (parsq) // parabolic
 
-          let fs = quads(i, j, mersq, parsq, mersCoords, inPolygons)  // quads
+          let fs = quads(i, j, mersq, parsq, mersCoords, inPolygons) // quads
           fs.forEach(f => faces.push(f))
         }
       }
@@ -514,45 +501,42 @@
     // .................. gjfMultiPolygon
 
     let gjfMultiPolygon = function (params, range = null, tile = null, inPolygons = []) {
+      let vertices = gjfMultiPoint(params).geometry.coordinates
+      let quads = qfaces(params)
+      let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
 
-        let vertices =  gjfMultiPoint(params).geometry.coordinates
-        let quads = qfaces(params)
-        let faces = quads.reduce((p, q) => [...p, ...muonGeom.convextriang(q)], [])
-      
-        let gj = {
-          type: 'Feature',
-          geometry: {
-            type: 'MultiPoint',
-            coordinates: vertices,
-          },
-          properties: {
-            doc: 'natform',
-            sort: 'form',
-            eoMultiPolygon: 1,
-            eonode: {
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: [0, 0, 0],
-              },
-              properties: {
-                orgen: [0, 0, 0],
-                velin: [0, 0, 0],
-                velang: [0, 0, 0],
-                prevous: [0, 0, 0],
-                geodelta: [0, 0, 0],
-              },
+      let gj = {
+        type: 'Feature',
+        geometry: {
+          type: 'MultiPoint',
+          coordinates: vertices,
+        },
+        properties: {
+          doc: 'natform',
+          sort: 'form',
+          eoMultiPolygon: 1,
+          eonode: {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [0, 0, 0],
             },
-            faces: faces,
+            properties: {
+              orgen: [0, 0, 0],
+              velin: [0, 0, 0],
+              velang: [0, 0, 0],
+              prevous: [0, 0, 0],
+              geodelta: [0, 0, 0],
+            },
           },
-        }
-        
-        
-if (1 && 1) console.log('gj', gj)
-      
+          faces: faces,
+        },
+      }
+
+      if (1 && 1) console.log('gj', gj)
+
       let res = gj
       return res
-      
     }
 
     // .................. _merge

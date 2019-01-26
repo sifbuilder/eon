@@ -86,7 +86,6 @@ async function anitem (__eo) {
       eoload: {},
     }
 
-
     // ............................. forceGravity
     let forceGravity = function (params) { // force
       let nodes = params.nodes
@@ -106,7 +105,7 @@ async function anitem (__eo) {
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-          let g = muonProps.v(gravity,node)          
+          let g = muonProps.v(gravity, node)
           console.assert(g !== Number.NaN, `gravity ${g} is NaN`)
 
           node.vy += g
@@ -160,7 +159,7 @@ async function anitem (__eo) {
         return forceGravity(params)
       },
     }
-    
+
     // .................... fieldAni
     let fieldAni = {
 

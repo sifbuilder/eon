@@ -103,7 +103,6 @@ async function anitem (__eo) {
 
     }
 
-
     let conformRing = {
       'x': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
@@ -124,30 +123,28 @@ async function anitem (__eo) {
         'ra2': 322, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 1, 'pa6': 0, 'pb7': -1,
         'dom3': [-1, 1],
         c: [ 1, 1, 1, 1],
-        'fn0': (e, c, d) => sin(e[2]) ,
+        'fn0': (e, c, d) => sin(e[2]),
       },
       'w': {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'dom3': [ -180, 180 ],
-        'fn0': (e, c, d) =>  cos(e[3]),
+        'fn0': (e, c, d) => cos(e[3]),
       },
 
     }
 
-
     let conformHalo = {
-          x: {'m1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          },
-          y: {'m1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-          },
-          z: {'m1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
-          'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 1, 'pa6': 0, 'pb7': -1,
-          },
-          
-    }
+      x: {'m1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+        'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+      },
+      y: {'m1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+        'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
+      },
+      z: {'m1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circle
+        'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 1, 'pa6': 0, 'pb7': -1,
+      },
 
+    }
 
     // ............................. ringAni
     let ringAni = {
@@ -165,15 +162,15 @@ async function anitem (__eo) {
           projection: 'uniwen',
           scale: [ 1, 1 ],
           translate: [ 0, 0, 0 ],
-          rotate: [ 0,0,0 ],
+          rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
         },
       },
       eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[555, 555, 555]]], 'cw': [[[2.99, 2.99, 2.99]]], 'cp': [[[0.99, 0.99]]]},
-      
+
       eoload: {
-          eoform: conformRing,
+        eoform: conformRing,
       },
     }
 
@@ -193,15 +190,15 @@ async function anitem (__eo) {
           projection: 'uniwen',
           scale: [ 1, 1 ],
           translate: [ 0, 0, 0 ],
-          rotate: [ 0,0,0 ],
+          rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity ],
         },
       },
       eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
         'cs': [[[555, 555, 555]]], 'cw': [[[2.99, 2.99, 2.99]]], 'cp': [[[0.99, 0.99]]]},
-      
+
       eoload: {
-          eoform: conformHalo,
+        eoform: conformHalo,
       },
     }
 
@@ -211,16 +208,16 @@ async function anitem (__eo) {
       eohal: 'mars',
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q0'},
-      
+
       eofold: ani => muonNatform.natMultiPolygon({eoform: ani.eoform, ghv: 1}),
       eomot: {
         proform: {
           projection: 'uniwen',
           scale: [ 1, 1 ],
           // translate: [[[ [0, 0, 0], conformTangerine ]]],
-          
-          // translate:  [0, [[[0,500]]], 0], 
-          translate: [ [ 0, 0, 0 ], [[[ conformRing ]]] ],            
+
+          // translate:  [0, [[[0,500]]], 0],
+          translate: [ [ 0, 0, 0 ], [[[ conformRing ]]] ],
           rotate: [ [[[90, 92, 87]]], [[[9, 6, 9]]], [[[0, 360]]] ],
 
           lens: [0, 1, Infinity ],
@@ -343,7 +340,7 @@ async function anitem (__eo) {
       haloAni,
       ringAni,
       sphereAni,
-      
+
     ]
 
     return animas

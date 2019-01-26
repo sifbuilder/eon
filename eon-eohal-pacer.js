@@ -237,7 +237,6 @@
       let autoP = pacer.autoP || 0
       let autoN = pacer.autoN
 
-
       if (eotim.unPassed >= autoT) {
         if (cycletime > autoP) {
           count.auto = Math.floor(autoN) //    AUTO
@@ -289,14 +288,11 @@
 
             let newItem = muonProps.clone(pacerAnitem) // anigram
 
-            
             let unElapsed = newItem.eotim.unElapsed
-            newItem.eotim.t0 = unElapsed 
-            newItem.eotim.unStart = unElapsed 
+            newItem.eotim.t0 = unElapsed
+            newItem.eotim.unStart = unElapsed
 
-            newItem.eotim = muonEotim.timing(newItem.eotim, newItem.eotim.msElapsed)  
-
-            
+            newItem.eotim = muonEotim.timing(newItem.eotim, newItem.eotim.msElapsed)
 
             delete newItem.eoload
             delete newItem.avatars

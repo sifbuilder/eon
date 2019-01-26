@@ -68,7 +68,7 @@ async function anitem (__eo) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c: [ 1, 1, 1, 1],        
+        c: [ 1, 1, 1, 1],
         'fn0': (e, c, dax) => {
           let a = 6 // a: frequency
           let h = 90 // h: height
@@ -86,7 +86,7 @@ async function anitem (__eo) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 180, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c: [ 1, 1, 1, 1],     
+        c: [ 1, 1, 1, 1],
         'fn0': (e, c, dax) => {
           let a = 6 // a: frequency
           let h = 90 // h: height
@@ -96,7 +96,7 @@ async function anitem (__eo) {
           let z = e[2]
           let w = e[3]
           let d = 0.157 // radians * 36 / 360 // 0.157  , z.seg5: 36, xy.dom: 360
-          let res = sin(y) * cos(dax.c[0] *  y)
+          let res = sin(y) * cos(dax.c[0] * y)
           return res
         },
       },
@@ -128,8 +128,8 @@ async function anitem (__eo) {
           return e[2]
         },
       },
-    }    
-    
+    }
+
     // ............................. eohale
     let eohale = anima => {
       if (!anima.eogelded) {
@@ -153,11 +153,10 @@ async function anitem (__eo) {
             let eoric = { gid: 'gold', cid: 'c', fid: auid + 'f' + i }
             eoric.uid = muonEoric.getuid(eoric)
             ani.eoric = eoric
-            
           } else {
             let eocrom = { 'csx': 0, 'cf': 888, 'co': 0.9, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
-            ani.eocrom = muonProps.clone(eocrom)            
-            ani.eocrom.csx = 1            
+            ani.eocrom = muonProps.clone(eocrom)
+            ani.eocrom.csx = 1
             ani.eocrom.cf = 333 + 10 * i
 
             let eoric = { gid: 'red', cid: 'c', fid: auid + 'f' + i }
@@ -179,7 +178,6 @@ async function anitem (__eo) {
               orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
             },
           }
-
 
           animas.push(ani)
         }
@@ -224,7 +222,7 @@ async function anitem (__eo) {
           coordinates: [0, 0, 0],
         },
         properties: {
-           pointRadius: [[[ 6, 5.5, 5, 3, 2, 1, 0]]],   
+          pointRadius: [[[ 6, 5.5, 5, 3, 2, 1, 0]]],
         },
       },
 
@@ -235,7 +233,7 @@ async function anitem (__eo) {
           coordinates: [0, 0, 0],
         },
         properties: {
-          pointRadius:  [[[ 6, 6, 6, 3, 2, 1, 1]]],   
+          pointRadius: [[[ 6, 6, 6, 3, 2, 1, 1]]],
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
@@ -245,7 +243,7 @@ async function anitem (__eo) {
         proform: {
           projection: 'uniwen',
           prerotate: [[[ ctl.rotation ]]],
-          translate: [-20, -120 , 0],
+          translate: [-20, -120, 0],
           scale: 1,
           rotate: [ [[[0, 360]]], [[[0, 360]]], 0 ],
           lens: [0, 1, Infinity],
@@ -291,7 +289,7 @@ async function anitem (__eo) {
           coordinates: [0, 0, 0],
         },
         properties: {
-           pointRadius: [[[ 6, 5.5, 5, 3, 2, 1, 0]]],   
+          pointRadius: [[[ 6, 5.5, 5, 3, 2, 1, 0]]],
         },
       },
 
@@ -302,7 +300,7 @@ async function anitem (__eo) {
           coordinates: [0, 0, 0],
         },
         properties: {
-          pointRadius:  [[[ 6, 6, 6, 3, 2, 1, 1]]],   
+          pointRadius: [[[ 6, 6, 6, 3, 2, 1, 1]]],
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
@@ -312,7 +310,7 @@ async function anitem (__eo) {
         proform: {
           projection: 'uniwen',
           prerotate: [[[ ctl.rotation ]]],
-          translate: [20, -120 , 0],
+          translate: [20, -120, 0],
           scale: 1,
           rotate: [ [[[0, 360]]], [[[0, 360]]], 0 ],
           lens: [0, 1, Infinity],
@@ -358,7 +356,7 @@ async function anitem (__eo) {
           coordinates: [0, 0, 0],
         },
         properties: {
-           pointRadius: [[[ 6, 5.5, 5, 3, 2, 1, 0]]],   
+          pointRadius: [[[ 6, 5.5, 5, 3, 2, 1, 0]]],
         },
       },
 
@@ -369,7 +367,7 @@ async function anitem (__eo) {
           coordinates: [0, 0, 0],
         },
         properties: {
-          pointRadius:  [[[ 6, 6, 6, 3, 2, 1, 1]]],   
+          pointRadius: [[[ 6, 6, 6, 3, 2, 1, 1]]],
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
         },
       },
@@ -379,7 +377,7 @@ async function anitem (__eo) {
         proform: {
           projection: 'uniwen',
           prerotate: [[[ ctl.rotation ]]],
-          translate: [0, -120 , 0],
+          translate: [0, -120, 0],
           scale: 1,
           rotate: [ [[[0, 360]]], [[[0, 360]]], 0 ],
           lens: [0, 1, Infinity],
@@ -409,7 +407,7 @@ async function anitem (__eo) {
         },
       },
       eoload: {},
-    }    
+    }
     // ............................. forceGravity
     let forceGravity = function (params) { // force
       let nodes = params.nodes
@@ -488,7 +486,7 @@ async function anitem (__eo) {
     let force_antigravity = {
 
       properties: {
-        gravity: [[[ 2.9, 2.9, 2.9, 0.0, 0.0, 0.0, 0.0 ]]]
+        gravity: [[[ 2.9, 2.9, 2.9, 0.0, 0.0, 0.0, 0.0 ]]],
 
       },
 
@@ -529,7 +527,7 @@ async function anitem (__eo) {
             10, // radius () => 10
           ],
           opts: {
-            strength: [[[ 0, 0,  0,  0.3, 0.3, 0, 0 ]]],
+            strength: [[[ 0, 0, 0, 0.3, 0.3, 0, 0 ]]],
           },
         },
         type: 'collide',
@@ -548,7 +546,7 @@ async function anitem (__eo) {
         payload: {
           args: [],
           opts: {
-            strength: [[[ 0, 0,  0,  -20.9, 0, 0, 0 ]]],
+            strength: [[[ 0, 0, 0, -20.9, 0, 0, 0 ]]],
             distanceMin: -1,
             distanceMax: 160,
             theta: 1,
@@ -563,7 +561,6 @@ async function anitem (__eo) {
       },
 
       field: params => {
-
         return muonEoforces.force(params)
       },
     }
@@ -574,9 +571,9 @@ async function anitem (__eo) {
 
         payload: {
           args: [
-            30, // radius, 
-            20, // x, 
-            20, // y, 
+            30, // radius,
+            20, // x,
+            20, // y,
             20, // z
           ],
           opts: {
@@ -796,13 +793,13 @@ async function anitem (__eo) {
 
       eofold: null,
       eoload: {},
-      
+
       eoforces: {
-        force_gravity,  // apply gravity to git.paced anitems
-        force_antigravity,  // apply gravity to git.paced anitems
-        force_collide,  // repulse, applies to all items
-        force_manybody,  // 
-        // force_radial,  // force radially from center of force 
+        force_gravity, // apply gravity to git.paced anitems
+        force_antigravity, // apply gravity to git.paced anitems
+        force_collide, // repulse, applies to all items
+        force_manybody, //
+        // force_radial,  // force radially from center of force
         // force_centerGold, // applies to gid:gold items
         // force_centerRed, // applies to gid:gold items
         // force_xGold, // applies to gid:gold items, align to x:60 (args, opts)
@@ -811,7 +808,7 @@ async function anitem (__eo) {
         // force_yRed,  // applies to gid:red items, align to y:-60
         // force_zGold,
         // force_zRed,
-      }
+      },
     }
 
     // .................. animas
