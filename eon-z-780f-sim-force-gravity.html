@@ -10,9 +10,7 @@ async function anitem (__eo) {
     eohalCore,
     eohalNatform,
     eohalMars,
-    forceVoid,
-    forceEnergy,
-    forceCollide,
+
     muonEoric,
     muonEoforces,
     muonNatform,
@@ -25,9 +23,7 @@ async function anitem (__eo) {
     __eo('xs').e('core'),
     __eo('xs').e('natform'),
     __eo('xs').e('mars'),
-    __eo('xs').f('void'),
-    __eo('xs').f('energy'),
-    __eo('xs').f('collide'),
+
     __eo('xs').m('eoric'),
     __eo('xs').m('eoforces'),
     __eo('xs').m('natform'),
@@ -90,96 +86,6 @@ async function anitem (__eo) {
       eoload: {},
     }
 
-    // ............................. force_energy
-    let force_energy = { // aniForce
-      properties: {
-        alpha: 1,
-        alphaMin: 0.001,
-        alphaDecay: 0,
-        alphaTarget: 0,
-      },
-
-      field: function field (params = {}) {
-        let nodes = params.nodes
-
-        let forceParams = {
-          type: 'energy',
-          filter: function (d) {
-            return d.eoric.gid === 'ani'
-          },
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let field = {
-          key: 'energy',
-          force: muonEoforces.force(forceParams),
-        }
-
-        return Array.of(field)
-      },
-    }
-
-    // ............................. force_viscosity
-    let force_viscosity = {
-      properties: {
-        velocityDecay: 0.0002,
-      },
-
-      field: function (params = {}) { // field.field
-        let nodes = params.nodes // nodes
-
-        let forceParams = {
-          type: 'void',
-          filter: d => true,
-          dim: 3,
-          filter: function (d) {
-            return d.eoric.gid === 'ani'
-          },
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let field = {
-          key: 'viscosity',
-          force: muonEoforces.force(forceParams),
-        }
-
-        return Array.of(field)
-      },
-    }
-
-    // ............................. force_collide
-    let force_collide = {
-
-      properties: {
-        strength: 0.03,
-      },
-
-      field: params => {
-        let nodes = params.nodes
-        let forces = []
-
-        let strength = params.properties.strength
-
-        let forceParams = {
-          type: 'collide',
-          strength: strength,
-          radius: d => 90,
-          filter: function (d) {
-            return d.eoric.gid === 'ani'
-          },
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let force = muonEoforces.force(forceParams)
-        let field = {key: 'collide', force: force}
-
-        forces.push(field)
-        return forces
-      },
-    }
 
     // ............................. forceGravity
     let forceGravity = function (params) { // force
@@ -194,14 +100,16 @@ async function anitem (__eo) {
       let type = properties.type
       let filter = properties.filter
 
-      let fName = __eo('xs').ceonize(type, 'force')
-
       let gravity = opts.gravity // gravity
+      console.assert(gravity !== Number.NaN, 'gravity is NaN')
 
-      let fforce = function force (...args) { // d3force builtin (vs muon d3force)
+      let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
-          node.vy += gravity // node.vx += 0.001 * Math.random()
+          let g = muonProps.v(gravity,node)          
+          console.assert(g !== Number.NaN, `gravity ${g} is NaN`)
+
+          node.vy += g
         }
       }
       fforce.initialize = () => {} // initialize
@@ -223,12 +131,9 @@ async function anitem (__eo) {
     }
 
     let force_gravity = { // aniForce:{properties, field}
-
       properties: {
         gravity: -0.075,
-
       },
-
       field: params => { // force.field
         let forces = []
 
@@ -255,6 +160,7 @@ async function anitem (__eo) {
         return forceGravity(params)
       },
     }
+    
     // .................... fieldAni
     let fieldAni = {
 
@@ -268,8 +174,7 @@ async function anitem (__eo) {
     }
 
     fieldAni.eoforces = {
-      // force_energy,
-      // force_viscosity,
+
       force_gravity,
     }
 

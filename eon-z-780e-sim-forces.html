@@ -133,95 +133,181 @@ async function anitem (__eo) {
       eoload: {},
     }
 
+
     // ............................. force_energy
+    let forceEnergy = function (params) { // force
+      let nodes = params.nodes
+      let properties = params.properties || {}
+      let payload = params.properties.payload || {}
+
+      let args = payload.args || []
+      let opts = payload.opts || {}
+
+      let key = properties.key
+      let type = properties.type
+      let filter = properties.filter
+
+      let fName = __eo('xs').ceonize(type, 'force')
+
+      let fforce = function force (...args) {
+        for (let i = 0; i < nodes.length; ++i) {
+          let node = nodes[i]
+        }
+      }
+      fforce.initialize = () => {} // initialize
+
+      let sys = {
+        nodes: nodes,
+        filter: filter,
+        force: fforce,
+      }
+
+      let ffforce = muonEoforces.isolate(sys)
+      console.assert(key || type !== null)
+      let field = 	{
+        key: key || type,
+        force: ffforce,
+      }
+
+      return field // return force
+    }
+    
     let force_energy = { // aniForce
+    
       properties: {
         alpha: 1,
         alphaMin: 0.001,
         alphaDecay: 0,
         alphaTarget: 0,
       },
+      field: params => { // force.field
+        let forces = []
 
-      field: function field (params = {}) {
         let nodes = params.nodes
+        
+        let alpha = params.alpha || params.properties.alpha
+        let alphaMin = params.alphaMin || params.properties.alphaMin
+        let alphaDecay = params.alphaDecay || params.properties.alphaDecay
+        let alphaTarget = params.alphaTarget || params.properties.alphaTarget
+        
+        
+        let key = params.properties.key || 'energy'
 
-        let forceParams = {
+        let properties = {
           type: 'energy',
-          filter: function (d) {
-            return d.eoric.gid === 'ani'
-          },
           src: d3_force,
           nodes: nodes,
+          payload: { // passed to force in m.eoforces
+            args: [],
+            opts: {
+              alpha: alpha,
+              alphaMin: alphaMin,
+              alphaDecay: alphaDecay,
+              alphaTarget: alphaTarget,
+            },
+          },
+          filter: d => true,
+          key: key,
         }
 
-        let field = {
-          key: 'energy',
-          force: muonEoforces.force(forceParams),
-        }
-
-        return Array.of(field)
-      },
+        params.properties = properties
+        return forceEnergy(params)
+      },    
+    
     }
 
     // ............................. force_viscosity
-    let force_viscosity = {
+    let forceViscosity = function (params) { // force
+      let nodes = params.nodes
+      let properties = params.properties || {}
+      let payload = params.properties.payload || {}
+
+      let args = payload.args || []
+      let opts = payload.opts || {}
+
+      let key = properties.key
+      let type = properties.type
+      let filter = properties.filter
+
+      let fName = __eo('xs').ceonize(type, 'force')
+
+      let fforce = function force (...args) {
+        for (let i = 0; i < nodes.length; ++i) {
+          let node = nodes[i]
+        }
+      }
+      fforce.initialize = () => {} // initialize
+
+      let sys = {
+        nodes: nodes,
+        filter: filter,
+        force: fforce,
+      }
+
+      let ffforce = muonEoforces.isolate(sys)
+      console.assert(key || type !== null)
+      let field = 	{
+        key: key || type,
+        force: ffforce,
+      }
+
+      return field // return force
+    }
+    
+    let force_viscosity = { // aniForce
+    
       properties: {
         velocityDecay: 0.0002,
       },
+      field: params => { // force.field
+        let forces = []
 
-      field: function (params = {}) { // field.field
-        let nodes = params.nodes // nodes
+        let nodes = params.nodes
+        
+        let velocityDecay = params.velocityDecay || params.properties.velocityDecay
+        
+        let key = params.properties.key || 'viscosity'
 
-        let forceParams = {
-          type: 'void',
-          filter: d => true,
-          dim: 3,
-          filter: function (d) {
-            return d.eoric.gid === 'ani'
-          },
+        let properties = {
+          type: 'viscosity',
           src: d3_force,
           nodes: nodes,
+          payload: { // passed to force in m.eoforces
+            args: [],
+            opts: {
+              velocityDecay: velocityDecay,
+
+            },
+          },
+          filter: d => true,
+          key: key,
         }
 
-        let field = {
-          key: 'viscosity',
-          force: muonEoforces.force(forceParams),
-        }
-
-        return Array.of(field)
-      },
-    }
+        params.properties = properties
+        return forceViscosity(params)
+      },    
+    
+    }    
 
     // ............................. force_collide
     let force_collide = {
-
       properties: {
-        strength: 0.03,
-      },
-
-      field: params => {
-        let nodes = params.nodes
-        let forces = []
-
-        let strength = params.properties.strength
-
-        let forceParams = {
-          type: 'collide',
-          strength: strength,
-          radius: d => 90,
-          filter: function (d) {
-            return d.eoric.gid === 'ani'
+        payload: {
+          args: [
+            90,
+          ],
+          opts: {
+            strength: 0.03, // strength
           },
-          src: d3_force,
-          nodes: nodes,
-        }
-
-        let force = muonEoforces.force(forceParams)
-        let field = {key: 'collide', force: force}
-
-        forces.push(field)
-        return forces
+        },
+        type: 'collide',
+        filter: d => d.eoric.gid === 'ani',
+        id: d => d.eoric.uid,
+        key: 'collide',
       },
+
+      field: params => muonEoforces.force(params),
+
     }
 
     // ............................. forceGravity
@@ -312,7 +398,7 @@ async function anitem (__eo) {
 
     fieldAni.eoforces = {
       force_energy,
-      force_viscosity,
+      // force_viscosity,
       force_collide,
       force_gravity,
     }
