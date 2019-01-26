@@ -22,14 +22,19 @@ async function anitem (__eo) {
   // .................. animas
   let ani = function () {
     // .................. pics
+    let ctl
+    try {
+      ctl = ctlWen().control(renderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }   
+    
     let eotim = {'td': 19800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
     let rotInit = [0, 45, 0],
       rotation = [0, 0, 0],
       rotMatrix,
       stars = []
-
-    let ctl = ctlWen({rotInit}).control(renderSvg.svg())
 
     // .................. aniCube anima
     let aniCube = {

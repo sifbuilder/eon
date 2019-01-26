@@ -42,10 +42,16 @@ async function anitem (__eo) {
   let muonStore = __eo('muonStore')
   // .................. animas
   let ani = function () {
-    let ctl = ctlWen().control(renderSvg.svg())
+    // .................. pics
+    let ctl
+    try {
+      ctl = ctlWen().control(renderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }   
+    
     let svgstate = renderSvg.setBckColor('Wheat')
 
-    // .................. pics
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
 

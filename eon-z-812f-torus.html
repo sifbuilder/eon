@@ -23,9 +23,14 @@ async function anitem (__eo) {
 
   // .................. animas
   let ani = function () {
-    let ctl = ctlWen().control(renderSvg.svg())
-
     // .................. pics
+    let ctl
+    try {
+      ctl = ctlWen().control(renderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }   
+    
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
       sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh

@@ -17,6 +17,7 @@ async function anitem (__eo) {
     muonGeom,
     muonGraticule,
     muonNatform,
+    renderSvg,    
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-geo-projection'),
@@ -29,11 +30,19 @@ async function anitem (__eo) {
     __eo('xs').m('geom'),
     __eo('xs').m('graticule'),
     __eo('xs').m('natform'),
+    __eo('xs').r('svg'),    
   ])
 
   // .................. animas
   let ani = function () {
     // .................. pics
+    let ctl
+    try {
+      ctl = ctlWen().control(renderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }   
+    
     let pi = Math.PI,
       radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,

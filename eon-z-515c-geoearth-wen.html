@@ -35,9 +35,14 @@ async function anitem (__eo) {
 
   // .................. animas
   let ani = function () {
-    let ctl = ctlWen().control(renderSvg.svg())
-
     // .................. pics
+    let ctl
+    try {
+      ctl = ctlWen().control(renderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }   
+    
     let eotim = {'td': 18800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
     // .................. pics

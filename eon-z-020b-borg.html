@@ -17,9 +17,14 @@ async function anitem (__eo) {
 
   // .................. animas
   let ani = function () {
-    let ctl = ctlWen().control(renderSvg.svg())
-
     // .................. pics
+    let ctl
+    try {
+      ctl = ctlWen().control(renderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }   
+    
     let eotim = {td: 16800, t0: 0, t1: 1, t2: 1, t3: 1}
     let formCirc = {
       'm1': 4.718177045786351, 'm2': 19.396126213759022, 'n1': 15.313427387158098, 'n2': 10.738988564746812, 'n3': 15.119538381452617, 'b': 7.059625076609466, 'a': -13.981619631491435,

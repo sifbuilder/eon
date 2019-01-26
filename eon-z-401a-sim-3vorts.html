@@ -41,33 +41,6 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
 
-  let [
-    // forceVoid,
-    // forceEnergy,
-    // forceViscosity,
-    // forceManybody,
-    // forceGravity,
-    // forceCharge,
-    // forceCube,
-    // forceCollide,
-    // forceLink,
-    // forceX,
-    // forceY,
-    // forceZ,
-  ] = await Promise.all([
-    // __eo('xs').f('void'),
-    // __eo('xs').f('energy'),
-    // __eo('xs').f('viscosity'),
-    // __eo('xs').f('manybody'),
-    // __eo('xs').f('gravity'),
-    // __eo('xs').f('charge'),
-    // __eo('xs').f('cube'),
-    // __eo('xs').f('collide'),
-    // __eo('xs').f('link'),
-    // __eo('xs').f('x'),
-    // __eo('xs').f('y'),
-    // __eo('xs').f('z'),
-  ])
 
   let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
@@ -340,7 +313,14 @@ async function anitem (__eo) {
 
   // .................. animas
   let ani = function () {
-    // .................... pics
+    // .................. pics
+    let ctl
+    try {
+      ctl = ctlWen().control(renderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }   
+    
     let eotim = {'td': 12800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, tf: t => (1 / Math.PI) * ((Math.PI / 2) + Math.asin(-1 + 2 * t))}
 
     // .................... natVort

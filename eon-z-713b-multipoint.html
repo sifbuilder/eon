@@ -14,6 +14,7 @@ async function anitem (__eo) {
     muonProps,
     muonGraticule,
     prtNatform,
+    renderSvg,      
   ] = await Promise.all([
     __eo('xs').c('wen'),
     __eo('xs').e('mars'),
@@ -23,11 +24,19 @@ async function anitem (__eo) {
     __eo('xs').m('props'),
     __eo('xs').m('graticule'),
     __eo('xs').p('natform'),
+    __eo('xs').r('svg'),     
   ])
 
   // .................. animas
   let ani = function () {
     // .................. pics
+    let ctl
+    try {
+      ctl = ctlWen().control(renderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }   
+    
     let eotim = {'td': 8800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
