@@ -9,22 +9,13 @@
 }(this, function (exports) {
   'use strict'
 
-  // # eon-prt-natform
-  // **returns nat projection**
 
-  // ### functions
-  // pointStream
-  // `pointStream projectionDefinition`
-  // projectionDefinition: {type:nat, form:form}
-  // get the nat for mvertices
-  // natPoint returns the nat projection per polar coordinates
-
-  // ### methods
-  // natprofion
-  // compleate form for natform
-
-  // # license
-  // MIT
+  // ... **returns nat projection**
+  // ... ### functions
+  // ... prtdef
+  // ... return nat projection
+  // ... # license
+  // ... MIT
 
   async function prtNatform (__eo = {}) {
     let [

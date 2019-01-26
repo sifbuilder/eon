@@ -14,9 +14,9 @@ async function anitem (__eo) {
     muonGraticule,
     muonNatform,
     prtNatform,
-    renderSvg,
     renderPortview,
-    // renderWebgl,
+    // renderSvg,
+    renderWebgl,
   ] = await Promise.all([
     __eo('xs').b('topojson'),
     __eo('xs').c('wen'),
@@ -26,9 +26,9 @@ async function anitem (__eo) {
     __eo('xs').m('graticule'),
     __eo('xs').m('natform'),
     __eo('xs').p('natform'),
-    __eo('xs').r('svg'),
     __eo('xs').r('portview'),
-    // __eo('xs').r('webgl'),
+    // __eo('xs').r('svg'),
+    __eo('xs').r('webgl'),
   ])
 
   // .................. animas
@@ -82,7 +82,7 @@ async function anitem (__eo) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 60, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 20, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c: [ 2, 1, [[[0,10,10]]], 5],  // [ 1, 1, 10, 5]
+        c: [ 2, 1, [[[10,10,10]]], 5],  // [ 1, 1, 10, 5]
         fn0: (e, c, d) => {
           let c0 = d.c[0]
           let R = d.c[2]
@@ -100,7 +100,7 @@ async function anitem (__eo) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 60, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 20, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c: [ 2, 1, [[[0,10,10]]], 5],  // [ 1, 1, 10, 5]
+        c: [ 2, 1, [[[10,10,10]]], 5],  // [ 1, 1, 10, 5]
         fn0: (e, c, d) => {
           let c0 = d.c[0]
           let R = d.c[2]
@@ -118,7 +118,7 @@ async function anitem (__eo) {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 60, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 20, 'pa6': 0, 'pb7': -1,
         'dom3': [ -180, 180 ],
-        c: [ 1, 1, [[[0,10,10]]], 5],  // [ 1, 1, 10, 5]
+        c: [ 1, 1, [[[10,10,10]]], 5],  // [ 1, 1, 10, 5]
         fn0: (e, c, d) => {
           let c0 = d.c[0]
           let R = d.c[2]
@@ -135,7 +135,7 @@ async function anitem (__eo) {
       w: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 10, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 20, 'pa6': 0, 'pb7': -1,
-        'dom3': [ -[[[0, 180]]], [[[0, 180]]] ],
+        'dom3': [ -180, 180 ],
         fn0: (e, c, d) => {
           let R = d.c[2]
           let r = d.c[3]
@@ -149,26 +149,23 @@ async function anitem (__eo) {
 
     }
 
-
-    let proform = {
+    let ereformEarth = {
 
       projection: 'uniwen',
-      prerotate: [[[ ctl.rotation ]]],
-      translate: [ 0, 0],
-      scale: [0.5, 0.5, 0.5],
-      rotate: [0, 0, 0 ],
+      translate: [ 0, 0, 0],
+      scale: [1, -0.5, 1],
+      rotate: [0, 0, 90 ],
       lens: [0, 1, Infinity],
 
     }
-
 
     let proformTorus = {
 
       projection: 'uniwen',
       prerotate: [[[ ctl.rotation ]]],
       translate: [ 0, 0],
-      scale: [1,1,1],
-      rotate: [0, 0, 0 ],
+      scale: [0.99, 0.99, 0.99],
+      rotate: [60, 0, 60 ],
       lens: [0, 1, Infinity],
 
     }
@@ -178,12 +175,11 @@ async function anitem (__eo) {
       projection: 'uniwen',
       prerotate: [[[ ctl.rotation ]]],
       translate: [ 0, 0],
-      scale: [1.01,1.01,1.01],
-      rotate: [0, 0, 0 ], // [-5, 50, [[[45, 45]]] ],
+      scale: [0.3* 1.001, 0.3* 1.001, 0.3* 1.001],
+      rotate: [60, 0, 60 ], // [-5, 50, [[[45, 45]]] ],
       lens: [0, 1, Infinity],
 
     }
-
 
     // ............................. earthAni
     let earthAni = {
@@ -193,38 +189,47 @@ async function anitem (__eo) {
       eoric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
 
       eofold: p => {
-        let geometry = Object.assign({},
-          topojson.mesh(
-            datWorldTopo110m.data(),
-            datWorldTopo110m.data().objects.land
+
+        let res, opt = 'MultiLineString'
+
+        if (opt === 'MultiLineString') {
+
+          let gjMultiLineString = topojson.mesh(
+              datWorldTopo110m.data(),
+              datWorldTopo110m.data().objects.land
           )
-        )
-        return {
-          type: 'Feature',
-          geometry: geometry,
-          properties: {}
+          res = {
+            type: 'Feature',
+            geometry: gjMultiLineString,
+            properties: {}
+          }
+
+        } else {  // MultiPolygon
+
+          let gjFCMultiPolygon = topojson.feature(
+              datWorldTopo110m.data(),
+              datWorldTopo110m.data().objects.land
+          )
+          res = gjFCMultiPolygon
+
         }
+
+        return res
+
       },
 
       eomot: {
 
-        ereform: {
-
-          projection: 'uniwen',
-          translate: [ 0, 0, 0],
-          scale: [1,1,1], // [2,0.5,1],
-          rotate: [0, 0, 0 ], // [0, 0, 90 ],
-          lens: [0, 1, Infinity],
-
-        },
+        ereform: ereformEarth,
 
         conform: {
           projection: 'natform',
           eoform: formTorus
         },
-        // proform: proformEarth,
+        proform: proformEarth,
+
       },
-      eocrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
+      eocrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.9, 'co': 0.9, 'cp': 0.9},
       eoload: {},
 
     }
@@ -250,7 +255,7 @@ async function anitem (__eo) {
       eocrom: { 'csx': 0, 'cf': 222, 'co': 0.06, 'cs': 222, 'cw': 0.9, 'cp': 0.9 },
       eoload: {
 
-          eoframe: { multiframe: [ [-180, 180, 30, 30 ], [-90, 90, 30, 30] ] },
+        eoframe: { multiframe: [ [-180, 180, 30, 30 ], [-90, 90, 30, 30] ] },
 
       },
     }
@@ -348,14 +353,14 @@ async function anitem (__eo) {
         }
         return json
       },
-    }    
+    }
     // ............................. animas
     let animas = [
       earthAni, // h.mars p.natform g.uniwen
-      // torusAni1, // h.mars p.natform g.uniwen
-      // cameraPersAni, // h.sol      
-      // lightHemisphereAni, // h.sol
-      // spotLight, // h.sol      
+      torusAni1, // h.mars p.natform g.uniwen
+      cameraPersAni, // h.sol
+      lightHemisphereAni, // h.sol
+      spotLight, // h.sol
     ]
 
     return animas

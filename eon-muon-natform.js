@@ -375,6 +375,7 @@
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.z.seg5 // ____ z ___
 
+
           sx = dx
           sy = dy
 
@@ -463,6 +464,7 @@
     // ............................. natFeature
     //  geoframe: [ [ dom3.x, 360, 360/seg5.x ], [dom3.y, 360, 360/seg5.y ] ]
     let natFeature = function (props = {}) {
+      
       let feature
 
       const {
@@ -485,6 +487,7 @@
         if (nformed.z !== undefined) { // ___ 3d
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.z.seg5 // ____ z ___
+
 
           sx = dx
           sy = dy
@@ -681,10 +684,10 @@
 
     // ............................. natVertex
     let natVertex = function (eoform) { // getVertex
-
       let nformed = natNform({eoform: eoform}) // natNform
       let unfeld = Object.values(nformed) // dax values
       let dominos = unfeld.map(d => d.dom3) // [ [-180,180], [-180,180], [-90,90], [-90,90] ]
+
 
       let radions = unfeld.map((d, i) => radorm(d, dominos[i])) // radorm
 
@@ -729,12 +732,15 @@
 
     // ............................. pointStream
     let pointStream = function (prtdef) {
+     
       let natPoint = natVertex(prtdef.eoform) // m.natform.natVertex (a,b,c) => [a,b,c]
       return function (lambda, phi) { this.stream.point(...natPoint(lambda, phi)) }
     }
 
     // ............................. natprojection
     let natprojection = prtdef => { // projection:natPoint, form:{x,y,z}
+
+
       let geoTrans = d3geo.geoTransform({ point: pointStream(prtdef) })
       let geoProj = p => geoTrans(p)
       geoProj.stream = s => geoTrans.stream(s)

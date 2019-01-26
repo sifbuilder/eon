@@ -49,18 +49,18 @@
         sort: 'camera',
         type: 'PerspectiveCamera',
         name: 'Perspective',
-        
+
         aspect: 1.5,
         distance2nodesFactor: 100,
-        
+
         far: 1600,
         fov: 60,
         lookAt: [0, 0, 0],
         near: 0.001,
-        
+
         position: [0, 0, 600],
         rotation: [0, 0, 0],
-        
+
         velang: [0, 0, 0],
         vellin: [0, 0, 0],
       }
@@ -175,40 +175,42 @@
       }
       lights['SpotLight'] = getLight(pars, stat)
 
-          // {
-            // sort: 'light',
-            // type: 'AmbientLight',
-            // name: 'AmbientLight',
-            // color: 0xeeeeee,
-            // intensity: 0.9,
-            // position: [110, 110, 110],
-          // },
-          // {
-            // type: 'DirectionalLight',
-            // name: 'DirectionalLight',
-            // color: 0xe4eef9,
-            // intensity: 0.7,
-            // position: [0, 0, 120],
-            // normalize: 1,
-            // castShadow: 1,
-          // },
-          // {
-            // type: 'PointLight',
-            // color: 0xe4eef9,
-            // intensity: 0.7,
-            // position: [0, 0, 120],
-            // normalize: 1,
-            // castShadow: 1,
-          // },
-          // {
-            // type: 'SpotLight',
-            // color: 0xe4eef9,
-            // intensity: 0.7,
-            // position: [0, 0, 120],
-            // normalize: 1,
-            // castShadow: 1,
-          // },
-          
+        /*    lights
+          {
+            sort: 'light',
+            type: 'AmbientLight',
+            name: 'AmbientLight',
+            color: 0xeeeeee,
+            intensity: 0.9,
+            position: [110, 110, 110],
+          },
+          {
+            type: 'DirectionalLight',
+            name: 'DirectionalLight',
+            color: 0xe4eef9,
+            intensity: 0.7,
+            position: [0, 0, 120],
+            normalize: 1,
+            castShadow: 1,
+          },
+          {
+            type: 'PointLight',
+            color: 0xe4eef9,
+            intensity: 0.7,
+            position: [0, 0, 120],
+            normalize: 1,
+            castShadow: 1,
+          },
+          {
+            type: 'SpotLight',
+            color: 0xe4eef9,
+            intensity: 0.7,
+            position: [0, 0, 120],
+            normalize: 1,
+            castShadow: 1,
+          },
+          */
+
       return lights
     }
 
@@ -401,13 +403,13 @@
 
         for (let k in items) { // DOTS (seg5===0) each group gid
           let camera = items[k] // feature
-        
+
           let pars = camera.properties
           let camid = pars['name']
           state.cameras[camid] = getCamera(pars, state)
         }
       }
-      
+
     }
 
     // .................. threeCameraHelpers
@@ -435,8 +437,74 @@
       }
     }
 
-    // .................. eoMultipolygonsToScene
-    function eoMultipolygonsToScene (items = []) {
+    // .................. multiPolygonToScene
+    function multiPolygonsToScene (items = []) {
+
+      if (items.length === 0) return
+
+      for (let k in items) { // features of type MultiPolygon
+
+        let feature = items[k] // feature of type MultiPolygon
+        let style = feature.properties.style
+        let geometry = feature.geometry
+        let coordinates = geometry.coordinates
+
+
+        let lineMaterial = new THREE.MeshBasicMaterial({
+          color: style.stroke,
+          opacity: style['stroke-opacity'],
+          side: THREE.DoubleSide
+        })
+
+
+          let meshMaterial = new THREE.MeshBasicMaterial({
+            color: 'blue',
+            side: THREE.DoubleSide
+          })
+
+
+        for (let i = 0; i < geometry.coordinates.length; i++) {
+        // for (let i = 0; i < 1; i++) {
+
+          let polygon = geometry.coordinates[i] // container ring with hole rings
+          let outring = polygon[0]
+          let holerings = polygon.slice(1)
+
+          let threeGeometry = new THREE.Geometry() 
+          
+          let object, v = '______________mesh'
+          if (v === 'mesh') {
+            for (let j = 0; j < outring.length; j++) {
+              threeGeometry.vertices.push(new THREE.Vector3(...outring[j])) // vertices
+              threeGeometry.faces.push(new THREE.Face3(0, j + 1, j)) // faces
+            }            
+            object = new THREE.Mesh(threeGeometry, meshMaterial)
+            
+          } else {
+            d3.pairs(outring.map(denser), function (a, b) { // container ring
+              threeGeometry.vertices.push(a, b) // vertices
+            })            
+            object = new THREE.LineSegments(threeGeometry, lineMaterial)
+
+            holerings.forEach(function (ring) { // each hole in polygon
+              d3.pairs(ring.map(denser), function (a, b) {
+                threeGeometry.vertices.push(a, b) // vertices
+              })
+              let object = new THREE.LineSegments(threeGeometry, lineMaterial)
+              if (object) state.scene.add(object)
+            })            
+            
+            
+          }
+          if (object) state.scene.add(object)
+
+
+        }
+      }
+    }
+
+    // .................. eoMultiPolygonsToScene
+    function eoMultiPolygonsToScene (items = []) {
       if (items.length === 0) return
 
       for (let k in items) { // DOTS (seg5===0) each group gid
@@ -623,36 +691,6 @@
       }
     }
 
-    // .................. multiPolygonToScene
-    function multiPolygonToScene (items = []) {
-      if (items.length === 0) return
-      for (let k in items) { // DOTS (seg5===0) each group gid
-        let item = items[k] // feature
-        let feature = item // .feature
-        let style = feature.properties.style
-        let geometry = feature.geometry
-        let coordinates = geometry.coordinates
-
-        let threeMaterial = new THREE.LineBasicMaterial({
-          color: style.stroke,
-          opacity: style['stroke-opacity'],
-        })
-
-        let threeGeometry = new THREE.Geometry()
-
-        for (let i = 0; i < geometry.coordinates.length; i++) {
-          let polygon = geometry.coordinates[i]
-          polygon.forEach(function (line) { // each coordinate in polygon
-            d3.pairs(line.map(denser), function (a, b) {
-              threeGeometry.vertices.push(a, b)
-            })
-            let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-            if (object) state.scene.add(object)
-          })
-        }
-      }
-    }
-
     // .................. imgToScene
     function imgToScene (items = []) {
       if (items.length === 0) return
@@ -714,7 +752,13 @@
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
             d.geometry.type === 'MultiPoint' && // properties.faces
             d.properties.eoMultiPolygon == 1,
-        retriever: eoMultipolygonsToScene,
+        retriever: eoMultiPolygonsToScene,
+      }, {
+        name: 'MULTIPOLYGON',
+        filter: d =>
+          (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
+            d.geometry.type === 'MultiPolygon',
+        retriever: multiPolygonsToScene,
       }, {
         name: 'MULTIPOINT',
         filter: d =>
@@ -758,6 +802,8 @@
     // ............................. render
 
     let render = function (featurecollection, maxlimit) {
+      if (0 && 1) console.log('featurecollection', featurecollection)
+
       let features = featurecollection.features
         .filter(
           d => d.properties !== undefined && // req properties
@@ -823,10 +869,8 @@
 
 
       if (state.cameras && Object.keys(state.cameras).length > 0) {
-      // if (state.camera !== undefined) {
         let cameras = Object.values(state.cameras)
         let camera = cameras[cameras.length - 1]
-        // let camera = state.camera
         let threeRenderer = state.threeRenderer
         let domElem = state.domElem
 
@@ -842,7 +886,6 @@
         if (state.viewControls === undefined) {
           state.viewControls = getViewControls({camera, domElem})
         }
-        if (0 && 1) console.log('state.viewControls', state.viewControls)
 
         resizeCanvas({threeRenderer, camera})
         state.viewControls.update() // UPDATE SCENE by CONTROL
