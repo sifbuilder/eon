@@ -211,9 +211,9 @@ async function anitem (__eo) {
         ereform: {
 
           projection: 'uniwen',
-          translate: [ 0, 0],
-          scale: 1,
-          rotate: [90, 0, 0 ],
+          translate: [ 0, 0, 0],
+          scale: [1,1,1], // [2,0.5,1],
+          rotate: [0, 0, 0 ], // [0, 0, 90 ],
           lens: [0, 1, Infinity],
 
         },
@@ -222,7 +222,7 @@ async function anitem (__eo) {
           projection: 'natform',
           eoform: formTorus
         },
-        proform: proformEarth,
+        // proform: proformEarth,
       },
       eocrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.9, 'co': 0.4, 'cp': 0.9},
       eoload: {},
@@ -351,8 +351,8 @@ async function anitem (__eo) {
     }    
     // ............................. animas
     let animas = [
-      // earthAni, // h.mars p.natform g.uniwen
-      torusAni1, // h.mars p.natform g.uniwen
+      earthAni, // h.mars p.natform g.uniwen
+      // torusAni1, // h.mars p.natform g.uniwen
       // cameraPersAni, // h.sol      
       // lightHemisphereAni, // h.sol
       // spotLight, // h.sol      

@@ -699,7 +699,7 @@
 
 
       // ............................. vertex
-      let vertex = function (lambdaD, phiD = 0, radio = 1) { // spherical degrees
+      let vertex = function (lambdaD, phiD = 0) { // spherical degrees
 
         let ppD = [] // pars in degrees
         ppD[0] = lambdaD + wd[0]
@@ -716,7 +716,7 @@
         // fn0
         let rr = unfeld.map((d, i) => d.fn0(ppR, rs, d)) // form.fn0 takes radians and radorns
 
-        let point = unfeld.map((d, i) => radio * rad[i] * rr[i])
+        let point = unfeld.map((d, i) => rad[i] * rr[i])
 
         let projpnt = (point[2] !== undefined)
           ? [ point[0], point[1], point[2] ] // 3D
@@ -730,7 +730,7 @@
     // ............................. pointStream
     let pointStream = function (prtdef) {
       let natPoint = natVertex(prtdef.eoform) // m.natform.natVertex (a,b,c) => [a,b,c]
-      return function (lambda, phi, radio = 1) { this.stream.point(...natPoint(lambda, phi, radio)) }
+      return function (lambda, phi) { this.stream.point(...natPoint(lambda, phi)) }
     }
 
     // ............................. natprojection
