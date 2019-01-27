@@ -533,7 +533,6 @@
         },
       }
 
-      if (1 && 1) console.log('gj', gj)
 
       let res = gj
       return res
