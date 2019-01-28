@@ -10,8 +10,8 @@
 
   async function muonPolyhedral (__eo = {}) {
     let [
-      d3geo,
-      d3geoprojection,
+      d3Geo,
+      d3Geoprojection,
     ] = await Promise.all([
       __eo('xs').b('d3-geo'),
       __eo('xs').b('d3-geo-projection'),
@@ -23,8 +23,8 @@
       let {faciaRotation, geoRotation, prtRaw, faces, tree} = proform
 
       let faceProjection = function (face) {
-        let prt = d3geo.geoProjection(prtRaw)
-        let c = d3geo.geoCentroid({type: 'MultiPoint', coordinates: face})
+        let prt = d3Geo.geoProjection(prtRaw)
+        let c = d3Geo.geoCentroid({type: 'MultiPoint', coordinates: face})
         let rotate = geoRotation(c)
         let translate = [0, 0, 0]
         let scale = 1 // convention
@@ -37,7 +37,7 @@
         return {
           face: face,
           contains: function (lambda, phi) {
-            return d3geo.geoContains({ type: 'Polygon', coordinates: [ polygon ] },
+            return d3Geo.geoContains({ type: 'Polygon', coordinates: [ polygon ] },
               [lambda * degrees, phi * degrees])
           },
           project: faceProjection(face),
@@ -55,7 +55,7 @@
         }
       }
 
-      let m = d3geoprojection.geoPolyhedral(
+      let m = d3Geoprojection.geoPolyhedral(
         faces[0],
         facefn,
         faciaRotation, // rotation of the root face in the projected (pixel) space

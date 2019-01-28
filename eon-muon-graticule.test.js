@@ -1,11 +1,11 @@
 const d3 = require('./d3.v5.js')
 global.d3 = d3
 
-const xMapper = require('./x-mapper.js')
+const xEo = require('./x-mapper.js')
 const xs = require('./x-s.js')
 const requiredGraticule = require('./muon-graticule.js')
 
-let __eo = xMapper.xMapper()
+let __eo = xEo.xEo()
 __eo({'xs': xs.xs(__eo)}).xs
 
 let mGraticule = requiredGraticule.muonGraticule(__eo)

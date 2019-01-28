@@ -179,10 +179,10 @@
 
   async function muonNatform (__eo = {}) {
     let [
-      glmatrix,
-      d3scale,
-      d3array,
-      d3geo,
+      glMatrix,
+      d3Scale,
+      d3Array,
+      d3Geo,
       muonProps,
       muonGeom,
       muonGraticule,
@@ -190,7 +190,7 @@
       muonProj3ct,
     ] = await Promise.all([
       __eo('xs').b('gl-matrix'),
-      __eo('xs').b('d3-scale'),
+      __eo('xs').b('d3'),
       __eo('xs').b('d3-array'),
       __eo('xs').b('d3-geo'),
       __eo('xs').m('props'),
@@ -246,9 +246,9 @@
                   ft(cf[2])(cp[2]) * ft(ef[2])(ep[2]) *
                   ft(cf[3])(cp[3]) * ft(ef[3])(ep[3])
 
-        // let tensor = glmatrix.mat4.fromValues(...tensorize(e[0]), ...tensorize(e[1]), ...tensorize(e[2]), ...tensorize(e[3]) )
-        // let vector = glmatrix.vec4.fromValues(xe(e[0]), xe(e[1]), xe(e[2]), xe(e[3]) )
-        // let position = glmatrix.vec4.transformMat4(glmatrix.vec4.create(), vector, tensor)
+        // let tensor = glMatrix.mat4.fromValues(...tensorize(e[0]), ...tensorize(e[1]), ...tensorize(e[2]), ...tensorize(e[3]) )
+        // let vector = glMatrix.vec4.fromValues(xe(e[0]), xe(e[1]), xe(e[2]), xe(e[3]) )
+        // let position = glMatrix.vec4.transformMat4(glMatrix.vec4.create(), vector, tensor)
 
         return ret
       }
@@ -629,12 +629,12 @@
 
       let s1range = [0, radorPts.length - 1] // [0, seg5] eg. [0,6]
 
-      let s2extent = d3array.range(0, radorPts.length) // [0,...,seg5]
+      let s2extent = d3Array.range(0, radorPts.length) // [0,...,seg5]
 
       let s2range = radorPts // mormed form
 
-      let s1 = d3scale.scaleLinear().domain(s1extent).range(s1range) // [-1,1] => [0,seg5]
-      let s2 = d3scale.scaleLinear().domain(s2extent).range(s2range) // [0,..,seg5] => rador
+      let s1 = d3Scale.scaleLinear().domain(s1extent).range(s1range) // [-1,1] => [0,seg5]
+      let s2 = d3Scale.scaleLinear().domain(s2extent).range(s2range) // [0,..,seg5] => rador
 
       let _s1extent = [-180, 180]
       let _s1range = [0, 6]
@@ -656,8 +656,8 @@
         0.28571428571428575,
         0.24253562503633297,
       ]
-      let _s1 = d3scale.scaleLinear().domain(_s1extent).range(_s1range) // [-1,1] => [0,seg5]
-      let _s2 = d3scale.scaleLinear().domain(_s2extent).range(_s2range) // [0,..,seg5] => rador
+      let _s1 = d3Scale.scaleLinear().domain(_s1extent).range(_s1range) // [-1,1] => [0,seg5]
+      let _s2 = d3Scale.scaleLinear().domain(_s2extent).range(_s2range) // [0,..,seg5] => rador
       console.assert(_s1(0) === 3)
 
       console.assert(_s1(-180) === 0)
@@ -722,7 +722,7 @@
 
     // ............................. natprojection
     let natprojection = prtdef => { // projection:natPoint, form:{x,y,z}
-      let geoTrans = d3geo.geoTransform({ point: pointStream(prtdef) })
+      let geoTrans = d3Geo.geoTransform({ point: pointStream(prtdef) })
       let geoProj = p => geoTrans(p)
       geoProj.stream = s => geoTrans.stream(s)
       return geoProj

@@ -19,13 +19,12 @@
 
   async function muonEotim (__eo = {}) {
     let [
-      d3scale,
+      d3Scale,
     ] = await Promise.all([
-      __eo('xs').b('d3-scale'),
+      __eo('xs').b('d3'),
     ])
 
     let epsilon = 1e-5
-    let scaleLinear = d3scale.scaleLinear
 
     let core = {
       td: 10000, // msDuration
@@ -78,7 +77,7 @@
 
       let msDomain0 = [0, msDuration]
       let unRange0 = [t0, t1]
-      let timeScale0 = scaleLinear() // timeScale ms => un
+      let timeScale0 = d3Scale.scaleLinear() // timeScale ms => un
         .domain(msDomain0) // [msWait, msLimit]
         .range(unRange0) // [unBegin, unEnd]
       timeScales.push(timeScale0)

@@ -5,7 +5,7 @@ global.d3 = d3
 
 const xs = require('./x-s.js')
 
-const xMapper = require('./x-mapper.js')
+const xEo = require('./x-mapper.js')
 const requiredprops = require('./muon-props.js')
 
 d3Require = require('./d3-require.js')
@@ -19,7 +19,7 @@ d3.requireFrom = d3Require.requireFrom
 // requireFrom: [Function: requireFrom]
 // }
 
-let __eo = xMapper.xMapper()
+let __eo = xEo.xEo()
 __eo({'xs': xs.xs(__eo)}).xs
 let mpropsPromise = requiredprops.muonProps(__eo)
 

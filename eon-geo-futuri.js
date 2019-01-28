@@ -31,7 +31,7 @@
     ])
 
     let d3selection = d3
-    let d3geo = d3
+    let d3Geo = d3
 
     let atan = Math.atan, pi = Math.PI, degrees = 180 / pi, sqrt1_2 = Math.SQRT1_2
 
@@ -90,7 +90,7 @@
       if (!p.tree) p.tree = [-1, 4, 5, 2, 0, 1]
       if (!p.rotate) p.rotate = [28, -4, 0] // California
       if (!p.faces) p.faces = faces
-      if (!p.prtRaw) p.prtRaw = d3geo.geoGnomonicRaw
+      if (!p.prtRaw) p.prtRaw = d3Geo.geoGnomonicRaw
 
       return mpolyhedral(p)
     }

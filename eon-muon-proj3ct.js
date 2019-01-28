@@ -18,7 +18,7 @@
 
   async function muonProj3ct (__eo = {}) {
     let [
-      d3geo,
+      d3Geo,
     ] = await Promise.all([
       __eo('xs').b('d3-geo'),
     ])
@@ -103,7 +103,7 @@
 
       let streamSink = stream(sink)
 
-      d3geo.geoStream(o, streamSink)
+      d3Geo.geoStream(o, streamSink)
       // return sink.result()
 
       let ret = sink.result()

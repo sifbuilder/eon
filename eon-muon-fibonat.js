@@ -20,8 +20,8 @@
     let [
       muonProps,
       muonGeom,
-      d3scale,
-      d3array,
+      d3Scale,
+      d3Array,
     ] = await Promise.all([
       __eo('xs').m('props'),
       __eo('xs').m('geom'),
@@ -54,7 +54,7 @@
 
         const offset = offsetstep / samples
 
-        let nodes = d3array.range(samples)
+        let nodes = d3Array.range(samples)
           .map(i => {
             const y = ((i * offset) - 1) + (offset / 2),
               r = Math.sqrt(1 - Math.pow(y, 2)),
@@ -80,10 +80,10 @@
             let rngX = [ dot0[0], dot1[0] ] // range bewteen segment extremes
             let rngY = [ dot0[1], dot1[1] ]
 
-            let scaleX = d3scale.scaleLinear().domain(dom).range(rngX)
-            let scaleY = d3scale.scaleLinear().domain(dom).range(rngY)
+            let scaleX = d3Scale.scaleLinear().domain(dom).range(rngX)
+            let scaleY = d3Scale.scaleLinear().domain(dom).range(rngY)
 
-            let indots = d3array.range(1, dotsInSegment + 1, 1).map(d => [scaleX(d), scaleY(d)])
+            let indots = d3Array.range(1, dotsInSegment + 1, 1).map(d => [scaleX(d), scaleY(d)])
 
             string = [...string, ...indots]
           }
@@ -110,7 +110,7 @@
 
       const offset = offsetstep / samples
 
-      let dots = d3array.range(samples)
+      let dots = d3Array.range(samples)
         .map(i => {
           const z = ((i * offset) - 1) + (offset / 2)
 

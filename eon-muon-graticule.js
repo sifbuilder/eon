@@ -10,7 +10,7 @@
 
   async function muonGraticule (__eo = {}) {
     let [
-      d3array,
+      d3Array,
       muonGeoj,
       muonGeom,
     ] = await Promise.all([
@@ -19,7 +19,7 @@
       __eo('xs').m('geom'),
     ])
 
-    let d3Range = d3array.range
+    let d3Range = d3Array.range
 
     const acos = Math.acos, asin = Math.asin, atan2 = Math.atan2, cos = Math.cos,
       max = Math.max, min = Math.min, PI = Math.PI, sin = Math.sin, sqrt = Math.sqrt,
@@ -233,7 +233,7 @@
 
     // .................. grarr
     let grarr = function (params = {}) {
-      let d3Range = d3array.range
+      let d3Range = d3Array.range
       let {X0, X1, DX, PX, x0, x1, dx, px,
         Y0, Y1, DY, PY, y0, y1, dy, py} = gratiparams(params)
 

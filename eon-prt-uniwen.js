@@ -11,7 +11,7 @@
 
   async function prtUniwen (__eo = {}) {
     let [
-      d3geo,
+      d3Geo,
       muonGeom,
       muonProps,
       muonWen,
@@ -130,7 +130,7 @@
 
     // .................. uniprofion
     let uniprofion = () => {
-      let geoTrans = d3geo.geoTransform({
+      let geoTrans = d3Geo.geoTransform({
         point: pointStream,
         sphere: d => d })
 

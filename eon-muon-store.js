@@ -22,9 +22,9 @@
       __eo('xs').m('eotim'),
       __eo('xs').m('props'),
     ])
-      .catch(function (err) {
-        console.log('A m.store promise failed to resolve', err)
-      })
+    .catch(function (err) {
+      console.log('A m.store promise failed to resolve', err)
+    })
 
     let epsilon = 1e-5
 

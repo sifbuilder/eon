@@ -12,7 +12,7 @@
   async function ctlEul (__eo = {}) {
     let [
       d3,
-      d3geo,
+      d3Geo,
       muonGeom,
       renderPortview,
     ] = await Promise.all([
@@ -87,7 +87,7 @@
     // .................. state
     let state = {
 
-      projection: () => d3geo.geoOrthographic()
+      projection: () => d3Geo.geoOrthographic()
         .rotate([0, 0])
         .translate([0, 0])
         .scale(1),

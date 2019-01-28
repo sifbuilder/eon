@@ -10,19 +10,19 @@
 
   async function muonSnap (__eo = {}) {
     let [
+      d3Scale,
       muonProps,
       muonNatform,
       muonLacer,
       muonGeoj,
-      d3scale,
     ] = await Promise.all([
+      __eo('xs').b('d3'),
       __eo('xs').m('props'),
       __eo('xs').m('natform'),
       __eo('xs').m('lacer'),
       __eo('xs').m('geoj'),
-      __eo('xs').b('d3-scale'),
     ])
-
+         
     // .................. snap  value (anima), t (unit time), snap flag, parent
     let snap = function (v, t = 0, g = 0, p = undefined) {
       // ____________________________________________________ un-tagged
@@ -123,7 +123,7 @@
           g === 1) {
         let d = [0, 1],
           r = [v[0], v[0]]
-        let w = d3scale.scaleLinear().domain(d).range(r)
+        let w = d3Scale.scaleLinear().domain(d).range(r)
         return w(t)
       } else if (muonProps.isArray(v) && // 12 _____ [v1,v2,v3]*
           muonProps.isPureArray(v) &&
@@ -131,7 +131,7 @@
           g === 1) {
         let d = v.map((item, idx) => idx / (v.length - 1))
         let r = v
-        let w = d3scale.scaleLinear()
+        let w = d3Scale.scaleLinear()
           .domain(d)
           .range(r)
         return w(t)

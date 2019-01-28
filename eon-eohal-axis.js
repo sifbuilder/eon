@@ -11,15 +11,15 @@
   async function eohalAxis (__eo = {}) {
     let [
       muonProps,
-      d3axis,
-      d3scale,
-      d3format,
+      d3Axis,
+      d3Scale,
+      d3Format,
       eohalMars,
       muonAnitem,
     ] = await Promise.all([
       __eo('xs').m('props'),
       __eo('xs').b('d3-axis'),
-      __eo('xs').b('d3-scale'),
+      __eo('xs').b('d3'),
       __eo('xs').b('d3-format'),
       __eo('xs').e('mars'),
       __eo('xs').m('anitem'),
@@ -42,7 +42,7 @@
         orient = axis.orient
       console.assert(orient !== undefined, 'axis orientation undefined')
 
-      let _scale = (scaleType) ? d3scale[scaleType]() : d3scale['scaleTime']()
+      let _scale = (scaleType) ? d3Scale[scaleType]() : d3Scale['scaleTime']()
 
       let newAnigram = muonProps.clone(anigram) // clone
       newAnigram.eofold.properties = {
@@ -52,8 +52,8 @@
         axis: Object.assign(axis, {
           scale: _scale.domain(domain).range(range),
           rotate: rotate,
-          d3axis: d3axis[orient](_scale.domain(domain).range(range))
-            .tickFormat((tickFormat === '') ? '' : d3format.format(tickFormat))
+          d3Axis: d3Axis[orient](_scale.domain(domain).range(range))
+            .tickFormat((tickFormat === '') ? '' : d3Format.format(tickFormat))
             .tickSizeOuter(0)
             .tickSize(tickSize)
             .tickPadding(tickPadding),

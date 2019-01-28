@@ -6,8 +6,8 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. eons
   let [
-    d3geo,
-    d3geoprojection,
+    d3Geo,
+    d3Geoprojection,
     topojson,
     ctlWen,
     ctlVersor,
@@ -116,12 +116,12 @@ async function anitem (__eo) {
 
     // .................. geoearthDark  DARK
     let pDark = function () {
-      let forward = (x, y) => d3geo.geoOrthographicRaw(-x, -y)
-      forward.invert = (x, y) => d3geo.geoOrthographicRaw.invert(-x, -y)
+      let forward = (x, y) => d3Geo.geoOrthographicRaw(-x, -y)
+      forward.invert = (x, y) => d3Geo.geoOrthographicRaw.invert(-x, -y)
       return forward
     }
 
-    let darkProjection = d3geo.geoProjection(pDark())
+    let darkProjection = d3Geo.geoProjection(pDark())
       .clipAngle(90)
       .translate([0, 0, 0])
       .scale(180)
@@ -169,12 +169,12 @@ async function anitem (__eo) {
 
     // .................. geoearthFront FRONT
     let pFront = function (x, y) {
-      let forward = (x, y) => d3geo.geoOrthographicRaw(x, -y)
-      forward.invert = (x, y) => d3geo.geoOrthographicRaw.invert(x, -y)
+      let forward = (x, y) => d3Geo.geoOrthographicRaw(x, -y)
+      forward.invert = (x, y) => d3Geo.geoOrthographicRaw.invert(x, -y)
       return forward
     }
 
-    let frontProjection = d3geo.geoProjection(pFront())
+    let frontProjection = d3Geo.geoProjection(pFront())
       .clipAngle(90)
       .translate([0, 0, 0])
       .rotate([0, 0, 0])

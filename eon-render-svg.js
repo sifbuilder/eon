@@ -31,7 +31,7 @@
     // ... @maxlimit
     // ...
     // ... axes
-    // ... d.properties.axis: cf, co, cp, cs, csx, cw, d3axis, domain, label, orient, range, rotate, scale, scaleType, tickFormat, tickPadding, tickSize,
+    // ... d.properties.axis: cf, co, cp, cs, csx, cw, d3Axis, domain, label, orient, range, rotate, scale, scaleType, tickFormat, tickPadding, tickSize,
     // ... d.properties.axis.style :  font-family, font-size, text-anchor
     // ...
     // ... # license
@@ -397,7 +397,7 @@
 
                 .data(() => Array.of(axis))
 
-                .call(d => d.call(d.datum().properties.axis.d3axis))
+                .call(d => d.call(d.datum().properties.axis.d3Axis))
 
                 .attr('transform', d => { // eg. "translate(21,20) rotate(15)")
                   let item = d

@@ -14,10 +14,10 @@
 
   async function muonLacer (__eo = {}) {
     let [
-      d3scale,
-      d3array,
+      d3Scale,
+      d3Array,
     ] = await Promise.all([
-      __eo('xs').b('d3-scale'),
+      __eo('xs').b('d3'),
       __eo('xs').b('d3-array'),
     ])
 
@@ -33,15 +33,15 @@
       for (let i = 0; i < nStreams; i++) { // scales
         let sid = [0, nDots - 1]
         let sir = [0, streams[i].length - 1]
-        let si = d3scale.scaleLinear() // argument scale
+        let si = d3Scale.scaleLinear() // argument scale
           .domain(sid) // from result position
           .range(sir) // to strem i position
 
         ses[i] = si // ses scale for i stream
 
-        let rid = d3array.range(streams[i].length).map((d, i) => i)
+        let rid = d3Array.range(streams[i].length).map((d, i) => i)
         let rir = streams[i]
-        let ri = d3scale.scaleLinear() // argument scale
+        let ri = d3Scale.scaleLinear() // argument scale
           .domain(rid) // from result position
           .range(rir) // to strem i position
 
@@ -63,7 +63,7 @@
         let d = ss.map((item, idx) => idx / (ss.length - 1))
         let r = ss
 
-        let ws = d3scale.scaleLinear()
+        let ws = d3Scale.scaleLinear()
           .domain(d)
           .range(r)
 
@@ -94,7 +94,7 @@
         }
       } else {
         let pointsHowmany = mx // max length
-        let scales = streams.map(d => d3scale.scaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))
+        let scales = streams.map(d => d3Scale.scaleLinear().domain([0, pointsHowmany - 1]).range([0, d.length - 1 ]))
         for (let j = 0; j < pointsHowmany; j++) {
           let w = streams.map((s, k) => streams[k][Math.round(scales[k](j))])
           streamXYZ.push(w)
@@ -107,7 +107,7 @@
     let unslide = function (stream = []) {
       let lengths = stream.map(d => d.length) // lengths of array elems
       let mx = Math.max(...lengths) // 3 if array of 3d coords
-      let unslide = d3array.range(mx).map(mx => [])
+      let unslide = d3Array.range(mx).map(mx => [])
 
       for (let i = 0; i < stream.length; i++) {
         for (let j = 0; j < mx; j++) {
@@ -129,15 +129,15 @@
       for (let i = 0; i < nStreams; i++) { // scales
         let sid = [0, nDots - 1]
         let sir = [0, streams[i].length - 1]
-        let si = d3scale.scaleLinear() // argument scale
+        let si = d3Scale.scaleLinear() // argument scale
           .domain(sid) // from result position
           .range(sir) // to strem i position
 
         ses[i] = si // ses scale for i stream
 
-        let rid = d3array.range(streams[i].length).map((d, i) => i)
+        let rid = d3Array.range(streams[i].length).map((d, i) => i)
         let rir = streams[i]
-        let ri = d3scale.scaleLinear() // argument scale
+        let ri = d3Scale.scaleLinear() // argument scale
           .domain(rid) // from result position
           .range(rir) // to strem i position
 

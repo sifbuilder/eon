@@ -13,7 +13,7 @@
 
   async function prtUnimercator (__eo = {}) {
     let [
-      d3geo,
+      d3Geo,
     ] = await Promise.all([
       __eo('xs').b('d3-geo'),
     ])
@@ -39,7 +39,7 @@
     }
 
     function mercatorProjection (project) {
-      var m = d3geo.geoProjection(project),
+      var m = d3Geo.geoProjection(project),
         center = m.center,
         scale = m.scale,
         translate = m.translate,
@@ -64,7 +64,7 @@
 
       function reclip () {
         var k = pi * scale(),
-          t = m(d3geo.geoRotation(m.rotate()).invert([0, 0]))
+          t = m(d3Geo.geoRotation(m.rotate()).invert([0, 0]))
         return clipExtent(x0 == null
           ? [[t[0] - k, t[1] - k], [t[0] + k, t[1] + k]] : project === mercatorRaw
             ? [[Math.max(t[0] - k, x0), y0], [Math.min(t[0] + k, x1), y1]]

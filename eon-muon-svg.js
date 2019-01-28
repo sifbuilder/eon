@@ -12,7 +12,7 @@
   async function muonSvg (__eo = {}) {
     let [
       mbezierjs,
-      d3array,
+      d3Array,
     ] = await Promise.all([
       __eo('xs').m('bezierjs'),
       __eo('xs').b('d3-array'),

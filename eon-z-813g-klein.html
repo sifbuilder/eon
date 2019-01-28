@@ -15,8 +15,8 @@ async function anitem (__eo) {
     muonNatform,
     prtNatform,
     renderPortview,
-    // renderSvg,
-    renderWebgl,
+    renderSvg,
+    // renderWebgl,
   ] = await Promise.all([
     __eo('xs').b('topojson'),
     __eo('xs').c('wen'),
@@ -27,8 +27,8 @@ async function anitem (__eo) {
     __eo('xs').m('natform'),
     __eo('xs').p('natform'),
     __eo('xs').r('portview'),
-    // __eo('xs').r('svg'),
-    __eo('xs').r('webgl'),
+    __eo('xs').r('svg'),
+    // __eo('xs').r('webgl'),
   ])
 
   // .................. animas
@@ -76,7 +76,7 @@ async function anitem (__eo) {
     let expt = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
 
     // ............................. pics
-    let eotim = {'td': 28600, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1, tf: t => t}
+    let eotim = {'td': 9600, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1, tf: t => t}
 
     let conformKlein = {
       x: {
@@ -240,12 +240,8 @@ async function anitem (__eo) {
       eofold: ani => {
         let res 
         // res = muonNatform.natFeature({eoform: ani.eoload.eoform})
-        let opt = 'MultiLineString'
-        if (opt === 'MultiLineString') {
-          res = muonGraticule.gjfMultiLineString(ani.eoload.eoframe)
-        } else { // MultiPolygon
-          res = muonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
-        }
+        res = muonGraticule.gjfMultiLineString(ani.eoload.eoframe)
+        // res = muonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
 
 
         return res
@@ -269,7 +265,7 @@ async function anitem (__eo) {
 
       eoload: {
         eoform: conformKlein,
-        eoframe: { multiframe: [ [-180, 180, 10, 1 ], [ [[[-9,-90]]], [[[-9,90]]], 10, 1] ] },        
+        eoframe: { multiframe: [ [-180, 180, 10, 10 ], [ [[[-9,-90]]], [[[-9,90]]], 10, 10] ] },        
       },
     }
 

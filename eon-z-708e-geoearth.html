@@ -6,8 +6,8 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. eons
   let [
-    d3geo,
-    d3geoprojection,
+    d3Geo,
+    d3Geoprojection,
     topojson,
     ctlVersor,
     ctlWen,
@@ -39,12 +39,12 @@ async function anitem (__eo) {
     let eotim = {'td': 10800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
     let pFront = function (x, y) {
-      let forward = (x, y) => d3geo.geoOrthographicRaw(x, -y)
-      forward.invert = (x, y) => d3geo.geoOrthographicRaw.invert(x, -y)
+      let forward = (x, y) => d3Geo.geoOrthographicRaw(x, -y)
+      forward.invert = (x, y) => d3Geo.geoOrthographicRaw.invert(x, -y)
       return forward
     }
 
-    let frontProjection = d3geo.geoProjection(pFront())
+    let frontProjection = d3Geo.geoProjection(pFront())
       .clipAngle(90)
 
     let proformEarth = {

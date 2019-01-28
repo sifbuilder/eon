@@ -261,7 +261,7 @@
     return enty
   }
 
-  let xMapper = function () {
+  let xEo = function () {
     let state = {}
 
     // ............................. enty
@@ -276,12 +276,12 @@
   }
 
   let eon = async function ({anitem, time}) {
-    let __eo = xEonify.xMapper() // init mapper
+    let __eo = xEonify.xEo() // init mapper
 
     __eo({'xD3Require': {
-      require: xEonify.require,
-      requireFrom: xEonify.requireFrom,
-    },
+        require: xEonify.require,
+        requireFrom: xEonify.requireFrom,
+      },
     }) // map require
 
     __eo({'xs': xEonify.xs(__eo)}) // map xs
@@ -295,13 +295,13 @@
     let muonStore = __eo('xs').m('store')
 
     __eo('xs').a(anitem) // proxy ani.anitem
-      .then(animas => __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})) // store animas
+      .then(animas => __eo('muonStore').apply({type: 'UPDANIMA', animas: animas}))
       .then(() => __eo('muonAnimation').animate(time)) // animate
   }
 
   exports.eon = eon
 
-  exports.xMapper = xMapper
+  exports.xEo = xEo
 
   exports.xs = xs
 

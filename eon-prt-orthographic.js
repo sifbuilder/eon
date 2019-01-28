@@ -10,12 +10,12 @@
 
   async function prtOrthographic (__eo = {}) {
     let [
-      d3geo,
+      d3Geo,
     ] = await Promise.all([
       __eo('xs').b('d3-geo'),
     ])
 
-    let prtRaw = d3geo.geoOrthographicRaw // prtRaw
+    let prtRaw = d3Geo.geoOrthographicRaw // prtRaw
 
     let projection = function (x, y) {
       let forward = (x, y) => prtRaw(x, -y)
@@ -23,7 +23,7 @@
       return forward
     }
 
-    let prt = d3geo.geoProjection(projection())
+    let prt = d3Geo.geoProjection(projection())
       .clipAngle(90)
 
     let enty = prt
