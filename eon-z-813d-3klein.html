@@ -15,8 +15,8 @@ async function anitem (__eo) {
     muonNatform,
     prtNatform,
     renderPortview,
-    // renderSvg,
-    renderWebgl,
+    renderSvg,
+    // renderWebgl,
   ] = await Promise.all([
     __eo('xs').b('topojson'),
     __eo('xs').c('wen'),
@@ -27,8 +27,8 @@ async function anitem (__eo) {
     __eo('xs').m('natform'),
     __eo('xs').p('natform'),
     __eo('xs').r('portview'),
-    // __eo('xs').r('svg'),
-    __eo('xs').r('webgl'),
+    __eo('xs').r('svg'),
+    // __eo('xs').r('webgl'),
   ])
 
   // .................. animas
@@ -175,13 +175,10 @@ async function anitem (__eo) {
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
 
       eofold: ani => {
-        let res // = muonNatform.natFeature({eoform: ani.eoload.eoform})
-        let opt = '__MultiLineString'
-        if (opt === 'MultiLineString') {
+        let res 
+          // res = muonNatform.natFeature({eoform: ani.eoload.eoform})
           res = muonGraticule.gjfMultiLineString(ani.eoload.eoframe)
-        } else { // MultiPolygon
-          res = muonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
-        }
+          // res = muonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
 
 
         return res

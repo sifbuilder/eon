@@ -133,6 +133,7 @@ async function anitem (__eo) {
           let c4 = d.c[4] // [[[80,0]]]
           let res = 
             // (1 + 0.5 * cos(x)) * sin(2 * z)
+            
             // sin(2 * z)  + 0.5 * cos(x) * sin(2 * z)
             // 2 * sin(z) * cos(z) + 0.5 * cos(x) * 2 * sin(z) * cos(z)
             
@@ -147,10 +148,10 @@ async function anitem (__eo) {
                  - 60          * sin(z)
 
                  
-                 // + c1 *  cos(x) * sin(z)  * Math.pow(cos(z), 1)
-                 // - c2 *  cos(x) * sin(z)  * Math.pow(cos(z), 3)
-                 // - c3 * cos(x) * sin(z)  * Math.pow(cos(z), 5)
-                 // + c4 * cos(x) * sin(z)  * Math.pow(cos(z), 7)
+                 + c1 *  cos(x) * sin(z)  * Math.pow(cos(z), 1)
+                 - c2 *  cos(x) * sin(z)  * Math.pow(cos(z), 3)
+                 - c3 * cos(x) * sin(z)  * Math.pow(cos(z), 5)
+                 + c4 * cos(x) * sin(z)  * Math.pow(cos(z), 7)
               )
           return res
         },
@@ -198,12 +199,8 @@ async function anitem (__eo) {
       eofold: ani => {
         let res 
         res = muonNatform.natFeature({eoform: ani.eoload.eoform})
-        // let opt = 'MultiLineString'
-        // if (opt === 'MultiLineString') {
           // res = muonGraticule.gjfMultiLineString(ani.eoload.eoframe)
-        // } else { // MultiPolygon
           // res = muonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
-        // }
 
 
         return res
@@ -306,7 +303,7 @@ async function anitem (__eo) {
     // ............................. animas
     let animas = [
 
-      // kleinAni, // h.mars
+      kleinAni, // h.mars
       bandAni, // h.mars
       cameraPersAni, // h.sol
     ]
