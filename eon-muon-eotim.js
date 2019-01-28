@@ -140,7 +140,6 @@
       eotim.unTime = timeFunction(unTime) // UPDATE // ref time msPassed (common or relative) (uns)
       eotim.unStart = unStart // UPDATE // ref time start (common or relative) (uns)
       eotim.unDelta = unDelta // UPDATE // time (uns) between ticks
-      // }
 
       return eotim
     }
