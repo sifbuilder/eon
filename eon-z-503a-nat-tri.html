@@ -6,22 +6,25 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. eons
   let [
-    muonProps,
     ctlWen,
-    muonNatform,
     eohalNatform,
+    muonNatform,
     renderSvg,
   ] = await Promise.all([
-    __eo('xs').m('props'),
     __eo('xs').c('wen'),
-    __eo('xs').m('natform'),
     __eo('xs').e('natform'),
+    __eo('xs').m('natform'),
     __eo('xs').r('svg'),
   ])
 
   // .................. animas
   let ani = function () {
-    let ctl = ctlWen().control(renderSvg.svg())
+    let ctl
+    try {
+      ctl = ctlWen().control(renderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }
 
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
@@ -58,6 +61,7 @@ async function anitem (__eo) {
       'projection': 'uniwen',
       'translate': [ [[[-100, 100]]], [[[-100, 100]]] ], // [[[ stace ]]] ],
       'scale': 1,
+      prerotate: [[[ ctl.rotation ]]],
       'rotate': [ 0, 0, [[[0, 0]]] ],
       'lens': [0, 1, 12],
     }

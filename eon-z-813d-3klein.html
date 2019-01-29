@@ -89,13 +89,10 @@ async function anitem (__eo) {
           let x = e[0]
           let y = e[1]
           let z = e[2]
-          let c0 = d.c[0]
-          let c1 = d.c[1]
-          let c2 = d.c[2]
-          let c3 = d.c[3]
-          let res =   (c1 / c0) * cos(z) * (
-            c2  * cos(x) -
-            c3 * sin(z) +
+          let res =   
+          (-2 / 13) * cos(z) * (
+            3  * cos(x) -
+            30 * sin(z) +
             90 * Math.pow(cos(z), 4) * sin(z) -
             60 * Math.pow(cos(z), 6) * sin(z) +
             5  * Math.pow(cos(z), 1) * sin(z) * cos(x)
@@ -113,13 +110,8 @@ async function anitem (__eo) {
           let x = e[0]
           let y = e[1]
           let z = e[2]
-          let c0 = d.c[0]
-          let c1 = d.c[1]
-          let c2 = d.c[2]
-          let c3 = d.c[3]
-          let c4 = d.c[4]
           let res =
-          (-1 / c0)
+          (-1 / 13)
             * sin(z) * (
                   3  * cos(x)           * Math.pow(cos(z), 0)
                  - 3  * cos(x)           * Math.pow(cos(z), 2)
@@ -127,10 +119,10 @@ async function anitem (__eo) {
                  + 48 * cos(x)           * Math.pow(cos(z), 6)
                  - 60          * sin(z)
 
-                 + c1 *  cos(x) * sin(z)  * Math.pow(cos(z), 1)
-                 - c2 *  cos(x) * sin(z)  * Math.pow(cos(z), 3)
-                 - c3 * cos(x) * sin(z)  * Math.pow(cos(z), 5)
-                 + c4 * cos(x) * sin(z)  * Math.pow(cos(z), 7)
+                 + 5 *  cos(x) * sin(z)  * Math.pow(cos(z), 1)
+                 - 5 *  cos(x) * sin(z)  * Math.pow(cos(z), 3)
+                 - 80 * cos(x) * sin(z)  * Math.pow(cos(z), 5)
+                 + 80 * cos(x) * sin(z)  * Math.pow(cos(z), 7)
               )
           return res
         },
@@ -145,12 +137,8 @@ async function anitem (__eo) {
           let x = e[0]
           let y = e[1]
           let z = e[2]
-          let c0 = d.c[0]
-          let c1 = d.c[1]
-          let c2 = d.c[2]
-          let c3 = d.c[3]
           let res =
-            (3 / c0) *
+            (3 / 13) *
             ( 3
               + 1 * cos(z) * sin(z)
             ) *

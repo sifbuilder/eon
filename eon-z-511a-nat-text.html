@@ -10,14 +10,12 @@ async function anitem (__eo) {
     eohalTextform,
     eohalMars,
     muonNatform,
-    muonProps,
     renderSvg,
   ] = await Promise.all([
     __eo('xs').c('wen'),
     __eo('xs').e('textform'),
     __eo('xs').e('mars'),
     __eo('xs').m('natform'),
-    __eo('xs').m('props'),
     __eo('xs').r('svg'),
   ])
 
@@ -29,8 +27,8 @@ async function anitem (__eo) {
       ctl = ctlWen().control(renderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
-    }   
-    
+    }
+
     let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
     let formCirc = {
 
@@ -99,8 +97,6 @@ async function anitem (__eo) {
         return res
       },
 
-      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
-
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -108,6 +104,8 @@ async function anitem (__eo) {
         },
       },
 
+      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+      
       eoload: {
         textform: {
           string: 'laws are valid only if rulers believe in them',
@@ -116,7 +114,6 @@ async function anitem (__eo) {
             'font-size': [[[10, 60]]],
             'font-family': 'BankFuturistic',
             'text-anchor': 'center',
-
           },
         },
 
@@ -127,21 +124,21 @@ async function anitem (__eo) {
     let natAni = {
 
       eohal: 'mars',
-
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
-
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eomot: {
-        proform: proform,
-      },
+      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+
       eonode: {
         type: 'Feature',
         geometry: { type: 'Point', coordinates: [0, 0, 0] },
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
 
+      eomot: {
+        proform: proform,
+      },
+      
       eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
       eoform: formNat,
@@ -153,30 +150,26 @@ async function anitem (__eo) {
     let circAni = {
 
       eohal: 'mars',
+      eotim,
+      eoric: {gid: 'nat', cid: 'nat', fid: 'circ'},
 
       eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
 
-      eotim,
-
-      eoric: {gid: 'nat', cid: 'nat', fid: 'circ'},
-
-      eomot: {
-        proform,
-      },
       eonode: {
         type: 'Feature',
         geometry: { type: 'Point', coordinates: [0, 0, 0] },
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
 
+      eomot: {
+        proform,
+      },
+      
       eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
-      uid: null,
-      pid: null,
       eoform: formCirc,
       eoload: {
         eoinited: 0,
-
         eogelded: 1,
 
       },

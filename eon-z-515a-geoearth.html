@@ -33,9 +33,14 @@ async function anitem (__eo) {
 
   // .................. animas
   let ani = function () {
-    let ctl = ctlVersor().control(renderSvg.svg())
-
     // .................. pics
+    let ctl
+    try {
+      ctl = ctlVersor().control(renderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }
+
     let eotim = {'td': 10800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
     // .................. geoearthDark  DARK
@@ -54,7 +59,7 @@ async function anitem (__eo) {
 
       projection: darkProjection,
       prerotate: [[[ t => {
-        // let rot = ctl
+        // let rot = ctlWen
         // .projection({projection: darkProjection}) // versor projection
         // .rotation()
         let rot = ctlVersor
@@ -64,9 +69,9 @@ async function anitem (__eo) {
         return res
       }]]],
 
-      // rotate: [ [[[0, 0 + 0 * 360]]], [[[0, 0 * 360]]], 0 ],
+      rotate: [ [[[0, 0 + -2 * 360]]], [[[0, 0 * 360]]], 0 ],
       // rotate: [ 90, 0, 0 ],
-      rotate: [ 0, 0, 0 ],
+      // rotate: [ 0, 0, 0 ],
 
     }
 
@@ -110,7 +115,7 @@ async function anitem (__eo) {
 
       projection: frontProjection,
       prerotate: [[[ function (t) {
-        // let rot = ctl
+        // let rot = ctlWen
         // .projection({projection: frontProjection}) // versor projection
         // .rotation()
         let rot = ctlVersor
@@ -121,15 +126,17 @@ async function anitem (__eo) {
 
       translate: [0, 0, 0],
       scale: 180,
-      // rotate: [ [[[30, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
+      rotate: [ [[[30, -2 * 360]]], [[[0, 0 * 360]]], 0 ],
       // rotate: [ 90, 0, 0 ],
-      rotate: [ 0, 0, 0 ],
+      // rotate: [ 0, 0, 0 ],
 
     }
 
     let geoearthFront = {
 
       eohal: 'mars',
+      eotim,
+      eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthFront'},
 
       eofold: () => {
         return Object.assign({},
@@ -140,15 +147,12 @@ async function anitem (__eo) {
         )
       },
 
-      eotim,
-
       eomot: {
         proform: proformFront,
       },
-      eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'geoearthFront'},
+
       eocrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
-      eoload: {
-      },
+      eoload: {},
 
     }
 
@@ -156,19 +160,18 @@ async function anitem (__eo) {
     let graticuleFront = {
 
       eohal: 'mars',
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
       eotim: eotim,
+      eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
+
+      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
       eomot: {
         proform: proformFront,
       },
-      eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
       eocrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9},
 
       eoframe: {
-
         geoframe: [ [ [ -180, 180, 30, 30], // x
           [ -180, 180, 15, 15] ] ], // y
-
       },
       eoload: {},
 

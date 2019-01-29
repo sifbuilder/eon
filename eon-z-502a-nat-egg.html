@@ -23,8 +23,8 @@ async function anitem (__eo) {
       ctl = ctlWen().control(renderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
-    }   
-    
+    }
+
     let eotim = {td: 16800, t0: 0, t1: 1, t2: 1, t3: 1}
     let formCirc = {
       x: {
@@ -71,9 +71,9 @@ async function anitem (__eo) {
     // ............................. animas
     let nat = {
       eohal: 'natform',
-      eofold: null,
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
+      eofold: null,
       eocrom: eocromNat,
       eomot: {
         proform,
@@ -84,9 +84,9 @@ async function anitem (__eo) {
 
     let circ = {
       eohal: 'natform',
-      eofold: null,
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'formCirc'},
+      eofold: null,
       eocrom: eocromCirc,
       eomot: {
         proform,

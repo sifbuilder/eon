@@ -461,32 +461,12 @@ async function anitem (__eo) {
       },
 
       field: params => {
-        if (1 && 1) console.log('params', params)
         params.properties.payload.args = params.nodes.filter(d => (d.eoric.gid === 'link'))
 
         return muonEoforces.force(params)
       },
 
-      // properties: {
 
-      // strength: 1,
-      // src: d3_force,
-      // id: d => d.eoric.uid,
-      // type: 'link',
-      // key: 'link',
-      // filter: d => true,
-
-      // },
-
-      // field: params => {
-      // let links = params.nodes.filter(d => (d.eoric.gid === 'link'))
-      // params.properties.links = links
-
-      // let forceParams = Object.assign({}, params, params.properties)
-
-      // let force = muonEoforces.force(forceParams)
-      // return Array.of(force)
-      // },
     }
 
     // .................... fieldAni

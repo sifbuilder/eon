@@ -387,12 +387,14 @@
             geoframe: geoframe,
             gsa: gsa,
             gco: gco,
-          } // x, y
+          }
 
           vertices = muonGraticule.gjfMultiPoint(gratipros).geometry.coordinates
+          
         } else { // ___ 2d
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y
+          
           sx = 360
           sy = 360
 
@@ -405,9 +407,9 @@
             geoframe: geoframe,
             gsa: gsa,
             gco: gco,
-          } // _e_ x, y
+          }
 
-          vertices = muonGraticule.gVertices(gratipros)
+          vertices = muonGraticule.gjfMultiPoint(gratipros).geometry.coordinates
 
           vertices = vertices[1].slice(0, -1)
           vertices = Array.of(vertices)
@@ -489,7 +491,9 @@
           let xdomain = eoform.x.dom3 || [-180, 180]
           let ydomain = eoform.z.dom3 || [-90, 90] // ____ z ___
 
-          let geoframe = [ [ [...xdomain, sx, dx], [...ydomain, sy, dy] ] ]
+          let geoframe = [ [ 
+            [...xdomain, sx, dx], [...ydomain, sy, dy] 
+          ] ]
 
           gratipros = {
             geoframe: geoframe,
@@ -523,6 +527,7 @@
           console.assert(ghv === 0 || ghv === 1, `2d forms have no meridians`)
 
           geometry = muonGraticule.gjfMultiLineString(gratipros).geometry // geometry.type: MultiLineString
+if (1 && 1) console.log('***********geometry', geometry)
 
           let p = geometry.coordinates[0]
           geometry.coordinates = Array.of(p)
@@ -624,6 +629,36 @@
     }
 
     // ............................. radorm
+      // let _s1extent = [-180, 180]
+      // let _s1range = [0, 6]
+      // let _s2extent = [
+        // 0,
+        // 1,
+        // 2,
+        // 3,
+        // 4,
+        // 5,
+        // 6,
+      // ]
+      // let _s2range = [
+        // 0.24253562503633297,
+        // 0.2857142857142857,
+        // 0.48507125007266594,
+        // 1,
+        // 0.4850712500726661,
+        // 0.28571428571428575,
+        // 0.24253562503633297,
+      // ]
+      // let _s1 = d3Scale.scaleLinear().domain(_s1extent).range(_s1range) // [-1,1] => [0,seg5]
+      // let _s2 = d3Scale.scaleLinear().domain(_s2extent).range(_s2range) // [0,..,seg5] => rador
+      // console.assert(_s1(0) === 3)
+
+      // console.assert(_s1(-180) === 0)
+      // console.assert(_s2(_s1(-180)) === 0.24253562503633297)
+      // console.assert(_s1(0) === 3)
+      // console.assert(_s2(_s1(0)) === 1)
+      // console.assert(_s1(180) === 6)
+      // console.assert(_s2(_s1(180)) === 0.24253562503633297)    
     function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
       let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)
 
@@ -635,37 +670,6 @@
 
       let s1 = d3Scale.scaleLinear().domain(s1extent).range(s1range) // [-1,1] => [0,seg5]
       let s2 = d3Scale.scaleLinear().domain(s2extent).range(s2range) // [0,..,seg5] => rador
-
-      let _s1extent = [-180, 180]
-      let _s1range = [0, 6]
-      let _s2extent = [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-      ]
-      let _s2range = [
-        0.24253562503633297,
-        0.2857142857142857,
-        0.48507125007266594,
-        1,
-        0.4850712500726661,
-        0.28571428571428575,
-        0.24253562503633297,
-      ]
-      let _s1 = d3Scale.scaleLinear().domain(_s1extent).range(_s1range) // [-1,1] => [0,seg5]
-      let _s2 = d3Scale.scaleLinear().domain(_s2extent).range(_s2range) // [0,..,seg5] => rador
-      console.assert(_s1(0) === 3)
-
-      console.assert(_s1(-180) === 0)
-      console.assert(_s2(_s1(-180)) === 0.24253562503633297)
-      console.assert(_s1(0) === 3)
-      console.assert(_s2(_s1(0)) === 1)
-      console.assert(_s1(180) === 6)
-      console.assert(_s2(_s1(180)) === 0.24253562503633297)
 
       return p => s2(s1(p)) //  [0,1) =s1=> [0,seg5) =rador=> [0,1]
     }
