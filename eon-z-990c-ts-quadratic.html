@@ -162,7 +162,7 @@ async function anitem (__eo) {
       eofold: ani => {
         let tfvars = vars.map(d => d.dataSync()[0])
         let q = { natform: {y: { e1: tfvars } } }
-        return muonNatform.natFeature({eoform: ani.eoload.natform(q.natform)})
+        return muonNatform.natMultiLineString({eoform: ani.eoload.natform(q.natform)})
       },
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},

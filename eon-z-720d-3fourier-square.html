@@ -7,11 +7,14 @@ async function anitem (__eo) {
   let [
     d3,
     d3Geo,
+    d3Force3d,    
     THREE,
     ctlWen,
+    eohalCore,    
     eohalMars,
     eohalPacer,
     eohalFourier,
+        muonEoforces,
     muonFourier,
     muonGeoj,
     muonGeom,
@@ -28,11 +31,14 @@ async function anitem (__eo) {
   ] = await Promise.all([
     __eo('xs').b('d3'),
     __eo('xs').b('d3-geo'),
+    __eo('xs').b('d3-force-3d'),    
     __eo('xs').b('three'),
     __eo('xs').c('wen'),
+    __eo('xs').e('core'),    
     __eo('xs').e('mars'),
     __eo('xs').e('pacer'),
     __eo('xs').e('fourier'),
+    __eo('xs').m('eoforces'),    
     __eo('xs').m('fourier'),
     __eo('xs').m('geoj'),
     __eo('xs').m('geom'),
@@ -49,7 +55,8 @@ async function anitem (__eo) {
   ])
 
   let muonStore = __eo('muonStore')
-
+  let d3_force = d3Force3d
+  
   let ani = function () {
   // .................. pics
 
@@ -73,13 +80,18 @@ async function anitem (__eo) {
     }
     let data = muonSvg.castels(svgdata, {start: 0, stop: 0.9, step: 1 / 3}) // MultiLineString
 
-    let basicSquare = [
+    let basicSquare = [ // svg
       [
+        // [0, 0.50], [0, 0.75],
+        // [0, 1.00], [0.25, 1.00], [0.50, 1.00], [0.75, 1.00],
+        // [1.00, 1.00], [1.00, 0.75], [1.00, 0.50], [1.00, 0.25],
+        // [1.00, 0], [0.75, 0], [0.50, 0], [0.25, 0],
+        // [0, 0], [0, 0.25],
         [0, 0.50], [0, 0.75],
         [0, 1.00], [0.25, 1.00], [0.50, 1.00], [0.75, 1.00],
         [1.00, 1.00], [1.00, 0.75], [1.00, 0.50], [1.00, 0.25],
         [1.00, 0], [0.75, 0], [0.50, 0], [0.25, 0],
-        [0, 0], [0, 0.25],
+        [0, 0], [0, 0.25],        
       ],
     ] // MultiLineString
     data.geometry.coordinates = basicSquare
@@ -337,11 +349,86 @@ async function anitem (__eo) {
 
     }
 
-    // .................. facesAni anima
-    let facesAni = {
+    // .................. facesAniN anima
+    let facesAniN = {
 
       eotim: eotim,
-      eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
+      eoric: {gid: 'facesAniN', cid: 'facesAniN', fid: 'facesAniN'},
+      eohal: 'mars',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload
+        let json = {
+          type: 'Feature',
+          geometry: {
+            type: 'MultiPoint',
+            coordinates: eoload.vertices(eoload.pars),
+          },
+          properties: {
+            sort: 'form',
+            eoMultiPolygon: 1,
+            faces: eoload.faces(eoload.pars).reduce((p, q) => [...p, ...muonGeom.convextriang(q)], []),
+            lights: eoload.lights(eoload.pars),
+          },
+        }
+
+        return json
+      },
+
+      eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+
+      eomot: {
+        proform: {
+
+          projection: 'uniwen',
+          translate: [
+            0,
+            0,
+            0,
+          ],
+
+          scale: [
+            100,
+            100,
+            100,
+          ],
+
+          // rotate: [ [[[0,9,0]]], [[[0,360]]], [[[0,9,0]]] ],
+          rotate: [ 0, 0, 0 ],
+          lens: [0, 1, Infinity ],
+
+        },
+      },
+      eoload: {
+        pars: {},
+        vertices: pars =>
+          [[0.5, 0.5, 0],
+            [0.5, 0.5, -0.5],
+            [0.5, -0.5, 0],
+            [0.5, -0.5, -0.5],
+            [-0.5, 0.5, 0],
+            [-0.5, 0.5, -0.5],
+            [-0.5, -0.5, 0],
+            [-0.5, -0.5, -0.5]],
+
+        faces: pars =>
+          [[0, 1, 5, 4],
+            [0, 4, 6, 2],
+            [0, 2, 3, 1],
+            [7, 3, 2, 6],
+            [7, 6, 4, 5],
+            [7, 5, 1, 3]],
+
+        lights: pars => [],
+
+      },
+    }
+
+    // .................. facesAniN anima
+    let facesAniS = {
+
+      eotim: eotim,
+      eoric: {gid: 'facesAniN', cid: 'facesAniN', fid: 'facesAniS'},
       eohal: 'mars',
 
       eofold: anitem => {
@@ -391,13 +478,13 @@ async function anitem (__eo) {
         pars: {},
         vertices: pars =>
           [[0.5, 0.5, 0.5],
-            [0.5, 0.5, -0.5],
+            [0.5, 0.5, -0],
             [0.5, -0.5, 0.5],
-            [0.5, -0.5, -0.5],
+            [0.5, -0.5, -0],
             [-0.5, 0.5, 0.5],
-            [-0.5, 0.5, -0.5],
+            [-0.5, 0.5, -0],
             [-0.5, -0.5, 0.5],
-            [-0.5, -0.5, -0.5]],
+            [-0.5, -0.5, -0]],
 
         faces: pars =>
           [[0, 1, 5, 4],
@@ -412,12 +499,101 @@ async function anitem (__eo) {
       },
     }
 
+    // ............................. forceGravity
+    let forceGravity = function (params) { // force
+      let nodes = params.nodes
+      let properties = params.properties || {}
+      let payload = params.properties.payload || {}
+
+      let args = payload.args || []
+      let opts = payload.opts || {}
+
+      let key = properties.key
+      let type = properties.type
+      let filter = properties.filter
+
+      let gravity = opts.gravity // gravity
+      console.assert(gravity !== Number.NaN, 'gravity is NaN')
+
+      let fforce = function force (...args) {
+        for (let i = 0; i < nodes.length; ++i) {
+          let node = nodes[i]
+          let g = muonProps.v(gravity, node)
+          console.assert(g !== Number.NaN, `gravity ${g} is NaN`)
+
+          node.vy += g
+        }
+      }
+      fforce.initialize = () => {} // initialize
+
+      let sys = {
+        nodes: nodes,
+        filter: filter,
+        force: fforce,
+      }
+
+      let ffforce = muonEoforces.isolate(sys)
+      console.assert(key || type !== null)
+      let field = 	{
+        key: key || type,
+        force: ffforce,
+      }
+
+      return field // return force
+    }
+
+    let force_gravity = { // aniForce:{properties, field}
+      properties: {
+        gravity: -0.7,
+      },
+      field: params => { // force.field
+        let forces = []
+
+        let nodes = params.nodes
+        let gravity = params.gravity || params.properties.gravity
+        let key = params.properties.key || 'gravity'
+
+        let properties = {
+          type: 'gravity',
+          src: d3_force,
+          nodes: nodes,
+          payload: { // passed to force in m.eoforces
+            args: [],
+            opts: {
+              gravity: gravity, // gravity
+            },
+          },
+          filter: d => d.eoric.fid === 'facesAniS',
+          id: d => d.eoric.uid,
+          key: key,
+        }
+
+        params.properties = properties
+        return forceGravity(params)
+      },
+    }    
+    // .................... fieldAni
+    let fieldAni = {
+
+      eohal: 'core',
+      eotim: eotim,
+      eoric: {gid: 'field', cid: 'field', fid: 'field'},
+
+      eofold: null,
+      eoload: {},
+
+    }
+    fieldAni.eoforces = {
+      force_gravity, // apply gravity to git.paced anitems
+    }    
     // .................. animas
     let animas = [
-      facesAni, // h.mars
+      facesAniN, // h.mars
+      facesAniS, // h.mars
       fourierAni, // h.mars
       lightHemisphereAni, // h.sol
       spotLight, // h.sol
+      fieldAni, // h.core      
 
     ]
     return animas

@@ -34,7 +34,7 @@
         eotim: eotim,
         eoric: {gid: 'nat', cid: 'nat', fid: 'natform'},
 
-        eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+        eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
 
         eomot: {
           proform: {

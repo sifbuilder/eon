@@ -157,7 +157,7 @@ async function anitem (__eo) {
           },
 
           eofold: function (ani, props) {
-            let neweofold = ani => muonNatform.natFeature({eoform: ani.eoform})
+            let neweofold = ani => muonNatform.natMultiLineString({eoform: ani.eoform})
             return neweofold
           },
 
@@ -313,7 +313,7 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
 
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eomot: {
         proform: {

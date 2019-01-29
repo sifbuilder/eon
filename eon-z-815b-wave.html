@@ -145,7 +145,7 @@ async function anitem (__eo) {
           gco: 0, // open line
         }
 
-        let res = muonNatform.natFeature(natipros) // Feature.LineString
+        let res = muonNatform.natMultiLineString(natipros) // Feature.LineString
 
         return res
       },
@@ -168,7 +168,7 @@ async function anitem (__eo) {
       eohal: 'mars',
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qgold'},
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -193,7 +193,7 @@ async function anitem (__eo) {
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'qblue'},
 
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eomot: {
         proform: {
           projection: 'uniwen',

@@ -173,7 +173,7 @@ async function anitem (__eo) {
     let lightAniDark = {
 
       eohal: 'mars',
-      eofold: p => muonNatform.natFeature({eoform: p.eoform}, {ghv: 1}),
+      eofold: p => muonNatform.natMultiLineString({eoform: p.eoform}, {ghv: 1}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
       eomot: {
@@ -219,7 +219,7 @@ async function anitem (__eo) {
     let lightAniFront = {
 
       eohal: 'mars',
-      eofold: p => muonNatform.natFeature({eoform: p.eoform}, {ghv: 1}),
+      eofold: p => muonNatform.natMultiLineString({eoform: p.eoform}, {ghv: 1}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q2'},
       eomot: {
@@ -244,7 +244,7 @@ async function anitem (__eo) {
 
       eohal: 'mars',
 
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim: eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q0'},
       eomot: {
@@ -270,7 +270,7 @@ async function anitem (__eo) {
 
       eohal: 'mars',
       eofold: p => {
-        let res = muonNatform.natFeature({eoform: p.eoform})
+        let res = muonNatform.natMultiLineString({eoform: p.eoform})
         console.log('res', res)
         return res
       },

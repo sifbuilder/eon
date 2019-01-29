@@ -100,7 +100,7 @@
                                       g === 1) { // assume nat on object
         let ws
 
-        let feature = muonNatform.natFeature({eoform: v}) // eoform
+        let feature = muonNatform.natMultiLineString({eoform: v}) // eoform
         if (!muonGeoj.isValid(feature)) console.error('gj not valid', v, feature)
         let geometry = feature.geometry
         let natRing

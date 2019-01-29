@@ -63,7 +63,7 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'natBall'},
 
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eonode: {
         type: 'Feature',
         geometry: {
@@ -158,7 +158,7 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eonode: {
         type: 'Feature',
         geometry: {
@@ -202,7 +202,7 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eofold: ani => muonNatform.natFeature({
+      eofold: ani => muonNatform.natMultiLineString({
         eoform: ani.eoform,
         ghv: 0, // horizontal geodesics
         gsa: 0, // symetric distribution of geodesics around the origin
@@ -261,7 +261,7 @@ async function anitem (__eo) {
           gco: 0, // closed line
         }
 
-        let gj = muonNatform.natFeature(natipros)
+        let gj = muonNatform.natMultiLineString(natipros)
         let coords = muonGeoj.getCoords(gj)
         let nb = coords.length
         let unElapsed = ani.eotim.unElapsed
@@ -452,7 +452,7 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: { gid: 'nat', cid: 'nat', fid: 'pacerNat' },
 
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eonode: {
         type: 'Feature',

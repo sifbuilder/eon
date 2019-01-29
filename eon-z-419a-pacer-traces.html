@@ -154,7 +154,7 @@ async function anitem (__eo) {
       // ... updated by transforms
       // ... relative to eonode
       // ... as eonode, properties keep transformed views
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eotim: eotim,
       eoric: {'gid': 'nat', 'cid': 'nat', 'fid': 'nat'},
@@ -214,7 +214,7 @@ async function anitem (__eo) {
         fid: 'traceNat',
       },
 
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eonode: {
         type: 'Feature',

@@ -16,8 +16,8 @@
   // ... ### properties
   // ...
   // ... ### methods
-  // ... natFeature
-  // ... `coordinates = Array.of(__eo("xs").m("nat").natFeature({eoform: p.form}))`
+  // ... natMultiLineString
+  // ... `coordinates = Array.of(__eo("xs").m("nat").natMultiLineString({eoform: p.form}))`
   // ...
   // ... rador
   // ... seg5 unit circle rador
@@ -37,7 +37,7 @@
   // ... calls p.nat
   // ... breaks circularity m.profier(.natfion --> p.natform)
   // ...    -p.natform(.natprofion -> .pointStream -> m.natform.natVertex)
-  // ...    -m.natform(.natFeature -> m.profier.formion)
+  // ...    -m.natform(.natMultiLineString -> m.profier.formion)
   // ...
   // ... conforms
   // ... `
@@ -390,11 +390,11 @@
           }
 
           vertices = muonGraticule.gjfMultiPoint(gratipros).geometry.coordinates
-          
+
         } else { // ___ 2d
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y
-          
+
           sx = 360
           sy = 360
 
@@ -460,9 +460,9 @@
       }
     }
 
-    // ............................. natFeature
+    // ............................. natMultiLineString
     //  geoframe: [ [ dom3.x, 360, 360/seg5.x ], [dom3.y, 360, 360/seg5.y ] ]
-    let natFeature = function (props = {}) {
+    let natMultiLineString = function (props = {}) {
       let feature
 
       const {
@@ -482,17 +482,21 @@
         let dx, dy, sx, sy
 
         if (nformed.z !== undefined) { // ___ 3d
+          sx = 360 / nformed.x.seg5 // x
+          sy = 360 / nformed.z.seg5 // ____ z ___
+
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.z.seg5 // ____ z ___
 
-          sx = dx
-          sy = dy
+          let dom3x = [-180, 180]
+          let dom3y = [-180, 180]
+          let dom3z = [-90, 90]
 
-          let xdomain = eoform.x.dom3 || [-180, 180]
-          let ydomain = eoform.z.dom3 || [-90, 90] // ____ z ___
+          let xdomain = eoform.x.dom3 || dom3x
+          let ydomain = eoform.z.dom3 || dom3z // ____ z ___
 
-          let geoframe = [ [ 
-            [...xdomain, sx, dx], [...ydomain, sy, dy] 
+          let geoframe = [ [
+            [...xdomain, sx, dx], [...ydomain, sy, dy]
           ] ]
 
           gratipros = {
@@ -503,15 +507,20 @@
           } // x, y
 
           geometry = muonGraticule.gjfMultiLineString(gratipros).geometry
-        } else { // ___ 2d
-          dx = 360 / nformed.x.seg5 // x
-          dy = 360 / nformed.y.seg5 // y
 
+        } else { // ___ 2d
           sx = 360
           sy = 360
 
-          let xdomain = nformed.x.dom3 || [-180, 180]
-          let ydomain = nformed.y.dom3 || [-180, 180]
+          dx = 360 / nformed.x.seg5 // x
+          dy = 360 / nformed.y.seg5 // y
+
+          let dom3x = [-180, 180]
+          let dom3y = [-180, 180]
+          let dom3z = [-90, 90]
+          
+          let xdomain = nformed.x.dom3 || dom3x
+          let ydomain = [0,0] // nformed.y.dom3 || dom3y
 
           let geoframe = [ [
             [...xdomain, sx, dx], [...ydomain, sy, dy],
@@ -527,10 +536,9 @@
           console.assert(ghv === 0 || ghv === 1, `2d forms have no meridians`)
 
           geometry = muonGraticule.gjfMultiLineString(gratipros).geometry // geometry.type: MultiLineString
-if (1 && 1) console.log('***********geometry', geometry)
 
-          let p = geometry.coordinates[0]
-          geometry.coordinates = Array.of(p)
+          // let p = geometry.coordinates[0] // [[[[-180,0],[180,0]]]] , [[[[0,-180],[0,180]]]] 
+          // geometry.coordinates = Array.of(p)
         }
 
         let gj = {
@@ -658,7 +666,7 @@ if (1 && 1) console.log('***********geometry', geometry)
       // console.assert(_s1(0) === 3)
       // console.assert(_s2(_s1(0)) === 1)
       // console.assert(_s1(180) === 6)
-      // console.assert(_s2(_s1(180)) === 0.24253562503633297)    
+      // console.assert(_s2(_s1(180)) === 0.24253562503633297)
     function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
       let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)
 
@@ -735,7 +743,7 @@ if (1 && 1) console.log('***********geometry', geometry)
     // ............................. enty
     let enty = function () {}
 
-    enty.natFeature = natFeature
+    enty.natMultiLineString = natMultiLineString
     enty.natMultiPolygon = natMultiPolygon
 
     enty.natNform = natNform

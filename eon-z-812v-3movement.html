@@ -250,7 +250,7 @@ async function anitem (__eo) {
     let haloAni = {
       eohal: 'mars',
       eofold: ani => {
-        let res = muonNatform.natFeature({
+        let res = muonNatform.natMultiLineString({
           eoform: ani.eoform,
           ghv: 1,
         })
@@ -330,7 +330,7 @@ async function anitem (__eo) {
     // ............................. sphereAni3a
     let sphereAni3a = {
       eohal: 'mars',
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q3a'},
       eomot: {
@@ -352,7 +352,7 @@ async function anitem (__eo) {
     // ............................. sphereAni3b
     let sphereAni3b = {
       eohal: 'mars',
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q3b'},
       eomot: {
@@ -374,7 +374,7 @@ async function anitem (__eo) {
     // ............................. lineAni
     let lineAni = {
       eohal: 'mars',
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q4'},
       eomot: {
@@ -397,7 +397,7 @@ async function anitem (__eo) {
     let circleAni = {
       eohal: 'mars',
       eofold: ani => {
-        let form = muonNatform.natFeature({eoform: ani.eoform})
+        let form = muonNatform.natMultiLineString({eoform: ani.eoform})
         let gjf = {
           type: 'Feature',
           geometry: {
@@ -428,7 +428,7 @@ async function anitem (__eo) {
     // ............................. torusAni
     let torusAni = {
       eohal: 'mars',
-      eofold: ani => muonNatform.natFeature({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q3'},
       eomot: {
