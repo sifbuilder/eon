@@ -14,12 +14,14 @@
       d3,
       d3Geo,
       muonGeom,
+      muonVector2,
       renderPortview,
       // renderSvg,  
     ] = await Promise.all([
       __eo('xs').b('d3'),
       __eo('xs').b('d3-geo'),
       __eo('xs').m('geom'),
+      __eo('xs').m('vector2'),
       __eo('xs').r('portview'),
       // __eo('xs').r('svg'),  
     ])
@@ -44,8 +46,8 @@
 
     function stopMomentum () { cancelAnimationFrame(state.timer); state.timer = null }
 
-    // .................. rebase
-    function rebase () {
+    // .................. rebaseDrag
+    function rebaseDrag () {
       state.rotInDrag_s_degrees = [0, 0, 0]
       state.rotInDrag_c_degrees = [0, 0, 0]
     }
@@ -126,7 +128,9 @@
     function dragstarted () {
       let e = d3selection.event
       if (state.grabbed) return // drag ongoing
+      
       stopMomentum()
+      
       state.moved = false // not moved yet
       state.grabbed = getPos(e)
 
@@ -143,7 +147,7 @@
               state.rotAccum_s_degrees,
               state.rotInDrag_s_degrees) // rotation
 
-      rebase() // rebase rotInDrag
+      rebaseDrag() // reset rotInDrag
     }
 
     // .................. dragged  listener
@@ -157,22 +161,25 @@
       state.s1 = state.s2
       state.s2 = getPos(e)
 
+      // sd12 is delta bewteen two ticks in dragged
       let sd12 = [ // qurrent  // invert
         xsign * (state.s2[1] - state.s1[1]),
         ysign * (state.s1[0] - state.s2[0]),
       ]
 
+      // sd02 is delta from beginning of drag to current tick
       let sd02 = [ // present  // invert
         xsign * (state.s2[1] - state.s0[1]),
         ysign * (state.s0[0] - state.s2[0]),
       ]
 
-      let sdist = sd02[0] * sd02[0] + sd02[1] * sd02[1]
+      // if this is the first tick in dragged (after dragstart)
       if (!state.moved) {
+        let sdist = sd02[0] * sd02[0] + sd02[1] * sd02[1]
         if (sdist < state.moveSpan) return
         state.moved = true // moved
         state.rotInDrag_s_degrees = state.rotInit_degrees
-        rebase()
+        rebaseDrag() // reset rotInDrag
       }
 
       let rotInDrag_s_degrees = [
@@ -180,7 +187,7 @@
         state.rotVel_s_degrees[1] + sd02[1] * state.mult_degrees_s,
       ]
       state.rotInDrag_s_degrees = rotInDrag_s_degrees
-
+    
       state.lastMoveTime = Date.now()
     }
 
@@ -249,8 +256,10 @@
     }
 
     enty.rotation = () => {
-      let res_s = muonGeom.add(state.rotAccum_s_degrees, state.rotInDrag_s_degrees)
-      let res = res_s
+      let res = muonGeom.add(
+        state.rotAccum_s_degrees, 
+        state.rotInDrag_s_degrees
+      )
       return res
     }
 

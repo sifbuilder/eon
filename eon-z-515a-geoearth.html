@@ -36,7 +36,7 @@ async function anitem (__eo) {
     // .................. pics
     let ctl
     try {
-      ctl = ctlVersor().control(renderSvg.svg())
+      ctl = ctlWen().control(renderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
@@ -59,19 +59,14 @@ async function anitem (__eo) {
 
       projection: darkProjection,
       prerotate: [[[ t => {
-        // let rot = ctlWen
-        // .projection({projection: darkProjection}) // versor projection
-        // .rotation()
-        let rot = ctlVersor
+        let rot = ctlWen
           .projection({projection: darkProjection}) // versor projection
           .rotation()
         let res = [180 + rot[0], -rot[1], -rot[2]]
         return res
       }]]],
 
-      rotate: [ [[[0, 0 + -2 * 360]]], [[[0, 0 * 360]]], 0 ],
-      // rotate: [ 90, 0, 0 ],
-      // rotate: [ 0, 0, 0 ],
+      rotate: [ [[[0, 0 + 2 * 360]]], [[[0, 0 * 360]]], 0 ],
 
     }
 
@@ -115,10 +110,7 @@ async function anitem (__eo) {
 
       projection: frontProjection,
       prerotate: [[[ function (t) {
-        // let rot = ctlWen
-        // .projection({projection: frontProjection}) // versor projection
-        // .rotation()
-        let rot = ctlVersor
+        let rot = ctlWen
           .projection({projection: frontProjection}) // versor projection
           .rotation()
         return rot
@@ -126,9 +118,7 @@ async function anitem (__eo) {
 
       translate: [0, 0, 0],
       scale: 180,
-      rotate: [ [[[30, -2 * 360]]], [[[0, 0 * 360]]], 0 ],
-      // rotate: [ 90, 0, 0 ],
-      // rotate: [ 0, 0, 0 ],
+      rotate: [ [[[30, 2 * 360]]], [[[0, 0 * 360]]], 0 ],
 
     }
 

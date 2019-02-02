@@ -90,6 +90,7 @@
       rotInDrag_degrees: [0, 0, 0],
       rotVel_degrees: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
       vel_degrees: [0, 0, 0],
+      polar2_deg: [0, 0, 0],
 
       grabbed: false,
       moved: false,
@@ -109,9 +110,10 @@
 
     // .................. dragstarted listener
     function dragstarted () {
-      let e = d3selection.event
+      let e = d3selection.event // in F screen coords
 
-      if (state.grabbed) return // drag ongoing
+
+      // if (state.grabbed) return // drag ongoing
 
       let projection = state.projection
       console.assert(projection.invert !== undefined)
@@ -120,20 +122,24 @@
       stopMomentum()
 
       state.moved = false // not moved yet
-      state.grabbed = getPos(e)
-
+      
+      state.grabbed = getPos(e) // in + screen coords
+      
       state.s2 = state.grabbed // present
       state.s1 = state.s2 // present first
       state.s0 = state.s1 // current
 
-      let inveGeo2 = state.projection.invert(state.s2)
-      state.c2 = muonGeom.cartesian(inveGeo2)
-      state.r2_degrees = inits.rotInit_degrees
-      state.q2 = muonVersor(state.r2_degrees) // quaternion of initial rotation
+      let polar2_deg = state.projection.invert(state.s2)  // [-90,0] [0,0] [90,0]
+
+      state.c2 = muonGeom.cartesian(state.polar2_deg) // [0,-1,0], [1,0,0], [0.36,1,0] 
+      if (1 && 1) console.log('dragstarted c2', state.c2)
+
+      state.r2_deg = inits.rotInit_degrees
+      state.q2 = muonVersor(state.r2_deg) // quaternion of initial rotation
 
       state.c0 = state.c2
       state.c1 = state.c2
-      state.r1_degrees = state.r2_degrees
+      state.eul1_deg = state.r2_deg
       state.q1 = state.q2
       state.q0 = state.q1
 
@@ -141,54 +147,55 @@
       state.rotAccum_degrees =
             muonGeom.add(
               state.rotAccum_degrees,
-              // [0, 0, 0]
-              state.rotInDrag_degrees // at end of last drag
+              
+               state.rotInDrag_degrees // at end of last drag // 
             )
 
-      rebase() // rebase rotInDrag
+      state.rotInDrag_degrees = [0,0,0] // rebase rotInDrag
     }
 
     // .................. dragged  listener
     function dragged () {
       if (!state.grabbed) return
 
+
       let e = d3selection.event
 
-      state.s1 = state.s2
-      state.s2 = getPos(e)
+      state.s1 = state.s2  // + screen previous
+      state.s2 = getPos(e) // + screen current
+      state.polar2_deg = state.projection.rotate(state.eul1_deg).invert(state.s2)
 
-      state.c2Rads = state.projection
-        .rotate(state.r1_degrees)
-        .invert(state.s2)
 
-      state.c0 = state.c0
       state.c1 = state.c2
-      state.c2 = muonGeom.cartesian(state.c2Rads)
+      state.c2 = muonGeom.cartesian(state.polar2_deg)
 
-      let sd12 = [ // qurrent
+      let sd12 = [ // distance between two ticks in drag
         xsign * (state.s2[1] - state.s1[1]),
         ysign * (state.s1[0] - state.s2[0]),
       ]
 
-      let sd02 = [ // present
+      let sd02 = [ // distance from beginning of drag
         xsign * (state.s2[1] - state.s0[1]),
         ysign * (state.s0[0] - state.s2[0]),
       ]
 
-      let sdist = sd02[0] * sd02[0] + sd02[1] * sd02[1]
       if (!state.moved) {
+        let sdist = sd02[0] * sd02[0] + sd02[1] * sd02[1]
         if (sdist < inits.moveSpan) return
         state.moved = true // moved
-        state.rotInDrag_degrees = inits.rotInit_degrees
-        rebase()
+        // rebase()
       }
 
-      // muonVersor - delta - rotation
-      state.qd02 = muonVersor.delta(state.c0, state.c2) // c1-c0
+      state.qd01 = muonVersor.delta(state.c1, state.c2) // c1-c2
+      state.qd02 = muonVersor.delta(state.c0, state.c2) // c0-c2
+
+
       let rotInDrag_degrees = muonVersor.rotation(state.qd02)
       state.rotInDrag_degrees = rotInDrag_degrees
-
-      state.lastMoveTime = Date.now()
+      if (1 && 1) console.log('dragged rotInDrag_degrees', state.rotInDrag_degrees)
+      // state.lastMoveTime = Date.now()
+// if (1 && 1) console.log('dragged end')
+      
     }
 
     // .................. dragended
@@ -197,22 +204,24 @@
       state.grabbed = false
       if (!state.moved) return
 
-      let cd12 = [
-        state.c2[1] - state.c1[1],
-        state.c2[0] - state.c1[0],
-      ]
-      let msd12 = [
-        xsign * cd12[0] * inits.mult_degrees,
-        ysign * cd12[1] * inits.mult_degrees,
-      ]
 
-      let qd01 = muonVersor.delta(state.c1, state.c2) // c2-c1
-      state.vel_degrees = muonVersor.rotation(qd01) // vel c2-c1
+      
+      // let cd12 = [
+        // state.c2[1] - state.c1[1],
+        // state.c2[0] - state.c1[0],
+      // ]
+      // let msd12 = [
+        // xsign * cd12[0] * inits.mult_degrees,
+        // ysign * cd12[1] * inits.mult_degrees,
+      // ]
 
-      if (1 && 1) console.log('dragged qd01', state.qd01)
+      // let qd01 = muonVersor.delta(state.c1, state.c2) // c2-c1
+      // state.vel_degrees = muonVersor.rotation(qd01) // vel c2-c1
+
+      // if (1 && 1) console.log('dragged qd01', state.qd01)
       // if (1 && 1) console.log('vel_degrees', state.vel_degrees)
 
-      state.timer = requestAnimationFrame(momentum)
+      // state.timer = requestAnimationFrame(momentum)
     }
 
     // .................. momentum
