@@ -51,7 +51,9 @@
 
         res.properties = Object.assign({}, {
           sort: 'text',
-          string: textform.string || '',
+          
+          string: (typeof textform.string === 'function') ? textform.string() : textform.string,
+          
           style: {
 
             'rotate': textform.style['rotate'],
@@ -72,10 +74,12 @@
 
           },
         })
+        
       } else if (eofold.type === 'Feature' &&
           (eofold.geometry.type === 'LineString')
       ) {
         res = eofold
+
 
         res.properties = Object.assign({}, res.properties, {
           sort: 'text',

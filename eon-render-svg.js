@@ -9,7 +9,6 @@
   'use strict'
 
   async function renderSvg (__eo = {}) {
-    // ... **render svg**
     // ...
     // ... The viewport is the visible area of the SVG image
     // ... Default units are pixels
@@ -72,11 +71,13 @@
         .attr('width', state.width)
         .attr('height', state.height)
         .style('position', 'absolute')
-        .style('top', 0)
-        .style('left', 0)
+        .style('top', 10)
+        .style('left', 10)
         .style('fill', 'transparent')
         .style('background-color', state.background) // background
         .append('defs')
+
+        
     }
 
     let resetsvg = function () {
@@ -106,6 +107,8 @@
           .attr('width', state.width)
           .attr('height', state.height)
           .style('border', '1px solid lightgray')
+
+
         return svgLayer
       } else if (typeof (idfyer) === 'string') {
         // manage the dom elements

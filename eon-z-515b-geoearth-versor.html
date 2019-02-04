@@ -7,112 +7,30 @@ async function anitem (__eo) {
   // .................. eons
   let [
     d3Geo,
-    d3Geoprojection,
     topojson,
-    ctlWen,
     ctlVersor,
     datWorldTopo110m,
     eohalMars,
-    muonGeom,
+    eohalTextform,
     muonGraticule,
-    muonNatform,
-    prtNatform,
     renderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
-    __eo('xs').b('d3-geo-projection'),
     __eo('xs').b('topojson'),
-    __eo('xs').c('wen'),
     __eo('xs').c('versor'),
     __eo('xs').d('worldTopo110m'),
     __eo('xs').e('mars'),
-    __eo('xs').m('geom'),
+    __eo('xs').e('textform'),
     __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
-    __eo('xs').p('natform'),
     __eo('xs').r('svg'),
   ])
 
   // .................. animas
   let ani = function () {
     // .................. pics
-    let ctl
-    try {
-      ctl = ctlVersor().control(renderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
-    }   
-    
+    ctlVersor().control(renderSvg.svg())
+
     let eotim = {'td': 18800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
-
-    let pi = Math.PI,
-      radians = Math.PI / 180, degrees = 180 / Math.PI,
-      sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
-      sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh,
-      exp = Math.exp,
-      epsilon = 1e-5
-
-    let formCube = {
-
-      x: {
-        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-        'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-        'dom3': [-180, 180],
-
-      },
-      y: {
-        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-        'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-        'dom3': [-180, 180],
-
-      },
-      z: {
-        'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-        'ra2': 90, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
-        'pr8': d => Math.cos(d),
-        'dom3': [-180, 180],
-
-      },
-    }
-
-    let conformTangerine = {
-      x: {
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[60, 60]]], 'pa6': 0, 'pb7': -1,
-        'dom3': [ -180, 180 ],
-        c: [ 1, 1, 1, 1],
-        fn0: (e, c, d) => cos(e[0]) * cos(e[2]),
-      },
-      y: {
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[60, 60]]], 'pa6': 0, 'pb7': -1,
-        'dom3': [ -180, 180 ],
-        c: [ 1, 1, 1, 1],
-        fn0: (e, c, d) => sin(e[0]) * cos(e[2]),
-      },
-      z: {
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'ra2': 160, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[60, 60]]], 'pa6': 0, 'pb7': -1,
-        'dom3': [-90, 90],
-        c: [ 1, 1, 1, 1],
-        fn0: (e, c, d) => sin(e[2] + (pi / 18) * cos(6 * e[0])),
-      },
-      w: {
-        'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
-        'dom3': [ -90, 90 ],
-        fn0: (e, c, d) => d.c[3] * sin(e[2] * (1 + epsilon * sin(e[0]))),
-      },
-
-    }
-
-    let proform = {
-      projection: 'uniwen',
-      scale: [ 1, 1 ],
-      prerotate: [[[ ctl.rotation ]]],
-      translate: [ [0, 0, 0] ],
-      rotate: [ 0, 0, 0 ],
-      lens: [0, 1, Infinity ],
-    }
 
     // .................. geoearthDark  DARK
     let pDark = function () {
@@ -131,14 +49,11 @@ async function anitem (__eo) {
       projection: darkProjection,
       prerotate: [[[ t => {
         let rot = ctlVersor
-          .projection({projection: darkProjection}) // versor projection
+          .projection({projection: darkProjection})
           .rotation()
         let res = [180 + rot[0], -rot[1], -rot[2]]
         return res
       }]]],
-
-      // rotate: [ [[[0, 0 + 0 * 360]]], [[[0, 0 * 360]]], 0 ],
-      // rotate: [ 90, 0, 0 ],
       rotate: [ 0, 0, 0 ],
 
     }
@@ -191,8 +106,6 @@ async function anitem (__eo) {
 
       translate: [0, 0, 0],
       scale: 180,
-      // rotate: [ [[[30, 0 * 360]]], [[[0, 0 * 360]]], 0 ],
-      // rotate: [ 90, 0, 0 ],
       rotate: [ 0, 0, 0 ],
 
     }
@@ -200,7 +113,7 @@ async function anitem (__eo) {
     let geoearthFront = {
 
       eohal: 'mars',
-      eotim,
+      eotim: eotim,
       eoric: {gid: 'geo', cid: 'geo', fid: 'geoearthFront'},
 
       eofold: () => {
@@ -224,7 +137,7 @@ async function anitem (__eo) {
     // .................. graticuleFront
     let graticuleFront = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
       eotim: eotim,
       eomot: {
@@ -242,99 +155,65 @@ async function anitem (__eo) {
       eoload: {},
 
     }
+    // .................. textAni
+    let textAni = {
 
-    // ............................. tangerineAni
-    let tangerineAni3 = {
-
-      eohal: 'mars',
-      eotim,
-      eoric: {gid: 'q', cid: 'q', fid: 'q3'},
-
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoform),
-
-      eomot: {
-        proform: proform,
-      },
-
-      eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
-        'cs': [[[333, 333, 333]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-
-      eoframe: {
-
-        geoframe: [ [ [-180, 180, 45, 45],
-          [-90, 90, 22.5, 22.5] ],
-        [ [-180, 180, 45, 45],
-          [-90, 90, 22.5, 22.5] ] ],
-
-      },
-      eoform: conformTangerine,
-      eoload: {},
-    }
-
-    // ............................. tangerineAni
-    let tangerineAni = {
-
-      eohal: 'mars',
-      eotim,
-      eoric: {gid: 'q', cid: 'q', fid: 'q2'},
-
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
-
-      eomot: {
-        // conform: {
-        // projection: 'natform',
-        // eoform: formCube,
-        // },
-        proform: proform,
-      },
-
-      eocrom: { 'csx': 0, 'cf': [[[ 666, 333, 666]]], 'co': [[[0.069, 0.06, 0.069]]],
-        'cs': [[[333, 333, 333]]], 'cw': [[[0.99, 0.9, 0.99]]], 'cp': [[[0.99, 0.99]]]},
-
-      eoform: conformTangerine,
-      eoload: {},
-    }
-    // ............................. earthAni
-    let earthAni = {
-
-      eohal: 'mars',
+      eohal: eohalTextform,
+      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
       eotim: eotim,
-      eoric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
 
-      eofold: p => {
-        let geometry = Object.assign({},
-          topojson.mesh(
-            datWorldTopo110m.data(),
-            datWorldTopo110m.data().objects.land
-          )
-        )
-        return { type: 'Feature', geometry: geometry, properties: {} }
+      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+
+      eofold: ani => {
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          },
+        }
+        return res
       },
-
-      eocrom: { 'csx': 0, 'cf': 444, 'cs': 444, 'cw': 0.1, 'co': 0.9, 'cp': 0.9},
 
       eomot: {
-        conform: {
-          projection: 'natform',
-          eoform: conformTangerine,
+        proform: {
+          projection: 'uniwen',
+          translate: [ -270, 150 ],
         },
-        proform: proform,
       },
 
-      eoload: {},
+      eoload: {
+        textform: {
+          string: function () {
+            let rot = this.rotation
+            let euls = rot.map(d => Math.floor(10 * d) / 10)
+            let res = `λ = ${euls[0]}, φ = ${euls[1]}, γ = ${euls[2]}`
+            return res
+          },
 
+          rotation: [[[ ctlVersor.rotation ]]],
+          style: {
+            rotate: [[[ 0, 0 ]]],
+            'font-size': [[[16, 16]]],
+            'font-family': 'BankFuturistic',
+            'text-anchor': 'center',
+
+          },
+        },
+
+      },
     }
 
-    let animas = [
+    // .................. scene
+    let scene = {
       geoearthDark,
       geoearthFront, // h.mars g.orthographic
       graticuleFront, // h.mars
-      // tangerineAni, //
-      // earthAni, //
+      textAni,
 
-    ]
+    }
 
-    return animas
+    return scene
   }
 
   let enty = () => {}
