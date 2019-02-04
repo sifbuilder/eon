@@ -83,7 +83,7 @@
       rotVel_degrees: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
       vel_degrees: [0, 0, 0],
 
-      grabbed: false,
+      position: false,
       moved: false,
 
       lastMoveTime: null,
@@ -98,11 +98,11 @@
       s2: null, // current position
     }
 
-    // .................. dragstarted listener
+    // .................. dragstarted
     function dragstarted () {
       let e = d3selection.event
 
-      if (state.grabbed) return // drag ongoing
+      if (state.position) return // drag ongoing
 
       let projection = state.projection
       console.assert(projection.invert !== undefined)
@@ -111,28 +111,51 @@
       stopMomentum()
 
       state.moved = false // not moved yet
-      state.grabbed = getPos(e)
+      state.position = getPos(e)
 
-      state.s2 = state.grabbed // present
+      state.s2 = state.position // present
       state.s1 = state.s2 // present first
       state.s0 = state.s1 // current
 
       let inveGeo2 = state.projection.invert(state.s2)
       state.c2 = muonGeom.cartesian(inveGeo2)
       state.r2_degrees = inits.rotInit_radians
-      
+
       state.q2 = muonVersor(state.r2_degrees) // quaternion of initial rotation
 
       state.c0 = state.c2
       state.c1 = state.c2
       state.r1_degrees = state.r2_degrees
-      state.q1 = state.q2
-      state.q0 = state.q1
+      // state.q1 = state.q2
+      // state.q0 = state.q1
+
+      _v0 = muonVersor.cartesian(projection.invert(state.position))
+      state._r0 = projection.rotate()
+      state._q0 = muonVersor(state._r0)
+// if (1 && 1) console.log('_q0', state._q0)
+
+      // var rotation = versor.rotation(
+        // versor.multiply(q10, versor.delta(v10, v11, t * 1000))
+      // )
+
     }
 
-    // .................. dragged  listener
+    let
+      _v0, // Mouse position in Cartesian coordinates at start of drag gesture.
+      _r0, // Projection rotation as Euler angles at start.
+      _q0, // Projection rotation as versor at start.
+      _v10, // Mouse position in Cartesian coordinates just before end of drag gesture.
+      _v11, // Mouse position in Cartesian coordinates at end.
+      _q10 // Projection rotation as versor at end.
+
+    let
+       _r1,
+       _v1,
+       _q1
+
+    // .................. dragged
     function dragged () {
-      if (!state.grabbed) return
+      if (!state.position) return
 
       let e = d3selection.event
 
@@ -165,17 +188,42 @@
       let rotInDrag_degrees = muonVersor.rotation(state.qd2)
       state.rotInDrag_degrees = rotInDrag_degrees
       state.lastMoveTime = Date.now()
+
+
+
+      state._inv = state.projection.rotate(state._r0).invert(state.position)
+      if (isNaN(state._inv[0])) return
+      _v1 = muonVersor.cartesian(state._inv),
+        _q1 = muonVersor.multiply(state._q0, muonVersor.delta(_v0, _v1)),
+        _r1 = muonVersor.rotation(_q1);
+// if (1 && 1) console.log('_r1',  _r1)
+      // var rotation = versor.rotation(
+        // versor.multiply(q10, versor.delta(v10, v11, t * 1000))
+      // )
     }
 
     // .................. dragended
     function dragended () {
-      if (!state.grabbed) return
-      state.grabbed = false
+      state.velocity = [0,0]
+      _v10 = muonVersor.cartesian(
+        state.projection.invert(
+          state.position.map(function(d, i) {
+            return d - state.velocity[i] / 1000;
+          })
+        )
+      )
+      _q10 = muonVersor(state.projection.rotate());
+      _v11 = muonVersor.cartesian(state.projection.invert(state.position))
+
+
+
+      if (!state.position) return
+      state.position = false
       if (!state.moved) return
 
       state.vel_degrees = muonVersor.rotation(state.qd1) // vel c2-c1
 
-      if (1 && 1) console.log('vel_degrees', state.vel_degrees)
+      // if (1 && 1) console.log('vel_degrees', state.vel_degrees)
 
       state.timer = requestAnimationFrame(momentum)
     }
@@ -218,6 +266,17 @@
     }
 
     enty.rotation = () => {
+
+
+      // let res = [0,0,0]
+      // if (_v10 !== undefined && _v11 !== undefined ) {
+        // res = muonVersor.rotation(
+          // muonVersor.multiply(_q10, muonVersor.delta(_v10, _v11, _r1 * 1000))
+        // )
+        // if (1 && 1) console.log('res', res)
+      // }
+
+
       let res = muonGeom.add(
         state.rotAccum_degrees,
         state.rotInDrag_degrees)
