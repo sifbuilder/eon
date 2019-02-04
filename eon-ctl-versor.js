@@ -97,6 +97,20 @@
       s1: null, // previous position
       s2: null, // current position
     }
+    
+
+    let
+      _v0, // Mouse position in Cartesian coordinates at start of drag gesture.
+      _r0, // Projection rotation as Euler angles at start.
+      _q0, // Projection rotation as versor at start.
+      _v10, // Mouse position in Cartesian coordinates just before end of drag gesture.
+      _v11, // Mouse position in Cartesian coordinates at end.
+      _q10 // Projection rotation as versor at end.
+
+    let
+       _r1,
+       _v1,
+       _q1    
 
     // .................. dragstarted
     function dragstarted () {
@@ -140,18 +154,6 @@
 
     }
 
-    let
-      _v0, // Mouse position in Cartesian coordinates at start of drag gesture.
-      _r0, // Projection rotation as Euler angles at start.
-      _q0, // Projection rotation as versor at start.
-      _v10, // Mouse position in Cartesian coordinates just before end of drag gesture.
-      _v11, // Mouse position in Cartesian coordinates at end.
-      _q10 // Projection rotation as versor at end.
-
-    let
-       _r1,
-       _v1,
-       _q1
 
     // .................. dragged
     function dragged () {
