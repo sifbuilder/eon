@@ -101,12 +101,14 @@ async function anitem (__eo) {
         let rot = ctlVersor
           .projection({projection: frontProjection})
           .rotation()
+          if (1 && 1) console.log('z.prerotate', rot)
+
         return rot
       } ]]],
 
       translate: [0, 0, 0],
       scale: 180,
-      rotate: [ 0, 0, 0 ],
+      rotate: [ 0, -45, -45], // [[[0, 5 * 360]]], -6, -6 ],  // _e_
 
     }
 
@@ -179,6 +181,8 @@ async function anitem (__eo) {
         proform: {
           projection: 'uniwen',
           translate: [ -270, 150 ],
+          rotate: [ 0,0,0 ],
+          prerotate: [ 0,0,0 ],
         },
       },
 
@@ -206,9 +210,9 @@ async function anitem (__eo) {
 
     // .................. scene
     let scene = {
-      geoearthDark,
+      // geoearthDark,
       geoearthFront, // h.mars g.orthographic
-      graticuleFront, // h.mars
+      // graticuleFront, // h.mars
       textAni,
 
     }

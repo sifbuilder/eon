@@ -107,6 +107,7 @@
       q1,
       q2,
       c1,
+      inv0,
       inv,
       qd01,
       qd1,
@@ -132,14 +133,16 @@
       s1 = s2 // present first
       s0 = s1 // current
 
-      // Returns Cartesian coordinates [x, y, z] given spherical coordinates [λ, φ]
-      v0 = muonVersor.cartesian(projection.invert(position))
-      r0 = projection.rotate()  // degrees
-      q0 = muonVersor(r0)
+      r0 = projection.rotate()  // projection rotation in degrees
+      q0 = muonVersor(r0)  // quaternion of projection rotation
+      inv0 = projection.rotate(r0).invert(position) // spherical coordinates [λ, φ]
+      v0 = muonVersor.cartesian(inv0) // cartesian coordinates [x, y, z] 
 
 
-
-
+      rotAccum_degrees = muonGeom.add(
+        rotAccum_degrees,
+        rotInDrag_degrees)
+      rotInDrag_degrees = [0,0,0]
     }
 
 
@@ -157,21 +160,18 @@
         let sdist = sd[0] * sd[0] + sd[1] * sd[1]
         if (sdist < inits.moveSpan) return
         moved = true // moved
-        rotInDrag_degrees = inits.rotInit_degrees
+        return
       }
 
 
       inv = projection.rotate(r0).invert(position)
       if (isNaN(inv[0])) return
       v1 = muonGeom.cartesian(inv)
-      q1 = muonVersor.multiply(q0, muonVersor.delta(v0, v1)),
-      r1 = muonVersor.rotation(q1)
+      qd01 = muonVersor.delta(v0, v1)
+      r1 = muonVersor.rotation(qd01)
       rotInDrag_degrees = r1
 
-      let inv01 = projection.rotate(r0).invert(preposition)
-      let v01 = muonGeom.cartesian(inv01)
-      qd01 = muonVersor.delta(v01, v1) 
-
+ 
 
     }
 
@@ -234,6 +234,8 @@
         // )
         // if (1 && 1) console.log('res', res)
       // }
+// if (1 && 1) console.log(' >>>>>>>>>> rotAccum_degrees', rotAccum_degrees)
+if (1 && 1) console.log(' >>>>>>>>>> rotInDrag_degrees', rotInDrag_degrees)
 
 
       let res = muonGeom.add(

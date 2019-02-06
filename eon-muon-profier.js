@@ -157,7 +157,7 @@
         }
 
         let prerotate = projdef.prerotate
-
+          if (1 && 1) console.log('m.prerotate', prerotate)
         if (prerotate) rot = muonGeom.add(rot, prerotate) // ADD prerotate
 
         let dims = projrot.length // planar or spherical geometry
