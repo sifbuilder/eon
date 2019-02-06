@@ -49,148 +49,98 @@
     let reset = elem => elem.call(d3drag.drag().on('start', null).on('drag', null).on('end', null))
 
     // .................. inits
-    let inits = {
-      decay: 0.85,
-      mult_radians: 2e-3, // rotInDrag_radians factor
-      rotInit_radians: [0, 0, 0],
 
-      mult_degrees: 2e-5, // rotInDrag_rads factor
-      rotInit_degrees: [0, 0, 0],
+    const
+      decay = 0.85,
+      moveSpan = 16
 
-      timeSpan: 200,
-      moveSpan: 16,
-    }
-
-    let xsign = 1 //  1 if x goes left to right
-    let ysign = -1 // 1 if y goes up down
-
-    // ..................
-    // let = {
     let
-      projection = d3geo.geoOrthographic()
+      projection = d3geo.geoOrthographic() // default projection
         .rotate([0, 0])
         .translate([0, 0])
         .scale(1),
-
-      rotAccum_radians = [0, 0, 0],
-      rotInDrag_radians = [0, 0, 0], // rotInDrag_radians in radians
-      rotVel_radians = [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
-      vel_radians = [0, 0, 0], // from dragEnd to momemtum
-
-      rotAccum_degrees = [0, 0, 0],
-      rotInDrag_degrees = [0, 0, 0],
-      rotInitial_degrees = [0, 0, 0],
-      rotVel_degrees = [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
+      rotAccum_degrees = [0, 0, 0], // rotation accumulated from previous drags
+      rotInDrag_degrees = [0, 0, 0], // rotation in current drag
       vel_degrees = [0, 0, 0],
-
-      position = false,
-      moved = false,
-
-      lastMoveTime = null,
-      timer = null,
-
-      c0 = null, // Mouse cartesian position invprojected
-      r0_degrees = null, // Projection rotation as Euler angles at start
-      q0 = null, // Quaternion. Projection rotation
-      p0 = null, // Mouse position (spher)
-      dtc = null, // Distance initial dot to center untransformed
-      s1 = null, // previous position
-      s2 = null // current position
-
-    let s0,
-      v0,
-      v1,
-      r1,
-      r2_zero,
-      r1_zero,
-      velocity,
-      q1,
-      q2,
-      c1,
-      inv0,
-      inv,
-      qd01,
-      qd1,
-      qd2,
-      r0,
-      preposition
-    // }
-
-
+      position = false, // position in view coordinates while draggging
+      preposition, // position in view coordinates before current drag
+      moved = false, // move is effective while dragging
+      timer = null, // host animation frame
+      v0, // cartesian coordinates at start of drag [x, y, z]
+      v1, // cartesian coordinates during drag
+      v10, // cartesian coordinates before current in drag
+      inv0, // spherical coordinates [lam, fi] at drag start
+      inv, // spherical coordinates [lam, fi] while dragging
+      r0, // rotation at the beginning of draft. used during drag
+      r1, // rotation to get to new spherical
+      q1, // quaternion from drag start to current drag
+      q10 // quaternion from previous to drag current drag
 
     // .................. dragstarted
     function dragstarted () {
       let e = d3selection.event
 
-      if (position) return // drag ongoing
+      if (position) return // wait while drag ongoing
 
       stopMomentum()
 
       moved = false // not moved yet
-      position = getPos(e)
+      position = getPos(e) // get position after view projection
 
-      s2 = position // present
-      s1 = s2 // present first
-      s0 = s1 // current
-
-      r0 = projection.rotate()  // projection rotation in degrees
-      q0 = muonVersor(r0)  // quaternion of projection rotation
+      r0 = projection.rotate() // projection rotation in degrees
       inv0 = projection.rotate(r0).invert(position) // spherical coordinates [λ, φ]
-      v0 = muonVersor.cartesian(inv0) // cartesian coordinates [x, y, z] 
+      v0 = muonVersor.cartesian(inv0) // cartesian coordinates [x, y, z]
 
+      v1 = v0 // initialize drag cartesian
+      inv = inv0 // initialize drag spherical
 
-      rotAccum_degrees = muonGeom.add(
+      rotAccum_degrees = muonGeom.add( // ctl rotation since instance in z
         rotAccum_degrees,
         rotInDrag_degrees)
-      rotInDrag_degrees = [0,0,0]
+      rotInDrag_degrees = [0, 0, 0] // reset drag rotation
     }
-
 
     // .................. dragged
     function dragged () {
       if (!position) return
 
       let e = d3selection.event
-
-      preposition = position
-      position = getPos(e)
-
+      preposition = position // stash view position
+      position = getPos(e) // view position from screen event
       if (!moved) {
         let sd = [ position[1] - preposition[1], position[0] - preposition[0] ]
-        let sdist = sd[0] * sd[0] + sd[1] * sd[1]
-        if (sdist < inits.moveSpan) return
+        let sdist = sd[0] * sd[0] + sd[1] * sd[1] // distance in pixels
+        if (sdist < moveSpan) return
         moved = true // moved
-        return
       }
 
+      v10 = v1 // stash cartesian before update
 
-      inv = projection.rotate(r0).invert(position)
+      inv = projection.rotate(r0).invert(position) // s
       if (isNaN(inv[0])) return
-      v1 = muonGeom.cartesian(inv)
-      qd01 = muonVersor.delta(v0, v1)
-      r1 = muonVersor.rotation(qd01)
-      rotInDrag_degrees = r1
+      v1 = muonGeom.cartesian(inv) // update cartesian
+      q1 = muonVersor.delta(v0, v1) // quaternion from drag start
+      r1 = muonVersor.rotation(q1)
 
- 
+      rotInDrag_degrees = r1 //  rotation from start for prerotation
 
+      q10 = muonVersor.delta(v10, v1) // quaternion from consecutive in drag for velocity
     }
 
     // .................. dragended
     function dragended () {
-
       if (!position) return
       position = false
       if (!moved) return
 
-      vel_degrees = muonVersor.rotation(qd01) // vel v0-c1
-
+      vel_degrees = muonVersor.rotation(q10) // vel v0-c1
       timer = requestAnimationFrame(momentum)
     }
 
     // .................. momentum
     function momentum () {
-      vel_degrees[0] *= inits.decay
-      vel_degrees[1] *= inits.decay
+      vel_degrees[0] *= decay
+      vel_degrees[1] *= decay
 
       rotInDrag_degrees[0] += vel_degrees[0]
       rotInDrag_degrees[1] += vel_degrees[1]
@@ -199,10 +149,7 @@
     }
 
     // .................. enty
-    let enty = function (p = {}) {
-      let rotInit_degrees = p.rotInit
-      rotAccum_degrees = rotInit_degrees || inits.rotInit_degrees
-
+    let enty = function () {
       timer = requestAnimationFrame(tick)
 
       return enty
@@ -217,7 +164,7 @@
 
     enty.projection = _ => {
       if (_ !== undefined) {
-        projection = _.projection // .projection
+        projection = _.projection
         return enty
       } else {
         return projection
@@ -225,19 +172,6 @@
     }
 
     enty.rotation = () => {
-
-
-      // let res = [0,0,0]
-      // if (_v10 !== undefined && _v11 !== undefined ) {
-        // res = muonVersor.rotation(
-          // muonVersor.multiply(_q10, muonVersor.delta(_v10, _v11, _r1 * 1000))
-        // )
-        // if (1 && 1) console.log('res', res)
-      // }
-// if (1 && 1) console.log(' >>>>>>>>>> rotAccum_degrees', rotAccum_degrees)
-if (1 && 1) console.log(' >>>>>>>>>> rotInDrag_degrees', rotInDrag_degrees)
-
-
       let res = muonGeom.add(
         rotAccum_degrees,
         rotInDrag_degrees)
