@@ -14,12 +14,14 @@
       d3,
       d3geo,
       muonGeom,
+      muonQuaternion,
       muonVersor,
       renderPortview,
     ] = await Promise.all([
       __eo('xs').b('d3'),
       __eo('xs').b('d3-geo'),
       __eo('xs').m('geom'),
+      __eo('xs').m('quaternion'),
       __eo('xs').m('versor'),
       __eo('xs').r('portview'),
     ])
@@ -61,7 +63,8 @@
         .scale(1),
       rotAccum_degrees = [0, 0, 0], // rotation accumulated from previous drags
       rotInDrag_degrees = [0, 0, 0], // rotation in current drag
-      vel_degrees = [0, 0, 0],
+      rotMomentum_degrees = [0, 0, 0], // rotation in momentum
+      r2 = [0, 0, 0],
       position = false, // position in view coordinates while draggging
       preposition, // position in view coordinates before current drag
       moved = false, // move is effective while dragging
@@ -83,13 +86,14 @@
       if (position) return // wait while drag ongoing
 
       stopMomentum()
-
+      rotMomentum_degrees = [0,0,0]
+      
       moved = false // not moved yet
       position = getPos(e) // get position after view projection
 
       r0 = projection.rotate() // projection rotation in degrees
       inv0 = projection.rotate(r0).invert(position) // spherical coordinates [λ, φ]
-      v0 = muonVersor.cartesian(inv0) // cartesian coordinates [x, y, z]
+      v0 = muonGeom.cartesian(inv0) // cartesian coordinates [x, y, z]
 
       v1 = v0 // initialize drag cartesian
       inv = inv0 // initialize drag spherical
@@ -119,12 +123,12 @@
       inv = projection.rotate(r0).invert(position) // s
       if (isNaN(inv[0])) return
       v1 = muonGeom.cartesian(inv) // update cartesian
-      q1 = muonVersor.delta(v0, v1) // quaternion from drag start
-      r1 = muonVersor.rotation(q1)
+      q1 = muonVersor.delta(v1, v0) // quaternion to rotate between v0 and v1 
+      r1 = muonVersor.rotation(q1) // euler rotation from quaternion
 
       rotInDrag_degrees = r1 //  rotation from start for prerotation
 
-      q10 = muonVersor.delta(v10, v1) // quaternion from consecutive in drag for velocity
+      q10 = muonVersor.delta(v1, v10) // quaternion from consecutive in drag for velocity
     }
 
     // .................. dragended
@@ -133,25 +137,25 @@
       position = false
       if (!moved) return
 
-      vel_degrees = muonVersor.rotation(q10) // vel v0-c1
+      r2 = muonVersor.rotation(q10) // rotation from quaternion
+      rotMomentum_degrees = r2
+      
       timer = requestAnimationFrame(momentum)
     }
 
     // .................. momentum
     function momentum () {
-      vel_degrees[0] *= decay
-      vel_degrees[1] *= decay
 
-      rotInDrag_degrees[0] += vel_degrees[0]
-      rotInDrag_degrees[1] += vel_degrees[1]
-
+      rotMomentum_degrees = muonGeom.mult(rotMomentum_degrees, decay)
+    
+      rotInDrag_degrees = muonGeom.add( rotInDrag_degrees, rotMomentum_degrees )
+      
       if (timer) timer = requestAnimationFrame(momentum)
     }
 
     // .................. enty
     let enty = function () {
       timer = requestAnimationFrame(tick)
-
       return enty
     }
 
@@ -161,6 +165,11 @@
 
     enty.control = control
     enty.reset = reset
+    
+    enty.rotAccum = () => rotAccum_degrees
+    enty.rotInDrag = () => rotInDrag_degrees
+    enty.rotMomentum = () => rotMomentum_degrees
+    enty.proRotation = () => projection.rotate()
 
     enty.projection = _ => {
       if (_ !== undefined) {
@@ -172,9 +181,13 @@
     }
 
     enty.rotation = () => {
-      let res = muonGeom.add(
+      let r1 = muonGeom.add(
         rotAccum_degrees,
         rotInDrag_degrees)
+      let res = muonGeom.add(
+        r1,
+        rotMomentum_degrees)  
+        
       return res
     }
 

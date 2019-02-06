@@ -246,6 +246,15 @@
       return added
     }
 
+    enty.mult = function (v0, scal) {
+      let res = []
+      let dims = v0.length
+      for (let i = 0; i < dims; i++) {
+        res[i] = v0[i] * scal
+      }
+      return res
+    }
+    
     enty.zerovector = function (v) {
       let zerovector = []
       let dims = v.length

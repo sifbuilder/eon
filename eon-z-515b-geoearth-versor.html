@@ -148,70 +148,130 @@ async function anitem (__eo) {
 
       eoframe: {
 
-        geoframe: [ [ [ -180, 180, 30, 30], // x
-          [ -180, 180, 15, 15] ] ], // y
+        geoframe: [ [ [ -180, 180, 30, 3], // x
+          [ -180, 180, 15, 1.5] ] ], // y
 
       },
       eoload: {},
 
     }
-    // .................. textAni
-    let textAni = {
+    // .................. textAni1
+    let textAni1 = {
 
       eohal: eohalTextform,
-      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
+      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textAni1'},
       eotim: eotim,
 
-      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
-
-      eofold: ani => {
-        let res = {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [0, 0],
-          },
-        }
-        return res
-      },
+      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.1]]], 'co': [[[0.6, 0.6]]], 'cp': [[[0.5, 0.5]]]},
+      eofold: ani => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0], }, }),
 
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate: [ -270, 150 ],
-          rotate: [ 0,0,0 ],
-          prerotate: [ 0,0,0 ],
+          translate: [ -295, 175 ],
         },
       },
-
       eoload: {
         textform: {
           string: function () {
-            let rot = this.rotation
-            let euls = rot.map(d => Math.floor(10 * d) / 10)
-            let res = `λ = ${euls[0]}, φ = ${euls[1]}, γ = ${euls[2]}`
-            return res
+            let proRotation = this.proRotation.map(d => Math.floor(10 * d) / 10)
+            let rotInDrag = this.rotInDrag.map(d => Math.floor(10 * d) / 10)
+            let rotMomentum = this.rotMomentum.map(d => Math.floor(10 * d) / 10)
+            return `rotate:   λ = ${proRotation[0]}, φ = ${proRotation[1]}, γ = ${proRotation[2]}`
           },
-
-          rotation: [[[ ctlVersor.rotation ]]],
+          rotInDrag: [[[ ctlVersor.rotInDrag ]]],
+          rotMomentum: [[[ ctlVersor.rotMomentum ]]],
+          proRotation: [[[ ctlVersor.proRotation ]]],
           style: {
             rotate: [[[ 0, 0 ]]],
-            'font-size': [[[16, 16]]],
+            'font-size': [[[12, 12]]],
             'font-family': 'BankFuturistic',
             'text-anchor': 'center',
-
           },
         },
+      },
+    }
+    // .................. textAni2
+    let textAni2 = {
 
+      eohal: eohalTextform,
+      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textAni2'},
+      eotim: eotim,
+
+      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.1]]], 'co': [[[0.6, 0.6]]], 'cp': [[[0.5, 0.5]]]},
+      eofold: ani => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0], }, }),
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ -295, 160 ],
+        },
+      },
+      eoload: {
+        textform: {
+          string: function () {
+            let proRotation = this.proRotation.map(d => Math.floor(10 * d) / 10)
+            let rotInDrag = this.rotInDrag.map(d => Math.floor(10 * d) / 10)
+            let rotMomentum = this.rotMomentum.map(d => Math.floor(10 * d) / 10)
+            return `drag:     λ = ${rotInDrag[0]}, φ = ${rotInDrag[1]}, γ = ${rotInDrag[2]}`
+          },
+          rotInDrag: [[[ ctlVersor.rotInDrag ]]],
+          rotMomentum: [[[ ctlVersor.rotMomentum ]]],
+          proRotation: [[[ ctlVersor.proRotation ]]],
+          style: {
+            rotate: [[[ 0, 0 ]]],
+            'font-size': [[[12, 12]]],
+            'font-family': 'BankFuturistic',
+            'text-anchor': 'center',
+          },
+        },
+      },
+    }
+    // .................. textAni3
+    let textAni3 = {
+
+      eohal: eohalTextform,
+      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'textAni3'},
+      eotim: eotim,
+
+      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.1]]], 'co': [[[0.6, 0.6]]], 'cp': [[[0.5, 0.5]]]},
+      eofold: ani => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0], }, }),
+
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          translate: [ -295, 145 ],
+        },
+      },
+      eoload: {
+        textform: {
+          string: function () {
+            let proRotation = this.proRotation.map(d => Math.floor(10 * d) / 10)
+            let rotInDrag = this.rotInDrag.map(d => Math.floor(10 * d) / 10)
+            let rotMomentum = this.rotMomentum.map(d => Math.floor(10 * d) / 10)
+            return `momentum: λ = ${rotMomentum[0]}, φ = ${rotMomentum[1]}, γ = ${rotMomentum[2]}`
+          },
+          rotInDrag: [[[ ctlVersor.rotInDrag ]]],
+          rotMomentum: [[[ ctlVersor.rotMomentum ]]],
+          proRotation: [[[ ctlVersor.proRotation ]]],
+          style: {
+            rotate: [[[ 0, 0 ]]],
+            'font-size': [[[12, 12]]],
+            'font-family': 'BankFuturistic',
+            'text-anchor': 'center',
+          },
+        },
       },
     }
 
     // .................. scene
     let scene = {
-      geoearthDark,
       geoearthFront, // h.mars g.orthographic
       graticuleFront, // h.mars
-      textAni,
+      geoearthDark,
+      textAni1,
+      textAni2,
+      textAni3,
 
     }
 
