@@ -1,4 +1,3 @@
-// https://d3js.org/d3-geo-projection/ Version 2.4.0. Copyright 2018 Mike Bostock.
 /***********
  *    @muonMath
  */
@@ -10,119 +9,161 @@
   'use strict'
 
   let muonMath = function (__eo = {}) {
-    // https://github.com/scijs/integrate-adaptive-simpson
+/**
+ * @author alteredq / http://alteredqualia.com/
+ * @author mrdoob / http://mrdoob.com/
+ */
 
-    // This algorithm adapted from pseudocode in:
-    // http://www.math.utk.edu/~ccollins/refs/Handouts/rich.pdf
-    function adsimp (f, a, b, fa, fm, fb, V0, tol, maxdepth, depth, state) {
-      if (state.nanEncountered) {
-        return NaN
-      }
+var _Math = {
 
-      var h, f1, f2, sl, sr, s2, m, V1, V2, err
+	DEG2RAD: Math.PI / 180,
+	RAD2DEG: 180 / Math.PI,
 
-      h = b - a
-      f1 = f(a + h * 0.25)
-      f2 = f(b - h * 0.25)
+	generateUUID: ( function () {
 
-      // Simple check for NaN:
-      if (isNaN(f1)) {
-        state.nanEncountered = true
-        return
-      }
+		// http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
 
-      // Simple check for NaN:
-      if (isNaN(f2)) {
-        state.nanEncountered = true
-        return
-      }
+		var lut = [];
 
-      sl = h * (fa + 4 * f1 + fm) / 12
-      sr = h * (fm + 4 * f2 + fb) / 12
-      s2 = sl + sr
-      err = (s2 - V0) / 15
+		for ( var i = 0; i < 256; i ++ ) {
 
-      if (depth > maxdepth) {
-        state.maxDepthCount++
-        return s2 + err
-      } else if (Math.abs(err) < tol) {
-        return s2 + err
-      } else {
-        m = a + h * 0.5
+			lut[ i ] = ( i < 16 ? '0' : '' ) + ( i ).toString( 16 );
 
-        V1 = adsimp(f, a, m, fa, f1, fm, sl, tol * 0.5, maxdepth, depth + 1, state)
+		}
 
-        if (isNaN(V1)) {
-          state.nanEncountered = true
-          return NaN
-        }
+		return function generateUUID() {
 
-        V2 = adsimp(f, m, b, fm, f2, fb, sr, tol * 0.5, maxdepth, depth + 1, state)
+			var d0 = Math.random() * 0xffffffff | 0;
+			var d1 = Math.random() * 0xffffffff | 0;
+			var d2 = Math.random() * 0xffffffff | 0;
+			var d3 = Math.random() * 0xffffffff | 0;
+			var uuid = lut[ d0 & 0xff ] + lut[ d0 >> 8 & 0xff ] + lut[ d0 >> 16 & 0xff ] + lut[ d0 >> 24 & 0xff ] + '-' +
+				lut[ d1 & 0xff ] + lut[ d1 >> 8 & 0xff ] + '-' + lut[ d1 >> 16 & 0x0f | 0x40 ] + lut[ d1 >> 24 & 0xff ] + '-' +
+				lut[ d2 & 0x3f | 0x80 ] + lut[ d2 >> 8 & 0xff ] + '-' + lut[ d2 >> 16 & 0xff ] + lut[ d2 >> 24 & 0xff ] +
+				lut[ d3 & 0xff ] + lut[ d3 >> 8 & 0xff ] + lut[ d3 >> 16 & 0xff ] + lut[ d3 >> 24 & 0xff ];
 
-        if (isNaN(V2)) {
-          state.nanEncountered = true
-          return NaN
-        }
+			// .toUpperCase() here flattens concatenated strings to save heap memory space.
+			return uuid.toUpperCase();
 
-        return V1 + V2
-      }
-    }
+		};
 
-    function integrate (f, a, b, tol, maxdepth) {
-      var state = {
-        maxDepthCount: 0,
-        nanEncountered: false,
-      }
+	} )(),
 
-      if (tol === undefined) {
-        tol = 1e-8
-      }
-      if (maxdepth === undefined) {
-        maxdepth = 20
-      }
+	clamp: function ( value, min, max ) {
 
-      var fa = f(a)
-      var fm = f(0.5 * (a + b))
-      var fb = f(b)
+		return Math.max( min, Math.min( max, value ) );
 
-      var V0 = (fa + 4 * fm + fb) * (b - a) / 6
+	},
 
-      var result = adsimp(f, a, b, fa, fm, fb, V0, tol, maxdepth, 1, state)
+	// compute euclidian modulo of m % n
+	// https://en.wikipedia.org/wiki/Modulo_operation
 
-      /*
-  if (state.maxDepthCount > 0 && console && console.warn) {
-    console.warn('integrate-adaptive-simpson: Warning: maximum recursion depth (' + maxdepth + ') reached ' + state.maxDepthCount + ' times');
-  }
+	euclideanModulo: function ( n, m ) {
 
-  if (state.nanEncountered && console && console.warn) {
-    console.warn('integrate-adaptive-simpson: Warning: NaN encountered. Halting early.');
-  }
-*/
+		return ( ( n % m ) + m ) % m;
 
-      return result
-    }
+	},
 
-    /**************************
-  *   @enty
-  */
-    let enty = function () {}
+	// Linear mapping from range <a1, a2> to range <b1, b2>
 
-    /*
-    var pow = Math.pow;
-    given alpha, k, gamma
+	mapLinear: function ( x, a1, a2, b1, b2 ) {
 
-    function elliptic (f) {
-      return alpha + (1 - alpha) * pow(1 - pow(f, k), 1 / k);
-    }
+		return b1 + ( x - a1 ) * ( b2 - b1 ) / ( a2 - a1 );
 
-    function z(f) {
-      return integrate(elliptic, 0, f, 1e-4);
-    }
-    var G = 1 / z(1)
+	},
 
-    */
-    enty.integrate = integrate
+	// https://en.wikipedia.org/wiki/Linear_interpolation
 
+	lerp: function ( x, y, t ) {
+
+		return ( 1 - t ) * x + t * y;
+
+	},
+
+	// http://en.wikipedia.org/wiki/Smoothstep
+
+	smoothstep: function ( x, min, max ) {
+
+		if ( x <= min ) return 0;
+		if ( x >= max ) return 1;
+
+		x = ( x - min ) / ( max - min );
+
+		return x * x * ( 3 - 2 * x );
+
+	},
+
+	smootherstep: function ( x, min, max ) {
+
+		if ( x <= min ) return 0;
+		if ( x >= max ) return 1;
+
+		x = ( x - min ) / ( max - min );
+
+		return x * x * x * ( x * ( x * 6 - 15 ) + 10 );
+
+	},
+
+	// Random integer from <low, high> interval
+
+	randInt: function ( low, high ) {
+
+		return low + Math.floor( Math.random() * ( high - low + 1 ) );
+
+	},
+
+	// Random float from <low, high> interval
+
+	randFloat: function ( low, high ) {
+
+		return low + Math.random() * ( high - low );
+
+	},
+
+	// Random float from <-range/2, range/2> interval
+
+	randFloatSpread: function ( range ) {
+
+		return range * ( 0.5 - Math.random() );
+
+	},
+
+	degToRad: function ( degrees ) {
+
+		return degrees * _Math.DEG2RAD;
+
+	},
+
+	radToDeg: function ( radians ) {
+
+		return radians * _Math.RAD2DEG;
+
+	},
+
+	isPowerOfTwo: function ( value ) {
+
+		return ( value & ( value - 1 ) ) === 0 && value !== 0;
+
+	},
+
+	ceilPowerOfTwo: function ( value ) {
+
+		return Math.pow( 2, Math.ceil( Math.log( value ) / Math.LN2 ) );
+
+	},
+
+	floorPowerOfTwo: function ( value ) {
+
+		return Math.pow( 2, Math.floor( Math.log( value ) / Math.LN2 ) );
+
+	}
+
+};
+
+
+    // ............................. enty
+    let enty = _Math
+    enty.Math = _Math
     return enty
   }
 

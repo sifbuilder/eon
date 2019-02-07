@@ -27,7 +27,6 @@
       d3GeoProjection,
       d3Array,
       muonGeom,
-      muonMath,
     ] = await Promise.all([
       __eo('xs').l('complex'),
       __eo('xs').m('polyhedral'),
@@ -36,7 +35,6 @@
       __eo('xs').b('d3-geo-projection'),
       __eo('xs').b('d3-array'),
       __eo('xs').m('geom'),
-      __eo('xs').m('math'),
     ])
 
     let epsilon = 1e-6,
