@@ -229,7 +229,6 @@
           /*  ................. TEXTS ................. */
           let texts = fitems
             .filter(d => d.properties.sort === 'text')
-
           //
           // pathed texts
           //
@@ -240,6 +239,8 @@
               (d.type === 'Feature' && d.geometry.type === 'LineString') || // Feature.LineString
               (d.type === 'Feature' && d.geometry.type === 'Polygon') // Feature.Polygon
             )
+if (1 && 1) console.log('textsWithPath', textsWithPath)
+
 
           // text support paths are added to defs
 
@@ -276,6 +277,7 @@
               .attr('y', 0) // translate instead
 
               .attr('transform', d => { // eg. "translate(21,20) rotate(15)") scale(sx, sy) skew (skew)
+
                 let item = d
                 let geometry = item.geometry
                 let projgeo = muonProj3ct.project(geometry, viewScreenPrt)
@@ -287,23 +289,29 @@
                 return r
               })
 
-              .style('dx', d => d.properties.style['dx'])
-              .style('dy', d => d.properties.style['dy'])
-              .style('textLength', d => d.properties.style['textLength'])
-              .style('lengthAdjust', d => d.properties.style['lengthAdjust'])
-
-              .style('font-size', d => d.properties.style['font-size'])
-              .style('font-family', 'arial') // d => d.properties.style['font-family'])
-
               .style('fill', d => d.properties.style.fill)
               .style('stroke', d => d.properties.style.stroke)
-
               .style('fill-opacity', d => d.properties.style['fill-opacity'])
               .style('stroke-opacity', d => d.properties.style['stroke-opacity'])
               .style('stroke-width', d => d.properties.style['stroke-width'])
-              .style('text-anchor', d => d.properties.style['text-anchor'])
 
-            // string path is added to the text element
+              .style('dx', d => d.properties.style['dx'])
+              .style('dy', d => d.properties.style['dy'])
+              .style('font-size', d => d.properties.style['font-size'])
+              .style('font-family', d => d.properties.style['font-family'])
+              .style('kerning', d => d.properties.style['kerning'])
+              .style('lengthAdjust', d => d.properties.style['lengthAdjust'])
+              .style('letter-spacing', d => d.properties.style['letter-spacing'])
+              .style('height', d => d.properties.style.height)
+              .style('textLength', d => d.properties.style['textLength'])
+              .style('text-anchor', d => d.properties.style['text-anchor'])
+              .style('width', d => d.properties.style.width)
+              .style('word-spacing', d => d.properties.style['word-spacing'])
+              .style('writing-mode', d => d.properties.style['writing-mode'])
+              .style('direction', 'ltr')
+              .style('unicode-bidi', 'bidi-override')
+
+              // string path is added to the text element
             // the textpath id is defs#textpath${d.properties.eoric.uid}
             svgelems(`text.${cid}/textPath`, textsWithPath, d => d.properties.eoric.uid)
               .attr('class', d => `${d.properties.eoric.cid}`)

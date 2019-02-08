@@ -101,7 +101,9 @@ async function anitem (__eo) {
     let lichtAni1 = {
 
       eohal: 'sol',
-
+      eotim: eotim,
+      eoric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
+      
       eofold: ani => {
         let anigram = ani, // anigram
           eohal = ani.eohal, // eohal
@@ -154,8 +156,7 @@ async function anitem (__eo) {
 
         return newFeatureCollection
       },
-      eotim: eotim,
-      eoric: { gid: 'ani', cid: 'ani', fid: 'ani1'},
+
       eocrom: {'csx': 0, 'cf': 555, 'cs': 111, 'cw': 0.9, 'co': 0.072, 'cp': 0.7},
       eoload: {
         tf: t => t,

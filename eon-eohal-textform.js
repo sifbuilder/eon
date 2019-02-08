@@ -53,26 +53,9 @@
           sort: 'text',
           
           string: (typeof textform.string === 'function') ? textform.string() : textform.string,
+          style: textform.style,
+          attr: textform.attr,
           
-          style: {
-
-            'rotate': textform.style['rotate'],
-            'font-size': textform.style['font-size'],
-            'font-family': textform.style['font-family'],
-            'text-anchor': textform.style['text-anchor'],
-            'fill-opacity': textform.style['fill-opacity'],
-            'stroke-opacity': textform.style['stroke-opacity'],
-
-            'width': textform.style.width,
-            'height': textform.style.height,
-
-            'dx': textform.style.dx,
-            'dy': textform.style.dy,
-
-            'textLength': textform.style.textLength,
-            'lengthAdjust': textform.style.lengthAdjust,
-
-          },
         })
         
       } else if (eofold.type === 'Feature' &&
@@ -80,31 +63,11 @@
       ) {
         res = eofold
 
-
         res.properties = Object.assign({}, res.properties, {
           sort: 'text',
           string: textform.string || '',
-          style: {
-
-            'rotate': textform.style['rotate'],
-            'font-size': textform.style['font-size'],
-
-            // sans-serif, karla, BankFuturistic, arial, Helvetica
-            'font-family': textform.style['font-family'],
-            'text-anchor': textform.style['text-anchor'],
-            'fill-opacity': textform.style['fill-opacity'],
-            'stroke-opacity': textform.style['stroke-opacity'],
-
-            'width': textform.style.width,
-            'height': textform.style.height,
-
-            'dx': textform.style.dx,
-            'dy': textform.style.dy,
-
-            'textLength': textform.style.textLength,
-            'lengthAdjust': textform.style.lengthAdjust,
-
-          },
+          style: textform.style,
+          attr: textform.attr,
 
         })
       } else {
