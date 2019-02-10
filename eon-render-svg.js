@@ -239,8 +239,6 @@
               (d.type === 'Feature' && d.geometry.type === 'LineString') || // Feature.LineString
               (d.type === 'Feature' && d.geometry.type === 'Polygon') // Feature.Polygon
             )
-if (1 && 1) console.log('textsWithPath', textsWithPath)
-
 
           // text support paths are added to defs
 
@@ -279,10 +277,14 @@ if (1 && 1) console.log('textsWithPath', textsWithPath)
               .attr('transform', d => { // eg. "translate(21,20) rotate(15)") scale(sx, sy) skew (skew)
 
                 let item = d
+                let style = d.properties.style
+                let dx = style.dx || 0
+                let dy = style.dy || 0
+                
                 let geometry = item.geometry
                 let projgeo = muonProj3ct.project(geometry, viewScreenPrt)
 
-                let translate = [0, 0] // projgeo.coordinates
+                let translate = [dx, dy] // projgeo.coordinates
                 let rotate = item.properties.style['rotate']
 
                 let r = 'translate(' + translate[0] + ',' + translate[1] + ')' + ' rotate(' + (rotate || 0) + ' )'

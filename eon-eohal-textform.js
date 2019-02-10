@@ -41,22 +41,24 @@
         (eofold.type === 'Feature' && eofold.geometry.type === 'Point') ||
         eofold.type === 'Point'
       ) {
-        res = {
+        
+        let string = (typeof textform.string === 'function') ? textform.string() : textform.string
+
+        let res = {
           type: 'Feature',
           geometry: {
             type: 'Point',
             coordinates: [0, 0],
           },
+          properties: {
+            sort: 'text',
+            string: string,
+            style: textform.style,
+            attr: textform.attr,
+          }
         }
-
-        res.properties = Object.assign({}, {
-          sort: 'text',
-          
-          string: (typeof textform.string === 'function') ? textform.string() : textform.string,
-          style: textform.style,
-          attr: textform.attr,
-          
-        })
+        
+        
         
       } else if (eofold.type === 'Feature' &&
           (eofold.geometry.type === 'LineString')

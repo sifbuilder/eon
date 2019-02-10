@@ -72,6 +72,7 @@ function computeUpperHullIndexes(points) {
 
 var hull = function(points) {
   if ((n = points.length) < 3) return null;
+if (1 && 1) console.log('n', n)
 
   var i,
       n,

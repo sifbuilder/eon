@@ -69,8 +69,8 @@ async function anitem (__eo) {
         return rot
       } ]]],
 
-      translate: [0, 0, 0],
-      scale: 180,
+          translate: [ -150, 50 ],
+      scale: 100,
       rotate: [ 0, 0, 0 ],
 
     }
@@ -222,7 +222,7 @@ async function anitem (__eo) {
 
           projection: d3Geo.geoOrthographic(),
           scale: 100,
-          translate: [ 150 - 300, 250 - 200 ],
+          translate: [ -150, 50 ],
           rotate: [ [[[0, 0]]], 0, 0 ],
           prerotate: [[[ ctl.rotation ]]],
 
@@ -234,9 +234,22 @@ async function anitem (__eo) {
     }
 
     // .................. geoearth2
+
+
+    let geoMercatorPrj = (x, y) => d3Geo.geoMercatorRaw(x, -y)
+      geoMercatorPrj.invert = (x, y) => d3Geo.geoMercatorRaw.invert(x, -y)
+
+    let geoMercator = d3Geo.geoProjection(geoMercatorPrj)
+      .clipAngle(90)
+      .translate([0, 0, 0])
+      .rotate([0, 0, 0])
+
+
     let geoearth2 = {
 
       eohal: 'mars',
+      eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geoearth2'},
+      eotim: eotim,
 
       eofold: () => {
         let gj = Object.assign({},
@@ -248,17 +261,20 @@ async function anitem (__eo) {
 
         return muonGeoj.trim(gj)
       },
-      eotim: eotim,
-      eoric: {'gid': 'geo', 'cid': 'geo', 'fid': 'geoearth2'},
       eocrom: { 'csx': 0, 'cf': [[[555, 555, 555, 555, 555, 555, 555]]], 'cs': 333, 'cw': 0.2, 'co': 0.4, 'cp': 0.9},
       eomot: {
         proform: {
 
-          projection: d3Geo.geoMercator(),
+          projection: geoMercator,
           scale: 30,
           translate: [ 400 - 300, 250 - 200 ],
           rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ ctl.rotation ]]],
+            prerotate: [[[ function (t) {
+              let rot = ctlVersor
+                .projection({projection: geoMercator})
+                .rotation()
+              return rot
+            } ]]],
 
         },
       },
@@ -281,9 +297,14 @@ async function anitem (__eo) {
 
           projection: d3Geo.geoMercator(),
           scale: 30,
-          translate: [ 400 - 300, 250 - 200 ],
-          rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ ctl.rotation ]]],
+          translate: [ 100, 50 ],
+          rotate: [ 0, 0, 0 ],
+          prerotate: [[[ function (t) {
+            let rot = ctlVersor
+              .projection({projection: d3Geo.geoMercator()})
+              .rotation()
+            return rot
+      } ]]],
 
         },
       },
@@ -315,9 +336,15 @@ async function anitem (__eo) {
 
           projection: d3Geo.geoMercator(),
           scale: 30,
-          translate: [ 400 - 300, 250 - 200 ],
+          translate: [ 100, 50 ],
           rotate: [ [[[0, 0]]], 0, 0 ],
-          prerotate: [[[ ctl.rotation ]]],
+
+      prerotate: [[[ function (t) {
+        let rot = ctlVersor
+          .projection({projection: d3Geo.geoMercator()})
+          .rotation()
+        return rot
+      } ]]],
 
         },
       },
@@ -330,10 +357,10 @@ async function anitem (__eo) {
 
       geoearth1, // h.mars g.orthographic
       geograt1, // h.mars
-      // geosphere1, // h.mars
-      // geoearth2, // h.mars g.mercator
-      // geograt2, // h.mars
-      // geosphere2, // h.mars
+      geosphere1, // h.mars
+      geoearth2, // h.mars g.mercator
+      geograt2, // h.mars
+      geosphere2, // h.mars
       textAni, // h.text
     }
 
