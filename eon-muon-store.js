@@ -134,7 +134,10 @@
       }
 
       let anigram = anitem
-      let newItems = eohal.ween(anigram)
+      console.assert(eohal, `eohal not defined`)
+      
+      let newItems = []
+      if (eohal) newItems = eohal.ween(anigram)
 
       return newItems
     }
@@ -170,7 +173,9 @@
         // : __eo(__eo(__eo('xs').ceonize(anigram.eohal, 'eohal'))) // expected in __eo
         : __eo(__eo('xs').ceonize(anigram.eohal, 'eohal')) // expected in __eo
       console.assert(eohal !== null, `eohal ${__eo('xs').ceonize(anigram.eohal, 'eohal')} not found`)
-      let newItems = muonProps.a(eohal.gramm(anigram))
+      let newItems = []
+      console.assert(eohal, `eohal not defined`)      
+      if (eohal) newItems = muonProps.a(eohal.gramm(anigram))
       _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
       newItems.forEach(newItem => {
         let avatars = gavatars(newItem)

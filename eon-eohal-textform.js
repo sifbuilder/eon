@@ -62,7 +62,7 @@
         
       } else if (eofold.type === 'Feature' &&
           (eofold.geometry.type === 'LineString')
-      ) {
+        ) {
         res = eofold
 
         res.properties = Object.assign({}, res.properties, {
@@ -72,6 +72,31 @@
           attr: textform.attr,
 
         })
+        
+        
+      } else if (eofold.type === 'Feature' &&
+          (eofold.geometry.type === 'MultiLineString')
+        ) {
+          
+        res = {
+          type: 'Feature',
+          geometry: {
+            type: 'LineString',
+            // coordinates: eofold.geometry.coordinates[0], // first line
+            coordinates: [ [0,0], [100,0] ]
+          },
+          properties: eofold.properties,          
+        }
+
+        res.properties = Object.assign({}, res.properties, {
+          sort: 'text',
+          string: textform.string || '',
+          style: textform.style,
+          attr: textform.attr,
+
+        })
+        
+        
       } else {
         console.log('text support not supported')
       }
