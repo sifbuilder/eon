@@ -127,7 +127,7 @@ async function anitem (__eo) {
         },
       },
 
-      eocrom: { 'csx': 0, 'cf': [[[111,444,999, 888]]], 'co': [[[0.3,0.9]]], 'cs': [[[999,999, 1, 1, 1]]], 'cw': [[[0.4, 1.2]]], 'cp': 1},
+      eocrom: { 'csx': 0, 'cf': [[[111, 444, 999, 888]]], 'co': [[[0.3, 0.9]]], 'cs': [[[999, 999, 1, 1, 1]]], 'cw': [[[0.4, 1.2]]], 'cp': 1},
 
       eoform: {
         x: {
@@ -257,11 +257,11 @@ async function anitem (__eo) {
               let rx = muonProps.v(muonSnap.snap(d.eoform.x.ra2, tup), d)
               let ry = muonProps.v(muonSnap.snap(d.eoform.y.ra2, tup), d)
               let r = Math.sqrt(rx * rx + ry * ry)
-              
+
               console.assert(r !== Number.NaN)
               let gravrad = 60
               let gravforce = 1.9
-              if (r > gravrad) gravity = gravforce   // GRAVITY
+              if (r > gravrad) gravity = gravforce // GRAVITY
               return gravity
             }
 
@@ -290,7 +290,7 @@ async function anitem (__eo) {
           let node = nodes[i]
           /* */
 
-            node.vy += muonProps.v(opts.gravity, node)
+          node.vy += muonProps.v(opts.gravity, node)
 
           /* */
         }
@@ -309,7 +309,6 @@ async function anitem (__eo) {
       }
       return field // return force
     }
-
 
     let force_gravity = { // aniForce:{properties, field}
       properties: {
@@ -342,7 +341,6 @@ async function anitem (__eo) {
       },
     }
 
-
     // ............................. box
     let forceBox = function (params) { // force
       let nodes = params.nodes
@@ -355,7 +353,6 @@ async function anitem (__eo) {
 
       let fName = __eo('xs').ceonize(type, 'force')
 
-
       let fforce = function force (...args) { // fforce
         let opts = payload.opts || {}
 
@@ -363,35 +360,28 @@ async function anitem (__eo) {
         let east = (opts.east !== undefined) ? opts.east : Infinity
         let north = (opts.north !== undefined) ? opts.north : -Infinity
         let south = (opts.south !== undefined) ? opts.south : Infinity
-        let act = (opts.act !== undefined) ? opts.act : "reverse"
+        let act = (opts.act !== undefined) ? opts.act : 'reverse'
 
         for (let i = 0; i < nodes.length; ++i) {
-
           let node = nodes[i]
 
           let r = node.r || 1
 
-          let xw = node.x - r + (node.vx||0)		// west
-          let xe = node.x + r + (node.vx||0)		// est
-          let yn = node.y - r + (node.vy||0)		// north
-          let ys = node.y + r + (node.vy||0)		// south
+          let xw = node.x - r + (node.vx || 0)		// west
+          let xe = node.x + r + (node.vx || 0)		// est
+          let yn = node.y - r + (node.vy || 0)		// north
+          let ys = node.y + r + (node.vy || 0)		// south
 
-
-          if (act === "reverse") {
-
+          if (act === 'reverse') {
             if (xw < west) node.vx *= -1		// west
-            if (xe > east)   node.vx *= -1	// east
-            if (yn < north)  node.vy *= -1		// north
-            if (ys > south)  node.vy *= -1		// south
-
-
-          } else if (act === "erase") {
-              if (xw < west || xe > east || yn < north|| ys > south) {
-                muonStore.apply({type:"DELANIMA",caller:"force limit",anima:node})
-              }
+            if (xe > east) node.vx *= -1	// east
+            if (yn < north) node.vy *= -1		// north
+            if (ys > south) node.vy *= -1		// south
+          } else if (act === 'erase') {
+            if (xw < west || xe > east || yn < north || ys > south) {
+              muonStore.apply({type: 'DELANIMA', caller: 'force limit', anima: node})
+            }
           }
-
-
         }
       }
 
@@ -410,21 +400,19 @@ async function anitem (__eo) {
       return field // return force
     }
 
-
     let force_box = { // aniForce:{properties, field}
       properties: {
-          "west": 0 - 100,
-          "east": 600 + 100,
-          "north": 0 - 100,
-          "south": 400 + 100,
-          "act": "erase",
+        'west': 0 - 100,
+        'east': 600 + 100,
+        'north': 0 - 100,
+        'south': 400 + 100,
+        'act': 'erase',
       },
       field: params => { // force.field
         let forces = []
 
         let nodes = params.nodes
         let key = params.properties.key || 'box'
-
 
         let properties = {
           type: 'box',
@@ -461,49 +449,46 @@ async function anitem (__eo) {
 
       let fforce = function force (...args) {
         let opts = payload.opts || {}
-        
-          /* */
-          let x0 = (opts.x0 !== undefined) ? opts.x0 : 0
-          let y0 = (opts.y0 !== undefined) ? opts.y0 : 0
-          let r = (opts.r !== undefined) ? opts.r : 1
-          let act = (opts.act !== undefined) ? opts.act : "reverse"
-          /* */
-    
+
+        /* */
+        let x0 = (opts.x0 !== undefined) ? opts.x0 : 0
+        let y0 = (opts.y0 !== undefined) ? opts.y0 : 0
+        let r = (opts.r !== undefined) ? opts.r : 1
+        let act = (opts.act !== undefined) ? opts.act : 'reverse'
+        /* */
+
         for (let i = 0; i < nodes.length; ++i) {
           let node = nodes[i]
           /* */
 
+          let dx = node.x - x0,
+            dy = node.y - y0,
+            d2 = dx * dx + dy * dy
 
-						let dx = node.x - x0,
-                dy = node.y - y0,
-                d2 = dx * dx + dy * dy;
+          let dd2x = (node.x + node.vx) - x0
+          let dd2y = (node.y + node.vy) - y0
+          let dd2 = dd2x * dd2x + dd2y * dd2y
 
-						let dd2x = (node.x + node.vx) - x0
-						let dd2y = (node.y + node.vy) - y0
-						let dd2 = dd2x * dd2x + dd2y * dd2y
+          if (d2 < r * r && dd2 >= r * r) {
+            if (act === 'reverse') {
+              let angle = Math.atan2(dy, dx)
+              let angle1 = Math.atan2(node.vy, node.vx)
+              let angle2 = Math.PI - angle1 + 2 * angle
+              let norm = Math.sqrt(node.vx * node.vx + node.vy * node.vy)
 
-						if (d2 < r * r && dd2 >= r * r) {
-
-							if (act === "reverse") {
-                let angle = Math.atan2(dy, dx)
-                let angle1 = Math.atan2(node.vy, node.vx)
-                let angle2 = Math.PI - angle1 + 2 * angle
-                let norm = Math.sqrt(node.vx*node.vx + node.vy*node.vy)
-
-                node.vx = norm * Math.cos(angle2)
-                node.vy = norm * Math.sin(angle2)
-							}	else if (act === "erase") {
-								__mapper("pluginStore").apply({"type":"DELANIMA","caller":"force limit","anima":node})
-							}
-
-            } else if (d2 > r * r && dd2 <= r * r) {
-                var angle = Math.atan2(dy, dx),
-                    angle1 = Math.atan2(node.vy, node.vx),
-                    angle2 = Math.PI - angle1 + 2 * angle,
-                    norm = Math.sqrt(node.vx*node.vx + node.vy*node.vy);
-                node.vx = norm * Math.cos(angle2);
-                node.vy = norm * Math.sin(angle2);
+              node.vx = norm * Math.cos(angle2)
+              node.vy = norm * Math.sin(angle2)
+            }	else if (act === 'erase') {
+              __mapper('pluginStore').apply({'type': 'DELANIMA', 'caller': 'force limit', 'anima': node})
             }
+          } else if (d2 > r * r && dd2 <= r * r) {
+            var angle = Math.atan2(dy, dx),
+              angle1 = Math.atan2(node.vy, node.vx),
+              angle2 = Math.PI - angle1 + 2 * angle,
+              norm = Math.sqrt(node.vx * node.vx + node.vy * node.vy)
+            node.vx = norm * Math.cos(angle2)
+            node.vy = norm * Math.sin(angle2)
+          }
 
           /* */
         }
@@ -523,7 +508,6 @@ async function anitem (__eo) {
       return field // return force
     }
 
-
     let force_bowl = { // aniForce:{properties, field}
       properties: {
         gravity: -0.9,
@@ -542,9 +526,9 @@ async function anitem (__eo) {
           payload: { // passed to force in m.eoforces
             args: [],
             opts: {
-              
+
               gravity: gravity, // gravity
-              
+
             },
           },
           filter: d => d.eoric.gid === 'paced',
@@ -559,8 +543,6 @@ async function anitem (__eo) {
     // ............................. crash
     // ............................. crop
     // ............................. curb
-
-
 
     // .................. scene
     let scene = {

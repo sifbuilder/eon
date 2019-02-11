@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  let muonVector2 = function(__eo) {
+  let muonVector2 = function (__eo) {
     /**
 	 * @author mrdoob / http://mrdoob.com/
 	 * @author philogb / http://blog.thejit.org/

@@ -31,8 +31,8 @@ async function anitem (__eo) {
       ctl = ctlWen().control(renderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
-    }   
-      
+    }
+
     const vars = [ // Step 1. variables - initialize random
       tf.variable(tf.scalar(Math.random())), // vars[0]: a
       tf.variable(tf.scalar(Math.random())), // vars[1]: b

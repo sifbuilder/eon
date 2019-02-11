@@ -24,8 +24,7 @@ async function anitem (__eo) {
     __eo('xs').m('graticule'),
     __eo('xs').r('svg'),
   ])
- 
-  
+
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -55,7 +54,7 @@ async function anitem (__eo) {
         let res = [180 + rot[0], -rot[1], -rot[2]]
         return res
       }]]],
-      rotate: [ [[[0, 1 * 360]]], 30, 9], 
+      rotate: [ [[[0, 1 * 360]]], 30, 9],
 
     }
 
@@ -106,7 +105,7 @@ async function anitem (__eo) {
 
       translate: [0, 0, 0],
       scale: 180,
-      rotate: [ [[[0, 1 * 360]]], -30, -9], 
+      rotate: [ [[[0, 1 * 360]]], -30, -9],
 
     }
 
@@ -140,7 +139,7 @@ async function anitem (__eo) {
       eohal: eohalMars,
       eotim: eotim,
       eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
-      
+
       eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
       eomot: {
         proform: proformFront,
@@ -164,7 +163,7 @@ async function anitem (__eo) {
       eotim: eotim,
 
       eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.1]]], 'co': [[[0.6, 0.6]]], 'cp': [[[0.5, 0.5]]]},
-      eofold: ani => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0], }, }),
+      eofold: ani => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0] } }),
 
       eomot: {
         proform: {
@@ -200,7 +199,7 @@ async function anitem (__eo) {
       eotim: eotim,
 
       eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.1]]], 'co': [[[0.6, 0.6]]], 'cp': [[[0.5, 0.5]]]},
-      eofold: ani => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0], }, }),
+      eofold: ani => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0] } }),
 
       eomot: {
         proform: {
@@ -236,7 +235,7 @@ async function anitem (__eo) {
       eotim: eotim,
 
       eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.1]]], 'co': [[[0.6, 0.6]]], 'cp': [[[0.5, 0.5]]]},
-      eofold: ani => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0], }, }),
+      eofold: ani => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0] } }),
 
       eomot: {
         proform: {

@@ -89,13 +89,13 @@ async function anitem (__eo) {
           let x = e[0]
           let y = e[1]
           let z = e[2]
-          let res =   
+          let res =
           (-2 / 13) * cos(z) * (
-            3  * cos(x) -
+            3 * cos(x) -
             30 * sin(z) +
             90 * Math.pow(cos(z), 4) * sin(z) -
             60 * Math.pow(cos(z), 6) * sin(z) +
-            5  * Math.pow(cos(z), 1) * sin(z) * cos(x)
+            5 * Math.pow(cos(z), 1) * sin(z) * cos(x)
           )
           return res
         },
@@ -111,19 +111,19 @@ async function anitem (__eo) {
           let y = e[1]
           let z = e[2]
           let res =
-          (-1 / 13)
-            * sin(z) * (
-                  3  * cos(x)           * Math.pow(cos(z), 0)
-                 - 3  * cos(x)           * Math.pow(cos(z), 2)
-                 - 48 * cos(x)           * Math.pow(cos(z), 4)
-                 + 48 * cos(x)           * Math.pow(cos(z), 6)
-                 - 60          * sin(z)
+          (-1 / 13) *
+            sin(z) * (
+            3 * cos(x) * Math.pow(cos(z), 0) -
+                 3 * cos(x) * Math.pow(cos(z), 2) -
+                 48 * cos(x) * Math.pow(cos(z), 4) +
+                 48 * cos(x) * Math.pow(cos(z), 6) -
+                 60 * sin(z) +
 
-                 + 5 *  cos(x) * sin(z)  * Math.pow(cos(z), 1)
-                 - 5 *  cos(x) * sin(z)  * Math.pow(cos(z), 3)
-                 - 80 * cos(x) * sin(z)  * Math.pow(cos(z), 5)
-                 + 80 * cos(x) * sin(z)  * Math.pow(cos(z), 7)
-              )
+                 5 * cos(x) * sin(z) * Math.pow(cos(z), 1) -
+                 5 * cos(x) * sin(z) * Math.pow(cos(z), 3) -
+                 80 * cos(x) * sin(z) * Math.pow(cos(z), 5) +
+                 80 * cos(x) * sin(z) * Math.pow(cos(z), 7)
+          )
           return res
         },
       },
@@ -139,8 +139,8 @@ async function anitem (__eo) {
           let z = e[2]
           let res =
             (3 / 13) *
-            ( 3
-              + 1 * cos(z) * sin(z)
+            (3 +
+              1 * cos(z) * sin(z)
             ) *
             sin(x)
           return res
@@ -163,11 +163,10 @@ async function anitem (__eo) {
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
 
       eofold: ani => {
-        let res 
-          // res = muonNatform.natMultiLineString({eoform: ani.eoload.eoform})
-          res = muonGraticule.gjfMultiLineString(ani.eoload.eoframe)
-          // res = muonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
-
+        let res
+        // res = muonNatform.natMultiLineString({eoform: ani.eoload.eoform})
+        res = muonGraticule.gjfMultiLineString(ani.eoload.eoframe)
+        // res = muonGraticule.gjfMultiPolygon(ani.eoload.eoframe)
 
         return res
       },
@@ -190,7 +189,7 @@ async function anitem (__eo) {
 
       eoload: {
         eoform: conformKlein,
-        eoframe: { multiframe: [ [-180, 180, 30, 30 ], [-90, 90, 30, 30] ] },        
+        eoframe: { multiframe: [ [-180, 180, 30, 30 ], [-90, 90, 30, 30] ] },
       },
     }
 

@@ -7,14 +7,14 @@ async function anitem (__eo) {
   let [
     d3,
     d3Geo,
-    d3Force3d,    
+    d3Force3d,
     THREE,
     ctlWen,
-    eohalCore,    
+    eohalCore,
     eohalMars,
     eohalPacer,
     eohalFourier,
-        muonEoforces,
+    muonEoforces,
     muonFourier,
     muonGeoj,
     muonGeom,
@@ -31,14 +31,14 @@ async function anitem (__eo) {
   ] = await Promise.all([
     __eo('xs').b('d3'),
     __eo('xs').b('d3-geo'),
-    __eo('xs').b('d3-force-3d'),    
+    __eo('xs').b('d3-force-3d'),
     __eo('xs').b('three'),
     __eo('xs').c('wen'),
-    __eo('xs').e('core'),    
+    __eo('xs').e('core'),
     __eo('xs').e('mars'),
     __eo('xs').e('pacer'),
     __eo('xs').e('fourier'),
-    __eo('xs').m('eoforces'),    
+    __eo('xs').m('eoforces'),
     __eo('xs').m('fourier'),
     __eo('xs').m('geoj'),
     __eo('xs').m('geom'),
@@ -56,7 +56,7 @@ async function anitem (__eo) {
 
   let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
-  
+
   let ani = function () {
   // .................. pics
 
@@ -91,7 +91,7 @@ async function anitem (__eo) {
         [0, 1.00], [0.25, 1.00], [0.50, 1.00], [0.75, 1.00],
         [1.00, 1.00], [1.00, 0.75], [1.00, 0.50], [1.00, 0.25],
         [1.00, 0], [0.75, 0], [0.50, 0], [0.25, 0],
-        [0, 0], [0, 0.25],        
+        [0, 0], [0, 0.25],
       ],
     ] // MultiLineString
     data.geometry.coordinates = basicSquare
@@ -571,7 +571,7 @@ async function anitem (__eo) {
         params.properties = properties
         return forceGravity(params)
       },
-    }    
+    }
     // .................... fieldAni
     let fieldAni = {
 
@@ -585,7 +585,7 @@ async function anitem (__eo) {
     }
     fieldAni.eoforces = {
       force_gravity, // apply gravity to git.paced anitems
-    }    
+    }
     // .................. animas
     let animas = [
       facesAniN, // h.mars
@@ -593,7 +593,7 @@ async function anitem (__eo) {
       fourierAni, // h.mars
       lightHemisphereAni, // h.sol
       spotLight, // h.sol
-      fieldAni, // h.core      
+      fieldAni, // h.core
 
     ]
     return animas

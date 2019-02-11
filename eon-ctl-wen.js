@@ -16,30 +16,29 @@
       muonGeom,
       muonVector2,
       renderPortview,
-      // renderSvg,  
+      // renderSvg,
     ] = await Promise.all([
       __eo('xs').b('d3'),
       __eo('xs').b('d3-geo'),
       __eo('xs').m('geom'),
       __eo('xs').m('vector2'),
       __eo('xs').r('portview'),
-      // __eo('xs').r('svg'),  
+      // __eo('xs').r('svg'),
     ])
 
     let d3drag = d3
     let d3selection = d3
     let getPos = renderPortview.getPos // event position
 
-    
     let ctlWen
     let ctl
     try {
       ctl = ctlWen().control(renderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
-    }    
-    
-    // .................. pics    
+    }
+
+    // .................. pics
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)
     }
@@ -128,9 +127,9 @@
     function dragstarted () {
       let e = d3selection.event
       if (state.grabbed) return // drag ongoing
-      
+
       stopMomentum()
-      
+
       state.moved = false // not moved yet
       state.grabbed = getPos(e)
 
@@ -187,7 +186,7 @@
         state.rotVel_s_degrees[1] + sd02[1] * state.mult_degrees_s,
       ]
       state.rotInDrag_s_degrees = rotInDrag_s_degrees
-    
+
       state.lastMoveTime = Date.now()
     }
 
@@ -257,7 +256,7 @@
 
     enty.rotation = () => {
       let res = muonGeom.add(
-        state.rotAccum_s_degrees, 
+        state.rotAccum_s_degrees,
         state.rotInDrag_s_degrees
       )
       return res

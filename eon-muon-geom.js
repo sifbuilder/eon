@@ -254,7 +254,7 @@
       }
       return res
     }
-    
+
     enty.zerovector = function (v) {
       let zerovector = []
       let dims = v.length

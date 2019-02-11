@@ -8,19 +8,15 @@ async function anitem (__eo) {
   let [
     ctlWen,
     ctlVersor,
-    eohalScene,
     eohalMars,
     muonNatform,
-    muonProps,
     renderWebgl,
     renderSvg,
   ] = await Promise.all([
     __eo('xs').c('wen'),
     __eo('xs').c('versor'),
-    __eo('xs').e('scene'),
     __eo('xs').e('mars'),
     __eo('xs').m('natform'),
-    __eo('xs').m('props'),
     __eo('xs').r('webgl'),
     __eo('xs').r('svg'),
   ])
@@ -33,11 +29,9 @@ async function anitem (__eo) {
       ctl = ctlWen().control(renderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
-    }   
-    
-    let radians = Math.PI / 180, degrees = 180 / Math.PI,
-      sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
-      sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh
+    }
+
+    let sin = Math.sin, cos = Math.cos
 
     let fact = n => n - 1 > 0 ? n * fact(n - 1) : n
     let fact0 = 1,
@@ -63,9 +57,6 @@ async function anitem (__eo) {
 
     let cost = [infact0, 0, -infact2, 0, infact4, 0, -infact6, 0, infact8]
     let sint = [0, infact1, 0, -infact3, 0, infact5, 0, -infact7, 0, infact9]
-    let cosht = [infact0, 0, +infact2, 0, infact4, 0, +infact6, 0, infact8]
-    let sinht = [0, infact1, 0, +infact3, 0, infact5, 0, +infact7, 0, infact9]
-    let expt = [infact0, infact1, infact2, infact3, infact4, infact5, infact6, infact7, infact8, infact9]
     let pihalf = Math.PI / 2
 
     // ............................. pics
@@ -154,7 +145,7 @@ async function anitem (__eo) {
     // ............................. lightAni
     let lightAni = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -164,7 +155,6 @@ async function anitem (__eo) {
           scale: [ 0.1, 0.1 ],
           prerotate: [[[ ctl.rotation ]]],
           translate: [ 0, 0, 0 ],
-          rotate: [ 0, 0, 0 ],
           rotate: [
             [[[0, 90, 0, 0, 45, 45, 0, 0 ]]],
             [[[0, 6, 0, 36, 36, 90, 180, 180 ]]],
@@ -182,7 +172,7 @@ async function anitem (__eo) {
     // ............................. natAni
     let natAni = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
 
       eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim: eotim,
@@ -194,7 +184,6 @@ async function anitem (__eo) {
           scale: [ [[[1, 1]]], [[[1, 1]]] ],
           prerotate: [[[ ctl.rotation ]]],
           translate: [ [0, 0, 0] ],
-          rotate: [ 0, 0, 0 ],
           rotate: [
             [[[0, 0, 36, -64, -64, -64]]],
             [[[0, 36, 36, 36, 36, 36]]],

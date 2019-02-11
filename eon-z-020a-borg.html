@@ -17,15 +17,14 @@ async function anitem (__eo) {
 
   // .................. animas
   let ani = function () {
-
     // .................. pics
     let ctl
     try {
       ctl = ctlWen().control(renderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
-    }   
-    
+    }
+
     let eotim = {td: 16800, t0: 0, t1: 1, t2: 1, t3: 1}
     let formPlanet = {
       'm1': -144, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,

@@ -279,9 +279,9 @@
     let __eo = xEonify.xEo() // init mapper
 
     __eo({'xD3Require': {
-        require: xEonify.require,
-        requireFrom: xEonify.requireFrom,
-      },
+      require: xEonify.require,
+      requireFrom: xEonify.requireFrom,
+    },
     }) // map require
 
     __eo({'xs': xEonify.xs(__eo)}) // map xs

@@ -76,8 +76,6 @@
         .style('fill', 'transparent')
         .style('background-color', state.background) // background
         .append('defs')
-
-        
     }
 
     let resetsvg = function () {
@@ -107,7 +105,6 @@
           .attr('width', state.width)
           .attr('height', state.height)
           .style('border', '1px solid lightgray')
-
 
         return svgLayer
       } else if (typeof (idfyer) === 'string') {
@@ -230,7 +227,7 @@
           // a single svg 1.1 <text> eklement creates a single line of text
           // x,y are <tspan> independent attributes
           // dx,dy are delta location from previous <tspan>
-          
+
           let texts = fitems
             .filter(d => d.properties.sort === 'text')
           //
@@ -279,12 +276,11 @@
               .attr('y', 0) // translate instead
 
               .attr('transform', d => { // eg. "translate(21,20) rotate(15)") scale(sx, sy) skew (skew)
-
                 let item = d
                 let style = d.properties.style
                 let dx = style.dx || 0
                 let dy = style.dy || 0
-                
+
                 let geometry = item.geometry
                 let projgeo = muonProj3ct.project(geometry, viewScreenPrt)
 

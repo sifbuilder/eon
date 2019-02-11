@@ -17,7 +17,6 @@
       __eo('xs').b('d3-array'),
     ])
 
-    
     let props = {}
     props.addtst = (a, b) => a + b
 

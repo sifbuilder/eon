@@ -390,7 +390,6 @@
           }
 
           vertices = muonGraticule.gjfMultiPoint(gratipros).geometry.coordinates
-
         } else { // ___ 2d
           dx = 360 / nformed.x.seg5 // x
           dy = 360 / nformed.y.seg5 // y
@@ -496,7 +495,7 @@
           let ydomain = eoform.z.dom3 || dom3z // ____ z ___
 
           let geoframe = [ [
-            [...xdomain, sx, dx], [...ydomain, sy, dy]
+            [...xdomain, sx, dx], [...ydomain, sy, dy],
           ] ]
 
           gratipros = {
@@ -507,7 +506,6 @@
           } // x, y
 
           geometry = muonGraticule.gjfMultiLineString(gratipros).geometry
-
         } else { // ___ 2d
           sx = 360
           sy = 360
@@ -518,9 +516,9 @@
           let dom3x = [-180, 180]
           let dom3y = [-180, 180]
           let dom3z = [-90, 90]
-          
+
           let xdomain = nformed.x.dom3 || dom3x
-          let ydomain = [0,0] // nformed.y.dom3 || dom3y
+          let ydomain = [0, 0] // nformed.y.dom3 || dom3y
 
           let geoframe = [ [
             [...xdomain, sx, dx], [...ydomain, sy, dy],
@@ -537,7 +535,7 @@
 
           geometry = muonGraticule.gjfMultiLineString(gratipros).geometry // geometry.type: MultiLineString
 
-          // let p = geometry.coordinates[0] // [[[[-180,0],[180,0]]]] , [[[[0,-180],[0,180]]]] 
+          // let p = geometry.coordinates[0] // [[[[-180,0],[180,0]]]] , [[[[0,-180],[0,180]]]]
           // geometry.coordinates = Array.of(p)
         }
 
@@ -637,36 +635,36 @@
     }
 
     // ............................. radorm
-      // let _s1extent = [-180, 180]
-      // let _s1range = [0, 6]
-      // let _s2extent = [
-        // 0,
-        // 1,
-        // 2,
-        // 3,
-        // 4,
-        // 5,
-        // 6,
-      // ]
-      // let _s2range = [
-        // 0.24253562503633297,
-        // 0.2857142857142857,
-        // 0.48507125007266594,
-        // 1,
-        // 0.4850712500726661,
-        // 0.28571428571428575,
-        // 0.24253562503633297,
-      // ]
-      // let _s1 = d3Scale.scaleLinear().domain(_s1extent).range(_s1range) // [-1,1] => [0,seg5]
-      // let _s2 = d3Scale.scaleLinear().domain(_s2extent).range(_s2range) // [0,..,seg5] => rador
-      // console.assert(_s1(0) === 3)
+    // let _s1extent = [-180, 180]
+    // let _s1range = [0, 6]
+    // let _s2extent = [
+    // 0,
+    // 1,
+    // 2,
+    // 3,
+    // 4,
+    // 5,
+    // 6,
+    // ]
+    // let _s2range = [
+    // 0.24253562503633297,
+    // 0.2857142857142857,
+    // 0.48507125007266594,
+    // 1,
+    // 0.4850712500726661,
+    // 0.28571428571428575,
+    // 0.24253562503633297,
+    // ]
+    // let _s1 = d3Scale.scaleLinear().domain(_s1extent).range(_s1range) // [-1,1] => [0,seg5]
+    // let _s2 = d3Scale.scaleLinear().domain(_s2extent).range(_s2range) // [0,..,seg5] => rador
+    // console.assert(_s1(0) === 3)
 
-      // console.assert(_s1(-180) === 0)
-      // console.assert(_s2(_s1(-180)) === 0.24253562503633297)
-      // console.assert(_s1(0) === 3)
-      // console.assert(_s2(_s1(0)) === 1)
-      // console.assert(_s1(180) === 6)
-      // console.assert(_s2(_s1(180)) === 0.24253562503633297)
+    // console.assert(_s1(-180) === 0)
+    // console.assert(_s2(_s1(-180)) === 0.24253562503633297)
+    // console.assert(_s1(0) === 3)
+    // console.assert(_s2(_s1(0)) === 1)
+    // console.assert(_s1(180) === 6)
+    // console.assert(_s2(_s1(180)) === 0.24253562503633297)
     function radorm (form, s1extent = [-1, 1]) { //  radorm: [-1,1) => [-1,1]
       let radorPts = rador(form) //  rador:  [-1,1] => [0,seg5)
 

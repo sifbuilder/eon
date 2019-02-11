@@ -127,7 +127,7 @@ async function anitem (__eo) {
         },
       },
 
-      eocrom: { 'csx': 0, 'cf': [[[111,444,999, 888]]], 'co': [[[0.3,0.9]]], 'cs': [[[999,999, 1, 1, 1]]], 'cw': [[[0.4, 1.2]]], 'cp': 1},
+      eocrom: { 'csx': 0, 'cf': [[[111, 444, 999, 888]]], 'co': [[[0.3, 0.9]]], 'cs': [[[999, 999, 1, 1, 1]]], 'cw': [[[0.4, 1.2]]], 'cp': 1},
 
       eoform: {
         x: {
@@ -257,11 +257,11 @@ async function anitem (__eo) {
               let rx = muonProps.v(muonSnap.snap(d.eoform.x.ra2, tup), d)
               let ry = muonProps.v(muonSnap.snap(d.eoform.y.ra2, tup), d)
               let r = Math.sqrt(rx * rx + ry * ry)
-              
+
               console.assert(r !== Number.NaN)
               let gravrad = 60
               let gravforce = 1.9
-              if (r > gravrad) gravity = gravforce   // GRAVITY
+              if (r > gravrad) gravity = gravforce // GRAVITY
               return gravity
             }
 
@@ -290,7 +290,7 @@ async function anitem (__eo) {
           let node = nodes[i]
           /* */
 
-            node.vy += muonProps.v(opts.gravity, node)
+          node.vy += muonProps.v(opts.gravity, node)
 
           /* */
         }
@@ -309,7 +309,6 @@ async function anitem (__eo) {
       }
       return field // return force
     }
-
 
     let force_gravity = { // aniForce:{properties, field}
       properties: {
@@ -341,7 +340,6 @@ async function anitem (__eo) {
         return forceGravity(params)
       },
     }
-
 
     // .................. scene
     let scene = {

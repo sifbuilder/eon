@@ -8,22 +8,20 @@ async function anitem (__eo) {
   let [
     ctlWen,
     eohalMars,
-    eohalNatform,
-    eohalTextform,    
+    eohalTextform,
     muonGraticule,
     muonMinkowski,
     muonNatform,
-    muonProps,    
+    muonProps,
     renderSvg,
   ] = await Promise.all([
     __eo('xs').c('wen'),
     __eo('xs').e('mars'),
-    __eo('xs').e('natform'),
-    __eo('xs').e('textform'),    
+    __eo('xs').e('textform'),
     __eo('xs').m('graticule'),
     __eo('xs').m('minkowski'),
     __eo('xs').m('natform'),
-    __eo('xs').m('props'),    
+    __eo('xs').m('props'),
     __eo('xs').r('svg'),
   ])
 
@@ -37,16 +35,11 @@ async function anitem (__eo) {
       ctl = () => [0, 0, 0]
     }
 
-    let pi = Math.PI, radians = pi / 180, degrees = 180 / pi,
-      sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
-      cosh = Math.cosh, sinh = Math.sinh,
-      epsilon = 1e-5
-      
-    
+    let sin = Math.sin
+
     let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
-// -------------
-
+    // -------------
 
     let conformT = {
       x: {
@@ -62,7 +55,7 @@ async function anitem (__eo) {
         'fn0': (e, c) => 0.1 * sin(e[0]),
       },
     }
-    
+
     let conformAB = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
@@ -77,42 +70,42 @@ async function anitem (__eo) {
         'fn0': (e, c) => 0 * sin(e[0]),
       },
     }
-    
+
     let proformT = {
-          projection: 'uniwen',
-          scale: [ 0.2, 0.2 ],
-          prerotate: [[[ ctl.rotation ]]],
-          translate: [ 0, 0, 0 ], // iter
-          rotate: [0,0,0],
-          lens: [0, 1, Infinity ],
-        }
+      projection: 'uniwen',
+      scale: [ 0.2, 0.2 ],
+      prerotate: [[[ ctl.rotation ]]],
+      translate: [ 0, 0, 0 ], // iter
+      rotate: [0, 0, 0],
+      lens: [0, 1, Infinity ],
+    }
 
     let proformTA = {
-          projection: 'uniwen',
-          scale: 1,
-          prerotate: [[[ ctl.rotation ]]],
-          translate: [ 100, -140, 0 ],
-          rotate: [0,0,0],
-          lens: [0, 1, Infinity ],
-        }
+      projection: 'uniwen',
+      scale: 1,
+      prerotate: [[[ ctl.rotation ]]],
+      translate: [ 100, -140, 0 ],
+      rotate: [0, 0, 0],
+      lens: [0, 1, Infinity ],
+    }
 
     let proformTB = {
-          projection: 'uniwen',
-          scale: 1,
-          prerotate: [[[ ctl.rotation ]]],
-          translate: [ 100, -160, 0 ],
-          rotate: [0,0,0],
-          lens: [0, 1, Infinity ],
-        }
+      projection: 'uniwen',
+      scale: 1,
+      prerotate: [[[ ctl.rotation ]]],
+      translate: [ 100, -160, 0 ],
+      rotate: [0, 0, 0],
+      lens: [0, 1, Infinity ],
+    }
 
     let proformTAB = {
-          projection: 'uniwen',
-          scale: 1,
-          prerotate: [[[ ctl.rotation ]]],
-          translate: [ 90, -180, 0 ],
-          rotate: [0,0,0],
-          lens: [0, 1, Infinity ],
-        }
+      projection: 'uniwen',
+      scale: 1,
+      prerotate: [[[ ctl.rotation ]]],
+      translate: [ 90, -180, 0 ],
+      rotate: [0, 0, 0],
+      lens: [0, 1, Infinity ],
+    }
 
     let eocromT = { 'csx': 7, 'cf': 999, 'co': 0.9, 'cs': 999, 'cw': 0.1, 'cp': 0.99}
 
@@ -125,34 +118,31 @@ async function anitem (__eo) {
     let eocromTAB = { 'csx': 20, 'cf': 666, 'co': 0.069, 'cs': 555, 'cw': 0.39, 'cp': 0.99 }
 
     // ............................. textAni
-let text = `Given two point sets or 
-polygons A,B with n and m 
-vertices their convolution 
-or Minkowski sum 
+    let text = `Given two point sets or
+polygons A,B with n and m
+vertices their convolution
+or Minkowski sum
 is their point-wise sum
 A+B = {a+b | a ∈ A, b ∈ B}
-Minkowski sums are used 
-to plan the motion of an 
-object among obstacles 
+Minkowski sums are used
+to plan the motion of an
+object among obstacles
 or to compute the set of
 all its admissible positions`
 
-
-    let textsegment = function(text, t) {
-
+    let textsegment = function (text, t) {
       let s = text // source
       let a = Array.from(s) // discretize source
-      let q = a.length  // length, number of elems
-      let n = Math.ceil(q * t)  // elems in time
-      let v =  a.slice(0,n) // segment in time
+      let q = a.length // length, number of elems
+      let n = Math.ceil(q * t) // elems in time
+      let v = a.slice(0, n) // segment in time
       let s1 = v.join('') // rejoin segment
 
       return s1
     }
 
+    // -------------
 
-// -------------    
-    
     let conformA = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
@@ -317,16 +307,15 @@ all its admissible positions`
 
       },
     }
-    
-    
-   // .................. textAni
+
+    // .................. textAni
     let textAni = {
-      eohal: 'textform',
+      eohal: eohalTextform,
       eotim: eotim,
       eoric: {gid: 'txtg', cid: 'txtcT', fid: 'txtfT'},
 
       eofold: ani => {
-        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0, }
+        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
         return muonNatform.natMultiLineString(natipros)
       },
       eomot: {
@@ -340,7 +329,7 @@ all its admissible positions`
           string: [[[function (t) {
             let txt = this.text
             let linenb = this.linenb
-            let ttxt = textsegment( txt, t)
+            let ttxt = textsegment(txt, t)
             let sttxt = ttxt.split('\n')
 
             return sttxt[linenb]
@@ -362,9 +351,9 @@ all its admissible positions`
             'font-family': 'Verdana', // BankFuturistic, Arial
             // 'height': 56,
             'kerning': 4, // 1
-            'lengthAdjust': 'spacing',  // spacingAndGlyphs
+            'lengthAdjust': 'spacing', // spacingAndGlyphs
             'letter-spacing': 1,
-            'text-anchor': 'start',  // start, middle, end
+            'text-anchor': 'start', // start, middle, end
             'textLength': 0,
             // 'width': 111,
             'word-spacing': 1,
@@ -374,28 +363,28 @@ all its admissible positions`
       },
     }
 
-    let getanis = function(txt='') {
+    let getanis = function (txt = '') {
       let anis = {}
       let a = txt.split('\n')
-      for (let i=0; i<a.length; i++) {
+      for (let i = 0; i < a.length; i++) {
         let ani = muonProps.clone(textAni)
         ani.eoric.fid = textAni.eoric.fid + '_' + i
         ani.eoric.cid = textAni.eoric.cid + '_' + i
         ani.eomot.proform.translate = [-285, 160 - 35 * i]
         ani.eoload.textform.linenb = i
-        anis['ani'+ '_' + i] = ani
+        anis['ani' + '_' + i] = ani
       }
       return anis
     }
 
     // .................. textA
     let textA = {
-      eohal: 'textform',
+      eohal: eohalTextform,
       eotim: eotim,
       eoric: {gid: 'txtg', cid: 'txtTA', fid: 'txtfA'},
 
       eofold: ani => {
-        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0, }
+        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
         return muonNatform.natMultiLineString(natipros)
       },
       eomot: {
@@ -416,9 +405,9 @@ all its admissible positions`
             'font-family': 'Verdana', // BankFuturistic, Arial
             // 'height': 56,
             'kerning': 4, // 1
-            'lengthAdjust': 'spacing',  // spacingAndGlyphs
+            'lengthAdjust': 'spacing', // spacingAndGlyphs
             'letter-spacing': 1,
-            'text-anchor': 'start',  // start, middle, end
+            'text-anchor': 'start', // start, middle, end
             'textLength': 0,
             // 'width': 111,
             'word-spacing': 1,
@@ -430,19 +419,19 @@ all its admissible positions`
 
     // .................. textB
     let textB = {
-      eohal: 'textform',
+      eohal: eohalTextform,
       eotim: eotim,
       eoric: {gid: 'txtg', cid: 'txtcTB', fid: 'txtfB'},
 
       eofold: ani => {
-        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0, }
+        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
         return muonNatform.natMultiLineString(natipros)
       },
       eomot: {
         proform: proformTB,
       },
       eocrom: eocromTB,
-      
+
       eoload: {
         eoform: conformAB,
         textform: {
@@ -456,9 +445,9 @@ all its admissible positions`
             'font-family': 'Verdana', // BankFuturistic, Arial
             // 'height': 56,
             'kerning': 4, // 1
-            'lengthAdjust': 'spacing',  // spacingAndGlyphs
+            'lengthAdjust': 'spacing', // spacingAndGlyphs
             'letter-spacing': 1,
-            'text-anchor': 'start',  // start, middle, end
+            'text-anchor': 'start', // start, middle, end
             'textLength': 0,
             // 'width': 111,
             'word-spacing': 1,
@@ -466,7 +455,7 @@ all its admissible positions`
           },
         },
       },
-    }    
+    }
 
     // .................. textAB
     let textAB = {
@@ -475,14 +464,14 @@ all its admissible positions`
       eoric: {gid: 'txtg', cid: 'txtcTAB', fid: 'txtfAB'},
 
       eofold: ani => {
-        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0, }
+        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
         return muonNatform.natMultiLineString(natipros)
       },
       eomot: {
         proform: proformTAB,
       },
       eocrom: eocromTAB,
-      
+
       eoload: {
         eoform: conformAB,
         textform: {
@@ -496,9 +485,9 @@ all its admissible positions`
             'font-family': 'Verdana', // BankFuturistic, Arial
             // 'height': 56,
             'kerning': 4, // 1
-            'lengthAdjust': 'spacing',  // spacingAndGlyphs
+            'lengthAdjust': 'spacing', // spacingAndGlyphs
             'letter-spacing': 1,
-            'text-anchor': 'start',  // start, middle, end
+            'text-anchor': 'start', // start, middle, end
             'textLength': 0,
             // 'width': 111,
             'word-spacing': 1,
@@ -506,25 +495,23 @@ all its admissible positions`
           },
         },
       },
-    }        
-    
-    
+    }
+
     // .................. scene
     let scene = Object.assign(
       {},
       getanis(text),
-      { 
+      {
         textA,
         textB,
         textAB,
-        
+
         natA, // h.mars g.uniwen
         natB, // h.mars g.uniwen
         natAB, // h.mars g.uniwen
-        geograt1, // h.mars        
+        geograt1, // h.mars
       }
-    )    
-
+    )
 
     return scene
   }

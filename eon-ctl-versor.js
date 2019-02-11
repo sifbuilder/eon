@@ -86,8 +86,8 @@
       if (position) return // wait while drag ongoing
 
       stopMomentum()
-      rotMomentum_degrees = [0,0,0]
-      
+      rotMomentum_degrees = [0, 0, 0]
+
       moved = false // not moved yet
       position = getPos(e) // get position after view projection
 
@@ -123,7 +123,7 @@
       inv = projection.rotate(r0).invert(position) // s
       if (isNaN(inv[0])) return
       v1 = muonGeom.cartesian(inv) // update cartesian
-      q1 = muonVersor.delta(v1, v0) // quaternion to rotate between v0 and v1 
+      q1 = muonVersor.delta(v1, v0) // quaternion to rotate between v0 and v1
       r1 = muonVersor.rotation(q1) // euler rotation from quaternion
 
       rotInDrag_degrees = r1 //  rotation from start for prerotation
@@ -139,17 +139,16 @@
 
       r2 = muonVersor.rotation(q10) // rotation from quaternion
       rotMomentum_degrees = r2
-      
+
       timer = requestAnimationFrame(momentum)
     }
 
     // .................. momentum
     function momentum () {
-
       rotMomentum_degrees = muonGeom.mult(rotMomentum_degrees, decay)
-    
-      rotInDrag_degrees = muonGeom.add( rotInDrag_degrees, rotMomentum_degrees )
-      
+
+      rotInDrag_degrees = muonGeom.add(rotInDrag_degrees, rotMomentum_degrees)
+
       if (timer) timer = requestAnimationFrame(momentum)
     }
 
@@ -165,7 +164,7 @@
 
     enty.control = control
     enty.reset = reset
-    
+
     enty.rotAccum = () => rotAccum_degrees
     enty.rotInDrag = () => rotInDrag_degrees
     enty.rotMomentum = () => rotMomentum_degrees
@@ -186,8 +185,8 @@
         rotInDrag_degrees)
       let res = muonGeom.add(
         r1,
-        rotMomentum_degrees)  
-        
+        rotMomentum_degrees)
+
       return res
     }
 

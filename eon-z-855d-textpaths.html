@@ -41,7 +41,6 @@ async function anitem (__eo) {
       cosh = Math.cosh, sinh = Math.sinh,
       epsilon = 1e-5
 
-
     let eotim = {'td': 12800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
 
     let conformT = {
@@ -58,7 +57,7 @@ async function anitem (__eo) {
         'fn0': (e, c) => 0.1 * sin(e[0]),
       },
     }
-    
+
     let conformAB = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
@@ -73,42 +72,42 @@ async function anitem (__eo) {
         'fn0': (e, c) => 0 * sin(e[0]),
       },
     }
-    
+
     let proformT = {
-          projection: 'uniwen',
-          scale: [ 0.2, 0.2 ],
-          prerotate: [[[ ctl.rotation ]]],
-          translate: [ 0, 0, 0 ], // iter
-          rotate: [0,0,0],
-          lens: [0, 1, Infinity ],
-        }
+      projection: 'uniwen',
+      scale: [ 0.2, 0.2 ],
+      prerotate: [[[ ctl.rotation ]]],
+      translate: [ 0, 0, 0 ], // iter
+      rotate: [0, 0, 0],
+      lens: [0, 1, Infinity ],
+    }
 
     let proformA = {
-          projection: 'uniwen',
-          scale: [ 0.2, 0.2 ],
-          prerotate: [[[ ctl.rotation ]]],
-          translate: [ 150, -100, 0 ],
-          rotate: [0,0,0],
-          lens: [0, 1, Infinity ],
-        }
+      projection: 'uniwen',
+      scale: [ 0.2, 0.2 ],
+      prerotate: [[[ ctl.rotation ]]],
+      translate: [ 150, -100, 0 ],
+      rotate: [0, 0, 0],
+      lens: [0, 1, Infinity ],
+    }
 
     let proformB = {
-          projection: 'uniwen',
-          scale: [ 0.2, 0.2 ],
-          prerotate: [[[ ctl.rotation ]]],
-          translate: [ 150, -120, 0 ],
-          rotate: [0,0,0],
-          lens: [0, 1, Infinity ],
-        }
+      projection: 'uniwen',
+      scale: [ 0.2, 0.2 ],
+      prerotate: [[[ ctl.rotation ]]],
+      translate: [ 150, -120, 0 ],
+      rotate: [0, 0, 0],
+      lens: [0, 1, Infinity ],
+    }
 
     let proformAB = {
-          projection: 'uniwen',
-          scale: [ 0.2, 0.2 ],
-          prerotate: [[[ ctl.rotation ]]],
-          translate: [ 150, -140, 0 ],
-          rotate: [0,0,0],
-          lens: [0, 1, Infinity ],
-        }
+      projection: 'uniwen',
+      scale: [ 0.2, 0.2 ],
+      prerotate: [[[ ctl.rotation ]]],
+      translate: [ 150, -140, 0 ],
+      rotate: [0, 0, 0],
+      lens: [0, 1, Infinity ],
+    }
 
     let eocromT = { 'csx': 7, 'cf': 999, 'co': 0.9, 'cs': 999, 'cw': 0.1, 'cp': 0.99}
 
@@ -119,7 +118,7 @@ async function anitem (__eo) {
     let eocromAB = { 'csx': 20, 'cf': 666, 'co': 0.069, 'cs': 222, 'cw': 0.99, 'cp': 0.99 }
 
     // ............................. textAni
-let text = `Given two point sets or 
+    let text = `Given two point sets or 
 polygons A,B with n and m 
 vertices their convolution 
 or Minkowski sum 
@@ -131,14 +130,12 @@ object among obstacles
 or to compute the set of
 all its admissible positions`
 
-
-    let textsegment = function(text, t) {
-
+    let textsegment = function (text, t) {
       let s = text // source
       let a = Array.from(s) // discretize source
-      let q = a.length  // length, number of elems
-      let n = Math.ceil(q * t)  // elems in time
-      let v =  a.slice(0,n) // segment in time
+      let q = a.length // length, number of elems
+      let n = Math.ceil(q * t) // elems in time
+      let v = a.slice(0, n) // segment in time
       let s1 = v.join('') // rejoin segment
 
       return s1
@@ -151,7 +148,7 @@ all its admissible positions`
       eoric: {gid: 'txtg', cid: 'txtcT', fid: 'txtfT'},
 
       eofold: ani => {
-        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0, }
+        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
         return muonNatform.natMultiLineString(natipros)
       },
       eomot: {
@@ -165,7 +162,7 @@ all its admissible positions`
           string: [[[function (t) {
             let txt = this.text
             let linenb = this.linenb
-            let ttxt = textsegment( txt, t)
+            let ttxt = textsegment(txt, t)
             let sttxt = ttxt.split('\n')
 
             return sttxt[linenb]
@@ -187,9 +184,9 @@ all its admissible positions`
             'font-family': 'Verdana', // BankFuturistic, Arial
             // 'height': 56,
             'kerning': 4, // 1
-            'lengthAdjust': 'spacing',  // spacingAndGlyphs
+            'lengthAdjust': 'spacing', // spacingAndGlyphs
             'letter-spacing': 1,
-            'text-anchor': 'start',  // start, middle, end
+            'text-anchor': 'start', // start, middle, end
             'textLength': 0,
             // 'width': 111,
             'word-spacing': 1,
@@ -199,16 +196,16 @@ all its admissible positions`
       },
     }
 
-    let getanis = function(txt='') {
+    let getanis = function (txt = '') {
       let anis = {}
       let a = txt.split('\n')
-      for (let i=0; i<a.length; i++) {
+      for (let i = 0; i < a.length; i++) {
         let ani = muonProps.clone(textAni)
         ani.eoric.fid = textAni.eoric.fid + '_' + i
         ani.eoric.cid = textAni.eoric.cid + '_' + i
         ani.eomot.proform.translate = [-285, 160 - 35 * i]
         ani.eoload.textform.linenb = i
-        anis['ani'+ '_' + i] = ani
+        anis['ani' + '_' + i] = ani
       }
       return anis
     }
@@ -220,7 +217,7 @@ all its admissible positions`
       eoric: {gid: 'txtg', cid: 'txtTA', fid: 'txtfA'},
 
       eofold: ani => {
-        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0, }
+        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
         return muonNatform.natMultiLineString(natipros)
       },
       eomot: {
@@ -241,9 +238,9 @@ all its admissible positions`
             'font-family': 'Verdana', // BankFuturistic, Arial
             // 'height': 56,
             'kerning': 4, // 1
-            'lengthAdjust': 'spacing',  // spacingAndGlyphs
+            'lengthAdjust': 'spacing', // spacingAndGlyphs
             'letter-spacing': 1,
-            'text-anchor': 'start',  // start, middle, end
+            'text-anchor': 'start', // start, middle, end
             'textLength': 0,
             // 'width': 111,
             'word-spacing': 1,
@@ -260,14 +257,14 @@ all its admissible positions`
       eoric: {gid: 'txtg', cid: 'txtcTB', fid: 'txtfB'},
 
       eofold: ani => {
-        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0, }
+        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
         return muonNatform.natMultiLineString(natipros)
       },
       eomot: {
         proform: proformB,
       },
       eocrom: eocromB,
-      
+
       eoload: {
         eoform: conformAB,
         textform: {
@@ -281,9 +278,9 @@ all its admissible positions`
             'font-family': 'Verdana', // BankFuturistic, Arial
             // 'height': 56,
             'kerning': 4, // 1
-            'lengthAdjust': 'spacing',  // spacingAndGlyphs
+            'lengthAdjust': 'spacing', // spacingAndGlyphs
             'letter-spacing': 1,
-            'text-anchor': 'start',  // start, middle, end
+            'text-anchor': 'start', // start, middle, end
             'textLength': 0,
             // 'width': 111,
             'word-spacing': 1,
@@ -291,7 +288,7 @@ all its admissible positions`
           },
         },
       },
-    }    
+    }
 
     // .................. textAB
     let textAB = {
@@ -300,14 +297,14 @@ all its admissible positions`
       eoric: {gid: 'txtg', cid: 'txtcTAB', fid: 'txtfAB'},
 
       eofold: ani => {
-        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0, }
+        let natipros = { eoform: ani.eoload.eoform, ghv: 1, gsa: 1, gco: 0 }
         return muonNatform.natMultiLineString(natipros)
       },
       eomot: {
         proform: proformAB,
       },
       eocrom: eocromAB,
-      
+
       eoload: {
         eoform: conformAB,
         textform: {
@@ -321,9 +318,9 @@ all its admissible positions`
             'font-family': 'Verdana', // BankFuturistic, Arial
             // 'height': 56,
             'kerning': 4, // 1
-            'lengthAdjust': 'spacing',  // spacingAndGlyphs
+            'lengthAdjust': 'spacing', // spacingAndGlyphs
             'letter-spacing': 1,
-            'text-anchor': 'start',  // start, middle, end
+            'text-anchor': 'start', // start, middle, end
             'textLength': 0,
             // 'width': 111,
             'word-spacing': 1,
@@ -331,13 +328,13 @@ all its admissible positions`
           },
         },
       },
-    }    
+    }
     // .................. scene
 
     let scene = Object.assign(
       {},
       getanis(text),
-      { 
+      {
         textA,
         textB,
         textAB,

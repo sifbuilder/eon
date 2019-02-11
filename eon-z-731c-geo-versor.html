@@ -47,7 +47,6 @@ async function anitem (__eo) {
     var epsilon2 = 1e-12
     let eotim = {'td': 36800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
-
     let pFront = function (x, y) {
       let forward = (x, y) => d3Geo.geoOrthographicRaw(x, -y)
       forward.invert = (x, y) => d3Geo.geoOrthographicRaw.invert(x, -y)
@@ -69,39 +68,38 @@ async function anitem (__eo) {
         return rot
       } ]]],
 
-          translate: [ -150, 50 ],
+      translate: [ -150, 50 ],
       scale: 100,
       rotate: [ 0, 0, 0 ],
 
     }
 
-
     let geoOrthographicPrj = (x, y) => d3Geo.geoOrthographicRaw(x, -y)
-      geoOrthographicPrj.invert = (x, y) => d3Geo.geoOrthographicRaw.invert(x, -y)
+    geoOrthographicPrj.invert = (x, y) => d3Geo.geoOrthographicRaw.invert(x, -y)
 
     let geoOrthographic = d3Geo.geoProjection(geoOrthographicPrj)
       .clipAngle(90)
       .translate([0, 0, 0])
       .rotate([0, 0, 0])
 
-    let  proform = {
+    let proform = {
 
-          projection: geoOrthographic,
-          // projection: d3Geo.geoOrthographic()
-            // .scale(1)
-            // .clipAngle(90 + epsilon),
-          scale: 180,
-          translate: [ 0, 0 ], // [ -150, 50 ],
-          rotate:  [ 0, 0, 0 ],
-          prerotate: [[[ t => {
-            let rot = ctlVersor
-              .projection({projection: geoOrthographic})
-              .rotation()
-            let res = [180 + rot[0], -rot[1], -rot[2]]
-            return res
-          }]]],
+      projection: geoOrthographic,
+      // projection: d3Geo.geoOrthographic()
+      // .scale(1)
+      // .clipAngle(90 + epsilon),
+      scale: 180,
+      translate: [ 0, 0 ], // [ -150, 50 ],
+      rotate: [ 0, 0, 0 ],
+      prerotate: [[[ t => {
+        let rot = ctlVersor
+          .projection({projection: geoOrthographic})
+          .rotation()
+        let res = [180 + rot[0], -rot[1], -rot[2]]
+        return res
+      }]]],
 
-        }
+    }
 
     // .................. geograt1
 
@@ -142,14 +140,13 @@ async function anitem (__eo) {
         proform: proformFront,
       },
 
-
       eocrom: { 'csx': 0, 'cf': [[[111, 111]]], 'cs': 666, 'cw': 0.7, 'co': [[[0.05, 0.05]]], 'cp': [[[0.9, 0.9]]]},
 
       eoload: {
 
         eoframe: {
           geoframe: [ [ [-180, 180, 30, 3], [-90, 90, 30, 3] ],
-                      [ [-180, 180, 30, 3], [-90, 90, 30, 3] ] ],
+            [ [-180, 180, 30, 3], [-90, 90, 30, 3] ] ],
         },
 
       },
@@ -184,11 +181,11 @@ async function anitem (__eo) {
 
       eoload: {
         textform: {
-          string: function() {
-              let rot = this.rotation
-              let euls = rot.map(d => Math.floor(10*d)/10)
-              let res = `λ = ${euls[0]}, φ = ${euls[1]}, γ = ${euls[2]}`
-              return res
+          string: function () {
+            let rot = this.rotation
+            let euls = rot.map(d => Math.floor(10 * d) / 10)
+            let res = `λ = ${euls[0]}, φ = ${euls[1]}, γ = ${euls[2]}`
+            return res
           },
 
           rotation: [[[ ctlVersor.rotation ]]],
@@ -235,15 +232,13 @@ async function anitem (__eo) {
 
     // .................. geoearth2
 
-
     let geoMercatorPrj = (x, y) => d3Geo.geoMercatorRaw(x, -y)
-      geoMercatorPrj.invert = (x, y) => d3Geo.geoMercatorRaw.invert(x, -y)
+    geoMercatorPrj.invert = (x, y) => d3Geo.geoMercatorRaw.invert(x, -y)
 
     let geoMercator = d3Geo.geoProjection(geoMercatorPrj)
       .clipAngle(90)
       .translate([0, 0, 0])
       .rotate([0, 0, 0])
-
 
     let geoearth2 = {
 
@@ -269,12 +264,12 @@ async function anitem (__eo) {
           scale: 30,
           translate: [ 400 - 300, 250 - 200 ],
           rotate: [ [[[0, 0]]], 0, 0 ],
-            prerotate: [[[ function (t) {
-              let rot = ctlVersor
-                .projection({projection: geoMercator})
-                .rotation()
-              return rot
-            } ]]],
+          prerotate: [[[ function (t) {
+            let rot = ctlVersor
+              .projection({projection: geoMercator})
+              .rotation()
+            return rot
+          } ]]],
 
         },
       },
@@ -304,7 +299,7 @@ async function anitem (__eo) {
               .projection({projection: d3Geo.geoMercator()})
               .rotation()
             return rot
-      } ]]],
+          } ]]],
 
         },
       },
@@ -339,12 +334,12 @@ async function anitem (__eo) {
           translate: [ 100, 50 ],
           rotate: [ [[[0, 0]]], 0, 0 ],
 
-      prerotate: [[[ function (t) {
-        let rot = ctlVersor
-          .projection({projection: d3Geo.geoMercator()})
-          .rotation()
-        return rot
-      } ]]],
+          prerotate: [[[ function (t) {
+            let rot = ctlVersor
+              .projection({projection: d3Geo.geoMercator()})
+              .rotation()
+            return rot
+          } ]]],
 
         },
       },

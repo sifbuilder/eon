@@ -41,7 +41,6 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
 
-
   let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
 
@@ -319,8 +318,8 @@ async function anitem (__eo) {
       ctl = ctlWen().control(renderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
-    }   
-    
+    }
+
     let eotim = {'td': 12800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, tf: t => (1 / Math.PI) * ((Math.PI / 2) + Math.asin(-1 + 2 * t))}
 
     // .................... natVort
@@ -465,7 +464,6 @@ async function anitem (__eo) {
 
         return muonEoforces.force(params)
       },
-
 
     }
 

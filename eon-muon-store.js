@@ -22,9 +22,9 @@
       __eo('xs').m('eotim'),
       __eo('xs').m('props'),
     ])
-    .catch(function (err) {
-      console.log('A m.store promise failed to resolve', err)
-    })
+      .catch(function (err) {
+        console.log('A m.store promise failed to resolve', err)
+      })
 
     let epsilon = 1e-5
 
@@ -135,7 +135,7 @@
 
       let anigram = anitem
       console.assert(eohal, `eohal not defined`)
-      
+
       let newItems = []
       if (eohal) newItems = eohal.ween(anigram)
 
@@ -174,7 +174,7 @@
         : __eo(__eo('xs').ceonize(anigram.eohal, 'eohal')) // expected in __eo
       console.assert(eohal !== null, `eohal ${__eo('xs').ceonize(anigram.eohal, 'eohal')} not found`)
       let newItems = []
-      console.assert(eohal, `eohal not defined`)      
+      console.assert(eohal, `eohal not defined`)
       if (eohal) newItems = muonProps.a(eohal.gramm(anigram))
       _apply({type: 'UPDANIGRAM', anigrams: newItems}) // UPDANIGRAM
       newItems.forEach(newItem => {

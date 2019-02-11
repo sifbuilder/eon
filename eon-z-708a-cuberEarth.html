@@ -33,8 +33,8 @@ async function anitem (__eo) {
       ctl = ctlWen().control(renderSvg.svg())
     } catch (e) {
       ctl = () => [0, 0, 0]
-    }   
-    
+    }
+
     let eotim = {'td': 19800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
     let formCube = {
@@ -256,11 +256,11 @@ async function anitem (__eo) {
 
         proform: proform,
       },
-      
+
       eocrom: { 'csx': 0, 'cf': [[[666, 666]]], 'cs': 666, 'cw': 3.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
-      
-      eoframe: { 
-        multiframe: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ] 
+
+      eoframe: {
+        multiframe: [ [-180, 180, 90, 90 ], [-90, 90, 45, 45] ],
       },
       eoload: {},
     }
@@ -273,13 +273,13 @@ async function anitem (__eo) {
       eofold: p => muonGraticule.gjfMultiLineString(p.eoframe), // hMultiLine
       eotim: eotim,
       eoric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticircAni'},
-      
+
       eocrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 666, 'cw': 0.39, 'co': [[[0.5, 0.5]]], 'cp': [[[0.9, 0.9]]]},
 
       eomot: {
-        conform: { 
-          projection: 'natform', 
-          eoform: formSphere 
+        conform: {
+          projection: 'natform',
+          eoform: formSphere,
         },
         proform: proform,
       },
