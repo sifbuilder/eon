@@ -227,6 +227,10 @@
           let current = fitems.slice(-1)[0]
 
           /*  ................. TEXTS ................. */
+          // a single svg 1.1 <text> eklement creates a single line of text
+          // x,y are <tspan> independent attributes
+          // dx,dy are delta location from previous <tspan>
+          
           let texts = fitems
             .filter(d => d.properties.sort === 'text')
           //
@@ -246,7 +250,7 @@
             let text = textsWithPath[tx]
             let props = text.properties
             let gid = props.eoric.gid
-            let cid = props.eoric.cid
+            let cid = props.eoric.cid // text id
             let uid = props.eoric.uid
 
             let properties = text.properties || {}
