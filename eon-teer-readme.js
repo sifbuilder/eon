@@ -81,28 +81,31 @@ let args = process.argv
 let [cmd, scp, ...opts] = args
 
 let action = 'help' // {[help] pattern}
+let optsnb = opts.length
 if (opts.length === 0) { // action: help
   action = 'help'
-} else if (opts.length >= 1 && opts[0] === 'help') { // help
+} else if (opts[optsnb - 1] === 'help') { // help
   action = 'help'
-} else if (opts.length >= 1 && opts[0] === 'debug') { // debug
+} else if (opts[optsnb - 1] === 'debug') { // debug
   action = 'debug'
-} else { // action:doAction
+} else if (opts[optsnb - 1] === 'do') { // do
   action = 'doAction'
-  let codepattern = '.*' // default to all
-  if (opts[0] === '.') {
-    codepattern = '.*' // include all
-  } else {
+} 
+if (action === 'doAction' || action === 'debug' ) {
+  
+  let codepattern
+  if (optsnb === 1) { // no pattern defined 
+    codepattern = '.*' // default to all
+  } else {  // optsnb > 1,  pattern is first opt
     codepattern = opts[0]
   }
+  state.inScopePattern = new RegExp(`^eon-z-.*${codepattern}.*\.${state.inScopeExt}$`, 'i')
 
-  if (opts[0] !== undefined) {
-    let pattern = opts[0] // set src ext
-    state.inScopePattern = new RegExp(`^eon-z-.*${pattern}.*\.${state.inScopeExt}$`, 'i')
+  if (optsnb === 2) { // where is opt 1
+    state.where = opts[1] // {local | remote}
   }
-
-  if (opts[1] !== undefined) state.where = opts[1] // where to look for
 }
+
 
 function getUri (p = {}) {
   let {where, prefix, type, code, ext, name, outdirpath, rootMediaUrl} = p
@@ -270,9 +273,10 @@ if (action === 'doAction') {
   let outText = doAction(state)
   if (1 && 1) console.log('outText', outPath, outText)
 } else if (action === 'help') {
-  console.log(`node ${prgname} {[help], [debug], [do]}
+  console.log(`node ${prgname} {[pattern]} {local|remote} {[help], [debug], [do]}
       generate README.md file
-      takes files
+      takes html files from pattern, eg 7*
+      builds content for local or remote README
       create matrix of thumbnail tiles
       each tile points in precedence to:
         - tweet (from .json)
