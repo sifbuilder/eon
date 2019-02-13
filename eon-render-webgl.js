@@ -28,6 +28,56 @@
 
     // .................. pics
 
+
+
+    let materials = {
+      "line": new THREE.LineBasicMaterial({
+        color: 0xFFFFFF,
+        linewidth: 2
+      }),
+      "flat": new THREE.MeshBasicMaterial({
+        color: 0x009999,
+        side: THREE.DoubleSide,
+        polygonOffset: true,
+        polygonOffsetFactor: 1,
+        polygonOffsetUnits: 0.1
+      }),
+      "shape": new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors,
+        side: THREE.DoubleSide,
+        polygonOffset: true,
+        polygonOffsetFactor: 1,
+        polygonOffsetUnits: 0.1
+      }),
+      "lit": new THREE.MeshPhongMaterial({
+        ambient: 0x333333,
+        color: 0x666666,
+        specular: 0xFFFFFF,
+        side: THREE.DoubleSide,
+        shininess: 70,
+        polygonOffset: true,
+        polygonOffsetFactor: 1,
+        polygonOffsetUnits: 0.1
+      }),
+      "normals": new THREE.MeshNormalMaterial({
+        side: THREE.DoubleSide,
+        polygonOffset: true,
+        polygonOffsetFactor: 1,
+        polygonOffsetUnits: 0.1
+      })
+    }
+
+    let lights = {
+      ambientLight: new THREE.AmbientLight(0x4f3066),
+      light1: new THREE.DirectionalLight(0xBEC6FF)
+        .position.set(1, -1, 1),
+      light2: new THREE.DirectionalLight(0xFFFFFF)
+        .position.set(1, 1, 1),
+      light3: new THREE.DirectionalLight(0xFFE6BE)
+        .position.set(-1, 1, 1),
+    }
+
     const radians = Math.PI / 180
     const to3point = v => (Array.isArray(v)) ? {x: v[0], y: v[1], z: v[2]} : v
     let denser = point => {
@@ -105,7 +155,6 @@
           zoom: 1,
           view: null,
         }
-
         let {left, right, top, bottom, near, far} = Object.assign(defs, cameraItem)
 
         if (stat.cameras[camerauid] === undefined) {
@@ -711,6 +760,21 @@
       }
     }
 
+    // .................. threeObjectToScene
+    function threeObjectToScene (items = []) {
+
+      if (items.length === 0) return
+      for (let k in items) {
+        let item = items[k]
+        let object = item.properties.object
+        
+        
+        
+        
+        state.scene.add(object)
+      }
+    }
+
     /* object PATTERNS */
 
     let patterns = [
@@ -783,6 +847,11 @@
         filter: d =>
           d.properties.sort === 'threelink',
         retriever: undefined,
+      }, {
+        name: 'THREEOBJECT',
+        filter: d =>
+          d.properties.sort === 'threeobject',
+        retriever: threeObjectToScene,
       },
 
     ]

@@ -173,9 +173,12 @@
       let overtime = state.animas.reduce((pre, item) => (pre && item.eotim.unTime > item.eotim.unEnd), true)
 
       let nostop = state.animas.reduce((pre, item) => (pre || item.eotim.nostop), 0)
-      if (!nostop && (isNaN(maxlimit) ||
-      (maxlimit > 0 && overtime) || // stop if spired
-      (overtime))) { // stop if anigrams spired
+      
+      if (!nostop 
+          && isNaN(maxlimit) 
+          && maxlimit > 0 
+          && overtime // stop if spired
+      ) { // stop if anigrams spired
         state.animationStop()
       }
 
