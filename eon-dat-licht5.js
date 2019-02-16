@@ -11,11 +11,14 @@
   var datLicht5 = function (__eo = {}) {
     let data = {
 
-      width: '2.77778in', height: '3.45833in',
+      width: '2.77778in', 
+      height: '3.45833in',
       viewBox: '0 0 547 700',
       path: {
         id: 'licht5',
-        fill: 'none', stroke: 'black', 'strokeWidth': '1',
+        fill: 'none', 
+        stroke: 'black', 
+        strokeWidth: '1',
         d: `M 967.86,825.28
            C 961.00,816.75 955.33,802.67 899.04,775.37
              869.50,750.50 764.00,716.00 822.00,640.00

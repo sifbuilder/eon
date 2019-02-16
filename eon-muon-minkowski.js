@@ -153,7 +153,7 @@
       return res
     }
 
-    function convexMinkowskiSum (A, B) {
+    function convexMinkowskiSum (A, B, s1=1, s2=1) {
       var pairs = convexMinkowskiSumPairs(A, B)
       if (pairs.length === 0) {
         return []
@@ -167,12 +167,13 @@
         var b = B[p[1]]
         var q = new Array(d)
         for (var j = 0; j < d; ++j) {
-          q[j] = a[j] + b[j]
+          q[j] = s1 * a[j] + s2 * b[j]
         }
         points[i] = q
       }
 
-      return polygonHull(points)
+      // return polygonHull(points)
+      return points
     }
 
     let enty = convexMinkowskiSum

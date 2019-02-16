@@ -11,14 +11,10 @@
 
   async function muonSvg (__eo = {}) {
     let [
-      mbezierjs,
-      d3Array,
+      muonBezierjs,
     ] = await Promise.all([
       __eo('xs').m('bezierjs'),
-      __eo('xs').b('d3-array'),
     ])
-
-    let rarray = d => (Array.isArray(d)) ? [ ...d ].reverse() : [d]
 
     // source: https://github.com/d3/d3-array/blob/master/src/range.js
     // license: https://github.com/d3/d3-array/blob/master/LICENSE
@@ -44,20 +40,11 @@
     // ...  geoframe.step: space between points
     // ...    eg: castels(svg, {start:0, stop:0.90, step:0.33}) will return 3 curve points in bezier
 
-    let castels = function (svgdata, geoframe = {start: 0, stop: 0.90, step: 0.33}) {
-      let gj = {
-        type: 'Feature',
-        geometry: { type: 'MultiLineString', coordinates: [] },
-        properties: {},
-      }
-
-      let pathdata = []
-      let range = d3range(geoframe.start, geoframe.stop, geoframe.step)
-
+    let castelrings = function (svgdata) {
       let str = svgdata.path.d
       let svgRings = str.trim().split('M').slice(1) // M C Z
 
-      let ncas = [], ringCases = []
+      let ringCases = []
       for (let i = 0; i < svgRings.length; i++) {
         let svgRing = svgRings[i]
 
@@ -94,30 +81,88 @@
           cas[m] = [ ...cn[m].slice(-2), ...cn[m + 1] ] // close
         }
 
-        gj.geometry.coordinates.push(cas)
-
         ringCases[i] = cas
       }
+      return ringCases
+    }
+
+    let castelcurves = function (svgdata) {
+      let ringCases = castelrings(svgdata)
+
+      let curverings = []
 
       for (let j = 0; j < ringCases.length; j++) { // rings of knots
         let ringCas = ringCases[j]
-        let ring = []
+        curverings[j] = []
         for (let k = 0; k < ringCas.length; k++) {
           let cas = ringCas[k]
-          let curve = new mbezierjs.Bezier(cas)
+          let curve = new muonBezierjs.Bezier(cas)
+          curverings[j].push(curve)
+        }
+      }
+
+      return curverings
+    }
+
+    let castelscoords = function (svgdata, geoframe = {start: 0, stop: 0.90, step: 0.33}) {
+      let coords = []
+      let range = d3range(geoframe.start, geoframe.stop, geoframe.step)
+      let curverings = castelcurves(svgdata)
+
+      for (let n = 0; n < curverings.length; n++) { // rings of knots
+        let curvering = curverings[n]
+        let ring = []
+        for (let k = 0; k < curvering.length; k++) { // curves
+          let curve = curvering[k]
           let points = []
-          for (let j = 0; j < range.length; j++) {
-            let point = Object.values(curve.compute(range[j])) // each point in cast
+          for (let m = 0; m < range.length; m++) {
+            let point = Object.values(curve.compute(range[m])) // each point in cast
             points.push(point)
           }
 
           ring = [...ring, ...points]
         }
+        coords[n] = ring
+      }
 
-        gj.geometry.coordinates[j] = ring
+      return coords
+    }
+
+    let castels = function (svgdata, geoframe = {start: 0, stop: 0.90, step: 0.33}) {
+      let coords = castelscoords(svgdata, geoframe)
+      let gj = {
+        type: 'Feature',
+        geometry: { type: 'MultiLineString', coordinates: coords },
+        properties: {},
       }
 
       return gj
+    }
+
+    let svgprj = function (svg, renderPortview) {
+      let res = {}
+
+      let extent = svg.viewBox.split(' ').map(d => parseInt(d))
+
+      let x0 = extent[0],
+        y0 = extent[1],
+        x1 = extent[2],
+        y1 = extent[3]
+
+      let width = renderPortview.width(), height = renderPortview.height()
+
+      let r0 = width / (x1 - x0)
+      let r1 = height / (y1 - y0)
+      let rx = Math.sign(r0) * Math.min(Math.abs(r0), Math.abs(r1))
+      let ry = -Math.sign(r1) * Math.min(Math.abs(r0), Math.abs(r1))
+
+      let dx = (width - (x1 - x0)) / 2
+      let dy = -(height - (y1 - y0)) / 2
+
+      res.translate = [dx, dy]
+      res.scale = [rx, ry]
+
+      return res
     }
 
     // .................. castel
@@ -127,8 +172,12 @@
 
     // .................. enty
     var enty = function () {}
+    enty.castelrings = castelrings
+    enty.castelcurves = castelcurves
+    enty.castelscoords = castelscoords
     enty.castels = castels
     enty.castel = castel
+    enty.svgprj = svgprj
 
     return enty
   }
