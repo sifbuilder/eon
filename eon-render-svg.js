@@ -55,7 +55,7 @@
     let state = {
       width: width,
       height: height,
-      background: background,
+      // background: background,
       // .attr('pointer-events', 'none')
       // .attr('overflow', 'visible')
     }
