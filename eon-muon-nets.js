@@ -185,27 +185,30 @@
           n
 
 
-// let material = new THREE.MeshBasicMaterial( { wireframe: true, wireframeLinewidth: 10, color: 0xffffff, vertexColors: THREE.VertexColors, smoothing: THREE.FlatShading } )
 
         let lineGeometry = new THREE.Geometry()
         let facepoints = shape.extractPoints().shape
         facepoints.push(facepoints[0])  // _e_ face closing linle
         lineGeometry.setFromPoints(facepoints)
 
-        var material = new THREE.LineBasicMaterial( {
-          // color: new THREE.Color(0.7,0.5,0.2 )
-        })          
+        let material = new THREE.MeshBasicMaterial( { 
+          // wireframeLinewidth: 10, 
+          color: lineColors[0],  //  new THREE.Color(0.7,0.5,0.2 ), // 
+          // vertexColors: THREE.VertexColors, 
+          // flatShading: THREE.FlatShading 
+        } )
         
-        for ( var i = 0; i < lineGeometry.vertices.length; i++ ) {
-          lineGeometry.colors[ i ] = new THREE.Color( 
-            0.1 * face + 0.1 * i, 
-            0.1 * face + 0.1 * i, 
-            0.1 * face + 0.1 * i 
-          )
-          lineGeometry.colors[ i + 1 ] = lineGeometry.colors[ i ]
-        }
-        material.vertexColors = THREE.VertexColors
-        material.flatShading = THREE.FlatShading
+        // for ( var i = 0; i < lineGeometry.vertices.length - 1; i++ ) {
+          // lineGeometry.colors[ i ] = new THREE.Color( 
+            // 0.1 * face + 0.1 * i, 
+            // 0.1 * face + 0.1 * i, 
+            // 0.1 * face + 0.1 * i 
+          // )
+          // lineGeometry.colors[ i + 1 ] = lineGeometry.colors[ i ]
+        // }
+
+        // material.vertexColors = THREE.VertexColors
+        // material.flatShading = THREE.FlatShading
 
         node.add(new THREE.Line(lineGeometry, material))
 
@@ -213,7 +216,6 @@
           shape = starPentagonShape(thisFace) // star-pentagon special case
         }
 
-        
         
         var geo = new THREE.ShapeGeometry(shape)
         for (var i = 0; i < geo.faces.length; i++) {
@@ -249,7 +251,7 @@
     var update_matrices = function (root, t = 0) {
       let that = {}
       that.amount = t
-
+ 
       var t1, r, t2, m, u, c
       if (root === undefined) {
         return
@@ -271,7 +273,7 @@
         }
       })
 
-      let target = new THREE.Vector3()
+        let target = new THREE.Vector3()
       c = new THREE.Box3().setFromObject(root).getCenter(target)
       root.matrix.multiply(new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z))
       root.matrixAutoUpdate = false

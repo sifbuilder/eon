@@ -46,57 +46,72 @@ async function anitem (__eo) {
 
     const eotim = {'td': 9800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
-// http://netlib.org/polyhedra/
-// https://github.com/paaatrick/polyhedra-folding/blob/master/poly/0
-let def = `
+    // http://netlib.org/polyhedra/
+    // https://github.com/paaatrick/polyhedra-folding/blob/master/poly/0
+    let def = `
 :name
-tetrahedron
+octahedron
 :number
-0
+2
 :symbol
-{3,3}	@Y sub 3 @
+{3,4}	@S sub 3 @
 :dual
-tetrahedron
+cube
 :sfaces
-4 4{3}
+8 8{3}
 :svertices
-4 4(@3 sup 3@)
+6 6(@3 sup 4@)
 :net
-4 3
-3 1 2 4
-3 3 1 4
-3 1 0 2
-3 4 2 5
+8 3
+3 1 5 6
+3 1 6 2
+3 2 6 7
+3 6 9 7
+3 0 2 3
+3 2 7 3
+3 3 7 8
+3 3 8 4
 :solid
-4 3
-3 7 9 8
-3 6 7 8
-3 7 6 9
-3 8 9 6
+8 3
+3 12 15 14
+3 12 14 10
+3 10 14 13
+3 14 15 13
+3 12 10 11
+3 10 13 11
+3 11 13 15
+3 11 15 12
 :hinges
-3
-0 0 2 2 1.2309594173407747
-0 1 3 0 1.2309594173407747
-0 2 1 1 1.2309594173407747
+7
+0 2 1 0 1.9106332362490186
+1 1 2 0 1.9106332362490186
+2 1 3 2 1.9106332362490186
+2 2 5 0 1.9106332362490186
+4 1 5 2 1.9106332362490186
+6 0 5 1 1.9106332362490186
+7 0 6 2 1.9106332362490186
 :dih
 1
-6 3 3 1.2309594173407747
+12 3 3 1.9106332362490185
 :vertices
-10 6
--1[-1] -.577350269189626[(-1/3)*sqrt(3)] 0[0]
--.5[-1/2] .288675134594813[(1/6)*sqrt(3)] 0[0]
-0[0] -.577350269189626[(-1/3)*sqrt(3)] 0[0]
-0[0] 1.15470053837925[(2/3)*sqrt(3)] 0[0]
-.5[1/2] .288675134594813[(1/6)*sqrt(3)] 0[0]
-1[1] -.577350269189626[(-1/3)*sqrt(3)] 0[0]
--1.3333333333333333 -.76980035891950045 -1.0886621079036349
--.83333333333333384 -1.0584754935143137 -.27216552697590904
--.5000000000000002 -.28867513459481264 -.81649658092772612
--.44444444444444495 -1.2188505682892098 -1.1793839502289383
+16 10
+-1.44337567297406[(-5/6)*sqrt(3)] 1.5[3/2] 0[0]
+-.577350269189626[(-1/3)*sqrt(3)] 0[0] 0[0]
+-.577350269189626[(-1/3)*sqrt(3)] 1[1] 0[0]
+-.577350269189626[(-1/3)*sqrt(3)] 2[2] 0[0]
+-.577350269189626[(-1/3)*sqrt(3)] 3[3] 0[0]
+.288675134594813[(1/6)*sqrt(3)] -.5[-1/2] 0[0]
+.288675134594813[(1/6)*sqrt(3)] .5[1/2] 0[0]
+.288675134594813[(1/6)*sqrt(3)] 1.5[3/2] 0[0]
+.288675134594813[(1/6)*sqrt(3)] 2.5[5/2] 0[0]
+1.15470053837925[(2/3)*sqrt(3)] 1[1] 0[0]
+-.28867513459481281 2.5000000000000002 -1.6329931618554524
+-3.8163916471489756e-17 2.0000000000000001 -.81649658092772641
+-2.0122792321330962e-16 2.9999999999999991 -.81649658092772675
+.57735026918962622 2.0000000000000002 -1.6329931618554525
+.57735026918962629 3.0000000000000002 -1.6329931618554523
+.86602540378443893 2.4999999999999999 -.81649658092772675
 :EOF`
-
-
-
 
     // .................. facesAni anima
     let facesAni = {
@@ -107,19 +122,58 @@ tetrahedron
 
       eofold: anitem => {
         let tim = anitem.eoload.tim
-        let faceColors = anitem.eoload.faceColors
+        let faceColors = anitem.eoload.facecolors
         let lineColors = anitem.eoload.lineColors
         
         let net = muonNets.parse({text:def})
-        let threeObject = muonNets.duce({net, faceColors, lineColors})
-
         
+        
+        
+        let faces = net.faces
+        for (let i=0; i<faces.length; i++) {
+          let face = faces[i]
+          
+          
+        }
+        
+        
+        
+        // let gj = {
+          // type: 'Feature',
+          // geometry: {
+            // type: 'MultiPoint',
+            // coordinates: net.verts,
+          // },
+          // properties: {
+            // faces: net.faces,
+            // hinges: net.hinges,
+            // faceColors: faceColors,
+            // lineColors: lineColors,
+          // }
+        // }
+        
+        // let t1, r, t2, m, u, c
+          // t1 = new THREE.Matrix4()
+          // r = new THREE.Matrix4()
+          // t2 = new THREE.Matrix4()
+          // m = new THREE.Matrix4()
+          // t1.makeTranslation(-u.offset.x, -u.offset.y, -u.offset.z)
+          // r.makeRotationAxis(u.axis, -that.amount * (Math.PI - u.amount)) // _e_ -y
+          // t2.makeTranslation(u.offset.x, u.offset.y, u.offset.z)
+          // m.multiplyMatrices(t2, r).multiply(t1)
+          // obj.matrix = m        
+        
+        
+        
+        
+        
+        
+        let threeObject = muonNets.duce({net, faceColors, lineColors})
         muonNets.update_matrices(threeObject, tim)
 
-        let eoload = anitem.eoload
         let json = { // Feature
           type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0,0,0], },
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
           properties: {
             object: threeObject,
             sort: 'threeobject',
@@ -131,57 +185,18 @@ tetrahedron
 
       eocrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
 
-      eomot: {
-        proform: {
-
-          projection: 'uniwen',
-          translate: [ 0, 0, 0 ],
-          scale: [30, 30, 30],
-          rotate: [[[[0, 6, 0]]], [[[0, 360]]], [[[0, 6, 0]]]],
-          lens: [0, 1, Infinity ],
-
-        },
-      },
+      eomot: {},
       eoload: {
         tim: [[[0,0,1]]],
         faceColors: [
           [ 0.9, 0.9, 0.3 ],
         ],
         lineColors: [
-          [0.2,0.2,0.2],
+          [0.7,0.5,0.2],
         ],        
       },
     }
-    // .................. cameraPersAni anima
-    let cameraPersAni = {
 
-      eotim: eotim,
-      eoric: {gid: 'camera', cid: 'camera', fid: 'cameraPersAni'},
-      eohal: 'sol',
-
-      eofold: anitem => {
-        let eoload = anitem.eoload
-        let json = { // Feature
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: {
-            sort: 'camera',
-            type: 'PerspectiveCamera',
-            name: 'Perspective',
-            fov: 90, // field of view s the field of view. angle in degrees.
-            aspect: renderPortview.width() / renderPortview.height(),
-            near: 0.001,
-            far: 6,
-
-            position: [0, 0, 1 ],
-            rotation: [0, 0, 0 ],
-            distance2nodesFactor: 100,
-            lookAt: [0, 0, 0],
-          },
-        }
-        return json
-      },
-    }
     // .................. cameraOrthoAni anima
     let cameraOrthoAni = {
 
@@ -189,34 +204,36 @@ tetrahedron
       eoric: {gid: 'camera', cid: 'camera', fid: 'cameraOrthoAni'},
       eohal: 'sol',
 
-      eofold: anitem => {
-        let eoload = anitem.eoload
+      eofold: ani => {
         let json = {
           type: 'Feature',
           geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: {
+          properties: ani.eoload.properties,
+        }
+        return json
+      },
+      eoload: {
+        properties: {
             sort: 'camera',
             type: 'OrthographicCamera',
             name: 'Orthographic',
 
-            left:   -1,
-            right:   1,
-            top:     1,
-            bottom: -1,
+            left: -2.0,
+            right: 2.0,
+            top: 2.0,
+            bottom: -2.0,
 
             near: 0.001,
             far: 6,
 
             position: [0, 0, 2],
             rotation: [0, 0, 0],
-            distance2nodesFactor: 100,
+            distance2nodesFactor: 10,
             lookAt: [0, 0, 0],
           },
-        }
 
-        return json
-      },
 
+      }
     }
   // .................. textAni
 let net = muonNets.parse({text:def})
