@@ -165,7 +165,12 @@
 
 
     // .................. build_tree
-      function build_tree (face, side, angle, parent, faces, verts, hinges, faceColors, lineColors) {
+      function build_tree (face, side, angle, parent, faces, verts, hinges, _faceColors, _lineColors) {
+      let faceColors = _faceColors.map(d => new THREE.Color(...d))
+
+      let lineColors = _lineColors.map(d => new THREE.Color(...d))          
+if (1 && 1) console.log('faceColors', faceColors)
+        
         side = (side === undefined) ? 0 : side
         angle = (angle === undefined) ? Math.PI : angle
 
@@ -236,9 +241,9 @@
         for (n = 0; n < hinges.length; n++) {
           hinge = hinges[n]
           if (hinge[0] === face && hinge[2] !== parentName) {
-            build_tree(hinge[2], hinge[3], hinge[4], node, faces, verts, hinges, faceColors, lineColors)
+            build_tree(hinge[2], hinge[3], hinge[4], node, faces, verts, hinges, _faceColors, _lineColors)
           } else if (hinge[2] === face && hinge[0] !== parentName) {
-            build_tree(hinge[0], hinge[1], hinge[4], node, faces, verts, hinges, faceColors, lineColors)
+            build_tree(hinge[0], hinge[1], hinge[4], node, faces, verts, hinges, _faceColors, _lineColors)
           }
         }
         return node
@@ -249,22 +254,9 @@
 
       let {verts, faces , hinges } = props.net
 
-      
-      let faceColors = props.faceColors || []
-      if (faceColors.length === 0) {
-        faceColors = Array.of(new THREE.Color(0.9,0.2,0.2))
-      } else {
-        // assume array of rgba
-        faceColors = faceColors.map(d => new THREE.Color(...d))
-      }
+      let faceColors = props.faceColors
 
-      let lineColors = props.lineColors || []
-      if (lineColors.length === 0) {
-        lineColors = Array.of(new THREE.Color(0.9,0.0,0.0))
-      } else {
-        // assume array of rgba
-        lineColors = lineColors.map(d => new THREE.Color(...d))        
-      }
+      let lineColors = props.lineColors      
 
       return  build_tree(hinges[0][0], undefined, undefined, undefined, faces, verts, hinges, faceColors, lineColors) // bject3D
     }
