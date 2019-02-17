@@ -99,11 +99,16 @@ tetrahedron
       eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
 
       eofold: anitem => {
-
         let tim = anitem.eoload.tim
-        let colors = anitem.eoload.facecolors
+        let faceColors = anitem.eoload.faceColors
+        let lineColors = anitem.eoload.lineColors
+if (1 && 1) console.log('tim', tim)
+if (1 && 1) console.log('faceColors', faceColors)
+        
         let net = muonNets.parse({text:def})
-        let threeObject = muonNets.duce({net, colors})
+        let threeObject = muonNets.duce({net, faceColors, lineColors})
+
+        
         muonNets.update_matrices(threeObject, tim)
 
         let eoload = anitem.eoload
@@ -134,9 +139,12 @@ tetrahedron
       },
       eoload: {
         tim: [[[0,0,1]]],
-        facecolors: [
-          new THREE.Color().setHSL(4.00, 0.89, 0.33),
+        faceColors: [
+          [ [[[ 0.1, 0.9 ]]], 0.2, 0.2 ],
         ],
+        lineColors: [
+          [0.7,0.5,0.2],
+        ],        
       },
     }
     // .................. cameraPersAni anima

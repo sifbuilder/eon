@@ -33,7 +33,7 @@
         nums,
         j,
         k
-        
+
       let name = '',
           number = 0,
           symbol = '',
@@ -93,7 +93,7 @@
         } else if (line === ':dual') {
           line = getLine(i++)
           dual = line
-        } 
+        }
       }
       let res = {verts, faces, hinges, name, number, symbol, dual}
 
@@ -103,8 +103,21 @@
 
     // .................. duce
     let duce = function (props = {}) {
-      let colors = props.colors || []
-      if (colors.length === 0) colors = Array.of(new THREE.Color().setHSL(0.00, 0.89, 0.33))
+      let faceColors = props.faceColors || []
+      if (faceColors.length === 0) {
+        faceColors = Array.of(new THREE.Color(0.9,0.2,0.2))
+      } else {
+        // assume array of rgba
+        faceColors = faceColors.map(d => new THREE.Color(...d))
+      }
+
+      let lineColors = props.lineColors || []
+      if (lineColors.length === 0) {
+        lineColors = Array.of(new THREE.Color(0.9,0.0,0.0))
+      } else {
+        // assume array of rgba
+        lineColors = lineColors.map(d => new THREE.Color(...d))        
+      }
 
 
       let {verts, faces , hinges } = props.net
@@ -171,17 +184,41 @@
           hinge,
           n
 
+
+// let material = new THREE.MeshBasicMaterial( { wireframe: true, wireframeLinewidth: 10, color: 0xffffff, vertexColors: THREE.VertexColors, smoothing: THREE.FlatShading } )
+
         let lineGeometry = new THREE.Geometry()
-        lineGeometry.setFromPoints(shape.extractPoints().shape)
-        node.add(new THREE.Line(lineGeometry))
+        let facepoints = shape.extractPoints().shape
+        facepoints.push(facepoints[0])  // _e_ face closing linle
+        lineGeometry.setFromPoints(facepoints)
+
+        var material = new THREE.LineBasicMaterial( {
+          // color: new THREE.Color(0.7,0.5,0.2 )
+        })          
+        
+        for ( var i = 0; i < lineGeometry.vertices.length; i++ ) {
+          lineGeometry.colors[ i ] = new THREE.Color( 
+            0.1 * face + 0.1 * i, 
+            0.1 * face + 0.1 * i, 
+            0.1 * face + 0.1 * i 
+          )
+          lineGeometry.colors[ i + 1 ] = lineGeometry.colors[ i ]
+        }
+        material.vertexColors = THREE.VertexColors
+        material.flatShading = THREE.FlatShading
+
+        node.add(new THREE.Line(lineGeometry, material))
+
         if (thisFace.length === 5 && interiorAngle > 0.5) {
           shape = starPentagonShape(thisFace) // star-pentagon special case
         }
 
+        
+        
         var geo = new THREE.ShapeGeometry(shape)
         for (var i = 0; i < geo.faces.length; i++) {
-          let idx = (thisFace.length - 3) % colors.length // _e_
-          geo.faces[i].color = colors[idx] // scope : this
+          let idx = (thisFace.length - 3) % faceColors.length // _e_
+          geo.faces[i].color = faceColors[idx] // scope : this
         }
 
         node.add(new THREE.Mesh(geo, mat))

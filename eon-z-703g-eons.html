@@ -5,8 +5,10 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__eo) {
   let [
+    eohalSol,  
     renderSvg,
   ] = await Promise.all([
+    __eo('xs').e('sol'),
     __eo('xs').r('svg'),
   ])
 
@@ -14,10 +16,39 @@ async function anitem (__eo) {
     // .................. pics
     let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
-    // .................. animas
-    let animas = [
-    ]
-    return animas
+    // .................. ani
+    let ani = {
+
+      eohal: 'sol',
+      eotim: {'td': 9800, 't0': 0, 't1': 1, 't2': 1, 't3':1},
+      eoric: {gid: 'ani', cid: 'ani', fid: 'ani'},
+      
+      eofold: ani => {
+        let tmp = ani.eoload.tmp
+        
+        let res = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0],
+          },
+        }
+
+        return res
+      },
+      eocrom: { 'csx': 0, 'cf': 333, 'cs': 333, 'cw': 0.9, 'co': 0.1, 'cp': 0.9 },
+      eoload: {
+        tmp: [
+          [ [[[0,1]]], 2]
+        ]
+      },
+    }
+
+    // .................. scene
+    let scene = {
+      ani
+    }
+    return scene
   }
 
   let enty = () => {}

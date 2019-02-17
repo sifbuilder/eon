@@ -122,10 +122,10 @@ octahedron
 
       eofold: anitem => {
         let tim = anitem.eoload.tim
-        let colors = anitem.eoload.facecolors
+        let faceColors = anitem.eoload.facecolors
 
         let net = muonNets.parse({text:def})
-        let threeObject = muonNets.duce({net, colors})
+        let threeObject = muonNets.duce({net, faceColors})
         muonNets.update_matrices(threeObject, tim)
 
         let eoload = anitem.eoload
