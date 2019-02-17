@@ -15,6 +15,19 @@
       __eo('xs').b('three'),
     ])
 
+    // http://netlib.org/polyhedra/
+    // https://github.com/paaatrick/polyhedra-folding/blob/master/poly/0
+    // http://www.paulbourke.net/dataformats/phd/
+    // number:     The polyhedron's number written and read with the C language %d printf/scanf format.
+    // name  :     The polyhedron's name is less than 128 characters long and is not capitalized.
+    // symbol:     The eqn input for two symbols separated by a tab; the Johnson symbol, and the Schla symbol.
+    // dual:     The name of the dual polyhedron optionally followed by a horizontal tab and the number of the dual.
+    // vertices:     The first line contains the number of vertices. The vertices are arranged one per line as an (x,y,z) coordinate of white-space separated values. The vertices are implicitly numbered starting at zero.
+    // net:     The first line contains the number of faces and the maximum number of vertices in a face. The remaining lines are the faces in the planar net. Each face has a vertex count followed by the vertex numbers. The vertices are listed in counter-clockwise order as viewed from outside the polyhedron.
+    // hinges:     The first line contains the number of hinges in the planar net. The remaining lines are hinge connections. The format is "face1 side1 face2 side2 value". Sides are numbered from zero. Depending on the dihedral value it may be a reflex or re-entrant hinge.
+    // solid:     The first line contains the number of faces and the maximum number of vertices in a face. The remaining lines are the faces in the 3D polyhedron. Each face has a vertex count followed by the vertex numbers. The vertices are listed in counter-clockwise order as viewed from outside the polyhedron.
+    // dihedral:     The first line contains the number of distinct dihedrals. Each dihedral starts on a new line and has a count and a value. If the count is non-zero, then that many "face edge" pairs (one per line) follow the dihedral value.
+    
     // .................. parse
     // https://raw.githubusercontent.com/paaatrick/polyhedra-folding/master/js/PolyLoader.js
     let parse = function (props = {}) {
@@ -101,34 +114,16 @@
       return res
     }
 
-    // .................. duce
-    let duce = function (props = {}) {
-      let faceColors = props.faceColors || []
-      if (faceColors.length === 0) {
-        faceColors = Array.of(new THREE.Color(0.9,0.2,0.2))
-      } else {
-        // assume array of rgba
-        faceColors = faceColors.map(d => new THREE.Color(...d))
-      }
-
-      let lineColors = props.lineColors || []
-      if (lineColors.length === 0) {
-        lineColors = Array.of(new THREE.Color(0.9,0.0,0.0))
-      } else {
-        // assume array of rgba
-        lineColors = lineColors.map(d => new THREE.Color(...d))        
-      }
-
-
-      let {verts, faces , hinges } = props.net
-
+    
+    // .................. cosAngle
       function cosAngle (v0, v1, v2) {
         var e1 = v0.clone().sub(v1),
           e2 = v2.clone().sub(v1)
         return e1.dot(e2) / (e1.length() * e2.length())
       }
 
-      function starPentagonShape (face) {
+    // .................. starPentagonShape
+      function starPentagonShape (face, verts) {
         var amt,
           mid,
           shape = new THREE.Shape()
@@ -156,7 +151,8 @@
         return shape
       }
 
-      function regularShape (face) {
+    // .................. regularShape      
+      function regularShape (face, verts) {
         var shape = new THREE.Shape(),
           m
         shape.moveTo(verts[face[0]].x, verts[face[0]].y)
@@ -165,8 +161,11 @@
         }
         return shape
       }
+      
 
-      function build_tree (face, side, angle, parent) {
+
+    // .................. build_tree
+      function build_tree (face, side, angle, parent, faces, verts, hinges, faceColors, lineColors) {
         side = (side === undefined) ? 0 : side
         angle = (angle === undefined) ? Math.PI : angle
 
@@ -176,7 +175,7 @@
             verts[thisFace[1]],
             verts[thisFace[2]]),
           node = new THREE.Object3D(),
-          shape = regularShape(thisFace),
+          shape = regularShape(thisFace, verts),
           mat = new THREE.MeshPhongMaterial({vertexColors: THREE.FaceColors}),
           ax = new THREE.Vector3(),
           s1 = thisFace[side],
@@ -213,7 +212,7 @@
         node.add(new THREE.Line(lineGeometry, material))
 
         if (thisFace.length === 5 && interiorAngle > 0.5) {
-          shape = starPentagonShape(thisFace) // star-pentagon special case
+          shape = starPentagonShape(thisFace, verts) // star-pentagon special case
         }
 
         
@@ -237,14 +236,37 @@
         for (n = 0; n < hinges.length; n++) {
           hinge = hinges[n]
           if (hinge[0] === face && hinge[2] !== parentName) {
-            build_tree(hinge[2], hinge[3], hinge[4], node)
+            build_tree(hinge[2], hinge[3], hinge[4], node, faces, verts, hinges, faceColors, lineColors)
           } else if (hinge[2] === face && hinge[0] !== parentName) {
-            build_tree(hinge[0], hinge[1], hinge[4], node)
+            build_tree(hinge[0], hinge[1], hinge[4], node, faces, verts, hinges, faceColors, lineColors)
           }
         }
         return node
       }
-      return  build_tree(hinges[0][0]) // bject3D
+      
+    // .................. duce
+    let duce = function (props = {}) {
+
+      let {verts, faces , hinges } = props.net
+
+      
+      let faceColors = props.faceColors || []
+      if (faceColors.length === 0) {
+        faceColors = Array.of(new THREE.Color(0.9,0.2,0.2))
+      } else {
+        // assume array of rgba
+        faceColors = faceColors.map(d => new THREE.Color(...d))
+      }
+
+      let lineColors = props.lineColors || []
+      if (lineColors.length === 0) {
+        lineColors = Array.of(new THREE.Color(0.9,0.0,0.0))
+      } else {
+        // assume array of rgba
+        lineColors = lineColors.map(d => new THREE.Color(...d))        
+      }
+
+      return  build_tree(hinges[0][0], undefined, undefined, undefined, faces, verts, hinges, faceColors, lineColors) // bject3D
     }
 
     // .................. update_matrices anima
@@ -273,7 +295,7 @@
         }
       })
 
-        let target = new THREE.Vector3()
+      let target = new THREE.Vector3()
       c = new THREE.Box3().setFromObject(root).getCenter(target)
       root.matrix.multiply(new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z))
       root.matrixAutoUpdate = false

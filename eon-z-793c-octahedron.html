@@ -46,8 +46,7 @@ async function anitem (__eo) {
 
     const eotim = {'td': 9800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
-    // http://netlib.org/polyhedra/
-    // https://github.com/paaatrick/polyhedra-folding/blob/master/poly/0
+
     let def = `
 :name
 octahedron
@@ -138,26 +137,26 @@ cube
         
         
         
-        // let gj = {
-          // type: 'Feature',
-          // geometry: {
-            // type: 'MultiPoint',
-            // coordinates: net.verts,
-          // },
-          // properties: {
-            // faces: net.faces,
-            // hinges: net.hinges,
-            // faceColors: faceColors,
-            // lineColors: lineColors,
-          // }
-        // }
+        let gj = {
+          type: 'Feature',
+          geometry: {
+            type: 'MultiPoint',
+            coordinates: net.verts,
+          },
+          properties: {
+            faces: net.faces,
+            hinges: net.hinges,
+            faceColors: faceColors,
+            lineColors: lineColors,
+          }
+        }
         
         // let t1, r, t2, m, u, c
           // t1 = new THREE.Matrix4()
           // r = new THREE.Matrix4()
           // t2 = new THREE.Matrix4()
           // m = new THREE.Matrix4()
-          // t1.makeTranslation(-u.offset.x, -u.offset.y, -u.offset.z)
+          // t1.makeTranslation(-u.offset.x, -u.offset.y, -u.offset.z)  
           // r.makeRotationAxis(u.axis, -that.amount * (Math.PI - u.amount)) // _e_ -y
           // t2.makeTranslation(u.offset.x, u.offset.y, u.offset.z)
           // m.multiplyMatrices(t2, r).multiply(t1)
