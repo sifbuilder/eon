@@ -27,7 +27,7 @@
     // hinges:     The first line contains the number of hinges in the planar net. The remaining lines are hinge connections. The format is "face1 side1 face2 side2 value". Sides are numbered from zero. Depending on the dihedral value it may be a reflex or re-entrant hinge.
     // solid:     The first line contains the number of faces and the maximum number of vertices in a face. The remaining lines are the faces in the 3D polyhedron. Each face has a vertex count followed by the vertex numbers. The vertices are listed in counter-clockwise order as viewed from outside the polyhedron.
     // dihedral:     The first line contains the number of distinct dihedrals. Each dihedral starts on a new line and has a count and a value. If the count is non-zero, then that many "face edge" pairs (one per line) follow the dihedral value.
-    
+
     // .................. parse
     // https://raw.githubusercontent.com/paaatrick/polyhedra-folding/master/js/PolyLoader.js
     let parse = function (props = {}) {
@@ -88,11 +88,11 @@
           nVerts = parseInt(nums[nums.length - 1], 10)
           for (j = 0; j < nVerts; j++) {
             line = getLine(i++).replace(/\[.*?\]/g, '').split(' ')
-            verts.push(new THREE.Vector3(
+            verts.push([
               parseFloat(line[0]),
               parseFloat(line[1]),
               parseFloat(line[2])
-            ))
+            ])
           }
         } else if (line === ':name') {
           line = getLine(i++)
@@ -114,7 +114,7 @@
       return res
     }
 
-    
+
     // .................. cosAngle
       function cosAngle (v0, v1, v2) {
         var e1 = v0.clone().sub(v1),
@@ -151,7 +151,7 @@
         return shape
       }
 
-    // .................. regularShape      
+    // .................. regularShape
       function regularShape (face, verts) {
         var shape = new THREE.Shape(),
           m
@@ -161,16 +161,18 @@
         }
         return shape
       }
-      
 
 
     // .................. build_tree
-      function build_tree (face, side, angle, parent, faces, verts, hinges, _faceColors, _lineColors) {
-      let faceColors = _faceColors.map(d => new THREE.Color(...d))
+      function build_tree (face, side, angle, parent, net) {
 
-      let lineColors = _lineColors.map(d => new THREE.Color(...d))          
-if (1 && 1) console.log('faceColors', faceColors)
-        
+        let verts = net.geometry.coordinates
+        let faces = net.properties.faces
+        let hinges = net.properties.hinges
+        let faceColors = net.properties.faceColors.map(d => new THREE.Color(...d)) //arr of rgb arrs
+        let lineColors = net.properties.lineColors.map(d => new THREE.Color(...d))
+        let renderData = net.properties.renderData
+
         side = (side === undefined) ? 0 : side
         angle = (angle === undefined) ? Math.PI : angle
 
@@ -181,7 +183,6 @@ if (1 && 1) console.log('faceColors', faceColors)
             verts[thisFace[2]]),
           node = new THREE.Object3D(),
           shape = regularShape(thisFace, verts),
-          mat = new THREE.MeshPhongMaterial({vertexColors: THREE.FaceColors}),
           ax = new THREE.Vector3(),
           s1 = thisFace[side],
           s2 = thisFace[(side + 1) % thisFace.length],
@@ -190,46 +191,51 @@ if (1 && 1) console.log('faceColors', faceColors)
 
 
 
+
         let lineGeometry = new THREE.Geometry()
         let facepoints = shape.extractPoints().shape
+
+        let faceVerts = thisFace  //
+  
         facepoints.push(facepoints[0])  // _e_ face closing linle
         lineGeometry.setFromPoints(facepoints)
 
-        let material = new THREE.MeshBasicMaterial( { 
-          // wireframeLinewidth: 10, 
-          color: lineColors[0],  //  new THREE.Color(0.7,0.5,0.2 ), // 
-          // vertexColors: THREE.VertexColors, 
-          // flatShading: THREE.FlatShading 
+        let lineMaterial = new THREE.MeshBasicMaterial( {
+          color: lineColors[0],  //  new THREE.Color(0.7,0.5,0.2 ), //
+          wireframeLinewidth: 20,
+          vertexColors: THREE.VertexColors,
+          flatShading: THREE.FlatShading
         } )
-        
-        // for ( var i = 0; i < lineGeometry.vertices.length - 1; i++ ) {
-          // lineGeometry.colors[ i ] = new THREE.Color( 
-            // 0.1 * face + 0.1 * i, 
-            // 0.1 * face + 0.1 * i, 
-            // 0.1 * face + 0.1 * i 
-          // )
-          // lineGeometry.colors[ i + 1 ] = lineGeometry.colors[ i ]
-        // }
 
-        // material.vertexColors = THREE.VertexColors
-        // material.flatShading = THREE.FlatShading
 
-        node.add(new THREE.Line(lineGeometry, material))
+        for ( var i = 0; i < faceVerts.length; i+=2 ) { // shape verts unclosed
+          lineGeometry.colors[ i ] = lineColors[ faceVerts[i] % lineColors.length]
+          lineGeometry.colors[ i + 1 ] = lineGeometry.colors[ i ]          
+        }
+        lineMaterial.vertexColors = THREE.VertexColors
+        lineMaterial.flatShading = THREE.FlatShading
+        node.add(new THREE.Line(lineGeometry, lineMaterial))
+
+
+
 
         if (thisFace.length === 5 && interiorAngle > 0.5) {
           shape = starPentagonShape(thisFace, verts) // star-pentagon special case
         }
-
         
-        var geo = new THREE.ShapeGeometry(shape)
-        for (var i = 0; i < geo.faces.length; i++) {
-          let idx = (thisFace.length - 3) % faceColors.length // _e_
-          geo.faces[i].color = faceColors[idx] // scope : this
-        }
-
-        node.add(new THREE.Mesh(geo, mat))
+        let shapeGeo = new THREE.ShapeGeometry(shape)
+        let faceColor = faceColors[face % faceColors.length]
+        shapeGeo.colorsNeedUpdate = true
+        
+        let shapeMaterial = new THREE.MeshPhongMaterial({
+          color: faceColor, 
+          vertexColors: THREE.FaceColors
+        })
+        
+        node.add(new THREE.Mesh(shapeGeo, shapeMaterial))
         node.name = face
         node.userData = {
+          renderData: renderData,
           offset: verts[s1],
           axis: ax.subVectors(verts[s2], verts[s1]).clone().normalize(),
           amount: angle,
@@ -241,66 +247,27 @@ if (1 && 1) console.log('faceColors', faceColors)
         for (n = 0; n < hinges.length; n++) {
           hinge = hinges[n]
           if (hinge[0] === face && hinge[2] !== parentName) {
-            build_tree(hinge[2], hinge[3], hinge[4], node, faces, verts, hinges, _faceColors, _lineColors)
+            build_tree(hinge[2], hinge[3], hinge[4], node, net)
           } else if (hinge[2] === face && hinge[0] !== parentName) {
-            build_tree(hinge[0], hinge[1], hinge[4], node, faces, verts, hinges, _faceColors, _lineColors)
+            build_tree(hinge[0], hinge[1], hinge[4], node, net)
           }
         }
         return node
       }
-      
-    // .................. duce
-    let duce = function (props = {}) {
 
-      let {verts, faces , hinges } = props.net
+    // .................. tree
+    let tree = function (net = {}) {
 
-      let faceColors = props.faceColors
+      let [face1, side1, face2, side2] = net.properties.hinges[0]
 
-      let lineColors = props.lineColors      
-
-      return  build_tree(hinges[0][0], undefined, undefined, undefined, faces, verts, hinges, faceColors, lineColors) // bject3D
+      return  build_tree(face1, side1, Math.PI, undefined, net) // object3D
     }
 
-    // .................. update_matrices anima
-    var update_matrices = function (root, t = 0) {
-      let that = {}
-      that.amount = t
- 
-      var t1, r, t2, m, u, c
-      if (root === undefined) {
-        return
-      }
-      root.traverse(function (obj) {
-        u = obj.userData
-        if (u.hasOwnProperty('offset')) {
-          t1 = new THREE.Matrix4()
-          r = new THREE.Matrix4()
-          t2 = new THREE.Matrix4()
-          m = new THREE.Matrix4()
-          t1.makeTranslation(-u.offset.x, -u.offset.y, -u.offset.z)
-          r.makeRotationAxis(u.axis, -that.amount * (Math.PI - u.amount)) // _e_ -y
-          t2.makeTranslation(u.offset.x, u.offset.y, u.offset.z)
-          m.multiplyMatrices(t2, r).multiply(t1)
-          obj.matrix = m
-          obj.matrixAutoUpdate = false
-          obj.matrixWorldNeedsUpdate = true
-        }
-      })
-
-      let target = new THREE.Vector3()
-      c = new THREE.Box3().setFromObject(root).getCenter(target)
-      root.matrix.multiply(new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z))
-      root.matrixAutoUpdate = false
-      root.matrixWorldNeedsUpdate = true
-
-      return root
-    }
 
     // .................. enty
     let enty = function () {}
     enty.parse = parse
-    enty.duce = duce
-    enty.update_matrices = update_matrices
+    enty.tree = tree
 
     return enty
   }

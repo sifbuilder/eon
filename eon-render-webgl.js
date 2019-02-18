@@ -13,8 +13,9 @@
       d3,
       THREE,
       ctlRaycaster,
-      TrackballControls, // https://unpkg.com/three@0.97.0/examples/js/controls/TrackballControls.js
+      TrackballControls,
       muonEocrom,
+      muonNets,
       renderPortview,
     ] = await Promise.all([
       __eo('xs').b('d3'),
@@ -22,6 +23,7 @@
       __eo('xs').c('raycaster'),
       __eo('xs').c('trackballcontrols'),
       __eo('xs').m('eocrom'),
+      __eo('xs').m('nets'),
       __eo('xs').r('portview'),
 
     ])
@@ -51,7 +53,6 @@
         polygonOffsetUnits: 0.1
       }),
       "lit": new THREE.MeshPhongMaterial({
-        ambient: 0x333333,
         color: 0x666666,
         specular: 0xFFFFFF,
         side: THREE.DoubleSide,
@@ -69,13 +70,22 @@
     }
 
     let lights = {
-      ambientLight: new THREE.AmbientLight(0x4f3066),
-      light1: new THREE.DirectionalLight(0xBEC6FF)
-        .position.set(1, -1, 1),
-      light2: new THREE.DirectionalLight(0xFFFFFF)
-        .position.set(1, 1, 1),
-      light3: new THREE.DirectionalLight(0xFFE6BE)
-        .position.set(-1, 1, 1),
+        ambient: {
+          sort: 'light',
+          type: 'AmbientLight',
+          name: 'AmbientLight',
+          color: 0xeeeeee,
+          intensity: 0.9,
+          position: [400, 400, 400],
+        },
+        directional: {
+          sort: 'light',
+          type: 'DirectionalLight',
+          name: 'DirectionalLight',
+          color: 0xBEC6FF,
+          intensity: 0.9,
+          position: [400, 400, 400],
+        },
     }
 
     const radians = Math.PI / 180
@@ -122,6 +132,7 @@
 
     // .................. getCamera
     let getCamera = function (pars, stat) {
+
       let camera
       let cameraItem = pars
       let type = cameraItem.type || 'PerspectiveCamera'
@@ -586,6 +597,8 @@
 
     // .................. multiPointToScene
     function multiPointToScene (items = []) {
+      // if (1 && 1) console.log('multiPointToScene', items)
+
       if (items.length === 0) return
       for (let k in items) { // DOTS (seg5===0) each group gid
         let item = items[k] // feature
@@ -646,6 +659,7 @@
 
     // .................. lineStringToScene
     function lineStringToScene (items = []) {
+
       if (items.length === 0) return
       for (let k in items) { // DOTS (seg5===0) each group gid
         let item = items[k] // feature
@@ -767,10 +781,103 @@
       for (let k in items) {
         let item = items[k]
         let object = item.properties.object
+
+        let t, t1, r, t2, m, u, c, d
+        object.traverse(function (obj) {
+          u = obj.userData
+          d = u.renderData
+          if (u !== undefined && d !== undefined) {
+            t = d.t
+            if (t !== undefined) {
+              if (u.hasOwnProperty('offset')) {
+                t1 = new THREE.Matrix4()
+                r = new THREE.Matrix4()
+                t2 = new THREE.Matrix4()
+                m = new THREE.Matrix4()
+                t1.makeTranslation(-u.offset.x, -u.offset.y, -u.offset.z)
+                r.makeRotationAxis(u.axis, -t * (Math.PI - u.amount)) // _e_ -y
+                t2.makeTranslation(u.offset.x, u.offset.y, u.offset.z)
+                m.multiplyMatrices(t2, r).multiply(t1)
+                obj.matrix = m
+                obj.matrixAutoUpdate = false
+                obj.matrixWorldNeedsUpdate = true
+              }
+            }
+          }
+        })
+        u = object.userData
+        d = u.renderData
+        if (u !== undefined && d !== undefined) {
+          let docenter = d.docenter
+          if (docenter) {
+            let target = new THREE.Vector3()
+            c = new THREE.Box3().setFromObject(object).getCenter(target)
+            object.matrix.multiply(new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z))
+            object.matrixAutoUpdate = false
+            object.matrixWorldNeedsUpdate = true          
+          }
+          
+        }
+
+        state.scene.add(object)
+      }
+    }
+
+    // .................. threeNetToScene
+    function threeNetToScene (items = []) {
+
+      if (items.length === 0) return
+      for (let k in items) {
+        let item = items[k]
+
+
+        let coords = item.geometry.coordinates.map(d=>Array.isArray(d) ? new THREE.Vector3(...d) :  d)
+
         
+        item.geometry.coordinates = coords
         
+        let threeObject = muonNets.tree(item)
         
-        
+        // let object = threeObject.properties.object
+        let object = threeObject
+
+        let t, t1, r, t2, m, u, c, d
+        object.traverse(function (obj) {
+          u = obj.userData
+          d = u.renderData
+          if (u !== undefined && d !== undefined) {
+            t = d.t
+            if (t !== undefined) {
+              if (u.hasOwnProperty('offset')) {
+                t1 = new THREE.Matrix4()
+                r = new THREE.Matrix4()
+                t2 = new THREE.Matrix4()
+                m = new THREE.Matrix4()
+                t1.makeTranslation(-u.offset.x, -u.offset.y, -u.offset.z)
+                r.makeRotationAxis(u.axis, -t * (Math.PI - u.amount)) // _e_ -y
+                t2.makeTranslation(u.offset.x, u.offset.y, u.offset.z)
+                m.multiplyMatrices(t2, r).multiply(t1)
+                obj.matrix = m
+                obj.matrixAutoUpdate = false
+                obj.matrixWorldNeedsUpdate = true
+              }
+            }
+          }
+        })
+        u = object.userData
+        d = u.renderData
+        if (u !== undefined && d !== undefined) {
+          let docenter = d.docenter
+          if (docenter) {
+            let target = new THREE.Vector3()
+            c = new THREE.Box3().setFromObject(object).getCenter(target)
+            object.matrix.multiply(new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z))
+            object.matrixAutoUpdate = false
+            object.matrixWorldNeedsUpdate = true          
+          }
+          
+        }
+
         state.scene.add(object)
       }
     }
@@ -852,6 +959,11 @@
         filter: d =>
           d.properties.sort === 'threeobject',
         retriever: threeObjectToScene,
+      }, {
+        name: 'THREENET',
+        filter: d =>
+          d.properties.sort === 'threenet',
+        retriever: threeNetToScene,
       },
 
     ]
@@ -895,6 +1007,7 @@
             let pattern = patterns[k]
 
             if (pattern.retriever && pattern.filter) {
+              
               let itemsInPattern = fitems.filter(pattern.filter)
 
               patternedItems[k] = itemsInPattern.length > 0 ? patternedItems[k].concat(itemsInPattern) : patternedItems[k]

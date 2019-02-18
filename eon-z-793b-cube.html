@@ -122,24 +122,33 @@ octahedron
 
       eofold: anitem => {
         let tim = anitem.eoload.tim
-        let faceColors = anitem.eoload.facecolors
+        let faceColors = anitem.eoload.faceColors
         let lineColors = anitem.eoload.lineColors
-        
-        let net = muonNets.parse({text:def})
-        let threeObject = muonNets.duce({net, faceColors, lineColors})
-        muonNets.update_matrices(threeObject, tim)
 
-        let eoload = anitem.eoload
-        let json = { // Feature
+        let parts = muonNets.parse({text:def})
+        
+        let net = {
           type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0, 0] },
-          properties: {
-            object: threeObject,
-            sort: 'threeobject',
+          geometry: {
+            type: 'MultiPoint',
+            coordinates: parts.verts,
+            // coordinates: [ [1,40,0], [10,4,0], ]
           },
+          properties: {
+            sort: 'feature',
+            // sort: 'threenet',
+            faces: parts.faces,
+            hinges: parts.hinges,
+            faceColors: faceColors,
+            lineColors: lineColors,
+            renderData: {
+              t: tim,
+              docenter: 1,
+            }
+          }
         }
 
-        return json
+        return net
       },
 
       eocrom: {'csx': 0, 'cf': [[[222, 333, 222, 333, 222, 333, 222]]], 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
