@@ -201,15 +201,16 @@
         lineGeometry.setFromPoints(facepoints)
 
         let lineMaterial = new THREE.MeshBasicMaterial( {
-          color: lineColors[0],  //  new THREE.Color(0.7,0.5,0.2 ), //
+          // color: lineColors[0],  //  new THREE.Color(0.7,0.5,0.2 ), //
           wireframeLinewidth: 20,
           vertexColors: THREE.VertexColors,
           flatShading: THREE.FlatShading
         } )
 
 
-        for ( var i = 0; i < faceVerts.length; i+=2 ) { // shape verts unclosed
-          lineGeometry.colors[ i ] = lineColors[ faceVerts[i] % lineColors.length]
+        for ( var i = 0; i < faceVerts.length; i++ ) { // shape verts unclosed
+          let idx = faceVerts[i] % lineColors.length
+          lineGeometry.colors[ i ] = lineColors[ idx ]
           lineGeometry.colors[ i + 1 ] = lineGeometry.colors[ i ]          
         }
         lineMaterial.vertexColors = THREE.VertexColors
@@ -231,6 +232,7 @@
           color: faceColor, 
           vertexColors: THREE.FaceColors
         })
+        
         
         node.add(new THREE.Mesh(shapeGeo, shapeMaterial))
         node.name = face

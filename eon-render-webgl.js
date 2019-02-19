@@ -30,62 +30,77 @@
 
     // .................. pics
 
-
-
     let materials = {
-      "line": new THREE.LineBasicMaterial({
+      'line': new THREE.LineBasicMaterial({
         color: 0xFFFFFF,
-        linewidth: 2
+        linewidth: 2,
       }),
-      "flat": new THREE.MeshBasicMaterial({
+      'flat': new THREE.MeshBasicMaterial({
         color: 0x009999,
         side: THREE.DoubleSide,
         polygonOffset: true,
         polygonOffsetFactor: 1,
-        polygonOffsetUnits: 0.1
+        polygonOffsetUnits: 0.1,
       }),
-      "shape": new THREE.MeshBasicMaterial({
+      'shape': new THREE.MeshBasicMaterial({
         color: 0xffffff,
         vertexColors: THREE.FaceColors,
         side: THREE.DoubleSide,
         polygonOffset: true,
         polygonOffsetFactor: 1,
-        polygonOffsetUnits: 0.1
+        polygonOffsetUnits: 0.1,
       }),
-      "lit": new THREE.MeshPhongMaterial({
+      'lit': new THREE.MeshPhongMaterial({
         color: 0x666666,
         specular: 0xFFFFFF,
         side: THREE.DoubleSide,
         shininess: 70,
         polygonOffset: true,
         polygonOffsetFactor: 1,
-        polygonOffsetUnits: 0.1
+        polygonOffsetUnits: 0.1,
       }),
-      "normals": new THREE.MeshNormalMaterial({
+      'normals': new THREE.MeshNormalMaterial({
         side: THREE.DoubleSide,
         polygonOffset: true,
         polygonOffsetFactor: 1,
-        polygonOffsetUnits: 0.1
-      })
+        polygonOffsetUnits: 0.1,
+      }),
     }
 
     let lights = {
-        ambient: {
-          sort: 'light',
-          type: 'AmbientLight',
-          name: 'AmbientLight',
-          color: 0xeeeeee,
-          intensity: 0.9,
-          position: [400, 400, 400],
-        },
-        directional: {
-          sort: 'light',
-          type: 'DirectionalLight',
-          name: 'DirectionalLight',
-          color: 0xBEC6FF,
-          intensity: 0.9,
-          position: [400, 400, 400],
-        },
+      ambient: {
+        sort: 'light',
+        type: 'AmbientLight',
+        name: 'AmbientLight',
+        color: 0xeeeeee,
+        intensity: 0.9,
+        position: [400, 400, 400],
+      },
+      directional: {
+        sort: 'light',
+        type: 'DirectionalLight',
+        name: 'DirectionalLight',
+        color: 0xBEC6FF,
+        intensity: 0.9,
+        position: [400, 400, 400],
+      },
+      pointLight: {
+        type: 'PointLight',
+        color: 0xe4eef9,
+        intensity: 0.7,
+        position: [0, 0, 120],
+        normalize: 1,
+        castShadow: 1,
+      },
+      spotLight: {
+        type: 'SpotLight',
+        color: 0xe4eef9,
+        intensity: 0.7,
+        position: [0, 0, 120],
+        normalize: 1,
+        castShadow: 1,
+      },
+
     }
 
     const radians = Math.PI / 180
@@ -132,7 +147,6 @@
 
     // .................. getCamera
     let getCamera = function (pars, stat) {
-
       let camera
       let cameraItem = pars
       let type = cameraItem.type || 'PerspectiveCamera'
@@ -234,42 +248,6 @@
         position: [-400, 400, 400],
       }
       lights['SpotLight'] = getLight(pars, stat)
-
-      /*    lights
-          {
-            sort: 'light',
-            type: 'AmbientLight',
-            name: 'AmbientLight',
-            color: 0xeeeeee,
-            intensity: 0.9,
-            position: [110, 110, 110],
-          },
-          {
-            type: 'DirectionalLight',
-            name: 'DirectionalLight',
-            color: 0xe4eef9,
-            intensity: 0.7,
-            position: [0, 0, 120],
-            normalize: 1,
-            castShadow: 1,
-          },
-          {
-            type: 'PointLight',
-            color: 0xe4eef9,
-            intensity: 0.7,
-            position: [0, 0, 120],
-            normalize: 1,
-            castShadow: 1,
-          },
-          {
-            type: 'SpotLight',
-            color: 0xe4eef9,
-            intensity: 0.7,
-            position: [0, 0, 120],
-            normalize: 1,
-            castShadow: 1,
-          },
-          */
 
       return lights
     }
@@ -501,6 +479,14 @@
 
       for (let k in items) { // features of type MultiPolygon
         let feature = items[k] // feature of type MultiPolygon
+        polygonsToScene(Array.of(feature))
+      }
+    }
+    // .................. polygonsToScene
+    function polygonsToScene (items = []) {
+      if (items.length === 0) return
+      for (let k in items) { // features of type MultiPolygon
+        let feature = items[k] // feature of type MultiPolygon
         let style = feature.properties.style
         let geometry = feature.geometry
         let coordinates = geometry.coordinates
@@ -532,7 +518,7 @@
               threeGeometry.faces.push(new THREE.Face3(0, j + 1, j)) // faces
             }
             object = new THREE.Mesh(threeGeometry, meshMaterial)
-          } else {
+          } else { // not mesh
             d3.pairs(outring.map(denser), function (a, b) { // container ring
               threeGeometry.vertices.push(a, b) // vertices
             })
@@ -551,8 +537,41 @@
       }
     }
 
+    // .................. polygonToScene
+    function polygonToScene (items = []) {
+      if (items.length === 0) return
+      for (let k in items) { // DOTS (seg5===0) each group gid
+        let item = items[k] // feature
+        let feature = item // .feature
+        let style = feature.properties.style
+        let geometry = feature.geometry
+        let coordinates = geometry.coordinates
+
+        let threeMaterial = new THREE.LineBasicMaterial({
+          color: style.stroke,
+          opacity: style['stroke-opacity'],
+        })
+
+        let threeGeometry = new THREE.Geometry()
+
+        coordinates.forEach(function (line) {
+          d3.pairs(line.map(denser), function (a, b) {
+            threeGeometry.vertices.push(a, b)
+          })
+          let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+          if (object) state.scene.add(object)
+        })
+      }
+    }
+
     // .................. eoMultiPolygonsToScene
     function eoMultiPolygonsToScene (items = []) {
+      if (items.length === 0) return
+      eoPolygonsToScene(items)
+    }
+
+    // .................. eoPolygonsToScene
+    function eoPolygonsToScene (items = []) {
       if (items.length === 0) return
 
       for (let k in items) { // DOTS (seg5===0) each group gid
@@ -597,98 +616,19 @@
 
     // .................. multiPointToScene
     function multiPointToScene (items = []) {
-      // if (1 && 1) console.log('multiPointToScene', items)
+      if (1 && 1) console.log('multiPointToScene', items)
 
       if (items.length === 0) return
       for (let k in items) { // DOTS (seg5===0) each group gid
         let item = items[k] // feature
-
-        let feature = item // .feature
-
-        let style = item.properties.style
-
-        let geometry = feature.geometry // rings in MultiPolygon, MultiLineString
-
-        let dotSizeDefault = 0.1
-        let dotColorDefault = 0x88ff88
-        let vertices = geometry.coordinates
-        let dotSize = item.properties.pointRadius || dotSizeDefault
-        let dotColor = item.properties.pointColor || dotColorDefault
-
-        for (let i = 0; i < vertices.length; i++) {
-          let particle_geom = new THREE.Geometry()
-          particle_geom.vertices.push(new THREE.Vector3(...vertices[i].map(to3point)))
-          let particle_material = new THREE.PointsMaterial({
-            color: dotColor,
-            size: dotSize,
-          })
-
-          let particle = new THREE.Points(particle_geom, particle_material)
-          state.scene.add(particle)
-        }
-      }
-    }
-
-    // .................. multiLineStringToScene
-    function multiLineStringToScene (items = []) {
-      if (items.length === 0) return
-      for (let k in items) { // DOTS (seg5===0) each group gid
-        let item = items[k] // feature
-        let feature = item // .feature
-        let style = feature.properties.style
-        let geometry = feature.geometry
-        let coordinates = geometry.coordinates
-
-        let threeMaterial = new THREE.LineBasicMaterial({
-          color: style.stroke,
-          linewidth: style['stroke-opacity'],
-          opacity: style['stroke-opacity'],
-        })
-
-        let threeGeometry = new THREE.Geometry()
-
-        coordinates.forEach(function (line) {
-          d3.pairs(line.map(denser), function (a, b) {
-            threeGeometry.vertices.push(a, b)
-          })
-          let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-          if (object) state.scene.add(object)
-        })
-      }
-    }
-
-    // .................. lineStringToScene
-    function lineStringToScene (items = []) {
-
-      if (items.length === 0) return
-      for (let k in items) { // DOTS (seg5===0) each group gid
-        let item = items[k] // feature
-        let feature = item // .feature
-        let style = feature.properties.style
-        let geometry = feature.geometry
-        let coordinates = Array.of(geometry.coordinates)
-
-        let threeMaterial = new THREE.LineBasicMaterial({
-          color: style.stroke,
-          opacity: style['stroke-opacity'],
-        })
-
-        let threeGeometry = new THREE.Geometry()
-
-        coordinates.forEach(function (line = []) {
-          d3.pairs(line.map(denser), function (a, b) {
-            threeGeometry.vertices.push(a, b)
-          })
-          let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-          if (object) state.scene.add(object)
-        })
+        pointToScene(Array.of(item))
       }
     }
     // .................. pointToScene
-    function pointToScene (items) {
+    function pointToScene (items = []) {
       if (items.length === 0) return
-      for (let k in items) { // point
-        let item = items[k] // .feature
+      for (let k in items) { // DOTS (seg5===0) each group gid
+        let item = items[k] // feature
 
         let style = item.properties.style
         let dotSize = item.properties.pointRadius || 12
@@ -714,16 +654,24 @@
         state.scene.add(particle)
       }
     }
+    // .................. multiLineStringToScene
+    function multiLineStringToScene (items) {
+      if (items.length === 0) return
+      for (let k in items) {
+        let item = items[k] // feature
+        lineStringToScene(Arrray.of(item))
+      }
+    }
 
-    // .................. polygonToScene
-    function polygonToScene (items = []) {
+    // .................. lineStringToScene
+    function lineStringToScene (items = []) {
       if (items.length === 0) return
       for (let k in items) { // DOTS (seg5===0) each group gid
         let item = items[k] // feature
         let feature = item // .feature
         let style = feature.properties.style
         let geometry = feature.geometry
-        let coordinates = geometry.coordinates
+        let coordinates = Array.of(geometry.coordinates)
 
         let threeMaterial = new THREE.LineBasicMaterial({
           color: style.stroke,
@@ -732,7 +680,7 @@
 
         let threeGeometry = new THREE.Geometry()
 
-        coordinates.forEach(function (line) {
+        coordinates.forEach(function (line = []) {
           d3.pairs(line.map(denser), function (a, b) {
             threeGeometry.vertices.push(a, b)
           })
@@ -774,109 +722,68 @@
       }
     }
 
+    function postmot (object) {
+      let t, t1, r, t2, m, u, c, d
+      object.traverse(function (obj) {
+        u = obj.userData
+        d = u.renderData
+        if (u !== undefined && d !== undefined) {
+          t = d.t
+          if (t !== undefined) {
+            if (u.hasOwnProperty('offset')) {
+              t1 = new THREE.Matrix4()
+              r = new THREE.Matrix4()
+              t2 = new THREE.Matrix4()
+              m = new THREE.Matrix4()
+              t1.makeTranslation(-u.offset.x, -u.offset.y, -u.offset.z)
+              r.makeRotationAxis(u.axis, -t * (Math.PI - u.amount)) // _e_ -y
+              t2.makeTranslation(u.offset.x, u.offset.y, u.offset.z)
+              m.multiplyMatrices(t2, r).multiply(t1)
+              obj.matrix.multiply(m)
+              obj.matrixAutoUpdate = false
+              obj.matrixWorldNeedsUpdate = true
+            }
+          }
+        }
+      })
+      u = object.userData
+      d = u.renderData
+      if (u !== undefined && d !== undefined) {
+        let docenter = d.docenter
+        if (docenter) {
+          let target = new THREE.Vector3()
+          c = new THREE.Box3().setFromObject(object).getCenter(target)
+          object.matrix.multiply(new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z))
+          object.matrixAutoUpdate = false
+          object.matrixWorldNeedsUpdate = true
+        }
+      }
+      return object
+    }
+
     // .................. threeObjectToScene
     function threeObjectToScene (items = []) {
-
       if (items.length === 0) return
       for (let k in items) {
         let item = items[k]
         let object = item.properties.object
 
-        let t, t1, r, t2, m, u, c, d
-        object.traverse(function (obj) {
-          u = obj.userData
-          d = u.renderData
-          if (u !== undefined && d !== undefined) {
-            t = d.t
-            if (t !== undefined) {
-              if (u.hasOwnProperty('offset')) {
-                t1 = new THREE.Matrix4()
-                r = new THREE.Matrix4()
-                t2 = new THREE.Matrix4()
-                m = new THREE.Matrix4()
-                t1.makeTranslation(-u.offset.x, -u.offset.y, -u.offset.z)
-                r.makeRotationAxis(u.axis, -t * (Math.PI - u.amount)) // _e_ -y
-                t2.makeTranslation(u.offset.x, u.offset.y, u.offset.z)
-                m.multiplyMatrices(t2, r).multiply(t1)
-                obj.matrix = m
-                obj.matrixAutoUpdate = false
-                obj.matrixWorldNeedsUpdate = true
-              }
-            }
-          }
-        })
-        u = object.userData
-        d = u.renderData
-        if (u !== undefined && d !== undefined) {
-          let docenter = d.docenter
-          if (docenter) {
-            let target = new THREE.Vector3()
-            c = new THREE.Box3().setFromObject(object).getCenter(target)
-            object.matrix.multiply(new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z))
-            object.matrixAutoUpdate = false
-            object.matrixWorldNeedsUpdate = true          
-          }
-          
-        }
-
+        object = postmot(object)
         state.scene.add(object)
       }
     }
 
     // .................. threeNetToScene
     function threeNetToScene (items = []) {
-
       if (items.length === 0) return
       for (let k in items) {
         let item = items[k]
 
+        let coords = item.geometry.coordinates.map(d => Array.isArray(d) ? new THREE.Vector3(...d) : d)
 
-        let coords = item.geometry.coordinates.map(d=>Array.isArray(d) ? new THREE.Vector3(...d) :  d)
-
-        
         item.geometry.coordinates = coords
-        
         let threeObject = muonNets.tree(item)
-        
-        // let object = threeObject.properties.object
-        let object = threeObject
-
-        let t, t1, r, t2, m, u, c, d
-        object.traverse(function (obj) {
-          u = obj.userData
-          d = u.renderData
-          if (u !== undefined && d !== undefined) {
-            t = d.t
-            if (t !== undefined) {
-              if (u.hasOwnProperty('offset')) {
-                t1 = new THREE.Matrix4()
-                r = new THREE.Matrix4()
-                t2 = new THREE.Matrix4()
-                m = new THREE.Matrix4()
-                t1.makeTranslation(-u.offset.x, -u.offset.y, -u.offset.z)
-                r.makeRotationAxis(u.axis, -t * (Math.PI - u.amount)) // _e_ -y
-                t2.makeTranslation(u.offset.x, u.offset.y, u.offset.z)
-                m.multiplyMatrices(t2, r).multiply(t1)
-                obj.matrix = m
-                obj.matrixAutoUpdate = false
-                obj.matrixWorldNeedsUpdate = true
-              }
-            }
-          }
-        })
-        u = object.userData
-        d = u.renderData
-        if (u !== undefined && d !== undefined) {
-          let docenter = d.docenter
-          if (docenter) {
-            let target = new THREE.Vector3()
-            c = new THREE.Box3().setFromObject(object).getCenter(target)
-            object.matrix.multiply(new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z))
-            object.matrixAutoUpdate = false
-            object.matrixWorldNeedsUpdate = true          
-          }
-          
-        }
+        let object = postmot(threeObject)
 
         state.scene.add(object)
       }
@@ -1007,7 +914,6 @@
             let pattern = patterns[k]
 
             if (pattern.retriever && pattern.filter) {
-              
               let itemsInPattern = fitems.filter(pattern.filter)
 
               patternedItems[k] = itemsInPattern.length > 0 ? patternedItems[k].concat(itemsInPattern) : patternedItems[k]
