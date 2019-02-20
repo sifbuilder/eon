@@ -616,7 +616,7 @@
 
     // .................. multiPointToScene
     function multiPointToScene (items = []) {
-      if (1 && 1) console.log('multiPointToScene', items)
+
 
       if (items.length === 0) return
       for (let k in items) { // DOTS (seg5===0) each group gid
@@ -748,21 +748,21 @@
           
         }
       })
-      u = object.userData
-      d = u.renderData
-      if (u !== undefined && d !== undefined) {
-        let docenter = d.docenter
-        if (docenter) {
-          let target = new THREE.Vector3()
-          c = new THREE.Box3().setFromObject(object).getCenter(target)
-          let t3 = new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z)
-          if (1 && 1) console.log('t3', t3)
+      // u = object.userData
+      // d = u.renderData
+      // if (u !== undefined && d !== undefined) {
+        // let docenter = d.docenter
+        // if (docenter) {
+          // let target = new THREE.Vector3()
+          // c = new THREE.Box3().setFromObject(object).getCenter(target)
+          // let t3 = new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z)
+          // if (1 && 1) console.log('t3', t3)
 
-          object.matrix.multiply(t3)
-          object.matrixAutoUpdate = false
-          object.matrixWorldNeedsUpdate = true
-        }
-      }
+          // object.matrix.multiply(t3)
+          // object.matrixAutoUpdate = false
+          // object.matrixWorldNeedsUpdate = true
+        // }
+      // }
       return object
     }
 
@@ -774,18 +774,38 @@
         
         let object 
         
-        if (item.geometry.type === 'MultiPoint') {
-          let coords = item.geometry.coordinates.map(d => Array.isArray(d) ? new THREE.Vector3(...d) : d)
+        if (item.geometry.type === 'MultiPoint') { 
 
-          item.geometry.coordinates = coords
-          object = muonNets.tree(item)
+          console.assert(item.properties.hinges !== undefined, `net undefined`)
+          if (item.properties.hinges !== undefined) {
+            let coords = item.geometry.coordinates.map(d => Array.isArray(d) ? new THREE.Vector3(...d) : d)
+            item.geometry.coordinates = coords
+            object = muonNets.tree(item)  // net 
+          }
           
         } else {
           object = item.properties.object
         }
+          
+          
+          object = postmot(object)
         
+          let u = object.userData
+          let d = u.renderData
+          if (u !== undefined && d !== undefined) {
+            let docenter = d.docenter
+            if (docenter) {
+              let target = new THREE.Vector3()
+              let c = new THREE.Box3().setFromObject(object).getCenter(target)
+              let t3 = new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z)
 
-        object = postmot(object)
+              object.matrix.multiply(t3)
+              object.matrixAutoUpdate = false
+              object.matrixWorldNeedsUpdate = true
+            }
+          }        
+            
+
         state.scene.add(object)
       }
     }
@@ -868,11 +888,6 @@
         filter: d =>
           d.properties.sort === 'threeobject',
         retriever: threeObjectToScene,
-      }, {
-        name: 'THREENET',
-        filter: d =>
-          d.properties.sort === 'threenet',
-        retriever: threeNetToScene,
       },
 
     ]
