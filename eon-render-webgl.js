@@ -771,28 +771,27 @@
       if (items.length === 0) return
       for (let k in items) {
         let item = items[k]
-        let object = item.properties.object
+        
+        let object 
+        
+        if (object.geometry.type === 'MultiPoint') {
+        let coords = item.geometry.coordinates.map(d => Array.isArray(d) ? new THREE.Vector3(...d) : d)
+
+        item.geometry.coordinates = coords
+        let threeObject = muonNets.tree(item)
+        object = postmot(threeObject)
+          
+        } else {
+          object = item.properties.object
+        }
+        
 
         object = postmot(object)
         state.scene.add(object)
       }
     }
 
-    // .................. threeNetToScene
-    function threeNetToScene (items = []) {
-      if (items.length === 0) return
-      for (let k in items) {
-        let item = items[k]
-
-        let coords = item.geometry.coordinates.map(d => Array.isArray(d) ? new THREE.Vector3(...d) : d)
-
-        item.geometry.coordinates = coords
-        let threeObject = muonNets.tree(item)
-        let object = postmot(threeObject)
-
-        state.scene.add(object)
-      }
-    }
+ 
 
     /* object PATTERNS */
 
