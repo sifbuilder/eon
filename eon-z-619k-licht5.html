@@ -13,7 +13,7 @@ async function anitem (__eo) {
     muonProfier,
     muonStace,
     muonEoric,
-    muonSvg,
+    muonCastel,
     renderPortview,
     renderSvg,
   ] = await Promise.all([
@@ -24,7 +24,7 @@ async function anitem (__eo) {
     __eo('xs').m('profier'),
     __eo('xs').m('stace'),
     __eo('xs').m('eoric'),
-    __eo('xs').m('svg'),
+    __eo('xs').m('castel'),
     __eo('xs').r('portview'),
     __eo('xs').r('svg'),
   ])
@@ -50,7 +50,7 @@ async function anitem (__eo) {
     let dx = -(width - (x1 - x0)) / 2
     let dy = -(height - (y1 - y0)) / 2
 
-    let gjdata = muonSvg.castels(svgdata, {start: 0, stop: 0.9, step: 0.091})
+    let gjdata = muonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 0.091})
 
     let nb = muonGeoj.getCoordsLength(gjdata) // will show (nb * t) dots,  eg. 894
 

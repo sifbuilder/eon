@@ -460,6 +460,7 @@
                 let pointRadius = properties.pointRadius || 2.5 // def pointRadius
 
                 let geoPath = d3.geoPath(viewScreenPrt) // path on view projection
+
                 let path = (pointRadius !== undefined) // geoPath
                   ? geoPath.pointRadius(pointRadius)
                   : geoPath

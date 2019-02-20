@@ -11,7 +11,7 @@ async function anitem (__eo) {
     muonMinkowski,
     muonProj3ct,
     muonProfier,
-    muonSvg,
+    muonCastel,
     renderPortview,
     renderSvg,
   ] = await Promise.all([
@@ -20,7 +20,7 @@ async function anitem (__eo) {
     __eo('xs').m('minkowski'),
     __eo('xs').m('proj3ct'),
     __eo('xs').m('profier'),
-    __eo('xs').m('svg'),
+    __eo('xs').m('castel'),
     __eo('xs').r('portview'),
     __eo('xs').r('svg'),
   ])
@@ -173,8 +173,8 @@ async function anitem (__eo) {
     let eotim = {'td': 9800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
     let uniframe = {start: 0, stop: 0.9, step: 0.09}
-    let gjdata1 = muonSvg.castels(svgdata1, uniframe)
-    let svgprj1 = muonSvg.svgprj(svgdata1, renderPortview)
+    let gjdata1 = muonCastel.castels(svgdata1, uniframe)
+    let svgprj1 = muonCastel.svgprj(svgdata1, renderPortview)
 
     let proformSvg1 = {
       projection: 'uniwen',
@@ -185,8 +185,8 @@ async function anitem (__eo) {
     }
     let geoData1 = muonProj3ct(gjdata1, muonProfier.uniweon(proformSvg1))
 
-    let gjdata2 = muonSvg.castels(svgdata2, uniframe)
-    let svgprj2 = muonSvg.svgprj(svgdata2, renderPortview)
+    let gjdata2 = muonCastel.castels(svgdata2, uniframe)
+    let svgprj2 = muonCastel.svgprj(svgdata2, renderPortview)
     let proformSvg2 = {
       projection: 'uniwen',
       translate: svgprj2.translate,
@@ -272,11 +272,11 @@ async function anitem (__eo) {
       eofold: ani => {
         let uniframe = {start: 0, stop: 0.9, step: ani.eoload.step}
 
-        let gjdata1 = muonSvg.castels(svgdata1, uniframe)
+        let gjdata1 = muonCastel.castels(svgdata1, uniframe)
         let geoData1 = muonProj3ct(gjdata1, muonProfier.uniweon(proformSvg1))
         let A = geoData1.geometry.coordinates
 
-        let gjdata2 = muonSvg.castels(svgdata2, uniframe)
+        let gjdata2 = muonCastel.castels(svgdata2, uniframe)
         let geoData2 = muonProj3ct(gjdata2, muonProfier.uniweon(proformSvg2))
         let B = geoData2.geometry.coordinates
 

@@ -21,7 +21,7 @@ async function anitem (__eo) {
     muonProfier,
     muonProps,
     muonStace,
-    muonSvg,
+    muonCastel,
     prtOrthographic,
     renderSvg,
     renderPortview,
@@ -42,7 +42,7 @@ async function anitem (__eo) {
     __eo('xs').m('profier'),
     __eo('xs').m('props'),
     __eo('xs').m('stace'),
-    __eo('xs').m('svg'),
+    __eo('xs').m('castel'),
     __eo('xs').p('orthographic'),
     __eo('xs').r('svg'),
     __eo('xs').r('portview'),
@@ -73,7 +73,7 @@ async function anitem (__eo) {
            C 100.00,0.00 200.00,0.00 300.00,0.00 Z`, // LineString
       }, // path
     }
-    let data = muonSvg.castels(svgdata, {start: 0, stop: 0.9, step: 1 / 3}) // MultiLineString
+    let data = muonCastel.castels(svgdata, {start: 0, stop: 0.9, step: 1 / 3}) // MultiLineString
 
     let basicSquare = [
       [
