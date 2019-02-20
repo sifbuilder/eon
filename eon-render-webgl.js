@@ -721,7 +721,7 @@
         state.scene.add(link._line = link.line)
       }
     }
-
+    // .................. postmot
     function postmot (object) {
       let t, t1, r, t2, m, u, c, d
       object.traverse(function (obj) {
@@ -748,21 +748,7 @@
           
         }
       })
-      // u = object.userData
-      // d = u.renderData
-      // if (u !== undefined && d !== undefined) {
-        // let docenter = d.docenter
-        // if (docenter) {
-          // let target = new THREE.Vector3()
-          // c = new THREE.Box3().setFromObject(object).getCenter(target)
-          // let t3 = new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z)
-          // if (1 && 1) console.log('t3', t3)
 
-          // object.matrix.multiply(t3)
-          // object.matrixAutoUpdate = false
-          // object.matrixWorldNeedsUpdate = true
-        // }
-      // }
       return object
     }
 

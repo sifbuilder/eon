@@ -223,6 +223,7 @@
         let shapeGeo = new THREE.ShapeGeometry(shape)
         let faceColor = faceColors[face % faceColors.length]
         shapeGeo.colorsNeedUpdate = true
+        
 
         let shapeMaterial = new THREE.MeshPhongMaterial({
           color: faceColor,
