@@ -190,13 +190,11 @@
           n
 
 
-
-
         let lineGeometry = new THREE.Geometry()
         let facepoints = shape.extractPoints().shape
 
         let faceVerts = thisFace  //
-  
+
         facepoints.push(facepoints[0])  // _e_ face closing linle
         lineGeometry.setFromPoints(facepoints)
 
@@ -211,29 +209,27 @@
         for ( var i = 0; i < faceVerts.length; i++ ) { // shape verts unclosed
           let idx = faceVerts[i] % lineColors.length
           lineGeometry.colors[ i ] = lineColors[ idx ]
-          lineGeometry.colors[ i + 1 ] = lineGeometry.colors[ i ]          
+          lineGeometry.colors[ i + 1 ] = lineGeometry.colors[ i ]
         }
         lineMaterial.vertexColors = THREE.VertexColors
         lineMaterial.flatShading = THREE.FlatShading
         node.add(new THREE.Line(lineGeometry, lineMaterial))
 
 
-
-
         if (thisFace.length === 5 && interiorAngle > 0.5) {
           shape = starPentagonShape(thisFace, verts) // star-pentagon special case
         }
-        
+
         let shapeGeo = new THREE.ShapeGeometry(shape)
         let faceColor = faceColors[face % faceColors.length]
         shapeGeo.colorsNeedUpdate = true
-        
+
         let shapeMaterial = new THREE.MeshPhongMaterial({
-          color: faceColor, 
+          color: faceColor,
           vertexColors: THREE.FaceColors
         })
-        
-        
+
+
         node.add(new THREE.Mesh(shapeGeo, shapeMaterial))
         node.name = face
         node.userData = {
@@ -241,7 +237,32 @@
           offset: verts[s1],
           axis: ax.subVectors(verts[s2], verts[s1]).clone().normalize(),
           amount: angle,
+
         }
+
+        node.matrices = function(d={}){
+          let t, t1, r, t2, m, u, c
+          t = d.t
+          u = d.u
+          let ms = []
+          if (u.hasOwnProperty('offset')) {
+            t1 = new THREE.Matrix4()
+            r = new THREE.Matrix4()
+            t2 = new THREE.Matrix4()
+            m = new THREE.Matrix4()
+            t1.makeTranslation(-u.offset.x, -u.offset.y, -u.offset.z)
+            r.makeRotationAxis(u.axis, -t * (Math.PI - u.amount)) // _e_ -y
+            t2.makeTranslation(u.offset.x, u.offset.y, u.offset.z)
+
+            ms.push(t1)
+            ms.push(r)
+            ms.push(t2)
+
+          }
+          return ms
+
+        }
+
         if (parent !== undefined) {
           parent.add(node)
         }

@@ -727,23 +727,25 @@
       object.traverse(function (obj) {
         u = obj.userData
         d = u.renderData
+
         if (u !== undefined && d !== undefined) {
           t = d.t
-          if (t !== undefined) {
-            if (u.hasOwnProperty('offset')) {
-              t1 = new THREE.Matrix4()
-              r = new THREE.Matrix4()
-              t2 = new THREE.Matrix4()
-              m = new THREE.Matrix4()
-              t1.makeTranslation(-u.offset.x, -u.offset.y, -u.offset.z)
-              r.makeRotationAxis(u.axis, -t * (Math.PI - u.amount)) // _e_ -y
-              t2.makeTranslation(u.offset.x, u.offset.y, u.offset.z)
-              m.multiplyMatrices(t2, r).multiply(t1)
-              obj.matrix.multiply(m)
+        
+
+        
+          let ms = obj.matrices({u,t})
+          
+        
+          let t0 = new THREE.Matrix4()
+          ms.reverse().map(m => t0.multiply(m))
+
+              obj.matrix.multiply(t0)
               obj.matrixAutoUpdate = false
               obj.matrixWorldNeedsUpdate = true
-            }
-          }
+
+
+          
+          
         }
       })
       u = object.userData
@@ -753,7 +755,10 @@
         if (docenter) {
           let target = new THREE.Vector3()
           c = new THREE.Box3().setFromObject(object).getCenter(target)
-          object.matrix.multiply(new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z))
+          let t3 = new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z)
+          if (1 && 1) console.log('t3', t3)
+
+          object.matrix.multiply(t3)
           object.matrixAutoUpdate = false
           object.matrixWorldNeedsUpdate = true
         }
