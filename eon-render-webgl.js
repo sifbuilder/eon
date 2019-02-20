@@ -774,12 +774,11 @@
         
         let object 
         
-        if (object.geometry.type === 'MultiPoint') {
-        let coords = item.geometry.coordinates.map(d => Array.isArray(d) ? new THREE.Vector3(...d) : d)
+        if (item.geometry.type === 'MultiPoint') {
+          let coords = item.geometry.coordinates.map(d => Array.isArray(d) ? new THREE.Vector3(...d) : d)
 
-        item.geometry.coordinates = coords
-        let threeObject = muonNets.tree(item)
-        object = postmot(threeObject)
+          item.geometry.coordinates = coords
+          object = muonNets.tree(item)
           
         } else {
           object = item.properties.object
@@ -791,7 +790,6 @@
       }
     }
 
- 
 
     /* object PATTERNS */
 
