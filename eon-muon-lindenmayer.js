@@ -138,7 +138,38 @@
     //
     // the curve adds the start charater
     // if loops is 0, coords is Ffs steps plus 1
+    
+    
+// RU(α) = cos α sin α 0 
+      // − sin α cos α 0
+      // 0       0  1
 
+// RL(α) = cos α 0   − sin α
+        // 0     1   0
+        // sin α 0   cos α
+
+// RH(α) = 1 0 0
+        // 0 cos α − sin α
+        // 0 sin α cos α
+
+// The following symbols control turtle orientation in
+
+    // + Turn left by angle δ, using rotation matrix RU(δ)
+    // − Turn right by angle δ, using rotation matrix RU(−δ)
+    // & Pitch down by angle δ, using rotation matrix RL(δ)
+    // ∧ Pitch up by angle δ, using rotation matrix RL(−δ)
+    // \ Roll left by angle δ, using rotation matrix RH(δ)
+    // / Roll right by angle δ, using rotation matrix RH(−δ)
+    // | Turn around, using rotation matrix RU(180◦)
+    
+// n=2, δ=90◦
+// A
+// A → B-F+CFC+F-D&F∧D-F+&&CFC+F+B//
+// B → A&F∧CFB∧F∧D∧∧-F-D∧|F∧B|FC∧F∧A//
+// C → |D∧|F∧B-F+C∧F∧A&&FA&F∧C+F+B∧F∧D//
+// D → |CFB-F+B|FA&F∧A&&FB-F+B|FC//
+
+    
     let curve = (lindenmayer) => {
       let angstart
       if (lindenmayer.mayer.angstart !== undefined) {
@@ -155,7 +186,6 @@
       let randomizeStep = lindenmayer.mayer.randomizeStep || 0
       let randomizeAngle = lindenmayer.mayer.randomizeAngle || 0
 
-      // let lineslifo = Array.of([ pointstart ])
       let lineslifo = Array.of([ ])
       let angles = Array.of(angstart)
 

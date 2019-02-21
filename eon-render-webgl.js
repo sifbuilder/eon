@@ -28,29 +28,65 @@
 
     ])
 
+    // .................. postmot
+    function postmot (object) {
+      let t, t1, r, t2, m, u, c, d
+      object.traverse(function (obj) {
+        u = obj.userData
+        d = u.renderData
+
+        if (u !== undefined && d !== undefined) {
+          t = d.t
+
+          let ms = obj.matrices({u, t})
+
+          let t0 = new THREE.Matrix4()
+          ms.reverse().map(m => t0.multiply(m))
+
+          obj.matrix.multiply(t0)
+          obj.matrixAutoUpdate = false
+          obj.matrixWorldNeedsUpdate = true
+        }
+      })
+
+      return object
+    }
+
+    const to3point = v => (Array.isArray(v)) ? {x: v[0], y: v[1], z: v[2]} : v
+
+    let denser = point => {
+      console.assert(Array.isArray(point), `point ${point} is not cartesian`)
+      return new THREE.Vector3(...point)
+    }
+
     // .................. pics
+    const radians = Math.PI / 180
 
     let materials = {
-      'line': new THREE.LineBasicMaterial({
+      line: {
+        type: 'LineBasicMaterial',
         color: 0xFFFFFF,
         linewidth: 2,
-      }),
-      'flat': new THREE.MeshBasicMaterial({
+      },
+      flat: {
+        type: 'MeshBasicMaterial',
         color: 0x009999,
         side: THREE.DoubleSide,
         polygonOffset: true,
         polygonOffsetFactor: 1,
         polygonOffsetUnits: 0.1,
-      }),
-      'shape': new THREE.MeshBasicMaterial({
+      },
+      shape: {
+        type: 'MeshBasicMaterial',
         color: 0xffffff,
         vertexColors: THREE.FaceColors,
         side: THREE.DoubleSide,
         polygonOffset: true,
         polygonOffsetFactor: 1,
         polygonOffsetUnits: 0.1,
-      }),
-      'lit': new THREE.MeshPhongMaterial({
+      },
+      lit: {
+        type: 'MeshPhongMaterial',
         color: 0x666666,
         specular: 0xFFFFFF,
         side: THREE.DoubleSide,
@@ -58,13 +94,14 @@
         polygonOffset: true,
         polygonOffsetFactor: 1,
         polygonOffsetUnits: 0.1,
-      }),
-      'normals': new THREE.MeshNormalMaterial({
+      },
+      normals: {
+        type: 'MeshNormalMaterial',
         side: THREE.DoubleSide,
         polygonOffset: true,
         polygonOffsetFactor: 1,
         polygonOffsetUnits: 0.1,
-      }),
+      },
     }
 
     let lights = {
@@ -103,12 +140,7 @@
 
     }
 
-    const radians = Math.PI / 180
-    const to3point = v => (Array.isArray(v)) ? {x: v[0], y: v[1], z: v[2]} : v
-    let denser = point => {
-      console.assert(Array.isArray(point), `point ${point} is not cartesian`)
-      return new THREE.Vector3(...point)
-    }
+    // .................. state
     let state = {}
 
     state.cameras = {}
@@ -147,61 +179,42 @@
 
     // .................. getCamera
     let getCamera = function (pars, stat) {
-      let camera
       let cameraItem = pars
       let type = cameraItem.type || 'PerspectiveCamera'
       let name = cameraItem.name
       let camerauid = name
 
-      if (type === 'PerspectiveCamera') {
-        let defs = { fov: 50, zoom: 1, near: 0.1, far: 2000, focus: 10, aspect: 1, view: null, filmGauge: 35, filmOffset: 0}
+      let camera = stat.cameras[camerauid]
 
-        let {fov, zoom, near, far, focus, aspect, view, filmGauge, filmOffset } = Object.assign(defs, cameraItem)
+      if (camera === undefined) {
+        if (type === 'PerspectiveCamera') {
+          let defs = { fov: 50, zoom: 1, near: 0.1, far: 2000, focus: 10, aspect: 1, view: null, filmGauge: 35, filmOffset: 0}
 
-        if (stat.cameras[camerauid] === undefined) {
-          camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
-          if (cameraItem.position !== undefined) {
-            camera.position.x = cameraItem.position[0]
-            camera.position.y = cameraItem.position[1]
-            camera.position.z = cameraItem.position[2]
-          }
-          if (cameraItem.rotation !== undefined) {
-            camera.rotation.x = cameraItem.rotation[0]
-            camera.rotation.y = cameraItem.rotation[1]
-            camera.rotation.z = cameraItem.rotation[2]
-          }
-        } else {
-          camera = stat.cameras[camerauid]
+          let {fov, zoom, near, far, focus, aspect, view, filmGauge, filmOffset } = Object.assign(defs, cameraItem)
+
+          camera = new THREE.PerspectiveCamera(fov, aspect, near, far) //
+        } else if (type === 'OrthographicCamera') {
+          let defs = { near: 0.1, far: 2000, zoom: 1, view: null }
+          let {left, right, top, bottom, near, far} = Object.assign(defs, cameraItem)
+
+          camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far) //
         }
-      } else if (type === 'OrthographicCamera') {
-        let defs = {
-          near: 0.1,
-          far: 2000,
-          zoom: 1,
-          view: null,
-        }
-        let {left, right, top, bottom, near, far} = Object.assign(defs, cameraItem)
 
-        if (stat.cameras[camerauid] === undefined) {
-          camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far)
-          if (cameraItem.position !== undefined) {
-            camera.position.x = cameraItem.position[0]
-            camera.position.y = cameraItem.position[1]
-            camera.position.z = cameraItem.position[2]
-          }
-          if (cameraItem.rotation !== undefined) {
-            camera.rotation.x = cameraItem.rotation[0]
-            camera.rotation.y = cameraItem.rotation[1]
-            camera.rotation.z = cameraItem.rotation[2]
-          }
-          if (cameraItem.distance2nodesFactor !== undefined) {
-            camera.distance2nodesFactor = cameraItem.distance2nodesFactor
-          }
-          if (cameraItem.lookAt !== undefined) {
-            camera.lookAt(new THREE.Vector3(...cameraItem.lookAt))
-          }
-        } else {
-          camera = stat.cameras[camerauid]
+        if (cameraItem.position !== undefined) {
+          camera.position.x = cameraItem.position[0]
+          camera.position.y = cameraItem.position[1]
+          camera.position.z = cameraItem.position[2]
+        }
+        if (cameraItem.rotation !== undefined) {
+          camera.rotation.x = cameraItem.rotation[0]
+          camera.rotation.y = cameraItem.rotation[1]
+          camera.rotation.z = cameraItem.rotation[2]
+        }
+        if (cameraItem.distance2nodesFactor !== undefined) {
+          camera.distance2nodesFactor = cameraItem.distance2nodesFactor
+        }
+        if (cameraItem.lookAt !== undefined) {
+          camera.lookAt(new THREE.Vector3(...cameraItem.lookAt))
         }
       }
 
@@ -405,6 +418,179 @@
       return controls
     }
 
+    // .................. eoMultiPolygonsToScene
+    function eoMultiPolygonsToScene (items = []) {
+      if (items.length === 0) return
+      eoPolygonsToScene(items)
+    }
+
+    // .................. eoPolygonsToScene
+    function eoPolygonsToScene (items = []) {
+      if (items.length === 0) return
+
+      for (let k in items) { // DOTS (seg5===0) each group gid
+        let item = items[k]
+        let feature = item
+        let style = item.properties.style
+
+        // indexed
+        console.assert(feature.geometry.coordinates)
+        console.assert(feature.properties.faces)
+
+        if (feature.geometry !== undefined && feature.geometry !== null) {
+          let vertices = feature.geometry.coordinates
+          let faces = feature.properties.faces.map(face => new THREE.Face3(...face))
+
+          let lights = feature.properties.lights || []
+
+          let	geo = new THREE.Geometry()
+          geo.vertices = vertices.map(to3point)
+          geo.faces = faces
+          geo.computeFaceNormals()
+
+          let material = new THREE.MeshPhongMaterial({ // LineBasicMaterial({
+
+              color: style.fill, // color: 0x0033ff,
+              shininess: 50,
+
+            })
+
+          let object = new THREE.Mesh(
+            geo,
+            material
+          )
+
+          state.scene.add(object)
+
+          for (let j = 0; j < lights.length; j++) {
+            let item = lights[j]
+            let name = item.name
+
+            let threeLight = getLight(item, state)
+            state.lights[name] = threeLight
+          }
+        }
+      }
+    }
+
+    // .................. multiPolygonToScene
+    function multiPolygonsToScene (items = []) {
+      polygonsToScene(items)
+    }
+    // .................. polygonsToScene
+    function polygonsToScene (items = []) {
+      if (items.length === 0) return
+
+      for (let k in items) { // features of type MultiPolygon
+        let item = items[k]
+        let feature = item
+        let style = feature.properties.style
+        let geometry = feature.geometry
+        let coordinates = geometry.coordinates
+
+        let lineMaterial = new THREE.MeshBasicMaterial({
+          color: style.stroke,
+          opacity: style['stroke-opacity'],
+          side: THREE.DoubleSide,
+        })
+
+        let meshMaterial = new THREE.MeshBasicMaterial({
+          color: 'red', // _e_
+          side: THREE.DoubleSide,
+        })
+
+        for (let i = 0; i < geometry.coordinates.length; i++) {
+          let polygon = geometry.coordinates[i]
+          let outring = polygon[0]
+          let innerrings = polygon.slice(1)
+
+          let threeGeometry = new THREE.Geometry()
+
+          d3.pairs(outring.map(denser), function (a, b) { // container ring
+            threeGeometry.vertices.push(a, b) // vertices
+          })
+          let object = new THREE.LineSegments(threeGeometry, lineMaterial)
+
+          innerrings.forEach(function (ring) { // each hole in polygon
+            d3.pairs(ring.map(denser), function (a, b) {
+              threeGeometry.vertices.push(a, b) // vertices
+            })
+            let object = new THREE.LineSegments(threeGeometry, lineMaterial)
+            if (object) state.scene.add(object)
+          })
+          
+          if (object) state.scene.add(object)
+        }
+      }
+    }
+
+    // .................. multiPointToScene
+    function multiPointToScene (items = []) {
+      pointToScene(items)
+    }
+
+    // .................. pointToScene
+    function pointToScene (items = []) {
+      if (items.length === 0) return
+      for (let k in items) { // DOTS (seg5===0) each group gid
+        let item = items[k] // feature
+
+        let style = item.properties.style
+        let dotSize = item.properties.pointRadius || 12
+
+        let geometry = item.geometry // rings in MultiPolygon, MultiLineString
+
+        let vertex = geometry.coordinates
+        vertex[2] = vertex[2] !== undefined ? vertex[2] : 0 // _e_
+        let pointThree = to3point(vertex)
+
+        let particle_geom = new THREE.Geometry()
+        particle_geom.vertices.push(pointThree)
+
+        let particle_material = new THREE.PointsMaterial({
+          color: style.fill, // 0x88ff88,
+          size: dotSize,
+          sizeAttenuation: false,
+          transparent: true,
+        })
+
+        let particle = new THREE.Points(particle_geom, particle_material)
+
+        state.scene.add(particle)
+      }
+    }
+    // .................. multiLineStringToScene
+    function multiLineStringToScene (items) {
+      lineStringToScene(items)
+    }
+
+    // .................. lineStringToScene
+    function lineStringToScene (items = []) {
+      if (items.length === 0) return
+      for (let k in items) { // DOTS (seg5===0) each group gid
+        let item = items[k] // feature
+        let feature = item // .feature
+        let style = feature.properties.style
+        let geometry = feature.geometry
+        let coordinates = Array.of(geometry.coordinates)
+
+        let threeMaterial = new THREE.LineBasicMaterial({
+          color: style.stroke,
+          opacity: style['stroke-opacity'],
+        })
+
+        let threeGeometry = new THREE.Geometry()
+
+        coordinates.forEach(function (line = []) {
+          d3.pairs(line.map(denser), function (a, b) {
+            threeGeometry.vertices.push(a, b)
+          })
+          let object = new THREE.LineSegments(threeGeometry, threeMaterial)
+          if (object) state.scene.add(object)
+        })
+      }
+    }
+
     // .................. threeGridHelpers
     function threeGridHelpers (items = []) {
       if (items.length === 0) return
@@ -473,220 +659,53 @@
       }
     }
 
-    // .................. multiPolygonToScene
-    function multiPolygonsToScene (items = []) {
-      if (items.length === 0) return
-
-      for (let k in items) { // features of type MultiPolygon
-        let feature = items[k] // feature of type MultiPolygon
-        polygonsToScene(Array.of(feature))
-      }
-    }
-    // .................. polygonsToScene
-    function polygonsToScene (items = []) {
-      if (items.length === 0) return
-      for (let k in items) { // features of type MultiPolygon
-        let feature = items[k] // feature of type MultiPolygon
-        let style = feature.properties.style
-        let geometry = feature.geometry
-        let coordinates = geometry.coordinates
-
-        let lineMaterial = new THREE.MeshBasicMaterial({
-          color: style.stroke,
-          opacity: style['stroke-opacity'],
-          side: THREE.DoubleSide,
-        })
-
-        let meshMaterial = new THREE.MeshBasicMaterial({
-          color: 'red',
-          side: THREE.DoubleSide,
-        })
-
-        for (let i = 0; i < geometry.coordinates.length; i++) {
-        // for (let i = 0; i < 1; i++) {
-
-          let polygon = geometry.coordinates[i] // container ring with hole rings
-          let outring = polygon[0]
-          let holerings = polygon.slice(1)
-
-          let threeGeometry = new THREE.Geometry()
-
-          let object, v = '______________mesh'
-          if (v === 'mesh') {
-            for (let j = 0; j < outring.length; j++) {
-              threeGeometry.vertices.push(new THREE.Vector3(...outring[j])) // vertices
-              threeGeometry.faces.push(new THREE.Face3(0, j + 1, j)) // faces
-            }
-            object = new THREE.Mesh(threeGeometry, meshMaterial)
-          } else { // not mesh
-            d3.pairs(outring.map(denser), function (a, b) { // container ring
-              threeGeometry.vertices.push(a, b) // vertices
-            })
-            object = new THREE.LineSegments(threeGeometry, lineMaterial)
-
-            holerings.forEach(function (ring) { // each hole in polygon
-              d3.pairs(ring.map(denser), function (a, b) {
-                threeGeometry.vertices.push(a, b) // vertices
-              })
-              let object = new THREE.LineSegments(threeGeometry, lineMaterial)
-              if (object) state.scene.add(object)
-            })
-          }
-          if (object) state.scene.add(object)
-        }
-      }
-    }
-
-    // .................. polygonToScene
-    function polygonToScene (items = []) {
+    // .................. threeLinkToScene
+    function threeLinkToScene (items = []) {
       if (items.length === 0) return
       for (let k in items) { // DOTS (seg5===0) each group gid
         let item = items[k] // feature
-        let feature = item // .feature
-        let style = feature.properties.style
-        let geometry = feature.geometry
-        let coordinates = geometry.coordinates
-
-        let threeMaterial = new THREE.LineBasicMaterial({
-          color: style.stroke,
-          opacity: style['stroke-opacity'],
-        })
-
-        let threeGeometry = new THREE.Geometry()
-
-        coordinates.forEach(function (line) {
-          d3.pairs(line.map(denser), function (a, b) {
-            threeGeometry.vertices.push(a, b)
-          })
-          let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-          if (object) state.scene.add(object)
-        })
+        let link = item
+        state.scene.add(link._line = link.line)
       }
     }
 
-    // .................. eoMultiPolygonsToScene
-    function eoMultiPolygonsToScene (items = []) {
-      if (items.length === 0) return
-      eoPolygonsToScene(items)
-    }
-
-    // .................. eoPolygonsToScene
-    function eoPolygonsToScene (items = []) {
-      if (items.length === 0) return
-
-      for (let k in items) { // DOTS (seg5===0) each group gid
-        let item = items[k]
-        let feature = item
-        let style = item.properties.style
-
-        if (feature.geometry !== undefined && feature.geometry !== null) {	// geometry may be null
-          let vertices = feature.geometry.coordinates
-          let faces = feature.properties.faces.map(face => new THREE.Face3(...face))
-
-          let lights = feature.properties.lights || []
-
-          let	threeGeometry = new THREE.Geometry()
-          threeGeometry.vertices = vertices.map(to3point)
-          threeGeometry.faces = faces
-          threeGeometry.computeFaceNormals()
-
-          let object = new THREE.Mesh(
-            threeGeometry, // geometry,
-
-            new THREE.MeshPhongMaterial({ // new THREE.LineBasicMaterial({
-
-              color: style.fill, // color: 0x0033ff,
-              shininess: 50,
-
-            })
-          )
-
-          state.scene.add(object)
-
-          for (let j = 0; j < lights.length; j++) {
-            let item = lights[j]
-            let name = item.name
-
-            let threeLight = getLight(item, state)
-            state.lights[name] = threeLight
-          }
-        }
-      }
-    }
-
-    // .................. multiPointToScene
-    function multiPointToScene (items = []) {
-
-
-      if (items.length === 0) return
-      for (let k in items) { // DOTS (seg5===0) each group gid
-        let item = items[k] // feature
-        pointToScene(Array.of(item))
-      }
-    }
-    // .................. pointToScene
-    function pointToScene (items = []) {
-      if (items.length === 0) return
-      for (let k in items) { // DOTS (seg5===0) each group gid
-        let item = items[k] // feature
-
-        let style = item.properties.style
-        let dotSize = item.properties.pointRadius || 12
-
-        let geometry = item.geometry // rings in MultiPolygon, MultiLineString
-
-        let vertex = geometry.coordinates
-        vertex[2] = vertex[2] !== undefined ? vertex[2] : 0 // _e_
-        let pointThree = to3point(vertex)
-
-        let particle_geom = new THREE.Geometry()
-        particle_geom.vertices.push(pointThree)
-
-        let particle_material = new THREE.PointsMaterial({
-          color: style.fill, // 0x88ff88,
-          size: dotSize,
-          sizeAttenuation: false,
-          transparent: true,
-        })
-
-        let particle = new THREE.Points(particle_geom, particle_material)
-
-        state.scene.add(particle)
-      }
-    }
-    // .................. multiLineStringToScene
-    function multiLineStringToScene (items) {
+    // .................. threeObjectToScene
+    function threeObjectToScene (items = []) {
       if (items.length === 0) return
       for (let k in items) {
-        let item = items[k] // feature
-        lineStringToScene(Arrray.of(item))
-      }
-    }
+        let item = items[k]
 
-    // .................. lineStringToScene
-    function lineStringToScene (items = []) {
-      if (items.length === 0) return
-      for (let k in items) { // DOTS (seg5===0) each group gid
-        let item = items[k] // feature
-        let feature = item // .feature
-        let style = feature.properties.style
-        let geometry = feature.geometry
-        let coordinates = Array.of(geometry.coordinates)
+        let object
 
-        let threeMaterial = new THREE.LineBasicMaterial({
-          color: style.stroke,
-          opacity: style['stroke-opacity'],
-        })
+        if (item.geometry.type === 'MultiPoint') {
+          console.assert(item.properties.hinges !== undefined, `net undefined`)
+          if (item.properties.hinges !== undefined) {
+            let coords = item.geometry.coordinates.map(d => Array.isArray(d) ? new THREE.Vector3(...d) : d)
+            item.geometry.coordinates = coords
+            object = muonNets.tree(item) // net
+          }
+        } else {
+          object = item.properties.object
+        }
 
-        let threeGeometry = new THREE.Geometry()
+        object = postmot(object)
 
-        coordinates.forEach(function (line = []) {
-          d3.pairs(line.map(denser), function (a, b) {
-            threeGeometry.vertices.push(a, b)
-          })
-          let object = new THREE.LineSegments(threeGeometry, threeMaterial)
-          if (object) state.scene.add(object)
-        })
+        let u = object.userData
+        let d = u.renderData
+        if (u !== undefined && d !== undefined) {
+          let docenter = d.docenter
+          if (docenter) {
+            let target = new THREE.Vector3()
+            let c = new THREE.Box3().setFromObject(object).getCenter(target)
+            let t3 = new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z)
+
+            object.matrix.multiply(t3)
+            object.matrixAutoUpdate = false
+            object.matrixWorldNeedsUpdate = true
+          }
+        }
+
+        state.scene.add(object)
       }
     }
 
@@ -712,115 +731,10 @@
       }
     }
 
-    // .................. threeLinkToScene
-    function threeLinkToScene (items = []) {
-      if (items.length === 0) return
-      for (let k in items) { // DOTS (seg5===0) each group gid
-        let item = items[k] // feature
-        let link = item
-        state.scene.add(link._line = link.line)
-      }
-    }
-    // .................. postmot
-    function postmot (object) {
-      let t, t1, r, t2, m, u, c, d
-      object.traverse(function (obj) {
-        u = obj.userData
-        d = u.renderData
-
-        if (u !== undefined && d !== undefined) {
-          t = d.t
-        
-
-        
-          let ms = obj.matrices({u,t})
-          
-        
-          let t0 = new THREE.Matrix4()
-          ms.reverse().map(m => t0.multiply(m))
-
-              obj.matrix.multiply(t0)
-              obj.matrixAutoUpdate = false
-              obj.matrixWorldNeedsUpdate = true
-
-
-          
-          
-        }
-      })
-
-      return object
-    }
-
-    // .................. threeObjectToScene
-    function threeObjectToScene (items = []) {
-      if (items.length === 0) return
-      for (let k in items) {
-        let item = items[k]
-        
-        let object 
-        
-        if (item.geometry.type === 'MultiPoint') { 
-
-          console.assert(item.properties.hinges !== undefined, `net undefined`)
-          if (item.properties.hinges !== undefined) {
-            let coords = item.geometry.coordinates.map(d => Array.isArray(d) ? new THREE.Vector3(...d) : d)
-            item.geometry.coordinates = coords
-            object = muonNets.tree(item)  // net 
-          }
-          
-        } else {
-          object = item.properties.object
-        }
-          
-          
-          object = postmot(object)
-        
-          let u = object.userData
-          let d = u.renderData
-          if (u !== undefined && d !== undefined) {
-            let docenter = d.docenter
-            if (docenter) {
-              let target = new THREE.Vector3()
-              let c = new THREE.Box3().setFromObject(object).getCenter(target)
-              let t3 = new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z)
-
-              object.matrix.multiply(t3)
-              object.matrixAutoUpdate = false
-              object.matrixWorldNeedsUpdate = true
-            }
-          }        
-            
-
-        state.scene.add(object)
-      }
-    }
-
-
     /* object PATTERNS */
 
     let patterns = [
       {
-        name: 'THREEGRIDHELPER',
-        filter: d =>
-          (d.properties.sort === 'gridHelper'),
-        retriever: threeGridHelpers,
-      }, {
-        name: 'THREELIGHT',
-        filter: d =>
-          (d.properties.sort === 'light'),
-        retriever: threeLights,
-      }, {
-        name: 'THREECAMERAHELPER',
-        filter: d =>
-          (d.properties.sort === 'cameraHelper'),
-        retriever: threeCameraHelpers,
-      }, {
-        name: 'THREECAMERA',
-        filter: d =>
-          (d.properties.sort === 'camera'),
-        retriever: threeCameras,
-      }, {
         name: 'EOMULTIPOLYGON',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
@@ -860,10 +774,25 @@
               d.geometry.type === 'LineString',
         retriever: lineStringToScene,
       }, {
-        name: 'IMG',
+        name: 'THREEGRIDHELPER',
         filter: d =>
-          d.properties.sort === 'img',
-        retriever: undefined,
+          (d.properties.sort === 'gridHelper'),
+        retriever: threeGridHelpers,
+      }, {
+        name: 'THREELIGHT',
+        filter: d =>
+          (d.properties.sort === 'light'),
+        retriever: threeLights,
+      }, {
+        name: 'THREECAMERAHELPER',
+        filter: d =>
+          (d.properties.sort === 'cameraHelper'),
+        retriever: threeCameraHelpers,
+      }, {
+        name: 'THREECAMERA',
+        filter: d =>
+          (d.properties.sort === 'camera'),
+        retriever: threeCameras,
       }, {
         name: 'THREELINK',
         filter: d =>
@@ -874,6 +803,11 @@
         filter: d =>
           d.properties.sort === 'threeobject',
         retriever: threeObjectToScene,
+      }, {
+        name: 'IMG',
+        filter: d =>
+          d.properties.sort === 'img',
+        retriever: undefined,
       },
 
     ]

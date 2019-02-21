@@ -8,7 +8,7 @@
 }(this, function (exports) {
   'use strict'
 
-  // ... eon-muon-geoj
+
   // ... **process geojson streams**
   // ... ## references
   // ... [Maarten’s Block geo to square tiles](https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6)
