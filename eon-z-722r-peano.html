@@ -53,7 +53,7 @@ async function anitem (__eo) {
         console.assert(geoData.geometry.type === 'MultiLineString')
         return geoData
 
-        let coords = muonGeoj.getCoords(geoData)
+        coords = muonGeoj.getCoords(geoData)
         let nb = coords.length
         let unElapsed = ani.eotim.unElapsed // unit time elapsed
         let tf = d => d

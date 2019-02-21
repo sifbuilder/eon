@@ -811,6 +811,31 @@
       return ngj
     }
 
+    let segtime = function(geoData,tim) {
+ 
+        console.assert(geoData.geometry.type === 'MultiLineString')
+
+        let coords = getCoords(geoData)
+        let nb = coords.length
+        let unElapsed = tim.unElapsed // unit time elapsed
+        let tf = d => d
+        let t = tf(unElapsed)
+
+        let nbt = Math.ceil(nb * t)
+        let csi = t => getCoordsInRange(geoData, nbt)
+        coords = csi(t).geometry.coordinates
+
+        let ngj = {
+          type: 'Feature',
+          geometry: { type: 'MultiLineString', coordinates: [] },
+          properties: {},
+        }
+
+        ngj.geometry.coordinates = coords
+
+        return ngj
+      }    
+    
     // ............................. enty
     let enty = function () {}
 
@@ -837,6 +862,7 @@
     enty.gjAppend = gjAppend
     enty.extrapol = extrapol
     enty.timeSeg = timeSeg
+    enty.segtime = segtime
 
     return enty
   }

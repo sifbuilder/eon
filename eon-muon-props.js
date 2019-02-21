@@ -90,7 +90,7 @@
       return locations
     }
 
-   props.cant = function (arr = [], r=0.5) {
+   props.cant = function (arr = [], r=0.0) {
     let canted = d3Array.pairs(arr, function (a, b) {
         // a -aa---bb- b
               

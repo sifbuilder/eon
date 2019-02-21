@@ -38,7 +38,7 @@ async function anitem (__eo) {
       ctl = () => [0, 0, 0]
     }
 
-    let eotim = { td: 12200, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
+    let eotim = { td: 18200, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
 
 
     let aniForm2 = {
@@ -60,18 +60,15 @@ async function anitem (__eo) {
           },
           properties: {},
         }
-        return geoData 
         
-
-
-        let ngj = muonGeoj.segtime(geoData, ani.eotim)
+        geoData = muonGeoj.segtime(geoData, ani.eotim)
         
-        return ngj        
+        return geoData        
         
 
       },
 
-      eocrom: { 'csx': 0, 'cf': [[[444, 777, 777]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.01, 0.09, 0.07]]], 'cp': [[[0.9, 0.9]]]},
+      eocrom: { 'csx': 0, 'cf': [[[444, 777, 777]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.01, 0.9, 0.7]]], 'cp': [[[0.9, 0.9]]]},
       eomot: {
         proform: {
           projection: 'uniwen',
@@ -85,17 +82,17 @@ async function anitem (__eo) {
         lindenmayer: {
         linden: {
           axiom: 'F-F-F-F',
-          loops: [[[0,4]]],
+          loops: 4,
           rules: {
-            F: 'F+F-F-FF+F+F-F',            
+            F: 'F+F--F+F',
           },
         },
         mayer: {
-          side: [[[36,4.5]]],
+          side: 9,
           angle: 90,
           anglestart: 0,
-          start: [0, 0],
-          cant: [[[0,0]]],          
+          start: [50, -50],
+            cant: [[[0.2,0.2]]],          
         },
       },
 
