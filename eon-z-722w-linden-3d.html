@@ -49,6 +49,7 @@ async function anitem (__eo) {
 
       eofold: ani => {
         let geo = muonLindenmayer.linden(ani.eoload.lindenmayer)
+
         
         let coords = geo.map(ring => muonProps.cant(ring, ani.eoload.lindenmayer.mayer.cant))
     
@@ -75,7 +76,7 @@ async function anitem (__eo) {
         proform: {
           projection: 'uniwen',
           scale: 1,
-          translate: {'x': 0, 'y': 0 },
+          translate: [0,0],
           prerotate: [[[ ctl.rotation ]]],
           rotate: [ 0, 0, 0 ],
         },
@@ -84,16 +85,22 @@ async function anitem (__eo) {
         lindenmayer: {
         linden: {
           axiom: 'F-F-F-F',
+          // axiom: 'A',
           loops: 2,
           rules: {
-            F: 'F+F-F-FF+F+F-F',            
+            F: 'F+F-F-FF+F+F-F', 
+            // A: 'B-F+CFC+F-D&F^D-F+&&CFC+F+B~~',
+            // B: 'A&F^CFB^F^D^^-F-D^|F^B|FC^F^A~~',
+            // C: '|D^|F^B-F+C^F^A&&FA&F^C+F+B^F^D~~',
+            // D: '|CFB-F+B|FA&F^A&&FB-F+B|FC~~',
+
           },
         },
         mayer: {
           side: 12,
           angle: 90,
-          anglestart: 0,
-          start: [100, 100],
+          angstart: 0,
+          start: [0, 0],
           cant: [[[0,0]]],          
         },
       },

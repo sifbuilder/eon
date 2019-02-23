@@ -31,9 +31,8 @@
 
     let chn = (ch = 'F', n = 1) => ch.repeat(Math.floor(n))
 
-    // lindenmayer
-    // http://bl.ocks.org/nitaku/e0f1b570161875b27fc9
-    // ### compute a Lindenmayer system given an axiom, a number of loops and rules ###
+    // ref: http://bl.ocks.org/nitaku/e0f1b570161875b27fc9
+    
     // ............................. fractalize
     let fractalize = (lindenmayer) => {
       cache.lindenmayer = lindenmayer
@@ -46,7 +45,8 @@
       let axiom = muonProps.value(linden.axiom)
       let rules = muonProps.value(linden.rules)
       let loops = linden.loops !== undefined ? Math.floor(linden.loops) : linden.loops
-      // feet (moves) for each F in rule
+      
+      // feet in each F step
       let feet = linden.feet !== undefined ? Math.floor(linden.feet) : linden.feet
 
       let output = ''
@@ -86,6 +86,11 @@
       return fractalize(lindenmayer)
     }
 
+    // ............................. forward    
+    //
+    //  step forward
+    //  direction set in angle
+    //
     let forward = function (stat) {
       let {side,
         pointstart,
@@ -93,10 +98,15 @@
         level,
         lineslifo,
         angles,
+        matrices,
         randomizeStep,
         randomizeAngle,
       } = stat
 
+      let newdot = []
+
+      
+      // side: length of step
       let fkr = 1.0
       let r = 0.5 - Math.random()
       if (Math.abs(r) < 0.5 * randomizeStep / 100) {
@@ -107,67 +117,33 @@
       let pos = lineslifo[level].length - 1
       console.assert(pos >= 0, `line not initalized`)
       let dot = lineslifo[level][pos]
-      // dot[2] = dot[2] || 0  // _e_
-      let newdot = []
-      let v3 = new Vector3(dot[0], dot[1], dot[2 || 0])
-
+      dot[2] = dot[2] || 0  // 3D _e_
+      let v3 = new Vector3(...dot)
       let a = angles[level] // angle
+      let mat = matrices[level] // matrix
 
 
-      // RU(α) = cos α    sin α     0
-      //        − sin α   cos α     0
-      //          0       0         1
-     // let m4a = new Matrix3().set(  side * cos(a),  side * sin(a), 0,   1,
-                                  // - side * sin(a),  side * cos(a) , 0,   1,
-                                  // 0,          0                 , 1,    1,
-                                  // 1,          0                 , 0,    1
-      // )
-      // let t0 = new Matrix4()
-      // let t1 = new Matrix4().makeRotationZ(a)
-      // let t2 = new Matrix4().makeScale(side)
-      // let t3 = new Matrix4().makeTranslation( ...dot )
-      // let tm = t0
-        // .multiply(t1)
-        // .multiply(t2)
-        // .multiply(t3)
-      // newdot = v3.applyMatrix4(tm).toArray()
+      let t0 = new Matrix4().set(1, 0, 0, 0,
+                           0, 1, 0, 0,
+                           0, 0, 1, 0,
+                           0, 0, 0, 0,)
+                           
+      let v3s = new Vector3().set(side, side,side)
+      let t1 = t0.scale(v3s)
+      
+      let t2 = matrices[level]
+      
+      
+      let tm = t1.multiply(t2).toArray()
+      let t3 = new Matrix4().makeTranslation( ...tm )
+      
 
-
-
-
-      let v3a = new Vector3().set(  cos(a),
-                                    - sin(a),
-                                    1
-      )
-      v3a = v3a.multiplyScalar(side)
-      newdot = v3.add(v3a).toArray()
+      newdot = v3.applyMatrix4(t3).toArray()
 
 
       return newdot
     }
 
-    let right = function (stat) {
-      let {side, angunit, level, lineslifo, angles, randomizeStep, randomizeAngle} = stat
-      let fkr = 1.0
-      let r = 0.5 - Math.random()
-      if (Math.abs(r) < 0.5 * randomizeAngle / 100) {
-        fkr = r
-      }
-      let newang = angles[level] - angunit * fkr
-      return newang
-    }
-
-    let left = function (stat) {
-      let {side, angunit, level, lineslifo, angles, randomizeStep, randomizeAngle} = stat
-      let fkr = 1.0
-      let r = 0.5 - Math.random()
-      if (Math.abs(r) < 0.5 * randomizeAngle / 100) {
-        fkr = r
-      }
-      let newang = angles[level] + angunit * fkr
-
-      return newang
-    }
 
     // ............................. curve
 
@@ -201,8 +177,8 @@
     // − Turn right by angle δ, using rotation matrix RU(−δ)
     // & Pitch down by angle δ, using rotation matrix RL(δ) // y
     // ∧ Pitch up by angle δ, using rotation matrix RL(−δ)
-    // \ Roll left by angle δ, using rotation matrix RH(δ)  // x
-    // / Roll right by angle δ, using rotation matrix RH(−δ)
+    // # Roll left by angle δ, using rotation matrix RH(δ)  // x
+    // ~ Roll right by angle δ, using rotation matrix RH(−δ)
     // | Turn around, using rotation matrix RU(180◦)
 
 // n=2, δ=90◦
@@ -231,15 +207,16 @@
 
       let lineslifo = Array.of([ ])
       let angles = Array.of(angstart)
+      let matrices = Array.of(new Matrix4().makeRotationZ(angstart)) // _e_
 
       let lines = Array.of([ ])
-      let level = 0
+      let level = 0 // level is [] context level
       let counter = 0
       let openlines = [0]
 
       let items = [] // item: status, level, count, line
 
-      let stat = {side, pointstart, angstart, randomizeStep, randomizeAngle, angunit, level, angles, lineslifo}
+      let stat = {side, pointstart, angstart, randomizeStep, randomizeAngle, angunit, level, angles,  matrices, lineslifo}
 
       for (let ch of fractal) { // char in array
 
@@ -250,29 +227,38 @@
         } else if (ch === '&') {
 
         // ∧ Pitch up by angle δ, using rotation matrix RL(−δ)
-        } else if (ch === '∧') {
+        } else if (ch === '^') {
 
         // \ Roll left by angle δ, using rotation matrix RH(δ)  // x
-        } else if (ch === '\\') { // escape
+        } else if (ch === '#') { // 
 
         // / Roll right by angle δ, using rotation matrix RH(−δ)
-        } else if (ch === '/') {
+        } else if (ch === '~') {
 
         // | Turn around, using rotation matrix RU(180◦)
         } else if (ch === '|') {
 
 
 
-        } else if (ch === '+') {
+        } else if (ch === '+') {  // RU - turn right  - decrease angle
 
-          let newangle = right(stat)
-          stat.angles[stat.level] = newangle
+          let {side, angunit, level, lineslifo, angles, matrices, randomizeStep, randomizeAngle , randomize=0} = stat
+          
+          let fkr = 1 + (0.5 - Math.random()) * randomize
+          let mat = stat.matrices[level]
+          let rotmat = new Matrix4().makeRotationZ(-angunit * fkr )
+          stat.matrices[level] = mat.multiply(rotmat)
 
-        } else if (ch === '-') {
+        } else if (ch === '-') {  // turn left - increase angle   x_|
 
-          let newangle = left(stat)
-          stat.angles[stat.level] = newangle
-
+          let {side, angunit, level, lineslifo, angles,  matrices, randomizeStep, randomizeAngle, randomize=0} = stat
+          
+          let fkr = 1 + (0.5 - Math.random()) * randomize
+          let mat = stat.matrices[level]
+          let rotmat = new Matrix4().makeRotationZ(angunit * fkr )
+          stat.matrices[level] = mat.multiply(rotmat)
+          
+          
         } else if (ch === 'O') {
 
         } else if (ch === 'F' || ch === 'f') {
@@ -289,6 +275,9 @@
             if (stat.angles.length === 0) {
               stat.angles.push(angstart)
             }
+            if (stat.matrices.length === 0) {
+              stat.matrices.push(new Matrix4().makeRotationZ(angstart))
+            }
           }
 
           let newdot = forward(stat)
@@ -304,6 +293,7 @@
           let lastPointInLine = lineInLevel[lineInLevel.length - 1]
 
           let angleInLevel = stat.angles[stat.level]
+          // let angleInLevel = stat.matrices[stat.level]
 
           let firstPoint, newangle
           if (pointsInLine === 0) {
@@ -321,6 +311,7 @@
           stat.level = stat.level + 1
           stat.lineslifo[stat.level] = newline
           stat.angles[stat.level] = newangle // inherit angleCum
+          // stat.matrices[stat.level] = newangle // inherit angleCum
 
           counter = counter + 1
           openlines.push(counter)
@@ -333,6 +324,7 @@
           stat.level = stat.level - 1
           stat.lineslifo.splice(-1, 1) // drop last line
           stat.angles.splice(-1, 1) // drop last angle
+          // stat.matrices.splice(-1, 1) // drop last angle
 
           openlines.splice(-1, 1)
         }
