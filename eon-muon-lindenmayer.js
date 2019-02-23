@@ -235,11 +235,12 @@
             }
           }
           if (stat.lineslifo[stat.level].length === 0) {
-            if (stat.angles.length === 0) {
-              stat.angles.push(angstart)
-            }
+            // if (stat.angles.length === 0) {
+              // stat.angles.push(angstart)
+            // }
             if (stat.matrices.length === 0) {
-              stat.matrices.push(new Matrix4().makeRotationZ(angstart))
+              let newmat = new Matrix4().makeRotationZ(angstart)
+              stat.matrices.push(newmat)
             }
           }
 
@@ -255,8 +256,8 @@
           let pointsInLine = lineInLevel.length
           let lastPointInLine = lineInLevel[lineInLevel.length - 1]
 
-          let angleInLevel = stat.angles[stat.level]
-          // let angleInLevel = stat.matrices[stat.level]
+          // let angleInLevel = stat.angles[stat.level]
+          let matrixInLevel = stat.matrices[stat.level]
 
           let firstPoint, newangle
           if (pointsInLine === 0) {
@@ -269,12 +270,20 @@
           } else {
             newangle = angleInLevel
           }
+          
+          if (newmat !== undefined) {
+              let newmat = new Matrix4().makeRotationZ(angstart)
+              newmatrix = newmat
+          } else {
+              newmatrix = matrixInLevel
+          }          
+          
           let newline = [firstPoint]
 
           stat.level = stat.level + 1
           stat.lineslifo[stat.level] = newline
-          stat.angles[stat.level] = newangle // inherit angleCum
-          // stat.matrices[stat.level] = newangle // inherit angleCum
+          // stat.angles[stat.level] = newangle // inherit angleCum
+          stat.matrices[stat.level] = newmatrix // inherit matrix
 
           counter = counter + 1
           openlines.push(counter)
@@ -287,8 +296,8 @@
 
           stat.level = stat.level - 1
           stat.lineslifo.splice(-1, 1) // drop last line
-          stat.angles.splice(-1, 1) // drop last angle
-          // stat.matrices.splice(-1, 1) // drop last angle
+          // stat.angles.splice(-1, 1) // drop last angle
+          stat.matrices.splice(-1, 1) // drop last matrix
 
           openlines.splice(-1, 1)
         }
