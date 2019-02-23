@@ -90,25 +90,22 @@
       return locations
     }
 
-   props.cant = function (arr = [], r=0.0) {
-    let canted = d3Array.pairs(arr, function (a, b) {
+    props.cant = function (arr = [], r = 0.0) {
+      let canted = d3Array.pairs(arr, function (a, b) {
         // a -aa---bb- b
-              
-        let aa =[], bb=[]
-        
-        aa[0] = a[0] + r * (b[0] - a[0])
-        aa[1] = a[1] + r * (b[1] - a[1])
-        
-        bb[0] = a[0] + (1 - r) * (b[0] - a[0])
-        bb[1] = a[1] + (1 - r) * (b[1] - a[1])
 
-             return [aa,bb]
-            })
-            .reduce( (p,q) => [...p,...q], [])     
-     return canted
-     
-   }    
-    
+        let dim = a.length
+        let aa = new Array(dim), bb = new Array(dim)
+
+        aa = a.map((d, i) => a[i] + r * (b[i] - a[i]))
+        bb = b.map((d, i) => a[i] + (1 - r) * (b[i] - a[i]))
+
+        return [aa, bb]
+      })
+        .reduce((p, q) => [...p, ...q], [])
+      return canted
+    }
+
     /* **************************
    *        @interlink
    *        [ [a1,a2,a3], [b1,b2] ]     [ [a1,b1], [a2,b2x], [a3,b2] ]

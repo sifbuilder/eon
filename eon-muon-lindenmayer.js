@@ -11,28 +11,23 @@
   async function muonLindenmayer (__eo = {}) {
     let [
       muonProps,
-      muonMatrix3,
       muonMatrix4,
       muonVector3,
     ] = await Promise.all([
       __eo('xs').m('props'),
-      __eo('xs').m('Matrix3'),
       __eo('xs').m('Matrix4'),
       __eo('xs').m('Vector3'),
     ])
 
     let Vector3 = muonVector3
-    let Matrix3 = muonMatrix3
     let Matrix4 = muonMatrix4
-
-    let cos = Math.cos, sin = Math.sin
 
     let cache = {}
 
     let chn = (ch = 'F', n = 1) => ch.repeat(Math.floor(n))
 
     // ref: http://bl.ocks.org/nitaku/e0f1b570161875b27fc9
-    
+
     // ............................. fractalize
     let fractalize = (lindenmayer) => {
       cache.lindenmayer = lindenmayer
@@ -45,7 +40,7 @@
       let axiom = muonProps.value(linden.axiom)
       let rules = muonProps.value(linden.rules)
       let loops = linden.loops !== undefined ? Math.floor(linden.loops) : linden.loops
-      
+
       // feet in each F step
       let feet = linden.feet !== undefined ? Math.floor(linden.feet) : linden.feet
 
@@ -86,26 +81,21 @@
       return fractalize(lindenmayer)
     }
 
-    // ............................. forward    
+    // ............................. forward
     //
     //  step forward
     //  direction set in angle
     //
     let forward = function (stat) {
       let {side,
-        pointstart,
-        angunit,
         level,
         lineslifo,
-        angles,
         matrices,
         randomizeStep,
-        randomizeAngle,
       } = stat
 
       let newdot = []
 
-      
       // side: length of step
       let fkr = 1.0
       let r = 0.5 - Math.random()
@@ -117,33 +107,27 @@
       let pos = lineslifo[level].length - 1
       console.assert(pos >= 0, `line not initalized`)
       let dot = lineslifo[level][pos]
-      dot[2] = dot[2] || 0  // 3D _e_
+      dot[2] = dot[2] || 0 // 3D _e_
       let v3 = new Vector3(...dot)
-      let a = angles[level] // angle
-      let mat = matrices[level] // matrix
 
+      let t0 = new Matrix4().set(
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 0)
 
-      let t0 = new Matrix4().set(1, 0, 0, 0,
-                           0, 1, 0, 0,
-                           0, 0, 1, 0,
-                           0, 0, 0, 0,)
-                           
-      let v3s = new Vector3().set(side, side,side)
+      let v3s = new Vector3().set(side, side, side)
       let t1 = t0.scale(v3s)
-      
+
       let t2 = matrices[level]
-      
-      
+
       let tm = t1.multiply(t2).toArray()
-      let t3 = new Matrix4().makeTranslation( ...tm )
-      
+      let t3 = new Matrix4().makeTranslation(...tm)
 
       newdot = v3.applyMatrix4(t3).toArray()
 
-
       return newdot
     }
-
 
     // ............................. curve
 
@@ -158,21 +142,6 @@
     // the curve adds the start charater
     // if loops is 0, coords is Ffs steps plus 1
 
-
-// RU(α) = cos α sin α 0
-      // − sin α cos α 0
-      // 0       0  1
-
-// RL(α) = cos α 0   − sin α
-        // 0     1   0
-        // sin α 0   cos α
-
-// RH(α) = 1 0 0
-        // 0 cos α − sin α
-        // 0 sin α cos α
-
-// The following symbols control turtle orientation in
-
     // + Turn left by angle δ, using rotation matrix RU(δ)  // z
     // − Turn right by angle δ, using rotation matrix RU(−δ)
     // & Pitch down by angle δ, using rotation matrix RL(δ) // y
@@ -180,14 +149,6 @@
     // # Roll left by angle δ, using rotation matrix RH(δ)  // x
     // ~ Roll right by angle δ, using rotation matrix RH(−δ)
     // | Turn around, using rotation matrix RU(180◦)
-
-// n=2, δ=90◦
-// A
-// A → B-F+CFC+F-D&F∧D-F+&&CFC+F+B//
-// B → A&F∧CFB∧F∧D∧∧-F-D∧|F∧B|FC∧F∧A//
-// C → |D∧|F∧B-F+C∧F∧A&&FA&F∧C+F+B∧F∧D//
-// D → |CFB-F+B|FA&F∧A&&FB-F+B|FC//
-
 
     let curve = (lindenmayer) => {
       let angstart
@@ -204,6 +165,7 @@
 
       let randomizeStep = lindenmayer.mayer.randomizeStep || 0
       let randomizeAngle = lindenmayer.mayer.randomizeAngle || 0
+      let randomize = lindenmayer.mayer.randomize || 0
 
       let lineslifo = Array.of([ ])
       let angles = Array.of(angstart)
@@ -214,53 +176,54 @@
       let counter = 0
       let openlines = [0]
 
-      let items = [] // item: status, level, count, line
-
-      let stat = {side, pointstart, angstart, randomizeStep, randomizeAngle, angunit, level, angles,  matrices, lineslifo}
+      let stat = {side, pointstart, angstart, randomizeStep, randomizeAngle, angunit, level, angles, matrices, lineslifo}
 
       for (let ch of fractal) { // char in array
+        let fkr = 1 + (0.5 - Math.random()) * randomize
 
-        if (0) {
+        // & Pitch down by angle δ, using rotation matrix RL(δ) // Y+
+        if (ch === '&') {
+          let rotmat = new Matrix4().makeRotationY(angunit * fkr)
+          stat.matrices[level].multiply(rotmat)
 
-
-        // & Pitch down by angle δ, using rotation matrix RL(δ) // y
-        } else if (ch === '&') {
-
-        // ∧ Pitch up by angle δ, using rotation matrix RL(−δ)
+        // ∧ Pitch up by angle δ, using rotation matrix RL(−δ) // Y-
         } else if (ch === '^') {
+          let rotmat = new Matrix4().makeRotationY(-angunit * fkr)
+          stat.matrices[level].multiply(rotmat)
 
-        // \ Roll left by angle δ, using rotation matrix RH(δ)  // x
-        } else if (ch === '#') { // 
+        // # Roll left by angle δ, using rotation matrix RH(δ) // X+
+        } else if (ch === '#') { //
+          let rotmat = new Matrix4().makeRotationX(angunit * fkr)
+          stat.matrices[level].multiply(rotmat)
 
-        // / Roll right by angle δ, using rotation matrix RH(−δ)
+        // ~ Roll right by angle δ, using rotation matrix RH(−δ) // X-
         } else if (ch === '~') {
+          let rotmat = new Matrix4().makeRotationX(-angunit * fkr)
+          stat.matrices[level].multiply(rotmat)
 
         // | Turn around, using rotation matrix RU(180◦)
         } else if (ch === '|') {
-
-
-
-        } else if (ch === '+') {  // RU - turn right  - decrease angle
-
-          let {side, angunit, level, lineslifo, angles, matrices, randomizeStep, randomizeAngle , randomize=0} = stat
           
-          let fkr = 1 + (0.5 - Math.random()) * randomize
-          let mat = stat.matrices[level]
-          let rotmat = new Matrix4().makeRotationZ(-angunit * fkr )
-          stat.matrices[level] = mat.multiply(rotmat)
+          let rotmat = new Matrix4().makeRotationZ(Math.PI * fkr)
+          stat.matrices[level].multiply(rotmat)
 
-        } else if (ch === '-') {  // turn left - increase angle   x_|
-
-          let {side, angunit, level, lineslifo, angles,  matrices, randomizeStep, randomizeAngle, randomize=0} = stat
-          
-          let fkr = 1 + (0.5 - Math.random()) * randomize
-          let mat = stat.matrices[level]
-          let rotmat = new Matrix4().makeRotationZ(angunit * fkr )
-          stat.matrices[level] = mat.multiply(rotmat)
-          
-          
+        // O Turn around, using rotation matrix RU(180◦)          
         } else if (ch === 'O') {
+          
+          let rotmat = new Matrix4().makeRotationZ(Math.Pi * fkr)
+          stat.matrices[level].multiply(rotmat)
+          
+        // RU - turn right  - decrease angle // Z-
+        } else if (ch === '+') {
+          let rotmat = new Matrix4().makeRotationZ(-angunit * fkr)
+          stat.matrices[level].multiply(rotmat)
 
+        // RU - turn left - increase angle ._| // Z+
+        } else if (ch === '-') {
+          let rotmat = new Matrix4().makeRotationZ(angunit * fkr)
+          stat.matrices[level].multiply(rotmat)
+          
+        // Forward  
         } else if (ch === 'F' || ch === 'f') {
           if (stat.lineslifo[stat.level].length === 0) {
             if (stat.level === 0) {
@@ -285,8 +248,8 @@
 
           let lastOpenLine = openlines[openlines.length - 1]
           lines[lastOpenLine] = stat.lineslifo[stat.level]
-
-
+          
+        // Up context  
         } else if (ch === '[') {
           let lineInLevel = stat.lineslifo[stat.level]
           let pointsInLine = lineInLevel.length
@@ -317,7 +280,8 @@
           openlines.push(counter)
           let lastOpenLine = openlines[openlines.length - 1]
           lines[lastOpenLine] = stat.lineslifo[stat.level]
-
+          
+        // Down context            
         } else if (ch === ']') {
           lines.push(stat.lineslifo[stat.lineslifo.length - 1]) // _e_
 
