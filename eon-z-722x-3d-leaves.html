@@ -8,7 +8,7 @@ async function anitem (__eo) {
   let [
     ctlWen,
     eohalMars,
-    eohalTextform,    
+    eohalTextform,
     muonGeoj,
     muonLindenmayer,
     muonProps,
@@ -16,7 +16,7 @@ async function anitem (__eo) {
   ] = await Promise.all([
     __eo('xs').c('wen'),
     __eo('xs').e('mars'),
-    __eo('xs').e('textform'),    
+    __eo('xs').e('textform'),
     __eo('xs').m('geoj'),
     __eo('xs').m('lindenmayer'),
     __eo('xs').m('props'),
@@ -34,7 +34,7 @@ async function anitem (__eo) {
       ctl = () => [0, 0, 0]
     }
 
-    let eotim = { td: 18200, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
+    let eotim = { td: 24200, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
 
     let aniForm2 = {
 
@@ -56,7 +56,7 @@ async function anitem (__eo) {
           properties: {},
         }
 
-        let ngj = muonGeoj.segtime(geoData, ani.eotim) // geoData // 
+        let ngj = muonGeoj.segtime(geoData, ani.eotim) // geoData //
 
         return ngj
       },
@@ -67,28 +67,33 @@ async function anitem (__eo) {
           scale: 1,
           translate: [ 0, 0, 0 ],
           prerotate: [[[ ctl.rotation ]]],
-          rotate: [ [[[0,-35,-180]]], [[[0,-110,-180]]], [[[0,135,180]]] ],
+          rotate: [ 0, [[[0,360]]], 0 ],
         },
       },
-      eocrom: { 'csx': 0, 'cf': 777, 'cs': 666, 'cw': 1.9, 'co': 0.05, 'cp': 0.9 },
+      eocrom: { 'csx': 0, 'cf': 777, 'cs': [[[555,888,555]]], 'cw': [[[0.9,0.5,0.9]]], 'co': 0.05, 'cp': 0.7 },
       eoload: {
         lindenmayer: {
 
+        //http://algorithmicbotany.org/papers/abop/abop-ch1.pdf
+        // The symbols ! and  are used to decrement the diameter of segments
+        // and increment the current index to the color table, respectively
+
           linden: {
             axiom: 'A',
-            loops: 2,
+            loops: 7,
             rules: {
-              A: 'B-F+CFC+F-D&F^D-F+&&CFC+F+B~~',
-              B: 'A&F^CFB^F^D^^-F-D^|F^B|FC^F^A~~',
-              C: '|D^|F^B-F+C^F^A&&FA&F^C+F+B^F^D~~',
-              D: '|CFB-F+B|FA&F^A&&FB-F+B|FC~~',
+              A: '[&FL!A]~~~~~’[&FL!A]~~~~~~~’[&FL!A]',
+              F: 'S ~~~~~ F',
+              S: 'F L',
+              L: '[’’’^^{-f+f+f-|-f+f+f}]'
+
             },
           },
           mayer: {
-            side: 24,
-            angle: 90,
-            angstart: 0,
-            start: [0, -100, 0],
+            side: 9,
+            angle: 22.5,
+            angstart: 90,
+            start: [0, -150, 0],
             cant: [[[0.1, 0.1]]],
           },
         },
@@ -97,30 +102,62 @@ async function anitem (__eo) {
     }
 
     // .................. textAni
+    
+    let text = `see the withered petals and the yellow leaves,
+that's become the garden that ere was of thee
+antonio machado`
+
+    
     let textAni = {
       eohal: eohalTextform,
       eotim: eotim,
-      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
+      eoric: {gid: 'text', cid: 'text', fid: 'text'},
       eofold: ani => ({
           type: 'Feature',
           geometry: { type: 'Point', coordinates: [0, 0], },
       }),
-      eocrom: { 'csx': 0, 'cf': 888, 'cs': 111, 'cw': 0.5, 'co': 0.9, 'cp': 0.5},
       eomot: {
         proform: { projection: 'uniwen', translate: [ 200, -190 ], },
       },
+      eocrom: { 'csx': 0, 'cf': 888, 'cs': 111, 'cw': 0.5, 'co': 0.9, 'cp': 0.5},
       eoload: {
         textform: {
-          string: 'antonio machado "spoke in verse and lived in poetry"',
-          style: { 'font-size': 3, },
+          string: [[[function (t) {
+            let txt = this.text
+            let linenb = this.linenb
+            let sttxt = txt.split('\n')
+            return sttxt[linenb]
+          }]]],
+          text: text,
+          style: { 'font-size': 5, },
         },
       },
     }
-    // .................. animas
-    let scene = {
-      aniForm2,
-      textAni,
+
+
+    let getanis = function (txt = '') {
+      let anis = {}
+      let a = txt.split('\n')
+      for (let i = 0; i < a.length; i++) {
+        let ani = muonProps.clone(textAni)
+        ani.eoric.fid = textAni.eoric.fid + '_' + i
+        ani.eoric.cid = textAni.eoric.cid + '_' + i
+        ani.eomot.proform.translate = [160, -160 - 7 * i]
+        ani.eoload.textform.linenb = i
+        anis['ani' + '_' + i] = ani
+
+      }
+      return anis
     }
+    // .................. scene
+    let scene = Object.assign(
+      {},    
+      getanis(text),
+      {
+        aniForm2, // h.mars
+      }
+    )
+
     return scene
   }
 

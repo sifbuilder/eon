@@ -26,8 +26,6 @@
 
     let chn = (ch = 'F', n = 1) => ch.repeat(Math.floor(n))
 
-    // ref: http://bl.ocks.org/nitaku/e0f1b570161875b27fc9
-
     // ............................. fractalize
     let fractalize = (lindenmayer) => {
       cache.lindenmayer = lindenmayer
@@ -81,11 +79,6 @@
       return fractalize(lindenmayer)
     }
 
-    // ............................. forward
-    //
-    //  step forward
-    //  direction set in angle
-    //
     let forward = function (stat) {
       let {side,
         level,
@@ -159,7 +152,7 @@
       }
       angstart *= Math.PI / 180
       let angunit = lindenmayer.mayer.angle * Math.PI / 180
-      let pointstart = lindenmayer.mayer.start || [0, 0]
+      let pointstart = lindenmayer.mayer.start || [0, 0, 0]
       let side = lindenmayer.mayer.side
       let fractal = lindenmayer.fractal
 
@@ -169,7 +162,9 @@
 
       let lineslifo = Array.of([ ])
       let angles = Array.of(angstart)
-      let matrices = Array.of(new Matrix4().makeRotationZ(angstart)) // _e_
+
+      let startmat = new Matrix4().makeRotationZ(angstart)
+      let matrices = Array.of(startmat) // _e_
 
       let lines = Array.of([ ])
       let level = 0 // level is [] context level
@@ -177,53 +172,56 @@
       let openlines = [0]
 
       let stat = {side, pointstart, angstart, randomizeStep, randomizeAngle, angunit, level, angles, matrices, lineslifo}
-
       for (let ch of fractal) { // char in array
         let fkr = 1 + (0.5 - Math.random()) * randomize
+
 
         // & Pitch down by angle δ, using rotation matrix RL(δ) // Y+
         if (ch === '&') {
           let rotmat = new Matrix4().makeRotationY(angunit * fkr)
-          stat.matrices[level].multiply(rotmat)
+          stat.matrices[stat.level] = stat.matrices[stat.level].clone().multiply(rotmat)
 
         // ∧ Pitch up by angle δ, using rotation matrix RL(−δ) // Y-
         } else if (ch === '^') {
           let rotmat = new Matrix4().makeRotationY(-angunit * fkr)
-          stat.matrices[level].multiply(rotmat)
+          stat.matrices[stat.level] = stat.matrices[stat.level].clone().multiply(rotmat)
 
         // # Roll left by angle δ, using rotation matrix RH(δ) // X+
         } else if (ch === '#') { //
           let rotmat = new Matrix4().makeRotationX(angunit * fkr)
-          stat.matrices[level].multiply(rotmat)
+          stat.matrices[stat.level] = stat.matrices[stat.level].clone().multiply(rotmat)
 
         // ~ Roll right by angle δ, using rotation matrix RH(−δ) // X-
         } else if (ch === '~') {
           let rotmat = new Matrix4().makeRotationX(-angunit * fkr)
-          stat.matrices[level].multiply(rotmat)
+          stat.matrices[stat.level] = stat.matrices[stat.level].clone().multiply(rotmat)
 
         // | Turn around, using rotation matrix RU(180◦)
         } else if (ch === '|') {
-          
-          let rotmat = new Matrix4().makeRotationZ(Math.PI * fkr)
-          stat.matrices[level].multiply(rotmat)
 
-        // O Turn around, using rotation matrix RU(180◦)          
+          let rotmat = new Matrix4().makeRotationZ(-Math.PI * fkr)
+          stat.matrices[stat.level] = stat.matrices[stat.level].clone().multiply(rotmat)
+
+        // ignore
         } else if (ch === 'O') {
-          
-          let rotmat = new Matrix4().makeRotationZ(Math.Pi * fkr)
-          stat.matrices[level].multiply(rotmat)
-          
+
+
         // RU - turn right  - decrease angle // Z-
         } else if (ch === '+') {
+
           let rotmat = new Matrix4().makeRotationZ(-angunit * fkr)
-          stat.matrices[level].multiply(rotmat)
+          let newmat = stat.matrices[stat.level].clone().multiply(rotmat)
+          stat.matrices[stat.level] = newmat
 
         // RU - turn left - increase angle ._| // Z+
         } else if (ch === '-') {
+
           let rotmat = new Matrix4().makeRotationZ(angunit * fkr)
-          stat.matrices[level].multiply(rotmat)
-          
-        // Forward  
+          let newmat = stat.matrices[stat.level].clone().multiply(rotmat)
+          stat.matrices[stat.level] = newmat
+
+
+        // Forward
         } else if (ch === 'F' || ch === 'f') {
           if (stat.lineslifo[stat.level].length === 0) {
             if (stat.level === 0) {
@@ -235,9 +233,6 @@
             }
           }
           if (stat.lineslifo[stat.level].length === 0) {
-            // if (stat.angles.length === 0) {
-              // stat.angles.push(angstart)
-            // }
             if (stat.matrices.length === 0) {
               let newmat = new Matrix4().makeRotationZ(angstart)
               stat.matrices.push(newmat)
@@ -249,59 +244,48 @@
 
           let lastOpenLine = openlines[openlines.length - 1]
           lines[lastOpenLine] = stat.lineslifo[stat.level]
-          
-        // Up context  
+
+        // Up context
         } else if (ch === '[') {
+
           let lineInLevel = stat.lineslifo[stat.level]
           let pointsInLine = lineInLevel.length
           let lastPointInLine = lineInLevel[lineInLevel.length - 1]
 
-          // let angleInLevel = stat.angles[stat.level]
-          let matrixInLevel = stat.matrices[stat.level]
-
-          let firstPoint, newangle
+          let firstPoint, newmatrix // , newangle
           if (pointsInLine === 0) {
             firstPoint = pointstart
           } else {
             firstPoint = lastPointInLine
           }
-          if (newangle !== undefined) {
-            newangle = angstart
-          } else {
-            newangle = angleInLevel
-          }
-          
-          if (newmat !== undefined) {
-              let newmat = new Matrix4().makeRotationZ(angstart)
-              newmatrix = newmat
-          } else {
-              newmatrix = matrixInLevel
-          }          
-          
+
+              newmatrix = stat.matrices[stat.level] // incomming level
+
           let newline = [firstPoint]
 
-          stat.level = stat.level + 1
+          stat.level = stat.level + 1 // new level
           stat.lineslifo[stat.level] = newline
-          // stat.angles[stat.level] = newangle // inherit angleCum
-          stat.matrices[stat.level] = newmatrix // inherit matrix
+          stat.matrices[stat.level] = newmatrix.clone() // inherit matrix
 
           counter = counter + 1
           openlines.push(counter)
           let lastOpenLine = openlines[openlines.length - 1]
           lines[lastOpenLine] = stat.lineslifo[stat.level]
-          
-        // Down context            
+
+        // Down context
         } else if (ch === ']') {
           lines.push(stat.lineslifo[stat.lineslifo.length - 1]) // _e_
 
           stat.level = stat.level - 1
           stat.lineslifo.splice(-1, 1) // drop last line
-          // stat.angles.splice(-1, 1) // drop last angle
           stat.matrices.splice(-1, 1) // drop last matrix
-
           openlines.splice(-1, 1)
+
+
         }
+
       }
+
 
       return lines
     }

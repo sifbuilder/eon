@@ -194,8 +194,6 @@
 
       let count = {}
       let grabbed = ctlRayder.grabbed()
-if (1 && 1) console.log('grabbed', grabbed)
-
       
       let dist = state.grabbed === undefined
         ? Infinity

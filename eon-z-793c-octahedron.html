@@ -220,7 +220,7 @@ cube
       }
     }
   // .................. textAni
-let net = muonNets.parse({text:def})
+    let net = muonNets.parse({text:def})
 
     let text = `(${net.number}) ${net.name}
 symbol: ${net.symbol}
@@ -236,6 +236,7 @@ dual: ${net.dual}`
 
       return s1
     }
+    
     let textAni = {
       eohal: 'textform',
       eotim: eotim,
