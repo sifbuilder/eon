@@ -31,29 +31,30 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
 
+  renderSvg.setBckColor('black')
   let muonStore = __eo('muonStore')
+  ctlRayder.control()
 
   // .................. animas
   let ani = function () {
     // .................. pics
     let eotim = {'td': 18800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
-    // ... geoLined is ani h.pacer
+    // .................. geoLined    
     let geoLined = {
 
       eohal: 'pacer',
+      eotim: eotim,
+      eoric: {gid: 'g', cid: 'c', fid: 'f'},
 
-      // ... eofold is LineString
       eofold: {
         type: 'Feature',
         geometry: {
           type: 'LineString',
-          coordinates: null,
+          coordinates: [ [0,0], [10, 10] ],
         },
         properties: {},
       },
-
-      // ... eonode has the sim properties
       eonode: {
         type: 'Feature',
         geometry: {
@@ -67,31 +68,35 @@ async function anitem (__eo) {
 
       // ... the eofold changes form with eofom
 
-      eoform: [ [[[0, 120]]], 0, 0],
-      eotim: eotim,
-      eoric: {gid: 'g', cid: 'c', fid: 'f'},
+      eoform: [ 0, 0, 0], // [ [[[0, 120]]], 0, 0]
       eocrom: {'csx': 0, 'cf': 777, 'cs': 777, 'cw': 0.99, 'co': 0.4, 'cp': 0.99},
 
       eoload: {
-
         pacer: {
 
-          initN: 0, eventN: 1, autoN: 0, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0,
+          initN: 0, eventN: 1, autoN: 0, autoP: 0, autoT: 0, outtimed: 0, maxN: 60,
 
-          geosort: 'anigram',
-          geobase: '',
           geoaad: 1, // geoaad for trace
+          geospan: 0,
+          
+          geosort: 'anigram',
+          geobase: '',  // 'viewform'
 
           eohal: 'mars',
 
           eofold: function (ani, props) {
+
+
             let coords
             if (props.key === 'init') { // INIT
-              coords = ani.eonode.geometry.coordinates // eonode
+              let point = ani.eonode.geometry.coordinates
+              coords = Array.of(point) // eonode
+              
             } else if (props.key === 'auto') { // AUTO
               let point = ani.eoform
 
               point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
+              point = [600 * (0.5 - Math.random()), 400 * (0.5 - Math.random()) ]
 
               let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
               if (preani) {
@@ -106,8 +111,14 @@ async function anitem (__eo) {
                     ? [...feature.geometry.coordinates, point ]
                     : Array.of(point)
                 }
+              } else {
+              
+                coords = Array.of(point)
               }
             } else if (props.key === 'event') { // EVENT
+            if (1 && 1) console.log('event')
+              let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
+            
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = props.count.grabbed
                 let x = grabbed[0]
@@ -119,13 +130,14 @@ async function anitem (__eo) {
                   ? [...preani.eofold.geometry.coordinates, point ]
                   : Array.of(point) // LineString
               }
+              
             }
 
             let geometry = {
               type: 'LineString',
               coordinates: coords,
             }
-            console.assert(muonGeoj.isValid(geometry))
+            console.assert(muonGeoj.isValid(geometry), `geo ${geometry} not valid gj`)
 
             return {
               type: 'Feature',
@@ -167,13 +179,12 @@ async function anitem (__eo) {
       },
     }
 
-    // .................. animas
-    let animas = [
+    // .................. scene
+    let scene = {
       geoLined, // h.pacer
+    }
 
-    ]
-
-    return animas
+    return scene
   }
 
   let enty = () => {}

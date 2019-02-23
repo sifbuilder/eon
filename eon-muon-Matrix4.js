@@ -1,4 +1,15 @@
-import { Vector3 } from './Vector3.js';
+/**********************
+ *    @muonMatrix4
+ */
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
+    : typeof define === 'function' && define.amd ? define(['exports'], factory)
+      : (factory((global.muonMatrix4 = global.muonMatrix4 || {})))
+}(this, function (exports) {
+  'use strict'
+
+  
+  // import { Vector3 } from './Vector3.js';
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -13,6 +24,15 @@ import { Vector3 } from './Vector3.js';
  * @author WestLangley / http://github.com/WestLangley
  */
 
+  async function muonMatrix4 (__eo = {}) {
+    let [
+      muonVector3,
+    ] = await Promise.all([
+      __eo('xs').m('Vector3'),
+    ])
+
+    let Vector3 = muonVector3
+    
 function Matrix4() {
 
 	this.elements = [
@@ -935,4 +955,11 @@ Object.assign( Matrix4.prototype, {
 } );
 
 
-export { Matrix4 };
+    // ....................... enty
+    let enty = Matrix4
+    return enty
+  }
+
+  exports.muonMatrix4 = muonMatrix4
+}))
+// export { Matrix4 };

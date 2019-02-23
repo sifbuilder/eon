@@ -11,9 +11,21 @@
   async function muonLindenmayer (__eo = {}) {
     let [
       muonProps,
+      muonMatrix3,
+      muonMatrix4,
+      muonVector3,
     ] = await Promise.all([
       __eo('xs').m('props'),
+      __eo('xs').m('Matrix3'),
+      __eo('xs').m('Matrix4'),
+      __eo('xs').m('Vector3'),
     ])
+
+    let Vector3 = muonVector3
+    let Matrix3 = muonMatrix3
+    let Matrix4 = muonMatrix4
+
+    let cos = Math.cos, sin = Math.sin
 
     let cache = {}
 
@@ -90,16 +102,47 @@
       if (Math.abs(r) < 0.5 * randomizeStep / 100) {
         fkr = r
       }
+      side = side * fkr
 
       let pos = lineslifo[level].length - 1
       console.assert(pos >= 0, `line not initalized`)
       let dot = lineslifo[level][pos]
+      // dot[2] = dot[2] || 0  // _e_
+      let newdot = []
+      let v3 = new Vector3(dot[0], dot[1], dot[2 || 0])
 
-      let angle = angles[level]
-      let newdot = [
-        dot[0] + side * Math.cos(angle) * fkr,
-        dot[1] + side * Math.sin(angle) * fkr,
-      ]
+      let a = angles[level] // angle
+
+
+      // RU(α) = cos α    sin α     0
+      //        − sin α   cos α     0
+      //          0       0         1
+     // let m4a = new Matrix3().set(  side * cos(a),  side * sin(a), 0,   1,
+                                  // - side * sin(a),  side * cos(a) , 0,   1,
+                                  // 0,          0                 , 1,    1,
+                                  // 1,          0                 , 0,    1
+      // )
+      // let t0 = new Matrix4()
+      // let t1 = new Matrix4().makeRotationZ(a)
+      // let t2 = new Matrix4().makeScale(side)
+      // let t3 = new Matrix4().makeTranslation( ...dot )
+      // let tm = t0
+        // .multiply(t1)
+        // .multiply(t2)
+        // .multiply(t3)
+      // newdot = v3.applyMatrix4(tm).toArray()
+
+
+
+
+      let v3a = new Vector3().set(  cos(a),
+                                    - sin(a),
+                                    1
+      )
+      v3a = v3a.multiplyScalar(side)
+      newdot = v3.add(v3a).toArray()
+
+
       return newdot
     }
 
@@ -138,9 +181,9 @@
     //
     // the curve adds the start charater
     // if loops is 0, coords is Ffs steps plus 1
-    
-    
-// RU(α) = cos α sin α 0 
+
+
+// RU(α) = cos α sin α 0
       // − sin α cos α 0
       // 0       0  1
 
@@ -154,14 +197,14 @@
 
 // The following symbols control turtle orientation in
 
-    // + Turn left by angle δ, using rotation matrix RU(δ)
+    // + Turn left by angle δ, using rotation matrix RU(δ)  // z
     // − Turn right by angle δ, using rotation matrix RU(−δ)
-    // & Pitch down by angle δ, using rotation matrix RL(δ)
+    // & Pitch down by angle δ, using rotation matrix RL(δ) // y
     // ∧ Pitch up by angle δ, using rotation matrix RL(−δ)
-    // \ Roll left by angle δ, using rotation matrix RH(δ)
+    // \ Roll left by angle δ, using rotation matrix RH(δ)  // x
     // / Roll right by angle δ, using rotation matrix RH(−δ)
     // | Turn around, using rotation matrix RU(180◦)
-    
+
 // n=2, δ=90◦
 // A
 // A → B-F+CFC+F-D&F∧D-F+&&CFC+F+B//
@@ -169,7 +212,7 @@
 // C → |D∧|F∧B-F+C∧F∧A&&FA&F∧C+F+B∧F∧D//
 // D → |CFB-F+B|FA&F∧A&&FB-F+B|FC//
 
-    
+
     let curve = (lindenmayer) => {
       let angstart
       if (lindenmayer.mayer.angstart !== undefined) {
@@ -199,13 +242,37 @@
       let stat = {side, pointstart, angstart, randomizeStep, randomizeAngle, angunit, level, angles, lineslifo}
 
       for (let ch of fractal) { // char in array
-        if (ch === '+') {
+
+        if (0) {
+
+
+        // & Pitch down by angle δ, using rotation matrix RL(δ) // y
+        } else if (ch === '&') {
+
+        // ∧ Pitch up by angle δ, using rotation matrix RL(−δ)
+        } else if (ch === '∧') {
+
+        // \ Roll left by angle δ, using rotation matrix RH(δ)  // x
+        } else if (ch === '\\') { // escape
+
+        // / Roll right by angle δ, using rotation matrix RH(−δ)
+        } else if (ch === '/') {
+
+        // | Turn around, using rotation matrix RU(180◦)
+        } else if (ch === '|') {
+
+
+
+        } else if (ch === '+') {
+
           let newangle = right(stat)
           stat.angles[stat.level] = newangle
-        } else if (ch === '-') {
-          let newangle = left(stat)
 
+        } else if (ch === '-') {
+
+          let newangle = left(stat)
           stat.angles[stat.level] = newangle
+
         } else if (ch === 'O') {
 
         } else if (ch === 'F' || ch === 'f') {
@@ -229,6 +296,8 @@
 
           let lastOpenLine = openlines[openlines.length - 1]
           lines[lastOpenLine] = stat.lineslifo[stat.level]
+
+
         } else if (ch === '[') {
           let lineInLevel = stat.lineslifo[stat.level]
           let pointsInLine = lineInLevel.length
@@ -257,6 +326,7 @@
           openlines.push(counter)
           let lastOpenLine = openlines[openlines.length - 1]
           lines[lastOpenLine] = stat.lineslifo[stat.level]
+
         } else if (ch === ']') {
           lines.push(stat.lineslifo[stat.lineslifo.length - 1]) // _e_
 

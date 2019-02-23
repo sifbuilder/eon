@@ -27,7 +27,8 @@ async function anitem (__eo) {
     __eo('xs').m('natform'),
     __eo('xs').r('svg'),
   ])
-
+  renderSvg.setBckColor('black')
+  
   // .................. animas
   let ani = function () {
     let ctl
@@ -97,7 +98,7 @@ async function anitem (__eo) {
         },
       },
       eoframe: {
-        geoframe: [ [ [ -180, 180, 20, 20], [ -180, 180, 20, 20] ] ],
+        geoframe: [ [ [ -180, 180, 20, 20], [ -90, 90, 20, 20] ] ],
       },
       eoform: null,
       eoload: {},

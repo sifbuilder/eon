@@ -658,8 +658,10 @@
                 point.reduce((p, q) => p && typeof (q === 'number' || q === undefined), true)
         } else if (gj.type === 'LineString') {
           let line = gj.coordinates
+          
           valid = valid &&
               Array.isArray(line) &&
+              Array.isArray(line[0]) &&   // exclude point
               line.reduce((p, q) => p &&
                  q.reduce((p2, q2) => p2 && typeof (q2 === 'number' || q2 === undefined), true),
               true)

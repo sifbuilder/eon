@@ -193,9 +193,10 @@
       // ... check distance to previous location
 
       let count = {}
-      let grabbed
-      grabbed = ctlRayder.grabbed()
+      let grabbed = ctlRayder.grabbed()
+if (1 && 1) console.log('grabbed', grabbed)
 
+      
       let dist = state.grabbed === undefined
         ? Infinity
         : muonGeom.distance3d(state.grabbed, grabbed)

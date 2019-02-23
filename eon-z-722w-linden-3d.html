@@ -1,0 +1,115 @@
+<script src="eon-x-eonify.js"></script>
+<script>
+window.xEonify.eon({anitem, time: undefined})
+
+// .................. anitem
+async function anitem (__eo) {
+  // .................. eons
+  let [
+      d3,  
+    ctlWen,
+    eohalMars,
+    muonCastel,
+    muonGeoj,
+    muonLindenmayer,
+    muonProps,
+    prtUniwen,
+    renderSvg,
+  ] = await Promise.all([
+      __eo('xs').b('d3'),  
+    __eo('xs').c('wen'),
+    __eo('xs').e('mars'),
+    __eo('xs').m('castel'),
+    __eo('xs').m('geoj'),
+    __eo('xs').m('lindenmayer'),
+    __eo('xs').m('props'),
+    __eo('xs').p('uniwen'),
+    __eo('xs').r('svg'),
+  ])
+  renderSvg.setBckColor('black')
+  
+  // .................. animas
+  let ani = function () {
+    // .................. pics
+    let ctl
+    try {
+      ctl = ctlWen().control(renderSvg.svg())
+    } catch (e) {
+      ctl = () => [0, 0, 0]
+    }
+
+    let eotim = { td: 12200, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
+
+
+    let aniForm2 = {
+
+      eotim: eotim,
+      eoric: { gid: 'ani', cid: 'ani', fid: 'ani2' },
+      eohal: 'mars',
+
+      eofold: ani => {
+        let geo = muonLindenmayer.linden(ani.eoload.lindenmayer)
+        
+        let coords = geo.map(ring => muonProps.cant(ring, ani.eoload.lindenmayer.mayer.cant))
+    
+        let geoData = {
+          type: 'Feature',
+          geometry: {
+            type: 'MultiLineString',
+            coordinates: coords,
+          },
+          properties: {},
+        }
+        return geoData 
+        
+
+        let ngj = muonGeoj.segtime(geoData, ani.eotim)
+        
+        return ngj        
+        
+
+      },
+
+      eocrom: { 'csx': 0, 'cf': [[[444, 777, 777]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.01, 0.09, 0.07]]], 'cp': [[[0.9, 0.9]]]},
+      eomot: {
+        proform: {
+          projection: 'uniwen',
+          scale: 1,
+          translate: {'x': 0, 'y': 0 },
+          prerotate: [[[ ctl.rotation ]]],
+          rotate: [ 0, 0, 0 ],
+        },
+      },
+      eoload: {
+        lindenmayer: {
+        linden: {
+          axiom: 'F-F-F-F',
+          loops: 2,
+          rules: {
+            F: 'F+F-F-FF+F+F-F',            
+          },
+        },
+        mayer: {
+          side: 12,
+          angle: 90,
+          anglestart: 0,
+          start: [100, 100],
+          cant: [[[0,0]]],          
+        },
+      },
+
+      },
+    }
+
+    // .................. animas
+    let scene = {
+      aniForm2,
+    }
+    return scene
+  }
+
+  let enty = () => {}
+  enty.ani = ani
+  return enty
+}
+</script>

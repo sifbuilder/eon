@@ -43,7 +43,8 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
   let muonStore = __eo('muonStore')
-
+  renderSvg.setBckColor('black')
+  
   // .................. animas
   let ani = function () {
     let ctl = ctlWen().control(renderSvg.svg())
@@ -51,6 +52,8 @@ async function anitem (__eo) {
     // .................. pics
     let eotim = {td: 16800, t0: 0, t1: 1, t2: 1, t3: 1}
 
+    
+    
     let svgdata = {
       width: '232.275mm', height: '145.238mm',
       viewBox: '0 0 878 549',
@@ -105,6 +108,9 @@ async function anitem (__eo) {
              238.07,248.92 229.21,244.81 228.83,244.78 Z`,
       },
     }
+    
+    
+    
     let extent = svgdata.viewBox.split(' ').map(d => parseInt(d))
     let x0 = extent[0], y0 = extent[1], x1 = extent[2], y1 = extent[3]
     let width = renderPortview.width(), height = renderPortview.height()
@@ -176,6 +182,7 @@ async function anitem (__eo) {
             let coords
             if (props.key === 'init') { // INIT
               coords = ani.eonode.geometry.coordinates // eonode
+              
             } else if (props.key === 'auto') { // AUTO
               let point = muonAnitem.snapani([[[ invgeoData.geometry.coordinates ]]], ani.eotim.unTime)
 
@@ -249,7 +256,7 @@ async function anitem (__eo) {
     let aniLine = {
 
       eohal: 'mars',
-      eotim,
+      eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'aniLine'},
 
       eofold: ani => {
