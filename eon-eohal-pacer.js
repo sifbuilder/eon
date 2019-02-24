@@ -62,7 +62,7 @@
     ])
 
     let muonStore = __eo('muonStore')
-
+  ctlRayder.control()
     let state = {}
 
     let ancestor = function (anitem) {
@@ -136,6 +136,7 @@
       // ... or anigram, eg. anima.avatar(nat).avatar(pacedline)
 
       // let anigram = muonAnitem.snapani(anitem)
+      
       let anigram = anitem
       let parentAnigram = uidParent ? muonStore.findAnigramFromUid(uidParent) : null
       let parentAnima = uidParent ? muonStore.findAnimaFromUid(uidParent) : null
@@ -193,16 +194,19 @@
       // ... check distance to previous location
 
       let count = {}
-      let grabbed = ctlRayder.grabbed()
-      
-      let dist = state.grabbed === undefined
+      let grabbed = ctlRayder.getGrabbed()
+3      
+      let dist = (!state.grabbed)
         ? Infinity
         : muonGeom.distance3d(state.grabbed, grabbed)
 
-      if (grabbed && dist > geospan) { //
-        state.grabbed = grabbed
-        count.event = Math.floor(pacer.eventN) // if in state or was event
-        count.grabbed = state.grabbed
+      if (grabbed != false) {
+
+        if (dist > geospan) { //
+          state.grabbed = grabbed
+          count.event = Math.floor(pacer.eventN) // if in state or was event
+          count.grabbed = state.grabbed
+        }
       }
 
       // ... if not eoinited enable pacer init (pacer.initN), else ignore
@@ -262,6 +266,7 @@
 
       if (Object.keys(count).length > 0) {
         for (let counter = 0; counter < Object.keys(count).length; counter++) {
+
           // ... if count items to pace
           // ... for each type of pace count, eg {init: 6, auto: 1}
           // ...    key is the sort of count { init, auto, event }

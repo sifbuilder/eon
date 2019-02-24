@@ -46,10 +46,9 @@
       touch,
       domNode,
     }
-    
-if (1 && 1) console.log('****************')
 
-    state.grabbed = false
+
+    let grabbed = false
 
     let viewScreenPrt = renderPortview.viewScreenPrt()
 
@@ -85,36 +84,40 @@ if (1 && 1) console.log('****************')
       state.moved = false // not moved yet
       let pos = getPos(e) // mouse position
             if (1 && 1) console.log('mouseDownListener') 
-      grabbed(pos)
+      enty.setGrabbed(pos)
     }
 
     // ............................. mouseMoveListener
     function mouseMoveListener (event) {
-      if (1 && 1) console.log('mouseMoveListener', state)      
-      if (!grabbed()) return
+      if (!enty.getGrabbed()) return
 
       let e = event
       let pos = getPos(e) //  d3.mouse(this)
+    
 
-      let g = grabbed()
-      let dx = xsign * (pos[1] - g[1]),
-        dy = ysign * (g[0] - pos[0])
+      let g =  enty.getGrabbed()
+      let dx = pos[1] - g[1], // _e_1
+          dy = pos[0] - g[0]
+          
 
       if (!state.moved) {
-        if (dx * dx + dy * dy < state.moveSpan) return
+        if (dx * dx + dy * dy < state.moveSpan) {
+          if (1 && 1) console.log('short move')
+          return
+        }
         state.moved = true // moved
       }
-      if (1 && 1) console.log('mouseMoveListener')
-      grabbed(pos)
+
+      enty.setGrabbed(pos)
       state.lastMoveTime = Date.now()
     }
 
     // ............................. mouseUpListener
     function mouseUpListener (event) {
       if (1 && 1) console.log('mouseUpListener', state)      
-      if (!grabbed()) return
+      if (! enty.getGrabbed()) return
       if (1 && 1) console.log('mouseUpListener')    
-      grabbed(false)
+      enty.setGrabbed(false)
       if (!state.moved) return
     }
 
@@ -129,7 +132,6 @@ if (1 && 1) console.log('****************')
 
     // ............................. controlrayder
     let control = function (domNode) {
-      if (1 && 1) console.log('control', control)
 
       enty.domNode(domNode)
 
@@ -138,23 +140,19 @@ if (1 && 1) console.log('****************')
       subscribe(mouseUpListener, state.domNode, 'mouseup')
 
     }
-    let grabbed = (_) => {
 
-      let res
-      if ( _ !== undefined ) {
-          state.grabbed=_
-          res = state.grabbed
-      } else {
-          res = state.grabbed
-      }
-      return res
-    }
     // ............................. enty
     let enty = {}
 
     enty.domNode = _ => (_ !== undefined) ? (state.domNode = _, enty) : state.domNode
 
-    enty.grabbed = grabbed
+    enty.getGrabbed = function() {
+
+      return grabbed
+    }
+    enty.setGrabbed = function(_,by) {
+      grabbed = _
+    }
 
     enty.mouse = () => state.mouse
     enty.touch = () => state.touch

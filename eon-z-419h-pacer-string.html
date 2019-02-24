@@ -85,6 +85,7 @@ async function anitem (__eo) {
           eohal: 'mars',
 
           eofold: function (ani, props) {
+if (1 && 1) console.log('props', props)
 
 
             let coords
@@ -119,16 +120,29 @@ async function anitem (__eo) {
             if (1 && 1) console.log('event')
               let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
             
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = props.count.grabbed
+              let grabbed = ctlRayder.getGrabbed()
+              if (grabbed !== undefined) {
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
                 let point = [ x, y, z ]
 
-                coords = (preani && preani.eofold.geometry.coordinates)
-                  ? [...preani.eofold.geometry.coordinates, point ]
-                  : Array.of(point) // LineString
+                if (preani) {
+                  if (preani.eofold.type === 'FeatureCollection') {
+                    let feature = preani.eofold.features[0]
+                    coords = (feature.geometry.coordinates)
+                      ? [...feature.geometry.coordinates, point ]
+                      : Array.of(point)
+                  } else if (preani.eofold.type === 'Feature') {
+                    let feature = preani.eofold
+                    coords = (feature.geometry.coordinates)
+                      ? [...feature.geometry.coordinates, point ]
+                      : Array.of(point)
+                  }
+                } else {
+                
+                  coords = Array.of(point)
+                }
               }
               
             }
@@ -154,8 +168,8 @@ async function anitem (__eo) {
             } else if (props.key === 'auto') { // AUTO
               coords = [0, 0, 0]
             } else if (props.key === 'event') { // EVENT
-              if (ctlRayder.grabbed() !== undefined) {
-                let grabbed = ctlRayder.grabbed()
+              let grabbed = ctlRayder.getGrabbed()
+              if (grabbed !== undefined) {
                 let x = grabbed[0]
                 let y = grabbed[1]
                 let z = 0
