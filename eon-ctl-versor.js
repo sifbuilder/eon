@@ -14,14 +14,12 @@
       d3,
       d3geo,
       muonGeom,
-      muonQuaternion,
       muonVersor,
       renderPortview,
     ] = await Promise.all([
       __eo('xs').b('d3'),
       __eo('xs').b('d3-geo'),
       __eo('xs').m('geom'),
-      __eo('xs').m('quaternion'),
       __eo('xs').m('versor'),
       __eo('xs').r('portview'),
     ])

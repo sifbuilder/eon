@@ -97,7 +97,7 @@
         return state.domNode
       }
     }
-
+    enty.subscribe = subscribe
     enty.mouse = () => state.mouse
     enty.touch = () => state.touch
     enty.pointer = () => state.pointer //

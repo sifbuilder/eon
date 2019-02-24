@@ -14,74 +14,29 @@
 
   async function ctlRayder (__eo) {
     let [
-      d3,
       renderSvg,
       renderPortview,
     ] = await Promise.all([
-      __eo('xs').b('d3'),
       __eo('xs').r('svg'),
       __eo('xs').r('portview'),
     ])
 
-    // let d3selection = d3
-    // let renderSvg = __eo('renderSvg')
-
-    let mouse = {
-      x: -2, // Initialize off canvas
-      y: -2,
-    }
-
-    let pointer = mouse
-    let touch = {}
     let domNode = renderSvg.svg()
-    // let domNode
-
-    let getPos = renderPortview.getPos // event position
-    let xsign = 1 //  1 if x goes left to right
-    let ysign = -1 // 1 if y goes up down
 
     let state = {
-      pointer,
-      mouse,
-      touch,
+      showpos: false,
+      grabbed: false,
       domNode,
     }
 
-    let grabbed = false
-
-    let viewScreenPrt = renderPortview.viewScreenPrt()
-
-    // ............................. projector
-    function projector (event) {
-      if (event.type === 'mousemove') {
-        let t = viewScreenPrt.invert([event.x, event.y])
-
-        state.mouse.x = t[0]
-        state.mouse.y = t[1]
-
-        state.pointer.x = t[0]
-        state.pointer.y = t[1]
-      } else if (event.type === 'touchmove') {
-        let touch = event.changedTouches[0]
-
-        let t = viewScreenPrt.invert([touch.clientX, touch.clientY])
-
-        state.mouse.x = t[0]
-        state.mouse.y = t[1]
-
-        state.pointer.x = t[0]
-        state.pointer.y = t[1]
-      }
-    }
+    let getPos = renderPortview.getPos // event position
 
     // ............................. mouseDownListener
     function mouseDownListener (event) {
-      if (1 && 1) console.log(' ************** event', event)
-
       let e = event
       state.moved = false // not moved yet
       let pos = getPos(e) // mouse position
-      if (1 && 1) console.log('mouseDownListener')
+      if (state.showpos && 1) console.log('pos:', pos)
       enty.setGrabbed(pos)
     }
 
@@ -93,12 +48,12 @@
       let pos = getPos(e) //  d3.mouse(this)
 
       let g = enty.getGrabbed()
+
       let dx = pos[1] - g[1], // _e_1
         dy = pos[0] - g[0]
 
       if (!state.moved) {
         if (dx * dx + dy * dy < state.moveSpan) {
-          if (1 && 1) console.log('short move')
           return
         }
         state.moved = true // moved
@@ -110,11 +65,8 @@
 
     // ............................. mouseUpListener
     function mouseUpListener (event) {
-      if (1 && 1) console.log('mouseUpListener', state)
       if (!enty.getGrabbed()) return
-      if (1 && 1) console.log('mouseUpListener')
       enty.setGrabbed(false)
-      if (!state.moved) return
     }
 
     // ............................. subscribe
@@ -122,7 +74,6 @@
       if (typeof listener !== 'function') throw new Error('Listener to be function')
 
       // listener: {mousedown, mousemove, mouseup}
-
       domNode.node().addEventListener(sensor, listener)
     }
 
@@ -139,12 +90,13 @@
     let enty = {}
 
     enty.domNode = _ => (_ !== undefined) ? (state.domNode = _, enty) : state.domNode
+    enty.showpos = _ => (_ !== undefined) ? (state.showpos = _, enty) : state.showpos
 
     enty.getGrabbed = function () {
-      return grabbed
+      return state.grabbed
     }
     enty.setGrabbed = function (_, by) {
-      grabbed = _
+      state.grabbed = _
     }
 
     enty.mouse = () => state.mouse
