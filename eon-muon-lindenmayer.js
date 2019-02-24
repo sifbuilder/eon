@@ -175,7 +175,6 @@
       for (let ch of fractal) { // char in array
         let fkr = 1 + (0.5 - Math.random()) * randomize
 
-
         // & Pitch down by angle δ, using rotation matrix RL(δ) // Y+
         if (ch === '&') {
           let rotmat = new Matrix4().makeRotationY(angunit * fkr)
@@ -198,28 +197,23 @@
 
         // | Turn around, using rotation matrix RU(180◦)
         } else if (ch === '|') {
-
           let rotmat = new Matrix4().makeRotationZ(-Math.PI * fkr)
           stat.matrices[stat.level] = stat.matrices[stat.level].clone().multiply(rotmat)
 
         // ignore
         } else if (ch === 'O') {
 
-
         // RU - turn right  - decrease angle // Z-
         } else if (ch === '+') {
-
           let rotmat = new Matrix4().makeRotationZ(-angunit * fkr)
           let newmat = stat.matrices[stat.level].clone().multiply(rotmat)
           stat.matrices[stat.level] = newmat
 
         // RU - turn left - increase angle ._| // Z+
         } else if (ch === '-') {
-
           let rotmat = new Matrix4().makeRotationZ(angunit * fkr)
           let newmat = stat.matrices[stat.level].clone().multiply(rotmat)
           stat.matrices[stat.level] = newmat
-
 
         // Forward
         } else if (ch === 'F' || ch === 'f') {
@@ -247,7 +241,6 @@
 
         // Up context
         } else if (ch === '[') {
-
           let lineInLevel = stat.lineslifo[stat.level]
           let pointsInLine = lineInLevel.length
           let lastPointInLine = lineInLevel[lineInLevel.length - 1]
@@ -259,7 +252,7 @@
             firstPoint = lastPointInLine
           }
 
-              newmatrix = stat.matrices[stat.level] // incomming level
+          newmatrix = stat.matrices[stat.level] // incomming level
 
           let newline = [firstPoint]
 
@@ -280,12 +273,8 @@
           stat.lineslifo.splice(-1, 1) // drop last line
           stat.matrices.splice(-1, 1) // drop last matrix
           openlines.splice(-1, 1)
-
-
         }
-
       }
-
 
       return lines
     }

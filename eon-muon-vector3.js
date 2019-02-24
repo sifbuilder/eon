@@ -1,5 +1,4 @@
 
-   
 /**********************
  *    @muonVector3
  */
@@ -10,7 +9,7 @@
 }(this, function (exports) {
   'use strict'
 
-    /**
+  /**
 	 * @author mrdoob / http://mrdoob.com/
 	 * @author *kile / http://kile.stravaganza.org/
 	 * @author philogb / http://blog.thejit.org/
@@ -19,10 +18,7 @@
 	 * @author WestLangley / http://github.com/WestLangley
 	 */
 
-   
   async function muonVector3 (__eo) {
-
-
     function Vector3 (x, y, z) {
       this.x = x || 0
       this.y = y || 0

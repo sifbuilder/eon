@@ -90,13 +90,12 @@ if (opts.length === 0) { // action: help
   action = 'debug'
 } else if (opts[optsnb - 1] === 'do') { // do
   action = 'doAction'
-} 
-if (action === 'doAction' || action === 'debug' ) {
-  
+}
+if (action === 'doAction' || action === 'debug') {
   let codepattern
-  if (optsnb === 1) { // no pattern defined 
+  if (optsnb === 1) { // no pattern defined
     codepattern = '.*' // default to all
-  } else {  // optsnb > 1,  pattern is first opt
+  } else { // optsnb > 1,  pattern is first opt
     codepattern = opts[0]
   }
   state.inScopePattern = new RegExp(`^eon-z-.*${codepattern}.*\.${state.inScopeExt}$`, 'i')
@@ -105,7 +104,6 @@ if (action === 'doAction' || action === 'debug' ) {
     state.where = opts[1] // {local | remote}
   }
 }
-
 
 function getUri (p = {}) {
   let {where, prefix, type, code, ext, name, outdirpath, rootMediaUrl} = p

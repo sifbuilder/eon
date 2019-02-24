@@ -169,11 +169,6 @@
       state.s1 = state.s2
       state.s2 = getPos(e)
 
-      let sd12 = [ // qurrent  // invert
-        xsign * (state.s2[1] - state.s1[1]),
-        ysign * (state.s1[0] - state.s2[0]),
-      ]
-
       let sd02 = [ // present  // invert
         xsign * (state.s2[1] - state.s0[1]),
         ysign * (state.s0[0] - state.s2[0]),
@@ -198,14 +193,6 @@
       state.c0 = state.c0
       state.c1 = state.c2
       state.c2 = muonGeom.cartesian(state.s2)
-
-      let cd12 = [ // qurrent
-
-        state.c2[0] - state.c1[0],
-        state.c2[1] - state.c1[1],
-        state.c2[2] - state.c1[2],
-
-      ]
 
       let cd02 = [ // present
         state.c2[0] - state.c0[0],
@@ -323,7 +310,6 @@
     }
 
     enty.rotation = () => {
-      let res_s = muonGeom.add(state.rotAccum_s_degrees, state.rotInDrag_s_degrees)
       let res_c = muonGeom.add(state.rotAccum_c_degrees, state.rotInDrag_c_degrees)
       let res = res_c
       return res

@@ -8,7 +8,6 @@
 }(this, function (exports) {
   'use strict'
 
-
   // ... **process geojson streams**
   // ... ## references
   // ... [Maarten’s Block geo to square tiles](https://bl.ocks.org/maartenzam/ec11de22bc8e5608a98f207f1c09bdb6)
@@ -658,10 +657,10 @@
                 point.reduce((p, q) => p && typeof (q === 'number' || q === undefined), true)
         } else if (gj.type === 'LineString') {
           let line = gj.coordinates
-          
+
           valid = valid &&
               Array.isArray(line) &&
-              Array.isArray(line[0]) &&   // exclude point
+              Array.isArray(line[0]) && // exclude point
               line.reduce((p, q) => p &&
                  q.reduce((p2, q2) => p2 && typeof (q2 === 'number' || q2 === undefined), true),
               true)
@@ -813,31 +812,30 @@
       return ngj
     }
 
-    let segtime = function(geoData,tim) {
- 
-        console.assert(geoData.geometry.type === 'MultiLineString')
+    let segtime = function (geoData, tim) {
+      console.assert(geoData.geometry.type === 'MultiLineString')
 
-        let coords = getCoords(geoData)
-        let nb = coords.length
-        let unElapsed = tim.unElapsed // unit time elapsed
-        let tf = d => d
-        let t = tf(unElapsed)
+      let coords = getCoords(geoData)
+      let nb = coords.length
+      let unElapsed = tim.unElapsed // unit time elapsed
+      let tf = d => d
+      let t = tf(unElapsed)
 
-        let nbt = Math.ceil(nb * t)
-        let csi = t => getCoordsInRange(geoData, nbt)
-        coords = csi(t).geometry.coordinates
+      let nbt = Math.ceil(nb * t)
+      let csi = t => getCoordsInRange(geoData, nbt)
+      coords = csi(t).geometry.coordinates
 
-        let ngj = {
-          type: 'Feature',
-          geometry: { type: 'MultiLineString', coordinates: [] },
-          properties: {},
-        }
+      let ngj = {
+        type: 'Feature',
+        geometry: { type: 'MultiLineString', coordinates: [] },
+        properties: {},
+      }
 
-        ngj.geometry.coordinates = coords
+      ngj.geometry.coordinates = coords
 
-        return ngj
-      }    
-    
+      return ngj
+    }
+
     // ............................. enty
     let enty = function () {}
 

@@ -47,7 +47,6 @@
       domNode,
     }
 
-
     let grabbed = false
 
     let viewScreenPrt = renderPortview.viewScreenPrt()
@@ -75,7 +74,6 @@
       }
     }
 
-
     // ............................. mouseDownListener
     function mouseDownListener (event) {
       if (1 && 1) console.log(' ************** event', event)
@@ -83,7 +81,7 @@
       let e = event
       state.moved = false // not moved yet
       let pos = getPos(e) // mouse position
-            if (1 && 1) console.log('mouseDownListener') 
+      if (1 && 1) console.log('mouseDownListener')
       enty.setGrabbed(pos)
     }
 
@@ -93,12 +91,10 @@
 
       let e = event
       let pos = getPos(e) //  d3.mouse(this)
-    
 
-      let g =  enty.getGrabbed()
+      let g = enty.getGrabbed()
       let dx = pos[1] - g[1], // _e_1
-          dy = pos[0] - g[0]
-          
+        dy = pos[0] - g[0]
 
       if (!state.moved) {
         if (dx * dx + dy * dy < state.moveSpan) {
@@ -114,9 +110,9 @@
 
     // ............................. mouseUpListener
     function mouseUpListener (event) {
-      if (1 && 1) console.log('mouseUpListener', state)      
-      if (! enty.getGrabbed()) return
-      if (1 && 1) console.log('mouseUpListener')    
+      if (1 && 1) console.log('mouseUpListener', state)
+      if (!enty.getGrabbed()) return
+      if (1 && 1) console.log('mouseUpListener')
       enty.setGrabbed(false)
       if (!state.moved) return
     }
@@ -132,13 +128,11 @@
 
     // ............................. controlrayder
     let control = function (domNode) {
-
       enty.domNode(domNode)
 
       subscribe(mouseDownListener, state.domNode, 'mousedown')
       subscribe(mouseMoveListener, state.domNode, 'mousemove')
       subscribe(mouseUpListener, state.domNode, 'mouseup')
-
     }
 
     // ............................. enty
@@ -146,11 +140,10 @@
 
     enty.domNode = _ => (_ !== undefined) ? (state.domNode = _, enty) : state.domNode
 
-    enty.getGrabbed = function() {
-
+    enty.getGrabbed = function () {
       return grabbed
     }
-    enty.setGrabbed = function(_,by) {
+    enty.setGrabbed = function (_, by) {
       grabbed = _
     }
 

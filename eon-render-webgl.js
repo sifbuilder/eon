@@ -450,10 +450,10 @@
 
           let material = new THREE.MeshPhongMaterial({ // LineBasicMaterial({
 
-              color: style.fill, // color: 0x0033ff,
-              shininess: 50,
+            color: style.fill, // color: 0x0033ff,
+            shininess: 50,
 
-            })
+          })
 
           let object = new THREE.Mesh(
             geo,
@@ -518,7 +518,7 @@
             let object = new THREE.LineSegments(threeGeometry, lineMaterial)
             if (object) state.scene.add(object)
           })
-          
+
           if (object) state.scene.add(object)
         }
       }

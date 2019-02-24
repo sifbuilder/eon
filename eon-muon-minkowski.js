@@ -153,7 +153,7 @@
       return res
     }
 
-    function convexMinkowskiSum (A, B, s1=1, s2=1) {
+    function convexMinkowskiSum (A, B, s1 = 1, s2 = 1) {
       var pairs = convexMinkowskiSumPairs(A, B)
       if (pairs.length === 0) {
         return []

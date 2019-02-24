@@ -12,7 +12,7 @@
   async function muonLindes (__eo) {
     let items = {
 
-       dragon: {
+      dragon: {
         linden: {
           axiom: 'FX',
           loops: 8,
@@ -183,7 +183,7 @@
           start: [-100, -100],
         },
       },
-     sierpinski: {
+      sierpinski: {
         linden: {
           axiom: 'F',
           loops: 8,
@@ -198,7 +198,6 @@
           start: [-100, -100],
         },
       },
-
 
       sierpinski2: {
         linden: {
@@ -250,7 +249,6 @@
           start: [-100, -100],
         },
       },
-
 
     }
     // ............................. enty

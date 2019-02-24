@@ -24,7 +24,7 @@
     ])
 
     let Vector3 = muonVector3
-    
+
     function Matrix3 () {
       this.elements = [
 

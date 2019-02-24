@@ -87,7 +87,6 @@
     }
 
     let castelcurves = function (svgdata) {
-      
       let ringCases = castelrings(svgdata)
 
       let curverings = []
@@ -105,12 +104,10 @@
       return curverings
     }
 
-
     let castelstring = function (curverings, geoframe = {start: 0, stop: 0.90, step: 0.33}) {
-
       let range = d3range(geoframe.start, geoframe.stop, geoframe.step)
       let coords = []
-      
+
       for (let n = 0; n < curverings.length; n++) { // rings of knots
         let curvering = curverings[n]
         let ring = []
@@ -128,7 +125,6 @@
       }
 
       return coords
-
     }
 
     let castelscoords = function (svgdata, geoframe = {start: 0, stop: 0.90, step: 0.33}) {

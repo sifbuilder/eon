@@ -59,7 +59,7 @@
       // .attr('pointer-events', 'none')
       // .attr('overflow', 'visible')
     }
-    // renderSvg.setBckColor('black')
+    // renderSvg.scenecolor('black')
     // ............................. svg
     let _svg = () => d3.select('#viewframe')
 
@@ -487,7 +487,7 @@
     enty.svg = _svg
     enty.svgelems = svgelems
     enty.render = render
-    enty.setBckColor = _ => _ === undefined ? state : (state.background = _, resetsvg(), state)
+    enty.scenecolor = _ => _ === undefined ? state : (state.background = _, resetsvg(), state)
     return enty
   }
 
