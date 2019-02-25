@@ -29,7 +29,6 @@
     // ............................. fractalize
     let fractalize = (lindenmayer) => {
       cache.lindenmayer = lindenmayer
-
       if (cache.linden === lindenmayer.linden) {
         return cache.lindenmayer
       }
@@ -44,10 +43,10 @@
 
       let output = ''
 
-      for (let ch of axiom) { // char in array
-        let rule = ch
+      for (let ch of axiom) { // for each char in the axiom array ...
+        let rule = ch         // each char is a production rule
 
-        if (loops > 0) { // apply rules if in loop
+        if (loops > 0) {      // apply rules if in loop
           if (rules.hasOwnProperty(ch)) {
             rule = rules[ch]
           }
@@ -64,17 +63,14 @@
 
         output += newrule
       }
-      loops = loops - 1
-      if (loops <= 0) { // looppify
+      if (loops <= 0) {         // after last loop ...
         lindenmayer.fractal = output
-
         cache.linden = linden
-
-        return lindenmayer
+        return lindenmayer      // end iteration
       }
 
-      linden.loops = loops
-      linden.axiom = output
+      lindenmayer.linden.loops = loops - 1  // reduce loops level
+      lindenmayer.linden.axiom = output // axion from previous iteration
 
       return fractalize(lindenmayer)
     }
@@ -82,7 +78,7 @@
     let forward = function (stat) {
       let {side,
         level,
-        lineslifo,
+        loopslifo,
         matrices,
         randomizeStep,
       } = stat
@@ -90,17 +86,15 @@
       let newdot = []
 
       // side: length of step
-      let fkr = 1.0
-      let r = 0.5 - Math.random()
-      if (Math.abs(r) < 0.5 * randomizeStep / 100) {
-        fkr = r
-      }
-      side = side * fkr
+      // let fkr = 1.0
+      // let r = Math.random()
+      // if (Math.abs(r) > 0.5) fkr = r
+      // side = side * fkr
 
-      let pos = lineslifo[level].length - 1
+      let pos = loopslifo[level].length - 1
       console.assert(pos >= 0, `line not initalized`)
-      let dot = lineslifo[level][pos]
-      dot[2] = dot[2] || 0 // 3D _e_
+      let dot = loopslifo[level][pos]
+      dot[2] = dot[2] || 0        // 3D _e_
       let v3 = new Vector3(...dot)
 
       let t0 = new Matrix4().set(
@@ -138,42 +132,47 @@
     // + Turn left by angle δ, using rotation matrix RU(δ)  // z
     // − Turn right by angle δ, using rotation matrix RU(−δ)
     // & Pitch down by angle δ, using rotation matrix RL(δ) // y
-    // ∧ Pitch up by angle δ, using rotation matrix RL(−δ)
+    // ^ Pitch up by angle δ, using rotation matrix RL(−δ)
     // # Roll left by angle δ, using rotation matrix RH(δ)  // x
     // ~ Roll right by angle δ, using rotation matrix RH(−δ)
     // | Turn around, using rotation matrix RU(180◦)
 
+
+    // generate multiline == multifeature
+
     let curve = (lindenmayer) => {
-      let angstart
-      if (lindenmayer.mayer.angstart !== undefined) {
-        angstart = lindenmayer.mayer.angstart
-      } else {
-        angstart = lindenmayer.mayer.angle
-      }
+
+      let { angle, angstart, start, side, randomizeStep=0, randomizeAngle=0, randomize=0, randomfactor=0.1 } = lindenmayer.mayer
+
+      console.assert(angle !== undefined, `angle undefined`)
+      let angunit = angle * Math.PI / 180
+
+      if (angstart === undefined) angstart = angle
       angstart *= Math.PI / 180
-      let angunit = lindenmayer.mayer.angle * Math.PI / 180
-      let pointstart = lindenmayer.mayer.start || [0, 0, 0]
-      let side = lindenmayer.mayer.side
+
+      let pointstart = (start !== undefined) ? start : [0, 0, 0]
       let fractal = lindenmayer.fractal
 
-      let randomizeStep = lindenmayer.mayer.randomizeStep || 0
-      let randomizeAngle = lindenmayer.mayer.randomizeAngle || 0
-      let randomize = lindenmayer.mayer.randomize || 0
+      let loopslifo = Array.of([])     // initialize loopslifo stack
+      let lines = Array.of([])         // initialize lines stack
 
-      let lineslifo = Array.of([ ])
-      let angles = Array.of(angstart)
+      let angles = []            // initialize angles stack
+      angles.push(angstart)   // add first angle
 
+      let matrices = []               // initialize matrices stack
       let startmat = new Matrix4().makeRotationZ(angstart)
-      let matrices = Array.of(startmat) // _e_
+      matrices.push(startmat)   // add first matrix
 
-      let lines = Array.of([ ])
-      let level = 0 // level is [] context level
+
+      let level = 0             // level is [] context level
       let counter = 0
       let openlines = [0]
 
-      let stat = {side, pointstart, angstart, randomizeStep, randomizeAngle, angunit, level, angles, matrices, lineslifo}
-      for (let ch of fractal) { // char in array
-        let fkr = 1 + (0.5 - Math.random()) * randomize
+      let stat = {side, pointstart, angstart, randomizeStep, randomizeAngle, randomfactor, angunit, level, angles, matrices, loopslifo ,lines}
+
+
+      for (let ch of fractal) { // for each char in array
+        let fkr = 1 + randomfactor * (0.5 - Math.random()) * randomize
 
         // & Pitch down by angle δ, using rotation matrix RL(δ) // Y+
         if (ch === '&') {
@@ -217,78 +216,78 @@
 
         // Forward
         } else if (ch === 'F' || ch === 'f') {
-          if (stat.lineslifo[stat.level].length === 0) {
-            if (stat.level === 0) {
-              let dot = pointstart
-              stat.lineslifo[stat.level][0] = dot // initialize line
-            } else {
-              let dot = stat.lineslifo[stat.level - 1 ][stat.lineslifo[stat.level - 1 ].length - 1]
-              stat.lineslifo[stat.level][0] = dot // initialize line
+          if (stat.loopslifo[stat.level].length === 0) {  // if new loopslifo
+            let dot
+            if (stat.level === 0) { // dot is first 
+            
+              dot = pointstart  
+              
+            } else {    // dot is last from lower level loopslifo
+              
+              let lastelemidx = stat.loopslifo[stat.level - 1 ].length - 1
+              dot = stat.loopslifo[stat.level - 1 ][lastelemidx]
+              
             }
+            stat.loopslifo[stat.level][0] = dot // initialize line
           }
-          if (stat.lineslifo[stat.level].length === 0) {
+          if (stat.loopslifo[stat.level].length === 0) {  // if new linslifo
             if (stat.matrices.length === 0) {
-              let newmat = new Matrix4().makeRotationZ(angstart)
+              let newmat = new Matrix4().makeRotationZ(angstart)  
               stat.matrices.push(newmat)
             }
           }
 
-          let newdot = forward(stat)
-          stat.lineslifo[stat.level].push(newdot) // add dot to line
+          let newdot = forward(stat)  // get new dot
+          stat.loopslifo[stat.level].push(newdot) // add new dot to this-level loopslifo 
 
           let lastOpenLine = openlines[openlines.length - 1]
-          lines[lastOpenLine] = stat.lineslifo[stat.level]
+          lines[lastOpenLine] = stat.loopslifo[stat.level]  // line set to loopslifo
 
         // Up context
         } else if (ch === '[') {
-          let lineInLevel = stat.lineslifo[stat.level]
+          let lineInLevel = stat.loopslifo[stat.level]
           let pointsInLine = lineInLevel.length
-          let lastPointInLine = lineInLevel[lineInLevel.length - 1]
 
           let firstPoint, newmatrix // , newangle
           if (pointsInLine === 0) {
-            firstPoint = pointstart
+            firstPoint = pointstart // _e_
           } else {
+            let lastPointInLine = lineInLevel[lineInLevel.length - 1]
             firstPoint = lastPointInLine
           }
 
           newmatrix = stat.matrices[stat.level] // incomming level
 
-          let newline = [firstPoint]
+          let newline = [firstPoint]  // init new line with first point
 
           stat.level = stat.level + 1 // new level
-          stat.lineslifo[stat.level] = newline
+          stat.loopslifo[stat.level] = newline
           stat.matrices[stat.level] = newmatrix.clone() // inherit matrix
 
           counter = counter + 1
           openlines.push(counter)
           let lastOpenLine = openlines[openlines.length - 1]
-          lines[lastOpenLine] = stat.lineslifo[stat.level]
+          stat.lines[lastOpenLine] = stat.loopslifo[stat.level]
+
+          if (1 && 1) console.log('loopslifo', stat.loopslifo.length)
+          if (1 && 1) console.log('lines', stat.lines.length)
 
         // Down context
         } else if (ch === ']') {
-          lines.push(stat.lineslifo[stat.lineslifo.length - 1]) // _e_
-
+          
+          let lastLinesLifoIdx = stat.loopslifo.length - 1
+          if (stat.loopslifo[lastLinesLifoIdx].length > 1) {
+            stat.lines.push(stat.loopslifo[lastLinesLifoIdx]) // _e_
+          }
           stat.level = stat.level - 1
-          stat.lineslifo.splice(-1, 1) // drop last line
+          stat.loopslifo.splice(-1, 1) // drop last line
           stat.matrices.splice(-1, 1) // drop last matrix
           openlines.splice(-1, 1)
         }
       }
 
-      return lines
-    }
 
-    // ............................. linden
-    let linden = lindenmayer => {
-      let fractal = fractalize(lindenmayer).fractal
-
-      let mayer = lindenmayer.mayer
-      let geo = curve({
-        fractal: fractal,
-        mayer: mayer,
-      })
-      return geo
+      return stat.lines
     }
 
     // ............................. lindenmayer
@@ -304,6 +303,12 @@
       }
       return geoData
     }
+
+    // ............................. linden
+    let linden = d => curve({ 
+        fractal: fractalize(d).fractal , 
+        mayer: d.mayer, 
+      })
 
     // ............................. enty
     let enty = {}
