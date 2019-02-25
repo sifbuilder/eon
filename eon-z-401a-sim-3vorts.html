@@ -43,7 +43,8 @@ async function anitem (__eo) {
 
   let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
-
+  renderSvg.scenecolor('black')
+    
   var data = {
     'nodes': [
       [31 + -144, 30 + 138, 0], // 00
@@ -295,8 +296,6 @@ async function anitem (__eo) {
         caller: 'h.ineohal',
         animas: animas,
       })
-
-      if (1 && 1) console.log('animas', animas)
 
       return animas
     }

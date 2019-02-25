@@ -32,7 +32,8 @@ async function anitem (__eo) {
   ])
 
   let muonStore = __eo('muonStore')
-
+  renderSvg.scenecolor('black')
+  
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -99,6 +100,8 @@ async function anitem (__eo) {
                     ? [...feature.geometry.coordinates, point ]
                     : Array.of(point)
                 }
+              } else {
+                coords = Array.of(point)
               }
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates

@@ -41,8 +41,9 @@ async function anitem (__eo) {
 
   let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
+  renderSvg.scenecolor('black')
 
-  var data = {
+  let data = {
     'nodes': [
       [31 + -144, 30 + 138, 0], // 00
       [31 + 82, 30 + 137, 0], // 01

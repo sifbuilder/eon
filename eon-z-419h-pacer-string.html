@@ -191,10 +191,30 @@ async function anitem (__eo) {
         },
       },
     }
-
+    // .................. textAni
+    let textAni = {
+      eohal: eohalTextform,
+      eotim: eotim,
+      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
+      eofold: ani => ({
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0], },
+      }),
+      eocrom: { 'csx': 0, 'cf': 888, 'cs': 111, 'cw': 0.5, 'co': 0.9, 'cp': 0.5},
+      eomot: {
+        proform: { projection: 'uniwen', translate: [ 100, -190 ], },
+      },
+      eoload: {
+        textform: {
+          string: 'mouse down, move, up',
+          style: { 'font-size': 12, },
+        },
+      },
+    }
     // .................. scene
     let scene = {
-      geoLined, // h.pacer
+      geoLined,
+      textAni,
     }
 
     return scene

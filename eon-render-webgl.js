@@ -186,6 +186,7 @@
 
       let camera = stat.cameras[camerauid]
 
+ 
       if (camera === undefined) {
         if (type === 'PerspectiveCamera') {
           let defs = { fov: 50, zoom: 1, near: 0.1, far: 2000, focus: 10, aspect: 1, view: null, filmGauge: 35, filmOffset: 0}
@@ -738,7 +739,7 @@
         name: 'EOMULTIPOLYGON',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
-            d.geometry.type === 'MultiPoint' && // properties.faces
+            d.geometry.type === 'MultiPoint' && // faces
             d.properties.eoMultiPolygon == 1,
         retriever: eoMultiPolygonsToScene,
       }, {

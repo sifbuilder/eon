@@ -32,8 +32,7 @@
     // https://raw.githubusercontent.com/paaatrick/polyhedra-folding/master/js/PolyLoader.js
     let parse = function (props = {}) {
       let text = props.text
-      var scope = this,
-        verts = [],
+      var verts = [],
         faces = [],
         hinges = [],
         lines = text.split('\n'),
@@ -233,7 +232,7 @@
       }
 
       node.matrices = function (d = {}) {
-        let t, t1, r, t2, m, u, c
+        let t, t1, r, t2, u
         t = d.t
         u = d.u
         let ms = []
@@ -241,7 +240,6 @@
           t1 = new THREE.Matrix4()
           r = new THREE.Matrix4()
           t2 = new THREE.Matrix4()
-          m = new THREE.Matrix4()
           t1.makeTranslation(-u.offset.x, -u.offset.y, -u.offset.z)
           r.makeRotationAxis(u.axis, -t * (Math.PI - u.amount)) // _e_ -y
           t2.makeTranslation(u.offset.x, u.offset.y, u.offset.z)
@@ -269,8 +267,9 @@
     }
 
     // .................. tree
+    // called by r.webgl.threeObjectToScene when multipoint with faces
     let tree = function (net = {}) {
-      let [face1, side1, face2, side2] = net.properties.hinges[0]
+      let [face1, side1] = net.properties.hinges[0]
 
       return build_tree(face1, side1, Math.PI, undefined, net) // object3D
     }

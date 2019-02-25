@@ -14,31 +14,66 @@
       d3,
       d3Geo,
       muonGeom,
-      muonVector2,
+      // muonVector2,
       renderPortview,
-      // renderSvg,
     ] = await Promise.all([
       __eo('xs').b('d3'),
       __eo('xs').b('d3-geo'),
       __eo('xs').m('geom'),
-      __eo('xs').m('vector2'),
+      // __eo('xs').m('vector2'),
       __eo('xs').r('portview'),
-      // __eo('xs').r('svg'),
     ])
 
     let d3drag = d3
     let d3selection = d3
     let getPos = renderPortview.getPos // event position
 
-    let ctlWen
-    let ctl
-    try {
-      ctl = ctlWen().control(renderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
+    // .................. inits
+    let inits = {
+
+      decay: 0.95,
+      mult_degrees_s: 1e-1, // rotInDrag_s_degrees factor
+      mult_degrees_c: 90,
+      rotInit_degrees: [0, 0, 0],
+      moveSpan: 16,
+
     }
 
-    // .................. pics
+    let epsilon = 1e-3
+
+    let xsign = -1 //  up/down
+    let ysign = -1 // left/right
+
+    // .................. state
+    let state = {
+
+      projection: () => d3Geo.geoOrthographic()
+        .rotate([0, 0])
+        .translate([0, 0])
+        .scale(1),
+
+      // screen
+
+      rotAccum_s_degrees: [0, 0, 0],
+      rotInDrag_s_degrees: [0, 0, 0], // rotInDrag_s_degrees in radians
+      rotVel_s_degrees: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
+      vel_s_degrees: [0, 0, 0], // from dragEnd to momemtum
+
+      grabbed: false,
+      moved: false,
+
+      lastMoveTime: null,
+      timer: null,
+
+      s0: null, // previous position
+      s1: null, // previous position
+      s2: null, // current position
+      
+      showrot: false,
+
+    }    
+    
+    // .................. 
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)
     }
@@ -79,49 +114,7 @@
       return enty
     }
 
-    // .................. inits
-    let inits = {
 
-      decay: 0.95,
-      mult_degrees_s: 1e-1, // rotInDrag_s_degrees factor
-      mult_degrees_c: 90,
-      rotInit_degrees: [0, 0, 0],
-      moveSpan: 16,
-
-    }
-
-    let epsilon = 1e-3
-
-    let xsign = -1 //  up/down
-    let ysign = -1 // left/right
-    let zsign = 1
-
-    // .................. state
-    let state = {
-
-      projection: () => d3Geo.geoOrthographic()
-        .rotate([0, 0])
-        .translate([0, 0])
-        .scale(1),
-
-      // screen
-
-      rotAccum_s_degrees: [0, 0, 0],
-      rotInDrag_s_degrees: [0, 0, 0], // rotInDrag_s_degrees in radians
-      rotVel_s_degrees: [0, 0, 0], // [-6e-3,7.6e-3,2.13e-3],   // [0,0,0],
-      vel_s_degrees: [0, 0, 0], // from dragEnd to momemtum
-
-      grabbed: false,
-      moved: false,
-
-      lastMoveTime: null,
-      timer: null,
-
-      s0: null, // previous position
-      s1: null, // previous position
-      s2: null, // current position
-
-    }
 
     // .................. dragstarted listener
     function dragstarted () {
@@ -159,12 +152,6 @@
 
       state.s1 = state.s2
       state.s2 = getPos(e)
-
-      // sd12 is delta bewteen two ticks in dragged
-      let sd12 = [ // qurrent  // invert
-        xsign * (state.s2[1] - state.s1[1]),
-        ysign * (state.s1[0] - state.s2[0]),
-      ]
 
       // sd02 is delta from beginning of drag to current tick
       let sd02 = [ // present  // invert
@@ -259,6 +246,8 @@
         state.rotAccum_s_degrees,
         state.rotInDrag_s_degrees
       )
+      if (state.showrot && 1) console.log('rotation:', res)
+
       return res
     }
 

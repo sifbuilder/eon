@@ -41,7 +41,8 @@ async function anitem (__eo) {
 
   let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
-
+  renderSvg.scenecolor('black')
+  
   // ............................. nuid
   let nuid = i => {
     let eoric = { gid: 'node', cid: 'node', fid: 'node' + i }
@@ -56,7 +57,7 @@ async function anitem (__eo) {
     return eoric
   }
 
-  var data = {
+  let data = {
     'nodes': [
       [31 + -144, 30 + 138, 0], // 00
       [31 + 82, 30 + 137, 0], // 01
