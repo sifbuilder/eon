@@ -46,18 +46,23 @@ async function anitem (__eo) {
         let geo = muonLindenmayer.linden(ani.eoload.lindenmayer)
 
         // let coords = geo.map(ring => muonProps.cant(ring, ani.eoload.lindenmayer.mayer.cant))
-        let coords = geo
+        // let coords = geo
 
-        let geoData = {
-          type: 'Feature',
-          geometry: {
-            type: 'MultiLineString',
-            coordinates: coords,
-          },
-          properties: {},
+        // let geoData = {
+          // type: 'Feature',
+          // geometry: {
+            // type: 'MultiLineString',
+            // coordinates: coords,
+          // },
+          // properties: {},
+        // }
+        
+        let gj = {
+          type: 'FeatureCollection',
+          features: geo,
         }
 
-        let ngj = geoData // muonGeoj.segtime(geoData, ani.eotim) // 
+        let ngj = gj // muonGeoj.segtime(geoData, ani.eotim) // 
 
         return ngj
       },
@@ -81,7 +86,7 @@ async function anitem (__eo) {
 
           linden: {
             axiom: 'A',
-            loops: 7,
+            loopq: 7,
             rules: {
               // A: 'F[+B][-B]FB',
               A: 'F[+A][-A]FA',
@@ -92,7 +97,7 @@ async function anitem (__eo) {
           },
           mayer: {
             side: 0.5,
-            angle: 25.7,
+            angunit: 25.7,
             angstart: 90,
             start: [0, -150, 0],
             cant: [[[0.1, 0.1]]],

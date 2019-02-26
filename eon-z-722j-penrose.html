@@ -42,6 +42,8 @@ async function anitem (__eo) {
 
       eofold: ani => {
         let gj = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer)
+
+      
         gj = muonGeoj.timeSeg(gj, ani.eotim.unElapsed)
         return gj
       },
@@ -61,7 +63,7 @@ async function anitem (__eo) {
         lindenmayer: { // Penrose3
           linden: {
             axiom: '[N]++[N]++[N]++[N]++[N]',
-            loops: 4,
+            loopq: 4,
             rules: {
               M: 'OF++PF----NF[-OF----MF]++',
               N: '+OF--PF[---MF--NF]+',
@@ -73,8 +75,8 @@ async function anitem (__eo) {
           mayer: {
             // side: 24,
             side: 10,
-            angle: 36,
-            // angle: 90,
+            angunit: 36,
+            // angunit: 90,
             angstart: 0,
             start: [0, 0, 0],
           },

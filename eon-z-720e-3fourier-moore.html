@@ -73,7 +73,7 @@ async function anitem (__eo) {
 
     let moore = muonLindenmayer.fractalize({
       axiom: 'AFA+F+AFA',
-      loops: 5,
+      loopq: 5,
       rules: {
         A: '-BF+AFA+FB-',
         B: '+AF-BFB-FA+',
@@ -83,7 +83,7 @@ async function anitem (__eo) {
     let points = muonLindenmayer.curve({
       fractal: moore,
       side: 16,
-      angle: Math.PI / 2,
+      angunit: Math.PI / 2,
     })
 
     data.geometry.coordinates = Array.of(points) // MultiLineString

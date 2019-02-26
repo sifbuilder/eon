@@ -64,7 +64,7 @@ async function anitem (__eo) {
           { // tree
             linden: {
               axiom: 'FX',
-              loops: 7,
+              loopq: 7,
               rules: {
                 X: '[+FX][-FX]',
 
@@ -72,8 +72,8 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 16,
-              // angle: [[[15,15,15,30,30,30,60,60,60,90,90,90,120,15]]],
-              angle: [[[120, 90, 90, 60, 60, 60, 60, 60, 30, 15, 15, 15]]],
+              // angunit: [[[15,15,15,30,30,30,60,60,60,90,90,90,120,15]]],
+              angunit: [[[120, 90, 90, 60, 60, 60, 60, 60, 30, 15, 15, 15]]],
 
               angstart: 90,
               start: [0, 0],
@@ -83,7 +83,7 @@ async function anitem (__eo) {
           { // sierpinski triangle
             linden: {
               axiom: 'F',
-              loops: 7,
+              loopq: 7,
               rules: {
                 F: 'f-F-f',
                 f: 'F+f+F',
@@ -91,7 +91,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 1,
-              angle: 45,
+              angunit: 45,
               angstart: 0,
               start: [-250, -150],
             },
@@ -100,7 +100,7 @@ async function anitem (__eo) {
           { // tree
             linden: {
               axiom: 'F',
-              loops: 7,
+              loopq: 7,
               rules: {
                 F1: 'F[+F]F[-F]F',
                 F2: 'F[+F]F',
@@ -109,7 +109,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 1,
-              angle: 20,
+              angunit: 20,
               start: [0, 0],
             },
           },
@@ -117,14 +117,14 @@ async function anitem (__eo) {
           { // tree
             linden: {
               axiom: 'F',
-              loops: 7,
+              loopq: 7,
               rules: {
                 F: 'F[-F]F[+F]F',
               },
             },
             mayer: {
               side: 1,
-              angle: 20,
+              angunit: 20,
               start: [0, 0],
             },
           },
@@ -132,7 +132,7 @@ async function anitem (__eo) {
           { // tree
             linden: {
               axiom: 'X',
-              loops: 7,
+              loopq: 7,
               rules: {
                 X: '> F[+X]F[-X]+X',
                 F: 'FF',
@@ -140,7 +140,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 1,
-              angle: 20,
+              angunit: 20,
               start: [00, 0],
             },
           },
@@ -148,7 +148,7 @@ async function anitem (__eo) {
           { // hilbert
             linden: {
               axiom: 'L',
-              loops: 4,
+              loopq: 4,
               rules: {
                 L: '+RF-LFL-FR-',
                 R: '-LF+RFR+FL-',
@@ -156,7 +156,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 12,
-              angle: 90,
+              angunit: 90,
               start: [-100, 0],
             },
           },
@@ -164,14 +164,14 @@ async function anitem (__eo) {
           { // sierpinski tiles
             linden: {
               axiom: 'F-F-F-F',
-              loops: 4,
+              loopq: 4,
               rules: {
                 F: 'FF-F+F-F-FF',
               },
             },
             mayer: {
               side: 2,
-              angle: 90,
+              angunit: 90,
               start: [-100, -100],
             },
           },
@@ -179,14 +179,14 @@ async function anitem (__eo) {
           { // sierpinski cross
             linden: {
               axiom: 'F-F-F-F',
-              loops: 4,
+              loopq: 4,
               rules: {
                 F: 'FF-F-F-F-F-F+F',
               },
             },
             mayer: {
               side: 2,
-              angle: 90,
+              angunit: 90,
               start: [-100, -100],
             },
           },
@@ -194,14 +194,14 @@ async function anitem (__eo) {
           { // sierpinski square
             linden: {
               axiom: 'F-F-F-F',
-              loops: 4,
+              loopq: 4,
               rules: {
                 F: 'FF-F-F-F-FF',
               },
             },
             mayer: {
               side: 2,
-              angle: 90,
+              angunit: 90,
               start: [-100, -100],
             },
           },
@@ -209,7 +209,7 @@ async function anitem (__eo) {
           { // sierpinski triang
             linden: {
               axiom: 'F',
-              loops: 8,
+              loopq: 8,
               rules: {
                 F: 'f+F+f',
                 f: 'F-f-F',
@@ -217,7 +217,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 2,
-              angle: 60,
+              angunit: 60,
               start: [-100, -100],
             },
           },
@@ -225,7 +225,7 @@ async function anitem (__eo) {
           { // dragon
             linden: {
               axiom: 'FX',
-              loops: 8,
+              loopq: 8,
               rules: {
                 Y: '+FX--FY+',
                 X: '-FX++FY-',
@@ -233,7 +233,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 2,
-              angle: 45,
+              angunit: 45,
               angstart: 45,
               start: [-100, -100],
             },
@@ -242,7 +242,7 @@ async function anitem (__eo) {
           { // grid
             linden: {
               axiom: '-X',
-              loops: 8,
+              loopq: 8,
               rules: {
                 Y: '+FX--FY+',
                 X: '-FX++FY-',
@@ -250,7 +250,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 12,
-              angle: 90,
+              angunit: 90,
               angstart: 90,
               start: [-100, -100],
             },
@@ -259,7 +259,7 @@ async function anitem (__eo) {
           { // gosper
             linden: {
               axiom: '-FR',
-              loops: 3,
+              loopq: 3,
               rules: {
                 L: 'FLFL-FR-FR+FL+FL-FR-FRFL+FR+FLFLFR-FL+FR+FLFL+FR-FLFR-FR-FL+FL+FRFR-',
                 R: '+FLFL-FR-FR+FL+FLFR+FL-FRFR-FL-FR+FLFRFR-FL-FRFL+FL+FR-FR-FL+FL+FRFR',
@@ -267,7 +267,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 2,
-              angle: 90,
+              angunit: 90,
               start: [-100, -100],
             },
           },
@@ -275,14 +275,14 @@ async function anitem (__eo) {
           { // gosper
             linden: {
               axiom: 'F++F++F++F',
-              loops: 7,
+              loopq: 7,
               rules: {
                 F: 'F+F-F',
               },
             },
             mayer: {
               side: 2,
-              angle: 45,
+              angunit: 45,
               start: [-100, -100],
             },
           },
@@ -290,7 +290,7 @@ async function anitem (__eo) {
           { // penrose1
             linden: {
               axiom: '+WF--XF---YF--ZF',
-              loops: 0,
+              loopq: 0,
               rules: {
                 W: 'YF++ZF----XF[-YF----WF]++',
                 X: '+YF--ZF[---WF--XF]+',
@@ -300,7 +300,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 6,
-              angle: 36,
+              angunit: 36,
               angstart: 0,
               start: [-100, -100],
             },
@@ -309,7 +309,7 @@ async function anitem (__eo) {
           { // plant1
             linden: {
               axiom: 'X',
-              loops: 8,
+              loopq: 8,
               rules: {
                 X: 'F[-X]F[-X]+F[X]',
                 F: 'FF',
@@ -317,7 +317,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 0.6,
-              angle: 36,
+              angunit: 36,
               angstart: 60,
               start: [-150, -150],
             },
@@ -326,7 +326,7 @@ async function anitem (__eo) {
           { // treegrid
             linden: {
               axiom: 'X',
-              loops: 3,
+              loopq: 3,
               rules: {
                 X: 'FY[+FY][--FY]FY',
                 F: 'FX[++FX][-FX]FX',
@@ -334,7 +334,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 6,
-              angle: 60,
+              angunit: 60,
               angstart: 0,
               start: [-100, -100],
             },
@@ -343,7 +343,7 @@ async function anitem (__eo) {
           { // sierpinski
             linden: {
               axiom: 'FXF--FF--FF',
-              loops: 6,
+              loopq: 6,
               rules: {
                 F: 'FF',
                 X: '--FXF++FXF++FXF--',
@@ -351,7 +351,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 6,
-              angle: 60,
+              angunit: 60,
               angstart: 0,
               start: [-100, -100],
             },
@@ -360,7 +360,7 @@ async function anitem (__eo) {
           { // snake
             linden: {
               axiom: 'FL',
-              loops: 3,
+              loopq: 3,
               rules: {
                 L: 'FL-FR--FR+FL++FLFL+FR-',
                 R: '+FL-FRFR--FR-FL++FL+FR',
@@ -368,7 +368,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 4,
-              angle: 60,
+              angunit: 60,
               angstart: 0,
               start: [-100, -100],
             },
@@ -377,14 +377,14 @@ async function anitem (__eo) {
           { // Koch Island.
             linden: {
               axiom: '-F--F--F',
-              loops: 5,
+              loopq: 5,
               rules: {
                 F: 'F+F--F+F',
               },
             },
             mayer: {
               side: 2,
-              angle: 60,
+              angunit: 60,
               angstart: 0,
               start: [0, 0],
             },
@@ -393,14 +393,14 @@ async function anitem (__eo) {
           { // tree
             linden: {
               axiom: 'F ',
-              loops: 7,
+              loopq: 7,
               rules: {
                 F: 'F[+F][-F]',
               },
             },
             mayer: {
               side: 24,
-              angle: 20,
+              angunit: 20,
               angstart: 90,
               start: [0, -100],
               randomizeStep: 20, // %
@@ -411,7 +411,7 @@ async function anitem (__eo) {
           { // Lawrence
             linden: {
               axiom: 'W',
-              loops: 7,
+              loopq: 7,
               rules: {
                 W: '+++X--F--ZFX+',
                 X: '---W++F++YFW-',
@@ -421,7 +421,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 2,
-              angle: 30,
+              angunit: 30,
               angstart: 30,
               start: [0, 0],
             },
@@ -430,7 +430,7 @@ async function anitem (__eo) {
           { // Penrose3 double penrose
             linden: {
               axiom: '[N]++[N]++[N]++[N]++[N]',
-              loops: 4,
+              loopq: 4,
               rules: {
                 M: 'OF++PF----NF[-OF----MF]++',
                 N: '+OF--PF[---MF--NF]+',
@@ -441,7 +441,7 @@ async function anitem (__eo) {
             },
             mayer: {
               side: 24,
-              angle: 36,
+              angunit: 36,
               angstart: 0,
               start: [0, 0],
             },

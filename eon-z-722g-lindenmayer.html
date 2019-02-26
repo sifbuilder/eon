@@ -87,7 +87,7 @@ async function anitem (__eo) {
         lindenmayer1: { //
           linden: {
             axiom: 'AFA+F+AFA',
-            loops: 0,
+            loopq: 0,
             feet: 341,
             rules: {
               A: '-BF+AFA+FB-',
@@ -96,7 +96,7 @@ async function anitem (__eo) {
           },
           mayer: {
             side: 1,
-            angle: 36,
+            angunit: 36,
             anglestart: 0,
             start: [0, 0],
           },
@@ -105,16 +105,16 @@ async function anitem (__eo) {
         lindenmayer2: { //
           linden: {
             axiom: 'AFA+F+AFA',
-            loops: 4.999,
+            loopq: 4.999,
             feet: 1,
-            rules: { // coors 4**(loops+1)
+            rules: { // coors 4**(loopq+1)
               A: '-BF+AFA+FB-',
               B: '+AF-BFB-FA+',
             },
           },
           mayer: {
             side: 1,
-            angle: 36,
+            angunit: 36,
             anglestart: 0,
             start: [0, 0],
           },
