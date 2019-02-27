@@ -48,7 +48,7 @@ async function anitem (__eo) {
       eohal: 'mars',
 
       eofold: ani => {
-        let geo = muonLindenmayer.linden(ani.eoload.lindenmayer)
+        let geo = muonLindenmayer.multiFeature(ani.eoload.lindenmayer)
         
         let coords = geo.map(ring => muonProps.cant(ring, ani.eoload.lindenmayer.mayer.cant))
     

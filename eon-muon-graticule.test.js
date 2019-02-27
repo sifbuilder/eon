@@ -1,9 +1,8 @@
-const d3 = require('./d3.v5.js')
+const d3 = require('./d3.js')
 global.d3 = d3
 
-const xEo = require('./x-mapper.js')
-const xs = require('./x-s.js')
-const requiredGraticule = require('./muon-graticule.js')
+const xs = require('./eon-x-eonify.js')
+const requiredGraticule = require('./eon-muon-graticule.js')
 
 let __eo = xEo.xEo()
 __eo({'xs': xs.xs(__eo)}).xs

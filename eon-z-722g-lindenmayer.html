@@ -26,7 +26,7 @@ async function anitem (__eo) {
     __eo('xs').p('uniwen'),
     __eo('xs').r('svg'),
   ])
-
+  renderSvg.scenecolor('black')
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -48,10 +48,10 @@ async function anitem (__eo) {
       eofold: ani => {
         let t = ani.eotim.unElapsed
 
-        let gj1 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer1)
+        let gj1 = muonLindenmayer.multiLine(ani.eoload.lindenmayer1)
         let coors1 = gj1.geometry.coordinates[0]
 
-        let gj2 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer2)
+        let gj2 = muonLindenmayer.multiLine(ani.eoload.lindenmayer2)
         let coors2 = gj2.geometry.coordinates[0]
 
         let coors = [[[ [ coors1, coors2 ] ]]] // tripleArray
@@ -66,7 +66,7 @@ async function anitem (__eo) {
           properties: {},
         }
         gj.geometry.coordinates = Array.of(ws) // Line to MultiLineStrinmg
-
+ 
         return gj
       },
 
@@ -97,7 +97,7 @@ async function anitem (__eo) {
           mayer: {
             side: 1,
             angunit: 36,
-            anglestart: 0,
+            angstart: 36,
             start: [0, 0],
           },
         },
@@ -115,7 +115,7 @@ async function anitem (__eo) {
           mayer: {
             side: 1,
             angunit: 36,
-            anglestart: 0,
+            angstart: 36,
             start: [0, 0],
           },
         },

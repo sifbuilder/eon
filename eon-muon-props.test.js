@@ -1,9 +1,9 @@
 
 // https://www.youtube.com/watch?v=bw10S2BK-5w
-const d3 = require('./d3.v5.js')
+const d3 = require('./d3.js')
 global.d3 = d3
 
-const xs = require('./x-s.js')
+const xs = require('./eon-x-eonify.js')
 
 const xEo = require('./x-mapper.js')
 const requiredprops = require('./muon-props.js')

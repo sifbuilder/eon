@@ -47,7 +47,7 @@ async function anitem (__eo) {
       eohal: 'mars',
 
       eofold: ani => {
-        let gj = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer)
+        let gj = muonLindenmayer.multiLine(ani.eoload.lindenmayer)
         return gj
       },
 
@@ -96,7 +96,7 @@ async function anitem (__eo) {
       eofold: ani => {
         let t = ani.eotim.unElapsed
 
-        let gj1 = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer1)
+        let gj1 = muonLindenmayer.multiLine(ani.eoload.lindenmayer1)
         let coors1 = gj1.geometry.coordinates[0]
 
         return gj1

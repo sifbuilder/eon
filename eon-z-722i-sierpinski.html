@@ -38,7 +38,7 @@ async function anitem (__eo) {
       eohal: 'mars',
 
       eofold: ani => {
-        let gj = muonLindenmayer.lindenmayer(ani.eoload.lindenmayer)
+        let gj = muonLindenmayer.multiLine(ani.eoload.lindenmayer)
         return muonGeoj.timeSeg(gj, ani.eotim.unElapsed) // return gj
       },
 

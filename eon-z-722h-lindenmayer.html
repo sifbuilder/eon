@@ -30,7 +30,7 @@ async function anitem (__eo) {
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
-
+  renderSvg.scenecolor('black')
     let aniForm = {
 
       eotim: { td: 9200, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 },
@@ -38,16 +38,8 @@ async function anitem (__eo) {
       eohal: 'mars',
 
       eofold: ani => {
-        let geo = muonLindenmayer.linden(ani.eoload.lindenmayer)
+        let geoData = muonLindenmayer.multiLine(ani.eoload.lindenmayer)
 
-        let geoData = {
-          type: 'Feature',
-          geometry: {
-            type: 'MultiLineString',
-            coordinates: geo,
-          },
-          properties: {},
-        }
         // return geoData
 
         let coords = muonGeoj.getCoords(geoData)
