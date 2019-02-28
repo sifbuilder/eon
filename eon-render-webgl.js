@@ -676,13 +676,16 @@
       for (let k in items) {
         let item = items[k]
 
-        let object
+        let object = {}
 
         if (item.geometry.type === 'MultiPoint') {
           console.assert(item.properties.hinges !== undefined, `net undefined`)
           if (item.properties.hinges !== undefined) {
             let coords = item.geometry.coordinates.map(d => Array.isArray(d) ? new THREE.Vector3(...d) : d)
             item.geometry.coordinates = coords
+            
+            // tree calls muonNets.build_tree recursive
+            // build_tree builds geometry per face
             object = muonNets.tree(item) // net
           }
         } else {

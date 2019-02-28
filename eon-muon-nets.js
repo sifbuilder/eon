@@ -184,16 +184,33 @@
         hinge,
         n
 
-      let lineGeometry = new THREE.Geometry()
-      let facepoints = shape.extractPoints().shape
 
+
+      // this face
+      if (thisFace.length === 5 && interiorAngle > 0.5) {
+        shape = starPentagonShape(thisFace, verts)
+      }
+
+
+      // ShapeBuffer geometry
+      let faceColor = faceColors[face % faceColors.length]  // color per face
+
+
+      //  line
       let faceVerts = thisFace //
 
+      
+      let facepoints = shape.extractPoints().shape
       facepoints.push(facepoints[0]) // _e_ face closing linle
+      
+      // -------------- edges
+
+
+      let lineGeometry = new THREE.Geometry()
       lineGeometry.setFromPoints(facepoints)
 
-      let lineMaterial = new THREE.MeshBasicMaterial({
-        // color: lineColors[0],  //  new THREE.Color(0.7,0.5,0.2 ), //
+
+      let lineMaterial = new THREE.MeshPhongMaterial({
         wireframeLinewidth: 20,
         vertexColors: THREE.VertexColors,
         flatShading: THREE.FlatShading,
@@ -206,22 +223,48 @@
       }
       lineMaterial.vertexColors = THREE.VertexColors
       lineMaterial.flatShading = THREE.FlatShading
+
+
       node.add(new THREE.Line(lineGeometry, lineMaterial))
 
-      if (thisFace.length === 5 && interiorAngle > 0.5) {
-        shape = starPentagonShape(thisFace, verts) // star-pentagon special case
+      // -------------- faces
+
+     if (0)  {  // colors
+      
+
+        let shapeGeo = new THREE.ShapeBufferGeometry(shape)
+        shapeGeo.colorsNeedUpdate = true
+
+
+        let shapeMaterial = new THREE.MeshPhongMaterial({
+          color: faceColor,
+        })
+
+
+        node.add(new THREE.Mesh(shapeGeo, shapeMaterial))
+
+     } else { // gradient
+
+     
+        let shapeGeo = new THREE.Geometry() // ShapeBufferGeometry
+          shapeGeo.setFromPoints(facepoints)
+
+        let shapeMaterial = new THREE.MeshPhongMaterial({
+          wireframeLinewidth: 20,
+          vertexColors: THREE.VertexColors,
+          flatShading: THREE.FlatShading,
+        })
+
+        for (var i = 0; i < faceVerts.length; i++) { // shape verts unclosed
+          let idx = faceVerts[i] % lineColors.length
+          lineGeometry.colors[ i ] = lineColors[ idx ]
+          lineGeometry.colors[ i + 1 ] = lineGeometry.colors[ i ]
+        }
+
+
+        node.add(new THREE.Mesh(lineGeometry, shapeMaterial))
       }
-
-      let shapeGeo = new THREE.ShapeGeometry(shape)
-      let faceColor = faceColors[face % faceColors.length]
-      shapeGeo.colorsNeedUpdate = true
-
-      let shapeMaterial = new THREE.MeshPhongMaterial({
-        color: faceColor,
-        vertexColors: THREE.FaceColors,
-      })
-
-      node.add(new THREE.Mesh(shapeGeo, shapeMaterial))
+      // -------------- user data
       node.name = face
       node.userData = {
         renderData: renderData,
