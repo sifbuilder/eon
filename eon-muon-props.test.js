@@ -1,17 +1,29 @@
 
 // https://www.youtube.com/watch?v=bw10S2BK-5w
-const d3 = require('./d3.js')
-global.d3 = d3
+// const d3 = require('./d3.js')
 
-const xs = require('./eon-x-eonify.js')
+const xEonify = require('./eon-x-eonify.js')
+global.xEonify = xEonify
 
-const xEo = require('./x-mapper.js')
-const requiredprops = require('./muon-props.js')
+const muonProps = require('./eon-muon-props.js').muonProps
 
-d3Require = require('./d3-require.js')
+global.fetch = jest.fn().mockImplementation(() => Promise.resolve( (url) => {require(url)}))
 
-d3.require = d3Require.require
-d3.requireFrom = d3Require.requireFrom
+
+// d3Require = require('./d3-require.js')
+
+// d3.require = d3Require.require
+// d3.requireFrom = d3Require.requireFrom
+
+
+
+test('Adding 1 + 1 equals 2', async () => {
+  let enty = await xEonify.eon({muonProps})
+  if (1 && 1) console.log('enty', enty)
+
+})
+
+
 // {
 // require: {
 // [Function: require] resolve: [AsyncFunction: resolve]
@@ -19,24 +31,24 @@ d3.requireFrom = d3Require.requireFrom
 // requireFrom: [Function: requireFrom]
 // }
 
-let __eo = xEo.xEo()
-__eo({'xs': xs.xs(__eo)}).xs
-let mpropsPromise = requiredprops.muonProps(__eo)
+// let __eo = xEo.xEo()
+// __eo({'xs': xs.xs(__eo)}).xs
+// let mpropsPromise = requiredprops.muonProps(__eo)
 
-const fetch = require('./script-node-fetch.js')
-global.fetch = fetch
+// const fetch = require('./script-node-fetch.js')
+// global.fetch = fetch
 
-test('range', (done) => {
-  return expect(d3Require.require('d3-array')
-    .then(d3 => {
-      console.log(' --- res', d3.range(100))
-      return 5
-    })).resolves.toBe(5)
-    .then(done)
-    .catch(e => {
-      console.log(' ----------- e', e)
-    })
-}, 500)
+// test('range', (done) => {
+  // return expect(d3Require.require('d3-array')
+    // .then(d3 => {
+      // console.log(' --- res', d3.range(100))
+      // return 5
+    // })).resolves.toBe(5)
+    // .then(done)
+    // .catch(e => {
+      // console.log(' ----------- e', e)
+    // })
+// }, 500)
 
 // test('withasync', async () => {
 

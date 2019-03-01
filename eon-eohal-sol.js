@@ -52,7 +52,6 @@
       }
 
       let eofold = anitem.eofold
-
       let gjcollection = muonGeoj.featurecollect(eofold)
       console.assert(gjcollection.type === 'FeatureCollection')
 

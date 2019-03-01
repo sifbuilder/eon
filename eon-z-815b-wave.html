@@ -21,9 +21,7 @@ async function anitem (__eo) {
     __eo('xs').m('props'),
     __eo('xs').r('svg'),
   ])
-
-  // .................. animas
-  let ani = function () {
+  renderSvg.scenecolor('black')  
     // .................. pics
     let ctl
     try {
@@ -31,6 +29,9 @@ async function anitem (__eo) {
     } catch (e) {
       ctl = () => [0, 0, 0]
     }
+  // .................. animas
+  let ani = function () {
+
 
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt
