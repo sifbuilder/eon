@@ -16,9 +16,12 @@ let [cmd, scp, ...opts] = process.argv
 let HELP = 'help'
 let UNCOMMENT = 'uncomment'
 let DOIT = 'doit'
+let SHOW = 'show'
+let CHANGE = 'change'
 let action = HELP
 
 let doit = 0
+let show = 0
 
 // command
 let inscopeexp = new RegExp(`^eon-.*___none___.*(html|js)$`, 'i') // none pattern
@@ -27,21 +30,30 @@ let inscopeexp = new RegExp(`^eon-.*___none___.*(html|js)$`, 'i') // none patter
 
 if (opts.length === 0) {
   action = HELP
-} else if (opts.length >= 1 && opts[0] !== HELP) { // pattern in arg[1]
-  action = UNCOMMENT
+}  
+  
+if (opts.length >= 1 && opts[0] === CHANGE) { // pattern in arg[1]
+  action = CHANGE
   let codepattern = '.*' // default to all
-  if (opts[0] === '.') {
+  if (opts[1] === '.') {
     codepattern = '.*'
   } else {
-    codepattern = opts[0]
+    codepattern = opts[1]
   }
   inscopeexp = new RegExp(`^eon-.*${codepattern}.*(html|js)$`, 'i') // view pattern
 }
 
+if (opts.length === 3) {  // eg.: change, 723d, doit 
 
-if (opts.length === 2) {
-  doit = (opts[1] === DOIT) ? 1 : 0
+  if (opts[2] === DOIT) {
+  doit = 1
+  } else if (opts[2] === SHOW) {
+  show = 1
+  }
 }
+
+
+
 
 // outdir
 let outdirname = '.'
@@ -74,18 +86,22 @@ let searchexp = RegExp(`${searchpattern}`, 'm')
 // replacepattern
 //
 //
-let replacepattern = `<script src="d3-require.js"></script>
+let _replacepattern = `<script src="d3-require.js"></script>
 <script src="eon-x-eonify.js"></script>
 `
+let replacepattern = escapeRegExp(_replacepattern) 
+
 
 // options
 const options = {}
 options.doit = doit
+options.show = show
 options.outdir = outdir
 
 // .................. run
 async function run (infiles, opts) {
   let doit = opts.doit
+  let show = opts.show
 
   let promises = infiles.map(fileName => {
     Promise.resolve(fileName)
@@ -98,22 +114,32 @@ async function run (infiles, opts) {
         // ... apply
         function apply (pckfolder, fullName, rootname) {
           let eonfile = `${indir}${fullName}`
-
+ 
           if (fs.existsSync(eonfile)) { // if md file
             let fileTxt = fs.readFileSync(eonfile, 'utf8')
-
+ 
             let arr
             while ((arr = searchexp.exec(fileTxt)) !== null) {
-              // if (1 && 1) console.log('arr', arr)
-
               let toreplace = arr[0]
               fileTxt = fileTxt.replace(toreplace, replacepattern)
             }
 
+            if (show) {
+                console.log('-----------------------------------')
+                let lines = fileTxt.split("\n")
+                for (let i=0; i<lines.length; i++) {
+                  let line = lines[i]
+                  console.log(line)
+                }
+            }
+            
+            
             if (doit) {
               if (1 && 1) console.log('apply', eonfile)
               fs.writeFileSync(eonfile, fileTxt)
             }
+            
+            
           }
         }
 
@@ -127,13 +153,19 @@ async function run (infiles, opts) {
 if (action === 'help') {
   console.log(` replace cpsearchpattern by replacepattern in files in scope`)
   console.log(`node ${prgname} {[help], inscopeexp} [doit]`)
+  console.log(`node ${prgname} action pattern trigger`)
+  console.log(`eg.: node ${prgname} change . doit`)
   console.log(` inScopePattern: eg: z-0 filters files on eon-name`)
   console.log(` toBeReplacePattern: cpsearchpattern`)
   console.log(` toReplaceWithPattern: replacepattern`)
   console.log(` inscopeexp: ${inscopeexp}`)
-} else if (action === UNCOMMENT) {
-  console.log(`do ${inscopeexp} eon files ${files}`)
-  run(files, options)
+} else if (action === CHANGE) {
+  console.log(`do replace ${cpsearchpattern} by ${replacepattern} in ${files}`)
+  if (SHOW) {
+    run(files, options)
+  } else if (DOIT) {
+    run(files, options)
+  }
 } else {
   console.log(`node ${prgname} {[help], inscopeexp} on eon- files`)
 }
