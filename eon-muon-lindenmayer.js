@@ -356,6 +356,35 @@
       return stat.features
     }
 
+    // ............................. lineString
+    let lineString = lin => {
+      let geo = multiFeature(lin).features
+
+      let line = geo.reduce( (p,q) => {
+        let res = []
+        let coords = q.geometry.coordinates.reduce( (p,q) => {
+          let res = [ ...p, ...q ]    // reduce each line
+          return res
+        }, [])
+        if (q.geometry.coordinates.length > 0) {
+          res = [ ...p, ...coords ]  // _e_
+        }
+        return res
+      }, [])
+
+      let geoData = {
+            type: 'Feature',
+            geometry: {
+              type: 'LineString',
+              coordinates: line,
+            },
+            properties: {
+              doc: 'reduced from FeatureCollection'
+            },
+          }
+
+      return geoData
+    }
     // ............................. multiLine
     let multiLine = lin => {
       let geo = multiFeature(lin).features
@@ -394,6 +423,7 @@
     enty.curve = curve
     enty.multiFeature = multiFeature
     enty.multiLine = multiLine
+    enty.lineString = lineString
     enty.reset = () => { cache = {}; return enty }
 
     return enty
