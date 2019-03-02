@@ -59,7 +59,9 @@ let scopeexp = new RegExp('^(((eon-)?(((?!-).)*)-(.*)).(html|js))', 'i')
 // toBeReplace pattern
 //
 //
-let cpsearchpattern = `<script src="eon-x-eonify.js"></script>`
+let cpsearchpattern = `<script src="./d3-require.js"></script>
+<script src="./eon-x-eonify.js"></script>
+`
 
 // https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
 function escapeRegExp (string) {
@@ -75,7 +77,9 @@ let searchexp = RegExp(`${searchpattern}`, 'm')
 //
 //
 let replacepattern = `<script src="d3-require.js"></script>
-<script src="eon-x-eonify.js"></script>
+<script src="./d3-require.js"></script>
+<script src="./eon-x-eonify.js"></script>
+
 `
 
 // options

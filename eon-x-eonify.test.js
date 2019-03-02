@@ -1,6 +1,9 @@
 const d3 = require('./d3-require.js')
 global.d3 = d3
 
+let require = d3.require
+let requireFrom = d3.requireFrom
+
 const xEonify = require('./eon-x-eonify.js')
 global.xEonify = xEonify
 

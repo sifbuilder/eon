@@ -8,12 +8,9 @@
   let require = d3.require
   let requireFrom = d3.requireFrom
 
-  // ............................. xs
-  let xs = function (__eo = {}) {
-    const xD3Require = __eo('xD3Require')
 
     const capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1) // wen => Wen
-
+  
     const ceonize = function (nome, pres = '') {
       let camelized
       if (pres === '') {
@@ -53,6 +50,11 @@
     }
     const mapCell = (e, n, m) => m({[n]: e})[n]
     const a = d => Array.isArray(d) ? d : Array.of(d)
+
+    
+  // ............................. xs
+  let xs = function (__eo = {}) {
+    const xD3Require = __eo('xD3Require')
 
     // ............................. getCeonSync
     const getCeonSync = part => __eo(part[0])
@@ -168,11 +170,8 @@
   }
 
   exports.eon = eon
-
   exports.xEo = xEo
-
   exports.xs = xs
-
   exports.require = d3.require
   exports.requireFrom = d3.requireFrom
 
