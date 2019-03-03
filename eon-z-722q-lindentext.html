@@ -123,16 +123,9 @@ purchased a printing press. ref. wikipedia`
       eohal: eohalMars,
 
       eofold: ani => {
-        let geo = muonLindenmayer.multiFeature(ani.eoload.lindenmayer)
+        let geoData = muonLindenmayer.multiFeature(ani.eoload.lindenmayer)
 
-        let geoData = {
-          type: 'Feature',
-          geometry: {
-            type: 'LineString',
-            coordinates: geo[0],
-          },
-          properties: {},
-        }
+
         return geoData
       },
 
@@ -154,16 +147,9 @@ purchased a printing press. ref. wikipedia`
       eohal: eohalTextform,
 
       eofold: ani => {
-        let geo = muonLindenmayer.multiFeature(ani.eoload.lindenmayer)
+        let geoData = muonLindenmayer.lineString(ani.eoload.lindenmayer)
 
-        let geoData = {
-          type: 'Feature',
-          geometry: {
-            type: 'LineString',
-            coordinates: geo[0],
-          },
-          properties: {},
-        }
+
         return geoData
       },
 
@@ -246,7 +232,7 @@ purchased a printing press. ref. wikipedia`
     }
 
     let getanis = function (txt = '') {
-      let anis = {}
+      let anis = []
       let a = txt.split('\n')
       let x0 = -295
       let xd = 0
@@ -258,20 +244,17 @@ purchased a printing press. ref. wikipedia`
         ani.eoric.cid = textAni.eoric.cid + '_' + i
         ani.eomot.proform.translate = [x0 + xd * i, y0 + yd * i]
         ani.eoload.textform.linenb = i
-        anis['ani' + '_' + i] = ani
+        anis.push(ani)
       }
       return anis
     }
 
     // .................. animas
-    let scene = Object.assign(
-      {},
-      getanis(text),
-      {
-        aniFormText, // h.textform
-        aniForm1, // h.mars
-      }
-    )
+    let scene = [
+      ...getanis(text),
+      aniFormText, // h.textform
+      aniForm1, // h.mars
+    ]
 
     return scene
   }

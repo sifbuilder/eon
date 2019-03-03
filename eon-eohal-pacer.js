@@ -64,6 +64,7 @@
     let muonStore = __eo('muonStore')
     ctlRayder.control()
     let state = {}
+    let xeon = xEonify    
 
     let ancestor = function (anitem) {
       let uidSelf = anitem.eoric.uid
@@ -312,7 +313,7 @@
             // ... if paced anima, eohal.ween the newitem, then store
             // ... if paced anigram, eohal.gramm the newitem, then return
 
-            let eohal = __eo(__eo('xs').ceonize(newItem.eohal, 'eohal'))
+            let eohal = __eo(xeon.ceonize(newItem.eohal, 'eohal'))
 
             let newItemsInCount
             if (geosort === 'anima') {

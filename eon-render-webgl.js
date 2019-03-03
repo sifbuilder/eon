@@ -742,6 +742,7 @@
         name: 'EOMULTIPOLYGON',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
+            d.geometry !== null &&
             d.geometry.type === 'MultiPoint' && // faces
             d.properties.eoMultiPolygon == 1,
         retriever: eoMultiPolygonsToScene,
@@ -749,12 +750,14 @@
         name: 'MULTIPOLYGON',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
+            d.geometry !== null &&
             d.geometry.type === 'MultiPolygon',
         retriever: multiPolygonsToScene,
       }, {
         name: 'MULTIPOINT',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
+            d.geometry !== null &&
             d.geometry.type === 'MultiPoint' &&
             d.properties.eoMultiPolygon !== 1,
         retriever: multiPointToScene,
@@ -762,6 +765,7 @@
         name: 'POINT',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
+            d.geometry !== null &&
             d.geometry.type === 'Point' &&
             d.properties.eoMultiPolygon !== 1,
         retriever: pointToScene,
@@ -769,12 +773,14 @@
         name: 'MULTILINESTRING',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
+            d.geometry !== null &&
               d.geometry.type === 'MultiLineString',
         retriever: multiLineStringToScene,
       }, {
         name: 'LINESTRING',
         filter: d =>
           (d.properties.sort === 'feature' || d.properties.sort === 'form') &&
+            d.geometry !== null &&
               d.geometry.type === 'LineString',
         retriever: lineStringToScene,
       }, {

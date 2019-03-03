@@ -8,17 +8,17 @@
 }(this, function (exports) {
   'use strict'
 
-  async function muonProps (__eo = {}) {
+  async function muonProps (__eo = () => {}) {
     let [
       d3Scale,
       d3Array,
     ] = await Promise.all([
-      __eo('xs').b('d3'),
+      __eo('xs').b('d3-scale'),
       __eo('xs').b('d3-array'),
     ])
 
     let props = {}
-    props.addtst = (a, b) => a + b
+    props.addtest = (a, b) => a + b
 
     /***************************
     *        @arrays

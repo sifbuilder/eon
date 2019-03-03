@@ -156,6 +156,9 @@
     // # Roll left by angle δ, using rotation matrix RH(δ)  // x
     // ~ Roll right by angle δ, using rotation matrix RH(−δ)
     // | Turn around, using rotation matrix RU(180◦)
+    
+    // ! Diameter level - length
+    // ’ Context level - color
 
 
     // generate multiline == multifeature
