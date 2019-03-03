@@ -64,7 +64,7 @@
     let muonStore = __eo('muonStore')
     ctlRayder.control()
     let state = {}
-    let xeon = xEonify    
+    let xeon = xEonify
 
     let ancestor = function (anitem) {
       let uidSelf = anitem.eoric.uid

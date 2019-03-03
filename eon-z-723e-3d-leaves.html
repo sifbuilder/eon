@@ -1,4 +1,3 @@
-<script src="d3-require.js"></script>
 <script src="./d3-require.js"></script>
 <script src="./eon-x-eonify.js"></script>
 
@@ -30,12 +29,12 @@ async function anitem (__eo) {
     // __eo('xs').r('webgl'),
   ])
   renderSvg.scenecolor('black')
-    let ctl
-    try {
-      ctl = ctlWen().control(renderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
-    }
+  let ctl
+  try {
+    ctl = ctlWen().control(renderSvg.svg())
+  } catch (e) {
+    ctl = () => [0, 0, 0]
+  }
 
   // .................. animas
   let ani = function () {
@@ -46,68 +45,63 @@ async function anitem (__eo) {
 
     let lindenmayer = {
 
-          linden: {
-            axiom: 'A',
-            // axiom: 'F',
-            loopq: 6,
-            rules: {
-              // F: 'F[-F]F[+F][F]',
-              A: '[&F[-F]F[+F][F]!A]~~~~~’[&F[-F]F[+F][F]!A]~~~~~~~’[&F[-F]F[+F][F]!A]',
-              // A: { probs: [33,66,100],
-                   // vals: [
-                      // '[&F[-F]F[+F][F]!A]~~~~~’[&F[-F]F[+F][F]!A]~~~~~~~’[&F[-F]F[+F]',
-                      // '[&F[-F]F[+F]~~~~~’[&F[-F]F[+F][F]!A]~~~~~~~’[&F[-F]F[+F][F]!A]',
-                      // '[&F[-F]F[+F][F]!A]~~~~~’[&F[-F]F[+F]~~~~~~~’[&F[-F]F[+F][F]!A]'
-                   // ]
-              // },
+      linden: {
+        axiom: 'A',
+        // axiom: 'F',
+        loopq: 6,
+        rules: {
+          // F: 'F[-F]F[+F][F]',
+          A: '[&F[-F]F[+F][F]!A]~~~~~’[&F[-F]F[+F][F]!A]~~~~~~~’[&F[-F]F[+F][F]!A]',
+          // A: { probs: [33,66,100],
+          // vals: [
+          // '[&F[-F]F[+F][F]!A]~~~~~’[&F[-F]F[+F][F]!A]~~~~~~~’[&F[-F]F[+F]',
+          // '[&F[-F]F[+F]~~~~~’[&F[-F]F[+F][F]!A]~~~~~~~’[&F[-F]F[+F][F]!A]',
+          // '[&F[-F]F[+F][F]!A]~~~~~’[&F[-F]F[+F]~~~~~~~’[&F[-F]F[+F][F]!A]'
+          // ]
+          // },
 
-              F: 'S ~~~~~ F',
-              S: 'F L',
-              L: '[’’’^^{-f+f+f-|-f+f+f}]'
-              // F: { probs: [33,66,100],
-                   // vals: ['F[+F]F', 'F[-F]F', 'F[+F]F[-F]F']
-              // },
-            },
-          },
-          mayer: {
-            side: 16,
-            angunit: 22.5,
-            angstart: 90,
-            start: [0, -150, 0],
-            cant: [[[0.1, 0.1]]],
-          },
-        }
-    let geo = muonLindenmayer.multiFeature (lindenmayer)
+          F: 'S ~~~~~ F',
+          S: 'F L',
+          L: '[’’’^^{-f+f+f-|-f+f+f}]',
+          // F: { probs: [33,66,100],
+          // vals: ['F[+F]F', 'F[-F]F', 'F[+F]F[-F]F']
+          // },
+        },
+      },
+      mayer: {
+        side: 16,
+        angunit: 22.5,
+        angstart: 90,
+        start: [0, -150, 0],
+        cant: [[[0.1, 0.1]]],
+      },
+    }
+    let geo = muonLindenmayer.multiFeature(lindenmayer)
 
+    geo.features = geo.features.sort(function (a, b) {
+      return (2 * a.properties.level + a.properties.segment) -
+            (2 * b.properties.level + b.properties.segment)
+    })
+    geo.features = geo.features.map((f, i) => {
+      f.properties.eocrom = muonProps.clone(eocrom)
+      let contextlevel = f.properties.contextlevel || 0
 
-        geo.features = geo.features.sort(function(a, b) {
-          return (2 * a.properties.level + a.properties.segment)
-            - (2 * b.properties.level + b.properties.segment)
-        })
-        geo.features = geo.features.map( (f,i) => {
+      let colorlevel = f.properties.colorlevel || 0
+      let diameterlevel = (f.properties.diameterlevel || 0)
 
+      let cs = f.properties.eocrom.cs
+      let cf = f.properties.eocrom.cf
+      let cw = f.properties.eocrom.cw
+      let newcs = cs + 600 * contextlevel
+      let newcf = cf + 600 * colorlevel
+      let newcw = Math.max(1, cw - diameterlevel)
 
-          f.properties.eocrom = muonProps.clone(eocrom)
-          let contextlevel = f.properties.contextlevel || 0
+      f.properties.eocrom.cs = newcs
+      f.properties.eocrom.cf = newcf
+      f.properties.eocrom.cw = newcw
+      return f
+    })
 
-          let colorlevel = f.properties.colorlevel || 0
-          let diameterlevel = (f.properties.diameterlevel || 0)
-
-          let cs = f.properties.eocrom.cs
-          let cf = f.properties.eocrom.cf
-          let cw = f.properties.eocrom.cw
-          let newcs = cs + 600 * contextlevel
-          let newcf = cf + 600 * colorlevel
-          let newcw = Math.max(1, cw - diameterlevel)
-
-          f.properties.eocrom.cs = newcs
-          f.properties.eocrom.cf = newcf
-          f.properties.eocrom.cw = newcw
-          return f
-
-
-        })
-        
     // .................. aniForm2
     let aniForm2 = {
 
@@ -116,7 +110,6 @@ async function anitem (__eo) {
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani2' },
 
       eofold: ani => {
-
         let fq = geo.features.length
         fq = Math.ceil(fq * ani.eoload.tim)
 
@@ -125,14 +118,13 @@ async function anitem (__eo) {
           features: geo.features.slice(0, fq),
         }
 
-
         return gj
       },
 
       eomot: {
         proform: {
           projection: 'uniwen',
-          scale: [[[1,0.6]]],
+          scale: [[[1, 0.6]]],
           translate: [ 0, -100, 0 ],
           prerotate: [[[ ctl.rotation ]]],
           rotate: [ 90, 0, 0 ],
@@ -140,7 +132,7 @@ async function anitem (__eo) {
       },
       eocrom: eocrom,
       eoload: {
-        tim: [[[0,0.5,1]]],
+        tim: [[[0, 0.5, 1]]],
         lindenmayer: lindenmayer,
 
       },
@@ -154,11 +146,11 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {gid: 'text', cid: 'text', fid: 'text'},
       eofold: ani => ({
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0], },
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0] },
       }),
       eomot: {
-        proform: { projection: 'uniwen', translate: [ 200, -190 ], },
+        proform: { projection: 'uniwen', translate: [ 200, -190 ] },
       },
       eocrom: { 'csx': 0, 'cf': 888, 'cs': 111, 'cw': 0.5, 'co': 0.9, 'cp': 0.5},
       eoload: {
@@ -170,22 +162,19 @@ async function anitem (__eo) {
             return sttxt[linenb]
           }]]],
           text: text,
-          style: { 'font-size': 5, },
+          style: { 'font-size': 5 },
         },
       },
     }
 
-
     let getanis = function (txt = '') {
-      return txt.split('\n').map( (l,i) => {
-
+      return txt.split('\n').map((l, i) => {
         let ani = muonProps.clone(textAni)
         ani.eoric.fid = textAni.eoric.fid + '_' + i
         ani.eoric.cid = textAni.eoric.cid + '_' + i
         ani.eomot.proform.translate = [120, -160 - 7 * i]
         ani.eoload.textform.linenb = i
         return ani
-
       })
     }
 

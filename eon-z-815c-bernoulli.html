@@ -25,14 +25,13 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
   renderSvg.scenecolor('black')
-    // .................. pics
-    let ctl
-    try {
-      ctl = ctlWen().control(renderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
-    }
-
+  // .................. pics
+  let ctl
+  try {
+    ctl = ctlWen().control(renderSvg.svg())
+  } catch (e) {
+    ctl = () => [0, 0, 0]
+  }
 
   let text = `Bessel functions are the solutions y(x)
 of Bessel's differential equation
@@ -54,59 +53,55 @@ ref. wikipedia`
 
   // .................. animas
   let ani = function () {
-
     let radians = Math.PI / 180, degrees = 180 / Math.PI,
       sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
       sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh
 
     // let fact = n => (n === 0) ? 1 : n * fact( n - 1 )
-    //https://stackoverflow.com/questions/3959211/what-is-the-fastest-factorial-function-in-javascript
-    function fact(op) {
-     // Lanczos Approximation of the Gamma Function
-     // As described in Numerical Recipes in C (2nd ed. Cambridge University Press, 1992)
-     let z = op + 1
-     let p = [1.000000000190015, 76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 1.208650973866179E-3, -5.395239384953E-6]
+    // https://stackoverflow.com/questions/3959211/what-is-the-fastest-factorial-function-in-javascript
+    function fact (op) {
+      // Lanczos Approximation of the Gamma Function
+      // As described in Numerical Recipes in C (2nd ed. Cambridge University Press, 1992)
+      let z = op + 1
+      let p = [1.000000000190015, 76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 1.208650973866179E-3, -5.395239384953E-6]
 
-     let d, d1, d2, d3, d4
+      let d, d1, d2, d3, d4
 
-     d1 = Math.sqrt(2 * Math.PI) / z
-     d2 = p[0]
+      d1 = Math.sqrt(2 * Math.PI) / z
+      d2 = p[0]
 
-     for (let i = 1; i <= 6; ++i)
-      d2 += p[i] / (z + i)
+      for (let i = 1; i <= 6; ++i) { d2 += p[i] / (z + i) }
 
-     try {
-     d3 = Math.pow((z + 5.5), (z + 0.5))
-     d4 = Math.exp(-(z + 5.5))
-     }
-     catch(e) {
-      if (1 && 1) console.log('e', e)
-     }
+      try {
+        d3 = Math.pow((z + 5.5), (z + 0.5))
+        d4 = Math.exp(-(z + 5.5))
+      } catch (e) {
+        if (1 && 1) console.log('e', e)
+      }
 
-     d = d1 * d2 * d3 * d4
+      d = d1 * d2 * d3 * d4
 
-     return d
+      return d
     }
 
     // ............................. pics
 
     let summands = 23
-    let level = [[[0.3,6,0.1]]]
+    let level = [[[0.3, 6, 0.1]]]
     let range = 17
 
-
-    let eotim = {'td': 9600, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1,}
+    let eotim = {'td': 9600, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
     let conformAni = {
       x: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         'ra2': 1, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 18, 'pa6': 0, 'pb7': -1,
         'dom3': [0, 360],
-        c: [ 1, range, 1, 1],  // . , range, ., .
+        c: [ 1, range, 1, 1], // . , range, ., .
         'fn0': (e, c, d) => {
-          let x = d.c[1] * e[0] / (2 * Math.PI)  // range * [2 * Math.PI] / (2 * Math.PI)
+          let x = d.c[1] * e[0] / (2 * Math.PI) // range * [2 * Math.PI] / (2 * Math.PI)
           return x
-        }
+        },
       },
       y: {
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
@@ -114,36 +109,31 @@ ref. wikipedia`
         'dom3': [0, 360],
         c: [ level, range, summands, 1], // order, range, summs, .
         'fn0': (e, c, d) => {
-
-
           let summs = d.c[2]
-          let w = Array.from(new Array(summs),(d,i)=>1)
+          let w = Array.from(new Array(summs), (d, i) => 1)
           let v = d.c[0]
 
-          let x = d.c[1] * e[0] / (2 * Math.PI)  // e[0]: [0, 2 * Math.PI] * 14
-
+          let x = d.c[1] * e[0] / (2 * Math.PI) // e[0]: [0, 2 * Math.PI] * 14
 
           let res = 0
-          let y = w.reduce( (p,q,k) => {
+          let y = w.reduce((p, q, k) => {
             let f, f1, f2, f3, f4
             try {
               f1 = Math.pow(-1, k)
-              f2 = Math.pow(x/2, v+2*k)
+              f2 = Math.pow(x / 2, v + 2 * k)
               f3 = 1 / fact(k)
-              f4 = 1 / fact(v + k )
+              f4 = 1 / fact(v + k)
             } catch (e) {
               if (1 && 1) console.log('e', e)
-
             }
 
             f = f1 * f2 * f3 * f4
 
             p = p + f
             return p
-
           }, 0)
 
-          return  y
+          return y
         },
 
       },
@@ -163,8 +153,6 @@ ref. wikipedia`
     }
 
     let eocromRed = { 'csx': 1, 'cf': 333, 'co': 0.069, 'cs': 333, 'cw': 1.3, 'cp': 0.99 }
-
-
 
     // ............................. natAniRed
     let natAniRed = {
@@ -223,7 +211,6 @@ ref. wikipedia`
 
     let eocromTA = { 'csx': 0, 'cf': 999, 'co': 0.19, 'cs': 999, 'cw': 0.39, 'cp': 0.99 }
 
-
     let textA = {
       eohal: eohalTextform,
       eotim: eotim,
@@ -242,12 +229,11 @@ ref. wikipedia`
         eoform: conformAB,
         textform: {
           string: [[[function (t) {
-            let order = muonSnap.snap( [[[0.1,6,0.1]]] , t).toFixed(2)
-            let range = 17    // **
+            let order = muonSnap.snap([[[0.1, 6, 0.1]]], t).toFixed(2)
+            let range = 17 // **
             let summands = 23 // **
 
             return `First kind Bessel functions: summands: ${summands}, order: ${order} `
-
           }]]],
           style: {
             rotate: [[[ 0, 0 ]]],
@@ -327,8 +313,6 @@ ref. wikipedia`
       },
     }
 
-
-
     let getanis = function (txt = '') {
       let anis = []
       let ani = muonProps.clone(textAni)
@@ -344,9 +328,9 @@ ref. wikipedia`
         anii.eoric.fid = textAni.eoric.fid + '_' + i
         anii.eoric.cid = textAni.eoric.cid + '_' + i
         let ty = [[[y0 - (fontSize[0][0][0] + linesep) * i,
-                    y0 - (fontSize[0][0][1] + linesep) * i]]]
-        anii.eomot.proform.translate = [x0 + xd * i, 
-                                        ty ]
+          y0 - (fontSize[0][0][1] + linesep) * i]]]
+        anii.eomot.proform.translate = [x0 + xd * i,
+          ty ]
         anii.eoload.textform.style['font-size'] = fontSize
         anii.eoload.textform.linenb = i
         anis.push(anii)

@@ -184,31 +184,24 @@
         hinge,
         n
 
-
-
       // this face
       if (thisFace.length === 5 && interiorAngle > 0.5) {
         shape = starPentagonShape(thisFace, verts)
       }
 
-
       // ShapeBuffer geometry
-      let faceColor = faceColors[face % faceColors.length]  // color per face
-
+      let faceColor = faceColors[face % faceColors.length] // color per face
 
       //  line
       let faceVerts = thisFace //
 
-      
       let facepoints = shape.extractPoints().shape
       facepoints.push(facepoints[0]) // _e_ face closing linle
-      
-      // -------------- edges
 
+      // -------------- edges
 
       let lineGeometry = new THREE.Geometry()
       lineGeometry.setFromPoints(facepoints)
-
 
       let lineMaterial = new THREE.MeshPhongMaterial({
         wireframeLinewidth: 20,
@@ -224,30 +217,22 @@
       lineMaterial.vertexColors = THREE.VertexColors
       lineMaterial.flatShading = THREE.FlatShading
 
-
       node.add(new THREE.Line(lineGeometry, lineMaterial))
 
       // -------------- faces
 
-     if (0)  {  // colors
-      
-
+      if (0) { // colors
         let shapeGeo = new THREE.ShapeBufferGeometry(shape)
         shapeGeo.colorsNeedUpdate = true
-
 
         let shapeMaterial = new THREE.MeshPhongMaterial({
           color: faceColor,
         })
 
-
         node.add(new THREE.Mesh(shapeGeo, shapeMaterial))
-
-     } else { // gradient
-
-     
+      } else { // gradient
         let shapeGeo = new THREE.Geometry() // ShapeBufferGeometry
-          shapeGeo.setFromPoints(facepoints)
+        shapeGeo.setFromPoints(facepoints)
 
         let shapeMaterial = new THREE.MeshPhongMaterial({
           wireframeLinewidth: 20,
@@ -260,7 +245,6 @@
           lineGeometry.colors[ i ] = lineColors[ idx ]
           lineGeometry.colors[ i + 1 ] = lineGeometry.colors[ i ]
         }
-
 
         node.add(new THREE.Mesh(lineGeometry, shapeMaterial))
       }

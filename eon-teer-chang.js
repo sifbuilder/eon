@@ -30,8 +30,8 @@ let inscopeexp = new RegExp(`^eon-.*___none___.*(html|js)$`, 'i') // none patter
 
 if (opts.length === 0) {
   action = HELP
-}  
-  
+}
+
 if (opts.length >= 1 && opts[0] === CHANGE) { // pattern in arg[1]
   action = CHANGE
   let codepattern = '.*' // default to all
@@ -43,17 +43,13 @@ if (opts.length >= 1 && opts[0] === CHANGE) { // pattern in arg[1]
   inscopeexp = new RegExp(`^eon-.*${codepattern}.*(html|js)$`, 'i') // view pattern
 }
 
-if (opts.length === 3) {  // eg.: change, 723d, doit 
-
+if (opts.length === 3) { // eg.: change, 723d, doit
   if (opts[2] === DOIT) {
-  doit = 1
+    doit = 1
   } else if (opts[2] === SHOW) {
-  show = 1
+    show = 1
   }
 }
-
-
-
 
 // outdir
 let outdirname = '.'
@@ -84,7 +80,6 @@ let searchpattern = escapeRegExp(cpsearchpattern) // .split(/\r?\n/) // .map(d=>
 
 let searchexp = RegExp(`${searchpattern}`, 'm')
 
-
 // replacepattern
 //
 //
@@ -93,8 +88,7 @@ let _replacepattern = `<script src="d3-require.js"></script>
 <script src="./eon-x-eonify.js"></script>
 
 `
-let replacepattern = escapeRegExp(_replacepattern) 
-
+let replacepattern = escapeRegExp(_replacepattern)
 
 // options
 const options = {}
@@ -118,10 +112,10 @@ async function run (infiles, opts) {
         // ... apply
         function apply (pckfolder, fullName, rootname) {
           let eonfile = `${indir}${fullName}`
- 
+
           if (fs.existsSync(eonfile)) { // if md file
             let fileTxt = fs.readFileSync(eonfile, 'utf8')
- 
+
             let arr
             while ((arr = searchexp.exec(fileTxt)) !== null) {
               let toreplace = arr[0]
@@ -129,21 +123,18 @@ async function run (infiles, opts) {
             }
 
             if (show) {
-                console.log('-----------------------------------')
-                let lines = fileTxt.split("\n")
-                for (let i=0; i<lines.length; i++) {
-                  let line = lines[i]
-                  console.log(line)
-                }
+              console.log('-----------------------------------')
+              let lines = fileTxt.split('\n')
+              for (let i = 0; i < lines.length; i++) {
+                let line = lines[i]
+                console.log(line)
+              }
             }
-            
-            
+
             if (doit) {
               if (1 && 1) console.log('apply', eonfile)
               fs.writeFileSync(eonfile, fileTxt)
             }
-            
-            
           }
         }
 

@@ -38,7 +38,6 @@ if (opts.length === 0) {
   inscopeexp = new RegExp(`^eon-.*${codepattern}.*(html|js)$`, 'i') // view pattern
 }
 
-
 if (opts.length === 2) {
   doit = (opts[1] === DOIT) ? 1 : 0
 }
@@ -71,7 +70,6 @@ function escapeRegExp (string) {
 let searchpattern = escapeRegExp(cpsearchpattern) // .split(/\r?\n/) // .map(d=> `${d}(\r\n|\n|\r)`)
 
 let searchexp = RegExp(`${searchpattern}`, 'm')
-
 
 // replacepattern
 //

@@ -186,7 +186,6 @@
 
       let camera = stat.cameras[camerauid]
 
- 
       if (camera === undefined) {
         if (type === 'PerspectiveCamera') {
           let defs = { fov: 50, zoom: 1, near: 0.1, far: 2000, focus: 10, aspect: 1, view: null, filmGauge: 35, filmOffset: 0}
@@ -683,7 +682,7 @@
           if (item.properties.hinges !== undefined) {
             let coords = item.geometry.coordinates.map(d => Array.isArray(d) ? new THREE.Vector3(...d) : d)
             item.geometry.coordinates = coords
-            
+
             // tree calls muonNets.build_tree recursive
             // build_tree builds geometry per face
             object = muonNets.tree(item) // net

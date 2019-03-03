@@ -192,7 +192,7 @@
 
     // ............................. render
     let render = function (featurecollection, maxlimit) {
-      if (0 && 1) console.log('featurecollection', featurecollection)      
+      if (0 && 1) console.log('featurecollection', featurecollection)
       let features = featurecollection.features
         .filter(
           d => d !== null

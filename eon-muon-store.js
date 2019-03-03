@@ -32,9 +32,8 @@
       animas: [], // animas array
       anigrams: [], // anigrams
     }
-    
-    let xeon = xEonify
 
+    let xeon = xEonify
 
     // .................. apply
     function _apply (action = {}) {
@@ -131,13 +130,11 @@
     function ween (anitem) { // ok trace
       let eohal = anitem.eohal
       if (typeof (eohal) === 'object') {
-        
-        // eohal
-        
-      } else {
-        
-        eohal = __eo(xeon.ceonize(eohal, 'eohal'))
 
+        // eohal
+
+      } else {
+        eohal = __eo(xeon.ceonize(eohal, 'eohal'))
       }
 
       let anigram = anitem
@@ -178,9 +175,9 @@
       let eohal = (typeof (anitem.eohal) === 'object')
         ? anitem.eohal
         : __eo(xeon.ceonize(anitem.eohal, 'eohal')) // expected in __eo
-        
+
       console.assert(eohal !== null, `eohal ${xeon.ceonize(anigram.eohal, 'eohal')} not found`)
-      
+
       let newItems = []
       console.assert(eohal, `eohal not defined`)
       if (eohal) newItems = muonProps.a(eohal.gramm(anigram))

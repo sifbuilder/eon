@@ -10,7 +10,7 @@ async function anitem (__eo) {
   let [
     ctlWen,
     eohalMars,
-    eohalTextform,    
+    eohalTextform,
     muonGeoj,
     muonLindenmayer,
     muonProps,
@@ -18,7 +18,7 @@ async function anitem (__eo) {
   ] = await Promise.all([
     __eo('xs').c('wen'),
     __eo('xs').e('mars'),
-    __eo('xs').e('textform'),    
+    __eo('xs').e('textform'),
     __eo('xs').m('geoj'),
     __eo('xs').m('lindenmayer'),
     __eo('xs').m('props'),
@@ -58,7 +58,7 @@ async function anitem (__eo) {
           properties: {},
         }
 
-        let ngj = muonGeoj.segtime(geoData, ani.eotim) // geoData // 
+        let ngj = muonGeoj.segtime(geoData, ani.eotim) // geoData //
 
         return ngj
       },
@@ -69,7 +69,7 @@ async function anitem (__eo) {
           scale: 1,
           translate: [ 0, 0, 0 ],
           prerotate: [[[ ctl.rotation ]]],
-          rotate: [ [[[0,-35,-180]]], [[[0,-110,-180]]], [[[0,135,180]]] ],
+          rotate: [ [[[0, -35, -180]]], [[[0, -110, -180]]], [[[0, 135, 180]]] ],
         },
       },
       eocrom: { 'csx': 0, 'cf': 777, 'cs': 666, 'cw': 1.9, 'co': 0.05, 'cp': 0.9 },
@@ -104,17 +104,17 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
       eofold: ani => ({
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0], },
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0] },
       }),
       eocrom: { 'csx': 0, 'cf': 888, 'cs': 111, 'cw': 0.5, 'co': 0.9, 'cp': 0.5},
       eomot: {
-        proform: { projection: 'uniwen', translate: [ 200, -190 ], },
+        proform: { projection: 'uniwen', translate: [ 200, -190 ] },
       },
       eoload: {
         textform: {
           string: 'antonio machado "spoke in verse and lived in poetry"',
-          style: { 'font-size': 3, },
+          style: { 'font-size': 3 },
         },
       },
     }

@@ -8,7 +8,7 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. eons
   let [
-      d3,  
+    d3,
     ctlWen,
     eohalMars,
     muonCastel,
@@ -18,7 +18,7 @@ async function anitem (__eo) {
     prtUniwen,
     renderSvg,
   ] = await Promise.all([
-      __eo('xs').b('d3'),  
+    __eo('xs').b('d3'),
     __eo('xs').c('wen'),
     __eo('xs').e('mars'),
     __eo('xs').m('castel'),
@@ -29,7 +29,7 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
   renderSvg.scenecolor('black')
-  
+
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -42,7 +42,6 @@ async function anitem (__eo) {
 
     let eotim = { td: 18200, t0: 0, t1: 1, t2: 1, t3: 1, nostop: 1 }
 
-
     let aniForm2 = {
 
       eotim: eotim,
@@ -51,9 +50,9 @@ async function anitem (__eo) {
 
       eofold: ani => {
         let geo = muonLindenmayer.multiFeature(ani.eoload.lindenmayer)
-        
+
         let coords = geo.map(ring => muonProps.cant(ring, ani.eoload.lindenmayer.mayer.cant))
-    
+
         let geoData = {
           type: 'Feature',
           geometry: {
@@ -62,12 +61,10 @@ async function anitem (__eo) {
           },
           properties: {},
         }
-        
-        geoData = muonGeoj.segtime(geoData, ani.eotim)
-        
-        return geoData        
-        
 
+        geoData = muonGeoj.segtime(geoData, ani.eotim)
+
+        return geoData
       },
 
       eocrom: { 'csx': 0, 'cf': [[[444, 777, 777]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.01, 0.9, 0.7]]], 'cp': [[[0.9, 0.9]]]},
@@ -82,21 +79,21 @@ async function anitem (__eo) {
       },
       eoload: {
         lindenmayer: {
-        linden: {
-          axiom: 'F-F-F-F',
-          loopq: 4,
-          rules: {
-            F: 'F+F--F+F',
+          linden: {
+            axiom: 'F-F-F-F',
+            loopq: 4,
+            rules: {
+              F: 'F+F--F+F',
+            },
+          },
+          mayer: {
+            side: 9,
+            angunit: 90,
+            anglestart: 0,
+            start: [50, -50],
+            cant: [[[0.2, 0.2]]],
           },
         },
-        mayer: {
-          side: 9,
-          angunit: 90,
-          anglestart: 0,
-          start: [50, -50],
-            cant: [[[0.2,0.2]]],          
-        },
-      },
 
       },
     }

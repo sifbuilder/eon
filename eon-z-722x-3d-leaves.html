@@ -45,7 +45,7 @@ async function anitem (__eo) {
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani2' },
 
       eofold: ani => {
-        let geoData = muonLindenmayer.multiLine (ani.eoload.lindenmayer)
+        let geoData = muonLindenmayer.multiLine(ani.eoload.lindenmayer)
 
         let coords = geoData.geometry.coordinates.map(ring => muonProps.cant(ring, ani.eoload.lindenmayer.mayer.cant))
 
@@ -62,14 +62,14 @@ async function anitem (__eo) {
           scale: 1,
           translate: [ 0, 0, 0 ],
           prerotate: [[[ ctl.rotation ]]],
-          rotate: [ 0, [[[0,360]]], 0 ],
+          rotate: [ 0, [[[0, 360]]], 0 ],
         },
       },
-      eocrom: { 'csx': 0, 'cf': 777, 'cs': [[[555,888,555]]], 'cw': [[[0.9,0.5,0.9]]], 'co': 0.05, 'cp': 0.7 },
+      eocrom: { 'csx': 0, 'cf': 777, 'cs': [[[555, 888, 555]]], 'cw': [[[0.9, 0.5, 0.9]]], 'co': 0.05, 'cp': 0.7 },
       eoload: {
         lindenmayer: {
 
-        //http://algorithmicbotany.org/papers/abop/abop-ch1.pdf
+        // http://algorithmicbotany.org/papers/abop/abop-ch1.pdf
         // The symbols ! and  are used to decrement the diameter of segments
         // and increment the current index to the color table, respectively
 
@@ -80,7 +80,7 @@ async function anitem (__eo) {
               A: '[&FL!A]~~~~~’[&FL!A]~~~~~~~’[&FL!A]',
               F: 'S ~~~~~ F',
               S: 'F L',
-              L: '[’’’^^{-f+f+f-|-f+f+f}]'
+              L: '[’’’^^{-f+f+f-|-f+f+f}]',
 
             },
           },
@@ -97,22 +97,21 @@ async function anitem (__eo) {
     }
 
     // .................. textAni
-    
+
     let text = `see the withered petals and the yellow leaves,
 that's become the garden that ere was of thee
 antonio machado`
 
-    
     let textAni = {
       eohal: eohalTextform,
       eotim: eotim,
       eoric: {gid: 'text', cid: 'text', fid: 'text'},
       eofold: ani => ({
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0], },
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0] },
       }),
       eomot: {
-        proform: { projection: 'uniwen', translate: [ 200, -190 ], },
+        proform: { projection: 'uniwen', translate: [ 200, -190 ] },
       },
       eocrom: { 'csx': 0, 'cf': 888, 'cs': 111, 'cw': 0.5, 'co': 0.9, 'cp': 0.5},
       eoload: {
@@ -124,11 +123,10 @@ antonio machado`
             return sttxt[linenb]
           }]]],
           text: text,
-          style: { 'font-size': 5, },
+          style: { 'font-size': 5 },
         },
       },
     }
-
 
     let getanis = function (txt = '') {
       let anis = {}
@@ -140,13 +138,12 @@ antonio machado`
         ani.eomot.proform.translate = [160, -160 - 7 * i]
         ani.eoload.textform.linenb = i
         anis['ani' + '_' + i] = ani
-
       }
       return anis
     }
     // .................. scene
     let scene = Object.assign(
-      {},    
+      {},
       getanis(text),
       {
         aniForm2, // h.mars

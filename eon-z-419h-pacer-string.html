@@ -43,7 +43,7 @@ async function anitem (__eo) {
     // .................. pics
     let eotim = {'td': 18800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
-    // .................. geoLined    
+    // .................. geoLined
     let geoLined = {
 
       eohal: 'pacer',
@@ -54,7 +54,7 @@ async function anitem (__eo) {
         type: 'Feature',
         geometry: {
           type: 'LineString',
-          coordinates: [ [0,0], [10, 10] ],
+          coordinates: [ [0, 0], [10, 10] ],
         },
         properties: {},
       },
@@ -81,20 +81,17 @@ async function anitem (__eo) {
 
           geoaad: 1, // geoaad for trace
           geospan: 0,
-          
+
           geosort: 'anigram',
-          geobase: '',  // 'viewform'
+          geobase: '', // 'viewform'
 
           eohal: 'mars',
 
           eofold: function (ani, props) {
-
-
             let coords
             if (props.key === 'init') { // INIT
               let point = ani.eonode.geometry.coordinates
               coords = Array.of(point) // eonode
-              
             } else if (props.key === 'auto') { // AUTO
               let point = ani.eoform
 
@@ -115,12 +112,11 @@ async function anitem (__eo) {
                     : Array.of(point)
                 }
               } else {
-              
                 coords = Array.of(point)
               }
             } else if (props.key === 'event') { // EVENT
               let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
-            
+
               let grabbed = ctlRayder.getGrabbed()
               if (grabbed !== undefined) {
                 let x = grabbed[0]
@@ -141,11 +137,9 @@ async function anitem (__eo) {
                       : Array.of(point)
                   }
                 } else {
-                
                   coords = Array.of(point)
                 }
               }
-              
             }
 
             let geometry = {
@@ -199,17 +193,17 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
       eofold: ani => ({
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0], },
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0] },
       }),
       eocrom: { 'csx': 0, 'cf': 888, 'cs': 111, 'cw': 0.5, 'co': 0.9, 'cp': 0.5},
       eomot: {
-        proform: { projection: 'uniwen', translate: [ 100, -190 ], },
+        proform: { projection: 'uniwen', translate: [ 100, -190 ] },
       },
       eoload: {
         textform: {
           string: 'mouse down, move, up',
-          style: { 'font-size': 12, },
+          style: { 'font-size': 12 },
         },
       },
     }

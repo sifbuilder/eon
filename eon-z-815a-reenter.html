@@ -24,13 +24,13 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
   renderSvg.scenecolor('black')
-    let ctl
-    try {
-      ctl = ctlWen().control(renderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
-    }
-    
+  let ctl
+  try {
+    ctl = ctlWen().control(renderSvg.svg())
+  } catch (e) {
+    ctl = () => [0, 0, 0]
+  }
+
   // .................. animas
   let ani = function () {
     // .................. pics

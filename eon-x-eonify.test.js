@@ -30,7 +30,7 @@ test('test getCell if e.n function', () => {
   let e = {muonProps: () => {} }
   let n = 'muonProps'
   let m = xEonify.xEo()
-  let r = xEonify.getCell(e,n,m)
+  let r = xEonify.getCell(e, n, m)
   expect(r).toBe(undefined)
 })
 
@@ -38,10 +38,9 @@ test('test getCell if e object', () => {
   let e = {f: () => {}}
   let n = 'muonProps'
   let m = xEonify.xEo()
-  let r = xEonify.getCell(e,n,m)
+  let r = xEonify.getCell(e, n, m)
   expect(r).toBe(e)
 })
-
 
 test('test xEo() return empty state object', () => {
   let state = xEonify.xEo()

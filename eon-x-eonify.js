@@ -40,23 +40,16 @@
     .replace(/-+/g, '') // remove hyphen
 
   const getCell = (e, n, m) => { // eon, name, mapper returns enty
-
     if (e[n] !== undefined && typeof e[n] === 'function') {
-      
       // n is eon with e[n] async constructor eg. async function muonNatform
       // n is ani with e[n] async constructor eg. async function anitem
       // e[n](m) is promise
       return e[n](m)
-      
     } else if (typeof e === 'object') {
-      
       // n is d3Scale (e[n] is undefined)
       return e
-      
     } else {
-
       return e
-      
     }
   }
   const mapCell = (e, n, m) => m({[n]: e})[n]
@@ -78,41 +71,35 @@
 
   // ............................. getFeon
   async function getFeon (part, __eo) { // d3Froce3d, ./d3-force-3d.js
-
     let eon = await require(...a(part[1]))
     let cell = await getCell(eon, part[0], __eo) // eon to cell
     let feon = await mapCell(cell, part[0], __eo) // map cell
     return feon
-    
   }
 
   // ............................. getXeon
   async function getXeon (part, __eo) { // d3Froce3d, d3-force-3d
-    
     let eon = await require(...a(part[1]))
     let cell = await getCell(eon, part[0], __eo) // eon to cell
     let xeon = await mapCell(cell, part[0], __eo) // map cell
-    return xeon  
-  
+    return xeon
   }
 
   // ............................. getEon
   async function getEon (inpart, __eo) { // nome is partName: eg 'muonGraticule'
-  
     let part = (typeof inpart === 'string') ? [inpart, ''] : inpart // else array
 
     let res
-    
+
     if (typeof part[0] === 'function') {
-      // [async ƒ anitem(__eo), "ani"]  
+      // [async ƒ anitem(__eo), "ani"]
 
       let [eonfn, pres] = part
       let x = await eonfn(__eo)
-      
-      res = await x[pres]()
 
+      res = await x[pres]()
     } else {
-      let [name, pres] = part   // [name, prefix] eg.: [versor, muon]
+      let [name, pres] = part // [name, prefix] eg.: [versor, muon]
 
       let ceon = ceonize(name, pres) // eg.: 'muonVersor' get from store
       let feon = feonize(name, pres) // eg.: './eon-muon-versor.js' get from file
@@ -126,40 +113,38 @@
       ]
 
       res = eonsrcs.reduce(
-      
+
         // Promise.prototype.catch() The catch() method returns a Promise and deals with rejected cases only
         // if reject, get the eon sync from mapper or call next promise in array
         (promis, func, i) => promis.catch(failed => {
-            // i: 0 eon from store
-            // i: 1 eon from file
-            // i: 2 eon from cdn
-            return Promise.resolve(getCeonSync([ceon, ''], __eo) || func())
+          // i: 0 eon from store
+          // i: 1 eon from file
+          // i: 2 eon from cdn
+          return Promise.resolve(getCeonSync([ceon, ''], __eo) || func())
         }),
-        
-          Promise.reject('init reduce'))
-          
-        .catch(failed => { console.log('Failed: ', ceon, failed) })
 
+        Promise.reject('init reduce'))
+
+        .catch(failed => { console.log('Failed: ', ceon, failed) })
     }
-    
+
     return res
   }
 
   // ............................. xs
   let xs = function (__eo = {}) {
-
     const patterns = [
 
-      ['ani',   'a', 'ani'],
+      ['ani', 'a', 'ani'],
       ['boson', 'b', ''],
-      ['ctl',   'c', 'ctl'],
-      ['dat',   'd', 'dat'],
+      ['ctl', 'c', 'ctl'],
+      ['dat', 'd', 'dat'],
       ['eohal', 'e', 'eohal'],
       ['force', 'f', 'force'],
-      ['geo',   'g', 'geo'],
-      ['lib',   'l', 'lib'],
-      ['muon',  'm', 'muon'],
-      ['prt',   'p', 'prt'],
+      ['geo', 'g', 'geo'],
+      ['lib', 'l', 'lib'],
+      ['muon', 'm', 'muon'],
+      ['prt', 'p', 'prt'],
       ['render', 'r', 'render'],
       ['zindex', 'z', 'z'],
 
@@ -201,32 +186,27 @@
   // xEo gets xs from the state to retrive eons
   //
   let initEo = async function () {
-    
     let __eo = xEo() // init mapper
-    
-   __eo({'xs': xs(__eo)}) // map xs
+
+    __eo({'xs': xs(__eo)}) // map xs
 
     await __eo('xs').m('store') // map store
     await __eo('xs').m('animation') // map animation
-    
 
     console.assert(typeof anitem === 'function' ||
-      typeof anitem === 'string') // anitem is function or string    
-      
-    return   __eo
-    
+      typeof anitem === 'string') // anitem is function or string
+
+    return __eo
   }
-  
-  
+
   let eon = async function ({anitem, time}) {
-    
     let __eo = await initEo() // init mapper
-    
+
     // let __eo = xEo() // init mapper
 
     // __eo({'xD3Require': {
-      // require: require,
-      // requireFrom: requireFrom,
+    // require: require,
+    // requireFrom: requireFrom,
     // },
     // }) // map require
 
@@ -236,7 +216,7 @@
     // await __eo('xs').m('animation') // map animation
 
     // console.assert(typeof anitem === 'function' ||
-      // typeof anitem === 'string') // anitem is function or string
+    // typeof anitem === 'string') // anitem is function or string
 
     __eo('xs').a(anitem) // proxy ani.anitem
       .then(animas => __eo('muonStore').apply({type: 'UPDANIMA', animas: animas}))

@@ -28,7 +28,7 @@ async function anitem (__eo) {
   // .................. animas
   let ani = function () {
     // .................. pics
-    let eotim = {'td': 12800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop:1}
+    let eotim = {'td': 12800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
     let pi = Math.PI, pih = Math.PI / 2,
       radians = Math.PI / 180, degrees = 180 / Math.PI,
@@ -68,16 +68,15 @@ async function anitem (__eo) {
         // 'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // craft
         'ra2': 280, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 64, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c: [ [[[0, 0, 1, 1, 1, 1]]], [[[0, 0, 0, 1, 1, 1]]], 1, 1 ],                
-        c: [ [[[0,1,1,1]]], [[[0,0,0.6,0.6]]], 1, 1 ],                
-        'fn0': (e, c, d) => cos(e[0])* cos(e[0]), // parabole
-        'fn0': (e, c, d) => cos(e[0])* sin(e[0]), // loop
+        c: [ [[[0, 0, 1, 1, 1, 1]]], [[[0, 0, 0, 1, 1, 1]]], 1, 1 ],
+        c: [ [[[0, 1, 1, 1]]], [[[0, 0, 0.6, 0.6]]], 1, 1 ],
+        'fn0': (e, c, d) => cos(e[0]) * cos(e[0]), // parabole
+        'fn0': (e, c, d) => cos(e[0]) * sin(e[0]), // loop
         // 'fn0': (e, c, d) => cos(e[0])* cos(e[2]) * (1 - d.c[1] * sin(e[0])),
         // 'fn0': (e, c, d) => cos(e[0])* cos(e[2]) * (1 - d.c[0] * sin(e[0]))* (1 - d.c[1] * sin(e[0]+pi)) ,
         fn0: (e, c, d) => cos(e[0]) * (1 - sin(e[0])) * cos(e[2]),
-        fn0: (e, c, d) => cos(e[0]) * (1 - d.c[0] * cos(e[0]+pih)) * (1 - d.c[1] * sin(e[0])) ,
-        fn0: (e, c, d) => cos(e[0]+pi) * (1 - d.c[0] * cos(e[0]+pih))* (1 - d.c[1] * sin(e[0])) * cos(e[2]) ,
-
+        fn0: (e, c, d) => cos(e[0]) * (1 - d.c[0] * cos(e[0] + pih)) * (1 - d.c[1] * sin(e[0])),
+        fn0: (e, c, d) => cos(e[0] + pi) * (1 - d.c[0] * cos(e[0] + pih)) * (1 - d.c[1] * sin(e[0])) * cos(e[2]),
 
       },
       y: {
@@ -87,43 +86,42 @@ async function anitem (__eo) {
         // 'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // craft
         'ra2': 280, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 64, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c: [ 1, [[[0, 0, 0, 0, 1, 1]]], 1, 1 ],        
-        c: [ [[[0,1,1,1]]], [[[0,0,1,1]]], 1, 1 ],        
-        fn0: (e, c, d) => sin(e[0]) * cos(e[2])* (1 - d.c[1] * sin(e[1])),
-        fn0: (e, c, d) => sin(e[0]+pi) * cos(e[2]),
-        fn0: (e, c, d) => sin(e[0]+pi) * (1 - d.c[0] * cos(e[0]+pih)) ,
+        c: [ 1, [[[0, 0, 0, 0, 1, 1]]], 1, 1 ],
+        c: [ [[[0, 1, 1, 1]]], [[[0, 0, 1, 1]]], 1, 1 ],
+        fn0: (e, c, d) => sin(e[0]) * cos(e[2]) * (1 - d.c[1] * sin(e[1])),
+        fn0: (e, c, d) => sin(e[0] + pi) * cos(e[2]),
+        fn0: (e, c, d) => sin(e[0] + pi) * (1 - d.c[0] * cos(e[0] + pih)),
 
       },
 
-     z: {
+      z: {
         // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         // 'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
         // 'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6, 'n3': 13, 'a': 9, 'b': 0.2, // craft
-        'ra2': 280, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[48,2,2,2]]], 'pa6': 0, 'pb7': -1,
+        'ra2': 280, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': [[[48, 2, 2, 2]]], 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
         // c: [ 1, 1, [[[1,1,1,1,1,2]]], [[[1,1,1,1,1,0.25]]] ],
-        // c: [ [[[0,1,1]]], [[[0, 0, 1]]], 1, 1 ],         
-        c: [ [[[0,1,1,1]]], [[[0,0,1,1]]], 1, 1 ],           
+        // c: [ [[[0,1,1]]], [[[0, 0, 1]]], 1, 1 ],
+        c: [ [[[0, 1, 1, 1]]], [[[0, 0, 1, 1]]], 1, 1 ],
         // fn0: (e, c, d) => e[2],
         // fn0: (e, c, d) => sin(d.c[2] * e[2]) * d.c[3],
-        fn0: (e, c, d) => cos(e[0]+pi) * (1 - d.c[0] * cos(e[0]+pih)) * (1 - d.c[1] * sin(e[0])) , // * sin(e[2]),
+        fn0: (e, c, d) => cos(e[0] + pi) * (1 - d.c[0] * cos(e[0] + pih)) * (1 - d.c[1] * sin(e[0])), // * sin(e[2]),
       },
 
       w: {
         // "m1":1,"m2":1,"n1":0.5,"n2":0.5,"n3":0.5,"a":1,"b":1,  // drop
         'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1, // circ
         // 'm1': -8, 'm2': -3.5, 'n1': 16.24, 'n2': 6,'n3': 13,'a': 9,'b': 0.2,
-        'ra2': 280,'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 24, 'pa6': 0, 'pb7': -1,
+        'ra2': 280, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 24, 'pa6': 0, 'pb7': -1,
         'dom3': [-180, 180],
-        c: [ [[[1, 1]]], [[[1, 1]]], [[[0, 90]]], 1 ],                
+        c: [ [[[1, 1]]], [[[1, 1]]], [[[0, 90]]], 1 ],
         'fn0': (e, c, d) => e[3],
         fn0: (e, c, d) => e[3],
 
       },
 
     }
-
 
     // .................. natAniB
     let natAniB = {
@@ -135,11 +133,11 @@ async function anitem (__eo) {
       eofold: ani => {
         let tim = ani.eoload.tim
         let res
-        
+
         // if (tim < 0.8) {
-          // res = muonNatform.natMultiLineString({eoform: ani.eoform, ghv: 1})
+        // res = muonNatform.natMultiLineString({eoform: ani.eoform, ghv: 1})
         // } else {
-          res = muonNatform.natMultiPolygon({eoform: ani.eoform, ghv: 1})
+        res = muonNatform.natMultiPolygon({eoform: ani.eoform, ghv: 1})
         // }
         return res
       },
@@ -149,7 +147,7 @@ async function anitem (__eo) {
           projection: 'uniwen',
           scale: [ 1, 1, 1],
           translate: [ 0, 0, 0 ],
-          rotate: [ 0, 98, 0 ], 
+          rotate: [ 0, 98, 0 ],
           lens: [0, 1, Infinity ],
 
         },
@@ -158,7 +156,7 @@ async function anitem (__eo) {
 
       eoform: conform,
       eoload: {
-        tim: [[[0,0,1]]]
+        tim: [[[0, 0, 1]]],
       },
     }
     // .................. cameraPersAni anima
@@ -184,7 +182,6 @@ async function anitem (__eo) {
 
             position: [0, 0, 1200 ],
             rotation: [0, 0, 0 ],
-
 
             distance2nodesFactor: 100,
             lookAt: [0, 0, 0],

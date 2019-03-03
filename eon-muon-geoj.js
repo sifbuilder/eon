@@ -801,7 +801,6 @@
       return res
     }
 
-
     // ............................. timeSeg
     let _timeSeg = function (gj, ut, tf = d => d, firstcoord = 0) {
       let ngj
@@ -811,25 +810,19 @@
         if (gj.type == 'Feature') {
           let geometry = gj.geometry
           if (geometry !== null) coords = getPolygon(geometry, coords)
-            
         } else if (gj.type == 'FeatureCollection') {
-          
-          let feature = gj.features[0]  // get first feature
+          let feature = gj.features[0] // get first feature
           coords = getCoords(feature, coords)
-          
         } else if (gj.type == 'GeometryCollection') {
           let geometry = gj.geometries[0]
           coords = getPolygon(geometry, coords)
-          
         } else if (gj.type === 'Point') {
           coords = null
-          
         } else if (gj.type === 'LineString') {
           let points = gj.coordinates
           let qpoints = points.length
           if (linpoints[0] !== points[qpoints - 1]) points.push(line[0])
           coords = points
-        
         } else if (gj.type === 'MultiPoint') {
           let points = gj.coordinates
           let qpoints = points.length
@@ -848,12 +841,10 @@
           throw new Error('gj type not identified.')
         }
       }
-      
-      
+
       return ngj
     }
-      
-    
+
     let timeSeg = function (geoData, ut, tf = d => d, firstcoord = 0) {
       let coords = getCoords(geoData)
       let nb = coords.length
@@ -865,8 +856,6 @@
       return ngj
     }
 
-    
-    
     let segtime = function (geoData, tim) {
       console.assert(geoData.geometry.type === 'MultiLineString')
 

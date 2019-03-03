@@ -23,9 +23,8 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
 
-  
   renderSvg.scenecolor('black')
-  
+
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -45,7 +44,6 @@ async function anitem (__eo) {
       eofold: ani => {
         let gj = muonLindenmayer.multiLine(ani.eoload.lindenmayer)
 
-      
         gj = muonGeoj.timeSeg(gj, ani.eotim.unElapsed)
         return gj
       },
@@ -55,7 +53,7 @@ async function anitem (__eo) {
         proform: {
           projection: 'uniwen',
           scale: 1,
-          translate: [ 0, 0 ,0 ],
+          translate: [ 0, 0, 0 ],
           prerotate: [[[ ctl.rotation ]]],
           rotate: [ 0, 0, 0 ],
         },
@@ -71,7 +69,7 @@ async function anitem (__eo) {
               N: '+OF--PF[---MF--NF]+',
               O: '-MF++NF[+++OF++PF]-',
               P: '--OF++++MF[+PF++++NF]--NF',
-              F: '',              
+              F: '',
             },
           },
           mayer: {

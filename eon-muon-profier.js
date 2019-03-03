@@ -59,7 +59,7 @@
 
     ])
     let xeon = xEonify
-    
+
     // ............................. getPrt
     function getPrt (projdef) {
       console.assert(!Array.isArray(projdef))

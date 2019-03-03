@@ -51,14 +51,14 @@ async function anitem (__eo) {
   ])
 
   renderSvg.scenecolor('black')
-  
+
   let ctl
   try {
     ctl = ctlWen().control(renderSvg.svg())
   } catch (e) {
     ctl = () => [0, 0, 0]
   }
-    
+
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -187,7 +187,7 @@ async function anitem (__eo) {
           translate: [0, 0, 0],
           scale: 0.1,
           rotate: [ 0, 0, 0 ],
-          prerotate: (ctl!==undefined) ? [[[ ctl.rotation ]]] : [0,0,0],          
+          prerotate: (ctl !== undefined) ? [[[ ctl.rotation ]]] : [0, 0, 0],
           lens: [ 0, 1, Infinity ],
         },
       },

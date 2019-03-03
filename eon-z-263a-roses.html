@@ -32,32 +32,31 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
   renderSvg.scenecolor('black')
-      let eoform = {
-      'x': {
-						"m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1,			// square
-						"ra2":[[[40,40]]],
-						"v0":0,"v1": 1,
-						"w4":  [[[0, - 3 * 360]]], // 180, // 
-						"seg5": 360
-      },
-      'y': {
-						"m1":4,"m2":4,"n1":100,"n2":100,"n3":100,"a":1,"b":1,			// square
-						"ra2":[[[40,40]]],
-						"v0":0,"v1": 1, 	// [[[1,1,2,2]]], // 1, 	// [[[1,1,2,2]]],
-						"w4": [[[0, - 3 * 360]]], // 0, // 180, //
-						"seg5": 360,"pa6":0,"pb7":-1,
-      }
+  let eoform = {
+    'x': {
+      'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,			// square
+      'ra2': [[[40, 40]]],
+      'v0': 0, 'v1': 1,
+      'w4': [[[0, -3 * 360]]], // 180, //
+      'seg5': 360,
+    },
+    'y': {
+      'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1,			// square
+      'ra2': [[[40, 40]]],
+      'v0': 0, 'v1': 1, 	// [[[1,1,2,2]]], // 1, 	// [[[1,1,2,2]]],
+      'w4': [[[0, -3 * 360]]], // 0, // 180, //
+      'seg5': 360, 'pa6': 0, 'pb7': -1,
+    },
 
-    }
-  
- 
-    let ctl
-    try {
-      ctl = ctlWen().control(renderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
-    }
-    
+  }
+
+  let ctl
+  try {
+    ctl = ctlWen().control(renderSvg.svg())
+  } catch (e) {
+    ctl = () => [0, 0, 0]
+  }
+
   let ani = function () {
     // .................. pics
     let eotim = {'td': 9800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1, tp: t => Math.sin((Math.PI / 2) * t)}
@@ -69,8 +68,8 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
       eofold: ani => ({
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0], },
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0] },
       }),
       eomot: {
         proform: {
@@ -82,12 +81,12 @@ async function anitem (__eo) {
       eoload: {
         textform: {
           string: 'eon-z-263a roses',
-          style: { 'font-size': [[[12, 12]]], },
+          style: { 'font-size': [[[12, 12]]] },
         },
       },
     }
-    // .................. aniForm    
-   let aniForm = {
+    // .................. aniForm
+    let aniForm = {
 
       eohal: 'mars',
       eotim: eotim,
@@ -112,7 +111,7 @@ async function anitem (__eo) {
     // .................. animas
     let animas = [
 
-      aniForm, // 
+      aniForm, //
       textAni, // h.text
 
     ]

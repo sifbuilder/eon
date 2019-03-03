@@ -68,12 +68,12 @@
       s0: null, // previous position
       s1: null, // previous position
       s2: null, // current position
-      
+
       showrot: false,
 
-    }    
-    
-    // .................. 
+    }
+
+    // ..................
     function tick () {
       if (state.timer) state.timer = requestAnimationFrame(tick)
     }
@@ -113,8 +113,6 @@
       )
       return enty
     }
-
-
 
     // .................. dragstarted listener
     function dragstarted () {

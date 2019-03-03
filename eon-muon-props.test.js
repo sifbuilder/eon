@@ -13,16 +13,12 @@ jest.mock('./d3-require.js')
 
 const xEonify = require('./eon-x-eonify.js')
 let __eo = xEonify.xEo()
-  __eo({'xs': xEonify.xs(__eo)})
+__eo({'xs': xEonify.xs(__eo)})
 
 const muonProps = require('./eon-muon-props.js').muonProps(__eo)
 
 test('test add', async () => {
-
   let m = await Promise.resolve(muonProps)
-  
-  expect(m.addtest(1,1)).toBe(2)
 
+  expect(m.addtest(1, 1)).toBe(2)
 })
-
-
