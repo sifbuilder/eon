@@ -40,6 +40,7 @@
     .replace(/-+/g, '') // remove hyphen
 
   const getCell = (e, n, m) => { // eon, name, mapper returns enty
+
     if (e[n] !== undefined && typeof e[n] === 'function') {
       // n is eon with e[n] async constructor eg. async function muonNatform
       // n is ani with e[n] async constructor eg. async function anitem
@@ -190,6 +191,12 @@
 
     __eo({'xs': xs(__eo)}) // map xs
 
+    __eo({'xD3Require': {
+        require: require,
+        requireFrom: requireFrom,
+        },
+        }) // map require    
+    
     await __eo('xs').m('store') // map store
     await __eo('xs').m('animation') // map animation
 
@@ -200,27 +207,13 @@
   }
 
   let eon = async function ({anitem, time}) {
+    
     let __eo = await initEo() // init mapper
-
-    // let __eo = xEo() // init mapper
-
-    // __eo({'xD3Require': {
-    // require: require,
-    // requireFrom: requireFrom,
-    // },
-    // }) // map require
-
-    // __eo({'xs': xs(__eo)}) // map xs
-
-    // await __eo('xs').m('store') // map store
-    // await __eo('xs').m('animation') // map animation
-
-    // console.assert(typeof anitem === 'function' ||
-    // typeof anitem === 'string') // anitem is function or string
-
-    __eo('xs').a(anitem) // proxy ani.anitem
-      .then(animas => __eo('muonStore').apply({type: 'UPDANIMA', animas: animas}))
-      .then(() => __eo('muonAnimation').animate(time)) // animate
+    let animas = await __eo('xs').a(anitem) // proxy ani.anitem
+    __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
+    __eo('muonAnimation').animate(time) // animate
+ 
+    
   }
 
   exports.capitalize = capitalize

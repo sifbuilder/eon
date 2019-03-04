@@ -70,13 +70,17 @@
 
     // ... async animate
     async function animate (time) {
+      
       if (time !== undefined) {
         animier(time)
+
+        
       } else {
         if (state.animationStop === undefined) {
           state.animationStop = ctlTimer.subscribe(animier)
         }
       }
+      
     }
 
     // ... async collectDyn
@@ -189,6 +193,8 @@
 
       // ... then render by sort the features in the collection
       renderRenderer.render(featurecollection)
+      
+      return featurecollection
     }
 
     // ............................. enty
