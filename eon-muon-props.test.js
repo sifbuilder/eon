@@ -17,8 +17,24 @@ __eo({'xs': xEonify.xs(__eo)})
 
 const muonProps = require('./eon-muon-props.js').muonProps(__eo)
 
+
 test('test add', async () => {
   let m = await Promise.resolve(muonProps)
 
   expect(m.addtest(1, 1)).toBe(2)
+})
+
+test('test isPureArray', async () => {
+  let m = await Promise.resolve(muonProps)
+
+
+  expect(m.isPureArray([1,2])).toBe(true)
+})
+test('test is not PureArray', async () => {
+  let m = await Promise.resolve(muonProps)
+  expect(m.isPureArray([1, {}])).toBe(false)
+})
+test('test is not PureArray', async () => {
+  let m = await Promise.resolve(muonProps)
+  expect(m.isPureArray([1, ()=>{}])).toBe(false)
 })

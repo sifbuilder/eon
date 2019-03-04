@@ -19,6 +19,7 @@
 
     let props = {}
     props.addtest = (a, b) => a + b
+    
 
     /***************************
     *        @arrays
