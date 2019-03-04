@@ -18,6 +18,11 @@
   const capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1)
   const a = d => Array.isArray(d) ? d : Array.of(d)
 
+
+  const filenize = function (nome, path = '.', ext = 'js') {
+    resturn `${path}/${nome}.${ext}`
+  }  
+  
   const ceonize = function (nome, pres = '') {
     let camelized
     if (pres === '') {
@@ -40,7 +45,7 @@
     .replace(/-+/g, '') // remove hyphen
 
   const getCell = (e, n, m) => { // eon, name, mapper returns enty
-
+    console.assert(e !== undefined, `eon is undefined with name ${n}`)
     if (e[n] !== undefined && typeof e[n] === 'function') {
       // n is eon with e[n] async constructor eg. async function muonNatform
       // n is ani with e[n] async constructor eg. async function anitem
@@ -72,7 +77,11 @@
 
   // ............................. getFeon
   async function getFeon (part, __eo) { // d3Froce3d, ./d3-force-3d.js
+    if (1 && 1) console.log('require', require)
     let eon = await require(...a(part[1]))
+
+    console.log(eon !== undefined, `eon undefined for part ${part[0]}`)
+    
     let cell = await getCell(eon, part[0], __eo) // eon to cell
     let feon = await mapCell(cell, part[0], __eo) // map cell
     return feon
@@ -217,6 +226,7 @@
   }
 
   exports.capitalize = capitalize
+  exports.filenize = filenize
   exports.ceonize = ceonize
   exports.feonize = feonize
   exports.camelize = camelize

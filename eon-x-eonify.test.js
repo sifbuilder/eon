@@ -6,6 +6,12 @@ let d3RequireFrom = d3.requireFrom
 
 const xEonify = require('./eon-x-eonify.js')
 
+
+test('test filenize', () => {
+  let filepath = xEonify.filenize('d3-scale')
+  expect(filepath).toEqual('./d3-scale.js')
+})
+
 test('test capitalize', () => {
   let r = xEonify.capitalize('test')
   expect(r).toBe('Test')
@@ -46,3 +52,4 @@ test('test xEo() return empty state object', () => {
   let state = xEonify.xEo()
   expect(state()).toEqual({})
 })
+
