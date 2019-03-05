@@ -272,6 +272,8 @@ if (action === 'doAction') {
   if (1 && 1) console.log('outText', outPath, outText)
 } else if (action === 'help') {
   console.log(`node ${prgname} {[pattern]} {local|remote} {[help], [debug], [do]}
+      eg: node eon-teer-readme . local do
+      eg: node eon-teer-readme . remote do
       generate README.md file
       takes html files from pattern, eg 7*
       builds content for local or remote README

@@ -909,7 +909,7 @@
         }
 
         resizeCanvas({threeRenderer, camera})
-        // state.viewControls.update() // UPDATE SCENE by CONTROL //_e_
+        state.viewControls.update() // UPDATE SCENE by CONTROL //_e_
 
         if (state.scene) {
           let scene = state.scene
