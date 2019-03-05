@@ -176,8 +176,7 @@ dodecahedron
 
       eofold: anitem => {
         let tim = anitem.eoload.tim
-        let faceColors = anitem.eoload.faceColors
-        let lineColors = anitem.eoload.lineColors
+        let colors = anitem.eoload.colors
 
         let parts = muonNets.parse({text: def})
 
@@ -191,8 +190,10 @@ dodecahedron
             sort: 'threeobject',
             faces: parts.faces,
             hinges: parts.hinges,
-            faceColors: faceColors,
-            lineColors: lineColors,
+            colors: colors,
+            shading: 1,
+            showlines: 1,
+            showfaces: 1,
             renderData: {
               t: tim,
               docenter: 1,
@@ -218,18 +219,8 @@ dodecahedron
       },
       eoload: {
         tim: [[[0, 0.2, 1]]],
-        faceColors: [
-          [ 212 / 255, 175 / 255, 55 / 255 ],
-          [ 222 / 255, 175 / 255, 55 / 255 ],
-          [ 232 / 255, 175 / 255, 55 / 255 ],
-          [ 242 / 255, 175 / 255, 55 / 255 ],
-          [ 252 / 255, 175 / 255, 55 / 255 ],
-          [ 262 / 255, 175 / 255, 55 / 255 ],
-          [ 272 / 255, 175 / 255, 55 / 255 ],
-          [ 282 / 255, 175 / 255, 55 / 255 ],
-          [ 292 / 255, 175 / 255, 55 / 255 ],
-        ],
-        lineColors: [
+
+        colors: [
           [ 0.7, 0.5, 0.2], // gold
           [ 0.0, 0.2, 0.99 ],
           [ 0.0, 0.99, 0.09 ],

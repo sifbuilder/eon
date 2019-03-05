@@ -77,10 +77,9 @@
 
   // ............................. getFeon
   async function getFeon (part, __eo) { // d3Froce3d, ./d3-force-3d.js
-    if (1 && 1) console.log('require', require)
     let eon = await require(...a(part[1]))
 
-    console.log(eon !== undefined, `eon undefined for part ${part[0]}`)
+    console.assert(eon !== undefined, `eon undefined for part ${part[0]}`)
     
     let cell = await getCell(eon, part[0], __eo) // eon to cell
     let feon = await mapCell(cell, part[0], __eo) // map cell
