@@ -38,7 +38,7 @@ async function anitem (__eo) {
   ])
 
   let muonStore = __eo('muonStore')
-
+  renderSvg.scenecolor('black')
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -55,26 +55,18 @@ async function anitem (__eo) {
     let pacerNat = {
 
       eohal: 'pacer',
-
       eotim: eotim,
-
       eoric: { gid: 'natpace', cid: 'natpace', fid: 'natpace' },
 
       eofold: {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
+        geometry: { type: 'Point', coordinates: [0, 0, 0], },
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
 
       eonode: {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
+        geometry: { type: 'Point', coordinates: [0, 0, 0], },
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
 
@@ -92,22 +84,22 @@ async function anitem (__eo) {
 
       eocrom: { 'csx': 0, 'cf': 777, 'co': 0.1, 'cs': 666 + 200 * (0.5 - Math.random()), 'cw': 1.5, 'cp': 1},
 
-      eoform: {
-        'x': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 24, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 10, 'pa6': 0, 'pb7': -1,
-        },
-        'y': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 24, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 10, 'pa6': 0, 'pb7': -1,
-        },
-        'z': {
-          'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
-          'ra2': 24, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 10, 'pa6': 0, 'pb7': -1,
-        },
-      },
-
       eoload: {
+        eoform: {
+          'x': {
+            'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+            'ra2': 24, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 20, 'pa6': 0, 'pb7': -1,
+          },
+          'y': {
+            'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+            'ra2': 24, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 20, 'pa6': 0, 'pb7': -1,
+          },
+          'z': {
+            'm1': 4, 'm2': 4, 'n1': 100, 'n2': 100, 'n3': 100, 'a': 1, 'b': 1, // square
+            'ra2': 24, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 10, 'pa6': 0, 'pb7': -1,
+          },
+        },
+
 
         pacer: {
 
@@ -119,7 +111,7 @@ async function anitem (__eo) {
 
           initN: 24, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
 
-          eohal: 'natform',
+          eohal: 'mars',
           geosort: 'anima',
           geobase: '',
           geoaad: 0,
@@ -132,10 +124,7 @@ async function anitem (__eo) {
             return eoric
           },
 
-          eofold: function (ani, props) {
-            let neweofold = muonNatform.natMultiLineString({eoform: ani.eoform})
-            return neweofold
-          },
+          eofold: (ani, props) => muonNatform.natMultiLineString({eoform: ani.eoload.eoform}),
 
           eonode: function (ani, props) {
             let stace = [0, 0, 0]
@@ -165,10 +154,7 @@ async function anitem (__eo) {
             let coordinates = stace
             let res = {
               type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: coordinates,
-              },
+              geometry: { type: 'Point', coordinates: coordinates, },
               properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
             }
             return res

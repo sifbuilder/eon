@@ -48,7 +48,7 @@
       muonStace,
       muonProj3ct,
       muonGeom,
-      puniwen,
+      prtUniwen,
     ] = await Promise.all([
       __eo('xs').m('props'),
       __eo('xs').m('wen'),
@@ -64,11 +64,11 @@
     function getPrt (projdef) {
       console.assert(!Array.isArray(projdef))
 
-      let geoproj = puniwen() // default to p.uniwen
+      let geoproj = prtUniwen() // default to p.uniwen
       console.assert(projdef !== undefined, 'm.profier.formion projdef undefined')
 
       if (projdef === undefined) {
-        geoproj = puniwen({})
+        geoproj = prtUniwen({})
       } else if (typeof projdef === 'function') {
         geoproj = projdef
       } else if (typeof projdef === 'object') {
@@ -191,7 +191,7 @@
     }
 
     // ............................. uniweon
-    let uniweon = projdef => puniwen(projdef)
+    let uniweon = projdef => prtUniwen(projdef)
 
     // ............................. enty
     let enty = function () {}

@@ -12,8 +12,9 @@
   //    anitem
   //
 
-  let require = d3.require // global d3
-  let requireFrom = d3.requireFrom // global d3
+  let _d3 = d3 || {}
+  let require = _d3.require // global d3
+  let requireFrom = _d3.requireFrom // global d3
 
   const capitalize = s => (s == null) ? '' : s.charAt(0).toUpperCase() + s.slice(1)
   const a = d => Array.isArray(d) ? d : Array.of(d)

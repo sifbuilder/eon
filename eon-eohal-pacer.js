@@ -313,7 +313,7 @@
             // ... if paced anima, eohal.ween the newitem, then store
             // ... if paced anigram, eohal.gramm the newitem, then return
 
-            let eohal = __eo(xeon.ceonize(newItem.eohal, 'eohal'))
+            let eohal = typeof newItem.eohal === 'object' ? newItem.eohal : __eo(xeon.ceonize(newItem.eohal, 'eohal'))
 
             let newItemsInCount
             if (geosort === 'anima') {

@@ -22,6 +22,7 @@ async function anitem (__eo) {
     prtNatform,
     prtBase,
     prtOrthographic,
+    renderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-geo-projection'),
@@ -37,7 +38,10 @@ async function anitem (__eo) {
     __eo('xs').p('natform'),
     __eo('xs').p('base'),
     __eo('xs').p('orthographic'),
+    __eo('xs').r('svg'),
   ])
+  
+    renderSvg.scenecolor('black')
   // .................. animas
   let ani = function () {
     let eotim = {'td': 10800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}

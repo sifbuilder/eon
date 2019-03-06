@@ -47,26 +47,8 @@ async function anitem (__eo) {
       eofold: ani => {
         let geo = muonLindenmayer.multiFeature(ani.eoload.lindenmayer)
 
-        // let coords = geo.map(ring => muonProps.cant(ring, ani.eoload.lindenmayer.mayer.cant))
-        // let coords = geo
 
-        // let geoData = {
-        // type: 'Feature',
-        // geometry: {
-        // type: 'MultiLineString',
-        // coordinates: coords,
-        // },
-        // properties: {},
-        // }
-
-        let gj = {
-          type: 'FeatureCollection',
-          features: geo,
-        }
-
-        let ngj = gj // muonGeoj.segtime(geoData, ani.eotim) //
-
-        return ngj
+        return geo
       },
 
       eomot: {

@@ -48,7 +48,7 @@ async function anitem (__eo) {
 
     const eotim = {'td': 9800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
-    let defOctahedron = `
+    let def = `
 :name
 octahedron
 :number
@@ -113,147 +113,16 @@ cube
 .86602540378443893 2.4999999999999999 -.81649658092772675
 :EOF`
 
-    let defCube = `
-:name
-cube
-:number
-1
-:symbol
-{4,3}	@P sub 4 @
-:dual
-octahedron
-:sfaces
-6 6{4}
-:svertices
-8 8(@4 sup 3@)
-:net
-6 4
-4 4 3 7 8
-4 5 4 8 9
-4 1 0 3 4
-4 3 2 6 7
-4 8 7 10 11
-4 11 10 12 13
-:solid
-6 4
-4 15 14 18 19
-4 17 15 19 21
-4 17 16 14 15
-4 14 16 20 18
-4 19 18 20 21
-4 21 20 16 17
-:hinges
-5
-0 0 2 2 1.5707963267948966
-0 1 3 3 1.5707963267948966
-0 2 4 0 1.5707963267948966
-0 3 1 1 1.5707963267948966
-5 0 4 2 1.5707963267948966
-:dih
-1
-12 4 4 1.5707963267948966
-:vertices
-22 14
--1.5[-3/2] -.5[-1/2] 0[0]
--1.5[-3/2] .5[1/2] 0[0]
--.5[-1/2] -1.5[-3/2] 0[0]
--.5[-1/2] -.5[-1/2] 0[0]
--.5[-1/2] .5[1/2] 0[0]
--.5[-1/2] 1.5[3/2] 0[0]
-.5[1/2] -1.5[-3/2] 0[0]
-.5[1/2] -.5[-1/2] 0[0]
-.5[1/2] .5[1/2] 0[0]
-.5[1/2] 1.5[3/2] 0[0]
-1.5[3/2] -.5[-1/2] 0[0]
-1.5[3/2] .5[1/2] 0[0]
-2.5[5/2] -.5[-1/2] 0[0]
-2.5[5/2] .5[1/2] 0[0]
--3.5 -1.5 -2.0000000000000001
--3.5000000000000001 -1.4999999999999999 -1
--3.5 -.49999999999999994 -2.0000000000000002
--3.5 -.49999999999999987 -1.0000000000000001
--2.5 -1.5 -2.0000000000000001
--2.5 -1.4999999999999999 -1
--2.5 -.49999999999999994 -2.0000000000000002
--2.5 -.49999999999999992 -1.0000000000000001
-:EOF`
-
-    let def = `
-:name
-cube
-:number
-1
-:symbol
-{4,3}	@P sub 4 @
-:dual
-octahedron
-:sfaces
-6 6{4}
-:svertices
-8 8(@4 sup 3@)
-:net
-6 4
-4 4 3 7 8
-4 5 4 8 9
-4 1 0 3 4
-4 3 2 6 7
-4 8 7 10 11
-4 11 10 12 13
-:solid
-6 4
-4 15 14 18 19
-4 17 15 19 21
-4 17 16 14 15
-4 14 16 20 18
-4 19 18 20 21
-4 21 20 16 17
-:hinges
-5
-0 0 2 2 1.5707963267948966
-0 1 3 3 1.5707963267948966
-0 2 4 0 1.5707963267948966
-0 3 1 1 1.5707963267948966
-5 0 4 2 1.5707963267948966
-:dih
-1
-12 4 4 1.5707963267948966
-:vertices
-22 14
--1.5[-3/2] -.5[-1/2] 0[0]
--1.5[-3/2] .5[1/2] 0[0]
--.5[-1/2] -1.5[-3/2] 0[0]
--.5[-1/2] -.5[-1/2] 0[0]
--.5[-1/2] .5[1/2] 0[0]
--.5[-1/2] 1.5[3/2] 0[0]
-.5[1/2] -1.5[-3/2] 0[0]
-.5[1/2] -.5[-1/2] 0[0]
-.5[1/2] .5[1/2] 0[0]
-.5[1/2] 1.5[3/2] 0[0]
-1.5[3/2] -.5[-1/2] 0[0]
-1.5[3/2] .5[1/2] 0[0]
-2.5[5/2] -.5[-1/2] 0[0]
-2.5[5/2] .5[1/2] 0[0]
--3.5 -1.5 -2.0000000000000001
--3.5000000000000001 -1.4999999999999999 -1
--3.5 -.49999999999999994 -2.0000000000000002
--3.5 -.49999999999999987 -1.0000000000000001
--2.5 -1.5 -2.0000000000000001
--2.5 -1.4999999999999999 -1
--2.5 -.49999999999999994 -2.0000000000000002
--2.5 -.49999999999999992 -1.0000000000000001
-:EOF`
-
-    // .................. cubeAni anima
-    let cubeAni = {
+    // .................. facesAni anima
+    let facesAni = {
 
       eohal: 'mars',
       eotim: eotim,
-      eoric: {gid: 'cubeAni', cid: 'cubeAni', fid: 'cubeAni'},
+      eoric: {gid: 'facesAni', cid: 'facesAni', fid: 'facesAni'},
 
       eofold: anitem => {
         let tim = anitem.eoload.tim
-        let faceColors = anitem.eoload.faceColors
-        let lineColors = anitem.eoload.lineColors
+        let colors = anitem.eoload.colors
 
         let parts = muonNets.parse({text: def})
 
@@ -267,76 +136,10 @@ octahedron
             sort: 'threeobject',
             faces: parts.faces,
             hinges: parts.hinges,
-            faceColors: faceColors,
-            lineColors: lineColors,
-            renderData: {
-              t: 1,
-              docenter: 1,
-            },
-          },
-        }
-
-        return net
-      },
-
-      eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
-
-      eomot: {
-        proform: {
-
-          projection: 'uniwen',
-          scale: [ [[[0, 2]]], [[[0, 2]]], [[[0, 2]]]],
-          translate: [ 0, 0, 0 ],
-          rotate: [ 0, 0, 0 ],
-          lens: [0, 1, Infinity],
-        },
-
-      },
-      eoload: {
-        tim: [[[0, 0.2, 1]]],
-        faceColors: [
-          [ 0.21, 0.21, [[[0.1, 0.91]]] ],
-          [ 0.22, 0.22, [[[0.1, 0.92]]] ],
-          [ 0.23, 0.23, [[[0.1, 0.93]]] ],
-          [ 0.24, 0.24, [[[0.1, 0.94]]] ],
-          [ 0.25, 0.25, [[[0.1, 0.95]]] ],
-          [ 0.26, 0.26, [[[0.1, 0.96]]] ],
-        ],
-        lineColors: [
-          [ 0.7, 0.5, 0.2], // gold
-          [ 0.0, 0.2, 0.99 ],
-          [ 0.0, 0.99, 0.09 ],
-          [ 0.0, 0.99, 0.09 ],
-        ],
-      },
-    }
-
-    // .................. octahedronAni anima
-    let octahedronAni = {
-
-      eohal: 'mars',
-      eotim: eotim,
-      eoric: {gid: 'octahedronAni', cid: 'octahedronAni', fid: 'octahedronAni'},
-
-      eofold: anitem => {
-        let tim = anitem.eoload.tim
-        let faceColors = anitem.eoload.faceColors
-        let lineColors = anitem.eoload.lineColors
-
-        let parts = muonNets.parse({text: defOctahedron})
-
-        let net = {
-          type: 'Feature',
-          geometry: {
-            type: 'MultiPoint',
-            coordinates: parts.verts.map(d => d.map(c => 2 + c)),
-          },
-          properties: {
-            sort: 'threeobject',
-            faces: parts.faces,
-            hinges: parts.hinges,
-            faceColors: faceColors,
-            lineColors: lineColors,
+            colors: colors,
+            shading: 0,
+            showlines: 1,
+            showfaces: 0,
             renderData: {
               t: tim,
               docenter: 1,
@@ -347,31 +150,23 @@ octahedron
         return net
       },
 
-      eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 1.6, 'co': 0.999, 'cp': 0.999},
 
       eomot: {
         proform: {
 
           projection: 'uniwen',
-          // scale: [ [[[1,3]]], [[[1,3]]], [[[1,3]]]],
-          scale: [ [[[1, 1]]], [[[1, 1]]], [[[1, 1]]]],
+          scale: [ [[[0.5, 2.0]]], [[[0.5, 2.0]]], [[[0.5, 2.0]]]],
           translate: [ 0, 0, 0 ],
-          rotate: [ 0, 0, 0 ],
+          rotate: [ 0, 0, [[[0, 12]]] ],
           lens: [0, 1, Infinity],
         },
 
       },
       eoload: {
         tim: [[[0, 0.2, 1]]],
-        faceColors: [
-          [ 0.21, 0.21, [[[0.1, 0.91]]] ],
-          [ 0.22, 0.22, [[[0.1, 0.92]]] ],
-          [ 0.23, 0.23, [[[0.1, 0.93]]] ],
-          [ 0.24, 0.24, [[[0.1, 0.94]]] ],
-          [ 0.25, 0.25, [[[0.1, 0.95]]] ],
-          [ 0.26, 0.26, [[[0.1, 0.96]]] ],
-        ],
-        lineColors: [
+
+        colors: [
           [ 0.7, 0.5, 0.2], // gold
           [ 0.0, 0.2, 0.99 ],
           [ 0.0, 0.99, 0.09 ],
@@ -408,8 +203,10 @@ octahedron
           near: 0.001,
           far: 20,
 
-          position: [0, 0, -9],
-          rotation: [0, 0, 0],
+          position: [0, 0, 9],
+          rotation: [0, 90, 0],
+          velang: [1, 10, 0],
+          vellin: [0, 0, 0],
           distance2nodesFactor: 1,
           lookAt: [0, 0, 0],
         },
@@ -417,11 +214,12 @@ octahedron
       },
     }
     // .................. textAni
-    let net = muonNets.parse({text: defOctahedron})
+    let net = muonNets.parse({text: def})
 
     let text = `(${net.number}) ${net.name}
 symbol: ${net.symbol}
-dual: ${net.dual}`
+dual: ${net.dual}
+netlib.org/polyhedra`
 
     let textsegment = function (text, t) {
       let s = text // source
@@ -433,6 +231,7 @@ dual: ${net.dual}`
 
       return s1
     }
+
     let textAni = {
       eohal: 'textform',
       eotim: eotim,
@@ -503,13 +302,13 @@ dual: ${net.dual}`
         let ani = muonProps.clone(textAni)
         ani.eoric.fid = textAni.eoric.fid + '_' + i
         ani.eoric.cid = textAni.eoric.cid + '_' + i
-        ani.eomot.proform.translate = [75, -150 - 15 * i]
+        ani.eomot.proform.translate = [75, -145 - 15 * i]
         ani.eoload.textform.linenb = i
         anis['ani' + '_' + i] = ani
       }
       return anis
     }
-    // .................. cameraOrthoAni anima
+    // .................. ambientLight anima
     let ambientLight = {
 
       eotim: eotim,
@@ -532,8 +331,38 @@ dual: ${net.dual}`
           type: 'AmbientLight',
           name: 'AmbientLight',
           color: 0xeeeeee,
-          intensity: 0.6,
+          intensity: 0.5,
           position: [400, 400, 400],
+        },
+      },
+
+    }
+    // .................. lightHemisphereAni anima
+    let lightHemisphereAni = {
+
+      eotim: eotim,
+      eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
+      eohal: 'sol',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload
+        let json = { // Feature
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: anitem.eoload.light,
+        }
+
+        return json
+      },
+      eoload: {
+        light: {
+          sort: 'light',
+          type: 'HemisphereLight',
+          name: 'HemisphereLight',
+          skyColor: [[[111, 999]]],
+          groundColor: [[[999, 111]]],
+          intensity: 0.3,
+          position: [0, 0, 0],
         },
       },
 
@@ -543,10 +372,10 @@ dual: ${net.dual}`
       {},
       getanis(text),
       {
-        octahedronAni, // h.mars
-        // cubeAni, // h.mars
+        facesAni, // h.mars
         cameraOrthoAni, // h.sol
         ambientLight, // h.sol
+        lightHemisphereAni, // h.sol
       }
     )
 

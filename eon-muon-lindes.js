@@ -24,7 +24,7 @@
         mayer: {
           side: 2,
           angle: 45,
-          anglestart: 45,
+          angstart: 45,
           start: [-100, -100],
         },
       },
@@ -41,7 +41,7 @@
         mayer: {
           side: 2,
           angle: 90,
-          anglestart: 90,
+          angstart: 90,
           start: [-100, -100],
         },
       },
@@ -88,7 +88,7 @@
         mayer: {
           side: 2,
           angle: 60,
-          anglestart: 0,
+          angstart: 0,
           start: [0, 0],
         },
       },
@@ -104,7 +104,7 @@
         mayer: {
           side: 2,
           angle: 20,
-          anglestart: 0,
+          angstart: 0,
           start: [0, 0],
           randomizeStep: 20, // %
           randomizeAngle: 20, // %
@@ -125,7 +125,7 @@
         mayer: {
           side: 2,
           angle: 30,
-          anglestart: 30,
+          angstart: 30,
           start: [0, 0],
         },
       },
@@ -144,7 +144,7 @@
         mayer: {
           side: 6,
           angle: 36,
-          anglestart: 0,
+          angstart: 0,
           start: [-100, -100],
         },
       },
@@ -163,7 +163,7 @@
         mayer: {
           side: 24,
           angle: 36,
-          anglestart: 0,
+          angstart: 0,
           start: [0, 0],
         },
       },

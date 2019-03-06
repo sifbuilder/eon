@@ -73,6 +73,7 @@ async function resolve(name, base) {
 const require = requireFrom(resolve);
 
 function requireFrom(resolver) {
+
   const cache = new Map;
   const requireBase = requireRelative(null);
 

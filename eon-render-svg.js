@@ -39,7 +39,7 @@
     let [
       d3,
       muonProj3ct,
-      puniwen,
+      prtUniwen,
       renderPortview, // viewScreenPrt - _e_ to be defined in z.
     ] = await Promise.all([
       __eo('xs').b('d3'),
@@ -206,7 +206,7 @@
 
       let viewScreenPrt = renderPortview.viewScreenPrt()
       let prtdef = renderPortview.prtdef()
-      let prt = puniwen(prtdef)
+      let prt = prtUniwen(prtdef)
 
       viewScreenPrt = prt // view screen projection
 

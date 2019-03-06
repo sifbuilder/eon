@@ -49,19 +49,8 @@ async function anitem (__eo) {
       eohal: 'mars',
 
       eofold: ani => {
-        let geo = muonLindenmayer.multiFeature(ani.eoload.lindenmayer)
-
-        let coords = geo.map(ring => muonProps.cant(ring, ani.eoload.lindenmayer.mayer.cant))
-
-        let geoData = {
-          type: 'Feature',
-          geometry: {
-            type: 'MultiLineString',
-            coordinates: coords,
-          },
-          properties: {},
-        }
-        return geoData
+        let geo = muonLindenmayer.multiLine(ani.eoload.lindenmayer)
+        return geo
       },
 
       eocrom: { 'csx': 0, 'cf': [[[444, 777, 444]]], 'cs': 666, 'cw': [[[0.9, 0.9]]], 'co': [[[0.01, 0.4, 0.01]]], 'cp': [[[0.9, 0.9]]]},
@@ -90,7 +79,7 @@ async function anitem (__eo) {
           mayer: {
             side: 12,
             angunit: 45,
-            startangle: 45,
+            angstart: 45,
             start: [100, -100],
             cant: [[[0.2, 0.2]]],
           },

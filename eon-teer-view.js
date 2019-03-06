@@ -1,6 +1,5 @@
-
 // node <program> actuponpattern
-
+  
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
@@ -27,7 +26,7 @@ let args = process.argv
 let [cmd, scp, ...opts] = args
 
 let action = 'help' // {[help] pattern}
-let inscopepattern = new RegExp(`^eon-z-___none___.*\.html$`, 'i') // none pattern
+let inScopePattern = new RegExp(`^eon-z-___none___.*\.html$`, 'i') // none pattern
 
 if (opts.length === 0) { // action: help
   action = 'help'
@@ -39,7 +38,7 @@ if (opts.length === 0) { // action: help
   } else {
     codepattern = opts[0]
   }
-  inscopepattern = new RegExp(`^eon-z-${codepattern}.*\.html$`, 'i') // actView pattern
+  inScopePattern = new RegExp(`^eon-z-${codepattern}.*\.html$`, 'i') // actView pattern
 }
 
 const options = {
@@ -74,7 +73,7 @@ let tracingpath = './___trace.json'
 
 let files = fs.readdirSync(indir) // to actView
   .filter(file => isFile(file))
-  .filter(d => inscopepattern.test(d))
+  .filter(d => inScopePattern.test(d))
 
 // .................. actUponItems
 async function actUponItems (browser, fls, opts) {
@@ -152,8 +151,10 @@ async function actView (fls, opts) {
 
 if (action === 'help') {
   console.log(`node ${prgname} {[help], actPattern} on eon-z- files`)
+  console.log(`eg.: node ${prgname} 793`)
+  console.log(`eg.: node ${prgname} 793d`)
 } else if (action === 'actView') {
-  console.log(`actView ${inscopepattern} eon files`)
+  console.log(`actView ${inScopePattern} eon files`)
   actView(files, options)
 } else {
   console.log(`node ${prgname} {[help], actPattern} on eon-z- files`)

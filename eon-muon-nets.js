@@ -196,9 +196,9 @@
       facepoints.push(facepoints[0]) // _e_ face closing linle
 
       // -------------- edges
-      let   shading = net.properties.shading || 1,
-            showlines = net.properties.showlines || 1,
-            showfaces = net.properties.showfaces || 1
+      let   shading = net.properties.shading !== undefined ? net.properties.shading : 1,
+            showlines = net.properties.showlines !== undefined ? net.properties.showlines : 1,
+            showfaces = net.properties.showfaces !== undefined ? net.properties.showfaces : 1
 
 
 
@@ -233,6 +233,7 @@
 
         }
       }
+
       if (showfaces === 1) {
         if (shading === 1) {
 

@@ -32,7 +32,7 @@ async function anitem (__eo) {
   ])
 
   let muonStore = __eo('muonStore')
-
+  renderSvg.scenecolor('black')
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -80,20 +80,22 @@ async function anitem (__eo) {
           geosort: 'anigram',
           geobase: 'viewform',
           geoaad: 1, // geoaad for trace
-
           eohal: eohalMars,
 
-          eofold: function (ani, props) {
+          eofold: function (ani, props) { // eofold from pacer
             let coords
             if (props.key === 'init') { // INIT
+            
               coords = ani.eonode.geometry.coordinates // eonode
+              
             } else if (props.key === 'auto') { // AUTO
               let point = muonStace.getLocus([null, null, null], ani)
 
               point = muonGeoj.geotrim(point) // ... geotrim to fix [num, num, NaN]
 
               let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
-              if (preani) {
+              if (preani) { // if has parent
+                
                 if (preani.eofold.type === 'FeatureCollection') {
                   let feature = preani.eofold.features[0]
                   coords = (feature.geometry.coordinates)
@@ -105,7 +107,13 @@ async function anitem (__eo) {
                     ? [...feature.geometry.coordinates, point ]
                     : Array.of(point)
                 }
+                
+              } else {
+                
+                coords = Array.of(point)  // if no parent
+                
               }
+              
             } else if (props.key === 'event') { // EVENT
               coords = ani.eonode.geometry.coordinates
             }
@@ -129,7 +137,9 @@ async function anitem (__eo) {
 
               stace = [0, 0, 0]
             } else if (props.key === 'auto') { // AUTO
+            
               stace = [0, 0, 0]
+              
             } else if (props.key === 'event') { // EVENT
               if (ctlRayder.grabbed() !== undefined) {
                 let grabbed = ctlRayder.grabbed()
@@ -156,13 +166,12 @@ async function anitem (__eo) {
       },
     }
 
-    // .................. animas
-    let animas = [
+    // .................. scene
+    let scene = {
       liner, // h.pacer
+    }
 
-    ]
-
-    return animas
+    return scene
   }
 
   let enty = () => {}

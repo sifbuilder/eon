@@ -176,8 +176,7 @@ icosahedron
 
       eofold: anitem => {
         let tim = anitem.eoload.tim
-        let faceColors = anitem.eoload.faceColors
-        let lineColors = anitem.eoload.lineColors
+        let colors = anitem.eoload.colors
 
         let parts = muonNets.parse({text: def})
 
@@ -191,8 +190,10 @@ icosahedron
             sort: 'threeobject',
             faces: parts.faces,
             hinges: parts.hinges,
-            faceColors: faceColors,
-            lineColors: lineColors,
+            colors: colors,
+            shading: 1,
+            showlines: 1,
+            showfaces: 1,
             renderData: {
               t: tim,
               docenter: 1,
@@ -203,30 +204,23 @@ icosahedron
         return net
       },
 
-      eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 0.6, 'co': 0.999, 'cp': 0.999},
+      eocrom: {'csx': 0, 'cf': 999, 'cs': 777, 'cw': 1.6, 'co': 0.999, 'cp': 0.999},
 
       eomot: {
         proform: {
 
           projection: 'uniwen',
-          scale: [ [[[0.3, 1.3]]], [[[0.3, 1.3]]], [[[0.3, 1.3]]]],
+          scale: [ [[[0.5, 2.0]]], [[[0.5, 2.0]]], [[[0.5, 2.0]]]],
           translate: [ 0, 0, 0 ],
-          rotate: [ 0, 0, 0 ],
+          rotate: [ 0, 0, [[[0, 12]]] ],
           lens: [0, 1, Infinity],
         },
 
       },
       eoload: {
         tim: [[[0, 0.2, 1]]],
-        faceColors: [
-          [ 0.21, 0.21, [[[0.1, 0.91]]] ],
-          [ 0.22, 0.22, [[[0.1, 0.92]]] ],
-          [ 0.23, 0.23, [[[0.1, 0.93]]] ],
-          [ 0.24, 0.24, [[[0.1, 0.94]]] ],
-          [ 0.25, 0.25, [[[0.1, 0.95]]] ],
-          [ 0.26, 0.26, [[[0.1, 0.96]]] ],
-        ],
-        lineColors: [
+
+        colors: [
           [ 0.7, 0.5, 0.2], // gold
           [ 0.0, 0.2, 0.99 ],
           [ 0.0, 0.99, 0.09 ],
@@ -265,7 +259,7 @@ icosahedron
 
           position: [0, 0, 9],
           rotation: [0, 90, 0],
-          velang: [1, 0, 0],
+          velang: [1, 10, 0],
           vellin: [0, 0, 0],
           distance2nodesFactor: 1,
           lookAt: [0, 0, 0],
@@ -278,7 +272,8 @@ icosahedron
 
     let text = `(${net.number}) ${net.name}
 symbol: ${net.symbol}
-dual: ${net.dual}`
+dual: ${net.dual}
+netlib.org/polyhedra`
 
     let textsegment = function (text, t) {
       let s = text // source
@@ -361,13 +356,13 @@ dual: ${net.dual}`
         let ani = muonProps.clone(textAni)
         ani.eoric.fid = textAni.eoric.fid + '_' + i
         ani.eoric.cid = textAni.eoric.cid + '_' + i
-        ani.eomot.proform.translate = [75, -150 - 15 * i]
+        ani.eomot.proform.translate = [75, -145 - 15 * i]
         ani.eoload.textform.linenb = i
         anis['ani' + '_' + i] = ani
       }
       return anis
     }
-    // .................. cameraOrthoAni anima
+    // .................. ambientLight anima
     let ambientLight = {
 
       eotim: eotim,
@@ -390,8 +385,38 @@ dual: ${net.dual}`
           type: 'AmbientLight',
           name: 'AmbientLight',
           color: 0xeeeeee,
-          intensity: 0.6,
+          intensity: 0.5,
           position: [400, 400, 400],
+        },
+      },
+
+    }
+    // .................. lightHemisphereAni anima
+    let lightHemisphereAni = {
+
+      eotim: eotim,
+      eoric: {gid: 'camera', cid: 'camera', fid: 'lightHemisphereAni'},
+      eohal: 'sol',
+
+      eofold: anitem => {
+        let eoload = anitem.eoload
+        let json = { // Feature
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [0, 0, 0] },
+          properties: anitem.eoload.light,
+        }
+
+        return json
+      },
+      eoload: {
+        light: {
+          sort: 'light',
+          type: 'HemisphereLight',
+          name: 'HemisphereLight',
+          skyColor: [[[111, 999]]],
+          groundColor: [[[999, 111]]],
+          intensity: 0.3,
+          position: [0, 0, 0],
         },
       },
 
@@ -404,6 +429,7 @@ dual: ${net.dual}`
         facesAni, // h.mars
         cameraOrthoAni, // h.sol
         ambientLight, // h.sol
+        lightHemisphereAni, // h.sol
       }
     )
 

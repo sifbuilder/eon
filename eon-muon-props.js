@@ -10,11 +10,11 @@
 
   async function muonProps (__eo = () => {}) {
     let [
-      d3Scale,
       d3Array,
+      d3Scale,
     ] = await Promise.all([
-      __eo('xs').b('d3-scale'),
       __eo('xs').b('d3-array'),
+      __eo('xs').b('d3-scale'),
     ])
 
     let props = {}

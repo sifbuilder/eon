@@ -171,8 +171,8 @@ if (action === 'doAction') {
   console.log(`doAction ${state.inScopePattern} eon files`)
   doAction(files, state)
 } else {
-  console.log(`node ${prgname} {[pattern (eg: 070)], [ext: {html|gif}]}
-      generate preview.png [600x400] and thumbnail.png [230x120]
+  console.log(`generate preview.png [600x400] and thumbnail.png [230x120]
+      node ${prgname} {[pattern], [ext]}
       from eon-z-...{pattern}...{ext}, where ext in {html, gif, mov}
       eg. node eon-teer-pngs 714 html`)
 }
