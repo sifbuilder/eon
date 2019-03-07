@@ -191,7 +191,7 @@ icosahedron
             faces: parts.faces,
             hinges: parts.hinges,
             colors: colors,
-            shading: 1,
+            shading: 0,
             showlines: 1,
             showfaces: 1,
             renderData: {
@@ -211,8 +211,10 @@ icosahedron
 
           projection: 'uniwen',
           scale: [ [[[0.5, 2.0]]], [[[0.5, 2.0]]], [[[0.5, 2.0]]]],
+          scale: [ 1, 1, 1 ],
           translate: [ 0, 0, 0 ],
           rotate: [ 0, 0, [[[0, 12]]] ],
+          rotate: [ 0, 0, 0 ],
           lens: [0, 1, Infinity],
         },
 

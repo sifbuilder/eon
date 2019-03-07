@@ -32,7 +32,7 @@
     // https://raw.githubusercontent.com/paaatrick/polyhedra-folding/master/js/PolyLoader.js
     let parse = function (props = {}) {
       let text = props.text
-      var verts = [],
+      let verts = [],
         faces = [],
         hinges = [],
         lines = text.split('\n'),
@@ -114,14 +114,14 @@
 
     // .................. cosAngle
     function cosAngle (v0, v1, v2) {
-      var e1 = v0.clone().sub(v1),
+      let e1 = v0.clone().sub(v1),
         e2 = v2.clone().sub(v1)
       return e1.dot(e2) / (e1.length() * e2.length())
     }
 
     // .................. starPentagonShape
     function starPentagonShape (face, verts) {
-      var amt,
+      let amt,
         mid,
         shape = new THREE.Shape()
       amt = 2 / (3 + Math.sqrt(5))
@@ -150,7 +150,7 @@
 
     // .................. regularShape
     function regularShape (face, verts) {
-      var shape = new THREE.Shape(),
+      let shape = new THREE.Shape(),
         m
       shape.moveTo(verts[face[0]].x, verts[face[0]].y)
       for (m = 1; m < face.length; m++) {
@@ -170,7 +170,7 @@
       side = (side === undefined) ? 0 : side
       angle = (angle === undefined) ? Math.PI : angle
 
-      var parentName = (parent === undefined) ? -1 : parent.name,
+      let parentName = (parent === undefined) ? -1 : parent.name,
         thisFace = faces[face],
         interiorAngle = cosAngle(verts[thisFace[0]],
           verts[thisFace[1]],
@@ -188,7 +188,6 @@
         shape = starPentagonShape(thisFace, verts)
       }
 
-
       //  line
       let faceVerts = thisFace //
 
@@ -196,56 +195,71 @@
       facepoints.push(facepoints[0]) // _e_ face closing linle
 
       // -------------- edges
-      let   shading = net.properties.shading !== undefined ? net.properties.shading : 1,
-            showlines = net.properties.showlines !== undefined ? net.properties.showlines : 1,
-            showfaces = net.properties.showfaces !== undefined ? net.properties.showfaces : 1
+      let shading = net.properties.shading !== undefined ? net.properties.shading : 1,
+        showlines = net.properties.showlines !== undefined ? net.properties.showlines : 1,
+        showfaces = net.properties.showfaces !== undefined ? net.properties.showfaces : 1
 
+      // color in face
+      let color = colors[face % colors.length]
 
-
+      // lineGEometry
       let lineGeometry = new THREE.Geometry()
       lineGeometry.setFromPoints(facepoints)
 
-      for (var i = 0; i < faceVerts.length; i++) {
+      for (let i = 0; i < faceVerts.length; i++) {
         let idx = faceVerts[i] % colors.length
         lineGeometry.colors[ i ] = colors[ idx ]
         lineGeometry.colors[ i + 1 ] = lineGeometry.colors[ i ]
       }
-      
+
+      // lineMaterial shading
       let lineMaterialShading = new THREE.MeshPhongMaterial({
-        wireframeLinewidth: 20,
         vertexColors: THREE.VertexColors,
         flatShading: THREE.FlatShading,
       })
 
-      
-      let lineMaterialShadingNo =  new THREE.LineBasicMaterial({
-              color: colors[face % colors.length] // color per face,
-            })    
-      
-      if (showlines === 1) {
-        if (shading === 1) {
+      // lineMaterial no shading
+      let lineMaterialShadingNo = new THREE.LineBasicMaterial({
+        color: colors[face % colors.length], // color per face,
+      })
 
-            node.add(new THREE.Line(lineGeometry, lineMaterialShading))
+      // shapeGeometry
+      let shapeGeo = new THREE.ShapeGeometry(shape)
+      shapeGeo.colorsNeedUpdate = true
 
-        } else {
-
-            node.add(new THREE.Line(lineGeometry, lineMaterialShadingNo))
-
-        }
+      for (let i = 0; i < faceVerts.length; i++) {
+        let idx = faceVerts[i] % colors.length
+        shapeGeo.colors[ i ] = colors[ idx ]
+        shapeGeo.colors[ i + 1 ] = shapeGeo.colors[ i ]
       }
 
-      if (showfaces === 1) {
-        if (shading === 1) {
+      // shape material shading no
+      let shapeMaterialShadingNo = new THREE.MeshPhongMaterial({
+        color: color,
+        vertexColors: THREE.FaceColors,
+      })
 
-            node.add(new THREE.Mesh(lineGeometry, lineMaterialShading))
+      // shape material shading
+      let shapeMaterialShading = new THREE.MeshPhongMaterial({
+        // vertexColors: THREE.VertexColors,
+        vertexColors: THREE.FaceColors,
+        flatShading: THREE.FlatShading,
+      })
 
-        } else {
-
-            node.add(new THREE.Mesh(lineGeometry, lineMaterialShadingNo))
-
-        }
+      if (showlines === 1) { // show lines
+        if (shading === 1) node.add(new THREE.Line(lineGeometry, lineMaterialShading))
+        else node.add(new THREE.Line(lineGeometry, lineMaterialShadingNo))
       }
 
+      if (showfaces === 1) { // show faces
+        if (shading === 1) node.add(new THREE.Mesh(lineGeometry, lineMaterialShading))
+        else {
+          // node.add(new THREE.Mesh(lineGeometry, lineMaterialShadingNo))
+          // node.add(new THREE.Mesh(lineGeometry, lineMaterialShading))
+          node.add(new THREE.Mesh(shapeGeo, shapeMaterialShadingNo))
+          // node.add(new THREE.Mesh(shapeGeo, shapeMaterialShading))
+        }
+      }
 
       // -------------- user data
       node.name = face
