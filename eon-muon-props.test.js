@@ -65,6 +65,10 @@ function resolveMeta(target) {
 // async function resolve(name, base) {
 async function mockResolve(name, base) {
   if (name.startsWith(origin)) name = name.substring(origin.length);
+  
+ if (RegExp('^.\/','g').test(name)) return name  // _e_
+  
+  
   if (/^(\w+:)|\/\//i.test(name)) return name;
   if (/^[.]{0,2}\//i.test(name)) return new URL(name, base == null ? location : base).href;
   if (!name.length || /^[\s._]/.test(name) || /\s$/.test(name)) throw new RequireError("illegal name");
@@ -189,7 +193,7 @@ define.amd = {};
 
 let newRequire = d3.requireFrom(mockResolve)
 
-if (1 && 1) console.log('newRequire', newRequire)
+// if (1 && 1) console.log('newRequire', newRequire)
 
 
 const xEonify = require('./eon-x-eonify.js')
@@ -197,14 +201,14 @@ let __eo = xEonify.xEo()
 __eo({'xs': xEonify.xs(__eo)})
 
 
-const _muonProps = newRequire('eon-muon-props.js')
-  .then( mod => {console.log( '**************** mod', mod)} )
+const _muonProps = newRequire('./eon-muon-props.js')
+  // .then( mod => {console.log( '**************** mod', mod)} )
 // const muonProps = _muonProps.muonProps(__eo)
 
 test('test', async () => {
-  const _muonProps = newRequire('eon-muon-props.js')  
-  let muonProps = await _muonProps.muonProps()
-  if (1 && 1) console.log('muonProps', muonProps)
+  // const _muonProps = newRequire('eon-muon-props.js')  
+  // let muonProps = await _muonProps.muonProps()
+  // if (1 && 1) console.log('muonProps', muonProps)
 
   expect(1 + 1).toBe(2)
 })
