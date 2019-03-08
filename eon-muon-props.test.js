@@ -52,7 +52,14 @@ function parseIdentifier(identifier) {
 }
 
 function resolveMeta(target) {
+
+  // { name: 'eon-muon-props.js',
+  // version: undefined,
+  // path: undefined }    
+    
   const url = `${origin}${target.name}${target.version ? `@${target.version}` : ""}/package.json`;
+  // https://cdn.jsdelivr.net/npm/eon-muon-props.js/package.json
+  
   let meta = metas.get(url);
   if (!meta) metas.set(url, meta = fetch(url).then(response => {
     if (!response.ok) throw new RequireError("unable to load package.json");
@@ -66,7 +73,7 @@ function resolveMeta(target) {
 async function mockResolve(name, base) {
   if (name.startsWith(origin)) name = name.substring(origin.length);
   
- if (RegExp('^.\/','g').test(name)) return name  // _e_
+  if (RegExp('^.\/','g').test(name)) return name  // _e_   ./ 
   
   
   if (/^(\w+:)|\/\//i.test(name)) return name;
@@ -93,7 +100,6 @@ d3.requireFrom = jest.fn((resolver) => {
   const requireBase = requireRelative(null);
 
   function requireAbsolute(url) {
-    if (1 && 1) console.log('*************', url)
 
     if (typeof url !== "string") return url;
     let module = cache.get(url);
@@ -113,6 +119,8 @@ d3.requireFrom = jest.fn((resolver) => {
       window.define = define;
       document.head.appendChild(script);
     }));
+    if (1 && 1) console.log('requireAbsolute module', module)
+
     return module;
   }
 
@@ -201,12 +209,15 @@ let __eo = xEonify.xEo()
 __eo({'xs': xEonify.xs(__eo)})
 
 
-const _muonProps = newRequire('./eon-muon-props.js')
+// const _muonProps = newRequire('./eon-muon-props.js')
   // .then( mod => {console.log( '**************** mod', mod)} )
 // const muonProps = _muonProps.muonProps(__eo)
 
+
+
 test('test', async () => {
-  // const _muonProps = newRequire('eon-muon-props.js')  
+  const _muonProps = await newRequire('eon-muon-props.js')  
+if (1 && 1) console.log('_muonProps', _muonProps)
   // let muonProps = await _muonProps.muonProps()
   // if (1 && 1) console.log('muonProps', muonProps)
 
