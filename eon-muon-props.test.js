@@ -89,6 +89,8 @@ d3.requireFrom = jest.fn((resolver) => {
   const requireBase = requireRelative(null);
 
   function requireAbsolute(url) {
+    if (1 && 1) console.log('*************', url)
+
     if (typeof url !== "string") return url;
     let module = cache.get(url);
     if (!module) cache.set(url, module = new Promise((resolve, reject) => {
