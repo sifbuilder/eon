@@ -53,13 +53,10 @@ function parseIdentifier(identifier) {
 
 function resolveMeta(target) {
 
-  // { name: 'eon-muon-props.js',
-  // version: undefined,
-  // path: undefined }    
-    
+
   const url = `${origin}${target.name}${target.version ? `@${target.version}` : ""}/package.json`;
-  // https://cdn.jsdelivr.net/npm/eon-muon-props.js/package.json
   
+
   let meta = metas.get(url);
   if (!meta) metas.set(url, meta = fetch(url).then(response => {
     if (!response.ok) throw new RequireError("unable to load package.json");
@@ -72,10 +69,14 @@ function resolveMeta(target) {
 // async function resolve(name, base) {
 async function mockResolve(name, base) {
   if (name.startsWith(origin)) name = name.substring(origin.length);
-  
-  if (RegExp('^.\/','g').test(name)) return name  // _e_   ./ 
-  
-  
+
+  if (RegExp('^.\/','g').test(name)) {
+    if (1 && 1) console.log('mockResolve name', name)
+
+    return name  // _e_   ./
+  }
+
+
   if (/^(\w+:)|\/\//i.test(name)) return name;
   if (/^[.]{0,2}\//i.test(name)) return new URL(name, base == null ? location : base).href;
   if (!name.length || /^[\s._]/.test(name) || /\s$/.test(name)) throw new RequireError("illegal name");
@@ -200,24 +201,36 @@ define.amd = {};
 
 
 let newRequire = d3.requireFrom(mockResolve)
+      // function _require(name) {
+        // return arguments.length > 1 ? Promise.all(map.call(arguments, requireBase)).then(merge) : requireBase(name);
+      // }
+    //newRequire('eon-muon-props.js')
+    // => _require('eon-muon-props.js')
+    // => requireBase('eon-muon-props.js')
+    // => requireRelative(null)('eon-muon-props.js')
+    // Promise.resolve(resolver(name, base))
+    //    .then(requireAbsolute)
+    //
+    // mockResolve(name, null)  // eon-muon-props.js
+    //      eon-muon-props.js null
+    //  .then(url => requireAbsolute(url)
 
-// if (1 && 1) console.log('newRequire', newRequire)
 
+  // resolveMeta(target)
+  // { name: 'eon-muon-props.js',
+  // version: undefined,
+  // path: undefined }
+  // url -- https://cdn.jsdelivr.net/npm/eon-muon-props.js/package.json
 
 const xEonify = require('./eon-x-eonify.js')
 let __eo = xEonify.xEo()
 __eo({'xs': xEonify.xs(__eo)})
 
 
-// const _muonProps = newRequire('./eon-muon-props.js')
-  // .then( mod => {console.log( '**************** mod', mod)} )
-// const muonProps = _muonProps.muonProps(__eo)
-
-
 
 test('test', async () => {
-  const _muonProps = await newRequire('eon-muon-props.js')  
-if (1 && 1) console.log('_muonProps', _muonProps)
+  const _muonProps = await newRequire('./eon-muon-props.js')
+// if (1 && 1) console.log('_muonProps', _muonProps)
   // let muonProps = await _muonProps.muonProps()
   // if (1 && 1) console.log('muonProps', muonProps)
 
