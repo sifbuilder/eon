@@ -35,12 +35,12 @@ async function anitem (__eo) {
     __eo('xs').p('uniwen'),
 
   ])
-
+  renderSvg.scenecolor('black')
   let muonStore = __eo('muonStore')
 
   // .................. animas
   let ani = function () {
-    let animas = []
+
 
     let aniFormA = {
 
@@ -130,7 +130,7 @@ async function anitem (__eo) {
           mayer: {
             side: 1,
             angunit: 36,
-            angstart: 0,
+            angstart: 36,
             start: [0, 0],
           },
         },
@@ -189,6 +189,7 @@ async function anitem (__eo) {
     }
 
     // .................. animas
+    let animas = []    
     animas.push(aniFormA)
     animas.push(aniForm)
     animas = animas.concat(treeanis)

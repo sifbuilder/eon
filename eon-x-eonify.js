@@ -13,6 +13,7 @@
   //
 
   let _d3 = d3 || {}
+  
   let require = _d3.require // global d3
   let requireFrom = _d3.requireFrom // global d3
 
@@ -91,11 +92,13 @@
 
   // ............................. getXeon
   async function getXeon (part, __eo) { // d3Froce3d, d3-force-3d
+if (1 && 1) console.log('getXeon', part)
   
-    let eon = await require(...a(part[1]))
+      let eon = await require(...a(part[1]))
     let cell = await getCell(eon, part[0], __eo) // eon to cell
     let xeon = await mapCell(cell, part[0], __eo) // map cell
     return xeon
+    
   }
 
   // ............................. getEon

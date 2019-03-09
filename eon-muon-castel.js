@@ -19,9 +19,10 @@
     // source: https://github.com/d3/d3-array/blob/master/src/range.js
     // license: https://github.com/d3/d3-array/blob/master/LICENSE
     let d3range = function (start, stop, step) {
-      start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step
+      let m
+      start = +start, stop = +stop, step = (m = arguments.length) < 2 ? (stop = start, start = 0, 1) : m < 3 ? 1 : +step
 
-      var i = -1,
+      let i = -1,
         n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
         range = new Array(n)
 
@@ -128,8 +129,6 @@
     }
 
     let castelscoords = function (svgdata, geoframe = {start: 0, stop: 0.90, step: 0.33}) {
-      if (1 && 1) console.log('svgdata', svgdata)
-
       let coords = []
       let curverings = castelcurves(svgdata)
       coords = castelstring(curverings, geoframe)

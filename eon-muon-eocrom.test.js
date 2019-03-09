@@ -220,7 +220,7 @@ let muon = jest.fn( async () => {
     return enty
 })
 
-test('test', async (__eo) => {
+test('test', async () => {
   let enty = await muon(__eo)
 if (1 && 1) console.log('enty', enty)
 
