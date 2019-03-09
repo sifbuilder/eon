@@ -67,7 +67,9 @@
     }
 
     // .................. kolor
-    let kolor = (v, d = 0) => color(d)(v / 1000)
+    let kolor = (v, d = 0) => {
+      return color(d)(v / 1000)
+    }
 
     // .................. getStyle - process style attributes
     let getStyle = function (eocrom) {
@@ -103,7 +105,6 @@
 
             style[key] = `rgb( ${r},  ${g},  ${b} )`
           }
-          
           
         }
       }
@@ -166,10 +167,11 @@
     }
 
     // .................. enty
-    function enty () { return enty }
+    let enty = {}
     enty.geocromer = geocromer
     enty.getdefault = getdefault
     enty.getColor = getColor
+    enty.kolor = kolor
 
     return enty
   }
