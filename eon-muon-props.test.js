@@ -254,8 +254,8 @@ if (1 && 1) console.log('newRequire', newRequire)
 
 
 test('test', async () => {
-  // const _muonProps = await newRequire('./eon-muon-props.js')
-  const _muonProps = await newRequire('./eon-x-eonify.js')
+  const _muonProps = await newRequire('./eon-muon-props.js')
+  // const _muonProps = await newRequire('./eon-x-eonify.js')
   if (1 && 1) console.log('_muonProps', _muonProps)
 
   expect(1 + 1).toBe(2)
