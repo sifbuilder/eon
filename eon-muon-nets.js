@@ -195,9 +195,10 @@
       facepoints.push(facepoints[0]) // _e_ face closing linle
 
       // -------------- edges
-      let shading = net.properties.shading !== undefined ? net.properties.shading : 1,
+      let shading = net.properties.shading !== undefined ? net.properties.shading : 0,
         showlines = net.properties.showlines !== undefined ? net.properties.showlines : 1,
-        showfaces = net.properties.showfaces !== undefined ? net.properties.showfaces : 1
+        showfaces = net.properties.showfaces !== undefined ? net.properties.showfaces : 1,
+        wireframe = net.properties.wireframe !== undefined ? net.properties.wireframe : 1
 
       // color in face
       let color = colors[face % colors.length]
@@ -221,7 +222,7 @@
       // lineMaterial no shading
       let lineMaterialShadingNo = new THREE.LineBasicMaterial({
         color: colors[face % colors.length], // color per face,
-        linewidth: 20,        
+        linewidth: 20,
         transparent: false,
       })
 
@@ -245,10 +246,13 @@
       // shape material shading
       let shapeMaterialShading = new THREE.MeshPhongMaterial({
         vertexColors: THREE.VertexColors,
-        // vertexColors: THREE.FaceColors,
         flatShading: THREE.FlatShading,
-        // wireframe: true,        
       })
+
+      if (wireframe === 1) {
+        shapeMaterialShading.wireframe = true
+      }
+
 
       if (showlines === 1) { // show lines
         if (shading === 1) node.add(new THREE.Line(lineGeometry, lineMaterialShading))
@@ -256,13 +260,9 @@
       }
 
       if (showfaces === 1) { // show faces
-        if (shading === 1) node.add(new THREE.Mesh(lineGeometry, lineMaterialShading))
+        if (shading === 1) node.add(new THREE.Mesh(shapeGeometry, shapeMaterialShading))
         else {
-          let mesh = new THREE.Mesh(shapeGeometry, shapeMaterialShading)
-          // let mesh = new THREE.Mesh(lineGeometry, lineMaterialShadingNo)
-          // let mesh = new THREE.Mesh(lineGeometry, lineMaterialShading)
-          // let mesh = new THREE.Mesh(shapeGeometry, shapeMaterialShadingNo)
-
+          let mesh = new THREE.Mesh(shapeGeometry, shapeMaterialShadingNo)
           node.add(mesh)
 
 

@@ -75,7 +75,6 @@
           type: 'Feature',
           geometry: {
             type: 'LineString',
-            // coordinates: eofold.geometry.coordinates[0], // first line
             coordinates: [ [0, 0], [100, 0] ],
           },
           properties: eofold.properties,

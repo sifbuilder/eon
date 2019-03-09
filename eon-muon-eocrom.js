@@ -22,7 +22,7 @@
         R = color[0],
         G = color[1],
         B = color[2]
-      return (
+      return t => (
         'rgb(' +
             (Math.round((t - R) * p) + R) + ',' +
             (Math.round((t - G) * p) + G) + ',' +
@@ -58,7 +58,7 @@
         bluered: d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'red' ]), // 20
         blueblack: d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'black' ]), // 21
         redblack: d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['Black', '#FF2400', 'Steelblue' ]), // 22
-        redblack: d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['Black', 'Yellow', 'White' ]), // 23
+        whiteblack: d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['Black', 'Yellow', 'White' ]), // 23
       }
 
       colors.color = colors.scales.bos
@@ -72,16 +72,42 @@
     // .................. getStyle - process style attributes
     let getStyle = function (eocrom) {
       let style = {}
+      
       if (eocrom !== undefined) {
-        if (eocrom.csx === undefined) eocrom.csx = 0
+        let pairs = [
+          [ 'fill', 'cf' ],
+          [ 'stroke', 'cs' ],
+          [ 'fill-opacity', 'co' ],
+          [ 'stroke-width', 'cw' ],
+          [ 'stroke-opacity', 'cp' ],
+        ]
+        
+        for (let i=0; i<pairs.length; i++) {
+          let key = pairs[i][0]
+          let code = pairs[i][1]
+          
+          if (typeof eocrom[code] === 'number' && typeof eocrom.csx === 'number') {
+            let csx = eocrom.csx !== undefined ? eocrom.csx : 0
+            style[key] = kolor(eocrom[code], csx)
+          } else if (typeof eocrom[code] === 'string') {
+            style[key] = eocrom[code]
+          } else if (eocrom[key] !== undefined) {
+            style[key] = eocrom[key]
+          } else if (Array.isArray(eocrom[code])) { // eg. "rgb(251, 107, 11)"
+            style[key] = `rgb( ${eocrom[code][0]},  ${eocrom[code][1]},  ${eocrom[code][2]} )`
+          } else if (typeof eocrom[code] === 'number' && eocrom.csx === undefined) { // 0xff0000
+            let c = eocrom[code] // color = 256^2* r + 256* g + b
+            let r = c / (256 ^ 2)
+            let g = (c / 256) % 256
+            let b = c % 256
 
-        if (eocrom.cf !== undefined && eocrom.csx !== undefined) style['fill'] = kolor(eocrom.cf, eocrom.csx)
-        if (eocrom.cs !== undefined && eocrom.csx !== undefined) style['stroke'] = kolor(eocrom.cs, eocrom.csx)
-        if (eocrom.co !== undefined) style['fill-opacity'] = eocrom.co
-        if (eocrom.cw !== undefined) style['stroke-width'] = eocrom.cw
-        if (eocrom.cp !== undefined) style['stroke-opacity'] = eocrom.cp
+            style[key] = `rgb( ${r},  ${g},  ${b} )`
+          }
+          
+          
+        }
       }
-
+      
       return style
     }
 

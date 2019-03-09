@@ -11,12 +11,21 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. animas
   let [
+    ctlWen,
     eohalTextform,
     renderSvg,
   ] = await Promise.all([
+    __eo('xs').c('wen'),
     __eo('xs').e('textform'),
     __eo('xs').r('svg'),
   ])
+  renderSvg.scenecolor('black')
+  let ctl
+  try {
+    ctl = ctlWen().control(renderSvg.svg())
+  } catch (e) {
+    ctl = () => [0, 0, 0]
+  }
 
   let ani = function () {
     // .................. pics
@@ -25,30 +34,30 @@ async function anitem (__eo) {
     // .................. textAni
     let textAni = {
 
-      eohal: 'textform',
+      eohal: eohalTextform,
       eotim: eotim,
-      eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
+      eoric: {gid: 'text', cid: 'text', fid: 'text'},
 
-      eofold: ani => {
-        let res = {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [0, 0],
-          },
-        }
-
-        return res
-      },
-
-      eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
+      eofold: ani => ({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0] },
+      }),
+      
+      eonode: ani => ({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0] },
+      }),
 
       eomot: {
         proform: {
           projection: 'uniwen',
           translate: [ -175, 0 ],
+          rotate: [ 0, 0, 0 ],
+          prerotate: [[[ ctl.rotation ]]],
         },
       },
+
+      eocrom: { 'csx': 0, 'cf': 777, 'cs': 111, 'cw': 0.5, 'co': 0.9, 'cp': 0.5 },
 
       eoload: {
         textform: {
@@ -61,16 +70,17 @@ async function anitem (__eo) {
           },
         },
       },
+
     }
 
-    // .................. animas
-    let animas = [
+    // .................. scene
+    let scene = {
 
-      textAni, // h.text
+      textAni, // h.textform
 
-    ]
+    }
 
-    return animas
+    return scene
   }
 
   let enty = () => {}

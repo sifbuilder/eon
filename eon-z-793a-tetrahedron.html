@@ -104,8 +104,7 @@ tetrahedron
 
       eofold: anitem => {
         let tim = anitem.eoload.tim
-        let faceColors = anitem.eoload.faceColors
-        let lineColors = anitem.eoload.lineColors
+        let colors = anitem.eoload.colors
 
         let parts = muonNets.parse({text: def})
 
@@ -116,11 +115,13 @@ tetrahedron
             coordinates: parts.verts,
           },
           properties: {
-            sort: 'threenet',
+            sort: 'threeobject',
             faces: parts.faces,
             hinges: parts.hinges,
-            faceColors: faceColors,
-            lineColors: lineColors,
+            colors: colors,
+            shading: 1,
+            showlines: 1,
+            showfaces: 1,
             renderData: {
               t: tim,
               docenter: 1,
@@ -146,20 +147,12 @@ tetrahedron
       },
       eoload: {
         tim: [[[0, 0.2, 1]]],
-        faceColors: [
-          [ 0.21, 0.21, [[[0.1, 0.91]]] ],
-          [ 0.22, 0.22, [[[0.1, 0.92]]] ],
-          [ 0.23, 0.23, [[[0.1, 0.93]]] ],
-          [ 0.24, 0.24, [[[0.1, 0.94]]] ],
-          [ 0.25, 0.25, [[[0.1, 0.95]]] ],
-          [ 0.26, 0.26, [[[0.1, 0.96]]] ],
-        ],
-        lineColors: [
+        colors: [
           [ 0.7, 0.5, 0.2], // gold
           [ 0.0, 0.2, 0.99 ],
           [ 0.0, 0.99, 0.09 ],
-          [ 0.0, 0.99, 0.09 ],
         ],
+
       },
     }
 
