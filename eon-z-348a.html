@@ -51,13 +51,13 @@ async function anitem (__eo) {
 
       eofold: {
         type: 'Feature',
-        geometry: { type: 'Point', coordinates: [0, 0, 0], },
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
 
       eonode: {
         type: 'Feature',
-        geometry: { type: 'Point', coordinates: [0, 0, 0], },
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
 
@@ -127,9 +127,9 @@ async function anitem (__eo) {
             if (props.key === 'init') { // INIT
               let autocount = props.counter
               let C1 = 50
-              let C2 = 2  // correlate with initN
+              let C2 = 2 // correlate with initN
               stace = [0, Math.pow(-1, autocount) * C1 * Math.max(1, autocount % C2), 0]
-              
+
               if (1 && 1) console.log('stace', stace)
             } else if (props.key === 'auto') { // AUTO
               stace = [ 0 + 20 * Math.random(), 0 + 20 * Math.random(), 0]
@@ -146,7 +146,7 @@ async function anitem (__eo) {
             let coordinates = stace
             let res = {
               type: 'Feature',
-              geometry: { type: 'Point', coordinates: coordinates, },
+              geometry: { type: 'Point', coordinates: coordinates },
               properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
             }
             return res
@@ -162,13 +162,13 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {'gid': 'text', 'cid': 'text', 'fid': 'text'},
       eofold: ani => ({
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [0, 0], },
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [0, 0] },
       }),
       eocrom: { 'csx': 0, 'cf': [[[888, 777]]], 'cs': 111, 'cw': [[[0.1, 0.7]]], 'co': [[[0.6, 0.99]]], 'cp': [[[0.5, 0.5]]]},
       eomot: {
         proform: {
-          projection: 'uniwen', translate: [ 175, -150 ], },
+          projection: 'uniwen', translate: [ 175, -150 ] },
       },
       eoload: {
         textform: {
@@ -183,7 +183,7 @@ async function anitem (__eo) {
     // .................. animas
     let animas = [
       pacerNat, // h.pacer
-      textAni, // 
+      textAni, //
 
     ]
 

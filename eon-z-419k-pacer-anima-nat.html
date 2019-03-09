@@ -60,13 +60,13 @@ async function anitem (__eo) {
 
       eofold: {
         type: 'Feature',
-        geometry: { type: 'Point', coordinates: [0, 0, 0], },
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
 
       eonode: {
         type: 'Feature',
-        geometry: { type: 'Point', coordinates: [0, 0, 0], },
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
 
@@ -99,7 +99,6 @@ async function anitem (__eo) {
             'ra2': 24, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 10, 'pa6': 0, 'pb7': -1,
           },
         },
-
 
         pacer: {
 
@@ -154,7 +153,7 @@ async function anitem (__eo) {
             let coordinates = stace
             let res = {
               type: 'Feature',
-              geometry: { type: 'Point', coordinates: coordinates, },
+              geometry: { type: 'Point', coordinates: coordinates },
               properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
             }
             return res
