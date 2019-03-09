@@ -116,19 +116,21 @@
 
     // .................. @m.eocrom.geocromer(anigram, json)
     let geocromer = function (anigram, json) {
+      
       if (json !== undefined && json !== null) {
-        if (json.type === undefined) {
-
-        } else if (typeof anigram.eocrom !== 'object') {
-
-        } else if (json.type === 'Feature') { // Feature
+        
+        if (json.type === 'Feature') { // Feature
           let feature = json
 
           let eocrom = {}, featureStyle = {}
           if (feature.properties !== undefined && feature.properties.eocrom !== undefined) {
+            
             eocrom = feature.properties.eocrom
-          } else if (anigram.eocrom) {
-            eocrom = anigram.eocrom
+            
+          } else {
+            
+            eocrom = anigram.eocrom || anigram.eoload.eocrom || {}
+            
           }
 
           let jsonStyle = getStyle(eocrom)
@@ -139,11 +141,14 @@
 
           if (feature.properties === undefined) feature.properties = {}
           feature.properties.style = Object.assign(jsonStyle, featureStyle)
+          
         } else if (json.type === 'FeatureCollection') {
+          
           for (let i = 0; i < json.features.length; i++) {
             let feature = json.features[i]
             feature = geocromer(anigram, feature)
           }
+          
         } else {
           console.log('m.eocrom.geocromer nothing done')
         }
