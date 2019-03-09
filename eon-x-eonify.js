@@ -71,6 +71,7 @@
 
   // ............................. getCeon
   async function getCeon (part, __eo) {
+    
     let ceon = part[0]
     let r = __eo(ceon)
     return r ? Promise.resolve(r) : Promise.reject(r)
@@ -78,6 +79,7 @@
 
   // ............................. getFeon
   async function getFeon (part, __eo) { // d3Froce3d, ./d3-force-3d.js
+
     let eon = await require(...a(part[1]))
 
     console.assert(eon !== undefined, `eon undefined for part ${part[0]}`)
@@ -89,10 +91,11 @@
 
   // ............................. getXeon
   async function getXeon (part, __eo) { // d3Froce3d, d3-force-3d
-    let eon = await require(...a(part[1]))
-    let cell = await getCell(eon, part[0], __eo) // eon to cell
-    let xeon = await mapCell(cell, part[0], __eo) // map cell
-    return xeon
+  
+    // let eon = await require(...a(part[1]))
+    // let cell = await getCell(eon, part[0], __eo) // eon to cell
+    // let xeon = await mapCell(cell, part[0], __eo) // map cell
+    // return xeon
   }
 
   // ............................. getEon

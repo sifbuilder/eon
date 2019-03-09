@@ -1,3 +1,10 @@
+
+
+var fileUrl = require('file-url')
+
+
+// console.log('file:', fileUrl('./'))
+
 Object.defineProperty(document, 'currentScript', {
   value: document.createElement('script'),
 })
@@ -7,10 +14,15 @@ if (typeof fetch !== 'function') {
 }
 
 
+if (typeof URL !== 'function') {
+  global.URL = require('node-url-polyfill')
+}
+
+
 const d3 = require('./d3-require.js')
 global.d3 = d3
 
-
+jest.setTimeout(30000);
 
 // ==================
 
@@ -69,16 +81,15 @@ function resolveMeta(target) {
 // async function resolve(name, base) {
 async function mockResolve(name, base) {
   if (name.startsWith(origin)) name = name.substring(origin.length);
-
-  if (RegExp('^.\/','g').test(name)) {
-    if (1 && 1) console.log('mockResolve name', name)
-
-    return name  // _e_   ./
-  }
-
-
   if (/^(\w+:)|\/\//i.test(name)) return name;
-  if (/^[.]{0,2}\//i.test(name)) return new URL(name, base == null ? location : base).href;
+  
+  if (/^[.]{0,2}\//i.test(name)) {
+
+    // let res = new URL(name, base == null ? fileUrl('./') : base).href;
+    let res = name  // maintain ./name
+    if (1 && 1) console.log('res 2', res)
+    return res
+  }
   if (!name.length || /^[\s._]/.test(name) || /\s$/.test(name)) throw new RequireError("illegal name");
   const target = parseIdentifier(name);
   if (!target) return `${origin}${name}`;
@@ -101,26 +112,41 @@ d3.requireFrom = jest.fn((resolver) => {
   const requireBase = requireRelative(null);
 
   function requireAbsolute(url) {
+if (1 && 1) console.log('requireAbsolute', url)
 
     if (typeof url !== "string") return url;
     let module = cache.get(url);
     if (!module) cache.set(url, module = new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.onload = () => {
-        try { resolve(queue.pop()(requireRelative(url))); }
-        catch (error) { reject(new RequireError("invalid module")); }
-        script.remove();
-      };
-      script.onerror = () => {
-        reject(new RequireError("unable to load module"));
-        script.remove();
-      };
-      script.async = true;
-      script.src = url;
-      window.define = define;
-      document.head.appendChild(script);
+      if (document.script !== undefined) {
+          script.onload = () => {
+
+            try { resolve(queue.pop()(requireRelative(url))); }
+            catch (error) { reject(new RequireError("invalid module")); }
+            script.remove();
+          };
+          script.onerror = () => {
+            reject(new RequireError("unable to load module"));
+            script.remove();
+          };
+          script.async = true;
+          script.src = url;
+          window.define = define;
+          document.head.appendChild(script);
+      } else {
+        
+if (1 && 1) console.log('url', url)
+        
+            // try { resolve(queue.pop()(requireRelative('./eon-x-eonify.js'))); }
+            // resolve(queue.pop()(requireRelative('./eon-x-eonify.js')))
+            try { resolve(require(url) )}
+            // let t = require('file:///E:/Dropbox/dBox/e/c/eons/eon-x-eonify.js')
+            // let t = require('./eon-x-eonify.js')
+            catch (error) { reject(new RequireError("invalid module")); }
+if (1 && 1) console.log('t', t)
+            
+      }
     }));
-    if (1 && 1) console.log('requireAbsolute module', module)
+if (1 && 1) console.log('module', module)
 
     return module;
   }
@@ -174,6 +200,8 @@ function isexports(name) {
 }
 
 function define(name, dependencies, factory) {
+  if (1 && 1) console.log('define', name, dependencies, factory)
+
   const n = arguments.length;
   if (n < 2) factory = name, dependencies = [];
   else if (n < 3) factory = dependencies, dependencies = typeof name === "string" ? [] : name;
@@ -215,24 +243,20 @@ let newRequire = d3.requireFrom(mockResolve)
     //      eon-muon-props.js null
     //  .then(url => requireAbsolute(url)
 
+if (1 && 1) console.log('newRequire', newRequire)
 
-  // resolveMeta(target)
-  // { name: 'eon-muon-props.js',
-  // version: undefined,
-  // path: undefined }
-  // url -- https://cdn.jsdelivr.net/npm/eon-muon-props.js/package.json
+ 
 
-const xEonify = require('./eon-x-eonify.js')
-let __eo = xEonify.xEo()
-__eo({'xs': xEonify.xs(__eo)})
+// const xEonify = require('./eon-x-eonify.js')
+// let __eo = xEonify.xEo()
+// __eo({'xs': xEonify.xs(__eo)})
 
 
 
 test('test', async () => {
-  const _muonProps = await newRequire('./eon-muon-props.js')
-// if (1 && 1) console.log('_muonProps', _muonProps)
-  // let muonProps = await _muonProps.muonProps()
-  // if (1 && 1) console.log('muonProps', muonProps)
+  // const _muonProps = await newRequire('./eon-muon-props.js')
+  const _muonProps = await newRequire('./eon-x-eonify.js')
+  if (1 && 1) console.log('_muonProps', _muonProps)
 
   expect(1 + 1).toBe(2)
 })
