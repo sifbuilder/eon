@@ -247,29 +247,29 @@ if (1 && 1) console.log('newRequire', newRequire)
 
  
 
-// const xEonify = require('./eon-x-eonify.js')
-// let __eo = xEonify.xEo()
-// __eo({'xs': xEonify.xs(__eo)})
+const xEonify = require('./eon-x-eonify.js')
+let __eo = xEonify.xEo()
+__eo({'xs': xEonify.xs(__eo)})
 
 
-
-test('test', async () => {
-  const _muonProps = await newRequire('./eon-muon-props.js')
-  // const _muonProps = await newRequire('./eon-x-eonify.js')
-  if (1 && 1) console.log('_muonProps', _muonProps)
-
-  expect(1 + 1).toBe(2)
+getMuonProps = jest.fn( async () => {
+    const _muonProps = await newRequire('./eon-muon-props.js')
+    const muonProps = await _muonProps.muonProps(__eo)
+    return muonProps
 })
 
-// test('test isPureArray', async () => {
-  // let enty = await Promise.resolve(muonProps)
-  // expect(enty.isPureArray([1,2])).toBe(true)
-// })
-// test('test is not PureArray', async () => {
-  // let enty = await Promise.resolve(muonProps)
-  // expect(enty.isPureArray([1, {}])).toBe(false)
-// })
-// test('test is not PureArray', async () => {
-  // let enty = await Promise.resolve(muonProps)
-  // expect(enty.isPureArray([1, ()=>{}])).toBe(false)
-// })
+test('test', async () => {
+  let muonProps = await getMuonProps()
+
+  expect(muonProps.isPureArray([1,2])).toBe(true)
+})
+
+
+test('test is not PureArray', async () => {
+  let muonProps = await getMuonProps()
+  expect(muonProps.isPureArray([1, {}])).toBe(false)
+})
+test('test is not PureArray', async () => {
+  let muonProps = await getMuonProps()
+  expect(muonProps.isPureArray([1, ()=>{}])).toBe(false)
+})
