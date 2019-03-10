@@ -34,33 +34,34 @@
     function color (d = 0) {
       let colors = {}
 
-      colors.scales = {
-        ambar: d3Scale.scaleLinear().domain([0, 0.50, 1]).range(['black', '#FF2400', '#f8a413']), // 0 - black scarlet ambar
-        redblue: d3Scale.scaleLinear().domain([0, 0.33, 0.66, 1]).range(['wheat', 'red', 'blue', 'wheat' ]), // 1
-        snow: d3Scale.scaleLinear().domain([0, 0.33, 0.66, 1]).range(['#3e2707', '#8e5e0b', '#f8a413', '#E1E7E4']), // 2 - brown orange ambar ice
-        browngreen: d3Scale.scaleLinear().domain([0, 0.2, 0.5, 0.7, 1]).range(['#380100', '#381500', '#382600', '#383f00', '#389700', '#389700']), // 3
-        bos: d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Wheat']), // 4 ex. 0
-        wheat: d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['black', 'Wheat', '#FF2400']), // 5
-        red: d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['#FF2400', 'Yellow']), // 6
-        ry: d3Scale.scaleLinear().domain([0, 1]).range(['red', 'gold']), // 7
-        bar: d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Yellow']), // 8
-        lab: d3interpolate.interpolateLab('#FF2400', 'yellow'), // 9
-        hsl: d3interpolate.interpolateLab('amber', 'steelblue'), // 10
-        rbl: d3interpolate.interpolateLab('red', 'blue'), // 11
-        plasma: d3interpolate.interpolatePlasma, // 12
-        cool: d3interpolate.interpolateCool, // 13
-        warm: d3interpolate.interpolateWarm, // 14
-        magma: d3interpolate.interpolateMagma, // 15
-        inferno: d3interpolate.interpolateInferno, // 16
-        viridis: d3interpolate.interpolateViridis, // 17
-        cubehelex: d3interpolate.interpolateCubehelexDefault, // 18
-        rainbow: d3interpolate.interpolateRainbow, // 19
-        bluered: d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'red' ]), // 20
-        blueblack: d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'black' ]), // 21
-        redblack: d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['Black', '#FF2400', 'Steelblue' ]), // 22
-        whiteblack: d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['Black', 'Yellow', 'White' ]), // 23
-      }
+      let scales = {}
+      
+        scales.ambar = d3Scale.scaleLinear().domain([0, 0.50, 1]).range(['black', '#FF2400', '#f8a413']) // 0 - black scarlet ambar
+        scales.redblue = d3Scale.scaleLinear().domain([0, 0.33, 0.66, 1]).range(['wheat', 'red', 'blue', 'wheat' ]) // 1
+        scales.snow = d3Scale.scaleLinear().domain([0, 0.33, 0.66, 1]).range(['#3e2707', '#8e5e0b', '#f8a413', '#E1E7E4']) // 2 - brown orange ambar ice
+        scales.browngreen = d3Scale.scaleLinear().domain([0, 0.2, 0.5, 0.7, 1]).range(['#380100', '#381500', '#382600', '#383f00', '#389700', '#389700']) // 3
+        scales.bos = d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Wheat']) // 4 ex. 0
+        scales.wheat = d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['black', 'Wheat', '#FF2400']) // 5
+        scales.red = d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['#FF2400', 'Yellow']) // 6
+        scales.ry = d3Scale.scaleLinear().domain([0, 1]).range(['red', 'gold']) // 7
+        scales.bar = d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Yellow']) // 8
+        scales.lab = d3interpolate.interpolateLab('#FF2400', 'yellow') // 9
+        scales.hsl = d3interpolate.interpolateLab('amber', 'steelblue') // 10
+        scales.rbl = d3interpolate.interpolateLab('red', 'blue') // 11
+        scales.plasma = d3interpolate.interpolatePlasma, // 12
+        scales.cool = d3interpolate.interpolateCool, // 13
+        scales.warm = d3interpolate.interpolateWarm, // 14
+        scales.magma = d3interpolate.interpolateMagma, // 15
+        scales.inferno = d3interpolate.interpolateInferno, // 16
+        scales.viridis = d3interpolate.interpolateViridis, // 17
+        scales.cubehelex = d3interpolate.interpolateCubehelexDefault, // 18
+        scales.rainbow = d3interpolate.interpolateRainbow, // 19
+        scales.bluered = d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'red' ]) // 20
+        scales.blueblack = d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'black' ]) // 21
+        scales.redblack = d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['Black', '#FF2400', 'Steelblue' ]) // 22
+        scales.whiteblack = d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['Black', 'Yellow', 'White' ]) // 23
 
+      colors.scales = scales
       colors.color = colors.scales.bos
       colors.array = Object.keys(colors.scales).map(key => colors.scales[key])
       return colors.array[Math.round(d)]
