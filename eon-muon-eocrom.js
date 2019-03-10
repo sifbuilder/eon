@@ -77,17 +77,16 @@
       let style = {}
       
       if (eocrom !== undefined) {
-        let pairs = [
+        
+        
+        let colrs = [   // color params
           [ 'fill', 'cf' ],
           [ 'stroke', 'cs' ],
-          [ 'fill-opacity', 'co' ],
-          [ 'stroke-width', 'cw' ],
-          [ 'stroke-opacity', 'cp' ],
         ]
         
-        for (let i=0; i<pairs.length; i++) {
-          let key = pairs[i][0]
-          let code = pairs[i][1]
+        for (let i=0; i<colrs.length; i++) {
+          let key = colrs[i][0]
+          let code = colrs[i][1]
           
           if (typeof eocrom[code] === 'number' && typeof eocrom.csx === 'number') {
             let csx = eocrom.csx !== undefined ? eocrom.csx : 0
@@ -106,8 +105,25 @@
 
             style[key] = `rgb( ${r},  ${g},  ${b} )`
           }
-          
         }
+        
+        let nums = [     // numerical params
+          [ 'fill-opacity', 'co' ],
+          [ 'stroke-width', 'cw' ],
+          [ 'stroke-opacity', 'cp' ],
+        ]
+        
+        for (let i=0; i<nums.length; i++) {
+          let key = nums[i][0]
+          let code = nums[i][1]
+         
+          if (typeof eocrom[code] === 'number') {
+            style[key] = eocrom[code]
+          }
+        }
+        
+        
+        
       }
       
       return style

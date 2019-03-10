@@ -67,7 +67,7 @@ let scopeexp = new RegExp('^(((eon-)?(((?!-).)*)-(.*)).(html|js))', 'i')
 // toBeReplace pattern
 //
 //
-let cpsearchpattern = `<script src="./d3-require.js"></script>
+let cpsearchpattern = `
 <script src="./eon-x-eonify.js"></script>
 `
 
@@ -84,7 +84,7 @@ let searchexp = RegExp(`${searchpattern}`, 'm')
 //
 //
 let _replacepattern = `<script src="d3-require.js"></script>
-<script src="./d3-require.js"></script>
+
 <script src="./eon-x-eonify.js"></script>
 
 `
