@@ -34,7 +34,7 @@ async function anitem (__eo) {
     __eo('xs').p('uniwen'),
     __eo('xs').r('svg'),
   ])
-
+  renderSvg.scenecolor('black')
   let muonStore = __eo('muonStore')
 
   // .................. animas
@@ -52,23 +52,18 @@ async function anitem (__eo) {
       eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eonode: {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
-        properties: {
-          orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
-        },
+        geometry: {type: 'Point',coordinates: [0, 0, 0],},
+        properties: {orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],},
       },
       eoform: {
         x: {
           'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
           'dom3': [ -180, 180 ],
         },
         y: {
           'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1,
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 3, 'pa6': 0, 'pb7': -1,
+          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': -1,
           'dom3': [ -180, 180 ],
         },
       },
@@ -76,7 +71,7 @@ async function anitem (__eo) {
         proform: {
           projection: 'uniwen',
           translate: [ 0, 0 ], //
-          scale: [1, 1.5, 1],
+          scale: [1, 1, 1],
           rotate: [ 0, 0, 30 ],
           lens: [0, 1, Infinity],
         },
@@ -136,7 +131,6 @@ async function anitem (__eo) {
     // .................. animas
     let animas = [
       natTree,
-      // natStar,
     ]
 
     return animas

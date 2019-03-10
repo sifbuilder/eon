@@ -25,7 +25,7 @@ async function anitem (__eo) {
     __eo('xs').m('natform'),
     __eo('xs').r('svg'),
   ])
-
+  renderSvg.scenecolor('black')
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -82,10 +82,10 @@ async function anitem (__eo) {
     // ............................. natAni
     let natAni2 = {
       eohal: 'mars',
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
-
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat2'},
+
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
 
       eomot: {
         proform: {

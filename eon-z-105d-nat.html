@@ -20,7 +20,7 @@ async function anitem (__eo) {
     __eo('xs').m('natform'),
     __eo('xs').r('svg'),
   ])
-
+  renderSvg.scenecolor('black')
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -90,13 +90,14 @@ async function anitem (__eo) {
       eoload: {},
     }
 
-    // ............................. animas
-    let animas = [
+    // ............................. scene
+    let scene = {
+    
       natAni1, // h.mars
 
-    ]
+    }
 
-    return animas
+    return scene
   }
 
   let enty = () => {}

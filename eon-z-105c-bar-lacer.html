@@ -25,7 +25,7 @@ async function anitem (__eo) {
     __eo('xs').m('natform'),
     __eo('xs').r('svg'),
   ])
-
+  renderSvg.scenecolor('black')
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -43,6 +43,9 @@ async function anitem (__eo) {
     // ............................. natAni
     let natAni2 = {
       eohal: 'mars',
+      eotim,
+      eoric: {gid: 'nat', cid: 'nat', fid: 'nat2'},
+      
       eofold: ani => {
         let coors = ani.eoload.coors
 
@@ -56,9 +59,6 @@ async function anitem (__eo) {
         }
         return res
       },
-
-      eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'nat2'},
 
       eomot: {
         proform: {
@@ -85,13 +85,14 @@ async function anitem (__eo) {
 
       },
     }
-    // ............................. animas
-    let animas = [
+    // ............................. scene
+    let scene = {
+    
       natAni2, // h.mars
 
-    ]
+    }
 
-    return animas
+    return scene
   }
 
   let enty = () => {}
