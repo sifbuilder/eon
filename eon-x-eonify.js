@@ -45,40 +45,51 @@ function parseIdentifier(identifier) {
   };
 }
 
+
+
+// resolveMeta
+//  @target
+//    { name: 'd3-interpolate', version: undefined, path: undefined }
+//
+//  url is built from target
+//    https://cdn.jsdelivr.net/npm/d3-interpolate/package.json
+//
+//  fetch url returns json:
+//    this json() {
+//      return this._consumeBody().then(text => JSON.parse(text));
+//    }
+
 function resolveMeta(target) {
-  // resolveMeta
-  //    { name: 'd3-interpolate', version: undefined, path: undefined }
 
-  const url = `${origin}${target.name}${target.version ? `@${target.version}` : ""}/package.json`;
-  // url:
-  //    https://cdn.jsdelivr.net/npm/d3-interpolate/package.json
+  const url = `${origin}${target.name}${target.version ? `@${target.version}` : ""}/package.json`
 
-  let meta = metas.get(url);
+  let meta = metas.get(url)
 
-  if (!meta) metas.set(url, meta = fetch(url).then(response => {
+  if (!meta) metas.set(url, meta = fetch(url)
+      .then(response => {
 
-    if (!response.ok) throw new RequireError("unable to load package.json");
-    if (response.redirected && !metas.has(response.url)) metas.set(response.url, meta);
+    if (!response.ok) throw new RequireError("unable to load package.json")
+      
+    if (response.redirected && !metas.has(response.url)) metas.set(response.url, meta)
 
-    //json:
-    //    this json() {
-    //      return this._consumeBody().then(text => JSON.parse(text));
-    //    }
-
-    return response.json();
-  }));
-  return meta;
+    return response.json()
+  }))
+  return meta
 }
 
 async function resolve(name, base) {
 
+
   if (name.startsWith(origin)) name = name.substring(origin.length);
-  if (/^(\w+:)|\/\//i.test(name)) return name;
+  if (/^(\w+:)|\/\//i.test(name)) {
+    return name;
+  }
   if (/^[.]{0,2}\//i.test(name)) {
 
     return name // _e_  // return new URL(name, base == null ? location : base).href;
 
   }
+
   if (!name.length || /^[\s._]/.test(name) || /\s$/.test(name)) throw new RequireError("illegal name");
   const target = parseIdentifier(name);
   if (!target) return `${origin}${name}`;
@@ -87,9 +98,14 @@ async function resolve(name, base) {
     target.version = meta.dependencies && meta.dependencies[target.name] || meta.peerDependencies && meta.peerDependencies[target.name];
   }
   if (target.path && !extensionRe.test(target.path)) target.path += ".js";
-  if (target.path && target.version && versionRe.test(target.version)) return `${origin}${target.name}@${target.version}/${target.path}`;
+  if (target.path && target.version && versionRe.test(target.version)) {
+    let res = `${origin}${target.name}@${target.version}/${target.path}`
+    return res
+  }
   const meta = await resolveMeta(target);
-  return `${origin}${meta.name}@${meta.version}/${target.path || main(meta) || "index.js"}`;
+  let res = `${origin}${meta.name}@${meta.version}/${target.path || main(meta) || "index.js"}`
+
+  return res
 }
 
 const d3Require = requireFrom(resolve);
@@ -109,45 +125,36 @@ function requireFrom(resolver) {
     let isnode2 = navigator.userAgent.includes("Node.js") || navigator.userAgent.includes("jsdom")
     if (isnode1 && isnode2) {  // _e_
 
-      if (!module) cache.set(url, module = new Promise((resolve, reject) => {
-        if (1 && 1) console.log('requireAbsolute', url)
+      if (/^[.]{0,2}\//i.test(url)) { // ./
+        if (!module) cache.set(url, module = new Promise((resolve, reject) => {
 
-        // requireAbsolute url
-        //    ./d3-interpolate.js
-        //    https://cdn.jsdelivr.net/npm/d3-interpolate@1.3.2/dist/d3-interpolate.min.js
+          // from feon requireAbsolute url is eg ./d3-interpolate.js
+          try {
+            resolve(require(url))
+          }
+          catch (error) {
+            reject(new RequireError(`invalid module: ${error}`))
+          }
+        }))
 
+      } else  if (/^(\w+:)|\/\//i.test(url)) {
 
-            try {
+        // from xeon    https://cdn.jsdelivr.net/npm/d3-interpolate@1.3.2/dist/d3-interpolate.min.js
 
-              if (/^[.]{0,2}\//i.test(url)) { // ./
-                resolve(require(url))
+        var requireFromString = require('require-from-string');
+        if (!module) cache.set(url, module = fetch(url)
+              .then(response => {
+                let res = response.text()
+                return res
+              })
+              .then(string => {
+                let res = requireFromString(string)
+                return res
+              })
+            )
 
-              } else {
+      }
 
-                console.assert(/^(\w+:)|\/\//i.test(url)) // full url
-
-                fetch(url)
-                  .then(response => {
-
-                  if (!response.ok) throw new RequireError("unable to load package.json");
-
-                  return response.json()
-
-                })
-
-
-              }
-            }
-
-            catch (error) {
-
-              reject(new RequireError(`invalid module: ${error}`))
-
-            }
-
-      }));
-
-      if (1 && 1) console.log('module', url, module)
 
     } else {
 
@@ -171,7 +178,7 @@ function requireFrom(resolver) {
     }
 
 
-    return module;
+    return module
   }
 
   function requireRelative(base) {
@@ -223,6 +230,8 @@ function isexports(name) {
 }
 
 function define(name, dependencies, factory) {
+// define (2) ["exports", "d3-color"] ƒ (t,n){"use strict";function r(t,n,r,e,o)
+
   const n = arguments.length;
   if (n < 2) factory = name, dependencies = [];
   else if (n < 3) factory = dependencies, dependencies = typeof name === "string" ? [] : name;
@@ -242,10 +251,6 @@ function define(name, dependencies, factory) {
 }
 
 define.amd = {};
-
-
-
-
 
 
   //
@@ -290,7 +295,7 @@ define.amd = {};
     .replace(/-+/g, '') // remove hyphen
 
   const getCell = (e, n, m) => { // eon, name, mapper returns enty
-    console.assert(e !== undefined, `eon is undefined with name ${n}`)
+    console.assert(e !== undefined, `eon ${n} is undefined`)
     if (e[n] !== undefined && typeof e[n] === 'function') {
       // n is eon with e[n] async constructor eg. async function muonNatform
       // n is ani with e[n] async constructor eg. async function anitem
@@ -388,9 +393,8 @@ define.amd = {};
       (promis, func, i) => promis.catch(failed => {
         return Promise.resolve(getCeonSync([ceon, ''], __eo) || func())
       }), Promise.reject('init reduce'))
-      .catch(failed => { console.log('Failed: ', ceon, failed) })
+      .catch(failed => { console.log('Failed: ', ceon) }) // , failed) })
     }
-if (0 && 1) console.log('res', part[0], res)
 
     return res
   }
@@ -454,6 +458,12 @@ if (0 && 1) console.log('res', part[0], res)
 
     __eo({'xs': xs(__eo)}) // map xs
 
+    __eo({'xeon': {
+        ceonize  // eo naming
+      },
+    })
+
+
     __eo({'xD3Require': {
         require: d3Require,
         requireFrom: requireFrom,
@@ -473,11 +483,11 @@ if (0 && 1) console.log('res', part[0], res)
 
     let __eo = await initEo() // init mapper
 
-
     let animas = await __eo('xs').a(anitem) // proxy ani.anitem
 
     __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
     __eo('muonAnimation').animate(time) // animate
+
     return __eo
 
   }
@@ -497,5 +507,6 @@ if (0 && 1) console.log('res', part[0], res)
   exports.require = d3Require
   exports.requireFrom = requireFrom
 
+  
   Object.defineProperty(exports, '__esModule', { value: true })
 }))

@@ -40,6 +40,7 @@
         velin: [0, 0, 0],
         prevous: [0, 0, 0],
         geodelta: [0, 0, 0],
+        hyperdelta: [0, 0, 0],
       },
     }
 
@@ -63,12 +64,14 @@
     }
 
     // ... initNodes
-    // ... out of the anitems, select the simnodes visible to the force field
-    // ... the force acts on the geonode. filter out anitems without eonode
+    // ... select the simnodes visible to the force field (from the anitems)
+    // ... the force acts on the geonode ... 
+    // ...    filter out anitems without eonode
     // ... synchronize between the aintem.eonode and the simnode
     // ... simnodes: {x,y,z}, {vx,vy,vz}, eoload, index
     // ...   @anitems: anitems
     // ...   @nDim:   dimensions of the field
+    
     function initNodes (anitems, nDim = 3) {
       let simnodes = []
 
@@ -77,6 +80,7 @@
         let eoload = aniItem.eoload
 
         if (aniItem.eonode !== undefined) { // if simmable  ...
+        
           // the eonode ports info of the simnode
           let eonode = muonEonode.init(aniItem.eonode)
 
@@ -94,7 +98,8 @@
           if ((simNode.y === undefined || isNaN(simNode.y)) && nDim > 1) simNode.y = 0
           if ((simNode.z === undefined || isNaN(simNode.z)) && nDim > 2) simNode.z = 0
 
-          // the simnode status is in the eonode properties
+          // the simnode status is in the eonode properties _e_
+          
           let properties = eonode.properties
           if (properties.anchor) { // fix situs
             simNode.fx = simNode.x
@@ -102,7 +107,8 @@
             simNode.fz = simNode.z
           }
 
-          // the simnode velocity is in the eonode properties velin
+          // simnode velocity from eonode.properties.velin
+          
           simNode.vx = properties.velin[0] // eonode velocity to simnode
           simNode.vy = properties.velin[1]
           simNode.vz = properties.velin[2]
@@ -112,8 +118,12 @@
           if (nDim > 2 && isNaN(simNode.vz)) simNode.vz = 0
           simNode.eoload = eoload // anitem eoload to simnode
 
-          simNode.id = simNode.eoric.uid // simnod.id anitem.eoric.uid
+          // set sim id from anitem.eoric.uid _e_ 
+          
+          simNode.id = simNode.eoric.uid
 
+          // sim links
+          
           if (eoload && eoload.link) { // links
             simNode.source = eoload.link.source
             simNode.target = eoload.link.target
@@ -135,6 +145,7 @@
     // ...     properties.{geodelta, prevous, velin}
 
     function restoreNodes (simnodes, anitems) {
+
       let updItems = []
       if (simnodes.length > 0) {
         for (let i = 0; i < simnodes.length; ++i) {
@@ -158,6 +169,10 @@
             eonode.properties.geodelta[1] = simNode.y - eonode.geometry.coordinates[1]
             eonode.properties.geodelta[2] = simNode.z - eonode.geometry.coordinates[2]
 
+            eonode.properties.hyperdelta[0] += eonode.properties.geodelta[0]
+            eonode.properties.hyperdelta[1] += eonode.properties.geodelta[1]
+            eonode.properties.hyperdelta[2] += eonode.properties.geodelta[2]
+            
             eonode.properties.velin[0] = simNode.vx // linear velocities
             eonode.properties.velin[1] = simNode.vy
             eonode.properties.velin[2] = simNode.vz

@@ -44,7 +44,7 @@ async function anitem (__eo) {
     __eo('xs').r('portview'),
     __eo('xs').r('svg'),
   ])
-
+  renderSvg.scenecolor('black')
   let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
 
@@ -175,11 +175,7 @@ async function anitem (__eo) {
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [
-                0,
-                0,
-                0,
-              ],
+              coordinates: [ 0, 0, 0, ],
             },
             properties: {
               orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
@@ -224,10 +220,7 @@ async function anitem (__eo) {
 
       eofold: {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
+        geometry: { type: 'Point', coordinates: [0, 0, 0], },
         properties: {
           pointRadius: [[[ 6, 5.5, 5, 3, 2, 1, 0]]],
         },
@@ -235,10 +228,7 @@ async function anitem (__eo) {
 
       eonode: {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
+        geometry: { type: 'Point', coordinates: [0, 0, 0], },
         properties: {
           pointRadius: [[[ 6, 6, 6, 3, 2, 1, 1]]],
           orgen: [0, 0, 0], velin: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0],
@@ -250,7 +240,7 @@ async function anitem (__eo) {
         proform: {
           projection: 'uniwen',
           prerotate: [[[ ctl.rotation ]]],
-          translate: [-20, -120, 0],
+          translate: [-20, -60, 0],
           scale: 1,
           rotate: [ [[[0, 360]]], [[[0, 360]]], 0 ],
           lens: [0, 1, Infinity],
@@ -268,7 +258,6 @@ async function anitem (__eo) {
           'ra2': 12,
           'w4': 90,
           'seg5': 60,
-          'pa6': 0, 'pb7': -1,
         },
         y: {
           'm1': 7.28, 'm2': 0.67, 'n1': 10.19, 'n2': 14.4, 'n3': -7.48, 'a': 5.38, 'b': 4.45,	// heart
@@ -276,7 +265,6 @@ async function anitem (__eo) {
           'ra2': 12,
           'w4': 90,
           'seg5': 60,
-          'pa6': 0, 'pb7': -1,
         },
       },
       eoload: {},
@@ -335,7 +323,6 @@ async function anitem (__eo) {
           'ra2': 12,
           'w4': 90,
           'seg5': 60,
-          'pa6': 0, 'pb7': -1,
         },
         y: {
           'm1': 7.28, 'm2': 0.67, 'n1': 10.19, 'n2': 14.4, 'n3': -7.48, 'a': 5.38, 'b': 4.45,	// heart
@@ -343,7 +330,6 @@ async function anitem (__eo) {
           'ra2': 12,
           'w4': 90,
           'seg5': 60,
-          'pa6': 0, 'pb7': -1,
         },
       },
       eoload: {},
@@ -402,7 +388,6 @@ async function anitem (__eo) {
           'ra2': 12,
           'w4': 90,
           'seg5': 60,
-          'pa6': 0, 'pb7': -1,
         },
         y: {
           'm1': 7.28, 'm2': 0.67, 'n1': 10.19, 'n2': 14.4, 'n3': -7.48, 'a': 5.38, 'b': 4.45,	// heart
@@ -410,7 +395,6 @@ async function anitem (__eo) {
           'ra2': 12,
           'w4': 90,
           'seg5': 60,
-          'pa6': 0, 'pb7': -1,
         },
       },
       eoload: {},
@@ -428,7 +412,7 @@ async function anitem (__eo) {
       let type = properties.type
       let filter = properties.filter
 
-      let fName = __eo('xs').ceonize(type, 'force')
+      let fName = __eo('xeon').ceonize(type, 'force')
 
       let gravity = opts.gravity // gravity
 
@@ -822,9 +806,9 @@ async function anitem (__eo) {
     let animas = [
 
       nodeAniA, // h.mars
-      nodeAniB, // h.mars
-      nodeAniC, // h.mars
-      fieldAni, // h.core
+      // nodeAniB, // h.mars
+      // nodeAniC, // h.mars
+      // fieldAni, // h.core
 
     ]
 

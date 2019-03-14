@@ -33,7 +33,7 @@ async function anitem (__eo) {
     __eo('xs').r('portview'),
     __eo('xs').r('svg'),
   ])
-
+  renderSvg.scenecolor('black')
   let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
 
@@ -42,50 +42,56 @@ async function anitem (__eo) {
     // .................... pics
     let eotim = {'td': 12800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
-    // .................... natAni2
-    let natAni2 = {
+    // .................... natAni
+    let natAni = {
 
       eohal: 'mars',
       eoric: {gid: 'ani', cid: 'ani', fid: 'ani2'},
-
       eotim: eotim,
-      eofold: function (p) {
-        return muonNatform.natMultiLineString({eoform: p.eoform})
-      },
+      
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoload.eoform}),
 
       eonode: {
         type: 'Feature',
-        geometry: null,
+        geometry: {
+          type: 'Point',
+          coordinates: [0, 0, 0],
+        },
+        properties: {orgen: [0, 0, 0], velin: [0, 0, 0], velang: [0, 0, 0], prevous: [0, 0, 0], geodelta: [0, 0, 0], hyperdelta: [0, 0, 0]},
       },
 
       eomot: {
         proform: {
           projection: 'uniwen',
-          translate: [ [[[-100, 100]]], 0, 0],
+          translate: [ 0, -100, 0],
           scale: 1,
           rotate: [ 0, 0, 0 ],
-          lens: [0, 1, 12],
+          lens: [0, 1, Infinity],
           geoanod: 1, // eonode
         },
       },
 
-      eocrom: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
 
-      eoform: {
-        'x': {
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
-          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
-        },
-        'y': {
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
-          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
-        },
-        'z': {
-          'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
-          'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
-        },
+
+      eoload: {
+        eocrom: { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 },
+      
+        eoform: {
+          'x': {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
+          },
+          'y': {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
+          },
+          'z': {
+            'm1': 4, 'm2': 4, 'n1': 2, 'n2': 2, 'n3': 2, 'a': 1, 'b': 1,
+            'ra2': 20, 'v0': 0, 'v1': 1, 'seg5': 12, 'w4': 90, 'pa6': 0, 'pb7': 360,
+          },
+        },      
+        
       },
-      eoload: {},
     }
 
     // ............................. forceGravity
@@ -112,6 +118,8 @@ async function anitem (__eo) {
 
           node.vy += g
         }
+
+
       }
       fforce.initialize = () => {} // initialize
 
@@ -175,19 +183,18 @@ async function anitem (__eo) {
     }
 
     fieldAni.eoforces = {
-
       force_gravity,
     }
 
-    // .................. animas
-    let animas = [
+    // .................. scene
+    let scene = {
 
-      natAni2, // h.mars
+      natAni, // h.mars
       fieldAni, // h.core
 
-    ]
+    }
 
-    return animas
+    return scene
   }
 
   let enty = () => {}

@@ -125,7 +125,7 @@
       getweens(state.animas, elapsed)
 
       let animasLive = muonStore.animas()
-
+      
       // _e_ getsims snapani for force properties - tbf
       let anisimmed = getsims(animasLive, elapsed)
 

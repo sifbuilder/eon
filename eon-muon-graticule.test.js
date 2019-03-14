@@ -1,46 +1,67 @@
-const d3 = require('./d3.js')
-global.d3 = d3
+jest.setTimeout(30000)
 
-const xs = require('./eon-x-eonify.js')
-const requiredGraticule = require('./eon-muon-graticule.js')
+let fileUrl = require('file-url')
 
-let __eo = xEo.xEo()
-__eo({'xs': xs.xs(__eo)}).xs
+if (typeof fetch !== 'function') {
+  global.fetch = require('node-fetch-polyfill')
+}
 
-let mGraticule = requiredGraticule.muonGraticule(__eo)
+const xEonify = require('./eon-x-eonify.js')
 
-test('test tidx', () => {
-  let tidxer = mGraticule.tidx(6, 4, 1, 1) // h (mers), v (parals)
-  let idx = tidxer(2, 3) // col ([0,3]), row ([0,2])
-  expect(idx).toBe(20) // 3 * (6*1) + 2 : 20 (in [0,23]
+
+let getMuonGraticule = jest.fn( async () => {
+  let __eo = xEonify.xEo()
+  __eo({'xs': xEonify.xs(__eo)})
+  let muonProps = await __eo('xs').m('graticule')
+  return muonProps
 })
+
+
+
+// test('test tidx', async () => {
+  // let muonGraticule = await getMuonGraticule()  
+  // let tidxer = muonGraticule.tidx(6, 4, 1, 1) // h (mers), v (parals)
+  // let idx = tidxer(2, 3) // col ([0,3]), row ([0,2])
+  // expect(idx).toBe(20) // 3 * (6*1) + 2 : 20 (in [0,23]
+// })
 
 // . . . . . . [0,3]:18     [5,3]:23
 // . . . . . .
 // . . . . . .
 // . . . . . . [0,0]:0      [5,0]:4
 
-test('tidx', () => {
-  let tidxer = mGraticule.tidx(6, 4, 1, 1) // h (mers), v (parals)
+test('tidx', async () => {
+  let muonGraticule = await getMuonGraticule()  
+  
+  let tidxer = muonGraticule.tidx(6, 4, 1, 1) // h (mers), v (parals)
   let idx = tidxer(3, 5) // col ([0,3]), row ([0,2])
   expect(idx).toBe(33) // 5 * (6*1) + 3 : 33
 })
 
-test('ridx a', () => {
-  let tidxer = mGraticule.ridx(6, 4, 1, 1) // h (mers), v (parals)
-  let coords = tidxer(3) //
+test('ridx a', async () => {
+  let muonGraticule = await getMuonGraticule()  
+  // . . 3 . . .
+  // . . . . . .
+  // . . . . . .
+  // . . . . . .
+  let ridx = muonGraticule.ridx(6, 4, 1, 1) // h (mers), v (parals)
+  let coords = ridx(3) //
   expect(coords).toEqual([0, 3]) //
 })
 
-test('ridx b', () => {
-  let tidxer = mGraticule.ridx(6, 4, 1, 1) // h (mers), v (parals)
+test('ridx b', async () => {
+  let muonGraticule = await getMuonGraticule()  
+  
+  let tidxer = muonGraticule.ridx(6, 4, 1, 1) // h (mers), v (parals)
   let coords = tidxer(8) //
   expect(coords).toEqual([1, 2]) //
 })
 
-test('gratiparams', () => {
+test('gratiparams', async () => {
+  let muonGraticule = await getMuonGraticule()  
+  
   let params = { geoframe: [ [ [-180, 180, 15, 15], [-180, 180, 60, 60] ] ] }
-  let r = mGraticule.gratiparams(params)
+  let r = muonGraticule.gratiparams(params)
   let o = {DX: 15, DY: 60, PX: 15, PY: 60,
     X0: -180, X1: 180, Y0: -180, Y1: 180,
     dx: 15, dy: 60, px: 15, py: 60,

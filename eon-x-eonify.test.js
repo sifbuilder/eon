@@ -5,7 +5,7 @@ let d3Require = d3.require
 let d3RequireFrom = d3.requireFrom
 
 const xEonify = require('./eon-x-eonify.js')
-
+global.d3 = xEonify.define
 
 test('test filenize', () => {
   let filepath = xEonify.filenize('d3-scale')

@@ -13,10 +13,12 @@
       d3Array,
       muonGeoj,
       muonGeom,
+      muonProps,
     ] = await Promise.all([
       __eo('xs').b('d3-array'),
       __eo('xs').m('geoj'),
       __eo('xs').m('geom'),
+      __eo('xs').m('props'),
     ])
 
     let d3Range = d3Array.range
@@ -37,21 +39,10 @@
     cache.gratiparams = {}
 
     // .................. tidx
-    let tidx = function (horq, verq, hd = 1, vd = 1) { // tidx(6,4,1,1)
-      return function (col, row) { // ridx([3,5]) => 17
-        let ret = (row * hd) * (horq * vd) + col
-        return ret
-      }
-    }
+    let tidx = muonProps.tidx
 
     // .................. ridx
-    let ridx = function (horq, verq, hd = 1, vd = 1) { // ridx(6,4,1,1)
-      return function (idx) { // ridx(3) => [0,2], ridx(17) => [3,5]
-        // let ret = [Math.floor(((idx / hd) / vd) / horq), idx % horq]
-        let ret = [ idx % horq, Math.floor(((idx / hd) / vd) / horq) ]
-        return ret
-      }
-    }
+    let ridx = muonProps.ridx
 
     // .................. oneface
     let oneface = function (a, b, c, xn, yn) { //  xy,ru,ry
@@ -527,6 +518,7 @@
               velang: [0, 0, 0],
               prevous: [0, 0, 0],
               geodelta: [0, 0, 0],
+              hyperdelta: [0, 0, 0],
             },
           },
           faces: faces,

@@ -24,6 +24,7 @@
           velang: [0, 0, 0],
           prevous: [0, 0, 0],
           geodelta: [0, 0, 0],
+          hyperdelta: [0, 0, 0],
         },
       }
 
@@ -34,9 +35,10 @@
     let init = function (node = {}) {
       let eonode = getdefault()
 
+      
       if (node.geometry) eonode.geometry = node.geometry
-
-      if (node.properties) eonode.properties = node.properties
+      if (node.properties) eonode.properties = Object.assign(node.properties, eonode.properties)
+        
       return eonode
     }
 

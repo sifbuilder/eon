@@ -128,6 +128,7 @@
         if (projdef.geoanod && eonode) {
           if (eonode.geometry && eonode.geometry.coordinates !== undefined) {
             let nodetranslate = eonode.geometry.coordinates // eonode coords
+
             translation = muonGeom.add(translation, nodetranslate)
           }
         }

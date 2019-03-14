@@ -94,6 +94,9 @@
           res = snap(v(t), t, 0)
         } else if (muonProps.isObject(v) // 10 ___ v :: {b, c, d ...}*
         ) { // assume nat on object
+        
+        
+        
           let feature = muonNatform.natMultiLineString({eoform: v}) // eoform
           if (!muonGeoj.isValid(feature)) console.error('gj not valid', v, feature)
           let geometry = feature.geometry

@@ -14,9 +14,9 @@ test('test', async () => {
 
   let __eo = xEonify.xEo()
   __eo({'xs': xEonify.xs(__eo)})
-  let muonEocrom = await __eo('xs').m('eocrom')
-  
-  expect(muonEocrom.kolor(777, 0)).toBe('rgb(251, 107, 11)')
+  let bosonD3 = await __eo('xs').b('d3')
+
+  expect(bosonD3.version).toBe("5.8.0")
   
 })
 

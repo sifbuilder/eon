@@ -37,25 +37,33 @@
       let newAni = anitem // muonProps.clone(anitem) // _e_
 
       let eonode = muonProps.v(anitem.eonode, anitem) // newAni.eonode
+      
+      // apply eomot projections to eonode
+      
       if (eonode && anitem.eomot) {
+
         for (let [mot, prt] of Object.entries(anitem.eomot)) {
+          let geometry = eonode.geometry || {}
           let properties = eonode.properties || {}
+          newAni.eonode = eonode
+          
+          // let prtion = muonProfier.formion(prt, anitem)
+          // let gjobj = muonGeoj.deprop(eonode) // remove properties from eonode
 
-          let prtion = muonProfier.formion(prt, anitem)
-          let gjobj = muonGeoj.deprop(eonode)
+          // if (gjobj.geometry !== null) {  // geometry has non null coordinates
+            // console.assert(gjobj.geometry.coordinates !== null)
+          // }
 
-          if (gjobj.geometry !== null) {
-            console.assert(gjobj.geometry.coordinates !== null)
-          }
-
-          let node = muonProj3ct(gjobj, prtion)
-          node.properties = properties
-          node.properties[mot] = muonGeoj.deprop(node) // save [prt] pure node
-
-          newAni.eonode = node
+          // let node = muonProj3ct(gjobj, prtion)
+          // node.properties = properties
+          // node.properties[mot] = muonGeoj.deprop(node) // save [prt] pure node _e_
+          
+          // newAni.eonode = node
         }
       }
 
+      // if eomot.geoanod:1, the eoanod offset is added to the projection translate
+      
       let eofold = muonProps.v(anitem.eofold, anitem) // newAni.eofold
       let gjcollection = muonGeoj.featurecollect(eofold)
 

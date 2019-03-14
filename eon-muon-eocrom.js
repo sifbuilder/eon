@@ -12,23 +12,29 @@
     let [
       d3interpolate,
       d3Scale,
+      // d3,
     ] = await Promise.all([
       __eo('xs').b('d3-interpolate'),
-      __eo('xs').b('d3'),
+      __eo('xs').b('d3-scale'),
+      // __eo('xs').b('d3'),
     ])
 
-    function shadeRGBColor (color) {
-      let p = 255,
-        R = color[0],
-        G = color[1],
-        B = color[2]
-      return t => (
-        'rgb(' +
-            (Math.round((t - R) * p) + R) + ',' +
-            (Math.round((t - G) * p) + G) + ',' +
-            (Math.round((t - B) * p) + B) + ')'
-      )
-    }
+  // let d3Scale = d3  
+  // let d3interpolate = d3  
+    
+    
+  function shadeRGBColor (color) {
+    let p = 255,
+      R = color[0],
+      G = color[1],
+      B = color[2]
+    return t => (
+      'rgb(' +
+          (Math.round((t - R) * p) + R) + ',' +
+          (Math.round((t - G) * p) + G) + ',' +
+          (Math.round((t - B) * p) + B) + ')'
+    )
+  }
 
     // .................. color
     function color (d = 0) {
