@@ -10,17 +10,13 @@
 
   async function muonEocrom (__eo = {}) {
     let [
-      d3interpolate,
-      d3Scale,
-      // d3,
+      d3,
     ] = await Promise.all([
-      __eo('xs').b('d3-interpolate'),
-      __eo('xs').b('d3-scale'),
-      // __eo('xs').b('d3'),
+      __eo('xs').b('d3'),
     ])
 
-  // let d3Scale = d3  
-  // let d3interpolate = d3  
+  let d3Scale = d3  
+  let d3Interpolate = d3  
     
     
   function shadeRGBColor (color) {
@@ -51,17 +47,17 @@
         scales.red = d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['#FF2400', 'Yellow']) // 6
         scales.ry = d3Scale.scaleLinear().domain([0, 1]).range(['red', 'gold']) // 7
         scales.bar = d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['black', '#FF2400', 'Yellow']) // 8
-        scales.lab = d3interpolate.interpolateLab('#FF2400', 'yellow') // 9
-        scales.hsl = d3interpolate.interpolateLab('amber', 'steelblue') // 10
-        scales.rbl = d3interpolate.interpolateLab('red', 'blue') // 11
-        scales.plasma = d3interpolate.interpolatePlasma, // 12
-        scales.cool = d3interpolate.interpolateCool, // 13
-        scales.warm = d3interpolate.interpolateWarm, // 14
-        scales.magma = d3interpolate.interpolateMagma, // 15
-        scales.inferno = d3interpolate.interpolateInferno, // 16
-        scales.viridis = d3interpolate.interpolateViridis, // 17
-        scales.cubehelex = d3interpolate.interpolateCubehelexDefault, // 18
-        scales.rainbow = d3interpolate.interpolateRainbow, // 19
+        scales.lab = d3Interpolate.interpolateLab('#FF2400', 'yellow') // 9
+        scales.hsl = d3Interpolate.interpolateLab('amber', 'steelblue') // 10
+        scales.rbl = d3Interpolate.interpolateLab('red', 'blue') // 11
+        scales.plasma = d3Interpolate.interpolatePlasma, // 12
+        scales.cool = d3Interpolate.interpolateCool, // 13
+        scales.warm = d3Interpolate.interpolateWarm, // 14
+        scales.magma = d3Interpolate.interpolateMagma, // 15
+        scales.inferno = d3Interpolate.interpolateInferno, // 16
+        scales.viridis = d3Interpolate.interpolateViridis, // 17
+        scales.cubehelex = d3Interpolate.interpolateCubehelexDefault, // 18
+        scales.rainbow = d3Interpolate.interpolateRainbow, // 19
         scales.bluered = d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'red' ]) // 20
         scales.blueblack = d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['blue', 'Wheat', 'black' ]) // 21
         scales.redblack = d3Scale.scaleLinear().domain([0, 0.5, 1]).range(['Black', '#FF2400', 'Steelblue' ]) // 22

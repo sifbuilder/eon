@@ -1,5 +1,3 @@
-jest.setTimeout(30000)
-
 let fileUrl = require('file-url')
 
 if (typeof fetch !== 'function') {
@@ -8,21 +6,15 @@ if (typeof fetch !== 'function') {
 
 const xEonify = require('./eon-x-eonify.js')
 
-
-
-test('test', async () => {
-
+let getEon = jest.fn(async () => {
   let __eo = xEonify.xEo()
   __eo({'xs': xEonify.xs(__eo)})
-  let muonEocrom = await __eo('xs').m('eocrom')
-  
-  expect(muonEocrom.kolor(777, 0)).toBe('rgb(251, 107, 11)')
-  
+  let eon = await __eo('xs').m('eocrom')
+  return eon
 })
 
+test('test', async () => {
+  let eon = await getEon()
 
-
-
-
-
-
+  expect(eon.kolor(777, 0)).toBe('rgb(251, 107, 11)')
+})

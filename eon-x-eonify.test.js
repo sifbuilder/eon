@@ -52,4 +52,3 @@ test('test xEo() return empty state object', () => {
   let state = xEonify.xEo()
   expect(state()).toEqual({})
 })
-

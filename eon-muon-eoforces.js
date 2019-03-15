@@ -48,7 +48,7 @@
       let type = properties.type
       let filter = properties.filter
 
-      let fName = __eo('xeon').ceonize(type, 'force')
+      let fName = __eo([type, 'force'])
 
       if (fforce !== undefined) { // force is passed from z.eon
         //
@@ -95,7 +95,7 @@
       let type = properties.type
       let filter = properties.filter
 
-      let fName = __eo('xeon').ceonize(type, 'force')
+      let fName = __eo([type, 'force'])
 
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
@@ -176,7 +176,7 @@
       let type = properties.type
       let filter = properties.filter
 
-      let fName = __eo('xeon').ceonize(type, 'force')
+      let fName = __eo([type, 'force'])
 
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {

@@ -281,7 +281,7 @@ define.amd = {};
 
 
   const filenize = function (nome, path = '.', ext = 'js') {
-    resturn `${path}/${nome}.${ext}`
+    return `${path}/${nome}.${ext}`
   }
 
   const ceonize = function (nome, pres = '') {
@@ -374,12 +374,9 @@ define.amd = {};
 
     } else if (typeof part[0] === 'function') {
       // [async ƒ anitem(__eo), "ani"]
-if (1 && 1) console.log('part:', part)
 
       let [eonfn, pres] = part
       let x = await eonfn(__eo)
-if (1 && 1) console.log('x:', x)
-
 
       res = await x[pres]()
 
@@ -454,8 +451,19 @@ if (1 && 1) console.log('x:', x)
     let state = {}
 
     let stater = function (_) {
+
       if (arguments.length < 1) return state
-      else if (typeof _ === 'object') return (state = Object.assign({}, state, _))
+      
+      if (Array.isArray(_)) {
+        let ceon = ceonize(..._)
+        if (1 && 1) console.log('ceon', ceon)
+
+        if (state[ceon] !== undefined) {
+          return state[ceon]
+        } else {
+          return null
+        }
+      } else if (typeof _ === 'object') return (state = Object.assign({}, state, _))
       else if (typeof _ === 'string' && state[_] !== undefined) return state[_]
       else if (typeof _ === 'string' && state[_] === undefined) return null
     }
@@ -473,8 +481,6 @@ if (1 && 1) console.log('x:', x)
     let __eo = xEo() // init mapper
 
     __eo({'xs': xs(__eo)}) // map xs
-
-    __eo({'xeon': { ceonize }, }) // eo naming
 
     __eo({'xD3Require': {
         require: d3Require,
@@ -497,12 +503,12 @@ if (1 && 1) console.log('x:', x)
     let animas = []
 
     if (typeof anitem === 'function') {
-      // anitem: async ƒ anitem (__eo) {
-        // let [
-          // ctlRayder,
-          // ctlWen,
-          // eohalNatform,
-          // p…      
+        // anitem: async ƒ anitem (__eo) {
+          // let [
+            // ctlRayder,
+            // ctlWen,
+            // eohalNatform,
+            // p…      
       animas = await __eo('xs').a(anitem) 
     } else if (typeof anitem === 'string') {
       // anitem: 852d-3dgrat

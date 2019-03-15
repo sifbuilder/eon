@@ -58,7 +58,6 @@
       __eo('xs').p('uniwen'),
 
     ])
-    let xeon = xEonify
 
     // ............................. getPrt
     function getPrt (projdef) {
@@ -79,8 +78,7 @@
           if (typeof projdef.projection === 'function') {
             geoproj = prt(projdef)
           } else {
-            let ceon = xeon.ceonize(prtItem, 'prt')
-            let prt = __eo(ceon)
+            let prt = __eo([prtItem, 'prt'])
 
             console.assert(typeof prt === 'function', `prt ${prt} in ${projdef} from __eo is not a function`)
             geoproj = prt(projdef)
