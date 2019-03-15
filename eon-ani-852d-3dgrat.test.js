@@ -13,13 +13,12 @@ const xEonify = require('./eon-x-eonify.js')
 let getAni = jest.fn( async () => {
   let __eo = xEonify.xEo()
   __eo({'xs': xEonify.xs(__eo)})
-  
 
-  let eon = require('./eon-ani-852d-3dgrat.js').ani852d3dgrat
-
-  // let enty = await ani.ani852d3dgrat(__eo)
+  let eon = require('./eon-ani-852d-3dgrat.js')
+  // eon = await eon.ani852d3dgrat(__eo)
+  eon = eon.ani852d3dgrat
   __eo = xEonify.eon({ anitem: eon, time: 0 })  
-  
+
   return __eo
 })
 
@@ -29,8 +28,8 @@ let getAni = jest.fn( async () => {
 test('test add', async () => {
 
   let __eo = await getAni()  
-// if (1 && 1) console.log('eon', eon)
-    // xEonify.eon({ anitem: anitem, time: 0 })
+  
+
   
   expect(1 + 1).toBe(2)
   

@@ -81,8 +81,8 @@
       return scene
     }
 
-    let enty = function () {}
-    enty = ani()
+    let enty = () => {}
+    enty.ani = ani    
     return enty
   }
 

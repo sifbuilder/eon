@@ -275,6 +275,30 @@
       return formDax
     }
 
+    
+    // ............................. isNatform
+    let isNatform = function (eoform = {}) {
+      let isform = false
+      if (
+        typeof eoform === 'object'
+        && eoform.n1 !== undefined
+        && eoform.n3 !== undefined
+      ) {
+        
+        isform = true
+        
+      }
+      else if (
+        Array.isArray(eoform)
+        && eoform[0] !== undefined
+        && eoform[0].n3 !== undefined
+      ) {
+        
+        isform = true
+        
+      }
+      return isform
+    }
     // ............................. natNform
     let natNform = function (props = {}) {
       let defs = {'v0': 0, 'v1': 1, 'ra2': 120, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1} // defs
@@ -744,6 +768,7 @@
     enty.natMultiLineString = natMultiLineString
     enty.natMultiPolygon = natMultiPolygon
 
+    enty.isNatform = isNatform
     enty.natNform = natNform
     enty.closeFeature = closeFeature
     enty.natVertex = natVertex

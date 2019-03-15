@@ -69,7 +69,7 @@ function resolveMeta(target) {
       .then(response => {
 
     if (!response.ok) throw new RequireError("unable to load package.json")
-      
+
     if (response.redirected && !metas.has(response.url)) metas.set(response.url, meta)
 
     return response.json()
@@ -90,15 +90,15 @@ async function resolve(name, base) {
     let isnode1 = window.name == 'nodejs'
     let isnode2 = navigator.userAgent.includes("Node.js") || navigator.userAgent.includes("jsdom")
     if (isnode1 && isnode2) {  // _e_
-  
-      return name // _e_  
+
+      return name // _e_
     } else {
       return new URL(name, base == null ? location : base).href;
     }
 
-    
-    
-    
+
+
+
   }
 
   if (!name.length || /^[\s._]/.test(name) || /\s$/.test(name)) throw new RequireError("illegal name");
@@ -363,8 +363,9 @@ define.amd = {};
   }
 
   // ............................. getEon
-  async function getEon (inpart, __eo) { // nome is partName: eg 'muonGraticule'
-    let part = (typeof inpart === 'string') ? [inpart, ''] : inpart // else array
+  // nome is partName: eg 'muonGraticule'
+  async function getEon (inpart, __eo) {
+    let part = (typeof inpart === 'string') ? [inpart, ''] : inpart
 
     let res = []
     if (part[0] === undefined) {
@@ -373,9 +374,11 @@ define.amd = {};
 
     } else if (typeof part[0] === 'function') {
       // [async ƒ anitem(__eo), "ani"]
+if (1 && 1) console.log('part:', part)
 
       let [eonfn, pres] = part
       let x = await eonfn(__eo)
+if (1 && 1) console.log('x:', x)
 
 
       res = await x[pres]()
@@ -471,11 +474,7 @@ define.amd = {};
 
     __eo({'xs': xs(__eo)}) // map xs
 
-    __eo({'xeon': {
-        ceonize  // eo naming
-      },
-    })
-
+    __eo({'xeon': { ceonize }, }) // eo naming
 
     __eo({'xD3Require': {
         require: d3Require,
@@ -495,8 +494,24 @@ define.amd = {};
   let eon = async function ({anitem, time}) {
 
     let __eo = await initEo() // init mapper
+    let animas = []
 
-    let animas = await __eo('xs').a(anitem) // proxy ani.anitem
+    if (typeof anitem === 'function') {
+      // anitem: async ƒ anitem (__eo) {
+        // let [
+          // ctlRayder,
+          // ctlWen,
+          // eohalNatform,
+          // p…      
+      animas = await __eo('xs').a(anitem) 
+    } else if (typeof anitem === 'string') {
+      // anitem: 852d-3dgrat
+      animas = await __eo('xs').a(anitem) 
+      // animas () => {}
+      animas = animas.ani()
+      // animas: {natform: {…}}      
+
+    }
 
     __eo('muonStore').apply({type: 'UPDANIMA', animas: animas})
     __eo('muonAnimation').animate(time) // animate
@@ -520,6 +535,6 @@ define.amd = {};
   exports.require = d3Require
   exports.requireFrom = requireFrom
 
-  
+
   Object.defineProperty(exports, '__esModule', { value: true })
 }))

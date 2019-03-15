@@ -10,7 +10,6 @@
 
   async function muonSim (__eo = {}) {
     let [
-      d3,
       d3Force3d,
       muonAnitem,
       muonEonode,
@@ -19,7 +18,6 @@
       muonSnap,
       muonStore,
     ] = await Promise.all([
-      __eo('xs').b('d3'),
       __eo('xs').b('d3-force-3d'),
       __eo('xs').m('anitem'),
       __eo('xs').m('eonode'),

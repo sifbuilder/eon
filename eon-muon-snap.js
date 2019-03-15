@@ -12,15 +12,11 @@
     let [
       d3Scale,
       muonProps,
-      muonNatform,
       muonLacer,
-      muonGeoj,
     ] = await Promise.all([
-      __eo('xs').b('d3'),
+      __eo('xs').b('d3-scale'),
       __eo('xs').m('props'),
-      __eo('xs').m('natform'),
       __eo('xs').m('lacer'),
-      __eo('xs').m('geoj'),
     ])
 
     // .................. snap  value (anima), t (unit time), snap flag, parent
@@ -93,12 +89,13 @@
         ) {
           res = snap(v(t), t, 0)
         } else if (muonProps.isObject(v) // 10 ___ v :: {b, c, d ...}*
+          && __eo('muonNatform')
+          && __eo('muonNatform').isNatform(v)
         ) { // assume nat on object
-        
-        
-        
+          
+          let muonNatform = __eo('muonNatform')
+          
           let feature = muonNatform.natMultiLineString({eoform: v}) // eoform
-          if (!muonGeoj.isValid(feature)) console.error('gj not valid', v, feature)
           let geometry = feature.geometry
           let natRing
           if (geometry.type === 'LineString') {
