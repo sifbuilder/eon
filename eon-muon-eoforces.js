@@ -17,6 +17,22 @@
 
     let d3_force = d3Force3d
 
+    const camelize = str => str
+      .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index === 0 ? letter.toLowerCase() : letter.toUpperCase())
+      .replace(/\s+/g, '') // remove white space
+      .replace(/-+/g, '') // remove hyphen
+
+    
+    const ceonize = function (nome, pres = '') {
+      let camelized
+      if (pres === '') {
+        camelized = camelize(nome.replace(/^eon-/, ''))
+      } else {
+        camelized = camelize(pres + '-' + nome) // [uni-wen,muon] => muonUniWen
+      }
+      return camelized
+    }    
+    
     // ...................... isolate
     let isolate = function (sys) { // filter, force, nodes, sys, type
       let nodes = sys.nodes || []
@@ -48,23 +64,25 @@
       let type = properties.type
       let filter = properties.filter
 
-      let fName = __eo([type, 'force'])
+      let fName = ceonize(type, 'force')  // _e_
 
       if (fforce !== undefined) { // force is passed from z.eon
-        //
 
-      } else if (__eo(fName)) { // force is registered in mapper
-        fforce = __eo(fName)
+      } else if (__eo([type, 'force'])) { // force is registered in mapper
+        fforce = __eo([type, 'force'])
+        
       } else if (d3Force3d[fName] !== undefined) { // force is taken from physics
         fforce = d3Force3d[fName]
+        
       }
+      
       fforce = fforce(...args)
       for (var kee in opts) {
         if (fforce[kee] !== undefined) {
           fforce = fforce[kee](opts[kee])
         }
       }
-      console.assert(fforce !== null, `force ${fName} not found`)
+      console.assert(fforce !== null, `force ${type} not found`)
 
       let sys = {
         nodes: nodes,
@@ -94,8 +112,6 @@
       let key = properties.key
       let type = properties.type
       let filter = properties.filter
-
-      let fName = __eo([type, 'force'])
 
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {
@@ -175,8 +191,6 @@
       let key = properties.key
       let type = properties.type
       let filter = properties.filter
-
-      let fName = __eo([type, 'force'])
 
       let fforce = function force (...args) {
         for (let i = 0; i < nodes.length; ++i) {

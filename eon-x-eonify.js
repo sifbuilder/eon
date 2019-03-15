@@ -456,7 +456,6 @@ define.amd = {};
       
       if (Array.isArray(_)) {
         let ceon = ceonize(..._)
-        if (1 && 1) console.log('ceon', ceon)
 
         if (state[ceon] !== undefined) {
           return state[ceon]
