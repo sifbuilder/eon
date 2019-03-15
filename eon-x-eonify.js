@@ -86,8 +86,19 @@ async function resolve(name, base) {
   }
   if (/^[.]{0,2}\//i.test(name)) {
 
-    return name // _e_  // return new URL(name, base == null ? location : base).href;
 
+    let isnode1 = window.name == 'nodejs'
+    let isnode2 = navigator.userAgent.includes("Node.js") || navigator.userAgent.includes("jsdom")
+    if (isnode1 && isnode2) {  // _e_
+  
+      return name // _e_  
+    } else {
+      return new URL(name, base == null ? location : base).href;
+    }
+
+    
+    
+    
   }
 
   if (!name.length || /^[\s._]/.test(name) || /\s$/.test(name)) throw new RequireError("illegal name");
@@ -116,7 +127,6 @@ function requireFrom(resolver) {
   const requireBase = requireRelative(null);
 
   function requireAbsolute(url) {
-
 
     if (typeof url !== "string") return url;
     let module = cache.get(url);
@@ -159,6 +169,7 @@ function requireFrom(resolver) {
     } else {
 
       if (!module) cache.set(url, module = new Promise((resolve, reject) => {
+
           const script = document.createElement("script");
           script.onload = () => {
             try { resolve(queue.pop()(requireRelative(url))); }
@@ -366,6 +377,7 @@ define.amd = {};
       let [eonfn, pres] = part
       let x = await eonfn(__eo)
 
+
       res = await x[pres]()
 
     } else {
@@ -393,7 +405,8 @@ define.amd = {};
       (promis, func, i) => promis.catch(failed => {
         return Promise.resolve(getCeonSync([ceon, ''], __eo) || func())
       }), Promise.reject('init reduce'))
-      .catch(failed => { console.log('Failed: ', ceon) }) // , failed) })
+      // .catch(failed => { console.log('Failed: ', ceon , failed) })
+      .catch(failed => { console.log('Failed: ', ceon ) })
     }
 
     return res

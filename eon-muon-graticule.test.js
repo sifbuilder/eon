@@ -8,7 +8,6 @@ if (typeof fetch !== 'function') {
 
 const xEonify = require('./eon-x-eonify.js')
 
-
 let getMuonGraticule = jest.fn( async () => {
   let __eo = xEonify.xEo()
   __eo({'xs': xEonify.xs(__eo)})
