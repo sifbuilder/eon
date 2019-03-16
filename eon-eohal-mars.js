@@ -31,7 +31,6 @@
 
     // ............................. eohale
     function eohale (anitem) {
-      if (1 && 1) console.log('anitem', anitem)
 
       console.assert(typeof anitem === 'object')
       console.assert(Array.isArray(anitem) === false)
@@ -45,10 +44,10 @@
       if (eonode && anitem.eomot) {
 
         for (let [mot, proton] of Object.entries(anitem.eomot)) {
-          if (1 && 1) console.log('proton', mot, proton)
           newAni.eonode = eonode
 
-          if (proton.applyProtonToNode) {  
+          if (proton.applyProtonToNode) { 
+          
             let geometry = eonode.geometry || {}
             let properties = eonode.properties || {}
             
@@ -64,6 +63,7 @@
             node.properties[mot] = muonGeoj.deprop(node) // save [proton] pure node _e_
             
             newAni.eonode = node
+            
           }
         }
       }

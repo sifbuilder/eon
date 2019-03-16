@@ -45,7 +45,7 @@ async function anitem (__eo) {
 
   let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
-  renderSvg.scenecolor('black')
+  try { renderSvg.scenecolor('black') } catch (e) {}
 
   // .................. animas
   let ani = function () {
@@ -145,7 +145,7 @@ async function anitem (__eo) {
           initN: 24, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
           geosort: 'anima',
           geobase: 'viewform',
-          geoaad: 0,
+          addItemToPacer: 0,
 
           eohal: 'natform',
           eoric: function (ani, props) {

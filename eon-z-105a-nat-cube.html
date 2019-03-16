@@ -23,7 +23,7 @@ async function anitem (__eo) {
     __eo('xs').m('animas'),
     __eo('xs').r('svg'),
   ])
-  renderSvg.scenecolor('black')
+  try { renderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let ani = function () {
     // .................. pics

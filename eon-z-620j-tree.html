@@ -22,7 +22,7 @@ async function anitem (__eo) {
     __eo('xs').m('soma'),
     __eo('xs').r('svg'),
   ])
-  renderSvg.scenecolor('black')
+  try { renderSvg.scenecolor('black') } catch (e) {}
   let muonStore = __eo('muonStore')
 
   // .................. animas

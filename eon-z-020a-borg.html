@@ -2,7 +2,7 @@
 <script src="./eon-x-eonify.js"></script>
 
 <script>
-xEonify.eon({anitem, time: undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__eo) {
@@ -10,23 +10,26 @@ async function anitem (__eo) {
   let [
     ctlWen,
     eohalNatform,
+    muonStace,
     renderSvg,
   ] = await Promise.all([
     __eo('xs').c('wen'),
     __eo('xs').e('natform'),
+    __eo('xs').m('stace'),
     __eo('xs').r('svg'),
   ])
-  renderSvg.scenecolor('black')
+  let muonStore = __eo('muonStore ')
+  try { renderSvg.scenecolor('black') } catch (e) {}
+  let ctl
+  try {
+    ctl = ctlWen().control(renderSvg.svg())
+  } catch (e) {
+    ctl = () => [0, 0, 0]
+  }
 
   // .................. animas
   let ani = function () {
     // .................. pics
-    let ctl
-    try {
-      ctl = ctlWen().control(renderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
-    }
 
     let eotim = {td: 16800, t0: 0, t1: 1, t2: 1, t3: 1}
     let formPlanet = {
@@ -58,8 +61,6 @@ async function anitem (__eo) {
       'ra2': 30, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': -1,
     }
 
-    let eocromNat = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
-
     let eocromCirc = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.39, 0.39]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
     let proform = {
@@ -75,14 +76,14 @@ async function anitem (__eo) {
 
     // ............................. animas
     let solarAni = {
-      eohal: 'natform', // 'pacer'
+      eohal: eohalNatform,
+      eotim,
+      eoric: {gid: 'nat', cid: 'nat', fid: 'solar'},
+      
       eofold: ani => {
         let res = {
           type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [0, 0],
-          },
+          geometry: { type: 'Point', coordinates: [0, 0] },
         }
 
         return res
@@ -90,38 +91,33 @@ async function anitem (__eo) {
 
       eonode: {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [0, 0, 0],
-        },
+        geometry: { type: 'Point', coordinates: [0, 0, 0] },
         properties: {orgen: null, velin: [0, 0, 0], velang: [0, 0, 0], prevous: null, geodelta: null},
       },
-      eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'solar'},
       eocrom: { 'csx': 0, 'cf': [[[444, 999]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 999]]], 'cw': [[[2.7, 2.7]]], 'cp': [[[0.9, 0.9]]]},
       eomot: {
         proform,
       },
-      eoform: formSolar,
-      eoload: {},
+      eoload: {
+        eoform: formSolar,
+        
+      },
     }
 
     let planetAni = {
       eohal: 'natform',
+      eotim,
+      eoric: {gid: 'nat', cid: 'nat', fid: 'planet'},
+      
       eofold: ani => {
         let res = {
           type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [0, 0],
-          },
+          geometry: { type: 'Point', coordinates: [0, 0] },
         }
 
         return res
       },
 
-      eotim,
-      eoric: {gid: 'nat', cid: 'nat', fid: 'planet'},
       eocrom: eocromCirc,
       eomot: {
         proform,
@@ -133,16 +129,14 @@ async function anitem (__eo) {
           geosort: 'anima',
           geobase: 'eoform',
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
-          geoaad: 0,
+          
+          addItemToPacer: 0,
 
           eohal: (ani, props) => 'natform',
           eoric: function (ani, props) {
-            let counter = props.counter || 0
-
             let fidsuffix = ''
             if (props.key === 'event') {
               let hm = muonStore.anigramsInClassHowMany(ani)
-              let pacecount = hm + 1
               fidsuffix = `_${hm}`
             }
 
@@ -180,7 +174,7 @@ async function anitem (__eo) {
             'ty': 0,
             'rot': -0,
             'rad': 1,
-            'seg5': [[[3, 180]]],
+            'seg5': 12,
             'cf': 522, 'cs': 222,
             'v0': 0, 'v1': -1,
           },

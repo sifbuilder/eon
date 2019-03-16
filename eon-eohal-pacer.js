@@ -24,7 +24,7 @@
   // ... ani.pacer.outtimed
   // ... ani.pacer.maxN
   // ... ani.pacer.geospan
-  // ... ani.pacer.geoaad: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
+  // ... ani.pacer.addItemToPacer: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
   // ... ani.pacer.geotype: {LineString}
   // ... ani.pacer.geobase: {geo, ere, pro}
   // ...
@@ -100,14 +100,14 @@
 
       // ... default pacer properties:
       // ... geospan: epsilon  - span between two paceitems
-      // ... geoaad:       0   - add paceitems to preanitem
+      // ... addItemToPacer:       0   - add paceitems to preanitem
       // ... geosort: anigram  - generated paceitem {anigram, anima}
       // ... geotype: LineString  - type of geojson geometry
       // ... geobase: eoform   - geoform in change of model projections
 
       let pacer = eoload.pacer || {},
         geospan = pacer.geospan || epsilon,
-        geoaad = pacer.geoaad || 0,
+        addItemToPacer = pacer.addItemToPacer || 0,
         geosort = pacer.geosort || 'anigram',
         geotype = pacer.geotype || 'LineString',
         geobase = pacer.geobase || 'eoform'

@@ -34,7 +34,7 @@ async function anitem (__eo) {
   ])
 
   let muonStore = __eo('muonStore')
-  renderSvg.scenecolor('black')
+  try { renderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -151,7 +151,7 @@ async function anitem (__eo) {
           geobase: 'viewform',
           initN: 1, eventN: 0, autoN: 0, autoP: 0, outtimed: 0, maxN: 60,
           geospan: 0,
-          geoaad: 0,
+          addItemToPacer: 0,
 
           eofold: function (ani, props) {
             let locus = muonStace.getLocus([null, null, null], ani)
@@ -236,7 +236,7 @@ async function anitem (__eo) {
         pacer: {
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60,
 
-          geoaad: 1, // geoaad for trace
+          addItemToPacer: 1, // addItemToPacer for trace
 
           geosort: 'anigram',
           geobase: 'viewform',

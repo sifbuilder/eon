@@ -24,7 +24,7 @@ async function anitem (__eo) {
     __eo('xs').m('snap'),
     __eo('xs').r('svg'),
   ])
-  renderSvg.scenecolor('black')
+  try { renderSvg.scenecolor('black') } catch (e) {}
   // .................. pics
   let ctl
   try {

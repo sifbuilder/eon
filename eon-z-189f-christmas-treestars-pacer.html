@@ -42,7 +42,7 @@ async function anitem (__eo) {
     __eo('xs').p('uniwen'),
     __eo('xs').r('svg'),
   ])
-  renderSvg.scenecolor('black')
+  try { renderSvg.scenecolor('black') } catch (e) {}
   let muonStore = __eo('muonStore')
 
   // .................. animas
@@ -155,7 +155,7 @@ async function anitem (__eo) {
           initN: 0, eventN: 0, autoN: 9, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
           geosort: 'anigram', // anigram if avatar
           geobase: 'viewform',
-          geoaad: 0,
+          addItemToPacer: 0,
 
           eohal: 'natform', // takes form from eoform
           eoric: function (ani, props) {

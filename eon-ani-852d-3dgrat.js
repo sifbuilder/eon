@@ -23,7 +23,7 @@
       __eo('xs').r('svg'),
     ])
 
-    renderSvg.scenecolor('black')
+    try { renderSvg.scenecolor('black') } catch (e) {}
 
     let ani = function () {
       // .................. pics

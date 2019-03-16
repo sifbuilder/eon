@@ -33,7 +33,7 @@ async function anitem (__eo) {
     __eo('xs').r('svg'),
   ])
 
-  renderSvg.scenecolor('black')
+  try { renderSvg.scenecolor('black') } catch (e) {}
   let muonStore = __eo('muonStore')
   ctlRayder.control()
   ctlRayder.showpos(true)
@@ -79,7 +79,7 @@ async function anitem (__eo) {
 
           initN: 0, eventN: 1, autoN: 0, autoP: 0, autoT: 0, outtimed: 0, maxN: 60,
 
-          geoaad: 1, // geoaad for trace
+          addItemToPacer: 1, // addItemToPacer for trace
           geospan: 0,
 
           geosort: 'anigram',

@@ -34,7 +34,7 @@ async function anitem (__eo) {
   ])
 
   let muonStore = __eo('muonStore')
-  renderSvg.scenecolor('black')
+  try { renderSvg.scenecolor('black') } catch (e) {}
   // .................. animas
   let ani = function () {
     // .................. pics
@@ -82,7 +82,7 @@ async function anitem (__eo) {
 
           geosort: 'anigram',
           geobase: '',
-          geoaad: 1, // geoaad for trace
+          addItemToPacer: 1, // addItemToPacer for trace
 
           eohal: 'mars',
 

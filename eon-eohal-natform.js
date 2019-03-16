@@ -63,11 +63,13 @@
 
     // .................... eohale
     let eohale = function (anitem) {
-      console.assert(anitem.eoform !== undefined, 'eoform is undefined')
-
+      
+      let eoform = anitem.eoform || anitem.eoload.eoform
+      console.assert(eoform !== undefined, 'eoform is undefined')
+      
       anitem.eohal = 'natform'
 
-      let translate = gettranslate(anitem.eoform)
+      let translate = gettranslate(eoform)
 
       let proton = {
         projection: 'uniwen',
@@ -77,11 +79,11 @@
         lens: [0, 1, Infinity],
       }
 
-      anitem.eofold = muonNatform.natMultiLineString({eoform: anitem.eoform})
+      anitem.eofold = muonNatform.natMultiLineString({eoform: eoform})
 
       anitem.eofold = muonProj3ct(anitem.eofold, muonProfier.formion(proton, anitem))
 
-      if (anitem.eocrom === undefined) anitem.eocrom = geteocrom(anitem.eoform)
+      if (anitem.eocrom === undefined) anitem.eocrom = geteocrom(eoform)
 
       return eohalMars.gramm(anitem)
     }

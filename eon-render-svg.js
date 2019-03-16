@@ -59,7 +59,7 @@
       // .attr('pointer-events', 'none')
       // .attr('overflow', 'visible')
     }
-    // renderSvg.scenecolor('black')
+    // try { renderSvg.scenecolor('black') } catch (e) {}
     // ............................. svg
     let _svg = () => d3.select('#viewframe')
 

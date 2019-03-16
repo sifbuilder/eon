@@ -50,7 +50,7 @@ async function anitem (__eo) {
     __eo('xs').r('webgl'),
   ])
 
-  renderSvg.scenecolor('black')
+  try { renderSvg.scenecolor('black') } catch (e) {}
 
   let ctl
   try {

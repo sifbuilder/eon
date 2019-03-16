@@ -19,7 +19,7 @@ async function anitem (__eo) {
     __eo('xs').e('textform'),
     __eo('xs').r('svg'),
   ])
-  renderSvg.scenecolor('black')
+  try { renderSvg.scenecolor('black') } catch (e) {}
   let ctl
   try {
     ctl = ctlWen().control(renderSvg.svg())
