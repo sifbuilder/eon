@@ -60,7 +60,7 @@ async function anitem (__eo) {
 
       eotim: eotim,
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani' },
-      eohal: 'mars',
+      eohal: eohalMars,
 
       eofold: ani => {
         let gj = muonLindenmayer.multiLine(ani.eoload.lindenmayer)
@@ -151,7 +151,7 @@ async function anitem (__eo) {
           paceAnisOfSort: 'anigram',
           basePaceOnAniView: 'viewform',
 
-          eohal: 'mars',
+          eohal: eohalMars,
 
           eoric: function (ani, props) {
             let eoric = muonProps.clone(ani.eoric)

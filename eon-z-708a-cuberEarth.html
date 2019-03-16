@@ -134,7 +134,7 @@ async function anitem (__eo) {
     // ............................. earthAni
     let earthAni = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
       eotim: eotim,
       eoric: {'gid': 'earthAni', 'cid': 'earthAni', 'fid': 'earthAni'},
 
@@ -164,7 +164,7 @@ async function anitem (__eo) {
     // .............................  cubeAni
     let cubeAni = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
 
       eofold: anitem => {
         let eoload = anitem.eoload,
@@ -247,7 +247,7 @@ async function anitem (__eo) {
     // .............................  graticubeAni
     let graticubeAni = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
       eotim: eotim,
       eoric: { gid: 'graticubeAni', cid: 'graticubeAni', fid: 'graticubeAni'},
 
@@ -270,7 +270,7 @@ async function anitem (__eo) {
     // .............................  graticircAni
     let graticircAni = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
 
       eofold: p => muonGraticule.gjfMultiLineString(p.eoframe), // hMultiLine
       eotim: eotim,

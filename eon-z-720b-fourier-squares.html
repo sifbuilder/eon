@@ -104,7 +104,7 @@ async function anitem (__eo) {
 
     let rayline = i => ({
 
-      eohal: 'mars',
+      eohal: eohalMars,
       eotim: eotim,
       eoric: { gid: 'pol', cid: 'pol', fid: 'pol' + '_' + i},
 
@@ -160,7 +160,7 @@ async function anitem (__eo) {
           paceAnisOfSort: 'anigram',
           basePaceOnAniView: 'viewform',
 
-          eohal: 'mars',
+          eohal: eohalMars,
 
           eofold: function (ani, props) {
             let preani = muonStore.findAnigramFromUid(ani.eoric.uid)
@@ -237,7 +237,7 @@ async function anitem (__eo) {
 
     // .................. aniDotted anima
     let aniDotted = (i, q) => ({
-      eohal: 'mars',
+      eohal: eohalMars,
       eotim: eotim,
       eoric: {gid: 'ani', cid: 'ani', fid: 'aniDotted' + i},
       eofold: p => {

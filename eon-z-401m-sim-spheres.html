@@ -57,7 +57,7 @@ async function anitem (__eo) {
 
     // ............................. natAni
     let natAni1 = {
-      eohal: 'mars',
+      eohal: eohalMars,
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat1'},
 
@@ -369,16 +369,16 @@ async function anitem (__eo) {
 
           let r = node.r || 1
 
-          let xw = node.x - r + (node.vx || 0)		// west
-          let xe = node.x + r + (node.vx || 0)		// est
-          let yn = node.y - r + (node.vy || 0)		// north
-          let ys = node.y + r + (node.vy || 0)		// south
+          let xw = node.x - r + (node.vx || 0) // west
+          let xe = node.x + r + (node.vx || 0) // est
+          let yn = node.y - r + (node.vy || 0) // north
+          let ys = node.y + r + (node.vy || 0) // south
 
           if (act === 'reverse') {
-            if (xw < west) node.vx *= -1		// west
-            if (xe > east) node.vx *= -1	// east
-            if (yn < north) node.vy *= -1		// north
-            if (ys > south) node.vy *= -1		// south
+            if (xw < west) node.vx *= -1 // west
+            if (xe > east) node.vx *= -1 // east
+            if (yn < north) node.vy *= -1 // north
+            if (ys > south) node.vy *= -1 // south
           } else if (act === 'erase') {
             if (xw < west || xe > east || yn < north || ys > south) {
               muonStore.apply({type: 'DELANIMA', caller: 'force limit', anima: node})
@@ -480,8 +480,8 @@ async function anitem (__eo) {
 
               node.vx = norm * Math.cos(angle2)
               node.vy = norm * Math.sin(angle2)
-            }	else if (act === 'erase') {
-              __mapper('pluginStore').apply({'type': 'DELANIMA', 'caller': 'force limit', 'anima': node})
+            } else if (act === 'erase') {
+              muonStore.apply({'type': 'DELANIMA', 'caller': 'force limit', 'anima': node})
             }
           } else if (d2 > r * r && dd2 <= r * r) {
             var angle = Math.atan2(dy, dx),

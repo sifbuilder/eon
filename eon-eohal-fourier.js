@@ -68,7 +68,7 @@
       // ...   features are rendered simultaneously on time period
 
       let natAni1 = {
-        eohal: 'mars',
+        eohal: eohalMars,
         eofold: p => muonNatform.natMultiLineString({eoform: p.eoform}),
         eotim: eotim,
         eoric: {gid: 'g', cid: 'c', fid: 'f1'},

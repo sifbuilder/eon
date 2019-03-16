@@ -242,7 +242,7 @@
     // .................. somaAni
     let somaAni = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
       eotim: {'td': 6800, 't0': 0, 't1': 1000, 't2': 1, 't3': 1},
       eoric: { gid: 'ani', cid: 'ani', fid: 'ani2'},
 

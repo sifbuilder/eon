@@ -250,7 +250,7 @@ async function anitem (__eo) {
 
     // ............................. haloAni
     let haloAni = {
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: ani => {
         let res = muonNatform.natMultiLineString({
           eoform: ani.eoform,
@@ -278,7 +278,7 @@ async function anitem (__eo) {
 
     // ............................. hyperAni
     let hyperAni = {
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: ani => {
         let res = muonNatform.natMultiPolygon({
           eoform: ani.eoform,
@@ -307,7 +307,7 @@ async function anitem (__eo) {
 
     // ............................. sphereAni
     let sphereAni = {
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: ani => muonNatform.natMultiPolygon({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q2'},
@@ -331,7 +331,7 @@ async function anitem (__eo) {
     }
     // ............................. sphereAni3a
     let sphereAni3a = {
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q3a'},
@@ -353,7 +353,7 @@ async function anitem (__eo) {
 
     // ............................. sphereAni3b
     let sphereAni3b = {
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q3b'},
@@ -375,7 +375,7 @@ async function anitem (__eo) {
 
     // ............................. lineAni
     let lineAni = {
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q4'},
@@ -397,7 +397,7 @@ async function anitem (__eo) {
 
     // ............................. circleAni
     let circleAni = {
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: ani => {
         let form = muonNatform.natMultiLineString({eoform: ani.eoform})
         let gjf = {
@@ -429,7 +429,7 @@ async function anitem (__eo) {
     }
     // ............................. torusAni
     let torusAni = {
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q3'},

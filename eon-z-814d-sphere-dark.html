@@ -174,7 +174,7 @@ async function anitem (__eo) {
     // ............................. lightAniDark
     let lightAniDark = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: p => muonNatform.natMultiLineString({eoform: p.eoform}, {ghv: 1}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q1'},
@@ -220,7 +220,7 @@ async function anitem (__eo) {
     // ............................. lightAniFront
     let lightAniFront = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: p => muonNatform.natMultiLineString({eoform: p.eoform}, {ghv: 1}),
       eotim,
       eoric: {gid: 'q', cid: 'q', fid: 'q2'},
@@ -244,7 +244,7 @@ async function anitem (__eo) {
     // ............................. sphereAni
     let sphereAni = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
 
       eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
       eotim: eotim,
@@ -270,7 +270,7 @@ async function anitem (__eo) {
     // ............................. mazeAni
     let mazeAni = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: p => {
         let res = muonNatform.natMultiLineString({eoform: p.eoform})
         console.log('res', res)
@@ -291,7 +291,7 @@ async function anitem (__eo) {
     // ............................. topoAni
     let topoAni = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: p => {
         let res = Object.assign({},
           topojson.feature(

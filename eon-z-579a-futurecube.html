@@ -65,7 +65,7 @@ async function anitem (__eo) {
 
     let geograt = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: () => {
         return Object.assign({},
           topojson.feature(
@@ -89,7 +89,7 @@ async function anitem (__eo) {
 
     let geoearth = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: () => {
         return Object.assign({},
           topojson.feature(
@@ -114,7 +114,7 @@ async function anitem (__eo) {
 
     let geosphere = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
       eofold: { type: 'Sphere'},
       eotim: eotim,
       eoric: {gid: 'geosphere', cid: 'geosphere', fid: 'geosphere' },

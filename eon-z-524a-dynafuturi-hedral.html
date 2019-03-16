@@ -87,7 +87,7 @@ async function anitem (__eo) {
     // ............................. geograt
     let geograt = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
 
       eofold: anitem => muonGraticule.gjfMultiLineString(anitem.eoframe),
       eotim: eotim,
@@ -112,7 +112,7 @@ async function anitem (__eo) {
     // ............................. geoearth
     let geoearth = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
 
       eofold: p => {
         let geometry = Object.assign({},
@@ -137,7 +137,7 @@ async function anitem (__eo) {
     // -------------------------------  geoearth
     let geoshpere = {
 
-      eohal: 'mars',
+      eohal: eohalMars,
 
       eofold: {
         type: 'Feature',
