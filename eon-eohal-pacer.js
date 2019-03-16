@@ -9,7 +9,7 @@
   'use strict'
 
   // ... **create new items at init, on auto or upon event**
-  // ... the pacer works on animas or anigrams depending on pacer.geosort
+  // ... the pacer works on animas or anigrams depending on pacer.paceAnisOfSort
   // ... anigrams are gramm-eohalled with the paced halo and returned
   // ... animas are ween-eohalled with the paced halo and saved to the store
   // ...
@@ -26,7 +26,7 @@
   // ... ani.pacer.geospan
   // ... ani.pacer.addItemToPacer: {0,1} if 1, pace items are added to pacer (eg. LineString trace)
   // ... ani.pacer.geotype: {LineString}
-  // ... ani.pacer.geobase: {geo, ere, pro}
+  // ... ani.pacer.basePaceOnAniView: {geo, ere, pro}
   // ...
   // ... ### methods
   // ...
@@ -101,16 +101,16 @@
       // ... default pacer properties:
       // ... geospan: epsilon  - span between two paceitems
       // ... addItemToPacer:       0   - add paceitems to preanitem
-      // ... geosort: anigram  - generated paceitem {anigram, anima}
+      // ... paceAnisOfSort: anigram  - generated paceitem {anigram, anima}
       // ... geotype: LineString  - type of geojson geometry
-      // ... geobase: eoform   - geoform in change of model projections
+      // ... basePaceOnAniView: eoform   - geoform in change of model projections
 
       let pacer = eoload.pacer || {},
         geospan = pacer.geospan || epsilon,
         addItemToPacer = pacer.addItemToPacer || 0,
-        geosort = pacer.geosort || 'anigram',
+        paceAnisOfSort = pacer.paceAnisOfSort || 'anigram',
         geotype = pacer.geotype || 'LineString',
-        geobase = pacer.geobase || 'eoform'
+        basePaceOnAniView = pacer.basePaceOnAniView || 'eoform'
 
       let uidAnima = muonEoric.getuid(eoric)
       let uidAnigram = muonEoric.getuid(eoric)
@@ -174,7 +174,7 @@
       hostUid = hostAnima.eoric.uid
 
       let pacerUid, pacerAnitem // paced
-      if (geosort === 'anima') {
+      if (paceAnisOfSort === 'anima') {
         if (parentAnima) {
           pacerAnitem = parentAnima
         } else {
@@ -249,7 +249,7 @@
         }
       }
 
-      if (geosort === 'anima') {
+      if (paceAnisOfSort === 'anima') {
         // z.419b ani.ava(pacer)
         // update host anima
         muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: Array.of(hostAnima)})
@@ -315,7 +315,7 @@
             let eohal = typeof newItem.eohal === 'object' ? newItem.eohal : __eo([newItem.eohal, 'eohal'])
 
             let newItemsInCount
-            if (geosort === 'anima') {
+            if (paceAnisOfSort === 'anima') {
               newItemsInCount = eohal.ween(newItem)
             } else {
               newItemsInCount = eohal.gramm(newItem)
@@ -323,7 +323,7 @@
 
             newItemsInCount = muonProps.a(newItemsInCount)
             newItems = [...newItems, ...newItemsInCount]
-            if (geosort === 'anima') {
+            if (paceAnisOfSort === 'anima') {
               muonStore.apply({type: 'UPDANIMA', caller: 'h.pacer', animas: newItems})
             }
           }
@@ -335,7 +335,7 @@
 
     // ............................. ween
     function ween (anitem) {
-      if (anitem.eoload.pacer.geosort === 'anima') {
+      if (anitem.eoload.pacer.paceAnisOfSort === 'anima') {
         return eohale(anitem)
       } else {
         return Array.of(anitem)
@@ -344,7 +344,7 @@
 
     // ............................. gramm
     function gramm (anitem) {
-      if (anitem.eoload.pacer.geosort === 'anima') {
+      if (anitem.eoload.pacer.paceAnisOfSort === 'anima') {
         let newitems = Array.of(anitem)
         return newitems
       } else {

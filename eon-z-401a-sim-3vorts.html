@@ -17,6 +17,7 @@ async function anitem (__eo) {
     muonEoric,
     muonEoforces,
     muonProps,
+    protonUniwen,
     renderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-force-3d'),
@@ -27,6 +28,7 @@ async function anitem (__eo) {
     __eo('xs').m('eoric'),
     __eo('xs').m('eoforces'),
     __eo('xs').m('props'),
+    __eo('xs').p('uniwen'),
     __eo('xs').r('svg'),
   ])
 
@@ -339,7 +341,7 @@ async function anitem (__eo) {
       eomot: {
 
         ereform: {
-          projection: 'uniwen',
+          projection: protonUniwen,
           translate: [0, 0, 0],
           scale: 1,
           rotate: [ 0, 0, 0 ],
@@ -347,7 +349,7 @@ async function anitem (__eo) {
           addNodeToTranslate: 1, // eofold eonod
         },
         proform: {
-          projection: 'uniwen',
+          projection: protonUniwen,
           rotate: [[[ ctl.rotation ]]],
           translate: [0, 0, 0],
           scale: 1,

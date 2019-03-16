@@ -100,7 +100,7 @@ async function anitem (__eo) {
     // ....................... natStar
     let natStar = {
 
-      eohal: 'pacer',
+      eohal: eohalPacer,
       eotim: eotim,
       eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
 
@@ -153,11 +153,11 @@ async function anitem (__eo) {
         pacer: {
 
           initN: 0, eventN: 0, autoN: 9, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
-          geosort: 'anigram', // anigram if avatar
-          geobase: 'viewform',
+          paceAnisOfSort: 'anigram', // anigram if avatar
+          basePaceOnAniView: 'viewform',
           addItemToPacer: 0,
 
-          eohal: 'natform', // takes form from eoform
+          eohal: eohalNatform, // takes form from eoform
           eoric: function (ani, props) {
             let eoric = muonProps.clone(ani.eoric)
             eoric.gid = 'paced'

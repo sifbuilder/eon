@@ -106,7 +106,7 @@ async function anitem (__eo) {
     // ....................... traceLine avatar
     let traceLine = {
 
-      eohal: 'pacer',
+      eohal: eohalPacer,
 
       eofold: {
         type: 'Feature',
@@ -132,8 +132,8 @@ async function anitem (__eo) {
       eoload: {
         pacer: { // addItemToPacer for trace
           eohal: 'mars',
-          geosort: 'anigram',
-          geobase: 'geo',
+          paceAnisOfSort: 'anigram',
+          basePaceOnAniView: 'geo',
           initN: 0, eventN: 0, autoN: 1, autoP: 0, autoT: 0, outtimed: 0, maxN: 60, geospan: 0, addItemToPacer: 1,
 
           stace: function (ani, props) {
@@ -183,7 +183,7 @@ async function anitem (__eo) {
     // ....................... traceform
     let traceform = {
 
-      eohal: 'pacer',
+      eohal: eohalPacer,
 
       eotim,
       eoric: {gid: 'trace', cid: 'trace', fid: 'traceform'},

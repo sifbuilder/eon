@@ -8,65 +8,54 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. eons
   let [
-    d3Geo,
     d3Force3d,
-    // ctlRayder,
+    ctlRayder,
     ctlWen,
     eohalNatform,
-    eohalMars,
     eohalPacer,
-    eohalTextform,
     muonEoforces,
     muonEoric,
     muonGraticule,
     muonNatform,
     muonProps,
-    muonStace,
     protonUniwen,
     renderSvg,
   ] = await Promise.all([
-    __eo('xs').b('d3-geo'),
     __eo('xs').b('d3-force-3d'),
-    // __eo('xs').c('rayder'),
+    __eo('xs').c('rayder'),
     __eo('xs').c('wen'),
     __eo('xs').e('natform'),
-    __eo('xs').e('mars'),
     __eo('xs').e('pacer'),
-    __eo('xs').e('textform'),
     __eo('xs').m('eoforces'),
     __eo('xs').m('eoric'),
     __eo('xs').m('graticule'),
     __eo('xs').m('natform'),
     __eo('xs').m('props'),
-    __eo('xs').m('stace'),
     __eo('xs').p('uniwen'),
     __eo('xs').r('svg'),
   ])
 
-  let muonStore = __eo('muonStore')
   let d3_force = d3Force3d
   try { renderSvg.scenecolor('black') } catch (e) {}
+  let ctl
+  try {
+    ctl = ctlWen().control(renderSvg.svg())
+  } catch (e) {
+    ctl = () => [0, 0, 0]
+  }
 
   // .................. animas
   let ani = function () {
     // .................. pics
-    let ctl
-    try {
-      ctl = ctlWen().control(renderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
-    }
 
-    let radians = Math.PI / 180, degrees = 180 / Math.PI,
-      sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt,
-      sinh = Math.sinh, cosh = Math.cosh, tanh = Math.tanh
+    let sin = Math.sin, cos = Math.cos
 
     let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
     // ....................... pacerNat
     let pacerNat = {
 
-      eohal: 'pacer',
+      eohal: eohalPacer,
       eotim: eotim,
       eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
 
@@ -89,12 +78,19 @@ async function anitem (__eo) {
       },
 
       eomot: {
-        proform: {
-          projection: 'uniwen',
+        ereform: {
+          projection: protonUniwen,
           translate: [ 0, 0, 0], // mot
           scale: 1,
           rotate: [ [[[0, 60]]], [[[0, 60]]], [[[0, 60]]] ],
-          prerotate: [[[ ctl.rotation ]]],
+          lens: [0, 1, Infinity],
+          addNodeToTranslate: 1, // eonode
+        },
+        proform: {
+          projection: protonUniwen,
+          translate: [ 0, 0, 0], // mot
+          scale: 1,
+          rotate: [[[ ctl.rotation ]]],
           lens: [0, 1, Infinity],
           addNodeToTranslate: 1, // eonode
         },
@@ -138,16 +134,16 @@ async function anitem (__eo) {
 
           // ... the pacer is in the eoload of the hosting anima
           // ... initN: 1, one paced anitem will be generated, then sleep
-          // ... geosort: anima, hsoting anima will create pacecount resident animas
-          // ... geobase: undefined, base on resulting geofold
+          // ... paceAnisOfSort: anima, hsoting anima will create pacecount resident animas
+          // ... basePaceOnAniView: undefined, base on resulting geofold
           // ... geoadd: 0, geometries will not be accumulated
 
           initN: 24, eventN: 0, autoN: 0, autoP: 0.01, outtimed: 0, maxN: 60, geospan: 0,
-          geosort: 'anima',
-          geobase: 'viewform',
+          paceAnisOfSort: 'anima',
+          basePaceOnAniView: 'viewform',
           addItemToPacer: 0,
 
-          eohal: 'natform',
+          eohal: eohalNatform,
           eoric: function (ani, props) {
             let eoric = muonProps.clone(ani.eoric)
             eoric.gid = 'paced'
@@ -231,8 +227,6 @@ async function anitem (__eo) {
       let type = properties.type
       let filter = properties.filter
 
-      let fName = __eo([type, 'force'])
-
       let gravity = opts.gravity // gravity
 
       let fforce = function force (...args) {
@@ -251,7 +245,7 @@ async function anitem (__eo) {
 
       let ffforce = muonEoforces.isolate(sys)
       console.assert(key || type !== null)
-      let field = 	{
+      let field = {
         key: key || type,
         force: ffforce,
       }

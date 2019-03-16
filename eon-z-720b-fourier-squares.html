@@ -125,7 +125,7 @@ async function anitem (__eo) {
 
     let traceline = i => ({
 
-      eohal: 'pacer',
+      eohal: eohalPacer,
       eotim: eotim,
       eoric: {gid: 'ava', cid: 'ava', fid: 'traceline' + '_' + i},
 
@@ -157,8 +157,8 @@ async function anitem (__eo) {
           addItemToPacer: 1,
           geospan: 0,
 
-          geosort: 'anigram',
-          geobase: 'viewform',
+          paceAnisOfSort: 'anigram',
+          basePaceOnAniView: 'viewform',
 
           eohal: 'mars',
 
@@ -274,7 +274,7 @@ async function anitem (__eo) {
       eoload: {
         fourier: {
 
-          geosort: 'anigram',
+          paceAnisOfSort: 'anigram',
 
           transforms: muonGeoj.ntime(muonFourier.transformedCoefs(csi(i, (1 + i) / q)), [0, 1]),
           interval: [0.0, 0.99],

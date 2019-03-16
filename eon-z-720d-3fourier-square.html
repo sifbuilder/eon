@@ -140,7 +140,7 @@ async function anitem (__eo) {
 
     let traceline = {
 
-      eohal: 'pacer',
+      eohal: eohalPacer,
       eotim: eotim,
       eoric: {gid: 'ava', cid: 'ava', fid: 'traceline'},
 
@@ -172,8 +172,8 @@ async function anitem (__eo) {
           addItemToPacer: 1,
           geospan: 0,
 
-          geosort: 'anigram',
-          geobase: 'viewform',
+          paceAnisOfSort: 'anigram',
+          basePaceOnAniView: 'viewform',
 
           eohal: 'mars',
 
@@ -270,7 +270,7 @@ async function anitem (__eo) {
       eoload: {
         fourier: {
 
-          geosort: 'anigram',
+          paceAnisOfSort: 'anigram',
 
           transforms: transforms,
           interval: [0.0, 0.99],
@@ -536,7 +536,7 @@ async function anitem (__eo) {
 
       let ffforce = muonEoforces.isolate(sys)
       console.assert(key || type !== null)
-      let field = 	{
+      let field = {
         key: key || type,
         force: ffforce,
       }

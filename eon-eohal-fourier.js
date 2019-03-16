@@ -50,7 +50,7 @@
         maglast = fourier.maglast || 3, // pencil radio
         interval = fourier.interval || [0, 1], // fourier.period
         tolerance = fourier.tolerance || 0.5,
-        geosort = fourier.geosort || 'anigram'
+        paceAnisOfSort = fourier.paceAnisOfSort || 'anigram'
 
       // ... time in period is (t - t0) / (t1 - t0), with t unit time
 
@@ -281,7 +281,7 @@
     // ............................. ween
     function ween (anitem) {
       console.assert(anitem.eoload.fourier !== undefined, `anitem.eoload.fourier undefined ${anitem}`)
-      if (anitem.eoload.fourier.geosort === 'anima') {
+      if (anitem.eoload.fourier.paceAnisOfSort === 'anima') {
         let newItems = eohale(anitem)
 
         let anilists = newItems.map(ani => eohalMars.ween(ani))
@@ -297,7 +297,7 @@
     function gramm (anitem) {
       let newAnigrams = []
       console.assert(anitem.eoload.fourier !== undefined, `anitem.eoload.fourier undefined ${anitem}`)
-      if (anitem.eoload.fourier.geosort === 'anima') {
+      if (anitem.eoload.fourier.paceAnisOfSort === 'anima') {
         newAnigrams = Array.of(anitem)
       } else {
         let newItems = eohale(anitem)

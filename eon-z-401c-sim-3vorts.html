@@ -239,7 +239,6 @@ async function anitem (__eo) {
     if (!anima.eogelded) {
       let animas = []
       let nodes = []
-      let links = []
 
       for (let i = 0; i < data.nodes.length; i++) {
         let node = {
@@ -378,6 +377,7 @@ async function anitem (__eo) {
           },
         },
         type: 'link',
+        src: d3_force,
         filter: d => true, // nodes, by id
         key: 'link',
       },

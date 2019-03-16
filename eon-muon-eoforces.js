@@ -92,7 +92,7 @@
 
       let ffforce = isolate(sys)
       console.assert(key || type !== null)
-      let field = 	{
+      let field = {
         key: key || type,
         force: ffforce,
       }
@@ -128,7 +128,7 @@
 
       let ffforce = muonEoforces.isolate(sys)
       console.assert(key || type !== null)
-      let field = 	{
+      let field = {
         key: key || type,
         force: ffforce,
       }
@@ -207,7 +207,7 @@
 
       let ffforce = muonEoforces.isolate(sys)
       console.assert(key || type !== null)
-      let field = 	{
+      let field = {
         key: key || type,
         force: ffforce,
       }
@@ -285,7 +285,7 @@
 
       let ffforce = muonEoforces.isolate(sys)
       console.assert(key || type !== null)
-      let field = 	{
+      let field = {
         key: key || type,
         force: ffforce,
       }

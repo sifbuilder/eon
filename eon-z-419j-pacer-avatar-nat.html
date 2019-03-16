@@ -107,7 +107,7 @@ async function anitem (__eo) {
     // ....................... traceNat
     let traceNat = {
 
-      eohal: 'pacer',
+      eohal: eohalPacer,
 
       eotim: eotim,
 
@@ -147,8 +147,8 @@ async function anitem (__eo) {
       eoload: {
         pacer: {
           eohal: 'mars',
-          geosort: 'anigram',
-          geobase: 'viewform',
+          paceAnisOfSort: 'anigram',
+          basePaceOnAniView: 'viewform',
           initN: 1, eventN: 0, autoN: 0, autoP: 0, outtimed: 0, maxN: 60,
           geospan: 0,
           addItemToPacer: 0,
@@ -208,7 +208,7 @@ async function anitem (__eo) {
     // ............................. traceLine
     let traceLine = {
 
-      eohal: 'pacer',
+      eohal: eohalPacer,
       eotim,
       eoric: {gid: 'traces', cid: 'traces', fid: 'traceLine'},
 
@@ -238,8 +238,8 @@ async function anitem (__eo) {
 
           addItemToPacer: 1, // addItemToPacer for trace
 
-          geosort: 'anigram',
-          geobase: 'viewform',
+          paceAnisOfSort: 'anigram',
+          basePaceOnAniView: 'viewform',
           geospan: 0,
 
           eohal: 'mars',

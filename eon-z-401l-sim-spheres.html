@@ -95,7 +95,7 @@ async function anitem (__eo) {
     // ....................... pacerNat
     let pacerNat = {
 
-      eohal: 'pacer',
+      eohal: eohalPacer,
       eotim: eotim,
       eoric: { gid: 'pacer', cid: 'pacer', fid: 'pacer' },
 
@@ -168,11 +168,11 @@ async function anitem (__eo) {
         pacer: {
 
           initN: 1, eventN: 0, autoN: 1, autoP: 0.08, outtimed: 0, maxN: 60, geospan: 0,
-          geosort: 'anima',
-          geobase: 'viewform',
+          paceAnisOfSort: 'anima',
+          basePaceOnAniView: 'viewform',
           addItemToPacer: 0,
 
-          eohal: 'natform',
+          eohal: eohalNatform,
 
           eoric: function (ani, props) {
             let eoric = muonProps.clone(ani.eoric)
@@ -305,7 +305,7 @@ async function anitem (__eo) {
       }
       let ffforce = muonEoforces.isolate(sys)
       console.assert(key || type !== null)
-      let field = 	{
+      let field = {
         key: key || type,
         force: ffforce,
       }
