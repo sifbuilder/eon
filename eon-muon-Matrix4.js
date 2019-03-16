@@ -387,7 +387,7 @@
         var v1 = new Vector3()
 
         return function applyToBufferAttribute (attribute) {
-          for (var i = 0, l = attribute.count; i < l; i++) {
+          for (let i = 0, l = attribute.count; i < l; i++) {
             v1.x = attribute.getX(i)
             v1.y = attribute.getY(i)
             v1.z = attribute.getZ(i)
@@ -781,7 +781,7 @@
         var te = this.elements
         var me = matrix.elements
 
-        for (var i = 0; i < 16; i++) {
+        for (let i = 0; i < 16; i++) {
           if (te[ i ] !== me[ i ]) return false
         }
 
@@ -791,7 +791,7 @@
       fromArray: function (array, offset) {
         if (offset === undefined) offset = 0
 
-        for (var i = 0; i < 16; i++) {
+        for (let i = 0; i < 16; i++) {
           this.elements[ i ] = array[ i + offset ]
         }
 

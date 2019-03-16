@@ -30,7 +30,7 @@
       indexes = [0, 1],
       size = 2
 
-    for (var i = 2; i < n; ++i) {
+    for (let i = 2; i < n; ++i) {
       while (size > 1 && cross(points[indexes[size - 2]], points[indexes[size - 1]], points[i]) <= 0) --size
       indexes[size++] = i
     }
@@ -41,7 +41,7 @@
   let polygonHull = function (points) {
     if ((n = points.length) < 3) return null
 
-    var i,
+    let i,
       n,
       sortedPoints = new Array(n),
       flippedPoints = new Array(n)
@@ -75,7 +75,7 @@
     ])
 
     function embed (d, P, w, res) { // P is A or B
-      for (var i = 0, n = P.length; i < n; ++i) { // for each in A or B
+      for (let i = 0, n = P.length; i < n; ++i) { // for each in A or B
         var p = P[i], // point i in A or B
           q = new Array(d + 1) // array of lengh of coord + 1 (space dims + 1)
         for (var j = 0; j < d; ++j) { // each index in A
@@ -114,7 +114,7 @@
       var hull = convexMinkowskiSumHull(A, B)
       var result = []
       var n = A.length
-      for (var i = 0, h = hull.length; i < h; ++i) {
+      for (let i = 0, h = hull.length; i < h; ++i) {
         var c = hull[i]
         var fA = []
         var fB = []
@@ -161,7 +161,7 @@
       var np = pairs.length
       var points = new Array(np)
       var d = A[0].length
-      for (var i = 0; i < np; ++i) {
+      for (let i = 0; i < np; ++i) {
         var p = pairs[i]
         var a = A[p[0]]
         var b = B[p[1]]

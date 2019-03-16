@@ -110,7 +110,7 @@
         }
 
         let newItem = muonProps.clone(anitem)
-        newItem.eohal = 'mars'
+        newItem.eohal = eohalMars
         newItem.eofold = eofold
         newItem.eonode = eonode
 

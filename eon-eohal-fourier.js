@@ -118,7 +118,7 @@
           // ...  each newItem is cloned from the h.fourier anigram
 
           let newItem = muonProps.cloneObj(anigram)
-          newItem.eohal = 'mars'
+          newItem.eohal = eohalMars
 
           // ...  del newitem if outside time period (eoric.eodelled = 1)
 

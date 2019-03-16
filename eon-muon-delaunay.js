@@ -338,14 +338,14 @@
     // Adds to an array if it was not already present;
     // Must resort to this kludge because JavaScript doesn't have sets
     function AddUnique (arr, x) {
-      for (var i = 0; i < arr.length; i++) { if (x == arr[i]) return }
+      for (let i = 0; i < arr.length; i++) { if (x == arr[i]) return }
       arr.push(x)
     }
 
     // Version for edges, since testing equality of objects
     // doesn't work that well in JavaScript
     function AddUniqueEdge (arr, ed) {
-      for (var i = 0; i < arr.length; i++) { if (EdgesEqual(arr[i], ed)) return }
+      for (let i = 0; i < arr.length; i++) { if (EdgesEqual(arr[i], ed)) return }
       arr.push(ed)
     }
 
@@ -404,7 +404,7 @@
       // Clear the array
       arr1.splice(0, arr1.length)
 
-      for (var i = 0; i < diffarr.length; i++) { arr1.push(diffarr[i]) }
+      for (let i = 0; i < diffarr.length; i++) { arr1.push(diffarr[i]) }
     }
 
     // Version for edges
@@ -427,14 +427,14 @@
       // Clear the array
       arr1.splice(0, arr1.length)
 
-      for (var i = 0; i < diffarr.length; i++) { arr1.push(diffarr[i]) }
+      for (let i = 0; i < diffarr.length; i++) { arr1.push(diffarr[i]) }
     }
 
     // Is the graph (in the mathematical sense) self-consistent?
     function TestConsistency (TriSet) {
       // Test self-consistency:
       var IsConsistent = true
-      for (var i = 0; i < TriSet.triangles.length; i++) {
+      for (let i = 0; i < TriSet.triangles.length; i++) {
         var tri = TriSet.triangles[i]
         for (var ic = 0; ic < 3; ic++) {
           var edge = tri.edges[ic]
@@ -446,7 +446,7 @@
           if (edge.PolyIndexIn(tri) < 0) IsConsistent = false
         }
       }
-      for (var i = 0; i < TriSet.edges.length; i++) {
+      for (let i = 0; i < TriSet.edges.length; i++) {
         var edge = TriSet.edges[i]
         var NumOutside = 0
         for (var ic = 0; ic < 2; ic++) {
@@ -537,7 +537,7 @@
       var quad_verts = new Array(4)
       for (var itr = 0; itr < 100; itr++) {
         var numflips = 0
-        for (var i = 0; i < TriSet.edges.length; i++) {
+        for (let i = 0; i < TriSet.edges.length; i++) {
           var edge = TriSet.edges[i]
           var tris = edge.polys
 
@@ -622,7 +622,7 @@
       // Find boundary loop -- use as convex hull
       var NextVertex = new Object()
       var VtxStart = -1
-      for (var i = 0; i < TriSet.edges.length; i++) {
+      for (let i = 0; i < TriSet.edges.length; i++) {
         var edge = TriSet.edges[i]
 
         // Find a boundary one -- look for the triangle that it contains
@@ -742,7 +742,7 @@
 
       // Create the array of Voronoi-vertex positions:
       // Add indices to the triangle objects for convenience
-      for (var i = 0; i < TriSet.triangles.length; i++) {
+      for (let i = 0; i < TriSet.triangles.length; i++) {
         var tri = TriSet.triangles[i]
         tri.index = i
         TriSet.vor_positions.push(tri.ccdir)
@@ -750,7 +750,7 @@
 
       // Voronoi edges: a cinch
       // Voronoi edges parallel original edges
-      for (var i = 0; i < TriSet.edges.length; i++) {
+      for (let i = 0; i < TriSet.edges.length; i++) {
         var edge = TriSet.edges[i]
         if (!IsNull(edge.polys[0]) && !IsNull(edge.polys[1])) {
           var vor_edge = [edge.polys[0].index, edge.polys[1].index]
@@ -763,7 +763,7 @@
       // First, collect the edges and triangles at each vertex
       // Put them into vor_polygons, because each one
       // is for each original vertex
-      for (var i = 0; i < TriSet.indices.length; i++) {
+      for (let i = 0; i < TriSet.indices.length; i++) {
         var ix = TriSet.indices[i]
         TriSet.vor_polygons[ix] = new Object()
 
@@ -773,17 +773,17 @@
         vor_poly.boundary = []
       }
 
-      for (var i = 0; i < TriSet.edges.length; i++) {
+      for (let i = 0; i < TriSet.edges.length; i++) {
         var edge = TriSet.edges[i]
         for (var ic = 0; ic < 2; ic++) { TriSet.vor_polygons[edge.verts[ic]].edges.push(edge) }
       }
 
-      for (var i = 0; i < TriSet.triangles.length; i++) {
+      for (let i = 0; i < TriSet.triangles.length; i++) {
         var tri = TriSet.triangles[i]
         for (var ic = 0; ic < 3; ic++) { TriSet.vor_polygons[tri.verts[ic]].triangles.push(tri) }
       }
 
-      for (var i = 0; i < TriSet.indices.length; i++) {
+      for (let i = 0; i < TriSet.indices.length; i++) {
         var ix = TriSet.indices[i]
         var vor_poly = 	TriSet.vor_polygons[ix]
 
@@ -1144,7 +1144,7 @@
       }
 
       // Add points until it is no longer possible
-      for (var i = 3; i < Indices.length; i++) {
+      for (let i = 3; i < Indices.length; i++) {
         var ix = Indices[i]
 
         // If possible, add the point inside
@@ -1268,7 +1268,7 @@
 
     let FindDelaunayTriangulation = function FindDelaunayTriangulation (Positions) {
       var Indices = new Array(Positions.length)
-      for (var i = 0; i < Indices.length; i++) { Indices[i] = i }
+      for (let i = 0; i < Indices.length; i++) { Indices[i] = i }
 
       return FindDelaunayTriangulationIndexed(Positions, Indices)
     }

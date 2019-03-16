@@ -43,7 +43,7 @@
 
       return function (x, y) {
       // find a start point c "close enough" to x,y
-        var i, j,
+        let i, j,
           c,
           m, min = +Infinity
         // d3.scan
@@ -122,7 +122,7 @@
 
     Newton.Dot = function (a, b) {
       var s = 0
-      for (var i in a) s += a[i] * b[i]
+      for (let i in a) s += a[i] * b[i]
       return s
     }
 
@@ -197,7 +197,7 @@
 
     Newton.Zero = function (fs, x, opts = {} /* acc, dx, max */) {
     // Newton's root-finding method
-      var i, j, k
+      let i, j, k
 
       if (opts.acc == undefined) opts.acc = 1e-6
       if (opts.dx == undefined) opts.dx = 1e-3
@@ -266,7 +266,7 @@
       fs = function (x) {
         var r = _fs(x)
         if (typeof r === 'number') r = [ r ]
-        for (var i in r) r[i] -= res[i]
+        for (let i in r) r[i] -= res[i]
         return r
       }
 
@@ -274,7 +274,7 @@
       if (opts.start) {
         start = opts.start
       } else {
-        for (var i in res) start[i] = 0
+        for (let i in res) start[i] = 0
       }
 
       var n = Newton.Zero(fs, start, opts)

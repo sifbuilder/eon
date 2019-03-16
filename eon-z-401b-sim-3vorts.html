@@ -7,33 +7,23 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__eo) {
   let [
     d3Force3d,
-    ctlRayder,
     ctlWen,
     eohalCore,
     eohalLinkform,
-    eohalNatform,
     eohalMars,
-    muonAnitem,
     muonEoric,
     muonEoforces,
-    muonNatform,
     muonProps,
-    renderPortview,
     renderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-force-3d'),
-    __eo('xs').c('rayder'),
     __eo('xs').c('wen'),
     __eo('xs').e('core'),
     __eo('xs').e('linkform'),
-    __eo('xs').e('natform'),
     __eo('xs').e('mars'),
-    __eo('xs').m('anitem'),
     __eo('xs').m('eoric'),
     __eo('xs').m('eoforces'),
-    __eo('xs').m('natform'),
     __eo('xs').m('props'),
-    __eo('xs').r('portview'),
     __eo('xs').r('svg'),
   ])
   try { renderSvg.scenecolor('black') } catch (e) {}
@@ -190,7 +180,6 @@ async function anitem (__eo) {
     if (!anima.eogelded) {
       let animas = []
       let nodes = []
-      let links = []
 
       for (let i = 0; i < data.nodes.length; i++) {
         let node = {
@@ -201,7 +190,7 @@ async function anitem (__eo) {
         nodes.push(node)
 
         let ani = muonProps.cloneObj(anima)
-        ani.eohal = 'mars'
+        ani.eohal = eohalMars
         ani.eoric = nuid(i)
         ani.eonode.geometry.coordinates = Object.values(node)
         ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
@@ -219,7 +208,7 @@ async function anitem (__eo) {
         }
 
         let ani = muonProps.cloneObj(anima)
-        ani.eohal = 'linkform'
+        ani.eohal = eohalLinkform
         ani.eoric = luid(i)
         ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
         ani.eoload = {}
@@ -234,7 +223,7 @@ async function anitem (__eo) {
       // ... org anima is becomes gelded after halo ween
       // ... org anima is becomes delled after halo ween
 
-      updanima = muonProps.cloneObj(anima)
+      let updanima = muonProps.cloneObj(anima)
       updanima.eogelded = 1
       updanima.eodelled = 1
       animas.push(updanima)
@@ -297,6 +286,7 @@ async function anitem (__eo) {
       },
 
       eomot: {
+
         ereform: {
           projection: 'uniwen',
           translate: [0, 0, 0],
@@ -336,6 +326,7 @@ async function anitem (__eo) {
           },
         },
         type: 'link',
+        src: d3_force,
         filter: d => true, // nodes, by id
         key: 'link',
       },
@@ -352,7 +343,7 @@ async function anitem (__eo) {
     // .................... fieldAni
     let fieldAni = {
 
-      eohal: 'core',
+      eohal: eohalCore,
       eotim: eotim,
       eoric: {gid: 'field', cid: 'field', fid: 'field'},
 

@@ -230,7 +230,7 @@
           return false
         }
 
-        for (var i = 0; i < aProps.length; i++) {
+        for (let i = 0; i < aProps.length; i++) {
           var propName = aProps[i]
 
           if (a[propName] !== b[propName]) {

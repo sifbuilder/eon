@@ -300,7 +300,7 @@
         var min = nMax, max = nMin, t, c
         if (list.indexOf(0) === -1) { list = [0].concat(list) }
         if (list.indexOf(1) === -1) { list.push(1) }
-        for (var i = 0, len = list.length; i < len; i++) {
+        for (let i = 0, len = list.length; i < len; i++) {
           t = list[i]
           c = curve.get(t)
           if (c[d] < min) { min = c[d] }
@@ -593,7 +593,7 @@
       bbox: function () {
         var c = this.curves
         var bbox = c[0].bbox()
-        for (var i = 1; i < c.length; i++) {
+        for (let i = 1; i < c.length; i++) {
           utils.expandbox(bbox, c[i].bbox())
         }
         return bbox
@@ -693,7 +693,7 @@
         var order = curve.order
         var points = curve.points
         var a = utils.align(points, {p1: points[0], p2: points[order]})
-        for (var i = 0; i < a.length; i++) {
+        for (let i = 0; i < a.length; i++) {
           if (abs(a[i].y) > 0.0001) {
             curve._linear = false
             return
@@ -788,7 +788,7 @@
           x = p[0].x,
           y = p[0].y,
           s = ['M', x, y, (this.order === 2 ? 'Q' : 'C')]
-        for (var i = 1, last = p.length; i < last; i++) {
+        for (let i = 1, last = p.length; i < last; i++) {
           s.push(p[i].x)
           s.push(p[i].y)
         }
@@ -835,7 +835,7 @@
       on: function (point, error) {
         error = error || 5
         var lut = this.getLUT(), hits = [], c, t = 0
-        for (var i = 0; i < lut.length; i++) {
+        for (let i = 0; i < lut.length; i++) {
           c = lut[i]
           if (utils.dist(c, point) < error) {
             hits.push(c)
@@ -930,7 +930,7 @@
         // higher order curves: use de Casteljau's computation
         var dCpts = JSON.parse(JSON.stringify(this.points))
         while (dCpts.length > 1) {
-          for (var i = 0; i < dCpts.length - 1; i++) {
+          for (let i = 0; i < dCpts.length - 1; i++) {
             dCpts[i] = {
               x: dCpts[i].x + (dCpts[i + 1].x - dCpts[i].x) * t,
               y: dCpts[i].y + (dCpts[i + 1].y - dCpts[i].y) * t,
@@ -945,7 +945,7 @@
       },
       raise: function () {
         var p = this.points, np = [p[0]], i, k = p.length, pi, pim
-        for (var i = 1; i < k; i++) {
+        for (let i = 1; i < k; i++) {
           pi = p[i]
           pim = p[i - 1]
           np[i] = {
@@ -1139,7 +1139,7 @@
         return angle < pi / 3
       },
       reduce: function () {
-        var i, t1 = 0, t2 = 0, step = 0.01, segment, pass1 = [], pass2 = []
+        let i, t1 = 0, t2 = 0, step = 0.01, segment, pass1 = [], pass2 = []
         // first pass: split on extrema
         var extrema = this.extrema().values
         if (extrema.indexOf(0) === -1) { extrema = [0].concat(extrema) }
@@ -1297,7 +1297,7 @@
         d2 = d2 || d1
         var outline = this.outline(d1, d2).curves
         var shapes = []
-        for (var i = 1, len = outline.length; i < len / 2; i++) {
+        for (let i = 1, len = outline.length; i < len / 2; i++) {
           var shape = utils.makeshape(outline[i], outline[len - i], curveIntersectionThreshold)
           shape.startcap.virtual = (i > 1)
           shape.endcap.virtual = (i < len / 2 - 1)
@@ -1329,7 +1329,7 @@
         // "simple" curves cannot intersect with their direct
         // neighbour, so for each segment X we check whether
         // it intersects [0:x-2][x+2:last].
-        var i, len = reduced.length - 2, results = [], result, left, right
+        let i, len = reduced.length - 2, results = [], result, left, right
         for (i = 0; i < len; i++) {
           left = reduced.slice(i, i + 1)
           right = reduced.slice(i + 2)

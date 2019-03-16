@@ -277,7 +277,7 @@ async function anitem (__eo) {
 
         let fieldAni = {
 
-          eohal: 'core',
+          eohal: eohalCore,
           eotim: eotim,
           eoric: {gid: 'field', cid: 'field', fid: 'field'},
 
@@ -293,7 +293,7 @@ async function anitem (__eo) {
 
         animas.push(fieldAni)
 
-        for (var i = 0; i < data.nodes.length; i++) {
+        for (let i = 0; i < data.nodes.length; i++) {
           let node = {
             x: data.nodes[i][0],
             y: data.nodes[i][1],
@@ -302,14 +302,14 @@ async function anitem (__eo) {
           nodes.push(node)
 
           let ani = muonProps.cloneObj(anima)
-          ani.eohal = 'mars'
+          ani.eohal = eohalMars
           ani.eoric = nuid(i)
           ani.eonode.geometry.coordinates = Object.values(node)
           ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
 
           animas.push(ani)
         }
-        for (var i = 0; i < data.links.length; i++) {
+        for (let i = 0; i < data.links.length; i++) {
           let nidfrom = data.links[i][0]
           let nidto = data.links[i][1]
 
@@ -329,7 +329,7 @@ async function anitem (__eo) {
           let linkForce = gsa * linkForcePar
 
           let ani = muonProps.cloneObj(anima)
-          ani.eohal = 'linkform'
+          ani.eohal = eohalLinkform
           ani.eoric = luid(i)
           ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.5, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
           ani.eoload = {}
@@ -447,7 +447,7 @@ async function anitem (__eo) {
     // .................... fieldAni
     let fieldAni = {
 
-      eohal: 'core',
+      eohal: eohalCore,
       eotim: eotim,
       eoric: {gid: 'field', cid: 'field', fid: 'field'},
 

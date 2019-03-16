@@ -168,7 +168,7 @@
             parser_exit()
           }
 
-          for (var i = 0; i < tokens.length; i++) {
+          for (let i = 0; i < tokens.length; i++) {
             var c = tokens[i]
 
             if (c === ' ' || c === '\t' || c === '\n') {

@@ -41,7 +41,7 @@
       pauseEvent(e)
 
       var listeners = currentListeners = nextListeners
-      for (var i = 0; i < listeners.length; i++) {
+      for (let i = 0; i < listeners.length; i++) {
         listeners[i](e)
       }
     }

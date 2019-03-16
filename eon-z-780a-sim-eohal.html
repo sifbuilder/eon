@@ -75,9 +75,9 @@ async function anitem (__eo) {
 
         let count = 200
 
-        for (var i = 0; i < count; i++) {
+        for (let i = 0; i < count; i++) {
           let ani = muonProps.cloneObj(anima)
-          ani.eohal = 'mars'
+          ani.eohal = eohalMars
           ani.eoric = nuid(i)
           ani.eocrom = { 'csx': 0, 'cf': 888, 'co': 0.9, 'cs': 666, 'cw': 0.9, 'cp': 0.8 }
 
@@ -730,7 +730,7 @@ async function anitem (__eo) {
     // .................... fieldAni
     let fieldAni = {
 
-      eohal: 'core',
+      eohal: eohalCore,
       eotim: eotim,
       eoric: {gid: 'field', cid: 'field', fid: 'field'},
 
