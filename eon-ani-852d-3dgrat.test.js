@@ -13,7 +13,7 @@ let getAni = jest.fn(async () => {
   let eon = require('./eon-ani-852d-3dgrat.js')
   // eon = await eon.ani852d3dgrat(__eo)
   eon = eon.ani852d3dgrat
-  __eo = xEonify.eon({ anitem: eon, time: 0 })
+  __eo = window.xEonify.eon({ anitem: eon, time: 0 })
 
   return __eo
 })

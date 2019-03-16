@@ -1,8 +1,7 @@
-
 <script src="./eon-x-eonify.js"></script>
 
 <script>
-xEonify.eon({anitem, time: undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // ... eon z anima
 // ... render anima from m.animas
@@ -41,11 +40,11 @@ async function anitem (__eo) {
     let eocrom = { 'csx': 0, 'cf': 888, 'co': 0.19, 'cs': 777, 'cw': 0.99, 'cp': 0.9}
 
     // ............................. natAni
-    let natAni2 = {
-      eohal: 'mars',
+    let natAni = {
+      eohal: eohalMars,
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat2'},
-      
+
       eofold: ani => {
         let coors = ani.eoload.coors
 
@@ -72,13 +71,13 @@ async function anitem (__eo) {
         },
       },
 
-      eocrom: eocrom,
-
       eoload: {
+        eocrom: eocrom,
 
         coors: [[[
           [
             [ [0, 0, 0], [100, 100, 100] ],
+
             [ [20, 20, 20], [300, 300, 300] ],
           ],
         ]]],
@@ -87,8 +86,8 @@ async function anitem (__eo) {
     }
     // ............................. scene
     let scene = {
-    
-      natAni2, // h.mars
+
+      natAni, // h.mars
 
     }
 

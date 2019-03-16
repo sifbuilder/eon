@@ -2,7 +2,7 @@
 <script src="./eon-x-eonify.js"></script>
 
 <script>
-xEonify.eon({anitem, time: undefined})
+window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__eo) {
@@ -74,7 +74,7 @@ async function anitem (__eo) {
 
     // ............................. animas
     let nat = {
-      eohal: 'natform',
+      eohal: eohalNatform,
       eofold: ani => {
         let res = {
           type: 'Feature',

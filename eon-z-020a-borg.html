@@ -2,7 +2,7 @@
 <script src="./eon-x-eonify.js"></script>
 
 <script>
-window.xEonify.eon({anitem, time: undefined})
+window.window.xEonify.eon({anitem, time: undefined})
 
 // .................. anitem
 async function anitem (__eo) {
@@ -79,7 +79,7 @@ async function anitem (__eo) {
       eohal: eohalNatform,
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'solar'},
-      
+
       eofold: ani => {
         let res = {
           type: 'Feature',
@@ -100,7 +100,7 @@ async function anitem (__eo) {
       },
       eoload: {
         eoform: formSolar,
-        
+
       },
     }
 
@@ -108,7 +108,7 @@ async function anitem (__eo) {
       eohal: 'natform',
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'planet'},
-      
+
       eofold: ani => {
         let res = {
           type: 'Feature',
@@ -129,7 +129,7 @@ async function anitem (__eo) {
           geosort: 'anima',
           geobase: 'eoform',
           initN: 0, eventN: 1, autoN: 0, autoP: 0.1, outtimed: 0, maxN: 60, geospan: 0,
-          
+
           addItemToPacer: 0,
 
           eohal: (ani, props) => 'natform',
