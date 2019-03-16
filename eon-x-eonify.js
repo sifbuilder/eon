@@ -425,7 +425,7 @@ define.amd = {};
       ['geo', 'g', 'geo'],
       ['lib', 'l', 'lib'],
       ['muon', 'm', 'muon'],
-      ['prt', 'p', 'prt'],
+      ['proton', 'p', 'proton'],
       ['render', 'r', 'render'],
       ['zindex', 'z', 'z'],
 

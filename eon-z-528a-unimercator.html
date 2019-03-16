@@ -13,7 +13,7 @@ async function anitem (__eo) {
     datWorldTopo110m,
     muonGraticule,
     eohalMars,
-    prtUnimercator,
+    protonUnimercator,
     renderSvg,
   ] = await Promise.all([
     __eo('xs').b('topojson'),
@@ -39,7 +39,7 @@ async function anitem (__eo) {
 
     let proform = {
 
-      projection: prtUnimercator(),
+      projection: protonUnimercator(),
       scale: 100,
       translate: [ 0, 0 ],
       rotate: [ [[[0, -60]]], [[[0, -60]]], [[[0, -60]]] ],

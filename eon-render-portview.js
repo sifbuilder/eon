@@ -27,8 +27,8 @@
 
     // ............................. viewScreenPrt
     const viewScreenPrt = function (p = prtdef) {
-      let prt = __eo('prtUniwen')
-      return prt(p)
+      let proton = __eo('protonUniwen')
+      return proton(p)
     }
 
     // ............................. xydirs

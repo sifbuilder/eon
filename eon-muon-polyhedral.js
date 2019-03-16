@@ -23,12 +23,12 @@
       let {faciaRotation, geoRotation, prtRaw, faces, tree} = proform
 
       let faceProjection = function (face) {
-        let prt = d3Geo.geoProjection(prtRaw)
+        let proton = d3Geo.geoProjection(prtRaw)
         let c = d3Geo.geoCentroid({type: 'MultiPoint', coordinates: face})
         let rotate = geoRotation(c)
         let translate = [0, 0, 0]
         let scale = 1 // convention
-        return prt.scale(scale).translate(translate).rotate(rotate)
+        return proton.scale(scale).translate(translate).rotate(rotate)
       }
 
       faces = faces.map(function (face) {

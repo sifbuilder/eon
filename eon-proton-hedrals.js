@@ -1,14 +1,14 @@
 /***************************
- *        @prtHedrals
+ *        @protonHedrals
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.prtHedrals = global.prtHedrals || {})))
+      : (factory((global.protonHedrals = global.protonHedrals || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function prtHedrals (__eo = {}) {
+  async function protonHedrals (__eo = {}) {
     let [
       muonProps,
       mpolyhedral,
@@ -53,5 +53,5 @@
     return enty
   }
 
-  exports.prtHedrals = prtHedrals
+  exports.protonHedrals = protonHedrals
 }))

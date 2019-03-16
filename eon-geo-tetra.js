@@ -39,7 +39,7 @@
     //  prtlat  [1,-1] north/south
     //  prtlagr lagrange coef
     //  prtrad  radius
-    let prt = function (prtlat = 1, prtlagr = 0.5, prtrad = 1) {
+    let proton = function (prtlat = 1, prtlagr = 0.5, prtrad = 1) {
       let prtRaw = function (lambda, phi) { // leeRaw  // return d3.geoGnomonicRaw(...arguments);
         function sm_1 (s) {
           let w = Complex([Math.sin(-30 * radians), Math.cos(-30 * radians)]), // [-1/2, Math.sqrt(3)/2]
@@ -139,7 +139,7 @@
 
       if (!p.faces) p.faces = faces
 
-      if (!p.prtRaw) p.prtRaw = prt(prtlat, prtlagr, prtrad)
+      if (!p.prtRaw) p.prtRaw = proton(prtlat, prtlagr, prtrad)
 
       return mpolyhedral(p)
     }

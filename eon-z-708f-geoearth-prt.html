@@ -17,7 +17,7 @@ async function anitem (__eo) {
     ctlVersor,
     d3Geo,
     d3Geoprojection,
-    prtOrthographic,
+    protonOrthographic,
     eohalMars,
     renderSvg,
   ] = await Promise.all([
@@ -42,10 +42,10 @@ async function anitem (__eo) {
     // ..................
     let proformEarth = {
 
-      projection: prtOrthographic,
-      // prerotate: [[[ prtOrthographic.rotation ]]],
+      projection: protonOrthographic,
+      // prerotate: [[[ protonOrthographic.rotation ]]],
       prerotate: [[[ ctlVersor
-        .projection({projection: prtOrthographic})
+        .projection({projection: protonOrthographic})
         .rotation,
       ]]],
       translate: [0, 0, 0],

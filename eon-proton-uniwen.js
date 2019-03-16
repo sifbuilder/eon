@@ -1,15 +1,15 @@
 /*******************************************
- *    @prtUniwen
+ *    @protonUniwen
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.prtUniwen = global.prtUniwen || {})))
+      : (factory((global.protonUniwen = global.protonUniwen || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function prtUniwen (__eo = {}) {
+  async function protonUniwen (__eo = {}) {
     let [
       d3Geo,
       muonGeom,
@@ -160,5 +160,5 @@
     return enty
   }
 
-  exports.prtUniwen = prtUniwen
+  exports.protonUniwen = protonUniwen
 }))

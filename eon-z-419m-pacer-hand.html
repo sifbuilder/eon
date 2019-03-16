@@ -22,7 +22,7 @@ async function anitem (__eo) {
     muonProps,
     muonStace,
     muonCastel,
-    prtUniwen,
+    protonUniwen,
     renderPortview,
     renderSvg,
   ] = await Promise.all([
@@ -129,7 +129,7 @@ async function anitem (__eo) {
 
     let nb = muonGeoj.getCoordsLength(gjdata)
 
-    let prt = {
+    let proton = {
       projection: 'uniwen',
       translate: [ -200, 100, 0],
       scale: [0.3, -0.3],
@@ -137,7 +137,7 @@ async function anitem (__eo) {
       lens: [0, 1, Infinity],
 
     }
-    let prtion = muonProfier.formion(prt)
+    let prtion = muonProfier.formion(proton)
     let geoData = muonProj3ct(gjdata, prtion)
     let invgeoData = muonProj3ct(invgjdata, prtion)
 

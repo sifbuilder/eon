@@ -74,7 +74,7 @@ async function anitem (__eo) {
     let C0 = -250
     let C1 = 60
     let C2 = 16
-    let prt = i => proformfn(
+    let proton = i => proformfn(
       C0 + C1 * i + C2 * i * i,
       0
     )
@@ -84,7 +84,7 @@ async function anitem (__eo) {
     // ...  span data along [0, 1] interval
     // ...  and create FeatureCollection with trasform features
 
-    let getGeoData = i => muonProj3ct(data, muonProfier.uniweon(prt(i)))
+    let getGeoData = i => muonProj3ct(data, muonProfier.uniweon(proton(i)))
     let geoData = getGeoData(1)
 
     let cl = muonGeoj.getCoordsLength

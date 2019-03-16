@@ -39,7 +39,7 @@
     let [
       d3,
       muonProj3ct,
-      prtUniwen,
+      protonUniwen,
       renderPortview, // viewScreenPrt - _e_ to be defined in z.
     ] = await Promise.all([
       __eo('xs').b('d3'),
@@ -206,9 +206,9 @@
 
       let viewScreenPrt = renderPortview.viewScreenPrt()
       let prtdef = renderPortview.prtdef()
-      let prt = prtUniwen(prtdef)
+      let proton = protonUniwen(prtdef)
 
-      viewScreenPrt = prt // view screen projection
+      viewScreenPrt = proton // view screen projection
 
       let gitems = d3.nest() // let framesByGid = f.groupBy(frames, "gid")
         .key(function (d) { return d.properties.eoric.gid })

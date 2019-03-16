@@ -44,12 +44,12 @@
       
       if (eonode && anitem.eomot) {
 
-        for (let [mot, prt] of Object.entries(anitem.eomot)) {
+        for (let [mot, proton] of Object.entries(anitem.eomot)) {
           let geometry = eonode.geometry || {}
           let properties = eonode.properties || {}
           newAni.eonode = eonode
           
-          let prtion = muonProfier.formion(prt, anitem)
+          let prtion = muonProfier.formion(proton, anitem)
           let gjobj = muonGeoj.deprop(eonode) // remove properties from eonode
 
           if (gjobj.geometry !== null) {  // geometry has non null coordinates
@@ -58,7 +58,7 @@
 
           let node = muonProj3ct(gjobj, prtion)
           node.properties = properties
-          node.properties[mot] = muonGeoj.deprop(node) // save [prt] pure node _e_
+          node.properties[mot] = muonGeoj.deprop(node) // save [proton] pure node _e_
           
           newAni.eonode = node
         }
@@ -70,12 +70,12 @@
       let gjcollection = muonGeoj.featurecollect(eofold)
 
       if (eofold && anitem.eomot) {
-        for (let [mot, prt] of Object.entries(anitem.eomot)) {
+        for (let [mot, proton] of Object.entries(anitem.eomot)) {
           gjcollection.features = gjcollection.features.map(
             feature => {
               let properties = feature.properties || {}
 
-              let prtion = muonProfier.formion(prt, anitem)
+              let prtion = muonProfier.formion(proton, anitem)
               let gjobj = muonGeoj.deprop(feature)
 
               if (gjobj.geometry !== null) {

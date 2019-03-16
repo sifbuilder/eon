@@ -17,8 +17,8 @@ async function anitem (__eo) {
     eohalMars,
     muonGeom,
     muonGraticule,
-    prtNatform,
-    prtBase,
+    protonNatform,
+    protonBase,
     renderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
@@ -84,7 +84,7 @@ async function anitem (__eo) {
       eomot: {
         conform: {
 
-          projection: prtBase
+          projection: protonBase
             .projection(d3Geo.geoOrthographic())
             .transform(function (x, y) {
               this.stream.point(x / 1, y / 4)

@@ -69,7 +69,7 @@
 
       let translate = gettranslate(anitem.eoform)
 
-      let prt = {
+      let proton = {
         projection: 'uniwen',
         translate: translate,
         scale: 1,
@@ -79,7 +79,7 @@
 
       anitem.eofold = muonNatform.natMultiLineString({eoform: anitem.eoform})
 
-      anitem.eofold = muonProj3ct(anitem.eofold, muonProfier.formion(prt, anitem))
+      anitem.eofold = muonProj3ct(anitem.eofold, muonProfier.formion(proton, anitem))
 
       if (anitem.eocrom === undefined) anitem.eocrom = geteocrom(anitem.eoform)
 

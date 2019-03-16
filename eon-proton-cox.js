@@ -1,11 +1,11 @@
 /*******************************************
- *      @prtCox
+ *      @protonCox
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.prtCox = global.prtCox || {})))
+      : (factory((global.protonCox = global.protonCox || {})))
 }(this, function (exports) {
   'use strict'
 
@@ -19,7 +19,7 @@
   // https://visionscarto.net/cox-conformal-projection
   // http://www.cs.dartmouth.edu/~doug/wallpaper.pdf
 
-  async function prtCox (__eo = {}) {
+  async function protonCox (__eo = {}) {
     let [
       Complex,
       muonNewton,
@@ -57,7 +57,7 @@
     // prtlat  || 1    // [1,-1] north/south
     // prtlagr || 0.5  // lagrange coef
     // prtrad  || 2    // radius
-    let prt = function (prtlat = 1, prtlagr = 0.5, prtrad = 1) {
+    let proton = function (prtlat = 1, prtlagr = 0.5, prtrad = 1) {
       let prtRaw = function (lambda, phi) {
         // Approximate \int _0 ^sm(z)  dt / (1 - t^3)^(2/3)
         // sm maps a triangle to a disc, sm^-1 does the opposite
@@ -135,7 +135,7 @@
         cache.prtlagr = prtlagr
         cache.prtrad = prtrad
 
-        m = d3Geo.geoProjection(prt(prtlat, prtlagr, prtrad))
+        m = d3Geo.geoProjection(proton(prtlat, prtlagr, prtrad))
 
         cacheProject = m
       }
@@ -149,5 +149,5 @@
     return enty
   }
 
-  exports.prtCox = prtCox
+  exports.protonCox = protonCox
 }))

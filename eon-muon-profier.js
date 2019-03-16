@@ -25,7 +25,7 @@
   // ... * if a position, `object` translate to position
   // ... * if other `object`, process as `stace.spot`
   // ...
-  // ... **addNodeToTranslate**: if `@projdef.addNodeToTranslate : 1` add `eonode.geometry.coordinates` to prt.translate
+  // ... **addNodeToTranslate**: if `@projdef.addNodeToTranslate : 1` add `eonode.geometry.coordinates` to proton.translate
   // ...
   // ... if `@projdef.rotate != undefined`
   // ... * if is pure array, apply rotation
@@ -48,7 +48,7 @@
       muonStace,
       muonProj3ct,
       muonGeom,
-      prtUniwen,
+      protonUniwen,
     ] = await Promise.all([
       __eo('xs').m('props'),
       __eo('xs').m('wen'),
@@ -63,25 +63,25 @@
     function getPrt (projdef) {
       console.assert(!Array.isArray(projdef))
 
-      let geoproj = prtUniwen() // default to p.uniwen
+      let geoproj = protonUniwen() // default to p.uniwen
       console.assert(projdef !== undefined, 'm.profier.formion projdef undefined')
 
       if (projdef === undefined) {
-        geoproj = prtUniwen({})
+        geoproj = protonUniwen({})
       } else if (typeof projdef === 'function') {
         geoproj = projdef
       } else if (typeof projdef === 'object') {
         if (typeof projdef.projection === 'string') { // if string
           let prtItem = projdef.projection
-          let prt = __eo(prtItem) // try eg. uniwen
+          let proton = __eo(prtItem) // try eg. uniwen
 
           if (typeof projdef.projection === 'function') {
-            geoproj = prt(projdef)
+            geoproj = proton(projdef)
           } else {
-            let prt = __eo([prtItem, 'prt'])
+            let proton = __eo([prtItem, 'proton'])
 
-            console.assert(typeof prt === 'function', `prt ${prt} in ${projdef} from __eo is not a function`)
-            geoproj = prt(projdef)
+            console.assert(typeof proton === 'function', `proton ${proton} in ${projdef} from __eo is not a function`)
+            geoproj = proton(projdef)
           }
         } else if (muonProps.isFunction(projdef.projection)) { // if projection
           geoproj = projdef.projection // props passed to projection _
@@ -190,7 +190,7 @@
     }
 
     // ............................. uniweon
-    let uniweon = projdef => prtUniwen(projdef)
+    let uniweon = projdef => protonUniwen(projdef)
 
     // ............................. enty
     let enty = function () {}

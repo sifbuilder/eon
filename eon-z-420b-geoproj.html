@@ -19,9 +19,9 @@ async function anitem (__eo) {
     muonGeom,
     muonGraticule,
     muonNatform,
-    prtNatform,
-    prtBase,
-    prtOrthographic,
+    protonNatform,
+    protonBase,
+    protonOrthographic,
     renderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
@@ -49,10 +49,10 @@ async function anitem (__eo) {
     // ..................
     let proformEarth = {
 
-      projection: prtOrthographic,
-      prerotate: [[[ prtOrthographic.rotation ]]],
+      projection: protonOrthographic,
+      prerotate: [[[ protonOrthographic.rotation ]]],
       prerotate: [[[ ctlVersor
-        .projection({projection: prtOrthographic })
+        .projection({projection: protonOrthographic })
         .rotation,
       ]]],
       translate: [0, 0, 0],

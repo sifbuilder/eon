@@ -1,15 +1,15 @@
 /*******************************************
- *      @prtTetra
+ *      @protonTetra
  *
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports)
     : typeof define === 'function' && define.amd ? define(['exports'], factory)
-      : (factory((global.prtTetra = global.prtTetra || {})))
+      : (factory((global.protonTetra = global.protonTetra || {})))
 }(this, function (exports) {
   'use strict'
 
-  async function prtTetra (__eo = {}) {
+  async function protonTetra (__eo = {}) {
   // Philippe Rivière’s Block 1aafd8fa22b62243290674384c364dd0
   // Cox Projection
   // https://bl.ocks.org/fil/1aafd8fa22b62243290674384c364dd0
@@ -53,7 +53,7 @@
     //  prtlat  [1,-1] north/south
     //  prtlagr lagrange coef
     //  prtrad  radius
-    let prt = function (prtlat = 1, prtlagr = 0.5, prtrad = 1) {
+    let proton = function (prtlat = 1, prtlagr = 0.5, prtrad = 1) {
       let prtRaw = function (lambda, phi) { // leeRaw  // return d3.geoGnomonicRaw(...arguments);
         function sm_1 (s) {
           let w = Complex([Math.sin(-30 * radians), Math.cos(-30 * radians)]), // [-1/2, Math.sqrt(3)/2]
@@ -151,7 +151,7 @@
 
       if (!opts.faces) opts.faces = faces
 
-      if (!opts.prtRaw) opts.prtRaw = prt(prtlat, prtlagr, prtrad)
+      if (!opts.prtRaw) opts.prtRaw = proton(prtlat, prtlagr, prtrad)
 
       return muonPolyhedral(opts)
     }
@@ -163,5 +163,5 @@
     return enty
   }
 
-  exports.prtTetra = prtTetra
+  exports.protonTetra = protonTetra
 }))
