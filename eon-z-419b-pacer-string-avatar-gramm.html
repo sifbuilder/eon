@@ -198,9 +198,11 @@ async function anitem (__eo) {
         },
       },
 
-      eocrom: eocrom,
+      eoload: {
 
-      eoload: {},
+        eocrom: eocrom,
+
+      },
       avatars: {
 
         avaline, // h.pacer
@@ -216,7 +218,7 @@ async function anitem (__eo) {
 
       eofold: ani => {
         let natipros = {
-          eoform: ani.eoform,
+          eoform: ani.eoload.eoform,
           ghv: 1, // horizontal geodesics
           gsa: 0, // symetric distribution of geodesics around the origin
           gco: 0, // closed line
@@ -241,33 +243,36 @@ async function anitem (__eo) {
           scale: 1,
           rotate: [ 0, 0, -90 ], // rot -90 anticlock-wise
           lens: [0, 1, Infinity],
-          geoanod: 1, // eonode
+          addNodeToTranslate: 1, // eonode
         },
       },
-      eoform: {
-        x: {
-          'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1, // triangle
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': 100,
-          'dom3': [ -180, 180 ],
-        },
-        y: {
-          'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1, // triangle
-          'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 360, 'pa6': 0, 'pb7': 100,
-          'dom3': [ -180, 180 ],
+
+      eoload: {
+
+        eocrom: eocrom,
+        eoform: {
+          x: {
+            'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1, // triangle
+            'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': 100,
+            'dom3': [ -180, 180 ],
+          },
+          y: {
+            'm1': 3, 'm2': 3, 'n1': 100, 'n2': 200, 'n3': 200, 'a': 1, 'b': 1, // triangle
+            'ra2': 120, 'v0': 0, 'v1': 1, 'w4': 0, 'seg5': 6, 'pa6': 0, 'pb7': 100,
+            'dom3': [ -180, 180 ],
+          },
+
         },
 
       },
-
-      eocrom: eocrom,
-      eoload: {},
     }
-    // .................. animas
-    let animas = [
+    // .................. scene
+    let scene = {
       aniLine, // h.pacer
       natAni1,
-    ]
+    }
 
-    return animas
+    return scene
   }
 
   let enty = () => {}

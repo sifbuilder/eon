@@ -25,7 +25,7 @@
   // ... * if a position, `object` translate to position
   // ... * if other `object`, process as `stace.spot`
   // ...
-  // ... **geoanod**: if `@projdef.geoanod : 1` add `eonode.geometry.coordinates` to prt.translate
+  // ... **addNodeToTranslate**: if `@projdef.addNodeToTranslate : 1` add `eonode.geometry.coordinates` to prt.translate
   // ...
   // ... if `@projdef.rotate != undefined`
   // ... * if is pure array, apply rotation
@@ -123,7 +123,7 @@
           translation = muonStace.getTranspot(projdef.translate, anigram) // get transpot - anigram
         }
 
-        if (projdef.geoanod && eonode) {
+        if (projdef.addNodeToTranslate && eonode) {
           if (eonode.geometry && eonode.geometry.coordinates !== undefined) {
             let nodetranslate = eonode.geometry.coordinates // eonode coords
 

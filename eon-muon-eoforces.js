@@ -618,6 +618,7 @@
     }
     // ...................... enty
     let enty = () => {}
+    enty.ceonize = ceonize
     enty.force = force
     enty.isolate = isolate
     return enty
