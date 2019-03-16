@@ -45,22 +45,26 @@
       if (eonode && anitem.eomot) {
 
         for (let [mot, proton] of Object.entries(anitem.eomot)) {
-          let geometry = eonode.geometry || {}
-          let properties = eonode.properties || {}
+          if (1 && 1) console.log('proton', mot, proton)
           newAni.eonode = eonode
-          
-          let prtion = muonProfier.formion(proton, anitem)
-          let gjobj = muonGeoj.deprop(eonode) // remove properties from eonode
 
-          if (gjobj.geometry !== null) {  // geometry has non null coordinates
-            console.assert(gjobj.geometry.coordinates !== null)
+          if (proton.applyProtonToNode) {  
+            let geometry = eonode.geometry || {}
+            let properties = eonode.properties || {}
+            
+            let prtion = muonProfier.formion(proton, anitem)
+            let gjobj = muonGeoj.deprop(eonode) // remove properties from eonode
+
+            if (gjobj.geometry !== null) {  // geometry has non null coordinates
+              console.assert(gjobj.geometry.coordinates !== null)
+            }
+
+            let node = muonProj3ct(gjobj, prtion)
+            node.properties = properties
+            node.properties[mot] = muonGeoj.deprop(node) // save [proton] pure node _e_
+            
+            newAni.eonode = node
           }
-
-          let node = muonProj3ct(gjobj, prtion)
-          node.properties = properties
-          node.properties[mot] = muonGeoj.deprop(node) // save [proton] pure node _e_
-          
-          newAni.eonode = node
         }
       }
 
