@@ -7,28 +7,31 @@ window.xEonify.eon({anitem, time: undefined})
 // .................. anitem
 async function anitem (__eo) {
   let [
-    muonGraticule,
     ctlWen,
-    protonNatform,
     eohalMars,
+    muonGraticule,
+    protonNatform,
+    protonUniwen,
     renderSvg,
   ] = await Promise.all([
-    __eo('xs').m('graticule'),
     __eo('xs').c('wen'),
-    __eo('xs').p('natform'),
     __eo('xs').e('mars'),
+    __eo('xs').m('graticule'),
+    __eo('xs').p('natform'),
+    __eo('xs').p('uniwen'),
     __eo('xs').r('svg'),
   ])
   try { renderSvg.scenecolor('black') } catch (e) {}
+  let ctl
+  try {
+    ctl = ctlWen().control(renderSvg.svg())
+  } catch (e) {
+    ctl = () => [0, 0, 0]
+  }
+
   // .................. animas
   let ani = function () {
     // .................. pics
-    let ctl
-    try {
-      ctl = ctlWen().control(renderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
-    }
 
     let eotim = {'td': 9800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
 
@@ -73,24 +76,29 @@ async function anitem (__eo) {
 
       eohal: eohalMars,
       eotim: eotim,
-      eoric: {'gid': 'grat', 'cid': 'grat', 'fid': 'gratiform'},
+      eoric: {gid: 'grat', cid: 'grat', fid: 'gratiform'},
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoload.eoframe),
+      eofold: ani => muonGraticule.gjfMultiLineString(ani.eoload.eoframe),
 
       eomot: {
         conform: {
           projection: 'natform',
           eoform: eoform,
         },
-
-        proform: {
+        ereform: {
           projection: 'uniwen',
-          prerotate: [[[ ctl.rotation ]]],
           translate: [0, 0, 0],
           scale: 1,
           rotate: [0, 0, 0],
           lens: [ 0, 1, Infinity ],
         },
+        proform: {
+          projection: 'uniwen',
+          rotate: [[[ ctl.rotation ]]],
+          translate: [0, 0, 0],
+          scale: 1,
+          lens: [ 0, 1, Infinity ],
+        },        
       },
 
       eoload: {
@@ -103,14 +111,14 @@ async function anitem (__eo) {
       },
     }
 
-    // .................. animas
-    let animas = [
+    // .................. scene
+    let scene = {
 
-      gratiform, // h.mars
+      gratiform,
 
-    ]
+    }
 
-    return animas
+    return scene
   }
 
   let enty = () => {}

@@ -61,6 +61,7 @@
 
     // ............................. getPrt
     function getPrt (projdef) {
+
       console.assert(!Array.isArray(projdef))
 
       let geoproj = protonUniwen() // default to p.uniwen
@@ -74,17 +75,19 @@
         if (typeof projdef.projection === 'string') { // if string
           let prtItem = projdef.projection
           let proton = __eo(prtItem) // try eg. uniwen
-
-          if (typeof projdef.projection === 'function') {
-            geoproj = proton(projdef)
+          if (typeof proton !== 'function') {
+            // 
           } else {
-            let proton = __eo([prtItem, 'proton'])
-
-            console.assert(typeof proton === 'function', `proton ${proton} in ${projdef} from __eo is not a function`)
-            geoproj = proton(projdef)
+            proton = __eo([prtItem, 'proton'])
           }
-        } else if (muonProps.isFunction(projdef.projection)) { // if projection
-          geoproj = projdef.projection // props passed to projection _
+          console.assert(typeof proton === 'function', `proton ${proton} nor right`)
+          geoproj = proton(projdef)
+          
+        } else if (typeof projdef.projection === 'function') { // if projection _e_
+        
+          let proton = projdef.projection // props passed to projection _
+          geoproj = proton(projdef)
+          
         }
       }
 
@@ -93,6 +96,8 @@
 
     // ............................. formion
     function formion (projdef, anigram = {}) {
+      if (1 && 1) console.log('projdef', projdef)
+      
       let projection
       let projname
 

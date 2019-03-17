@@ -8,31 +8,24 @@ async function anitem (__eo) {
   // .................. eons
   let [
     dbeat,
-    eohalMars,
     eohalSol,
     muonGeoj,
     muonProj3ct,
     muonProfier,
-    muonStace,
-    muonEoric,
     muonCastel,
     renderPortview,
     renderSvg,
   ] = await Promise.all([
     __eo('xs').d('beat'),
-    __eo('xs').e('mars'),
     __eo('xs').e('sol'),
     __eo('xs').m('geoj'),
     __eo('xs').m('proj3ct'),
     __eo('xs').m('profier'),
-    __eo('xs').m('stace'),
-    __eo('xs').m('eoric'),
     __eo('xs').m('castel'),
     __eo('xs').r('portview'),
     __eo('xs').r('svg'),
   ])
   try { renderSvg.scenecolor('black') } catch (e) {}
-  let muonStore = __eo('xs').m('store')
 
   // .................. animas
   let ani = function () {
@@ -83,11 +76,11 @@ async function anitem (__eo) {
     let polyForm = {
 
       eohal: eohalSol,
+      eotim: eotim,
+      eoric: { gid: 'trace', cid: 'trace', fid: 'trace'},
 
       eofold: ani => {
         let anigram = ani, // anigram
-          eohal = ani.eohal, // eohal
-          eofold = ani.eofold, // eofold
           eoload = ani.eoload // eoload
 
         let unTime = ani.eotim.unTime // unit time elapsed
@@ -99,7 +92,6 @@ async function anitem (__eo) {
         let csi = t => (geometry, coords, startingin) => muonGeoj.getCoordsInRange(geometry, coords, startingin)
         let pointsatatime = 1200
 
-        // let geo = csi(t)(geoData.geometry, nbt)  // time dependent many from beginning
         let geo = csi(t)(geoData.geometry, pointsatatime, startingpoint)
         let tcoords = geo.coordinates
 
@@ -147,10 +139,8 @@ async function anitem (__eo) {
         return newFeatureCollection
       },
 
-      eotim: eotim,
-      eoric: { gid: 'trace', cid: 'trace', fid: 'trace'},
-      eocrom: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
       eoload: { // eoload in polyForm
+        eocrom: {'csx': 0, 'cf': 555, 'cs': 777, 'cw': 0.9, 'co': 0.12, 'cp': 0.7},
         tf: t => t,
 
       },
