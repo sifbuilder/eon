@@ -74,11 +74,11 @@
       } else if (typeof projdef === 'object') {
         if (typeof projdef.projection === 'string') { // if string
           let prtItem = projdef.projection
-          let proton = __eo(prtItem) // try eg. uniwen
-          if (typeof proton !== 'function') {
+          let proton = __eo(prtItem)
+          if (proton !== null) {  // try eg. protonUniwen
             // 
           } else {
-            proton = __eo([prtItem, 'proton'])
+            proton = __eo([prtItem, 'proton']) // try eg. ['uniwen', proton]
           }
           console.assert(typeof proton === 'function', `proton ${proton} nor right`)
           geoproj = proton(projdef)
@@ -96,7 +96,6 @@
 
     // ............................. formion
     function formion (projdef, anigram = {}) {
-      if (1 && 1) console.log('projdef', projdef)
       
       let projection
       let projname
