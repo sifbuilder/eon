@@ -9,39 +9,31 @@ async function anitem (__eo) {
   // .................. eons
   let [
     d3Geo,
-    d3Geoprojection,
     topojson,
     ctlWen,
-    ctlVersor,
     datWorldTopo110m,
     eohalMars,
-    muonGeom,
     muonGraticule,
-    muonNatform,
     renderSvg,
   ] = await Promise.all([
     __eo('xs').b('d3-geo'),
-    __eo('xs').b('d3-geo-projection'),
     __eo('xs').b('topojson'),
     __eo('xs').c('wen'),
-    __eo('xs').c('versor'),
     __eo('xs').d('worldTopo110m'),
     __eo('xs').e('mars'),
-    __eo('xs').m('geom'),
     __eo('xs').m('graticule'),
-    __eo('xs').m('natform'),
     __eo('xs').r('svg'),
   ])
-
+  try { renderSvg.scenecolor('black') } catch (e) {}
+  let ctl
+  try {
+    ctl = ctlWen().control(renderSvg.svg())
+  } catch (e) {
+    ctl = () => [0, 0, 0]
+  }
   // .................. animas
   let ani = function () {
     // .................. pics
-    let ctl
-    try {
-      ctl = ctlWen().control(renderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
-    }
 
     let eotim = {'td': 10800, 't0': 0, 't1': 1, 't2': 1, 't3': 1, nostop: 1}
 
@@ -143,8 +135,10 @@ async function anitem (__eo) {
         proform: proformFront,
       },
 
-      eocrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
-      eoload: {},
+      eoload: {
+        eocrom: { 'csx': 0, 'cf': 555, 'cs': 333, 'cw': 0.2, 'co': 1, 'cp': 0.9},
+
+      },
 
     }
 
@@ -155,28 +149,30 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {'gid': 'geoearth', 'cid': 'geoearth', 'fid': 'graticuleFront'},
 
-      eofold: p => muonGraticule.gjfMultiLineString(p.eoframe),
+      eofold: ani => muonGraticule.gjfMultiLineString(ani.eoload.eoframe),
       eomot: {
         proform: proformFront,
       },
-      eocrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9},
 
-      eoframe: {
-        geoframe: [ [ [ -180, 180, 30, 30], // x
-          [ -180, 180, 15, 15] ] ], // y
+      eoload: {
+        eocrom: { 'csx': 0, 'cf': [[[555, 555]]], 'cs': 333, 'cw': 0.4, 'co': 0.001, 'cp': 0.9},
+        eoframe: {
+          geoframe: [ [ [ -180, 180, 30, 30], // x
+            [ -180, 180, 15, 15] ] ], // y
+        },
+
       },
-      eoload: {},
 
     }
-
-    let animas = [
+    // .................. scene
+    let scene = {
       geoearthDark,
       geoearthFront, // h.mars g.orthographic
       graticuleFront, // h.mars
 
-    ]
+    }
 
-    return animas
+    return scene
   }
 
   let enty = () => {}

@@ -1,4 +1,3 @@
-
 <script src="./eon-x-eonify.js"></script>
 
 <script>
@@ -8,26 +7,28 @@ window.xEonify.eon({anitem, time: undefined})
 async function anitem (__eo) {
   // .................. eons
   let [
-    renderPortview,
+    dbeat,
+    eohalMars,
+    eohalSol,
     muonGeoj,
     muonProj3ct,
     muonProfier,
     muonStace,
     muonEoric,
     muonCastel,
-    dbeat,
-    eohalMars,
+    renderPortview,
     renderSvg,
   ] = await Promise.all([
-    __eo('xs').r('portview'),
+    __eo('xs').d('beat'),
+    __eo('xs').e('mars'),
+    __eo('xs').e('sol'),
     __eo('xs').m('geoj'),
     __eo('xs').m('proj3ct'),
     __eo('xs').m('profier'),
     __eo('xs').m('stace'),
     __eo('xs').m('eoric'),
     __eo('xs').m('castel'),
-    __eo('xs').d('beat'),
-    __eo('xs').e('mars'),
+    __eo('xs').r('portview'),
     __eo('xs').r('svg'),
   ])
   try { renderSvg.scenecolor('black') } catch (e) {}
@@ -81,7 +82,7 @@ async function anitem (__eo) {
     // .................. polyForm
     let polyForm = {
 
-      eohal: 'sol',
+      eohal: eohalSol,
 
       eofold: ani => {
         let anigram = ani, // anigram

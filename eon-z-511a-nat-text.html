@@ -20,16 +20,16 @@ async function anitem (__eo) {
     __eo('xs').m('natform'),
     __eo('xs').r('svg'),
   ])
-
+  try { renderSvg.scenecolor('black') } catch (e) {}
+  let ctl
+  try {
+    ctl = ctlWen().control(renderSvg.svg())
+  } catch (e) {
+    ctl = () => [0, 0, 0]
+  }
   // .................. animas
   let ani = function () {
     // .................. pics
-    let ctl
-    try {
-      ctl = ctlWen().control(renderSvg.svg())
-    } catch (e) {
-      ctl = () => [0, 0, 0]
-    }
 
     let eotim = {'td': 16800, 't0': 0, 't1': 1, 't2': 1, 't3': 1}
     let formCirc = {
@@ -79,7 +79,6 @@ async function anitem (__eo) {
       lens: [0, 1, Infinity],
 
     }
-    let eocrom = { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]}
 
     // .................. text
     let textAni = {
@@ -129,7 +128,7 @@ async function anitem (__eo) {
       eotim: eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'nat'},
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoload.eoform}),
 
       eonode: {
         type: 'Feature',
@@ -143,8 +142,9 @@ async function anitem (__eo) {
 
       eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.9, 0.9]]], 'cs': [[[555, 666]]], 'cw': [[[0.9, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
-      eoform: formNat,
-      eoload: {},
+      eoload: {
+        eoform: formNat,
+      },
 
     }
 
@@ -155,7 +155,7 @@ async function anitem (__eo) {
       eotim,
       eoric: {gid: 'nat', cid: 'nat', fid: 'circ'},
 
-      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoform}),
+      eofold: ani => muonNatform.natMultiLineString({eoform: ani.eoload.eoform}),
 
       eonode: {
         type: 'Feature',
@@ -169,24 +169,24 @@ async function anitem (__eo) {
 
       eocrom: { 'csx': 0, 'cf': [[[500, 888, 650]]], 'co': [[[0.19, 0.19]]], 'cs': [[[111, 666]]], 'cw': [[[0.3, 0.9]]], 'cp': [[[0.7, 0.9]]]},
 
-      eoform: formCirc,
       eoload: {
+        eoform: formCirc,
         eoinited: 0,
         eogelded: 1,
 
       },
     }
 
-    // .................. animas
-    let animas = [
+    // .................. scene
+    let scene = {
 
       natAni, // h.mars
       circAni, // h.mars
       textAni, // h.text
 
-    ]
+    }
 
-    return animas
+    return scene
   }
 
   let enty = () => {}
